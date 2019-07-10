@@ -27,6 +27,8 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     ExplicitWidth = 941
     ExplicitHeight = 518
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 933
       ExplicitHeight = 489
       inherited Bevel4: TBevel
@@ -1023,6 +1025,10 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         TabOrder = 3
         object tbsObservacao: TTabSheet
           Caption = 'Observa'#231#245'es'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -1360,7 +1366,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 608
     Top = 0
     Bitmap = {
-      494C01012B002C00A40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

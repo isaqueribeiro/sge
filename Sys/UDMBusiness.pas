@@ -37,6 +37,7 @@ type
     Empresa  : String;
     Vendedor : Integer;
     Logado   : Boolean;
+    AlterarValorVenda : Boolean;
   end;
 
   TContaEmail = record
@@ -364,7 +365,7 @@ var
   function GetDateLastMonth : TDateTime;
   function GetProximoDiaUtil(const Data : TDateTime) : TDateTime;
   function GetTimeDB : TDateTime;
-  function GetUserApp : String;
+  function GetUserApp(const aLogin : String = '') : String;
   function GetUserFullName : String;
   function GetUserFunctionID : Integer;
   function GetUserCodigoVendedorID : Integer;
@@ -3811,13 +3812,13 @@ begin
   end;
 end;
 
-function GetUserApp : String;
+function GetUserApp(const aLogin : String = '') : String;
 begin
   with DMBusiness, fdQryUsers do
-    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+    if fdQryUsers.Locate('NOME', aLogin, []) then
       Result := AnsiUpperCase( Trim(fdQryUsers.FieldByName('NOME').AsString) )
     else
-      Result := EmptyStr;
+      Result := gUsuarioLogado.Login;
 end;
 
 function GetUserFullName : String;

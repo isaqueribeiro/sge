@@ -423,6 +423,8 @@ type
     lblDicaDadosEntrega: TLabel;
     pnlDicaFormaPagto: TPanel;
     lblDicaFormaPagto: TLabel;
+    dbValorIPI: TDBEdit;
+    lblValorIPI: TLabel;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -492,6 +494,7 @@ type
     procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
     procedure fdQryTabelaSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure fdQryTabelaLUCRO_CALCULADOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure dbCSTKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -817,6 +820,21 @@ begin
           cdsVendaFormaPagto.FieldByName('PRAZO_' + FormatFloat('00', I)).AsInteger := dtsCondicaoPagto.DataSet.FieldByName('Cond_prazo_' + FormatFloat('00', I)).AsInteger;
       end;
     end;
+end;
+
+procedure TfrmGeVenda.dbCSTKeyPress(Sender: TObject; var Key: Char);
+begin
+  if not (Key in ['0'..'9', #8, #13]) then
+  begin
+    Key := #0;
+    Abort;
+  end;
+
+  if (Key = #13) then
+  begin
+    Key := #0;
+    dbQuantidade.SetFocus;
+  end;
 end;
 
 procedure TfrmGeVenda.DtSrcTabelaStateChange(Sender: TObject);
@@ -1590,10 +1608,23 @@ begin
 end;
 
 procedure TfrmGeVenda.ControlEditExit(Sender: TObject);
+
+  procedure EditarCampo(const aComponente : TDBEdit; aLiberar : Boolean);
+  begin
+    aComponente.ReadOnly := not aLiberar;
+    aComponente.TabStop  := aLiberar;
+
+    if aLiberar then
+      aComponente.Color    := dbProduto.Color
+    else
+      aComponente.Color    := dbProdutoNome.Color;
+  end;
+
 var
   limitedesc,
   perc      : variant;
   cPrecoVND : Currency;
+  cLiberar  : Boolean;
 begin
   inherited;
 
@@ -1608,6 +1639,25 @@ begin
   if ( Sender = dbCFOP ) then
     if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
       CarregarDadosCFOP( cdsTabelaItensCFOP_COD.AsInteger );
+
+  if ( (Sender = dbCFOPVenda) or (Sender = dbCFOP) ) then
+  begin
+    // Liberar edição de campos caso o CFOP seja de devolução
+    cLiberar := GetCfopDevolucao( TJvDBComboEdit(Sender).Field.AsInteger );
+    EditarCampo(dbAliquota, cLiberar);
+    EditarCampo(dbCST, cLiberar);
+    EditarCampo(dbPercRedBC, cLiberar);
+    EditarCampo(dbValorUnit, cLiberar);
+    EditarCampo(dbValorIPI, cLiberar);
+
+    // Liberar edição do campo quando segmento de vendas for COMERCIALIZAÇÃO DE CARROS
+    if (GetSegmentoID(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString) = SEGMENTO_MERCADO_CARRO_ID) then
+      EditarCampo(dbCST, True);
+
+    // Liberar edição do campo de acordo com a permissão do usuário
+    if not cLiberar then
+      EditarCampo(dbValorUnit, gUsuarioLogado.AlterarValorVenda);
+  end;
 
   if ( (Sender = dbQuantidade) or (Sender = dbValorUnit) or (Sender = dbDesconto) ) then
     if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then

@@ -394,7 +394,8 @@ type
     function EnviarEmailDANFEACBr(const sCNPJEmitente : String; iCodigoCliente : Integer; const iAnoVenda, iNumVenda : Integer;
       const EnviarPDF : Boolean = True; const sArquivoBoleto : String = '') : Boolean;
 
-    function InutilizaNumeroNFeACBr(const sCNPJEmitente : String; iAno, iModelo, iSerie, iNumeroInicial, iNumeroFinal : Integer; const sJustificativa : String; var sRetorno : String) : Boolean;
+    function InutilizaNumeroNFeACBr(const sCNPJEmitente : String; iAno, iModelo, iSerie, iNumeroInicial, iNumeroFinal : Integer; const sJustificativa : String;
+      var sRetorno, sFileXML : String) : Boolean;
     function ConsultarNumeroLoteNFeACBr(const sCNPJEmitente : String; sNumeroRecibo : String;
       var sChaveNFe, sProtocolo, sRetorno : String; var dDHEnvio : TDateTime) : Boolean;
     function ConsultarChaveNFeACBr(const sCNPJEmitente, sChave : String;
@@ -448,6 +449,7 @@ const
   FILENAME_NFE_RAVE   = 'Report\NotaFiscalEletronica.rav';
   FILENAME_NFE_FAST   = 'Report\NotaFiscalEletronica.fr3';
   FILENAME_NFE_EVENTO = 'Report\Eventos.fr3';
+  FILENAME_NFE_INUTIL = 'Report\InutilizacaoNFe.fr3';
 
   DIRECTORY_CANCEL = 'NFe\Canceladas\';
   DIRECTORY_PRINT  = 'NFe\Imprimir\';
@@ -787,6 +789,7 @@ begin
 
   frrNFeRetrato.SaveToFile ( StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Retrato.fr3',  [rfReplaceAll]) );
   frrNFePaisagem.SaveToFile( StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Paisagem.fr3', [rfReplaceAll]) );
+  frrNFeInutilizacao.SaveToFile  ( ExtractFilePath(ParamStr(0)) + FILENAME_NFE_INUTIL );
 
   frrBoletoEntrega.SaveToFile( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO_ENTREGA );
   frrBoletoFatura.SaveToFile ( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO_FATURA );
@@ -919,7 +922,8 @@ Var
   sAssinaturaTxt ,
   sFileNFERave   ,
   sFileNFEFast   ,
-  sFileNFEEvento : String;
+  sFileNFEEvento ,
+  sFileNFEInutil : String;
 
   sSecaoCertificado,
   sSecaoGeral      ,
@@ -1018,7 +1022,7 @@ begin
         Arquivos.PathNFe     := StringReplace(Arquivos.PathSalvar + '\NFe',         '\\', '\', [rfReplaceAll]);
         Arquivos.PathInu     := StringReplace(Arquivos.PathSalvar + '\NFeInutiliz', '\\', '\', [rfReplaceAll]);
         Arquivos.PathEvento  := StringReplace(Arquivos.PathSalvar + '\NFeEvento',   '\\', '\', [rfReplaceAll]);
-        Arquivos.DownloadNFe.PathDownload := StringReplace(Arquivos.PathSalvar + '\Down',   '\\', '\', [rfReplaceAll]);
+        //Arquivos.DownloadNFe.PathDownload := StringReplace(Arquivos.PathSalvar + '\Down',   '\\', '\', [rfReplaceAll]);
         //Arquivos.PathCan    := StringReplace(Arquivos.PathSalvar + '\NFeCancelar', '\\', '\', [rfReplaceAll]);
         //Arquivos.PathCCe    := StringReplace(Arquivos.PathSalvar + '\CCe',         '\\', '\', [rfReplaceAll]);
         //Arquivos.PathMDe    := StringReplace(Arquivos.PathSalvar + '\MDe',         '\\', '\', [rfReplaceAll]);
@@ -1036,7 +1040,7 @@ begin
       edPathNFe.Text      := ACBrNFe.Configuracoes.Arquivos.PathNFe;
       edPathInu.Text      := ACBrNFe.Configuracoes.Arquivos.PathInu;
       edPathEvento.Text   := ACBrNFe.Configuracoes.Arquivos.PathEvento;
-      edPathDownload.Text := ACBrNFe.Configuracoes.Arquivos.DownloadNFe.PathDownload;
+      edPathDownload.Text := StringReplace(edPathLogs.Text + '\Down',   '\\', '\', [rfReplaceAll]); //ACBrNFe.Configuracoes.Arquivos.DownloadNFe.PathDownload;
       //ACBrNFe.Configuracoes.Arquivos.PathCan;
       //ACBrNFe.Configuracoes.Arquivos.PathCCe;
       //ACBrNFe.Configuracoes.Arquivos.PathMDe;
@@ -1261,7 +1265,7 @@ begin
     ACBrSATExtratoESCPOS.NumCopias     := FileIni.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_CUPOM_NFISCAL_QTDE, 1);;
 
     nfcDANFE.Sistema   := RemoveAcentos( GetCompanyName );
-    nfcDANFE.Usuario   := RemoveAcentos( GetUserApp );
+    nfcDANFE.Usuario   := RemoveAcentos( GetUserApp(gUsuarioLogado.Login) );
 
     nfcDANFE.PosPrinter.Modelo       := TACBrPosPrinterModelo(FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ID', 0));
     nfcDANFE.PosPrinter.Device.Porta := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'COM1');
@@ -1281,6 +1285,7 @@ begin
     sFileNFERave   := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_RAVE;
     sFileNFEFast   := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST;
     sFileNFEEvento := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_EVENTO;
+    sFileNFEInutil := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_INUTIL;
 
     if ( not FileExists(sFileNFERave) ) then
       ShowError( 'Arquivo ' + QuotedStr(sFileNFERave) + ' não encontrado!' );
@@ -1291,6 +1296,9 @@ begin
     if ( not FileExists(sFileNFEEvento) ) then
       ShowError( 'Arquivo ' + QuotedStr(sFileNFEEvento) + ' não encontrado!' );
 
+    if ( not FileExists(sFileNFEInutil) ) then
+      ShowError( 'Arquivo ' + QuotedStr(sFileNFEInutil) + ' não encontrado!' );
+
     ACBrNFe.DANFE.Email := qryEmitenteEMAIL.AsString;
     ACBrNFe.DANFE.Site  := qryEmitenteHOME_PAGE.AsString;
 
@@ -1298,6 +1306,7 @@ begin
     begin
       TACBrNFeDANFEFR(ACBrNFe.DANFE).FastFile       := sFileNFEFast;
       TACBrNFeDANFEFR(ACBrNFe.DANFE).FastFileEvento := sFileNFEEvento;
+      TACBrNFeDANFEFR(ACBrNFe.DANFE).FastFileInutilizacao := sFileNFEInutil;
     end;
   end;
 end;
@@ -2325,9 +2334,11 @@ var
   sInformacaoFisco  : String;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
-  PorCodigoExterno : Boolean;
+  PorCodigoExterno,
+  aCalcularICMS   : Boolean;
   aParcela : Integer;
   // Totalizar Valores
+  cTotal_vIPI          ,
   cTotal_ICMSTot_vBC   ,
   cTotal_ICMSTot_vICMS : Currency;
 begin
@@ -2427,6 +2438,10 @@ begin
         Ide.finNFe  := fnDevolucao
       else
         Ide.finNFe  := fnNormal;
+
+      aCalcularICMS :=
+            (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger  = 1)
+        and (qryCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS').AsCurrency > 0.0);
 
       if ( qryDestinatario.FieldByName('PESSOA_FISICA').AsInteger = 1 ) then
         Ide.indFinal := cfConsumidorFinal;
@@ -2600,6 +2615,7 @@ begin
 
       PorCodigoExterno     := GetImprimirCodigoExternoProdutoNFe(sCNPJEmitente);
       vTotalTributoAprox   := 0.0;
+      cTotal_vIPI          := 0.0;
       cTotal_ICMSTot_vBC   := 0.0;
       cTotal_ICMSTot_vICMS := 0.0;
 
@@ -2866,7 +2882,8 @@ begin
             begin
               ICMS.orig := TpcnOrigemMercadoria( StrToInt(Copy(qryDadosProduto.FieldByName('CST').AsString, 1, 1)) );
 
-              if ( Emit.CRT = crtSimplesNacional ) then
+              //if (Emit.CRT = crtSimplesNacional) then
+              if (Emit.CRT = crtSimplesNacional) and (not aCalcularICMS) then
               begin
 
                 // csosnVazio, csosn101, csosn102, csosn103, csosn201, csosn202, csosn203, csosn300, csosn400, csosn500, csosn900
@@ -2949,7 +2966,7 @@ begin
 
             with PIS do
             begin
-              if ( Emit.CRT = crtSimplesNacional ) then
+              if (Emit.CRT = crtSimplesNacional) then
               begin
 
                 CST      := pis99;
@@ -2987,7 +3004,7 @@ begin
 
             with COFINS do
             begin
-              if ( Emit.CRT = crtSimplesNacional ) then
+              if (Emit.CRT = crtSimplesNacional) then
               begin
 
                 CST            := cof99;
@@ -3023,23 +3040,54 @@ begin
               end;
             end;
 
-  {
             with IPI do
             begin
-              CST      := ipi99 ;
-              clEnq    := '999';
-              CNPJProd := '';
-              cSelo    := '';
-              qSelo    := 0;
-              cEnq     := '';
+              if (Emit.CRT = crtSimplesNacional) then
+              begin
+                CST      := TpcnCstIpi.ipi99 ;
+                clEnq    := '999';
+                CNPJProd := '';
+                cSelo    := '';
+                qSelo    := 0;
+                cEnq     := '';
 
-              vBC    := qryDadosProdutoPUNIT.AsCurrency;
-              qUnid  := 0;
-              vUnid  := 0;
-              pIPI   := 0; // Percentual IPI
-              vIPI   := 0; // Valor IPI
+                vBC    := 0;
+                qUnid  := 0;
+                vUnid  := 0;
+                pIPI   := 0; // Percentual IPI
+                vIPI   := 0; // Valor IPI
+              end
+              else
+              begin
+                CST      := TpcnCstIpi.ipi99 ; // Provisório
+                clEnq    := '999';
+                CNPJProd := '';
+                cSelo    := '';
+                qSelo    := 0;
+                cEnq     := '';
+
+                if (CST = TpcnCstIpi.ipi99) then
+                begin
+                  vBC    := 0;
+                  qUnid  := 0;
+                  vUnid  := 0;
+                  pIPI   := 0; // Percentual IPI
+                  vIPI   := 0; // Valor IPI
+                end
+                else
+                begin
+                  vBC    := qryDadosProduto.FieldByName('PFINAL').AsCurrency;
+                  qUnid  := Prod.qCom;
+                  vUnid  := qryDadosProduto.FieldByName('PFINAL').AsCurrency;
+                  pIPI   := qryDadosProduto.FieldByName('VALOR_IPI').AsCurrency / qryDadosProduto.FieldByName('PFINAL').AsCurrency * 100;
+                  vIPI   := IPI.vBC * IPI.pIPI / 100;
+                end;
+
+                cTotal_vIPI := cTotal_vIPI + (Prod.qCom * IPI.vIPI);
+              end;
             end;
 
+  {
               with II do
                begin
                  vBc      := 0;
@@ -3117,7 +3165,7 @@ begin
       Total.ICMSTot.vSeg     := qryCalculoImposto.FieldByName('NFE_VALOR_SEGURO').AsCurrency;
       Total.ICMSTot.vDesc    := qryCalculoImposto.FieldByName('NFE_VALOR_DESCONTO').AsCurrency;
       Total.ICMSTot.vII      := qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_II').AsCurrency;
-      Total.ICMSTot.vIPI     := qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_IPI').AsCurrency;
+      Total.ICMSTot.vIPI     := cTotal_vIPI; // qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_IPI').AsCurrency;
       Total.ICMSTot.vPIS     := qryCalculoImposto.FieldByName('NFE_VALOR_PIS').AsCurrency;
       Total.ICMSTot.vCOFINS  := qryCalculoImposto.FieldByName('NFE_VALOR_COFINS').AsCurrency;
       Total.ICMSTot.vOutro   := qryCalculoImposto.FieldByName('NFE_VALOR_OUTROS').AsCurrency;
@@ -3948,6 +3996,7 @@ var
   PorCodigoExterno : Boolean;
   aParcela : Integer;
   // Totalizar Valores
+  cTotal_vIPI          ,
   cTotal_ICMSTot_vBC   ,
   cTotal_ICMSTot_vICMS : Currency;
 begin
@@ -4206,6 +4255,7 @@ begin
 
       PorCodigoExterno     := GetImprimirCodigoExternoProdutoNFe(sCNPJEmitente);
       vTotalTributoAprox   := 0.0;
+      cTotal_vIPI          := 0.0;
       cTotal_ICMSTot_vBC   := 0.0;
       cTotal_ICMSTot_vICMS := 0.0;
 
@@ -4623,23 +4673,55 @@ begin
               end;
             end;
 
-  {
             with IPI do
             begin
-              CST      := ipi99 ;
-              clEnq    := '999';
-              CNPJProd := '';
-              cSelo    := '';
-              qSelo    := 0;
-              cEnq     := '';
+              if (Emit.CRT = crtSimplesNacional) then
+              begin
+                CST      := TpcnCstIpi.ipi99 ;
+                clEnq    := '999';
+                CNPJProd := '';
+                cSelo    := '';
+                qSelo    := 0;
+                cEnq     := '';
 
-              vBC    := qryDadosProdutoPUNIT.AsCurrency;
-              qUnid  := 0;
-              vUnid  := 0;
-              pIPI   := 0; // Percentual IPI
-              vIPI   := 0; // Valor IPI
+                vBC    := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency;
+                qUnid  := 0;
+                vUnid  := 0;
+                pIPI   := 0; // Percentual IPI
+                vIPI   := 0; // Valor IPI
+              end
+              else
+              begin
+                CST      := TpcnCstIpi.ipi99 ; // Provisório
+                clEnq    := '999';
+                CNPJProd := '';
+                cSelo    := '';
+                qSelo    := 0;
+                cEnq     := '';
+
+                if (CST = TpcnCstIpi.ipi99) then
+                begin
+                  vBC    := 0;
+                  qUnid  := 0;
+                  vUnid  := 0;
+                  pIPI   := 0; // Percentual IPI
+                  vIPI   := 0; // Valor IPI
+                end
+                else
+                begin
+                  vBC    := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency;
+                  qUnid  := Prod.qCom;
+                  vUnid  := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency;
+                  pIPI   := qryEntradaDadosProduto.FieldByName('VALOR_IPI').AsCurrency / qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency * 100;
+                  vIPI   := IPI.vBC * IPI.pIPI / 100;
+                end;
+
+                cTotal_vIPI := cTotal_vIPI + (Prod.qCom * IPI.vIPI);
+              end;
             end;
 
+
+  {
               with II do
                begin
                  vBc      := 0;
@@ -4717,7 +4799,7 @@ begin
       Total.ICMSTot.vSeg    := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_SEGURO').AsCurrency;
       Total.ICMSTot.vDesc   := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_DESCONTO').AsCurrency;
       Total.ICMSTot.vII     := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_TOTAL_II').AsCurrency;
-      Total.ICMSTot.vIPI    := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_TOTAL_IPI').AsCurrency;
+      Total.ICMSTot.vIPI    := cTotal_vIPI; // qryEntradaCalculoImposto.FieldByName('NFE_VALOR_TOTAL_IPI').AsCurrency;
       Total.ICMSTot.vPIS    := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_PIS').AsCurrency;
       Total.ICMSTot.vCOFINS := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_COFINS').AsCurrency;
       Total.ICMSTot.vOutro  := qryEntradaCalculoImposto.FieldByName('NFE_VALOR_OUTROS').AsCurrency;
@@ -5337,7 +5419,9 @@ end;
 
 function TDMNFe.InutilizaNumeroNFeACBr(const sCNPJEmitente: String; iAno,
   iModelo, iSerie, iNumeroInicial, iNumeroFinal: Integer;
-  const sJustificativa: String; var sRetorno : String): Boolean;
+  const sJustificativa: String; var sRetorno, sFileXML : String): Boolean;
+var
+  aFileXML : TStringList;
 begin
   try
 
@@ -5366,6 +5450,13 @@ begin
         '---'     + #13 +
         'Data Recibo: ' + FormatDateTime('dd/mm/yyyy', WebServices.Inutilizacao.dhRecbto) + #13 +
         'Protocolo:   ' + WebServices.Inutilizacao.Protocolo;
+
+      sFileXML := WebServices.Inutilizacao.NomeArquivo;
+
+      aFileXML := TStringList.Create;
+      aFileXML.Text := WebServices.Inutilizacao.RetornoWS;
+      aFileXML.SaveToFile(sFileXML);
+      aFileXML.Free;
     end;
 
   except
@@ -5623,8 +5714,11 @@ begin
   //      if ( WebServices.DownloadNFe.Executar ) then
         if DistribuicaoDFePorChaveNFe(GetEstadoID(Configuracoes.WebServices.UF), sCNPJDestinatario, sChaveNFe) then
         begin
-          FileNameXML := Configuracoes.Arquivos.DownloadNFe.PathDownload + '\'  + sChaveNFe + '-nfe.xml';
+          //FileNameXML := Configuracoes.Arquivos.DownloadNFe.PathDownload + '\'  + sChaveNFe + '-nfe.xml';
+          FileNameXML := Configuracoes.Arquivos.PathSalvar + '\Down\'  + sChaveNFe + '-nfe.xml';
           FileNameXML := StringReplace(FileNameXML, '\\', '\', [rfReplaceAll]);
+          ForceDirectories( ExtractFilePath(FileNameXML) );
+
           aXML.Text   := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[0].XML;
           aXML.SaveToFile(FileNameXML);
   //        FileNameXML := Configuracoes.Arquivos.PathSalvar + '\Down\'  + sChaveNFe + '-nfe.xml';
@@ -5669,7 +5763,7 @@ begin
     Value := Application.Title + ' - versão ' + ver.FileVersion;
 
   if ( VarName = VAR_USER ) then
-    Value := GetUserApp;
+    Value := gUsuarioLogado.Login;
 end;
 
 procedure TDMNFe.frrNotaEntregaXGetValue(const VarName: string;
@@ -5679,7 +5773,7 @@ begin
     Value := Application.Title + ' - versão ' + ver.FileVersion;
 
   if ( VarName = VAR_USER ) then
-    Value := GetUserApp;
+    Value := gUsuarioLogado.Login;
 
   if ( VarName = 'Imprimir_Cabecalho' ) then
     Value := IfThen(FImprimirCabecalho, 1, 0);

@@ -573,9 +573,12 @@ inherited frmGeInutilizarNumeroNFe: TfrmGeInutilizarNumeroNFe
       '  , v.dataemissao'
       '  , '#39'Sa'#237'da  '#39' as Tipo'
       'from TBVENDAS v'
-      'where v.codemp = :empresa1'
-      '  and cast(v.serie as Smallint) = :serie1'
-      '  and v.nfe between :inicio1 and :final1'
+      'where v.codemp = :empresa'
+      
+        '  and cast(coalesce(nullif(trim(v.serie), '#39#39'), '#39'0'#39') as Smallint)' +
+        ' = :serie'
+      '  and v.nfe between :inicio and :final'
+      '  and coalesce(trim(v.serie), '#39#39') <> '#39#39
       ''
       'union'
       ''
@@ -585,9 +588,11 @@ inherited frmGeInutilizarNumeroNFe: TfrmGeInutilizarNumeroNFe
       '  , c.dtemiss as dataemissao'
       '  , '#39'Entrada'#39' as Tipo'
       'from TBCOMPRAS c'
-      'where c.codemp = :empresa2'
-      '  and cast(c.nfserie as Smallint) = :serie2'
-      '  and c.nf between :inicio2 and :final2'
+      'where c.codemp = :empresa'
+      
+        '  and cast(coalesce(nullif(trim(c.nfserie), '#39#39'), '#39'0'#39') as Smallin' +
+        't) = :serie'
+      '  and c.nf between :inicio and :final'
       '  and c.nfe_enviada = 1'
       ''
       'order by 1, 2')
@@ -595,46 +600,25 @@ inherited frmGeInutilizarNumeroNFe: TfrmGeInutilizarNumeroNFe
     Top = 256
     ParamData = <
       item
-        Name = 'EMPRESA1'
+        Name = 'EMPRESA'
         DataType = ftString
         ParamType = ptInput
         Size = 18
         Value = Null
       end
       item
-        Name = 'SERIE1'
+        Name = 'SERIE'
         DataType = ftSmallint
         ParamType = ptInput
       end
       item
-        Name = 'INICIO1'
+        Name = 'INICIO'
         DataType = ftLargeint
         ParamType = ptInput
       end
       item
-        Name = 'FINAL1'
+        Name = 'FINAL'
         DataType = ftLargeint
-        ParamType = ptInput
-      end
-      item
-        Name = 'EMPRESA2'
-        DataType = ftString
-        ParamType = ptInput
-        Size = 18
-      end
-      item
-        Name = 'SERIE2'
-        DataType = ftSmallint
-        ParamType = ptInput
-      end
-      item
-        Name = 'INICIO2'
-        DataType = ftInteger
-        ParamType = ptInput
-      end
-      item
-        Name = 'FINAL2'
-        DataType = ftInteger
         ParamType = ptInput
       end>
   end

@@ -164,7 +164,8 @@ end;
 procedure TfrmGeInutilizarNumeroNFe.btnConfirmarClick(Sender: TObject);
 var
   sJustific,
-  sRetorno : String;
+  sRetorno ,
+  sFileXML : String;
   iAno       ,
   iModelo    ,
   iSerie     ,
@@ -203,7 +204,8 @@ begin
       Exit;
 
     sRetorno := EmptyStr;
-    if DMNFe.InutilizaNumeroNFeACBr(gUsuarioLogado.Empresa, iAno, iModelo, iSerie, iNroInicial, iNroFinal, sJustific, sRetorno ) then
+    sFileXML := EmptyStr;
+    if DMNFe.InutilizaNumeroNFeACBr(gUsuarioLogado.Empresa, iAno, iModelo, iSerie, iNroInicial, iNroFinal, sJustific, sRetorno, sFileXML ) then
     begin
 
       with cdsLOG do
@@ -229,6 +231,9 @@ begin
         AtualizarContadorNota;
 
         ShowInformation('Informação', 'Inutilização do(s) número(s) informado(s) realizada com sucesso!');
+
+        DMNFe.ACBrNFe.InutNFe.LerXML(sFileXML);
+        DMNFe.ACBrNFe.ImprimirInutilizacao;
 
         ModalResult := mrOk;
       end;
@@ -276,15 +281,10 @@ begin
   with qryNFeEmitida do
   begin
     Close;
-    ParamByName('empresa1').AsString := gUsuarioLogado.Empresa;
-    ParamByName('serie1').AsInteger  := iSerie;
-    ParamByName('inicio1').AsInteger := iInicio;
-    ParamByName('final1').AsInteger  := iFinal;
-
-    ParamByName('empresa2').AsString := gUsuarioLogado.Empresa;
-    ParamByName('serie2').AsInteger  := iSerie;
-    ParamByName('inicio2').AsInteger := iInicio;
-    ParamByName('final2').AsInteger  := iFinal;
+    ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
+    ParamByName('serie').AsInteger  := iSerie;
+    ParamByName('inicio').AsInteger := iInicio;
+    ParamByName('final').AsInteger  := iFinal;
     Open;
 
     Result := IsEmpty;

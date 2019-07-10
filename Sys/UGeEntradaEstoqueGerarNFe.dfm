@@ -887,7 +887,6 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
     Top = 333
   end
   object cdsCompra: TFDQuery
-    Active = True
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -923,7 +922,9 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
       '  , c.outroscustos'
       '  , c.totalnf'
       ''
-      '  , sum( coalesce(i.Valor_ipi, 0) )           as valor_total_IPI'
+      
+        '  , sum( coalesce(i.Qtde, 0) * coalesce(i.Valor_ipi, 0) ) as val' +
+        'or_total_IPI'
       
         '  , sum( coalesce(i.Qtde, 0) * i.precounit )  as valor_total_bru' +
         'to'

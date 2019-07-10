@@ -1079,7 +1079,7 @@ begin
     Value := GetEmpresaNomeDefault;
 
   if ( VarName = VAR_USER ) then
-    Value := GetUserApp;
+    Value := gUsuarioLogado.Login;
 
   if ( VarName = VAR_SYSTEM ) then
     Value := Application.Title + ' - versão ' + ver.FileVersion;

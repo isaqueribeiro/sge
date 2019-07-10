@@ -423,6 +423,7 @@ type
     procedure cdsTabelaItensNewRecord(DataSet: TDataSet);
     procedure qryDuplicatasCalcFields(DataSet: TDataSet);
     procedure btnTituloEditarClick(Sender: TObject);
+    procedure dbSerieKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     FEmpresa : String;
@@ -1268,13 +1269,14 @@ end;
 
 procedure TfrmGeEntradaEstoque.btnProdutoSalvarClick(Sender: TObject);
 
-  procedure GetToTais(var Total_Bruto, Total_Desconto, Total_Liquido, vBC_ICMS, vICMS: Currency);
+  procedure GetToTais(var Total_Bruto, Total_Desconto, Total_IPI, Total_Liquido, vBC_ICMS, vICMS: Currency);
   var
     Item : Integer;
   begin
     Item         := cdsTabelaItensSEQ.AsInteger;
     Total_Bruto    := 0.0;
     Total_desconto := 0.0;
+    Total_IPI      := 0.0;
     Total_Liquido  := 0.0;
     vBC_ICMS       := 0.0;
     vICMS          := 0.0;
@@ -1283,7 +1285,8 @@ procedure TfrmGeEntradaEstoque.btnProdutoSalvarClick(Sender: TObject);
 
     while not cdsTabelaItens.Eof do
     begin
-      Total_Bruto    := Total_Bruto + cdsTabelaItensTOTAL_BRUTO.AsCurrency;
+      Total_Bruto := Total_Bruto + cdsTabelaItensTOTAL_BRUTO.AsCurrency;
+      Total_IPI   := Total_IPI   + cdsTabelaItensVALOR_IPI.AsCurrency;
 
       if ( cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency > 0 ) then
       begin
@@ -1310,6 +1313,7 @@ var
   cDescontos    ,
   cTotalBruto   ,
   cTotalDesconto,
+  cTotalIPI     ,
   cTotalLiquido ,
   cValorBaseIcms,
   cValorIcms    : Currency;
@@ -1349,12 +1353,13 @@ begin
 
       if ( dbCalcularTotais.Checked ) then
       begin
-        GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido, cValorBaseIcms, cValorIcms);
+        GetToTais(cTotalBruto, cTotalDesconto, cTotalIPI, cTotalLiquido, cValorBaseIcms, cValorIcms);
 
         DtSrcTabela.DataSet.FieldByName('ICMSBASE').AsCurrency  := cValorBaseIcms;
         DtSrcTabela.DataSet.FieldByName('ICMSVALOR').AsCurrency := cValorIcms;
         DtSrcTabela.DataSet.FieldByName('TOTALPROD').AsCurrency := cTotalBruto;
         DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency  := cTotalDesconto;
+        DtSrcTabela.DataSet.FieldByName('IPI').AsCurrency       := cTotalIPI;
         DtSrcTabela.DataSet.FieldByName('TOTALNF').AsCurrency   := cTotalLiquido + DtSrcTabela.DataSet.FieldByName('IPI').AsCurrency;
       end;
 
@@ -1376,6 +1381,11 @@ begin
       ShowWarning('Favor informar o(s) ' + IfThen(FTipoMovimento = tmeProduto, 'produto(s)', 'serviço(s)') + ' da entrada.')
     else
     begin
+      if (StrToIntDef(Trim(FieldByName('NFSERIE').AsString), 0) = 0) then
+        FieldByName('NFSERIE').Clear
+      else
+        FieldByName('NFSERIE').AsString := FormatFloat('00', StrToIntDef(Trim(FieldByName('NFSERIE').AsString), 0));
+
       if (FieldByName('TIPO_DOCUMENTO').AsInteger in [TIPO_DOCUMENTO_ENTRADA_AVULSA, TIPO_DOCUMENTO_ENTRADA_CONTRATO]) then
       begin
         FieldByName('NF').AsInteger     := FieldByName('CODCONTROL').AsInteger;
@@ -1591,6 +1601,21 @@ begin
         cdsTabelaItensUNID_COD.AsInteger := iUnidade;
     end;
 
+  end;
+end;
+
+procedure TfrmGeEntradaEstoque.dbSerieKeyPress(Sender: TObject; var Key: Char);
+begin
+  if not (Key in ['0'..'9', #8, #13]) then
+  begin
+    Key := #0;
+    Abort;
+  end;
+
+  if (Key = #13) then
+  begin
+    Key := #0;
+    dbDataEntrada.SetFocus;
   end;
 end;
 

@@ -944,7 +944,7 @@ inherited frmGeVenda: TfrmGeVenda
           FocusControl = dbProduto
         end
         object lblQuantidade: TLabel
-          Left = 312
+          Left = 291
           Top = 64
           Width = 60
           Height = 13
@@ -958,7 +958,7 @@ inherited frmGeVenda: TfrmGeVenda
           ParentFont = False
         end
         object lblValorUnit: TLabel
-          Left = 392
+          Left = 371
           Top = 64
           Width = 92
           Height = 13
@@ -972,7 +972,7 @@ inherited frmGeVenda: TfrmGeVenda
           ParentFont = False
         end
         object lblDesconto: TLabel
-          Left = 512
+          Left = 566
           Top = 64
           Width = 45
           Height = 13
@@ -1036,7 +1036,7 @@ inherited frmGeVenda: TfrmGeVenda
           ParentFont = False
         end
         object lblCST: TLabel
-          Left = 272
+          Left = 251
           Top = 64
           Width = 23
           Height = 13
@@ -1074,12 +1074,18 @@ inherited frmGeVenda: TfrmGeVenda
           ExplicitHeight = 99
         end
         object lblTotalDesconto: TLabel
-          Left = 584
-          Top = 64
+          Left = 621
+          Top = 65
           Width = 82
           Height = 13
           Caption = 'Total Desc. (R$):'
           FocusControl = dbTotalDesconto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
         object lblProdutoPromocao: TLabel
           Left = 960
@@ -1095,7 +1101,7 @@ inherited frmGeVenda: TfrmGeVenda
           ParentFont = False
         end
         object lblPercRedBC: TLabel
-          Left = 168
+          Left = 160
           Top = 64
           Width = 76
           Height = 13
@@ -1117,6 +1123,20 @@ inherited frmGeVenda: TfrmGeVenda
           FocusControl = dbLoteProduto
           Visible = False
         end
+        object lblValorIPI: TLabel
+          Left = 485
+          Top = 64
+          Width = 42
+          Height = 13
+          Caption = 'IPI (R$):'
+          FocusControl = dbValorIPI
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
         object dbProdutoNome: TDBEdit
           Left = 184
           Top = 40
@@ -1136,7 +1156,7 @@ inherited frmGeVenda: TfrmGeVenda
           TabOrder = 2
         end
         object dbQuantidade: TDBEdit
-          Left = 312
+          Left = 291
           Top = 80
           Width = 73
           Height = 21
@@ -1153,9 +1173,9 @@ inherited frmGeVenda: TfrmGeVenda
           OnExit = ControlEditExit
         end
         object dbValorUnit: TDBEdit
-          Left = 392
+          Left = 371
           Top = 80
-          Width = 113
+          Width = 108
           Height = 21
           Color = clMoneyGreen
           DataField = 'PUNIT'
@@ -1171,9 +1191,9 @@ inherited frmGeVenda: TfrmGeVenda
           OnExit = ControlEditExit
         end
         object dbDesconto: TDBEdit
-          Left = 512
+          Left = 566
           Top = 80
-          Width = 65
+          Width = 49
           Height = 21
           Color = clWhite
           DataField = 'DESCONTO'
@@ -1184,7 +1204,7 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 11
+          TabOrder = 12
           OnExit = ControlEditExit
         end
         object dbValorLiq: TDBEdit
@@ -1202,7 +1222,7 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Style = []
           ParentFont = False
           ReadOnly = True
-          TabOrder = 13
+          TabOrder = 14
           OnExit = ControlEditExit
         end
         object dbUnidade: TDBEdit
@@ -1226,7 +1246,7 @@ inherited frmGeVenda: TfrmGeVenda
         object dbAliquota: TDBEdit
           Left = 88
           Top = 80
-          Width = 73
+          Width = 66
           Height = 21
           TabStop = False
           Color = clMoneyGreen
@@ -1242,7 +1262,7 @@ inherited frmGeVenda: TfrmGeVenda
           TabOrder = 6
         end
         object dbCST: TDBEdit
-          Left = 272
+          Left = 251
           Top = 80
           Width = 33
           Height = 21
@@ -1256,6 +1276,7 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Style = []
           ParentFont = False
           TabOrder = 8
+          OnKeyPress = dbCSTKeyPress
         end
         object dbReferencia: TDBEdit
           Left = 848
@@ -1272,7 +1293,7 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 14
+          TabOrder = 15
           Visible = False
           OnExit = ControlEditExit
         end
@@ -1575,9 +1596,9 @@ inherited frmGeVenda: TfrmGeVenda
           end
         end
         object dbPercRedBC: TDBEdit
-          Left = 168
+          Left = 160
           Top = 80
-          Width = 97
+          Width = 85
           Height = 21
           Color = clMoneyGreen
           DataField = 'PERCENTUAL_REDUCAO_BC'
@@ -1744,9 +1765,9 @@ inherited frmGeVenda: TfrmGeVenda
           OnExit = ControlEditExit
         end
         object dbTotalDesconto: TJvDBComboEdit
-          Left = 584
+          Left = 621
           Top = 80
-          Width = 129
+          Width = 93
           Height = 21
           ButtonHint = 'Lan'#231'ar Valor Total do Desconto (Ctrl+D)'
           CharCase = ecUpperCase
@@ -1815,7 +1836,7 @@ inherited frmGeVenda: TfrmGeVenda
           ParentShowHint = False
           ReadOnly = True
           ShowHint = True
-          TabOrder = 12
+          TabOrder = 13
           OnButtonClick = dbTotalDescontoButtonClick
           OnExit = ControlEditExit
         end
@@ -1836,8 +1857,26 @@ inherited frmGeVenda: TfrmGeVenda
           ListField = 'DESCRICAO'
           ListSource = dtsLotes
           ParentFont = False
-          TabOrder = 15
+          TabOrder = 16
           Visible = False
+          OnExit = ControlEditExit
+        end
+        object dbValorIPI: TDBEdit
+          Left = 485
+          Top = 80
+          Width = 75
+          Height = 21
+          Color = clMoneyGreen
+          DataField = 'VALOR_IPI'
+          DataSource = DtSrcTabelaItens
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 11
           OnExit = ControlEditExit
         end
       end
@@ -4101,7 +4140,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00BC0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00C00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -161,6 +161,7 @@ begin
     gUsuarioLogado.Empresa  := Empresa;
     gUsuarioLogado.Vendedor := GetUserCodigoVendedorID;
     gUsuarioLogado.Logado   := True;
+    gUsuarioLogado.AlterarValorVenda := GetUserPermitirAlterarValorVenda;
 
     SetEmpresaIDDefault( Empresa );
 

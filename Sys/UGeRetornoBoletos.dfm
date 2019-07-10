@@ -824,7 +824,6 @@ object frmGeRetornoBoleto: TfrmGeRetornoBoleto
     Top = 289
   end
   object qryBaixarREC: TFDQuery
-    Active = True
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao

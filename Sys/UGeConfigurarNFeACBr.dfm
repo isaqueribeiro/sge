@@ -220,16 +220,12 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
     TabOrder = 3
     object TbsConfiguracoes: TTabSheet
       Caption = 'Configura'#231#245'es'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pgcGuiasConfiguracoes: TPageControl
         Left = 0
         Top = 0
         Width = 375
         Height = 514
-        ActivePage = TbsGeral
+        ActivePage = TbsArquivos
         Align = alClient
         MultiLine = True
         TabOrder = 0
@@ -237,10 +233,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           BorderWidth = 4
           Caption = 'Geral'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxGeral: TGroupBox
             Left = 0
             Top = 0
@@ -483,10 +475,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         object TbsCertificado: TTabSheet
           BorderWidth = 4
           Caption = 'Certificado'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GroupBox2: TGroupBox
             Left = 0
             Top = 0
@@ -648,10 +636,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           BorderWidth = 4
           Caption = 'WebService'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxWebService: TGroupBox
             Left = 0
             Top = 0
@@ -907,10 +891,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         object TbsEmitente: TTabSheet
           Caption = 'Emitente'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lbltEmitCNPJ: TLabel
             Left = 8
             Top = 4
@@ -1131,10 +1111,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         object TbsArquivos: TTabSheet
           Caption = 'Arquivos'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblPathNFe: TLabel
             Left = 16
             Top = 180
@@ -1324,9 +1300,9 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           object lblPathDownload: TLabel
             Left = 16
             Top = 437
-            Width = 109
+            Width = 122
             Height = 13
-            Caption = 'Pasta Arquivos Evento'
+            Caption = 'Pasta Arquivos Download'
             Enabled = False
             FocusControl = edPathDownload
           end
@@ -1478,10 +1454,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       BorderWidth = 4
       Caption = 'Danfe'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         367
         506)
@@ -1493,7 +1465,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         Caption = 'Logo Marca'
       end
       object sbtnLogoMarca: TSpeedButton
-        Left = 360
+        Left = 376
         Top = 71
         Width = 23
         Height = 24
@@ -1518,11 +1490,10 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       object edtLogoMarca: TEdit
         Left = 0
         Top = 74
-        Width = 354
+        Width = 370
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 1
-        ExplicitWidth = 338
       end
       object rgTipoDanfe: TRadioGroup
         Left = 0
@@ -1543,10 +1514,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       BorderWidth = 4
       Caption = 'E-mail'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object GrpBxEmail: TGroupBox
         Left = 0
         Top = 0

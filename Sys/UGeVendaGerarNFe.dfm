@@ -778,8 +778,8 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
     end
   end
   object btnConfirmar: TcxButton
-    Left = 408
-    Top = 377
+    Left = 407
+    Top = 378
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -955,7 +955,9 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       '  , v.Nfe_valor_cofins'
       '  , v.Nfe_valor_outros'
       '  , v.Nfe_valor_total_nota'
-      '  , sum( coalesce(i.Valor_ipi, 0) )         as valor_total_IPI'
+      
+        '  , sum( coalesce(i.Qtde, 0) * coalesce(i.Valor_ipi, 0) ) as val' +
+        'or_total_IPI'
       '  , sum( coalesce(i.total_bruto, 0) )       as valor_total_bruto'
       
         '  , sum( coalesce(i.total_desconto, 0) )    as valor_total_desco' +

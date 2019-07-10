@@ -34421,7 +34421,7 @@ object DMNFe: TDMNFe
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42383.572136122700000000
-    ReportOptions.LastChange = 43550.438065486110000000
+    ReportOptions.LastChange = 43655.955177743050000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -34514,7 +34514,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftBottom]
           Memo.UTF8W = (
@@ -34529,7 +34529,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -7
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftRight]
           HAlign = haCenter
@@ -34547,7 +34547,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftRight, ftBottom]
           HAlign = haCenter
@@ -34563,7 +34563,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -7
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
@@ -34579,7 +34579,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftRight, ftBottom]
           Memo.UTF8W = (
@@ -34594,7 +34594,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -7
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftRight]
           HAlign = haCenter
@@ -34611,7 +34611,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -7
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftRight]
           HAlign = haCenter
@@ -34628,7 +34628,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -7
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftRight]
           HAlign = haCenter
@@ -34645,7 +34645,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -7
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
@@ -34663,7 +34663,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftRight, ftBottom]
           HAlign = haCenter
@@ -34681,7 +34681,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftRight, ftBottom]
           HAlign = haCenter
@@ -34699,7 +34699,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftRight, ftBottom]
           HAlign = haCenter
@@ -34715,7 +34715,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftBottom]
           Memo.UTF8W = (
@@ -34732,7 +34732,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -7
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftRight]
           Memo.UTF8W = (
@@ -34748,7 +34748,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftRight, ftBottom]
           Memo.UTF8W = (
@@ -34765,7 +34765,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -7
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
@@ -34782,7 +34782,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftBottom]
           Memo.UTF8W = (
@@ -34796,7 +34796,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -7
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
@@ -34813,7 +34813,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftBottom]
           Memo.UTF8W = (
@@ -34829,7 +34829,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -7
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = []
           HAlign = haCenter
@@ -34848,7 +34848,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftBottom]
           HAlign = haCenter
@@ -34869,7 +34869,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -16
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = []
           HAlign = haCenter
@@ -34884,7 +34884,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = []
           HAlign = haCenter
@@ -34901,7 +34901,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = []
           HAlign = haCenter
@@ -34918,7 +34918,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftBottom]
           HAlign = haCenter
@@ -34940,7 +34940,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftBottom]
           Memo.UTF8W = (
@@ -34955,7 +34955,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -7
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = []
           Memo.UTF8W = (
@@ -34972,7 +34972,7 @@ object DMNFe: TDMNFe
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -13
-          Font.Name = 'Arial'
+          Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftBottom]
           Memo.UTF8W = (
@@ -34994,9 +34994,9 @@ object DMNFe: TDMNFe
           DataSetName = 'Parametros'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
           Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (

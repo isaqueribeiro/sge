@@ -217,7 +217,7 @@ begin
       cdsPagamentos.Close;
 
       SetMovimentoCaixa(
-        GetUserApp,
+        gUsuarioLogado.Login,
         DataPagto + Time,
         FormaPagto,
         LancAno,   // Ano do lançamento do Título
@@ -359,7 +359,7 @@ begin
   cdsPagamentosNUMLANC.Value    := StrToInt(edNumLanc.Text);
   cdsPagamentosSEQ.Value        := GetNextID('TBCONTREC_BAIXA', 'SEQ', 'where anolanc = ' + edAnoLanc.Text + ' and numlanc = ' + edNumLanc.Text);
   cdsPagamentosDATA_PAGTO.Value := GetDateDB;
-  cdsPagamentosUSUARIO.Value    := GetUserApp;
+  cdsPagamentosUSUARIO.Value    := gUsuarioLogado.Login;
   cdsPagamentosFORMA_PAGTO.Value      := GetFormaPagtoIDDefault;
   cdsPagamentosFORMA_PAGTO_DESC.Value := GetFormaPagtoNomeDefault;
 end;

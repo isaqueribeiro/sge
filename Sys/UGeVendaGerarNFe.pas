@@ -258,8 +258,13 @@ begin
       cdsVendaDATAEMISSAO.Value := Date;
       cdsVendaHORAEMISSAO.Value := Time;
 
-    cdsVendaNFE_VALOR_TOTAL_NOTA.AsCurrency := cdsVendaTOTALVENDA.AsCurrency + cdsVendaNFE_VALOR_ICMS_SUBST.AsCurrency + cdsVendaNFE_VALOR_FRETE.AsCurrency +
-                                               cdsVendaNFE_VALOR_SEGURO.AsCurrency + cdsVendaNFE_VALOR_OUTROS.AsCurrency;
+    cdsVendaNFE_VALOR_TOTAL_NOTA.AsCurrency :=
+      cdsVendaTOTALVENDA.AsCurrency           + // <- TOTAL VENDA = (TOTAL VENDA BRUTA - TOTAL DESCONTOS)
+      cdsVendaNFE_VALOR_TOTAL_IPI.AsCurrency  +
+      cdsVendaNFE_VALOR_ICMS_SUBST.AsCurrency +
+      cdsVendaNFE_VALOR_FRETE.AsCurrency      +
+      cdsVendaNFE_VALOR_SEGURO.AsCurrency     +
+      cdsVendaNFE_VALOR_OUTROS.AsCurrency;
   end;
 end;
 

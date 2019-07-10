@@ -218,12 +218,13 @@ begin
   begin
     SetEmpresaIDDefault( Empresa );
 
-    gUsuarioLogado.Login    := GetUserApp;
+    gUsuarioLogado.Login    := GetUserApp(Trim(edNome.Text));
     gUsuarioLogado.Nome     := GetUserFullName;
     gUsuarioLogado.Funcao   := GetUserFunctionID;
     gUsuarioLogado.Empresa  := Empresa;
     gUsuarioLogado.Vendedor := GetUserCodigoVendedorID;
     gUsuarioLogado.Logado   := True;
+    gUsuarioLogado.AlterarValorVenda := GetUserPermitirAlterarValorVenda;
 
     ModalResult := mrOk;
   end
