@@ -7,16 +7,16 @@ uses
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls, Buttons, ComCtrls, Mask, DB,
-  IBCustomDataSet, IBTable, frxClass, frxDBSet, DBClient, Provider, IBQuery,
-  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask,
-  JvToolEdit,
+  frxClass, frxDBSet, DBClient, Provider, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
+  Menus, cxButtons, JvExMask, JvToolEdit,
 
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Stan.Intf,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeEntradaImpressao = class(TfrmGrPadraoImpressao)
@@ -28,13 +28,11 @@ type
     lblTipoDocumento: TLabel;
     edTipoDocumento: TComboBox;
     frRelacaoEntradaGeralSintetico: TfrxReport;
-    qryRelacaoEntradaGeralSintetico: TIBQuery;
     dspRelacaoEntradaGeralSintetico: TDataSetProvider;
     cdsRelacaoEntradaGeralSintetico: TClientDataSet;
     frdsRelacaoEntradaGeralSintetico: TfrxDBDataset;
     chkDFInformada: TCheckBox;
     frRelacaoEntradaGeralAnalitico: TfrxReport;
-    qryRelacaoEntradaGeralAnalitico: TIBQuery;
     dspRelacaoEntradaGeralAnalitico: TDataSetProvider;
     cdsRelacaoEntradaGeralAnalitico: TClientDataSet;
     frdsRelacaoEntradaGeralAnalitico: TfrxDBDataset;
@@ -48,6 +46,14 @@ type
     CdsEmpresas: TClientDataSet;
     fdQryTipoEntrada: TFDQuery;
     fdQryTipoDocumento: TFDQuery;
+    qryRelacaoEntradaGeralSintetico: TFDQuery;
+    qryRelacaoEntradaGeralAnalitico: TFDQuery;
+    frRelacaoEntradaCFOPAnalitico: TfrxReport;
+    frRelacaoEntradaCFOPSintetico: TfrxReport;
+    qryRelacaoEntradaCFOPSintetico: TFDQuery;
+    dspRelacaoEntradaCFOPSintetico: TDataSetProvider;
+    cdsRelacaoEntradaCFOPSintetico: TClientDataSet;
+    frdsRelacaoEntradaCFOPSintetico: TfrxDBDataset;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure chkDFInformadaClick(Sender: TObject);
@@ -347,6 +353,7 @@ begin
       SQL.Add('    c.tipo_movimento');
       SQL.Add('  , td.tipodesp');
       SQL.Add('  , te.tpe_descricao');
+      //SQL.Add('  , c.nfcfop '); <-- Para os relatórios de CFOP
       SQL.Add('  , f.nomeforn');
       SQL.Add('  , f.nomefant');
       SQL.Add('  , c.codforn');

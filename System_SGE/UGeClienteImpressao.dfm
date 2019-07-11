@@ -64,7 +64,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
     end
   end
   object frRelacaoCliente: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -121,8 +121,10 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -136,6 +138,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -149,6 +152,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -162,12 +166,14 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -182,6 +188,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -202,6 +209,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -220,6 +228,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -248,6 +257,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
@@ -257,6 +267,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 449.764070000000000000
         Width = 718.110700000000000000
@@ -285,6 +296,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -312,6 +324,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndGrpHeaderTipo: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 37.795300000000000000
         Top = 204.094620000000000000
         Width = 718.110700000000000000
@@ -458,6 +471,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 264.567100000000000000
         Width = 718.110700000000000000
@@ -485,6 +499,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39'00000'#39',<FrdsRelacaoCliente."CODIGO">)]')
           ParentFont = False
@@ -510,6 +525,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoCliente."PESSOA_FISICA">=1,FormatMaskText('#39'###' +
@@ -539,6 +555,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoCliente."NOME"]')
           ParentFont = False
@@ -565,6 +582,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoCliente."INSCEST"]')
           ParentFont = False
@@ -591,6 +609,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoCliente."CIDADE"]')
           ParentFont = False
@@ -600,6 +619,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndGrpFooterTipo: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 306.141930000000000000
         Width = 718.110700000000000000
@@ -620,6 +640,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndFooter: TfrxFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 37.795300000000000000
         Top = 351.496290000000000000
         Width = 718.110700000000000000
@@ -632,6 +653,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' * Clientes bloqueados')
@@ -653,51 +675,6 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         end
       end
     end
-  end
-  object QryRelacaoCliente: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.codigo'
-      '  , c.pessoa_fisica'
-      '  , c.nome'
-      '  , c.nomefant'
-      '  , c.cnpj'
-      '  , c.inscest'
-      '  , c.inscmun'
-      '  , c.ender'
-      '  , c.numero_end'
-      '  , c.bairro'
-      '  , c.complemento'
-      '  , c.cep'
-      '  , c.cidade'
-      '  , c.uf'
-      '  , c.fone'
-      '  , c.fonecel'
-      '  , c.fonecomerc'
-      '  , c.email'
-      '  , c.cid_cod'
-      '  , c.bai_cod'
-      '  , c.bloqueado'
-      '  , cd.cid_nome'
-      '  , es.est_nome'
-      '  , es.est_sigla'
-      '  , c.banco'
-      '  , bn.nome   as banco_nome'
-      '  , c.agencia as banco_agencia'
-      '  , c.cc    as banco_conta'
-      '  , c.praca as banco_praca'
-      '  , c.observacao'
-      'from TBCLIENTE c'
-      '  left join TBCIDADE cd on (cd.cid_cod = c.cid_cod)'
-      '  left join TBESTADO es on (es.est_cod = c.est_cod)'
-      '  left join TBBANCO bn on (bn.cod = c.banco)')
-    Left = 40
-    Top = 8
   end
   object FrdsRelacaoCliente: TfrxDBDataset
     UserName = 'FrdsRelacaoCliente'
@@ -751,7 +728,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
     Top = 8
   end
   object frRelacaoClienteCidade: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -809,8 +786,10 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -824,6 +803,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -837,6 +817,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -850,12 +831,14 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -870,6 +853,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -890,6 +874,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -908,6 +893,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -936,6 +922,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
@@ -945,6 +932,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 544.252320000000000000
         Width = 1046.929810000000000000
@@ -973,6 +961,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -1000,6 +989,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndGrpHeaderTipo: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 37.795300000000000000
         Top = 249.448980000000000000
         Width = 1046.929810000000000000
@@ -1166,6 +1156,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 309.921460000000000000
         Width = 1046.929810000000000000
@@ -1193,6 +1184,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39'00000'#39',<FrdsRelacaoCliente."CODIGO">)]')
           ParentFont = False
@@ -1218,6 +1210,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoCliente."PESSOA_FISICA">=1,FormatMaskText('#39'###' +
@@ -1247,6 +1240,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoCliente."NOME"]')
           ParentFont = False
@@ -1273,6 +1267,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoCliente."INSCEST"]')
           ParentFont = False
@@ -1299,6 +1294,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoCliente."BAIRRO"]')
           ParentFont = False
@@ -1325,6 +1321,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoCliente."ENDER"], [FrdsRelacaoCliente."NUMERO_END"]')
           ParentFont = False
@@ -1334,6 +1331,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndGrpFooterTipo: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 351.496290000000000000
         Width = 1046.929810000000000000
@@ -1354,6 +1352,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndFooter: TfrxFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 37.795300000000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -1366,6 +1365,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' * Clientes bloqueados')
@@ -1388,6 +1388,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndGrpHeaderCidade: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 204.094620000000000000
         Width = 1046.929810000000000000
@@ -1433,6 +1434,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndGrpFooterCidade: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 396.850650000000000000
         Width = 1046.929810000000000000
@@ -1457,7 +1459,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
     end
   end
   object frRelacaoClienteCredito: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1515,8 +1517,10 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -1530,6 +1534,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -1543,6 +1548,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -1556,12 +1562,14 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -1576,6 +1584,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -1596,6 +1605,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -1614,6 +1624,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -1642,6 +1653,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
@@ -1651,6 +1663,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 582.047620000000000000
         Width = 1046.929810000000000000
@@ -1679,6 +1692,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -1706,6 +1720,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndGrpHeaderTipo: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 249.448980000000000000
         Width = 1046.929810000000000000
@@ -2022,6 +2037,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 328.819110000000000000
         Width = 1046.929810000000000000
@@ -2047,6 +2063,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoClienteCredito."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoClienteCredito."PESSOA_FISICA">=1,FormatMaskTe' +
@@ -2077,6 +2094,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoClienteCredito."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoClienteCredito."NOME"]')
           ParentFont = False
@@ -2104,6 +2122,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoClienteCredito."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoClienteCredito."VALOR_LIMITE_CO' +
@@ -2133,6 +2152,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoClienteCredito."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoClienteCredito."VALOR_COMPRAS_A' +
@@ -2162,6 +2182,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoClienteCredito."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',(IIF(<FrdsRelacaoClienteCredito."CUSTO_OPER' +
@@ -2193,6 +2214,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoClienteCredito."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',(IIF(<FrdsRelacaoClienteCredito."CUSTO_OPER' +
@@ -2224,6 +2246,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoClienteCredito."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoClienteCredito."VALOR_LIMITE_DI' +
@@ -2253,6 +2276,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoClienteCredito."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoClienteCredito."VALOR_TOTAL_COM' +
@@ -2282,6 +2306,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoClienteCredito."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',(IIF(<FrdsRelacaoClienteCredito."CUSTO_OPER' +
@@ -2313,6 +2338,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoClienteCredito."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',(IIF(<FrdsRelacaoClienteCredito."CUSTO_OPER' +
@@ -2326,6 +2352,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndGrpFooterTipo: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 370.393940000000000000
         Width = 1046.929810000000000000
@@ -2346,6 +2373,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndGrpHeaderCidade: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 204.094620000000000000
         Width = 1046.929810000000000000
@@ -2391,6 +2419,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndGrpFooterCidade: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 415.748300000000000000
         Width = 1046.929810000000000000
@@ -2544,6 +2573,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 502.677490000000000000
         Width = 1046.929810000000000000
@@ -2703,6 +2733,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' * Clientes bloqueados')
@@ -2717,6 +2748,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -2727,55 +2759,6 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
         end
       end
     end
-  end
-  object QryRelacaoClienteCredito: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.codigo'
-      '  , c.pessoa_fisica'
-      '  , c.nome'
-      '  , c.cnpj'
-      '  , c.inscest'
-      '  , c.numero_end'
-      '  , c.ender'
-      '  , c.bairro'
-      '  , c.cep'
-      '  , c.cidade'
-      '  , c.uf'
-      '  , c.fone'
-      '  , c.fonecel'
-      '  , c.fonecomerc'
-      '  , c.email'
-      '  , c.cid_cod'
-      '  , c.bai_cod'
-      '  , c.bloqueado'
-      '  , cd.cid_nome'
-      '  , es.est_nome'
-      '  , es.est_sigla'
-      '  , c.valor_limite_compra'
-      
-        '  , (Select first 1 g.Valor_compras_abertas   from GET_LIMITE_DI' +
-        'SPONIVEL_CLIENTE(c.codigo) g) as Valor_compras_abertas'
-      
-        '  , (Select first 1 g.Valor_limite_disponivel from GET_LIMITE_DI' +
-        'SPONIVEL_CLIENTE(c.codigo) g) as Valor_limite_disponivel'
-      
-        '  , (Select sum(v.totalvenda) from TBVENDAS v where 1=1 and v.co' +
-        'dcliente = c.codigo and v.status in (3, 4)) as valor_total_compr' +
-        'as'
-      '  , c.custo_oper_percentual'
-      '  , c.custo_oper_frete'
-      '  , c.custo_oper_outros'
-      'from TBCLIENTE c'
-      '  left join TBCIDADE cd on (cd.cid_cod = c.cid_cod)'
-      '  left join TBESTADO es on (es.est_cod = c.est_cod)')
-    Left = 40
-    Top = 152
   end
   object DspRelacaoClienteCredito: TDataSetProvider
     DataSet = QryRelacaoClienteCredito
@@ -2827,7 +2810,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
     Top = 152
   end
   object frFichaCliente: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -2884,8 +2867,10 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -2899,6 +2884,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -2912,6 +2898,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -2925,12 +2912,14 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -2945,6 +2934,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -2965,6 +2955,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -2983,6 +2974,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -3011,6 +3003,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
@@ -3020,6 +3013,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 616.063390000000000000
         Width = 718.110700000000000000
@@ -3048,6 +3042,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -3075,6 +3070,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndGrpHeaderTipo: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 204.094620000000000000
         Width = 718.110700000000000000
@@ -3121,6 +3117,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 192.756030000000000000
         Top = 249.448980000000000000
         Width = 718.110700000000000000
@@ -3149,6 +3146,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Highlight.Font.Style = [fsBold]
           Highlight.Condition = '<FrdsRelacaoCliente."BLOQUEADO">=1'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoCliente."PESSOA_FISICA">=1,FormatMaskText('#39'###' +
@@ -3603,12 +3601,14 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object BndGrpFooterTipo: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 491.338900000000000000
         Width = 718.110700000000000000
       end
       object BndFooter: TfrxFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 536.693260000000000000
         Width = 718.110700000000000000
@@ -3620,6 +3620,7 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' * Clientes bloqueados')
@@ -3628,9 +3629,12 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
       end
       object FilhaEspaco: TfrxChild
         FillType = ftBrush
+        Frame.Typ = []
         Height = 3.779527560000000000
         Top = 464.882190000000000000
         Width = 718.110700000000000000
+        ToNRows = 0
+        ToNRowsMode = rmCount
       end
     end
   end
@@ -3659,5 +3663,95 @@ inherited frmGeClienteImpressao: TfrmGeClienteImpressao
     ProviderName = 'DpsCidades'
     Left = 512
     Top = 8
+  end
+  object QryRelacaoCliente: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.codigo'
+      '  , c.pessoa_fisica'
+      '  , c.nome'
+      '  , c.nomefant'
+      '  , c.cnpj'
+      '  , c.inscest'
+      '  , c.inscmun'
+      '  , c.ender'
+      '  , c.numero_end'
+      '  , c.bairro'
+      '  , c.complemento'
+      '  , c.cep'
+      '  , c.cidade'
+      '  , c.uf'
+      '  , c.fone'
+      '  , c.fonecel'
+      '  , c.fonecomerc'
+      '  , c.email'
+      '  , c.cid_cod'
+      '  , c.bai_cod'
+      '  , c.bloqueado'
+      '  , cd.cid_nome'
+      '  , es.est_nome'
+      '  , es.est_sigla'
+      '  , c.banco'
+      '  , bn.nome   as banco_nome'
+      '  , c.agencia as banco_agencia'
+      '  , c.cc    as banco_conta'
+      '  , c.praca as banco_praca'
+      '  , c.observacao'
+      'from TBCLIENTE c'
+      '  left join TBCIDADE cd on (cd.cid_cod = c.cid_cod)'
+      '  left join TBESTADO es on (es.est_cod = c.est_cod)'
+      '  left join TBBANCO bn on (bn.cod = c.banco)')
+    Left = 40
+    Top = 8
+  end
+  object QryRelacaoClienteCredito: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.codigo'
+      '  , c.pessoa_fisica'
+      '  , c.nome'
+      '  , c.cnpj'
+      '  , c.inscest'
+      '  , c.numero_end'
+      '  , c.ender'
+      '  , c.bairro'
+      '  , c.cep'
+      '  , c.cidade'
+      '  , c.uf'
+      '  , c.fone'
+      '  , c.fonecel'
+      '  , c.fonecomerc'
+      '  , c.email'
+      '  , c.cid_cod'
+      '  , c.bai_cod'
+      '  , c.bloqueado'
+      '  , cd.cid_nome'
+      '  , es.est_nome'
+      '  , es.est_sigla'
+      '  , c.valor_limite_compra'
+      
+        '  , (Select first 1 g.Valor_compras_abertas   from GET_LIMITE_DI' +
+        'SPONIVEL_CLIENTE(c.codigo) g) as Valor_compras_abertas'
+      
+        '  , (Select first 1 g.Valor_limite_disponivel from GET_LIMITE_DI' +
+        'SPONIVEL_CLIENTE(c.codigo) g) as Valor_limite_disponivel'
+      
+        '  , (Select sum(v.totalvenda) from TBVENDAS v where 1=1 and v.co' +
+        'dcliente = c.codigo and v.status in (3, 4)) as valor_total_compr' +
+        'as'
+      '  , c.custo_oper_percentual'
+      '  , c.custo_oper_frete'
+      '  , c.custo_oper_outros'
+      'from TBCLIENTE c'
+      '  left join TBCIDADE cd on (cd.cid_cod = c.cid_cod)'
+      '  left join TBESTADO es on (es.est_cod = c.est_cod)')
+    Left = 40
+    Top = 152
   end
 end

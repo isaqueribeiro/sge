@@ -121,7 +121,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
     end
   end
   object FrRelacaoEstoqueProduto: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -163,6 +163,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       item
         Name = 'Usuario'
         Value = #39'Usu'#225'rio'#39
+      end
+      item
+        Name = 'SistemaCodigo'
+        Value = '0'
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -178,8 +182,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -193,6 +199,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -206,6 +213,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -219,12 +227,14 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -239,6 +249,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -259,6 +270,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -277,6 +289,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -305,6 +318,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
@@ -314,6 +328,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 555.590910000000000000
         Width = 1046.929810000000000000
@@ -342,6 +357,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -369,6 +385,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpHeaderEmpresa: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 204.094620000000000000
         Width = 1046.929810000000000000
@@ -418,6 +435,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 328.819110000000000000
         Width = 1046.929810000000000000
@@ -438,6 +456,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -445,6 +464,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsRelacaoEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.##'#39',<FrdsRelacaoEstoqueProduto."ESTOQUE_VND">)]' +
@@ -465,6 +485,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -472,6 +493,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsRelacaoEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoEstoqueProduto."COD"]')
           ParentFont = False
@@ -491,6 +513,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -498,6 +521,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsRelacaoEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoEstoqueProduto."DESCRI_APRESENTACAO"]')
           ParentFont = False
@@ -517,6 +541,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -524,6 +549,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsRelacaoEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoEstoqueProduto."REFERENCIA"]')
           ParentFont = False
@@ -543,6 +569,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -550,6 +577,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsRelacaoEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoEstoqueProduto."FABRICANTE_NOME"]')
           ParentFont = False
@@ -570,6 +598,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haCenter
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -577,6 +606,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsRelacaoEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FrdsRelacaoEstoqueProduto."UND_COMPRA"]')
           ParentFont = False
@@ -596,6 +626,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -603,6 +634,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsRelacaoEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<SistemaCodigo> = 3, <FrdsRelacaoEstoqueProduto."ANVISA">,' +
@@ -625,6 +657,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -632,6 +665,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsRelacaoEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoEstoqueProduto."CUSTO_VNV_TOTAL' +
@@ -654,6 +688,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -661,6 +696,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsRelacaoEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.##'#39',<FrdsRelacaoEstoqueProduto."ESTOQUE_APR">)]' +
@@ -683,6 +719,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -690,6 +727,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsRelacaoEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoEstoqueProduto."CUSTO_APR_TOTAL' +
@@ -711,6 +749,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -718,6 +757,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsRelacaoEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoEstoqueProduto."SECAO_DESC"]')
           ParentFont = False
@@ -727,6 +767,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpFooterEmpresa: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 415.748300000000000000
         Width = 1046.929810000000000000
@@ -790,6 +831,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpHeaderGrupo: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 249.448980000000000000
         Width = 1046.929810000000000000
@@ -1105,6 +1147,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpFooterGrupo: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 370.393940000000000000
         Width = 1046.929810000000000000
@@ -1168,6 +1211,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 34.015770000000000000
         Top = 498.897960000000000000
         Width = 1046.929810000000000000
@@ -1180,6 +1224,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' * Produto(s) sem estoque para apropria'#231#227'o')
@@ -1242,73 +1287,6 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
     end
   end
-  object QryRelacaoEstoqueProduto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    coalesce(xx.empresa, p.codemp) as empresa_cnpj'
-      '  , e.rzsoc  as empresa_razao'
-      '  , p.cod'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , p.modelo'
-      '  , p.referencia'
-      '  , p.anvisa'
-      '  , coalesce(p.codgrupo, 0) as grupo_cod'
-      '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
-      '  , coalesce(p.codsecao, 0)                     as secao_cod'
-      '  , coalesce(s.scp_descricao, '#39'* Indefinida'#39')   as secao_desc'
-      '  , coalesce(p.codfabricante, 0)     as fabricante_cod'
-      '  , coalesce(f.nome, '#39'* Indefinido'#39') as fabricante_nome'
-      '  , p.especificacao'
-      
-        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), trim(u.unp' +
-        '_descricao)) from 1 for 3) as und_compra'
-      ''
-      '  , p.percentual_marckup'
-      '  , p.percentual_margem'
-      '  , p.compor_faturamento'
-      '  , p.produto_novo'
-      '  , p.movimenta_estoque'
-      '  , p.cadastro_ativo'
-      ''
-      '  , p.estoqmin as estoque_vnd_minimo'
-      '  , p.qtde     as estoque_vnd'
-      '  , p.customedio as custo_vnv_unitario'
-      '  , p.preco      as venda_vnv_unitario'
-      '  , p.qtde * p.customedio as custo_vnv_total'
-      '  , p.qtde * p.preco      as venda_vnv_total'
-      ''
-      '  , coalesce(xx.apropriacao_qtde, 0.0)  as estoque_apr'
-      '  , coalesce(xx.apropriacao_custo, 0.0) as custo_apr_total'
-      'from TBPRODUTO p'
-      '  left join ('
-      '    Select'
-      '        pe.empresa'
-      '      , pe.produto'
-      '      , sum(pe.qtde / pe.fracionador) as apropriacao_qtde'
-      '      , sum(pe.qtde * pe.custo_medio) as apropriacao_custo'
-      '    from TBESTOQUE_ALMOX pe'
-      '    group by'
-      '        pe.empresa'
-      '      , pe.produto'
-      '  ) xx on (xx.empresa = p.codemp and xx.produto = p.cod)'
-      
-        '  left join TBEMPRESA e on (e.cnpj = coalesce(xx.empresa, p.code' +
-        'mp))'
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      '  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)'
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
-      '')
-    Left = 32
-    Top = 8
-  end
   object DspRelacaoEstoqueProduto: TDataSetProvider
     DataSet = QryRelacaoEstoqueProduto
     Left = 64
@@ -1360,103 +1338,6 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
     BCDToCurrency = True
     Left = 128
     Top = 8
-  end
-  object QryDemandaEstoqueProduto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    coalesce(xx.empresa, p.codemp) as empresa_cnpj'
-      '  , e.rzsoc  as empresa_razao'
-      '  , p.cod'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , p.modelo'
-      '  , p.referencia'
-      '  , p.anvisa'
-      '  , coalesce(p.codgrupo, 0) as grupo_cod'
-      '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
-      '  , coalesce(p.codsecao, 0)                     as secao_cod'
-      '  , coalesce(s.scp_descricao, '#39'* Indefinida'#39')   as secao_desc'
-      '  , coalesce(p.codfabricante, 0)     as fabricante_cod'
-      '  , coalesce(f.nome, '#39'* Indefinido'#39') as fabricante_nome'
-      '  , p.especificacao'
-      
-        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), trim(u.unp' +
-        '_descricao)) from 1 for 3) as und_compra'
-      ''
-      '  , p.percentual_marckup'
-      '  , p.percentual_margem'
-      '  , p.compor_faturamento'
-      '  , p.produto_novo'
-      '  , p.movimenta_estoque'
-      '  , p.cadastro_ativo'
-      ''
-      '  , p.estoqmin as estoque_vnd_minimo'
-      '  , p.qtde     as estoque_vnd'
-      '  , p.customedio as custo_vnv_unitario'
-      '  , p.preco      as venda_vnv_unitario'
-      '  , p.qtde * p.customedio as custo_vnv_total'
-      '  , p.qtde * p.preco      as venda_vnv_total'
-      ''
-      '  , coalesce(xx.apropriacao_qtde, 0.0)  as estoque_apr'
-      '  , coalesce(xx.apropriacao_custo, 0.0) as custo_apr_total'
-      ''
-      '  , coalesce(yy.compras_qtde, 0.0)  as estoque_cmp'
-      
-        '  , cast( coalesce(yy.compras_custo, 0.0) as DMN_MONEY_4 ) as cu' +
-        'sto_cmp_total'
-      'from TBPRODUTO p'
-      ''
-      '  left join ('
-      '    Select'
-      '        pe.empresa'
-      '      , pe.produto'
-      '      , sum(pe.qtde / pe.fracionador) as apropriacao_qtde'
-      '      , sum(pe.qtde * pe.custo_medio) as apropriacao_custo'
-      '    from TBESTOQUE_ALMOX pe'
-      '    group by'
-      '        pe.empresa'
-      '      , pe.produto'
-      '  ) xx on (xx.empresa = p.codemp and xx.produto = p.cod)'
-      ''
-      '  left join ('
-      '    Select'
-      '        ci.codemp  as empresa'
-      '      , ci.codprod as produto'
-      '      , sum(ci.qtde) as compras_qtde'
-      '      , sum(ci.qtde * ci.customedio) as compras_custo'
-      '    from TBCOMPRAS cc'
-      
-        '      inner join TBCOMPRASITENS ci on (cc.ano = ci.ano and cc.co' +
-        'dcontrol = ci.codcontrol and cc.codemp = ci.codemp)'
-      '    where cc.ano = :ano'
-      '      and cc.status <> 3 -- Cancelada'
-      '    group by'
-      '        ci.codemp'
-      '      , ci.codprod'
-      '  ) yy on (yy.empresa = p.codemp and yy.produto = p.cod)'
-      ''
-      
-        '  left join TBEMPRESA e on (e.cnpj = coalesce(xx.empresa, yy.emp' +
-        'resa, p.codemp))'
-      ''
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      '  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)'
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)')
-    Left = 32
-    Top = 48
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'ano'
-        ParamType = ptUnknown
-      end>
   end
   object DspDemandaEstoqueProduto: TDataSetProvider
     DataSet = QryDemandaEstoqueProduto
@@ -1513,7 +1394,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
     Top = 48
   end
   object FrDemandaEstoqueProduto: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1563,6 +1444,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       item
         Name = 'SubTitulo'
         Value = #39#39
+      end
+      item
+        Name = 'SistemaCodigo'
+        Value = '0'
       end>
     Style = <>
     object Data: TfrxDataPage
@@ -1578,8 +1463,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -1593,6 +1480,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo] [SubTitulo]')
           ParentFont = False
@@ -1606,6 +1494,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -1619,12 +1508,14 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -1639,6 +1530,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -1659,6 +1551,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -1677,6 +1570,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -1705,6 +1599,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
@@ -1714,6 +1609,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 555.590910000000000000
         Width = 1046.929810000000000000
@@ -1742,6 +1638,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -1769,6 +1666,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpHeaderEmpresa: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 204.094620000000000000
         Width = 1046.929810000000000000
@@ -1818,6 +1716,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 328.819110000000000000
         Width = 1046.929810000000000000
@@ -1838,6 +1737,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -1845,6 +1745,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsDemandaEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.##'#39',<FrdsDemandaEstoqueProduto."ESTOQUE_VND">)]' +
@@ -1865,6 +1766,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -1872,6 +1774,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsDemandaEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsDemandaEstoqueProduto."COD"]')
           ParentFont = False
@@ -1891,6 +1794,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -1898,6 +1802,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsDemandaEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsDemandaEstoqueProduto."DESCRI_APRESENTACAO"]')
           ParentFont = False
@@ -1917,6 +1822,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -1924,6 +1830,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsDemandaEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsDemandaEstoqueProduto."REFERENCIA"]')
           ParentFont = False
@@ -1943,6 +1850,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -1950,6 +1858,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsDemandaEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsDemandaEstoqueProduto."FABRICANTE_NOME"]')
           ParentFont = False
@@ -1970,6 +1879,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haCenter
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -1977,6 +1887,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsDemandaEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FrdsDemandaEstoqueProduto."UND_COMPRA"]')
           ParentFont = False
@@ -1997,6 +1908,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -2004,6 +1916,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsDemandaEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsDemandaEstoqueProduto."CUSTO_VNV_TOTAL' +
@@ -2026,6 +1939,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -2033,6 +1947,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsDemandaEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.##'#39',<FrdsDemandaEstoqueProduto."ESTOQUE_APR">)]' +
@@ -2055,6 +1970,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -2062,6 +1978,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsDemandaEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsDemandaEstoqueProduto."CUSTO_APR_TOTAL' +
@@ -2084,6 +2001,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -2091,6 +2009,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsDemandaEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.##'#39',<FrdsDemandaEstoqueProduto."ESTOQUE_CMP">)]' +
@@ -2113,6 +2032,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -9
@@ -2120,6 +2040,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '(<FrdsDemandaEstoqueProduto."ESTOQUE_VND"> <= 0)'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsDemandaEstoqueProduto."CUSTO_CMP_TOTAL' +
@@ -2131,6 +2052,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpFooterEmpresa: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 415.748300000000000000
         Width = 1046.929810000000000000
@@ -2214,6 +2136,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpHeaderGrupo: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 249.448980000000000000
         Width = 1046.929810000000000000
@@ -2552,6 +2475,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpFooterGrupo: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 370.393940000000000000
         Width = 1046.929810000000000000
@@ -2635,6 +2559,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 34.015770000000000000
         Top = 498.897960000000000000
         Width = 1046.929810000000000000
@@ -2647,6 +2572,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' * Produto(s) sem estoque para apropria'#231#227'o')
@@ -2833,5 +2759,166 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
     ProviderName = 'DspEmpresas'
     Left = 480
     Top = 112
+  end
+  object QryRelacaoEstoqueProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    coalesce(xx.empresa, p.codemp) as empresa_cnpj'
+      '  , e.rzsoc  as empresa_razao'
+      '  , p.cod'
+      '  , p.descri'
+      '  , p.apresentacao'
+      '  , p.descri_apresentacao'
+      '  , p.modelo'
+      '  , p.referencia'
+      '  , p.anvisa'
+      '  , coalesce(p.codgrupo, 0) as grupo_cod'
+      '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
+      '  , coalesce(p.codsecao, 0)                     as secao_cod'
+      '  , coalesce(s.scp_descricao, '#39'* Indefinida'#39')   as secao_desc'
+      '  , coalesce(p.codfabricante, 0)     as fabricante_cod'
+      '  , coalesce(f.nome, '#39'* Indefinido'#39') as fabricante_nome'
+      '  , p.especificacao'
+      
+        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), trim(u.unp' +
+        '_descricao)) from 1 for 3) as und_compra'
+      ''
+      '  , p.percentual_marckup'
+      '  , p.percentual_margem'
+      '  , p.compor_faturamento'
+      '  , p.produto_novo'
+      '  , p.movimenta_estoque'
+      '  , p.cadastro_ativo'
+      ''
+      '  , p.estoqmin as estoque_vnd_minimo'
+      '  , p.qtde     as estoque_vnd'
+      '  , p.customedio as custo_vnv_unitario'
+      '  , p.preco      as venda_vnv_unitario'
+      '  , p.qtde * p.customedio as custo_vnv_total'
+      '  , p.qtde * p.preco      as venda_vnv_total'
+      ''
+      '  , coalesce(xx.apropriacao_qtde, 0.0)  as estoque_apr'
+      '  , coalesce(xx.apropriacao_custo, 0.0) as custo_apr_total'
+      'from TBPRODUTO p'
+      '  left join ('
+      '    Select'
+      '        pe.empresa'
+      '      , pe.produto'
+      '      , sum(pe.qtde / pe.fracionador) as apropriacao_qtde'
+      '      , sum(pe.qtde * pe.custo_medio) as apropriacao_custo'
+      '    from TBESTOQUE_ALMOX pe'
+      '    group by'
+      '        pe.empresa'
+      '      , pe.produto'
+      '  ) xx on (xx.empresa = p.codemp and xx.produto = p.cod)'
+      
+        '  left join TBEMPRESA e on (e.cnpj = coalesce(xx.empresa, p.code' +
+        'mp))'
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      '  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)'
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
+      '')
+    Left = 32
+    Top = 8
+  end
+  object QryDemandaEstoqueProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    coalesce(xx.empresa, p.codemp) as empresa_cnpj'
+      '  , e.rzsoc  as empresa_razao'
+      '  , p.cod'
+      '  , p.descri'
+      '  , p.apresentacao'
+      '  , p.descri_apresentacao'
+      '  , p.modelo'
+      '  , p.referencia'
+      '  , p.anvisa'
+      '  , coalesce(p.codgrupo, 0) as grupo_cod'
+      '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
+      '  , coalesce(p.codsecao, 0)                     as secao_cod'
+      '  , coalesce(s.scp_descricao, '#39'* Indefinida'#39')   as secao_desc'
+      '  , coalesce(p.codfabricante, 0)     as fabricante_cod'
+      '  , coalesce(f.nome, '#39'* Indefinido'#39') as fabricante_nome'
+      '  , p.especificacao'
+      
+        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), trim(u.unp' +
+        '_descricao)) from 1 for 3) as und_compra'
+      ''
+      '  , p.percentual_marckup'
+      '  , p.percentual_margem'
+      '  , p.compor_faturamento'
+      '  , p.produto_novo'
+      '  , p.movimenta_estoque'
+      '  , p.cadastro_ativo'
+      ''
+      '  , p.estoqmin as estoque_vnd_minimo'
+      '  , p.qtde     as estoque_vnd'
+      '  , p.customedio as custo_vnv_unitario'
+      '  , p.preco      as venda_vnv_unitario'
+      '  , p.qtde * p.customedio as custo_vnv_total'
+      '  , p.qtde * p.preco      as venda_vnv_total'
+      ''
+      '  , coalesce(xx.apropriacao_qtde, 0.0)  as estoque_apr'
+      '  , coalesce(xx.apropriacao_custo, 0.0) as custo_apr_total'
+      ''
+      '  , coalesce(yy.compras_qtde, 0.0)  as estoque_cmp'
+      
+        '  , cast( coalesce(yy.compras_custo, 0.0) as DMN_MONEY_4 ) as cu' +
+        'sto_cmp_total'
+      'from TBPRODUTO p'
+      ''
+      '  left join ('
+      '    Select'
+      '        pe.empresa'
+      '      , pe.produto'
+      '      , sum(pe.qtde / pe.fracionador) as apropriacao_qtde'
+      '      , sum(pe.qtde * pe.custo_medio) as apropriacao_custo'
+      '    from TBESTOQUE_ALMOX pe'
+      '    group by'
+      '        pe.empresa'
+      '      , pe.produto'
+      '  ) xx on (xx.empresa = p.codemp and xx.produto = p.cod)'
+      ''
+      '  left join ('
+      '    Select'
+      '        ci.codemp  as empresa'
+      '      , ci.codprod as produto'
+      '      , sum(ci.qtde) as compras_qtde'
+      '      , sum(ci.qtde * ci.customedio) as compras_custo'
+      '    from TBCOMPRAS cc'
+      
+        '      inner join TBCOMPRASITENS ci on (cc.ano = ci.ano and cc.co' +
+        'dcontrol = ci.codcontrol and cc.codemp = ci.codemp)'
+      '    where cc.ano = :ano'
+      '      and cc.status <> 3 -- Cancelada'
+      '    group by'
+      '        ci.codemp'
+      '      , ci.codprod'
+      '  ) yy on (yy.empresa = p.codemp and yy.produto = p.cod)'
+      ''
+      
+        '  left join TBEMPRESA e on (e.cnpj = coalesce(xx.empresa, yy.emp' +
+        'resa, p.codemp))'
+      ''
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      '  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)'
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)')
+    Left = 32
+    Top = 48
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end>
   end
 end

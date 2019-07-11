@@ -844,10 +844,10 @@ begin
     frm.lblAliquotaTipo.Enabled := False;
     frm.dbAliquotaTipo.Enabled  := False;
 
-    whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
+    whr := '(p.arquivo_morto = 0) and (p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota)) + ')';
 
     if frm.chkProdutoComEstoque.Checked then
-      whr := whr + ' and p.Qtde > 0';
+      whr := whr + ' and (p.Qtde > 0)';
 
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 

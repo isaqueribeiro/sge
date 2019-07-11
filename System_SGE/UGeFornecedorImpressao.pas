@@ -6,8 +6,7 @@ uses
   UGrPadraoImpressao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls,
-  Buttons, ComCtrls, frxClass, DB, IBCustomDataSet, IBQuery,
+  Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls, Buttons, ComCtrls, frxClass, DB,
   DBClient, Provider, frxDBSet, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons,
 
@@ -16,12 +15,12 @@ uses
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeFornecedorImpressao = class(TfrmGrPadraoImpressao)
     frRelacaoFornecedor: TfrxReport;
-    QryRelacaoFornecedor: TIBQuery;
     FrdsRelacaoFornecedor: TfrxDBDataset;
     DspRelacaoFornecedor: TDataSetProvider;
     CdsRelacaoFornecedor: TClientDataSet;
@@ -33,12 +32,13 @@ type
     CdsCidades: TClientDataSet;
     frRelacaoFornecedorCidade: TfrxReport;
     frRelacaoClienteCredito: TfrxReport;
-    QryRelacaoClienteCredito: TIBQuery;
     DspRelacaoClienteCredito: TDataSetProvider;
     CdsRelacaoClienteCredito: TClientDataSet;
     FrdsRelacaoClienteCredito: TfrxDBDataset;
     frFichaFornecedor: TfrxReport;
     fdQryCidades: TFDQuery;
+    QryRelacaoFornecedor: TFDQuery;
+    QryRelacaoClienteCredito: TFDQuery;
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);

@@ -7,8 +7,7 @@ uses
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls, Vcl.Mask, JvExMask, JvToolEdit,
-  Buttons, ComCtrls, frxClass, frxDBSet, DBClient, Provider, DB,
-  IBCustomDataSet, IBQuery, cxGraphics, cxLookAndFeels,
+  Buttons, ComCtrls, frxClass, frxDBSet, DBClient, Provider, DB, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
@@ -16,12 +15,12 @@ uses
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeProdutoImpressao = class(TfrmGrPadraoImpressao)
     frRelacaoProduto: TfrxReport;
-    QryRelacaoProduto: TIBQuery;
     DspRelacaoProduto: TDataSetProvider;
     CdsRelacaoProduto: TClientDataSet;
     FrdsRelacaoProduto: TfrxDBDataset;
@@ -36,7 +35,6 @@ type
     DspFabricante: TDataSetProvider;
     CdsFabricante: TClientDataSet;
     frDemandaProduto: TfrxReport;
-    QryDemandaProduto: TIBQuery;
     DspDemandaProduto: TDataSetProvider;
     CdsDemandaProduto: TClientDataSet;
     FrdsDemandaProduto: TfrxDBDataset;
@@ -48,7 +46,6 @@ type
     edEmpresa: TComboBox;
     ckSemEstoqueVenda: TCheckBox;
     frExtratoMovimentoProduto_IND: TfrxReport;
-    QryExtratoMovimentoProduto: TIBQuery;
     DspExtratoMovimentoProduto: TDataSetProvider;
     CdsExtratoMovimentoProduto: TClientDataSet;
     FrdsExtratoMovimentoProduto: TfrxDBDataset;
@@ -61,6 +58,9 @@ type
     fdQryAno: TFDQuery;
     fdQryFabricante: TFDQuery;
     fdQryGrupo: TFDQuery;
+    QryRelacaoProduto: TFDQuery;
+    QryDemandaProduto: TFDQuery;
+    QryExtratoMovimentoProduto: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -251,7 +251,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoProduto );
-      SQL.Add('where 1=1');
+      SQL.Add('where (p.arquivo_morto = 0)');
 
       Case edTipoRegistro.ItemIndex of
         1:
@@ -432,7 +432,8 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_DemandaProduto );
-      SQL.Add('where p.ano = ' + edAno.Text);
+      SQL.Add('where (p.arquivo_morto = 0)');
+      SQL.Add('  and (p.ano = ' + edAno.Text + ')');
 
       Case edTipoRegistro.ItemIndex of
         1:
@@ -476,7 +477,7 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_ExtratoMovimentoProduto );
-      SQL.Add('where 1 = 1');
+      SQL.Add('where (p.arquivo_morto = 0)');
 
       if ( edGrupo.ItemIndex > 0 ) then
         SQL.Add('  and p.grupo_cod = ' + IntToStr(IGrupo[edGrupo.ItemIndex]));

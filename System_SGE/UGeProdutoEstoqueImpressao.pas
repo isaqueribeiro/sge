@@ -6,17 +6,16 @@ uses
   UGrPadraoImpressao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, StdCtrls, dxGDIPlusClasses, ExtCtrls,
-  cxButtons, ComCtrls, DBClient, Provider, DB, IBCustomDataSet,
-  IBQuery, frxClass, frxDBSet,
+  Dialogs, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, StdCtrls, dxGDIPlusClasses, ExtCtrls,
+  cxButtons, ComCtrls, DBClient, Provider, DB, frxClass, frxDBSet,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeProdutoEstoqueImpressao = class(TfrmGrPadraoImpressao)
@@ -27,11 +26,9 @@ type
     lblFabricante: TLabel;
     edFabricante: TComboBox;
     FrRelacaoEstoqueProduto: TfrxReport;
-    QryRelacaoEstoqueProduto: TIBQuery;
     DspRelacaoEstoqueProduto: TDataSetProvider;
     CdsRelacaoEstoqueProduto: TClientDataSet;
     FrdsRelacaoEstoqueProduto: TfrxDBDataset;
-    QryDemandaEstoqueProduto: TIBQuery;
     DspDemandaEstoqueProduto: TDataSetProvider;
     CdsDemandaEstoqueProduto: TClientDataSet;
     FrdsDemandaEstoqueProduto: TfrxDBDataset;
@@ -52,6 +49,8 @@ type
     DspEmpresas: TDataSetProvider;
     CdsEmpresas: TClientDataSet;
     ckComEstoqueVenda: TCheckBox;
+    QryRelacaoEstoqueProduto: TFDQuery;
+    QryDemandaEstoqueProduto: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
@@ -272,7 +271,8 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_DemandaEstoqueProduto );
-      SQL.Add('where p.aliquota_tipo = 0');
+      SQL.Add('where (p.arquivo_morto = 0)');
+      SQL.Add('  and (p.aliquota_tipo = 0)');
 
       if ( edGrupo.ItemIndex > 0 ) then
         SQL.Add('  and p.codgrupo = ' + IntToStr(IGrupo[edGrupo.ItemIndex]));
@@ -327,7 +327,8 @@ begin
     begin
       SQL.Clear;
       SQL.AddStrings( FSQL_RelacaoEstoqueProduto );
-      SQL.Add('where p.aliquota_tipo = 0');
+      SQL.Add('where (p.arquivo_morto = 0)');
+      SQL.Add('  and (p.aliquota_tipo = 0)');
 
       if ( edGrupo.ItemIndex > 0 ) then
         SQL.Add('  and p.codgrupo = ' + IntToStr(IGrupo[edGrupo.ItemIndex]));

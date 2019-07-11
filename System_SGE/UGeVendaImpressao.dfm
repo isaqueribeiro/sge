@@ -3,7 +3,6 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
   Top = 279
   Caption = 'Relat'#243'rio de Vendas'
   ClientHeight = 320
-  ExplicitWidth = 555
   ExplicitHeight = 349
   PixelsPerInch = 96
   TextHeight = 13
@@ -302,7 +301,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 8
   end
   object frRelacaoVendaSintetico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -373,8 +372,10 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -388,6 +389,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -401,6 +403,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -417,6 +420,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -434,6 +438,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -454,6 +459,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -472,6 +478,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -500,6 +507,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
@@ -516,6 +524,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das vendas:')
           ParentFont = False
@@ -531,6 +540,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -547,6 +557,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -555,6 +566,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
@@ -583,6 +595,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -610,6 +623,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpHeaderVend: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -871,6 +885,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -1050,6 +1065,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpFooterVend: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -1194,6 +1210,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -1529,7 +1546,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 40
   end
   object frRelacaoVendaAnalitico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1609,8 +1626,10 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -1624,6 +1643,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -1637,6 +1657,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -1653,6 +1674,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -1670,6 +1692,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -1690,6 +1713,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -1708,6 +1732,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -1736,6 +1761,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
@@ -1752,6 +1778,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das vendas:')
           ParentFont = False
@@ -1767,6 +1794,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -1783,6 +1811,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -1791,6 +1820,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
@@ -1819,6 +1849,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -1846,6 +1877,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpHeaderVend: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165354330710000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -1891,6 +1923,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -1918,6 +1951,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoVendaAnalitico."STATUS">=5'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorComissao>)] ')
           ParentFont = False
@@ -1945,6 +1979,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoVendaAnalitico."STATUS">=<StatusVendaCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoVendaAnalitico."VENDA_BRUTA">)]' +
@@ -1974,6 +2009,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoVendaAnalitico."STATUS">=5'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoVendaAnalitico."VENDA_DESCONTOS' +
@@ -2003,6 +2039,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoVendaAnalitico."STATUS">=5'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoVendaAnalitico."VENDA_LIQUIDO">' +
@@ -2030,6 +2067,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoVendaAnalitico."STATUS">=<StatusVendaCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FrdsRelacaoVendaAnalitico."ANO"]/[FormatFloat('#39'0000000'#39',<FrdsR' +
@@ -2058,6 +2096,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoVendaAnalitico."STATUS">=<StatusVendaCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoVendaAnalitico."DTVEN' +
@@ -2086,6 +2125,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoVendaAnalitico."STATUS">=<StatusVendaCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoVendaAnalitico."NFE">>0,FormatFloat('#39'0000000'#39',' +
@@ -2115,6 +2155,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoVendaAnalitico."STATUS">=<StatusVendaCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoVendaAnalitico."CLIENTE_TIPO">=1,FormatMaskTex' +
@@ -2145,6 +2186,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoVendaAnalitico."STATUS">=<StatusVendaCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoVendaAnalitico."CLIENTE_NOME"]')
           ParentFont = False
@@ -2154,6 +2196,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpFooterVend: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165354330710000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -2259,6 +2302,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 94.488250000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -2480,6 +2524,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -2490,6 +2535,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpHeaderComp: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -2793,6 +2839,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpFooterComp: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -3033,7 +3080,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 40
   end
   object frRelacaoVendaComparativo: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3109,8 +3156,10 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -3124,6 +3173,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -3137,6 +3187,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -3153,6 +3204,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -3170,6 +3222,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -3190,6 +3243,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -3208,6 +3262,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -3236,6 +3291,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
@@ -3252,6 +3308,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das vendas:')
           ParentFont = False
@@ -3267,6 +3324,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Periodo] ')
           ParentFont = False
@@ -3282,6 +3340,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -3290,6 +3349,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 408.189240000000000000
         Width = 1046.929810000000000000
@@ -3318,6 +3378,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -3345,6 +3406,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 112.000000000000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -3601,7 +3663,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     end
   end
   object frRelacaoVendaClienteSintetico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3676,8 +3738,10 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -3691,6 +3755,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -3704,6 +3769,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -3720,6 +3786,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -3737,6 +3804,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -3757,6 +3825,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -3775,6 +3844,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -3803,6 +3873,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
@@ -3819,6 +3890,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das vendas:')
           ParentFont = False
@@ -3834,6 +3906,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -3850,6 +3923,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -3858,6 +3932,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
@@ -3886,6 +3961,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -3913,6 +3989,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpHeaderVend: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -4179,6 +4256,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -4358,6 +4436,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpFooterVend: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -4502,6 +4581,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -4826,7 +4906,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 112
   end
   object frRelacaoVendaClienteAnalitico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -4906,8 +4986,10 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -4921,6 +5003,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -4934,6 +5017,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -4950,6 +5034,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -4967,6 +5052,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -4987,6 +5073,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -5005,6 +5092,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -5033,6 +5121,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
@@ -5049,6 +5138,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das vendas:')
           ParentFont = False
@@ -5064,6 +5154,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -5080,6 +5171,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -5088,6 +5180,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
@@ -5116,6 +5209,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -5143,6 +5237,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpHeaderVend: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -5193,6 +5288,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -5222,6 +5318,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             '<FrdsRelacaoVendaClienteAnalitico."STATUS">=<StatusVendaCancelad' +
             'a>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorComissao>)] ')
           ParentFont = False
@@ -5251,6 +5348,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             '<FrdsRelacaoVendaClienteAnalitico."STATUS">=<StatusVendaCancelad' +
             'a>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoVendaClienteAnalitico."VENDA_BR' +
@@ -5282,6 +5380,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             '<FrdsRelacaoVendaClienteAnalitico."STATUS">=<StatusVendaCancelad' +
             'a>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoVendaClienteAnalitico."VENDA_DE' +
@@ -5313,6 +5412,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             '<FrdsRelacaoVendaClienteAnalitico."STATUS">=<StatusVendaCancelad' +
             'a>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoVendaClienteAnalitico."VENDA_LI' +
@@ -5342,6 +5442,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             '<FrdsRelacaoVendaClienteAnalitico."STATUS">=<StatusVendaCancelad' +
             'a>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FrdsRelacaoVendaClienteAnalitico."ANO"]/[FormatFloat('#39'0000000'#39 +
@@ -5372,6 +5473,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             '<FrdsRelacaoVendaClienteAnalitico."STATUS">=<StatusVendaCancelad' +
             'a>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoVendaClienteAnalitico' +
@@ -5402,6 +5504,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             '<FrdsRelacaoVendaClienteAnalitico."STATUS">=<StatusVendaCancelad' +
             'a>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoVendaClienteAnalitico."NFE">>0,FormatFloat('#39'00' +
@@ -5434,6 +5537,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             '<FrdsRelacaoVendaClienteAnalitico."STATUS">=<StatusVendaCancelad' +
             'a>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatMaskText('#39'###.###.###-##;0;'#39',<FrdsRelacaoVendaClienteAna' +
@@ -5464,6 +5568,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             '<FrdsRelacaoVendaClienteAnalitico."STATUS">=<StatusVendaCancelad' +
             'a>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoVendaClienteAnalitico."VENDEDOR_NOME"]')
           ParentFont = False
@@ -5473,6 +5578,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpFooterVend: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165354330710000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -5578,6 +5684,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 94.488250000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -5799,6 +5906,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -5809,6 +5917,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpHeaderComp: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -6112,6 +6221,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpFooterComp: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -6351,7 +6461,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 160
   end
   object frRelacaoVendaClienteComparativo: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -6427,8 +6537,10 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -6442,6 +6554,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -6455,6 +6568,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -6471,6 +6585,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -6488,6 +6603,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -6508,6 +6624,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -6526,6 +6643,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -6554,6 +6672,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
@@ -6570,6 +6689,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das vendas:')
           ParentFont = False
@@ -6585,6 +6705,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Periodo] ')
           ParentFont = False
@@ -6600,6 +6721,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -6608,6 +6730,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 468.661720000000000000
         Width = 1046.929810000000000000
@@ -6636,6 +6759,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -6663,6 +6787,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 112.000000000000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -6915,6 +7040,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 37.795300000000000000
         Top = 408.189240000000000000
         Width = 1046.929810000000000000
@@ -6934,8 +7060,10 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndMasterDataC: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 79.370130000000000000
         Width = 718.110700000000000000
@@ -7113,6 +7241,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndHeaderCompetencia: TfrxHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 37.795300000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -7336,6 +7465,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object Footer1: TfrxFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 120.944960000000000000
         Width = 718.110700000000000000
@@ -7591,7 +7721,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 72
   end
   object frRelacaoVendaRotaEntrega: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -7668,8 +7798,10 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 139.842610000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -7684,6 +7816,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -7697,6 +7830,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -7713,6 +7847,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -7730,6 +7865,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -7750,6 +7886,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -7768,6 +7905,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -7795,6 +7933,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -7813,6 +7952,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -7825,6 +7965,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 487.559370000000000000
         Width = 1046.929810000000000000
@@ -7853,6 +7994,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -7880,6 +8022,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpHeaderCidade: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000010000
         Top = 219.212740000000000000
         Width = 1046.929810000000000000
@@ -8177,6 +8320,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 298.582870000000000000
         Width = 1046.929810000000000000
@@ -8438,6 +8582,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpFooterCidade: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 340.157700000000000000
         Width = 1046.929810000000000000
@@ -8505,6 +8650,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 37.795300000000000000
         Top = 427.086890000000000000
         Visible = False
@@ -8668,7 +8814,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 8
   end
   object frRelacaoVendaCfopSintetico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -8733,8 +8879,10 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -8748,6 +8896,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -8761,6 +8910,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -8777,6 +8927,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -8794,6 +8945,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -8814,6 +8966,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -8832,6 +8985,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -8858,6 +9012,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das vendas:')
           ParentFont = False
@@ -8873,6 +9028,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -8889,6 +9045,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -8906,6 +9063,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -8918,6 +9076,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 566.929500000000000000
         Width = 718.110700000000000000
@@ -8946,6 +9105,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -8973,6 +9133,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpHeaderEmpresa: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -9189,6 +9350,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -9323,6 +9485,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpFooterEmpresa: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Visible = False
@@ -9410,6 +9573,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 102.047310000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -9739,7 +9903,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 248
   end
   object frComissaoVendedorSintetico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -9812,8 +9976,10 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -9827,6 +9993,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -9840,6 +10007,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -9860,6 +10028,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das vendas:')
           ParentFont = False
@@ -9875,6 +10044,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -9891,6 +10061,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -9908,6 +10079,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
@@ -9926,6 +10098,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -9947,6 +10120,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
@@ -9966,6 +10140,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -9989,6 +10164,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -10002,6 +10178,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 616.063390000000000000
         Width = 718.110700000000000000
@@ -10030,6 +10207,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -10057,6 +10235,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpHeaderVend: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -10102,6 +10281,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 718.110700000000000000
@@ -10299,6 +10479,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpFooterVend: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 445.984540000000000000
         Width = 718.110700000000000000
@@ -10343,6 +10524,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 60.472480000000000000
         Top = 532.913730000000000000
         Width = 718.110700000000000000
@@ -10473,6 +10655,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpHeaderCmp: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000010000
         Top = 279.685220000000000000
         Width = 718.110700000000000000
@@ -10752,6 +10935,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
       object BndGrpFooterCmp: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 718.110700000000000000

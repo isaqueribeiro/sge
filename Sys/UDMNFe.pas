@@ -3076,14 +3076,14 @@ begin
                 end
                 else
                 begin
-                  vBC    := qryDadosProduto.FieldByName('PFINAL').AsCurrency;
+                  vBC    := qryDadosProduto.FieldByName('PFINAL').AsCurrency * Prod.qCom;
                   qUnid  := Prod.qCom;
                   vUnid  := qryDadosProduto.FieldByName('PFINAL').AsCurrency;
-                  pIPI   := qryDadosProduto.FieldByName('VALOR_IPI').AsCurrency / qryDadosProduto.FieldByName('PFINAL').AsCurrency * 100;
+                  pIPI   := qryDadosProduto.FieldByName('VALOR_IPI').AsCurrency / IPI.vBC * 100;
                   vIPI   := IPI.vBC * IPI.pIPI / 100;
                 end;
 
-                cTotal_vIPI := cTotal_vIPI + (Prod.qCom * IPI.vIPI);
+                cTotal_vIPI := cTotal_vIPI + IPI.vIPI;
               end;
             end;
 
@@ -4709,14 +4709,14 @@ begin
                 end
                 else
                 begin
-                  vBC    := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency;
+                  vBC    := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency * Prod.qCom;
                   qUnid  := Prod.qCom;
                   vUnid  := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency;
-                  pIPI   := qryEntradaDadosProduto.FieldByName('VALOR_IPI').AsCurrency / qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency * 100;
+                  pIPI   := qryEntradaDadosProduto.FieldByName('VALOR_IPI').AsCurrency / IPI.vBC * 100;
                   vIPI   := IPI.vBC * IPI.pIPI / 100;
                 end;
 
-                cTotal_vIPI := cTotal_vIPI + (Prod.qCom * IPI.vIPI);
+                cTotal_vIPI := cTotal_vIPI + IPI.vIPI;
               end;
             end;
 
