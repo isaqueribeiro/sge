@@ -26,7 +26,7 @@ type
     lblEspecificacao: TLabel;
     dbEspecificacao: TDBMemo;
     GrpBxParametros: TGroupBox;
-    dbCustoOperacional: TDBCheckBox;
+    dbAlteraCustoEntrada: TDBCheckBox;
     DspCST: TDataSetProvider;
     CdsCST: TClientDataSet;
     DtsCST: TDataSource;
@@ -64,6 +64,8 @@ type
     fdQryTabelaCFOP_CST_PADRAO_SAIDA: TStringField;
     fdQryTabelaCFOP_GERAR_TITULO: TSmallintField;
     fdQryTabelaCFOP_GERAR_DUPLICATA: TSmallintField;
+    fdQryTabelaCFOP_ALTERA_ESTOQUE_PRODUTO: TSmallintField;
+    dbAlteraEstoqueEntradaSaida: TDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnAlterarClick(Sender: TObject);

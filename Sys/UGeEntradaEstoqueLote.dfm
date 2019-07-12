@@ -571,6 +571,39 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
     TabOrder = 3
     OnClick = btnFecharClick
   end
+  object pnlDicaFormaPagto: TPanel
+    Left = 4
+    Top = 361
+    Width = 512
+    Height = 32
+    Anchors = [akLeft, akRight, akBottom]
+    BevelOuter = bvNone
+    TabOrder = 4
+    object lblDicaFormaPagto: TLabel
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 506
+      Height = 26
+      Align = alClient
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 
+        'Esta lista '#233' composta apenas por produtos que est'#227'o marcados par' +
+        'a movimenta'#231#227'o de estoque em seu cadastro e quando associados a ' +
+        'CFOP que permitam esse movimento.'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      WordWrap = True
+      ExplicitLeft = 0
+      ExplicitTop = 1
+      ExplicitWidth = 545
+    end
+  end
   object fdQryCompraItens: TFDQuery
     BeforePost = fdQryCompraItensBeforePost
     AfterScroll = fdQryCompraItensAfterScroll
@@ -597,10 +630,15 @@ inherited frmGeEntradaEstoqueLote: TfrmGeEntradaEstoqueLote
       '   , ci.lote_data_val'
       'from TBCOMPRASITENS ci'
       
+        '  inner join TBCOMPRAS cp on (cp.ano = ci.ano and cp.codcontrol ' +
+        '= ci.codcontrol and cp.codemp = ci.codemp)'
+      
         '  inner join TBPRODUTO pr on (pr.cod = ci.codprod and pr.estoque' +
-        '_aprop_lote = 1)'
+        '_aprop_lote = 1 and pr.movimenta_estoque = 1)'
+      '  left join TBCFOP cf on (cf.cfop_cod = cp.nfcfop)'
       'where ci.ano        = :ano'
       '  and ci.codcontrol = :compra'
+      '  and (coalesce(cf.cfop_altera_estoque_produto, 1) = 1)'
       'order by'
       '     ci.seq')
     Left = 112

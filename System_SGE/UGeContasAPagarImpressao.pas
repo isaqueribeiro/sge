@@ -6,9 +6,8 @@ uses
   UGrPadraoImpressao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls, Buttons, ComCtrls, Mask,
-  frxClass, frxDBSet, DBClient, Provider, DB, IBCustomDataSet, IBQuery, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit,
+  Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls, Buttons, ComCtrls, Mask, frxClass, frxDBSet, DBClient,
+  Provider, DB, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit,
   cxControls, cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxDropDownEdit,
   cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox,
 
@@ -18,7 +17,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black,
   dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeContasAPagarImpressao = class(TfrmGrPadraoImpressao)
@@ -26,11 +26,9 @@ type
     lblSituacao: TLabel;
     edSituacao: TComboBox;
     frRelacaoAPagarVSintetico: TfrxReport;
-    QryRelacaoAPagarVSintetico: TIBQuery;
     DspRelacaoAPagarVSintetico: TDataSetProvider;
     CdsRelacaoAPagarVSintetico: TClientDataSet;
     FrdsRelacaoAPagarVSintetico: TfrxDBDataset;
-    QryRelacaoAPagarVAnalitico: TIBQuery;
     DspRelacaoAPagarVAnalitico: TDataSetProvider;
     CdsRelacaoAPagarVAnalitico: TClientDataSet;
     FrdsRelacaoAPagarVAnalitico: TfrxDBDataset;
@@ -43,13 +41,11 @@ type
     DspFornecedor: TDataSetProvider;
     CdsFornecedor: TClientDataSet;
     frRelacaoAPagarESintetico: TfrxReport;
-    QryRelacaoAPagarESintetico: TIBQuery;
     DspRelacaoAPagarESintetico: TDataSetProvider;
     CdsRelacaoAPagarESintetico: TClientDataSet;
     FrdsRelacaoAPagarESintetico: TfrxDBDataset;
     frRelacaoAPagarEAnalitico: TfrxReport;
     frRelacaoAPagarBSintetico: TfrxReport;
-    QryRelacaoAPagarBSintetico: TIBQuery;
     DspRelacaoAPagarBSintetico: TDataSetProvider;
     CdsRelacaoAPagarBSintetico: TClientDataSet;
     FrdsRelacaoAPagarBSintetico: TfrxDBDataset;
@@ -58,7 +54,6 @@ type
     frRelacaoAPagarTPDespesaAnalitico: TfrxReport;
     dbDespesaParticular: TCheckBox;
     frRelacaoAPagarVFornecedor: TfrxReport;
-    QryRelacaoAPagarVFornecedor: TIBQuery;
     DspRelacaoAPagarVFornecedor: TDataSetProvider;
     CdsRelacaoAPagarVFornecedor: TClientDataSet;
     FrdsRelacaoAPagarVFornecedor: TfrxDBDataset;
@@ -66,7 +61,6 @@ type
     edEmpresa: TComboBox;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
-    QryRelacaoAPagarTPDespesaFornecedor: TIBQuery;
     DspRelacaoAPagarTPDespesaFornecedor: TDataSetProvider;
     CdsRelacaoAPagarTPDespesaFornecedor: TClientDataSet;
     FrdsRelacaoAPagarTPDespesaFornecedor: TfrxDBDataset;
@@ -83,6 +77,12 @@ type
     frRelacaoExtratoFornVAnalitico: TfrxReport;
     dtsFornecedor: TDataSource;
     edFornecedor: TcxLookupComboBox;
+    QryRelacaoAPagarVSintetico: TFDQuery;
+    QryRelacaoAPagarVAnalitico: TFDQuery;
+    QryRelacaoAPagarVFornecedor: TFDQuery;
+    QryRelacaoAPagarESintetico: TFDQuery;
+    QryRelacaoAPagarBSintetico: TFDQuery;
+    QryRelacaoAPagarTPDespesaFornecedor: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);

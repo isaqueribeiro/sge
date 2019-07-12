@@ -3,6 +3,7 @@
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Nova configuração na CFOF que gerencia movimentação do estoque dos produtos.
 - Ajustes na emissão de NF-e.
 - Ajustes com cálculo do valor de IPI na emissão da NF-e.
 - Atualização no processo de Inutilização de números de NF-e.
@@ -29,6 +30,7 @@
 #url8=http://www.drhtransparencia.com.br/agil/upgrade/db/01002300.sql
 #url9=http://www.drhtransparencia.com.br/agil/upgrade/db/01002400.sql
 #url10=http://www.drhtransparencia.com.br/agil/upgrade/db/01002500.sql
+#url11=http://www.drhtransparencia.com.br/agil/upgrade/db/01002600.sql
 
 #method=0 (self-upgrade)
 

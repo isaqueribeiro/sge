@@ -6,8 +6,7 @@ uses
   UGrPadraoImpressao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls,
-  Buttons, ComCtrls, DBClient, Provider, DB, IBCustomDataSet, IBQuery, frxClass,
+  Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls, Buttons, ComCtrls, DBClient, Provider, DB, frxClass,
   frxDBSet, Mask, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
   JvExMask, JvToolEdit,
 
@@ -24,7 +23,6 @@ type
     DpsCidades: TDataSetProvider;
     CdsCidades: TClientDataSet;
     frRelacaoVendaSintetico: TfrxReport;
-    QryRelacaoVendaSintetico: TIBQuery;
     DspRelacaoVendaSintetico: TDataSetProvider;
     CdsRelacaoVendaSintetico: TClientDataSet;
     FrdsRelacaoVendaSintetico: TfrxDBDataset;
@@ -38,25 +36,21 @@ type
     DspVendedores: TDataSetProvider;
     CdsVendedores: TClientDataSet;
     frRelacaoVendaAnalitico: TfrxReport;
-    QryRelacaoVendaAnalitico: TIBQuery;
     DspRelacaoVendaAnalitico: TDataSetProvider;
     CdsRelacaoVendaAnalitico: TClientDataSet;
     FrdsRelacaoVendaAnalitico: TfrxDBDataset;
     frRelacaoVendaComparativo: TfrxReport;
     frRelacaoVendaClienteSintetico: TfrxReport;
-    QryRelacaoVendaClienteSintetico: TIBQuery;
     DspRelacaoVendaClienteSintetico: TDataSetProvider;
     CdsRelacaoVendaClienteSintetico: TClientDataSet;
     FrdsRelacaoVendaClienteSintetico: TfrxDBDataset;
     frRelacaoVendaClienteAnalitico: TfrxReport;
-    QryRelacaoVendaClienteAnalitico: TIBQuery;
     DspRelacaoVendaClienteAnalitico: TDataSetProvider;
     CdsRelacaoVendaClienteAnalitico: TClientDataSet;
     FrdsRelacaoVendaClienteAnalitico: TfrxDBDataset;
     lblCliente: TLabel;
     edCliente: TComboBox;
     frRelacaoVendaClienteComparativo: TfrxReport;
-    QryVendaCompetencia: TIBQuery;
     DspVendaCompetencia: TDataSetProvider;
     CdsVendaCompetencia: TClientDataSet;
     FrdsVendaCompetencia: TfrxDBDataset;
@@ -68,12 +62,10 @@ type
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
     frRelacaoVendaRotaEntrega: TfrxReport;
-    QryRelacaoVendaRotaEntrega: TIBQuery;
     DspRelacaoVendaRotaEntrega: TDataSetProvider;
     CdsRelacaoVendaRotaEntrega: TClientDataSet;
     FrdsRelacaoVendaRotaEntrega: TfrxDBDataset;
     frRelacaoVendaCfopSintetico: TfrxReport;
-    QryRelacaoVendaCfopSintetico: TIBQuery;
     DspRelacaoVendaCfopSintetico: TDataSetProvider;
     CdsRelacaoVendaCfopSintetico: TClientDataSet;
     FrdsRelacaoVendaCfopSintetico: TfrxDBDataset;
@@ -84,7 +76,14 @@ type
     fdQryComissaoVendedorSintetico: TFDQuery;
     fdQryEmpresas: TFDQuery;
     fdQryVendedores: TFDQuery;
-    fdQryCidades: TFDQuery;    procedure FormCreate(Sender: TObject);
+    fdQryCidades: TFDQuery;
+    QryRelacaoVendaSintetico: TFDQuery;
+    QryRelacaoVendaRotaEntrega: TFDQuery;
+    QryRelacaoVendaAnalitico: TFDQuery;
+    QryVendaCompetencia: TFDQuery;
+    QryRelacaoVendaClienteSintetico: TFDQuery;
+    QryRelacaoVendaClienteAnalitico: TFDQuery;
+    QryRelacaoVendaCfopSintetico: TFDQuery;    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);

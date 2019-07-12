@@ -265,9 +265,9 @@ inherited frmSplash: TfrmSplash
     Transparent = True
   end
   object lblVersion: TLabel
-    Left = 531
+    Left = 532
     Top = 8
-    Width = 71
+    Width = 70
     Height = 13
     Alignment = taRightJustify
     Caption = 'Vers'#227'o 0.0.0.0'
@@ -398,13 +398,13 @@ inherited frmSplash: TfrmSplash
     Left = 239
     Top = 139
     Width = 48
-    Height = 37
+    Height = 36
     Caption = 'SGE'
     Font.Charset = ANSI_CHARSET
     Font.Color = clGreen
-    Font.Height = -27
-    Font.Name = 'Segoe UI'
-    Font.Style = [fsBold]
+    Font.Height = -32
+    Font.Name = 'Bauhaus 93'
+    Font.Style = []
     ParentFont = False
     IsControl = True
   end
@@ -412,7 +412,7 @@ inherited frmSplash: TfrmSplash
     Left = 239
     Top = 174
     Width = 359
-    Height = 134
+    Height = 24
     Anchors = [akLeft, akTop, akRight]
     Caption = 
       'Estamos descobrindo maneiras melhores de desenvolver software, f' +

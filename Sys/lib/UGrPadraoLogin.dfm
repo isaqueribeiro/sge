@@ -41,13 +41,13 @@ inherited frmGrPadraoLogin: TfrmGrPadraoLogin
   object lblSystemDescription: TLabel
     Left = 104
     Top = 59
-    Width = 124
-    Height = 19
+    Width = 135
+    Height = 18
     Caption = 'System Description'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
-    Font.Name = 'Calibri'
+    Font.Name = 'Bauhaus 93'
     Font.Style = []
     ParentFont = False
     Transparent = True
@@ -313,8 +313,8 @@ inherited frmGrPadraoLogin: TfrmGrPadraoLogin
     Style.Font.Charset = ANSI_CHARSET
     Style.Font.Color = clWindowText
     Style.Font.Height = -48
-    Style.Font.Name = 'Calibri'
-    Style.Font.Style = [fsBold]
+    Style.Font.Name = 'Bauhaus 93'
+    Style.Font.Style = []
     Style.Shadow = False
     Style.TransparentBorder = False
     Style.IsFontAssigned = True

@@ -110,6 +110,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 743
       ExplicitHeight = 434
       inherited Bevel8: TBevel
@@ -754,11 +756,11 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           object chkImprimirCodReferencia: TDBCheckBox
             Left = 16
             Top = 291
-            Width = 377
+            Width = 644
             Height = 17
             Caption = 
-              'Imprimir "C'#243'digo Externo" como C'#243'digo do Produto no DANFE da NF-' +
-              'e'
+              'Imprimir "C'#243'digo Externo" e/ou "Refer'#234'ncia Fornecedor/Cliente" c' +
+              'omo C'#243'digo do Produto no DANFE da NF-e'
             DataField = 'NFE_IMPRIMIR_COD_REFERENCIA'
             DataSource = DtSrcTabela
             Font.Charset = ANSI_CHARSET
@@ -1429,7 +1431,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     Left = 336
     Top = 0
     Bitmap = {
-      494C01012B002C00640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2889,7 +2891,6 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
-    Active = True
     OnNewRecord = fdQryTabelaNewRecord
     SQL.Strings = (
       'Select'
@@ -3427,7 +3428,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     Left = 712
     Top = 8
     Bitmap = {
-      494C010102000800180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101020008001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -417,13 +417,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -466,53 +467,11 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
           VAlign = vaCenter
         end
-        object Memo11: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 56.692950000000000000
-          Width = 464.882190000000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Frame.Typ = []
-          Memo.UTF8W = (
-            
-              '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
-              'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
-              'frdEmpresa."EST_SIGLA"] CEP.: [FormatMaskText('#39'##.###-###;0;'#39',<f' +
-              'rdEmpresa."CEP">)]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Line1: TfrxLineView
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
-        end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 464.882190000000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Frame.Typ = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
         end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
@@ -561,6 +520,51 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo11: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 56.692950000000000000
+          Width = 411.968770000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
+              'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
+              'frdEmpresa."EST_SIGLA"] CEP.: [FormatMaskText('#39'##.###-###;0;'#39',<f' +
+              'rdEmpresa."CEP">)]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 574.488560000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
       end
@@ -1429,73 +1433,6 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
     end
   end
-  object QryRelacaoVendaSintetico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    v.competencia'
-      '  , m.cmp_desc     as competencia_desc'
-      '  , coalesce(vi.codvendedor, v.vendedor_cod) as vendedor_cod'
-      '  , d.nome as vendedor_nome'
-      '  , d.cpf  as vendedor_cpf'
-      '  , d.comissao'
-      '  , sum( vi.total_bruto )           as venda_bruta'
-      '  , sum( vi.total_desconto )        as venda_descontos'
-      '  , sum( vi.total_liquido )         as venda_liquido'
-      '  , sum( (vi.qtde * p.customedio) ) as venda_custo'
-      '  , sum( vi.total_comissao )        as venda_comissao'
-      ''
-      
-        '  , sum( case when v.status = 5 then vi.total_bruto else 0 end )' +
-        '           as venda_bruta_cancel'
-      
-        '  , sum( case when v.status = 5 then vi.total_desconto else 0 en' +
-        'd )        as venda_descontos_cancel'
-      
-        '  , sum( case when v.status = 5 then vi.total_liquido else 0 end' +
-        ' )         as venda_liquido_cancel'
-      
-        '  , sum( case when v.status = 5 then (vi.qtde * p.customedio) el' +
-        'se 0 end ) as venda_custo_cancel'
-      
-        '  , sum( case when v.status = 5 then vi.total_comissao else 0 en' +
-        'd )        as venda_comissao_cancel'
-      'from TBVENDAS v'
-      
-        '  inner join TVENDASITENS vi on (vi.ano = v.ano and vi.codcontro' +
-        'l = v.codcontrol)'
-      '  inner join TBPRODUTO p on (p.cod = vi.codprod)'
-      '  left join TBCLIENTE c on (c.codigo = v.codcliente)'
-      '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
-      
-        '  left join TBVENDEDOR d on (d.cod = coalesce(vi.codvendedor, v.' +
-        'vendedor_cod))'
-      '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
-      ''
-      '/*'
-      'where v.codemp = '#39'17429064000105'#39
-      '  and v.status > 1 -- 1. Em andamento'
-      ''
-      'group by'
-      '    v.competencia'
-      '  , m.cmp_desc'
-      '  , coalesce(vi.codvendedor, v.vendedor_cod)'
-      '  , d.nome'
-      '  , d.cpf'
-      '  , d.comissao'
-      ''
-      'order by'
-      '    d.nome'
-      '  , v.competencia'
-      '*/'
-      '')
-    Left = 40
-    Top = 8
-  end
   object DspRelacaoVendaSintetico: TDataSetProvider
     DataSet = QryRelacaoVendaSintetico
     Left = 72
@@ -1671,13 +1608,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -1720,53 +1658,11 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
           VAlign = vaCenter
         end
-        object Memo11: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 56.692950000000000000
-          Width = 464.882190000000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Frame.Typ = []
-          Memo.UTF8W = (
-            
-              '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
-              'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
-              'frdEmpresa."EST_SIGLA"] CEP.: [FormatMaskText('#39'##.###-###;0;'#39',<f' +
-              'rdEmpresa."CEP">)]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Line1: TfrxLineView
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
-        end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 464.882190000000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Frame.Typ = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
         end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
@@ -1815,6 +1711,51 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo11: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 56.692950000000000000
+          Width = 411.968770000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
+              'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
+              'frdEmpresa."EST_SIGLA"] CEP.: [FormatMaskText('#39'##.###-###;0;'#39',<f' +
+              'rdEmpresa."CEP">)]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 574.488560000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
       end
@@ -2944,95 +2885,6 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
     end
   end
-  object QryRelacaoVendaAnalitico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    v.competencia'
-      '  , m.cmp_desc    as competencia_desc'
-      '  , coalesce(vi.codvendedor, v.vendedor_cod) as vendedor_cod'
-      '  , d.nome as vendedor_nome'
-      '  , d.cpf  as vendedor_cpf'
-      '  , d.comissao'
-      '  , v.ano'
-      '  , v.codcontrol'
-      '  , v.dtvenda'
-      '  , v.nfe'
-      '  , v.serie'
-      '  , v.status'
-      '  , c.cnpj          as cliente_cod'
-      '  , c.nome          as cliente_nome'
-      '  , c.pessoa_fisica as cliente_tipo'
-      '  , sum( vi.total_bruto )    as venda_bruta'
-      '  , sum( vi.total_desconto ) as venda_descontos'
-      '  , sum( vi.total_liquido )  as venda_liquido'
-      '  , sum( (vi.qtde * p.customedio) ) as venda_custo'
-      '  , sum( vi.total_comissao )        as venda_comissao'
-      ''
-      
-        '  , sum( case when v.status = 5 then vi.total_bruto else 0 end )' +
-        '    as venda_bruta_cancel'
-      
-        '  , sum( case when v.status = 5 then vi.total_desconto else 0 en' +
-        'd ) as venda_descontos_cancel'
-      
-        '  , sum( case when v.status = 5 then vi.total_liquido else 0 end' +
-        ' )  as venda_liquido_cancel'
-      
-        '  , sum( case when v.status = 5 then (vi.qtde * p.customedio) el' +
-        'se 0 end ) as venda_custo_cancel'
-      
-        '  , sum( case when v.status = 5 then vi.total_comissao else 0 en' +
-        'd )        as venda_comissao_cancel'
-      'from TBVENDAS v'
-      
-        '  inner join TVENDASITENS vi on (vi.ano = v.ano and vi.codcontro' +
-        'l = v.codcontrol)'
-      '  inner join TBPRODUTO p on (p.cod = vi.codprod)'
-      '  inner join TBCLIENTE c on (c.codigo = v.codcliente)'
-      
-        '  inner join TBVENDEDOR d on (d.cod = coalesce(vi.codvendedor, v' +
-        '.vendedor_cod))'
-      ''
-      '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
-      '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
-      ''
-      '/*'
-      'where v.codemp = '#39'17429064000105'#39
-      '  and v.status > 1 -- 1. Em andamento'
-      ''
-      'group by'
-      '    v.competencia'
-      '  , m.cmp_desc'
-      '  , coalesce(vi.codvendedor, v.vendedor_cod)'
-      '  , d.nome'
-      '  , d.cpf'
-      '  , d.comissao'
-      '  , v.ano'
-      '  , v.codcontrol'
-      '  , v.dtvenda'
-      '  , v.nfe'
-      '  , v.serie'
-      '  , v.status'
-      '  , c.cnpj'
-      '  , c.nome'
-      '  , c.pessoa_fisica'
-      ''
-      'order by'
-      '    d.nome'
-      '  , coalesce(vi.codvendedor, v.vendedor_cod)'
-      '  , v.competencia'
-      '  , v.dtvenda'
-      '  , c.nome'
-      '  , c.cnpj'
-      '*/')
-    Left = 40
-    Top = 40
-  end
   object DspRelacaoVendaAnalitico: TDataSetProvider
     DataSet = QryRelacaoVendaAnalitico
     Left = 72
@@ -3201,13 +3053,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -3279,25 +3132,6 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 464.882190000000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Frame.Typ = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Top = 120.944960000000000000
@@ -3344,6 +3178,28 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 574.488560000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
       end
@@ -3414,8 +3270,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         DataSetName = 'FrdsRelacaoVendaSintetico'
         RowCount = 0
         object DBCross1: TfrxDBCrossView
-          Width = 421.000000000000000000
-          Height = 112.000000000000000000
+          Width = 381.000000000000000000
+          Height = 72.000000000000000000
           CellLevels = 2
           DownThenAcross = False
           PlainCells = True
@@ -3432,8 +3288,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Memos = {
             3C3F786D6C2076657273696F6E3D22312E302220656E636F64696E673D227574
             662D3822207374616E64616C6F6E653D226E6F223F3E3C63726F73733E3C6365
-            6C6C6D656D6F733E3C546672784D656D6F56696577204C6566743D2231323322
-            20546F703D223239302C3333303836222057696474683D223730222048656967
+            6C6C6D656D6F733E3C546672784D656D6F56696577204C6566743D2231303322
+            20546F703D223237302C3333303836222057696474683D223730222048656967
             68743D22313822205265737472696374696F6E733D2232342220416C6C6F7745
             787072657373696F6E733D2246616C73652220446973706C6179466F726D6174
             2E466F726D61745374723D2225322E326E2220446973706C6179466F726D6174
@@ -3444,7 +3300,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             3D22302C312220476170583D22332220476170593D2233222048416C69676E3D
             22686152696768742220506172656E74466F6E743D2246616C7365222056416C
             69676E3D22766143656E7465722220546578743D22302C3030222F3E3C546672
-            784D656D6F56696577204C6566743D223139332220546F703D223239302C3333
+            784D656D6F56696577204C6566743D223137332220546F703D223237302C3333
             303836222057696474683D22383122204865696768743D223138222052657374
             72696374696F6E733D2232342220416C6C6F7745787072657373696F6E733D22
             46616C73652220446973706C6179466F726D61742E466F726D61745374723D22
@@ -3456,7 +3312,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             22332220476170593D2233222048416C69676E3D226861526967687422205061
             72656E74466F6E743D2246616C7365222056416C69676E3D22766143656E7465
             722220546578743D22302C3030222F3E3C546672784D656D6F56696577204C65
-            66743D223132332220546F703D223330382C3333303836222057696474683D22
+            66743D223130332220546F703D223238382C3333303836222057696474683D22
             373022204865696768743D22313822205265737472696374696F6E733D223234
             2220416C6C6F7745787072657373696F6E733D2246616C73652220446973706C
             6179466F726D61742E466F726D61745374723D2225322E326E2220446973706C
@@ -3468,7 +3324,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             31363737373230312220476170583D22332220476170593D2233222048416C69
             676E3D22686152696768742220506172656E74466F6E743D2246616C73652220
             56416C69676E3D22766143656E7465722220546578743D22302C3030222F3E3C
-            546672784D656D6F56696577204C6566743D223139332220546F703D22333038
+            546672784D656D6F56696577204C6566743D223137332220546F703D22323838
             2C3333303836222057696474683D22383122204865696768743D223138222052
             65737472696374696F6E733D2232342220416C6C6F7745787072657373696F6E
             733D2246616C73652220446973706C6179466F726D61742E466F726D61745374
@@ -3481,7 +3337,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             2220476170593D2233222048416C69676E3D2268615269676874222050617265
             6E74466F6E743D2246616C7365222056416C69676E3D22766143656E74657222
             20546578743D22302C3030222F3E3C546672784D656D6F56696577204C656674
-            3D223237342220546F703D223239302C3333303836222057696474683D223730
+            3D223235342220546F703D223237302C3333303836222057696474683D223730
             22204865696768743D22313822205265737472696374696F6E733D2232342220
             416C6C6F7745787072657373696F6E733D2246616C73652220446973706C6179
             466F726D61742E466F726D61745374723D2225322E326E2220446973706C6179
@@ -3492,8 +3348,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             22204672616D652E57696474683D22302C312220476170583D22332220476170
             593D2233222048416C69676E3D22686152696768742220506172656E74466F6E
             743D2246616C7365222056416C69676E3D22766143656E746572222054657874
-            3D22302C3030222F3E3C546672784D656D6F56696577204C6566743D22333434
-            2220546F703D223239302C3333303836222057696474683D2235372220486569
+            3D22302C3030222F3E3C546672784D656D6F56696577204C6566743D22333234
+            2220546F703D223237302C3333303836222057696474683D2235372220486569
             6768743D22313822205265737472696374696F6E733D2232342220416C6C6F77
             45787072657373696F6E733D2246616C73652220446973706C6179466F726D61
             742E466F726D61745374723D2225322E326E2220446973706C6179466F726D61
@@ -3504,8 +3360,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             6D652E57696474683D22302C312220476170583D22332220476170593D223322
             2048416C69676E3D22686152696768742220506172656E74466F6E743D224661
             6C7365222056416C69676E3D22766143656E7465722220546578743D22302C30
-            30222F3E3C546672784D656D6F56696577204C6566743D223237342220546F70
-            3D223330382C3333303836222057696474683D22373022204865696768743D22
+            30222F3E3C546672784D656D6F56696577204C6566743D223235342220546F70
+            3D223238382C3333303836222057696474683D22373022204865696768743D22
             313822205265737472696374696F6E733D2232342220416C6C6F774578707265
             7373696F6E733D2246616C73652220446973706C6179466F726D61742E466F72
             6D61745374723D2225322E326E2220446973706C6179466F726D61742E4B696E
@@ -3517,7 +3373,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             3230312220476170583D22332220476170593D2233222048416C69676E3D2268
             6152696768742220506172656E74466F6E743D2246616C7365222056416C6967
             6E3D22766143656E7465722220546578743D22302C3030222F3E3C546672784D
-            656D6F56696577204C6566743D223334342220546F703D223330382C33333038
+            656D6F56696577204C6566743D223332342220546F703D223238382C33333038
             36222057696474683D22353722204865696768743D2231382220526573747269
             6374696F6E733D2232342220416C6C6F7745787072657373696F6E733D224661
             6C73652220446973706C6179466F726D61742E466F726D61745374723D222532
@@ -3531,7 +3387,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             72656E74466F6E743D2246616C7365222056416C69676E3D22766143656E7465
             722220546578743D22302C3030222F3E3C2F63656C6C6D656D6F733E3C63656C
             6C6865616465726D656D6F733E3C546672784D656D6F56696577204C6566743D
-            223132332220546F703D223237322C3333303836222057696474683D22373022
+            223130332220546F703D223235322C3333303836222057696474683D22373022
             204865696768743D22313822205265737472696374696F6E733D22382220416C
             6C6F7745787072657373696F6E733D2246616C73652220466F6E742E43686172
             7365743D22312220466F6E742E436F6C6F723D22302220466F6E742E48656967
@@ -3541,7 +3397,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             37373230312220476170583D22332220476170593D22332220506172656E7446
             6F6E743D2246616C7365222056416C69676E3D22766143656E74657222205465
             78743D22204CC3AD717569646F202852242920222F3E3C546672784D656D6F56
-            696577204C6566743D223139332220546F703D223237322C3333303836222057
+            696577204C6566743D223137332220546F703D223235322C3333303836222057
             696474683D22383122204865696768743D22313822205265737472696374696F
             6E733D22382220416C6C6F7745787072657373696F6E733D2246616C73652220
             466F6E742E436861727365743D22312220466F6E742E436F6C6F723D22302220
@@ -3551,7 +3407,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             6C6F723D222D31363737373230312220476170583D22332220476170593D2233
             2220506172656E74466F6E743D2246616C7365222056416C69676E3D22766143
             656E7465722220546578743D2220436F6D697373C3A36F202852242920222F3E
-            3C546672784D656D6F56696577204C6566743D223237342220546F703D223237
+            3C546672784D656D6F56696577204C6566743D223235342220546F703D223235
             322C3333303836222057696474683D22373022204865696768743D2231382220
             5265737472696374696F6E733D22382220416C6C6F7745787072657373696F6E
             733D2246616C73652220466F6E742E436861727365743D22312220466F6E742E
@@ -3562,7 +3418,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             20476170583D22332220476170593D22332220506172656E74466F6E743D2246
             616C7365222056416C69676E3D22766143656E7465722220546578743D22204C
             C3AD717569646F202852242920222F3E3C546672784D656D6F56696577204C65
-            66743D223334342220546F703D223237322C3333303836222057696474683D22
+            66743D223332342220546F703D223235322C3333303836222057696474683D22
             353722204865696768743D22313822205265737472696374696F6E733D223822
             20416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E43
             6861727365743D22312220466F6E742E436F6C6F723D22313637313136383022
@@ -3573,7 +3429,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             332220506172656E74466F6E743D2246616C7365222056416C69676E3D227661
             43656E7465722220546578743D2220436F6D697373C3A36F20222F3E3C2F6365
             6C6C6865616465726D656D6F733E3C636F6C756D6E6D656D6F733E3C54667278
-            4D656D6F56696577204C6566743D223132332220546F703D223235342C333330
+            4D656D6F56696577204C6566743D223130332220546F703D223233342C333330
             3836222057696474683D2231353122204865696768743D223138222052657374
             72696374696F6E733D2232342220416C6C6F7745787072657373696F6E733D22
             46616C73652220466F6E742E436861727365743D22312220466F6E742E436F6C
@@ -3584,8 +3440,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             476170593D2233222048416C69676E3D22686143656E7465722220506172656E
             74466F6E743D2246616C7365222056416C69676E3D22766143656E7465722220
             546578743D22222F3E3C2F636F6C756D6E6D656D6F733E3C636F6C756D6E746F
-            74616C6D656D6F733E3C546672784D656D6F56696577204C6566743D22323734
-            2220546F703D223235342C3333303836222057696474683D2231323722204865
+            74616C6D656D6F733E3C546672784D656D6F56696577204C6566743D22323534
+            2220546F703D223233342C3333303836222057696474683D2231323722204865
             696768743D22313822205265737472696374696F6E733D22382220416C6C6F77
             45787072657373696F6E733D2246616C73652220466F6E742E43686172736574
             3D22312220466F6E742E436F6C6F723D2231363731313638302220466F6E742E
@@ -3596,68 +3452,68 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             69676E3D22686143656E7465722220506172656E74466F6E743D2246616C7365
             222056416C69676E3D22766143656E7465722220546578743D22544F54414C22
             2F3E3C2F636F6C756D6E746F74616C6D656D6F733E3C636F726E65726D656D6F
-            733E3C546672784D656D6F56696577204C6566743D2232302220546F703D2232
-            35342C3333303836222057696474683D2231303322204865696768743D223022
-            205265737472696374696F6E733D2238222056697369626C653D2246616C7365
-            2220416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E
-            436861727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E
-            4865696768743D222D31312220466F6E742E4E616D653D225461686F6D612220
-            466F6E742E5374796C653D223022204672616D652E5479703D22313522204761
-            70583D22332220476170593D2233222048416C69676E3D22686143656E746572
-            2220506172656E74466F6E743D2246616C7365222056416C69676E3D22766143
-            656E7465722220546578743D2256454E44415F4C49515549444F222F3E3C5466
-            72784D656D6F56696577204C6566743D223132332220546F703D223235342C33
-            33303836222057696474683D2232373822204865696768743D22302220526573
-            7472696374696F6E733D2238222056697369626C653D2246616C73652220416C
-            6C6F7745787072657373696F6E733D2246616C73652220466F6E742E43686172
-            7365743D22312220466F6E742E436F6C6F723D22302220466F6E742E48656967
-            68743D222D31312220466F6E742E4E616D653D225461686F6D612220466F6E74
-            2E5374796C653D223022204672616D652E5479703D2231352220476170583D22
-            332220476170593D2233222048416C69676E3D22686143656E74657222205061
-            72656E74466F6E743D2246616C7365222056416C69676E3D22766143656E7465
-            722220546578743D22434F4D504554454E434941222F3E3C546672784D656D6F
-            56696577204C6566743D223133362220546F703D223232222057696474683D22
-            31333122204865696768743D22323222205265737472696374696F6E733D2238
-            222056697369626C653D2246616C73652220416C6C6F7745787072657373696F
-            6E733D2246616C736522204672616D652E5479703D2231352220476170583D22
-            332220476170593D2233222048416C69676E3D22686143656E74657222205641
-            6C69676E3D22766143656E7465722220546578743D22222F3E3C546672784D65
-            6D6F56696577204C6566743D2232302220546F703D223235342C333330383622
-            2057696474683D2231303322204865696768743D223336222052657374726963
-            74696F6E733D22382220416C6C6F7745787072657373696F6E733D2246616C73
-            652220466F6E742E436861727365743D22312220466F6E742E436F6C6F723D22
-            302220466F6E742E4865696768743D222D31312220466F6E742E4E616D653D22
-            5461686F6D612220466F6E742E5374796C653D223122204672616D652E547970
-            3D22313522204672616D652E57696474683D22302C31222046696C6C2E426163
-            6B436F6C6F723D222D31363737373230312220476170583D2233222047617059
-            3D2233222048416C69676E3D22686143656E7465722220506172656E74466F6E
-            743D2246616C7365222056416C69676E3D22766143656E746572222054657874
-            3D2256656E6465646F72222F3E3C2F636F726E65726D656D6F733E3C726F776D
-            656D6F733E3C546672784D656D6F56696577204C6566743D2232302220546F70
-            3D223239302C3333303836222057696474683D2231303322204865696768743D
-            22313822205265737472696374696F6E733D2232342220416C6C6F7745787072
-            657373696F6E733D2246616C73652220466F6E742E436861727365743D223122
-            20466F6E742E436F6C6F723D22302220466F6E742E4865696768743D222D3131
-            2220466F6E742E4E616D653D225461686F6D612220466F6E742E5374796C653D
-            223022204672616D652E5479703D22313522204672616D652E57696474683D22
-            302C312220476170583D22332220476170593D22332220506172656E74466F6E
-            743D2246616C7365222056416C69676E3D22766143656E746572222054657874
-            3D22222F3E3C2F726F776D656D6F733E3C726F77746F74616C6D656D6F733E3C
-            546672784D656D6F56696577204C6566743D2232302220546F703D223330382C
-            3333303836222057696474683D2231303322204865696768743D223138222052
-            65737472696374696F6E733D22382220416C6C6F7745787072657373696F6E73
-            3D2246616C73652220466F6E742E436861727365743D22312220466F6E742E43
-            6F6C6F723D22302220466F6E742E4865696768743D222D31312220466F6E742E
-            4E616D653D225461686F6D612220466F6E742E5374796C653D22312220467261
-            6D652E5479703D22313522204672616D652E57696474683D22302C3122204669
-            6C6C2E4261636B436F6C6F723D222D31363737373230312220476170583D2233
+            733E3C546672784D656D6F56696577204C6566743D22302220546F703D223233
+            342C3333303836222057696474683D2231303322204865696768743D22302220
+            5265737472696374696F6E733D2238222056697369626C653D2246616C736522
+            20416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E43
+            6861727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E48
+            65696768743D222D31312220466F6E742E4E616D653D225461686F6D61222046
+            6F6E742E5374796C653D223022204672616D652E5479703D2231352220476170
+            583D22332220476170593D2233222048416C69676E3D22686143656E74657222
+            20506172656E74466F6E743D2246616C7365222056416C69676E3D2276614365
+            6E7465722220546578743D2256454E44415F4C49515549444F222F3E3C546672
+            784D656D6F56696577204C6566743D223130332220546F703D223233342C3333
+            303836222057696474683D2232373822204865696768743D2230222052657374
+            72696374696F6E733D2238222056697369626C653D2246616C73652220416C6C
+            6F7745787072657373696F6E733D2246616C73652220466F6E742E4368617273
+            65743D22312220466F6E742E436F6C6F723D22302220466F6E742E4865696768
+            743D222D31312220466F6E742E4E616D653D225461686F6D612220466F6E742E
+            5374796C653D223022204672616D652E5479703D2231352220476170583D2233
             2220476170593D2233222048416C69676E3D22686143656E7465722220506172
             656E74466F6E743D2246616C7365222056416C69676E3D22766143656E746572
-            2220546578743D22544F54414C222F3E3C2F726F77746F74616C6D656D6F733E
-            3C63656C6C66756E6374696F6E733E3C6974656D20312F3E3C6974656D20312F
-            3E3C2F63656C6C66756E6374696F6E733E3C636F6C756D6E736F72743E3C6974
-            656D20302F3E3C2F636F6C756D6E736F72743E3C726F77736F72743E3C697465
-            6D20302F3E3C2F726F77736F72743E3C2F63726F73733E}
+            2220546578743D22434F4D504554454E434941222F3E3C546672784D656D6F56
+            696577204C6566743D223133362220546F703D223232222057696474683D2231
+            333122204865696768743D22323222205265737472696374696F6E733D223822
+            2056697369626C653D2246616C73652220416C6C6F7745787072657373696F6E
+            733D2246616C736522204672616D652E5479703D2231352220476170583D2233
+            2220476170593D2233222048416C69676E3D22686143656E746572222056416C
+            69676E3D22766143656E7465722220546578743D22222F3E3C546672784D656D
+            6F56696577204C6566743D22302220546F703D223233342C3333303836222057
+            696474683D2231303322204865696768743D2233362220526573747269637469
+            6F6E733D22382220416C6C6F7745787072657373696F6E733D2246616C736522
+            20466F6E742E436861727365743D22312220466F6E742E436F6C6F723D223022
+            20466F6E742E4865696768743D222D31312220466F6E742E4E616D653D225461
+            686F6D612220466F6E742E5374796C653D223122204672616D652E5479703D22
+            313522204672616D652E57696474683D22302C31222046696C6C2E4261636B43
+            6F6C6F723D222D31363737373230312220476170583D22332220476170593D22
+            33222048416C69676E3D22686143656E7465722220506172656E74466F6E743D
+            2246616C7365222056416C69676E3D22766143656E7465722220546578743D22
+            56656E6465646F72222F3E3C2F636F726E65726D656D6F733E3C726F776D656D
+            6F733E3C546672784D656D6F56696577204C6566743D22302220546F703D2232
+            37302C3333303836222057696474683D2231303322204865696768743D223138
+            22205265737472696374696F6E733D2232342220416C6C6F7745787072657373
+            696F6E733D2246616C73652220466F6E742E436861727365743D22312220466F
+            6E742E436F6C6F723D22302220466F6E742E4865696768743D222D3131222046
+            6F6E742E4E616D653D225461686F6D612220466F6E742E5374796C653D223022
+            204672616D652E5479703D22313522204672616D652E57696474683D22302C31
+            2220476170583D22332220476170593D22332220506172656E74466F6E743D22
+            46616C7365222056416C69676E3D22766143656E7465722220546578743D2222
+            2F3E3C2F726F776D656D6F733E3C726F77746F74616C6D656D6F733E3C546672
+            784D656D6F56696577204C6566743D22302220546F703D223238382C33333038
+            36222057696474683D2231303322204865696768743D22313822205265737472
+            696374696F6E733D22382220416C6C6F7745787072657373696F6E733D224661
+            6C73652220466F6E742E436861727365743D22312220466F6E742E436F6C6F72
+            3D22302220466F6E742E4865696768743D222D31312220466F6E742E4E616D65
+            3D225461686F6D612220466F6E742E5374796C653D223122204672616D652E54
+            79703D22313522204672616D652E57696474683D22302C31222046696C6C2E42
+            61636B436F6C6F723D222D31363737373230312220476170583D223322204761
+            70593D2233222048416C69676E3D22686143656E7465722220506172656E7446
+            6F6E743D2246616C7365222056416C69676E3D22766143656E74657222205465
+            78743D22544F54414C222F3E3C2F726F77746F74616C6D656D6F733E3C63656C
+            6C66756E6374696F6E733E3C6974656D20312F3E3C6974656D20312F3E3C2F63
+            656C6C66756E6374696F6E733E3C636F6C756D6E736F72743E3C6974656D2030
+            2F3E3C2F636F6C756D6E736F72743E3C726F77736F72743E3C6974656D20302F
+            3E3C2F726F77736F72743E3C2F63726F73733E}
         end
       end
     end
@@ -3783,13 +3639,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -3861,25 +3718,6 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 464.882190000000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Frame.Typ = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Top = 120.944960000000000000
@@ -3927,6 +3765,28 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 574.488560000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
       end
@@ -4800,74 +4660,6 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
     end
   end
-  object QryRelacaoVendaClienteSintetico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    v.competencia'
-      '  , m.cmp_desc    as competencia_desc'
-      '  , v.codcli as cliente_cod'
-      '  , trim(c.nome)   as cliente_nome'
-      '  , c.cnpj   as cliente_cpf_cnpj'
-      '  , c.pessoa_fisica as cliente_pf'
-      ''
-      '  , sum( vi.total_bruto )    as venda_bruta'
-      '  , sum( vi.total_desconto ) as venda_descontos'
-      '  , sum( vi.total_liquido )  as venda_liquido'
-      '  , sum( (vi.qtde * p.customedio) ) as venda_custo'
-      '  , sum( vi.total_comissao )        as venda_comissao'
-      ''
-      
-        '  , sum( case when v.status = 5 then vi.total_bruto else 0 end )' +
-        '    as venda_bruta_cancel'
-      
-        '  , sum( case when v.status = 5 then vi.total_desconto else 0 en' +
-        'd ) as venda_descontos_cancel'
-      
-        '  , sum( case when v.status = 5 then vi.total_liquido else 0 end' +
-        ' )  as venda_liquido_cancel'
-      
-        '  , sum( case when v.status = 5 then (vi.qtde * p.customedio) el' +
-        'se 0 end ) as venda_custo_cancel'
-      
-        '  , sum( case when v.status = 5 then vi.total_comissao else 0 en' +
-        'd )        as venda_comissao_cancel'
-      'from TBVENDAS v'
-      
-        '  inner join TVENDASITENS vi on (vi.ano = v.ano and vi.codcontro' +
-        'l = v.codcontrol)'
-      '  inner join TBPRODUTO p on (p.cod = vi.codprod)'
-      '  left join TBCLIENTE c on (c.codigo = v.codcliente)'
-      '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
-      '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
-      
-        '  left join TBVENDEDOR d on (d.cod = coalesce(vi.codvendedor, v.' +
-        'vendedor_cod))'
-      ''
-      '/*'
-      'where v.codemp = '#39'17429064000105'#39
-      '  and v.status > 1 -- 1. Em andamento'
-      ''
-      'group by'
-      '    v.competencia'
-      '  , m.cmp_desc'
-      '  , v.codcli'
-      '  , c.nome'
-      '  , c.cnpj'
-      '  , c.pessoa_fisica'
-      ''
-      'order by'
-      '    c.nome'
-      '  , c.cnpj'
-      '  , v.competencia'
-      '*/')
-    Left = 39
-    Top = 112
-  end
   object DspRelacaoVendaClienteSintetico: TDataSetProvider
     DataSet = QryRelacaoVendaClienteSintetico
     Left = 72
@@ -5031,13 +4823,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -5109,25 +4902,6 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 464.882190000000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Frame.Typ = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Top = 120.944960000000000000
@@ -5175,6 +4949,28 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 574.488560000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
       end
@@ -6326,94 +6122,6 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
     end
   end
-  object QryRelacaoVendaClienteAnalitico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    v.competencia'
-      '  , m.cmp_desc    as competencia_desc'
-      '  , coalesce(vi.codvendedor, v.vendedor_cod) as vendedor_cod'
-      '  , d.nome as vendedor_nome'
-      '  , d.cpf  as vendedor_cpf'
-      '  , d.comissao'
-      '  , v.ano'
-      '  , v.codcontrol'
-      '  , v.dtvenda'
-      '  , v.nfe'
-      '  , v.serie'
-      '  , v.status'
-      '  , c.cnpj          as cliente_cod'
-      '  , c.nome          as cliente_nome'
-      '  , c.pessoa_fisica as cliente_pf'
-      ''
-      '  , sum( vi.total_bruto )    as venda_bruta'
-      '  , sum( vi.total_desconto ) as venda_descontos'
-      '  , sum( vi.total_liquido )  as venda_liquido'
-      '  , sum( (vi.qtde * p.customedio) ) as venda_custo'
-      '  , sum( vi.total_comissao )        as venda_comissao'
-      ''
-      
-        '  , sum( case when v.status = 5 then vi.total_bruto else 0 end )' +
-        '    as venda_bruta_cancel'
-      
-        '  , sum( case when v.status = 5 then vi.total_desconto else 0 en' +
-        'd ) as venda_descontos_cancel'
-      
-        '  , sum( case when v.status = 5 then vi.total_liquido else 0 end' +
-        ' )  as venda_liquido_cancel'
-      
-        '  , sum( case when v.status = 5 then (vi.qtde * p.customedio) el' +
-        'se 0 end ) as venda_custo_cancel'
-      
-        '  , sum( case when v.status = 5 then vi.total_comissao else 0 en' +
-        'd )        as venda_comissao_cancel'
-      'from TBVENDAS v'
-      
-        '  inner join TVENDASITENS vi on (vi.ano = v.ano and vi.codcontro' +
-        'l = v.codcontrol)'
-      '  inner join TBPRODUTO p on (p.cod = vi.codprod)'
-      '  inner join TBCLIENTE c on (c.codigo = v.codcliente)'
-      
-        '  inner join TBVENDEDOR d on (d.cod = coalesce(vi.codvendedor, v' +
-        '.vendedor_cod))'
-      ''
-      '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
-      '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
-      ''
-      '/*'
-      'where v.codemp = '#39'17429064000105'#39
-      '  and v.status > 1 -- 1. Em andamento'
-      ''
-      'group by'
-      '    v.competencia'
-      '  , m.cmp_desc'
-      '  , coalesce(vi.codvendedor, v.vendedor_cod)'
-      '  , d.nome'
-      '  , d.cpf'
-      '  , d.comissao'
-      '  , v.ano'
-      '  , v.codcontrol'
-      '  , v.dtvenda'
-      '  , v.nfe'
-      '  , v.serie'
-      '  , v.status'
-      '  , c.cnpj'
-      '  , c.nome'
-      '  , c.pessoa_fisica'
-      ''
-      'order by'
-      '    c.nome'
-      '  , c.cnpj'
-      '  , v.competencia'
-      '  , v.dtvenda'
-      '*/')
-    Left = 40
-    Top = 160
-  end
   object DspRelacaoVendaClienteAnalitico: TDataSetProvider
     DataSet = QryRelacaoVendaClienteAnalitico
     Left = 72
@@ -6582,13 +6290,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -6631,53 +6340,11 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
           VAlign = vaCenter
         end
-        object Memo11: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 56.692950000000000000
-          Width = 464.882190000000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Frame.Typ = []
-          Memo.UTF8W = (
-            
-              '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
-              'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
-              'frdEmpresa."EST_SIGLA"] CEP.: [FormatMaskText('#39'##.###-###;0;'#39',<f' +
-              'rdEmpresa."CEP">)]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Line1: TfrxLineView
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
-        end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 464.882190000000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Frame.Typ = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
         end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
@@ -6725,6 +6392,51 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
+          VAlign = vaCenter
+        end
+        object Memo11: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 56.692950000000000000
+          Width = 411.968770000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
+              'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
+              'frdEmpresa."EST_SIGLA"] CEP.: [FormatMaskText('#39'##.###-###;0;'#39',<f' +
+              'rdEmpresa."CEP">)]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 574.488560000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
       end
@@ -6795,8 +6507,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         DataSetName = 'FrdsRelacaoVendaClienteSintetico'
         RowCount = 0
         object DBCross1: TfrxDBCrossView
-          Width = 374.000000000000000000
-          Height = 112.000000000000000000
+          Width = 334.000000000000000000
+          Height = 72.000000000000000000
           DownThenAcross = False
           PlainCells = True
           RowLevels = 2
@@ -6813,8 +6525,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Memos = {
             3C3F786D6C2076657273696F6E3D22312E302220656E636F64696E673D227574
             662D3822207374616E64616C6F6E653D226E6F223F3E3C63726F73733E3C6365
-            6C6C6D656D6F733E3C546672784D656D6F56696577204C6566743D2232313922
-            20546F703D223237322C3333303836222057696474683D223935222048656967
+            6C6C6D656D6F733E3C546672784D656D6F56696577204C6566743D2231393922
+            20546F703D223235322C3333303836222057696474683D223935222048656967
             68743D22313822205265737472696374696F6E733D2232342220416C6C6F7745
             787072657373696F6E733D2246616C73652220446973706C6179466F726D6174
             2E466F726D61745374723D2225322E326E2220446973706C6179466F726D6174
@@ -6825,7 +6537,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             3D22302C312220476170583D22332220476170593D2233222048416C69676E3D
             22686152696768742220506172656E74466F6E743D2246616C7365222056416C
             69676E3D22766143656E7465722220546578743D22302C3030222F3E3C546672
-            784D656D6F56696577204C6566743D223231392220546F703D223239302C3333
+            784D656D6F56696577204C6566743D223139392220546F703D223237302C3333
             303836222057696474683D22393522204865696768743D223138222052657374
             72696374696F6E733D2232342220416C6C6F7745787072657373696F6E733D22
             46616C73652220446973706C6179466F726D61742E466F726D61745374723D22
@@ -6838,7 +6550,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             583D22332220476170593D2233222048416C69676E3D22686152696768742220
             506172656E74466F6E743D2246616C7365222056416C69676E3D22766143656E
             7465722220546578743D22302C3030222F3E3C546672784D656D6F5669657720
-            4C6566743D223231392220546F703D223330382C333330383622205769647468
+            4C6566743D223139392220546F703D223238382C333330383622205769647468
             3D22393522204865696768743D22313822205265737472696374696F6E733D22
             32342220416C6C6F7745787072657373696F6E733D2246616C73652220446973
             706C6179466F726D61742E466F726D61745374723D2225322E326E2220446973
@@ -6850,7 +6562,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             2231343231313238382220476170583D22332220476170593D2233222048416C
             69676E3D22686152696768742220506172656E74466F6E743D2246616C736522
             2056416C69676E3D22766143656E7465722220546578743D22302C3030222F3E
-            3C546672784D656D6F56696577204C6566743D223331342220546F703D223237
+            3C546672784D656D6F56696577204C6566743D223239342220546F703D223235
             322C3333303836222057696474683D22343022204865696768743D2231382220
             5265737472696374696F6E733D2232342220416C6C6F7745787072657373696F
             6E733D2246616C73652220446973706C6179466F726D61742E466F726D617453
@@ -6863,7 +6575,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             2220476170593D2233222048416C69676E3D2268615269676874222050617265
             6E74466F6E743D2246616C7365222056416C69676E3D22766143656E74657222
             20546578743D22302C3030222F3E3C546672784D656D6F56696577204C656674
-            3D223331342220546F703D223239302C3333303836222057696474683D223430
+            3D223239342220546F703D223237302C3333303836222057696474683D223430
             22204865696768743D22313822205265737472696374696F6E733D2232342220
             416C6C6F7745787072657373696F6E733D2246616C73652220446973706C6179
             466F726D61742E466F726D61745374723D2225322E326E2220446973706C6179
@@ -6875,8 +6587,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             6F723D222D31363737373230312220476170583D22332220476170593D223322
             2048416C69676E3D22686152696768742220506172656E74466F6E743D224661
             6C7365222056416C69676E3D22766143656E7465722220546578743D22302C30
-            30222F3E3C546672784D656D6F56696577204C6566743D223331342220546F70
-            3D223330382C3333303836222057696474683D22343022204865696768743D22
+            30222F3E3C546672784D656D6F56696577204C6566743D223239342220546F70
+            3D223238382C3333303836222057696474683D22343022204865696768743D22
             313822205265737472696374696F6E733D2232342220416C6C6F774578707265
             7373696F6E733D2246616C73652220446973706C6179466F726D61742E466F72
             6D61745374723D2225322E326E2220446973706C6179466F726D61742E4B696E
@@ -6920,7 +6632,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             2220506172656E74466F6E743D2246616C7365222056416C69676E3D22766143
             656E7465722220546578743D2256454E44415F4C49515549444F222F3E3C2F63
             656C6C6865616465726D656D6F733E3C636F6C756D6E6D656D6F733E3C546672
-            784D656D6F56696577204C6566743D223231392220546F703D223235342C3333
+            784D656D6F56696577204C6566743D223139392220546F703D223233342C3333
             303836222057696474683D22393522204865696768743D223138222052657374
             72696374696F6E733D2232342220416C6C6F7745787072657373696F6E733D22
             46616C73652220466F6E742E436861727365743D22312220466F6E742E436F6C
@@ -6931,8 +6643,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             6170593D2233222048416C69676E3D22686143656E7465722220506172656E74
             466F6E743D2246616C7365222056416C69676E3D22766143656E746572222054
             6578743D22222F3E3C2F636F6C756D6E6D656D6F733E3C636F6C756D6E746F74
-            616C6D656D6F733E3C546672784D656D6F56696577204C6566743D2233313422
-            20546F703D223235342C3333303836222057696474683D223430222048656967
+            616C6D656D6F733E3C546672784D656D6F56696577204C6566743D2232393422
+            20546F703D223233342C3333303836222057696474683D223430222048656967
             68743D22313822205265737472696374696F6E733D22382220416C6C6F774578
             7072657373696F6E733D2246616C73652220466F6E742E436861727365743D22
             312220466F6E742E436F6C6F723D2231363731313638302220466F6E742E4865
@@ -6943,99 +6655,99 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             3D22686143656E7465722220506172656E74466F6E743D2246616C7365222056
             416C69676E3D22766143656E7465722220546578743D22544F54414C222F3E3C
             2F636F6C756D6E746F74616C6D656D6F733E3C636F726E65726D656D6F733E3C
-            546672784D656D6F56696577204C6566743D2232302220546F703D223235342C
-            3333303836222057696474683D2231393922204865696768743D223022205265
-            737472696374696F6E733D2238222056697369626C653D2246616C7365222041
-            6C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E436861
-            727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E486569
-            6768743D222D31312220466F6E742E4E616D653D225461686F6D612220466F6E
-            742E5374796C653D223022204672616D652E5479703D2231352220476170583D
-            22332220476170593D2233222048416C69676E3D22686143656E746572222050
-            6172656E74466F6E743D2246616C7365222056416C69676E3D22766143656E74
-            65722220546578743D2256454E44415F4C49515549444F222F3E3C546672784D
-            656D6F56696577204C6566743D223231392220546F703D223235342C33333038
-            36222057696474683D2231333522204865696768743D22302220526573747269
-            6374696F6E733D2238222056697369626C653D2246616C73652220416C6C6F77
-            45787072657373696F6E733D2246616C73652220466F6E742E43686172736574
-            3D22312220466F6E742E436F6C6F723D22302220466F6E742E4865696768743D
-            222D31312220466F6E742E4E616D653D225461686F6D612220466F6E742E5374
-            796C653D223022204672616D652E5479703D2231352220476170583D22332220
-            476170593D2233222048416C69676E3D22686143656E7465722220506172656E
-            74466F6E743D2246616C7365222056416C69676E3D22766143656E7465722220
-            546578743D22434F4D504554454E434941222F3E3C546672784D656D6F566965
-            77204C6566743D223133362220546F703D223232222057696474683D22313331
-            22204865696768743D22323222205265737472696374696F6E733D2238222056
-            697369626C653D2246616C73652220416C6C6F7745787072657373696F6E733D
-            2246616C736522204672616D652E5479703D2231352220476170583D22332220
-            476170593D2233222048416C69676E3D22686143656E746572222056416C6967
-            6E3D22766143656E7465722220546578743D22222F3E3C546672784D656D6F56
-            696577204C6566743D2232302220546F703D223235342C333330383622205769
-            6474683D22393022204865696768743D22313822205265737472696374696F6E
-            733D22382220416C6C6F7745787072657373696F6E733D2246616C7365222046
-            6F6E742E436861727365743D22312220466F6E742E436F6C6F723D2230222046
-            6F6E742E4865696768743D222D31312220466F6E742E4E616D653D225461686F
-            6D612220466F6E742E5374796C653D223122204672616D652E5479703D223135
-            22204672616D652E57696474683D22302C31222046696C6C2E4261636B436F6C
-            6F723D2231343231313238382220476170583D22332220476170593D22332220
-            48416C69676E3D22686143656E7465722220506172656E74466F6E743D224661
-            6C7365222056416C69676E3D22766143656E7465722220546578743D22436C69
-            656E7465222F3E3C546672784D656D6F56696577204C6566743D223131302220
-            546F703D223235342C3333303836222057696474683D22313039222048656967
-            68743D22313822205265737472696374696F6E733D22382220416C6C6F774578
-            7072657373696F6E733D2246616C73652220466F6E742E436861727365743D22
-            312220466F6E742E436F6C6F723D22302220466F6E742E4865696768743D222D
-            31312220466F6E742E4E616D653D225461686F6D612220466F6E742E5374796C
-            653D223122204672616D652E5479703D22313522204672616D652E5769647468
-            3D22302C31222046696C6C2E4261636B436F6C6F723D22313432313132383822
-            20476170583D22332220476170593D2233222048416C69676E3D22686143656E
-            7465722220506172656E74466F6E743D2246616C7365222056416C69676E3D22
-            766143656E7465722220546578743D224350462F434E504A222F3E3C2F636F72
-            6E65726D656D6F733E3C726F776D656D6F733E3C546672784D656D6F56696577
-            204C6566743D2232302220546F703D223237322C333330383622205769647468
-            3D22393022204865696768743D22333622205265737472696374696F6E733D22
-            32342220416C6C6F7745787072657373696F6E733D2246616C73652220466F6E
+            546672784D656D6F56696577204C6566743D22302220546F703D223233342C33
+            33303836222057696474683D2231393922204865696768743D22302220526573
+            7472696374696F6E733D2238222056697369626C653D2246616C73652220416C
+            6C6F7745787072657373696F6E733D2246616C73652220466F6E742E43686172
+            7365743D22312220466F6E742E436F6C6F723D22302220466F6E742E48656967
+            68743D222D31312220466F6E742E4E616D653D225461686F6D612220466F6E74
+            2E5374796C653D223022204672616D652E5479703D2231352220476170583D22
+            332220476170593D2233222048416C69676E3D22686143656E74657222205061
+            72656E74466F6E743D2246616C7365222056416C69676E3D22766143656E7465
+            722220546578743D2256454E44415F4C49515549444F222F3E3C546672784D65
+            6D6F56696577204C6566743D223139392220546F703D223233342C3333303836
+            222057696474683D2231333522204865696768743D2230222052657374726963
+            74696F6E733D2238222056697369626C653D2246616C73652220416C6C6F7745
+            787072657373696F6E733D2246616C73652220466F6E742E436861727365743D
+            22312220466F6E742E436F6C6F723D22302220466F6E742E4865696768743D22
+            2D31312220466F6E742E4E616D653D225461686F6D612220466F6E742E537479
+            6C653D223022204672616D652E5479703D2231352220476170583D2233222047
+            6170593D2233222048416C69676E3D22686143656E7465722220506172656E74
+            466F6E743D2246616C7365222056416C69676E3D22766143656E746572222054
+            6578743D22434F4D504554454E434941222F3E3C546672784D656D6F56696577
+            204C6566743D223133362220546F703D223232222057696474683D2231333122
+            204865696768743D22323222205265737472696374696F6E733D223822205669
+            7369626C653D2246616C73652220416C6C6F7745787072657373696F6E733D22
+            46616C736522204672616D652E5479703D2231352220476170583D2233222047
+            6170593D2233222048416C69676E3D22686143656E746572222056416C69676E
+            3D22766143656E7465722220546578743D22222F3E3C546672784D656D6F5669
+            6577204C6566743D22302220546F703D223233342C3333303836222057696474
+            683D22393022204865696768743D22313822205265737472696374696F6E733D
+            22382220416C6C6F7745787072657373696F6E733D2246616C73652220466F6E
             742E436861727365743D22312220466F6E742E436F6C6F723D22302220466F6E
             742E4865696768743D222D31312220466F6E742E4E616D653D225461686F6D61
-            2220466F6E742E5374796C653D223022204672616D652E5479703D2231352220
-            4672616D652E57696474683D22302C312220476170583D22332220476170593D
-            22332220506172656E74466F6E743D2246616C7365222056416C69676E3D2276
-            6143656E7465722220546578743D22222F3E3C546672784D656D6F5669657720
-            4C6566743D223131302220546F703D223237322C333330383622205769647468
-            3D2231303922204865696768743D22313822205265737472696374696F6E733D
-            2232342220416C6C6F7745787072657373696F6E733D2246616C73652220466F
-            6E742E436861727365743D22312220466F6E742E436F6C6F723D22302220466F
-            6E742E4865696768743D222D31312220466F6E742E4E616D653D225461686F6D
-            612220466F6E742E5374796C653D223022204672616D652E5479703D22313522
-            204672616D652E57696474683D22302C312220476170583D2233222047617059
-            3D2233222048416C69676E3D22686143656E7465722220506172656E74466F6E
-            743D2246616C7365222056416C69676E3D22766143656E746572222054657874
-            3D22222F3E3C2F726F776D656D6F733E3C726F77746F74616C6D656D6F733E3C
-            546672784D656D6F56696577204C6566743D2232302220546F703D223330382C
-            3333303836222057696474683D2231393922204865696768743D223138222052
-            65737472696374696F6E733D22382220416C6C6F7745787072657373696F6E73
-            3D2246616C73652220466F6E742E436861727365743D22312220466F6E742E43
-            6F6C6F723D22302220466F6E742E4865696768743D222D31312220466F6E742E
-            4E616D653D225461686F6D612220466F6E742E5374796C653D22312220467261
-            6D652E5479703D22313522204672616D652E57696474683D22302C3122204669
-            6C6C2E4261636B436F6C6F723D2231343231313238382220476170583D223322
-            20476170593D2233222048416C69676E3D22686143656E746572222050617265
-            6E74466F6E743D2246616C7365222056416C69676E3D22766143656E74657222
-            20546578743D22544F54414C222F3E3C546672784D656D6F56696577204C6566
-            743D223131302220546F703D223239302C3333303836222057696474683D2231
-            303922204865696768743D22313822205265737472696374696F6E733D223822
-            20416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E43
-            6861727365743D22312220466F6E742E436F6C6F723D22313637313136383022
-            20466F6E742E4865696768743D222D31312220466F6E742E4E616D653D225461
-            686F6D612220466F6E742E5374796C653D223122204672616D652E5479703D22
-            313522204672616D652E57696474683D22302C31222046696C6C2E4261636B43
-            6F6C6F723D222D31363737373230312220476170583D22332220476170593D22
-            33222048416C69676E3D22686143656E7465722220506172656E74466F6E743D
-            2246616C7365222056416C69676E3D22766143656E7465722220546578743D22
-            546F74616C20436C69656E7465222F3E3C2F726F77746F74616C6D656D6F733E
-            3C63656C6C66756E6374696F6E733E3C6974656D20312F3E3C2F63656C6C6675
-            6E6374696F6E733E3C636F6C756D6E736F72743E3C6974656D20302F3E3C2F63
-            6F6C756D6E736F72743E3C726F77736F72743E3C6974656D20302F3E3C697465
-            6D20302F3E3C2F726F77736F72743E3C2F63726F73733E}
+            2220466F6E742E5374796C653D223122204672616D652E5479703D2231352220
+            4672616D652E57696474683D22302C31222046696C6C2E4261636B436F6C6F72
+            3D2231343231313238382220476170583D22332220476170593D223322204841
+            6C69676E3D22686143656E7465722220506172656E74466F6E743D2246616C73
+            65222056416C69676E3D22766143656E7465722220546578743D22436C69656E
+            7465222F3E3C546672784D656D6F56696577204C6566743D2239302220546F70
+            3D223233342C3333303836222057696474683D2231303922204865696768743D
+            22313822205265737472696374696F6E733D22382220416C6C6F774578707265
+            7373696F6E733D2246616C73652220466F6E742E436861727365743D22312220
+            466F6E742E436F6C6F723D22302220466F6E742E4865696768743D222D313122
+            20466F6E742E4E616D653D225461686F6D612220466F6E742E5374796C653D22
+            3122204672616D652E5479703D22313522204672616D652E57696474683D2230
+            2C31222046696C6C2E4261636B436F6C6F723D22313432313132383822204761
+            70583D22332220476170593D2233222048416C69676E3D22686143656E746572
+            2220506172656E74466F6E743D2246616C7365222056416C69676E3D22766143
+            656E7465722220546578743D224350462F434E504A222F3E3C2F636F726E6572
+            6D656D6F733E3C726F776D656D6F733E3C546672784D656D6F56696577204C65
+            66743D22302220546F703D223235322C3333303836222057696474683D223930
+            22204865696768743D22333622205265737472696374696F6E733D2232342220
+            416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E4368
+            61727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E4865
+            696768743D222D31312220466F6E742E4E616D653D225461686F6D612220466F
+            6E742E5374796C653D223022204672616D652E5479703D22313522204672616D
+            652E57696474683D22302C312220476170583D22332220476170593D22332220
+            506172656E74466F6E743D2246616C7365222056416C69676E3D22766143656E
+            7465722220546578743D22222F3E3C546672784D656D6F56696577204C656674
+            3D2239302220546F703D223235322C3333303836222057696474683D22313039
+            22204865696768743D22313822205265737472696374696F6E733D2232342220
+            416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E4368
+            61727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E4865
+            696768743D222D31312220466F6E742E4E616D653D225461686F6D612220466F
+            6E742E5374796C653D223022204672616D652E5479703D22313522204672616D
+            652E57696474683D22302C312220476170583D22332220476170593D22332220
+            48416C69676E3D22686143656E7465722220506172656E74466F6E743D224661
+            6C7365222056416C69676E3D22766143656E7465722220546578743D22222F3E
+            3C2F726F776D656D6F733E3C726F77746F74616C6D656D6F733E3C546672784D
+            656D6F56696577204C6566743D22302220546F703D223238382C333330383622
+            2057696474683D2231393922204865696768743D223138222052657374726963
+            74696F6E733D22382220416C6C6F7745787072657373696F6E733D2246616C73
+            652220466F6E742E436861727365743D22312220466F6E742E436F6C6F723D22
+            302220466F6E742E4865696768743D222D31312220466F6E742E4E616D653D22
+            5461686F6D612220466F6E742E5374796C653D223122204672616D652E547970
+            3D22313522204672616D652E57696474683D22302C31222046696C6C2E426163
+            6B436F6C6F723D2231343231313238382220476170583D22332220476170593D
+            2233222048416C69676E3D22686143656E7465722220506172656E74466F6E74
+            3D2246616C7365222056416C69676E3D22766143656E7465722220546578743D
+            22544F54414C222F3E3C546672784D656D6F56696577204C6566743D22393022
+            20546F703D223237302C3333303836222057696474683D223130392220486569
+            6768743D22313822205265737472696374696F6E733D22382220416C6C6F7745
+            787072657373696F6E733D2246616C73652220466F6E742E436861727365743D
+            22312220466F6E742E436F6C6F723D2231363731313638302220466F6E742E48
+            65696768743D222D31312220466F6E742E4E616D653D225461686F6D61222046
+            6F6E742E5374796C653D223122204672616D652E5479703D2231352220467261
+            6D652E57696474683D22302C31222046696C6C2E4261636B436F6C6F723D222D
+            31363737373230312220476170583D22332220476170593D2233222048416C69
+            676E3D22686143656E7465722220506172656E74466F6E743D2246616C736522
+            2056416C69676E3D22766143656E7465722220546578743D22546F74616C2043
+            6C69656E7465222F3E3C2F726F77746F74616C6D656D6F733E3C63656C6C6675
+            6E6374696F6E733E3C6974656D20312F3E3C2F63656C6C66756E6374696F6E73
+            3E3C636F6C756D6E736F72743E3C6974656D20302F3E3C2F636F6C756D6E736F
+            72743E3C726F77736F72743E3C6974656D20302F3E3C6974656D20302F3E3C2F
+            726F77736F72743E3C2F63726F73733E}
         end
       end
       object BndReportSummary: TfrxReportSummary
@@ -7620,60 +7332,6 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
     end
   end
-  object QryVendaCompetencia: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    v.competencia'
-      '  , m.cmp_desc as competencia_desc'
-      '  , v.competencia || '#39' - '#39' || m.cmp_desc as competencia_nro_desc'
-      '  , sum( v.totalvenda_bruta )  as venda_bruta'
-      '  , sum( v.desconto )          as venda_descontos'
-      '  , sum( v.totalvenda )        as venda_liquido'
-      '  , sum( v.totalcusto )        as venda_custo'
-      
-        '  , sum( v.totalvenda * coalesce(d.comissao, 0) / 100 )  as vend' +
-        'a_comissao'
-      ''
-      
-        '  , sum( case when v.status = 5 then v.totalvenda_bruta else 0 e' +
-        'nd )  as venda_bruta_cancel'
-      
-        '  , sum( case when v.status = 5 then v.desconto else 0 end )    ' +
-        '      as venda_descontos_cancel'
-      
-        '  , sum( case when v.status = 5 then v.totalvenda else 0 end )  ' +
-        '      as venda_liquido_cancel'
-      
-        '  , sum( case when v.status = 5 then v.totalcusto else 0 end )  ' +
-        '      as venda_custo_cancel'
-      
-        '  , sum( case when v.status = 5 then v.totalvenda * coalesce(d.c' +
-        'omissao, 0) / 100 else 0 end )  as venda_comissao_cancel'
-      'from TBVENDAS v'
-      '  left join TBCLIENTE c on (c.cnpj = v.codcli)'
-      '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
-      '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
-      '  left join TBVENDEDOR d on (d.cod = v.vendedor_cod)'
-      ''
-      '/*'
-      'where v.codemp = '#39'17429064000105'#39
-      '  and v.status > 1 -- 1. Em andamento'
-      ''
-      'group by'
-      '    v.competencia'
-      '  , m.cmp_desc'
-      ''
-      'order by'
-      '    v.competencia'
-      '*/')
-    Left = 40
-    Top = 80
-  end
   object DspVendaCompetencia: TDataSetProvider
     DataSet = QryVendaCompetencia
     Left = 72
@@ -7837,20 +7495,21 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         end
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
-          Top = 7.559059999999999000
+          Top = 7.559060000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -7893,29 +7552,6 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
           VAlign = vaCenter
         end
-        object Memo11: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 56.692949999999990000
-          Width = 464.882190000000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Frame.Typ = []
-          Memo.UTF8W = (
-            
-              '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
-              'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
-              'frdEmpresa."EST_SIGLA"] CEP.: [FormatMaskText('#39'##.###-###;0;'#39',<f' +
-              'rdEmpresa."CEP">)]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Line1: TfrxLineView
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
@@ -7940,10 +7576,33 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo11: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 56.692950000000000000
+          Width = 411.968770000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
+              'UMERO_END"], [frdEmpresa."BAI_NOME"] - [frdEmpresa."CID_NOME"]/[' +
+              'frdEmpresa."EST_SIGLA"] CEP.: [FormatMaskText('#39'##.###-###;0;'#39',<f' +
+              'rdEmpresa."CEP">)]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
         object Memo44: TfrxMemoView
           Left = 113.385900000000000000
           Top = 71.811070000000000000
-          Width = 464.882190000000000000
+          Width = 574.488560000000000000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -8659,107 +8318,6 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
     end
   end
-  object QryRelacaoVendaRotaEntrega: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    cd.cid_nome'
-      '  , cl.cid_cod'
-      '  , vn.ano'
-      '  , vn.codcontrol'
-      '  , vn.ano || '#39'/'#39' || lpad(vn.codcontrol, 7, '#39'0'#39') as controle'
-      '  , vn.nfe'
-      '  , vn.serie'
-      '  , lpad(vn.nfe, 7, '#39'0'#39') || '#39'-'#39' || vn.serie as nf'
-      '  , vn.dtvenda'
-      '  , vn.status'
-      '  , st.descricao as status_descricao'
-      '  , vn.totalvenda_bruta     as total_venda_bruta'
-      '  , vn.totalvenda           as total_venda_liquida'
-      '  , vn.totalcusto           as total_custo'
-      '  , vn.nfe_valor_total_nota as total_nota'
-      '  , vn.obs'
-      ''
-      '  , vn.codcliente    as cliente_codigo'
-      '  , cl.nome          as cliente_nome'
-      '  , vn.codcli        as cliente_cnpj'
-      '  , cl.pessoa_fisica as cliente_pf'
-      
-        '  , cl.ender || coalesce('#39', '#39' || nullif(trim(cl.numero_end), '#39#39')' +
-        ', '#39#39') || coalesce('#39' - '#39' || cl.bairro, '#39#39') as endereco_cliente'
-      
-        '  , coalesce(vn.dados_entrega, (cl.ender || coalesce('#39', '#39' || nul' +
-        'lif(trim(cl.numero_end), '#39#39'), '#39#39') || coalesce('#39' - '#39' || cl.bairro' +
-        ', '#39#39'))) as endereco_entrega'
-      '  , cl.cep'
-      '  , cl.fone'
-      '  , cl.fonecel'
-      '  , cl.fonecomerc'
-      ''
-      '  , count( vi.ano ) as itens'
-      '  , sum( vi.qtde           ) as volume'
-      '  , sum( vi.total_bruto    ) as total_bruto'
-      '  , sum( vi.total_desconto ) as total_desconto'
-      '  , sum( vi.total_liquido  ) as total_liquido'
-      '  , sum( vi.total_comissao ) as total_comissao'
-      'from TBVENDAS vn'
-      
-        '  inner join TVENDASITENS vi on (vi.ano = vn.ano and vi.codcontr' +
-        'ol = vn.codcontrol)'
-      '  inner join TBCLIENTE cl on (cl.codigo = vn.codcliente)'
-      '  inner join TBCIDADE cd on (cd.cid_cod = cl.cid_cod)'
-      '  inner join VW_STATUS_VENDA st on (st.codigo = vn.status)'
-      ''
-      'where vn.codcliente <> 1'
-      '  and (1=1)'
-      ''
-      'group by'
-      '    cd.cid_nome'
-      '  , cl.cid_cod'
-      '  , vn.ano'
-      '  , vn.codcontrol'
-      '  , vn.ano || '#39'/'#39' || lpad(vn.codcontrol, 7, '#39'0'#39')'
-      '  , vn.nfe'
-      '  , vn.serie'
-      '  , lpad(vn.nfe, 7, '#39'0'#39') || '#39'-'#39' || vn.serie'
-      '  , vn.dtvenda'
-      '  , vn.status'
-      '  , st.descricao'
-      '  , vn.totalvenda_bruta'
-      '  , vn.totalvenda'
-      '  , vn.totalcusto'
-      '  , vn.nfe_valor_total_nota'
-      '  , vn.obs'
-      ''
-      '  , vn.codcliente'
-      '  , cl.nome'
-      '  , vn.codcli'
-      '  , cl.pessoa_fisica'
-      
-        '  , cl.ender || coalesce('#39', '#39' || nullif(trim(cl.numero_end), '#39#39')' +
-        ', '#39#39') || coalesce('#39' - '#39' || cl.bairro, '#39#39')'
-      
-        '  , coalesce(vn.dados_entrega, (cl.ender || coalesce('#39', '#39' || nul' +
-        'lif(trim(cl.numero_end), '#39#39'), '#39#39') || coalesce('#39' - '#39' || cl.bairro' +
-        ', '#39#39')))'
-      '  , cl.cep'
-      '  , cl.fone'
-      '  , cl.fonecel'
-      '  , cl.fonecomerc'
-      ''
-      'order by'
-      '    cd.cid_nome'
-      '  , cl.cid_cod'
-      '  , cl.nome'
-      '  , vn.codcliente'
-      '  , vn.dtvenda')
-    Left = 208
-    Top = 8
-  end
   object DspRelacaoVendaRotaEntrega: TDataSetProvider
     DataSet = QryRelacaoVendaRotaEntrega
     Left = 240
@@ -8924,13 +8482,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -9054,7 +8613,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         object Memo44: TfrxMemoView
           Left = 113.385900000000000000
           Top = 71.811070000000000000
-          Width = 464.882190000000000000
+          Width = 574.488560000000000000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -9775,90 +9334,6 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       end
     end
   end
-  object QryRelacaoVendaCfopSintetico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    v.codemp'
-      '  , v.competencia'
-      '  , m.cmp_desc as competencia_desc'
-      '  , v.cfop'
-      '  , c.cfop_descricao'
-      '  , sum( coalesce(v.totalvenda_bruta, 0.0) ) as total_bruto'
-      
-        '  , sum( coalesce(v.desconto, 0.0) + coalesce(v.desconto_cupom, ' +
-        '0.0) ) as total_descontos'
-      '  , sum( coalesce(v.totalvenda, 0.0) )       as total_liquido'
-      
-        '  , sum( coalesce(v.nfe_valor_base_icms, 0.0) ) as nfe_valor_bas' +
-        'e_icms'
-      
-        '  , sum( coalesce(v.nfe_valor_icms, 0.0) )      as nfe_valor_icm' +
-        's'
-      
-        '  , sum( coalesce(v.nfe_valor_base_icms_subst, 0.0) ) as nfe_val' +
-        'or_base_icms_subst'
-      
-        '  , sum( coalesce(v.nfe_valor_icms_subst, 0.0) )      as nfe_val' +
-        'or_icms_subst'
-      
-        '  , sum( coalesce(v.nfe_valor_total_produto, 0.0) )   as nfe_val' +
-        'or_total_produto'
-      
-        '  , sum( coalesce(v.nfe_valor_frete, 0.0) )           as nfe_val' +
-        'or_frete'
-      
-        '  , sum( coalesce(v.nfe_valor_seguro, 0.0) )          as nfe_val' +
-        'or_seguro'
-      
-        '  , sum( coalesce(v.nfe_valor_desconto, 0.0) )        as nfe_val' +
-        'or_desconto'
-      
-        '  , sum( coalesce(v.nfe_valor_total_ii, 0.0) )        as nfe_val' +
-        'or_total_ii'
-      
-        '  , sum( coalesce(v.nfe_valor_total_ipi, 0.0) )       as nfe_val' +
-        'or_total_ipi'
-      
-        '  , sum( coalesce(v.nfe_valor_pis, 0.0) )             as nfe_val' +
-        'or_pis'
-      
-        '  , sum( coalesce(v.nfe_valor_cofins, 0.0) )          as nfe_val' +
-        'or_cofins'
-      
-        '  , sum( coalesce(v.nfe_valor_outros, 0.0) )          as nfe_val' +
-        'or_outros'
-      
-        '  , sum( coalesce(v.nfe_valor_total_nota, 0.0) )      as nfe_val' +
-        'or_total_nota'
-      'from TBVENDAS v'
-      '  left join TBCFOP c on (c.cfop_cod = v.cfop)'
-      '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
-      '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
-      ''
-      '/*'
-      'where v.dtvenda >= '#39'2016-03-01'#39
-      '  and v.dtvenda <= '#39'2016-05-31'#39
-      ''
-      'group by'
-      '    v.codemp'
-      '  , v.competencia'
-      '  , m.cmp_desc'
-      '  , v.cfop'
-      '  , c.cfop_descricao'
-      ''
-      'order by'
-      '    v.codemp'
-      '  , v.competencia'
-      '  , v.cfop'
-      '*/')
-    Left = 40
-    Top = 248
-  end
   object DspRelacaoVendaCfopSintetico: TDataSetProvider
     DataSet = QryRelacaoVendaCfopSintetico
     Left = 72
@@ -10069,14 +9544,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         end
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
-          Top = 7.559060000000003000
+          Top = 7.559060000000000000
           Width = 411.968770000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = []
@@ -10084,6 +9559,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -11172,5 +10648,541 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       'order by 2')
     Left = 448
     Top = 8
+  end
+  object QryRelacaoVendaSintetico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.competencia'
+      '  , m.cmp_desc     as competencia_desc'
+      '  , coalesce(vi.codvendedor, v.vendedor_cod) as vendedor_cod'
+      '  , d.nome as vendedor_nome'
+      '  , d.cpf  as vendedor_cpf'
+      '  , d.comissao'
+      '  , sum( vi.total_bruto )           as venda_bruta'
+      '  , sum( vi.total_desconto )        as venda_descontos'
+      '  , sum( vi.total_liquido )         as venda_liquido'
+      '  , sum( (vi.qtde * p.customedio) ) as venda_custo'
+      '  , sum( vi.total_comissao )        as venda_comissao'
+      ''
+      
+        '  , sum( case when v.status = 5 then vi.total_bruto else 0 end )' +
+        '           as venda_bruta_cancel'
+      
+        '  , sum( case when v.status = 5 then vi.total_desconto else 0 en' +
+        'd )        as venda_descontos_cancel'
+      
+        '  , sum( case when v.status = 5 then vi.total_liquido else 0 end' +
+        ' )         as venda_liquido_cancel'
+      
+        '  , sum( case when v.status = 5 then (vi.qtde * p.customedio) el' +
+        'se 0 end ) as venda_custo_cancel'
+      
+        '  , sum( case when v.status = 5 then vi.total_comissao else 0 en' +
+        'd )        as venda_comissao_cancel'
+      'from TBVENDAS v'
+      
+        '  inner join TVENDASITENS vi on (vi.ano = v.ano and vi.codcontro' +
+        'l = v.codcontrol)'
+      '  inner join TBPRODUTO p on (p.cod = vi.codprod)'
+      '  left join TBCLIENTE c on (c.codigo = v.codcliente)'
+      '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
+      
+        '  left join TBVENDEDOR d on (d.cod = coalesce(vi.codvendedor, v.' +
+        'vendedor_cod))'
+      '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
+      ''
+      '/*'
+      'where v.codemp = '#39'17429064000105'#39
+      '  and v.status > 1 -- 1. Em andamento'
+      ''
+      'group by'
+      '    v.competencia'
+      '  , m.cmp_desc'
+      '  , coalesce(vi.codvendedor, v.vendedor_cod)'
+      '  , d.nome'
+      '  , d.cpf'
+      '  , d.comissao'
+      ''
+      'order by'
+      '    d.nome'
+      '  , v.competencia'
+      '*/')
+    Left = 40
+    Top = 8
+  end
+  object QryRelacaoVendaRotaEntrega: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    cd.cid_nome'
+      '  , cl.cid_cod'
+      '  , vn.ano'
+      '  , vn.codcontrol'
+      '  , vn.ano || '#39'/'#39' || lpad(vn.codcontrol, 7, '#39'0'#39') as controle'
+      '  , vn.nfe'
+      '  , vn.serie'
+      '  , lpad(vn.nfe, 7, '#39'0'#39') || '#39'-'#39' || vn.serie as nf'
+      '  , vn.dtvenda'
+      '  , vn.status'
+      '  , st.descricao as status_descricao'
+      '  , vn.totalvenda_bruta     as total_venda_bruta'
+      '  , vn.totalvenda           as total_venda_liquida'
+      '  , vn.totalcusto           as total_custo'
+      '  , vn.nfe_valor_total_nota as total_nota'
+      '  , vn.obs'
+      ''
+      '  , vn.codcliente    as cliente_codigo'
+      '  , cl.nome          as cliente_nome'
+      '  , vn.codcli        as cliente_cnpj'
+      '  , cl.pessoa_fisica as cliente_pf'
+      
+        '  , cl.ender || coalesce('#39', '#39' || nullif(trim(cl.numero_end), '#39#39')' +
+        ', '#39#39') || coalesce('#39' - '#39' || cl.bairro, '#39#39') as endereco_cliente'
+      
+        '  , coalesce(vn.dados_entrega, (cl.ender || coalesce('#39', '#39' || nul' +
+        'lif(trim(cl.numero_end), '#39#39'), '#39#39') || coalesce('#39' - '#39' || cl.bairro' +
+        ', '#39#39'))) as endereco_entrega'
+      '  , cl.cep'
+      '  , cl.fone'
+      '  , cl.fonecel'
+      '  , cl.fonecomerc'
+      ''
+      '  , count( vi.ano ) as itens'
+      '  , sum( vi.qtde           ) as volume'
+      '  , sum( vi.total_bruto    ) as total_bruto'
+      '  , sum( vi.total_desconto ) as total_desconto'
+      '  , sum( vi.total_liquido  ) as total_liquido'
+      '  , sum( vi.total_comissao ) as total_comissao'
+      'from TBVENDAS vn'
+      
+        '  inner join TVENDASITENS vi on (vi.ano = vn.ano and vi.codcontr' +
+        'ol = vn.codcontrol)'
+      '  inner join TBCLIENTE cl on (cl.codigo = vn.codcliente)'
+      '  inner join TBCIDADE cd on (cd.cid_cod = cl.cid_cod)'
+      '  inner join VW_STATUS_VENDA st on (st.codigo = vn.status)'
+      ''
+      'where vn.codcliente <> 1'
+      '  and (1=1)'
+      ''
+      'group by'
+      '    cd.cid_nome'
+      '  , cl.cid_cod'
+      '  , vn.ano'
+      '  , vn.codcontrol'
+      '  , vn.ano || '#39'/'#39' || lpad(vn.codcontrol, 7, '#39'0'#39')'
+      '  , vn.nfe'
+      '  , vn.serie'
+      '  , lpad(vn.nfe, 7, '#39'0'#39') || '#39'-'#39' || vn.serie'
+      '  , vn.dtvenda'
+      '  , vn.status'
+      '  , st.descricao'
+      '  , vn.totalvenda_bruta'
+      '  , vn.totalvenda'
+      '  , vn.totalcusto'
+      '  , vn.nfe_valor_total_nota'
+      '  , vn.obs'
+      ''
+      '  , vn.codcliente'
+      '  , cl.nome'
+      '  , vn.codcli'
+      '  , cl.pessoa_fisica'
+      
+        '  , cl.ender || coalesce('#39', '#39' || nullif(trim(cl.numero_end), '#39#39')' +
+        ', '#39#39') || coalesce('#39' - '#39' || cl.bairro, '#39#39')'
+      
+        '  , coalesce(vn.dados_entrega, (cl.ender || coalesce('#39', '#39' || nul' +
+        'lif(trim(cl.numero_end), '#39#39'), '#39#39') || coalesce('#39' - '#39' || cl.bairro' +
+        ', '#39#39')))'
+      '  , cl.cep'
+      '  , cl.fone'
+      '  , cl.fonecel'
+      '  , cl.fonecomerc'
+      ''
+      'order by'
+      '    cd.cid_nome'
+      '  , cl.cid_cod'
+      '  , cl.nome'
+      '  , vn.codcliente'
+      '  , vn.dtvenda')
+    Left = 208
+    Top = 8
+  end
+  object QryRelacaoVendaAnalitico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.competencia'
+      '  , m.cmp_desc    as competencia_desc'
+      '  , coalesce(vi.codvendedor, v.vendedor_cod) as vendedor_cod'
+      '  , d.nome as vendedor_nome'
+      '  , d.cpf  as vendedor_cpf'
+      '  , d.comissao'
+      '  , v.ano'
+      '  , v.codcontrol'
+      '  , v.dtvenda'
+      '  , v.nfe'
+      '  , v.serie'
+      '  , v.status'
+      '  , c.cnpj          as cliente_cod'
+      '  , c.nome          as cliente_nome'
+      '  , c.pessoa_fisica as cliente_tipo'
+      '  , sum( vi.total_bruto )    as venda_bruta'
+      '  , sum( vi.total_desconto ) as venda_descontos'
+      '  , sum( vi.total_liquido )  as venda_liquido'
+      '  , sum( (vi.qtde * p.customedio) ) as venda_custo'
+      '  , sum( vi.total_comissao )        as venda_comissao'
+      ''
+      
+        '  , sum( case when v.status = 5 then vi.total_bruto else 0 end )' +
+        '    as venda_bruta_cancel'
+      
+        '  , sum( case when v.status = 5 then vi.total_desconto else 0 en' +
+        'd ) as venda_descontos_cancel'
+      
+        '  , sum( case when v.status = 5 then vi.total_liquido else 0 end' +
+        ' )  as venda_liquido_cancel'
+      
+        '  , sum( case when v.status = 5 then (vi.qtde * p.customedio) el' +
+        'se 0 end ) as venda_custo_cancel'
+      
+        '  , sum( case when v.status = 5 then vi.total_comissao else 0 en' +
+        'd )        as venda_comissao_cancel'
+      'from TBVENDAS v'
+      
+        '  inner join TVENDASITENS vi on (vi.ano = v.ano and vi.codcontro' +
+        'l = v.codcontrol)'
+      '  inner join TBPRODUTO p on (p.cod = vi.codprod)'
+      '  inner join TBCLIENTE c on (c.codigo = v.codcliente)'
+      
+        '  inner join TBVENDEDOR d on (d.cod = coalesce(vi.codvendedor, v' +
+        '.vendedor_cod))'
+      ''
+      '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
+      '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
+      ''
+      '/*'
+      'where v.codemp = '#39'17429064000105'#39
+      '  and v.status > 1 -- 1. Em andamento'
+      ''
+      'group by'
+      '    v.competencia'
+      '  , m.cmp_desc'
+      '  , coalesce(vi.codvendedor, v.vendedor_cod)'
+      '  , d.nome'
+      '  , d.cpf'
+      '  , d.comissao'
+      '  , v.ano'
+      '  , v.codcontrol'
+      '  , v.dtvenda'
+      '  , v.nfe'
+      '  , v.serie'
+      '  , v.status'
+      '  , c.cnpj'
+      '  , c.nome'
+      '  , c.pessoa_fisica'
+      ''
+      'order by'
+      '    d.nome'
+      '  , coalesce(vi.codvendedor, v.vendedor_cod)'
+      '  , v.competencia'
+      '  , v.dtvenda'
+      '  , c.nome'
+      '  , c.cnpj'
+      '*/')
+    Left = 40
+    Top = 40
+  end
+  object QryVendaCompetencia: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.competencia'
+      '  , m.cmp_desc as competencia_desc'
+      '  , v.competencia || '#39' - '#39' || m.cmp_desc as competencia_nro_desc'
+      '  , sum( v.totalvenda_bruta )  as venda_bruta'
+      '  , sum( v.desconto )          as venda_descontos'
+      '  , sum( v.totalvenda )        as venda_liquido'
+      '  , sum( v.totalcusto )        as venda_custo'
+      
+        '  , sum( v.totalvenda * coalesce(d.comissao, 0) / 100 )  as vend' +
+        'a_comissao'
+      ''
+      
+        '  , sum( case when v.status = 5 then v.totalvenda_bruta else 0 e' +
+        'nd )  as venda_bruta_cancel'
+      
+        '  , sum( case when v.status = 5 then v.desconto else 0 end )    ' +
+        '      as venda_descontos_cancel'
+      
+        '  , sum( case when v.status = 5 then v.totalvenda else 0 end )  ' +
+        '      as venda_liquido_cancel'
+      
+        '  , sum( case when v.status = 5 then v.totalcusto else 0 end )  ' +
+        '      as venda_custo_cancel'
+      
+        '  , sum( case when v.status = 5 then v.totalvenda * coalesce(d.c' +
+        'omissao, 0) / 100 else 0 end )  as venda_comissao_cancel'
+      'from TBVENDAS v'
+      '  left join TBCLIENTE c on (c.cnpj = v.codcli)'
+      '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
+      '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
+      '  left join TBVENDEDOR d on (d.cod = v.vendedor_cod)'
+      ''
+      '/*'
+      'where v.codemp = '#39'17429064000105'#39
+      '  and v.status > 1 -- 1. Em andamento'
+      ''
+      'group by'
+      '    v.competencia'
+      '  , m.cmp_desc'
+      ''
+      'order by'
+      '    v.competencia'
+      '*/')
+    Left = 40
+    Top = 80
+  end
+  object QryRelacaoVendaClienteSintetico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.competencia'
+      '  , m.cmp_desc    as competencia_desc'
+      '  , v.codcli as cliente_cod'
+      '  , trim(c.nome)   as cliente_nome'
+      '  , c.cnpj   as cliente_cpf_cnpj'
+      '  , c.pessoa_fisica as cliente_pf'
+      ''
+      '  , sum( vi.total_bruto )    as venda_bruta'
+      '  , sum( vi.total_desconto ) as venda_descontos'
+      '  , sum( vi.total_liquido )  as venda_liquido'
+      '  , sum( (vi.qtde * p.customedio) ) as venda_custo'
+      '  , sum( vi.total_comissao )        as venda_comissao'
+      ''
+      
+        '  , sum( case when v.status = 5 then vi.total_bruto else 0 end )' +
+        '    as venda_bruta_cancel'
+      
+        '  , sum( case when v.status = 5 then vi.total_desconto else 0 en' +
+        'd ) as venda_descontos_cancel'
+      
+        '  , sum( case when v.status = 5 then vi.total_liquido else 0 end' +
+        ' )  as venda_liquido_cancel'
+      
+        '  , sum( case when v.status = 5 then (vi.qtde * p.customedio) el' +
+        'se 0 end ) as venda_custo_cancel'
+      
+        '  , sum( case when v.status = 5 then vi.total_comissao else 0 en' +
+        'd )        as venda_comissao_cancel'
+      'from TBVENDAS v'
+      
+        '  inner join TVENDASITENS vi on (vi.ano = v.ano and vi.codcontro' +
+        'l = v.codcontrol)'
+      '  inner join TBPRODUTO p on (p.cod = vi.codprod)'
+      '  left join TBCLIENTE c on (c.codigo = v.codcliente)'
+      '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
+      '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
+      
+        '  left join TBVENDEDOR d on (d.cod = coalesce(vi.codvendedor, v.' +
+        'vendedor_cod))'
+      ''
+      '/*'
+      'where v.codemp = '#39'17429064000105'#39
+      '  and v.status > 1 -- 1. Em andamento'
+      ''
+      'group by'
+      '    v.competencia'
+      '  , m.cmp_desc'
+      '  , v.codcli'
+      '  , c.nome'
+      '  , c.cnpj'
+      '  , c.pessoa_fisica'
+      ''
+      'order by'
+      '    c.nome'
+      '  , c.cnpj'
+      '  , v.competencia'
+      '*/')
+    Left = 40
+    Top = 112
+  end
+  object QryRelacaoVendaClienteAnalitico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.competencia'
+      '  , m.cmp_desc    as competencia_desc'
+      '  , coalesce(vi.codvendedor, v.vendedor_cod) as vendedor_cod'
+      '  , d.nome as vendedor_nome'
+      '  , d.cpf  as vendedor_cpf'
+      '  , d.comissao'
+      '  , v.ano'
+      '  , v.codcontrol'
+      '  , v.dtvenda'
+      '  , v.nfe'
+      '  , v.serie'
+      '  , v.status'
+      '  , c.cnpj          as cliente_cod'
+      '  , c.nome          as cliente_nome'
+      '  , c.pessoa_fisica as cliente_pf'
+      ''
+      '  , sum( vi.total_bruto )    as venda_bruta'
+      '  , sum( vi.total_desconto ) as venda_descontos'
+      '  , sum( vi.total_liquido )  as venda_liquido'
+      '  , sum( (vi.qtde * p.customedio) ) as venda_custo'
+      '  , sum( vi.total_comissao )        as venda_comissao'
+      ''
+      
+        '  , sum( case when v.status = 5 then vi.total_bruto else 0 end )' +
+        '    as venda_bruta_cancel'
+      
+        '  , sum( case when v.status = 5 then vi.total_desconto else 0 en' +
+        'd ) as venda_descontos_cancel'
+      
+        '  , sum( case when v.status = 5 then vi.total_liquido else 0 end' +
+        ' )  as venda_liquido_cancel'
+      
+        '  , sum( case when v.status = 5 then (vi.qtde * p.customedio) el' +
+        'se 0 end ) as venda_custo_cancel'
+      
+        '  , sum( case when v.status = 5 then vi.total_comissao else 0 en' +
+        'd )        as venda_comissao_cancel'
+      'from TBVENDAS v'
+      
+        '  inner join TVENDASITENS vi on (vi.ano = v.ano and vi.codcontro' +
+        'l = v.codcontrol)'
+      '  inner join TBPRODUTO p on (p.cod = vi.codprod)'
+      '  inner join TBCLIENTE c on (c.codigo = v.codcliente)'
+      
+        '  inner join TBVENDEDOR d on (d.cod = coalesce(vi.codvendedor, v' +
+        '.vendedor_cod))'
+      ''
+      '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
+      '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
+      ''
+      '/*'
+      'where v.codemp = '#39'17429064000105'#39
+      '  and v.status > 1 -- 1. Em andamento'
+      ''
+      'group by'
+      '    v.competencia'
+      '  , m.cmp_desc'
+      '  , coalesce(vi.codvendedor, v.vendedor_cod)'
+      '  , d.nome'
+      '  , d.cpf'
+      '  , d.comissao'
+      '  , v.ano'
+      '  , v.codcontrol'
+      '  , v.dtvenda'
+      '  , v.nfe'
+      '  , v.serie'
+      '  , v.status'
+      '  , c.cnpj'
+      '  , c.nome'
+      '  , c.pessoa_fisica'
+      ''
+      'order by'
+      '    c.nome'
+      '  , c.cnpj'
+      '  , v.competencia'
+      '  , v.dtvenda'
+      '*/')
+    Left = 40
+    Top = 160
+  end
+  object QryRelacaoVendaCfopSintetico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    v.codemp'
+      '  , v.competencia'
+      '  , m.cmp_desc as competencia_desc'
+      '  , v.cfop'
+      '  , c.cfop_descricao'
+      '  , sum( coalesce(v.totalvenda_bruta, 0.0) ) as total_bruto'
+      
+        '  , sum( coalesce(v.desconto, 0.0) + coalesce(v.desconto_cupom, ' +
+        '0.0) ) as total_descontos'
+      '  , sum( coalesce(v.totalvenda, 0.0) )       as total_liquido'
+      
+        '  , sum( coalesce(v.nfe_valor_base_icms, 0.0) ) as nfe_valor_bas' +
+        'e_icms'
+      
+        '  , sum( coalesce(v.nfe_valor_icms, 0.0) )      as nfe_valor_icm' +
+        's'
+      
+        '  , sum( coalesce(v.nfe_valor_base_icms_subst, 0.0) ) as nfe_val' +
+        'or_base_icms_subst'
+      
+        '  , sum( coalesce(v.nfe_valor_icms_subst, 0.0) )      as nfe_val' +
+        'or_icms_subst'
+      
+        '  , sum( coalesce(v.nfe_valor_total_produto, 0.0) )   as nfe_val' +
+        'or_total_produto'
+      
+        '  , sum( coalesce(v.nfe_valor_frete, 0.0) )           as nfe_val' +
+        'or_frete'
+      
+        '  , sum( coalesce(v.nfe_valor_seguro, 0.0) )          as nfe_val' +
+        'or_seguro'
+      
+        '  , sum( coalesce(v.nfe_valor_desconto, 0.0) )        as nfe_val' +
+        'or_desconto'
+      
+        '  , sum( coalesce(v.nfe_valor_total_ii, 0.0) )        as nfe_val' +
+        'or_total_ii'
+      
+        '  , sum( coalesce(v.nfe_valor_total_ipi, 0.0) )       as nfe_val' +
+        'or_total_ipi'
+      
+        '  , sum( coalesce(v.nfe_valor_pis, 0.0) )             as nfe_val' +
+        'or_pis'
+      
+        '  , sum( coalesce(v.nfe_valor_cofins, 0.0) )          as nfe_val' +
+        'or_cofins'
+      
+        '  , sum( coalesce(v.nfe_valor_outros, 0.0) )          as nfe_val' +
+        'or_outros'
+      
+        '  , sum( coalesce(v.nfe_valor_total_nota, 0.0) )      as nfe_val' +
+        'or_total_nota'
+      'from TBVENDAS v'
+      '  left join TBCFOP c on (c.cfop_cod = v.cfop)'
+      '  left join TBCOMPETENCIA m on (m.cmp_num = v.competencia)'
+      '  left join VW_STATUS_VENDA s on (s.codigo = v.status)'
+      ''
+      '/*'
+      'where v.dtvenda >= '#39'2016-03-01'#39
+      '  and v.dtvenda <= '#39'2016-05-31'#39
+      ''
+      'group by'
+      '    v.codemp'
+      '  , v.competencia'
+      '  , m.cmp_desc'
+      '  , v.cfop'
+      '  , c.cfop_descricao'
+      ''
+      'order by'
+      '    v.codemp'
+      '  , v.competencia'
+      '  , v.cfop'
+      '*/')
+    Left = 40
+    Top = 248
   end
 end

@@ -2558,8 +2558,8 @@ begin
         Avulsa.repEmi  := '';
         Avulsa.dPag    := now;             }
 
-      Dest.CNPJCPF := qryDestinatario.FieldByName('CNPJ').AsString; // FormatFloat('00000000000000', qryDestinatarioCNPJ.AsInteger);
-      Dest.xNome   := qryDestinatario.FieldByName('NOME').AsString; // + IfThen(GetImprimirCodClienteNFe(sCNPJEmitente), ' ' + FormatFloat('##00000', qryDestinatarioCODIGO.AsInteger));
+      Dest.CNPJCPF := qryDestinatario.FieldByName('CNPJ').AsString;
+      Dest.xNome   := qryDestinatario.FieldByName('NOME').AsString + IfThen(GetImprimirCodClienteNFe(sCNPJEmitente), ' ' + FormatFloat('##00000', qryDestinatario.FieldByName('CODIGO').AsInteger));
       Dest.Email   := Trim(AnsiLowerCase(qryDestinatario.FieldByName('EMAIL').AsString));
 
       if ( qryDestinatario.FieldByName('PESSOA_FISICA').AsInteger = 0 ) then
@@ -2629,9 +2629,16 @@ begin
           Prod.nItem := qryDadosProduto.RecNo; // qryDadosProdutoSEQ.AsInteger;              // Número sequencial, para cada item deve ser incrementado
 
           if PorCodigoExterno then
-            Prod.cProd := IfThen(Trim(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) <> EmptyStr,
-              Trim(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString),
-              Trim(qryDadosProduto.FieldByName('CODPROD').AsString))
+          begin
+            if (gSistema.Codigo = SISTEMA_GESTAO_OPME) then
+              Prod.cProd := IfThen(Trim(qryDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr,
+                Trim(qryDadosProduto.FieldByName('REFERENCIA').AsString),
+                Trim(qryDadosProduto.FieldByName('CODPROD').AsString))
+            else
+              Prod.cProd := IfThen(Trim(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) <> EmptyStr,
+                Trim(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString),
+                Trim(qryDadosProduto.FieldByName('CODPROD').AsString));
+          end
           else
             Prod.cProd := Trim(qryDadosProduto.FieldByName('CODPROD').AsString);
 
@@ -4269,9 +4276,16 @@ begin
           Prod.nItem := qryEntradaDadosProduto.RecNo; // qryEntradaDadosProdutoSEQ.AsInteger; // Número sequencial, para cada item deve ser incrementado
 
           if PorCodigoExterno then
-            Prod.cProd := IfThen(Trim(qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString) <> EmptyStr,
-              Trim(qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString),
-              Trim(qryEntradaDadosProduto.FieldByName('CODPROD').AsString))
+          begin
+            if (gSistema.Codigo = SISTEMA_GESTAO_OPME) then
+              Prod.cProd := IfThen(Trim(qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr,
+                Trim(qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString),
+                Trim(qryEntradaDadosProduto.FieldByName('CODPROD').AsString))
+            else
+              Prod.cProd := IfThen(Trim(qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString) <> EmptyStr,
+                Trim(qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString),
+                Trim(qryEntradaDadosProduto.FieldByName('CODPROD').AsString));
+          end
           else
             Prod.cProd := Trim(qryEntradaDadosProduto.FieldByName('CODPROD').AsString);
 

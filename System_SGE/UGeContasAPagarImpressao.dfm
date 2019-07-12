@@ -254,7 +254,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarVSintetico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -325,8 +325,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -338,12 +340,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
@@ -354,6 +358,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -367,12 +372,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -387,6 +394,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -398,7 +406,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         object frdFone: TfrxMemoView
           Left = 113.385900000000000000
           Top = 41.574830000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409450000000000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -407,6 +415,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -416,7 +425,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         object Memo11: TfrxMemoView
           Left = 113.385900000000000000
           Top = 56.692950000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409450000000000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -425,6 +434,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -441,24 +451,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Top = 120.944960000000000000
@@ -469,6 +461,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
@@ -485,6 +478,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -501,14 +495,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
@@ -537,6 +560,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -564,6 +588,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -782,6 +807,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -809,6 +835,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -834,6 +861,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVSintetico."DTV' +
@@ -863,6 +891,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVSintetico."VALORPAG">)] ')
           ParentFont = False
@@ -890,6 +919,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVSintetico."VALORMULTA">)' +
@@ -919,6 +949,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVSintetico."VALORPAGTOT">' +
@@ -947,6 +978,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVSintetico."FORMA_PAGTO"]')
           ParentFont = False
@@ -974,6 +1006,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0'#39',<FrdsRelacaoAPagarVSintetico."QUANTIDADE">)] ')
           ParentFont = False
@@ -983,6 +1016,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -1087,6 +1121,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -1311,6 +1346,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' ** Valores de despesas canceladas')
@@ -1319,111 +1355,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         end
       end
     end
-  end
-  object QryRelacaoAPagarVSintetico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      
-        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
-        ' from cp.dtvenc),  2) as competencia_vencimento'
-      '  , cv.cmp_desc as competencia_vencimento_desc'
-      '  , cp.competencia_apuracao'
-      '  , ca.cmp_desc as competencia_apuracao_desc'
-      '  , cp.dtvenc'
-      '  , cp.codtpdesp'
-      '  , d.tipodesp'
-      '  , cp.situacao'
-      '  , fp.descri as forma_pagto'
-      ''
-      '  --, cp.codforn       as fornecedor_codigo'
-      '  --, fn.nomeforn      as fornecedor_nome'
-      '  --, fn.cnpj          as fornecedor_cnpj'
-      '  --, fn.pessoa_fisica as fornecedor_pf'
-      ''
-      '  , count( cp.anolanc ) as quantidade'
-      '  , sum( coalesce(cp.valorpag, 0)    ) as valorpag'
-      '  , sum( coalesce(cp.valormulta, 0)  ) as valormulta'
-      '  , sum( coalesce(cp.valorpagtot, 0) ) as valorpagtot'
-      '  , sum( coalesce(cp.valorsaldo, 0)  ) as valorsaldo'
-      ''
-      '  /* Totais Cancelados */'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorpag, 0)'
-      '      else 0'
-      '    end ) as valorpag_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valormulta, 0)'
-      '      else 0'
-      '    end ) as valormulta_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorpagtot, 0)'
-      '      else 0'
-      '    end ) as valorpagtot_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorsaldo, 0)'
-      '      else 0'
-      '    end ) as valorsaldo_cancel'
-      ''
-      '  , sum( coalesce(cm.totalnf, 0) )               as nfe_valor'
-      
-        '  , sum( coalesce(cm.totalnf + cm.desconto, 0) ) as totalcompra_' +
-        'bruta'
-      '  , sum( coalesce(cm.totalnf, 0) )               as totalcompra'
-      'from TBCONTPAG cp'
-      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
-      
-        '  left join TBCOMPRAS cm on (cm.ano = cp.anocompra and cm.codcon' +
-        'trol = cp.numcompra)'
-      '  left join TBFORMPAGTO fp on (fp.cod = cp.forma_pagto)'
-      '  left join TBTPDESPESA d on (d.cod = cp.codtpdesp)'
-      
-        '  left join TBCOMPETENCIA cv on (cv.cmp_num = extract(year from ' +
-        'cp.dtvenc)  || right('#39'00'#39' || extract(month from cp.dtvenc),  2))'
-      
-        '  left join TBCOMPETENCIA ca on (ca.cmp_num = cp.competencia_apu' +
-        'racao)'
-      ''
-      '/*'
-      'where (cp.empresa = '#39'17429064000105'#39')'
-      ''
-      'group by'
-      
-        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
-        ' from cp.dtvenc),  2)'
-      '  , cv.cmp_desc'
-      '  , cp.competencia_apuracao'
-      '  , ca.cmp_desc'
-      '  , cp.dtvenc'
-      '  , cp.codtpdesp'
-      '  , d.tipodesp'
-      '  , cp.situacao'
-      '  , fp.descri'
-      ''
-      '  --, cp.codforn'
-      '  --, fn.nomeforn'
-      '  --, fn.cnpj'
-      '  --, fn.pessoa_fisica'
-      ''
-      'order by'
-      
-        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
-        ' from cp.dtvenc),  2)'
-      '  , cp.dtvenc'
-      '  , d.tipodesp'
-      '  --, fn.nomeforn'
-      '  --, fn.cnpj'
-      '*/')
-    Left = 40
-    Top = 8
   end
   object DspRelacaoAPagarVSintetico: TDataSetProvider
     DataSet = QryRelacaoAPagarVSintetico
@@ -1466,127 +1397,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     BCDToCurrency = True
     Left = 136
     Top = 8
-  end
-  object QryRelacaoAPagarVAnalitico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    cp.anolanc'
-      '  , cp.numlanc'
-      
-        '  , cp.anolanc || '#39'/'#39' || right('#39'0000000'#39' || cp.numlanc, 7) as la' +
-        'ncamento'
-      '  , cp.parcela'
-      '  , cp.dtemiss'
-      '  , cp.dtvenc'
-      '  , cp.dtpag'
-      '  , cp.codtpdesp'
-      '  , d.tipodesp'
-      '  , cp.quitado'
-      '  , cp.situacao'
-      '  , cp.forma_pagto'
-      '  , fp.descri as forma_pagto_desc'
-      ''
-      
-        '  , extract(year from cp.dtemiss) || right('#39'00'#39' || extract(month' +
-        ' from cp.dtemiss), 2) as competencia_emissao'
-      
-        '  , extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
-        ' from cp.dtvenc),  2) as competencia_vencimento'
-      
-        '  , extract(year from cp.dtpag)   || right('#39'00'#39' || extract(month' +
-        ' from cp.dtpag),   2) as competencia_pagamento'
-      '  , cp.competencia_apuracao'
-      '  , me.cmp_desc as competencia_emissao_desc'
-      '  , mv.cmp_desc as competencia_vencimento_desc'
-      '  , mp.cmp_desc as competencia_pagamento_desc'
-      '  , ap.cmp_desc as competencia_apuracao_desc'
-      ''
-      '  , cp.codforn       as fornecedor_codigo'
-      '  , fn.nomeforn      as fornecedor_nome'
-      '  , fn.cnpj          as fornecedor_cnpj'
-      '  , fn.pessoa_fisica as fornecedor_pf'
-      ''
-      '  , cp.valorpag'
-      '  , cp.valormulta'
-      '  , cp.valorpagtot'
-      '  , cp.valorsaldo'
-      ''
-      '  /* Totais Cancelados */'
-      ''
-      '  , Case when cp.situacao = 0'
-      '      then cp.valorpag'
-      '      else 0'
-      '    end as valorpag_cancel'
-      ''
-      '  , Case when cp.situacao = 0'
-      '      then cp.valormulta'
-      '      else 0'
-      '    end as valormulta_cancel'
-      ''
-      '  , Case when cp.situacao = 0'
-      '      then cp.valorpagtot'
-      '      else 0'
-      '    end as valorpagtot_cancel'
-      ''
-      '  , Case when cp.situacao = 0'
-      '      then cp.valorsaldo'
-      '      else 0'
-      '    end as valorsaldo_cancel'
-      ''
-      
-        '  , cp.anocompra || '#39'/'#39' || right('#39'0000000'#39' || cp.numcompra, 7) a' +
-        's compra'
-      '  , cm.dtent as compra_data'
-      
-        '  , right('#39'0000000'#39' || cm.nf, 7) || coalesce('#39'-'#39' || trim(cm.nfse' +
-        'rie), '#39#39') as NFE'
-      '  , cm.nfserie     as nfe_serie'
-      '  , cm.nf          as nfe_numero'
-      '  , cm.dtemiss     as nfe_emissao'
-      '  , cm.totalnf as nfe_valor'
-      '  , cm.totalnf + coalesce(cm.desconto, 0.0) as totalcompra_bruta'
-      '  , cm.totalnf as totalcompra'
-      'from TBCONTPAG cp'
-      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
-      
-        '  left join TBCOMPRAS cm on (cm.ano = cp.anocompra and cm.codcon' +
-        'trol = cp.numcompra)'
-      '  left join TBFORMPAGTO fp on (fp.cod = cp.forma_pagto)'
-      '  left join TBTPDESPESA d on (d.cod = cp.codtpdesp)'
-      ''
-      
-        '  left join TBCOMPETENCIA me on (me.cmp_num = extract(year from ' +
-        'cp.dtemiss) || right('#39'00'#39' || extract(month from cp.dtemiss), 2))'
-      
-        '  left join TBCOMPETENCIA mv on (mv.cmp_num = extract(year from ' +
-        'cp.dtvenc)  || right('#39'00'#39' || extract(month from cp.dtvenc),  2))'
-      
-        '  left join TBCOMPETENCIA mp on (mp.cmp_num = extract(year from ' +
-        'cp.dtpag)   || right('#39'00'#39' || extract(month from cp.dtpag),   2))'
-      
-        '  left join TBCOMPETENCIA ap on (ap.cmp_num = cp.competencia_apu' +
-        'racao)'
-      ''
-      '/*'
-      'where (cp.empresa = '#39'17429064000105'#39')'
-      ''
-      'order by'
-      '    fn.nomeforn'
-      '  , fn.cnpj'
-      '  , cp.codforn'
-      
-        '  , extract(year from cp.dtemiss) || right('#39'00'#39' || extract(month' +
-        ' from cp.dtemiss), 2)'
-      '  , cp.dtemiss'
-      '  , d.tipodesp'
-      '*/')
-    Left = 40
-    Top = 56
   end
   object DspRelacaoAPagarVAnalitico: TDataSetProvider
     DataSet = QryRelacaoAPagarVAnalitico
@@ -1652,7 +1462,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 56
   end
   object frRelacaoAPagarVAnalitico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1732,8 +1542,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -1747,6 +1559,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -1760,6 +1573,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -1767,18 +1581,20 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
           Top = 7.559060000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409450000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -1793,6 +1609,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -1813,6 +1630,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -1831,6 +1649,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -1847,24 +1666,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Top = 120.944960000000000000
@@ -1875,6 +1676,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
@@ -1890,6 +1692,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -1906,14 +1709,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
@@ -1942,6 +1774,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -1969,6 +1802,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -2014,6 +1848,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -2041,6 +1876,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -2068,6 +1904,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVAnalitico."VALORPAG">)] ')
           ParentFont = False
@@ -2095,6 +1932,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVAnalitico."VALORPAGTOT">' +
@@ -2123,6 +1961,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."COMPRA"]')
           ParentFont = False
@@ -2149,6 +1988,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAPagarVAnalitico."COMPRA_DATA">=0,'#39#39',FormatDat' +
@@ -2178,6 +2018,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."NFE"]')
           ParentFont = False
@@ -2203,6 +2044,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."LANCAMENTO"]')
           ParentFont = False
@@ -2230,6 +2072,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FrdsRelacaoAPagarVAnalitico."PARCELA"]')
           ParentFont = False
@@ -2256,6 +2099,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVAnalitico."DTE' +
@@ -2284,6 +2128,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVAnalitico."DTV' +
@@ -2312,6 +2157,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAPagarVAnalitico."DTPAG">=0,'#39#39',FormatDateTime(' +
@@ -2340,6 +2186,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."FORMA_PAGTO_DESC"]')
           ParentFont = False
@@ -2349,6 +2196,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -2434,6 +2282,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 94.488250000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -2655,6 +2504,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -2665,6 +2515,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderFornecedor: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -3049,6 +2900,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterFornecedor: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -3158,7 +3010,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 64
   end
   object frRelacaoAPagarESintetico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3229,8 +3081,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -3242,12 +3096,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
@@ -3258,6 +3114,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -3265,18 +3122,20 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
           Top = 7.559060000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409450000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -3291,6 +3150,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -3311,6 +3171,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -3329,6 +3190,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -3345,24 +3207,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo14: TfrxMemoView
           Left = 113.385900000000000000
           Top = 136.063080000000000000
@@ -3374,6 +3218,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -3390,6 +3235,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -3405,14 +3251,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
@@ -3441,6 +3316,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -3468,6 +3344,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -3686,6 +3563,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -3713,6 +3591,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarESintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -3738,6 +3617,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarESintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarESintetico."DTE' +
@@ -3767,6 +3647,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarESintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarESintetico."VALORPAG">)] ')
           ParentFont = False
@@ -3794,6 +3675,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarESintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarESintetico."VALORMULTA">)' +
@@ -3823,6 +3705,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarESintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarESintetico."VALORPAGTOT">' +
@@ -3851,6 +3734,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarESintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarESintetico."FORMA_PAGTO"]')
           ParentFont = False
@@ -3878,6 +3762,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarESintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0'#39',<FrdsRelacaoAPagarESintetico."QUANTIDADE">)] ')
           ParentFont = False
@@ -3887,6 +3772,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -3991,6 +3877,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -4215,6 +4102,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' ** Valores de despesas canceladas')
@@ -4223,105 +4111,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         end
       end
     end
-  end
-  object QryRelacaoAPagarESintetico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      
-        '    extract(year from cp.dtemiss) || right('#39'00'#39' || extract(month' +
-        ' from cp.dtemiss), 2) as competencia_emissao'
-      '  , ce.cmp_desc as competencia_emissao_desc'
-      '  , cp.dtemiss'
-      '  , cp.codtpdesp'
-      '  , d.tipodesp'
-      '  , cp.situacao'
-      '  , fp.descri as forma_pagto'
-      ''
-      '  --, cp.codforn       as fornecedor_codigo'
-      '  --, fn.nomeforn      as fornecedor_nome'
-      '  --, fn.cnpj          as fornecedor_cnpj'
-      '  --, fn.pessoa_fisica as fornecedor_pf'
-      ''
-      '  , count( cp.anolanc ) as quantidade'
-      '  , sum( coalesce(cp.valorpag, 0)    ) as valorpag'
-      '  , sum( coalesce(cp.valormulta, 0)  ) as valormulta'
-      '  , sum( coalesce(cp.valorpagtot, 0) ) as valorpagtot'
-      '  , sum( coalesce(cp.valorsaldo, 0)  ) as valorsaldo'
-      ''
-      '  /* Totais Cancelados */'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorpag, 0)'
-      '      else 0'
-      '    end ) as valorpag_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valormulta, 0)'
-      '      else 0'
-      '    end ) as valormulta_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorpagtot, 0)'
-      '      else 0'
-      '    end ) as valorpagtot_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorsaldo, 0)'
-      '      else 0'
-      '    end ) as valorsaldo_cancel'
-      ''
-      '  , sum( coalesce(cm.totalnf, 0) )               as nfe_valor'
-      
-        '  , sum( coalesce(cm.totalnf + cm.desconto, 0) ) as totalcompra_' +
-        'bruta'
-      '  , sum( coalesce(cm.totalnf, 0) )               as totalcompra'
-      'from TBCONTPAG cp'
-      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
-      
-        '  left join TBCOMPRAS cm on (cm.ano = cp.anocompra and cm.codcon' +
-        'trol = cp.numcompra)'
-      '  left join TBFORMPAGTO fp on (fp.cod = cp.forma_pagto)'
-      '  left join TBTPDESPESA d on (d.cod = cp.codtpdesp)'
-      
-        '  left join TBCOMPETENCIA ce on (ce.cmp_num = extract(year from ' +
-        'cp.dtemiss)  || right('#39'00'#39' || extract(month from cp.dtemiss),  2' +
-        '))'
-      ''
-      '/*'
-      'where (cp.empresa = '#39'17429064000105'#39')'
-      ''
-      'group by'
-      
-        '    extract(year from cp.dtemiss)  || right('#39'00'#39' || extract(mont' +
-        'h from cp.dtemiss),  2)'
-      '  , ce.cmp_desc'
-      '  , cp.dtemiss'
-      '  , cp.codtpdesp'
-      '  , d.tipodesp'
-      '  , cp.situacao'
-      '  , fp.descri'
-      ''
-      '  --, cp.codforn'
-      '  --, fn.nomeforn'
-      '  --, fn.cnpj'
-      '  --, fn.pessoa_fisica'
-      ''
-      'order by'
-      
-        '    extract(year from cp.dtemiss)  || right('#39'00'#39' || extract(mont' +
-        'h from cp.dtemiss),  2)'
-      '  , cp.dtemiss'
-      '  , d.tipodesp'
-      '  --, fn.nomeforn'
-      '  --, fn.cnpj'
-      '*/')
-    Left = 40
-    Top = 152
   end
   object DspRelacaoAPagarESintetico: TDataSetProvider
     DataSet = QryRelacaoAPagarESintetico
@@ -4364,7 +4153,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 152
   end
   object frRelacaoAPagarEAnalitico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -4444,8 +4233,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -4459,6 +4250,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -4472,6 +4264,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -4485,12 +4278,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -4505,6 +4300,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -4525,6 +4321,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -4543,6 +4340,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -4559,24 +4357,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo14: TfrxMemoView
           Left = 113.385900000000000000
           Top = 136.063080000000000000
@@ -4587,6 +4367,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -4603,6 +4384,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -4618,14 +4400,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
@@ -4654,6 +4465,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -4681,6 +4493,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -4726,6 +4539,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -4753,6 +4567,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -4780,6 +4595,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVAnalitico."VALORPAG">)] ')
           ParentFont = False
@@ -4807,6 +4623,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVAnalitico."VALORPAGTOT">' +
@@ -4835,6 +4652,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."COMPRA"]')
           ParentFont = False
@@ -4861,6 +4679,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAPagarVAnalitico."COMPRA_DATA">=0,'#39#39',FormatDat' +
@@ -4890,6 +4709,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."NFE"]')
           ParentFont = False
@@ -4915,6 +4735,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."LANCAMENTO"]')
           ParentFont = False
@@ -4942,6 +4763,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FrdsRelacaoAPagarVAnalitico."PARCELA"]')
           ParentFont = False
@@ -4968,6 +4790,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVAnalitico."DTE' +
@@ -4996,6 +4819,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVAnalitico."DTV' +
@@ -5024,6 +4848,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAPagarVAnalitico."DTPAG">=0,'#39#39',FormatDateTime(' +
@@ -5052,6 +4877,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."FORMA_PAGTO_DESC"]')
           ParentFont = False
@@ -5061,6 +4887,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -5146,6 +4973,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 94.488250000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -5367,6 +5195,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -5377,6 +5206,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderFornecedor: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -5761,6 +5591,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterFornecedor: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -5846,7 +5677,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarBSintetico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -5917,8 +5748,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -5930,12 +5763,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
@@ -5946,6 +5781,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -5953,18 +5789,20 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
           Top = 7.559060000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409450000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -5979,6 +5817,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -5999,6 +5838,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -6017,6 +5857,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -6033,24 +5874,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo14: TfrxMemoView
           Left = 113.385900000000000000
           Top = 136.063080000000000000
@@ -6062,6 +5885,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -6078,6 +5902,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -6093,14 +5918,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
@@ -6129,6 +5983,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -6156,6 +6011,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -6374,6 +6230,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -6401,6 +6258,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarBSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -6426,6 +6284,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarBSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAPagarBSintetico."DTPAG">=0,'#39#39',FormatDateTime(' +
@@ -6455,6 +6314,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarBSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarBSintetico."VALORPAG">)] ')
           ParentFont = False
@@ -6482,6 +6342,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarBSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarBSintetico."VALORMULTA">)' +
@@ -6511,6 +6372,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarBSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarBSintetico."VALORPAGTOT">' +
@@ -6539,6 +6401,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarBSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarBSintetico."FORMA_PAGTO"]')
           ParentFont = False
@@ -6566,6 +6429,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarBSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0'#39',<FrdsRelacaoAPagarBSintetico."QUANTIDADE">)] ')
           ParentFont = False
@@ -6575,6 +6439,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -6679,6 +6544,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -6903,6 +6769,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' ** Valores de despesas canceladas')
@@ -6911,104 +6778,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         end
       end
     end
-  end
-  object QryRelacaoAPagarBSintetico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      
-        '    extract(year from cp.dtpag)  || right('#39'00'#39' || extract(month ' +
-        'from cp.dtpag),  2) as competencia_pagamento'
-      '  , mp.cmp_desc as competencia_pagamento_desc'
-      '  , cp.dtpag'
-      '  , cp.codtpdesp'
-      '  , d.tipodesp'
-      '  , cp.situacao'
-      '  , fp.descri as forma_pagto'
-      ''
-      '  --, cp.codforn       as fornecedor_codigo'
-      '  --, fn.nomeforn      as fornecedor_nome'
-      '  --, fn.cnpj          as fornecedor_cnpj'
-      '  --, fn.pessoa_fisica as fornecedor_pf'
-      ''
-      '  , count( cp.anolanc ) as quantidade'
-      '  , sum( coalesce(cp.valorpag, 0)    ) as valorpag'
-      '  , sum( coalesce(cp.valormulta, 0)  ) as valormulta'
-      '  , sum( coalesce(cp.valorpagtot, 0) ) as valorpagtot'
-      '  , sum( coalesce(cp.valorsaldo, 0)  ) as valorsaldo'
-      ''
-      '  /* Totais Cancelados */'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorpag, 0)'
-      '      else 0'
-      '    end ) as valorpag_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valormulta, 0)'
-      '      else 0'
-      '    end ) as valormulta_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorpagtot, 0)'
-      '      else 0'
-      '    end ) as valorpagtot_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorsaldo, 0)'
-      '      else 0'
-      '    end ) as valorsaldo_cancel'
-      ''
-      '  , sum( coalesce(cm.totalnf, 0) )               as nfe_valor'
-      
-        '  , sum( coalesce(cm.totalnf + cm.desconto, 0) ) as totalcompra_' +
-        'bruta'
-      '  , sum( coalesce(cm.totalnf, 0) )               as totalcompra'
-      'from TBCONTPAG cp'
-      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
-      
-        '  left join TBCOMPRAS cm on (cm.ano = cp.anocompra and cm.codcon' +
-        'trol = cp.numcompra)'
-      '  left join TBFORMPAGTO fp on (fp.cod = cp.forma_pagto)'
-      '  left join TBTPDESPESA d on (d.cod = cp.codtpdesp)'
-      
-        '  left join TBCOMPETENCIA mp on (mp.cmp_num = extract(year from ' +
-        'cp.dtpag)  || right('#39'00'#39' || extract(month from cp.dtpag),  2))'
-      ''
-      '/*'
-      'where (cp.empresa = '#39'17429064000105'#39')'
-      ''
-      'group by'
-      
-        '    extract(year from cp.dtpag)  || right('#39'00'#39' || extract(month ' +
-        'from cp.dtpag),  2)'
-      '  , mp.cmp_desc'
-      '  , cp.dtpag'
-      '  , cp.codtpdesp'
-      '  , d.tipodesp'
-      '  , cp.situacao'
-      '  , fp.descri'
-      ''
-      '  --, cp.codforn'
-      '  --, fn.nomeforn'
-      '  --, fn.cnpj'
-      '  --, fn.pessoa_fisica'
-      ''
-      'order by'
-      
-        '    extract(year from cp.dtpag)  || right('#39'00'#39' || extract(month ' +
-        'from cp.dtpag),  2)'
-      '  , cp.dtpag'
-      '  , d.tipodesp'
-      '  --, fn.nomeforn'
-      '  --, fn.cnpj'
-      '*/')
-    Left = 40
-    Top = 248
   end
   object DspRelacaoAPagarBSintetico: TDataSetProvider
     DataSet = QryRelacaoAPagarBSintetico
@@ -7051,7 +6820,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 248
   end
   object frRelacaoAPagarBAnalitico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -7131,8 +6900,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -7146,6 +6917,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -7159,6 +6931,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -7166,18 +6939,20 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
           Top = 7.559060000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409450000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -7192,6 +6967,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -7212,6 +6988,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -7230,6 +7007,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -7246,24 +7024,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            'Site / E-mail: [frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo14: TfrxMemoView
           Left = 113.385900000000000000
           Top = 136.063080000000000000
@@ -7274,6 +7034,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -7290,6 +7051,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -7305,14 +7067,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
@@ -7341,6 +7132,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -7368,6 +7160,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -7413,6 +7206,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -7440,6 +7234,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -7467,6 +7262,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVAnalitico."VALORPAG">)] ')
           ParentFont = False
@@ -7494,6 +7290,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVAnalitico."VALORPAGTOT">' +
@@ -7522,6 +7319,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."COMPRA"]')
           ParentFont = False
@@ -7548,6 +7346,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAPagarVAnalitico."COMPRA_DATA">=0,'#39#39',FormatDat' +
@@ -7577,6 +7376,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."NFE"]')
           ParentFont = False
@@ -7602,6 +7402,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."LANCAMENTO"]')
           ParentFont = False
@@ -7629,6 +7430,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FrdsRelacaoAPagarVAnalitico."PARCELA"]')
           ParentFont = False
@@ -7655,6 +7457,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVAnalitico."DTE' +
@@ -7683,6 +7486,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVAnalitico."DTV' +
@@ -7711,6 +7515,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAPagarVAnalitico."DTPAG">=0,'#39#39',FormatDateTime(' +
@@ -7739,6 +7544,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."FORMA_PAGTO_DESC"]')
           ParentFont = False
@@ -7748,6 +7554,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -7833,6 +7640,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 94.488250000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -8054,6 +7862,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -8064,6 +7873,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderFornecedor: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -8448,6 +8258,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterFornecedor: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -8533,7 +8344,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarTPDespesaSintetico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -8604,8 +8415,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -8617,12 +8430,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
@@ -8633,6 +8448,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -8646,12 +8462,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -8666,6 +8484,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -8686,6 +8505,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -8704,6 +8524,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -8720,24 +8541,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Top = 120.944960000000000000
@@ -8748,6 +8551,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
@@ -8764,6 +8568,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -8780,14 +8585,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
@@ -8816,6 +8650,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -8843,6 +8678,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderTPDespesa: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -9061,6 +8897,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -9088,6 +8925,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -9113,6 +8951,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVSintetico."DTV' +
@@ -9142,6 +8981,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVSintetico."VALORPAG">)] ')
           ParentFont = False
@@ -9169,6 +9009,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVSintetico."VALORMULTA">)' +
@@ -9198,6 +9039,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVSintetico."VALORPAGTOT">' +
@@ -9226,6 +9068,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVSintetico."FORMA_PAGTO"]')
           ParentFont = False
@@ -9253,6 +9096,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0'#39',<FrdsRelacaoAPagarVSintetico."QUANTIDADE">)] ')
           ParentFont = False
@@ -9262,6 +9106,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterTPDespesa: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -9366,6 +9211,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -9590,6 +9436,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' ** Valores de despesas canceladas')
@@ -9600,7 +9447,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarTPDespesaAnalitico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -9680,8 +9527,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -9695,6 +9544,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -9708,6 +9558,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -9715,18 +9566,20 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
           Top = 7.559060000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409450000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -9741,6 +9594,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -9761,6 +9615,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -9779,6 +9634,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -9795,24 +9651,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo14: TfrxMemoView
           Left = 113.385900000000000000
           Top = 136.063080000000000000
@@ -9823,6 +9661,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -9839,6 +9678,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -9854,14 +9694,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
@@ -9890,6 +9759,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -9917,6 +9787,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderTPDespesa: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -9962,6 +9833,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -9989,6 +9861,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -10016,6 +9889,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVAnalitico."VALORPAG">)] ')
           ParentFont = False
@@ -10043,6 +9917,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVAnalitico."VALORPAGTOT">' +
@@ -10071,6 +9946,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."COMPRA"]')
           ParentFont = False
@@ -10097,6 +9973,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAPagarVAnalitico."COMPRA_DATA">=0,'#39#39',FormatDat' +
@@ -10126,6 +10003,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."NFE"]')
           ParentFont = False
@@ -10151,6 +10029,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."LANCAMENTO"]')
           ParentFont = False
@@ -10178,6 +10057,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FrdsRelacaoAPagarVAnalitico."PARCELA"]')
           ParentFont = False
@@ -10204,6 +10084,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVAnalitico."DTE' +
@@ -10232,6 +10113,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVAnalitico."DTV' +
@@ -10260,6 +10142,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAPagarVAnalitico."DTPAG">=0,'#39#39',FormatDateTime(' +
@@ -10288,6 +10171,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."FORMA_PAGTO_DESC"]')
           ParentFont = False
@@ -10297,6 +10181,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterTPDespesa: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -10382,6 +10267,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 94.488250000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -10603,6 +10489,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -10613,6 +10500,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderFornecedor: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -10997,6 +10885,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterFornecedor: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -11082,7 +10971,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarVFornecedor: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -11153,8 +11042,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -11169,6 +11060,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -11182,6 +11074,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -11195,12 +11088,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -11215,6 +11110,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -11235,6 +11131,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -11253,6 +11150,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -11269,24 +11167,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Top = 120.944960000000000000
@@ -11297,6 +11177,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
@@ -11313,6 +11194,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -11329,14 +11211,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
@@ -11365,6 +11276,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -11392,6 +11304,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -11610,6 +11523,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -11638,6 +11552,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -11664,6 +11579,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -11690,6 +11606,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVFornecedor."DT' +
@@ -11720,6 +11637,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVFornecedor."VALORPAG">)]' +
@@ -11750,6 +11668,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVFornecedor."VALORMULTA">' +
@@ -11780,6 +11699,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVFornecedor."VALORPAGTOT"' +
@@ -11809,6 +11729,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FrdsRelacaoAPagarVFornecedor."FORNECEDOR_NOME"] ([FrdsRelacaoAP' +
@@ -11839,6 +11760,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0'#39',<FrdsRelacaoAPagarVFornecedor."QUANTIDADE">)] ')
           ParentFont = False
@@ -11848,6 +11770,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -11952,6 +11875,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -12176,6 +12100,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' ** Valores de despesas canceladas')
@@ -12184,111 +12109,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         end
       end
     end
-  end
-  object QryRelacaoAPagarVFornecedor: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      
-        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
-        ' from cp.dtvenc),  2) as competencia_vencimento'
-      '  , cv.cmp_desc as competencia_vencimento_desc'
-      '  , cp.dtvenc'
-      '  ----, cp.competencia_apuracao'
-      '  ----, ca.cmp_desc as competencia_apuracao_desc'
-      '  --, cp.codtpdesp'
-      '  --, d.tipodesp'
-      '  , cp.situacao'
-      '  --, fp.descri as forma_pagto'
-      ''
-      '  , cp.codforn       as fornecedor_codigo'
-      '  , fn.nomeforn      as fornecedor_nome'
-      '  , fn.cnpj          as fornecedor_cnpj'
-      '  , fn.pessoa_fisica as fornecedor_pf'
-      ''
-      '  , count( cp.anolanc ) as quantidade'
-      '  , sum( coalesce(cp.valorpag, 0)    ) as valorpag'
-      '  , sum( coalesce(cp.valormulta, 0)  ) as valormulta'
-      '  , sum( coalesce(cp.valorpagtot, 0) ) as valorpagtot'
-      '  , sum( coalesce(cp.valorsaldo, 0)  ) as valorsaldo'
-      ''
-      '  /* Totais Cancelados */'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorpag, 0)'
-      '      else 0'
-      '    end ) as valorpag_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valormulta, 0)'
-      '      else 0'
-      '    end ) as valormulta_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorpagtot, 0)'
-      '      else 0'
-      '    end ) as valorpagtot_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorsaldo, 0)'
-      '      else 0'
-      '    end ) as valorsaldo_cancel'
-      ''
-      '  , sum( coalesce(cm.totalnf, 0) )               as nfe_valor'
-      
-        '  , sum( coalesce(cm.totalnf + cm.desconto, 0) ) as totalcompra_' +
-        'bruta'
-      '  , sum( coalesce(cm.totalnf, 0) )               as totalcompra'
-      'from TBCONTPAG cp'
-      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
-      
-        '  left join TBCOMPRAS cm on (cm.ano = cp.anocompra and cm.codcon' +
-        'trol = cp.numcompra)'
-      '  left join TBFORMPAGTO fp on (fp.cod = cp.forma_pagto)'
-      '  left join TBTPDESPESA d on (d.cod = cp.codtpdesp)'
-      
-        '  left join TBCOMPETENCIA cv on (cv.cmp_num = extract(year from ' +
-        'cp.dtvenc)  || right('#39'00'#39' || extract(month from cp.dtvenc),  2))'
-      
-        '  left join TBCOMPETENCIA ca on (ca.cmp_num = cp.competencia_apu' +
-        'racao)'
-      ''
-      '/*'
-      '--where (cp.empresa = '#39'17429064000105'#39')'
-      ''
-      'group by'
-      
-        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
-        ' from cp.dtvenc),  2)'
-      '  , cv.cmp_desc'
-      '  , cp.dtvenc'
-      '  , cp.competencia_apuracao'
-      '  , ca.cmp_desc'
-      '  --, cp.codtpdesp'
-      '  --, d.tipodesp'
-      '  , cp.situacao'
-      '  --, fp.descri'
-      ''
-      '  , cp.codforn'
-      '  , fn.nomeforn'
-      '  , fn.cnpj'
-      '  , fn.pessoa_fisica'
-      ''
-      'order by'
-      
-        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
-        ' from cp.dtvenc),  2)'
-      '  , cp.dtvenc'
-      '  --, d.tipodesp'
-      '  , fn.nomeforn'
-      '  , fn.cnpj'
-      '*/')
-    Left = 40
-    Top = 104
   end
   object DspRelacaoAPagarVFornecedor: TDataSetProvider
     DataSet = QryRelacaoAPagarVFornecedor
@@ -12332,104 +12152,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     BCDToCurrency = True
     Left = 136
     Top = 104
-  end
-  object QryRelacaoAPagarTPDespesaFornecedor: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      
-        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
-        ' from cp.dtvenc),  2) as competencia_vencimento'
-      '  , cv.cmp_desc as competencia_vencimento_desc'
-      '  , cp.dtvenc'
-      '  , cp.codtpdesp'
-      '  , d.tipodesp'
-      '  , cp.situacao'
-      '  , fp.descri as forma_pagto'
-      ''
-      '  , cp.codforn       as fornecedor_codigo'
-      '  , fn.nomeforn      as fornecedor_nome'
-      '  , fn.cnpj          as fornecedor_cnpj'
-      '  , fn.pessoa_fisica as fornecedor_pf'
-      ''
-      '  , count( cp.anolanc ) as quantidade'
-      '  , sum( coalesce(cp.valorpag, 0)    ) as valorpag'
-      '  , sum( coalesce(cp.valormulta, 0)  ) as valormulta'
-      '  , sum( coalesce(cp.valorpagtot, 0) ) as valorpagtot'
-      '  , sum( coalesce(cp.valorsaldo, 0)  ) as valorsaldo'
-      ''
-      '  /* Totais Cancelados */'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorpag, 0)'
-      '      else 0'
-      '    end ) as valorpag_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valormulta, 0)'
-      '      else 0'
-      '    end ) as valormulta_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorpagtot, 0)'
-      '      else 0'
-      '    end ) as valorpagtot_cancel'
-      ''
-      '  , sum( Case when cp.situacao = 0'
-      '      then coalesce(cp.valorsaldo, 0)'
-      '      else 0'
-      '    end ) as valorsaldo_cancel'
-      ''
-      '  , sum( coalesce(cm.totalnf, 0) )               as nfe_valor'
-      
-        '  , sum( coalesce(cm.totalnf + cm.desconto, 0) ) as totalcompra_' +
-        'bruta'
-      '  , sum( coalesce(cm.totalnf, 0) )               as totalcompra'
-      'from TBCONTPAG cp'
-      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
-      
-        '  left join TBCOMPRAS cm on (cm.ano = cp.anocompra and cm.codcon' +
-        'trol = cp.numcompra)'
-      '  left join TBFORMPAGTO fp on (fp.cod = cp.forma_pagto)'
-      '  left join TBTPDESPESA d on (d.cod = cp.codtpdesp)'
-      
-        '  left join TBCOMPETENCIA cv on (cv.cmp_num = extract(year from ' +
-        'cp.dtvenc)  || right('#39'00'#39' || extract(month from cp.dtvenc),  2))'
-      ''
-      '/*'
-      'where (cp.empresa = '#39'17429064000105'#39')'
-      ''
-      'group by'
-      
-        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
-        ' from cp.dtvenc),  2)'
-      '  , cv.cmp_desc'
-      '  , cp.dtvenc'
-      '  , cp.codtpdesp'
-      '  , d.tipodesp'
-      '  , cp.situacao'
-      '  , fp.descri'
-      ''
-      '  , cp.codforn'
-      '  , fn.nomeforn'
-      '  , fn.cnpj'
-      '  , fn.pessoa_fisica'
-      ''
-      'order by'
-      
-        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
-        ' from cp.dtvenc),  2)'
-      '  , cp.dtvenc'
-      '  , d.tipodesp'
-      '  , fn.nomeforn'
-      '  , fn.cnpj'
-      '*/')
-    Left = 272
-    Top = 8
   end
   object DspRelacaoAPagarTPDespesaFornecedor: TDataSetProvider
     DataSet = QryRelacaoAPagarTPDespesaFornecedor
@@ -12476,7 +12198,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 8
   end
   object frRelacaoAPagarTPDespesaFornecedor: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -12547,8 +12269,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -12563,6 +12287,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -12576,6 +12301,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -12589,12 +12315,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -12609,6 +12337,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -12629,6 +12358,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -12647,6 +12377,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -12663,24 +12394,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Top = 120.944960000000000000
@@ -12691,6 +12404,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
@@ -12707,6 +12421,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -12723,14 +12438,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
@@ -12759,6 +12503,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -12786,6 +12531,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderTPDespesa: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -12983,6 +12729,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -13010,6 +12757,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarTPDespesaFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -13035,6 +12783,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarTPDespesaFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarTPDespesaFornec' +
@@ -13064,6 +12813,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarTPDespesaFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarTPDespesaFornecedor."VALO' +
@@ -13093,6 +12843,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarTPDespesaFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarTPDespesaFornecedor."VALO' +
@@ -13122,6 +12873,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarTPDespesaFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarTPDespesaFornecedor."VALO' +
@@ -13150,6 +12902,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarTPDespesaFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarTPDespesaFornecedor."FORNECEDOR_NOME"]')
           ParentFont = False
@@ -13159,6 +12912,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterTPDespesa: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -13243,6 +12997,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -13467,6 +13222,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' ** Valores de despesas canceladas')
@@ -13477,7 +13233,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarAPSintetico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -13548,8 +13304,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -13561,12 +13319,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
@@ -13577,6 +13337,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -13590,12 +13351,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -13610,6 +13373,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -13630,6 +13394,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -13648,6 +13413,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -13664,24 +13430,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Top = 120.944960000000000000
@@ -13692,6 +13440,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
@@ -13708,6 +13457,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -13724,14 +13474,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
@@ -13760,6 +13539,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -13787,6 +13567,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -14006,6 +13787,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -14033,6 +13815,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -14058,6 +13841,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVSintetico."DTV' +
@@ -14087,6 +13871,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVSintetico."VALORPAG">)] ')
           ParentFont = False
@@ -14114,6 +13899,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVSintetico."VALORMULTA">)' +
@@ -14143,6 +13929,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVSintetico."VALORPAGTOT">' +
@@ -14171,6 +13958,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVSintetico."FORMA_PAGTO"]')
           ParentFont = False
@@ -14198,6 +13986,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0'#39',<FrdsRelacaoAPagarVSintetico."QUANTIDADE">)] ')
           ParentFont = False
@@ -14207,6 +13996,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -14311,6 +14101,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -14535,6 +14326,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' ** Valores de despesas canceladas')
@@ -14545,7 +14337,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarAPAnalitico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -14625,8 +14417,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -14640,6 +14434,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -14653,6 +14448,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -14660,18 +14456,20 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
           Top = 7.559060000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409450000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -14686,6 +14484,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -14706,6 +14505,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -14724,6 +14524,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -14740,24 +14541,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Top = 120.944960000000000000
@@ -14768,6 +14551,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
@@ -14783,6 +14567,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -14799,14 +14584,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
@@ -14835,6 +14649,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -14862,6 +14677,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -14908,6 +14724,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -14935,6 +14752,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -14962,6 +14780,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVAnalitico."VALORPAG">)] ')
           ParentFont = False
@@ -14989,6 +14808,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVAnalitico."VALORPAGTOT">' +
@@ -15017,6 +14837,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."COMPRA"]')
           ParentFont = False
@@ -15043,6 +14864,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAPagarVAnalitico."COMPRA_DATA">=0,'#39#39',FormatDat' +
@@ -15072,6 +14894,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."NFE"]')
           ParentFont = False
@@ -15097,6 +14920,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."LANCAMENTO"]')
           ParentFont = False
@@ -15124,6 +14948,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FrdsRelacaoAPagarVAnalitico."PARCELA"]')
           ParentFont = False
@@ -15150,6 +14975,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVAnalitico."DTE' +
@@ -15178,6 +15004,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVAnalitico."DTV' +
@@ -15206,6 +15033,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAPagarVAnalitico."DTPAG">=0,'#39#39',FormatDateTime(' +
@@ -15234,6 +15062,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."FORMA_PAGTO_DESC"]')
           ParentFont = False
@@ -15243,6 +15072,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -15328,6 +15158,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 94.488250000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -15549,6 +15380,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -15559,6 +15391,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderFornecedor: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -15943,6 +15776,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterFornecedor: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -16028,7 +15862,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarAPFornecedor: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -16099,8 +15933,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -16112,12 +15948,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
@@ -16128,6 +15966,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -16141,12 +15980,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -16161,6 +16002,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -16181,6 +16023,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -16199,6 +16042,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -16215,24 +16059,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Top = 120.944960000000000000
@@ -16243,6 +16069,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
@@ -16259,6 +16086,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -16275,14 +16103,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
@@ -16311,6 +16168,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -16338,6 +16196,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -16557,6 +16416,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -16584,6 +16444,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -16609,6 +16470,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVFornecedor."DT' +
@@ -16638,6 +16500,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVFornecedor."VALORPAG">)]' +
@@ -16667,6 +16530,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVFornecedor."VALORMULTA">' +
@@ -16696,6 +16560,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVFornecedor."VALORPAGTOT"' +
@@ -16724,6 +16589,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVFornecedor."FORNECEDOR_NOME"]')
           ParentFont = False
@@ -16751,6 +16617,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVFornecedor."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0'#39',<FrdsRelacaoAPagarVFornecedor."QUANTIDADE">)] ')
           ParentFont = False
@@ -16760,6 +16627,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -16864,6 +16732,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -17088,6 +16957,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' ** Valores de despesas canceladas')
@@ -17164,7 +17034,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 64
   end
   object frRelacaoExtratoFornVSintetico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -17235,8 +17105,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -17248,12 +17120,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Height = 26.456710000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
@@ -17264,6 +17138,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -17277,12 +17152,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -17297,6 +17174,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -17317,6 +17195,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -17335,6 +17214,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -17351,24 +17231,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Top = 120.944960000000000000
@@ -17379,6 +17241,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
@@ -17395,6 +17258,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -17411,14 +17275,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
@@ -17447,6 +17340,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -17474,6 +17368,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -17692,6 +17587,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -17719,6 +17615,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -17744,6 +17641,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVSintetico."DTV' +
@@ -17773,6 +17671,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVSintetico."VALORPAG">)] ')
           ParentFont = False
@@ -17800,6 +17699,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVSintetico."VALORMULTA">)' +
@@ -17829,6 +17729,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVSintetico."VALORPAGTOT">' +
@@ -17857,6 +17758,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVSintetico."FORMA_PAGTO"]')
           ParentFont = False
@@ -17884,6 +17786,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVSintetico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0'#39',<FrdsRelacaoAPagarVSintetico."QUANTIDADE">)] ')
           ParentFont = False
@@ -17893,6 +17796,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -17997,6 +17901,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -18221,6 +18126,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' ** Valores de despesas canceladas')
@@ -18231,7 +18137,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoExtratoFornVAnalitico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -18311,8 +18217,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -18326,6 +18234,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -18339,6 +18248,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -18346,18 +18256,20 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
           Top = 7.559060000000000000
-          Width = 604.724409448818900000
+          Width = 604.724409450000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -18372,6 +18284,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -18392,6 +18305,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -18410,6 +18324,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -18426,24 +18341,6 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Color = clBlack
           Frame.Typ = [ftTop]
         end
-        object Memo44: TfrxMemoView
-          Left = 113.385900000000000000
-          Top = 71.811070000000000000
-          Width = 604.724409450000000000
-          Height = 15.118120000000000000
-          DataSet = DMNFe.frdCliente
-          DataSetName = 'frdCliente'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Lucida Console'
-          Font.Style = []
-          Memo.UTF8W = (
-            '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
         object Memo20: TfrxMemoView
           Left = 113.385900000000000000
           Top = 120.944960000000000000
@@ -18454,6 +18351,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o das despesas:')
           ParentFont = False
@@ -18469,6 +18367,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -18485,14 +18384,43 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo44: TfrxMemoView
+          Left = 113.385900000000000000
+          Top = 71.811070000000000000
+          Width = 604.724800000000000000
+          Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
+          DataSetName = 'frdCliente'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Lucida Console'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
+              'frdEmpresa."EMAIL">,IIF(Trim(<frdEmpresa."EMAIL">)='#39#39','#39#39','#39' / '#39'+<' +
+              'frdEmpresa."EMAIL">))]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
@@ -18521,6 +18449,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -18548,6 +18477,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -18593,6 +18523,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -18620,6 +18551,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<ValorAPagar>)] ')
           ParentFont = False
@@ -18647,6 +18579,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVAnalitico."VALORPAG">)] ')
           ParentFont = False
@@ -18674,6 +18607,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoAPagarVAnalitico."VALORPAGTOT">' +
@@ -18702,6 +18636,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."COMPRA"]')
           ParentFont = False
@@ -18728,6 +18663,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAPagarVAnalitico."COMPRA_DATA">=0,'#39#39',FormatDat' +
@@ -18757,6 +18693,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."NFE"]')
           ParentFont = False
@@ -18782,6 +18719,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."LANCAMENTO"]')
           ParentFont = False
@@ -18809,6 +18747,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FrdsRelacaoAPagarVAnalitico."PARCELA"]')
           ParentFont = False
@@ -18835,6 +18774,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVAnalitico."DTE' +
@@ -18863,6 +18803,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoAPagarVAnalitico."DTV' +
@@ -18891,6 +18832,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<FrdsRelacaoAPagarVAnalitico."DTPAG">=0,'#39#39',FormatDateTime(' +
@@ -18919,6 +18861,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoAPagarVAnalitico."SITUACAO">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoAPagarVAnalitico."FORMA_PAGTO_DESC"]')
           ParentFont = False
@@ -18928,6 +18871,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -19013,6 +18957,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 94.488250000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -19234,6 +19179,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -19244,6 +19190,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderFornecedor: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -19628,6 +19575,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterFornecedor: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -19716,5 +19664,619 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     DataSet = CdsFornecedor
     Left = 425
     Top = 64
+  end
+  object QryRelacaoAPagarVSintetico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      
+        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
+        ' from cp.dtvenc),  2) as competencia_vencimento'
+      '  , cv.cmp_desc as competencia_vencimento_desc'
+      '  , cp.competencia_apuracao'
+      '  , ca.cmp_desc as competencia_apuracao_desc'
+      '  , cp.dtvenc'
+      '  , cp.codtpdesp'
+      '  , d.tipodesp'
+      '  , cp.situacao'
+      '  , fp.descri as forma_pagto'
+      ''
+      '  --, cp.codforn       as fornecedor_codigo'
+      '  --, fn.nomeforn      as fornecedor_nome'
+      '  --, fn.cnpj          as fornecedor_cnpj'
+      '  --, fn.pessoa_fisica as fornecedor_pf'
+      ''
+      '  , count( cp.anolanc ) as quantidade'
+      '  , sum( coalesce(cp.valorpag, 0)    ) as valorpag'
+      '  , sum( coalesce(cp.valormulta, 0)  ) as valormulta'
+      '  , sum( coalesce(cp.valorpagtot, 0) ) as valorpagtot'
+      '  , sum( coalesce(cp.valorsaldo, 0)  ) as valorsaldo'
+      ''
+      '  /* Totais Cancelados */'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorpag, 0)'
+      '      else 0'
+      '    end ) as valorpag_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valormulta, 0)'
+      '      else 0'
+      '    end ) as valormulta_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorpagtot, 0)'
+      '      else 0'
+      '    end ) as valorpagtot_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorsaldo, 0)'
+      '      else 0'
+      '    end ) as valorsaldo_cancel'
+      ''
+      '  , sum( coalesce(cm.totalnf, 0) )               as nfe_valor'
+      
+        '  , sum( coalesce(cm.totalnf + cm.desconto, 0) ) as totalcompra_' +
+        'bruta'
+      '  , sum( coalesce(cm.totalnf, 0) )               as totalcompra'
+      'from TBCONTPAG cp'
+      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
+      
+        '  left join TBCOMPRAS cm on (cm.ano = cp.anocompra and cm.codcon' +
+        'trol = cp.numcompra)'
+      '  left join TBFORMPAGTO fp on (fp.cod = cp.forma_pagto)'
+      '  left join TBTPDESPESA d on (d.cod = cp.codtpdesp)'
+      
+        '  left join TBCOMPETENCIA cv on (cv.cmp_num = extract(year from ' +
+        'cp.dtvenc)  || right('#39'00'#39' || extract(month from cp.dtvenc),  2))'
+      
+        '  left join TBCOMPETENCIA ca on (ca.cmp_num = cp.competencia_apu' +
+        'racao)'
+      ''
+      '/*'
+      'where (cp.empresa = '#39'17429064000105'#39')'
+      ''
+      'group by'
+      
+        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
+        ' from cp.dtvenc),  2)'
+      '  , cv.cmp_desc'
+      '  , cp.competencia_apuracao'
+      '  , ca.cmp_desc'
+      '  , cp.dtvenc'
+      '  , cp.codtpdesp'
+      '  , d.tipodesp'
+      '  , cp.situacao'
+      '  , fp.descri'
+      ''
+      '  --, cp.codforn'
+      '  --, fn.nomeforn'
+      '  --, fn.cnpj'
+      '  --, fn.pessoa_fisica'
+      ''
+      'order by'
+      
+        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
+        ' from cp.dtvenc),  2)'
+      '  , cp.dtvenc'
+      '  , d.tipodesp'
+      '  --, fn.nomeforn'
+      '  --, fn.cnpj'
+      '*/')
+    Left = 40
+    Top = 8
+  end
+  object QryRelacaoAPagarVAnalitico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    cp.anolanc'
+      '  , cp.numlanc'
+      
+        '  , cp.anolanc || '#39'/'#39' || right('#39'0000000'#39' || cp.numlanc, 7) as la' +
+        'ncamento'
+      '  , cp.parcela'
+      '  , cp.dtemiss'
+      '  , cp.dtvenc'
+      '  , cp.dtpag'
+      '  , cp.codtpdesp'
+      '  , d.tipodesp'
+      '  , cp.quitado'
+      '  , cp.situacao'
+      '  , cp.forma_pagto'
+      '  , fp.descri as forma_pagto_desc'
+      ''
+      
+        '  , extract(year from cp.dtemiss) || right('#39'00'#39' || extract(month' +
+        ' from cp.dtemiss), 2) as competencia_emissao'
+      
+        '  , extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
+        ' from cp.dtvenc),  2) as competencia_vencimento'
+      
+        '  , extract(year from cp.dtpag)   || right('#39'00'#39' || extract(month' +
+        ' from cp.dtpag),   2) as competencia_pagamento'
+      '  , cp.competencia_apuracao'
+      '  , me.cmp_desc as competencia_emissao_desc'
+      '  , mv.cmp_desc as competencia_vencimento_desc'
+      '  , mp.cmp_desc as competencia_pagamento_desc'
+      '  , ap.cmp_desc as competencia_apuracao_desc'
+      ''
+      '  , cp.codforn       as fornecedor_codigo'
+      '  , fn.nomeforn      as fornecedor_nome'
+      '  , fn.cnpj          as fornecedor_cnpj'
+      '  , fn.pessoa_fisica as fornecedor_pf'
+      ''
+      '  , cp.valorpag'
+      '  , cp.valormulta'
+      '  , cp.valorpagtot'
+      '  , cp.valorsaldo'
+      ''
+      '  /* Totais Cancelados */'
+      ''
+      '  , Case when cp.situacao = 0'
+      '      then cp.valorpag'
+      '      else 0'
+      '    end as valorpag_cancel'
+      ''
+      '  , Case when cp.situacao = 0'
+      '      then cp.valormulta'
+      '      else 0'
+      '    end as valormulta_cancel'
+      ''
+      '  , Case when cp.situacao = 0'
+      '      then cp.valorpagtot'
+      '      else 0'
+      '    end as valorpagtot_cancel'
+      ''
+      '  , Case when cp.situacao = 0'
+      '      then cp.valorsaldo'
+      '      else 0'
+      '    end as valorsaldo_cancel'
+      ''
+      
+        '  , cp.anocompra || '#39'/'#39' || right('#39'0000000'#39' || cp.numcompra, 7) a' +
+        's compra'
+      '  , cm.dtent as compra_data'
+      
+        '  , right('#39'0000000'#39' || cm.nf, 7) || coalesce('#39'-'#39' || trim(cm.nfse' +
+        'rie), '#39#39') as NFE'
+      '  , cm.nfserie     as nfe_serie'
+      '  , cm.nf          as nfe_numero'
+      '  , cm.dtemiss     as nfe_emissao'
+      '  , cm.totalnf as nfe_valor'
+      '  , cm.totalnf + coalesce(cm.desconto, 0.0) as totalcompra_bruta'
+      '  , cm.totalnf as totalcompra'
+      'from TBCONTPAG cp'
+      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
+      
+        '  left join TBCOMPRAS cm on (cm.ano = cp.anocompra and cm.codcon' +
+        'trol = cp.numcompra)'
+      '  left join TBFORMPAGTO fp on (fp.cod = cp.forma_pagto)'
+      '  left join TBTPDESPESA d on (d.cod = cp.codtpdesp)'
+      ''
+      
+        '  left join TBCOMPETENCIA me on (me.cmp_num = extract(year from ' +
+        'cp.dtemiss) || right('#39'00'#39' || extract(month from cp.dtemiss), 2))'
+      
+        '  left join TBCOMPETENCIA mv on (mv.cmp_num = extract(year from ' +
+        'cp.dtvenc)  || right('#39'00'#39' || extract(month from cp.dtvenc),  2))'
+      
+        '  left join TBCOMPETENCIA mp on (mp.cmp_num = extract(year from ' +
+        'cp.dtpag)   || right('#39'00'#39' || extract(month from cp.dtpag),   2))'
+      
+        '  left join TBCOMPETENCIA ap on (ap.cmp_num = cp.competencia_apu' +
+        'racao)'
+      ''
+      '/*'
+      'where (cp.empresa = '#39'17429064000105'#39')'
+      ''
+      'order by'
+      '    fn.nomeforn'
+      '  , fn.cnpj'
+      '  , cp.codforn'
+      
+        '  , extract(year from cp.dtemiss) || right('#39'00'#39' || extract(month' +
+        ' from cp.dtemiss), 2)'
+      '  , cp.dtemiss'
+      '  , d.tipodesp'
+      '*/')
+    Left = 40
+    Top = 56
+  end
+  object QryRelacaoAPagarVFornecedor: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      
+        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
+        ' from cp.dtvenc),  2) as competencia_vencimento'
+      '  , cv.cmp_desc as competencia_vencimento_desc'
+      '  , cp.dtvenc'
+      '  ----, cp.competencia_apuracao'
+      '  ----, ca.cmp_desc as competencia_apuracao_desc'
+      '  --, cp.codtpdesp'
+      '  --, d.tipodesp'
+      '  , cp.situacao'
+      '  --, fp.descri as forma_pagto'
+      ''
+      '  , cp.codforn       as fornecedor_codigo'
+      '  , fn.nomeforn      as fornecedor_nome'
+      '  , fn.cnpj          as fornecedor_cnpj'
+      '  , fn.pessoa_fisica as fornecedor_pf'
+      ''
+      '  , count( cp.anolanc ) as quantidade'
+      '  , sum( coalesce(cp.valorpag, 0)    ) as valorpag'
+      '  , sum( coalesce(cp.valormulta, 0)  ) as valormulta'
+      '  , sum( coalesce(cp.valorpagtot, 0) ) as valorpagtot'
+      '  , sum( coalesce(cp.valorsaldo, 0)  ) as valorsaldo'
+      ''
+      '  /* Totais Cancelados */'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorpag, 0)'
+      '      else 0'
+      '    end ) as valorpag_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valormulta, 0)'
+      '      else 0'
+      '    end ) as valormulta_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorpagtot, 0)'
+      '      else 0'
+      '    end ) as valorpagtot_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorsaldo, 0)'
+      '      else 0'
+      '    end ) as valorsaldo_cancel'
+      ''
+      '  , sum( coalesce(cm.totalnf, 0) )               as nfe_valor'
+      
+        '  , sum( coalesce(cm.totalnf + cm.desconto, 0) ) as totalcompra_' +
+        'bruta'
+      '  , sum( coalesce(cm.totalnf, 0) )               as totalcompra'
+      'from TBCONTPAG cp'
+      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
+      
+        '  left join TBCOMPRAS cm on (cm.ano = cp.anocompra and cm.codcon' +
+        'trol = cp.numcompra)'
+      '  left join TBFORMPAGTO fp on (fp.cod = cp.forma_pagto)'
+      '  left join TBTPDESPESA d on (d.cod = cp.codtpdesp)'
+      
+        '  left join TBCOMPETENCIA cv on (cv.cmp_num = extract(year from ' +
+        'cp.dtvenc)  || right('#39'00'#39' || extract(month from cp.dtvenc),  2))'
+      
+        '  left join TBCOMPETENCIA ca on (ca.cmp_num = cp.competencia_apu' +
+        'racao)'
+      ''
+      '/*'
+      '--where (cp.empresa = '#39'17429064000105'#39')'
+      ''
+      'group by'
+      
+        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
+        ' from cp.dtvenc),  2)'
+      '  , cv.cmp_desc'
+      '  , cp.dtvenc'
+      '  , cp.competencia_apuracao'
+      '  , ca.cmp_desc'
+      '  --, cp.codtpdesp'
+      '  --, d.tipodesp'
+      '  , cp.situacao'
+      '  --, fp.descri'
+      ''
+      '  , cp.codforn'
+      '  , fn.nomeforn'
+      '  , fn.cnpj'
+      '  , fn.pessoa_fisica'
+      ''
+      'order by'
+      
+        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
+        ' from cp.dtvenc),  2)'
+      '  , cp.dtvenc'
+      '  --, d.tipodesp'
+      '  , fn.nomeforn'
+      '  , fn.cnpj'
+      '*/')
+    Left = 40
+    Top = 104
+  end
+  object QryRelacaoAPagarESintetico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      
+        '    extract(year from cp.dtemiss) || right('#39'00'#39' || extract(month' +
+        ' from cp.dtemiss), 2) as competencia_emissao'
+      '  , ce.cmp_desc as competencia_emissao_desc'
+      '  , cp.dtemiss'
+      '  , cp.codtpdesp'
+      '  , d.tipodesp'
+      '  , cp.situacao'
+      '  , fp.descri as forma_pagto'
+      ''
+      '  --, cp.codforn       as fornecedor_codigo'
+      '  --, fn.nomeforn      as fornecedor_nome'
+      '  --, fn.cnpj          as fornecedor_cnpj'
+      '  --, fn.pessoa_fisica as fornecedor_pf'
+      ''
+      '  , count( cp.anolanc ) as quantidade'
+      '  , sum( coalesce(cp.valorpag, 0)    ) as valorpag'
+      '  , sum( coalesce(cp.valormulta, 0)  ) as valormulta'
+      '  , sum( coalesce(cp.valorpagtot, 0) ) as valorpagtot'
+      '  , sum( coalesce(cp.valorsaldo, 0)  ) as valorsaldo'
+      ''
+      '  /* Totais Cancelados */'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorpag, 0)'
+      '      else 0'
+      '    end ) as valorpag_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valormulta, 0)'
+      '      else 0'
+      '    end ) as valormulta_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorpagtot, 0)'
+      '      else 0'
+      '    end ) as valorpagtot_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorsaldo, 0)'
+      '      else 0'
+      '    end ) as valorsaldo_cancel'
+      ''
+      '  , sum( coalesce(cm.totalnf, 0) )               as nfe_valor'
+      
+        '  , sum( coalesce(cm.totalnf + cm.desconto, 0) ) as totalcompra_' +
+        'bruta'
+      '  , sum( coalesce(cm.totalnf, 0) )               as totalcompra'
+      'from TBCONTPAG cp'
+      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
+      
+        '  left join TBCOMPRAS cm on (cm.ano = cp.anocompra and cm.codcon' +
+        'trol = cp.numcompra)'
+      '  left join TBFORMPAGTO fp on (fp.cod = cp.forma_pagto)'
+      '  left join TBTPDESPESA d on (d.cod = cp.codtpdesp)'
+      
+        '  left join TBCOMPETENCIA ce on (ce.cmp_num = extract(year from ' +
+        'cp.dtemiss)  || right('#39'00'#39' || extract(month from cp.dtemiss),  2' +
+        '))'
+      ''
+      '/*'
+      'where (cp.empresa = '#39'17429064000105'#39')'
+      ''
+      'group by'
+      
+        '    extract(year from cp.dtemiss)  || right('#39'00'#39' || extract(mont' +
+        'h from cp.dtemiss),  2)'
+      '  , ce.cmp_desc'
+      '  , cp.dtemiss'
+      '  , cp.codtpdesp'
+      '  , d.tipodesp'
+      '  , cp.situacao'
+      '  , fp.descri'
+      ''
+      '  --, cp.codforn'
+      '  --, fn.nomeforn'
+      '  --, fn.cnpj'
+      '  --, fn.pessoa_fisica'
+      ''
+      'order by'
+      
+        '    extract(year from cp.dtemiss)  || right('#39'00'#39' || extract(mont' +
+        'h from cp.dtemiss),  2)'
+      '  , cp.dtemiss'
+      '  , d.tipodesp'
+      '  --, fn.nomeforn'
+      '  --, fn.cnpj'
+      '*/')
+    Left = 40
+    Top = 152
+  end
+  object QryRelacaoAPagarBSintetico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      
+        '    extract(year from cp.dtpag)  || right('#39'00'#39' || extract(month ' +
+        'from cp.dtpag),  2) as competencia_pagamento'
+      '  , mp.cmp_desc as competencia_pagamento_desc'
+      '  , cp.dtpag'
+      '  , cp.codtpdesp'
+      '  , d.tipodesp'
+      '  , cp.situacao'
+      '  , fp.descri as forma_pagto'
+      ''
+      '  --, cp.codforn       as fornecedor_codigo'
+      '  --, fn.nomeforn      as fornecedor_nome'
+      '  --, fn.cnpj          as fornecedor_cnpj'
+      '  --, fn.pessoa_fisica as fornecedor_pf'
+      ''
+      '  , count( cp.anolanc ) as quantidade'
+      '  , sum( coalesce(cp.valorpag, 0)    ) as valorpag'
+      '  , sum( coalesce(cp.valormulta, 0)  ) as valormulta'
+      '  , sum( coalesce(cp.valorpagtot, 0) ) as valorpagtot'
+      '  , sum( coalesce(cp.valorsaldo, 0)  ) as valorsaldo'
+      ''
+      '  /* Totais Cancelados */'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorpag, 0)'
+      '      else 0'
+      '    end ) as valorpag_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valormulta, 0)'
+      '      else 0'
+      '    end ) as valormulta_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorpagtot, 0)'
+      '      else 0'
+      '    end ) as valorpagtot_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorsaldo, 0)'
+      '      else 0'
+      '    end ) as valorsaldo_cancel'
+      ''
+      '  , sum( coalesce(cm.totalnf, 0) )               as nfe_valor'
+      
+        '  , sum( coalesce(cm.totalnf + cm.desconto, 0) ) as totalcompra_' +
+        'bruta'
+      '  , sum( coalesce(cm.totalnf, 0) )               as totalcompra'
+      'from TBCONTPAG cp'
+      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
+      
+        '  left join TBCOMPRAS cm on (cm.ano = cp.anocompra and cm.codcon' +
+        'trol = cp.numcompra)'
+      '  left join TBFORMPAGTO fp on (fp.cod = cp.forma_pagto)'
+      '  left join TBTPDESPESA d on (d.cod = cp.codtpdesp)'
+      
+        '  left join TBCOMPETENCIA mp on (mp.cmp_num = extract(year from ' +
+        'cp.dtpag)  || right('#39'00'#39' || extract(month from cp.dtpag),  2))'
+      ''
+      '/*'
+      'where (cp.empresa = '#39'17429064000105'#39')'
+      ''
+      'group by'
+      
+        '    extract(year from cp.dtpag)  || right('#39'00'#39' || extract(month ' +
+        'from cp.dtpag),  2)'
+      '  , mp.cmp_desc'
+      '  , cp.dtpag'
+      '  , cp.codtpdesp'
+      '  , d.tipodesp'
+      '  , cp.situacao'
+      '  , fp.descri'
+      ''
+      '  --, cp.codforn'
+      '  --, fn.nomeforn'
+      '  --, fn.cnpj'
+      '  --, fn.pessoa_fisica'
+      ''
+      'order by'
+      
+        '    extract(year from cp.dtpag)  || right('#39'00'#39' || extract(month ' +
+        'from cp.dtpag),  2)'
+      '  , cp.dtpag'
+      '  , d.tipodesp'
+      '  --, fn.nomeforn'
+      '  --, fn.cnpj'
+      '*/')
+    Left = 40
+    Top = 248
+  end
+  object QryRelacaoAPagarTPDespesaFornecedor: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      
+        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
+        ' from cp.dtvenc),  2) as competencia_vencimento'
+      '  , cv.cmp_desc as competencia_vencimento_desc'
+      '  , cp.dtvenc'
+      '  , cp.codtpdesp'
+      '  , d.tipodesp'
+      '  , cp.situacao'
+      '  , fp.descri as forma_pagto'
+      ''
+      '  , cp.codforn       as fornecedor_codigo'
+      '  , fn.nomeforn      as fornecedor_nome'
+      '  , fn.cnpj          as fornecedor_cnpj'
+      '  , fn.pessoa_fisica as fornecedor_pf'
+      ''
+      '  , count( cp.anolanc ) as quantidade'
+      '  , sum( coalesce(cp.valorpag, 0)    ) as valorpag'
+      '  , sum( coalesce(cp.valormulta, 0)  ) as valormulta'
+      '  , sum( coalesce(cp.valorpagtot, 0) ) as valorpagtot'
+      '  , sum( coalesce(cp.valorsaldo, 0)  ) as valorsaldo'
+      ''
+      '  /* Totais Cancelados */'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorpag, 0)'
+      '      else 0'
+      '    end ) as valorpag_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valormulta, 0)'
+      '      else 0'
+      '    end ) as valormulta_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorpagtot, 0)'
+      '      else 0'
+      '    end ) as valorpagtot_cancel'
+      ''
+      '  , sum( Case when cp.situacao = 0'
+      '      then coalesce(cp.valorsaldo, 0)'
+      '      else 0'
+      '    end ) as valorsaldo_cancel'
+      ''
+      '  , sum( coalesce(cm.totalnf, 0) )               as nfe_valor'
+      
+        '  , sum( coalesce(cm.totalnf + cm.desconto, 0) ) as totalcompra_' +
+        'bruta'
+      '  , sum( coalesce(cm.totalnf, 0) )               as totalcompra'
+      'from TBCONTPAG cp'
+      '  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn)'
+      
+        '  left join TBCOMPRAS cm on (cm.ano = cp.anocompra and cm.codcon' +
+        'trol = cp.numcompra)'
+      '  left join TBFORMPAGTO fp on (fp.cod = cp.forma_pagto)'
+      '  left join TBTPDESPESA d on (d.cod = cp.codtpdesp)'
+      
+        '  left join TBCOMPETENCIA cv on (cv.cmp_num = extract(year from ' +
+        'cp.dtvenc)  || right('#39'00'#39' || extract(month from cp.dtvenc),  2))'
+      ''
+      '/*'
+      'where (cp.empresa = '#39'17429064000105'#39')'
+      ''
+      'group by'
+      
+        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
+        ' from cp.dtvenc),  2)'
+      '  , cv.cmp_desc'
+      '  , cp.dtvenc'
+      '  , cp.codtpdesp'
+      '  , d.tipodesp'
+      '  , cp.situacao'
+      '  , fp.descri'
+      ''
+      '  , cp.codforn'
+      '  , fn.nomeforn'
+      '  , fn.cnpj'
+      '  , fn.pessoa_fisica'
+      ''
+      'order by'
+      
+        '    extract(year from cp.dtvenc)  || right('#39'00'#39' || extract(month' +
+        ' from cp.dtvenc),  2)'
+      '  , cp.dtvenc'
+      '  , d.tipodesp'
+      '  , fn.nomeforn'
+      '  , fn.cnpj'
+      '*/')
+    Left = 272
+    Top = 8
   end
 end

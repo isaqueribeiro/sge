@@ -376,6 +376,25 @@ type
     qryTipoDespesa: TFDQuery;
     qryTipoDocumento: TFDQuery;
     qryTipoEntrada: TFDQuery;
+    lblCalcularTotais: TLabel;
+    tbsLotes: TTabSheet;
+    DBGrid1: TDBGrid;
+    DtSrcTabelaLotes: TDataSource;
+    cdsTabelaLotes: TFDQuery;
+    cdsTabelaLotesANO: TSmallintField;
+    cdsTabelaLotesCODCONTROL: TIntegerField;
+    cdsTabelaLotesCODEMP: TStringField;
+    cdsTabelaLotesSEQ: TSmallintField;
+    cdsTabelaLotesCODPROD: TStringField;
+    cdsTabelaLotesDESCRI: TStringField;
+    cdsTabelaLotesAPRESENTACAO: TStringField;
+    cdsTabelaLotesDESCRI_APRESENTACAO: TStringField;
+    cdsTabelaLotesREFERENCIA: TStringField;
+    cdsTabelaLotesLOTE_ID: TStringField;
+    cdsTabelaLotesLOTE_DESCRICAO: TStringField;
+    cdsTabelaLotesLOTE_DATA_FAB: TDateField;
+    cdsTabelaLotesLOTE_DATA_VAL: TDateField;
+    cdsTabelaLotesQTDE: TBCDField;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
@@ -433,6 +452,7 @@ type
     SQL_Duplicatas : TStringList;
     FValorTotalProduto : Currency;
     procedure AbrirTabelaItens(const AnoCompra : Smallint; const ControleCompra : Integer);
+    procedure AbrirTabelaLotes(const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure AbrirTabelaDuplicatas(const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure AbrirNotaFiscal(const Empresa : String; const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure GerarDuplicatas(const AnoCompra : Smallint; const ControleCompra : Integer);
@@ -743,14 +763,15 @@ begin
   CarregarTipoDespesa(False);
 
   DisplayFormatCodigo := '###0000000';
-  
+
   NomeTabela     := 'TBCOMPRAS';
   CampoCodigo    := 'c.Codcontrol';
   CampoDescricao := 'f.NomeForn';
   CampoOrdenacao := 'c.dtEnt, f.NomeForn';
 
-  dbCalcularTotais.Visible := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
-  btbtnGerarNFe.Visible    := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
+  dbCalcularTotais.Visible  := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
+  lblCalcularTotais.Visible := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
+  btbtnGerarNFe.Visible     := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
 
   TipoMovimento     := tmeProduto;
   ApenasFinalizadas := False;
@@ -898,7 +919,9 @@ begin
         SQL.Add('Select');
         SQL.Add('  count(ci.seq) as pendentes');
         SQL.Add('from TBCOMPRASITENS ci');
-        SQL.Add('  inner join TBPRODUTO pr on (pr.cod = ci.codprod and pr.estoque_aprop_lote = 1)');
+        SQL.Add('  inner join TBCOMPRAS cp on (cp.ano = ci.ano and cp.codcontrol = ci.codcontrol and cp.codemp = ci.codemp)');
+        SQL.Add('  inner join TBPRODUTO pr on (pr.cod = ci.codprod and pr.estoque_aprop_lote = 1 and pr.movimenta_estoque = 1)');
+        SQL.Add('  left join TBCFOP cf on (cf.cfop_cod = cp.nfcfop)');
         SQL.Add('where ci.ano        = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
         SQL.Add('  and ci.codcontrol = ' + DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString);
         Open;
@@ -1020,6 +1043,17 @@ begin
   cdsTabelaItens.Open;
 
   HabilitarDesabilitar_Btns;
+end;
+
+procedure TfrmGeEntradaEstoque.AbrirTabelaLotes(const AnoCompra: Smallint; const ControleCompra: Integer);
+begin
+  with cdsTabelaLotes do
+  begin
+    Close;
+    ParamByName('ano').AsSmallInt   := AnoCompra;
+    ParamByName('compra').AsInteger := ControleCompra;
+    Open;
+  end;
 end;
 
 procedure TfrmGeEntradaEstoque.AbrirTabelaDuplicatas(
@@ -1198,6 +1232,7 @@ begin
       begin
         AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
         AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+        AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
         AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
       end;
     end;
@@ -1481,6 +1516,7 @@ begin
   begin
     AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
     AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+    AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
     AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
   end;
 end;
@@ -1493,6 +1529,7 @@ begin
     begin
       AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
       AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
       AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
     end;
 end;
@@ -1522,6 +1559,7 @@ begin
       begin
         AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
         AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+        AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
         AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
       end;
     end;
@@ -1647,88 +1685,110 @@ begin
 
     pgcGuias.ActivePage := tbsCadastro;
 
-    if (FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) then
-    begin
-      ShowWarning('Movimento de Entrada já está finalizado!');
-      Abort;
-    end;
+    // Garantir a gravação dos itens na base
+    try
+      cdsTabelaItens.First;
+      cdsTabelaItens.DisableControls;
+      while not cdsTabelaItens.Eof do
+      begin
+        cdsTabelaItens.Edit;
+        cdsTabelaItens.Post;
+        cdsTabelaItens.ApplyUpdates;
+        cdsTabelaItens.CommitUpdates;
 
-    if (cdsTabelaItens.RecordCount = 0) then
-    begin
-      ShowWarning('Movimento de Entrada sem produto(s)!');
-      Abort;
-    end;
-
-    if (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) then
-      if LoteProdutoPendente then
-        if not LotesProdutosConfirmados(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger) then
-          Abort;
-
-    if ( FieldByName('CODFORN').AsInteger = 0 ) then
-    begin
-      Edit;
-
-      ShowWarning('Favor informar o fornecedor');
-      dbFornecedor.SetFocus;
-    end
-    else
-    if ( FieldByName('TOTALPROD').AsCurrency = 0 ) then
-    begin
-      Edit;
-
-      ShowWarning('Favor informar valor Total de ' + IfThen(FTipoMovimento = tmeProduto, 'Produtos', 'Serviços'));
-      dbTotalProduto.SetFocus;
-    end
-    else
-    if ( FieldByName('TOTALNF').AsCurrency = 0 ) then
-    begin
-      Edit;
-
-      ShowWarning('Favor informar valor Total da Nota Fiscal');
-      dbTotalNotaFiscal.SetFocus;
-    end
-    else
-    if ( FieldByName('FORMAPAGTO_COD').AsInteger = 0 ) then
-    begin
-      Edit;
-
-      ShowWarning('Favor informar a forma de pagamento');
-      dbFormaPagto.SetFocus;
-    end
-    else
-    if ( FieldByName('CONDICAOPAGTO_COD').AsInteger = 0 ) then
-    begin
-      Edit;
-
-      ShowWarning('Favor informar a condição de pagamento');
-      dbCondicaoPagto.SetFocus;
-    end
-    else
-    if ( ShowConfirm('Confirma a finalização da entrada selecionada?') ) then
-    begin
-      Edit;
-
-      FieldByName('STATUS').AsInteger                := STATUS_CMP_FIN;
-      FieldByName('DTFINALIZACAO_COMPRA').AsDateTime := Now;
-
-      fdQryTabela.Post;
-      fdQryTabela.ApplyUpdates;
-      fdQryTabela.CommitUpdates;
-
+        cdsTabelaItens.Next;
+      end;
+    finally
       CommitTransaction;
 
-      if aGerarTitulos then
-        GerarDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+      cdsTabelaItens.First;
+      cdsTabelaItens.EnableConstraints;
+    end;
 
-      AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+    cdsTabelaItens.Refresh;
 
-      ShowInformation('Entrada finalizada com sucesso !');
+    if (FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) then
+      ShowWarning('Movimento de Entrada já está finalizado!')
+    else
+    if (cdsTabelaItens.RecordCount = 0) then
+      ShowWarning('Movimento de Entrada sem produto(s)!')
+    else
+    begin
 
-      if aGerarTitulos then
-        if ( DuplicatasConfirmadas(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger, FieldByName('DTEMISS').AsDateTime, FieldByName('TOTALNF').AsCurrency) ) then
-          AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+      if (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) then
+        if LoteProdutoPendente then
+          if not LotesProdutosConfirmados(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger) then
+            Abort
+          else
+            AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 
-      HabilitarDesabilitar_Btns;
+      if ( FieldByName('CODFORN').AsInteger = 0 ) then
+      begin
+        Edit;
+
+        ShowWarning('Favor informar o fornecedor');
+        dbFornecedor.SetFocus;
+      end
+      else
+      if ( FieldByName('TOTALPROD').AsCurrency = 0 ) then
+      begin
+        Edit;
+
+        ShowWarning('Favor informar valor Total de ' + IfThen(FTipoMovimento = tmeProduto, 'Produtos', 'Serviços'));
+        dbTotalProduto.SetFocus;
+      end
+      else
+      if ( FieldByName('TOTALNF').AsCurrency = 0 ) then
+      begin
+        Edit;
+
+        ShowWarning('Favor informar valor Total da Nota Fiscal');
+        dbTotalNotaFiscal.SetFocus;
+      end
+      else
+      if ( FieldByName('FORMAPAGTO_COD').AsInteger = 0 ) then
+      begin
+        Edit;
+
+        ShowWarning('Favor informar a forma de pagamento');
+        dbFormaPagto.SetFocus;
+      end
+      else
+      if ( FieldByName('CONDICAOPAGTO_COD').AsInteger = 0 ) then
+      begin
+        Edit;
+
+        ShowWarning('Favor informar a condição de pagamento');
+        dbCondicaoPagto.SetFocus;
+      end
+      else
+      if ( ShowConfirm('Confirma a finalização da entrada selecionada?') ) then
+      begin
+        Edit;
+
+        FieldByName('STATUS').AsInteger                := STATUS_CMP_FIN;
+        FieldByName('DTFINALIZACAO_COMPRA').AsDateTime := Now;
+
+        fdQryTabela.Post;
+        fdQryTabela.ApplyUpdates;
+        fdQryTabela.CommitUpdates;
+
+        CommitTransaction;
+
+        if aGerarTitulos then
+          GerarDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+
+        AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+
+        ShowInformation('Entrada finalizada com sucesso !');
+
+        if aGerarTitulos then
+          if ( DuplicatasConfirmadas(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger, FieldByName('DTEMISS').AsDateTime, FieldByName('TOTALNF').AsCurrency) ) then
+            AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+
+        HabilitarDesabilitar_Btns;
+      end;
+
     end;
   end;
 end;
@@ -1862,6 +1922,7 @@ begin
   begin
     AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
     AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+    AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
     AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
   end;
 end;
@@ -1890,6 +1951,7 @@ begin
 //  with DtSrcTabela.DataSet do
 //  begin
 //    AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+//    AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 //    AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 //  end;
 end;
@@ -1997,6 +2059,7 @@ begin
 
       AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
       AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
       AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 
       ShowInformation('Entrada cancelada com sucesso.' + #13#13 + 'Ano/Controle: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CODCONTROL').AsInteger));
@@ -2387,7 +2450,7 @@ begin
   inherited;
   btbtnGerarNFe.Visible := btbtnGerarNFe.Visible and (FTipoMovimento = tmeProduto);
 
-  if ( FTipoMovimento = tmeServico ) then
+  if ( FTipoMovimento = TTipoMovimentoEntrada.tmeServico ) then
   begin
     lblCFOPNF.Caption       := 'CNAE:';
     lblBaseICMS.Caption     := 'Base ISS:';
@@ -2415,6 +2478,8 @@ begin
     dbgDados.Columns[7].Visible       := False;
     dbgDados.Columns[8].Title.Caption := 'Total Serviço';
   end;
+
+  tbsLotes.TabVisible := (FTipoMovimento = TTipoMovimentoEntrada.tmeProduto);
 
   if Trim(DisplayFormatCodigo) <> EmptyStr then
     CentralizarCodigo;
@@ -2514,6 +2579,7 @@ begin
 
       AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
       AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
       AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 
       ShowInformation('Correção', 'CFOP corrigido com sucesso!' + #13 + 'Favor pesquisar entrada novamente.');

@@ -2,42 +2,42 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
   Left = 391
   Top = 217
   Caption = 'Tabela CFOP (C'#243'digo Fiscal de Opera'#231#245'es e Presta'#231#245'es)'
-  ClientHeight = 488
+  ClientHeight = 510
   ClientWidth = 728
   OldCreateOrder = True
   ExplicitWidth = 744
-  ExplicitHeight = 527
+  ExplicitHeight = 549
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 484
+    Top = 506
     Width = 728
     ExplicitTop = 443
     ExplicitWidth = 728
   end
   inherited Bevel3: TBevel
-    Top = 445
+    Top = 467
     Width = 728
     ExplicitTop = 404
     ExplicitWidth = 728
   end
   inherited pgcGuias: TPageControl
     Width = 728
-    Height = 445
+    Height = 467
     ExplicitWidth = 728
     ExplicitHeight = 445
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 720
       ExplicitHeight = 416
       inherited Bevel4: TBevel
-        Top = 350
+        Top = 372
         Width = 720
         ExplicitTop = 309
         ExplicitWidth = 720
       end
       inherited dbgDados: TDBGrid
         Width = 720
-        Height = 350
+        Height = 372
         Columns = <
           item
             Expanded = False
@@ -54,7 +54,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 354
+        Top = 376
         Width = 720
         ExplicitTop = 354
         ExplicitWidth = 720
@@ -233,13 +233,14 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         Left = 0
         Top = 229
         Width = 720
-        Height = 187
+        Height = 209
         Align = alClient
         Caption = 'Par'#226'metros'
         TabOrder = 1
+        ExplicitHeight = 187
         object lblCSTEntrada: TLabel
           Left = 304
-          Top = 90
+          Top = 98
           Width = 187
           Height = 13
           Caption = 'CST Padr'#227'o para Entrada de Produtos:'
@@ -247,13 +248,13 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         end
         object lblCSTSaida: TLabel
           Left = 304
-          Top = 130
+          Top = 138
           Width = 175
           Height = 13
           Caption = 'CST Padr'#227'o para Sa'#237'da de Produtos:'
           FocusControl = dbCSTSaida
         end
-        object dbCustoOperacional: TDBCheckBox
+        object dbAlteraCustoEntrada: TDBCheckBox
           Left = 16
           Top = 24
           Width = 257
@@ -273,7 +274,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         end
         object dbCSTEntrada: TDBLookupComboBox
           Left = 304
-          Top = 109
+          Top = 117
           Width = 401
           Height = 21
           DataField = 'CFOP_CST_PADRAO_ENTRADA'
@@ -292,7 +293,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         end
         object dbCSTSaida: TDBLookupComboBox
           Left = 304
-          Top = 149
+          Top = 157
           Width = 401
           Height = 21
           DataField = 'CFOP_CST_PADRAO_SAIDA'
@@ -311,7 +312,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         end
         object dbCfopDevolucao: TDBCheckBox
           Left = 16
-          Top = 47
+          Top = 70
           Width = 154
           Height = 17
           Caption = 'CFOP de Devolu'#231#227'o'
@@ -329,7 +330,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         end
         object dbCfopGerarTitulo: TDBCheckBox
           Left = 304
-          Top = 24
+          Top = 47
           Width = 184
           Height = 17
           Hint = 'Gerar t'#237'tulos A Pagar / A Receber'
@@ -350,7 +351,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         end
         object dbCfopGerarDuplicata: TDBCheckBox
           Left = 304
-          Top = 47
+          Top = 70
           Width = 184
           Height = 17
           Hint = 'Gerar t'#237'tulos A Pagar / A Receber'
@@ -370,8 +371,8 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           ValueUnchecked = '0'
         end
         object dbCfopRemessa: TDBCheckBox
-          Left = 16
-          Top = 70
+          Left = 304
+          Top = 24
           Width = 154
           Height = 17
           Caption = 'CFOP de Remessa'
@@ -389,7 +390,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         end
         object grpBxCfopRetorno: TGroupBox
           Left = 16
-          Top = 93
+          Top = 101
           Width = 249
           Height = 76
           Caption = 'CFOPs de Retorno para:'
@@ -454,11 +455,29 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
             TabOrder = 1
           end
         end
+        object dbAlteraEstoqueEntradaSaida: TDBCheckBox
+          Left = 16
+          Top = 47
+          Width = 257
+          Height = 17
+          Caption = 'CFOP altera Estoque do Produto na Ent./Sa'#237'da'
+          DataField = 'CFOP_ALTERA_ESTOQUE_PRODUTO'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 8
+          ValueChecked = '1'
+          ValueUnchecked = '0'
+        end
       end
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 449
+    Top = 471
     Width = 728
     ExplicitTop = 449
     ExplicitWidth = 728
@@ -481,23 +500,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
   end
   inherited IbDtstTabela: TIBDataSet
     OnNewRecord = IbDtstTabelaNewRecord
-    SelectSQL.Strings = (
-      'Select'
-      '    c.Cfop_cod'
-      '  , c.Cfop_descricao'
-      '  , c.Cfop_especificacao'
-      '  , c.Cfop_informacao_fisco'
-      '  , c.Cfop_tipo'
-      '  , c.Cfop_devolucao'
-      '  , c.Cfop_remessa'
-      '  , c.Cfop_retorno_interno'
-      '  , c.Cfop_retorno_externo'
-      '  , c.Cfop_altera_custo_produto'
-      '  , c.Cfop_cst_padrao_entrada'
-      '  , c.Cfop_cst_padrao_saida'
-      '  , c.Cfop_gerar_titulo'
-      '  , c.Cfop_gerar_duplicata'
-      'from TBCFOP c')
+    SelectSQL.Strings = ()
   end
   inherited DtSrcTabela: TDataSource
     DataSet = fdQryTabela
@@ -574,7 +577,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
     Left = 512
     Top = 0
     Bitmap = {
-      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2046,6 +2049,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       '  , c.Cfop_retorno_interno'
       '  , c.Cfop_retorno_externo'
       '  , c.Cfop_altera_custo_produto'
+      '  , c.Cfop_altera_estoque_produto'
       '  , c.Cfop_cst_padrao_entrada'
       '  , c.Cfop_cst_padrao_saida'
       '  , c.Cfop_gerar_titulo'
@@ -2109,6 +2113,11 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       Origin = 'CFOP_ALTERA_CUSTO_PRODUTO'
       Required = True
     end
+    object fdQryTabelaCFOP_ALTERA_ESTOQUE_PRODUTO: TSmallintField
+      FieldName = 'CFOP_ALTERA_ESTOQUE_PRODUTO'
+      Origin = 'CFOP_ALTERA_ESTOQUE_PRODUTO'
+      Required = True
+    end
     object fdQryTabelaCFOP_CST_PADRAO_ENTRADA: TStringField
       FieldName = 'CFOP_CST_PADRAO_ENTRADA'
       Origin = 'CFOP_CST_PADRAO_ENTRADA'
@@ -2139,7 +2148,8 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       
         '  CFOP_RETORNO_INTERNO, CFOP_RETORNO_EXTERNO, CFOP_GERAR_TITULO,' +
         ' '
-      '  CFOP_GERAR_DUPLICATA, CFOP_ALTERA_CUSTO_PRODUTO)'
+      '  CFOP_GERAR_DUPLICATA, CFOP_ALTERA_CUSTO_PRODUTO, '
+      '  CFOP_ALTERA_ESTOQUE_PRODUTO)'
       
         'VALUES (:NEW_CFOP_COD, :NEW_CFOP_DESCRICAO, :NEW_CFOP_ESPECIFICA' +
         'CAO, '
@@ -2152,7 +2162,8 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       
         '  :NEW_CFOP_RETORNO_INTERNO, :NEW_CFOP_RETORNO_EXTERNO, :NEW_CFO' +
         'P_GERAR_TITULO, '
-      '  :NEW_CFOP_GERAR_DUPLICATA, :NEW_CFOP_ALTERA_CUSTO_PRODUTO)')
+      '  :NEW_CFOP_GERAR_DUPLICATA, :NEW_CFOP_ALTERA_CUSTO_PRODUTO, '
+      '  :NEW_CFOP_ALTERA_ESTOQUE_PRODUTO)')
     ModifySQL.Strings = (
       'UPDATE TBCFOP'
       
@@ -2175,7 +2186,8 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         'ITULO = :NEW_CFOP_GERAR_TITULO, '
       
         '  CFOP_GERAR_DUPLICATA = :NEW_CFOP_GERAR_DUPLICATA, CFOP_ALTERA_' +
-        'CUSTO_PRODUTO = :NEW_CFOP_ALTERA_CUSTO_PRODUTO'
+        'CUSTO_PRODUTO = :NEW_CFOP_ALTERA_CUSTO_PRODUTO, '
+      '  CFOP_ALTERA_ESTOQUE_PRODUTO = :NEW_CFOP_ALTERA_ESTOQUE_PRODUTO'
       'WHERE CFOP_COD = :OLD_CFOP_COD')
     DeleteSQL.Strings = (
       'DELETE FROM TBCFOP'
@@ -2190,7 +2202,8 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         'NO_EXTERNO, '
       
         '  CFOP_GERAR_TITULO, CFOP_GERAR_DUPLICATA, CFOP_ALTERA_CUSTO_PRO' +
-        'DUTO'
+        'DUTO, '
+      '  CFOP_ALTERA_ESTOQUE_PRODUTO'
       'FROM TBCFOP'
       'WHERE CFOP_COD = :CFOP_COD')
   end

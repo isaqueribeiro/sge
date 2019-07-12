@@ -1885,7 +1885,7 @@ inherited frmGeVenda: TfrmGeVenda
         Top = 427
         Width = 1108
         Height = 186
-        ActivePage = tbsITitulos
+        ActivePage = tbsRecebimento
         Align = alBottom
         TabOrder = 3
         object tbsRecebimento: TTabSheet
@@ -4140,7 +4140,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00C00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00C80110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -7037,8 +7037,8 @@ inherited frmGeVenda: TfrmGeVenda
         '  left join TBPRODUTO_CLIENTE r on (r.produto = p.cod and r.clie' +
         'nte = :cliente)'
       'where p.Codigo = :Codigo')
-    Left = 992
-    Top = 512
+    Left = 824
+    Top = 320
     ParamData = <
       item
         Name = 'CLIENTE'
@@ -7063,8 +7063,8 @@ inherited frmGeVenda: TfrmGeVenda
       '  , c.Cfop_cst_padrao_saida'
       'from TBCFOP c'
       'where c.Cfop_cod = :Cfop_cod')
-    Left = 992
-    Top = 544
+    Left = 824
+    Top = 368
     ParamData = <
       item
         Name = 'CFOP_COD'

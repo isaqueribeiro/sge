@@ -90,6 +90,10 @@ begin
     sFileName := StringReplace(FileName, '._dll.uTMP', '.dll.uTMP', []);
     RenameFile(FileName, sFileName);
   end;
+
+  // Instalar fontes no Windows
+  if ( Pos('.TTF.uTMP', FileName) > 0 ) then
+    InstalarFonteWindows(SYS_BAUHS93, SYS_BAUHS93_DESCRIPTION);
 end;
 
 procedure TfrmGeAutoUpgrade.AutoUpgraderProNoUpdateAvailable(Sender: TObject);

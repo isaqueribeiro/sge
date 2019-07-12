@@ -62,6 +62,8 @@ type
     fdSetLoteProduto: TFDStoredProc;
     lblQTDE: TLabel;
     dbQTDE: TDBEdit;
+    pnlDicaFormaPagto: TPanel;
+    lblDicaFormaPagto: TLabel;
     procedure ControlEditEnter(Sender: TObject);
     procedure ControlEditExit(Sender: TObject);
     procedure fdQryCompraItensAfterScroll(DataSet: TDataSet);

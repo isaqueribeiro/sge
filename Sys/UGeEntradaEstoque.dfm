@@ -1159,6 +1159,22 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Font.Style = []
           ParentFont = False
         end
+        object lblCalcularTotais: TLabel
+          Left = 224
+          Top = 67
+          Width = 456
+          Height = 13
+          Caption = 
+            '(Esta op'#231#227'o deve ser marcada apenas se o objetivo da entrada '#233' g' +
+            'erar uma NFe)'
+          FocusControl = dbBaseICMSSubs
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clRed
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
         object dbValorFrete: TDBEdit
           Left = 568
           Top = 40
@@ -1313,11 +1329,17 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object dbCalcularTotais: TDBCheckBox
           Left = 16
           Top = 67
-          Width = 186
+          Width = 202
           Height = 17
           Caption = 'Calcular totais automaticamente'
           DataField = 'CALCULAR_TOTAIS'
           DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
           TabOrder = 10
           ValueChecked = '1'
           ValueUnchecked = '0'
@@ -1328,7 +1350,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         Top = 420
         Width = 1106
         Height = 185
-        ActivePage = tbsDuplicatas
+        ActivePage = tbsPagamento
         Align = alBottom
         HotTrack = True
         TabOrder = 4
@@ -2047,6 +2069,92 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
                 Expanded = False
                 FieldName = 'BCO_NOME'
                 Width = 220
+                Visible = True
+              end>
+          end
+        end
+        object tbsLotes: TTabSheet
+          Caption = 'Lote(s) Gerado(s) no Estoque'
+          ImageIndex = 3
+          object DBGrid1: TDBGrid
+            Left = 0
+            Top = 0
+            Width = 1098
+            Height = 157
+            TabStop = False
+            Align = alClient
+            DataSource = DtSrcTabelaLotes
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 0
+            TitleFont.Charset = ANSI_CHARSET
+            TitleFont.Color = clBlack
+            TitleFont.Height = -11
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = [fsBold]
+            OnDrawColumnCell = dbgDadosDrawColumnCell
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'SEQ'
+                Title.Alignment = taCenter
+                Title.Caption = '#'
+                Width = 30
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'CODPROD'
+                Title.Caption = 'C'#243'digo'
+                Width = 75
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'DESCRI_APRESENTACAO'
+                Title.Caption = 'Produto'
+                Width = 350
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'REFERENCIA'
+                Title.Caption = 'Refer'#234'ncia'
+                Width = 100
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'LOTE_DESCRICAO'
+                Title.Caption = 'Lote'
+                Width = 250
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'QTDE'
+                Title.Caption = 'Qtde.'
+                Width = 40
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'LOTE_DATA_FAB'
+                Title.Caption = 'Fabrica'#231#227'o'
+                Width = 85
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'LOTE_DATA_VAL'
+                Title.Caption = 'Validade'
+                Width = 85
                 Visible = True
               end>
           end
@@ -4077,7 +4185,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     Left = 928
     Top = 40
     Bitmap = {
-      494C01012B002C00040110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00080110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -6190,31 +6298,31 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   end
   object dtsEmpresa: TDataSource
     DataSet = fdQryEmpresa
-    Left = 312
-    Top = 376
+    Left = 640
+    Top = 16
   end
   object dtsFormaPagto: TDataSource
     DataSet = qryFormaPagto
-    Left = 312
-    Top = 408
+    Left = 640
+    Top = 48
   end
   object dtsCondicaoPagto: TDataSource
     DataSet = qryCondicaoPagto
-    Left = 312
-    Top = 440
+    Left = 640
+    Top = 80
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
     DataSet = cdsTabelaItens
     OnStateChange = DtSrcTabelaItensStateChange
-    Left = 672
-    Top = 392
+    Left = 424
+    Top = 352
   end
   object dtsDuplicatas: TDataSource
     AutoEdit = False
     DataSet = qryDuplicatas
-    Left = 672
-    Top = 424
+    Left = 424
+    Top = 384
   end
   object ppImprimir: TPopupMenu
     Left = 56
@@ -6240,18 +6348,18 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   end
   object dtsTpDespesa: TDataSource
     DataSet = qryTipoDespesa
-    Left = 312
-    Top = 472
+    Left = 640
+    Top = 112
   end
   object dtsTipoDocumento: TDataSource
     DataSet = qryTipoDocumento
-    Left = 312
-    Top = 504
+    Left = 640
+    Top = 144
   end
   object dtsTipoEntrada: TDataSource
     DataSet = qryTipoEntrada
-    Left = 312
-    Top = 544
+    Left = 640
+    Top = 184
   end
   object dtsNFE: TDataSource
     DataSet = qryNFE
@@ -6344,8 +6452,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       'from VW_EMPRESA e'
       'order by'
       '    e.razao')
-    Left = 344
-    Top = 376
+    Left = 672
+    Top = 16
   end
   object qryAutorizacaoProduto: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -6851,8 +6959,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       'from TBCOMPRASITENS i'
       '  inner join TBPRODUTO p on (p.Cod = i.Codprod)'
       '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)')
-    Left = 608
-    Top = 392
+    Left = 360
+    Top = 352
     object cdsTabelaItensANO: TSmallintField
       FieldName = 'ANO'
       Origin = 'ANO'
@@ -7178,8 +7286,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         'WHERE ANO = :ANO AND CODCONTROL = :CODCONTROL AND CODEMP = :CODE' +
         'MP AND '
       '  SEQ = :SEQ')
-    Left = 640
-    Top = 392
+    Left = 392
+    Top = 352
   end
   object qryDuplicatas: TFDQuery
     OnCalcFields = qryDuplicatasCalcFields
@@ -7213,8 +7321,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       'from TBCONTPAG p'
       '  inner join TBFORNECEDOR f on (f.Codforn = p.Codforn)'
       '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)')
-    Left = 608
-    Top = 424
+    Left = 360
+    Top = 384
     object qryDuplicatasANOLANC: TSmallintField
       FieldName = 'ANOLANC'
       Origin = 'ANOLANC'
@@ -7398,8 +7506,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       '  inner join TBFORNECEDOR f on (f.Codforn = p.Codforn)'
       '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)'
       'WHERE p.ANOLANC = :ANOLANC AND p.NUMLANC = :NUMLANC')
-    Left = 640
-    Top = 424
+    Left = 392
+    Top = 384
   end
   object qryFormaPagto: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -7407,8 +7515,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select * from TBFORMPAGTO')
-    Left = 344
-    Top = 408
+    Left = 672
+    Top = 48
   end
   object qryCondicaoPagto: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -7416,8 +7524,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select * from VW_CONDICAOPAGTO')
-    Left = 344
-    Top = 440
+    Left = 672
+    Top = 80
   end
   object qryTipoDespesa: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -7428,8 +7536,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       'from TBTPDESPESA t'
       'where (t.ativo = :ativo) or (:todos = 1)'
       'order by t.tipodesp')
-    Left = 344
-    Top = 472
+    Left = 672
+    Top = 112
     ParamData = <
       item
         Name = 'ATIVO'
@@ -7449,8 +7557,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select * from VW_TIPO_DOCUMENTO_ENTRADA')
-    Left = 344
-    Top = 504
+    Left = 672
+    Top = 144
   end
   object qryTipoEntrada: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -7458,7 +7566,150 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select * from VW_TIPO_ENTRADA')
-    Left = 344
-    Top = 544
+    Left = 672
+    Top = 184
+  end
+  object DtSrcTabelaLotes: TDataSource
+    DataSet = cdsTabelaLotes
+    Left = 392
+    Top = 416
+  end
+  object cdsTabelaLotes: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '     ci.ano'
+      '   , ci.codcontrol'
+      '   , ci.codemp'
+      '   , ci.seq'
+      '   , ci.codprod'
+      '   , pr.descri'
+      '   , pr.apresentacao'
+      '   , pr.descri_apresentacao'
+      '   , pr.referencia'
+      '   , ci.lote_id'
+      '   , ci.lote_descricao'
+      '   , ci.lote_data_fab'
+      '   , ci.lote_data_val'
+      '   , ci.qtde'
+      'from TBCOMPRASITENS ci'
+      
+        '  inner join TBCOMPRAS cp on (cp.ano = ci.ano and cp.codcontrol ' +
+        '= ci.codcontrol and cp.codemp = ci.codemp)'
+      '  inner join TBPRODUTO pr on (pr.cod = ci.codprod)'
+      '  left join TBCFOP cf on (cf.cfop_cod = cp.nfcfop)'
+      'where (ci.ano        = :ano)'
+      '  and (ci.codcontrol = :compra)'
+      '  and (ci.lote_id is not null)'
+      'order by'
+      '     ci.seq')
+    Left = 360
+    Top = 416
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'COMPRA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object cdsTabelaLotesANO: TSmallintField
+      FieldName = 'ANO'
+      Origin = 'ANO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsTabelaLotesCODCONTROL: TIntegerField
+      FieldName = 'CODCONTROL'
+      Origin = 'CODCONTROL'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsTabelaLotesCODEMP: TStringField
+      FieldName = 'CODEMP'
+      Origin = 'CODEMP'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 18
+    end
+    object cdsTabelaLotesSEQ: TSmallintField
+      Alignment = taCenter
+      FieldName = 'SEQ'
+      Origin = 'SEQ'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      DisplayFormat = '00'
+    end
+    object cdsTabelaLotesCODPROD: TStringField
+      FieldName = 'CODPROD'
+      Origin = 'CODPROD'
+      Size = 10
+    end
+    object cdsTabelaLotesDESCRI: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRI'
+      Origin = 'DESCRI'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 50
+    end
+    object cdsTabelaLotesAPRESENTACAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'APRESENTACAO'
+      Origin = 'APRESENTACAO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 50
+    end
+    object cdsTabelaLotesDESCRI_APRESENTACAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRI_APRESENTACAO'
+      Origin = 'DESCRI_APRESENTACAO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object cdsTabelaLotesREFERENCIA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'REFERENCIA'
+      Origin = 'REFERENCIA'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 15
+    end
+    object cdsTabelaLotesLOTE_ID: TStringField
+      FieldName = 'LOTE_ID'
+      Origin = 'LOTE_ID'
+      Size = 38
+    end
+    object cdsTabelaLotesLOTE_DESCRICAO: TStringField
+      FieldName = 'LOTE_DESCRICAO'
+      Origin = 'LOTE_DESCRICAO'
+      Size = 30
+    end
+    object cdsTabelaLotesLOTE_DATA_FAB: TDateField
+      FieldName = 'LOTE_DATA_FAB'
+      Origin = 'LOTE_DATA_FAB'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object cdsTabelaLotesLOTE_DATA_VAL: TDateField
+      FieldName = 'LOTE_DATA_VAL'
+      Origin = 'LOTE_DATA_VAL'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object cdsTabelaLotesQTDE: TBCDField
+      FieldName = 'QTDE'
+      Origin = 'QTDE'
+      Required = True
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
   end
 end
