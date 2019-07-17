@@ -2051,18 +2051,19 @@ begin
         EventoNFe.Evento.Clear;
         EventoNFe.idLote := iNumeroLote;
 
-        with EventoNFe.Evento.Add do
+        //with EventoNFe.Evento.Add do
+        with EventoNFe.Evento.New do
         begin
           //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
           //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
 
-          infEvento.cOrgao     := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
-          infEvento.chNFe      := qryNFeEmitidaCHAVE.AsString;
-          infEvento.CNPJ       := sCNPJEmitente;
-          infEvento.dhEvento   := GetDateTimeDB;
-          infEvento.tpEvento        := teCancelamento;
-          infEvento.detEvento.nProt := qryNFeEmitidaPROTOCOLO.AsString;
+          infEvento.cOrgao   := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
+          infEvento.chNFe    := qryNFeEmitidaCHAVE.AsString;
+          infEvento.CNPJ     := sCNPJEmitente;
+          infEvento.dhEvento := GetDateTimeDB;
+          infEvento.tpEvento := TpcnTpEvento.teCancelamento;
           infEvento.detEvento.xJust := Copy(Motivo, 1, 255);
+          infEvento.detEvento.nProt := qryNFeEmitidaPROTOCOLO.AsString;
         end;
 
         // Enviar o evento de cancelamento
@@ -5228,18 +5229,19 @@ begin
         EventoNFe.Evento.Clear;
         EventoNFe.idLote := iNumeroLote;
 
-        with EventoNFe.Evento.Add do
+        //with EventoNFe.Evento.Add do
+        with EventoNFe.Evento.New do
         begin
           //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
           //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
 
-          infEvento.cOrgao     := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
-          infEvento.chNFe      := qryNFeEmitidaEntradaCHAVE.AsString;
-          infEvento.CNPJ       := sCNPJEmitente;
-          infEvento.dhEvento   := GetDateTimeDB;
-          infEvento.tpEvento        := teCancelamento;
-          infEvento.detEvento.nProt := qryNFeEmitidaEntradaPROTOCOLO.AsString;
+          infEvento.cOrgao   := qryEmitenteEST_COD.AsInteger; // Código IBGE do Estado
+          infEvento.chNFe    := qryNFeEmitidaEntradaCHAVE.AsString;
+          infEvento.CNPJ     := sCNPJEmitente;
+          infEvento.dhEvento := GetDateTimeDB;
+          infEvento.tpEvento := TpcnTpEvento.teCancelamento;
           infEvento.detEvento.xJust := Copy(Motivo, 1, 255);
+          infEvento.detEvento.nProt := qryNFeEmitidaEntradaPROTOCOLO.AsString;
         end;
 
         // Enviar o evento de cancelamento
@@ -5932,7 +5934,8 @@ begin
         EventoNFe.Evento.Clear;
         EventoNFe.idLote := iNumeroLote;
 
-        with EventoNFe.Evento.Add do
+        //with EventoNFe.Evento.Add do
+        with EventoNFe.Evento.New do
         begin
           //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
           //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
@@ -5941,7 +5944,7 @@ begin
           infEvento.CNPJ     := sCNPJ;
           infEvento.chNFe    := sChave;
           infEvento.dhEvento := Now; //GetDateTimeDB;
-          infEvento.tpEvento := teManifDestConfirmacao;
+          infEvento.tpEvento := TpcnTpEvento.teManifDestConfirmacao;
 
           // "POG" - Manobra para enviar o evento de manifesto da nota e evitar a rejeição 657.
           if (infEvento.cOrgao = 15) then
@@ -6386,7 +6389,8 @@ begin
         EventoNFe.Evento.Clear;
         EventoNFe.idLote := iNumeroLote;
 
-        with EventoNFe.Evento.Add do
+        //with EventoNFe.Evento.Add do
+        with EventoNFe.Evento.New do
         begin
           //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
           //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
@@ -6395,7 +6399,7 @@ begin
           infEvento.CNPJ   := sCNPJEmitente;
           infEvento.chNFe      := qryNFe.FieldByName('CHAVE').AsString;
           infEvento.dhEvento   := Now; //GetDateTimeDB;
-          infEvento.tpEvento   := teCCe;
+          infEvento.tpEvento   := TpcnTpEvento.teCCe;
           infEvento.nSeqEvento := iNumeroEvento;
           infEvento.detEvento.xCorrecao  := sCorrecao;
         end;

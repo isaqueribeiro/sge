@@ -4,25 +4,21 @@ interface
 
 uses
   UGrPadrao,
-  
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg,
-  cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters, cxButtons,
-  cxControls, cxStyles, dxSkinscxPCPainter,
-  cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, DB, cxDBData,
-  cxMemo, StdCtrls, DBClient, Provider, IBCustomDataSet, IBQuery,
-  cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxClasses, cxGridCustomView, cxGrid, Mask, cxLookAndFeels, dxSkinsForm,
-  JvExMask, JvToolEdit, 
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxNavigator;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg, cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters, cxButtons,
+  cxControls, cxStyles, dxSkinscxPCPainter, cxNavigator,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, DB, cxDBData,
+  cxMemo, StdCtrls, DBClient, Provider, cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
+  cxClasses, cxGridCustomView, cxGrid, Mask, cxLookAndFeels, dxSkinsForm, JvExMask, JvToolEdit,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeExportarChaveNFeGerada = class(TfrmGrPadrao)
@@ -40,10 +36,8 @@ type
     GrdExpTBL: TcxGridDBTableView;
     GrdExpLvl: TcxGridLevel;
     GrdExp: TcxGrid;
-    qryChaveNFe: TIBQuery;
     dspChaveNFe: TDataSetProvider;
     cdsChaveNFe: TClientDataSet;
-    cdsChaveNFeNUMERONFE: TIntegerField;
     dtsChaveNFe: TDataSource;
     GrdExpTBLNUMERONFE: TcxGridDBColumn;
     GrdExpTBLSERIE: TcxGridDBColumn;
@@ -55,10 +49,12 @@ type
     edDataInicial: TJvDateEdit;
     edDataFinal: TJvDateEdit;
     edDiretorioExportacao: TJvDirectoryEdit;
-    cdsChaveNFeSERIE: TWideStringField;
+    qryChaveNFe: TFDQuery;
+    cdsChaveNFeNUMERONFE: TIntegerField;
+    cdsChaveNFeSERIE: TStringField;
     cdsChaveNFeEMISSAO: TDateField;
-    cdsChaveNFeCHAVENFE: TWideStringField;
-    cdsChaveNFeXML: TWideMemoField;
+    cdsChaveNFeCHAVENFE: TStringField;
+    cdsChaveNFeXML: TMemoField;
     procedure FormCreate(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnExportarClick(Sender: TObject);
@@ -73,6 +69,18 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBNFE_ENVIADA
+  - TBVENDAS
+  - TBCOMPRAS
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGeExportarChaveNFeGerada: TfrmGeExportarChaveNFeGerada;

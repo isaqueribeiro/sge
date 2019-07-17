@@ -3,17 +3,19 @@ unit UGeExportarNFC;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Mask, ExtCtrls, Buttons, DB,
-  IBCustomDataSet, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
-  Menus, cxButtons, JvExMask, JvToolEdit, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  Dialogs, StdCtrls, Mask, ExtCtrls, Buttons, DB, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
+  Menus, cxButtons, JvExMask, JvToolEdit,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeExportarNFC = class(TfrmGrPadrao)
@@ -25,23 +27,23 @@ type
     PnlBotoes: TPanel;
     Bevel3: TBevel;
     lblInforme: TLabel;
-    cdsCompetencia: TIBDataSet;
     edCompetencia: TComboBox;
-    cdsCompetenciaCMP_NUM: TIntegerField;
-    cdsCompetenciaCMP_DESC: TIBStringField;
     lblCompetencia: TLabel;
     GrpBxTipoArquivo: TRadioGroup;
     Bevel1: TBevel;
     lblDiretorioExportacao: TLabel;
     Bevel2: TBevel;
-    cdsNFC: TIBDataSet;
-    cdsNFCTIPO: TIBStringField;
-    cdsNFCLINHA: TIBStringField;
     btnExportar: TcxButton;
     btnCancelar: TcxButton;
     edDiretorioExportacao: TJvDirectoryEdit;
     edDataInicial: TJvDateEdit;
     edDataFinal: TJvDateEdit;
+    cdsCompetencia: TFDQuery;
+    cdsNFC: TFDQuery;
+    cdsCompetenciaCMP_NUM: TIntegerField;
+    cdsCompetenciaCMP_DESC: TStringField;
+    cdsNFCTIPO: TStringField;
+    cdsNFCLINHA: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure MontarPeriodoClick(Sender: TObject);
@@ -58,6 +60,20 @@ type
 
     property TipoArquivo : Integer read GetTipoArquivo;
   end;
+
+(*
+  Tabelas:
+  - TBCOMPETENCIA
+  - TBNFE_ENVIADA
+  - TBVENDAS
+  - TBCOMPRAS
+
+  Views:
+
+  Procedures:
+  - GET_ARQUIVO_NFC
+
+*)
 
 var
   frmGeExportarNFC: TfrmGeExportarNFC;

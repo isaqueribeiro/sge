@@ -107,7 +107,6 @@ type
     cdsVendaNFE_VALOR_COFINS: TBCDField;
     cdsVendaNFE_VALOR_OUTROS: TBCDField;
     cdsVendaNFE_VALOR_TOTAL_NOTA: TBCDField;
-    cdsVendaVALOR_TOTAL_IPI: TBCDField;
     cdsVendaVALOR_TOTAL_BRUTO: TBCDField;
     cdsVendaVALOR_TOTAL_DESCONTO: TBCDField;
     cdsVendaVALOR_TOTAL_LIQUIDO: TBCDField;
@@ -118,6 +117,7 @@ type
     cdsVendaVALOR_TOTAL_ICMS_NORMAL_DEVIDO: TFMTBCDField;
     cdsVendaVALOR_TOTAL_PIS: TBCDField;
     cdsVendaVALOR_TOTAL_COFINS: TBCDField;
+    cdsVendaVALOR_TOTAL_IPI: TFMTBCDField;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);

@@ -77,7 +77,7 @@
         <VerInfo_Release>26</VerInfo_Release>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
         <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.26.0;InternalName=SGE;LegalCopyright=Copyright 2013 - 2019 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.26;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=15/05/2019;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.26;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=17/07/2019;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
@@ -101,7 +101,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductN
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.26.0;InternalName=SGO;LegalCopyright=Copyright 2013 - 2019 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.26;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=15/05/2019;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.26;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=17/07/2019;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_Build>0</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -116,7 +116,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductN
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.26.0;InternalName=SGO;LegalCopyright=Copyright 2013 - 2019 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.26;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=15/05/2019;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.26;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=17/07/2019;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
         <VerInfo_Build>0</VerInfo_Build>
     </PropertyGroup>
@@ -532,7 +532,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductN
                     <Source Name="MainSource">SGO.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="C:\Delphi\ACBr\Lib\Delphi\LibD25\ACBr_Integrador.bpl">ACBr - Integrador - (http://www.projetoacbr.com.br/)</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k250.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp250.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
@@ -548,13 +547,13 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="..\Bin\SGO.exe" Configuration="Release" Class="ProjectOutput"/>
                 <DeployFile LocalName="..\Bin\SGO.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>SGO.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\Bin\SGO.exe" Configuration="Release" Class="ProjectOutput"/>
                 <DeployFile LocalName="SGE.todo" Configuration="Release" Class="ProjectFile"/>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">

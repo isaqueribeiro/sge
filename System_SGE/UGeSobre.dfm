@@ -2,17 +2,16 @@ inherited frmGeSobre: TfrmGeSobre
   Left = 492
   Top = 312
   Caption = 'frmGeSobre'
-  ClientHeight = 190
-  ExplicitWidth = 437
-  ExplicitHeight = 219
+  ClientHeight = 203
+  ExplicitHeight = 232
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 181
+    Top = 194
     ExplicitTop = 181
   end
   inherited Panel1: TPanel
-    Height = 150
+    Height = 163
     ExplicitHeight = 150
     inherited ProductName: TLabel
       Width = 38
@@ -34,12 +33,12 @@ inherited frmGeSobre: TfrmGeSobre
       ExplicitWidth = 247
     end
     inherited Comments: TLabel
-      Top = 96
-      Height = 52
+      Top = 89
+      Height = 72
       Font.Color = clGreen
       ParentFont = False
-      ExplicitTop = 96
-      ExplicitHeight = 52
+      ExplicitTop = 89
+      ExplicitHeight = 72
     end
     inherited FileDescription: TLabel
       Width = 336
@@ -4318,7 +4317,7 @@ inherited frmGeSobre: TfrmGeSobre
     end
   end
   inherited OKButton: TcxButton
-    Top = 152
+    Top = 165
     ExplicitTop = 152
   end
 end

@@ -811,3 +811,246 @@ end^
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 16/07/2019 21:56:39 --------*/
+
+ALTER TABLE TVENDASITENS
+    ADD PCUSTO DMN_MONEY,
+    ADD TOTAL_CUSTO DMN_MONEY;
+
+COMMENT ON COLUMN TVENDASITENS.PCUSTO IS
+'Custo Medio Unitario';
+
+COMMENT ON COLUMN TVENDASITENS.TOTAL_CUSTO IS
+'Total Custo';
+
+alter table TVENDASITENS
+alter ANO position 1;
+
+alter table TVENDASITENS
+alter CODCONTROL position 2;
+
+alter table TVENDASITENS
+alter CODEMP position 3;
+
+alter table TVENDASITENS
+alter SEQ position 4;
+
+alter table TVENDASITENS
+alter CODPROD position 5;
+
+alter table TVENDASITENS
+alter REFERENCIA position 6;
+
+alter table TVENDASITENS
+alter CODCLIENTE position 7;
+
+alter table TVENDASITENS
+alter CODCLI position 8;
+
+alter table TVENDASITENS
+alter CODVENDEDOR position 9;
+
+alter table TVENDASITENS
+alter DTVENDA position 10;
+
+alter table TVENDASITENS
+alter QTDE position 11;
+
+alter table TVENDASITENS
+alter LOTE_ID position 12;
+
+alter table TVENDASITENS
+alter PUNIT position 13;
+
+alter table TVENDASITENS
+alter PUNIT_PROMOCAO position 14;
+
+alter table TVENDASITENS
+alter DESCONTO position 15;
+
+alter table TVENDASITENS
+alter DESCONTO_VALOR position 16;
+
+alter table TVENDASITENS
+alter PFINAL position 17;
+
+alter table TVENDASITENS
+alter PCUSTO position 18;
+
+alter table TVENDASITENS
+alter QTDEFINAL position 19;
+
+alter table TVENDASITENS
+alter UNID_COD position 20;
+
+alter table TVENDASITENS
+alter CFOP_COD position 21;
+
+alter table TVENDASITENS
+alter CST position 22;
+
+alter table TVENDASITENS
+alter CSOSN position 23;
+
+alter table TVENDASITENS
+alter ALIQUOTA position 24;
+
+alter table TVENDASITENS
+alter ALIQUOTA_CSOSN position 25;
+
+alter table TVENDASITENS
+alter ALIQUOTA_PIS position 26;
+
+alter table TVENDASITENS
+alter ALIQUOTA_COFINS position 27;
+
+alter table TVENDASITENS
+alter VALOR_IPI position 28;
+
+alter table TVENDASITENS
+alter PERCENTUAL_REDUCAO_BC position 29;
+
+alter table TVENDASITENS
+alter TOTAL_CUSTO position 30;
+
+alter table TVENDASITENS
+alter TOTAL_BRUTO position 31;
+
+alter table TVENDASITENS
+alter TOTAL_DESCONTO position 32;
+
+alter table TVENDASITENS
+alter TOTAL_LIQUIDO position 33;
+
+alter table TVENDASITENS
+alter TOTAL_COMISSAO position 34;
+
+
+
+
+/*------ SYSDBA 16/07/2019 21:57:04 --------*/
+
+COMMENT ON COLUMN TVENDASITENS.PFINAL IS
+'Valor Unitario Final.';
+
+
+
+
+/*------ SYSDBA 16/07/2019 22:01:08 --------*/
+
+SET TERM ^ ;
+
+CREATE trigger tg_tvendasitens_custo for tvendasitens
+active before insert or update position 30
+AS
+begin
+  Select
+      p.customedio
+    , p.customedio * new.qtde
+  from TBPRODUTO p
+  where (p.cod = new.codprod)
+  Into
+      new.pcusto
+    , new.total_custo;
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 16/07/2019 22:01:42 --------*/
+
+DROP TRIGGER TG_TVENDASITENS_CUSTO;
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_vendasitens_custo for tvendasitens
+active before insert or update position 30
+AS
+begin
+  Select
+      p.customedio
+    , p.customedio * new.qtde
+  from TBPRODUTO p
+  where (p.cod = new.codprod)
+  Into
+      new.pcusto
+    , new.total_custo;
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 16/07/2019 22:03:07 --------*/
+
+COMMENT ON TABLE TVENDASITENS IS 'Tabela de Itens das Vendas.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2014
+
+Tabela responsavel por armazenar os itens (produtos) das vendas registradas pelos
+sistema de retaguarda e PDV.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    16/07/2019 - IMR:
+        + Criacao dos campo PCUSTO e TOTAL_CUSTO para armazenar o custo corrente
+          do produto no ato da venda para compor relatorios de rentabilidade.
+
+    19/04/2014 - IMR:
+        * Documentacao da tabela.';
+
+
+
+
+/*------ SYSDBA 16/07/2019 22:04:43 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_vendasitens_custo for tvendasitens
+active before insert or update position 30
+AS
+begin
+  Select
+      p.customedio
+    , p.customedio * new.qtde
+  from TBPRODUTO p
+  where (p.cod = new.codprod)
+  Into
+      new.pcusto
+    , new.total_custo;
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_VENDASITENS_CUSTO IS 'Trigger Custo Venda Produto.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   16/07/2019
+
+Trigger responsavel por definir e calcular o custo corrente dos produtos no ato
+da venda.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    16/07/2019 - IMR:
+        * Criacao e documentacao do objeto.';
+

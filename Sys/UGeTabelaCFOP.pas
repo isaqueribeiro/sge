@@ -72,6 +72,7 @@ type
     procedure btbtnSalvarClick(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure btnFiltrarClick(Sender: TObject);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -237,6 +238,13 @@ begin
       grpBxCfopRetorno.Enabled := (FieldByName('CFOP_REMESSA').AsInteger = 1);
     end;
   end;
+end;
+
+procedure TfrmGeTabelaCFOP.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+    FieldByName('CFOP_ALTERA_ESTOQUE_PRODUTO').AsInteger := 1;
 end;
 
 initialization

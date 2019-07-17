@@ -83,7 +83,13 @@ type
     QryVendaCompetencia: TFDQuery;
     QryRelacaoVendaClienteSintetico: TFDQuery;
     QryRelacaoVendaClienteAnalitico: TFDQuery;
-    QryRelacaoVendaCfopSintetico: TFDQuery;    procedure FormCreate(Sender: TObject);
+    QryRelacaoVendaCfopSintetico: TFDQuery;
+    frRelacaoRentabilidadeProduto: TfrxReport;
+    QryRelacaoRentabilidadeProduto: TFDQuery;
+    DspRelacaoRentabilidadeProduto: TDataSetProvider;
+    CdsRelacaoRentabilidadeProduto: TClientDataSet;
+    FrdsRelacaoRentabilidadeProduto: TfrxDBDataset;
+    chkCFOPTituloGerado: TCheckBox;    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
@@ -97,7 +103,8 @@ type
     FSQL_RelacaoVendaClienteAnalit ,
     FSQL_RelacaoVendaCfopSintet    ,
     FSQL_RelacaoVendaEntrega       ,
-    FSQL_ComissaoVendedor          : TStringList;
+    FSQL_ComissaoVendedor          ,
+    FSQL_RelacaoRentabilidadeProduto : TStringList;
     ICidade   : Array of Integer;
     IVendedor : Array of Integer;
     IEmpresa : Array of String;
@@ -115,6 +122,7 @@ type
     procedure MontarRelacaoVendaCfopSintetica;
     procedure MontarRelacaoVendaListaEntrega;
     procedure MontarComissaoVendedor;
+    procedure MontarRentabilidadeProduto;
   public
     { Public declarations }
   end;
@@ -158,6 +166,7 @@ const
   REPORT_RELACAO_VENDA_CFOP_SINTETICO      = 6;
   REPORT_RELACAO_VENDA_LISTA_ENTREGA       = 7;
   REPORT_COMISSAO_VENDEDOR_BAIXA           = 8;
+  REPORT_RENTABILIDADE_ESTIMADA_PRODUTO    = 9;
 
   SITUACAO_VENDA_PADRAO = 3; // Vendas finalizadas e com NFs emitidas
 
@@ -225,6 +234,9 @@ begin
 
   FSQL_ComissaoVendedor := TStringList.Create;
   FSQL_ComissaoVendedor.AddStrings( fdQryComissaoVendedorSintetico.SQL );
+
+  FSQL_RelacaoRentabilidadeProduto := TStringList.Create;
+  FSQL_RelacaoRentabilidadeProduto.AddStrings( QryRelacaoRentabilidadeProduto.SQL );
 end;
 
 procedure TfrmGeVendaImpressao.FormShow(Sender: TObject);
@@ -316,6 +328,112 @@ begin
   end;
 end;
 
+procedure TfrmGeVendaImpressao.MontarRentabilidadeProduto;
+var
+  aPeriodoCompra : String;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+
+    if chkNFeEmitida.Visible and chkNFeEmitida.Checked then
+      SubTituloRelario := 'NF-e / NFC-e Emitidas';
+
+    if ( chkCFOPTituloGerado.Visible ) then
+      if ( chkCFOPTituloGerado.Checked ) then
+        SubTituloRelario := edSituacao.Text + ' (' + chkCFOPTituloGerado.Caption + ')';
+
+    if ( edCidade.ItemIndex = 0 ) then
+      PeriodoRelatorio := Format('Vendas no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Vendas no período de %s a %s, para a cidade de %s.', [e1Data.Text, e2Data.Text, edCidade.Text]);
+
+    if ( edCliente.ItemIndex = 0 ) then
+      PeriodoRelatorio := Format('Vendas no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Vendas no período de %s a %s, para o cliente %s.', [e1Data.Text, e2Data.Text, edCliente.Text]);
+
+    CdsRelacaoVendaCfopSintetico.Close;
+
+    aPeriodoCompra := '(cp.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ') and (cp.status in (' + IntToStr(STATUS_CMP_FIN) + ', ' + IntToStr(STATUS_CMP_NFE) + '))';
+
+    with QryRelacaoRentabilidadeProduto do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoRentabilidadeProduto );
+      SQL.Add('where v.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+
+      if StrIsDateTime(e1Data.Text) then
+      begin
+        SQL.Add('  and v.dtvenda >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd " 00:00:00"', e1Data.Date)));
+        aPeriodoCompra := aPeriodoCompra + ' and (cp.dtent >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)) + ')';
+      end;
+
+      if StrIsDateTime(e2Data.Text) then
+      begin
+        SQL.Add('  and v.dtvenda <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd " 23:59:59"', e2Data.Date)));
+        aPeriodoCompra := aPeriodoCompra + ' and (cp.dtent <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)) + ')';
+      end;
+
+      Case edSituacao.ItemIndex of
+        1:
+          SQL.Add('  and v.status = ' + IntToStr(STATUS_VND_FIN));
+
+        2:
+          SQL.Add('  and v.status = ' + IntToStr(STATUS_VND_NFE));
+
+        3:
+          SQL.Add('  and v.status between ' + IntToStr(STATUS_VND_FIN) + ' and ' + IntToStr(STATUS_VND_NFE));
+
+        4:
+          SQL.Add('  and v.status = ' + IntToStr(STATUS_VND_CAN));
+
+        else
+          SQL.Add('  and v.status > ' + IntToStr(STATUS_VND_AND)); // Todas as vendas, com excesão das vendas "em atendimento"
+      end;
+
+      if ( edVendedor.ItemIndex > 0 ) then
+        SQL.Add('  and coalesce(vi.codvendedor, v.vendedor_cod) = ' + IntToStr(IVendedor[edVendedor.ItemIndex]));
+
+      if ( edCidade.ItemIndex > 0 ) then
+          SQL.Add('  and ((c.cid_cod = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ') or (c.cidade = ' + QuotedStr(edCidade.Text) + '))');
+
+      if ( chkNFeEmitida.Visible ) then
+        if ( chkNFeEmitida.Checked ) then
+          SQL.Add('  and (v.nfe is not null) ');
+
+      if ( chkCFOPTituloGerado.Visible ) then
+        if ( chkCFOPTituloGerado.Checked ) then
+          SQL.Add('  and (f.cfop_gerar_titulo = 1) ');
+
+      SQL.Text := StringReplace(SQL.Text, '1=1', aPeriodoCompra, [rfReplaceAll]);
+
+      SQL.Add('group by');
+      SQL.Add('    v.codemp');
+      SQL.Add('  , v.competencia');
+      SQL.Add('  , m.cmp_desc');
+      SQL.Add('  , i.codprod');
+      SQL.Add('  , p.descri_apresentacao');
+      SQL.Add('  , p.customedio');
+      SQL.Add('  , c.total_compras');
+      SQL.Add('  , c.total_custo');
+      SQL.Add('');
+      SQL.Add('order by');
+      SQL.Add('    v.codemp');
+      SQL.Add('  , v.competencia');
+      SQL.Add('  , p.descri_apresentacao');
+      SQL.Add('  , i.codprod');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relatório de rentabilidade das vendas por produto.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
 procedure TfrmGeVendaImpressao.btnVisualizarClick(Sender: TObject);
 begin
   Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: ' + #13 +
@@ -390,6 +508,14 @@ begin
       begin
         MontarRelacaoVendaListaEntrega;
         frReport := frRelacaoVendaRotaEntrega;
+      end;
+
+    // Por Produto
+
+    REPORT_RENTABILIDADE_ESTIMADA_PRODUTO:
+      begin
+        MontarRentabilidadeProduto;
+        frReport := frRelacaoRentabilidadeProduto;
       end;
   end;
 
@@ -564,14 +690,20 @@ begin
     edCidade.Enabled   := True;
 
   lblCidade.Visible := (not (edRelatorio.ItemIndex in [
-      REPORT_COMISSAO_VENDEDOR_BAIXA]));
+      REPORT_COMISSAO_VENDEDOR_BAIXA
+    , REPORT_RENTABILIDADE_ESTIMADA_PRODUTO]));
   edCidade.Visible  := lblCidade.Visible;
 
   chkNFeEmitida.Visible := (not (edRelatorio.ItemIndex in [
       REPORT_RELACAO_VENDA_VENDEDOR_COMPARATI
     , REPORT_RELACAO_VENDA_CLIENTE_COMPARATI
     , REPORT_RELACAO_VENDA_LISTA_ENTREGA
-    , REPORT_COMISSAO_VENDEDOR_BAIXA]));
+    , REPORT_COMISSAO_VENDEDOR_BAIXA
+    , REPORT_RENTABILIDADE_ESTIMADA_PRODUTO]));
+
+  chkCFOPTituloGerado.Visible := (not (edRelatorio.ItemIndex in [
+      REPORT_COMISSAO_VENDEDOR_BAIXA
+    , REPORT_RELACAO_VENDA_LISTA_ENTREGA]));
 end;
 
 procedure TfrmGeVendaImpressao.MontarRelacaoVendaVendedorComparativo;

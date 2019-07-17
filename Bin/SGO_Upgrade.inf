@@ -1,8 +1,9 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 10/07/2019 16:31:00     #
+#    Gerado por AGIL SOFTWARES em : 17/07/2019 04:07:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Novo relatório de Faturamento calculando a rentabilidade por produto nas vendas.
 - Nova configuração na CFOF que gerencia movimentação do estoque dos produtos.
 - Ajustes na emissão de NF-e.
 - Ajustes com cálculo do valor de IPI na emissão da NF-e.

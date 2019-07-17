@@ -282,7 +282,7 @@ inherited frmGeExportarChaveNFeGerada: TfrmGeExportarChaveNFeGerada
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object GrdExpTBLNUMERONFE: TcxGridDBColumn
-        Caption = 'N'#250'mero NF-e'
+        Caption = 'N'#250'mero NF-e '
         DataBinding.FieldName = 'NUMERONFE'
         MinWidth = 90
         Options.Editing = False
@@ -292,7 +292,7 @@ inherited frmGeExportarChaveNFeGerada: TfrmGeExportarChaveNFeGerada
         Width = 90
       end
       object GrdExpTBLSERIE: TcxGridDBColumn
-        Caption = 'S'#233'rie'
+        Caption = 'S'#233'rie '
         DataBinding.FieldName = 'SERIE'
         HeaderAlignmentHorz = taCenter
         MinWidth = 50
@@ -303,7 +303,7 @@ inherited frmGeExportarChaveNFeGerada: TfrmGeExportarChaveNFeGerada
         Width = 50
       end
       object GrdExpTBLEMISSAO: TcxGridDBColumn
-        Caption = 'Emiss'#227'o'
+        Caption = 'Emiss'#227'o '
         DataBinding.FieldName = 'EMISSAO'
         MinWidth = 85
         Options.Editing = False
@@ -312,13 +312,14 @@ inherited frmGeExportarChaveNFeGerada: TfrmGeExportarChaveNFeGerada
         Width = 85
       end
       object GrdExpTBLCHAVENFE: TcxGridDBColumn
-        Caption = 'Chave NF-e'
+        Caption = 'Chave NF-e '
         DataBinding.FieldName = 'CHAVENFE'
         Options.Editing = False
         Options.Filtering = False
         Options.Moving = False
       end
       object GrdExpTBLXML: TcxGridDBColumn
+        Caption = 'XML '
         DataBinding.FieldName = 'XML'
         PropertiesClassName = 'TcxMemoProperties'
         Visible = False
@@ -343,7 +344,6 @@ inherited frmGeExportarChaveNFeGerada: TfrmGeExportarChaveNFeGerada
     Width = 531
     Height = 21
     Align = alBottom
-    DialogKind = dkWin32
     Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       1800000000000006000000000000000000000000000000000000FF00FFFF00FF
@@ -400,12 +400,48 @@ inherited frmGeExportarChaveNFeGerada: TfrmGeExportarChaveNFeGerada
     TabOrder = 2
     Text = ''
   end
-  object qryChaveNFe: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object dspChaveNFe: TDataSetProvider
+    DataSet = qryChaveNFe
+    Left = 96
+    Top = 112
+  end
+  object cdsChaveNFe: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspChaveNFe'
+    Left = 128
+    Top = 112
+    object cdsChaveNFeNUMERONFE: TIntegerField
+      Alignment = taLeftJustify
+      FieldName = 'NUMERONFE'
+      Required = True
+      DisplayFormat = '###0000000'
+    end
+    object cdsChaveNFeSERIE: TStringField
+      FieldName = 'SERIE'
+      Required = True
+      Size = 4
+    end
+    object cdsChaveNFeEMISSAO: TDateField
+      FieldName = 'EMISSAO'
+    end
+    object cdsChaveNFeCHAVENFE: TStringField
+      FieldName = 'CHAVENFE'
+      Size = 250
+    end
+    object cdsChaveNFeXML: TMemoField
+      FieldName = 'XML'
+      BlobType = ftMemo
+    end
+  end
+  object dtsChaveNFe: TDataSource
+    DataSet = cdsChaveNFe
+    Left = 160
+    Top = 112
+  end
+  object qryChaveNFe: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
       '      nf.numero      as NumeroNFe'
@@ -420,47 +456,7 @@ inherited frmGeExportarChaveNFeGerada: TfrmGeExportarChaveNFeGerada
       
         '  left join TBCOMPRAS cm on (cm.ano = nf.anocompra and cm.codcon' +
         'trol = nf.numcompra)')
-    Left = 64
-    Top = 112
-  end
-  object dspChaveNFe: TDataSetProvider
-    DataSet = qryChaveNFe
-    Left = 96
-    Top = 112
-  end
-  object cdsChaveNFe: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'dspChaveNFe'
-    Left = 128
-    Top = 112
-    object cdsChaveNFeNUMERONFE: TIntegerField
-      FieldName = 'NUMERONFE'
-      Required = True
-      DisplayFormat = '###0000000'
-    end
-    object cdsChaveNFeSERIE: TWideStringField
-      FieldName = 'SERIE'
-      Required = True
-      Size = 4
-    end
-    object cdsChaveNFeEMISSAO: TDateField
-      FieldName = 'EMISSAO'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object cdsChaveNFeCHAVENFE: TWideStringField
-      FieldName = 'CHAVENFE'
-      Size = 250
-    end
-    object cdsChaveNFeXML: TWideMemoField
-      FieldName = 'XML'
-      BlobType = ftWideMemo
-      Size = 8
-    end
-  end
-  object dtsChaveNFe: TDataSource
-    DataSet = cdsChaveNFe
-    Left = 160
+    Left = 63
     Top = 112
   end
 end

@@ -779,7 +779,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
   end
   object btnConfirmar: TcxButton
     Left = 407
-    Top = 378
+    Top = 377
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -1244,7 +1244,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       Precision = 18
       Size = 2
     end
-    object cdsVendaVALOR_TOTAL_IPI: TBCDField
+    object cdsVendaVALOR_TOTAL_IPI: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL_IPI'
       Origin = 'VALOR_TOTAL_IPI'
@@ -1252,7 +1252,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       ReadOnly = True
       DisplayFormat = ',0.00'
       Precision = 18
-      Size = 2
+      Size = 5
     end
     object cdsVendaVALOR_TOTAL_BRUTO: TBCDField
       AutoGenerateValue = arDefault

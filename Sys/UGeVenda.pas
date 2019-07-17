@@ -335,24 +335,6 @@ type
     qryTitulosPGTO_OK: TIntegerField;
     qryTitulosLancamento: TStringField;
     spSetGerarTitulos: TFDStoredProc;
-    qryNFEEMPRESA: TStringField;
-    qryNFESERIE: TStringField;
-    qryNFENUMERO: TIntegerField;
-    qryNFEMODELO: TSmallintField;
-    qryNFEVERSAO: TSmallintField;
-    qryNFEDATAEMISSAO: TDateField;
-    qryNFEHORAEMISSAO: TTimeField;
-    qryNFECHAVE: TStringField;
-    qryNFEPROTOCOLO: TStringField;
-    qryNFERECIBO: TStringField;
-    qryNFEXML_FILENAME: TStringField;
-    qryNFEXML_FILE: TMemoField;
-    qryNFELOTE_ANO: TSmallintField;
-    qryNFELOTE_NUM: TIntegerField;
-    qryNFEANOVENDA: TSmallintField;
-    qryNFENUMVENDA: TIntegerField;
-    qryNFEANOCOMPRA: TSmallintField;
-    qryNFENUMCOMPRA: TIntegerField;
     fdQryTabelaANO: TSmallintField;
     fdQryTabelaCODCONTROL: TIntegerField;
     fdQryTabelaCODEMP: TStringField;
@@ -425,6 +407,24 @@ type
     lblDicaFormaPagto: TLabel;
     dbValorIPI: TDBEdit;
     lblValorIPI: TLabel;
+    qryNFEEMPRESA: TStringField;
+    qryNFESERIE: TStringField;
+    qryNFENUMERO: TIntegerField;
+    qryNFEMODELO: TSmallintField;
+    qryNFEVERSAO: TSmallintField;
+    qryNFEDATAEMISSAO: TDateField;
+    qryNFEHORAEMISSAO: TTimeField;
+    qryNFECHAVE: TStringField;
+    qryNFEPROTOCOLO: TStringField;
+    qryNFERECIBO: TStringField;
+    qryNFEXML_FILENAME: TStringField;
+    qryNFEXML_FILE: TMemoField;
+    qryNFELOTE_ANO: TSmallintField;
+    qryNFELOTE_NUM: TIntegerField;
+    qryNFEANOVENDA: TSmallintField;
+    qryNFENUMVENDA: TIntegerField;
+    qryNFEANOCOMPRA: TSmallintField;
+    qryNFENUMCOMPRA: TIntegerField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -2282,54 +2282,58 @@ begin
     begin
       iNumero := DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger;
 
-      with qryNFE do
+      // Analisar o nome do arquivo XML retornado
+      if (Trim(sFileNameXML) = EmptyStr) or (not FileExists(sFileNameXML)) then
+        sFileNameXML := DMNFe.GetDiretorioXmlNFe + sChaveNFE + '-nfe.xml';
+
+      AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+
+      qryNFE.Append;
+
+      qryNFEEMPRESA.Value     := DtSrcTabela.DataSet.FieldByName('CODEMP').AsString;
+      qryNFEANOVENDA.Value    := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
+      qryNFENUMVENDA.Value    := DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger;
+      qryNFESERIE.Value       := FormatFloat('#00', iSerieNFe);
+      qryNFENUMERO.Value      := iNumeroNFe;
+      qryNFEMODELO.Value      := DMNFe.GetModeloDF;
+      qryNFEVERSAO.Value      := DMNFe.GetVersaoDF;
+      qryNFEDATAEMISSAO.Value := GetDateDB;
+      qryNFEHORAEMISSAO.Value := GetTimeDB;
+      qryNFECHAVE.Value       := sChaveNFE;
+      qryNFEPROTOCOLO.Value   := sProtocoloNFE;
+      qryNFERECIBO.Value      := sReciboNFE;
+      qryNFELOTE_ANO.Value    := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
+      qryNFELOTE_NUM.Value    := iNumeroLote;
+
+      if ( FileExists(sFileNameXML) ) then
       begin
-        // Analisar o nome do arquivo XML retornado
-        if (Trim(sFileNameXML) = EmptyStr) or (not FileExists(sFileNameXML)) then
-          sFileNameXML := DMNFe.GetDiretorioXmlNFe + sChaveNFE + '-nfe.xml';
+        CorrigirXML_NFe(EmptyWideStr, sFileNameXML);
 
-        AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+        qryNFEXML_FILENAME.Value := ExtractFileName( sFileNameXML );
+        qryNFEXML_FILE.LoadFromFile( sFileNameXML );
+      end;
 
-        Append;
+      qryNFEANOCOMPRA.Clear;
+      qryNFENUMCOMPRA.Clear;
 
-        qryNFEEMPRESA.Value     := DtSrcTabela.DataSet.FieldByName('CODEMP').AsString;
-        qryNFEANOVENDA.Value    := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
-        qryNFENUMVENDA.Value    := DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger;
-        qryNFESERIE.Value       := FormatFloat('#00', iSerieNFe);
-        qryNFENUMERO.Value      := iNumeroNFe;
-        qryNFEMODELO.Value      := DMNFe.GetModeloDF;
-        qryNFEVERSAO.Value      := DMNFe.GetVersaoDF;
-        qryNFEDATAEMISSAO.Value := GetDateDB;
-        qryNFEHORAEMISSAO.Value := GetTimeDB;
-        qryNFECHAVE.Value       := sChaveNFE;
-        qryNFEPROTOCOLO.Value   := sProtocoloNFE;
-        qryNFERECIBO.Value      := sReciboNFE;
-        qryNFELOTE_ANO.Value    := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
-        qryNFELOTE_NUM.Value    := iNumeroLote;
-
-        if ( FileExists(sFileNameXML) ) then
-        begin
-          CorrigirXML_NFe(EmptyWideStr, sFileNameXML);
-
-          qryNFEXML_FILENAME.Value := ExtractFileName( sFileNameXML );
-          qryNFEXML_FILE.LoadFromFile( sFileNameXML );
-        end;
-
-        qryNFEANOCOMPRA.Clear;
-        qryNFENUMCOMPRA.Clear;
-
-        Post;
-        ApplyUpdates;
-        CommitUpdates;
-
+      try
+        qryNFE.Post;
+        qryNFE.ApplyUpdates;
+        qryNFE.CommitUpdates;
         CommitTransaction;
+      except
+        On E : Exception do
+          ShowError('Número da NF-e não recuperado.' + #13 + 'Execute novamente o procedimento.' + #13#13 + E.Message);
       end;
 
       RecarregarRegistro;
 
-      ShowInformation('Nota Fiscal de Saída gerada com sucesso.' + #13#13 +
-        'Série/Número: ' + DtSrcTabela.DataSet.FieldByName('SERIE').AsString + '/' + FormatFloat('##0000000', DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency) +
-        IfThen(Trim(sMensagem) = EmptyStr, EmptyStr, #13#13 + 'Alerta:' + #13 + sMensagem));
+      if (DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency = 0) then
+        ShowWarning('Número da NF-e não recuperado.' + #13 + 'Execute novamente o procedimento.')
+      else
+        ShowInformation('Nota Fiscal de Saída gerada com sucesso.' + #13#13 +
+          'Série/Número: ' + DtSrcTabela.DataSet.FieldByName('SERIE').AsString + '/' + FormatFloat('##0000000', DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency) +
+          IfThen(Trim(sMensagem) = EmptyStr, EmptyStr, #13#13 + 'Alerta:' + #13 + sMensagem));
 
       HabilitarDesabilitar_Btns;
 

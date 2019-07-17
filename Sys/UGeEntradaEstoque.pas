@@ -2224,52 +2224,56 @@ begin
       begin
         iNumero := FieldByName('CODCONTROL').AsInteger;
 
-        with qryNFE do
+        // Analisar o nome do arquivo XML retornado
+        if (Trim(sFileNameXML) = EmptyStr) or (not FileExists(sFileNameXML)) then
+          sFileNameXML := DMNFe.GetDiretorioXmlNFe + sChaveNFE + '-nfe.xml';
+
+        AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+
+        qryNFE.Append;
+
+        qryNFEEMPRESA.Value     := FieldByName('CODEMP').AsString;
+        qryNFEANOCOMPRA.Value   := FieldByName('ANO').AsInteger;
+        qryNFENUMCOMPRA.Value   := FieldByName('CODCONTROL').AsInteger;
+        qryNFESERIE.Value       := FormatFloat('#00', iSerieNFe);
+        qryNFENUMERO.Value      := iNumeroNFe;
+        qryNFEMODELO.Value      := DMNFe.GetModeloDF;
+        qryNFEVERSAO.Value      := DMNFe.GetVersaoDF;
+        qryNFEDATAEMISSAO.Value := GetDateDB;
+        qryNFEHORAEMISSAO.Value := GetTimeDB;
+        qryNFECHAVE.Value     := sChaveNFE;
+        qryNFEPROTOCOLO.Value := sProtocoloNFE;
+        qryNFERECIBO.Value    := sReciboNFE;
+        qryNFELOTE_ANO.Value  := FieldByName('ANO').AsInteger;
+        qryNFELOTE_NUM.Value  := iNumeroLote;
+
+        if ( FileExists(sFileNameXML) ) then
         begin
-          // Analisar o nome do arquivo XML retornado
-          if (Trim(sFileNameXML) = EmptyStr) or (not FileExists(sFileNameXML)) then
-            sFileNameXML := DMNFe.GetDiretorioXmlNFe + sChaveNFE + '-nfe.xml';
+          CorrigirXML_NFe(EmptyWideStr, sFileNameXML);
 
-          AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+          qryNFEXML_FILENAME.Value := ExtractFileName( sFileNameXML );
+          qryNFEXML_FILE.LoadFromFile( sFileNameXML );
+        end;
 
-          Append;
+        qryNFEANOVENDA.Clear;
+        qryNFENUMVENDA.Clear;
 
-          qryNFEEMPRESA.Value     := FieldByName('CODEMP').AsString;
-          qryNFEANOCOMPRA.Value   := FieldByName('ANO').AsInteger;
-          qryNFENUMCOMPRA.Value   := FieldByName('CODCONTROL').AsInteger;
-          qryNFESERIE.Value       := FormatFloat('#00', iSerieNFe);
-          qryNFENUMERO.Value      := iNumeroNFe;
-          qryNFEMODELO.Value      := DMNFe.GetModeloDF;
-          qryNFEVERSAO.Value      := DMNFe.GetVersaoDF;
-          qryNFEDATAEMISSAO.Value := GetDateDB;
-          qryNFEHORAEMISSAO.Value := GetTimeDB;
-          qryNFECHAVE.Value     := sChaveNFE;
-          qryNFEPROTOCOLO.Value := sProtocoloNFE;
-          qryNFERECIBO.Value    := sReciboNFE;
-          qryNFELOTE_ANO.Value  := FieldByName('ANO').AsInteger;
-          qryNFELOTE_NUM.Value  := iNumeroLote;
-
-          if ( FileExists(sFileNameXML) ) then
-          begin
-            CorrigirXML_NFe(EmptyWideStr, sFileNameXML);
-
-            qryNFEXML_FILENAME.Value := ExtractFileName( sFileNameXML );
-            qryNFEXML_FILE.LoadFromFile( sFileNameXML );
-          end;
-
-          qryNFEANOVENDA.Clear;
-          qryNFENUMVENDA.Clear;
-
-          Post;
-          ApplyUpdates;
-          CommitUpdates;
-
+        try
+          qryNFE.Post;
+          qryNFE.ApplyUpdates;
+          qryNFE.CommitUpdates;
           CommitTransaction;
+        except
+          On E : Exception do
+            ShowError('Número da NF-e não recuperado.' + #13 + 'Execute novamente o procedimento.' + #13#13 + E.Message);
         end;
 
         fdQryTabela.RefreshRecord;
 
-        ShowInformation('Nota Fiscal de Entrada gerada com sucesso.' + #13#13 + 'Série/Número: ' + FieldByName('NFSERIE').AsString + '/' + FormatFloat('##0000000', FieldByName('NF').AsInteger));
+        if (DtSrcTabela.DataSet.FieldByName('NF').AsInteger = 0) then
+          ShowWarning('Número da NF-e não recuperado.' + #13 + 'Execute novamente o procedimento.')
+        else
+          ShowInformation('Nota Fiscal de Entrada gerada com sucesso.' + #13#13 + 'Série/Número: ' + FieldByName('NFSERIE').AsString + '/' + FormatFloat('##0000000', FieldByName('NF').AsInteger));
 
         HabilitarDesabilitar_Btns;
 

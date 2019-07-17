@@ -25,10 +25,10 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
     Width = 728
     Height = 467
     ExplicitWidth = 728
-    ExplicitHeight = 445
+    ExplicitHeight = 467
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 720
-      ExplicitHeight = 416
+      ExplicitHeight = 438
       inherited Bevel4: TBevel
         Top = 372
         Width = 720
@@ -56,7 +56,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       inherited pnlFiltros: TPanel
         Top = 376
         Width = 720
-        ExplicitTop = 354
+        ExplicitTop = 376
         ExplicitWidth = 720
         object Bevel5: TBevel [0]
           Left = 452
@@ -114,7 +114,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       ExplicitLeft = 4
       ExplicitTop = 25
       ExplicitWidth = 720
-      ExplicitHeight = 416
+      ExplicitHeight = 438
       inherited Bevel8: TBevel
         Top = 225
         Width = 720
@@ -237,7 +237,6 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         Align = alClient
         Caption = 'Par'#226'metros'
         TabOrder = 1
-        ExplicitHeight = 187
         object lblCSTEntrada: TLabel
           Left = 304
           Top = 98
@@ -479,7 +478,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
   inherited tlbBotoes: TPanel
     Top = 471
     Width = 728
-    ExplicitTop = 449
+    ExplicitTop = 471
     ExplicitWidth = 728
     inherited bvlTool3: TBevel
       Left = 645
@@ -577,7 +576,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
     Left = 512
     Top = 0
     Bitmap = {
-      494C01012B002C00540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2037,6 +2036,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
+    OnNewRecord = fdQryTabelaNewRecord
     SQL.Strings = (
       'Select'
       '    c.Cfop_cod'

@@ -295,7 +295,6 @@ inherited frmGeExportarNFC: TfrmGeExportarNFC
     Width = 531
     Height = 21
     Align = alTop
-    DialogKind = dkWin32
     Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       1800000000000006000000000000000000000000000000000000FF00FFFF00FF
@@ -352,15 +351,10 @@ inherited frmGeExportarNFC: TfrmGeExportarNFC
     TabOrder = 3
     Text = ''
   end
-  object cdsCompetencia: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+  object cdsCompetencia: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
       'Select'
       '    c.cmp_num'
       '  , c.cmp_desc'
@@ -374,55 +368,77 @@ inherited frmGeExportarNFC: TfrmGeExportarNFC
       ''
       'order by'
       '    c.cmp_num')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'CODCONTROL'
-    Left = 440
-    Top = 16
+    Left = 471
+    Top = 8
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end>
     object cdsCompetenciaCMP_NUM: TIntegerField
       FieldName = 'CMP_NUM'
-      Origin = '"TBCOMPETENCIA"."CMP_NUM"'
+      Origin = 'CMP_NUM'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object cdsCompetenciaCMP_DESC: TIBStringField
+    object cdsCompetenciaCMP_DESC: TStringField
       FieldName = 'CMP_DESC'
-      Origin = '"TBCOMPETENCIA"."CMP_DESC"'
+      Origin = 'CMP_DESC'
       Size = 50
     end
   end
-  object cdsNFC: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+  object cdsNFC: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
       'Select'
       '    a.tipo'
       '  , a.linha'
       
         'from GET_ARQUIVO_NFC(:data_inicial, :data_final, :tipo_arquivo, ' +
         ':empresa, :status_venda) a')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'CODCONTROL'
-    Left = 424
-    Top = 80
-    object cdsNFCTIPO: TIBStringField
+    Left = 471
+    Top = 56
+    ParamData = <
+      item
+        Name = 'DATA_INICIAL'
+        DataType = ftDate
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'DATA_FINAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Name = 'TIPO_ARQUIVO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'STATUS_VENDA'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end>
+    object cdsNFCTIPO: TStringField
       FieldName = 'TIPO'
-      Origin = '"GET_ARQUIVO_NFC"."TIPO"'
+      Origin = 'TIPO'
       Size = 2
     end
-    object cdsNFCLINHA: TIBStringField
+    object cdsNFCLINHA: TStringField
       FieldName = 'LINHA'
-      Origin = '"GET_ARQUIVO_NFC"."LINHA"'
+      Origin = 'LINHA'
       Size = 250
     end
   end

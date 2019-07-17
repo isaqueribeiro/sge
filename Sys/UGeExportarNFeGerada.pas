@@ -6,12 +6,16 @@ uses
   UGrPadrao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Mask, ExtCtrls, DB, IBCustomDataSet,
-  Buttons, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons, JvToolEdit, JvExMask,
+  Dialogs, StdCtrls, Mask, ExtCtrls, DB, Buttons, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
+  Menus, cxButtons, JvToolEdit, JvExMask,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeExportarNFeGerada = class(TfrmGrPadrao)
@@ -26,12 +30,18 @@ type
     PnlBotoes: TPanel;
     Bevel3: TBevel;
     lblInforme: TLabel;
-    cdsNFe: TIBDataSet;
-    cdsNFeSERIE: TIBStringField;
+    chkNFeCancelada: TCheckBox;
+    btnExportar: TcxButton;
+    btnCancelar: TcxButton;
+    edDataInicial: TJvDateEdit;
+    edDataFinal: TJvDateEdit;
+    edDiretorioExportacao: TJvDirectoryEdit;
+    cdsNFe: TFDQuery;
+    cdsNFeSERIE: TStringField;
     cdsNFeNUMERO: TIntegerField;
     cdsNFeDATAEMISSAO: TDateField;
     cdsNFeHORAEMISSAO: TTimeField;
-    cdsNFeXML_FILENAME: TIBStringField;
+    cdsNFeXML_FILENAME: TStringField;
     cdsNFeXML_FILE: TMemoField;
     cdsNFeANOVENDA: TSmallintField;
     cdsNFeNUMVENDA: TIntegerField;
@@ -39,12 +49,6 @@ type
     cdsNFeNUMCOMPRA: TIntegerField;
     cdsNFeSAIDA: TIntegerField;
     cdsNFeENTRADA: TIntegerField;
-    chkNFeCancelada: TCheckBox;
-    btnExportar: TcxButton;
-    btnCancelar: TcxButton;
-    edDataInicial: TJvDateEdit;
-    edDataFinal: TJvDateEdit;
-    edDiretorioExportacao: TJvDirectoryEdit;
     procedure FormCreate(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnExportarClick(Sender: TObject);
@@ -56,6 +60,18 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBNFE_ENVIADA
+  - TBVENDAS
+  - TBCOMPRAS
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGeExportarNFeGerada: TfrmGeExportarNFeGerada;

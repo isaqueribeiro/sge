@@ -192,7 +192,7 @@ object DMBusiness: TDMBusiness
     Params.Strings = (
       'User_Name=sysdba'
       'Password=masterkey'
-      'Database=AGIL_COMERCIO'
+      'Database=ANGIOFLEX'
       'Protocol=TCPIP'
       'CharacterSet=ISO8859_2'
       'Port=3050'

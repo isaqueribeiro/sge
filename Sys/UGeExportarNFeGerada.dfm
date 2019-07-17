@@ -275,7 +275,6 @@ inherited frmGeExportarNFeGerada: TfrmGeExportarNFeGerada
     Width = 531
     Height = 21
     Align = alTop
-    DialogKind = dkWin32
     Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       1800000000000006000000000000000000000000000000000000FF00FFFF00FF
@@ -332,15 +331,10 @@ inherited frmGeExportarNFeGerada: TfrmGeExportarNFeGerada
     TabOrder = 2
     Text = ''
   end
-  object cdsNFe: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+  object cdsNFe: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
       'Select'
       '    nfe.serie'
       '  , nfe.numero'
@@ -376,69 +370,102 @@ inherited frmGeExportarNFeGerada: TfrmGeExportarNFeGerada
       'order by'
       '    nfe.serie'
       '  , nfe.numero')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'CODCONTROL'
-    Left = 448
-    Top = 8
-    object cdsNFeSERIE: TIBStringField
+    Left = 479
+    Top = 16
+    ParamData = <
+      item
+        Name = 'DATA_INICIAL'
+        DataType = ftDate
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'DATA_FINAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Name = 'TODAS'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'ENTRADAS'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'SAIDAS'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end>
+    object cdsNFeSERIE: TStringField
       FieldName = 'SERIE'
-      Origin = '"TBNFE_ENVIADA"."SERIE"'
+      Origin = 'SERIE'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 4
     end
     object cdsNFeNUMERO: TIntegerField
       FieldName = 'NUMERO'
-      Origin = '"TBNFE_ENVIADA"."NUMERO"'
+      Origin = 'NUMERO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object cdsNFeDATAEMISSAO: TDateField
       FieldName = 'DATAEMISSAO'
-      Origin = '"TBNFE_ENVIADA"."DATAEMISSAO"'
+      Origin = 'DATAEMISSAO'
     end
     object cdsNFeHORAEMISSAO: TTimeField
       FieldName = 'HORAEMISSAO'
-      Origin = '"TBNFE_ENVIADA"."HORAEMISSAO"'
+      Origin = 'HORAEMISSAO'
     end
-    object cdsNFeXML_FILENAME: TIBStringField
+    object cdsNFeXML_FILENAME: TStringField
       FieldName = 'XML_FILENAME'
-      Origin = '"TBNFE_ENVIADA"."XML_FILENAME"'
+      Origin = 'XML_FILENAME'
       Size = 250
     end
     object cdsNFeXML_FILE: TMemoField
       FieldName = 'XML_FILE'
-      Origin = '"TBNFE_ENVIADA"."XML_FILE"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'XML_FILE'
       BlobType = ftMemo
-      Size = 8
     end
     object cdsNFeANOVENDA: TSmallintField
       FieldName = 'ANOVENDA'
-      Origin = '"TBNFE_ENVIADA"."ANOVENDA"'
+      Origin = 'ANOVENDA'
     end
     object cdsNFeNUMVENDA: TIntegerField
       FieldName = 'NUMVENDA'
-      Origin = '"TBNFE_ENVIADA"."NUMVENDA"'
+      Origin = 'NUMVENDA'
     end
     object cdsNFeANOCOMPRA: TSmallintField
       FieldName = 'ANOCOMPRA'
-      Origin = '"TBNFE_ENVIADA"."ANOCOMPRA"'
+      Origin = 'ANOCOMPRA'
     end
     object cdsNFeNUMCOMPRA: TIntegerField
       FieldName = 'NUMCOMPRA'
-      Origin = '"TBNFE_ENVIADA"."NUMCOMPRA"'
+      Origin = 'NUMCOMPRA'
     end
     object cdsNFeSAIDA: TIntegerField
+      AutoGenerateValue = arDefault
       FieldName = 'SAIDA'
+      Origin = 'SAIDA'
       ProviderFlags = []
+      ReadOnly = True
     end
     object cdsNFeENTRADA: TIntegerField
+      AutoGenerateValue = arDefault
       FieldName = 'ENTRADA'
+      Origin = 'ENTRADA'
       ProviderFlags = []
+      ReadOnly = True
     end
   end
 end
