@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2018/10/06 12:20:31.000.299,=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2018/10/06 13:03:39.000.407,=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2018/10/06 17:13:38.000.272,=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2018/10/06 17:20:32.000.487,=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2018/11/13 22:40:30.000.328,=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2018/11/14 00:13:47.000.539,=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2018/11/15 12:21:32.000.854,=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2018/11/15 15:39:01.000.879,=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2018/11/15 16:19:30.000.489,=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2018/11/15 23:00:51.000.128,=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2018/11/15 23:38:50.000.682,=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2018/11/15 23:51:57.000.773,C:\Users\Isaque\Documents\Projetos\Testes\UGuiaWizard.dfm=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.dfm</Transaction>
+    <Transaction>2018/11/15 23:51:57.000.773,C:\Users\Isaque\Documents\Projetos\Testes\UGuiaWizard.pas=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2018/11/15 23:52:04.000.249,C:\Users\Isaque\Documents\Projetos\Testes\GuiaWizard.dproj=C:\Users\Isaque\Documents\Projetos\Testes\Project1.dproj</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile iOSSimulator="iPhone5"/>
+	</ActiveMobileDevice>
+</BorlandProject>

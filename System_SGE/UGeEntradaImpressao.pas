@@ -72,6 +72,7 @@ type
     procedure MontarEntradaGeralSintetico;
     procedure MontarEntradaGeralAnalitico;
     procedure MontarEntradaRelacaoNotas;
+    procedure MontarEntradaCompraCfopSintetica;
   end;
 
 (*
@@ -101,9 +102,10 @@ uses
 {$R *.dfm}
 
 const
-  REPORT_RELACAO_ENTRADA_SINTETICO   = 0;
-  REPORT_RELACAO_ENTRADA_ANALITICO   = 1;
-  REPORT_RELACAO_ENTRADA_NOTA_FISCAL = 2;
+  REPORT_RELACAO_ENTRADA_SINTETICO      = 0;
+  REPORT_RELACAO_ENTRADA_ANALITICO      = 1;
+  REPORT_RELACAO_ENTRADA_CFOP_SINTETICO = 2;
+  REPORT_RELACAO_ENTRADA_NOTA_FISCAL    = 3;
 
   SITUACAO_ENTRADA_PADRAO = 3; // Entradas Finalizadas e com NF Emitidas
 
@@ -274,6 +276,12 @@ begin
         frReport := frRelacaoEntradaGeralAnalitico;
       end;
 
+    REPORT_RELACAO_ENTRADA_CFOP_SINTETICO:
+      begin
+        MontarEntradaCompraCfopSintetica;
+        frReport := frRelacaoEntradaCFOPSintetico;
+      end;
+
     REPORT_RELACAO_ENTRADA_NOTA_FISCAL:
       begin
         MontarEntradaRelacaoNotas;
@@ -293,6 +301,11 @@ begin
   edTipoDocumento.Enabled  := not chkDFInformada.Checked;
   if not edTipoDocumento.Enabled then
     edTipoDocumento.ItemIndex := 0;
+end;
+
+procedure TfrmGeEntradaImpressao.MontarEntradaCompraCfopSintetica;
+begin
+  ;
 end;
 
 procedure TfrmGeEntradaImpressao.MontarEntradaGeralAnalitico;

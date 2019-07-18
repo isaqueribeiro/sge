@@ -5,10 +5,10 @@ interface
 uses
   UGrPadraoImpressao,
 
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls, Buttons, ComCtrls, Mask, frxClass,
-  frxDBSet, DBClient, Provider, DB, IBCustomDataSet, IBQuery, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit,
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, cxDBLookupEdit, cxLookupEdit,
+  Dialogs, StdCtrls, dxGDIPlusClasses, ExtCtrls, Buttons, ComCtrls, Mask, frxClass, cxDropDownEdit,
+  frxDBSet, DBClient, Provider, DB, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  JvExMask, JvToolEdit, cxDBLookupComboBox, cxControls, cxContainer, cxEdit, cxTextEdit, cxMaskEdit,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
@@ -16,20 +16,17 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, cxControls, cxContainer, cxEdit,
-  cxTextEdit, cxMaskEdit, cxDropDownEdit, cxLookupEdit, cxDBLookupEdit,
-  cxDBLookupComboBox;
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeContasAReceberImpressao = class(TfrmGrPadraoImpressao)
     lblSituacao: TLabel;
     edSituacao: TComboBox;
     frRelacaoAReceberVSintetico: TfrxReport;
-    QryRelacaoAReceberVSintetico: TIBQuery;
     DspRelacaoAReceberVSintetico: TDataSetProvider;
     CdsRelacaoAReceberVSintetico: TClientDataSet;
     FrdsRelacaoAReceberVSintetico: TfrxDBDataset;
-    QryRelacaoAReceberVAnalitico: TIBQuery;
     DspRelacaoAReceberVAnalitico: TDataSetProvider;
     CdsRelacaoAReceberVAnalitico: TClientDataSet;
     FrdsRelacaoAReceberVAnalitico: TfrxDBDataset;
@@ -40,19 +37,16 @@ type
     DspCliente: TDataSetProvider;
     CdsCliente: TClientDataSet;
     frRelacaoAReceberESintetico: TfrxReport;
-    QryRelacaoAReceberESintetico: TIBQuery;
     DspRelacaoAReceberESintetico: TDataSetProvider;
     CdsRelacaoAReceberESintetico: TClientDataSet;
     FrdsRelacaoAReceberESintetico: TfrxDBDataset;
     frRelacaoAReceberEAnalitico: TfrxReport;
     frRelacaoAReceberBSintetico: TfrxReport;
-    QryRelacaoAReceberBSintetico: TIBQuery;
     DspRelacaoAReceberBSintetico: TDataSetProvider;
     CdsRelacaoAReceberBSintetico: TClientDataSet;
     FrdsRelacaoAReceberBSintetico: TfrxDBDataset;
     frRelacaoAReceberBAnalitico: TfrxReport;
     frRelacaoAReceberVCliente: TfrxReport;
-    QryRelacaoAReceberVCliente: TIBQuery;
     DspRelacaoAReceberVCliente: TDataSetProvider;
     CdsRelacaoAReceberVCliente: TClientDataSet;
     FrdsRelacaoAReceberVCliente: TfrxDBDataset;
@@ -61,7 +55,6 @@ type
     e1Periodo: TJvDateEdit;
     e2Periodo: TJvDateEdit;
     frRelacaoAReceberVCidade: TfrxReport;
-    QryRelacaoAReceberVCidade: TIBQuery;
     DspRelacaoAReceberVCidade: TDataSetProvider;
     CdsRelacaoAReceberVCidade: TClientDataSet;
     FrdsRelacaoAReceberVCidade: TfrxDBDataset;
@@ -82,6 +75,12 @@ type
     dtsCidades: TDataSource;
     lblCidade: TLabel;
     edCidade: TcxLookupComboBox;
+    QryRelacaoAReceberVSintetico: TFDQuery;
+    QryRelacaoAReceberBSintetico: TFDQuery;
+    QryRelacaoAReceberVAnalitico: TFDQuery;
+    QryRelacaoAReceberVCliente: TFDQuery;
+    QryRelacaoAReceberVCidade: TFDQuery;
+    QryRelacaoAReceberESintetico: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);

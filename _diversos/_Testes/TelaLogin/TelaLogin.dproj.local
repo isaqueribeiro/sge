@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019/07/17 20:53:42.000.989,=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2019/07/17 22:04:58.000.490,C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas=C:\Users\Isaque\Documents\Projetos\Testes\TelaLogin\UPadraoLogin.pas</Transaction>
+    <Transaction>2019/07/17 22:04:58.000.490,C:\Users\Isaque\Documents\Projetos\Testes\Unit1.dfm=C:\Users\Isaque\Documents\Projetos\Testes\TelaLogin\UPadraoLogin.dfm</Transaction>
+    <Transaction>2019/07/17 22:07:16.000.608,C:\Users\Isaque\Documents\Projetos\Testes\Project1.dproj=C:\Users\Isaque\Documents\Projetos\Testes\TelaLogin\TelaLogin.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

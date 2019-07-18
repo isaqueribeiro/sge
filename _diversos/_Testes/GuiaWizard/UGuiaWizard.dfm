@@ -1,0 +1,227 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 513
+  ClientWidth = 873
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 169
+    Height = 513
+    Align = alLeft
+    BevelOuter = bvNone
+    Color = clGreen
+    ParentBackground = False
+    TabOrder = 0
+    object shpLinha: TShape
+      Left = 46
+      Top = 26
+      Width = 2
+      Height = 164
+      Pen.Style = psClear
+    end
+    object shpGuia1: TShape
+      Tag = 1
+      Left = 40
+      Top = 54
+      Width = 14
+      Height = 14
+      Cursor = crHandPoint
+      Pen.Style = psClear
+      Shape = stRoundSquare
+    end
+    object lblGuia1: TLabel
+      Tag = 1
+      Left = 60
+      Top = 54
+      Width = 75
+      Height = 13
+      Cursor = crHandPoint
+      Caption = 'Dados Nominais'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      OnClick = SelecionarGuia
+    end
+    object shpGuia2: TShape
+      Tag = 2
+      Left = 40
+      Top = 87
+      Width = 14
+      Height = 14
+      Cursor = crHandPoint
+      Pen.Style = psClear
+      Shape = stRoundSquare
+    end
+    object lblGuia2: TLabel
+      Tag = 2
+      Left = 60
+      Top = 87
+      Width = 59
+      Height = 13
+      Cursor = crHandPoint
+      Caption = 'Documentos'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      OnClick = SelecionarGuia
+    end
+    object shpGuia3: TShape
+      Tag = 3
+      Left = 40
+      Top = 120
+      Width = 14
+      Height = 14
+      Cursor = crHandPoint
+      Brush.Color = clRed
+      Pen.Style = psClear
+      Shape = stRoundSquare
+    end
+    object lblGuia3: TLabel
+      Tag = 3
+      Left = 60
+      Top = 120
+      Width = 58
+      Height = 13
+      Cursor = crHandPoint
+      Caption = 'Financeiro'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = SelecionarGuia
+    end
+    object shpGuia4: TShape
+      Tag = 4
+      Left = 40
+      Top = 153
+      Width = 14
+      Height = 14
+      Cursor = crHandPoint
+      Pen.Style = psClear
+      Shape = stRoundSquare
+    end
+    object lblGuia4: TLabel
+      Tag = 4
+      Left = 60
+      Top = 153
+      Width = 63
+      Height = 13
+      Cursor = crHandPoint
+      Caption = 'Observa'#231#245'es'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      OnClick = SelecionarGuia
+    end
+    object Shape1: TShape
+      Left = 22
+      Top = 188
+      Width = 25
+      Height = 2
+      Pen.Style = psClear
+    end
+    object Shape2: TShape
+      Tag = 4
+      Left = 22
+      Top = 186
+      Width = 14
+      Height = 14
+      Cursor = crHandPoint
+      Pen.Style = psClear
+      Shape = stRoundSquare
+    end
+    object Label1: TLabel
+      Tag = 4
+      Left = 60
+      Top = 186
+      Width = 16
+      Height = 13
+      Cursor = crHandPoint
+      Caption = 'Fim'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      OnClick = SelecionarGuia
+    end
+    object Shape3: TShape
+      Left = 22
+      Top = 26
+      Width = 25
+      Height = 2
+      Pen.Style = psClear
+    end
+    object Shape4: TShape
+      Tag = 4
+      Left = 22
+      Top = 19
+      Width = 14
+      Height = 14
+      Cursor = crHandPoint
+      Pen.Style = psClear
+      Shape = stRoundSquare
+    end
+    object Label2: TLabel
+      Tag = 4
+      Left = 60
+      Top = 19
+      Width = 25
+      Height = 13
+      Cursor = crHandPoint
+      Caption = 'In'#237'cio'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      OnClick = SelecionarGuia
+    end
+  end
+  object Panel2: TPanel
+    Left = 704
+    Top = 0
+    Width = 169
+    Height = 513
+    Align = alRight
+    BevelOuter = bvNone
+    Color = clGreen
+    ParentBackground = False
+    TabOrder = 1
+  end
+  object Button1: TButton
+    Left = 489
+    Top = 49
+    Width = 169
+    Height = 25
+    Caption = 'Criar Guias Din'#226'micas'
+    TabOrder = 2
+    OnClick = Button1Click
+  end
+end

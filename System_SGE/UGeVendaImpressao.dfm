@@ -16,7 +16,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
   end
   inherited pnlBanner: TPanel
     Height = 305
-    ExplicitHeight = 277
+    ExplicitHeight = 305
     inherited imgBanner: TImage
       Height = 305
       ExplicitHeight = 277
@@ -24,7 +24,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
   end
   inherited pnlRelatorio: TPanel
     Height = 305
-    ExplicitHeight = 277
+    ExplicitHeight = 305
     inherited GrpBxRelatorio: TGroupBox
       inherited edRelatorio: TComboBox
         Top = 42
@@ -44,7 +44,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     end
     inherited GrpBxFiltro: TGroupBox
       Height = 224
-      ExplicitHeight = 196
+      ExplicitHeight = 224
       object lblSituacao: TLabel
         Left = 41
         Top = 76
@@ -296,7 +296,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
   end
   inherited tlbBotoes: TPanel
     Top = 309
-    ExplicitTop = 281
+    ExplicitTop = 309
   end
   object DpsCidades: TDataSetProvider
     DataSet = fdQryCidades

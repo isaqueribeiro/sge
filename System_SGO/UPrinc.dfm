@@ -4707,7 +4707,6 @@ object frmPrinc: TfrmPrinc
       Index = 3
     end
     object RbnTabNota: TdxRibbonTab
-      Active = True
       Caption = 'Notas Fiscais (NF-e)'
       Groups = <
         item
@@ -4741,6 +4740,7 @@ object frmPrinc: TfrmPrinc
       Index = 6
     end
     object RbnTabRelatorio: TdxRibbonTab
+      Active = True
       Caption = 'Relat'#243'rios'
       Groups = <
         item

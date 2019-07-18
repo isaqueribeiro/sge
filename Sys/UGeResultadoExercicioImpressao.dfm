@@ -211,7 +211,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
     Top = 40
   end
   object frDemonstResultOper: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -334,8 +334,10 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       ColumnWidth = 190.000000000000000000
       ColumnPositions.Strings = (
         '0')
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -350,6 +352,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -363,6 +366,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -379,6 +383,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -396,6 +401,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -416,6 +422,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -434,6 +441,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -462,6 +470,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -486,6 +495,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Contas de Movimenta'#231#227'o no Sistema:')
           ParentFont = False
@@ -502,6 +512,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Periodo] ')
           ParentFont = False
@@ -517,6 +528,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -525,6 +537,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 381.732530000000000000
         Width = 718.110700000000000000
@@ -553,6 +566,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -580,6 +594,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 302.362400000000000000
         Width = 718.110700000000000000
@@ -758,6 +773,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 45.354360000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -1023,7 +1039,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       end>
   end
   object frMovFinanceiroMensal: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1385,8 +1401,10 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       ColumnWidth = 190.000000000000000000
       ColumnPositions.Strings = (
         '0')
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -1401,6 +1419,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -1414,6 +1433,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -1430,6 +1450,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -1447,6 +1468,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -1467,6 +1489,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -1485,6 +1508,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -1513,6 +1537,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -1537,6 +1562,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Contas de Movimenta'#231#227'o no Sistema:')
           ParentFont = False
@@ -1553,6 +1579,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Periodo] ')
           ParentFont = False
@@ -1568,6 +1595,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -1576,6 +1604,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 619.842920000000000000
         Width = 1046.929810000000000000
@@ -1604,6 +1633,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -1631,6 +1661,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 351.496290000000000000
         Width = 1046.929810000000000000
@@ -1888,6 +1919,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       end
       object GrpHeader: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 309.921460000000000000
         Width = 1046.929810000000000000
@@ -1920,6 +1952,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       end
       object GrpFooter: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 393.071120000000000000
         Width = 1046.929810000000000000
@@ -2156,6 +2189,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       end
       object BndHeader: TfrxHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 52.913420000000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -2568,6 +2602,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
       end
       object BndColumnFooter: TfrxColumnFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 117.165430000000000000
         Top = 480.000310000000000000
         Width = 1046.929810000000000000
@@ -3072,6 +3107,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Fill.BackColor = 14211288
           Memo.UTF8W = (
@@ -3092,6 +3128,7 @@ inherited frmGeResultadoExercicioImpressao: TfrmGeResultadoExercicioImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (

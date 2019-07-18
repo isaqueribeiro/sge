@@ -16,6 +16,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         Items.Strings = (
           'Relat'#243'rio Geral de Entradas por Tipo de Movimento (Sint'#233'tico)'
           'Relat'#243'rio Geral de Entradas por Tipo de Movimento (Anal'#237'tico)'
+          'Relat'#243'rio Geral de Entradas por CFOP (Sint'#233'tico)'
           'Rela'#231#227'o de Notas Fiscais de Entrada')
       end
     end
@@ -6459,7 +6460,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
-        Condition = 'frdsRelacaoEntradaGeralSintetico."TIPO_MOVIMENTO"'
+        Condition = 'frdsRelacaoEntradaCFOPSintetico."TIPO_MOVIMENTO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
           Left = 83.149660000000000000
@@ -6475,7 +6476,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Frame.Typ = [ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
-            ' [frdsRelacaoEntradaGeralSintetico."TIPO_MOVIMENTO_DESC"]')
+            ' [frdsRelacaoEntradaCFOPSintetico."TIPO_MOVIMENTO_DESC"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -6519,9 +6520,9 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
-          Left = 185.196970000000000000
+          Left = 83.149660000000000000
           Top = 37.795300000000000000
-          Width = 185.196970000000000000
+          Width = 287.244280000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -6606,7 +6607,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object Memo7: TfrxMemoView
           Top = 37.795300000000000000
-          Width = 185.196970000000000000
+          Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -6620,7 +6621,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            ' Tipo Despesa')
+            ' CFOP')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -6771,7 +6772,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
-          Width = 185.196970000000000000
+          Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -7364,12 +7365,6 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
       '      when 0 then '#39'Entradas de Produtos'#39
       '      when 1 then '#39'Entradas de Servi'#231'os'#39
       '    end as tipo_movimento_desc'
-      '  , c.tipo_entrada'
-      '  , te.tpe_descricao as tipo_entrada_desc'
-      '  , c.tipo_documento'
-      '  , tn.tpd_descricao as tipo_documento_desc'
-      '  , c.tipo_despesa'
-      '  , td.tipodesp      as tipo_despesa_desc'
       '  , c.status'
       '  , Case c.status'
       '      when 1 then '#39'Aberto'#39
@@ -7377,6 +7372,10 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
       '      when 3 then '#39'Cancelado'#39
       '      when 4 then '#39'NF-e Emitida'#39
       '    end as status_desc'
+      '  , c.nfcfop as cfop_codigo'
+      '  , f.cfop_descricao'
+      '  , count( c.codcontrol ) as qtde_compras'
+      '  , sum( c.nfe_enviada  ) as qtde_notas_emitidas'
       '  , sum( coalesce(c.icmsbase, 0.0)  ) as total_aliquota_base'
       '  , sum( coalesce(c.icmsvalor, 0.0) ) as total_aliquota'
       
@@ -7398,12 +7397,9 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
       '  , sum( coalesce(c.totalnf, 0.0)      ) as total_nota'
       'from TBCOMPRAS c'
       
-        '  left join VW_TIPO_ENTRADA te on (te.tpe_codigo = c.tipo_entrad' +
-        'a)'
-      
         '  left join VW_TIPO_DOCUMENTO_ENTRADA tn on (tn.tpd_codigo = c.t' +
         'ipo_documento)'
-      '  left join TBTPDESPESA td on (td.cod = c.tipo_despesa)'
+      '  left join TBCFOP f on (f.cfop_cod = c.nfcfop)'
       ''
       '/*'
       'where c.codemp = '#39'03041377000187'#39
@@ -7411,18 +7407,14 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
       ''
       'group by'
       '    c.tipo_movimento'
-      '  , c.tipo_entrada'
-      '  , te.tpe_descricao'
-      '  , c.tipo_documento'
-      '  , tn.tpd_descricao'
-      '  , c.tipo_despesa'
-      '  , td.tipodesp'
       '  , c.status'
+      '  , c.nfcfop'
+      '  , f.cfop_descricao'
       ''
       'order by'
       '    c.tipo_movimento'
-      '  , td.tipodesp'
-      '  , te.tpe_descricao'
+      '  , c.status'
+      '  , c.nfcfop'
       '*/')
     Left = 40
     Top = 112
@@ -7445,14 +7437,12 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
     FieldAliases.Strings = (
       'TIPO_MOVIMENTO=TIPO_MOVIMENTO'
       'TIPO_MOVIMENTO_DESC=TIPO_MOVIMENTO_DESC'
-      'TIPO_ENTRADA=TIPO_ENTRADA'
-      'TIPO_ENTRADA_DESC=TIPO_ENTRADA_DESC'
-      'TIPO_DOCUMENTO=TIPO_DOCUMENTO'
-      'TIPO_DOCUMENTO_DESC=TIPO_DOCUMENTO_DESC'
-      'TIPO_DESPESA=TIPO_DESPESA'
-      'TIPO_DESPESA_DESC=TIPO_DESPESA_DESC'
       'STATUS=STATUS'
       'STATUS_DESC=STATUS_DESC'
+      'CFOP_CODIGO=CFOP_CODIGO'
+      'CFOP_DESCRICAO=CFOP_DESCRICAO'
+      'QTDE_COMPRAS=QTDE_COMPRAS'
+      'QTDE_NOTAS_EMITIDAS=QTDE_NOTAS_EMITIDAS'
       'TOTAL_ALIQUOTA_BASE=TOTAL_ALIQUOTA_BASE'
       'TOTAL_ALIQUOTA=TOTAL_ALIQUOTA'
       'TOTAL_ALIQUOTA_BASE_SUBS=TOTAL_ALIQUOTA_BASE_SUBS'

@@ -176,7 +176,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
     end
   end
   object frRelacaoSaldoConsolidadoDia: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -294,8 +294,10 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       ColumnPositions.Strings = (
         '0'
         '95')
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -310,6 +312,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -323,6 +326,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -336,12 +340,14 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -356,6 +362,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -376,6 +383,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -394,6 +402,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -422,6 +431,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -446,6 +456,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Contas de Movimenta'#231#227'o no Sistema:')
           ParentFont = False
@@ -462,6 +473,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Periodo] ')
           ParentFont = False
@@ -477,6 +489,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -485,6 +498,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
         Width = 718.110700000000000000
@@ -513,6 +527,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -540,6 +555,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 79.370130000000000000
         Top = 234.330860000000000000
         Width = 359.055350000000000000
@@ -688,6 +704,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 336.378170000000000000
         Width = 359.055350000000000000
@@ -784,6 +801,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 377.953000000000000000
         Width = 359.055350000000000000
@@ -853,6 +871,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 102.047310000000000000
         Top = 464.882190000000000000
         Width = 718.110700000000000000
@@ -1046,65 +1065,6 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
     end
   end
-  object QryRelacaoSaldoConsolidadoDia: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    cx.conta_corrente as movimento_conta'
-      '  , cc.descricao      as movimento_conta_nome'
-      '  , bb.bco_nome'
-      '  , bb.bco_agencia'
-      '  , bb.bco_cc'
-      
-        '  , coalesce(bb.bco_nome, '#39#39') || '#39' '#39' || coalesce('#39'AG. '#39' || bb.bc' +
-        'o_agencia, '#39#39') || '#39' '#39' || coalesce('#39' C/C '#39' || bb.bco_cc, '#39#39') as b' +
-        'co_conta'
-      '  , cast(cx.datahora as date) as movimento_data'
-      
-        '  , sum(Case when cx.tipo = '#39'C'#39' then cx.valor else 0.0 end) as v' +
-        'alor_entradas'
-      
-        '  , sum(Case when cx.tipo = '#39'D'#39' then cx.valor else 0.0 end) as v' +
-        'alor_saidas'
-      '  , coalesce(('
-      '      Select'
-      '        s.valor_saldo'
-      '      from TBCONTA_CORRENTE_SALDO s'
-      '      where s.codigo     = cx.conta_corrente'
-      '        and s.data_saldo = cast(cx.datahora as date)'
-      '    ), 0.0) as valor_saldo'
-      'from TBCAIXA_MOVIMENTO cx'
-      
-        '  left join TBCONTA_CORRENTE cc on (cc.codigo = cx.conta_corrent' +
-        'e)'
-      
-        '  left join TBBANCO_BOLETO bb on (bb.bco_cod = cc.conta_banco_bo' +
-        'leto and bb.empresa = cc.empresa)'
-      ''
-      '/*'
-      'where cx.situacao = 1'
-      '  and cx.empresa  = '#39'03041377000187'#39
-      '  --and cx.conta_corrente = 3'
-      ''
-      'group by'
-      '    cx.conta_corrente'
-      '  , cc.descricao'
-      '  , cast(cx.datahora as date)'
-      '  , bb.bco_nome'
-      '  , bb.bco_agencia'
-      '  , bb.bco_cc'
-      ''
-      'order by'
-      '    cx.conta_corrente'
-      '  , cast(cx.datahora as date)'
-      '*/')
-    Left = 40
-    Top = 8
-  end
   object DspRelacaoSaldoConsolidadoDia: TDataSetProvider
     DataSet = QryRelacaoSaldoConsolidadoDia
     Left = 72
@@ -1137,7 +1097,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
     Top = 8
   end
   object frRelacaoMovimentoCaixa: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1251,8 +1211,10 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       ColumnWidth = 95.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -1267,6 +1229,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -1280,25 +1243,28 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
-          Top = 7.559059999999999000
+          Top = 7.559060000000000000
           Width = 604.724800000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -1313,6 +1279,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -1333,6 +1300,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -1351,6 +1319,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -1379,6 +1348,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -1403,6 +1373,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Contas de Movimenta'#231#227'o no Sistema:')
           ParentFont = False
@@ -1419,6 +1390,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Periodo] ')
           ParentFont = False
@@ -1434,6 +1406,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -1442,6 +1415,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 585.827150000000000000
         Width = 718.110700000000000000
@@ -1470,6 +1444,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -1497,6 +1472,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
       object BndGrpHeaderConta: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 79.370130000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -1665,6 +1641,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 336.378170000000000000
         Width = 718.110700000000000000
@@ -1779,6 +1756,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
       object BndGrpFooterConta: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 377.953000000000000000
         Width = 718.110700000000000000
@@ -1846,6 +1824,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 98.267780000000000000
         Top = 464.882190000000000000
         Width = 718.110700000000000000
@@ -2039,74 +2018,6 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       end
     end
   end
-  object QryRelacaoMovimentoCaixa: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    mc.data'
-      '  , mc.conta_corrente'
-      '  , mc.conta_corrente_desc'
-      '  , bb.bco_nome'
-      '  , bb.bco_agencia'
-      '  , bb.bco_cc'
-      
-        '  , coalesce(bb.bco_nome, '#39#39') || '#39' '#39' || coalesce('#39'AG. '#39' || bb.bc' +
-        'o_agencia, '#39#39') || '#39' '#39' || coalesce('#39' C/C '#39' || bb.bco_cc, '#39#39') as b' +
-        'co_conta'
-      '  , mc.forma_pagto'
-      '  , mc.forma_pagto_desc'
-      '  , mc.historico'
-      '  , mc.tipo'
-      '  , mc.tipo_receita'
-      '  , mc.tipo_receita_desc'
-      '  , mc.tipo_despesa'
-      '  , mc.tipo_despesa_desc'
-      '  , mc.entrada'
-      '  , mc.saida'
-      '  , mc.saldo'
-      '  , mc.caixa_ano'
-      '  , mc.caixa_num'
-      
-        'from GET_CAIXA_MOVIMENTO(:empresa, :conta, :data_inicial, :data_' +
-        'final) mc'
-      
-        '  left join TBCONTA_CORRENTE cc on (cc.codigo = mc.conta_corrent' +
-        'e)'
-      
-        '  left join TBBANCO_BOLETO bb on (bb.bco_cod = cc.conta_banco_bo' +
-        'leto and bb.empresa = cc.empresa)')
-    Left = 40
-    Top = 40
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        DataType = ftInteger
-        Name = 'conta'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftDateTime
-        Name = 'data_inicial'
-        ParamType = ptInput
-        Value = 0d
-      end
-      item
-        DataType = ftDateTime
-        Name = 'data_final'
-        ParamType = ptInput
-        Value = 0d
-      end>
-  end
   object DspRelacaoMovimentoCaixa: TDataSetProvider
     DataSet = QryRelacaoMovimentoCaixa
     Left = 72
@@ -2251,5 +2162,132 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
     ProviderName = 'DspContaCorrente'
     Left = 496
     Top = 40
+  end
+  object QryRelacaoSaldoConsolidadoDia: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    cx.conta_corrente as movimento_conta'
+      '  , cc.descricao      as movimento_conta_nome'
+      '  , bb.bco_nome'
+      '  , bb.bco_agencia'
+      '  , bb.bco_cc'
+      
+        '  , coalesce(bb.bco_nome, '#39#39') || '#39' '#39' || coalesce('#39'AG. '#39' || bb.bc' +
+        'o_agencia, '#39#39') || '#39' '#39' || coalesce('#39' C/C '#39' || bb.bco_cc, '#39#39') as b' +
+        'co_conta'
+      '  , cast(cx.datahora as date) as movimento_data'
+      
+        '  , sum(Case when cx.tipo = '#39'C'#39' then cx.valor else 0.0 end) as v' +
+        'alor_entradas'
+      
+        '  , sum(Case when cx.tipo = '#39'D'#39' then cx.valor else 0.0 end) as v' +
+        'alor_saidas'
+      '  , coalesce(('
+      '      Select'
+      '        s.valor_saldo'
+      '      from TBCONTA_CORRENTE_SALDO s'
+      '      where s.codigo     = cx.conta_corrente'
+      '        and s.data_saldo = cast(cx.datahora as date)'
+      '    ), 0.0) as valor_saldo'
+      'from TBCAIXA_MOVIMENTO cx'
+      
+        '  left join TBCONTA_CORRENTE cc on (cc.codigo = cx.conta_corrent' +
+        'e)'
+      
+        '  left join TBBANCO_BOLETO bb on (bb.bco_cod = cc.conta_banco_bo' +
+        'leto and bb.empresa = cc.empresa)'
+      ''
+      '/*'
+      'where cx.situacao = 1'
+      '  and cx.empresa  = '#39'03041377000187'#39
+      '  --and cx.conta_corrente = 3'
+      ''
+      'group by'
+      '    cx.conta_corrente'
+      '  , cc.descricao'
+      '  , cast(cx.datahora as date)'
+      '  , bb.bco_nome'
+      '  , bb.bco_agencia'
+      '  , bb.bco_cc'
+      ''
+      'order by'
+      '    cx.conta_corrente'
+      '  , cast(cx.datahora as date)'
+      '*/')
+    Left = 40
+    Top = 8
+  end
+  object QryRelacaoMovimentoCaixa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    mc.data'
+      '  , mc.conta_corrente'
+      '  , mc.conta_corrente_desc'
+      '  , bb.bco_nome'
+      '  , bb.bco_agencia'
+      '  , bb.bco_cc'
+      
+        '  , coalesce(bb.bco_nome, '#39#39') || '#39' '#39' || coalesce('#39'AG. '#39' || bb.bc' +
+        'o_agencia, '#39#39') || '#39' '#39' || coalesce('#39' C/C '#39' || bb.bco_cc, '#39#39') as b' +
+        'co_conta'
+      '  , mc.forma_pagto'
+      '  , mc.forma_pagto_desc'
+      '  , mc.historico'
+      '  , mc.tipo'
+      '  , mc.tipo_receita'
+      '  , mc.tipo_receita_desc'
+      '  , mc.tipo_despesa'
+      '  , mc.tipo_despesa_desc'
+      '  , mc.entrada'
+      '  , mc.saida'
+      '  , mc.saldo'
+      '  , mc.caixa_ano'
+      '  , mc.caixa_num'
+      
+        'from GET_CAIXA_MOVIMENTO(:empresa, :conta, :data_inicial, :data_' +
+        'final) mc'
+      
+        '  left join TBCONTA_CORRENTE cc on (cc.codigo = mc.conta_corrent' +
+        'e)'
+      
+        '  left join TBBANCO_BOLETO bb on (bb.bco_cod = cc.conta_banco_bo' +
+        'leto and bb.empresa = cc.empresa)')
+    Left = 40
+    Top = 40
+    ParamData = <
+      item
+        Position = 1
+        Name = 'empresa'
+        DataType = ftString
+        ParamType = ptInput
+        Value = ''
+      end
+      item
+        Position = 2
+        Name = 'conta'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        Position = 3
+        Name = 'data_inicial'
+        DataType = ftDateTime
+        ParamType = ptInput
+        Value = 0d
+      end
+      item
+        Position = 4
+        Name = 'data_final'
+        DataType = ftDateTime
+        ParamType = ptInput
+        Value = 0d
+      end>
   end
 end

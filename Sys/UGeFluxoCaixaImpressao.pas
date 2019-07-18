@@ -9,8 +9,7 @@ uses
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Vcl.StdCtrls,
   cxButtons, dxGDIPlusClasses, Vcl.ExtCtrls, Datasnap.DBClient, Datasnap.Provider,
-  Data.DB, IBX.IBCustomDataSet, IBX.IBQuery, Vcl.Mask, JvExMask, JvToolEdit,
-  frxClass, frxDBSet,
+  Data.DB, Vcl.Mask, JvExMask, JvToolEdit, frxClass, frxDBSet,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
@@ -18,7 +17,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver;
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeFluxoCaixaImpressao = class(TfrmGrPadraoImpressao)
@@ -30,12 +30,10 @@ type
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
     frRelacaoSaldoConsolidadoDia: TfrxReport;
-    QryRelacaoSaldoConsolidadoDia: TIBQuery;
     DspRelacaoSaldoConsolidadoDia: TDataSetProvider;
     CdsRelacaoSaldoConsolidadoDia: TClientDataSet;
     FrdsRelacaoSaldoConsolidadoDia: TfrxDBDataset;
     frRelacaoMovimentoCaixa: TfrxReport;
-    QryRelacaoMovimentoCaixa: TIBQuery;
     DspRelacaoMovimentoCaixa: TDataSetProvider;
     CdsRelacaoMovimentoCaixa: TClientDataSet;
     FrdsRelacaoMovimentoCaixa: TfrxDBDataset;
@@ -45,6 +43,8 @@ type
     fdQryContaCorrente: TFDQuery;
     DspContaCorrente: TDataSetProvider;
     CdsContaCorrente: TClientDataSet;
+    QryRelacaoSaldoConsolidadoDia: TFDQuery;
+    QryRelacaoMovimentoCaixa: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
