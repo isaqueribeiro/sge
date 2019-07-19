@@ -6401,7 +6401,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         FillType = ftBrush
         Frame.Typ = []
         Height = 30.236240000000000000
-        Top = 665.197280000000000000
+        Top = 684.094930000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
@@ -6463,8 +6463,8 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         Condition = 'frdsRelacaoEntradaCFOPSintetico."TIPO_MOVIMENTO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
-          Left = 83.149660000000000000
-          Width = 634.961040000000000000
+          Left = 71.811070000000000000
+          Width = 646.299630000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -6482,7 +6482,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
-          Width = 83.149660000000000000
+          Width = 71.811070000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -6520,9 +6520,9 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
-          Left = 83.149660000000000000
+          Left = 71.811070000000000000
           Top = 37.795300000000000000
-          Width = 287.244280000000000000
+          Width = 238.110390000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -6585,7 +6585,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object Memo7: TfrxMemoView
           Top = 37.795300000000000000
-          Width = 83.149660000000000000
+          Width = 71.811070000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -6621,8 +6621,8 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           HAlign = haRight
           Memo.UTF8W = (
             
-              '[IIF(<frdsRelacaoEntradaGeralSintetico."TIPO_MOVIMENTO">=0,'#39'Prod' +
-              'utos'#39','#39'Servi'#231'os'#39')] (R$) ')
+              '[IIF(<frdsRelacaoEntradaCFOPSintetico."TIPO_MOVIMENTO">=0,'#39'Produ' +
+              'tos'#39','#39'Servi'#231'os'#39')] (R$) ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -6667,8 +6667,30 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           HAlign = haRight
           Memo.UTF8W = (
             
-              '[IIF(<frdsRelacaoEntradaGeralSintetico."TIPO_MOVIMENTO">=0,'#39'ICMS' +
-              #39','#39'ISS'#39')] (R$) ')
+              '[IIF(<frdsRelacaoEntradaCFOPSintetico."TIPO_MOVIMENTO">=0,'#39'ICMS'#39 +
+              ','#39'ISS'#39')] (R$) ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo38: TfrxMemoView
+          Left = 309.921460000000000000
+          Top = 37.795300000000000000
+          Width = 60.472416540000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Entradas ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -6684,8 +6706,8 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         DataSetName = 'frdsRelacaoEntradaCFOPSintetico'
         RowCount = 0
         object Memo9: TfrxMemoView
-          Left = 83.149660000000000000
-          Width = 287.244280000000000000
+          Left = 71.811070000000000000
+          Width = 238.110390000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -6696,12 +6718,13 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<frdsRelacaoEntradaGeralSintetico."STATUS">=3'
+          Highlight.Condition = '<frdsRelacaoEntradaCFOPSintetico."STATUS">=<StatusCancelado>'
           Highlight.FillType = ftBrush
           Highlight.Frame.Typ = []
           Memo.UTF8W = (
@@ -6729,12 +6752,13 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<frdsRelacaoEntradaGeralSintetico."STATUS">=3'
+          Highlight.Condition = '<frdsRelacaoEntradaCFOPSintetico."STATUS">=<StatusCancelado>'
           Highlight.FillType = ftBrush
           Highlight.Frame.Typ = []
           Memo.UTF8W = (
@@ -6746,7 +6770,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
-          Width = 83.149660000000000000
+          Width = 71.811070000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -6757,12 +6781,13 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<frdsRelacaoEntradaGeralSintetico."STATUS">=<StatusCancelado>'
+          Highlight.Condition = '<frdsRelacaoEntradaCFOPSintetico."STATUS">=<StatusCancelado>'
           Highlight.FillType = ftBrush
           Highlight.Frame.Typ = []
           Memo.UTF8W = (
@@ -6785,12 +6810,13 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<frdsRelacaoEntradaGeralSintetico."STATUS">=3'
+          Highlight.Condition = '<frdsRelacaoEntradaCFOPSintetico."STATUS">=<StatusCancelado>'
           Highlight.FillType = ftBrush
           Highlight.Frame.Typ = []
           Memo.UTF8W = (
@@ -6815,12 +6841,13 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<frdsRelacaoEntradaGeralSintetico."STATUS">=3'
+          Highlight.Condition = '<frdsRelacaoEntradaCFOPSintetico."STATUS">=<StatusCancelado>'
           Highlight.FillType = ftBrush
           Highlight.Frame.Typ = []
           Memo.UTF8W = (
@@ -6845,18 +6872,50 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Frame.Width = 0.100000000000000000
           HAlign = haRight
+          Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
           Highlight.Font.Height = -11
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
-          Highlight.Condition = '<frdsRelacaoEntradaGeralSintetico."STATUS">=3'
+          Highlight.Condition = '<frdsRelacaoEntradaCFOPSintetico."STATUS">=<StatusCancelado>'
           Highlight.FillType = ftBrush
           Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRelacaoEntradaCFOPSintetico."TOTAL_ALI' +
               'QUOTA">)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo39: TfrxMemoView
+          Left = 309.921460000000000000
+          Width = 60.472416540000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Highlight.ApplyFill = False
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -11
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<frdsRelacaoEntradaCFOPSintetico."STATUS">=<StatusCancelado>'
+          Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0'#39',<frdsRelacaoEntradaCFOPSintetico."QTDE_COMPRAS' +
+              '">)] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -6952,7 +7011,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
         Frame.Typ = []
-        Height = 200.315090000000000000
+        Height = 219.212740000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
         Stretched = True
@@ -7010,7 +7069,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           Fill.BackColor = clBtnFace
           HAlign = haRight
           Memo.UTF8W = (
-            'Produto/Servi'#231'o: ')
+            'Produto / Servi'#231'o: ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -7039,7 +7098,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object Memo32: TfrxMemoView
           Left = 438.425480000000000000
-          Top = 120.944960000000000000
+          Top = 139.842610000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -7061,7 +7120,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object Memo33: TfrxMemoView
           Left = 438.425480000000000000
-          Top = 139.842610000000000000
+          Top = 158.740260000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -7083,7 +7142,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object SysMemo9: TfrxSysMemoView
           Left = 551.811380000000000000
-          Top = 120.944960000000000000
+          Top = 139.842610000000000000
           Width = 166.299320000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -7104,7 +7163,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object SysMemo10: TfrxSysMemoView
           Left = 551.811380000000000000
-          Top = 139.842610000000000000
+          Top = 158.740260000000000000
           Width = 166.299320000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -7125,7 +7184,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object Memo34: TfrxMemoView
           Left = 438.425480000000000000
-          Top = 177.637910000000000000
+          Top = 196.535560000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
           Visible = False
@@ -7148,7 +7207,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object SysMemo11: TfrxSysMemoView
           Left = 551.811380000000000000
-          Top = 177.637910000000000000
+          Top = 196.535560000000000000
           Width = 166.299320000000000000
           Height = 18.897650000000000000
           Visible = False
@@ -7183,7 +7242,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object SysMemo2: TfrxSysMemoView
           Left = 551.811380000000000000
-          Top = 64.252010000000000000
+          Top = 83.149660000000000000
           Width = 166.299320000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -7204,7 +7263,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object Memo27: TfrxMemoView
           Left = 438.425480000000000000
-          Top = 64.252010000000000000
+          Top = 83.149660000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -7226,7 +7285,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object SysMemo3: TfrxSysMemoView
           Left = 551.811380000000000000
-          Top = 83.149660000000000000
+          Top = 102.047310000000000000
           Width = 166.299320000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -7247,7 +7306,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object Memo28: TfrxMemoView
           Left = 438.425480000000000000
-          Top = 83.149660000000000000
+          Top = 102.047310000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -7269,7 +7328,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object SysMemo4: TfrxSysMemoView
           Left = 551.811380000000000000
-          Top = 102.047310000000000000
+          Top = 120.944960000000000000
           Width = 166.299320000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -7290,7 +7349,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object Memo29: TfrxMemoView
           Left = 438.425480000000000000
-          Top = 102.047310000000000000
+          Top = 120.944960000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -7312,7 +7371,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object Memo30: TfrxMemoView
           Left = 438.425480000000000000
-          Top = 158.740260000000000000
+          Top = 177.637910000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
           Visible = False
@@ -7335,7 +7394,7 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
         end
         object SysMemo12: TfrxSysMemoView
           Left = 551.811380000000000000
-          Top = 158.740260000000000000
+          Top = 177.637910000000000000
           Width = 166.299320000000000000
           Height = 18.897650000000000000
           Visible = False
@@ -7354,6 +7413,49 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
+        end
+        object SysMemo14: TfrxSysMemoView
+          Left = 551.811380000000000000
+          Top = 64.252010000000000000
+          Width = 166.299320000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.00'#39', SUM(<frdsRelacaoEntradaCFOPSintetico."TOTA' +
+              'L_ALIQUOTA">,BndMasterData,2))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
+        object Memo37: TfrxMemoView
+          Left = 438.425480000000000000
+          Top = 64.252010000000000000
+          Width = 113.385836540000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            'ICMS / ISS: ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
         end
       end
     end
@@ -7376,8 +7478,8 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
       '      when 3 then '#39'Cancelado'#39
       '      when 4 then '#39'NF-e Emitida'#39
       '    end as status_desc'
-      '  , c.nfcfop as cfop_codigo'
-      '  , f.cfop_descricao'
+      '  , coalesce(c.nfcfop, '#39#39') as cfop_codigo'
+      '  , coalesce(f.cfop_descricao, '#39'Servi'#231'os'#39') as cfop_descricao'
       '  , count( c.codcontrol ) as qtde_compras'
       '  , sum( c.nfe_enviada  ) as qtde_notas_emitidas'
       '  , sum( coalesce(c.icmsbase, 0.0)  ) as total_aliquota_base'
@@ -7412,13 +7514,13 @@ inherited frmGeEntradaImpressao: TfrmGeEntradaImpressao
       'group by'
       '    c.tipo_movimento'
       '  , c.status'
-      '  , c.nfcfop'
-      '  , f.cfop_descricao'
+      '  , coalesce(c.nfcfop, '#39#39') '
+      '  , coalesce(f.cfop_descricao, '#39'Servi'#231'os'#39')'
       ''
       'order by'
       '    c.tipo_movimento'
       '  , c.status'
-      '  , c.nfcfop'
+      '  , coalesce(c.nfcfop, '#39#39') '
       '*/')
     Left = 40
     Top = 112

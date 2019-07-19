@@ -901,7 +901,7 @@ begin
       SQL.Add('  , v.competencia');
       SQL.Add('  , m.cmp_desc');
       SQL.Add('  , v.cfop');
-      SQL.Add('  , c.cfop_descricao');
+      SQL.Add('  , f.cfop_descricao');
       SQL.Add('');
       SQL.Add('order by');
       SQL.Add('    v.codemp');

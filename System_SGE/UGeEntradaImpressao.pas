@@ -60,8 +60,9 @@ type
     procedure edRelatorioChange(Sender: TObject);
   private
     { Private declarations }
-    FSQL_EntradaGeralS ,
-    FSQL_EntradaGeralA : TStringList;
+    FSQL_EntradaGeralS     ,
+    FSQL_EntradaGeralA     ,
+    FSQL_EntradaGeralCfopS : TStringList;
     IEmpresa : Array of String;
   public
     { Public declarations }
@@ -165,6 +166,9 @@ begin
 
   FSQL_EntradaGeralA := TStringList.Create;
   FSQL_EntradaGeralA.AddStrings( qryRelacaoEntradaGeralAnalitico.SQL );
+
+  FSQL_EntradaGeralCfopS := TStringList.Create;
+  FSQL_EntradaGeralCfopS.AddStrings( qryRelacaoEntradaCFOPSintetico.SQL );
 end;
 
 procedure TfrmGeEntradaImpressao.MontarEntradaGeralSintetico;
@@ -305,7 +309,78 @@ end;
 
 procedure TfrmGeEntradaImpressao.MontarEntradaCompraCfopSintetica;
 begin
-  ;
+  try
+    SubTituloRelario := edSituacao.Text;
+
+    if ( edTipoEntrada.ItemIndex = 0 ) then
+      PeriodoRelatorio := Format('Entradas emitidas no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Entradas emitidas no período de %s a %s, para %s.', [e1Data.Text, e2Data.Text,
+        Trim(Copy(edTipoEntrada.Text, Pos('-', edTipoEntrada.Text) + 1, Length(edTipoEntrada.Text)))]);
+
+    cdsRelacaoEntradaCFOPSintetico.Close;
+
+    with qryRelacaoEntradaCFOPSintetico do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_EntradaGeralCfopS );
+      SQL.Add('where c.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+      SQL.Add('  and c.status > 1');
+
+      if StrIsDateTime(e1Data.Text) then
+        SQL.Add('  and c.dtemiss >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+
+      if StrIsDateTime(e2Data.Text) then
+        SQL.Add('  and c.dtemiss <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+
+      Case edSituacao.ItemIndex of
+        1:
+          SQL.Add('  and c.status = ' + IntToStr(STATUS_CMP_FIN));
+
+        2:
+          SQL.Add('  and c.status = ' + IntToStr(STATUS_CMP_NFE));
+
+        3:
+          SQL.Add('  and c.status in (' + IntToStr(STATUS_CMP_FIN) + ', ' + IntToStr(STATUS_CMP_NFE) + ')');
+
+        4:
+          SQL.Add('  and c.status = ' + IntToStr(STATUS_CMP_CAN));
+
+        else
+          SQL.Add('  and c.status > ' + IntToStr(STATUS_CMP_ABR)); // Todas as entradas, com excesão das entradas "abertas"
+      end;
+
+      if ( edTipoEntrada.ItemIndex > 0 ) then
+        SQL.Add('  and c.tipo_entrada = ' + Trim(Copy(edTipoEntrada.Text, 1, Pos('-', edTipoEntrada.Text) - 1)));
+
+      if ( edTipoDocumento.Enabled ) then
+        if ( edTipoDocumento.ItemIndex > 0 ) then
+          SQL.Add('  and c.tipo_documento = ' + Trim(Copy(edTipoDocumento.Text, 1, Pos('-', edTipoDocumento.Text) - 1)));
+
+      if ( chkDFInformada.Visible ) then
+        if ( chkDFInformada.Checked ) then
+          SQL.Add('  and c.tipo_documento not in (0, 4)');
+
+      SQL.Add('group by');
+      SQL.Add('    c.tipo_movimento');
+      SQL.Add('  , c.status');
+      SQL.Add('  , coalesce(c.nfcfop, '''') ');
+      SQL.Add('  , coalesce(f.cfop_descricao, ''Serviços'') ');
+      SQL.Add('');
+      SQL.Add('order by');
+      SQL.Add('    c.tipo_movimento');
+      SQL.Add('  , c.status');
+      SQL.Add('  , coalesce(c.nfcfop, '''') ');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relação de entradas gerais por CFOP.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
 end;
 
 procedure TfrmGeEntradaImpressao.MontarEntradaGeralAnalitico;
