@@ -3,9 +3,9 @@ unit UFuncoes;
 interface
 
 uses
-  Windows, Forms, Messages, SysUtils, Classes, ExtCtrls, ShellApi, Printers,
-  Graphics, IniFiles, PSApi, Winsock, WinSvc, WinInet, StrUtils, OleServer,
-  ExcelXP, ComObj, TLHelp32, Winapi.ShlObj;
+  Windows, Forms, Messages, SysUtils, Classes, ExtCtrls, ShellApi, Printers, Graphics, IniFiles,
+  PSApi, Winsock, WinSvc, WinInet, StrUtils, OleServer, ExcelXP, ComObj, TLHelp32, Winapi.ShlObj,
+  IdBaseComponent, IdComponent, IdRawBase, IdRawClient, IdIcmpClient;
 
   procedure ExecuteResource(pHandle : HWND; pComand : String);
   procedure Split(pDelimiter : Char; pStr: String; pListOfStrings : TStrings);
@@ -261,19 +261,43 @@ end;
 function GetConectedInternet : Boolean;
 var
   Flags : Cardinal;
+  aRetorno : Boolean;
+  aICMPClient : TIdICMPClient;
 begin
-  if ( not InternetGetConnectedState(@Flags, 0) ) then
-    Result := False
-  else
-  if ( (Flags and INTERNET_CONNECTION_LAN) <> 0 ) then
-    // Há conexão com a Internet através de um roteador
-    Result := True
-  else
-  if ( (Flags and INTERNET_CONNECTION_PROXY) <> 0 ) then
-    // Há conexão com a Internet através de um proxy
-    Result := True
-  else
-    Result := False;
+  aRetorno := False;
+  try
+    if ( not InternetGetConnectedState(@Flags, 0) ) then
+      aRetorno := False
+    else
+    if ( (Flags and INTERNET_CONNECTION_LAN) <> 0 ) then
+      // Há conexão com a Internet através de um roteador
+      aRetorno := True
+    else
+    if ( (Flags and INTERNET_CONNECTION_PROXY) <> 0 ) then
+      // Há conexão com a Internet através de um proxy
+      aRetorno := True
+    else
+      aRetorno := False;
+
+    if not aRetorno then
+    begin
+      aICMPClient := TIdICMPClient.Create(nil);
+      try
+        with aICMPClient do
+        begin
+          Host := 'www.registro.br';
+          ReceiveTimeout := 300;
+          Ping;
+          aRetorno :=  (ReplyStatus.BytesReceived > 0);
+        end;
+      except
+        aRetorno := False;
+      end;
+      aICMPClient.Free;
+    end;
+  finally
+    Result := aRetorno;
+  end;
 end;
 
 function GetEmailValido(email : String; bShowMsg : Boolean) : Boolean;

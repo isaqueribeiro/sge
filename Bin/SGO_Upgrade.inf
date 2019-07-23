@@ -1,23 +1,20 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 19/07/2019 12:08:00     #
+#    Gerado por AGIL SOFTWARES em : 22/07/2019 20:13:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
 - Novos relatórios no grupo de Entradas e Faturamento que consolidam as movimentações de entrada e saída por CFOP.
 - Novo relatório de Faturamento calculando a rentabilidade por produto nas vendas.
 - Nova configuração na CFOF que gerencia movimentação do estoque dos produtos.
-- Ajustes na emissão de NF-e.
+- Ajustes na emissão de NF-e 4.0.
 - Ajustes com cálculo do valor de IPI na emissão da NF-e.
 - Atualização no processo de Inutilização de números de NF-e.
 - Novo relatório de Movimentação Financeira Mensal.
-- Ajustes na emissão de NF-e 4.0.
 - Nova definição para os tipos de CFOPs.
 - Atualização das Taxas Tributárias para ABR/2018.
 - Ajustes na Confirmação de Entrada dos Lotes de Produtos.
 - Impressão dos lotes no Orçamento de Venda.
 - Ajustes para o Cadastro de Serviços.
-- Atualização das Taxas Tributárias para JAN/2018.
-- Ajustes na emissão de NF-e e NFC-e.
 - Pesquisa de vendas ou entradas de produtos pelo valor líquido do movimento.
 - Novas configurações para emissão de NF-e.
 - Outros ajustes na otimização de processos.}
@@ -36,4 +33,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.26.1
+#version=1.0.26.2

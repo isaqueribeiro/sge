@@ -888,4 +888,71 @@ object DMBusiness: TDMBusiness
         ParamType = ptInput
       end>
   end
+  object frxXLSX: TfrxXLSXExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    ChunkSize = 0
+    OpenAfterExport = False
+    PictureType = gpPNG
+    Left = 248
+    Top = 368
+  end
+  object frxDOCX: TfrxDOCXExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    OpenAfterExport = False
+    PictureType = gpPNG
+    Left = 248
+    Top = 416
+  end
+  object frxODS: TfrxODSExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    CreationTime = 0.000000000000000000
+    DataOnly = False
+    PictureType = gpPNG
+    OpenAfterExport = False
+    Background = True
+    Creator = 'FastReport'
+    SingleSheet = False
+    Language = 'en'
+    SuppressPageHeadersFooters = False
+    Left = 248
+    Top = 464
+  end
+  object frxODT: TfrxODTExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    CreationTime = 0.000000000000000000
+    DataOnly = False
+    PictureType = gpPNG
+    OpenAfterExport = False
+    Background = True
+    Creator = 'FastReport'
+    SingleSheet = False
+    Language = 'en'
+    SuppressPageHeadersFooters = False
+    Left = 248
+    Top = 512
+  end
+  object frxXML: TfrxXMLExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    Background = True
+    Creator = 'FastReport'
+    EmptyLines = True
+    SuppressPageHeadersFooters = False
+    RowsCount = 0
+    Split = ssNotSplit
+    Left = 248
+    Top = 560
+  end
 end

@@ -8,10 +8,11 @@ uses
 
   Windows, Forms, SysUtils, Classes, Controls, IBX.IBDatabase, IniFIles,
   ShellApi, Printers, DateUtils, IBX.IBQuery, IdCoder, IdCoder3to4, IdCoderMIME,
-  frxClass, frxDBSet, IdBaseComponent, IdComponent, IdIPWatch,
-  DB, DBClient, Provider, Dialogs, Registry,
-  frxBarcode,frxChart, frxCross, frxRich, frxExportMail,
-  frxExportImage, frxExportRTF, frxExportXLS, frxExportPDF, frxExportBaseDialog,
+  IdBaseComponent, IdComponent, IdIPWatch, DB, DBClient, Provider, Dialogs, Registry,
+
+  frxClass, frxDBSet, frxBarcode, frxChart, frxCross, frxRich, frxExportMail, frxExportXML,
+  frxExportODF, frxExportDOCX, frxExportXLSX, frxExportImage, frxExportRTF, frxExportXLS, frxExportPDF,
+  frxExportBaseDialog,
 
   ACBrBase, ACBrValidador, ACBrMail, ACBrUtil,
 
@@ -120,6 +121,11 @@ type
     spAtualizarCustoEstoqueAlmoxarifado: TFDStoredProc;
     spAtualizarCustoEstoqueRequisicao: TFDStoredProc;
     spAtualizarCustoEstoqueInventario: TFDStoredProc;
+    frxXLSX: TfrxXLSXExport;
+    frxDOCX: TfrxDOCXExport;
+    frxODS: TfrxODSExport;
+    frxODT: TfrxODTExport;
+    frxXML: TfrxXMLExport;
     procedure DataModuleCreate(Sender: TObject);
     procedure fdScriptBeforeExecute(Sender: TObject);
     procedure fdScriptError(ASender: TObject; const AInitiator: IFDStanObject;

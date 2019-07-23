@@ -1328,33 +1328,37 @@ begin
   memRespWS := TStringList.Create;
   memInfo   := TStringList.Create;
   try
-
-    with ConfigACBr, ACBrNFe, memInfo do
+    if not GetConectedInternet then
+      ShowWarning('Está estação está sem acesso à Internet')
+    else
     begin
+      with ConfigACBr, ACBrNFe, memInfo do
+      begin
 
-      WebServices.StatusServico.Executar;
+        WebServices.StatusServico.Executar;
 
-      memResp.Add  ( UTF8Encode(WebServices.StatusServico.RetWS) );
-      memRespWS.Add( UTF8Encode(WebServices.StatusServico.RetornoWS) );
+        memResp.Add  ( UTF8Encode(WebServices.StatusServico.RetWS) );
+        memRespWS.Add( UTF8Encode(WebServices.StatusServico.RetornoWS) );
 
-      LoadXML(memResp, WBResposta);
+        LoadXML(memResp, WBResposta);
 
-      Add('');
-      Add('Status Serviço para o Emitente ' + StrFormatarCnpj(gUsuarioLogado.Empresa));
-      Add('tpAmb : '    + TpAmbToStr(WebServices.StatusServico.tpAmb));
-      Add('verAplic : ' + WebServices.StatusServico.verAplic);
-      Add('cStat : '    + IntToStr(WebServices.StatusServico.cStat));
-      Add('xMotivo : '  + WebServices.StatusServico.xMotivo);
-      Add('cUF : '      + IntToStr(WebServices.StatusServico.cUF));
-      Add('dhRecbto : ' + DateTimeToStr(WebServices.StatusServico.dhRecbto));
-      Add('tMed : '     + IntToStr(WebServices.StatusServico.TMed));
-      Add('dhRetorno : '+ DateTimeToStr(WebServices.StatusServico.dhRetorno));
-      Add('xObs : '     + WebServices.StatusServico.xObs);
-      Add('');
+        Add('');
+        Add('Status Serviço para o Emitente ' + StrFormatarCnpj(gUsuarioLogado.Empresa));
+        Add('tpAmb : '    + TpAmbToStr(WebServices.StatusServico.tpAmb));
+        Add('verAplic : ' + WebServices.StatusServico.verAplic);
+        Add('cStat : '    + IntToStr(WebServices.StatusServico.cStat));
+        Add('xMotivo : '  + WebServices.StatusServico.xMotivo);
+        Add('cUF : '      + IntToStr(WebServices.StatusServico.cUF));
+        Add('dhRecbto : ' + DateTimeToStr(WebServices.StatusServico.dhRecbto));
+        Add('tMed : '     + IntToStr(WebServices.StatusServico.TMed));
+        Add('dhRetorno : '+ DateTimeToStr(WebServices.StatusServico.dhRetorno));
+        Add('xObs : '     + WebServices.StatusServico.xObs);
+        Add('');
 
+      end;
+
+      ShowInformation( memInfo.Text );
     end;
-
-    ShowInformation( memInfo.Text );
   finally
     memResp.Free;
     memRespWS.Free;
