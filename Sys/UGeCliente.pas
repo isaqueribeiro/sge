@@ -253,7 +253,6 @@ type
     fdQryTabelaPAIS_ID: TStringField;
     fdQryTabelaVALOR_LIMITE_COMPRA: TBCDField;
     fdQryTabelaVENDEDOR_COD: TIntegerField;
-    fdQryTabelaDTCAD: TDateField;
     fdQryTabelaBLOQUEADO: TSmallintField;
     fdQryTabelaBLOQUEADO_DATA: TDateField;
     fdQryTabelaBLOQUEADO_MOTIVO: TMemoField;
@@ -311,6 +310,7 @@ type
     fdQryTabelaPRODUTOS: TIntegerField;
     fdQryTabelaVALORES: TFMTBCDField;
     fdQryTitulosVALOR_PAGO: TBCDField;
+    fdQryTabelaDTCAD: TDateField;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -1466,6 +1466,12 @@ procedure TfrmGeCliente.fdQryTabelaBeforePost(DataSet: TDataSet);
 begin
   with DtSrcTabela.DataSet do
   begin
+    if FieldByName('DTCAD').IsNull then
+      FieldByName('DTCAD').AsDateTime := GetDateTimeDB;
+
+    if (Trim(FieldByName('USUARIO').AsString) = EmptyStr) then
+      FieldByName('USUARIO').AsString := gUsuarioLogado.Login;
+
     if (Trim(FieldByName('BANCO').AsString) = EmptyStr) then
       FieldByName('BANCO').Clear;
 
@@ -1516,6 +1522,7 @@ begin
     FieldByName('NUMERO_END').AsString        := 'S/N';
     FieldByName('COMPLEMENTO').AsString       := EmptyStr;
     FieldByName('DTCAD').AsDateTime           := GetDateDB;
+    FieldByName('USUARIO').AsString           := gUsuarioLogado.Login;
     FieldByName('ATIVO').AsInteger            := 1;
     FieldByName('BLOQUEADO').AsInteger                := 0; // Ord(False);
     FieldByName('BLOQUEADO_AUTOMATICO').AsInteger     := 0;

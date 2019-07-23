@@ -90,6 +90,7 @@ type
     procedure FormActivate(Sender: TObject);
     procedure fdQryTabelaUpdateError(ASender: TDataSet; AException: EFDException; ARow: TFDDatSRow;
       ARequest: TFDUpdateRequest; var AAction: TFDErrorAction);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     fDisplayFormat  ,
@@ -635,6 +636,21 @@ begin
     aRetorno := (aScriptSelect = aScriptFetchRow);
   finally
     Result := aRetorno;
+  end;
+end;
+
+procedure TfrmGrPadraoCadastro.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DataSet do
+  begin
+    if (Fields.FindField('DTCAD') <> nil) then
+      if FieldByName('DTCAD').IsNull then
+        FieldByName('DTCAD').AsDateTime := GetDateTimeDB;
+
+    if (Fields.FindField('USUARIO') <> nil) then
+      if (Trim(FieldByName('USUARIO').AsString) = EmptyStr) then
+        FieldByName('USUARIO').AsString := gUsuarioLogado.Login;
   end;
 end;
 

@@ -200,8 +200,6 @@ inherited frmGeCliente: TfrmGeCliente
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 463
       inherited Bevel8: TBevel
@@ -3816,7 +3814,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited ImgList: TImageList
     Left = 552
     Bitmap = {
-      494C01012B002C009C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00A00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5314,7 +5312,7 @@ inherited frmGeCliente: TfrmGeCliente
       '  , cl.Pais_id'
       '  , cl.Valor_limite_compra'
       '  , cl.Vendedor_cod'
-      '  , coalesce(cl.DtCad, current_date) as DtCad'
+      '  , cl.DtCad'
       '  , cl.Bloqueado'
       '  , cl.Bloqueado_data'
       '  , cl.Bloqueado_motivo'
@@ -5536,14 +5534,6 @@ inherited frmGeCliente: TfrmGeCliente
       FieldName = 'VENDEDOR_COD'
       Origin = 'VENDEDOR_COD'
     end
-    object fdQryTabelaDTCAD: TDateField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Data Cadastro'
-      FieldName = 'DTCAD'
-      Origin = 'DTCAD'
-      ProviderFlags = []
-      DisplayFormat = 'dd/mm/yyyy'
-    end
     object fdQryTabelaBLOQUEADO: TSmallintField
       FieldName = 'BLOQUEADO'
       Origin = 'BLOQUEADO'
@@ -5728,6 +5718,13 @@ inherited frmGeCliente: TfrmGeCliente
       Precision = 18
       Size = 7
     end
+    object fdQryTabelaDTCAD: TDateField
+      DisplayLabel = 'Data Cadastro'
+      FieldName = 'DTCAD'
+      Origin = 'DTCAD'
+      Required = True
+      DisplayFormat = 'dd/mm/yyyy'
+    end
   end
   inherited fdUpdTabela: TFDUpdateSQL
     InsertSQL.Strings = (
@@ -5745,7 +5742,7 @@ inherited frmGeCliente: TfrmGeCliente
       '  ENTREGA_FRACIONADA_VENDA, BANCO, AGENCIA, '
       '  CC, PRACA, BANCO_2, AGENCIA_2, CC_2, '
       '  PRACA_2, BANCO_3, AGENCIA_3, CC_3, PRACA_3, '
-      '  OBSERVACAO, ATIVO)'
+      '  OBSERVACAO, DTCAD, ATIVO)'
       
         'VALUES (:NEW_CODIGO, :NEW_TIPO, :NEW_PESSOA_FISICA, :NEW_CNPJ, :' +
         'NEW_NOME, '
@@ -5771,11 +5768,8 @@ inherited frmGeCliente: TfrmGeCliente
       
         '  :NEW_PRACA_2, :NEW_BANCO_3, :NEW_AGENCIA_3, :NEW_CC_3, :NEW_PR' +
         'ACA_3, '
-      '  :NEW_OBSERVACAO, :NEW_ATIVO)'
-      
-        'RETURNING CODIGO, VALOR_LIMITE_COMPRA, BLOQUEADO, BLOQUEADO_DATA' +
-        ', BLOQUEADO_MOTIVO, BLOQUEADO_USUARIO, BLOQUEADO_AUTOMATICO, DTC' +
-        'AD')
+      '  :NEW_OBSERVACAO, :NEW_DTCAD, :NEW_ATIVO)'
+      'RETURNING CODIGO, DTCAD')
     ModifySQL.Strings = (
       'UPDATE TBCLIENTE'
       
@@ -5830,12 +5824,11 @@ inherited frmGeCliente: TfrmGeCliente
       
         '  AGENCIA_3 = :NEW_AGENCIA_3, CC_3 = :NEW_CC_3, PRACA_3 = :NEW_P' +
         'RACA_3, '
-      '  OBSERVACAO = :NEW_OBSERVACAO, ATIVO = :NEW_ATIVO'
-      'WHERE CODIGO = :OLD_CODIGO'
       
-        'RETURNING CODIGO, VALOR_LIMITE_COMPRA, BLOQUEADO, BLOQUEADO_DATA' +
-        ', BLOQUEADO_MOTIVO, BLOQUEADO_USUARIO, BLOQUEADO_AUTOMATICO, DTC' +
-        'AD')
+        '  OBSERVACAO = :NEW_OBSERVACAO, DTCAD = :NEW_DTCAD, ATIVO = :NEW' +
+        '_ATIVO'
+      'WHERE CODIGO = :OLD_CODIGO'
+      'RETURNING CODIGO, DTCAD')
     DeleteSQL.Strings = (
       'DELETE FROM TBCLIENTE'
       'WHERE CODIGO = :OLD_CODIGO')
@@ -5869,7 +5862,7 @@ inherited frmGeCliente: TfrmGeCliente
       '  , cl.Pais_id'
       '  , cl.Valor_limite_compra'
       '  , cl.Vendedor_cod'
-      '  , coalesce(cl.DtCad, current_date) as DtCad'
+      '  , cl.DtCad'
       '  , cl.Bloqueado'
       '  , cl.Bloqueado_data'
       '  , cl.Bloqueado_motivo'
@@ -5903,12 +5896,25 @@ inherited frmGeCliente: TfrmGeCliente
       '  , coalesce(c.Cid_nome, cl.Cidade) as Cid_nome'
       '  , coalesce(u.Est_nome, cl.Uf) as Est_nome'
       '  , p.Pais_nome'
+      '  , est.produtos'
+      '  , est.valores'
       'from TBCLIENTE cl'
       '  left join TBTIPO_LOGRADOURO t on (t.Tlg_cod = cl.Tlg_tipo)'
       '  left join TBLOGRADOURO l on (l.Log_cod = cl.Log_cod)'
       '  left join TBCIDADE c on (c.Cid_cod = cl.Cid_cod)'
       '  left join TBESTADO u on (u.Est_cod = cl.Est_cod)'
       '  left join TBPAIS p on (p.Pais_id = cl.Pais_id)'
+      '  left join ('
+      '    Select'
+      '        x.cod_cliente'
+      '      , count(x.cod_produto) as produtos'
+      '      , sum(x.quantidade * x.valor_medio) as valores'
+      '    from TBCLIENTE_ESTOQUE x'
+      '    where (x.cod_cliente <> 1)'
+      '    group by'
+      '        x.cod_cliente'
+      '  ) est on (est.cod_cliente = cl.codigo)'
+      ''
       'WHERE cl.CODIGO = :CODIGO')
   end
   object cdsTotalComprasAbertas: TDataSource
