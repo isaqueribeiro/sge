@@ -8,6 +8,7 @@ inherited frmGrPadraoLogin: TfrmGrPadraoLogin
   Font.Height = -16
   Font.Name = 'Calibri'
   OnClose = FormClose
+  OnKeyPress = FormKeyPress
   ExplicitWidth = 475
   ExplicitHeight = 285
   DesignSize = (

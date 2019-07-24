@@ -20,6 +20,7 @@ type
       Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     procedure AnularBeepEnter(Sender: TObject; var Key: Char);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     fNomeTabela     ,
@@ -446,6 +447,13 @@ procedure TfrmGrPadrao.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   CustomKeyDown(Self, Key, Shift);
+end;
+
+procedure TfrmGrPadrao.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  // Tirar o som
+  if (Key = #13) then
+    Key := #0;
 end;
 
 procedure TfrmGrPadrao.SetOnEnterExit(const Win: TWinControl);

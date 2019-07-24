@@ -2667,8 +2667,11 @@ begin
           else
           begin
             //Prod.cEAN   := EmptyStr;
-            Prod.cEAN     := 'SEM GTIN';
-            Prod.cEANTrib := 'SEM GTIN';
+            //Prod.cEAN     := 'SEM GTIN';
+            //Prod.cEANTrib := 'SEM GTIN';
+            Prod.cEAN     := Trim(qryDadosProduto.FieldByName('CODPROD').AsString);
+            Prod.cEAN     := PadLeft(Prod.cEAN, 12, '0') + EAN13_DV(Prod.cEAN);
+            Prod.cEANTrib := Prod.cEAN;
           end;
 
           Prod.uCom     := qryDadosProduto.FieldByName('UNP_SIGLA').AsString;
@@ -4314,8 +4317,11 @@ begin
           else
           begin
             //Prod.cEAN   := EmptyStr;
-            Prod.cEAN     := 'SEM GTIN';
-            Prod.cEANTrib := 'SEM GTIN';
+            //Prod.cEAN     := 'SEM GTIN';
+            //Prod.cEANTrib := 'SEM GTIN';
+            Prod.cEAN     := Trim(qryEntradaDadosProduto.FieldByName('CODPROD').AsString);
+            Prod.cEAN     := PadLeft(Prod.cEAN, 12, '0') + EAN13_DV(Prod.cEAN);
+            Prod.cEANTrib := Prod.cEAN;
           end;
 
           Prod.uCom     := qryEntradaDadosProduto.FieldByName('UNP_SIGLA').AsString;
@@ -7010,8 +7016,11 @@ begin
           else
           begin
             //Prod.cEAN   := EmptyStr;
-            Prod.cEAN     := 'SEM GTIN';
-            Prod.cEANTrib := 'SEM GTIN';
+            //Prod.cEAN     := 'SEM GTIN';
+            //Prod.cEANTrib := 'SEM GTIN';
+            Prod.cEAN     := Trim(qryDadosProduto.FieldByName('CODPROD').AsString);
+            Prod.cEAN     := PadLeft(Prod.cEAN, 12, '0') + EAN13_DV(Prod.cEAN);
+            Prod.cEANTrib := Prod.cEAN;
           end;
 
           Prod.uCom     := qryDadosProduto.FieldByName('UNP_SIGLA').AsString;

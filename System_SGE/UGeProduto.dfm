@@ -28,8 +28,6 @@ inherited frmGeProduto: TfrmGeProduto
     ExplicitWidth = 961
     ExplicitHeight = 543
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 953
       ExplicitHeight = 514
       inherited Bevel4: TBevel
@@ -310,6 +308,8 @@ inherited frmGeProduto: TfrmGeProduto
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 953
       ExplicitHeight = 514
       inherited Bevel8: TBevel
@@ -382,11 +382,11 @@ inherited frmGeProduto: TfrmGeProduto
           FocusControl = dbGrupo
         end
         object lblCodigoEAN: TLabel [7]
-          Left = 88
+          Left = 208
           Top = 24
-          Width = 78
+          Width = 60
           Height = 13
-          Caption = 'C'#243'digo Externo:'
+          Caption = 'C'#243'digo EAN:'
           FocusControl = dbCodigoEAN
         end
         object lblFabricante: TLabel [8]
@@ -406,7 +406,7 @@ inherited frmGeProduto: TfrmGeProduto
           FocusControl = dbApresentacao
         end
         object lblTipoCadastro: TLabel [10]
-          Left = 208
+          Left = 87
           Top = 24
           Width = 71
           Height = 13
@@ -499,9 +499,9 @@ inherited frmGeProduto: TfrmGeProduto
           TabOrder = 3
         end
         object dbCodigoEAN: TDBEdit
-          Left = 88
+          Left = 208
           Top = 40
-          Width = 113
+          Width = 186
           Height = 21
           CharCase = ecUpperCase
           DataField = 'CODBARRA_EAN'
@@ -511,8 +511,9 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = []
+          MaxLength = 13
           ParentFont = False
-          TabOrder = 1
+          TabOrder = 2
         end
         object dbApresentacao: TDBEdit
           Left = 728
@@ -530,9 +531,9 @@ inherited frmGeProduto: TfrmGeProduto
           TabOrder = 4
         end
         object dbTipoCadastro: TDBLookupComboBox
-          Left = 208
+          Left = 87
           Top = 40
-          Width = 185
+          Width = 115
           Height = 21
           DataField = 'ALIQUOTA_TIPO'
           DataSource = DtSrcTabela
@@ -546,7 +547,7 @@ inherited frmGeProduto: TfrmGeProduto
           ListField = 'TIPO'
           ListSource = dtsAliquota
           ParentFont = False
-          TabOrder = 2
+          TabOrder = 1
         end
         object dbGrupo: TJvDBComboEdit
           Left = 400
@@ -814,7 +815,7 @@ inherited frmGeProduto: TfrmGeProduto
         Top = 237
         Width = 953
         Height = 277
-        ActivePage = TbsEspecificacao
+        ActivePage = tbsValores
         Align = alClient
         TabOrder = 2
         object tbsValores: TTabSheet
@@ -825,10 +826,6 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblCusto: TLabel
             Left = 272
             Top = 8
@@ -1325,10 +1322,6 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsCustoVeiculo: TTabSheet
           Caption = 'Custos e F&&I p/ Ve'#237'culos'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object grpCustosVeiculo: TGroupBox
             Left = 0
             Top = 0
@@ -1623,10 +1616,6 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsTributacao: TTabSheet
           Caption = 'Tributa'#231#245'es'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 0
             Top = 233
@@ -2181,10 +2170,6 @@ inherited frmGeProduto: TfrmGeProduto
         object TbsEspecificacao: TTabSheet
           Caption = 'Especifica'#231#245'es'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object pnlVeiculo: TPanel
             Left = 0
             Top = 0
@@ -2584,12 +2569,13 @@ inherited frmGeProduto: TfrmGeProduto
             object lblEspecificacao: TLabel
               Left = 2
               Top = 2
-              Width = 105
+              Width = 941
               Height = 13
               Align = alTop
               Caption = 'Especifica'#231#227'o textual:'
               FocusControl = dbEspecificacao
               Transparent = True
+              ExplicitWidth = 105
             end
             object Bevel9: TBevel
               Left = 2
@@ -2614,10 +2600,6 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsHistoricoVeiculo: TTabSheet
           Caption = 'Hist'#243'ricos'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           DesignSize = (
             945
             249)
@@ -3429,7 +3411,7 @@ inherited frmGeProduto: TfrmGeProduto
     Left = 840
     Top = 296
     Bitmap = {
-      494C01012B002C002C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00300110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4890,7 +4872,6 @@ inherited frmGeProduto: TfrmGeProduto
   end
   inherited fdQryTabela: TFDQuery
     BeforePost = fdQryTabelaBeforePost
-    OnNewRecord = fdQryTabelaNewRecord
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
     UpdateOptions.GeneratorName = 'GEN_PRODUTO_ID'

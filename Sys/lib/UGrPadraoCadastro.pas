@@ -648,6 +648,14 @@ begin
       if FieldByName('DTCAD').IsNull then
         FieldByName('DTCAD').AsDateTime := GetDateTimeDB;
 
+    if (Fields.FindField('DATA_CADASTRO') <> nil) then
+      if FieldByName('DATA_CADASTRO').IsNull then
+        FieldByName('DATA_CADASTRO').AsDateTime := GetDateTimeDB;
+
+    if (Fields.FindField('DT_CADASTRO') <> nil) then
+      if FieldByName('DT_CADASTRO').IsNull then
+        FieldByName('DT_CADASTRO').AsDateTime := GetDateTimeDB;
+
     if (Fields.FindField('USUARIO') <> nil) then
       if (Trim(FieldByName('USUARIO').AsString) = EmptyStr) then
         FieldByName('USUARIO').AsString := gUsuarioLogado.Login;

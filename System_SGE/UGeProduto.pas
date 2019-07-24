@@ -1676,8 +1676,8 @@ begin
           dbgDados.Canvas.Font.Color := lblProdutoPromocao.Font.Color;
 
       // Destacar alerta de lucros
-      if ( FieldByName('COMPOR_FATURAMENTO').AsInteger = 1 ) then
-        if (not FieldByName('LUCRO_CALCULADO').IsNull) then
+      if ( (FieldByName('COMPOR_FATURAMENTO').AsInteger = 1) and (FieldByName('PRECO_PROMOCAO').AsCurrency = 0.0) ) then
+        if (not FieldByName('LUCRO_CALCULADO').IsNull) and (FieldByName('PRECO').AsCurrency > 0.0) then
         begin
           if ( FieldByName('LUCRO_CALCULADO').AsInteger = 0 ) then
             dbgDados.Canvas.Brush.Color := ShpLucroZerado.Brush.Color

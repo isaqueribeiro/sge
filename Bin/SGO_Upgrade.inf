@@ -1,8 +1,9 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 22/07/2019 20:13:00     #
+#    Gerado por AGIL SOFTWARES em : 23/07/2019 20:23:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Atualização das Taxas Tributárias para MAI/2019 até JUL/2019.
 - Novos relatórios no grupo de Entradas e Faturamento que consolidam as movimentações de entrada e saída por CFOP.
 - Novo relatório de Faturamento calculando a rentabilidade por produto nas vendas.
 - Nova configuração na CFOF que gerencia movimentação do estoque dos produtos.
@@ -11,7 +12,6 @@
 - Atualização no processo de Inutilização de números de NF-e.
 - Novo relatório de Movimentação Financeira Mensal.
 - Nova definição para os tipos de CFOPs.
-- Atualização das Taxas Tributárias para ABR/2018.
 - Ajustes na Confirmação de Entrada dos Lotes de Produtos.
 - Impressão dos lotes no Orçamento de Venda.
 - Ajustes para o Cadastro de Serviços.
@@ -33,4 +33,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.26.2
+#version=1.0.26.3
