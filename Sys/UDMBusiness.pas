@@ -11,7 +11,7 @@ uses
   IdBaseComponent, IdComponent, IdIPWatch, DB, DBClient, Provider, Dialogs, Registry,
 
   frxClass, frxDBSet, frxBarcode, frxChart, frxCross, frxRich, frxExportMail, frxExportXML,
-  frxExportODF, frxExportDOCX, frxExportXLSX, frxExportImage, frxExportRTF, frxExportXLS, frxExportPDF,
+  frxExportODF, frxExportDOCX, frxExportXLSX, frxExportImage, frxExportRTF, frxExportPDF,
   frxExportBaseDialog,
 
   ACBrBase, ACBrValidador, ACBrMail, ACBrUtil,
@@ -83,7 +83,6 @@ type
     IdIPWatch: TIdIPWatch;
     opdLicenca: TOpenDialog;
     frxPDF: TfrxPDFExport;
-    frxXLS: TfrxXLSExport;
     frxRTF: TfrxRTFExport;
     frxJPEG: TfrxJPEGExport;
     frxMailExport: TfrxMailExport;
@@ -255,6 +254,7 @@ var
   function GetCfopRemessa(const iCfop : Integer) : Boolean;
   function GetCfopGerarTitulo(const iCfop : Integer) : Boolean;
   function GetCfopGerarDuplicata(const iCfop : Integer) : Boolean;
+  function GetCfopMovimentaEstoque(const iCfop : Integer) : Boolean;
   function GetCfopTipo(const aCfop : Integer) : TTipoCFOP;
   function GetEmpresaIDDefault : String;
   function GetClienteIDDefault : Integer;
@@ -1208,12 +1208,12 @@ begin
 
     ForceDirectories( ExtractFilePath(sFileName) );
     PrepareReport;
-    frxXLS.FileName := sFileName;
-    frxXLS.Report   := FrrLayout;
+    frxXML.FileName := sFileName;
+    frxXML.Report   := FrrLayout;
 
-    Export(frxXLS);
+    Export(frxXML);
 
-    sFileName := frxXLS.FileName;
+    sFileName := frxXML.FileName;
   end;
 end;
 
@@ -2249,6 +2249,21 @@ begin
     Open;
 
     Result := (FieldByName('cfop_gerar_duplicata').AsInteger = 1);
+
+    Close;
+  end;
+end;
+
+function GetCfopMovimentaEstoque(const iCfop : Integer) : Boolean;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select cfop_altera_estoque_produto from TBCFOP where cfop_cod = ' + IntToStr(iCfop));
+    Open;
+
+    Result := (FieldByName('cfop_altera_estoque_produto').AsInteger = 1);
 
     Close;
   end;

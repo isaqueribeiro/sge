@@ -40,8 +40,8 @@ object DMBusiness: TDMBusiness
   object opdLicenca: TOpenDialog
     Filter = 'Arquivo Licen'#231'a (*.lnc)|*.lnc'
     Title = 'Carregar arquivo Licen'#231'a'
-    Left = 216
-    Top = 24
+    Left = 448
+    Top = 32
   end
   object frxPDF: TfrxPDFExport
     UseFileCache = True
@@ -68,21 +68,6 @@ object DMBusiness: TDMBusiness
     Left = 40
     Top = 168
   end
-  object frxXLS: TfrxXLSExport
-    UseFileCache = True
-    ShowProgress = True
-    OverwritePrompt = False
-    DataOnly = False
-    ExportEMF = True
-    AsText = False
-    Background = True
-    FastExport = True
-    PageBreaks = True
-    EmptyLines = True
-    SuppressPageHeadersFooters = False
-    Left = 40
-    Top = 216
-  end
   object frxRTF: TfrxRTFExport
     UseFileCache = True
     ShowProgress = True
@@ -96,7 +81,7 @@ object DMBusiness: TDMBusiness
     HeaderFooterMode = hfText
     AutoSize = False
     Left = 40
-    Top = 264
+    Top = 224
   end
   object frxJPEG: TfrxJPEGExport
     UseFileCache = True
@@ -104,7 +89,7 @@ object DMBusiness: TDMBusiness
     OverwritePrompt = False
     DataOnly = False
     Left = 40
-    Top = 312
+    Top = 328
   end
   object frxMailExport: TfrxMailExport
     UseFileCache = True
@@ -121,7 +106,7 @@ object DMBusiness: TDMBusiness
     UseMAPI = SMTP
     MAPISendFlag = 0
     Left = 40
-    Top = 360
+    Top = 280
   end
   object frxRichObject: TfrxRichObject
     Left = 40
@@ -566,8 +551,8 @@ object DMBusiness: TDMBusiness
     UpdateTransaction = fdTransacao
     UpdateOptions.UpdateTableName = 'SYS_LICENCA'
     TableName = 'SYS_LICENCA'
-    Left = 184
-    Top = 24
+    Left = 416
+    Top = 32
     object cdsLicencaLINHA_CONTROLE: TStringField
       FieldName = 'LINHA_CONTROLE'
       Origin = 'LINHA_CONTROLE'
@@ -581,8 +566,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_CAIXA_MOVIMENTO_REC'
-    Left = 184
-    Top = 72
+    Left = 416
+    Top = 80
     ParamData = <
       item
         Position = 1
@@ -635,8 +620,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_CAIXA_MOVIMENTO_PAG'
-    Left = 184
-    Top = 120
+    Left = 416
+    Top = 128
     ParamData = <
       item
         Position = 1
@@ -689,8 +674,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_CONTA_CORRENTE_SALDO'
-    Left = 184
-    Top = 168
+    Left = 416
+    Top = 176
     ParamData = <
       item
         Position = 1
@@ -710,8 +695,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_CAIXA_MOVIMENTO_REC_ESTORNO'
-    Left = 184
-    Top = 216
+    Left = 416
+    Top = 224
     ParamData = <
       item
         Position = 1
@@ -764,8 +749,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_CAIXA_MOVIMENTO_PAG_ESTORNO'
-    Left = 184
-    Top = 264
+    Left = 416
+    Top = 272
     ParamData = <
       item
         Position = 1
@@ -818,8 +803,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SP_UPD_CUSTO_APROP_ENTRADA'
-    Left = 376
-    Top = 24
+    Left = 608
+    Top = 32
     ParamData = <
       item
         Position = 1
@@ -833,8 +818,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SP_UPD_CUSTO_APROP_AUTORIZ'
-    Left = 376
-    Top = 72
+    Left = 608
+    Top = 80
     ParamData = <
       item
         Position = 1
@@ -848,8 +833,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SP_UPD_CUSTO_ESTOQUE_APROP'
-    Left = 376
-    Top = 120
+    Left = 608
+    Top = 128
     ParamData = <
       item
         Position = 1
@@ -863,8 +848,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SP_UPD_CUSTO_ESTOQUE_REQUI'
-    Left = 376
-    Top = 168
+    Left = 608
+    Top = 176
     ParamData = <
       item
         Position = 1
@@ -878,8 +863,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SP_UPD_CUSTO_INVENTARIO_ALMOX'
-    Left = 376
-    Top = 216
+    Left = 608
+    Top = 224
     ParamData = <
       item
         Position = 1
@@ -896,8 +881,8 @@ object DMBusiness: TDMBusiness
     ChunkSize = 0
     OpenAfterExport = False
     PictureType = gpPNG
-    Left = 248
-    Top = 368
+    Left = 80
+    Top = 224
   end
   object frxDOCX: TfrxDOCXExport
     UseFileCache = True
@@ -906,8 +891,8 @@ object DMBusiness: TDMBusiness
     DataOnly = False
     OpenAfterExport = False
     PictureType = gpPNG
-    Left = 248
-    Top = 416
+    Left = 80
+    Top = 272
   end
   object frxODS: TfrxODSExport
     UseFileCache = True
@@ -922,8 +907,8 @@ object DMBusiness: TDMBusiness
     SingleSheet = False
     Language = 'en'
     SuppressPageHeadersFooters = False
-    Left = 248
-    Top = 464
+    Left = 80
+    Top = 320
   end
   object frxODT: TfrxODTExport
     UseFileCache = True
@@ -938,8 +923,8 @@ object DMBusiness: TDMBusiness
     SingleSheet = False
     Language = 'en'
     SuppressPageHeadersFooters = False
-    Left = 248
-    Top = 512
+    Left = 120
+    Top = 224
   end
   object frxXML: TfrxXMLExport
     UseFileCache = True
@@ -952,7 +937,7 @@ object DMBusiness: TDMBusiness
     SuppressPageHeadersFooters = False
     RowsCount = 0
     Split = ssNotSplit
-    Left = 248
-    Top = 560
+    Left = 120
+    Top = 272
   end
 end

@@ -512,7 +512,7 @@ type
     procedure CarregarDadosProduto( Codigo : Integer );
     procedure CarregarDadosCFOP( iCodigo : Integer );
     procedure CarregarDadosEmpresa(const pEmpresa, pTituloRelatorio : String);
-    procedure CarregarLotes(const aEmpresa, aProduto : String; const aCliente : Integer);
+    procedure CarregarLotes(const aEmpresa, aProduto : String; const aCliente : Integer; const aTodos : Boolean);
     procedure HabilitarDesabilitar_Btns;
     procedure GetComprasAbertas(iCodigoCliente : Integer);
     procedure ZerarFormaPagto;
@@ -976,7 +976,11 @@ begin
 
   HabilitarDesabilitar_Btns;
   ControleCampoLote;
-  CarregarLotes(cdsTabelaItensCODEMP.AsString, cdsTabelaItensCODPROD.AsString, cdsTabelaItensCODCLIENTE.AsInteger);
+  CarregarLotes(
+      cdsTabelaItensCODEMP.AsString
+    , cdsTabelaItensCODPROD.AsString
+    , cdsTabelaItensCODCLIENTE.AsInteger
+    , not GetCfopMovimentaEstoque(cdsTabelaItensCFOP_COD.AsInteger));
 end;
 
 procedure TfrmGeVenda.AbrirTabelaFormasPagto(const AnoVenda : Smallint; const ControleVenda : Integer);
@@ -1098,7 +1102,11 @@ begin
         dbTotalDesconto.ReadOnly := (cdsTabelaItensPUNIT_PROMOCAO.AsCurrency > 0);
 
         ControleCampoLote;
-        CarregarLotes(cdsTabelaItensCODEMP.AsString, cdsTabelaItensCODPROD.AsString, cdsTabelaItensCODCLIENTE.AsInteger);
+        CarregarLotes(
+            cdsTabelaItensCODEMP.AsString
+          , cdsTabelaItensCODPROD.AsString
+          , cdsTabelaItensCODCLIENTE.AsInteger
+          , not GetCfopMovimentaEstoque(cdsTabelaItensCFOP_COD.AsInteger));
       end
       else
       begin
@@ -1111,7 +1119,7 @@ begin
   end;
 end;
 
-procedure TfrmGeVenda.CarregarLotes(const aEmpresa, aProduto: String; const aCliente : Integer);
+procedure TfrmGeVenda.CarregarLotes(const aEmpresa, aProduto: String; const aCliente : Integer; const aTodos : Boolean);
 begin
   with fdQryLotes do
   begin
@@ -1121,6 +1129,7 @@ begin
     ParamByName('centro_custo').AsInteger := CENTRO_CUSTO_ESTOQUE_GERAL;
     ParamByName('cliente').AsInteger      := aCliente;
     ParamByName('produto').AsString       := aProduto;
+    ParamByName('todos').AsInteger        := IfThen(aTodos, 1, 0);
 
     fdQryLotes.OpenOrExecute;
     fdQryLotes.Last;
@@ -1814,7 +1823,11 @@ begin
       dbTotalDesconto.ReadOnly := (aProduto.aValorPromocao > 0);
 
       ControleCampoLote;
-      CarregarLotes(cdsTabelaItensCODEMP.AsString, cdsTabelaItensCODPROD.AsString, cdsTabelaItensCODCLIENTE.AsInteger);
+      CarregarLotes(
+          cdsTabelaItensCODEMP.AsString
+        , cdsTabelaItensCODPROD.AsString
+        , cdsTabelaItensCODCLIENTE.AsInteger
+        , not GetCfopMovimentaEstoque(cdsTabelaItensCFOP_COD.AsInteger));
     end;
 end;
 
@@ -1834,7 +1847,11 @@ end;
 procedure TfrmGeVenda.cdsTabelaItensAfterScroll(DataSet: TDataSet);
 begin
   ControleCampoLote;
-  CarregarLotes(cdsTabelaItensCODEMP.AsString, cdsTabelaItensCODPROD.AsString, cdsTabelaItensCODCLIENTE.AsInteger);
+  CarregarLotes(
+      cdsTabelaItensCODEMP.AsString
+    , cdsTabelaItensCODPROD.AsString
+    , cdsTabelaItensCODCLIENTE.AsInteger
+    , not GetCfopMovimentaEstoque(cdsTabelaItensCFOP_COD.AsInteger));
 end;
 
 procedure TfrmGeVenda.cdsTabelaItensNewRecord(DataSet: TDataSet);
@@ -1907,10 +1924,14 @@ procedure TfrmGeVenda.btbtnFinalizarClick(Sender: TObject);
           if ( cdsTabelaItensMOVIMENTA_ESTOQUE.AsInteger = 0 ) then // Produto não movimenta estoque
             Return := False
           else
+          if not GetCfopMovimentaEstoque(cdsTabelaItensCFOP_COD.AsInteger) then // CFOP não altera (movimenta) estoque
+            Return := False
+          else
             Return := ( (cdsTabelaItensQTDE.AsCurrency > (cdsTabelaItensESTOQUE.AsCurrency - cdsTabelaItensRESERVA.AsCurrency)) or (cdsTabelaItensESTOQUE.AsCurrency <= 0) );
 
           if ( Return ) then
             Break;
+
           cdsTabelaItens.Next;
         end;
 
