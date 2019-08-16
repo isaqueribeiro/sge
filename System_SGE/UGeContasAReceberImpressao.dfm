@@ -41,7 +41,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
       end
       object lblCliente: TLabel
         Left = 56
-        Top = 102
+        Top = 101
         Width = 42
         Height = 13
         Alignment = taRightJustify

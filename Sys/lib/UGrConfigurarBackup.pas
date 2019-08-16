@@ -11,10 +11,12 @@ uses
   IB_Services, cxPC, dxBarBuiltInMenu, cxContainer, cxEdit, cxTextEdit, cxMemo,
   Vcl.Mask, JvExMask, JvToolEdit,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinscxPCPainter,
-  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  FireDAC.Stan.Def, FireDAC.VCLUI.Wait, FireDAC.Phys.IBWrapper, FireDAC.Stan.Intf,
+  FireDAC.Phys, FireDAC.Phys.IBBase, FireDAC.Phys.FB,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinscxPCPainter;
 
 type
   TfrmGrConfigurarBackup = class(TfrmGrPadrao)
@@ -35,10 +37,13 @@ type
     edLocalZip7: TJvDirectoryEdit;
     lblLocalNuvem: TLabel;
     edLocalNuvem: TJvDirectoryEdit;
+    FDFBNBackup: TFDFBNBackup;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure bkpBaseTextNotify(Sender: TObject; const Text: string);
     procedure btnSalvarClick(Sender: TObject);
+    procedure FDFBNBackupError(ASender, AInitiator: TObject; var AException: Exception);
+    procedure FDFBNBackupProgress(ASender: TFDPhysDriverService; const AMessage: string);
   private
     { Private declarations }
     procedure ExecutarBackup;
@@ -175,25 +180,74 @@ begin
   Application.ProcessMessages;
   Sleep(500);
 
-  with bkpBase do
-  begin
-    Protocol        := TCP;
-    ServerName      := NomeServidor;
-    DatabaseName    := NomeBase;
-    BackupFile.Text := edLocalBackup.Hint;
+  try
 
-    Params.Clear;
-    Params.Add('user_name=' + SYS_SYSDBA_LOGIN);
-    Params.Add('password='  + SYS_SYSDBA_PWD);
+    // Backup com FIBPlus
+    with bkpBase do
+    begin
+      Protocol        := TCP;
+      ServerName      := NomeServidor;
+      DatabaseName    := NomeBase;
+      BackupFile.Text := edLocalBackup.Hint;
 
-    Attach;
-    try
-      ServiceStart;
-    finally
-      Detach;
-      Self.Close;
+      Params.Clear;
+      Params.Add('user_name=' + SYS_SYSDBA_LOGIN);
+      Params.Add('password='  + SYS_SYSDBA_PWD);
+
+      Attach;
+      try
+        ServiceStart;
+      finally
+        Detach;
+        Self.Close;
+      end;
+    end;
+
+  except
+
+    // Backup com FireDAC
+    with FDFBNBackup, DMBusiness do
+    begin
+      DriverLink := fdFBDriverLink;
+      Protocol   := TIBProtocol.ipTCPIP;
+      Level      := 0; // Backup FULL
+
+      Host     := NomeServidor;
+      Database := NomeBase;
+      UserName := SYS_SYSDBA_LOGIN;
+      Password := SYS_SYSDBA_PWD;
+
+      BackupFile := edLocalBackup.Hint;
+
+      try
+        mmVerbose.Lines.Add(GetTime + ' - ' + Self.Caption);
+
+        Backup;
+
+        mmVerbose.Lines.Add(GetTime + ' - gbak:closing file, committing, and finishing');
+        mmVerbose.Lines.Add(GetTime + ' - Backup finalização com conexão FireDAC');
+      finally
+        Self.Close;
+      end;
+
     end;
   end;
+end;
+
+procedure TfrmGrConfigurarBackup.FDFBNBackupError(ASender, AInitiator: TObject; var AException: Exception);
+begin
+  if Trim(AException.Message) <> EmptyStr then
+    mmVerbose.Lines.Add( GetTime + ' - ' + Trim(AException.Message) );
+
+  Application.ProcessMessages;
+end;
+
+procedure TfrmGrConfigurarBackup.FDFBNBackupProgress(ASender: TFDPhysDriverService; const AMessage: string);
+begin
+  if Trim(AMessage) <> EmptyStr then
+    mmVerbose.Lines.Add( GetTime + ' - ' + Trim(AMessage) );
+
+  Application.ProcessMessages;
 end;
 
 procedure TfrmGrConfigurarBackup.FormCreate(Sender: TObject);

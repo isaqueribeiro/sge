@@ -284,7 +284,15 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
     OnTextNotify = bkpBaseTextNotify
     BlockingFactor = 0
     Options = [NoGarbageCollection]
-    Left = 16
+    Left = 64
     Top = 152
+  end
+  object FDFBNBackup: TFDFBNBackup
+    OnError = FDFBNBackupError
+    DriverLink = DMBusiness.fdFBDriverLink
+    Protocol = ipTCPIP
+    OnProgress = FDFBNBackupProgress
+    Left = 64
+    Top = 200
   end
 end

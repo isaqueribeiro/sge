@@ -16,7 +16,9 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, cxControls,
+  cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxLookupEdit, cxDBLookupEdit,
+  cxDBLookupComboBox;
 
 type
   TfrmGeVendaImpressao = class(TfrmGrPadraoImpressao)
@@ -48,8 +50,6 @@ type
     DspRelacaoVendaClienteAnalitico: TDataSetProvider;
     CdsRelacaoVendaClienteAnalitico: TClientDataSet;
     FrdsRelacaoVendaClienteAnalitico: TfrxDBDataset;
-    lblCliente: TLabel;
-    edCliente: TComboBox;
     frRelacaoVendaClienteComparativo: TfrxReport;
     DspVendaCompetencia: TDataSetProvider;
     CdsVendaCompetencia: TClientDataSet;
@@ -89,7 +89,13 @@ type
     DspRelacaoRentabilidadeProduto: TDataSetProvider;
     CdsRelacaoRentabilidadeProduto: TClientDataSet;
     FrdsRelacaoRentabilidadeProduto: TfrxDBDataset;
-    chkCFOPTituloGerado: TCheckBox;    procedure FormCreate(Sender: TObject);
+    chkCFOPTituloGerado: TCheckBox;
+    dtsCliente: TDataSource;
+    fdQryCliente: TFDQuery;
+    DspCliente: TDataSetProvider;
+    CdsCliente: TClientDataSet;
+    lblCliente: TLabel;
+    edCliente: TcxLookupComboBox;    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
@@ -111,8 +117,11 @@ type
     procedure CarregarDadosEmpresa; override;
     procedure CarregarEmpresa;
     procedure CarregarCidades;
+    procedure CarregarCliente;
     procedure CarregarVendedores;
+
     procedure MontarVendaCompetencia;
+
     procedure MontarRelacaoVendaVendedorSintetica;
     procedure MontarRelacaoVendaVendedorAnalitica;
     procedure MontarRelacaoVendaVendedorComparativo;
@@ -203,6 +212,15 @@ begin
   edCidade.ItemIndex := 0;
 end;
 
+procedure TfrmGeVendaImpressao.CarregarCliente;
+begin
+  if not CdsCliente.Active then
+  begin
+    CdsCliente.Open;
+    edCliente.EditValue := 0;
+  end;
+end;
+
 procedure TfrmGeVendaImpressao.FormCreate(Sender: TObject);
 begin
   e1Data.Date := StrToDate('01/' + FormatDateTime('mm/yyyy', GetDateDB));
@@ -246,6 +264,7 @@ begin
     CarregarEmpresa;
     CarregarVendedores;
     CarregarCidades;
+    CarregarCliente;
   finally
     WaitAMomentFree;
     edRelatorioChange(edRelatorio);
@@ -396,6 +415,9 @@ begin
 
       if ( edCidade.ItemIndex > 0 ) then
           SQL.Add('  and ((c.cid_cod = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ') or (c.cidade = ' + QuotedStr(edCidade.Text) + '))');
+
+      if ( edCliente.ItemIndex > 0 ) and ( VarToStr(edCliente.EditValue) <> '0' ) then
+        SQL.Add('  and (v.codcliente = ' + VarToStr(edCliente.EditValue) + ')');
 
       if ( chkNFeEmitida.Visible ) then
         if ( chkNFeEmitida.Checked ) then
@@ -592,7 +614,7 @@ begin
 
         4:
           SQL.Add('  and v.status = ' + IntToStr(STATUS_VND_CAN));
-          
+
         else
           SQL.Add('  and v.status > ' + IntToStr(STATUS_VND_AND)); // Todas as vendas, com excesão das vendas "em atendimento"
       end;
@@ -602,6 +624,9 @@ begin
 
       if ( edCidade.ItemIndex > 0 ) then
           SQL.Add('  and ((c.cid_cod = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ') or (c.cidade = ' + QuotedStr(edCidade.Text) + '))');
+
+      if ( edCliente.ItemIndex > 0 ) and ( VarToStr(edCliente.EditValue) <> '0' ) then
+        SQL.Add('  and (v.codcliente = ' + VarToStr(edCliente.EditValue) + ')');
 
       if ( chkNFeEmitida.Visible ) then
         if ( chkNFeEmitida.Checked ) then
@@ -689,21 +714,19 @@ begin
   else
     edCidade.Enabled   := True;
 
-  lblCidade.Visible := (not (edRelatorio.ItemIndex in [
-      REPORT_COMISSAO_VENDEDOR_BAIXA
-    , REPORT_RENTABILIDADE_ESTIMADA_PRODUTO]));
-  edCidade.Visible  := lblCidade.Visible;
+  lblCliente.Visible := (edRelatorio.ItemIndex in [
+      REPORT_RELACAO_VENDA_VENDEDOR_ANALITICO
+    , REPORT_RELACAO_VENDA_CLIENTE_ANALITICO
+    , REPORT_RENTABILIDADE_ESTIMADA_PRODUTO]);
+  edCliente.Visible  := lblCliente.Visible;
 
   chkNFeEmitida.Visible := (not (edRelatorio.ItemIndex in [
       REPORT_RELACAO_VENDA_VENDEDOR_COMPARATI
     , REPORT_RELACAO_VENDA_CLIENTE_COMPARATI
     , REPORT_RELACAO_VENDA_LISTA_ENTREGA
-    , REPORT_COMISSAO_VENDEDOR_BAIXA
-    , REPORT_RENTABILIDADE_ESTIMADA_PRODUTO]));
+    , REPORT_COMISSAO_VENDEDOR_BAIXA]));
 
-  chkCFOPTituloGerado.Visible := (not (edRelatorio.ItemIndex in [
-      REPORT_COMISSAO_VENDEDOR_BAIXA
-    , REPORT_RELACAO_VENDA_LISTA_ENTREGA]));
+  chkCFOPTituloGerado.Visible := (edRelatorio.ItemIndex = REPORT_RENTABILIDADE_ESTIMADA_PRODUTO);
 end;
 
 procedure TfrmGeVendaImpressao.MontarRelacaoVendaVendedorComparativo;
@@ -955,7 +978,7 @@ begin
 
         4:
           SQL.Add('  and v.status = ' + IntToStr(STATUS_VND_CAN));
-          
+
         else
           SQL.Add('  and v.status > ' + IntToStr(STATUS_VND_AND)); // Todas as vendas, com excesão das vendas "em atendimento"
       end;
@@ -965,6 +988,9 @@ begin
 
       if ( edCidade.ItemIndex > 0 ) then
           SQL.Add('  and ((c.cid_cod = ' + IntToStr(ICidade[edCidade.ItemIndex]) + ') or (c.cidade = ' + QuotedStr(edCidade.Text) + '))');
+
+      if ( edCliente.ItemIndex > 0 ) and ( VarToStr(edCliente.EditValue) <> '0' ) then
+        SQL.Add('  and (v.codcliente = ' + VarToStr(edCliente.EditValue) + ')');
 
       if ( chkNFeEmitida.Visible ) then
         if ( chkNFeEmitida.Checked ) then

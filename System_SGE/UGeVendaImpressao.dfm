@@ -46,8 +46,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       Height = 224
       ExplicitHeight = 224
       object lblSituacao: TLabel
-        Left = 41
-        Top = 76
+        Left = 46
+        Top = 75
         Width = 52
         Height = 13
         Alignment = taRightJustify
@@ -55,8 +55,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         FocusControl = edSituacao
       end
       object lblData: TLabel
-        Left = 47
-        Top = 51
+        Left = 52
+        Top = 50
         Width = 46
         Height = 13
         Alignment = taRightJustify
@@ -64,8 +64,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         FocusControl = e1Data
       end
       object lblVendedor: TLabel
-        Left = 36
-        Top = 100
+        Left = 41
+        Top = 99
         Width = 57
         Height = 13
         Alignment = taRightJustify
@@ -73,32 +73,32 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         FocusControl = edVendedor
       end
       object lblCidade: TLabel
-        Left = 52
-        Top = 124
+        Left = 57
+        Top = 123
         Width = 41
         Height = 13
         Alignment = taRightJustify
         Caption = 'Cidade:'
         FocusControl = edCidade
       end
+      object lblEmpresa: TLabel
+        Left = 46
+        Top = 27
+        Width = 52
+        Height = 13
+        Alignment = taRightJustify
+        Caption = 'Empresa:'
+        FocusControl = edEmpresa
+      end
       object lblCliente: TLabel
-        Left = 51
-        Top = 148
+        Left = 56
+        Top = 147
         Width = 42
         Height = 13
         Alignment = taRightJustify
         Caption = 'Cliente:'
         FocusControl = edCliente
         Visible = False
-      end
-      object lblEmpresa: TLabel
-        Left = 49
-        Top = 28
-        Width = 52
-        Height = 13
-        Alignment = taRightJustify
-        Caption = 'Empresa:'
-        FocusControl = edEmpresa
       end
       object edSituacao: TComboBox
         Left = 104
@@ -136,19 +136,6 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         ItemIndex = 0
         TabOrder = 5
         Text = '(Todos)'
-        Items.Strings = (
-          '(Todos)')
-      end
-      object edCliente: TComboBox
-        Left = 104
-        Top = 144
-        Width = 313
-        Height = 21
-        Style = csDropDownList
-        ItemIndex = 0
-        TabOrder = 6
-        Text = '(Todos)'
-        Visible = False
         Items.Strings = (
           '(Todos)')
       end
@@ -291,6 +278,26 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Caption = 'Vendas com CFOPs que geraram T'#237'tulos a Receber'
         TabOrder = 8
         Visible = False
+      end
+      object edCliente: TcxLookupComboBox
+        Left = 104
+        Top = 144
+        Properties.KeyFieldNames = 'CODIGO'
+        Properties.ListColumns = <
+          item
+            Caption = 'Nome Cliente'
+            Width = 120
+            FieldName = 'NOME'
+          end
+          item
+            Caption = 'CFP / CNPJ'
+            FieldName = 'CNPJ'
+          end>
+        Properties.ListSource = dtsCliente
+        EditValue = 0
+        TabOrder = 6
+        Visible = False
+        Width = 313
       end
     end
   end
@@ -12660,5 +12667,48 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     BCDToCurrency = True
     Left = 304
     Top = 40
+  end
+  object dtsCliente: TDataSource
+    DataSet = CdsCliente
+    Left = 416
+    Top = 104
+  end
+  object fdQryCliente: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    0 as codigo'
+      '  , '#39'(Todos)'#39' as nome'
+      '  , 0 as pessoa_fisica'
+      '  , '#39#39' as cnpj'
+      'from RDB$DATABASE x'
+      ''
+      'union'
+      ''
+      'Select'
+      '    c.codigo'
+      '  , c.nome'
+      '  , c.pessoa_fisica'
+      '  , c.cnpj'
+      'from TBCLIENTE c'
+      ''
+      'order by'
+      '    2')
+    Left = 448
+    Top = 104
+  end
+  object DspCliente: TDataSetProvider
+    DataSet = fdQryCliente
+    Left = 480
+    Top = 104
+  end
+  object CdsCliente: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspCliente'
+    Left = 512
+    Top = 104
   end
 end
