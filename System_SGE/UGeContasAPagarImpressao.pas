@@ -217,6 +217,8 @@ begin
       end;
   end;
 
+  SetAtualizarSaldoContasAPagar(IEmpresa[edEmpresa.ItemIndex]);
+
   Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: '       + #13 +
     Format('- Período  : %s a %s', [e1Data.Text, e2Data.Text]) + #13 +
     Format('- Situação : %s', [edSituacao.Text]);

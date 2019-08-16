@@ -237,6 +237,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         Align = alClient
         Caption = 'Par'#226'metros'
         TabOrder = 1
+        ExplicitTop = 227
         object lblCSTEntrada: TLabel
           Left = 304
           Top = 98
@@ -252,6 +253,23 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           Height = 13
           Caption = 'CST Padr'#227'o para Sa'#237'da de Produtos:'
           FocusControl = dbCSTSaida
+        end
+        object lblInformeRemessa: TLabel
+          Left = 494
+          Top = 24
+          Width = 211
+          Height = 26
+          Alignment = taRightJustify
+          Caption = 
+            '* Esta op'#231#227'o transfere estoque o Cliente na finaliza'#231#227'o das Vend' +
+            'as'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          WordWrap = True
         end
         object dbAlteraCustoEntrada: TDBCheckBox
           Left = 16
@@ -374,7 +392,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           Top = 24
           Width = 154
           Height = 17
-          Caption = 'CFOP de Remessa'
+          Caption = 'CFOP de Remessa *'
           DataField = 'CFOP_REMESSA'
           DataSource = DtSrcTabela
           Font.Charset = ANSI_CHARSET
@@ -576,7 +594,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
     Left = 512
     Top = 0
     Bitmap = {
-      494C01012B002C00580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2036,7 +2054,6 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
-    OnNewRecord = fdQryTabelaNewRecord
     SQL.Strings = (
       'Select'
       '    c.Cfop_cod'

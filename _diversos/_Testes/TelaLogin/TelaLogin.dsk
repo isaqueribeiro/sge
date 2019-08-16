@@ -17,18 +17,18 @@ File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMR
 
 [Modules]
 Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\UPadraoLogin.pas
-Module1=documentation.htm
-Module2=default.htm
+Module1=default.htm
+Module2=documentation.htm
 Count=3
 EditWindowCount=1
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\UPadraoLogin.pas]
 ModuleType=TSourceModule
 
-[documentation.htm]
+[default.htm]
 ModuleType=TURLModule
 
-[default.htm]
+[documentation.htm]
 ModuleType=TURLModule
 
 [EditWindow0]
@@ -55,13 +55,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=00000800010100000000881300000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000B92200001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=00000800010100000000181000000000000001680700000000000001000000005C0E000009000000446F636B536974653301000000009C1C00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=00000800010100000000881300000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000B922000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=0
+RightPanelData=00000800010100000000181000000000000001D00700000000000001000000004412000009000000446F636B536974653201000000009C1C000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=1509
 BottomPanelClients=MessageView,DockSite1
-BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B53697465311534000000000000022606000000000000FFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B5369746531974500000000000002E5050000000000000100000000974500000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -77,13 +77,13 @@ WelcomePageURL=bds:/documentation.htm
 [View2]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\UPadraoLogin.pas
-CursorX=21
-CursorY=37
-TopLine=1
+CursorX=1
+CursorY=334
+TopLine=332
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\UPadraoLogin.pas
 
 [UndockedDesigner]
 Count=0
@@ -178,18 +178,18 @@ StayOnTop=0
 [MessageView]
 PercentageSizes=1
 Create=1
-Visible=0
+Visible=1
 Docked=1
 State=0
 Left=0
-Top=0
-Width=2771
-Height=1413
+Top=18
+Width=10021
+Height=1394
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2771
-ClientHeight=1413
-TBDockHeight=1413
+ClientWidth=10021
+ClientHeight=1394
+TBDockHeight=1394
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -203,11 +203,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=4202
+Height=2577
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=4202
+ClientHeight=2577
 TBDockHeight=7154
 LRDockWidth=2000
 Dockable=1
@@ -260,21 +260,21 @@ State=0
 Left=0
 Top=415
 Width=1896
-Height=5240
+Height=3615
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=5240
+ClientHeight=3615
 TBDockHeight=9058
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
-SplitPos=111
+SplitPos=116
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=Action,OnKeyDown
-ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0,Brush=0,"LiveBindings Designer=0",Margins=0,Pen=0,Touch=0
+SelectedItem=Name,CustomHint
+ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0,Font=0,"LiveBindings Designer=0",Margins=0,StyleElements=0,DriverLink=0,Options=0,ActiveStoredUsage=0,Connection=0,FetchOptions=0,FieldOptions=0,FilterChanges=0,FilterOptions=0,FormatOptions=0,ConnectedStoredUsage=0,Params=0,ResourceOptions=0,Transaction=0,TxOptions=0,UpdateOptions=0,UpdateTransaction=0,BevelEdges=0,DataSource=0,FocusControl=0,Touch=0,GlassFrame=0,HorzScrollBar=0,ActiveControl=0,DefaultTransaction=0,TraceFlags=0,Padding=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -301,8 +301,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1468
-Top=-137
+Left=-8
+Top=-8
 Width=2844
 Height=6202
 MaxLeft=-1
@@ -545,7 +545,7 @@ Visible=0
 Docked=1
 State=0
 Left=-8
-Top=-137
+Top=-8
 Width=1849
 Height=3144
 MaxLeft=-1
@@ -788,11 +788,11 @@ State=0
 Left=0
 Top=523
 Width=2000
-Height=4202
+Height=2577
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=4202
+ClientHeight=2577
 TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1

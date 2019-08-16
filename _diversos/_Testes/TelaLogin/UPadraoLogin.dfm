@@ -70,7 +70,7 @@ object FrmPadraoLogin: TFrmPadraoLogin
     Flat = True
     OnClick = FormFechar
   end
-  object Label1: TLabel
+  object lblSystemName: TLabel
     Left = 196
     Top = 67
     Width = 174

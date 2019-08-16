@@ -66,6 +66,7 @@ type
     fdQryTabelaCFOP_GERAR_DUPLICATA: TSmallintField;
     fdQryTabelaCFOP_ALTERA_ESTOQUE_PRODUTO: TSmallintField;
     dbAlteraEstoqueEntradaSaida: TDBCheckBox;
+    lblInformeRemessa: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -140,6 +141,8 @@ begin
   CampoOrdenacao := 'c.CFOP_COD';
 
   CarregarLista(CdsCST);
+
+  lblInformeRemessa.Visible := (gSistema.Codigo = SISTEMA_GESTAO_OPME);
 end;
 
 procedure TfrmGeTabelaCFOP.IbDtstTabelaNewRecord(DataSet: TDataSet);

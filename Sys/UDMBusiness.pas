@@ -235,6 +235,8 @@ var
   procedure SetTipoDespesaPadrao;
   procedure SetTipoReceitaPadrao;
   procedure SetTipoProduto(const iCodigo : Integer; const sDescricao : String);
+  procedure SetAtualizarSaldoContasAPagar(const aEmpresa : String);
+  procedure SetAtualizarSaldoContasAReceber(const aEmpresa : String);
   procedure SetTiposProdutos;
 
   procedure CarregarListaDB(const pDataSet : TDataSet);
@@ -2064,6 +2066,150 @@ begin
       SQL.Add('    );');
       SQL.Add('  end');
       SQL.Add('end');  //SQL.SaveToFile('_SYS_TIPO_PRODUTO.sql');
+      ExecSQL;
+
+      CommitTransaction;
+    end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure SetAtualizarSaldoContasAPagar(const aEmpresa : String);
+begin
+  Screen.Cursor := crSQLWait;
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('');
+      SQL.Add('execute block');
+      SQL.Add('as');
+      SQL.Add('  declare variable emp DMN_CNPJ;');
+      SQL.Add('  declare variable ano Smallint;');
+      SQL.Add('  declare variable num Integer;');
+      SQL.Add('  declare variable valor_apagar numeric(15,2);');
+      SQL.Add('  declare variable valor_pago   numeric(15,2);');
+      SQL.Add('  declare variable valor_saldo  numeric(15,2);');
+      SQL.Add('begin');
+      SQL.Add('  emp = ' + QuotedStr(aEmpresa) + ';');
+      SQL.Add('');
+      SQL.Add('  for');
+      SQL.Add('    Select');
+      SQL.Add('        c.anolanc');
+      SQL.Add('      , c.numlanc');
+      SQL.Add('      , c.valorpag');
+      SQL.Add('      , b.valor_pago');
+      SQL.Add('    from TBCONTPAG c');
+      SQL.Add('      left join (');
+      SQL.Add('        Select       ');
+      SQL.Add('            x.anolanc');
+      SQL.Add('          , x.numlanc');
+      SQL.Add('          , sum(y.valor_baixa)  as valor_pago');
+      SQL.Add('        from TBCONTPAG x');
+      SQL.Add('          inner join TBCONTPAG_BAIXA y on (y.anolanc = x.anolanc and y.numlanc = x.numlanc)');
+      SQL.Add('        where (x.empresa = :emp)');
+      SQL.Add('          and (x.quitado = 0)');
+      SQL.Add('        group by');
+      SQL.Add('            x.anolanc');
+      SQL.Add('          , x.numlanc');
+      SQL.Add('      ) b on (b.anolanc = c.anolanc and b.numlanc = c.numlanc)');
+      SQL.Add('    ');
+      SQL.Add('    where (coalesce(c.valorpag, 0.0) - coalesce(b.valor_pago, 0.0)) <> coalesce(c.valorsaldo, 0.0)');
+      SQL.Add('      and (c.empresa = :emp)');
+      SQL.Add('      and (c.quitado = 0)');
+      SQL.Add('    ');
+      SQL.Add('    Into');
+      SQL.Add('        ano');
+      SQL.Add('      , num');
+      SQL.Add('      , valor_apagar');
+      SQL.Add('      , valor_pago');
+      SQL.Add('  do');
+      SQL.Add('  begin');
+      SQL.Add('    valor_saldo = coalesce(:valor_apagar, 0.0) - coalesce(:valor_pago, 0.0);');
+      SQL.Add('    if (:valor_saldo > 0.0) then');
+      SQL.Add('    begin');
+      SQL.Add('      Update TBCONTPAG c Set');
+      SQL.Add('          c.valorpagtot = :valor_pago');
+      SQL.Add('        , c.valorsaldo  = :valor_saldo');
+      SQL.Add('      where (c.anolanc  = :ano)');
+      SQL.Add('        and (c.numlanc  = :num);');
+      SQL.Add('    end');
+      SQL.Add('  end');
+      SQL.Add('end');
+      ExecSQL;
+
+      CommitTransaction;
+    end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure SetAtualizarSaldoContasAReceber(const aEmpresa : String);
+begin
+  Screen.Cursor := crSQLWait;
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('');
+      SQL.Add('execute block');
+      SQL.Add('as');
+      SQL.Add('  declare variable emp DMN_CNPJ;');
+      SQL.Add('  declare variable ano Smallint;');
+      SQL.Add('  declare variable num Integer;');
+      SQL.Add('  declare variable valor_areceber numeric(15,2);');
+      SQL.Add('  declare variable valor_recebido numeric(15,2);');
+      SQL.Add('  declare variable valor_saldo    numeric(15,2);');
+      SQL.Add('begin');
+      SQL.Add('  emp = ' + QuotedStr(aEmpresa) + ';');
+      SQL.Add('');
+      SQL.Add('  for');
+      SQL.Add('    Select');
+      SQL.Add('        c.anolanc');
+      SQL.Add('      , c.numlanc');
+      SQL.Add('      , c.valorrec');
+      SQL.Add('      , b.valor_recebido');
+      SQL.Add('    from TBCONTREC c');
+      SQL.Add('      left join (');
+      SQL.Add('        Select');
+      SQL.Add('            x.anolanc');
+      SQL.Add('          , x.numlanc');
+      SQL.Add('          , sum(y.valor_baixa)  as valor_recebido');
+      SQL.Add('        from TBCONTREC x');
+      SQL.Add('          inner join TBCONTREC_BAIXA y on (y.anolanc = x.anolanc and y.numlanc = x.numlanc)');
+      SQL.Add('        where (x.empresa = :emp)');
+      SQL.Add('          and (x.baixado = 0)');
+      SQL.Add('        group by');
+      SQL.Add('            x.anolanc');
+      SQL.Add('          , x.numlanc');
+      SQL.Add('      ) b on (b.anolanc = c.anolanc and b.numlanc = c.numlanc)');
+      SQL.Add('    ');
+      SQL.Add('    where (coalesce(c.valorrec, 0.0) - coalesce(b.valor_recebido, 0.0)) <> coalesce(c.valorsaldo, 0.0)');
+      SQL.Add('      and (c.empresa = :emp)');
+      SQL.Add('      and (c.baixado = 0)');
+      SQL.Add('    ');
+      SQL.Add('    Into');
+      SQL.Add('        ano');
+      SQL.Add('      , num');
+      SQL.Add('      , valor_areceber');
+      SQL.Add('      , valor_recebido');
+      SQL.Add('  do');
+      SQL.Add('  begin');
+      SQL.Add('    valor_saldo = coalesce(:valor_areceber, 0.0) - coalesce(:valor_recebido, 0.0);');
+      SQL.Add('    if (:valor_saldo > 0.0) then');
+      SQL.Add('    begin');
+      SQL.Add('      Update TBCONTREC c Set');
+      SQL.Add('          c.valorrectot = :valor_recebido');
+      SQL.Add('        , c.valorsaldo  = :valor_saldo');
+      SQL.Add('      where (c.anolanc  = :ano)');
+      SQL.Add('        and (c.numlanc  = :num);');
+      SQL.Add('    end');
+      SQL.Add('  end');
+      SQL.Add('end');
       ExecSQL;
 
       CommitTransaction;

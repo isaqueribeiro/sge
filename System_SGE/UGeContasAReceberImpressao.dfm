@@ -1355,7 +1355,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
-            ' ** Valores de t'#237'trulos cancelados')
+            ' ** Valores de t'#237'tulos cancelados')
           ParentFont = False
           WordWrap = False
         end
@@ -4108,7 +4108,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
-            ' ** Valores de t'#237'trulos cancelados')
+            ' ** Valores de t'#237'tulos cancelados')
           ParentFont = False
           WordWrap = False
         end
@@ -6778,7 +6778,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
-            ' ** Valores de t'#237'trulos cancelados')
+            ' ** Valores de t'#237'tulos cancelados')
           ParentFont = False
           WordWrap = False
         end
@@ -11898,7 +11898,7 @@ inherited frmGeContasAReceberImpressao: TfrmGeContasAReceberImpressao
           Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
-            ' ** Valores de t'#237'trulos cancelados')
+            ' ** Valores de t'#237'tulos cancelados')
           ParentFont = False
           WordWrap = False
         end

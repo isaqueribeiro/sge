@@ -18,7 +18,7 @@ type
     lblCopyright: TLabel;
     lblVersion: TLabel;
     btnFechar: TSpeedButton;
-    Label1: TLabel;
+    lblSystemName: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormFechar(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -29,12 +29,14 @@ type
     aCirculoB ,
     aCirculoC ,
     aLinhaA   : TShape;
+    aCirculoSolido,
     aTamanhoPadrao,
     aCriarMoldura : Boolean;
     procedure DesenharFormas;
     procedure DefinirLabels;
   public
     { Public declarations }
+    property CirculoSolido : Boolean read aCirculoSolido write aCirculoSolido;
     property TamanhoPadrao : Boolean read aTamanhoPadrao write aTamanhoPadrao;
     property CriarMoldura  : Boolean read aCriarMoldura write aCriarMoldura;
   end;
@@ -91,6 +93,12 @@ begin
     Height := 1;
     Brush.Style := TBrushStyle.bsClear;
     Pen.Color   := $009DDB85;
+
+    if aCirculoSolido then
+    begin
+      Brush.Style := TBrushStyle.bsSolid;
+      Brush.Color := Pen.Color;
+    end;
   end;
 
   aLeft := aCirculoA.Left;
@@ -136,6 +144,12 @@ begin
     Top    := Self.Height - Round(Height / 2);
     Brush.Style := TBrushStyle.bsClear;
     Pen.Color   := $004FC143;
+
+    if aCirculoSolido then
+    begin
+      Brush.Style := TBrushStyle.bsSolid;
+      Brush.Color := Pen.Color;
+    end;
   end;
 
   aLeft := aCirculoB.Left;
@@ -165,7 +179,7 @@ begin
     end;
   end;
 
-  // Desenhado Grupo B de Círculos
+  // Desenhado Grupo C de Círculos
   aCirculoC := TShape.Create(Self);
   aCirculoC.Name   := 'aCirculoC';
   aCirculoC.Shape  := TShapeType.stCircle;
@@ -179,6 +193,12 @@ begin
     Top    := Round(Self.Height / 2);
     Brush.Style := TBrushStyle.bsClear;
     Pen.Color   := $000E4C28;
+
+    if aCirculoSolido then
+    begin
+      Brush.Style := TBrushStyle.bsSolid;
+      Brush.Color := Pen.Color;
+    end;
   end;
 
   aLeft := aCirculoC.Left;
