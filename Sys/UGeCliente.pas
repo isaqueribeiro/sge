@@ -412,7 +412,7 @@ var
   function SelecionarCliente(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean; overload;
   function SelecionarCliente(const AOwner : TComponent; var Codigo : Integer; var CNPJ, Nome : String; const PossueEstoque : Boolean) : Boolean; overload;
   function SelecionarCliente(const AOwner : TComponent; var Codigo : Integer; var CNPJ, Nome : String) : Boolean; overload;
-  function SelecionarCliente(const AOwner : TComponent; var Codigo : Integer; var CNPJ, Nome : String; var Bloqueado : Boolean; var MotivoBloqueio : String) : Boolean; overload;
+  function SelecionarCliente(const AOwner : TComponent; var Codigo : Integer; var CNPJ, InscEstudual, Nome : String; var Bloqueado : Boolean; var MotivoBloqueio : String) : Boolean; overload;
 
   function SelecionarProdutoCliente(const AOwner : TComponent; iCodigo : Integer; var sCodigo, sDescricao : String; var iEstoque : Integer;
     var cValorMedio : Currency) : Boolean;
@@ -481,7 +481,9 @@ begin
   end;
 end;
 
-function SelecionarCliente(const AOwner : TComponent; var Codigo : Integer; var CNPJ, Nome : String; var Bloqueado : Boolean; var MotivoBloqueio : String) : Boolean;
+function SelecionarCliente(const AOwner : TComponent; var Codigo : Integer;
+  var CNPJ, InscEstudual, Nome : String;
+  var Bloqueado : Boolean; var MotivoBloqueio : String) : Boolean;
 var
   frm : TfrmGeCliente;
 begin
@@ -492,6 +494,7 @@ begin
     begin
       CNPJ      := frm.DtSrcTabela.DataSet.FieldByName('CNPJ').AsString;
       Bloqueado := (frm.DtSrcTabela.DataSet.FieldByName('BLOQUEADO').AsInteger = 1);
+      InscEstudual := Trim(frm.DtSrcTabela.DataSet.FieldByName('INSCEST').AsString);
 
       if Bloqueado then
         MotivoBloqueio := frm.DtSrcTabela.DataSet.FieldByName('BLOQUEADO_MOTIVO').AsString

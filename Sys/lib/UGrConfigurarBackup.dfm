@@ -287,12 +287,13 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
     Left = 64
     Top = 152
   end
-  object FDFBNBackup: TFDFBNBackup
-    OnError = FDFBNBackupError
+  object FDIBBackup: TFDIBBackup
+    OnError = FDIBBackupError
     DriverLink = DMBusiness.fdFBDriverLink
     Protocol = ipTCPIP
-    OnProgress = FDFBNBackupProgress
-    Left = 64
-    Top = 200
+    OnProgress = FDIBBackupProgress
+    Options = [boNoGarbageCollect]
+    Left = 67
+    Top = 202
   end
 end

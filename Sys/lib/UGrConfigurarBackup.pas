@@ -8,8 +8,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Vcl.Menus, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, cxControls,
-  IB_Services, cxPC, dxBarBuiltInMenu, cxContainer, cxEdit, cxTextEdit, cxMemo,
-  Vcl.Mask, JvExMask, JvToolEdit,
+  cxPC, dxBarBuiltInMenu, cxContainer, cxEdit, cxTextEdit, cxMemo,
+  Vcl.Mask, JvExMask, JvToolEdit, IB_Services,
 
   FireDAC.Stan.Def, FireDAC.VCLUI.Wait, FireDAC.Phys.IBWrapper, FireDAC.Stan.Intf,
   FireDAC.Phys, FireDAC.Phys.IBBase, FireDAC.Phys.FB,
@@ -37,13 +37,13 @@ type
     edLocalZip7: TJvDirectoryEdit;
     lblLocalNuvem: TLabel;
     edLocalNuvem: TJvDirectoryEdit;
-    FDFBNBackup: TFDFBNBackup;
+    FDIBBackup: TFDIBBackup;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure bkpBaseTextNotify(Sender: TObject; const Text: string);
     procedure btnSalvarClick(Sender: TObject);
-    procedure FDFBNBackupError(ASender, AInitiator: TObject; var AException: Exception);
-    procedure FDFBNBackupProgress(ASender: TFDPhysDriverService; const AMessage: string);
+    procedure FDIBBackupError(ASender, AInitiator: TObject; var AException: Exception);
+    procedure FDIBBackupProgress(ASender: TFDPhysDriverService; const AMessage: string);
   private
     { Private declarations }
     procedure ExecutarBackup;
@@ -206,35 +206,36 @@ begin
   except
 
     // Backup com FireDAC
-    with FDFBNBackup, DMBusiness do
+    with FDIBBackup, DMBusiness do
     begin
       DriverLink := fdFBDriverLink;
       Protocol   := TIBProtocol.ipTCPIP;
-      Level      := 0; // Backup FULL
+      Verbose    := True;
 
       Host     := NomeServidor;
       Database := NomeBase;
       UserName := SYS_SYSDBA_LOGIN;
       Password := SYS_SYSDBA_PWD;
 
-      BackupFile := edLocalBackup.Hint;
+      BackupFiles.Clear;
+      BackupFiles.Add(edLocalBackup.Hint);
 
       try
         mmVerbose.Lines.Add(GetTime + ' - ' + Self.Caption);
 
         Backup;
 
-        mmVerbose.Lines.Add(GetTime + ' - gbak:closing file, committing, and finishing');
-        mmVerbose.Lines.Add(GetTime + ' - Backup finalização com conexão FireDAC');
+        mmVerbose.Lines.Add(GetTime + ' - Backup realizado com conexão FireDAC');
       finally
         Self.Close;
       end;
 
     end;
+
   end;
 end;
 
-procedure TfrmGrConfigurarBackup.FDFBNBackupError(ASender, AInitiator: TObject; var AException: Exception);
+procedure TfrmGrConfigurarBackup.FDIBBackupError(ASender, AInitiator: TObject; var AException: Exception);
 begin
   if Trim(AException.Message) <> EmptyStr then
     mmVerbose.Lines.Add( GetTime + ' - ' + Trim(AException.Message) );
@@ -242,7 +243,7 @@ begin
   Application.ProcessMessages;
 end;
 
-procedure TfrmGrConfigurarBackup.FDFBNBackupProgress(ASender: TFDPhysDriverService; const AMessage: string);
+procedure TfrmGrConfigurarBackup.FDIBBackupProgress(ASender: TFDPhysDriverService; const AMessage: string);
 begin
   if Trim(AMessage) <> EmptyStr then
     mmVerbose.Lines.Add( GetTime + ' - ' + Trim(AMessage) );

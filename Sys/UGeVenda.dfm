@@ -4140,7 +4140,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00D40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00D80110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5672,6 +5672,8 @@ inherited frmGeVenda: TfrmGeVenda
       '  , c.Nome'
       '  , c.Bloqueado'
       '  , c.Bloqueado_motivo'
+      '  , c.pessoa_fisica'
+      '  , c.inscest'
       '  , Case when coalesce(v.totalcusto, 0) > 0'
       
         '      then ((v.totalvenda / coalesce(v.totalcusto, 0)) - 1) * 10' +
@@ -6049,6 +6051,18 @@ inherited frmGeVenda: TfrmGeVenda
       ProviderFlags = []
       BlobType = ftMemo
     end
+    object fdQryTabelaPESSOA_FISICA: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'PESSOA_FISICA'
+      Origin = 'PESSOA_FISICA'
+      ProviderFlags = []
+    end
+    object fdQryTabelaINSCEST: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'INSCEST'
+      Origin = 'INSCEST'
+      ProviderFlags = []
+    end
     object fdQryTabelaLUCRO_CALCULADO: TBCDField
       AutoGenerateValue = arDefault
       DisplayLabel = '% Lucro'
@@ -6256,6 +6270,8 @@ inherited frmGeVenda: TfrmGeVenda
       '  , c.Nome'
       '  , c.Bloqueado'
       '  , c.Bloqueado_motivo'
+      '  , c.pessoa_fisica'
+      '  , c.inscest'
       '  , Case when coalesce(v.totalcusto, 0) > 0'
       
         '      then ((v.totalvenda / coalesce(v.totalcusto, 0)) - 1) * 10' +
@@ -6883,7 +6899,6 @@ inherited frmGeVenda: TfrmGeVenda
     Top = 416
   end
   object cdsFormaPagto: TClientDataSet
-    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dtpFormaPagto'
@@ -6896,7 +6911,6 @@ inherited frmGeVenda: TfrmGeVenda
     Top = 448
   end
   object cdsCondicaoPagto: TClientDataSet
-    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dtpCondicaoPagto'

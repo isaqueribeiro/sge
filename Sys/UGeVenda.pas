@@ -425,6 +425,8 @@ type
     qryNFENUMVENDA: TIntegerField;
     qryNFEANOCOMPRA: TSmallintField;
     qryNFENUMCOMPRA: TIntegerField;
+    fdQryTabelaPESSOA_FISICA: TSmallintField;
+    fdQryTabelaINSCEST: TStringField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -519,6 +521,7 @@ type
     procedure RecarregarRegistro;
     procedure GravarEmailCliente(iCliente : Integer; sEmail : String);
     procedure ControleCampoLote;
+    procedure DefinirCSTNaoTributada;
 
     //function ValidarQuantidade(Codigo : Integer; Quantidade : Integer) : Boolean;
     function PossuiTitulosPagos(AnoVenda : Smallint; NumVenda : Integer) : Boolean;
@@ -652,7 +655,7 @@ begin
 //  fdQryTabela.UpdateOptions.GeneratorName := sGeneratorName;
 
   inherited;
-  
+
   SQL_Itens := TStringList.Create;
   SQL_Itens.Clear;
   SQL_Itens.AddStrings( cdsTabelaItens.SQL );
@@ -774,12 +777,13 @@ procedure TfrmGeVenda.dbClienteButtonClick(Sender: TObject);
 var
   iCodigo : Integer;
   sCNPJ ,
+  sInscE,
   sNome : String;
   bBloqueado : Boolean;
   sBloqueado : String;
 begin
   if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarCliente(Self, iCodigo, sCNPJ, sNome, bBloqueado, sBloqueado) ) then
+    if ( SelecionarCliente(Self, iCodigo, sCNPJ, sInscE, sNome, bBloqueado, sBloqueado) ) then
     begin
       if bBloqueado then
       begin
@@ -794,9 +798,11 @@ begin
         DtSrcTabela.DataSet.FieldByName('BLOQUEADO_MOTIVO').AsString := EmptyStr;
       end;
 
-      DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger := iCodigo;
-      DtSrcTabela.DataSet.FieldByName('CODCLI').AsString := sCNPJ;
-      DtSrcTabela.DataSet.FieldByName('NOME').AsString   := sNome;
+      DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger    := iCodigo;
+      DtSrcTabela.DataSet.FieldByName('CODCLI').AsString         := sCNPJ;
+      DtSrcTabela.DataSet.FieldByName('NOME').AsString           := sNome;
+      DtSrcTabela.DataSet.FieldByName('PESSOA_FISICA').AsInteger := IfThen(StrIsCPF(sCNPJ), 1, 0);
+      DtSrcTabela.DataSet.FieldByName('INSCEST').AsString        := sInscE;
 
       DtSrcTabela.DataSet.FieldByName('DADOS_ENTREGA').AsString :=
         '* Responsável pela entrega..............: ' + #13 +
@@ -896,9 +902,11 @@ begin
   DtSrcTabela.DataSet.FieldByName('USUARIO').AsString := gUsuarioLogado.Login;
   DtSrcTabela.DataSet.FieldByName('OBS').AsString     := DMNFe.GetInformacaoComplementar(gUsuarioLogado.Empresa);
 
-  DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger := CONSUMIDOR_FINAL_CODIGO;
-  DtSrcTabela.DataSet.FieldByName('CODCLI').AsString      := CONSUMIDOR_FINAL_CNPJ;
-  DtSrcTabela.DataSet.FieldByName('NOME').AsString        := GetClienteNome( CONSUMIDOR_FINAL_CODIGO );
+  DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger    := CONSUMIDOR_FINAL_CODIGO;
+  DtSrcTabela.DataSet.FieldByName('CODCLI').AsString         := CONSUMIDOR_FINAL_CNPJ;
+  DtSrcTabela.DataSet.FieldByName('NOME').AsString           := GetClienteNome( CONSUMIDOR_FINAL_CODIGO );
+  DtSrcTabela.DataSet.FieldByName('PESSOA_FISICA').AsInteger := 1;
+  DtSrcTabela.DataSet.FieldByName('INSCEST').AsString        := 'ISENTO';
 
   if ( gUsuarioLogado.Vendedor = 0 ) then
     DtSrcTabela.DataSet.FieldByName('VENDEDOR_COD').AsInteger := GetVendedorIDDefault
@@ -945,6 +953,30 @@ begin
     else
       Text := Sender.AsString;
   end;
+end;
+
+procedure TfrmGeVenda.DefinirCSTNaoTributada;
+var
+  aPessoaFisica    ,
+  aInscricaoIsenta : Boolean;
+begin
+  with DtSrcTabela.DataSet do
+  begin
+    aPessoaFisica    := (FieldByName('PESSOA_FISICA').AsInteger = 1);
+    aInscricaoIsenta := (Trim(FieldByName('INSCEST').AsString) = EmptyStr)
+      or (AnsiUpperCase(Trim(FieldByName('INSCEST').AsString)) = 'ISENTO')
+      or (AnsiUpperCase(Trim(FieldByName('INSCEST').AsString)) = 'ISENTA');
+  end;
+
+  with cdsTabelaItens do
+    if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+    begin
+      if aPessoaFisica or aInscricaoIsenta then
+      begin
+        cdsTabelaItensCSOSN.AsString := TRIBUTO_NAO_TRIBUTADA_SN;
+        cdsTabelaItensCST.AsString   := TRIBUTO_TRIBUTADA_ISENTA;
+      end;
+    end;
 end;
 
 procedure TfrmGeVenda.DtSrcTabelaItensStateChange(Sender: TObject);
@@ -1100,6 +1132,8 @@ begin
 
         dbDesconto.ReadOnly      := (cdsTabelaItensPUNIT_PROMOCAO.AsCurrency > 0);
         dbTotalDesconto.ReadOnly := (cdsTabelaItensPUNIT_PROMOCAO.AsCurrency > 0);
+
+        DefinirCSTNaoTributada;
 
         ControleCampoLote;
         CarregarLotes(
@@ -1821,6 +1855,8 @@ begin
 
       dbDesconto.ReadOnly      := (aProduto.aValorPromocao > 0);
       dbTotalDesconto.ReadOnly := (aProduto.aValorPromocao > 0);
+
+      DefinirCSTNaoTributada;
 
       ControleCampoLote;
       CarregarLotes(
