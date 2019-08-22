@@ -165,8 +165,8 @@ type
     lblPercRedBC: TLabel;
     dbPercRedBC: TDBEdit;
     ppImprimir: TPopupMenu;
-    nmImprimirVenda: TMenuItem;
-    N1: TMenuItem;
+    nmImprimirEspelho: TMenuItem;
+    dvImprimirEspelho: TMenuItem;
     nmImprimirDANFE: TMenuItem;
     nmGerarDANFEXML: TMenuItem;
     lblAutorizacao: TLabel;
@@ -443,6 +443,7 @@ type
     procedure qryDuplicatasCalcFields(DataSet: TDataSet);
     procedure btnTituloEditarClick(Sender: TObject);
     procedure dbSerieKeyPress(Sender: TObject; var Key: Char);
+    procedure nmImprimirEspelhoClick(Sender: TObject);
   private
     { Private declarations }
     FEmpresa : String;
@@ -451,6 +452,7 @@ type
     SQL_Itens   ,
     SQL_Duplicatas : TStringList;
     FValorTotalProduto : Currency;
+    procedure CarregarDadosEmpresa(const pEmpresa, pTituloRelatorio : String);
     procedure AbrirTabelaItens(const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure AbrirTabelaLotes(const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure AbrirTabelaDuplicatas(const AnoCompra : Smallint; const ControleCompra : Integer);
@@ -1904,6 +1906,15 @@ begin
   end;
 end;
 
+procedure TfrmGeEntradaEstoque.CarregarDadosEmpresa(const pEmpresa, pTituloRelatorio: String);
+begin
+  try
+    DMNFe.AbrirEmitente(pEmpresa);
+    DMBusiness.ConfigurarEmail(pEmpresa, EmptyStr, pTituloRelatorio, EmptyStr);
+  except
+  end;
+end;
+
 procedure TfrmGeEntradaEstoque.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
@@ -2305,6 +2316,22 @@ begin
   end;
 end;
 
+procedure TfrmGeEntradaEstoque.nmImprimirEspelhoClick(Sender: TObject);
+begin
+  with DtSrcTabela.DataSet, DMNFe do
+  begin
+    if ( IsEmpty ) then
+      Exit;
+
+    CarregarDadosEmpresa(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, 'Espelho do Documento de Entrada');
+    AbrirEmitente( FieldByName('CODEMP').AsString );
+    AbrirDestinatarioFornecedor( FieldByName('CODFORN').AsInteger );
+    AbrirCompra( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+
+    frrEntradaEspelho.ShowReport;
+  end;
+end;
+
 procedure TfrmGeEntradaEstoque.nmGerarDANFEXMLClick(Sender: TObject);
 var
   isPDF : Boolean;
@@ -2452,6 +2479,9 @@ end;
 procedure TfrmGeEntradaEstoque.FormShow(Sender: TObject);
 begin
   inherited;
+  nmImprimirEspelho.Visible := (FTipoMovimento = tmeProduto);
+  dvImprimirEspelho.Visible := (FTipoMovimento = tmeProduto);
+
   btbtnGerarNFe.Visible := btbtnGerarNFe.Visible and (FTipoMovimento = tmeProduto);
 
   if ( FTipoMovimento = TTipoMovimentoEntrada.tmeServico ) then

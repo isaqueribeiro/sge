@@ -4185,7 +4185,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     Left = 928
     Top = 40
     Bitmap = {
-      494C01012B002C00080110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00100110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5648,7 +5648,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     BeforeCancel = fdQryTabelaBeforeCancel
     AfterCancel = fdQryTabelaAfterCancel
     AfterScroll = fdQryTabelaAfterScroll
-    OnNewRecord = fdQryTabelaNewRecord
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
     UpdateOptions.GeneratorName = 'GEN_COMPRAS_CONTROLE_2019'
@@ -6327,13 +6326,12 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
   object ppImprimir: TPopupMenu
     Left = 56
     Top = 384
-    object nmImprimirVenda: TMenuItem
-      Caption = 'Or'#231'amento / Venda'
-      Visible = False
+    object nmImprimirEspelho: TMenuItem
+      Caption = 'Espelho do Documento de Entrada'
+      OnClick = nmImprimirEspelhoClick
     end
-    object N1: TMenuItem
+    object dvImprimirEspelho: TMenuItem
       Caption = '-'
-      Visible = False
     end
     object nmImprimirDANFE: TMenuItem
       Caption = 'Imprimir DANFE'

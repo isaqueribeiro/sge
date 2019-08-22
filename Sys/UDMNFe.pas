@@ -239,7 +239,8 @@ type
     qryRequisicaoCompra: TFDQuery;
     qrySolicitacaoCompra: TFDQuery;
     qryApropriacaoEstoque: TFDQuery;
-    qryRequisicaoAlmox: TFDQuery;    procedure SelecionarCertificado(Sender : TObject);
+    qryRequisicaoAlmox: TFDQuery;
+    frrEntradaEspelho: TfrxReport;    procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure FrECFPoolerGetValue(const VarName: String;
