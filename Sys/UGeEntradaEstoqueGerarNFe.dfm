@@ -1187,16 +1187,6 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
       Precision = 18
       Size = 2
     end
-    object cdsCompraVALOR_TOTAL_IPI: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_TOTAL_IPI'
-      Origin = 'VALOR_TOTAL_IPI'
-      ProviderFlags = []
-      ReadOnly = True
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
     object cdsCompraVALOR_TOTAL_BRUTO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL_BRUTO'
@@ -1276,6 +1266,16 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 9
+    end
+    object cdsCompraVALOR_TOTAL_IPI: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VALOR_TOTAL_IPI'
+      Origin = 'VALOR_TOTAL_IPI'
+      ProviderFlags = []
+      ReadOnly = True
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 5
     end
     object cdsCompraVALOR_TOTAL_PIS: TFMTBCDField
       AutoGenerateValue = arDefault

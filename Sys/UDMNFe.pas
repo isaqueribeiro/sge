@@ -2441,16 +2441,16 @@ begin
       Ide.cMunFG    := qryEmitenteCID_IBGE.AsInteger ;
 
       if (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger = 1) then
-        Ide.finNFe  := fnDevolucao
+        Ide.finNFe := fnDevolucao
       else
-        Ide.finNFe  := fnNormal;
+        Ide.finNFe := fnNormal;
+
+      if ( qryDestinatario.FieldByName('PESSOA_FISICA').AsInteger = 1 ) then
+        Ide.indFinal := cfConsumidorFinal;
 
       aCalcularICMS :=
             (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger  = 1)
         and (qryCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS').AsCurrency > 0.0);
-
-      if ( qryDestinatario.FieldByName('PESSOA_FISICA').AsInteger = 1 ) then
-        Ide.indFinal := cfConsumidorFinal;
 
       if ( Ide.finNFe  = fnDevolucao ) then
         with Ide.NFref.Add, qryCalculoImposto do
@@ -2533,6 +2533,9 @@ begin
         1 : Emit.CRT := crtSimplesExcessoReceita;
         2 : Emit.CRT := crtRegimeNormal;
       end;
+
+      if (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger = 1) and aCalcularICMS then
+        Emit.CRT := crtRegimeNormal;
 
       Emit.EnderEmit.fone    := qryEmitenteFONE.AsString;
       Emit.EnderEmit.CEP     := StrToInt( qryEmitenteCEP.AsString );
@@ -3060,7 +3063,7 @@ begin
             begin
               if (Emit.CRT = crtSimplesNacional) then
               begin
-                CST      := TpcnCstIpi.ipi99 ;
+                CST      := TpcnCstIpi.ipi99; // Outras Saídas
                 clEnq    := '999';
                 CNPJProd := '';
                 cSelo    := '';
@@ -3075,29 +3078,35 @@ begin
               end
               else
               begin
-                CST      := TpcnCstIpi.ipi99 ; // Provisório
+                CST      := TpcnCstIpi.ipi99 ; // Outras Saídas
                 clEnq    := '999';
                 CNPJProd := '';
                 cSelo    := '';
                 qSelo    := 0;
                 cEnq     := '';
 
-                if (CST = TpcnCstIpi.ipi99) then
-                begin
-                  vBC    := 0;
-                  qUnid  := 0;
-                  vUnid  := 0;
-                  pIPI   := 0; // Percentual IPI
-                  vIPI   := 0; // Valor IPI
-                end
-                else
-                begin
-                  vBC    := qryDadosProduto.FieldByName('PFINAL').AsCurrency * Prod.qCom;
-                  qUnid  := Prod.qCom;
-                  vUnid  := qryDadosProduto.FieldByName('PFINAL').AsCurrency;
-                  pIPI   := qryDadosProduto.FieldByName('VALOR_IPI').AsCurrency / IPI.vBC * 100;
-                  vIPI   := IPI.vBC * IPI.pIPI / 100;
-                end;
+//                if (CST = TpcnCstIpi.ipi99) then
+//                begin
+//                  vBC    := 0;
+//                  qUnid  := 0;
+//                  vUnid  := 0;
+//                  pIPI   := 0; // Percentual IPI
+//                  vIPI   := 0; // Valor IPI
+//                end
+//                else
+//                begin
+//                  vBC    := qryDadosProduto.FieldByName('PFINAL').AsCurrency * Prod.qCom;
+//                  qUnid  := Prod.qCom;
+//                  vUnid  := qryDadosProduto.FieldByName('PFINAL').AsCurrency;
+//                  pIPI   := qryDadosProduto.FieldByName('VALOR_IPI').AsCurrency / IPI.vBC * 100;
+//                  vIPI   := IPI.vBC * IPI.pIPI / 100;
+//                end;
+
+                vBC    := qryDadosProduto.FieldByName('PFINAL').AsCurrency * Prod.qCom;
+                qUnid  := Prod.qCom;
+                vUnid  := qryDadosProduto.FieldByName('PFINAL').AsCurrency;
+                pIPI   := (qryDadosProduto.FieldByName('VALOR_IPI').AsCurrency / IPI.vBC) * 100;
+                vIPI   := IPI.vBC * IPI.pIPI / 100;
 
                 cTotal_vIPI := cTotal_vIPI + IPI.vIPI;
               end;
@@ -4102,9 +4111,9 @@ begin
       Ide.cMunFG    := qryEmitenteCID_IBGE.AsInteger ;
 
       if (qryEntradaCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger = 1) then
-        Ide.finNFe  := fnDevolucao
+        Ide.finNFe := fnDevolucao
       else
-        Ide.finNFe  := fnNormal;
+        Ide.finNFe := fnNormal;
 
       if ( qryFornecedorDestinatario.FieldByName('PESSOA_FISICA').AsInteger = 1 ) then
         Ide.indFinal := cfConsumidorFinal;
@@ -4703,7 +4712,7 @@ begin
             begin
               if (Emit.CRT = crtSimplesNacional) then
               begin
-                CST      := TpcnCstIpi.ipi99 ;
+                CST      := TpcnCstIpi.ipi49; // Outras Entradas
                 clEnq    := '999';
                 CNPJProd := '';
                 cSelo    := '';
@@ -4718,29 +4727,35 @@ begin
               end
               else
               begin
-                CST      := TpcnCstIpi.ipi99 ; // Provisório
+                CST      := TpcnCstIpi.ipi49; // Outras Entradas
                 clEnq    := '999';
                 CNPJProd := '';
                 cSelo    := '';
                 qSelo    := 0;
                 cEnq     := '';
 
-                if (CST = TpcnCstIpi.ipi99) then
-                begin
-                  vBC    := 0;
-                  qUnid  := 0;
-                  vUnid  := 0;
-                  pIPI   := 0; // Percentual IPI
-                  vIPI   := 0; // Valor IPI
-                end
-                else
-                begin
-                  vBC    := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency * Prod.qCom;
-                  qUnid  := Prod.qCom;
-                  vUnid  := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency;
-                  pIPI   := qryEntradaDadosProduto.FieldByName('VALOR_IPI').AsCurrency / IPI.vBC * 100;
-                  vIPI   := IPI.vBC * IPI.pIPI / 100;
-                end;
+//                if (CST = TpcnCstIpi.ipi99) then
+//                begin
+//                  vBC    := 0;
+//                  qUnid  := 0;
+//                  vUnid  := 0;
+//                  pIPI   := 0; // Percentual IPI
+//                  vIPI   := 0; // Valor IPI
+//                end
+//                else
+//                begin
+//                  vBC    := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency * Prod.qCom;
+//                  qUnid  := Prod.qCom;
+//                  vUnid  := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency;
+//                  pIPI   := qryEntradaDadosProduto.FieldByName('VALOR_IPI').AsCurrency / IPI.vBC * 100;
+//                  vIPI   := IPI.vBC * IPI.pIPI / 100;
+//                end;
+
+                vBC    := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency * Prod.qCom;
+                qUnid  := Prod.qCom;
+                vUnid  := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency;
+                pIPI   := (qryEntradaDadosProduto.FieldByName('VALOR_IPI').AsCurrency / IPI.vBC) * 100;
+                vIPI   := IPI.vBC * IPI.pIPI / 100;
 
                 cTotal_vIPI := cTotal_vIPI + IPI.vIPI;
               end;

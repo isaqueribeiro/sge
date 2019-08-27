@@ -98,7 +98,6 @@ type
     cdsCompraVALORCOFINS: TBCDField;
     cdsCompraOUTROSCUSTOS: TBCDField;
     cdsCompraTOTALNF: TBCDField;
-    cdsCompraVALOR_TOTAL_IPI: TBCDField;
     cdsCompraVALOR_TOTAL_BRUTO: TFMTBCDField;
     cdsCompraVALOR_TOTAL_DESCONTO: TBCDField;
     cdsCompraVALOR_TOTAL_LIQUIDO: TFMTBCDField;
@@ -109,6 +108,7 @@ type
     cdsCompraVALOR_TOTAL_ICMS_NORMAL_DEVIDO: TFMTBCDField;
     cdsCompraVALOR_TOTAL_PIS: TFMTBCDField;
     cdsCompraVALOR_TOTAL_COFINS: TFMTBCDField;
+    cdsCompraVALOR_TOTAL_IPI: TFMTBCDField;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -166,6 +166,8 @@ begin
       cdsCompra.ParamByName('anoCompra').AsInteger := Ano;
       cdsCompra.ParamByName('numCompra').AsInteger := Numero;
       cdsCompra.Open;
+
+      chkNaoInformarVencimento.Checked := not GetCfopGerarDuplicata(cdsCompra.FieldByName('NFCFOP').AsInteger);
 
       if ( not cdsCompra.IsEmpty ) then
       begin
