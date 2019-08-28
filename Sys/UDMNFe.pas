@@ -2340,9 +2340,18 @@ var
   sInformacaoFisco  : String;
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
-  PorCodigoExterno,
-  aCalcularICMS   : Boolean;
+  PorCodigoExterno ,
+  aCalcularICMS    : Boolean;
+
+  // Base para implementar soluções para a
+  // Rejeição 694: Não informado o grupo de ICMS para a UF de destino
+  aSimplesNacional ,
+  aInterestadual   ,
+  aConsumidorFinal ,
+  aNaoContribuinte : Boolean;
+
   aParcela : Integer;
+
   // Totalizar Valores
   cTotal_vIPI          ,
   cTotal_ICMSTot_vBC   ,
@@ -2619,6 +2628,13 @@ begin
         Entrega.cMun    := 0;
         Entrega.xMun    := '';
         Entrega.UF      := '';}
+
+      // Validações para tratar a rejeição 694: Não informado o grupo de ICMS para a UF de destino
+
+      aSimplesNacional := (Emit.CRT = TpcnCRT.crtRegimeNormal);
+      aInterestadual   := (Ide.idDest = TpcnDestinoOperacao.doInterestadual);
+      aConsumidorFinal := (Ide.indFinal = TpcnConsumidorFinal.cfConsumidorFinal);
+      aNaoContribuinte := (Dest.indIEDest = TpcnindIEDest.inIsento);
 
       // Adicionando Produtos
 
@@ -2983,6 +2999,20 @@ begin
               ICMS.vICMSST := 0;
             end;
 
+            if ( (not aSimplesNacional) and aInterestadual and aConsumidorFinal and aNaoContribuinte ) then
+              with ICMSUFDest do
+              begin
+                vBCUFDest      := 0.0; // Valor da Base de Cálculo da UF de Destino
+                vBCFCPUFDest   := 0.0; // Valor da Base de Cálculo do Fundo de Combate à Pobreza na UF de Destino
+                pFCPUFDest     := 0.0; // Alíquota do Fundo de Combate à Pobreza na UF de Destino
+                pICMSUFDest    := 0.0; // Alíquota do ICMS da UF de Destino
+                pICMSInter     := 0.0; // Alíquota do ICMS Interestadual
+                pICMSInterPart := 0.0; // Alíquota do ICMS Interestadual de Partilha
+                vFCPUFDest     := 0.0; // Valor do Fundo de Combate à Pobreza na UF de Destino
+                vICMSUFDest    := 0.0; // Valor do ICMS na UF de Destino
+                vICMSUFRemet   := 0.0; // Valor do ICMS da UF do Remetente
+              end;
+
             with PIS do
             begin
               if (Emit.CRT = crtSimplesNacional) then
@@ -3195,6 +3225,13 @@ begin
       Total.ICMSTot.vCOFINS  := qryCalculoImposto.FieldByName('NFE_VALOR_COFINS').AsCurrency;
       Total.ICMSTot.vOutro   := qryCalculoImposto.FieldByName('NFE_VALOR_OUTROS').AsCurrency;
       Total.ICMSTot.vNF      := qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency;
+
+      if ( (not aSimplesNacional) and aInterestadual and aConsumidorFinal and aNaoContribuinte ) then
+      begin
+        Total.ICMSTot.vFCPUFDest   := 0.0; // Valor do Fundo de Combate à Pobreza na UF de Destino
+        Total.ICMSTot.vICMSUFDest  := 0.0; // Valor do ICMS da UF de Destino
+        Total.ICMSTot.vICMSUFRemet := 0.0; // Valor do ICMS da UF do Remetente
+      end;
 
       if ( vTotalTributoAprox > 0.0 ) then
         Total.ICMSTot.vTotTrib := vTotalTributoAprox;
@@ -4019,7 +4056,9 @@ var
   cPercentualTributoAprox,
   vTotalTributoAprox     : Currency;
   PorCodigoExterno : Boolean;
+
   aParcela : Integer;
+
   // Totalizar Valores
   cTotal_vIPI          ,
   cTotal_ICMSTot_vBC   ,
@@ -4276,7 +4315,7 @@ begin
         Entrega.xMun    := '';
         Entrega.UF      := '';}
 
-  //Adicionando Produtos
+      // Adicionando Produtos
 
       PorCodigoExterno     := GetImprimirCodigoExternoProdutoNFe(sCNPJEmitente);
       vTotalTributoAprox   := 0.0;
@@ -4760,7 +4799,6 @@ begin
                 cTotal_vIPI := cTotal_vIPI + IPI.vIPI;
               end;
             end;
-
 
   {
               with II do
