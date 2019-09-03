@@ -16,6 +16,7 @@ uses
   ACBrUtil,
   ACBrECFVirtualBuffer,
   ACBrPosPrinter,
+  ACBrDelphiZXingQRCode,
   pcnConversao,
   pcnNFeW,
   pcnNFeRTXT,
@@ -1076,7 +1077,7 @@ begin
       ACBrNFe.Configuracoes.Geral.CSC            := edToken.Text;
 
       ACBrNFe.Configuracoes.Geral.ModeloDF := moNFe;
-      ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF(cbVersaoDF.ItemIndex); // ve310;
+      ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF.ve400; // TpcnVersaoDF(cbVersaoDF.ItemIndex);
       //ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := False;
 
       if ( tipoDANFE = tipoDANFEFast ) then
@@ -7714,11 +7715,11 @@ end;
 procedure TDMNFe.GerarArquivoQrCode(const FileNameQrCode, StringQrCode : String;
   const tamanhoQrCode : TTamanhoQrCode);
 var
-  fr : TACBrNFeFRClass;
+//  fr : TACBrNFeFRClass;
   pc : TImage; // TPicture;
   iTamQrCode : Integer;
 begin
-  fr := TACBrNFeFRClass.Create(frDANFE);
+//  fr := TACBrNFeFRClass.Create(frDANFE);
   pc := TImage.Create(nil); // TPicture.Create;
   try
     Case tamanhoQrCode of
@@ -7730,7 +7731,8 @@ begin
       tamQrCode300 : iTamQrCode := LENGTH_QRCODE_300;
     end;
 
-    fr.PintarQRCode(StringQrCode, pc.Picture);
+    //fr.PintarQRCode(StringQrCode, pc.Picture);
+    PintarQRCode(StringQrCode, pc.Picture, TQRCodeEncoding.qrUTF8NoBOM);
 
     pc.Height  := iTamQrCode * 2;
     pc.Width   := iTamQrCode * 2;
@@ -7739,7 +7741,7 @@ begin
     pc.Picture.SaveToFile(FileNameQrCode);
   finally
     pc.Free;
-    fr.Free;
+//    fr.Free;
   end;
 end;
 

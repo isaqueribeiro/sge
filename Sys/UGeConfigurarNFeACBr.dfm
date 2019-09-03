@@ -225,7 +225,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         Top = 0
         Width = 375
         Height = 514
-        ActivePage = TbsArquivos
+        ActivePage = TbsGeral
         Align = alClient
         MultiLine = True
         TabOrder = 0
@@ -314,6 +314,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Width = 134
               Height = 13
               Caption = 'Vers'#227'o do Documento Fiscal'
+              Enabled = False
               FocusControl = cbVersaoDF
             end
             object lblIdToken: TLabel
@@ -387,6 +388,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Width = 342
               Height = 21
               Style = csDropDownList
+              Enabled = False
               TabOrder = 4
             end
             object ckRetirarAcentos: TCheckBox
@@ -1465,7 +1467,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         Caption = 'Logo Marca'
       end
       object sbtnLogoMarca: TSpeedButton
-        Left = 376
+        Left = 392
         Top = 71
         Width = 23
         Height = 24
@@ -1490,7 +1492,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       object edtLogoMarca: TEdit
         Left = 0
         Top = 74
-        Width = 370
+        Width = 386
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 1

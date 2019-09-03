@@ -14811,8 +14811,6 @@ object DMNFe: TDMNFe
     CasasDecimais.MaskvUnCom = ',0.00'
     EspessuraBorda = 1
     ExpandirDadosAdicionaisAuto = False
-    IncorporarBackgroundPdf = True
-    IncorporarFontesPdf = True
     BorderIcon = [biSystemMenu, biMinimize, biMaximize]
     Left = 24
     Top = 72
