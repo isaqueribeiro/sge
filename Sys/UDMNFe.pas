@@ -1707,8 +1707,9 @@ begin
   if ( tipoNF = tnfSaida ) then
   begin
     AbrirVenda(pAno, pNumero);
+
     aNumero := qryCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger;
-    aCodigo := qryCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger;
+    aCodigo := GerarCodigoDFe(qryCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger); // PROVISORIO
 
     if not qryCalculoImposto.FieldByName('DataEmissao').IsNull then
       aDataEmissao := qryCalculoImposto.FieldByName('DataEmissao').AsDateTime
@@ -1719,8 +1720,9 @@ begin
   if ( tipoNF = tnfEntrada ) then
   begin
     AbrirCompra(pAno, pNumero);
+
     aNumero := qryEntradaCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger;
-    aCodigo := qryEntradaCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger;
+    aCodigo := GerarCodigoDFe(qryEntradaCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger); // PROVISORIO
 
     if not qryEntradaCalculoImposto.FieldByName('DataEmissao').IsNull then
       aDataEmissao := qryEntradaCalculoImposto.FieldByName('DataEmissao').AsDateTime
@@ -1728,7 +1730,7 @@ begin
       aDataEmissao := qryEntradaCalculoImposto.FieldByName('DtEnt').AsDateTime;
   end;
 
-  sChave := GerarChaveAcesso(aUF, aDataEmissao, sCNPJEmitente, aSerie, aNumero, aTE, aNumero, aModelo);
+  sChave := GerarChaveAcesso(aUF, aDataEmissao, sCNPJEmitente, aSerie, aNumero, aTE, aCodigo, aModelo);
   sChave := StrOnlyNumbers(StringReplace(sChave, 'NFe', '', [rfReplaceAll]));
 
   Result := sChave;
@@ -2359,6 +2361,10 @@ var
   cTotal_ICMSTot_vICMS : Currency;
 begin
 (*
+  IMR - 03/09/2019 :
+    O campo "Ide.cNF" precisa receber 0 (zero) para o sistema gere automaticamente este código e assim esteja
+    de acordo com as expecificações da Receita Federal.
+
   IMR - 03/09/2018 :
     Dados de fatura da Nota Fical agora são apenas informados quando a(s) duplicata(s)
     for(em) informada(s) pelo usuário na nota.
@@ -2417,7 +2423,8 @@ begin
 
     with ACBrNFe.NotasFiscais.Add.NFe do
     begin
-      Ide.cNF       := iNumeroNFe; // Caso não seja preenchido será gerado um número aleatório pelo componente
+      // Caso não seja preenchido será gerado um número aleatório pelo componente
+      Ide.cNF       := 0; //iNumeroNFe;
       Ide.natOp     := qryCalculoImposto.FieldByName('CFOP_DESCRICAO').AsString;
 
       // Entradas ou saídas dentro do Estado
@@ -3189,12 +3196,7 @@ begin
 
               if ( cPercentualTributoAprox > 0.0 ) then
               begin
-                vTotTrib  := Prod.vProd * cPercentualTributoAprox / 100;
-//                infAdProd := infAdProd +
-//                  Trim(IfThen(Trim(infAdProd) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
-//                    FormatFloat(',0.00', vTotTrib),
-//                    FormatFloat(',0.##"%"', cPercentualTributoAprox)
-//                  ]));
+                vTotTrib  := SimpleRoundTo((Prod.vProd * cPercentualTributoAprox / 100), -2);
                 sInformacaoProduto := sInformacaoProduto +
                   Trim(IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
                     FormatFloat(',0.00', vTotTrib),
@@ -4109,7 +4111,6 @@ begin
     AbrirCompra( iAnoCompra, iNumCompra );
 
     iSerieNFe   := qryEmitenteSERIE_NFE.AsInteger;
-//    iNumeroNFe  := GetNextID('TBEMPRESA', 'NUMERO_NFE',   'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFE = '    + qryEmitenteSERIE_NFE.AsString);
     iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
     DtHoraEmiss := GetDateTimeDB;
 
@@ -4117,7 +4118,8 @@ begin
 
     with ACBrNFe.NotasFiscais.Add.NFe do
     begin
-      Ide.cNF   := iNumeroNFe; // Caso não seja preenchido será gerado um número aleatório pelo componente
+      // Caso não seja preenchido será gerado um número aleatório pelo componente
+      Ide.cNF       := 0; //iNumeroNFe;
       Ide.natOp := qryEntradaCalculoImposto.FieldByName('CFOP_DESCRICAO').AsString;
 
       // Entradas ou saídas dentro do Estado
@@ -4847,12 +4849,7 @@ begin
 
               if ( cPercentualTributoAprox > 0.0 ) then
               begin
-                vTotTrib  := Prod.vProd * cPercentualTributoAprox / 100;
-//                infAdProd := infAdProd +
-//                  Trim(IfThen(Trim(infAdProd) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
-//                    FormatFloat(',0.00', vTotTrib),
-//                    FormatFloat(',0.##"%"', cPercentualTributoAprox)
-//                  ]));
+                vTotTrib  := SimpleRoundTo((Prod.vProd * cPercentualTributoAprox / 100), -2);
                 sInformacaoProduto := sInformacaoProduto +
                   Trim(IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
                     FormatFloat(',0.00', vTotTrib),
@@ -6877,7 +6874,6 @@ begin
       raise Exception.Create('O segmento da empresa não permite a emissão de NFC-e!');
 
     iSerieNFCe  := qryEmitenteSERIE_NFCE.AsInteger;
-//    iNumeroNFCe := GetNextID('TBEMPRESA', 'NUMERO_NFCE', 'where CNPJ = ' + QuotedStr(sCNPJEmitente) + ' and SERIE_NFCE = ' + qryEmitenteSERIE_NFCE.AsString);
     iNumeroNFCe := GetNextID('TBCONFIGURACAO', 'NFCE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
     DtHoraEmiss := Now; // GetDateTimeDB; // Porque a validação do XML ocorre pela data/hora local da máquina
 
@@ -7467,12 +7463,7 @@ begin
 
               if ( cPercentualTributoAprox > 0.0 ) then
               begin
-                vTotTrib  := Prod.vProd * cPercentualTributoAprox / 100;
-//                infAdProd := infAdProd +
-//                  Trim(IfThen(Trim(infAdProd) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
-//                    FormatFloat(',0.00', vTotTrib),
-//                    FormatFloat(',0.##"%"', cPercentualTributoAprox)
-//                  ]));
+                vTotTrib  := SimpleRoundTo((Prod.vProd * cPercentualTributoAprox / 100), -2);
                 sInformacaoProduto := sInformacaoProduto +
                   Trim(IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
                     FormatFloat(',0.00', vTotTrib),
@@ -7715,11 +7706,9 @@ end;
 procedure TDMNFe.GerarArquivoQrCode(const FileNameQrCode, StringQrCode : String;
   const tamanhoQrCode : TTamanhoQrCode);
 var
-//  fr : TACBrNFeFRClass;
   pc : TImage; // TPicture;
   iTamQrCode : Integer;
 begin
-//  fr := TACBrNFeFRClass.Create(frDANFE);
   pc := TImage.Create(nil); // TPicture.Create;
   try
     Case tamanhoQrCode of
@@ -7731,7 +7720,6 @@ begin
       tamQrCode300 : iTamQrCode := LENGTH_QRCODE_300;
     end;
 
-    //fr.PintarQRCode(StringQrCode, pc.Picture);
     PintarQRCode(StringQrCode, pc.Picture, TQRCodeEncoding.qrUTF8NoBOM);
 
     pc.Height  := iTamQrCode * 2;
@@ -7741,7 +7729,6 @@ begin
     pc.Picture.SaveToFile(FileNameQrCode);
   finally
     pc.Free;
-//    fr.Free;
   end;
 end;
 

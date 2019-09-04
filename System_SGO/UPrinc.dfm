@@ -48,7 +48,6 @@ object frmPrinc: TfrmPrinc
       Transparent = True
       ExplicitLeft = -1
       ExplicitTop = -5
-      ExplicitHeight = 464
     end
     object imgEmpresa: TImage
       Left = 8

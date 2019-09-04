@@ -5,7 +5,7 @@ interface
 uses
   Windows, Forms, Messages, SysUtils, Classes, ExtCtrls, ShellApi, Printers, Graphics, IniFiles,
   PSApi, Winsock, WinSvc, WinInet, StrUtils, OleServer, ExcelXP, ComObj, TLHelp32, Winapi.ShlObj,
-  IdBaseComponent, IdComponent, IdRawBase, IdRawClient, IdIcmpClient;
+  Math, IdBaseComponent, IdComponent, IdRawBase, IdRawClient, IdIcmpClient;
 
   procedure ExecuteResource(pHandle : HWND; pComand : String);
   procedure Split(pDelimiter : Char; pStr: String; pListOfStrings : TStrings);
@@ -41,6 +41,8 @@ uses
 
   function KillTask(ExeFileName : String): Integer;
   function IndexOfArray(const Value: String; Items: Array of String): Integer;
+
+  function SimpleRoundTo(const AValue: Double; const ADigit: TRoundToRange = -2): Double;
 
 implementation
 
@@ -745,6 +747,14 @@ begin
       Break;
     end;
   end;
+end;
+
+function SimpleRoundTo(const AValue: Double; const ADigit: TRoundToRange = -2): Double;
+var
+  LFactor : Double;
+begin
+  LFactor := IntPower(10, ADigit);
+  Result  := Trunc((AValue / LFactor) + 0.5) * LFactor;
 end;
 
 end.

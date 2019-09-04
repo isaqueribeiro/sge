@@ -4662,7 +4662,7 @@ object DMNFe: TDMNFe
         object Memo45: TfrxMemoView
           Left = 536.692913385827000000
           Top = 956.220472440945000000
-          Width = 71.811023622047200000
+          Width = 71.811023622047210000
           Height = 11.338590000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -4771,7 +4771,7 @@ object DMNFe: TDMNFe
         object Memo98: TfrxMemoView
           Left = 536.692913385827000000
           Top = 514.015748031496000000
-          Width = 71.811023622047200000
+          Width = 71.811023622047210000
           Height = 11.338590000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -14799,7 +14799,7 @@ object DMNFe: TDMNFe
   end
   object frDANFE: TACBrNFeDANFEFR
     PathPDF = '..\Bin\'
-    Sistema = 'Masterdados - Contatos: (91) 8717-1057/8129-1567'
+    Sistema = #193'gil Solu'#231#245'es em Softwares'
     MargemInferior = 0.800000000000000000
     MargemSuperior = 0.800000000000000000
     MargemEsquerda = 0.600000000000000000
@@ -14807,7 +14807,7 @@ object DMNFe: TDMNFe
     CasasDecimais.Formato = tdetInteger
     CasasDecimais.qCom = 2
     CasasDecimais.vUnCom = 2
-    CasasDecimais.MaskqCom = ',0.00'
+    CasasDecimais.MaskqCom = ',0.###'
     CasasDecimais.MaskvUnCom = ',0.00'
     EspessuraBorda = 1
     ExpandirDadosAdicionaisAuto = False
@@ -20609,7 +20609,7 @@ object DMNFe: TDMNFe
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40401.475989294000000000
-    ReportOptions.LastChange = 43550.436808969910000000
+    ReportOptions.LastChange = 43711.797431770840000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       
@@ -20724,6 +20724,11 @@ object DMNFe: TDMNFe
       '  if CanhotoRodape.Visible then'
       '    wTamRodapeMinimo := wTamRodapeMinimo + CanhotoRodape.Height;'
       ''
+      '  if CanhotoRodapeBarra.Visible then'
+      
+        '    wTamRodapeMinimo := wTamRodapeMinimo + CanhotoRodapeBarra.He' +
+        'ight;'
+      ''
       '  set('#39'TamRodapeMinimo'#39', wTamRodapeMinimo );'
       'end;'
       ''
@@ -20786,6 +20791,13 @@ object DMNFe: TDMNFe
         '      wTamRodapeMinimo := wTamRodapeMinimo - CanhotoRodape.Heigh' +
         't;'
       '    end;'
+      '    if CanhotoRodapeBarra.Visible then'
+      '    begin'
+      '      Engine.ShowBand(CanhotoRodapeBarra);'
+      
+        '      wTamRodapeMinimo := wTamRodapeMinimo - CanhotoRodapeBarra.' +
+        'Height;'
+      '    end;'
       '  end;'
       '  set('#39'TamRodapeMinimo'#39', wTamRodapeMinimo);'
       'end;'
@@ -20828,13 +20840,40 @@ object DMNFe: TDMNFe
       ''
       'procedure InicializaPosicaoCanhoto();'
       'begin'
-      '  if Trim(VarToStr( <Parametros."poscanhoto"> )) = '#39'2'#39' then'
-      '   CanhotoCabecalho.Visible  := true'
-      '  else'
       
-        '    CanhotoCabecalho.Visible  := <Parametros."poscanhoto"> = '#39'0'#39 +
-        ';'
-      '  CanhotoRodape.Visible     := <Parametros."poscanhoto"> = '#39'1'#39';'
+        '  if Trim(VarToStr( <Parametros."poscanhotolayout"> )) = '#39'0'#39' the' +
+        'n'
+      '  begin'
+      '    if Trim(VarToStr( <Parametros."poscanhoto"> )) = '#39'2'#39' then'
+      '       CanhotoCabecalho.Visible := true'
+      '    else'
+      
+        '       CanhotoCabecalho.Visible := <Parametros."poscanhoto"> = '#39 +
+        '0'#39';'
+      ''
+      '    CanhotoCabecalho.Child       := CanhotoCabecalhoPadrao;'
+      '    CanhtoCabecalhoBarra.visible := false;'
+      
+        '    CanhotoRodape.Visible        := <Parametros."poscanhoto"> = ' +
+        #39'1'#39';'
+      '    CanhotoRodapeBarra.Visible   := false;'
+      '  end'
+      '  else'
+      '  begin'
+      '    if Trim(VarToStr( <Parametros."poscanhoto"> )) = '#39'2'#39' then'
+      '       CanhotoCabecalho.Visible := true'
+      '    else'
+      
+        '       CanhotoCabecalho.Visible := <Parametros."poscanhoto"> = '#39 +
+        '0'#39';'
+      ''
+      '    CanhotoCabecalho.Child         := CanhtoCabecalhoBarra;'
+      '    CanhotoCabecalhoPadrao.visible := false;'
+      '    CanhotoRodape.Visible          := false;'
+      
+        '    CanhotoRodapeBarra.Visible     := <Parametros."poscanhoto"> ' +
+        '= '#39'1'#39';'
+      '  end;'
       'end;'
       ''
       'begin'
@@ -20945,7 +20984,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 11.338582680000000000
-        Top = 1337.953620000000000000
+        Top = 1485.355290000000000000
         Width = 744.567410000000000000
         OnAfterCalcHeight = 'DadosProdutosOnAfterCalcHeight'
         OnAfterPrint = 'DadosProdutosOnAfterPrint'
@@ -21227,96 +21266,17 @@ object DMNFe: TDMNFe
       object CanhotoCabecalho: TfrxReportTitle
         FillType = ftBrush
         Frame.Typ = []
-        Height = 79.370078740000000000
+        Height = 3.779527559055120000
         Top = 18.897650000000000000
         Width = 744.567410000000000000
-        object Memo2: TfrxMemoView
-          Width = 642.520100000000000000
-          Height = 37.795275590000000000
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Times New Roman'
-          Font.Style = []
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.500000000000000000
-          GapY = 2.000000000000000000
-          Memo.UTF8W = (
-            
-              'Recebemos de [Emitente."XNome"] os produtos e/ou servi'#231'os consta' +
-              'ntes da Nota Fiscal Eletr'#244'nica indicada ao lado. '
-            '[Parametros."ResumoCanhoto"]')
-          ParentFont = False
-          WordWrap = False
-        end
-        object Memo3: TfrxMemoView
-          Left = 143.622140000000000000
-          Top = 37.795275590000000000
-          Width = 498.897960000000000000
-          Height = 30.236240000000000000
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Times New Roman'
-          Font.Style = []
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.500000000000000000
-          GapY = 2.000000000000000000
-          Memo.UTF8W = (
-            'IDENTIFICA'#199#195'O E ASSINATURA DO RECEBEDOR')
-          ParentFont = False
-        end
-        object Memo4: TfrxMemoView
-          Top = 37.795275590000000000
-          Width = 143.622140000000000000
-          Height = 30.236240000000000000
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -8
-          Font.Name = 'Times New Roman'
-          Font.Style = []
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.500000000000000000
-          GapY = 2.000000000000000000
-          Memo.UTF8W = (
-            'DATA DO RECEBIMENTO')
-          ParentFont = False
-        end
-        object Line1: TfrxLineView
-          Align = baWidth
-          Top = 73.811070000000000000
-          Width = 744.567410000000000000
-          Color = clBlack
-          Frame.Style = fsDot
-          Frame.Typ = [ftTop]
-          Frame.Width = 0.500000000000000000
-        end
-        object Memo17: TfrxMemoView
-          Left = 642.520100000000000000
-          Width = 102.047212360000000000
-          Height = 68.031496060000000000
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -13
-          Font.Name = 'Times New Roman'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.500000000000000000
-          GapY = 2.000000000000000000
-          HAlign = haCenter
-          Memo.UTF8W = (
-            'NF-e'
-            'N'#186' [Identificacao."NNF"]'
-            'S'#233'rie [Identificacao."Serie" #n#000]')
-          ParentFont = False
-          VAlign = vaCenter
-        end
+        Child = frrNFeRetrato.CanhotoCabecalhoPadrao
+        KeepChild = True
       end
       object Emitente: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
         Height = 173.858362910000000000
-        Top = 120.944960000000000000
+        Top = 268.346630000000000000
         Width = 744.567410000000000000
         OnBeforePrint = 'EmitenteOnBeforePrint'
         object BarCodeContigencia: TfrxBarCodeView
@@ -21517,7 +21477,7 @@ object DMNFe: TDMNFe
           Memo.UTF8W = (
             'N'#186' [Identificacao."NNF"]'
             'S'#233'rie [Identificacao."Serie" #n#000]'
-            'Folha [Page]/[TotalPages#]')
+            'Folha [Page]/[TotalPages]')
           ParentFont = False
           WordWrap = False
           Formats = <
@@ -21756,11 +21716,11 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 17.897518190000000000
-        Top = 1882.205940000000000000
+        Top = 2158.111630000000000000
         Width = 744.567410000000000000
         object memDataHora: TfrxMemoView
           Align = baLeft
-          Width = 461.102660000000000000
+          Width = 453.543600000000000000
           Height = 13.228346460000000000
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -21784,7 +21744,7 @@ object DMNFe: TDMNFe
           Font.Color = clBlack
           Font.Height = -8
           Font.Name = 'Times New Roman'
-          Font.Style = [fsBold]
+          Font.Style = []
           Frame.Typ = []
           Frame.Width = 0.500000000000000000
           HAlign = haRight
@@ -21797,7 +21757,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 96.267762910000000000
-        Top = 355.275820000000000000
+        Top = 502.677490000000000000
         Width = 744.567410000000000000
         DataSetName = 'Identificacao'
         RowCount = 1
@@ -22254,7 +22214,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 43.464566930000000000
-        Top = 725.669760000000000000
+        Top = 873.071430000000000000
         Width = 744.567410000000000000
         OnBeforePrint = 'FaturaOnBeforePrint'
         DataSetName = 'Fatura'
@@ -22343,7 +22303,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 41.196850390000000000
-        Top = 1273.701610000000000000
+        Top = 1421.103280000000000000
         Width = 744.567410000000000000
         OnBeforePrint = 'DadosProdutosHeaderOnBeforePrint'
         Condition = 'DadosProdutos."ChaveNFe"'
@@ -22697,7 +22657,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 70.031525350000000000
-        Top = 895.748610000000000000
+        Top = 1043.150280000000000000
         Width = 744.567410000000000000
         OnBeforePrint = 'ImpostoOnBeforePrint'
         DataSetName = 'CalculoImposto'
@@ -23198,7 +23158,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 69.921335510000000000
-        Top = 990.236860000000000000
+        Top = 1137.638530000000000000
         Width = 744.567410000000000000
         DataSetName = 'Transportador'
         RowCount = 1
@@ -23580,7 +23540,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 117.170000000000000000
-        Top = 1133.859000000000000000
+        Top = 1281.260670000000000000
         Width = 744.567410000000000000
         object memWatermark: TfrxMemoView
           Align = baClient
@@ -23603,7 +23563,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 3.779527560000000000
-        Top = 1394.646570000000000000
+        Top = 1542.048240000000000000
         Width = 744.567410000000000000
         ToNRows = 0
         ToNRowsMode = rmCount
@@ -23875,7 +23835,7 @@ object DMNFe: TDMNFe
       object DadosProdutosFooter: TfrxGroupFooter
         FillType = ftBrush
         Frame.Typ = []
-        Top = 1371.969390000000000000
+        Top = 1519.371060000000000000
         Width = 744.567410000000000000
         OnBeforePrint = 'DadosProdutosFooterOnBeforePrint'
       end
@@ -23883,7 +23843,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 3.779530000000000000
-        Top = 1421.103280000000000000
+        Top = 1568.504950000000000000
         Width = 744.567410000000000000
         ToNRows = 0
         ToNRowsMode = rmCount
@@ -23904,7 +23864,8 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 79.031515590000000000
-        Top = 1689.449910000000000000
+        Top = 1836.851580000000000000
+        Visible = False
         Width = 744.567410000000000000
         ToNRows = 0
         ToNRowsMode = rmCount
@@ -23930,7 +23891,7 @@ object DMNFe: TDMNFe
         end
         object Memo60: TfrxMemoView
           Left = 143.622140000000000000
-          Top = 48.795275590000100000
+          Top = 48.795275590000000000
           Width = 498.897960000000000000
           Height = 30.236240000000000000
           Font.Charset = ANSI_CHARSET
@@ -23984,7 +23945,7 @@ object DMNFe: TDMNFe
         end
         object Line3: TfrxLineView
           Align = baWidth
-          Top = 4.929190000000060000
+          Top = 4.929190000000000000
           Width = 744.567410000000000000
           Color = clBlack
           Frame.Style = fsDot
@@ -23996,7 +23957,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 43.354342910000000000
-        Top = 1447.559990000000000000
+        Top = 1594.961660000000000000
         Width = 744.567410000000000000
         ToNRows = 0
         ToNRowsMode = rmCount
@@ -24167,7 +24128,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 150.850415670000000000
-        Top = 1515.591530000000000000
+        Top = 1662.993200000000000000
         Width = 744.567410000000000000
         OnAfterPrint = 'DadosAdicionaisOnAfterPrint'
         AllowSplit = True
@@ -24247,7 +24208,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 37.795300000000000000
-        Top = 835.276130000000000000
+        Top = 982.677800000000000000
         Width = 744.567410000000000000
         Columns = 5
         ColumnWidth = 148.913385826772000000
@@ -24363,7 +24324,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 17.007874020000000000
-        Top = 793.701300000000000000
+        Top = 941.102970000000000000
         Width = 744.567410000000000000
         Condition = 'Duplicatas."ChaveNFe"'
         ReprintOnNewPage = True
@@ -24388,7 +24349,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 26.456692910000000000
-        Top = 1084.725110000000000000
+        Top = 1232.126780000000000000
         Width = 744.567410000000000000
         DataSetName = 'Volumes'
         RowCount = 0
@@ -24624,7 +24585,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 30.207317350000000000
-        Top = 1791.497220000000000000
+        Top = 2067.402910000000000000
         Visible = False
         Width = 744.567410000000000000
         RowCount = 1
@@ -24666,7 +24627,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 100.157480314961000000
-        Top = 476.220780000000000000
+        Top = 623.622450000000000000
         Width = 744.567410000000000000
         DataSetName = 'LocalRetirada'
         RowCount = 0
@@ -24739,7 +24700,7 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object quadroRetiradainscricao: TfrxMemoView
-          Left = 663.307086614173000000
+          Left = 663.307086614173100000
           Top = 16.251968500000000000
           Width = 98.267780000000000000
           Height = 24.566929130000000000
@@ -24837,7 +24798,7 @@ object DMNFe: TDMNFe
         end
         object quadroRetiradaMemo07: TfrxMemoView
           ShiftMode = smWhenOverlapped
-          Top = 69.921259842519700000
+          Top = 69.921259842519710000
           Width = 744.566929130000000000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -24904,7 +24865,7 @@ object DMNFe: TDMNFe
           ParentFont = False
         end
         object quadroRetiradaCep: TfrxMemoView
-          Left = 663.307086614173000000
+          Left = 663.307086614173100000
           Top = 42.708661417322800000
           Width = 79.370027480000000000
           Height = 24.566929130000000000
@@ -24950,7 +24911,7 @@ object DMNFe: TDMNFe
         object quadroRetiradaMemo09: TfrxMemoView
           ShiftMode = smWhenOverlapped
           Left = 661.417322834646000000
-          Top = 69.921259842519700000
+          Top = 69.921259842519710000
           Width = 83.149606299212600000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -24970,7 +24931,7 @@ object DMNFe: TDMNFe
         object quadroRetiradaMemo08: TfrxMemoView
           ShiftMode = smWhenOverlapped
           Left = 631.181102360000000000
-          Top = 69.921259842519700000
+          Top = 69.921259842519710000
           Width = 24.566929133858300000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -25053,7 +25014,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 100.157480314961000000
-        Top = 600.945270000000000000
+        Top = 748.346940000000000000
         Width = 744.567410000000000000
         DataSetName = 'LocalEntrega'
         RowCount = 0
@@ -25167,7 +25128,7 @@ object DMNFe: TDMNFe
         object quadroEntregaMemo09: TfrxMemoView
           ShiftMode = smWhenOverlapped
           Left = 661.417322834646000000
-          Top = 69.921259842519700000
+          Top = 69.921259842519710000
           Width = 83.149606299212600000
           Height = 24.566929130000000000
           Font.Charset = DEFAULT_CHARSET
@@ -25239,7 +25200,7 @@ object DMNFe: TDMNFe
           ParentFont = False
         end
         object quadroEntregaInscricao: TfrxMemoView
-          Left = 663.307086614173000000
+          Left = 663.307086614173100000
           Top = 16.251968500000000000
           Width = 98.267780000000000000
           Height = 24.566929130000000000
@@ -25289,7 +25250,7 @@ object DMNFe: TDMNFe
           ParentFont = False
         end
         object quadroEntregaCep: TfrxMemoView
-          Left = 663.307086614173000000
+          Left = 663.307086614173100000
           Top = 42.708661417322800000
           Width = 75.590551181102400000
           Height = 24.566929130000000000
@@ -25407,6 +25368,376 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
       end
+      object CanhtoCabecalhoBarra: TfrxChild
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 98.267716540000000000
+        Top = 147.401670000000000000
+        Width = 744.567410000000000000
+        ToNRows = 0
+        ToNRowsMode = rmCount
+        object Memo5: TfrxMemoView
+          Left = 147.401670000000000000
+          Top = 37.795275590000000000
+          Width = 307.937230000000000000
+          Height = 49.133890000000000000
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -8
+          Font.Name = 'Times New Roman'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          GapY = 2.000000000000000000
+          Memo.UTF8W = (
+            'IDENTIFICA'#199#195'O E ASSINATURA DO RECEBEDOR')
+          ParentFont = False
+        end
+        object Memo54: TfrxMemoView
+          Left = 453.543307090000000000
+          Width = 291.023810000000000000
+          Height = 37.795256060000000000
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Times New Roman'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          GapY = 2.000000000000000000
+          HAlign = haCenter
+          Memo.UTF8W = (
+            
+              'NF-e N'#186' [Identificacao."NNF"]  S'#233'rie [Identificacao."Serie" #n#0' +
+              '00]')
+          ParentFont = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
+        object Memo57: TfrxMemoView
+          Top = 37.795275590000000000
+          Width = 145.511811020000000000
+          Height = 49.133890000000000000
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -8
+          Font.Name = 'Times New Roman'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          GapY = 2.000000000000000000
+          Memo.UTF8W = (
+            'DATA DO RECEBIMENTO')
+          ParentFont = False
+        end
+        object Line5: TfrxLineView
+          Left = 3.779527560000000000
+          Top = 92.708720000000000000
+          Width = 744.567410000000000000
+          Color = clBlack
+          Frame.Style = fsDot
+          Frame.Typ = [ftTop]
+          Frame.Width = 0.500000000000000000
+        end
+        object Memo104: TfrxMemoView
+          Left = 453.543307090000000000
+          Top = 37.795275590000000000
+          Width = 291.023622050000000000
+          Height = 49.133890000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -7
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          GapY = 2.000000000000000000
+          ParentFont = False
+        end
+        object BarCode1: TfrxBarCodeView
+          Left = 459.212598430000000000
+          Top = 43.574830000000000000
+          Width = 277.000000000000000000
+          Height = 37.795275590000000000
+          BarType = bcCode128C
+          DataField = 'Id'
+          DataSetName = 'Identificacao'
+          Frame.Typ = []
+          Rotation = 0
+          ShowText = False
+          TestLine = False
+          Text = '12345678901234567890123456789012345678901234'
+          WideBarRatio = 2.000000000000000000
+          Zoom = 1.000000000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+        end
+        object Memo105: TfrxMemoView
+          Align = baWidth
+          Width = 453.543307090000000000
+          Height = 37.795275590000000000
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Times New Roman'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          GapY = 2.000000000000000000
+          Memo.UTF8W = (
+            
+              'Recebemos de [Emitente."XNome"] os produtos e/ou servi'#231'os consta' +
+              'ntes da Nota '
+            'Fiscal Eletr'#244'nica indicada ao lado. '
+            '[Parametros."ResumoCanhoto"]')
+          ParentFont = False
+          WordWrap = False
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
+      end
+      object CanhotoCabecalhoPadrao: TfrxChild
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 79.370078740000000000
+        Top = 45.354360000000000000
+        Width = 744.567410000000000000
+        Child = frrNFeRetrato.CanhtoCabecalhoBarra
+        ToNRows = 0
+        ToNRowsMode = rmCount
+        object Memo2: TfrxMemoView
+          Width = 641.299630000000000000
+          Height = 37.795275590000000000
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Times New Roman'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          GapY = 2.000000000000000000
+          Memo.UTF8W = (
+            
+              'Recebemos de [Emitente."XNome"] os produtos e/ou servi'#231'os consta' +
+              'ntes da Nota Fiscal Eletr'#244'nica indicada ao lado. '
+            '[Parametros."ResumoCanhoto"]')
+          ParentFont = False
+          WordWrap = False
+        end
+        object Memo3: TfrxMemoView
+          Left = 145.511811020000000000
+          Top = 37.795275590000000000
+          Width = 495.118110240000000000
+          Height = 30.236240000000000000
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -8
+          Font.Name = 'Times New Roman'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          GapY = 2.000000000000000000
+          Memo.UTF8W = (
+            'IDENTIFICA'#199#195'O E ASSINATURA DO RECEBEDOR')
+          ParentFont = False
+        end
+        object Memo4: TfrxMemoView
+          Align = baWidth
+          Top = 37.795275590000000000
+          Width = 145.511811020000000000
+          Height = 30.236240000000000000
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -8
+          Font.Name = 'Times New Roman'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          GapY = 2.000000000000000000
+          Memo.UTF8W = (
+            'DATA DO RECEBIMENTO')
+          ParentFont = False
+        end
+        object Line1: TfrxLineView
+          Align = baWidth
+          Top = 73.811070000000000000
+          Width = 744.567410000000000000
+          Color = clBlack
+          Frame.Style = fsDot
+          Frame.Typ = [ftTop]
+          Frame.Width = 0.500000000000000000
+        end
+        object Memo17: TfrxMemoView
+          Left = 640.629921260000000000
+          Width = 102.047212360000000000
+          Height = 68.031496060000000000
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Times New Roman'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          GapY = 2.000000000000000000
+          HAlign = haCenter
+          Memo.UTF8W = (
+            'NF-e'
+            'N'#186' [Identificacao."NNF"]'
+            'S'#233'rie [Identificacao."Serie" #n#000]')
+          ParentFont = False
+          VAlign = vaCenter
+        end
+      end
+      object CanhotoRodapeBarra: TfrxChild
+        FillType = ftBrush
+        Frame.Typ = []
+        Height = 105.826771650000000000
+        Top = 1938.898890000000000000
+        Visible = False
+        Width = 744.567410000000000000
+        ToNRows = 0
+        ToNRowsMode = rmCount
+        object Line4: TfrxLineView
+          Align = baWidth
+          Top = 4.929190000000060000
+          Width = 744.567410000000000000
+          Color = clBlack
+          Frame.Style = fsDot
+          Frame.Typ = [ftTop]
+          Frame.Width = 0.500000000000000000
+        end
+        object Memo55: TfrxMemoView
+          Top = 13.629870000000000000
+          Width = 453.543600000000000000
+          Height = 37.795275590000000000
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Times New Roman'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          GapY = 2.000000000000000000
+          Memo.UTF8W = (
+            
+              'Recebemos de [Emitente."XNome"] os produtos e/ou servi'#231'os consta' +
+              'ntes da Nota '
+            'Fiscal Eletr'#244'nica indicada ao lado. '
+            '[Parametros."ResumoCanhoto"]')
+          ParentFont = False
+          WordWrap = False
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
+        object Memo56: TfrxMemoView
+          Left = 143.622047244094000000
+          Top = 51.425145590000000000
+          Width = 309.921460000000000000
+          Height = 49.133890000000000000
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -8
+          Font.Name = 'Times New Roman'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          GapY = 2.000000000000000000
+          Memo.UTF8W = (
+            'IDENTIFICA'#199#195'O E ASSINATURA DO RECEBEDOR')
+          ParentFont = False
+        end
+        object Memo81: TfrxMemoView
+          Top = 51.425145590000000000
+          Width = 143.622140000000000000
+          Height = 49.133890000000000000
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -8
+          Font.Name = 'Times New Roman'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          GapY = 2.000000000000000000
+          Memo.UTF8W = (
+            'DATA DO RECEBIMENTO')
+          ParentFont = False
+        end
+        object Memo106: TfrxMemoView
+          Left = 453.543307086614000000
+          Top = 13.968460000000000000
+          Width = 291.023810000000000000
+          Height = 37.795256060000000000
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Times New Roman'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop]
+          Frame.Width = 0.500000000000000000
+          GapY = 2.000000000000000000
+          HAlign = haCenter
+          Memo.UTF8W = (
+            
+              'NF-e N'#186' [Identificacao."NNF"]  S'#233'rie [Identificacao."Serie" #n#0' +
+              '00]')
+          ParentFont = False
+          VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end>
+        end
+        object Memo107: TfrxMemoView
+          Left = 453.543307086614000000
+          Top = 51.322820000000000000
+          Width = 291.023602520000000000
+          Height = 49.133890000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -7
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          GapY = 2.000000000000000000
+          ParentFont = False
+        end
+        object BarCode2: TfrxBarCodeView
+          Left = 461.102362204724000000
+          Top = 55.543290000000000000
+          Width = 277.000000000000000000
+          Height = 37.795275590000000000
+          BarType = bcCode128C
+          DataField = 'Id'
+          DataSetName = 'Identificacao'
+          Frame.Typ = []
+          Rotation = 0
+          ShowText = False
+          TestLine = False
+          Text = '12345678901234567890123456789012345678901234'
+          WideBarRatio = 2.000000000000000000
+          Zoom = 1.000000000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Arial'
+          Font.Style = []
+        end
+      end
     end
   end
   object frrNFePaisagem: TfrxReport
@@ -25419,7 +25750,7 @@ object DMNFe: TDMNFe
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40401.475989294000000000
-    ReportOptions.LastChange = 43550.437297986110000000
+    ReportOptions.LastChange = 43711.797950474540000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       
@@ -26756,7 +27087,7 @@ object DMNFe: TDMNFe
           Left = 128.504020000000000000
           Top = 57.448818897637800000
           Width = 219.212740000000000000
-          Height = 60.472440944881900000
+          Height = 60.472440944881890000
           OnBeforePrint = 'Memo11OnBeforePrint'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -26805,7 +27136,7 @@ object DMNFe: TDMNFe
           Memo.UTF8W = (
             'N'#186' [Identificacao."NNF"]'
             'S'#233'rie [Identificacao."Serie" #n#000]'
-            'Folha [Page]/[TotalPages#]')
+            'Folha [Page]/[TotalPages]')
           ParentFont = False
           WordWrap = False
           Formats = <
@@ -27047,8 +27378,8 @@ object DMNFe: TDMNFe
         Width = 1084.725110000000000000
         OnAfterPrint = 'RodapePaginaOnAfterPrint'
         object memRodapePaginaDataHoraImpressao: TfrxMemoView
-          Width = 393.071120000000000000
-          Height = 9.448816460000000000
+          Width = 729.449290000000000000
+          Height = 13.228346460000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -7
@@ -27071,7 +27402,7 @@ object DMNFe: TDMNFe
           Font.Color = clBlack
           Font.Height = -8
           Font.Name = 'Times New Roman'
-          Font.Style = [fsBold]
+          Font.Style = []
           Frame.Typ = []
           Frame.Width = 0.500000000000000000
           HAlign = haRight
@@ -29895,7 +30226,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 98.267716540000000000
-        Top = 525.354670000000000000
+        Top = 525.354670000000100000
         Width = 1084.725110000000000000
         DataSetName = 'LocalEntrega'
         RowCount = 0
@@ -30010,7 +30341,7 @@ object DMNFe: TDMNFe
         object quadroEntregaMemo09: TfrxMemoView
           ShiftMode = smWhenOverlapped
           Left = 982.677165350000000000
-          Top = 69.921259842519700000
+          Top = 69.921259842519710000
           Width = 102.047244090000000000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -30234,7 +30565,7 @@ object DMNFe: TDMNFe
         object quadroEntregaMemo08: TfrxMemoView
           ShiftMode = smWhenOverlapped
           Left = 941.102970000000000000
-          Top = 69.921259842519700000
+          Top = 69.921259842519710000
           Width = 40.818897640000000000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -30428,7 +30759,7 @@ object DMNFe: TDMNFe
         end
         object quadroRetiradaMemo07: TfrxMemoView
           ShiftMode = smWhenOverlapped
-          Top = 69.921259842519700000
+          Top = 69.921259842519710000
           Width = 941.102359760000000000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -30543,7 +30874,7 @@ object DMNFe: TDMNFe
         object quadroRetiradaMemo09: TfrxMemoView
           ShiftMode = smWhenOverlapped
           Left = 982.677165350000000000
-          Top = 69.921259842519700000
+          Top = 69.921259842519710000
           Width = 102.047244090000000000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -30563,7 +30894,7 @@ object DMNFe: TDMNFe
         object quadroRetiradaMemo08: TfrxMemoView
           ShiftMode = smWhenOverlapped
           Left = 941.102362200000000000
-          Top = 69.921259842519700000
+          Top = 69.921259842519710000
           Width = 40.818897640000000000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -32983,7 +33314,7 @@ object DMNFe: TDMNFe
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 41247.809339340300000000
-    ReportOptions.LastChange = 42418.766943344900000000
+    ReportOptions.LastChange = 43711.806337314820000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'VAR'
@@ -33025,11 +33356,16 @@ object DMNFe: TDMNFe
       '  begin              '
       '    Memo40.Text:='#39'CANCELAMENTO DE NF-e'#39';'
       '  end                '
+      '  else if <Eventos."TipoEvento"> = '#39'110112'#39' then'
+      '  begin              '
+      '    Memo40.Text:='#39'CANCELAMENTO POR SUBSTITUI'#199#195'O DE NF-e'#39';'
+      '  end                '
       '  else'
       '  begin              '
       '    Memo40.Text:='#39'CARTA DE CORRE'#199#195'O ELETR'#212'NICA'#39';'
       '  end;'
-      '    '
+      '    Memo1.Text := Memo40.Text;'
+      '  '
       'end;'
       ''
       'begin'
@@ -33145,7 +33481,7 @@ object DMNFe: TDMNFe
         end
         object Memo2: TfrxMemoView
           Align = baWidth
-          Top = 30.236240000000000000
+          Top = 30.236239999999990000
           Width = 718.110700000000000000
           Height = 37.795300000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -33766,7 +34102,13 @@ object DMNFe: TDMNFe
       object PageFooter1: TfrxPageFooter
         FillType = ftBrush
         Frame.Typ = []
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = []
         Height = 18.897650000000000000
+        ParentFont = False
         Top = 967.559680000000000000
         Width = 718.110700000000000000
         object Memo3: TfrxMemoView
@@ -34449,8 +34791,8 @@ object DMNFe: TDMNFe
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42383.572136122700000000
-    ReportOptions.LastChange = 43655.955177743050000000
+    ReportOptions.CreateDate = 42383.572136122690000000
+    ReportOptions.LastChange = 43711.806957673610000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -35018,7 +35360,7 @@ object DMNFe: TDMNFe
         object ParametrosSistema: TfrxMemoView
           Align = baWidth
           Width = 718.110700000000000000
-          Height = 18.897650000000000000
+          Height = 22.677180000000000000
           DataField = 'Sistema'
           DataSetName = 'Parametros'
           Font.Charset = DEFAULT_CHARSET
@@ -35031,6 +35373,7 @@ object DMNFe: TDMNFe
           Memo.UTF8W = (
             '[Parametros."Sistema"]')
           ParentFont = False
+          VAlign = vaCenter
         end
       end
     end

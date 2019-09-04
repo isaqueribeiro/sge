@@ -3095,28 +3095,7 @@ begin
 end;
 
 procedure TfrmGeVenda.RecarregarRegistro;
-//var
-//  iAno ,
-//  iCod : Integer;
-//  sID : String;
 begin
-//  if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) or (DtSrcTabela.DataSet.IsEmpty) then
-//    Exit;
-//
-//  if DtSrcTabela.DataSet.IsEmpty then
-//    sID := EmptyStr
-//  else
-//    sID := DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString;
-//
-//  if ( sID <> EmptyStr ) then
-//  begin
-//    iAno := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
-//    iCod := DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger;
-//
-//    DtSrcTabela.DataSet.FieldByName('.Close;
-//    DtSrcTabela.DataSet.FieldByName('.Open;
-//    DtSrcTabela.DataSet.FieldByName('.Locate('CODCONTROL', sID, []);
-//  end;
   if not ((DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) or (DtSrcTabela.DataSet.IsEmpty)) then
     fdQryTabela.RefreshRecord;
 end;
@@ -3747,6 +3726,7 @@ begin
 
     // Realocar arquivos XML de envio
     sDirXMLNFe := DMNFe.GetPathNFeXML(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString);
+
     if DirectoryExists(sDirXMLNFe) then
     begin
       sArquivoENV  := StringReplace(sDirXMLNFe + '\' + DtSrcTabela.DataSet.FieldByName('LOTE_NFE_NUMERO').AsString + '-env-lot.xml', '\\', '\', [rfReplaceAll]);
@@ -3782,6 +3762,7 @@ begin
       MoveFile(PChar(sArquivoNFe2), PChar(ExtractFilePath(sArquivoNFe2) + 'log\' + ExtractFileName(sArquivoNFe2)));
     end;
 
+    // Limpar dados em envio
     with DMBusiness, fdQryBusca do
     begin
       Close;

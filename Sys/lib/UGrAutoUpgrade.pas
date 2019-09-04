@@ -31,9 +31,12 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure AutoUpgraderProFileDone(Sender: TObject; const FileName: string);
     procedure FormShow(Sender: TObject);
+    procedure AutoUpgraderProEndUpgrade(Sender: TObject; var RestartImediately: Boolean);
   private
     { Private declarations }
+    ArquivosBaixados : TStringList;
     procedure LabelTransparente;
+    procedure GerarUpgrade;
   public
     { Public declarations }
   end;
@@ -77,6 +80,11 @@ begin
   prgBrAtualizacao.Position := 0;
 end;
 
+procedure TfrmGeAutoUpgrade.AutoUpgraderProEndUpgrade(Sender: TObject; var RestartImediately: Boolean);
+begin
+  Self.GerarUpgrade;
+end;
+
 procedure TfrmGeAutoUpgrade.AutoUpgraderProFileDone(Sender: TObject;
   const FileName: string);
 var
@@ -89,7 +97,10 @@ begin
   begin
     sFileName := StringReplace(FileName, '._dll.uTMP', '.dll.uTMP', []);
     RenameFile(FileName, sFileName);
-  end;
+    ArquivosBaixados.Add(sFileName);
+  end
+  else
+    ArquivosBaixados.Add(FileName);
 
   // Instalar fontes no Windows
   if ( Pos('.TTF.uTMP', FileName) > 0 ) then
@@ -141,11 +152,50 @@ begin
   AutoUpgraderPro.InfoFileURL   := lblURLInfo.Caption;
   AutoUpgraderPro.VersionNumber := GetFileVersion;
   AutoUpgraderPro.VersionDate   := GetReleaseDate;
+
+  ArquivosBaixados := TStringList.Create;
+  ArquivosBaixados.Clear;
 end;
 
 procedure TfrmGeAutoUpgrade.FormShow(Sender: TObject);
 begin
   LabelTransparente;
+end;
+
+procedure TfrmGeAutoUpgrade.GerarUpgrade;
+var
+  aFileTMP ,
+  aFileNEW ,
+  aFileOLD ,
+  sCommand : String;
+  aCommand : TStringList;
+  I : Integer;
+begin
+  if Assigned(ArquivosBaixados) then
+    if (ArquivosBaixados.Count > 0) then
+    begin
+      sCommand := ExtractFilePath(ParamStr(0)) + 'Upgrades.bat';
+      aCommand := TStringList.Create;
+      try
+        aCommand.Add('attrib /s /d -s -h'); // Desocultar arquivos
+
+        for I := ArquivosBaixados.Count - 1 DownTo 0 do
+        begin
+          aFileTMP := ExtractFileName(ArquivosBaixados.Strings[I]);
+          aFileNEW := StringReplace(aFileTMP, '.uTMP', '', [rfReplaceAll]);
+          aFileOLD := aFileNEW + '.old';
+
+          aCommand.Add('del ' + aFileOLD + ' /s');             // Deletar arquivo antigo
+          aCommand.Add('rename ' + aFileNEW + ' ' + aFileOLD); // Renomear arquivo atual para guardá-lo
+          aCommand.Add('rename ' + aFileTMP + ' ' + aFileNEW); // Renomear arquivo atual para guardá-lo
+          aCommand.Add('del ' + aFileTMP + ' /s');             // Deletar arquivo baixado
+        end;
+
+        aCommand.SaveToFile(sCommand);
+      finally
+        aCommand.Free;
+      end;
+    end;
 end;
 
 procedure TfrmGeAutoUpgrade.LabelTransparente;

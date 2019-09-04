@@ -1,21 +1,22 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 31/10/2018 16:13:00     #
+#    Gerado por AGIL SOFTWARES em : 03/09/2019 23:45:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
-- Ajustes na emissão de NF-e.
-- Novo relatório de Movimentação Financeira Mensal.
+- Ajustes de emissão de Notas Fiscais de Devolução.
+- Impresão do Espelho do Documento de Entrada de Produtos.
+- Novos relatórios e filtros de Produtos e Faturamento em Vendas.
+- Atualização das Taxas Tributárias para MAI/2019 até JUL/2019.
+- Novos relatórios no grupo de Entradas e Faturamento que consolidam as movimentações de entrada e saída por CFOP.
+- Novo relatório de Faturamento calculando a rentabilidade por produto nas vendas.
+- Nova configuração na CFOF que gerencia movimentação do estoque dos produtos.
 - Ajustes na emissão de NF-e 4.0.
-- Compilação para ajustes na emissão de NF-e.
+- Atualização no processo de Inutilização de números de NF-e.
+- Novo relatório de Movimentação Financeira Mensal.
 - Nova definição para os tipos de CFOPs.
-- Atualização das Taxas Tributárias para ABR/2018.
-- Atualização das Taxas Tributárias para JAN/2018.
-- Ajustes na emissão de NF-e e NFC-e.
-- Pesquisa de vendas ou entradas de produtos pelo valor líquido do movimento.
+- Ajustes na Confirmação de Entrada dos Lotes de Produtos.
+- Impressão dos lotes no Orçamento de Venda.
 - Novas configurações para emissão de NF-e.
-- Inserção de Lotes na Entrada no Estoque dos Materiais/Produtos quando sua gerência é por lote.
-- Inserção de Lotes de Medicamentos na NF-e.
-- Desativação do cadastro da empresa quando necessário.
 - Outros ajustes na otimização de processos.}
 
 #url1=http://www.drhtransparencia.com.br/agil/upgrade/SGE.exe
@@ -26,10 +27,10 @@
 #url6=http://www.drhtransparencia.com.br/agil/upgrade/lib/MP2032.chm
 #url7=http://www.drhtransparencia.com.br/agil/upgrade/lib/BAUHS93.TTF
 #url8=http://www.drhtransparencia.com.br/agil/upgrade/db/01002300.sql
-#url8=http://www.drhtransparencia.com.br/agil/upgrade/db/01002301.sql
 #url9=http://www.drhtransparencia.com.br/agil/upgrade/db/01002400.sql
 #url10=http://www.drhtransparencia.com.br/agil/upgrade/db/01002500.sql
+#url11=http://www.drhtransparencia.com.br/agil/upgrade/db/01002600.sql
 
 #method=0 (self-upgrade)
 
-#version=1.0.25.4
+#version=1.0.26.10
