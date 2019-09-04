@@ -4813,9 +4813,9 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
       BevelInner = bvLowered
       TabOrder = 1
       object Label6: TLabel
-        Left = 218
+        Left = 2
         Top = 6
-        Width = 169
+        Width = 385
         Height = 25
         Align = alTop
         Alignment = taRightJustify
@@ -4827,11 +4827,13 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         Font.Style = [fsBold]
         ParentFont = False
         Transparent = True
+        ExplicitLeft = 218
+        ExplicitWidth = 169
       end
       object dbValorTotal: TDBText
-        Left = 135
+        Left = 2
         Top = 35
-        Width = 252
+        Width = 385
         Height = 40
         Align = alTop
         Alignment = taRightJustify
@@ -4847,6 +4849,8 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         ParentColor = False
         ParentFont = False
         Transparent = False
+        ExplicitLeft = 135
+        ExplicitWidth = 252
       end
       object Bevel1: TBevel
         Left = 2
@@ -4857,9 +4861,9 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         Shape = bsSpacer
       end
       object Label7: TLabel
-        Left = 54
+        Left = 2
         Top = 79
-        Width = 333
+        Width = 385
         Height = 25
         Align = alTop
         Alignment = taRightJustify
@@ -4871,11 +4875,13 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         Font.Style = [fsBold]
         ParentFont = False
         Transparent = True
+        ExplicitLeft = 54
+        ExplicitWidth = 333
       end
       object dbValorDesconto: TDBText
-        Left = 72
+        Left = 2
         Top = 108
-        Width = 315
+        Width = 385
         Height = 40
         Align = alTop
         Alignment = taRightJustify
@@ -4891,6 +4897,8 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         ParentColor = False
         ParentFont = False
         Transparent = False
+        ExplicitLeft = 72
+        ExplicitWidth = 315
       end
       object Bevel2: TBevel
         Left = 2
@@ -4901,9 +4909,9 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         Shape = bsSpacer
       end
       object Label8: TLabel
-        Left = 191
+        Left = 2
         Top = 152
-        Width = 196
+        Width = 385
         Height = 25
         Align = alTop
         Alignment = taRightJustify
@@ -4915,11 +4923,13 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         Font.Style = [fsBold]
         ParentFont = False
         Transparent = True
+        ExplicitLeft = 191
+        ExplicitWidth = 196
       end
       object dbValorAPagar: TDBText
-        Left = 114
+        Left = 2
         Top = 181
-        Width = 273
+        Width = 385
         Height = 40
         Align = alTop
         Alignment = taRightJustify
@@ -4935,6 +4945,8 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         ParentColor = False
         ParentFont = False
         Transparent = False
+        ExplicitLeft = 114
+        ExplicitWidth = 273
       end
       object Bevel3: TBevel
         Left = 2
@@ -5063,7 +5075,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
     Font.Charset = ANSI_CHARSET
     Font.Color = clBlue
     Font.Height = -48
-    Font.Name = 'Tahoma'
+    Font.Name = 'Bauhaus 93'
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 4

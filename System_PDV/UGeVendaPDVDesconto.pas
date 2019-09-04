@@ -7,7 +7,9 @@ uses
   Dialogs, UGrPadrao, StdCtrls, ExtCtrls, DB, Mask, DBCtrls, Buttons,
   cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons, JvExMask, JvToolEdit,
-  JvBaseEdits;
+  JvBaseEdits, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeVendaPDVDesconto = class(TfrmGrPadrao)

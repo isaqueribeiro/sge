@@ -5,11 +5,11 @@ inherited frmGeVendaPDVItem: TfrmGeVendaPDVItem
   Caption = 'Vendas PDV | Alterar Item'
   ClientHeight = 138
   ClientWidth = 313
-  Font.Charset = ANSI_CHARSET
   Font.Height = -21
-  Font.Name = 'Tahoma'
   Font.Style = [fsBold]
   Position = poOwnerFormCenter
+  ExplicitWidth = 327
+  ExplicitHeight = 175
   DesignSize = (
     313
     138)
@@ -11622,15 +11622,7 @@ inherited frmGeVendaPDVItem: TfrmGeVendaPDVItem
     Anchors = [akRight, akBottom]
     Caption = 'Confirmar'
     Default = True
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 1
-    OnClick = btnOkClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       DE010000424DDE01000000000000760000002800000024000000120000000100
       0400000000006801000000000000000000001000000000000000000000000000
       80000080000000808000800000008000800080800000C0C0C000808080000000
@@ -11647,7 +11639,15 @@ inherited frmGeVendaPDVItem: TfrmGeVendaPDVItem
       3338F38F000033333333333333A223333333333333338F830000333333333333
       333A333333333333333338330000333333333333333333333333333333333333
       0000}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 1
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    OnClick = btnOkClick
   end
   object btnNao: TcxButton
     Left = 183
@@ -11657,15 +11657,8 @@ inherited frmGeVendaPDVItem: TfrmGeVendaPDVItem
     Anchors = [akRight, akBottom]
     Cancel = True
     Caption = 'Cancelar'
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Tahoma'
-    Font.Style = []
     ModalResult = 2
-    ParentFont = False
-    TabOrder = 2
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       DE010000424DDE01000000000000760000002800000024000000120000000100
       0400000000006801000000000000000000001000000000000000000000000000
       80000080000000808000800000008000800080800000C0C0C000808080000000
@@ -11682,6 +11675,13 @@ inherited frmGeVendaPDVItem: TfrmGeVendaPDVItem
       38F338F300003333333333333919333333388333338FFF830000333333333333
       3333333333333333333888330000333333333333333333333333333333333333
       0000}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 2
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
   end
 end

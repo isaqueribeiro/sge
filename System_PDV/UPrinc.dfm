@@ -27,7 +27,7 @@ object frmPrinc: TfrmPrinc
     Color = clBlack
     TabOrder = 0
     ExplicitTop = 122
-    ExplicitHeight = 499
+    ExplicitHeight = 477
     DesignSize = (
       930
       444)
@@ -4436,7 +4436,6 @@ object frmPrinc: TfrmPrinc
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
-      ExplicitTop = 445
     end
     object RbnBackstageView: TdxRibbonBackstageView
       Left = 8
@@ -4488,6 +4487,7 @@ object frmPrinc: TfrmPrinc
           OptionsView.Item.Text.Position = posRight
           OptionsView.Item.PinMode = bgipmTag
           Ribbon = Ribbon
+          TabOrder = 1
           OnItemClick = RbnBackstageGalleryConfigItemClick
           object dxRibbonBackstageViewGalleryGroup1: TdxRibbonBackstageViewGalleryGroup
             Caption = 'Configura'#231#245'es Gerais'
@@ -4552,6 +4552,7 @@ object frmPrinc: TfrmPrinc
           OptionsView.Item.Text.Position = posRight
           OptionsView.Item.PinMode = bgipmTag
           Ribbon = Ribbon
+          TabOrder = 1
           OnItemClick = dxRibbonBackstageViewGalleryControl1ItemClick
           object dxRibbonBackstageViewGalleryGroup2: TdxRibbonBackstageViewGalleryGroup
             Caption = 'Controle de Acesso'
@@ -4715,7 +4716,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalCad: TdxBar
       Caption = 'Cadastros'
       CaptionButtons = <>
-      DockedLeft = 144
+      DockedLeft = 143
       DockedTop = 0
       FloatLeft = 441
       FloatTop = 226

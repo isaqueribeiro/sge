@@ -6,14 +6,19 @@ uses
   UInfoVersao,
   UFuncoes,
   UEcfFactory,
+  UGeConfigurarNFeACBr,
+  SHDocVw,
 
   Windows, SysUtils, Classes, ACBrNFeDANFEClass, ACBrNFe, DB,
-  IBCustomDataSet, IBQuery, frxClass, frxDBSet, frxExportRTF, frxExportXLS,
-  frxExportPDF, frxExportMail, UGeConfigurarNFeACBr,
+  frxExportPDF, frxExportMail, frxDesgn, frxRich, frxCross, frxChart, frxExportImage,
+  IBCustomDataSet, IBQuery, IBUpdateSQL, IBSQL,
 
-  ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, SHDocVw,
-  IBUpdateSQL, IBSQL, frxDesgn, frxRich, frxCross, frxChart, ACBrBase,
-  ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, ACBrBase, ACBrBoleto, ACBrBoletoFCFR,
+  ACBrValidador;
 
 type
   TDMCupom = class(TDataModule)
@@ -134,51 +139,61 @@ type
     cdsVendaFormaPagtoPRAZO_11: TSmallintField;
     cdsVendaFormaPagtoPRAZO_12: TSmallintField;
     updVendaFormaPagto: TIBUpdateSQL;
-    cdsVendaVolume: TIBDataSet;
-    cdsVendaVolumeANO_VENDA: TSmallintField;
-    cdsVendaVolumeCONTROLE_VENDA: TIntegerField;
-    cdsVendaVolumeSEQUENCIAL: TSmallintField;
-    cdsVendaVolumeNUMERO: TIBStringField;
-    cdsVendaVolumeQUANTIDADE: TSmallintField;
-    cdsVendaVolumeESPECIE: TIBStringField;
-    cdsVendaVolumeMARCA: TIBStringField;
-    cdsVendaVolumePESO_BRUTO: TIBBCDField;
-    cdsVendaVolumePESO_LIQUIDO: TIBBCDField;
-    updVendaVolume: TIBUpdateSQL;
-    qryCFOP: TIBDataSet;
-    qryProduto: TIBDataSet;
+    cdsVendaVolumexxx: TIBDataSet;
+    updVendaVolumexxx: TIBUpdateSQL;
+    qryCFOPxxx: TIBDataSet;
+    qryProdutoxxx: TIBDataSet;
     cdsVendaDESCONTO_CUPOM: TIBBCDField;
     cdsVendaDESCONTO_TOTAL: TCurrencyField;
-    qryUltimoVenda: TIBDataSet;
+    qryUltimoVendaxxx: TIBDataSet;
     cdsVendaNFE_DENEGADA: TSmallintField;
     cdsVendaNFE_DENEGADA_MOTIVO: TIBStringField;
-    cdsVendaTitulo: TIBDataSet;
+    cdsVendaTituloxxx: TIBDataSet;
     cdsVendaFormaPagtoVALOR_RECEBIDO: TIBBCDField;
     cdsVendaFormaPagtoValorTroco: TCurrencyField;
-    cdsVendaNFCe: TIBDataSet;
-    cdsVendaNFCeEMPRESA: TIBStringField;
-    cdsVendaNFCeANOVENDA: TSmallintField;
-    cdsVendaNFCeNUMVENDA: TIntegerField;
-    cdsVendaNFCeDATAEMISSAO: TDateField;
-    cdsVendaNFCeHORAEMISSAO: TTimeField;
-    cdsVendaNFCeSERIE: TIBStringField;
-    cdsVendaNFCeNUMERO: TIntegerField;
-    cdsVendaNFCeMODELO: TSmallintField;
-    cdsVendaNFCeVERSAO: TSmallintField;
-    cdsVendaNFCeCHAVE: TIBStringField;
-    cdsVendaNFCePROTOCOLO: TIBStringField;
-    cdsVendaNFCeRECIBO: TIBStringField;
-    cdsVendaNFCeXML_FILENAME: TIBStringField;
-    cdsVendaNFCeXML_FILE: TMemoField;
-    cdsVendaNFCeLOTE_ANO: TSmallintField;
-    cdsVendaNFCeLOTE_NUM: TIntegerField;
-    updVendaNFCe: TIBUpdateSQL;
+    cdsVendaNFCexxx: TIBDataSet;
+    updVendaNFCexxxx: TIBUpdateSQL;
     cdsVendaNFE_VALOR_TOTAL_PRODUTO: TIBBCDField;
     cdsVendaNFE_VALOR_DESCONTO: TIBBCDField;
     cdsVendaNFE_VALOR_TOTAL_NOTA: TIBBCDField;
     cdsVendaItemCODVENDEDOR: TIntegerField;
     cdsVendaFormaPagtoFORMAPAGTO_DESCRICAO: TIBStringField;
     cdsVendaFormaPagtoCONDICAOPAGTO_DESCRICAO: TIBStringField;
+    qryCFOP: TFDQuery;
+    FDQuery2: TFDQuery;
+    qryProduto: TFDQuery;
+    qryUltimoVenda: TFDQuery;
+    cdsVendaTitulo: TFDQuery;
+    cdsVendaNFCe: TFDQuery;
+    updVendaNFCe: TFDUpdateSQL;
+    cdsVendaVolume: TFDQuery;
+    updVendaVolume: TFDUpdateSQL;
+    cdsVendaNFCeEMPRESA: TStringField;
+    cdsVendaNFCeANOVENDA: TSmallintField;
+    cdsVendaNFCeNUMVENDA: TIntegerField;
+    cdsVendaNFCeDATAEMISSAO: TDateField;
+    cdsVendaNFCeHORAEMISSAO: TTimeField;
+    cdsVendaNFCeSERIE: TStringField;
+    cdsVendaNFCeNUMERO: TIntegerField;
+    cdsVendaNFCeNFC_NUMERO: TIntegerField;
+    cdsVendaNFCeMODELO: TSmallintField;
+    cdsVendaNFCeVERSAO: TSmallintField;
+    cdsVendaNFCeCHAVE: TStringField;
+    cdsVendaNFCePROTOCOLO: TStringField;
+    cdsVendaNFCeRECIBO: TStringField;
+    cdsVendaNFCeXML_FILENAME: TStringField;
+    cdsVendaNFCeXML_FILE: TMemoField;
+    cdsVendaNFCeLOTE_ANO: TSmallintField;
+    cdsVendaNFCeLOTE_NUM: TIntegerField;
+    cdsVendaVolumeANO_VENDA: TSmallintField;
+    cdsVendaVolumeCONTROLE_VENDA: TIntegerField;
+    cdsVendaVolumeSEQUENCIAL: TSmallintField;
+    cdsVendaVolumeNUMERO: TStringField;
+    cdsVendaVolumeQUANTIDADE: TSmallintField;
+    cdsVendaVolumeESPECIE: TStringField;
+    cdsVendaVolumeMARCA: TStringField;
+    cdsVendaVolumePESO_BRUTO: TBCDField;
+    cdsVendaVolumePESO_LIQUIDO: TBCDField;
     procedure cdsVendaCalcFields(DataSet: TDataSet);
     procedure cdsVendaFormaPagtoCalcFields(DataSet: TDataSet);
     procedure cdsVendaItemSEQGetText(Sender: TField; var Text: String;

@@ -5,8 +5,12 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, ExtCtrls, dxGDIPlusClasses, StdCtrls, DBCtrls, Grids,
-  DBGrids, DB, ActnList, IBCustomDataSet, IBUpdateSQL, IBTable, IBQuery,
-  IBStoredProc, pngimage, System.Actions, frxClass;
+  DBGrids, DB, ActnList, pngimage, System.Actions, frxClass,
+  IBCustomDataSet, IBUpdateSQL, IBTable, IBQuery, IBStoredProc,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client;
 
 type
   TTipoAlteraItem = (alterarQuantidade, alterarValor, excluirProduto);
@@ -443,11 +447,12 @@ procedure TfrmGeVendaPDV.actCarregarClienteExecute(Sender: TObject);
 var
   iCodigo : Integer;
   sCNPJ ,
+  sIE   ,
   sNome : String;
   bBloqueado : Boolean;
   sBloqueado : String;
 begin
-  if ( SelecionarCliente(Self, iCodigo, sCNPJ, sNome, bBloqueado, sBloqueado) ) then
+  if ( SelecionarCliente(Self, iCodigo, sCNPJ, sIE, sNome, bBloqueado, sBloqueado) ) then
   begin
     if bBloqueado then
       ShowWarning('Cliente selecionado com restrição!' + #13 + 'Motivo:' + #13 + sBloqueado);
@@ -1535,8 +1540,9 @@ begin
             TMemoField(DataSetNotaFiscal.FieldByName('XML_FILE')).LoadFromFile( sFileNameXML );
           end;
 
-          TIBDataSet(DataSetNotaFiscal).Post;
-          TIBDataSet(DataSetNotaFiscal).ApplyUpdates;
+          TFDQuery(DataSetNotaFiscal).Post;
+          TFDQuery(DataSetNotaFiscal).ApplyUpdates;
+          TFDQuery(DataSetNotaFiscal).CommitUpdates;
 
           CommitTransaction;
         end;

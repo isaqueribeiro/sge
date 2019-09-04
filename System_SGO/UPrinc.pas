@@ -1311,10 +1311,6 @@ begin
   CanClose := ShowConfirm('Deseja SAIR do Sistema?');
   if CanClose then
   begin
-    sCommand := ExtractFilePath(ParamStr(0)) + 'Upgrades.bat';
-    if FileExists(sCommand) then
-      ShellExecute(handle,'open', PChar(sCommand), '', '', SW_HIDE);
-
     ExcluirArquivosAlertaSistema;
     Application.Terminate;
 
@@ -1323,6 +1319,10 @@ begin
     aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
     KillTask(aProcesso);
   end;
+
+  sCommand := ExtractFilePath(ParamStr(0)) + 'Upgrades.bat';
+  if FileExists(sCommand) then
+    ShellExecute(handle,'open', PChar(sCommand), '', '', SW_HIDE);
 end;
 
 procedure TfrmPrinc.nmCartaCorrecaoNFeClick(Sender: TObject);

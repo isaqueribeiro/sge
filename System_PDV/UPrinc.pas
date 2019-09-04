@@ -3,18 +3,19 @@ unit UPrinc;
 interface
 
 uses
-  StdCtrls, Buttons,
+  StdCtrls, Buttons, ShellAPI,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ComCtrls, ExtCtrls, jpeg, dxRibbonForm, cxGraphics, cxControls,
   cxLookAndFeels, cxLookAndFeelPainters, dxBar, dxRibbon, cxClasses, dxSkinsForm,
   dxGDIPlusClasses, dxRibbonCustomizationForm, dxStatusBar, cxContainer, cxEdit,
   dxGallery, dxGalleryControl, dxRibbonBackstageViewGalleryControl, cxLabel,
-  dxRibbonBackstageView,
+  dxRibbonBackstageView, dxRibbonSkins,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinsdxStatusBarPainter,
-  dxRibbonSkins, dxSkinsdxRibbonPainter, dxSkinsdxBarPainter;
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinsdxStatusBarPainter, dxSkinsdxRibbonPainter,
+  dxSkinsdxBarPainter;
 
 type
   TfrmPrinc = class(TdxRibbonForm)
@@ -357,8 +358,12 @@ end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
 var
-  sFileImageWallPaper : String;
+  sFileImageWallPaper,
+  sCommand           : String;
 begin
+  sCommand := ExtractFilePath(ParamStr(0)) + 'Upgrades.bat';
+  DeleteFile(sCommand);
+
   Self.Tag := SISTEMA_PDV;
 
   gSistema.Codigo := Self.Tag;
@@ -648,6 +653,7 @@ end;
 
 procedure TfrmPrinc.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 var
+  sCommand  ,
   aProcesso : String;
 begin
   CanClose := ShowConfirm('Deseja SAIR do Sistema?');
@@ -660,6 +666,10 @@ begin
     aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
     KillTask(aProcesso);
   end;
+
+  sCommand := ExtractFilePath(ParamStr(0)) + 'Upgrades.bat';
+  if FileExists(sCommand) then
+    ShellExecute(handle, 'open', PChar(sCommand), '', '', SW_HIDE);
 end;
 
 procedure TfrmPrinc.mnRegistroEstacaoClick(Sender: TObject);

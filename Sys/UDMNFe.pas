@@ -299,7 +299,9 @@ type
 
     procedure LoadXML(MyMemo: TStringList; MyWebBrowser: TWebBrowser);
     procedure GuardarLoteNFeVenda(const sCNPJEmitente : String; const Ano, Numero, NumeroLote : Integer; const Recibo : String);
+    procedure GuardarCodigoNFeVenda(const sCNPJEmitente : String; const Ano, Numero, CodigoNF : Integer);
     procedure GuardarLoteNFeEntrada(const sCNPJEmitente : String; const Ano, Numero, NumeroLote : Integer; const Recibo : String);
+    procedure GuardarCodigoNFeEntrada(const sCNPJEmitente : String; const Ano, Numero, CodigoNF : Integer);
 
     procedure LerConfiguracao(const sCNPJEmitente : String; const tipoDANFE : TTipoDANFE = tipoDANFEFast);
     procedure GravarConfiguracao(const sCNPJEmitente : String);
@@ -1709,7 +1711,8 @@ begin
     AbrirVenda(pAno, pNumero);
 
     aNumero := qryCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger;
-    aCodigo := GerarCodigoDFe(qryCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger); // PROVISORIO
+    aCodigo := qryCalculoImposto.FieldByName('Lote_nfe_codigo').AsInteger;
+    //aCodigo := GerarCodigoDFe(qryCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger); // PROVISORIO
 
     if not qryCalculoImposto.FieldByName('DataEmissao').IsNull then
       aDataEmissao := qryCalculoImposto.FieldByName('DataEmissao').AsDateTime
@@ -1722,7 +1725,8 @@ begin
     AbrirCompra(pAno, pNumero);
 
     aNumero := qryEntradaCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger;
-    aCodigo := GerarCodigoDFe(qryEntradaCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger); // PROVISORIO
+    aCodigo := qryEntradaCalculoImposto.FieldByName('Lote_nfe_codigo').AsInteger;
+    //aCodigo := GerarCodigoDFe(qryEntradaCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger); // PROVISORIO
 
     if not qryEntradaCalculoImposto.FieldByName('DataEmissao').IsNull then
       aDataEmissao := qryEntradaCalculoImposto.FieldByName('DataEmissao').AsDateTime
@@ -2267,11 +2271,6 @@ begin
     with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
-//      SQL.Add('Update TBEMPRESA Set');
-//      SQL.Add('    SERIE_NFE  = ' + FormatFloat('####',      Serie));
-//      SQL.Add('  , NUMERO_NFE = ' + FormatFloat('#########', Numero));
-//      SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
-//      SQL.Add('  and NUMERO_NFE = ' + FormatFloat('#########', Numero - 1));
       SQL.Add('Update TBCONFIGURACAO Set');
       SQL.Add('    NFE_SERIE  = ' + FormatFloat('####',      Serie));
       SQL.Add('  , NFE_NUMERO = ' + FormatFloat('#########', Numero));
@@ -2292,11 +2291,6 @@ begin
     with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
-//      SQL.Add('Update TBEMPRESA Set');
-//      SQL.Add('    SERIE_NFCE  = ' + FormatFloat('####',      Serie));
-//      SQL.Add('  , NUMERO_NFCE = ' + FormatFloat('#########', Numero));
-//      SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
-//      SQL.Add('  and NUMERO_NFCE = ' + FormatFloat('#########', Numero - 1));
       SQL.Add('Update TBCONFIGURACAO Set');
       SQL.Add('    NFCE_SERIE  = ' + FormatFloat('####',      Serie));
       SQL.Add('  , NFCE_NUMERO = ' + FormatFloat('#########', Numero));
@@ -2317,9 +2311,6 @@ begin
     with DMBusiness, fdQryBusca do
     begin
       SQL.Clear;
-//      SQL.Add('Update TBEMPRESA Set');
-//      SQL.Add('  CARTA_CORRECAO_NFE = ' + FormatFloat('#########', Numero));
-//      SQL.Add('Where CNPJ = ' + QuotedStr(sCNPJEmitente));
       SQL.Add('Update TBCONFIGURACAO Set');
       SQL.Add('  NFE_CARTA_CORRECAO = ' + FormatFloat('#########', Numero));
       SQL.Add('Where EMPRESA = ' + QuotedStr(sCNPJEmitente));
@@ -2353,7 +2344,8 @@ var
   aConsumidorFinal ,
   aNaoContribuinte : Boolean;
 
-  aParcela : Integer;
+  iCodigoNFE,
+  aParcela  : Integer;
 
   // Totalizar Valores
   cTotal_vIPI          ,
@@ -2362,8 +2354,8 @@ var
 begin
 (*
   IMR - 03/09/2019 :
-    O campo "Ide.cNF" precisa receber 0 (zero) para o sistema gere automaticamente este código e assim esteja
-    de acordo com as expecificações da Receita Federal.
+    O campo "Ide.cNF" precisa receber um valor de código, gerado de forma aleatória, diferente do número da
+    nota fiscal e assim esteja de acordo com as expecificações da Receita Federal.
 
   IMR - 03/09/2018 :
     Dados de fatura da Nota Fical agora são apenas informados quando a(s) duplicata(s)
@@ -2417,14 +2409,17 @@ begin
 
     iSerieNFe   := qryEmitenteSERIE_NFE.AsInteger;
     iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
+    iCodigoNFE  := GerarCodigoDFe(iNumeroNFe);
     DtHoraEmiss := GetDateTimeDB;
+
+    GuardarCodigoNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iCodigoNFE);
 
     ACBrNFe.NotasFiscais.Clear;
 
     with ACBrNFe.NotasFiscais.Add.NFe do
     begin
       // Caso não seja preenchido será gerado um número aleatório pelo componente
-      Ide.cNF       := 0; //iNumeroNFe;
+      Ide.cNF       := iCodigoNFE;
       Ide.natOp     := qryCalculoImposto.FieldByName('CFOP_DESCRICAO').AsString;
 
       // Entradas ou saídas dentro do Estado
@@ -2455,7 +2450,7 @@ begin
       Ide.tpAmb     := ACBrNFe.Configuracoes.WebServices.Ambiente;
       Ide.verProc   := GetExeVersion( ParamStr(0) ); // Versão do seu sistema
       Ide.cUF       := UFtoCUF( qryEmitenteEST_SIGLA.AsString );
-      Ide.cMunFG    := qryEmitenteCID_IBGE.AsInteger ;
+      Ide.cMunFG    := qryEmitenteCID_IBGE.AsInteger;
 
       if (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger = 1) then
         Ide.finNFe := fnDevolucao
@@ -4060,7 +4055,8 @@ var
   vTotalTributoAprox     : Currency;
   PorCodigoExterno : Boolean;
 
-  aParcela : Integer;
+  iCodigoNFE,
+  aParcela  : Integer;
 
   // Totalizar Valores
   cTotal_vIPI          ,
@@ -4068,6 +4064,10 @@ var
   cTotal_ICMSTot_vICMS : Currency;
 begin
 (*
+  IMR - 03/09/2019 :
+    O campo "Ide.cNF" precisa receber um valor de código, gerado de forma aleatória, diferente do número da
+    nota fiscal e assim esteja de acordo com as expecificações da Receita Federal.
+
   IMR - 14/03/2018 :
     Implementação da rotina que inseri a Referência como Código do Produto na nota
     fiscal de acordo com a configuração da empresa.
@@ -4112,14 +4112,17 @@ begin
 
     iSerieNFe   := qryEmitenteSERIE_NFE.AsInteger;
     iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
+    iCodigoNFE  := GerarCodigoDFe(iNumeroNFe);
     DtHoraEmiss := GetDateTimeDB;
+
+    GuardarCodigoNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, iCodigoNFE);
 
     ACBrNFe.NotasFiscais.Clear;
 
     with ACBrNFe.NotasFiscais.Add.NFe do
     begin
       // Caso não seja preenchido será gerado um número aleatório pelo componente
-      Ide.cNF       := 0; //iNumeroNFe;
+      Ide.cNF   := iCodigoNFE;
       Ide.natOp := qryEntradaCalculoImposto.FieldByName('CFOP_DESCRICAO').AsString;
 
       // Entradas ou saídas dentro do Estado
@@ -5571,6 +5574,28 @@ begin
   end;
 end;
 
+procedure TDMNFe.GuardarCodigoNFeVenda(const sCNPJEmitente: String;
+  const Ano, Numero, CodigoNF : Integer);
+begin
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      SQL.Clear;
+      SQL.Add('Update TBVENDAS Set');
+      SQL.Add('  LOTE_NFE_CODIGO = ' + IfThen(CodigoNF = 0, 'NULL', FormatFloat('#########', CodigoNF)));
+      SQL.Add('Where CODEMP      = ' + QuotedStr(sCNPJEmitente));
+      SQL.Add('  and ANO         = ' + FormatFloat('#########', Ano));
+      SQL.Add('  and CODCONTROL  = ' + FormatFloat('#########', Numero));
+
+      ExecSQL;
+      CommitTransaction;
+    end;
+  except
+    On E : Exception do
+      raise Exception.Create('GuardarCodigoNFeVenda() > ' + E.Message);
+  end;
+end;
+
 procedure TDMNFe.GuardarLoteNFeEntrada(const sCNPJEmitente: String;
   const Ano, Numero, NumeroLote: Integer; const Recibo : String);
 begin
@@ -5592,6 +5617,27 @@ begin
   except
     On E : Exception do
       raise Exception.Create('GuardarLoteNFeEntrada > ' + E.Message);
+  end;
+end;
+
+procedure TDMNFe.GuardarCodigoNFeEntrada(const sCNPJEmitente : String; const Ano, Numero, CodigoNF : Integer);
+begin
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      SQL.Clear;
+      SQL.Add('Update TBCOMPRAS Set');
+      SQL.Add('  LOTE_NFE_CODIGO = ' + IfThen(CodigoNF = 0, 'NULL', FormatFloat('#########', CodigoNF)));
+      SQL.Add('Where CODEMP      = ' + QuotedStr(sCNPJEmitente));
+      SQL.Add('  and ANO         = ' + FormatFloat('#########', Ano));
+      SQL.Add('  and CODCONTROL  = ' + FormatFloat('#########', Numero));
+
+      ExecSQL;
+      CommitTransaction;
+    end;
+  except
+    On E : Exception do
+      raise Exception.Create('GuardarCodigoNFeEntrada() > ' + E.Message);
   end;
 end;
 

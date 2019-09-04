@@ -1317,7 +1317,7 @@ object DMCupom: TDMCupom
     Left = 112
     Top = 176
   end
-  object cdsVendaVolume: TIBDataSet
+  object cdsVendaVolumexxx: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
@@ -1340,65 +1340,11 @@ object DMCupom: TDMCupom
       '')
     ParamCheck = True
     UniDirectional = False
-    UpdateObject = updVendaVolume
+    UpdateObject = updVendaVolumexxx
     Left = 80
     Top = 224
-    object cdsVendaVolumeANO_VENDA: TSmallintField
-      FieldName = 'ANO_VENDA'
-      Origin = '"TBVENDAS_VOLUME"."ANO_VENDA"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object cdsVendaVolumeCONTROLE_VENDA: TIntegerField
-      FieldName = 'CONTROLE_VENDA'
-      Origin = '"TBVENDAS_VOLUME"."CONTROLE_VENDA"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object cdsVendaVolumeSEQUENCIAL: TSmallintField
-      FieldName = 'SEQUENCIAL'
-      Origin = '"TBVENDAS_VOLUME"."SEQUENCIAL"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object cdsVendaVolumeNUMERO: TIBStringField
-      DisplayLabel = 'N'#250'mero do Volume'
-      FieldName = 'NUMERO'
-      Origin = '"TBVENDAS_VOLUME"."NUMERO"'
-      Size = 50
-    end
-    object cdsVendaVolumeQUANTIDADE: TSmallintField
-      DisplayLabel = 'Quantidade de Volumes'
-      FieldName = 'QUANTIDADE'
-      Origin = '"TBVENDAS_VOLUME"."QUANTIDADE"'
-    end
-    object cdsVendaVolumeESPECIE: TIBStringField
-      DisplayLabel = 'Esp'#233'cie'
-      FieldName = 'ESPECIE'
-      Origin = '"TBVENDAS_VOLUME"."ESPECIE"'
-      Size = 50
-    end
-    object cdsVendaVolumeMARCA: TIBStringField
-      DisplayLabel = 'Marca'
-      FieldName = 'MARCA'
-      Origin = '"TBVENDAS_VOLUME"."MARCA"'
-      Size = 50
-    end
-    object cdsVendaVolumePESO_BRUTO: TIBBCDField
-      DisplayLabel = 'Peso Bruto'
-      FieldName = 'PESO_BRUTO'
-      Origin = '"TBVENDAS_VOLUME"."PESO_BRUTO"'
-      DisplayFormat = ',0.##'
-      Precision = 18
-      Size = 3
-    end
-    object cdsVendaVolumePESO_LIQUIDO: TIBBCDField
-      DisplayLabel = 'Peso L'#237'quido'
-      FieldName = 'PESO_LIQUIDO'
-      Origin = '"TBVENDAS_VOLUME"."PESO_LIQUIDO"'
-      DisplayFormat = ',0.##'
-      Precision = 18
-      Size = 3
-    end
   end
-  object updVendaVolume: TIBUpdateSQL
+  object updVendaVolumexxx: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
       '  ANO_VENDA,'
@@ -1451,7 +1397,7 @@ object DMCupom: TDMCupom
     Left = 112
     Top = 224
   end
-  object qryCFOP: TIBDataSet
+  object qryCFOPxxx: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
@@ -1470,10 +1416,10 @@ object DMCupom: TDMCupom
       '')
     ParamCheck = True
     UniDirectional = False
-    Left = 384
-    Top = 56
+    Left = 824
+    Top = 320
   end
-  object qryProduto: TIBDataSet
+  object qryProdutoxxx: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
@@ -1534,10 +1480,10 @@ object DMCupom: TDMCupom
       '')
     ParamCheck = True
     UniDirectional = False
-    Left = 384
-    Top = 104
+    Left = 824
+    Top = 368
   end
-  object qryUltimoVenda: TIBDataSet
+  object qryUltimoVendaxxx: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
@@ -1556,10 +1502,10 @@ object DMCupom: TDMCupom
       '')
     ParamCheck = True
     UniDirectional = False
-    Left = 384
-    Top = 152
+    Left = 824
+    Top = 416
   end
-  object cdsVendaTitulo: TIBDataSet
+  object cdsVendaTituloxxx: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
@@ -1600,7 +1546,7 @@ object DMCupom: TDMCupom
     Left = 80
     Top = 272
   end
-  object cdsVendaNFCe: TIBDataSet
+  object cdsVendaNFCexxx: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
@@ -1629,89 +1575,11 @@ object DMCupom: TDMCupom
       '  and n.NUMVENDA = :controle')
     ParamCheck = True
     UniDirectional = False
-    UpdateObject = updVendaNFCe
+    UpdateObject = updVendaNFCexxxx
     Left = 80
     Top = 320
-    object cdsVendaNFCeEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBNFE_ENVIADA"."EMPRESA"'
-      Size = 18
-    end
-    object cdsVendaNFCeANOVENDA: TSmallintField
-      FieldName = 'ANOVENDA'
-      Origin = 'TBNFE_ENVIADA.ANOVENDA'
-      Required = True
-    end
-    object cdsVendaNFCeNUMVENDA: TIntegerField
-      FieldName = 'NUMVENDA'
-      Origin = 'TBNFE_ENVIADA.NUMVENDA'
-    end
-    object cdsVendaNFCeDATAEMISSAO: TDateField
-      FieldName = 'DATAEMISSAO'
-      Origin = 'TBNFE_ENVIADA.DATAEMISSAO'
-    end
-    object cdsVendaNFCeHORAEMISSAO: TTimeField
-      FieldName = 'HORAEMISSAO'
-      Origin = 'TBNFE_ENVIADA.HORAEMISSAO'
-    end
-    object cdsVendaNFCeSERIE: TIBStringField
-      FieldName = 'SERIE'
-      Origin = 'TBNFE_ENVIADA.SERIE'
-      Required = True
-      Size = 4
-    end
-    object cdsVendaNFCeNUMERO: TIntegerField
-      FieldName = 'NUMERO'
-      Origin = 'TBNFE_ENVIADA.NUMERO'
-      Required = True
-    end
-    object cdsVendaNFCeMODELO: TSmallintField
-      FieldName = 'MODELO'
-      Origin = '"TBNFE_ENVIADA"."MODELO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsVendaNFCeVERSAO: TSmallintField
-      FieldName = 'VERSAO'
-      Origin = '"TBNFE_ENVIADA"."VERSAO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsVendaNFCeCHAVE: TIBStringField
-      FieldName = 'CHAVE'
-      Origin = 'TBNFE_ENVIADA.CHAVE'
-      Size = 250
-    end
-    object cdsVendaNFCePROTOCOLO: TIBStringField
-      FieldName = 'PROTOCOLO'
-      Origin = 'TBNFE_ENVIADA.PROTOCOLO'
-      Size = 250
-    end
-    object cdsVendaNFCeRECIBO: TIBStringField
-      FieldName = 'RECIBO'
-      Origin = 'TBNFE_ENVIADA.RECIBO'
-      Size = 250
-    end
-    object cdsVendaNFCeXML_FILENAME: TIBStringField
-      FieldName = 'XML_FILENAME'
-      Origin = 'TBNFE_ENVIADA.XML_FILENAME'
-      Size = 250
-    end
-    object cdsVendaNFCeXML_FILE: TMemoField
-      FieldName = 'XML_FILE'
-      Origin = 'TBNFE_ENVIADA.XML_FILE'
-      BlobType = ftMemo
-      Size = 8
-    end
-    object cdsVendaNFCeLOTE_ANO: TSmallintField
-      FieldName = 'LOTE_ANO'
-      Origin = 'TBNFE_ENVIADA.LOTE_ANO'
-    end
-    object cdsVendaNFCeLOTE_NUM: TIntegerField
-      FieldName = 'LOTE_NUM'
-      Origin = 'TBNFE_ENVIADA.LOTE_NUM'
-      Required = True
-    end
   end
-  object updVendaNFCe: TIBUpdateSQL
+  object updVendaNFCexxxx: TIBUpdateSQL
     RefreshSQL.Strings = (
       'Select '
       '  EMPRESA,'
@@ -1785,5 +1653,492 @@ object DMCupom: TDMCupom
       '  SERIE = :OLD_SERIE')
     Left = 112
     Top = 320
+  end
+  object qryCFOP: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.Cfop_cod'
+      '  , c.Cfop_descricao'
+      '  , c.Cfop_cst_padrao_entrada'
+      '  , c.Cfop_cst_padrao_saida'
+      'from TBCFOP c'
+      'where c.Cfop_cod = :Cfop_cod')
+    Left = 520
+    Top = 216
+    ParamData = <
+      item
+        Name = 'CFOP_COD'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object FDQuery2: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    Left = 688
+    Top = 80
+  end
+  object qryProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    p.Codigo'
+      '  , p.Cod'
+      '  , p.Descri'
+      '  , p.Modelo'
+      '  , p.Preco'
+      '  , p.Preco_Promocao'
+      '  , p.Referencia'
+      '  , p.Secao'
+      '  , p.Qtde'
+      '  , p.Unidade'
+      '  , p.Estoqmin'
+      '  , p.Codgrupo'
+      '  , p.Customedio'
+      '  , p.Codemp'
+      '  , p.Codsecao'
+      '  , p.Codorigem'
+      '  , p.Codtributacao'
+      '  , p.Cst'
+      '  , p.Csosn'
+      '  , p.Codcfop'
+      '  , p.Codbarra_ean'
+      '  , p.Codunidade'
+      '  , p.Aliquota_tipo'
+      '  , p.Aliquota'
+      '  , p.Aliquota_csosn'
+      '  , p.Aliquota_pis'
+      '  , p.Aliquota_cofins'
+      '  , p.Percentual_reducao_BC'
+      '  , p.Valor_ipi'
+      '  , p.Reserva'
+      '  , p.Movimenta_Estoque'
+      '  , case when coalesce(p.Reserva, 0) > 0'
+      '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
+      '      else coalesce(p.Qtde, 0)'
+      '    end as Disponivel'
+      '  , g.Descri as Descricao_Grupo'
+      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
+      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
+      '  , u.Unp_sigla'
+      '  , c.Cfop_descricao'
+      '  , c.Cfop_especificacao'
+      'from TBPRODUTO p'
+      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
+      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
+      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
+      '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
+      'where p.Codigo = :Codigo'
+      '  or p.Codbarra_ean = :CodigoBarra')
+    Left = 520
+    Top = 264
+    ParamData = <
+      item
+        Name = 'CODIGO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'CODIGOBARRA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 15
+      end>
+  end
+  object qryUltimoVenda: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '  max(v.codcontrol) as orcamento'
+      'from TBVENDAS v'
+      'where v.codemp  = :empresa'
+      '  and v.usuario = :usuario'
+      '  and v.ano     = :ano'
+      '  and v.status  = :status')
+    Left = 520
+    Top = 312
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'USUARIO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 50
+      end
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Name = 'STATUS'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end>
+  end
+  object cdsVendaTitulo: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    r.Anolanc'
+      '  , r.numlanc'
+      '  , r.parcela'
+      '  , r.codbanco'
+      '  , r.nossonumero'
+      '  , r.cnpj'
+      '  , r.tippag'
+      '  , r.dtemiss'
+      '  , r.dtvenc'
+      '  , r.valorrec'
+      '  , r.percentjuros'
+      '  , r.percentmulta'
+      '  , r.percentdesconto'
+      '  , r.valorrectot'
+      '  , r.valorsaldo'
+      '  , r.dataprocessoboleto'
+      '  , r.Baixado'
+      '  , Case when r.Baixado = 1 then '#39'X'#39' else '#39'.'#39' end as Baixado_'
+      '  , r.Dtrec'
+      '  , r.forma_pagto'
+      '  , r.status'
+      'from TBCONTREC r'
+      ''
+      'where r.anovenda = :anovenda'
+      '  and r.numvenda = :numvenda')
+    Left = 224
+    Top = 272
+    ParamData = <
+      item
+        Name = 'ANOVENDA'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NUMVENDA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object cdsVendaNFCe: TFDQuery
+    Active = True
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updVendaNFCe
+    SQL.Strings = (
+      'Select'
+      '    n.EMPRESA'
+      '  , n.ANOVENDA'
+      '  , n.NUMVENDA'
+      '  , n.DATAEMISSAO'
+      '  , n.HORAEMISSAO'
+      '  , n.SERIE'
+      '  , n.NUMERO'
+      '  , n.NFC_NUMERO'
+      '  , n.MODELO'
+      '  , n.VERSAO'
+      '  , n.CHAVE'
+      '  , n.PROTOCOLO'
+      '  , n.RECIBO'
+      '  , n.XML_FILENAME'
+      '  , n.XML_FILE'
+      '  , n.LOTE_ANO'
+      '  , n.LOTE_NUM'
+      'from TBNFE_ENVIADA n'
+      'where n.EMPRESA = :empresa'
+      '  and n.ANOVENDA = :ano'
+      '  and n.NUMVENDA = :controle')
+    Left = 224
+    Top = 320
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Name = 'CONTROLE'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object cdsVendaNFCeEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Size = 18
+    end
+    object cdsVendaNFCeANOVENDA: TSmallintField
+      FieldName = 'ANOVENDA'
+      Origin = 'ANOVENDA'
+    end
+    object cdsVendaNFCeNUMVENDA: TIntegerField
+      FieldName = 'NUMVENDA'
+      Origin = 'NUMVENDA'
+    end
+    object cdsVendaNFCeDATAEMISSAO: TDateField
+      FieldName = 'DATAEMISSAO'
+      Origin = 'DATAEMISSAO'
+    end
+    object cdsVendaNFCeHORAEMISSAO: TTimeField
+      FieldName = 'HORAEMISSAO'
+      Origin = 'HORAEMISSAO'
+    end
+    object cdsVendaNFCeSERIE: TStringField
+      FieldName = 'SERIE'
+      Origin = 'SERIE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Size = 4
+    end
+    object cdsVendaNFCeNUMERO: TIntegerField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object cdsVendaNFCeNFC_NUMERO: TIntegerField
+      FieldName = 'NFC_NUMERO'
+      Origin = 'NFC_NUMERO'
+    end
+    object cdsVendaNFCeMODELO: TSmallintField
+      FieldName = 'MODELO'
+      Origin = 'MODELO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object cdsVendaNFCeVERSAO: TSmallintField
+      FieldName = 'VERSAO'
+      Origin = 'VERSAO'
+    end
+    object cdsVendaNFCeCHAVE: TStringField
+      FieldName = 'CHAVE'
+      Origin = 'CHAVE'
+      Size = 250
+    end
+    object cdsVendaNFCePROTOCOLO: TStringField
+      FieldName = 'PROTOCOLO'
+      Origin = 'PROTOCOLO'
+      Size = 250
+    end
+    object cdsVendaNFCeRECIBO: TStringField
+      FieldName = 'RECIBO'
+      Origin = 'RECIBO'
+      Size = 250
+    end
+    object cdsVendaNFCeXML_FILENAME: TStringField
+      FieldName = 'XML_FILENAME'
+      Origin = 'XML_FILENAME'
+      Size = 250
+    end
+    object cdsVendaNFCeXML_FILE: TMemoField
+      FieldName = 'XML_FILE'
+      Origin = 'XML_FILE'
+      BlobType = ftMemo
+    end
+    object cdsVendaNFCeLOTE_ANO: TSmallintField
+      FieldName = 'LOTE_ANO'
+      Origin = 'LOTE_ANO'
+    end
+    object cdsVendaNFCeLOTE_NUM: TIntegerField
+      FieldName = 'LOTE_NUM'
+      Origin = 'LOTE_NUM'
+    end
+  end
+  object updVendaNFCe: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBNFE_ENVIADA'
+      '(EMPRESA, SERIE, NUMERO, MODELO, VERSAO, '
+      '  ANOVENDA, NUMVENDA, NFC_NUMERO, DATAEMISSAO, '
+      '  HORAEMISSAO, CHAVE, PROTOCOLO, RECIBO, '
+      '  XML_FILENAME, XML_FILE, LOTE_ANO, LOTE_NUM)'
+      
+        'VALUES (:NEW_EMPRESA, :NEW_SERIE, :NEW_NUMERO, :NEW_MODELO, :NEW' +
+        '_VERSAO, '
+      
+        '  :NEW_ANOVENDA, :NEW_NUMVENDA, :NEW_NFC_NUMERO, :NEW_DATAEMISSA' +
+        'O, '
+      '  :NEW_HORAEMISSAO, :NEW_CHAVE, :NEW_PROTOCOLO, :NEW_RECIBO, '
+      
+        '  :NEW_XML_FILENAME, :NEW_XML_FILE, :NEW_LOTE_ANO, :NEW_LOTE_NUM' +
+        ')')
+    ModifySQL.Strings = (
+      'UPDATE TBNFE_ENVIADA'
+      
+        'SET EMPRESA = :NEW_EMPRESA, SERIE = :NEW_SERIE, NUMERO = :NEW_NU' +
+        'MERO, '
+      
+        '  MODELO = :NEW_MODELO, VERSAO = :NEW_VERSAO, ANOVENDA = :NEW_AN' +
+        'OVENDA, '
+      '  NUMVENDA = :NEW_NUMVENDA, NFC_NUMERO = :NEW_NFC_NUMERO, '
+      
+        '  DATAEMISSAO = :NEW_DATAEMISSAO, HORAEMISSAO = :NEW_HORAEMISSAO' +
+        ', '
+      
+        '  CHAVE = :NEW_CHAVE, PROTOCOLO = :NEW_PROTOCOLO, RECIBO = :NEW_' +
+        'RECIBO, '
+      '  XML_FILENAME = :NEW_XML_FILENAME, XML_FILE = :NEW_XML_FILE, '
+      '  LOTE_ANO = :NEW_LOTE_ANO, LOTE_NUM = :NEW_LOTE_NUM'
+      
+        'WHERE EMPRESA = :OLD_EMPRESA AND SERIE = :OLD_SERIE AND NUMERO =' +
+        ' :OLD_NUMERO AND '
+      '  MODELO = :OLD_MODELO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBNFE_ENVIADA'
+      
+        'WHERE EMPRESA = :OLD_EMPRESA AND SERIE = :OLD_SERIE AND NUMERO =' +
+        ' :OLD_NUMERO AND '
+      '  MODELO = :OLD_MODELO')
+    FetchRowSQL.Strings = (
+      
+        'SELECT EMPRESA, SERIE, NUMERO, MODELO, VERSAO, ANOVENDA, NUMVEND' +
+        'A, '
+      '  ANOCOMPRA, NUMCOMPRA, NFC_NUMERO, DATAEMISSAO, HORAEMISSAO, '
+      '  CHAVE, PROTOCOLO, RECIBO, XML_FILENAME, XML_FILE, LOTE_ANO, '
+      '  LOTE_NUM, CANCELADA'
+      'FROM TBNFE_ENVIADA'
+      
+        'WHERE EMPRESA = :EMPRESA AND SERIE = :SERIE AND NUMERO = :NUMERO' +
+        ' AND '
+      '  MODELO = :MODELO')
+    Left = 256
+    Top = 320
+  end
+  object cdsVendaVolume: TFDQuery
+    Active = True
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updVendaVolume
+    SQL.Strings = (
+      'Select'
+      '    v.ano_venda'
+      '  , v.controle_venda'
+      '  , v.sequencial'
+      '  , v.numero'
+      '  , v.quantidade'
+      '  , v.especie'
+      '  , v.marca'
+      '  , v.peso_bruto'
+      '  , v.peso_liquido'
+      'from TBVENDAS_VOLUME v')
+    Left = 224
+    Top = 224
+    object cdsVendaVolumeANO_VENDA: TSmallintField
+      FieldName = 'ANO_VENDA'
+      Origin = 'ANO_VENDA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object cdsVendaVolumeCONTROLE_VENDA: TIntegerField
+      FieldName = 'CONTROLE_VENDA'
+      Origin = 'CONTROLE_VENDA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object cdsVendaVolumeSEQUENCIAL: TSmallintField
+      FieldName = 'SEQUENCIAL'
+      Origin = 'SEQUENCIAL'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object cdsVendaVolumeNUMERO: TStringField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      Size = 50
+    end
+    object cdsVendaVolumeQUANTIDADE: TSmallintField
+      FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
+    end
+    object cdsVendaVolumeESPECIE: TStringField
+      FieldName = 'ESPECIE'
+      Origin = 'ESPECIE'
+      Size = 50
+    end
+    object cdsVendaVolumeMARCA: TStringField
+      FieldName = 'MARCA'
+      Origin = 'MARCA'
+      Size = 50
+    end
+    object cdsVendaVolumePESO_BRUTO: TBCDField
+      FieldName = 'PESO_BRUTO'
+      Origin = 'PESO_BRUTO'
+      Precision = 18
+      Size = 3
+    end
+    object cdsVendaVolumePESO_LIQUIDO: TBCDField
+      FieldName = 'PESO_LIQUIDO'
+      Origin = 'PESO_LIQUIDO'
+      Precision = 18
+      Size = 3
+    end
+  end
+  object updVendaVolume: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBVENDAS_VOLUME'
+      '(ANO_VENDA, CONTROLE_VENDA, SEQUENCIAL, NUMERO, '
+      '  QUANTIDADE, ESPECIE, MARCA, PESO_BRUTO, '
+      '  PESO_LIQUIDO)'
+      
+        'VALUES (:NEW_ANO_VENDA, :NEW_CONTROLE_VENDA, :NEW_SEQUENCIAL, :N' +
+        'EW_NUMERO, '
+      '  :NEW_QUANTIDADE, :NEW_ESPECIE, :NEW_MARCA, :NEW_PESO_BRUTO, '
+      '  :NEW_PESO_LIQUIDO)')
+    ModifySQL.Strings = (
+      'UPDATE TBVENDAS_VOLUME'
+      
+        'SET ANO_VENDA = :NEW_ANO_VENDA, CONTROLE_VENDA = :NEW_CONTROLE_V' +
+        'ENDA, '
+      
+        '  SEQUENCIAL = :NEW_SEQUENCIAL, NUMERO = :NEW_NUMERO, QUANTIDADE' +
+        ' = :NEW_QUANTIDADE, '
+      
+        '  ESPECIE = :NEW_ESPECIE, MARCA = :NEW_MARCA, PESO_BRUTO = :NEW_' +
+        'PESO_BRUTO, '
+      '  PESO_LIQUIDO = :NEW_PESO_LIQUIDO'
+      
+        'WHERE ANO_VENDA = :OLD_ANO_VENDA AND CONTROLE_VENDA = :OLD_CONTR' +
+        'OLE_VENDA AND '
+      '  SEQUENCIAL = :OLD_SEQUENCIAL')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBVENDAS_VOLUME'
+      
+        'WHERE ANO_VENDA = :OLD_ANO_VENDA AND CONTROLE_VENDA = :OLD_CONTR' +
+        'OLE_VENDA AND '
+      '  SEQUENCIAL = :OLD_SEQUENCIAL')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANO_VENDA, CONTROLE_VENDA, SEQUENCIAL, NUMERO, QUANTIDADE' +
+        ', ESPECIE, '
+      '  MARCA, PESO_BRUTO, PESO_LIQUIDO'
+      'FROM TBVENDAS_VOLUME'
+      
+        'WHERE ANO_VENDA = :ANO_VENDA AND CONTROLE_VENDA = :CONTROLE_VEND' +
+        'A AND '
+      '  SEQUENCIAL = :SEQUENCIAL')
+    Left = 256
+    Top = 224
   end
 end

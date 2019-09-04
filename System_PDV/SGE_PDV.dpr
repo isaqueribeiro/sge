@@ -94,6 +94,7 @@ uses
   UGeControleCheque in '..\Sys\UGeControleCheque.pas' {frmGeControleCheque},
   UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa},
   UGeVendaPDVFormaPagto in 'UGeVendaPDVFormaPagto.pas' {frmGeVendaPDVFormaPagto},
+  UGeConsultarLoteNFe_v2 in '..\System_SGE\UGeConsultarLoteNFe_v2.pas' {frmGeConsultarLoteNFe_v2},
   UGrAutoUpgrade in '..\Sys\lib\UGrAutoUpgrade.pas' {frmGeAutoUpgrade};
 
 {$R *.res}

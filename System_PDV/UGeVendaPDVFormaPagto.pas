@@ -9,7 +9,8 @@ uses
   cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore, dxSkinMcSkin,
   dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, cxButtons, Vcl.Mask, Vcl.Grids, Vcl.DBGrids,
-  Datasnap.DBClient;
+  Datasnap.DBClient, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeVendaPDVFormaPagto = class(TfrmGrPadrao)
