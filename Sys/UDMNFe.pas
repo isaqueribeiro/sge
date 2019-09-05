@@ -3003,6 +3003,7 @@ begin
             end;
 
             if ( (not aSimplesNacional) and aInterestadual and aConsumidorFinal and aNaoContribuinte ) then
+			begin
               with ICMSUFDest do
               begin
                 vBCUFDest      := 0.0; // Valor da Base de Cálculo da UF de Destino
@@ -3015,6 +3016,7 @@ begin
                 vICMSUFDest    := 0.0; // Valor do ICMS na UF de Destino
                 vICMSUFRemet   := 0.0; // Valor do ICMS da UF do Remetente
               end;
+            end;
 
             with PIS do
             begin
