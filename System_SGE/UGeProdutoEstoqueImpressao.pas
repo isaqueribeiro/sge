@@ -51,6 +51,11 @@ type
     ckComEstoqueVenda: TCheckBox;
     QryRelacaoEstoqueProduto: TFDQuery;
     QryDemandaEstoqueProduto: TFDQuery;
+    FrRelacaoEstoqueProdutoLote: TfrxReport;
+    FDQuery1: TFDQuery;
+    DataSetProvider1: TDataSetProvider;
+    ClientDataSet1: TClientDataSet;
+    frxDBDataset1: TfrxDBDataset;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
@@ -70,6 +75,7 @@ type
     procedure CarregarFabricante;
     procedure CarregarAno;
     procedure MontarRelacaoEstoqueProduto;
+    procedure MontarRelacaoEstoqueProdutoLote;
     procedure MontarDemandaEstoqueProduto;
   public
     { Public declarations }
@@ -113,8 +119,9 @@ uses
   UConstantesDGE, UDMBusiness, UDMNFe, UGrPadrao;
 
 const
-  REPORT_RELACAO_ESTOQUE_PRODUTO = 0;
-  REPORT_DEMANDA_ESTOQUE_PRODUTO = 1;
+  REPORT_RELACAO_ESTOQUE_PRODUTO    = 0;
+  REPORT_RELACAO_ESTOQUE_PRODUTO_LT = 1;
+  REPORT_DEMANDA_ESTOQUE_PRODUTO    = 2;
 
 {$R *.dfm}
 
@@ -372,6 +379,11 @@ begin
   end;
 end;
 
+procedure TfrmGeProdutoEstoqueImpressao.MontarRelacaoEstoqueProdutoLote;
+begin
+  ;
+end;
+
 procedure TfrmGeProdutoEstoqueImpressao.btnVisualizarClick(
   Sender: TObject);
 begin
@@ -388,6 +400,13 @@ begin
         SubTituloRelario := EmptyStr;
         MontarRelacaoEstoqueProduto;
         frReport := FrRelacaoEstoqueProduto;
+      end;
+
+    REPORT_RELACAO_ESTOQUE_PRODUTO_LT:
+      begin
+        SubTituloRelario := EmptyStr;
+        MontarRelacaoEstoqueProdutoLote;
+        frReport := FrRelacaoEstoqueProdutoLote;
       end;
 
     REPORT_DEMANDA_ESTOQUE_PRODUTO:

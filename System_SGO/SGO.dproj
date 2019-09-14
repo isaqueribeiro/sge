@@ -510,6 +510,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductN
             <Form>frmGeInventario</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\System_SGE\UGeContasAPagarAReceberImpressao.pas">
+            <Form>frmGeContasAPagarAReceberImpressao</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include="SGO.todo"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>

@@ -34,6 +34,13 @@ inherited frmGeEstado: TfrmGeEstado
             Title.Caption = '% Aliq. ICMS'
             Width = 85
             Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ALIQUOTA_FCP'
+            Title.Caption = '% Aliq. FCP'
+            Width = 85
+            Visible = True
           end>
       end
       inherited pnlFiltros: TPanel
@@ -45,6 +52,10 @@ inherited frmGeEstado: TfrmGeEstado
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 727
+      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 75
         ExplicitTop = 81
@@ -134,6 +145,7 @@ inherited frmGeEstado: TfrmGeEstado
         Align = alTop
         Caption = 'Tributa'#231#245'es'
         TabOrder = 1
+        ExplicitTop = 81
         object lblAliquotaICMS: TLabel
           Left = 16
           Top = 24
@@ -141,6 +153,14 @@ inherited frmGeEstado: TfrmGeEstado
           Height = 13
           Caption = '% Aliquota ICMS:'
           FocusControl = dbAliquotaICMS
+        end
+        object lblAliquotaFCP: TLabel
+          Left = 119
+          Top = 24
+          Width = 79
+          Height = 13
+          Caption = '% Aliquota FCP:'
+          FocusControl = dbAliquotaFCP
         end
         object dbAliquotaICMS: TDBEdit
           Left = 16
@@ -157,19 +177,26 @@ inherited frmGeEstado: TfrmGeEstado
           ParentFont = False
           TabOrder = 0
         end
+        object dbAliquotaFCP: TDBEdit
+          Left = 119
+          Top = 40
+          Width = 97
+          Height = 21
+          DataField = 'ALIQUOTA_FCP'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+        end
       end
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    OnNewRecord = IbDtstTabelaNewRecord
-    SelectSQL.Strings = (
-      'Select'
-      '    e.Est_cod'
-      '  , e.Est_nome'
-      '  , e.Est_sigla'
-      '  , e.Est_siafi'
-      '  , e.Aliquota_icms'
-      'from TBESTADO e')
+    SelectSQL.Strings = ()
   end
   inherited DtSrcTabela: TDataSource
     DataSet = fdQryTabela
@@ -207,7 +234,7 @@ inherited frmGeEstado: TfrmGeEstado
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1674,6 +1701,7 @@ inherited frmGeEstado: TfrmGeEstado
       '  , e.Est_sigla'
       '  , e.Est_siafi'
       '  , e.Aliquota_icms'
+      '  , e.Aliquota_fcp'
       'from TBESTADO e')
     object fdQryTabelaEST_COD: TSmallintField
       DisplayLabel = 'C'#243'digo'
@@ -1707,28 +1735,40 @@ inherited frmGeEstado: TfrmGeEstado
       Precision = 18
       Size = 2
     end
+    object fdQryTabelaALIQUOTA_FCP: TBCDField
+      FieldName = 'ALIQUOTA_FCP'
+      Origin = 'ALIQUOTA_FCP'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
   end
   inherited fdUpdTabela: TFDUpdateSQL
     InsertSQL.Strings = (
       'INSERT INTO TBESTADO'
       '(EST_COD, EST_NOME, EST_SIGLA, EST_SIAFI, '
-      '  ALIQUOTA_ICMS)'
+      '  ALIQUOTA_ICMS, ALIQUOTA_FCP)'
       
         'VALUES (:NEW_EST_COD, :NEW_EST_NOME, :NEW_EST_SIGLA, :NEW_EST_SI' +
         'AFI, '
-      '  :NEW_ALIQUOTA_ICMS)')
+      '  :NEW_ALIQUOTA_ICMS, :NEW_ALIQUOTA_FCP)')
     ModifySQL.Strings = (
       'UPDATE TBESTADO'
       
         'SET EST_COD = :NEW_EST_COD, EST_NOME = :NEW_EST_NOME, EST_SIGLA ' +
         '= :NEW_EST_SIGLA, '
-      '  EST_SIAFI = :NEW_EST_SIAFI, ALIQUOTA_ICMS = :NEW_ALIQUOTA_ICMS'
+      
+        '  EST_SIAFI = :NEW_EST_SIAFI, ALIQUOTA_ICMS = :NEW_ALIQUOTA_ICMS' +
+        ', '
+      '  ALIQUOTA_FCP = :NEW_ALIQUOTA_FCP'
       'WHERE EST_COD = :OLD_EST_COD')
     DeleteSQL.Strings = (
       'DELETE FROM TBESTADO'
       'WHERE EST_COD = :OLD_EST_COD')
     FetchRowSQL.Strings = (
-      'SELECT EST_COD, EST_NOME, EST_SIGLA, EST_SIAFI, ALIQUOTA_ICMS'
+      
+        'SELECT EST_COD, EST_NOME, EST_SIGLA, EST_SIAFI, ALIQUOTA_ICMS, A' +
+        'LIQUOTA_FCP'
       'FROM TBESTADO'
       'WHERE EST_COD = :EST_COD')
   end

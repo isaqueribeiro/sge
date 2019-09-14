@@ -35,8 +35,11 @@ type
     fdQryTabelaEST_SIGLA: TStringField;
     fdQryTabelaEST_SIAFI: TIntegerField;
     fdQryTabelaALIQUOTA_ICMS: TBCDField;
+    fdQryTabelaALIQUOTA_FCP: TBCDField;
+    lblAliquotaFCP: TLabel;
+    dbAliquotaFCP: TDBEdit;
     procedure FormCreate(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -104,6 +107,17 @@ begin
   end;
 end;
 
+procedure TfrmGeEstado.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('EST_SIGLA').Clear;
+    FieldByName('EST_SIAFI').Clear;
+    FieldByName('ALIQUOTA_ICMS').Clear;
+    FieldByName('ALIQUOTA_FCP').Clear;
+  end;
+end;
+
 procedure TfrmGeEstado.FormCreate(Sender: TObject);
 begin
   inherited;
@@ -117,16 +131,6 @@ begin
   CampoOrdenacao  := 'est_nome';
 
   AbrirTabelaAuto := True;
-end;
-
-procedure TfrmGeEstado.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  with DtSrcTabela.DataSet do
-  begin
-    FieldByName('EST_SIGLA').Clear;
-    FieldByName('EST_SIAFI').Clear;
-    FieldByName('ALIQUOTA_ICMS').Clear;
-  end;
 end;
 
 function TfrmGeEstado.SelecionarRegistro(var Codigo: Integer;
