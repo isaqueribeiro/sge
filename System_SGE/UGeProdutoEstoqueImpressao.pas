@@ -52,25 +52,33 @@ type
     QryRelacaoEstoqueProduto: TFDQuery;
     QryDemandaEstoqueProduto: TFDQuery;
     FrRelacaoEstoqueProdutoLote: TfrxReport;
-    FDQuery1: TFDQuery;
-    DataSetProvider1: TDataSetProvider;
-    ClientDataSet1: TClientDataSet;
-    frxDBDataset1: TfrxDBDataset;
+    QryRelacaoEstoqueProdutoLote: TFDQuery;
+    DspRelacaoEstoqueProdutoLote: TDataSetProvider;
+    CdsRelacaoEstoqueProdutoLote: TClientDataSet;
+    FrdsRelacaoEstoqueProdutoLote: TfrxDBDataset;
+    Label1: TLabel;
+    edCentroCusto: TComboBox;
+    qryCentroCusto: TFDQuery;
+    dspCentroCusto: TDataSetProvider;
+    cdsCentroCusto: TClientDataSet;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
     procedure ckSemEstoqueVendaClick(Sender: TObject);
     procedure ckComEstoqueVendaClick(Sender: TObject);
+    procedure edEmpresaChange(Sender: TObject);
   private
     { Private declarations }
     FSQL_RelacaoEstoqueProduto ,
     FSQL_DemandaEstoqueProduto : TStringList;
-    IGrupo ,
+    ICentroCusto,
+    IGrupo      ,
     IFabricante : Array of Integer;
     IEmpresa : Array of String;
     procedure CarregarDadosEmpresa; override;
     procedure CarregarEmpresa;
+    procedure CarregarCentroCusto(const aEmpresa : String);
     procedure CarregarGrupo;
     procedure CarregarFabricante;
     procedure CarregarAno;
@@ -101,6 +109,7 @@ type
   - TBREQUISICAO_ALMOX_ITEM
   - TBESTOQUE_ALMOX
   - TBCENTRO_CUSTO
+  - TBCENTRO_CUSTO_EMPRESA
 
   Views:
   - VW_EMPRESA
@@ -264,6 +273,7 @@ procedure TfrmGeProdutoEstoqueImpressao.FormShow(Sender: TObject);
 begin
   inherited;
   CarregarEmpresa;
+  CarregarCentroCusto(gUsuarioLogado.Empresa);
   CarregarGrupo;
   CarregarFabricante;
   CarregarAno;
@@ -424,6 +434,11 @@ begin
   btnVisualizar.Enabled := True;
 end;
 
+procedure TfrmGeProdutoEstoqueImpressao.edEmpresaChange(Sender: TObject);
+begin
+  CarregarCentroCusto(IEmpresa[edEmpresa.ItemIndex]);
+end;
+
 procedure TfrmGeProdutoEstoqueImpressao.edRelatorioChange(Sender: TObject);
 begin
   inherited;
@@ -453,6 +468,45 @@ begin
     edAno.Items.Add( FormatDateTime('yyyy', GetDateDB) );
 
   edAno.ItemIndex := edAno.Items.IndexOf( FormatDateTime('yyyy', GetDateDB) );
+end;
+
+procedure TfrmGeProdutoEstoqueImpressao.CarregarCentroCusto(const aEmpresa: String);
+var
+  I : Integer;
+begin
+  if (Trim(aEmpresa) <> EmptyStr) and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) then
+    SetCentroCustoGeral(aEmpresa);
+
+  with cdsCentroCusto do
+  begin
+    Close;
+    ParamByName('empresa').AsString := aEmpresa;
+    Open;
+
+    edCentroCusto.Clear;
+    SetLength(ICentroCusto, RecordCount + 1);
+
+    edCentroCusto.Items.Add('(Todas)');
+    ICentroCusto[0] := 0;
+
+    I := 1;
+
+    while not Eof do
+    begin
+      edCentroCusto.Items.Add( FieldByName('descricao').AsString );
+      ICentroCusto[I] := FieldByName('codigo').AsInteger;
+
+      Inc(I);
+      Next;
+    end;
+
+    Close;
+  end;
+
+  if (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) and (I > 1) then
+    edCentroCusto.ItemIndex := 1
+  else
+    edCentroCusto.ItemIndex := 0;
 end;
 
 initialization

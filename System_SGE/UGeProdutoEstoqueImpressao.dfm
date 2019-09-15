@@ -2,9 +2,24 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
   Left = 690
   Top = 295
   Caption = 'Relat'#243'rio de Estoque de Produtos'
+  ClientHeight = 320
+  ExplicitHeight = 349
   PixelsPerInch = 96
   TextHeight = 13
+  inherited Bevel1: TBevel
+    Top = 316
+  end
+  inherited Bevel3: TBevel
+    Top = 277
+  end
+  inherited pnlBanner: TPanel
+    Height = 277
+    inherited imgBanner: TImage
+      Height = 277
+    end
+  end
   inherited pnlRelatorio: TPanel
+    Height = 277
     inherited GrpBxRelatorio: TGroupBox
       inherited edRelatorio: TComboBox
         Items.Strings = (
@@ -14,9 +29,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
     end
     inherited GrpBxFiltro: TGroupBox
+      Height = 196
       object lblEmpresa: TLabel
-        Left = 49
-        Top = 28
+        Left = 46
+        Top = 27
         Width = 52
         Height = 13
         Alignment = taRightJustify
@@ -24,8 +40,8 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
         FocusControl = edEmpresa
       end
       object lblGrupo: TLabel
-        Left = 56
-        Top = 52
+        Left = 61
+        Top = 76
         Width = 37
         Height = 13
         Alignment = taRightJustify
@@ -33,8 +49,8 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
         FocusControl = edGrupo
       end
       object lblFabricante: TLabel
-        Left = 30
-        Top = 76
+        Left = 35
+        Top = 100
         Width = 63
         Height = 13
         Alignment = taRightJustify
@@ -42,14 +58,23 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
         FocusControl = edFabricante
       end
       object lblAno: TLabel
-        Left = 68
-        Top = 100
+        Left = 73
+        Top = 124
         Width = 25
         Height = 13
         Alignment = taRightJustify
         Caption = 'Ano:'
         Enabled = False
         FocusControl = edAno
+      end
+      object Label1: TLabel
+        Left = 5
+        Top = 52
+        Width = 93
+        Height = 13
+        Alignment = taRightJustify
+        Caption = 'Centro de Custo:'
+        FocusControl = edCentroCusto
       end
       object edEmpresa: TComboBox
         Left = 104
@@ -58,24 +83,11 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
         Height = 21
         Style = csDropDownList
         TabOrder = 0
+        OnChange = edEmpresaChange
       end
       object edGrupo: TComboBox
         Left = 104
-        Top = 48
-        Width = 313
-        Height = 21
-        CharCase = ecUpperCase
-        ItemIndex = 0
-        TabOrder = 1
-        Text = '(TODOS)'
-        Items.Strings = (
-          '(TODOS)'
-          'PESSOA F'#205'SICA'
-          'PESSOA JUR'#205'DICA')
-      end
-      object edFabricante: TComboBox
-        Left = 104
-        Top = 72
+        Top = 73
         Width = 313
         Height = 21
         CharCase = ecUpperCase
@@ -87,39 +99,68 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
           'PESSOA F'#205'SICA'
           'PESSOA JUR'#205'DICA')
       end
+      object edFabricante: TComboBox
+        Left = 104
+        Top = 97
+        Width = 313
+        Height = 21
+        CharCase = ecUpperCase
+        ItemIndex = 0
+        TabOrder = 3
+        Text = '(TODOS)'
+        Items.Strings = (
+          '(TODOS)'
+          'PESSOA F'#205'SICA'
+          'PESSOA JUR'#205'DICA')
+      end
       object edAno: TComboBox
         Left = 104
-        Top = 96
+        Top = 121
         Width = 65
         Height = 21
         Style = csDropDownList
         CharCase = ecUpperCase
         Enabled = False
         ItemIndex = 0
-        TabOrder = 3
+        TabOrder = 4
         Text = '2014'
         Items.Strings = (
           '2014')
       end
       object ckSemEstoqueVenda: TCheckBox
         Left = 104
-        Top = 123
+        Top = 148
         Width = 313
         Height = 17
         Caption = 'Apenas produtos SEM Estoque de Venda'
-        TabOrder = 4
+        TabOrder = 5
         OnClick = ckSemEstoqueVendaClick
       end
       object ckComEstoqueVenda: TCheckBox
         Left = 104
-        Top = 146
+        Top = 171
         Width = 313
         Height = 17
         Caption = 'Apenas produtos COM Estoque de Venda'
-        TabOrder = 5
+        TabOrder = 6
         OnClick = ckComEstoqueVendaClick
       end
+      object edCentroCusto: TComboBox
+        Left = 104
+        Top = 49
+        Width = 313
+        Height = 21
+        Style = csDropDownList
+        ItemIndex = 0
+        TabOrder = 1
+        Text = '(TODOS)'
+        Items.Strings = (
+          '(TODOS)')
+      end
     end
+  end
+  inherited tlbBotoes: TPanel
+    Top = 281
   end
   object FrRelacaoEstoqueProduto: TfrxReport
     Version = '6.0.7'
@@ -2939,16 +2980,15 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       'begin'
       ''
       'end.')
-    Left = 16
-    Top = 120
+    Top = 80
     Datasets = <
       item
         DataSet = DMNFe.frdEmpresa
         DataSetName = 'frdEmpresa'
       end
       item
-        DataSet = frxDBDataset1
-        DataSetName = 'FrdsRelacaoEstoqueProduto'
+        DataSet = FrdsRelacaoEstoqueProdutoLote
+        DataSetName = 'FrdsRelacaoEstoqueProdutoLote'
       end>
     Variables = <
       item
@@ -3242,8 +3282,8 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
         Height = 18.897650000000000000
         Top = 328.819110000000000000
         Width = 1046.929810000000000000
-        DataSet = frxDBDataset1
-        DataSetName = 'FrdsRelacaoEstoqueProduto'
+        DataSet = FrdsRelacaoEstoqueProdutoLote
+        DataSetName = 'FrdsRelacaoEstoqueProdutoLote'
         RowCount = 0
         object Memo7: TfrxMemoView
           Left = 774.803650000000000000
@@ -4090,7 +4130,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
     end
   end
-  object FDQuery1: TFDQuery
+  object QryRelacaoEstoqueProdutoLote: TFDQuery
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
     UpdateTransaction = DMBusiness.fdTransacao
@@ -4152,23 +4192,23 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
       '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
       '')
-    Left = 48
-    Top = 120
+    Left = 32
+    Top = 80
   end
-  object DataSetProvider1: TDataSetProvider
-    DataSet = FDQuery1
-    Left = 80
-    Top = 120
+  object DspRelacaoEstoqueProdutoLote: TDataSetProvider
+    DataSet = QryRelacaoEstoqueProdutoLote
+    Left = 64
+    Top = 80
   end
-  object ClientDataSet1: TClientDataSet
+  object CdsRelacaoEstoqueProdutoLote: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'DspRelacaoEstoqueProduto'
-    Left = 112
-    Top = 120
+    ProviderName = 'DspRelacaoEstoqueProdutoLote'
+    Left = 96
+    Top = 80
   end
-  object frxDBDataset1: TfrxDBDataset
-    UserName = 'FrdsRelacaoEstoqueProduto'
+  object FrdsRelacaoEstoqueProdutoLote: TfrxDBDataset
+    UserName = 'FrdsRelacaoEstoqueProdutoLote'
     CloseDataSource = True
     FieldAliases.Strings = (
       'EMPRESA_CNPJ=EMPRESA_CNPJ'
@@ -4202,9 +4242,52 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       'VENDA_VNV_TOTAL=VENDA_VNV_TOTAL'
       'ESTOQUE_APR=ESTOQUE_APR'
       'CUSTO_APR_TOTAL=CUSTO_APR_TOTAL')
-    DataSet = ClientDataSet1
+    DataSet = CdsRelacaoEstoqueProdutoLote
     BCDToCurrency = True
-    Left = 144
-    Top = 120
+    Left = 128
+    Top = 80
+  end
+  object qryCentroCusto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.codigo'
+      '  , c.descricao'
+      'from TBCENTRO_CUSTO c'
+      
+        '  inner join TBCENTRO_CUSTO_EMPRESA e on (e.empresa = :empresa a' +
+        'nd e.centro_custo = c.codigo)'
+      'order by'
+      '  c.descricao')
+    Left = 416
+    Top = 144
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end>
+  end
+  object dspCentroCusto: TDataSetProvider
+    DataSet = qryCentroCusto
+    Left = 448
+    Top = 144
+  end
+  object cdsCentroCusto: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftString
+        Name = 'EMPRESA'
+        ParamType = ptInput
+        Size = 18
+      end>
+    ProviderName = 'dspCentroCusto'
+    Left = 480
+    Top = 144
   end
 end
