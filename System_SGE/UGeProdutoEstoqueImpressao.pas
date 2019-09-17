@@ -391,47 +391,103 @@ end;
 
 procedure TfrmGeProdutoEstoqueImpressao.MontarRelacaoEstoqueProdutoLote;
 begin
-  ;
+  try
+    CdsRelacaoEstoqueProdutoLote.Close;
+    CdsRelacaoEstoqueProdutoLote.ParamByName('empresa').AsString       := IEmpresa[edEmpresa.ItemIndex];
+    CdsRelacaoEstoqueProdutoLote.ParamByName('centro_custo').AsInteger := ICentroCusto[edCentroCusto.ItemIndex];
+
+//    with QryRelacaoEstoqueProdutoLote do
+//    begin
+//      SQL.Clear;
+//      SQL.AddStrings( FSQL_RelacaoEstoqueProduto );
+//      SQL.Add('where (p.arquivo_morto = 0)');
+//      SQL.Add('  and (p.aliquota_tipo = 0)');
+//
+//      if ( edGrupo.ItemIndex > 0 ) then
+//        SQL.Add('  and p.codgrupo = ' + IntToStr(IGrupo[edGrupo.ItemIndex]));
+//
+//      if ( edFabricante.ItemIndex > 0 ) then
+//        SQL.Add('  and p.codfabricante = ' + IntToStr(IFabricante[edFabricante.ItemIndex]));
+//
+//      if ( edEmpresa.ItemIndex > 0 ) then
+//        SQL.Add('  and coalesce(xx.empresa, p.codemp) = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+//
+//      if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
+//      begin
+//        if ckSemEstoqueVenda.Checked then
+//          SQL.Add('  and coalesce(xx.apropriacao_qtde, 0.0) <= 0.0')
+//        else
+//        if ckComEstoqueVenda.Checked then
+//          SQL.Add('  and coalesce(xx.apropriacao_qtde, 0.0) <> 0.0');
+//      end
+//      else
+//      begin
+//        if ckSemEstoqueVenda.Checked then
+//          SQL.Add('  and p.qtde <= 0.0')
+//        else
+//        if ckComEstoqueVenda.Checked then
+//          SQL.Add('  and p.qtde <> 0.0');
+//      end;
+//
+//      SQL.Add('order by');
+//      SQL.Add('    e.rzsoc');
+//      SQL.Add('  , coalesce(g.descri, ''* Indefinido'')');
+//      SQL.Add('  , p.descri_apresentacao');
+//    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relação de ' + StrDescricaoProduto + ' por lote.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
 end;
 
 procedure TfrmGeProdutoEstoqueImpressao.btnVisualizarClick(
   Sender: TObject);
 begin
-  Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: '  + #13 +
-    Format('- Grupo         : %s', [edGrupo.Text])        + #13 +
-    Format('- Fabricante    : %s', [edFabricante.Text]);
+  if (edRelatorio.ItemIndex = REPORT_RELACAO_ESTOQUE_PRODUTO_LT) and ((edEmpresa.ItemIndex = 0) or (edCentroCusto.ItemIndex = 0)) then
+    ShowWarning('Selecione a Empresa e o centro de Custo para este relatório!')
+  else
+  begin
+    Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: '  + #13 +
+      Format('- Grupo         : %s', [edGrupo.Text])        + #13 +
+      Format('- Fabricante    : %s', [edFabricante.Text]);
 
-  Screen.Cursor         := crSQLWait;
-  btnVisualizar.Enabled := False;
+    Screen.Cursor         := crSQLWait;
+    btnVisualizar.Enabled := False;
 
-  Case edRelatorio.ItemIndex of
-    REPORT_RELACAO_ESTOQUE_PRODUTO:
-      begin
-        SubTituloRelario := EmptyStr;
-        MontarRelacaoEstoqueProduto;
-        frReport := FrRelacaoEstoqueProduto;
-      end;
+    Case edRelatorio.ItemIndex of
+      REPORT_RELACAO_ESTOQUE_PRODUTO:
+        begin
+          SubTituloRelario := EmptyStr;
+          MontarRelacaoEstoqueProduto;
+          frReport := FrRelacaoEstoqueProduto;
+        end;
 
-    REPORT_RELACAO_ESTOQUE_PRODUTO_LT:
-      begin
-        SubTituloRelario := EmptyStr;
-        MontarRelacaoEstoqueProdutoLote;
-        frReport := FrRelacaoEstoqueProdutoLote;
-      end;
+      REPORT_RELACAO_ESTOQUE_PRODUTO_LT:
+        begin
+          SubTituloRelario := EmptyStr;
+          MontarRelacaoEstoqueProdutoLote;
+          frReport := FrRelacaoEstoqueProdutoLote;
+        end;
 
-    REPORT_DEMANDA_ESTOQUE_PRODUTO:
-      begin
-        SubTituloRelario := '- ANO ' + edAno.Text;
-        PeriodoRelatorio := edAno.Text;
-        MontarDemandaEstoqueProduto;
-        frReport := FrDemandaEstoqueProduto;
-      end;
+      REPORT_DEMANDA_ESTOQUE_PRODUTO:
+        begin
+          SubTituloRelario := '- ANO ' + edAno.Text;
+          PeriodoRelatorio := edAno.Text;
+          MontarDemandaEstoqueProduto;
+          frReport := FrDemandaEstoqueProduto;
+        end;
+    end;
+
+    inherited;
+
+    Screen.Cursor         := crDefault;
+    btnVisualizar.Enabled := True;
   end;
-
-  inherited;
-
-  Screen.Cursor         := crDefault;
-  btnVisualizar.Enabled := True;
 end;
 
 procedure TfrmGeProdutoEstoqueImpressao.edEmpresaChange(Sender: TObject);
@@ -444,6 +500,9 @@ begin
   inherited;
   lblAno.Enabled := (edRelatorio.ItemIndex = REPORT_DEMANDA_ESTOQUE_PRODUTO);
   edAno.Enabled  := (edRelatorio.ItemIndex = REPORT_DEMANDA_ESTOQUE_PRODUTO);
+
+  if (edRelatorio.ItemIndex = REPORT_RELACAO_ESTOQUE_PRODUTO_LT) then
+    edRelatorio.ItemIndex := (edRelatorio.Items.Count - 1);
 end;
 
 procedure TfrmGeProdutoEstoqueImpressao.CarregarAno;
