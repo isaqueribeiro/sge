@@ -2400,6 +2400,8 @@ begin
   else
     RecarregarRegistro;
 
+  TbsInformeNFe.TabVisible := (Trim(DtSrcTabela.DataSet.FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr);
+
 //  ANALISAR MELHOR EM QUE SITUAÇÃO APRESENTAR ESSA MENSAGEM
 //  if bRetornoErro then
 //    ShowWarning('WebService para emissão da NF-e não está respondendo.' + #13 + 'Faça uma nova tentativa daqui a alguns minutos.');

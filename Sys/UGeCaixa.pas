@@ -326,7 +326,9 @@ begin
       SQL.Add('where ' + whr + ' and ' + frm.WhereAdditional);
       Open;
 
-      ConsolidarCaixa(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger);
+      if ( FFecharCaixa and (DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger = STATUS_CAIXA_ABERTO) ) then
+        ConsolidarCaixa(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger);
+
       AbrirTabelaConsolidado(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger);
       AbrirTabelaMovimento(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger);
     end;
@@ -470,9 +472,9 @@ end;
 procedure TfrmGeCaixa.AbrirTabelaConsolidado(const AnoCaixa: Smallint;
   const NumeroCaixa: Integer);
 begin
-  if ( FFecharCaixa and (DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger = STATUS_CAIXA_ABERTO) ) then
-    ConsolidarCaixa(AnoCaixa, NumeroCaixa);
-
+//  if ( FFecharCaixa and (DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger = STATUS_CAIXA_ABERTO) ) then
+//    ConsolidarCaixa(AnoCaixa, NumeroCaixa);
+//
   cdsCosolidado.Close;
 
   with cdsCosolidado, SQL do
@@ -500,7 +502,7 @@ begin
   qryMovimento.Open;
   HabilitarDesabilitar_Btns;
 
-  if ( DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger > 0 ) then
+  if (pgcGuias.ActivePage = tbsCadastro) and (DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger > 0) then
     GerarSaldoContaCorrente(DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger, DtSrcTabela.DataSet.FieldByName('DATA_ABERTURA').AsDateTime);
 end;
 
@@ -529,6 +531,7 @@ begin
     end;
 
     inherited;
+
     if ( not OcorreuErro ) then
     begin
       AbrirTabelaConsolidado( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger );
@@ -562,6 +565,7 @@ begin
 //  iNum := GetGeneratorID(sGeneratorName);
 //
   inherited;
+
   if ( not OcorreuErro ) then
   begin
     AbrirTabelaConsolidado( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger );
@@ -822,6 +826,7 @@ end;
 procedure TfrmGeCaixa.ConsolidarCaixa(const AnoCaixa: Smallint;
   const NumeroCaixa: Integer);
 begin
+  WaitAMoment(WAIT_AMOMENT_Process, 'Gerando consolidação do Caixa');
   try
 
     try
@@ -846,6 +851,7 @@ begin
     end;
 
   finally
+    WaitAMomentFree;
   end;
 end;
 

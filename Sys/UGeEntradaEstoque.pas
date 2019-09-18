@@ -2293,6 +2293,8 @@ begin
     end
     else
       RecarregarRegistro;
+
+    TbsInformeNFe.TabVisible := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr);
   end;
 end;
 

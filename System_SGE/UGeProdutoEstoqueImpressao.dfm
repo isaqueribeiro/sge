@@ -8,18 +8,23 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 316
+    ExplicitTop = 316
   end
   inherited Bevel3: TBevel
     Top = 277
+    ExplicitTop = 277
   end
   inherited pnlBanner: TPanel
     Height = 277
+    ExplicitHeight = 277
     inherited imgBanner: TImage
       Height = 277
+      ExplicitHeight = 277
     end
   end
   inherited pnlRelatorio: TPanel
     Height = 277
+    ExplicitHeight = 277
     inherited GrpBxRelatorio: TGroupBox
       inherited edRelatorio: TComboBox
         Items.Strings = (
@@ -30,6 +35,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
     end
     inherited GrpBxFiltro: TGroupBox
       Height = 196
+      ExplicitHeight = 196
       object lblEmpresa: TLabel
         Left = 46
         Top = 27
@@ -67,7 +73,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
         Enabled = False
         FocusControl = edAno
       end
-      object Label1: TLabel
+      object lblCentroCusto: TLabel
         Left = 5
         Top = 52
         Width = 93
@@ -161,6 +167,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
   end
   inherited tlbBotoes: TPanel
     Top = 281
+    ExplicitTop = 281
   end
   object FrRelacaoEstoqueProduto: TfrxReport
     Version = '6.0.7'
@@ -4069,6 +4076,8 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       '  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)'
       '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
       '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
+      ''
+      'where (p.codigo > 0)'
       ''
       'order by'
       '    coalesce(g.descri, '#39'* Indefinido'#39')'

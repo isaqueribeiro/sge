@@ -56,7 +56,7 @@ type
     DspRelacaoEstoqueProdutoLote: TDataSetProvider;
     CdsRelacaoEstoqueProdutoLote: TClientDataSet;
     FrdsRelacaoEstoqueProdutoLote: TfrxDBDataset;
-    Label1: TLabel;
+    lblCentroCusto: TLabel;
     edCentroCusto: TComboBox;
     qryCentroCusto: TFDQuery;
     dspCentroCusto: TDataSetProvider;
@@ -70,8 +70,9 @@ type
     procedure edEmpresaChange(Sender: TObject);
   private
     { Private declarations }
-    FSQL_RelacaoEstoqueProduto ,
-    FSQL_DemandaEstoqueProduto : TStringList;
+    FSQL_RelacaoEstoqueProduto    ,
+    FSQL_RelacaoEstoqueProdutoLote,
+    FSQL_DemandaEstoqueProduto    : TStringList;
     ICentroCusto,
     IGrupo      ,
     IFabricante : Array of Integer;
@@ -257,6 +258,9 @@ begin
   FSQL_RelacaoEstoqueProduto := TStringList.Create;
   FSQL_RelacaoEstoqueProduto.AddStrings( QryRelacaoEstoqueProduto.SQL );
 
+  FSQL_RelacaoEstoqueProdutoLote := TStringList.Create;
+  FSQL_RelacaoEstoqueProdutoLote.AddStrings( QryRelacaoEstoqueProdutoLote.SQL );
+
   FSQL_DemandaEstoqueProduto := TStringList.Create;
   FSQL_DemandaEstoqueProduto.AddStrings( QryDemandaEstoqueProduto.SQL );
 
@@ -273,10 +277,15 @@ procedure TfrmGeProdutoEstoqueImpressao.FormShow(Sender: TObject);
 begin
   inherited;
   CarregarEmpresa;
-  CarregarCentroCusto(gUsuarioLogado.Empresa);
   CarregarGrupo;
   CarregarFabricante;
   CarregarAno;
+
+  CarregarCentroCusto(gUsuarioLogado.Empresa);
+
+  lblCentroCusto.Enabled  := False;
+  edCentroCusto.Enabled   := False;
+  edCentroCusto.ItemIndex := 0;
 end;
 
 procedure TfrmGeProdutoEstoqueImpressao.MontarDemandaEstoqueProduto;
@@ -390,50 +399,49 @@ begin
 end;
 
 procedure TfrmGeProdutoEstoqueImpressao.MontarRelacaoEstoqueProdutoLote;
+var
+  aWhere : String;
+const
+  WHR_POS = 'where (p.codigo > 0)';
 begin
   try
     CdsRelacaoEstoqueProdutoLote.Close;
     CdsRelacaoEstoqueProdutoLote.ParamByName('empresa').AsString       := IEmpresa[edEmpresa.ItemIndex];
     CdsRelacaoEstoqueProdutoLote.ParamByName('centro_custo').AsInteger := ICentroCusto[edCentroCusto.ItemIndex];
 
-//    with QryRelacaoEstoqueProdutoLote do
-//    begin
-//      SQL.Clear;
-//      SQL.AddStrings( FSQL_RelacaoEstoqueProduto );
-//      SQL.Add('where (p.arquivo_morto = 0)');
-//      SQL.Add('  and (p.aliquota_tipo = 0)');
-//
-//      if ( edGrupo.ItemIndex > 0 ) then
-//        SQL.Add('  and p.codgrupo = ' + IntToStr(IGrupo[edGrupo.ItemIndex]));
-//
-//      if ( edFabricante.ItemIndex > 0 ) then
-//        SQL.Add('  and p.codfabricante = ' + IntToStr(IFabricante[edFabricante.ItemIndex]));
-//
-//      if ( edEmpresa.ItemIndex > 0 ) then
-//        SQL.Add('  and coalesce(xx.empresa, p.codemp) = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
-//
-//      if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
-//      begin
-//        if ckSemEstoqueVenda.Checked then
-//          SQL.Add('  and coalesce(xx.apropriacao_qtde, 0.0) <= 0.0')
-//        else
-//        if ckComEstoqueVenda.Checked then
-//          SQL.Add('  and coalesce(xx.apropriacao_qtde, 0.0) <> 0.0');
-//      end
-//      else
-//      begin
-//        if ckSemEstoqueVenda.Checked then
-//          SQL.Add('  and p.qtde <= 0.0')
-//        else
-//        if ckComEstoqueVenda.Checked then
-//          SQL.Add('  and p.qtde <> 0.0');
-//      end;
-//
-//      SQL.Add('order by');
-//      SQL.Add('    e.rzsoc');
-//      SQL.Add('  , coalesce(g.descri, ''* Indefinido'')');
-//      SQL.Add('  , p.descri_apresentacao');
-//    end;
+    with QryRelacaoEstoqueProdutoLote do
+    begin
+      aWhere :=
+        'where (p.arquivo_morto = 0)' +
+        '  and (p.aliquota_tipo = 0)';
+
+      if ( edGrupo.ItemIndex > 0 ) then
+        aWhere := aWhere + '  and (p.codgrupo = ' + IntToStr(IGrupo[edGrupo.ItemIndex]) + ')';
+
+      if ( edFabricante.ItemIndex > 0 ) then
+        aWhere := aWhere + '  and (p.codfabricante = ' + IntToStr(IFabricante[edFabricante.ItemIndex]) + ')';
+
+      if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
+      begin
+        if ckSemEstoqueVenda.Checked then
+          aWhere := aWhere + '  and (coalesce(xx.apropriacao_qtde, 0.0) <= 0.0)'
+        else
+        if ckComEstoqueVenda.Checked then
+          aWhere := aWhere + '  and (coalesce(xx.apropriacao_qtde, 0.0) <> 0.0)';
+      end
+      else
+      begin
+        if ckSemEstoqueVenda.Checked then
+          aWhere := aWhere + '  and ((coalesce(p.qtde, 0.0) + coalesce(xx.apropriacao_qtde, 0.0)) <= 0.0)'
+        else
+        if ckComEstoqueVenda.Checked then
+          aWhere := aWhere + '  and ((coalesce(p.qtde, 0.0) + coalesce(xx.apropriacao_qtde, 0.0)) <> 0.0)';
+      end;
+
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoEstoqueProdutoLote );
+      SQL.Text := StringReplace(SQL.Text, WHR_POS, aWhere, [rfReplaceAll]);
+    end;
   except
     On E : Exception do
     begin
@@ -501,8 +509,13 @@ begin
   lblAno.Enabled := (edRelatorio.ItemIndex = REPORT_DEMANDA_ESTOQUE_PRODUTO);
   edAno.Enabled  := (edRelatorio.ItemIndex = REPORT_DEMANDA_ESTOQUE_PRODUTO);
 
+  lblCentroCusto.Enabled := (edRelatorio.ItemIndex = REPORT_RELACAO_ESTOQUE_PRODUTO_LT);
+  edCentroCusto.Enabled  := lblCentroCusto.Enabled;
+
   if (edRelatorio.ItemIndex = REPORT_RELACAO_ESTOQUE_PRODUTO_LT) then
-    edRelatorio.ItemIndex := (edRelatorio.Items.Count - 1);
+    edCentroCusto.ItemIndex := (edRelatorio.Items.Count - 1)
+  else
+    edCentroCusto.ItemIndex := 0;
 end;
 
 procedure TfrmGeProdutoEstoqueImpressao.CarregarAno;
