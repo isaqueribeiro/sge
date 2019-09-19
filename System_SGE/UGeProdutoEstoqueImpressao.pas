@@ -61,6 +61,7 @@ type
     qryCentroCusto: TFDQuery;
     dspCentroCusto: TDataSetProvider;
     cdsCentroCusto: TClientDataSet;
+    FrRelacaoLoteProdutoEstoque: TfrxReport;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
@@ -131,7 +132,8 @@ uses
 const
   REPORT_RELACAO_ESTOQUE_PRODUTO    = 0;
   REPORT_RELACAO_ESTOQUE_PRODUTO_LT = 1;
-  REPORT_DEMANDA_ESTOQUE_PRODUTO    = 2;
+  REPORT_LOTE_PRODUTO_ESTOQUE       = 2;
+  REPORT_DEMANDA_ESTOQUE_PRODUTO    = 3;
 
 {$R *.dfm}
 
@@ -456,7 +458,7 @@ end;
 procedure TfrmGeProdutoEstoqueImpressao.btnVisualizarClick(
   Sender: TObject);
 begin
-  if (edRelatorio.ItemIndex = REPORT_RELACAO_ESTOQUE_PRODUTO_LT) and ((edEmpresa.ItemIndex = 0) or (edCentroCusto.ItemIndex = 0)) then
+  if (edRelatorio.ItemIndex in [REPORT_RELACAO_ESTOQUE_PRODUTO_LT, REPORT_LOTE_PRODUTO_ESTOQUE]) and ((edEmpresa.ItemIndex = 0) or (edCentroCusto.ItemIndex = 0)) then
     ShowWarning('Selecione a Empresa e o centro de Custo para este relatório!')
   else
   begin
@@ -475,11 +477,14 @@ begin
           frReport := FrRelacaoEstoqueProduto;
         end;
 
-      REPORT_RELACAO_ESTOQUE_PRODUTO_LT:
+      REPORT_RELACAO_ESTOQUE_PRODUTO_LT, REPORT_LOTE_PRODUTO_ESTOQUE:
         begin
           SubTituloRelario := EmptyStr;
           MontarRelacaoEstoqueProdutoLote;
-          frReport := FrRelacaoEstoqueProdutoLote;
+          if (edRelatorio.ItemIndex = REPORT_RELACAO_ESTOQUE_PRODUTO_LT) then
+            frReport := FrRelacaoEstoqueProdutoLote
+          else
+            frReport := FrRelacaoLoteProdutoEstoque;
         end;
 
       REPORT_DEMANDA_ESTOQUE_PRODUTO:
@@ -509,10 +514,10 @@ begin
   lblAno.Enabled := (edRelatorio.ItemIndex = REPORT_DEMANDA_ESTOQUE_PRODUTO);
   edAno.Enabled  := (edRelatorio.ItemIndex = REPORT_DEMANDA_ESTOQUE_PRODUTO);
 
-  lblCentroCusto.Enabled := (edRelatorio.ItemIndex = REPORT_RELACAO_ESTOQUE_PRODUTO_LT);
+  lblCentroCusto.Enabled := (edRelatorio.ItemIndex in [REPORT_RELACAO_ESTOQUE_PRODUTO_LT, REPORT_LOTE_PRODUTO_ESTOQUE]);
   edCentroCusto.Enabled  := lblCentroCusto.Enabled;
 
-  if (edRelatorio.ItemIndex = REPORT_RELACAO_ESTOQUE_PRODUTO_LT) then
+  if (edRelatorio.ItemIndex in [REPORT_RELACAO_ESTOQUE_PRODUTO_LT, REPORT_LOTE_PRODUTO_ESTOQUE]) then
     edCentroCusto.ItemIndex := (edRelatorio.Items.Count - 1)
   else
     edCentroCusto.ItemIndex := 0;
