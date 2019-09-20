@@ -310,8 +310,10 @@ begin
     fdQryFormaPagto.Locate('COD', cdsTitulosFORMA_PAGTO.AsInteger, []);
 
     qryContaAReceber.Close;
-    qryContaAReceber.ParamByName('anolanc').AsInteger  := cdsTitulosANOLANC.AsInteger;
-    qryContaAReceber.ParamByName('numlanc').AsInteger  := cdsTitulosNUMLANC.AsInteger;
+//    qryContaAReceber.ParamByName('anolanc').AsSmallInt := cdsTitulosANOLANC.Value;
+//    qryContaAReceber.ParamByName('numlanc').AsInteger  := cdsTitulosNUMLANC.AsInteger;
+    qryContaAReceber.ParamByName('anolanc').Assign( cdsTitulosANOLANC );
+    qryContaAReceber.ParamByName('numlanc').Assign( cdsTitulosNUMLANC );
     qryContaAReceber.Open;
 
     qryContaAReceber.Edit;

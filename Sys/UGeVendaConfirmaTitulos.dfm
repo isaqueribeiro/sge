@@ -847,7 +847,6 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
     end
   end
   object qryContaAReceber: TFDQuery
-    Active = True
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao

@@ -27,8 +27,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     ExplicitWidth = 941
     ExplicitHeight = 518
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 933
       ExplicitHeight = 489
       inherited Bevel4: TBevel
@@ -1025,10 +1023,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         TabOrder = 3
         object tbsObservacao: TTabSheet
           Caption = 'Observa'#231#245'es'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -1237,47 +1231,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    SelectSQL.Strings = (
-      'Select'
-      '    c.controle'
-      '  , c.empresa'
-      '  , c.tipo'
-      '  , c.banco'
-      '  , c.agencia'
-      '  , c.conta'
-      '  , c.numero'
-      '  , c.fornecedor'
-      '  , c.cliente'
-      '  , c.data_emissao'
-      '  , c.data_apresentacao'
-      '  , c.data_devolucao'
-      '  , c.data_compensacao'
-      '  , c.valor'
-      '  , c.nominal_a'
-      '  , c.data_cadastro'
-      '  , c.usuario_cadastro'
-      '  , c.status'
-      '  , c.obs'
-      ''
-      '  , sc.descricao     as status_descricao'
-      '  , bc.nome          as banco_nome'
-      ''
-      '  , coalesce(cc.nome, fc.nomeforn)               as emissor_nome'
-      '  , coalesce(cc.cnpj, fc.cnpj)                   as emissor_cnpj'
-      '  , coalesce(cc.pessoa_fisica, fc.pessoa_fisica) as emissor_pf'
-      ''
-      '  , cc.nome          as cliente_nome'
-      '  , cc.cnpj          as cliente_cnpj'
-      '  , cc.pessoa_fisica as cliente_pf'
-      ''
-      '  , fc.nomeforn      as fornecedor_nome'
-      '  , fc.cnpj          as fornecedor_cnpj'
-      '  , fc.pessoa_fisica as fornecedor_pf'
-      'from TBCHEQUE c'
-      '  left join VW_STATUS_CHEQUE sc on (sc.codigo = c.status)'
-      '  left join TBCLIENTE cc on (cc.codigo = c.cliente)'
-      '  left join TBFORNECEDOR fc on (fc.codforn = c.fornecedor)'
-      '  left join TBBANCO bc on (bc.cod = c.banco)')
+    SelectSQL.Strings = ()
     GeneratorField.Field = 'CONTROLE'
     GeneratorField.Generator = 'GEN_CONTROLE_CHEQUE'
     GeneratorField.ApplyEvent = gamOnNewRecord
@@ -1366,7 +1320,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     Left = 608
     Top = 0
     Bitmap = {
-      494C01012B002C00A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00AC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2826,7 +2780,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
-    OnNewRecord = fdQryTabelaNewRecord
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
     UpdateOptions.GeneratorName = 'GEN_CONTROLE_CHEQUE'
@@ -3740,7 +3693,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     end
     object CdsChequeBANCO_LOGO: TBlobField
       FieldName = 'BANCO_LOGO'
-      ReadOnly = True
+      ProviderFlags = []
     end
     object CdsChequeAGENCIA: TStringField
       FieldName = 'AGENCIA'
@@ -6298,6 +6251,7 @@ inherited frmGeControleCheque: TfrmGeControleCheque
     end
   end
   object QryCheque: TFDQuery
+    CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
     UpdateTransaction = DMBusiness.fdTransacao
@@ -6346,6 +6300,143 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         DataType = ftInteger
         ParamType = ptInput
       end>
+    object QryChequeCONTROLE: TIntegerField
+      FieldName = 'CONTROLE'
+      Origin = 'CONTROLE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object QryChequeEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      Size = 18
+    end
+    object QryChequeTIPO: TSmallintField
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+    end
+    object QryChequeBANCO: TStringField
+      FieldName = 'BANCO'
+      Origin = 'BANCO'
+      Required = True
+      Size = 10
+    end
+    object QryChequeBANCO_LOGO: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'BANCO_LOGO'
+      Origin = 'LOGO'
+      ProviderFlags = []
+    end
+    object QryChequeAGENCIA: TStringField
+      FieldName = 'AGENCIA'
+      Origin = 'AGENCIA'
+      Required = True
+    end
+    object QryChequeCONTA: TStringField
+      FieldName = 'CONTA'
+      Origin = 'CONTA'
+      Required = True
+    end
+    object QryChequeNUMERO: TStringField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      Required = True
+      Size = 30
+    end
+    object QryChequeFORNECEDOR: TIntegerField
+      FieldName = 'FORNECEDOR'
+      Origin = 'FORNECEDOR'
+    end
+    object QryChequeCLIENTE: TIntegerField
+      FieldName = 'CLIENTE'
+      Origin = 'CLIENTE'
+    end
+    object QryChequeDATA_EMISSAO: TDateField
+      FieldName = 'DATA_EMISSAO'
+      Origin = 'DATA_EMISSAO'
+    end
+    object QryChequeDATA_APRESENTACAO: TDateField
+      FieldName = 'DATA_APRESENTACAO'
+      Origin = 'DATA_APRESENTACAO'
+    end
+    object QryChequeDATA_COMPENSACAO: TDateField
+      FieldName = 'DATA_COMPENSACAO'
+      Origin = 'DATA_COMPENSACAO'
+    end
+    object QryChequeVALOR: TBCDField
+      FieldName = 'VALOR'
+      Origin = 'VALOR'
+      Precision = 18
+      Size = 2
+    end
+    object QryChequeNOMINAL_A: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOMINAL_A'
+      Origin = 'NOMINAL_A'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 140
+    end
+    object QryChequeDATA_CADASTRO: TDateField
+      FieldName = 'DATA_CADASTRO'
+      Origin = 'DATA_CADASTRO'
+      Required = True
+    end
+    object QryChequeUSUARIO_CADASTRO: TStringField
+      FieldName = 'USUARIO_CADASTRO'
+      Origin = 'USUARIO_CADASTRO'
+      Size = 12
+    end
+    object QryChequeSTATUS: TSmallintField
+      FieldName = 'STATUS'
+      Origin = 'STATUS'
+      Required = True
+    end
+    object QryChequeOBS: TMemoField
+      FieldName = 'OBS'
+      Origin = 'OBS'
+      BlobType = ftMemo
+    end
+    object QryChequeSTATUS_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'STATUS_DESCRICAO'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      ReadOnly = True
+      FixedChar = True
+      Size = 11
+    end
+    object QryChequeBANCO_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'BANCO_NOME'
+      Origin = 'NOME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object QryChequeEMISSOR_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EMISSOR_NOME'
+      Origin = 'EMISSOR_NOME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object QryChequeEMISSOR_CNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EMISSOR_CNPJ'
+      Origin = 'EMISSOR_CNPJ'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 18
+    end
+    object QryChequeEMISSOR_PF: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'EMISSOR_PF'
+      Origin = 'EMISSOR_PF'
+      ProviderFlags = []
+      ReadOnly = True
+    end
   end
   object QryRelacaoCheque: TFDQuery
     Connection = DMBusiness.fdConexao

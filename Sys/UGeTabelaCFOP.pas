@@ -67,6 +67,8 @@ type
     fdQryTabelaCFOP_ALTERA_ESTOQUE_PRODUTO: TSmallintField;
     dbAlteraEstoqueEntradaSaida: TDBCheckBox;
     lblInformeRemessa: TLabel;
+    dbCfopFaturarRemessa: TDBCheckBox;
+    fdQryTabelaCFOP_FATURAR_REMESSA: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -74,6 +76,7 @@ type
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure btnFiltrarClick(Sender: TObject);
     procedure fdQryTabelaNewRecord(DataSet: TDataSet);
+    procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -184,6 +187,9 @@ begin
     if FieldByName('CFOP_REMESSA').IsNull then
       FieldByName('CFOP_REMESSA').AsInteger := 0;
 
+    if FieldByName('CFOP_FATURAR_REMESSA').IsNull then
+      FieldByName('CFOP_FATURAR_REMESSA').AsInteger := 0;
+
     if FieldByName('CFOP_GERAR_TITULO').IsNull then
       FieldByName('CFOP_GERAR_TITULO').AsInteger := 1;
 
@@ -193,12 +199,8 @@ begin
     if FieldByName('CFOP_ALTERA_CUSTO_PRODUTO').IsNull then
       FieldByName('CFOP_ALTERA_CUSTO_PRODUTO').AsInteger := 1;
 
-    if (FieldByName('CFOP_REMESSA').AsInteger = 1) then
-    begin
-      FieldByName('CFOP_GERAR_TITULO').AsInteger    := 0;
-      FieldByName('CFOP_GERAR_DUPLICATA').AsInteger := 0;
-    end
-    else
+    // Regra 2 : Apenas CFOPs de Remessa terão CFOPs de Retorno
+    if (FieldByName('CFOP_REMESSA').AsInteger = 0) then
     begin
       FieldByName('CFOP_RETORNO_INTERNO').Clear;
       FieldByName('CFOP_RETORNO_EXTERNO').Clear;
@@ -225,9 +227,11 @@ begin
 
   Regra 1 : CFOP marcado como "Remessa" não gera movimentaçao financeira.
   Regra 2 : Apenas CFOPs de Remessa terão CFOPs de Retorno
+  Regra 3 : CFOP marcado como "Faturar Remessa" gera movimentaçao financeira.
 
   *)
   inherited;
+
   with DtSrcTabela.DataSet do
   begin
     if (Field = FieldByName('CFOP_REMESSA')) then
@@ -236,18 +240,45 @@ begin
       begin
         FieldByName('CFOP_GERAR_TITULO').AsInteger    := 0;
         FieldByName('CFOP_GERAR_DUPLICATA').AsInteger := 0;
+        FieldByName('CFOP_FATURAR_REMESSA').AsInteger := 0;
+      end
+      else
+      if (State in [dsEdit, dsInsert]) and (FieldByName('CFOP_REMESSA').AsInteger = 0) then
+      begin
+        FieldByName('CFOP_RETORNO_INTERNO').Clear;
+        FieldByName('CFOP_RETORNO_EXTERNO').Clear;
       end;
 
       grpBxCfopRetorno.Enabled := (FieldByName('CFOP_REMESSA').AsInteger = 1);
+    end
+    else
+    if (Field = FieldByName('CFOP_FATURAR_REMESSA')) then
+    begin
+      if (State in [dsEdit, dsInsert]) and (FieldByName('CFOP_FATURAR_REMESSA').AsInteger = 1) then
+      begin
+        FieldByName('CFOP_GERAR_TITULO').AsInteger    := 1;
+        FieldByName('CFOP_GERAR_DUPLICATA').AsInteger := 1;
+        FieldByName('CFOP_REMESSA').AsInteger         := 0;
+      end;
     end;
   end;
+end;
+
+procedure TfrmGeTabelaCFOP.fdQryTabelaAfterScroll(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+    grpBxCfopRetorno.Enabled := (FieldByName('CFOP_REMESSA').AsInteger = 1);
 end;
 
 procedure TfrmGeTabelaCFOP.fdQryTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
   with DtSrcTabela.DataSet do
+  begin
     FieldByName('CFOP_ALTERA_ESTOQUE_PRODUTO').AsInteger := 1;
+    FieldByName('CFOP_FATURAR_REMESSA').AsInteger        := 0;
+  end;
 end;
 
 initialization

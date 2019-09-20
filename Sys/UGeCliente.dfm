@@ -1,6 +1,7 @@
 inherited frmGeCliente: TfrmGeCliente
   Left = 400
   Top = 237
+  ActiveControl = edFiltrarTipoEstoqueSatelite
   Caption = 'Cadastro de Clientes'
   ClientHeight = 535
   ClientWidth = 844
@@ -25,6 +26,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited pgcGuias: TPageControl
     Width = 844
     Height = 492
+    ActivePage = tbsEstoqueSatelite
     OnChange = pgcGuiasChange
     ExplicitWidth = 844
     ExplicitHeight = 492
@@ -200,6 +202,8 @@ inherited frmGeCliente: TfrmGeCliente
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 463
       inherited Bevel8: TBevel
@@ -3225,18 +3229,56 @@ inherited frmGeCliente: TfrmGeCliente
             Anchors = [akTop, akRight, akBottom]
             Flat = True
             Glyph.Data = {
-              76010000424D7601000000000000760000002800000020000000100000000100
-              0400000000000001000000000000000000001000000000000000000000000000
-              8000008000000080800080000000800080008080000080808000C0C0C0000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00333333333333
-              333333333333333333FF33333333333330003FF3FFFFF3333777003000003333
-              300077F777773F333777E00BFBFB033333337773333F7F33333FE0BFBF000333
-              330077F3337773F33377E0FBFBFBF033330077F3333FF7FFF377E0BFBF000000
-              333377F3337777773F3FE0FBFBFBFBFB039977F33FFFFFFF7377E0BF00000000
-              339977FF777777773377000BFB03333333337773FF733333333F333000333333
-              3300333777333333337733333333333333003333333333333377333333333333
-              333333333333333333FF33333333333330003333333333333777333333333333
-              3000333333333333377733333333333333333333333333333333}
+              36060000424D3606000000000000360000002800000020000000100000000100
+              18000000000000060000C40E0000C40E00000000000000000000FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC29365BC8856FFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7D
+              8A98707F8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC08F60AC6B2CBA8552F3E8DDCA9765C690
+              5BE1C4A8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF78
+              86954D5F736D7B8CE3E6E9808D9C778595B7BFC7FFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFCFCFC6E6E6EFEFEFEFFFFFFBF8D5CAC6B2CAC6B2CAC6B2CAD6E
+              30AC6B2CAC6B2CFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFCFC5C6E82FEFEFEFF
+              FFFF7684934D5F734D5F734D5F735162764D5F734D5F73FFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFCFCFC6E6E6ED9D9D9FFFFFFF1E6DCAC6B2CD4B292FFFFFFFFFF
+              FFF3EBE2AC6B2CCDA279FFFFFFFFFFFFFFFFFFFFFFFFFBFCFC5C6E82D4D9DEFF
+              FFFFE2E4E84D5F73A3ACB7FFFFFFFFFFFFE7E9EC4D5F738F9BA8FFFFFFFFFFFF
+              FFFFFFFFFFFFFCFCFC6E6E6EEDEDEDFFFFFFC69564AC6B2CFFFFFFFFFFFFFFFF
+              FFFFFFFFC79C73AF6D2DFFFFFFFFFFFFFFFFFFFFFFFFFBFCFC5C6E82EBEDF0FF
+              FFFF7E8C9A4D5F73FFFFFFFFFFFFFFFFFFFFFFFF8994A24F6175FFFFFFFFFFFF
+              FFFFFFFFFFFFFCFCFC6E6E6EF1F1F1FFFFFFC28E59AC6B2CFFFFFFFFFFFFFFFF
+              FFFFFFFFCFAA85AF6D2DFFFFFFFFFFFFFFFFFFFFFFFFFBFCFC5C6E82F0F1F3FF
+              FFFF7584944D5F73FFFFFFFFFFFFFFFFFFFFFFFF98A3AE4F6175FFFFFFFFFFFF
+              FFFFFFFFFFFFFCFCFC6E6E6ED5D5D5FFFFFFE0C3A8AC6B2CEFE2D6FFFFFFFFFF
+              FFFFFFFFAC6B2CC08A57FFFFFFFFFFFFFFFFFFFFFFFFFBFCFC5C6E82D0D5DBFF
+              FFFFB7BEC64D5F73DCE0E4FFFFFFFFFFFFFFFFFF4D5F73728191FFFFFFFFFFFF
+              FFFFFFFFFFFFF2F2F26E6E6E9C9C9CFFFFFFFFFFFFAC6C2EAC6B2CC49567CDA5
+              7EAC6B2CAC6B2CFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0F2F45C6E828F9CA9FF
+              FFFFFFFFFF4F60744D5F737F8C9B939EAA4D5F734D5F73FFFFFFFFFFFFFFFFFF
+              FFFFFFFCFCFC9494946E6E6E6E6E6EE8E8E8FFFFFFFFFFFFCDA57EAC6B2CAC6B
+              2CBE8A57FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFCFD8694A25C6E825C6E82E4
+              E8ECFFFFFFFFFFFF939EAA4D5F734D5F73728190FFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFABABAB6E6E6E6E6E6E6E6E6E858585F2F2F2EFEFEFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA1ABB75C6E825C6E825C6E8274
+              8597EFF2F4EDEFF1FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              C6C6C66E6E6E6E6E6E6E6E6E6E6E6E6E6E6EC9C9C9DFDFDF727272CACACAFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFC6CE5C6E825C6E825C6E825C6E825C
+              6E82BFC9D2D9DFE5617285C4CAD1FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDDDDDD
+              7171716E6E6E6E6E6E6E6E6E6E6E6E6E6E6E808080FCFCFCCECECE737373E0E0
+              E0FFFFFFFFFFFFFFFFFFFFFFFFD9DDE26071855C6E825C6E825C6E825C6E825C
+              6E826F8092FBFCFCC5CED6617386DDE0E5FFFFFFFFFFFFFFFFFFEEEEEE7B7B7B
+              6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6EC3C3C3FFFFFFB9B9B97D7D
+              7DF1F1F1FFFFFFFFFFFFECEEF06A7B8D5C6E825C6E825C6E825C6E825C6E825C
+              6E825C6E82B8C3CDFFFFFFADB9C56D7D8FEFF1F3FFFFFFFFFFFF8B8B8B6E6E6E
+              6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E7C7C7CFAFAFAFEFEFE9F9F
+              9F8E8E8EFBFBFBFFFFFF7C8B9B5C6E825C6E825C6E825C6E825C6E825C6E825C
+              6E825C6E826B7C8FF9FAFAFDFEFE909FAE808E9DFAFBFBFFFFFF6E6E6E6E6E6E
+              6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E6E7070707070706E6E
+              6E6E6E6EB7B7B7FFFFFF5C6E825C6E825C6E825C6E825C6E825C6E825C6E825C
+              6E825C6E825C6E825F70845F70845C6E825C6E82AFB7C1FFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
             NumGlyphs = 2
             ParentShowHint = False
             ShowHint = True
@@ -3342,6 +3384,20 @@ inherited frmGeCliente: TfrmGeCliente
             Title.Alignment = taCenter
             Title.Caption = 'Und. '
             Width = 50
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'LOTE'
+            Title.Caption = 'Lote '
+            Width = 130
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'VALIDADE'
+            Title.Caption = 'Validade '
+            Width = 85
             Visible = True
           end
           item
@@ -3814,7 +3870,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited ImgList: TImageList
     Left = 552
     Bitmap = {
-      494C01012B002C00A40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00A80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5933,8 +5989,8 @@ inherited frmGeCliente: TfrmGeCliente
   end
   object popProcesso: TPopupMenu
     Images = ImgList
-    Left = 768
-    Top = 422
+    Left = 776
+    Top = 398
     object mpClienteBloquear: TMenuItem
       Caption = '&Bloquear'
       ImageIndex = 37
@@ -6334,11 +6390,13 @@ inherited frmGeCliente: TfrmGeCliente
       'Select'
       '    e.cod_cliente'
       '  , e.cod_produto'
+      '  , e.sequencial'
       '  , e.quantidade'
       '  , e.valor_medio'
       '  , e.usuario'
       '  , e.ano_venda_ult'
       '  , e.cod_venda_ult'
+      '  , e.lote_id'
       ''
       '  , p.Codigo'
       '  , p.Descri'
@@ -6354,12 +6412,16 @@ inherited frmGeCliente: TfrmGeCliente
       '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
       '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
       '  , u.Unp_sigla'
+      '  , a.descricao       as lote'
+      '  , a.data_fabricacao as fabricacao'
+      '  , a.data_validade   as validade'
       'from TBCLIENTE_ESTOQUE e'
       '  inner join TBPRODUTO p on (p.cod = e.cod_produto)'
       '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
       '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
       '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)')
+      '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)'
+      '  left join TBESTOQUE_ALMOX a on (a.id = e.lote_id)')
     Left = 584
     Top = 216
     object QryEstoqueSateliteCOD_CLIENTE: TIntegerField
@@ -6375,6 +6437,12 @@ inherited frmGeCliente: TfrmGeCliente
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 10
+    end
+    object QryEstoqueSateliteSEQUENCIAL: TSmallintField
+      FieldName = 'SEQUENCIAL'
+      Origin = 'SEQUENCIAL'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
     end
     object QryEstoqueSateliteQUANTIDADE: TBCDField
       FieldName = 'QUANTIDADE'
@@ -6403,6 +6471,11 @@ inherited frmGeCliente: TfrmGeCliente
       FieldName = 'COD_VENDA_ULT'
       Origin = 'COD_VENDA_ULT'
       OnGetText = QryEstoqueSateliteCOD_VENDA_ULTGetText
+    end
+    object QryEstoqueSateliteLOTE_ID: TStringField
+      FieldName = 'LOTE_ID'
+      Origin = 'LOTE_ID'
+      Size = 38
     end
     object QryEstoqueSateliteCODIGO: TIntegerField
       AutoGenerateValue = arDefault
@@ -6501,42 +6574,74 @@ inherited frmGeCliente: TfrmGeCliente
       ProviderFlags = []
       Size = 5
     end
+    object QryEstoqueSateliteLOTE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'LOTE'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      Size = 30
+    end
+    object QryEstoqueSateliteFABRICACAO: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'FABRICACAO'
+      Origin = 'DATA_FABRICACAO'
+      ProviderFlags = []
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object QryEstoqueSateliteVALIDADE: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'VALIDADE'
+      Origin = 'DATA_VALIDADE'
+      ProviderFlags = []
+      DisplayFormat = 'dd/mm/yyyy'
+    end
   end
   object UpdEstoqueSatelite: TFDUpdateSQL
     Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
       'INSERT INTO TBCLIENTE_ESTOQUE'
-      '(COD_CLIENTE, COD_PRODUTO, QUANTIDADE, VALOR_MEDIO, '
-      '  USUARIO, ANO_VENDA_ULT, COD_VENDA_ULT)'
+      '(COD_CLIENTE, COD_PRODUTO, SEQUENCIAL, QUANTIDADE, '
+      '  VALOR_MEDIO, USUARIO, ANO_VENDA_ULT, COD_VENDA_ULT, '
+      '  LOTE_ID)'
       
-        'VALUES (:NEW_COD_CLIENTE, :NEW_COD_PRODUTO, :NEW_QUANTIDADE, :NE' +
-        'W_VALOR_MEDIO, '
-      '  :NEW_USUARIO, :NEW_ANO_VENDA_ULT, :NEW_COD_VENDA_ULT)')
+        'VALUES (:NEW_COD_CLIENTE, :NEW_COD_PRODUTO, :NEW_SEQUENCIAL, :NE' +
+        'W_QUANTIDADE, '
+      
+        '  :NEW_VALOR_MEDIO, :NEW_USUARIO, :NEW_ANO_VENDA_ULT, :NEW_COD_V' +
+        'ENDA_ULT, '
+      '  :NEW_LOTE_ID)')
     ModifySQL.Strings = (
       'UPDATE TBCLIENTE_ESTOQUE'
       
         'SET COD_CLIENTE = :NEW_COD_CLIENTE, COD_PRODUTO = :NEW_COD_PRODU' +
         'TO, '
-      '  QUANTIDADE = :NEW_QUANTIDADE, VALOR_MEDIO = :NEW_VALOR_MEDIO, '
-      '  USUARIO = :NEW_USUARIO, ANO_VENDA_ULT = :NEW_ANO_VENDA_ULT, '
-      '  COD_VENDA_ULT = :NEW_COD_VENDA_ULT'
+      '  SEQUENCIAL = :NEW_SEQUENCIAL, QUANTIDADE = :NEW_QUANTIDADE, '
+      '  VALOR_MEDIO = :NEW_VALOR_MEDIO, USUARIO = :NEW_USUARIO, '
+      
+        '  ANO_VENDA_ULT = :NEW_ANO_VENDA_ULT, COD_VENDA_ULT = :NEW_COD_V' +
+        'ENDA_ULT, '
+      '  LOTE_ID = :NEW_LOTE_ID'
       
         'WHERE COD_CLIENTE = :OLD_COD_CLIENTE AND COD_PRODUTO = :OLD_COD_' +
-        'PRODUTO')
+        'PRODUTO AND '
+      '  SEQUENCIAL = :OLD_SEQUENCIAL')
     DeleteSQL.Strings = (
       'DELETE FROM TBCLIENTE_ESTOQUE'
       
         'WHERE COD_CLIENTE = :OLD_COD_CLIENTE AND COD_PRODUTO = :OLD_COD_' +
-        'PRODUTO')
+        'PRODUTO AND '
+      '  SEQUENCIAL = :OLD_SEQUENCIAL')
     FetchRowSQL.Strings = (
       'Select'
       '    e.cod_cliente'
       '  , e.cod_produto'
+      '  , e.sequencial'
       '  , e.quantidade'
       '  , e.valor_medio'
       '  , e.usuario'
       '  , e.ano_venda_ult'
       '  , e.cod_venda_ult'
+      '  , e.lote_id'
       ''
       '  , p.Codigo'
       '  , p.Descri'
@@ -6552,16 +6657,21 @@ inherited frmGeCliente: TfrmGeCliente
       '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
       '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
       '  , u.Unp_sigla'
+      '  , a.descricao       as lote'
+      '  , a.data_fabricacao as fabricacao'
+      '  , a.data_validade   as validade'
       'from TBCLIENTE_ESTOQUE e'
       '  inner join TBPRODUTO p on (p.cod = e.cod_produto)'
       '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
       '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
       '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
       '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)'
+      '  left join TBESTOQUE_ALMOX a on (a.id = e.lote_id)'
       ''
       
         'WHERE e.COD_CLIENTE = :COD_CLIENTE AND e.COD_PRODUTO = :COD_PROD' +
-        'UTO')
+        'UTO AND'
+      '  e.SEQUENCIAL = :SEQUENCIAL')
     Left = 616
     Top = 216
   end

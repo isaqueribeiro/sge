@@ -1559,7 +1559,7 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
     Left = 888
     Top = 320
     Bitmap = {
-      494C01012B002C00200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3019,8 +3019,8 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
+    Active = True
     AfterCancel = fdQryTabelaAfterCancel
-    OnNewRecord = fdQryTabelaNewRecord
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
     UpdateOptions.GeneratorName = 'GEN_REQUISICAO_2019'
@@ -3044,6 +3044,8 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       '  , r.recebedor_rg'
       '  , r.cancelado_data'
       '  , r.cancelado_motivo'
+      '  , r.venda_ano'
+      '  , r.venda_num'
       '  , c.nome'
       
         '  , (Select count(i.item) from TBCLIENTE_REQUISICAO_ITEM i WHERE' +
@@ -3155,6 +3157,16 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       Origin = 'ITENS'
       ProviderFlags = []
     end
+    object fdQryTabelaVENDA_ANO: TSmallintField
+      FieldName = 'VENDA_ANO'
+      Origin = 'VENDA_ANO'
+      ProviderFlags = []
+    end
+    object fdQryTabelaVENDA_NUM: TIntegerField
+      FieldName = 'VENDA_NUM'
+      Origin = 'VENDA_NUM'
+      ProviderFlags = []
+    end
   end
   inherited fdUpdTabela: TFDUpdateSQL
     InsertSQL.Strings = (
@@ -3174,7 +3186,8 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       
         '  :NEW_AUTORIZACAO_USUARIO, :NEW_RECEBEDOR_NOME, :NEW_RECEBEDOR_' +
         'RG, '
-      '  :NEW_CANCELADO_DATA, :NEW_CANCELADO_MOTIVO)')
+      '  :NEW_CANCELADO_DATA, :NEW_CANCELADO_MOTIVO)'
+      'RETURNING NUMERO, VENDA_ANO, VENDA_NUM')
     ModifySQL.Strings = (
       'UPDATE TBCLIENTE_REQUISICAO'
       
@@ -3199,7 +3212,8 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
         '  RECEBEDOR_RG = :NEW_RECEBEDOR_RG, CANCELADO_DATA = :NEW_CANCEL' +
         'ADO_DATA, '
       '  CANCELADO_MOTIVO = :NEW_CANCELADO_MOTIVO'
-      'WHERE ANO = :OLD_ANO AND NUMERO = :OLD_NUMERO')
+      'WHERE ANO = :OLD_ANO AND NUMERO = :OLD_NUMERO'
+      'RETURNING NUMERO, VENDA_ANO, VENDA_NUM')
     DeleteSQL.Strings = (
       'DELETE FROM TBCLIENTE_REQUISICAO'
       'WHERE ANO = :OLD_ANO AND NUMERO = :OLD_NUMERO')
@@ -3221,6 +3235,8 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       '  , r.recebedor_rg'
       '  , r.cancelado_data'
       '  , r.cancelado_motivo'
+      '  , r.venda_ano'
+      '  , r.venda_num'
       '  , c.nome'
       
         '  , (Select count(i.item) from TBCLIENTE_REQUISICAO_ITEM i WHERE' +
@@ -3252,6 +3268,7 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
     end
   end
   object cdsTabelaItens: TFDQuery
+    Active = True
     OnNewRecord = cdsTabelaItensNewRecord
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
@@ -3271,6 +3288,7 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       '  , i.valor_medio'
       '  , i.unidade'
       '  , i.usuario'
+      '  , i.lote_id'
       '  , p.descri'
       '  , u.unp_sigla'
       '  , coalesce(e.quantidade, 0) as estoque_satelite'
@@ -3340,6 +3358,11 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       Origin = 'USUARIO'
       Size = 50
     end
+    object cdsTabelaItensLOTE_ID: TStringField
+      FieldName = 'LOTE_ID'
+      Origin = 'LOTE_ID'
+      Size = 38
+    end
     object cdsTabelaItensDESCRI: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'DESCRI'
@@ -3371,12 +3394,12 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       'INSERT INTO TBCLIENTE_REQUISICAO_ITEM'
       '(ANO, NUMERO, ITEM, CODEMPRESA, CODCLIENTE, '
       '  CODPRODUTO, QUANTIDADE, QUANTIDADE_FINAL, '
-      '  VALOR_MEDIO, UNIDADE, USUARIO)'
+      '  VALOR_MEDIO, UNIDADE, USUARIO, LOTE_ID)'
       
         'VALUES (:NEW_ANO, :NEW_NUMERO, :NEW_ITEM, :NEW_CODEMPRESA, :NEW_' +
         'CODCLIENTE, '
       '  :NEW_CODPRODUTO, :NEW_QUANTIDADE, :NEW_QUANTIDADE_FINAL, '
-      '  :NEW_VALOR_MEDIO, :NEW_UNIDADE, :NEW_USUARIO)')
+      '  :NEW_VALOR_MEDIO, :NEW_UNIDADE, :NEW_USUARIO, :NEW_LOTE_ID)')
     ModifySQL.Strings = (
       'UPDATE TBCLIENTE_REQUISICAO_ITEM'
       
@@ -3387,7 +3410,7 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
         '  QUANTIDADE = :NEW_QUANTIDADE, QUANTIDADE_FINAL = :NEW_QUANTIDA' +
         'DE_FINAL, '
       '  VALOR_MEDIO = :NEW_VALOR_MEDIO, UNIDADE = :NEW_UNIDADE, '
-      '  USUARIO = :NEW_USUARIO'
+      '  USUARIO = :NEW_USUARIO, LOTE_ID = :NEW_LOTE_ID'
       
         'WHERE ANO = :OLD_ANO AND NUMERO = :OLD_NUMERO AND ITEM = :OLD_IT' +
         'EM')
@@ -3397,12 +3420,29 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
         'WHERE ANO = :OLD_ANO AND NUMERO = :OLD_NUMERO AND ITEM = :OLD_IT' +
         'EM')
     FetchRowSQL.Strings = (
+      'Select'
+      '    i.ano'
+      '  , i.numero'
+      '  , i.item'
+      '  , i.codempresa'
+      '  , i.codcliente'
+      '  , i.codproduto'
+      '  , i.quantidade'
+      '  , i.quantidade_final'
+      '  , i.valor_medio'
+      '  , i.unidade'
+      '  , i.usuario'
+      '  , i.lote_id'
+      '  , p.descri'
+      '  , u.unp_sigla'
+      '  , coalesce(e.quantidade, 0) as estoque_satelite'
+      'from TBCLIENTE_REQUISICAO_ITEM i'
+      '  inner join TBPRODUTO p on (p.cod = i.codproduto)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
       
-        'SELECT ANO, NUMERO, ITEM, CODEMPRESA, CODCLIENTE, CODPRODUTO, QU' +
-        'ANTIDADE, '
-      '  QUANTIDADE_FINAL, VALOR_MEDIO, UNIDADE, USUARIO'
-      'FROM TBCLIENTE_REQUISICAO_ITEM'
-      'WHERE ANO = :ANO AND NUMERO = :NUMERO AND ITEM = :ITEM')
+        '  left join TBCLIENTE_ESTOQUE e on (e.cod_cliente = i.codcliente' +
+        ' and e.cod_produto = i.codproduto)'
+      'WHERE i.ANO = :ANO AND i.NUMERO = :NUMERO AND i.ITEM = :ITEM')
     Left = 920
     Top = 176
   end
@@ -3474,6 +3514,7 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       '  , c.Cfop_descricao'
       '  , c.Cfop_especificacao'
       '  , coalesce(e.quantidade, 0) as estoque_satelite'
+      '  , e.lote_id'
       'from TBPRODUTO p'
       '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
       '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'

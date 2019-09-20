@@ -8654,7 +8654,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         FillType = ftBrush
         Frame.Typ = []
         Height = 30.236240000000000000
-        Top = 570.709030000000000000
+        Top = 574.488560000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
@@ -8710,24 +8710,25 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       object BndGrpHeaderEmpresa: TfrxGroupHeader
         FillType = ftBrush
         Frame.Typ = []
-        Height = 60.472480000000000000
+        Height = 64.252010000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
         Condition = 'FrdsRelacaoVendaCfopSintetico."COMPETENCIA"'
         ReprintOnNewPage = True
         object Memo8: TfrxMemoView
+          Top = 3.779529999999994000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
+          Font.Color = clWhite
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
-          Fill.BackColor = clBtnFace
+          Fill.BackColor = clGray
           HAlign = haCenter
           Memo.UTF8W = (
             'Compet'#234'ncia')
@@ -8735,7 +8736,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
-          Top = 22.677180000000000000
+          Top = 26.456710000000000000
           Width = 366.614410000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -8756,7 +8757,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         end
         object Memo21: TfrxMemoView
           Left = 366.614410000000000000
-          Top = 41.574830000000000000
+          Top = 45.354360000000000000
           Width = 79.370081180000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -8778,7 +8779,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         end
         object Memo22: TfrxMemoView
           Left = 445.984540000000000000
-          Top = 41.574830000000000000
+          Top = 45.354360000000000000
           Width = 68.031491180000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -8800,7 +8801,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         end
         object Memo26: TfrxMemoView
           Left = 366.614410000000000000
-          Top = 22.677180000000000000
+          Top = 26.456710000000000000
           Width = 351.496290000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -8821,7 +8822,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         end
         object Memo6: TfrxMemoView
           Left = 638.740570000000000000
-          Top = 41.574830000000000000
+          Top = 45.354360000000000000
           Width = 79.370073860000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -8842,7 +8843,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
-          Top = 41.574830000000000000
+          Top = 45.354360000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -8863,7 +8864,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         end
         object Memo15: TfrxMemoView
           Left = 83.149660000000000000
-          Top = 41.574830000000000000
+          Top = 45.354360000000000000
           Width = 234.330796540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -8884,7 +8885,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         end
         object Memo24: TfrxMemoView
           Left = 514.016080000000000000
-          Top = 41.574830000000000000
+          Top = 45.354360000000000000
           Width = 79.370073860000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -8906,6 +8907,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         end
         object Memo9: TfrxMemoView
           Left = 83.149660000000000000
+          Top = 3.779529999999994000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -8915,8 +8917,9 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
           Memo.UTF8W = (
             ' [FrdsRelacaoVendaCfopSintetico."COMPETENCIA_DESC"]')
           ParentFont = False
@@ -8925,7 +8928,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         end
         object Memo29: TfrxMemoView
           Left = 317.480520000000000000
-          Top = 41.574830000000000000
+          Top = 45.354360000000000000
           Width = 49.133826540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -8947,7 +8950,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         end
         object Memo33: TfrxMemoView
           Left = 593.386210000000000000
-          Top = 41.574830000000000000
+          Top = 45.354360000000000000
           Width = 45.354296540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -8972,7 +8975,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         FillType = ftBrush
         Frame.Typ = []
         Height = 18.897650000000000000
-        Top = 317.480520000000000000
+        Top = 321.260050000000000000
         Width = 718.110700000000000000
         DataSet = FrdsRelacaoVendaCfopSintetico
         DataSetName = 'FrdsRelacaoVendaCfopSintetico'
@@ -9151,7 +9154,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         FillType = ftBrush
         Frame.Typ = []
         Height = 26.456710000000000000
-        Top = 359.055350000000000000
+        Top = 362.834880000000000000
         Visible = False
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
@@ -9279,7 +9282,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         FillType = ftBrush
         Frame.Typ = []
         Height = 102.047310000000000000
-        Top = 445.984540000000000000
+        Top = 449.764070000000000000
         Width = 718.110700000000000000
         Stretched = True
         object SysMemo8: TfrxSysMemoView

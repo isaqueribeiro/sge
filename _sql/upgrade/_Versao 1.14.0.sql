@@ -1523,3 +1523,1196 @@ ALTER TABLE TBESTADO
 COMMENT ON COLUMN TBESTADO.ALIQUOTA_FCP IS
 'Aliquota FCP (Fundo de Combate a Pobreza)';
 
+
+/*------ SYSDBA 19/09/2019 11:40:24 --------*/
+
+SET TERM ^ ;
+
+create or alter procedure set_conta_corrente_saldo_v2 (
+    conta_corrente integer,
+    data_inicial date,
+    data_final   date)
+as
+declare variable data_movimento date;
+declare variable data_saldo_ant date;
+declare variable valor_saldo_ant numeric(15,2);
+declare variable total_credito_dia numeric(15,2);
+declare variable total_debito_dia numeric(15,2);
+declare variable total_saldo_dia numeric(15,2);
+begin
+    -- Montar Periodo
+    data_movimento = :data_inicial;
+    while (:data_movimento <= :data_final) do
+    begin
+
+      -- Buscar Saldo anterior
+      Select
+          s1.Data_saldo
+        , s1.Valor_saldo
+      from TBCONTA_CORRENTE_SALDO s1
+      where s1.Codigo = :Conta_corrente
+        and s1.Data_saldo in (
+          Select
+            max(s2.Data_saldo)
+          from TBCONTA_CORRENTE_SALDO s2
+          where s2.Codigo = :Conta_corrente
+            and s2.Data_saldo < :Data_movimento
+        )
+      into
+          Data_saldo_ant
+        , Valor_saldo_ant;
+    
+      -- Gravar Saldo anterior caso nao exista
+      if ( :Data_saldo_ant is null ) then
+      begin
+        Data_saldo_ant  = :Data_movimento - 1;
+        Valor_saldo_ant = 0;
+    
+        Insert Into TBCONTA_CORRENTE_SALDO (
+            Codigo
+          , Data_saldo
+          , Valor_saldo
+        ) values (
+            :Conta_corrente
+          , :Data_saldo_ant
+          , :Valor_saldo_ant
+        );
+      end 
+    
+      -- Consolidar Creditos e Debitos do dia
+      Select
+          sum( Case when upper(m.Tipo) = 'C' then m.Valor else 0 end )
+        , sum( Case when upper(m.Tipo) = 'D' then m.Valor else 0 end )
+      from TBCAIXA_MOVIMENTO m
+      where m.Situacao = 1 -- Confirmado
+        and m.Conta_corrente = :Conta_corrente
+        and cast(m.Datahora as Date ) = :Data_movimento
+      into
+          Total_credito_dia
+        , Total_debito_dia;
+    
+      Total_saldo_dia = :Valor_saldo_ant + coalesce(:Total_credito_dia, 0) - coalesce(:Total_debito_dia, 0);
+    
+      /* Gerar Saldo Conta Corrente do Dia */
+      if ( not Exists(
+        Select
+          s3.Codigo
+        from TBCONTA_CORRENTE_SALDO s3
+        where s3.Codigo = :Conta_corrente
+          and s3.Data_saldo = :Data_movimento
+      ) ) then
+      begin
+    
+        -- Inserir Saldo do Dia
+        Insert Into TBCONTA_CORRENTE_SALDO (
+            Codigo
+          , Data_saldo
+          , Valor_saldo
+        ) values (
+            :Conta_corrente
+          , :Data_movimento
+          , :Total_saldo_dia
+        );
+    
+      end
+      else
+      begin
+    
+         -- Atualizar Saldo do Dia
+         Update TBCONTA_CORRENTE_SALDO s Set
+           s.Valor_saldo = :Total_saldo_dia
+         where s.Codigo = :Conta_corrente
+           and s.Data_saldo = :Data_movimento;
+    
+       end 
+
+       -- Proxima data
+       data_movimento = dateadd(day, 1, :data_movimento);
+    end
+end^
+
+SET TERM ; ^
+
+GRANT EXECUTE ON PROCEDURE SET_CONTA_CORRENTE_SALDO_V2 TO "PUBLIC";
+GRANT EXECUTE ON PROCEDURE SET_CONTA_CORRENTE_SALDO_V2 TO SYSDBA;
+
+
+
+/*------ SYSDBA 19/09/2019 14:46:18 --------*/
+
+ALTER TABLE TBCFOP
+    ADD CFOP_FATURAR_REMESSA DMN_LOGICO DEFAULT 0;
+
+COMMENT ON COLUMN TBCFOP.CFOP_FATURAR_REMESSA IS
+'CFOP Faturar Remessa:
+0 - Nao
+1 - Sim
+
+CFOPs utilizadas para informar para o registro de venda (saida) que aquele movimento
+estara faturando os produtos enviados para o cliente em forma de remessa.';
+
+alter table TBCFOP
+alter CFOP_COD position 1;
+
+alter table TBCFOP
+alter CFOP_DESCRICAO position 2;
+
+alter table TBCFOP
+alter CFOP_ESPECIFICACAO position 3;
+
+alter table TBCFOP
+alter CFOP_INFORMACAO_FISCO position 4;
+
+alter table TBCFOP
+alter CFOP_TIPO position 5;
+
+alter table TBCFOP
+alter CFOP_CST_PADRAO_ENTRADA position 6;
+
+alter table TBCFOP
+alter CFOP_CST_PADRAO_SAIDA position 7;
+
+alter table TBCFOP
+alter CFOP_DEVOLUCAO position 8;
+
+alter table TBCFOP
+alter CFOP_FATURAR_REMESSA position 9;
+
+alter table TBCFOP
+alter CFOP_REMESSA position 10;
+
+alter table TBCFOP
+alter CFOP_RETORNO_INTERNO position 11;
+
+alter table TBCFOP
+alter CFOP_RETORNO_EXTERNO position 12;
+
+alter table TBCFOP
+alter CFOP_GERAR_TITULO position 13;
+
+alter table TBCFOP
+alter CFOP_GERAR_DUPLICATA position 14;
+
+alter table TBCFOP
+alter CFOP_ALTERA_CUSTO_PRODUTO position 15;
+
+alter table TBCFOP
+alter CFOP_ALTERA_ESTOQUE_PRODUTO position 16;
+
+
+
+
+/*------ SYSDBA 19/09/2019 14:46:26 --------*/
+
+alter table TBCFOP
+alter column CFOP_COD position 1;
+
+
+/*------ SYSDBA 19/09/2019 14:46:26 --------*/
+
+alter table TBCFOP
+alter column CFOP_DESCRICAO position 2;
+
+
+/*------ SYSDBA 19/09/2019 14:46:26 --------*/
+
+alter table TBCFOP
+alter column CFOP_ESPECIFICACAO position 3;
+
+
+/*------ SYSDBA 19/09/2019 14:46:27 --------*/
+
+alter table TBCFOP
+alter column CFOP_INFORMACAO_FISCO position 4;
+
+
+/*------ SYSDBA 19/09/2019 14:46:27 --------*/
+
+alter table TBCFOP
+alter column CFOP_TIPO position 5;
+
+
+/*------ SYSDBA 19/09/2019 14:46:27 --------*/
+
+alter table TBCFOP
+alter column CFOP_CST_PADRAO_ENTRADA position 6;
+
+
+/*------ SYSDBA 19/09/2019 14:46:27 --------*/
+
+alter table TBCFOP
+alter column CFOP_CST_PADRAO_SAIDA position 7;
+
+
+/*------ SYSDBA 19/09/2019 14:46:27 --------*/
+
+alter table TBCFOP
+alter column CFOP_DEVOLUCAO position 8;
+
+
+/*------ SYSDBA 19/09/2019 14:46:27 --------*/
+
+alter table TBCFOP
+alter column CFOP_REMESSA position 9;
+
+
+/*------ SYSDBA 19/09/2019 14:46:27 --------*/
+
+alter table TBCFOP
+alter column CFOP_FATURAR_REMESSA position 10;
+
+
+/*------ SYSDBA 19/09/2019 14:46:27 --------*/
+
+alter table TBCFOP
+alter column CFOP_RETORNO_INTERNO position 11;
+
+
+/*------ SYSDBA 19/09/2019 14:46:27 --------*/
+
+alter table TBCFOP
+alter column CFOP_RETORNO_EXTERNO position 12;
+
+
+/*------ SYSDBA 19/09/2019 14:46:27 --------*/
+
+alter table TBCFOP
+alter column CFOP_GERAR_TITULO position 13;
+
+
+/*------ SYSDBA 19/09/2019 14:46:27 --------*/
+
+alter table TBCFOP
+alter column CFOP_GERAR_DUPLICATA position 14;
+
+
+/*------ SYSDBA 19/09/2019 14:46:27 --------*/
+
+alter table TBCFOP
+alter column CFOP_ALTERA_CUSTO_PRODUTO position 15;
+
+
+/*------ SYSDBA 19/09/2019 14:46:27 --------*/
+
+alter table TBCFOP
+alter column CFOP_ALTERA_ESTOQUE_PRODUTO position 16;
+
+
+/*------ SYSDBA 19/09/2019 14:48:02 --------*/
+
+ALTER TABLE TBVENDAS
+    ADD CFOP_FATURAR_REMESSA DMN_LOGICO DEFAULT 0;
+
+COMMENT ON COLUMN TBVENDAS.CFOP_FATURAR_REMESSA IS
+'CFOP - Faturar Remessa:
+0 - Nao
+1 - Sim
+
+CFOP utilizada para informar a venda que este movimento estara faturando os
+produtos enviados para o cliente em forma de remessa.';
+
+
+
+
+/*------ SYSDBA 19/09/2019 14:48:53 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_vendas_cfop for tbvendas
+active before insert or update position 7
+AS
+begin
+  Select
+      coalesce(c.cfop_altera_estoque_produto, 0)
+    , coalesce(c.cfop_gerar_titulo, 0)
+    , coalesce(c.cfop_faturar_remessa, 0)
+  from TBCFOP c
+  where (c.cfop_cod = coalesce(new.cfop, 0))
+  Into
+      new.cfop_altera_estoque
+    , new.cfop_gera_titulo
+    , new.cfop_faturar_remessa;
+
+  new.cfop_altera_estoque  = coalesce(new.cfop_altera_estoque, 1);
+  new.cfop_gera_titulo     = coalesce(new.cfop_gera_titulo, 1);
+  new.cfop_faturar_remessa = coalesce(new.cfop_faturar_remessa, 0);
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/09/2019 14:49:49 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_vendas_cfop for tbvendas
+active before insert or update position 7
+AS
+begin
+  Select
+      coalesce(c.cfop_altera_estoque_produto, 0)
+    , coalesce(c.cfop_gerar_titulo, 0)
+    , coalesce(c.cfop_faturar_remessa, 0)
+  from TBCFOP c
+  where (c.cfop_cod = coalesce(new.cfop, 0))
+  Into
+      new.cfop_altera_estoque
+    , new.cfop_gera_titulo
+    , new.cfop_faturar_remessa;
+
+  new.cfop_altera_estoque  = coalesce(new.cfop_altera_estoque, 1);
+  new.cfop_gera_titulo     = coalesce(new.cfop_gera_titulo, 1);
+  new.cfop_faturar_remessa = coalesce(new.cfop_faturar_remessa, 0);
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_VENDAS_CFOP IS 'Trigger Guardar CFOP Venda.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   04/09/2019
+
+Trigger responsavel por definir e guardar as configuracoes do CFOP que influenciam
+no estoque do produto e na geracao de titulos a receber.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    19/09/2019 - IMR:
+        + Inclusao do campo CFOP_FATURAR_REMESSA.
+
+    04/09/2019 - IMR:
+        * Documentacao do objeto.';
+
+
+
+
+/*------ SYSDBA 19/09/2019 14:51:48 --------*/
+
+COMMENT ON TABLE TBCFOP IS 'Tabela CFOP
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   01/01/2013
+
+Tabela responsavel por armazenar a lista de CFOPs que se pode utilizar na emissao
+de NF-e.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    19/09/2019 - IMR:
+        + Criacao do campo CFOP_FATURAR_REMESSA para este informar para a venda
+          que o movimento de saida estara faturando os produtos que foram anteriormente
+          enviados para o cliente em Remessa.
+
+    11/07/2019 - IMR :
+        + Criacao do campo CFOP_ALTERA_ESTOQUE_PRODUTO para definir se determinada
+          entrada/saida associada ao CFOP ira alterar ou nao o estoque do produto.
+
+    17/05/2016 - IMR :
+        + Criacao do campo CFOP_REMESSA para sinalizar as operacoes que identificam
+          simples remessas de produtos e/ou servicos.
+          Exemplo disso sao as Remessas para Industrializacao por Conta e Ordem do
+          adquirente da mercadoria, quando esta nao transitar pelo estabelecimento
+          do adquirente.
+
+    10/05/2016 - IMR :
+        + Criacao dos campos CFOP_GERAR_TITULO e CFOP_GERAR_DUPLICATA a fim de
+          permitir que uma nota de saida ou entrada possam ou nao gerar titulos
+          a pagar ou a receber de acordo com a natureza de emissao do NF-e.
+
+    25/06/2014 - IMR :
+        + Criacao do campo CFOP_INFORMACAO_FISCO para armazenar o texto padrao
+          que sera informado na NF-e quando esta possuir um CFOP com esta
+          informacao.';
+
+
+
+
+/*------ SYSDBA 19/09/2019 18:44:35 --------*/
+
+ALTER TABLE TBCLIENTE_REQUISICAO
+    ADD VENDA_ANO DMN_SMALLINT_N,
+    ADD VENDA_NUM DMN_INTEGER_N;
+
+COMMENT ON COLUMN TBCLIENTE_REQUISICAO.VENDA_ANO IS
+'Origam da requisicao automatica - Ano da Venda (SGO)';
+
+COMMENT ON COLUMN TBCLIENTE_REQUISICAO.VENDA_NUM IS
+'Origam da requisicao automatica - Numero da Venda (SGO)';
+
+
+
+
+/*------ SYSDBA 19/09/2019 18:48:16 --------*/
+
+COMMENT ON TABLE TBCLIENTE_REQUISICAO IS 'Tabela de Requisicoes do Cliente.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   29/10/2013
+
+Tabela responsavel por armazenar as requisicoes de produtos do cliente feitas a empresa. Este processo promove a saida
+de produtos do estoque satelite do cliente quando este trabalha com recebimento fracionado de produtos oriundo das vendas
+feittas pela empresa a este.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    19/09/2019 - IMR:
+        + Criacao dos campos VENDA_ANO e VENDA_NUM para armazenar a referencia que
+          originou de forma automatica a requisicao. Este registro gerado sera
+          usado para deduzir (subtrair) o estoque de produtos do cliente quando
+          a venda de origem, como CFOP de Faturar Remessa, for finalizada.';
+
+
+
+
+/*------ SYSDBA 19/09/2019 18:48:43 --------*/
+
+ALTER TABLE TBCLIENTE_REQUISICAO
+ADD CONSTRAINT FK_TBCLIENTE_REQUISICAO_1
+FOREIGN KEY (VENDA_ANO,VENDA_NUM)
+REFERENCES TBVENDAS(ANO,CODCONTROL);
+
+
+
+
+/*------ SYSDBA 19/09/2019 20:29:17 --------*/
+
+ALTER TABLE TBCLIENTE_REQUISICAO_ITEM
+    ADD LOTE_ID DMN_GUID_38;
+
+COMMENT ON COLUMN TBCLIENTE_REQUISICAO_ITEM.LOTE_ID IS
+'ID do Lote do produto, caso o estoque do produto seja gerenciado por lote.';
+
+
+
+
+/*------ SYSDBA 19/09/2019 20:29:25 --------*/
+
+COMMENT ON COLUMN TBCLIENTE_REQUISICAO_ITEM.LOTE_ID IS
+'ID do Lote do produto, caso o estoque do produto seja gerenciado por lote (SGO).';
+
+
+
+
+/*------ SYSDBA 19/09/2019 20:30:43 --------*/
+
+COMMENT ON TABLE TBCLIENTE_REQUISICAO_ITEM IS 'Tabela de Iten das Requisicoes do Cliente.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   29/10/2013
+
+Tabela responsavel por armazenar os itens das requisicoes.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    19/09/2019 - IMR:
+        + Criacao do campo LOTE_ID para armazenar o lote de origem do produto
+          quando este tiver seu estoque gerenciado por Lote.';
+
+
+
+
+/*------ SYSDBA 19/09/2019 20:30:50 --------*/
+
+COMMENT ON COLUMN TBCLIENTE_REQUISICAO_ITEM.LOTE_ID IS
+'ID do Lote do produto, caso o estoque do produto seja gerenciado por lote.';
+
+
+
+
+/*------ SYSDBA 19/09/2019 20:32:15 --------*/
+
+ALTER TABLE TBCLIENTE_ESTOQUE
+    ADD LOTE_ID DMN_GUID_38;
+
+COMMENT ON COLUMN TBCLIENTE_ESTOQUE.LOTE_ID IS
+'ID do Lote do produto, caso o estoque do produto seja gerenciado por lote.';
+
+
+
+
+/*------ SYSDBA 19/09/2019 20:32:36 --------*/
+
+COMMENT ON TABLE TBCLIENTE_ESTOQUE IS 'Tabela Estoque Cliente.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   26/10/2013
+
+Tabela responsavel por armazenar o estoque satelite de produtos do clientes. Estoque este gerado no momento da
+finalizacao da venda.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    19/09/2019 - IMR:
+        + Criacao do campo LOTE_ID para armazenar o lote de origem do produto
+          quando este tiver seu estoque gerenciado por Lote.';
+
+
+
+
+/*------ SYSDBA 19/09/2019 20:32:59 --------*/
+
+CREATE INDEX IDX_TBCLIENTE_ESTOQUE_LOTE
+ON TBCLIENTE_ESTOQUE (LOTE_ID);
+
+
+
+
+/*------ SYSDBA 19/09/2019 20:33:37 --------*/
+
+CREATE INDEX IDX_TBCLIENTE_REQ_ITEM_LOTE
+ON TBCLIENTE_REQUISICAO_ITEM (LOTE_ID);
+
+
+
+
+/*------ SYSDBA 19/09/2019 20:35:50 --------*/
+
+ALTER TABLE TBCLIENTE_ESTOQUE
+    ADD SEQUENCIAL DMN_SMALLINT_NN DEFAULT 1;
+
+COMMENT ON COLUMN TBCLIENTE_ESTOQUE.SEQUENCIAL IS
+'Sequencial para Cliente/Produto';
+
+alter table TBCLIENTE_ESTOQUE
+alter COD_CLIENTE position 1;
+
+alter table TBCLIENTE_ESTOQUE
+alter COD_PRODUTO position 2;
+
+alter table TBCLIENTE_ESTOQUE
+alter SEQUENCIAL position 3;
+
+alter table TBCLIENTE_ESTOQUE
+alter QUANTIDADE position 4;
+
+alter table TBCLIENTE_ESTOQUE
+alter VALOR_MEDIO position 5;
+
+alter table TBCLIENTE_ESTOQUE
+alter USUARIO position 6;
+
+alter table TBCLIENTE_ESTOQUE
+alter ANO_VENDA_ULT position 7;
+
+alter table TBCLIENTE_ESTOQUE
+alter COD_VENDA_ULT position 8;
+
+alter table TBCLIENTE_ESTOQUE
+alter LOTE_ID position 9;
+
+
+
+/*------ SYSDBA 19/09/2019 20:36:24 --------*/
+
+Update TBCLIENTE_ESTOQUE x Set
+  x.sequencial = 1;
+
+/*------ SYSDBA 19/09/2019 20:36:28 --------*/
+
+COMMIT WORK;
+
+/*------ SYSDBA 19/09/2019 20:36:32 --------*/
+
+Update TBCLIENTE_ESTOQUE x Set
+  x.sequencial = 1;
+
+/*------ SYSDBA 19/09/2019 20:36:35 --------*/
+
+COMMIT WORK;
+
+
+/*------ SYSDBA 19/09/2019 20:37:33 --------*/
+
+update RDB$RELATION_FIELDS set
+RDB$NULL_FLAG = 1
+where (RDB$FIELD_NAME = 'SEQUENCIAL') and
+(RDB$RELATION_NAME = 'TBCLIENTE_ESTOQUE')
+;
+
+
+
+
+/*------ SYSDBA 19/09/2019 20:38:21 --------*/
+
+ALTER TABLE TBCLIENTE_ESTOQUE
+ADD CONSTRAINT PK_TBCLIENTE_ESTOQUE
+PRIMARY KEY (COD_CLIENTE,COD_PRODUTO,SEQUENCIAL);
+
+
+
+
+/*------ SYSDBA 19/09/2019 20:45:46 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_cliente_requisicao_estoque for tbcliente_requisicao
+active before update position 1
+AS
+  declare variable item       Smallint;
+  declare variable produto    Varchar(10);
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable lote_id    DMN_GUID_38;
+begin
+  /* 2. AUTORIZADA - Decrementar estoque satelite do cliente quando a requisicao for autorizada  */
+
+  if ( (old.situacao <> new.situacao) and (new.situacao = 2) ) then
+  begin
+    for
+      Select
+          i.numero
+        , i.codproduto
+        , i.quantidade
+        , e.quantidade as estoque
+        , coalesce(trim(i.lote_id), '') as lote
+      from TBCLIENTE_REQUISICAO_ITEM i
+        left join TBCLIENTE_ESTOQUE e on (e.cod_cliente = new.codcliente and e.cod_produto = i.codproduto and coalesce(trim(e.lote_id), '') = coalesce(trim(i.lote_id), ''))
+      where i.ano    = new.ano
+        and i.numero = new.numero
+      Into
+          item
+        , produto
+        , quantidade
+        , estoque
+        , lote_id
+    do
+    begin
+
+      -- Baixar estoque
+      Update TBCLIENTE_ESTOQUE e Set
+        e.quantidade = coalesce(:estoque, 0) - coalesce(:quantidade, 0) -- Retirar estoque
+      where (e.cod_cliente = new.codcliente)
+        and (e.cod_produto = :produto)
+        and (coalesce(trim(e.lote_id), '') = :lote_id);
+
+      -- Guardar historico estoque satelite
+      Update TBCLIENTE_REQUISICAO_ITEM i Set
+        i.quantidade_final = coalesce(:estoque, 0) - coalesce(:quantidade, 0)
+      where i.ano    = new.ano
+        and i.numero = new.numero
+        and i.item   = :item;
+
+    end 
+  end 
+
+  else
+
+  /* 4. CANCELADA - Incfementar estoque satelite do cliente quando a requisicao for cancelada  */
+
+  if ( (old.situacao <> new.situacao) and (new.situacao = 4) ) then
+  begin
+    for
+      Select
+          i.codproduto
+        , i.quantidade
+        , e.quantidade as estoque
+        , coalesce(trim(i.lote_id), '') as lote
+      from TBCLIENTE_REQUISICAO_ITEM i
+        left join TBCLIENTE_ESTOQUE e on (e.cod_cliente = new.codcliente and e.cod_produto = i.codproduto and coalesce(trim(e.lote_id), '') = coalesce(trim(i.lote_id), ''))
+      where i.ano    = new.ano
+        and i.numero = new.numero
+      Into
+          produto
+        , quantidade
+        , estoque
+        , lote_id
+    do
+    begin
+
+      Update TBCLIENTE_ESTOQUE e Set
+        e.quantidade = coalesce(:estoque, 0) + coalesce(:quantidade, 0) -- Devolver estoque
+      where (e.cod_cliente = new.codcliente)
+        and (e.cod_produto = :produto)
+        and (coalesce(trim(e.lote_id), '') = :lote_id);
+
+    end 
+  end
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/09/2019 20:47:04 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_cliente_requisicao_estoque for tbcliente_requisicao
+active before update position 1
+AS
+  declare variable item       Smallint;
+  declare variable produto    Varchar(10);
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable lote_id    DMN_GUID_38;
+begin
+  /* 2. AUTORIZADA - Decrementar estoque satelite do cliente quando a requisicao for autorizada  */
+
+  if ( (old.situacao <> new.situacao) and (new.situacao = 2) ) then
+  begin
+    for
+      Select
+          i.numero
+        , i.codproduto
+        , i.quantidade
+        , e.quantidade as estoque
+        , coalesce(trim(i.lote_id), '') as lote
+      from TBCLIENTE_REQUISICAO_ITEM i
+        left join TBCLIENTE_ESTOQUE e on (e.cod_cliente = new.codcliente and e.cod_produto = i.codproduto and coalesce(trim(e.lote_id), '') = coalesce(trim(i.lote_id), ''))
+      where i.ano    = new.ano
+        and i.numero = new.numero
+      Into
+          item
+        , produto
+        , quantidade
+        , estoque
+        , lote_id
+    do
+    begin
+
+      -- Baixar estoque
+      Update TBCLIENTE_ESTOQUE e Set
+        e.quantidade = coalesce(:estoque, 0) - coalesce(:quantidade, 0) -- Retirar estoque
+      where (e.cod_cliente = new.codcliente)
+        and (e.cod_produto = :produto)
+        and (coalesce(trim(e.lote_id), '') = :lote_id);
+
+      -- Guardar historico estoque satelite
+      Update TBCLIENTE_REQUISICAO_ITEM i Set
+        i.quantidade_final = coalesce(:estoque, 0) - coalesce(:quantidade, 0)
+      where i.ano    = new.ano
+        and i.numero = new.numero
+        and i.item   = :item;
+
+    end 
+  end 
+
+  else
+
+  /* 4. CANCELADA - Incfementar estoque satelite do cliente quando a requisicao for cancelada  */
+
+  if ( (old.situacao <> new.situacao) and (new.situacao = 4) ) then
+  begin
+    for
+      Select
+          i.codproduto
+        , i.quantidade
+        , e.quantidade as estoque
+        , coalesce(trim(i.lote_id), '') as lote
+      from TBCLIENTE_REQUISICAO_ITEM i
+        left join TBCLIENTE_ESTOQUE e on (e.cod_cliente = new.codcliente and e.cod_produto = i.codproduto and coalesce(trim(e.lote_id), '') = coalesce(trim(i.lote_id), ''))
+      where i.ano    = new.ano
+        and i.numero = new.numero
+      Into
+          produto
+        , quantidade
+        , estoque
+        , lote_id
+    do
+    begin
+
+      Update TBCLIENTE_ESTOQUE e Set
+        e.quantidade = coalesce(:estoque, 0) + coalesce(:quantidade, 0) -- Devolver estoque
+      where (e.cod_cliente = new.codcliente)
+        and (e.cod_produto = :produto)
+        and (coalesce(trim(e.lote_id), '') = :lote_id);
+
+    end 
+  end
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_CLIENTE_REQUISICAO_ESTOQUE IS 'Trigger Atualizar Estoque Satelite (Requisicao de Clientes).
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   29/10/2013
+
+Trigger responsavel por atualizar (retirar ou devolver) o estoque satelite do cliente quando suas requisicoes sao
+autorizadas ou canceladas.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    19/09/2019 - IMR:
+        * Ajustes para incluir o campo LOTE_ID nos filtros de pesquisa e atualizacao
+          dos estoques de produtos.';
+
+
+
+
+/*------ SYSDBA 19/09/2019 20:59:21 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_vendas_estoque_cliente for tbvendas
+active after update position 2
+AS
+  declare variable sequencial DMN_SMALLINT_N;
+  declare variable produto varchar(10);
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable lote_id    DMN_GUID_38;
+  declare variable valor_medio numeric(15,4);
+  declare variable valor_venda numeric(15,2);
+begin
+
+  /* Gerar Estoque para o Cliente na Finalizacao da Venda */
+
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 3)) then /* 3. Finalizada */
+  begin
+    if ( new.gerar_estoque_cliente = 1 ) then
+    begin
+
+      for
+        Select
+            i.Codprod
+          , i.Qtde                    -- Quantidade vendida
+          , coalesce(c.quantidade, 0) -- Estoque
+          , (coalesce(c.valor_medio, 0) * coalesce(c.quantidade, 0))
+          , i.total_liquido
+          , coalesce(trim(i.lote_id), '') as lote
+        from TVENDASITENS i
+          left join TBCLIENTE_ESTOQUE c on (c.cod_cliente = new.codcliente and c.cod_produto = i.codprod and coalesce(trim(c.lote_id), '') = coalesce(trim(i.lote_id), ''))
+        where i.Ano        = new.Ano
+          and i.Codcontrol = new.Codcontrol
+        into
+            produto
+          , quantidade
+          , estoque
+          , valor_medio
+          , valor_venda
+          , lote_id
+      do
+      begin
+
+        -- Recalcular valor medio ja existente
+        if ( :estoque <= 0 ) then
+          valor_medio = 0.0;
+
+        -- Gerar novo valor medio
+        valor_medio = (:valor_medio + :valor_venda) / (:quantidade + :estoque);
+
+        if (not exists(
+          Select
+            ec.cod_cliente
+          from TBCLIENTE_ESTOQUE ec
+          where (ec.cod_cliente = new.codcliente)
+            and (ec.cod_produto = :produto)
+            and (coalesce(trim(ec.lote_id), '') = :lote_id)
+        )) then
+        begin
+
+          Select
+            max(ec.sequencial)
+          from TBCLIENTE_ESTOQUE ec
+          where (ec.cod_cliente = new.codcliente)
+            and (ec.cod_produto = :produto)
+          Into
+            sequencial;
+
+          -- Gerar Estoque
+          Insert Into TBCLIENTE_ESTOQUE (
+              cod_cliente
+            , cod_produto
+            , sequencial
+            , quantidade
+            , valor_medio
+            , usuario
+            , ano_venda_ult
+            , cod_venda_ult
+            , lote_id
+          ) values (
+              new.codcliente
+            , :produto
+            , (coalesce(:sequencial, 0) + 1)
+            , :quantidade
+            , :valor_medio
+            , new.usuario
+            , new.ano
+            , new.codcontrol
+            , :lote_id
+          );
+
+        end
+        else
+        begin
+
+          -- Atualizar estoque cliente
+          Update TBCLIENTE_ESTOQUE ec Set
+              ec.quantidade  = coalesce(:quantidade, 0) + coalesce(:estoque, 0)
+            , ec.valor_medio = :valor_medio
+          where (ec.cod_cliente = new.codcliente)
+            and (ec.cod_produto = :produto)
+            and (coalesce(trim(ec.lote_id), '') = :lote_id);
+
+        end 
+
+      end 
+
+    end
+  end
+
+  else
+
+  /* Atualizar Estoque do Cliente no Cancelamento da Venda */
+
+  if ( (coalesce(old.Status, 0) in (3, 4)) and (new.Status = 5)) then /* 5. Cancelada */
+  begin
+
+    if ( new.gerar_estoque_cliente = 1 ) then
+    begin
+
+      for
+        Select
+            i.Codprod
+          , i.Qtde                    -- Quantidade vendida cancelada
+          , coalesce(c.quantidade, 0) -- Estoque
+          , coalesce(trim(i.lote_id), '') as lote
+        from TVENDASITENS i
+          left join TBCLIENTE_ESTOQUE c on (c.cod_cliente = new.codcliente and c.cod_produto = i.codprod and coalesce(trim(c.lote_id), '') = coalesce(trim(i.lote_id), ''))
+        where i.Ano        = new.Ano
+          and i.Codcontrol = new.Codcontrol
+        into
+            produto
+          , quantidade
+          , estoque
+          , lote_id
+      do
+      begin
+
+          -- Atualizar estoque cliente
+          Update TBCLIENTE_ESTOQUE ec Set
+            ec.quantidade = coalesce(:estoque, 0) - coalesce(:quantidade, 0)
+          where (ec.cod_cliente = new.codcliente)
+            and (ec.cod_produto = :produto)
+            and (coalesce(trim(ec.lote_id), '') = :lote_id);
+
+      end
+
+    end
+
+  end
+
+end^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 19/09/2019 20:59:54 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_vendas_estoque_cliente for tbvendas
+active after update position 2
+AS
+  declare variable sequencial DMN_SMALLINT_N;
+  declare variable produto varchar(10);
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable lote_id    DMN_GUID_38;
+  declare variable valor_medio numeric(15,4);
+  declare variable valor_venda numeric(15,2);
+begin
+
+  /* Gerar Estoque para o Cliente na Finalizacao da Venda */
+
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 3)) then /* 3. Finalizada */
+  begin
+    if ( new.gerar_estoque_cliente = 1 ) then
+    begin
+
+      for
+        Select
+            i.Codprod
+          , i.Qtde                    -- Quantidade vendida
+          , coalesce(c.quantidade, 0) -- Estoque
+          , (coalesce(c.valor_medio, 0) * coalesce(c.quantidade, 0))
+          , i.total_liquido
+          , coalesce(trim(i.lote_id), '') as lote
+        from TVENDASITENS i
+          left join TBCLIENTE_ESTOQUE c on (c.cod_cliente = new.codcliente and c.cod_produto = i.codprod and coalesce(trim(c.lote_id), '') = coalesce(trim(i.lote_id), ''))
+        where i.Ano        = new.Ano
+          and i.Codcontrol = new.Codcontrol
+        into
+            produto
+          , quantidade
+          , estoque
+          , valor_medio
+          , valor_venda
+          , lote_id
+      do
+      begin
+
+        -- Recalcular valor medio ja existente
+        if ( :estoque <= 0 ) then
+          valor_medio = 0.0;
+
+        -- Gerar novo valor medio
+        valor_medio = (:valor_medio + :valor_venda) / (:quantidade + :estoque);
+
+        if (not exists(
+          Select
+            ec.cod_cliente
+          from TBCLIENTE_ESTOQUE ec
+          where (ec.cod_cliente = new.codcliente)
+            and (ec.cod_produto = :produto)
+            and (coalesce(trim(ec.lote_id), '') = :lote_id)
+        )) then
+        begin
+
+          Select
+            max(ec.sequencial)
+          from TBCLIENTE_ESTOQUE ec
+          where (ec.cod_cliente = new.codcliente)
+            and (ec.cod_produto = :produto)
+          Into
+            sequencial;
+
+          -- Gerar Estoque
+          Insert Into TBCLIENTE_ESTOQUE (
+              cod_cliente
+            , cod_produto
+            , sequencial
+            , quantidade
+            , valor_medio
+            , usuario
+            , ano_venda_ult
+            , cod_venda_ult
+            , lote_id
+          ) values (
+              new.codcliente
+            , :produto
+            , (coalesce(:sequencial, 0) + 1)
+            , :quantidade
+            , :valor_medio
+            , new.usuario
+            , new.ano
+            , new.codcontrol
+            , :lote_id
+          );
+
+        end
+        else
+        begin
+
+          -- Atualizar estoque cliente
+          Update TBCLIENTE_ESTOQUE ec Set
+              ec.quantidade  = coalesce(:quantidade, 0) + coalesce(:estoque, 0)
+            , ec.valor_medio = :valor_medio
+          where (ec.cod_cliente = new.codcliente)
+            and (ec.cod_produto = :produto)
+            and (coalesce(trim(ec.lote_id), '') = :lote_id);
+
+        end 
+
+      end 
+
+    end
+  end
+
+  else
+
+  /* Atualizar Estoque do Cliente no Cancelamento da Venda */
+
+  if ( (coalesce(old.Status, 0) in (3, 4)) and (new.Status = 5)) then /* 5. Cancelada */
+  begin
+
+    if ( new.gerar_estoque_cliente = 1 ) then
+    begin
+
+      for
+        Select
+            i.Codprod
+          , i.Qtde                    -- Quantidade vendida cancelada
+          , coalesce(c.quantidade, 0) -- Estoque
+          , coalesce(trim(i.lote_id), '') as lote
+        from TVENDASITENS i
+          left join TBCLIENTE_ESTOQUE c on (c.cod_cliente = new.codcliente and c.cod_produto = i.codprod and coalesce(trim(c.lote_id), '') = coalesce(trim(i.lote_id), ''))
+        where i.Ano        = new.Ano
+          and i.Codcontrol = new.Codcontrol
+        into
+            produto
+          , quantidade
+          , estoque
+          , lote_id
+      do
+      begin
+
+          -- Atualizar estoque cliente
+          Update TBCLIENTE_ESTOQUE ec Set
+            ec.quantidade = coalesce(:estoque, 0) - coalesce(:quantidade, 0)
+          where (ec.cod_cliente = new.codcliente)
+            and (ec.cod_produto = :produto)
+            and (coalesce(trim(ec.lote_id), '') = :lote_id);
+
+      end
+
+    end
+
+  end
+
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_VENDAS_ESTOQUE_CLIENTE IS 'Trigger Gerar/Atualizar Estoque Cliente.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   26/10/2013
+
+Trigger responsavel por gerar/atualizar o estoque do cliente, quando este possui habilitacao no sistema para "ESTOQUE
+SATELITE", quando uma venda for FINALIZADA ou CANCELADA.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    19/09/2019 - IMR:
+        * Ajustes para incluir o campo LOTE_ID nos filtros de pesquisa e atualizacao
+          dos estoques de produtos.';
+

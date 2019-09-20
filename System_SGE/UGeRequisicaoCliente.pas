@@ -112,6 +112,9 @@ type
     cdsTabelaItensESTOQUE_SATELITE: TBCDField;
     fdQryEmpresa: TFDQuery;
     qryProduto: TFDQuery;
+    fdQryTabelaVENDA_ANO: TSmallintField;
+    fdQryTabelaVENDA_NUM: TIntegerField;
+    cdsTabelaItensLOTE_ID: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -370,6 +373,9 @@ begin
       Abort;
     end
     else
+    if ( FieldByName('VENDA_ANO').AsInteger > 0 ) then
+      ShowWarning('Requisições geradas de forma automática não podem ser alteradas.')
+    else
     begin
       inherited;
       if ( not OcorreuErro ) then
@@ -396,6 +402,9 @@ begin
       ShowWarning(sMsg);
       Abort;
     end
+    else
+    if ( FieldByName('VENDA_ANO').AsInteger > 0 ) then
+      ShowWarning('Requisições geradas de forma automática não podem ser excluídas.')
     else
     begin
       inherited;
@@ -566,6 +575,7 @@ begin
   cdsTabelaItensCODCLIENTE.Value := DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger;
   cdsTabelaItensQUANTIDADE.Value := 1;
   cdsTabelaItensUSUARIO.Value    := gUsuarioLogado.Login;
+  cdsTabelaItensLOTE_ID.Clear;
   cdsTabelaItensCODPRODUTO.Clear;
   cdsTabelaItensDESCRI.Clear;
   cdsTabelaItensUNIDADE.Clear;
@@ -773,6 +783,8 @@ begin
 
       if not IsEmpty then
       begin
+        cdsTabelaItensLOTE_ID.Assign( FieldByName('lote_id') );
+
         cdsTabelaItensCODPRODUTO.AsString := FieldByName('cod_produto').AsString;
         cdsTabelaItensDESCRI.AsString     := FieldByName('Descri').AsString;
         cdsTabelaItensUNP_SIGLA.AsString  := FieldByName('Unp_sigla').AsString;

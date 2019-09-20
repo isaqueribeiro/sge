@@ -175,6 +175,30 @@ type
     CdsChequeEMISSOR_PF: TSmallintField;
     CdsChequeVALOR_EXTENSO: TStringField;
     QryRelacaoCheque: TFDQuery;
+    QryChequeCONTROLE: TIntegerField;
+    QryChequeEMPRESA: TStringField;
+    QryChequeTIPO: TSmallintField;
+    QryChequeBANCO: TStringField;
+    QryChequeBANCO_LOGO: TBlobField;
+    QryChequeAGENCIA: TStringField;
+    QryChequeCONTA: TStringField;
+    QryChequeNUMERO: TStringField;
+    QryChequeFORNECEDOR: TIntegerField;
+    QryChequeCLIENTE: TIntegerField;
+    QryChequeDATA_EMISSAO: TDateField;
+    QryChequeDATA_APRESENTACAO: TDateField;
+    QryChequeDATA_COMPENSACAO: TDateField;
+    QryChequeVALOR: TBCDField;
+    QryChequeNOMINAL_A: TStringField;
+    QryChequeDATA_CADASTRO: TDateField;
+    QryChequeUSUARIO_CADASTRO: TStringField;
+    QryChequeSTATUS: TSmallintField;
+    QryChequeOBS: TMemoField;
+    QryChequeSTATUS_DESCRICAO: TStringField;
+    QryChequeBANCO_NOME: TStringField;
+    QryChequeEMISSOR_NOME: TStringField;
+    QryChequeEMISSOR_CNPJ: TStringField;
+    QryChequeEMISSOR_PF: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure dbEmissorNomeButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -454,7 +478,7 @@ begin
   sLogo := ExtractFilePath(ParamStr(0)) + 'Imagens\' + CdsChequeBANCO.AsString + '.jpg';
 
   if not FileExists(sLogo) then
-    sLogo := ExtractFilePath(ParamStr(0)) + 'Imagens\CobreBemX.jpg';
+    sLogo := ExtractFilePath(ParamStr(0)) + 'Imagens\Colorido\' + CdsChequeBANCO.AsString + '.bmp';
 
   if FileExists(sLogo) then
   begin

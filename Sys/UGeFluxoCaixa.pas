@@ -488,11 +488,12 @@ begin
         if ( (e2Data.Date - aData) > 30 ) then
           aData := e2Data.Date - 30;
 
-        while aData <= e2Data.Date do
-        begin
-          GerarSaldoContaCorrente(FieldByName('codigo').AsInteger, aData);
-          aData := aData + 1;
-        end;
+        GerarSaldoContaCorrente_v2(FieldByName('codigo').AsInteger, aData, e2Data.Date);
+//        while aData <= e2Data.Date do
+//        begin
+//          GerarSaldoContaCorrente(FieldByName('codigo').AsInteger, aData);
+//          aData := aData + 1;
+//        end;
       end;
 
     end;
@@ -533,11 +534,12 @@ begin
       begin
         dData := e1Data.Date;
 
-        while dData <= e2Data.Date do
-        begin
-          GerarSaldoContaCorrente(FieldByName('codigo').AsInteger, dData);
-          dData := dData + 1;
-        end;
+        GerarSaldoContaCorrente_v2(FieldByName('codigo').AsInteger, dData, e2Data.Date);
+//        while dData <= e2Data.Date do
+//        begin
+//          GerarSaldoContaCorrente(FieldByName('codigo').AsInteger, dData);
+//          dData := dData + 1;
+//        end;
       end;
 
     end;
@@ -805,12 +807,21 @@ begin
       FieldByName('TIPO_RECEITA').Clear;
     end;
 
-    inherited;
-
-    if ( not OcorreuErro ) then
+    if ( FieldByName('DATAHORA').AsDateTime > GetDateTimeDB ) then
     begin
-      GerarSaldoContaCorrente(FieldByName('CONTA_CORRENTE').AsInteger, FieldByName('DATAHORA').AsDateTime);
-      CarregarSaldos;
+      ShowWarning('Não é permitido o registro de débitos/créditos futuros!');
+      if dbDataMov.Visible and dbDataMov.Enabled then
+        dbDataMov.SetFocus;
+    end
+    else
+    begin
+      inherited;
+
+      if ( not OcorreuErro ) then
+      begin
+        GerarSaldoContaCorrente(FieldByName('CONTA_CORRENTE').AsInteger, FieldByName('DATAHORA').AsDateTime);
+        CarregarSaldos;
+      end;
     end;
   end;
 end;
@@ -986,11 +997,12 @@ begin
     if ( (e2Data.Date - Data) > 30 ) then
       Data := e2Data.Date - 30;
 
-    while Data <= e2Data.Date do
-    begin
-      GerarSaldoContaCorrente(DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger, Data);
-      Data := Data + 1;
-    end;
+    GerarSaldoContaCorrente_v2(DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger, Data, e2Data.Date);
+//    while Data <= e2Data.Date do
+//    begin
+//      GerarSaldoContaCorrente(DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger, Data);
+//      Data := Data + 1;
+//    end;
 
     with DMNFe do
     begin

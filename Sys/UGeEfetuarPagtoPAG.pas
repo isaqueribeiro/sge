@@ -234,7 +234,7 @@ begin
     else
     if ( cdsPagamentosDATA_PAGTO.AsDateTime > GetDateTimeDB ) then
     begin
-      ShowWarning('Não é permitido do registro de pagamentos futuros!');
+      ShowWarning('Não é permitido o registro de pagamentos futuros!');
       dbDataPagto.SetFocus;
     end
     else

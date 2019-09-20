@@ -1392,7 +1392,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
   object DspDemandaEstoqueProduto: TDataSetProvider
     DataSet = QryDemandaEstoqueProduto
     Left = 64
-    Top = 96
+    Top = 136
   end
   object CdsDemandaEstoqueProduto: TClientDataSet
     Aggregates = <>
@@ -1404,7 +1404,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end>
     ProviderName = 'DspDemandaEstoqueProduto'
     Left = 96
-    Top = 96
+    Top = 136
   end
   object FrdsDemandaEstoqueProduto: TfrxDBDataset
     UserName = 'FrdsDemandaEstoqueProduto'
@@ -1446,7 +1446,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
     DataSet = CdsDemandaEstoqueProduto
     BCDToCurrency = True
     Left = 128
-    Top = 96
+    Top = 136
   end
   object FrDemandaEstoqueProduto: TfrxReport
     Version = '6.0.7'
@@ -1465,7 +1465,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       'begin'
       ''
       'end.')
-    Top = 96
+    Top = 136
     Datasets = <
       item
         DataSet = DMNFe.frdEmpresa
@@ -2967,7 +2967,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
       '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)')
     Left = 32
-    Top = 96
+    Top = 136
     ParamData = <
       item
         Name = 'ANO'
@@ -4228,8 +4228,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       'begin'
       ''
       'end.')
-    Left = 160
-    Top = 48
+    Top = 96
     Datasets = <
       item
         DataSet = DMNFe.frdEmpresa

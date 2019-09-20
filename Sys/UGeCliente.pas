@@ -311,6 +311,11 @@ type
     fdQryTabelaVALORES: TFMTBCDField;
     fdQryTitulosVALOR_PAGO: TBCDField;
     fdQryTabelaDTCAD: TDateField;
+    QryEstoqueSateliteSEQUENCIAL: TSmallintField;
+    QryEstoqueSateliteLOTE_ID: TStringField;
+    QryEstoqueSateliteLOTE: TStringField;
+    QryEstoqueSateliteFABRICACAO: TDateField;
+    QryEstoqueSateliteVALIDADE: TDateField;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -414,7 +419,7 @@ var
   function SelecionarCliente(const AOwner : TComponent; var Codigo : Integer; var CNPJ, Nome : String) : Boolean; overload;
   function SelecionarCliente(const AOwner : TComponent; var Codigo : Integer; var CNPJ, InscEstudual, Nome : String; var Bloqueado : Boolean; var MotivoBloqueio : String) : Boolean; overload;
 
-  function SelecionarProdutoCliente(const AOwner : TComponent; iCodigo : Integer; var sCodigo, sDescricao : String; var iEstoque : Integer;
+  function SelecionarProdutoCliente(const AOwner : TComponent; iCodigo : Integer; var sCodigo, sDescricao, sLote : String; var iEstoque : Integer;
     var cValorMedio : Currency) : Boolean;
 
 implementation
@@ -506,7 +511,7 @@ begin
   end;
 end;
 
-function SelecionarProdutoCliente(const AOwner : TComponent; iCodigo : Integer; var sCodigo, sDescricao : String; var iEstoque : Integer;
+function SelecionarProdutoCliente(const AOwner : TComponent; iCodigo : Integer; var sCodigo, sDescricao, sLote : String; var iEstoque : Integer;
   var cValorMedio : Currency) : Boolean;
 var
   frm : TfrmGeCliente;
@@ -552,6 +557,7 @@ begin
       begin
         sCodigo     := QryEstoqueSateliteCOD_PRODUTO.AsString;
         sDescricao  := QryEstoqueSateliteDESCRI.AsString;
+        sLote       := QryEstoqueSateliteLOTE_ID.AsString;
         iEstoque    := QryEstoqueSateliteQUANTIDADE.AsInteger;
         cValorMedio := QryEstoqueSateliteVALOR_MEDIO.AsCurrency;
       end;

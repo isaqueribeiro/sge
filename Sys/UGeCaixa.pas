@@ -655,8 +655,8 @@ end;
 procedure TfrmGeCaixa.btbtnEncerrarClick(Sender: TObject);
 var
   sMsg : String;
-  DataDB,
-  Data  : TDateTime;
+//  DataDB,
+//  Data  : TDateTime;
 begin
   inherited;
   if ( DtSrcTabela.DataSet.IsEmpty ) then
@@ -687,13 +687,17 @@ begin
       // Recalcular Saldo da Conta Corrente
       WaitAMoment(WAIT_AMOMENT_Process);
       try
-        Data   := DtSrcTabela.DataSet.FieldByName('DATA_ABERTURA').AsDateTime;
-        DataDB := GetDateDB;
-        while Data <= DataDB do
-        begin
-          GerarSaldoContaCorrente(DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger, Data);
-          Data := Data + 1;
-        end;
+        GerarSaldoContaCorrente_v2(
+            DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger
+          , DtSrcTabela.DataSet.FieldByName('DATA_ABERTURA').AsDateTime
+          , GetDateDB);
+//        Data := DtSrcTabela.DataSet.FieldByName('DATA_ABERTURA').AsDateTime;
+//        DataDB := GetDateDB;
+//        while Data <= DataDB do
+//        begin
+//          GerarSaldoContaCorrente(DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger, Data);
+//          Data := Data + 1;
+//        end;
 
         // Encerrar Caixa
         fdQryTabela.Edit;

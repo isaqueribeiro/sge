@@ -237,10 +237,9 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         Align = alClient
         Caption = 'Par'#226'metros'
         TabOrder = 1
-        ExplicitTop = 227
         object lblCSTEntrada: TLabel
           Left = 304
-          Top = 98
+          Top = 113
           Width = 187
           Height = 13
           Caption = 'CST Padr'#227'o para Entrada de Produtos:'
@@ -248,21 +247,21 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         end
         object lblCSTSaida: TLabel
           Left = 304
-          Top = 138
+          Top = 153
           Width = 175
           Height = 13
           Caption = 'CST Padr'#227'o para Sa'#237'da de Produtos:'
           FocusControl = dbCSTSaida
         end
         object lblInformeRemessa: TLabel
-          Left = 494
+          Left = 526
           Top = 24
-          Width = 211
-          Height = 26
+          Width = 179
+          Height = 39
           Alignment = taRightJustify
           Caption = 
-            '* Esta op'#231#227'o transfere estoque o Cliente na finaliza'#231#227'o das Vend' +
-            'as'
+            '* Esta op'#231#227'o transfere estoque para o Cliente na finaliza'#231#227'o das' +
+            ' Vendas'
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlue
           Font.Height = -11
@@ -291,7 +290,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         end
         object dbCSTEntrada: TDBLookupComboBox
           Left = 304
-          Top = 117
+          Top = 132
           Width = 401
           Height = 21
           DataField = 'CFOP_CST_PADRAO_ENTRADA'
@@ -306,11 +305,11 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           ListField = 'DESCRICAO'
           ListSource = DtsCST
           ParentFont = False
-          TabOrder = 6
+          TabOrder = 8
         end
         object dbCSTSaida: TDBLookupComboBox
           Left = 304
-          Top = 157
+          Top = 172
           Width = 401
           Height = 21
           DataField = 'CFOP_CST_PADRAO_SAIDA'
@@ -325,7 +324,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           ListField = 'DESCRICAO'
           ListSource = DtsCST
           ParentFont = False
-          TabOrder = 7
+          TabOrder = 9
         end
         object dbCfopDevolucao: TDBCheckBox
           Left = 16
@@ -341,7 +340,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 1
+          TabOrder = 2
           ValueChecked = '1'
           ValueUnchecked = '0'
         end
@@ -362,7 +361,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           ParentFont = False
           ParentShowHint = False
           ShowHint = True
-          TabOrder = 3
+          TabOrder = 5
           ValueChecked = '1'
           ValueUnchecked = '0'
         end
@@ -383,7 +382,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           ParentFont = False
           ParentShowHint = False
           ShowHint = True
-          TabOrder = 4
+          TabOrder = 6
           ValueChecked = '1'
           ValueUnchecked = '0'
         end
@@ -401,18 +400,18 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 2
+          TabOrder = 4
           ValueChecked = '1'
           ValueUnchecked = '0'
         end
         object grpBxCfopRetorno: TGroupBox
           Left = 16
-          Top = 101
+          Top = 116
           Width = 249
           Height = 76
           Caption = 'CFOPs de Retorno para:'
           Enabled = False
-          TabOrder = 5
+          TabOrder = 7
           object lblCfopRetornoDentro: TLabel
             Left = 16
             Top = 26
@@ -486,7 +485,25 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 8
+          TabOrder = 1
+          ValueChecked = '1'
+          ValueUnchecked = '0'
+        end
+        object dbCfopFaturarRemessa: TDBCheckBox
+          Left = 16
+          Top = 93
+          Width = 154
+          Height = 17
+          Caption = 'CFOP para Faturar Remessas'
+          DataField = 'CFOP_FATURAR_REMESSA'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 3
           ValueChecked = '1'
           ValueUnchecked = '0'
         end
@@ -594,7 +611,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
     Left = 512
     Top = 0
     Bitmap = {
-      494C01012B002C005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2054,6 +2071,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
+    AfterScroll = fdQryTabelaAfterScroll
     SQL.Strings = (
       'Select'
       '    c.Cfop_cod'
@@ -2063,6 +2081,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       '  , c.Cfop_tipo'
       '  , c.Cfop_devolucao'
       '  , c.Cfop_remessa'
+      '  , c.Cfop_faturar_remessa'
       '  , c.Cfop_retorno_interno'
       '  , c.Cfop_retorno_externo'
       '  , c.Cfop_altera_custo_produto'
@@ -2115,6 +2134,12 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       Origin = 'CFOP_REMESSA'
       Required = True
     end
+    object fdQryTabelaCFOP_FATURAR_REMESSA: TSmallintField
+      Alignment = taLeftJustify
+      FieldName = 'CFOP_FATURAR_REMESSA'
+      Origin = 'CFOP_FATURAR_REMESSA'
+      Required = True
+    end
     object fdQryTabelaCFOP_RETORNO_INTERNO: TIntegerField
       DisplayLabel = 'CFOP de Retorno para Dentro do Estado'
       FieldName = 'CFOP_RETORNO_INTERNO'
@@ -2163,9 +2188,11 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       '  CFOP_INFORMACAO_FISCO, CFOP_TIPO, CFOP_CST_PADRAO_ENTRADA, '
       '  CFOP_CST_PADRAO_SAIDA, CFOP_DEVOLUCAO, CFOP_REMESSA, '
       
-        '  CFOP_RETORNO_INTERNO, CFOP_RETORNO_EXTERNO, CFOP_GERAR_TITULO,' +
-        ' '
-      '  CFOP_GERAR_DUPLICATA, CFOP_ALTERA_CUSTO_PRODUTO, '
+        '  CFOP_FATURAR_REMESSA, CFOP_RETORNO_INTERNO, CFOP_RETORNO_EXTER' +
+        'NO, '
+      
+        '  CFOP_GERAR_TITULO, CFOP_GERAR_DUPLICATA, CFOP_ALTERA_CUSTO_PRO' +
+        'DUTO, '
       '  CFOP_ALTERA_ESTOQUE_PRODUTO)'
       
         'VALUES (:NEW_CFOP_COD, :NEW_CFOP_DESCRICAO, :NEW_CFOP_ESPECIFICA' +
@@ -2177,9 +2204,11 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         '  :NEW_CFOP_CST_PADRAO_SAIDA, :NEW_CFOP_DEVOLUCAO, :NEW_CFOP_REM' +
         'ESSA, '
       
-        '  :NEW_CFOP_RETORNO_INTERNO, :NEW_CFOP_RETORNO_EXTERNO, :NEW_CFO' +
-        'P_GERAR_TITULO, '
-      '  :NEW_CFOP_GERAR_DUPLICATA, :NEW_CFOP_ALTERA_CUSTO_PRODUTO, '
+        '  :NEW_CFOP_FATURAR_REMESSA, :NEW_CFOP_RETORNO_INTERNO, :NEW_CFO' +
+        'P_RETORNO_EXTERNO, '
+      
+        '  :NEW_CFOP_GERAR_TITULO, :NEW_CFOP_GERAR_DUPLICATA, :NEW_CFOP_A' +
+        'LTERA_CUSTO_PRODUTO, '
       '  :NEW_CFOP_ALTERA_ESTOQUE_PRODUTO)')
     ModifySQL.Strings = (
       'UPDATE TBCFOP'
@@ -2196,14 +2225,15 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         '  CFOP_CST_PADRAO_SAIDA = :NEW_CFOP_CST_PADRAO_SAIDA, CFOP_DEVOL' +
         'UCAO = :NEW_CFOP_DEVOLUCAO, '
       
-        '  CFOP_REMESSA = :NEW_CFOP_REMESSA, CFOP_RETORNO_INTERNO = :NEW_' +
-        'CFOP_RETORNO_INTERNO, '
+        '  CFOP_REMESSA = :NEW_CFOP_REMESSA, CFOP_FATURAR_REMESSA = :NEW_' +
+        'CFOP_FATURAR_REMESSA, '
       
-        '  CFOP_RETORNO_EXTERNO = :NEW_CFOP_RETORNO_EXTERNO, CFOP_GERAR_T' +
-        'ITULO = :NEW_CFOP_GERAR_TITULO, '
+        '  CFOP_RETORNO_INTERNO = :NEW_CFOP_RETORNO_INTERNO, CFOP_RETORNO' +
+        '_EXTERNO = :NEW_CFOP_RETORNO_EXTERNO, '
       
-        '  CFOP_GERAR_DUPLICATA = :NEW_CFOP_GERAR_DUPLICATA, CFOP_ALTERA_' +
-        'CUSTO_PRODUTO = :NEW_CFOP_ALTERA_CUSTO_PRODUTO, '
+        '  CFOP_GERAR_TITULO = :NEW_CFOP_GERAR_TITULO, CFOP_GERAR_DUPLICA' +
+        'TA = :NEW_CFOP_GERAR_DUPLICATA, '
+      '  CFOP_ALTERA_CUSTO_PRODUTO = :NEW_CFOP_ALTERA_CUSTO_PRODUTO, '
       '  CFOP_ALTERA_ESTOQUE_PRODUTO = :NEW_CFOP_ALTERA_ESTOQUE_PRODUTO'
       'WHERE CFOP_COD = :OLD_CFOP_COD')
     DeleteSQL.Strings = (
@@ -2215,12 +2245,12 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         'ACAO_FISCO, '
       '  CFOP_TIPO, CFOP_CST_PADRAO_ENTRADA, CFOP_CST_PADRAO_SAIDA, '
       
-        '  CFOP_DEVOLUCAO, CFOP_REMESSA, CFOP_RETORNO_INTERNO, CFOP_RETOR' +
-        'NO_EXTERNO, '
+        '  CFOP_DEVOLUCAO, CFOP_REMESSA, CFOP_FATURAR_REMESSA, CFOP_RETOR' +
+        'NO_INTERNO, '
       
-        '  CFOP_GERAR_TITULO, CFOP_GERAR_DUPLICATA, CFOP_ALTERA_CUSTO_PRO' +
-        'DUTO, '
-      '  CFOP_ALTERA_ESTOQUE_PRODUTO'
+        '  CFOP_RETORNO_EXTERNO, CFOP_GERAR_TITULO, CFOP_GERAR_DUPLICATA,' +
+        ' '
+      '  CFOP_ALTERA_CUSTO_PRODUTO, CFOP_ALTERA_ESTOQUE_PRODUTO'
       'FROM TBCFOP'
       'WHERE CFOP_COD = :CFOP_COD')
   end

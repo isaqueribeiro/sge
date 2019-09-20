@@ -85,7 +85,7 @@ type
     procedure cdsDuplicatasVALORPAGSetText(Sender: TField; const Text: string);
   private
     { Private declarations }
-    fAnoCompra ,
+    fAnoCompra      : Smallint;
     fControleCompra : Integer;
     fDataEmissaoDOC : TDateTime;
     fTotalEntrada   : Currency;
@@ -94,7 +94,7 @@ type
     procedure DisplayTotais;
   public
     { Public declarations }
-    property AnoCompra : Integer read fAnoCompra write fAnoCompra;
+    property AnoCompra : Smallint read fAnoCompra write fAnoCompra;
     property ControleCompra : Integer read fControleCompra write fControleCompra;
     property DataEmissaoDOC : TDateTime read fDataEmissaoDOC write fDataEmissaoDOC;
     property TotalEntrada   : Currency read fTotalEntrada write fTotalEntrada;
@@ -115,7 +115,7 @@ type
 //var
 //  frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas;
 //
-  function DuplicatasConfirmadas(const AOwer : TComponent; Ano, Controle : Integer;
+  function DuplicatasConfirmadas(const AOwer : TComponent; Ano : Smallint; Controle : Integer;
     DataEmissaoNF : TDateTime; ValorEntrada : Currency) : Boolean;
 
 implementation
@@ -124,7 +124,7 @@ uses DateUtils, UDMBusiness;
 
 {$R *.dfm}
 
-function DuplicatasConfirmadas(const AOwer : TComponent; Ano, Controle : Integer;
+function DuplicatasConfirmadas(const AOwer : TComponent; Ano : Smallint; Controle : Integer;
   DataEmissaoNF : TDateTime; ValorEntrada : Currency) : Boolean;
 var
   frm : TfrmGeEntradaConfirmaDuplicatas;
@@ -305,10 +305,12 @@ begin
   while not cdsDuplicatas.Eof do
   begin
     qryParcela.Close;
-    qryParcela.ParamByName('anocompra').AsInteger := AnoCompra;
-    qryParcela.ParamByName('numcompra').AsInteger := ControleCompra;
-    qryParcela.ParamByName('anolanc').AsInteger   := cdsDuplicatasANOLANC.AsInteger;
-    qryParcela.ParamByName('numlanc').AsInteger   := cdsDuplicatasNUMLANC.AsInteger;
+    qryParcela.ParamByName('anocompra').AsSmallInt := AnoCompra;
+    qryParcela.ParamByName('numcompra').AsInteger  := ControleCompra;
+//    qryParcela.ParamByName('anolanc').AsInteger   := cdsDuplicatasANOLANC.AsInteger;
+//    qryParcela.ParamByName('numlanc').AsInteger   := cdsDuplicatasNUMLANC.AsInteger;
+    qryParcela.ParamByName('anolanc').Assign( cdsDuplicatasANOLANC );
+    qryParcela.ParamByName('numlanc').Assign( cdsDuplicatasNUMLANC );
     qryParcela.Open;
 
     qryParcela.Edit;

@@ -177,7 +177,7 @@ object DMBusiness: TDMBusiness
     Params.Strings = (
       'User_Name=sysdba'
       'Password=masterkey'
-      'Database=ANGIOFLEX'
+      'Database=AGIL_COMERCIO'
       'Protocol=TCPIP'
       'CharacterSet=ISO8859_2'
       'Port=3050'
@@ -696,7 +696,7 @@ object DMBusiness: TDMBusiness
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_CAIXA_MOVIMENTO_REC_ESTORNO'
     Left = 416
-    Top = 224
+    Top = 272
     ParamData = <
       item
         Position = 1
@@ -750,7 +750,7 @@ object DMBusiness: TDMBusiness
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_CAIXA_MOVIMENTO_PAG_ESTORNO'
     Left = 416
-    Top = 272
+    Top = 320
     ParamData = <
       item
         Position = 1
@@ -939,5 +939,32 @@ object DMBusiness: TDMBusiness
     Split = ssNotSplit
     Left = 120
     Top = 272
+  end
+  object stpContaCorrenteSaldo_v2: TFDStoredProc
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    StoredProcName = 'SET_CONTA_CORRENTE_SALDO_V2'
+    Left = 416
+    Top = 224
+    ParamData = <
+      item
+        Position = 1
+        Name = 'CONTA_CORRENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'DATA_INICIAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'DATA_FINAL'
+        DataType = ftDate
+        ParamType = ptInput
+      end>
   end
 end

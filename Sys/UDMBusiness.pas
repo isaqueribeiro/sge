@@ -125,6 +125,7 @@ type
     frxODS: TfrxODSExport;
     frxODT: TfrxODTExport;
     frxXML: TfrxXMLExport;
+    stpContaCorrenteSaldo_v2: TFDStoredProc;
     procedure DataModuleCreate(Sender: TObject);
     procedure fdScriptBeforeExecute(Sender: TObject);
     procedure fdScriptError(ASender: TObject; const AInitiator: IFDStanObject;
@@ -205,6 +206,7 @@ var
 
   procedure Desativar_Promocoes;
   procedure GerarSaldoContaCorrente(const pContaCorrente : Integer; const pData : TDateTime);
+  procedure GerarSaldoContaCorrente_v2(const pContaCorrente : Integer; const pDataInicial, pDataFinal : TDateTime);
   procedure BloquearClientes;
   procedure DesbloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
   procedure BloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
@@ -254,6 +256,7 @@ var
   function GetCfopEntradaIDDefault : Integer;
   function GetCfopDevolucao(const iCfop : Integer) : Boolean;
   function GetCfopRemessa(const iCfop : Integer) : Boolean;
+  function GetCfopFaturarRemessa(const iCfop : Integer) : Boolean;
   function GetCfopGerarTitulo(const iCfop : Integer) : Boolean;
   function GetCfopGerarDuplicata(const iCfop : Integer) : Boolean;
   function GetCfopMovimentaEstoque(const iCfop : Integer) : Boolean;
@@ -1255,6 +1258,36 @@ begin
           DMBusiness.fdConexao.RollbackRetaining;
 
         ShowError('Erro ao tentar atualizar saldo diário de conta corrente.' + #13#13 + E.Message);
+      end;
+    end;
+
+  finally
+  end;
+end;
+
+procedure GerarSaldoContaCorrente_v2(const pContaCorrente : Integer; const pDataInicial, pDataFinal : TDateTime);
+begin
+  try
+
+    try
+
+      with DMBusiness, stpContaCorrenteSaldo_v2 do
+      begin
+        ParamByName('CONTA_CORRENTE').AsInteger := pContaCorrente;
+        ParamByName('DATA_INICIAL').AsDate      := pDataInicial;
+        ParamByName('DATA_FINAL').AsDate        := pDataFinal;
+
+        ExecProc;
+        CommitTransaction;
+      end;
+
+    except
+      On E : Exception do
+      begin
+        if DMBusiness.fdConexao.InTransaction then
+          DMBusiness.fdConexao.RollbackRetaining;
+
+        ShowError('Erro ao tentar atualizar saldo no período da conta corrente.' + #13#13 + E.Message);
       end;
     end;
 
@@ -2365,6 +2398,21 @@ begin
     Open;
 
     Result := (FieldByName('cfop_remessa').AsInteger = 1);
+
+    Close;
+  end;
+end;
+
+function GetCfopFaturarRemessa(const iCfop : Integer) : Boolean;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select cfop_faturar_remessa from TBCFOP where cfop_cod = ' + IntToStr(iCfop));
+    Open;
+
+    Result := (FieldByName('cfop_faturar_remessa').AsInteger = 1);
 
     Close;
   end;
