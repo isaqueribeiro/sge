@@ -5651,7 +5651,23 @@ object DMNFe: TDMNFe
         DataSet = frdRequisicaoCliente
         DataSetName = 'frdRequisicaoCliente'
       end>
-    Variables = <>
+    Variables = <
+      item
+        Name = ' Produto'
+        Value = Null
+      end
+      item
+        Name = 'DataFabricacao'
+        Value = 
+          'IIF(<frdRequisicaoCliente."FABRICACAO"> = 0, '#39#39', FormatDateTime(' +
+          #39'dd/mm/yyyy'#39', <frdRequisicaoCliente."FABRICACAO">))'
+      end
+      item
+        Name = 'DataValidade'
+        Value = 
+          'IIF(<frdRequisicaoCliente."VALIDADE"> = 0, '#39#39', FormatDateTime('#39'd' +
+          'd/mm/yyyy'#39', <frdRequisicaoCliente."VALIDADE">))'
+      end>
     Style = <>
     object Data: TfrxDataPage
       Height = 1000.000000000000000000
@@ -5887,10 +5903,12 @@ object DMNFe: TDMNFe
         DataSet = frdRequisicaoCliente
         DataSetName = 'frdRequisicaoCliente'
         RowCount = 0
+        Stretched = True
         object frdItensCODPROD: TfrxMemoView
           Left = 22.677180000000000000
-          Width = 52.913420000000000000
+          Width = 60.472480000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -5908,6 +5926,7 @@ object DMNFe: TDMNFe
         object frdItensSEQ: TfrxMemoView
           Width = 22.677180000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -5924,9 +5943,10 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object frdItensDESCRI: TfrxMemoView
-          Left = 75.590600000000000000
-          Width = 419.527659130000000000
+          Left = 83.149660000000000000
+          Width = 411.968599130000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -5935,18 +5955,28 @@ object DMNFe: TDMNFe
           Font.Name = 'Lucida Console'
           Font.Style = []
           Frame.Typ = []
+          HAlign = haBlock
           Memo.UTF8W = (
             
-              ' [frdRequisicaoCliente."DESCRI"] (Ref.: [frdRequisicaoCliente."R' +
-              'EFERENCIA"])')
+              '[frdRequisicaoCliente."DESCRI"] (Ref.: [frdRequisicaoCliente."RE' +
+              'FERENCIA"]) [IIF(Trim(<frdRequisicaoCliente."LOTE">) = '#39#39', '#39#39', '#39 +
+              '(Lote: '#39' + <frdRequisicaoCliente."LOTE"> + '#39' - Fabrica'#231#227'o : '#39' + ' +
+              '<DataFabricacao> + '#39' - Validade : '#39' + <DataValidade>)]')
           ParentFont = False
-          WordWrap = False
           VAlign = vaCenter
+          Formats = <
+            item
+            end
+            item
+            end
+            item
+            end>
         end
         object Memo4: TfrxMemoView
           Left = 495.118430000000000000
           Width = 45.354360000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -5968,6 +5998,7 @@ object DMNFe: TDMNFe
           Left = 642.520100000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -5987,6 +6018,7 @@ object DMNFe: TDMNFe
           Left = 540.472790000000000000
           Width = 37.795300000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -6005,6 +6037,7 @@ object DMNFe: TDMNFe
           Left = 578.268090000000000000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
+          StretchMode = smMaxHeight
           DataSet = frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
@@ -6190,8 +6223,8 @@ object DMNFe: TDMNFe
         end
         object Memo24: TfrxMemoView
           Left = 22.677180000000000000
-          Top = 64.252010000000000000
-          Width = 52.913420000000000000
+          Top = 64.252010000000010000
+          Width = 60.472480000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -6207,9 +6240,9 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
-          Left = 75.590600000000000000
-          Top = 64.252010000000000000
-          Width = 419.527659130000000000
+          Left = 83.149660000000000000
+          Top = 64.252010000000010000
+          Width = 411.968599130000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -6219,7 +6252,7 @@ object DMNFe: TDMNFe
           Frame.Typ = []
           Fill.BackColor = 14211288
           Memo.UTF8W = (
-            ' Descri'#231#227'o')
+            'Descri'#231#227'o')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -7266,7 +7299,10 @@ object DMNFe: TDMNFe
       'QUANTIDADE=QUANTIDADE'
       'UNIDADE=UNIDADE'
       'VALOR_MEDIO=VALOR_MEDIO'
-      'TOTAL_MEDIO=TOTAL_MEDIO')
+      'TOTAL_MEDIO=TOTAL_MEDIO'
+      'LOTE=LOTE'
+      'FABRICACAO=FABRICACAO'
+      'VALIDADE=VALIDADE')
     DataSet = qryRequisicaoCliente
     BCDToCurrency = False
     Left = 344
@@ -42207,12 +42243,16 @@ object DMNFe: TDMNFe
         'unidade'
       '  , i.valor_medio'
       '  , (i.quantidade * i.valor_medio) as total_medio'
+      '  , a.descricao         as lote'
+      '  , a.data_fabricacao   as fabricacao'
+      '  , a.data_validade     as validade'
       'from TBCLIENTE_REQUISICAO r'
       
         '  inner join TBCLIENTE_REQUISICAO_ITEM i on (i.ano = r.ano and i' +
         '.numero = r.numero)'
       '  inner join TBPRODUTO p on (p.cod = i.codproduto)'
       '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      '  left join TBESTOQUE_ALMOX a on (a.id = i.lote_id)'
       ''
       'where r.ano    = :ano'
       '  and r.numero = :num'

@@ -115,6 +115,14 @@ type
     fdQryTabelaVENDA_ANO: TSmallintField;
     fdQryTabelaVENDA_NUM: TIntegerField;
     cdsTabelaItensLOTE_ID: TStringField;
+    fdQryLotes: TFDQuery;
+    dtsLotes: TDataSource;
+    lblLoteProduto: TLabel;
+    dbLoteProduto: TDBLookupComboBox;
+    cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField;
+    cdsTabelaItensLOTE: TStringField;
+    cdsTabelaItensFABRICACAO: TDateField;
+    cdsTabelaItensVALIDADE: TDateField;
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -145,6 +153,7 @@ type
     procedure cdsTabelaItensNewRecord(DataSet: TDataSet);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
+    procedure cdsTabelaItensAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -152,7 +161,9 @@ type
     SQL_Itens : TStringList;
     procedure AbrirTabelaItens(const AnoRequisicao : Smallint; const NumeroRequisicao : Integer);
     procedure CarregarDadosProduto( Codigo : Integer );
+    procedure CarregarLotes(const aEmpresa, aProduto : String; const aCliente : Integer; const aTodos : Boolean);
     procedure HabilitarDesabilitar_Btns;
+    procedure ControleCampoLote;
     procedure RecarregarRegistro;
   public
     { Public declarations }
@@ -293,6 +304,13 @@ begin
   end;
 
   cdsTabelaItens.Open;
+
+  ControleCampoLote;
+  CarregarLotes(
+      cdsTabelaItensCODEMPRESA.AsString
+    , cdsTabelaItensCODPRODUTO.AsString
+    , cdsTabelaItensCODCLIENTE.AsInteger
+    , True);
 
   HabilitarDesabilitar_Btns;
 end;
@@ -566,6 +584,16 @@ begin
   end;
 end;
 
+procedure TfrmGeRequisicaoCliente.cdsTabelaItensAfterScroll(DataSet: TDataSet);
+begin
+  ControleCampoLote;
+  CarregarLotes(
+      cdsTabelaItensCODEMPRESA.AsString
+    , cdsTabelaItensCODPRODUTO.AsString
+    , cdsTabelaItensCODCLIENTE.AsInteger
+    , True);
+end;
+
 procedure TfrmGeRequisicaoCliente.cdsTabelaItensNewRecord(DataSet: TDataSet);
 begin
   inherited;
@@ -784,6 +812,7 @@ begin
       if not IsEmpty then
       begin
         cdsTabelaItensLOTE_ID.Assign( FieldByName('lote_id') );
+        cdsTabelaItensESTOQUE_APROP_LOTE.Assign( FieldByName('estoque_aprop_lote') );
 
         cdsTabelaItensCODPRODUTO.AsString := FieldByName('cod_produto').AsString;
         cdsTabelaItensDESCRI.AsString     := FieldByName('Descri').AsString;
@@ -793,6 +822,13 @@ begin
           cdsTabelaItensUNIDADE.AsInteger := FieldByName('Codunidade').AsInteger;
 
         cdsTabelaItensESTOQUE_SATELITE.AsInteger := FieldByName('estoque_satelite').AsInteger;
+
+        ControleCampoLote;
+        CarregarLotes(
+            cdsTabelaItensCODEMPRESA.AsString
+          , cdsTabelaItensCODPRODUTO.AsString
+          , cdsTabelaItensCODCLIENTE.AsInteger
+          , False);
       end
       else
       begin
@@ -802,6 +838,25 @@ begin
           dbProduto.SetFocus;
       end;
     end;
+  end;
+end;
+
+procedure TfrmGeRequisicaoCliente.CarregarLotes(const aEmpresa, aProduto: String; const aCliente: Integer;
+  const aTodos: Boolean);
+begin
+  with fdQryLotes do
+  begin
+    fdQryLotes.Close;
+
+    ParamByName('empresa').AsString       := aEmpresa;
+    ParamByName('centro_custo').AsInteger := CENTRO_CUSTO_ESTOQUE_GERAL;
+    ParamByName('cliente').AsInteger      := aCliente;
+    ParamByName('produto').AsString       := aProduto;
+    ParamByName('todos').AsInteger        := IfThen(aTodos, 1, 0);
+
+    fdQryLotes.OpenOrExecute;
+    fdQryLotes.Last;
+    fdQryLotes.First;
   end;
 end;
 
@@ -843,6 +898,12 @@ begin
 
     HabilitarDesabilitar_Btns;
   end;
+end;
+
+procedure TfrmGeRequisicaoCliente.ControleCampoLote;
+begin
+  lblLoteProduto.Visible := (cdsTabelaItensESTOQUE_APROP_LOTE.AsInteger = FLAG_SIM);
+  dbLoteProduto.Visible  := (cdsTabelaItensESTOQUE_APROP_LOTE.AsInteger = FLAG_SIM);
 end;
 
 procedure TfrmGeRequisicaoCliente.ControlEditExit(Sender: TObject);
@@ -895,7 +956,8 @@ end;
 procedure TfrmGeRequisicaoCliente.dbProdutoButtonClick(Sender: TObject);
 var
   sCodigo     ,
-  sDescricao  : String;
+  sDescricao  ,
+  sLote       : String;
   iEstoque    : Integer;
   cValorMedio : Currency;
 begin
@@ -906,12 +968,24 @@ begin
   end
   else
   if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-    if SelecionarProdutoCliente(Self, DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger, sCodigo, sDescricao, iEstoque, cValorMedio) then
+    if SelecionarProdutoCliente(Self, DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger, sCodigo, sDescricao, sLote, iEstoque, cValorMedio) then
     begin
       cdsTabelaItensCODPRODUTO.Value       := sCodigo;
       cdsTabelaItensDESCRI.Value           := sDescricao;
       cdsTabelaItensESTOQUE_SATELITE.Value := iEstoque;
       cdsTabelaItensVALOR_MEDIO.AsCurrency := cValorMedio;
+
+      ControleCampoLote;
+      CarregarLotes(
+          cdsTabelaItensCODEMPRESA.AsString
+        , cdsTabelaItensCODPRODUTO.AsString
+        , cdsTabelaItensCODCLIENTE.AsInteger
+        , False);
+
+      if (sLote = EmptyStr) then
+        cdsTabelaItensLOTE_ID.Clear
+      else
+        cdsTabelaItensLOTE_ID.AsString := sLote;
     end;
 end;
 

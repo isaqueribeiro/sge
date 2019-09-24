@@ -755,6 +755,8 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
         Align = alTop
         Caption = 'Dados do produto'
         TabOrder = 1
+        ExplicitLeft = 4
+        ExplicitTop = 119
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -812,6 +814,15 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+        end
+        object lblLoteProduto: TLabel
+          Left = 815
+          Top = 24
+          Width = 25
+          Height = 13
+          Caption = 'Lote:'
+          FocusControl = dbLoteProduto
+          Visible = False
         end
         object dbProdutoNome: TDBEdit
           Left = 184
@@ -1234,6 +1245,27 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
           OnButtonClick = dbProdutoButtonClick
           OnExit = ControlEditExit
         end
+        object dbLoteProduto: TDBLookupComboBox
+          Left = 815
+          Top = 41
+          Width = 122
+          Height = 21
+          DataField = 'LOTE_ID'
+          DataSource = DtSrcTabelaItens
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'ID'
+          ListField = 'DESCRICAO'
+          ListSource = dtsLotes
+          ParentFont = False
+          TabOrder = 6
+          Visible = False
+          OnExit = ControlEditExit
+        end
       end
       object dbgProdutos: TDBGrid
         Left = 0
@@ -1306,6 +1338,27 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
             FieldName = 'ESTOQUE_SATELITE'
             Title.Caption = 'Dispon'#237'vel '
             Width = 80
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'LOTE'
+            Title.Caption = 'Lote '
+            Width = 150
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'VALIDADE'
+            Title.Caption = 'Validade '
+            Width = 85
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'FABRICACAO'
+            Title.Caption = 'Fabrica'#231#227'o '
+            Width = 85
             Visible = True
           end>
       end
@@ -3019,7 +3072,6 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
-    Active = True
     AfterCancel = fdQryTabelaAfterCancel
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
@@ -3268,7 +3320,7 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
     end
   end
   object cdsTabelaItens: TFDQuery
-    Active = True
+    AfterScroll = cdsTabelaItensAfterScroll
     OnNewRecord = cdsTabelaItensNewRecord
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
@@ -3290,14 +3342,19 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       '  , i.usuario'
       '  , i.lote_id'
       '  , p.descri'
+      '  , p.estoque_aprop_lote'
       '  , u.unp_sigla'
       '  , coalesce(e.quantidade, 0) as estoque_satelite'
+      '  , a.descricao         as lote'
+      '  , a.data_fabricacao   as fabricacao'
+      '  , a.data_validade     as validade'
       'from TBCLIENTE_REQUISICAO_ITEM i'
       '  inner join TBPRODUTO p on (p.cod = i.codproduto)'
       '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
       
         '  left join TBCLIENTE_ESTOQUE e on (e.cod_cliente = i.codcliente' +
-        ' and e.cod_produto = i.codproduto)')
+        ' and e.cod_produto = i.codproduto)'
+      '  left join TBESTOQUE_ALMOX a on (a.id = i.lote_id)')
     Left = 888
     Top = 176
     object cdsTabelaItensANO: TSmallintField
@@ -3387,6 +3444,33 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       Precision = 18
       Size = 3
     end
+    object cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'ESTOQUE_APROP_LOTE'
+      Origin = 'ESTOQUE_APROP_LOTE'
+      ProviderFlags = []
+    end
+    object cdsTabelaItensLOTE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'LOTE'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      Size = 30
+    end
+    object cdsTabelaItensFABRICACAO: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'FABRICACAO'
+      Origin = 'DATA_FABRICACAO'
+      ProviderFlags = []
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object cdsTabelaItensVALIDADE: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'VALIDADE'
+      Origin = 'DATA_VALIDADE'
+      ProviderFlags = []
+      DisplayFormat = 'dd/mm/yyyy'
+    end
   end
   object updTabelaItens: TFDUpdateSQL
     Connection = DMBusiness.fdConexao
@@ -3434,14 +3518,20 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       '  , i.usuario'
       '  , i.lote_id'
       '  , p.descri'
+      '  , p.estoque_aprop_lote'
       '  , u.unp_sigla'
       '  , coalesce(e.quantidade, 0) as estoque_satelite'
+      '  , a.descricao         as lote'
+      '  , a.data_fabricacao   as fabricacao'
+      '  , a.data_validade     as validade'
       'from TBCLIENTE_REQUISICAO_ITEM i'
       '  inner join TBPRODUTO p on (p.cod = i.codproduto)'
       '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
       
         '  left join TBCLIENTE_ESTOQUE e on (e.cod_cliente = i.codcliente' +
         ' and e.cod_produto = i.codproduto)'
+      '  left join TBESTOQUE_ALMOX a on (a.id = i.lote_id)'
+      ''
       'WHERE i.ANO = :ANO AND i.NUMERO = :NUMERO AND i.ITEM = :ITEM')
     Left = 920
     Top = 176
@@ -3541,5 +3631,64 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
         DataType = ftInteger
         ParamType = ptInput
       end>
+  end
+  object fdQryLotes: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.id'
+      '  , e.descricao'
+      '  , e.data_fabricacao'
+      '  , e.data_validade'
+      'from TBESTOQUE_ALMOX e'
+      
+        '  left join TBCLIENTE_ESTOQUE c on (c.cod_cliente = :cliente and' +
+        ' c.cod_produto = e.produto)'
+      'where e.empresa = :empresa'
+      '  and e.centro_custo = :centro_custo'
+      '  and e.produto = :produto'
+      
+        '  and ((e.qtde > 0.0) or (coalesce(c.quantidade, 0) > 0.0) or (:' +
+        'todos = 1))'
+      'order by'
+      '  e.descricao')
+    Left = 992
+    Top = 320
+    ParamData = <
+      item
+        Name = 'CLIENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'CENTRO_CUSTO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'PRODUTO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 10
+      end
+      item
+        Name = 'TODOS'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object dtsLotes: TDataSource
+    DataSet = fdQryLotes
+    Left = 960
+    Top = 320
   end
 end
