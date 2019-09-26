@@ -2420,7 +2420,7 @@ begin
     begin
       // Caso não seja preenchido será gerado um número aleatório pelo componente
       Ide.cNF       := iCodigoNFE;
-      Ide.natOp     := qryCalculoImposto.FieldByName('CFOP_DESCRICAO').AsString;
+      Ide.natOp     := qryCalculoImposto.FieldByName('CFOP_RESUMIDO').AsString;
 
       // Entradas ou saídas dentro do Estado
       if ( qryCalculoImposto.FieldByName('CFOP').AsString[1] in ['1', '5'] ) then
@@ -4125,7 +4125,7 @@ begin
     begin
       // Caso não seja preenchido será gerado um número aleatório pelo componente
       Ide.cNF   := iCodigoNFE;
-      Ide.natOp := qryEntradaCalculoImposto.FieldByName('CFOP_DESCRICAO').AsString;
+      Ide.natOp := qryEntradaCalculoImposto.FieldByName('CFOP_RESUMIDO').AsString;
 
       // Entradas ou saídas dentro do Estado
       if ( qryEntradaCalculoImposto.FieldByName('CFOP').AsString[1] in ['1', '5'] ) then
@@ -6930,7 +6930,7 @@ begin
     with ACBrNFe.NotasFiscais.Add.NFe do
     begin
       Ide.cNF   := iNumeroNFCe;
-      Ide.natOp := 'VENDA'; // Da CFOP 5101 // qryCalculoImportoCFOP_DESCRICAO.AsString;
+      Ide.natOp := 'VENDA'; // Da CFOP 5101 // qryCalculoImportoCFOP_RESUMIDO.AsString;
 
       // Entradas ou saídas dentro do Estado
       if ( qryCalculoImposto.FieldByName('CFOP').AsString[1] in ['1', '5'] ) then

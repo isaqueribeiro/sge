@@ -140,7 +140,7 @@ inherited frmGeVendaPDVOrcamento: TfrmGeVendaPDVOrcamento
     Transparent = True
   end
   object Label2: TLabel
-    Left = 136
+    Left = 138
     Top = 52
     Width = 12
     Height = 25

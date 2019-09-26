@@ -1,8 +1,10 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 03/09/2019 23:45:00     #
+#    Gerado por AGIL SOFTWARES em : 25/09/2019 21:10:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Novos relatórios de Lotes de Produtos no módulo Estoque de Produtos.
+- Novo módulo de relatórios de Contas A Pagar x Contas A Receber.
 - Ajustes de emissão de Notas Fiscais de Devolução.
 - Impresão do Espelho do Documento de Entrada de Produtos.
 - Novos relatórios e filtros de Produtos e Faturamento em Vendas.
@@ -19,18 +21,20 @@
 - Novas configurações para emissão de NF-e.
 - Outros ajustes na otimização de processos.}
 
-#url1=http://www.drhtransparencia.com.br/agil/upgrade/SGO.exe
-#url2=http://www.drhtransparencia.com.br/agil/upgrade/lib/SiUSBXp._dll
-#url3=http://www.drhtransparencia.com.br/agil/upgrade/lib/mp2032._dll
-#url4=http://www.drhtransparencia.com.br/agil/upgrade/lib/LciLR3USB.cat
-#url5=http://www.drhtransparencia.com.br/agil/upgrade/lib/LciLR3USB.inf
-#url6=http://www.drhtransparencia.com.br/agil/upgrade/lib/MP2032.chm
-#url7=http://www.drhtransparencia.com.br/agil/upgrade/lib/BAUHS93.TTF
-#url8=http://www.drhtransparencia.com.br/agil/upgrade/db/01002300.sql
-#url9=http://www.drhtransparencia.com.br/agil/upgrade/db/01002400.sql
-#url10=http://www.drhtransparencia.com.br/agil/upgrade/db/01002500.sql
-#url11=http://www.drhtransparencia.com.br/agil/upgrade/db/01002600.sql
+#url1=http://www.drhtransparencia.com.br/agil/downloads/cce_informe.rtf
+#url2=http://www.drhtransparencia.com.br/agil/upgrade/SGO.exe
+#url3=http://www.drhtransparencia.com.br/agil/upgrade/lib/SiUSBXp._dll
+#url4=http://www.drhtransparencia.com.br/agil/upgrade/lib/mp2032._dll
+#url5=http://www.drhtransparencia.com.br/agil/upgrade/lib/LciLR3USB.cat
+#url6=http://www.drhtransparencia.com.br/agil/upgrade/lib/LciLR3USB.inf
+#url7=http://www.drhtransparencia.com.br/agil/upgrade/lib/MP2032.chm
+#url8=http://www.drhtransparencia.com.br/agil/upgrade/lib/BAUHS93.TTF
+#url9=http://www.drhtransparencia.com.br/agil/upgrade/db/01002300.sql
+#url10=http://www.drhtransparencia.com.br/agil/upgrade/db/01002400.sql
+#url11=http://www.drhtransparencia.com.br/agil/upgrade/db/01002500.sql
+#url12=http://www.drhtransparencia.com.br/agil/upgrade/db/01002600.sql
+#url13=http://www.drhtransparencia.com.br/agil/upgrade/db/01002700.sql
 
 #method=0 (self-upgrade)
 
-#version=1.0.26.10
+#version=1.0.27.0

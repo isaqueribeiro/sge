@@ -42571,6 +42571,9 @@ object DMNFe: TDMNFe
       '  , v.Cancel_datahora'
       '  , v.Cancel_motivo'
       '  , v.Cfop'
+      
+        '  , coalesce(nullif(trim(cf.Cfop_resumido), '#39#39'), cf.Cfop_descric' +
+        'ao) as Cfop_resumido'
       '  , cf.Cfop_descricao'
       '  , cf.cfop_informacao_fisco'
       '  , cf.Cfop_devolucao'
@@ -42715,6 +42718,9 @@ object DMNFe: TDMNFe
       '  , c.Cancel_datahora'
       '  , c.Cancel_motivo'
       '  , c.nfcfop as Cfop'
+      
+        '  , coalesce(nullif(trim(cf.Cfop_resumido), '#39#39'), cf.Cfop_descric' +
+        'ao) as Cfop_resumido'
       '  , cf.Cfop_descricao'
       '  , cf.cfop_informacao_fisco'
       '  , cf.cfop_devolucao'

@@ -22,7 +22,7 @@ uses
 type
   TfrmGeTabelaCFOP = class(TfrmGrPadraoCadastro)
     lblNome: TLabel;
-    dbNome: TDBEdit;
+    dbResumido: TDBEdit;
     lblEspecificacao: TLabel;
     dbEspecificacao: TDBMemo;
     GrpBxParametros: TGroupBox;
@@ -69,6 +69,9 @@ type
     lblInformeRemessa: TLabel;
     dbCfopFaturarRemessa: TDBCheckBox;
     fdQryTabelaCFOP_FATURAR_REMESSA: TSmallintField;
+    lblDescricao: TLabel;
+    dbDescricao: TDBEdit;
+    fdQryTabelaCFOP_RESUMIDO: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -236,6 +239,7 @@ begin
   begin
     if (Field = FieldByName('CFOP_REMESSA')) then
     begin
+      // Regra 1
       if (State in [dsEdit, dsInsert]) and (FieldByName('CFOP_REMESSA').AsInteger = 1) then
       begin
         FieldByName('CFOP_GERAR_TITULO').AsInteger    := 0;
@@ -243,6 +247,7 @@ begin
         FieldByName('CFOP_FATURAR_REMESSA').AsInteger := 0;
       end
       else
+      // Regra 2
       if (State in [dsEdit, dsInsert]) and (FieldByName('CFOP_REMESSA').AsInteger = 0) then
       begin
         FieldByName('CFOP_RETORNO_INTERNO').Clear;
@@ -254,6 +259,7 @@ begin
     else
     if (Field = FieldByName('CFOP_FATURAR_REMESSA')) then
     begin
+      // Regra 3
       if (State in [dsEdit, dsInsert]) and (FieldByName('CFOP_FATURAR_REMESSA').AsInteger = 1) then
       begin
         FieldByName('CFOP_GERAR_TITULO').AsInteger    := 1;

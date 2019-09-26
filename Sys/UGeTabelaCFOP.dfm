@@ -2,42 +2,42 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
   Left = 391
   Top = 217
   Caption = 'Tabela CFOP (C'#243'digo Fiscal de Opera'#231#245'es e Presta'#231#245'es)'
-  ClientHeight = 510
-  ClientWidth = 728
+  ClientHeight = 555
+  ClientWidth = 773
   OldCreateOrder = True
-  ExplicitWidth = 744
-  ExplicitHeight = 549
+  ExplicitWidth = 789
+  ExplicitHeight = 594
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 506
-    Width = 728
+    Top = 551
+    Width = 773
     ExplicitTop = 443
     ExplicitWidth = 728
   end
   inherited Bevel3: TBevel
-    Top = 467
-    Width = 728
+    Top = 512
+    Width = 773
     ExplicitTop = 404
     ExplicitWidth = 728
   end
   inherited pgcGuias: TPageControl
-    Width = 728
-    Height = 467
+    Width = 773
+    Height = 512
     ExplicitWidth = 728
     ExplicitHeight = 467
     inherited tbsTabela: TTabSheet
-      ExplicitWidth = 720
-      ExplicitHeight = 438
+      ExplicitWidth = 718
+      ExplicitHeight = 483
       inherited Bevel4: TBevel
-        Top = 372
-        Width = 720
+        Top = 417
+        Width = 765
         ExplicitTop = 309
         ExplicitWidth = 720
       end
       inherited dbgDados: TDBGrid
-        Width = 720
-        Height = 372
+        Width = 765
+        Height = 417
         Columns = <
           item
             Expanded = False
@@ -54,12 +54,12 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 376
-        Width = 720
-        ExplicitTop = 376
-        ExplicitWidth = 720
+        Top = 421
+        Width = 765
+        ExplicitTop = 421
+        ExplicitWidth = 718
         object Bevel5: TBevel [0]
-          Left = 452
+          Left = 497
           Top = 4
           Width = 4
           Height = 54
@@ -70,10 +70,10 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           ExplicitHeight = 35
         end
         inherited grpBxFiltro: TGroupBox
-          Left = 456
+          Left = 501
           Width = 260
           TabOrder = 1
-          ExplicitLeft = 456
+          ExplicitLeft = 454
           ExplicitWidth = 260
           inherited lbltFiltrar: TLabel
             Left = 11
@@ -94,7 +94,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           end
         end
         object rgpTipo: TRadioGroup
-          Left = 229
+          Left = 274
           Top = 4
           Width = 223
           Height = 54
@@ -107,6 +107,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
             'Entrada'
             'Sa'#237'da')
           TabOrder = 0
+          ExplicitLeft = 227
         end
       end
     end
@@ -116,33 +117,33 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       ExplicitWidth = 720
       ExplicitHeight = 438
       inherited Bevel8: TBevel
-        Top = 225
-        Width = 720
+        Top = 274
+        Width = 765
         ExplicitTop = 225
         ExplicitWidth = 720
       end
       inherited GrpBxDadosNominais: TGroupBox
-        Width = 720
-        Height = 225
-        ExplicitWidth = 720
-        ExplicitHeight = 225
+        Width = 765
+        Height = 274
+        ExplicitWidth = 718
+        ExplicitHeight = 274
         object lblNome: TLabel [1]
           Left = 88
           Top = 24
-          Width = 50
+          Width = 96
           Height = 13
-          Caption = 'Descri'#231#227'o:'
+          Caption = 'Descri'#231#227'o resumida:'
         end
         object lblEspecificacao: TLabel [2]
           Left = 16
-          Top = 64
+          Top = 112
           Width = 68
           Height = 13
           Caption = 'Especifica'#231#227'o:'
         end
         object lblInformacaoFisco: TLabel [3]
           Left = 16
-          Top = 176
+          Top = 224
           Width = 106
           Height = 13
           Caption = 'Informa'#231#245'es ao Fisco:'
@@ -156,17 +157,24 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           Caption = 'Tipo:'
           FocusControl = dbTipo
         end
+        object lblDescricao: TLabel [5]
+          Left = 16
+          Top = 69
+          Width = 98
+          Height = 13
+          Caption = 'Descri'#231#227'o Completa:'
+        end
         inherited dbCodigo: TDBEdit
           DataField = 'CFOP_COD'
           ReadOnly = False
         end
-        object dbNome: TDBEdit
+        object dbResumido: TDBEdit
           Left = 88
           Top = 40
           Width = 490
           Height = 21
           CharCase = ecUpperCase
-          DataField = 'CFOP_DESCRICAO'
+          DataField = 'CFOP_RESUMIDO'
           DataSource = DtSrcTabela
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -178,9 +186,10 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         end
         object dbEspecificacao: TDBMemo
           Left = 16
-          Top = 80
-          Width = 689
+          Top = 128
+          Width = 736
           Height = 89
+          Anchors = [akLeft, akTop, akRight]
           DataField = 'CFOP_ESPECIFICACAO'
           DataSource = DtSrcTabela
           Font.Charset = DEFAULT_CHARSET
@@ -190,13 +199,15 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           Font.Style = []
           ParentFont = False
           ScrollBars = ssVertical
-          TabOrder = 3
+          TabOrder = 4
+          ExplicitWidth = 689
         end
         object dbInformacaoFisco: TDBEdit
           Left = 16
-          Top = 192
-          Width = 689
+          Top = 240
+          Width = 736
           Height = 21
+          Anchors = [akLeft, akTop, akRight]
           CharCase = ecUpperCase
           DataField = 'CFOP_INFORMACAO_FISCO'
           DataSource = DtSrcTabela
@@ -206,11 +217,13 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 5
+          ExplicitWidth = 689
         end
         object dbTipo: TcxDBImageComboBox
           Left = 584
           Top = 40
+          Anchors = [akLeft, akTop, akRight]
           DataBinding.DataField = 'CFOP_TIPO'
           DataBinding.DataSource = DtSrcTabela
           Properties.Images = ImgList
@@ -226,17 +239,42 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
               Value = 2
             end>
           TabOrder = 2
-          Width = 121
+          ExplicitWidth = 121
+          Width = 168
+        end
+        object dbDescricao: TDBEdit
+          Left = 16
+          Top = 85
+          Width = 736
+          Height = 21
+          Anchors = [akLeft, akTop, akRight]
+          CharCase = ecUpperCase
+          DataField = 'CFOP_DESCRICAO'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 3
+          ExplicitWidth = 689
         end
       end
       object GrpBxParametros: TGroupBox
         Left = 0
-        Top = 229
-        Width = 720
-        Height = 209
+        Top = 278
+        Width = 765
+        Height = 205
         Align = alClient
         Caption = 'Par'#226'metros'
         TabOrder = 1
+        ExplicitTop = 229
+        ExplicitWidth = 720
+        ExplicitHeight = 209
+        DesignSize = (
+          765
+          205)
         object lblCSTEntrada: TLabel
           Left = 304
           Top = 113
@@ -254,11 +292,12 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           FocusControl = dbCSTSaida
         end
         object lblInformeRemessa: TLabel
-          Left = 526
+          Left = 573
           Top = 24
           Width = 179
           Height = 39
           Alignment = taRightJustify
+          Anchors = [akTop, akRight]
           Caption = 
             '* Esta op'#231#227'o transfere estoque para o Cliente na finaliza'#231#227'o das' +
             ' Vendas'
@@ -269,6 +308,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           Font.Style = [fsBold]
           ParentFont = False
           WordWrap = True
+          ExplicitLeft = 526
         end
         object dbAlteraCustoEntrada: TDBCheckBox
           Left = 16
@@ -291,8 +331,9 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         object dbCSTEntrada: TDBLookupComboBox
           Left = 304
           Top = 132
-          Width = 401
+          Width = 448
           Height = 21
+          Anchors = [akLeft, akTop, akRight]
           DataField = 'CFOP_CST_PADRAO_ENTRADA'
           DataSource = DtSrcTabela
           DropDownRows = 10
@@ -306,12 +347,14 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           ListSource = DtsCST
           ParentFont = False
           TabOrder = 8
+          ExplicitWidth = 401
         end
         object dbCSTSaida: TDBLookupComboBox
           Left = 304
           Top = 172
-          Width = 401
+          Width = 448
           Height = 21
+          Anchors = [akLeft, akTop, akRight]
           DataField = 'CFOP_CST_PADRAO_SAIDA'
           DataSource = DtSrcTabela
           DropDownRows = 10
@@ -325,6 +368,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
           ListSource = DtsCST
           ParentFont = False
           TabOrder = 9
+          ExplicitWidth = 401
         end
         object dbCfopDevolucao: TDBCheckBox
           Left = 16
@@ -511,24 +555,24 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 471
-    Width = 728
+    Top = 516
+    Width = 773
     ExplicitTop = 471
     ExplicitWidth = 728
     inherited bvlTool3: TBevel
-      Left = 645
+      Left = 690
       ExplicitLeft = 645
     end
     inherited bvlTool4: TBevel
-      Left = 724
+      Left = 769
       ExplicitLeft = 724
     end
     inherited btbtnFechar: TcxButton
-      Left = 649
+      Left = 694
       ExplicitLeft = 649
     end
     inherited btbtnSelecionar: TcxButton
-      Left = 525
+      Left = 570
       ExplicitLeft = 525
     end
   end
@@ -611,7 +655,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
     Left = 512
     Top = 0
     Bitmap = {
-      494C01012B002C00640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2076,6 +2120,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       'Select'
       '    c.Cfop_cod'
       '  , c.Cfop_descricao'
+      '  , c.Cfop_resumido'
       '  , c.Cfop_especificacao'
       '  , c.Cfop_informacao_fisco'
       '  , c.Cfop_tipo'
@@ -2098,8 +2143,15 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
+    object fdQryTabelaCFOP_RESUMIDO: TStringField
+      DisplayLabel = 'Descri'#231#227'o Resumida'
+      FieldName = 'CFOP_RESUMIDO'
+      Origin = 'CFOP_RESUMIDO'
+      Required = True
+      Size = 60
+    end
     object fdQryTabelaCFOP_DESCRICAO: TStringField
-      DisplayLabel = 'Descri'#231#227'o'
+      DisplayLabel = 'Descri'#231#227'o Completa'
       FieldName = 'CFOP_DESCRICAO'
       Origin = 'CFOP_DESCRICAO'
       Required = True
@@ -2184,7 +2236,7 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
   inherited fdUpdTabela: TFDUpdateSQL
     InsertSQL.Strings = (
       'INSERT INTO TBCFOP'
-      '(CFOP_COD, CFOP_DESCRICAO, CFOP_ESPECIFICACAO, '
+      '(CFOP_COD, CFOP_DESCRICAO, CFOP_RESUMIDO, CFOP_ESPECIFICACAO, '
       '  CFOP_INFORMACAO_FISCO, CFOP_TIPO, CFOP_CST_PADRAO_ENTRADA, '
       '  CFOP_CST_PADRAO_SAIDA, CFOP_DEVOLUCAO, CFOP_REMESSA, '
       
@@ -2195,8 +2247,8 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         'DUTO, '
       '  CFOP_ALTERA_ESTOQUE_PRODUTO)'
       
-        'VALUES (:NEW_CFOP_COD, :NEW_CFOP_DESCRICAO, :NEW_CFOP_ESPECIFICA' +
-        'CAO, '
+        'VALUES (:NEW_CFOP_COD, :NEW_CFOP_DESCRICAO, :NEW_CFOP_RESUMIDO, ' +
+        ':NEW_CFOP_ESPECIFICACAO, '
       
         '  :NEW_CFOP_INFORMACAO_FISCO, :NEW_CFOP_TIPO, :NEW_CFOP_CST_PADR' +
         'AO_ENTRADA, '
@@ -2216,11 +2268,12 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
         'SET CFOP_COD = :NEW_CFOP_COD, CFOP_DESCRICAO = :NEW_CFOP_DESCRIC' +
         'AO, '
       
-        '  CFOP_ESPECIFICACAO = :NEW_CFOP_ESPECIFICACAO, CFOP_INFORMACAO_' +
-        'FISCO = :NEW_CFOP_INFORMACAO_FISCO, '
+        '  CFOP_RESUMIDO = :NEW_CFOP_RESUMIDO, CFOP_ESPECIFICACAO = :NEW_' +
+        'CFOP_ESPECIFICACAO, '
       
-        '  CFOP_TIPO = :NEW_CFOP_TIPO, CFOP_CST_PADRAO_ENTRADA = :NEW_CFO' +
-        'P_CST_PADRAO_ENTRADA, '
+        '  CFOP_INFORMACAO_FISCO = :NEW_CFOP_INFORMACAO_FISCO, CFOP_TIPO ' +
+        '= :NEW_CFOP_TIPO, '
+      '  CFOP_CST_PADRAO_ENTRADA = :NEW_CFOP_CST_PADRAO_ENTRADA, '
       
         '  CFOP_CST_PADRAO_SAIDA = :NEW_CFOP_CST_PADRAO_SAIDA, CFOP_DEVOL' +
         'UCAO = :NEW_CFOP_DEVOLUCAO, '
@@ -2241,16 +2294,18 @@ inherited frmGeTabelaCFOP: TfrmGeTabelaCFOP
       'WHERE CFOP_COD = :OLD_CFOP_COD')
     FetchRowSQL.Strings = (
       
-        'SELECT CFOP_COD, CFOP_DESCRICAO, CFOP_ESPECIFICACAO, CFOP_INFORM' +
-        'ACAO_FISCO, '
-      '  CFOP_TIPO, CFOP_CST_PADRAO_ENTRADA, CFOP_CST_PADRAO_SAIDA, '
+        'SELECT CFOP_COD, CFOP_DESCRICAO, CFOP_RESUMIDO, CFOP_ESPECIFICAC' +
+        'AO, '
+      '  CFOP_INFORMACAO_FISCO, CFOP_TIPO, CFOP_CST_PADRAO_ENTRADA, '
       
-        '  CFOP_DEVOLUCAO, CFOP_REMESSA, CFOP_FATURAR_REMESSA, CFOP_RETOR' +
-        'NO_INTERNO, '
+        '  CFOP_CST_PADRAO_SAIDA, CFOP_DEVOLUCAO, CFOP_REMESSA, CFOP_FATU' +
+        'RAR_REMESSA, '
       
-        '  CFOP_RETORNO_EXTERNO, CFOP_GERAR_TITULO, CFOP_GERAR_DUPLICATA,' +
+        '  CFOP_RETORNO_INTERNO, CFOP_RETORNO_EXTERNO, CFOP_GERAR_TITULO,' +
         ' '
-      '  CFOP_ALTERA_CUSTO_PRODUTO, CFOP_ALTERA_ESTOQUE_PRODUTO'
+      
+        '  CFOP_GERAR_DUPLICATA, CFOP_ALTERA_CUSTO_PRODUTO, CFOP_ALTERA_E' +
+        'STOQUE_PRODUTO'
       'FROM TBCFOP'
       'WHERE CFOP_COD = :CFOP_COD')
   end
