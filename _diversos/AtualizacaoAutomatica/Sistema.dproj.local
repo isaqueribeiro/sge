@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2015/03/12 23:46:46.000.672,=C:\Users\Andre\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2015/03/16 13:12:34.000.243,=C:\Users\Andre\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2015/05/27 19:15:01.000.318,=C:\Users\Andre\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2015/07/09 22:35:21.000.114,=C:\Users\Andre\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2015/08/01 08:45:52.000.610,=C:\Users\Andre\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2015/08/19 22:33:04.000.553,=C:\Users\Andre\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2015/08/19 23:00:50.000.479,C:\Users\Andre\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\Temp\AtualizarAutomatico-AndreCelestino\uAtualizadorAutomatico.dfm</Transaction>
+    <Transaction>2015/08/19 23:00:50.000.479,C:\Users\Andre\Documents\Embarcadero\Studio\Projects\Unit1.pas=D:\Temp\AtualizarAutomatico-AndreCelestino\uAtualizadorAutomatico.pas</Transaction>
+    <Transaction>2015/08/19 23:00:55.000.135,C:\Users\Andre\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Temp\AtualizarAutomatico-AndreCelestino\AtualizadorAutomatico.dproj</Transaction>
+    <Transaction>2015/08/20 00:14:32.000.631,D:\Temp\AtualizarAutomatico-AndreCelestino\Sistema.dproj=D:\Temp\AtualizarAutomatico-AndreCelestino\AtualizadorAutomatico.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
