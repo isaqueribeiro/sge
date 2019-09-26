@@ -502,7 +502,7 @@ end;
 procedure TfrmPrinc.BrBtnRelatorioFinanceiroAPxARClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_REL_APAG_AREC_ID, True) then
-    ; //FormFunction.ShowModalForm(Self, 'frmGeResultadoExercicioImpressao');
+    FormFunction.ShowModalForm(Self, 'frmGeContasAPagarAReceberImpressao');
 end;
 
 procedure TfrmPrinc.BrBtnRelatorioFinanceiroMVClick(Sender: TObject);
@@ -843,12 +843,12 @@ end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
 var
-  sCommand   ,
+//  sCommand   ,
   sFileImage : String;
 begin
-  sCommand := ExtractFilePath(ParamStr(0)) + 'Upgrades.bat';
-  DeleteFile(sCommand);
-
+//  sCommand := ExtractFilePath(ParamStr(0)) + 'Upgrades.bat';
+//  DeleteFile(sCommand);
+//
   Self.Tag := SISTEMA_GESTAO_COM;
 
   gSistema.Codigo := Self.Tag;
@@ -1288,7 +1288,7 @@ end;
 
 procedure TfrmPrinc.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 var
-  sCommand  ,
+//  sCommand  ,
   aProcesso : String;
 begin
   CanClose := ShowConfirm('Deseja SAIR do Sistema?');
@@ -1302,10 +1302,10 @@ begin
     aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
     KillTask(aProcesso);
   end;
-
-  sCommand := ExtractFilePath(ParamStr(0)) + 'Upgrades.bat';
-  if FileExists(sCommand) then
-    ShellExecute(handle, 'open', PChar(sCommand), '', '', SW_HIDE);
+//
+//  sCommand := ExtractFilePath(ParamStr(0)) + 'Upgrades.bat';
+//  if FileExists(sCommand) then
+//    ShellExecute(handle, 'open', PChar(sCommand), '', '', SW_HIDE);
 end;
 
 procedure TfrmPrinc.nmCartaCorrecaoNFeClick(Sender: TObject);

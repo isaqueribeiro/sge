@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2019/09/26 18:39:16.005,=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2019/09/26 18:43:01.644,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\AtualizarSistemas\UGrAtualizarSistemas.dfm=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.dfm</Transaction>
+    <Transaction>2019/09/26 18:43:01.644,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\AtualizarSistemas\UGrAtualizarSistemas.pas=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
+    <Transaction>2019/09/26 18:43:23.403,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\AtualizarSistemas\AtualizarSistemasAgil.dproj=C:\Users\Isaque\Documents\Projetos\Testes\Project1.dproj</Transaction>
+    <Transaction>2019/09/26 18:48:45.204,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas</Transaction>
+  </Transactions>
+</BorlandProject>

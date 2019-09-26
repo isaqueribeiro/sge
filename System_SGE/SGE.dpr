@@ -145,7 +145,8 @@ uses
   UGrAutoUpgrade in '..\Sys\lib\UGrAutoUpgrade.pas' {frmGeAutoUpgrade},
   UGeImportarNFE in '..\Sys\UGeImportarNFE.pas' {frmGeImportarNFE},
   UGeResultadoExercicioImpressao in '..\Sys\UGeResultadoExercicioImpressao.pas' {frmGeResultadoExercicioImpressao},
-  UGeEntradaEstoqueLote in '..\Sys\UGeEntradaEstoqueLote.pas' {frmGeEntradaEstoqueLote};
+  UGeEntradaEstoqueLote in '..\Sys\UGeEntradaEstoqueLote.pas' {frmGeEntradaEstoqueLote},
+  UGeContasAPagarAReceberImpressao in 'UGeContasAPagarAReceberImpressao.pas' {frmGeContasAPagarAReceberImpressao};
 
 {$R *.res}
 

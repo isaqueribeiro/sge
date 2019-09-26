@@ -177,6 +177,7 @@ begin
       sCommand := ExtractFilePath(ParamStr(0)) + 'Upgrades.bat';
       aCommand := TStringList.Create;
       try
+        aCommand.Add('pause');              // PROVISÓRIO
         aCommand.Add('attrib /s /d -s -h'); // Desocultar arquivos
 
         for I := ArquivosBaixados.Count - 1 DownTo 0 do
@@ -185,12 +186,12 @@ begin
           aFileNEW := StringReplace(aFileTMP, '.uTMP', '', [rfReplaceAll]);
           aFileOLD := aFileNEW + '.old';
 
-          aCommand.Add('del ' + aFileOLD + ' /s');             // Deletar arquivo antigo
-          aCommand.Add('rename ' + aFileNEW + ' ' + aFileOLD); // Renomear arquivo atual para guardá-lo
-          aCommand.Add('rename ' + aFileTMP + ' ' + aFileNEW); // Renomear arquivo atual para guardá-lo
-          aCommand.Add('del ' + aFileTMP + ' /s');             // Deletar arquivo baixado
+          if FileExists(aFileOLD) then aCommand.Add('del ' + aFileOLD + ' /s');             // Deletar arquivo antigo
+          if FileExists(aFileNEW) then aCommand.Add('rename ' + aFileNEW + ' ' + aFileOLD); // Renomear arquivo atual para guardá-lo
+          if FileExists(aFileTMP) then aCommand.Add('rename ' + aFileTMP + ' ' + aFileNEW); // Renomear novo arquivo para disponibilizá-lo
         end;
 
+        aCommand.Add('pause');              // PROVISÓRIO
         aCommand.SaveToFile(sCommand);
       finally
         aCommand.Free;
