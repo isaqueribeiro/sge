@@ -2688,6 +2688,7 @@ begin
         SQL.Add('Update TBCOMPRAS Set ');
         SQL.Add('    LOTE_NFE_ANO    = null');
         SQL.Add('  , LOTE_NFE_NUMERO = null');
+        SQL.Add('  , LOTE_NFE_CODIGO = null');
         SQL.Add('  , LOTE_NFE_RECIBO = null');
         SQL.Add('where ANO        = ' + FieldByName('ANO').AsString);
         SQL.Add('  and CODCONTROL = ' + FieldByName('CODCONTROL').AsString);

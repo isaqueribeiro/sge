@@ -176,7 +176,7 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
       'a;'#13#10'- Outros ajustes na otimiza'#231#227'o de processos.'
     InfoFileURL = 'http://www.homeautomacao.com/suporte/itransito/digitoseven.inf'
     VersionControl = byNumber
-    VersionDate = '09/03/2019'
+    VersionDate = '10/01/2019'
     VersionDateAutoSet = True
     VersionNumber = '1.0.15.0'
     ShowMessages = [mAskUpgrade, mConnLost, mHostUnreachable, mLostFile, mNoInfoFile, mNoUpdateAvailable, mPasswordRequest]
@@ -191,6 +191,14 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
   object auHTTP: TauHTTP
     Agent = 'acHTTP component (AppControls.com)'
     Left = 392
-    Top = 32
+    Top = 48
+  end
+  object ACBrDownload: TACBrDownload
+    SizeRecvBuffer = 0
+    Proxy.ProxyTimeout = 90000
+    FTP.FtpTimeout = 300000
+    Protocolo = protHTTP
+    Left = 392
+    Top = 96
   end
 end

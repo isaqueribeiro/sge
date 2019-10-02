@@ -3,6 +3,9 @@ unit UGrAutoUpgrade;
 interface
 
 uses
+  ACBrBase,
+  ACBrDownload,
+
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, auHTTP, auAutoUpgrader,
   Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls, dxGDIPlusClasses;
@@ -20,6 +23,7 @@ type
     AutoUpgraderPro: TauAutoUpgrader;
     auHTTP: TauHTTP;
     imgUpgrade: TImage;
+    ACBrDownload: TACBrDownload;
     procedure AbrirUrlClick(Sender: TObject);
     procedure btnVerificarUpgradeClick(Sender: TObject);
     procedure AutoUpgraderProProgress(Sender: TObject; const FileURL: string;
@@ -82,7 +86,7 @@ end;
 
 procedure TfrmGeAutoUpgrade.AutoUpgraderProEndUpgrade(Sender: TObject; var RestartImediately: Boolean);
 begin
-  Self.GerarUpgrade;
+  ; //Self.GerarUpgrade;
 end;
 
 procedure TfrmGeAutoUpgrade.AutoUpgraderProFileDone(Sender: TObject;
