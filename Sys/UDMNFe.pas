@@ -4,9 +4,9 @@ interface
 
 uses
   UInfoVersao,
-  PngImage,
   Variants,
   UDMBusiness,
+  Vcl.Imaging.PngImage,
 
   UGeConfigurarNFeACBr,
   ACBrNFe,
@@ -2333,7 +2333,11 @@ var
   sInformacaoProduto,
   sInformacaoFisco  : String;
   cPercentualTributoAprox,
-  vTotalTributoAprox     : Currency;
+  vTotalTributoAprox     ,
+  vTotalFCP_UF_Destino   ,
+  vTotalICMS_UF_Destino  ,
+  vTotalICMS_UF_Remetente: Currency;
+
   PorCodigoExterno ,
   aCalcularICMS    : Boolean;
 
@@ -2347,6 +2351,11 @@ var
   iCodigoNFE,
   aParcela  : Integer;
 
+  // Base para implementar soluções para a
+  // Rejeição 694: Não informado o grupo de ICMS para a UF de destino
+  cAliquotaFCPUFDestino,
+  cAliquotaUFDestino   ,
+  cAliquotaUFInter     : Currency;
   // Totalizar Valores
   cTotal_vIPI          ,
   cTotal_ICMSTot_vBC   ,
@@ -2408,11 +2417,16 @@ begin
     AbrirVenda( iAnoVenda, iNumVenda );
 
     iSerieNFe   := qryEmitenteSERIE_NFE.AsInteger;
-    iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
+    //iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
+    iNumeroNFe  := GetNumeroNFe(sCNPJEmitente, iSerieNFe, MODELO_NFE);
     iCodigoNFE  := GerarCodigoDFe(iNumeroNFe);
     DtHoraEmiss := GetDateTimeDB;
 
     GuardarCodigoNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iCodigoNFE);
+
+    cAliquotaUFInter      := GetAliquotaICMS(qryEmitenteEST_SIGLA.AsString, qryDestinatario.FieldByName('EST_SIGLA').AsString);
+    cAliquotaUFDestino    := GetAliquotaICMS(qryDestinatario.FieldByName('EST_SIGLA').AsString, qryDestinatario.FieldByName('EST_SIGLA').AsString);
+    cAliquotaFCPUFDestino := GetAliquotaFCP(qryDestinatario.FieldByName('EST_SIGLA').AsString);
 
     ACBrNFe.NotasFiscais.Clear;
 
@@ -2641,11 +2655,14 @@ begin
 
       // Adicionando Produtos
 
-      PorCodigoExterno     := GetImprimirCodigoExternoProdutoNFe(sCNPJEmitente);
-      vTotalTributoAprox   := 0.0;
-      cTotal_vIPI          := 0.0;
-      cTotal_ICMSTot_vBC   := 0.0;
-      cTotal_ICMSTot_vICMS := 0.0;
+      PorCodigoExterno        := GetImprimirCodigoExternoProdutoNFe(sCNPJEmitente);
+      vTotalTributoAprox      := 0.0;
+      vTotalICMS_UF_Destino   := 0.0;
+      vTotalICMS_UF_Remetente := 0.0;
+      vTotalFCP_UF_Destino    := 0.0;
+      cTotal_vIPI             := 0.0;
+      cTotal_ICMSTot_vBC      := 0.0;
+      cTotal_ICMSTot_vICMS    := 0.0;
 
       qryDadosProduto.First;
 
@@ -3002,19 +3019,26 @@ begin
               ICMS.vICMSST := 0;
             end;
 
+            // Estudar:
+            // 1. https://ajuda.contaazul.com/hc/pt-br/articles/115008496308-Partilha-ICMS
+            // 2. https://facil123.com.br/blog/difal-diferencial-de-aliquota-icms/
             if ( (not aSimplesNacional) and aInterestadual and aConsumidorFinal and aNaoContribuinte ) then
-			begin
+            begin
               with ICMSUFDest do
               begin
-                vBCUFDest      := 0.0; // Valor da Base de Cálculo da UF de Destino
-                vBCFCPUFDest   := 0.0; // Valor da Base de Cálculo do Fundo de Combate à Pobreza na UF de Destino
-                pFCPUFDest     := 0.0; // Alíquota do Fundo de Combate à Pobreza na UF de Destino
-                pICMSUFDest    := 0.0; // Alíquota do ICMS da UF de Destino
-                pICMSInter     := 0.0; // Alíquota do ICMS Interestadual
-                pICMSInterPart := 0.0; // Alíquota do ICMS Interestadual de Partilha
-                vFCPUFDest     := 0.0; // Valor do Fundo de Combate à Pobreza na UF de Destino
-                vICMSUFDest    := 0.0; // Valor do ICMS na UF de Destino
-                vICMSUFRemet   := 0.0; // Valor do ICMS da UF do Remetente
+                vBCUFDest      := ICMS.vBC; // Valor da Base de Cálculo da UF de Destino
+                vBCFCPUFDest   := ICMS.vBC; // Valor da Base de Cálculo do Fundo de Combate à Pobreza na UF de Destino
+                pFCPUFDest     := cAliquotaFCPUFDestino; // Alíquota do Fundo de Combate à Pobreza na UF de Destino
+                pICMSUFDest    := cAliquotaUFDestino;    // Alíquota do ICMS da UF de Destino
+                pICMSInter     := cAliquotaUFInter;      // Alíquota do ICMS Interestadual
+                pICMSInterPart := 100.0; // Alíquota do ICMS Interestadual de Partilha
+                vFCPUFDest     := (vBCUFDest * pFCPUFDest  / 100.0);                // Valor do Fundo de Combate à Pobreza na UF de Destino
+                vICMSUFDest    := (vBCUFDest * (pICMSUFDest - pICMSInter) / 100.0); // Valor do ICMS na UF de Destino
+                vICMSUFRemet   := 0.0;                                              // Valor do ICMS da UF do Remetente
+
+                vTotalFCP_UF_Destino    := vTotalFCP_UF_Destino    + vFCPUFDest;
+                vTotalICMS_UF_Destino   := vTotalICMS_UF_Destino   + vICMSUFDest;
+                vTotalICMS_UF_Remetente := vTotalICMS_UF_Remetente + vICMSUFRemet;
               end;
             end;
 
@@ -3228,9 +3252,9 @@ begin
 
       if ( (not aSimplesNacional) and aInterestadual and aConsumidorFinal and aNaoContribuinte ) then
       begin
-        Total.ICMSTot.vFCPUFDest   := 0.0; // Valor do Fundo de Combate à Pobreza na UF de Destino
-        Total.ICMSTot.vICMSUFDest  := 0.0; // Valor do ICMS da UF de Destino
-        Total.ICMSTot.vICMSUFRemet := 0.0; // Valor do ICMS da UF do Remetente
+        Total.ICMSTot.vFCPUFDest   := vTotalFCP_UF_Destino;    // Valor do Fundo de Combate à Pobreza na UF de Destino
+        Total.ICMSTot.vICMSUFDest  := vTotalICMS_UF_Destino;   // Valor do ICMS da UF de Destino
+        Total.ICMSTot.vICMSUFRemet := vTotalICMS_UF_Remetente; // Valor do ICMS da UF do Remetente
       end;
 
       if ( vTotalTributoAprox > 0.0 ) then
@@ -4113,7 +4137,8 @@ begin
     AbrirCompra( iAnoCompra, iNumCompra );
 
     iSerieNFe   := qryEmitenteSERIE_NFE.AsInteger;
-    iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
+    //iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
+    iNumeroNFe  := GetNumeroNFe(sCNPJEmitente, iSerieNFe, MODELO_NFE);
     iCodigoNFE  := GerarCodigoDFe(iNumeroNFe);
     DtHoraEmiss := GetDateTimeDB;
 
@@ -5791,7 +5816,8 @@ begin
           ProtocoloNFE := WebServices.Consulta.Protocolo;
 
           // Atualizar contador do número da NF-e
-          iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
+          //iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
+          iNumeroNFe  := GetNumeroNFe(sCNPJEmitente, iSerieNFe, MODELO_NFE);
 
           if ( iNumeroNFe = iNumeroTmp ) then
           begin

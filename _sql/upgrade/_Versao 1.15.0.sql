@@ -114,3 +114,41 @@ Historico:
           que sera informado na NF-e quando esta possuir um CFOP com esta
           informacao.';
 
+
+
+
+/*------ SYSDBA 03/10/2019 22:51:15 --------*/
+
+SET TERM ^ ;
+
+CREATE trigger tg_configuracao_serie_nfe for tbconfiguracao
+active before insert or update position 0
+AS
+begin
+  Update TBEMPRESA e Set
+      e.serie_nfe  = new.nfe_serie
+    , e.serie_nfce = new.nfce_serie
+  where (e.cnpj = new.empresa);
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_CONFIGURACAO_SERIE_NFE IS 'Trigger Manter Serie NF Empresa (Serie NF)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   03/09/2019
+
+Trigger responsavel por manter atualizada a SERIE NF-e no Cadastro da Empresa de
+acordo com as configuracoes de emissao de Notas Ficais.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    11/07/2019 - IMR :
+        * Documentacao do objeto de banco.';
+

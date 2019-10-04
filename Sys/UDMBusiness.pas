@@ -304,6 +304,7 @@ var
   function GetPrazoValidadeAutorizacaoCompra(const sCNPJEmpresa : String) : Integer;
   function GetPrazoValidadeCotacaoCompra(const sCNPJEmpresa : String) : Integer;
   function GetMenorDataEmissaoOS : TDateTime;
+  function GetExisteNumeroNFe(const aCNPJEmpresa, aSerie : String; const aNumero : Largeint; const aModelo : Integer) : Boolean;
 
   function StrIsCNPJ(const Num: string): Boolean;
   function StrIsCPF(const Num: string): Boolean;
@@ -325,6 +326,7 @@ var
   function GetGeneratorID(const GeneratorName : String) : Integer;
   function GetNextID(NomeTabela, CampoChave : String; const sWhere : String = '') : Largeint;
   function GetCountID(NomeTabela : String; const sWhere : String = '') : Largeint;
+  function GetNumeroNFe(const aEmissorCNPJ : String; const aSerie, aModelo : Integer) : Largeint;
   function GetGuidID38 : String;
   function GetPaisNomeDefault : String;
   function GetEstadoNomeDefault : String;
@@ -415,6 +417,8 @@ var
   function GetQuantidadeEmpresasEmiteNFe : Integer;
   function GetTokenID_NFCe(const Empresa : String) : String;
   function GetToken_NFCe(const Empresa : String) : String;
+  function GetAliquotaICMS(const aUFOrigem, aUFDestino : String) : Currency;
+  function GetAliquotaFCP(const aUF : String) : Currency;
   function GetFormaPagtoCartaCredito(const Empresa : String) : Integer;
 
   function SetAcessoEstacao(const sHostName : String) : Boolean;
@@ -2893,6 +2897,28 @@ begin
   end;
 end;
 
+function GetExisteNumeroNFe(const aCNPJEmpresa, aSerie : String; const aNumero : Largeint; const aModelo : Integer) : Boolean;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('    nf.numero ');
+    SQL.Add('  , nf.chave  ');
+    SQL.Add('from TBNFE_ENVIADA nf');
+    SQL.Add('where (cf.empresa = ' + QuotedStr(aCNPJEmpresa) + ')');
+    SQL.Add('  and (cf.serie   = ' + QuotedStr(aSerie) + ')');
+    SQL.Add('  and (cf.numero  = ' + FormatFloat('#############', aNumero) + ')');
+    SQL.Add('  and (cf.modelo  = ' + FormatFloat('#############', aModelo) + ')');
+    Open;
+
+    Result := (FieldByName('numero').AsLargeInt > 0);
+
+    Close;
+  end;
+end;
+
 function StrIsCNPJ(const Num: string): Boolean;
 var
   Dig: array [1..14] of Byte;
@@ -3309,6 +3335,25 @@ begin
     Open;
 
     Result := FieldByName('Registros').AsInteger + 1;
+  end;
+end;
+
+function GetNumeroNFe(const aEmissorCNPJ : String; const aSerie, aModelo : Integer) : Largeint;
+var
+  aNumero   : Largeint;
+  aControle : Integer;
+begin
+  aNumero   := 0;
+  aControle := 0;
+  try
+    aNumero := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(aEmissorCNPJ));
+    while GetExisteNumeroNFe(aEmissorCNPJ, FormatFloat('00', aSerie), aNumero, MODELO_NFE) and (aControle < 10) do
+    begin
+      aNumero := (aNumero + 1);
+      Inc(aControle);
+    end;
+  finally
+    Result := aNumero;
   end;
 end;
 
@@ -4704,6 +4749,57 @@ begin
 
   finally
     Result := sReturn;
+  end;
+end;
+
+function GetAliquotaICMS(const aUFOrigem, aUFDestino : String) : Currency;
+var
+  aReturn : Currency;
+begin
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Select');
+      SQL.Add('  x.aliquota');
+      SQL.Add('from SYS_ALIQUOTA_ICMS x');
+      SQL.Add('where (x.uf_origem  = ' +  QuotedStr(aUFOrigem)  + ')');
+      SQL.Add('  and (x.uf_destino = ' +  QuotedStr(aUFDestino) + ')');
+      Open;
+
+      aReturn := FieldByName('aliquota').AsCurrency;
+
+      Close;
+    end;
+
+  finally
+    Result := aReturn;
+  end;
+end;
+
+function GetAliquotaFCP(const aUF : String) : Currency;
+var
+  aReturn : Currency;
+begin
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Select');
+      SQL.Add('  x.aliquota_fcp ');
+      SQL.Add('from TBESTADO x');
+      SQL.Add('where (x.est_sigla  = ' +  QuotedStr(aUF)  + ')');
+      Open;
+
+      aReturn := FieldByName('aliquota_fcp').AsCurrency;
+
+      Close;
+    end;
+
+  finally
+    Result := aReturn;
   end;
 end;
 

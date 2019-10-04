@@ -3,10 +3,11 @@ unit UGeEfetuarLogin;
 interface
 
 uses
+  Vcl.Imaging.PngImage,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, DB, StdCtrls, Buttons, frxClass,
-  ExtCtrls, UGrPadraoLogin, dxGDIPlusClasses, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, pngimage, cxControls,
+  Dialogs, DB, StdCtrls, Buttons, frxClass, ExtCtrls, UGrPadraoLogin, dxGDIPlusClasses, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, cxControls,
   cxContainer, cxEdit, cxLabel, cxMaskEdit, cxDropDownEdit, cxTextEdit,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
