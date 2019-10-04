@@ -123,6 +123,7 @@ type
     cdsTabelaItensLOTE: TStringField;
     cdsTabelaItensFABRICACAO: TDateField;
     cdsTabelaItensVALIDADE: TDateField;
+    stpSetRequisicaoCliente: TFDStoredProc;
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -229,6 +230,7 @@ end;
 procedure TfrmGeRequisicaoCliente.FormCreate(Sender: TObject);
 begin
   sGeneratorName := 'GEN_REQUISICAO_' + FormatFloat('0000', YearOf(GetDateDB));
+  CriarGenerator(sGeneratorName, 0);
 
   inherited;
 

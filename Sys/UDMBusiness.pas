@@ -211,6 +211,7 @@ var
   procedure DesbloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
   procedure BloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
   procedure GerarCompetencias(const pAno : Smallint);
+  procedure CriarGenerator(const aName : String; const aAno : Smallint);
   procedure RegistrarEmpresa;
   procedure RegistrarSegmentos(Codigo : Integer; Descricao : String);
   procedure RegistrarCaixaNaVenda(const AnoVenda, NumVenda, AnoCaixa, NumCaixa : Integer; const IsPDV : Boolean);
@@ -1400,6 +1401,27 @@ begin
       SQL.Add('Execute Procedure SET_COMPETENCIA(' + Copy(IntToStr(pAno), 1, 4) + FormatFloat('00', I) + ', null)');
       ExecSQL;
     end;
+
+    CommitTransaction;
+  end;
+end;
+
+procedure CriarGenerator(const aName : String; const aAno : Smallint);
+var
+  sAno : String;
+begin
+  if (aAno > 0) then
+    sAno := QuotedStr( IntToStr(aAno) )
+  else
+    sAno := 'NULL';
+
+
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Execute Procedure SET_GENERATOR(' + QuotedStr(aName) + ',' + sAno + ')' );
+    ExecSQL;
 
     CommitTransaction;
   end;

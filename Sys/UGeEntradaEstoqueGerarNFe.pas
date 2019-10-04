@@ -256,6 +256,10 @@ var
   aFileXML       : TStringList;
 begin
 (*
+  IMR - 04/10/2019 :
+    Removida a rotina de verificação do serviço de emissão da NFe da procedure "GerarNFeEntradaOnLineACBr()" para que
+    esteja num nível de chamada acima.
+
   IMR - 29/10/2018 :
     Implementação da rotina de tratamento das rejeições sobre a duplicidade de notas
     fiscais.
@@ -274,8 +278,20 @@ begin
 
   DMNFe.LerConfiguracao(cdsCompraCODEMP.AsString, tipoDANFEFast);
   DMNFe.ValidarCnpjDocumento(cdsCompraCODEMP.AsString);
+
+  if not DMNFe.ACBrNFe.WebServices.StatusServico.Executar then
+  begin
+    ShowWarning('Serviço Inoperante!' + #13#13 +
+      'Motivos:' + #13 +
+      '--------------------------------------' + #13 +
+      '1. Certificado A1 ou A3 não instalado'  + #13 +
+      '2. Certificado A3 não conectado na UBS' + #13 +
+      '3. Webservice de emissão da NF-e offline.'
+    );
+    Exit;
+  end;
+
   if (Copy(DMNFe.GetCnpjCertificado, 1, 8) <> Copy(gUsuarioLogado.Empresa, 1, 8)) then
-//  if (DMNFe.GetCnpjCertificado <> gUsuarioLogado.Empresa) then
   begin
     ShowWarning('A Empresa selecionada no login do sistema não está de acordo com o Certificado informado!');
     Exit;

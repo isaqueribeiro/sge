@@ -637,7 +637,7 @@ begin
     if ( Sender = dbHome ) then
       pgcMaisDados.ActivePage := tbsDadosAdcionais
     else
-    if ( Sender = dbEntregaFracionada ) then
+    if ( Sender = dbCadastroAtivo ) then
       pgcMaisDados.ActivePage := tbsDadoFinanceiro;
   end;
 end;
@@ -1537,7 +1537,7 @@ begin
     FieldByName('BLOQUEADO_AUTOMATICO').AsInteger     := 0;
     FieldByName('EMITIR_NFE_DEVOLUCAO').AsInteger     := 0; // Ord(False);
     FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger    := 0; // Ord(False);
-    FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger := 0; // Ord(False);
+    FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger := IfThen(gSistema.Codigo = SISTEMA_GESTAO_OPME, 1, 0);
 
     FieldByName('VENDEDOR_COD').Clear;
     FieldByName('BLOQUEADO_DATA').Clear;

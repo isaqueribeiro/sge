@@ -755,8 +755,6 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
         Align = alTop
         Caption = 'Dados do produto'
         TabOrder = 1
-        ExplicitLeft = 4
-        ExplicitTop = 119
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -1612,7 +1610,7 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
     Left = 888
     Top = 320
     Bitmap = {
-      494C01012B002C00240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3690,5 +3688,45 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
     DataSet = fdQryLotes
     Left = 960
     Top = 320
+  end
+  object stpSetRequisicaoCliente: TFDStoredProc
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    StoredProcName = 'SET_REQUISICAO_CLIENTE'
+    Left = 752
+    Top = 528
+    ParamData = <
+      item
+        Position = 1
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end
+      item
+        Position = 2
+        Name = 'CLIENTE'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'VENDA_ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 4
+        Name = 'VENDA_NUM'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 5
+        Name = 'USUARIO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 50
+      end>
   end
 end

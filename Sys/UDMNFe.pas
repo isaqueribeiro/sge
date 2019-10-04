@@ -1751,6 +1751,10 @@ var
   sLogXmlRec  : String;
 begin
 (*
+  IMR - 04/10/2019 :
+    Removida a rotina de verificação do serviço de emissão da NFe da procedure "GerarNFeOnLineACBr()" para que
+    esteja num nível de chamada acima.
+
   IMR - 24/10/2018 :
     * Inserção do bloco de código para guarda o número do recibo de envio, caso ele
     exista, mesmo quando o retorno do envio seja FALSE.
@@ -1782,14 +1786,14 @@ begin
     LerConfiguracao(sCNPJEmitente);
     FMensagemErro := EmptyStr;
 
-    if ( DelphiIsRunning ) then
-      Result := True
-    else
-      Result := ACBrNFe.WebServices.StatusServico.Executar;
-
-    if not Result then
-      Exit;
-
+//    if ( DelphiIsRunning ) then
+//      Result := True
+//    else
+//      Result := ACBrNFe.WebServices.StatusServico.Executar;
+//
+//    if not Result then
+//      Exit;
+//
     GerarNFEACBr(sCNPJEmitente, iCodigoCliente, sDataHoraSaida,
       iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
@@ -3719,6 +3723,10 @@ var
   sErrorMsg   : String;
 begin
 {
+  IMR - 04/10/2019 :
+    Removida a rotina de verificação do serviço de emissão da NFe da procedure "GerarNFeEntradaOnLineACBr()" para que
+    esteja num nível de chamada acima.
+
   IMR - 24/10/2018 :
     * Inserção do bloco de código para guarda o número do recibo de envio, caso ele
     exista, mesmo quando o retorno do envio seja FALSE.
@@ -3742,15 +3750,15 @@ begin
     LerConfiguracao(sCNPJEmitente);
     FMensagemErro := EmptyStr;
 
-    // Verificar o status do serviço
-    if ( DelphiIsRunning ) then
-      Result := True
-    else
-      Result := ACBrNFe.WebServices.StatusServico.Executar;
-
-    if not Result then
-      Exit;
-
+//    // Verificar o status do serviço
+//    if ( DelphiIsRunning ) then
+//      Result := True
+//    else
+//      Result := ACBrNFe.WebServices.StatusServico.Executar;
+//
+//    if not Result then
+//      Exit;
+//
     GerarNFEEntradaACBr(sCNPJEmitente, iCodFornecedor, iAnoCompra, iNumCompra, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
     iNumeroLote := GetNextID('TBCONFIGURACAO', 'NFE_LOTE', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));

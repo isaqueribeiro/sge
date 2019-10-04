@@ -522,6 +522,7 @@ type
     procedure GravarEmailCliente(iCliente : Integer; sEmail : String);
     procedure ControleCampoLote;
     procedure DefinirCSTNaoTributada;
+    procedure DebitarEstoqueCliente(aCliente : Integer; aAnoVenda : Smallint; aControleVenda : Integer);
 
     //function ValidarQuantidade(Codigo : Integer; Quantidade : Integer) : Boolean;
     function PossuiTitulosPagos(AnoVenda : Smallint; NumVenda : Integer) : Boolean;
@@ -652,7 +653,7 @@ begin
   SetTipoReceitaPadrao;
 
   sGeneratorName := 'GEN_VENDAS_CONTROLE_' + FormatFloat('0000', YearOf(GetDateDB));
-//  fdQryTabela.UpdateOptions.GeneratorName := sGeneratorName;
+  CriarGenerator(sGeneratorName, 0);
 
   inherited;
 
@@ -953,6 +954,12 @@ begin
     else
       Text := Sender.AsString;
   end;
+end;
+
+procedure TfrmGeVenda.DebitarEstoqueCliente(aCliente : Integer; aAnoVenda : Smallint; aControleVenda : Integer);
+begin
+  // Debitar Estoque Satélite do Cliente gerando uma Requisição Automática para o cliente
+  ;
 end;
 
 procedure TfrmGeVenda.DefinirCSTNaoTributada;
@@ -2173,6 +2180,18 @@ begin
           GerarSaldoContaCorrente(CxContaCorrente, GetDateDB);
 
         RdgStatusVenda.ItemIndex := 0;
+
+        // Debitar Estoque Satélite do Cliente gerando uma Requisição Automática para o cliente
+
+        if ( (gSistema.Codigo = SISTEMA_GESTAO_OPME)
+          and (DtSrcTabela.DataSet.FieldByName('GERAR_ESTOQUE_CLIENTE').AsInteger = 1)         // Cliente possui estoque satélite
+          and GetCfopFaturarRemessa(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger)         // CFOP de fatura de remessas de produtos já enviadas ao cliente
+          and (not GetCfopMovimentaEstoque(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger)) // CFOP não alterar o estoque atual de produtos da empresa
+        ) then
+          DebitarEstoqueCliente(
+              DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger
+            , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
+            , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger);
 
         // Imprimir Cupom
 

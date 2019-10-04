@@ -739,6 +739,7 @@ begin
   {$ENDIF}
 
   fdQryTabela.UpdateOptions.GeneratorName := 'GEN_COMPRAS_CONTROLE_' + FormatFloat('0000', YearOf(Date));
+  CriarGenerator(fdQryTabela.UpdateOptions.GeneratorName, 0);
 
   inherited;
 
