@@ -195,6 +195,15 @@ var
 
   procedure MostrarControleRequisicaoCliente(const AOwner : TComponent);
 
+  procedure GerarRequisicaoCliente(const AOwner : TComponent;
+    const aEmpresa : String; const aCliente : Integer;
+    const aVendaAno : Smallint; const aVendaControle : Integer);
+
+  procedure CancelarRequisicaoCliente(const AOwner : TComponent;
+    const aEmpresa : String; const aCliente : Integer;
+    const aVendaAno : Smallint; const aVendaControle : Integer;
+    const aMotivo : String);
+
 implementation
 
 uses
@@ -224,6 +233,55 @@ begin
     frm.ShowModal;
   finally
     frm.Destroy;
+  end;
+end;
+
+procedure GerarRequisicaoCliente(const AOwner : TComponent;
+  const aEmpresa : String; const aCliente : Integer;
+  const aVendaAno : Smallint; const aVendaControle : Integer);
+var
+  AForm : TfrmGeRequisicaoCliente;
+begin
+  try
+    AForm := TfrmGeRequisicaoCliente.Create(AOwner);
+    with AForm, stpSetRequisicaoCliente do
+    begin
+      ParamByName('empresa').AsString     := aEmpresa;
+      ParamByName('cliente').AsInteger    := aCliente;
+      ParamByName('venda_ano').AsSmallInt := aVendaAno;
+      ParamByName('venda_num').AsInteger  := aVendaControle;
+      ParamByName('usuario').AsString     := gUsuarioLogado.Login;
+
+      ExecProc;
+      CommitTransaction;
+    end;
+  finally
+    AForm.Free;
+  end;
+end;
+
+procedure CancelarRequisicaoCliente(const AOwner : TComponent;
+  const aEmpresa : String; const aCliente : Integer;
+  const aVendaAno : Smallint; const aVendaControle : Integer;
+  const aMotivo : String);
+begin
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      SQL.Clear;
+      SQL.Add('Update TBCLIENTE_REQUISICAO cr Set');
+      SQL.Add('    cr.SITUACAO         = 4 '); // Cancelar
+      SQL.Add('  , cr.CANCELADO_DATA   = current_timestamp ');
+      SQL.Add('  , cr.CANCELADO_MOTIVO = ' + QuotedStr(AnsiUpperCase(Trim(aMotivo))) );
+      SQL.Add('where (cr.codempresa = ' + QuotedStr(aEmpresa)      + ')');
+      SQL.Add('  and (cr.codcliente = ' + IntToStr(aCliente)       + ')');
+      SQL.Add('  and (cr.venda_ano  = ' + IntToStr(aVendaAno)      + ')');
+      SQL.Add('  and (cr.venda_num  = ' + IntToStr(aVendaControle) + ')');
+      ExecSQL;
+
+      CommitTransaction;
+    end;
+  finally
   end;
 end;
 
@@ -1028,7 +1086,10 @@ end;
 procedure TfrmGeRequisicaoCliente.btnCancelarRequisicaoClick(
   Sender: TObject);
 begin
-  ShowInformation('Rotina ainda não disponível nesta versão!');
+  if (DtSrcTabela.DataSet.FieldByName('VENDA_NUM').AsInteger > 0) then
+    ShowInformation('Requisições geradas automaticamente são cancelas de forma automática ao se cancelar a origem do documento!')
+  else
+    ShowInformation('Rotina ainda não disponível nesta versão!');
 end;
 
 initialization

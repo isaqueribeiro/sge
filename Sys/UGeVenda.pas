@@ -522,13 +522,12 @@ type
     procedure GravarEmailCliente(iCliente : Integer; sEmail : String);
     procedure ControleCampoLote;
     procedure DefinirCSTNaoTributada;
-    procedure DebitarEstoqueCliente(aCliente : Integer; aAnoVenda : Smallint; aControleVenda : Integer);
 
     //function ValidarQuantidade(Codigo : Integer; Quantidade : Integer) : Boolean;
     function PossuiTitulosPagos(AnoVenda : Smallint; NumVenda : Integer) : Boolean;
     function GetTotalValorFormaPagto : Currency;
     function GetTotalValorFormaPagto_APrazo : Currency;
-    function GetGerarEstoqueCliente(const Alertar : Boolean = TRUE) : Boolean;
+    function GetGerarEstoqueCliente(const aCliente : Integer; const Alertar : Boolean = TRUE) : Boolean;
     function FormaPagtoEmitiBoleto(const aFormaPagto : Integer) : Boolean;
     function BoletosGerados : Boolean;
 
@@ -592,7 +591,7 @@ uses
   UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos, UGeEfetuarPagtoREC,
   UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte,
   UGeVendaConfirmaTitulos, {$IFNDEF PDV}UGeVendaDevolucaoNF, UGeConsultarLoteNFe_v2, {$ENDIF}
-  UDMRecursos, UGrMemo;
+  UDMRecursos, UGrMemo, UGeRequisicaoCliente;
 
 {$R *.dfm}
 
@@ -954,12 +953,6 @@ begin
     else
       Text := Sender.AsString;
   end;
-end;
-
-procedure TfrmGeVenda.DebitarEstoqueCliente(aCliente : Integer; aAnoVenda : Smallint; aControleVenda : Integer);
-begin
-  // Debitar Estoque Satélite do Cliente gerando uma Requisição Automática para o cliente
-  ;
 end;
 
 procedure TfrmGeVenda.DefinirCSTNaoTributada;
@@ -2114,7 +2107,7 @@ begin
           end;
         end;
 
-        if GetGerarEstoqueCliente then
+        if GetGerarEstoqueCliente(DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger) then
           iGerarEstoqueCliente := 1
         else
         if ( (gSistema.Codigo = SISTEMA_GESTAO_OPME) and GetCfopRemessa(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger) ) then
@@ -2140,6 +2133,19 @@ begin
           GerarTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
         AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+
+        // Debitar Estoque Satélite do Cliente gerando uma Requisição Automática para o cliente
+
+        if ( (gSistema.Codigo = SISTEMA_GESTAO_OPME)
+          and (DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger <> CONSUMIDOR_FINAL_CODIGO) // Não pode ser CONSUMIDOR FINAL
+          and GetCfopFaturarRemessa(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger)             // CFOP de fatura de remessas de produtos já enviadas ao cliente
+          and (not GetCfopMovimentaEstoque(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger))     // CFOP não alterar o estoque atual de produtos da empresa
+        ) then
+          GerarRequisicaoCliente(Self,
+              DtSrcTabela.DataSet.FieldByName('CODEMP').AsString
+            , DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger
+            , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
+            , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger);
 
         ShowInformation('Venda finalizada com sucesso !' + #13#13 + 'Ano/Controle: ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger));
 
@@ -2180,18 +2186,6 @@ begin
           GerarSaldoContaCorrente(CxContaCorrente, GetDateDB);
 
         RdgStatusVenda.ItemIndex := 0;
-
-        // Debitar Estoque Satélite do Cliente gerando uma Requisição Automática para o cliente
-
-        if ( (gSistema.Codigo = SISTEMA_GESTAO_OPME)
-          and (DtSrcTabela.DataSet.FieldByName('GERAR_ESTOQUE_CLIENTE').AsInteger = 1)         // Cliente possui estoque satélite
-          and GetCfopFaturarRemessa(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger)         // CFOP de fatura de remessas de produtos já enviadas ao cliente
-          and (not GetCfopMovimentaEstoque(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger)) // CFOP não alterar o estoque atual de produtos da empresa
-        ) then
-          DebitarEstoqueCliente(
-              DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger
-            , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
-            , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger);
 
         // Imprimir Cupom
 
@@ -2561,7 +2555,22 @@ begin
     with DtSrcTabela.DataSet do
     begin
       RecarregarRegistro;
+
+      // Cancelar Requisição Automática gerada para o cliente
+      if ( (gSistema.Codigo = SISTEMA_GESTAO_OPME)
+        and (FieldByName('CODCLIENTE').AsInteger <> CONSUMIDOR_FINAL_CODIGO) // Não pode ser CONSUMIDOR FINAL
+        and GetCfopFaturarRemessa(FieldByName('CFOP').AsInteger)             // CFOP de fatura de remessas de produtos já enviadas ao cliente
+        and (not GetCfopMovimentaEstoque(FieldByName('CFOP').AsInteger))     // CFOP não alterar o estoque atual de produtos da empresa
+      ) then
+        CancelarRequisicaoCliente(Self,
+            FieldByName('CODEMP').AsString
+          , FieldByName('CODCLIENTE').AsInteger
+          , FieldByName('ANO').AsInteger
+          , FieldByName('CODCONTROL').AsInteger
+          , FieldByName('CANCEL_MOTIVO').AsString);
+
       ShowInformation('Venda cancelada com sucesso.' + #13#13 + 'Ano/Controle: ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger));
+
       HabilitarDesabilitar_Btns;
     end;
 end;
@@ -3222,13 +3231,29 @@ begin
   end;
 end;
 
-function TfrmGeVenda.GetGerarEstoqueCliente(const Alertar : Boolean = TRUE) : Boolean;
+function TfrmGeVenda.GetGerarEstoqueCliente(const aCliente : Integer; const Alertar : Boolean = TRUE) : Boolean;
 var
   iReturn : Boolean;
 begin
   iReturn := False;
   try
     if GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa) then
+    begin
+      // Formar UPDATE apenas no SGO
+      if (gSistema.Codigo = SISTEMA_GESTAO_OPME) and (aCliente <> CONSUMIDOR_FINAL_CODIGO) then
+      begin
+        with DMBusiness, fdQryBusca do
+        begin
+          SQL.Clear;
+          SQL.Add('Update TBCLIENTE c Set');
+          SQL.Add('    c.entrega_fracionada_venda = 1');
+          SQL.Add('where (c.Codigo = ' + IntToStr(aCliente) + ')');
+          ExecSQL;
+
+          CommitTransaction;
+        end;
+      end;
+
       with DMBusiness, fdQryBusca do
       begin
         Close;
@@ -3236,7 +3261,7 @@ begin
         SQL.Add('Select');
         SQL.Add('  coalesce(entrega_fracionada_venda, 0) as gerar_estoque');
         SQL.Add('from TBCLIENTE');
-        SQL.Add('where Codigo = ' + DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsString);
+        SQL.Add('where Codigo = ' + IntToStr(aCliente));
         Open;
 
         iReturn := (FieldByName('gerar_estoque').AsInteger = 1);
@@ -3248,6 +3273,7 @@ begin
 
         Close;
       end;
+    end;
   finally
     Result := iReturn;
   end;
