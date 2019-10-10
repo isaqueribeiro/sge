@@ -5,7 +5,7 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
   BorderWidth = 4
   Caption = 'Auto Upgrade'
   ClientHeight = 202
-  ClientWidth = 424
+  ClientWidth = 482
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -30,11 +30,17 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
     AlignWithMargins = True
     Left = 3
     Top = 167
-    Width = 418
+    Width = 476
     Height = 13
     Align = alBottom
     Caption = 'Andamento do processo:'
-    ExplicitWidth = 120
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    ExplicitWidth = 140
   end
   object Label4: TLabel
     Left = 63
@@ -65,7 +71,7 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
     ParentFont = False
     ParentShowHint = False
     ShowHint = False
-    OnClick = AbrirUrlClick
+    OnClick = lblURLAppClick
   end
   object lblURLInfo: TLabel
     Left = 8
@@ -82,7 +88,7 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
     ParentFont = False
     ParentShowHint = False
     ShowHint = False
-    OnClick = AbrirUrlClick
+    OnClick = lblURLInfoClick
   end
   object imgUpgrade: TImage
     Left = 8
@@ -155,10 +161,11 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
     AlignWithMargins = True
     Left = 3
     Top = 186
-    Width = 418
+    Width = 476
     Height = 13
     Align = alBottom
     TabOrder = 1
+    ExplicitWidth = 418
   end
   object AutoUpgraderPro: TauAutoUpgrader
     InfoFile.Files.Strings = (
@@ -176,7 +183,7 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
       'a;'#13#10'- Outros ajustes na otimiza'#231#227'o de processos.'
     InfoFileURL = 'http://www.homeautomacao.com/suporte/itransito/digitoseven.inf'
     VersionControl = byNumber
-    VersionDate = '10/01/2019'
+    VersionDate = '10/09/2019'
     VersionDateAutoSet = True
     VersionNumber = '1.0.15.0'
     ShowMessages = [mAskUpgrade, mConnLost, mHostUnreachable, mLostFile, mNoInfoFile, mNoUpdateAvailable, mPasswordRequest]
@@ -198,6 +205,8 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
     Proxy.ProxyTimeout = 90000
     FTP.FtpTimeout = 300000
     Protocolo = protHTTP
+    OnHookStatus = ACBrDownloadHookStatus
+    OnHookMonitor = ACBrDownloadHookMonitor
     Left = 392
     Top = 96
   end
