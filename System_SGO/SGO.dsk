@@ -17,14 +17,14 @@ File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeC
 
 [Modules]
 Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrAutoUpgrade.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\AtualizarSistemas\UGrAtualizarSistemas.pas
-Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\UPrinc.pas
-Module3=default.htm
-Module4=documentation.htm
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCliente.pas
-Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module1=default.htm
+Module2=documentation.htm
+Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\AtualizarSistemas\UGrAtualizarSistemas.pas
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\UPrinc.pas
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCliente.pas
 Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
 Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeCliente.pas
 Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
@@ -49,12 +49,6 @@ EditWindowCount=1
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrAutoUpgrade.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\AtualizarSistemas\UGrAtualizarSistemas.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\UPrinc.pas]
-ModuleType=TSourceModule
-
 [default.htm]
 ModuleType=TURLModule
 
@@ -64,13 +58,19 @@ ModuleType=TURLModule
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj]
 ModuleType=TBaseProject
 
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\AtualizarSistemas\UGrAtualizarSistemas.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\UPrinc.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
+ModuleType=TSourceModule
+
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCliente.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas]
@@ -175,13 +175,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=00000800010100000000F90F00000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000651C00001100000050726F7065727479496E73706563746F72FFFFFFFF
-RightPanelSize=2000
+LeftPanelData=00000800010100000000CF0F00000000000001680700000000000001000000005C0E000009000000446F636B536974653301000000001A1C00001100000050726F7065727479496E73706563746F72FFFFFFFF
+RightPanelSize=1969
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=00000800010100000000F90F00000000000001D0070000000000000100000000960C000009000000446F636B53697465320100000000651C000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=1417
+RightPanelData=00000800010100000000CF0F00000000000001B10700000000000001000000004412000009000000446F636B536974653201000000001A1C000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=1491
 BottomPanelClients=MessageView,DockSite1
-BottomPanelData=0000080001020100000009000000446F636B5369746531D7420000000000000289050000000000000100000000D74200000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B5369746531D74200000000000002D3050000000000000100000000D74200000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -395,13 +395,13 @@ EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\UPrinc.
 [View20]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrAutoUpgrade.pas
-CursorX=5
-CursorY=89
-TopLine=80
+CursorX=49
+CursorY=412
+TopLine=383
 LeftCol=1
 Elisions=
-Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrAutoUpgrade.pas
+Bookmarks={1,221,3}{2,402,5}
+EditViewName=Borland.FormDesignerView
 
 [View21]
 CustomEditViewType=TEditView
@@ -551,12 +551,12 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=2000
-Height=2894
+Width=1969
+Height=4404
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2000
-ClientHeight=2894
+ClientWidth=1969
+ClientHeight=4404
 TBDockHeight=5904
 LRDockWidth=2349
 Dockable=1
@@ -571,12 +571,12 @@ State=0
 Left=0
 Top=18
 Width=9625
-Height=1298
+Height=1375
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=9625
-ClientHeight=1298
-TBDockHeight=1298
+ClientHeight=1375
+TBDockHeight=1375
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -589,12 +589,12 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=2000
-Height=4029
+Width=1969
+Height=2442
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2000
-ClientHeight=4029
+ClientWidth=1969
+ClientHeight=2442
 TBDockHeight=7154
 LRDockWidth=2000
 Dockable=1
@@ -647,21 +647,21 @@ State=0
 Left=0
 Top=415
 Width=1896
-Height=3558
+Height=3481
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=3558
+ClientHeight=3481
 TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
-SplitPos=159
+SplitPos=164
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=Font,CustomHint
-ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0,Font=0,"LiveBindings Designer=0",Margins=0,ImageMargins=0,FTP=0,Proxy=0,StyleElements=0,Touch=0
+SelectedItem=Action,CustomHint
+ExpandedItems=Anchors=0,Constraints=0,LiveBindings=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -1126,14 +1126,14 @@ Docked=1
 State=0
 Left=0
 Top=18
-Width=2000
-Height=3135
+Width=1969
+Height=4644
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2000
-ClientHeight=3135
+ClientWidth=1969
+ClientHeight=4644
 TBDockHeight=9010
-LRDockWidth=2000
+LRDockWidth=1969
 Dockable=1
 StayOnTop=0
 TabPosition=1
@@ -1173,15 +1173,15 @@ Visible=1
 Docked=1
 State=0
 Left=0
-Top=366
-Width=2000
-Height=4029
+Top=523
+Width=1969
+Height=2442
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2000
-ClientHeight=4029
+ClientWidth=1969
+ClientHeight=2442
 TBDockHeight=9010
-LRDockWidth=2000
+LRDockWidth=1969
 Dockable=1
 StayOnTop=0
 TabPosition=1

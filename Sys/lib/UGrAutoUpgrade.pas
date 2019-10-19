@@ -4,6 +4,7 @@ interface
 
 uses
   blcksock,
+  Winapi.ShellAPI,
   ACBrBase,
   ACBrDownload,
   ACBrDownloadClass,
@@ -43,6 +44,7 @@ type
       BytesDownloaded: Integer);
     procedure ACBrDownloadHookMonitor(Sender: TObject; const BytesToDownload, BytesDownloaded: Integer;
       const AverageSpeed: Double; const Hour, Min, Sec: Word);
+    procedure ACBrDownloadAfterDownload(Sender: TObject);
   private
     { Private declarations }
     aFileInfoVersion : TFileName;
@@ -63,6 +65,9 @@ type
 
 var
   frmGeAutoUpgrade : TfrmGeAutoUpgrade;
+
+const
+  UPGRADE_AGIL = 'UpgradeAgil.exe';
 
   procedure AtivarUpgradeAutomatico;
 
@@ -215,7 +220,15 @@ end;
 
 procedure TfrmGeAutoUpgrade.BaixarAtualizacao;
 begin
-  ;
+  //ACBrDownload.DownloadUrl     := 'http://' + DOWNLOAD_URL_AGIL_SOFTWARES_UPGRADE + 'AtualizarSistemasAgil.exe';
+  ACBrDownload.DownloadUrl     := 'http://' + DOWNLOAD_URL_GERASYS_TI_DRH_UPGRADE + 'AtualizarSistemasAgil.exe';
+  ACBrDownload.DownloadNomeArq := UPGRADE_AGIL;
+  ACBrDownload.DownloadDest    := '.\';
+
+  DeleteFile('.\' + ACBrDownload.DownloadNomeArq);
+  DeleteFile('.\' + ACBrDownload.DownloadNomeArq + '.part');
+
+  ACBrDownload.StartDownload;
 end;
 
 procedure TfrmGeAutoUpgrade.btnVerificarUpgradeClick(Sender: TObject);
@@ -226,7 +239,10 @@ begin
 
   BaixarInfo;
   if GetExeVersionID(aSistema) > ObterIdVersaoHTTP(ObterVersaoHTTP) then
-    ShowInformation(Self.Caption, 'Nenhuma versão nova disponível!' + #13 + 'Você está com a versão mais atual do sistema.')
+  begin
+    lblProgresso.Caption := 'Nenhuma versão nova disponível!';
+    ShowInformation(Self.Caption, 'Nenhuma versão nova disponível!' + #13 + 'Você está com a versão mais atual do sistema.');
+  end
   else
   if ShowConfirmation(Self.Caption, ObterMessageHTTP + #13#13 + 'Deseja atualizar agora o sistema?') then
     BaixarAtualizacao;
@@ -381,6 +397,20 @@ begin
   end;
 
   Result := aRetorno;
+end;
+
+procedure TfrmGeAutoUpgrade.ACBrDownloadAfterDownload(Sender: TObject);
+var
+  aComando : String;
+begin
+  if (ACBrDownload.DownloadNomeArq = UPGRADE_AGIL) then
+  begin
+    aComando := UPGRADE_AGIL + ' ' + GetInternalName;
+    ShowInformation('Atualização Agil', 'Esta aplicação será fechada para que o processo de atualização seja iniciado.');
+    Application.Terminate;
+
+    ShellExecute(Handle, 'Open', PChar(aComando), '', '', SW_NORMAL);
+  end;
 end;
 
 procedure TfrmGeAutoUpgrade.ACBrDownloadHookMonitor(Sender: TObject; const BytesToDownload,

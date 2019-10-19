@@ -68,7 +68,7 @@
         <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
-        <DCC_ExeOutput>..\bin\</DCC_ExeOutput>
+        <DCC_ExeOutput>..\bin\upgrade\</DCC_ExeOutput>
         <Icon_MainIcon>..\_diversos\Imagens\Icones\agil_full.ico</Icon_MainIcon>
         <UWP_DelphiLogo44>..\_diversos\Imagens\Logotipo 01b.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>..\_diversos\Imagens\Logotipo 01b 128x98.png</UWP_DelphiLogo150>
@@ -90,6 +90,8 @@
         <AppEnableHighDPI>true</AppEnableHighDPI>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
+        <Debugger_RunParams>SGO</Debugger_RunParams>
+        <Icon_MainIcon>..\_diversos\Imagens\Icones\agil_full.ico</Icon_MainIcon>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>

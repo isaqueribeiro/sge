@@ -4,11 +4,12 @@ interface
 
 uses
   blcksock,
+  Winapi.ShellAPI,
   ACBrDownloadClass,
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, ACBrBase, ACBrDownload, Vcl.ComCtrls, Vcl.Buttons,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, dxGDIPlusClasses;
 
 type
   TFrmAtualizarSistemas = class(TForm)
@@ -22,6 +23,7 @@ type
     PnlBanner: TPanel;
     PrgBrArquivos: TProgressBar;
     LblFileDownload: TLabel;
+    imgUpgrade: TImage;
     procedure FormCreate(Sender: TObject);
     procedure ACBrDownloadHookMonitor(Sender: TObject; const BytesToDownload, BytesDownloaded: Integer;
       const AverageSpeed: Double; const Hour, Min, Sec: Word);
@@ -30,23 +32,30 @@ type
     procedure bDownloadClick(Sender: TObject);
     procedure bPauseClick(Sender: TObject);
     procedure bStopClick(Sender: TObject);
+    procedure ACBrDownloadAfterDownload(Sender: TObject);
   private
     { Private declarations }
     aSistemasAgil     ,
-    aArquivosInfoHTTP : TStringList;
+    aArquivosInfoHTTP ,
+    aListaArquivosURL : TStringList;
 
     procedure GerarListaSistemasAgil;
     procedure BaixarVersaoInfo;
     procedure VerificarVersao(const ForcarDownload : Boolean);
+    procedure MontarListaURL;
+    procedure BaixarBaixarArquivos(const PastaBackup : String);
+    procedure BackupArquivo(const PastaBackup, aFileName : TFileName);
 
     function ExisteConexaoComInternet : Boolean;
     function ObterDiretorioExecutavel : String;
     function ObterVersaoHTTP(const aSistema : String) : String;
     function ObterIdVersaoHTTP(const sVersao : String) : Currency;
+    function ObterListaURLArquivosHTTP(const sArquivoInfoHTTP : TFileName) : TStringList;
   public
     { Public declarations }
     property SistemasAgil : TStringList read aSistemasAgil;
     property ArquivosInfoHTTP : TStringList read aArquivosInfoHTTP;
+    property ListaArquivosURL : TStringList read aListaArquivosURL;
 
     function PrecisaAtualizarSistema : Boolean;
   end;
@@ -83,9 +92,6 @@ begin
         aArquivosInfoHTTP.Add( ObterDiretorioExecutavel + 'VersaoHTTP_' + ChangeFileExt(ExtractFileName(aSistema), '.inf') );
     end;
   end;
-
-  PrgBrArquivos.Position := 0;
-  PrgBrArquivos.Max      := aArquivosInfoHTTP.Count;
 end;
 
 procedure TFrmAtualizarSistemas.FormCreate(Sender: TObject);
@@ -103,7 +109,7 @@ procedure TFrmAtualizarSistemas.GerarListaSistemasAgil;
 var
   aSistemaParaAtualizar : String;
 begin
-  aSistemaParaAtualizar := Trim(ParamStr(1));
+  aSistemaParaAtualizar := Trim(ParamStr(1)) + '.exe';
 
   aSistemasAgil.Clear;
 
@@ -137,6 +143,36 @@ begin
     sVersaoID := sVersaoID + FormatFloat('00', StrToIntDef(aVersao[I], 0));
 
   Result := StrToCurrDef(sVersaoID, 0);
+end;
+
+function TFrmAtualizarSistemas.ObterListaURLArquivosHTTP(const sArquivoInfoHTTP: TFileName): TStringList;
+var
+  aRetorno ,
+  aArquivo : TStringList;
+  aStr : String;
+  I : Integer;
+begin
+  aRetorno := TStringList.Create;
+  aArquivo := TStringList.Create;
+  try
+    aRetorno.Create;
+    aArquivo.Create;
+
+    if FileExists(sArquivoInfoHTTP) then
+    begin
+      aArquivo.LoadFromFile(sArquivoInfoHTTP);
+      for I := 0 to aArquivo.Count - 1 do
+      begin
+        aStr := Trim(aArquivo.Strings[I]);
+        if (AnsiUpperCase(Copy(aStr, 1, 4)) = AnsiUpperCase('#url')) then
+          aRetorno.Add( Copy(aStr, Pos('=', aStr) + 1, Length(aStr)) );
+      end;
+    end;
+  finally
+    aArquivo.Free;
+
+    Result := aRetorno;
+  end;
 end;
 
 function TFrmAtualizarSistemas.ObterVersaoHTTP(const aSistema: String): String;
@@ -174,11 +210,26 @@ function TFrmAtualizarSistemas.PrecisaAtualizarSistema: Boolean;
 var
   aSistema : String;
 begin
-  aSistema := Trim(ParamStr(1));
+  aSistema := Trim(ParamStr(1)) + '.exe';
   if not FileExists(aSistema) then
     Result := False
    else
     Result := GetExeVersionID(aSistema) < ObterIdVersaoHTTP(ObterVersaoHTTP(aSistema));
+end;
+
+procedure TFrmAtualizarSistemas.ACBrDownloadAfterDownload(Sender: TObject);
+var
+  aFileOLD ,
+  aFileNEW : String;
+begin
+  // Tratamento para arquivos DLL
+  if (Pos('._dll', ACBrDownload.DownloadNomeArq) > 0) then
+  begin
+    aFileOLD := '.\' + ACBrDownload.DownloadNomeArq;
+    aFileNEW := ChangeFileExt(aFileOLD, '.dll');
+    RenameFile(aFileOLD, aFileNEW);
+    DeleteFile(aFileOLD);
+  end;
 end;
 
 procedure TFrmAtualizarSistemas.ACBrDownloadHookMonitor(Sender: TObject; const BytesToDownload,
@@ -186,7 +237,7 @@ procedure TFrmAtualizarSistemas.ACBrDownloadHookMonitor(Sender: TObject; const B
 var
   sConnectionInfo: string;
 begin
-  LblFileDownload.Caption := ACBrDownload.DownloadNomeArq;
+  LblFileDownload.Caption := '.\' + ACBrDownload.DownloadNomeArq;
   PrgBrDownloads.Position := BytesDownloaded;
 
   sConnectionInfo := sConnectionInfo + ' - ' +
@@ -244,6 +295,67 @@ begin
    end;
 end;
 
+procedure TFrmAtualizarSistemas.MontarListaURL;
+var
+  I : Integer;
+  aListaURL : TStringList;
+begin
+  aListaArquivosURL := TStringList.Create;
+  aListaArquivosURL.Clear;
+
+  for I := 0 to ArquivosInfoHTTP.Count - 1 do
+  begin
+    aListaURL := ObterListaURLArquivosHTTP(ArquivosInfoHTTP.Strings[I]);
+    if (aListaURL.Count > 0) then
+      aListaArquivosURL.AddStrings( aListaURL );
+  end;
+end;
+
+procedure TFrmAtualizarSistemas.BackupArquivo(const PastaBackup, aFileName: TFileName);
+var
+  aBackup : String;
+begin
+  aBackup := ExtractFileName(aFileName);
+  ForceDirectories(PastaBackup);
+
+  if not FileExists(PastaBackup + aBackup) then
+    CopyFile(PChar(aFileName), PChar(PastaBackup + aBackup), True);
+end;
+
+procedure TFrmAtualizarSistemas.BaixarBaixarArquivos(const PastaBackup : String);
+var
+  I : Integer;
+  aApp  ,
+  aURL  ,
+  aFile : String;
+  aStr  : TStringList;
+begin
+  PrgBrArquivos.Max := aListaArquivosURL.Count - 1;
+
+  for I := 0 to ListaArquivosURL.Count - 1 do
+  begin
+    aURL := ListaArquivosURL.Strings[I];
+    aStr := TStringList.Create;
+    Split('/', aURL, aStr);
+    aFile := aStr[aStr.Count - 1];
+
+    BackupArquivo(PastaBackup, aFile);
+
+    ACBrDownload.DownloadUrl     := aURL;
+    ACBrDownload.DownloadNomeArq := aFile;
+    ACBrDownload.DownloadDest    := '.\';
+
+    ACBrDownload.StartDownload;
+
+    PrgBrArquivos.Position := I;
+  end;
+
+  PrgBrDownloads.Position := PrgBrDownloads.Max;
+
+  if (PrgBrArquivos.Position = PrgBrArquivos.Max) then
+    Application.MessageBox('Arquivos de sistema atualizados como sucesso', 'Atualizar Sistemas Ágil', MB_ICONINFORMATION);
+end;
+
 procedure TFrmAtualizarSistemas.BaixarVersaoInfo;
 var
   aSistema    ,
@@ -258,6 +370,7 @@ begin
     begin
       aVersaoInfo := StringReplace(aSistema, '.exe', '_Upgrade.inf', [rfReplaceAll]);
 
+      //ACBrDownload.DownloadUrl     := DOWNLOAD_URL_AGIL_SOFTWARES_UPGRADE + ExtractFileName(aVersaoInfo);
       ACBrDownload.DownloadUrl     := DOWNLOAD_URL_GERASYS_TI_DRH_UPGRADE + ExtractFileName(aVersaoInfo);
       ACBrDownload.DownloadNomeArq := 'VersaoHTTP_' + ChangeFileExt(ExtractFileName(aSistema), '.inf');
       ACBrDownload.DownloadDest    := '.\';
@@ -268,7 +381,13 @@ begin
 end;
 
 procedure TFrmAtualizarSistemas.bDownloadClick(Sender: TObject);
+var
+  aPastaBkp,
+  aSistema : String;
 begin
+  aPastaBkp := ExtractFilePath(ParamStr(0)) + 'files_bkp\' + FormatDateTime('yymmdd"_"hh"h"mm', Now) + '\';
+  ForceDirectories(aPastaBkp);
+
   aArquivosInfoHTTP.Clear;
 
   if not ExisteConexaoComInternet then
@@ -277,6 +396,17 @@ begin
   begin
     BaixarVersaoInfo;
     VerificarVersao(True);
+    MontarListaURL;
+    BaixarBaixarArquivos(aPastaBkp);
+  end;
+
+  aSistema := Trim(ParamStr(1));
+  if (aSistema <> EmptyStr) then
+  begin
+    aSistema := aSistema + '.exe';
+
+    ShellExecute(Handle, 'Open', PChar(aSistema), '', '', SW_NORMAL);
+    Application.Terminate;
   end;
 end;
 

@@ -64,13 +64,13 @@ end;
 
 procedure Split(pDelimiter : Char; pStr: String; pListOfStrings : TStrings);
 begin
-   with pListOfStrings do
-   begin
-     Clear;
-     Delimiter       := pDelimiter;
-     StrictDelimiter := True;
-     DelimitedText   := pStr;
-   end;
+  with pListOfStrings do
+  begin
+    Clear;
+    Delimiter       := pDelimiter;
+    StrictDelimiter := True;
+    DelimitedText   := pStr;
+  end;
 end;
 
 function GetHostNameLocal : String;

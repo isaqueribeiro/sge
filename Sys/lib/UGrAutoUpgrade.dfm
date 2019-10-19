@@ -165,7 +165,6 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
     Height = 13
     Align = alBottom
     TabOrder = 1
-    ExplicitWidth = 418
   end
   object AutoUpgraderPro: TauAutoUpgrader
     InfoFile.Files.Strings = (
@@ -183,7 +182,7 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
       'a;'#13#10'- Outros ajustes na otimiza'#231#227'o de processos.'
     InfoFileURL = 'http://www.homeautomacao.com/suporte/itransito/digitoseven.inf'
     VersionControl = byNumber
-    VersionDate = '10/09/2019'
+    VersionDate = '10/18/2019'
     VersionDateAutoSet = True
     VersionNumber = '1.0.15.0'
     ShowMessages = [mAskUpgrade, mConnLost, mHostUnreachable, mLostFile, mNoInfoFile, mNoUpdateAvailable, mPasswordRequest]
@@ -205,6 +204,7 @@ object frmGeAutoUpgrade: TfrmGeAutoUpgrade
     Proxy.ProxyTimeout = 90000
     FTP.FtpTimeout = 300000
     Protocolo = protHTTP
+    OnAfterDownload = ACBrDownloadAfterDownload
     OnHookStatus = ACBrDownloadHookStatus
     OnHookMonitor = ACBrDownloadHookMonitor
     Left = 392

@@ -1,15 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-  <Transactions>
-    <Transaction>2019/09/26 18:39:16.005,=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
-    <Transaction>2019/09/26 18:43:01.644,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\AtualizarSistemas\UGrAtualizarSistemas.pas=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
-    <Transaction>2019/09/26 18:43:01.644,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\AtualizarSistemas\UGrAtualizarSistemas.dfm=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.dfm</Transaction>
-    <Transaction>2019/09/26 18:43:23.403,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\AtualizarSistemas\AtualizarSistemasAgil.dproj=C:\Users\Isaque\Documents\Projetos\Testes\Project1.dproj</Transaction>
-    <Transaction>2019/09/26 18:48:45.204,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas</Transaction>
-    <Transaction>2019/09/26 19:54:52.196,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\HPL_Strings.pas</Transaction>
-    <Transaction>2019/09/26 19:55:07.121,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\HPL_Strings.pas=</Transaction>
-    <Transaction>2019/09/26 20:02:12.651,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UFuncoes.pas</Transaction>
-    <Transaction>2019/09/26 20:06:16.356,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UInfoVersao.pas</Transaction>
-    <Transaction>2019/09/26 20:06:42.861,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UPersonalizaEmpresa.pas</Transaction>
+	<Transactions>
+    <Transaction>2019/09/26 18:43:01.000.644,C:\Users\Isaque\Documents\Projetos\Testes\Unit1.dfm=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\AtualizarSistemas\UGrAtualizarSistemas.dfm</Transaction>
+    <Transaction>2019/09/26 18:43:23.000.403,C:\Users\Isaque\Documents\Projetos\Testes\Project1.dproj=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\AtualizarSistemas\AtualizarSistemasAgil.dproj</Transaction>
   </Transactions>
 </BorlandProject>
