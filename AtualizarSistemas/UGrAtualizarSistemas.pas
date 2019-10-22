@@ -24,6 +24,8 @@ type
     PrgBrArquivos: TProgressBar;
     LblFileDownload: TLabel;
     imgUpgrade: TImage;
+    mmInforme: TMemo;
+    ImgCompany: TImage;
     procedure FormCreate(Sender: TObject);
     procedure ACBrDownloadHookMonitor(Sender: TObject; const BytesToDownload, BytesDownloaded: Integer;
       const AverageSpeed: Double; const Hour, Min, Sec: Word);
@@ -49,6 +51,7 @@ type
     function ExisteConexaoComInternet : Boolean;
     function ObterDiretorioExecutavel : String;
     function ObterVersaoHTTP(const aSistema : String) : String;
+    function ObterMessageHTTP(const aSistema : String) : String;
     function ObterIdVersaoHTTP(const sVersao : String) : Currency;
     function ObterListaURLArquivosHTTP(const sArquivoInfoHTTP : TFileName) : TStringList;
   public
@@ -96,6 +99,10 @@ end;
 
 procedure TFrmAtualizarSistemas.FormCreate(Sender: TObject);
 begin
+  bDownload.Left := bStop.Left;
+  bPause.Visible := False;
+  bStop.Visible  := False;
+
   aSistemasAgil := TStringList.Create;
   aSistemasAgil.Clear;
 
@@ -103,6 +110,10 @@ begin
   aArquivosInfoHTTP.Clear;
 
   GerarListaSistemasAgil;
+
+  mmInforme.Lines.Text := ObterMessageHTTP(ParamStr(1));
+  if (mmInforme.Lines.Count > 16) then
+    mmInforme.ScrollBars := TScrollStyle.ssVertical;
 end;
 
 procedure TFrmAtualizarSistemas.GerarListaSistemasAgil;
@@ -173,6 +184,51 @@ begin
 
     Result := aRetorno;
   end;
+end;
+
+function TFrmAtualizarSistemas.ObterMessageHTTP(const aSistema: String): String;
+var
+  aRetorno    ,
+  aVersaoInfo : String;
+  aInfo : TStringList;
+  I : Integer;
+  aLer : Boolean;
+begin
+  aRetorno    := EmptyStr;
+  aVersaoInfo := ObterDiretorioExecutavel + 'VersaoHTTP_' + ChangeFileExt(ExtractFileName(aSistema), '.inf');
+
+  if FileExists(aVersaoInfo) then
+  begin
+    aInfo := TStringList.Create;
+    aLer  := False;
+    try
+      aInfo.LoadFromFile(aVersaoInfo);
+      for I := 0 to aInfo.Count - 1 do
+      begin
+        if not aLer then
+          aLer := (Pos('#message=', aInfo.Strings[I]) > 0);
+
+        if aLer then
+        begin
+          if (aRetorno = EmptyStr) then
+            aRetorno := Trim(aSistema + ' Versão ' + ObterVersaoHTTP(aSistema) + #13 + aInfo.Strings[I]) + #13
+          else
+            aRetorno := aRetorno + #13 + aInfo.Strings[I];
+
+          if (Pos('}', aInfo.Strings[I]) > 0) then
+            aLer := False;
+        end;
+      end;
+
+      aRetorno := StringReplace(aRetorno, '#message={', '', [rfReplaceAll]);
+      aRetorno := StringReplace(aRetorno, '}', '', [rfReplaceAll]);
+
+    finally
+      aInfo.Free;
+    end;
+  end;
+
+  Result := aRetorno;
 end;
 
 function TFrmAtualizarSistemas.ObterVersaoHTTP(const aSistema: String): String;
@@ -396,6 +452,11 @@ begin
   begin
     BaixarVersaoInfo;
     VerificarVersao(True);
+
+    mmInforme.Lines.Text := ObterMessageHTTP(ParamStr(1));
+    if (mmInforme.Lines.Count > 16) then
+      mmInforme.ScrollBars := TScrollStyle.ssVertical;
+
     MontarListaURL;
     BaixarBaixarArquivos(aPastaBkp);
   end;
