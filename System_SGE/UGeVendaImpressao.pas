@@ -425,7 +425,7 @@ begin
 
       if ( chkCFOPTituloGerado.Visible ) then
         if ( chkCFOPTituloGerado.Checked ) then
-          SQL.Add('  and (f.cfop_gerar_titulo = 1) ');
+          SQL.Add('  and (v.cfop_gera_titulo = 1) ');
 
       SQL.Text := StringReplace(SQL.Text, '1=1', aPeriodoCompra, [rfReplaceAll]);
 
