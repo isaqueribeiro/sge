@@ -73,6 +73,8 @@ type
     dbPlacaUF: TJvDBComboEdit;
     qryVolume: TFDQuery;
     lblDicaFormaPagto: TLabel;
+    lblVolumeCubagem: TLabel;
+    dbVolumeCubagem: TDBEdit;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure dbTransportadoraButtonClick(Sender: TObject);
@@ -253,6 +255,9 @@ begin
 
   if ( qryVolume.FieldByName('peso_liquido').AsCurrency > 0 ) then
     dbVolumePLiquido.Field.Value := qryVolume.FieldByName('peso_liquido').AsCurrency;
+
+  if ( qryVolume.FieldByName('volume').AsCurrency > 0 ) then
+    dbVolumeCubagem.Field.Value := qryVolume.FieldByName('volume').AsCurrency;
 end;
 
 procedure TfrmGeVendaTransporte.dbVolumePLiquidoExit(Sender: TObject);

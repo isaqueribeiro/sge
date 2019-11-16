@@ -4,36 +4,39 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Controle de Vendas - Dados Transportadora'
-  ClientHeight = 396
-  ClientWidth = 603
-  ExplicitWidth = 617
-  ExplicitHeight = 433
+  ClientHeight = 414
+  ClientWidth = 702
+  ExplicitWidth = 716
+  ExplicitHeight = 451
   DesignSize = (
-    603
-    396)
+    702
+    414)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
     Top = 73
-    Width = 603
+    Width = 702
     Height = 4
     Align = alTop
     Shape = bsSpacer
+    ExplicitWidth = 603
   end
   object Bevel2: TBevel
     Left = 0
-    Top = 358
-    Width = 603
+    Top = 376
+    Width = 702
     Height = 4
     Align = alTop
     Shape = bsSpacer
+    ExplicitTop = 358
+    ExplicitWidth = 603
   end
   object lblDicaFormaPagto: TLabel
     AlignWithMargins = True
     Left = 8
-    Top = 365
-    Width = 401
+    Top = 383
+    Width = 500
     Height = 29
     Alignment = taCenter
     Anchors = [akLeft, akRight, akBottom]
@@ -48,11 +51,13 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
     Font.Style = [fsBold]
     ParentFont = False
     WordWrap = True
+    ExplicitTop = 365
+    ExplicitWidth = 401
   end
   object GrpBxControle: TGroupBox
     Left = 0
     Top = 0
-    Width = 603
+    Width = 702
     Height = 73
     Align = alTop
     Caption = 'Controle da Venda'
@@ -63,6 +68,7 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 603
     object lblCodigo: TLabel
       Left = 16
       Top = 24
@@ -259,15 +265,17 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
   object GrpBxFormaPagto: TGroupBox
     Left = 0
     Top = 77
-    Width = 603
-    Height = 281
+    Width = 702
+    Height = 299
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     Caption = 'Dados de Transporte'
     TabOrder = 1
+    ExplicitWidth = 603
+    ExplicitHeight = 281
     DesignSize = (
-      603
-      281)
+      702
+      299)
     object lblModalidadeFrete: TLabel
       Left = 16
       Top = 25
@@ -377,10 +385,11 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
       Left = 16
       Top = 107
       Width = 265
-      Height = 166
-      Anchors = [akLeft, akTop, akRight, akBottom]
+      Height = 184
+      Anchors = [akLeft, akTop, akBottom]
       Caption = 'Volume(s)'
       TabOrder = 5
+      ExplicitHeight = 166
       object lblVolumeQtde: TLabel
         Left = 174
         Top = 16
@@ -412,9 +421,10 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
         Left = 2
         Top = 15
         Width = 4
-        Height = 149
+        Height = 167
         Align = alLeft
         Shape = bsSpacer
+        ExplicitHeight = 149
       end
       object lblVolumeEspecie: TLabel
         Left = 86
@@ -470,6 +480,22 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
         Font.Style = []
         ParentFont = False
       end
+      object lblVolumeCubagem: TLabel
+        Left = 174
+        Top = 136
+        Width = 62
+        Height = 13
+        Hint = 'Volume / Cubagem'
+        Caption = 'Volume (m'#179'):'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = True
+      end
       object dbVolumeNumero: TDBEdit
         Left = 86
         Top = 32
@@ -491,7 +517,7 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
         Left = 6
         Top = 15
         Width = 75
-        Height = 149
+        Height = 167
         Align = alLeft
         AutoSize = True
         BevelOuter = bvNone
@@ -502,6 +528,7 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 0
+        ExplicitHeight = 149
         object btnVolumeInserir: TBitBtn
           Left = 0
           Top = 1
@@ -914,12 +941,30 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
         TabOrder = 6
         OnExit = dbVolumePLiquidoExit
       end
+      object dbVolumeCubagem: TDBEdit
+        Left = 174
+        Top = 152
+        Width = 81
+        Height = 21
+        CharCase = ecUpperCase
+        Color = clWhite
+        DataField = 'CUBAGEM'
+        DataSource = frmGeVenda.dtsVendaVolume
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 7
+        OnExit = dbVolumePLiquidoExit
+      end
     end
     object dbgVolumes: TDBGrid
       Left = 288
       Top = 80
-      Width = 297
-      Height = 193
+      Width = 396
+      Height = 211
       Anchors = [akLeft, akTop, akRight, akBottom]
       DataSource = frmGeVenda.dtsVendaVolume
       Font.Charset = ANSI_CHARSET
@@ -960,12 +1005,19 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
           Title.Caption = 'Peso L'#237'quido '
           Width = 80
           Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'CUBAGEM'
+          Title.Caption = 'Volume (m'#179')'
+          Width = 80
+          Visible = True
         end>
     end
     object dbTransportadora: TJvDBComboEdit
       Left = 288
       Top = 40
-      Width = 297
+      Width = 396
       Height = 21
       ButtonHint = 'Pesquisar Transportadora (Ctrl+P)'
       CharCase = ecUpperCase
@@ -1029,6 +1081,7 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
         1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
         B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
         C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
+      Anchors = [akLeft, akTop, akRight]
       NumGlyphs = 2
       ParentFont = False
       ParentShowHint = False
@@ -1036,6 +1089,7 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
       ShowHint = True
       TabOrder = 1
       OnButtonClick = dbTransportadoraButtonClick
+      ExplicitWidth = 297
     end
     object dbPlacaUF: TJvDBComboEdit
       Left = 120
@@ -1113,8 +1167,8 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
     end
   end
   object btnConfirmar: TcxButton
-    Left = 415
-    Top = 363
+    Left = 514
+    Top = 381
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -1173,10 +1227,12 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
     OptionsImage.NumGlyphs = 2
     TabOrder = 2
     OnClick = btnConfirmarClick
+    ExplicitLeft = 415
+    ExplicitTop = 363
   end
   object btnCancelar: TcxButton
-    Left = 511
-    Top = 363
+    Left = 610
+    Top = 381
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -1236,6 +1292,8 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
     OptionsImage.NumGlyphs = 2
     TabOrder = 3
     OnClick = btnCancelarClick
+    ExplicitLeft = 511
+    ExplicitTop = 363
   end
   object dtsVendaVolume: TDataSource
     DataSet = frmGeVenda.cdsVendaVolume
@@ -1249,9 +1307,11 @@ inherited frmGeVendaTransporte: TfrmGeVendaTransporte
     SQL.Strings = (
       'Select'
       '    sum( v.qtde ) as quantidade'
-      '  , sum( v.qtde * coalesce(p.peso_bruto, 0) )   as peso_bruto'
-      '  , sum( v.qtde * coalesce(p.peso_liquido, 0) ) as peso_liquido'
-      '  , sum( v.qtde * coalesce(p.cubagem, 0) )      as volume'
+      '  , sum( v.qtde * coalesce(p.peso_bruto, 0.0) )   as peso_bruto'
+      
+        '  , sum( v.qtde * coalesce(p.peso_liquido, 0.0) ) as peso_liquid' +
+        'o'
+      '  , sum( v.qtde * coalesce(p.cubagem, 0.0) )      as volume'
       'from TVENDASITENS v'
       '  inner join TBPRODUTO p on (p.cod = v.codprod)'
       'where v.ano = :ano_venda'

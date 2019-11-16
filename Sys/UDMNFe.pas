@@ -348,6 +348,7 @@ type
     function GetInformacaoComplementar(const sCNPJEmitente : String) : String;
     function GetValidadeCertificado(const sCNPJEmitente : String; const Informe : Boolean = FALSE) : Boolean;
     function GetNumeroSerieCertificado(const sCNPJEmitente : String) : String;
+    function GetFileNameDANFE_FR3 : String;
 
     function GetPathNFeXML(const sCNPJEmitente : String) : String;
     function GetGerarChaveNFeXML(const sCNPJEmitente : String;
@@ -791,9 +792,11 @@ begin
 
   FImprimirCabecalho := True;
 
+  frrNFeRetrato.SaveToFile( ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST );
   frrNFeRetrato.SaveToFile ( StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Retrato.fr3',  [rfReplaceAll]) );
   frrNFePaisagem.SaveToFile( StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Paisagem.fr3', [rfReplaceAll]) );
-  frrNFeInutilizacao.SaveToFile  ( ExtractFilePath(ParamStr(0)) + FILENAME_NFE_INUTIL );
+  frrNFeEventoCCe.SaveToFile   ( ExtractFilePath(ParamStr(0)) + FILENAME_NFE_EVENTO );
+  frrNFeInutilizacao.SaveToFile( ExtractFilePath(ParamStr(0)) + FILENAME_NFE_INUTIL );
 
   frrBoletoEntrega.SaveToFile( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO_ENTREGA );
   frrBoletoFatura.SaveToFile ( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO_FATURA );
@@ -1287,7 +1290,7 @@ begin
 
   finally
     sFileNFERave   := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_RAVE;
-    sFileNFEFast   := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST;
+    sFileNFEFast   := GetFileNameDANFE_FR3;
     sFileNFEEvento := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_EVENTO;
     sFileNFEInutil := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_INUTIL;
 
@@ -1656,6 +1659,20 @@ begin
   end;
 
   Result := IfThen(sTexto = EmptyStr, Trim(ConfigACBr.edInfoFisco.Text), sTexto);
+end;
+
+function TDMNFe.GetFileNameDANFE_FR3 : String;
+var
+  aRetorno : String;
+begin
+  aRetorno := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST;
+
+  if (ConfigACBr.rgTipoDanfe.ItemIndex = 0) then
+    aRetorno := StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Retrato.fr3',  [rfReplaceAll])
+  else
+    aRetorno := StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Paisagem.fr3', [rfReplaceAll]);
+
+  Result := Trim(aRetorno);
 end;
 
 function TDMNFe.GetPathNFeXML(const sCNPJEmitente : String) : String;

@@ -14834,19 +14834,19 @@ object DMNFe: TDMNFe
     end
   end
   object frDANFE: TACBrNFeDANFEFR
+    MostraSetup = True
     PathPDF = '..\Bin\'
     Sistema = #193'gil Solu'#231#245'es em Softwares'
-    MargemInferior = 0.800000000000000000
-    MargemSuperior = 0.800000000000000000
-    MargemEsquerda = 0.600000000000000000
-    MargemDireita = 0.510000000000000000
+    MargemInferior = 8.000000000000000000
+    MargemSuperior = 8.000000000000000000
+    MargemEsquerda = 6.000000000000000000
+    MargemDireita = 5.100000000000000000
     CasasDecimais.Formato = tdetInteger
     CasasDecimais.qCom = 2
     CasasDecimais.vUnCom = 2
     CasasDecimais.MaskqCom = ',0.###'
     CasasDecimais.MaskvUnCom = ',0.00'
     EspessuraBorda = 1
-    ExpandirDadosAdicionaisAuto = False
     BorderIcon = [biSystemMenu, biMinimize, biMaximize]
     Left = 24
     Top = 72
@@ -20645,7 +20645,7 @@ object DMNFe: TDMNFe
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40401.475989294000000000
-    ReportOptions.LastChange = 43711.797431770840000000
+    ReportOptions.LastChange = 43711.797431770800000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       
@@ -24736,7 +24736,7 @@ object DMNFe: TDMNFe
           VAlign = vaCenter
         end
         object quadroRetiradainscricao: TfrxMemoView
-          Left = 663.307086614173100000
+          Left = 663.307086614173000000
           Top = 16.251968500000000000
           Width = 98.267780000000000000
           Height = 24.566929130000000000
@@ -24834,7 +24834,7 @@ object DMNFe: TDMNFe
         end
         object quadroRetiradaMemo07: TfrxMemoView
           ShiftMode = smWhenOverlapped
-          Top = 69.921259842519710000
+          Top = 69.921259842519700000
           Width = 744.566929130000000000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -24901,7 +24901,7 @@ object DMNFe: TDMNFe
           ParentFont = False
         end
         object quadroRetiradaCep: TfrxMemoView
-          Left = 663.307086614173100000
+          Left = 663.307086614173000000
           Top = 42.708661417322800000
           Width = 79.370027480000000000
           Height = 24.566929130000000000
@@ -24947,7 +24947,7 @@ object DMNFe: TDMNFe
         object quadroRetiradaMemo09: TfrxMemoView
           ShiftMode = smWhenOverlapped
           Left = 661.417322834646000000
-          Top = 69.921259842519710000
+          Top = 69.921259842519700000
           Width = 83.149606299212600000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -24967,7 +24967,7 @@ object DMNFe: TDMNFe
         object quadroRetiradaMemo08: TfrxMemoView
           ShiftMode = smWhenOverlapped
           Left = 631.181102360000000000
-          Top = 69.921259842519710000
+          Top = 69.921259842519700000
           Width = 24.566929133858300000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -25164,7 +25164,7 @@ object DMNFe: TDMNFe
         object quadroEntregaMemo09: TfrxMemoView
           ShiftMode = smWhenOverlapped
           Left = 661.417322834646000000
-          Top = 69.921259842519710000
+          Top = 69.921259842519700000
           Width = 83.149606299212600000
           Height = 24.566929130000000000
           Font.Charset = DEFAULT_CHARSET
@@ -25236,7 +25236,7 @@ object DMNFe: TDMNFe
           ParentFont = False
         end
         object quadroEntregaInscricao: TfrxMemoView
-          Left = 663.307086614173100000
+          Left = 663.307086614173000000
           Top = 16.251968500000000000
           Width = 98.267780000000000000
           Height = 24.566929130000000000
@@ -25286,7 +25286,7 @@ object DMNFe: TDMNFe
           ParentFont = False
         end
         object quadroEntregaCep: TfrxMemoView
-          Left = 663.307086614173100000
+          Left = 663.307086614173000000
           Top = 42.708661417322800000
           Width = 75.590551181102400000
           Height = 24.566929130000000000
@@ -25565,10 +25565,14 @@ object DMNFe: TDMNFe
           Memo.UTF8W = (
             
               'Recebemos de [Emitente."XNome"] os produtos e/ou servi'#231'os consta' +
-              'ntes da Nota Fiscal Eletr'#244'nica indicada ao lado. '
-            '[Parametros."ResumoCanhoto"]')
+              'ntes da Nota Fiscal Eletr'#244'nica indicada ao lado. [Parametros."Re' +
+              'sumoCanhoto"]')
           ParentFont = False
-          WordWrap = False
+          Formats = <
+            item
+            end
+            item
+            end>
         end
         object Memo3: TfrxMemoView
           Left = 145.511811020000000000
@@ -25786,7 +25790,7 @@ object DMNFe: TDMNFe
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40401.475989294000000000
-    ReportOptions.LastChange = 43711.797950474540000000
+    ReportOptions.LastChange = 43711.797950474500000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       
@@ -26899,7 +26903,6 @@ object DMNFe: TDMNFe
               'ntes da Nota Fiscal Eletr'#244'nica indicada ao lado. '
             '[Parametros."ResumoCanhoto"]')
           ParentFont = False
-          WordWrap = False
         end
         object MemCanhotoCabecalhoAssinatura: TfrxMemoView
           Left = 143.622140000000000000
@@ -27123,7 +27126,7 @@ object DMNFe: TDMNFe
           Left = 128.504020000000000000
           Top = 57.448818897637800000
           Width = 219.212740000000000000
-          Height = 60.472440944881890000
+          Height = 60.472440944881900000
           OnBeforePrint = 'Memo11OnBeforePrint'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -30262,7 +30265,7 @@ object DMNFe: TDMNFe
         FillType = ftBrush
         Frame.Typ = []
         Height = 98.267716540000000000
-        Top = 525.354670000000100000
+        Top = 525.354670000000000000
         Width = 1084.725110000000000000
         DataSetName = 'LocalEntrega'
         RowCount = 0
@@ -30377,7 +30380,7 @@ object DMNFe: TDMNFe
         object quadroEntregaMemo09: TfrxMemoView
           ShiftMode = smWhenOverlapped
           Left = 982.677165350000000000
-          Top = 69.921259842519710000
+          Top = 69.921259842519700000
           Width = 102.047244090000000000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -30601,7 +30604,7 @@ object DMNFe: TDMNFe
         object quadroEntregaMemo08: TfrxMemoView
           ShiftMode = smWhenOverlapped
           Left = 941.102970000000000000
-          Top = 69.921259842519710000
+          Top = 69.921259842519700000
           Width = 40.818897640000000000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -30795,7 +30798,7 @@ object DMNFe: TDMNFe
         end
         object quadroRetiradaMemo07: TfrxMemoView
           ShiftMode = smWhenOverlapped
-          Top = 69.921259842519710000
+          Top = 69.921259842519700000
           Width = 941.102359760000000000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -30910,7 +30913,7 @@ object DMNFe: TDMNFe
         object quadroRetiradaMemo09: TfrxMemoView
           ShiftMode = smWhenOverlapped
           Left = 982.677165350000000000
-          Top = 69.921259842519710000
+          Top = 69.921259842519700000
           Width = 102.047244090000000000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -30930,7 +30933,7 @@ object DMNFe: TDMNFe
         object quadroRetiradaMemo08: TfrxMemoView
           ShiftMode = smWhenOverlapped
           Left = 941.102362200000000000
-          Top = 69.921259842519710000
+          Top = 69.921259842519700000
           Width = 40.818897640000000000
           Height = 26.456692913385800000
           Font.Charset = DEFAULT_CHARSET
@@ -33350,29 +33353,27 @@ object DMNFe: TDMNFe
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 41247.809339340300000000
-    ReportOptions.LastChange = 43711.806337314820000000
+    ReportOptions.LastChange = 43711.806337314800000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'VAR'
       '  TITULO_CONTEXTO: String;'
-      
-        '  TEXTO_EVENTO: String;                                         ' +
-        '      '
+      '  TEXTO_EVENTO: String;'
       ''
       
         'procedure memJustificativaCorrecaoOnBeforePrint(Sender: TfrxComp' +
         'onent);'
       'begin'
-      '  '
+      ''
       '  if <Eventos."xJust"> <> '#39#39' then'
-      '  begin              '
-      '    TITULO_CONTEXTO := '#39'JUSTIFICATIVA'#39';  '
-      '    TEXTO_EVENTO := <Eventos."xJust">;  '
-      '  end            '
+      '  begin'
+      '    TITULO_CONTEXTO := '#39'JUSTIFICATIVA'#39';'
+      '    TEXTO_EVENTO := <Eventos."xJust">;'
+      '  end'
       '  else'
-      '  begin              '
+      '  begin'
       '    TITULO_CONTEXTO := '#39'CORRE'#199#195'O'#39';'
-      '    TEXTO_EVENTO := <Eventos."xCorrecao">;    '
+      '    TEXTO_EVENTO := <Eventos."xCorrecao">;'
       '  end;'
       ''
       'end;'
@@ -33382,26 +33383,26 @@ object DMNFe: TDMNFe
       '  BandEmitenteDestinatario.Visible := <PossuiNFe> = '#39'S'#39';'
       
         '  BandCondicoesUso.Visible         := <Eventos."xCondUso"> <> '#39#39 +
-        ';      '
+        ';'
       'end;'
       ''
       'procedure PageHeader1OnBeforePrint(Sender: TfrxComponent);'
       'begin'
-      '  '
+      ''
       '  if <Eventos."TipoEvento"> = '#39'110111'#39' then'
-      '  begin              '
+      '  begin'
       '    Memo40.Text:='#39'CANCELAMENTO DE NF-e'#39';'
-      '  end                '
+      '  end'
       '  else if <Eventos."TipoEvento"> = '#39'110112'#39' then'
-      '  begin              '
+      '  begin'
       '    Memo40.Text:='#39'CANCELAMENTO POR SUBSTITUI'#199#195'O DE NF-e'#39';'
-      '  end                '
+      '  end'
       '  else'
-      '  begin              '
+      '  begin'
       '    Memo40.Text:='#39'CARTA DE CORRE'#199#195'O ELETR'#212'NICA'#39';'
       '  end;'
       '    Memo1.Text := Memo40.Text;'
-      '  '
+      ''
       'end;'
       ''
       'begin'
@@ -33517,7 +33518,7 @@ object DMNFe: TDMNFe
         end
         object Memo2: TfrxMemoView
           Align = baWidth
-          Top = 30.236239999999990000
+          Top = 30.236240000000000000
           Width = 718.110700000000000000
           Height = 37.795300000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -34827,8 +34828,8 @@ object DMNFe: TDMNFe
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42383.572136122690000000
-    ReportOptions.LastChange = 43711.806957673610000000
+    ReportOptions.CreateDate = 42383.572136122700000000
+    ReportOptions.LastChange = 43711.806957673600000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -41633,6 +41634,7 @@ object DMNFe: TDMNFe
       '  , v.marca'
       '  , v.peso_bruto'
       '  , v.peso_liquido'
+      '  , v.cubagem'
       'from TBVENDAS_VOLUME v'
       'where v.ano_venda = :anovenda'
       '  and v.controle_venda = :numvenda')

@@ -192,7 +192,12 @@ procedure TfrmGeEstoqueAjusteManual.FormKeyDown(Sender: TObject;
 begin
   inherited;
   if ( Key = VK_ESCAPE ) then
-    Self.Close;
+  begin
+    if (qryAjuste.State in [TDataSetState.dsInsert, TDataSetState.dsEdit]) then
+      qryAjuste.Cancel
+    else
+      Self.Close;
+  end;
 end;
 
 procedure TfrmGeEstoqueAjusteManual.dtsAjusteStateChange(Sender: TObject);

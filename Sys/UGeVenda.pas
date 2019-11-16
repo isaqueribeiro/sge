@@ -427,6 +427,7 @@ type
     qryNFENUMCOMPRA: TIntegerField;
     fdQryTabelaPESSOA_FISICA: TSmallintField;
     fdQryTabelaINSCEST: TStringField;
+    cdsVendaVolumeCUBAGEM: TBCDField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

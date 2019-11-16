@@ -4140,7 +4140,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00F00110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00F40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -7362,6 +7362,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  , v.marca'
       '  , v.peso_bruto'
       '  , v.peso_liquido'
+      '  , v.cubagem'
       'from TBVENDAS_VOLUME v')
     Left = 520
     Top = 360
@@ -7422,6 +7423,13 @@ inherited frmGeVenda: TfrmGeVenda
       Precision = 18
       Size = 3
     end
+    object cdsVendaVolumeCUBAGEM: TBCDField
+      DisplayLabel = 'Volume/Cubagem'
+      FieldName = 'CUBAGEM'
+      Origin = 'CUBAGEM'
+      DisplayFormat = ',0.##'
+      Precision = 18
+    end
   end
   object updVendaVolume: TFDUpdateSQL
     Connection = DMBusiness.fdConexao
@@ -7429,12 +7437,12 @@ inherited frmGeVenda: TfrmGeVenda
       'INSERT INTO TBVENDAS_VOLUME'
       '(ANO_VENDA, CONTROLE_VENDA, SEQUENCIAL, NUMERO, '
       '  QUANTIDADE, ESPECIE, MARCA, PESO_BRUTO, '
-      '  PESO_LIQUIDO)'
+      '  PESO_LIQUIDO, CUBAGEM)'
       
         'VALUES (:NEW_ANO_VENDA, :NEW_CONTROLE_VENDA, :NEW_SEQUENCIAL, :N' +
         'EW_NUMERO, '
       '  :NEW_QUANTIDADE, :NEW_ESPECIE, :NEW_MARCA, :NEW_PESO_BRUTO, '
-      '  :NEW_PESO_LIQUIDO)')
+      '  :NEW_PESO_LIQUIDO, :NEW_CUBAGEM)')
     ModifySQL.Strings = (
       'UPDATE TBVENDAS_VOLUME'
       
@@ -7446,7 +7454,7 @@ inherited frmGeVenda: TfrmGeVenda
       
         '  ESPECIE = :NEW_ESPECIE, MARCA = :NEW_MARCA, PESO_BRUTO = :NEW_' +
         'PESO_BRUTO, '
-      '  PESO_LIQUIDO = :NEW_PESO_LIQUIDO'
+      '  PESO_LIQUIDO = :NEW_PESO_LIQUIDO, CUBAGEM = :NEW_CUBAGEM'
       
         'WHERE ANO_VENDA = :OLD_ANO_VENDA AND CONTROLE_VENDA = :OLD_CONTR' +
         'OLE_VENDA AND '
@@ -7461,7 +7469,7 @@ inherited frmGeVenda: TfrmGeVenda
       
         'SELECT ANO_VENDA, CONTROLE_VENDA, SEQUENCIAL, NUMERO, QUANTIDADE' +
         ', ESPECIE, '
-      '  MARCA, PESO_BRUTO, PESO_LIQUIDO'
+      '  MARCA, PESO_BRUTO, PESO_LIQUIDO, CUBAGEM'
       'FROM TBVENDAS_VOLUME'
       
         'WHERE ANO_VENDA = :ANO_VENDA AND CONTROLE_VENDA = :CONTROLE_VEND' +
