@@ -1885,7 +1885,7 @@ inherited frmGeVenda: TfrmGeVenda
         Top = 427
         Width = 1108
         Height = 186
-        ActivePage = TbsInformeNFe
+        ActivePage = tbsRecebimento
         Align = alBottom
         TabOrder = 3
         object tbsRecebimento: TTabSheet
@@ -2922,14 +2922,14 @@ inherited frmGeVenda: TfrmGeVenda
                 Expanded = False
                 FieldName = 'NUMERO'
                 Title.Caption = 'Nro. Volume '
-                Width = 100
+                Width = 80
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'QUANTIDADE'
                 Title.Caption = 'Quantidade '
-                Width = 100
+                Width = 80
                 Visible = True
               end
               item
@@ -2943,6 +2943,13 @@ inherited frmGeVenda: TfrmGeVenda
                 Expanded = False
                 FieldName = 'PESO_LIQUIDO'
                 Title.Caption = 'P. L'#237'quido (Kg) '
+                Width = 100
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'CUBAGEM'
+                Title.Caption = 'Cubagem (m'#179')'
                 Width = 100
                 Visible = True
               end>
@@ -4140,7 +4147,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00F40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00F80110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

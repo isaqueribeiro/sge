@@ -370,7 +370,12 @@
       </TfrxMemoView>
     </TfrxChild>
     <TfrxChild Name="CanhotoCabecalhoPadrao" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="0" Height="79,37007874" Left="0" Top="45,35436" Width="744,56741" Child="CanhtoCabecalhoBarra" ToNRows="0" ToNRowsMode="rmCount">
-      <TfrxMemoView Name="Memo2" Left="0" Top="0" Width="641,29963" Height="37,79527559" Font.Charset="0" Font.Color="0" Font.Height="-9" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="13" Frame.Width="0,5" GapY="2" ParentFont="False" Text="Recebemos de [Emitente.&#34;XNome&#34;] os produtos e/ou serviços constantes da Nota Fiscal Eletrônica indicada ao lado. &#13;&#10;[Parametros.&#34;ResumoCanhoto&#34;]"/>
+      <TfrxMemoView Name="Memo2" Left="0" Top="0" Width="641,29963" Height="37,79527559" Font.Charset="0" Font.Color="0" Font.Height="-9" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="13" Frame.Width="0,5" GapY="2" ParentFont="False" Text="Recebemos de [Emitente.&#34;XNome&#34;] os produtos e/ou serviços constantes da Nota Fiscal Eletrônica indicada ao lado. [Parametros.&#34;ResumoCanhoto&#34;]">
+        <Formats>
+          <item/>
+          <item/>
+        </Formats>
+      </TfrxMemoView>
       <TfrxMemoView Name="Memo3" Left="145,51181102" Top="37,79527559" Width="495,11811024" Height="30,23624" Font.Charset="0" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="13" Frame.Width="0,5" GapY="2" ParentFont="False" Text="IDENTIFICAÇÃO E ASSINATURA DO RECEBEDOR"/>
       <TfrxMemoView Name="Memo4" Align="baWidth" Left="0" Top="37,79527559" Width="145,51181102" Height="30,23624" Font.Charset="0" Font.Color="0" Font.Height="-8" Font.Name="Times New Roman" Font.Style="0" Frame.Typ="15" Frame.Width="0,5" GapY="2" ParentFont="False" Text="DATA DO RECEBIMENTO"/>
       <TfrxLineView Name="Line1" Align="baWidth" Left="0" Top="73,81107" Width="744,56741" Height="0" Color="0" Frame.Style="fsDot" Frame.Typ="4" Frame.Width="0,5"/>

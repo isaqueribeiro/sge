@@ -3239,11 +3239,20 @@ begin
               if ( cPercentualTributoAprox > 0.0 ) then
               begin
                 vTotTrib  := SimpleRoundTo((Prod.vProd * cPercentualTributoAprox / 100), -2);
-                sInformacaoProduto := sInformacaoProduto +
-                  Trim(IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
-                    FormatFloat(',0.00', vTotTrib),
-                    FormatFloat(',0.##"%"', cPercentualTributoAprox)
-                  ]));
+
+                if (Trim(sInformacaoProduto) = EmptyStr) then
+                  sInformacaoProduto := sInformacaoProduto +
+                    Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+                      FormatFloat(',0.00', vTotTrib),
+                      FormatFloat(',0.##"%"', cPercentualTributoAprox)
+                    ])
+                else
+                  sInformacaoProduto := sInformacaoProduto + #13 +
+                    Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+                      FormatFloat(',0.00', vTotTrib),
+                      FormatFloat(',0.##"%"', cPercentualTributoAprox)
+                    ]);
+
                 infAdProd := sInformacaoProduto;
 
                 vTotalTributoAprox := vTotalTributoAprox + vTotTrib;
@@ -4905,11 +4914,25 @@ begin
               if ( cPercentualTributoAprox > 0.0 ) then
               begin
                 vTotTrib  := SimpleRoundTo((Prod.vProd * cPercentualTributoAprox / 100), -2);
-                sInformacaoProduto := sInformacaoProduto +
-                  Trim(IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
-                    FormatFloat(',0.00', vTotTrib),
-                    FormatFloat(',0.##"%"', cPercentualTributoAprox)
-                  ]));
+//                sInformacaoProduto := sInformacaoProduto +
+//                  Trim(IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+//                    FormatFloat(',0.00', vTotTrib),
+//                    FormatFloat(',0.##"%"', cPercentualTributoAprox)
+//                  ]));
+
+                if (Trim(sInformacaoProduto) = EmptyStr) then
+                  sInformacaoProduto := sInformacaoProduto +
+                    Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+                      FormatFloat(',0.00', vTotTrib),
+                      FormatFloat(',0.##"%"', cPercentualTributoAprox)
+                    ])
+                else
+                  sInformacaoProduto := sInformacaoProduto + #13 +
+                    Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+                      FormatFloat(',0.00', vTotTrib),
+                      FormatFloat(',0.##"%"', cPercentualTributoAprox)
+                    ]);
+
                 infAdProd := sInformacaoProduto;
 
                 vTotalTributoAprox := vTotalTributoAprox + vTotTrib;
@@ -7563,11 +7586,25 @@ begin
               if ( cPercentualTributoAprox > 0.0 ) then
               begin
                 vTotTrib  := SimpleRoundTo((Prod.vProd * cPercentualTributoAprox / 100), -2);
-                sInformacaoProduto := sInformacaoProduto +
-                  Trim(IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
-                    FormatFloat(',0.00', vTotTrib),
-                    FormatFloat(',0.##"%"', cPercentualTributoAprox)
-                  ]));
+//                sInformacaoProduto := sInformacaoProduto +
+//                  Trim(IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) + Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+//                    FormatFloat(',0.00', vTotTrib),
+//                    FormatFloat(',0.##"%"', cPercentualTributoAprox)
+//                  ]));
+
+                if (Trim(sInformacaoProduto) = EmptyStr) then
+                  sInformacaoProduto := sInformacaoProduto +
+                    Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+                      FormatFloat(',0.00', vTotTrib),
+                      FormatFloat(',0.##"%"', cPercentualTributoAprox)
+                    ])
+                else
+                  sInformacaoProduto := sInformacaoProduto + #13 +
+                    Format(' * Valor Aprox. Trib. R$ %s (%s). Fonte IBPT', [
+                      FormatFloat(',0.00', vTotTrib),
+                      FormatFloat(',0.##"%"', cPercentualTributoAprox)
+                    ]);
+
                 infAdProd := sInformacaoProduto;
 
                 vTotalTributoAprox := vTotalTributoAprox + vTotTrib;
