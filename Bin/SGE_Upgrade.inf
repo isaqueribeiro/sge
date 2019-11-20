@@ -1,8 +1,9 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 25/09/2019 21:09:00     #
+#    Gerado por AGIL SOFTWARES em : 19/11/2019 23:12:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Novos relatórios de Custo dos Materiais/Produtos vendidos no módulo Faturamento.
 - Novos relatórios de Lotes de Produtos no módulo Estoque de Produtos.
 - Novo módulo de relatórios de Contas A Pagar x Contas A Receber.
 - Ajustes de emissão de Notas Fiscais de Devolução.
@@ -34,7 +35,8 @@
 #url11=http://www.drhtransparencia.com.br/agil/upgrade/db/01002500.sql
 #url12=http://www.drhtransparencia.com.br/agil/upgrade/db/01002600.sql
 #url13=http://www.drhtransparencia.com.br/agil/upgrade/db/01002700.sql
+#url14=http://www.drhtransparencia.com.br/agil/upgrade/db/01002800.sql
 
 #method=0 (self-upgrade)
 
-#version=1.0.27.0
+#version=1.0.28.0
