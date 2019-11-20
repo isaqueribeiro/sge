@@ -14,6 +14,7 @@ uses
   function GetIPLocal : String;
   function GetExeVersion(const FileName : TFileName) : String; overload;
   function GetExeVersionID(const FileName : TFileName) : Currency; overload;
+  function GetExeVersionID : Currency; overload;
   function GetExeVersion : String; overload;
   function GetVersion   : String;
   function GetVersionID : Currency;
@@ -151,6 +152,25 @@ var
   aRetorno  : Currency;
 begin
   sVersao := GetExeVersion(FileName);
+
+  aVersao   := sVersao.Split(['.'], 4);
+  sVersaoID := EmptyStr;
+
+  for I := Low(aVersao) to High(aVersao) do
+    sVersaoID := sVersaoID + FormatFloat('00', StrToIntDef(aVersao[I], 0));
+
+  Result := StrToCurrDef(sVersaoID, 0);
+end;
+
+function GetExeVersionID : Currency;
+var
+  I : Integer;
+  sVersao   ,
+  sVersaoID : String;
+  aVersao   : TArray<String>;
+  aRetorno  : Currency;
+begin
+  sVersao := GetExeVersion;
 
   aVersao   := sVersao.Split(['.'], 4);
   sVersaoID := EmptyStr;

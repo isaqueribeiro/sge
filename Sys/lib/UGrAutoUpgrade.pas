@@ -83,8 +83,6 @@ uses
   uDMRecursos;
 
 procedure AtivarUpgradeAutomatico;
-var
-  aSistema : TFileName;
 begin
   if FormFunction.EstaAberto('frmGeAutoUpgrade') or Assigned(frmGeAutoUpgrade) then
     Exit;
@@ -98,8 +96,7 @@ begin
       with frmGeAutoUpgrade do
       begin
         BaixarInfo;
-        aSistema := ParamStr(0);
-        if GetExeVersionID(aSistema) < ObterIdVersaoHTTP(ObterVersaoHTTP) then
+        if GetExeVersionID < ObterIdVersaoHTTP(ObterVersaoHTTP) then
           if ShowConfirmation(Caption, ObterMessageHTTP + #13#13 + 'Deseja atualizar agora o sistema?') then
             BaixarAtualizacao;
       end;
@@ -232,13 +229,9 @@ begin
 end;
 
 procedure TfrmGeAutoUpgrade.btnVerificarUpgradeClick(Sender: TObject);
-var
-  aSistema : TFileName;
 begin
-  aSistema := ParamStr(0);
-
   BaixarInfo;
-  if GetExeVersionID(aSistema) > ObterIdVersaoHTTP(ObterVersaoHTTP) then
+  if GetExeVersionID >= ObterIdVersaoHTTP(ObterVersaoHTTP) then
   begin
     lblProgresso.Caption := 'Nenhuma versão nova disponível!';
     ShowInformation(Self.Caption, 'Nenhuma versão nova disponível!' + #13 + 'Você está com a versão mais atual do sistema.');
@@ -406,10 +399,13 @@ begin
   if (ACBrDownload.DownloadNomeArq = UPGRADE_AGIL) then
   begin
     aComando := UPGRADE_AGIL + ' ' + GetInternalName;
-    ShowInformation('Atualização Agil', 'Esta aplicação será fechada para que o processo de atualização seja iniciado.');
-    Application.Terminate;
+    ShowInformation('Atualização Agil',
+      'Esta aplicação será fechada para que o processo de atualização seja iniciado.' + #13 +
+      '° Command : ' + aComando);
 
-    ShellExecute(Handle, 'Open', PChar(aComando), '', '', SW_NORMAL);
+    ShellExecute(Handle, 'Open', PChar(aComando), PChar(GetInternalName), '', SW_NORMAL);
+
+    Application.Terminate;
   end;
 end;
 

@@ -2929,10 +2929,10 @@ begin
     SQL.Add('    nf.numero ');
     SQL.Add('  , nf.chave  ');
     SQL.Add('from TBNFE_ENVIADA nf');
-    SQL.Add('where (cf.empresa = ' + QuotedStr(aCNPJEmpresa) + ')');
-    SQL.Add('  and (cf.serie   = ' + QuotedStr(aSerie) + ')');
-    SQL.Add('  and (cf.numero  = ' + FormatFloat('#############', aNumero) + ')');
-    SQL.Add('  and (cf.modelo  = ' + FormatFloat('#############', aModelo) + ')');
+    SQL.Add('where (nf.empresa = ' + QuotedStr(aCNPJEmpresa) + ')');
+    SQL.Add('  and (nf.serie   = ' + QuotedStr(aSerie) + ')');
+    SQL.Add('  and (nf.numero  = ' + FormatFloat('#############', aNumero) + ')');
+    SQL.Add('  and (nf.modelo  = ' + FormatFloat('#############', aModelo) + ')');
     Open;
 
     Result := (FieldByName('numero').AsLargeInt > 0);
