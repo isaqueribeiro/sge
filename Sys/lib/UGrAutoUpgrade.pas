@@ -231,7 +231,7 @@ end;
 procedure TfrmGeAutoUpgrade.btnVerificarUpgradeClick(Sender: TObject);
 begin
   BaixarInfo;
-  if GetExeVersionID >= ObterIdVersaoHTTP(ObterVersaoHTTP) then
+  if GetExeVersionID > ObterIdVersaoHTTP(ObterVersaoHTTP) then
   begin
     lblProgresso.Caption := 'Nenhuma versão nova disponível!';
     ShowInformation(Self.Caption, 'Nenhuma versão nova disponível!' + #13 + 'Você está com a versão mais atual do sistema.');
@@ -398,14 +398,11 @@ var
 begin
   if (ACBrDownload.DownloadNomeArq = UPGRADE_AGIL) then
   begin
-    aComando := UPGRADE_AGIL + ' ' + GetInternalName;
-    ShowInformation('Atualização Agil',
-      'Esta aplicação será fechada para que o processo de atualização seja iniciado.' + #13 +
-      '° Command : ' + aComando);
+    aComando := ExtractFilePath(ParamStr(0)) + UPGRADE_AGIL;
+    ShowInformation('Atualização Agil', 'Esta aplicação será fechada para que o processo de atualização seja iniciado.');
+    Application.Terminate;
 
     ShellExecute(Handle, 'Open', PChar(aComando), PChar(GetInternalName), '', SW_NORMAL);
-
-    Application.Terminate;
   end;
 end;
 

@@ -27,8 +27,6 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
     ExplicitWidth = 934
     ExplicitHeight = 518
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel4: TBevel
@@ -1046,10 +1044,6 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
         TabOrder = 4
         object tbsHistorico: TTabSheet
           Caption = 'Hist'#243'rico'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -1724,7 +1718,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
     Left = 608
     Top = 0
     Bitmap = {
-      494C01012B002C00980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C009C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3186,7 +3180,6 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
   inherited fdQryTabela: TFDQuery
     BeforePost = fdQryTabelaBeforePost
     AfterScroll = fdQryTabelaAfterScroll
-    OnNewRecord = fdQryTabelaNewRecord
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
     UpdateOptions.GeneratorName = 'GEN_CONTAREC_NUM_2019'

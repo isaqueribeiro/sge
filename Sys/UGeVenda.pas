@@ -18,7 +18,7 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, ACBrBase, ACBrExtenso;
 
 type
   TfrmGeVenda = class(TfrmGrPadraoCadastro)
@@ -428,6 +428,38 @@ type
     fdQryTabelaPESSOA_FISICA: TSmallintField;
     fdQryTabelaINSCEST: TStringField;
     cdsVendaVolumeCUBAGEM: TBCDField;
+    nmGerarReciboAvulso: TMenuItem;
+    CdsRecibo: TClientDataSet;
+    CdsReciboANOLANC: TSmallintField;
+    CdsReciboNUMLANC: TIntegerField;
+    CdsReciboPARCELA: TSmallintField;
+    CdsReciboCLIENTE: TIntegerField;
+    CdsReciboRZSOC: TStringField;
+    CdsReciboEMPRESA_CNPJ: TStringField;
+    CdsReciboNOME: TStringField;
+    CdsReciboPESSOA_FISICA: TSmallintField;
+    CdsReciboCNPJ: TStringField;
+    CdsReciboTIPPAG: TStringField;
+    CdsReciboDTEMISS: TDateField;
+    CdsReciboDTVENC: TDateField;
+    CdsReciboDTREC: TDateField;
+    CdsReciboVALORREC: TBCDField;
+    CdsReciboBANCO: TSmallintField;
+    CdsReciboBCO_NOME: TStringField;
+    CdsReciboNUMERO_CHEQUE: TStringField;
+    CdsReciboPAGO_: TStringField;
+    CdsReciboDOCBAIX: TStringField;
+    CdsReciboBAIXADO: TSmallintField;
+    CdsReciboSEQ: TSmallintField;
+    CdsReciboDATA_PAGTO: TDateField;
+    CdsReciboFORMA_PAGTO: TSmallintField;
+    CdsReciboFORMA_PAGTO_DESC: TStringField;
+    CdsReciboHISTORICO: TMemoField;
+    CdsReciboVALOR_BAIXA: TBCDField;
+    CdsReciboVALOR_BAIXA_EXTENSO: TStringField;
+    ACBrExtenso: TACBrExtenso;
+    FrReciboA4: TfrxReport;
+    FrdRecibo: TfrxDBDataset;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -498,6 +530,7 @@ type
     procedure fdQryTabelaSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure fdQryTabelaLUCRO_CALCULADOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure dbCSTKeyPress(Sender: TObject; var Key: Char);
+    procedure nmGerarReciboAvulsoClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -1192,7 +1225,7 @@ begin
     end;
   end;
 end;
-                                               
+
 procedure TfrmGeVenda.CarregarDadosEmpresa(const pEmpresa, pTituloRelatorio : String);
 begin
   try
@@ -1223,6 +1256,7 @@ begin
     nmImprimirNotaEntrega.Enabled   := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
     nmImprimirNotaEntregaX.Enabled  := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
     nmImprimirCartaCredito.Enabled  := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) ) and (DtSrcTabela.DataSet.FieldByName('GERAR_ESTOQUE_CLIENTE').AsInteger = 1);
+    nmGerarReciboAvulso.Enabled     := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
     nmGerarDANFEXML.Enabled         := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE);
     nmEnviarEmailCliente.Enabled    := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE);
 
@@ -1251,6 +1285,7 @@ begin
     nmImprimirNotaEntrega.Enabled   := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
     nmImprimirNotaEntregaX.Enabled  := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
     nmImprimirCartaCredito.Enabled  := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) ) and (DtSrcTabela.DataSet.FieldByName('GERAR_ESTOQUE_CLIENTE').AsInteger = 1);
+    nmGerarReciboAvulso.Enabled     := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
     nmGerarDANFEXML.Enabled         := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE);
     nmEnviarEmailCliente.Enabled    := False;
 
@@ -3230,6 +3265,62 @@ begin
     qryTitulos.Filter   := EmptyStr;
     qryTitulos.Filtered := False;
   end;
+end;
+
+procedure TfrmGeVenda.nmGerarReciboAvulsoClick(Sender: TObject);
+var
+  aComValor : Boolean;
+begin
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
+    Exit;
+
+  if not CdsRecibo.Active then
+    CdsRecibo.CreateDataSet;
+
+  CdsRecibo.Edit;
+
+  CdsReciboANOLANC.Value := fdQryTabelaANO.AsInteger;
+  CdsReciboNUMLANC.Value := fdQryTabelaCODCONTROL.AsInteger;
+  CdsReciboPARCELA.Value := 1;
+  CdsReciboCLIENTE.AsInteger       := fdQryTabelaCODCLIENTE.AsInteger;
+  CdsReciboRZSOC.AsString          := dbEmpresa.Text;
+  CdsReciboEMPRESA_CNPJ.AsString   := fdQryTabelaCODEMP.AsString;
+  CdsReciboNOME.AsString           := fdQryTabelaNOME.AsString;
+  CdsReciboPESSOA_FISICA.AsInteger := fdQryTabelaPESSOA_FISICA.AsInteger;
+  CdsReciboCNPJ.AsString           := fdQryTabelaCODCLI.AsString;
+//  CdsReciboTIPPAG: TStringField;
+//  CdsReciboDTEMISS: TDateField;
+//  CdsReciboDTVENC: TDateField;
+//  CdsReciboDTREC: TDateField;
+//  CdsReciboVALORREC: TBCDField;
+//  CdsReciboBANCO: TSmallintField;
+//  CdsReciboBCO_NOME: TStringField;
+//  CdsReciboNUMERO_CHEQUE: TStringField;
+//  CdsReciboPAGO_: TStringField;
+//  CdsReciboDOCBAIX: TStringField;
+//  CdsReciboBAIXADO: TSmallintField;
+//  CdsReciboSEQ: TSmallintField;
+//  CdsReciboDATA_PAGTO: TDateField;
+//  CdsReciboFORMA_PAGTO: TSmallintField;
+//  CdsReciboFORMA_PAGTO_DESC: TStringField;
+//  CdsReciboHISTORICO: TMemoField;
+  CdsReciboVALOR_BAIXA.AsCurrency       := fdQryTabelaTOTALVENDA.AsCurrency;
+  CdsReciboVALOR_BAIXA_EXTENSO.AsString := AnsiUpperCase(ACBrExtenso.ValorToTexto(CdsReciboVALOR_BAIXA.AsCurrency, ACBrExtenso.Formato));
+
+  CdsRecibo.Post;
+
+  aComValor := ShowConfirmation('Recibo', 'Deseja emitir o recibo com o Valor Total da venda?');
+
+  if ( aComValor )  then
+    frReport := FrReciboA4;
+//  else
+//  if ( Sender = popGerarReciboA5 )  then
+//    frReport := FrReciboA5;
+
+  SetVariablesDefault(frReport);
+
+  frReport.PrepareReport;
+  frReport.ShowReport;
 end;
 
 function TfrmGeVenda.GetGerarEstoqueCliente(const aCliente : Integer; const Alertar : Boolean = TRUE) : Boolean;
