@@ -391,7 +391,7 @@ end;
 procedure TfrmGeVendaPDV.CarregarVenda(const Empresa: String; const Ano,
   Controle: Integer);
 begin
-  with TIBDataSet(DataSetVenda) do
+  with TFDQuery(DataSetVenda) do
   begin
     Close;
     ParamByName('empresa').AsString   := Empresa;
@@ -634,7 +634,7 @@ end;
 procedure TfrmGeVendaPDV.CarregarItens(const Empresa: String; const Ano,
   Controle: Integer);
 begin
-  with TIBDataSet(DataSetItens) do
+  with TFDQuery(DataSetItens) do
   begin
     Close;
     ParamByName('empresa').AsString   := Empresa;
@@ -647,7 +647,7 @@ end;
 procedure TfrmGeVendaPDV.CarregarFormaPagto(const Empresa: String;
   const Ano, Controle: Integer);
 begin
-  with TIBDataSet(DataSetFormaPagto) do
+  with TFDQuery(DataSetFormaPagto) do
   begin
     Close;
     ParamByName('ano').AsInteger      := Ano;
@@ -682,8 +682,10 @@ begin
       begin
         if ShowConfirmation('Confirma o cancelamento do orçamento?') then
         begin
-          TIBDataSet(DataSetVenda).Delete;
-          TIBDataSet(DataSetVenda).ApplyUpdates;
+          TFDQuery(DataSetVenda).Delete;
+          TFDQuery(DataSetVenda).ApplyUpdates;
+          TFDQuery(DataSetVenda).CommitUpdates;
+
           CommitTransaction;
         end;
       end
@@ -745,7 +747,7 @@ end;
 
 procedure TfrmGeVendaPDV.CarregarDadosCFOP(iCodigo: Integer);
 begin
-  with TIBDataSet(dtsCFOP.DataSet) do
+  with TFDQuery(dtsCFOP.DataSet) do
   begin
     Close;
     ParamByName('Cfop_cod').AsInteger := iCodigo;
@@ -868,12 +870,12 @@ begin
         Abort;
       end;
 
-      TIBDataSet(dtsProduto.DataSet).Close;
-      TIBDataSet(dtsProduto.DataSet).ParamByName('Codigo').AsInteger     := iCodigo;
-      TIBDataSet(dtsProduto.DataSet).ParamByName('CodigoBarra').AsString := sCodigo;
-      TIBDataSet(dtsProduto.DataSet).Open;
+      TFDQuery(dtsProduto.DataSet).Close;
+      TFDQuery(dtsProduto.DataSet).ParamByName('Codigo').AsInteger     := iCodigo;
+      TFDQuery(dtsProduto.DataSet).ParamByName('CodigoBarra').AsString := sCodigo;
+      TFDQuery(dtsProduto.DataSet).Open;
 
-      if TIBDataSet(dtsProduto.DataSet).IsEmpty then
+      if TFDQuery(dtsProduto.DataSet).IsEmpty then
       begin
         Cancel;
         ShowWarning('Código do produto não cadastrado!');
@@ -1095,22 +1097,25 @@ begin
 
       // Grava Venda
 
-      TIBDataSet(DataSetVenda).Post;
-      TIBDataSet(DataSetVenda).ApplyUpdates;
+      TFDQuery(DataSetVenda).Post;
+      TFDQuery(DataSetVenda).ApplyUpdates;
+      TFDQuery(DataSetVenda).CommitUpdates;
 
       // Gravar Itens da Venda
 
       if (DataSetItens.State in [dsEdit, dsInsert]) then
-        TIBDataSet(DataSetItens).Post;
+        TFDQuery(DataSetItens).Post;
 
-      TIBDataSet(DataSetItens).ApplyUpdates;
+      TFDQuery(DataSetItens).ApplyUpdates;
+      TFDQuery(DataSetItens).CommitUpdates;
 
       // Gravar Forma de Pagamento da Venda
 
       if (DataSetFormaPagto.State in [dsEdit, dsInsert]) then
-        TIBDataSet(DataSetFormaPagto).Post;
+        TFDQuery(DataSetFormaPagto).Post;
 
-      TIBDataSet(DataSetFormaPagto).ApplyUpdates;
+      TFDQuery(DataSetFormaPagto).ApplyUpdates;
+      TFDQuery(DataSetFormaPagto).CommitUpdates;
 
       CommitTransaction;
 
@@ -1249,22 +1254,25 @@ begin
   DataSetVenda.FieldByName('CODCLI').Value     := edNomeCliente.Hint;    // CPF/CNPJ
   DataSetVenda.FieldByName('NOME').Value       := edNomeCliente.Caption;
 
-  TIBDataSet(DataSetVenda).Post;
-  TIBDataSet(DataSetVenda).ApplyUpdates;
+  TFDQuery(DataSetVenda).Post;
+  TFDQuery(DataSetVenda).ApplyUpdates;
+  TFDQuery(DataSetVenda).CommitUpdates;
 
   // Gravar Itens da Venda
 
   if (DataSetItens.State in [dsEdit, dsInsert]) then
-    TIBDataSet(DataSetItens).Post;
+    TFDQuery(DataSetItens).Post;
 
-  TIBDataSet(DataSetItens).ApplyUpdates;
+  TFDQuery(DataSetItens).ApplyUpdates;
+  TFDQuery(DataSetItens).CommitUpdates;
 
   // Gravar Forma de Pagamento da Venda
 
   if (DataSetFormaPagto.State in [dsEdit, dsInsert]) then
-    TIBDataSet(DataSetFormaPagto).Post;
+    TFDQuery(DataSetFormaPagto).Post;
 
-  TIBDataSet(DataSetFormaPagto).ApplyUpdates;
+  TFDQuery(DataSetFormaPagto).ApplyUpdates;
+  TFDQuery(DataSetFormaPagto).CommitUpdates;
 
   CommitTransaction;
 
@@ -1392,22 +1400,25 @@ begin
       DataSetVenda.FieldByName('NFE_VALOR_DESCONTO').AsCurrency      := dbValorDesconto.Field.AsCurrency;
       DataSetVenda.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency    := dbValorAPagar.Field.AsCurrency;
 
-      TIBDataSet(DataSetVenda).Post;
-      TIBDataSet(DataSetVenda).ApplyUpdates;
+      TFDQuery(DataSetVenda).Post;
+      TFDQuery(DataSetVenda).ApplyUpdates;
+      TFDQuery(DataSetVenda).CommitUpdates;
 
       // Gravar Itens da Venda
 
       if (DataSetItens.State in [dsEdit, dsInsert]) then
-        TIBDataSet(DataSetItens).Post;
+        TFDQuery(DataSetItens).Post;
 
-      TIBDataSet(DataSetItens).ApplyUpdates;
+      TFDQuery(DataSetItens).ApplyUpdates;
+      TFDQuery(DataSetItens).CommitUpdates;
 
       // Gravar Forma de Pagamento
 
       if (DataSetFormaPagto.State in [dsEdit, dsInsert]) then
-        TIBDataSet(DataSetFormaPagto).Post;
+        TFDQuery(DataSetFormaPagto).Post;
 
-      TIBDataSet(DataSetFormaPagto).ApplyUpdates;
+      TFDQuery(DataSetFormaPagto).ApplyUpdates;
+      TFDQuery(DataSetFormaPagto).CommitUpdates;
 
       CommitTransaction;
 
@@ -1449,8 +1460,9 @@ begin
         DataSetFormaPagto.Next;
       end;
 
-      TIBDataSet(DataSetVenda).Post;
-      TIBDataSet(DataSetVenda).ApplyUpdates;
+      TFDQuery(DataSetVenda).Post;
+      TFDQuery(DataSetVenda).ApplyUpdates;
+      TFDQuery(DataSetVenda).CommitUpdates;
 
       CommitTransaction;
 
@@ -1500,8 +1512,9 @@ begin
           DataSetVenda.FieldByName('NFE_DENEGADA').AsInteger       := 1;
           DataSetVenda.FieldByName('NFE_DENEGADA_MOTIVO').AsString := AnsiUpperCase(Trim(sDenegadaMotivo));
 
-          TIBDataSet(DataSetVenda).Post;
-          TIBDataSet(DataSetVenda).ApplyUpdates;
+          TFDQuery(DataSetVenda).Post;
+          TFDQuery(DataSetVenda).ApplyUpdates;
+          TFDQuery(DataSetVenda).CommitUpdates;
 
           CommitTransaction;
         end;
@@ -1802,7 +1815,7 @@ end;
 procedure TfrmGeVendaPDV.CarregarTitulos(const Empresa: String; const Ano,
   Controle: Integer);
 begin
-  with TIBDataSet(DataSetTitulo) do
+  with TFDQuery(DataSetTitulo) do
   begin
     Close;
     ParamByName('anovenda').AsInteger := Ano;
@@ -2174,7 +2187,7 @@ end;
 procedure TfrmGeVendaPDV.CarregarNotaFiscal(const Empresa: String;
   const Ano: Smallint; const Controle: Integer);
 begin
-  with TIBDataSet(DataSetNotaFiscal) do
+  with TFDQuery(DataSetNotaFiscal) do
   begin
     Close;
     ParamByName('empresa').AsString   := Empresa;

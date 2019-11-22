@@ -1,19 +1,19 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeContasAPagarAReceberImpressao.pas',0,1,1,1,1,0,0,,
-File_1=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderUpgradeMsg.pas',0,1,1,1,1,0,0,,
-File_2=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderWizard.pas',0,1,128,3,174,0,0,,
-File_3=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgrader.pas',0,1,992,93,999,0,0,,
-File_4=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrAutoUpgrade.pas',0,1,144,1,182,0,0,,
-File_5=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderUpgradeMsg.dfm',0,1,1,1,1,0,0,,
-File_6=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderWizard.dfm',0,1,1,1,1,0,0,,
-File_7=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auHTTPProxyEditor.pas',0,1,1,1,1,0,0,,
-File_8=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderAddURL.pas',0,1,1,1,1,0,0,,
-File_9=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderEditor.pas',0,1,1,1,1,0,0,,
-File_10=TSourceModule,'c:\delphi\tokyo\studio\19.0\source\rtl\win\Winapi.Windows.pas',0,1,38193,1,38226,0,0,,
-File_11=TSourceModule,'c:\delphi\tokyo\studio\19.0\source\rtl\common\System.Math.pas',0,1,525,101,529,0,0,,
-File_12=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadraoCadastro.pas',0,1,1081,30,1131,0,0,,{1
-File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,2271,5,2286,0,0,,{1
-File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVendaTransporte.pas',0,1,49,1,101,0,0,,
+File_0=TSourceModule,'c:\delphi\tokyo\studio\19.0\SOURCE\RTL\SYS\System.SysUtils.pas',0,1,25968,71,25973,0,0,,
+File_1=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeContasAPagarAReceberImpressao.pas',0,1,1,1,1,0,0,,
+File_2=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderUpgradeMsg.pas',0,1,1,1,1,0,0,,
+File_3=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderWizard.pas',0,1,128,3,174,0,0,,
+File_4=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgrader.pas',0,1,992,93,999,0,0,,
+File_5=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrAutoUpgrade.pas',0,1,144,1,182,0,0,,
+File_6=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderUpgradeMsg.dfm',0,1,1,1,1,0,0,,
+File_7=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderWizard.dfm',0,1,1,1,1,0,0,,
+File_8=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auHTTPProxyEditor.pas',0,1,1,1,1,0,0,,
+File_9=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderAddURL.pas',0,1,1,1,1,0,0,,
+File_10=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderEditor.pas',0,1,1,1,1,0,0,,
+File_11=TSourceModule,'c:\delphi\tokyo\studio\19.0\source\rtl\win\Winapi.Windows.pas',0,1,38193,1,38226,0,0,,
+File_12=TSourceModule,'c:\delphi\tokyo\studio\19.0\source\rtl\common\System.Math.pas',0,1,525,101,529,0,0,,
+File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadraoCadastro.pas',0,1,1081,30,1131,0,0,,{1
+File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,2271,5,2286,0,0,,{1
 
 [Modules]
 Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
@@ -205,13 +205,13 @@ EditViewName=C:\Delphi\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
 [View10]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
-CursorX=107
-CursorY=1289
-TopLine=1273
+CursorX=1
+CursorY=314
+TopLine=289
 LeftCol=1
 Elisions=
-Bookmarks={1,1297,1}
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
+Bookmarks={1,1292,1}
+EditViewName=Borland.FormDesignerView
 
 [UndockedDesigner]
 Count=0
@@ -404,6 +404,11 @@ LRDockWidth=1896
 Dockable=1
 StayOnTop=0
 SplitPos=111
+
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Align,
+ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0,"LiveBindings Designer=0"
 
 [frmDesignPreview]
 PercentageSizes=1

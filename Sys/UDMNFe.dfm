@@ -13463,9 +13463,9 @@ object DMNFe: TDMNFe
           ParentFont = False
         end
         object Memo15: TfrxMemoView
-          Left = 396.850650000000000000
+          Left = 381.732530000000000000
           Top = 294.803340000000000000
-          Width = 264.567100000000000000
+          Width = 279.685220000000000000
           Height = 37.795300000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -13473,6 +13473,7 @@ object DMNFe: TDMNFe
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = [ftTop]
+          Frame.Width = 0.100000000000000000
           HAlign = haCenter
           Memo.UTF8W = (
             '[frdCliente."NOME"]'
@@ -13487,7 +13488,7 @@ object DMNFe: TDMNFe
         object Memo42: TfrxMemoView
           Left = 37.795300000000000000
           Top = 294.803340000000000000
-          Width = 264.567100000000000000
+          Width = 279.685039370078700000
           Height = 37.795300000000000000
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -13495,6 +13496,7 @@ object DMNFe: TDMNFe
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = [ftTop]
+          Frame.Width = 0.100000000000000000
           HAlign = haCenter
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]'

@@ -531,6 +531,7 @@ type
     procedure fdQryTabelaLUCRO_CALCULADOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure dbCSTKeyPress(Sender: TObject; var Key: Char);
     procedure nmGerarReciboAvulsoClick(Sender: TObject);
+    procedure FrReciboA4GetValue(const VarName: string; var Value: Variant);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -623,9 +624,9 @@ implementation
 uses
   UDMBusiness, UFuncoes, UGeCliente, UGeCondicaoPagto, UGeProduto, UGeTabelaCFOP,
   UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos, UGeEfetuarPagtoREC,
-  UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte,
-  UGeVendaConfirmaTitulos, {$IFNDEF PDV}UGeVendaDevolucaoNF, UGeConsultarLoteNFe_v2, {$ENDIF}
-  UDMRecursos, UGrMemo, UGeRequisicaoCliente;
+  UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte, UGeVendaConfirmaTitulos,
+  {$IFNDEF PDV}UGeVendaDevolucaoNF, UGeConsultarLoteNFe_v2, UGeRequisicaoCliente, {$ENDIF}
+  UDMRecursos, UGrMemo;
 
 {$R *.dfm}
 
@@ -757,6 +758,7 @@ begin
     dbValorUnit.Color    := dbProduto.Color;
   end;
 
+  nmImprimirCartaCredito.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND]);
   nmGerarImprimirBoletos.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
   nmEnviarEmailCliente.Visible   := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
 
@@ -2171,7 +2173,7 @@ begin
         AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
         // Debitar Estoque Satélite do Cliente gerando uma Requisição Automática para o cliente
-
+        {$IFNDEF PDV}
         if ( (gSistema.Codigo = SISTEMA_GESTAO_OPME)
           and (DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger <> CONSUMIDOR_FINAL_CODIGO) // Não pode ser CONSUMIDOR FINAL
           and GetCfopFaturarRemessa(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger)             // CFOP de fatura de remessas de produtos já enviadas ao cliente
@@ -2182,6 +2184,7 @@ begin
             , DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger
             , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
             , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger);
+        {$ENDIF}
 
         ShowInformation('Venda finalizada com sucesso !' + #13#13 + 'Ano/Controle: ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger));
 
@@ -2591,7 +2594,7 @@ begin
     with DtSrcTabela.DataSet do
     begin
       RecarregarRegistro;
-
+      {$IFNDEF PDV}
       // Cancelar Requisição Automática gerada para o cliente
       if ( (gSistema.Codigo = SISTEMA_GESTAO_OPME)
         and (FieldByName('CODCLIENTE').AsInteger <> CONSUMIDOR_FINAL_CODIGO) // Não pode ser CONSUMIDOR FINAL
@@ -2604,6 +2607,7 @@ begin
           , FieldByName('ANO').AsInteger
           , FieldByName('CODCONTROL').AsInteger
           , FieldByName('CANCEL_MOTIVO').AsString);
+      {$ENDIF}
 
       ShowInformation('Venda cancelada com sucesso.' + #13#13 + 'Ano/Controle: ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger));
 
@@ -3269,7 +3273,11 @@ end;
 
 procedure TfrmGeVenda.nmGerarReciboAvulsoClick(Sender: TObject);
 var
-  aComValor : Boolean;
+  aComValor  : Boolean;
+  aHistorico : String;
+const
+  MSG_REF_NFE = 'quitação da Nota Fiscal No. %s';
+  MSG_REF_DOC = 'quitação da Venda No. %s';
 begin
   if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
@@ -3277,46 +3285,46 @@ begin
   if not CdsRecibo.Active then
     CdsRecibo.CreateDataSet;
 
-  CdsRecibo.Edit;
+  aComValor := ShowConfirmation('Recibo', 'Deseja emitir o recibo com o Valor Total da venda?');
 
-  CdsReciboANOLANC.Value := fdQryTabelaANO.AsInteger;
-  CdsReciboNUMLANC.Value := fdQryTabelaCODCONTROL.AsInteger;
-  CdsReciboPARCELA.Value := 1;
-  CdsReciboCLIENTE.AsInteger       := fdQryTabelaCODCLIENTE.AsInteger;
-  CdsReciboRZSOC.AsString          := dbEmpresa.Text;
-  CdsReciboEMPRESA_CNPJ.AsString   := fdQryTabelaCODEMP.AsString;
-  CdsReciboNOME.AsString           := fdQryTabelaNOME.AsString;
-  CdsReciboPESSOA_FISICA.AsInteger := fdQryTabelaPESSOA_FISICA.AsInteger;
-  CdsReciboCNPJ.AsString           := fdQryTabelaCODCLI.AsString;
-//  CdsReciboTIPPAG: TStringField;
-//  CdsReciboDTEMISS: TDateField;
-//  CdsReciboDTVENC: TDateField;
-//  CdsReciboDTREC: TDateField;
-//  CdsReciboVALORREC: TBCDField;
-//  CdsReciboBANCO: TSmallintField;
-//  CdsReciboBCO_NOME: TStringField;
-//  CdsReciboNUMERO_CHEQUE: TStringField;
-//  CdsReciboPAGO_: TStringField;
-//  CdsReciboDOCBAIX: TStringField;
-//  CdsReciboBAIXADO: TSmallintField;
-//  CdsReciboSEQ: TSmallintField;
-//  CdsReciboDATA_PAGTO: TDateField;
-//  CdsReciboFORMA_PAGTO: TSmallintField;
-//  CdsReciboFORMA_PAGTO_DESC: TStringField;
-//  CdsReciboHISTORICO: TMemoField;
-  CdsReciboVALOR_BAIXA.AsCurrency       := fdQryTabelaTOTALVENDA.AsCurrency;
-  CdsReciboVALOR_BAIXA_EXTENSO.AsString := AnsiUpperCase(ACBrExtenso.ValorToTexto(CdsReciboVALOR_BAIXA.AsCurrency, ACBrExtenso.Formato));
+  with DtSrcTabela.DataSet do
+  begin
+    if ( FieldByName('NFE').AsLargeInt > 0 ) then
+      aHistorico := Format(MSG_REF_NFE, [FormatFloat('###0000000', FieldByName('NFE').AsLargeInt)])
+    else
+      aHistorico := Format(MSG_REF_DOC, [FieldByName('ANO').AsString + '/' + FormatFloat('##00000', FieldByName('CODCONTROL').AsInteger)]);
+
+    CdsRecibo.Edit;
+
+    CdsReciboANOLANC.Value := fdQryTabelaANO.AsInteger;
+    CdsReciboNUMLANC.Value := fdQryTabelaCODCONTROL.AsInteger;
+    CdsReciboPARCELA.Value := 1;
+    CdsReciboSEQ.Value     := 1;
+    CdsReciboCLIENTE.AsInteger       := FieldByName('CODCLIENTE').AsInteger;
+    CdsReciboRZSOC.AsString          := dbEmpresa.Text;
+    CdsReciboEMPRESA_CNPJ.AsString   := FieldByName('CODEMP').AsString;
+    CdsReciboNOME.AsString           := FieldByName('NOME').AsString;
+    CdsReciboPESSOA_FISICA.AsInteger := FieldByName('PESSOA_FISICA').AsInteger;
+    CdsReciboCNPJ.AsString           := FieldByName('CODCLI').AsString;
+    CdsReciboDTEMISS.AsDateTime      := FieldByName('DTVENDA').AsDateTime;
+    CdsReciboFORMA_PAGTO_DESC.AsString := FieldByName('OBS').AsString;
+    CdsReciboHISTORICO.AsString        := aHistorico;
+
+    if aComValor then
+    begin
+      CdsReciboVALOR_BAIXA.AsCurrency       := FieldByName('TOTALVENDA').AsCurrency;
+      CdsReciboVALOR_BAIXA_EXTENSO.AsString := AnsiUpperCase(ACBrExtenso.ValorToTexto(CdsReciboVALOR_BAIXA.AsCurrency, ACBrExtenso.Formato));
+    end
+    else
+    begin
+      CdsReciboVALOR_BAIXA.AsCurrency       := 0;
+      CdsReciboVALOR_BAIXA_EXTENSO.AsString := EmptyStr;
+    end;
+  end;
 
   CdsRecibo.Post;
 
-  aComValor := ShowConfirmation('Recibo', 'Deseja emitir o recibo com o Valor Total da venda?');
-
-  if ( aComValor )  then
-    frReport := FrReciboA4;
-//  else
-//  if ( Sender = popGerarReciboA5 )  then
-//    frReport := FrReciboA5;
-
+  frReport := FrReciboA4;
   SetVariablesDefault(frReport);
 
   frReport.PrepareReport;
@@ -3457,6 +3465,24 @@ begin
     dbgDados.PopupMenu := nil;
 
   RegistrarNovaRotinaSistema;
+end;
+
+procedure TfrmGeVenda.FrReciboA4GetValue(const VarName: string; var Value: Variant);
+begin
+  if ( VarName = VAR_TITLE ) then
+    Value := 'R E C I B O';
+
+  if ( VarName = VAR_EMPRESA ) then
+    Value := GetEmpresaNomeDefault;
+
+  if ( VarName = VAR_USER ) then
+    Value := GetUserApp;
+
+  if ( VarName = VAR_SYSTEM ) then
+    Value := Application.Title + ' - versão ' + ver.FileVersion;
+
+  if ( VarName = 'Imprimir_Cabecalho' ) then
+    Value := 1; //IfThen(FImprimirCabecalho, 1, 0);
 end;
 
 procedure TfrmGeVenda.nmPpReciboNFeClick(Sender: TObject);

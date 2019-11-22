@@ -231,7 +231,7 @@ end;
 procedure TfrmGeAutoUpgrade.btnVerificarUpgradeClick(Sender: TObject);
 begin
   BaixarInfo;
-  if GetExeVersionID > ObterIdVersaoHTTP(ObterVersaoHTTP) then
+  if GetExeVersionID >= ObterIdVersaoHTTP(ObterVersaoHTTP) then
   begin
     lblProgresso.Caption := 'Nenhuma versão nova disponível!';
     ShowInformation(Self.Caption, 'Nenhuma versão nova disponível!' + #13 + 'Você está com a versão mais atual do sistema.');

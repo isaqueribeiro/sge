@@ -5023,20 +5023,21 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         Expanded = False
         FieldName = 'SEQ'
         Title.Alignment = taCenter
+        Title.Caption = '# '
         Width = 30
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'CODPROD'
-        Title.Caption = 'C'#211'DIGO'
+        Title.Caption = 'C'#211'DIGO '
         Width = 120
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'DESCRI'
-        Title.Caption = 'DESCRI'#199#195'O + APRESENTA'#199#195'O'
+        Title.Caption = 'DESCRI'#199#195'O + APRESENTA'#199#195'O '
         Width = 250
         Visible = True
       end
@@ -5044,21 +5045,21 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         Expanded = False
         FieldName = 'UNP_SIGLA'
         Title.Alignment = taCenter
-        Title.Caption = 'UND.'
+        Title.Caption = 'UND. '
         Width = 40
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'QTDE'
-        Title.Caption = 'QTDE.'
+        Title.Caption = 'QTDE. '
         Width = 55
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'TOTAL_LIQUIDO'
-        Title.Caption = 'TOTAL (R$)'
+        Title.Caption = 'TOTAL (R$) '
         Width = 120
         Visible = True
       end>
@@ -5315,7 +5316,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
     Top = 232
   end
   object dtsFormaPagto: TDataSource
-    DataSet = DMCupom.cdsVendaFormaPagto
+    DataSet = DMCupom.cdsVendaFormaPagtoXXX
     Left = 864
     Top = 280
   end

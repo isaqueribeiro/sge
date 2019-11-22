@@ -29,6 +29,8 @@ inherited frmGeVenda: TfrmGeVenda
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -1891,6 +1893,10 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsRecebimento: TTabSheet
           BorderWidth = 4
           Caption = 'Recebimento'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object pnlObservacao: TPanel
             Left = 0
             Top = 0
@@ -1902,12 +1908,11 @@ inherited frmGeVenda: TfrmGeVenda
             object lblObservacao: TLabel
               Left = 0
               Top = 0
-              Width = 520
+              Width = 67
               Height = 13
               Align = alTop
               Caption = '&Observa'#231#245'es:'
               FocusControl = dbObservacao
-              ExplicitWidth = 67
             end
             object Bevel14: TBevel
               Left = 516
@@ -2399,6 +2404,10 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsDadosEntrega: TTabSheet
           Caption = 'Dados para Entrega'
           ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object pnlDadosEntrega: TPanel
             Left = 0
             Top = 0
@@ -2416,7 +2425,7 @@ inherited frmGeVenda: TfrmGeVenda
             object lblDadosEntrega: TLabel
               Left = 0
               Top = 0
-              Width = 1100
+              Width = 214
               Height = 13
               Align = alTop
               Caption = '&Dados gerais para entrega do(s) produto(s):'
@@ -2427,7 +2436,6 @@ inherited frmGeVenda: TfrmGeVenda
               Font.Name = 'Tahoma'
               Font.Style = []
               ParentFont = False
-              ExplicitWidth = 214
             end
             object Bevel11: TBevel
               Left = 1096
@@ -2451,7 +2459,7 @@ inherited frmGeVenda: TfrmGeVenda
             object lblDicaDadosEntrega: TLabel
               Left = 0
               Top = 145
-              Width = 1100
+              Width = 801
               Height = 13
               Align = alBottom
               Caption = 
@@ -2465,7 +2473,6 @@ inherited frmGeVenda: TfrmGeVenda
               Font.Name = 'Tahoma'
               Font.Style = [fsBold]
               ParentFont = False
-              ExplicitWidth = 801
             end
             object dbDadosEntrega: TDBMemo
               Left = 0
@@ -2484,6 +2491,10 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsITitulos: TTabSheet
           Caption = 'T'#237'tulo(s) Gerado(s)'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Bevel9: TBevel
             Left = 74
             Top = 0
@@ -2706,6 +2717,10 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsTransporte: TTabSheet
           Caption = 'Dados Transporte'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           DesignSize = (
             1100
             158)
@@ -2958,6 +2973,10 @@ inherited frmGeVenda: TfrmGeVenda
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0
@@ -4147,7 +4166,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00FC0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00040210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -8590,7 +8609,7 @@ inherited frmGeVenda: TfrmGeVenda
     end
     object CdsReciboFORMA_PAGTO_DESC: TStringField
       FieldName = 'FORMA_PAGTO_DESC'
-      Size = 30
+      Size = 250
     end
     object CdsReciboHISTORICO: TMemoField
       FieldName = 'HISTORICO'
@@ -8669,6 +8688,7 @@ inherited frmGeVenda: TfrmGeVenda
       'begin'
       ''
       'end.')
+    OnGetValue = FrReciboA4GetValue
     Left = 16
     Top = 408
     Datasets = <
@@ -8908,7 +8928,7 @@ inherited frmGeVenda: TfrmGeVenda
         FillType = ftBrush
         Frame.Typ = []
         Height = 30.236240000000000000
-        Top = 529.134200000000000000
+        Top = 763.465060000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
           Width = 582.047620000000000000
@@ -8927,7 +8947,7 @@ inherited frmGeVenda: TfrmGeVenda
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
-          Top = 15.118119999999980000
+          Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -8964,7 +8984,7 @@ inherited frmGeVenda: TfrmGeVenda
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
         Frame.Typ = []
-        Height = 162.519790000000000000
+        Height = 317.480520000000000000
         Top = 177.637910000000000000
         Width = 718.110700000000000000
         Child = FrReciboA4.BndChildAssinatura
@@ -8973,9 +8993,10 @@ inherited frmGeVenda: TfrmGeVenda
         RowCount = 0
         Stretched = True
         object Rich1: TfrxRichView
-          Top = 102.047310000000000000
-          Width = 718.110700000000000000
-          Height = 60.472480000000000000
+          Left = 37.795300000000000000
+          Top = 192.756030000000000000
+          Width = 642.520100000000000000
+          Height = 124.724490000000000000
           StretchMode = smMaxHeight
           Frame.Typ = []
           GapX = 2.000000000000000000
@@ -8985,18 +9006,28 @@ inherited frmGeVenda: TfrmGeVenda
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
             67656E657261746F722052696368656432302031302E302E31343339337D5C76
-            6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
-            305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
-            315C716A5C66305C66733230205265636562656D6F732064652F6461205C6220
-            5B46726452656369626F2E224E4F4D455F434C49454E5445225D5C6230202061
-            20696D706F72745C2765326E636961206465205C62205B46726452656369626F
-            2E2256414C4F525F42414958415F455854454E534F225D5C6230202072656665
-            72656E7465205C276530205C62205B46726452656369626F2E22484953544F52
-            49434F225D5C6230202E5C7061720D0A7D0D0A00}
+            6965776B696E64345C756331200D0A5C706172645C6C693134305C7269313830
+            5C73623132305C73613132305C736C3336305C736C6D756C74315C716A5C6630
+            5C66733230205265636562656D6F7320646F20636C69656E7465205C62205B46
+            726452656369626F2E224E4F4D455F434C49454E5445225D5C623020206F2076
+            616C6F72206465205C62205224205B494946283C46726452656369626F2E2256
+            414C4F525F4241495841223E3D302C275F205F205F205F205F205F205F272C20
+            466F726D6174466C6F617428272C302E3030272C203C46726452656369626F2E
+            2256414C4F525F4241495841223E29295D205C623020285C62205B494946283C
+            46726452656369626F2E2256414C4F525F4241495841223E203D20302C20275F
+            205F205F205F205F205F205F205F205F205F205F205F205F205F205F205F205F
+            205F205F205F205F205F205F205F205F205F205F205F205F205F205F205F205F
+            205F205F205F205F205F205F205F205F205F205F205F205F205F205F205F205F
+            272C203C46726452656369626F2E2256414C4F525F42414958415F455854454E
+            534F223E295D295C623020207265666572656E7465205C276530205C62205B46
+            726452656369626F2E22484953544F5249434F225D5C6230202C20706F722065
+            7374652064616D6F732071756974615C2765375C2765336F20746F74616C2E5C
+            7061720D0A7D0D0A00}
         end
         object Rich2: TfrxRichView
-          Width = 718.110700000000000000
-          Height = 102.047310000000000000
+          Left = 37.795300000000000000
+          Width = 642.520100000000000000
+          Height = 192.756030000000000000
           Frame.Typ = []
           GapX = 2.000000000000000000
           GapY = 1.000000000000000000
@@ -9005,28 +9036,29 @@ inherited frmGeVenda: TfrmGeVenda
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
             67656E657261746F722052696368656432302031302E302E31343339337D5C76
-            6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
-            305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
-            315C71635C625C66305C66733332205B546974756C6F5D5C7061720D0A0D0A5C
-            706172645C6669313030305C6C693134305C72693138305C73623132305C7361
-            3132305C736C3336305C736C6D756C74315C71725C62305C667332342056616C
-            6F723A205C756C5C62205224205B466F726D6174466C6F617428272C302E3030
-            272C3C46726452656369626F2E2256414C4F525F4241495841223E295D5C756C
-            6E6F6E655C62305C7061720D0A7D0D0A00}
+            6965776B696E64345C756331200D0A5C706172645C6C693138305C7269313830
+            5C73623132305C73613132305C736C3336305C736C6D756C74315C71635C625C
+            66305C667332345C7061720D0A5C66733332205B546974756C6F5D5C7061720D
+            0A0D0A5C706172645C6C693138305C72693138305C73623132305C7361313230
+            5C736C3336305C736C6D756C74315C71725C62305C667332345C7061720D0A56
+            616C6F723A205C62205224205B466F726D6174466C6F617428272C302E303027
+            2C3C46726452656369626F2E2256414C4F525F4241495841223E295D5C62305C
+            7061720D0A7D0D0A00}
         end
       end
       object BndChildAssinatura: TfrxChild
         FillType = ftBrush
         Frame.Typ = []
-        Height = 105.826840000000000000
-        Top = 362.834880000000000000
+        Height = 185.196970000000000000
+        Top = 517.795610000000000000
         Width = 718.110700000000000000
+        Stretched = True
         ToNRows = 0
         ToNRowsMode = rmCount
         object Memo9: TfrxMemoView
-          Left = 79.370130000000000000
+          Left = 151.181200000000000000
           Top = 86.929190000000000000
-          Width = 377.953000000000000000
+          Width = 415.748300000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -9037,19 +9069,19 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Style = [fsBold]
           Frame.Typ = []
           Frame.Width = 0.100000000000000000
+          HAlign = haCenter
           Memo.UTF8W = (
             
               ' CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<FrdRecibo."EMPR' +
               'ESA_CNPJ">)]')
           ParentFont = False
           WordWrap = False
-          VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
-          Left = 79.370130000000000000
-          Top = 64.252010000000000000
-          Width = 377.953000000000000000
-          Height = 22.677180000000000000
+          Left = 151.181200000000000000
+          Top = 68.031540000000000000
+          Width = 415.748300000000000000
+          Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
@@ -9059,14 +9091,16 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Style = [fsBold]
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
+          HAlign = haCenter
           Memo.UTF8W = (
             ' [FrdRecibo."EMPRESA"]')
           ParentFont = False
           WordWrap = False
-          VAlign = vaCenter
+          VAlign = vaBottom
         end
         object Rich3: TfrxRichView
-          Width = 718.110700000000000000
+          Left = 37.795300000000000000
+          Width = 642.520100000000000000
           Height = 30.236240000000000000
           StretchMode = smMaxHeight
           Frame.Typ = []
@@ -9077,11 +9111,31 @@ inherited frmGeVenda: TfrmGeVenda
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
             67656E657261746F722052696368656432302031302E302E31343339337D5C76
-            6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
-            305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
-            315C716A5C66305C66733230205B4369646164655D2F5B55465D2C205F5F5F5F
-            206465205F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F5F206465205F5F5F
-            5F5F5F5F2E5C7061720D0A7D0D0A00}
+            6965776B696E64345C756331200D0A5C706172645C6C693134305C7269313830
+            5C73623132305C73613132305C736C3336305C736C6D756C74315C71725C6630
+            5C66733230205B4369646164655D2F5B55465D2C205F205F205F206465205F20
+            5F205F205F205F205F205F205F205F205F205F205F205F205F206465205B4672
+            6452656369626F2E22414E4F4C414E43225D2E5C7061720D0A7D0D0A00}
+        end
+        object FrdReciboFORMA_PAGTO_DESC: TfrxMemoView
+          IndexTag = 1
+          Left = 37.795300000000000000
+          Top = 143.622140000000000000
+          Width = 325.039580000000000000
+          Height = 37.795300000000000000
+          StretchMode = smMaxHeight
+          DataField = 'FORMA_PAGTO_DESC'
+          DataSet = FrdRecibo
+          DataSetName = 'FrdRecibo'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[FrdRecibo."FORMA_PAGTO_DESC"]')
+          ParentFont = False
         end
       end
     end

@@ -1774,14 +1774,14 @@ inherited frmGeVendaPDVFormaPagto: TfrmGeVendaPDVFormaPagto
       item
         Expanded = False
         FieldName = 'FORMAPAGTO_DESCRICAO'
-        Title.Caption = 'Forma'
+        Title.Caption = 'Forma '
         Width = 180
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'CONDICAOPAGTO_DESCRICAO'
-        Title.Caption = 'Condi'#231#227'o'
+        Title.Caption = 'Condi'#231#227'o '
         Width = 150
         Visible = True
       end
@@ -1789,6 +1789,7 @@ inherited frmGeVendaPDVFormaPagto: TfrmGeVendaPDVFormaPagto
         Expanded = False
         FieldName = 'VALOR_FPAGTO'
         Title.Alignment = taCenter
+        Title.Caption = 'Valor (R$) '
         Width = 140
         Visible = True
       end>
