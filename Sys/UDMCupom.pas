@@ -11,7 +11,6 @@ uses
 
   Windows, SysUtils, Classes, ACBrNFeDANFEClass, ACBrNFe, DB,
   frxExportPDF, frxExportMail, frxDesgn, frxRich, frxCross, frxChart, frxExportImage,
-  IBCustomDataSet, IBQuery, IBUpdateSQL, IBSQL,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
@@ -22,20 +21,6 @@ uses
 
 type
   TDMCupom = class(TDataModule)
-    cdsVendaXXX: TIBDataSet;
-    updVendaXXX: TIBUpdateSQL;
-    cdsVendaItemXXX: TIBDataSet;
-    updVendaItemXXX: TIBUpdateSQL;
-    cdsVendaFormaPagtoXXX: TIBDataSet;
-    updVendaFormaPagtoXXX: TIBUpdateSQL;
-    cdsVendaVolumexxx: TIBDataSet;
-    updVendaVolumexxx: TIBUpdateSQL;
-    qryCFOPxxx: TIBDataSet;
-    qryProdutoxxx: TIBDataSet;
-    qryUltimoVendaxxx: TIBDataSet;
-    cdsVendaTituloxxx: TIBDataSet;
-    cdsVendaNFCexxx: TIBDataSet;
-    updVendaNFCexxxx: TIBUpdateSQL;
     qryCFOP: TFDQuery;
     FDQuery2: TFDQuery;
     qryProduto: TFDQuery;
@@ -202,6 +187,7 @@ type
     cdsVendaBLOQUEADO_MOTIVO: TMemoField;
     cdsVendaLUCRO_CALCULADO: TBCDField;
     cdsVendaDESCONTO_TOTAL: TCurrencyField;
+    cdsVendaLOTE_NFE_CODIGO: TIntegerField;
     procedure cdsVendaFormaPagtoCalcFields(DataSet: TDataSet);
     procedure cdsVendaItemSEQGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure cdsVendaCalcFields(DataSet: TDataSet);

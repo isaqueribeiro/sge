@@ -2,956 +2,6 @@ object DMCupom: TDMCupom
   OldCreateOrder = False
   Height = 631
   Width = 1015
-  object cdsVendaXXX: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    v.Ano'
-      '  , v.Codcontrol'
-      '  , v.Codemp'
-      '  , v.Codcliente'
-      '  , v.Codcli'
-      '  , v.Dtvenda'
-      '  , v.Status'
-      '  , v.Totalvenda_bruta'
-      '  , v.Desconto'
-      '  , v.Desconto_cupom'
-      '  , v.Totalvenda'
-      '  , v.Dtfinalizacao_venda'
-      '  , v.Obs'
-      '  , v.Formapag'
-      '  , v.Fatdias'
-      '  , v.Serie'
-      '  , v.Nfe'
-      '  , v.Lote_nfe_ano'
-      '  , v.Lote_nfe_numero'
-      '  , v.Lote_nfe_Recibo'
-      '  , v.Nfe_enviada'
-      '  , v.Nfe_denegada'
-      '  , v.Nfe_denegada_motivo'
-      '  , v.Dataemissao'
-      '  , v.Horaemissao'
-      '  , v.Cancel_datahora'
-      '  , v.Cancel_motivo'
-      '  , v.Cfop'
-      '  , v.Verificador_nfe'
-      '  , v.Xml_nfe_filename'
-      '  , v.Xml_nfe'
-      '  , v.Vendedor_cod'
-      '  , v.Usuario'
-      '  , v.Formapagto_cod'
-      '  , v.Condicaopagto_cod'
-      '  , v.Venda_prazo'
-      '  , v.Prazo_01'
-      '  , v.Prazo_02'
-      '  , v.Prazo_03'
-      '  , v.Prazo_04'
-      '  , v.Prazo_05'
-      '  , v.Prazo_06'
-      '  , v.Prazo_07'
-      '  , v.Prazo_08'
-      '  , v.Prazo_09'
-      '  , v.Prazo_10'
-      '  , v.Prazo_11'
-      '  , v.Prazo_12'
-      '  , v.nfe_modalidade_frete'
-      '  , v.nfe_transportadora'
-      '  , v.nfe_placa_veiculo'
-      '  , v.nfe_placa_uf'
-      '  , v.nfe_placa_rntc'
-      '  , v.nfe_valor_total_produto'
-      '  , v.nfe_valor_desconto'
-      '  , v.nfe_valor_total_nota'
-      '  , v.gerar_estoque_cliente'
-      '  , t.nomeforn as transp_nome'
-      '  , t.cnpj     as transp_cnpj'
-      '  , t.inscest  as transp_iest'
-      
-        '  , t.ender || coalesce('#39' - '#39' || t.cidade, '#39#39') as transp_enderec' +
-        'o'
-      '  , c.Nome'
-      '  , c.Bloqueado'
-      '  , c.Bloqueado_motivo'
-      '  , Case when coalesce(v.totalcusto, 0) > 0'
-      
-        '      then ((v.totalvenda / coalesce(v.totalcusto, 0)) - 1) * 10' +
-        '0'
-      '      else 0.0'
-      '    end Lucro_Calculado'
-      'from TBVENDAS v'
-      '  inner join TBCLIENTE c on (c.Codigo = v.Codcliente)'
-      '  left join TBFORNECEDOR t on (t.codforn = v.nfe_transportadora)'
-      ''
-      'where v.codemp     = :empresa'
-      '  and v.ano        = :ano'
-      '  and v.codcontrol = :controle')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updVendaXXX
-    Left = 80
-    Top = 80
-  end
-  object updVendaXXX: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CODCONTROL,'
-      '  CODEMP,'
-      '  CODCLIENTE,'
-      '  CODCLI,'
-      '  DTVENDA,'
-      '  COMPETENCIA,'
-      '  STATUS,'
-      '  TOTALVENDA_BRUTA,'
-      '  DESCONTO,'
-      '  DESCONTO_CUPOM,'
-      '  TOTALVENDA,'
-      '  TOTALCUSTO,'
-      '  DTFINALIZACAO_VENDA,'
-      '  OBS,'
-      '  FORMAPAG,'
-      '  FATDIAS,'
-      '  SERIE,'
-      '  NFE,'
-      '  DATAEMISSAO,'
-      '  HORAEMISSAO,'
-      '  CFOP,'
-      '  VERIFICADOR_NFE,'
-      '  XML_NFE,'
-      '  VENDEDOR_COD,'
-      '  USUARIO,'
-      '  FORMAPAGTO_COD,'
-      '  CONDICAOPAGTO_COD,'
-      '  VENDA_PRAZO,'
-      '  PRAZO_01,'
-      '  PRAZO_02,'
-      '  PRAZO_03,'
-      '  PRAZO_04,'
-      '  PRAZO_05,'
-      '  PRAZO_06,'
-      '  PRAZO_07,'
-      '  PRAZO_08,'
-      '  PRAZO_09,'
-      '  PRAZO_10,'
-      '  PRAZO_11,'
-      '  PRAZO_12,'
-      '  LOTE_NFE_ANO,'
-      '  LOTE_NFE_NUMERO,'
-      '  LOTE_NFE_RECIBO,'
-      '  NFE_ENVIADA,'
-      '  NFE_DENEGADA,'
-      '  NFE_DENEGADA_MOTIVO,'
-      '  CANCEL_USUARIO,'
-      '  CANCEL_DATAHORA,'
-      '  CANCEL_MOTIVO,'
-      '  XML_NFE_FILENAME,'
-      '  NFE_MODALIDADE_FRETE,'
-      '  NFE_TRANSPORTADORA,'
-      '  NFE_PLACA_VEICULO,'
-      '  NFE_PLACA_UF,'
-      '  NFE_PLACA_RNTC,'
-      '  NFE_VALOR_BASE_ICMS,'
-      '  NFE_VALOR_ICMS,'
-      '  NFE_VALOR_BASE_ICMS_SUBST,'
-      '  NFE_VALOR_ICMS_SUBST,'
-      '  NFE_VALOR_TOTAL_PRODUTO,'
-      '  NFE_VALOR_FRETE,'
-      '  NFE_VALOR_SEGURO,'
-      '  NFE_VALOR_DESCONTO,'
-      '  NFE_VALOR_TOTAL_II,'
-      '  NFE_VALOR_TOTAL_IPI,'
-      '  NFE_VALOR_PIS,'
-      '  NFE_VALOR_COFINS,'
-      '  NFE_VALOR_OUTROS,'
-      '  NFE_VALOR_TOTAL_NOTA,'
-      '  CUSTO_OPER_PERCENTUAL,'
-      '  CUSTO_OPER_FRETE,'
-      '  CUSTO_OPER_OUTROS,'
-      '  GERAR_ESTOQUE_CLIENTE'
-      'from TBVENDAS '
-      'where'
-      '  ANO = :ANO and'
-      '  CODCONTROL = :CODCONTROL')
-    ModifySQL.Strings = (
-      'update TBVENDAS'
-      'set'
-      '  ANO = :ANO,'
-      '  CANCEL_DATAHORA = :CANCEL_DATAHORA,'
-      '  CANCEL_MOTIVO = :CANCEL_MOTIVO,'
-      '  CFOP = :CFOP,'
-      '  CODCLI = :CODCLI,'
-      '  CODCLIENTE = :CODCLIENTE,'
-      '  CODCONTROL = :CODCONTROL,'
-      '  CODEMP = :CODEMP,'
-      '  CONDICAOPAGTO_COD = :CONDICAOPAGTO_COD,'
-      '  DATAEMISSAO = :DATAEMISSAO,'
-      '  DESCONTO = :DESCONTO,'
-      '  DESCONTO_CUPOM = :DESCONTO_CUPOM,'
-      '  DTFINALIZACAO_VENDA = :DTFINALIZACAO_VENDA,'
-      '  DTVENDA = :DTVENDA,'
-      '  FATDIAS = :FATDIAS,'
-      '  FORMAPAG = :FORMAPAG,'
-      '  FORMAPAGTO_COD = :FORMAPAGTO_COD,'
-      '  GERAR_ESTOQUE_CLIENTE = :GERAR_ESTOQUE_CLIENTE,'
-      '  HORAEMISSAO = :HORAEMISSAO,'
-      '  LOTE_NFE_ANO = :LOTE_NFE_ANO,'
-      '  LOTE_NFE_NUMERO = :LOTE_NFE_NUMERO,'
-      '  LOTE_NFE_RECIBO = :LOTE_NFE_RECIBO,'
-      '  NFE = :NFE,'
-      '  NFE_DENEGADA = :NFE_DENEGADA,'
-      '  NFE_DENEGADA_MOTIVO = :NFE_DENEGADA_MOTIVO,'
-      '  NFE_ENVIADA = :NFE_ENVIADA,'
-      '  NFE_MODALIDADE_FRETE = :NFE_MODALIDADE_FRETE,'
-      '  NFE_PLACA_RNTC = :NFE_PLACA_RNTC,'
-      '  NFE_PLACA_UF = :NFE_PLACA_UF,'
-      '  NFE_PLACA_VEICULO = :NFE_PLACA_VEICULO,'
-      '  NFE_TRANSPORTADORA = :NFE_TRANSPORTADORA,'
-      '  NFE_VALOR_DESCONTO = :NFE_VALOR_DESCONTO,'
-      '  NFE_VALOR_TOTAL_NOTA = :NFE_VALOR_TOTAL_NOTA,'
-      '  NFE_VALOR_TOTAL_PRODUTO = :NFE_VALOR_TOTAL_PRODUTO,'
-      '  OBS = :OBS,'
-      '  PRAZO_01 = :PRAZO_01,'
-      '  PRAZO_02 = :PRAZO_02,'
-      '  PRAZO_03 = :PRAZO_03,'
-      '  PRAZO_04 = :PRAZO_04,'
-      '  PRAZO_05 = :PRAZO_05,'
-      '  PRAZO_06 = :PRAZO_06,'
-      '  PRAZO_07 = :PRAZO_07,'
-      '  PRAZO_08 = :PRAZO_08,'
-      '  PRAZO_09 = :PRAZO_09,'
-      '  PRAZO_10 = :PRAZO_10,'
-      '  PRAZO_11 = :PRAZO_11,'
-      '  PRAZO_12 = :PRAZO_12,'
-      '  SERIE = :SERIE,'
-      '  STATUS = :STATUS,'
-      '  TOTALVENDA = :TOTALVENDA,'
-      '  TOTALVENDA_BRUTA = :TOTALVENDA_BRUTA,'
-      '  USUARIO = :USUARIO,'
-      '  VENDA_PRAZO = :VENDA_PRAZO,'
-      '  VENDEDOR_COD = :VENDEDOR_COD,'
-      '  VERIFICADOR_NFE = :VERIFICADOR_NFE,'
-      '  XML_NFE = :XML_NFE,'
-      '  XML_NFE_FILENAME = :XML_NFE_FILENAME'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODCONTROL = :OLD_CODCONTROL')
-    InsertSQL.Strings = (
-      'insert into TBVENDAS'
-      
-        '  (ANO, CANCEL_DATAHORA, CANCEL_MOTIVO, CFOP, CODCLI, CODCLIENTE' +
-        ', CODCONTROL, '
-      
-        '   CODEMP, CONDICAOPAGTO_COD, DATAEMISSAO, DESCONTO, DESCONTO_CU' +
-        'POM, DTFINALIZACAO_VENDA, '
-      
-        '   DTVENDA, FATDIAS, FORMAPAG, FORMAPAGTO_COD, GERAR_ESTOQUE_CLI' +
-        'ENTE, HORAEMISSAO, '
-      
-        '   LOTE_NFE_ANO, LOTE_NFE_NUMERO, LOTE_NFE_RECIBO, NFE, NFE_DENE' +
-        'GADA, NFE_DENEGADA_MOTIVO, '
-      
-        '   NFE_ENVIADA, NFE_MODALIDADE_FRETE, NFE_PLACA_RNTC, NFE_PLACA_' +
-        'UF, NFE_PLACA_VEICULO, '
-      
-        '   NFE_TRANSPORTADORA, NFE_VALOR_DESCONTO, NFE_VALOR_TOTAL_NOTA,' +
-        ' NFE_VALOR_TOTAL_PRODUTO, '
-      
-        '   OBS, PRAZO_01, PRAZO_02, PRAZO_03, PRAZO_04, PRAZO_05, PRAZO_' +
-        '06, PRAZO_07, '
-      
-        '   PRAZO_08, PRAZO_09, PRAZO_10, PRAZO_11, PRAZO_12, SERIE, STAT' +
-        'US, TOTALVENDA, '
-      
-        '   TOTALVENDA_BRUTA, USUARIO, VENDA_PRAZO, VENDEDOR_COD, VERIFIC' +
-        'ADOR_NFE, '
-      '   XML_NFE, XML_NFE_FILENAME)'
-      'values'
-      
-        '  (:ANO, :CANCEL_DATAHORA, :CANCEL_MOTIVO, :CFOP, :CODCLI, :CODC' +
-        'LIENTE, '
-      
-        '   :CODCONTROL, :CODEMP, :CONDICAOPAGTO_COD, :DATAEMISSAO, :DESC' +
-        'ONTO, :DESCONTO_CUPOM, '
-      
-        '   :DTFINALIZACAO_VENDA, :DTVENDA, :FATDIAS, :FORMAPAG, :FORMAPA' +
-        'GTO_COD, '
-      
-        '   :GERAR_ESTOQUE_CLIENTE, :HORAEMISSAO, :LOTE_NFE_ANO, :LOTE_NF' +
-        'E_NUMERO, '
-      
-        '   :LOTE_NFE_RECIBO, :NFE, :NFE_DENEGADA, :NFE_DENEGADA_MOTIVO, ' +
-        ':NFE_ENVIADA, '
-      
-        '   :NFE_MODALIDADE_FRETE, :NFE_PLACA_RNTC, :NFE_PLACA_UF, :NFE_P' +
-        'LACA_VEICULO, '
-      
-        '   :NFE_TRANSPORTADORA, :NFE_VALOR_DESCONTO, :NFE_VALOR_TOTAL_NO' +
-        'TA, :NFE_VALOR_TOTAL_PRODUTO, '
-      
-        '   :OBS, :PRAZO_01, :PRAZO_02, :PRAZO_03, :PRAZO_04, :PRAZO_05, ' +
-        ':PRAZO_06, '
-      
-        '   :PRAZO_07, :PRAZO_08, :PRAZO_09, :PRAZO_10, :PRAZO_11, :PRAZO' +
-        '_12, :SERIE, '
-      
-        '   :STATUS, :TOTALVENDA, :TOTALVENDA_BRUTA, :USUARIO, :VENDA_PRA' +
-        'ZO, :VENDEDOR_COD, '
-      '   :VERIFICADOR_NFE, :XML_NFE, :XML_NFE_FILENAME)')
-    DeleteSQL.Strings = (
-      'delete from TBVENDAS'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODCONTROL = :OLD_CODCONTROL')
-    Left = 112
-    Top = 80
-  end
-  object cdsVendaItemXXX: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    i.Ano'
-      '  , i.Codcontrol'
-      '  , i.Seq'
-      '  , i.Codprod'
-      '  , i.Codemp'
-      '  , i.Codcli'
-      '  , i.Codcliente'
-      '  , i.Codvendedor'
-      '  , i.Dtvenda'
-      '  , i.Qtde'
-      '  , i.Punit'
-      '  , i.Punit_Promocao'
-      '  , i.Desconto'
-      '  , i.Desconto_valor'
-      '  , i.Pfinal'
-      '  , i.Qtdefinal'
-      '  , i.Unid_cod'
-      '  , i.Cfop_cod'
-      '  , coalesce(i.Cst, p.Cst) as Cst'
-      '  , i.Aliquota'
-      '  , i.Aliquota_csosn'
-      '  , i.Aliquota_pis'
-      '  , i.Aliquota_cofins'
-      '  , i.Valor_ipi'
-      '  , i.Percentual_reducao_BC'
-      '  , i.Total_bruto'
-      '  , i.Total_desconto'
-      '  , i.Total_liquido'
-      '  , p.Descri'
-      '  , p.Qtde as Estoque'
-      '  , p.Reserva'
-      '  , u.Unp_sigla'
-      '  , o.Cfop_descricao'
-      '  , p.Cst'
-      '  , p.Csosn'
-      '  , p.Movimenta_Estoque'
-      'from TVENDASITENS i'
-      '  inner join TBPRODUTO p on (p.Cod = i.Codprod)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      '  left join TBCFOP o on (o.Cfop_cod = i.Cfop_cod)'
-      ''
-      'where i.codemp     = :empresa'
-      '  and i.ano        = :ano'
-      '  and i.codcontrol = :controle')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updVendaItemXXX
-    Left = 80
-    Top = 128
-  end
-  object updVendaItemXXX: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CODCONTROL,'
-      '  CODEMP,'
-      '  SEQ,'
-      '  CODPROD,'
-      '  CODCLIENTE,'
-      '  CODCLI,'
-      '  CODVENDEDOR,'
-      '  DTVENDA,'
-      '  QTDE,'
-      '  PUNIT,'
-      '  PUNIT_PROMOCAO,'
-      '  DESCONTO,'
-      '  DESCONTO_VALOR,'
-      '  PFINAL,'
-      '  QTDEFINAL,'
-      '  UNID_COD,'
-      '  CFOP_COD,'
-      '  CST,'
-      '  CSOSN,'
-      '  ALIQUOTA,'
-      '  ALIQUOTA_CSOSN,'
-      '  ALIQUOTA_PIS,'
-      '  ALIQUOTA_COFINS,'
-      '  VALOR_IPI,'
-      '  PERCENTUAL_REDUCAO_BC,'
-      '  TOTAL_BRUTO,'
-      '  TOTAL_DESCONTO,'
-      '  TOTAL_LIQUIDO,'
-      '  TOTAL_COMISSAO'
-      'from TVENDASITENS '
-      'where'
-      '  ANO = :ANO and'
-      '  CODCONTROL = :CODCONTROL and'
-      '  CODPROD = :CODPROD and'
-      '  SEQ = :SEQ')
-    ModifySQL.Strings = (
-      'update TVENDASITENS'
-      'set'
-      '  ALIQUOTA = :ALIQUOTA,'
-      '  ALIQUOTA_COFINS = :ALIQUOTA_COFINS,'
-      '  ALIQUOTA_CSOSN = :ALIQUOTA_CSOSN,'
-      '  ALIQUOTA_PIS = :ALIQUOTA_PIS,'
-      '  ANO = :ANO,'
-      '  CFOP_COD = :CFOP_COD,'
-      '  CODCLI = :CODCLI,'
-      '  CODCLIENTE = :CODCLIENTE,'
-      '  CODCONTROL = :CODCONTROL,'
-      '  CODEMP = :CODEMP,'
-      '  CODPROD = :CODPROD,'
-      '  CODVENDEDOR = :CODVENDEDOR,'
-      '  CST = :CST,'
-      '  DESCONTO = :DESCONTO,'
-      '  DESCONTO_VALOR = :DESCONTO_VALOR,'
-      '  DTVENDA = :DTVENDA,'
-      '  PERCENTUAL_REDUCAO_BC = :PERCENTUAL_REDUCAO_BC,'
-      '  PFINAL = :PFINAL,'
-      '  PUNIT = :PUNIT,'
-      '  PUNIT_PROMOCAO = :PUNIT_PROMOCAO,'
-      '  QTDE = :QTDE,'
-      '  QTDEFINAL = :QTDEFINAL,'
-      '  SEQ = :SEQ,'
-      '  TOTAL_BRUTO = :TOTAL_BRUTO,'
-      '  TOTAL_DESCONTO = :TOTAL_DESCONTO,'
-      '  TOTAL_LIQUIDO = :TOTAL_LIQUIDO,'
-      '  UNID_COD = :UNID_COD,'
-      '  VALOR_IPI = :VALOR_IPI'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODCONTROL = :OLD_CODCONTROL and'
-      '  CODPROD = :OLD_CODPROD and'
-      '  SEQ = :OLD_SEQ')
-    InsertSQL.Strings = (
-      'insert into TVENDASITENS'
-      
-        '  (ALIQUOTA, ALIQUOTA_COFINS, ALIQUOTA_CSOSN, ALIQUOTA_PIS, ANO,' +
-        ' CFOP_COD, '
-      
-        '   CODCLI, CODCLIENTE, CODCONTROL, CODEMP, CODPROD, CODVENDEDOR,' +
-        ' CST, DESCONTO, '
-      
-        '   DESCONTO_VALOR, DTVENDA, PERCENTUAL_REDUCAO_BC, PFINAL, PUNIT' +
-        ', PUNIT_PROMOCAO, '
-      
-        '   QTDE, QTDEFINAL, SEQ, TOTAL_BRUTO, TOTAL_DESCONTO, TOTAL_LIQU' +
-        'IDO, UNID_COD, '
-      '   VALOR_IPI)'
-      'values'
-      
-        '  (:ALIQUOTA, :ALIQUOTA_COFINS, :ALIQUOTA_CSOSN, :ALIQUOTA_PIS, ' +
-        ':ANO, :CFOP_COD, '
-      
-        '   :CODCLI, :CODCLIENTE, :CODCONTROL, :CODEMP, :CODPROD, :CODVEN' +
-        'DEDOR, '
-      
-        '   :CST, :DESCONTO, :DESCONTO_VALOR, :DTVENDA, :PERCENTUAL_REDUC' +
-        'AO_BC, '
-      
-        '   :PFINAL, :PUNIT, :PUNIT_PROMOCAO, :QTDE, :QTDEFINAL, :SEQ, :T' +
-        'OTAL_BRUTO, '
-      '   :TOTAL_DESCONTO, :TOTAL_LIQUIDO, :UNID_COD, :VALOR_IPI)')
-    DeleteSQL.Strings = (
-      'delete from TVENDASITENS'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODCONTROL = :OLD_CODCONTROL and'
-      '  CODPROD = :OLD_CODPROD and'
-      '  SEQ = :OLD_SEQ')
-    Left = 112
-    Top = 128
-  end
-  object cdsVendaFormaPagtoXXX: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    f.ano_venda'
-      '  , f.controle_venda'
-      '  , f.formapagto_cod'
-      '  , f.condicaopagto_cod'
-      '  , f.venda_prazo'
-      '  , f.valor_fpagto'
-      '  , f.valor_recebido'
-      '  , f.prazo_01'
-      '  , f.prazo_02'
-      '  , f.prazo_03'
-      '  , f.prazo_04'
-      '  , f.prazo_05'
-      '  , f.prazo_06'
-      '  , f.prazo_07'
-      '  , f.prazo_08'
-      '  , f.prazo_09'
-      '  , f.prazo_10'
-      '  , f.prazo_11'
-      '  , f.prazo_12'
-      '  , cast('#39' '#39' as varchar(50)) as formapagto_descricao'
-      '  , cast('#39' '#39' as varchar(50)) as condicaopagto_descricao'
-      'from TBVENDAS_FORMAPAGTO f'
-      ''
-      'where f.ano_venda = :ano'
-      '  and f.controle_venda = :controle')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updVendaFormaPagtoXXX
-    Left = 80
-    Top = 176
-  end
-  object updVendaFormaPagtoXXX: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO_VENDA,'
-      '  CONTROLE_VENDA,'
-      '  FORMAPAGTO_COD,'
-      '  CONDICAOPAGTO_COD,'
-      '  VENDA_PRAZO,'
-      '  VALOR_FPAGTO,'
-      '  VALOR_RECEBIDO,'
-      '  PRAZO_01,'
-      '  PRAZO_02,'
-      '  PRAZO_03,'
-      '  PRAZO_04,'
-      '  PRAZO_05,'
-      '  PRAZO_06,'
-      '  PRAZO_07,'
-      '  PRAZO_08,'
-      '  PRAZO_09,'
-      '  PRAZO_10,'
-      '  PRAZO_11,'
-      '  PRAZO_12'
-      'from TBVENDAS_FORMAPAGTO '
-      'where'
-      '  ANO_VENDA = :ANO_VENDA and'
-      '  CONTROLE_VENDA = :CONTROLE_VENDA and'
-      '  FORMAPAGTO_COD = :FORMAPAGTO_COD')
-    ModifySQL.Strings = (
-      'update TBVENDAS_FORMAPAGTO'
-      'set'
-      '  ANO_VENDA = :ANO_VENDA,'
-      '  CONDICAOPAGTO_COD = :CONDICAOPAGTO_COD,'
-      '  CONTROLE_VENDA = :CONTROLE_VENDA,'
-      '  FORMAPAGTO_COD = :FORMAPAGTO_COD,'
-      '  PRAZO_01 = :PRAZO_01,'
-      '  PRAZO_02 = :PRAZO_02,'
-      '  PRAZO_03 = :PRAZO_03,'
-      '  PRAZO_04 = :PRAZO_04,'
-      '  PRAZO_05 = :PRAZO_05,'
-      '  PRAZO_06 = :PRAZO_06,'
-      '  PRAZO_07 = :PRAZO_07,'
-      '  PRAZO_08 = :PRAZO_08,'
-      '  PRAZO_09 = :PRAZO_09,'
-      '  PRAZO_10 = :PRAZO_10,'
-      '  PRAZO_11 = :PRAZO_11,'
-      '  PRAZO_12 = :PRAZO_12,'
-      '  VALOR_FPAGTO = :VALOR_FPAGTO,'
-      '  VALOR_RECEBIDO = :VALOR_RECEBIDO,'
-      '  VENDA_PRAZO = :VENDA_PRAZO'
-      'where'
-      '  ANO_VENDA = :OLD_ANO_VENDA and'
-      '  CONTROLE_VENDA = :OLD_CONTROLE_VENDA and'
-      '  FORMAPAGTO_COD = :OLD_FORMAPAGTO_COD')
-    InsertSQL.Strings = (
-      'insert into TBVENDAS_FORMAPAGTO'
-      
-        '  (ANO_VENDA, CONDICAOPAGTO_COD, CONTROLE_VENDA, FORMAPAGTO_COD,' +
-        ' PRAZO_01, '
-      
-        '   PRAZO_02, PRAZO_03, PRAZO_04, PRAZO_05, PRAZO_06, PRAZO_07, P' +
-        'RAZO_08, '
-      
-        '   PRAZO_09, PRAZO_10, PRAZO_11, PRAZO_12, VALOR_FPAGTO, VALOR_R' +
-        'ECEBIDO, '
-      '   VENDA_PRAZO)'
-      'values'
-      
-        '  (:ANO_VENDA, :CONDICAOPAGTO_COD, :CONTROLE_VENDA, :FORMAPAGTO_' +
-        'COD, :PRAZO_01, '
-      
-        '   :PRAZO_02, :PRAZO_03, :PRAZO_04, :PRAZO_05, :PRAZO_06, :PRAZO' +
-        '_07, :PRAZO_08, '
-      
-        '   :PRAZO_09, :PRAZO_10, :PRAZO_11, :PRAZO_12, :VALOR_FPAGTO, :V' +
-        'ALOR_RECEBIDO, '
-      '   :VENDA_PRAZO)')
-    DeleteSQL.Strings = (
-      'delete from TBVENDAS_FORMAPAGTO'
-      'where'
-      '  ANO_VENDA = :OLD_ANO_VENDA and'
-      '  CONTROLE_VENDA = :OLD_CONTROLE_VENDA and'
-      '  FORMAPAGTO_COD = :OLD_FORMAPAGTO_COD')
-    Left = 112
-    Top = 176
-  end
-  object cdsVendaVolumexxx: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    v.ano_venda'
-      '  , v.controle_venda'
-      '  , v.sequencial'
-      '  , v.numero'
-      '  , v.quantidade'
-      '  , v.especie'
-      '  , v.marca'
-      '  , v.peso_bruto'
-      '  , v.peso_liquido'
-      'from TBVENDAS_VOLUME v')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updVendaVolumexxx
-    Left = 80
-    Top = 224
-  end
-  object updVendaVolumexxx: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO_VENDA,'
-      '  CONTROLE_VENDA,'
-      '  SEQUENCIAL,'
-      '  NUMERO,'
-      '  QUANTIDADE,'
-      '  ESPECIE,'
-      '  MARCA,'
-      '  PESO_BRUTO,'
-      '  PESO_LIQUIDO'
-      'from TBVENDAS_VOLUME '
-      'where'
-      '  ANO_VENDA = :ANO_VENDA and'
-      '  CONTROLE_VENDA = :CONTROLE_VENDA and'
-      '  SEQUENCIAL = :SEQUENCIAL')
-    ModifySQL.Strings = (
-      'update TBVENDAS_VOLUME'
-      'set'
-      '  ANO_VENDA = :ANO_VENDA,'
-      '  CONTROLE_VENDA = :CONTROLE_VENDA,'
-      '  ESPECIE = :ESPECIE,'
-      '  MARCA = :MARCA,'
-      '  NUMERO = :NUMERO,'
-      '  PESO_BRUTO = :PESO_BRUTO,'
-      '  PESO_LIQUIDO = :PESO_LIQUIDO,'
-      '  QUANTIDADE = :QUANTIDADE,'
-      '  SEQUENCIAL = :SEQUENCIAL'
-      'where'
-      '  ANO_VENDA = :OLD_ANO_VENDA and'
-      '  CONTROLE_VENDA = :OLD_CONTROLE_VENDA and'
-      '  SEQUENCIAL = :OLD_SEQUENCIAL')
-    InsertSQL.Strings = (
-      'insert into TBVENDAS_VOLUME'
-      
-        '  (ANO_VENDA, CONTROLE_VENDA, ESPECIE, MARCA, NUMERO, PESO_BRUTO' +
-        ', PESO_LIQUIDO, '
-      '   QUANTIDADE, SEQUENCIAL)'
-      'values'
-      
-        '  (:ANO_VENDA, :CONTROLE_VENDA, :ESPECIE, :MARCA, :NUMERO, :PESO' +
-        '_BRUTO, '
-      '   :PESO_LIQUIDO, :QUANTIDADE, :SEQUENCIAL)')
-    DeleteSQL.Strings = (
-      'delete from TBVENDAS_VOLUME'
-      'where'
-      '  ANO_VENDA = :OLD_ANO_VENDA and'
-      '  CONTROLE_VENDA = :OLD_CONTROLE_VENDA and'
-      '  SEQUENCIAL = :OLD_SEQUENCIAL')
-    Left = 112
-    Top = 224
-  end
-  object qryCFOPxxx: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    c.Cfop_cod'
-      '  , c.Cfop_descricao'
-      '  , c.Cfop_cst_padrao_entrada'
-      '  , c.Cfop_cst_padrao_saida'
-      'from TBCFOP c'
-      'where c.Cfop_cod = :Cfop_cod')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 824
-    Top = 320
-  end
-  object qryProdutoxxx: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    p.Codigo'
-      '  , p.Cod'
-      '  , p.Descri'
-      '  , p.Modelo'
-      '  , p.Preco'
-      '  , p.Preco_Promocao'
-      '  , p.Referencia'
-      '  , p.Secao'
-      '  , p.Qtde'
-      '  , p.Unidade'
-      '  , p.Estoqmin'
-      '  , p.Codgrupo'
-      '  , p.Customedio'
-      '  , p.Codemp'
-      '  , p.Codsecao'
-      '  , p.Codorigem'
-      '  , p.Codtributacao'
-      '  , p.Cst'
-      '  , p.Csosn'
-      '  , p.Codcfop'
-      '  , p.Codbarra_ean'
-      '  , p.Codunidade'
-      '  , p.Aliquota_tipo'
-      '  , p.Aliquota'
-      '  , p.Aliquota_csosn'
-      '  , p.Aliquota_pis'
-      '  , p.Aliquota_cofins'
-      '  , p.Percentual_reducao_BC'
-      '  , p.Valor_ipi'
-      '  , p.Reserva'
-      '  , p.Movimenta_Estoque'
-      '  , case when coalesce(p.Reserva, 0) > 0'
-      '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
-      '      else coalesce(p.Qtde, 0)'
-      '    end as Disponivel'
-      '  , g.Descri as Descricao_Grupo'
-      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
-      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
-      '  , u.Unp_sigla'
-      '  , c.Cfop_descricao'
-      '  , c.Cfop_especificacao'
-      'from TBPRODUTO p'
-      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
-      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
-      'where p.Codigo = :Codigo'
-      '  or p.Codbarra_ean = :CodigoBarra')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 824
-    Top = 368
-  end
-  object qryUltimoVendaxxx: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '  max(v.codcontrol) as orcamento'
-      'from TBVENDAS v'
-      'where v.codemp  = :empresa'
-      '  and v.usuario = :usuario'
-      '  and v.ano     = :ano'
-      '  and v.status  = :status')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 824
-    Top = 416
-  end
-  object cdsVendaTituloxxx: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    r.Anolanc'
-      '  , r.numlanc'
-      '  , r.parcela'
-      '  , r.codbanco'
-      '  , r.nossonumero'
-      '  , r.cnpj'
-      '  , r.tippag'
-      '  , r.dtemiss'
-      '  , r.dtvenc'
-      '  , r.valorrec'
-      '  , r.percentjuros'
-      '  , r.percentmulta'
-      '  , r.percentdesconto'
-      '  , r.valorrectot'
-      '  , r.valorsaldo'
-      '  , r.dataprocessoboleto'
-      '  , r.Baixado'
-      '  , Case when r.Baixado = 1 then '#39'X'#39' else '#39'.'#39' end as Baixado_'
-      '  , r.Dtrec'
-      '  , r.forma_pagto'
-      '  , r.status'
-      'from TBCONTREC r'
-      ''
-      'where r.anovenda = :anovenda'
-      '  and r.numvenda = :numvenda')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 80
-    Top = 272
-  end
-  object cdsVendaNFCexxx: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = True
-    SelectSQL.Strings = (
-      'Select'
-      '    n.EMPRESA'
-      '  , n.ANOVENDA'
-      '  , n.NUMVENDA'
-      '  , n.DATAEMISSAO'
-      '  , n.HORAEMISSAO'
-      '  , n.SERIE'
-      '  , n.NUMERO'
-      '  , n.MODELO'
-      '  , n.VERSAO'
-      '  , n.CHAVE'
-      '  , n.PROTOCOLO'
-      '  , n.RECIBO'
-      '  , n.XML_FILENAME'
-      '  , n.XML_FILE'
-      '  , n.LOTE_ANO'
-      '  , n.LOTE_NUM'
-      'from TBNFE_ENVIADA n'
-      'where n.EMPRESA = :empresa'
-      '  and n.ANOVENDA = :ano'
-      '  and n.NUMVENDA = :controle')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updVendaNFCexxxx
-    Left = 80
-    Top = 320
-  end
-  object updVendaNFCexxxx: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  EMPRESA,'
-      '  SERIE,'
-      '  NUMERO,'
-      '  MODELO,'
-      '  VERSAO,'
-      '  ANOVENDA,'
-      '  NUMVENDA,'
-      '  ANOCOMPRA,'
-      '  NUMCOMPRA,'
-      '  DATAEMISSAO,'
-      '  HORAEMISSAO,'
-      '  CHAVE,'
-      '  PROTOCOLO,'
-      '  RECIBO,'
-      '  XML_FILENAME,'
-      '  XML_FILE,'
-      '  LOTE_ANO,'
-      '  LOTE_NUM'
-      'from TBNFE_ENVIADA '
-      'where'
-      '  EMPRESA = :EMPRESA and'
-      '  NUMERO = :NUMERO and'
-      '  SERIE = :SERIE')
-    ModifySQL.Strings = (
-      'update TBNFE_ENVIADA'
-      'set'
-      '  ANOVENDA = :ANOVENDA,'
-      '  CHAVE = :CHAVE,'
-      '  DATAEMISSAO = :DATAEMISSAO,'
-      '  EMPRESA = :EMPRESA,'
-      '  HORAEMISSAO = :HORAEMISSAO,'
-      '  LOTE_ANO = :LOTE_ANO,'
-      '  LOTE_NUM = :LOTE_NUM,'
-      '  MODELO = :MODELO,'
-      '  NUMERO = :NUMERO,'
-      '  NUMVENDA = :NUMVENDA,'
-      '  PROTOCOLO = :PROTOCOLO,'
-      '  RECIBO = :RECIBO,'
-      '  SERIE = :SERIE,'
-      '  VERSAO = :VERSAO,'
-      '  XML_FILE = :XML_FILE,'
-      '  XML_FILENAME = :XML_FILENAME'
-      'where'
-      '  EMPRESA = :OLD_EMPRESA and'
-      '  NUMERO = :OLD_NUMERO and'
-      '  SERIE = :OLD_SERIE')
-    InsertSQL.Strings = (
-      'insert into TBNFE_ENVIADA'
-      
-        '  (ANOVENDA, CHAVE, DATAEMISSAO, EMPRESA, HORAEMISSAO, LOTE_ANO,' +
-        ' LOTE_NUM, '
-      
-        '   MODELO, NUMERO, NUMVENDA, PROTOCOLO, RECIBO, SERIE, VERSAO, X' +
-        'ML_FILE, '
-      '   XML_FILENAME)'
-      'values'
-      
-        '  (:ANOVENDA, :CHAVE, :DATAEMISSAO, :EMPRESA, :HORAEMISSAO, :LOT' +
-        'E_ANO, '
-      
-        '   :LOTE_NUM, :MODELO, :NUMERO, :NUMVENDA, :PROTOCOLO, :RECIBO, ' +
-        ':SERIE, '
-      '   :VERSAO, :XML_FILE, :XML_FILENAME)')
-    DeleteSQL.Strings = (
-      'delete from TBNFE_ENVIADA'
-      'where'
-      '  EMPRESA = :OLD_EMPRESA and'
-      '  NUMERO = :OLD_NUMERO and'
-      '  SERIE = :OLD_SERIE')
-    Left = 112
-    Top = 320
-  end
   object qryCFOP: TFDQuery
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -1266,6 +316,7 @@ object DMCupom: TDMCupom
     end
   end
   object updVendaNFCe: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
       'INSERT INTO TBNFE_ENVIADA'
       '(EMPRESA, SERIE, NUMERO, MODELO, VERSAO, '
@@ -1392,6 +443,7 @@ object DMCupom: TDMCupom
     end
   end
   object updVendaVolume: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
       'INSERT INTO TBVENDAS_VOLUME'
       '(ANO_VENDA, CONTROLE_VENDA, SEQUENCIAL, NUMERO, '
@@ -1594,6 +646,7 @@ object DMCupom: TDMCupom
     end
   end
   object updVendaFormaPagto: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
       'INSERT INTO TBVENDAS_FORMAPAGTO'
       '(ANO_VENDA, CONTROLE_VENDA, FORMAPAGTO_COD, CONDICAOPAGTO_COD, '
@@ -1996,6 +1049,7 @@ object DMCupom: TDMCupom
     end
   end
   object updVendaItem: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
       'INSERT INTO TVENDASITENS'
       '(ANO, CODCONTROL, CODEMP, SEQ, CODPROD, '
@@ -2119,6 +1173,7 @@ object DMCupom: TDMCupom
     Top = 128
   end
   object cdsVenda: TFDQuery
+    Active = True
     OnCalcFields = cdsVendaCalcFields
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
@@ -2147,6 +1202,7 @@ object DMCupom: TDMCupom
       '  , v.Lote_nfe_ano'
       '  , v.Lote_nfe_numero'
       '  , v.Lote_nfe_Recibo'
+      '  , v.Lote_nfe_codigo'
       '  , v.Nfe_enviada'
       '  , v.Nfe_denegada'
       '  , v.Nfe_denegada_motivo'
@@ -2342,6 +1398,10 @@ object DMCupom: TDMCupom
       FieldName = 'LOTE_NFE_RECIBO'
       Origin = 'LOTE_NFE_RECIBO'
       Size = 250
+    end
+    object cdsVendaLOTE_NFE_CODIGO: TIntegerField
+      FieldName = 'LOTE_NFE_CODIGO'
+      Origin = 'LOTE_NFE_CODIGO'
     end
     object cdsVendaNFE_ENVIADA: TSmallintField
       FieldName = 'NFE_ENVIADA'
@@ -2598,125 +1658,223 @@ object DMCupom: TDMCupom
     end
   end
   object updVenda: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
-      'INSERT INTO TVENDASITENS'
-      '(ANO, CODCONTROL, CODEMP, SEQ, CODPROD, '
-      '  CODCLIENTE, CODCLI, CODVENDEDOR, DTVENDA, '
-      '  QTDE, PUNIT, PUNIT_PROMOCAO, DESCONTO, '
-      '  DESCONTO_VALOR, PFINAL, QTDEFINAL, UNID_COD, '
-      '  CFOP_COD, CST, CSOSN, ALIQUOTA, ALIQUOTA_CSOSN, '
-      '  ALIQUOTA_PIS, ALIQUOTA_COFINS, VALOR_IPI, '
-      '  PERCENTUAL_REDUCAO_BC, TOTAL_BRUTO, TOTAL_DESCONTO, '
-      '  TOTAL_LIQUIDO)'
+      'INSERT INTO TBVENDAS'
+      '(ANO, CODCONTROL, CODEMP, CODCLIENTE, CODCLI, '
+      '  DTVENDA, STATUS, TOTALVENDA_BRUTA, DESCONTO, '
+      '  DESCONTO_CUPOM, TOTALVENDA, DTFINALIZACAO_VENDA, '
+      '  OBS, FORMAPAG, FATDIAS, SERIE, NFE, '
+      '  DATAEMISSAO, HORAEMISSAO, CFOP, VERIFICADOR_NFE, '
+      '  XML_NFE, XML_NFE_FILENAME, VENDEDOR_COD, '
+      '  USUARIO, FORMAPAGTO_COD, CONDICAOPAGTO_COD, '
+      '  VENDA_PRAZO, PRAZO_01, PRAZO_02, PRAZO_03, '
+      '  PRAZO_04, PRAZO_05, PRAZO_06, PRAZO_07, '
+      '  PRAZO_08, PRAZO_09, PRAZO_10, PRAZO_11, '
+      '  PRAZO_12, LOTE_NFE_ANO, LOTE_NFE_NUMERO, '
+      '  LOTE_NFE_CODIGO, LOTE_NFE_RECIBO, NFE_ENVIADA, '
+      '  NFE_DENEGADA, NFE_DENEGADA_MOTIVO, CANCEL_DATAHORA, '
+      '  CANCEL_MOTIVO, NFE_MODALIDADE_FRETE, NFE_TRANSPORTADORA, '
+      '  NFE_PLACA_VEICULO, NFE_PLACA_UF, NFE_PLACA_RNTC, '
       
-        'VALUES (:NEW_ANO, :NEW_CODCONTROL, :NEW_CODEMP, :NEW_SEQ, :NEW_C' +
-        'ODPROD, '
-      '  :NEW_CODCLIENTE, :NEW_CODCLI, :NEW_CODVENDEDOR, :NEW_DTVENDA, '
-      '  :NEW_QTDE, :NEW_PUNIT, :NEW_PUNIT_PROMOCAO, :NEW_DESCONTO, '
+        '  NFE_VALOR_TOTAL_PRODUTO, NFE_VALOR_DESCONTO, NFE_VALOR_TOTAL_N' +
+        'OTA, '
+      '  GERAR_ESTOQUE_CLIENTE)'
       
-        '  :NEW_DESCONTO_VALOR, :NEW_PFINAL, :NEW_QTDEFINAL, :NEW_UNID_CO' +
-        'D, '
+        'VALUES (:NEW_ANO, :NEW_CODCONTROL, :NEW_CODEMP, :NEW_CODCLIENTE,' +
+        ' :NEW_CODCLI, '
       
-        '  :NEW_CFOP_COD, :NEW_CST, :NEW_CSOSN, :NEW_ALIQUOTA, :NEW_ALIQU' +
-        'OTA_CSOSN, '
-      '  :NEW_ALIQUOTA_PIS, :NEW_ALIQUOTA_COFINS, :NEW_VALOR_IPI, '
+        '  :NEW_DTVENDA, :NEW_STATUS, :NEW_TOTALVENDA_BRUTA, :NEW_DESCONT' +
+        'O, '
       
-        '  :NEW_PERCENTUAL_REDUCAO_BC, :NEW_TOTAL_BRUTO, :NEW_TOTAL_DESCO' +
-        'NTO, '
-      '  :NEW_TOTAL_LIQUIDO)'
-      'RETURNING QTDE, CST, CSOSN')
+        '  :NEW_DESCONTO_CUPOM, :NEW_TOTALVENDA, :NEW_DTFINALIZACAO_VENDA' +
+        ', '
+      '  :NEW_OBS, :NEW_FORMAPAG, :NEW_FATDIAS, :NEW_SERIE, :NEW_NFE, '
+      
+        '  :NEW_DATAEMISSAO, :NEW_HORAEMISSAO, :NEW_CFOP, :NEW_VERIFICADO' +
+        'R_NFE, '
+      '  :NEW_XML_NFE, :NEW_XML_NFE_FILENAME, :NEW_VENDEDOR_COD, '
+      '  :NEW_USUARIO, :NEW_FORMAPAGTO_COD, :NEW_CONDICAOPAGTO_COD, '
+      
+        '  :NEW_VENDA_PRAZO, :NEW_PRAZO_01, :NEW_PRAZO_02, :NEW_PRAZO_03,' +
+        ' '
+      '  :NEW_PRAZO_04, :NEW_PRAZO_05, :NEW_PRAZO_06, :NEW_PRAZO_07, '
+      '  :NEW_PRAZO_08, :NEW_PRAZO_09, :NEW_PRAZO_10, :NEW_PRAZO_11, '
+      '  :NEW_PRAZO_12, :NEW_LOTE_NFE_ANO, :NEW_LOTE_NFE_NUMERO, '
+      '  :NEW_LOTE_NFE_CODIGO, :NEW_LOTE_NFE_RECIBO, :NEW_NFE_ENVIADA, '
+      
+        '  :NEW_NFE_DENEGADA, :NEW_NFE_DENEGADA_MOTIVO, :NEW_CANCEL_DATAH' +
+        'ORA, '
+      
+        '  :NEW_CANCEL_MOTIVO, :NEW_NFE_MODALIDADE_FRETE, :NEW_NFE_TRANSP' +
+        'ORTADORA, '
+      
+        '  :NEW_NFE_PLACA_VEICULO, :NEW_NFE_PLACA_UF, :NEW_NFE_PLACA_RNTC' +
+        ', '
+      
+        '  :NEW_NFE_VALOR_TOTAL_PRODUTO, :NEW_NFE_VALOR_DESCONTO, :NEW_NF' +
+        'E_VALOR_TOTAL_NOTA, '
+      '  :NEW_GERAR_ESTOQUE_CLIENTE)')
     ModifySQL.Strings = (
-      'UPDATE TVENDASITENS'
+      'UPDATE TBVENDAS'
       
         'SET ANO = :NEW_ANO, CODCONTROL = :NEW_CODCONTROL, CODEMP = :NEW_' +
         'CODEMP, '
       
-        '  SEQ = :NEW_SEQ, CODPROD = :NEW_CODPROD, CODCLIENTE = :NEW_CODC' +
-        'LIENTE, '
+        '  CODCLIENTE = :NEW_CODCLIENTE, CODCLI = :NEW_CODCLI, DTVENDA = ' +
+        ':NEW_DTVENDA, '
       
-        '  CODCLI = :NEW_CODCLI, CODVENDEDOR = :NEW_CODVENDEDOR, DTVENDA ' +
-        '= :NEW_DTVENDA, '
-      
-        '  QTDE = :NEW_QTDE, PUNIT = :NEW_PUNIT, PUNIT_PROMOCAO = :NEW_PU' +
-        'NIT_PROMOCAO, '
-      
-        '  DESCONTO = :NEW_DESCONTO, DESCONTO_VALOR = :NEW_DESCONTO_VALOR' +
+        '  STATUS = :NEW_STATUS, TOTALVENDA_BRUTA = :NEW_TOTALVENDA_BRUTA' +
         ', '
       
-        '  PFINAL = :NEW_PFINAL, QTDEFINAL = :NEW_QTDEFINAL, UNID_COD = :' +
-        'NEW_UNID_COD, '
-      '  CFOP_COD = :NEW_CFOP_COD, CST = :NEW_CST, CSOSN = :NEW_CSOSN, '
-      
-        '  ALIQUOTA = :NEW_ALIQUOTA, ALIQUOTA_CSOSN = :NEW_ALIQUOTA_CSOSN' +
+        '  DESCONTO = :NEW_DESCONTO, DESCONTO_CUPOM = :NEW_DESCONTO_CUPOM' +
         ', '
       
-        '  ALIQUOTA_PIS = :NEW_ALIQUOTA_PIS, ALIQUOTA_COFINS = :NEW_ALIQU' +
-        'OTA_COFINS, '
+        '  TOTALVENDA = :NEW_TOTALVENDA, DTFINALIZACAO_VENDA = :NEW_DTFIN' +
+        'ALIZACAO_VENDA, '
       
-        '  VALOR_IPI = :NEW_VALOR_IPI, PERCENTUAL_REDUCAO_BC = :NEW_PERCE' +
-        'NTUAL_REDUCAO_BC, '
+        '  OBS = :NEW_OBS, FORMAPAG = :NEW_FORMAPAG, FATDIAS = :NEW_FATDI' +
+        'AS, '
       
-        '  TOTAL_BRUTO = :NEW_TOTAL_BRUTO, TOTAL_DESCONTO = :NEW_TOTAL_DE' +
-        'SCONTO, '
-      '  TOTAL_LIQUIDO = :NEW_TOTAL_LIQUIDO'
+        '  SERIE = :NEW_SERIE, NFE = :NEW_NFE, DATAEMISSAO = :NEW_DATAEMI' +
+        'SSAO, '
+      
+        '  HORAEMISSAO = :NEW_HORAEMISSAO, CFOP = :NEW_CFOP, VERIFICADOR_' +
+        'NFE = :NEW_VERIFICADOR_NFE, '
+      
+        '  XML_NFE = :NEW_XML_NFE, XML_NFE_FILENAME = :NEW_XML_NFE_FILENA' +
+        'ME, '
+      '  VENDEDOR_COD = :NEW_VENDEDOR_COD, USUARIO = :NEW_USUARIO, '
+      
+        '  FORMAPAGTO_COD = :NEW_FORMAPAGTO_COD, CONDICAOPAGTO_COD = :NEW' +
+        '_CONDICAOPAGTO_COD, '
+      '  VENDA_PRAZO = :NEW_VENDA_PRAZO, PRAZO_01 = :NEW_PRAZO_01, '
+      
+        '  PRAZO_02 = :NEW_PRAZO_02, PRAZO_03 = :NEW_PRAZO_03, PRAZO_04 =' +
+        ' :NEW_PRAZO_04, '
+      
+        '  PRAZO_05 = :NEW_PRAZO_05, PRAZO_06 = :NEW_PRAZO_06, PRAZO_07 =' +
+        ' :NEW_PRAZO_07, '
+      
+        '  PRAZO_08 = :NEW_PRAZO_08, PRAZO_09 = :NEW_PRAZO_09, PRAZO_10 =' +
+        ' :NEW_PRAZO_10, '
+      
+        '  PRAZO_11 = :NEW_PRAZO_11, PRAZO_12 = :NEW_PRAZO_12, LOTE_NFE_A' +
+        'NO = :NEW_LOTE_NFE_ANO, '
+      
+        '  LOTE_NFE_NUMERO = :NEW_LOTE_NFE_NUMERO, LOTE_NFE_CODIGO = :NEW' +
+        '_LOTE_NFE_CODIGO, '
+      
+        '  LOTE_NFE_RECIBO = :NEW_LOTE_NFE_RECIBO, NFE_ENVIADA = :NEW_NFE' +
+        '_ENVIADA, '
+      
+        '  NFE_DENEGADA = :NEW_NFE_DENEGADA, NFE_DENEGADA_MOTIVO = :NEW_N' +
+        'FE_DENEGADA_MOTIVO, '
+      
+        '  CANCEL_DATAHORA = :NEW_CANCEL_DATAHORA, CANCEL_MOTIVO = :NEW_C' +
+        'ANCEL_MOTIVO, '
+      
+        '  NFE_MODALIDADE_FRETE = :NEW_NFE_MODALIDADE_FRETE, NFE_TRANSPOR' +
+        'TADORA = :NEW_NFE_TRANSPORTADORA, '
+      
+        '  NFE_PLACA_VEICULO = :NEW_NFE_PLACA_VEICULO, NFE_PLACA_UF = :NE' +
+        'W_NFE_PLACA_UF, '
+      
+        '  NFE_PLACA_RNTC = :NEW_NFE_PLACA_RNTC, NFE_VALOR_TOTAL_PRODUTO ' +
+        '= :NEW_NFE_VALOR_TOTAL_PRODUTO, '
+      
+        '  NFE_VALOR_DESCONTO = :NEW_NFE_VALOR_DESCONTO, NFE_VALOR_TOTAL_' +
+        'NOTA = :NEW_NFE_VALOR_TOTAL_NOTA, '
+      '  GERAR_ESTOQUE_CLIENTE = :NEW_GERAR_ESTOQUE_CLIENTE'
       
         'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL AND CODEMP' +
-        ' = :OLD_CODEMP AND '
-      '  SEQ = :OLD_SEQ'
-      'RETURNING QTDE, CST, CSOSN')
+        ' = :OLD_CODEMP')
     DeleteSQL.Strings = (
-      'DELETE FROM TVENDASITENS'
+      'DELETE FROM TBVENDAS'
       
         'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL AND CODEMP' +
-        ' = :OLD_CODEMP AND '
-      '  SEQ = :OLD_SEQ')
+        ' = :OLD_CODEMP')
     FetchRowSQL.Strings = (
       'Select'
-      '    i.Ano'
-      '  , i.Codcontrol'
-      '  , i.Seq'
-      '  , i.Codprod'
-      '  , i.Codemp'
-      '  , i.Codcli'
-      '  , i.Codcliente'
-      '  , i.Codvendedor'
-      '  , i.Dtvenda'
-      '  , i.Qtde'
-      '  , i.Punit'
-      '  , i.Punit_Promocao'
-      '  , i.Desconto'
-      '  , i.Desconto_valor'
-      '  , i.Pfinal'
-      '  , i.Qtdefinal'
-      '  , i.Unid_cod'
-      '  , i.Cfop_cod'
-      '  , coalesce(i.Cst, p.Cst) as Cst'
-      '  , coalesce(i.Csosn, p.Csosn) as Csosn'
-      '  , i.Aliquota'
-      '  , i.Aliquota_csosn'
-      '  , i.Aliquota_pis'
-      '  , i.Aliquota_cofins'
-      '  , i.Valor_ipi'
-      '  , i.Percentual_reducao_BC'
-      '  , i.Total_bruto'
-      '  , i.Total_desconto'
-      '  , i.Total_liquido'
-      '  , p.Descri'
-      '  , p.Qtde as Estoque'
-      '  , p.Reserva'
-      '  , u.Unp_sigla'
-      '  , o.Cfop_descricao'
-      '  , p.Cst   as Cst_produto'
-      '  , p.Csosn as Csosn_produto'
-      '  , p.Movimenta_Estoque'
-      'from TVENDASITENS i'
-      '  inner join TBPRODUTO p on (p.Cod = i.Codprod)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      '  left join TBCFOP o on (o.Cfop_cod = i.Cfop_cod)'
+      '    v.Ano'
+      '  , v.Codcontrol'
+      '  , v.Codemp'
+      '  , v.Codcliente'
+      '  , v.Codcli'
+      '  , v.Dtvenda'
+      '  , v.Status'
+      '  , v.Totalvenda_bruta'
+      '  , v.Desconto'
+      '  , v.Desconto_cupom'
+      '  , v.Totalvenda'
+      '  , v.Dtfinalizacao_venda'
+      '  , v.Obs'
+      '  , v.Formapag'
+      '  , v.Fatdias'
+      '  , v.Serie'
+      '  , v.Nfe'
+      '  , v.Lote_nfe_ano'
+      '  , v.Lote_nfe_numero'
+      '  , v.Lote_nfe_Recibo'
+      '  , v.Lote_nfe_codigo'
+      '  , v.Nfe_enviada'
+      '  , v.Nfe_denegada'
+      '  , v.Nfe_denegada_motivo'
+      '  , v.Dataemissao'
+      '  , v.Horaemissao'
+      '  , v.Cancel_datahora'
+      '  , v.Cancel_motivo'
+      '  , v.Cfop'
+      '  , v.Verificador_nfe'
+      '  , v.Xml_nfe_filename'
+      '  , v.Xml_nfe'
+      '  , v.Vendedor_cod'
+      '  , v.Usuario'
+      '  , v.Formapagto_cod'
+      '  , v.Condicaopagto_cod'
+      '  , v.Venda_prazo'
+      '  , v.Prazo_01'
+      '  , v.Prazo_02'
+      '  , v.Prazo_03'
+      '  , v.Prazo_04'
+      '  , v.Prazo_05'
+      '  , v.Prazo_06'
+      '  , v.Prazo_07'
+      '  , v.Prazo_08'
+      '  , v.Prazo_09'
+      '  , v.Prazo_10'
+      '  , v.Prazo_11'
+      '  , v.Prazo_12'
+      '  , v.nfe_modalidade_frete'
+      '  , v.nfe_transportadora'
+      '  , v.nfe_placa_veiculo'
+      '  , v.nfe_placa_uf'
+      '  , v.nfe_placa_rntc'
+      '  , v.nfe_valor_total_produto'
+      '  , v.nfe_valor_desconto'
+      '  , v.nfe_valor_total_nota'
+      '  , v.gerar_estoque_cliente'
+      '  , t.nomeforn as transp_nome'
+      '  , t.cnpj     as transp_cnpj'
+      '  , t.inscest  as transp_iest'
       
-        'WHERE ANO = :ANO AND CODCONTROL = :CODCONTROL AND CODEMP = :CODE' +
-        'MP AND'
-      '  SEQ = :SEQ')
+        '  , t.ender || coalesce('#39' - '#39' || t.cidade, '#39#39') as transp_enderec' +
+        'o'
+      '  , c.Nome'
+      '  , c.Bloqueado'
+      '  , c.Bloqueado_motivo'
+      '  , Case when coalesce(v.totalcusto, 0) > 0'
+      
+        '      then ((v.totalvenda / coalesce(v.totalcusto, 0)) - 1) * 10' +
+        '0'
+      '      else 0.0'
+      '    end Lucro_Calculado'
+      'from TBVENDAS v'
+      '  inner join TBCLIENTE c on (c.Codigo = v.Codcliente)'
+      '  left join TBFORNECEDOR t on (t.codforn = v.nfe_transportadora)'
+      
+        'WHERE v.ANO = :ANO AND v.CODCONTROL = :CODCONTROL AND v.CODEMP =' +
+        ' :CODEMP')
     Left = 256
     Top = 80
   end

@@ -6,9 +6,9 @@ inherited frmGeMessage: TfrmGeMessage
   Caption = 'frmGeMessage'
   ClientHeight = 135
   ClientWidth = 476
-  Font.Charset = ANSI_CHARSET
   Font.Height = -16
-  Font.Name = 'Tahoma'
+  ExplicitWidth = 490
+  ExplicitHeight = 172
   DesignSize = (
     476
     135)
@@ -1808,6 +1808,15 @@ inherited frmGeMessage: TfrmGeMessage
     Transparent = True
     Visible = False
   end
+  object shpColorPDV: TShape
+    Left = 16
+    Top = 96
+    Width = 49
+    Height = 33
+    Brush.Color = 15069150
+    Pen.Style = psClear
+    Visible = False
+  end
   object memoMensagem: TMemo
     Left = 56
     Top = 0
@@ -1838,9 +1847,7 @@ inherited frmGeMessage: TfrmGeMessage
     Caption = 'OK'
     Default = True
     ModalResult = 1
-    TabOrder = 1
-    Visible = False
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       DE010000424DDE01000000000000760000002800000024000000120000000100
       0400000000006801000000000000000000001000000000000000000000000000
       80000080000000808000800000008000800080800000C0C0C000808080000000
@@ -1857,7 +1864,9 @@ inherited frmGeMessage: TfrmGeMessage
       3338F38F000033333333333333A223333333333333338F830000333333333333
       333A333333333333333338330000333333333333333333333333333333333333
       0000}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 1
+    Visible = False
   end
   object btnSim: TcxButton
     Left = 272
@@ -1868,9 +1877,7 @@ inherited frmGeMessage: TfrmGeMessage
     Caption = '&Sim'
     Default = True
     ModalResult = 6
-    TabOrder = 2
-    Visible = False
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       DE010000424DDE01000000000000760000002800000024000000120000000100
       0400000000006801000000000000000000001000000000000000000000000000
       80000080000000808000800000008000800080800000C0C0C000808080000000
@@ -1887,7 +1894,9 @@ inherited frmGeMessage: TfrmGeMessage
       3338F38F000033333333333333A223333333333333338F830000333333333333
       333A333333333333333338330000333333333333333333333333333333333333
       0000}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 2
+    Visible = False
   end
   object btnNao: TcxButton
     Left = 376
@@ -1898,9 +1907,7 @@ inherited frmGeMessage: TfrmGeMessage
     Cancel = True
     Caption = '&N'#227'o'
     ModalResult = 7
-    TabOrder = 3
-    Visible = False
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       DE010000424DDE01000000000000760000002800000024000000120000000100
       0400000000006801000000000000000000001000000000000000000000000000
       80000080000000808000800000008000800080800000C0C0C000808080000000
@@ -1917,6 +1924,8 @@ inherited frmGeMessage: TfrmGeMessage
       83FF83330000333399111111993333333388FFFFFF8833330000333333999999
       3333333333338888883333330000333333333333333333333333333333333333
       0000}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 3
+    Visible = False
   end
 end

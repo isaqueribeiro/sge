@@ -4849,8 +4849,8 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         ParentColor = False
         ParentFont = False
         Transparent = False
-        ExplicitLeft = 135
-        ExplicitWidth = 252
+        ExplicitLeft = 366
+        ExplicitWidth = 21
       end
       object Bevel1: TBevel
         Left = 2
@@ -4897,8 +4897,8 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         ParentColor = False
         ParentFont = False
         Transparent = False
-        ExplicitLeft = 72
-        ExplicitWidth = 315
+        ExplicitLeft = 366
+        ExplicitWidth = 21
       end
       object Bevel2: TBevel
         Left = 2
@@ -4945,8 +4945,8 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         ParentColor = False
         ParentFont = False
         Transparent = False
-        ExplicitLeft = 114
-        ExplicitWidth = 273
+        ExplicitLeft = 366
+        ExplicitWidth = 21
       end
       object Bevel3: TBevel
         Left = 2
@@ -5214,8 +5214,8 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
   end
   object tmrContador: TTimer
     OnTimer = tmrContadorTimer
-    Left = 416
-    Top = 527
+    Left = 456
+    Top = 495
   end
   object dtsVenda: TDataSource
     DataSet = DMCupom.cdsVenda
@@ -5224,8 +5224,8 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
     Top = 184
   end
   object actVenda: TActionList
-    Left = 424
-    Top = 128
+    Left = 456
+    Top = 528
     object actCarregarVendedor: TAction
       Category = 'Cabe'#231'alho Venda'
       Caption = 'actCarregarVendedor'
@@ -5316,7 +5316,7 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
     Top = 232
   end
   object dtsFormaPagto: TDataSource
-    DataSet = DMCupom.cdsVendaFormaPagtoXXX
+    DataSet = DMCupom.cdsVendaFormaPagto
     Left = 864
     Top = 280
   end
@@ -5330,186 +5330,10 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
     Left = 960
     Top = 232
   end
-  object tblFormaPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'COD'
-        Attributes = [faRequired]
-        DataType = ftSmallint
-      end
-      item
-        Name = 'DESCRI'
-        DataType = ftString
-        Size = 30
-      end
-      item
-        Name = 'ACRESCIMO'
-        DataType = ftFloat
-      end
-      item
-        Name = 'CONTA_CORRENTE'
-        DataType = ftInteger
-      end
-      item
-        Name = 'DEBITAR_LIMITE_CLIENTE'
-        DataType = ftSmallint
-      end>
-    IndexDefs = <
-      item
-        Name = 'PK_TBFORMPAGTO'
-        Fields = 'COD'
-        Options = [ixUnique]
-      end
-      item
-        Name = 'FK_TBFORMPAGTO_CCORRENTE'
-        Fields = 'CONTA_CORRENTE'
-      end>
-    StoreDefs = True
-    TableName = 'TBFORMPAGTO'
-    UniDirectional = False
-    Left = 832
-    Top = 464
-  end
-  object tblCondicaoPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_CONDICAOPAGTO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 832
-    Top = 512
-  end
-  object qryTotalComprasAbertas: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    g.Valor_limite'
-      '  , g.Valor_compras_abertas'
-      '  , g.Valor_limite_disponivel'
-      'from GET_LIMITE_DISPONIVEL_CLIENTE(:CODIGO) g')
-    Left = 936
-    Top = 465
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'CODIGO'
-        ParamType = ptInput
-        Value = 0
-      end>
-    object qryTotalComprasAbertasVALOR_LIMITE: TIBBCDField
-      FieldName = 'VALOR_LIMITE'
-      Origin = 'GET_LIMITE_DISPONIVEL_CLIENTE.VALOR_LIMITE'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TIBBCDField
-      FieldName = 'VALOR_COMPRAS_ABERTAS'
-      Origin = 'GET_LIMITE_DISPONIVEL_CLIENTE.VALOR_COMPRAS_ABERTAS'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TIBBCDField
-      FieldName = 'VALOR_LIMITE_DISPONIVEL'
-      Origin = 'GET_LIMITE_DISPONIVEL_CLIENTE.VALOR_LIMITE_DISPONIVEL'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-  end
   object cdsTotalComprasAbertas: TDataSource
     DataSet = qryTotalComprasAbertas
     Left = 968
     Top = 465
-  end
-  object IbStrPrcGerarTitulos: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SET_GERAR_TITULOS'
-    Left = 936
-    Top = 416
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'EMPRESA'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftString
-        Name = 'CLIENTE'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'PARCELAS'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftBCD
-        Name = 'VALOR_TOTAL'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'PARCELA'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftDate
-        Name = 'EMISSAO'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftDate
-        Name = 'VENCIMENTO'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftBCD
-        Name = 'VALOR_DOCUMENTO'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'FORMA_PAGTO'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftDate
-        Name = 'DATA_FINALIZ_VENDA'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'ANO_LANC'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftInteger
-        Name = 'NUM_LANC'
-        ParamType = ptOutput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'ANOVENDA'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'NUMVENDA'
-        ParamType = ptInput
-      end>
   end
   object dtsTitulos: TDataSource
     DataSet = DMCupom.cdsVendaTitulo
@@ -5520,5 +5344,149 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
     DataSet = DMCupom.cdsVendaNFCe
     Left = 864
     Top = 376
+  end
+  object qryTotalComprasAbertas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    g.Valor_limite'
+      '  , g.Valor_compras_abertas'
+      '  , g.Valor_limite_disponivel'
+      'from GET_LIMITE_DISPONIVEL_CLIENTE(:CODIGO) g')
+    Left = 936
+    Top = 464
+    ParamData = <
+      item
+        Name = 'CODIGO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object spSetGerarTitulos: TFDStoredProc
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    StoredProcName = 'SET_GERAR_TITULOS'
+    Left = 936
+    Top = 424
+    ParamData = <
+      item
+        Position = 1
+        Name = 'ANOVENDA'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'NUMVENDA'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptOutput
+        Size = 18
+      end
+      item
+        Position = 4
+        Name = 'CLIENTE_COD'
+        DataType = ftInteger
+        ParamType = ptOutput
+      end
+      item
+        Position = 5
+        Name = 'CLIENTE_CNPJ'
+        DataType = ftString
+        ParamType = ptOutput
+        Size = 18
+      end
+      item
+        Position = 6
+        Name = 'PARCELAS'
+        DataType = ftSmallint
+        ParamType = ptOutput
+      end
+      item
+        Position = 7
+        Name = 'VALOR_TOTAL'
+        DataType = ftFMTBcd
+        Precision = 15
+        NumericScale = 2
+        ParamType = ptOutput
+      end
+      item
+        Position = 8
+        Name = 'PARCELA'
+        DataType = ftSmallint
+        ParamType = ptOutput
+      end
+      item
+        Position = 9
+        Name = 'EMISSAO'
+        DataType = ftDate
+        ParamType = ptOutput
+      end
+      item
+        Position = 10
+        Name = 'VENCIMENTO'
+        DataType = ftDate
+        ParamType = ptOutput
+      end
+      item
+        Position = 11
+        Name = 'VALOR_DOCUMENTO'
+        DataType = ftFMTBcd
+        Precision = 15
+        NumericScale = 2
+        ParamType = ptOutput
+      end
+      item
+        Position = 12
+        Name = 'FORMA_PAGTO'
+        DataType = ftSmallint
+        ParamType = ptOutput
+      end
+      item
+        Position = 13
+        Name = 'DATA_FINALIZ_VENDA'
+        DataType = ftDate
+        ParamType = ptOutput
+      end
+      item
+        Position = 14
+        Name = 'ANO_LANC'
+        DataType = ftSmallint
+        ParamType = ptOutput
+      end
+      item
+        Position = 15
+        Name = 'NUM_LANC'
+        DataType = ftInteger
+        ParamType = ptOutput
+      end>
+  end
+  object qryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from TBFORMPAGTO')
+    Left = 904
+    Top = 424
+  end
+  object qryCondicaoPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from VW_CONDICAOPAGTO')
+    Left = 904
+    Top = 464
   end
 end

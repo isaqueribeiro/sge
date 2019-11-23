@@ -6,9 +6,12 @@ uses
   UGrPadrao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls, Buttons, DB, IBCustomDataSet,
-  IBTable, DBCtrls, Mask, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons,
+  Dialogs, ExtCtrls, StdCtrls, Buttons, Data.DB, DBCtrls, Mask, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxButtons, Datasnap.DBClient,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
@@ -19,8 +22,6 @@ type
     Bevel4: TBevel;
     dtsFormaPagto: TDataSource;
     ImgConsulta: TImage;
-    tblCondicaoPagto: TIBTable;
-    tblFormaPagto: TIBTable;
     lblFormaPagto: TLabel;
     dbFormaPagto: TDBLookupComboBox;
     dtsFormaPagtoLista: TDataSource;
@@ -35,6 +36,8 @@ type
     dbValorTrocoFormaPagto: TDBEdit;
     btnOk: TcxButton;
     btnNao: TcxButton;
+    qryFormaPagto: TFDQuery;
+    qryCondicaoPagto: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure dbCondicaoPagtoClick(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
@@ -47,6 +50,17 @@ type
 
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBFORMPAGTO
+
+  Views:
+  - VW_CONDICAOPAGTO
+
+  Procedures:
+
+*)
 
 var
   frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar;
@@ -61,8 +75,8 @@ uses
 procedure TfrmGeVendaPDVFinalizar.FormCreate(Sender: TObject);
 begin
   inherited;
-  tblFormaPagto.Open;
-  tblCondicaoPagto.Open;
+  qryFormaPagto.Open;
+  qryCondicaoPagto.Open;
 
   fTotalAPagar := 0.0;
 end;
@@ -71,7 +85,7 @@ procedure TfrmGeVendaPDVFinalizar.dbCondicaoPagtoClick(Sender: TObject);
 var
   I : Integer;
 begin
-  with TIBDataSet(dbFormaPagto.DataSource.DataSet) do
+  with TFDQuery(dbFormaPagto.DataSource.DataSet) do
   begin
 
     if ( State in [dsEdit, dsInsert] ) then
@@ -109,7 +123,7 @@ begin
     Exit;
   end;
 
-  if not CamposRequiridos(Self, TIBDataSet(dbFormaPagto.DataSource.DataSet), 'Forma/Condição de Pagamento') then
+  if not CamposRequiridos(Self, TClientDataSet(dbFormaPagto.DataSource.DataSet), 'Forma/Condição de Pagamento') then
     try
       if dbValorFormaPagto.Field.AsCurrency <= 0 then
       begin

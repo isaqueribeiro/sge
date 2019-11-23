@@ -5,7 +5,9 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, ExtCtrls, StdCtrls, Buttons, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeMessage = class(TfrmGrPadrao)
@@ -17,6 +19,8 @@ type
     btnOk: TcxButton;
     btnSim: TcxButton;
     btnNao: TcxButton;
+    shpColorPDV: TShape;
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -68,7 +72,7 @@ begin
   btnNao.Visible := True;
 
   Self.ActiveControl := btnNao;
-  
+
   MessageBeep(MB_ICONQUESTION);
 end;
 
@@ -84,6 +88,12 @@ begin
   btnNao.Visible := False;
 
   MessageBeep(MB_ICONERROR);
+end;
+
+procedure TfrmGeMessage.FormShow(Sender: TObject);
+begin
+  inherited;
+  memoMensagem.Color := shpColorPDV.Brush.Color;
 end;
 
 procedure TfrmGeMessage.Informe(sTitulo, sMensagem: String);

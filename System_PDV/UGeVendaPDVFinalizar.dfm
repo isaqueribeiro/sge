@@ -1793,83 +1793,37 @@ inherited frmGeVendaPDVFinalizar: TfrmGeVendaPDVFinalizar
     Left = 24
     Top = 40
   end
-  object tblCondicaoPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    Filter = 'COND_PDV = 1'
-    Filtered = True
-    IndexFieldNames = 'COND_DESCRICAO_PDV'
-    TableName = 'VW_CONDICAOPAGTO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 40
-    Top = 184
-  end
-  object tblFormaPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'COD'
-        Attributes = [faRequired]
-        DataType = ftSmallint
-      end
-      item
-        Name = 'DESCRI'
-        DataType = ftString
-        Size = 30
-      end
-      item
-        Name = 'ACRESCIMO'
-        DataType = ftFloat
-      end
-      item
-        Name = 'CONTA_CORRENTE'
-        DataType = ftInteger
-      end
-      item
-        Name = 'DEBITAR_LIMITE_CLIENTE'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'FORMAPAGTO_NFCE'
-        DataType = ftString
-        Size = 2
-      end
-      item
-        Name = 'FORMAPAGTO_PDV'
-        DataType = ftSmallint
-      end>
-    Filter = 'FORMAPAGTO_PDV = 1'
-    Filtered = True
-    IndexDefs = <
-      item
-        Name = 'PK_TBFORMPAGTO'
-        Fields = 'COD'
-        Options = [ixUnique]
-      end
-      item
-        Name = 'FK_TBFORMPAGTO_CCORRENTE'
-        Fields = 'CONTA_CORRENTE'
-      end>
-    StoreDefs = True
-    TableName = 'TBFORMPAGTO'
-    UniDirectional = False
-    Left = 40
-    Top = 152
-  end
   object dtsFormaPagtoLista: TDataSource
-    DataSet = tblFormaPagto
+    DataSet = qryFormaPagto
     Left = 72
     Top = 152
   end
   object dtsCondicaoPagtoLista: TDataSource
-    DataSet = tblCondicaoPagto
+    DataSet = qryCondicaoPagto
     Left = 72
+    Top = 184
+  end
+  object qryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from TBFORMPAGTO'
+      'where (FORMAPAGTO_PDV = 1)')
+    Left = 42
+    Top = 152
+  end
+  object qryCondicaoPagto: TFDQuery
+    IndexFieldNames = 'COND_DESCRICAO_PDV'
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from VW_CONDICAOPAGTO'
+      'where (COND_PDV = 1)')
+    Left = 42
     Top = 184
   end
 end

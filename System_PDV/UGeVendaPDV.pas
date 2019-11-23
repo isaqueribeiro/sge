@@ -6,7 +6,6 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, ExtCtrls, dxGDIPlusClasses, StdCtrls, DBCtrls, Grids,
   DBGrids, DB, ActnList, pngimage, System.Actions, frxClass,
-  IBCustomDataSet, IBUpdateSQL, IBTable, IBQuery, IBStoredProc,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
@@ -80,14 +79,7 @@ type
     actGravarOrcamento: TAction;
     ImgLogoCanto: TImage;
     actFinalizarVenda: TAction;
-    tblFormaPagto: TIBTable;
-    tblCondicaoPagto: TIBTable;
-    qryTotalComprasAbertas: TIBQuery;
-    qryTotalComprasAbertasVALOR_LIMITE: TIBBCDField;
-    qryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TIBBCDField;
-    qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TIBBCDField;
     cdsTotalComprasAbertas: TDataSource;
-    IbStrPrcGerarTitulos: TIBStoredProc;
     dtsTitulos: TDataSource;
     actCancelarProduto: TAction;
     actProdutoValor: TAction;
@@ -95,6 +87,10 @@ type
     actProdutoExcluir: TAction;
     dtsNotaFiscal: TDataSource;
     imgCaixaLivre: TImage;
+    qryTotalComprasAbertas: TFDQuery;
+    spSetGerarTitulos: TFDStoredProc;
+    qryFormaPagto: TFDQuery;
+    qryCondicaoPagto: TFDQuery;
     procedure tmrContadorTimer(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure edProdutoCodigoKeyPress(Sender: TObject; var Key: Char);
@@ -170,10 +166,14 @@ type
 
 (*
   Tabelas:
+  - TBFORMPAGTO
 
   Views:
+  - VW_CONDICAOPAGTO
 
   Procedures:
+  - GET_LIMITE_DISPONIVEL_CLIENTE
+  - SET_GERAR_TITULOS
 
 *)
 
@@ -465,7 +465,7 @@ begin
     if VendaEstaAberta then
     begin
       if not EstaEditando then
-        DataSetVenda.Edit;
+        TFDQuery(DataSetVenda).Edit;
       
       with DataSetVenda do
       begin
@@ -557,6 +557,7 @@ begin
       FieldByName('NFE').Clear;
       FieldByName('LOTE_NFE_ANO').Clear;
       FieldByName('LOTE_NFE_NUMERO').Clear;
+      FieldByName('LOTE_NFE_CODIGO').Clear;
       FieldByName('NFE_TRANSPORTADORA').Clear;
       FieldByName('NFE_DENEGADA_MOTIVO').Clear;
 
@@ -603,7 +604,7 @@ begin
       FieldByName('PRAZO_' + FormatFloat('00', I)).Clear;
 
     if not EstaEditando then
-      DataSetVenda.Edit;
+      TFDQuery(DataSetVenda).Edit;
 
     DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger := 0;
   end;
@@ -655,13 +656,13 @@ begin
     Open;
   end;
 
-  tblFormaPagto.Close;
-  tblFormaPagto.Open;
-  tblFormaPagto.Locate('COD', DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger, []);
+  qryFormaPagto.Close;
+  qryFormaPagto.Open;
+  qryFormaPagto.Locate('COD', DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger, []);
 
-  tblCondicaoPagto.Close;
-  tblCondicaoPagto.Open;
-  tblCondicaoPagto.Locate('COND_COD', DataSetFormaPagto.FieldByName('CONDICAOPAGTO_COD').AsInteger, []);
+  qryCondicaoPagto.Close;
+  qryCondicaoPagto.Open;
+  qryCondicaoPagto.Locate('COND_COD', DataSetFormaPagto.FieldByName('CONDICAOPAGTO_COD').AsInteger, []);
 end;
 
 procedure TfrmGeVendaPDV.actCancelarExecute(Sender: TObject);
@@ -683,7 +684,7 @@ begin
         if ShowConfirmation('Confirma o cancelamento do orçamento?') then
         begin
           TFDQuery(DataSetVenda).Delete;
-          TFDQuery(DataSetVenda).ApplyUpdates;
+          TFDQuery(DataSetVenda).ApplyUpdates(0);
           TFDQuery(DataSetVenda).CommitUpdates;
 
           CommitTransaction;
@@ -711,7 +712,7 @@ begin
     if VendaEstaAberta then
     begin
       if not EstaEditando then
-        DataSetVenda.Edit;
+        TFDQuery(DataSetVenda).Edit;
         
       DataSetVenda.FieldByName('VENDEDOR_COD').AsInteger := iCodigo;
     end;  
@@ -806,7 +807,7 @@ var
 begin
   if VendaEstaAberta then
     if not EstaEditando then
-      DataSetVenda.Edit;
+      TFDQuery(DataSetVenda).Edit;
 
   if EstaEditando then
     with DataSetItens do
@@ -952,7 +953,7 @@ begin
       if ( DataSetFormaPagto.RecordCount <= 1 ) then
       begin
         if ( not (DataSetFormaPagto.State in [dsEdit, dsInsert]) ) then
-          DataSetFormaPagto.Edit;
+          TFDQuery(DataSetFormaPagto).Edit;
 
         DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value   := cTotalLiquido;
         DataSetFormaPagto.FieldByName('VALOR_RECEBIDO').Value := cTotalLiquido;
@@ -990,7 +991,7 @@ begin
     Exit;
 
   if not EstaEditando then
-    DataSetVenda.Edit;
+    TFDQuery(DataSetVenda).Edit;
 
   if ( DataSetVenda.FieldByName('TOTALVENDA_BRUTA').AsCurrency = 0 ) then
   begin
@@ -1012,7 +1013,7 @@ begin
       DataSetVenda.FieldByName('DESCONTO_CUPOM').AsCurrency;
 
     if not (DataSetFormaPagto.State in [dsEdit, dsINsert]) then
-      DataSetFormaPagto.Edit;
+      TFDQuery(DataSetFormaPagto).Edit;
 
     DataSetFormaPagto.FieldByName('VALOR_FPAGTO').AsCurrency   := dbValorAPagar.Field.AsCurrency;
     DataSetFormaPagto.FieldByName('VALOR_RECEBIDO').AsCurrency := dbValorAPagar.Field.AsCurrency;
@@ -1071,7 +1072,7 @@ begin
     
   if VendaEstaAberta then
     if not EstaEditando then
-      DataSetVenda.Edit;
+      TFDQuery(DataSetVenda).Edit;
     
   if not EstaEditando then
     Exit;
@@ -1098,7 +1099,7 @@ begin
       // Grava Venda
 
       TFDQuery(DataSetVenda).Post;
-      TFDQuery(DataSetVenda).ApplyUpdates;
+      TFDQuery(DataSetVenda).ApplyUpdates(0);
       TFDQuery(DataSetVenda).CommitUpdates;
 
       // Gravar Itens da Venda
@@ -1106,7 +1107,7 @@ begin
       if (DataSetItens.State in [dsEdit, dsInsert]) then
         TFDQuery(DataSetItens).Post;
 
-      TFDQuery(DataSetItens).ApplyUpdates;
+      TFDQuery(DataSetItens).ApplyUpdates(0);
       TFDQuery(DataSetItens).CommitUpdates;
 
       // Gravar Forma de Pagamento da Venda
@@ -1114,7 +1115,7 @@ begin
       if (DataSetFormaPagto.State in [dsEdit, dsInsert]) then
         TFDQuery(DataSetFormaPagto).Post;
 
-      TFDQuery(DataSetFormaPagto).ApplyUpdates;
+      TFDQuery(DataSetFormaPagto).ApplyUpdates(0);
       TFDQuery(DataSetFormaPagto).CommitUpdates;
 
       CommitTransaction;
@@ -1153,12 +1154,12 @@ begin
     if VendaEstaAberta then
     begin
       if not EstaEditando then
-        DataSetVenda.Edit;
+        TFDQuery(DataSetVenda).Edit;
 
-      DataSetFormaPagto.Edit;
+      TFDQuery(DataSetFormaPagto).Edit;
       DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger      := iCodigo;
       DataSetFormaPagto.FieldByName('FORMAPAGTO_DESCRICAO').AsString := sNome;
-      DataSetFormaPagto.Post;
+      TFDQuery(DataSetFormaPagto).Post;
     end;
   end;
 end;
@@ -1227,6 +1228,12 @@ begin
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
 
+  if (DataSetVenda.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) then
+  begin
+    ShowWarning('Esta venda já está finalizada!');
+    Abort;
+  end;
+
   DMNFe.LerConfiguracao(gUsuarioLogado.Empresa, tipoDANFE_ESCPOS);
   if DMNFe.IsEstacaoEmiteNFCe then
     if ( edNomeCliente.Tag <> CONSUMIDOR_FINAL_CODIGO ) then
@@ -1248,14 +1255,14 @@ begin
 
   // ( I N I C I O ) FORÇAR A GRAVAÇÃO DO REGISTRO NA BASE PARA DISPARAR TRIGGERS DE UPDATE
 
-  DataSetVenda.Edit;
+  TFDQuery(DataSetVenda).Edit;
 
   DataSetVenda.FieldByName('CODCLIENTE').Value := edNomeCliente.Tag;
   DataSetVenda.FieldByName('CODCLI').Value     := edNomeCliente.Hint;    // CPF/CNPJ
   DataSetVenda.FieldByName('NOME').Value       := edNomeCliente.Caption;
 
   TFDQuery(DataSetVenda).Post;
-  TFDQuery(DataSetVenda).ApplyUpdates;
+  TFDQuery(DataSetVenda).ApplyUpdates(0);
   TFDQuery(DataSetVenda).CommitUpdates;
 
   // Gravar Itens da Venda
@@ -1263,7 +1270,7 @@ begin
   if (DataSetItens.State in [dsEdit, dsInsert]) then
     TFDQuery(DataSetItens).Post;
 
-  TFDQuery(DataSetItens).ApplyUpdates;
+  TFDQuery(DataSetItens).ApplyUpdates(0);
   TFDQuery(DataSetItens).CommitUpdates;
 
   // Gravar Forma de Pagamento da Venda
@@ -1271,7 +1278,7 @@ begin
   if (DataSetFormaPagto.State in [dsEdit, dsInsert]) then
     TFDQuery(DataSetFormaPagto).Post;
 
-  TFDQuery(DataSetFormaPagto).ApplyUpdates;
+  TFDQuery(DataSetFormaPagto).ApplyUpdates(0);
   TFDQuery(DataSetFormaPagto).CommitUpdates;
 
   CommitTransaction;
@@ -1293,7 +1300,7 @@ begin
       Exit;
     end;
 
-  DataSetVenda.Edit;
+  TFDQuery(DataSetVenda).Edit;
 
   if ( DataSetVenda.FieldByName('VENDEDOR_COD').AsInteger = 0 ) then
     ShowWarning('Favor informar o vendedor')
@@ -1312,7 +1319,7 @@ begin
     AForm := TfrmGeVendaPDVFormaPagto.Create(Self);
     try
       if not (DataSetFormaPagto.State in [dsEdit, dsINsert]) then
-        DataSetFormaPagto.Edit;
+        TFDQuery(DataSetFormaPagto).Edit;
 
       if (DataSetFormaPagto.RecordCount = 1) then
       begin
@@ -1347,8 +1354,8 @@ begin
       begin
         DataSetFormaPagto.First;
 
-        tblFormaPagto.Locate('COD', DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger, []);
-        tblCondicaoPagto.Locate('COND_COD', DataSetFormaPagto.FieldByName('CONDICAOPAGTO_COD').AsInteger, []);
+        qryFormaPagto.Locate('COD', DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger, []);
+        qryCondicaoPagto.Locate('COND_COD', DataSetFormaPagto.FieldByName('CONDICAOPAGTO_COD').AsInteger, []);
 
         edNomeFormaPagto.Tag     := DataSetFormaPagto.FieldByName('FORMAPAGTO_COD').AsInteger;
         edNomeFormaPagto.Caption := GetFormaPagtoNome( edNomeFormaPagto.Tag );
@@ -1377,7 +1384,7 @@ begin
       if ( DataSetVenda.FieldByName('VENDA_PRAZO').AsInteger = 1 ) then
       begin
         GetComprasAbertas( DataSetVenda.FieldByName('CODCLIENTE').AsInteger );
-        if ( (qryTotalComprasAbertasVALOR_LIMITE.AsCurrency > 0.0) and (GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency) ) then
+        if ( (qryTotalComprasAbertas.FieldByName('VALOR_LIMITE').AsCurrency > 0.0) and (GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertas.FieldByName('VALOR_LIMITE_DISPONIVEL').AsCurrency) ) then
         begin
           ShowWarning('O Valor Total A Prazo da venda está acima do Valor Limite disponível para o cliente.' + #13#13 + 'Favor comunicar ao setor financeiro.');
           Exit;
@@ -1389,7 +1396,7 @@ begin
       else
         iGerarEstoqueCliente := 0;
 
-      DataSetVenda.Edit;
+      TFDQuery(DataSetVenda).Edit;
 
       DataSetVenda.FieldByName('STATUS').Value                := STATUS_VND_FIN;
       DataSetVenda.FieldByName('DTVENDA').Value               := GetDateTimeDB;
@@ -1401,7 +1408,7 @@ begin
       DataSetVenda.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency    := dbValorAPagar.Field.AsCurrency;
 
       TFDQuery(DataSetVenda).Post;
-      TFDQuery(DataSetVenda).ApplyUpdates;
+      TFDQuery(DataSetVenda).ApplyUpdates(0);
       TFDQuery(DataSetVenda).CommitUpdates;
 
       // Gravar Itens da Venda
@@ -1409,7 +1416,7 @@ begin
       if (DataSetItens.State in [dsEdit, dsInsert]) then
         TFDQuery(DataSetItens).Post;
 
-      TFDQuery(DataSetItens).ApplyUpdates;
+      TFDQuery(DataSetItens).ApplyUpdates(0);
       TFDQuery(DataSetItens).CommitUpdates;
 
       // Gravar Forma de Pagamento
@@ -1417,7 +1424,7 @@ begin
       if (DataSetFormaPagto.State in [dsEdit, dsInsert]) then
         TFDQuery(DataSetFormaPagto).Post;
 
-      TFDQuery(DataSetFormaPagto).ApplyUpdates;
+      TFDQuery(DataSetFormaPagto).ApplyUpdates(0);
       TFDQuery(DataSetFormaPagto).CommitUpdates;
 
       CommitTransaction;
@@ -1437,7 +1444,7 @@ begin
 
       // Formas de Pagamento que nao seja a prazo
 
-      DataSetVenda.Edit;
+      TFDQuery(DataSetVenda).Edit;
 
       DataSetFormaPagto.First;
       while not DataSetFormaPagto.Eof do
@@ -1461,7 +1468,7 @@ begin
       end;
 
       TFDQuery(DataSetVenda).Post;
-      TFDQuery(DataSetVenda).ApplyUpdates;
+      TFDQuery(DataSetVenda).ApplyUpdates(0);
       TFDQuery(DataSetVenda).CommitUpdates;
 
       CommitTransaction;
@@ -1507,13 +1514,13 @@ begin
 
         if bDenegada then
         begin
-          DataSetVenda.Edit;
+          TFDQuery(DataSetVenda).Edit;
 
           DataSetVenda.FieldByName('NFE_DENEGADA').AsInteger       := 1;
           DataSetVenda.FieldByName('NFE_DENEGADA_MOTIVO').AsString := AnsiUpperCase(Trim(sDenegadaMotivo));
 
           TFDQuery(DataSetVenda).Post;
-          TFDQuery(DataSetVenda).ApplyUpdates;
+          TFDQuery(DataSetVenda).ApplyUpdates(0);
           TFDQuery(DataSetVenda).CommitUpdates;
 
           CommitTransaction;
@@ -1554,7 +1561,7 @@ begin
           end;
 
           TFDQuery(DataSetNotaFiscal).Post;
-          TFDQuery(DataSetNotaFiscal).ApplyUpdates;
+          TFDQuery(DataSetNotaFiscal).ApplyUpdates(0);
           TFDQuery(DataSetNotaFiscal).CommitUpdates;
 
           CommitTransaction;
@@ -1792,7 +1799,7 @@ begin
 
       UpdateSequence('GEN_CONTAREC_NUM_' + IntToStr(AnoVenda), 'TBCONTREC', 'NUMLANC', 'where ANOLANC = ' + IntToStr(AnoVenda));
 
-      with IbStrPrcGerarTitulos do
+      with spSetGerarTitulos do
       begin
         ParamByName('anovenda').AsInteger := AnoVenda;
         ParamByName('numvenda').AsInteger := ControleVenda;
@@ -1884,7 +1891,7 @@ begin
         begin
 
           if not (State in [dsEdit, dsInsert]) then
-            DataSetItens.Edit;
+            TFDQuery(DataSetItens).Edit;
 
           FieldByName('PUNIT').AsCurrency := AForm.ValorAterar;
 
@@ -1907,7 +1914,7 @@ begin
           GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido);
 
           if not (DataSetVenda.State in [dsEdit, dsInsert]) then
-            DataSetVenda.Edit;
+            TFDQuery(DataSetVenda).Edit;
 
           DataSetVenda.FieldByName('TOTALVENDA_BRUTA').AsCurrency := cTotalBruto;
           DataSetVenda.FieldByName('DESCONTO').AsCurrency         := cTotalDesconto;
@@ -1916,7 +1923,7 @@ begin
           if ( DataSetFormaPagto.RecordCount <= 1 ) then
           begin
             if ( not (DataSetFormaPagto.State in [dsEdit, dsInsert]) ) then
-              DataSetFormaPagto.Edit;
+              TFDQuery(DataSetFormaPagto).Edit;
 
             DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value := cTotalLiquido;
           end;
@@ -1986,7 +1993,7 @@ begin
         begin
 
           if not (State in [dsEdit, dsInsert]) then
-            DataSetItens.Edit;
+            TFDQuery(DataSetItens).Edit;
 
           FieldByName('QTDE').AsCurrency := AForm.ValorAterar;
 
@@ -2009,7 +2016,7 @@ begin
           GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido);
 
           if not (DataSetVenda.State in [dsEdit, dsInsert]) then
-            DataSetVenda.Edit;
+            TFDQuery(DataSetVenda).Edit;
 
           DataSetVenda.FieldByName('TOTALVENDA_BRUTA').AsCurrency := cTotalBruto;
           DataSetVenda.FieldByName('DESCONTO').AsCurrency         := cTotalDesconto;
@@ -2018,7 +2025,7 @@ begin
           if ( DataSetFormaPagto.RecordCount <= 1 ) then
           begin
             if ( not (DataSetFormaPagto.State in [dsEdit, dsInsert]) ) then
-              DataSetFormaPagto.Edit;
+              TFDQuery(DataSetFormaPagto).Edit;
 
             DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value := cTotalLiquido;
           end;
@@ -2102,7 +2109,7 @@ begin
               GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido);
 
               if not (DataSetVenda.State in [dsEdit, dsInsert]) then
-                DataSetVenda.Edit;
+                TFDQuery(DataSetVenda).Edit;
 
               DataSetVenda.FieldByName('TOTALVENDA_BRUTA').AsCurrency := cTotalBruto;
               DataSetVenda.FieldByName('DESCONTO').AsCurrency         := cTotalDesconto;
@@ -2111,7 +2118,7 @@ begin
               if ( DataSetFormaPagto.RecordCount <= 1 ) then
               begin
                 if ( not (DataSetFormaPagto.State in [dsEdit, dsInsert]) ) then
-                  DataSetFormaPagto.Edit;
+                  TFDQuery(DataSetFormaPagto).Edit;
 
                 DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value   := cTotalLiquido;
                 DataSetFormaPagto.FieldByName('VALOR_RECEBIDO').Value := cTotalLiquido;
@@ -2126,7 +2133,7 @@ begin
         begin
 
           if not (State in [dsEdit, dsInsert]) then
-            DataSetItens.Edit;
+            TFDQuery(DataSetItens).Edit;
 
           Case TipoAlteracao of
             alterarQuantidade : FieldByName('QTDE').AsCurrency  := AForm.ValorAterar;
@@ -2152,7 +2159,7 @@ begin
           GetToTais(cTotalBruto, cTotalDesconto, cTotalLiquido);
 
           if not (DataSetVenda.State in [dsEdit, dsInsert]) then
-            DataSetVenda.Edit;
+            TFDQuery(DataSetVenda).Edit;
 
           DataSetVenda.FieldByName('TOTALVENDA_BRUTA').AsCurrency := cTotalBruto;
           DataSetVenda.FieldByName('DESCONTO').AsCurrency         := cTotalDesconto;
@@ -2161,7 +2168,7 @@ begin
           if ( DataSetFormaPagto.RecordCount <= 1 ) then
           begin
             if ( not (DataSetFormaPagto.State in [dsEdit, dsInsert]) ) then
-              DataSetFormaPagto.Edit;
+              TFDQuery(DataSetFormaPagto).Edit;
 
             DataSetFormaPagto.FieldByName('VALOR_FPAGTO').Value   := cTotalLiquido;
             DataSetFormaPagto.FieldByName('VALOR_RECEBIDO').Value := cTotalLiquido;

@@ -364,18 +364,21 @@ type
     procedure QryEstoqueSateliteCOD_VENDA_ULTGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
-    bApenasPossuiEstoque : Boolean;
-    FSQLEstoqueSatelite  : TStringList;
+    aEstoqueSateliteEmpresa,
+    aEstoqueSateliteCliente,
+    bApenasPossuiEstoque   : Boolean;
+    FSQLEstoqueSatelite    : TStringList;
     procedure GetComprasAbertas(iCodigoCliente : Integer);
     procedure HabilitarAbaEstoque;
     procedure EstoqueSateliteFiltarDados(const iTipoPesquisa : Integer);
     procedure RegistrarNovaRotinaSistema;
 
-    function GetUserVisualizaEstoque : Boolean;
     function GetRotinaBloqueioID : String;
+    function GetRotinaVisualizarEstoqueID : String;
   public
     { Public declarations }
     property RotinaBloqueioID : String read GetRotinaBloqueioID;
+    property RotinaVisualizarEstoqueID : String read GetRotinaVisualizarEstoqueID;
 
     procedure Update(Observeble: IObservable); overload;
     procedure Update(Observeble: IObservable; sMessage: string); overload;
@@ -578,6 +581,9 @@ begin
   CarregarLista(fdQryTipoCnpj);
   CarregarLista(fdQryBancoFebraban);
 
+  aEstoqueSateliteEmpresa := GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa);
+  aEstoqueSateliteCliente := GetPermissaoRotinaInterna(tbsEstoqueSatelite, False);
+
   BloquearClientes;
 
   RotinaID         := ROTINA_CAD_CLIENTE_ID;
@@ -606,7 +612,7 @@ begin
   lblOutros.Enabled := dbCustoOperacional.Enabled;
   dbOutros.Enabled  := dbCustoOperacional.Enabled;
 
-  dbEntregaFracionada.ReadOnly  := not GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa);
+  dbEntregaFracionada.ReadOnly  := not aEstoqueSateliteEmpresa;
 
   tbsDadosAdcionais.TabVisible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
   tbsCompra.TabVisible         := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
@@ -1377,9 +1383,9 @@ begin
   with DtSrcTabela.DataSet do
   begin
     tbsEstoqueSatelite.TabVisible :=
-        ((GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa) and (FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger = 1))
+        ((aEstoqueSateliteEmpresa and (FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger = 1))
       or ((gSistema.Codigo = SISTEMA_GESTAO_OPME) and (not FieldByName('VALORES').IsNull))
-    ) and GetUserVisualizaEstoque;
+    ) and aEstoqueSateliteCliente;
   end;
 end;
 
@@ -1594,16 +1600,6 @@ begin
   end;
 end;
 
-function TfrmGeCliente.GetUserVisualizaEstoque: Boolean;
-begin
-  Result := (GetUserFunctionID in [
-      FUNCTION_USER_ID_DIRETORIA
-    , FUNCTION_USER_ID_GERENTE_ADM
-    , FUNCTION_USER_ID_ESTOQUISTA
-    , FUNCTION_USER_ID_SUPORTE_TI
-    , FUNCTION_USER_ID_SYSTEM_ADM ]);
-end;
-
 procedure TfrmGeCliente.btnFiltrarClick(Sender: TObject);
 begin
   if bApenasPossuiEstoque then
@@ -1792,6 +1788,9 @@ begin
   begin
     if BtBtnProcesso.Visible then
       SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaBloqueioID, BtBtnProcesso.Hint, RotinaID);
+
+    if aEstoqueSateliteEmpresa or (gSistema.Codigo = SISTEMA_GESTAO_OPME) then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaVisualizarEstoqueID, 'Visualizar Estoque Satélite (Estoque do Cliente)', RotinaID);
   end;
 end;
 
@@ -1800,10 +1799,16 @@ begin
   Result := GetRotinaInternaID(BtBtnProcesso);
 end;
 
+function TfrmGeCliente.GetRotinaVisualizarEstoqueID: String;
+begin
+  Result := GetRotinaInternaID(tbsEstoqueSatelite);
+end;
+
 procedure TfrmGeCliente.FormShow(Sender: TObject);
 begin
   inherited;
   RegistrarNovaRotinaSistema;
+
   if (gSistema.Codigo = SISTEMA_PDV) then
     if (pgcGuias.ActivePage = tbsTabela) then
       if (CmbBxFiltrarTipo.Visible and CmbBxFiltrarTipo.Enabled) then

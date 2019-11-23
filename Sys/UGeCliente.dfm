@@ -1143,6 +1143,8 @@ inherited frmGeCliente: TfrmGeCliente
         object tbsDadosAdcionais: TTabSheet
           Caption = '&2. Outras Informa'#231#245'es'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 26
           object dbNFeDevolucao: TDBCheckBox
             Left = 12
             Top = 114
@@ -3150,6 +3152,7 @@ inherited frmGeCliente: TfrmGeCliente
       end
     end
     object tbsEstoqueSatelite: TTabSheet
+      Tag = 12
       Caption = 'Estoque &Sat'#233'lite'
       ImageIndex = 30
       object Bevel11: TBevel
@@ -3868,7 +3871,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited ImgList: TImageList
     Left = 552
     Bitmap = {
-      494C01012B002C00AC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00B00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5399,8 +5402,8 @@ inherited frmGeCliente: TfrmGeCliente
       '  , coalesce(c.Cid_nome, cl.Cidade) as Cid_nome'
       '  , coalesce(u.Est_nome, cl.Uf) as Est_nome'
       '  , p.Pais_nome'
-      '  , est.produtos'
-      '  , est.valores'
+      '  , coalesce(est.produtos,  0) as produtos'
+      '  , coalesce(est.valores, 0.0) as valores'
       'from TBCLIENTE cl'
       '  left join TBTIPO_LOGRADOURO t on (t.Tlg_cod = cl.Tlg_tipo)'
       '  left join TBLOGRADOURO l on (l.Log_cod = cl.Log_cod)'
@@ -5414,6 +5417,7 @@ inherited frmGeCliente: TfrmGeCliente
       '      , sum(x.quantidade * x.valor_medio) as valores'
       '    from TBCLIENTE_ESTOQUE x'
       '    where (x.cod_cliente <> 1)'
+      '      and (x.quantidade > 0.0)'
       '    group by'
       '        x.cod_cliente'
       '  ) est on (est.cod_cliente = cl.codigo)')
@@ -5949,8 +5953,8 @@ inherited frmGeCliente: TfrmGeCliente
       '  , coalesce(c.Cid_nome, cl.Cidade) as Cid_nome'
       '  , coalesce(u.Est_nome, cl.Uf) as Est_nome'
       '  , p.Pais_nome'
-      '  , est.produtos'
-      '  , est.valores'
+      '  , coalesce(est.produtos,  0) as produtos'
+      '  , coalesce(est.valores, 0.0) as valores'
       'from TBCLIENTE cl'
       '  left join TBTIPO_LOGRADOURO t on (t.Tlg_cod = cl.Tlg_tipo)'
       '  left join TBLOGRADOURO l on (l.Log_cod = cl.Log_cod)'
@@ -5964,6 +5968,7 @@ inherited frmGeCliente: TfrmGeCliente
       '      , sum(x.quantidade * x.valor_medio) as valores'
       '    from TBCLIENTE_ESTOQUE x'
       '    where (x.cod_cliente <> 1)'
+      '      and (x.quantidade > 0.0)'
       '    group by'
       '        x.cod_cliente'
       '  ) est on (est.cod_cliente = cl.codigo)'

@@ -4,22 +4,23 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.DBCtrls, Vcl.StdCtrls,
-  Data.DB, IBX.IBCustomDataSet, IBX.IBTable, Vcl.ExtCtrls, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore, dxSkinMcSkin,
-  dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, cxButtons, Vcl.Mask, Vcl.Grids, Vcl.DBGrids,
-  Datasnap.DBClient, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.DBCtrls, Vcl.StdCtrls, Data.DB, Vcl.ExtCtrls,
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, cxButtons, Vcl.Mask,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, Datasnap.DBClient, Vcl.Grids, Vcl.DBGrids;
 
 type
   TfrmGeVendaPDVFormaPagto = class(TfrmGrPadrao)
     Bevel4: TBevel;
     dtsFormaPagto: TDataSource;
     ImgConsulta: TImage;
-    tblFormaPagto: TIBTable;
     dtsFormaPagtoLista: TDataSource;
-    tblCondicaoPagto: TIBTable;
     dtsCondicaoPagtoLista: TDataSource;
     grpFormaCondicaoPagto: TGroupBox;
     lblFormaPagto: TLabel;
@@ -45,6 +46,8 @@ type
     btnNao: TcxButton;
     btnSalvar: TcxButton;
     dtsVenda: TDataSource;
+    qryFormaPagto: TFDQuery;
+    qryCondicaoPagto: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure dbCondicaoPagtoClick(Sender: TObject);
@@ -65,8 +68,10 @@ type
 
 (*
   Tabelas:
+  - TBFORMPAGTO
 
   Views:
+  - VW_CONDICAOPAGTO
 
   Procedures:
 
@@ -106,7 +111,7 @@ var
 const
   DINHEIRO = 'DINHEIRO,DNH,MONEY,REAL,R$,MOEDA,MOEDA CORRENTE';
 begin
-  tblCondicaoPagto.Locate('cond_cod', dbCondicaoPagto.Field.AsInteger, []);
+  qryCondicaoPagto.Locate('cond_cod', dbCondicaoPagto.Field.AsInteger, []);
 
   cRestoAPagar   := cdsTotalAReceber.AsCurrency - (cdsTotalRecebido.AsCurrency - cdsTotalTroco.AsCurrency);
   sFormaPagto    := AnsiUpperCase(Trim(dbFormaPagto.Text));
@@ -130,7 +135,7 @@ begin
     Exit;
   end;
 
-  if not CamposRequiridos(Self, TIBDataSet(dbFormaPagto.DataSource.DataSet), 'Forma/Condição de Pagamento') then
+  if not CamposRequiridos(Self, TClientDataSet(dbFormaPagto.DataSource.DataSet), 'Forma/Condição de Pagamento') then
     try
       if dbValorFormaPagto.Field.AsCurrency <= 0 then
       begin
@@ -144,7 +149,7 @@ begin
         dbFormaPagto.SetFocus;
       end
       else
-      if (tblCondicaoPagto.FieldByName('cond_prazo').AsInteger = 1) and (dbValorFormaPagto.Field.AsCurrency > cRestoAPagar) then
+      if (qryCondicaoPagto.FieldByName('cond_prazo').AsInteger = 1) and (dbValorFormaPagto.Field.AsCurrency > cRestoAPagar) then
       begin
         ShowWarning('Condição de Pagamento selecionada não permite o recebimento de valores acima do calculado!');
         dbFormaPagto.SetFocus;
@@ -184,7 +189,7 @@ procedure TfrmGeVendaPDVFormaPagto.dbCondicaoPagtoClick(Sender: TObject);
 var
   I : Integer;
 begin
-  with TIBDataSet(DataSetFormaPagto) do
+  with TFDQuery(DataSetFormaPagto) do
   begin
 
     if ( State in [dsEdit, dsInsert] ) then
@@ -217,13 +222,13 @@ begin
   dtsVenda.DataSet      := DMCupom.cdsVenda;
   dtsFormaPagto.DataSet := DMCupom.cdsVendaFormaPagto;
 
-  tblFormaPagto.Open;
-  tblFormaPagto.Last;
-  tblFormaPagto.First;
+  qryFormaPagto.Open;
+  qryFormaPagto.Last;
+  qryFormaPagto.First;
 
-  tblCondicaoPagto.Open;
-  tblCondicaoPagto.Last;
-  tblCondicaoPagto.First;
+  qryCondicaoPagto.Open;
+  qryCondicaoPagto.Last;
+  qryCondicaoPagto.First;
 
   cdsTotal.CreateDataSet;
 end;
