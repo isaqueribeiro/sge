@@ -74,15 +74,15 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <Icon_MainIcon>SGO_Icon_v3.ico</Icon_MainIcon>
-        <VerInfo_Release>28</VerInfo_Release>
+        <VerInfo_Release>29</VerInfo_Release>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.28.2;InternalName=SGE;LegalCopyright=Copyright 2013 - 2019 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.28;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=20/11/2019;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.29.0;InternalName=SGE;LegalCopyright=Copyright 2013 - 2019 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.29;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=28/11/2019;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
-        <VerInfo_Build>2</VerInfo_Build>
+        <VerInfo_Build>0</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <Icon_MainIcon>SGE_Icon.ico</Icon_MainIcon>
@@ -97,12 +97,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductN
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <Icon_MainIcon>SGO_Icon_v3.ico</Icon_MainIcon>
-        <VerInfo_Release>28</VerInfo_Release>
+        <VerInfo_Release>29</VerInfo_Release>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.28.2;InternalName=SGO;LegalCopyright=Copyright 2013 - 2019 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.28;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=20/11/2019;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
-        <VerInfo_Build>2</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.29.0;InternalName=SGO;LegalCopyright=Copyright 2013 - 2019 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.29;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=28/11/2019;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Build>0</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Icon_MainIcon>SGO_Icon_v3.ico</Icon_MainIcon>
@@ -111,14 +111,14 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductN
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Release>28</VerInfo_Release>
+        <VerInfo_Release>29</VerInfo_Release>
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.28.2;InternalName=SGO;LegalCopyright=Copyright 2013 - 2019 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.28;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=20/11/2019;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.29.0;InternalName=SGO;LegalCopyright=Copyright 2013 - 2019 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.29;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=28/11/2019;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
-        <VerInfo_Build>2</VerInfo_Build>
+        <VerInfo_Build>0</VerInfo_Build>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">

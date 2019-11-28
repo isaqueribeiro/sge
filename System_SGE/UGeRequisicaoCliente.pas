@@ -197,7 +197,8 @@ var
 
   procedure GerarRequisicaoCliente(const AOwner : TComponent;
     const aEmpresa : String; const aCliente : Integer;
-    const aVendaAno : Smallint; const aVendaControle : Integer);
+    const aVendaAno : Smallint; const aVendaControle : Integer;
+    const aObservacao : String);
 
   procedure CancelarRequisicaoCliente(const AOwner : TComponent;
     const aEmpresa : String; const aCliente : Integer;
@@ -238,7 +239,8 @@ end;
 
 procedure GerarRequisicaoCliente(const AOwner : TComponent;
   const aEmpresa : String; const aCliente : Integer;
-  const aVendaAno : Smallint; const aVendaControle : Integer);
+  const aVendaAno : Smallint; const aVendaControle : Integer;
+  const aObservacao : String);
 var
   AForm : TfrmGeRequisicaoCliente;
 begin
@@ -253,6 +255,21 @@ begin
       ParamByName('usuario').AsString     := gUsuarioLogado.Login;
 
       ExecProc;
+      CommitTransaction;
+    end;
+
+    with DMBusiness, fdQryBusca do
+    begin
+      SQL.Clear;
+      SQL.Add('Update TBCLIENTE_REQUISICAO cr Set');
+      SQL.Add('    cr.OBSERVACOES   = cr.OBSERVACOES || ascii_char(10) || ascii_char(13) || ' +
+        QuotedStr(AnsiUpperCase(Trim(aObservacao))) );
+      SQL.Add('where (cr.codempresa = ' + QuotedStr(aEmpresa)      + ')');
+      SQL.Add('  and (cr.codcliente = ' + IntToStr(aCliente)       + ')');
+      SQL.Add('  and (cr.venda_ano  = ' + IntToStr(aVendaAno)      + ')');
+      SQL.Add('  and (cr.venda_num  = ' + IntToStr(aVendaControle) + ')');
+      ExecSQL;
+
       CommitTransaction;
     end;
   finally
@@ -1069,17 +1086,19 @@ begin
       Open;
     end;
 
-    if ( ShowConfirm('Deseja imprimir em formato CUPOM?', 'Impressão', MB_DEFBUTTON1) ) then
-    begin
-      if ( GetModeloEmissaoCupom = MODELO_CUPOM_POOLER ) then
+    if GetEmitirCupom then
+      if ( ShowConfirm('Deseja imprimir em formato CUPOM?', 'Impressão', MB_DEFBUTTON1) ) then
       begin
-        FrrECFPoolerRequisicaoCliente.PrepareReport;
-        FrrECFPoolerRequisicaoCliente.Print;
-      end;
-    end
-    else
-      frrRequisicaoCliente.ShowReport;
+        if ( GetModeloEmissaoCupom = MODELO_CUPOM_POOLER ) then
+        begin
+          FrrECFPoolerRequisicaoCliente.PrepareReport;
+          FrrECFPoolerRequisicaoCliente.Print;
+        end;
 
+        Exit;
+      end;
+
+    frrRequisicaoCliente.ShowReport;
   end;
 end;
 

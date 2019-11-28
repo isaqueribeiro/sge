@@ -529,3 +529,215 @@ end
 ;
 
 
+
+
+
+/*------ SYSDBA 28/11/2019 11:57:46 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_vendas_estoque_cliente for tbvendas
+active after update position 2
+AS
+  declare variable sequencial DMN_SMALLINT_N;
+  declare variable produto varchar(10);
+  declare variable quantidade DMN_QUANTIDADE_D3;
+  declare variable estoque    DMN_QUANTIDADE_D3;
+  declare variable lote_id    DMN_GUID_38;
+  declare variable valor_medio numeric(15,4);
+  declare variable valor_venda numeric(15,2);
+  declare variable consignado  DMN_LOGICO;
+begin
+  -- 5917 (Remessa de mercadoria em consignacao mercantil ou industrial - Venda para Dentro do Estado)
+  -- 6917 (Remessa de mercadoria em consignacao mercantil ou industrial - Venda para Fora do Estado)
+  if ((new.cfop = 5917) or (new.cfop = 6917))  then
+    consignado = 1;
+  else
+    consignado = 0;
+
+  /* Gerar Estoque para o Cliente na Finalizacao da Venda */
+
+  if ( (coalesce(old.Status, 0) <> coalesce(new.Status, 0)) and (new.Status = 3)) then /* 3. Finalizada */
+  begin
+    if ( new.gerar_estoque_cliente = 1 ) then
+    begin
+
+      for
+        Select
+            i.Codprod
+          , i.Qtde                    -- Quantidade vendida
+          , coalesce(c.quantidade, 0) -- Estoque
+          , (coalesce(c.valor_medio, 0) * coalesce(c.quantidade, 0))
+          , i.total_liquido
+          , coalesce(trim(i.lote_id), '') as lote
+        from TVENDASITENS i
+          left join TBCLIENTE_ESTOQUE c on (c.cod_cliente = new.codcliente and c.cod_produto = i.codprod and coalesce(trim(c.lote_id), '') = coalesce(trim(i.lote_id), ''))
+        where i.Ano        = new.Ano
+          and i.Codcontrol = new.Codcontrol
+        into
+            produto
+          , quantidade
+          , estoque
+          , valor_medio
+          , valor_venda
+          , lote_id
+      do
+      begin
+
+        -- Recalcular valor medio ja existente
+        if ( :estoque <= 0 ) then
+          valor_medio = 0.0;
+
+        -- Gerar novo valor medio
+        valor_medio = (:valor_medio + :valor_venda) / (:quantidade + :estoque);
+
+        if (not exists(
+          Select
+            ec.cod_cliente
+          from TBCLIENTE_ESTOQUE ec
+          where (ec.cod_cliente = new.codcliente)
+            and (ec.cod_produto = :produto)
+            and (coalesce(trim(ec.lote_id), '') = :lote_id)
+            and (coalesce(ec.consignado, 0) = :consignado)
+        )) then
+        begin
+
+          Select
+            max(ec.sequencial)
+          from TBCLIENTE_ESTOQUE ec
+          where (ec.cod_cliente = new.codcliente)
+            and (ec.cod_produto = :produto)
+          Into
+            sequencial;
+
+          -- Gerar Estoque
+          Insert Into TBCLIENTE_ESTOQUE (
+              cod_cliente
+            , cod_produto
+            , sequencial
+            , quantidade
+            , valor_medio
+            , usuario
+            , ano_venda_ult
+            , cod_venda_ult
+            , lote_id
+            , consignado
+          ) values (
+              new.codcliente
+            , :produto
+            , (coalesce(:sequencial, 0) + 1)
+            , :quantidade
+            , :valor_medio
+            , new.usuario
+            , new.ano
+            , new.codcontrol
+            , :lote_id
+            , :consignado
+          );
+
+        end
+        else
+        begin
+
+          -- Atualizar estoque cliente
+          Update TBCLIENTE_ESTOQUE ec Set
+              ec.quantidade  = coalesce(:quantidade, 0) + coalesce(:estoque, 0)
+            , ec.valor_medio = :valor_medio
+          where (ec.cod_cliente = new.codcliente)
+            and (ec.cod_produto = :produto)
+            and (coalesce(trim(ec.lote_id), '') = :lote_id)
+            and (coalesce(ec.consignado, 0) = :consignado);
+        end 
+
+      end 
+
+    end
+  end
+
+  else
+
+  /* Atualizar Estoque do Cliente no Cancelamento da Venda */
+
+  if ( (coalesce(old.Status, 0) in (3, 4)) and (new.Status = 5)) then /* 5. Cancelada */
+  begin
+
+    if ( new.gerar_estoque_cliente = 1 ) then
+    begin
+
+      for
+        Select
+            i.Codprod
+          , i.Qtde                    -- Quantidade vendida cancelada
+          , coalesce(c.quantidade, 0) -- Estoque
+          , coalesce(trim(i.lote_id), '') as lote
+        from TVENDASITENS i
+          left join TBCLIENTE_ESTOQUE c on (c.cod_cliente = new.codcliente and c.cod_produto = i.codprod and coalesce(trim(c.lote_id), '') = coalesce(trim(i.lote_id), ''))
+        where i.Ano        = new.Ano
+          and i.Codcontrol = new.Codcontrol
+        into
+            produto
+          , quantidade
+          , estoque
+          , lote_id
+      do
+      begin
+
+          -- Atualizar estoque cliente
+          Update TBCLIENTE_ESTOQUE ec Set
+            ec.quantidade = coalesce(:estoque, 0) - coalesce(:quantidade, 0)
+          where (ec.cod_cliente = new.codcliente)
+            and (ec.cod_produto = :produto)
+            and (coalesce(trim(ec.lote_id), '') = :lote_id)
+            and (coalesce(ec.consignado, 0) = :consignado);
+
+      end
+
+    end
+
+  end
+
+end^
+
+SET TERM ; ^
+
+execute block
+as
+  declare variable ano dmn_smallint_n;
+  declare variable venda dmn_integer_n;
+  declare variable emppresa dmn_cnpj;
+  declare variable cliente dmn_integer_n;
+  declare variable produto dmn_vchar_10;
+  declare variable lote dmn_guid_38;
+begin
+  for
+    Select
+        v.ano
+      , v.codcontrol
+      , v.codemp
+      , v.codcliente
+      , p.codprod
+      , coalesce(p.lote_id, '') as lote
+    from TBVENDAS v
+      inner join TVENDASITENS p on (p.ano = v.ano and p.codcontrol = v.codcontrol and p.codemp = v.codemp)
+    where (v.cfop in (5917, 6917))
+    Into
+        ano
+      , venda
+      , emppresa
+      , cliente
+      , produto
+      , lote
+  do
+  begin 
+    Update TBCLIENTE_ESTOQUE e Set
+      e.consignado = 1
+    where (e.cod_cliente = :cliente)
+      --and (e.ano_venda_ult = :ano)
+      --and (e.cod_venda_ult = :venda)
+      and (e.cod_produto   = :produto)
+      and ((coalesce(e.lote_id, '') = :lote) or (coalesce(e.lote_id, '') = '')) ;
+  end
+end;
+
+
+

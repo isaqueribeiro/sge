@@ -550,6 +550,7 @@ type
     procedure CarregarDadosCFOP( iCodigo : Integer );
     procedure CarregarDadosEmpresa(const pEmpresa, pTituloRelatorio : String);
     procedure CarregarLotes(const aEmpresa, aProduto : String; const aCliente : Integer; const aTodos : Boolean);
+    procedure EscolherLote(const aCliente : Integer; const aQuantidade : Currency);
     procedure HabilitarDesabilitar_Btns;
     procedure GetComprasAbertas(iCodigoCliente : Integer);
     procedure ZerarFormaPagto;
@@ -1177,6 +1178,20 @@ begin
           , cdsTabelaItensCODPROD.AsString
           , cdsTabelaItensCODCLIENTE.AsInteger
           , not GetCfopMovimentaEstoque(cdsTabelaItensCFOP_COD.AsInteger));
+
+        // Escollher o Lote mais adequado do produto
+
+        {$IFNDEF PDV}
+        if ( (gSistema.Codigo = SISTEMA_GESTAO_OPME)
+          and (DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger <> CONSUMIDOR_FINAL_CODIGO) // Não pode ser CONSUMIDOR FINAL
+          and GetCfopFaturarRemessa(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger)             // CFOP de fatura de remessas de produtos já enviadas ao cliente
+          and (not GetCfopMovimentaEstoque(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger))     // CFOP não alterar o estoque atual de produtos da empresa
+          and (not GetCfopDevolucao(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger))            // CFOP não pode configurar uma Devolução
+        ) then
+          EscolherLote(
+              cdsTabelaItensCODCLIENTE.AsInteger
+            , cdsTabelaItensQTDE.AsCurrency);
+        {$ENDIF}
       end
       else
       begin
@@ -1204,6 +1219,43 @@ begin
     fdQryLotes.OpenOrExecute;
     fdQryLotes.Last;
     fdQryLotes.First;
+  end;
+end;
+
+procedure TfrmGeVenda.EscolherLote(const aCliente : Integer; const aQuantidade : Currency);
+begin
+  if (not fdQryLotes.Active) then
+    Exit
+  else
+  if fdQryLotes.IsEmpty then
+    Exit;
+
+  if (cdsTabelaItens.State in [dsEdit, dsInsert]) then
+  begin
+    try
+      fdQryLotes.First;
+      while not fdQryLotes.Eof do
+      begin
+        if (aCliente > 0) then
+        begin
+          if (fdQryLotes.FieldByName('qtde_cliente').AsCurrency > 0) then
+          begin
+            cdsTabelaItensLOTE_ID.AsString := fdQryLotes.FieldByName('id').AsString;
+            Break;
+          end;
+        end
+        else
+          if (fdQryLotes.FieldByName('qtde_estoque').AsCurrency > 0) then
+          begin
+            cdsTabelaItensLOTE_ID.AsString := fdQryLotes.FieldByName('id').AsString;
+            Break;
+          end;
+
+        fdQryLotes.Next;
+      end;
+    finally
+      fdQryLotes.First;
+    end;
   end;
 end;
 
@@ -1902,6 +1954,20 @@ begin
         , cdsTabelaItensCODPROD.AsString
         , cdsTabelaItensCODCLIENTE.AsInteger
         , not GetCfopMovimentaEstoque(cdsTabelaItensCFOP_COD.AsInteger));
+
+        // Escollher o Lote mais adequado do produto
+
+      {$IFNDEF PDV}
+      if ( (gSistema.Codigo = SISTEMA_GESTAO_OPME)
+        and (DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger <> CONSUMIDOR_FINAL_CODIGO) // Não pode ser CONSUMIDOR FINAL
+        and GetCfopFaturarRemessa(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger)             // CFOP de fatura de remessas de produtos já enviadas ao cliente
+        and (not GetCfopMovimentaEstoque(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger))     // CFOP não alterar o estoque atual de produtos da empresa
+        and (not GetCfopDevolucao(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger))            // CFOP não pode configurar uma Devolução
+      ) then
+        EscolherLote(
+            cdsTabelaItensCODCLIENTE.AsInteger
+          , cdsTabelaItensQTDE.AsCurrency);
+      {$ENDIF}
     end;
 end;
 
@@ -2173,17 +2239,20 @@ begin
         AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
         // Debitar Estoque Satélite do Cliente gerando uma Requisição Automática para o cliente
+
         {$IFNDEF PDV}
         if ( (gSistema.Codigo = SISTEMA_GESTAO_OPME)
           and (DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger <> CONSUMIDOR_FINAL_CODIGO) // Não pode ser CONSUMIDOR FINAL
           and GetCfopFaturarRemessa(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger)             // CFOP de fatura de remessas de produtos já enviadas ao cliente
           and (not GetCfopMovimentaEstoque(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger))     // CFOP não alterar o estoque atual de produtos da empresa
+          and (not GetCfopDevolucao(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger))            // CFOP não pode configurar uma Devolução
         ) then
           GerarRequisicaoCliente(Self,
               DtSrcTabela.DataSet.FieldByName('CODEMP').AsString
             , DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger
             , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
-            , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger);
+            , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger
+            , DtSrcTabela.DataSet.FieldByName('OBS').AsString);
         {$ENDIF}
 
         ShowInformation('Venda finalizada com sucesso !' + #13#13 + 'Ano/Controle: ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger));

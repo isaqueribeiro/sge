@@ -45,6 +45,8 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     end
     inherited GrpBxFiltro: TGroupBox
       Height = 220
+      ExplicitLeft = 6
+      ExplicitTop = 75
       ExplicitHeight = 220
       object lblSituacao: TLabel
         Left = 46
