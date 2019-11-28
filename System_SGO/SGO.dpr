@@ -146,7 +146,8 @@ uses
   UGeResultadoExercicioImpressao in '..\Sys\UGeResultadoExercicioImpressao.pas' {frmGeResultadoExercicioImpressao},
   UGeEntradaEstoqueLote in '..\Sys\UGeEntradaEstoqueLote.pas' {frmGeEntradaEstoqueLote},
   UGeInventario in '..\System_SGI\UGeInventario.pas' {frmGeInventario},
-  UGeContasAPagarAReceberImpressao in '..\System_SGE\UGeContasAPagarAReceberImpressao.pas' {frmGeContasAPagarAReceberImpressao};
+  UGeContasAPagarAReceberImpressao in '..\System_SGE\UGeContasAPagarAReceberImpressao.pas' {frmGeContasAPagarAReceberImpressao},
+  UGeProdutoEstoqueConsigImpressao in 'UGeProdutoEstoqueConsigImpressao.pas' {frmGeProdutoEstoqueConsigImpressao};
 
 {$R *.res}
 

@@ -1,4 +1,4 @@
-unit UGeApropriacaoEstoqueImpressao;
+unit UGeProdutoEstoqueConsigImpressao;
 
 interface
 
@@ -6,19 +6,20 @@ uses
   UGrPadraoImpressao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, StdCtrls, dxGDIPlusClasses, ExtCtrls,
-  cxButtons, ComCtrls, Mask, DBClient, Provider, DB,
-  IBCustomDataSet, IBQuery, IBTable, frxClass, frxDBSet, JvExMask,
-  JvToolEdit,
+  Dialogs, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, StdCtrls, dxGDIPlusClasses, ExtCtrls,
+  cxButtons, ComCtrls, DBClient, Provider, DB, frxClass, frxDBSet, Vcl.Mask, JvExMask, JvToolEdit,
+  IBX.IBTable, IBX.IBCustomDataSet, IBX.IBQuery,
 
-  dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
-  TfrmGeApropriacaoEstoqueImpressao = class(TfrmGrPadraoImpressao)
+  TfrmGeProdutoEstoqueConsigImpressao = class(TfrmGrPadraoImpressao)
     lblEmpresa: TLabel;
     edEmpresa: TComboBox;
     lblData: TLabel;
@@ -26,47 +27,49 @@ type
     edSituacao: TComboBox;
     lblCentroCusto: TLabel;
     edCentroCusto: TComboBox;
-    QryEmpresas: TIBQuery;
-    DspEmpresas: TDataSetProvider;
-    CdsEmpresas: TClientDataSet;
     lblTipoApropriacao: TLabel;
     edTipoApropriacao: TComboBox;
-    tblTipoApropriacao: TIBTable;
     lblGrupo: TLabel;
     edGrupo: TComboBox;
     lblFabricante: TLabel;
     edFabricante: TComboBox;
-    QryGrupo: TIBQuery;
-    DspGrupo: TDataSetProvider;
-    CdsGrupo: TClientDataSet;
-    QryFabricante: TIBQuery;
-    DspFabricante: TDataSetProvider;
-    CdsFabricante: TClientDataSet;
-    qryCentroCusto: TIBQuery;
-    dspCentroCusto: TDataSetProvider;
-    cdsCentroCusto: TClientDataSet;
     FrRelacaoEstoqueAprop: TfrxReport;
-    QryRelacaoEstoqueAprop: TIBQuery;
     DspRelacaoEstoqueAprop: TDataSetProvider;
     CdsRelacaoEstoqueAprop: TClientDataSet;
     FrdsRelacaoEstoqueAprop: TfrxDBDataset;
     FrRelacaoEstoqueResumo: TfrxReport;
-    QryRelacaoEstoqueResumo: TIBQuery;
     DspRelacaoEstoqueResumo: TDataSetProvider;
     CdsRelacaoEstoqueResumo: TClientDataSet;
     FrdsRelacaoEstoqueResumo: TfrxDBDataset;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
     frRelacaoApropriacaoSintetico: TfrxReport;
-    qryRelacaoApropriacaoSintetico: TIBQuery;
     dspRelacaoApropriacaoSintetico: TDataSetProvider;
     cdsRelacaoApropriacaoSintetico: TClientDataSet;
     frdsRelacaoApropriacaoSintetico: TfrxDBDataset;
     frRelacaoApropriacaoAnalitico: TfrxReport;
-    QryRelacaoApropriacaoAnalitico: TIBQuery;
     DspRelacaoApropriacaoAnalitico: TDataSetProvider;
     CdsRelacaoApropriacaoAnalitico: TClientDataSet;
     FrdsRelacaoApropriacaoAnalitico: TfrxDBDataset;
+    QryRelacaoEstoqueResumo: TFDQuery;
+    fdQryEmpresas: TFDQuery;
+    DspEmpresas: TDataSetProvider;
+    CdsEmpresas: TClientDataSet;
+    fdQryCentroCusto: TFDQuery;
+    DspCentroCusto: TDataSetProvider;
+    CdsCentroCusto: TClientDataSet;
+    fdQryGrupo: TFDQuery;
+    DspGrupo: TDataSetProvider;
+    CdsGrupo: TClientDataSet;
+    fdQryFabricante: TFDQuery;
+    DspFabricante: TDataSetProvider;
+    CdsFabricante: TClientDataSet;
+    fdQryTipoApropriacao: TFDQuery;
+    DspTipoApropriacao: TDataSetProvider;
+    CdsTipoApropriacao: TClientDataSet;
+    QryRelacaoEstoqueAprop: TFDQuery;
+    qryRelacaoApropriacaoSintetico: TFDQuery;
+    QryRelacaoApropriacaoAnalitico: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure edEmpresaChange(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
@@ -121,7 +124,7 @@ type
 *)
 
 var
-  frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao;
+  frmGeProdutoEstoqueConsigImpressao: TfrmGeProdutoEstoqueConsigImpressao;
 
 implementation
 
@@ -140,7 +143,7 @@ const
 
 { TfrmGeApropriacaoEstoqueImpressao }
 
-procedure TfrmGeApropriacaoEstoqueImpressao.CarregarCentroCusto;
+procedure TfrmGeProdutoEstoqueConsigImpressao.CarregarCentroCusto;
 var
   I : Integer;
 begin
@@ -184,7 +187,7 @@ begin
   end;
 end;
 
-procedure TfrmGeApropriacaoEstoqueImpressao.CarregarDadosEmpresa;
+procedure TfrmGeProdutoEstoqueConsigImpressao.CarregarDadosEmpresa;
 begin
   with frReport do
     try
@@ -194,7 +197,7 @@ begin
     end;
 end;
 
-procedure TfrmGeApropriacaoEstoqueImpressao.CarregarEmpresa;
+procedure TfrmGeProdutoEstoqueConsigImpressao.CarregarEmpresa;
 var
   P ,
   I : Integer;
@@ -211,7 +214,7 @@ begin
 
     while not Eof do
     begin
-      edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
+      edEmpresa.Items.Add( FieldByName('razao').AsString );
       IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
 
       if ( IEmpresa[I] = gUsuarioLogado.Empresa ) then
@@ -227,7 +230,7 @@ begin
   edEmpresa.ItemIndex := P;
 end;
 
-procedure TfrmGeApropriacaoEstoqueImpressao.CarregarFabricante;
+procedure TfrmGeProdutoEstoqueConsigImpressao.CarregarFabricante;
 var
   I : Integer;
 begin
@@ -258,7 +261,7 @@ begin
   edFabricante.ItemIndex := 0;
 end;
 
-procedure TfrmGeApropriacaoEstoqueImpressao.CarregarGrupo;
+procedure TfrmGeProdutoEstoqueConsigImpressao.CarregarGrupo;
 var
   I : Integer;
 begin
@@ -276,7 +279,7 @@ begin
 
     while not Eof do
     begin
-      edGrupo.Items.Add( FieldByName('descri').AsString );     
+      edGrupo.Items.Add( FieldByName('descri').AsString );
       IGrupo[I] := FieldByName('cod').AsInteger;
 
       Inc(I);
@@ -289,9 +292,9 @@ begin
   edGrupo.ItemIndex := 0;
 end;
 
-procedure TfrmGeApropriacaoEstoqueImpressao.CarregarTipoApropriacao;
+procedure TfrmGeProdutoEstoqueConsigImpressao.CarregarTipoApropriacao;
 begin
-  with edTipoApropriacao, tblTipoApropriacao do
+  with edTipoApropriacao, CdsTipoApropriacao do
   begin
     Items.Clear;
     Items.Add('(Todas)');
@@ -308,7 +311,7 @@ begin
   end;
 end;
 
-procedure TfrmGeApropriacaoEstoqueImpressao.FormCreate(Sender: TObject);
+procedure TfrmGeProdutoEstoqueConsigImpressao.FormCreate(Sender: TObject);
 begin
   e1Data.Date := StrToDate('01/' + FormatDateTime('mm/yyyy', GetDateDB));
   e2Data.Date := GetDateDB;
@@ -339,14 +342,14 @@ begin
   SetAtulizarCustoEstoqueApropriacao(GetDateDB);
 end;
 
-procedure TfrmGeApropriacaoEstoqueImpressao.edEmpresaChange(
+procedure TfrmGeProdutoEstoqueConsigImpressao.edEmpresaChange(
   Sender: TObject);
 begin
   if edEmpresa.Focused then
     CarregarCentroCusto;
 end;
 
-procedure TfrmGeApropriacaoEstoqueImpressao.edRelatorioChange(
+procedure TfrmGeProdutoEstoqueConsigImpressao.edRelatorioChange(
   Sender: TObject);
 begin
   inherited;
@@ -370,7 +373,7 @@ begin
   edTipoApropriacao.Enabled  := (edRelatorio.ItemIndex in [REPORT_RELACAO_APROPRIACAO_SINTETICO, REPORT_RELACAO_APROPRIACAO_ANALITICO]);
 end;
 
-procedure TfrmGeApropriacaoEstoqueImpressao.MontarRelacaoEstoqueApropAnalitico;
+procedure TfrmGeProdutoEstoqueConsigImpressao.MontarRelacaoEstoqueApropAnalitico;
 begin
   try
     CdsRelacaoEstoqueAprop.Close;
@@ -408,7 +411,7 @@ begin
   end;
 end;
 
-procedure TfrmGeApropriacaoEstoqueImpressao.MontarRelacaoEstoqueApropSintetico;
+procedure TfrmGeProdutoEstoqueConsigImpressao.MontarRelacaoEstoqueApropSintetico;
 begin
   try
     CdsRelacaoEstoqueResumo.Close;
@@ -456,7 +459,7 @@ begin
   end;
 end;
 
-procedure TfrmGeApropriacaoEstoqueImpressao.btnVisualizarClick(
+procedure TfrmGeProdutoEstoqueConsigImpressao.btnVisualizarClick(
   Sender: TObject);
 begin
   Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: '   + #13 +
@@ -503,7 +506,7 @@ begin
   btnVisualizar.Enabled := True;
 end;
 
-procedure TfrmGeApropriacaoEstoqueImpressao.MontarApropriacaoSintetico;
+procedure TfrmGeProdutoEstoqueConsigImpressao.MontarApropriacaoSintetico;
 begin
   try
     SubTituloRelario := edSituacao.Text;
@@ -572,7 +575,7 @@ begin
   end;
 end;
 
-procedure TfrmGeApropriacaoEstoqueImpressao.MontarApropriacaoAnalitico;
+procedure TfrmGeProdutoEstoqueConsigImpressao.MontarApropriacaoAnalitico;
 begin
   try
     SubTituloRelario := edSituacao.Text;
@@ -631,6 +634,6 @@ begin
 end;
 
 initialization
-  FormFunction.RegisterForm('frmGeApropriacaoEstoqueImpressao', TfrmGeApropriacaoEstoqueImpressao);
+  FormFunction.RegisterForm('frmGeProdutoEstoqueConsigImpressao', TfrmGeProdutoEstoqueConsigImpressao);
 
 end.

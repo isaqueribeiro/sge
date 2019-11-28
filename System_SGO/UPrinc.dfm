@@ -5050,7 +5050,7 @@ object frmPrinc: TfrmPrinc
     object BrMngMovimentoCmp: TdxBar
       Caption = 'Compras'
       CaptionButtons = <>
-      DockedLeft = 141
+      DockedLeft = 140
       DockedTop = 0
       FloatLeft = 478
       FloatTop = 221
@@ -6254,7 +6254,14 @@ object frmPrinc: TfrmPrinc
       Category = 16
       Hint = 'Produtos'
       Visible = ivAlways
-      OnClick = mnRelatorioEstoqueProdutoClick
+      OnClick = BrBtnRelatorioEstoqueProdClick
+    end
+    object BrBtnRelatorioEstoqueProdConsig: TdxBarLargeButton
+      Caption = 'Produtos Consignados'
+      Category = 16
+      Hint = 'Produtos Consignados'
+      Visible = ivAlways
+      OnClick = BrBtnRelatorioEstoqueProdConsigClick
     end
     object BrBtnRelatorioFaturamento: TdxBarLargeButton
       Caption = 'Faturamento'
@@ -6640,6 +6647,10 @@ object frmPrinc: TfrmPrinc
       item
         Visible = True
         ItemName = 'BrBtnRelatorioEstoqueProd'
+      end
+      item
+        Visible = True
+        ItemName = 'BrBtnRelatorioEstoqueProdConsig'
       end>
     UseOwnFont = False
     Left = 528

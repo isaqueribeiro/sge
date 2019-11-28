@@ -201,6 +201,7 @@ type
     TmrAlertaCliente: TTimer;
     BrBtnServico: TdxBarLargeButton;
     BrBtnRelatorioFinanceiroAPxAR: TdxBarLargeButton;
+    BrBtnRelatorioEstoqueProdConsig: TdxBarLargeButton;
     procedure tmrAutoUpgradeTimer(Sender: TObject);
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
@@ -276,10 +277,8 @@ type
     procedure nmPlanoContaClick(Sender: TObject);
     procedure nmEstoqueApropriadoClick(Sender: TObject);
     procedure nmInventarioMaterialClick(Sender: TObject);
-    procedure mnRelatorioEstoqueProdutoClick(Sender: TObject);
     procedure mnRelatorioEstoqueApropriacaoClick(Sender: TObject);
     procedure mnRelatorioRequsicaoAlmoxClick(Sender: TObject);
-    procedure BrBtnRelatorioEstoqueReqClick(Sender: TObject);
     procedure RbnBackstageGalleryConfigItemClick(Sender: TObject;
       AItem: TdxRibbonBackstageViewGalleryItem);
     procedure RbnBackstageGalleryAcessoItemClick(Sender: TObject;
@@ -304,6 +303,8 @@ type
     procedure BrBtnServicoClick(Sender: TObject);
     procedure BrBtnRelatorioAutorizacaoEntradaClick(Sender: TObject);
     procedure BrBtnRelatorioFinanceiroAPxARClick(Sender: TObject);
+    procedure BrBtnRelatorioEstoqueProdConsigClick(Sender: TObject);
+    procedure BrBtnRelatorioEstoqueProdClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -495,10 +496,16 @@ begin
     ; //FormFunction.ShowModalForm(Self, 'frmGeResultadoExercicioImpressao');
 end;
 
-procedure TfrmPrinc.BrBtnRelatorioEstoqueReqClick(Sender: TObject);
+procedure TfrmPrinc.BrBtnRelatorioEstoqueProdClick(Sender: TObject);
 begin
-  if GetPermissaoRotinaSistema(ROTINA_REL_ESTOQUE_REQ_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeRequisicaoAlmoxImpressao');
+  if GetPermissaoRotinaSistema(ROTINA_REL_ESTOQUE_PROD_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeProdutoEstoqueImpressao');
+end;
+
+procedure TfrmPrinc.BrBtnRelatorioEstoqueProdConsigClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_REL_ESTOQUE_PROD_CONSIG_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeProdutoEstoqueConsigImpressao');
 end;
 
 procedure TfrmPrinc.BrBtnRelatorioFinanceiroAPxARClick(Sender: TObject);
@@ -1170,7 +1177,8 @@ begin
 
   // Relatórios -> Estoque
 
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_ESTOQUE_PROD_ID, Trim(BrBtnRelatorioEstoque.Caption + ' -> ' + BrBtnRelatorioEstoqueProd.Caption),  ROTINA_MENU_REL_ESTOQUE_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_ESTOQUE_PROD_ID,        Trim(BrBtnRelatorioEstoque.Caption + ' -> ' + BrBtnRelatorioEstoqueProd.Caption),        ROTINA_MENU_REL_ESTOQUE_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_REL_ESTOQUE_PROD_CONSIG_ID, Trim(BrBtnRelatorioEstoque.Caption + ' -> ' + BrBtnRelatorioEstoqueProdConsig.Caption),  ROTINA_MENU_REL_ESTOQUE_ID);
 
   // Relatórios -> Faturamento
 
@@ -1356,12 +1364,6 @@ procedure TfrmPrinc.nmInventarioMaterialClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_MOV_INVENTARIO_ESTOQU_ID, True) then
     FormFunction.ShowModalForm(Self, 'frmGeInventario');
-end;
-
-procedure TfrmPrinc.mnRelatorioEstoqueProdutoClick(Sender: TObject);
-begin
-  if GetPermissaoRotinaSistema(ROTINA_REL_ESTOQUE_PROD_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeProdutoEstoqueImpressao');
 end;
 
 procedure TfrmPrinc.mnRelatorioRequsicaoAlmoxClick(Sender: TObject);

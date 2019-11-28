@@ -183,6 +183,7 @@ object DMBusiness: TDMBusiness
       'Port=3050'
       'Server=localhost'
       'DriverID=FB')
+    Connected = True
     LoginPrompt = False
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao

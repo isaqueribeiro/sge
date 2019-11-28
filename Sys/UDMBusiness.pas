@@ -1859,7 +1859,7 @@ begin
     // 1. Atualização do Custo das Apropriações de Estoque por Entrada
     with DMBusiness, spAtualizarCustoApEntrada do
     begin
-      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ParamByName('ano').AsSmallInt := StrToInt(FormatDateTime('YYYY', aData));
       ExecProc;
       CommitTransaction;
     end;
@@ -1867,7 +1867,7 @@ begin
     // 2. Atualização do Custo das Apropriações de Estoque por Autorizações
     with DMBusiness, spAtualizarCustoApAutorizacao do
     begin
-      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ParamByName('ano').AsSmallInt := StrToInt(FormatDateTime('YYYY', aData));
       ExecProc;
       CommitTransaction;
     end;

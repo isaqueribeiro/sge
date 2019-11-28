@@ -1,7 +1,7 @@
-inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
+inherited frmGeProdutoEstoqueConsigImpressao: TfrmGeProdutoEstoqueConsigImpressao
   Left = 410
   Top = 229
-  Caption = 'Relat'#243'rios de Apropria'#231#227'o de Estoque'
+  Caption = 'Relat'#243'rio de Estoque de Produtos Consignados'
   ClientHeight = 328
   ClientWidth = 562
   ExplicitWidth = 568
@@ -325,165 +325,8 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
     ExplicitTop = 289
     ExplicitWidth = 562
   end
-  object QryEmpresas: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    e.codigo'
-      '  , e.rzsoc'
-      '  , e.cnpj'
-      'from TBEMPRESA e'
-      'order by 2')
-    Left = 688
-    Top = 152
-  end
-  object DspEmpresas: TDataSetProvider
-    DataSet = QryEmpresas
-    Left = 720
-    Top = 152
-  end
-  object CdsEmpresas: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DspEmpresas'
-    Left = 752
-    Top = 152
-  end
-  object tblTipoApropriacao: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_TIPO_APROPRIACAO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 752
-    Top = 288
-  end
-  object QryGrupo: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    g.cod'
-      '  , g.descri'
-      'from TBGRUPOPROD g'
-      'order by'
-      '    g.descri')
-    Left = 688
-    Top = 216
-  end
-  object DspGrupo: TDataSetProvider
-    DataSet = QryGrupo
-    Left = 720
-    Top = 216
-  end
-  object CdsGrupo: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DspGrupo'
-    Left = 752
-    Top = 216
-  end
-  object QryFabricante: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    f.cod'
-      '  , f.nome'
-      'from TBFABRICANTE f'
-      'order by'
-      '    f.nome')
-    Left = 688
-    Top = 256
-  end
-  object DspFabricante: TDataSetProvider
-    DataSet = QryFabricante
-    Left = 720
-    Top = 256
-  end
-  object CdsFabricante: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DspFabricante'
-    Left = 752
-    Top = 256
-  end
-  object qryCentroCusto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select distinct'
-      '    c.codigo'
-      '  , c.descricao'
-      '  , ci.nome'
-      'from TBCENTRO_CUSTO c'
-      
-        '  left join TBCENTRO_CUSTO_EMPRESA e on (e.centro_custo = c.codi' +
-        'go)'
-      '  left join TBCLIENTE ci on (ci.codigo = c.codcliente)'
-      ''
-      'where ((e.empresa = :empresa) or (:todas = 1))'
-      '  or (c.codcliente is not null)'
-      ''
-      'order by'
-      '    2')
-    Left = 688
-    Top = 184
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        DataType = ftSmallint
-        Name = 'todas'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
-  object dspCentroCusto: TDataSetProvider
-    DataSet = qryCentroCusto
-    Left = 720
-    Top = 184
-  end
-  object cdsCentroCusto: TClientDataSet
-    Aggregates = <>
-    Params = <
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        DataType = ftSmallint
-        Name = 'todas'
-        ParamType = ptInput
-        Value = 0
-      end>
-    ProviderName = 'dspCentroCusto'
-    Left = 752
-    Top = 184
-  end
   object FrRelacaoEstoqueAprop: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -540,8 +383,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -555,6 +400,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -568,6 +414,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -581,12 +428,14 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -601,6 +450,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -621,6 +471,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -639,6 +490,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -667,6 +519,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -679,6 +532,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
@@ -707,6 +561,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -734,6 +589,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderEmpresa: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 204.094620000000000000
         Width = 1046.929810000000000000
@@ -782,6 +638,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 374.173470000000000000
         Width = 1046.929810000000000000
@@ -809,6 +666,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoEstoqueAprop."APROP_ESTOQUE">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.##'#39',<FrdsRelacaoEstoqueAprop."APROP_ESTOQUE">)]' +
@@ -836,6 +694,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoEstoqueAprop."APROP_ESTOQUE">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoEstoqueAprop."COD"]')
           ParentFont = False
@@ -862,6 +721,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoEstoqueAprop."APROP_ESTOQUE">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoEstoqueAprop."DESCRI_APRESENTACAO"]')
           ParentFont = False
@@ -888,6 +748,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoEstoqueAprop."APROP_ESTOQUE">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoEstoqueAprop."FABRICANTE_NOME"]')
           ParentFont = False
@@ -914,6 +775,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoEstoqueAprop."APROP_ESTOQUE">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoEstoqueAprop."MODELO"]')
           ParentFont = False
@@ -940,6 +802,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoEstoqueAprop."APROP_ESTOQUE">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoEstoqueAprop."UNIDADE_CONSUMO"]')
           ParentFont = False
@@ -967,6 +830,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoEstoqueAprop."APROP_ESTOQUE">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.##'#39',<FrdsRelacaoEstoqueAprop."APROP_ESTOQUE_INT' +
@@ -995,6 +859,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoEstoqueAprop."APROP_ESTOQUE">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoEstoqueAprop."UNIDADE_COMPRA"]')
           ParentFont = False
@@ -1021,6 +886,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoEstoqueAprop."APROP_ESTOQUE">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoEstoqueAprop."SECAO_DESC"]')
           ParentFont = False
@@ -1048,6 +914,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoEstoqueAprop."APROP_ESTOQUE">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoEstoqueAprop."APROP_ESTOQUE_CUS' +
@@ -1059,6 +926,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterEmpresa: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 506.457020000000000000
         Width = 1046.929810000000000000
@@ -1102,6 +970,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderGrupo: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 294.803340000000000000
         Width = 1046.929810000000000000
@@ -1392,6 +1261,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterGrupo: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 415.748300000000000000
         Width = 1046.929810000000000000
@@ -1435,6 +1305,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 34.015770000000000000
         Top = 589.606680000000000000
         Width = 1046.929810000000000000
@@ -1447,6 +1318,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' * Produto(s) sem apropria'#231#227'o de estoque')
@@ -1489,10 +1361,12 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderCentroCusto: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 249.448980000000000000
         Width = 1046.929810000000000000
         Condition = 'FrdsRelacaoEstoqueAprop."CENTRO_CUSTO"'
+        ReprintOnNewPage = True
         object Memo22: TfrxMemoView
           Width = 56.692950000000000000
           Height = 18.897650000000000000
@@ -1534,6 +1408,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterCentroCusto: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 461.102660000000000000
         Width = 1046.929810000000000000
@@ -1576,83 +1451,6 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         end
       end
     end
-  end
-  object QryRelacaoEstoqueAprop: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    coalesce(xx.empresa, p.codemp) as empresa_cnpj'
-      '  , e.rzsoc  as empresa_razao'
-      '  , xx.centro_custo'
-      '  , c.descricao as centro_custo_nome'
-      '  , p.cod'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , p.modelo'
-      '  , p.referencia'
-      '  , coalesce(p.codgrupo, 0) as grupo_cod'
-      '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
-      '  , coalesce(p.codsecao, 0)                     as secao_cod'
-      '  , coalesce(s.scp_descricao, '#39'* Indefinida'#39')   as secao_desc'
-      '  , coalesce(p.codfabricante, 0)     as fabricante_cod'
-      '  , coalesce(f.nome, '#39'* Indefinido'#39') as fabricante_nome'
-      '  , p.especificacao'
-      ''
-      '  , p.movimenta_estoque'
-      '  , p.cadastro_ativo'
-      ''
-      '  , xx.aprop_estoque'
-      '  , xx.aprop_estoque_int'
-      '  , xx.aprop_estoque_custo'
-      ''
-      
-        '  , substring( coalesce(nullif(trim(uc.unp_sigla), '#39#39'), uc.unp_d' +
-        'escricao) from 1 for 3) as unidade_compra'
-      
-        '  , substring( coalesce(nullif(trim(uf.unp_sigla), '#39#39'), uf.unp_d' +
-        'escricao) from 1 for 3) as unidade_consumo'
-      'from TBPRODUTO p'
-      '  inner join ('
-      '    Select'
-      '        pe.empresa'
-      '      , pe.centro_custo'
-      '      , pe.produto'
-      '      , pe.unidade'
-      '      , sum(pe.qtde) as aprop_estoque'
-      '      , sum(pe.qtde / pe.fracionador) as aprop_estoque_int'
-      '      , sum(pe.qtde * pe.custo_medio) as aprop_estoque_custo'
-      '    from TBESTOQUE_ALMOX pe'
-      '    group by'
-      '        pe.empresa'
-      '      , pe.centro_custo'
-      '      , pe.produto'
-      '      , pe.unidade'
-      '  ) xx on (xx.empresa = p.codemp and xx.produto = p.cod)'
-      ''
-      
-        '  left join TBEMPRESA e on (e.cnpj = coalesce(xx.empresa, p.code' +
-        'mp))'
-      '  left join TBCENTRO_CUSTO c on (c.codigo = xx.centro_custo)'
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      '  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)'
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      '  left join TBUNIDADEPROD uc on (uc.unp_cod = p.codunidade)'
-      '  left join TBUNIDADEPROD uf on (uf.unp_cod = xx.unidade)'
-      ''
-      '/*'
-      'order by'
-      '    e.rzsoc'
-      '  , c.descricao'
-      '  , coalesce(g.descri, '#39'* Indefinido'#39')'
-      '  , p.descri_apresentacao'
-      '*/')
-    Left = 32
-    Top = 40
   end
   object DspRelacaoEstoqueAprop: TDataSetProvider
     DataSet = QryRelacaoEstoqueAprop
@@ -1700,7 +1498,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
     Top = 40
   end
   object FrRelacaoEstoqueResumo: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1756,8 +1554,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -1771,6 +1571,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -1784,25 +1585,28 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
-          Top = 7.559059999999999000
+          Top = 7.559060000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -1817,6 +1621,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -1837,6 +1642,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -1855,6 +1661,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -1883,6 +1690,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -1895,6 +1703,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 536.693260000000000000
         Width = 718.110700000000000000
@@ -1923,6 +1732,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -1950,6 +1760,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderEmpresa: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 204.094620000000000000
         Width = 718.110700000000000000
@@ -1999,6 +1810,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 309.921460000000000000
         Width = 718.110700000000000000
@@ -2025,6 +1837,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoEstoqueResumo."APROP_ESTOQUE">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoEstoqueResumo."FABRICANTE_NOME"]')
           ParentFont = False
@@ -2052,6 +1865,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoEstoqueResumo."APROP_ESTOQUE">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoEstoqueResumo."APROP_ESTOQUE_CU' +
@@ -2081,6 +1895,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoEstoqueResumo."APROP_ESTOQUE">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.##'#39',<FrdsRelacaoEstoqueResumo."ITENS">)] ')
           ParentFont = False
@@ -2106,6 +1921,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoEstoqueResumo."APROP_ESTOQUE">=0'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoEstoqueResumo."GRUPO_DESC"]')
           ParentFont = False
@@ -2115,6 +1931,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterEmpresa: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 396.850650000000000000
         Width = 718.110700000000000000
@@ -2158,6 +1975,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 34.015770000000000000
         Top = 480.000310000000000000
         Width = 718.110700000000000000
@@ -2170,6 +1988,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' * Grupo(s) sem apropria'#231#227'o de estoque')
@@ -2212,10 +2031,12 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderCentroCusto: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 37.795300000000000000
         Top = 249.448980000000000000
         Width = 718.110700000000000000
         Condition = 'FrdsRelacaoEstoqueResumo."CENTRO_CUSTO"'
+        ReprintOnNewPage = True
         object Memo22: TfrxMemoView
           Width = 113.385900000000000000
           Height = 18.897650000000000000
@@ -2338,6 +2159,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterCentroCusto: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 351.496290000000000000
         Width = 718.110700000000000000
@@ -2381,75 +2203,6 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
     end
   end
-  object QryRelacaoEstoqueResumo: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    coalesce(xx.empresa, p.codemp) as empresa_cnpj'
-      '  , e.rzsoc  as empresa_razao'
-      '  , xx.centro_custo'
-      '  , c.descricao as centro_custo_nome'
-      ''
-      '  , coalesce(p.codgrupo, 0) as grupo_cod'
-      '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
-      '  , coalesce(p.codfabricante, 0)     as fabricante_cod'
-      '  , coalesce(f.nome, '#39'* Indefinido'#39') as fabricante_nome'
-      ''
-      '  , count( p.cod ) as itens'
-      ''
-      '  , sum( xx.aprop_lote )          as aprop_lote'
-      '  , sum( xx.aprop_estoque )       as aprop_estoque'
-      '  , sum( xx.aprop_estoque_int )   as aprop_estoque_int'
-      '  , sum( xx.aprop_estoque_custo ) as aprop_estoque_custo'
-      'from TBPRODUTO p'
-      '  inner join ('
-      '    Select'
-      '        pe.empresa'
-      '      , pe.centro_custo'
-      '      , pe.produto'
-      '      , count(pe.lote) as aprop_lote'
-      '      , sum(pe.qtde) as aprop_estoque'
-      '      , sum(pe.qtde / pe.fracionador) as aprop_estoque_int'
-      '      , sum(pe.qtde * pe.custo_medio) as aprop_estoque_custo'
-      '    from TBESTOQUE_ALMOX pe'
-      '    group by'
-      '        pe.empresa'
-      '      , pe.centro_custo'
-      '      , pe.produto'
-      '  ) xx on (xx.empresa = p.codemp and xx.produto = p.cod)'
-      ''
-      
-        '  left join TBEMPRESA e on (e.cnpj = coalesce(xx.empresa, p.code' +
-        'mp))'
-      '  left join TBCENTRO_CUSTO c on (c.codigo = xx.centro_custo)'
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      ''
-      '/*'
-      'group by'
-      '    coalesce(xx.empresa, p.codemp)'
-      '  , e.rzsoc'
-      '  , xx.centro_custo'
-      '  , c.descricao'
-      ''
-      '  , coalesce(p.codgrupo, 0)'
-      '  , coalesce(g.descri, '#39'* Indefinido'#39')'
-      '  , coalesce(p.codfabricante, 0)'
-      '  , coalesce(f.nome, '#39'* Indefinido'#39')'
-      ''
-      'order by'
-      '    e.rzsoc'
-      '  , c.descricao'
-      '  , coalesce(g.descri, '#39'* Indefinido'#39')'
-      '  , coalesce(f.nome, '#39'* Indefinido'#39')'
-      '*/')
-    Left = 32
-    Top = 8
-  end
   object DspRelacaoEstoqueResumo: TDataSetProvider
     DataSet = QryRelacaoEstoqueResumo
     Left = 64
@@ -2485,7 +2238,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
     Top = 8
   end
   object frRelacaoApropriacaoSintetico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -2567,8 +2320,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -2582,6 +2337,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -2595,25 +2351,28 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
           Left = 113.385900000000000000
-          Top = 7.559059999999999000
+          Top = 7.559060000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -2628,6 +2387,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -2648,6 +2408,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -2666,6 +2427,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -2694,6 +2456,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
@@ -2710,6 +2473,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o apropria'#231#227'o:')
           ParentFont = False
@@ -2725,6 +2489,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -2741,6 +2506,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -2749,6 +2515,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 540.472790000000000000
         Width = 718.110700000000000000
@@ -2777,6 +2544,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -2804,6 +2572,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderTipoMov: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 37.795300000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -2911,6 +2680,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 294.803340000000000000
         Width = 718.110700000000000000
@@ -2938,6 +2708,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoApropriacaoSintetico."STATUS">=<StatusCancelado>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRelacaoApropriacaoSintetico."VALOR_TOT' +
@@ -2965,6 +2736,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoApropriacaoSintetico."STATUS">=<StatusCancelado>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [frdsRelacaoApropriacaoSintetico."CENTRO_CUSTO_DESCRICAO"] [IIF' +
@@ -2994,6 +2766,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRelacaoApropriacaoSintetico."STATUS">=<StatusCancelado>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRelacaoApropriacaoSintetico."STATUS_DESC"]')
           ParentFont = False
@@ -3003,6 +2776,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterTipoMov: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 336.378170000000000000
         Width = 718.110700000000000000
@@ -3029,6 +2803,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 94.488250000000000000
         Top = 423.307360000000000000
         Width = 718.110700000000000000
@@ -3166,6 +2941,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' * Apropria'#231#245'es Canceladas')
@@ -3218,66 +2994,6 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
     end
   end
-  object qryRelacaoApropriacaoSintetico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    a.empresa'
-      '  , e.rzsoc'
-      '  , a.tipo'
-      '  , ta.descricao as tipo_descricao'
-      '  , a.centro_custo'
-      '  , c.descricao as centro_custo_descricao'
-      '  , a.status'
-      '  , Case a.status'
-      '      when 0 then '#39'Editando'#39
-      '      when 1 then '#39'Aberto'#39
-      '      when 2 then '#39'Encerrada'#39
-      '      when 3 then '#39'Cancelado'#39
-      '    end as status_desc'
-      '  , c.codcliente'
-      '  , cc.nome'
-      '  , cc.nomefant'
-      '  , cc.cnpj'
-      '  , sum( coalesce(a.valor_total, 0.0)  ) as valor_total'
-      
-        '  , sum( coalesce(Case when a.status = 3 then 0.0 else a.valor_t' +
-        'otal end, 0.0)  ) as valor_total_real'
-      'from TBAPROPRIACAO_ALMOX a'
-      '  left join VW_TIPO_APROPRIACAO ta on (ta.codigo = a.tipo)'
-      '  left join TBEMPRESA e on (e.cnpj = a.empresa)'
-      '  left join TBCENTRO_CUSTO c on (c.codigo = a.centro_custo)'
-      '  left join TBCLIENTE cc on (cc.codigo = c.codcliente)'
-      ''
-      '/*'
-      'where a.empresa = '#39'03041377000187'#39
-      '  and a.status > 1 -- 1. Aberto'
-      ''
-      'group by'
-      '    a.empresa'
-      '  , e.rzsoc'
-      '  , a.tipo'
-      '  , ta.descricao'
-      '  , a.centro_custo'
-      '  , c.descricao'
-      '  , a.status'
-      '  , c.codcliente'
-      '  , cc.nome'
-      '  , cc.nomefant'
-      '  , cc.cnpj'
-      ''
-      'order by'
-      '    e.rzsoc'
-      '  , a.tipo'
-      '  , c.descricao'
-      '*/')
-    Left = 32
-    Top = 72
-  end
   object dspRelacaoApropriacaoSintetico: TDataSetProvider
     DataSet = qryRelacaoApropriacaoSintetico
     Left = 64
@@ -3302,6 +3018,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       'CENTRO_CUSTO_DESCRICAO=CENTRO_CUSTO_DESCRICAO'
       'STATUS=STATUS'
       'STATUS_DESC=STATUS_DESC'
+      'CODCLIENTE=CODCLIENTE'
       'NOME=NOME'
       'NOMEFANT=NOMEFANT'
       'CNPJ=CNPJ'
@@ -3313,7 +3030,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
     Top = 72
   end
   object frRelacaoApropriacaoAnalitico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3392,8 +3109,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -3407,6 +3126,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -3420,6 +3140,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -3433,12 +3154,14 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -12
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
@@ -3453,6 +3176,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -3473,6 +3197,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -3491,6 +3216,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -3519,6 +3245,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."HOME_PAGE"] / [frdEmpresa."EMAIL"]')
           ParentFont = False
@@ -3535,6 +3262,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o apropria'#231#227'o:')
           ParentFont = False
@@ -3550,6 +3278,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -3566,6 +3295,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -3574,6 +3304,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 631.181510000000000000
         Width = 1046.929810000000000000
@@ -3602,6 +3333,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -3629,6 +3361,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderTipoMov: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -3674,6 +3407,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -3700,6 +3434,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoApropriacaoAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoApropriacaoAnalitico."CENTRO_CUSTO_DESCRICAO"]')
           ParentFont = False
@@ -3727,6 +3462,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoApropriacaoAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<FrdsRelacaoApropriacaoAnalitico."VALOR_TOT' +
@@ -3754,6 +3490,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoApropriacaoAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoApropriacaoAnalitico."APROPRIACAO"]')
           ParentFont = False
@@ -3780,6 +3517,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoApropriacaoAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsRelacaoApropriacaoAnalitico.' +
@@ -3808,6 +3546,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoApropriacaoAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoApropriacaoAnalitico."DOCUMENTO"]')
           ParentFont = False
@@ -3834,6 +3573,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoApropriacaoAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoApropriacaoAnalitico."COMPRA"]')
           ParentFont = False
@@ -3860,6 +3600,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoApropriacaoAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoApropriacaoAnalitico."AUTORIZACAO"]')
           ParentFont = False
@@ -3886,6 +3627,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoApropriacaoAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoApropriacaoAnalitico."STATUS_DESC"]')
           ParentFont = False
@@ -3912,6 +3654,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<FrdsRelacaoApropriacaoAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [FrdsRelacaoApropriacaoAnalitico."COMPETENCIA_DESC"]')
           ParentFont = False
@@ -3921,6 +3664,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterTipoMov: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -3968,6 +3712,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 79.370130000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -4140,6 +3885,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderForn: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -4440,6 +4186,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterForn: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -4490,12 +4237,432 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
     end
   end
-  object QryRelacaoApropriacaoAnalitico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object DspRelacaoApropriacaoAnalitico: TDataSetProvider
+    DataSet = QryRelacaoApropriacaoAnalitico
+    Left = 64
+    Top = 104
+  end
+  object CdsRelacaoApropriacaoAnalitico: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspRelacaoApropriacaoAnalitico'
+    Left = 96
+    Top = 104
+  end
+  object FrdsRelacaoApropriacaoAnalitico: TfrxDBDataset
+    UserName = 'FrdsRelacaoApropriacaoAnalitico'
+    CloseDataSource = True
+    FieldAliases.Strings = (
+      'ANO=ANO'
+      'CONTROLE=CONTROLE'
+      'NUMERO=NUMERO'
+      'EMPRESA=EMPRESA'
+      'APROPRIACAO=APROPRIACAO'
+      'COMPRA_ANO=COMPRA_ANO'
+      'COMPRA_NUM=COMPRA_NUM'
+      'COMPRA_EMP=COMPRA_EMP'
+      'COMPRA=COMPRA'
+      'AUTORIZACAO_ANO=AUTORIZACAO_ANO'
+      'AUTORIZACAO_NUM=AUTORIZACAO_NUM'
+      'AUTORIZACAO_EMP=AUTORIZACAO_EMP'
+      'AUTORIZACAO=AUTORIZACAO'
+      'TIPO=TIPO'
+      'TIPO_DESCRICAO=TIPO_DESCRICAO'
+      'COMPETENCIA=COMPETENCIA'
+      'COMPETENCIA_DESC=COMPETENCIA_DESC'
+      'STATUS=STATUS'
+      'STATUS_DESC=STATUS_DESC'
+      'FORN_COD=FORN_COD'
+      'FORN_RAZAO=FORN_RAZAO'
+      'FORN_FANTASIA=FORN_FANTASIA'
+      'FORN_PF=FORN_PF'
+      'FORN_CNPJ=FORN_CNPJ'
+      'DOCUMENTO=DOCUMENTO'
+      'DOCUMENTO_NUMERO=DOCUMENTO_NUMERO'
+      'DOCUMENTO_SERIE=DOCUMENTO_SERIE'
+      'CENTRO_CUSTO=CENTRO_CUSTO'
+      'CENTRO_CUSTO_DESCRICAO=CENTRO_CUSTO_DESCRICAO'
+      'CODCLIENTE=CODCLIENTE'
+      'NOME=NOME'
+      'NOMEFANT=NOMEFANT'
+      'CNPJ=CNPJ'
+      'DATA_APROPRIACAO=DATA_APROPRIACAO'
+      'DATA_INSERCAO=DATA_INSERCAO'
+      'DATA_CANCELAMENTO=DATA_CANCELAMENTO'
+      'CANCEL_MOTIVO=CANCEL_MOTIVO'
+      'VALOR_TOTAL=VALOR_TOTAL'
+      'VALOR_TOTAL_REAL=VALOR_TOTAL_REAL')
+    DataSet = CdsRelacaoApropriacaoAnalitico
+    BCDToCurrency = True
+    Left = 128
+    Top = 104
+  end
+  object QryRelacaoEstoqueResumo: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    coalesce(xx.empresa, p.codemp) as empresa_cnpj'
+      '  , e.rzsoc  as empresa_razao'
+      '  , xx.centro_custo'
+      '  , c.descricao as centro_custo_nome'
+      ''
+      '  , coalesce(p.codgrupo, 0) as grupo_cod'
+      '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
+      '  , coalesce(p.codfabricante, 0)     as fabricante_cod'
+      '  , coalesce(f.nome, '#39'* Indefinido'#39') as fabricante_nome'
+      ''
+      '  , count( p.cod ) as itens'
+      ''
+      '  , sum( xx.aprop_lote )          as aprop_lote'
+      '  , sum( xx.aprop_estoque )       as aprop_estoque'
+      '  , sum( xx.aprop_estoque_int )   as aprop_estoque_int'
+      '  , sum( xx.aprop_estoque_custo ) as aprop_estoque_custo'
+      'from TBPRODUTO p'
+      '  inner join ('
+      '    Select'
+      '        pe.empresa'
+      '      , pe.centro_custo'
+      '      , pe.produto'
+      '      , count(pe.lote) as aprop_lote'
+      '      , sum(pe.qtde) as aprop_estoque'
+      '      , sum(pe.qtde / pe.fracionador) as aprop_estoque_int'
+      '      , sum(pe.qtde * pe.custo_medio) as aprop_estoque_custo'
+      '    from TBESTOQUE_ALMOX pe'
+      '    group by'
+      '        pe.empresa'
+      '      , pe.centro_custo'
+      '      , pe.produto'
+      '  ) xx on (xx.empresa = p.codemp and xx.produto = p.cod)'
+      ''
+      
+        '  left join TBEMPRESA e on (e.cnpj = coalesce(xx.empresa, p.code' +
+        'mp))'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = xx.centro_custo)'
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      ''
+      '/*'
+      'group by'
+      '    coalesce(xx.empresa, p.codemp)'
+      '  , e.rzsoc'
+      '  , xx.centro_custo'
+      '  , c.descricao'
+      ''
+      '  , coalesce(p.codgrupo, 0)'
+      '  , coalesce(g.descri, '#39'* Indefinido'#39')'
+      '  , coalesce(p.codfabricante, 0)'
+      '  , coalesce(f.nome, '#39'* Indefinido'#39')'
+      ''
+      'order by'
+      '    e.rzsoc'
+      '  , c.descricao'
+      '  , coalesce(g.descri, '#39'* Indefinido'#39')'
+      '  , coalesce(f.nome, '#39'* Indefinido'#39')'
+      ''
+      '*/')
+    Left = 32
+    Top = 8
+  end
+  object fdQryEmpresas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 448
+    Top = 8
+  end
+  object DspEmpresas: TDataSetProvider
+    DataSet = fdQryEmpresas
+    Left = 480
+    Top = 8
+  end
+  object CdsEmpresas: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspEmpresas'
+    Left = 512
+    Top = 8
+  end
+  object fdQryCentroCusto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select distinct'
+      '    c.codigo'
+      '  , c.descricao'
+      '  , ci.nome'
+      'from TBCENTRO_CUSTO c'
+      
+        '  left join TBCENTRO_CUSTO_EMPRESA e on (e.centro_custo = c.codi' +
+        'go)'
+      '  left join TBCLIENTE ci on (ci.codigo = c.codcliente)'
+      ''
+      'where ((e.empresa = :empresa) or (:todas = 1))'
+      '  or (c.codcliente is not null)'
+      ''
+      'order by'
+      '    2')
+    Left = 448
+    Top = 40
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'TODAS'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object DspCentroCusto: TDataSetProvider
+    DataSet = fdQryCentroCusto
+    Left = 480
+    Top = 40
+  end
+  object CdsCentroCusto: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftString
+        Name = 'EMPRESA'
+        ParamType = ptInput
+        Size = 18
+      end
+      item
+        DataType = ftInteger
+        Name = 'TODAS'
+        ParamType = ptInput
+      end>
+    ProviderName = 'DspCentroCusto'
+    Left = 512
+    Top = 40
+  end
+  object fdQryGrupo: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    g.cod'
+      '  , g.descri'
+      'from TBGRUPOPROD g'
+      'order by'
+      '    g.descri')
+    Left = 448
+    Top = 72
+  end
+  object DspGrupo: TDataSetProvider
+    DataSet = fdQryGrupo
+    Left = 480
+    Top = 72
+  end
+  object CdsGrupo: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspGrupo'
+    Left = 512
+    Top = 72
+  end
+  object fdQryFabricante: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    f.cod'
+      '  , f.nome'
+      'from TBFABRICANTE f'
+      'order by'
+      '    f.nome')
+    Left = 448
+    Top = 104
+  end
+  object DspFabricante: TDataSetProvider
+    DataSet = fdQryFabricante
+    Left = 480
+    Top = 104
+  end
+  object CdsFabricante: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspFabricante'
+    Left = 512
+    Top = 104
+  end
+  object fdQryTipoApropriacao: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select *'
+      'from VW_TIPO_APROPRIACAO')
+    Left = 448
+    Top = 136
+  end
+  object DspTipoApropriacao: TDataSetProvider
+    DataSet = fdQryTipoApropriacao
+    Left = 480
+    Top = 136
+  end
+  object CdsTipoApropriacao: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspTipoApropriacao'
+    Left = 512
+    Top = 136
+  end
+  object QryRelacaoEstoqueAprop: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    coalesce(xx.empresa, p.codemp) as empresa_cnpj'
+      '  , e.rzsoc  as empresa_razao'
+      '  , xx.centro_custo'
+      '  , c.descricao as centro_custo_nome'
+      '  , p.cod'
+      '  , p.descri'
+      '  , p.apresentacao'
+      '  , p.descri_apresentacao'
+      '  , p.modelo'
+      '  , p.referencia'
+      '  , coalesce(p.codgrupo, 0) as grupo_cod'
+      '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
+      '  , coalesce(p.codsecao, 0)                     as secao_cod'
+      '  , coalesce(s.scp_descricao, '#39'* Indefinida'#39')   as secao_desc'
+      '  , coalesce(p.codfabricante, 0)     as fabricante_cod'
+      '  , coalesce(f.nome, '#39'* Indefinido'#39') as fabricante_nome'
+      '  , p.especificacao'
+      ''
+      '  , p.movimenta_estoque'
+      '  , p.cadastro_ativo'
+      ''
+      '  , xx.aprop_estoque'
+      '  , xx.aprop_estoque_int'
+      '  , xx.aprop_estoque_custo'
+      ''
+      
+        '  , substring( coalesce(nullif(trim(uc.unp_sigla), '#39#39'), uc.unp_d' +
+        'escricao) from 1 for 3) as unidade_compra'
+      
+        '  , substring( coalesce(nullif(trim(uf.unp_sigla), '#39#39'), uf.unp_d' +
+        'escricao) from 1 for 3) as unidade_consumo'
+      'from TBPRODUTO p'
+      '  inner join ('
+      '    Select'
+      '        pe.empresa'
+      '      , pe.centro_custo'
+      '      , pe.produto'
+      '      , pe.unidade'
+      '      , sum(pe.qtde) as aprop_estoque'
+      '      , sum(pe.qtde / pe.fracionador) as aprop_estoque_int'
+      '      , sum(pe.qtde * pe.custo_medio) as aprop_estoque_custo'
+      '    from TBESTOQUE_ALMOX pe'
+      '    group by'
+      '        pe.empresa'
+      '      , pe.centro_custo'
+      '      , pe.produto'
+      '      , pe.unidade'
+      '  ) xx on (xx.empresa = p.codemp and xx.produto = p.cod)'
+      ''
+      
+        '  left join TBEMPRESA e on (e.cnpj = coalesce(xx.empresa, p.code' +
+        'mp))'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = xx.centro_custo)'
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      '  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)'
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      '  left join TBUNIDADEPROD uc on (uc.unp_cod = p.codunidade)'
+      '  left join TBUNIDADEPROD uf on (uf.unp_cod = xx.unidade)'
+      ''
+      '/*'
+      'order by'
+      '    e.rzsoc'
+      '  , c.descricao'
+      '  , coalesce(g.descri, '#39'* Indefinido'#39')'
+      '  , p.descri_apresentacao'
+      '*/')
+    Left = 32
+    Top = 40
+  end
+  object qryRelacaoApropriacaoSintetico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    a.empresa'
+      '  , e.rzsoc'
+      '  , a.tipo'
+      '  , ta.descricao as tipo_descricao'
+      '  , a.centro_custo'
+      '  , c.descricao as centro_custo_descricao'
+      '  , a.status'
+      '  , Case a.status'
+      '      when 0 then '#39'Editando'#39
+      '      when 1 then '#39'Aberto'#39
+      '      when 2 then '#39'Encerrada'#39
+      '      when 3 then '#39'Cancelado'#39
+      '    end as status_desc'
+      '  , c.codcliente'
+      '  , cc.nome'
+      '  , cc.nomefant'
+      '  , cc.cnpj'
+      '  , sum( coalesce(a.valor_total, 0.0)  ) as valor_total'
+      
+        '  , sum( coalesce(Case when a.status = 3 then 0.0 else a.valor_t' +
+        'otal end, 0.0)  ) as valor_total_real'
+      'from TBAPROPRIACAO_ALMOX a'
+      '  left join VW_TIPO_APROPRIACAO ta on (ta.codigo = a.tipo)'
+      '  left join TBEMPRESA e on (e.cnpj = a.empresa)'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = a.centro_custo)'
+      '  left join TBCLIENTE cc on (cc.codigo = c.codcliente)'
+      ''
+      '/*'
+      'where a.empresa = '#39'03041377000187'#39
+      '  and a.status > 1 -- 1. Aberto'
+      ''
+      'group by'
+      '    a.empresa'
+      '  , e.rzsoc'
+      '  , a.tipo'
+      '  , ta.descricao'
+      '  , a.centro_custo'
+      '  , c.descricao'
+      '  , a.status'
+      '  , c.codcliente'
+      '  , cc.nome'
+      '  , cc.nomefant'
+      '  , cc.cnpj'
+      ''
+      'order by'
+      '    e.rzsoc'
+      '  , a.tipo'
+      '  , c.descricao'
+      '*/')
+    Left = 32
+    Top = 72
+  end
+  object QryRelacaoApropriacaoAnalitico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
       '    a.ano'
@@ -4591,66 +4758,6 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       '  , a.data_apropriacao'
       '*/')
     Left = 32
-    Top = 104
-  end
-  object DspRelacaoApropriacaoAnalitico: TDataSetProvider
-    DataSet = QryRelacaoApropriacaoAnalitico
-    Left = 64
-    Top = 104
-  end
-  object CdsRelacaoApropriacaoAnalitico: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DspRelacaoApropriacaoAnalitico'
-    Left = 96
-    Top = 104
-  end
-  object FrdsRelacaoApropriacaoAnalitico: TfrxDBDataset
-    UserName = 'FrdsRelacaoApropriacaoAnalitico'
-    CloseDataSource = True
-    FieldAliases.Strings = (
-      'ANO=ANO'
-      'CONTROLE=CONTROLE'
-      'NUMERO=NUMERO'
-      'EMPRESA=EMPRESA'
-      'APROPRIACAO=APROPRIACAO'
-      'COMPRA_ANO=COMPRA_ANO'
-      'COMPRA_NUM=COMPRA_NUM'
-      'COMPRA_EMP=COMPRA_EMP'
-      'COMPRA=COMPRA'
-      'AUTORIZACAO_ANO=AUTORIZACAO_ANO'
-      'AUTORIZACAO_NUM=AUTORIZACAO_NUM'
-      'AUTORIZACAO_EMP=AUTORIZACAO_EMP'
-      'AUTORIZACAO=AUTORIZACAO'
-      'TIPO=TIPO'
-      'TIPO_DESCRICAO=TIPO_DESCRICAO'
-      'COMPETENCIA=COMPETENCIA'
-      'COMPETENCIA_DESC=COMPETENCIA_DESC'
-      'STATUS=STATUS'
-      'STATUS_DESC=STATUS_DESC'
-      'FORN_COD=FORN_COD'
-      'FORN_RAZAO=FORN_RAZAO'
-      'FORN_FANTASIA=FORN_FANTASIA'
-      'FORN_PF=FORN_PF'
-      'FORN_CNPJ=FORN_CNPJ'
-      'DOCUMENTO=DOCUMENTO'
-      'DOCUMENTO_NUMERO=DOCUMENTO_NUMERO'
-      'DOCUMENTO_SERIE=DOCUMENTO_SERIE'
-      'CENTRO_CUSTO=CENTRO_CUSTO'
-      'CENTRO_CUSTO_DESCRICAO=CENTRO_CUSTO_DESCRICAO'
-      'CODCLIENTE=CODCLIENTE'
-      'NOME=NOME'
-      'NOMEFANT=NOMEFANT'
-      'CNPJ=CNPJ'
-      'DATA_APROPRIACAO=DATA_APROPRIACAO'
-      'DATA_INSERCAO=DATA_INSERCAO'
-      'DATA_CANCELAMENTO=DATA_CANCELAMENTO'
-      'CANCEL_MOTIVO=CANCEL_MOTIVO'
-      'VALOR_TOTAL=VALOR_TOTAL'
-      'VALOR_TOTAL_REAL=VALOR_TOTAL_REAL')
-    DataSet = CdsRelacaoApropriacaoAnalitico
-    BCDToCurrency = True
-    Left = 128
     Top = 104
   end
 end
