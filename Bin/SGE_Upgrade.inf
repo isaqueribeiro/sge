@@ -3,6 +3,7 @@
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Ajustes na geração de Recibos.
 - Novos relatórios de Custo dos Materiais/Produtos vendidos no módulo Faturamento.
 - Novos relatórios de Lotes de Produtos no módulo Estoque de Produtos.
 - Novo módulo de relatórios de Contas A Pagar x Contas A Receber.
@@ -40,4 +41,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.29.0
+#version=1.0.29.1
