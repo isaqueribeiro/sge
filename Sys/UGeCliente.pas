@@ -1341,7 +1341,13 @@ end;
 procedure TfrmGeCliente.edCNPJKeyPress(Sender: TObject; var Key: Char);
 begin
   if ( Key = #13 ) then
-    edCaptcha.SetFocus;
+  begin
+    Key := #0;
+    if (Sender = edCPF) then
+      edDataNasc.SetFocus
+    else
+      edCaptcha.SetFocus;
+  end;
 end;
 
 procedure TfrmGeCliente.btnConsultarCPFClick(Sender: TObject);
@@ -1371,11 +1377,14 @@ end;
 procedure TfrmGeCliente.edCaptchaKeyPress(Sender: TObject; var Key: Char);
 begin
   if ( Key = #13 ) then
+  begin
+    Key := #0;
     if ( pgcGuias.ActivePage = tbsConsultarCNPJ ) then
       btnConsultarCNPJ.Click
     else
     if ( pgcGuias.ActivePage = tbsConsultarCPF ) then
       btnConsultarCPF.Click;
+  end;
 end;
 
 procedure TfrmGeCliente.HabilitarAbaEstoque;

@@ -16,12 +16,12 @@ File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\
 File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,2271,5,2286,0,0,,{1
 
 [Modules]
-Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
-Module1=default.htm
-Module2=documentation.htm
-Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
+Module2=default.htm
+Module3=documentation.htm
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
 Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
 Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UFuncoes.pas
@@ -29,6 +29,9 @@ Module9=C:\Delphi\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas
 Module10=C:\Delphi\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
 Count=11
 EditWindowCount=1
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas]
 ModuleType=TSourceModule
@@ -43,9 +46,6 @@ ModuleType=TURLModule
 ModuleType=TBaseProject
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
@@ -65,7 +65,7 @@ ModuleType=TSourceModule
 
 [EditWindow0]
 ViewCount=11
-CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
+CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
 View0=0
 View1=1
 View2=2
@@ -405,12 +405,7 @@ TBDockHeight=9058
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
-SplitPos=116
-
-[PropInspDesignerSelection]
-ArrangeBy=Name
-SelectedItem=Action,AfterCommit
-ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0,Database=0,FieldOptions=0,"LiveBindings Designer=0",ActiveStoredUsage=0,Connection=0,FetchOptions=0,FilterChanges=0,FilterOptions=0,FormatOptions=0,ResourceOptions=0,Transaction=0,UpdateOptions=0,UpdateTransaction=0,DataSet=0,Options=0,TableTypes=0,ActiveControl=0,Font=0,GlassFrame=0,HorzScrollBar=0,Margins=0,Padding=0,Colors=0,BevelEdges=0,StyleElements=0,Touch=0,FocusControl=0,DataSource=0,ConnectedStoredUsage=0,Params=0,TxOptions=0,EngineOptions=0,PreviewOptions=0,PrintOptions=0,ReportOptions=1,PreviewOptions.Buttons=0
+SplitPos=111
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -881,7 +876,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=4644
-TBDockHeight=9058
+TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0
@@ -929,7 +924,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=2577
-TBDockHeight=9058
+TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0

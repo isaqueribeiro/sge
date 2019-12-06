@@ -18,7 +18,7 @@ uses
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   frxClass, frxDBSet, ACBrUtil, ACBrNFSeDANFSeClass, ACBrNFSeDANFSeFR, ACBrBase,
-  ACBrDFe, ACBrNFSe;
+  ACBrDFe, ACBrNFSe, ACBrDFeReport;
 
 type
   TDMNFSe = class(TDataModule)

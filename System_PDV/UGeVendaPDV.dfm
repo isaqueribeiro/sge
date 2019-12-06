@@ -4849,8 +4849,8 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         ParentColor = False
         ParentFont = False
         Transparent = False
-        ExplicitLeft = 366
-        ExplicitWidth = 21
+        ExplicitLeft = 135
+        ExplicitWidth = 252
       end
       object Bevel1: TBevel
         Left = 2
@@ -4897,8 +4897,8 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         ParentColor = False
         ParentFont = False
         Transparent = False
-        ExplicitLeft = 366
-        ExplicitWidth = 21
+        ExplicitLeft = 72
+        ExplicitWidth = 315
       end
       object Bevel2: TBevel
         Left = 2
@@ -4945,8 +4945,8 @@ inherited frmGeVendaPDV: TfrmGeVendaPDV
         ParentColor = False
         ParentFont = False
         Transparent = False
-        ExplicitLeft = 366
-        ExplicitWidth = 21
+        ExplicitLeft = 114
+        ExplicitWidth = 273
       end
       object Bevel3: TBevel
         Left = 2

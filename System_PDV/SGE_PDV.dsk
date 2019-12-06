@@ -1,40 +1,42 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeCliente.pas',0,1,1456,1,1459,0,0,,{1,1383,3}
-File_1=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrPadrao.pas',0,1,649,3,682,0,0,,
+File_0=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,1612,28,1640,0,0,,
+File_1=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeCliente.pas',0,1,1341,26,1347,0,0,,
 File_2=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrMessage.pas',0,1,5,42,63,0,0,,
 File_3=TSourceModule,'c:\delphi\tokyo\studio\19.0\source\data\firedac\FireDAC.Stan.Error.pas',0,1,162,88,170,0,0,,
-File_4=TSourceModule,'c:\delphi\tokyo\studio\19.0\SOURCE\VCL\Vcl.Forms.pas',0,1,6898,1,6924,0,0,{{1747,4},{1763,15},{'TScrollWindow'}}{{1850,4},{1950,15},{'TMainMenuBarStyleHook'}},
+File_4=TSourceModule,'c:\delphi\tokyo\studio\19.0\SOURCE\VCL\Vcl.Forms.pas',0,1,6898,1,6924,0,0,{{1747,4}
 File_5=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrCampoRequisitado.pas',0,1,34,82,48,0,0,,
-File_6=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,1612,28,1640,0,0,,
-File_7=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVendaTransporte.pas',0,1,72,14,99,0,0,,
-File_8=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVendaGerarNFe.pas',0,1,140,58,167,0,0,,
-File_9=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeConsultarLoteNFe_v2.pas',0,1,1,1,1,0,0,,
-File_10=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.vrc',0,1,45,1,72,0,0,,
-File_11=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrAutoUpgrade.pas',0,1,37,3,57,0,0,,
-File_12=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEfetuarPagtoREC.pas',0,1,170,52,180,0,0,,
-File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas',0,1,1256,1,1261,0,0,,
-File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeCaixa.pas',0,1,175,1,1,0,0,,
+File_6=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVendaTransporte.pas',0,1,72,14,99,0,0,,
+File_7=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVendaGerarNFe.pas',0,1,140,58,167,0,0,,
+File_8=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeConsultarLoteNFe_v2.pas',0,1,1,1,1,0,0,,
+File_9=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.vrc',0,1,45,1,72,0,0,,
+File_10=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UGrAutoUpgrade.pas',0,1,37,3,57,0,0,,
+File_11=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEfetuarPagtoREC.pas',0,1,170,52,180,0,0,,
+File_12=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas',0,1,1256,1,1261,0,0,,
+File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeCaixa.pas',0,1,175,1,1,0,0,,
 
 [Modules]
 Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVOrcamento.pas
-Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFormaPagto.pas
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFinalizar.pas
-Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
-Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVDesconto.pas
-Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVItem.pas
-Module11=default.htm
-Module12=documentation.htm
+Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
+Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVOrcamento.pas
+Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVDesconto.pas
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFinalizar.pas
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFormaPagto.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVItem.pas
+Module9=default.htm
+Module10=documentation.htm
+Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj
+Module12=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 Module13=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
 Module14=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
 Count=15
 EditWindowCount=1
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVOrcamento.pas]
@@ -46,22 +48,13 @@ ModuleType=TSourceModule
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVDesconto.pas]
 ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFormaPagto.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj]
-ModuleType=TBaseProject
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFinalizar.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVDesconto.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFormaPagto.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVItem.pas]
@@ -72,6 +65,12 @@ ModuleType=TURLModule
 
 [documentation.htm]
 ModuleType=TURLModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj]
+ModuleType=TBaseProject
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
@@ -115,13 +114,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=00000800010100000000181000000000000001680700000000000001000000003909000009000000446F636B536974653301000000009C1C00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=00000800010100000000E40F00000000000001680700000000000001000000005C0E000009000000446F636B536974653301000000003F1C00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=00000800010100000000181000000000000001D00700000000000001000000004412000009000000446F636B536974653201000000009C1C000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=1361
+RightPanelData=00000800010100000000E40F00000000000001D0070000000000000100000000960C000009000000446F636B536974653201000000003F1C000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=1454
 BottomPanelClients=MessageView,DockSite1
-BottomPanelData=0000080001020100000009000000446F636B5369746531D7420000000000000251050000000000000100000000D74200000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B5369746531D74200000000000002AE050000000000000100000000D74200000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -203,24 +202,24 @@ EditViewName=Borland.FormDesignerView
 [View8]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
-CursorX=13
-CursorY=624
-TopLine=606
+CursorX=74
+CursorY=647
+TopLine=604
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
+EditViewName=Borland.FormDesignerView
 
 [View9]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas
-CursorX=60
-CursorY=1218
-TopLine=1213
+CursorX=11
+CursorY=1062
+TopLine=1
 LeftCol=1
 Elisions=
-Bookmarks={1,1258,1}
-EditViewName=Borland.FormDesignerView
+Bookmarks={1,1266,1}
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas
 
 [View10]
 CustomEditViewType=TEditView
@@ -242,7 +241,7 @@ TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFinalizar.pas
+EditViewName=Borland.FormDesignerView
 
 [View12]
 CustomEditViewType=TEditView
@@ -253,7 +252,7 @@ TopLine=111
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFormaPagto.pas
+EditViewName=Borland.FormDesignerView
 
 [View13]
 CustomEditViewType=TEditView
@@ -264,7 +263,7 @@ TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVItem.pas
+EditViewName=Borland.FormDesignerView
 
 [View14]
 CustomEditViewType=TEditView
@@ -275,7 +274,7 @@ TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVOrcamento.pas
+EditViewName=Borland.FormDesignerView
 
 [UndockedDesigner]
 Count=0
@@ -359,11 +358,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=4404
+Height=2894
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=4404
+ClientHeight=2894
 TBDockHeight=5904
 LRDockWidth=2349
 Dockable=1
@@ -378,12 +377,12 @@ State=0
 Left=0
 Top=18
 Width=9625
-Height=1240
+Height=1337
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=9625
-ClientHeight=1240
-TBDockHeight=1240
+ClientHeight=1337
+TBDockHeight=1337
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -397,11 +396,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=2577
+Height=3990
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2577
+ClientHeight=3990
 TBDockHeight=7154
 LRDockWidth=2000
 Dockable=1
@@ -452,23 +451,18 @@ Visible=1
 Docked=1
 State=0
 Left=0
-Top=273
+Top=415
 Width=1896
-Height=4981
+Height=3519
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=4981
+ClientHeight=3519
 TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
 SplitPos=111
-
-[PropInspDesignerSelection]
-ArrangeBy=Name
-SelectedItem=Active,PopupMenu
-ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0,ActiveStoredUsage=0,FetchOptions=0,FieldOptions=0,FilterChanges=0,FilterOptions=0,Connection=0,FormatOptions=0,"LiveBindings Designer=0",ResourceOptions=0,UpdateOptions=0,Transaction=0,Database=0,ConnectedStoredUsage=0,Params=0,TxOptions=0,UpdateTransaction=0,TableTypes=0,DataSet=0,DataSource=0,Font=0,Margins=0,Options=0,ActiveControl=0,GlassFrame=0,UpdateObject=0,BevelEdges=0,StyleElements=0,Touch=0,Brush=1,Pen=0,HorzScrollBar=0,LookAndFeel=0,OptionsImage=0,SpeedButtonOptions=0,Colors=0,Title=0,Images=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -824,11 +818,11 @@ State=0
 Left=0
 Top=0
 Width=1896
-Height=2240
+Height=3606
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=2240
+ClientHeight=3606
 TBDockHeight=3683
 LRDockWidth=1896
 Dockable=1
@@ -934,11 +928,11 @@ State=0
 Left=0
 Top=18
 Width=2000
-Height=4644
+Height=3135
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=4644
+ClientHeight=3135
 TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1
@@ -958,11 +952,11 @@ State=0
 Left=0
 Top=18
 Width=1896
-Height=2240
+Height=3606
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=2240
+ClientHeight=3606
 TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
@@ -980,13 +974,13 @@ Visible=1
 Docked=1
 State=0
 Left=0
-Top=523
+Top=366
 Width=2000
-Height=2577
+Height=3990
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2577
+ClientHeight=3990
 TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1

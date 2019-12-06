@@ -29,6 +29,8 @@ inherited frmGeVenda: TfrmGeVenda
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -2399,6 +2401,10 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsDadosEntrega: TTabSheet
           Caption = 'Dados para Entrega'
           ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object pnlDadosEntrega: TPanel
             Left = 0
             Top = 0
@@ -2416,7 +2422,7 @@ inherited frmGeVenda: TfrmGeVenda
             object lblDadosEntrega: TLabel
               Left = 0
               Top = 0
-              Width = 1100
+              Width = 214
               Height = 13
               Align = alTop
               Caption = '&Dados gerais para entrega do(s) produto(s):'
@@ -2427,7 +2433,6 @@ inherited frmGeVenda: TfrmGeVenda
               Font.Name = 'Tahoma'
               Font.Style = []
               ParentFont = False
-              ExplicitWidth = 214
             end
             object Bevel11: TBevel
               Left = 1096
@@ -2451,7 +2456,7 @@ inherited frmGeVenda: TfrmGeVenda
             object lblDicaDadosEntrega: TLabel
               Left = 0
               Top = 145
-              Width = 1100
+              Width = 801
               Height = 13
               Align = alBottom
               Caption = 
@@ -2465,7 +2470,6 @@ inherited frmGeVenda: TfrmGeVenda
               Font.Name = 'Tahoma'
               Font.Style = [fsBold]
               ParentFont = False
-              ExplicitWidth = 801
             end
             object dbDadosEntrega: TDBMemo
               Left = 0
@@ -2484,6 +2488,10 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsITitulos: TTabSheet
           Caption = 'T'#237'tulo(s) Gerado(s)'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Bevel9: TBevel
             Left = 74
             Top = 0
@@ -2706,6 +2714,10 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsTransporte: TTabSheet
           Caption = 'Dados Transporte'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           DesignSize = (
             1100
             158)
@@ -2958,6 +2970,10 @@ inherited frmGeVenda: TfrmGeVenda
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0
@@ -4147,7 +4163,7 @@ inherited frmGeVenda: TfrmGeVenda
     Left = 1192
     Top = 376
     Bitmap = {
-      494C01012B002C00080210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00140210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -9025,9 +9041,10 @@ inherited frmGeVenda: TfrmGeVenda
             66305C667332345C7061720D0A5C66733332205B546974756C6F5D5C7061720D
             0A0D0A5C706172645C6C693138305C72693138305C73623132305C7361313230
             5C736C3336305C736C6D756C74315C71725C62305C667332345C7061720D0A56
-            616C6F723A205C62205224205B466F726D6174466C6F617428272C302E303027
-            2C3C46726452656369626F2E2256414C4F525F4241495841223E295D5C62305C
-            7061720D0A7D0D0A00}
+            616C6F723A205C62205224205B494946283C46726452656369626F2E2256414C
+            4F525F4241495841223E203D20302C20275F205F205F205F205F205F205F272C
+            20466F726D6174466C6F617428272C302E3030272C3C46726452656369626F2E
+            2256414C4F525F4241495841223E29295D5C62305C7061720D0A7D0D0A00}
         end
       end
       object BndChildAssinatura: TfrxChild

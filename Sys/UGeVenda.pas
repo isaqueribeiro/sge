@@ -1228,33 +1228,46 @@ begin
     Exit
   else
   if fdQryLotes.IsEmpty then
+    Exit
+  else
+  if not cdsTabelaItens.Active then
+    Exit
+  else
+  if cdsTabelaItens.IsEmpty then
     Exit;
 
   if (cdsTabelaItens.State in [dsEdit, dsInsert]) then
   begin
     try
-      fdQryLotes.First;
-      while not fdQryLotes.Eof do
-      begin
-        if (aCliente > 0) then
+      try
+        fdQryLotes.First;
+
+        while not fdQryLotes.Eof do
         begin
-          if (fdQryLotes.FieldByName('qtde_cliente').AsCurrency > 0) then
+          if (aCliente > 0) then
           begin
-            cdsTabelaItensLOTE_ID.AsString := fdQryLotes.FieldByName('id').AsString;
-            Break;
-          end;
-        end
-        else
-          if (fdQryLotes.FieldByName('qtde_estoque').AsCurrency > 0) then
+            if (fdQryLotes.FieldByName('qtde_cliente').AsCurrency > 0) then
+            begin
+              cdsTabelaItensLOTE_ID.AsString := fdQryLotes.FieldByName('id').AsString;
+              Break;
+            end;
+          end
+          else
           begin
-            cdsTabelaItensLOTE_ID.AsString := fdQryLotes.FieldByName('id').AsString;
-            Break;
+            if (fdQryLotes.FieldByName('qtde_estoque').AsCurrency > 0) then
+            begin
+              cdsTabelaItensLOTE_ID.AsString := fdQryLotes.FieldByName('id').AsString;
+              Break;
+            end;
           end;
 
-        fdQryLotes.Next;
+          fdQryLotes.Next;
+        end;
+
+        fdQryLotes.First;
+      except
       end;
     finally
-      fdQryLotes.First;
     end;
   end;
 end;

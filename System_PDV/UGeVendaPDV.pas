@@ -1053,7 +1053,15 @@ begin
     if ( AForm.ShowModal = mrOk ) then
     begin
       CarregarVenda(gUsuarioLogado.Empresa, AForm.OrcamentoAno, AForm.OrcamentoCod);
-      bOrcamentoCarregado := True;  
+      bOrcamentoCarregado := True;
+
+      if VendaEstaFinalizada then
+      begin
+        if (DataSetVenda.State in [dsEdit, dsInsert]) then
+          DataSetVenda.Cancel;
+
+        bOrcamentoCarregado := False;
+      end;
     end;
   finally
     AForm.Free;

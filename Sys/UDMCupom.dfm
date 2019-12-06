@@ -28,8 +28,8 @@ object DMCupom: TDMCupom
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
     UpdateTransaction = DMBusiness.fdTransacao
-    Left = 688
-    Top = 80
+    Left = 744
+    Top = 184
   end
   object qryProduto: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -1173,7 +1173,6 @@ object DMCupom: TDMCupom
     Top = 128
   end
   object cdsVenda: TFDQuery
-    Active = True
     OnCalcFields = cdsVendaCalcFields
     CachedUpdates = True
     Connection = DMBusiness.fdConexao

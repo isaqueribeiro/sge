@@ -16,20 +16,20 @@ File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UPersonalizaEmpresa.pas
 File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UInfoVersao.pas',0,1,13,59,15,0,0,,
 
 [Modules]
-Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UPrinterCupom.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UEcfAgil.pas
+Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UPrinterCupom.pas
 Module2=default.htm
 Module3=documentation.htm
 Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\PrinterCupom.dproj
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UEcfAgil.pas
 Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 Count=7
 EditWindowCount=1
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UPrinterCupom.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UEcfAgil.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UPrinterCupom.pas]
 ModuleType=TSourceModule
 
 [default.htm]
@@ -41,7 +41,7 @@ ModuleType=TURLModule
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\PrinterCupom.dproj]
 ModuleType=TBaseProject
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UEcfAgil.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
@@ -49,7 +49,7 @@ ModuleType=TSourceModule
 
 [EditWindow0]
 ViewCount=7
-CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UPrinterCupom.pas
+CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
 View0=0
 View1=1
 View2=2
@@ -125,7 +125,7 @@ TopLine=4871
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+EditViewName=Borland.FormDesignerView
 
 [View5]
 CustomEditViewType=TEditView
@@ -807,7 +807,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=4644
-TBDockHeight=9010
+TBDockHeight=9058
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0
@@ -855,7 +855,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=2577
-TBDockHeight=9010
+TBDockHeight=9058
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0

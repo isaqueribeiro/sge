@@ -474,14 +474,15 @@ const
   REJEICAO_NFE_IRREG_FISCO_EMIT  = 301; // Rejeição: Uso Denegado: Irregularidade fiscal do emitente
   REJEICAO_NFE_IRREG_FISCO_DEST  = 302; // Rejeição: Uso Denegado: Irregularidade fiscal do destinatario
 
-  REJEICAO_NFE_DESCOMPACT  = 416; // Rejeição: Falha na descompactação da área de dados
-  REJEICAO_NFE_BC_ICMS_ERR = 531; // Rejeição: Total da BC ICMS difere do somatório dos itens
-  REJEICAO_NFE_TO_ICMS_ERR = 532; // Rejeição: Total do ICMS difere do somatório dos itens
-  REJEICAO_NFE_TO_PROD_ERR = 564; // Rejeição: Total do Produto / Serviço difere do somatório dos itens
-  REJEICAO_NFE_MODELO_DIF  = 450; // Rejeição: Modelo da NF-e diferente de 55
-  REJEICAO_NFE_NCM_INEXIST = 778; // Rejeição: Informado NCM inexistente
-  REJEICAO_NFCE_MODELO_DIF = 775; // Rejeição: Modelo da NFC-e diferente de 65
-  REJEICAO_NFE_NAO_CATALOG = 999; // Rejeição: Erro não catalogado (Possível falha na SEFA)
+  REJEICAO_NFE_DESCOMPACT     = 416; // Rejeição: Falha na descompactação da área de dados
+  REJEICAO_NFE_BC_ICMS_ERR    = 531; // Rejeição: Total da BC ICMS difere do somatório dos itens
+  REJEICAO_NFE_TO_ICMS_ERR    = 532; // Rejeição: Total do ICMS difere do somatório dos itens
+  REJEICAO_NFE_TO_PROD_ERR    = 564; // Rejeição: Total do Produto / Serviço difere do somatório dos itens
+  REJEICAO_NFE_MODELO_DIF     = 450; // Rejeição: Modelo da NF-e diferente de 55
+  REJEICAO_NFE_CFOP_DIFERENTE = 733; // Rejeição: CFOP de operação interna e idDest diferente de 1
+  REJEICAO_NFE_NCM_INEXIST    = 778; // Rejeição: Informado NCM inexistente
+  REJEICAO_NFCE_MODELO_DIF    = 775; // Rejeição: Modelo da NFC-e diferente de 65
+  REJEICAO_NFE_NAO_CATALOG    = 999; // Rejeição: Erro não catalogado (Possível falha na SEFA)
 
   PULAR_LINHA_FINAL = 3;
 
@@ -1858,10 +1859,8 @@ begin
         if ReciboNaoExisteNaVenda(ACBrNFe.WebServices.Retorno.Recibo) then
           GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ACBrNFe.WebServices.Retorno.Recibo);
 
-//      if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Count = 1 ) then
       if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1 ) then
       begin
-//        Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat of
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat of
           REJEICAO_NFE_NOTA_DENEGADA:
             begin
@@ -1873,7 +1872,6 @@ begin
                 Result := True;
 
                 Denegada       := True;
-//                DenegadaMotivo := 'NF-e denegada por ' + ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo;
                 DenegadaMotivo := 'NF-e denegada por ' + ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
 
                 ChaveNFE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
@@ -1887,7 +1885,6 @@ begin
                 // Remover Lote da Venda
                 GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-//                sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
                 sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                   'Favor gerar NF-e novamente!';
               end;
@@ -1901,24 +1898,29 @@ begin
 //              // Remover Lote da Venda
 //              GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 //
-//              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo;
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
             end;
 
           REJEICAO_NFE_EMISSOR_NAO_HABIL,
           REJEICAO_NFE_IE_NAO_CADASTRADO,
           REJEICAO_NFE_IE_NAO_VINCULADO ,
-          REJEICAO_NFE_BC_ICMS_ERR,
-          REJEICAO_NFE_TO_ICMS_ERR,
-          REJEICAO_NFE_TO_PROD_ERR,
-          REJEICAO_NFE_NCM_INEXIST:
+          REJEICAO_NFE_BC_ICMS_ERR   ,
+          REJEICAO_NFE_TO_ICMS_ERR   ,
+          REJEICAO_NFE_TO_PROD_ERR   ,
+          REJEICAO_NFE_NCM_INEXIST   ,
+          REJEICAO_NFE_CFOP_DIFERENTE:
             begin
               // Remover Lote da Venda
               GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-//              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                 'Favor validar dados e NF-e novamente!';
+
+              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE) then
+                sErrorMsg :=
+                  'Código Fiscal de Operação não adequado para este tipo de movimento dos produtos. ' +
+                  'Favor corrija-o clicando com o botão direito do mouse no campo CFOP' + #13#13 +
+                  'Após este procedimento, gere novamente a NF-e';
             end;
 
           REJEICAO_NFE_NAO_CATALOG:
@@ -1926,7 +1928,6 @@ begin
               // Remover Lote da Venda
               GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-//              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                 'Possível erro na validação do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
             end;
@@ -1934,8 +1935,6 @@ begin
           else
           begin
 
-//            sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) + ' - ' +
-//              ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13#13 +
             sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) + ' - ' +
               ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13#13 +
               'Favor entrar em contato com suporte e apresentar esta mensagem!';
@@ -1944,12 +1943,9 @@ begin
             begin
               if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno) then           // Se o recibo de envio possuir retorno
               begin
-//                if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe) then // Se o retorno prossuir protocolo de processamento
                 if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe) then // Se o retorno prossuir protocolo de processamento
                 begin
 
-//                  if ( ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe.Count > 0 ) then
-//                    Case ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].cStat of
                   if ( ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe.Count > 0 ) then
                     Case ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].cStat of
                       PROCESSO_NFE_LOTE_REJEITADO :
@@ -1957,7 +1953,6 @@ begin
                           // Remover Lote da Venda
                           GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-//                          sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
                           sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                             'Favor fazer as devidas correções e gerar NF-e novamente!';
                         end;
@@ -1971,7 +1966,6 @@ begin
         end;
 
         ShowError('Erro ao tentar gerar NF-e.' +
-//          #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) +
           #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) +
           IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
           #13#13 + 'GerarNFeOnLineACBr() --> ' + sErrorMsg);
@@ -3831,9 +3825,6 @@ begin
         if ReciboNaoExisteNaEntrada(ACBrNFe.WebServices.Retorno.Recibo) then
           GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, iNumeroLote, ACBrNFe.WebServices.Retorno.Recibo);
 
-//      if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Count = 1 ) then
-//      begin
-//        Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat of
       if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1 ) then
       begin
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat of
@@ -3845,7 +3836,6 @@ begin
 //              // Remover Lote da Entrada
 //              GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
 //
-//              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo;
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
             end;
 
@@ -3857,7 +3847,6 @@ begin
               // Remover Lote da Entrada
               GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
 
-//              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                 'Favor gerar NF-e novamente!';
             end;
@@ -3865,17 +3854,23 @@ begin
           REJEICAO_NFE_EMISSOR_NAO_HABIL,
           REJEICAO_NFE_IE_NAO_CADASTRADO,
           REJEICAO_NFE_IE_NAO_VINCULADO ,
-          REJEICAO_NFE_BC_ICMS_ERR,
-          REJEICAO_NFE_TO_ICMS_ERR,
-          REJEICAO_NFE_TO_PROD_ERR,
-          REJEICAO_NFE_NCM_INEXIST:
+          REJEICAO_NFE_BC_ICMS_ERR   ,
+          REJEICAO_NFE_TO_ICMS_ERR   ,
+          REJEICAO_NFE_TO_PROD_ERR   ,
+          REJEICAO_NFE_NCM_INEXIST   ,
+          REJEICAO_NFE_CFOP_DIFERENTE:
             begin
               // Remover Lote da Entrada
               GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
 
-//              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                 'Favor validar dados e NF-e novamente!';
+
+              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE) then
+                sErrorMsg :=
+                  'Código Fiscal de Operação não adequado para este tipo de movimento dos produtos. ' +
+                  'Favor corrija-o clicando com o botão direito do mouse no campo CFOP' + #13#13 +
+                  'Após este procedimento, gere novamente a NF-e';
             end;
 
           REJEICAO_NFE_NAO_CATALOG:
@@ -3883,7 +3878,6 @@ begin
               // Remover Lote da Entrada
               GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
 
-//              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                 'Possível erro na validação do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
             end;
@@ -3891,8 +3885,6 @@ begin
           else
           begin
 
-//            sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) + ' - ' +
-//              ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13#13 +
             sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) + ' - ' +
               ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13#13 +
               'Favor entrar em contato com suporte e apresentar esta mensagem!';
@@ -3901,12 +3893,9 @@ begin
             begin
               if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno) then           // Se o recibo de envio possuir retorno
               begin
-//                if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe) then // Se o retorno prossuir protocolo de processamento
                 if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe) then // Se o retorno prossuir protocolo de processamento
                 begin
 
-//                  if ( ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe.Count > 0 ) then
-//                    Case ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].cStat of
                   if ( ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe.Count > 0 ) then
                     Case ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].cStat of
                       PROCESSO_NFE_LOTE_REJEITADO :
@@ -3914,7 +3903,6 @@ begin
                           // Remover Lote da Entrada
                           GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
 
-//                          sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
                           sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                             'Favor fazer as devidas coreções e gerar NF-e novamente!';
                         end;
@@ -3928,7 +3916,6 @@ begin
         end;
 
         ShowError('Erro ao tentar gerar NF-e de Entrada.' +
-//          #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) +
           #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) +
           IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
           #13#13 + 'GerarNFeEntradaOnLineACBr() --> ' + sErrorMsg);
@@ -6830,8 +6817,6 @@ begin
         if ReciboNaoExisteNaVenda(ACBrNFe.WebServices.Retorno.Recibo) then
           GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ACBrNFe.WebServices.Retorno.Recibo);
 
-//      if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Count = 1 ) then
-//        Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat of
       if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1 ) then
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat of
           REJEICAO_NFE_NOTA_DENEGADA:
@@ -6843,7 +6828,6 @@ begin
                 Result := True;
 
                 Denegada       := True;
-//                DenegadaMotivo := 'NFC-e denegada por ' + ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo;
                 DenegadaMotivo := 'NFC-e denegada por ' + ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
 
                 ChaveNFCE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
@@ -6857,7 +6841,6 @@ begin
                 // Remover Lote da Venda
                 GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-//                sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
                 sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                   'Favor gerar NFC-e novamente!';
               end;
@@ -6870,24 +6853,29 @@ begin
 //              // Remover Lote da Venda
 //              GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 //
-//              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo;
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
             end;
 
           REJEICAO_NFE_EMISSOR_NAO_HABIL,
           REJEICAO_NFE_IE_NAO_CADASTRADO,
           REJEICAO_NFE_IE_NAO_VINCULADO ,
-          REJEICAO_NFE_BC_ICMS_ERR,
-          REJEICAO_NFE_TO_ICMS_ERR,
-          REJEICAO_NFE_TO_PROD_ERR,
-          REJEICAO_NFE_NCM_INEXIST:
+          REJEICAO_NFE_BC_ICMS_ERR   ,
+          REJEICAO_NFE_TO_ICMS_ERR   ,
+          REJEICAO_NFE_TO_PROD_ERR   ,
+          REJEICAO_NFE_NCM_INEXIST   ,
+          REJEICAO_NFE_CFOP_DIFERENTE:
             begin
               // Remover Lote da Venda
               GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-//              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                 'Favor validar dados e NFC-e novamente!';
+
+              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE) then
+                sErrorMsg :=
+                  'Código Fiscal de Operação não adequado para este tipo de movimento dos produtos. ' +
+                  'Favor corrija-o clicando com o botão direito do mouse no campo CFOP' + #13#13 +
+                  'Após este procedimento, gere novamente a NFC-e';
             end;
 
           REJEICAO_NFE_NAO_CATALOG:
@@ -6895,7 +6883,6 @@ begin
               // Remover Lote da Venda
               GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-//              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                 'Possível erro na validação do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
             end;
@@ -6903,8 +6890,6 @@ begin
           else
           begin
 
-//            sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) + ' - ' +
-//              ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13#13 +
             sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) + ' - ' +
               ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13#13 +
               'Favor entrar em contato com suporte e apresentar esta mensagem!';
@@ -6913,10 +6898,6 @@ begin
             begin
               if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno) then           // Se o recibo de envio possuir retorno
               begin
-//                if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe) then // Se o retorno prossuir protocolo de processamento
-//                begin
-//                  if ( ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe.Count > 0 ) then
-//                    Case ACBrNFe.WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].cStat of
                 if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe) then // Se o retorno prossuir protocolo de processamento
                 begin
                   if ( ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe.Count > 0 ) then
@@ -6926,7 +6907,6 @@ begin
                           // Remover Lote da Venda
                           GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-//                          sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].xMotivo + #13 +
                           sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                             'Favor fazer as devidas coreções e gerar NF-e novamente!';
                         end;
@@ -6939,7 +6919,6 @@ begin
         end;
 
       ShowError('Erro ao tentar gerar NFC-e.' +
-//        #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtNFe.Items[0].cStat) +
         #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) +
         IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
         #13#13 + 'GerarNFCeOnLineACBr() --> ' + sErrorMsg);

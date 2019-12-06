@@ -36,6 +36,8 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
+    ExplicitTop = 127
+    ExplicitHeight = 514
     DesignSize = (
       1044
       481)
@@ -6983,5 +6985,11 @@ object frmPrinc: TfrmPrinc
     OnTimer = tmrAutoUpgradeTimer
     Left = 176
     Top = 275
+  end
+  object TmrAlertaCliente: TTimer
+    Enabled = False
+    OnTimer = TmrAlertaClienteTimer
+    Left = 176
+    Top = 311
   end
 end
