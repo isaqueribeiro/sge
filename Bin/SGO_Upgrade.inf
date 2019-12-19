@@ -3,6 +3,7 @@
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Ajustes na geração de NF-e.
 - Ajustes na geração de Recibos.
 - Novos relatórios de Produtos consignados no módulo Estoque.
 - Novos relatórios de Custo dos Materiais/Produtos vendidos no módulo Faturamento.
@@ -42,4 +43,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.29.1
+#version=1.0.29.2
