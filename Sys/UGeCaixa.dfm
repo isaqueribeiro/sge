@@ -28,8 +28,6 @@ inherited frmGeCaixa: TfrmGeCaixa
     ExplicitWidth = 950
     ExplicitHeight = 460
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 942
       ExplicitHeight = 431
       inherited Bevel4: TBevel
@@ -834,10 +832,6 @@ inherited frmGeCaixa: TfrmGeCaixa
         TabStop = False
         object tbsConsolidado: TTabSheet
           Caption = 'Consolidado'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbgConsolidado: TDBGrid
             Left = 0
             Top = 0
@@ -895,10 +889,6 @@ inherited frmGeCaixa: TfrmGeCaixa
         object tbsMovimento: TTabSheet
           Caption = 'Movimento'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbgMovimento: TDBGrid
             Left = 0
             Top = 0
@@ -1255,7 +1245,7 @@ inherited frmGeCaixa: TfrmGeCaixa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5312,11 +5302,20 @@ inherited frmGeCaixa: TfrmGeCaixa
       '        inner join VW_EMPRESA e on (e.cnpj = bb.empresa) '
       '    ) '
       '  ))  '
+      '  and (c.empresa = :empresa)'
       ''
       'order by'
       '  c.descricao')
     Left = 458
     Top = 376
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end>
   end
   object fdStrPrcCaixaConsolidar: TFDStoredProc
     Connection = DMBusiness.fdConexao

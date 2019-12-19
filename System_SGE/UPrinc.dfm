@@ -4665,7 +4665,6 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4726,6 +4725,7 @@ object frmPrinc: TfrmPrinc
       Index = 5
     end
     object RbnTabFinanceiro: TdxRibbonTab
+      Active = True
       Caption = 'Financeiro'
       Groups = <
         item
@@ -4918,7 +4918,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 536
+      DockedLeft = 535
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213
@@ -5216,7 +5216,7 @@ object frmPrinc: TfrmPrinc
     object BrMngFinanceiroBoleto: TdxBar
       Caption = 'Boletos Banc'#225'rios / Quita'#231#245'es'
       CaptionButtons = <>
-      DockedLeft = 513
+      DockedLeft = 512
       DockedTop = 0
       FloatLeft = 379
       FloatTop = 206

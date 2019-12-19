@@ -3,6 +3,7 @@ unit UGeCaixa;
 interface
 
 uses
+  System.DateUtils,
   UGrPadraoCadastro,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
@@ -210,7 +211,7 @@ const
 implementation
 
 uses
-  DateUtils, UDMBusiness, UDMNFe, UConstantesDGE, UDMRecursos;
+  UConstantesDGE, UDMBusiness, UDMNFe, UDMRecursos;
 
 {$R *.dfm}
 
@@ -271,7 +272,7 @@ var
 begin
   frm := TfrmGeCaixa.Create(AOwner);
   try
-    frm.Caption     := 'A B R I N D O   C A I X A   .    .   .';
+    frm.Caption     := 'A B R I N D O   C A I X A';
 
     frm.btbtnIncluir.Caption := 'A&brir';
     frm.btbtnIncluir.Hint    := 'Abrir Caixa para Usuário logado.';
@@ -279,15 +280,15 @@ begin
     frm.FAbrirCaixa  := True;
     frm.FFecharCaixa := False;
 
-    whr := 'c.Situacao = 0 and ' +
-           'c.Usuario = ' + QuotedStr(Usuario);
+    whr := '(c.Situacao = 0) and ' +
+           '(c.Usuario  = ' + QuotedStr(Usuario) + ')';
 
     with frm, fdQryTabela do
     begin
       if (gSistema.Codigo = SISTEMA_PDV) then
-        frm.WhereAdditional := '(cc.tipo = 1)'
+        frm.WhereAdditional := '(coalesce(cc.empresa, bb.empresa) = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and (cc.tipo = 1)'
       else
-        frm.WhereAdditional := '(1 = 1)';
+        frm.WhereAdditional := '(coalesce(cc.empresa, bb.empresa) = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
 
       Close;
       SQL.Add('where ' + whr + ' and ' + frm.WhereAdditional);
@@ -307,20 +308,20 @@ var
 begin
   frm := TfrmGeCaixa.Create(AOwner);
   try
-    frm.Caption := 'E N C E R R A R   C A I X A   .    .   .';
+    frm.Caption := 'E N C E R R A R   C A I X A';
 
     frm.FAbrirCaixa  := False;
     frm.FFecharCaixa := True;
 
-    whr := 'c.Situacao = 0 and ' +
-           'c.Usuario = ' + QuotedStr(Usuario);
+    whr := '(c.Situacao = 0) and ' +
+           '(c.Usuario  = ' + QuotedStr(Usuario) + ')';
 
     with frm, fdQryTabela do
     begin
       if (gSistema.Codigo = SISTEMA_PDV) then
-        frm.WhereAdditional := '(cc.tipo = 1)'
+        frm.WhereAdditional := '(coalesce(cc.empresa, bb.empresa) = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and (cc.tipo = 1)'
       else
-        frm.WhereAdditional := '(1 = 1)';
+        frm.WhereAdditional := '(coalesce(cc.empresa, bb.empresa) = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
 
       Close;
       SQL.Add('where ' + whr + ' and ' + frm.WhereAdditional);
@@ -368,19 +369,23 @@ begin
   ControlFirstEdit   := dbDataAbertura;
   pgcMaisDados.ActivePage := tbsConsolidado;
 
+  fdQryContaCorrente.ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
+
   CarregarLista(fdQryOperador);
   CarregarLista(fdQryContaCorrente);
 
   DisplayFormatCodigo := '###0000000';
-  
+
   NomeTabela     := 'TBCAIXA';
   CampoCodigo    := 'Numero';
   CampoDescricao := 'c.Usuario';
   CampoOrdenacao := 'c.Data_abertura, c.Usuario';
 
+  WhereAdditional := '(coalesce(cc.empresa, bb.empresa) = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
+
   if (gSistema.Codigo = SISTEMA_PDV) then
   begin
-    WhereAdditional := '(cc.tipo = 1)';
+    WhereAdditional := WhereAdditional + ' and (cc.tipo = 1)';
     fdQryContaCorrente.Filter   := 'TIPO = 1';
     fdQryContaCorrente.Filtered := True;
   end;
@@ -472,9 +477,6 @@ end;
 procedure TfrmGeCaixa.AbrirTabelaConsolidado(const AnoCaixa: Smallint;
   const NumeroCaixa: Integer);
 begin
-//  if ( FFecharCaixa and (DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger = STATUS_CAIXA_ABERTO) ) then
-//    ConsolidarCaixa(AnoCaixa, NumeroCaixa);
-//
   cdsCosolidado.Close;
 
   with cdsCosolidado, SQL do
@@ -557,13 +559,17 @@ begin
 end;
 
 procedure TfrmGeCaixa.btbtnIncluirClick(Sender: TObject);
-//var
-//  iAno ,
-//  iNum : Integer;
 begin
-//  iAno := YearOf(GetDateDB);
-//  iNum := GetGeneratorID(sGeneratorName);
-//
+  if (FAbrirCaixa and (pgcGuias.ActivePage = tbsTabela)) then
+  begin
+    Self.OnActivate := nil;
+
+    pgcGuias.ActivePage := tbsCadastro;
+    pgcGuiasChange(pgcGuias);
+
+    Self.OnActivate := Self.FormActivate;
+  end;
+
   inherited;
 
   if ( not OcorreuErro ) then
@@ -646,17 +652,16 @@ begin
   if ( not OcorreuErro ) then
   begin
     if ( FAbrirCaixa and (not (DtSrcTabela.DataSet.State in [dsEdit, dsInsert])) ) then
-      ModalResult := mrOk;
-
-    HabilitarDesabilitar_Btns;
+      ModalResult := mrOk
+    else
+      HabilitarDesabilitar_Btns;
   end;
 end;
 
 procedure TfrmGeCaixa.btbtnEncerrarClick(Sender: TObject);
 var
   sMsg : String;
-//  DataDB,
-//  Data  : TDateTime;
+  aDataFinal : TDateTime;
 begin
   inherited;
   if ( DtSrcTabela.DataSet.IsEmpty ) then
@@ -680,24 +685,23 @@ begin
     if ( qryMovimento.IsEmpty ) then
       sMsg := 'Não existe movimentação para o Caixa selecionado!' + #13#13 + 'Deseja encerrá-lo mesmo assim?'
     else
-      sMsg := 'Deseja encerrar o Caixa selecionado?';
+      sMsg := 'Este procedimento levará alguns minutos para ser finalizado.' + #13 + 'Deseja encerrar o Caixa selecionado?';
 
     if ( ShowConfirmation('Encerrar Caixa', sMsg) ) then
     begin
       // Recalcular Saldo da Conta Corrente
       WaitAMoment(WAIT_AMOMENT_Process);
       try
+        // 1. O período máximo para gerar/recalcular o saldo diário da conta corrente será de 30 dias
+        // 2. Para um período maior, o recálculo será executado na Tesouraria
+        aDataFinal := GetDateDB;
+        if ((aDataFinal - DtSrcTabela.DataSet.FieldByName('DATA_ABERTURA').AsDateTime) > 30) then
+          aDataFinal := (DtSrcTabela.DataSet.FieldByName('DATA_ABERTURA').AsDateTime + 30);
+
         GerarSaldoContaCorrente_v2(
             DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger
           , DtSrcTabela.DataSet.FieldByName('DATA_ABERTURA').AsDateTime
-          , GetDateDB);
-//        Data := DtSrcTabela.DataSet.FieldByName('DATA_ABERTURA').AsDateTime;
-//        DataDB := GetDateDB;
-//        while Data <= DataDB do
-//        begin
-//          GerarSaldoContaCorrente(DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger, Data);
-//          Data := Data + 1;
-//        end;
+          , aDataFinal);
 
         // Encerrar Caixa
         fdQryTabela.Edit;
@@ -782,9 +786,13 @@ begin
       btbtnIncluir.Click
     else
     begin
-      tbsCadastro.TabVisible := True;
-      ShowWarning('Existe(m) caixa(s) aberto(s) para o usuário logado.' + #13#13 +
-                  'Caso deseje abrir um novo caixa para uma conta corrente diferente, favor ir para a guia DADOS e clicar no botão ABRIR.');
+//      tbsCadastro.TabVisible := True;
+//      ShowWarning('Existe(m) caixa(s) aberto(s) para o usuário logado.' + #13#13 +
+//                  'Caso deseje abrir um novo caixa para uma conta corrente diferente, favor ir para a guia DADOS e clicar no botão ABRIR.');
+      if (pgcGuias.ActivePage = tbsTabela) then
+        ShowWarning('Existe(m) caixa(s) aberto(s) para o usuário logado.'   + #13#13 +
+                    'Caso deseje abrir um novo caixa para uma conta corrente ' + #13 +
+                    'diferente, clique no botão ABRIR.');
     end;
 
   end;
@@ -995,6 +1003,7 @@ procedure TfrmGeCaixa.FormShow(Sender: TObject);
 begin
   inherited;
   RegistrarNovaRotinaSistema;
+  Self.Caption := Self.Caption + ' - (' + GetNomeFantasiaEmpresa(gUsuarioLogado.Empresa) + ')';
 end;
 
 initialization
