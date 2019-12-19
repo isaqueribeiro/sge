@@ -57,7 +57,7 @@ end;
 procedure TfrmSplash.FormCreate(Sender: TObject);
 begin
   inherited;
-  lblProductName.Caption     := GetInternalName;
+  lblProductName.Caption     := StringReplace(GetInternalName, '_', ' ', [rfReplaceAll]);
   lblFileDescription.Caption := GetFileDescription;
   lblVersion.Caption         := 'Versão ' + GetExeVersion;
   lblCopyright.Caption       := GetCopyright;

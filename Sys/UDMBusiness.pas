@@ -1093,13 +1093,8 @@ end;
 
 procedure ExecuteScriptSQL(sScriptSQL : String);
 begin
-  with DMBusiness do //, fdQryBusca do
+  with DMBusiness do
   begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add( Trim(sScriptSQL) );
-//    ExecSQL;
-//    CommitUpdates;
     fdConexao.ExecSQL(sScriptSQL);
     CommitTransaction;
   end;
@@ -3530,7 +3525,7 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Select cid_nome from TBCIDADE where ' + StrOnlyNumbers(sCEP) + ' between cid_cep_inicial and cid_cep_final');
+    SQL.Add('Select cid_cod from TBCIDADE where ' + StrOnlyNumbers(sCEP) + ' between cid_cep_inicial and cid_cep_final');
     Open;
 
     Result := FieldByName('cid_cod').AsInteger;

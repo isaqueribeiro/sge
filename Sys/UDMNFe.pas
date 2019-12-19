@@ -473,6 +473,7 @@ const
   REJEICAO_NFE_IE_NAO_VINCULADO  = 234; // Rejeicao: IE do destinatario nao vinculada ao CNPJ
   REJEICAO_NFE_IRREG_FISCO_EMIT  = 301; // Rejeição: Uso Denegado: Irregularidade fiscal do emitente
   REJEICAO_NFE_IRREG_FISCO_DEST  = 302; // Rejeição: Uso Denegado: Irregularidade fiscal do destinatario
+  REJEICAO_NFE_CFOP_INVALIDO     = 327; // Refeição: CFOP inválido para Nota Fiscal com finalidade de devolução de mercadoria
 
   REJEICAO_NFE_DESCOMPACT     = 416; // Rejeição: Falha na descompactação da área de dados
   REJEICAO_NFE_BC_ICMS_ERR    = 531; // Rejeição: Total da BC ICMS difere do somatório dos itens
@@ -1908,6 +1909,7 @@ begin
           REJEICAO_NFE_TO_ICMS_ERR   ,
           REJEICAO_NFE_TO_PROD_ERR   ,
           REJEICAO_NFE_NCM_INEXIST   ,
+          REJEICAO_NFE_CFOP_INVALIDO ,
           REJEICAO_NFE_CFOP_DIFERENTE:
             begin
               // Remover Lote da Venda
@@ -1916,7 +1918,18 @@ begin
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                 'Favor validar dados e NF-e novamente!';
 
-              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE) then
+              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
+                sErrorMsg :=
+                  'Inscrição Estadual (IE) do cliente não cadastrado ou não vinculado ao CNPJ informado. ' + #13 +
+                  '- Deve-se consultar o CNPJ do cliente no SINTEGRA; ou' + #13 +
+                  '- Deve-se consultar o CNPJ do cliente no portal ''https://dfe-portal.svrs.rs.gov.br/Nfe/Ccc''' + #13 +
+                  'Favor corrija esta informação no Cadastro do Cliente.' + #13#13 +
+                  'Após este procedimento, gere novamente a NF-e'
+              else
+//              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_CFOP_INVALIDO, REJEICAO_NFE_CFOP_DIFERENTE]) then
+              if ( (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_INVALIDO)
+                or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE)
+              ) then
                 sErrorMsg :=
                   'Código Fiscal de Operação não adequado para este tipo de movimento dos produtos. ' +
                   'Favor corrija-o clicando com o botão direito do mouse no campo CFOP' + #13#13 +
@@ -3858,6 +3871,7 @@ begin
           REJEICAO_NFE_TO_ICMS_ERR   ,
           REJEICAO_NFE_TO_PROD_ERR   ,
           REJEICAO_NFE_NCM_INEXIST   ,
+          REJEICAO_NFE_CFOP_INVALIDO ,
           REJEICAO_NFE_CFOP_DIFERENTE:
             begin
               // Remover Lote da Entrada
@@ -3866,7 +3880,17 @@ begin
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                 'Favor validar dados e NF-e novamente!';
 
-              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE) then
+              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
+                sErrorMsg :=
+                  'Inscrição Estadual (IE) do fornecedor não cadastrado ou não vinculado ao CNPJ informado. ' + #13 +
+                  '- Deve-se consultar o CNPJ do fornecedor no SINTEGRA; ou' + #13 +
+                  '- Deve-se consultar o CNPJ do fornecedor no portal ''https://dfe-portal.svrs.rs.gov.br/Nfe/Ccc''' + #13 +
+                  'Favor corrija esta informação no Cadastro do Fornecedor.' + #13#13 +
+                  'Após este procedimento, gere novamente a NF-e'
+              else
+              if ( (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_INVALIDO)
+                or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE)
+              ) then
                 sErrorMsg :=
                   'Código Fiscal de Operação não adequado para este tipo de movimento dos produtos. ' +
                   'Favor corrija-o clicando com o botão direito do mouse no campo CFOP' + #13#13 +
@@ -6863,6 +6887,7 @@ begin
           REJEICAO_NFE_TO_ICMS_ERR   ,
           REJEICAO_NFE_TO_PROD_ERR   ,
           REJEICAO_NFE_NCM_INEXIST   ,
+          REJEICAO_NFE_CFOP_INVALIDO ,
           REJEICAO_NFE_CFOP_DIFERENTE:
             begin
               // Remover Lote da Venda
@@ -6871,7 +6896,17 @@ begin
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                 'Favor validar dados e NFC-e novamente!';
 
-              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE) then
+              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
+                sErrorMsg :=
+                  'Inscrição Estadual (IE) do cliente não cadastrado ou não vinculado ao CNPJ informado. ' + #13 +
+                  '- Deve-se consultar o CNPJ do cliente no SINTEGRA; ou' + #13 +
+                  '- Deve-se consultar o CNPJ do cliente no portal ''https://dfe-portal.svrs.rs.gov.br/Nfe/Ccc''' + #13 +
+                  'Favor corrija esta informação no Cadastro do Cliente.' + #13#13 +
+                  'Após este procedimento, gere novamente a NF-e'
+              else
+              if ( (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_INVALIDO)
+                or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE)
+              ) then
                 sErrorMsg :=
                   'Código Fiscal de Operação não adequado para este tipo de movimento dos produtos. ' +
                   'Favor corrija-o clicando com o botão direito do mouse no campo CFOP' + #13#13 +

@@ -130,7 +130,7 @@ begin
   inherited;
   fFinalizarAplicacao := False;
 
-  lblSystemName.Caption        := GetInternalName;
+  lblSystemName.Caption        := StringReplace(GetInternalName, '_', ' ', [rfReplaceAll]);
   lblSystemDescription.Caption := GetFileDescription;
   lblSystemVersion.Caption     := 'Versão ' + GetExeVersion;
 

@@ -1012,7 +1012,7 @@ inherited frmGeCliente: TfrmGeCliente
         Top = 237
         Width = 836
         Height = 226
-        ActivePage = tbsDadosAdcionais
+        ActivePage = tbsContato
         Align = alClient
         TabOrder = 2
         TabStop = False
@@ -3869,7 +3869,7 @@ inherited frmGeCliente: TfrmGeCliente
   inherited ImgList: TImageList
     Left = 552
     Bitmap = {
-      494C01012B002C00B40010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00B80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5515,21 +5515,21 @@ inherited frmGeCliente: TfrmGeCliente
       DisplayLabel = 'Telefone Fixo'
       FieldName = 'FONE'
       Origin = 'FONE'
-      EditMask = '!\(00\)0000-0000;1; '
+      EditMask = '!\(00\)0000-0000;0; '
       Size = 11
     end
     object fdQryTabelaFONECEL: TStringField
       DisplayLabel = 'Telefone Celular'
       FieldName = 'FONECEL'
       Origin = 'FONECEL'
-      EditMask = '!\(00\)00000-0000;1; '
+      EditMask = '!\(00\)00000-0000;0; '
       Size = 11
     end
     object fdQryTabelaFONECOMERC: TStringField
       DisplayLabel = 'Telefone Comercial'
       FieldName = 'FONECOMERC'
       Origin = 'FONECOMERC'
-      EditMask = '!\(00\)0000-0000;1; '
+      EditMask = '!\(00\)0000-0000;0; '
       Size = 11
     end
     object fdQryTabelaTLG_TIPO: TSmallintField

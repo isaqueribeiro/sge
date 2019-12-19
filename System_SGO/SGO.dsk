@@ -16,11 +16,11 @@ File_13=TSourceModule,'C:\Delphi\FastReport\FastReport 6\Source\frxClass.pas',0,
 
 [Modules]
 Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
-Module3=default.htm
-Module4=documentation.htm
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj
+Module1=default.htm
+Module2=documentation.htm
+Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
 Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\UPrinc.pas
 Module8=C:\Delphi\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
@@ -41,12 +41,6 @@ EditWindowCount=1
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas]
-ModuleType=TSourceModule
-
 [default.htm]
 ModuleType=TURLModule
 
@@ -55,6 +49,12 @@ ModuleType=TURLModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj]
 ModuleType=TBaseProject
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas]
+ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
@@ -221,7 +221,7 @@ CursorY=6875
 TopLine=6833
 LeftCol=1
 Elisions=
-Bookmarks={1,1904,33}{2,2451,1}
+Bookmarks={1,1904,1}{2,2451,1}
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 
 [View8]
@@ -545,6 +545,11 @@ Dockable=1
 StayOnTop=0
 SplitPos=111
 
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Connected,
+ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0,"LiveBindings Designer=0",ProviderFlags=0,ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,Params=0,ResourceOptions=0,Transaction=0,TxOptions=0,UpdateOptions=0,UpdateTransaction=0,ActiveStoredUsage=0,Connection=0,FieldOptions=0,FilterChanges=0,FilterOptions=0
+
 [frmDesignPreview]
 PercentageSizes=1
 Create=1
@@ -570,8 +575,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-8
-Top=-8
+Left=-1468
+Top=-137
 Width=2844
 Height=6202
 MaxLeft=-1
@@ -814,7 +819,7 @@ Visible=0
 Docked=1
 State=0
 Left=-8
-Top=-8
+Top=-137
 Width=1849
 Height=3144
 MaxLeft=-1

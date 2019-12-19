@@ -17,19 +17,16 @@ File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\UInfoVersao.pas',0,1,13
 
 [Modules]
 Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UPrinterCupom.pas
-Module2=default.htm
-Module3=documentation.htm
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\PrinterCupom.dproj
+Module1=default.htm
+Module2=documentation.htm
+Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\PrinterCupom.dproj
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UPrinterCupom.pas
 Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UEcfAgil.pas
 Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 Count=7
 EditWindowCount=1
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UPrinterCupom.pas]
 ModuleType=TSourceModule
 
 [default.htm]
@@ -40,6 +37,9 @@ ModuleType=TURLModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\PrinterCupom.dproj]
 ModuleType=TBaseProject
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UPrinterCupom.pas]
+ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UEcfAgil.pas]
 ModuleType=TSourceModule
@@ -363,8 +363,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-8
-Top=-8
+Left=-1468
+Top=-137
 Width=2844
 Height=6202
 MaxLeft=-1
@@ -607,7 +607,7 @@ Visible=0
 Docked=1
 State=0
 Left=-8
-Top=-8
+Top=-137
 Width=1849
 Height=3144
 MaxLeft=-1
@@ -807,7 +807,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=4644
-TBDockHeight=9058
+TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0
@@ -855,7 +855,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=2577
-TBDockHeight=9058
+TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0

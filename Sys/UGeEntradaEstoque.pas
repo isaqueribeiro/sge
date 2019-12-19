@@ -990,6 +990,7 @@ begin
       SQL.Clear;
       SQL.AddStrings(aSQL);
       OpenOrExecute;
+
       aRetorno := (RecordCount > 0);
 
       if aRetorno then

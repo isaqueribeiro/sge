@@ -916,15 +916,15 @@ inherited frmGeCaixa: TfrmGeCaixa
               item
                 Expanded = False
                 FieldName = 'ControleMov'
-                Title.Caption = 'Controle'
-                Width = 90
+                Title.Caption = 'Movimento Cx.'
+                Width = 100
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'DATAHORA'
                 Title.Caption = 'Data/Hora'
-                Width = 100
+                Width = 110
                 Visible = True
               end
               item
@@ -1245,7 +1245,7 @@ inherited frmGeCaixa: TfrmGeCaixa
   end
   inherited ImgList: TImageList
     Bitmap = {
-      494C01012B002C00580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5568,6 +5568,7 @@ inherited frmGeCaixa: TfrmGeCaixa
     object qryMovimentoDATAHORA: TSQLTimeStampField
       FieldName = 'DATAHORA'
       Origin = 'DATAHORA'
+      DisplayFormat = 'dd/mm/yyyy hh:mm'
     end
     object qryMovimentoTIPO: TStringField
       FieldName = 'TIPO'
@@ -5582,6 +5583,7 @@ inherited frmGeCaixa: TfrmGeCaixa
     object qryMovimentoVALOR: TBCDField
       FieldName = 'VALOR'
       Origin = 'VALOR'
+      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end

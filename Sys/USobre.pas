@@ -60,14 +60,14 @@ begin
   if ( ImgLogo.Picture.Height = 0 ) then
     ImgLogo.Picture.Icon := Application.Icon;
 
-  Caption := 'Sobre o ' + GetInternalName;
+  Caption := 'Sobre o ' + StringReplace(GetInternalName, '_', ' ', [rfReplaceAll]);
 
   if ( StrIsCNPJ(gLicencaSistema.CNPJ) ) then
     sCNPJ := StrFormatarCnpj(gLicencaSistema.CNPJ)
   else
     sCNPJ := StrFormatarCpf(gLicencaSistema.CNPJ);
 
-  ProductName.Caption     := GetInternalName;
+  ProductName.Caption     := StringReplace(GetInternalName, '_', ' ', [rfReplaceAll]);
   FileDescription.Caption := GetFileDescription;
   {$IFDEF DGE}
   Version.Caption     := 'Versão ' + VERSION_NUMBER;
