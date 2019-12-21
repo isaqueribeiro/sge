@@ -2588,27 +2588,27 @@ begin
     begin
       sCFOP := IntToStr(iCodigo);
 
-      with DMBusiness, fdQryBusca do
+      with DMBusiness do
       begin
-        Close;
-        SQL.Clear;
-        SQL.Add('Update TBCOMPRAS Set ');
-        SQL.Add('    NFCFOP   = ' + sCFOP);
-        SQL.Add('  , NATUREZA = ' + QuotedStr(sCFOP));
-        SQL.Add('where ANO        = ' + FieldByName('ANO').AsString);
-        SQL.Add('  and CODCONTROL = ' + FieldByName('CODCONTROL').AsString);
-        SQL.Add('  and CODEMP     = ' + QuotedStr(FieldByName('CODEMP').AsString));
-        ExecSQL;
+        fdQryBusca.Close;
+        fdQryBusca.SQL.Clear;
+        fdQryBusca.SQL.Add('Update TBCOMPRAS Set ');
+        fdQryBusca.SQL.Add('    NFCFOP   = ' + sCFOP);
+        fdQryBusca.SQL.Add('  , NATUREZA = ' + QuotedStr(sCFOP));
+        fdQryBusca.SQL.Add('where ANO        = ' + FieldByName('ANO').AsString);
+        fdQryBusca.SQL.Add('  and CODCONTROL = ' + FieldByName('CODCONTROL').AsString);
+        fdQryBusca.SQL.Add('  and CODEMP     = ' + QuotedStr(FieldByName('CODEMP').AsString));
+        fdQryBusca.ExecSQL;
 
         CommitTransaction;
 
-        SQL.Clear;
-        SQL.Add('Update TBCOMPRASITENS Set ');
-        SQL.Add('  CFOP = ' + sCFOP);
-        SQL.Add('where ANO        = ' + FieldByName('ANO').AsString);
-        SQL.Add('  and CODCONTROL = ' + FieldByName('CODCONTROL').AsString);
-        SQL.Add('  and CODEMP     = ' + QuotedStr(FieldByName('CODEMP').AsString));
-        ExecSQL;
+        fdQryBusca.SQL.Clear;
+        fdQryBusca.SQL.Add('Update TBCOMPRASITENS Set ');
+        fdQryBusca.SQL.Add('  CFOP = ' + sCFOP);
+        fdQryBusca.SQL.Add('where ANO        = ' + FieldByName('ANO').AsString);
+        fdQryBusca.SQL.Add('  and CODCONTROL = ' + FieldByName('CODCONTROL').AsString);
+        fdQryBusca.SQL.Add('  and CODEMP     = ' + QuotedStr(FieldByName('CODEMP').AsString));
+        fdQryBusca.ExecSQL;
 
         CommitTransaction;
       end;

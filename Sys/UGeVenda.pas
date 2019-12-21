@@ -4105,37 +4105,40 @@ begin
   begin
     sCFOP := IntToStr(iCodigo);
 
-    with DMBusiness, fdQryBusca do
+    with DMBusiness do
     begin
-      Close;
-      SQL.Clear;
-      SQL.Add('Update TBVENDAS Set ');
-      SQL.Add('  CFOP = ' + sCFOP);
-      SQL.Add('where ANO        = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
-      SQL.Add('  and CODCONTROL = ' + DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString);
-      SQL.Add('  and CODEMP     = ' + QuotedStr(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString));
-      ExecSQL;
+      fdQryBusca.Close;
+      fdQryBusca.SQL.Clear;
+      fdQryBusca.SQL.Add('Update TBVENDAS Set ');
+      fdQryBusca.SQL.Add('  CFOP = ' + sCFOP);
+      fdQryBusca.SQL.Add('where ANO        = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
+      fdQryBusca.SQL.Add('  and CODCONTROL = ' + DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString);
+      fdQryBusca.SQL.Add('  and CODEMP     = ' + QuotedStr(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString));
+      fdQryBusca.ExecSQL;
 
       CommitTransaction;
 
-      SQL.Clear;
-      SQL.Add('Update TVENDASITENS Set ');
-      SQL.Add('  CFOP_COD = ' + sCFOP);
-      SQL.Add('where ANO        = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
-      SQL.Add('  and CODCONTROL = ' + DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString);
-      SQL.Add('  and CODEMP     = ' + QuotedStr(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString));
-      ExecSQL;
+      fdQryBusca.SQL.Clear;
+      fdQryBusca.SQL.Add('Update TVENDASITENS Set ');
+      fdQryBusca.SQL.Add('  CFOP_COD = ' + sCFOP);
+      fdQryBusca.SQL.Add('where ANO        = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
+      fdQryBusca.SQL.Add('  and CODCONTROL = ' + DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString);
+      fdQryBusca.SQL.Add('  and CODEMP     = ' + QuotedStr(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString));
+      fdQryBusca.ExecSQL;
 
       CommitTransaction;
     end;
 
     RecarregarRegistro;
 
-    AbrirTabelaItens( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
-    AbrirTabelaFormasPagto( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
-    AbrirTabelaVolume( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
-    AbrirTabelaTitulos( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
-    AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+    with DtSrcTabela.DataSet do
+    begin
+      AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaFormasPagto( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaVolume( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaTitulos( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+      AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+    end;
 
     ShowInformation('Correção', 'CFOP corrigido com sucesso!' + #13 + 'Favor pesquisar venda novamente.');
   end;
