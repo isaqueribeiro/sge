@@ -126,7 +126,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       TabStop = False
       Anchors = [akLeft, akTop, akRight]
       Color = clMoneyGreen
-      DataField = 'RZSOC'
+      DataField = 'RAZAO'
       DataSource = dtsEmpresa
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
@@ -295,10 +295,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       TabOrder = 2
       object tbsNFe: TTabSheet
         Caption = 'NFe'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object lblId: TLabel
           Left = 16
           Top = 16
@@ -553,10 +549,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsEmitente: TTabSheet
         Caption = 'Emitente'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object lblCNPJ: TLabel
           Left = 119
           Top = 16
@@ -1065,10 +1057,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsDestinatario: TTabSheet
         Caption = 'Destinat'#225'rio'
         ImageIndex = 8
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object lblCNPJCPF_Dest: TLabel
           Left = 16
           Top = 16
@@ -1142,34 +1130,18 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsTotais: TTabSheet
         Caption = 'Totais'
         ImageIndex = 4
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
       end
       object tbsTransporte: TTabSheet
         Caption = 'Transporte'
         ImageIndex = 5
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
       end
       object tbsCobranca: TTabSheet
         Caption = 'Cobran'#231'a'
         ImageIndex = 6
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
       end
       object tbsInformacaoAdcional: TTabSheet
         Caption = 'Informa'#231#245'es Adicionais'
         ImageIndex = 7
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
       end
     end
   end
@@ -1365,8 +1337,9 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     SQL.Strings = (
       'Select'
       '    e.cnpj'
-      '  , e.rzsoc'
-      'from TBEMPRESA e'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
       'where e.cnpj = :cnpj')
     Left = 300
     ParamData = <

@@ -227,10 +227,10 @@ type
 
 (*
   Tabelas:
-  - TBEMPRESA
   - TBLOG_TRANSACAO
 
   Views:
+  = VW_EMPRESA
 
   Procedures:
 

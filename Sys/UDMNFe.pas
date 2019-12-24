@@ -1038,7 +1038,7 @@ begin
         //Arquivos.PathDPEC   := StringReplace(Arquivos.PathSalvar + '\DPEC',        '\\', '\', [rfReplaceAll]);
       end;
 
-      ckSalvarArqs.Checked                     := ReadBool(sSecaoArquivos, 'Salvar'        , False);
+      ckSalvarArqs.Checked                     := ReadBool(sSecaoArquivos, 'Salvar'        , True);
       ckPastaMensal.Checked                    := ReadBool(sSecaoArquivos, 'PastaMensal'   , False);
       ckAdicionaLiteral.Checked                := IfThen(gSistema.Codigo = SISTEMA_PDV, True, ReadBool(sSecaoArquivos, 'AddLiteral', False));
       ckEmissaoPathNFe.Checked                 := ReadBool(sSecaoArquivos, 'EmissaoPathNFe', False);
@@ -1057,7 +1057,7 @@ begin
 
       with ACBrNFe.Configuracoes.Arquivos do
       begin
-        Salvar             := ckSalvarArqs.Checked;
+        Salvar             := ckSalvarArqs.Checked; // Se TRUE o componente salva em disco os arquivos que tem validade jurídica, tais como: *-nfe.xml, *-procEventoNFe.xml e *-procInutNFe.xml
         //PastaMensal        := ckPastaMensal.Checked;
         AdicionarLiteral   := ckAdicionaLiteral.Checked;
         EmissaoPathNFe     := ckEmissaoPathNFe.Checked;
@@ -1078,7 +1078,7 @@ begin
       ACBrNFe.Configuracoes.Geral.ExibirErroSchema      := ckExibirErroSchema.Checked;
       ACBrNFe.Configuracoes.Geral.FormatoAlerta         := edFormatoAlerta.Text;
       ACBrNFe.Configuracoes.Geral.FormaEmissao   := StrToTpEmis(OK, IntToStr(cbFormaEmissao.ItemIndex + 1));
-      ACBrNFe.Configuracoes.Geral.Salvar         := ckSalvar.Checked;
+      ACBrNFe.Configuracoes.Geral.Salvar         := ckSalvar.Checked; // Se TRUE o componente salva em disco os arquivos de envio e de retorno da SEFAZ, esses XML não tem validade jurídica.
       ACBrNFe.Configuracoes.Geral.RetirarAcentos := ckRetirarAcentos.Checked;
       ACBrNFe.Configuracoes.Geral.IdCSC          := FormatFloat('000000', StrToIntDef(Trim(edIdToken.Text), 1));
       ACBrNFe.Configuracoes.Geral.CSC            := edToken.Text;
@@ -1106,7 +1106,7 @@ begin
       ACBrNFe.Configuracoes.WebServices.UF         := cbUF.Text;
       ACBrNFe.Configuracoes.WebServices.Ambiente   := StrToTpAmb(Ok, IntToStr(rgTipoAmb.ItemIndex + 1));
       ACBrNFe.Configuracoes.WebServices.Visualizar := ckVisualizar.Checked;
-      ACBrNFe.Configuracoes.WebServices.Salvar     := ckSalvarSOAP.Checked;
+      ACBrNFe.Configuracoes.WebServices.Salvar     := ckSalvarSOAP.Checked; // Se TRUE o componente salva em disco os arquivos de envio e de retorno da SEFAZ sem nenhum tratamento realizado pelo componente, esses XML não tem validade jurídica e seus nomes é acrescentado o sufixo -soap.
 
       ACBrNFe.Configuracoes.WebServices.AjustaAguardaConsultaRet := ckAjustarAut.Checked;
       if NaoEstaVazio(edAguardar.Text)then
