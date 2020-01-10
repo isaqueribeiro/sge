@@ -365,6 +365,7 @@ begin
   sNomeTabela    := 'TBVENDAS';
   sCampoCodigo   := 'Codcontrol';
   sGeneratorName := 'GEN_VENDAS_CONTROLE_' + FormatFloat('0000', YearOf(GetDateDB));
+  CriarGenerator(sGeneratorName, 0);
 
   inherited;
 

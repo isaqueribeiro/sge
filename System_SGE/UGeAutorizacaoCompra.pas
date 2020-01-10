@@ -17,7 +17,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver;
 
 type
   TfrmGeAutorizacaoCompra = class(TfrmGrPadraoCadastro)
@@ -443,6 +444,8 @@ end;
 procedure TfrmGeAutorizacaoCompra.FormCreate(Sender: TObject);
 begin
   sGeneratorName := 'GEN_AUTORIZA_COMPRA_' + FormatFloat('0000', YearOf(GetDateDB));
+  CriarGenerator(sGeneratorName, 0);
+
   with fdQryTabela.UpdateOptions do
   begin
     GeneratorName := sGeneratorName;

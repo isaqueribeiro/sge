@@ -17,7 +17,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver;
 
 type
   TfrmGeContasAPagar = class(TfrmGrPadraoCadastro)
@@ -188,6 +189,7 @@ type
   private
     { Private declarations }
     FDataAtual     : TDateTime;
+    sGeneratorName ,
     FLoteParcelas  : String;
     SQL_Pagamentos : TStringList;
     FImprimirCabecalho : Boolean;
@@ -273,12 +275,15 @@ end;
 
 procedure TfrmGeContasAPagar.FormCreate(Sender: TObject);
 begin
+  sGeneratorName := 'GEN_CONTAPAG_NUM_' + FormatFloat('0000', YearOf(Date));
+  CriarGenerator(sGeneratorName, 0);
+
   SetTipoDespesaPadrao;
 
   with fdQryTabela.UpdateOptions do
   begin
     AutoIncFields := 'NUMLANC';
-    GeneratorName := 'GEN_CONTAPAG_NUM_' + FormatFloat('0000', YearOf(Date));
+    GeneratorName := sGeneratorName;
   end;
 
   inherited;

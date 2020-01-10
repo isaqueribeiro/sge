@@ -15,7 +15,11 @@ uses
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
   dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
+  System.ImageList;
 
 type
   TfrmGeCotacaoCompra = class(TfrmGrPadraoCadastro)
@@ -401,6 +405,8 @@ end;
 procedure TfrmGeCotacaoCompra.FormCreate(Sender: TObject);
 begin
   sGeneratorName := 'GEN_COTACAO_COMPRA_' + FormatFloat('0000', YearOf(GetDateDB));
+  CriarGenerator(sGeneratorName, 0);
+
   IbDtstTabela.GeneratorField.Generator := sGeneratorName;
   IbDtstTabela.GeneratorField.Field     := 'codigo';
 

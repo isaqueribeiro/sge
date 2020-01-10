@@ -27,6 +27,8 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -658,6 +660,10 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
           object TbsCotacaoObservacao: TTabSheet
             Caption = 'Observa'#231#245'es Gerais'
             ImageIndex = 1
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbObservacao: TDBMemo
               Left = 0
               Top = 0
@@ -679,6 +685,10 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
           object TbsCotacaoCancelado: TTabSheet
             Caption = 'Motivo do Cancelamento'
             ImageIndex = 2
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -1081,6 +1091,10 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         object tbsFornecedor: TTabSheet
           Caption = 'Fornecedores'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Bevel11: TBevel
             Left = 0
             Top = 0
@@ -1468,6 +1482,10 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         object tbsEventoLOG: TTabSheet
           Caption = 'LOG de Eventos'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbEventoLOG: TDBMemo
             Left = 0
             Top = 0
@@ -2254,10 +2272,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       Height = 31
       Shape = bsSpacer
     end
-    inherited btbtnExcluir: TcxButton
-      ExplicitLeft = 154
-      ExplicitTop = 0
-    end
     inherited btbtnLista: TcxButton
       Visible = True
     end
@@ -2912,7 +2926,7 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     Left = 896
     Top = 352
     Bitmap = {
-      494C01012F0031000C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012F003100100010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000C0000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000004A5B
       6F004A5B6F004A5B6F004354680043546800435468003A4B5F003A4B5F003A4B

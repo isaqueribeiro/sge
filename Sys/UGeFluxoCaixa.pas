@@ -344,6 +344,7 @@ begin
     Bloco de códigos referentes a propriedade GeneratorField do dataset descontinuado por está gerando erro e campo não localizado.
 *)
   sGeneratorName := 'GEN_CX_MOVIMENTO_' + FormatFloat('0000', YearOf(GetDateDB));
+  CriarGenerator(sGeneratorName, 0);
 
   inherited;
 

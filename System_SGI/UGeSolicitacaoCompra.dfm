@@ -27,6 +27,8 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -321,8 +323,8 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel
@@ -2135,7 +2137,7 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
     Left = 896
     Top = 352
     Bitmap = {
-      494C01012F0031001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012F003100200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000C0000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000004A5B
       6F004A5B6F004A5B6F004354680043546800435468003A4B5F003A4B5F003A4B

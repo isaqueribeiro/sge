@@ -11,7 +11,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, JvExMask, JvToolEdit, RxToolEdit,
+  ToolWin, IBTable, JvExMask, JvToolEdit,
   JvDBControls, IBQuery, IBStoredProc, Menus, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, cxButtons, Datasnap.DBClient, Datasnap.Provider,
 
@@ -22,15 +22,15 @@ uses
   dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
   dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
   dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinMcSkin,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light, System.ImageList;
 
 type
   TfrmGeOS = class(TfrmGrPadraoCadastro)
     lblOSAberta: TLabel;
     lblOSCancelada: TLabel;
     lblData: TLabel;
-    e1Data: TDateEdit;
-    e2Data: TDateEdit;
     lblOSAtrasada: TLabel;
     RdgStatusOS: TRadioGroup;
     lblDataHora: TLabel;
@@ -509,6 +509,8 @@ type
     cdsCondicaoPagto: TClientDataSet;
     IbDtstTabelaPAGTO_PRAZO: TSmallintField;
     fdStpGerarTitulos: TFDStoredProc;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
     procedure FiltrarTecnicosChange(Sender: TObject);
     procedure OpcoesImprimirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -756,6 +758,7 @@ uses
 procedure TfrmGeOS.FormCreate(Sender: TObject);
 begin
   sGeneratorName := 'GEN_OS_' + FormatFloat('0000', YearOf(GetDateDB));
+  CriarGenerator(sGeneratorName, 0);
 
   inherited;
 

@@ -19,7 +19,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver;
 
 type
   TLancamentoEntrada = record
@@ -446,7 +447,8 @@ type
     procedure nmImprimirEspelhoClick(Sender: TObject);
   private
     { Private declarations }
-    FEmpresa : String;
+    sGeneratorName,
+    FEmpresa      : String;
     FTipoMovimento : TTipoMovimentoEntrada;
     FApenasFinalizadas : Boolean;
     SQL_Itens   ,
@@ -726,6 +728,9 @@ procedure TfrmGeEntradaEstoque.FormCreate(Sender: TObject);
   end;
 
 begin
+  sGeneratorName := 'GEN_COMPRAS_CONTROLE_' + FormatFloat('0000', YearOf(Date));
+  CriarGenerator(sGeneratorName, 0);
+
   SetTipoDespesaPadrao;
 
   {$IFDEF DGE}
@@ -738,7 +743,7 @@ begin
       OcutarCampoAutorizacao;
   {$ENDIF}
 
-  fdQryTabela.UpdateOptions.GeneratorName := 'GEN_COMPRAS_CONTROLE_' + FormatFloat('0000', YearOf(Date));
+  fdQryTabela.UpdateOptions.GeneratorName := sGeneratorName;
   CriarGenerator(fdQryTabela.UpdateOptions.GeneratorName, 0);
 
   inherited;

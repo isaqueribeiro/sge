@@ -390,6 +390,8 @@ end;
 procedure TfrmGeRequisicaoCompra.FormCreate(Sender: TObject);
 begin
   sGeneratorName := 'GEN_REQUISITA_COMPRA_' + FormatFloat('0000', YearOf(GetDateDB));
+  CriarGenerator(sGeneratorName, 0);
+
   IbDtstTabela.GeneratorField.Generator := sGeneratorName;
   IbDtstTabela.GeneratorField.Field     := 'codigo';
 

@@ -16,7 +16,9 @@ uses
   JvToolEdit, JvDBControls, JvExMask, dxSkinBlueprint, cxNavigator,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinscxPCPainter;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinscxPCPainter, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeInventario = class(TfrmGrPadrao)
@@ -278,6 +280,7 @@ begin
   NomeTabela    := 'TBINVENTARIO_ALMOX';
   CampoCodigo   := 'controle';
   GeneratorName := 'GEN_INVENTARIO_ALMOX_' + FormatFloat('0000', YearOf(GetDateDB));
+  CriarGenerator(GeneratorName, 0);
 
   UpdateGenerator( 'where ano = ' + FormatFloat('0000', YearOf(Date)) );
 
