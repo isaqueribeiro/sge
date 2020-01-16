@@ -358,12 +358,8 @@ end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
 var
-  sFileImageWallPaper,
-  sCommand           : String;
+  sFileImageWallPaper : String;
 begin
-  sCommand := ExtractFilePath(ParamStr(0)) + 'Upgrades.bat';
-  DeleteFile(sCommand);
-
   Self.Tag := SISTEMA_PDV;
 
   gSistema.Codigo := Self.Tag;

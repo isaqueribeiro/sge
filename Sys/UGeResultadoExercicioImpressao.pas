@@ -18,7 +18,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver;
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeResultadoExercicioImpressao = class(TfrmGrPadraoImpressao)
@@ -389,6 +390,15 @@ begin
   try
     CarregarPeriodo(e1Data.Date, aDataInicial, aDataFinal);
     CarregarSemanas(e1Data.Date, aSemanas);
+
+    if (High(aSemanas) < 3) then
+    begin
+      SetLength(aSemanas, 4);
+      aSemanas[0] := 1;
+      aSemanas[1] := 2;
+      aSemanas[2] := 3;
+      aSemanas[3] := 4;
+    end;
 
     SubTituloRelario := edContaCorrente.Text;
     PeriodoRelatorio := Format('Movimento Financeiro de %s a %s.', [FormatDateTime('dd/mm/yyyy', aDataInicial), FormatDateTime('dd/mm/yyyy', aDataFinal)]);

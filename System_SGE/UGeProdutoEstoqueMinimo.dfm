@@ -945,54 +945,6 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       OnClick = btBtnEnviarEmailClick
     end
   end
-  object QryProduto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    p.codemp'
-      '  , p.cod'
-      '  , p.codigo'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , p.codgrupo'
-      '  , g.descri as grupo'
-      '  , p.codfabricante'
-      '  , f.nome as fabricante'
-      '  , p.qtde'
-      '  , p.estoqmin'
-      '  , p.codunidade'
-      
-        '  , coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
-        'unidade'
-      '  , r.compra_qtde_01'
-      '  , r.compra_valor_01'
-      '  , r.venda_qtde_01'
-      '  , r.venda_valor_01'
-      '  , r.data_ultima_compra'
-      '  , r.data_ultima_venda'
-      'from TBPRODUTO p'
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
-      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
-      ''
-      
-        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
-        'lesce(p.estoqmin, 0))'
-      '  and (1=1)'
-      ''
-      'order by'
-      '    p.descri_apresentacao'
-      '  , g.descri'
-      '  , f.nome')
-    Left = 56
-    Top = 352
-  end
   object DspProduto: TDataSetProvider
     DataSet = QryProduto
     Left = 88
@@ -1077,37 +1029,40 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       Origin = '"TBPRODUTO_ROTATIVIDADE"."DATA_ULTIMA_VENDA"'
       DisplayFormat = 'dd/mm/yyyy'
     end
-    object CdsProdutoCODEMP: TWideStringField
+    object CdsProdutoCODEMP: TStringField
       FieldName = 'CODEMP'
       Size = 18
     end
-    object CdsProdutoCOD: TWideStringField
+    object CdsProdutoCOD: TStringField
       FieldName = 'COD'
       Required = True
       Size = 10
     end
-    object CdsProdutoDESCRI: TWideStringField
+    object CdsProdutoDESCRI: TStringField
       FieldName = 'DESCRI'
       Size = 50
     end
-    object CdsProdutoAPRESENTACAO: TWideStringField
+    object CdsProdutoAPRESENTACAO: TStringField
       FieldName = 'APRESENTACAO'
       Size = 50
     end
-    object CdsProdutoDESCRI_APRESENTACAO: TWideStringField
+    object CdsProdutoDESCRI_APRESENTACAO: TStringField
       FieldName = 'DESCRI_APRESENTACAO'
       Size = 100
     end
-    object CdsProdutoGRUPO: TWideStringField
+    object CdsProdutoGRUPO: TStringField
       FieldName = 'GRUPO'
+      ReadOnly = True
       Size = 30
     end
-    object CdsProdutoFABRICANTE: TWideStringField
+    object CdsProdutoFABRICANTE: TStringField
       FieldName = 'FABRICANTE'
+      ReadOnly = True
       Size = 50
     end
-    object CdsProdutoUNIDADE: TWideStringField
+    object CdsProdutoUNIDADE: TStringField
       FieldName = 'UNIDADE'
+      ReadOnly = True
       Size = 50
     end
   end
@@ -1115,44 +1070,6 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
     DataSet = CdsProduto
     Left = 152
     Top = 352
-  end
-  object QryGrupo: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'select'
-      '    p.codgrupo as Codigo'
-      '  , coalesce(g.descri, '#39'* A Definir'#39') as descricao'
-      '  , sum( coalesce(p.qtde, 0) ) as estoque'
-      '  , sum( coalesce(p.estoqmin, 0) ) as estoque_minimo'
-      '  , count( p.cod ) as itens'
-      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
-      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
-      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
-      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
-      '  , max( r.data_ultima_compra ) as data_ultima_compra'
-      '  , max( r.data_ultima_venda ) as data_ultima_venda'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv01'
-      'from TBPRODUTO p'
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
-      ''
-      
-        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
-        'lesce(p.estoqmin, 0))'
-      '  and (1=1)'
-      ''
-      'group by 1, 2'
-      ''
-      'order by 2')
-    Left = 56
-    Top = 288
   end
   object DspGrupo: TDataSetProvider
     DataSet = QryGrupo
@@ -1170,8 +1087,9 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       FieldName = 'CODIGO'
       DisplayFormat = '##000'
     end
-    object CdsGrupoDESCRICAO: TWideStringField
+    object CdsGrupoDESCRICAO: TStringField
       FieldName = 'DESCRICAO'
+      ReadOnly = True
       Size = 30
     end
     object CdsGrupoESTOQUE: TBCDField
@@ -1259,44 +1177,6 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
     Left = 152
     Top = 288
   end
-  object QryFabricante: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'select'
-      '    p.codfabricante as Codigo'
-      '  , coalesce(f.nome, '#39'* A Definir'#39') as descricao'
-      '  , sum( coalesce(p.qtde, 0) ) as estoque'
-      '  , sum( coalesce(p.estoqmin, 0) ) as estoque_minimo'
-      '  , count( p.cod ) as itens'
-      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
-      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
-      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
-      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
-      '  , max( r.data_ultima_compra ) as data_ultima_compra'
-      '  , max( r.data_ultima_venda ) as data_ultima_venda'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv01'
-      'from TBPRODUTO p'
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
-      ''
-      
-        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
-        'lesce(p.estoqmin, 0))'
-      '  and (1=1)'
-      ''
-      'group by 1, 2'
-      ''
-      'order by 2')
-    Left = 56
-    Top = 320
-  end
   object DspFabricante: TDataSetProvider
     DataSet = QryFabricante
     Left = 88
@@ -1313,8 +1193,9 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       FieldName = 'CODIGO'
       DisplayFormat = '###0000'
     end
-    object CdsFabricanteDESCRICAO: TWideStringField
+    object CdsFabricanteDESCRICAO: TStringField
       FieldName = 'DESCRICAO'
+      ReadOnly = True
       Size = 50
     end
     object CdsFabricanteESTOQUE: TBCDField
@@ -1464,12 +1345,141 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
     Left = 344
     Top = 200
   end
-  object QryTotal: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object DspTotal: TDataSetProvider
+    DataSet = QryTotal
+    Left = 88
+    Top = 400
+  end
+  object CdsTotal: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspTotal'
+    Left = 120
+    Top = 400
+  end
+  object dsTotal: TDataSource
+    DataSet = CdsTotal
+    Left = 152
+    Top = 400
+  end
+  object QryGrupo: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'select'
+      '    p.codgrupo as Codigo'
+      '  , coalesce(g.descri, '#39'* A Definir'#39') as descricao'
+      '  , sum( coalesce(p.qtde, 0) ) as estoque'
+      '  , sum( coalesce(p.estoqmin, 0) ) as estoque_minimo'
+      '  , count( p.cod ) as itens'
+      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
+      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
+      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
+      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
+      '  , max( r.data_ultima_compra ) as data_ultima_compra'
+      '  , max( r.data_ultima_venda ) as data_ultima_venda'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq01'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv01'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq01'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv01'
+      'from TBPRODUTO p'
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
+      ''
+      
+        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
+        'lesce(p.estoqmin, 0))'
+      '  and (1=1)'
+      ''
+      'group by 1, 2'
+      ''
+      'order by 2')
+    Left = 56
+    Top = 288
+  end
+  object QryFabricante: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'select'
+      '    p.codfabricante as Codigo'
+      '  , coalesce(f.nome, '#39'* A Definir'#39') as descricao'
+      '  , sum( coalesce(p.qtde, 0) ) as estoque'
+      '  , sum( coalesce(p.estoqmin, 0) ) as estoque_minimo'
+      '  , count( p.cod ) as itens'
+      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
+      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
+      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
+      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
+      '  , max( r.data_ultima_compra ) as data_ultima_compra'
+      '  , max( r.data_ultima_venda ) as data_ultima_venda'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq01'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv01'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq01'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv01'
+      'from TBPRODUTO p'
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
+      ''
+      
+        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
+        'lesce(p.estoqmin, 0))'
+      '  and (1=1)'
+      ''
+      'group by 1, 2'
+      ''
+      'order by 2')
+    Left = 56
+    Top = 320
+  end
+  object QryProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    p.codemp'
+      '  , p.cod'
+      '  , p.codigo'
+      '  , p.descri'
+      '  , p.apresentacao'
+      '  , p.descri_apresentacao'
+      '  , p.codgrupo'
+      '  , g.descri as grupo'
+      '  , p.codfabricante'
+      '  , f.nome as fabricante'
+      '  , p.qtde'
+      '  , p.estoqmin'
+      '  , p.codunidade'
+      
+        '  , coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_descricao) as ' +
+        'unidade'
+      '  , r.compra_qtde_01'
+      '  , r.compra_valor_01'
+      '  , r.venda_qtde_01'
+      '  , r.venda_valor_01'
+      '  , r.data_ultima_compra'
+      '  , r.data_ultima_venda'
+      'from TBPRODUTO p'
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
+      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
+      ''
+      
+        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
+        'lesce(p.estoqmin, 0))'
+      '  and (1=1)'
+      ''
+      'order by'
+      '    p.descri_apresentacao'
+      '  , g.descri'
+      '  , f.nome')
+    Left = 56
+    Top = 352
+  end
+  object QryTotal: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'select'
       '    sum( coalesce(p.qtde, 0) ) as qtde'
@@ -1505,23 +1515,6 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       ''
       'where 1=1')
     Left = 56
-    Top = 400
-  end
-  object DspTotal: TDataSetProvider
-    DataSet = QryTotal
-    Left = 88
-    Top = 400
-  end
-  object CdsTotal: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DspTotal'
-    Left = 120
-    Top = 400
-  end
-  object dsTotal: TDataSource
-    DataSet = CdsTotal
-    Left = 152
     Top = 400
   end
 end

@@ -35,15 +35,15 @@ inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
       end
       inherited edPesquisar: TEdit
         Left = 240
-        Width = 604
+        Width = 273
         TabOrder = 2
         ExplicitLeft = 240
-        ExplicitWidth = 604
+        ExplicitWidth = 273
       end
       inherited BrnPesquisar: TcxButton
-        Left = 851
+        Left = 519
         TabOrder = 3
-        ExplicitLeft = 851
+        ExplicitLeft = 519
       end
       object e1Data: TJvDateEdit
         Left = 16

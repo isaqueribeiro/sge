@@ -4,22 +4,25 @@ interface
 
 uses
   UGrPadrao,
-  
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ComCtrls, ExtCtrls, jpeg,
   cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters,
   cxControls, cxStyles, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData,
-  cxDataStorage, cxEdit, DB, cxDBData, StdCtrls, IdIOHandler,
-  IdIOHandlerSocket, IdSSLOpenSSL, IdMessage, IdBaseComponent, IdComponent,
-  IdTCPConnection, IdTCPClient, IdMessageClient, IdSMTP, IBStoredProc,
-  DBClient, Provider, IBCustomDataSet, IBQuery, DBCtrls, Gauges, ToolWin,
-  cxGridLevel, cxGridCustomTableView, cxGridTableView,
-  cxGridBandedTableView, cxGridDBBandedTableView, cxClasses,
-  cxGridCustomView, cxGrid, Buttons, cxLookAndFeels, cxButtons, dxSkinsForm,
-  cxNavigator, IdExplicitTLSClientServerBase, IdSMTPBase,
+  cxDataStorage, cxEdit, DB, cxDBData, StdCtrls, DBClient, Provider, DBCtrls, Gauges, ToolWin,
+  cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridBandedTableView, cxGridDBBandedTableView,
+  cxClasses, cxGridCustomView, cxGrid, Buttons, cxLookAndFeels, cxButtons, dxSkinsForm, cxNavigator,
+
+  IdIOHandlerSocket, IdSSLOpenSSL, IdMessage, IdBaseComponent, IdComponent,  IdSMTP,
+  IdExplicitTLSClientServerBase, IdSMTPBase, IdIOHandler, IdTCPConnection, IdTCPClient, IdMessageClient,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TFrmGeProdutoRotatividadePRC = class(TfrmGrPadrao)
@@ -42,12 +45,9 @@ type
     dbgProdutoLvl: TcxGridLevel;
     dbgProduto: TcxGrid;
     dbgProdutoTbl: TcxGridDBBandedTableView;
-    QryListaProduto: TIBQuery;
-    QryProduto: TIBQuery;
     dsProduto: TDataSource;
     DspListaProduto: TDataSetProvider;
     CdsListaProduto: TClientDataSet;
-    setProdutoRotatividade: TIBStoredProc;
     pnlProcesso: TPanel;
     Label3: TLabel;
     gagProcesso: TGauge;
@@ -116,7 +116,6 @@ type
     dbgProdutoTblColumn28: TcxGridDBBandedColumn;
     dbgProdutoTblESTOQUE: TcxGridDBBandedColumn;
     dbgProdutoTblColumn30: TcxGridDBBandedColumn;
-    QryGrupo: TIBQuery;
     DspGrupo: TDataSetProvider;
     CdsGrupo: TClientDataSet;
     dsGrupo: TDataSource;
@@ -152,7 +151,6 @@ type
     StyleSelecao: TcxStyle;
     StyleContent: TcxStyle;
     StyleContentEven: TcxStyle;
-    QryTotal: TIBQuery;
     DspTotal: TDataSetProvider;
     CdsTotal: TClientDataSet;
     dsTotal: TDataSource;
@@ -301,7 +299,6 @@ type
     edTipoFiltro: TComboBox;
     dbgProdutoTblColumn31: TcxGridDBBandedColumn;
     dbgProdutoTblColumn32: TcxGridDBBandedColumn;
-    QryFabricante: TIBQuery;
     DspFabricante: TDataSetProvider;
     CdsFabricante: TClientDataSet;
     IntegerField1: TIntegerField;
@@ -425,15 +422,6 @@ type
     btbtnIncluir: TcxButton;
     btBtnEnviarEmail: TcxButton;
     BtnPesquisar: TcxButton;
-    CdsProdutoCODIGO: TWideStringField;
-    CdsProdutoDESCRICAO: TWideStringField;
-    CdsProdutoGRUPO: TWideStringField;
-    CdsProdutoFABRICANTE: TWideStringField;
-    CdsProdutoUNP_DESCRICAO: TWideStringField;
-    CdsProdutoUNP_SIGLA: TWideStringField;
-    CdsProdutoPROCESSO_USUARIO: TWideStringField;
-    CdsGrupoDESCRICAO: TWideStringField;
-    CdsFabricanteDESCRICAO: TWideStringField;
     CdsProdutoESTOQUE_ALMOX: TFMTBCDField;
     CdsTotalESTOQUE_ALMOX: TFMTBCDField;
     CdsTotalITENS_ALMOX: TIntegerField;
@@ -441,6 +429,171 @@ type
     CdsGrupoITENS_ALMOX: TIntegerField;
     CdsFabricanteESTOQUE_ALMOX: TFMTBCDField;
     CdsFabricanteITENS_ALMOX: TIntegerField;
+    QryListaProduto: TFDQuery;
+    setProdutoRotatividade: TFDStoredProc;
+    QryProduto: TFDQuery;
+    QryGrupo: TFDQuery;
+    QryFabricante: TFDQuery;
+    QryTotal: TFDQuery;
+    CdsProdutoDESCRICAO: TStringField;
+    CdsProdutoGRUPO: TStringField;
+    CdsProdutoFABRICANTE: TStringField;
+    CdsProdutoUNP_DESCRICAO: TStringField;
+    CdsProdutoUNP_SIGLA: TStringField;
+    CdsGrupoDESCRICAO: TStringField;
+    QryGrupoCODIGO: TSmallintField;
+    QryGrupoDESCRICAO: TStringField;
+    QryGrupoQTDE: TBCDField;
+    QryGrupoESTOQUE_ALMOX: TFMTBCDField;
+    QryGrupoITENS: TIntegerField;
+    QryGrupoITENS_ALMOX: TIntegerField;
+    QryGrupoDATA_ULTIMA_COMPRA: TDateField;
+    QryGrupoDATA_ULTIMA_VENDA: TDateField;
+    QryGrupoCOMPRA_QTDE_01: TBCDField;
+    QryGrupoCOMPRA_VALOR_01: TBCDField;
+    QryGrupoVENDA_QTDE_01: TBCDField;
+    QryGrupoVENDA_VALOR_01: TBCDField;
+    QryGrupoCOMPRA_QTDE_03: TBCDField;
+    QryGrupoCOMPRA_VALOR_03: TBCDField;
+    QryGrupoVENDA_QTDE_03: TBCDField;
+    QryGrupoVENDA_VALOR_03: TBCDField;
+    QryGrupoCOMPRA_QTDE_06: TBCDField;
+    QryGrupoCOMPRA_VALOR_06: TBCDField;
+    QryGrupoVENDA_QTDE_06: TBCDField;
+    QryGrupoVENDA_VALOR_06: TBCDField;
+    QryGrupoCOMPRA_QTDE_09: TBCDField;
+    QryGrupoCOMPRA_VALOR_09: TBCDField;
+    QryGrupoVENDA_QTDE_09: TBCDField;
+    QryGrupoVENDA_VALOR_09: TBCDField;
+    QryGrupoCOMPRA_QTDE_12: TBCDField;
+    QryGrupoCOMPRA_VALOR_12: TBCDField;
+    QryGrupoVENDA_QTDE_12: TBCDField;
+    QryGrupoVENDA_VALOR_12: TBCDField;
+    QryGrupoCOMPRA_QTDE_99: TBCDField;
+    QryGrupoCOMPRA_VALOR_99: TBCDField;
+    QryGrupoVENDA_QTDE_99: TBCDField;
+    QryGrupoVENDA_VALOR_99: TBCDField;
+    QryGrupoPERCENT_CQ01: TBCDField;
+    QryGrupoPERCENT_CV01: TBCDField;
+    QryGrupoPERCENT_VQ01: TBCDField;
+    QryGrupoPERCENT_VV01: TBCDField;
+    QryGrupoPERCENT_CQ03: TBCDField;
+    QryGrupoPERCENT_CV03: TBCDField;
+    QryGrupoPERCENT_VQ03: TBCDField;
+    QryGrupoPERCENT_VV03: TBCDField;
+    QryGrupoPERCENT_CQ06: TBCDField;
+    QryGrupoPERCENT_CV06: TBCDField;
+    QryGrupoPERCENT_VQ06: TBCDField;
+    QryGrupoPERCENT_VV06: TBCDField;
+    QryGrupoPERCENT_CQ09: TBCDField;
+    QryGrupoPERCENT_CV09: TBCDField;
+    QryGrupoPERCENT_VQ09: TBCDField;
+    QryGrupoPERCENT_VV09: TBCDField;
+    QryGrupoPERCENT_CQ12: TBCDField;
+    QryGrupoPERCENT_CV12: TBCDField;
+    QryGrupoPERCENT_VQ12: TBCDField;
+    QryGrupoPERCENT_VV12: TBCDField;
+    QryGrupoPERCENT_CQ99: TBCDField;
+    QryGrupoPERCENT_CV99: TBCDField;
+    QryGrupoPERCENT_VQ99: TBCDField;
+    QryGrupoPERCENT_VV99: TBCDField;
+    QryProdutoCODIGO: TStringField;
+    QryProdutoDESCRICAO: TStringField;
+    QryProdutoGRUPO: TStringField;
+    QryProdutoFABRICANTE: TStringField;
+    QryProdutoQTDE: TBCDField;
+    QryProdutoESTOQUE_ALMOX: TFMTBCDField;
+    QryProdutoUNP_DESCRICAO: TStringField;
+    QryProdutoUNP_SIGLA: TStringField;
+    QryProdutoDATA_ULTIMA_COMPRA: TDateField;
+    QryProdutoDATA_ULTIMA_VENDA: TDateField;
+    QryProdutoCOMPRA_QTDE_01: TBCDField;
+    QryProdutoCOMPRA_VALOR_01: TBCDField;
+    QryProdutoVENDA_QTDE_01: TBCDField;
+    QryProdutoVENDA_VALOR_01: TBCDField;
+    QryProdutoCOMPRA_QTDE_03: TBCDField;
+    QryProdutoCOMPRA_VALOR_03: TBCDField;
+    QryProdutoVENDA_QTDE_03: TBCDField;
+    QryProdutoVENDA_VALOR_03: TBCDField;
+    QryProdutoCOMPRA_QTDE_06: TBCDField;
+    QryProdutoCOMPRA_VALOR_06: TBCDField;
+    QryProdutoVENDA_QTDE_06: TBCDField;
+    QryProdutoVENDA_VALOR_06: TBCDField;
+    QryProdutoCOMPRA_QTDE_09: TBCDField;
+    QryProdutoCOMPRA_VALOR_09: TBCDField;
+    QryProdutoVENDA_QTDE_09: TBCDField;
+    QryProdutoVENDA_VALOR_09: TBCDField;
+    QryProdutoCOMPRA_QTDE_12: TBCDField;
+    QryProdutoCOMPRA_VALOR_12: TBCDField;
+    QryProdutoVENDA_QTDE_12: TBCDField;
+    QryProdutoVENDA_VALOR_12: TBCDField;
+    QryProdutoCOMPRA_QTDE_99: TBCDField;
+    QryProdutoCOMPRA_VALOR_99: TBCDField;
+    QryProdutoVENDA_QTDE_99: TBCDField;
+    QryProdutoVENDA_VALOR_99: TBCDField;
+    QryProdutoMOVIMENTADO: TSmallintField;
+    QryProdutoPROCESSO_DATA: TDateField;
+    QryProdutoPROCESSO_HORA: TTimeField;
+    QryProdutoPROCESSO_USUARIO: TStringField;
+    QryFabricanteCODIGO: TIntegerField;
+    QryFabricanteDESCRICAO: TStringField;
+    QryFabricanteQTDE: TBCDField;
+    QryFabricanteESTOQUE_ALMOX: TFMTBCDField;
+    QryFabricanteITENS: TIntegerField;
+    QryFabricanteITENS_ALMOX: TIntegerField;
+    QryFabricanteDATA_ULTIMA_COMPRA: TDateField;
+    QryFabricanteDATA_ULTIMA_VENDA: TDateField;
+    QryFabricanteCOMPRA_QTDE_01: TBCDField;
+    QryFabricanteCOMPRA_VALOR_01: TBCDField;
+    QryFabricanteVENDA_QTDE_01: TBCDField;
+    QryFabricanteVENDA_VALOR_01: TBCDField;
+    QryFabricanteCOMPRA_QTDE_03: TBCDField;
+    QryFabricanteCOMPRA_VALOR_03: TBCDField;
+    QryFabricanteVENDA_QTDE_03: TBCDField;
+    QryFabricanteVENDA_VALOR_03: TBCDField;
+    QryFabricanteCOMPRA_QTDE_06: TBCDField;
+    QryFabricanteCOMPRA_VALOR_06: TBCDField;
+    QryFabricanteVENDA_QTDE_06: TBCDField;
+    QryFabricanteVENDA_VALOR_06: TBCDField;
+    QryFabricanteCOMPRA_QTDE_09: TBCDField;
+    QryFabricanteCOMPRA_VALOR_09: TBCDField;
+    QryFabricanteVENDA_QTDE_09: TBCDField;
+    QryFabricanteVENDA_VALOR_09: TBCDField;
+    QryFabricanteCOMPRA_QTDE_12: TBCDField;
+    QryFabricanteCOMPRA_VALOR_12: TBCDField;
+    QryFabricanteVENDA_QTDE_12: TBCDField;
+    QryFabricanteVENDA_VALOR_12: TBCDField;
+    QryFabricanteCOMPRA_QTDE_99: TBCDField;
+    QryFabricanteCOMPRA_VALOR_99: TBCDField;
+    QryFabricanteVENDA_QTDE_99: TBCDField;
+    QryFabricanteVENDA_VALOR_99: TBCDField;
+    QryFabricantePERCENT_CQ01: TBCDField;
+    QryFabricantePERCENT_CV01: TBCDField;
+    QryFabricantePERCENT_VQ01: TBCDField;
+    QryFabricantePERCENT_VV01: TBCDField;
+    QryFabricantePERCENT_CQ03: TBCDField;
+    QryFabricantePERCENT_CV03: TBCDField;
+    QryFabricantePERCENT_VQ03: TBCDField;
+    QryFabricantePERCENT_VV03: TBCDField;
+    QryFabricantePERCENT_CQ06: TBCDField;
+    QryFabricantePERCENT_CV06: TBCDField;
+    QryFabricantePERCENT_VQ06: TBCDField;
+    QryFabricantePERCENT_VV06: TBCDField;
+    QryFabricantePERCENT_CQ09: TBCDField;
+    QryFabricantePERCENT_CV09: TBCDField;
+    QryFabricantePERCENT_VQ09: TBCDField;
+    QryFabricantePERCENT_VV09: TBCDField;
+    QryFabricantePERCENT_CQ12: TBCDField;
+    QryFabricantePERCENT_CV12: TBCDField;
+    QryFabricantePERCENT_VQ12: TBCDField;
+    QryFabricantePERCENT_VV12: TBCDField;
+    QryFabricantePERCENT_CQ99: TBCDField;
+    QryFabricantePERCENT_CV99: TBCDField;
+    QryFabricantePERCENT_VQ99: TBCDField;
+    QryFabricantePERCENT_VV99: TBCDField;
+    CdsFabricanteDESCRICAO: TStringField;
+    CdsProdutoPROCESSO_USUARIO: TStringField;
+    CdsProdutoCODIGO: TStringField;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure edTipoProcessoChange(Sender: TObject);
@@ -624,13 +777,13 @@ begin
 
         with setProdutoRotatividade do
         begin
-          ParamByName('produto').AsString      := CdsListaProduto.FieldByName('Codigo').AsString;
-          ParamByName('data').AsDateTime       := CdsListaProduto.FieldByName('data_ultima_compra').AsDateTime;
-          ParamByName('usuario').AsString      := GetUserApp;
-          ParamByName('excluir_rot').AsInteger := 1;
-          ParamByName('tipo_rotati').AsInteger := 0;
-          ParamByName('ultima_compra').AsDateTime := CdsListaProduto.FieldByName('data_ultima_compra').AsDateTime;
-          ParamByName('ultima_venda').AsDateTime  := CdsListaProduto.FieldByName('data_ultima_venda').AsDateTime;
+          ParamByName('produto').AsString := CdsListaProduto.FieldByName('Codigo').AsString;
+          ParamByName('data').Value       := CdsListaProduto.FieldByName('data_ultima_compra').AsDateTime;
+          ParamByName('usuario').AsString       := gUsuarioLogado.Login;
+          ParamByName('excluir_rot').AsSmallInt := 1;
+          ParamByName('tipo_rotati').AsSmallInt := 0;
+          ParamByName('ultima_compra').Value := CdsListaProduto.FieldByName('data_ultima_compra').AsDateTime;
+          ParamByName('ultima_venda').Value  := CdsListaProduto.FieldByName('data_ultima_venda').AsDateTime;
           ExecProc;
         end;
 
@@ -638,13 +791,13 @@ begin
 
         with setProdutoRotatividade do
         begin
-          ParamByName('produto').AsString      := CdsListaProduto.FieldByName('Codigo').AsString;
-          ParamByName('data').AsDateTime       := CdsListaProduto.FieldByName('data_ultima_venda').AsDateTime;
-          ParamByName('usuario').AsString      := GetUserApp;
-          ParamByName('excluir_rot').AsInteger := 0;
-          ParamByName('tipo_rotati').AsInteger := 1;
-          ParamByName('ultima_compra').AsDateTime := CdsListaProduto.FieldByName('data_ultima_compra').AsDateTime;
-          ParamByName('ultima_venda').AsDateTime  := CdsListaProduto.FieldByName('data_ultima_venda').AsDateTime;
+          ParamByName('produto').AsString := CdsListaProduto.FieldByName('Codigo').AsString;
+          ParamByName('data').Value       := CdsListaProduto.FieldByName('data_ultima_venda').AsDateTime;
+          ParamByName('usuario').AsString       := gUsuarioLogado.Login;
+          ParamByName('excluir_rot').AsSmallInt := 0;
+          ParamByName('tipo_rotati').AsSmallInt := 1;
+          ParamByName('ultima_compra').Value := CdsListaProduto.FieldByName('data_ultima_compra').AsDateTime;
+          ParamByName('ultima_venda').Value  := CdsListaProduto.FieldByName('data_ultima_venda').AsDateTime;
           ExecProc;
         end;
 
@@ -871,6 +1024,9 @@ const
   FIELDS_ORIGEM   : Array[1..4] of String = (FIELD_CMP_QTDE,   FIELD_CMP_VALOR,  FIELD_VND_QTDE,   FIELD_VND_VALOR);
   FIELDS_DESTINO  : Array[1..4] of String = (FIELD_PERCENT_CQ, FIELD_PERCENT_CV, FIELD_PERCENT_VQ, FIELD_PERCENT_VV);
 begin
+
+  for I := 0 to cdsTabela.Fields.Count - 1 do
+    cdsTabela.Fields[I].ReadOnly := False;
 
   with cdsTabela do
   begin

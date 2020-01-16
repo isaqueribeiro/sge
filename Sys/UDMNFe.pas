@@ -451,7 +451,6 @@ const
   QrImgCorrStr    : Array [TQrImage_ErrCorrLevel] of string = ('L', 'M', 'Q', 'H');
 
   SELDIRHELP   = 1000;
-  FILENAME_NFE_RAVE   = 'Report\NotaFiscalEletronica.rav';
   FILENAME_NFE_FAST   = 'Report\NotaFiscalEletronica.fr3';
   FILENAME_NFE_EVENTO = 'Report\Eventos.fr3';
   FILENAME_NFE_INUTIL = 'Report\InutilizacaoNFe.fr3';
@@ -929,7 +928,6 @@ Var
   sPrefixoSecao,
   sAssinaturaHtml,
   sAssinaturaTxt ,
-  sFileNFERave   ,
   sFileNFEFast   ,
   sFileNFEEvento ,
   sFileNFEInutil : String;
@@ -1291,13 +1289,9 @@ begin
     end;
 
   finally
-    sFileNFERave   := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_RAVE;
     sFileNFEFast   := GetFileNameDANFE_FR3;
     sFileNFEEvento := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_EVENTO;
     sFileNFEInutil := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_INUTIL;
-
-    if ( not FileExists(sFileNFERave) ) then
-      ShowError( 'Arquivo ' + QuotedStr(sFileNFERave) + ' não encontrado!' );
 
     if ( not FileExists(sFileNFEFast) ) then
       ShowError( 'Arquivo ' + QuotedStr(sFileNFEFast) + ' não encontrado!' );

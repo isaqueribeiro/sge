@@ -265,7 +265,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       Top = 0
       Width = 1014
       Height = 465
-      ActivePage = TbsProduto
+      ActivePage = TbsGrupo
       Align = alClient
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -3001,123 +3001,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       OnClick = btBtnEnviarEmailClick
     end
   end
-  object QryListaProduto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    p.codigo as Sequencial'
-      '  , p.cod    as Codigo'
-      '  , coalesce(p.descri_apresentacao, p.descri) as descri'
-      ''
-      '  , (Select'
-      '       max(cc.dtent)'
-      '     from TBCOMPRAS cc'
-      
-        '       inner join TBCOMPRASITENS c on (c.ano = cc.ano and c.codc' +
-        'ontrol = cc.codcontrol)'
-      '     where cc.status in (2, 4) -- Finalizada, NF-e'
-      '       and cc.codemp = p.codemp'
-      '       and c.codprod = p.cod'
-      '    ) as data_ultima_compra'
-      ''
-      '  , (Select'
-      '       max(vv.dtvenda)'
-      '     from TBVENDAS vv'
-      
-        '       inner join TVENDASITENS v on (v.ano = vv.ano and v.codcon' +
-        'trol = vv.codcontrol)'
-      '     where vv.status in (3, 4) -- Finalizada, NF-e'
-      '       and vv.codemp = p.codemp'
-      '       and v.codprod = p.cod'
-      '    ) as data_ultima_venda'
-      'from TBPRODUTO p'
-      'where p.codemp = :empresa')
-    Left = 24
-    Top = 184
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptInput
-      end>
-  end
-  object QryProduto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'select'
-      '    p.cod as Codigo'
-      '  , coalesce(p.descri_apresentacao, p.descri) as descricao'
-      '  , g.descri as grupo'
-      '  , f.nome as fabricante'
-      '  , p.qtde'
-      '  , ep.estoque_almox'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      '  , r.data_ultima_compra'
-      '  , r.data_ultima_venda'
-      '  , r.compra_qtde_01'
-      '  , r.compra_valor_01'
-      '  , r.venda_qtde_01'
-      '  , r.venda_valor_01'
-      '  , r.compra_qtde_03'
-      '  , r.compra_valor_03'
-      '  , r.venda_qtde_03'
-      '  , r.venda_valor_03'
-      '  , r.compra_qtde_06'
-      '  , r.compra_valor_06'
-      '  , r.venda_qtde_06'
-      '  , r.venda_valor_06'
-      '  , r.compra_qtde_09'
-      '  , r.compra_valor_09'
-      '  , r.venda_qtde_09'
-      '  , r.venda_valor_09'
-      '  , r.compra_qtde_12'
-      '  , r.compra_valor_12'
-      '  , r.venda_qtde_12'
-      '  , r.venda_valor_12'
-      '  , r.compra_qtde_99'
-      '  , r.compra_valor_99'
-      '  , r.venda_qtde_99'
-      '  , r.venda_valor_99'
-      '  , r.movimentado'
-      '  , r.processo_data'
-      '  , r.processo_hora'
-      '  , r.processo_usuario'
-      'from TBPRODUTO p'
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
-      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
-      '  left join ('
-      '    Select'
-      '        e.produto'
-      
-        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as' +
-        ' estoque_almox'
-      '    from TBESTOQUE_ALMOX e'
-      
-        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo ' +
-        'and c.codcliente is null)'
-      '    where 0=0'
-      '      and e.qtde > 0'
-      '    group by'
-      '       e.produto'
-      '  ) ep on (ep.produto = p.cod)'
-      ''
-      'where 1=1'
-      ''
-      'order by 2')
-    Left = 24
-    Top = 248
-  end
   object dsProduto: TDataSource
     DataSet = CdsProduto
     Left = 120
@@ -3139,49 +3022,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     ProviderName = 'DspListaProduto'
     Left = 88
     Top = 184
-  end
-  object setProdutoRotatividade: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SET_PRODUTO_ROTATIVIDADE'
-    Left = 24
-    Top = 216
-    ParamData = <
-      item
-        DataType = ftDate
-        Name = 'DATA'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftString
-        Name = 'USUARIO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftString
-        Name = 'PRODUTO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'EXCLUIR_ROT'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftSmallint
-        Name = 'TIPO_ROTATI'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftDate
-        Name = 'ULTIMA_COMPRA'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftDate
-        Name = 'ULTIMA_VENDA'
-        ParamType = ptInput
-      end>
   end
   object dsListaProduto: TDataSource
     DataSet = CdsListaProduto
@@ -3403,126 +3243,39 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       FieldName = 'PROCESSO_HORA'
       Origin = '"TBPRODUTO_ROTATIVIDADE"."PROCESSO_HORA"'
     end
-    object CdsProdutoPROCESSO_USUARIO: TWideStringField
+    object CdsProdutoPROCESSO_USUARIO: TStringField
       FieldName = 'PROCESSO_USUARIO'
       Size = 50
     end
-    object CdsProdutoCODIGO: TWideStringField
+    object CdsProdutoCODIGO: TStringField
       FieldName = 'CODIGO'
-      Required = True
       Size = 10
     end
-    object CdsProdutoDESCRICAO: TWideStringField
+    object CdsProdutoDESCRICAO: TStringField
       FieldName = 'DESCRICAO'
+      ReadOnly = True
       Size = 100
     end
-    object CdsProdutoGRUPO: TWideStringField
+    object CdsProdutoGRUPO: TStringField
       FieldName = 'GRUPO'
+      ReadOnly = True
       Size = 30
     end
-    object CdsProdutoFABRICANTE: TWideStringField
+    object CdsProdutoFABRICANTE: TStringField
       FieldName = 'FABRICANTE'
+      ReadOnly = True
       Size = 50
     end
-    object CdsProdutoUNP_DESCRICAO: TWideStringField
+    object CdsProdutoUNP_DESCRICAO: TStringField
       FieldName = 'UNP_DESCRICAO'
+      ReadOnly = True
       Size = 50
     end
-    object CdsProdutoUNP_SIGLA: TWideStringField
+    object CdsProdutoUNP_SIGLA: TStringField
       FieldName = 'UNP_SIGLA'
+      ReadOnly = True
       Size = 5
     end
-  end
-  object QryGrupo: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'select'
-      '    p.codgrupo as Codigo'
-      '  , coalesce(g.descri, '#39'* A Definir'#39') as descricao'
-      '  , sum( coalesce(p.qtde, 0) ) as qtde'
-      '  , sum( coalesce(ep.estoque_almox, 0) ) as estoque_almox'
-      '  , count( p.cod ) as itens'
-      '  , count( ep.produto ) as itens_almox'
-      '  , max( r.data_ultima_compra ) as data_ultima_compra'
-      '  , max( r.data_ultima_venda  ) as data_ultima_venda'
-      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
-      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
-      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
-      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
-      '  , sum( coalesce(r.compra_qtde_03, 0) )  as compra_qtde_03'
-      '  , sum( coalesce(r.compra_valor_03, 0) ) as compra_valor_03'
-      '  , sum( coalesce(r.venda_qtde_03, 0) )   as venda_qtde_03'
-      '  , sum( coalesce(r.venda_valor_03, 0) )  as venda_valor_03'
-      '  , sum( coalesce(r.compra_qtde_06, 0) )  as compra_qtde_06'
-      '  , sum( coalesce(r.compra_valor_06, 0) ) as compra_valor_06'
-      '  , sum( coalesce(r.venda_qtde_06, 0) )   as venda_qtde_06'
-      '  , sum( coalesce(r.venda_valor_06, 0) )  as venda_valor_06'
-      '  , sum( coalesce(r.compra_qtde_09, 0) )  as compra_qtde_09'
-      '  , sum( coalesce(r.compra_valor_09, 0) ) as compra_valor_09'
-      '  , sum( coalesce(r.venda_qtde_09, 0) )   as venda_qtde_09'
-      '  , sum( coalesce(r.venda_valor_09, 0) )  as venda_valor_09'
-      '  , sum( coalesce(r.compra_qtde_12, 0) )  as compra_qtde_12'
-      '  , sum( coalesce(r.compra_valor_12, 0) ) as compra_valor_12'
-      '  , sum( coalesce(r.venda_qtde_12, 0) )   as venda_qtde_12'
-      '  , sum( coalesce(r.venda_valor_12, 0) )  as venda_valor_12'
-      '  , sum( coalesce(r.compra_qtde_99, 0) )  as compra_qtde_99'
-      '  , sum( coalesce(r.compra_valor_99, 0) ) as compra_valor_99'
-      '  , sum( coalesce(r.venda_qtde_99, 0) )   as venda_qtde_99'
-      '  , sum( coalesce(r.venda_valor_99, 0) )  as venda_valor_99'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv01'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq03'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv03'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq03'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv03'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq06'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv06'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq06'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv06'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq09'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv09'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq09'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv09'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq12'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv12'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq12'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv12'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq99'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv99'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq99'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv99'
-      'from TBPRODUTO p'
-      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      '  left join ('
-      '    Select'
-      '        e.produto'
-      
-        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as' +
-        ' estoque_almox'
-      '    from TBESTOQUE_ALMOX e'
-      
-        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo ' +
-        'and c.codcliente is null)'
-      '    where 0=0'
-      '      and e.qtde > 0'
-      '    group by'
-      '       e.produto'
-      '  ) ep on (ep.produto = p.cod)'
-      ''
-      'where 1=1'
-      ''
-      'group by 1, 2'
-      ''
-      'order by 2')
-    Left = 24
-    Top = 280
   end
   object DspGrupo: TDataSetProvider
     DataSet = QryGrupo
@@ -3539,10 +3292,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       DisplayLabel = 'C'#243'digo'
       FieldName = 'CODIGO'
       DisplayFormat = '##000'
-    end
-    object CdsGrupoDESCRICAO: TWideStringField
-      FieldName = 'DESCRICAO'
-      Size = 30
     end
     object CdsGrupoQTDE: TBCDField
       DisplayLabel = 'Estoque'
@@ -3868,6 +3617,11 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       DisplayFormat = ',0.0#'
       Precision = 18
     end
+    object CdsGrupoDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      ReadOnly = True
+      Size = 30
+    end
   end
   object dsGrupo: TDataSource
     DataSet = CdsGrupo
@@ -3908,66 +3662,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       Font.Style = []
       TextColor = clBlack
     end
-  end
-  object QryTotal: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'select'
-      '    sum( coalesce(p.qtde, 0) ) as qtde'
-      '  , sum( coalesce(ep.estoque_almox, 0) ) as estoque_almox'
-      '  , count( p.cod ) as itens'
-      '  , count( ep.produto ) as itens_almox'
-      '  , max( r.data_ultima_compra ) as data_ultima_compra'
-      '  , max( r.data_ultima_venda  ) as data_ultima_venda'
-      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
-      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
-      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
-      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
-      '  , sum( coalesce(r.compra_qtde_03, 0) )  as compra_qtde_03'
-      '  , sum( coalesce(r.compra_valor_03, 0) ) as compra_valor_03'
-      '  , sum( coalesce(r.venda_qtde_03, 0) )   as venda_qtde_03'
-      '  , sum( coalesce(r.venda_valor_03, 0) )  as venda_valor_03'
-      '  , sum( coalesce(r.compra_qtde_06, 0) )  as compra_qtde_06'
-      '  , sum( coalesce(r.compra_valor_06, 0) ) as compra_valor_06'
-      '  , sum( coalesce(r.venda_qtde_06, 0) )   as venda_qtde_06'
-      '  , sum( coalesce(r.venda_valor_06, 0) )  as venda_valor_06'
-      '  , sum( coalesce(r.compra_qtde_09, 0) )  as compra_qtde_09'
-      '  , sum( coalesce(r.compra_valor_09, 0) ) as compra_valor_09'
-      '  , sum( coalesce(r.venda_qtde_09, 0) )   as venda_qtde_09'
-      '  , sum( coalesce(r.venda_valor_09, 0) )  as venda_valor_09'
-      '  , sum( coalesce(r.compra_qtde_12, 0) )  as compra_qtde_12'
-      '  , sum( coalesce(r.compra_valor_12, 0) ) as compra_valor_12'
-      '  , sum( coalesce(r.venda_qtde_12, 0) )   as venda_qtde_12'
-      '  , sum( coalesce(r.venda_valor_12, 0) )  as venda_valor_12'
-      '  , sum( coalesce(r.compra_qtde_99, 0) )  as compra_qtde_99'
-      '  , sum( coalesce(r.compra_valor_99, 0) ) as compra_valor_99'
-      '  , sum( coalesce(r.venda_qtde_99, 0) )   as venda_qtde_99'
-      '  , sum( coalesce(r.venda_valor_99, 0) )  as venda_valor_99'
-      'from TBPRODUTO p'
-      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
-      '  left join ('
-      '    Select'
-      '        e.produto'
-      
-        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as' +
-        ' estoque_almox'
-      '    from TBESTOQUE_ALMOX e'
-      
-        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo ' +
-        'and c.codcliente is null)'
-      '    where 0=0'
-      '      and e.qtde > 0'
-      '    group by'
-      '       e.produto'
-      '  ) ep on (ep.produto = p.cod)'
-      ''
-      'where 1=1')
-    Left = 24
-    Top = 352
   end
   object DspTotal: TDataSetProvider
     DataSet = QryTotal
@@ -4173,97 +3867,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     Left = 280
     Top = 200
   end
-  object QryFabricante: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    p.codfabricante as Codigo'
-      '  , coalesce(f.nome, '#39'* A Definir'#39') as descricao'
-      '  , sum( coalesce(p.qtde, 0) ) as qtde'
-      '  , sum( coalesce(ep.estoque_almox, 0) ) as estoque_almox'
-      '  , count( p.cod ) as itens'
-      '  , count( ep.produto ) as itens_almox'
-      '  , max( r.data_ultima_compra ) as data_ultima_compra'
-      '  , max( r.data_ultima_venda  ) as data_ultima_venda'
-      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
-      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
-      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
-      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
-      '  , sum( coalesce(r.compra_qtde_03, 0) )  as compra_qtde_03'
-      '  , sum( coalesce(r.compra_valor_03, 0) ) as compra_valor_03'
-      '  , sum( coalesce(r.venda_qtde_03, 0) )   as venda_qtde_03'
-      '  , sum( coalesce(r.venda_valor_03, 0) )  as venda_valor_03'
-      '  , sum( coalesce(r.compra_qtde_06, 0) )  as compra_qtde_06'
-      '  , sum( coalesce(r.compra_valor_06, 0) ) as compra_valor_06'
-      '  , sum( coalesce(r.venda_qtde_06, 0) )   as venda_qtde_06'
-      '  , sum( coalesce(r.venda_valor_06, 0) )  as venda_valor_06'
-      '  , sum( coalesce(r.compra_qtde_09, 0) )  as compra_qtde_09'
-      '  , sum( coalesce(r.compra_valor_09, 0) ) as compra_valor_09'
-      '  , sum( coalesce(r.venda_qtde_09, 0) )   as venda_qtde_09'
-      '  , sum( coalesce(r.venda_valor_09, 0) )  as venda_valor_09'
-      '  , sum( coalesce(r.compra_qtde_12, 0) )  as compra_qtde_12'
-      '  , sum( coalesce(r.compra_valor_12, 0) ) as compra_valor_12'
-      '  , sum( coalesce(r.venda_qtde_12, 0) )   as venda_qtde_12'
-      '  , sum( coalesce(r.venda_valor_12, 0) )  as venda_valor_12'
-      '  , sum( coalesce(r.compra_qtde_99, 0) )  as compra_qtde_99'
-      '  , sum( coalesce(r.compra_valor_99, 0) ) as compra_valor_99'
-      '  , sum( coalesce(r.venda_qtde_99, 0) )   as venda_qtde_99'
-      '  , sum( coalesce(r.venda_valor_99, 0) )  as venda_valor_99'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq01'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv01'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq03'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv03'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq03'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv03'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq06'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv06'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq06'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv06'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq09'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv09'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq09'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv09'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq12'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv12'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq12'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv12'
-      '  , cast(0.0 as numeric(18,4)) as percent_cq99'
-      '  , cast(0.0 as numeric(18,4)) as percent_cv99'
-      '  , cast(0.0 as numeric(18,4)) as percent_vq99'
-      '  , cast(0.0 as numeric(18,4)) as percent_vv99'
-      'from TBPRODUTO p'
-      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      '  left join ('
-      '    Select'
-      '        e.produto'
-      
-        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as' +
-        ' estoque_almox'
-      '    from TBESTOQUE_ALMOX e'
-      
-        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo ' +
-        'and c.codcliente is null)'
-      '    where 0=0'
-      '      and e.qtde > 0'
-      '    group by'
-      '       e.produto'
-      '  ) ep on (ep.produto = p.cod)'
-      ''
-      'where 1=1'
-      ''
-      'group by 1, 2'
-      ''
-      'order by 2')
-    Left = 24
-    Top = 312
-  end
   object DspFabricante: TDataSetProvider
     DataSet = QryFabricante
     Left = 56
@@ -4279,10 +3882,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       DisplayLabel = 'C'#243'digo'
       FieldName = 'CODIGO'
       DisplayFormat = '###000'
-    end
-    object CdsFabricanteDESCRICAO: TWideStringField
-      FieldName = 'DESCRICAO'
-      Size = 50
     end
     object CdsFabricanteQTDE: TBCDField
       DisplayLabel = 'Estoque'
@@ -4608,6 +4207,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       DisplayFormat = ',0.0#'
       Precision = 18
     end
+    object CdsFabricanteDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 50
+    end
   end
   object dsFabricante: TDataSource
     DataSet = CdsFabricante
@@ -4633,5 +4236,1435 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     ConvertPreamble = True
     Left = 344
     Top = 200
+  end
+  object QryListaProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    p.codigo as Sequencial'
+      '  , p.cod    as Codigo'
+      '  , coalesce(p.descri_apresentacao, p.descri) as descri'
+      ''
+      '  , (Select'
+      '       max(cc.dtent)'
+      '     from TBCOMPRAS cc'
+      
+        '       inner join TBCOMPRASITENS c on (c.ano = cc.ano and c.codc' +
+        'ontrol = cc.codcontrol)'
+      '     where cc.status in (2, 4) -- Finalizada, NF-e'
+      '       and cc.codemp = p.codemp'
+      '       and c.codprod = p.cod'
+      '    ) as data_ultima_compra'
+      ''
+      '  , (Select'
+      '       max(vv.dtvenda)'
+      '     from TBVENDAS vv'
+      
+        '       inner join TVENDASITENS v on (v.ano = vv.ano and v.codcon' +
+        'trol = vv.codcontrol)'
+      '     where vv.status in (3, 4) -- Finalizada, NF-e'
+      '       and vv.codemp = p.codemp'
+      '       and v.codprod = p.cod'
+      '    ) as data_ultima_venda'
+      'from TBPRODUTO p'
+      'where p.codemp = :empresa')
+    Left = 24
+    Top = 184
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end>
+  end
+  object setProdutoRotatividade: TFDStoredProc
+    Connection = DMBusiness.fdConexao
+    StoredProcName = 'SET_PRODUTO_ROTATIVIDADE'
+    Left = 24
+    Top = 216
+    ParamData = <
+      item
+        Position = 1
+        Name = 'DATA'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'USUARIO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 30
+      end
+      item
+        Position = 3
+        Name = 'PRODUTO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 10
+      end
+      item
+        Position = 4
+        Name = 'EXCLUIR_ROT'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 5
+        Name = 'TIPO_ROTATI'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 6
+        Name = 'ULTIMA_COMPRA'
+        DataType = ftDate
+        ParamType = ptInput
+      end
+      item
+        Position = 7
+        Name = 'ULTIMA_VENDA'
+        DataType = ftDate
+        ParamType = ptInput
+      end>
+  end
+  object QryProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'select'
+      '    p.cod as Codigo'
+      '  , coalesce(p.descri_apresentacao, p.descri) as descricao'
+      '  , g.descri as grupo'
+      '  , f.nome as fabricante'
+      '  , p.qtde'
+      '  , ep.estoque_almox'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      '  , r.data_ultima_compra'
+      '  , r.data_ultima_venda'
+      '  , r.compra_qtde_01'
+      '  , r.compra_valor_01'
+      '  , r.venda_qtde_01'
+      '  , r.venda_valor_01'
+      '  , r.compra_qtde_03'
+      '  , r.compra_valor_03'
+      '  , r.venda_qtde_03'
+      '  , r.venda_valor_03'
+      '  , r.compra_qtde_06'
+      '  , r.compra_valor_06'
+      '  , r.venda_qtde_06'
+      '  , r.venda_valor_06'
+      '  , r.compra_qtde_09'
+      '  , r.compra_valor_09'
+      '  , r.venda_qtde_09'
+      '  , r.venda_valor_09'
+      '  , r.compra_qtde_12'
+      '  , r.compra_valor_12'
+      '  , r.venda_qtde_12'
+      '  , r.venda_valor_12'
+      '  , r.compra_qtde_99'
+      '  , r.compra_valor_99'
+      '  , r.venda_qtde_99'
+      '  , r.venda_valor_99'
+      '  , r.movimentado'
+      '  , r.processo_data'
+      '  , r.processo_hora'
+      '  , r.processo_usuario'
+      'from TBPRODUTO p'
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
+      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
+      '  left join ('
+      '    Select'
+      '        e.produto'
+      
+        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as' +
+        ' estoque_almox'
+      '    from TBESTOQUE_ALMOX e'
+      
+        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo ' +
+        'and c.codcliente is null)'
+      '    where 0=0'
+      '      and e.qtde > 0'
+      '    group by'
+      '       e.produto'
+      '  ) ep on (ep.produto = p.cod)'
+      ''
+      'where 1=1'
+      ''
+      'order by 2')
+    Left = 24
+    Top = 248
+    object QryProdutoCODIGO: TStringField
+      FieldName = 'CODIGO'
+      Origin = 'COD'
+      Size = 10
+    end
+    object QryProdutoDESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      Size = 100
+    end
+    object QryProdutoGRUPO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'GRUPO'
+      Origin = 'DESCRI'
+      ProviderFlags = []
+      Size = 30
+    end
+    object QryProdutoFABRICANTE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'FABRICANTE'
+      Origin = 'NOME'
+      ProviderFlags = []
+      Size = 50
+    end
+    object QryProdutoQTDE: TBCDField
+      FieldName = 'QTDE'
+      Origin = 'QTDE'
+      Precision = 18
+      Size = 3
+    end
+    object QryProdutoESTOQUE_ALMOX: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'ESTOQUE_ALMOX'
+      Origin = 'ESTOQUE_ALMOX'
+      ProviderFlags = []
+      Precision = 18
+      Size = 6
+    end
+    object QryProdutoUNP_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UNP_DESCRICAO'
+      Origin = 'UNP_DESCRICAO'
+      ProviderFlags = []
+      Size = 50
+    end
+    object QryProdutoUNP_SIGLA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UNP_SIGLA'
+      Origin = 'UNP_SIGLA'
+      ProviderFlags = []
+      Size = 5
+    end
+    object QryProdutoDATA_ULTIMA_COMPRA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_ULTIMA_COMPRA'
+      Origin = 'DATA_ULTIMA_COMPRA'
+      ProviderFlags = []
+    end
+    object QryProdutoDATA_ULTIMA_VENDA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_ULTIMA_VENDA'
+      Origin = 'DATA_ULTIMA_VENDA'
+      ProviderFlags = []
+    end
+    object QryProdutoCOMPRA_QTDE_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_01'
+      Origin = 'COMPRA_QTDE_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoCOMPRA_VALOR_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_01'
+      Origin = 'COMPRA_VALOR_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoVENDA_QTDE_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_01'
+      Origin = 'VENDA_QTDE_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoVENDA_VALOR_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_01'
+      Origin = 'VENDA_VALOR_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoCOMPRA_QTDE_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_03'
+      Origin = 'COMPRA_QTDE_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoCOMPRA_VALOR_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_03'
+      Origin = 'COMPRA_VALOR_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoVENDA_QTDE_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_03'
+      Origin = 'VENDA_QTDE_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoVENDA_VALOR_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_03'
+      Origin = 'VENDA_VALOR_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoCOMPRA_QTDE_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_06'
+      Origin = 'COMPRA_QTDE_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoCOMPRA_VALOR_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_06'
+      Origin = 'COMPRA_VALOR_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoVENDA_QTDE_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_06'
+      Origin = 'VENDA_QTDE_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoVENDA_VALOR_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_06'
+      Origin = 'VENDA_VALOR_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoCOMPRA_QTDE_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_09'
+      Origin = 'COMPRA_QTDE_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoCOMPRA_VALOR_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_09'
+      Origin = 'COMPRA_VALOR_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoVENDA_QTDE_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_09'
+      Origin = 'VENDA_QTDE_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoVENDA_VALOR_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_09'
+      Origin = 'VENDA_VALOR_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoCOMPRA_QTDE_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_12'
+      Origin = 'COMPRA_QTDE_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoCOMPRA_VALOR_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_12'
+      Origin = 'COMPRA_VALOR_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoVENDA_QTDE_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_12'
+      Origin = 'VENDA_QTDE_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoVENDA_VALOR_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_12'
+      Origin = 'VENDA_VALOR_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoCOMPRA_QTDE_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_99'
+      Origin = 'COMPRA_QTDE_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoCOMPRA_VALOR_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_99'
+      Origin = 'COMPRA_VALOR_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoVENDA_QTDE_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_99'
+      Origin = 'VENDA_QTDE_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoVENDA_VALOR_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_99'
+      Origin = 'VENDA_VALOR_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryProdutoMOVIMENTADO: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'MOVIMENTADO'
+      Origin = 'MOVIMENTADO'
+      ProviderFlags = []
+    end
+    object QryProdutoPROCESSO_DATA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROCESSO_DATA'
+      Origin = 'PROCESSO_DATA'
+      ProviderFlags = []
+    end
+    object QryProdutoPROCESSO_HORA: TTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROCESSO_HORA'
+      Origin = 'PROCESSO_HORA'
+      ProviderFlags = []
+    end
+    object QryProdutoPROCESSO_USUARIO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PROCESSO_USUARIO'
+      Origin = 'PROCESSO_USUARIO'
+      ProviderFlags = []
+      Size = 50
+    end
+  end
+  object QryGrupo: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'select'
+      '    p.codgrupo as Codigo'
+      '  , coalesce(g.descri, '#39'* A Definir'#39') as descricao'
+      '  , sum( coalesce(p.qtde, 0) ) as qtde'
+      '  , sum( coalesce(ep.estoque_almox, 0) ) as estoque_almox'
+      '  , count( p.cod ) as itens'
+      '  , count( ep.produto ) as itens_almox'
+      '  , max( r.data_ultima_compra ) as data_ultima_compra'
+      '  , max( r.data_ultima_venda  ) as data_ultima_venda'
+      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
+      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
+      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
+      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
+      '  , sum( coalesce(r.compra_qtde_03, 0) )  as compra_qtde_03'
+      '  , sum( coalesce(r.compra_valor_03, 0) ) as compra_valor_03'
+      '  , sum( coalesce(r.venda_qtde_03, 0) )   as venda_qtde_03'
+      '  , sum( coalesce(r.venda_valor_03, 0) )  as venda_valor_03'
+      '  , sum( coalesce(r.compra_qtde_06, 0) )  as compra_qtde_06'
+      '  , sum( coalesce(r.compra_valor_06, 0) ) as compra_valor_06'
+      '  , sum( coalesce(r.venda_qtde_06, 0) )   as venda_qtde_06'
+      '  , sum( coalesce(r.venda_valor_06, 0) )  as venda_valor_06'
+      '  , sum( coalesce(r.compra_qtde_09, 0) )  as compra_qtde_09'
+      '  , sum( coalesce(r.compra_valor_09, 0) ) as compra_valor_09'
+      '  , sum( coalesce(r.venda_qtde_09, 0) )   as venda_qtde_09'
+      '  , sum( coalesce(r.venda_valor_09, 0) )  as venda_valor_09'
+      '  , sum( coalesce(r.compra_qtde_12, 0) )  as compra_qtde_12'
+      '  , sum( coalesce(r.compra_valor_12, 0) ) as compra_valor_12'
+      '  , sum( coalesce(r.venda_qtde_12, 0) )   as venda_qtde_12'
+      '  , sum( coalesce(r.venda_valor_12, 0) )  as venda_valor_12'
+      '  , sum( coalesce(r.compra_qtde_99, 0) )  as compra_qtde_99'
+      '  , sum( coalesce(r.compra_valor_99, 0) ) as compra_valor_99'
+      '  , sum( coalesce(r.venda_qtde_99, 0) )   as venda_qtde_99'
+      '  , sum( coalesce(r.venda_valor_99, 0) )  as venda_valor_99'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq01'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv01'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq01'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv01'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq03'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv03'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq03'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv03'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq06'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv06'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq06'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv06'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq09'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv09'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq09'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv09'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq12'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv12'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq12'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv12'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq99'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv99'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq99'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv99'
+      'from TBPRODUTO p'
+      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      '  left join ('
+      '    Select'
+      '        e.produto'
+      
+        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as' +
+        ' estoque_almox'
+      '    from TBESTOQUE_ALMOX e'
+      
+        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo ' +
+        'and c.codcliente is null)'
+      '    where 0=0'
+      '      and e.qtde > 0'
+      '    group by'
+      '       e.produto'
+      '  ) ep on (ep.produto = p.cod)'
+      ''
+      'where 1=1'
+      ''
+      'group by 1, 2'
+      ''
+      'order by 2')
+    Left = 24
+    Top = 280
+    object QryGrupoCODIGO: TSmallintField
+      FieldName = 'CODIGO'
+      Origin = 'CODGRUPO'
+    end
+    object QryGrupoDESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      Size = 30
+    end
+    object QryGrupoQTDE: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'QTDE'
+      Origin = 'QTDE'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
+    object QryGrupoESTOQUE_ALMOX: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'ESTOQUE_ALMOX'
+      Origin = 'ESTOQUE_ALMOX'
+      ProviderFlags = []
+      Precision = 18
+      Size = 6
+    end
+    object QryGrupoITENS: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ITENS'
+      Origin = 'ITENS'
+      ProviderFlags = []
+    end
+    object QryGrupoITENS_ALMOX: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ITENS_ALMOX'
+      Origin = 'ITENS_ALMOX'
+      ProviderFlags = []
+    end
+    object QryGrupoDATA_ULTIMA_COMPRA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_ULTIMA_COMPRA'
+      Origin = 'DATA_ULTIMA_COMPRA'
+      ProviderFlags = []
+    end
+    object QryGrupoDATA_ULTIMA_VENDA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_ULTIMA_VENDA'
+      Origin = 'DATA_ULTIMA_VENDA'
+      ProviderFlags = []
+    end
+    object QryGrupoCOMPRA_QTDE_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_01'
+      Origin = 'COMPRA_QTDE_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoCOMPRA_VALOR_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_01'
+      Origin = 'COMPRA_VALOR_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoVENDA_QTDE_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_01'
+      Origin = 'VENDA_QTDE_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoVENDA_VALOR_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_01'
+      Origin = 'VENDA_VALOR_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoCOMPRA_QTDE_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_03'
+      Origin = 'COMPRA_QTDE_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoCOMPRA_VALOR_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_03'
+      Origin = 'COMPRA_VALOR_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoVENDA_QTDE_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_03'
+      Origin = 'VENDA_QTDE_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoVENDA_VALOR_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_03'
+      Origin = 'VENDA_VALOR_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoCOMPRA_QTDE_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_06'
+      Origin = 'COMPRA_QTDE_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoCOMPRA_VALOR_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_06'
+      Origin = 'COMPRA_VALOR_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoVENDA_QTDE_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_06'
+      Origin = 'VENDA_QTDE_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoVENDA_VALOR_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_06'
+      Origin = 'VENDA_VALOR_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoCOMPRA_QTDE_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_09'
+      Origin = 'COMPRA_QTDE_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoCOMPRA_VALOR_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_09'
+      Origin = 'COMPRA_VALOR_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoVENDA_QTDE_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_09'
+      Origin = 'VENDA_QTDE_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoVENDA_VALOR_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_09'
+      Origin = 'VENDA_VALOR_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoCOMPRA_QTDE_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_12'
+      Origin = 'COMPRA_QTDE_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoCOMPRA_VALOR_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_12'
+      Origin = 'COMPRA_VALOR_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoVENDA_QTDE_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_12'
+      Origin = 'VENDA_QTDE_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoVENDA_VALOR_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_12'
+      Origin = 'VENDA_VALOR_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoCOMPRA_QTDE_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_99'
+      Origin = 'COMPRA_QTDE_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoCOMPRA_VALOR_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_99'
+      Origin = 'COMPRA_VALOR_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoVENDA_QTDE_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_99'
+      Origin = 'VENDA_QTDE_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoVENDA_VALOR_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_99'
+      Origin = 'VENDA_VALOR_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_CQ01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CQ01'
+      Origin = 'PERCENT_CQ01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_CV01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CV01'
+      Origin = 'PERCENT_CV01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_VQ01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VQ01'
+      Origin = 'PERCENT_VQ01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_VV01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VV01'
+      Origin = 'PERCENT_VV01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_CQ03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CQ03'
+      Origin = 'PERCENT_CQ03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_CV03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CV03'
+      Origin = 'PERCENT_CV03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_VQ03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VQ03'
+      Origin = 'PERCENT_VQ03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_VV03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VV03'
+      Origin = 'PERCENT_VV03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_CQ06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CQ06'
+      Origin = 'PERCENT_CQ06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_CV06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CV06'
+      Origin = 'PERCENT_CV06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_VQ06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VQ06'
+      Origin = 'PERCENT_VQ06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_VV06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VV06'
+      Origin = 'PERCENT_VV06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_CQ09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CQ09'
+      Origin = 'PERCENT_CQ09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_CV09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CV09'
+      Origin = 'PERCENT_CV09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_VQ09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VQ09'
+      Origin = 'PERCENT_VQ09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_VV09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VV09'
+      Origin = 'PERCENT_VV09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_CQ12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CQ12'
+      Origin = 'PERCENT_CQ12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_CV12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CV12'
+      Origin = 'PERCENT_CV12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_VQ12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VQ12'
+      Origin = 'PERCENT_VQ12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_VV12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VV12'
+      Origin = 'PERCENT_VV12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_CQ99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CQ99'
+      Origin = 'PERCENT_CQ99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_CV99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CV99'
+      Origin = 'PERCENT_CV99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_VQ99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VQ99'
+      Origin = 'PERCENT_VQ99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryGrupoPERCENT_VV99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VV99'
+      Origin = 'PERCENT_VV99'
+      ProviderFlags = []
+      Precision = 18
+    end
+  end
+  object QryFabricante: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    p.codfabricante as Codigo'
+      '  , coalesce(f.nome, '#39'* A Definir'#39') as descricao'
+      '  , sum( coalesce(p.qtde, 0) ) as qtde'
+      '  , sum( coalesce(ep.estoque_almox, 0) ) as estoque_almox'
+      '  , count( p.cod ) as itens'
+      '  , count( ep.produto ) as itens_almox'
+      '  , max( r.data_ultima_compra ) as data_ultima_compra'
+      '  , max( r.data_ultima_venda  ) as data_ultima_venda'
+      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
+      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
+      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
+      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
+      '  , sum( coalesce(r.compra_qtde_03, 0) )  as compra_qtde_03'
+      '  , sum( coalesce(r.compra_valor_03, 0) ) as compra_valor_03'
+      '  , sum( coalesce(r.venda_qtde_03, 0) )   as venda_qtde_03'
+      '  , sum( coalesce(r.venda_valor_03, 0) )  as venda_valor_03'
+      '  , sum( coalesce(r.compra_qtde_06, 0) )  as compra_qtde_06'
+      '  , sum( coalesce(r.compra_valor_06, 0) ) as compra_valor_06'
+      '  , sum( coalesce(r.venda_qtde_06, 0) )   as venda_qtde_06'
+      '  , sum( coalesce(r.venda_valor_06, 0) )  as venda_valor_06'
+      '  , sum( coalesce(r.compra_qtde_09, 0) )  as compra_qtde_09'
+      '  , sum( coalesce(r.compra_valor_09, 0) ) as compra_valor_09'
+      '  , sum( coalesce(r.venda_qtde_09, 0) )   as venda_qtde_09'
+      '  , sum( coalesce(r.venda_valor_09, 0) )  as venda_valor_09'
+      '  , sum( coalesce(r.compra_qtde_12, 0) )  as compra_qtde_12'
+      '  , sum( coalesce(r.compra_valor_12, 0) ) as compra_valor_12'
+      '  , sum( coalesce(r.venda_qtde_12, 0) )   as venda_qtde_12'
+      '  , sum( coalesce(r.venda_valor_12, 0) )  as venda_valor_12'
+      '  , sum( coalesce(r.compra_qtde_99, 0) )  as compra_qtde_99'
+      '  , sum( coalesce(r.compra_valor_99, 0) ) as compra_valor_99'
+      '  , sum( coalesce(r.venda_qtde_99, 0) )   as venda_qtde_99'
+      '  , sum( coalesce(r.venda_valor_99, 0) )  as venda_valor_99'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq01'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv01'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq01'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv01'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq03'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv03'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq03'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv03'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq06'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv06'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq06'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv06'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq09'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv09'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq09'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv09'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq12'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv12'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq12'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv12'
+      '  , cast(0.0 as numeric(18,4)) as percent_cq99'
+      '  , cast(0.0 as numeric(18,4)) as percent_cv99'
+      '  , cast(0.0 as numeric(18,4)) as percent_vq99'
+      '  , cast(0.0 as numeric(18,4)) as percent_vv99'
+      'from TBPRODUTO p'
+      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      '  left join ('
+      '    Select'
+      '        e.produto'
+      
+        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as' +
+        ' estoque_almox'
+      '    from TBESTOQUE_ALMOX e'
+      
+        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo ' +
+        'and c.codcliente is null)'
+      '    where 0=0'
+      '      and e.qtde > 0'
+      '    group by'
+      '       e.produto'
+      '  ) ep on (ep.produto = p.cod)'
+      ''
+      'where 1=1'
+      ''
+      'group by 1, 2'
+      ''
+      'order by 2')
+    Left = 24
+    Top = 312
+    object QryFabricanteCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = 'CODFABRICANTE'
+    end
+    object QryFabricanteDESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      Size = 50
+    end
+    object QryFabricanteQTDE: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'QTDE'
+      Origin = 'QTDE'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
+    object QryFabricanteESTOQUE_ALMOX: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'ESTOQUE_ALMOX'
+      Origin = 'ESTOQUE_ALMOX'
+      ProviderFlags = []
+      Precision = 18
+      Size = 6
+    end
+    object QryFabricanteITENS: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ITENS'
+      Origin = 'ITENS'
+      ProviderFlags = []
+    end
+    object QryFabricanteITENS_ALMOX: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ITENS_ALMOX'
+      Origin = 'ITENS_ALMOX'
+      ProviderFlags = []
+    end
+    object QryFabricanteDATA_ULTIMA_COMPRA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_ULTIMA_COMPRA'
+      Origin = 'DATA_ULTIMA_COMPRA'
+      ProviderFlags = []
+    end
+    object QryFabricanteDATA_ULTIMA_VENDA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_ULTIMA_VENDA'
+      Origin = 'DATA_ULTIMA_VENDA'
+      ProviderFlags = []
+    end
+    object QryFabricanteCOMPRA_QTDE_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_01'
+      Origin = 'COMPRA_QTDE_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteCOMPRA_VALOR_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_01'
+      Origin = 'COMPRA_VALOR_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteVENDA_QTDE_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_01'
+      Origin = 'VENDA_QTDE_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteVENDA_VALOR_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_01'
+      Origin = 'VENDA_VALOR_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteCOMPRA_QTDE_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_03'
+      Origin = 'COMPRA_QTDE_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteCOMPRA_VALOR_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_03'
+      Origin = 'COMPRA_VALOR_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteVENDA_QTDE_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_03'
+      Origin = 'VENDA_QTDE_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteVENDA_VALOR_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_03'
+      Origin = 'VENDA_VALOR_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteCOMPRA_QTDE_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_06'
+      Origin = 'COMPRA_QTDE_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteCOMPRA_VALOR_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_06'
+      Origin = 'COMPRA_VALOR_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteVENDA_QTDE_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_06'
+      Origin = 'VENDA_QTDE_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteVENDA_VALOR_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_06'
+      Origin = 'VENDA_VALOR_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteCOMPRA_QTDE_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_09'
+      Origin = 'COMPRA_QTDE_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteCOMPRA_VALOR_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_09'
+      Origin = 'COMPRA_VALOR_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteVENDA_QTDE_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_09'
+      Origin = 'VENDA_QTDE_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteVENDA_VALOR_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_09'
+      Origin = 'VENDA_VALOR_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteCOMPRA_QTDE_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_12'
+      Origin = 'COMPRA_QTDE_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteCOMPRA_VALOR_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_12'
+      Origin = 'COMPRA_VALOR_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteVENDA_QTDE_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_12'
+      Origin = 'VENDA_QTDE_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteVENDA_VALOR_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_12'
+      Origin = 'VENDA_VALOR_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteCOMPRA_QTDE_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_99'
+      Origin = 'COMPRA_QTDE_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteCOMPRA_VALOR_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_99'
+      Origin = 'COMPRA_VALOR_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteVENDA_QTDE_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_99'
+      Origin = 'VENDA_QTDE_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricanteVENDA_VALOR_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_99'
+      Origin = 'VENDA_VALOR_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_CQ01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CQ01'
+      Origin = 'PERCENT_CQ01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_CV01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CV01'
+      Origin = 'PERCENT_CV01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_VQ01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VQ01'
+      Origin = 'PERCENT_VQ01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_VV01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VV01'
+      Origin = 'PERCENT_VV01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_CQ03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CQ03'
+      Origin = 'PERCENT_CQ03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_CV03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CV03'
+      Origin = 'PERCENT_CV03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_VQ03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VQ03'
+      Origin = 'PERCENT_VQ03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_VV03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VV03'
+      Origin = 'PERCENT_VV03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_CQ06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CQ06'
+      Origin = 'PERCENT_CQ06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_CV06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CV06'
+      Origin = 'PERCENT_CV06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_VQ06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VQ06'
+      Origin = 'PERCENT_VQ06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_VV06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VV06'
+      Origin = 'PERCENT_VV06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_CQ09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CQ09'
+      Origin = 'PERCENT_CQ09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_CV09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CV09'
+      Origin = 'PERCENT_CV09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_VQ09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VQ09'
+      Origin = 'PERCENT_VQ09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_VV09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VV09'
+      Origin = 'PERCENT_VV09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_CQ12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CQ12'
+      Origin = 'PERCENT_CQ12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_CV12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CV12'
+      Origin = 'PERCENT_CV12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_VQ12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VQ12'
+      Origin = 'PERCENT_VQ12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_VV12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VV12'
+      Origin = 'PERCENT_VV12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_CQ99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CQ99'
+      Origin = 'PERCENT_CQ99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_CV99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_CV99'
+      Origin = 'PERCENT_CV99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_VQ99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VQ99'
+      Origin = 'PERCENT_VQ99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryFabricantePERCENT_VV99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENT_VV99'
+      Origin = 'PERCENT_VV99'
+      ProviderFlags = []
+      Precision = 18
+    end
+  end
+  object QryTotal: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'select'
+      '    sum( coalesce(p.qtde, 0) ) as qtde'
+      '  , sum( coalesce(ep.estoque_almox, 0) ) as estoque_almox'
+      '  , count( p.cod ) as itens'
+      '  , count( ep.produto ) as itens_almox'
+      '  , max( r.data_ultima_compra ) as data_ultima_compra'
+      '  , max( r.data_ultima_venda  ) as data_ultima_venda'
+      '  , sum( coalesce(r.compra_qtde_01, 0) )  as compra_qtde_01'
+      '  , sum( coalesce(r.compra_valor_01, 0) ) as compra_valor_01'
+      '  , sum( coalesce(r.venda_qtde_01, 0) )   as venda_qtde_01'
+      '  , sum( coalesce(r.venda_valor_01, 0) )  as venda_valor_01'
+      '  , sum( coalesce(r.compra_qtde_03, 0) )  as compra_qtde_03'
+      '  , sum( coalesce(r.compra_valor_03, 0) ) as compra_valor_03'
+      '  , sum( coalesce(r.venda_qtde_03, 0) )   as venda_qtde_03'
+      '  , sum( coalesce(r.venda_valor_03, 0) )  as venda_valor_03'
+      '  , sum( coalesce(r.compra_qtde_06, 0) )  as compra_qtde_06'
+      '  , sum( coalesce(r.compra_valor_06, 0) ) as compra_valor_06'
+      '  , sum( coalesce(r.venda_qtde_06, 0) )   as venda_qtde_06'
+      '  , sum( coalesce(r.venda_valor_06, 0) )  as venda_valor_06'
+      '  , sum( coalesce(r.compra_qtde_09, 0) )  as compra_qtde_09'
+      '  , sum( coalesce(r.compra_valor_09, 0) ) as compra_valor_09'
+      '  , sum( coalesce(r.venda_qtde_09, 0) )   as venda_qtde_09'
+      '  , sum( coalesce(r.venda_valor_09, 0) )  as venda_valor_09'
+      '  , sum( coalesce(r.compra_qtde_12, 0) )  as compra_qtde_12'
+      '  , sum( coalesce(r.compra_valor_12, 0) ) as compra_valor_12'
+      '  , sum( coalesce(r.venda_qtde_12, 0) )   as venda_qtde_12'
+      '  , sum( coalesce(r.venda_valor_12, 0) )  as venda_valor_12'
+      '  , sum( coalesce(r.compra_qtde_99, 0) )  as compra_qtde_99'
+      '  , sum( coalesce(r.compra_valor_99, 0) ) as compra_valor_99'
+      '  , sum( coalesce(r.venda_qtde_99, 0) )   as venda_qtde_99'
+      '  , sum( coalesce(r.venda_valor_99, 0) )  as venda_valor_99'
+      'from TBPRODUTO p'
+      '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
+      '  left join ('
+      '    Select'
+      '        e.produto'
+      
+        '      , sum( e.qtde / coalesce(nullif(e.fracionador, 0), 1) ) as' +
+        ' estoque_almox'
+      '    from TBESTOQUE_ALMOX e'
+      
+        '      inner join TBCENTRO_CUSTO c on (c.codigo = e.centro_custo ' +
+        'and c.codcliente is null)'
+      '    where 0=0'
+      '      and e.qtde > 0'
+      '    group by'
+      '       e.produto'
+      '  ) ep on (ep.produto = p.cod)'
+      ''
+      'where 1=1')
+    Left = 24
+    Top = 352
   end
 end

@@ -11,15 +11,20 @@ uses
   cxControls, cxStyles, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxEdit, DB, cxDBData, StdCtrls, IdIOHandler,
   IdIOHandlerSocket, IdSSLOpenSSL, IdMessage, IdBaseComponent, IdComponent,
-  IdTCPConnection, IdTCPClient, IdMessageClient, IdSMTP, IBStoredProc,
-  DBClient, Provider, IBCustomDataSet, IBQuery, DBCtrls, Gauges, ToolWin,
+  IdTCPConnection, IdTCPClient, IdMessageClient, IdSMTP,
+  DBClient, Provider, DBCtrls, Gauges, ToolWin,
   cxGridLevel, cxGridCustomTableView, cxGridTableView,
   cxGridBandedTableView, cxGridDBBandedTableView, cxClasses,
   cxGridCustomView, cxGrid, Buttons, cxLookAndFeels, cxButtons,
   cxNavigator, IdExplicitTLSClientServerBase, IdSMTPBase,
 
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client,
+
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TFrmGeProdutoEstoqueMinimo = class(TfrmGrPadrao)
@@ -31,15 +36,12 @@ type
     edTipoFiltro: TComboBox;
     Bevel1: TBevel;
     Bevel3: TBevel;
-    QryProduto: TIBQuery;
     DspProduto: TDataSetProvider;
     CdsProduto: TClientDataSet;
     dsProduto: TDataSource;
-    QryGrupo: TIBQuery;
     DspGrupo: TDataSetProvider;
     CdsGrupo: TClientDataSet;
     dsGrupo: TDataSource;
-    QryFabricante: TIBQuery;
     DspFabricante: TDataSetProvider;
     CdsFabricante: TClientDataSet;
     dsFabricante: TDataSource;
@@ -98,7 +100,6 @@ type
     svdArquivo: TSaveDialog;
     smtpEmail: TIdSMTP;
     msgEmail: TIdMessage;
-    QryTotal: TIBQuery;
     DspTotal: TDataSetProvider;
     CdsTotal: TClientDataSet;
     dsTotal: TDataSource;
@@ -157,16 +158,20 @@ type
     btBtnExportar: TcxButton;
     btBtnEnviarEmail: TcxButton;
     BtnPesquisar: TcxButton;
-    CdsGrupoDESCRICAO: TWideStringField;
-    CdsFabricanteDESCRICAO: TWideStringField;
-    CdsProdutoCODEMP: TWideStringField;
-    CdsProdutoCOD: TWideStringField;
-    CdsProdutoDESCRI: TWideStringField;
-    CdsProdutoAPRESENTACAO: TWideStringField;
-    CdsProdutoDESCRI_APRESENTACAO: TWideStringField;
-    CdsProdutoGRUPO: TWideStringField;
-    CdsProdutoFABRICANTE: TWideStringField;
-    CdsProdutoUNIDADE: TWideStringField;
+    QryGrupo: TFDQuery;
+    CdsGrupoDESCRICAO: TStringField;
+    QryFabricante: TFDQuery;
+    CdsFabricanteDESCRICAO: TStringField;
+    QryProduto: TFDQuery;
+    QryTotal: TFDQuery;
+    CdsProdutoCODEMP: TStringField;
+    CdsProdutoCOD: TStringField;
+    CdsProdutoDESCRI: TStringField;
+    CdsProdutoAPRESENTACAO: TStringField;
+    CdsProdutoDESCRI_APRESENTACAO: TStringField;
+    CdsProdutoGRUPO: TStringField;
+    CdsProdutoFABRICANTE: TStringField;
+    CdsProdutoUNIDADE: TStringField;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;

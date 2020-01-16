@@ -1,28 +1,28 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas',0,1,2593,103,2594,0,0,,
-File_1=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,3224,3,3251,0,0,,
-File_2=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoqueGerarNFe.pas',0,1,347,52,387,0,0,,
-File_3=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeCliente.pas',0,1,1,1,1,0,0,,
-File_4=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeFornecedor.pas',0,1,1,1,1,0,0,,
-File_5=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeCaixa.pas',0,1,280,1,291,0,0,,{1
-File_6=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeContasAPagar.pas',0,1,588,96,592,0,0,,
-File_7=TSourceModule,'c:\delphi\tokyo\studio\19.0\SOURCE\RTL\SYS\System.SysUtils.pas',0,1,25968,71,25973,0,0,,
-File_8=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeContasAPagarAReceberImpressao.pas',0,1,1,1,1,0,0,,
-File_9=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderUpgradeMsg.pas',0,1,1,1,1,0,0,,
-File_10=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderWizard.pas',0,1,128,3,174,0,0,,
-File_11=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgrader.pas',0,1,992,93,999,0,0,,
-File_12=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrAutoUpgrade.pas',0,1,144,1,182,0,0,,
-File_13=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderUpgradeMsg.dfm',0,1,1,1,1,0,0,,
-File_14=TSourceModule,'C:\Delphi\AutoUpgrade\Sources\auAutoUpgraderWizard.dfm',0,1,1,1,1,0,0,,
+File_0=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVendaItemPesquisa.pas',0,1,1,1,14,0,0,,
+File_1=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeProdutoRotatividadePRC.pas',0,1,1073,1,1090,0,0,,
+File_2=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeProdutoEstoqueMinimo.pas',0,1,217,23,231,0,0,,
+File_3=TSourceModule,'c:\delphi\tokyo\studio\19.0\source\data\Data.DB.pas',0,1,3267,90,3276,0,0,,
+File_4=TSourceModule,'c:\delphi\tokyo\studio\19.0\SOURCE\IBX\IBX.IB.pas',0,1,420,92,424,0,0,,
+File_5=TSourceModule,'c:\delphi\tokyo\studio\19.0\SOURCE\VCL\Vcl.Controls.pas',0,1,9881,86,9900,0,0,,
+File_6=TSourceModule,'c:\delphi\tokyo\studio\19.0\source\data\dsnap\Datasnap.DBClient.pas',0,1,1304,94,1309,0,0,,
+File_7=TSourceModule,'c:\delphi\tokyo\studio\19.0\source\data\firedac\FireDAC.Stan.Error.pas',0,1,162,85,166,0,0,,
+File_8=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas',0,1,2593,103,2594,0,0,,
+File_9=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,3224,3,3251,0,0,,
+File_10=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoqueGerarNFe.pas',0,1,347,52,387,0,0,,
+File_11=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeCliente.pas',0,1,1,1,1,0,0,,
+File_12=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeFornecedor.pas',0,1,1,1,1,0,0,,
+File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeCaixa.pas',0,1,280,1,291,0,0,,{1
+File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeContasAPagar.pas',0,1,588,96,592,0,0,,
 
 [Modules]
-Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module3=default.htm
-Module4=documentation.htm
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
+Module2=default.htm
+Module3=documentation.htm
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
 Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
 Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
@@ -32,13 +32,10 @@ Module12=C:\Delphi\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
 Count=13
 EditWindowCount=1
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas]
-ModuleType=TSourceModule
-
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas]
 ModuleType=TSourceModule
 
 [default.htm]
@@ -51,6 +48,9 @@ ModuleType=TURLModule
 ModuleType=TBaseProject
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas]
@@ -73,7 +73,7 @@ ModuleType=TSourceModule
 
 [EditWindow0]
 ViewCount=13
-CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
+CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
 View0=0
 View1=1
 View2=2
@@ -105,13 +105,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=00000800010100000000181000000000000001680700000000000001000000005C0E000009000000446F636B536974653301000000009C1C00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=00000800010100000000371000000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000D41C00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=00000800010100000000181000000000000001D00700000000000001000000004412000009000000446F636B536974653201000000009C1C000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=1509
+RightPanelData=00000800010100000000371000000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000D41C000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=1454
 BottomPanelClients=MessageView,DockSite1
-BottomPanelData=0000080001020100000009000000446F636B5369746531974500000000000002E5050000000000000100000000974500000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B5369746531974500000000000002AE050000000000000100000000974500000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -166,7 +166,7 @@ TopLine=1391
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+EditViewName=Borland.FormDesignerView
 
 [View6]
 CustomEditViewType=TEditView
@@ -237,9 +237,9 @@ EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.
 [View12]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
-CursorX=46
-CursorY=307
-TopLine=284
+CursorX=1
+CursorY=31
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -353,12 +353,12 @@ State=0
 Left=0
 Top=18
 Width=10021
-Height=1394
+Height=1337
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=10021
-ClientHeight=1394
-TBDockHeight=1394
+ClientHeight=1337
+TBDockHeight=1337
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -372,11 +372,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=2577
+Height=2635
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2577
+ClientHeight=2635
 TBDockHeight=7154
 LRDockWidth=2000
 Dockable=1
@@ -409,14 +409,14 @@ Docked=0
 State=0
 Left=0
 Top=0
-Width=1375
-Height=4933
+Width=1932
+Height=7029
 MaxLeft=-5
 MaxTop=-10
-ClientWidth=1292
-ClientHeight=4558
-TBDockHeight=4933
-LRDockWidth=1375
+ClientWidth=1849
+ClientHeight=6654
+TBDockHeight=7029
+LRDockWidth=1932
 Dockable=1
 StayOnTop=0
 
@@ -429,12 +429,12 @@ State=0
 Left=0
 Top=415
 Width=1896
-Height=3615
+Height=3673
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=3615
-TBDockHeight=9010
+ClientHeight=3673
+TBDockHeight=9058
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
@@ -442,8 +442,8 @@ SplitPos=111
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem="LiveBindings Designer",
-ExpandedItems="LiveBindings Designer=0"
+SelectedItem=Connected,AfterCommit
+ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0,StyleElements=0,Touch=0,BevelEdges=0,Font=0,Colors=0,ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,"LiveBindings Designer=0",Params=0,ResourceOptions=0,Transaction=0,TxOptions=0,UpdateOptions=0,UpdateTransaction=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -938,7 +938,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=3606
-TBDockHeight=9010
+TBDockHeight=9058
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
@@ -957,11 +957,11 @@ State=0
 Left=0
 Top=523
 Width=2000
-Height=2577
+Height=2635
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2577
+ClientHeight=2635
 TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1
