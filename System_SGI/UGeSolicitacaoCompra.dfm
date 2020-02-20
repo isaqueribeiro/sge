@@ -4,6 +4,7 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
   Caption = 'Controle p/ Solicita'#231#227'o de Compra/Servi'#231'o'
   ClientHeight = 685
   ClientWidth = 1116
+  ExplicitLeft = -62
   ExplicitWidth = 1132
   ExplicitHeight = 724
   PixelsPerInch = 96
@@ -27,8 +28,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -643,10 +642,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           object TbsSolicitacaoMotivo: TTabSheet
             Caption = 'Motivo da Solicita'#231#227'o'
             ImageIndex = 3
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMotivo: TDBMemo
               Left = 0
               Top = 0
@@ -668,10 +663,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           object TbsSolicitacaoObservacao: TTabSheet
             Caption = 'Observa'#231#245'es Gerais'
             ImageIndex = 1
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbObservacao: TDBMemo
               Left = 0
               Top = 0
@@ -693,10 +684,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           object TbsSolicitacaoCancelado: TTabSheet
             Caption = 'Motivo do Cancelamento'
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -1878,8 +1865,8 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
       '  left join TBCENTRO_CUSTO c on (c.codigo = s.centro_custo)')
     GeneratorField.Field = 'CODIGO'
     GeneratorField.Generator = 'GEN_SOLICITACAO_2015'
-    Left = 680
-    Top = 432
+    Left = 704
+    Top = 8
     object IbDtstTabelaANO: TSmallintField
       DisplayLabel = 'Ano'
       FieldName = 'ANO'
@@ -2038,8 +2025,8 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
     end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 744
-    Top = 432
+    Left = 768
+    Top = 40
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -2130,14 +2117,14 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
       'where'
       '  ANO = :OLD_ANO and'
       '  CODIGO = :OLD_CODIGO')
-    Left = 712
-    Top = 432
+    Left = 736
+    Top = 8
   end
   inherited ImgList: TImageList
     Left = 896
     Top = 352
     Bitmap = {
-      494C01012F003100200010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012F003100240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000C0000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000004A5B
       6F004A5B6F004A5B6F004354680043546800435468003A4B5F003A4B5F003A4B
@@ -3728,6 +3715,14 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    Left = 704
+    Top = 40
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    Left = 736
+    Top = 40
+  end
   object tblEmpresa: TIBTable
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
@@ -3773,8 +3768,8 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
     ParamCheck = True
     UniDirectional = False
     UpdateObject = IbUpdTabelaItens
-    Left = 680
-    Top = 464
+    Left = 704
+    Top = 80
     object cdsTabelaItensANO: TSmallintField
       FieldName = 'ANO'
       Origin = '"TBSOLICITACAO_ITEM"."ANO"'
@@ -3902,15 +3897,15 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
       '  ANO = :OLD_ANO and'
       '  CODIGO = :OLD_CODIGO and'
       '  SEQ = :OLD_SEQ')
-    Left = 712
-    Top = 464
+    Left = 736
+    Top = 80
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
     DataSet = cdsTabelaItens
     OnStateChange = DtSrcTabelaItensStateChange
-    Left = 744
-    Top = 464
+    Left = 768
+    Top = 80
   end
   object ppImprimir: TPopupMenu
     Images = ImgList

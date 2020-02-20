@@ -29,6 +29,8 @@ inherited frmGeEquipamento: TfrmGeEquipamento
     ExplicitWidth = 999
     ExplicitHeight = 530
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 991
       ExplicitHeight = 501
       inherited Bevel4: TBevel
@@ -438,6 +440,7 @@ inherited frmGeEquipamento: TfrmGeEquipamento
     ExplicitWidth = 999
     inherited bvlTool3: TBevel
       Left = 796
+      ExplicitLeft = 796
     end
     inherited bvlTool4: TBevel
       Left = 995
@@ -445,6 +448,7 @@ inherited frmGeEquipamento: TfrmGeEquipamento
     end
     inherited btbtnFechar: TcxButton
       Left = 800
+      ExplicitLeft = 800
     end
     inherited btbtnSelecionar: TcxButton
       Left = 875
@@ -635,7 +639,7 @@ inherited frmGeEquipamento: TfrmGeEquipamento
   inherited ImgList: TImageList
     Top = 320
     Bitmap = {
-      494C01012B002C00540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

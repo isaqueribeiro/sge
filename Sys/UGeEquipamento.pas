@@ -17,7 +17,9 @@ uses
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Green, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, System.ImageList;
 
 type
   TEquipamentoCliente = record
@@ -308,12 +310,13 @@ procedure TfrmGeEquipamento.dbClienteButtonClick(Sender: TObject);
 var
   iCodigo : Integer;
   sCNPJ ,
+  sIE   ,
   sNome : String;
   bBloqueado : Boolean;
   sBloqueado : String;
 begin
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarCliente(Self, iCodigo, sCNPJ, sNome, bBloqueado, sBloqueado) ) then
+    if ( SelecionarCliente(Self, iCodigo, sCNPJ, sIE, sNome, bBloqueado, sBloqueado) ) then
     begin
       IbDtstTabelaCLIENTE.AsInteger := iCodigo;
       IbDtstTabelaCNPJ.AsString     := sCNPJ;

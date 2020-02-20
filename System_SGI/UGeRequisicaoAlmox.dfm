@@ -27,8 +27,6 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -638,10 +636,6 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           object TbsRequisicaoCancelado: TTabSheet
             Caption = 'Motivo do cancelamento'
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -2330,7 +2324,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       '  left join TBUSERS us on (us.nome = r.requisitante)')
     GeneratorField.Field = 'CONTROLE'
     GeneratorField.Generator = 'GEN_REQUISICAO_ALMOX_2015'
-    Top = 512
+    Top = 8
     object IbDtstTabelaANO: TSmallintField
       FieldName = 'ANO'
       Origin = '"TBREQUISICAO_ALMOX"."ANO"'
@@ -2510,8 +2504,8 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 688
-    Top = 512
+    Left = 704
+    Top = 8
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -2596,14 +2590,13 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       'where'
       '  ANO = :OLD_ANO and'
       '  CONTROLE = :OLD_CONTROLE')
-    Left = 656
-    Top = 512
+    Top = 8
   end
   inherited ImgList: TImageList
     Left = 912
     Top = 176
     Bitmap = {
-      494C01012B002C00580010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4062,6 +4055,12 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    Top = 40
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    Top = 40
+  end
   object tblEmpresa: TIBTable
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
@@ -4133,8 +4132,8 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     ParamCheck = True
     UniDirectional = False
     UpdateObject = IbUpdTabelaItens
-    Left = 624
-    Top = 544
+    Left = 640
+    Top = 72
     object cdsTabelaItensANO: TSmallintField
       FieldName = 'ANO'
       Origin = '"TBREQUISICAO_ALMOX_ITEM"."ANO"'
@@ -4351,16 +4350,16 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       '  ANO = :OLD_ANO and'
       '  CONTROLE = :OLD_CONTROLE and'
       '  ITEM = :OLD_ITEM')
-    Left = 656
-    Top = 544
+    Left = 672
+    Top = 72
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
     DataSet = cdsTabelaItens
     OnStateChange = DtSrcTabelaItensStateChange
     OnDataChange = DtSrcTabelaItensDataChange
-    Left = 688
-    Top = 544
+    Left = 704
+    Top = 72
   end
   object ppImprimir: TPopupMenu
     Images = ImgList

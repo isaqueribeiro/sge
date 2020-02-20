@@ -27,8 +27,6 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -678,10 +676,6 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
           object TbsRequisicaoObservacao: TTabSheet
             Caption = 'Observa'#231#245'es Gerais'
             ImageIndex = 1
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbObservacao: TDBMemo
               Left = 0
               Top = 0
@@ -703,10 +697,6 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
           object TbsRequisicaoCancelado: TTabSheet
             Caption = 'Motivo do Cancelamento'
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -1365,10 +1355,6 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
         object tbsRetirada: TTabSheet
           Caption = 'Dados de Retirada'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxRetirada: TGroupBox
             Left = 0
             Top = 0
@@ -2442,8 +2428,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       '  left join TBCENTRO_CUSTO u on (u.codigo = r.centro_custo)')
     GeneratorField.Field = 'NUMERO'
     GeneratorField.Generator = 'GEN_REQUISICAO_2013'
-    Left = 680
-    Top = 392
+    Top = 8
     object IbDtstTabelaANO: TSmallintField
       FieldName = 'ANO'
       Origin = '"TBREQUISITA_COMPRA"."ANO"'
@@ -2733,8 +2718,8 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
   end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
-    Left = 744
-    Top = 392
+    Left = 704
+    Top = 8
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -2868,14 +2853,13 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       '  ANO = :OLD_ANO and'
       '  CODIGO = :OLD_CODIGO and'
       '  EMPRESA = :OLD_EMPRESA')
-    Left = 712
-    Top = 392
+    Top = 8
   end
   inherited ImgList: TImageList
     Left = 912
     Top = 272
     Bitmap = {
-      494C01012B002C00380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4334,6 +4318,12 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    Top = 48
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    Top = 48
+  end
   object tblEmpresa: TIBTable
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
@@ -4384,8 +4374,8 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
     ParamCheck = True
     UniDirectional = False
     UpdateObject = IbUpdTabelaItens
-    Left = 680
-    Top = 424
+    Left = 640
+    Top = 80
     object cdsTabelaItensANO: TSmallintField
       FieldName = 'ANO'
       Origin = '"TBAUTORIZA_COMPRAITEM"."ANO"'
@@ -4567,16 +4557,16 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       '  CODIGO = :OLD_CODIGO and'
       '  EMPRESA = :OLD_EMPRESA and'
       '  SEQ = :OLD_SEQ')
-    Left = 712
-    Top = 424
+    Left = 672
+    Top = 80
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
     DataSet = cdsTabelaItens
     OnStateChange = DtSrcTabelaItensStateChange
     OnDataChange = DtSrcTabelaItensDataChange
-    Left = 744
-    Top = 424
+    Left = 704
+    Top = 80
   end
   object ppImprimir: TPopupMenu
     Images = ImgList

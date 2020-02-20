@@ -1,64 +1,84 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas',0,1,342,37,368,0,0,,
-File_1=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.dfm',0,1,1,1,1,0,0,,
-File_2=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',0,1,1,1,1,0,0,,
-File_3=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGI\UGeRequisicaoAlmoxMonitor.pas',0,1,301,1,321,0,0,,
-File_4=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeTipoDespesa.pas',0,1,197,62,225,0,0,,
-File_5=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGePlanoContas.pas',0,1,258,1,268,0,0,,
-File_6=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeResultadoExercicioImpressao.pas',0,1,218,3,222,0,0,,
-File_7=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixaImpressao.pas',0,1,29,1,1,0,0,,
-File_8=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixa.pas',0,1,486,1,515,0,0,,
-File_9=TSourceModule,'c:\program files (x86)\embarcadero\studio\15.0\source\data\firedac\FireDAC.Comp.Client.pas',0,1,6126,1,6141,0,0,,
-File_10=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeVendaGerarNFe.pas',0,1,364,92,318,0,0,,
-File_11=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoqueGerarNFe.pas',0,1,112,1,1,0,0,,
-File_12=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\lib\FuncoesFormulario.pas',0,1,1,1,136,0,0,,
-File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,2160,46,2178,0,0,,
-File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.dfm',0,1,1,1,1,0,0,,
+File_0=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeEquipamento.pas',0,1,291,55,319,0,0,,
+File_1=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeOS.pas',0,1,2205,19,2249,0,0,,
+File_2=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeCliente.pas',0,82,382,192,423,0,0,,
+File_3=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\SGI.vrc',0,1,45,1,72,0,0,,
+File_4=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas',0,1,342,37,368,0,0,,
+File_5=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.dfm',0,1,1,1,1,0,0,,
+File_6=TSourceModule,'D:\Projetos\ASS\SGE\trunk\System_SGI\UGeRequisicaoAlmoxMonitor.pas',0,1,301,1,321,0,0,,
+File_7=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeTipoDespesa.pas',0,1,197,62,225,0,0,,
+File_8=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGePlanoContas.pas',0,1,258,1,268,0,0,,
+File_9=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeResultadoExercicioImpressao.pas',0,1,218,3,222,0,0,,
+File_10=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixaImpressao.pas',0,1,29,1,1,0,0,,
+File_11=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixa.pas',0,1,486,1,515,0,0,,
+File_12=TSourceModule,'c:\program files (x86)\embarcadero\studio\15.0\source\data\firedac\FireDAC.Comp.Client.pas',0,1,6126,1,6141,0,0,,
+File_13=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeVendaGerarNFe.pas',0,1,364,92,318,0,0,,
+File_14=TSourceModule,'D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoqueGerarNFe.pas',0,1,112,1,1,0,0,,
 
 [Modules]
-Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompra.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
-Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCompra.pas
+Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixa.pas
+Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeInventario.pas
+Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCliente.pas
 Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeRequisicaoAlmox.pas
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCliente.pas
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeInventario.pas
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFSe.pas
-Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixa.pas
-Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeCotacaoCompra.pas
-Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeOS.pas
-Module12=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeContasAReceber.pas
-Module13=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeContasAPagar.pas
-Module14=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas
-Module15=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeAutorizacaoCompra.pas
-Module16=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeApropriacaoEstoque.pas
-Module17=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
-Module18=default.htm
-Module19=documentation.htm
-Module20=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
-Module21=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module22=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UEcfWindowsPrinter.pas
-Module23=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
-Count=24
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCompra.pas
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompra.pas
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeContasAReceber.pas
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeCotacaoCompra.pas
+Module9=default.htm
+Module10=documentation.htm
+Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
+Module12=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module13=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module14=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module15=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFSe.pas
+Module16=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeContasAPagar.pas
+Module17=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas
+Module18=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeAutorizacaoCompra.pas
+Module19=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeApropriacaoEstoque.pas
+Module20=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
+Module21=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UEcfWindowsPrinter.pas
+Module22=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Count=23
 EditWindowCount=1
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompra.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixa.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCompra.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeRequisicaoAlmox.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeInventario.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCliente.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeInventario.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeRequisicaoAlmox.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCompra.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompra.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeContasAReceber.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeCotacaoCompra.pas]
+ModuleType=TSourceModule
+
+[default.htm]
+ModuleType=TURLModule
+
+[documentation.htm]
+ModuleType=TURLModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj]
+ModuleType=TBaseProject
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
@@ -68,18 +88,6 @@ ModuleType=TSourceModule
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFSe.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixa.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeCotacaoCompra.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeOS.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeContasAReceber.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeContasAPagar.pas]
@@ -97,18 +105,6 @@ ModuleType=TSourceModule
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas]
 ModuleType=TSourceModule
 
-[default.htm]
-ModuleType=TURLModule
-
-[documentation.htm]
-ModuleType=TURLModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj]
-ModuleType=TBaseProject
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
-ModuleType=TSourceModule
-
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UEcfWindowsPrinter.pas]
 ModuleType=TSourceModule
 
@@ -116,8 +112,8 @@ ModuleType=TSourceModule
 ModuleType=TSourceModule
 
 [EditWindow0]
-ViewCount=24
-CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompra.pas
+ViewCount=23
+CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixa.pas
 View0=0
 View1=1
 View2=2
@@ -141,7 +137,6 @@ View19=19
 View20=20
 View21=21
 View22=22
-View23=23
 PercentageSizes=1
 Create=1
 Visible=1
@@ -160,13 +155,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=00000800010100000000C40F00000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000081C00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=00000800010100000000D90F00000000000001680700000000000001000000005C0E000009000000446F636B536974653301000000002D1C00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=00000800010100000000C40F00000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000081C000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=1509
+RightPanelData=00000800010100000000D90F00000000000001D00700000000000001000000004412000009000000446F636B536974653201000000002D1C000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=1472
 BottomPanelClients=MessageView,DockSite1
-BottomPanelData=0000080001020100000009000000446F636B5369746531D74200000000000002E5050000000000000100000000D74200000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B5369746531D74200000000000002C0050000000000000100000000D74200000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -270,9 +265,9 @@ EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.
 [View10]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
-CursorX=22
-CursorY=690
-TopLine=664
+CursorX=48
+CursorY=843
+TopLine=814
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -335,17 +330,6 @@ EditViewName=Borland.FormDesignerView
 
 [View16]
 CustomEditViewType=TEditView
-Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeOS.pas
-CursorX=37
-CursorY=761
-TopLine=758
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeOS.pas
-
-[View17]
-CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeCotacaoCompra.pas
 CursorX=37
 CursorY=408
@@ -355,7 +339,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeCotacaoCompra.pas
 
-[View18]
+[View17]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixa.pas
 CursorX=3
@@ -366,7 +350,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixa.pas
 
-[View19]
+[View18]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeInventario.pas
 CursorX=36
@@ -377,7 +361,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeInventario.pas
 
-[View20]
+[View19]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCliente.pas
 CursorX=1
@@ -386,9 +370,9 @@ TopLine=306
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCliente.pas
+EditViewName=Borland.FormDesignerView
 
-[View21]
+[View20]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeRequisicaoAlmox.pas
 CursorX=37
@@ -397,9 +381,9 @@ TopLine=399
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeRequisicaoAlmox.pas
+EditViewName=Borland.FormDesignerView
 
-[View22]
+[View21]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCompra.pas
 CursorX=37
@@ -408,18 +392,18 @@ TopLine=390
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCompra.pas
+EditViewName=Borland.FormDesignerView
 
-[View23]
+[View22]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompra.pas
-CursorX=37
-CursorY=301
+CursorX=99
+CursorY=309
 TopLine=298
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompra.pas
+EditViewName=Borland.FormDesignerView
 
 [UndockedDesigner]
 Count=0
@@ -525,12 +509,12 @@ State=0
 Left=0
 Top=18
 Width=9625
-Height=1394
+Height=1356
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=9625
-ClientHeight=1394
-TBDockHeight=1394
+ClientHeight=1356
+TBDockHeight=1356
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -544,11 +528,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=2423
+Height=2462
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2423
+ClientHeight=2462
 TBDockHeight=7154
 LRDockWidth=2000
 Dockable=1
@@ -601,11 +585,11 @@ State=0
 Left=0
 Top=415
 Width=1896
-Height=3462
+Height=3500
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=3462
+ClientHeight=3500
 TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
@@ -1124,11 +1108,11 @@ State=0
 Left=0
 Top=523
 Width=2000
-Height=2423
+Height=2462
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2423
+ClientHeight=2462
 TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1

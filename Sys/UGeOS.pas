@@ -2224,12 +2224,13 @@ procedure TfrmGeOS.dbClienteButtonClick(Sender: TObject);
 var
   iCodigo : Integer;
   sCNPJ ,
+  sIE   ,
   sNome : String;
   bBloqueado : Boolean;
   sBloqueado : String;
 begin
   if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarCliente(Self, iCodigo, sCNPJ, sNome, bBloqueado, sBloqueado) ) then
+    if ( SelecionarCliente(Self, iCodigo, sCNPJ, sIE, sNome, bBloqueado, sBloqueado) ) then
     begin
       if bBloqueado then
       begin
