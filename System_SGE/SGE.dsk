@@ -16,15 +16,15 @@ File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeC
 File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeContasAPagar.pas',0,1,588,96,592,0,0,,
 
 [Modules]
-Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
+Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
+Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
 Module2=default.htm
 Module3=documentation.htm
 Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
-Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
 Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
 Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UFuncoes.pas
 Module11=C:\Delphi\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Unit1.pas
@@ -32,10 +32,10 @@ Module12=C:\Delphi\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
 Count=13
 EditWindowCount=1
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 
 [default.htm]
@@ -47,6 +47,9 @@ ModuleType=TURLModule
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj]
 ModuleType=TBaseProject
 
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas]
+ModuleType=TSourceModule
+
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 
@@ -54,9 +57,6 @@ ModuleType=TSourceModule
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
@@ -73,7 +73,7 @@ ModuleType=TSourceModule
 
 [EditWindow0]
 ViewCount=13
-CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
 View0=0
 View1=1
 View2=2
@@ -105,13 +105,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=00000800010100000000371000000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000D41C00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=00000800010100000000881300000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000B92200001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=00000800010100000000371000000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000D41C000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=1454
+RightPanelData=00000800010100000000881300000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000B922000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=0
 BottomPanelClients=MessageView,DockSite1
-BottomPanelData=0000080001020100000009000000446F636B5369746531974500000000000002AE050000000000000100000000974500000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B53697465311534000000000000022606000000000000FFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -232,7 +232,7 @@ TopLine=924
 LeftCol=1
 Elisions=
 Bookmarks={1,1292,1}
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
+EditViewName=Borland.FormDesignerView
 
 [View12]
 CustomEditViewType=TEditView
@@ -347,18 +347,18 @@ StayOnTop=0
 [MessageView]
 PercentageSizes=1
 Create=1
-Visible=1
+Visible=0
 Docked=1
 State=0
 Left=0
 Top=18
-Width=10021
-Height=1337
+Width=2771
+Height=1394
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=10021
-ClientHeight=1337
-TBDockHeight=1337
+ClientWidth=2771
+ClientHeight=1394
+TBDockHeight=1394
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -372,11 +372,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=2635
+Height=4202
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2635
+ClientHeight=4202
 TBDockHeight=7154
 LRDockWidth=2000
 Dockable=1
@@ -429,11 +429,11 @@ State=0
 Left=0
 Top=415
 Width=1896
-Height=3673
+Height=5240
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=3673
+ClientHeight=5240
 TBDockHeight=9058
 LRDockWidth=1896
 Dockable=1
@@ -442,8 +442,8 @@ SplitPos=111
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=Connected,AfterCommit
-ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0,StyleElements=0,Touch=0,BevelEdges=0,Font=0,Colors=0,ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,"LiveBindings Designer=0",Params=0,ResourceOptions=0,Transaction=0,TxOptions=0,UpdateOptions=0,UpdateTransaction=0
+SelectedItem=Align,CustomHint
+ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0,ActiveControl=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -957,11 +957,11 @@ State=0
 Left=0
 Top=523
 Width=2000
-Height=2635
+Height=4202
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2635
+ClientHeight=4202
 TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1

@@ -221,6 +221,7 @@ type
     BrBtnConfigurarNFSe: TdxBarLargeButton;
     BrBtnRelatorioFinanceiroAPxAR: TdxBarLargeButton;
     TmrAlertaCliente: TTimer;
+    lblAberta: TLabel;
     procedure tmrAutoUpgradeTimer(Sender: TObject);
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
@@ -342,7 +343,7 @@ type
     procedure AutoUpdateSystem;
   public
     { Public declarations }
-    procedure AlertarCliente; virtual; abstract;
+    procedure AlertarCliente;
     procedure ConfigurarRotuloBotoes;
     procedure Notificar;
   end;
@@ -424,6 +425,37 @@ end;
 //  end;
 //end;
 //
+procedure TfrmPrinc.AlertarCliente;
+var
+  tipoAlerta  : TTipoAlertaSistema;
+  aFileAlerta : String;
+  aTextoAlerta: TStringList;
+begin
+  aTextoAlerta := TStringList.Create;
+  try
+    lblAberta.Caption := EmptyStr;
+
+    aTextoAlerta.Clear;
+    aTextoAlerta.BeginUpdate;
+    for tipoAlerta := Low(SYS_ALERTA_ARQUIVOS) to High(SYS_ALERTA_ARQUIVOS) do
+    begin
+      aFileAlerta := ExtractFilePath(ParamStr(0)) + SYS_ALERTA_ARQUIVOS[tipoAlerta];
+      if FileExists(aFileAlerta) then
+      begin
+        aTextoAlerta.LoadFromFile(aFileAlerta);
+        aTextoAlerta.Add(#13);
+      end;
+    end;
+    aTextoAlerta.EndUpdate;
+
+    lblAberta.Caption := Trim(aTextoAlerta.Text);
+    lblAberta.Visible := Trim(lblAberta.Caption) <> EmptyStr;
+    TmrAlertaCliente.Enabled := lblAberta.Visible;
+  finally
+    aTextoAlerta.Free;
+  end;
+end;
+
 procedure TfrmPrinc.AutoUpdateSystem;
 var
   aInterval : Cardinal;
@@ -1230,11 +1262,11 @@ end;
 
 procedure TfrmPrinc.TmrAlertaClienteTimer(Sender: TObject);
 begin
-//  if lblAberta.Visible then
-//    Case lblAberta.Font.Color of
-//      clGreen : lblAberta.Font.Color := clRed;
-//      clRed   : lblAberta.Font.Color := clGreen;
-//    End;
+  if lblAberta.Visible then
+    Case lblAberta.Font.Color of
+      clGreen : lblAberta.Font.Color := clRed;
+      clRed   : lblAberta.Font.Color := clGreen;
+    End;
 end;
 
 procedure TfrmPrinc.tmrAutoUpgradeTimer(Sender: TObject);

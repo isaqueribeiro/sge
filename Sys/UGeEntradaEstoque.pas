@@ -502,6 +502,7 @@ type
   - VW_EMPRESA
 
   Procedures:
+  - SET_GERAR_DUPLICATAS
 
 *)
 
@@ -729,7 +730,8 @@ procedure TfrmGeEntradaEstoque.FormCreate(Sender: TObject);
 
 begin
   sGeneratorName := 'GEN_COMPRAS_CONTROLE_' + FormatFloat('0000', YearOf(Date));
-  CriarGenerator(sGeneratorName, 0);
+  fdQryTabela.UpdateOptions.GeneratorName := sGeneratorName;
+  CriarGenerator(fdQryTabela.UpdateOptions.GeneratorName, 0);
 
   SetTipoDespesaPadrao;
 
@@ -742,9 +744,6 @@ begin
     if not (GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]) then
       OcutarCampoAutorizacao;
   {$ENDIF}
-
-  fdQryTabela.UpdateOptions.GeneratorName := sGeneratorName;
-  CriarGenerator(fdQryTabela.UpdateOptions.GeneratorName, 0);
 
   inherited;
 

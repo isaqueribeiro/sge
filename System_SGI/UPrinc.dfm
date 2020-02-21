@@ -36,8 +36,6 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
-    ExplicitTop = 127
-    ExplicitHeight = 514
     DesignSize = (
       1044
       481)
@@ -4396,6 +4394,24 @@ object frmPrinc: TfrmPrinc
       IsControl = True
       ExplicitTop = 457
     end
+    object lblAberta: TLabel
+      Left = 777
+      Top = 6
+      Width = 261
+      Height = 13
+      Anchors = [akTop, akRight]
+      Caption = '============================='
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clGreen
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+      Visible = False
+      WordWrap = True
+      IsControl = True
+    end
     object stbMain: TdxStatusBar
       Left = 1
       Top = 460
@@ -4677,6 +4693,7 @@ object frmPrinc: TfrmPrinc
       Index = 1
     end
     object RbnTabEntrada: TdxRibbonTab
+      Active = True
       Caption = 'Entradas'
       Groups = <
         item
@@ -4732,7 +4749,6 @@ object frmPrinc: TfrmPrinc
       Index = 6
     end
     object RbnTabRelatorio: TdxRibbonTab
-      Active = True
       Caption = 'Relat'#243'rios'
       Groups = <
         item

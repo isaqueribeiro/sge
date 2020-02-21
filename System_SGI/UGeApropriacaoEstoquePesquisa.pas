@@ -11,22 +11,21 @@ uses
   cxControls, cxStyles, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxEdit, DB, cxDBData, StdCtrls, IdIOHandler,
   IdIOHandlerSocket, IdSSLOpenSSL, IdMessage, IdBaseComponent, IdComponent,
-  IdTCPConnection, IdTCPClient, IdMessageClient, IdSMTP, IBStoredProc,
-  DBClient, Provider, IBCustomDataSet, IBQuery, DBCtrls, Gauges, 
+  IdTCPConnection, IdTCPClient, IdMessageClient, IdSMTP,
+  DBClient, Provider, DBCtrls, Gauges, cxNavigator, IdExplicitTLSClientServerBase, IdSMTPBase,
   cxGridLevel, cxGridCustomTableView, cxGridTableView,
   cxGridBandedTableView, cxGridDBBandedTableView, cxClasses,
   cxGridCustomView, cxGrid, Buttons, cxLookAndFeels, cxButtons,
-  dxSkinsForm, Mask, cxCurrencyEdit, JvExMask, JvToolEdit,
+  Mask, cxCurrencyEdit, JvExMask, JvToolEdit,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxNavigator,
-  IdExplicitTLSClientServerBase, IdSMTPBase, frxClass, frxDBSet;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light;
 
 type        
   TfrmGeApropriacaoEstoquePesquisa = class(TfrmGrPadrao)
@@ -46,10 +45,6 @@ type
     StyleSelecao: TcxStyle;
     StyleContent: TcxStyle;
     StyleContentEven: TcxStyle;
-    QryGrupo: TIBQuery;
-    QryFabricante: TIBQuery;
-    QryProduto: TIBQuery;
-    QryTotal: TIBQuery;
     DspTotal: TDataSetProvider;
     DspProduto: TDataSetProvider;
     DspFabricante: TDataSetProvider;
@@ -111,7 +106,6 @@ type
     btbtnSelecionar: TcxButton;
     Bevel4: TBevel;
     BtnPesquisar: TcxButton;
-    qryQtdeReservada: TIBDataSet;
     ppAtualizarCusto: TPopupMenu;
     nmppAtualizacaoAutomatica: TMenuItem;
     nmppAtualizacaoManual: TMenuItem;
@@ -119,6 +113,71 @@ type
     ppImprimir: TPopupMenu;
     nmppExtratoMovimentoDiaProduto: TMenuItem;
     Bevel5: TBevel;
+    QryGrupo: TFDQuery;
+    QryFabricante: TFDQuery;
+    QryProduto: TFDQuery;
+    QryTotal: TFDQuery;
+    qryQtdeReservada: TFDQuery;
+    QryProdutoPRODUTO: TStringField;
+    QryProdutoDESCRI: TStringField;
+    QryProdutoAPRESENTACAO: TStringField;
+    QryProdutoDESCRI_APRESENTACAO: TStringField;
+    QryProdutoNOME_AMIGO: TStringField;
+    QryProdutoGRUPO_COD: TSmallintField;
+    QryProdutoGRUPO_DES: TStringField;
+    QryProdutoFABRICANTE_COD: TIntegerField;
+    QryProdutoFABRICANTE_NOME: TStringField;
+    QryProdutoUND_COD: TSmallintField;
+    QryProdutoUND_DESC: TStringField;
+    QryProdutoUND_SIGLA: TStringField;
+    QryProdutoUND: TStringField;
+    QryProdutoCOMPRA_QTDE_01: TBCDField;
+    QryProdutoCOMPRA_VALOR_01: TBCDField;
+    QryProdutoVENDA_QTDE_01: TBCDField;
+    QryProdutoVENDA_VALOR_01: TBCDField;
+    QryProdutoDATA_ULTIMA_COMPRA: TDateField;
+    QryProdutoDATA_ULTIMA_VENDA: TDateField;
+    QryProdutoFRACIONADOR: TBCDField;
+    QryProdutoESTOQUE: TBCDField;
+    QryProdutoRESERVA: TBCDField;
+    QryProdutoDISPONIVEL: TBCDField;
+    QryProdutoCUSTO_TOTAL: TBCDField;
+    QryProdutoCUSTO_RESERVA: TBCDField;
+    QryProdutoCUSTO_DISPONIVEL: TBCDField;
+    QryProdutoLOTE_ID: TStringField;
+    QryProdutoPERCENTUAL: TBCDField;
+    QryGrupoGRUPO_COD: TSmallintField;
+    QryGrupoGRUPO_DES: TStringField;
+    QryGrupoITENS: TIntegerField;
+    QryGrupoCOMPRA_QTDE_01: TBCDField;
+    QryGrupoCOMPRA_VALOR_01: TBCDField;
+    QryGrupoVENDA_QTDE_01: TBCDField;
+    QryGrupoVENDA_VALOR_01: TBCDField;
+    QryGrupoDATA_ULTIMA_COMPRA: TDateField;
+    QryGrupoDATA_ULTIMA_VENDA: TDateField;
+    QryGrupoESTOQUE: TBCDField;
+    QryGrupoRESERVA: TBCDField;
+    QryGrupoDISPONIVEL: TBCDField;
+    QryGrupoCUSTO_TOTAL: TBCDField;
+    QryGrupoCUSTO_RESERVA: TBCDField;
+    QryGrupoCUSTO_DISPONIVEL: TBCDField;
+    QryGrupoPERCENTUAL: TBCDField;
+    QryFabricanteFABRICANTE_COD: TIntegerField;
+    QryFabricanteFABRICANTE_NOME: TStringField;
+    QryFabricanteITENS: TIntegerField;
+    QryFabricanteCOMPRA_QTDE_01: TBCDField;
+    QryFabricanteCOMPRA_VALOR_01: TBCDField;
+    QryFabricanteVENDA_QTDE_01: TBCDField;
+    QryFabricanteVENDA_VALOR_01: TBCDField;
+    QryFabricanteDATA_ULTIMA_COMPRA: TDateField;
+    QryFabricanteDATA_ULTIMA_VENDA: TDateField;
+    QryFabricanteESTOQUE: TBCDField;
+    QryFabricanteRESERVA: TBCDField;
+    QryFabricanteDISPONIVEL: TBCDField;
+    QryFabricanteCUSTO_TOTAL: TBCDField;
+    QryFabricanteCUSTO_RESERVA: TBCDField;
+    QryFabricanteCUSTO_DISPONIVEL: TBCDField;
+    QryFabricantePERCENTUAL: TBCDField;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -153,6 +212,24 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBAPROPRIACAO_ALMOX
+  - TBAPROPRIACAO_ALMOX_ITEM
+  - TBCENTRO_CUSTO
+  - TBPRODUTO
+  - TBGRUPOPROD
+  - TBPRODUTO_ROTATIVIDADE
+  - TBREQUISICAO_ALMOX
+  - TBREQUISICAO_ALMOX_ITEM
+
+  Views:
+  - VW_TIPO_REQUISICAO_ALMOX
+
+  Procedures:
+  - GET_ESTOQUE_ALMOX_DISPONIVEL
+*)
 
 var
   frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa;
@@ -390,8 +467,8 @@ begin
     SQL.Clear;
     SQL.AddStrings( FSQLTotal );
 
-    SQL.Text := StringReplace(SQL.Text, 'e=e', gUsuarioLogado.Empresa, [rfReplaceAll]);
-    SQL.Text := StringReplace(SQL.Text, 'c=c', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
+    SQL.Text := StringReplace(SQL.Text, '111', gUsuarioLogado.Empresa, [rfReplaceAll]);
+    SQL.Text := StringReplace(SQL.Text, '999', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
   end;
 
   CdsTotal.Open;
@@ -420,8 +497,8 @@ begin
           if chkProdutoComEstoque.Checked then
             sWhr := sWhr + ' and (e.estoque > 0.0)';
 
-          SQL.Text := StringReplace(SQL.Text, 'e=e', gUsuarioLogado.Empresa, [rfReplaceAll]);
-          SQL.Text := StringReplace(SQL.Text, 'c=c', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
+          SQL.Text := StringReplace(SQL.Text, '111', gUsuarioLogado.Empresa, [rfReplaceAll]);
+          SQL.Text := StringReplace(SQL.Text, '999', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
 
           if btbtnSelecionar.Visible then
@@ -429,7 +506,7 @@ begin
             SQL.Text := StringReplace(SQL.Text, XXX_S, EmptyStr, [rfReplaceAll]);
             SQL.Text := StringReplace(SQL.Text, XXX_G, EmptyStr, [rfReplaceAll]);
           end;
-        end;      
+        end;
 
         CdsProduto.Open;
 
@@ -462,8 +539,8 @@ begin
           if chkProdutoComEstoque.Checked then
             sWhr := sWhr + ' and (e.estoque > 0.0)';
 
-          SQL.Text := StringReplace(SQL.Text, 'e=e', gUsuarioLogado.Empresa, [rfReplaceAll]);
-          SQL.Text := StringReplace(SQL.Text, 'c=c', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
+          SQL.Text := StringReplace(SQL.Text, '111', gUsuarioLogado.Empresa, [rfReplaceAll]);
+          SQL.Text := StringReplace(SQL.Text, '999', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
         end;
 
@@ -496,8 +573,8 @@ begin
           if chkProdutoComEstoque.Checked then
             sWhr := sWhr + ' and (e.estoque > 0.0)';
 
-          SQL.Text := StringReplace(SQL.Text, 'e=e', gUsuarioLogado.Empresa, [rfReplaceAll]);
-          SQL.Text := StringReplace(SQL.Text, 'c=c', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
+          SQL.Text := StringReplace(SQL.Text, '111', gUsuarioLogado.Empresa, [rfReplaceAll]);
+          SQL.Text := StringReplace(SQL.Text, '999', IntToStr(edCentroCusto.Tag), [rfReplaceAll]);
           SQL.Text := StringReplace(SQL.Text, WHR_DEFAULT, sWhr, [rfReplaceAll]);
         end;
 
@@ -530,6 +607,7 @@ begin
 
     while not Eof do
     begin
+      FieldByName('PERCENTUAL').ReadOnly := False;
       Edit;
 
       if ( CdsTotal.FieldByName('CUSTO_DISPONIVEL').AsCurrency = 0 ) then

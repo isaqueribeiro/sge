@@ -241,10 +241,6 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
     object TbsGrupo: TTabSheet
       Caption = 'TbsGrupo'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object dbgGrupo: TcxGrid
         Left = 0
         Top = 0
@@ -438,10 +434,6 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
     object TbsFabricante: TTabSheet
       Caption = 'TbsFabricante'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object dbgFab: TcxGrid
         Left = 0
         Top = 0
@@ -651,6 +643,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
         Height = 496
         Align = alClient
         TabOrder = 0
+        ExplicitTop = 2
         object dbgProdutoTbl: TcxGridDBBandedTableView
           Navigator.Buttons.CustomButtons = <>
           OnCellDblClick = dbgProdutoTblCellDblClick
@@ -1032,210 +1025,10 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       TextColor = clBlack
     end
   end
-  object QryGrupo: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    p.codgrupo as grupo_cod'
-      '  , coalesce(g.descri, '#39'* A Definir'#39') as grupo_des'
-      ''
-      '  , count(e.lote_id) as itens'
-      '  , sum(r.compra_qtde_01) as compra_qtde_01'
-      '  , sum(r.compra_valor_01) as compra_valor_01'
-      '  , sum(r.venda_qtde_01) as venda_qtde_01'
-      '  , sum(r.venda_valor_01) as venda_valor_01'
-      '  , max(r.data_ultima_compra) as data_ultima_compra'
-      '  , max(r.data_ultima_venda) as data_ultima_venda'
-      ''
-      '  , sum(e.estoque) as estoque'
-      '  , sum(e.reserva) as reserva'
-      '  , sum(e.disponivel) as disponivel'
-      '  , sum(e.custo_total) as custo_total'
-      '  , sum(e.custo_reserva) as custo_reserva'
-      '  , sum(e.custo_disponivel) as custo_disponivel'
-      ''
-      '  , cast(0.0 as numeric(18,4)) as percentual'
-      ''
-      
-        'from GET_ESTOQUE_ALMOX_DISPONIVEL('#39'e=e'#39', c=c, null, null, null, ' +
-        'null, null) e'
-      '  inner join TBPRODUTO p on (p.cod = e.produto)'
-      ''
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      
-        '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = e.produ' +
-        'to)'
-      ''
-      'where (1=1)'
-      ''
-      'group by'
-      '    1'
-      '  , 2')
-    Left = 56
-    Top = 288
-  end
-  object QryFabricante: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    p.codfabricante as fabricante_cod'
-      '  , coalesce(f.nome, '#39'* A Definir'#39') as fabricante_nome'
-      ''
-      '  , count(e.lote_id) as itens'
-      '  , sum(r.compra_qtde_01) as compra_qtde_01'
-      '  , sum(r.compra_valor_01) as compra_valor_01'
-      '  , sum(r.venda_qtde_01) as venda_qtde_01'
-      '  , sum(r.venda_valor_01) as venda_valor_01'
-      '  , max(r.data_ultima_compra) as data_ultima_compra'
-      '  , max(r.data_ultima_venda) as data_ultima_venda'
-      ''
-      '  , sum(e.estoque) as estoque'
-      '  , sum(e.reserva) as reserva'
-      '  , sum(e.disponivel) as disponivel'
-      '  , sum(e.custo_total) as custo_total'
-      '  , sum(e.custo_reserva) as custo_reserva'
-      '  , sum(e.custo_disponivel) as custo_disponivel'
-      ''
-      '  , cast(0.0 as numeric(18,4)) as percentual'
-      ''
-      
-        'from GET_ESTOQUE_ALMOX_DISPONIVEL('#39'e=e'#39', c=c, null, null, null, ' +
-        'null, null) e'
-      '  inner join TBPRODUTO p on (p.cod = e.produto)'
-      ''
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      
-        '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = e.produ' +
-        'to)'
-      ''
-      'where (1=1)'
-      ''
-      'group by'
-      '    1'
-      '  , 2')
-    Left = 56
-    Top = 320
-  end
-  object QryProduto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    e.produto'
-      '  , p.descri'
-      '  , p.apresentacao'
-      
-        '  , coalesce(nullif(trim(p.nome_amigo), '#39#39'), p.descri_apresentac' +
-        'ao) as descri_apresentacao'
-      '  , p.nome_amigo'
-      '  , p.codgrupo as grupo_cod'
-      '  , g.descri   as grupo_des'
-      '  , p.codfabricante as fabricante_cod'
-      '  , f.nome          as fabricante_nome'
-      ''
-      '  , coalesce(e.unidade, p.codunidade_fracionada) as und_cod'
-      '  , u.unp_descricao as und_desc'
-      '  , u.unp_sigla     as und_sigla'
-      
-        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
-        'ricao) from 1 for 3) as und'
-      ''
-      '  , sum(r.compra_qtde_01) as compra_qtde_01'
-      '  , sum(r.compra_valor_01) as compra_valor_01'
-      '  , sum(r.venda_qtde_01) as venda_qtde_01'
-      '  , sum(r.venda_valor_01) as venda_valor_01'
-      '  , max(r.data_ultima_compra) as data_ultima_compra'
-      '  , max(r.data_ultima_venda) as data_ultima_venda'
-      ''
-      '  , e.fracionador'
-      '  , sum(e.estoque) as estoque'
-      '  , sum(e.reserva) as reserva'
-      '  , sum(e.disponivel) as disponivel'
-      '  , sum(e.custo_total) as custo_total'
-      '  , sum(e.custo_reserva) as custo_reserva'
-      '  , sum(e.custo_disponivel) as custo_disponivel'
-      
-        '  , '#39'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'#39' as lote_id--e.lot' +
-        'e_id'
-      ''
-      '  , cast(0.0 as numeric(18,4)) as percentual'
-      ''
-      
-        'from GET_ESTOQUE_ALMOX_DISPONIVEL('#39'e=e'#39', c=c, null, null, null, ' +
-        'null, null) e'
-      '  inner join TBPRODUTO p on (p.cod = e.produto)'
-      ''
-      
-        '  left join TBUNIDADEPROD u on (u.unp_cod = coalesce(e.unidade, ' +
-        'p.codunidade_fracionada))'
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      
-        '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = e.produ' +
-        'to)'
-      ''
-      'where (1=1)'
-      ''
-      'group by'
-      '    e.produto'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , p.nome_amigo'
-      '  , p.codgrupo'
-      '  , g.descri'
-      '  , p.codfabricante'
-      '  , f.nome'
-      '  , coalesce(e.unidade, p.codunidade_fracionada)'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      
-        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
-        'ricao) from 1 for 3)'
-      '  , e.fracionador'
-      '  , '#39'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'#39'--e.lote_id')
-    Left = 56
-    Top = 352
-  end
-  object QryTotal: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    count(e.lote_id) as lotes'
-      '  , sum(e.estoque) as estoque'
-      '  , sum(e.reserva) as reserva'
-      '  , sum(e.disponivel) as disponivel'
-      '  , sum(e.custo_total) as custo_total'
-      '  , sum(e.custo_reserva) as custo_reserva'
-      '  , sum(e.custo_disponivel) as custo_disponivel'
-      
-        'from GET_ESTOQUE_ALMOX_DISPONIVEL('#39'e=e'#39', c=c, null, null, null, ' +
-        'null, null) e'
-      ''
-      'where (1=1)'
-      '')
-    Left = 56
-    Top = 400
-  end
   object DspTotal: TDataSetProvider
     DataSet = QryTotal
     Left = 88
-    Top = 400
+    Top = 392
   end
   object DspProduto: TDataSetProvider
     DataSet = QryProduto
@@ -1278,12 +1071,12 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
     Params = <>
     ProviderName = 'DspTotal'
     Left = 120
-    Top = 400
+    Top = 392
   end
   object dsTotal: TDataSource
     DataSet = CdsTotal
     Left = 152
-    Top = 400
+    Top = 392
   end
   object dsProduto: TDataSource
     DataSet = CdsProduto
@@ -1299,42 +1092,6 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
     DataSet = CdsGrupo
     Left = 152
     Top = 288
-  end
-  object qryQtdeReservada: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    r.ano'
-      '  , r.controle'
-      '  , r.numero'
-      '  , r.data_emissao'
-      '  , t.descricao as tipo'
-      '  , c.descricao as centro_custo'
-      '  , ri.produto'
-      '  , ri.qtde'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      'from TBREQUISICAO_ALMOX r'
-      
-        '  inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and r' +
-        'i.controle = r.controle)'
-      '  inner join TBUNIDADEPROD u on (u.unp_cod = ri.unidade)'
-      '  left join TBCENTRO_CUSTO c on (c.codigo = r.ccusto_origem)'
-      '  left join VW_TIPO_REQUISICAO_ALMOX t on (t.codigo = r.tipo)'
-      ''
-      'where r.status in (0, 1, 2)'
-      '  and ri.produto = :produto')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 752
-    Top = 368
   end
   object ppAtualizarCusto: TPopupMenu
     Left = 764
@@ -1425,5 +1182,625 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       Caption = 'Extrato de Movimenta'#231#227'o di'#225'ria do Produto'
       OnClick = nmppExtratoMovimentoDiaProdutoClick
     end
+  end
+  object QryGrupo: TFDQuery
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    p.codgrupo as grupo_cod'
+      '  , coalesce(g.descri, '#39'* A Definir'#39') as grupo_des'
+      ''
+      '  , count(e.lote_id) as itens'
+      '  , sum(r.compra_qtde_01) as compra_qtde_01'
+      '  , sum(r.compra_valor_01) as compra_valor_01'
+      '  , sum(r.venda_qtde_01) as venda_qtde_01'
+      '  , sum(r.venda_valor_01) as venda_valor_01'
+      '  , max(r.data_ultima_compra) as data_ultima_compra'
+      '  , max(r.data_ultima_venda) as data_ultima_venda'
+      ''
+      '  , sum(e.estoque) as estoque'
+      '  , sum(e.reserva) as reserva'
+      '  , sum(e.disponivel) as disponivel'
+      '  , sum(e.custo_total) as custo_total'
+      '  , sum(e.custo_reserva) as custo_reserva'
+      '  , sum(e.custo_disponivel) as custo_disponivel'
+      ''
+      '  , cast(0.0 as numeric(18,4)) as percentual'
+      ''
+      
+        'from GET_ESTOQUE_ALMOX_DISPONIVEL('#39'111'#39', 999, null, null, null, ' +
+        'null, null) e'
+      '  inner join TBPRODUTO p on (p.cod = e.produto)'
+      ''
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      
+        '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = e.produ' +
+        'to)'
+      ''
+      'where (1=1)'
+      ''
+      'group by'
+      '    1'
+      '  , 2')
+    Left = 56
+    Top = 288
+    object QryGrupoGRUPO_COD: TSmallintField
+      FieldName = 'GRUPO_COD'
+      Origin = 'GRUPO_COD'
+    end
+    object QryGrupoGRUPO_DES: TStringField
+      FieldName = 'GRUPO_DES'
+      Origin = 'GRUPO_DES'
+      Size = 30
+    end
+    object QryGrupoITENS: TIntegerField
+      FieldName = 'ITENS'
+      Origin = 'ITENS'
+      Required = True
+    end
+    object QryGrupoCOMPRA_QTDE_01: TBCDField
+      FieldName = 'COMPRA_QTDE_01'
+      Origin = 'COMPRA_QTDE_01'
+      Precision = 18
+    end
+    object QryGrupoCOMPRA_VALOR_01: TBCDField
+      FieldName = 'COMPRA_VALOR_01'
+      Origin = 'COMPRA_VALOR_01'
+      Precision = 18
+    end
+    object QryGrupoVENDA_QTDE_01: TBCDField
+      FieldName = 'VENDA_QTDE_01'
+      Origin = 'VENDA_QTDE_01'
+      Precision = 18
+    end
+    object QryGrupoVENDA_VALOR_01: TBCDField
+      FieldName = 'VENDA_VALOR_01'
+      Origin = 'VENDA_VALOR_01'
+      Precision = 18
+    end
+    object QryGrupoDATA_ULTIMA_COMPRA: TDateField
+      FieldName = 'DATA_ULTIMA_COMPRA'
+      Origin = 'DATA_ULTIMA_COMPRA'
+    end
+    object QryGrupoDATA_ULTIMA_VENDA: TDateField
+      FieldName = 'DATA_ULTIMA_VENDA'
+      Origin = 'DATA_ULTIMA_VENDA'
+    end
+    object QryGrupoESTOQUE: TBCDField
+      FieldName = 'ESTOQUE'
+      Origin = 'ESTOQUE'
+      Precision = 18
+      Size = 3
+    end
+    object QryGrupoRESERVA: TBCDField
+      FieldName = 'RESERVA'
+      Origin = 'RESERVA'
+      Precision = 18
+      Size = 3
+    end
+    object QryGrupoDISPONIVEL: TBCDField
+      FieldName = 'DISPONIVEL'
+      Origin = 'DISPONIVEL'
+      Precision = 18
+      Size = 3
+    end
+    object QryGrupoCUSTO_TOTAL: TBCDField
+      FieldName = 'CUSTO_TOTAL'
+      Origin = 'CUSTO_TOTAL'
+      Precision = 18
+      Size = 2
+    end
+    object QryGrupoCUSTO_RESERVA: TBCDField
+      FieldName = 'CUSTO_RESERVA'
+      Origin = 'CUSTO_RESERVA'
+      Precision = 18
+      Size = 2
+    end
+    object QryGrupoCUSTO_DISPONIVEL: TBCDField
+      FieldName = 'CUSTO_DISPONIVEL'
+      Origin = 'CUSTO_DISPONIVEL'
+      Precision = 18
+      Size = 2
+    end
+    object QryGrupoPERCENTUAL: TBCDField
+      FieldName = 'PERCENTUAL'
+      Origin = 'PERCENTUAL'
+      Precision = 18
+    end
+  end
+  object QryFabricante: TFDQuery
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    p.codfabricante as fabricante_cod'
+      '  , coalesce(f.nome, '#39'* A Definir'#39') as fabricante_nome'
+      ''
+      '  , count(e.lote_id) as itens'
+      '  , sum(r.compra_qtde_01) as compra_qtde_01'
+      '  , sum(r.compra_valor_01) as compra_valor_01'
+      '  , sum(r.venda_qtde_01) as venda_qtde_01'
+      '  , sum(r.venda_valor_01) as venda_valor_01'
+      '  , max(r.data_ultima_compra) as data_ultima_compra'
+      '  , max(r.data_ultima_venda) as data_ultima_venda'
+      ''
+      '  , sum(e.estoque) as estoque'
+      '  , sum(e.reserva) as reserva'
+      '  , sum(e.disponivel) as disponivel'
+      '  , sum(e.custo_total) as custo_total'
+      '  , sum(e.custo_reserva) as custo_reserva'
+      '  , sum(e.custo_disponivel) as custo_disponivel'
+      ''
+      '  , cast(0.0 as numeric(18,4)) as percentual'
+      ''
+      
+        'from GET_ESTOQUE_ALMOX_DISPONIVEL('#39'111'#39', 999, null, null, null, ' +
+        'null, null) e'
+      '  inner join TBPRODUTO p on (p.cod = e.produto)'
+      ''
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      
+        '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = e.produ' +
+        'to)'
+      ''
+      'where (1=1)'
+      ''
+      'group by'
+      '    1'
+      '  , 2')
+    Left = 56
+    Top = 320
+    object QryFabricanteFABRICANTE_COD: TIntegerField
+      FieldName = 'FABRICANTE_COD'
+      Origin = 'FABRICANTE_COD'
+    end
+    object QryFabricanteFABRICANTE_NOME: TStringField
+      FieldName = 'FABRICANTE_NOME'
+      Origin = 'FABRICANTE_NOME'
+      Size = 50
+    end
+    object QryFabricanteITENS: TIntegerField
+      FieldName = 'ITENS'
+      Origin = 'ITENS'
+      Required = True
+    end
+    object QryFabricanteCOMPRA_QTDE_01: TBCDField
+      FieldName = 'COMPRA_QTDE_01'
+      Origin = 'COMPRA_QTDE_01'
+      Precision = 18
+    end
+    object QryFabricanteCOMPRA_VALOR_01: TBCDField
+      FieldName = 'COMPRA_VALOR_01'
+      Origin = 'COMPRA_VALOR_01'
+      Precision = 18
+    end
+    object QryFabricanteVENDA_QTDE_01: TBCDField
+      FieldName = 'VENDA_QTDE_01'
+      Origin = 'VENDA_QTDE_01'
+      Precision = 18
+    end
+    object QryFabricanteVENDA_VALOR_01: TBCDField
+      FieldName = 'VENDA_VALOR_01'
+      Origin = 'VENDA_VALOR_01'
+      Precision = 18
+    end
+    object QryFabricanteDATA_ULTIMA_COMPRA: TDateField
+      FieldName = 'DATA_ULTIMA_COMPRA'
+      Origin = 'DATA_ULTIMA_COMPRA'
+    end
+    object QryFabricanteDATA_ULTIMA_VENDA: TDateField
+      FieldName = 'DATA_ULTIMA_VENDA'
+      Origin = 'DATA_ULTIMA_VENDA'
+    end
+    object QryFabricanteESTOQUE: TBCDField
+      FieldName = 'ESTOQUE'
+      Origin = 'ESTOQUE'
+      Precision = 18
+      Size = 3
+    end
+    object QryFabricanteRESERVA: TBCDField
+      FieldName = 'RESERVA'
+      Origin = 'RESERVA'
+      Precision = 18
+      Size = 3
+    end
+    object QryFabricanteDISPONIVEL: TBCDField
+      FieldName = 'DISPONIVEL'
+      Origin = 'DISPONIVEL'
+      Precision = 18
+      Size = 3
+    end
+    object QryFabricanteCUSTO_TOTAL: TBCDField
+      FieldName = 'CUSTO_TOTAL'
+      Origin = 'CUSTO_TOTAL'
+      Precision = 18
+      Size = 2
+    end
+    object QryFabricanteCUSTO_RESERVA: TBCDField
+      FieldName = 'CUSTO_RESERVA'
+      Origin = 'CUSTO_RESERVA'
+      Precision = 18
+      Size = 2
+    end
+    object QryFabricanteCUSTO_DISPONIVEL: TBCDField
+      FieldName = 'CUSTO_DISPONIVEL'
+      Origin = 'CUSTO_DISPONIVEL'
+      Precision = 18
+      Size = 2
+    end
+    object QryFabricantePERCENTUAL: TBCDField
+      FieldName = 'PERCENTUAL'
+      Origin = 'PERCENTUAL'
+      Precision = 18
+    end
+  end
+  object QryProduto: TFDQuery
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.produto'
+      '  , p.descri'
+      '  , p.apresentacao'
+      
+        '  , coalesce(nullif(trim(p.nome_amigo), '#39#39'), p.descri_apresentac' +
+        'ao) as descri_apresentacao'
+      '  , p.nome_amigo'
+      '  , p.codgrupo as grupo_cod'
+      '  , g.descri   as grupo_des'
+      '  , p.codfabricante as fabricante_cod'
+      '  , f.nome          as fabricante_nome'
+      ''
+      '  , coalesce(e.unidade, p.codunidade_fracionada) as und_cod'
+      '  , u.unp_descricao as und_desc'
+      '  , u.unp_sigla     as und_sigla'
+      
+        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
+        'ricao) from 1 for 3) as und'
+      ''
+      '  , sum(r.compra_qtde_01) as compra_qtde_01'
+      '  , sum(r.compra_valor_01) as compra_valor_01'
+      '  , sum(r.venda_qtde_01) as venda_qtde_01'
+      '  , sum(r.venda_valor_01) as venda_valor_01'
+      '  , max(r.data_ultima_compra) as data_ultima_compra'
+      '  , max(r.data_ultima_venda) as data_ultima_venda'
+      ''
+      '  , e.fracionador'
+      '  , sum(e.estoque) as estoque'
+      '  , sum(e.reserva) as reserva'
+      '  , sum(e.disponivel) as disponivel'
+      '  , sum(e.custo_total) as custo_total'
+      '  , sum(e.custo_reserva) as custo_reserva'
+      '  , sum(e.custo_disponivel) as custo_disponivel'
+      
+        '  , '#39'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'#39' as lote_id--e.lot' +
+        'e_id'
+      ''
+      '  , cast(0.0 as numeric(18,4)) as percentual'
+      ''
+      
+        'from GET_ESTOQUE_ALMOX_DISPONIVEL('#39'111'#39', 999, null, null, null, ' +
+        'null, null) e'
+      '  inner join TBPRODUTO p on (p.cod = e.produto)'
+      ''
+      
+        '  left join TBUNIDADEPROD u on (u.unp_cod = coalesce(e.unidade, ' +
+        'p.codunidade_fracionada))'
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      
+        '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = e.produ' +
+        'to)'
+      ''
+      'where (1=1)'
+      ''
+      'group by'
+      '    e.produto'
+      '  , p.descri'
+      '  , p.apresentacao'
+      '  , p.descri_apresentacao'
+      '  , p.nome_amigo'
+      '  , p.codgrupo'
+      '  , g.descri'
+      '  , p.codfabricante'
+      '  , f.nome'
+      '  , coalesce(e.unidade, p.codunidade_fracionada)'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      
+        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
+        'ricao) from 1 for 3)'
+      '  , e.fracionador'
+      '  , '#39'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'#39'--e.lote_id')
+    Left = 56
+    Top = 352
+    object QryProdutoPRODUTO: TStringField
+      FieldName = 'PRODUTO'
+      Origin = 'PRODUTO'
+      Size = 10
+    end
+    object QryProdutoDESCRI: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRI'
+      Origin = 'DESCRI'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 50
+    end
+    object QryProdutoAPRESENTACAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'APRESENTACAO'
+      Origin = 'APRESENTACAO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 50
+    end
+    object QryProdutoDESCRI_APRESENTACAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRI_APRESENTACAO'
+      Origin = 'DESCRI_APRESENTACAO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object QryProdutoNOME_AMIGO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOME_AMIGO'
+      Origin = 'NOME_AMIGO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object QryProdutoGRUPO_COD: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'GRUPO_COD'
+      Origin = 'CODGRUPO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object QryProdutoGRUPO_DES: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'GRUPO_DES'
+      Origin = 'DESCRI'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 30
+    end
+    object QryProdutoFABRICANTE_COD: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'FABRICANTE_COD'
+      Origin = 'CODFABRICANTE'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object QryProdutoFABRICANTE_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'FABRICANTE_NOME'
+      Origin = 'NOME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 50
+    end
+    object QryProdutoUND_COD: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'UND_COD'
+      Origin = 'UND_COD'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object QryProdutoUND_DESC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UND_DESC'
+      Origin = 'UNP_DESCRICAO'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 50
+    end
+    object QryProdutoUND_SIGLA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UND_SIGLA'
+      Origin = 'UNP_SIGLA'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 5
+    end
+    object QryProdutoUND: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UND'
+      Origin = 'UND'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 50
+    end
+    object QryProdutoCOMPRA_QTDE_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_01'
+      Origin = 'COMPRA_QTDE_01'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+    end
+    object QryProdutoCOMPRA_VALOR_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_01'
+      Origin = 'COMPRA_VALOR_01'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+    end
+    object QryProdutoVENDA_QTDE_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_01'
+      Origin = 'VENDA_QTDE_01'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+    end
+    object QryProdutoVENDA_VALOR_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_01'
+      Origin = 'VENDA_VALOR_01'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+    end
+    object QryProdutoDATA_ULTIMA_COMPRA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_ULTIMA_COMPRA'
+      Origin = 'DATA_ULTIMA_COMPRA'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object QryProdutoDATA_ULTIMA_VENDA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_ULTIMA_VENDA'
+      Origin = 'DATA_ULTIMA_VENDA'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object QryProdutoFRACIONADOR: TBCDField
+      FieldName = 'FRACIONADOR'
+      Origin = 'FRACIONADOR'
+      Precision = 18
+      Size = 3
+    end
+    object QryProdutoESTOQUE: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'ESTOQUE'
+      Origin = 'ESTOQUE'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 3
+    end
+    object QryProdutoRESERVA: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'RESERVA'
+      Origin = 'RESERVA'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 3
+    end
+    object QryProdutoDISPONIVEL: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'DISPONIVEL'
+      Origin = 'DISPONIVEL'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 3
+    end
+    object QryProdutoCUSTO_TOTAL: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'CUSTO_TOTAL'
+      Origin = 'CUSTO_TOTAL'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object QryProdutoCUSTO_RESERVA: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'CUSTO_RESERVA'
+      Origin = 'CUSTO_RESERVA'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object QryProdutoCUSTO_DISPONIVEL: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'CUSTO_DISPONIVEL'
+      Origin = 'CUSTO_DISPONIVEL'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object QryProdutoLOTE_ID: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'LOTE_ID'
+      Origin = 'LOTE_ID'
+      ProviderFlags = []
+      ReadOnly = True
+      FixedChar = True
+      Size = 40
+    end
+    object QryProdutoPERCENTUAL: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'PERCENTUAL'
+      Origin = 'PERCENTUAL'
+      ProviderFlags = []
+      Precision = 18
+    end
+  end
+  object QryTotal: TFDQuery
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    count(e.lote_id) as lotes'
+      '  , sum(e.estoque) as estoque'
+      '  , sum(e.reserva) as reserva'
+      '  , sum(e.disponivel) as disponivel'
+      '  , sum(e.custo_total) as custo_total'
+      '  , sum(e.custo_reserva) as custo_reserva'
+      '  , sum(e.custo_disponivel) as custo_disponivel'
+      
+        'from GET_ESTOQUE_ALMOX_DISPONIVEL('#39'111'#39', 999, null, null, null, ' +
+        'null, null) e'
+      ''
+      'where (1=1)'
+      '')
+    Left = 56
+    Top = 392
+  end
+  object qryQtdeReservada: TFDQuery
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    r.ano'
+      '  , r.controle'
+      '  , r.numero'
+      '  , r.data_emissao'
+      '  , t.descricao as tipo'
+      '  , c.descricao as centro_custo'
+      '  , ri.produto'
+      '  , ri.qtde'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      'from TBREQUISICAO_ALMOX r'
+      
+        '  inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and r' +
+        'i.controle = r.controle)'
+      '  inner join TBUNIDADEPROD u on (u.unp_cod = ri.unidade)'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = r.ccusto_origem)'
+      '  left join VW_TIPO_REQUISICAO_ALMOX t on (t.codigo = r.tipo)'
+      ''
+      'where r.status in (0, 1, 2)'
+      '  and ri.produto = :produto')
+    Left = 56
+    Top = 440
+    ParamData = <
+      item
+        Name = 'PRODUTO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 10
+        Value = Null
+      end>
   end
 end
