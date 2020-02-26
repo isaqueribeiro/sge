@@ -267,7 +267,7 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
     end
     object dbMotivo: TMemo
       Left = 16
-      Top = 80
+      Top = 83
       Width = 561
       Height = 168
       Anchors = [akLeft, akTop, akRight, akBottom]
@@ -442,15 +442,24 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
     TabOrder = 3
     OnClick = btFecharClick
   end
-  object cdsApropriacao: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
+  object dtsApropriacao: TDataSource
+    AutoEdit = False
+    DataSet = cdsApropriacao
+    Left = 400
+    Top = 256
+  end
+  object cdsApropriacao: TFDQuery
     CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_APROPRIACAO_ALMOX_2020'
+    UpdateOptions.KeyFields = 'ANO;CONTROLE'
+    UpdateOptions.AutoIncFields = 'CONTROLE'
+    UpdateObject = updApropriacao
+    SQL.Strings = (
       'Select'
       '    a.ano'
       '  , a.controle'
@@ -479,132 +488,134 @@ inherited frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar
       ''
       'where a.ano      = :ano'
       '  and a.controle = :controle')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'CODCONTROL'
-    UpdateObject = updApropriacao
-    Left = 472
-    Top = 72
+    Left = 336
+    Top = 256
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'CONTROLE'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
     object cdsApropriacaoANO: TSmallintField
       FieldName = 'ANO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."ANO"'
+      Origin = 'ANO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object cdsApropriacaoCONTROLE: TIntegerField
+    object cdsApropriacaoCONTROLE: TFDAutoIncField
       FieldName = 'CONTROLE'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CONTROLE"'
+      Origin = 'CONTROLE'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      IdentityInsert = True
     end
-    object cdsApropriacaoNUMERO: TIBStringField
+    object cdsApropriacaoNUMERO: TStringField
       FieldName = 'NUMERO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."NUMERO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'NUMERO'
     end
-    object cdsApropriacaoEMPRESA: TIBStringField
+    object cdsApropriacaoEMPRESA: TStringField
       FieldName = 'EMPRESA'
-      Origin = '"TBAPROPRIACAO_ALMOX"."EMPRESA"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'EMPRESA'
       Size = 18
     end
     object cdsApropriacaoCENTRO_CUSTO: TIntegerField
       FieldName = 'CENTRO_CUSTO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CENTRO_CUSTO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'CENTRO_CUSTO'
     end
     object cdsApropriacaoSTATUS: TSmallintField
       FieldName = 'STATUS'
-      Origin = '"TBAPROPRIACAO_ALMOX"."STATUS"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'STATUS'
     end
     object cdsApropriacaoDATA_APROPRIACAO: TDateField
       FieldName = 'DATA_APROPRIACAO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."DATA_APROPRIACAO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'DATA_APROPRIACAO'
     end
-    object cdsApropriacaoCANCEL_USUARIO: TIBStringField
+    object cdsApropriacaoCANCEL_USUARIO: TStringField
       FieldName = 'CANCEL_USUARIO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CANCEL_USUARIO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'CANCEL_USUARIO'
       Size = 12
     end
-    object cdsApropriacaoCANCEL_DATAHORA: TDateTimeField
+    object cdsApropriacaoCANCEL_DATAHORA: TSQLTimeStampField
       FieldName = 'CANCEL_DATAHORA'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CANCEL_DATAHORA"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'CANCEL_DATAHORA'
     end
     object cdsApropriacaoCANCEL_MOTIVO: TMemoField
       FieldName = 'CANCEL_MOTIVO'
-      Origin = '"TBAPROPRIACAO_ALMOX"."CANCEL_MOTIVO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'CANCEL_MOTIVO'
       BlobType = ftMemo
-      Size = 8
     end
-    object cdsApropriacaoCC_DESCRICAO: TIBStringField
+    object cdsApropriacaoCC_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'CC_DESCRICAO'
-      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
+      Origin = 'DESCRICAO'
       ProviderFlags = []
       Size = 100
     end
-    object cdsApropriacaoENTRADA: TIBStringField
+    object cdsApropriacaoENTRADA: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'ENTRADA'
+      Origin = 'ENTRADA'
       ProviderFlags = []
       Size = 14
     end
-    object cdsApropriacaoNOMEFORN: TIBStringField
+    object cdsApropriacaoNOMEFORN: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'NOMEFORN'
-      Origin = '"TBFORNECEDOR"."NOMEFORN"'
+      Origin = 'NOMEFORN'
       ProviderFlags = []
       Size = 100
     end
   end
-  object updApropriacao: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CONTROLE,'
-      '  NUMERO,'
-      '  EMPRESA,'
-      '  CENTRO_CUSTO,'
-      '  TIPO,'
-      '  COMPRA_ANO,'
-      '  COMPRA_NUM,'
-      '  COMPRA_EMP,'
-      '  INSERCAO_DATA,'
-      '  DATA_APROPRIACAO,'
-      '  COMPETENCIA,'
-      '  USUARIO,'
-      '  STATUS,'
-      '  MOTIVO,'
-      '  OBS,'
-      '  VALOR_TOTAL,'
-      '  CANCEL_USUARIO,'
-      '  CANCEL_DATAHORA,'
-      '  CANCEL_MOTIVO'
-      'from TBAPROPRIACAO_ALMOX '
-      'where'
-      '  ANO = :ANO and'
-      '  CONTROLE = :CONTROLE')
+  object updApropriacao: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     ModifySQL.Strings = (
-      'update TBAPROPRIACAO_ALMOX'
-      'set'
-      '  CANCEL_DATAHORA = :CANCEL_DATAHORA,'
-      '  CANCEL_MOTIVO = :CANCEL_MOTIVO,'
-      '  CANCEL_USUARIO = :CANCEL_USUARIO,'
-      '  STATUS = :STATUS'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CONTROLE = :OLD_CONTROLE')
-    InsertSQL.Strings = (
-      '')
-    Left = 504
-    Top = 72
-  end
-  object dtsApropriacao: TDataSource
-    AutoEdit = False
-    DataSet = cdsApropriacao
-    Left = 536
-    Top = 72
+      'UPDATE TBAPROPRIACAO_ALMOX'
+      
+        'SET ANO = :NEW_ANO, CONTROLE = :NEW_CONTROLE, NUMERO = :NEW_NUME' +
+        'RO, '
+      '  EMPRESA = :NEW_EMPRESA, CENTRO_CUSTO = :NEW_CENTRO_CUSTO, '
+      
+        '  DATA_APROPRIACAO = :NEW_DATA_APROPRIACAO, STATUS = :NEW_STATUS' +
+        ', '
+      
+        '  CANCEL_USUARIO = :NEW_CANCEL_USUARIO, CANCEL_DATAHORA = :NEW_C' +
+        'ANCEL_DATAHORA, '
+      '  CANCEL_MOTIVO = :NEW_CANCEL_MOTIVO'
+      'WHERE ANO = :OLD_ANO AND CONTROLE = :OLD_CONTROLE'
+      'RETURNING CONTROLE')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    a.ano'
+      '  , a.controle'
+      '  , a.numero'
+      '  , a.empresa'
+      '  , a.centro_custo'
+      '  , a.status'
+      ''
+      '  , a.data_apropriacao'
+      ''
+      '  , a.cancel_usuario'
+      '  , a.cancel_datahora'
+      '  , a.cancel_motivo'
+      ''
+      '  , c.descricao as cc_descricao'
+      ''
+      '  , a.compra_ano || '#39'/'#39' || lpad(a.compra_num, 7, '#39'0'#39') as entrada'
+      '  , f.nomeforn'
+      'from TBAPROPRIACAO_ALMOX a'
+      '  left join TBEMPRESA e on (e.cnpj = a.empresa)'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = a.centro_custo)'
+      
+        '  left join TBCOMPRAS co on (co.ano = a.compra_ano and co.codcon' +
+        'trol = a.compra_num and co.codemp = a.compra_emp)'
+      '  left join TBFORNECEDOR f on (f.codforn = co.codforn)'
+      ''
+      'WHERE a.ANO = :ANO AND a.CONTROLE = :CONTROLE')
+    Left = 368
+    Top = 256
   end
 end

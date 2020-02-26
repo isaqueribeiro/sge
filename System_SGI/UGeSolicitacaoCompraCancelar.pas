@@ -5,8 +5,16 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB,
-  IBCustomDataSet, IBUpdateSQL, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light;
 
 type
   TfrmGeSolicitacaoCompraCancelar = class(TfrmGrPadrao)
@@ -28,23 +36,23 @@ type
     dbCancelUsuario: TEdit;
     dbCancelDataHora: TEdit;
     Bevel2: TBevel;
-    lblInforme: TLabel;
-    cdsSolicitacao: TIBDataSet;
-    updSolicitacao: TIBUpdateSQL;
     dtsSolicitacao: TDataSource;
+    lblInforme: TLabel;
     btnCancelar: TcxButton;
     btFechar: TcxButton;
+    cdsSolicitacao: TFDQuery;
+    updSolicitacao: TFDUpdateSQL;
     cdsSolicitacaoANO: TSmallintField;
-    cdsSolicitacaoCODIGO: TIntegerField;
-    cdsSolicitacaoEMPRESA: TIBStringField;
-    cdsSolicitacaoNUMERO: TIBStringField;
-    cdsSolicitacaoNOME_SOLICITANTE: TIBStringField;
-    cdsSolicitacaoSTATUS: TSmallintField;
-    cdsSolicitacaoCANCELADO_DATA: TDateField;
-    cdsSolicitacaoCANCELADO_USUARIO: TIBStringField;
-    cdsSolicitacaoCANCELADO_MOTIVO: TMemoField;
+    cdsSolicitacaoCODIGO: TFDAutoIncField;
+    cdsSolicitacaoEMPRESA: TStringField;
+    cdsSolicitacaoNUMERO: TStringField;
+    cdsSolicitacaoNOME_SOLICITANTE: TStringField;
     cdsSolicitacaoDATA_EMISSAO: TDateField;
     cdsSolicitacaoVALIDADE: TDateField;
+    cdsSolicitacaoSTATUS: TSmallintField;
+    cdsSolicitacaoCANCELADO_DATA: TDateField;
+    cdsSolicitacaoCANCELADO_USUARIO: TStringField;
+    cdsSolicitacaoCANCELADO_MOTIVO: TMemoField;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
   private
@@ -53,6 +61,16 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBSOLICITACAO
+
+  Views:
+
+  Procedures:
+
+*)
 
 var
   frmGeSolicitacaoCompraCancelar: TfrmGeSolicitacaoCompraCancelar;
@@ -75,8 +93,8 @@ begin
     with frm do
     begin
       cdsSolicitacao.Close;
-      cdsSolicitacao.ParamByName('ano').AsShort   := Ano;
-      cdsSolicitacao.ParamByName('cod').AsInteger := Numero;
+      cdsSolicitacao.ParamByName('ano').AsSmallInt := Ano;
+      cdsSolicitacao.ParamByName('cod').AsInteger  := Numero;
       cdsSolicitacao.Open;
 
       dbCancelUsuario.Text  := GetUserApp;
@@ -132,6 +150,8 @@ begin
 
         Post;
         ApplyUpdates;
+        CommitUpdates;
+
         CommitTransaction;
 
         ModalResult := mrOk;

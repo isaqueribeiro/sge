@@ -1,7 +1,6 @@
 inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
   Left = 446
   Top = 196
-  ActiveControl = dbgDados
   Caption = 'Controle de Apropria'#231#245'es de Estoque'
   ClientHeight = 685
   ClientWidth = 1116
@@ -24,7 +23,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
   inherited pgcGuias: TPageControl
     Width = 1116
     Height = 642
-    ActivePage = tbsTabela
     OnChange = pgcGuiasChange
     ExplicitWidth = 1116
     ExplicitHeight = 642
@@ -334,8 +332,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
             'Encerrada'
             'Cancelada')
           TabOrder = 0
-          ExplicitLeft = 206
-          ExplicitTop = 6
         end
       end
     end
@@ -2149,7 +2145,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
     Left = 912
     Top = 176
     Bitmap = {
-      494C01012B002C00640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00680010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

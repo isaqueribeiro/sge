@@ -1,31 +1,37 @@
 inherited frmGeSolicitacaoCompraCancelar: TfrmGeSolicitacaoCompraCancelar
   Left = 389
   Top = 218
-  Width = 617
-  Height = 474
   BorderIcons = [biSystemMenu]
   BorderWidth = 4
   Caption = 'Cancelar Solicita'#231#227'o de Compra/Servi'#231'o'
+  ClientHeight = 427
+  ClientWidth = 593
+  ExplicitWidth = 617
+  ExplicitHeight = 474
   DesignSize = (
     593
-    428)
+    427)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
-    Left = 0
-    Top = 121
-    Width = 593
-    Height = 4
-    Align = alTop
-    Shape = bsSpacer
-  end
-  object Bevel2: TBevel
     Left = 0
     Top = 389
     Width = 593
     Height = 4
     Align = alTop
     Shape = bsSpacer
+    ExplicitLeft = 8
+    ExplicitTop = 356
+    ExplicitWidth = 661
+  end
+  object Bevel2: TBevel
+    Left = 0
+    Top = 121
+    Width = 593
+    Height = 4
+    Align = alTop
+    Shape = bsSpacer
+    ExplicitTop = 389
   end
   object lblInforme: TLabel
     Left = 0
@@ -56,6 +62,7 @@ inherited frmGeSolicitacaoCompraCancelar: TfrmGeSolicitacaoCompraCancelar
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 539
     object lblCodigo: TLabel
       Left = 16
       Top = 24
@@ -247,9 +254,9 @@ inherited frmGeSolicitacaoCompraCancelar: TfrmGeSolicitacaoCompraCancelar
     end
     object dbMotivo: TMemo
       Left = 16
-      Top = 80
+      Top = 83
       Width = 561
-      Height = 168
+      Height = 166
       Anchors = [akLeft, akTop, akRight, akBottom]
       Color = clWhite
       Font.Charset = ANSI_CHARSET
@@ -299,14 +306,12 @@ inherited frmGeSolicitacaoCompraCancelar: TfrmGeSolicitacaoCompraCancelar
   end
   object btnCancelar: TcxButton
     Left = 405
-    Top = 395
+    Top = 394
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
     Caption = '&Cancelar'
-    TabOrder = 2
-    OnClick = btnCancelarClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       180000000000000600000000000000000000000000000000000000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
@@ -357,19 +362,19 @@ inherited frmGeSolicitacaoCompraCancelar: TfrmGeSolicitacaoCompraCancelar
       00FF00E0C0B0E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0BEAA00FF
       0000FF0000FF0000FF0000FF0000FF0000FF00BEBEBEBEBEBEBEBEBEBEBEBEBE
       BEBEBCBCBCB8B8B8AEAEAEBBBBBB00FF0000FF0000FF0000FF00}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 2
+    OnClick = btnCancelarClick
   end
   object btFechar: TcxButton
     Left = 500
-    Top = 395
+    Top = 394
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
     Cancel = True
     Caption = 'Fechar'
-    TabOrder = 3
-    OnClick = btFecharClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       180000000000000600000000000000000000000000000000000000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
@@ -420,16 +425,28 @@ inherited frmGeSolicitacaoCompraCancelar: TfrmGeSolicitacaoCompraCancelar
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 3
+    OnClick = btFecharClick
   end
-  object cdsSolicitacao: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
+  object dtsSolicitacao: TDataSource
+    AutoEdit = False
+    DataSet = cdsSolicitacao
+    Left = 536
+    Top = 72
+  end
+  object cdsSolicitacao: TFDQuery
     CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_SOLICITACAO_2020'
+    UpdateOptions.KeyFields = 'ANO;CODIGO'
+    UpdateOptions.AutoIncFields = 'CODIGO'
+    UpdateObject = updSolicitacao
+    SQL.Strings = (
       'Select'
       '    s.ano'
       '  , s.codigo'
@@ -445,124 +462,104 @@ inherited frmGeSolicitacaoCompraCancelar: TfrmGeSolicitacaoCompraCancelar
       'from TBSOLICITACAO s'
       'where s.ano   = :ano'
       '  and s.codigo = :cod')
-    ModifySQL.Strings = (
-      '')
-    GeneratorField.Field = 'CODCONTROL'
-    UpdateObject = updSolicitacao
-    Left = 472
+    Left = 469
     Top = 72
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'COD'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
     object cdsSolicitacaoANO: TSmallintField
       FieldName = 'ANO'
-      Origin = '"TBSOLICITACAO"."ANO"'
+      Origin = 'ANO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object cdsSolicitacaoCODIGO: TIntegerField
+    object cdsSolicitacaoCODIGO: TFDAutoIncField
       FieldName = 'CODIGO'
-      Origin = '"TBSOLICITACAO"."CODIGO"'
+      Origin = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
+      IdentityInsert = True
     end
-    object cdsSolicitacaoEMPRESA: TIBStringField
+    object cdsSolicitacaoEMPRESA: TStringField
       FieldName = 'EMPRESA'
-      Origin = '"TBSOLICITACAO"."EMPRESA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
+      Origin = 'EMPRESA'
       Size = 18
     end
-    object cdsSolicitacaoNUMERO: TIBStringField
+    object cdsSolicitacaoNUMERO: TStringField
       FieldName = 'NUMERO'
-      Origin = '"TBSOLICITACAO"."NUMERO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
+      Origin = 'NUMERO'
     end
-    object cdsSolicitacaoNOME_SOLICITANTE: TIBStringField
+    object cdsSolicitacaoNOME_SOLICITANTE: TStringField
       FieldName = 'NOME_SOLICITANTE'
-      Origin = '"TBSOLICITACAO"."NOME_SOLICITANTE"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'NOME_SOLICITANTE'
       Size = 100
     end
     object cdsSolicitacaoDATA_EMISSAO: TDateField
       FieldName = 'DATA_EMISSAO'
-      Origin = '"TBSOLICITACAO"."DATA_EMISSAO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = 'dd/mm/yyyy'
+      Origin = 'DATA_EMISSAO'
     end
     object cdsSolicitacaoVALIDADE: TDateField
       FieldName = 'VALIDADE'
-      Origin = '"TBSOLICITACAO"."VALIDADE"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = 'dd/mm/yyyy'
+      Origin = 'VALIDADE'
     end
     object cdsSolicitacaoSTATUS: TSmallintField
       FieldName = 'STATUS'
-      Origin = '"TBSOLICITACAO"."STATUS"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'STATUS'
     end
     object cdsSolicitacaoCANCELADO_DATA: TDateField
       FieldName = 'CANCELADO_DATA'
-      Origin = '"TBSOLICITACAO"."CANCELADO_DATA"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'CANCELADO_DATA'
     end
-    object cdsSolicitacaoCANCELADO_USUARIO: TIBStringField
+    object cdsSolicitacaoCANCELADO_USUARIO: TStringField
       FieldName = 'CANCELADO_USUARIO'
-      Origin = '"TBSOLICITACAO"."CANCELADO_USUARIO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'CANCELADO_USUARIO'
       Size = 12
     end
     object cdsSolicitacaoCANCELADO_MOTIVO: TMemoField
       FieldName = 'CANCELADO_MOTIVO'
-      Origin = '"TBSOLICITACAO"."CANCELADO_MOTIVO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'CANCELADO_MOTIVO'
       BlobType = ftMemo
-      Size = 8
     end
   end
-  object updSolicitacao: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CODIGO,'
-      '  NUMERO,'
-      '  TIPO,'
-      '  EMPRESA,'
-      '  CENTRO_CUSTO,'
-      '  NOME_SOLICITANTE,'
-      '  OBJETO_SOLICITACAO,'
-      '  MOVITO,'
-      '  OBSERVACAO,'
-      '  DATA_EMISSAO,'
-      '  VALIDADE,'
-      '  COMPETENCIA,'
-      '  INSERCAO_DATA,'
-      '  INSERCAO_USUARIO,'
-      '  STATUS,'
-      '  APROVACAO_DATA,'
-      '  APROVACAO_USUARIO,'
-      '  CANCELADO_DATA,'
-      '  CANCELADO_USUARIO,'
-      '  CANCELADO_MOTIVO,'
-      '  LOG_EVENTO'
-      'from TBSOLICITACAO '
-      'where'
-      '  ANO = :ANO and'
-      '  CODIGO = :CODIGO')
+  object updSolicitacao: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     ModifySQL.Strings = (
-      'update TBSOLICITACAO'
-      'set'
-      '  CANCELADO_DATA = :CANCELADO_DATA,'
-      '  CANCELADO_MOTIVO = :CANCELADO_MOTIVO,'
-      '  CANCELADO_USUARIO = :CANCELADO_USUARIO,'
-      '  STATUS = :STATUS'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODIGO = :OLD_CODIGO')
-    Left = 504
-    Top = 72
-  end
-  object dtsSolicitacao: TDataSource
-    AutoEdit = False
-    DataSet = cdsSolicitacao
-    Left = 536
+      'UPDATE TBSOLICITACAO'
+      'SET ANO = :NEW_ANO, CODIGO = :NEW_CODIGO, NUMERO = :NEW_NUMERO, '
+      
+        '  EMPRESA = :NEW_EMPRESA, NOME_SOLICITANTE = :NEW_NOME_SOLICITAN' +
+        'TE, '
+      '  DATA_EMISSAO = :NEW_DATA_EMISSAO, VALIDADE = :NEW_VALIDADE, '
+      '  STATUS = :NEW_STATUS, CANCELADO_DATA = :NEW_CANCELADO_DATA, '
+      
+        '  CANCELADO_USUARIO = :NEW_CANCELADO_USUARIO, CANCELADO_MOTIVO =' +
+        ' :NEW_CANCELADO_MOTIVO'
+      'WHERE ANO = :OLD_ANO AND CODIGO = :OLD_CODIGO'
+      'RETURNING CODIGO')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANO, CODIGO, NUMERO, TIPO, EMPRESA, CENTRO_CUSTO, NOME_SO' +
+        'LICITANTE, '
+      
+        '  OBJETO_SOLICITACAO, MOVITO, OBSERVACAO, DATA_EMISSAO, VALIDADE' +
+        ', '
+      
+        '  COMPETENCIA, INSERCAO_DATA, INSERCAO_USUARIO, STATUS, APROVACA' +
+        'O_DATA, '
+      
+        '  APROVACAO_USUARIO, CANCELADO_DATA, CANCELADO_USUARIO, CANCELAD' +
+        'O_MOTIVO, '
+      '  LOG_EVENTO'
+      'FROM TBSOLICITACAO'
+      'WHERE ANO = :ANO AND CODIGO = :CODIGO')
+    Left = 501
     Top = 72
   end
 end

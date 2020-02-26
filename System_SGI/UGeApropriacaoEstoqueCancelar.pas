@@ -4,10 +4,17 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB,
-  IBCustomDataSet, IBUpdateSQL, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB, cxButtons,
+  IBCustomDataSet, IBUpdateSQL, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light;
 
 type
   TfrmGeApropriacaoEstoqueCancelar = class(TfrmGrPadrao)
@@ -28,27 +35,27 @@ type
     dbCancelDataHora: TEdit;
     Bevel2: TBevel;
     lblInforme: TLabel;
-    cdsApropriacao: TIBDataSet;
-    updApropriacao: TIBUpdateSQL;
     dtsApropriacao: TDataSource;
     dbEntrada: TDBEdit;
     lblEntrada: TLabel;
     dbFornecedor: TDBEdit;
+    btnCancelar: TcxButton;
+    btFechar: TcxButton;
+    cdsApropriacao: TFDQuery;
+    updApropriacao: TFDUpdateSQL;
     cdsApropriacaoANO: TSmallintField;
-    cdsApropriacaoCONTROLE: TIntegerField;
-    cdsApropriacaoNUMERO: TIBStringField;
-    cdsApropriacaoEMPRESA: TIBStringField;
+    cdsApropriacaoCONTROLE: TFDAutoIncField;
+    cdsApropriacaoNUMERO: TStringField;
+    cdsApropriacaoEMPRESA: TStringField;
     cdsApropriacaoCENTRO_CUSTO: TIntegerField;
     cdsApropriacaoSTATUS: TSmallintField;
     cdsApropriacaoDATA_APROPRIACAO: TDateField;
-    cdsApropriacaoCANCEL_USUARIO: TIBStringField;
-    cdsApropriacaoCANCEL_DATAHORA: TDateTimeField;
+    cdsApropriacaoCANCEL_USUARIO: TStringField;
+    cdsApropriacaoCANCEL_DATAHORA: TSQLTimeStampField;
     cdsApropriacaoCANCEL_MOTIVO: TMemoField;
-    cdsApropriacaoCC_DESCRICAO: TIBStringField;
-    cdsApropriacaoENTRADA: TIBStringField;
-    cdsApropriacaoNOMEFORN: TIBStringField;
-    btnCancelar: TcxButton;
-    btFechar: TcxButton;
+    cdsApropriacaoCC_DESCRICAO: TStringField;
+    cdsApropriacaoENTRADA: TStringField;
+    cdsApropriacaoNOMEFORN: TStringField;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
   private
@@ -58,6 +65,20 @@ type
     procedure RegistrarRotinaSistema; override;
   end;
 
+(*
+  Tabelas:
+  - TBAPROPRIACAO_ALMOX
+  - TBEMPRESA
+  - TBCENTRO_CUSTO
+  - TBCOMPRAS
+  - TBFORNECEDOR
+
+  Views:
+
+  Procedures:
+
+*)
+
 var
   frmGeApropriacaoEstoqueCancelar: TfrmGeApropriacaoEstoqueCancelar;
 
@@ -66,7 +87,9 @@ var
 implementation
 
 uses
-  UDMBusiness, UDMNFe, UFuncoes;
+    UFuncoes
+  , UDMBusiness
+  , UDMNFe;
 
 {$R *.dfm}
 
@@ -79,7 +102,7 @@ begin
     with frm do
     begin
       cdsApropriacao.Close;
-      cdsApropriacao.ParamByName('ano').AsShort        := Ano;
+      cdsApropriacao.ParamByName('ano').AsSmallInt     := Ano;
       cdsApropriacao.ParamByName('controle').AsInteger := Numero;
       cdsApropriacao.Open;
 
@@ -141,6 +164,8 @@ begin
 
         Post;
         ApplyUpdates;
+        CommitUpdates;
+
         CommitTransaction;
 
         ModalResult := mrOk;
