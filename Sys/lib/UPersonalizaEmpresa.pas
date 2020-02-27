@@ -18,10 +18,12 @@ type
     function GetContacts : String;
     function GetLegalCopyright : String;
     function GetFileDescription : String;
+    function GetInternalName : String;
     function GetProductName : String;
     function GetFileNameImagePNG_Company : String;
-    function GetFileNameImageJPG_Wallpaper : String;
+    function GetFileNameImagePNG_Wallpaper : String;
     function GetFileNameImagePNG_BackgroundLogin : String;
+    function GetFileNameImagePNG_Splash : String;
   public
     constructor Create;
 
@@ -30,11 +32,13 @@ type
     property Contacts : String read GetContacts;
     property LegalCopyright : String read GetLegalCopyright;
     property FileDescription: String read GetFileDescription;
+    property InternalName : String read GetInternalName;
     property ProductName : String read GetProductName;
 
     property FileNameImagePNG_Company : String read GetFileNameImagePNG_Company;
-    property FileNameImageJPG_Wallpaper : String read GetFileNameImageJPG_Wallpaper;
+    property FileNameImagePNG_Wallpaper : String read GetFileNameImagePNG_Wallpaper;
     property FileNameImagePNG_BackgroundLogin : String read GetFileNameImagePNG_BackgroundLogin;
+    property FileNameImagePNG_Splash : String read GetFileNameImagePNG_Splash;
 
     class function GetInstance : TPersonalizaEmpresa;
   end;
@@ -52,6 +56,14 @@ begin
     personalizaEmpresa := TPersonalizaEmpresa.PrivateCreate;
 
   Result := personalizaEmpresa;
+end;
+
+function TPersonalizaEmpresa.GetInternalName: String;
+begin
+  if ExisteArquivo then
+    Result := FPersonalizaEmpresa.ReadString('Strings', 'InternalName', FInformacaoVersao.getPropertyValue(ivINTERNAL_NAME))
+  else
+    Result := FInformacaoVersao.getPropertyValue(ivINTERNAL_NAME);
 end;
 
 constructor TPersonalizaEmpresa.Create;
@@ -88,7 +100,7 @@ begin
     Result := FInformacaoVersao.getPropertyValue(ivFILE_DESCRIPTION);
 end;
 
-function TPersonalizaEmpresa.GetFileNameImageJPG_Wallpaper: String;
+function TPersonalizaEmpresa.GetFileNameImagePNG_Wallpaper: String;
 begin
   if ExisteArquivo then
     Result := FPersonalizaEmpresa.ReadString('Images', 'PapelParede', EmptyStr)
@@ -108,6 +120,14 @@ function TPersonalizaEmpresa.GetFileNameImagePNG_Company: String;
 begin
   if ExisteArquivo then
     Result := FPersonalizaEmpresa.ReadString('Images', 'LogoEmpresa', EmptyStr)
+  else
+    Result := EmptyStr;
+end;
+
+function TPersonalizaEmpresa.GetFileNameImagePNG_Splash: String;
+begin
+  if ExisteArquivo then
+    Result := FPersonalizaEmpresa.ReadString('Images', 'BackgroundSplash', EmptyStr)
   else
     Result := EmptyStr;
 end;

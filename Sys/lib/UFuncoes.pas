@@ -258,7 +258,8 @@ end;
 
 function GetInternalName : String;
 begin
-  Result := TInfoVersao.GetInstance().getPropertyValue(ivINTERNAL_NAME);
+  //Result := TInfoVersao.GetInstance().getPropertyValue(ivINTERNAL_NAME);
+  Result := TPersonalizaEmpresa.GetInstance().InternalName;
 end;
 
 function GetProductName : String;

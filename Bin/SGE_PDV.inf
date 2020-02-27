@@ -1,7 +1,7 @@
 ;===============================================================
 ; PDV | Controle do Ponto de Venda do SGE/SGI
 ; para Windows XP/Vista
-; Copyright (c) 2016, Ágil Soluções em Softwares, ME.
+; Copyright (c) 2020, Ágil Soluções em Softwares, ME.
 ; Todos os direitos reservados.
 ;
 ; Owner: Isaque Marinho Ribeiro
@@ -9,9 +9,10 @@
 ;===============================================================
 
 [Images]
-LogoEmpresa=C:\Masterdados\LogotipoEmpresa.png
-PapelParede=C:\Masterdados\Logo_Principal.jpg
-BackgroundLogin=C:\Masterdados\BackgroundLogin.png
+LogoEmpresa=.\LogotipoEmpresa.png
+PapelParede=.\PapelParede.png
+BackgroundSplash=.\
+BackgroundLogin=.\BackgroundLogin.png
 
 
 ;---------------------------------------------------------------
@@ -21,8 +22,9 @@ BackgroundLogin=C:\Masterdados\BackgroundLogin.png
 [Strings]
 CompanyName=Masterdados
 Contacts=(91) 98717-1057 / vendas@masterdados.com.br
-LegalCopyright=Copyright 2016 © Masterdados. Todos os direitos reservados.
+LegalCopyright=Copyright 2020 © Masterdados. Todos os direitos reservados.
 FileDescription=Controle do Ponto de Venda do DGE
+InternalName=DGE_PDV
 ProductName=PDV - Controle do Ponto de Venda do DGE
 
 

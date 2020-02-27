@@ -385,7 +385,7 @@ begin
   if GetCarregarPapelDeParedeLocal then
   begin
     //sFileImageWallPaper := ExtractFilePath(Application.ExeName) + FILE_WALLPAPER;
-    sFileImageWallPaper := gPersonalizaEmpresa.FileNameImageJPG_Wallpaper;
+    sFileImageWallPaper := gPersonalizaEmpresa.FileNameImagePNG_Wallpaper;
 
     if ( FileExists(sFileImageWallPaper) ) then
     begin

@@ -45,7 +45,8 @@ implementation
 
 {$R *.dfm}
 
-uses UFuncoes;
+uses
+  UFuncoes, UPersonalizaEmpresa;
 
 procedure TfrmSplash.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -55,6 +56,8 @@ begin
 end;
 
 procedure TfrmSplash.FormCreate(Sender: TObject);
+var
+  aPersonalize : TPersonalizaEmpresa;
 begin
   inherited;
   lblProductName.Caption     := StringReplace(GetInternalName, '_', ' ', [rfReplaceAll]);
@@ -64,6 +67,22 @@ begin
   lblManifestoAgil.Caption   := MANIFESTO_AGIL;
 
   gifCarregando.Animate := True;
+
+  // Carregar Logotipo da Empresa
+  aPersonalize := TPersonalizaEmpresa.GetInstance;
+  if FileExists(aPersonalize.FileNameImagePNG_Company) then
+  begin
+    img_company.AutoSize := False;
+    img_company.Center   := True;
+    img_company.Stretch  := True;
+    img_company.Top      := 128;
+    img_company.Height   := 128;
+    img_company.Width    := 128;
+    img_company.Picture.LoadFromFile(aPersonalize.FileNameImagePNG_Company);
+
+    Application.ProcessMessages;
+    Sleep(1000);
+  end;
 end;
 
 procedure TfrmSplash.RegistrarRotinaSistema;

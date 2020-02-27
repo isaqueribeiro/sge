@@ -183,8 +183,18 @@ var
 implementation
 
 uses
-  pcnAuxiliar, DateUtils, UConstantesDGE, UFuncoes, UDMBusiness, UDMCupom, UDMNFe,
-  UGeVendedor, UGeCliente, UGeFormaPagto, UGeProduto, UGeEfetuarPagtoREC,
+  pcnAuxiliar, DateUtils,
+  UConstantesDGE,
+  UFuncoes,
+  UDMRecursos,
+  UDMBusiness,
+  UDMCupom,
+  UDMNFe,
+  UGeVendedor,
+  UGeCliente,
+  UGeFormaPagto,
+  UGeProduto,
+  UGeEfetuarPagtoREC,
   UGeVendaConfirmaTitulos,
   UGeVendaPDVDesconto,
   UGeVendaPDVOrcamento,
@@ -355,8 +365,6 @@ begin
 end;
 
 procedure TfrmGeVendaPDV.FormCreate(Sender: TObject);
-var
-  sFileImageLogotipo : String;
 begin
   if not Assigned(DMCupom) then
     DMCupom := TDMCupom.Create(Application);
@@ -379,9 +387,16 @@ begin
     lblGravar.Left := lblFinalizarVenda.Left;
   end;
 
-  sFileImageLogotipo := ExtractFilePath(Application.ExeName) + FILE_COMPANY_LOGO;
-  if FileExists(sFileImageLogotipo) then
-    imgEmpresa.Picture.LoadFromFile( sFileImageLogotipo );
+  // Carregar Logotipo da Empresa
+  if FileExists(gPersonalizaEmpresa.FileNameImagePNG_Company) then
+  begin
+    imgEmpresa.Picture.LoadFromFile(gPersonalizaEmpresa.FileNameImagePNG_Company);
+
+    ImgLogoCanto.Align    := TAlign.alLeft;
+    ImgLogoCanto.AutoSize := False;
+    ImgLogoCanto.Center   := True;
+    ImgLogoCanto.Picture.LoadFromFile(gPersonalizaEmpresa.FileNameImagePNG_Company);
+  end;
 end;
 
 function TfrmGeVendaPDV.DataSetVenda: TDataSet;
