@@ -937,7 +937,7 @@ begin
   // Carregar Imagem de Fundo da Tele Principal
   if GetCarregarPapelDeParedeLocal then
   begin
-    sFileImageWallPaper := gPersonalizaEmpresa.FileNameImageJPG_Wallpaper;
+    sFileImageWallPaper := gPersonalizaEmpresa.FileNameImagePNG_Wallpaper;
 
     if ( FileExists(sFileImageWallPaper) ) then
     begin
