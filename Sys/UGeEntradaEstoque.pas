@@ -377,7 +377,7 @@ type
     qryTipoDespesa: TFDQuery;
     qryTipoDocumento: TFDQuery;
     qryTipoEntrada: TFDQuery;
-    lblCalcularTotais: TLabel;
+    lblCalcularTotaisInfo: TLabel;
     tbsLotes: TTabSheet;
     DBGrid1: TDBGrid;
     DtSrcTabelaLotes: TDataSource;
@@ -776,9 +776,9 @@ begin
   CampoDescricao := 'f.NomeForn';
   CampoOrdenacao := 'c.dtEnt, f.NomeForn';
 
-  dbCalcularTotais.Visible  := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
-  lblCalcularTotais.Visible := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
-  btbtnGerarNFe.Visible     := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
+  dbCalcularTotais.Visible      := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
+  lblCalcularTotaisInfo.Visible := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
+  btbtnGerarNFe.Visible         := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
 
   TipoMovimento     := tmeProduto;
   ApenasFinalizadas := False;
@@ -1695,25 +1695,29 @@ begin
 
     // Garantir a gravação dos itens na base
     try
-      cdsTabelaItens.First;
-      cdsTabelaItens.DisableControls;
-      while not cdsTabelaItens.Eof do
-      begin
-        cdsTabelaItens.Edit;
-        cdsTabelaItens.Post;
-        cdsTabelaItens.ApplyUpdates;
-        cdsTabelaItens.CommitUpdates;
+      try
+        cdsTabelaItens.First;
+        //cdsTabelaItens.DisableControls;    // Esta ocasionado problema
+        while not cdsTabelaItens.Eof do
+        begin
+          cdsTabelaItens.Edit;
+          cdsTabelaItens.Post;
+          cdsTabelaItens.ApplyUpdates;
+          cdsTabelaItens.CommitUpdates;
 
-        cdsTabelaItens.Next;
+          cdsTabelaItens.Next;
+        end;
+      except
+        //cdsTabelaItens.EnableConstraints;  // Esta ocasionado problema
       end;
     finally
       CommitTransaction;
 
       cdsTabelaItens.First;
-      cdsTabelaItens.EnableConstraints;
+      //cdsTabelaItens.EnableConstraints;    // Esta ocasionado problema
     end;
 
-    cdsTabelaItens.Refresh;
+    //cdsTabelaItens.Refresh;                // Esta ocasionado problema
 
     if (FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) then
       ShowWarning('Movimento de Entrada já está finalizado!')

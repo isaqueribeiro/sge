@@ -521,7 +521,7 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           KeyField = 'CNPJ'
-          ListField = 'RZSOC'
+          ListField = 'RAZAO'
           ListSource = dtsEmpresa
           ParentFont = False
           TabOrder = 2
@@ -1945,7 +1945,7 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
     Left = 896
     Top = 352
     Bitmap = {
-      494C01012F003100280010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012F0031002C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000C0000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000004A5B
       6F004A5B6F004A5B6F004354680043546800435468003A4B5F003A4B5F003A4B
@@ -3767,21 +3767,36 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
       'DELETE FROM TBSOLICITACAO'
       'WHERE ANO = :OLD_ANO AND CODIGO = :OLD_CODIGO')
     FetchRowSQL.Strings = (
+      'Select'
+      '    s.ano'
+      '  , s.codigo'
+      '  , s.numero'
+      '  , s.tipo'
+      '  , s.empresa'
+      '  , s.centro_custo'
+      '  , s.nome_solicitante'
+      '  , s.objeto_solicitacao'
+      '  , s.movito'
+      '  , s.observacao'
+      '  , s.data_emissao'
+      '  , s.validade'
+      '  , s.competencia'
+      '  , s.insercao_data'
+      '  , s.insercao_usuario'
+      '  , s.status'
+      '  , s.aprovacao_data'
+      '  , s.aprovacao_usuario'
+      '  , s.cancelado_data'
+      '  , s.cancelado_usuario'
+      '  , s.cancelado_motivo'
+      '  , s.log_evento'
       
-        'SELECT ANO, CODIGO, NUMERO, TIPO, EMPRESA, CENTRO_CUSTO, NOME_SO' +
-        'LICITANTE, '
-      
-        '  OBJETO_SOLICITACAO, MOVITO, OBSERVACAO, DATA_EMISSAO, VALIDADE' +
-        ', '
-      
-        '  COMPETENCIA, INSERCAO_DATA, INSERCAO_USUARIO, STATUS, APROVACA' +
-        'O_DATA, '
-      
-        '  APROVACAO_USUARIO, CANCELADO_DATA, CANCELADO_USUARIO, CANCELAD' +
-        'O_MOTIVO, '
-      '  LOG_EVENTO'
-      'FROM TBSOLICITACAO'
-      'WHERE ANO = :ANO AND CODIGO = :CODIGO')
+        '  , (Select count(x.seq) from TBSOLICITACAO_ITEM x where x.ano =' +
+        ' s.ano and x.codigo = s.codigo) as itens'
+      '  , c.descricao as centro_custo_nome'
+      'from TBSOLICITACAO s'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = s.centro_custo)'
+      'WHERE s.ANO = :ANO AND s.CODIGO = :CODIGO')
     Left = 736
     Top = 40
   end
@@ -3960,46 +3975,49 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
   object updTabelaItens: TFDUpdateSQL
     Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
-      'INSERT INTO TBAPROPRIACAO_ALMOX_ITEM'
-      '(ANO, CONTROLE, ITEM, PRODUTO, QTDE_TIPO_LANCAMENTO, '
-      '  QTDE, QTDE_FRACIONADA, FRACIONADOR, UNIDADE, '
-      '  UNIDADE_FRACAO, CUSTO_UNITARIO, CUSTO_TOTAL)'
+      'INSERT INTO TBSOLICITACAO_ITEM'
+      '(ANO, CODIGO, SEQ, CENTRO_CUSTO, ITEM_CODIGO, '
+      '  ITEM_DESCRICAO, ITEM_CADASTRADO, QUANTIDADE, '
+      '  UNIDADE, USUARIO)'
       
-        'VALUES (:NEW_ANO, :NEW_CONTROLE, :NEW_ITEM, :NEW_PRODUTO, :NEW_Q' +
-        'TDE_TIPO_LANCAMENTO, '
-      
-        '  :NEW_QTDE, :NEW_QTDE_FRACIONADA, :NEW_FRACIONADOR, :NEW_UNIDAD' +
-        'E, '
-      '  :NEW_UNIDADE_FRACAO, :NEW_CUSTO_UNITARIO, :NEW_CUSTO_TOTAL)')
+        'VALUES (:NEW_ANO, :NEW_CODIGO, :NEW_SEQ, :NEW_CENTRO_CUSTO, :NEW' +
+        '_ITEM_CODIGO, '
+      '  :NEW_ITEM_DESCRICAO, :NEW_ITEM_CADASTRADO, :NEW_QUANTIDADE, '
+      '  :NEW_UNIDADE, :NEW_USUARIO)')
     ModifySQL.Strings = (
-      'UPDATE TBAPROPRIACAO_ALMOX_ITEM'
-      'SET ANO = :NEW_ANO, CONTROLE = :NEW_CONTROLE, ITEM = :NEW_ITEM, '
+      'UPDATE TBSOLICITACAO_ITEM'
       
-        '  PRODUTO = :NEW_PRODUTO, QTDE_TIPO_LANCAMENTO = :NEW_QTDE_TIPO_' +
-        'LANCAMENTO, '
-      '  QTDE = :NEW_QTDE, QTDE_FRACIONADA = :NEW_QTDE_FRACIONADA, '
-      '  FRACIONADOR = :NEW_FRACIONADOR, UNIDADE = :NEW_UNIDADE, '
+        'SET ANO = :NEW_ANO, CODIGO = :NEW_CODIGO, SEQ = :NEW_SEQ, CENTRO' +
+        '_CUSTO = :NEW_CENTRO_CUSTO, '
       
-        '  UNIDADE_FRACAO = :NEW_UNIDADE_FRACAO, CUSTO_UNITARIO = :NEW_CU' +
-        'STO_UNITARIO, '
-      '  CUSTO_TOTAL = :NEW_CUSTO_TOTAL'
+        '  ITEM_CODIGO = :NEW_ITEM_CODIGO, ITEM_DESCRICAO = :NEW_ITEM_DES' +
+        'CRICAO, '
       
-        'WHERE ANO = :OLD_ANO AND CONTROLE = :OLD_CONTROLE AND ITEM = :OL' +
-        'D_ITEM')
+        '  ITEM_CADASTRADO = :NEW_ITEM_CADASTRADO, QUANTIDADE = :NEW_QUAN' +
+        'TIDADE, '
+      '  UNIDADE = :NEW_UNIDADE, USUARIO = :NEW_USUARIO'
+      'WHERE ANO = :OLD_ANO AND CODIGO = :OLD_CODIGO AND SEQ = :OLD_SEQ')
     DeleteSQL.Strings = (
-      'DELETE FROM TBAPROPRIACAO_ALMOX_ITEM'
-      
-        'WHERE ANO = :OLD_ANO AND CONTROLE = :OLD_CONTROLE AND ITEM = :OL' +
-        'D_ITEM')
+      'DELETE FROM TBSOLICITACAO_ITEM'
+      'WHERE ANO = :OLD_ANO AND CODIGO = :OLD_CODIGO AND SEQ = :OLD_SEQ')
     FetchRowSQL.Strings = (
-      
-        'SELECT ANO, CONTROLE, ITEM, PRODUTO, QTDE_TIPO_LANCAMENTO, QTDE,' +
-        ' QTDE_FRACIONADA, '
-      
-        '  FRACIONADOR, UNIDADE, UNIDADE_FRACAO, CUSTO_UNITARIO, CUSTO_TO' +
-        'TAL'
-      'FROM TBAPROPRIACAO_ALMOX_ITEM'
-      'WHERE ANO = :ANO AND CONTROLE = :CONTROLE AND ITEM = :ITEM')
+      'Select'
+      '    i.ano'
+      '  , i.codigo'
+      '  , i.seq'
+      '  , i.centro_custo'
+      '  , i.item_codigo'
+      '  , i.item_descricao'
+      '  , i.item_cadastrado'
+      '  , i.quantidade'
+      '  , i.unidade'
+      '  , i.usuario'
+      '  , u.unp_descricao'
+      '  , c.descricao as centro_custo_nome'
+      'from TBSOLICITACAO_ITEM i'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = i.centro_custo)'
+      'WHERE i.ANO = :ANO AND i.CODIGO = :CODIGO AND SEQ = :SEQ')
     Left = 736
     Top = 80
   end

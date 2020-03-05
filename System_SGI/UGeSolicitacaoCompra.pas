@@ -1198,16 +1198,16 @@ begin
       if ( State in [dsInsert] ) then
         if ( SelecionarDepartamento(Self, 0, FieldByName('EMPRESA').AsString, iCodigo, sNome, iCliente) ) then
         begin
-            FieldByName('CENTRO_CUSTO').AsInteger     := iCodigo;
-            FieldByName('CENTRO_CUSTO_NOME').AsString := sNome;
+          FieldByName('CENTRO_CUSTO').AsInteger     := iCodigo;
+          FieldByName('CENTRO_CUSTO_NOME').AsString := sNome;
         end;
 
     if (Sender = dbCentroCustoItem) then
       if ( cdsTabelaItens.State in [dsInsert] ) then
         if ( SelecionarDepartamento(Self, 0, FieldByName('EMPRESA').AsString, iCodigo, sNome, iCliente) ) then
         begin
-            cdsTabelaItensCENTRO_CUSTO.AsInteger     := iCodigo;
-            cdsTabelaItensCENTRO_CUSTO_NOME.AsString := sNome;
+          cdsTabelaItensCENTRO_CUSTO.AsInteger     := iCodigo;
+          cdsTabelaItensCENTRO_CUSTO_NOME.AsString := sNome;
         end;
   end;
 end;

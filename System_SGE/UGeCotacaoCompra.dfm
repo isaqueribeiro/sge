@@ -27,8 +27,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -44,60 +42,63 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
           item
             Expanded = False
             FieldName = 'NUMERO'
+            Title.Caption = 'N'#250'mero '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TIPO'
+            Title.Caption = 'Tipo '
             Width = 70
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'EMISSAO_DATA'
-            Title.Caption = 'Emiss'#227'o'
+            Title.Caption = 'Emiss'#227'o '
             Width = 85
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALIDADE'
-            Title.Caption = 'Validade'
+            Title.Caption = 'Validade '
             Width = 85
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'STATUS'
-            Title.Caption = 'Situa'#231#227'o'
+            Title.Caption = 'Situa'#231#227'o '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRICAO_RESUMO'
+            Title.Caption = 'Descri'#231#227'o resumo '
             Width = 330
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ITENS'
-            Title.Caption = 'Itens'
+            Title.Caption = 'Itens '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_REF_TOTAL'
-            Title.Caption = 'Total Ref. (R$)'
+            Title.Caption = 'Total Ref. (R$) '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'EMISSAO_USUARIO'
-            Title.Caption = 'Emissor / Solicitante'
+            Title.Caption = 'Emissor / Solicitante '
             Width = 130
             Visible = True
           end>
@@ -660,10 +661,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
           object TbsCotacaoObservacao: TTabSheet
             Caption = 'Observa'#231#245'es Gerais'
             ImageIndex = 1
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbObservacao: TDBMemo
               Left = 0
               Top = 0
@@ -685,10 +682,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
           object TbsCotacaoCancelado: TTabSheet
             Caption = 'Motivo do Cancelamento'
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -1091,10 +1084,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         object tbsFornecedor: TTabSheet
           Caption = 'Fornecedores'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel11: TBevel
             Left = 0
             Top = 0
@@ -1482,10 +1471,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         object tbsEventoLOG: TTabSheet
           Caption = 'LOG de Eventos'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbEventoLOG: TDBMemo
             Left = 0
             Top = 0
@@ -2203,49 +2188,49 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
             Expanded = False
             FieldName = 'SEQ'
             Title.Alignment = taCenter
-            Title.Caption = '#'
+            Title.Caption = '# '
             Width = 25
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'PRODUTO'
-            Title.Caption = 'Codigo'
+            Title.Caption = 'Codigo '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRI_APRESENTACAO'
-            Title.Caption = 'Descri'#231#227'o + Apresenta'#231#227'o'
+            Title.Caption = 'Descri'#231#227'o + Apresenta'#231#227'o '
             Width = 450
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'QUANTIDADE'
-            Title.Caption = 'Quantidade'
+            Title.Caption = 'Quantidade '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'UNP_SIGLA'
-            Title.Caption = 'Und.'
+            Title.Caption = 'Und. '
             Width = 40
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_UNITARIO_REF'
-            Title.Caption = 'Valor Un. (R$)'
+            Title.Caption = 'Valor Un. (R$) '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_TOTAL_REF'
-            Title.Caption = 'Valor Total (R$)'
+            Title.Caption = 'Valor Total (R$) '
             Width = 100
             Visible = True
           end>
@@ -2534,8 +2519,8 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       'from TBCOTACAO_COMPRA c')
     GeneratorField.Field = 'CODIGO'
     GeneratorField.Generator = 'GEN_COTACAO_COMPRA_2014'
-    Left = 680
-    Top = 368
+    Left = 728
+    Top = 40
     object IbDtstTabelaANO: TSmallintField
       FieldName = 'ANO'
       Origin = '"TBCOTACAO_COMPRA"."ANO"'
@@ -2782,8 +2767,8 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 744
-    Top = 368
+    Left = 792
+    Top = 40
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -2919,14 +2904,14 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       '  ANO = :OLD_ANO and'
       '  CODIGO = :OLD_CODIGO and'
       '  EMPRESA = :OLD_EMPRESA')
-    Left = 712
-    Top = 368
+    Left = 760
+    Top = 40
   end
   inherited ImgList: TImageList
     Left = 896
     Top = 352
     Bitmap = {
-      494C01012F003100100010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012F003100140010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000C0000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000004A5B
       6F004A5B6F004A5B6F004354680043546800435468003A4B5F003A4B5F003A4B
@@ -4517,6 +4502,14 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
+  inherited fdQryTabela: TFDQuery
+    Left = 728
+    Top = 8
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    Left = 760
+    Top = 8
+  end
   object tblEmpresa: TIBTable
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
@@ -4569,8 +4562,8 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     ParamCheck = True
     UniDirectional = False
     UpdateObject = IbUpdTabelaItens
-    Left = 680
-    Top = 400
+    Left = 728
+    Top = 72
     object cdsTabelaItensANO: TSmallintField
       FieldName = 'ANO'
       Origin = '"TBCOTACAO_COMPRAITEM"."ANO"'
@@ -4776,16 +4769,16 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       '  CODIGO = :OLD_CODIGO and'
       '  EMPRESA = :OLD_EMPRESA and'
       '  SEQ = :OLD_SEQ')
-    Left = 712
-    Top = 400
+    Left = 760
+    Top = 72
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
     DataSet = cdsTabelaItens
     OnStateChange = DtSrcTabelaItensStateChange
     OnDataChange = DtSrcTabelaItensDataChange
-    Left = 744
-    Top = 400
+    Left = 792
+    Top = 72
   end
   object ppImprimir: TPopupMenu
     Images = ImgList
@@ -4986,8 +4979,8 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     ParamCheck = True
     UniDirectional = False
     UpdateObject = updFornecedor
-    Left = 680
-    Top = 432
+    Left = 728
+    Top = 104
     object qryFornecedorANO: TSmallintField
       FieldName = 'ANO'
       Origin = '"TBCOTACAO_COMPRAFORN"."ANO"'
@@ -5134,8 +5127,8 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     AutoEdit = False
     DataSet = qryFornecedor
     OnStateChange = dtsFornecedorStateChange
-    Left = 744
-    Top = 432
+    Left = 792
+    Top = 104
   end
   object updFornecedor: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -5204,8 +5197,8 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       '  CODIGO = :OLD_CODIGO and'
       '  EMPRESA = :OLD_EMPRESA and'
       '  FORNECEDOR = :OLD_FORNECEDOR')
-    Left = 712
-    Top = 432
+    Left = 760
+    Top = 104
   end
   object ppCotacaoFornecedor: TPopupMenu
     Images = ImgList

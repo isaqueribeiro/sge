@@ -1,8 +1,9 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 16/01/2020 15:05:00     #
+#    Gerado por AGIL SOFTWARES em : 05/03/2020 13:12:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Atualização das Taxas Tributárias para JAN/2020 até ABR/2020.
 - Melhoria na performance.
 - Ajustes na emissão de NF-e 4.0.
 - Atualização das Taxas Tributárias para JAN/2018.
@@ -22,4 +23,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.29.3
+#version=1.0.29.4

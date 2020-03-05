@@ -156,10 +156,10 @@ begin
 
     frm.CarregarTitulos;
 
-    if ( not frm.cdsTitulos.IsEmpty ) then
-      Result := (frm.ShowModal = mrOk)
+    if frm.cdsTitulos.IsEmpty  then
+      Result := False
     else
-      Result := False;
+      Result := (frm.ShowModal = mrOk);
   finally
     frm.Free;
   end;
@@ -184,19 +184,8 @@ end;
 procedure TfrmGeVendaConfirmaTitulos.FormShow(Sender: TObject);
 begin
   inherited;
-
   if not cdsTitulos.Active then
-  begin
-    with qryTitulos, SQL do
-    begin
-      Add('where Parcela > 0');
-      Add('  and AnoVenda = ' + IntToStr(AnoVenda));
-      Add('  and NumVenda = ' + IntToStr(ControleVenda));
-      Add('order by numlanc, parcela');
-    end;
-
-    cdsTitulos.Open;
-  end;
+    CarregarTitulos;
 
   if ( not cdsTitulos.IsEmpty ) then
     cdsTitulos.Edit;
@@ -287,6 +276,9 @@ end;
 
 procedure TfrmGeVendaConfirmaTitulos.CarregarTitulos;
 begin
+  if qryTitulos.Active then
+    qryTitulos.Close;
+
   with qryTitulos, SQL do
   begin
     Add('where Parcela > 0');

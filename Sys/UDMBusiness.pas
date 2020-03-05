@@ -783,8 +783,8 @@ begin
 
         if aRetorno then
           case aStart of
-            True  : ShellExecute(0, nil, PChar(szBuff), '-s start', nil, SW_HIDE);   // -s Superserver
-            False : ShellExecute(0, nil, PChar(szBuff), '-s stop', nil, SW_HIDE);    // -c ClientServer
+            True  : ShellExecute(0, nil, PChar(szBuff), '-s start', nil, SW_HIDE); // -s Superserver
+            False : ShellExecute(0, nil, PChar(szBuff), '-s stop',  nil, SW_HIDE); // -c ClientServer
           end;
 
         CloseKey;
