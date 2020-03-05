@@ -107,6 +107,7 @@ type
     fTotalVenda     : Currency;
     procedure UpdateParcelas;
     procedure DisplayTotais;
+    procedure CarregarTitulos;
   public
     { Public declarations }
     property AnoVenda       : Integer read fAnoVenda write fAnoVenda;
@@ -153,7 +154,12 @@ begin
     frm.DataEmissaoDOC := DataEmissaoNF;
     frm.TotalVenda     := ValorVenda;
 
-    Result := (frm.ShowModal = mrOk);
+    frm.CarregarTitulos;
+
+    if ( not frm.cdsTitulos.IsEmpty ) then
+      Result := (frm.ShowModal = mrOk)
+    else
+      Result := False;
   finally
     frm.Free;
   end;
@@ -178,15 +184,20 @@ end;
 procedure TfrmGeVendaConfirmaTitulos.FormShow(Sender: TObject);
 begin
   inherited;
-  with qryTitulos, SQL do
+
+  if not cdsTitulos.Active then
   begin
-    Add('where Parcela > 0');
-    Add('  and AnoVenda = ' + IntToStr(AnoVenda));
-    Add('  and NumVenda = ' + IntToStr(ControleVenda));
-    Add('order by numlanc, parcela');
+    with qryTitulos, SQL do
+    begin
+      Add('where Parcela > 0');
+      Add('  and AnoVenda = ' + IntToStr(AnoVenda));
+      Add('  and NumVenda = ' + IntToStr(ControleVenda));
+      Add('order by numlanc, parcela');
+    end;
+
+    cdsTitulos.Open;
   end;
 
-  cdsTitulos.Open;
   if ( not cdsTitulos.IsEmpty ) then
     cdsTitulos.Edit;
 end;
@@ -272,6 +283,19 @@ begin
     UpdateParcelas;
     ModalResult := mrOk;
   end;
+end;
+
+procedure TfrmGeVendaConfirmaTitulos.CarregarTitulos;
+begin
+  with qryTitulos, SQL do
+  begin
+    Add('where Parcela > 0');
+    Add('  and AnoVenda = ' + IntToStr(AnoVenda));
+    Add('  and NumVenda = ' + IntToStr(ControleVenda));
+    Add('order by numlanc, parcela');
+  end;
+
+  cdsTitulos.Open;
 end;
 
 procedure TfrmGeVendaConfirmaTitulos.cdsTitulosAfterScroll(DataSet: TDataSet);

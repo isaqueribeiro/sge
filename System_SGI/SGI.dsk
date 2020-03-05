@@ -14,15 +14,15 @@ File_11=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_S
 File_12=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeRequisicaoCompra.pas',0,1,390,37,393,0,0,,
 
 [Modules]
-Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module2=default.htm
-Module3=documentation.htm
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompraCancelar.pas
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompra.pas
-Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompra.pas
+Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompraCancelar.pas
+Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
+Module3=default.htm
+Module4=documentation.htm
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
 Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeApropriacaoEstoqueCancelar.pas
 Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeApropriacaoEstoque.pas
 Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas
@@ -33,10 +33,13 @@ Module15=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
 Count=16
 EditWindowCount=1
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompra.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompraCancelar.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas]
 ModuleType=TSourceModule
 
 [default.htm]
@@ -48,16 +51,13 @@ ModuleType=TURLModule
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj]
 ModuleType=TBaseProject
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompraCancelar.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompra.pas]
-ModuleType=TSourceModule
-
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeApropriacaoEstoqueCancelar.pas]
@@ -83,7 +83,7 @@ ModuleType=TSourceModule
 
 [EditWindow0]
 ViewCount=16
-CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
+CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompra.pas
 View0=0
 View1=1
 View2=2
@@ -118,13 +118,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=00000800010100000000C40F00000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000081C00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=00000800010100000000351300000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000252200001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=00000800010100000000C40F00000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000081C000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=1509
+RightPanelData=00000800010100000000351300000000000001D00700000000000001000000004412000009000000446F636B536974653201000000002522000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=0
 BottomPanelClients=MessageView,DockSite1
-BottomPanelData=0000080001020100000009000000446F636B5369746531D74200000000000002E5050000000000000100000000D74200000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B53697465311534000000000000022606000000000000FFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -278,7 +278,7 @@ TopLine=191
 LeftCol=1
 Elisions=
 Bookmarks={1,848,28}
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompra.pas
+EditViewName=Borland.FormDesignerView
 
 [View15]
 CustomEditViewType=TEditView
@@ -289,7 +289,7 @@ TopLine=15
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeSolicitacaoCompraCancelar.pas
+EditViewName=Borland.FormDesignerView
 
 [UndockedDesigner]
 Count=0
@@ -389,18 +389,18 @@ StayOnTop=0
 [MessageView]
 PercentageSizes=1
 Create=1
-Visible=1
+Visible=0
 Docked=1
 State=0
 Left=0
 Top=18
-Width=9625
-Height=1394
+Width=2771
+Height=1413
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=9625
-ClientHeight=1394
-TBDockHeight=1394
+ClientWidth=2771
+ClientHeight=1413
+TBDockHeight=1413
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -414,11 +414,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=2423
+Height=4048
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2423
+ClientHeight=4048
 TBDockHeight=7154
 LRDockWidth=2000
 Dockable=1
@@ -471,16 +471,21 @@ State=0
 Left=0
 Top=415
 Width=1896
-Height=3462
+Height=5087
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=3462
+ClientHeight=5087
 TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
 SplitPos=111
+
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Caption,Action
+ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0,ActiveControl=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -994,11 +999,11 @@ State=0
 Left=0
 Top=523
 Width=2000
-Height=2423
+Height=4048
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2423
+ClientHeight=4048
 TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1

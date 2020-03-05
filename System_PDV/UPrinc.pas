@@ -373,7 +373,7 @@ begin
   else
     Self.Caption      := Application.Title + ' [ v' + GetExeVersion + ' ]';
 
-  Self.ProductName.Caption := StringReplace(GetInternalName, '_', ' ', [rfReplaceAll]);
+  Self.ProductName.Caption := StringReplace(gPersonalizaEmpresa.InternalName, '_', ' ', [rfReplaceAll]);
   Self.FileDescription.Caption := GetFileDescription;
   Self.Version.Caption     := 'Versão ' + GetExeVersion;
   Self.Copyright.Caption   := GetCopyright;
