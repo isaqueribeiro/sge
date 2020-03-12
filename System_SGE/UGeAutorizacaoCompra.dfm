@@ -26,8 +26,6 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -677,10 +675,6 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
           object TbsAutorizacaoObservacao: TTabSheet
             Caption = 'Observa'#231#245'es Gerais'
             ImageIndex = 1
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbObservacao: TDBMemo
               Left = 0
               Top = 0
@@ -702,10 +696,6 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
           object TbsAutorizacaoCancelado: TTabSheet
             Caption = 'Motivo do Cancelamento'
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -1364,10 +1354,6 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
         object tbsRetirada: TTabSheet
           Caption = 'Dados de Retirada'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxRetirada: TGroupBox
             Left = 0
             Top = 0
@@ -2525,7 +2511,7 @@ inherited frmGeAutorizacaoCompra: TfrmGeAutorizacaoCompra
     Left = 912
     Top = 272
     Bitmap = {
-      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

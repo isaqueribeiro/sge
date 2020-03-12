@@ -38,8 +38,8 @@ type
     lblAutorizador: TLabel;
     dbAutorizador: TDBEdit;
     Bevel12: TBevel;
-    cdsTabelaItens: TIBDataSet;
-    IbUpdTabelaItens: TIBUpdateSQL;
+    cdsTabelaItensXXX: TIBDataSet;
+    IbUpdTabelaItensXXX: TIBUpdateSQL;
     DtSrcTabelaItens: TDataSource;
     pgcMaisDados: TPageControl;
     GrpBxDadosProduto: TGroupBox;
@@ -97,59 +97,25 @@ type
     dbMovitoCancelamento: TDBMemo;
     lblDescricao: TLabel;
     dbDescricao: TDBEdit;
-    IbDtstTabelaANO: TSmallintField;
-    IbDtstTabelaCODIGO: TIntegerField;
-    IbDtstTabelaEMPRESA: TIBStringField;
-    IbDtstTabelaNUMERO: TIBStringField;
-    IbDtstTabelaTIPO: TSmallintField;
-    IbDtstTabelaDESCRICAO_RESUMO: TIBStringField;
-    IbDtstTabelaNOME_CONTATO_INT: TIBStringField;
-    IbDtstTabelaINSERCAO_DATA: TDateTimeField;
-    IbDtstTabelaEMISSAO_DATA: TDateField;
-    IbDtstTabelaEMISSAO_USUARIO: TIBStringField;
-    IbDtstTabelaVALIDADE: TDateField;
-    IbDtstTabelaCOMPETENCIA: TIntegerField;
-    IbDtstTabelaMOVITO: TMemoField;
-    IbDtstTabelaOBSERVACAO: TMemoField;
-    IbDtstTabelaLOG_EVENTO: TMemoField;
-    IbDtstTabelaSTATUS: TSmallintField;
-    IbDtstTabelaNUMERO_MINIMO_FORNECEDOR: TSmallintField;
-    IbDtstTabelaAUTORIZADA_DATA: TDateField;
-    IbDtstTabelaAUTORIZADA_USUARIO: TIBStringField;
-    IbDtstTabelaENCERRADA_DATA: TDateField;
-    IbDtstTabelaENCERRADA_USUARIO: TIBStringField;
-    IbDtstTabelaCANCELADO_DATA: TDateField;
-    IbDtstTabelaCANCELADO_USUARIO: TIBStringField;
-    IbDtstTabelaCANCELADO_MOTIVO: TMemoField;
-    IbDtstTabelaVALOR_REF_TOTAL: TIBBCDField;
-    IbDtstTabelaVALOR_MAX_BRUTO: TIBBCDField;
-    IbDtstTabelaVALOR_MAX_DESCONTO: TIBBCDField;
-    IbDtstTabelaVALOR_MAX_TOTAL: TIBBCDField;
-    IbDtstTabelaVALOR_MIN_BRUTO: TIBBCDField;
-    IbDtstTabelaVALOR_MIN_DESCONTO: TIBBCDField;
-    IbDtstTabelaVALOR_MIN_TOTAL: TIBBCDField;
-    IbDtstTabelaVALOR_MEDIA_BRUTO: TIBBCDField;
-    IbDtstTabelaVALOR_MEDIA_DESCONTO: TIBBCDField;
-    IbDtstTabelaVALOR_MEDIA_TOTAL: TIBBCDField;
-    cdsTabelaItensANO: TSmallintField;
-    cdsTabelaItensCODIGO: TIntegerField;
-    cdsTabelaItensEMPRESA: TIBStringField;
-    cdsTabelaItensSEQ: TSmallintField;
-    cdsTabelaItensPRODUTO: TIBStringField;
-    cdsTabelaItensQUANTIDADE: TIBBCDField;
-    cdsTabelaItensUNIDADE: TSmallintField;
-    cdsTabelaItensVALOR_UNITARIO_REF: TIBBCDField;
-    cdsTabelaItensVALOR_TOTAL_REF: TIBBCDField;
-    cdsTabelaItensVALOR_UNITARIO_MIN: TIBBCDField;
-    cdsTabelaItensVALOR_TOTAL_MIN: TIBBCDField;
-    cdsTabelaItensVALOR_UNITARIO_MAX: TIBBCDField;
-    cdsTabelaItensVALOR_TOTAL_MAX: TIBBCDField;
-    cdsTabelaItensVALOR_UNITARIO_MEDIA: TIBBCDField;
-    cdsTabelaItensVALOR_TOTAL_MEDIA: TIBBCDField;
-    cdsTabelaItensUSUARIO: TIBStringField;
-    cdsTabelaItensDESCRI_APRESENTACAO: TIBStringField;
-    cdsTabelaItensUNP_DESCRICAO: TIBStringField;
-    cdsTabelaItensUNP_SIGLA: TIBStringField;
+    cdsTabelaItensXXXANO: TSmallintField;
+    cdsTabelaItensXXXCODIGO: TIntegerField;
+    cdsTabelaItensXXXEMPRESA: TIBStringField;
+    cdsTabelaItensXXXSEQ: TSmallintField;
+    cdsTabelaItensXXXPRODUTO: TIBStringField;
+    cdsTabelaItensXXXQUANTIDADE: TIBBCDField;
+    cdsTabelaItensXXXUNIDADE: TSmallintField;
+    cdsTabelaItensXXXVALOR_UNITARIO_REF: TIBBCDField;
+    cdsTabelaItensXXXVALOR_TOTAL_REF: TIBBCDField;
+    cdsTabelaItensXXXVALOR_UNITARIO_MIN: TIBBCDField;
+    cdsTabelaItensXXXVALOR_TOTAL_MIN: TIBBCDField;
+    cdsTabelaItensXXXVALOR_UNITARIO_MAX: TIBBCDField;
+    cdsTabelaItensXXXVALOR_TOTAL_MAX: TIBBCDField;
+    cdsTabelaItensXXXVALOR_UNITARIO_MEDIA: TIBBCDField;
+    cdsTabelaItensXXXVALOR_TOTAL_MEDIA: TIBBCDField;
+    cdsTabelaItensXXXUSUARIO: TIBStringField;
+    cdsTabelaItensXXXDESCRI_APRESENTACAO: TIBStringField;
+    cdsTabelaItensXXXUNP_DESCRICAO: TIBStringField;
+    cdsTabelaItensXXXUNP_SIGLA: TIBStringField;
     dbEventoLOG: TDBMemo;
     lblNumeroFornecedor: TLabel;
     dbNumeroFornecedor: TDBEdit;
@@ -160,7 +126,6 @@ type
     dbTotalLiquidoMax: TDBEdit;
     lblTotalLiquidoMin: TLabel;
     dbTotalLiquidoMin: TDBEdit;
-    IbDtstTabelaITENS: TIntegerField;
     lblTotalLiquidoMedio: TLabel;
     dbTotalLiquidoMedio: TDBEdit;
     PnlDadosProdutoConsolidado: TPanel;
@@ -224,10 +189,44 @@ type
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
     dbProduto: TJvDBComboEdit;
+    fdQryTabelaANO: TSmallintField;
+    fdQryTabelaCODIGO: TIntegerField;
+    fdQryTabelaEMPRESA: TStringField;
+    fdQryTabelaNUMERO: TStringField;
+    fdQryTabelaTIPO: TSmallintField;
+    fdQryTabelaDESCRICAO_RESUMO: TStringField;
+    fdQryTabelaNOME_CONTATO_INT: TStringField;
+    fdQryTabelaINSERCAO_DATA: TSQLTimeStampField;
+    fdQryTabelaEMISSAO_DATA: TDateField;
+    fdQryTabelaEMISSAO_USUARIO: TStringField;
+    fdQryTabelaVALIDADE: TDateField;
+    fdQryTabelaCOMPETENCIA: TIntegerField;
+    fdQryTabelaMOVITO: TMemoField;
+    fdQryTabelaOBSERVACAO: TMemoField;
+    fdQryTabelaLOG_EVENTO: TMemoField;
+    fdQryTabelaSTATUS: TSmallintField;
+    fdQryTabelaNUMERO_MINIMO_FORNECEDOR: TSmallintField;
+    fdQryTabelaAUTORIZADA_DATA: TDateField;
+    fdQryTabelaAUTORIZADA_USUARIO: TStringField;
+    fdQryTabelaENCERRADA_DATA: TDateField;
+    fdQryTabelaENCERRADA_USUARIO: TStringField;
+    fdQryTabelaCANCELADO_DATA: TDateField;
+    fdQryTabelaCANCELADO_USUARIO: TStringField;
+    fdQryTabelaCANCELADO_MOTIVO: TMemoField;
+    fdQryTabelaVALOR_REF_TOTAL: TBCDField;
+    fdQryTabelaVALOR_MAX_BRUTO: TBCDField;
+    fdQryTabelaVALOR_MAX_DESCONTO: TBCDField;
+    fdQryTabelaVALOR_MAX_TOTAL: TBCDField;
+    fdQryTabelaVALOR_MIN_BRUTO: TBCDField;
+    fdQryTabelaVALOR_MIN_DESCONTO: TBCDField;
+    fdQryTabelaVALOR_MIN_TOTAL: TBCDField;
+    fdQryTabelaVALOR_MEDIA_BRUTO: TBCDField;
+    fdQryTabelaVALOR_MEDIA_DESCONTO: TBCDField;
+    fdQryTabelaVALOR_MEDIA_TOTAL: TBCDField;
+    fdQryTabelaITENS: TIntegerField;
+    cdsTabelaItens: TFDQuery;
+    updTabelaItens: TFDUpdateSQL;
     procedure FormCreate(Sender: TObject);
-    procedure IbDtstTabelaINSERCAO_DATAGetText(Sender: TField;
-      var Text: String; DisplayText: Boolean);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
     procedure btbtnExcluirClick(Sender: TObject);
@@ -236,13 +235,12 @@ type
     procedure btnProdutoEditarClick(Sender: TObject);
     procedure btnProdutoExcluirClick(Sender: TObject);
     procedure btnProdutoSalvarClick(Sender: TObject);
-    procedure cdsTabelaItensNewRecord(DataSet: TDataSet);
+    procedure cdsTabelaItensXXXNewRecord(DataSet: TDataSet);
     procedure btnAutorizarCotacaoClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure DtSrcTabelaItensStateChange(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
-    procedure IbDtstTabelaAfterCancel(DataSet: TDataSet);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure ControlEditExit(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -251,16 +249,11 @@ type
     procedure dbProdutoButtonClick(Sender: TObject);
     procedure nmImprimirCotacaoClick(Sender: TObject);
     procedure btnCancelarCotacaoClick(Sender: TObject);
-    procedure IbDtstTabelaSTATUSGetText(Sender: TField; var Text: String;
-      DisplayText: Boolean);
     procedure btnFinalizarCotacaoClick(Sender: TObject);
     procedure DtSrcTabelaItensDataChange(Sender: TObject; Field: TField);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure IbDtstTabelaTIPOGetText(Sender: TField; var Text: String;
-      DisplayText: Boolean);
     procedure FormShow(Sender: TObject);
-    procedure IbDtstTabelaAfterScroll(DataSet: TDataSet);
     procedure BtnFornecedorInserirClick(Sender: TObject);
     procedure dtsFornecedorStateChange(Sender: TObject);
     procedure BtnFornecedorEditarClick(Sender: TObject);
@@ -273,6 +266,12 @@ type
     procedure nmProcessarRespostasClick(Sender: TObject);
     procedure nmImprimirCotacaoMapaClick(Sender: TObject);
     procedure BtnFornecedorExcluirClick(Sender: TObject);
+    procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
+    procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
+    procedure fdQryTabelaTIPOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure fdQryTabelaINSERCAO_DATAGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure fdQryTabelaSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -343,11 +342,11 @@ begin
     if (frm.RdgStatusCotacao.ItemIndex > 0) then
       whr := whr + ' and (c.status = ' + IntToStr(frm.RdgStatusCotacao.ItemIndex - 1) + ')';
 
-    with frm, IbDtstTabela do
+    with frm, fdQryTabela do
     begin
       Close;
-      SelectSQL.Add('where ' + whr);
-      SelectSQL.Add('order by ' + CampoOrdenacao);
+      SQL.Add('where ' + whr);
+      SQL.Add('order by ' + CampoOrdenacao);
       Open;
     end;
 
@@ -366,42 +365,45 @@ var
 begin
   frm := TfrmGeCotacaoCompra.Create(AOwner);
   try
-    frm.btbtnIncluir.Visible        := False;
-    frm.btnFinalizarCotacao.Visible := False;
-    frm.btnAutorizarCotacao.Visible := False;
-    frm.btnCancelarCotacao.Visible  := False;
-
-    frm.RdgStatusCotacao.ItemIndex := STATUS_COTACAO_COT + 1;
-
-    frm.RdgStatusCotacao.Enabled := False;
-    //for I := 0 to frm.RdgStatusCotacao.Items.Count - 1 do
-    //  frm.RdgStatusCotacao.Controls[I].Enabled := False;
-
-    frm.iFornecedor := 0; //Fornecedor;
-    frm.e1Data.Date := DataInicial;
-    frm.WhereAdditional := //'(a.fornecedor = ' + IntToStr(Fornecedor) + ') and ' +
-            'cast(c.emissao_data as date) between ' +
-            QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
-            QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) );
-
-    if (frm.RdgStatusCotacao.ItemIndex > 0) then
-      frm.WhereAdditional := frm.WhereAdditional + ' and (c.status = ' + IntToStr(frm.RdgStatusCotacao.ItemIndex - 1) + ')';
-
-    with frm, IbDtstTabela do
+    with frm do
     begin
-      Close;
-      SelectSQL.Add('where ' + WhereAdditional);
-      SelectSQL.Add('order by ' + CampoDescricao);
-      Open;
-    end;
+      btbtnIncluir.Visible        := False;
+      btnFinalizarCotacao.Visible := False;
+      btnAutorizarCotacao.Visible := False;
+      btnCancelarCotacao.Visible  := False;
 
-    Result := frm.SelecionarRegistro(Codigo, sNome, frm.WhereAdditional);
+      RdgStatusCotacao.ItemIndex := STATUS_COTACAO_COT + 1;
 
-    if ( Result ) then
-    begin
-      Ano     := frm.IbDtstTabelaANO.AsInteger;
-      Codigo  := frm.IbDtstTabelaCODIGO.AsInteger;
-      Empresa := frm.IbDtstTabelaEMPRESA.AsString;
+      RdgStatusCotacao.Enabled := False;
+      //for I := 0 to frm.RdgStatusCotacao.Items.Count - 1 do
+      //  frm.RdgStatusCotacao.Controls[I].Enabled := False;
+
+      iFornecedor := 0; //Fornecedor;
+      e1Data.Date := DataInicial;
+      WhereAdditional := //'(a.fornecedor = ' + IntToStr(Fornecedor) + ') and ' +
+              'cast(c.emissao_data as date) between ' +
+              QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e1Data.Date) ) + ' and ' +
+              QuotedStr( FormatDateTime('yyyy-mm-dd', frm.e2Data.Date) );
+
+      if (RdgStatusCotacao.ItemIndex > 0) then
+        WhereAdditional := frm.WhereAdditional + ' and (c.status = ' + IntToStr(frm.RdgStatusCotacao.ItemIndex - 1) + ')';
+
+      with fdQryTabela do
+      begin
+        Close;
+        SQL.Add('where ' + WhereAdditional);
+        SQL.Add('order by ' + CampoDescricao);
+        Open;
+      end;
+
+      Result := SelecionarRegistro(Codigo, sNome, frm.WhereAdditional);
+
+      if ( Result ) then
+      begin
+        Ano     := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
+        Codigo  := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
+        Empresa := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
+      end;
     end;
   finally
     frm.Destroy;
@@ -414,8 +416,11 @@ begin
   sGeneratorName := 'GEN_COTACAO_COMPRA_' + FormatFloat('0000', YearOf(GetDateDB));
   CriarGenerator(sGeneratorName, 0);
 
-  IbDtstTabela.GeneratorField.Generator := sGeneratorName;
-  IbDtstTabela.GeneratorField.Field     := 'codigo';
+  with fdQryTabela.UpdateOptions do
+  begin
+    GeneratorName := sGeneratorName;
+    AutoIncFields := 'codigo';
+  end;
 
   inherited;
 
@@ -455,51 +460,6 @@ begin
   UpdateGenerator( 'where ano = ' + FormatFloat('0000', YearOf(Date)) );
 end;
 
-procedure TfrmGeCotacaoCompra.IbDtstTabelaINSERCAO_DATAGetText(
-  Sender: TField; var Text: String; DisplayText: Boolean);
-begin
-  if ( Sender.IsNull ) then
-    Exit;
-
-  Text := FormatDateTime('dd/mm/yyyy hh:mm', Sender.AsDateTime);
-end;
-
-procedure TfrmGeCotacaoCompra.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaEMPRESA.Value             := gUsuarioLogado.Empresa;
-  IbDtstTabelaTIPO.Value                := TIPO_COTACAO_COMPRA;
-  IbDtstTabelaINSERCAO_DATA.Value       := GetDateTimeDB;
-  IbDtstTabelaEMISSAO_DATA.Value        := GetDateDB;
-  IbDtstTabelaEMISSAO_USUARIO.Value     := GetUserApp;
-  IbDtstTabelaVALIDADE.Value            := IbDtstTabelaEMISSAO_DATA.Value + GetPrazoValidadeCotacaoCompra(IbDtstTabelaEMPRESA.AsString);
-  IbDtstTabelaSTATUS.AsInteger          := STATUS_COTACAO_EDC;
-  IbDtstTabelaNOME_CONTATO_INT.AsString := GetUserFullName;
-
-  IbDtstTabelaNUMERO_MINIMO_FORNECEDOR.AsInteger := 3;
-
-  IbDtstTabelaVALOR_REF_TOTAL.AsCurrency    := 0.0;
-
-  IbDtstTabelaVALOR_MAX_BRUTO.AsCurrency    := 0.0;
-  IbDtstTabelaVALOR_MAX_DESCONTO.AsCurrency := 0.0;
-  IbDtstTabelaVALOR_MAX_TOTAL.AsCurrency    := 0.0;
-
-  IbDtstTabelaVALOR_MIN_BRUTO.AsCurrency    := 0.0;
-  IbDtstTabelaVALOR_MIN_DESCONTO.AsCurrency := 0.0;
-  IbDtstTabelaVALOR_MIN_TOTAL.AsCurrency    := 0.0;
-
-  IbDtstTabelaVALOR_MEDIA_BRUTO.AsCurrency    := 0.0;
-  IbDtstTabelaVALOR_MEDIA_DESCONTO.AsCurrency := 0.0;
-  IbDtstTabelaVALOR_MEDIA_TOTAL.AsCurrency    := 0.0;
-
-  IbDtstTabelaDESCRICAO_RESUMO.Clear;
-  IbDtstTabelaAUTORIZADA_DATA.Clear;
-  IbDtstTabelaAUTORIZADA_USUARIO.Clear;
-  IbDtstTabelaCANCELADO_DATA.Clear;
-  IbDtstTabelaCANCELADO_USUARIO.Clear;
-  IbDtstTabelaCANCELADO_MOTIVO.Clear;
-end;
-
 procedure TfrmGeCotacaoCompra.btbtnIncluirClick(Sender: TObject);
 var
   iAno ,
@@ -509,16 +469,16 @@ begin
   iNum := GetGeneratorID(sGeneratorName);
 
   inherited;
+  with DtSrcTabela.DataSet do
+    if ( not OcorreuErro ) then
+    begin
+      FieldByName('ANO').AsInteger    := iAno;
+      FieldByName('CODIGO').AsInteger := iNum;
+      FieldByName('NUMERO').AsString  := FormatFloat('##0000000', FieldByName('CODIGO').AsInteger) + '/' + Copy(FieldByName('ANO').AsString, 3, 2);
 
-  if ( not OcorreuErro ) then
-  begin
-    IbDtstTabelaANO.AsInteger    := iAno;
-    IbDtstTabelaCODIGO.AsInteger := iNum;
-    IbDtstTabelaNUMERO.AsString  := FormatFloat('##0000000', IbDtstTabelaCODIGO.AsInteger) + '/' + Copy(IbDtstTabelaANO.AsString, 3, 2);
-
-    AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
-    AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
-  end;
+      AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
+      AbrirTabelaFornecedores( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
+    end;
 end;
 
 procedure TfrmGeCotacaoCompra.AbrirTabelaItens(
@@ -542,26 +502,29 @@ end;
 
 procedure TfrmGeCotacaoCompra.HabilitarDesabilitar_Btns;
 begin
-  if ( pgcGuias.ActivePage = tbsCadastro ) then
+  with DtSrcTabela.DataSet do
   begin
-    btnFinalizarCotacao.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_EDC) and (not cdsTabelaItens.IsEmpty);
-    btnAutorizarCotacao.Enabled := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) and (not cdsTabelaItens.IsEmpty);
-    btnCancelarCotacao.Enabled  := (not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT);
+    if ( pgcGuias.ActivePage = tbsCadastro ) then
+    begin
+      btnFinalizarCotacao.Enabled := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger = STATUS_COTACAO_EDC) and (not cdsTabelaItens.IsEmpty);
+      btnAutorizarCotacao.Enabled := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger = STATUS_COTACAO_COT) and (not cdsTabelaItens.IsEmpty);
+      btnCancelarCotacao.Enabled  := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger = STATUS_COTACAO_COT);
 
-    nmImprimirCotacao.Enabled     := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ABR) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
-    nmImprimirCotacaoMapa.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
+      nmImprimirCotacao.Enabled     := (FieldByName('STATUS').AsInteger = STATUS_COTACAO_ABR) or (FieldByName('STATUS').AsInteger = STATUS_COTACAO_COT) or (FieldByName('STATUS').AsInteger = STATUS_COTACAO_ENC);
+      nmImprimirCotacaoMapa.Enabled := (FieldByName('STATUS').AsInteger = STATUS_COTACAO_COT) or (FieldByName('STATUS').AsInteger = STATUS_COTACAO_ENC);
 
-    dtsFornecedor.AutoEdit := (not IbDtstTabela.IsEmpty) and (IbDtstTabela.State = dsBrowse) and (IbDtstTabelaSTATUS.AsInteger < STATUS_COTACAO_ENC);
-    dtsFornecedorStateChange( dtsFornecedor );
-  end
-  else
-  begin
-    btnFinalizarCotacao.Enabled := False;
-    btnAutorizarCotacao.Enabled := False; //(not (IbDtstTabela.State in [dsEdit, dsInsert])) and (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_COT) and (not cdsTabelaItens.IsEmpty);
-    btnCancelarCotacao.Enabled  := False;
+      dtsFornecedor.AutoEdit := (not IsEmpty) and (State = dsBrowse) and (FieldByName('STATUS').AsInteger < STATUS_COTACAO_ENC);
+      dtsFornecedorStateChange( dtsFornecedor );
+    end
+    else
+    begin
+      btnFinalizarCotacao.Enabled := False;
+      btnAutorizarCotacao.Enabled := False;
+      btnCancelarCotacao.Enabled  := False;
 
-    nmImprimirCotacao.Enabled     := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ABR) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
-    nmImprimirCotacaoMapa.Enabled := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) or (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ENC);
+      nmImprimirCotacao.Enabled     := (FieldByName('STATUS').AsInteger = STATUS_COTACAO_ABR) or (FieldByName('STATUS').AsInteger = STATUS_COTACAO_COT) or (FieldByName('STATUS').AsInteger = STATUS_COTACAO_ENC);
+      nmImprimirCotacaoMapa.Enabled := (FieldByName('STATUS').AsInteger = STATUS_COTACAO_COT) or (FieldByName('STATUS').AsInteger = STATUS_COTACAO_ENC);
+    end;
   end;
 end;
 
@@ -571,31 +534,32 @@ var
   iCod : Integer;
   sID : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    Exit;
-
-  if IbDtstTabela.IsEmpty then
-    sID := EmptyStr
-  else
-    sID := IbDtstTabelaNUMERO.AsString;
-
-  if ( sID <> EmptyStr ) then
+  with DtSrcTabela.DataSet do
   begin
-    iAno := IbDtstTabelaANO.AsInteger;
-    iCod := IbDtstTabelaCODIGO.AsInteger;
+    if ( State in [dsEdit, dsInsert] ) then
+      Exit;
 
-    if ( not IbDtstTabelaEMISSAO_DATA.IsNull ) then
+    if IsEmpty then
+      sID := EmptyStr
+    else
+      sID := FieldByName('NUMERO').AsString;
+
+    if ( sID <> EmptyStr ) then
     begin
-      if ( IbDtstTabelaEMISSAO_DATA.AsDateTime < e1Data.Date ) then
-        e1Data.Date := IbDtstTabelaEMISSAO_DATA.AsDateTime;
+      iAno := FieldByName('ANO').AsInteger;
+      iCod := FieldByName('CODIGO').AsInteger;
 
-      if ( IbDtstTabelaEMISSAO_DATA.AsDateTime > e2Data.Date ) then
-        e2Data.Date := IbDtstTabelaEMISSAO_DATA.AsDateTime;
+      if ( not FieldByName('EMISSAO_DATA').IsNull ) then
+      begin
+        if ( FieldByName('EMISSAO_DATA').AsDateTime < e1Data.Date ) then
+          e1Data.Date := FieldByName('EMISSAO_DATA').AsDateTime;
+
+        if ( FieldByName('EMISSAO_DATA').AsDateTime > e2Data.Date ) then
+          e2Data.Date := FieldByName('EMISSAO_DATA').AsDateTime;
+      end;
     end;
 
-    IbDtstTabela.Close;
-    IbDtstTabela.Open;
-    IbDtstTabela.Locate('NUMERO', sID, []);
+    fdQryTabela.RefreshRecord;
   end;
 end;
 
@@ -605,28 +569,31 @@ var
 begin
   RecarregarRegistro;
 
-  if ( IbDtstTabelaSTATUS.AsInteger > STATUS_COTACAO_COT ) then
+  with DtSrcTabela.DataSet do
   begin
-    Case IbDtstTabelaSTATUS.AsInteger of
-      STATUS_COTACAO_ENC : sMsg := 'Esta cotação não pode ser alterada por já está autorizada/encerrada.';
-      STATUS_COTACAO_CAN : sMsg := 'Esta cotação não pode ser alterada porque está cancelada.';
-    end;
-
-    ShowWarning(sMsg);
-    Abort;
-  end
-  else
-  begin
-    if (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) then
-      if not ShowConfirm('A edição da cotação selecionada está em andamento.' + #13 + 'Deseja colocá-la em edição novamente?') then
-        Abort;
-
-    inherited;
-
-    if ( not OcorreuErro ) then
+    if ( FieldByName('STATUS').AsInteger > STATUS_COTACAO_COT ) then
     begin
-      AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
-      AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
+      Case FieldByName('STATUS').AsInteger of
+        STATUS_COTACAO_ENC : sMsg := 'Esta cotação não pode ser alterada por já está autorizada/encerrada.';
+        STATUS_COTACAO_CAN : sMsg := 'Esta cotação não pode ser alterada porque está cancelada.';
+      end;
+
+      ShowWarning(sMsg);
+      Abort;
+    end
+    else
+    begin
+      if (FieldByName('STATUS').AsInteger = STATUS_COTACAO_COT) then
+        if not ShowConfirm('A edição da cotação selecionada está em andamento.' + #13 + 'Deseja colocá-la em edição novamente?') then
+          Abort;
+
+      inherited;
+
+      if ( not OcorreuErro ) then
+      begin
+        AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
+        AbrirTabelaFornecedores( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
+      end;
     end;
   end;
 end;
@@ -637,25 +604,28 @@ var
 begin
   RecarregarRegistro;
 
-  if ( IbDtstTabelaSTATUS.AsInteger > STATUS_COTACAO_ABR ) then
+  with DtSrcTabela.DataSet do
   begin
-    Case IbDtstTabelaSTATUS.AsInteger of
-      STATUS_COTACAO_COT : sMsg := 'Esta cotação não pode ser excluída porque já está aguardando encerramento.';
-      STATUS_COTACAO_ENC : sMsg := 'Esta cotação não pode ser excluída por já está autorizada/encerrada.';
-      STATUS_COTACAO_CAN : sMsg := 'Esta cotação não pode ser excluída porque está cancelada.';
-    end;
-
-    ShowWarning(sMsg);
-    Abort;
-  end
-  else
-  begin
-    inherited;
-    if ( not OcorreuErro ) then
+    if ( FieldByName('STATUS').AsInteger > STATUS_COTACAO_ABR ) then
     begin
-      AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
-      AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
-    end;  
+      Case FieldByName('STATUS').AsInteger of
+        STATUS_COTACAO_COT : sMsg := 'Esta cotação não pode ser excluída porque já está aguardando encerramento.';
+        STATUS_COTACAO_ENC : sMsg := 'Esta cotação não pode ser excluída por já está autorizada/encerrada.';
+        STATUS_COTACAO_CAN : sMsg := 'Esta cotação não pode ser excluída porque está cancelada.';
+      end;
+
+      ShowWarning(sMsg);
+      Abort;
+    end
+    else
+    begin
+      inherited;
+      if ( not OcorreuErro ) then
+      begin
+        AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
+        AbrirTabelaFornecedores( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
+      end;
+    end;
   end;
 end;
 
@@ -677,7 +647,7 @@ procedure TfrmGeCotacaoCompra.btnProdutoInserirClick(Sender: TObject);
 var
   Sequencial : Integer;
 begin
-  if ( Trim(IbDtstTabelaDESCRICAO_RESUMO.AsString) = EmptyStr ) then
+  if ( Trim(DtSrcTabela.DataSet.FieldByName('DESCRICAO_RESUMO').AsString) = EmptyStr ) then
   begin
     ShowWarning('Favor informar uma descrição resumo para a cotação!');
     dbDescricao.SetFocus;
@@ -716,7 +686,7 @@ begin
 (*
       GetToTais(cTotalReferencia);
 
-      IbDtstTabelaVALOR_REF_TOTAL.AsCurrency := cTotalReferencia;
+      FieldByName('VALOR_REF_TOTAL.AsCurrency := cTotalReferencia;
 *)
     end;
 end;
@@ -775,7 +745,7 @@ begin
 
       GetToTais(cTotalReferencia);
 
-      IbDtstTabelaVALOR_REF_TOTAL.AsCurrency := cTotalReferencia;
+      DtSrcTabela.DataSet.FieldByName('VALOR_REF_TOTAL').AsCurrency := cTotalReferencia;
 
       if ( btnProdutoInserir.Visible and btnProdutoInserir.Enabled ) then
         btnProdutoInserir.SetFocus;
@@ -784,68 +754,75 @@ begin
   end;
 end;
 
-procedure TfrmGeCotacaoCompra.cdsTabelaItensNewRecord(
+procedure TfrmGeCotacaoCompra.cdsTabelaItensXXXNewRecord(
   DataSet: TDataSet);
 begin
-  inherited;
-  cdsTabelaItensANO.Value        := IbDtstTabelaANO.Value;
-  cdsTabelaItensCODIGO.Value     := IbDtstTabelaCODIGO.Value;
-  cdsTabelaItensEMPRESA.Value    := IbDtstTabelaEMPRESA.Value;
-  cdsTabelaItensQUANTIDADE.Value := 1;
-  cdsTabelaItensVALOR_UNITARIO_REF.AsCurrency := 0.0;
-  cdsTabelaItensVALOR_TOTAL_REF.AsCurrency    := 0.0;
-  cdsTabelaItensUSUARIO.Value                 := GetUserApp;
+  with DtSrcTabela.DataSet do
+  begin
+    cdsTabelaItensANO.Value        := FieldByName('ANO').Value;
+    cdsTabelaItensCODIGO.Value     := FieldByName('CODIGO').Value;
+    cdsTabelaItensEMPRESA.Value    := FieldByName('EMPRESA').Value;
+    cdsTabelaItensQUANTIDADE.Value := 1;
+    cdsTabelaItensVALOR_UNITARIO_REF.AsCurrency := 0.0;
+    cdsTabelaItensVALOR_TOTAL_REF.AsCurrency    := 0.0;
+    cdsTabelaItensUSUARIO.Value                 := gUsuarioLogado.Login;
 
-  cdsTabelaItensVALOR_UNITARIO_MAX.AsCurrency   := 0.0;
-  cdsTabelaItensVALOR_UNITARIO_MIN.AsCurrency   := 0.0;
-  cdsTabelaItensVALOR_UNITARIO_MEDIA.AsCurrency := 0.0;
-  cdsTabelaItensVALOR_TOTAL_MAX.AsCurrency      := 0.0;
-  cdsTabelaItensVALOR_TOTAL_MIN.AsCurrency      := 0.0;
-  cdsTabelaItensVALOR_TOTAL_MEDIA.AsCurrency    := 0.0;
+    cdsTabelaItensVALOR_UNITARIO_MAX.AsCurrency   := 0.0;
+    cdsTabelaItensVALOR_UNITARIO_MIN.AsCurrency   := 0.0;
+    cdsTabelaItensVALOR_UNITARIO_MEDIA.AsCurrency := 0.0;
+    cdsTabelaItensVALOR_TOTAL_MAX.AsCurrency      := 0.0;
+    cdsTabelaItensVALOR_TOTAL_MIN.AsCurrency      := 0.0;
+    cdsTabelaItensVALOR_TOTAL_MEDIA.AsCurrency    := 0.0;
 
-  cdsTabelaItensPRODUTO.Clear;
-  cdsTabelaItensDESCRI_APRESENTACAO.Clear;
-  cdsTabelaItensUNIDADE.Clear;
-  cdsTabelaItensUNP_SIGLA.Clear;
+    cdsTabelaItensPRODUTO.Clear;
+    cdsTabelaItensDESCRI_APRESENTACAO.Clear;
+    cdsTabelaItensUNIDADE.Clear;
+    cdsTabelaItensUNP_SIGLA.Clear;
+  end;
 end;
 
 procedure TfrmGeCotacaoCompra.btnAutorizarCotacaoClick(
   Sender: TObject);
 begin
-  if ( IbDtstTabela.IsEmpty ) then
-    Exit;
-
-  RecarregarRegistro;
-
-  AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
-  AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
-
-  if not (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_COT) then
-    ShowInformation('Apenas cotações que já possuem respostas de fornecedores poder ser autorizadas/encerradas!')
-  else
-  if (qryFornecedor.RecordCount < IbDtstTabelaNUMERO_MINIMO_FORNECEDOR.Value) then
-    ShowInformation(
-      Format('Para que a cotação possa ser autorizada/encerrada, esta deve possuir respostas de, no mínimo, %s fornecedor(es).',
-        [IbDtstTabelaNUMERO_MINIMO_FORNECEDOR.AsString]))
-  else
-  if ( ShowConfirm('Confirma a autorização do cotação selecionada?') ) then
+  with DtSrcTabela.DataSet do
   begin
-    IbDtstTabela.Edit;
+    if ( IsEmpty ) then
+      Exit;
 
-    IbDtstTabelaSTATUS.Value             := STATUS_COTACAO_ENC;
-    IbDtstTabelaAUTORIZADA_DATA.Value    := GetDateDB;
-    IbDtstTabelaAUTORIZADA_USUARIO.Value := GetUserApp;
+    RecarregarRegistro;
 
-    IbDtstTabela.Post;
-    IbDtstTabela.ApplyUpdates;
+    AbrirTabelaItens(FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger);
+    AbrirTabelaFornecedores( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
 
-    CommitTransaction;
+    if not (FieldByName('STATUS').AsInteger = STATUS_COTACAO_COT) then
+      ShowInformation('Apenas cotações que já possuem respostas de fornecedores poder ser autorizadas/encerradas!')
+    else
+    if (qryFornecedor.RecordCount < FieldByName('NUMERO_MINIMO_FORNECEDOR').Value) then
+      ShowInformation(
+        Format('Para que a cotação possa ser autorizada/encerrada, esta deve possuir respostas de, no mínimo, %s fornecedor(es).',
+          [FieldByName('NUMERO_MINIMO_FORNECEDOR').AsString]))
+    else
+    if ( ShowConfirm('Confirma a autorização do cotação selecionada?') ) then
+    begin
+      fdQryTabela.Edit;
 
-    ShowInformation('Cotação Autorizada/Encerrada realizada com sucesso !' + #13#13 + 'Ano/Número: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODIGO.AsInteger));
+      FieldByName('STATUS').Value             := STATUS_COTACAO_ENC;
+      FieldByName('AUTORIZADA_DATA').Value    := GetDateDB;
+      FieldByName('AUTORIZADA_USUARIO').Value := gUsuarioLogado.Login;
 
-    HabilitarDesabilitar_Btns;
+      fdQryTabela.Post;
+      fdQryTabela.ApplyUpdates;
+      fdQryTabela.CommitUpdates;
 
-    RdgStatusCotacao.ItemIndex := 0;
+      CommitTransaction;
+
+      ShowInformation('Cotação Autorizada/Encerrada realizada com sucesso !' + #13#13 +
+        'Ano/Número: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CODIGO').AsInteger));
+
+      HabilitarDesabilitar_Btns;
+
+      RdgStatusCotacao.ItemIndex := 0;
+    end;
   end;
 end;
 
@@ -855,11 +832,109 @@ begin
   pgcMaisDados.ActivePageIndex := 0;
   PgcTextoCotacao.ActivePage   := TbsCotacaoMotivo;
 
-  DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (IbDtstTabelaSTATUS.AsInteger < STATUS_COTACAO_ENC );
-  DtSrcTabelaItensStateChange( DtSrcTabelaItens );
+  with DtSrcTabela.DataSet do
+  begin
+    DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (FieldByName('STATUS').AsInteger < STATUS_COTACAO_ENC );
+    DtSrcTabelaItensStateChange( DtSrcTabelaItens );
 
-  dtsFornecedor.AutoEdit := (not IbDtstTabela.IsEmpty) and (IbDtstTabela.State = dsBrowse) and (IbDtstTabelaSTATUS.AsInteger < STATUS_COTACAO_ENC);
-  dtsFornecedorStateChange( dtsFornecedor );
+    dtsFornecedor.AutoEdit := (not IsEmpty) and (State = dsBrowse) and (FieldByName('STATUS').AsInteger < STATUS_COTACAO_ENC);
+    dtsFornecedorStateChange( dtsFornecedor );
+  end;
+end;
+
+procedure TfrmGeCotacaoCompra.fdQryTabelaAfterCancel(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
+    AbrirTabelaFornecedores( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
+  end;
+end;
+
+procedure TfrmGeCotacaoCompra.fdQryTabelaAfterScroll(DataSet: TDataSet);
+begin
+  inherited;
+  TbsCotacaoCancelado.TabVisible := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_COTACAO_CAN);
+  HabilitarDesabilitar_Btns;
+end;
+
+procedure TfrmGeCotacaoCompra.fdQryTabelaINSERCAO_DATAGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  if ( Sender.IsNull ) then
+    Exit;
+
+  Text := FormatDateTime('dd/mm/yyyy hh:mm', Sender.AsDateTime);
+end;
+
+procedure TfrmGeCotacaoCompra.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('EMPRESA').Value             := gUsuarioLogado.Empresa;
+    FieldByName('TIPO').Value                := TIPO_COTACAO_COMPRA;
+    FieldByName('INSERCAO_DATA').Value       := GetDateTimeDB;
+    FieldByName('EMISSAO_DATA').Value        := GetDateDB;
+    FieldByName('EMISSAO_USUARIO').Value     := GetUserApp;
+    FieldByName('VALIDADE').Value            := FieldByName('EMISSAO_DATA').Value + GetPrazoValidadeCotacaoCompra(FieldByName('EMPRESA').AsString);
+    FieldByName('STATUS').AsInteger          := STATUS_COTACAO_EDC;
+    FieldByName('NOME_CONTATO_INT').AsString := GetUserFullName;
+
+    FieldByName('NUMERO_MINIMO_FORNECEDOR').AsInteger := 3;
+
+    FieldByName('VALOR_REF_TOTAL').AsCurrency    := 0.0;
+
+    FieldByName('VALOR_MAX_BRUTO').AsCurrency    := 0.0;
+    FieldByName('VALOR_MAX_DESCONTO').AsCurrency := 0.0;
+    FieldByName('VALOR_MAX_TOTAL').AsCurrency    := 0.0;
+
+    FieldByName('VALOR_MIN_BRUTO').AsCurrency    := 0.0;
+    FieldByName('VALOR_MIN_DESCONTO').AsCurrency := 0.0;
+    FieldByName('VALOR_MIN_TOTAL').AsCurrency    := 0.0;
+
+    FieldByName('VALOR_MEDIA_BRUTO').AsCurrency    := 0.0;
+    FieldByName('VALOR_MEDIA_DESCONTO').AsCurrency := 0.0;
+    FieldByName('VALOR_MEDIA_TOTAL').AsCurrency    := 0.0;
+
+    FieldByName('DESCRICAO_RESUMO').Clear;
+    FieldByName('AUTORIZADA_DATA').Clear;
+    FieldByName('AUTORIZADA_USUARIO').Clear;
+    FieldByName('CANCELADO_DATA').Clear;
+    FieldByName('CANCELADO_USUARIO').Clear;
+    FieldByName('CANCELADO_MOTIVO').Clear;
+  end;
+end;
+
+procedure TfrmGeCotacaoCompra.fdQryTabelaSTATUSGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  if ( Sender.IsNull ) then
+    Exit;
+
+  Case Sender.AsInteger of
+    STATUS_COTACAO_EDC : Text := 'Em Edição';
+    STATUS_COTACAO_ABR : Text := 'Aberta';
+    STATUS_COTACAO_COT : Text := 'Em Cotação';
+    STATUS_COTACAO_ENC : Text := 'Autorizada/Encerrada';
+    STATUS_COTACAO_CAN : Text := 'Cancelada';
+  end;
+end;
+
+procedure TfrmGeCotacaoCompra.fdQryTabelaTIPOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if (not Sender.IsNull) then
+    Case Sender.AsInteger of
+      TIPO_COTACAO_COMPRA :
+        Text := 'Compra';
+
+      TIPO_COTACAO_SERVICO:
+        Text := 'Serviço';
+
+      TIPO_COTACAO_COMPRA_SERVICO:
+        Text := 'Compra/Serviço';
+    end;
 end;
 
 procedure TfrmGeCotacaoCompra.DtSrcTabelaItensStateChange(
@@ -878,8 +953,11 @@ end;
 procedure TfrmGeCotacaoCompra.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
-  AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
-  AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
+  with DtSrcTabela.DataSet do
+  begin
+    AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
+    AbrirTabelaFornecedores( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
+  end;
 
   pgcMaisDados.ActivePage := tbsDadoConsolidado;
   HabilitarDesabilitar_Btns;
@@ -937,14 +1015,6 @@ begin
   end;
 end;
 
-procedure TfrmGeCotacaoCompra.IbDtstTabelaAfterCancel(
-  DataSet: TDataSet);
-begin
-  inherited;
-  AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
-  AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
-end;
-
 procedure TfrmGeCotacaoCompra.btbtnSalvarClick(Sender: TObject);
 var
   iCodigo   : Integer;
@@ -961,41 +1031,40 @@ begin
   else
   begin
 
-    if Trim(IbDtstTabelaNUMERO.AsString) = EmptyStr then
-      IbDtstTabelaNUMERO.AsString := IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODIGO.AsInteger);
-
-    if GetExisteNumeroCotacao(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger, IbDtstTabelaNUMERO.AsString, sControle) then
+    with DtSrcTabela.DataSet do
     begin
-      ShowWarning('Número de cotação já existe!');
-      Abort;
-    end;
+      if Trim(FieldByName('NUMERO').AsString) = EmptyStr then
+        FieldByName('NUMERO').AsString := FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CODIGO').AsInteger);
 
-    IbDtstTabelaMOVITO.AsString     := Trim(AnsiUpperCase(IbDtstTabelaMOVITO.AsString));
-    IbDtstTabelaOBSERVACAO.AsString := Trim(AnsiUpperCase(IbDtstTabelaOBSERVACAO.AsString));
+      if GetExisteNumeroCotacao(FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger, FieldByName('NUMERO').AsString, sControle) then
+      begin
+        ShowWarning('Número de cotação já existe!');
+        Abort;
+      end;
 
-    inherited;
+      FieldByName('MOVITO').AsString     := Trim(AnsiUpperCase(FieldByName('MOVITO').AsString));
+      FieldByName('OBSERVACAO').AsString := Trim(AnsiUpperCase(FieldByName('OBSERVACAO').AsString));
 
-    if ( not OcorreuErro ) then
-    begin
+      inherited;
 
-      // Salvar Itens
+      if ( not OcorreuErro ) then
+      begin
 
-      if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-        cdsTabelaItens.Post;
+        // Salvar Itens
 
-      cdsTabelaItens.ApplyUpdates;
+        if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+          cdsTabelaItens.Post;
 
-      iCodigo := IbDtstTabelaCODIGO.AsInteger;
+        cdsTabelaItens.ApplyUpdates;
+        cdsTabelaItens.CommitUpdates;
 
-      IbDtstTabela.Close;
-      IbDtstTabela.Open;
+        fdQryTabela.RefreshRecord;
 
-      IbDtstTabela.Locate(GetCampoCodigoLimpo, iCodigo, []);
+        AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
+        AbrirTabelaFornecedores( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
 
-      AbrirTabelaItens( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
-      AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
-
-      SetCotacaoFornecedorItem;
+        SetCotacaoFornecedorItem;
+      end;
     end;
 
     HabilitarDesabilitar_Btns;
@@ -1007,8 +1076,10 @@ begin
   inherited;
 
   if ( Sender = dbDataEmissao ) then
-    if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-      IbDtstTabelaVALIDADE.Value := IbDtstTabelaEMISSAO_DATA.Value + GetPrazoValidadeCotacaoCompra(IbDtstTabelaEMPRESA.AsString);
+    if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
+      DtSrcTabela.DataSet.FieldByName('VALIDADE').Value :=
+        DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').Value +
+        GetPrazoValidadeCotacaoCompra(DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString);
 
   if ( Sender = dbProduto ) then
     if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
@@ -1036,19 +1107,19 @@ procedure TfrmGeCotacaoCompra.dbgDadosDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn;
   State: TGridDrawState);
 begin
-  inherited;                            
+  inherited;
   if ( Sender = dbgDados ) then
   begin
     // Destacar cotação em edição
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_EDC ) then
+    if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_COTACAO_EDC ) then
       dbgDados.Canvas.Brush.Color := lblCotacaoEmEdicao.Color
     else
     // Destacar cotação aberta
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_ABR ) then
+    if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_COTACAO_ABR ) then
       dbgDados.Canvas.Font.Color := lblCotacaoAberta.Font.Color
     else
     // Destacar cotação cancelada
-    if ( IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_CAN ) then
+    if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_COTACAO_CAN ) then
       dbgDados.Canvas.Font.Color := lblCotacaoCancelada.Font.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
@@ -1057,7 +1128,7 @@ begin
   // Destacar produtos já em cotação
   if ( Sender = dbgProdutos ) then
   begin
-//    if ( (IbDtstTabelaSTATUS.AsInteger = STATUS_AUTORIZACAO_FAT) and (cdsTabelaItensCONFIRMADO_RECEBIMENTO.AsInteger = 0) ) then
+//    if ( (FieldByName('STATUS.AsInteger = STATUS_AUTORIZACAO_FAT) and (cdsTabelaItensCONFIRMADO_RECEBIMENTO.AsInteger = 0) ) then
 //      dbgProdutos.Canvas.Font.Color := lblAutorizacaoCancelada.Font.Color;
 //
 //    dbgProdutos.DefaultDrawDataCell(Rect, dbgProdutos.Columns[DataCol].Field, State);
@@ -1095,7 +1166,7 @@ var
   cValorIPI     ,
   cPercRedBC    : Currency;
 begin
-  if ( Trim(IbDtstTabelaDESCRICAO_RESUMO.AsString) = EmptyStr ) then
+  if ( Trim(DtSrcTabela.DataSet.FieldByName('DESCRICAO_RESUMO').AsString) = EmptyStr ) then
   begin
     ShowWarning('Favor informar uma descrição resumo para a cotação!');
     dbDescricao.SetFocus;
@@ -1112,7 +1183,7 @@ begin
     cValorIPI       := 0.0;
     cPercRedBC      := 0.0;
 
-    Case IbDtstTabelaTIPO.AsInteger of
+    Case DtSrcTabela.DataSet.FieldByName('TIPO').AsInteger of
       TIPO_AUTORIZACAO_COMPRA:
         bSelecionado := SelecionarProdutoParaCotacao(Self, iCodigo, sCodigoAlfa, sDescricao, sUnidade, sNCM_SH, sCST, iUnidade, iCFOP_CNAE,
                           cValorCusto, cValorVenda, cValorPromocao, cValorIPI, cPercRedBC, iEstoque, iReserva);
@@ -1146,39 +1217,42 @@ end;
 procedure TfrmGeCotacaoCompra.nmImprimirCotacaoClick(
   Sender: TObject);
 begin
-  if ( IbDtstTabela.IsEmpty ) then
+  if ( DtSrcTabela.DataSet.IsEmpty ) then
     Exit;
 
   with DMNFe do
   begin
 
     try
-      ConfigurarEmail(gUsuarioLogado.Empresa, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), dbTipo.Text, EmptyStr);
+      ConfigurarEmail(gUsuarioLogado.Empresa,
+        GetEmailEmpresa(DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString),
+        dbTipo.Text,
+        EmptyStr);
     except
     end;
 
     with qryEmitente do
     begin
       Close;
-      ParamByName('Cnpj').AsString := IbDtstTabelaEMPRESA.AsString;
+      ParamByName('Cnpj').AsString := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
       Open;
     end;
 
     with qryCotacaoCompra do
     begin
       Close;
-      ParamByName('ano').AsInteger := IbDtstTabelaANO.AsInteger;
-      ParamByName('cod').AsInteger := IbDtstTabelaCODIGO.AsInteger;
-      ParamByName('emp').AsString  := IbDtstTabelaEMPRESA.AsString;
+      ParamByName('ano').AsInteger := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
+      ParamByName('cod').AsInteger := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
+      ParamByName('emp').AsString  := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
       Open;
     end;
 
     with qryCotacaoCompraFornecedor do
     begin
       Close;
-      ParamByName('ano').AsInteger   := IbDtstTabelaANO.AsInteger;
-      ParamByName('cod').AsInteger   := IbDtstTabelaCODIGO.AsInteger;
-      ParamByName('emp').AsString    := IbDtstTabelaEMPRESA.AsString;
+      ParamByName('ano').AsInteger   := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
+      ParamByName('cod').AsInteger   := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
+      ParamByName('emp').AsString    := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
       ParamByName('frn').AsInteger   := 0;
       ParamByName('todos').AsInteger := 0;
       Open;
@@ -1191,39 +1265,27 @@ end;
 procedure TfrmGeCotacaoCompra.btnCancelarCotacaoClick(
   Sender: TObject);
 begin
-  if ( IbDtstTabela.IsEmpty ) then
-    Exit;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( IsEmpty ) then
+      Exit;
 
-  RecarregarRegistro;
-  AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
-  AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
+    RecarregarRegistro;
+    AbrirTabelaItens(FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger);
+    AbrirTabelaFornecedores( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
 
-  if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_COTACAO_COT ) then
-    ShowInformation('Apenas registros em cotação podem ser cancelados!')
-  else
-  if ( CancelarCOT(Self, IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value) ) then
-    with IbDtstTabela do
+    if ( FieldByName('STATUS').AsInteger <> STATUS_COTACAO_COT ) then
+      ShowInformation('Apenas registros em cotação podem ser cancelados!')
+    else
+    if ( CancelarCOT(Self, FieldByName('ANO').Value, FieldByName('CODIGO').Value) ) then
     begin
       RecarregarRegistro;
 
-      ShowInformation('Cotação cancelada com sucesso.' + #13#13 + 'Ano/Controle: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODIGO.AsInteger));
+      ShowInformation('Cotação cancelada com sucesso.' + #13#13 +
+        'Ano/Controle: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CODIGO').AsInteger));
 
       HabilitarDesabilitar_Btns;
     end;
-end;
-
-procedure TfrmGeCotacaoCompra.IbDtstTabelaSTATUSGetText(Sender: TField;
-  var Text: String; DisplayText: Boolean);
-begin
-  if ( Sender.IsNull ) then
-    Exit;
-
-  Case Sender.AsInteger of
-    STATUS_COTACAO_EDC : Text := 'Em Edição';
-    STATUS_COTACAO_ABR : Text := 'Aberta';
-    STATUS_COTACAO_COT : Text := 'Em Cotação';
-    STATUS_COTACAO_ENC : Text := 'Autorizada/Encerrada';
-    STATUS_COTACAO_CAN : Text := 'Cancelada';
   end;
 end;
 
@@ -1249,30 +1311,35 @@ procedure TfrmGeCotacaoCompra.btnFinalizarCotacaoClick(
   end;
 *)
 begin
-  if ( IbDtstTabela.IsEmpty ) then
-    Exit;
-
-  RecarregarRegistro;
-
-  AbrirTabelaItens(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger);
-  AbrirTabelaFornecedores( IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger );
-
-  if ( ShowConfirm('Confirma a finalização da edição do cotação?') ) then
+  with DtSrcTabela.DataSet do
   begin
-    IbDtstTabela.Edit;
+    if ( IsEmpty ) then
+      Exit;
 
-    IbDtstTabelaSTATUS.Value := STATUS_COTACAO_ABR;
+    RecarregarRegistro;
 
-    IbDtstTabela.Post;
-    IbDtstTabela.ApplyUpdates;
+    AbrirTabelaItens(FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger);
+    AbrirTabelaFornecedores( FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger );
 
-    CommitTransaction;
+    if ( ShowConfirm('Confirma a finalização da edição do cotação?') ) then
+    begin
+      fdQryTabela.Edit;
 
-    ShowInformation('Cotação finalizada com sucesso !' + #13#13 + 'Ano/Número: ' + IbDtstTabelaANO.AsString + '/' + FormatFloat('##0000000', IbDtstTabelaCODIGO.AsInteger));
+      FieldByName('STATUS').Value := STATUS_COTACAO_ABR;
 
-    HabilitarDesabilitar_Btns;
+      fdQryTabela.Post;
+      fdQryTabela.ApplyUpdates;
+      fdQryTabela.CommitUpdates;
 
-    RdgStatusCotacao.ItemIndex := 0;
+      CommitTransaction;
+
+      ShowInformation('Cotação finalizada com sucesso !' + #13#13 +
+        'Ano/Número: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CODIGO').AsInteger));
+
+      HabilitarDesabilitar_Btns;
+
+      RdgStatusCotacao.ItemIndex := 0;
+    end;
   end;
 end;
 
@@ -1283,7 +1350,7 @@ begin
     if ( (Field = cdsTabelaItensQUANTIDADE) or (Field = cdsTabelaItensVALOR_UNITARIO_REF) ) then
     begin
       cdsTabelaItensVALOR_TOTAL_REF.AsCurrency := cdsTabelaItensQUANTIDADE.AsCurrency * cdsTabelaItensVALOR_UNITARIO_REF.AsCurrency;
-      
+
     end;
 end;
 
@@ -1295,41 +1362,26 @@ begin
   if (Key = VK_RETURN) then
   begin
 
-    if (IbDtstTabela.State in [dsEdit, dsInsert])  then
-    begin
+    with DtSrcTabela.DataSet do
+      if (State in [dsEdit, dsInsert])  then
+      begin
 
-      if dbNumero.Focused then
-        if ( Length(Trim(dbNumero.Text)) > 0 ) then
-          if GetExisteNumeroCotacao(IbDtstTabelaANO.AsInteger, IbDtstTabelaCODIGO.AsInteger, Trim(dbNumero.Text), sControle) then
-            ShowWarning('Número de cotação já existe!' + #13 + 'Controle: ' + sControle);
+        if dbNumero.Focused then
+          if ( Length(Trim(dbNumero.Text)) > 0 ) then
+            if GetExisteNumeroCotacao(FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger, Trim(dbNumero.Text), sControle) then
+              ShowWarning('Número de cotação já existe!' + #13 + 'Controle: ' + sControle);
 
-      { DONE -oIsaque -cAutorizacao : 22/05/2014 - Verificar Data de Emissão da Autorização }
+        { DONE -oIsaque -cAutorizacao : 22/05/2014 - Verificar Data de Emissão da Autorização }
 
-      if dbDataEmissao.Focused then
-        if ( dbDataEmissao.Date > GetDateTimeDB ) then
-            ShowWarning('A Data de Emissão da cotação está maior que a data atual do sistema.' + #13#13 + 'Favor confirmar!');
+        if dbDataEmissao.Focused then
+          if ( dbDataEmissao.Date > GetDateTimeDB ) then
+              ShowWarning('A Data de Emissão da cotação está maior que a data atual do sistema.' + #13#13 + 'Favor confirmar!');
 
-    end;
+      end;
 
   end;
 
   inherited;
-end;
-
-procedure TfrmGeCotacaoCompra.IbDtstTabelaTIPOGetText(Sender: TField;
-  var Text: String; DisplayText: Boolean);
-begin
-  if (not Sender.IsNull) then
-    Case Sender.AsInteger of
-      TIPO_COTACAO_COMPRA :
-        Text := 'Compra';
-
-      TIPO_COTACAO_SERVICO:
-        Text := 'Serviço';
-
-      TIPO_COTACAO_COMPRA_SERVICO:
-        Text := 'Compra/Serviço';
-    end;
 end;
 
 function TfrmGeCotacaoCompra.GetRotinaAutorizarID: String;
@@ -1371,14 +1423,6 @@ begin
   RegistrarNovaRotinaSistema;
 end;
 
-procedure TfrmGeCotacaoCompra.IbDtstTabelaAfterScroll(
-  DataSet: TDataSet);
-begin
-  inherited;
-  TbsCotacaoCancelado.TabVisible := (IbDtstTabelaSTATUS.AsInteger = STATUS_COTACAO_CAN);
-  HabilitarDesabilitar_Btns;
-end;
-
 procedure TfrmGeCotacaoCompra.AbrirTabelaFornecedores(
   const AnoCotacao: Smallint; const CodigoCotacao: Integer);
 begin
@@ -1413,10 +1457,17 @@ begin
         Abort;
       end;
 
-      if CotacaoFornecedor(Self, cfoInserir,
-        IbDtstTabelaEMPRESA.Value, IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value, iCodigo,
-        IbDtstTabelaDESCRICAO_RESUMO.Value, EmptyStr, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value) then
-        AbrirTabelaFornecedores( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
+      if CotacaoFornecedor(Self
+        , cfoInserir
+        , DtSrcTabela.DataSet.FieldByName('EMPRESA').Value
+        , DtSrcTabela.DataSet.FieldByName('ANO').Value
+        , DtSrcTabela.DataSet.FieldByName('CODIGO').Value
+        , iCodigo
+        , DtSrcTabela.DataSet.FieldByName('DESCRICAO_RESUMO').Value
+        , EmptyStr
+        , DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').Value
+        , DtSrcTabela.DataSet.FieldByName('VALIDADE').Value) then
+          AbrirTabelaFornecedores( DtSrcTabela.DataSet.FieldByName('ANO').Value, DtSrcTabela.DataSet.FieldByName('CODIGO').Value );
     end;
   end;
 end;
@@ -1428,23 +1479,33 @@ end;
 
 procedure TfrmGeCotacaoCompra.dtsFornecedorStateChange(Sender: TObject);
 begin
-  btnFornecedorInserir.Enabled := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) );
-  btnFornecedorEditar.Enabled  := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
-  btnFornecedorExcluir.Enabled := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
+  with DtSrcTabela.DataSet do
+  begin
+    btnFornecedorInserir.Enabled := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) );
+    btnFornecedorEditar.Enabled  := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
+    btnFornecedorExcluir.Enabled := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
 
-  BtnFornecedorOpcoes.Enabled   := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
-  nmGerarArquivoXLS.Enabled     := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) ) and ( IbDtstTabelaSTATUS.AsInteger in [STATUS_COTACAO_ABR, STATUS_COTACAO_COT] );
-  nmProcessarArquivoXLS.Enabled := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) ) and ( IbDtstTabelaSTATUS.AsInteger in [STATUS_COTACAO_ABR, STATUS_COTACAO_COT] );
+    BtnFornecedorOpcoes.Enabled   := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) );
+    nmGerarArquivoXLS.Enabled     := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) ) and ( FieldByName('STATUS').AsInteger in [STATUS_COTACAO_ABR, STATUS_COTACAO_COT] );
+    nmProcessarArquivoXLS.Enabled := ( dtsFornecedor.AutoEdit and (qryFornecedor.State = dsBrowse) and (not qryFornecedor.IsEmpty) ) and ( FieldByName('STATUS').AsInteger in [STATUS_COTACAO_ABR, STATUS_COTACAO_COT] );
+  end;
 end;
 
 procedure TfrmGeCotacaoCompra.BtnFornecedorEditarClick(Sender: TObject);
 begin
   if GetPermissaoRotinaInterna(PnlFornecedor, True) then
   begin
-    if CotacaoFornecedor(Self, cfoEditar,
-      qryFornecedorEMPRESA.Value, qryFornecedorANO.Value, qryFornecedorCODIGO.Value, qryFornecedorFORNECEDOR.Value,
-      IbDtstTabelaDESCRICAO_RESUMO.Value, EmptyStr, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value) then
-      AbrirTabelaFornecedores( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
+    if CotacaoFornecedor(Self
+      , cfoEditar
+      , qryFornecedorEMPRESA.Value
+      , qryFornecedorANO.Value
+      , qryFornecedorCODIGO.Value
+      , qryFornecedorFORNECEDOR.Value
+      , DtSrcTabela.DataSet.FieldByName('DESCRICAO_RESUMO').Value
+      , EmptyStr
+      , DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').Value
+      , DtSrcTabela.DataSet.FieldByName('VALIDADE').Value) then
+        AbrirTabelaFornecedores( DtSrcTabela.DataSet.FieldByName('ANO').Value, DtSrcTabela.DataSet.FieldByName('CODIGO').Value );
   end;
 end;
 
@@ -1473,14 +1534,15 @@ var
 begin
   sMensagem := FormatDateTime('dd/mm/yyyy hh:mm', Now) + ' - ' + sEvento + ' (por ' + gUsuarioLogado.Login + ').';
   try
-    if ( not IbDtstTabela.IsEmpty ) then
+    if ( not fdQryTabela.IsEmpty ) then
     begin
-      IbDtstTabela.Edit;
+      fdQryTabela.Edit;
 
       dbEventoLOG.Lines.Add(sMensagem);
 
-      IbDtstTabela.Post;
-      IbDtstTabela.ApplyUpdates;
+      fdQryTabela.Post;
+      fdQryTabela.ApplyUpdates;
+      fdQryTabela.CommitUpdates;
 
       CommitTransaction;
     end;
@@ -1498,8 +1560,9 @@ begin
     Exit;
 
   sID       := FormatFloat('00000', qryFornecedorFORNECEDOR.AsInteger);
-  sFileName := Path_MeusDocumentos + '\' + 
-    'COTACAO_' + sID + '.' + qryFornecedorEMPRESA.AsString + '_' + StringReplace(IbDtstTabelaNUMERO.AsString, '/', '-', [rfReplaceAll]) + '.xls';
+  sFileName := Path_MeusDocumentos + '\' +
+    'COTACAO_' + sID + '.' + qryFornecedorEMPRESA.AsString + '_' +
+      StringReplace(DtSrcTabela.DataSet.FieldByName('NUMERO').AsString, '/', '-', [rfReplaceAll]) + '.xls';
 
   with DMNFe do
   begin
@@ -1552,7 +1615,10 @@ begin
 
       if ShowConfirm(sMensagem) then
       begin
-        if DMNFe.EnviarEmail_Generico(qryFornecedorEMPRESA.AsString, IbDtstTabelaNUMERO.Value, qryFornecedorEMAIL_ENVIO.AsString, sFileName) then
+        if DMNFe.EnviarEmail_Generico(qryFornecedorEMPRESA.AsString
+          , DtSrcTabela.DataSet.FieldByName('NUMERO').Value
+          , qryFornecedorEMAIL_ENVIO.AsString
+          , sFileName) then
         begin
           SetEventoLOG('Planilha de cotação enviada por e-mail para o Fornecedor ' + qryFornecedorNOMEFORN.AsString);
           ShowInformation(Format('E-mail enviado com sucesso para ''%s''', [qryFornecedorEMAIL_ENVIO.AsString]));
@@ -1574,7 +1640,8 @@ begin
 
   sID       := FormatFloat('00000', qryFornecedorFORNECEDOR.AsInteger);
   sFileName := Path_MeusDocumentos + '\' +
-    'COTACAO_' + sID + '.' + qryFornecedorEMPRESA.AsString + '_' + StringReplace(IbDtstTabelaNUMERO.AsString, '/', '-', [rfReplaceAll]) + '.xls';
+    'COTACAO_' + sID + '.' + qryFornecedorEMPRESA.AsString + '_' +
+      StringReplace(DtSrcTabela.DataSet.FieldByName('NUMERO').AsString, '/', '-', [rfReplaceAll]) + '.xls';
 
   opdCotacaoFornecedor.FileName := sFileName;
 
@@ -1583,9 +1650,16 @@ begin
   else
     Exit;
 
-  if CotacaoFornecedor(Self, cfoCarregarPlanilha,
-    qryFornecedorEMPRESA.Value, qryFornecedorANO.Value, qryFornecedorCODIGO.Value, qryFornecedorFORNECEDOR.Value,
-    IbDtstTabelaDESCRICAO_RESUMO.Value, sFileName, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value) then
+  if CotacaoFornecedor(Self
+    , cfoCarregarPlanilha
+    , qryFornecedorEMPRESA.Value
+    , qryFornecedorANO.Value
+    , qryFornecedorCODIGO.Value
+    , qryFornecedorFORNECEDOR.Value
+    , DtSrcTabela.DataSet.FieldByName('DESCRICAO_RESUMO').Value
+    , sFileName
+    , DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').Value
+    , DtSrcTabela.DataSet.FieldByName('VALIDADE').Value) then
   begin
     SetEventoLOG(Format('Arquivo ''%s'' de resposta do fornecedor %s processado', [sFileName, qryFornecedorNOMEFORN.AsString]));
 
@@ -1600,9 +1674,17 @@ begin
   if ( qryFornecedor.IsEmpty ) then
     Exit;
 
-  if CotacaoFornecedor(Self, cfoVisualizar,
-    qryFornecedorEMPRESA.Value, qryFornecedorANO.Value, qryFornecedorCODIGO.Value, qryFornecedorFORNECEDOR.Value,
-    IbDtstTabelaDESCRICAO_RESUMO.Value, EmptyStr, IbDtstTabelaEMISSAO_DATA.Value, IbDtstTabelaVALIDADE.Value) then
+  if CotacaoFornecedor(Self
+    , cfoVisualizar
+    , qryFornecedorEMPRESA.Value
+    , qryFornecedorANO.Value
+    , qryFornecedorCODIGO.Value
+    , qryFornecedorFORNECEDOR.Value
+    , DtSrcTabela.DataSet.FieldByName('DESCRICAO_RESUMO').Value
+    , EmptyStr
+    , DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').Value
+    , DtSrcTabela.DataSet.FieldByName('VALIDADE').Value) then
+      ;
 end;
 
 procedure TfrmGeCotacaoCompra.nmProcessarRespostasClick(Sender: TObject);
@@ -1610,24 +1692,27 @@ begin
   if ( qryFornecedor.IsEmpty ) then
     Exit;
 
-  if ( IbDtstTabelaSTATUS.AsInteger <> STATUS_COTACAO_COT ) then
-    ShowInformation('Apenas Cotações com situação "Em Cotação" podem ser processadas')
-  else
-  if (qryFornecedor.RecordCount < IbDtstTabelaNUMERO_MINIMO_FORNECEDOR.Value) then
-    ShowInformation(
-      Format('Para que a cotação possa ser processada, esta deve possuir respostas de, no mínimo, %s fornecedor(es).',
-        [IbDtstTabelaNUMERO_MINIMO_FORNECEDOR.AsString]))
-  else
-  if ShowConfirm('Deseja executar processamento da(s) resposta(s) do(s) fornecedor(es)?') then
+  with DtSrcTabela.DataSet do
   begin
-    SetCotacaoFornecedorProcessa(IbDtstTabelaEMPRESA.Value, IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value);
+    if ( FieldByName('STATUS').AsInteger <> STATUS_COTACAO_COT ) then
+      ShowInformation('Apenas Cotações com situação "Em Cotação" podem ser processadas')
+    else
+    if (qryFornecedor.RecordCount < FieldByName('NUMERO_MINIMO_FORNECEDOR').Value) then
+      ShowInformation(
+        Format('Para que a cotação possa ser processada, esta deve possuir respostas de, no mínimo, %s fornecedor(es).',
+          [FieldByName('NUMERO_MINIMO_FORNECEDOR').AsString]))
+    else
+    if ShowConfirm('Deseja executar processamento da(s) resposta(s) do(s) fornecedor(es)?') then
+    begin
+      SetCotacaoFornecedorProcessa(FieldByName('EMPRESA').Value, FieldByName('ANO').Value, FieldByName('CODIGO').Value);
 
-    AbrirTabelaItens( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
-    AbrirTabelaFornecedores( IbDtstTabelaANO.Value, IbDtstTabelaCODIGO.Value );
+      AbrirTabelaItens( FieldByName('ANO').Value, FieldByName('CODIGO').Value );
+      AbrirTabelaFornecedores( FieldByName('ANO').Value, FieldByName('CODIGO').Value );
 
-    RecarregarRegistro;
+      RecarregarRegistro;
 
-    pgcMaisDados.ActivePage := tbsFornecedor;
+      pgcMaisDados.ActivePage := tbsFornecedor;
+    end;
   end;
 end;
 
@@ -1671,39 +1756,42 @@ end;
 
 procedure TfrmGeCotacaoCompra.nmImprimirCotacaoMapaClick(Sender: TObject);
 begin
-  if ( IbDtstTabelaVALOR_MAX_TOTAL.AsCurrency = 0.0 ) then
+  if ( DtSrcTabela.DataSet.FieldByName('VALOR_MAX_TOTAL').AsCurrency = 0.0 ) then
     ShowWarning('Não é possível montar ainda o mapa de preços por não haver respostas de fornecedores!')
   else
     with DMNFe do
     begin
 
       try
-        ConfigurarEmail(gUsuarioLogado.Empresa, GetEmailEmpresa(IbDtstTabelaEMPRESA.AsString), dbTipo.Text, EmptyStr);
+        ConfigurarEmail(gUsuarioLogado.Empresa,
+          GetEmailEmpresa(DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString),
+          dbTipo.Text,
+          EmptyStr);
       except
       end;
 
       with qryEmitente do
       begin
         Close;
-        ParamByName('Cnpj').AsString := IbDtstTabelaEMPRESA.AsString;
+        ParamByName('Cnpj').AsString := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
         Open;
       end;
 
       with qryCotacaoCompra do
       begin
         Close;
-        ParamByName('ano').AsInteger := IbDtstTabelaANO.AsInteger;
-        ParamByName('cod').AsInteger := IbDtstTabelaCODIGO.AsInteger;
-        ParamByName('emp').AsString  := IbDtstTabelaEMPRESA.AsString;
+        ParamByName('ano').AsInteger := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
+        ParamByName('cod').AsInteger := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
+        ParamByName('emp').AsString  := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
         Open;
       end;
 
       with qryCotacaoCompraFornecedor do
       begin
         Close;
-        ParamByName('ano').AsInteger   := IbDtstTabelaANO.AsInteger;
-        ParamByName('cod').AsInteger   := IbDtstTabelaCODIGO.AsInteger;
-        ParamByName('emp').AsString    := IbDtstTabelaEMPRESA.AsString;
+        ParamByName('ano').AsInteger   := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
+        ParamByName('cod').AsInteger   := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
+        ParamByName('emp').AsString    := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
         ParamByName('frn').AsInteger   := 0;
         ParamByName('todos').AsInteger := 1;
         Open;
@@ -1712,9 +1800,9 @@ begin
       with qryCotacaoCompraFornecedorItem do
       begin
         Close;
-        ParamByName('ano').AsInteger   := IbDtstTabelaANO.AsInteger;
-        ParamByName('cod').AsInteger   := IbDtstTabelaCODIGO.AsInteger;
-        ParamByName('emp').AsString    := IbDtstTabelaEMPRESA.AsString;
+        ParamByName('ano').AsInteger   := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
+        ParamByName('cod').AsInteger   := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
+        ParamByName('emp').AsString    := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
         ParamByName('frn').AsInteger   := 0;
         ParamByName('todos').AsInteger := 1;
         Open;

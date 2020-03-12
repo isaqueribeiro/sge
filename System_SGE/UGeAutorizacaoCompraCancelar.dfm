@@ -1,31 +1,33 @@
 inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
   Left = 385
   Top = 217
-  Width = 617
-  Height = 474
   BorderIcons = [biSystemMenu]
   BorderWidth = 4
   Caption = 'Cancelar Autoriza'#231#227'o de Compra/Servi'#231'o'
+  ExplicitWidth = 563
+  ExplicitHeight = 340
   DesignSize = (
-    593
-    428)
+    539
+    293)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
     Top = 121
-    Width = 593
+    Width = 539
     Height = 4
     Align = alTop
     Shape = bsSpacer
+    ExplicitWidth = 593
   end
   object Bevel2: TBevel
     Left = 0
     Top = 389
-    Width = 593
+    Width = 539
     Height = 4
     Align = alTop
     Shape = bsSpacer
+    ExplicitWidth = 593
   end
   object lblInforme: TLabel
     Left = 0
@@ -45,7 +47,7 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
   object GrpBxControle: TGroupBox
     Left = 0
     Top = 0
-    Width = 593
+    Width = 539
     Height = 121
     Align = alTop
     Caption = 'Controle da Autoriza'#231#227'o'
@@ -56,6 +58,7 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 593
     object lblCodigo: TLabel
       Left = 16
       Top = 24
@@ -188,7 +191,7 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
   object GrpBxImposto: TGroupBox
     Left = 0
     Top = 125
-    Width = 593
+    Width = 539
     Height = 264
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
@@ -200,8 +203,9 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
+    ExplicitWidth = 593
     DesignSize = (
-      593
+      539
       264)
     object lblCancelUsuario: TLabel
       Left = 16
@@ -304,9 +308,7 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
     Height = 33
     Anchors = [akRight, akBottom]
     Caption = '&Cancelar'
-    TabOrder = 2
-    OnClick = btnCancelarClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       180000000000000600000000000000000000000000000000000000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
@@ -357,7 +359,9 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
       00FF00E0C0B0E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0BEAA00FF
       0000FF0000FF0000FF0000FF0000FF0000FF00BEBEBEBEBEBEBEBEBEBEBEBEBE
       BEBEBCBCBCB8B8B8AEAEAEBBBBBB00FF0000FF0000FF0000FF00}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 2
+    OnClick = btnCancelarClick
   end
   object btFechar: TcxButton
     Left = 500
@@ -367,9 +371,7 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
     Anchors = [akRight, akBottom]
     Cancel = True
     Caption = 'Fechar'
-    TabOrder = 3
-    OnClick = btFecharClick
-    Glyph.Data = {
+    OptionsImage.Glyph.Data = {
       36060000424D3606000000000000360000002800000020000000100000000100
       180000000000000600000000000000000000000000000000000000FF0000FF00
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
@@ -420,12 +422,15 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
       00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
       0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
       FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
-    NumGlyphs = 2
+    OptionsImage.NumGlyphs = 2
+    TabOrder = 3
+    OnClick = btFecharClick
   end
   object cdsAutorizacao: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
     Transaction = DMBusiness.ibtrnsctnBusiness
     ForcedRefresh = True
+    BufferChunks = 1000
     CachedUpdates = True
     RefreshSQL.Strings = (
       '')
@@ -476,6 +481,8 @@ inherited frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar
       '  and a.codigo = :cod')
     ModifySQL.Strings = (
       '')
+    ParamCheck = True
+    UniDirectional = False
     GeneratorField.Field = 'CODCONTROL'
     UpdateObject = updAutorizacao
     Left = 472

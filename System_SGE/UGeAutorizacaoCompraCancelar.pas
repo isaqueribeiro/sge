@@ -6,7 +6,10 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB,
   IBCustomDataSet, IBUpdateSQL, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGeAutorizacaoCompraCancelar = class(TfrmGrPadrao)
