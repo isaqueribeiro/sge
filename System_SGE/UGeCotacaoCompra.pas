@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, Menus, IBStoredProc, cxGraphics, cxLookAndFeels, System.ImageList,
+  ToolWin, IBTable, Menus, cxGraphics, cxLookAndFeels, System.ImageList,
   cxLookAndFeelPainters, cxButtons, JvDBControls, JvToolEdit, JvExMask,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
@@ -24,7 +24,6 @@ type
     RdgStatusCotacao: TRadioGroup;
     lblCotacaoAberta: TLabel;
     lblCotacaoCancelada: TLabel;
-    tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
     lblDataHora: TLabel;
     dbDataHora: TDBEdit;
@@ -38,8 +37,6 @@ type
     lblAutorizador: TLabel;
     dbAutorizador: TDBEdit;
     Bevel12: TBevel;
-    cdsTabelaItensXXX: TIBDataSet;
-    IbUpdTabelaItensXXX: TIBUpdateSQL;
     DtSrcTabelaItens: TDataSource;
     pgcMaisDados: TPageControl;
     GrpBxDadosProduto: TGroupBox;
@@ -59,7 +56,6 @@ type
     dbgProdutos: TDBGrid;
     ppImprimir: TPopupMenu;
     nmImprimirCotacao: TMenuItem;
-    qryProduto: TIBDataSet;
     lblValorTotal: TLabel;
     dbValorTotal: TDBEdit;
     lblNumero: TLabel;
@@ -67,13 +63,10 @@ type
     tbsDadoConsolidado: TTabSheet;
     lblTipo: TLabel;
     dbTipo: TDBLookupComboBox;
-    tblTipoCotacao: TIBTable;
     dtsTipoCotacao: TDataSource;
     lblDataValidade: TLabel;
     GrpBxPagamento: TGroupBox;
-    tblFormaPagto: TIBTable;
     dtsFormaPagto: TDataSource;
-    tblCondicaoPagto: TIBTable;
     dtsCondicaoPagto: TDataSource;
     lblValorUn: TLabel;
     dbValorUn: TDBEdit;
@@ -83,7 +76,6 @@ type
     Bevel5: TBevel;
     dbEnderecoEntrega: TDBMemo;
     Bevel9: TBevel;
-    cdsTransportador: TIBDataSet;
     dtsTransportador: TDataSource;
     lblNomeContato: TLabel;
     dbNomeContato: TDBEdit;
@@ -97,25 +89,6 @@ type
     dbMovitoCancelamento: TDBMemo;
     lblDescricao: TLabel;
     dbDescricao: TDBEdit;
-    cdsTabelaItensXXXANO: TSmallintField;
-    cdsTabelaItensXXXCODIGO: TIntegerField;
-    cdsTabelaItensXXXEMPRESA: TIBStringField;
-    cdsTabelaItensXXXSEQ: TSmallintField;
-    cdsTabelaItensXXXPRODUTO: TIBStringField;
-    cdsTabelaItensXXXQUANTIDADE: TIBBCDField;
-    cdsTabelaItensXXXUNIDADE: TSmallintField;
-    cdsTabelaItensXXXVALOR_UNITARIO_REF: TIBBCDField;
-    cdsTabelaItensXXXVALOR_TOTAL_REF: TIBBCDField;
-    cdsTabelaItensXXXVALOR_UNITARIO_MIN: TIBBCDField;
-    cdsTabelaItensXXXVALOR_TOTAL_MIN: TIBBCDField;
-    cdsTabelaItensXXXVALOR_UNITARIO_MAX: TIBBCDField;
-    cdsTabelaItensXXXVALOR_TOTAL_MAX: TIBBCDField;
-    cdsTabelaItensXXXVALOR_UNITARIO_MEDIA: TIBBCDField;
-    cdsTabelaItensXXXVALOR_TOTAL_MEDIA: TIBBCDField;
-    cdsTabelaItensXXXUSUARIO: TIBStringField;
-    cdsTabelaItensXXXDESCRI_APRESENTACAO: TIBStringField;
-    cdsTabelaItensXXXUNP_DESCRICAO: TIBStringField;
-    cdsTabelaItensXXXUNP_SIGLA: TIBStringField;
     dbEventoLOG: TDBMemo;
     lblNumeroFornecedor: TLabel;
     dbNumeroFornecedor: TDBEdit;
@@ -145,33 +118,8 @@ type
     BtnFornecedorEditar: TBitBtn;
     BtnFornecedorExcluir: TBitBtn;
     Bevel13: TBevel;
-    qryFornecedor: TIBDataSet;
     dtsFornecedor: TDataSource;
     dbgFornecedor: TDBGrid;
-    qryFornecedorANO: TSmallintField;
-    qryFornecedorCODIGO: TIntegerField;
-    qryFornecedorEMPRESA: TIBStringField;
-    qryFornecedorFORNECEDOR: TIntegerField;
-    qryFornecedorNOME_CONTATO: TIBStringField;
-    qryFornecedorEMAIL_ENVIO: TIBStringField;
-    qryFornecedorFORMA_PAGTO: TSmallintField;
-    qryFornecedorCONDICAO_PAGTO: TSmallintField;
-    qryFornecedorPRAZO_ENTREGA_DATA: TDateField;
-    qryFornecedorPRAZO_ENTREDA_DIA: TSmallintField;
-    qryFornecedorOBSERVACAO: TMemoField;
-    qryFornecedorATIVO: TSmallintField;
-    qryFornecedorUSUARIO: TIBStringField;
-    qryFornecedorNOMEFORN: TIBStringField;
-    qryFornecedorCNPJ: TIBStringField;
-    qryFornecedorEMAIL: TIBStringField;
-    qryFornecedorFORMA_PAGTO_DESC: TIBStringField;
-    qryFornecedorCONDICAP_PAGTO_DESC: TIBStringField;
-    updFornecedor: TIBUpdateSQL;
-    qryFornecedorVALOR_TOTAL_BRUTO: TIBBCDField;
-    qryFornecedorVALOR_TOTAL_DESCONTO: TIBBCDField;
-    qryFornecedorVALOR_TOTAL_LIQUIDO: TIBBCDField;
-    qryFornecedorVENCEDOR: TSmallintField;
-    qryFornecedorITENS: TIntegerField;
     BtnFornecedorOpcoes: TBitBtn;
     ppCotacaoFornecedor: TPopupMenu;
     nmGerarArquivoXLS: TMenuItem;
@@ -179,8 +127,6 @@ type
     opdCotacaoFornecedor: TOpenDialog;
     N1: TMenuItem;
     nmProcessarRespostas: TMenuItem;
-    stpSetCotacaoFornecedorItem: TIBStoredProc;
-    stpSetCotacaoFornecedorProcessa: TIBStoredProc;
     btnFinalizarCotacao: TcxButton;
     btnAutorizarCotacao: TcxButton;
     btnCancelarCotacao: TcxButton;
@@ -226,6 +172,58 @@ type
     fdQryTabelaITENS: TIntegerField;
     cdsTabelaItens: TFDQuery;
     updTabelaItens: TFDUpdateSQL;
+    cdsTabelaItensANO: TSmallintField;
+    cdsTabelaItensCODIGO: TIntegerField;
+    cdsTabelaItensEMPRESA: TStringField;
+    cdsTabelaItensSEQ: TSmallintField;
+    cdsTabelaItensPRODUTO: TStringField;
+    cdsTabelaItensQUANTIDADE: TBCDField;
+    cdsTabelaItensUNIDADE: TSmallintField;
+    cdsTabelaItensVALOR_UNITARIO_REF: TBCDField;
+    cdsTabelaItensVALOR_TOTAL_REF: TBCDField;
+    cdsTabelaItensVALOR_UNITARIO_MIN: TBCDField;
+    cdsTabelaItensVALOR_TOTAL_MIN: TBCDField;
+    cdsTabelaItensVALOR_UNITARIO_MAX: TBCDField;
+    cdsTabelaItensVALOR_TOTAL_MAX: TBCDField;
+    cdsTabelaItensVALOR_UNITARIO_MEDIA: TBCDField;
+    cdsTabelaItensVALOR_TOTAL_MEDIA: TBCDField;
+    cdsTabelaItensUSUARIO: TStringField;
+    cdsTabelaItensDESCRI_APRESENTACAO: TStringField;
+    cdsTabelaItensUNP_DESCRICAO: TStringField;
+    cdsTabelaItensUNP_SIGLA: TStringField;
+    qryFornecedor: TFDQuery;
+    updFornecedor: TFDUpdateSQL;
+    qryFornecedorANO: TSmallintField;
+    qryFornecedorCODIGO: TIntegerField;
+    qryFornecedorEMPRESA: TStringField;
+    qryFornecedorFORNECEDOR: TIntegerField;
+    qryFornecedorNOME_CONTATO: TStringField;
+    qryFornecedorEMAIL_ENVIO: TStringField;
+    qryFornecedorFORMA_PAGTO: TSmallintField;
+    qryFornecedorCONDICAO_PAGTO: TSmallintField;
+    qryFornecedorPRAZO_ENTREGA_DATA: TDateField;
+    qryFornecedorPRAZO_ENTREDA_DIA: TSmallintField;
+    qryFornecedorOBSERVACAO: TMemoField;
+    qryFornecedorATIVO: TSmallintField;
+    qryFornecedorUSUARIO: TStringField;
+    qryFornecedorVALOR_TOTAL_BRUTO: TBCDField;
+    qryFornecedorVALOR_TOTAL_DESCONTO: TBCDField;
+    qryFornecedorVALOR_TOTAL_LIQUIDO: TBCDField;
+    qryFornecedorVENCEDOR: TSmallintField;
+    qryFornecedorNOMEFORN: TStringField;
+    qryFornecedorCNPJ: TStringField;
+    qryFornecedorEMAIL: TStringField;
+    qryFornecedorFORMA_PAGTO_DESC: TStringField;
+    qryFornecedorCONDICAP_PAGTO_DESC: TStringField;
+    qryFornecedorITENS: TIntegerField;
+    qryProduto: TFDQuery;
+    fdQryEmpresa: TFDQuery;
+    fdQryFormaPagto: TFDQuery;
+    fdQryCondicaoPagto: TFDQuery;
+    cdsTransportador: TFDQuery;
+    fdQryTipoCotacao: TFDQuery;
+    spSetCotacaoFornecedorItem: TFDStoredProc;
+    spSetCotacaoFornecedorProcessa: TFDStoredProc;
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -235,7 +233,6 @@ type
     procedure btnProdutoEditarClick(Sender: TObject);
     procedure btnProdutoExcluirClick(Sender: TObject);
     procedure btnProdutoSalvarClick(Sender: TObject);
-    procedure cdsTabelaItensXXXNewRecord(DataSet: TDataSet);
     procedure btnAutorizarCotacaoClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure DtSrcTabelaItensStateChange(Sender: TObject);
@@ -258,8 +255,6 @@ type
     procedure dtsFornecedorStateChange(Sender: TObject);
     procedure BtnFornecedorEditarClick(Sender: TObject);
     procedure BtnFornecedorOpcoesClick(Sender: TObject);
-    procedure qryFornecedorVENCEDORGetText(Sender: TField;
-      var Text: String; DisplayText: Boolean);
     procedure nmGerarArquivoXLSClick(Sender: TObject);
     procedure nmProcessarArquivoXLSClick(Sender: TObject);
     procedure dbgFornecedorDblClick(Sender: TObject);
@@ -272,6 +267,8 @@ type
     procedure fdQryTabelaTIPOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure fdQryTabelaINSERCAO_DATAGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure fdQryTabelaSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure cdsTabelaItensNewRecord(DataSet: TDataSet);
+    procedure qryFornecedorVENCEDORGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -304,12 +301,23 @@ type
 
 (*
   Tabelas:
+  - TBCOTACAO_COMPRA
+  - TBCOTACAO_COMPRAITEM
+  - TBPRODUTO
+  - TBUNIDADEPROD
+  - TBCOTACAO_COMPRAFORN
+  - TBCOTACAO_COMPRAFORN_ITEM
+  - TBFORNECEDOR
+  - TBFORMPAGTO
 
   Views:
   - VW_EMPRESA
+  - VW_CONDICAOPAGTO
+  - VW_TIPO_COTACAO
 
   Procedures:
-
+  - SET_COTACAO_COMPRAFORN_ITEM
+  - SET_COTACAO_COMPRAFORN_PROCESSA
 *)
 
 var
@@ -426,11 +434,11 @@ begin
 
   SQL_Itens := TStringList.Create;
   SQL_Itens.Clear;
-  SQL_Itens.AddStrings( cdsTabelaItens.SelectSQL );
+  SQL_Itens.AddStrings( cdsTabelaItens.SQL );
 
   SQL_Fornecedores := TStringList.Create;
   SQL_Fornecedores.Clear;
-  SQL_Fornecedores.AddStrings( qryFornecedor.SelectSQL );
+  SQL_Fornecedores.AddStrings( qryFornecedor.SQL );
 
   e1Data.Date      := GetDateDB - 30;
   e2Data.Date      := GetDateDB;
@@ -438,11 +446,11 @@ begin
   ControlFirstEdit := dbEmpresa;
   iFornecedor      := 0;
 
-  tblEmpresa.Open;
-  tblTipoCotacao.Open;
-  tblFormaPagto.Open;
-  tblCondicaoPagto.Open;
-  cdsTransportador.Open;
+  CarregarLista(fdQryEmpresa);
+  CarregarLista(fdQryTipoCotacao);
+  CarregarLista(fdQryFormaPagto);
+  CarregarLista(fdQryCondicaoPagto);
+  CarregarLista(cdsTransportador);
 
   pgcMaisDados.Height := 190;
   RotinaID            := ROTINA_MOV_COTACAO_ID;
@@ -486,7 +494,7 @@ procedure TfrmGeCotacaoCompra.AbrirTabelaItens(
 begin
   cdsTabelaItens.Close;
 
-  with cdsTabelaItens, SelectSQL do
+  with cdsTabelaItens, SQL do
   begin
     Clear;
     AddStrings( SQL_Itens );
@@ -754,8 +762,7 @@ begin
   end;
 end;
 
-procedure TfrmGeCotacaoCompra.cdsTabelaItensXXXNewRecord(
-  DataSet: TDataSet);
+procedure TfrmGeCotacaoCompra.cdsTabelaItensNewRecord(DataSet: TDataSet);
 begin
   with DtSrcTabela.DataSet do
   begin
@@ -1428,7 +1435,7 @@ procedure TfrmGeCotacaoCompra.AbrirTabelaFornecedores(
 begin
   qryFornecedor.Close;
 
-  with qryFornecedor, SelectSQL do
+  with qryFornecedor, SQL do
   begin
     Clear;
     AddStrings( SQL_Fornecedores );
@@ -1518,8 +1525,8 @@ begin
   ppCotacaoFornecedor.Popup(BtnFornecedorOpcoes.ClientOrigin.X, BtnFornecedorOpcoes.ClientOrigin.Y + BtnFornecedorOpcoes.Height);
 end;
 
-procedure TfrmGeCotacaoCompra.qryFornecedorVENCEDORGetText(Sender: TField;
-  var Text: String; DisplayText: Boolean);
+procedure TfrmGeCotacaoCompra.qryFornecedorVENCEDORGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
 begin
   if ( not Sender.IsNull ) then
     Case Sender.AsInteger of
@@ -1722,9 +1729,9 @@ begin
 
   while not qryFornecedor.Eof do
   begin
-    with stpSetCotacaoFornecedorItem do
+    with spSetCotacaoFornecedorItem do
     begin
-      ParamByName('ano').AsInteger        := qryFornecedorANO.AsInteger;
+      ParamByName('ano').AsSmallInt       := qryFornecedorANO.AsInteger;
       ParamByName('codigo').AsInteger     := qryFornecedorCODIGO.AsInteger;
       ParamByName('empresa').AsString     := qryFornecedorEMPRESA.AsString;
       ParamByName('fornecedor').AsInteger := qryFornecedorFORNECEDOR.AsInteger;
@@ -1743,7 +1750,7 @@ end;
 procedure TfrmGeCotacaoCompra.SetCotacaoFornecedorProcessa(Empresa: String;
   Ano: Smallint; Codigo: Integer);
 begin
-  with stpSetCotacaoFornecedorProcessa do
+  with spSetCotacaoFornecedorProcessa do
   begin
     ParamByName('ano').AsInteger    := Ano;
     ParamByName('codigo').AsInteger := Codigo;

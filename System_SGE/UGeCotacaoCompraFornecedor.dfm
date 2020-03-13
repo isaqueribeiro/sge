@@ -265,10 +265,6 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     TabOrder = 3
     object TbsFornecedor: TTabSheet
       Caption = '&Fornecedor'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         748
         270)
@@ -410,7 +406,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       end
       object dbFornecedor: TJvDBComboEdit
         Left = 16
-        Top = 24
+        Top = 21
         Width = 718
         Height = 21
         ButtonHint = 'Pesquisar Fornecedor (Ctrl+P)'
@@ -488,10 +484,6 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     object TbsFornecedorItem: TTabSheet
       Caption = '&Itens'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object dbgProdutos: TDBGrid
         Left = 0
         Top = 0
@@ -520,7 +512,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
             FieldName = 'ITEM'
             ReadOnly = True
             Title.Alignment = taCenter
-            Title.Caption = '#'
+            Title.Caption = '# '
             Width = 25
             Visible = True
           end
@@ -528,7 +520,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
             Expanded = False
             FieldName = 'PRODUTO'
             ReadOnly = True
-            Title.Caption = 'Codigo'
+            Title.Caption = 'Codigo '
             Width = 80
             Visible = True
           end
@@ -536,7 +528,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
             Expanded = False
             FieldName = 'DESCRI_APRESENTACAO'
             ReadOnly = True
-            Title.Caption = 'Descri'#231#227'o + Apresenta'#231#227'o'
+            Title.Caption = 'Descri'#231#227'o + Apresenta'#231#227'o '
             Width = 280
             Visible = True
           end
@@ -544,7 +536,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
             Expanded = False
             FieldName = 'QUANTIDADE'
             ReadOnly = True
-            Title.Caption = 'Quantidade'
+            Title.Caption = 'Quantidade '
             Width = 80
             Visible = True
           end
@@ -552,21 +544,21 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
             Expanded = False
             FieldName = 'UNP_SIGLA'
             ReadOnly = True
-            Title.Caption = 'Und.'
+            Title.Caption = 'Und. '
             Width = 40
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_UNITARIO'
-            Title.Caption = 'Valor Un. (R$)'
+            Title.Caption = 'Valor Un. (R$) '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_TOTAL'
-            Title.Caption = 'Valor Total (R$)'
+            Title.Caption = 'Valor Total (R$) '
             Width = 100
             Visible = True
           end>
@@ -613,16 +605,90 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     TabOrder = 2
     OnClick = btFecharClick
   end
-  object qryFornecedor: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
+  object dtsFornecedor: TDataSource
+    AutoEdit = False
+    DataSet = qryFornecedor
+    OnStateChange = dtsFornecedorStateChange
+    Left = 320
+    Top = 16
+  end
+  object dtsFormaPagto: TDataSource
+    DataSet = fdQryFormaPagto
+    Left = 464
+    Top = 32
+  end
+  object dtsCondicaoPagto: TDataSource
+    DataSet = fdQryCondicaoPagto
+    Left = 464
+    Top = 64
+  end
+  object dtsItem: TDataSource
+    AutoEdit = False
+    DataSet = qryItem
+    OnStateChange = dtsFornecedorStateChange
+    Left = 320
+    Top = 48
+  end
+  object fdQryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select * from TBFORMPAGTO')
+    Left = 432
+    Top = 32
+  end
+  object fdQryCondicaoPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select * from VW_CONDICAOPAGTO')
+    Left = 432
+    Top = 65
+  end
+  object spSetCotacaoFornecedorItem: TFDStoredProc
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    StoredProcName = 'SET_COTACAO_COMPRAFORN_ITEM'
+    Left = 400
+    Top = 321
+    ParamData = <
+      item
+        Position = 1
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'CODIGO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end
+      item
+        Position = 4
+        Name = 'FORNECEDOR'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryFornecedor: TFDQuery
     BeforePost = qryFornecedorBeforePost
     OnNewRecord = qryFornecedorNewRecord
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updFornecedor
+    SQL.Strings = (
       'Select'
       '    c.ano'
       '  , c.codigo'
@@ -665,342 +731,282 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       'where c.ano        = :ano'
       '  and c.codigo     = :cod'
       '  and c.fornecedor = :for')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updFornecedor
     Left = 256
     Top = 16
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'COD'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'FOR'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
     object qryFornecedorANO: TSmallintField
       FieldName = 'ANO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."ANO"'
+      Origin = 'ANO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
     object qryFornecedorCODIGO: TIntegerField
       FieldName = 'CODIGO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."CODIGO"'
+      Origin = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
-    object qryFornecedorEMPRESA: TIBStringField
+    object qryFornecedorEMPRESA: TStringField
       FieldName = 'EMPRESA'
-      Origin = '"TBCOTACAO_COMPRAFORN"."EMPRESA"'
+      Origin = 'EMPRESA'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
       Size = 18
     end
     object qryFornecedorFORNECEDOR: TIntegerField
       FieldName = 'FORNECEDOR'
-      Origin = '"TBCOTACAO_COMPRAFORN"."FORNECEDOR"'
+      Origin = 'FORNECEDOR'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
-    object qryFornecedorNOME_CONTATO: TIBStringField
+    object qryFornecedorNOME_CONTATO: TStringField
       FieldName = 'NOME_CONTATO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."NOME_CONTATO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'NOME_CONTATO'
       Size = 60
     end
-    object qryFornecedorEMAIL_ENVIO: TIBStringField
+    object qryFornecedorEMAIL_ENVIO: TStringField
       FieldName = 'EMAIL_ENVIO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."EMAIL_ENVIO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'EMAIL_ENVIO'
       Size = 100
     end
     object qryFornecedorDATA_RESPOSTA: TDateField
       FieldName = 'DATA_RESPOSTA'
-      Origin = '"TBCOTACAO_COMPRAFORN"."DATA_RESPOSTA"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'DATA_RESPOSTA'
     end
     object qryFornecedorFORMA_PAGTO: TSmallintField
       FieldName = 'FORMA_PAGTO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."FORMA_PAGTO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'FORMA_PAGTO'
     end
     object qryFornecedorCONDICAO_PAGTO: TSmallintField
       FieldName = 'CONDICAO_PAGTO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."CONDICAO_PAGTO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'CONDICAO_PAGTO'
     end
-    object qryFornecedorVALOR_TOTAL_BRUTO: TIBBCDField
+    object qryFornecedorPRAZO_ENTREGA_DATA: TDateField
+      FieldName = 'PRAZO_ENTREGA_DATA'
+      Origin = 'PRAZO_ENTREGA_DATA'
+    end
+    object qryFornecedorPRAZO_ENTREDA_DIA: TSmallintField
+      FieldName = 'PRAZO_ENTREDA_DIA'
+      Origin = 'PRAZO_ENTREDA_DIA'
+    end
+    object qryFornecedorOBSERVACAO: TMemoField
+      FieldName = 'OBSERVACAO'
+      Origin = 'OBSERVACAO'
+      BlobType = ftMemo
+    end
+    object qryFornecedorATIVO: TSmallintField
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+    end
+    object qryFornecedorUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Size = 12
+    end
+    object qryFornecedorVALOR_TOTAL_BRUTO: TBCDField
       FieldName = 'VALOR_TOTAL_BRUTO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."VALOR_TOTAL_BRUTO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'VALOR_TOTAL_BRUTO'
       Precision = 18
       Size = 2
     end
-    object qryFornecedorVALOR_TOTAL_DESCONTO: TIBBCDField
+    object qryFornecedorVALOR_TOTAL_DESCONTO: TBCDField
       FieldName = 'VALOR_TOTAL_DESCONTO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."VALOR_TOTAL_DESCONTO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'VALOR_TOTAL_DESCONTO'
       Precision = 18
       Size = 2
     end
-    object qryFornecedorVALOR_TOTAL_LIQUIDO: TIBBCDField
+    object qryFornecedorVALOR_TOTAL_LIQUIDO: TBCDField
       FieldName = 'VALOR_TOTAL_LIQUIDO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."VALOR_TOTAL_LIQUIDO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'VALOR_TOTAL_LIQUIDO'
       Precision = 18
       Size = 2
     end
     object qryFornecedorVENCEDOR: TSmallintField
       FieldName = 'VENCEDOR'
-      Origin = '"TBCOTACAO_COMPRAFORN"."VENCEDOR"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
+      Origin = 'VENCEDOR'
     end
-    object qryFornecedorPRAZO_ENTREGA_DATA: TDateField
-      FieldName = 'PRAZO_ENTREGA_DATA'
-      Origin = '"TBCOTACAO_COMPRAFORN"."PRAZO_ENTREGA_DATA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryFornecedorPRAZO_ENTREDA_DIA: TSmallintField
-      FieldName = 'PRAZO_ENTREDA_DIA'
-      Origin = '"TBCOTACAO_COMPRAFORN"."PRAZO_ENTREDA_DIA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryFornecedorOBSERVACAO: TMemoField
-      FieldName = 'OBSERVACAO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."OBSERVACAO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object qryFornecedorATIVO: TSmallintField
-      FieldName = 'ATIVO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."ATIVO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryFornecedorUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object qryFornecedorNOMEFORN: TIBStringField
+    object qryFornecedorNOMEFORN: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'NOMEFORN'
-      Origin = '"TBFORNECEDOR"."NOMEFORN"'
+      Origin = 'NOMEFORN'
       ProviderFlags = []
       Size = 100
     end
-    object qryFornecedorCNPJ: TIBStringField
+    object qryFornecedorCNPJ: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'CNPJ'
-      Origin = '"TBFORNECEDOR"."CNPJ"'
+      Origin = 'CNPJ'
       ProviderFlags = []
       Size = 18
     end
-    object qryFornecedorEMAIL: TIBStringField
+    object qryFornecedorEMAIL: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'EMAIL'
-      Origin = '"TBFORNECEDOR"."EMAIL"'
+      Origin = 'EMAIL'
       ProviderFlags = []
       Size = 40
     end
-    object qryFornecedorFORMA_PAGTO_DESC: TIBStringField
+    object qryFornecedorFORMA_PAGTO_DESC: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'FORMA_PAGTO_DESC'
-      Origin = '"TBFORMPAGTO"."DESCRI"'
+      Origin = 'DESCRI'
       ProviderFlags = []
       Size = 30
     end
-    object qryFornecedorCONDICAP_PAGTO_DESC: TIBStringField
+    object qryFornecedorCONDICAP_PAGTO_DESC: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'CONDICAP_PAGTO_DESC'
-      Origin = '"VW_CONDICAOPAGTO"."COND_DESCRICAO"'
+      Origin = 'COND_DESCRICAO'
       ProviderFlags = []
       Size = 80
     end
-    object qryFornecedorNUMERO: TIBStringField
+    object qryFornecedorNUMERO: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'NUMERO'
-      Origin = '"TBCOTACAO_COMPRA"."NUMERO"'
+      Origin = 'NUMERO'
       ProviderFlags = []
-      Required = True
     end
-    object qryFornecedorDESCRICAO_RESUMO: TIBStringField
+    object qryFornecedorDESCRICAO_RESUMO: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'DESCRICAO_RESUMO'
-      Origin = '"TBCOTACAO_COMPRA"."DESCRICAO_RESUMO"'
+      Origin = 'DESCRICAO_RESUMO'
       ProviderFlags = []
       Size = 100
     end
     object qryFornecedorEMISSAO_DATA: TDateField
+      AutoGenerateValue = arDefault
       FieldName = 'EMISSAO_DATA'
-      Origin = '"TBCOTACAO_COMPRA"."EMISSAO_DATA"'
+      Origin = 'EMISSAO_DATA'
       ProviderFlags = []
-      Required = True
       DisplayFormat = 'dd/mm/yyyy'
     end
     object qryFornecedorVALIDADE: TDateField
+      AutoGenerateValue = arDefault
       FieldName = 'VALIDADE'
-      Origin = '"TBCOTACAO_COMPRA"."VALIDADE"'
+      Origin = 'VALIDADE'
       ProviderFlags = []
       DisplayFormat = 'dd/mm/yyyy'
     end
   end
-  object updFornecedor: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CODIGO,'
-      '  EMPRESA,'
-      '  FORNECEDOR,'
-      '  NOME_CONTATO,'
-      '  EMAIL_ENVIO,'
-      '  FORMA_PAGTO,'
-      '  CONDICAO_PAGTO,'
-      '  VALOR_TOTAL_BRUTO,'
-      '  VALOR_TOTAL_DESCONTO,'
-      '  VALOR_TOTAL_LIQUIDO,'
-      '  VENCEDOR,'
-      '  DATA_RESPOSTA,'
-      '  PRAZO_ENTREGA_DATA,'
-      '  PRAZO_ENTREDA_DIA,'
-      '  OBSERVACAO,'
-      '  ATIVO,'
-      '  USUARIO'
-      'from TBCOTACAO_COMPRAFORN '
-      'where'
-      '  ANO = :ANO and'
-      '  CODIGO = :CODIGO and'
-      '  EMPRESA = :EMPRESA and'
-      '  FORNECEDOR = :FORNECEDOR')
-    ModifySQL.Strings = (
-      'update TBCOTACAO_COMPRAFORN'
-      'set'
-      '  ANO = :ANO,'
-      '  ATIVO = :ATIVO,'
-      '  CODIGO = :CODIGO,'
-      '  CONDICAO_PAGTO = :CONDICAO_PAGTO,'
-      '  DATA_RESPOSTA = :DATA_RESPOSTA,'
-      '  EMAIL_ENVIO = :EMAIL_ENVIO,'
-      '  EMPRESA = :EMPRESA,'
-      '  FORMA_PAGTO = :FORMA_PAGTO,'
-      '  FORNECEDOR = :FORNECEDOR,'
-      '  NOME_CONTATO = :NOME_CONTATO,'
-      '  OBSERVACAO = :OBSERVACAO,'
-      '  PRAZO_ENTREDA_DIA = :PRAZO_ENTREDA_DIA,'
-      '  PRAZO_ENTREGA_DATA = :PRAZO_ENTREGA_DATA,'
-      '  USUARIO = :USUARIO,'
-      '  VALOR_TOTAL_BRUTO = :VALOR_TOTAL_BRUTO,'
-      '  VALOR_TOTAL_DESCONTO = :VALOR_TOTAL_DESCONTO,'
-      '  VALOR_TOTAL_LIQUIDO = :VALOR_TOTAL_LIQUIDO,'
-      '  VENCEDOR = :VENCEDOR'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODIGO = :OLD_CODIGO and'
-      '  EMPRESA = :OLD_EMPRESA and'
-      '  FORNECEDOR = :OLD_FORNECEDOR')
+  object updFornecedor: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
-      'insert into TBCOTACAO_COMPRAFORN'
+      'INSERT INTO TBCOTACAO_COMPRAFORN'
+      '(ANO, CODIGO, EMPRESA, FORNECEDOR, NOME_CONTATO, '
+      '  EMAIL_ENVIO, FORMA_PAGTO, CONDICAO_PAGTO, '
+      '  VALOR_TOTAL_BRUTO, VALOR_TOTAL_DESCONTO, VALOR_TOTAL_LIQUIDO, '
+      '  VENCEDOR, DATA_RESPOSTA, PRAZO_ENTREGA_DATA, '
+      '  PRAZO_ENTREDA_DIA, OBSERVACAO, ATIVO, USUARIO)'
       
-        '  (ANO, ATIVO, CODIGO, CONDICAO_PAGTO, DATA_RESPOSTA, EMAIL_ENVI' +
-        'O, EMPRESA, '
+        'VALUES (:NEW_ANO, :NEW_CODIGO, :NEW_EMPRESA, :NEW_FORNECEDOR, :N' +
+        'EW_NOME_CONTATO, '
+      '  :NEW_EMAIL_ENVIO, :NEW_FORMA_PAGTO, :NEW_CONDICAO_PAGTO, '
       
-        '   FORMA_PAGTO, FORNECEDOR, NOME_CONTATO, OBSERVACAO, PRAZO_ENTR' +
-        'EDA_DIA, '
+        '  :NEW_VALOR_TOTAL_BRUTO, :NEW_VALOR_TOTAL_DESCONTO, :NEW_VALOR_' +
+        'TOTAL_LIQUIDO, '
+      '  :NEW_VENCEDOR, :NEW_DATA_RESPOSTA, :NEW_PRAZO_ENTREGA_DATA, '
       
-        '   PRAZO_ENTREGA_DATA, USUARIO, VALOR_TOTAL_BRUTO, VALOR_TOTAL_D' +
-        'ESCONTO, '
-      '   VALOR_TOTAL_LIQUIDO, VENCEDOR)'
-      'values'
+        '  :NEW_PRAZO_ENTREDA_DIA, :NEW_OBSERVACAO, :NEW_ATIVO, :NEW_USUA' +
+        'RIO)')
+    ModifySQL.Strings = (
+      'UPDATE TBCOTACAO_COMPRAFORN'
       
-        '  (:ANO, :ATIVO, :CODIGO, :CONDICAO_PAGTO, :DATA_RESPOSTA, :EMAI' +
-        'L_ENVIO, '
+        'SET ANO = :NEW_ANO, CODIGO = :NEW_CODIGO, EMPRESA = :NEW_EMPRESA' +
+        ', '
       
-        '   :EMPRESA, :FORMA_PAGTO, :FORNECEDOR, :NOME_CONTATO, :OBSERVAC' +
-        'AO, :PRAZO_ENTREDA_DIA, '
+        '  FORNECEDOR = :NEW_FORNECEDOR, NOME_CONTATO = :NEW_NOME_CONTATO' +
+        ', '
       
-        '   :PRAZO_ENTREGA_DATA, :USUARIO, :VALOR_TOTAL_BRUTO, :VALOR_TOT' +
-        'AL_DESCONTO, '
-      '   :VALOR_TOTAL_LIQUIDO, :VENCEDOR)')
-    DeleteSQL.Strings = (
-      'delete from TBCOTACAO_COMPRAFORN'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODIGO = :OLD_CODIGO and'
-      '  EMPRESA = :OLD_EMPRESA and'
+        '  EMAIL_ENVIO = :NEW_EMAIL_ENVIO, FORMA_PAGTO = :NEW_FORMA_PAGTO' +
+        ', '
+      
+        '  CONDICAO_PAGTO = :NEW_CONDICAO_PAGTO, VALOR_TOTAL_BRUTO = :NEW' +
+        '_VALOR_TOTAL_BRUTO, '
+      
+        '  VALOR_TOTAL_DESCONTO = :NEW_VALOR_TOTAL_DESCONTO, VALOR_TOTAL_' +
+        'LIQUIDO = :NEW_VALOR_TOTAL_LIQUIDO, '
+      '  VENCEDOR = :NEW_VENCEDOR, DATA_RESPOSTA = :NEW_DATA_RESPOSTA, '
+      
+        '  PRAZO_ENTREGA_DATA = :NEW_PRAZO_ENTREGA_DATA, PRAZO_ENTREDA_DI' +
+        'A = :NEW_PRAZO_ENTREDA_DIA, '
+      
+        '  OBSERVACAO = :NEW_OBSERVACAO, ATIVO = :NEW_ATIVO, USUARIO = :N' +
+        'EW_USUARIO'
+      
+        'WHERE ANO = :OLD_ANO AND CODIGO = :OLD_CODIGO AND EMPRESA = :OLD' +
+        '_EMPRESA AND '
       '  FORNECEDOR = :OLD_FORNECEDOR')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCOTACAO_COMPRAFORN'
+      
+        'WHERE ANO = :OLD_ANO AND CODIGO = :OLD_CODIGO AND EMPRESA = :OLD' +
+        '_EMPRESA AND '
+      '  FORNECEDOR = :OLD_FORNECEDOR')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    c.ano'
+      '  , c.codigo'
+      '  , c.empresa'
+      '  , c.fornecedor'
+      '  , c.nome_contato'
+      '  , c.email_envio'
+      '  , c.data_resposta'
+      '  , c.forma_pagto'
+      '  , c.condicao_pagto'
+      '  , c.prazo_entrega_data'
+      '  , c.prazo_entreda_dia'
+      '  , c.observacao'
+      '  , c.ativo'
+      '  , c.usuario'
+      '  , c.valor_total_bruto'
+      '  , c.valor_total_desconto'
+      '  , c.valor_total_liquido'
+      '  , c.vencedor'
+      '  , f.nomeforn'
+      '  , f.cnpj'
+      '  , f.email'
+      '  , fp.descri as forma_pagto_desc'
+      '  , cp.cond_descricao as condicap_pagto_desc'
+      '  , x.numero'
+      '  , x.descricao_resumo'
+      '  , x.emissao_data'
+      '  , x.validade'
+      'from TBCOTACAO_COMPRAFORN c'
+      
+        '  inner join TBCOTACAO_COMPRA x on (x.ano = c.ano and x.codigo =' +
+        ' c.codigo and x.empresa = c.empresa)'
+      ''
+      '  left join TBFORNECEDOR f on (f.codforn = c.fornecedor)'
+      '  left join TBFORMPAGTO fp on (fp.cod = c.forma_pagto)'
+      
+        '  left join VW_CONDICAOPAGTO cp on (cp.cond_cod = c.condicao_pag' +
+        'to)'
+      
+        'WHERE c.ANO = :ANO AND c.CODIGO = :CODIGO AND c.EMPRESA = :EMPRE' +
+        'SA AND c.FORNECEDOR = :FORNECEDOR')
     Left = 288
     Top = 16
   end
-  object dtsFornecedor: TDataSource
-    AutoEdit = False
-    DataSet = qryFornecedor
-    OnStateChange = dtsFornecedorStateChange
-    Left = 320
-    Top = 16
-  end
-  object tblFormaPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'COD'
-        Attributes = [faRequired]
-        DataType = ftSmallint
-      end
-      item
-        Name = 'DESCRI'
-        DataType = ftString
-        Size = 30
-      end
-      item
-        Name = 'ACRESCIMO'
-        DataType = ftFloat
-      end
-      item
-        Name = 'CONTA_CORRENTE'
-        DataType = ftInteger
-      end
-      item
-        Name = 'DEBITAR_LIMITE_CLIENTE'
-        DataType = ftSmallint
-      end>
-    IndexDefs = <
-      item
-        Name = 'PK_TBFORMPAGTO'
-        Fields = 'COD'
-        Options = [ixUnique]
-      end
-      item
-        Name = 'FK_TBFORMPAGTO_CCORRENTE'
-        Fields = 'CONTA_CORRENTE'
-      end>
-    StoreDefs = True
-    TableName = 'TBFORMPAGTO'
-    UniDirectional = False
-    Left = 432
-    Top = 32
-  end
-  object dtsFormaPagto: TDataSource
-    DataSet = tblFormaPagto
-    Left = 464
-    Top = 32
-  end
-  object tblCondicaoPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_CONDICAOPAGTO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 432
-    Top = 64
-  end
-  object dtsCondicaoPagto: TDataSource
-    DataSet = tblCondicaoPagto
-    Left = 464
-    Top = 64
-  end
-  object qryItem: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
+  object qryItem: TFDQuery
     BeforePost = qryItemBeforePost
-    BufferChunks = 1000
     CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updItem
+    SQL.Strings = (
       'select'
       '    ci.ano'
       '  , ci.codigo'
@@ -1026,168 +1032,175 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       ''
       'where ci.ano        = :ano'
       '  and ci.codigo     = :cod')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updItem
     Left = 256
     Top = 48
+    ParamData = <
+      item
+        Name = 'FOR'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Name = 'COD'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
     object qryItemANO: TSmallintField
       FieldName = 'ANO'
-      Origin = '"TBCOTACAO_COMPRAITEM"."ANO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object qryItemCODIGO: TIntegerField
-      FieldName = 'CODIGO'
-      Origin = '"TBCOTACAO_COMPRAITEM"."CODIGO"'
+      Origin = 'ANO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object qryItemEMPRESA: TIBStringField
+    object qryItemCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryItemEMPRESA: TStringField
       FieldName = 'EMPRESA'
-      Origin = '"TBCOTACAO_COMPRAITEM"."EMPRESA"'
+      Origin = 'EMPRESA'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 18
     end
     object qryItemSEQ: TSmallintField
       FieldName = 'SEQ'
-      Origin = '"TBCOTACAO_COMPRAITEM"."SEQ"'
-      ProviderFlags = []
+      Origin = 'SEQ'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
     end
-    object qryItemPRODUTO: TIBStringField
+    object qryItemPRODUTO: TStringField
       FieldName = 'PRODUTO'
-      Origin = '"TBCOTACAO_COMPRAITEM"."PRODUTO"'
-      ProviderFlags = []
+      Origin = 'PRODUTO'
       Size = 10
     end
-    object qryItemQUANTIDADE: TIBBCDField
+    object qryItemQUANTIDADE: TBCDField
       FieldName = 'QUANTIDADE'
-      Origin = '"TBCOTACAO_COMPRAITEM"."QUANTIDADE"'
-      ProviderFlags = []
+      Origin = 'QUANTIDADE'
+      Required = True
       Precision = 18
       Size = 3
     end
     object qryItemUNIDADE: TSmallintField
       FieldName = 'UNIDADE'
-      Origin = '"TBCOTACAO_COMPRAITEM"."UNIDADE"'
-      ProviderFlags = []
+      Origin = 'UNIDADE'
     end
-    object qryItemDESCRI_APRESENTACAO: TIBStringField
+    object qryItemDESCRI_APRESENTACAO: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'DESCRI_APRESENTACAO'
-      Origin = '"TBPRODUTO"."DESCRI_APRESENTACAO"'
+      Origin = 'DESCRI_APRESENTACAO'
       ProviderFlags = []
       Size = 100
     end
-    object qryItemUNP_DESCRICAO: TIBStringField
+    object qryItemUNP_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'UNP_DESCRICAO'
-      Origin = '"TBUNIDADEPROD"."UNP_DESCRICAO"'
+      Origin = 'UNP_DESCRICAO'
       ProviderFlags = []
       Size = 50
     end
-    object qryItemUNP_SIGLA: TIBStringField
+    object qryItemUNP_SIGLA: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'UNP_SIGLA'
-      Origin = '"TBUNIDADEPROD"."UNP_SIGLA"'
+      Origin = 'UNP_SIGLA'
       ProviderFlags = []
       Size = 5
     end
     object qryItemFORNECEDOR: TIntegerField
+      AutoGenerateValue = arDefault
       FieldName = 'FORNECEDOR'
-      Origin = '"TBCOTACAO_COMPRAFORN_ITEM"."FORNECEDOR"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Origin = 'FORNECEDOR'
+      ProviderFlags = []
     end
     object qryItemITEM: TSmallintField
+      AutoGenerateValue = arDefault
       FieldName = 'ITEM'
-      Origin = '"TBCOTACAO_COMPRAFORN_ITEM"."ITEM"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Origin = 'ITEM'
+      ProviderFlags = []
     end
-    object qryItemVALOR_UNITARIO: TIBBCDField
+    object qryItemVALOR_UNITARIO: TBCDField
+      AutoGenerateValue = arDefault
       FieldName = 'VALOR_UNITARIO'
-      Origin = '"TBCOTACAO_COMPRAFORN_ITEM"."VALOR_UNITARIO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'VALOR_UNITARIO'
+      ProviderFlags = []
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object qryItemVALOR_TOTAL: TIBBCDField
+    object qryItemVALOR_TOTAL: TBCDField
+      AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL'
-      Origin = '"TBCOTACAO_COMPRAFORN_ITEM"."VALOR_TOTAL"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'VALOR_TOTAL'
+      ProviderFlags = []
       DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
   end
-  object updItem: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CODIGO,'
-      '  EMPRESA,'
-      '  FORNECEDOR,'
-      '  ITEM,'
-      '  VALOR_UNITARIO,'
-      '  VALOR_TOTAL'
-      'from TBCOTACAO_COMPRAFORN_ITEM '
-      'where'
-      '  ANO = :ANO and'
-      '  CODIGO = :CODIGO and'
-      '  EMPRESA = :EMPRESA and'
-      '  FORNECEDOR = :FORNECEDOR and'
-      '  ITEM = :ITEM')
+  object updItem: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBCOTACAO_COMPRAITEM'
+      '(ANO, CODIGO, EMPRESA, SEQ, PRODUTO, '
+      '  QUANTIDADE, UNIDADE)'
+      
+        'VALUES (:NEW_ANO, :NEW_CODIGO, :NEW_EMPRESA, :NEW_SEQ, :NEW_PROD' +
+        'UTO, '
+      '  :NEW_QUANTIDADE, :NEW_UNIDADE)')
     ModifySQL.Strings = (
-      'update TBCOTACAO_COMPRAFORN_ITEM'
-      'set'
-      '  ANO = :ANO,'
-      '  CODIGO = :CODIGO,'
-      '  EMPRESA = :EMPRESA,'
-      '  FORNECEDOR = :FORNECEDOR,'
-      '  ITEM = :ITEM,'
-      '  VALOR_TOTAL = :VALOR_TOTAL,'
-      '  VALOR_UNITARIO = :VALOR_UNITARIO'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODIGO = :OLD_CODIGO and'
-      '  EMPRESA = :OLD_EMPRESA and'
-      '  FORNECEDOR = :OLD_FORNECEDOR and'
-      '  ITEM = :OLD_ITEM')
+      'UPDATE TBCOTACAO_COMPRAITEM'
+      
+        'SET ANO = :NEW_ANO, CODIGO = :NEW_CODIGO, EMPRESA = :NEW_EMPRESA' +
+        ', '
+      
+        '  SEQ = :NEW_SEQ, PRODUTO = :NEW_PRODUTO, QUANTIDADE = :NEW_QUAN' +
+        'TIDADE, '
+      '  UNIDADE = :NEW_UNIDADE'
+      
+        'WHERE ANO = :OLD_ANO AND CODIGO = :OLD_CODIGO AND EMPRESA = :OLD' +
+        '_EMPRESA AND '
+      '  SEQ = :OLD_SEQ')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCOTACAO_COMPRAITEM'
+      
+        'WHERE ANO = :OLD_ANO AND CODIGO = :OLD_CODIGO AND EMPRESA = :OLD' +
+        '_EMPRESA AND '
+      '  SEQ = :OLD_SEQ')
+    FetchRowSQL.Strings = (
+      'select'
+      '    ci.ano'
+      '  , ci.codigo'
+      '  , ci.empresa'
+      '  , ci.seq'
+      '  , ci.produto'
+      '  , ci.quantidade'
+      '  , ci.unidade'
+      '  , p.descri_apresentacao'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      '  , i.fornecedor'
+      '  , i.item'
+      '  , i.valor_unitario'
+      '  , i.valor_total'
+      'from TBCOTACAO_COMPRAITEM ci'
+      '  left join TBPRODUTO p on (p.cod = ci.produto)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = ci.unidade)'
+      
+        '  left join TBCOTACAO_COMPRAFORN_ITEM i on (i.ano = ci.ano and i' +
+        '.codigo = ci.codigo and i.empresa = ci.empresa and i.item = ci.s' +
+        'eq and i.fornecedor = :for)'
+      ''
+      
+        'WHERE ci.ANO = :ANO AND ci.CODIGO = :CODIGO AND ci.EMPRESA = :EM' +
+        'PRESA AND ci.SEQ = :SEQ')
     Left = 288
     Top = 48
-  end
-  object dtsItem: TDataSource
-    AutoEdit = False
-    DataSet = qryItem
-    OnStateChange = dtsFornecedorStateChange
-    Left = 320
-    Top = 48
-  end
-  object stpSetCotacaoFornecedorItem: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SET_COTACAO_COMPRAFORN_ITEM'
-    Left = 240
-    Top = 320
-    ParamData = <
-      item
-        DataType = ftSmallint
-        Name = 'ANO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'CODIGO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftString
-        Name = 'EMPRESA'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'FORNECEDOR'
-        ParamType = ptInput
-      end>
   end
 end

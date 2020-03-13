@@ -3,18 +3,18 @@ unit UGeCotacaoCompraFornecedor;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB,
-  IBCustomDataSet, IBUpdateSQL, IBTable, OleServer, ExcelXP, ComCtrls, IBStoredProc,
-  Grids, DBGrids, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
-  JvDBControls, JvExMask, JvToolEdit, dxSkinsCore, dxSkinBlueprint,
-  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
-  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
-  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
-  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs,
+  UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB, OleServer, ExcelXP, ComCtrls, Grids, DBGrids,
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvDBControls, JvExMask, JvToolEdit,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light;
 
 type
   TCotacaoFornecedorOpercao = (cfoInserir, cfoCarregarPlanilha, cfoEditar, cfoVisualizar);
@@ -30,40 +30,9 @@ type
     dbValidade: TDBEdit;
     Bevel1: TBevel;
     Bevel2: TBevel;
-    qryFornecedor: TIBDataSet;
-    qryFornecedorANO: TSmallintField;
-    qryFornecedorCODIGO: TIntegerField;
-    qryFornecedorEMPRESA: TIBStringField;
-    qryFornecedorFORNECEDOR: TIntegerField;
-    qryFornecedorNOME_CONTATO: TIBStringField;
-    qryFornecedorEMAIL_ENVIO: TIBStringField;
-    qryFornecedorFORMA_PAGTO: TSmallintField;
-    qryFornecedorCONDICAO_PAGTO: TSmallintField;
-    qryFornecedorPRAZO_ENTREGA_DATA: TDateField;
-    qryFornecedorPRAZO_ENTREDA_DIA: TSmallintField;
-    qryFornecedorOBSERVACAO: TMemoField;
-    qryFornecedorATIVO: TSmallintField;
-    qryFornecedorUSUARIO: TIBStringField;
-    qryFornecedorNOMEFORN: TIBStringField;
-    qryFornecedorCNPJ: TIBStringField;
-    qryFornecedorEMAIL: TIBStringField;
-    qryFornecedorFORMA_PAGTO_DESC: TIBStringField;
-    qryFornecedorCONDICAP_PAGTO_DESC: TIBStringField;
-    updFornecedor: TIBUpdateSQL;
     dtsFornecedor: TDataSource;
-    qryFornecedorDESCRICAO_RESUMO: TIBStringField;
-    qryFornecedorEMISSAO_DATA: TDateField;
-    qryFornecedorVALIDADE: TDateField;
-    qryFornecedorNUMERO: TIBStringField;
-    tblFormaPagto: TIBTable;
     dtsFormaPagto: TDataSource;
-    tblCondicaoPagto: TIBTable;
     dtsCondicaoPagto: TDataSource;
-    qryFornecedorDATA_RESPOSTA: TDateField;
-    qryFornecedorVALOR_TOTAL_BRUTO: TIBBCDField;
-    qryFornecedorVALOR_TOTAL_DESCONTO: TIBBCDField;
-    qryFornecedorVALOR_TOTAL_LIQUIDO: TIBBCDField;
-    qryFornecedorVENCEDOR: TSmallintField;
     PgcResposta: TPageControl;
     TbsFornecedor: TTabSheet;
     lblFornecedor: TLabel;
@@ -78,24 +47,7 @@ type
     lblObservacoes: TLabel;
     dbObservacoes: TDBMemo;
     TbsFornecedorItem: TTabSheet;
-    qryItem: TIBDataSet;
-    updItem: TIBUpdateSQL;
     dtsItem: TDataSource;
-    stpSetCotacaoFornecedorItem: TIBStoredProc;
-    qryItemANO: TSmallintField;
-    qryItemCODIGO: TIntegerField;
-    qryItemEMPRESA: TIBStringField;
-    qryItemSEQ: TSmallintField;
-    qryItemPRODUTO: TIBStringField;
-    qryItemQUANTIDADE: TIBBCDField;
-    qryItemUNIDADE: TSmallintField;
-    qryItemDESCRI_APRESENTACAO: TIBStringField;
-    qryItemUNP_DESCRICAO: TIBStringField;
-    qryItemUNP_SIGLA: TIBStringField;
-    qryItemFORNECEDOR: TIntegerField;
-    qryItemITEM: TSmallintField;
-    qryItemVALOR_UNITARIO: TIBBCDField;
-    qryItemVALOR_TOTAL: TIBBCDField;
     dbgProdutos: TDBGrid;
     lblDataResposta: TLabel;
     BtnCarregarXLS: TcxButton;
@@ -103,19 +55,67 @@ type
     btFechar: TcxButton;
     dbDataResposta: TJvDBDateEdit;
     dbFornecedor: TJvDBComboEdit;
+    fdQryFormaPagto: TFDQuery;
+    fdQryCondicaoPagto: TFDQuery;
+    spSetCotacaoFornecedorItem: TFDStoredProc;
+    qryFornecedor: TFDQuery;
+    updFornecedor: TFDUpdateSQL;
+    qryFornecedorANO: TSmallintField;
+    qryFornecedorCODIGO: TIntegerField;
+    qryFornecedorEMPRESA: TStringField;
+    qryFornecedorFORNECEDOR: TIntegerField;
+    qryFornecedorNOME_CONTATO: TStringField;
+    qryFornecedorEMAIL_ENVIO: TStringField;
+    qryFornecedorDATA_RESPOSTA: TDateField;
+    qryFornecedorFORMA_PAGTO: TSmallintField;
+    qryFornecedorCONDICAO_PAGTO: TSmallintField;
+    qryFornecedorPRAZO_ENTREGA_DATA: TDateField;
+    qryFornecedorPRAZO_ENTREDA_DIA: TSmallintField;
+    qryFornecedorOBSERVACAO: TMemoField;
+    qryFornecedorATIVO: TSmallintField;
+    qryFornecedorUSUARIO: TStringField;
+    qryFornecedorVALOR_TOTAL_BRUTO: TBCDField;
+    qryFornecedorVALOR_TOTAL_DESCONTO: TBCDField;
+    qryFornecedorVALOR_TOTAL_LIQUIDO: TBCDField;
+    qryFornecedorVENCEDOR: TSmallintField;
+    qryFornecedorNOMEFORN: TStringField;
+    qryFornecedorCNPJ: TStringField;
+    qryFornecedorEMAIL: TStringField;
+    qryFornecedorFORMA_PAGTO_DESC: TStringField;
+    qryFornecedorCONDICAP_PAGTO_DESC: TStringField;
+    qryFornecedorNUMERO: TStringField;
+    qryFornecedorDESCRICAO_RESUMO: TStringField;
+    qryFornecedorEMISSAO_DATA: TDateField;
+    qryFornecedorVALIDADE: TDateField;
+    qryItem: TFDQuery;
+    updItem: TFDUpdateSQL;
+    qryItemANO: TSmallintField;
+    qryItemCODIGO: TIntegerField;
+    qryItemEMPRESA: TStringField;
+    qryItemSEQ: TSmallintField;
+    qryItemPRODUTO: TStringField;
+    qryItemQUANTIDADE: TBCDField;
+    qryItemUNIDADE: TSmallintField;
+    qryItemDESCRI_APRESENTACAO: TStringField;
+    qryItemUNP_DESCRICAO: TStringField;
+    qryItemUNP_SIGLA: TStringField;
+    qryItemFORNECEDOR: TIntegerField;
+    qryItemITEM: TSmallintField;
+    qryItemVALOR_UNITARIO: TBCDField;
+    qryItemVALOR_TOTAL: TBCDField;
     procedure btFecharClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
-    procedure qryFornecedorNewRecord(DataSet: TDataSet);
     procedure dtsFornecedorStateChange(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure qryFornecedorBeforePost(DataSet: TDataSet);
     procedure FormShow(Sender: TObject);
     procedure dbgProdutosEnter(Sender: TObject);
     procedure dbgProdutosExit(Sender: TObject);
-    procedure qryItemBeforePost(DataSet: TDataSet);
     procedure dbgProdutosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure qryFornecedorBeforePost(DataSet: TDataSet);
+    procedure qryFornecedorNewRecord(DataSet: TDataSet);
+    procedure qryItemBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     FEmpresa : String;
@@ -126,6 +126,7 @@ type
     FArquivoXLS: String;
     FEmissao  ,
     FValidade : TDateTime;
+    procedure CarregarLista(const pDataSet : TDataSet);
     procedure CarregarDadosFornecedor;
     procedure SetCotacaoFornecedorItem(Empresa : String; Ano : Smallint; Codigo, Fornecedor : Integer);
   public
@@ -134,6 +135,25 @@ type
 
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBCOTACAO_COMPRA
+  - TBCOTACAO_COMPRAITEM
+  - TBPRODUTO
+  - TBUNIDADEPROD
+  - TBCOTACAO_COMPRAFORN
+  - TBCOTACAO_COMPRAFORN_ITEM
+  - TBFORNECEDOR
+  - TBFORMPAGTO
+
+  Views:
+  - VW_CONDICAOPAGTO
+  - VW_TIPO_COTACAO
+
+  Procedures:
+  - SET_COTACAO_COMPRAFORN_ITEM
+*)
 
   function CotacaoFornecedor(const AOwer : TComponent; const TipoOperacao : TCotacaoFornecedorOpercao;
     Empresa : String; Ano : Smallint; Numero, Fornecedor : Integer;
@@ -582,12 +602,12 @@ begin
 
       I := 1;
       sListaFormaPagto := EmptyStr;
-      tblFormaPagto.First;
-      while not tblFormaPagto.Eof do
+      fdQryFormaPagto.First;
+      while not fdQryFormaPagto.Eof do
       begin
-        //XLSheet.Cells.Item[I, 1].Value := Trim(tblFormaPagto.FieldByName('DESCRI').AsString);
-        sListaFormaPagto := sListaFormaPagto + Trim(tblFormaPagto.FieldByName('DESCRI').AsString) + ';';
-        tblFormaPagto.Next;
+        //XLSheet.Cells.Item[I, 1].Value := Trim(fdQryFormaPagto.FieldByName('DESCRI').AsString);
+        sListaFormaPagto := sListaFormaPagto + Trim(fdQryFormaPagto.FieldByName('DESCRI').AsString) + ';';
+        fdQryFormaPagto.Next;
         Inc(I);
       end;
 
@@ -605,12 +625,12 @@ begin
 
       I := 1;
       sListaCondicaoPagto := EmptyStr;
-      tblCondicaoPagto.First;
-      while not tblCondicaoPagto.Eof do
+      fdQryCondicaoPagto.First;
+      while not fdQryCondicaoPagto.Eof do
       begin
-        //XLSheet.Cells.Item[I, 1].Value := Trim(tblCondicaoPagto.FieldByName('COND_DESCRICAO').AsString);
-        sListaCondicaoPagto := sListaCondicaoPagto + Trim(tblCondicaoPagto.FieldByName('COND_DESCRICAO').AsString) + ';';
-        tblCondicaoPagto.Next;
+        //XLSheet.Cells.Item[I, 1].Value := Trim(fdQryCondicaoPagto.FieldByName('COND_DESCRICAO').AsString);
+        sListaCondicaoPagto := sListaCondicaoPagto + Trim(fdQryCondicaoPagto.FieldByName('COND_DESCRICAO').AsString) + ';';
+        fdQryCondicaoPagto.Next;
         Inc(I);
       end;
 
@@ -939,33 +959,6 @@ begin
   ;
 end;
 
-procedure TfrmGeCotacaoCompraFornecedor.qryFornecedorNewRecord(
-  DataSet: TDataSet);
-begin
-  qryFornecedorANO.Value     := FAno;
-  qryFornecedorCODIGO.Value  := FCotacao;
-  qryFornecedorEMPRESA.Value := FEmpresa;
-  qryFornecedorFORNECEDOR.Value    := FFornecedor;
-  qryFornecedorATIVO.Value         := 1;
-  qryFornecedorUSUARIO.Value       := gUsuarioLogado.Login;
-  qryFornecedorDATA_RESPOSTA.Value      := Date;
-  qryFornecedorPRAZO_ENTREGA_DATA.Value := Date + GetPrazoValidadeCotacaoCompra(FEmpresa);
-  qryFornecedorVENCEDOR.Value      := 0;
-
-  qryFornecedorVALOR_TOTAL_BRUTO.Value    := 0.0;
-  qryFornecedorVALOR_TOTAL_DESCONTO.Value := 0.0;
-  qryFornecedorVALOR_TOTAL_LIQUIDO.Value  := 0.0;
-
-  qryFornecedorNOMEFORN.Value     := GetFornecedorRazao(FFornecedor);
-  qryFornecedorNOME_CONTATO.Value := GetFornecedorContato(FFornecedor);
-  qryFornecedorEMAIL_ENVIO.Value  := GetFornecedorEmail(FFornecedor);
-
-  qryFornecedorNUMERO.Value           := FormatFloat('##0000000', qryFornecedorCODIGO.Value) + '/' + Copy(qryFornecedorANO.AsString, 3, 2);
-  qryFornecedorDESCRICAO_RESUMO.Value := FDescricao;
-  qryFornecedorEMISSAO_DATA.Value     := FEmissao;
-  qryFornecedorVALIDADE.Value         := FValidade;
-end;
-
 procedure TfrmGeCotacaoCompraFornecedor.dtsFornecedorStateChange(
   Sender: TObject);
 begin
@@ -993,19 +986,50 @@ end;
 procedure TfrmGeCotacaoCompraFornecedor.FormCreate(Sender: TObject);
 begin
   inherited;
-  tblFormaPagto.Open;
-  tblCondicaoPagto.Open;
+  CarregarLista(fdQryFormaPagto);
+  CarregarLista(fdQryCondicaoPagto);
 
   FDescricao  := EmptyStr;
   FArquivoXLS := EmptyStr;
 end;
 
-procedure TfrmGeCotacaoCompraFornecedor.qryFornecedorBeforePost(
-  DataSet: TDataSet);
+procedure TfrmGeCotacaoCompraFornecedor.qryFornecedorBeforePost(DataSet: TDataSet);
 begin
-  qryFornecedorEMAIL.Value             := Trim(qryFornecedorEMAIL.Value);
-  qryFornecedorPRAZO_ENTREDA_DIA.Value := DaysBetween(qryFornecedorPRAZO_ENTREGA_DATA.Value, qryFornecedorDATA_RESPOSTA.Value);
-  qryFornecedorUSUARIO.Value           := gUsuarioLogado.Login;
+  with dtsFornecedor.DataSet do
+  begin
+    FieldByName('EMAIL').Value             := Trim(FieldByName('EMAIL').Value);
+    FieldByName('PRAZO_ENTREDA_DIA').Value := DaysBetween(FieldByName('PRAZO_ENTREGA_DATA').Value, FieldByName('DATA_RESPOSTA').Value);
+    FieldByName('USUARIO').Value           := gUsuarioLogado.Login;
+  end;
+end;
+
+procedure TfrmGeCotacaoCompraFornecedor.qryFornecedorNewRecord(DataSet: TDataSet);
+begin
+  with dtsFornecedor.DataSet do
+  begin
+    FieldByName('ANO').Value     := FAno;
+    FieldByName('CODIGO').Value  := FCotacao;
+    FieldByName('EMPRESA').Value := FEmpresa;
+    FieldByName('FORNECEDOR').Value    := FFornecedor;
+    FieldByName('ATIVO').Value         := 1;
+    FieldByName('USUARIO').Value       := gUsuarioLogado.Login;
+    FieldByName('DATA_RESPOSTA').Value      := Date;
+    FieldByName('PRAZO_ENTREGA_DATA').Value := Date + GetPrazoValidadeCotacaoCompra(FEmpresa);
+    FieldByName('VENCEDOR').Value      := 0;
+
+    FieldByName('VALOR_TOTAL_BRUTO').Value    := 0.0;
+    FieldByName('VALOR_TOTAL_DESCONTO').Value := 0.0;
+    FieldByName('VALOR_TOTAL_LIQUIDO').Value  := 0.0;
+
+    FieldByName('NOMEFORN').Value     := GetFornecedorRazao(FFornecedor);
+    FieldByName('NOME_CONTATO').Value := GetFornecedorContato(FFornecedor);
+    FieldByName('EMAIL_ENVIO').Value  := GetFornecedorEmail(FFornecedor);
+
+    FieldByName('NUMERO').Value           := FormatFloat('##0000000', FieldByName('CODIGO').Value) + '/' + Copy(FieldByName('ANO').AsString, 3, 2);
+    FieldByName('DESCRICAO_RESUMO').Value := FDescricao;
+    FieldByName('EMISSAO_DATA').Value     := FEmissao;
+    FieldByName('VALIDADE').Value         := FValidade;
+  end;
 end;
 
 procedure TfrmGeCotacaoCompraFornecedor.FormShow(Sender: TObject);
@@ -1017,7 +1041,7 @@ end;
 procedure TfrmGeCotacaoCompraFornecedor.SetCotacaoFornecedorItem(
   Empresa: String; Ano: Smallint; Codigo, Fornecedor: Integer);
 begin
-  with stpSetCotacaoFornecedorItem do
+  with spSetCotacaoFornecedorItem do
   begin
     ParamByName('ano').AsInteger        := Ano;
     ParamByName('codigo').AsInteger     := Codigo;
@@ -1047,10 +1071,9 @@ begin
   Self.OnKeyDown := FormKeyDown;
 end;
 
-procedure TfrmGeCotacaoCompraFornecedor.qryItemBeforePost(
-  DataSet: TDataSet);
+procedure TfrmGeCotacaoCompraFornecedor.qryItemBeforePost(DataSet: TDataSet);
 begin
-  qryItemVALOR_TOTAL.AsCurrency := qryItemQUANTIDADE.AsCurrency * qryItemVALOR_UNITARIO.AsCurrency; 
+  qryItemVALOR_TOTAL.AsCurrency := qryItemQUANTIDADE.AsCurrency * qryItemVALOR_UNITARIO.AsCurrency;
 end;
 
 procedure TfrmGeCotacaoCompraFornecedor.CarregarDadosFornecedor;
@@ -1058,20 +1081,31 @@ begin
   with qryFornecedor do
   begin
     Close;
-    ParamByName('ano').AsShort   := FAno;
-    ParamByName('cod').AsInteger := FCotacao;
-    ParamByName('for').AsInteger := FFornecedor;
+    ParamByName('ano').AsSmallInt := FAno;
+    ParamByName('cod').AsInteger  := FCotacao;
+    ParamByName('for').AsInteger  := FFornecedor;
     Open;
   end;
 
   with qryItem do
   begin
     Close;
-    ParamByName('ano').AsShort   := FAno;
-    ParamByName('cod').AsInteger := FCotacao;
-    ParamByName('for').AsInteger := FFornecedor;
+    ParamByName('ano').AsSmallInt := FAno;
+    ParamByName('cod').AsInteger  := FCotacao;
+    ParamByName('for').AsInteger  := FFornecedor;
     Open;
   end;
+end;
+
+procedure TfrmGeCotacaoCompraFornecedor.CarregarLista(const pDataSet: TDataSet);
+begin
+  if pDataSet.Active then
+    pDataSet.Close;
+
+  pDataSet.Open;
+
+  pDataSet.Last;
+  pDataSet.First;
 end;
 
 procedure TfrmGeCotacaoCompraFornecedor.CarregarArquivoXLS;
@@ -1272,8 +1306,8 @@ begin
     if ( iLinha_Forma_Pagto > 0 ) then
     begin
       sValor := StringReplace(Trim(XLSheet.Cells.Item[iLinha_Forma_Pagto, COLUNA_FORMA_PAGTO]), APOSTROFE, '', [rfReplaceAll]);
-      if tblFormaPagto.Locate('DESCRI', sValor, []) then
-        qryFornecedorFORMA_PAGTO.Value := tblFormaPagto.FieldByName('COD').AsInteger
+      if fdQryFormaPagto.Locate('DESCRI', sValor, []) then
+        qryFornecedorFORMA_PAGTO.Value := fdQryFormaPagto.FieldByName('COD').AsInteger
       else
         qryFornecedorFORMA_PAGTO.Clear;
     end;
@@ -1281,8 +1315,8 @@ begin
     if ( iLinha_Condicao_Pagto > 0 ) then
     begin
       sValor := StringReplace(Trim(XLSheet.Cells.Item[iLinha_Condicao_Pagto, COLUNA_CONDICAO_PAGTO]), APOSTROFE, '', [rfReplaceAll]);
-      if tblCondicaoPagto.Locate('COND_DESCRICAO', sValor, []) then
-        qryFornecedorCONDICAO_PAGTO.Value := tblCondicaoPagto.FieldByName('COND_COD').AsInteger
+      if fdQryCondicaoPagto.Locate('COND_DESCRICAO', sValor, []) then
+        qryFornecedorCONDICAO_PAGTO.Value := fdQryCondicaoPagto.FieldByName('COND_COD').AsInteger
       else
         qryFornecedorCONDICAO_PAGTO.Clear;
     end;

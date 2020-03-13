@@ -520,7 +520,7 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           KeyField = 'CNPJ'
-          ListField = 'RZSOC'
+          ListField = 'RAZAO'
           ListSource = dtsEmpresa
           ParentFont = False
           TabOrder = 2
@@ -856,7 +856,7 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         Top = 447
         Width = 1108
         Height = 166
-        ActivePage = tbsDadoConsolidado
+        ActivePage = tbsFornecedor
         Align = alBottom
         TabOrder = 3
         object tbsDadoConsolidado: TTabSheet
@@ -4264,6 +4264,47 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     UpdateOptions.GeneratorName = 'GEN_COTACAO_COMPRA_2014'
     UpdateOptions.KeyFields = 'ANO;CODIGO;EMPRESA'
     UpdateOptions.AutoIncFields = 'CODIGO'
+    SQL.Strings = (
+      'Select'
+      '    c.ano'
+      '  , c.codigo'
+      '  , c.empresa'
+      '  , c.numero'
+      '  , c.tipo'
+      '  , c.descricao_resumo'
+      '  , c.nome_contato_int'
+      '  , c.insercao_data'
+      '  , c.emissao_data'
+      '  , c.emissao_usuario'
+      '  , c.validade'
+      '  , c.competencia'
+      '  , c.movito'
+      '  , c.observacao'
+      '  , c.log_evento'
+      '  , c.status'
+      '  , c.numero_minimo_fornecedor'
+      '  , c.autorizada_data'
+      '  , c.autorizada_usuario'
+      '  , c.encerrada_data'
+      '  , c.encerrada_usuario'
+      '  , c.cancelado_data'
+      '  , c.cancelado_usuario'
+      '  , c.cancelado_motivo'
+      '  , c.valor_ref_total'
+      '  , c.valor_max_bruto'
+      '  , c.valor_max_desconto'
+      '  , c.valor_max_total'
+      '  , c.valor_min_bruto'
+      '  , c.valor_min_desconto'
+      '  , c.valor_min_total'
+      '  , c.valor_media_bruto'
+      '  , c.valor_media_desconto'
+      '  , c.valor_media_total'
+      
+        '  , (Select count(x.seq) from TBCOTACAO_COMPRAITEM x where x.ano' +
+        ' = c.ano and x.codigo = c.codigo and x.empresa = c.empresa) as i' +
+        'tens'
+      'from TBCOTACAO_COMPRA c')
     Left = 728
     Top = 8
     object fdQryTabelaANO: TSmallintField
@@ -4276,7 +4317,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
     object fdQryTabelaEMPRESA: TStringField
       DisplayLabel = 'Empresa'
@@ -4623,275 +4663,18 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     Left = 760
     Top = 8
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 928
-    Top = 352
-  end
   object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
+    DataSet = fdQryEmpresa
     Left = 960
     Top = 352
   end
-  object cdsTabelaItensXXX: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    OnNewRecord = cdsTabelaItensXXXNewRecord
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    i.ano'
-      '  , i.codigo'
-      '  , i.empresa'
-      '  , i.seq'
-      '  , i.produto'
-      '  , i.quantidade'
-      '  , i.unidade'
-      '  , i.valor_unitario_ref'
-      '  , i.valor_total_ref'
-      '  , i.valor_unitario_min'
-      '  , i.valor_total_min'
-      '  , i.valor_unitario_max'
-      '  , i.valor_total_max'
-      '  , i.valor_unitario_media'
-      '  , i.valor_total_media'
-      '  , i.usuario'
-      '  , p.descri_apresentacao'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      'from TBCOTACAO_COMPRAITEM i'
-      '  left join TBPRODUTO p on (p.cod = i.produto)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = IbUpdTabelaItensXXX
-    Left = 728
-    Top = 72
-    object cdsTabelaItensXXXANO: TSmallintField
-      FieldName = 'ANO'
-      Origin = '"TBCOTACAO_COMPRAITEM"."ANO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object cdsTabelaItensXXXCODIGO: TIntegerField
-      FieldName = 'CODIGO'
-      Origin = '"TBCOTACAO_COMPRAITEM"."CODIGO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsTabelaItensXXXEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBCOTACAO_COMPRAITEM"."EMPRESA"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 18
-    end
-    object cdsTabelaItensXXXSEQ: TSmallintField
-      FieldName = 'SEQ'
-      Origin = '"TBCOTACAO_COMPRAITEM"."SEQ"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object cdsTabelaItensXXXPRODUTO: TIBStringField
-      FieldName = 'PRODUTO'
-      Origin = '"TBCOTACAO_COMPRAITEM"."PRODUTO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object cdsTabelaItensXXXQUANTIDADE: TIBBCDField
-      FieldName = 'QUANTIDADE'
-      Origin = '"TBCOTACAO_COMPRAITEM"."QUANTIDADE"'
-      ProviderFlags = [pfInUpdate]
-      Precision = 18
-      Size = 3
-    end
-    object cdsTabelaItensXXXUNIDADE: TSmallintField
-      FieldName = 'UNIDADE'
-      Origin = '"TBCOTACAO_COMPRAITEM"."UNIDADE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object cdsTabelaItensXXXVALOR_UNITARIO_REF: TIBBCDField
-      FieldName = 'VALOR_UNITARIO_REF'
-      Origin = '"TBCOTACAO_COMPRAITEM"."VALOR_UNITARIO_REF"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensXXXVALOR_TOTAL_REF: TIBBCDField
-      FieldName = 'VALOR_TOTAL_REF'
-      Origin = '"TBCOTACAO_COMPRAITEM"."VALOR_TOTAL_REF"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensXXXVALOR_UNITARIO_MIN: TIBBCDField
-      FieldName = 'VALOR_UNITARIO_MIN'
-      Origin = '"TBCOTACAO_COMPRAITEM"."VALOR_UNITARIO_MIN"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensXXXVALOR_TOTAL_MIN: TIBBCDField
-      FieldName = 'VALOR_TOTAL_MIN'
-      Origin = '"TBCOTACAO_COMPRAITEM"."VALOR_TOTAL_MIN"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensXXXVALOR_UNITARIO_MAX: TIBBCDField
-      FieldName = 'VALOR_UNITARIO_MAX'
-      Origin = '"TBCOTACAO_COMPRAITEM"."VALOR_UNITARIO_MAX"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensXXXVALOR_TOTAL_MAX: TIBBCDField
-      FieldName = 'VALOR_TOTAL_MAX'
-      Origin = '"TBCOTACAO_COMPRAITEM"."VALOR_TOTAL_MAX"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensXXXVALOR_UNITARIO_MEDIA: TIBBCDField
-      FieldName = 'VALOR_UNITARIO_MEDIA'
-      Origin = '"TBCOTACAO_COMPRAITEM"."VALOR_UNITARIO_MEDIA"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensXXXVALOR_TOTAL_MEDIA: TIBBCDField
-      FieldName = 'VALOR_TOTAL_MEDIA'
-      Origin = '"TBCOTACAO_COMPRAITEM"."VALOR_TOTAL_MEDIA"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensXXXUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBCOTACAO_COMPRAITEM"."USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object cdsTabelaItensXXXDESCRI_APRESENTACAO: TIBStringField
-      FieldName = 'DESCRI_APRESENTACAO'
-      Origin = '"TBPRODUTO"."DESCRI_APRESENTACAO"'
-      ProviderFlags = []
-      Size = 100
-    end
-    object cdsTabelaItensXXXUNP_DESCRICAO: TIBStringField
-      FieldName = 'UNP_DESCRICAO'
-      Origin = '"TBUNIDADEPROD"."UNP_DESCRICAO"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object cdsTabelaItensXXXUNP_SIGLA: TIBStringField
-      FieldName = 'UNP_SIGLA'
-      Origin = '"TBUNIDADEPROD"."UNP_SIGLA"'
-      ProviderFlags = []
-      Size = 5
-    end
-  end
-  object IbUpdTabelaItensXXX: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CODIGO,'
-      '  EMPRESA,'
-      '  SEQ,'
-      '  PRODUTO,'
-      '  QUANTIDADE,'
-      '  UNIDADE,'
-      '  VALOR_UNITARIO_REF,'
-      '  VALOR_TOTAL_REF,'
-      '  VALOR_UNITARIO_MIN,'
-      '  VALOR_TOTAL_MIN,'
-      '  VALOR_UNITARIO_MAX,'
-      '  VALOR_TOTAL_MAX,'
-      '  VALOR_UNITARIO_MEDIA,'
-      '  VALOR_TOTAL_MEDIA,'
-      '  USUARIO'
-      'from TBCOTACAO_COMPRAITEM '
-      'where'
-      '  ANO = :ANO and'
-      '  CODIGO = :CODIGO and'
-      '  EMPRESA = :EMPRESA and'
-      '  SEQ = :SEQ')
-    ModifySQL.Strings = (
-      'update TBCOTACAO_COMPRAITEM'
-      'set'
-      '  ANO = :ANO,'
-      '  CODIGO = :CODIGO,'
-      '  EMPRESA = :EMPRESA,'
-      '  PRODUTO = :PRODUTO,'
-      '  QUANTIDADE = :QUANTIDADE,'
-      '  SEQ = :SEQ,'
-      '  UNIDADE = :UNIDADE,'
-      '  USUARIO = :USUARIO,'
-      '  VALOR_TOTAL_MAX = :VALOR_TOTAL_MAX,'
-      '  VALOR_TOTAL_MEDIA = :VALOR_TOTAL_MEDIA,'
-      '  VALOR_TOTAL_MIN = :VALOR_TOTAL_MIN,'
-      '  VALOR_TOTAL_REF = :VALOR_TOTAL_REF,'
-      '  VALOR_UNITARIO_MAX = :VALOR_UNITARIO_MAX,'
-      '  VALOR_UNITARIO_MEDIA = :VALOR_UNITARIO_MEDIA,'
-      '  VALOR_UNITARIO_MIN = :VALOR_UNITARIO_MIN,'
-      '  VALOR_UNITARIO_REF = :VALOR_UNITARIO_REF'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODIGO = :OLD_CODIGO and'
-      '  EMPRESA = :OLD_EMPRESA and'
-      '  SEQ = :OLD_SEQ')
-    InsertSQL.Strings = (
-      'insert into TBCOTACAO_COMPRAITEM'
-      
-        '  (ANO, CODIGO, EMPRESA, PRODUTO, QUANTIDADE, SEQ, UNIDADE, USUA' +
-        'RIO, VALOR_TOTAL_MAX, '
-      
-        '   VALOR_TOTAL_MEDIA, VALOR_TOTAL_MIN, VALOR_TOTAL_REF, VALOR_UN' +
-        'ITARIO_MAX, '
-      '   VALOR_UNITARIO_MEDIA, VALOR_UNITARIO_MIN, VALOR_UNITARIO_REF)'
-      'values'
-      
-        '  (:ANO, :CODIGO, :EMPRESA, :PRODUTO, :QUANTIDADE, :SEQ, :UNIDAD' +
-        'E, :USUARIO, '
-      
-        '   :VALOR_TOTAL_MAX, :VALOR_TOTAL_MEDIA, :VALOR_TOTAL_MIN, :VALO' +
-        'R_TOTAL_REF, '
-      
-        '   :VALOR_UNITARIO_MAX, :VALOR_UNITARIO_MEDIA, :VALOR_UNITARIO_M' +
-        'IN, :VALOR_UNITARIO_REF)')
-    DeleteSQL.Strings = (
-      'delete from TBCOTACAO_COMPRAITEM'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODIGO = :OLD_CODIGO and'
-      '  EMPRESA = :OLD_EMPRESA and'
-      '  SEQ = :OLD_SEQ')
-    Left = 760
-    Top = 72
-  end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
-    DataSet = cdsTabelaItensXXX
+    DataSet = cdsTabelaItens
     OnStateChange = DtSrcTabelaItensStateChange
     OnDataChange = DtSrcTabelaItensDataChange
     Left = 792
-    Top = 72
+    Top = 40
   end
   object ppImprimir: TPopupMenu
     Images = ImgList
@@ -4907,411 +4690,32 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       OnClick = nmImprimirCotacaoMapaClick
     end
   end
-  object qryProduto: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    p.cod'
-      '  , p.descri'
-      '  , p.descri_apresentacao'
-      '  , p.codunidade'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      'from TBPRODUTO p'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
-      'where p.codigo = :produto')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 1040
-    Top = 264
-  end
-  object tblTipoCotacao: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_TIPO_COTACAO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 928
-    Top = 384
-  end
   object dtsTipoCotacao: TDataSource
-    DataSet = tblTipoCotacao
+    DataSet = fdQryTipoCotacao
     Left = 960
     Top = 384
-  end
-  object tblFormaPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    FieldDefs = <
-      item
-        Name = 'COD'
-        Attributes = [faRequired]
-        DataType = ftSmallint
-      end
-      item
-        Name = 'DESCRI'
-        DataType = ftString
-        Size = 30
-      end
-      item
-        Name = 'ACRESCIMO'
-        DataType = ftFloat
-      end
-      item
-        Name = 'CONTA_CORRENTE'
-        DataType = ftInteger
-      end
-      item
-        Name = 'DEBITAR_LIMITE_CLIENTE'
-        DataType = ftSmallint
-      end
-      item
-        Name = 'FORMAPAGTO_NFCE'
-        DataType = ftString
-        Size = 2
-      end>
-    IndexDefs = <
-      item
-        Name = 'PK_TBFORMPAGTO'
-        Fields = 'COD'
-        Options = [ixUnique]
-      end
-      item
-        Name = 'FK_TBFORMPAGTO_CCORRENTE'
-        Fields = 'CONTA_CORRENTE'
-      end>
-    StoreDefs = True
-    TableName = 'TBFORMPAGTO'
-    UniDirectional = False
-    Left = 928
-    Top = 416
   end
   object dtsFormaPagto: TDataSource
-    DataSet = tblFormaPagto
+    DataSet = fdQryFormaPagto
     Left = 960
     Top = 416
   end
-  object tblCondicaoPagto: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_CONDICAOPAGTO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 928
-    Top = 448
-  end
   object dtsCondicaoPagto: TDataSource
-    DataSet = tblCondicaoPagto
+    DataSet = fdQryCondicaoPagto
     Left = 960
     Top = 448
-  end
-  object cdsTransportador: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    f.codforn'
-      '  , f.nomeforn'
-      '  , f.cnpj'
-      'from TBFORNECEDOR f'
-      'where f.transportadora = 1'
-      'order by'
-      '    f.nomeforn')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 928
-    Top = 480
   end
   object dtsTransportador: TDataSource
     DataSet = cdsTransportador
     Left = 960
     Top = 480
   end
-  object qryFornecedor: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    c.ano'
-      '  , c.codigo'
-      '  , c.empresa'
-      '  , c.fornecedor'
-      '  , c.nome_contato'
-      '  , c.email_envio'
-      '  , c.forma_pagto'
-      '  , c.condicao_pagto'
-      '  , c.prazo_entrega_data'
-      '  , c.prazo_entreda_dia'
-      '  , c.observacao'
-      '  , c.ativo'
-      '  , c.usuario'
-      '  , c.valor_total_bruto'
-      '  , c.valor_total_desconto'
-      '  , c.valor_total_liquido'
-      '  , c.vencedor'
-      '  , f.nomeforn'
-      '  , f.cnpj'
-      '  , f.email'
-      '  , fp.descri as forma_pagto_desc'
-      '  , cp.cond_descricao as condicap_pagto_desc'
-      
-        '  , (Select count(x.item) from TBCOTACAO_COMPRAFORN_ITEM x where' +
-        ' x.ano = c.ano and x.codigo = c.codigo and x.empresa = c.empresa' +
-        ' and x.fornecedor = c.fornecedor) as Itens'
-      'from TBCOTACAO_COMPRAFORN c'
-      '  left join TBFORNECEDOR f on (f.codforn = c.fornecedor)'
-      '  left join TBFORMPAGTO fp on (fp.cod = c.forma_pagto)'
-      
-        '  left join VW_CONDICAOPAGTO cp on (cp.cond_cod = c.condicao_pag' +
-        'to)')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updFornecedor
-    Left = 728
-    Top = 104
-    object qryFornecedorANO: TSmallintField
-      FieldName = 'ANO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."ANO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object qryFornecedorCODIGO: TIntegerField
-      FieldName = 'CODIGO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."CODIGO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryFornecedorEMPRESA: TIBStringField
-      FieldName = 'EMPRESA'
-      Origin = '"TBCOTACAO_COMPRAFORN"."EMPRESA"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 18
-    end
-    object qryFornecedorFORNECEDOR: TIntegerField
-      FieldName = 'FORNECEDOR'
-      Origin = '"TBCOTACAO_COMPRAFORN"."FORNECEDOR"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryFornecedorNOME_CONTATO: TIBStringField
-      FieldName = 'NOME_CONTATO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."NOME_CONTATO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 60
-    end
-    object qryFornecedorEMAIL_ENVIO: TIBStringField
-      FieldName = 'EMAIL_ENVIO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."EMAIL_ENVIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object qryFornecedorFORMA_PAGTO: TSmallintField
-      FieldName = 'FORMA_PAGTO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."FORMA_PAGTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryFornecedorCONDICAO_PAGTO: TSmallintField
-      FieldName = 'CONDICAO_PAGTO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."CONDICAO_PAGTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryFornecedorPRAZO_ENTREGA_DATA: TDateField
-      FieldName = 'PRAZO_ENTREGA_DATA'
-      Origin = '"TBCOTACAO_COMPRAFORN"."PRAZO_ENTREGA_DATA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryFornecedorPRAZO_ENTREDA_DIA: TSmallintField
-      FieldName = 'PRAZO_ENTREDA_DIA'
-      Origin = '"TBCOTACAO_COMPRAFORN"."PRAZO_ENTREDA_DIA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryFornecedorOBSERVACAO: TMemoField
-      FieldName = 'OBSERVACAO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."OBSERVACAO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object qryFornecedorATIVO: TSmallintField
-      FieldName = 'ATIVO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."ATIVO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryFornecedorUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object qryFornecedorVALOR_TOTAL_BRUTO: TIBBCDField
-      FieldName = 'VALOR_TOTAL_BRUTO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."VALOR_TOTAL_BRUTO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object qryFornecedorVALOR_TOTAL_DESCONTO: TIBBCDField
-      FieldName = 'VALOR_TOTAL_DESCONTO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."VALOR_TOTAL_DESCONTO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object qryFornecedorVALOR_TOTAL_LIQUIDO: TIBBCDField
-      FieldName = 'VALOR_TOTAL_LIQUIDO'
-      Origin = '"TBCOTACAO_COMPRAFORN"."VALOR_TOTAL_LIQUIDO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object qryFornecedorVENCEDOR: TSmallintField
-      Alignment = taCenter
-      FieldName = 'VENCEDOR'
-      Origin = '"TBCOTACAO_COMPRAFORN"."VENCEDOR"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      OnGetText = qryFornecedorVENCEDORGetText
-    end
-    object qryFornecedorNOMEFORN: TIBStringField
-      FieldName = 'NOMEFORN'
-      Origin = '"TBFORNECEDOR"."NOMEFORN"'
-      ProviderFlags = []
-      Size = 100
-    end
-    object qryFornecedorCNPJ: TIBStringField
-      FieldName = 'CNPJ'
-      Origin = '"TBFORNECEDOR"."CNPJ"'
-      ProviderFlags = []
-      Size = 18
-    end
-    object qryFornecedorEMAIL: TIBStringField
-      FieldName = 'EMAIL'
-      Origin = '"TBFORNECEDOR"."EMAIL"'
-      ProviderFlags = []
-      Size = 40
-    end
-    object qryFornecedorFORMA_PAGTO_DESC: TIBStringField
-      FieldName = 'FORMA_PAGTO_DESC'
-      Origin = '"TBFORMPAGTO"."DESCRI"'
-      ProviderFlags = []
-      Size = 30
-    end
-    object qryFornecedorCONDICAP_PAGTO_DESC: TIBStringField
-      FieldName = 'CONDICAP_PAGTO_DESC'
-      Origin = '"VW_CONDICAOPAGTO"."COND_DESCRICAO"'
-      ProviderFlags = []
-      Size = 80
-    end
-    object qryFornecedorITENS: TIntegerField
-      FieldName = 'ITENS'
-      ProviderFlags = []
-      DisplayFormat = ',0'
-    end
-  end
   object dtsFornecedor: TDataSource
     AutoEdit = False
     DataSet = qryFornecedor
     OnStateChange = dtsFornecedorStateChange
     Left = 792
-    Top = 104
-  end
-  object updFornecedor: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CODIGO,'
-      '  EMPRESA,'
-      '  FORNECEDOR,'
-      '  NOME_CONTATO,'
-      '  EMAIL_ENVIO,'
-      '  FORMA_PAGTO,'
-      '  CONDICAO_PAGTO,'
-      '  PRAZO_ENTREGA_DATA,'
-      '  PRAZO_ENTREDA_DIA,'
-      '  OBSERVACAO,'
-      '  ATIVO,'
-      '  USUARIO'
-      'from TBCOTACAO_COMPRAFORN '
-      'where'
-      '  ANO = :ANO and'
-      '  CODIGO = :CODIGO and'
-      '  EMPRESA = :EMPRESA and'
-      '  FORNECEDOR = :FORNECEDOR')
-    ModifySQL.Strings = (
-      'update TBCOTACAO_COMPRAFORN'
-      'set'
-      '  ANO = :ANO,'
-      '  ATIVO = :ATIVO,'
-      '  CODIGO = :CODIGO,'
-      '  CONDICAO_PAGTO = :CONDICAO_PAGTO,'
-      '  EMAIL_ENVIO = :EMAIL_ENVIO,'
-      '  EMPRESA = :EMPRESA,'
-      '  FORMA_PAGTO = :FORMA_PAGTO,'
-      '  FORNECEDOR = :FORNECEDOR,'
-      '  NOME_CONTATO = :NOME_CONTATO,'
-      '  OBSERVACAO = :OBSERVACAO,'
-      '  PRAZO_ENTREDA_DIA = :PRAZO_ENTREDA_DIA,'
-      '  PRAZO_ENTREGA_DATA = :PRAZO_ENTREGA_DATA,'
-      '  USUARIO = :USUARIO'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODIGO = :OLD_CODIGO and'
-      '  EMPRESA = :OLD_EMPRESA and'
-      '  FORNECEDOR = :OLD_FORNECEDOR')
-    InsertSQL.Strings = (
-      'insert into TBCOTACAO_COMPRAFORN'
-      
-        '  (ANO, ATIVO, CODIGO, CONDICAO_PAGTO, EMAIL_ENVIO, EMPRESA, FOR' +
-        'MA_PAGTO, '
-      
-        '   FORNECEDOR, NOME_CONTATO, OBSERVACAO, PRAZO_ENTREDA_DIA, PRAZ' +
-        'O_ENTREGA_DATA, '
-      '   USUARIO)'
-      'values'
-      
-        '  (:ANO, :ATIVO, :CODIGO, :CONDICAO_PAGTO, :EMAIL_ENVIO, :EMPRES' +
-        'A, :FORMA_PAGTO, '
-      
-        '   :FORNECEDOR, :NOME_CONTATO, :OBSERVACAO, :PRAZO_ENTREDA_DIA, ' +
-        ':PRAZO_ENTREGA_DATA, '
-      '   :USUARIO)')
-    DeleteSQL.Strings = (
-      'delete from TBCOTACAO_COMPRAFORN'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CODIGO = :OLD_CODIGO and'
-      '  EMPRESA = :OLD_EMPRESA and'
-      '  FORNECEDOR = :OLD_FORNECEDOR')
-    Left = 760
-    Top = 104
+    Top = 72
   end
   object ppCotacaoFornecedor: TPopupMenu
     Images = ImgList
@@ -5341,59 +4745,8 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     Left = 272
     Top = 553
   end
-  object stpSetCotacaoFornecedorItem: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SET_COTACAO_COMPRAFORN_ITEM'
-    Left = 976
-    Top = 544
-    ParamData = <
-      item
-        DataType = ftSmallint
-        Name = 'ANO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'CODIGO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftString
-        Name = 'EMPRESA'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'FORNECEDOR'
-        ParamType = ptInput
-      end>
-  end
-  object stpSetCotacaoFornecedorProcessa: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SET_COTACAO_COMPRAFORN_PROCESSA'
-    Left = 976
-    Top = 576
-    ParamData = <
-      item
-        DataType = ftSmallint
-        Name = 'ANO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'CODIGO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftString
-        Name = 'EMPRESA'
-        ParamType = ptInput
-      end>
-  end
   object cdsTabelaItens: TFDQuery
-    Active = True
+    OnNewRecord = cdsTabelaItensNewRecord
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -5426,6 +4779,129 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       '')
     Left = 728
     Top = 40
+    object cdsTabelaItensANO: TSmallintField
+      FieldName = 'ANO'
+      Origin = 'ANO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsTabelaItensCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsTabelaItensEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 18
+    end
+    object cdsTabelaItensSEQ: TSmallintField
+      FieldName = 'SEQ'
+      Origin = 'SEQ'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsTabelaItensPRODUTO: TStringField
+      FieldName = 'PRODUTO'
+      Origin = 'PRODUTO'
+      Size = 10
+    end
+    object cdsTabelaItensQUANTIDADE: TBCDField
+      FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
+      Required = True
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensUNIDADE: TSmallintField
+      FieldName = 'UNIDADE'
+      Origin = 'UNIDADE'
+    end
+    object cdsTabelaItensVALOR_UNITARIO_REF: TBCDField
+      FieldName = 'VALOR_UNITARIO_REF'
+      Origin = 'VALOR_UNITARIO_REF'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_TOTAL_REF: TBCDField
+      FieldName = 'VALOR_TOTAL_REF'
+      Origin = 'VALOR_TOTAL_REF'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_UNITARIO_MIN: TBCDField
+      FieldName = 'VALOR_UNITARIO_MIN'
+      Origin = 'VALOR_UNITARIO_MIN'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_TOTAL_MIN: TBCDField
+      FieldName = 'VALOR_TOTAL_MIN'
+      Origin = 'VALOR_TOTAL_MIN'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_UNITARIO_MAX: TBCDField
+      FieldName = 'VALOR_UNITARIO_MAX'
+      Origin = 'VALOR_UNITARIO_MAX'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_TOTAL_MAX: TBCDField
+      FieldName = 'VALOR_TOTAL_MAX'
+      Origin = 'VALOR_TOTAL_MAX'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_UNITARIO_MEDIA: TBCDField
+      FieldName = 'VALOR_UNITARIO_MEDIA'
+      Origin = 'VALOR_UNITARIO_MEDIA'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_TOTAL_MEDIA: TBCDField
+      FieldName = 'VALOR_TOTAL_MEDIA'
+      Origin = 'VALOR_TOTAL_MEDIA'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Size = 12
+    end
+    object cdsTabelaItensDESCRI_APRESENTACAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRI_APRESENTACAO'
+      Origin = 'DESCRI_APRESENTACAO'
+      ProviderFlags = []
+      Size = 100
+    end
+    object cdsTabelaItensUNP_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UNP_DESCRICAO'
+      Origin = 'UNP_DESCRICAO'
+      ProviderFlags = []
+      Size = 50
+    end
+    object cdsTabelaItensUNP_SIGLA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UNP_SIGLA'
+      Origin = 'UNP_SIGLA'
+      ProviderFlags = []
+      Size = 5
+    end
   end
   object updTabelaItens: TFDUpdateSQL
     Connection = DMBusiness.fdConexao
@@ -5509,5 +4985,425 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         'SA AND i.SEQ = :SEQ')
     Left = 760
     Top = 40
+  end
+  object qryFornecedor: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updFornecedor
+    SQL.Strings = (
+      'Select'
+      '    c.ano'
+      '  , c.codigo'
+      '  , c.empresa'
+      '  , c.fornecedor'
+      '  , c.nome_contato'
+      '  , c.email_envio'
+      '  , c.forma_pagto'
+      '  , c.condicao_pagto'
+      '  , c.prazo_entrega_data'
+      '  , c.prazo_entreda_dia'
+      '  , c.observacao'
+      '  , c.ativo'
+      '  , c.usuario'
+      '  , c.valor_total_bruto'
+      '  , c.valor_total_desconto'
+      '  , c.valor_total_liquido'
+      '  , c.vencedor'
+      '  , f.nomeforn'
+      '  , f.cnpj'
+      '  , f.email'
+      '  , fp.descri as forma_pagto_desc'
+      '  , cp.cond_descricao as condicap_pagto_desc'
+      
+        '  , (Select count(x.item) from TBCOTACAO_COMPRAFORN_ITEM x where' +
+        ' x.ano = c.ano and x.codigo = c.codigo and x.empresa = c.empresa' +
+        ' and x.fornecedor = c.fornecedor) as Itens'
+      'from TBCOTACAO_COMPRAFORN c'
+      '  left join TBFORNECEDOR f on (f.codforn = c.fornecedor)'
+      '  left join TBFORMPAGTO fp on (fp.cod = c.forma_pagto)'
+      
+        '  left join VW_CONDICAOPAGTO cp on (cp.cond_cod = c.condicao_pag' +
+        'to)')
+    Left = 728
+    Top = 72
+    object qryFornecedorANO: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'ANO'
+      Origin = 'ITENS'
+      ProviderFlags = []
+      Required = True
+    end
+    object qryFornecedorCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryFornecedorEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 18
+    end
+    object qryFornecedorFORNECEDOR: TIntegerField
+      FieldName = 'FORNECEDOR'
+      Origin = 'FORNECEDOR'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object qryFornecedorNOME_CONTATO: TStringField
+      FieldName = 'NOME_CONTATO'
+      Origin = 'NOME_CONTATO'
+      Size = 60
+    end
+    object qryFornecedorEMAIL_ENVIO: TStringField
+      FieldName = 'EMAIL_ENVIO'
+      Origin = 'EMAIL_ENVIO'
+      Size = 100
+    end
+    object qryFornecedorFORMA_PAGTO: TSmallintField
+      FieldName = 'FORMA_PAGTO'
+      Origin = 'FORMA_PAGTO'
+    end
+    object qryFornecedorCONDICAO_PAGTO: TSmallintField
+      FieldName = 'CONDICAO_PAGTO'
+      Origin = 'CONDICAO_PAGTO'
+    end
+    object qryFornecedorPRAZO_ENTREGA_DATA: TDateField
+      FieldName = 'PRAZO_ENTREGA_DATA'
+      Origin = 'PRAZO_ENTREGA_DATA'
+    end
+    object qryFornecedorPRAZO_ENTREDA_DIA: TSmallintField
+      FieldName = 'PRAZO_ENTREDA_DIA'
+      Origin = 'PRAZO_ENTREDA_DIA'
+    end
+    object qryFornecedorOBSERVACAO: TMemoField
+      FieldName = 'OBSERVACAO'
+      Origin = 'OBSERVACAO'
+      BlobType = ftMemo
+    end
+    object qryFornecedorATIVO: TSmallintField
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+      Required = True
+    end
+    object qryFornecedorUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Size = 12
+    end
+    object qryFornecedorVALOR_TOTAL_BRUTO: TBCDField
+      FieldName = 'VALOR_TOTAL_BRUTO'
+      Origin = 'VALOR_TOTAL_BRUTO'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object qryFornecedorVALOR_TOTAL_DESCONTO: TBCDField
+      FieldName = 'VALOR_TOTAL_DESCONTO'
+      Origin = 'VALOR_TOTAL_DESCONTO'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object qryFornecedorVALOR_TOTAL_LIQUIDO: TBCDField
+      FieldName = 'VALOR_TOTAL_LIQUIDO'
+      Origin = 'VALOR_TOTAL_LIQUIDO'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object qryFornecedorVENCEDOR: TSmallintField
+      Alignment = taCenter
+      FieldName = 'VENCEDOR'
+      Origin = 'VENCEDOR'
+      Required = True
+      OnGetText = qryFornecedorVENCEDORGetText
+    end
+    object qryFornecedorNOMEFORN: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOMEFORN'
+      Origin = 'NOMEFORN'
+      ProviderFlags = []
+      Size = 100
+    end
+    object qryFornecedorCNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = []
+      Size = 18
+    end
+    object qryFornecedorEMAIL: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      ProviderFlags = []
+      Size = 40
+    end
+    object qryFornecedorFORMA_PAGTO_DESC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'FORMA_PAGTO_DESC'
+      Origin = 'DESCRI'
+      ProviderFlags = []
+      Size = 30
+    end
+    object qryFornecedorCONDICAP_PAGTO_DESC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CONDICAP_PAGTO_DESC'
+      Origin = 'COND_DESCRICAO'
+      ProviderFlags = []
+      Size = 80
+    end
+    object qryFornecedorITENS: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ITENS'
+      Origin = 'ITENS'
+      ProviderFlags = []
+      DisplayFormat = ',0'
+    end
+  end
+  object updFornecedor: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBCOTACAO_COMPRAFORN'
+      '(ANO, CODIGO, EMPRESA, FORNECEDOR, NOME_CONTATO, '
+      '  EMAIL_ENVIO, FORMA_PAGTO, CONDICAO_PAGTO, '
+      '  VALOR_TOTAL_BRUTO, VALOR_TOTAL_DESCONTO, VALOR_TOTAL_LIQUIDO, '
+      '  VENCEDOR, PRAZO_ENTREGA_DATA, PRAZO_ENTREDA_DIA, '
+      '  OBSERVACAO, ATIVO, USUARIO)'
+      
+        'VALUES (:NEW_ANO, :NEW_CODIGO, :NEW_EMPRESA, :NEW_FORNECEDOR, :N' +
+        'EW_NOME_CONTATO, '
+      '  :NEW_EMAIL_ENVIO, :NEW_FORMA_PAGTO, :NEW_CONDICAO_PAGTO, '
+      
+        '  :NEW_VALOR_TOTAL_BRUTO, :NEW_VALOR_TOTAL_DESCONTO, :NEW_VALOR_' +
+        'TOTAL_LIQUIDO, '
+      
+        '  :NEW_VENCEDOR, :NEW_PRAZO_ENTREGA_DATA, :NEW_PRAZO_ENTREDA_DIA' +
+        ', '
+      '  :NEW_OBSERVACAO, :NEW_ATIVO, :NEW_USUARIO)')
+    ModifySQL.Strings = (
+      'UPDATE TBCOTACAO_COMPRAFORN'
+      
+        'SET ANO = :NEW_ANO, CODIGO = :NEW_CODIGO, EMPRESA = :NEW_EMPRESA' +
+        ', '
+      
+        '  FORNECEDOR = :NEW_FORNECEDOR, NOME_CONTATO = :NEW_NOME_CONTATO' +
+        ', '
+      
+        '  EMAIL_ENVIO = :NEW_EMAIL_ENVIO, FORMA_PAGTO = :NEW_FORMA_PAGTO' +
+        ', '
+      
+        '  CONDICAO_PAGTO = :NEW_CONDICAO_PAGTO, VALOR_TOTAL_BRUTO = :NEW' +
+        '_VALOR_TOTAL_BRUTO, '
+      
+        '  VALOR_TOTAL_DESCONTO = :NEW_VALOR_TOTAL_DESCONTO, VALOR_TOTAL_' +
+        'LIQUIDO = :NEW_VALOR_TOTAL_LIQUIDO, '
+      
+        '  VENCEDOR = :NEW_VENCEDOR, PRAZO_ENTREGA_DATA = :NEW_PRAZO_ENTR' +
+        'EGA_DATA, '
+      
+        '  PRAZO_ENTREDA_DIA = :NEW_PRAZO_ENTREDA_DIA, OBSERVACAO = :NEW_' +
+        'OBSERVACAO, '
+      '  ATIVO = :NEW_ATIVO, USUARIO = :NEW_USUARIO'
+      
+        'WHERE ANO = :OLD_ANO AND CODIGO = :OLD_CODIGO AND EMPRESA = :OLD' +
+        '_EMPRESA AND '
+      '  FORNECEDOR = :OLD_FORNECEDOR')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBCOTACAO_COMPRAFORN'
+      
+        'WHERE ANO = :OLD_ANO AND CODIGO = :OLD_CODIGO AND EMPRESA = :OLD' +
+        '_EMPRESA AND '
+      '  FORNECEDOR = :OLD_FORNECEDOR')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    c.ano'
+      '  , c.codigo'
+      '  , c.empresa'
+      '  , c.fornecedor'
+      '  , c.nome_contato'
+      '  , c.email_envio'
+      '  , c.forma_pagto'
+      '  , c.condicao_pagto'
+      '  , c.prazo_entrega_data'
+      '  , c.prazo_entreda_dia'
+      '  , c.observacao'
+      '  , c.ativo'
+      '  , c.usuario'
+      '  , c.valor_total_bruto'
+      '  , c.valor_total_desconto'
+      '  , c.valor_total_liquido'
+      '  , c.vencedor'
+      '  , f.nomeforn'
+      '  , f.cnpj'
+      '  , f.email'
+      '  , fp.descri as forma_pagto_desc'
+      '  , cp.cond_descricao as condicap_pagto_desc'
+      
+        '  , (Select count(x.item) from TBCOTACAO_COMPRAFORN_ITEM x where' +
+        ' x.ano = c.ano and x.codigo = c.codigo and x.empresa = c.empresa' +
+        ' and x.fornecedor = c.fornecedor) as Itens'
+      'from TBCOTACAO_COMPRAFORN c'
+      '  left join TBFORNECEDOR f on (f.codforn = c.fornecedor)'
+      '  left join TBFORMPAGTO fp on (fp.cod = c.forma_pagto)'
+      
+        '  left join VW_CONDICAOPAGTO cp on (cp.cond_cod = c.condicao_pag' +
+        'to)'
+      
+        'WHERE c.ANO = :ANO AND c.CODIGO = :CODIGO AND c.EMPRESA = :EMPRE' +
+        'SA AND c.FORNECEDOR = :FORNECEDOR')
+    Left = 760
+    Top = 72
+  end
+  object qryProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    p.cod'
+      '  , p.descri'
+      '  , p.descri_apresentacao'
+      '  , p.codunidade'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      'from TBPRODUTO p'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
+      'where p.codigo = :produto')
+    Left = 1032
+    Top = 240
+    ParamData = <
+      item
+        Name = 'PRODUTO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 928
+    Top = 352
+  end
+  object fdQryFormaPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select * from TBFORMPAGTO')
+    Left = 928
+    Top = 416
+  end
+  object fdQryCondicaoPagto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select * from VW_CONDICAOPAGTO')
+    Left = 928
+    Top = 448
+  end
+  object cdsTransportador: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    f.codforn'
+      '  , f.nomeforn'
+      '  , f.cnpj'
+      'from TBFORNECEDOR f'
+      'where f.transportadora = 1'
+      'order by'
+      '    f.nomeforn')
+    Left = 928
+    Top = 480
+  end
+  object fdQryTipoCotacao: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    *'
+      'from VW_TIPO_COTACAO')
+    Left = 928
+    Top = 384
+  end
+  object spSetCotacaoFornecedorItem: TFDStoredProc
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    StoredProcName = 'SET_COTACAO_COMPRAFORN_ITEM'
+    Left = 928
+    Top = 528
+    ParamData = <
+      item
+        Position = 1
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'CODIGO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end
+      item
+        Position = 4
+        Name = 'FORNECEDOR'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object spSetCotacaoFornecedorProcessa: TFDStoredProc
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    StoredProcName = 'SET_COTACAO_COMPRAFORN_PROCESSA'
+    Left = 928
+    Top = 560
+    ParamData = <
+      item
+        Position = 1
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 2
+        Name = 'CODIGO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end>
   end
 end

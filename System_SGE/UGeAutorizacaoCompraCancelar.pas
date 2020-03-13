@@ -73,8 +73,8 @@ type
     cdsAutorizacaoPESSOA_FISICA: TSmallintField;
     cdsAutorizacaoTRANSPORTADOR_NOME: TIBStringField;
     cdsAutorizacaoTRANSPORTADOR_CPF_CNPJ: TIBStringField;
-    btnCancelar: TcxButton;
     btFechar: TcxButton;
+    btnCancelar: TcxButton;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
   private
