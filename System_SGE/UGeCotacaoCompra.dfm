@@ -2336,6 +2336,8 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       ShowHint = True
       TabOrder = 6
       OnClick = btnFinalizarCotacaoClick
+      ExplicitLeft = 547
+      ExplicitTop = -2
     end
     object btnAutorizarCotacao: TcxButton
       Tag = 12
@@ -4257,6 +4259,7 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
+    BeforePost = fdQryTabelaBeforePost
     AfterCancel = fdQryTabelaAfterCancel
     AfterScroll = fdQryTabelaAfterScroll
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]

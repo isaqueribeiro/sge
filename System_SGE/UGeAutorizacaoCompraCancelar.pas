@@ -3,13 +3,17 @@ unit UGeAutorizacaoCompraCancelar;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB,
-  IBCustomDataSet, IBUpdateSQL, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, UGrPadrao, StdCtrls,
+  Mask, DBCtrls, ExtCtrls, Buttons, DB, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light;
 
 type
   TfrmGeAutorizacaoCompraCancelar = class(TfrmGrPadrao)
@@ -23,7 +27,7 @@ type
     lblValidade: TLabel;
     dbValidade: TDBEdit;
     Bevel1: TBevel;
-    GrpBxImposto: TGroupBox;
+    GrpBxTexto: TGroupBox;
     lblCancelUsuario: TLabel;
     lblCancelDataHora: TLabel;
     lblMotivo: TLabel;
@@ -31,50 +35,52 @@ type
     dbCancelUsuario: TEdit;
     dbCancelDataHora: TEdit;
     Bevel2: TBevel;
-    lblInforme: TLabel;
-    cdsAutorizacao: TIBDataSet;
-    updAutorizacao: TIBUpdateSQL;
     dtsAutorizacao: TDataSource;
+    cdsAutorizacao: TFDQuery;
+    updAutorizacao: TFDUpdateSQL;
     cdsAutorizacaoANO: TSmallintField;
-    cdsAutorizacaoCODIGO: TIntegerField;
-    cdsAutorizacaoEMPRESA: TIBStringField;
-    cdsAutorizacaoNUMERO: TIBStringField;
+    cdsAutorizacaoCODIGO: TFDAutoIncField;
+    cdsAutorizacaoEMPRESA: TStringField;
+    cdsAutorizacaoNUMERO: TStringField;
     cdsAutorizacaoFORNECEDOR: TIntegerField;
-    cdsAutorizacaoNOME_CONTATO: TIBStringField;
+    cdsAutorizacaoNOME_CONTATO: TStringField;
     cdsAutorizacaoTIPO: TSmallintField;
-    cdsAutorizacaoINSERCAO_DATA: TDateTimeField;
+    cdsAutorizacaoINSERCAO_DATA: TSQLTimeStampField;
     cdsAutorizacaoEMISSAO_DATA: TDateField;
-    cdsAutorizacaoEMISSAO_USUARIO: TIBStringField;
+    cdsAutorizacaoEMISSAO_USUARIO: TStringField;
     cdsAutorizacaoVALIDADE: TDateField;
     cdsAutorizacaoCOMPETENCIA: TIntegerField;
     cdsAutorizacaoMOVITO: TMemoField;
     cdsAutorizacaoOBSERVACAO: TMemoField;
     cdsAutorizacaoENDERECO_ENTREGA: TMemoField;
     cdsAutorizacaoSTATUS: TSmallintField;
-    cdsAutorizacaoRECEBEDOR_NOME: TIBStringField;
-    cdsAutorizacaoRECEBEDOR_CPF: TIBStringField;
-    cdsAutorizacaoRECEBEDOR_FUNCAO: TIBStringField;
+    cdsAutorizacaoRECEBEDOR_NOME: TStringField;
+    cdsAutorizacaoRECEBEDOR_CPF: TStringField;
+    cdsAutorizacaoRECEBEDOR_FUNCAO: TStringField;
     cdsAutorizacaoFORMA_PAGTO: TSmallintField;
     cdsAutorizacaoCONDICAO_PAGTO: TSmallintField;
     cdsAutorizacaoTRANSPORTADOR: TIntegerField;
-    cdsAutorizacaoVALOR_BRUTO: TIBBCDField;
-    cdsAutorizacaoVALOR_DESCONTO: TIBBCDField;
-    cdsAutorizacaoVALOR_TOTAL_FRETE: TIBBCDField;
-    cdsAutorizacaoVALOR_TOTAL_IPI: TIBBCDField;
-    cdsAutorizacaoVALOR_TOTAL: TIBBCDField;
+    cdsAutorizacaoVALOR_BRUTO: TBCDField;
+    cdsAutorizacaoVALOR_DESCONTO: TBCDField;
+    cdsAutorizacaoVALOR_TOTAL_FRETE: TBCDField;
+    cdsAutorizacaoVALOR_TOTAL_IPI: TBCDField;
+    cdsAutorizacaoVALOR_TOTAL: TBCDField;
     cdsAutorizacaoAUTORIZADO_DATA: TDateField;
     cdsAutorizacaoDATA_FATURA: TDateField;
-    cdsAutorizacaoAUTORIZADO_USUARIO: TIBStringField;
+    cdsAutorizacaoAUTORIZADO_USUARIO: TStringField;
     cdsAutorizacaoCANCELADO_DATA: TDateField;
-    cdsAutorizacaoCANCELADO_USUARIO: TIBStringField;
+    cdsAutorizacaoCANCELADO_USUARIO: TStringField;
     cdsAutorizacaoCANCELADO_MOTIVO: TMemoField;
-    cdsAutorizacaoNOMEFORN: TIBStringField;
-    cdsAutorizacaoCNPJ: TIBStringField;
+    cdsAutorizacaoNOMEFORN: TStringField;
+    cdsAutorizacaoCNPJ: TStringField;
     cdsAutorizacaoPESSOA_FISICA: TSmallintField;
-    cdsAutorizacaoTRANSPORTADOR_NOME: TIBStringField;
-    cdsAutorizacaoTRANSPORTADOR_CPF_CNPJ: TIBStringField;
-    btFechar: TcxButton;
+    cdsAutorizacaoTRANSPORTADOR_NOME: TStringField;
+    cdsAutorizacaoTRANSPORTADOR_CPF_CNPJ: TStringField;
+    pnlBotoes: TPanel;
+    lblInforme: TLabel;
     btnCancelar: TcxButton;
+    btFechar: TcxButton;
+    Bevel3: TBevel;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
   private
@@ -83,6 +89,16 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBAUTORIZA_COMPRA
+  - TBFORNECEDOR
+
+  Views:
+
+  Procedures:
+*)
 
 var
   frmGeAutorizacaoCompraCancelar: TfrmGeAutorizacaoCompraCancelar;
@@ -105,8 +121,8 @@ begin
     with frm do
     begin
       cdsAutorizacao.Close;
-      cdsAutorizacao.ParamByName('ano').AsShort   := Ano;
-      cdsAutorizacao.ParamByName('cod').AsInteger := Numero;
+      cdsAutorizacao.ParamByName('ano').AsSmallInt := Ano;
+      cdsAutorizacao.ParamByName('cod').AsInteger  := Numero;
       cdsAutorizacao.Open;
 
       dbCancelUsuario.Text  := GetUserApp;
@@ -167,6 +183,8 @@ begin
 
         Post;
         ApplyUpdates;
+        CommitUpdates;
+
         CommitTransaction;
 
         ModalResult := mrOk;

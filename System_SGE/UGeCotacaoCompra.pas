@@ -269,6 +269,7 @@ type
     procedure fdQryTabelaSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure cdsTabelaItensNewRecord(DataSet: TDataSet);
     procedure qryFornecedorVENCEDORGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -866,6 +867,22 @@ begin
   HabilitarDesabilitar_Btns;
 end;
 
+procedure TfrmGeCotacaoCompra.fdQryTabelaBeforePost(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    if Trim(FieldByName('AUTORIZADA_USUARIO').AsString) = EmptyStr then
+      FieldByName('AUTORIZADA_USUARIO').Clear;
+
+    if Trim(FieldByName('ENCERRADA_USUARIO').AsString) = EmptyStr then
+      FieldByName('ENCERRADA_USUARIO').Clear;
+
+    if Trim(FieldByName('CANCELADO_USUARIO').AsString) = EmptyStr then
+      FieldByName('CANCELADO_USUARIO').Clear;
+  end;
+end;
+
 procedure TfrmGeCotacaoCompra.fdQryTabelaINSERCAO_DATAGetText(Sender: TField; var Text: string;
   DisplayText: Boolean);
 begin
@@ -908,6 +925,8 @@ begin
     FieldByName('DESCRICAO_RESUMO').Clear;
     FieldByName('AUTORIZADA_DATA').Clear;
     FieldByName('AUTORIZADA_USUARIO').Clear;
+    FieldByName('ENCERRADA_DATA').Clear;
+    FieldByName('ENCERRADA_USUARIO').Clear;
     FieldByName('CANCELADO_DATA').Clear;
     FieldByName('CANCELADO_USUARIO').Clear;
     FieldByName('CANCELADO_MOTIVO').Clear;

@@ -3,13 +3,17 @@ unit UGeCotacaoCompraCancelar;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB,
-  IBCustomDataSet, IBUpdateSQL, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, UGrPadrao, StdCtrls,
+  Mask, DBCtrls, ExtCtrls, Buttons, DB, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light;
 
 type
   TfrmGeCotacaoCompraCancelar = class(TfrmGrPadrao)
@@ -23,7 +27,7 @@ type
     lblValidade: TLabel;
     dbValidade: TDBEdit;
     Bevel1: TBevel;
-    GrpBxImposto: TGroupBox;
+    GrpBxTexto: TGroupBox;
     lblCancelUsuario: TLabel;
     lblCancelDataHora: TLabel;
     lblMotivo: TLabel;
@@ -31,21 +35,26 @@ type
     dbCancelUsuario: TEdit;
     dbCancelDataHora: TEdit;
     Bevel2: TBevel;
-    cdsCotacao: TIBDataSet;
-    updCotacao: TIBUpdateSQL;
     dtsCotacao: TDataSource;
+    cdsCotacao: TFDQuery;
+    updCotacao: TFDUpdateSQL;
     cdsCotacaoANO: TSmallintField;
-    cdsCotacaoCODIGO: TIntegerField;
-    cdsCotacaoEMPRESA: TIBStringField;
-    cdsCotacaoNUMERO: TIBStringField;
-    cdsCotacaoDESCRICAO_RESUMO: TIBStringField;
-    cdsCotacaoCANCELADO_DATA: TDateField;
-    cdsCotacaoCANCELADO_USUARIO: TIBStringField;
-    cdsCotacaoCANCELADO_MOTIVO: TMemoField;
+    cdsCotacaoCODIGO: TFDAutoIncField;
+    cdsCotacaoEMPRESA: TStringField;
+    cdsCotacaoNUMERO: TStringField;
+    cdsCotacaoDESCRICAO_RESUMO: TStringField;
     cdsCotacaoSTATUS: TSmallintField;
-    btFechar: TcxButton;
-    btnCancelar: TcxButton;
+    cdsCotacaoINSERCAO_DATA: TSQLTimeStampField;
+    cdsCotacaoEMISSAO_DATA: TDateField;
+    cdsCotacaoVALIDADE: TDateField;
+    cdsCotacaoCANCELADO_DATA: TDateField;
+    cdsCotacaoCANCELADO_USUARIO: TStringField;
+    cdsCotacaoCANCELADO_MOTIVO: TMemoField;
+    pnlBotoes: TPanel;
     lblInforme: TLabel;
+    Bevel3: TBevel;
+    btnCancelar: TcxButton;
+    btFechar: TcxButton;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
   private
@@ -54,6 +63,15 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBCOTACAO_COMPRA
+
+  Views:
+
+  Procedures:
+*)
 
 var
   frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar;
@@ -76,8 +94,8 @@ begin
     with frm do
     begin
       cdsCotacao.Close;
-      cdsCotacao.ParamByName('ano').AsShort   := Ano;
-      cdsCotacao.ParamByName('cod').AsInteger := Numero;
+      cdsCotacao.ParamByName('ano').AsSmallInt := Ano;
+      cdsCotacao.ParamByName('cod').AsInteger  := Numero;
       cdsCotacao.Open;
 
       dbCancelUsuario.Text  := GetUserApp;
@@ -133,6 +151,8 @@ begin
 
         Post;
         ApplyUpdates;
+        CommitUpdates;
+
         CommitTransaction;
 
         ModalResult := mrOk;
