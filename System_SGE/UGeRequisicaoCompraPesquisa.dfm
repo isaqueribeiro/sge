@@ -552,6 +552,246 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
         ParamType = ptInput
         Value = 0
       end>
+    object fdQryPesquisaSELECIONAR: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'SELECIONAR'
+      Origin = 'SELECIONAR'
+      ProviderFlags = []
+    end
+    object fdQryPesquisaANO: TSmallintField
+      FieldName = 'ANO'
+      Origin = 'ANO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryPesquisaCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryPesquisaEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 18
+    end
+    object fdQryPesquisaNUMERO: TStringField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      Required = True
+    end
+    object fdQryPesquisaFORNECEDOR: TIntegerField
+      FieldName = 'FORNECEDOR'
+      Origin = 'FORNECEDOR'
+      Required = True
+    end
+    object fdQryPesquisaNOME_CONTATO: TStringField
+      FieldName = 'NOME_CONTATO'
+      Origin = 'NOME_CONTATO'
+      Size = 100
+    end
+    object fdQryPesquisaTIPO: TSmallintField
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+    end
+    object fdQryPesquisaINSERCAO_DATA: TSQLTimeStampField
+      FieldName = 'INSERCAO_DATA'
+      Origin = 'INSERCAO_DATA'
+    end
+    object fdQryPesquisaEMISSAO_DATA: TDateField
+      FieldName = 'EMISSAO_DATA'
+      Origin = 'EMISSAO_DATA'
+      Required = True
+    end
+    object fdQryPesquisaEMISSAO_USUARIO: TStringField
+      FieldName = 'EMISSAO_USUARIO'
+      Origin = 'EMISSAO_USUARIO'
+      Size = 12
+    end
+    object fdQryPesquisaVALIDADE: TDateField
+      FieldName = 'VALIDADE'
+      Origin = 'VALIDADE'
+    end
+    object fdQryPesquisaCOMPETENCIA: TIntegerField
+      FieldName = 'COMPETENCIA'
+      Origin = 'COMPETENCIA'
+    end
+    object fdQryPesquisaMOVITO: TMemoField
+      FieldName = 'MOVITO'
+      Origin = 'MOVITO'
+      BlobType = ftMemo
+    end
+    object fdQryPesquisaOBSERVACAO: TMemoField
+      FieldName = 'OBSERVACAO'
+      Origin = 'OBSERVACAO'
+      BlobType = ftMemo
+    end
+    object fdQryPesquisaCLIENTE: TIntegerField
+      FieldName = 'CLIENTE'
+      Origin = 'CLIENTE'
+    end
+    object fdQryPesquisaCENTRO_CUSTO: TIntegerField
+      FieldName = 'CENTRO_CUSTO'
+      Origin = 'CENTRO_CUSTO'
+    end
+    object fdQryPesquisaENDERECO_ENTREGA: TMemoField
+      FieldName = 'ENDERECO_ENTREGA'
+      Origin = 'ENDERECO_ENTREGA'
+      BlobType = ftMemo
+    end
+    object fdQryPesquisaSTATUS: TSmallintField
+      FieldName = 'STATUS'
+      Origin = 'STATUS'
+    end
+    object fdQryPesquisaRECEBEDOR_NOME: TStringField
+      FieldName = 'RECEBEDOR_NOME'
+      Origin = 'RECEBEDOR_NOME'
+      Size = 100
+    end
+    object fdQryPesquisaRECEBEDOR_CPF: TStringField
+      FieldName = 'RECEBEDOR_CPF'
+      Origin = 'RECEBEDOR_CPF'
+      Size = 18
+    end
+    object fdQryPesquisaRECEBEDOR_FUNCAO: TStringField
+      FieldName = 'RECEBEDOR_FUNCAO'
+      Origin = 'RECEBEDOR_FUNCAO'
+      Size = 50
+    end
+    object fdQryPesquisaFORMA_PAGTO: TSmallintField
+      FieldName = 'FORMA_PAGTO'
+      Origin = 'FORMA_PAGTO'
+    end
+    object fdQryPesquisaCONDICAO_PAGTO: TSmallintField
+      FieldName = 'CONDICAO_PAGTO'
+      Origin = 'CONDICAO_PAGTO'
+    end
+    object fdQryPesquisaTRANSPORTADOR: TIntegerField
+      FieldName = 'TRANSPORTADOR'
+      Origin = 'TRANSPORTADOR'
+    end
+    object fdQryPesquisaITENS: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'ITENS'
+      Origin = 'ITENS'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdQryPesquisaVALOR_BRUTO: TBCDField
+      FieldName = 'VALOR_BRUTO'
+      Origin = 'VALOR_BRUTO'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaVALOR_DESCONTO: TBCDField
+      FieldName = 'VALOR_DESCONTO'
+      Origin = 'VALOR_DESCONTO'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaVALOR_TOTAL_FRETE: TBCDField
+      FieldName = 'VALOR_TOTAL_FRETE'
+      Origin = 'VALOR_TOTAL_FRETE'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaVALOR_TOTAL_IPI: TBCDField
+      FieldName = 'VALOR_TOTAL_IPI'
+      Origin = 'VALOR_TOTAL_IPI'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaVALOR_TOTAL: TBCDField
+      FieldName = 'VALOR_TOTAL'
+      Origin = 'VALOR_TOTAL'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaREQUISITADO_DATA: TDateField
+      FieldName = 'REQUISITADO_DATA'
+      Origin = 'REQUISITADO_DATA'
+    end
+    object fdQryPesquisaDATA_FATURA: TDateField
+      FieldName = 'DATA_FATURA'
+      Origin = 'DATA_FATURA'
+    end
+    object fdQryPesquisaREQUISITADO_USUARIO: TStringField
+      FieldName = 'REQUISITADO_USUARIO'
+      Origin = 'REQUISITADO_USUARIO'
+      Size = 12
+    end
+    object fdQryPesquisaCANCELADO_DATA: TDateField
+      FieldName = 'CANCELADO_DATA'
+      Origin = 'CANCELADO_DATA'
+    end
+    object fdQryPesquisaCANCELADO_USUARIO: TStringField
+      FieldName = 'CANCELADO_USUARIO'
+      Origin = 'CANCELADO_USUARIO'
+      Size = 12
+    end
+    object fdQryPesquisaCANCELADO_MOTIVO: TMemoField
+      FieldName = 'CANCELADO_MOTIVO'
+      Origin = 'CANCELADO_MOTIVO'
+      BlobType = ftMemo
+    end
+    object fdQryPesquisaNOMEFORN: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOMEFORN'
+      Origin = 'NOMEFORN'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object fdQryPesquisaCNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 18
+    end
+    object fdQryPesquisaPESSOA_FISICA: TSmallintField
+      AutoGenerateValue = arDefault
+      FieldName = 'PESSOA_FISICA'
+      Origin = 'PESSOA_FISICA'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object fdQryPesquisaFATURAMENTO_MINIMO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'FATURAMENTO_MINIMO'
+      Origin = 'FATURAMENTO_MINIMO'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaTRANSPORTADOR_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TRANSPORTADOR_NOME'
+      Origin = 'NOMEFORN'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object fdQryPesquisaTRANSPORTADOR_CPF_CNPJ: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'TRANSPORTADOR_CPF_CNPJ'
+      Origin = 'CNPJ'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 18
+    end
+    object fdQryPesquisaNOMECLIENTE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'NOMECLIENTE'
+      Origin = 'NOME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
   end
   inherited QryPesquisaXXX: TIBQuery
     SQL.Strings = (
@@ -727,7 +967,6 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
     object CdsPesquisaSELECIONAR: TIntegerField
       Alignment = taCenter
       FieldName = 'SELECIONAR'
-      ReadOnly = True
       OnGetText = CdsPesquisaSELECIONARGetText
     end
     object CdsPesquisaANO: TSmallintField
@@ -794,6 +1033,7 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       BlobType = ftMemo
     end
     object CdsPesquisaSTATUS: TSmallintField
+      Alignment = taLeftJustify
       FieldName = 'STATUS'
       OnGetText = CdsPesquisaSTATUSGetText
     end

@@ -112,6 +112,50 @@ type
     cdsAutorizacaoCANCELADO_USUARIO: TStringField;
     cdsAutorizacaoCANCELADO_MOTIVO: TMemoField;
     stpGerarAutorizacaoItens: TFDStoredProc;
+    fdQryPesquisaSELECIONAR: TIntegerField;
+    fdQryPesquisaANO: TSmallintField;
+    fdQryPesquisaCODIGO: TIntegerField;
+    fdQryPesquisaEMPRESA: TStringField;
+    fdQryPesquisaNUMERO: TStringField;
+    fdQryPesquisaFORNECEDOR: TIntegerField;
+    fdQryPesquisaNOME_CONTATO: TStringField;
+    fdQryPesquisaTIPO: TSmallintField;
+    fdQryPesquisaINSERCAO_DATA: TSQLTimeStampField;
+    fdQryPesquisaEMISSAO_DATA: TDateField;
+    fdQryPesquisaEMISSAO_USUARIO: TStringField;
+    fdQryPesquisaVALIDADE: TDateField;
+    fdQryPesquisaCOMPETENCIA: TIntegerField;
+    fdQryPesquisaMOVITO: TMemoField;
+    fdQryPesquisaOBSERVACAO: TMemoField;
+    fdQryPesquisaCLIENTE: TIntegerField;
+    fdQryPesquisaCENTRO_CUSTO: TIntegerField;
+    fdQryPesquisaENDERECO_ENTREGA: TMemoField;
+    fdQryPesquisaSTATUS: TSmallintField;
+    fdQryPesquisaRECEBEDOR_NOME: TStringField;
+    fdQryPesquisaRECEBEDOR_CPF: TStringField;
+    fdQryPesquisaRECEBEDOR_FUNCAO: TStringField;
+    fdQryPesquisaFORMA_PAGTO: TSmallintField;
+    fdQryPesquisaCONDICAO_PAGTO: TSmallintField;
+    fdQryPesquisaTRANSPORTADOR: TIntegerField;
+    fdQryPesquisaITENS: TIntegerField;
+    fdQryPesquisaVALOR_BRUTO: TBCDField;
+    fdQryPesquisaVALOR_DESCONTO: TBCDField;
+    fdQryPesquisaVALOR_TOTAL_FRETE: TBCDField;
+    fdQryPesquisaVALOR_TOTAL_IPI: TBCDField;
+    fdQryPesquisaVALOR_TOTAL: TBCDField;
+    fdQryPesquisaREQUISITADO_DATA: TDateField;
+    fdQryPesquisaDATA_FATURA: TDateField;
+    fdQryPesquisaREQUISITADO_USUARIO: TStringField;
+    fdQryPesquisaCANCELADO_DATA: TDateField;
+    fdQryPesquisaCANCELADO_USUARIO: TStringField;
+    fdQryPesquisaCANCELADO_MOTIVO: TMemoField;
+    fdQryPesquisaNOMEFORN: TStringField;
+    fdQryPesquisaCNPJ: TStringField;
+    fdQryPesquisaPESSOA_FISICA: TSmallintField;
+    fdQryPesquisaFATURAMENTO_MINIMO: TBCDField;
+    fdQryPesquisaTRANSPORTADOR_NOME: TStringField;
+    fdQryPesquisaTRANSPORTADOR_CPF_CNPJ: TStringField;
+    fdQryPesquisaNOMECLIENTE: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure CdsPesquisaSTATUSGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -432,6 +476,7 @@ begin
 
       cdsAutorizacao.Post;
       cdsAutorizacao.ApplyUpdates;
+      cdsAutorizacao.CommitUpdates;
 
       CommitTransaction;
 
@@ -467,10 +512,10 @@ begin
       // Gerar Itens da autorização
 
       stpGerarAutorizacaoItens.Close;
-      stpGerarAutorizacaoItens.ParamByName('autorizacao_ano').AsInteger := cdsAutorizacaoANO.AsInteger;
-      stpGerarAutorizacaoItens.ParamByName('autorizacao_cod').AsInteger := cdsAutorizacaoCODIGO.AsInteger;
-      stpGerarAutorizacaoItens.ParamByName('autorizacao_emp').AsString  := cdsAutorizacaoEMPRESA.AsString;
-      stpGerarAutorizacaoItens.ParamByName('usuario').AsString          := gUsuarioLogado.Login;
+      stpGerarAutorizacaoItens.ParamByName('autorizacao_ano').AsSmallInt := cdsAutorizacaoANO.AsInteger;
+      stpGerarAutorizacaoItens.ParamByName('autorizacao_cod').AsInteger  := cdsAutorizacaoCODIGO.AsInteger;
+      stpGerarAutorizacaoItens.ParamByName('autorizacao_emp').AsString   := cdsAutorizacaoEMPRESA.AsString;
+      stpGerarAutorizacaoItens.ParamByName('usuario').AsString           := gUsuarioLogado.Login;
       stpGerarAutorizacaoItens.ExecProc;
 
       CommitTransaction;
@@ -486,6 +531,7 @@ begin
 
       cdsAutorizacao.Post;
       cdsAutorizacao.ApplyUpdates;
+      cdsAutorizacao.CommitUpdates;
 
       CommitTransaction;
 

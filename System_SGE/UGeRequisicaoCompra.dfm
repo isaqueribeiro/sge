@@ -330,8 +330,6 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel
@@ -3976,8 +3974,9 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
+    BeforePost = fdQryTabelaBeforePost
+    AfterCancel = fdQryTabelaAfterCancel
     AfterScroll = fdQryTabelaAfterScroll
-    AfterApplyUpdates = fdQryTabelaAfterApplyUpdates
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
     UpdateOptions.GeneratorName = 'GEN_REQUISICAO_2013'
@@ -4211,10 +4210,9 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       Size = 2
     end
     object fdQryTabelaREQUISITADO_DATA: TDateField
-      DisplayLabel = 'Data'
+      DisplayLabel = 'Data Requisi'#231#227'o'
       FieldName = 'REQUISITADO_DATA'
       Origin = 'REQUISITADO_DATA'
-      Required = True
     end
     object fdQryTabelaDATA_FATURA: TDateField
       FieldName = 'DATA_FATURA'
@@ -4773,31 +4771,15 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
         '_EMPRESA AND '
       '  SEQ = :OLD_SEQ')
     FetchRowSQL.Strings = (
-      'Select'
-      '    i.ano'
-      '  , i.codigo'
-      '  , i.empresa'
-      '  , i.seq'
-      '  , i.fornecedor'
-      '  , i.produto'
-      '  , i.quantidade'
-      '  , i.unidade'
-      '  , i.valor_unitario'
-      '  , i.ipi_percentual'
-      '  , i.ipi_valor_total'
-      '  , i.valor_total'
-      '  , i.confirmado_recebimento'
-      '  , i.usuario'
-      '  , p.descri_apresentacao'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      'from TBREQUISITA_COMPRAITEM i'
-      '  left join TBPRODUTO p on (p.cod = i.produto)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
-      ''
       
-        'WHERE i.ANO = :ANO AND i.CODIGO = :CODIGO AND i.EMPRESA = :EMPRE' +
-        'SA AND i.SEQ = :SEQ')
+        'SELECT ANO, CODIGO, EMPRESA, SEQ, FORNECEDOR, PRODUTO, QUANTIDAD' +
+        'E, '
+      '  UNIDADE, VALOR_UNITARIO, IPI_PERCENTUAL, IPI_VALOR_TOTAL, '
+      '  VALOR_TOTAL, CONFIRMADO_RECEBIMENTO, USUARIO'
+      'FROM TBREQUISITA_COMPRAITEM'
+      
+        'WHERE ANO = :ANO AND CODIGO = :CODIGO AND EMPRESA = :EMPRESA AND' +
+        ' SEQ = :SEQ')
     Left = 672
     Top = 80
   end

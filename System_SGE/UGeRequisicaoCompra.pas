@@ -239,7 +239,8 @@ type
     procedure fdQryTabelaINSERCAO_DATAGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure fdQryTabelaSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure cdsTabelaItensNewRecord(DataSet: TDataSet);
-    procedure fdQryTabelaAfterApplyUpdates(DataSet: TFDDataSet; AErrors: Integer);
+    procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     sGeneratorName : String;
@@ -779,7 +780,7 @@ begin
   DtSrcTabelaItensStateChange( DtSrcTabelaItens );
 end;
 
-procedure TfrmGeRequisicaoCompra.fdQryTabelaAfterApplyUpdates(DataSet: TFDDataSet; AErrors: Integer);
+procedure TfrmGeRequisicaoCompra.fdQryTabelaAfterCancel(DataSet: TDataSet);
 begin
   inherited;
   with DtSrcTabela.DataSet do
@@ -791,6 +792,19 @@ begin
   inherited;
   with DtSrcTabela.DataSet do
     TbsRequisicaoCancelado.TabVisible := (FieldByName('STATUS').AsInteger = STATUS_Requisicao_CAN);
+end;
+
+procedure TfrmGeRequisicaoCompra.fdQryTabelaBeforePost(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    if Trim(FieldByName('REQUISITADO_USUARIO').AsString) = EmptyStr then
+      FieldByName('REQUISITADO_USUARIO').Clear;
+
+    if Trim(FieldByName('CANCELADO_USUARIO').AsString) = EmptyStr then
+      FieldByName('CANCELADO_USUARIO').Clear;
+  end;
 end;
 
 procedure TfrmGeRequisicaoCompra.fdQryTabelaINSERCAO_DATAGetText(Sender: TField; var Text: string;
@@ -991,7 +1005,7 @@ begin
 
     if ( ShowConfirm('Confirma a autorização do registro selecionado?') ) then
     begin
-      if ( cTotalLiquido > FieldByName('FATURAMENTO_MINIMO').AsCurrency ) then
+      if (FieldByName('FATURAMENTO_MINIMO').AsCurrency > 0.0) and (cTotalLiquido > FieldByName('FATURAMENTO_MINIMO').AsCurrency) then
       begin
         ShowWarning(Format('O Faturamento Mínimo (%s) deste fornecedor não permite que essa requisição de compra/serviço seja requisitadas!',
           [FormatFloat('"R$ ",0.00', FieldByName('FATURAMENTO_MINIMO').AsCurrency)]));
@@ -1390,7 +1404,7 @@ begin
     begin
       ValidarToTais(cTotalBruto, cTotalIPI, cTotalDesconto, cTotalLiquido);
 
-      if ( cTotalLiquido > FieldByName('FATURAMENTO_MINIMO').AsCurrency ) then
+      if (FieldByName('FATURAMENTO_MINIMO').AsCurrency > 0.0) and (cTotalLiquido > FieldByName('FATURAMENTO_MINIMO').AsCurrency) then
       begin
         ShowWarning(Format('O Faturamento Mínimo (%s) deste fornecedor não permite que essa requisição de compra/serviço seja emitida!',
           [FormatFloat('"R$ ",0.00', FieldByName('FATURAMENTO_MINIMO').AsCurrency)]) + #13 +
@@ -1503,7 +1517,11 @@ begin
 
   end;
 
-  inherited;
+  // Desistir na inserção de um novo produto/serviço
+  if ( (Key = VK_ESCAPE) and (pgcGuias.ActivePage = tbsCadastro) and (cdsTabelaItens.State in [dsEdit, dsInsert]) ) then
+    cdsTabelaItens.Cancel
+  else
+    inherited;
 end;
 
 function TfrmGeRequisicaoCompra.GetRotinaReabrirRequisicaoID: String;

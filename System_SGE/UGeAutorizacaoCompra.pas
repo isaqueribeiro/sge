@@ -1587,9 +1587,13 @@ begin
         end;
 
     end;
-
-    inherited;
   end;
+
+  // Desistir na inserção de um novo produto/serviço
+  if ( (Key = VK_ESCAPE) and (pgcGuias.ActivePage = tbsCadastro) and (cdsTabelaItens.State in [dsEdit, dsInsert]) ) then
+    cdsTabelaItens.Cancel
+  else
+    inherited;
 end;
 
 function TfrmGeAutorizacaoCompra.GetRotinaAutorizarID: String;
