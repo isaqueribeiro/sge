@@ -6,7 +6,16 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB,
   IBCustomDataSet, IBUpdateSQL, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
+  FireDAC.Comp.DataSet, System.ImageList,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light;
 
 type
   TfrmGeRequisicaoCompraCancelar = class(TfrmGrPadrao)
@@ -20,7 +29,7 @@ type
     lblValidade: TLabel;
     dbValidade: TDBEdit;
     Bevel1: TBevel;
-    GrpBxImposto: TGroupBox;
+    GrpBxCancelamento: TGroupBox;
     lblCancelUsuario: TLabel;
     lblCancelDataHora: TLabel;
     lblMotivo: TLabel;
@@ -28,50 +37,36 @@ type
     dbCancelUsuario: TEdit;
     dbCancelDataHora: TEdit;
     Bevel2: TBevel;
-    lblInforme: TLabel;
-    cdsRequisicao: TIBDataSet;
-    updRequisicao: TIBUpdateSQL;
     dtsAutorizacao: TDataSource;
-    cdsRequisicaoANO: TSmallintField;
-    cdsRequisicaoCODIGO: TIntegerField;
-    cdsRequisicaoEMPRESA: TIBStringField;
-    cdsRequisicaoNUMERO: TIBStringField;
-    cdsRequisicaoFORNECEDOR: TIntegerField;
-    cdsRequisicaoNOME_CONTATO: TIBStringField;
-    cdsRequisicaoTIPO: TSmallintField;
-    cdsRequisicaoINSERCAO_DATA: TDateTimeField;
-    cdsRequisicaoEMISSAO_DATA: TDateField;
-    cdsRequisicaoEMISSAO_USUARIO: TIBStringField;
-    cdsRequisicaoVALIDADE: TDateField;
-    cdsRequisicaoCOMPETENCIA: TIntegerField;
-    cdsRequisicaoMOVITO: TMemoField;
-    cdsRequisicaoOBSERVACAO: TMemoField;
-    cdsRequisicaoENDERECO_ENTREGA: TMemoField;
-    cdsRequisicaoSTATUS: TSmallintField;
-    cdsRequisicaoRECEBEDOR_NOME: TIBStringField;
-    cdsRequisicaoRECEBEDOR_CPF: TIBStringField;
-    cdsRequisicaoRECEBEDOR_FUNCAO: TIBStringField;
-    cdsRequisicaoFORMA_PAGTO: TSmallintField;
-    cdsRequisicaoCONDICAO_PAGTO: TSmallintField;
-    cdsRequisicaoTRANSPORTADOR: TIntegerField;
-    cdsRequisicaoVALOR_BRUTO: TIBBCDField;
-    cdsRequisicaoVALOR_DESCONTO: TIBBCDField;
-    cdsRequisicaoVALOR_TOTAL_FRETE: TIBBCDField;
-    cdsRequisicaoVALOR_TOTAL_IPI: TIBBCDField;
-    cdsRequisicaoVALOR_TOTAL: TIBBCDField;
-    cdsRequisicaoREQUISITADO_DATA: TDateField;
-    cdsRequisicaoDATA_FATURA: TDateField;
-    cdsRequisicaoREQUISITADO_USUARIO: TIBStringField;
-    cdsRequisicaoCANCELADO_DATA: TDateField;
-    cdsRequisicaoCANCELADO_USUARIO: TIBStringField;
-    cdsRequisicaoCANCELADO_MOTIVO: TMemoField;
-    cdsRequisicaoNOMEFORN: TIBStringField;
-    cdsRequisicaoCNPJ: TIBStringField;
-    cdsRequisicaoPESSOA_FISICA: TSmallintField;
-    cdsRequisicaoTRANSPORTADOR_NOME: TIBStringField;
-    cdsRequisicaoTRANSPORTADOR_CPF_CNPJ: TIBStringField;
+    pnlBotoes: TPanel;
+    lblInforme: TLabel;
+    Bevel3: TBevel;
     btnCancelar: TcxButton;
     btFechar: TcxButton;
+    cdsRequisicao: TFDQuery;
+    updRequisicao: TFDUpdateSQL;
+    cdsRequisicaoANO: TSmallintField;
+    cdsRequisicaoCODIGO: TFDAutoIncField;
+    cdsRequisicaoEMPRESA: TStringField;
+    cdsRequisicaoNUMERO: TStringField;
+    cdsRequisicaoFORNECEDOR: TIntegerField;
+    cdsRequisicaoNOME_CONTATO: TStringField;
+    cdsRequisicaoTIPO: TSmallintField;
+    cdsRequisicaoINSERCAO_DATA: TSQLTimeStampField;
+    cdsRequisicaoEMISSAO_DATA: TDateField;
+    cdsRequisicaoEMISSAO_USUARIO: TStringField;
+    cdsRequisicaoVALIDADE: TDateField;
+    cdsRequisicaoCOMPETENCIA: TIntegerField;
+    cdsRequisicaoSTATUS: TSmallintField;
+    cdsRequisicaoREQUISITADO_DATA: TDateField;
+    cdsRequisicaoCANCELADO_DATA: TDateField;
+    cdsRequisicaoCANCELADO_USUARIO: TStringField;
+    cdsRequisicaoCANCELADO_MOTIVO: TMemoField;
+    cdsRequisicaoNOMEFORN: TStringField;
+    cdsRequisicaoCNPJ: TStringField;
+    cdsRequisicaoPESSOA_FISICA: TSmallintField;
+    cdsRequisicaoTRANSPORTADOR_NOME: TStringField;
+    cdsRequisicaoTRANSPORTADOR_CPF_CNPJ: TStringField;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
   private
@@ -80,6 +75,16 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBREQUISITA_COMPRA
+  - TBFORNECEDOR
+
+  Views:
+
+  Procedures:
+*)
 
 var
   frmGeRequisicaoCompraCancelar: TfrmGeRequisicaoCompraCancelar;
@@ -102,8 +107,8 @@ begin
     with frm do
     begin
       cdsRequisicao.Close;
-      cdsRequisicao.ParamByName('ano').AsShort   := Ano;
-      cdsRequisicao.ParamByName('cod').AsInteger := Numero;
+      cdsRequisicao.ParamByName('ano').AsSmallInt := Ano;
+      cdsRequisicao.ParamByName('cod').AsInteger  := Numero;
       cdsRequisicao.Open;
 
       dbCancelUsuario.Text  := GetUserApp;
@@ -164,6 +169,8 @@ begin
 
         Post;
         ApplyUpdates;
+        CommitUpdates;
+
         CommitTransaction;
 
         ModalResult := mrOk;
