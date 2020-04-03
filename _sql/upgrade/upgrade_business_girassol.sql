@@ -2324,3 +2324,115 @@ Observacao: Para lancamento livre ou calculado (Largura x Altura x Espessura).';
 Update TBCONDICAOPAGTO x Set x.cond_pdv = 1 where x.cond_cod < 5;
 
 
+
+
+
+/*------ SYSDBA 17/03/2020 11:01:56 --------*/
+
+SET TERM ^ ;
+
+create or alter procedure set_conta_corrente_saldo_v2 (
+    conta_corrente integer,
+    data_inicial date,
+    data_final date)
+as
+declare variable data_movimento date;
+declare variable data_saldo_ant date;
+declare variable valor_saldo_ant numeric(15,2);
+declare variable total_credito_dia numeric(15,2);
+declare variable total_debito_dia numeric(15,2);
+declare variable total_saldo_dia numeric(15,2);
+begin
+    -- Montar Periodo
+    data_movimento = :data_inicial;
+    while (:data_movimento <= :data_final) do
+    begin
+
+      -- Buscar Saldo anterior
+      Select
+          s1.Data_saldo
+        , s1.Valor_saldo
+      from TBCONTA_CORRENTE_SALDO s1
+      where s1.Codigo = :Conta_corrente
+        and s1.Data_saldo in (
+          Select
+            max(s2.Data_saldo)
+          from TBCONTA_CORRENTE_SALDO s2
+          where s2.Codigo = :Conta_corrente
+            and s2.Data_saldo < :Data_movimento
+        )
+      into
+          Data_saldo_ant
+        , Valor_saldo_ant;
+    
+      -- Gravar Saldo anterior caso nao exista
+      if ( :Data_saldo_ant is null ) then
+      begin
+        Data_saldo_ant  = :Data_movimento - 1;
+        Valor_saldo_ant = 0;
+    
+        Insert Into TBCONTA_CORRENTE_SALDO (
+            Codigo
+          , Data_saldo
+          , Valor_saldo
+        ) values (
+            :Conta_corrente
+          , :Data_saldo_ant
+          , :Valor_saldo_ant
+        );
+      end 
+    
+      -- Consolidar Creditos e Debitos do dia
+      Select
+          sum( Case when upper(m.Tipo) = 'C' then m.Valor else 0 end )
+        , sum( Case when upper(m.Tipo) = 'D' then m.Valor else 0 end )
+      from TBCAIXA_MOVIMENTO m
+      where m.Situacao = 1 -- Confirmado
+        and m.Conta_corrente = :Conta_corrente
+        and cast(m.Datahora as Date ) = :Data_movimento
+      into
+          Total_credito_dia
+        , Total_debito_dia;
+    
+      Total_saldo_dia = :Valor_saldo_ant + coalesce(:Total_credito_dia, 0) - coalesce(:Total_debito_dia, 0);
+    
+      /* Gerar Saldo Conta Corrente do Dia */
+      if ( not Exists(
+        Select
+          s3.Codigo
+        from TBCONTA_CORRENTE_SALDO s3
+        where s3.Codigo = :Conta_corrente
+          and s3.Data_saldo = :Data_movimento
+      ) ) then
+      begin
+    
+        -- Inserir Saldo do Dia
+        Insert Into TBCONTA_CORRENTE_SALDO (
+            Codigo
+          , Data_saldo
+          , Valor_saldo
+        ) values (
+            :Conta_corrente
+          , :Data_movimento
+          , :Total_saldo_dia
+        );
+    
+      end
+      else
+      begin
+    
+         -- Atualizar Saldo do Dia
+         Update TBCONTA_CORRENTE_SALDO s Set
+           s.Valor_saldo = :Total_saldo_dia
+         where s.Codigo = :Conta_corrente
+           and s.Data_saldo = :Data_movimento;
+    
+       end 
+
+       -- Proxima data
+       data_movimento = dateadd(day, 1, :data_movimento);
+    end
+end^
+
+SET TERM ; ^
+

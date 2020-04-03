@@ -919,7 +919,6 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
     Top = 233
   end
   object cdsAutorizacao: TFDQuery
-    Active = True
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -994,10 +993,10 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       Required = True
     end
     object cdsAutorizacaoCODIGO: TIntegerField
+      AutoGenerateValue = arAutoInc
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
     end
     object cdsAutorizacaoEMPRESA: TStringField
       FieldName = 'EMPRESA'

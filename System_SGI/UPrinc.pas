@@ -3,7 +3,7 @@ unit UPrinc;
 interface
 
 uses
-  StdCtrls, Buttons,
+  System.Threading, StdCtrls, Buttons,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ComCtrls, ExtCtrls, jpeg, dxStatusBar, dxRibbonForm, dxRibbonSkins,
@@ -459,6 +459,7 @@ end;
 procedure TfrmPrinc.AutoUpdateSystem;
 var
   aInterval : Cardinal;
+  aTask : ITask;
 begin
   aInterval := (1000 * 60) * 15; // 15 minutos
 
@@ -468,7 +469,12 @@ begin
     tmrAutoUpgrade.Interval := aInterval;
     tmrAutoUpgrade.Enabled  := True;
 
-    AtivarUpgradeAutomatico;
+    // Thread
+    aTask := TTask.Create(procedure ()
+      begin
+        AtivarUpgradeAutomatico;
+      end);
+     aTask.Start;
   end;
 end;
 

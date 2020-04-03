@@ -2336,8 +2336,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       ShowHint = True
       TabOrder = 6
       OnClick = btnFinalizarCotacaoClick
-      ExplicitLeft = 547
-      ExplicitTop = -2
     end
     object btnAutorizarCotacao: TcxButton
       Tag = 12
@@ -2667,7 +2665,7 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     Left = 896
     Top = 352
     Bitmap = {
-      494C01012F003100180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012F0031001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000C0000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000004A5B
       6F004A5B6F004A5B6F004354680043546800435468003A4B5F003A4B5F003A4B
@@ -4802,10 +4800,12 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       Size = 18
     end
     object cdsTabelaItensSEQ: TSmallintField
+      Alignment = taCenter
       FieldName = 'SEQ'
       Origin = 'SEQ'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
+      DisplayFormat = '00'
     end
     object cdsTabelaItensPRODUTO: TStringField
       FieldName = 'PRODUTO'

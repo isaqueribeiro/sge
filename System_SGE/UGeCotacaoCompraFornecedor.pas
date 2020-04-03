@@ -170,7 +170,7 @@ type
 implementation
 
 uses
-  UDMBusiness, UDMNFe, UFuncoes, UGeFornecedor, DateUtils, UDMRecursos;
+  UDMBusiness, UDMNFe, UFuncoes, UGeFornecedor, DateUtils, UDMRecursos, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -261,9 +261,17 @@ const
     'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ',
     'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BK', 'BL', 'BM', 'BN', 'BO', 'BP', 'BQ', 'BR', 'BS', 'BT', 'BU', 'BV', 'BW', 'BX', 'BY', 'BZ');
 
-  PLANILHA_1     = 'Plan1';
-  PLANILHA_2     = 'Plan2';
-  PLANILHA_3     = 'Plan3';
+  PAGE_1     = 'Page 1';
+  PAGE_2     = 'Page 2';
+  PAGE_3     = 'Page 3';
+
+  PLAN_1     = 'Plan1';
+  PLAN_2     = 'Plan2';
+  PLAN_3     = 'Plan3';
+
+  PLANILHA_1 = 'Planilha1';
+  PLANILHA_2 = 'Planilha2';
+  PLANILHA_3 = 'Planilha3';
 
   APOSTROFE      = '''';
   NOME_VENDEDOR  = 'Att.:';
@@ -341,6 +349,23 @@ begin
             SetCotacaoFornecedorItem(FEmpresa, FAno, FCotacao, FFornecedor);
 
             CarregarArquivoXLS;
+
+            // Marcar registro como "Em Cotação"
+            with DMBusiness, fdQryBusca do
+            begin
+              Close;
+              SQL.Clear;
+              SQL.Add('Update TBCOTACAO_COMPRA Set');
+              SQL.Add('  status = ' + STATUS_COTACAO_COT.ToString);
+              SQL.Add('where (STATUS in (' + STATUS_COTACAO_ABR.ToString + ', ' + STATUS_COTACAO_COT.ToString + '))');
+              SQL.Add('  and (ANO     = ' + qryFornecedorANO.AsString    + ')');
+              SQL.Add('  and (CODIGO  = ' + qryFornecedorCODIGO.AsString + ')');
+              SQL.Add('  and (EMPRESA = ' + QuotedStr(qryFornecedorEMPRESA.AsString) + ')');
+              ExecSQL;
+
+              CommitTransaction;
+            end;
+
             Edit;
 
             BtnCarregarXLS.Visible := False; //True;
@@ -454,11 +479,21 @@ begin
         EmptyParam, // CorruptLoad : OleVariant
         LCID) );
 
-
-      // Ativar a PLAN1
-
-      XLSheet.ConnectTo( XLBook.Worksheets.Item[PLANILHA_1] as _Worksheet);
-      XLSheet.Activate;
+      try
+        // Ativar a PLANILHA1
+        XLSheet.ConnectTo( XLBook.Worksheets.Item[PLANILHA_1] as _Worksheet);
+        XLSheet.Activate;
+      except
+        try
+          // Ativar a PLAN1
+          XLSheet.ConnectTo( XLBook.Worksheets.Item[PLAN_1] as _Worksheet);
+          XLSheet.Activate;
+        except
+          // Ativar Page 1
+          XLSheet.ConnectTo( XLBook.Worksheets.Item[PAGE_1] as _Worksheet);
+          XLSheet.Activate;
+        end;
+      end;
 
       // Ativar Padrão Branco na Planilha
       (*
@@ -936,7 +971,7 @@ begin
 
         Post;
         ApplyUpdates;
-        CommitTransaction;
+        CommitUpdates;
 
         if qryFornecedorVALOR_TOTAL_BRUTO.AsCurrency > 0 then
         begin
@@ -946,9 +981,11 @@ begin
               qryItem.Post;
 
             qryItem.ApplyUpdates;
-            CommitTransaction;
+            qryItem.CommitUpdates;
           end;
         end;
+
+        CommitTransaction;
 
         ModalResult := mrOk;
       end;
@@ -997,9 +1034,9 @@ procedure TfrmGeCotacaoCompraFornecedor.qryFornecedorBeforePost(DataSet: TDataSe
 begin
   with dtsFornecedor.DataSet do
   begin
-    FieldByName('EMAIL').Value             := Trim(FieldByName('EMAIL').Value);
-    FieldByName('PRAZO_ENTREDA_DIA').Value := DaysBetween(FieldByName('PRAZO_ENTREGA_DATA').Value, FieldByName('DATA_RESPOSTA').Value);
-    FieldByName('USUARIO').Value           := gUsuarioLogado.Login;
+    FieldByName('EMAIL').AsString              := Trim(FieldByName('EMAIL').AsString);
+    FieldByName('PRAZO_ENTREDA_DIA').AsInteger := DaysBetween(FieldByName('PRAZO_ENTREGA_DATA').AsDateTime, FieldByName('DATA_RESPOSTA').AsDateTime);
+    FieldByName('USUARIO').AsString            := gUsuarioLogado.Login;
   end;
 end;
 
@@ -1007,28 +1044,29 @@ procedure TfrmGeCotacaoCompraFornecedor.qryFornecedorNewRecord(DataSet: TDataSet
 begin
   with dtsFornecedor.DataSet do
   begin
-    FieldByName('ANO').Value     := FAno;
-    FieldByName('CODIGO').Value  := FCotacao;
-    FieldByName('EMPRESA').Value := FEmpresa;
-    FieldByName('FORNECEDOR').Value    := FFornecedor;
-    FieldByName('ATIVO').Value         := 1;
-    FieldByName('USUARIO').Value       := gUsuarioLogado.Login;
-    FieldByName('DATA_RESPOSTA').Value      := Date;
-    FieldByName('PRAZO_ENTREGA_DATA').Value := Date + GetPrazoValidadeCotacaoCompra(FEmpresa);
-    FieldByName('VENCEDOR').Value      := 0;
+    FieldByName('ANO').AsInteger    := FAno;
+    FieldByName('CODIGO').AsInteger := FCotacao;
+    FieldByName('EMPRESA').AsString := FEmpresa;
+    FieldByName('FORNECEDOR').AsInteger := FFornecedor;
+    FieldByName('ATIVO').AsInteger      := 1;
+    FieldByName('USUARIO').AsString     := gUsuarioLogado.Login;
+    FieldByName('DATA_RESPOSTA').AsDateTime      := Date;
+    FieldByName('PRAZO_ENTREGA_DATA').AsDateTime := Date + GetPrazoValidadeCotacaoCompra(FEmpresa);
+    FieldByName('VENCEDOR').AsInteger      := 0;
 
-    FieldByName('VALOR_TOTAL_BRUTO').Value    := 0.0;
-    FieldByName('VALOR_TOTAL_DESCONTO').Value := 0.0;
-    FieldByName('VALOR_TOTAL_LIQUIDO').Value  := 0.0;
+    FieldByName('VALOR_TOTAL_BRUTO').AsCurrency    := 0.0;
+    FieldByName('VALOR_TOTAL_DESCONTO').AsCurrency := 0.0;
+    FieldByName('VALOR_TOTAL_LIQUIDO').AsCurrency  := 0.0;
 
-    FieldByName('NOMEFORN').Value     := GetFornecedorRazao(FFornecedor);
-    FieldByName('NOME_CONTATO').Value := GetFornecedorContato(FFornecedor);
-    FieldByName('EMAIL_ENVIO').Value  := GetFornecedorEmail(FFornecedor);
+    FieldByName('NOMEFORN').AsString     := GetFornecedorRazao(FFornecedor);
+    FieldByName('NOME_CONTATO').AsString := GetFornecedorContato(FFornecedor);
+    FieldByName('EMAIL_ENVIO').AsString  := GetFornecedorEmail(FFornecedor);
 
-    FieldByName('NUMERO').Value           := FormatFloat('##0000000', FieldByName('CODIGO').Value) + '/' + Copy(FieldByName('ANO').AsString, 3, 2);
-    FieldByName('DESCRICAO_RESUMO').Value := FDescricao;
-    FieldByName('EMISSAO_DATA').Value     := FEmissao;
-    FieldByName('VALIDADE').Value         := FValidade;
+    FieldByName('NUMERO').AsString           := FormatFloat('##0000000', FieldByName('CODIGO').Value) + '/' + Copy(FieldByName('ANO').AsString, 3, 2);
+    FieldByName('DESCRICAO_RESUMO').AsString := FDescricao;
+    FieldByName('EMISSAO_DATA').AsDateTime   := FEmissao;
+    FieldByName('VALIDADE').AsDateTime       := FValidade;
+    FieldByName('OBSERVACAO').Clear;
   end;
 end;
 
@@ -1043,7 +1081,7 @@ procedure TfrmGeCotacaoCompraFornecedor.SetCotacaoFornecedorItem(
 begin
   with spSetCotacaoFornecedorItem do
   begin
-    ParamByName('ano').AsInteger        := Ano;
+    ParamByName('ano').AsSmallInt       := Ano;
     ParamByName('codigo').AsInteger     := Codigo;
     ParamByName('empresa').AsString     := Empresa;
     ParamByName('fornecedor').AsInteger := Fornecedor;
@@ -1195,10 +1233,21 @@ begin
       LCID) );
 
 
-    // Ativar a PLAN1
-
-    XLSheet.ConnectTo( XLBook.Worksheets.Item[PLANILHA_1] as _Worksheet);
-    XLSheet.Activate;
+    try
+      // Ativar a PLANILHA1
+      XLSheet.ConnectTo( XLBook.Worksheets.Item[PLANILHA_1] as _Worksheet);
+      XLSheet.Activate;
+    except
+      try
+        // Ativar a PLAN1
+        XLSheet.ConnectTo( XLBook.Worksheets.Item[PLAN_1] as _Worksheet);
+        XLSheet.Activate;
+      except
+        // Ativar Page 1
+        XLSheet.ConnectTo( XLBook.Worksheets.Item[PAGE_1] as _Worksheet);
+        XLSheet.Activate;
+      end;
+    end;
 
     // Buscar endereços de referência limite na planilha
 
@@ -1274,6 +1323,8 @@ begin
           qryItem.Edit;
           qryItemVALOR_UNITARIO.AsCurrency := StrToCurr(sValor);
           qryItem.Post;
+          qryItem.ApplyUpdates;
+          qryItem.CommitUpdates;
         end;
       end;
 
@@ -1288,19 +1339,19 @@ begin
     if ( iLinha_Total_Bruto > 0 ) then
     begin
       sValor := StringReplace(Trim(XLSheet.Cells.Item[iLinha_Total_Bruto, COLUNA_TOTAL_BR]), APOSTROFE, '', [rfReplaceAll]);
-      qryFornecedorVALOR_TOTAL_BRUTO.AsCurrency := StrToCurr(sValor);
+      qryFornecedorVALOR_TOTAL_BRUTO.AsCurrency := StrToCurrDef(sValor, 0.0);
     end;
 
     if ( iLinha_Total_Desconto > 0 ) then
     begin
       sValor := StringReplace(Trim(XLSheet.Cells.Item[iLinha_Total_Desconto, COLUNA_TOTAL_DS]), APOSTROFE, '', [rfReplaceAll]);
-      qryFornecedorVALOR_TOTAL_DESCONTO.AsCurrency := StrToCurr(sValor);
+      qryFornecedorVALOR_TOTAL_DESCONTO.AsCurrency := StrToCurrDef(sValor, 0.0);
     end;
 
     if ( iLinha_Total_Liquido > 0 ) then
     begin
       sValor := StringReplace(Trim(XLSheet.Cells.Item[iLinha_Total_Liquido, COLUNA_TOTAL_LQ]), APOSTROFE, '', [rfReplaceAll]);
-      qryFornecedorVALOR_TOTAL_LIQUIDO.AsCurrency := StrToCurr(sValor);
+      qryFornecedorVALOR_TOTAL_LIQUIDO.AsCurrency := StrToCurrDef(sValor, 0.0);
     end;
 
     if ( iLinha_Forma_Pagto > 0 ) then

@@ -874,6 +874,7 @@ object DMBusiness: TDMBusiness
       end>
   end
   object frxXLSX: TfrxXLSXExport
+    ShowDialog = False
     UseFileCache = True
     ShowProgress = True
     OverwritePrompt = False
@@ -891,8 +892,8 @@ object DMBusiness: TDMBusiness
     DataOnly = False
     OpenAfterExport = False
     PictureType = gpPNG
-    Left = 80
-    Top = 272
+    Left = 120
+    Top = 328
   end
   object frxODS: TfrxODSExport
     UseFileCache = True
@@ -908,7 +909,7 @@ object DMBusiness: TDMBusiness
     Language = 'en'
     SuppressPageHeadersFooters = False
     Left = 80
-    Top = 320
+    Top = 328
   end
   object frxODT: TfrxODTExport
     UseFileCache = True
@@ -927,6 +928,7 @@ object DMBusiness: TDMBusiness
     Top = 224
   end
   object frxXML: TfrxXMLExport
+    ShowDialog = False
     UseFileCache = True
     ShowProgress = True
     OverwritePrompt = False
@@ -938,7 +940,7 @@ object DMBusiness: TDMBusiness
     RowsCount = 0
     Split = ssNotSplit
     Left = 120
-    Top = 272
+    Top = 280
   end
   object stpContaCorrenteSaldo_v2: TFDStoredProc
     Connection = fdConexao
@@ -966,5 +968,21 @@ object DMBusiness: TDMBusiness
         DataType = ftDate
         ParamType = ptInput
       end>
+  end
+  object frxXLS: TfrxXLSExport
+    ShowDialog = False
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    ExportEMF = True
+    AsText = False
+    Background = True
+    FastExport = True
+    PageBreaks = True
+    EmptyLines = True
+    SuppressPageHeadersFooters = False
+    Left = 80
+    Top = 280
   end
 end

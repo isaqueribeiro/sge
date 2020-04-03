@@ -42,61 +42,63 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
           item
             Expanded = False
             FieldName = 'NUMERO'
+            Title.Caption = 'N'#250'mero '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TIPO'
+            Title.Caption = 'Tipo '
             Width = 70
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'EMISSAO_DATA'
-            Title.Caption = 'Emiss'#227'o'
+            Title.Caption = 'Emiss'#227'o '
             Width = 85
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALIDADE'
-            Title.Caption = 'Validade'
+            Title.Caption = 'Validade '
             Width = 85
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'STATUS'
-            Title.Caption = 'Situa'#231#227'o'
+            Title.Caption = 'Situa'#231#227'o '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOMEFORN'
-            Title.Caption = 'Fornecedor'
+            Title.Caption = 'Fornecedor '
             Width = 330
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ITENS'
-            Title.Caption = 'Itens'
+            Title.Caption = 'Itens '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_TOTAL'
-            Title.Caption = 'Valor Total (R$)'
+            Title.Caption = 'Valor Total (R$) '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'EMISSAO_USUARIO'
-            Title.Caption = 'Emissor / Solicitante'
+            Title.Caption = 'Emissor / Solicitante '
             Width = 130
             Visible = True
           end>
@@ -2073,56 +2075,56 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
             Expanded = False
             FieldName = 'SEQ'
             Title.Alignment = taCenter
-            Title.Caption = '#'
+            Title.Caption = '# '
             Width = 25
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'PRODUTO'
-            Title.Caption = 'Codigo'
+            Title.Caption = 'Codigo '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRI_APRESENTACAO'
-            Title.Caption = 'Descri'#231#227'o + Apresenta'#231#227'o'
+            Title.Caption = 'Descri'#231#227'o + Apresenta'#231#227'o '
             Width = 450
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'QUANTIDADE'
-            Title.Caption = 'Quantidade'
+            Title.Caption = 'Quantidade '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'UNP_SIGLA'
-            Title.Caption = 'Und.'
+            Title.Caption = 'Und. '
             Width = 40
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_UNITARIO'
-            Title.Caption = 'Valor Un. (R$)'
+            Title.Caption = 'Valor Un. (R$) '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'IPI_VALOR_TOTAL'
-            Title.Caption = 'Total IPI (R$)'
+            Title.Caption = 'Total IPI (R$) '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_TOTAL'
-            Title.Caption = 'Valor Total (R$)'
+            Title.Caption = 'Valor Total (R$) '
             Width = 100
             Visible = True
           end>
@@ -2719,7 +2721,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
     Left = 704
-    Top = 8
+    Top = 48
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -2859,7 +2861,7 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
     Left = 912
     Top = 272
     Bitmap = {
-      494C01012B002C003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4319,9 +4321,227 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_REQUISICAO_2013'
+    UpdateOptions.UpdateTableName = 'TBREQUISITA_COMPRA'
+    UpdateOptions.KeyFields = 'ANO;CODIGO;EMPRESA'
+    UpdateOptions.AutoIncFields = 'CODIGO'
+    SQL.Strings = (
+      'Select'
+      '    r.ano'
+      '  , r.codigo'
+      '  , r.empresa'
+      '  , r.numero'
+      '  , r.fornecedor'
+      '  , r.nome_contato'
+      '  , r.tipo'
+      '  , r.insercao_data'
+      '  , r.emissao_data'
+      '  , r.emissao_usuario'
+      '  , r.validade'
+      '  , r.competencia'
+      '  , r.movito'
+      '  , r.observacao'
+      '  , r.cliente'
+      '  , r.centro_custo'
+      '  , r.endereco_entrega'
+      '  , r.status'
+      '  , r.recebedor_nome'
+      '  , r.recebedor_cpf'
+      '  , r.recebedor_funcao'
+      '  , r.forma_pagto'
+      '  , r.condicao_pagto'
+      '  , r.transportador'
+      '  , r.valor_bruto'
+      '  , r.valor_desconto'
+      '  , r.valor_total_frete'
+      '  , r.valor_total_ipi'
+      '  , r.valor_total'
+      '  , r.requisitado_data'
+      '  , r.data_fatura'
+      '  , r.requisitado_usuario'
+      '  , r.cancelado_data'
+      '  , r.cancelado_usuario'
+      '  , r.cancelado_motivo'
+      
+        '  , (Select count(x.seq) from TBREQUISITA_COMPRAITEM x where x.a' +
+        'no = r.ano and x.codigo = r.codigo and x.empresa = r.empresa) as' +
+        ' itens'
+      
+        '  , (Select count(y.autorizacao_ano) from TBAUTORIZA_REQUISITA y' +
+        ' where y.requisicao_ano = r.ano and y.requisicao_cod = r.codigo ' +
+        'and y.requisicao_emp = r.empresa) as autorizacoes'
+      '  , f.nomeforn'
+      '  , f.cnpj'
+      '  , f.pessoa_fisica'
+      '  , f.faturamento_minimo'
+      '  , t.nomeforn as transportador_nome'
+      '  , t.cnpj     as transportador_cpf_cnpj'
+      '  , c.nome     as nomecliente'
+      '  , u.descricao as descricao_centro_custo'
+      'from TBREQUISITA_COMPRA r'
+      '  left join TBFORNECEDOR f on (f.codforn = r.fornecedor)'
+      '  left join TBFORNECEDOR t on (t.codforn = r.transportador)'
+      '  left join TBCLIENTE c on (c.codigo = r.cliente)'
+      '  left join TBCENTRO_CUSTO u on (u.codigo = r.centro_custo)')
     Top = 48
   end
   inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBREQUISITA_COMPRA'
+      '(ANO, CODIGO, EMPRESA, NUMERO, FORNECEDOR, '
+      '  NOME_CONTATO, TIPO, INSERCAO_DATA, EMISSAO_DATA, '
+      '  EMISSAO_USUARIO, VALIDADE, COMPETENCIA, DATA_FATURA, '
+      '  MOVITO, OBSERVACAO, CLIENTE, CENTRO_CUSTO, '
+      '  ENDERECO_ENTREGA, STATUS, REQUISITADO_DATA, '
+      '  REQUISITADO_USUARIO, CANCELADO_DATA, CANCELADO_USUARIO, '
+      '  CANCELADO_MOTIVO, RECEBEDOR_NOME, RECEBEDOR_CPF, '
+      '  RECEBEDOR_FUNCAO, FORMA_PAGTO, CONDICAO_PAGTO, '
+      '  TRANSPORTADOR, VALOR_BRUTO, VALOR_DESCONTO, '
+      '  VALOR_TOTAL_FRETE, VALOR_TOTAL_IPI, VALOR_TOTAL)'
+      
+        'VALUES (:NEW_ANO, :NEW_CODIGO, :NEW_EMPRESA, :NEW_NUMERO, :NEW_F' +
+        'ORNECEDOR, '
+      
+        '  :NEW_NOME_CONTATO, :NEW_TIPO, :NEW_INSERCAO_DATA, :NEW_EMISSAO' +
+        '_DATA, '
+      
+        '  :NEW_EMISSAO_USUARIO, :NEW_VALIDADE, :NEW_COMPETENCIA, :NEW_DA' +
+        'TA_FATURA, '
+      
+        '  :NEW_MOVITO, :NEW_OBSERVACAO, :NEW_CLIENTE, :NEW_CENTRO_CUSTO,' +
+        ' '
+      '  :NEW_ENDERECO_ENTREGA, :NEW_STATUS, :NEW_REQUISITADO_DATA, '
+      
+        '  :NEW_REQUISITADO_USUARIO, :NEW_CANCELADO_DATA, :NEW_CANCELADO_' +
+        'USUARIO, '
+      
+        '  :NEW_CANCELADO_MOTIVO, :NEW_RECEBEDOR_NOME, :NEW_RECEBEDOR_CPF' +
+        ', '
+      '  :NEW_RECEBEDOR_FUNCAO, :NEW_FORMA_PAGTO, :NEW_CONDICAO_PAGTO, '
+      '  :NEW_TRANSPORTADOR, :NEW_VALOR_BRUTO, :NEW_VALOR_DESCONTO, '
+      
+        '  :NEW_VALOR_TOTAL_FRETE, :NEW_VALOR_TOTAL_IPI, :NEW_VALOR_TOTAL' +
+        ')')
+    ModifySQL.Strings = (
+      'UPDATE TBREQUISITA_COMPRA'
+      
+        'SET ANO = :NEW_ANO, CODIGO = :NEW_CODIGO, EMPRESA = :NEW_EMPRESA' +
+        ', '
+      
+        '  NUMERO = :NEW_NUMERO, FORNECEDOR = :NEW_FORNECEDOR, NOME_CONTA' +
+        'TO = :NEW_NOME_CONTATO, '
+      
+        '  TIPO = :NEW_TIPO, INSERCAO_DATA = :NEW_INSERCAO_DATA, EMISSAO_' +
+        'DATA = :NEW_EMISSAO_DATA, '
+      
+        '  EMISSAO_USUARIO = :NEW_EMISSAO_USUARIO, VALIDADE = :NEW_VALIDA' +
+        'DE, '
+      
+        '  COMPETENCIA = :NEW_COMPETENCIA, DATA_FATURA = :NEW_DATA_FATURA' +
+        ', '
+      
+        '  MOVITO = :NEW_MOVITO, OBSERVACAO = :NEW_OBSERVACAO, CLIENTE = ' +
+        ':NEW_CLIENTE, '
+      
+        '  CENTRO_CUSTO = :NEW_CENTRO_CUSTO, ENDERECO_ENTREGA = :NEW_ENDE' +
+        'RECO_ENTREGA, '
+      
+        '  STATUS = :NEW_STATUS, REQUISITADO_DATA = :NEW_REQUISITADO_DATA' +
+        ', '
+      
+        '  REQUISITADO_USUARIO = :NEW_REQUISITADO_USUARIO, CANCELADO_DATA' +
+        ' = :NEW_CANCELADO_DATA, '
+      
+        '  CANCELADO_USUARIO = :NEW_CANCELADO_USUARIO, CANCELADO_MOTIVO =' +
+        ' :NEW_CANCELADO_MOTIVO, '
+      
+        '  RECEBEDOR_NOME = :NEW_RECEBEDOR_NOME, RECEBEDOR_CPF = :NEW_REC' +
+        'EBEDOR_CPF, '
+      
+        '  RECEBEDOR_FUNCAO = :NEW_RECEBEDOR_FUNCAO, FORMA_PAGTO = :NEW_F' +
+        'ORMA_PAGTO, '
+      
+        '  CONDICAO_PAGTO = :NEW_CONDICAO_PAGTO, TRANSPORTADOR = :NEW_TRA' +
+        'NSPORTADOR, '
+      
+        '  VALOR_BRUTO = :NEW_VALOR_BRUTO, VALOR_DESCONTO = :NEW_VALOR_DE' +
+        'SCONTO, '
+      
+        '  VALOR_TOTAL_FRETE = :NEW_VALOR_TOTAL_FRETE, VALOR_TOTAL_IPI = ' +
+        ':NEW_VALOR_TOTAL_IPI, '
+      '  VALOR_TOTAL = :NEW_VALOR_TOTAL'
+      
+        'WHERE ANO = :OLD_ANO AND CODIGO = :OLD_CODIGO AND EMPRESA = :OLD' +
+        '_EMPRESA')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBREQUISITA_COMPRA'
+      
+        'WHERE ANO = :OLD_ANO AND CODIGO = :OLD_CODIGO AND EMPRESA = :OLD' +
+        '_EMPRESA')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    r.ano'
+      '  , r.codigo'
+      '  , r.empresa'
+      '  , r.numero'
+      '  , r.fornecedor'
+      '  , r.nome_contato'
+      '  , r.tipo'
+      '  , r.insercao_data'
+      '  , r.emissao_data'
+      '  , r.emissao_usuario'
+      '  , r.validade'
+      '  , r.competencia'
+      '  , r.movito'
+      '  , r.observacao'
+      '  , r.cliente'
+      '  , r.centro_custo'
+      '  , r.endereco_entrega'
+      '  , r.status'
+      '  , r.recebedor_nome'
+      '  , r.recebedor_cpf'
+      '  , r.recebedor_funcao'
+      '  , r.forma_pagto'
+      '  , r.condicao_pagto'
+      '  , r.transportador'
+      '  , r.valor_bruto'
+      '  , r.valor_desconto'
+      '  , r.valor_total_frete'
+      '  , r.valor_total_ipi'
+      '  , r.valor_total'
+      '  , r.requisitado_data'
+      '  , r.data_fatura'
+      '  , r.requisitado_usuario'
+      '  , r.cancelado_data'
+      '  , r.cancelado_usuario'
+      '  , r.cancelado_motivo'
+      
+        '  , (Select count(x.seq) from TBREQUISITA_COMPRAITEM x where x.a' +
+        'no = r.ano and x.codigo = r.codigo and x.empresa = r.empresa) as' +
+        ' itens'
+      
+        '  , (Select count(y.autorizacao_ano) from TBAUTORIZA_REQUISITA y' +
+        ' where y.requisicao_ano = r.ano and y.requisicao_cod = r.codigo ' +
+        'and y.requisicao_emp = r.empresa) as autorizacoes'
+      '  , f.nomeforn'
+      '  , f.cnpj'
+      '  , f.pessoa_fisica'
+      '  , f.faturamento_minimo'
+      '  , t.nomeforn as transportador_nome'
+      '  , t.cnpj     as transportador_cpf_cnpj'
+      '  , c.nome     as nomecliente'
+      '  , u.descricao as descricao_centro_custo'
+      'from TBREQUISITA_COMPRA r'
+      '  left join TBFORNECEDOR f on (f.codforn = r.fornecedor)'
+      '  left join TBFORNECEDOR t on (t.codforn = r.transportador)'
+      '  left join TBCLIENTE c on (c.codigo = r.cliente)'
+      '  left join TBCENTRO_CUSTO u on (u.codigo = r.centro_custo)'
+      ''
+      
+        'WHERE r.ANO = :ANO AND r.CODIGO = :CODIGO AND r.EMPRESA = :EMPRE' +
+        'SA')
     Top = 48
   end
   object tblEmpresa: TIBTable
@@ -4374,8 +4594,8 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
     ParamCheck = True
     UniDirectional = False
     UpdateObject = IbUpdTabelaItens
-    Left = 640
-    Top = 80
+    Left = 664
+    Top = 176
     object cdsTabelaItensANO: TSmallintField
       FieldName = 'ANO'
       Origin = '"TBAUTORIZA_COMPRAITEM"."ANO"'
@@ -4557,16 +4777,16 @@ inherited frmGeRequisicaoCompra: TfrmGeRequisicaoCompra
       '  CODIGO = :OLD_CODIGO and'
       '  EMPRESA = :OLD_EMPRESA and'
       '  SEQ = :OLD_SEQ')
-    Left = 672
-    Top = 80
+    Left = 696
+    Top = 176
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
     DataSet = cdsTabelaItens
     OnStateChange = DtSrcTabelaItensStateChange
     OnDataChange = DtSrcTabelaItensDataChange
-    Left = 704
-    Top = 80
+    Left = 728
+    Top = 176
   end
   object ppImprimir: TPopupMenu
     Images = ImgList

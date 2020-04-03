@@ -1,8 +1,8 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,677,20,689,0,0,,
-File_1=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVendaConfirmaTitulos.pas',0,1,80,5,95,0,0,,
-File_2=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas',0,1,367,1,368,0,0,,
-File_3=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas',0,1,1,1,1,0,0,,
+File_0=TSourceModule,'C:\Delphi\ACBr\Fontes\ACBrComum\ACBrUtil.pas',0,1,3670,1,3703,0,0,,
+File_1=TSourceModule,'c:\delphi\tokyo\studio\19.0\source\rtl\common\System.Classes.pas',0,1,4637,1,4670,0,0,,
+File_2=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVendaConfirmaTitulos.pas',0,1,80,5,95,0,0,,
+File_3=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas',0,1,367,1,368,0,0,,
 File_4=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.dfm',0,1,1,1,1,0,0,,
 File_5=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UFuncoes.pas',0,1,1,18,35,0,0,,
 File_6=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UPersonalizaEmpresa.pas',0,1,3,26,35,0,0,,
@@ -13,25 +13,25 @@ File_10=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\USob
 File_11=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeSobre.pas',0,1,1,29,14,0,0,,
 File_12=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeCaixa.pas',0,1,901,32,934,0,0,,
 File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVDesconto.pas',0,1,1,1,1,0,0,,
-File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDVFinalizar.pas',0,1,1,61,10,0,0,,
 
 [Modules]
 Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
-Module2=default.htm
-Module3=documentation.htm
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas
-Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
-Count=9
+Module1=default.htm
+Module2=documentation.htm
+Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
+Module9=C:\Delphi\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
+Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVendaCancelar.pas
+Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas
+Module12=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Count=13
 EditWindowCount=1
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas]
 ModuleType=TSourceModule
 
 [default.htm]
@@ -43,10 +43,25 @@ ModuleType=TURLModule
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj]
 ModuleType=TBaseProject
 
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas]
+ModuleType=TSourceModule
+
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas]
+ModuleType=TSourceModule
+
+[C:\Delphi\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVendaCancelar.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas]
@@ -56,7 +71,7 @@ ModuleType=TSourceModule
 ModuleType=TSourceModule
 
 [EditWindow0]
-ViewCount=9
+ViewCount=13
 CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
 View0=0
 View1=1
@@ -67,6 +82,10 @@ View5=5
 View6=6
 View7=7
 View8=8
+View9=9
+View10=10
+View11=11
+View12=12
 PercentageSizes=1
 Create=1
 Visible=1
@@ -140,9 +159,9 @@ EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pa
 [View5]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-CursorX=3
-CursorY=1940
-TopLine=1892
+CursorX=18
+CursorY=3084
+TopLine=3058
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -151,15 +170,26 @@ EditViewName=Borland.FormDesignerView
 [View6]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-CursorX=88
-CursorY=8450
-TopLine=8427
+CursorX=48
+CursorY=7210
+TopLine=7189
+LeftCol=1
+Elisions=
+Bookmarks={1,7197,1}{2,2442,5}
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+
+[View7]
+CustomEditViewType=TEditView
+Module=C:\Delphi\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
+CursorX=1
+CursorY=1
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=C:\Delphi\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
 
-[View7]
+[View8]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas
 CursorX=1
@@ -170,7 +200,7 @@ Elisions=
 Bookmarks=
 EditViewName=Borland.FormDesignerView
 
-[View8]
+[View9]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
 CursorX=10
@@ -180,6 +210,39 @@ LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
+
+[View10]
+CustomEditViewType=TEditView
+Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
+CursorX=94
+CursorY=3
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=Borland.FormDesignerView
+
+[View11]
+CustomEditViewType=TEditView
+Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
+CursorX=1
+CursorY=2676
+TopLine=2632
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
+
+[View12]
+CustomEditViewType=TEditView
+Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVendaCancelar.pas
+CursorX=1
+CursorY=145
+TopLine=101
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVendaCancelar.pas
 
 [UndockedDesigner]
 Count=0
@@ -209,11 +272,13 @@ Dockable=1
 StayOnTop=0
 
 [Breakpoints]
-Count=4
-Breakpoint0='D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',5615,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint1='D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',5845,'',0,1,'',1,0,0,'',1,'','','',0,''
+Count=6
+Breakpoint0='D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',5616,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint1='D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',5846,'',0,1,'',1,0,0,'',1,'','','',0,''
 Breakpoint2='D:\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',3036,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint3='D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',7132,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint3='D:\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',7137,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint4='C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',7723,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint5='C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',6797,'',0,1,'',1,0,0,'',1,'','','',0,''
 
 [EmbarcaderoWin32Debugger_AddressBreakpoints]
 Count=0
@@ -394,8 +459,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-8
-Top=-8
+Left=-1468
+Top=-137
 Width=2844
 Height=6202
 MaxLeft=-1
@@ -638,7 +703,7 @@ Visible=0
 Docked=1
 State=0
 Left=-8
-Top=-8
+Top=-137
 Width=1849
 Height=3144
 MaxLeft=-1

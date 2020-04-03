@@ -1407,7 +1407,11 @@ begin
 
   end;
 
-  inherited;
+  // Desistir na inserção de um novo produto/serviço
+  if ( (Key = VK_ESCAPE) and (pgcGuias.ActivePage = tbsCadastro) and (cdsTabelaItens.State in [dsEdit, dsInsert]) ) then
+    cdsTabelaItens.Cancel
+  else
+    inherited;
 end;
 
 function TfrmGeCotacaoCompra.GetRotinaAutorizarID: String;
@@ -1493,7 +1497,11 @@ begin
         , EmptyStr
         , DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').Value
         , DtSrcTabela.DataSet.FieldByName('VALIDADE').Value) then
-          AbrirTabelaFornecedores( DtSrcTabela.DataSet.FieldByName('ANO').Value, DtSrcTabela.DataSet.FieldByName('CODIGO').Value );
+      begin
+
+        AbrirTabelaFornecedores( DtSrcTabela.DataSet.FieldByName('ANO').Value, DtSrcTabela.DataSet.FieldByName('CODIGO').Value );
+
+      end;
     end;
   end;
 end;
@@ -1531,7 +1539,11 @@ begin
       , EmptyStr
       , DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').Value
       , DtSrcTabela.DataSet.FieldByName('VALIDADE').Value) then
-        AbrirTabelaFornecedores( DtSrcTabela.DataSet.FieldByName('ANO').Value, DtSrcTabela.DataSet.FieldByName('CODIGO').Value );
+    begin
+
+      AbrirTabelaFornecedores( DtSrcTabela.DataSet.FieldByName('ANO').Value, DtSrcTabela.DataSet.FieldByName('CODIGO').Value );
+
+    end;
   end;
 end;
 
@@ -1585,11 +1597,6 @@ begin
   if ( qryFornecedor.IsEmpty ) then
     Exit;
 
-  sID       := FormatFloat('00000', qryFornecedorFORNECEDOR.AsInteger);
-  sFileName := Path_MeusDocumentos + '\' +
-    'COTACAO_' + sID + '.' + qryFornecedorEMPRESA.AsString + '_' +
-      StringReplace(DtSrcTabela.DataSet.FieldByName('NUMERO').AsString, '/', '-', [rfReplaceAll]) + '.xls';
-
   with DMNFe do
   begin
 
@@ -1624,6 +1631,11 @@ begin
       ParamByName('todos').AsInteger := 0;
       Open;
     end;
+
+    sID       := FormatFloat('00000', qryFornecedorFORNECEDOR.AsInteger);
+    sFileName := Path_MeusDocumentos + '\' +
+      'COTACAO_' + sID + '.' + qryFornecedorEMPRESA.AsString + '_' +
+        StringReplace(DtSrcTabela.DataSet.FieldByName('NUMERO').AsString, '/', '-', [rfReplaceAll]) + '.xls';
 
     ExportarFR3_ToXSL(frrCotacaoCompra, sFileName);
 
@@ -1771,7 +1783,7 @@ procedure TfrmGeCotacaoCompra.SetCotacaoFornecedorProcessa(Empresa: String;
 begin
   with spSetCotacaoFornecedorProcessa do
   begin
-    ParamByName('ano').AsInteger    := Ano;
+    ParamByName('ano').AsSmallInt   := Ano;
     ParamByName('codigo').AsInteger := Codigo;
     ParamByName('empresa').AsString := Empresa;
 
@@ -1840,15 +1852,18 @@ end;
 
 procedure TfrmGeCotacaoCompra.BtnFornecedorExcluirClick(Sender: TObject);
 begin
-  if ( not qryFornecedor.IsEmpty ) then
-    if ( ShowConfirm('Deseja excluir o fornecedor selecionado?') ) then
-    begin
-      qryFornecedor.Delete;
-      //qryFornecedor.ApplyUpdates;
+  if GetPermissaoRotinaInterna(PnlFornecedor, True) then
+  begin
+    if ( not qryFornecedor.IsEmpty ) then
+      if ( ShowConfirm('Deseja excluir o fornecedor selecionado?') ) then
+      begin
+        qryFornecedor.Delete;
+        //qryFornecedor.ApplyUpdates;
 
-      RecarregarRegistro;
-      pgcMaisDados.ActivePage := tbsFornecedor;
-    end;
+        RecarregarRegistro;
+        pgcMaisDados.ActivePage := tbsFornecedor;
+      end;
+  end;
 end;
 
 initialization

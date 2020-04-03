@@ -23,7 +23,7 @@ uses
   FireDAC.Phys.IB, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.VCLUI.Wait, FireDAC.Comp.UI,
   FireDAC.Comp.ScriptCommands, FireDAC.Stan.Util,
-  FireDAC.Comp.Script;
+  FireDAC.Comp.Script, frxExportXLS;
 
 type
   TSistema = record
@@ -126,6 +126,7 @@ type
     frxODT: TfrxODTExport;
     frxXML: TfrxXMLExport;
     stpContaCorrenteSaldo_v2: TFDStoredProc;
+    frxXLS: TfrxXLSExport;
     procedure DataModuleCreate(Sender: TObject);
     procedure fdScriptBeforeExecute(Sender: TObject);
     procedure fdScriptError(ASender: TObject; const AInitiator: IFDStanObject;
@@ -203,6 +204,7 @@ var
   procedure GetDataSet(const FDataSet : TClientDataSet; const sNomeTabela, sQuando, sOrdernarPor : String);
 
   procedure ExportarFR3_ToXSL(const FrrLayout: TfrxReport; var sFileName : String);
+  procedure ExportarFR3_ToXLSX(const FrrLayout: TfrxReport; var sFileName : String);
 
   procedure Desativar_Promocoes;
   procedure GerarSaldoContaCorrente(const pContaCorrente : Integer; const pData : TDateTime);
@@ -328,6 +330,7 @@ var
   function GetNextID(NomeTabela, CampoChave : String; const sWhere : String = '') : Largeint;
   function GetCountID(NomeTabela : String; const sWhere : String = '') : Largeint;
   function GetNumeroNFe(const aEmissorCNPJ : String; const aSerie, aModelo : Integer) : Largeint;
+  function GetNumeroNFCe(const aEmissorCNPJ : String; const aSerie, aModelo : Integer) : Largeint;
   function GetGuidID38 : String;
   function GetPaisNomeDefault : String;
   function GetEstadoNomeDefault : String;
@@ -1213,12 +1216,32 @@ begin
 
     ForceDirectories( ExtractFilePath(sFileName) );
     PrepareReport;
-    frxXML.FileName := sFileName;
-    frxXML.Report   := FrrLayout;
+    frxXLS.FileName := sFileName;
+    frxXLS.Report   := FrrLayout;
 
-    Export(frxXML);
+    Export(frxXLS);
 
-    sFileName := frxXML.FileName;
+    sFileName := frxXLS.FileName;
+  end;
+end;
+
+procedure ExportarFR3_ToXLSX(const FrrLayout: TfrxReport; var sFileName : String);
+begin
+  KillTask('EXCEL.EXE');
+
+  with DMBusiness, FrrLayout, PrintOptions do
+  begin
+    if FileExists(sFileName) then
+      DeleteFile(sFileName);
+
+    ForceDirectories( ExtractFilePath(sFileName) );
+    PrepareReport;
+    frxXLSX.FileName := sFileName;
+    frxXLSX.Report   := FrrLayout;
+
+    Export(frxXLSX);
+
+    sFileName := frxXLSX.FileName;
   end;
 end;
 
@@ -3365,6 +3388,25 @@ begin
   try
     aNumero := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(aEmissorCNPJ));
     while GetExisteNumeroNFe(aEmissorCNPJ, FormatFloat('00', aSerie), aNumero, MODELO_NFE) and (aControle < 10) do
+    begin
+      aNumero := (aNumero + 1);
+      Inc(aControle);
+    end;
+  finally
+    Result := aNumero;
+  end;
+end;
+
+function GetNumeroNFCe(const aEmissorCNPJ : String; const aSerie, aModelo : Integer) : Largeint;
+var
+  aNumero   : Largeint;
+  aControle : Integer;
+begin
+  aNumero   := 0;
+  aControle := 0;
+  try
+    aNumero := GetNextID('TBCONFIGURACAO', 'NFCE_NUMERO', 'where EMPRESA = ' + QuotedStr(aEmissorCNPJ));
+    while GetExisteNumeroNFe(aEmissorCNPJ, FormatFloat('00', aSerie), aNumero, aModelo) and (aControle < 10) do
     begin
       aNumero := (aNumero + 1);
       Inc(aControle);

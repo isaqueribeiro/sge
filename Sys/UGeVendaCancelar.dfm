@@ -529,7 +529,7 @@ inherited frmGeVendaCancelar: TfrmGeVendaCancelar
       '  , v.Xml_nfe'
       '  , c.Nome'
       'from TBVENDAS v'
-      '  inner join TBCLIENTE c on (c.Cnpj = v.Codcli)'
+      '  inner join TBCLIENTE c on (c.codigo = v.codcliente)'
       'where v.Ano = :anovenda'
       '  and v.Codcontrol = :numvenda'
       '')
@@ -747,7 +747,7 @@ inherited frmGeVendaCancelar: TfrmGeVendaCancelar
       '  , v.Xml_nfe'
       '  , c.Nome'
       'from TBVENDAS v'
-      '  inner join TBCLIENTE c on (c.Cnpj = v.Codcli)'
+      '  inner join TBCLIENTE c on (c.codigo = v.codcliente)'
       ''
       'WHERE v.ANO = :ANO AND v.CODCONTROL = :CODCONTROL')
     Left = 320

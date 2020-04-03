@@ -2439,7 +2439,6 @@ begin
     AbrirVenda( iAnoVenda, iNumVenda );
 
     iSerieNFe   := qryEmitenteSERIE_NFE.AsInteger;
-    //iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
     iNumeroNFe  := GetNumeroNFe(sCNPJEmitente, iSerieNFe, MODELO_NFE);
     iCodigoNFE  := GerarCodigoDFe(iNumeroNFe);
     DtHoraEmiss := GetDateTimeDB;
@@ -2731,8 +2730,10 @@ begin
             //Prod.cEAN   := EmptyStr;
             //Prod.cEAN     := 'SEM GTIN';
             //Prod.cEANTrib := 'SEM GTIN';
-            Prod.cEAN     := Trim(qryDadosProduto.FieldByName('CODPROD').AsString);
-            Prod.cEAN     := PadLeft(Prod.cEAN, 12, '0') + EAN13_DV(Prod.cEAN);
+//            Prod.cEAN     := Trim(qryDadosProduto.FieldByName('CODPROD').AsString);
+//            Prod.cEAN     := PadLeft(Prod.cEAN, 12, '0') + EAN13_DV(Prod.cEAN);
+            Prod.cEAN     := '200' + PadLeft(Trim(qryDadosProduto.FieldByName('CODPROD').AsString), 9, '0');
+            Prod.cEAN     := Prod.cEAN + EAN13_DV(Prod.cEAN);
             Prod.cEANTrib := Prod.cEAN;
           end;
 
@@ -6973,6 +6974,7 @@ var
   // Totalizar Valores
   cTotal_ICMSTot_vBC   ,
   cTotal_ICMSTot_vICMS : Currency;
+  iCodigoNFCe          : Integer;
 begin
 (*
   IMR - 11/06/2018 :
@@ -7004,14 +7006,17 @@ begin
       raise Exception.Create('O segmento da empresa não permite a emissão de NFC-e!');
 
     iSerieNFCe  := qryEmitenteSERIE_NFCE.AsInteger;
-    iNumeroNFCe := GetNextID('TBCONFIGURACAO', 'NFCE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
+    iNumeroNFCe := GetNumeroNFCe(sCNPJEmitente, iSerieNFCe, MODELO_NFCE);
+    iCodigoNFCe := GerarCodigoDFe(iNumeroNFCe);
     DtHoraEmiss := Now; // GetDateTimeDB; // Porque a validação do XML ocorre pela data/hora local da máquina
+
+    GuardarCodigoNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iCodigoNFCe);
 
     ACBrNFe.NotasFiscais.Clear;
 
     with ACBrNFe.NotasFiscais.Add.NFe do
     begin
-      Ide.cNF   := iNumeroNFCe;
+      Ide.cNF   := iCodigoNFCe;
       Ide.natOp := 'VENDA'; // Da CFOP 5101 // qryCalculoImportoCFOP_RESUMIDO.AsString;
 
       // Entradas ou saídas dentro do Estado
@@ -7191,16 +7196,18 @@ begin
 
           if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a função "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
           begin
-            Prod.cEAN   := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString;
+            Prod.cEAN     := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString;
             Prod.cEANTrib := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString;
           end
           else
           begin
-            //Prod.cEAN   := EmptyStr;
+            //Prod.cEAN     := EmptyStr;
             //Prod.cEAN     := 'SEM GTIN';
             //Prod.cEANTrib := 'SEM GTIN';
-            Prod.cEAN     := Trim(qryDadosProduto.FieldByName('CODPROD').AsString);
-            Prod.cEAN     := PadLeft(Prod.cEAN, 12, '0') + EAN13_DV(Prod.cEAN);
+//            Prod.cEAN     := Trim(qryDadosProduto.FieldByName('CODPROD').AsString);
+//            Prod.cEAN     := PadLeft(Prod.cEAN, 12, '0') + EAN13_DV(Prod.cEAN);
+            Prod.cEAN     := '200' + PadLeft(Trim(qryDadosProduto.FieldByName('CODPROD').AsString), 9, '0');
+            Prod.cEAN     := Prod.cEAN + EAN13_DV(Prod.cEAN);
             Prod.cEANTrib := Prod.cEAN;
           end;
 

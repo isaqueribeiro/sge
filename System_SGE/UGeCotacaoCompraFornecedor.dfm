@@ -42,6 +42,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
+    ExplicitTop = -2
     DesignSize = (
       756
       121)
@@ -262,7 +263,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     ActivePage = TbsFornecedor
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
-    TabOrder = 3
+    TabOrder = 1
     object TbsFornecedor: TTabSheet
       Caption = '&Fornecedor'
       DesignSize = (
@@ -577,7 +578,8 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     OptionsImage.Images = DMRecursos.ImgBotoes16x16
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 4
+    TabOrder = 2
+    TabStop = False
     Visible = False
   end
   object btnSalvar: TcxButton
@@ -589,7 +591,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     Caption = '&Salvar'
     OptionsImage.ImageIndex = 22
     OptionsImage.Images = DMRecursos.ImgBotoes16x16
-    TabOrder = 1
+    TabOrder = 3
     OnClick = btnSalvarClick
   end
   object btFechar: TcxButton
@@ -602,7 +604,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     Caption = 'Fechar'
     OptionsImage.ImageIndex = 15
     OptionsImage.Images = DMRecursos.ImgBotoes16x16
-    TabOrder = 2
+    TabOrder = 4
     OnClick = btFecharClick
   end
   object dtsFornecedor: TDataSource
@@ -682,8 +684,10 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       end>
   end
   object qryFornecedor: TFDQuery
+    Active = True
     BeforePost = qryFornecedorBeforePost
     OnNewRecord = qryFornecedorNewRecord
+    CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
     UpdateTransaction = DMBusiness.fdTransacao
@@ -1000,6 +1004,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     Top = 16
   end
   object qryItem: TFDQuery
+    Active = True
     BeforePost = qryItemBeforePost
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
@@ -1146,60 +1151,25 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
   end
   object updItem: TFDUpdateSQL
     Connection = DMBusiness.fdConexao
-    InsertSQL.Strings = (
-      'INSERT INTO TBCOTACAO_COMPRAITEM'
-      '(ANO, CODIGO, EMPRESA, SEQ, PRODUTO, '
-      '  QUANTIDADE, UNIDADE)'
-      
-        'VALUES (:NEW_ANO, :NEW_CODIGO, :NEW_EMPRESA, :NEW_SEQ, :NEW_PROD' +
-        'UTO, '
-      '  :NEW_QUANTIDADE, :NEW_UNIDADE)')
     ModifySQL.Strings = (
-      'UPDATE TBCOTACAO_COMPRAITEM'
+      'UPDATE TBCOTACAO_COMPRAFORN_ITEM'
       
-        'SET ANO = :NEW_ANO, CODIGO = :NEW_CODIGO, EMPRESA = :NEW_EMPRESA' +
-        ', '
-      
-        '  SEQ = :NEW_SEQ, PRODUTO = :NEW_PRODUTO, QUANTIDADE = :NEW_QUAN' +
-        'TIDADE, '
-      '  UNIDADE = :NEW_UNIDADE'
+        'SET VALOR_UNITARIO = :NEW_VALOR_UNITARIO, VALOR_TOTAL = :NEW_VAL' +
+        'OR_TOTAL'
       
         'WHERE ANO = :OLD_ANO AND CODIGO = :OLD_CODIGO AND EMPRESA = :OLD' +
         '_EMPRESA AND '
-      '  SEQ = :OLD_SEQ')
-    DeleteSQL.Strings = (
-      'DELETE FROM TBCOTACAO_COMPRAITEM'
-      
-        'WHERE ANO = :OLD_ANO AND CODIGO = :OLD_CODIGO AND EMPRESA = :OLD' +
-        '_EMPRESA AND '
-      '  SEQ = :OLD_SEQ')
+      '  FORNECEDOR = :OLD_FORNECEDOR AND ITEM = :OLD_ITEM'
+      'RETURNING VALOR_TOTAL')
     FetchRowSQL.Strings = (
-      'select'
-      '    ci.ano'
-      '  , ci.codigo'
-      '  , ci.empresa'
-      '  , ci.seq'
-      '  , ci.produto'
-      '  , ci.quantidade'
-      '  , ci.unidade'
-      '  , p.descri_apresentacao'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      '  , i.fornecedor'
-      '  , i.item'
-      '  , i.valor_unitario'
-      '  , i.valor_total'
-      'from TBCOTACAO_COMPRAITEM ci'
-      '  left join TBPRODUTO p on (p.cod = ci.produto)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = ci.unidade)'
       
-        '  left join TBCOTACAO_COMPRAFORN_ITEM i on (i.ano = ci.ano and i' +
-        '.codigo = ci.codigo and i.empresa = ci.empresa and i.item = ci.s' +
-        'eq and i.fornecedor = :for)'
-      ''
+        'SELECT ANO, CODIGO, EMPRESA, FORNECEDOR, ITEM, VALOR_UNITARIO, V' +
+        'ALOR_TOTAL'
+      'FROM TBCOTACAO_COMPRAFORN_ITEM'
       
-        'WHERE ci.ANO = :ANO AND ci.CODIGO = :CODIGO AND ci.EMPRESA = :EM' +
-        'PRESA AND ci.SEQ = :SEQ')
+        'WHERE ANO = :ANO AND CODIGO = :CODIGO AND EMPRESA = :EMPRESA AND' +
+        ' FORNECEDOR = :FORNECEDOR AND '
+      '  ITEM = :ITEM')
     Left = 288
     Top = 48
   end

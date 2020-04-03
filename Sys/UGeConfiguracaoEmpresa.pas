@@ -205,12 +205,12 @@ begin
   TbsNFSe.TabVisible         := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
   TbsOutrasConfig.TabVisible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
 
-  chkNFE_Emitir.Enabled             := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
-  chkNFE_EmitirEntrada.Enabled      := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
-  grpBxNFe.Enabled                  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
-  chkNFE_SalvarNotaDenegada.Enabled := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
-  chkNFE_SolicitaDHSaida.Enabled    := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
-  chkImprimirCodCliente.Enabled     := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  chkNFE_Emitir.Enabled             := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  chkNFE_EmitirEntrada.Enabled      := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  grpBxNFe.Enabled                  := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  chkNFE_SalvarNotaDenegada.Enabled := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  chkNFE_SolicitaDHSaida.Enabled    := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+  chkImprimirCodCliente.Enabled     := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
 end;
 
 procedure TfrmGeConfiguracaoEmpresa.DtSrcTabelaStateChange(
