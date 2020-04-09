@@ -5,8 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB,
-  IBCustomDataSet, IBUpdateSQL, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons,
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
@@ -35,22 +34,7 @@ type
     dbCancelUsuario: TEdit;
     dbCancelDataHora: TEdit;
     Bevel2: TBevel;
-    cdsRequisicao: TIBDataSet;
-    updRequisicao: TIBUpdateSQL;
     dtsRequisicao: TDataSource;
-    cdsRequisicaoANO: TSmallintField;
-    cdsRequisicaoCONTROLE: TIntegerField;
-    cdsRequisicaoNUMERO: TIBStringField;
-    cdsRequisicaoEMPRESA: TIBStringField;
-    cdsRequisicaoCCUSTO_ORIGEM: TIntegerField;
-    cdsRequisicaoCCUSTO_DESTINO: TIntegerField;
-    cdsRequisicaoSTATUS: TSmallintField;
-    cdsRequisicaoDATA_EMISSAO: TDateField;
-    cdsRequisicaoCANCEL_USUARIO: TIBStringField;
-    cdsRequisicaoCANCEL_DATA: TDateTimeField;
-    cdsRequisicaoCANCEL_MOTIVO: TMemoField;
-    cdsRequisicaoCC_ORIGEM_DESC: TIBStringField;
-    cdsRequisicaoCC_DESTINO_DESC: TIBStringField;
     lblCentroCustoDestino: TLabel;
     dbCentroCustoDestino: TDBEdit;
     pnlBotoes: TPanel;
@@ -58,6 +42,21 @@ type
     Bevel3: TBevel;
     btnCancelar: TcxButton;
     btFechar: TcxButton;
+    cdsRequisicao: TFDQuery;
+    updRequisicao: TFDUpdateSQL;
+    cdsRequisicaoANO: TSmallintField;
+    cdsRequisicaoCONTROLE: TFDAutoIncField;
+    cdsRequisicaoNUMERO: TStringField;
+    cdsRequisicaoEMPRESA: TStringField;
+    cdsRequisicaoCCUSTO_ORIGEM: TIntegerField;
+    cdsRequisicaoCCUSTO_DESTINO: TIntegerField;
+    cdsRequisicaoSTATUS: TSmallintField;
+    cdsRequisicaoDATA_EMISSAO: TDateField;
+    cdsRequisicaoCANCEL_USUARIO: TStringField;
+    cdsRequisicaoCANCEL_DATA: TSQLTimeStampField;
+    cdsRequisicaoCANCEL_MOTIVO: TMemoField;
+    cdsRequisicaoCC_ORIGEM_DESC: TStringField;
+    cdsRequisicaoCC_DESTINO_DESC: TStringField;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
   private
@@ -98,7 +97,7 @@ begin
     with frm do
     begin
       cdsRequisicao.Close;
-      cdsRequisicao.ParamByName('ano').AsShort        := Ano;
+      cdsRequisicao.ParamByName('ano').AsSmallInt     := Ano;
       cdsRequisicao.ParamByName('controle').AsInteger := Numero;
       cdsRequisicao.Open;
 
@@ -160,6 +159,8 @@ begin
 
         Post;
         ApplyUpdates;
+        CommitUpdates;
+
         CommitTransaction;
 
         ModalResult := mrOk;

@@ -43,7 +43,6 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 539
     object lblCodigo: TLabel
       Left = 16
       Top = 24
@@ -187,8 +186,6 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
-    ExplicitWidth = 729
-    ExplicitHeight = 228
     object lblCancelUsuario: TLabel
       Left = 16
       Top = 24
@@ -290,8 +287,6 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 377
-    ExplicitWidth = 589
     object lblInforme: TLabel
       AlignWithMargins = True
       Left = 3
@@ -384,8 +379,6 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       OptionsImage.NumGlyphs = 2
       TabOrder = 0
       OnClick = btnCancelarClick
-      ExplicitLeft = 407
-      ExplicitTop = 2
     end
     object btFechar: TcxButton
       Left = 505
@@ -449,18 +442,26 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       OptionsImage.NumGlyphs = 2
       TabOrder = 1
       OnClick = btFecharClick
-      ExplicitLeft = 497
     end
   end
-  object cdsRequisicao: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
+  object dtsRequisicao: TDataSource
+    AutoEdit = False
+    DataSet = cdsRequisicao
+    Left = 288
+    Top = 232
+  end
+  object cdsRequisicao: TFDQuery
     CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_REQUISICAO_ALMOX_2015'
+    UpdateOptions.KeyFields = 'ANO;CONTROLE'
+    UpdateOptions.AutoIncFields = 'CONTROLE'
+    UpdateObject = updRequisicao
+    SQL.Strings = (
       'Select'
       '    r.ano'
       '  , r.controle'
@@ -485,138 +486,189 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
       ''
       'where r.ano      = :ano'
       '  and r.controle = :controle')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    GeneratorField.Field = 'CODCONTROL'
-    UpdateObject = updRequisicao
-    Left = 472
-    Top = 72
+    Left = 225
+    Top = 232
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'CONTROLE'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
     object cdsRequisicaoANO: TSmallintField
       FieldName = 'ANO'
-      Origin = '"TBREQUISICAO_ALMOX"."ANO"'
+      Origin = 'ANO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object cdsRequisicaoCONTROLE: TIntegerField
+    object cdsRequisicaoCONTROLE: TFDAutoIncField
       FieldName = 'CONTROLE'
-      Origin = '"TBREQUISICAO_ALMOX"."CONTROLE"'
+      Origin = 'CONTROLE'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
+      IdentityInsert = True
     end
-    object cdsRequisicaoNUMERO: TIBStringField
+    object cdsRequisicaoNUMERO: TStringField
       FieldName = 'NUMERO'
-      Origin = '"TBREQUISICAO_ALMOX"."NUMERO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'NUMERO'
       Required = True
     end
-    object cdsRequisicaoEMPRESA: TIBStringField
+    object cdsRequisicaoEMPRESA: TStringField
       FieldName = 'EMPRESA'
-      Origin = '"TBREQUISICAO_ALMOX"."EMPRESA"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'EMPRESA'
       Required = True
       Size = 18
     end
     object cdsRequisicaoCCUSTO_ORIGEM: TIntegerField
       FieldName = 'CCUSTO_ORIGEM'
-      Origin = '"TBREQUISICAO_ALMOX"."CCUSTO_ORIGEM"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'CCUSTO_ORIGEM'
       Required = True
     end
     object cdsRequisicaoCCUSTO_DESTINO: TIntegerField
       FieldName = 'CCUSTO_DESTINO'
-      Origin = '"TBREQUISICAO_ALMOX"."CCUSTO_DESTINO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'CCUSTO_DESTINO'
       Required = True
     end
     object cdsRequisicaoSTATUS: TSmallintField
       FieldName = 'STATUS'
-      Origin = '"TBREQUISICAO_ALMOX"."STATUS"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'STATUS'
+      Required = True
     end
     object cdsRequisicaoDATA_EMISSAO: TDateField
       FieldName = 'DATA_EMISSAO'
-      Origin = '"TBREQUISICAO_ALMOX"."DATA_EMISSAO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'DATA_EMISSAO'
       DisplayFormat = 'dd/mm/yyyy'
     end
-    object cdsRequisicaoCANCEL_USUARIO: TIBStringField
+    object cdsRequisicaoCANCEL_USUARIO: TStringField
       FieldName = 'CANCEL_USUARIO'
-      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_USUARIO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'CANCEL_USUARIO'
       Size = 12
     end
-    object cdsRequisicaoCANCEL_DATA: TDateTimeField
+    object cdsRequisicaoCANCEL_DATA: TSQLTimeStampField
       FieldName = 'CANCEL_DATA'
-      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_DATA"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'CANCEL_DATA'
     end
     object cdsRequisicaoCANCEL_MOTIVO: TMemoField
       FieldName = 'CANCEL_MOTIVO'
-      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_MOTIVO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'CANCEL_MOTIVO'
       BlobType = ftMemo
-      Size = 8
     end
-    object cdsRequisicaoCC_ORIGEM_DESC: TIBStringField
+    object cdsRequisicaoCC_ORIGEM_DESC: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'CC_ORIGEM_DESC'
-      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
+      Origin = 'DESCRICAO'
       ProviderFlags = []
+      ReadOnly = True
       Size = 100
     end
-    object cdsRequisicaoCC_DESTINO_DESC: TIBStringField
+    object cdsRequisicaoCC_DESTINO_DESC: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'CC_DESTINO_DESC'
-      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
+      Origin = 'DESCRICAO'
       ProviderFlags = []
+      ReadOnly = True
       Size = 100
     end
   end
-  object updRequisicao: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CONTROLE,'
-      '  NUMERO,'
-      '  EMPRESA,'
-      '  TIPO,'
-      '  CCUSTO_ORIGEM,'
-      '  CCUSTO_DESTINO,'
-      '  INSERCAO_DATA,'
-      '  INSERCAO_USUARIO,'
-      '  DATA_EMISSAO,'
-      '  REQUISITANTE,'
-      '  COMPETENCIA,'
-      '  STATUS,'
-      '  MOTIVO,'
-      '  OBS,'
-      '  VALOR_TOTAL,'
-      '  ATENDIMENTO_USUARIO,'
-      '  ATENDIMENTO_DATA,'
-      '  CANCEL_USUARIO,'
-      '  CANCEL_DATA,'
-      '  CANCEL_MOTIVO'
-      'from TBREQUISICAO_ALMOX '
-      'where'
-      '  ANO = :ANO and'
-      '  CONTROLE = :CONTROLE')
+  object updRequisicao: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBREQUISICAO_ALMOX'
+      '(ANO, CONTROLE, NUMERO, EMPRESA, TIPO, '
+      '  CCUSTO_ORIGEM, CCUSTO_DESTINO, INSERCAO_DATA, '
+      '  INSERCAO_USUARIO, DATA_EMISSAO, REQUISITANTE, '
+      '  COMPETENCIA, STATUS, MOTIVO, OBS, VALOR_TOTAL, '
+      '  ATENDIMENTO_USUARIO, ATENDIMENTO_DATA, CANCEL_USUARIO, '
+      '  CANCEL_DATA, CANCEL_MOTIVO)'
+      
+        'VALUES (:NEW_ANO, :NEW_CONTROLE, :NEW_NUMERO, :NEW_EMPRESA, :NEW' +
+        '_TIPO, '
+      '  :NEW_CCUSTO_ORIGEM, :NEW_CCUSTO_DESTINO, :NEW_INSERCAO_DATA, '
+      '  :NEW_INSERCAO_USUARIO, :NEW_DATA_EMISSAO, :NEW_REQUISITANTE, '
+      
+        '  :NEW_COMPETENCIA, :NEW_STATUS, :NEW_MOTIVO, :NEW_OBS, :NEW_VAL' +
+        'OR_TOTAL, '
+      
+        '  :NEW_ATENDIMENTO_USUARIO, :NEW_ATENDIMENTO_DATA, :NEW_CANCEL_U' +
+        'SUARIO, '
+      '  :NEW_CANCEL_DATA, :NEW_CANCEL_MOTIVO)')
     ModifySQL.Strings = (
-      'update TBREQUISICAO_ALMOX'
-      'set'
-      '  CANCEL_DATA = :CANCEL_DATA,'
-      '  CANCEL_MOTIVO = :CANCEL_MOTIVO,'
-      '  CANCEL_USUARIO = :CANCEL_USUARIO,'
-      '  STATUS = :STATUS'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CONTROLE = :OLD_CONTROLE')
-    Left = 504
-    Top = 72
-  end
-  object dtsRequisicao: TDataSource
-    AutoEdit = False
-    DataSet = cdsRequisicao
-    Left = 536
-    Top = 72
+      'UPDATE TBREQUISICAO_ALMOX'
+      
+        'SET ANO = :NEW_ANO, CONTROLE = :NEW_CONTROLE, NUMERO = :NEW_NUME' +
+        'RO, '
+      
+        '  EMPRESA = :NEW_EMPRESA, TIPO = :NEW_TIPO, CCUSTO_ORIGEM = :NEW' +
+        '_CCUSTO_ORIGEM, '
+      
+        '  CCUSTO_DESTINO = :NEW_CCUSTO_DESTINO, INSERCAO_DATA = :NEW_INS' +
+        'ERCAO_DATA, '
+      
+        '  INSERCAO_USUARIO = :NEW_INSERCAO_USUARIO, DATA_EMISSAO = :NEW_' +
+        'DATA_EMISSAO, '
+      
+        '  REQUISITANTE = :NEW_REQUISITANTE, COMPETENCIA = :NEW_COMPETENC' +
+        'IA, '
+      '  STATUS = :NEW_STATUS, MOTIVO = :NEW_MOTIVO, OBS = :NEW_OBS, '
+      
+        '  VALOR_TOTAL = :NEW_VALOR_TOTAL, ATENDIMENTO_USUARIO = :NEW_ATE' +
+        'NDIMENTO_USUARIO, '
+      
+        '  ATENDIMENTO_DATA = :NEW_ATENDIMENTO_DATA, CANCEL_USUARIO = :NE' +
+        'W_CANCEL_USUARIO, '
+      
+        '  CANCEL_DATA = :NEW_CANCEL_DATA, CANCEL_MOTIVO = :NEW_CANCEL_MO' +
+        'TIVO'
+      'WHERE ANO = :OLD_ANO AND CONTROLE = :OLD_CONTROLE')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBREQUISICAO_ALMOX'
+      'WHERE ANO = :OLD_ANO AND CONTROLE = :OLD_CONTROLE')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    r.ano'
+      '  , r.controle'
+      '  , r.numero'
+      '  , r.empresa'
+      '  , r.tipo'
+      '  , r.ccusto_origem'
+      '  , r.ccusto_destino'
+      '  , r.insercao_data'
+      '  , r.insercao_usuario'
+      '  , r.data_emissao'
+      '  , r.requisitante'
+      '  , r.competencia'
+      '  , r.status'
+      '  , r.motivo'
+      '  , r.obs'
+      '  , r.valor_total'
+      '  , r.atendimento_usuario'
+      '  , r.atendimento_data'
+      '  , r.cancel_usuario'
+      '  , r.cancel_data'
+      '  , r.cancel_motivo'
+      ''
+      
+        '  , (Select count(ri.item) from TBREQUISICAO_ALMOX_ITEM ri where' +
+        ' ri.ano = r.ano and ri.controle = r.controle) as Itens'
+      ''
+      '  , e.rzsoc       as empresa_nome'
+      '  , co.descricao  as cc_origem_desc'
+      '  , co.codcliente as cc_origem_codcliente'
+      '  , cd.descricao  as cc_destino_desc'
+      '  , us.nomecompleto as usuario_requisitante'
+      ''
+      'from TBREQUISICAO_ALMOX r'
+      '  left join TBEMPRESA e on (e.cnpj = r.empresa)'
+      '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
+      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)'
+      '  left join TBUSERS us on (us.nome = r.requisitante)'
+      ''
+      'WHERE r.ANO = :ANO AND r.CONTROLE = :CONTROLE')
+    Left = 257
+    Top = 232
   end
 end
