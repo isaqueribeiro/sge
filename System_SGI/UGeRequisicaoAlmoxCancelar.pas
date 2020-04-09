@@ -6,7 +6,16 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB,
   IBCustomDataSet, IBUpdateSQL, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons;
+  cxLookAndFeelPainters, Menus, cxButtons,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light;
 
 type
   TfrmGeRequisicaoAlmoxCancelar = class(TfrmGrPadrao)
@@ -26,12 +35,9 @@ type
     dbCancelUsuario: TEdit;
     dbCancelDataHora: TEdit;
     Bevel2: TBevel;
-    lblInforme: TLabel;
     cdsRequisicao: TIBDataSet;
     updRequisicao: TIBUpdateSQL;
     dtsRequisicao: TDataSource;
-    btnCancelar: TcxButton;
-    btFechar: TcxButton;
     cdsRequisicaoANO: TSmallintField;
     cdsRequisicaoCONTROLE: TIntegerField;
     cdsRequisicaoNUMERO: TIBStringField;
@@ -47,6 +53,11 @@ type
     cdsRequisicaoCC_DESTINO_DESC: TIBStringField;
     lblCentroCustoDestino: TLabel;
     dbCentroCustoDestino: TDBEdit;
+    pnlBotoes: TPanel;
+    lblInforme: TLabel;
+    Bevel3: TBevel;
+    btnCancelar: TcxButton;
+    btFechar: TcxButton;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
   private
@@ -55,6 +66,19 @@ type
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBREQUISICAO_ALMOX
+  - TBEMPRESA
+  - TBCENTRO_CUSTO
+
+
+  Views:
+
+  Procedures:
+
+*)
 
   function CancelarRequisicaoAlmox(const AOwer : TComponent; Ano : Smallint; Numero : Integer) : Boolean;
 

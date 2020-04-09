@@ -42,67 +42,70 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           item
             Expanded = False
             FieldName = 'NUMERO'
+            Title.Caption = 'N'#250'mero '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TIPO'
+            Title.Caption = 'Tipo '
             Width = 150
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DATA_EMISSAO'
-            Title.Caption = 'Data'
+            Title.Caption = 'Data '
             Width = 85
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'STATUS'
+            Title.Caption = 'Situa'#231#227'o '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CC_ORIGEM_DESC'
-            Title.Caption = 'Centro de Custo Requisitante'
+            Title.Caption = 'Centro de Custo Requisitante '
             Width = 300
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ITENS'
-            Title.Caption = 'Itens'
+            Title.Caption = 'Itens '
             Width = 50
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VALOR_TOTAL'
-            Title.Caption = 'Valor Total (R$)'
+            Title.Caption = 'Valor Total (R$) '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'REQUISITANTE'
-            Title.Caption = 'Respons'#225'vel'
+            Title.Caption = 'Respons'#225'vel '
             Width = 120
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ATENDIMENTO_USUARIO'
-            Title.Caption = 'Atendente'
+            Title.Caption = 'Atendente '
             Width = 120
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CC_DESTINO_DESC'
-            Title.Caption = 'Centro de Custo destino'
+            Title.Caption = 'Centro de Custo destino '
             Width = 330
             Visible = True
           end>
@@ -349,8 +352,6 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel
@@ -548,7 +549,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           KeyField = 'CNPJ'
-          ListField = 'RZSOC'
+          ListField = 'RAZAO'
           ListSource = dtsEmpresa
           ParentFont = False
           TabOrder = 2
@@ -1864,35 +1865,35 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
             Expanded = False
             FieldName = 'ITEM'
             Title.Alignment = taCenter
-            Title.Caption = '#'
+            Title.Caption = '# '
             Width = 25
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'PRODUTO'
-            Title.Caption = 'Codigo'
+            Title.Caption = 'Codigo '
             Width = 80
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DESCRI_APRESENTACAO'
-            Title.Caption = 'Nome Amigo ou Descri'#231#227'o + Apresenta'#231#227'o'
+            Title.Caption = 'Nome Amigo ou Descri'#231#227'o + Apresenta'#231#227'o '
             Width = 380
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'QTDE'
-            Title.Caption = 'Solicitado'
+            Title.Caption = 'Solicitado '
             Width = 70
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'QTDE_ATENDIDA'
-            Title.Caption = 'Atendido'
+            Title.Caption = 'Atendido '
             Width = 70
             Visible = True
           end
@@ -1904,6 +1905,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
+            Title.Caption = 'Estoque '
             Title.Font.Charset = ANSI_CHARSET
             Title.Font.Color = clGreen
             Title.Font.Height = -11
@@ -1920,6 +1922,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
+            Title.Caption = 'Reservado '
             Title.Font.Charset = ANSI_CHARSET
             Title.Font.Color = clPurple
             Title.Font.Height = -11
@@ -1936,6 +1939,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
+            Title.Caption = 'Dispon'#237'vel '
             Title.Font.Charset = ANSI_CHARSET
             Title.Font.Color = clBlue
             Title.Font.Height = -11
@@ -1947,28 +1951,28 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           item
             Expanded = False
             FieldName = 'UNP_SIGLA'
-            Title.Caption = 'Und.'
+            Title.Caption = 'Und. '
             Width = 40
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'CUSTO'
-            Title.Caption = 'Custo Un. (R$)'
+            Title.Caption = 'Custo Un. (R$) '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TOTAL'
-            Title.Caption = 'Custo Total (R$)'
+            Title.Caption = 'Custo Total (R$) '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'STATUS'
-            Title.Caption = 'Situa'#231#227'o'
+            Title.Caption = 'Situa'#231#227'o '
             Width = 90
             Visible = True
           end>
@@ -2280,232 +2284,15 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    AfterCancel = IbDtstTabelaAfterCancel
-    AfterScroll = IbDtstTabelaAfterScroll
-    OnNewRecord = IbDtstTabelaNewRecord
-    SelectSQL.Strings = (
-      'Select'
-      '    r.ano'
-      '  , r.controle'
-      '  , r.numero'
-      '  , r.empresa'
-      '  , r.tipo'
-      '  , r.ccusto_origem'
-      '  , r.ccusto_destino'
-      '  , r.insercao_data'
-      '  , r.insercao_usuario'
-      '  , r.data_emissao'
-      '  , r.requisitante'
-      '  , r.competencia'
-      '  , r.status'
-      '  , r.motivo'
-      '  , r.obs'
-      '  , r.valor_total'
-      '  , r.atendimento_usuario'
-      '  , r.atendimento_data'
-      '  , r.cancel_usuario'
-      '  , r.cancel_data'
-      '  , r.cancel_motivo'
-      ''
-      
-        '  , (Select count(ri.item) from TBREQUISICAO_ALMOX_ITEM ri where' +
-        ' ri.ano = r.ano and ri.controle = r.controle) as Itens'
-      ''
-      '  , e.rzsoc       as empresa_nome'
-      '  , co.descricao  as cc_origem_desc'
-      '  , co.codcliente as cc_origem_codcliente'
-      '  , cd.descricao  as cc_destino_desc'
-      '  , us.nomecompleto as usuario_requisitante'
-      ''
-      'from TBREQUISICAO_ALMOX r'
-      '  left join TBEMPRESA e on (e.cnpj = r.empresa)'
-      '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
-      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)'
-      '  left join TBUSERS us on (us.nome = r.requisitante)')
+    SelectSQL.Strings = ()
     GeneratorField.Field = 'CONTROLE'
     GeneratorField.Generator = 'GEN_REQUISICAO_ALMOX_2015'
     Top = 8
-    object IbDtstTabelaANO: TSmallintField
-      FieldName = 'ANO'
-      Origin = '"TBREQUISICAO_ALMOX"."ANO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object IbDtstTabelaCONTROLE: TIntegerField
-      DisplayLabel = 'Controle'
-      FieldName = 'CONTROLE'
-      Origin = '"TBREQUISICAO_ALMOX"."CONTROLE"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      DisplayFormat = '###0000000'
-    end
-    object IbDtstTabelaNUMERO: TIBStringField
-      DisplayLabel = 'N'#250'mero'
-      FieldName = 'NUMERO'
-      Origin = '"TBREQUISICAO_ALMOX"."NUMERO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaEMPRESA: TIBStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'EMPRESA'
-      Origin = '"TBREQUISICAO_ALMOX"."EMPRESA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 18
-    end
-    object IbDtstTabelaTIPO: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO'
-      Origin = '"TBREQUISICAO_ALMOX"."TIPO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      OnGetText = IbDtstTabelaTIPOGetText
-    end
-    object IbDtstTabelaCCUSTO_ORIGEM: TIntegerField
-      DisplayLabel = 'Centro de Custo Requisitante'
-      FieldName = 'CCUSTO_ORIGEM'
-      Origin = '"TBREQUISICAO_ALMOX"."CCUSTO_ORIGEM"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaCCUSTO_DESTINO: TIntegerField
-      DisplayLabel = 'Centro de Custo de Atendimento'
-      FieldName = 'CCUSTO_DESTINO'
-      Origin = '"TBREQUISICAO_ALMOX"."CCUSTO_DESTINO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaINSERCAO_DATA: TDateTimeField
-      FieldName = 'INSERCAO_DATA'
-      Origin = '"TBREQUISICAO_ALMOX"."INSERCAO_DATA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaINSERCAO_USUARIO: TIBStringField
-      FieldName = 'INSERCAO_USUARIO'
-      Origin = '"TBREQUISICAO_ALMOX"."INSERCAO_USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object IbDtstTabelaDATA_EMISSAO: TDateField
-      DisplayLabel = 'Data Emiss'#227'o'
-      FieldName = 'DATA_EMISSAO'
-      Origin = '"TBREQUISICAO_ALMOX"."DATA_EMISSAO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object IbDtstTabelaREQUISITANTE: TIBStringField
-      DisplayLabel = 'Respons'#225'vel pela requisi'#231#227'o'
-      FieldName = 'REQUISITANTE'
-      Origin = '"TBREQUISICAO_ALMOX"."REQUISITANTE"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 12
-    end
-    object IbDtstTabelaCOMPETENCIA: TIntegerField
-      DisplayLabel = 'Compet'#234'ncia'
-      FieldName = 'COMPETENCIA'
-      Origin = '"TBREQUISICAO_ALMOX"."COMPETENCIA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaSTATUS: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Situa'#231#227'o'
-      FieldName = 'STATUS'
-      Origin = '"TBREQUISICAO_ALMOX"."STATUS"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      OnGetText = IbDtstTabelaSTATUSGetText
-    end
-    object IbDtstTabelaMOTIVO: TMemoField
-      DisplayLabel = 'Motivo'
-      FieldName = 'MOTIVO'
-      Origin = '"TBREQUISICAO_ALMOX"."MOTIVO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaOBS: TMemoField
-      DisplayLabel = 'Observa'#231#245'es'
-      FieldName = 'OBS'
-      Origin = '"TBREQUISICAO_ALMOX"."OBS"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaVALOR_TOTAL: TIBBCDField
-      DisplayLabel = 'Custo Total (R$)'
-      FieldName = 'VALOR_TOTAL'
-      Origin = '"TBREQUISICAO_ALMOX"."VALOR_TOTAL"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object IbDtstTabelaATENDIMENTO_USUARIO: TIBStringField
-      FieldName = 'ATENDIMENTO_USUARIO'
-      Origin = '"TBREQUISICAO_ALMOX"."ATENDIMENTO_USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object IbDtstTabelaATENDIMENTO_DATA: TDateTimeField
-      FieldName = 'ATENDIMENTO_DATA'
-      Origin = '"TBREQUISICAO_ALMOX"."ATENDIMENTO_DATA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCANCEL_USUARIO: TIBStringField
-      FieldName = 'CANCEL_USUARIO'
-      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object IbDtstTabelaCANCEL_DATA: TDateTimeField
-      FieldName = 'CANCEL_DATA'
-      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_DATA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCANCEL_MOTIVO: TMemoField
-      FieldName = 'CANCEL_MOTIVO'
-      Origin = '"TBREQUISICAO_ALMOX"."CANCEL_MOTIVO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object IbDtstTabelaITENS: TIntegerField
-      DisplayLabel = 'Produtos'
-      FieldName = 'ITENS'
-    end
-    object IbDtstTabelaEMPRESA_NOME: TIBStringField
-      FieldName = 'EMPRESA_NOME'
-      Origin = '"TBEMPRESA"."RZSOC"'
-      Size = 60
-    end
-    object IbDtstTabelaCC_ORIGEM_DESC: TIBStringField
-      FieldName = 'CC_ORIGEM_DESC'
-      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
-      Size = 100
-    end
-    object IbDtstTabelaCC_ORIGEM_CODCLIENTE: TIntegerField
-      FieldName = 'CC_ORIGEM_CODCLIENTE'
-      Origin = '"TBCENTRO_CUSTO"."CODCLIENTE"'
-      ProviderFlags = []
-    end
-    object IbDtstTabelaCC_DESTINO_DESC: TIBStringField
-      FieldName = 'CC_DESTINO_DESC'
-      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
-      Size = 100
-    end
-    object IbDtstTabelaUSUARIO_REQUISITANTE: TIBStringField
-      FieldName = 'USUARIO_REQUISITANTE'
-      Origin = '"TBUSERS"."NOMECOMPLETO"'
-      ProviderFlags = []
-      Size = 60
-    end
   end
   inherited DtSrcTabela: TDataSource
+    DataSet = fdQryTabela
     Left = 704
-    Top = 8
+    Top = 40
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -2596,7 +2383,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     Left = 912
     Top = 176
     Bitmap = {
-      494C01012B002C005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00600010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -4056,36 +3843,360 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       000000000000}
   end
   inherited fdQryTabela: TFDQuery
+    BeforePost = fdQryTabelaBeforePost
+    AfterCancel = fdQryTabelaAfterCancel
+    AfterScroll = fdQryTabelaAfterScroll
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_REQUISICAO_ALMOX_2015'
+    UpdateOptions.KeyFields = 'ANO;CONTROLE'
+    UpdateOptions.AutoIncFields = 'CONTROLE'
+    SQL.Strings = (
+      'Select'
+      '    r.ano'
+      '  , r.controle'
+      '  , r.numero'
+      '  , r.empresa'
+      '  , r.tipo'
+      '  , r.ccusto_origem'
+      '  , r.ccusto_destino'
+      '  , r.insercao_data'
+      '  , r.insercao_usuario'
+      '  , r.data_emissao'
+      '  , r.requisitante'
+      '  , r.competencia'
+      '  , r.status'
+      '  , r.motivo'
+      '  , r.obs'
+      '  , r.valor_total'
+      '  , r.atendimento_usuario'
+      '  , r.atendimento_data'
+      '  , r.cancel_usuario'
+      '  , r.cancel_data'
+      '  , r.cancel_motivo'
+      ''
+      
+        '  , (Select count(ri.item) from TBREQUISICAO_ALMOX_ITEM ri where' +
+        ' ri.ano = r.ano and ri.controle = r.controle) as Itens'
+      ''
+      '  , e.rzsoc       as empresa_nome'
+      '  , co.descricao  as cc_origem_desc'
+      '  , co.codcliente as cc_origem_codcliente'
+      '  , cd.descricao  as cc_destino_desc'
+      '  , us.nomecompleto as usuario_requisitante'
+      ''
+      'from TBREQUISICAO_ALMOX r'
+      '  left join TBEMPRESA e on (e.cnpj = r.empresa)'
+      '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
+      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)'
+      '  left join TBUSERS us on (us.nome = r.requisitante)')
     Top = 40
+    object fdQryTabelaANO: TSmallintField
+      FieldName = 'ANO'
+      Origin = 'ANO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object fdQryTabelaCONTROLE: TFDAutoIncField
+      DisplayLabel = 'Controle'
+      FieldName = 'CONTROLE'
+      Origin = 'CONTROLE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      DisplayFormat = '###0000000'
+      IdentityInsert = True
+    end
+    object fdQryTabelaNUMERO: TStringField
+      DisplayLabel = 'N'#250'mero'
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      Required = True
+    end
+    object fdQryTabelaEMPRESA: TStringField
+      DisplayLabel = 'Empresa'
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      Required = True
+      Size = 18
+    end
+    object fdQryTabelaTIPO: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Tipo de Requisi'#231#227'o'
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+      Required = True
+      OnGetText = fdQryTabelaTIPOGetText
+    end
+    object fdQryTabelaCCUSTO_ORIGEM: TIntegerField
+      DisplayLabel = 'Centro de Custo Requisitante'
+      FieldName = 'CCUSTO_ORIGEM'
+      Origin = 'CCUSTO_ORIGEM'
+      Required = True
+    end
+    object fdQryTabelaCCUSTO_DESTINO: TIntegerField
+      DisplayLabel = 'Centro de Custo de Atendimento'
+      FieldName = 'CCUSTO_DESTINO'
+      Origin = 'CCUSTO_DESTINO'
+      Required = True
+    end
+    object fdQryTabelaINSERCAO_DATA: TSQLTimeStampField
+      FieldName = 'INSERCAO_DATA'
+      Origin = 'INSERCAO_DATA'
+      OnGetText = fdQryTabelaINSERCAO_DATAGetText
+    end
+    object fdQryTabelaINSERCAO_USUARIO: TStringField
+      FieldName = 'INSERCAO_USUARIO'
+      Origin = 'INSERCAO_USUARIO'
+      Size = 12
+    end
+    object fdQryTabelaDATA_EMISSAO: TDateField
+      DisplayLabel = 'Data Emiss'#227'o'
+      FieldName = 'DATA_EMISSAO'
+      Origin = 'DATA_EMISSAO'
+      Required = True
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object fdQryTabelaREQUISITANTE: TStringField
+      DisplayLabel = 'Respons'#225'vel pela requisi'#231#227'o'
+      FieldName = 'REQUISITANTE'
+      Origin = 'REQUISITANTE'
+      Required = True
+      Size = 12
+    end
+    object fdQryTabelaCOMPETENCIA: TIntegerField
+      DisplayLabel = 'Compet'#234'ncia'
+      FieldName = 'COMPETENCIA'
+      Origin = 'COMPETENCIA'
+    end
+    object fdQryTabelaSTATUS: TSmallintField
+      Alignment = taLeftJustify
+      DisplayLabel = 'Situa'#231#227'o'
+      FieldName = 'STATUS'
+      Origin = 'STATUS'
+      Required = True
+      OnGetText = fdQryTabelaSTATUSGetText
+    end
+    object fdQryTabelaMOTIVO: TMemoField
+      DisplayLabel = 'Motivo'
+      FieldName = 'MOTIVO'
+      Origin = 'MOTIVO'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaOBS: TMemoField
+      DisplayLabel = 'Observa'#231#245'es'
+      FieldName = 'OBS'
+      Origin = 'OBS'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaVALOR_TOTAL: TBCDField
+      DisplayLabel = 'Custo Total (R$)'
+      FieldName = 'VALOR_TOTAL'
+      Origin = 'VALOR_TOTAL'
+      DisplayFormat = ',0.00'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaATENDIMENTO_USUARIO: TStringField
+      FieldName = 'ATENDIMENTO_USUARIO'
+      Origin = 'ATENDIMENTO_USUARIO'
+      Size = 12
+    end
+    object fdQryTabelaATENDIMENTO_DATA: TSQLTimeStampField
+      FieldName = 'ATENDIMENTO_DATA'
+      Origin = 'ATENDIMENTO_DATA'
+    end
+    object fdQryTabelaCANCEL_USUARIO: TStringField
+      FieldName = 'CANCEL_USUARIO'
+      Origin = 'CANCEL_USUARIO'
+      Size = 12
+    end
+    object fdQryTabelaCANCEL_DATA: TSQLTimeStampField
+      FieldName = 'CANCEL_DATA'
+      Origin = 'CANCEL_DATA'
+    end
+    object fdQryTabelaCANCEL_MOTIVO: TMemoField
+      FieldName = 'CANCEL_MOTIVO'
+      Origin = 'CANCEL_MOTIVO'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaITENS: TIntegerField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Produtos'
+      FieldName = 'ITENS'
+      Origin = 'ITENS'
+      ProviderFlags = []
+      Required = True
+    end
+    object fdQryTabelaEMPRESA_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EMPRESA_NOME'
+      Origin = 'RZSOC'
+      ProviderFlags = []
+      Size = 60
+    end
+    object fdQryTabelaCC_ORIGEM_DESC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CC_ORIGEM_DESC'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaCC_ORIGEM_CODCLIENTE: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'CC_ORIGEM_CODCLIENTE'
+      Origin = 'CODCLIENTE'
+      ProviderFlags = []
+    end
+    object fdQryTabelaCC_DESTINO_DESC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CC_DESTINO_DESC'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaUSUARIO_REQUISITANTE: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'USUARIO_REQUISITANTE'
+      Origin = 'NOMECOMPLETO'
+      ProviderFlags = []
+      Size = 60
+    end
   end
   inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBREQUISICAO_ALMOX'
+      '(ANO, CONTROLE, NUMERO, EMPRESA, TIPO, '
+      '  CCUSTO_ORIGEM, CCUSTO_DESTINO, INSERCAO_DATA, '
+      '  INSERCAO_USUARIO, DATA_EMISSAO, REQUISITANTE, '
+      '  COMPETENCIA, STATUS, MOTIVO, OBS, VALOR_TOTAL, '
+      '  ATENDIMENTO_USUARIO, ATENDIMENTO_DATA, CANCEL_USUARIO, '
+      '  CANCEL_DATA, CANCEL_MOTIVO)'
+      
+        'VALUES (:NEW_ANO, :NEW_CONTROLE, :NEW_NUMERO, :NEW_EMPRESA, :NEW' +
+        '_TIPO, '
+      '  :NEW_CCUSTO_ORIGEM, :NEW_CCUSTO_DESTINO, :NEW_INSERCAO_DATA, '
+      '  :NEW_INSERCAO_USUARIO, :NEW_DATA_EMISSAO, :NEW_REQUISITANTE, '
+      
+        '  :NEW_COMPETENCIA, :NEW_STATUS, :NEW_MOTIVO, :NEW_OBS, :NEW_VAL' +
+        'OR_TOTAL, '
+      
+        '  :NEW_ATENDIMENTO_USUARIO, :NEW_ATENDIMENTO_DATA, :NEW_CANCEL_U' +
+        'SUARIO, '
+      '  :NEW_CANCEL_DATA, :NEW_CANCEL_MOTIVO)')
+    ModifySQL.Strings = (
+      'UPDATE TBREQUISICAO_ALMOX'
+      
+        'SET ANO = :NEW_ANO, CONTROLE = :NEW_CONTROLE, NUMERO = :NEW_NUME' +
+        'RO, '
+      
+        '  EMPRESA = :NEW_EMPRESA, TIPO = :NEW_TIPO, CCUSTO_ORIGEM = :NEW' +
+        '_CCUSTO_ORIGEM, '
+      
+        '  CCUSTO_DESTINO = :NEW_CCUSTO_DESTINO, INSERCAO_DATA = :NEW_INS' +
+        'ERCAO_DATA, '
+      
+        '  INSERCAO_USUARIO = :NEW_INSERCAO_USUARIO, DATA_EMISSAO = :NEW_' +
+        'DATA_EMISSAO, '
+      
+        '  REQUISITANTE = :NEW_REQUISITANTE, COMPETENCIA = :NEW_COMPETENC' +
+        'IA, '
+      '  STATUS = :NEW_STATUS, MOTIVO = :NEW_MOTIVO, OBS = :NEW_OBS, '
+      
+        '  VALOR_TOTAL = :NEW_VALOR_TOTAL, ATENDIMENTO_USUARIO = :NEW_ATE' +
+        'NDIMENTO_USUARIO, '
+      
+        '  ATENDIMENTO_DATA = :NEW_ATENDIMENTO_DATA, CANCEL_USUARIO = :NE' +
+        'W_CANCEL_USUARIO, '
+      
+        '  CANCEL_DATA = :NEW_CANCEL_DATA, CANCEL_MOTIVO = :NEW_CANCEL_MO' +
+        'TIVO'
+      'WHERE ANO = :OLD_ANO AND CONTROLE = :OLD_CONTROLE')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBREQUISICAO_ALMOX'
+      'WHERE ANO = :OLD_ANO AND CONTROLE = :OLD_CONTROLE')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    r.ano'
+      '  , r.controle'
+      '  , r.numero'
+      '  , r.empresa'
+      '  , r.tipo'
+      '  , r.ccusto_origem'
+      '  , r.ccusto_destino'
+      '  , r.insercao_data'
+      '  , r.insercao_usuario'
+      '  , r.data_emissao'
+      '  , r.requisitante'
+      '  , r.competencia'
+      '  , r.status'
+      '  , r.motivo'
+      '  , r.obs'
+      '  , r.valor_total'
+      '  , r.atendimento_usuario'
+      '  , r.atendimento_data'
+      '  , r.cancel_usuario'
+      '  , r.cancel_data'
+      '  , r.cancel_motivo'
+      ''
+      
+        '  , (Select count(ri.item) from TBREQUISICAO_ALMOX_ITEM ri where' +
+        ' ri.ano = r.ano and ri.controle = r.controle) as Itens'
+      ''
+      '  , e.rzsoc       as empresa_nome'
+      '  , co.descricao  as cc_origem_desc'
+      '  , co.codcliente as cc_origem_codcliente'
+      '  , cd.descricao  as cc_destino_desc'
+      '  , us.nomecompleto as usuario_requisitante'
+      ''
+      'from TBREQUISICAO_ALMOX r'
+      '  left join TBEMPRESA e on (e.cnpj = r.empresa)'
+      '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
+      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)'
+      '  left join TBUSERS us on (us.nome = r.requisitante)'
+      ''
+      'WHERE r.ANO = :ANO AND r.CONTROLE = :CONTROLE')
     Top = 40
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 944
-    Top = 176
-  end
   object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
+    DataSet = fdQryEmpresa
     Left = 976
     Top = 176
   end
-  object cdsTabelaItens: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
+  object DtSrcTabelaItens: TDataSource
+    AutoEdit = False
+    DataSet = cdsTabelaItens
+    OnStateChange = DtSrcTabelaItensStateChange
+    OnDataChange = DtSrcTabelaItensDataChange
+    Left = 704
+    Top = 72
+  end
+  object ppImprimir: TPopupMenu
+    Images = ImgList
+    Left = 32
+    Top = 440
+    object nmImprimirRequisicaoAlmox: TMenuItem
+      Caption = 'Requisi'#231#227'o ao Estoque (Almoxarifado)'
+      ImageIndex = 16
+      OnClick = nmImprimirRequisicaoAlmoxClick
+    end
+    object nmImprimirManifesto: TMenuItem
+      Caption = 'Manifesto'
+      OnClick = nmImprimirManifestoClick
+    end
+  end
+  object dtsTipoRequisicao: TDataSource
+    DataSet = fdQryTipoRequisicao
+    Left = 976
+    Top = 208
+  end
+  object cdsTabelaItens: TFDQuery
     OnCalcFields = cdsTabelaItensCalcFields
     OnNewRecord = cdsTabelaItensNewRecord
-    BufferChunks = 1000
     CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updTabelaItens
+    SQL.Strings = (
       'Select'
       '    i.ano'
       '  , i.controle'
@@ -4127,77 +4238,89 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
         '    from GET_ESTOQUE_ALMOX_DISPONIVEL(:empresa, :centro_custo, n' +
         'ull, null, null, :requisicao_ano,  :requisicao_cod) e'
       '  ) ea on (ea.produto = i.produto)')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = IbUpdTabelaItens
     Left = 640
     Top = 72
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'CENTRO_CUSTO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'REQUISICAO_ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Name = 'REQUISICAO_COD'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
     object cdsTabelaItensANO: TSmallintField
       FieldName = 'ANO'
-      Origin = '"TBREQUISICAO_ALMOX_ITEM"."ANO"'
+      Origin = 'ANO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object cdsTabelaItensCONTROLE: TIntegerField
       FieldName = 'CONTROLE'
-      Origin = '"TBREQUISICAO_ALMOX_ITEM"."CONTROLE"'
+      Origin = 'CONTROLE'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object cdsTabelaItensITEM: TSmallintField
       FieldName = 'ITEM'
-      Origin = '"TBREQUISICAO_ALMOX_ITEM"."ITEM"'
+      Origin = 'ITEM'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object cdsTabelaItensPRODUTO: TIBStringField
+    object cdsTabelaItensPRODUTO: TStringField
       FieldName = 'PRODUTO'
-      Origin = '"TBREQUISICAO_ALMOX_ITEM"."PRODUTO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'PRODUTO'
+      Required = True
       Size = 10
     end
-    object cdsTabelaItensQTDE: TIBBCDField
+    object cdsTabelaItensQTDE: TBCDField
       FieldName = 'QTDE'
-      Origin = '"TBREQUISICAO_ALMOX_ITEM"."QTDE"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'QTDE'
       DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
     end
-    object cdsTabelaItensQTDE_ATENDIDA: TIBBCDField
+    object cdsTabelaItensQTDE_ATENDIDA: TBCDField
       FieldName = 'QTDE_ATENDIDA'
-      Origin = '"TBREQUISICAO_ALMOX_ITEM"."QTDE_ATENDIDA"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'QTDE_ATENDIDA'
       DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
     end
     object cdsTabelaItensUNIDADE: TSmallintField
       FieldName = 'UNIDADE'
-      Origin = '"TBREQUISICAO_ALMOX_ITEM"."UNIDADE"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'UNIDADE'
     end
-    object cdsTabelaItensCUSTO: TIBBCDField
+    object cdsTabelaItensCUSTO: TBCDField
       FieldName = 'CUSTO'
-      Origin = '"TBREQUISICAO_ALMOX_ITEM"."CUSTO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'CUSTO'
       DisplayFormat = ',0.00##'
       Precision = 18
-      Size = 4
     end
-    object cdsTabelaItensFRACIONADOR: TIBBCDField
+    object cdsTabelaItensFRACIONADOR: TBCDField
       FieldName = 'FRACIONADOR'
-      Origin = '"TBREQUISICAO_ALMOX_ITEM"."FRACIONADOR"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'FRACIONADOR'
       Precision = 18
       Size = 3
     end
-    object cdsTabelaItensTOTAL: TIBBCDField
+    object cdsTabelaItensTOTAL: TBCDField
       FieldName = 'TOTAL'
-      Origin = '"TBREQUISICAO_ALMOX_ITEM"."TOTAL"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'TOTAL'
       DisplayFormat = ',0.00##'
       Precision = 18
       Size = 2
@@ -4205,79 +4328,86 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     object cdsTabelaItensSTATUS: TSmallintField
       Alignment = taLeftJustify
       FieldName = 'STATUS'
-      Origin = '"TBREQUISICAO_ALMOX_ITEM"."STATUS"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'STATUS'
       OnGetText = cdsTabelaItensSTATUSGetText
     end
-    object cdsTabelaItensLOTE_ATENDIMENTO: TIBStringField
+    object cdsTabelaItensLOTE_ATENDIMENTO: TStringField
       FieldName = 'LOTE_ATENDIMENTO'
-      Origin = '"TBREQUISICAO_ALMOX_ITEM"."LOTE_ATENDIMENTO"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'LOTE_ATENDIMENTO'
       Size = 38
     end
-    object cdsTabelaItensLOTE_REQUISITANTE: TIBStringField
+    object cdsTabelaItensLOTE_REQUISITANTE: TStringField
       FieldName = 'LOTE_REQUISITANTE'
-      Origin = '"TBREQUISICAO_ALMOX_ITEM"."LOTE_REQUISITANTE"'
-      ProviderFlags = [pfInUpdate]
+      Origin = 'LOTE_REQUISITANTE'
       Size = 38
     end
-    object cdsTabelaItensDESCRI: TIBStringField
+    object cdsTabelaItensDESCRI: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'DESCRI'
-      Origin = '"TBPRODUTO"."DESCRI"'
+      Origin = 'DESCRI'
       ProviderFlags = []
       Size = 50
     end
-    object cdsTabelaItensAPRESENTACAO: TIBStringField
+    object cdsTabelaItensAPRESENTACAO: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'APRESENTACAO'
-      Origin = '"TBPRODUTO"."APRESENTACAO"'
+      Origin = 'APRESENTACAO'
       ProviderFlags = []
       Size = 50
     end
-    object cdsTabelaItensDESCRI_APRESENTACAO: TIBStringField
+    object cdsTabelaItensDESCRI_APRESENTACAO: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'DESCRI_APRESENTACAO'
-      Origin = '"TBPRODUTO"."DESCRI_APRESENTACAO"'
+      Origin = 'DESCRI_APRESENTACAO'
       ProviderFlags = []
       Size = 100
     end
-    object cdsTabelaItensUNP_DESCRICAO: TIBStringField
+    object cdsTabelaItensUNP_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'UNP_DESCRICAO'
-      Origin = '"TBUNIDADEPROD"."UNP_DESCRICAO"'
+      Origin = 'UNP_DESCRICAO'
       ProviderFlags = []
       Size = 50
     end
-    object cdsTabelaItensUNP_SIGLA: TIBStringField
+    object cdsTabelaItensUNP_SIGLA: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'UNP_SIGLA'
-      Origin = '"TBUNIDADEPROD"."UNP_SIGLA"'
+      Origin = 'UNP_SIGLA'
       ProviderFlags = []
       Size = 5
     end
-    object cdsTabelaItensUNIDADE_SIGLA: TIBStringField
+    object cdsTabelaItensUNIDADE_SIGLA: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'UNIDADE_SIGLA'
+      Origin = 'UNIDADE_SIGLA'
       ProviderFlags = []
       Size = 50
     end
-    object cdsTabelaItensESTOQUE: TIBBCDField
+    object cdsTabelaItensESTOQUE: TBCDField
+      AutoGenerateValue = arDefault
       DisplayLabel = 'Estoque'
       FieldName = 'ESTOQUE'
-      Origin = '"GET_ESTOQUE_ALMOX_DISPONIVEL"."ESTOQUE"'
+      Origin = 'ESTOQUE'
       ProviderFlags = []
       DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
     end
-    object cdsTabelaItensRESERVA: TIBBCDField
+    object cdsTabelaItensRESERVA: TBCDField
+      AutoGenerateValue = arDefault
       DisplayLabel = 'Reservado'
       FieldName = 'RESERVA'
-      Origin = '"GET_ESTOQUE_ALMOX_DISPONIVEL"."RESERVA"'
+      Origin = 'RESERVA'
       ProviderFlags = []
       DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
     end
-    object cdsTabelaItensDISPONIVEL: TIBBCDField
+    object cdsTabelaItensDISPONIVEL: TBCDField
+      AutoGenerateValue = arDefault
       DisplayLabel = 'Dispon'#237'vel'
       FieldName = 'DISPONIVEL'
-      Origin = '"GET_ESTOQUE_ALMOX_DISPONIVEL"."DISPONIVEL"'
+      Origin = 'DISPONIVEL'
       ProviderFlags = []
       DisplayFormat = ',0.###'
       Precision = 18
@@ -4285,104 +4415,89 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     end
     object cdsTabelaItensDISPONIVEL_TMP: TCurrencyField
       DisplayLabel = 'Dispon'#237'vel'
-      FieldKind = fkCalculated
+      FieldKind = fkInternalCalc
       FieldName = 'DISPONIVEL_TMP'
-      ProviderFlags = []
       DisplayFormat = ',0.###'
-      Calculated = True
     end
   end
-  object IbUpdTabelaItens: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CONTROLE,'
-      '  ITEM,'
-      '  PRODUTO,'
-      '  QTDE,'
-      '  QTDE_ATENDIDA,'
-      '  UNIDADE,'
-      '  CUSTO,'
-      '  FRACIONADOR,'
-      '  TOTAL,'
-      '  STATUS,'
-      '  LOTE_ATENDIMENTO,'
-      '  LOTE_REQUISITANTE'
-      'from TBREQUISICAO_ALMOX_ITEM '
-      'where'
-      '  ANO = :ANO and'
-      '  CONTROLE = :CONTROLE and'
-      '  ITEM = :ITEM')
-    ModifySQL.Strings = (
-      'update TBREQUISICAO_ALMOX_ITEM'
-      'set'
-      '  ANO = :ANO,'
-      '  CONTROLE = :CONTROLE,'
-      '  CUSTO = :CUSTO,'
-      '  FRACIONADOR = :FRACIONADOR,'
-      '  ITEM = :ITEM,'
-      '  LOTE_ATENDIMENTO = :LOTE_ATENDIMENTO,'
-      '  LOTE_REQUISITANTE = :LOTE_REQUISITANTE,'
-      '  PRODUTO = :PRODUTO,'
-      '  QTDE = :QTDE,'
-      '  QTDE_ATENDIDA = :QTDE_ATENDIDA,'
-      '  STATUS = :STATUS,'
-      '  TOTAL = :TOTAL,'
-      '  UNIDADE = :UNIDADE'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CONTROLE = :OLD_CONTROLE and'
-      '  ITEM = :OLD_ITEM')
+  object updTabelaItens: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
     InsertSQL.Strings = (
-      'insert into TBREQUISICAO_ALMOX_ITEM'
+      'INSERT INTO TBREQUISICAO_ALMOX_ITEM'
+      '(ANO, CONTROLE, ITEM, PRODUTO, QTDE, '
+      '  QTDE_ATENDIDA, UNIDADE, CUSTO, FRACIONADOR, '
+      '  TOTAL, STATUS, LOTE_ATENDIMENTO, LOTE_REQUISITANTE)'
       
-        '  (ANO, CONTROLE, CUSTO, FRACIONADOR, ITEM, LOTE_ATENDIMENTO, LO' +
-        'TE_REQUISITANTE, '
-      '   PRODUTO, QTDE, QTDE_ATENDIDA, STATUS, TOTAL, UNIDADE)'
-      'values'
+        'VALUES (:NEW_ANO, :NEW_CONTROLE, :NEW_ITEM, :NEW_PRODUTO, :NEW_Q' +
+        'TDE, '
       
-        '  (:ANO, :CONTROLE, :CUSTO, :FRACIONADOR, :ITEM, :LOTE_ATENDIMEN' +
-        'TO, :LOTE_REQUISITANTE, '
-      '   :PRODUTO, :QTDE, :QTDE_ATENDIDA, :STATUS, :TOTAL, :UNIDADE)')
+        '  :NEW_QTDE_ATENDIDA, :NEW_UNIDADE, :NEW_CUSTO, :NEW_FRACIONADOR' +
+        ', '
+      
+        '  :NEW_TOTAL, :NEW_STATUS, :NEW_LOTE_ATENDIMENTO, :NEW_LOTE_REQU' +
+        'ISITANTE)')
+    ModifySQL.Strings = (
+      'UPDATE TBREQUISICAO_ALMOX_ITEM'
+      'SET ANO = :NEW_ANO, CONTROLE = :NEW_CONTROLE, ITEM = :NEW_ITEM, '
+      
+        '  PRODUTO = :NEW_PRODUTO, QTDE = :NEW_QTDE, QTDE_ATENDIDA = :NEW' +
+        '_QTDE_ATENDIDA, '
+      
+        '  UNIDADE = :NEW_UNIDADE, CUSTO = :NEW_CUSTO, FRACIONADOR = :NEW' +
+        '_FRACIONADOR, '
+      
+        '  TOTAL = :NEW_TOTAL, STATUS = :NEW_STATUS, LOTE_ATENDIMENTO = :' +
+        'NEW_LOTE_ATENDIMENTO, '
+      '  LOTE_REQUISITANTE = :NEW_LOTE_REQUISITANTE'
+      
+        'WHERE ANO = :OLD_ANO AND CONTROLE = :OLD_CONTROLE AND ITEM = :OL' +
+        'D_ITEM')
     DeleteSQL.Strings = (
-      'delete from TBREQUISICAO_ALMOX_ITEM'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CONTROLE = :OLD_CONTROLE and'
-      '  ITEM = :OLD_ITEM')
+      'DELETE FROM TBREQUISICAO_ALMOX_ITEM'
+      
+        'WHERE ANO = :OLD_ANO AND CONTROLE = :OLD_CONTROLE AND ITEM = :OL' +
+        'D_ITEM')
+    FetchRowSQL.Strings = (
+      
+        'SELECT ANO, CONTROLE, ITEM, PRODUTO, QTDE, QTDE_ATENDIDA, UNIDAD' +
+        'E, '
+      
+        '  CUSTO, FRACIONADOR, TOTAL, STATUS, LOTE_ATENDIMENTO, LOTE_REQU' +
+        'ISITANTE'
+      'FROM TBREQUISICAO_ALMOX_ITEM'
+      'WHERE ANO = :ANO AND CONTROLE = :CONTROLE AND ITEM = :ITEM')
     Left = 672
     Top = 72
   end
-  object DtSrcTabelaItens: TDataSource
-    AutoEdit = False
-    DataSet = cdsTabelaItens
-    OnStateChange = DtSrcTabelaItensStateChange
-    OnDataChange = DtSrcTabelaItensDataChange
-    Left = 704
-    Top = 72
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 944
+    Top = 176
   end
-  object ppImprimir: TPopupMenu
-    Images = ImgList
-    Left = 16
-    Top = 448
-    object nmImprimirRequisicaoAlmox: TMenuItem
-      Caption = 'Requisi'#231#227'o ao Estoque (Almoxarifado)'
-      ImageIndex = 16
-      OnClick = nmImprimirRequisicaoAlmoxClick
-    end
-    object nmImprimirManifesto: TMenuItem
-      Caption = 'Manifesto'
-      OnClick = nmImprimirManifestoClick
-    end
+  object fdQryTipoRequisicao: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select * from VW_TIPO_REQUISICAO_ALMOX')
+    Left = 944
+    Top = 208
   end
-  object qryProdutoAlmox: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
+  object qryProdutoAlmox: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
       'Select'
       '    p.cod'
       '  , p.descri'
@@ -4408,27 +4523,48 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
         'ada)'
       ''
       'where p.codigo = :produto')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
     Left = 1008
     Top = 176
-  end
-  object tblTipoRequisicao: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_TIPO_REQUISICAO_ALMOX'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 944
-    Top = 208
-  end
-  object dtsTipoRequisicao: TDataSource
-    DataSet = tblTipoRequisicao
-    Left = 976
-    Top = 208
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'CENTRO_CUSTO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'LOTE'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'LOTE_GUID'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 38
+      end
+      item
+        Name = 'REQ_ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Name = 'REQ_COD'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'PRODUTO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
   end
 end
