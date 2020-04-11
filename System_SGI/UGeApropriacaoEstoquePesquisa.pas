@@ -365,9 +365,9 @@ begin
   begin
     if edCentroCusto.Focused then
       LimparCentroCusto;
-  end;
-
-  inherited;
+  end
+  else
+    inherited;
 end;
 
 procedure TfrmGeApropriacaoEstoquePesquisa.FormShow(Sender: TObject);

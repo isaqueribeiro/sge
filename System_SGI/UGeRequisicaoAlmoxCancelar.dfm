@@ -451,6 +451,7 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
     Top = 232
   end
   object cdsRequisicao: TFDQuery
+    Active = True
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -576,98 +577,32 @@ inherited frmGeRequisicaoAlmoxCancelar: TfrmGeRequisicaoAlmoxCancelar
   end
   object updRequisicao: TFDUpdateSQL
     Connection = DMBusiness.fdConexao
-    InsertSQL.Strings = (
-      'INSERT INTO TBREQUISICAO_ALMOX'
-      '(ANO, CONTROLE, NUMERO, EMPRESA, TIPO, '
-      '  CCUSTO_ORIGEM, CCUSTO_DESTINO, INSERCAO_DATA, '
-      '  INSERCAO_USUARIO, DATA_EMISSAO, REQUISITANTE, '
-      '  COMPETENCIA, STATUS, MOTIVO, OBS, VALOR_TOTAL, '
-      '  ATENDIMENTO_USUARIO, ATENDIMENTO_DATA, CANCEL_USUARIO, '
-      '  CANCEL_DATA, CANCEL_MOTIVO)'
-      
-        'VALUES (:NEW_ANO, :NEW_CONTROLE, :NEW_NUMERO, :NEW_EMPRESA, :NEW' +
-        '_TIPO, '
-      '  :NEW_CCUSTO_ORIGEM, :NEW_CCUSTO_DESTINO, :NEW_INSERCAO_DATA, '
-      '  :NEW_INSERCAO_USUARIO, :NEW_DATA_EMISSAO, :NEW_REQUISITANTE, '
-      
-        '  :NEW_COMPETENCIA, :NEW_STATUS, :NEW_MOTIVO, :NEW_OBS, :NEW_VAL' +
-        'OR_TOTAL, '
-      
-        '  :NEW_ATENDIMENTO_USUARIO, :NEW_ATENDIMENTO_DATA, :NEW_CANCEL_U' +
-        'SUARIO, '
-      '  :NEW_CANCEL_DATA, :NEW_CANCEL_MOTIVO)')
     ModifySQL.Strings = (
       'UPDATE TBREQUISICAO_ALMOX'
       
         'SET ANO = :NEW_ANO, CONTROLE = :NEW_CONTROLE, NUMERO = :NEW_NUME' +
         'RO, '
+      '  EMPRESA = :NEW_EMPRESA, CCUSTO_ORIGEM = :NEW_CCUSTO_ORIGEM, '
       
-        '  EMPRESA = :NEW_EMPRESA, TIPO = :NEW_TIPO, CCUSTO_ORIGEM = :NEW' +
-        '_CCUSTO_ORIGEM, '
-      
-        '  CCUSTO_DESTINO = :NEW_CCUSTO_DESTINO, INSERCAO_DATA = :NEW_INS' +
-        'ERCAO_DATA, '
-      
-        '  INSERCAO_USUARIO = :NEW_INSERCAO_USUARIO, DATA_EMISSAO = :NEW_' +
-        'DATA_EMISSAO, '
-      
-        '  REQUISITANTE = :NEW_REQUISITANTE, COMPETENCIA = :NEW_COMPETENC' +
-        'IA, '
-      '  STATUS = :NEW_STATUS, MOTIVO = :NEW_MOTIVO, OBS = :NEW_OBS, '
-      
-        '  VALOR_TOTAL = :NEW_VALOR_TOTAL, ATENDIMENTO_USUARIO = :NEW_ATE' +
-        'NDIMENTO_USUARIO, '
-      
-        '  ATENDIMENTO_DATA = :NEW_ATENDIMENTO_DATA, CANCEL_USUARIO = :NE' +
-        'W_CANCEL_USUARIO, '
+        '  CCUSTO_DESTINO = :NEW_CCUSTO_DESTINO, DATA_EMISSAO = :NEW_DATA' +
+        '_EMISSAO, '
+      '  STATUS = :NEW_STATUS, CANCEL_USUARIO = :NEW_CANCEL_USUARIO, '
       
         '  CANCEL_DATA = :NEW_CANCEL_DATA, CANCEL_MOTIVO = :NEW_CANCEL_MO' +
         'TIVO'
-      'WHERE ANO = :OLD_ANO AND CONTROLE = :OLD_CONTROLE')
-    DeleteSQL.Strings = (
-      'DELETE FROM TBREQUISICAO_ALMOX'
-      'WHERE ANO = :OLD_ANO AND CONTROLE = :OLD_CONTROLE')
+      'WHERE ANO = :OLD_ANO AND CONTROLE = :OLD_CONTROLE'
+      'RETURNING CONTROLE')
     FetchRowSQL.Strings = (
-      'Select'
-      '    r.ano'
-      '  , r.controle'
-      '  , r.numero'
-      '  , r.empresa'
-      '  , r.tipo'
-      '  , r.ccusto_origem'
-      '  , r.ccusto_destino'
-      '  , r.insercao_data'
-      '  , r.insercao_usuario'
-      '  , r.data_emissao'
-      '  , r.requisitante'
-      '  , r.competencia'
-      '  , r.status'
-      '  , r.motivo'
-      '  , r.obs'
-      '  , r.valor_total'
-      '  , r.atendimento_usuario'
-      '  , r.atendimento_data'
-      '  , r.cancel_usuario'
-      '  , r.cancel_data'
-      '  , r.cancel_motivo'
-      ''
       
-        '  , (Select count(ri.item) from TBREQUISICAO_ALMOX_ITEM ri where' +
-        ' ri.ano = r.ano and ri.controle = r.controle) as Itens'
-      ''
-      '  , e.rzsoc       as empresa_nome'
-      '  , co.descricao  as cc_origem_desc'
-      '  , co.codcliente as cc_origem_codcliente'
-      '  , cd.descricao  as cc_destino_desc'
-      '  , us.nomecompleto as usuario_requisitante'
-      ''
-      'from TBREQUISICAO_ALMOX r'
-      '  left join TBEMPRESA e on (e.cnpj = r.empresa)'
-      '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
-      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)'
-      '  left join TBUSERS us on (us.nome = r.requisitante)'
-      ''
-      'WHERE r.ANO = :ANO AND r.CONTROLE = :CONTROLE')
+        'SELECT ANO, CONTROLE, NUMERO, EMPRESA, TIPO, CCUSTO_ORIGEM, CCUS' +
+        'TO_DESTINO, '
+      '  INSERCAO_DATA, INSERCAO_USUARIO, DATA_EMISSAO, REQUISITANTE, '
+      
+        '  COMPETENCIA, STATUS, MOTIVO, OBS, VALOR_TOTAL, ATENDIMENTO_USU' +
+        'ARIO, '
+      '  ATENDIMENTO_DATA, CANCEL_USUARIO, CANCEL_DATA, CANCEL_MOTIVO'
+      'FROM TBREQUISICAO_ALMOX'
+      'WHERE ANO = :ANO AND CONTROLE = :CONTROLE')
     Left = 257
     Top = 232
   end

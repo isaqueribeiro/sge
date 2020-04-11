@@ -1334,298 +1334,12 @@ inherited frmGeInventario: TfrmGeInventario
       OnClick = nmImprimirInventarioLancClick
     end
   end
-  object qryInventario: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    i.ano'
-      '  , i.controle'
-      '  , i.tipo'
-      '  , i.sistema'
-      '  , i.empresa'
-      '  , i.centro_custo'
-      '  , i.conferir_estoque_venda'
-      '  , i.data'
-      '  , i.competencia'
-      '  , i.status'
-      '  , i.obs'
-      '  , i.insercao_datahora'
-      '  , i.insercao_usuario'
-      '  , i.fech_datahora'
-      '  , i.fech_usuario'
-      '  , i.cancel_datahora'
-      '  , i.cancel_usuario'
-      '  , i.cancel_movito'
-      '  , i.bloquear_movimento'
-      '  , c.descricao as centro_custo_desc'
-      '  , s.descricao as status_descricao'
-      '  , ('
-      '      Select first 1'
-      '        us.nomecompleto'
-      '      from TBUSERS us'
-      '      where us.nome = i.insercao_usuario'
-      '    ) as usuario_abertura'
-      '  , ('
-      '      Select first 1'
-      '        us.nomecompleto'
-      '      from TBUSERS us'
-      '      where us.nome = i.fech_usuario'
-      '    ) as usuario_fechamento'
-      'from TBINVENTARIO_ALMOX i'
-      '  left join TBCENTRO_CUSTO c on (c.codigo = i.centro_custo)'
-      
-        '  left join VW_STATUS_INVENTARIO_ALMOX s on (s.codigo = i.status' +
-        ')'
-      ''
-      'where i.ano      = :ano'
-      '  and i.controle = :cod'
-      '  and i.empresa  = :emp')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updInventario
-    Left = 16
-    Top = 408
-    object qryInventarioANO: TSmallintField
-      FieldName = 'ANO'
-      Origin = '"TBINVENTARIO_ALMOX"."ANO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object qryInventarioCONTROLE: TIntegerField
-      FieldName = 'CONTROLE'
-      Origin = '"TBINVENTARIO_ALMOX"."CONTROLE"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      OnGetText = qryInventarioCONTROLEGetText
-    end
-    object qryInventarioEMPRESA: TIBStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'EMPRESA'
-      Origin = '"TBINVENTARIO_ALMOX"."EMPRESA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 18
-    end
-    object qryInventarioTIPO: TSmallintField
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO'
-      Origin = '"TBINVENTARIO_ALMOX"."TIPO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object qryInventarioSISTEMA: TSmallintField
-      FieldName = 'SISTEMA'
-      Origin = '"TBINVENTARIO_ALMOX"."SISTEMA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryInventarioCENTRO_CUSTO: TIntegerField
-      DisplayLabel = 'Centro de Custo'
-      FieldName = 'CENTRO_CUSTO'
-      Origin = '"TBINVENTARIO_ALMOX"."CENTRO_CUSTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryInventarioCONFERIR_ESTOQUE_VENDA: TSmallintField
-      FieldName = 'CONFERIR_ESTOQUE_VENDA'
-      Origin = '"TBINVENTARIO_ALMOX"."CONFERIR_ESTOQUE_VENDA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryInventarioDATA: TDateField
-      DisplayLabel = 'Data'
-      FieldName = 'DATA'
-      Origin = '"TBINVENTARIO_ALMOX"."DATA"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object qryInventarioCOMPETENCIA: TIntegerField
-      FieldName = 'COMPETENCIA'
-      Origin = '"TBINVENTARIO_ALMOX"."COMPETENCIA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryInventarioSTATUS: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'STATUS'
-      Origin = '"TBINVENTARIO_ALMOX"."STATUS"'
-      ProviderFlags = [pfInUpdate]
-      OnGetText = qryInventarioSTATUSGetText
-    end
-    object qryInventarioOBS: TMemoField
-      FieldName = 'OBS'
-      Origin = '"TBINVENTARIO_ALMOX"."OBS"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object qryInventarioINSERCAO_DATAHORA: TDateTimeField
-      FieldName = 'INSERCAO_DATAHORA'
-      Origin = '"TBINVENTARIO_ALMOX"."INSERCAO_DATAHORA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryInventarioINSERCAO_USUARIO: TIBStringField
-      FieldName = 'INSERCAO_USUARIO'
-      Origin = '"TBINVENTARIO_ALMOX"."INSERCAO_USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object qryInventarioFECH_DATAHORA: TDateTimeField
-      FieldName = 'FECH_DATAHORA'
-      Origin = '"TBINVENTARIO_ALMOX"."FECH_DATAHORA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryInventarioFECH_USUARIO: TIBStringField
-      FieldName = 'FECH_USUARIO'
-      Origin = '"TBINVENTARIO_ALMOX"."FECH_USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object qryInventarioCANCEL_DATAHORA: TDateTimeField
-      FieldName = 'CANCEL_DATAHORA'
-      Origin = '"TBINVENTARIO_ALMOX"."CANCEL_DATAHORA"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryInventarioCANCEL_USUARIO: TIBStringField
-      FieldName = 'CANCEL_USUARIO'
-      Origin = '"TBINVENTARIO_ALMOX"."CANCEL_USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object qryInventarioCANCEL_MOVITO: TMemoField
-      FieldName = 'CANCEL_MOVITO'
-      Origin = '"TBINVENTARIO_ALMOX"."CANCEL_MOVITO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftMemo
-      Size = 8
-    end
-    object qryInventarioBLOQUEAR_MOVIMENTO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'BLOQUEAR_MOVIMENTO'
-      Origin = '"TBINVENTARIO_ALMOX"."BLOQUEAR_MOVIMENTO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryInventarioCENTRO_CUSTO_DESC: TIBStringField
-      FieldName = 'CENTRO_CUSTO_DESC'
-      Origin = '"TBCENTRO_CUSTO"."DESCRICAO"'
-      ProviderFlags = []
-      ReadOnly = True
-      OnGetText = qryInventarioCENTRO_CUSTO_DESCGetText
-      Size = 100
-    end
-    object qryInventarioSTATUS_DESCRICAO: TIBStringField
-      FieldKind = fkInternalCalc
-      FieldName = 'STATUS_DESCRICAO'
-      Origin = '"VW_STATUS_INVENTARIO_ALMOX"."DESCRICAO"'
-      ProviderFlags = []
-      ReadOnly = True
-      FixedChar = True
-      Size = 14
-    end
-    object qryInventarioUSUARIO_ABERTURA: TIBStringField
-      FieldName = 'USUARIO_ABERTURA'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 60
-    end
-    object qryInventarioUSUARIO_FECHAMENTO: TIBStringField
-      FieldName = 'USUARIO_FECHAMENTO'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 60
-    end
-  end
-  object updInventario: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ANO,'
-      '  CONTROLE,'
-      '  TIPO,'
-      '  SISTEMA,'
-      '  EMPRESA,'
-      '  CENTRO_CUSTO,'
-      '  CONFERIR_ESTOQUE_VENDA,'
-      '  DATA,'
-      '  COMPETENCIA,'
-      '  STATUS,'
-      '  OBS,'
-      '  INSERCAO_DATAHORA,'
-      '  INSERCAO_USUARIO,'
-      '  FECH_DATAHORA,'
-      '  FECH_USUARIO,'
-      '  CANCEL_DATAHORA,'
-      '  CANCEL_USUARIO,'
-      '  CANCEL_MOVITO,'
-      '  BLOQUEAR_MOVIMENTO'
-      'from TBINVENTARIO_ALMOX '
-      'where'
-      '  ANO = :ANO and'
-      '  CONTROLE = :CONTROLE')
-    ModifySQL.Strings = (
-      'update TBINVENTARIO_ALMOX'
-      'set'
-      '  ANO = :ANO,'
-      '  BLOQUEAR_MOVIMENTO = :BLOQUEAR_MOVIMENTO,'
-      '  CANCEL_DATAHORA = :CANCEL_DATAHORA,'
-      '  CANCEL_MOVITO = :CANCEL_MOVITO,'
-      '  CANCEL_USUARIO = :CANCEL_USUARIO,'
-      '  CENTRO_CUSTO = :CENTRO_CUSTO,'
-      '  COMPETENCIA = :COMPETENCIA,'
-      '  CONFERIR_ESTOQUE_VENDA = :CONFERIR_ESTOQUE_VENDA,'
-      '  CONTROLE = :CONTROLE,'
-      '  DATA = :DATA,'
-      '  EMPRESA = :EMPRESA,'
-      '  FECH_DATAHORA = :FECH_DATAHORA,'
-      '  FECH_USUARIO = :FECH_USUARIO,'
-      '  INSERCAO_DATAHORA = :INSERCAO_DATAHORA,'
-      '  INSERCAO_USUARIO = :INSERCAO_USUARIO,'
-      '  OBS = :OBS,'
-      '  SISTEMA = :SISTEMA,'
-      '  STATUS = :STATUS,'
-      '  TIPO = :TIPO'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CONTROLE = :OLD_CONTROLE')
-    InsertSQL.Strings = (
-      'insert into TBINVENTARIO_ALMOX'
-      
-        '  (ANO, BLOQUEAR_MOVIMENTO, CANCEL_DATAHORA, CANCEL_MOVITO, CANC' +
-        'EL_USUARIO, '
-      
-        '   CENTRO_CUSTO, COMPETENCIA, CONFERIR_ESTOQUE_VENDA, CONTROLE, ' +
-        'DATA, EMPRESA, '
-      
-        '   FECH_DATAHORA, FECH_USUARIO, INSERCAO_DATAHORA, INSERCAO_USUA' +
-        'RIO, OBS, '
-      '   SISTEMA, STATUS, TIPO)'
-      'values'
-      
-        '  (:ANO, :BLOQUEAR_MOVIMENTO, :CANCEL_DATAHORA, :CANCEL_MOVITO, ' +
-        ':CANCEL_USUARIO, '
-      
-        '   :CENTRO_CUSTO, :COMPETENCIA, :CONFERIR_ESTOQUE_VENDA, :CONTRO' +
-        'LE, :DATA, '
-      
-        '   :EMPRESA, :FECH_DATAHORA, :FECH_USUARIO, :INSERCAO_DATAHORA, ' +
-        ':INSERCAO_USUARIO, '
-      '   :OBS, :SISTEMA, :STATUS, :TIPO)')
-    DeleteSQL.Strings = (
-      'delete from TBINVENTARIO_ALMOX'
-      'where'
-      '  ANO = :OLD_ANO and'
-      '  CONTROLE = :OLD_CONTROLE')
-    Left = 48
-    Top = 408
-  end
   object dtsInventario: TDataSource
     AutoEdit = False
     DataSet = qryInventario
     OnStateChange = dtsInventarioStateChange
-    Left = 80
-    Top = 408
+    Left = 112
+    Top = 272
   end
   object qryProduto: TIBDataSet
     Database = DMBusiness.ibdtbsBusiness
@@ -1949,220 +1663,11 @@ inherited frmGeInventario: TfrmGeInventario
       OnClick = nmExcluirProdutoClick
     end
   end
-  object qryMaterial: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    ForcedRefresh = True
-    BufferChunks = 1000
-    CachedUpdates = True
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    i.id'
-      '  , i.ano'
-      '  , i.controle'
-      '  , i.item'
-      '  , i.produto'
-      '  , i.qtde'
-      '  , i.estoque'
-      '  , i.fracionador'
-      '  , i.unidade'
-      '  , i.custo'
-      '  , i.total'
-      '  , i.usuario'
-      '  , i.lote_conferido'
-      '  , i.lote_resultado'
-      '  , p.descri_apresentacao'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      'from TBINVENTARIO_ALMOX_ITEM i'
-      '  left join TBPRODUTO p on (p.cod = i.produto)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
-      ''
-      'where i.ano      = :ano'
-      '  and i.controle = :cod')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    UpdateObject = updMaterial
-    Left = 16
-    Top = 440
-    object qryMaterialID: TIBStringField
-      FieldName = 'ID'
-      Origin = '"TBINVENTARIO_ALMOX_ITEM"."ID"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 38
-    end
-    object qryMaterialANO: TSmallintField
-      FieldName = 'ANO'
-      Origin = '"TBINVENTARIO_ALMOX_ITEM"."ANO"'
-      ProviderFlags = [pfInUpdate, pfInKey]
-    end
-    object qryMaterialCONTROLE: TIntegerField
-      FieldName = 'CONTROLE'
-      Origin = '"TBINVENTARIO_ALMOX_ITEM"."CONTROLE"'
-      ProviderFlags = [pfInUpdate, pfInKey]
-      Required = True
-    end
-    object qryMaterialITEM: TIntegerField
-      FieldName = 'ITEM'
-      Origin = '"TBINVENTARIO_ALMOX_ITEM"."ITEM"'
-      ProviderFlags = [pfInUpdate, pfInKey]
-      Required = True
-    end
-    object qryMaterialPRODUTO: TIBStringField
-      FieldName = 'PRODUTO'
-      Origin = '"TBINVENTARIO_ALMOX_ITEM"."PRODUTO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object qryMaterialQTDE: TIBBCDField
-      FieldName = 'QTDE'
-      Origin = '"TBINVENTARIO_ALMOX_ITEM"."QTDE"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object qryMaterialESTOQUE: TIBBCDField
-      FieldName = 'ESTOQUE'
-      Origin = '"TBINVENTARIO_ALMOX_ITEM"."ESTOQUE"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object qryMaterialFRACIONADOR: TIBBCDField
-      FieldName = 'FRACIONADOR'
-      Origin = '"TBINVENTARIO_ALMOX_ITEM"."FRACIONADOR"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object qryMaterialUNIDADE: TSmallintField
-      FieldName = 'UNIDADE'
-      Origin = '"TBINVENTARIO_ALMOX_ITEM"."UNIDADE"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object qryMaterialCUSTO: TIBBCDField
-      FieldName = 'CUSTO'
-      Origin = '"TBINVENTARIO_ALMOX_ITEM"."CUSTO"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00##'
-      Precision = 18
-      Size = 4
-    end
-    object qryMaterialTOTAL: TIBBCDField
-      FieldName = 'TOTAL'
-      Origin = '"TBINVENTARIO_ALMOX_ITEM"."TOTAL"'
-      ProviderFlags = [pfInUpdate]
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object qryMaterialLOTE_CONFERIDO: TIBStringField
-      FieldName = 'LOTE_CONFERIDO'
-      Origin = '"TBINVENTARIO_ALMOX_ITEM"."LOTE_CONFERIDO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 38
-    end
-    object qryMaterialLOTE_RESULTADO: TIBStringField
-      FieldName = 'LOTE_RESULTADO'
-      Origin = '"TBINVENTARIO_ALMOX_ITEM"."LOTE_RESULTADO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 38
-    end
-    object qryMaterialUSUARIO: TIBStringField
-      FieldName = 'USUARIO'
-      Origin = '"TBINVENTARIO_ALMOX_ITEM"."USUARIO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object qryMaterialDESCRI_APRESENTACAO: TIBStringField
-      FieldName = 'DESCRI_APRESENTACAO'
-      Origin = '"TBPRODUTO"."DESCRI_APRESENTACAO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 100
-    end
-    object qryMaterialUNP_DESCRICAO: TIBStringField
-      FieldName = 'UNP_DESCRICAO'
-      Origin = '"TBUNIDADEPROD"."UNP_DESCRICAO"'
-      ProviderFlags = []
-      Size = 50
-    end
-    object qryMaterialUNP_SIGLA: TIBStringField
-      FieldName = 'UNP_SIGLA'
-      Origin = '"TBUNIDADEPROD"."UNP_SIGLA"'
-      ProviderFlags = []
-      Size = 5
-    end
-  end
-  object updMaterial: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  ID,'
-      '  ANO,'
-      '  CONTROLE,'
-      '  ITEM,'
-      '  PRODUTO,'
-      '  QTDE,'
-      '  ESTOQUE,'
-      '  FRACIONADOR,'
-      '  UNIDADE,'
-      '  CUSTO,'
-      '  TOTAL,'
-      '  USUARIO,'
-      '  LOTE_CONFERIDO,'
-      '  LOTE_RESULTADO'
-      'from TBINVENTARIO_ALMOX_ITEM '
-      'where'
-      '  ID = :ID')
-    ModifySQL.Strings = (
-      'update TBINVENTARIO_ALMOX_ITEM'
-      'set'
-      '  ANO = :ANO,'
-      '  CONTROLE = :CONTROLE,'
-      '  CUSTO = :CUSTO,'
-      '  ESTOQUE = :ESTOQUE,'
-      '  FRACIONADOR = :FRACIONADOR,'
-      '  ID = :ID,'
-      '  ITEM = :ITEM,'
-      '  LOTE_CONFERIDO = :LOTE_CONFERIDO,'
-      '  LOTE_RESULTADO = :LOTE_RESULTADO,'
-      '  PRODUTO = :PRODUTO,'
-      '  QTDE = :QTDE,'
-      '  TOTAL = :TOTAL,'
-      '  UNIDADE = :UNIDADE,'
-      '  USUARIO = :USUARIO'
-      'where'
-      '  ID = :OLD_ID')
-    InsertSQL.Strings = (
-      'insert into TBINVENTARIO_ALMOX_ITEM'
-      
-        '  (ANO, CONTROLE, CUSTO, ESTOQUE, FRACIONADOR, ID, ITEM, LOTE_CO' +
-        'NFERIDO, '
-      '   LOTE_RESULTADO, PRODUTO, QTDE, TOTAL, UNIDADE, USUARIO)'
-      'values'
-      
-        '  (:ANO, :CONTROLE, :CUSTO, :ESTOQUE, :FRACIONADOR, :ID, :ITEM, ' +
-        ':LOTE_CONFERIDO, '
-      '   :LOTE_RESULTADO, :PRODUTO, :QTDE, :TOTAL, :UNIDADE, :USUARIO)')
-    DeleteSQL.Strings = (
-      'delete from TBINVENTARIO_ALMOX_ITEM'
-      'where'
-      '  ID = :OLD_ID')
-    Left = 48
-    Top = 440
-  end
   object dtsMaterial: TDataSource
     AutoEdit = False
     DataSet = qryMaterial
-    Left = 80
-    Top = 440
+    Left = 112
+    Top = 320
   end
   object frRelacaoProduto: TfrxReport
     Version = '6.0.7'
@@ -4776,5 +4281,506 @@ inherited frmGeInventario: TfrmGeInventario
     BCDToCurrency = True
     Left = 400
     Top = 552
+  end
+  object qryInventario: TFDQuery
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updInventario
+    SQL.Strings = (
+      'Select'
+      '    i.ano'
+      '  , i.controle'
+      '  , i.tipo'
+      '  , i.sistema'
+      '  , i.empresa'
+      '  , i.centro_custo'
+      '  , i.conferir_estoque_venda'
+      '  , i.data'
+      '  , i.competencia'
+      '  , i.status'
+      '  , i.obs'
+      '  , i.insercao_datahora'
+      '  , i.insercao_usuario'
+      '  , i.fech_datahora'
+      '  , i.fech_usuario'
+      '  , i.cancel_datahora'
+      '  , i.cancel_usuario'
+      '  , i.cancel_movito'
+      '  , i.bloquear_movimento'
+      '  , c.descricao as centro_custo_desc'
+      '  , s.descricao as status_descricao'
+      '  , ('
+      '      Select first 1'
+      '        us.nomecompleto'
+      '      from TBUSERS us'
+      '      where us.nome = i.insercao_usuario'
+      '    ) as usuario_abertura'
+      '  , ('
+      '      Select first 1'
+      '        us.nomecompleto'
+      '      from TBUSERS us'
+      '      where us.nome = i.fech_usuario'
+      '    ) as usuario_fechamento'
+      'from TBINVENTARIO_ALMOX i'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = i.centro_custo)'
+      
+        '  left join VW_STATUS_INVENTARIO_ALMOX s on (s.codigo = i.status' +
+        ')'
+      ''
+      'where i.ano      = :ano'
+      '  and i.controle = :cod'
+      '  and i.empresa  = :emp')
+    Left = 48
+    Top = 272
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'COD'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'EMP'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end>
+    object qryInventarioANO: TSmallintField
+      FieldName = 'ANO'
+      Origin = 'ANO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+    end
+    object qryInventarioCONTROLE: TIntegerField
+      FieldName = 'CONTROLE'
+      Origin = 'CONTROLE'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      OnGetText = qryInventarioCONTROLEGetText
+    end
+    object qryInventarioTIPO: TSmallintField
+      DisplayLabel = 'Tipo'
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+      Required = True
+    end
+    object qryInventarioSISTEMA: TSmallintField
+      FieldName = 'SISTEMA'
+      Origin = 'SISTEMA'
+    end
+    object qryInventarioEMPRESA: TStringField
+      DisplayLabel = 'Empresa'
+      FieldName = 'EMPRESA'
+      Origin = 'EMPRESA'
+      Required = True
+      Size = 18
+    end
+    object qryInventarioCENTRO_CUSTO: TIntegerField
+      DisplayLabel = 'Centro de Custo'
+      FieldName = 'CENTRO_CUSTO'
+      Origin = 'CENTRO_CUSTO'
+      Required = True
+    end
+    object qryInventarioCONFERIR_ESTOQUE_VENDA: TSmallintField
+      FieldName = 'CONFERIR_ESTOQUE_VENDA'
+      Origin = 'CONFERIR_ESTOQUE_VENDA'
+    end
+    object qryInventarioDATA: TDateField
+      DisplayLabel = 'Data'
+      FieldName = 'DATA'
+      Origin = '"DATA"'
+      Required = True
+    end
+    object qryInventarioCOMPETENCIA: TIntegerField
+      FieldName = 'COMPETENCIA'
+      Origin = 'COMPETENCIA'
+    end
+    object qryInventarioSTATUS: TSmallintField
+      FieldName = 'STATUS'
+      Origin = 'STATUS'
+      OnGetText = qryInventarioSTATUSGetText
+    end
+    object qryInventarioOBS: TMemoField
+      FieldName = 'OBS'
+      Origin = 'OBS'
+      BlobType = ftMemo
+    end
+    object qryInventarioINSERCAO_DATAHORA: TSQLTimeStampField
+      FieldName = 'INSERCAO_DATAHORA'
+      Origin = 'INSERCAO_DATAHORA'
+    end
+    object qryInventarioINSERCAO_USUARIO: TStringField
+      FieldName = 'INSERCAO_USUARIO'
+      Origin = 'INSERCAO_USUARIO'
+      Size = 12
+    end
+    object qryInventarioFECH_DATAHORA: TSQLTimeStampField
+      FieldName = 'FECH_DATAHORA'
+      Origin = 'FECH_DATAHORA'
+    end
+    object qryInventarioFECH_USUARIO: TStringField
+      FieldName = 'FECH_USUARIO'
+      Origin = 'FECH_USUARIO'
+      Size = 12
+    end
+    object qryInventarioCANCEL_DATAHORA: TSQLTimeStampField
+      FieldName = 'CANCEL_DATAHORA'
+      Origin = 'CANCEL_DATAHORA'
+    end
+    object qryInventarioCANCEL_USUARIO: TStringField
+      FieldName = 'CANCEL_USUARIO'
+      Origin = 'CANCEL_USUARIO'
+      Size = 12
+    end
+    object qryInventarioCANCEL_MOVITO: TMemoField
+      FieldName = 'CANCEL_MOVITO'
+      Origin = 'CANCEL_MOVITO'
+      BlobType = ftMemo
+    end
+    object qryInventarioBLOQUEAR_MOVIMENTO: TSmallintField
+      FieldName = 'BLOQUEAR_MOVIMENTO'
+      Origin = 'BLOQUEAR_MOVIMENTO'
+    end
+    object qryInventarioCENTRO_CUSTO_DESC: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CENTRO_CUSTO_DESC'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      OnGetText = qryInventarioCENTRO_CUSTO_DESCGetText
+      Size = 100
+    end
+    object qryInventarioSTATUS_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'STATUS_DESCRICAO'
+      Origin = 'DESCRICAO'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 14
+    end
+    object qryInventarioUSUARIO_ABERTURA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'USUARIO_ABERTURA'
+      Origin = 'NOMECOMPLETO'
+      ProviderFlags = []
+      Size = 60
+    end
+    object qryInventarioUSUARIO_FECHAMENTO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'USUARIO_FECHAMENTO'
+      Origin = 'NOMECOMPLETO'
+      ProviderFlags = []
+      Size = 60
+    end
+  end
+  object updInventario: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBINVENTARIO_ALMOX'
+      '(ANO, CONTROLE, TIPO, SISTEMA, EMPRESA, '
+      '  CENTRO_CUSTO, CONFERIR_ESTOQUE_VENDA, "DATA", '
+      '  COMPETENCIA, STATUS, OBS, INSERCAO_DATAHORA, '
+      '  INSERCAO_USUARIO, FECH_DATAHORA, FECH_USUARIO, '
+      '  CANCEL_DATAHORA, CANCEL_USUARIO, CANCEL_MOVITO, '
+      '  BLOQUEAR_MOVIMENTO)'
+      
+        'VALUES (:NEW_ANO, :NEW_CONTROLE, :NEW_TIPO, :NEW_SISTEMA, :NEW_E' +
+        'MPRESA, '
+      '  :NEW_CENTRO_CUSTO, :NEW_CONFERIR_ESTOQUE_VENDA, :NEW_DATA, '
+      
+        '  :NEW_COMPETENCIA, :NEW_STATUS, :NEW_OBS, :NEW_INSERCAO_DATAHOR' +
+        'A, '
+      '  :NEW_INSERCAO_USUARIO, :NEW_FECH_DATAHORA, :NEW_FECH_USUARIO, '
+      
+        '  :NEW_CANCEL_DATAHORA, :NEW_CANCEL_USUARIO, :NEW_CANCEL_MOVITO,' +
+        ' '
+      '  :NEW_BLOQUEAR_MOVIMENTO)')
+    ModifySQL.Strings = (
+      'UPDATE TBINVENTARIO_ALMOX'
+      'SET ANO = :NEW_ANO, CONTROLE = :NEW_CONTROLE, TIPO = :NEW_TIPO, '
+      
+        '  SISTEMA = :NEW_SISTEMA, EMPRESA = :NEW_EMPRESA, CENTRO_CUSTO =' +
+        ' :NEW_CENTRO_CUSTO, '
+      
+        '  CONFERIR_ESTOQUE_VENDA = :NEW_CONFERIR_ESTOQUE_VENDA, "DATA" =' +
+        ' :NEW_DATA, '
+      
+        '  COMPETENCIA = :NEW_COMPETENCIA, STATUS = :NEW_STATUS, OBS = :N' +
+        'EW_OBS, '
+      
+        '  INSERCAO_DATAHORA = :NEW_INSERCAO_DATAHORA, INSERCAO_USUARIO =' +
+        ' :NEW_INSERCAO_USUARIO, '
+      
+        '  FECH_DATAHORA = :NEW_FECH_DATAHORA, FECH_USUARIO = :NEW_FECH_U' +
+        'SUARIO, '
+      
+        '  CANCEL_DATAHORA = :NEW_CANCEL_DATAHORA, CANCEL_USUARIO = :NEW_' +
+        'CANCEL_USUARIO, '
+      
+        '  CANCEL_MOVITO = :NEW_CANCEL_MOVITO, BLOQUEAR_MOVIMENTO = :NEW_' +
+        'BLOQUEAR_MOVIMENTO'
+      'WHERE ANO = :OLD_ANO AND CONTROLE = :OLD_CONTROLE')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBINVENTARIO_ALMOX'
+      'WHERE ANO = :OLD_ANO AND CONTROLE = :OLD_CONTROLE')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    i.ano'
+      '  , i.controle'
+      '  , i.tipo'
+      '  , i.sistema'
+      '  , i.empresa'
+      '  , i.centro_custo'
+      '  , i.conferir_estoque_venda'
+      '  , i.data'
+      '  , i.competencia'
+      '  , i.status'
+      '  , i.obs'
+      '  , i.insercao_datahora'
+      '  , i.insercao_usuario'
+      '  , i.fech_datahora'
+      '  , i.fech_usuario'
+      '  , i.cancel_datahora'
+      '  , i.cancel_usuario'
+      '  , i.cancel_movito'
+      '  , i.bloquear_movimento'
+      '  , c.descricao as centro_custo_desc'
+      '  , s.descricao as status_descricao'
+      '  , ('
+      '      Select first 1'
+      '        us.nomecompleto'
+      '      from TBUSERS us'
+      '      where us.nome = i.insercao_usuario'
+      '    ) as usuario_abertura'
+      '  , ('
+      '      Select first 1'
+      '        us.nomecompleto'
+      '      from TBUSERS us'
+      '      where us.nome = i.fech_usuario'
+      '    ) as usuario_fechamento'
+      'from TBINVENTARIO_ALMOX i'
+      '  left join TBCENTRO_CUSTO c on (c.codigo = i.centro_custo)'
+      
+        '  left join VW_STATUS_INVENTARIO_ALMOX s on (s.codigo = i.status' +
+        ')'
+      ''
+      'WHERE i.ANO = :ANO AND i.CONTROLE = :CONTROLE')
+    Left = 80
+    Top = 272
+  end
+  object qryMaterial: TFDQuery
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updMaterial
+    SQL.Strings = (
+      'Select'
+      '    i.id'
+      '  , i.ano'
+      '  , i.controle'
+      '  , i.item'
+      '  , i.produto'
+      '  , i.qtde'
+      '  , i.estoque'
+      '  , i.fracionador'
+      '  , i.unidade'
+      '  , i.custo'
+      '  , i.total'
+      '  , i.usuario'
+      '  , i.lote_conferido'
+      '  , i.lote_resultado'
+      '  , p.descri_apresentacao'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      'from TBINVENTARIO_ALMOX_ITEM i'
+      '  left join TBPRODUTO p on (p.cod = i.produto)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      ''
+      'where i.ano      = :ano'
+      '  and i.controle = :cod')
+    Left = 48
+    Top = 320
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'COD'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object qryMaterialID: TStringField
+      FieldName = 'ID'
+      Origin = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 38
+    end
+    object qryMaterialANO: TSmallintField
+      FieldName = 'ANO'
+      Origin = 'ANO'
+      Required = True
+    end
+    object qryMaterialCONTROLE: TIntegerField
+      FieldName = 'CONTROLE'
+      Origin = 'CONTROLE'
+      Required = True
+    end
+    object qryMaterialITEM: TIntegerField
+      FieldName = 'ITEM'
+      Origin = 'ITEM'
+      Required = True
+    end
+    object qryMaterialPRODUTO: TStringField
+      FieldName = 'PRODUTO'
+      Origin = 'PRODUTO'
+      Required = True
+      Size = 10
+    end
+    object qryMaterialQTDE: TBCDField
+      FieldName = 'QTDE'
+      Origin = 'QTDE'
+      Required = True
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object qryMaterialESTOQUE: TBCDField
+      FieldName = 'ESTOQUE'
+      Origin = 'ESTOQUE'
+      Required = True
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object qryMaterialFRACIONADOR: TBCDField
+      FieldName = 'FRACIONADOR'
+      Origin = 'FRACIONADOR'
+      DisplayFormat = ',0.###'
+      Precision = 18
+      Size = 3
+    end
+    object qryMaterialUNIDADE: TSmallintField
+      FieldName = 'UNIDADE'
+      Origin = 'UNIDADE'
+      Required = True
+    end
+    object qryMaterialCUSTO: TBCDField
+      FieldName = 'CUSTO'
+      Origin = 'CUSTO'
+      DisplayFormat = ',0.00##'
+      Precision = 18
+    end
+    object qryMaterialTOTAL: TBCDField
+      FieldName = 'TOTAL'
+      Origin = 'TOTAL'
+      DisplayFormat = ',0.00#'
+      Precision = 18
+      Size = 2
+    end
+    object qryMaterialUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Origin = 'USUARIO'
+      Size = 12
+    end
+    object qryMaterialLOTE_CONFERIDO: TStringField
+      FieldName = 'LOTE_CONFERIDO'
+      Origin = 'LOTE_CONFERIDO'
+      Size = 38
+    end
+    object qryMaterialLOTE_RESULTADO: TStringField
+      FieldName = 'LOTE_RESULTADO'
+      Origin = 'LOTE_RESULTADO'
+      Size = 38
+    end
+    object qryMaterialDESCRI_APRESENTACAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'DESCRI_APRESENTACAO'
+      Origin = 'DESCRI_APRESENTACAO'
+      ProviderFlags = []
+      Size = 100
+    end
+    object qryMaterialUNP_DESCRICAO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UNP_DESCRICAO'
+      Origin = 'UNP_DESCRICAO'
+      ProviderFlags = []
+      Size = 50
+    end
+    object qryMaterialUNP_SIGLA: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UNP_SIGLA'
+      Origin = 'UNP_SIGLA'
+      ProviderFlags = []
+      Size = 5
+    end
+  end
+  object updMaterial: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBINVENTARIO_ALMOX_ITEM'
+      '(ID, ANO, CONTROLE, ITEM, PRODUTO, QTDE, '
+      '  ESTOQUE, FRACIONADOR, UNIDADE, CUSTO, '
+      '  TOTAL, USUARIO, LOTE_CONFERIDO, LOTE_RESULTADO)'
+      
+        'VALUES (:NEW_ID, :NEW_ANO, :NEW_CONTROLE, :NEW_ITEM, :NEW_PRODUT' +
+        'O, :NEW_QTDE, '
+      '  :NEW_ESTOQUE, :NEW_FRACIONADOR, :NEW_UNIDADE, :NEW_CUSTO, '
+      
+        '  :NEW_TOTAL, :NEW_USUARIO, :NEW_LOTE_CONFERIDO, :NEW_LOTE_RESUL' +
+        'TADO)')
+    ModifySQL.Strings = (
+      'UPDATE TBINVENTARIO_ALMOX_ITEM'
+      
+        'SET ID = :NEW_ID, ANO = :NEW_ANO, CONTROLE = :NEW_CONTROLE, ITEM' +
+        ' = :NEW_ITEM, '
+      
+        '  PRODUTO = :NEW_PRODUTO, QTDE = :NEW_QTDE, ESTOQUE = :NEW_ESTOQ' +
+        'UE, '
+      '  FRACIONADOR = :NEW_FRACIONADOR, UNIDADE = :NEW_UNIDADE, '
+      
+        '  CUSTO = :NEW_CUSTO, TOTAL = :NEW_TOTAL, USUARIO = :NEW_USUARIO' +
+        ', '
+      
+        '  LOTE_CONFERIDO = :NEW_LOTE_CONFERIDO, LOTE_RESULTADO = :NEW_LO' +
+        'TE_RESULTADO'
+      'WHERE ID = :OLD_ID')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBINVENTARIO_ALMOX_ITEM'
+      'WHERE ID = :OLD_ID')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    i.id'
+      '  , i.ano'
+      '  , i.controle'
+      '  , i.item'
+      '  , i.produto'
+      '  , i.qtde'
+      '  , i.estoque'
+      '  , i.fracionador'
+      '  , i.unidade'
+      '  , i.custo'
+      '  , i.total'
+      '  , i.usuario'
+      '  , i.lote_conferido'
+      '  , i.lote_resultado'
+      '  , p.descri_apresentacao'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      'from TBINVENTARIO_ALMOX_ITEM i'
+      '  left join TBPRODUTO p on (p.cod = i.produto)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)'
+      ''
+      'WHERE i.ID = :ID')
+    Left = 80
+    Top = 320
   end
 end

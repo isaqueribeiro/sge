@@ -4,25 +4,22 @@ interface
 
 uses
   UGrPadrao,
-  
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, cxGraphics, cxLookAndFeels,
-  cxLookAndFeelPainters, Menus, cxButtons, ExtCtrls, ToolWin, ComCtrls,
-  cxControls, cxContainer, cxEdit, Mask, cxGroupBox, DB, IBCustomDataSet, IBQuery,
-  DBClient, Provider, IniFiles, cxStyles, cxCustomData, cxFilter, cxData,
-  cxDataStorage, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
-  cxGridCustomTableView, cxGridTableView, cxGridBandedTableView,
-  cxGridDBBandedTableView, cxGrid, cxImageComboBox, ImgList,
-  JvExMask, JvToolEdit, cxNavigator,
 
-  dxSkinsCore, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
-  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis,
-  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
-  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, dxSkinscxPCPainter;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, ComCtrls,
+  Dialogs, StdCtrls, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, ExtCtrls, ToolWin,
+  cxControls, cxContainer, cxEdit, Mask, cxGroupBox, DB, DBClient, Provider,
+  IniFiles, cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxDBData, cxGridLevel, cxClasses,
+  cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridBandedTableView, cxGridDBBandedTableView,
+  cxGrid, cxImageComboBox, ImgList, JvExMask, JvToolEdit, cxNavigator,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light, dxSkinscxPCPainter, System.ImageList;
 
 type
   TfrmGeRequisicaoAlmoxMonitor = class(TfrmGrPadrao)
@@ -30,7 +27,6 @@ type
     Bevel2: TBevel;
     BtnImprimir: TcxButton;
     GrpBxFiltro: TcxGroupBox;
-    qryCentroCusto: TIBQuery;
     dspCentroCusto: TDataSetProvider;
     cdsCentroCusto: TClientDataSet;
     dtsCentroCusto: TDataSource;
@@ -39,7 +35,6 @@ type
     lblData: TLabel;
     lblSituacao: TLabel;
     edSituacao: TComboBox;
-    qryRequisicaoAlmox: TIBQuery;
     dspRequisicaoAlmox: TDataSetProvider;
     cdsRequisicaoAlmox: TClientDataSet;
     dtsRequisicaoAlmox: TDataSource;
@@ -71,11 +66,13 @@ type
     e2Data: TJvDateEdit;
     lblEmpresa: TLabel;
     edEmpresa: TComboBox;
-    qryEmpresa: TIBQuery;
     dspEmpresa: TDataSetProvider;
     cdsEmpresa: TClientDataSet;
     dtsEmpresa: TDataSource;
     nmRequisicaoDevolver: TMenuItem;
+    qryEmpresa: TFDQuery;
+    qryCentroCusto: TFDQuery;
+    qryRequisicaoAlmox: TFDQuery;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure BtnPesquisarClick(Sender: TObject);
@@ -117,6 +114,22 @@ type
 
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+  - TBREQUISICAO_ALMOX
+  - TBEMPRESA
+  - TBCENTRO_CUSTO
+  - TBCENTRO_CUSTO_EMPRESA
+  - TBCONFIGURACAO
+  - TBCLIENTE
+
+  Views:
+  - VW_EMPRESA
+
+  Procedures:
+
+*)
 
   procedure MonitorarRequisicaoAlmoxAuto(const AOwner : TComponent; const PanelDock : TPanel = nil; const AutoLoad : Boolean = FALSE);
   procedure MonitorarRequisicaoAlmox(const AOwner : TComponent; const PanelDock : TPanel = nil; const AutoLoad : Boolean = FALSE);
@@ -254,10 +267,10 @@ begin
 
     while not Eof do
     begin
-      edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
-      SEmpresa[I] := FieldByName('empresa').AsString;
+      edEmpresa.Items.Add( FieldByName('razao').AsString );
+      SEmpresa[I] := FieldByName('cnpj').AsString;
 
-      if (FieldByName('empresa').AsString = gUsuarioLogado.Empresa) then
+      if (FieldByName('cnpj').AsString = gUsuarioLogado.Empresa) then
         S := I;
 
       Inc(I);

@@ -105,7 +105,7 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
     TabOrder = 1
     DesignSize = (
       343
-      233)
+      234)
     Height = 240
     Width = 343
     object lblCentroCusto: TLabel
@@ -354,6 +354,7 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
       's" no registro.'
     Align = alClient
     TabOrder = 2
+    ExplicitTop = 259
     object dbgReqTbl: TcxGridDBBandedTableView
       OnDblClick = dbgReqTblDblClick
       Navigator.Buttons.CustomButtons = <>
@@ -381,8 +382,8 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
       OptionsView.GroupByBox = False
       Styles.Content = StyleContent
       Styles.ContentEven = StyleContentEven
-      Styles.Selection = StyleSelecao
       Styles.Indicator = StyleSelecao
+      Styles.Selection = StyleSelecao
       Bands = <
         item
           Caption = 'Identifica'#231#227'o'
@@ -523,151 +524,33 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
       Transparent = True
     end
   end
-  object qryCentroCusto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.codigo'
-      '  , c.descricao'
-      '  , ci.nome'
-      'from TBCENTRO_CUSTO c'
-      
-        '  left join TBCENTRO_CUSTO_EMPRESA e on (e.centro_custo = c.codi' +
-        'go)'
-      '  left join TBCLIENTE ci on (ci.codigo = c.codcliente)'
-      ''
-      'where (e.empresa = :empresa)'
-      '  or (c.codcliente is not null)'
-      ''
-      'order by'
-      '    2')
-    Left = 128
-    Top = 344
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptInput
-        Value = ''
-      end>
-  end
   object dspCentroCusto: TDataSetProvider
     DataSet = qryCentroCusto
-    Left = 160
-    Top = 344
+    Left = 224
+    Top = 376
   end
   object cdsCentroCusto: TClientDataSet
     Aggregates = <>
     Params = <
       item
         DataType = ftString
-        Name = 'empresa'
+        Name = 'EMPRESA'
         ParamType = ptInput
-        Value = ''
+        Size = 18
       end>
     ProviderName = 'dspCentroCusto'
-    Left = 192
-    Top = 344
+    Left = 256
+    Top = 376
   end
   object dtsCentroCusto: TDataSource
     DataSet = cdsCentroCusto
-    Left = 224
-    Top = 344
-  end
-  object qryRequisicaoAlmox: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    r.ano'
-      '  , r.controle'
-      '  , r.numero'
-      '  , r.empresa'
-      '  , r.tipo'
-      '  , r.ccusto_origem'
-      '  , r.ccusto_destino'
-      '  , r.insercao_data'
-      '  , r.insercao_usuario'
-      '  , r.data_emissao'
-      '  , r.requisitante'
-      '  , r.competencia'
-      '  , r.status'
-      '  , r.motivo'
-      '  , r.obs'
-      '  , r.valor_total'
-      '  , r.atendimento_usuario'
-      '  , r.atendimento_data'
-      '  , r.cancel_usuario'
-      '  , r.cancel_data'
-      '  , r.cancel_motivo'
-      ''
-      '  , co.descricao  as cc_origem_desc'
-      '  , co.codcliente as cc_origem_codcliente'
-      '  , cd.descricao  as cc_destino_desc'
-      ''
-      'from TBREQUISICAO_ALMOX r'
-      '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
-      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)'
-      ''
-      'where r.empresa = :empresa'
-      '  and r.data_emissao between :data_inicial and :data_final'
-      '  and r.ccusto_destino = :centro_custo'
-      '  and ((r.status = :status) or (:todos = 1 and r.status > 1))'
-      ''
-      'order by'
-      '    r.ano'
-      '  , r.controle DESC')
-    Left = 128
-    Top = 392
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        DataType = ftDateTime
-        Name = 'data_inicial'
-        ParamType = ptInput
-        Value = 0d
-      end
-      item
-        DataType = ftDateTime
-        Name = 'data_final'
-        ParamType = ptInput
-        Value = 0d
-      end
-      item
-        DataType = ftInteger
-        Name = 'centro_custo'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'status'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'todos'
-        ParamType = ptInput
-        Value = 0
-      end>
+    Left = 288
+    Top = 376
   end
   object dspRequisicaoAlmox: TDataSetProvider
     DataSet = qryRequisicaoAlmox
-    Left = 160
-    Top = 392
+    Left = 224
+    Top = 424
   end
   object cdsRequisicaoAlmox: TClientDataSet
     Aggregates = <>
@@ -709,13 +592,13 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
         Value = 0
       end>
     ProviderName = 'dspRequisicaoAlmox'
-    Left = 192
-    Top = 392
+    Left = 256
+    Top = 424
   end
   object dtsRequisicaoAlmox: TDataSource
     DataSet = cdsRequisicaoAlmox
-    Left = 224
-    Top = 392
+    Left = 288
+    Top = 424
   end
   object ppImprimir: TPopupMenu
     Images = ImgStatus
@@ -1069,40 +952,159 @@ inherited frmGeRequisicaoAlmoxMonitor: TfrmGeRequisicaoAlmoxMonitor
       OnClick = nmRequisicaoDevolverClick
     end
   end
-  object qryEmpresa: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    c.empresa'
-      '  , e.rzsoc'
-      '  , e.nmfant'
-      'from TBCONFIGURACAO c'
-      '  inner join TBEMPRESA e on (e.cnpj = c.empresa)'
-      ''
-      'order by'
-      '    e.rzsoc')
-    Left = 128
-    Top = 304
-  end
   object dspEmpresa: TDataSetProvider
     DataSet = qryEmpresa
-    Left = 160
-    Top = 304
+    Left = 224
+    Top = 328
   end
   object cdsEmpresa: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspEmpresa'
-    Left = 192
-    Top = 304
+    Left = 256
+    Top = 328
   end
   object dtsEmpresa: TDataSource
     DataSet = cdsEmpresa
-    Left = 224
-    Top = 304
+    Left = 288
+    Top = 328
+  end
+  object qryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      '  inner join TBCONFIGURACAO c on (c.empresa = e.cnpj)'
+      'order by'
+      '    e.razao')
+    Left = 192
+    Top = 328
+  end
+  object qryCentroCusto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    c.codigo'
+      '  , c.descricao'
+      '  , ci.nome'
+      'from TBCENTRO_CUSTO c'
+      
+        '  left join TBCENTRO_CUSTO_EMPRESA e on (e.centro_custo = c.codi' +
+        'go)'
+      '  left join TBCLIENTE ci on (ci.codigo = c.codcliente)'
+      ''
+      'where (e.empresa = :empresa)'
+      '  or (c.codcliente is not null)'
+      ''
+      'order by'
+      '    2')
+    Left = 192
+    Top = 376
+    ParamData = <
+      item
+        Position = 1
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+      end>
+  end
+  object qryRequisicaoAlmox: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    r.ano'
+      '  , r.controle'
+      '  , r.numero'
+      '  , r.empresa'
+      '  , r.tipo'
+      '  , r.ccusto_origem'
+      '  , r.ccusto_destino'
+      '  , r.insercao_data'
+      '  , r.insercao_usuario'
+      '  , r.data_emissao'
+      '  , r.requisitante'
+      '  , r.competencia'
+      '  , r.status'
+      '  , r.motivo'
+      '  , r.obs'
+      '  , r.valor_total'
+      '  , r.atendimento_usuario'
+      '  , r.atendimento_data'
+      '  , r.cancel_usuario'
+      '  , r.cancel_data'
+      '  , r.cancel_motivo'
+      ''
+      '  , co.descricao  as cc_origem_desc'
+      '  , co.codcliente as cc_origem_codcliente'
+      '  , cd.descricao  as cc_destino_desc'
+      ''
+      'from TBREQUISICAO_ALMOX r'
+      '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
+      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)'
+      ''
+      'where r.empresa = :empresa'
+      '  and r.data_emissao between :data_inicial and :data_final'
+      '  and r.ccusto_destino = :centro_custo'
+      '  and ((r.status = :status) or (:todos = 1 and r.status > 1))'
+      ''
+      'order by'
+      '    r.ano'
+      '  , r.controle DESC')
+    Left = 192
+    Top = 424
+    ParamData = <
+      item
+        Position = 1
+        Name = 'empresa'
+        DataType = ftString
+        ParamType = ptInput
+        Value = ''
+      end
+      item
+        Position = 2
+        Name = 'data_inicial'
+        DataType = ftDateTime
+        ParamType = ptInput
+        Value = 0d
+      end
+      item
+        Position = 3
+        Name = 'data_final'
+        DataType = ftDateTime
+        ParamType = ptInput
+        Value = 0d
+      end
+      item
+        Position = 4
+        Name = 'centro_custo'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        Position = 5
+        Name = 'status'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        Position = 6
+        Name = 'todos'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = 0
+      end>
   end
 end

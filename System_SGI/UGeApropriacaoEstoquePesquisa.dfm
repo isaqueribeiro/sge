@@ -643,7 +643,6 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
         Height = 496
         Align = alClient
         TabOrder = 0
-        ExplicitTop = 2
         object dbgProdutoTbl: TcxGridDBBandedTableView
           Navigator.Buttons.CustomButtons = <>
           OnCellDblClick = dbgProdutoTblCellDblClick

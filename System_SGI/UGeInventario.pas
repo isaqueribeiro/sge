@@ -15,10 +15,14 @@ uses
   cxClasses, cxGridCustomView, cxGrid, DBClient, frxClass, frxDBSet, Provider, IBQuery,
   JvToolEdit, JvDBControls, JvExMask, dxSkinBlueprint, cxNavigator,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinscxPCPainter, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light, dxSkinscxPCPainter;
 
 type
   TfrmGeInventario = class(TfrmGrPadrao)
@@ -59,8 +63,6 @@ type
     nmImprimirConferenciaCC: TMenuItem;
     N1: TMenuItem;
     nmImprimirInventarioLanc: TMenuItem;
-    qryInventario: TIBDataSet;
-    updInventario: TIBUpdateSQL;
     dtsInventario: TDataSource;
     qryProduto: TIBDataSet;
     BtnOpcao: TcxButton;
@@ -69,26 +71,7 @@ type
     nmCarregarIA: TMenuItem;
     nmCarregarIE: TMenuItem;
     nmCarregarIC: TMenuItem;
-    qryMaterial: TIBDataSet;
-    updMaterial: TIBUpdateSQL;
     dtsMaterial: TDataSource;
-    qryInventarioANO: TSmallintField;
-    qryInventarioCONTROLE: TIntegerField;
-    qryInventarioTIPO: TSmallintField;
-    qryInventarioEMPRESA: TIBStringField;
-    qryInventarioCONFERIR_ESTOQUE_VENDA: TSmallintField;
-    qryInventarioDATA: TDateField;
-    qryInventarioCOMPETENCIA: TIntegerField;
-    qryInventarioSTATUS: TSmallintField;
-    qryInventarioOBS: TMemoField;
-    qryInventarioINSERCAO_DATAHORA: TDateTimeField;
-    qryInventarioINSERCAO_USUARIO: TIBStringField;
-    qryInventarioFECH_DATAHORA: TDateTimeField;
-    qryInventarioFECH_USUARIO: TIBStringField;
-    qryInventarioCANCEL_DATAHORA: TDateTimeField;
-    qryInventarioCANCEL_USUARIO: TIBStringField;
-    qryInventarioCANCEL_MOVITO: TMemoField;
-    qryInventarioBLOQUEAR_MOVIMENTO: TSmallintField;
     PnlMaterial: TPanel;
     PnlMaterialTitulo: TPanel;
     ImgMaterial: TImage;
@@ -99,24 +82,6 @@ type
     dbgMatTblPRODUTO: TcxGridDBBandedColumn;
     dbgMatTblDESCRI_APRESENTACAO: TcxGridDBBandedColumn;
     dbgMatLvl: TcxGridLevel;
-    qryMaterialANO: TSmallintField;
-    qryMaterialCONTROLE: TIntegerField;
-    qryMaterialITEM: TIntegerField;
-    qryMaterialPRODUTO: TIBStringField;
-    qryMaterialQTDE: TIBBCDField;
-    qryMaterialESTOQUE: TIBBCDField;
-    qryMaterialFRACIONADOR: TIBBCDField;
-    qryMaterialUNIDADE: TSmallintField;
-    qryMaterialCUSTO: TIBBCDField;
-    qryMaterialTOTAL: TIBBCDField;
-    qryMaterialUSUARIO: TIBStringField;
-    qryMaterialDESCRI_APRESENTACAO: TIBStringField;
-    qryMaterialUNP_DESCRICAO: TIBStringField;
-    qryMaterialUNP_SIGLA: TIBStringField;
-    qryInventarioCENTRO_CUSTO_DESC: TIBStringField;
-    qryInventarioSTATUS_DESCRICAO: TIBStringField;
-    qryInventarioUSUARIO_ABERTURA: TIBStringField;
-    qryInventarioUSUARIO_FECHAMENTO: TIBStringField;
     N2: TMenuItem;
     nmExcluirInventario: TMenuItem;
     lblProdutoCodigo: TLabel;
@@ -124,7 +89,6 @@ type
     dbProdutoNome: TDBEdit;
     lblProdutoNome: TLabel;
     BtnLancarProduto: TcxButton;
-    qryMaterialID: TIBStringField;
     lblProdutoQtde: TLabel;
     dbProdutoQtde: TDBEdit;
     dbProdutoUnidade: TDBEdit;
@@ -155,19 +119,59 @@ type
     N3: TMenuItem;
     nmLocalizarProduto: TMenuItem;
     nmExcluirProduto: TMenuItem;
-    qryMaterialLOTE_CONFERIDO: TIBStringField;
-    qryMaterialLOTE_RESULTADO: TIBStringField;
     frRelacaoInventarioCC: TfrxReport;
     QryRelacaoInventarioCC: TIBQuery;
     DspRelacaoInventarioCC: TDataSetProvider;
     CdsRelacaoInventarioCC: TClientDataSet;
     FrdsRelacaoInventarioCC: TfrxDBDataset;
-    qryInventarioCENTRO_CUSTO: TIntegerField;
     lblCustoUnitario: TLabel;
     dbCustoUnitario: TDBEdit;
     dbCentroCusto: TJvDBComboEdit;
     dbData: TJvDBDateEdit;
+    qryInventario: TFDQuery;
+    updInventario: TFDUpdateSQL;
+    qryInventarioANO: TSmallintField;
+    qryInventarioCONTROLE: TIntegerField;
+    qryInventarioTIPO: TSmallintField;
     qryInventarioSISTEMA: TSmallintField;
+    qryInventarioEMPRESA: TStringField;
+    qryInventarioCENTRO_CUSTO: TIntegerField;
+    qryInventarioCONFERIR_ESTOQUE_VENDA: TSmallintField;
+    qryInventarioDATA: TDateField;
+    qryInventarioCOMPETENCIA: TIntegerField;
+    qryInventarioSTATUS: TSmallintField;
+    qryInventarioOBS: TMemoField;
+    qryInventarioINSERCAO_DATAHORA: TSQLTimeStampField;
+    qryInventarioINSERCAO_USUARIO: TStringField;
+    qryInventarioFECH_DATAHORA: TSQLTimeStampField;
+    qryInventarioFECH_USUARIO: TStringField;
+    qryInventarioCANCEL_DATAHORA: TSQLTimeStampField;
+    qryInventarioCANCEL_USUARIO: TStringField;
+    qryInventarioCANCEL_MOVITO: TMemoField;
+    qryInventarioBLOQUEAR_MOVIMENTO: TSmallintField;
+    qryInventarioCENTRO_CUSTO_DESC: TStringField;
+    qryInventarioSTATUS_DESCRICAO: TStringField;
+    qryInventarioUSUARIO_ABERTURA: TStringField;
+    qryInventarioUSUARIO_FECHAMENTO: TStringField;
+    qryMaterial: TFDQuery;
+    updMaterial: TFDUpdateSQL;
+    qryMaterialID: TStringField;
+    qryMaterialANO: TSmallintField;
+    qryMaterialCONTROLE: TIntegerField;
+    qryMaterialITEM: TIntegerField;
+    qryMaterialPRODUTO: TStringField;
+    qryMaterialQTDE: TBCDField;
+    qryMaterialESTOQUE: TBCDField;
+    qryMaterialFRACIONADOR: TBCDField;
+    qryMaterialUNIDADE: TSmallintField;
+    qryMaterialCUSTO: TBCDField;
+    qryMaterialTOTAL: TBCDField;
+    qryMaterialUSUARIO: TStringField;
+    qryMaterialLOTE_CONFERIDO: TStringField;
+    qryMaterialLOTE_RESULTADO: TStringField;
+    qryMaterialDESCRI_APRESENTACAO: TStringField;
+    qryMaterialUNP_DESCRICAO: TStringField;
+    qryMaterialUNP_SIGLA: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure nmCarregarIAClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -175,15 +179,9 @@ type
     procedure nmCarregarICClick(Sender: TObject);
     procedure BtnCancelarItemClick(Sender: TObject);
     procedure dtsInventarioStateChange(Sender: TObject);
-    procedure qryInventarioCONTROLEGetText(Sender: TField;
-      var Text: String; DisplayText: Boolean);
     procedure BtnAbrirInventarioClick(Sender: TObject);
     procedure BtnCancelarClick(Sender: TObject);
     procedure dbCentroCustoButtonClick(Sender: TObject);
-    procedure qryInventarioCENTRO_CUSTO_DESCGetText(Sender: TField;
-      var Text: String; DisplayText: Boolean);
-    procedure qryInventarioSTATUSGetText(Sender: TField; var Text: String;
-      DisplayText: Boolean);
     procedure BtnSalvarClick(Sender: TObject);
     procedure nmExcluirInventarioClick(Sender: TObject);
     procedure BtnLancarProdutoClick(Sender: TObject);
@@ -206,6 +204,9 @@ type
     procedure nmImprimirInventarioLancClick(Sender: TObject);
     procedure frRelacaoInventarioCCGetValue(const VarName: String;
       var Value: Variant);
+    procedure qryInventarioCONTROLEGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure qryInventarioSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure qryInventarioCENTRO_CUSTO_DESCGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
     ver : TInfoVersao;
@@ -220,8 +221,6 @@ type
 
 (*
   Tabelas:
-  - TBEMPRESA
-  - TBINVENTARIO_ALMOX
 
   Views:
 
@@ -248,17 +247,17 @@ begin
   with qryInventario do
   begin
     Close;
-    ParamByName('ano').AsInteger := Ano;
-    ParamByName('cod').AsInteger := Codigo;
-    ParamByName('emp').AsString  := Empresa;
+    ParamByName('ano').AsSmallInt := Ano;
+    ParamByName('cod').AsInteger  := Codigo;
+    ParamByName('emp').AsString   := Empresa;
     Open;
   end;
 
   with qryMaterial do
   begin
     Close;
-    ParamByName('ano').AsInteger := qryInventarioANO.AsInteger;
-    ParamByName('cod').AsInteger := qryInventarioCONTROLE.AsInteger;
+    ParamByName('ano').AsSmallInt := qryInventarioANO.AsInteger;
+    ParamByName('cod').AsInteger  := qryInventarioCONTROLE.AsInteger;
     Open;
   end;
 
@@ -436,13 +435,6 @@ begin
   BloquearBotoes;
 end;
 
-procedure TfrmGeInventario.qryInventarioCONTROLEGetText(Sender: TField;
-  var Text: String; DisplayText: Boolean);
-begin
-  if not Sender.IsNull then
-    Text := qryInventarioANO.AsString + '/' + FormatFloat('###00000', Sender.AsInteger);
-end;
-
 procedure TfrmGeInventario.BtnAbrirInventarioClick(Sender: TObject);
 var
   iAno ,
@@ -518,15 +510,21 @@ begin
     end;
 end;
 
-procedure TfrmGeInventario.qryInventarioCENTRO_CUSTO_DESCGetText(
-  Sender: TField; var Text: String; DisplayText: Boolean);
+procedure TfrmGeInventario.qryInventarioCENTRO_CUSTO_DESCGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
 begin
   if not Sender.IsNull then
     Text := IfThen((gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]), '(ESTOQUE DE VENDA)', Sender.AsString);
 end;
 
-procedure TfrmGeInventario.qryInventarioSTATUSGetText(Sender: TField;
-  var Text: String; DisplayText: Boolean);
+procedure TfrmGeInventario.qryInventarioCONTROLEGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+    Text := qryInventarioANO.AsString + '/' + FormatFloat('###00000', Sender.AsInteger);
+end;
+
+procedure TfrmGeInventario.qryInventarioSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
 begin
   if not Sender.IsNull then
     Case Sender.AsInteger of
@@ -554,6 +552,8 @@ begin
     begin
       qryInventario.Post;
       qryInventario.ApplyUpdates;
+      qryInventario.CommitUpdates;
+
       CommitTransaction;
     end;
   end;
@@ -581,6 +581,8 @@ begin
     begin
       qryInventario.Delete;
       qryInventario.ApplyUpdates;
+      qryInventario.CommitUpdates;
+
       CommitTransaction;
       
       nmCarregarIAClick(Self);
@@ -773,6 +775,7 @@ begin
       
       qryMaterial.Post;
       qryMaterial.ApplyUpdates;
+      qryMaterial.CommitUpdates;
 
       if (qryInventarioSTATUS.AsInteger = STATUS_INVENTARIO_ALMOX_EML) then
       begin
@@ -781,6 +784,7 @@ begin
         qryInventarioSTATUS_DESCRICAO.AsString := 'Em conferência';
         qryInventario.Post;
         qryInventario.ApplyUpdates;
+        qryInventario.CommitUpdates;
       end;
 
       CommitTransaction;
@@ -835,6 +839,8 @@ begin
         qryInventarioOBS.AsString := sObs.Text;
         qryInventario.Post;
         qryInventario.ApplyUpdates;
+        qryInventario.CommitUpdates;
+
         CommitTransaction;
       end;
     end;
@@ -870,6 +876,8 @@ begin
         qryInventarioCANCEL_MOVITO.AsString     := sMotivo.Text;
         qryInventario.Post;
         qryInventario.ApplyUpdates;
+        qryInventario.CommitUpdates;
+
         CommitTransaction;
 
         BloquearBotoes;
@@ -908,6 +916,8 @@ begin
     qryInventarioFECH_USUARIO.AsString     := gUsuarioLogado.Login;
     qryInventario.Post;
     qryInventario.ApplyUpdates;
+    qryInventario.CommitUpdates;
+
     CommitTransaction;
 
     BloquearBotoes;
@@ -1077,6 +1087,8 @@ begin
   begin
     qryMaterial.Delete;
     qryMaterial.ApplyUpdates;
+    qryMaterial.CommitUpdates;
+
     CommitTransaction;
 
     BloquearBotoes;

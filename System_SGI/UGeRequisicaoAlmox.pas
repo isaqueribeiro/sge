@@ -254,7 +254,6 @@ type
   Procedures:
   - GET_ESTOQUE_ALMOX_DISPONIVEL
   - SET_REQUISICAO_ALMOX_CUSTO
-
 *)
 
 var
@@ -398,7 +397,7 @@ begin
   with fdQryTabela.UpdateOptions do
   begin
     GeneratorName := sGeneratorName;
-    AutoIncFields := 'codigo';
+    AutoIncFields := 'controle';
   end;
 
   inherited;
