@@ -589,7 +589,7 @@ end;
 procedure TfrmPrinc.BrBtnRelatorioFinanceiroAPxARClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_REL_APAG_AREC_ID, True) then
-    ; //FormFunction.ShowModalForm(Self, 'frmGeResultadoExercicioImpressao');
+    FormFunction.ShowModalForm(Self, 'frmGeContasAPagarAReceberImpressao');
 end;
 
 procedure TfrmPrinc.BrBtnRelatorioFinanceiroMVClick(Sender: TObject);

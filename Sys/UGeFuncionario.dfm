@@ -41,20 +41,20 @@ inherited frmGeFuncionario: TfrmGeFuncionario
           item
             Expanded = False
             FieldName = 'CODIGO'
-            Title.Caption = 'C'#243'digo'
+            Title.Caption = 'C'#243'digo '
             Width = 60
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOME_COMPLETO'
-            Title.Caption = 'Nome'
+            Title.Caption = 'Nome '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DATA_NASCIMENTO'
-            Title.Caption = 'Data Nasc.'
+            Title.Caption = 'Data Nasc. '
             Width = 80
             Visible = True
           end
@@ -62,13 +62,13 @@ inherited frmGeFuncionario: TfrmGeFuncionario
             Expanded = False
             FieldName = 'SEXO'
             Title.Alignment = taCenter
-            Width = 35
+            Title.Caption = 'Sexo '
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'RG'
-            Title.Caption = 'Registro Geral'
+            Title.Caption = 'Registro Geral '
             Width = 120
             Visible = True
           end>
@@ -118,8 +118,6 @@ inherited frmGeFuncionario: TfrmGeFuncionario
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 428
       inherited Bevel8: TBevel
@@ -901,11 +899,13 @@ inherited frmGeFuncionario: TfrmGeFuncionario
         Top = 269
         Width = 836
         Height = 159
-        ActivePage = tbsDadosAdcionais
+        ActivePage = tbsContato
         Align = alClient
         TabOrder = 3
         object tbsContato: TTabSheet
           Caption = '&1. Contato'
+          ExplicitLeft = 16
+          ExplicitTop = -64
           object lblFone: TLabel
             Left = 12
             Top = 8
@@ -1204,323 +1204,16 @@ inherited frmGeFuncionario: TfrmGeFuncionario
     end
   end
   inherited IbDtstTabela: TIBDataSet
-    BeforePost = IbDtstTabelaBeforePost
-    OnNewRecord = IbDtstTabelaNewRecord
-    SelectSQL.Strings = (
-      'Select'
-      '    f.codigo'
-      '  , f.nome_completo'
-      '  , f.nome_limpo'
-      '  , f.metafonema'
-      '  , f.sexo'
-      '  , f.foto_3x4'
-      '  , f.cpf'
-      '  , f.rg_numero'
-      '  , f.rg_orgao_emissor'
-      '  , f.data_nascimento'
-      '  , f.flag_vendedor'
-      '  , f.flag_fornecedor'
-      '  , f.ativo'
-      '  , f.login'
-      '  , f.vendedor'
-      '  , f.fornecedor'
-      '  , f.ender'
-      '  , f.numero_end'
-      '  , f.complemento'
-      '  , f.bairro'
-      '  , f.cep'
-      '  , f.cidade'
-      '  , f.uf'
-      '  , f.tlg_tipo'
-      '  , f.log_cod'
-      '  , f.bai_cod'
-      '  , f.cid_cod'
-      '  , f.est_cod'
-      '  , f.pais_id'
-      '  , f.fone_fixo'
-      '  , f.fone_celular'
-      '  , f.fone_comercial'
-      '  , f.email'
-      '  , f.observacao'
-      '  , f.data_cadastro'
-      
-        '  , trim(coalesce(f.rg_numero, '#39#39') || '#39' '#39' || coalesce(f.rg_orgao' +
-        '_emissor, '#39#39')) as rg'
-      
-        '  , coalesce( cast(coalesce(coalesce(t.tlg_sigla, t.tlg_descrica' +
-        'o) || '#39' '#39', '#39#39') || l.Log_nome as varchar(250)), f.ender ) as logr' +
-        'adouro'
-      '  , b.bai_nome'
-      '  , coalesce(c.cid_nome, f.cidade) as cid_nome'
-      '  , coalesce(u.est_nome, f.uf) as est_nome'
-      '  , p.Pais_nome'
-      'from TBFUNCIONARIO f'
-      '  left join TBTIPO_LOGRADOURO t on (t.tlg_cod = f.tlg_tipo)'
-      '  left join TBLOGRADOURO l on (l.log_cod = f.log_cod)'
-      '  left join TBBAIRRO b on (b.bai_cod = f.bai_cod)'
-      '  left join TBCIDADE c on (c.cid_cod = f.cid_cod)'
-      '  left join TBESTADO u on (u.est_cod = f.est_cod)'
-      '  left join TBPAIS p on (p.pais_id = f.pais_id)')
+    SelectSQL.Strings = ()
     GeneratorField.Field = 'CODIGO'
     GeneratorField.Generator = 'GEN_FUNCIONARIO_COD'
     GeneratorField.ApplyEvent = gamOnNewRecord
     Left = 744
-    object IbDtstTabelaCODIGO: TIntegerField
-      Alignment = taCenter
-      FieldName = 'CODIGO'
-      Origin = '"TBFUNCIONARIO"."CODIGO"'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      DisplayFormat = '##0000'
-    end
-    object IbDtstTabelaNOME_COMPLETO: TIBStringField
-      DisplayLabel = 'Nome Completo'
-      FieldName = 'NOME_COMPLETO'
-      Origin = '"TBFUNCIONARIO"."NOME_COMPLETO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 60
-    end
-    object IbDtstTabelaNOME_LIMPO: TIBStringField
-      FieldName = 'NOME_LIMPO'
-      Origin = '"TBFUNCIONARIO"."NOME_LIMPO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 60
-    end
-    object IbDtstTabelaMETAFONEMA: TIBStringField
-      FieldName = 'METAFONEMA'
-      Origin = '"TBFUNCIONARIO"."METAFONEMA"'
-      ProviderFlags = [pfInUpdate]
-      Size = 60
-    end
-    object IbDtstTabelaDATA_NASCIMENTO: TDateField
-      DisplayLabel = 'Data de Nascimento'
-      FieldName = 'DATA_NASCIMENTO'
-      Origin = '"TBFUNCIONARIO"."DATA_NASCIMENTO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-    end
-    object IbDtstTabelaSEXO: TIBStringField
-      Alignment = taCenter
-      DisplayLabel = 'Sexo'
-      FieldName = 'SEXO'
-      Origin = '"TBFUNCIONARIO"."SEXO"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      Size = 1
-    end
-    object IbDtstTabelaFOTO_3X4: TBlobField
-      DisplayLabel = 'Foto 3x4'
-      FieldName = 'FOTO_3X4'
-      Origin = '"TBFUNCIONARIO"."FOTO_3X4"'
-      ProviderFlags = [pfInUpdate]
-      Size = 8
-    end
-    object IbDtstTabelaCPF: TIBStringField
-      FieldName = 'CPF'
-      Origin = '"TBFUNCIONARIO"."CPF"'
-      ProviderFlags = [pfInUpdate]
-      Required = True
-      EditMask = '999.999.999-99;0; '
-      Size = 12
-    end
-    object IbDtstTabelaRG_NUMERO: TIBStringField
-      DisplayLabel = 'RG - N'#250'mero'
-      FieldName = 'RG_NUMERO'
-      Origin = '"TBFUNCIONARIO"."RG_NUMERO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaRG_ORGAO_EMISSOR: TIBStringField
-      DisplayLabel = 'RG - '#211'rg'#227'o'
-      FieldName = 'RG_ORGAO_EMISSOR'
-      Origin = '"TBFUNCIONARIO"."RG_ORGAO_EMISSOR"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaFLAG_VENDEDOR: TSmallintField
-      FieldName = 'FLAG_VENDEDOR'
-      Origin = '"TBFUNCIONARIO"."FLAG_VENDEDOR"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaFLAG_FORNECEDOR: TSmallintField
-      FieldName = 'FLAG_FORNECEDOR'
-      Origin = '"TBFUNCIONARIO"."FLAG_FORNECEDOR"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaATIVO: TSmallintField
-      FieldName = 'ATIVO'
-      Origin = '"TBFUNCIONARIO"."ATIVO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaVENDEDOR: TIntegerField
-      FieldName = 'VENDEDOR'
-      Origin = '"TBFUNCIONARIO"."VENDEDOR"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaLOGIN: TIBStringField
-      FieldName = 'LOGIN'
-      Origin = '"TBFUNCIONARIO"."LOGIN"'
-      ProviderFlags = [pfInUpdate]
-      Size = 12
-    end
-    object IbDtstTabelaFORNECEDOR: TIntegerField
-      FieldName = 'FORNECEDOR'
-      Origin = '"TBFUNCIONARIO"."FORNECEDOR"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaENDER: TIBStringField
-      FieldName = 'ENDER'
-      Origin = '"TBFUNCIONARIO"."ENDER"'
-      ProviderFlags = [pfInUpdate]
-      Size = 250
-    end
-    object IbDtstTabelaNUMERO_END: TIBStringField
-      FieldName = 'NUMERO_END'
-      Origin = '"TBFUNCIONARIO"."NUMERO_END"'
-      ProviderFlags = [pfInUpdate]
-      Size = 10
-    end
-    object IbDtstTabelaCOMPLEMENTO: TIBStringField
-      FieldName = 'COMPLEMENTO'
-      Origin = '"TBFUNCIONARIO"."COMPLEMENTO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 50
-    end
-    object IbDtstTabelaBAIRRO: TIBStringField
-      FieldName = 'BAIRRO'
-      Origin = '"TBFUNCIONARIO"."BAIRRO"'
-      ProviderFlags = [pfInUpdate]
-      Size = 25
-    end
-    object IbDtstTabelaCEP: TIBStringField
-      FieldName = 'CEP'
-      Origin = '"TBFUNCIONARIO"."CEP"'
-      ProviderFlags = [pfInUpdate]
-      EditMask = '99.999-999;0; '
-      Size = 8
-    end
-    object IbDtstTabelaCIDADE: TIBStringField
-      FieldName = 'CIDADE'
-      Origin = '"TBFUNCIONARIO"."CIDADE"'
-      ProviderFlags = [pfInUpdate]
-      Size = 30
-    end
-    object IbDtstTabelaUF: TIBStringField
-      FieldName = 'UF'
-      Origin = '"TBFUNCIONARIO"."UF"'
-      ProviderFlags = [pfInUpdate]
-      FixedChar = True
-      Size = 2
-    end
-    object IbDtstTabelaEST_COD: TSmallintField
-      DisplayLabel = 'Estado'
-      FieldName = 'EST_COD'
-      Origin = '"TBFUNCIONARIO"."EST_COD"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaCID_COD: TIntegerField
-      DisplayLabel = 'Cidade'
-      FieldName = 'CID_COD'
-      Origin = '"TBFUNCIONARIO"."CID_COD"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaBAI_COD: TIntegerField
-      DisplayLabel = 'Bairro'
-      FieldName = 'BAI_COD'
-      Origin = '"TBFUNCIONARIO"."BAI_COD"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaTLG_TIPO: TSmallintField
-      FieldName = 'TLG_TIPO'
-      Origin = '"TBFUNCIONARIO"."TLG_TIPO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaLOG_COD: TIntegerField
-      DisplayLabel = 'Logradouro'
-      FieldName = 'LOG_COD'
-      Origin = '"TBFUNCIONARIO"."LOG_COD"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaPAIS_ID: TIBStringField
-      FieldName = 'PAIS_ID'
-      Origin = '"TBFUNCIONARIO"."PAIS_ID"'
-      ProviderFlags = [pfInUpdate]
-      Size = 5
-    end
-    object IbDtstTabelaFONE_FIXO: TIBStringField
-      FieldName = 'FONE_FIXO'
-      Origin = '"TBFUNCIONARIO"."FONE_FIXO"'
-      ProviderFlags = [pfInUpdate]
-      EditMask = '(99)9999.9999;0; '
-      Size = 11
-    end
-    object IbDtstTabelaFONE_CELULAR: TIBStringField
-      FieldName = 'FONE_CELULAR'
-      Origin = '"TBFUNCIONARIO"."FONE_CELULAR"'
-      ProviderFlags = [pfInUpdate]
-      EditMask = '(99)9999.9999;0; '
-      Size = 11
-    end
-    object IbDtstTabelaFONE_COMERCIAL: TIBStringField
-      FieldName = 'FONE_COMERCIAL'
-      Origin = '"TBFUNCIONARIO"."FONE_COMERCIAL"'
-      ProviderFlags = [pfInUpdate]
-      EditMask = '(99)9999.9999;0; '
-      Size = 11
-    end
-    object IbDtstTabelaEMAIL: TIBStringField
-      FieldName = 'EMAIL'
-      Origin = '"TBFUNCIONARIO"."EMAIL"'
-      ProviderFlags = [pfInUpdate]
-      Size = 60
-    end
-    object IbDtstTabelaOBSERVACAO: TWideMemoField
-      FieldName = 'OBSERVACAO'
-      Origin = '"TBFUNCIONARIO"."OBSERVACAO"'
-      ProviderFlags = [pfInUpdate]
-      BlobType = ftWideMemo
-      Size = 8
-    end
-    object IbDtstTabelaDATA_CADASTRO: TDateField
-      FieldName = 'DATA_CADASTRO'
-      Origin = '"TBFUNCIONARIO"."DATA_CADASTRO"'
-      ProviderFlags = [pfInUpdate]
-    end
-    object IbDtstTabelaRG: TIBStringField
-      FieldName = 'RG'
-      ProviderFlags = []
-      Size = 41
-    end
-    object IbDtstTabelaLOGRADOURO: TIBStringField
-      FieldName = 'LOGRADOURO'
-      ProviderFlags = []
-      Size = 250
-    end
-    object IbDtstTabelaBAI_NOME: TIBStringField
-      FieldName = 'BAI_NOME'
-      Origin = '"TBBAIRRO"."BAI_NOME"'
-      ProviderFlags = []
-      Size = 100
-    end
-    object IbDtstTabelaCID_NOME: TIBStringField
-      FieldName = 'CID_NOME'
-      ProviderFlags = []
-      Size = 100
-    end
-    object IbDtstTabelaEST_NOME: TIBStringField
-      FieldName = 'EST_NOME'
-      ProviderFlags = []
-      Size = 100
-    end
-    object IbDtstTabelaPAIS_NOME: TIBStringField
-      FieldName = 'PAIS_NOME'
-      Origin = '"TBPAIS"."PAIS_NOME"'
-      ProviderFlags = []
-      Size = 150
-    end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 808
-    Top = 8
+    DataSet = fdQryTabela
+    Left = 592
+    Top = 0
   end
   inherited IbUpdTabela: TIBUpdateSQL
     RefreshSQL.Strings = (
@@ -1643,12 +1336,11 @@ inherited frmGeFuncionario: TfrmGeFuncionario
       'where'
       '  CODIGO = :OLD_CODIGO')
     Left = 776
-    Top = 8
   end
   inherited ImgList: TImageList
     Left = 712
     Bitmap = {
-      494C01012B002C004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012B002C00500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000B0000000010020000000000000B0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -3107,19 +2799,425 @@ inherited frmGeFuncionario: TfrmGeFuncionario
       C01FC01F80018001FFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object tblSexo: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_SEXO'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 672
-    Top = 184
+  inherited fdQryTabela: TFDQuery
+    BeforePost = fdQryTabelaBeforePost
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_FUNCIONARIO_COD'
+    UpdateOptions.KeyFields = 'CODIGO'
+    UpdateOptions.AutoIncFields = 'CODIGO'
+    SQL.Strings = (
+      'Select'
+      '    f.codigo'
+      '  , f.nome_completo'
+      '  , f.nome_limpo'
+      '  , f.metafonema'
+      '  , f.sexo'
+      '  , f.foto_3x4'
+      '  , f.cpf'
+      '  , f.rg_numero'
+      '  , f.rg_orgao_emissor'
+      '  , f.data_nascimento'
+      '  , f.flag_vendedor'
+      '  , f.flag_fornecedor'
+      '  , f.ativo'
+      '  , f.login'
+      '  , f.vendedor'
+      '  , f.fornecedor'
+      '  , f.ender'
+      '  , f.numero_end'
+      '  , f.complemento'
+      '  , f.bairro'
+      '  , f.cep'
+      '  , f.cidade'
+      '  , f.uf'
+      '  , f.tlg_tipo'
+      '  , f.log_cod'
+      '  , f.bai_cod'
+      '  , f.cid_cod'
+      '  , f.est_cod'
+      '  , f.pais_id'
+      '  , f.fone_fixo'
+      '  , f.fone_celular'
+      '  , f.fone_comercial'
+      '  , f.email'
+      '  , f.observacao'
+      '  , f.data_cadastro'
+      
+        '  , trim(coalesce(f.rg_numero, '#39#39') || '#39' '#39' || coalesce(f.rg_orgao' +
+        '_emissor, '#39#39')) as rg'
+      
+        '  , coalesce( cast(coalesce(coalesce(t.tlg_sigla, t.tlg_descrica' +
+        'o) || '#39' '#39', '#39#39') || l.Log_nome as varchar(250)), f.ender ) as logr' +
+        'adouro'
+      '  , b.bai_nome'
+      '  , coalesce(c.cid_nome, f.cidade) as cid_nome'
+      '  , coalesce(u.est_nome, f.uf) as est_nome'
+      '  , p.Pais_nome'
+      'from TBFUNCIONARIO f'
+      '  left join TBTIPO_LOGRADOURO t on (t.tlg_cod = f.tlg_tipo)'
+      '  left join TBLOGRADOURO l on (l.log_cod = f.log_cod)'
+      '  left join TBBAIRRO b on (b.bai_cod = f.bai_cod)'
+      '  left join TBCIDADE c on (c.cid_cod = f.cid_cod)'
+      '  left join TBESTADO u on (u.est_cod = f.est_cod)'
+      '  left join TBPAIS p on (p.pais_id = f.pais_id)')
+    Left = 528
+    Top = 0
+    object fdQryTabelaCODIGO: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      DisplayFormat = '##0000'
+    end
+    object fdQryTabelaNOME_COMPLETO: TStringField
+      DisplayLabel = 'Nome Completo'
+      FieldName = 'NOME_COMPLETO'
+      Origin = 'NOME_COMPLETO'
+      Required = True
+      Size = 60
+    end
+    object fdQryTabelaNOME_LIMPO: TStringField
+      FieldName = 'NOME_LIMPO'
+      Origin = 'NOME_LIMPO'
+      Size = 60
+    end
+    object fdQryTabelaMETAFONEMA: TStringField
+      FieldName = 'METAFONEMA'
+      Origin = 'METAFONEMA'
+      Size = 60
+    end
+    object fdQryTabelaDATA_NASCIMENTO: TDateField
+      DisplayLabel = 'Data de Nascimento'
+      FieldName = 'DATA_NASCIMENTO'
+      Origin = 'DATA_NASCIMENTO'
+      Required = True
+    end
+    object fdQryTabelaSEXO: TStringField
+      Alignment = taCenter
+      DisplayLabel = 'Sexo'
+      FieldName = 'SEXO'
+      Origin = 'SEXO'
+      Required = True
+      Size = 1
+    end
+    object fdQryTabelaFOTO_3X4: TBlobField
+      DisplayLabel = 'Foto 3x4'
+      FieldName = 'FOTO_3X4'
+      Origin = 'FOTO_3X4'
+    end
+    object fdQryTabelaCPF: TStringField
+      FieldName = 'CPF'
+      Origin = 'CPF'
+      Required = True
+      EditMask = '999.999.999-99;0; '
+      Size = 12
+    end
+    object fdQryTabelaRG_NUMERO: TStringField
+      DisplayLabel = 'RG - N'#250'mero'
+      FieldName = 'RG_NUMERO'
+      Origin = 'RG_NUMERO'
+    end
+    object fdQryTabelaRG_ORGAO_EMISSOR: TStringField
+      DisplayLabel = 'RG - '#211'rg'#227'o'
+      FieldName = 'RG_ORGAO_EMISSOR'
+      Origin = 'RG_ORGAO_EMISSOR'
+    end
+    object fdQryTabelaFLAG_VENDEDOR: TSmallintField
+      FieldName = 'FLAG_VENDEDOR'
+      Origin = 'FLAG_VENDEDOR'
+    end
+    object fdQryTabelaFLAG_FORNECEDOR: TSmallintField
+      FieldName = 'FLAG_FORNECEDOR'
+      Origin = 'FLAG_FORNECEDOR'
+    end
+    object fdQryTabelaATIVO: TSmallintField
+      FieldName = 'ATIVO'
+      Origin = 'ATIVO'
+    end
+    object fdQryTabelaLOGIN: TStringField
+      FieldName = 'LOGIN'
+      Origin = 'LOGIN'
+      Size = 12
+    end
+    object fdQryTabelaVENDEDOR: TIntegerField
+      FieldName = 'VENDEDOR'
+      Origin = 'VENDEDOR'
+    end
+    object fdQryTabelaFORNECEDOR: TIntegerField
+      FieldName = 'FORNECEDOR'
+      Origin = 'FORNECEDOR'
+    end
+    object fdQryTabelaENDER: TStringField
+      FieldName = 'ENDER'
+      Origin = 'ENDER'
+      Size = 250
+    end
+    object fdQryTabelaNUMERO_END: TStringField
+      FieldName = 'NUMERO_END'
+      Origin = 'NUMERO_END'
+      Size = 10
+    end
+    object fdQryTabelaCOMPLEMENTO: TStringField
+      FieldName = 'COMPLEMENTO'
+      Origin = 'COMPLEMENTO'
+      Size = 50
+    end
+    object fdQryTabelaBAIRRO: TStringField
+      FieldName = 'BAIRRO'
+      Origin = 'BAIRRO'
+      Size = 100
+    end
+    object fdQryTabelaCEP: TStringField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+      EditMask = '99.999-999;0; '
+      Size = 8
+    end
+    object fdQryTabelaCIDADE: TStringField
+      FieldName = 'CIDADE'
+      Origin = 'CIDADE'
+      Size = 30
+    end
+    object fdQryTabelaUF: TStringField
+      FieldName = 'UF'
+      Origin = 'UF'
+      FixedChar = True
+      Size = 2
+    end
+    object fdQryTabelaEST_COD: TSmallintField
+      DisplayLabel = 'Estado'
+      FieldName = 'EST_COD'
+      Origin = 'EST_COD'
+    end
+    object fdQryTabelaCID_COD: TIntegerField
+      DisplayLabel = 'Cidade'
+      FieldName = 'CID_COD'
+      Origin = 'CID_COD'
+    end
+    object fdQryTabelaBAI_COD: TIntegerField
+      DisplayLabel = 'Bairro'
+      FieldName = 'BAI_COD'
+      Origin = 'BAI_COD'
+    end
+    object fdQryTabelaTLG_TIPO: TSmallintField
+      FieldName = 'TLG_TIPO'
+      Origin = 'TLG_TIPO'
+    end
+    object fdQryTabelaLOG_COD: TIntegerField
+      DisplayLabel = 'Logradouro'
+      FieldName = 'LOG_COD'
+      Origin = 'LOG_COD'
+    end
+    object fdQryTabelaPAIS_ID: TStringField
+      FieldName = 'PAIS_ID'
+      Origin = 'PAIS_ID'
+      Size = 5
+    end
+    object fdQryTabelaFONE_FIXO: TStringField
+      FieldName = 'FONE_FIXO'
+      Origin = 'FONE_FIXO'
+      EditMask = '(99)9999.9999;0; '
+      Size = 11
+    end
+    object fdQryTabelaFONE_CELULAR: TStringField
+      FieldName = 'FONE_CELULAR'
+      Origin = 'FONE_CELULAR'
+      EditMask = '(99)99999.9999;0; '
+      Size = 11
+    end
+    object fdQryTabelaFONE_COMERCIAL: TStringField
+      FieldName = 'FONE_COMERCIAL'
+      Origin = 'FONE_COMERCIAL'
+      EditMask = '(99)9999.9999;0; '
+      Size = 11
+    end
+    object fdQryTabelaEMAIL: TStringField
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      Size = 60
+    end
+    object fdQryTabelaOBSERVACAO: TMemoField
+      FieldName = 'OBSERVACAO'
+      Origin = 'OBSERVACAO'
+      BlobType = ftMemo
+    end
+    object fdQryTabelaDATA_CADASTRO: TDateField
+      FieldName = 'DATA_CADASTRO'
+      Origin = 'DATA_CADASTRO'
+    end
+    object fdQryTabelaRG: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'RG'
+      Origin = 'RG'
+      ProviderFlags = []
+      Size = 41
+    end
+    object fdQryTabelaLOGRADOURO: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'LOGRADOURO'
+      Origin = 'LOGRADOURO'
+      ProviderFlags = []
+      Size = 250
+    end
+    object fdQryTabelaBAI_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'BAI_NOME'
+      Origin = 'BAI_NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaCID_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CID_NOME'
+      Origin = 'CID_NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaEST_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EST_NOME'
+      Origin = 'EST_NOME'
+      ProviderFlags = []
+      Size = 100
+    end
+    object fdQryTabelaPAIS_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PAIS_NOME'
+      Origin = 'PAIS_NOME'
+      ProviderFlags = []
+      Size = 150
+    end
+  end
+  inherited fdUpdTabela: TFDUpdateSQL
+    InsertSQL.Strings = (
+      'INSERT INTO TBFUNCIONARIO'
+      '(CODIGO, NOME_COMPLETO, NOME_LIMPO, METAFONEMA, '
+      '  SEXO, FOTO_3X4, CPF, RG_NUMERO, RG_ORGAO_EMISSOR, '
+      '  DATA_NASCIMENTO, FLAG_VENDEDOR, FLAG_FORNECEDOR, '
+      '  ATIVO, LOGIN, VENDEDOR, FORNECEDOR, '
+      '  ENDER, NUMERO_END, COMPLEMENTO, BAIRRO, '
+      '  CEP, CIDADE, UF, TLG_TIPO, LOG_COD, '
+      '  BAI_COD, CID_COD, EST_COD, PAIS_ID, '
+      '  FONE_FIXO, FONE_CELULAR, FONE_COMERCIAL, '
+      '  EMAIL, OBSERVACAO, DATA_CADASTRO)'
+      
+        'VALUES (:NEW_CODIGO, :NEW_NOME_COMPLETO, :NEW_NOME_LIMPO, :NEW_M' +
+        'ETAFONEMA, '
+      
+        '  :NEW_SEXO, :NEW_FOTO_3X4, :NEW_CPF, :NEW_RG_NUMERO, :NEW_RG_OR' +
+        'GAO_EMISSOR, '
+      
+        '  :NEW_DATA_NASCIMENTO, :NEW_FLAG_VENDEDOR, :NEW_FLAG_FORNECEDOR' +
+        ', '
+      '  :NEW_ATIVO, :NEW_LOGIN, :NEW_VENDEDOR, :NEW_FORNECEDOR, '
+      '  :NEW_ENDER, :NEW_NUMERO_END, :NEW_COMPLEMENTO, :NEW_BAIRRO, '
+      '  :NEW_CEP, :NEW_CIDADE, :NEW_UF, :NEW_TLG_TIPO, :NEW_LOG_COD, '
+      '  :NEW_BAI_COD, :NEW_CID_COD, :NEW_EST_COD, :NEW_PAIS_ID, '
+      '  :NEW_FONE_FIXO, :NEW_FONE_CELULAR, :NEW_FONE_COMERCIAL, '
+      '  :NEW_EMAIL, :NEW_OBSERVACAO, :NEW_DATA_CADASTRO)')
+    ModifySQL.Strings = (
+      'UPDATE TBFUNCIONARIO'
+      
+        'SET CODIGO = :NEW_CODIGO, NOME_COMPLETO = :NEW_NOME_COMPLETO, NO' +
+        'ME_LIMPO = :NEW_NOME_LIMPO, '
+      
+        '  METAFONEMA = :NEW_METAFONEMA, SEXO = :NEW_SEXO, FOTO_3X4 = :NE' +
+        'W_FOTO_3X4, '
+      
+        '  CPF = :NEW_CPF, RG_NUMERO = :NEW_RG_NUMERO, RG_ORGAO_EMISSOR =' +
+        ' :NEW_RG_ORGAO_EMISSOR, '
+      
+        '  DATA_NASCIMENTO = :NEW_DATA_NASCIMENTO, FLAG_VENDEDOR = :NEW_F' +
+        'LAG_VENDEDOR, '
+      '  FLAG_FORNECEDOR = :NEW_FLAG_FORNECEDOR, ATIVO = :NEW_ATIVO, '
+      
+        '  LOGIN = :NEW_LOGIN, VENDEDOR = :NEW_VENDEDOR, FORNECEDOR = :NE' +
+        'W_FORNECEDOR, '
+      
+        '  ENDER = :NEW_ENDER, NUMERO_END = :NEW_NUMERO_END, COMPLEMENTO ' +
+        '= :NEW_COMPLEMENTO, '
+      '  BAIRRO = :NEW_BAIRRO, CEP = :NEW_CEP, CIDADE = :NEW_CIDADE, '
+      
+        '  UF = :NEW_UF, TLG_TIPO = :NEW_TLG_TIPO, LOG_COD = :NEW_LOG_COD' +
+        ', '
+      
+        '  BAI_COD = :NEW_BAI_COD, CID_COD = :NEW_CID_COD, EST_COD = :NEW' +
+        '_EST_COD, '
+      
+        '  PAIS_ID = :NEW_PAIS_ID, FONE_FIXO = :NEW_FONE_FIXO, FONE_CELUL' +
+        'AR = :NEW_FONE_CELULAR, '
+      '  FONE_COMERCIAL = :NEW_FONE_COMERCIAL, EMAIL = :NEW_EMAIL, '
+      
+        '  OBSERVACAO = :NEW_OBSERVACAO, DATA_CADASTRO = :NEW_DATA_CADAST' +
+        'RO'
+      'WHERE CODIGO = :OLD_CODIGO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBFUNCIONARIO'
+      'WHERE CODIGO = :OLD_CODIGO')
+    FetchRowSQL.Strings = (
+      'Select'
+      '    f.codigo'
+      '  , f.nome_completo'
+      '  , f.nome_limpo'
+      '  , f.metafonema'
+      '  , f.sexo'
+      '  , f.foto_3x4'
+      '  , f.cpf'
+      '  , f.rg_numero'
+      '  , f.rg_orgao_emissor'
+      '  , f.data_nascimento'
+      '  , f.flag_vendedor'
+      '  , f.flag_fornecedor'
+      '  , f.ativo'
+      '  , f.login'
+      '  , f.vendedor'
+      '  , f.fornecedor'
+      '  , f.ender'
+      '  , f.numero_end'
+      '  , f.complemento'
+      '  , f.bairro'
+      '  , f.cep'
+      '  , f.cidade'
+      '  , f.uf'
+      '  , f.tlg_tipo'
+      '  , f.log_cod'
+      '  , f.bai_cod'
+      '  , f.cid_cod'
+      '  , f.est_cod'
+      '  , f.pais_id'
+      '  , f.fone_fixo'
+      '  , f.fone_celular'
+      '  , f.fone_comercial'
+      '  , f.email'
+      '  , f.observacao'
+      '  , f.data_cadastro'
+      
+        '  , trim(coalesce(f.rg_numero, '#39#39') || '#39' '#39' || coalesce(f.rg_orgao' +
+        '_emissor, '#39#39')) as rg'
+      
+        '  , coalesce( cast(coalesce(coalesce(t.tlg_sigla, t.tlg_descrica' +
+        'o) || '#39' '#39', '#39#39') || l.Log_nome as varchar(250)), f.ender ) as logr' +
+        'adouro'
+      '  , b.bai_nome'
+      '  , coalesce(c.cid_nome, f.cidade) as cid_nome'
+      '  , coalesce(u.est_nome, f.uf) as est_nome'
+      '  , p.Pais_nome'
+      'from TBFUNCIONARIO f'
+      '  left join TBTIPO_LOGRADOURO t on (t.tlg_cod = f.tlg_tipo)'
+      '  left join TBLOGRADOURO l on (l.log_cod = f.log_cod)'
+      '  left join TBBAIRRO b on (b.bai_cod = f.bai_cod)'
+      '  left join TBCIDADE c on (c.cid_cod = f.cid_cod)'
+      '  left join TBESTADO u on (u.est_cod = f.est_cod)'
+      '  left join TBPAIS p on (p.pais_id = f.pais_id)'
+      ''
+      'WHERE f.CODIGO = :CODIGO')
+    Left = 560
+    Top = 0
   end
   object dtsSexo: TDataSource
-    DataSet = tblSexo
+    DataSet = qrySexo
     Left = 704
     Top = 184
   end
@@ -3142,20 +3240,6 @@ inherited frmGeFuncionario: TfrmGeFuncionario
     Left = 696
     Top = 257
   end
-  object setUsuarioFuncionario: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SET_USUARIO_FUNCIONARIO'
-    Left = 744
-    Top = 40
-  end
-  object setVendedorFuncionario: TIBStoredProc
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    StoredProcName = 'SET_VENDEDOR_FUNCIONARIO'
-    Left = 744
-    Top = 72
-  end
   object popFerramentas: TPopupMenu
     Left = 664
     Top = 287
@@ -3163,5 +3247,80 @@ inherited frmGeFuncionario: TfrmGeFuncionario
       Caption = 'Atualizar C'#243'digo Metaf'#244'nico'
       OnClick = ppMnAtualizarMetafonemaClick
     end
+  end
+  object qrySexo: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select '
+      '    codigo'
+      '  , descricao'
+      'from VW_SEXO')
+    Left = 672
+    Top = 184
+  end
+  object spSetUsuarioFuncionario: TFDStoredProc
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    StoredProcName = 'SET_USUARIO_FUNCIONARIO'
+    Left = 584
+    Top = 104
+    ParamData = <
+      item
+        Position = 1
+        Name = 'NOME_COMPLETO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 60
+      end
+      item
+        Position = 2
+        Name = 'ATIVO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 3
+        Name = 'USUARIO_LOGIN'
+        DataType = ftString
+        ParamType = ptOutput
+        Size = 12
+      end>
+  end
+  object spSetVendedorFuncionario: TFDStoredProc
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    StoredProcName = 'SET_VENDEDOR_FUNCIONARIO'
+    Left = 584
+    Top = 136
+    ParamData = <
+      item
+        Position = 1
+        Name = 'NOME_COMPLETO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 60
+      end
+      item
+        Position = 2
+        Name = 'CPF'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 12
+      end
+      item
+        Position = 3
+        Name = 'ATIVO'
+        DataType = ftSmallint
+        ParamType = ptInput
+      end
+      item
+        Position = 4
+        Name = 'CODIGO_VENDEDOR'
+        DataType = ftInteger
+        ParamType = ptOutput
+      end>
   end
 end

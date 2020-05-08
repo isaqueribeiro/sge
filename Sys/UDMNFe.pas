@@ -493,7 +493,7 @@ implementation
 uses
   UDMRecursos, Forms, FileCtrl, ACBrNFeConfiguracoes,
   ACBrNFeNotasFiscais, ACBrNFeWebServices, StdCtrls, pcnNFe, UFuncoes,
-  UConstantesDGE, DateUtils, pcnRetConsReciNFe, pcnDownloadNFe, UEcfFactory,
+  UConstantesDGE, DateUtils, UEcfFactory, // pcnRetConsReciNFe, pcnDownloadNFe,
   pcnConversaoNFe, pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass, IniFiles;
 
 {$R *.dfm}
@@ -7857,10 +7857,14 @@ end;
 procedure TDMNFe.GerarArquivoQrCode(const FileNameQrCode, StringQrCode : String;
   const tamanhoQrCode : TTamanhoQrCode);
 var
-  pc : TImage; // TPicture;
+  //pc : TImage;
+  //pc : TPicture;
+  pc : TBitmap;
   iTamQrCode : Integer;
 begin
-  pc := TImage.Create(nil); // TPicture.Create;
+  //pc := TImage.Create(nil);
+  //pc := TPicture.Create;
+  pc := TBitmap.Create;
   try
     Case tamanhoQrCode of
       tamQrCode150 : iTamQrCode := LENGTH_QRCODE_150;
@@ -7871,13 +7875,16 @@ begin
       tamQrCode300 : iTamQrCode := LENGTH_QRCODE_300;
     end;
 
-    PintarQRCode(StringQrCode, pc.Picture, TQRCodeEncoding.qrUTF8NoBOM);
+    //PintarQRCode(StringQrCode, pc.Picture, TQRCodeEncoding.qrUTF8NoBOM);
+    //PintarQRCode(StringQrCode, pc, TQRCodeEncoding.qrUTF8NoBOM);
+    PintarQRCode(StringQrCode, pc, TQRCodeEncoding.qrUTF8NoBOM);
 
     pc.Height  := iTamQrCode * 2;
     pc.Width   := iTamQrCode * 2;
-    pc.Stretch := True;
+    //pc.Stretch := True;
 
-    pc.Picture.SaveToFile(FileNameQrCode);
+    //pc.Picture.SaveToFile(FileNameQrCode);
+    pc.SaveToFile(FileNameQrCode);
   finally
     pc.Free;
   end;

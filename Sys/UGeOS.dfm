@@ -30,8 +30,6 @@ inherited frmGeOS: TfrmGeOS
     ExplicitWidth = 1145
     ExplicitHeight = 651
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1137
       ExplicitHeight = 622
       inherited Bevel4: TBevel
@@ -62,34 +60,35 @@ inherited frmGeOS: TfrmGeOS
           item
             Expanded = False
             FieldName = 'CONTROLE'
-            Title.Caption = 'No. OS'
+            Title.Caption = 'No. OS '
             Width = 70
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DATA_EMISSAO'
+            Title.Caption = 'Data '
             Width = 75
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'STATUS'
-            Title.Caption = 'Status'
+            Title.Caption = 'Status '
             Width = 120
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOME'
-            Title.Caption = 'Cliente'
+            Title.Caption = 'Cliente '
             Width = 300
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DATA_FATURA'
-            Title.Caption = 'Data Fatura'
+            Title.Caption = 'Data Fatura '
             Width = 75
             Visible = True
           end
@@ -101,7 +100,7 @@ inherited frmGeOS: TfrmGeOS
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
-            Title.Caption = 'Total OS (R$)'
+            Title.Caption = 'Total OS (R$) '
             Width = 110
             Visible = True
           end
@@ -113,7 +112,7 @@ inherited frmGeOS: TfrmGeOS
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
-            Title.Caption = 'Total Aprov. (R$)'
+            Title.Caption = 'Total Aprov. (R$) '
             Width = 110
             Visible = True
           end>
@@ -364,11 +363,12 @@ inherited frmGeOS: TfrmGeOS
         object Label3: TLabel
           Left = 5
           Top = 5
-          Width = 79
+          Width = 311
           Height = 13
           Align = alTop
           Caption = 'Legendas (L) :'
           Transparent = True
+          ExplicitWidth = 79
         end
         object bvlLegendas: TBevel
           Left = 5
@@ -594,8 +594,6 @@ inherited frmGeOS: TfrmGeOS
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1137
       ExplicitHeight = 622
       inherited Bevel8: TBevel
@@ -1202,16 +1200,12 @@ inherited frmGeOS: TfrmGeOS
         Top = 125
         Width = 1137
         Height = 340
-        ActivePage = TbsServicoARealizar
+        ActivePage = TbsEquipamento
         Align = alTop
         TabOrder = 1
         object TbsEquipamento: TTabSheet
           Caption = '&Equipamento(s)'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel11: TBevel
             Left = 0
             Top = 169
@@ -3031,10 +3025,6 @@ inherited frmGeOS: TfrmGeOS
             object TbsProduto: TTabSheet
               Caption = 'Insumo(s) / Produto(s)'
               ImageIndex = 3
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object Bevel16: TBevel
                 Left = 601
                 Top = 0
@@ -3937,10 +3927,6 @@ inherited frmGeOS: TfrmGeOS
             object TbsTecnico: TTabSheet
               Caption = 'T'#233'cnico(s)'
               ImageIndex = 4
-              ExplicitLeft = 0
-              ExplicitTop = 0
-              ExplicitWidth = 0
-              ExplicitHeight = 0
               object Bevel18: TBevel
                 Left = 489
                 Top = 0
@@ -4509,10 +4495,6 @@ inherited frmGeOS: TfrmGeOS
         object TbsEvento: TTabSheet
           Caption = '&Hist'#243'rico (Eventos)'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel24: TBevel
             Left = 0
             Top = 169
@@ -5098,15 +5080,11 @@ inherited frmGeOS: TfrmGeOS
         Top = 469
         Width = 1137
         Height = 153
-        ActivePage = TbsTitulo
+        ActivePage = TbsRecebimento
         Align = alClient
         TabOrder = 2
         object TbsRecebimento: TTabSheet
           Caption = 'Recebimento'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object pnlObservacao: TPanel
             Left = 0
             Top = 0
@@ -5118,10 +5096,11 @@ inherited frmGeOS: TfrmGeOS
             object lblObservacao: TLabel
               Left = 0
               Top = 0
-              Width = 67
+              Width = 488
               Height = 13
               Align = alTop
               Caption = '&Observa'#231#245'es:'
+              ExplicitWidth = 67
             end
             object Bevel7: TBevel
               Left = 484
@@ -5687,10 +5666,6 @@ inherited frmGeOS: TfrmGeOS
         object TbsLocalRealizacao: TTabSheet
           Caption = 'Local de Entrega/Realiza'#231#227'o'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbDadosEntrega: TDBMemo
             Left = 0
             Top = 0
@@ -5714,10 +5689,6 @@ inherited frmGeOS: TfrmGeOS
         object TbsNFSe: TTabSheet
           Caption = 'Dados de Gera'#231#227'o/Envio da NFS-e'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
       end
     end
@@ -6315,7 +6286,7 @@ inherited frmGeOS: TfrmGeOS
   inherited ImgList: TImageList
     Left = 704
     Bitmap = {
-      494C01012C00F000940010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012C00F000980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000C0000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -9627,8 +9598,8 @@ inherited frmGeOS: TfrmGeOS
       '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
       'where p.codigo        = :Codigo'
       '  and p.aliquota_tipo = :Tipo')
-    Left = 884
-    Top = 11
+    Left = 880
+    Top = 24
     ParamData = <
       item
         Name = 'CODIGO'

@@ -1,7 +1,6 @@
 inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
   Caption = 'Relat'#243'rios de Requisi'#231#245'es ao Estoque'
   ClientHeight = 307
-  ExplicitWidth = 555
   ExplicitHeight = 336
   PixelsPerInch = 96
   TextHeight = 13
@@ -279,26 +278,10 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
   end
   inherited tlbBotoes: TPanel
     Top = 268
-    ExplicitTop = 268
-  end
-  object QryEmpresas: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    e.codigo'
-      '  , e.rzsoc'
-      '  , e.cnpj'
-      'from TBEMPRESA e'
-      'order by 2')
-    Left = 457
-    Top = 8
+    ExplicitTop = 266
   end
   object DspEmpresas: TDataSetProvider
-    DataSet = QryEmpresas
+    DataSet = qryEmpresas
     Left = 489
     Top = 8
   end
@@ -308,44 +291,6 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
     ProviderName = 'DspEmpresas'
     Left = 521
     Top = 8
-  end
-  object qryCentroCusto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select distinct'
-      '    c.codigo'
-      '  , c.descricao'
-      '  , ci.nome'
-      'from TBCENTRO_CUSTO c'
-      
-        '  left join TBCENTRO_CUSTO_EMPRESA e on (e.centro_custo = c.codi' +
-        'go)'
-      '  left join TBCLIENTE ci on (ci.codigo = c.codcliente)'
-      ''
-      'where ((e.empresa = :empresa) or (:todas = 1))'
-      '  or (c.codcliente is not null)'
-      ''
-      'order by'
-      '    2')
-    Left = 457
-    Top = 40
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        DataType = ftSmallint
-        Name = 'todas'
-        ParamType = ptInput
-        Value = 0
-      end>
   end
   object dspCentroCusto: TDataSetProvider
     DataSet = qryCentroCusto
@@ -357,22 +302,21 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
     Params = <
       item
         DataType = ftString
-        Name = 'empresa'
+        Name = 'EMPRESA'
         ParamType = ptInput
-        Value = ''
+        Size = 18
       end
       item
-        DataType = ftSmallint
-        Name = 'todas'
+        DataType = ftInteger
+        Name = 'TODAS'
         ParamType = ptInput
-        Value = 0
       end>
     ProviderName = 'dspCentroCusto'
     Left = 521
     Top = 40
   end
   object frRequsicaoAlmoxSintetico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -455,8 +399,10 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -470,6 +416,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -483,6 +430,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -499,6 +447,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -516,6 +465,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -536,6 +486,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -554,6 +505,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -580,6 +532,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o requisi'#231#227'o:')
           ParentFont = False
@@ -595,6 +548,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -611,6 +565,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -628,6 +583,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -645,6 +601,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 631.181510000000000000
         Width = 718.110700000000000000
@@ -673,6 +630,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -700,6 +658,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpHeaderTipoMov: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -749,6 +708,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 340.157700000000000000
         Width = 718.110700000000000000
@@ -777,6 +737,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRequsicaoAlmoxSintetico."STATUS"> = <StatusCancelado>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRequsicaoAlmoxSintetico."VALOR_TOTAL">' +
@@ -805,6 +766,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRequsicaoAlmoxSintetico."STATUS"> = <StatusCancelado>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [frdsRequsicaoAlmoxSintetico."CC_SOLICITANTE_DESCRICAO"] [IIF(<' +
@@ -835,6 +797,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRequsicaoAlmoxSintetico."STATUS"> = <StatusCancelado>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRequsicaoAlmoxSintetico."STATUS_DESC"]')
           ParentFont = False
@@ -844,6 +807,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpFooterTipoMov: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 427.086890000000000000
         Width = 718.110700000000000000
@@ -892,6 +856,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 94.488250000000000000
         Top = 514.016080000000000000
         Width = 718.110700000000000000
@@ -1030,6 +995,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' * Requisi'#231#245'es ao estque canceladas')
@@ -1082,6 +1048,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpHeaderAtendente: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 37.795300000000000000
         Top = 279.685220000000000000
         Width = 718.110700000000000000
@@ -1189,6 +1156,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpFooterAtendente: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 381.732530000000000000
         Width = 718.110700000000000000
@@ -1231,84 +1199,6 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
     end
   end
-  object qryRequsicaoAlmoxSintetico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    r.empresa'
-      '  , e.rzsoc'
-      '  , r.tipo'
-      '  , tr.descricao as tipo_descricao'
-      '  , r.status'
-      '  , sr.descricao as status_desc'
-      ''
-      '  , r.ccusto_destino as cc_atendente'
-      '  , cd.descricao     as cc_atendente_descricao'
-      ''
-      '  , r.ccusto_origem  as cc_solicitante'
-      '  , co.descricao     as cc_solicitante_descricao'
-      '  , co.codcliente    as cc_solicitante_codcliente'
-      '  , cc.nome          as cc_solicitante_nome'
-      '  , cc.nomefant      as cc_solicitante_nomefant'
-      '  , cc.pessoa_fisica as cc_solicitante_pf'
-      '  , cc.cnpj          as cc_solicitante_cnpj'
-      ''
-      '  , sum( coalesce(r.valor_total, 0.0)  ) as valor_total'
-      
-        '  , sum( coalesce(Case when r.status = 5 then 0.0 else r.valor_t' +
-        'otal end, 0.0)  ) as valor_total_real'
-      'from TBREQUISICAO_ALMOX r'
-      '  left join VW_TIPO_REQUISICAO_ALMOX tr on (tr.codigo = r.tipo)'
-      
-        '  left join VW_STATUS_REQUISICAO_ALMOX sr on (sr.codigo = r.stat' +
-        'us)'
-      '  left join TBEMPRESA e on (e.cnpj = r.empresa)'
-      
-        '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)  ' +
-        '-- Solicitante'
-      
-        '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino) ' +
-        '-- Atendente'
-      
-        '  left join TBCLIENTE cc on (cc.codigo = co.codcliente)         ' +
-        '-- Cliente Solicitante'
-      ''
-      '/*'
-      'where r.empresa = '#39'03041377000187'#39
-      '  and r.status > 1 -- 1. Aberto'
-      ''
-      'group by'
-      '    r.empresa'
-      '  , e.rzsoc'
-      '  , r.tipo'
-      '  , tr.descricao'
-      '  , r.status'
-      '  , sr.descricao'
-      '  , r.ccusto_destino'
-      '  , cd.descricao'
-      '  , r.ccusto_origem'
-      '  , co.descricao'
-      '  , co.codcliente'
-      '  , cc.nome'
-      '  , cc.nomefant'
-      '  , cc.pessoa_fisica'
-      '  , cc.cnpj'
-      ''
-      'order by'
-      '    e.rzsoc'
-      '  , r.tipo'
-      '  , cd.descricao     -- Atendente'
-      '  , r.ccusto_origem'
-      '  , co.descricao     -- Solicitante'
-      '  , r.ccusto_destino'
-      '*/')
-    Left = 40
-    Top = 8
-  end
   object dspRequsicaoAlmoxSintetico: TDataSetProvider
     DataSet = qryRequsicaoAlmoxSintetico
     Left = 72
@@ -1347,24 +1237,8 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
     Left = 136
     Top = 8
   end
-  object QryGrupo: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    g.cod'
-      '  , g.descri'
-      'from TBGRUPOPROD g'
-      'order by'
-      '    g.descri')
-    Left = 457
-    Top = 72
-  end
   object DspGrupo: TDataSetProvider
-    DataSet = QryGrupo
+    DataSet = qryGrupo
     Left = 489
     Top = 72
   end
@@ -1375,19 +1249,8 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
     Left = 521
     Top = 72
   end
-  object tblTipoRequisicaoAlmox: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_TIPO_REQUISICAO_ALMOX'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 457
-    Top = 103
-  end
   object frRequsicaoAlmoxAnalitico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1467,8 +1330,10 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -1482,6 +1347,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -1495,6 +1361,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -1511,6 +1378,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -1528,6 +1396,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -1548,6 +1417,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -1566,6 +1436,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -1592,6 +1463,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o apropria'#231#227'o:')
           ParentFont = False
@@ -1607,6 +1479,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -1623,6 +1496,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -1640,6 +1514,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -1657,6 +1532,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 631.181510000000000000
         Width = 1046.929810000000000000
@@ -1685,6 +1561,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -1712,6 +1589,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpHeaderTipoMov: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -1757,6 +1635,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -1784,6 +1663,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRequisicaoAlmoxAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRequisicaoAlmoxAnalitico."CC_SOLICITANTE_DESCRICAO"]')
           ParentFont = False
@@ -1812,6 +1692,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRequisicaoAlmoxAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRequisicaoAlmoxAnalitico."VALOR_TOTAL"' +
@@ -1840,6 +1721,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRequisicaoAlmoxAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRequisicaoAlmoxAnalitico."REQUISICAO"]')
           ParentFont = False
@@ -1867,6 +1749,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRequisicaoAlmoxAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <frdsRequisicaoAlmoxAnalitico."DA' +
@@ -1896,6 +1779,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRequisicaoAlmoxAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRequisicaoAlmoxAnalitico."REQUISITANTE"]')
           ParentFont = False
@@ -1923,6 +1807,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRequisicaoAlmoxAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRequisicaoAlmoxAnalitico."STATUS_DESC"]')
           ParentFont = False
@@ -1950,6 +1835,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Highlight.Font.Style = []
           Highlight.Condition = '<frdsRequisicaoAlmoxAnalitico."STATUS">=<StatusCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRequisicaoAlmoxAnalitico."COMPETENCIA_DESC"]')
           ParentFont = False
@@ -1959,6 +1845,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpFooterTipoMov: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -2006,6 +1893,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 79.370130000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -2178,6 +2066,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpHeaderForn: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000010000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -2430,6 +2319,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpFooterForn: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -2475,113 +2365,6 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         end
       end
     end
-  end
-  object QryRequisicaoAlmoxAnalitico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    r.ano'
-      '  , r.controle'
-      '  , r.numero'
-      '  , r.empresa'
-      
-        '  , r.ano || '#39'/'#39' || right('#39'000000'#39' || r.controle, 7) as requisic' +
-        'ao'
-      '  , e.rzsoc'
-      '  , r.tipo'
-      '  , tr.descricao as tipo_descricao'
-      '  , r.status'
-      '  , sr.descricao as status_desc'
-      ''
-      '  , r.insercao_data'
-      '  , r.insercao_usuario'
-      '  , r.data_emissao'
-      '  , r.requisitante'
-      '  , r.competencia'
-      '  , c.cmp_desc as competencia_desc'
-      '  , r.obs'
-      '  , r.motivo'
-      '  , r.atendimento_usuario'
-      '  , r.atendimento_data'
-      '  , r.cancel_data'
-      '  , r.cancel_usuario'
-      '  , r.cancel_motivo'
-      ''
-      '  , r.ccusto_destino as cc_atendente'
-      '  , cd.descricao     as cc_atendente_descricao'
-      ''
-      '  , r.ccusto_origem  as cc_solicitante'
-      '  , co.descricao     as cc_solicitante_descricao'
-      '  , co.codcliente    as cc_solicitante_codcliente'
-      '  , cc.nome          as cc_solicitante_nome'
-      '  , cc.nomefant      as cc_solicitante_nomefant'
-      '  , cc.pessoa_fisica as cc_solicitante_pf'
-      '  , cc.cnpj          as cc_solicitante_cnpj'
-      ''
-      '  , r.valor_total as valor_total'
-      
-        '  , coalesce(Case when r.status = 5 then 0.0 else r.valor_total ' +
-        'end, 0.0) as valor_total_real'
-      '/*'
-      '  , ri.item'
-      '  , ri.produto'
-      '  , pd.descri_apresentacao'
-      '  , pd.modelo'
-      '  , pd.referencia'
-      '  , ri.qtde'
-      '  , ri.qtde_atendida'
-      '  , ri.unidade'
-      '  , ri.custo'
-      '  , ri.total'
-      ''
-      '  , pd.codgrupo as grupo'
-      '  , gp.descri   as grupo_descricao'
-      ''
-      '  , ri.lote_atendimento'
-      '  , ri.lote_requisitante'
-      '*/'
-      'from TBREQUISICAO_ALMOX r'
-      '/*'
-      
-        '  inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and r' +
-        'i.controle = r.controle)'
-      '  inner join TBPRODUTO pd on (pd.cod = ri.produto)'
-      '  inner join TBGRUPOPROD gp on (gp.cod = pd.codgrupo)'
-      '*/'
-      '  left join VW_TIPO_REQUISICAO_ALMOX tr on (tr.codigo = r.tipo)'
-      
-        '  left join VW_STATUS_REQUISICAO_ALMOX sr on (sr.codigo = r.stat' +
-        'us)'
-      '  left join TBEMPRESA e on (e.cnpj = r.empresa)'
-      
-        '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)  ' +
-        '-- Solicitante'
-      
-        '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino) ' +
-        '-- Atendente'
-      
-        '  left join TBCLIENTE cc on (cc.codigo = co.codcliente)         ' +
-        '-- Cliente Solicitante'
-      '  left join TBCOMPETENCIA c on (c.cmp_num = r.competencia)'
-      ''
-      '/*'
-      'where r.empresa = '#39'03041377000187'#39
-      '  and r.status > 1 -- 1. Aberto'
-      ''
-      'order by'
-      '    e.rzsoc'
-      '  , r.tipo'
-      '  , cd.descricao     -- Atendente'
-      '  , r.ccusto_origem'
-      '  , co.descricao     -- Solicitante'
-      '  , r.ccusto_destino'
-      '*/')
-    Left = 40
-    Top = 40
   end
   object DspRequisicaoAlmoxAnalitico: TDataSetProvider
     DataSet = QryRequisicaoAlmoxAnalitico
@@ -2639,7 +2422,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
     Top = 40
   end
   object frRequisicaoAlmoxProdutoS: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -2709,8 +2492,10 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -2724,6 +2509,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -2737,6 +2523,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -2753,6 +2540,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -2770,6 +2558,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -2790,6 +2579,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -2808,6 +2598,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -2834,6 +2625,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o requisi'#231#227'o:')
           ParentFont = False
@@ -2849,6 +2641,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -2865,6 +2658,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -2882,6 +2676,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -2899,6 +2694,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 608.504330000000000000
         Width = 1046.929810000000000000
@@ -2927,6 +2723,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -2954,6 +2751,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpHeaderCentroCusto: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -2999,6 +2797,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -3177,6 +2976,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpFooterCentroCusto: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -3227,6 +3027,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -3357,6 +3158,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpHeaderTipo: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -3633,6 +3435,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpFooterTipo: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -3681,78 +3484,6 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
     end
   end
-  object QryRequisicaoAlmoxProdutoS: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    r.empresa'
-      '  , r.ccusto_destino as ccusto_atendente'
-      '  , ca.descricao     as ccusto_atendente_desc'
-      '  , r.tipo'
-      '  , tp.descricao as tipo_desc'
-      '  , ri.produto'
-      '  , pr.descri_apresentacao'
-      '  , up.unp_descricao'
-      '  , up.unp_sigla'
-      ''
-      '  , sum(ri.qtde) as quant_solicitada'
-      
-        '  , sum(Case when r.status = 2 then ri.qtde else 0.0 end) as qua' +
-        'nt_enviada'
-      
-        '  , sum(Case when r.status = 3 then ri.qtde else 0.0 end) as qua' +
-        'nt_recebida          -- Solicitado'
-      
-        '  , sum(Case when r.status = 4 then ri.qtde_atendida else 0.0 en' +
-        'd) as quant_atendida -- Atendido'
-      ''
-      
-        '  , sum(Case when r.status = 2 then ri.total else 0.0 end) as va' +
-        'lor_total_enviada'
-      
-        '  , sum(Case when r.status = 3 then ri.total else 0.0 end) as va' +
-        'lor_total_recebida   -- Solicitado'
-      
-        '  , sum(Case when r.status = 4 then ri.total else 0.0 end) as va' +
-        'lor_total_atendida   -- Atendido'
-      'from TBREQUISICAO_ALMOX r'
-      
-        '  inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and r' +
-        'i.controle = r.controle)'
-      '  inner join TBPRODUTO pr on (pr.cod = ri.produto)'
-      '  left join VW_TIPO_REQUISICAO_ALMOX tp on (tp.codigo = r.tipo)'
-      '  left join TBUNIDADEPROD up on (up.unp_cod = ri.unidade)'
-      '  left join TBCENTRO_CUSTO ca on (ca.codigo = r.ccusto_destino)'
-      ''
-      '/*'
-      'where r.status in (2, 3, 4)'
-      '-- 2 - Enviada'
-      '-- 3 - Recebida'
-      '-- 4 - Atendida'
-      'group by'
-      '    r.empresa'
-      '  , r.ccusto_destino'
-      '  , ca.descricao'
-      '  , r.tipo'
-      '  , tp.descricao'
-      '  , ri.produto'
-      '  , pr.descri_apresentacao'
-      '  , up.unp_descricao'
-      '  , up.unp_sigla'
-      ''
-      'order by'
-      '    r.empresa'
-      '  , r.ccusto_destino'
-      '  , r.tipo'
-      '  , pr.descri_apresentacao'
-      '*/')
-    Left = 40
-    Top = 72
-  end
   object DspRequisicaoAlmoxProdutoS: TDataSetProvider
     DataSet = QryRequisicaoAlmoxProdutoS
     Left = 72
@@ -3791,7 +3522,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
     Top = 72
   end
   object frRequisicaoAlmoxProdutoE: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3861,8 +3592,10 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -3876,6 +3609,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -3889,6 +3623,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -3905,6 +3640,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -3922,6 +3658,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -3942,6 +3679,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -3960,6 +3698,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -3986,6 +3725,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o requisi'#231#227'o:')
           ParentFont = False
@@ -4001,6 +3741,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -4017,6 +3758,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -4034,6 +3776,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -4051,6 +3794,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 608.504330000000000000
         Width = 1046.929810000000000000
@@ -4079,6 +3823,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -4106,6 +3851,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpHeaderCentroCusto: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -4151,6 +3897,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
         Width = 1046.929810000000000000
@@ -4329,6 +4076,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpFooterCentroCusto: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
@@ -4381,6 +4129,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 529.134200000000000000
         Width = 1046.929810000000000000
@@ -4511,6 +4260,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpHeaderTipo: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -4787,6 +4537,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
       object BndGrpFooterTipo: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
@@ -4835,12 +4586,376 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       end
     end
   end
-  object QryRequisicaoAlmoxProdutoE: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
+  object DspRequisicaoAlmoxProdutoE: TDataSetProvider
+    DataSet = QryRequisicaoAlmoxProdutoE
+    Left = 72
+    Top = 104
+  end
+  object CdsRequisicaoAlmoxProdutoE: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DspRequisicaoAlmoxProdutoE'
+    Left = 104
+    Top = 104
+  end
+  object frdsRequisicaoAlmoxProdutoE: TfrxDBDataset
+    UserName = 'frdsRequisicaoAlmoxProdutoE'
+    CloseDataSource = True
+    FieldAliases.Strings = (
+      'EMPRESA=EMPRESA'
+      'CCUSTO_REQUISITANTE=CCUSTO_REQUISITANTE'
+      'CCUSTO_REQUISITANTE_DESC=CCUSTO_REQUISITANTE_DESC'
+      'TIPO=TIPO'
+      'TIPO_DESC=TIPO_DESC'
+      'PRODUTO=PRODUTO'
+      'DESCRI_APRESENTACAO=DESCRI_APRESENTACAO'
+      'UNP_DESCRICAO=UNP_DESCRICAO'
+      'UNP_SIGLA=UNP_SIGLA'
+      'QUANT_SOLICITADA=QUANT_SOLICITADA'
+      'QUANT_ENVIADA=QUANT_ENVIADA'
+      'QUANT_RECEBIDA=QUANT_RECEBIDA'
+      'QUANT_ATENDIDA=QUANT_ATENDIDA'
+      'VALOR_TOTAL_ENVIADA=VALOR_TOTAL_ENVIADA'
+      'VALOR_TOTAL_RECEBIDA=VALOR_TOTAL_RECEBIDA'
+      'VALOR_TOTAL_ATENDIDA=VALOR_TOTAL_ATENDIDA')
+    DataSet = CdsRequisicaoAlmoxProdutoE
+    BCDToCurrency = True
+    Left = 136
+    Top = 104
+  end
+  object qryEmpresas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 456
+    Top = 8
+  end
+  object qryCentroCusto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select distinct'
+      '    c.codigo'
+      '  , c.descricao'
+      '  , ci.nome'
+      'from TBCENTRO_CUSTO c'
+      
+        '  left join TBCENTRO_CUSTO_EMPRESA e on (e.centro_custo = c.codi' +
+        'go)'
+      '  left join TBCLIENTE ci on (ci.codigo = c.codcliente)'
+      ''
+      'where ((e.empresa = :empresa) or (:todas = 1))'
+      '  or (c.codcliente is not null)'
+      ''
+      'order by'
+      '    2')
+    Left = 456
+    Top = 40
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'TODAS'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object qryGrupo: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    g.cod'
+      '  , g.descri'
+      'from TBGRUPOPROD g'
+      'order by'
+      '    g.descri')
+    Left = 456
+    Top = 72
+  end
+  object qryTipoRequisicaoAlmox: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    codigo'
+      '  , descricao'
+      'from VW_TIPO_REQUISICAO_ALMOX')
+    Left = 456
+    Top = 104
+  end
+  object qryRequsicaoAlmoxSintetico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    r.empresa'
+      '  , e.rzsoc'
+      '  , r.tipo'
+      '  , tr.descricao as tipo_descricao'
+      '  , r.status'
+      '  , sr.descricao as status_desc'
+      ''
+      '  , r.ccusto_destino as cc_atendente'
+      '  , cd.descricao     as cc_atendente_descricao'
+      ''
+      '  , r.ccusto_origem  as cc_solicitante'
+      '  , co.descricao     as cc_solicitante_descricao'
+      '  , co.codcliente    as cc_solicitante_codcliente'
+      '  , cc.nome          as cc_solicitante_nome'
+      '  , cc.nomefant      as cc_solicitante_nomefant'
+      '  , cc.pessoa_fisica as cc_solicitante_pf'
+      '  , cc.cnpj          as cc_solicitante_cnpj'
+      ''
+      '  , sum( coalesce(r.valor_total, 0.0)  ) as valor_total'
+      
+        '  , sum( coalesce(Case when r.status = 5 then 0.0 else r.valor_t' +
+        'otal end, 0.0)  ) as valor_total_real'
+      'from TBREQUISICAO_ALMOX r'
+      '  left join VW_TIPO_REQUISICAO_ALMOX tr on (tr.codigo = r.tipo)'
+      
+        '  left join VW_STATUS_REQUISICAO_ALMOX sr on (sr.codigo = r.stat' +
+        'us)'
+      '  left join TBEMPRESA e on (e.cnpj = r.empresa)'
+      
+        '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)  ' +
+        '-- Solicitante'
+      
+        '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino) ' +
+        '-- Atendente'
+      
+        '  left join TBCLIENTE cc on (cc.codigo = co.codcliente)         ' +
+        '-- Cliente Solicitante'
+      ''
+      '/*'
+      'where r.empresa = '#39'03041377000187'#39
+      '  and r.status > 1 -- 1. Aberto'
+      ''
+      'group by'
+      '    r.empresa'
+      '  , e.rzsoc'
+      '  , r.tipo'
+      '  , tr.descricao'
+      '  , r.status'
+      '  , sr.descricao'
+      '  , r.ccusto_destino'
+      '  , cd.descricao'
+      '  , r.ccusto_origem'
+      '  , co.descricao'
+      '  , co.codcliente'
+      '  , cc.nome'
+      '  , cc.nomefant'
+      '  , cc.pessoa_fisica'
+      '  , cc.cnpj'
+      ''
+      'order by'
+      '    e.rzsoc'
+      '  , r.tipo'
+      '  , cd.descricao     -- Atendente'
+      '  , r.ccusto_origem'
+      '  , co.descricao     -- Solicitante'
+      '  , r.ccusto_destino'
+      '*/')
+    Left = 41
+    Top = 8
+  end
+  object QryRequisicaoAlmoxAnalitico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    r.ano'
+      '  , r.controle'
+      '  , r.numero'
+      '  , r.empresa'
+      
+        '  , r.ano || '#39'/'#39' || right('#39'000000'#39' || r.controle, 7) as requisic' +
+        'ao'
+      '  , e.rzsoc'
+      '  , r.tipo'
+      '  , tr.descricao as tipo_descricao'
+      '  , r.status'
+      '  , sr.descricao as status_desc'
+      ''
+      '  , r.insercao_data'
+      '  , r.insercao_usuario'
+      '  , r.data_emissao'
+      '  , r.requisitante'
+      '  , r.competencia'
+      '  , c.cmp_desc as competencia_desc'
+      '  , r.obs'
+      '  , r.motivo'
+      '  , r.atendimento_usuario'
+      '  , r.atendimento_data'
+      '  , r.cancel_data'
+      '  , r.cancel_usuario'
+      '  , r.cancel_motivo'
+      ''
+      '  , r.ccusto_destino as cc_atendente'
+      '  , cd.descricao     as cc_atendente_descricao'
+      ''
+      '  , r.ccusto_origem  as cc_solicitante'
+      '  , co.descricao     as cc_solicitante_descricao'
+      '  , co.codcliente    as cc_solicitante_codcliente'
+      '  , cc.nome          as cc_solicitante_nome'
+      '  , cc.nomefant      as cc_solicitante_nomefant'
+      '  , cc.pessoa_fisica as cc_solicitante_pf'
+      '  , cc.cnpj          as cc_solicitante_cnpj'
+      ''
+      '  , r.valor_total as valor_total'
+      
+        '  , coalesce(Case when r.status = 5 then 0.0 else r.valor_total ' +
+        'end, 0.0) as valor_total_real'
+      '/*'
+      '  , ri.item'
+      '  , ri.produto'
+      '  , pd.descri_apresentacao'
+      '  , pd.modelo'
+      '  , pd.referencia'
+      '  , ri.qtde'
+      '  , ri.qtde_atendida'
+      '  , ri.unidade'
+      '  , ri.custo'
+      '  , ri.total'
+      ''
+      '  , pd.codgrupo as grupo'
+      '  , gp.descri   as grupo_descricao'
+      ''
+      '  , ri.lote_atendimento'
+      '  , ri.lote_requisitante'
+      '*/'
+      'from TBREQUISICAO_ALMOX r'
+      '/*'
+      
+        '  inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and r' +
+        'i.controle = r.controle)'
+      '  inner join TBPRODUTO pd on (pd.cod = ri.produto)'
+      '  inner join TBGRUPOPROD gp on (gp.cod = pd.codgrupo)'
+      '*/'
+      '  left join VW_TIPO_REQUISICAO_ALMOX tr on (tr.codigo = r.tipo)'
+      
+        '  left join VW_STATUS_REQUISICAO_ALMOX sr on (sr.codigo = r.stat' +
+        'us)'
+      '  left join TBEMPRESA e on (e.cnpj = r.empresa)'
+      
+        '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)  ' +
+        '-- Solicitante'
+      
+        '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino) ' +
+        '-- Atendente'
+      
+        '  left join TBCLIENTE cc on (cc.codigo = co.codcliente)         ' +
+        '-- Cliente Solicitante'
+      '  left join TBCOMPETENCIA c on (c.cmp_num = r.competencia)'
+      ''
+      '/*'
+      'where r.empresa = '#39'03041377000187'#39
+      '  and r.status > 1 -- 1. Aberto'
+      ''
+      'order by'
+      '    e.rzsoc'
+      '  , r.tipo'
+      '  , cd.descricao     -- Atendente'
+      '  , r.ccusto_origem'
+      '  , co.descricao     -- Solicitante'
+      '  , r.ccusto_destino'
+      '*/')
+    Left = 41
+    Top = 40
+  end
+  object QryRequisicaoAlmoxProdutoS: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    r.empresa'
+      '  , r.ccusto_destino as ccusto_atendente'
+      '  , ca.descricao     as ccusto_atendente_desc'
+      '  , r.tipo'
+      '  , tp.descricao as tipo_desc'
+      '  , ri.produto'
+      '  , pr.descri_apresentacao'
+      '  , up.unp_descricao'
+      '  , up.unp_sigla'
+      ''
+      '  , sum(ri.qtde) as quant_solicitada'
+      
+        '  , sum(Case when r.status = 2 then ri.qtde else 0.0 end) as qua' +
+        'nt_enviada'
+      
+        '  , sum(Case when r.status = 3 then ri.qtde else 0.0 end) as qua' +
+        'nt_recebida          -- Solicitado'
+      
+        '  , sum(Case when r.status = 4 then ri.qtde_atendida else 0.0 en' +
+        'd) as quant_atendida -- Atendido'
+      ''
+      
+        '  , sum(Case when r.status = 2 then ri.total else 0.0 end) as va' +
+        'lor_total_enviada'
+      
+        '  , sum(Case when r.status = 3 then ri.total else 0.0 end) as va' +
+        'lor_total_recebida   -- Solicitado'
+      
+        '  , sum(Case when r.status = 4 then ri.total else 0.0 end) as va' +
+        'lor_total_atendida   -- Atendido'
+      'from TBREQUISICAO_ALMOX r'
+      
+        '  inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and r' +
+        'i.controle = r.controle)'
+      '  inner join TBPRODUTO pr on (pr.cod = ri.produto)'
+      '  left join VW_TIPO_REQUISICAO_ALMOX tp on (tp.codigo = r.tipo)'
+      '  left join TBUNIDADEPROD up on (up.unp_cod = ri.unidade)'
+      '  left join TBCENTRO_CUSTO ca on (ca.codigo = r.ccusto_destino)'
+      ''
+      '/*'
+      'where r.status in (2, 3, 4)'
+      '-- 2 - Enviada'
+      '-- 3 - Recebida'
+      '-- 4 - Atendida'
+      'group by'
+      '    r.empresa'
+      '  , r.ccusto_destino'
+      '  , ca.descricao'
+      '  , r.tipo'
+      '  , tp.descricao'
+      '  , ri.produto'
+      '  , pr.descri_apresentacao'
+      '  , up.unp_descricao'
+      '  , up.unp_sigla'
+      ''
+      'order by'
+      '    r.empresa'
+      '  , r.ccusto_destino'
+      '  , r.tipo'
+      '  , pr.descri_apresentacao'
+      '*/')
+    Left = 41
+    Top = 72
+  end
+  object QryRequisicaoAlmoxProdutoE: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
     SQL.Strings = (
       'Select'
       '    r.empresa'
@@ -4904,44 +5019,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       '  , r.tipo'
       '  , pr.descri_apresentacao'
       '*/')
-    Left = 40
-    Top = 104
-  end
-  object DspRequisicaoAlmoxProdutoE: TDataSetProvider
-    DataSet = QryRequisicaoAlmoxProdutoE
-    Left = 72
-    Top = 104
-  end
-  object CdsRequisicaoAlmoxProdutoE: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DspRequisicaoAlmoxProdutoE'
-    Left = 104
-    Top = 104
-  end
-  object frdsRequisicaoAlmoxProdutoE: TfrxDBDataset
-    UserName = 'frdsRequisicaoAlmoxProdutoE'
-    CloseDataSource = True
-    FieldAliases.Strings = (
-      'EMPRESA=EMPRESA'
-      'CCUSTO_REQUISITANTE=CCUSTO_REQUISITANTE'
-      'CCUSTO_REQUISITANTE_DESC=CCUSTO_REQUISITANTE_DESC'
-      'TIPO=TIPO'
-      'TIPO_DESC=TIPO_DESC'
-      'PRODUTO=PRODUTO'
-      'DESCRI_APRESENTACAO=DESCRI_APRESENTACAO'
-      'UNP_DESCRICAO=UNP_DESCRICAO'
-      'UNP_SIGLA=UNP_SIGLA'
-      'QUANT_SOLICITADA=QUANT_SOLICITADA'
-      'QUANT_ENVIADA=QUANT_ENVIADA'
-      'QUANT_RECEBIDA=QUANT_RECEBIDA'
-      'QUANT_ATENDIDA=QUANT_ATENDIDA'
-      'VALOR_TOTAL_ENVIADA=VALOR_TOTAL_ENVIADA'
-      'VALOR_TOTAL_RECEBIDA=VALOR_TOTAL_RECEBIDA'
-      'VALOR_TOTAL_ATENDIDA=VALOR_TOTAL_ATENDIDA')
-    DataSet = CdsRequisicaoAlmoxProdutoE
-    BCDToCurrency = True
-    Left = 136
+    Left = 41
     Top = 104
   end
 end

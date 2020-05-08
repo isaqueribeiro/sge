@@ -359,7 +359,7 @@ inherited frmGeInventario: TfrmGeInventario
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       KeyField = 'CNPJ'
-      ListField = 'RZSOC'
+      ListField = 'RAZAO'
       ListSource = dtsEmpresa
       ParentFont = False
       ReadOnly = True
@@ -1157,34 +1157,13 @@ inherited frmGeInventario: TfrmGeInventario
       TabOrder = 6
     end
   end
-  object tblEmpresa: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'TBEMPRESA'
-    UniDirectional = False
-    Left = 928
-    Top = 352
-  end
   object dtsEmpresa: TDataSource
-    DataSet = tblEmpresa
+    DataSet = fdQryEmpresa
     Left = 960
     Top = 352
   end
-  object tblTipoInventario: TIBTable
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    TableName = 'VW_TIPO_INVENTARIO_ALMOX'
-    TableTypes = [ttView]
-    UniDirectional = False
-    Left = 928
-    Top = 384
-  end
   object dtsTipoInventario: TDataSource
-    DataSet = tblTipoInventario
+    DataSet = fdQryTipoInventario
     Left = 960
     Top = 384
   end
@@ -1340,38 +1319,6 @@ inherited frmGeInventario: TfrmGeInventario
     OnStateChange = dtsInventarioStateChange
     Left = 112
     Top = 272
-  end
-  object qryProduto: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    RefreshSQL.Strings = (
-      '')
-    SelectSQL.Strings = (
-      'Select'
-      '    g.produto'
-      '  , p.descri_apresentacao'
-      '  , g.estoque'
-      '  , g.fracionador'
-      '  , g.unidade'
-      '  , g.custo_medio'
-      '  , p.preco'
-      '  , g.lote_id'
-      '  , u.unp_descricao as und_descricao'
-      '  , u.unp_sigla     as und_sigla'
-      
-        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
-        'ricao) from 1 for 3) as und'
-      'from GET_ESTOQUE_PRODUTO(:empresa, :centro_custo, :produto) g'
-      '  left join TBPRODUTO p on (p.cod = g.produto)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = g.unidade)')
-    ModifySQL.Strings = (
-      '')
-    ParamCheck = True
-    UniDirectional = False
-    Left = 928
-    Top = 320
   end
   object ppOpcoes: TPopupMenu
     Left = 32
@@ -2250,75 +2197,6 @@ inherited frmGeInventario: TfrmGeInventario
       end
     end
   end
-  object QryRelacaoProduto: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    p.codemp as empresa_cnpj'
-      '  , e.rzsoc  as empresa_razao'
-      '  , Case when p.aliquota_tipo = 0 then '#39'P'#39' else '#39'S'#39' end as tipo'
-      
-        '  , Case when p.aliquota_tipo = 0 then '#39'Produto(s)'#39' else '#39'Servi'#231 +
-        'o(s)'#39' end as tipo_desc'
-      '  , p.cod'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , p.modelo'
-      '  , p.referencia'
-      '  , coalesce(p.codgrupo, 0) as grupo_cod'
-      '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
-      '  , coalesce(p.codsecao, 0)                     as secao_cod'
-      '  , coalesce(s.scp_descricao, '#39'* Indefinida'#39')   as secao_desc'
-      '  , coalesce(p.codfabricante, 0)     as fabricante_cod'
-      '  , coalesce(f.nome, '#39'* Indefinido'#39') as fabricante_nome'
-      '  , p.especificacao'
-      '  , p.estoqmin as estoque_minimo'
-      '  , p.qtde     as estoque'
-      
-        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), trim(u.unp' +
-        '_descricao)) from 1 for 3) as und_compra'
-      '  , p.customedio as valor_customedio'
-      '  , p.preco      as valor_venda'
-      ''
-      '  , p.percentual_marckup'
-      '  , p.percentual_margem'
-      '  , p.compor_faturamento'
-      '  , p.produto_novo'
-      '  , p.movimenta_estoque'
-      'from TBPRODUTO p'
-      '  left join TBEMPRESA e on (e.cnpj = p.codemp)'
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      '  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)'
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
-      ''
-      'where (p.aliquota_tipo = 0)'
-      '  and ((p.codemp = :empresa) or (:estoque_unico = 1))'
-      ''
-      'order by'
-      '    coalesce(g.descri, '#39'* Indefinido'#39')'
-      '  , p.descri_apresentacao')
-    Left = 304
-    Top = 464
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        DataType = ftSmallint
-        Name = 'estoque_unico'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object DspRelacaoProduto: TDataSetProvider
     DataSet = QryRelacaoProduto
     Left = 336
@@ -2329,15 +2207,14 @@ inherited frmGeInventario: TfrmGeInventario
     Params = <
       item
         DataType = ftString
-        Name = 'empresa'
+        Name = 'EMPRESA'
         ParamType = ptInput
-        Value = ''
+        Size = 18
       end
       item
-        DataType = ftSmallint
-        Name = 'estoque_unico'
+        DataType = ftInteger
+        Name = 'ESTOQUE_UNICO'
         ParamType = ptInput
-        Value = 0
       end>
     ProviderName = 'DspRelacaoProduto'
     Left = 368
@@ -2960,80 +2837,6 @@ inherited frmGeInventario: TfrmGeInventario
       end
     end
   end
-  object QryRelacaoProdutoCC: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    p.codemp    as empresa_cnpj'
-      '  , e.rzsoc     as empresa_razao'
-      '  , c.descricao as centro_custo'
-      '  , Case when p.aliquota_tipo = 0 then '#39'P'#39' else '#39'S'#39' end as tipo'
-      
-        '  , Case when p.aliquota_tipo = 0 then '#39'Produto(s)'#39' else '#39'Servi'#231 +
-        'o(s)'#39' end as tipo_desc'
-      '  , p.cod'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , p.modelo'
-      '  , p.referencia'
-      '  , coalesce(p.codgrupo, 0) as grupo_cod'
-      '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
-      '  , coalesce(p.codsecao, 0)                     as secao_cod'
-      '  , coalesce(s.scp_descricao, '#39'* Indefinida'#39')   as secao_desc'
-      '  , coalesce(p.codfabricante, 0)     as fabricante_cod'
-      '  , coalesce(f.nome, '#39'* Indefinido'#39') as fabricante_nome'
-      '  , p.especificacao'
-      '  , p.estoqmin as estoque_minimo'
-      '  , pe.qtde    as estoque'
-      
-        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), trim(u.unp' +
-        '_descricao)) from 1 for 3) as und_compra'
-      '  , p.customedio as valor_customedio'
-      '  , p.preco      as valor_venda'
-      ''
-      '  , p.percentual_marckup'
-      '  , p.percentual_margem'
-      '  , p.compor_faturamento'
-      '  , p.produto_novo'
-      '  , p.movimenta_estoque'
-      'from TBPRODUTO p'
-      '  inner join TBESTOQUE_ALMOX pe on (pe.produto = p.cod)'
-      '  inner join TBEMPRESA e on (e.cnpj = pe.empresa)'
-      '  inner join TBCENTRO_CUSTO c on (c.codigo = pe.centro_custo)'
-      ''
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      '  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)'
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = pe.unidade)'
-      ''
-      'where (p.aliquota_tipo = 0)'
-      '  and (pe.empresa      = :empresa)'
-      '  and (pe.centro_custo = :centro_custo)'
-      ''
-      'order by'
-      '    coalesce(g.descri, '#39'* Indefinido'#39')'
-      '  , p.descri_apresentacao')
-    Left = 304
-    Top = 504
-    ParamData = <
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        DataType = ftInteger
-        Name = 'centro_custo'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object DspRelacaoProdutoCC: TDataSetProvider
     DataSet = QryRelacaoProdutoCC
     Left = 336
@@ -3044,15 +2847,14 @@ inherited frmGeInventario: TfrmGeInventario
     Params = <
       item
         DataType = ftString
-        Name = 'empresa'
+        Name = 'EMPRESA'
         ParamType = ptInput
-        Value = ''
+        Size = 18
       end
       item
         DataType = ftInteger
-        Name = 'centro_custo'
+        Name = 'CENTRO_CUSTO'
         ParamType = ptInput
-        Value = 0
       end>
     ProviderName = 'DspRelacaoProdutoCC'
     Left = 368
@@ -4130,92 +3932,6 @@ inherited frmGeInventario: TfrmGeInventario
       end
     end
   end
-  object QryRelacaoInventarioCC: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    i.ano'
-      '  , i.controle'
-      '  , i.ano || '#39'/'#39' || lpad(i.controle, 7, '#39'0'#39') as numero'
-      '  , i.tipo'
-      '  , ti.descricao as tipo_desc'
-      '  , i.status'
-      '  , si.descricao as status_desc'
-      '  , i.data'
-      '  , i.fech_usuario'
-      
-        '  , (Select first 1 x.nomecompleto from TBUSERS x where x.nome =' +
-        ' i.fech_usuario) as fech_usuario_nome'
-      ''
-      '  , p.codemp    as empresa_cnpj'
-      '  , e.rzsoc     as empresa_razao'
-      '  , c.descricao as centro_custo'
-      ''
-      '  , p.cod'
-      '  , p.descri'
-      '  , p.apresentacao'
-      '  , p.descri_apresentacao'
-      '  , p.modelo'
-      '  , p.referencia'
-      '  , coalesce(p.codgrupo, 0) as grupo_cod'
-      '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
-      '  , coalesce(p.codsecao, 0)                     as secao_cod'
-      '  , coalesce(s.scp_descricao, '#39'* Indefinida'#39')   as secao_desc'
-      '  , coalesce(p.codfabricante, 0)     as fabricante_cod'
-      '  , coalesce(f.nome, '#39'* Indefinido'#39') as fabricante_nome'
-      '  , p.especificacao'
-      '  , ip.estoque as estoque_antigo'
-      '  , ip.qtde as lancamento'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      '  , ip.custo as custo_unitario'
-      '  , ip.total as custo_total'
-      '  , p.movimenta_estoque'
-      'from TBINVENTARIO_ALMOX i'
-      '  inner join TBEMPRESA e on (e.cnpj = i.empresa)'
-      
-        '  inner join TBINVENTARIO_ALMOX_ITEM ip on (ip.ano = i.ano and i' +
-        'p.controle = i.controle)'
-      '  inner join TBPRODUTO p on (p.cod = ip.produto)'
-      ''
-      '  left join TBCENTRO_CUSTO c on (c.codigo = i.centro_custo)'
-      ''
-      '  left join VW_TIPO_INVENTARIO_ALMOX ti on (ti.codigo = i.tipo)'
-      
-        '  left join VW_STATUS_INVENTARIO_ALMOX si on (si.codigo = i.stat' +
-        'us)'
-      ''
-      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
-      '  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)'
-      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
-      '  left join TBUNIDADEPROD u on (u.unp_cod = ip.unidade)'
-      ''
-      'where (i.ano      = :ano)'
-      '  and (i.controle = :controle)'
-      ''
-      'order by'
-      '    coalesce(g.descri, '#39'* Indefinido'#39')'
-      '  , p.descri_apresentacao')
-    Left = 304
-    Top = 552
-    ParamData = <
-      item
-        DataType = ftInteger
-        Name = 'ano'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'controle'
-        ParamType = ptInput
-        Value = 0
-      end>
-  end
   object DspRelacaoInventarioCC: TDataSetProvider
     DataSet = QryRelacaoInventarioCC
     Left = 336
@@ -4225,16 +3941,14 @@ inherited frmGeInventario: TfrmGeInventario
     Aggregates = <>
     Params = <
       item
-        DataType = ftInteger
-        Name = 'ano'
+        DataType = ftSmallint
+        Name = 'ANO'
         ParamType = ptInput
-        Value = 0
       end
       item
         DataType = ftInteger
-        Name = 'controle'
+        Name = 'CONTROLE'
         ParamType = ptInput
-        Value = 0
       end>
     ProviderName = 'DspRelacaoInventarioCC'
     Left = 368
@@ -4782,5 +4496,295 @@ inherited frmGeInventario: TfrmGeInventario
       'WHERE i.ID = :ID')
     Left = 80
     Top = 320
+  end
+  object qryProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    g.produto'
+      '  , p.descri_apresentacao'
+      '  , g.estoque'
+      '  , g.fracionador'
+      '  , g.unidade'
+      '  , g.custo_medio'
+      '  , p.preco'
+      '  , g.lote_id'
+      '  , u.unp_descricao as und_descricao'
+      '  , u.unp_sigla     as und_sigla'
+      
+        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), u.unp_desc' +
+        'ricao) from 1 for 3) as und'
+      'from GET_ESTOQUE_PRODUTO(:empresa, :centro_custo, :produto) g'
+      '  left join TBPRODUTO p on (p.cod = g.produto)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = g.unidade)')
+    Left = 928
+    Top = 312
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'CENTRO_CUSTO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'PRODUTO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object fdQryEmpresa: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 928
+    Top = 352
+  end
+  object fdQryTipoInventario: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    a.codigo'
+      '  , a.descricao'
+      'from VW_TIPO_INVENTARIO_ALMOX a')
+    Left = 928
+    Top = 384
+  end
+  object QryRelacaoProduto: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    p.codemp as empresa_cnpj'
+      '  , e.rzsoc  as empresa_razao'
+      '  , Case when p.aliquota_tipo = 0 then '#39'P'#39' else '#39'S'#39' end as tipo'
+      
+        '  , Case when p.aliquota_tipo = 0 then '#39'Produto(s)'#39' else '#39'Servi'#231 +
+        'o(s)'#39' end as tipo_desc'
+      '  , p.cod'
+      '  , p.descri'
+      '  , p.apresentacao'
+      '  , p.descri_apresentacao'
+      '  , p.modelo'
+      '  , p.referencia'
+      '  , coalesce(p.codgrupo, 0) as grupo_cod'
+      '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
+      '  , coalesce(p.codsecao, 0)                     as secao_cod'
+      '  , coalesce(s.scp_descricao, '#39'* Indefinida'#39')   as secao_desc'
+      '  , coalesce(p.codfabricante, 0)     as fabricante_cod'
+      '  , coalesce(f.nome, '#39'* Indefinido'#39') as fabricante_nome'
+      '  , p.especificacao'
+      '  , p.estoqmin as estoque_minimo'
+      '  , p.qtde     as estoque'
+      
+        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), trim(u.unp' +
+        '_descricao)) from 1 for 3) as und_compra'
+      '  , p.customedio as valor_customedio'
+      '  , p.preco      as valor_venda'
+      ''
+      '  , p.percentual_marckup'
+      '  , p.percentual_margem'
+      '  , p.compor_faturamento'
+      '  , p.produto_novo'
+      '  , p.movimenta_estoque'
+      'from TBPRODUTO p'
+      '  left join TBEMPRESA e on (e.cnpj = p.codemp)'
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      '  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)'
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = p.codunidade)'
+      ''
+      'where (p.aliquota_tipo = 0)'
+      '  and ((p.codemp = :empresa) or (:estoque_unico = 1))'
+      ''
+      'order by'
+      '    coalesce(g.descri, '#39'* Indefinido'#39')'
+      '  , p.descri_apresentacao')
+    Left = 304
+    Top = 464
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'ESTOQUE_UNICO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object QryRelacaoProdutoCC: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    p.codemp    as empresa_cnpj'
+      '  , e.rzsoc     as empresa_razao'
+      '  , c.descricao as centro_custo'
+      '  , Case when p.aliquota_tipo = 0 then '#39'P'#39' else '#39'S'#39' end as tipo'
+      
+        '  , Case when p.aliquota_tipo = 0 then '#39'Produto(s)'#39' else '#39'Servi'#231 +
+        'o(s)'#39' end as tipo_desc'
+      '  , p.cod'
+      '  , p.descri'
+      '  , p.apresentacao'
+      '  , p.descri_apresentacao'
+      '  , p.modelo'
+      '  , p.referencia'
+      '  , coalesce(p.codgrupo, 0) as grupo_cod'
+      '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
+      '  , coalesce(p.codsecao, 0)                     as secao_cod'
+      '  , coalesce(s.scp_descricao, '#39'* Indefinida'#39')   as secao_desc'
+      '  , coalesce(p.codfabricante, 0)     as fabricante_cod'
+      '  , coalesce(f.nome, '#39'* Indefinido'#39') as fabricante_nome'
+      '  , p.especificacao'
+      '  , p.estoqmin as estoque_minimo'
+      '  , pe.qtde    as estoque'
+      
+        '  , substring(coalesce(nullif(trim(u.unp_sigla), '#39#39'), trim(u.unp' +
+        '_descricao)) from 1 for 3) as und_compra'
+      '  , p.customedio as valor_customedio'
+      '  , p.preco      as valor_venda'
+      ''
+      '  , p.percentual_marckup'
+      '  , p.percentual_margem'
+      '  , p.compor_faturamento'
+      '  , p.produto_novo'
+      '  , p.movimenta_estoque'
+      'from TBPRODUTO p'
+      '  inner join TBESTOQUE_ALMOX pe on (pe.produto = p.cod)'
+      '  inner join TBEMPRESA e on (e.cnpj = pe.empresa)'
+      '  inner join TBCENTRO_CUSTO c on (c.codigo = pe.centro_custo)'
+      ''
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      '  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)'
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = pe.unidade)'
+      ''
+      'where (p.aliquota_tipo = 0)'
+      '  and (pe.empresa      = :empresa)'
+      '  and (pe.centro_custo = :centro_custo)'
+      ''
+      'order by'
+      '    coalesce(g.descri, '#39'* Indefinido'#39')'
+      '  , p.descri_apresentacao')
+    Left = 304
+    Top = 504
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'CENTRO_CUSTO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+  end
+  object QryRelacaoInventarioCC: TFDQuery
+    Connection = DMBusiness.fdConexao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    i.ano'
+      '  , i.controle'
+      '  , i.ano || '#39'/'#39' || lpad(i.controle, 7, '#39'0'#39') as numero'
+      '  , i.tipo'
+      '  , ti.descricao as tipo_desc'
+      '  , i.status'
+      '  , si.descricao as status_desc'
+      '  , i.data'
+      '  , i.fech_usuario'
+      
+        '  , (Select first 1 x.nomecompleto from TBUSERS x where x.nome =' +
+        ' i.fech_usuario) as fech_usuario_nome'
+      ''
+      '  , p.codemp    as empresa_cnpj'
+      '  , e.rzsoc     as empresa_razao'
+      '  , c.descricao as centro_custo'
+      ''
+      '  , p.cod'
+      '  , p.descri'
+      '  , p.apresentacao'
+      '  , p.descri_apresentacao'
+      '  , p.modelo'
+      '  , p.referencia'
+      '  , coalesce(p.codgrupo, 0) as grupo_cod'
+      '  , coalesce(g.descri, '#39'* Indefinido'#39')   as grupo_desc'
+      '  , coalesce(p.codsecao, 0)                     as secao_cod'
+      '  , coalesce(s.scp_descricao, '#39'* Indefinida'#39')   as secao_desc'
+      '  , coalesce(p.codfabricante, 0)     as fabricante_cod'
+      '  , coalesce(f.nome, '#39'* Indefinido'#39') as fabricante_nome'
+      '  , p.especificacao'
+      '  , ip.estoque as estoque_antigo'
+      '  , ip.qtde as lancamento'
+      '  , u.unp_descricao'
+      '  , u.unp_sigla'
+      '  , ip.custo as custo_unitario'
+      '  , ip.total as custo_total'
+      '  , p.movimenta_estoque'
+      'from TBINVENTARIO_ALMOX i'
+      '  inner join TBEMPRESA e on (e.cnpj = i.empresa)'
+      
+        '  inner join TBINVENTARIO_ALMOX_ITEM ip on (ip.ano = i.ano and i' +
+        'p.controle = i.controle)'
+      '  inner join TBPRODUTO p on (p.cod = ip.produto)'
+      ''
+      '  left join TBCENTRO_CUSTO c on (c.codigo = i.centro_custo)'
+      ''
+      '  left join VW_TIPO_INVENTARIO_ALMOX ti on (ti.codigo = i.tipo)'
+      
+        '  left join VW_STATUS_INVENTARIO_ALMOX si on (si.codigo = i.stat' +
+        'us)'
+      ''
+      '  left join TBGRUPOPROD g on (g.cod = p.codgrupo)'
+      '  left join TBSECAOPROD s on (s.scp_cod = p.codsecao)'
+      '  left join TBFABRICANTE f on (f.cod = p.codfabricante)'
+      '  left join TBUNIDADEPROD u on (u.unp_cod = ip.unidade)'
+      ''
+      'where (i.ano      = :ano)'
+      '  and (i.controle = :controle)'
+      ''
+      'order by'
+      '    coalesce(g.descri, '#39'* Indefinido'#39')'
+      '  , p.descri_apresentacao')
+    Left = 304
+    Top = 552
+    ParamData = <
+      item
+        Name = 'ANO'
+        DataType = ftSmallint
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'CONTROLE'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
   end
 end

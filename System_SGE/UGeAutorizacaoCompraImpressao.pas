@@ -3,19 +3,21 @@ unit UGeAutorizacaoCompraImpressao;
 interface
 
 uses
+  UGrPadraoImpressao,
+
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadraoImpressao, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore,
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint, Vcl.StdCtrls, cxButtons, dxGDIPlusClasses, Vcl.ExtCtrls,
-  Vcl.Mask, JvExMask, JvToolEdit, Datasnap.DBClient, Datasnap.Provider, Data.DB,
-  IBX.IBCustomDataSet, IBX.IBQuery, frxClass, frxDBSet;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus,
+  frxClass, frxDBSet, Datasnap.DBClient, Datasnap.Provider, Data.DB, Vcl.StdCtrls, Vcl.Mask, JvExMask,
+  JvToolEdit, cxButtons, dxGDIPlusClasses, Vcl.ExtCtrls,
+
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Stan.Intf,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light;
 
 type
   TfrmGeAutorizacaoCompraImpressao = class(TfrmGrPadraoImpressao)
@@ -26,20 +28,20 @@ type
     e2Data: TJvDateEdit;
     lblSituacao: TLabel;
     edSituacao: TComboBox;
-    QryEmpresas: TIBQuery;
     DspEmpresas: TDataSetProvider;
     CdsEmpresas: TClientDataSet;
     frRelacaoAutorizacaoGeralSintetico: TfrxReport;
-    qryRelacaoAutorizacaoGeralSintetico: TIBQuery;
     dspRelacaoAutorizacaoGeralSintetico: TDataSetProvider;
     cdsRelacaoAutorizacaoGeralSintetico: TClientDataSet;
     frdsRelacaoAutorizacaoGeralSintetico: TfrxDBDataset;
     frRelacaoAutorizacaoGeralAnalitico: TfrxReport;
-    QryRelacaoAutorizacaoGeralAnalitico: TIBQuery;
     DspRelacaoAutorizacaoGeralAnalitico: TDataSetProvider;
     CdsRelacaoAutorizacaoGeralAnalitico: TClientDataSet;
     frdsRelacaoAutorizacaoGeralAnalitico: TfrxDBDataset;
     frRelacaoAutorizacaoLista: TfrxReport;
+    fdQryEmpresas: TFDQuery;
+    qryRelacaoAutorizacaoGeralSintetico: TFDQuery;
+    QryRelacaoAutorizacaoGeralAnalitico: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
   private
@@ -55,6 +57,19 @@ type
     procedure MontarAutotizacaoGeralAnalitico;
     procedure MontarAutotizacaoLista;
   end;
+
+(*
+  Tabelas:
+  - TBAUTORIZA_COMPRA
+  - VW_TIPO_AUTORIZACAO
+  - TBCOMPETENCIA
+
+  Views:
+  - VW_EMPRESA
+
+  Procedures:
+
+*)
 
 var
   frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao;
@@ -139,7 +154,7 @@ begin
 
     while not Eof do
     begin
-      edEmpresa.Items.Add( FieldByName('rzsoc').AsString );
+      edEmpresa.Items.Add( FieldByName('razao').AsString );
       IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
 
       if ( IEmpresa[I] = gUsuarioLogado.Empresa ) then

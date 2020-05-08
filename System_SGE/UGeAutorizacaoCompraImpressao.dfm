@@ -1,7 +1,5 @@
 inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
   Caption = 'Relat'#243'rios de Autoriza'#231#245'es de Compras/Servi'#231'os'
-  ExplicitWidth = 555
-  ExplicitHeight = 332
   PixelsPerInch = 96
   TextHeight = 13
   inherited pnlRelatorio: TPanel
@@ -182,24 +180,8 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
     end
   end
-  object QryEmpresas: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    e.codigo'
-      '  , e.rzsoc'
-      '  , e.cnpj'
-      'from TBEMPRESA e'
-      'order by 2')
-    Left = 448
-    Top = 8
-  end
   object DspEmpresas: TDataSetProvider
-    DataSet = QryEmpresas
+    DataSet = fdQryEmpresas
     Left = 480
     Top = 8
   end
@@ -211,7 +193,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
     Top = 8
   end
   object frRelacaoAutorizacaoGeralSintetico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -287,8 +269,10 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -302,6 +286,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -315,6 +300,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -331,6 +317,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -348,6 +335,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -368,6 +356,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -386,6 +375,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -414,6 +404,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -438,6 +429,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o entradas:')
           ParentFont = False
@@ -453,6 +445,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -469,6 +462,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -477,6 +471,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 665.197280000000000000
         Width = 718.110700000000000000
@@ -505,6 +500,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -532,6 +528,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndGrpHeaderTipoMov: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -793,6 +790,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -821,6 +819,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralSintetico."STATUS">=<StatusCancelado' +
             '>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRelacaoAutorizacaoGeralSintetico."STATUS_DESC"]')
           ParentFont = False
@@ -855,6 +854,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralSintetico."STATUS">=<StatusCancelado' +
             '>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRelacaoAutorizacaoGeralSintetico."TOTA' +
@@ -886,6 +886,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralSintetico."STATUS">=<StatusCancelado' +
             '>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRelacaoAutorizacaoGeralSintetico."TOTA' +
@@ -915,6 +916,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralSintetico."STATUS">=<StatusCancelado' +
             '>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRelacaoAutorizacaoGeralSintetico."COMPETENCIA_DESC"]')
           ParentFont = False
@@ -944,6 +946,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralSintetico."STATUS">=<StatusCancelado' +
             '>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0'#39',<frdsRelacaoAutorizacaoGeralSintetico."QUANTID' +
@@ -975,6 +978,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralSintetico."STATUS">=<StatusCancelado' +
             '>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRelacaoAutorizacaoGeralSintetico."TOTA' +
@@ -1006,6 +1010,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralSintetico."STATUS">=<StatusCancelado' +
             '>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRelacaoAutorizacaoGeralSintetico."TOTA' +
@@ -1037,6 +1042,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralSintetico."STATUS">=<StatusCancelado' +
             '>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRelacaoAutorizacaoGeralSintetico."TOTA' +
@@ -1048,6 +1054,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndGrpFooterTipoMov: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -1174,6 +1181,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 200.315090000000000000
         Top = 442.205010000000000000
         Width = 718.110700000000000000
@@ -1395,6 +1403,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' * Autoriza'#231#245'es Canceladas')
@@ -1575,65 +1584,6 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
     end
   end
-  object qryRelacaoAutorizacaoGeralSintetico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    a.tipo'
-      '  , ta.descricao as tipo_desc'
-      '  , a.competencia'
-      '  , ca.cmp_desc  as competencia_desc'
-      '  , a.status'
-      '  , Case a.status'
-      '      when 0 then '#39'Em edi'#231#227'o'#39
-      '      when 1 then '#39'Aberta'#39
-      '      when 2 then '#39'Autorizada'#39
-      '      when 3 then '#39'Faturada'#39
-      '      when 4 then '#39'Cancelada'#39
-      '    end as status_desc'
-      '  , count( a.codigo ) as quantidade'
-      
-        '  , sum( coalesce(a.valor_bruto, 0.0) )       as total_valor_bru' +
-        'to'
-      
-        '  , sum( coalesce(a.valor_desconto, 0.0) )    as total_valor_des' +
-        'conto'
-      
-        '  , sum( coalesce(a.valor_total_frete, 0.0) ) as total_valor_tot' +
-        'al_frete'
-      
-        '  , sum( coalesce(a.valor_total_ipi, 0.0) )   as total_valor_tot' +
-        'al_ipi'
-      
-        '  , sum( coalesce(a.valor_total, 0.0) )       as total_valor_liq' +
-        'uido'
-      'from TBAUTORIZA_COMPRA a'
-      '  left join VW_TIPO_AUTORIZACAO ta on (ta.codigo = a.tipo)'
-      '  left join TBCOMPETENCIA ca on (ca.cmp_num = a.competencia)'
-      ''
-      '/*'
-      'where a.empresa = '#39'03041377000187'#39
-      '  and a.status  > 1 -- 1. Aberto'
-      ''
-      'group by'
-      '    a.tipo'
-      '  , ta.descricao'
-      '  , a.competencia'
-      '  , ca.cmp_desc'
-      '  , a.status'
-      ''
-      'order by'
-      '    a.tipo'
-      '  , a.competencia'
-      '  , a.status'
-      '*/')
-    Left = 40
-    Top = 8
-  end
   object dspRelacaoAutorizacaoGeralSintetico: TDataSetProvider
     DataSet = qryRelacaoAutorizacaoGeralSintetico
     Left = 72
@@ -1668,7 +1618,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
     Top = 8
   end
   object frRelacaoAutorizacaoGeralAnalitico: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1749,8 +1699,10 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
@@ -1764,6 +1716,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -1777,6 +1730,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -1793,6 +1747,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -1810,6 +1765,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -1830,6 +1786,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -1848,6 +1805,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -1876,6 +1834,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -1900,6 +1859,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o entradas:')
           ParentFont = False
@@ -1915,6 +1875,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -1931,6 +1892,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -1939,6 +1901,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 665.197280000000000000
         Width = 1046.929810000000000000
@@ -1967,6 +1930,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -1994,6 +1958,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
         Width = 1046.929810000000000000
@@ -2039,6 +2004,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 404.409710000000000000
         Width = 1046.929810000000000000
@@ -2069,6 +2035,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRelacaoAutorizacaoGeralAnalitico."VALO' +
@@ -2101,6 +2068,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRelacaoAutorizacaoGeralAnalitico."VALO' +
@@ -2133,6 +2101,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRelacaoAutorizacaoGeralAnalitico."VALO' +
@@ -2163,6 +2132,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRelacaoAutorizacaoGeralAnalitico."AUTORIZACAO"]')
           ParentFont = False
@@ -2192,6 +2162,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <frdsRelacaoAutorizacaoGeralAnali' +
@@ -2223,6 +2194,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRelacaoAutorizacaoGeralAnalitico."REGISTRADOR"]')
           ParentFont = False
@@ -2252,6 +2224,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [IIF(<frdsRelacaoAutorizacaoGeralAnalitico."DATA_FATURA">=0,'#39#39',' +
@@ -2284,6 +2257,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRelacaoAutorizacaoGeralAnalitico."AUTORIZADOR"]')
           ParentFont = False
@@ -2314,6 +2288,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRelacaoAutorizacaoGeralAnalitico."VALO' +
@@ -2346,6 +2321,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0'#39',<frdsRelacaoAutorizacaoGeralAnalitico."ITENS">' +
@@ -2377,6 +2353,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRelacaoAutorizacaoGeralAnalitico."FORMA_PAGTO_DESC"]')
           ParentFont = False
@@ -2407,6 +2384,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRelacaoAutorizacaoGeralAnalitico."VALO' +
@@ -2418,6 +2396,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677165350000000000
         Top = 521.575140000000000000
         Width = 1046.929810000000000000
@@ -2558,6 +2537,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 37.795300000000000000
         Top = 604.724800000000000000
         Width = 1046.929810000000000000
@@ -2700,6 +2680,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -2734,6 +2715,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndGrpHeaderTipo: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 279.685220000000000000
         Width = 1046.929810000000000000
@@ -2779,6 +2761,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndGrpFooterTipo: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 476.220780000000000000
         Width = 1046.929810000000000000
@@ -2913,6 +2896,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndGrpHeaderForn: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 325.039580000000000000
         Width = 1046.929810000000000000
@@ -3281,99 +3265,12 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndGrpFooterForn: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 7.559060000000000000
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
       end
     end
-  end
-  object QryRelacaoAutorizacaoGeralAnalitico: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
-    SQL.Strings = (
-      'Select'
-      '    a.ano'
-      '  , a.codigo'
-      '  , a.empresa'
-      
-        '  , a.ano || '#39'/'#39' || right('#39'000000'#39' || a.codigo, 7) as autorizaca' +
-        'o'
-      '  , a.numero'
-      '  , a.tipo'
-      '  , ta.descricao as tipo_desc'
-      '  , a.competencia'
-      '  , ca.cmp_desc  as competencia_desc'
-      '  , a.status'
-      '  , Case a.status'
-      '      when 0 then '#39'Em edi'#231#227'o'#39
-      '      when 1 then '#39'Aberta'#39
-      '      when 2 then '#39'Autorizada'#39
-      '      when 3 then '#39'Faturada'#39
-      '      when 4 then '#39'Cancelada'#39
-      '    end as status_desc'
-      ''
-      '  , a.fornecedor as forn_cod'
-      '  , f.nomeforn   as forn_razao'
-      '  , f.nomefant   as forn_fantasia'
-      '  , f.pessoa_fisica as forn_pf'
-      '  , f.cnpj          as forn_cnpj'
-      ''
-      '  , cast(a.insercao_data as date) as data_cadastro'
-      '  , a.emissao_data as data_emissao'
-      '  , a.validade     as data_validade'
-      '  , a.data_fatura'
-      ''
-      '  , ('
-      '      Select'
-      '        count(i.produto)'
-      '      from TBAUTORIZA_COMPRAITEM i'
-      '      where i.ano    = a.ano'
-      '       and i.codigo  = a.codigo'
-      '       and i.empresa = a.empresa'
-      '    ) as itens'
-      ''
-      '  , coalesce(a.valor_bruto, 0.0)       as valor_bruto'
-      '  , coalesce(a.valor_desconto, 0.0)    as valor_desconto'
-      '  , coalesce(a.valor_total_frete, 0.0) as valor_total_frete'
-      '  , coalesce(a.valor_total_ipi, 0.0)   as valor_total_ipi'
-      '  , coalesce(a.valor_total, 0.0)       as valor_liquido'
-      ''
-      '  , a.forma_pagto'
-      '  , fp.descri as forma_pagto_desc'
-      '  , a.condicao_pagto'
-      '  , cp.cond_descricao as condicao_pagto_desc'
-      ''
-      '  , a.emissao_usuario    as usuario_registro'
-      '  , a.autorizado_usuario as usuario_autorizador'
-      '  , ur.nomecompleto      as registrador'
-      '  , ua.nomecompleto      as autorizador'
-      'from TBAUTORIZA_COMPRA a'
-      '  left join VW_TIPO_AUTORIZACAO ta on (ta.codigo = a.tipo)'
-      '  left join TBCOMPETENCIA ca on (ca.cmp_num = a.competencia)'
-      '  left join TBFORNECEDOR f on (f.codforn = a.fornecedor)'
-      '  left join TBFORMPAGTO fp on (fp.cod = a.forma_pagto)'
-      
-        '  left join VW_CONDICAOPAGTO cp on (cp.cond_cod = a.condicao_pag' +
-        'to)'
-      '  left join TBUSERS ur on (ur.nome = a.emissao_usuario)'
-      '  left join TBUSERS ua on (ua.nome = a.autorizado_usuario)'
-      ''
-      '/*'
-      'where a.empresa = '#39'03041377000187'#39
-      '  and a.status  > 1 -- 1. Aberto'
-      ''
-      'order by'
-      '    a.competencia -- Competencia'
-      '  , a.tipo        -- Tipo'
-      '  , f.nomeforn'
-      '  , a.fornecedor  -- Fornecedor'
-      '  , a.emissao_data'
-      '*/')
-    Left = 40
-    Top = 40
   end
   object DspRelacaoAutorizacaoGeralAnalitico: TDataSetProvider
     DataSet = QryRelacaoAutorizacaoGeralAnalitico
@@ -3431,7 +3328,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
     Top = 40
   end
   object frRelacaoAutorizacaoLista: TfrxReport
-    Version = '5.1.9'
+    Version = '6.0.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3511,8 +3408,10 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       RightMargin = 10.000000000000000000
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
+      Frame.Typ = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
@@ -3526,6 +3425,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -16
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
@@ -3539,6 +3439,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           DataField = 'LOGO'
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
+          Frame.Typ = []
           HightQuality = False
           Transparent = False
           TransparentColor = clWhite
@@ -3555,6 +3456,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -13
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             '[frdEmpresa."RZSOC"]')
           ParentFont = False
@@ -3572,6 +3474,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               'CNPJ.: [FormatMaskText('#39'##.###.###/####-##;0;'#39',<frdEmpresa."CNPJ' +
@@ -3592,6 +3495,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             'FONE: [FormatMaskText('#39'(##)####.####;0;'#39',<frdEmpresa."FONE">)]')
           ParentFont = False
@@ -3610,6 +3514,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."TLG_SIGLA"] [frdEmpresa."LOG_NOME"], [frdEmpresa."N' +
@@ -3638,6 +3543,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             
               '[frdEmpresa."HOME_PAGE"][IIF(Trim(<frdEmpresa."HOME_PAGE">)='#39#39',<' +
@@ -3662,6 +3568,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
+          Frame.Typ = []
           Memo.UTF8W = (
             'Situa'#231#227'o entradas:')
           ParentFont = False
@@ -3677,6 +3584,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           HAlign = haRight
           Memo.UTF8W = (
             '[Periodo] ')
@@ -3693,6 +3601,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Memo.UTF8W = (
             '[SubTitulo]')
           ParentFont = False
@@ -3701,6 +3610,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 30.236240000000000000
         Top = 498.897960000000000000
         Width = 718.110700000000000000
@@ -3729,6 +3639,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -9
           Font.Name = 'Lucida Console'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             ' Impresso em [Date] '#224's [Time] por [Usuario]')
@@ -3756,6 +3667,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
         Width = 718.110700000000000000
@@ -3769,7 +3681,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
@@ -3777,13 +3689,14 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
-          Highlight.Font.Height = -11
+          Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = 
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdsRelacaoAutorizacaoGeralAnalitico."AUTORIZACAO"]')
           ParentFont = False
@@ -3798,7 +3711,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
@@ -3806,13 +3719,14 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
-          Highlight.Font.Height = -11
+          Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = 
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <frdsRelacaoAutorizacaoGeralAnali' +
@@ -3829,7 +3743,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
@@ -3837,13 +3751,14 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
-          Highlight.Font.Height = -11
+          Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = 
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [frdsRelacaoAutorizacaoGeralAnalitico."FORN_RAZAO"] -  [IIF(<fr' +
@@ -3868,7 +3783,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
@@ -3877,13 +3792,14 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
-          Highlight.Font.Height = -11
+          Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = 
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRelacaoAutorizacaoGeralAnalitico."VALO' +
@@ -3900,7 +3816,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           DataSetName = 'frdEmpresa'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
-          Font.Height = -11
+          Font.Height = -9
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
@@ -3909,13 +3825,14 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Highlight.ApplyFill = False
           Highlight.Font.Charset = DEFAULT_CHARSET
           Highlight.Font.Color = clRed
-          Highlight.Font.Height = -11
+          Highlight.Font.Height = -9
           Highlight.Font.Name = 'Tahoma'
           Highlight.Font.Style = []
           Highlight.Condition = 
             '<frdsRelacaoAutorizacaoGeralAnalitico."STATUS">=<StatusAutorizac' +
             'aoCancelada>'
           Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.00'#39',<frdsRelacaoAutorizacaoGeralAnalitico."VALO' +
@@ -3927,6 +3844,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        Frame.Typ = []
         Height = 37.795300000000000000
         Top = 438.425480000000000000
         Width = 718.110700000000000000
@@ -3975,6 +3893,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          Frame.Typ = []
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
             
@@ -4031,6 +3950,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndGrpHeaderComp: TfrxGroupHeader
         FillType = ftBrush
+        Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
         Width = 718.110700000000000000
@@ -4225,6 +4145,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       end
       object BndGrpFooterComp: TfrxGroupFooter
         FillType = ftBrush
+        Frame.Typ = []
         Height = 22.677180000000000000
         Top = 355.275820000000000000
         Width = 718.110700000000000000
@@ -4292,5 +4213,164 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         end
       end
     end
+  end
+  object fdQryEmpresas: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    e.cnpj'
+      '  , e.codigo'
+      '  , e.razao'
+      '  , e.fantasia'
+      'from VW_EMPRESA e'
+      'order by'
+      '    e.razao')
+    Left = 448
+    Top = 8
+  end
+  object qryRelacaoAutorizacaoGeralSintetico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    a.tipo'
+      '  , ta.descricao as tipo_desc'
+      '  , a.competencia'
+      '  , ca.cmp_desc  as competencia_desc'
+      '  , a.status'
+      '  , Case a.status'
+      '      when 0 then '#39'Em edi'#231#227'o'#39
+      '      when 1 then '#39'Aberta'#39
+      '      when 2 then '#39'Autorizada'#39
+      '      when 3 then '#39'Faturada'#39
+      '      when 4 then '#39'Cancelada'#39
+      '    end as status_desc'
+      '  , count( a.codigo ) as quantidade'
+      
+        '  , sum( coalesce(a.valor_bruto, 0.0) )       as total_valor_bru' +
+        'to'
+      
+        '  , sum( coalesce(a.valor_desconto, 0.0) )    as total_valor_des' +
+        'conto'
+      
+        '  , sum( coalesce(a.valor_total_frete, 0.0) ) as total_valor_tot' +
+        'al_frete'
+      
+        '  , sum( coalesce(a.valor_total_ipi, 0.0) )   as total_valor_tot' +
+        'al_ipi'
+      
+        '  , sum( coalesce(a.valor_total, 0.0) )       as total_valor_liq' +
+        'uido'
+      'from TBAUTORIZA_COMPRA a'
+      '  left join VW_TIPO_AUTORIZACAO ta on (ta.codigo = a.tipo)'
+      '  left join TBCOMPETENCIA ca on (ca.cmp_num = a.competencia)'
+      ''
+      '/*'
+      'where a.empresa = '#39'03041377000187'#39
+      '  and a.status  > 1 -- 1. Aberto'
+      ''
+      'group by'
+      '    a.tipo'
+      '  , ta.descricao'
+      '  , a.competencia'
+      '  , ca.cmp_desc'
+      '  , a.status'
+      ''
+      'order by'
+      '    a.tipo'
+      '  , a.competencia'
+      '  , a.status'
+      '*/')
+    Left = 40
+    Top = 8
+  end
+  object QryRelacaoAutorizacaoGeralAnalitico: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select'
+      '    a.ano'
+      '  , a.codigo'
+      '  , a.empresa'
+      
+        '  , a.ano || '#39'/'#39' || right('#39'000000'#39' || a.codigo, 7) as autorizaca' +
+        'o'
+      '  , a.numero'
+      '  , a.tipo'
+      '  , ta.descricao as tipo_desc'
+      '  , a.competencia'
+      '  , ca.cmp_desc  as competencia_desc'
+      '  , a.status'
+      '  , Case a.status'
+      '      when 0 then '#39'Em edi'#231#227'o'#39
+      '      when 1 then '#39'Aberta'#39
+      '      when 2 then '#39'Autorizada'#39
+      '      when 3 then '#39'Faturada'#39
+      '      when 4 then '#39'Cancelada'#39
+      '    end as status_desc'
+      ''
+      '  , a.fornecedor as forn_cod'
+      '  , f.nomeforn   as forn_razao'
+      '  , f.nomefant   as forn_fantasia'
+      '  , f.pessoa_fisica as forn_pf'
+      '  , f.cnpj          as forn_cnpj'
+      ''
+      '  , cast(a.insercao_data as date) as data_cadastro'
+      '  , a.emissao_data as data_emissao'
+      '  , a.validade     as data_validade'
+      '  , a.data_fatura'
+      ''
+      '  , ('
+      '      Select'
+      '        count(i.produto)'
+      '      from TBAUTORIZA_COMPRAITEM i'
+      '      where i.ano    = a.ano'
+      '       and i.codigo  = a.codigo'
+      '       and i.empresa = a.empresa'
+      '    ) as itens'
+      ''
+      '  , coalesce(a.valor_bruto, 0.0)       as valor_bruto'
+      '  , coalesce(a.valor_desconto, 0.0)    as valor_desconto'
+      '  , coalesce(a.valor_total_frete, 0.0) as valor_total_frete'
+      '  , coalesce(a.valor_total_ipi, 0.0)   as valor_total_ipi'
+      '  , coalesce(a.valor_total, 0.0)       as valor_liquido'
+      ''
+      '  , a.forma_pagto'
+      '  , fp.descri as forma_pagto_desc'
+      '  , a.condicao_pagto'
+      '  , cp.cond_descricao as condicao_pagto_desc'
+      ''
+      '  , a.emissao_usuario    as usuario_registro'
+      '  , a.autorizado_usuario as usuario_autorizador'
+      '  , ur.nomecompleto      as registrador'
+      '  , ua.nomecompleto      as autorizador'
+      'from TBAUTORIZA_COMPRA a'
+      '  left join VW_TIPO_AUTORIZACAO ta on (ta.codigo = a.tipo)'
+      '  left join TBCOMPETENCIA ca on (ca.cmp_num = a.competencia)'
+      '  left join TBFORNECEDOR f on (f.codforn = a.fornecedor)'
+      '  left join TBFORMPAGTO fp on (fp.cod = a.forma_pagto)'
+      
+        '  left join VW_CONDICAOPAGTO cp on (cp.cond_cod = a.condicao_pag' +
+        'to)'
+      '  left join TBUSERS ur on (ur.nome = a.emissao_usuario)'
+      '  left join TBUSERS ua on (ua.nome = a.autorizado_usuario)'
+      ''
+      '/*'
+      'where a.empresa = '#39'03041377000187'#39
+      '  and a.status  > 1 -- 1. Aberto'
+      ''
+      'order by'
+      '    a.competencia -- Competencia'
+      '  , a.tipo        -- Tipo'
+      '  , f.nomeforn'
+      '  , a.fornecedor  -- Fornecedor'
+      '  , a.emissao_data'
+      '*/')
+    Left = 40
+    Top = 40
   end
 end

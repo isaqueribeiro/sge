@@ -161,7 +161,8 @@ uses
   UGeOSCancelar in '..\Sys\UGeOSCancelar.pas' {frmGeOSCancelar},
   UGeOSConfirmaTitulos in '..\Sys\UGeOSConfirmaTitulos.pas' {frmGeOSConfirmaTitulos},
   UGeOSFormaPagto in '..\Sys\UGeOSFormaPagto.pas' {frmGeOSFormaPagto},
-  UDMNFSe in '..\Sys\UDMNFSe.pas' {DMNFSe: TDataModule};
+  UDMNFSe in '..\Sys\UDMNFSe.pas' {DMNFSe: TDataModule},
+  UGeContasAPagarAReceberImpressao in '..\System_SGE\UGeContasAPagarAReceberImpressao.pas' {frmGeContasAPagarAReceberImpressao};
 
 {$R *.res}
 

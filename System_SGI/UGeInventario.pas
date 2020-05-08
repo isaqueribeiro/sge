@@ -6,10 +6,9 @@ uses
   UInfoVersao,
   UGrPadrao, 
 
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
-  cxContainer, cxEdit, cxGroupBox, StdCtrls, Mask, DBCtrls, DB, IBCustomDataSet, IBTable,
-  cxCheckBox, cxDBEdit, Menus, cxButtons, ToolWin, ComCtrls, IBUpdateSQL, cxStyles,
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, cxGraphics,
+  cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, cxGroupBox, StdCtrls, Mask, DBCtrls,
+  DB, cxCheckBox, cxDBEdit, Menus, cxButtons, ToolWin, ComCtrls, cxStyles,
   cxCustomData, cxFilter, cxData, cxDataStorage, cxDBData, cxCurrencyEdit, cxGridLevel,
   cxGridCustomTableView, cxGridTableView, cxGridBandedTableView, cxGridDBBandedTableView,
   cxClasses, cxGridCustomView, cxGrid, DBClient, frxClass, frxDBSet, Provider, IBQuery,
@@ -31,14 +30,12 @@ type
     GrpBxFiltro: TcxGroupBox;
     lblCodigo: TLabel;
     dbCodigo: TDBEdit;
-    tblEmpresa: TIBTable;
     dtsEmpresa: TDataSource;
     lblDataHora: TLabel;
     dbDataHora: TDBEdit;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
     lblCentroCusto: TLabel;
-    tblTipoInventario: TIBTable;
     dtsTipoInventario: TDataSource;
     lblTipo: TLabel;
     dbTipo: TDBLookupComboBox;
@@ -64,7 +61,6 @@ type
     N1: TMenuItem;
     nmImprimirInventarioLanc: TMenuItem;
     dtsInventario: TDataSource;
-    qryProduto: TIBDataSet;
     BtnOpcao: TcxButton;
     Bevel4: TBevel;
     ppOpcoes: TPopupMenu;
@@ -98,13 +94,11 @@ type
     BtnEditarProduto: TcxButton;
     nmObservacoes: TMenuItem;
     frRelacaoProduto: TfrxReport;
-    QryRelacaoProduto: TIBQuery;
     DspRelacaoProduto: TDataSetProvider;
     CdsRelacaoProduto: TClientDataSet;
     FrdsRelacaoProduto: TfrxDBDataset;
     Bevel5: TBevel;
     frRelacaoProdutoCC: TfrxReport;
-    QryRelacaoProdutoCC: TIBQuery;
     DspRelacaoProdutoCC: TDataSetProvider;
     CdsRelacaoProdutoCC: TClientDataSet;
     FrdsRelacaoProdutoCC: TfrxDBDataset;
@@ -120,7 +114,6 @@ type
     nmLocalizarProduto: TMenuItem;
     nmExcluirProduto: TMenuItem;
     frRelacaoInventarioCC: TfrxReport;
-    QryRelacaoInventarioCC: TIBQuery;
     DspRelacaoInventarioCC: TDataSetProvider;
     CdsRelacaoInventarioCC: TClientDataSet;
     FrdsRelacaoInventarioCC: TfrxDBDataset;
@@ -172,6 +165,12 @@ type
     qryMaterialDESCRI_APRESENTACAO: TStringField;
     qryMaterialUNP_DESCRICAO: TStringField;
     qryMaterialUNP_SIGLA: TStringField;
+    qryProduto: TFDQuery;
+    fdQryEmpresa: TFDQuery;
+    fdQryTipoInventario: TFDQuery;
+    QryRelacaoProduto: TFDQuery;
+    QryRelacaoProdutoCC: TFDQuery;
+    QryRelacaoInventarioCC: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure nmCarregarIAClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -210,6 +209,7 @@ type
   private
     { Private declarations }
     ver : TInfoVersao;
+    procedure CarregarDataSet(const aDataSet : TFDQuery);
     procedure CarregarInventario(Empresa : String; Ano, Codigo : Integer);
     procedure CarregarDadosProduto( Codigo : Integer );
     procedure BloquearBotoes;
@@ -221,11 +221,23 @@ type
 
 (*
   Tabelas:
+  - TBINVENTARIO_ALMOX
+  - TBINVENTARIO_ALMOX_ITEM
+  - TBCENTRO_CUSTO
+  - TBPRODUTO
+  - TBUNIDADEPROD
+  - TBEMPRESA
+  - TBGRUPOPROD
+  - TBSECAOPROD
+  - TBFABRICANTE
 
   Views:
+  - VW_STATUS_INVENTARIO_ALMOX
+  - VW_TIPO_INVENTARIO_ALMOX
+  - VW_EMPRESA
 
   Procedures:
-
+  - GET_ESTOQUE_PRODUTO
 *)
 
 var
@@ -239,7 +251,7 @@ uses
 
 {$R *.dfm}
 
-{ TfrmGrPadrao1 }
+{ TfrmGeInventario }
 
 procedure TfrmGeInventario.CarregarInventario(Empresa: String; Ano,
   Codigo: Integer);
@@ -273,8 +285,8 @@ begin
   RotinaID          := ROTINA_MOV_INVENTARIO_ESTOQU_ID;
   PnlTitulo.Caption := StringofChar(' ', 8)+ AnsiUpperCase(Self.Caption);
 
-  tblEmpresa.Open;
-  tblTipoInventario.Open;
+  CarregarDataSet(fdQryEmpresa);
+  CarregarDataSet(fdQryTipoInventario);
 
   NomeTabela    := 'TBINVENTARIO_ALMOX';
   CampoCodigo   := 'controle';
@@ -321,12 +333,16 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Select');
-    SQL.Add('    max(i.ano)      as ano');
+    SQL.Add('Select    ');
+    SQL.Add('    i.ano ');
     SQL.Add('  , max(i.controle) as controle');
     SQL.Add('from TBINVENTARIO_ALMOX i');
     SQL.Add('where i.empresa = ' + QuotedStr(gUsuarioLogado.Empresa));
     SQL.Add('  and i.status in (' + IntToStr(STATUS_INVENTARIO_ALMOX_EML) + ', ' + IntToStr(STATUS_INVENTARIO_ALMOX_EMC) + ')');
+    SQL.Add('group by  ');
+    SQL.Add('    i.ano ');
+    SQL.Add('order by  ');
+    SQL.Add('    i.ano DESC');
     Open;
 
     CarregarInventario(gUsuarioLogado.Empresa, FieldByName('ano').AsInteger, FieldByName('controle').AsInteger);
@@ -349,12 +365,16 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Select');
-    SQL.Add('    max(i.ano)      as ano');
+    SQL.Add('Select    ');
+    SQL.Add('    i.ano ');
     SQL.Add('  , max(i.controle) as controle');
     SQL.Add('from TBINVENTARIO_ALMOX i');
     SQL.Add('where i.empresa = ' + QuotedStr(gUsuarioLogado.Empresa));
     SQL.Add('  and i.status  = ' + IntToStr(STATUS_INVENTARIO_ALMOX_ENC));
+    SQL.Add('group by  ');
+    SQL.Add('    i.ano ');
+    SQL.Add('order by  ');
+    SQL.Add('    i.ano DESC');
     Open;
 
     CarregarInventario(gUsuarioLogado.Empresa, FieldByName('ano').AsInteger, FieldByName('controle').AsInteger);
@@ -370,12 +390,16 @@ begin
   begin
     Close;
     SQL.Clear;
-    SQL.Add('Select');
-    SQL.Add('    max(i.ano)      as ano');
+    SQL.Add('Select    ');
+    SQL.Add('    i.ano ');
     SQL.Add('  , max(i.controle) as controle');
     SQL.Add('from TBINVENTARIO_ALMOX i');
     SQL.Add('where i.empresa = ' + QuotedStr(gUsuarioLogado.Empresa));
     SQL.Add('  and i.status  = ' + IntToStr(STATUS_INVENTARIO_ALMOX_CAN));
+    SQL.Add('group by  ');
+    SQL.Add('    i.ano ');
+    SQL.Add('order by  ');
+    SQL.Add('    i.ano DESC');
     Open;
 
     CarregarInventario(gUsuarioLogado.Empresa, FieldByName('ano').AsInteger, FieldByName('controle').AsInteger);
@@ -678,6 +702,13 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TfrmGeInventario.CarregarDataSet(const aDataSet: TFDQuery);
+begin
+  aDataSet.Open;
+  aDataSet.Last;
+  aDataSet.First;
 end;
 
 procedure TfrmGeInventario.ControlEditExit(Sender: TObject);

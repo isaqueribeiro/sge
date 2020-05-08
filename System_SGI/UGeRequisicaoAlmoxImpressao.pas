@@ -4,20 +4,18 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadraoImpressao, cxGraphics,
-  Vcl.StdCtrls, cxButtons, dxGDIPlusClasses, Vcl.ExtCtrls,
-  Datasnap.DBClient, Datasnap.Provider, Data.DB, IBX.IBCustomDataSet,
-  IBX.IBQuery, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadraoImpressao, cxGraphics, JvToolEdit, Vcl.Menus,
+  Vcl.StdCtrls, cxButtons, dxGDIPlusClasses, Vcl.ExtCtrls, frxClass, frxDBSet, Vcl.Mask, JvExMask,
+  Datasnap.DBClient, Datasnap.Provider, Data.DB, cxLookAndFeels, cxLookAndFeelPainters,
 
-  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
-  dxSkinHighContrast, dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark,
-  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
-  dxSkinWhiteprint, frxClass, frxDBSet, Vcl.Mask, JvExMask, JvToolEdit,
-  IBX.IBTable, IBX.IBStoredProc;
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Stan.Intf,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light;
 
 type
   TfrmGeRequisicaoAlmoxImpressao = class(TfrmGrPadraoImpressao)
@@ -25,20 +23,16 @@ type
     edEmpresa: TComboBox;
     lblCentroCusto: TLabel;
     edCentroCusto: TComboBox;
-    QryEmpresas: TIBQuery;
     DspEmpresas: TDataSetProvider;
     CdsEmpresas: TClientDataSet;
-    qryCentroCusto: TIBQuery;
     dspCentroCusto: TDataSetProvider;
     cdsCentroCusto: TClientDataSet;
     frRequsicaoAlmoxSintetico: TfrxReport;
-    qryRequsicaoAlmoxSintetico: TIBQuery;
     dspRequsicaoAlmoxSintetico: TDataSetProvider;
     cdsRequsicaoAlmoxSintetico: TClientDataSet;
     frdsRequsicaoAlmoxSintetico: TfrxDBDataset;
     lblGrupo: TLabel;
     edGrupo: TComboBox;
-    QryGrupo: TIBQuery;
     DspGrupo: TDataSetProvider;
     CdsGrupo: TClientDataSet;
     lblData: TLabel;
@@ -48,22 +42,26 @@ type
     edSituacao: TComboBox;
     lblTipoRequsicao: TLabel;
     edTipoRequsicao: TComboBox;
-    tblTipoRequisicaoAlmox: TIBTable;
     frRequsicaoAlmoxAnalitico: TfrxReport;
-    QryRequisicaoAlmoxAnalitico: TIBQuery;
     DspRequisicaoAlmoxAnalitico: TDataSetProvider;
     CdsRequisicaoAlmoxAnalitico: TClientDataSet;
     frdsRequisicaoAlmoxAnalitico: TfrxDBDataset;
     frRequisicaoAlmoxProdutoS: TfrxReport;
-    QryRequisicaoAlmoxProdutoS: TIBQuery;
     DspRequisicaoAlmoxProdutoS: TDataSetProvider;
     CdsRequisicaoAlmoxProdutoS: TClientDataSet;
     frdsRequisicaoAlmoxProdutoS: TfrxDBDataset;
     frRequisicaoAlmoxProdutoE: TfrxReport;
-    QryRequisicaoAlmoxProdutoE: TIBQuery;
     DspRequisicaoAlmoxProdutoE: TDataSetProvider;
     CdsRequisicaoAlmoxProdutoE: TClientDataSet;
     frdsRequisicaoAlmoxProdutoE: TfrxDBDataset;
+    qryEmpresas: TFDQuery;
+    qryCentroCusto: TFDQuery;
+    qryGrupo: TFDQuery;
+    qryTipoRequisicaoAlmox: TFDQuery;
+    qryRequsicaoAlmoxSintetico: TFDQuery;
+    QryRequisicaoAlmoxAnalitico: TFDQuery;
+    QryRequisicaoAlmoxProdutoS: TFDQuery;
+    QryRequisicaoAlmoxProdutoE: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure edEmpresaChange(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
@@ -91,6 +89,28 @@ type
     procedure MontarRequisicaoEstoqueProdutoSaida;
     procedure MontarRequisicaoEstoqueProdutoEntrada;
   end;
+
+(*
+  Tabelas:
+  - TBREQUISICAO_ALMOX
+  - TBREQUISICAO_ALMOX_ITEM
+  - TBEMPRESA
+  - TBCENTRO_CUSTO
+  - TBCENTRO_CUSTO_EMPRESA
+  - TBCLIENTE
+  - TBPRODUTO
+  - TBGRUPOPROD
+  - TBUNIDADEPROD
+  - TBCOMPETENCIA
+
+  Views:
+  - VW_EMPRESA
+  - VW_TIPO_REQUISICAO_ALMOX
+  - VW_STATUS_REQUISICAO_ALMOX
+
+  Procedures:
+
+*)
 
 var
   frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao;
@@ -176,12 +196,12 @@ begin
     if edEmpresa.ItemIndex = 0 then
     begin
       ParamByName('empresa').AsString := EmptyStr;
-      ParamByName('todas').AsInteger  := 1;
+      ParamByName('todas').AsSmallInt := 1;
     end
     else
     begin
       ParamByName('empresa').AsString := IEmpresa[edEmpresa.ItemIndex];
-      ParamByName('todas').AsInteger  := 0;
+      ParamByName('todas').AsSmallInt := 0;
     end;
 
     Open;
@@ -236,7 +256,7 @@ begin
 
     while not Eof do
     begin
-      edEmpresa.Items.Add(FieldByName('rzsoc').AsString);
+      edEmpresa.Items.Add(FieldByName('razao').AsString);
       IEmpresa[I] := Trim(FieldByName('cnpj').AsString);
 
       if ( IEmpresa[I] = gUsuarioLogado.Empresa ) then
@@ -285,7 +305,7 @@ end;
 
 procedure TfrmGeRequisicaoAlmoxImpressao.CarregarTipoRequisicaoAlmox;
 begin
-  with edTipoRequsicao, tblTipoRequisicaoAlmox do
+  with edTipoRequsicao, qryTipoRequisicaoAlmox do
   begin
     Items.Clear;
     Items.Add('(Todas)');

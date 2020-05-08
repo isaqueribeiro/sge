@@ -6,16 +6,20 @@ uses
   UGrPadraoCadastro,
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, System.ImageList,
   cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Vcl.ImgList,
   IBX.IBCustomDataSet, IBX.IBUpdateSQL, Data.DB, Vcl.Mask, Vcl.DBCtrls,
   Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls,
   JvExMask, JvToolEdit, JvDBControls, IBX.IBTable, Vcl.ExtDlgs, IBX.IBStoredProc,
 
-  dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
+  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+
+  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light;
 
 type
   TfrmGeFuncionario = class(TfrmGrPadraoCadastro)
@@ -31,50 +35,11 @@ type
     lblDataCadastro: TLabel;
     dbDataCadastro: TDBEdit;
     Bevel5: TBevel;
-    IbDtstTabelaCODIGO: TIntegerField;
-    IbDtstTabelaNOME_COMPLETO: TIBStringField;
-    IbDtstTabelaMETAFONEMA: TIBStringField;
-    IbDtstTabelaSEXO: TIBStringField;
-    IbDtstTabelaFOTO_3X4: TBlobField;
-    IbDtstTabelaCPF: TIBStringField;
-    IbDtstTabelaRG_NUMERO: TIBStringField;
-    IbDtstTabelaRG_ORGAO_EMISSOR: TIBStringField;
-    IbDtstTabelaDATA_NASCIMENTO: TDateField;
-    IbDtstTabelaFLAG_VENDEDOR: TSmallintField;
-    IbDtstTabelaFLAG_FORNECEDOR: TSmallintField;
-    IbDtstTabelaATIVO: TSmallintField;
-    IbDtstTabelaVENDEDOR: TIntegerField;
-    IbDtstTabelaFORNECEDOR: TIntegerField;
-    IbDtstTabelaENDER: TIBStringField;
-    IbDtstTabelaNUMERO_END: TIBStringField;
-    IbDtstTabelaCOMPLEMENTO: TIBStringField;
-    IbDtstTabelaBAIRRO: TIBStringField;
-    IbDtstTabelaCEP: TIBStringField;
-    IbDtstTabelaCIDADE: TIBStringField;
-    IbDtstTabelaUF: TIBStringField;
-    IbDtstTabelaTLG_TIPO: TSmallintField;
-    IbDtstTabelaLOG_COD: TIntegerField;
-    IbDtstTabelaBAI_COD: TIntegerField;
-    IbDtstTabelaCID_COD: TIntegerField;
-    IbDtstTabelaEST_COD: TSmallintField;
-    IbDtstTabelaPAIS_ID: TIBStringField;
-    IbDtstTabelaFONE_FIXO: TIBStringField;
-    IbDtstTabelaFONE_CELULAR: TIBStringField;
-    IbDtstTabelaFONE_COMERCIAL: TIBStringField;
-    IbDtstTabelaEMAIL: TIBStringField;
-    IbDtstTabelaOBSERVACAO: TWideMemoField;
-    IbDtstTabelaDATA_CADASTRO: TDateField;
     lblDataNascimento: TLabel;
     dbDataNascimento: TJvDBDateEdit;
-    tblSexo: TIBTable;
     dtsSexo: TDataSource;
     dbSexo: TDBLookupComboBox;
     lblSexo: TLabel;
-    IbDtstTabelaLOGRADOURO: TIBStringField;
-    IbDtstTabelaBAI_NOME: TIBStringField;
-    IbDtstTabelaCID_NOME: TIBStringField;
-    IbDtstTabelaEST_NOME: TIBStringField;
-    IbDtstTabelaPAIS_NOME: TIBStringField;
     GrpBxEndereco: TGroupBox;
     lblCidade: TLabel;
     lblEstado: TLabel;
@@ -111,9 +76,6 @@ type
     ppmLimparImagem: TMenuItem;
     opnDialogImage: TOpenPictureDialog;
     dbFoto3x4: TDBImage;
-    IbDtstTabelaRG: TIBStringField;
-    setUsuarioFuncionario: TIBStoredProc;
-    setVendedorFuncionario: TIBStoredProc;
     GrpBxParametro: TGroupBox;
     dbFlagFornecedor: TDBCheckBox;
     dbFlagVendedor: TDBCheckBox;
@@ -123,9 +85,51 @@ type
     dbUsuario: TJvDBComboEdit;
     popFerramentas: TPopupMenu;
     ppMnAtualizarMetafonema: TMenuItem;
-    IbDtstTabelaLOGIN: TIBStringField;
-    IbDtstTabelaNOME_LIMPO: TIBStringField;
     lblFuncionarioDesativado: TLabel;
+    fdQryTabelaCODIGO: TIntegerField;
+    fdQryTabelaNOME_COMPLETO: TStringField;
+    fdQryTabelaNOME_LIMPO: TStringField;
+    fdQryTabelaMETAFONEMA: TStringField;
+    fdQryTabelaSEXO: TStringField;
+    fdQryTabelaFOTO_3X4: TBlobField;
+    fdQryTabelaCPF: TStringField;
+    fdQryTabelaRG_NUMERO: TStringField;
+    fdQryTabelaRG_ORGAO_EMISSOR: TStringField;
+    fdQryTabelaDATA_NASCIMENTO: TDateField;
+    fdQryTabelaFLAG_VENDEDOR: TSmallintField;
+    fdQryTabelaFLAG_FORNECEDOR: TSmallintField;
+    fdQryTabelaATIVO: TSmallintField;
+    fdQryTabelaLOGIN: TStringField;
+    fdQryTabelaVENDEDOR: TIntegerField;
+    fdQryTabelaFORNECEDOR: TIntegerField;
+    fdQryTabelaENDER: TStringField;
+    fdQryTabelaNUMERO_END: TStringField;
+    fdQryTabelaCOMPLEMENTO: TStringField;
+    fdQryTabelaBAIRRO: TStringField;
+    fdQryTabelaCEP: TStringField;
+    fdQryTabelaCIDADE: TStringField;
+    fdQryTabelaUF: TStringField;
+    fdQryTabelaTLG_TIPO: TSmallintField;
+    fdQryTabelaLOG_COD: TIntegerField;
+    fdQryTabelaBAI_COD: TIntegerField;
+    fdQryTabelaCID_COD: TIntegerField;
+    fdQryTabelaEST_COD: TSmallintField;
+    fdQryTabelaPAIS_ID: TStringField;
+    fdQryTabelaFONE_FIXO: TStringField;
+    fdQryTabelaFONE_CELULAR: TStringField;
+    fdQryTabelaFONE_COMERCIAL: TStringField;
+    fdQryTabelaEMAIL: TStringField;
+    fdQryTabelaOBSERVACAO: TMemoField;
+    fdQryTabelaDATA_CADASTRO: TDateField;
+    fdQryTabelaRG: TStringField;
+    fdQryTabelaLOGRADOURO: TStringField;
+    fdQryTabelaBAI_NOME: TStringField;
+    fdQryTabelaCID_NOME: TStringField;
+    fdQryTabelaEST_NOME: TStringField;
+    fdQryTabelaPAIS_NOME: TStringField;
+    qrySexo: TFDQuery;
+    spSetUsuarioFuncionario: TFDStoredProc;
+    spSetVendedorFuncionario: TFDStoredProc;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -133,17 +137,17 @@ type
     procedure dbCidadeButtonClick(Sender: TObject);
     procedure dbBairroButtonClick(Sender: TObject);
     procedure dbLogradouroButtonClick(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure ppmCarregarImagemClick(Sender: TObject);
     procedure ppmLimparImagemClick(Sender: TObject);
     procedure dbUsuarioButtonClick(Sender: TObject);
-    procedure IbDtstTabelaBeforePost(DataSet: TDataSet);
     procedure ppMnAtualizarMetafonemaClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure btbtnListaClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
+    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     function GravarVendedorFuncinario : Boolean;
@@ -192,8 +196,8 @@ end;
 
 procedure TfrmGeFuncionario.btbtnSalvarClick(Sender: TObject);
 begin
-  if ( Trim(IbDtstTabelaCPF.AsString) <> EmptyStr ) then
-    if ( not FuncoesString.StrIsCPF(IbDtstTabelaCPF.AsString) ) then
+  if ( Trim(DtSrcTabela.DataSet.FieldByName('CPF').AsString) <> EmptyStr ) then
+    if ( not FuncoesString.StrIsCPF(DtSrcTabela.DataSet.FieldByName('CPF').AsString) ) then
     begin
       ShowWarning('Favor informar um CPF válido.');
       Abort;
@@ -214,17 +218,17 @@ var
   iBairro : Integer;
   sBairro : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( IbDtstTabelaCID_COD.AsInteger = 0 ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
+    if ( DtSrcTabela.DataSet.FieldByName('CID_COD').AsInteger = 0 ) then
     begin
       ShowWarning('Favor informar a Cidade primeiramente!');
       dbCidade.SetFocus;
     end
     else
-    if ( SelecionarBairro(Self, IbDtstTabelaCID_COD.AsInteger, iBairro, sBairro) ) then
+    if ( SelecionarBairro(Self, DtSrcTabela.DataSet.FieldByName('CID_COD').AsInteger, iBairro, sBairro) ) then
     begin
-      IbDtstTabelaBAI_COD.AsInteger := iBairro;
-      IbDtstTabelaBAI_NOME.AsString := sBairro;
+      DtSrcTabela.DataSet.FieldByName('BAI_COD').AsInteger := iBairro;
+      DtSrcTabela.DataSet.FieldByName('BAI_NOME').AsString := sBairro;
     end;
 end;
 
@@ -233,20 +237,23 @@ var
   iCidade : Integer;
   sCidade : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( IbDtstTabelaEST_COD.AsInteger = 0 ) then
-    begin
-      ShowWarning('Favor informar o Estado primeiramente!');
-      dbEstado.SetFocus;
-    end
-    else
-    if ( SelecionarCidade(Self, IbDtstTabelaEST_COD.AsInteger, iCidade, sCidade) ) then
-    begin
-      IbDtstTabelaCID_COD.AsInteger := iCidade;
-      IbDtstTabelaCID_NOME.AsString := sCidade;
-      IbDtstTabelaCIDADE.AsString   := Copy(sCidade + ' (' + IbDtstTabelaUF.AsString + ')', 1, IbDtstTabelaCIDADE.Size);
-      IbDtstTabelaCEP.AsString      := GetCidadeCEP(iCidade);
-    end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( FieldByName('EST_COD').AsInteger = 0 ) then
+      begin
+        ShowWarning('Favor informar o Estado primeiramente!');
+        dbEstado.SetFocus;
+      end
+      else
+      if ( SelecionarCidade(Self, FieldByName('EST_COD').AsInteger, iCidade, sCidade) ) then
+      begin
+        FieldByName('CID_COD').AsInteger := iCidade;
+        FieldByName('CID_NOME').AsString := sCidade;
+        FieldByName('CIDADE').AsString   := Copy(sCidade + ' (' + FieldByName('UF').AsString + ')', 1, FieldByName('CIDADE').Size);
+        FieldByName('CEP').AsString      := GetCidadeCEP(iCidade);
+      end;
+  end;
 end;
 
 procedure TfrmGeFuncionario.dbEstadoButtonClick(Sender: TObject);
@@ -255,13 +262,16 @@ var
   sEstado ,
   sUF     : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarEstado(Self, iEstado, sEstado, sUF) ) then
-    begin
-      IbDtstTabelaEST_COD.AsInteger := iEstado;
-      IbDtstTabelaEST_NOME.AsString := sEstado;
-      IbDtstTabelaUF.AsString       := sUF;
-    end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( SelecionarEstado(Self, iEstado, sEstado, sUF) ) then
+      begin
+        FieldByName('EST_COD').AsInteger := iEstado;
+        FieldByName('EST_NOME').AsString := sEstado;
+        FieldByName('UF').AsString       := sUF;
+      end;
+  end;
 end;
 
 procedure TfrmGeFuncionario.dbgDadosDrawColumnCell(Sender: TObject;
@@ -269,7 +279,7 @@ procedure TfrmGeFuncionario.dbgDadosDrawColumnCell(Sender: TObject;
 begin
   inherited;
   // Destacar funcionarios desativados
-  if ( IbDtstTabelaATIVO.AsInteger = 0 ) then
+  if ( DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger = 0 ) then
     dbgDados.Canvas.Font.Color := lblFuncionarioDesativado.Font.Color;
 
   dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
@@ -282,20 +292,23 @@ var
   iLogradouro : Integer;
   sLogradouro : String;
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    if ( IbDtstTabelaCID_COD.AsInteger = 0 ) then
-    begin
-      ShowWarning('Favor informar a Cidade primeiramente!');
-      dbCidade.SetFocus;
-    end
-    else
-    if ( SelecionarLogradouro(Self, IbDtstTabelaCID_COD.AsInteger, iTipo, sTipo, iLogradouro, sLogradouro) ) then
-    begin
-      IbDtstTabelaTLG_TIPO.AsInteger  := iTipo;
-      IbDtstTabelaLOG_COD.AsInteger   := iLogradouro;
-      IbDtstTabelaLOGRADOURO.AsString := Trim(sTipo + ' ' + sLogradouro);
-      IbDtstTabelaENDER.AsString      := Trim(sTipo + ' ' + sLogradouro);
-    end;
+  with DtSrcTabela.DataSet do
+  begin
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( FieldByName('CID_COD').AsInteger = 0 ) then
+      begin
+        ShowWarning('Favor informar a Cidade primeiramente!');
+        dbCidade.SetFocus;
+      end
+      else
+      if ( SelecionarLogradouro(Self, FieldByName('CID_COD').AsInteger, iTipo, sTipo, iLogradouro, sLogradouro) ) then
+      begin
+        FieldByName('TLG_TIPO').AsInteger  := iTipo;
+        FieldByName('LOG_COD').AsInteger   := iLogradouro;
+        FieldByName('LOGRADOURO').AsString := Trim(sTipo + ' ' + sLogradouro);
+        FieldByName('ENDER').AsString      := Trim(sTipo + ' ' + sLogradouro);
+      end;
+  end;
 end;
 
 procedure TfrmGeFuncionario.dbUsuarioButtonClick(Sender: TObject);
@@ -305,7 +318,55 @@ var
 begin
   if ( dbUsuario.Button.Enabled and (IbDtstTabela.State in [dsEdit, dsInsert]) ) then
     if SelecionarUsuarioRequisitante(Self, sLogin, sNome) then
-      IbDtstTabelaLOGIN.Value := sLogin;
+      DtSrcTabela.DataSet.FieldByName('LOGIN').AsString := sLogin;
+end;
+
+procedure TfrmGeFuncionario.fdQryTabelaBeforePost(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('NOME_LIMPO').AsString := FuncoesString.StrRemoveAllAccents(FieldByName('NOME_COMPLETO').AsString);
+    FieldByName('METAFONEMA').AsString := Metafonema(FieldByName('NOME_COMPLETO').AsString);
+
+    if ( Trim(FieldByName('LOGIN').AsString) = EmptyStr ) then
+      if not GravarUsuarioFuncinario then
+        Abort;
+
+    if ( FieldByName('FLAG_VENDEDOR').AsInteger = 1 ) then
+      if not GravarVendedorFuncinario then
+        Abort;
+  end;
+end;
+
+procedure TfrmGeFuncionario.fdQryTabelaNewRecord(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    FieldByName('PAIS_ID').AsString          := GetPaisIDDefault;
+    FieldByName('PAIS_NOME').AsString        := GetPaisNomeDefault;
+    FieldByName('EST_COD').AsInteger         := GetEstadoIDDefault;
+    FieldByName('EST_NOME').AsString         := GetEstadoNomeDefault;
+    FieldByName('UF').AsString               := GetEstadoUF(GetEstadoIDDefault);
+    FieldByName('CID_COD').AsInteger         := GetCidadeIDDefault;
+    FieldByName('CID_NOME').AsString         := GetCidadeNomeDefault;
+    FieldByName('CIDADE').AsString           := Copy(FieldByName('CID_NOME').AsString + ' (' + Trim(FieldByName('UF').AsString) + ')', 1, FieldByName('CIDADE').Size);
+    FieldByName('CEP').AsString              := GetCidadeCEP(GetCidadeIDDefault);
+    FieldByName('NUMERO_END').AsString       := 'S/N';
+    FieldByName('COMPLEMENTO').AsString      := EmptyStr;
+    FieldByName('FLAG_VENDEDOR').AsInteger   := 0;
+    FieldByName('FLAG_FORNECEDOR').AsInteger := 0;
+    FieldByName('ATIVO').AsInteger           := 1;
+    FieldByName('DATA_CADASTRO').AsDateTime  := GetDateTimeDB;
+    FieldByName('CPF').Clear;
+    FieldByName('DATA_NASCIMENTO').Clear;
+    FieldByName('VENDEDOR').Clear;
+    FieldByName('FORNECEDOR').Clear;
+    FieldByName('LOGIN').Clear;
+    FieldByName('OBSERVACAO').Clear;
+    FieldByName('FOTO_3X4').Clear;
+  end;
 end;
 
 procedure TfrmGeFuncionario.FiltarDados(const iTipoPesquisa: Integer);
@@ -318,7 +379,7 @@ begin
       Abort;
     end;
 
-    with IbDtstTabela, SelectSQL do
+    with fdQryTabela, SQL do
     begin
       if ( Trim(CampoOrdenacao) = EmptyStr ) then
         CampoOrdenacao := CampoDescricao;
@@ -345,7 +406,7 @@ begin
       end;
 
       if ( WhereAdditional <> EmptyStr ) then
-        if ( Pos('where', SelectSQL.Text) > 0 ) then
+        if ( Pos('where', SQL.Text) > 0 ) then
           Add( '  and (' + WhereAdditional + ')' )
         else
           Add( 'where (' + WhereAdditional + ')' );
@@ -389,7 +450,7 @@ begin
   RotinaID         := ROTINA_CAD_FUNCIONARIO_ID;
   ControlFirstEdit := dbNome;
 
-  tblSexo.Open;
+  CarregarLista(qrySexo);
 
   DisplayFormatCodigo := '##0000';
 
@@ -408,20 +469,20 @@ function TfrmGeFuncionario.GravarUsuarioFuncinario: Boolean;
 begin
   Result := False;
   try
-    with setUsuarioFuncionario do
+    with spSetUsuarioFuncionario do
     begin
       Close;
-      ParamByName('nome_completo').AsString := Trim(IbDtstTabelaNOME_LIMPO.AsString);
-      ParamByName('ativo').AsInteger        := IbDtstTabelaATIVO.AsInteger;
+      ParamByName('nome_completo').AsString := Trim(DtSrcTabela.DataSet.FieldByName('NOME_LIMPO').AsString);
+      ParamByName('ativo').AsSmallInt       := DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger;
       ExecProc;
 
       CommitTransaction;
 
       Result := True;
 
-      if (IbDtstTabela.State in [dsEdit, dsInsert]) then
-        if (IbDtstTabelaLOGIN.AsString <> ParamByName('usuario_login').AsString) then
-          IbDtstTabelaLOGIN.AsString := ParamByName('usuario_login').AsString;
+      if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
+        if (DtSrcTabela.DataSet.FieldByName('LOGIN').AsString <> ParamByName('usuario_login').AsString) then
+          DtSrcTabela.DataSet.FieldByName('LOGIN').AsString := ParamByName('usuario_login').AsString;
     end;
   except
     On E : Exception do
@@ -433,21 +494,21 @@ function TfrmGeFuncionario.GravarVendedorFuncinario: Boolean;
 begin
   Result := False;
   try
-    with setVendedorFuncionario do
+    with spSetVendedorFuncionario do
     begin
       Close;
-      ParamByName('nome_completo').AsString := Trim(IbDtstTabelaNOME_COMPLETO.AsString);
-      ParamByName('cpf').AsString           := Trim(IbDtstTabelaCPF.AsString);
-      ParamByName('ativo').AsInteger        := IbDtstTabelaATIVO.AsInteger;
+      ParamByName('nome_completo').AsString := Trim(DtSrcTabela.DataSet.FieldByName('NOME_COMPLETO').AsString);
+      ParamByName('cpf').AsString           := Trim(DtSrcTabela.DataSet.FieldByName('CPF').AsString);
+      ParamByName('ativo').AsSmallInt       := DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger;
       ExecProc;
 
       CommitTransaction;
 
       Result := True;
 
-      if (IbDtstTabela.State in [dsEdit, dsInsert]) then
-        if (IbDtstTabelaVENDEDOR.AsInteger <> ParamByName('codigo_vendedor').AsInteger) then
-          IbDtstTabelaVENDEDOR.AsInteger := ParamByName('codigo_vendedor').AsInteger;
+      if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
+        if (DtSrcTabela.DataSet.FieldByName('VENDEDOR').AsInteger <> ParamByName('codigo_vendedor').AsInteger) then
+          DtSrcTabela.DataSet.FieldByName('VENDEDOR').AsInteger := ParamByName('codigo_vendedor').AsInteger;
     end;
   except
     On E : Exception do
@@ -455,58 +516,17 @@ begin
   end;
 end;
 
-procedure TfrmGeFuncionario.IbDtstTabelaBeforePost(DataSet: TDataSet);
-begin
-  IbDtstTabelaNOME_LIMPO.AsString := FuncoesString.StrRemoveAllAccents(IbDtstTabelaNOME_COMPLETO.AsString);
-  IbDtstTabelaMETAFONEMA.AsString := Metafonema(IbDtstTabelaNOME_COMPLETO.AsString);
-
-  if ( Trim(IbDtstTabelaLOGIN.AsString) = EmptyStr ) then
-    if not GravarUsuarioFuncinario then
-      Abort;
-
-  if ( IbDtstTabelaFLAG_VENDEDOR.AsInteger = 1 ) then
-    if not GravarVendedorFuncinario then
-      Abort;
-end;
-
-procedure TfrmGeFuncionario.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  IbDtstTabelaPAIS_ID.AsString          := GetPaisIDDefault;
-  IbDtstTabelaPAIS_NOME.AsString        := GetPaisNomeDefault;
-  IbDtstTabelaEST_COD.AsInteger         := GetEstadoIDDefault;
-  IbDtstTabelaEST_NOME.AsString         := GetEstadoNomeDefault;
-  IbDtstTabelaUF.AsString               := GetEstadoUF(GetEstadoIDDefault);
-  IbDtstTabelaCID_COD.AsInteger         := GetCidadeIDDefault;
-  IbDtstTabelaCID_NOME.AsString         := GetCidadeNomeDefault;
-  IbDtstTabelaCIDADE.AsString           := Copy(IbDtstTabelaCID_NOME.AsString + ' (' + Trim(IbDtstTabelaUF.AsString) + ')', 1, IbDtstTabelaCIDADE.Size);
-  IbDtstTabelaCEP.AsString              := GetCidadeCEP(GetCidadeIDDefault);
-  IbDtstTabelaNUMERO_END.AsString       := 'S/N';
-  IbDtstTabelaCOMPLEMENTO.AsString      := EmptyStr;
-  IbDtstTabelaFLAG_VENDEDOR.AsInteger   := 0;
-  IbDtstTabelaFLAG_FORNECEDOR.AsInteger := 0;
-  IbDtstTabelaATIVO.AsInteger           := 1;
-  IbDtstTabelaDATA_CADASTRO.AsDateTime  := GetDateTimeDB;
-  IbDtstTabelaCPF.Clear;
-  IbDtstTabelaDATA_NASCIMENTO.Clear;
-  IbDtstTabelaVENDEDOR.Clear;
-  IbDtstTabelaFORNECEDOR.Clear;
-  IbDtstTabelaLOGIN.Clear;
-  IbDtstTabelaOBSERVACAO.Clear;
-  IbDtstTabelaFOTO_3X4.Clear;
-end;
-
 procedure TfrmGeFuncionario.ppmCarregarImagemClick(Sender: TObject);
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     if ( opnDialogImage.Execute ) then
-      IbDtstTabelaFOTO_3X4.LoadFromFile( opnDialogImage.FileName );
+      fdQryTabelaFOTO_3X4.LoadFromFile( opnDialogImage.FileName );
 end;
 
 procedure TfrmGeFuncionario.ppmLimparImagemClick(Sender: TObject);
 begin
-  if ( IbDtstTabela.State in [dsEdit, dsInsert] ) then
-    IbDtstTabelaFOTO_3X4.Clear;
+  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
+    fdQryTabelaFOTO_3X4.Clear;
 end;
 
 procedure TfrmGeFuncionario.ppMnAtualizarMetafonemaClick(Sender: TObject);
@@ -516,24 +536,24 @@ begin
   if IbDtstTabela.IsEmpty then
     Exit;
 
-  IbDtstTabela.First;
-  IbDtstTabela.DisableControls;
+  fdQryTabela.First;
+  fdQryTabela.DisableControls;
   Screen.Cursor := crSQLWait;
   try
-    while not IbDtstTabela.Eof do
+    while not fdQryTabela.Eof do
     begin
       sUpdate := 'Update TBFUNCIONARIO Set nome_limpo = %s, metafonema = %s where codigo = %s';
       sUpdate := Format(sUpdate, [
-        QuotedStr(FuncoesString.StrRemoveAllAccents(IbDtstTabelaNOME_COMPLETO.AsString)),
-        QuotedStr(Metafonema(IbDtstTabelaNOME_COMPLETO.AsString)),
-        IbDtstTabelaCODIGO.AsString]);
+        QuotedStr(FuncoesString.StrRemoveAllAccents(fdQryTabelaNOME_COMPLETO.AsString)),
+        QuotedStr(Metafonema(fdQryTabelaNOME_COMPLETO.AsString)),
+        fdQryTabelaCODIGO.AsString]);
       ExecuteScriptSQL( sUpdate );
 
-      IbDtstTabela.Next;
+      fdQryTabela.Next;
     end;
   finally
-    IbDtstTabela.First;
-    IbDtstTabela.EnableControls;
+    fdQryTabela.First;
+    fdQryTabela.EnableControls;
     Screen.Cursor := crDefault;
 
     ShowInformation('Atualização', 'Código metafônico dos registros atualizados com sucesso!');

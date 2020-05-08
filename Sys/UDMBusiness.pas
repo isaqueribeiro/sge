@@ -1901,7 +1901,7 @@ begin
     // 3. Atualização do Custo do Estoque de Almoxarifado
     with DMBusiness, spAtualizarCustoEstoqueAlmoxarifado do
     begin
-      ParamByName('ano').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ParamByName('ano').AsSmallInt := StrToInt(FormatDateTime('YYYY', aData));
       ExecProc;
       CommitTransaction;
     end;
@@ -1917,7 +1917,7 @@ begin
     // 4. Atualização do Custo das Requisições ao Almoxarifado
     with DMBusiness, spAtualizarCustoEstoqueRequisicao do
     begin
-      ParamByName('ano_movimento').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ParamByName('ano_movimento').AsSmallInt := StrToInt(FormatDateTime('YYYY', aData));
       ExecProc;
       CommitTransaction;
     end;
@@ -1933,7 +1933,7 @@ begin
     // 5. Atualização do Custo dos Inventários
     with DMBusiness, spAtualizarCustoEstoqueInventario do
     begin
-      ParamByName('ano_movimento').AsInteger := StrToInt(FormatDateTime('YYYY', aData));
+      ParamByName('ano_movimento').AsSmallInt := StrToInt(FormatDateTime('YYYY', aData));
       ExecProc;
       CommitTransaction;
     end;

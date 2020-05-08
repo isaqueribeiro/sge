@@ -501,6 +501,7 @@ object frmGrConsultarCNJP: TfrmGrConsultarCNJP
         Align = alClient
         Center = True
         Proportional = True
+        Stretch = True
       end
       object LabAtualizarCaptcha: TLabel
         Left = 1

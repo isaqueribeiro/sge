@@ -3,6 +3,12 @@
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Atualização das Taxas Tributárias para JAN/2020 até ABR/2020.
+- Ajustes na geração de NF-e.
+- Ajustes na geração de Recibos.
+- Novos relatórios de Custo dos Materiais/Produtos vendidos no módulo Faturamento.
+- Novos relatórios de Lotes de Produtos no módulo Estoque de Produtos.
+- Novo módulo de relatórios de Contas A Pagar x Contas A Receber.
 - Novo relatório de Movimentação Financeira Mensal.
 - Ajustes na emissão de NF-e 4.0.
 - Correção nos filtros de pesquisas.
@@ -39,8 +45,8 @@
 #url18=http://www.drhtransparencia.com.br/agil/upgrade/db/01002700.sql
 #url19=http://www.drhtransparencia.com.br/agil/upgrade/db/01002800.sql
 #url20=http://www.drhtransparencia.com.br/agil/upgrade/db/01002900.sql
-
+#url16=http://www.drhtransparencia.com.br/agil/upgrade/db/01002903.sql
 
 #method=0 (self-upgrade)
 
-#version=1.0.25.2
+#version=1.0.29.4
