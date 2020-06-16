@@ -111,6 +111,10 @@
             <Form>FrmPadraoLogin</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Classe.Usuario.pas"/>
+        <DCCReference Include="Classe.Pessoa.pas"/>
+        <DCCReference Include="Controller.Usuario.pas"/>
+        <DCCReference Include="Classe.Conexao.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

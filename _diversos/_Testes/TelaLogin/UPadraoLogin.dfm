@@ -12,9 +12,11 @@ inherited FrmPadraoLogin: TFrmPadraoLogin
   TextHeight = 19
   inherited lblCopyright: TLabel
     Top = 418
+    ExplicitTop = 418
   end
   inherited lblVersion: TLabel
     Top = 402
+    ExplicitTop = 402
   end
   object lblUsuario: TLabel
     Left = 165
