@@ -4,7 +4,9 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadraoAbertura, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadraoAbertura, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
+
+  Interacao.Usuario;
 
 type
   TFrmPadraoLogin = class(TFrmPadraoAbertura)
@@ -23,9 +25,14 @@ type
   private
     { Private declarations }
     shpUsuario : TShape;
+    FController: IUsuario;
     procedure Destacar(const aDestaque : Boolean);
+    procedure SetController(const Value: IUsuario);
+
+    function Autenticar : Boolean;
   public
     { Public declarations }
+    property Controller : IUsuario read FController write SetController;
   end;
 
 var
@@ -36,10 +43,16 @@ implementation
 {$R *.dfm}
 
 
+function TFrmPadraoLogin.Autenticar: Boolean;
+begin
+  Result := FController.Autenticar;
+end;
+
 procedure TFrmPadraoLogin.btnEntrarClick(Sender: TObject);
 begin
-  inherited;
   Destacar(True);
+  if Autenticar then
+    ModalResult := mrOk;
 end;
 
 procedure TFrmPadraoLogin.Destacar(const aDestaque: Boolean);
@@ -90,6 +103,11 @@ begin
   inherited;
   Self.BringToFront;
   Self.Activate;
+end;
+
+procedure TFrmPadraoLogin.SetController(const Value: IUsuario);
+begin
+  FController := Value;
 end;
 
 end.

@@ -14,16 +14,20 @@ type
       FEmpresa  : String;
       FAlterarValorVenda: Boolean;
       FLogin    : String;
+      FSenha    : String;
       procedure SetAlterarValorVenda(const Value: Boolean);
       procedure SetEmpresa(const Value: String);
       procedure SetFuncao(const Value: Integer);
       procedure SetLogado(const Value: Boolean);
       procedure SetLogin(const Value: String);
       procedure SetVendedor(const Value: TPessoa);
+      procedure SetSenha(const Value: String);
     public
       constructor Instanciar;
+      destructor Destroy; override;
 
       property Login    : String read FLogin write SetLogin;
+      property Senha    : String read FSenha write SetSenha;
       property Funcao   : Integer read FFuncao write SetFuncao;
       property Empresa  : String read FEmpresa write SetEmpresa;
       property Vendedor : TPessoa read FVendedor write SetVendedor;
@@ -34,6 +38,12 @@ type
 implementation
 
 { TUsuario }
+
+destructor TUsuario.Destroy;
+begin
+  FVendedor.DisposeOf;
+  inherited;
+end;
 
 constructor TUsuario.Instanciar;
 begin
@@ -64,6 +74,11 @@ end;
 procedure TUsuario.SetLogin(const Value: String);
 begin
   FLogin := Value.Trim().ToLower();
+end;
+
+procedure TUsuario.SetSenha(const Value: String);
+begin
+  FSenha := Value.Trim();
 end;
 
 procedure TUsuario.SetVendedor(const Value: TPessoa);

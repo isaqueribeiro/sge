@@ -9,7 +9,8 @@ uses
   Classe.Usuario in 'Classe.Usuario.pas',
   Classe.Pessoa in 'Classe.Pessoa.pas',
   Controller.Usuario in 'Controller.Usuario.pas',
-  Classe.Conexao in 'Classe.Conexao.pas';
+  Classe.Conexao in 'Classe.Conexao.pas',
+  Interacao.Usuario in 'Interacao.Usuario.pas';
 
 {$R *.res}
 
