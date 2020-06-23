@@ -346,7 +346,8 @@ begin
   DesenharFormas;
   DefinirLabels;
 
-  shapeMolduraIcone.Visible := False;
+  shapeMolduraIcone.Visible   := False;
+  ReportMemoryLeaksOnShutdown := True; // Evitar vazamento de memória
 end;
 
 procedure TFrmPadraoAbertura.FormFechar(Sender: TObject);

@@ -17,6 +17,8 @@ type
     public
       function Autenticar : Boolean; overload;
       function Autenticar(aLogin, aSenha, aEmpresa : String) : Boolean; overload;
+      function Autenticar(aUsuario : IUsuarioModel) : Boolean; overload;
+
       function Model : TUsuario;
 
       class function Instance() : TUsuarioCOntroller;
@@ -44,6 +46,15 @@ begin
   FUsuario.Login   := aLogin;
   FUsuario.Senha   := aSenha;
   FUsuario.Empresa := aEmpresa;
+
+  Result := False;
+end;
+
+function TUsuarioCOntroller.Autenticar(aUsuario: IUsuarioModel): Boolean;
+begin
+//  FUsuario.Login   := aLogin;
+//  FUsuario.Senha   := aSenha;
+//  FUsuario.Empresa := aEmpresa;
 
   Result := False;
 end;

@@ -3,48 +3,66 @@ unit Classe.Pessoa;
 interface
 
 Uses
-  System.SysUtils;
+  Interacao.Pessoa, System.SysUtils;
 
 type
-  TPessoa = class
+  TPessoa = class(TInterfacedObject, IPessoaModel)
     private
-      FCodigo : Integer;
+      FCOdigo : Integer;
       FNome   : String;
-      procedure SetCodigo(const Value: Integer);
-      procedure SetNome(const Value: String);
-    protected
-      constructor Create();
-    public
-      constructor Instanciar;
 
-      property Codigo : Integer read FCodigo write SetCodigo;
-      property Nome   : String read FNome write SetNome;
+      function Codigo(Value : Integer) : IPessoaModel; overload;
+      function Codigo : Integer; overload;
+
+      function Nome(Value : String) : IPessoaModel; overload;
+      function Nome : String; overload;
+    public
+      constructor Create;
+      destructor Destroy; override;
+
+      class function New : IPessoaModel;
   end;
 
 implementation
 
 { TPessoa }
 
-constructor TPessoa.Create();
+function TPessoa.Codigo: Integer;
 begin
-  inherited Create;
+  Result := FCodigo;
+end;
+
+constructor TPessoa.Create;
+begin
   FCOdigo := 0;
   FNome   := EmptyStr;
 end;
 
-constructor TPessoa.Instanciar;
+function TPessoa.Codigo(Value: Integer): IPessoaModel;
 begin
-  Create();
+  Result  := Self;
+  FCOdigo := Value;
 end;
 
-procedure TPessoa.SetCodigo(const Value: Integer);
+destructor TPessoa.Destroy;
 begin
-  FCodigo := Value;
+  inherited;
 end;
 
-procedure TPessoa.SetNome(const Value: String);
+class function TPessoa.New: IPessoaModel;
 begin
-  FNome := Value.Trim();
+  Result := Self.Create;
+end;
+
+function TPessoa.Nome: String;
+begin
+  Result := FNome;
+end;
+
+function TPessoa.Nome(Value: String): IPessoaModel;
+begin
+  Result := Self;
+  FNome  := Value.Trim();
 end;
 
 end.

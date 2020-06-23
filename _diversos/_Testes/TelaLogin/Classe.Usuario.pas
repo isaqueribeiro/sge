@@ -47,8 +47,8 @@ end;
 
 constructor TUsuario.Instanciar;
 begin
-  inherited Instanciar;
-  FVendedor := TPessoa.Instanciar;
+//  inherited Instanciar;
+//  FVendedor := TPessoa.Instanciar;
 end;
 
 procedure TUsuario.SetAlterarValorVenda(const Value: Boolean);

@@ -116,6 +116,8 @@
         <DCCReference Include="Controller.Usuario.pas"/>
         <DCCReference Include="Classe.Conexao.pas"/>
         <DCCReference Include="Interacao.Usuario.pas"/>
+        <DCCReference Include="Controller.Factory.pas"/>
+        <DCCReference Include="Interacao.Pessoa.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
