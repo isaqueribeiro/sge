@@ -29,7 +29,7 @@ type
     procedure Destacar(const aDestaque : Boolean);
     procedure SetController(const Value: IUsuario);
 
-    function Autenticar : Boolean;
+    function Autenticar : Boolean; virtual;
   public
     { Public declarations }
     property Controller : IUsuario read FController write SetController;
@@ -42,10 +42,30 @@ implementation
 
 {$R *.dfm}
 
+Uses
+  Controller.Usuario;
 
 function TFrmPadraoLogin.Autenticar: Boolean;
+var
+  aRetorno : Boolean;
 begin
-  Result := FController.Autenticar;
+  aRetorno := False;
+
+  try
+    try
+      aRetorno := FController
+        .Load(edtUsuario.Text)
+        .Autenticar(edtUsuario.Text, edtSenha.Text, cmbEmpresa.Text);
+    except
+      On E : Exception do
+      begin
+        Result := False;
+        ShowMessage(E.Message);
+      end;
+    end;
+  finally
+    Result := aRetorno;
+  end;
 end;
 
 procedure TFrmPadraoLogin.btnEntrarClick(Sender: TObject);
@@ -85,8 +105,9 @@ procedure TFrmPadraoLogin.FormCreate(Sender: TObject);
 begin
   CriarMoldura := True;
   CriarLinhasInferiores := False;
-
   inherited;
+  ReportMemoryLeaksOnShutdown := True; // Evitar vazamento de memória
+  FController := TUsuarioController.Instance();
 end;
 
 procedure TFrmPadraoLogin.FormKeyPress(Sender: TObject; var Key: Char);

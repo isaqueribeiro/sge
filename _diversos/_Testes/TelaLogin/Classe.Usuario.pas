@@ -3,87 +3,181 @@ unit Classe.Usuario;
 interface
 
 Uses
-  System.SysUtils, Classe.Pessoa;
+  System.SysUtils,
+  Classe.Pessoa, Classe.PessoaFisica, Classe.PessoaJuridica, Classe.Funcao,
+  Interacao.Pessoa, Interacao.Usuario, Interacao.Funcao;
 
 type
-  TUsuario = class(TPessoa)
+  TUsuario = class(TPessoa, IUsuarioModel)
     private
-      FFuncao   : Integer;
-      FVendedor : TPessoa;
-      FLogado   : Boolean;
-      FEmpresa  : String;
-      FAlterarValorVenda: Boolean;
-      FLogin    : String;
-      FSenha    : String;
-      procedure SetAlterarValorVenda(const Value: Boolean);
-      procedure SetEmpresa(const Value: String);
-      procedure SetFuncao(const Value: Integer);
-      procedure SetLogado(const Value: Boolean);
-      procedure SetLogin(const Value: String);
-      procedure SetVendedor(const Value: TPessoa);
-      procedure SetSenha(const Value: String);
+      FLogin  ,
+      FSenha  : String;
+      FFuncao : IFuncao;
+      FLogado ,
+      FAlterarValorVenda : Boolean;
+      FVendedor : IPessoaFisicaModel;
+      FEmpresa  : IPessoaJuridicaModel;
+
+      function Login(const Value: String) : IUsuarioModel; overload;
+      function Login : String; overload;
+
+      function Senha(const Value: String) : IUsuarioModel; overload;
+      function Senha : String; overload;
+
+      function Funcao(const Value: Integer) : IUsuarioModel; overload;
+      function Funcao(const Value: IFuncao) : IUsuarioModel; overload;
+      function Funcao : IFuncao; overload;
+
+      function Empresa(const aCNPJ: String) : IUsuarioModel; overload;
+      function Empresa(const Value: IPessoaJuridicaModel)  : IUsuarioModel; overload;
+      function Empresa : IPessoaJuridicaModel; overload;
+
+      function Vendedor(const aCodigo: Integer) : IUsuarioModel; overload;
+      function Vendedor(const Value: IPessoaFisicaModel) : IUsuarioModel; overload;
+      function Vendedor : IPessoaFisicaModel; overload;
+
+      function Logado(const Value: Boolean)  : IUsuarioModel; overload;
+      function Logado : Boolean; overload;
+
+      function AlterarValorVenda(const Value: Boolean)  : IUsuarioModel; overload;
+      function AlterarValorVenda : Boolean; overload;
     public
-      constructor Instanciar;
+      constructor Create;
       destructor Destroy; override;
 
-      property Login    : String read FLogin write SetLogin;
-      property Senha    : String read FSenha write SetSenha;
-      property Funcao   : Integer read FFuncao write SetFuncao;
-      property Empresa  : String read FEmpresa write SetEmpresa;
-      property Vendedor : TPessoa read FVendedor write SetVendedor;
-      property Logado   : Boolean read FLogado write SetLogado;
-      property AlterarValorVenda : Boolean read FAlterarValorVenda write SetAlterarValorVenda;
+      class function New : IUsuarioModel;
   end;
 
 implementation
 
+
 { TUsuario }
 
-destructor TUsuario.Destroy;
+function TUsuario.AlterarValorVenda: Boolean;
 begin
-  FVendedor.DisposeOf;
-  inherited;
+  Result := FAlterarValorVenda;
 end;
 
-constructor TUsuario.Instanciar;
+function TUsuario.AlterarValorVenda(const Value: Boolean): IUsuarioModel;
 begin
-//  inherited Instanciar;
-//  FVendedor := TPessoa.Instanciar;
-end;
-
-procedure TUsuario.SetAlterarValorVenda(const Value: Boolean);
-begin
+  Result := Self;
   FAlterarValorVenda := Value;
 end;
 
-procedure TUsuario.SetEmpresa(const Value: String);
+constructor TUsuario.Create;
 begin
-  FEmpresa := Value.Trim();
+  inherited Create;
+  FLogin  := EmptyStr;
+  FSenha  := EmptyStr;
+  FLogado := False;
+  FAlterarValorVenda := False;
+
+  FFuncao   := TFuncao.New;
+  FVendedor := TPessoaFisica.New;
+  FEmpresa  := TPessoaJuridica.New;
 end;
 
-procedure TUsuario.SetFuncao(const Value: Integer);
+destructor TUsuario.Destroy;
 begin
+  inherited;
+end;
+
+function TUsuario.Empresa: IPessoaJuridicaModel;
+begin
+  Result := FEmpresa;
+end;
+
+function TUsuario.Empresa(const Value: IPessoaJuridicaModel): IUsuarioModel;
+begin
+  Result   := Self;
+  FEmpresa := Value;
+end;
+
+function TUsuario.Funcao(const Value: Integer): IUsuarioModel;
+begin
+  Result := Self;
+  FFuncao.Codigo(Value);
+end;
+
+function TUsuario.Funcao(const Value: IFuncao): IUsuarioModel;
+begin
+  Result  := Self;
   FFuncao := Value;
 end;
 
-procedure TUsuario.SetLogado(const Value: Boolean);
+function TUsuario.Empresa(const aCNPJ: String): IUsuarioModel;
 begin
+  if aCNPJ.Trim().Equals(EmptyStr) then
+    raise Exception.Create('Empresa não informada');
+
+  Result := Self;
+  FEmpresa.CNPJ(aCNPJ);
+end;
+
+function TUsuario.Logado: Boolean;
+begin
+  Result := FLogado;
+end;
+
+function TUsuario.Logado(const Value: Boolean): IUsuarioModel;
+begin
+  Result  := Self;
   FLogado := Value;
 end;
 
-procedure TUsuario.SetLogin(const Value: String);
+function TUsuario.Login: String;
 begin
+  Result := FLogin;
+end;
+
+class function TUsuario.New: IUsuarioModel;
+begin
+  Result := Self.Create;
+end;
+
+function TUsuario.Login(const Value: String): IUsuarioModel;
+begin
+  if Value.Trim().Equals(EmptyStr) then
+    raise Exception.Create('Login não informado');
+
+  Result := Self;
   FLogin := Value.Trim().ToLower();
 end;
 
-procedure TUsuario.SetSenha(const Value: String);
+function TUsuario.Senha(const Value: String): IUsuarioModel;
 begin
-  FSenha := Value.Trim();
+  if Value.Trim().Equals(EmptyStr) then
+    raise Exception.Create('Senha não informada');
+
+  Result := Self;
+  FLogin := Value.Trim();
 end;
 
-procedure TUsuario.SetVendedor(const Value: TPessoa);
+function TUsuario.Senha: String;
 begin
+  Result := FSenha;
+end;
+
+function TUsuario.Vendedor: IPessoaFisicaModel;
+begin
+  Result := FVendedor;
+end;
+
+function TUsuario.Vendedor(const aCodigo: Integer): IUsuarioModel;
+begin
+  Result := Self;
+  FVendedor.Codigo(aCodigo);
+end;
+
+function TUsuario.Vendedor(const Value: IPessoaFisicaModel): IUsuarioModel;
+begin
+  Result    := Self;
   FVendedor := Value;
+end;
+
+function TUsuario.Funcao: IFuncao;
+begin
+  Result := FFuncao;
 end;
 
 end.

@@ -12,7 +12,11 @@ uses
   Classe.Conexao in 'Classe.Conexao.pas',
   Interacao.Usuario in 'Interacao.Usuario.pas',
   Controller.Factory in 'Controller.Factory.pas',
-  Interacao.Pessoa in 'Interacao.Pessoa.pas';
+  Interacao.Pessoa in 'Interacao.Pessoa.pas',
+  Classe.PessoaFisica in 'Classe.PessoaFisica.pas',
+  Classe.PessoaJuridica in 'Classe.PessoaJuridica.pas',
+  Interacao.Funcao in 'Interacao.Funcao.pas',
+  Classe.Funcao in 'Classe.Funcao.pas';
 
 {$R *.res}
 

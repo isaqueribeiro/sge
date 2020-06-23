@@ -15,6 +15,7 @@ type
       function Codigo : Integer; overload;
 
       function Nome(Value : String) : IPessoaModel; overload;
+    published
       function Nome : String; overload;
     public
       constructor Create;

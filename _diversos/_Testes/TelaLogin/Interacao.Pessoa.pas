@@ -12,6 +12,23 @@ type
     function Nome : String; overload;
   end;
 
+  IPessoaFisicaModel = interface(IPessoaModel)
+    ['{FC61E34B-C55E-4E13-BBBF-1D2B437B70CA}']
+    function CPF(Value : String) : IPessoaFisicaModel; overload;
+    function CPF : String; overload;
+  end;
+
+  IPessoaJuridicaModel = interface(IPessoaModel)
+    ['{FC61E34B-C55E-4E13-BBBF-1D2B437B70CA}']
+    function RazaoSocial(Value : String) : IPessoaJuridicaModel; overload;
+    function RazaoSocial : String; overload;
+
+    function Fantasia(Value : String) : IPessoaJuridicaModel; overload;
+    function Fantasia : String; overload;
+
+    function CNPJ(Value : String) : IPessoaJuridicaModel; overload;
+    function CNPJ : String; overload;
+  end;
 
 implementation
 
