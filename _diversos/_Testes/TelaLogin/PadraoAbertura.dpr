@@ -16,7 +16,8 @@ uses
   Classe.PessoaFisica in 'Classe.PessoaFisica.pas',
   Classe.PessoaJuridica in 'Classe.PessoaJuridica.pas',
   Interacao.Funcao in 'Interacao.Funcao.pas',
-  Classe.Funcao in 'Classe.Funcao.pas';
+  Classe.Funcao in 'Classe.Funcao.pas',
+  Interacao.Conexao in 'Interacao.Conexao.pas';
 
 {$R *.res}
 

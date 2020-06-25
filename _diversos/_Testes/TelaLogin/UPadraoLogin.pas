@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadraoAbertura, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
 
-  Interacao.Usuario;
+  Interacao.Conexao, Interacao.Usuario;
 
 type
   TFrmPadraoLogin = class(TFrmPadraoAbertura)
@@ -24,6 +24,7 @@ type
     procedure btnEntrarClick(Sender: TObject);
   private
     { Private declarations }
+    FConexao   : IConexao;
     shpUsuario : TShape;
     FController: IUsuario;
     procedure Destacar(const aDestaque : Boolean);
@@ -43,7 +44,7 @@ implementation
 {$R *.dfm}
 
 Uses
-  Controller.Usuario;
+  Controller.Usuario, Classe.Conexao;
 
 function TFrmPadraoLogin.Autenticar: Boolean;
 var
@@ -54,6 +55,7 @@ begin
   try
     try
       aRetorno := FController
+        .Conexao(FConexao)
         .Load(edtUsuario.Text)
         .Autenticar(edtUsuario.Text, edtSenha.Text, cmbEmpresa.Text);
     except
@@ -107,6 +109,11 @@ begin
   CriarLinhasInferiores := False;
   inherited;
   ReportMemoryLeaksOnShutdown := True; // Evitar vazamento de memória
+
+  FConexao := TConexao
+    .New
+    .Configuracao( ExtractFilePath(ParamStr(0)) + 'Conexao.ini' );
+
   FController := TUsuarioController.Instance();
 end;
 

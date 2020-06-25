@@ -122,6 +122,7 @@
         <DCCReference Include="Classe.PessoaJuridica.pas"/>
         <DCCReference Include="Interacao.Funcao.pas"/>
         <DCCReference Include="Classe.Funcao.pas"/>
+        <DCCReference Include="Interacao.Conexao.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -3,22 +3,27 @@ unit Controller.Usuario;
 interface
 
 Uses
-  Classe.Usuario, Interacao.Usuario;
+  Classe.Usuario, Interacao.Conexao, Interacao.Usuario;
 
 type
   TUsuarioController = class(TInterfacedObject, IUsuario)
     strict private
       class var _instancia : TUsuarioCOntroller;
     private
-      FModel : IUsuarioModel;
+      FConexao : IConexao;
+      FModel   : IUsuarioModel;
     protected
       constructor Create();
       destructor Destroy();
     public
+      function Conexao(const Value : IConexao) : IUsuario;
       function Load(aLogin : String) : IUsuario; overload;
+
       function Autenticar : Boolean; overload;
       function Autenticar(aLogin, aSenha, aEmpresa : String) : Boolean; overload;
       function Autenticar(aUsuario : IUsuarioModel) : Boolean; overload;
+
+      function getLogin() : String;
 
       class function Instance() : TUsuarioCOntroller;
   end;
@@ -61,6 +66,12 @@ begin
   Result := False;
 end;
 
+function TUsuarioController.Conexao(const Value: IConexao): IUsuario;
+begin
+  Result   := Self;
+  FConexao := Value;
+end;
+
 constructor TUsuarioCOntroller.Create;
 begin
   inherited Create;
@@ -71,6 +82,11 @@ destructor TUsuarioCOntroller.Destroy;
 begin
   TUsuario(FModel).DisposeOf;
   inherited Destroy;
+end;
+
+function TUsuarioController.getLogin: String;
+begin
+  Result := FModel.Login;
 end;
 
 end.

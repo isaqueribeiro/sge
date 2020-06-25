@@ -3,7 +3,7 @@ unit Interacao.Usuario;
 interface
 
 uses
-  Interacao.Pessoa, Interacao.Funcao;
+  Interacao.Conexao, Interacao.Pessoa, Interacao.Funcao;
 
 type
   IUsuarioModel = interface(IPessoaModel)
@@ -35,11 +35,14 @@ type
 
   IUsuario = interface
     ['{78704687-CA14-4235-A460-8373A947E15A}']
+    function Conexao(const Value : IConexao) : IUsuario;
     function Load(aLogin : String) : IUsuario; overload;
 
     function Autenticar : Boolean; overload;
     function Autenticar(aLogin, aSenha, aEmpresa : String) : Boolean; overload;
     function Autenticar(aUsuario : IUsuarioModel) : Boolean; overload;
+
+    function getLogin() : String;
   end;
 
 implementation

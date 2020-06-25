@@ -3,51 +3,76 @@ unit Classe.Conexao;
 interface
 
 Uses
-  SYstem.SYsUtils, Firedac.Comp.Client, Firedac.DApt;
+  SYstem.SYsUtils, System.IniFiles, Interacao.Conexao,
+
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
+  FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
+  FireDAC.Phys, FireDAC.VCLUI.Wait, FireDAC.Comp.UI, FireDAC.Comp.Client, Data.DB;
 
 type
-  TConexao = class
+  TConexao = class(TInterfacedObject, IConexao)
     strict private
       class var _instancia : TConexao;
     private
-      FConn : TFDConnection;
-      FTrans: TFDTransaction;
-      procedure SetConn(const Value: TFDConnection);
-      procedure SetTrans(const Value: TFDTransaction);
+      FConn  : TFDConnection;
+      FTrans : TFDTransaction;
+      FFileConexao : TFileName;
     protected
-      constructor Create();
-      destructor Destroy();
+      constructor Create;
+      destructor Destroy; override;
     public
-      property Conn  : TFDConnection read FConn write SetConn;
-      property Trans : TFDTransaction read FTrans write SetTrans;
+      function Configuracao(const aFileName : TFileName) : IConexao;
 
-      class function Instance() : TConexao;
+      function Connection(const Value : TFDConnection) : IConexao; overload;
+      function Connection : TFDConnection; overload;
+
+      function Transaction(const Value : TFDTransaction) : IConexao; overload;
+      function Transaction : TFDTransaction; overload;
+
+      class function New : IConexao;
   end;
 
 implementation
 
 { TConexao }
 
+function TConexao.Configuracao(const aFileName: TFileName): IConexao;
+begin
+  Result := Self;
+  FFileConexao := aFileName;
+end;
+
+function TConexao.Connection(const Value: TFDConnection): IConexao;
+begin
+  Result := Self;
+  FConn  := Value;
+end;
+
+function TConexao.Connection: TFDConnection;
+begin
+  Result := FConn;
+end;
+
 constructor TConexao.Create;
 begin
   inherited Create;
-  FConn  := TFDConnection.Create(nil);
-  FTrans := TFDTransaction.Create(FConn);
-
-  FConn.Transaction       := FTrans;
-  FConn.UpdateTransaction := FTrans;
-
-  FTrans.Connection := FConn;
+//  FConn  := TFDConnection.Create(nil);
+//  FTrans := TFDTransaction.Create(FConn);
+//
+//  FConn.Transaction       := FTrans;
+//  FConn.UpdateTransaction := FTrans;
+//
+//  FTrans.Connection := FConn;
 end;
 
 destructor TConexao.Destroy;
 begin
-  FConn.DisposeOf;
-  FTrans.DisposeOf;
-  inherited Destroy;
+//  FConn.DisposeOf;
+//  FTrans.DisposeOf;
+  inherited;
 end;
 
-class function TConexao.Instance: TConexao;
+class function TConexao.New : IConexao;
 begin
   if not Assigned(_instancia) then
     _instancia := TConexao.Create();
@@ -55,13 +80,14 @@ begin
   Result := _instancia;
 end;
 
-procedure TConexao.SetConn(const Value: TFDConnection);
+function TConexao.Transaction: TFDTransaction;
 begin
-  FConn := Value;
+  Result := FTrans;
 end;
 
-procedure TConexao.SetTrans(const Value: TFDTransaction);
+function TConexao.Transaction(const Value: TFDTransaction): IConexao;
 begin
+  Result := Self;
   FTrans := Value;
 end;
 
