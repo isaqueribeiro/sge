@@ -128,6 +128,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=;ProgramID=com.e
         <DCCReference Include="Interacao.Conexao.pas"/>
         <DCCReference Include="Controller.Versao.pas"/>
         <DCCReference Include="Interacao.Versao.pas"/>
+        <DCCReference Include="Interacao.PersonalizaEmpresa.pas"/>
+        <DCCReference Include="Controller.PersonalizaEmpresa.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

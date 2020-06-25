@@ -19,7 +19,9 @@ uses
   Classe.Funcao in 'Classe.Funcao.pas',
   Interacao.Conexao in 'Interacao.Conexao.pas',
   Controller.Versao in 'Controller.Versao.pas',
-  Interacao.Versao in 'Interacao.Versao.pas';
+  Interacao.Versao in 'Interacao.Versao.pas',
+  Interacao.PersonalizaEmpresa in 'Interacao.PersonalizaEmpresa.pas',
+  Controller.PersonalizaEmpresa in 'Controller.PersonalizaEmpresa.pas';
 
 {$R *.res}
 

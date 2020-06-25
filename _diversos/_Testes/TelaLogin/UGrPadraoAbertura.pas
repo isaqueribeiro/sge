@@ -8,7 +8,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus,
   Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, Vcl.Buttons,
 
-  Interacao.Versao,
+  Interacao.Versao, Interacao.PersonalizaEmpresa,
 
   dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
@@ -38,6 +38,7 @@ type
     aCriarMoldura ,
     aCriarLinhasInferiores : Boolean;
     FVersaoController : IVersao;
+    FPersonalizaController : IPersonalizaEmpresa;
     procedure DesenharFormas;
     procedure DefinirLabels;
   public
@@ -46,6 +47,9 @@ type
     property TamanhoPadrao : Boolean read aTamanhoPadrao write aTamanhoPadrao;
     property CriarMoldura  : Boolean read aCriarMoldura write aCriarMoldura;
     property CriarLinhasInferiores : Boolean read aCriarLinhasInferiores write aCriarLinhasInferiores;
+
+    property VersaoController : IVersao read FVersaoController;
+    property PersonalizaController : IPersonalizaEmpresa read FPersonalizaController;
 
     procedure LoadInformation(); virtual;
   end;
@@ -56,7 +60,7 @@ var
 implementation
 
 uses
-  Controller.Versao;
+  Controller.Versao, Controller.PersonalizaEmpresa;
 
 {$R *.dfm}
 
@@ -374,12 +378,16 @@ begin
 end;
 
 procedure TFrmPadraoAbertura.LoadInformation;
-var
-  aVersao : IVersao;
 begin
-  aVersao := TVersaoController.GetInstance();
-  lblVersion.Caption   := Format('Licenciado para %s - Version %s - Release %s', ['DEMONSTRAÇÃO', aVersao.FileVersion, aVersao.getPropertyValue(TPropertyValue.ivRELEASE_DATE)]);
-  lblCopyright.Caption := aVersao.getPropertyValue(TPropertyValue.ivLEGAL_COPYRIGHT);
+  FVersaoController := TVersaoController.GetInstance();
+  FPersonalizaController := TPersonalizaEmpresaController
+    .GetInstance()
+    .SetVersao(FVersaoController);
+
+  lblVersion.Caption   := Format('Licenciado para %s - Version %s - Release %s', ['DEMONSTRAÇÃO',
+    FVersaoController.FileVersion,
+    FVersaoController.getPropertyValue(TPropertyValue.ivRELEASE_DATE)]);
+  lblCopyright.Caption := FPersonalizaController.LegalCopyright;
 end;
 
 end.

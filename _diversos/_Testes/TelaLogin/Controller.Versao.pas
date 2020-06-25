@@ -31,44 +31,6 @@ Type
       class function GetInstance() : IVersao;
   end;
 
-const
-  PROPERTY_VALUE_STR : Array [Low(TPropertyValue)..High(TPropertyValue)] of string = (
-    'CompanyName',
-    'FileDescription',
-    'FileVersion',
-    'InternalName',
-    'LegalCopyright',
-    'LegalTradeMarks',
-    'OriginalFilename',
-    'ProductName',
-    'ProductVersion',
-    'Comments',
-    'ReleaseDate',
-    'Systems Analyst',
-    'Contacts',
-    'Owner',
-    'SplashName',
-    'SplashDescription'
-  );
-
-//const
-//  ivCOMPANY_NAME      = 'CompanyName';
-//  ivFILE_DESCRIPTION  = 'FileDescription';
-//  ivFILE_VERSION      = 'FileVersion';
-//  ivINTERNAL_NAME     = 'InternalName';
-//  ivLEGAL_COPYRIGHT   = 'LegalCopyright';
-//  ivLEGAL_TRADEMARKS  = 'LegalTradeMarks';
-//  ivORIGINAL_FILENAME = 'OriginalFilename';
-//  ivPRODUCT_NAME      = 'ProductName';
-//  ivPRODUCT_VERSION   = 'ProductVersion';
-//  ivCOMMENTS          = 'Comments';
-//  ivRELEASE_DATE      = 'ReleaseDate';
-//  ivSYSTEM_ANALYST    = 'Systems Analyst';
-//  ivCONTACTS          = 'Contacts';
-//  ivOWNER             = 'Owner';
-//  ivSPLASHNAME        = 'SplashName';
-//  ivSPLASHDESCRIPTION = 'SplashDescription';
-//
 implementation
 
 { TVersaoController }
@@ -80,7 +42,7 @@ end;
 
 destructor TVersaoController.Destroy;
 begin
-  FInfoVersao.Free;
+  FInfoVersao.DisposeOf;
   inherited;
 end;
 

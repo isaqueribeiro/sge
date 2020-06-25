@@ -38,6 +38,26 @@ type
     function getPropertyValue(aPropertyValue : TPropertyValue): String;
   end;
 
+const
+  PROPERTY_VALUE_STR : Array [Low(TPropertyValue)..High(TPropertyValue)] of string = (
+    'CompanyName',
+    'FileDescription',
+    'FileVersion',
+    'InternalName',
+    'LegalCopyright',
+    'LegalTradeMarks',
+    'OriginalFilename',
+    'ProductName',
+    'ProductVersion',
+    'Comments',
+    'ReleaseDate',
+    'Systems Analyst',
+    'Contacts',
+    'Owner',
+    'SplashName',
+    'SplashDescription'
+  );
+
 implementation
 
 end.
