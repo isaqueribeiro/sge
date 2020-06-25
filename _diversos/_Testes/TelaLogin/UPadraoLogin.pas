@@ -112,9 +112,10 @@ begin
 
   FConexao := TConexao
     .New
-    .Configuracao( ExtractFilePath(ParamStr(0)) + 'Conexao.ini' );
+    .Configuracao(ExtractFilePath(ParamStr(0)) + 'Conexao.ini');
 
   FController := TUsuarioController.Instance();
+  FController.Conexao(FConexao);
 end;
 
 procedure TFrmPadraoLogin.FormKeyPress(Sender: TObject; var Key: Char);

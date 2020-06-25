@@ -17,7 +17,9 @@ uses
   Classe.PessoaJuridica in 'Classe.PessoaJuridica.pas',
   Interacao.Funcao in 'Interacao.Funcao.pas',
   Classe.Funcao in 'Classe.Funcao.pas',
-  Interacao.Conexao in 'Interacao.Conexao.pas';
+  Interacao.Conexao in 'Interacao.Conexao.pas',
+  Controller.Versao in 'Controller.Versao.pas',
+  Interacao.Versao in 'Interacao.Versao.pas';
 
 {$R *.res}
 

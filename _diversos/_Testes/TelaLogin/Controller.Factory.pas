@@ -9,14 +9,14 @@ type
   TControllerFactory = class
     private
     public
-      function UsuarioControler : TUsuarioCOntroller;
+      class function UsuarioControler : TUsuarioCOntroller;
   end;
 
 implementation
 
 { TControllerFactory }
 
-function TControllerFactory.UsuarioControler: TUsuarioCOntroller;
+class function TControllerFactory.UsuarioControler: TUsuarioCOntroller;
 begin
   Result := TUsuarioCOntroller.Instance();
 end;

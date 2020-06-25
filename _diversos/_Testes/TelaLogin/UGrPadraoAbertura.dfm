@@ -44,6 +44,7 @@ object FrmPadraoAbertura: TFrmPadraoAbertura
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
+    WordWrap = True
     ExplicitTop = 337
   end
   object lblVersion: TLabel

@@ -25,20 +25,12 @@ type
 
       function getLogin() : String;
 
-      class function Instance() : TUsuarioCOntroller;
+      class function Instance() : TUsuarioController;
   end;
 
 implementation
 
 { TUsuarioCOntroller }
-
-class function TUsuarioCOntroller.Instance: TUsuarioCOntroller;
-begin
-  if not Assigned(_instancia) then
-    _instancia := TUsuarioCOntroller.Create();
-
-  Result := _instancia;
-end;
 
 function TUsuarioController.Load(aLogin: String): IUsuario;
 begin
@@ -87,6 +79,14 @@ end;
 function TUsuarioController.getLogin: String;
 begin
   Result := FModel.Login;
+end;
+
+class function TUsuarioController.Instance: TUsuarioController;
+begin
+  if not Assigned(_instancia) then
+    _instancia := TUsuarioCOntroller.Create();
+
+  Result := _instancia;
 end;
 
 end.

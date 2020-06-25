@@ -3,13 +3,17 @@ unit UGrPadraoAbertura;
 interface
 
 uses
+
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus,
+  Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, Vcl.Buttons,
+
+  Interacao.Versao,
+
   dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
   dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
   dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
-  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light,
-  Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, Vcl.Buttons;
+  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TFrmPadraoAbertura = class(TForm)
@@ -33,6 +37,7 @@ type
     aTamanhoPadrao,
     aCriarMoldura ,
     aCriarLinhasInferiores : Boolean;
+    FVersaoController : IVersao;
     procedure DesenharFormas;
     procedure DefinirLabels;
   public
@@ -41,12 +46,17 @@ type
     property TamanhoPadrao : Boolean read aTamanhoPadrao write aTamanhoPadrao;
     property CriarMoldura  : Boolean read aCriarMoldura write aCriarMoldura;
     property CriarLinhasInferiores : Boolean read aCriarLinhasInferiores write aCriarLinhasInferiores;
+
+    procedure LoadInformation(); virtual;
   end;
 
 var
   FrmPadraoAbertura: TFrmPadraoAbertura;
 
 implementation
+
+uses
+  Controller.Versao;
 
 {$R *.dfm}
 
@@ -348,6 +358,8 @@ begin
 
   shapeMolduraIcone.Visible   := False;
   ReportMemoryLeaksOnShutdown := True; // Evitar vazamento de memória
+
+  LoadInformation();
 end;
 
 procedure TFrmPadraoAbertura.FormFechar(Sender: TObject);
@@ -359,6 +371,15 @@ procedure TFrmPadraoAbertura.FormKeyDown(Sender: TObject; var Key: Word; Shift: 
 begin
   if (Key = VK_ESCAPE) then
     btnFechar.Click;
+end;
+
+procedure TFrmPadraoAbertura.LoadInformation;
+var
+  aVersao : IVersao;
+begin
+  aVersao := TVersaoController.GetInstance();
+  lblVersion.Caption   := Format('Licenciado para %s - Version %s - Release %s', ['DEMONSTRAÇÃO', aVersao.FileVersion, aVersao.getPropertyValue(TPropertyValue.ivRELEASE_DATE)]);
+  lblCopyright.Caption := aVersao.getPropertyValue(TPropertyValue.ivLEGAL_COPYRIGHT);
 end;
 
 end.
