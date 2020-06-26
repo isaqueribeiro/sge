@@ -29,7 +29,7 @@ type
       function Transaction(const Value : TFDTransaction) : IConexao; overload;
       function Transaction : TFDTransaction; overload;
 
-      class function New : IConexao;
+      class function GetInstance() : IConexao;
   end;
 
 implementation
@@ -72,14 +72,6 @@ begin
   inherited;
 end;
 
-class function TConexao.New : IConexao;
-begin
-  if not Assigned(_instancia) then
-    _instancia := TConexao.Create();
-
-  Result := _instancia;
-end;
-
 function TConexao.Transaction: TFDTransaction;
 begin
   Result := FTrans;
@@ -89,6 +81,14 @@ function TConexao.Transaction(const Value: TFDTransaction): IConexao;
 begin
   Result := Self;
   FTrans := Value;
+end;
+
+class function TConexao.GetInstance() : IConexao;
+begin
+  if not Assigned(_instancia) then
+    _instancia := TConexao.Create();
+
+  Result := _instancia;
 end;
 
 end.

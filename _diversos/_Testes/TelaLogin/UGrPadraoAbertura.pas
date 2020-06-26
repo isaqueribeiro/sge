@@ -379,12 +379,12 @@ end;
 
 procedure TFrmPadraoAbertura.LoadInformation;
 begin
-  FVersaoController := TVersaoController.GetInstance();
+  FVersaoController      := TVersaoController.GetInstance();
   FPersonalizaController := TPersonalizaEmpresaController
     .GetInstance()
     .SetVersao(FVersaoController);
 
-  lblVersion.Caption   := Format('Licenciado para %s - Version %s - Release %s', ['DEMONSTRAÇÃO',
+  lblVersion.Caption := Format('Licenciado para %s - Version %s - Release %s', ['DEMONSTRAÇÃO',
     FVersaoController.FileVersion,
     FVersaoController.getPropertyValue(TPropertyValue.ivRELEASE_DATE)]);
   lblCopyright.Caption := FPersonalizaController.LegalCopyright;

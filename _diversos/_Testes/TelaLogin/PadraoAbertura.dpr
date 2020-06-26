@@ -21,7 +21,10 @@ uses
   Controller.Versao in 'Controller.Versao.pas',
   Interacao.Versao in 'Interacao.Versao.pas',
   Interacao.PersonalizaEmpresa in 'Interacao.PersonalizaEmpresa.pas',
-  Controller.PersonalizaEmpresa in 'Controller.PersonalizaEmpresa.pas';
+  Controller.PersonalizaEmpresa in 'Controller.PersonalizaEmpresa.pas',
+  Interacao.Licenca in 'Interacao.Licenca.pas',
+  Classe.Licenca in 'Classe.Licenca.pas',
+  Controller.Licenca in 'Controller.Licenca.pas';
 
 {$R *.res}
 

@@ -110,10 +110,7 @@ begin
   inherited;
   ReportMemoryLeaksOnShutdown := True; // Evitar vazamento de memória
 
-  FConexao := TConexao
-    .New
-    .Configuracao(ExtractFilePath(ParamStr(0)) + 'Conexao.ini');
-
+  FConexao    := TConexao.GetInstance();
   FController := TUsuarioController.Instance();
   FController.Conexao(FConexao);
 end;
