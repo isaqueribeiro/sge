@@ -12,7 +12,7 @@ Uses
 type
   TConexao = class(TInterfacedObject, IConexao)
     strict private
-      class var _instancia : TConexao;
+      class var _instancia : IConexao;
     private
       FConn  : TFDConnection;
       FTrans : TFDTransaction;
@@ -56,19 +56,12 @@ end;
 constructor TConexao.Create;
 begin
   inherited Create;
-//  FConn  := TFDConnection.Create(nil);
-//  FTrans := TFDTransaction.Create(FConn);
-//
-//  FConn.Transaction       := FTrans;
-//  FConn.UpdateTransaction := FTrans;
-//
-//  FTrans.Connection := FConn;
 end;
 
 destructor TConexao.Destroy;
 begin
-//  FConn.DisposeOf;
-//  FTrans.DisposeOf;
+  FConn.DisposeOf;
+  FTrans.DisposeOf;
   inherited;
 end;
 

@@ -12,10 +12,10 @@ type
     private
       FConexao : IConexao;
       FModel   : ILicencaModel;
-      procedure GravarArquivo(aFileName : TFileName); virtual; abstract;
-      procedure CarregarDados; virtual; abstract;
+      procedure GravarArquivo(aFileName : TFileName);
+      procedure CarregarDados;
 
-      function LicencaValida(aFileName : TFileName) : Boolean; virtual; abstract;
+      function LicencaValida(aFileName : TFileName) : Boolean;
     public
       constructor Create;
       destructor Destroy; override;
@@ -24,12 +24,24 @@ type
       function Carregar(aFileName : TFileName) : ILicenca; overload;
       function Carregar : ILicenca; overload;
 
+      function Empresa : String;
+      function NomeFantasia : String;
+      function CNPJ : String;
+
       class function GetInstance() : ILicenca;
   end;
 
 implementation
 
 { TLicencaController }
+
+class function TLicencaController.GetInstance: ILicenca;
+begin
+  if not Assigned(_instance) then
+    _instance := Self.Create;
+
+  Result := _instance;
+end;
 
 function TLicencaController.Carregar(aConexao: IConexao): ILicenca;
 begin
@@ -42,6 +54,16 @@ function TLicencaController.Carregar: ILicenca;
 begin
   Result := Self;
   Self.CarregarDados();
+end;
+
+procedure TLicencaController.CarregarDados;
+begin
+  ;
+end;
+
+function TLicencaController.CNPJ: String;
+begin
+  Result := FModel.CNPJ;
 end;
 
 function TLicencaController.Carregar(aFileName: TFileName): ILicenca;
@@ -65,12 +87,24 @@ begin
   inherited;
 end;
 
-class function TLicencaController.GetInstance: ILicenca;
+function TLicencaController.Empresa: String;
 begin
-  if not Assigned(_instance) then
-    _instance := Self.Create;
+  Result := FModel.Empresa;
+end;
 
-  Result := _instance;
+procedure TLicencaController.GravarArquivo(aFileName: TFileName);
+begin
+  ;
+end;
+
+function TLicencaController.LicencaValida(aFileName: TFileName): Boolean;
+begin
+  Result := False;
+end;
+
+function TLicencaController.NomeFantasia: String;
+begin
+  Result := FModel.NomeFantasia;
 end;
 
 end.

@@ -56,6 +56,10 @@ type
     function Carregar(aConexao : IConexao) : ILicenca; overload;
     function Carregar(aFileName : TFileName) : ILicenca; overload;
     function Carregar : ILicenca; overload;
+
+    function Empresa : String;
+    function NomeFantasia : String;
+    function CNPJ : String;
   end;
 
 implementation

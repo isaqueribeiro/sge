@@ -11,7 +11,6 @@ uses
   Controller.Usuario in 'Controller.Usuario.pas',
   Classe.Conexao in 'Classe.Conexao.pas',
   Interacao.Usuario in 'Interacao.Usuario.pas',
-  Controller.Factory in 'Controller.Factory.pas',
   Interacao.Pessoa in 'Interacao.Pessoa.pas',
   Classe.PessoaFisica in 'Classe.PessoaFisica.pas',
   Classe.PessoaJuridica in 'Classe.PessoaJuridica.pas',
@@ -24,7 +23,9 @@ uses
   Controller.PersonalizaEmpresa in 'Controller.PersonalizaEmpresa.pas',
   Interacao.Licenca in 'Interacao.Licenca.pas',
   Classe.Licenca in 'Classe.Licenca.pas',
-  Controller.Licenca in 'Controller.Licenca.pas';
+  Controller.Licenca in 'Controller.Licenca.pas',
+  Controller.Factory in 'Controller.Factory.pas',
+  Interacao.Factory in 'Interacao.Factory.pas';
 
 {$R *.res}
 

@@ -4,16 +4,10 @@ interface
 
 uses
 
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus,
-  Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, Vcl.Buttons,
+  Interacao.Versao, Interacao.PersonalizaEmpresa, Interacao.Licenca,
 
-  Interacao.Versao, Interacao.PersonalizaEmpresa,
-
-  dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
-  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Forms, Vcl.Graphics, Vcl.Buttons, Vcl.StdCtrls, Vcl.Controls, Vcl.ExtCtrls;
 
 type
   TFrmPadraoAbertura = class(TForm)
@@ -37,8 +31,9 @@ type
     aTamanhoPadrao,
     aCriarMoldura ,
     aCriarLinhasInferiores : Boolean;
-    FVersaoController : IVersao;
-    FPersonalizaController : IPersonalizaEmpresa;
+    FVersao : IVersao;
+    FPersonaliza : IPersonalizaEmpresa;
+    FLicenca : ILicenca;
     procedure DesenharFormas;
     procedure DefinirLabels;
   public
@@ -48,8 +43,8 @@ type
     property CriarMoldura  : Boolean read aCriarMoldura write aCriarMoldura;
     property CriarLinhasInferiores : Boolean read aCriarLinhasInferiores write aCriarLinhasInferiores;
 
-    property VersaoController : IVersao read FVersaoController;
-    property PersonalizaController : IPersonalizaEmpresa read FPersonalizaController;
+    property VersaoController : IVersao read FVersao;
+    property PersonalizaController : IPersonalizaEmpresa read FPersonaliza;
 
     procedure LoadInformation(); virtual;
   end;
@@ -60,7 +55,7 @@ var
 implementation
 
 uses
-  Controller.Versao, Controller.PersonalizaEmpresa;
+  Interacao.Factory, Controller.Factory;
 
 {$R *.dfm}
 
@@ -379,15 +374,17 @@ end;
 
 procedure TFrmPadraoAbertura.LoadInformation;
 begin
-  FVersaoController      := TVersaoController.GetInstance();
-  FPersonalizaController := TPersonalizaEmpresaController
-    .GetInstance()
-    .SetVersao(FVersaoController);
+  with TFactoryController.GetInstance() do
+  begin
+    FVersao      := getVersaoController();
+    FPersonaliza := getPersonalizaEmpresa().SetVersao(FVersao);
+    FLicenca     := getLicenca().Carregar;
+  end;
 
-  lblVersion.Caption := Format('Licenciado para %s - Version %s - Release %s', ['DEMONSTRAÇÃO',
-    FVersaoController.FileVersion,
-    FVersaoController.getPropertyValue(TPropertyValue.ivRELEASE_DATE)]);
-  lblCopyright.Caption := FPersonalizaController.LegalCopyright;
+  lblVersion.Caption := Format('Licenciado para %s - Version %s - Release %s', [FLicenca.NomeFantasia,
+    FVersao.FileVersion,
+    FVersao.getPropertyValue(TPropertyValue.ivRELEASE_DATE)]);
+  lblCopyright.Caption := FPersonaliza.LegalCopyright;
 end;
 
 end.

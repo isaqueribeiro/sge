@@ -119,7 +119,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=;ProgramID=com.e
         <DCCReference Include="Controller.Usuario.pas"/>
         <DCCReference Include="Classe.Conexao.pas"/>
         <DCCReference Include="Interacao.Usuario.pas"/>
-        <DCCReference Include="Controller.Factory.pas"/>
         <DCCReference Include="Interacao.Pessoa.pas"/>
         <DCCReference Include="Classe.PessoaFisica.pas"/>
         <DCCReference Include="Classe.PessoaJuridica.pas"/>
@@ -133,6 +132,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=;ProgramID=com.e
         <DCCReference Include="Interacao.Licenca.pas"/>
         <DCCReference Include="Classe.Licenca.pas"/>
         <DCCReference Include="Controller.Licenca.pas"/>
+        <DCCReference Include="Controller.Factory.pas"/>
+        <DCCReference Include="Interacao.Factory.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

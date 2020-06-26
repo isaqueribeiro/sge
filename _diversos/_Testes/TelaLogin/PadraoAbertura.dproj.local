@@ -1,14 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2019/07/17 22:04:58.000.490,C:\Users\Isaque\Documents\Projetos\Testes\TelaLogin\UPadraoLogin.dfm=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.dfm</Transaction>
-    <Transaction>2019/07/17 22:04:58.000.490,C:\Users\Isaque\Documents\Projetos\Testes\TelaLogin\UPadraoLogin.pas=C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas</Transaction>
-    <Transaction>2019/07/17 22:07:16.000.608,C:\Users\Isaque\Documents\Projetos\Testes\TelaLogin\TelaLogin.dproj=C:\Users\Isaque\Documents\Projetos\Testes\Project1.dproj</Transaction>
-    <Transaction>2020/06/11 12:24:32.000.981,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\PadraoAbertura.dproj=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\TelaLogin.dproj</Transaction>
-    <Transaction>2020/06/11 12:36:15.000.175,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\UGrPadraoAbertura.dfm=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\UPadraoLogin.dfm</Transaction>
-    <Transaction>2020/06/11 13:47:08.000.079,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\UAbertura.dfm=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\Unit1.dfm</Transaction>
-    <Transaction>2020/06/11 14:48:48.000.328,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\UPadraoLogin.dfm=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\Unit1.dfm</Transaction>
-    <Transaction>2020/06/11 15:40:38.000.488,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\UPadraoLogin.dfm=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\Unit1.dfm</Transaction>
-    <Transaction>2020/06/25 23:26:27.102,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\Unit1.pas</Transaction>
+    <Transaction>2019/07/17 22:04:58.000.490,C:\Users\Isaque\Documents\Projetos\Testes\Unit1.dfm=C:\Users\Isaque\Documents\Projetos\Testes\TelaLogin\UPadraoLogin.dfm</Transaction>
+    <Transaction>2019/07/17 22:04:58.000.490,C:\Users\Isaque\Documents\Projetos\Testes\Unit1.pas=C:\Users\Isaque\Documents\Projetos\Testes\TelaLogin\UPadraoLogin.pas</Transaction>
+    <Transaction>2019/07/17 22:07:16.000.608,C:\Users\Isaque\Documents\Projetos\Testes\Project1.dproj=C:\Users\Isaque\Documents\Projetos\Testes\TelaLogin\TelaLogin.dproj</Transaction>
+    <Transaction>2020/06/11 12:24:32.000.981,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\TelaLogin.dproj=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\PadraoAbertura.dproj</Transaction>
+    <Transaction>2020/06/11 12:36:15.000.175,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\UPadraoLogin.dfm=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\UGrPadraoAbertura.dfm</Transaction>
+    <Transaction>2020/06/11 13:47:08.000.079,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\Unit1.dfm=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\UAbertura.dfm</Transaction>
+    <Transaction>2020/06/11 14:48:48.000.328,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\Unit1.dfm=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\UPadraoLogin.dfm</Transaction>
+    <Transaction>2020/06/11 15:40:38.000.488,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\Unit1.dfm=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\_diversos\_Testes\TelaLogin\UPadraoLogin.dfm</Transaction>
   </Transactions>
 </BorlandProject>
