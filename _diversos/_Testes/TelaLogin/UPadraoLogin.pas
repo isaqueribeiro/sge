@@ -3,12 +3,19 @@ unit UPadraoLogin;
 interface
 
 uses
-  Interacao.Conexao, Interacao.Usuario,
+  Interacao.Conexao, Interacao.Usuario, Interacao.Factory,
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadraoAbertura, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls;
 
 type
+  // Injetando novos métodos em uma classe existente
+  TEditHelper = class Helper for TEdit
+    private
+    public
+      function getText() : String;
+  end;
+
   TFrmPadraoLogin = class(TFrmPadraoAbertura)
     lblUsuario: TLabel;
     edtUsuario: TEdit;
@@ -16,8 +23,7 @@ type
     edtSenha: TEdit;
     lblEmpresa: TLabel;
     cmbEmpresa: TComboBox;
-    btnEntrar: TButton;
-    procedure FormCreate(Sender: TObject);
+    btnEntrar: TButton;procedure FormCreate(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure FormActivate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -44,7 +50,7 @@ implementation
 {$R *.dfm}
 
 Uses
-  Controller.Usuario, Classe.Conexao;
+  Controller.Factory;
 
 function TFrmPadraoLogin.Autenticar: Boolean;
 var
@@ -57,7 +63,7 @@ begin
       aRetorno := FController
         .Conexao(FConexao)
         .Load(edtUsuario.Text)
-        .Autenticar(edtUsuario.Text, edtSenha.Text, cmbEmpresa.Text);
+        .Autenticar(edtUsuario.getText(), edtSenha.getText(), cmbEmpresa.Text);
     except
       On E : Exception do
       begin
@@ -107,11 +113,13 @@ procedure TFrmPadraoLogin.FormCreate(Sender: TObject);
 begin
   CriarMoldura := True;
   CriarLinhasInferiores := False;
+
   inherited;
+
   ReportMemoryLeaksOnShutdown := True; // Evitar vazamento de memória
 
-  FConexao    := TConexao.GetInstance();
-  FController := TUsuarioController.Instance();
+  FConexao    := TFactoryController.getInstance().getConexao();
+  FController := TFactoryController.getInstance().getUsuarioController();
   FController.Conexao(FConexao);
 end;
 
@@ -134,6 +142,16 @@ end;
 procedure TFrmPadraoLogin.SetController(const Value: IUsuario);
 begin
   FController := Value;
+end;
+
+{ TEditHelper }
+
+function TEditHelper.getText: String;
+var
+  aTexto : String;
+begin
+  aTexto := Self.Text;
+  Result := aTexto.Trim();
 end;
 
 end.

@@ -3,7 +3,8 @@ unit Controller.Factory;
 interface
 
 uses
-  Interacao.Factory, Interacao.Conexao, Interacao.Versao, Interacao.PersonalizaEmpresa, Interacao.Licenca;
+  Interacao.Factory, Interacao.Conexao, Interacao.Versao, Interacao.PersonalizaEmpresa, Interacao.Licenca,
+  Interacao.Usuario;
 
 type
   TFactoryController = class(TInterfacedObject, IFactory)
@@ -15,6 +16,7 @@ type
       function getVersaoController : IVersao;
       function getPersonalizaEmpresa : IPersonalizaEmpresa;
       function getLicenca : ILicenca;
+      function getUsuarioCOntroller : IUsuario;
 
       class function getInstance() : IFactory;
   end;
@@ -22,7 +24,8 @@ type
 implementation
 
 uses
-  Classe.Conexao, Controller.Versao, Controller.PersonalizaEmpresa, Controller.Licenca;
+  Classe.Conexao, Controller.Versao, Controller.PersonalizaEmpresa, Controller.Licenca,
+  Controller.Usuario;
 
 { TFactoryController }
 
@@ -42,6 +45,11 @@ end;
 function TFactoryController.getPersonalizaEmpresa: IPersonalizaEmpresa;
 begin
   Result := TPersonalizaEmpresaController.GetInstance()
+end;
+
+function TFactoryController.getUsuarioCOntroller: IUsuario;
+begin
+  Result := TUsuarioController.GetInstance();
 end;
 
 function TFactoryController.getVersaoController: IVersao;

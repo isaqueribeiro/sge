@@ -11,6 +11,7 @@ type
       class var _instance : IPersonalizaEmpresa;
     private
       FPersonalizaEmpresa : TIniFile;
+      [weak]
       FInformacaoVersao   : IVersao;
 
       function GetExisteArquivo : Boolean;

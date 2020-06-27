@@ -10,6 +10,7 @@ type
     strict private
       class var _instance : ILicenca;
     private
+      [weak]
       FConexao : IConexao;
       FModel   : ILicencaModel;
       procedure GravarArquivo(aFileName : TFileName);

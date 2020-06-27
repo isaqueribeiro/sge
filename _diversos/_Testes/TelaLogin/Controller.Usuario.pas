@@ -10,6 +10,7 @@ type
     strict private
       class var _instancia : TUsuarioCOntroller;
     private
+      [weak]
       FConexao : IConexao;
       FModel   : IUsuarioModel;
     protected
@@ -25,7 +26,7 @@ type
 
       function getLogin() : String;
 
-      class function Instance() : TUsuarioController;
+      class function GetInstance() : TUsuarioController;
   end;
 
 implementation
@@ -81,7 +82,7 @@ begin
   Result := FModel.Login;
 end;
 
-class function TUsuarioController.Instance: TUsuarioController;
+class function TUsuarioController.GetInstance: TUsuarioController;
 begin
   if not Assigned(_instancia) then
     _instancia := TUsuarioCOntroller.Create();

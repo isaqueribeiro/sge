@@ -381,9 +381,10 @@ begin
     FLicenca     := getLicenca().Carregar;
   end;
 
-  lblVersion.Caption := Format('Licenciado para %s - Version %s - Release %s', [FLicenca.NomeFantasia,
-    FVersao.FileVersion,
-    FVersao.getPropertyValue(TPropertyValue.ivRELEASE_DATE)]);
+  lblVersion.Caption := Format('Licenciado para %s - Version %s - Release %s'
+    , [FLicenca.NomeFantasia,
+      FVersao.FileVersion,
+      FVersao.getPropertyValue(TPropertyValue.ivRELEASE_DATE)]);
   lblCopyright.Caption := FPersonaliza.LegalCopyright;
 end;
 
