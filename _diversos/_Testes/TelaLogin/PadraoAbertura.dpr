@@ -25,7 +25,10 @@ uses
   Classe.Licenca in 'Classe.Licenca.pas',
   Controller.Licenca in 'Controller.Licenca.pas',
   Controller.Factory in 'Controller.Factory.pas',
-  Interacao.Factory in 'Interacao.Factory.pas';
+  Interacao.Factory in 'Interacao.Factory.pas',
+  Interacao.Empresa in 'Interacao.Empresa.pas',
+  Classe.Empresa in 'Classe.Empresa.pas',
+  Controller.Empresa in 'Controller.Empresa.pas';
 
 {$R *.res}
 

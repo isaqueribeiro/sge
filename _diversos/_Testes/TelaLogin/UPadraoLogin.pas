@@ -3,7 +3,7 @@ unit UPadraoLogin;
 interface
 
 uses
-  Interacao.Conexao, Interacao.Usuario, Interacao.Factory,
+  Interacao.Factory, Interacao.Conexao, Interacao.Usuario, Interacao.Empresa,
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadraoAbertura, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls;
@@ -33,8 +33,10 @@ type
     FConexao   : IConexao;
     shpUsuario : TShape;
     FController: IUsuario;
+    FEmpresa   : IEmpresa;
     procedure Destacar(const aDestaque : Boolean);
     procedure SetController(const Value: IUsuario);
+    procedure CarregarEmpresa;
 
     function Autenticar : Boolean; virtual;
   public
@@ -83,6 +85,14 @@ begin
     ModalResult := mrOk;
 end;
 
+procedure TFrmPadraoLogin.CarregarEmpresa;
+//var
+//  aEmpresa : TObject;
+begin
+  cmbEmpresa.Clear;
+//  cmbEmpresa.Items.AddObject(aEmpresa.ToString, aEmpresa);
+end;
+
 procedure TFrmPadraoLogin.Destacar(const aDestaque: Boolean);
 var
   aUsuario ,
@@ -121,6 +131,11 @@ begin
   FConexao    := TFactoryController.getInstance().getConexao();
   FController := TFactoryController.getInstance().getUsuarioController();
   FController.Conexao(FConexao);
+
+  FEmpresa := TFactoryController.getInstance().getEmpresaController();
+  FEmpresa.Conexao(FConexao);
+
+  CarregarEmpresa;
 end;
 
 procedure TFrmPadraoLogin.FormKeyPress(Sender: TObject; var Key: Char);

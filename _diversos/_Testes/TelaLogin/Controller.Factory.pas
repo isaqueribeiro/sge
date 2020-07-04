@@ -4,7 +4,7 @@ interface
 
 uses
   Interacao.Factory, Interacao.Conexao, Interacao.Versao, Interacao.PersonalizaEmpresa, Interacao.Licenca,
-  Interacao.Usuario;
+  Interacao.Usuario, Interacao.Empresa;
 
 type
   TFactoryController = class(TInterfacedObject, IFactory)
@@ -17,6 +17,7 @@ type
       function getPersonalizaEmpresa : IPersonalizaEmpresa;
       function getLicenca : ILicenca;
       function getUsuarioCOntroller : IUsuario;
+      function getEmpresaCOntroller : IEmpresa;
 
       class function getInstance() : IFactory;
   end;
@@ -25,7 +26,7 @@ implementation
 
 uses
   Classe.Conexao, Controller.Versao, Controller.PersonalizaEmpresa, Controller.Licenca,
-  Controller.Usuario;
+  Controller.Usuario, Controller.Empresa;
 
 { TFactoryController }
 
@@ -35,6 +36,11 @@ begin
     _instance := Self.Create;
 
   Result := _instance;
+end;
+
+function TFactoryController.getEmpresaCOntroller: IEmpresa;
+begin
+  Result := TEmpresaController.getInstance();
 end;
 
 function TFactoryController.getConexao : IConexao;

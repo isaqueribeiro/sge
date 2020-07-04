@@ -10,16 +10,15 @@ type
     private
       FFantasia,
       FCNPJ    : String;
-
-      function RazaoSocial(Value : String) : IPessoaJuridicaModel; overload;
+    published
       function RazaoSocial : String; overload;
-
-      function Fantasia(Value : String) : IPessoaJuridicaModel; overload;
       function Fantasia : String; overload;
-
-      function CNPJ(Value : String) : IPessoaJuridicaModel; overload;
       function CNPJ : String; overload;
     public
+      function RazaoSocial(Value : String) : IPessoaJuridicaModel; overload;
+      function Fantasia(Value : String) : IPessoaJuridicaModel; overload;
+      function CNPJ(Value : String) : IPessoaJuridicaModel; overload;
+
       constructor Create;
       destructor Destroy; override;
 
