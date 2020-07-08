@@ -142,11 +142,38 @@ uses
   UGeControleCheque in '..\Sys\UGeControleCheque.pas' {frmGeControleCheque},
   UGrMemoData in '..\Sys\lib\UGrMemoData.pas' {frmGrMemoData},
   UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa},
-  UGrAutoUpgrade in '..\Sys\lib\UGrAutoUpgrade.pas' {frmGeAutoUpgrade},
+  View.AutoUpgrade in '..\Sys\View\View.AutoUpgrade.pas' {FrmAutoUpgrade},
   UGeImportarNFE in '..\Sys\UGeImportarNFE.pas' {frmGeImportarNFE},
   UGeResultadoExercicioImpressao in '..\Sys\UGeResultadoExercicioImpressao.pas' {frmGeResultadoExercicioImpressao},
   UGeEntradaEstoqueLote in '..\Sys\UGeEntradaEstoqueLote.pas' {frmGeEntradaEstoqueLote},
-  UGeContasAPagarAReceberImpressao in 'UGeContasAPagarAReceberImpressao.pas' {frmGeContasAPagarAReceberImpressao};
+  UGeContasAPagarAReceberImpressao in 'UGeContasAPagarAReceberImpressao.pas' {frmGeContasAPagarAReceberImpressao},
+  View.PadraoAbertura in '..\Sys\View\View.PadraoAbertura.pas' {FrmPadraoAbertura},
+  View.Abertura in 'View\View.Abertura.pas' {FrmAbertura},
+  Interacao.Conexao in '..\Sys\Model\Interacao\Interacao.Conexao.pas',
+  Interacao.Empresa in '..\Sys\Model\Interacao\Interacao.Empresa.pas',
+  Interacao.Factory in '..\Sys\Model\Interacao\Interacao.Factory.pas',
+  Interacao.Funcao in '..\Sys\Model\Interacao\Interacao.Funcao.pas',
+  Interacao.Licenca in '..\Sys\Model\Interacao\Interacao.Licenca.pas',
+  Interacao.PersonalizaEmpresa in '..\Sys\Model\Interacao\Interacao.PersonalizaEmpresa.pas',
+  Interacao.Pessoa in '..\Sys\Model\Interacao\Interacao.Pessoa.pas',
+  Interacao.Usuario in '..\Sys\Model\Interacao\Interacao.Usuario.pas',
+  Interacao.Versao in '..\Sys\Model\Interacao\Interacao.Versao.pas',
+  Controller.Empresa in '..\Sys\Controller\Controller.Empresa.pas',
+  Controller.Factory in '..\Sys\Controller\Controller.Factory.pas',
+  Controller.Licenca in '..\Sys\Controller\Controller.Licenca.pas',
+  Controller.PersonalizaEmpresa in '..\Sys\Controller\Controller.PersonalizaEmpresa.pas',
+  Controller.Usuario in '..\Sys\Controller\Controller.Usuario.pas',
+  Controller.Versao in '..\Sys\Controller\Controller.Versao.pas',
+  Classe.Conexao in '..\Sys\Classe\Classe.Conexao.pas',
+  Classe.Empresa in '..\Sys\Classe\Classe.Empresa.pas',
+  Classe.Funcao in '..\Sys\Classe\Classe.Funcao.pas',
+  Classe.Licenca in '..\Sys\Classe\Classe.Licenca.pas',
+  Classe.Pessoa in '..\Sys\Classe\Classe.Pessoa.pas',
+  Classe.PessoaFisica in '..\Sys\Classe\Classe.PessoaFisica.pas',
+  Classe.PessoaJuridica in '..\Sys\Classe\Classe.PessoaJuridica.pas',
+  Classe.Usuario in '..\Sys\Classe\Classe.Usuario.pas',
+  View.PadraoLogin in '..\Sys\View\View.PadraoLogin.pas' {FrmPadraoLogin},
+  View.Login in 'View\View.Login.pas' {FrmLogin};
 
 {$R *.res}
 
@@ -163,5 +190,6 @@ begin
   Application.CreateForm(TDMNFe, DMNFe);
   Application.CreateForm(TfrmPrinc, frmPrinc);
   Application.CreateForm(TfrmPesq, frmPesq);
+  Application.CreateForm(TFrmPadraoLogin, FrmPadraoLogin);
   Application.Run;
 end.

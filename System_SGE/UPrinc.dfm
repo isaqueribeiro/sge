@@ -4502,16 +4502,19 @@ object frmPrinc: TfrmPrinc
               Caption = 'Configurar Empresa'
               Description = 'Configurar dados importantes da Empresa'
               ImageIndex = 12
+              ActionIndex = nil
             end
             object RbnBackstageGalleryConfigNFe: TdxRibbonBackstageViewGalleryItem
               Caption = 'Configurar NF-e / NFC-e'
               Description = 'Configurar dados importantes para emiss'#227'o de NF-e e NFC-e'
               ImageIndex = 9
+              ActionIndex = nil
             end
             object RbnBackstageGalleryConfigAmb: TdxRibbonBackstageViewGalleryItem
               Caption = 'Configurar Ambiente'
               Description = 'Configurar vari'#225'veis lociais do ambiente da aplica'#231#227'o'
               ImageIndex = 10
+              ActionIndex = nil
             end
           end
         end
@@ -4567,16 +4570,19 @@ object frmPrinc: TfrmPrinc
               Caption = 'Perfil de Acesso'
               Description = 'Cadastro e pesquisa de perfis de acesso ao sistema'
               ImageIndex = 13
+              ActionIndex = nil
             end
             object dxRibbonBackstageViewGalleryItem2: TdxRibbonBackstageViewGalleryItem
               Caption = 'Usu'#225'rio do Sistema'
               Description = 'Cadastro e pesquisa de usu'#225'rios do sistema'
               ImageIndex = 14
+              ActionIndex = nil
             end
             object dxRibbonBackstageViewGalleryItem3: TdxRibbonBackstageViewGalleryItem
               Caption = 'Senhas de Autoriza'#231#227'o'
               Description = 'Controle para gera'#231#227'o de senhas de autoriza'#231#245'es diversas'
               ImageIndex = 70
+              ActionIndex = nil
             end
           end
         end
@@ -4632,6 +4638,7 @@ object frmPrinc: TfrmPrinc
               Caption = 'Executar Backup'
               Description = 'Configurar e executar backup da base de dados do sistema'
               ImageIndex = 71
+              ActionIndex = nil
             end
           end
         end
@@ -4661,7 +4668,7 @@ object frmPrinc: TfrmPrinc
     QuickAccessToolbar.Toolbar = BrMnQuickAccessToolbar
     SupportNonClientDrawing = True
     Contexts = <>
-    TabOrder = 6
+    TabOrder = 2
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
@@ -4845,11 +4852,7 @@ object frmPrinc: TfrmPrinc
     UseSystemFont = True
     Left = 272
     Top = 208
-    DockControlHeights = (
-      0
-      0
-      0
-      0)
+    PixelsPerInch = 96
     object BrMngPrincipalCad: TdxBar
       Caption = 'Cadastros'
       CaptionButtons = <>
@@ -4918,7 +4921,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 234
+      DockedLeft = 535
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213
@@ -5408,9 +5411,9 @@ object frmPrinc: TfrmPrinc
       Category = 0
       Hint = 'Altera'#231#227'o de Senha (%s)'
       Visible = ivAlways
-      LargeImageIndex = 26
       OnClick = nmUsuarioAlterarSenhaClick
       HotImageIndex = 26
+      LargeImageIndex = 26
       SyncImageIndex = False
       ImageIndex = 26
     end
@@ -5419,10 +5422,10 @@ object frmPrinc: TfrmPrinc
       Category = 0
       Hint = 'Efetuar Logoff'
       Visible = ivAlways
-      LargeImageIndex = 25
       ShortCut = 49228
       OnClick = nmEfetuarLogoffClick
       HotImageIndex = 25
+      LargeImageIndex = 25
       SyncImageIndex = False
       ImageIndex = 25
     end
@@ -5433,8 +5436,8 @@ object frmPrinc: TfrmPrinc
       Visible = ivAlways
       ButtonStyle = bsDropDown
       DropDownMenu = BrPpEntrada
-      LargeImageIndex = 20
       HotImageIndex = 20
+      LargeImageIndex = 20
       SyncImageIndex = False
       ImageIndex = 20
     end
@@ -5443,9 +5446,9 @@ object frmPrinc: TfrmPrinc
       Category = 1
       Hint = 'Produtos'
       Visible = ivAlways
-      LargeImageIndex = 20
       OnClick = nmEntradaProdutoClick
       HotImageIndex = 20
+      LargeImageIndex = 20
       SyncImageIndex = False
       ImageIndex = 20
     end
@@ -5454,9 +5457,9 @@ object frmPrinc: TfrmPrinc
       Category = 1
       Hint = 'Ajuste Manual de Estoque'
       Visible = ivAlways
-      LargeImageIndex = 21
       OnClick = nmAjusteManualClick
       HotImageIndex = 21
+      LargeImageIndex = 21
       SyncImageIndex = False
       ImageIndex = 21
     end
@@ -5467,8 +5470,8 @@ object frmPrinc: TfrmPrinc
       Visible = ivAlways
       ButtonStyle = bsDropDown
       DropDownMenu = BrPpEntradaEstoque
-      LargeImageIndex = 22
       HotImageIndex = 22
+      LargeImageIndex = 22
       SyncImageIndex = False
       ImageIndex = 22
     end
@@ -5484,9 +5487,9 @@ object frmPrinc: TfrmPrinc
       Category = 1
       Hint = 'Servi'#231'os'
       Visible = ivAlways
-      LargeImageIndex = 18
       OnClick = nmEntradaServicoClick
       HotImageIndex = 18
+      LargeImageIndex = 18
       SyncImageIndex = False
       ImageIndex = 18
     end
@@ -5495,9 +5498,9 @@ object frmPrinc: TfrmPrinc
       Category = 2
       Hint = 'Configurar Empresa'
       Visible = ivAlways
-      LargeImageIndex = 12
       OnClick = nmConfiguracaoEmpresaClick
       HotImageIndex = 12
+      LargeImageIndex = 12
       SyncImageIndex = False
       ImageIndex = 12
     end
@@ -5506,9 +5509,9 @@ object frmPrinc: TfrmPrinc
       Category = 2
       Hint = 'Configurar NF-e'
       Visible = ivAlways
-      LargeImageIndex = 9
       OnClick = nmConfigurarNFeACBrClick
       HotImageIndex = 9
+      LargeImageIndex = 9
       SyncImageIndex = False
       ImageIndex = 9
     end
@@ -5517,9 +5520,9 @@ object frmPrinc: TfrmPrinc
       Category = 2
       Hint = 'Configurar Ambiente'
       Visible = ivAlways
-      LargeImageIndex = 10
       OnClick = nmConfigurarAmbienteClick
       HotImageIndex = 10
+      LargeImageIndex = 10
       SyncImageIndex = False
       ImageIndex = 10
     end
@@ -5528,9 +5531,9 @@ object frmPrinc: TfrmPrinc
       Category = 3
       Hint = 'Perfil de Acesso'
       Visible = ivAlways
-      LargeImageIndex = 13
       OnClick = nmPerfilAcessoClick
       HotImageIndex = 13
+      LargeImageIndex = 13
       SyncImageIndex = False
       ImageIndex = 13
     end
@@ -5539,9 +5542,9 @@ object frmPrinc: TfrmPrinc
       Category = 3
       Hint = 'Usu'#225'rio'
       Visible = ivAlways
-      LargeImageIndex = 14
       OnClick = nmUsuarioClick
       HotImageIndex = 14
+      LargeImageIndex = 14
       SyncImageIndex = False
       ImageIndex = 14
     end
@@ -5551,8 +5554,8 @@ object frmPrinc: TfrmPrinc
       Enabled = False
       Hint = 'Senhas de Autoriza'#231#227'o'
       Visible = ivAlways
-      LargeImageIndex = 70
       HotImageIndex = 70
+      LargeImageIndex = 70
       SyncImageIndex = False
       ImageIndex = 70
     end
@@ -5563,8 +5566,8 @@ object frmPrinc: TfrmPrinc
       Visible = ivAlways
       ButtonStyle = bsDropDown
       DropDownMenu = BrPpTabelaAuxiliar
-      LargeImageIndex = 2
       HotImageIndex = 2
+      LargeImageIndex = 2
       SyncImageIndex = False
       ImageIndex = 2
     end
@@ -5573,9 +5576,9 @@ object frmPrinc: TfrmPrinc
       Category = 4
       Hint = 'Cadastro da(s) Empresa(s)'
       Visible = ivAlways
-      LargeImageIndex = 0
       OnClick = btnEmpresaClick
       HotImageIndex = 0
+      LargeImageIndex = 0
       SyncImageIndex = False
       ImageIndex = 0
     end
@@ -5584,9 +5587,9 @@ object frmPrinc: TfrmPrinc
       Category = 4
       Hint = 'Cadastro de Clientes'
       Visible = ivAlways
-      LargeImageIndex = 3
       OnClick = btnClienteClick
       HotImageIndex = 3
+      LargeImageIndex = 3
       SyncImageIndex = False
       ImageIndex = 3
     end
@@ -5595,9 +5598,9 @@ object frmPrinc: TfrmPrinc
       Category = 4
       Hint = 'Cadastro de Fornecedores'
       Visible = ivAlways
-      LargeImageIndex = 15
       OnClick = nmFornecedorClick
       HotImageIndex = 15
+      LargeImageIndex = 15
       SyncImageIndex = False
       ImageIndex = 15
     end
@@ -5606,9 +5609,9 @@ object frmPrinc: TfrmPrinc
       Category = 4
       Hint = 'Vendedor'
       Visible = ivAlways
-      LargeImageIndex = 4
       OnClick = nmVendedorClick
       HotImageIndex = 4
+      LargeImageIndex = 4
       SyncImageIndex = False
       ImageIndex = 4
     end
@@ -5617,9 +5620,9 @@ object frmPrinc: TfrmPrinc
       Category = 4
       Hint = 'Banco'
       Visible = ivAlways
-      LargeImageIndex = 5
       OnClick = mnBancoClick
       HotImageIndex = 5
+      LargeImageIndex = 5
       SyncImageIndex = False
       ImageIndex = 5
     end
@@ -5630,8 +5633,8 @@ object frmPrinc: TfrmPrinc
       Visible = ivAlways
       ButtonStyle = bsDropDown
       DropDownMenu = BrPpTabelaProduto
-      LargeImageIndex = 33
       HotImageIndex = 33
+      LargeImageIndex = 33
       SyncImageIndex = False
       ImageIndex = 33
     end
@@ -5703,9 +5706,9 @@ object frmPrinc: TfrmPrinc
       Category = 5
       Hint = 'Contas Correntes'
       Visible = ivAlways
-      LargeImageIndex = 6
       OnClick = nmContaCorrenteClick
       HotImageIndex = 6
+      LargeImageIndex = 6
       SyncImageIndex = False
       ImageIndex = 6
     end
@@ -5714,9 +5717,9 @@ object frmPrinc: TfrmPrinc
       Category = 5
       Hint = 'Formas de Pagamentos'
       Visible = ivAlways
-      LargeImageIndex = 7
       OnClick = nmFormaPagtoClick
       HotImageIndex = 7
+      LargeImageIndex = 7
       SyncImageIndex = False
       ImageIndex = 7
     end
@@ -5725,9 +5728,9 @@ object frmPrinc: TfrmPrinc
       Category = 5
       Hint = 'Condi'#231#245'es de Pagamentos'
       Visible = ivAlways
-      LargeImageIndex = 8
       OnClick = nmCondicaoPagtoClick
       HotImageIndex = 8
+      LargeImageIndex = 8
       SyncImageIndex = False
       ImageIndex = 8
     end
@@ -5792,9 +5795,9 @@ object frmPrinc: TfrmPrinc
       Category = 6
       Hint = 'Cadastro de Produtos/Servi'#231'os'
       Visible = ivAlways
-      LargeImageIndex = 19
       OnClick = btnProdutoClick
       HotImageIndex = 19
+      LargeImageIndex = 19
       SyncImageIndex = False
       ImageIndex = 19
     end
@@ -5803,9 +5806,9 @@ object frmPrinc: TfrmPrinc
       Category = 6
       Hint = 'Promo'#231#245'es'
       Visible = ivAlways
-      LargeImageIndex = 16
       OnClick = nmPromocoesClick
       HotImageIndex = 16
+      LargeImageIndex = 16
       SyncImageIndex = False
       ImageIndex = 16
     end
@@ -5814,9 +5817,9 @@ object frmPrinc: TfrmPrinc
       Category = 7
       Hint = 'Vendas'
       Visible = ivAlways
-      LargeImageIndex = 17
       OnClick = nmVendaClick
       HotImageIndex = 17
+      LargeImageIndex = 17
       SyncImageIndex = False
       ImageIndex = 17
     end
@@ -5826,8 +5829,8 @@ object frmPrinc: TfrmPrinc
       Enabled = False
       Hint = 'Ordens de Servi'#231'os'
       Visible = ivAlways
-      LargeImageIndex = 27
       HotImageIndex = 27
+      LargeImageIndex = 27
       SyncImageIndex = False
       ImageIndex = 27
     end
@@ -5836,9 +5839,9 @@ object frmPrinc: TfrmPrinc
       Category = 7
       Hint = 'Requisi'#231#245'es de Clientes'
       Visible = ivAlways
-      LargeImageIndex = 28
       OnClick = nmRequisicaoClienteClick
       HotImageIndex = 28
+      LargeImageIndex = 28
       SyncImageIndex = False
       ImageIndex = 28
     end
@@ -5848,8 +5851,8 @@ object frmPrinc: TfrmPrinc
       Enabled = False
       Hint = 'Solicita'#231#245'es de Compras/Servi'#231'os'
       Visible = ivAlways
-      LargeImageIndex = 30
       HotImageIndex = 30
+      LargeImageIndex = 30
       SyncImageIndex = False
       ImageIndex = 30
     end
@@ -5859,8 +5862,8 @@ object frmPrinc: TfrmPrinc
       Enabled = False
       Hint = 'Cota'#231#245'es Compras/Servi'#231'os'
       Visible = ivAlways
-      LargeImageIndex = 29
       HotImageIndex = 29
+      LargeImageIndex = 29
       SyncImageIndex = False
       ImageIndex = 29
     end
@@ -5872,8 +5875,8 @@ object frmPrinc: TfrmPrinc
       Visible = ivAlways
       ButtonStyle = bsDropDown
       DropDownMenu = BrPpRequisicaoCompra
-      LargeImageIndex = 31
       HotImageIndex = 31
+      LargeImageIndex = 31
       SyncImageIndex = False
       ImageIndex = 31
     end
@@ -5882,8 +5885,8 @@ object frmPrinc: TfrmPrinc
       Category = 8
       Hint = 'Requisi'#231#245'es Compras/Servi'#231'os'
       Visible = ivAlways
-      LargeImageIndex = 31
       HotImageIndex = 31
+      LargeImageIndex = 31
       SyncImageIndex = False
       ImageIndex = 31
     end
@@ -5898,9 +5901,9 @@ object frmPrinc: TfrmPrinc
       Category = 8
       Hint = 'Autoriza'#231#245'es de Compras/Servi'#231'os'
       Visible = ivAlways
-      LargeImageIndex = 32
       OnClick = nmAutorizacaoCompraClick
       HotImageIndex = 32
+      LargeImageIndex = 32
       SyncImageIndex = False
       ImageIndex = 32
     end
@@ -5909,9 +5912,9 @@ object frmPrinc: TfrmPrinc
       Category = 10
       Hint = 'Inutilizar Numera'#231#227'o'
       Visible = ivAlways
-      LargeImageIndex = 41
       OnClick = nmInutilizarNumeroNFeClick
       HotImageIndex = 41
+      LargeImageIndex = 41
       SyncImageIndex = False
       ImageIndex = 41
     end
@@ -5920,9 +5923,9 @@ object frmPrinc: TfrmPrinc
       Category = 10
       Hint = 'Consultar Recibo Lote NF-e'
       Visible = ivAlways
-      LargeImageIndex = 38
       OnClick = nmConsultarLoteNFeClick
       HotImageIndex = 38
+      LargeImageIndex = 38
       SyncImageIndex = False
       ImageIndex = 38
     end
@@ -5931,9 +5934,9 @@ object frmPrinc: TfrmPrinc
       Category = 10
       Hint = 'Carta de Corre'#231#227'o Eletr'#244'nica (CC-e)'
       Visible = ivAlways
-      LargeImageIndex = 37
       OnClick = nmCartaCorrecaoNFeClick
       HotImageIndex = 37
+      LargeImageIndex = 37
       SyncImageIndex = False
       ImageIndex = 37
     end
@@ -5942,9 +5945,9 @@ object frmPrinc: TfrmPrinc
       Category = 10
       Hint = 'Nota Fiscal Complementar'
       Visible = ivAlways
-      LargeImageIndex = 69
       OnClick = BrBtnNotaFiscalComplementarClick
       HotImageIndex = 69
+      LargeImageIndex = 69
       SyncImageIndex = False
       ImageIndex = 69
     end
@@ -5955,8 +5958,8 @@ object frmPrinc: TfrmPrinc
       Visible = ivAlways
       ButtonStyle = bsDropDown
       DropDownMenu = BrPpNotaFiscalExportar
-      LargeImageIndex = 40
       HotImageIndex = 40
+      LargeImageIndex = 40
       SyncImageIndex = False
       ImageIndex = 40
     end
@@ -5965,9 +5968,9 @@ object frmPrinc: TfrmPrinc
       Category = 10
       Hint = 'Exportar NF-e(s) Gerada(s)'
       Visible = ivAlways
-      LargeImageIndex = 40
       OnClick = nmExportarNFeGeradaClick
       HotImageIndex = 40
+      LargeImageIndex = 40
       SyncImageIndex = False
       ImageIndex = 40
     end
@@ -5991,9 +5994,9 @@ object frmPrinc: TfrmPrinc
       Enabled = False
       Hint = 'Download de NF-e(s) Emitida(s)'
       Visible = ivAlways
-      LargeImageIndex = 39
       OnClick = nmDownloadNFeGeradaClick
       HotImageIndex = 39
+      LargeImageIndex = 39
       SyncImageIndex = False
       ImageIndex = 39
     end
@@ -6019,9 +6022,9 @@ object frmPrinc: TfrmPrinc
       Category = 11
       Hint = 'Consultar CNPJ (Receita Federal)'
       Visible = ivAlways
-      LargeImageIndex = 42
       OnClick = nmConsultarCNPJClick
       HotImageIndex = 42
+      LargeImageIndex = 42
       SyncImageIndex = False
       ImageIndex = 42
     end
@@ -6030,9 +6033,9 @@ object frmPrinc: TfrmPrinc
       Category = 11
       Hint = 'Vendas Realizadas'
       Visible = ivAlways
-      LargeImageIndex = 43
       OnClick = nmVendaIemPesquisaClick
       HotImageIndex = 43
+      LargeImageIndex = 43
       SyncImageIndex = False
       ImageIndex = 43
     end
@@ -6041,9 +6044,9 @@ object frmPrinc: TfrmPrinc
       Category = 11
       Hint = 'Rotatividade de Produtos'
       Visible = ivAlways
-      LargeImageIndex = 44
       OnClick = nmRotatividadeClick
       HotImageIndex = 44
+      LargeImageIndex = 44
       SyncImageIndex = False
       ImageIndex = 44
     end
@@ -6052,9 +6055,9 @@ object frmPrinc: TfrmPrinc
       Category = 11
       Hint = 'Estoque M'#237'nimo'
       Visible = ivAlways
-      LargeImageIndex = 45
       OnClick = nmEstoqueMinimoClick
       HotImageIndex = 45
+      LargeImageIndex = 45
       SyncImageIndex = False
       ImageIndex = 45
     end
@@ -6063,9 +6066,9 @@ object frmPrinc: TfrmPrinc
       Category = 12
       Hint = 'Abertura de Caixa'
       Visible = ivAlways
-      LargeImageIndex = 51
       OnClick = nmAberturaCaixaClick
       HotImageIndex = 51
+      LargeImageIndex = 51
       SyncImageIndex = False
       ImageIndex = 51
     end
@@ -6074,9 +6077,9 @@ object frmPrinc: TfrmPrinc
       Category = 12
       Hint = 'Encerramento de Caixa'
       Visible = ivAlways
-      LargeImageIndex = 52
       OnClick = nmEncerramentoCaixaClick
       HotImageIndex = 52
+      LargeImageIndex = 52
       SyncImageIndex = False
       ImageIndex = 52
     end
@@ -6085,9 +6088,9 @@ object frmPrinc: TfrmPrinc
       Category = 12
       Hint = 'Ger'#234'ncia de Caixas'
       Visible = ivAlways
-      LargeImageIndex = 47
       OnClick = nmGerenciaCaixaClick
       HotImageIndex = 47
+      LargeImageIndex = 47
       SyncImageIndex = False
       ImageIndex = 47
     end
@@ -6096,9 +6099,9 @@ object frmPrinc: TfrmPrinc
       Category = 13
       Hint = 'Controle de Cheques'
       Visible = ivAlways
-      LargeImageIndex = 76
       OnClick = BrBtnControleChequeClick
       HotImageIndex = 76
+      LargeImageIndex = 76
       SyncImageIndex = False
       ImageIndex = 76
     end
@@ -6107,9 +6110,9 @@ object frmPrinc: TfrmPrinc
       Category = 13
       Hint = 'Tesouraria (Movimento de Caixa)'
       Visible = ivAlways
-      LargeImageIndex = 50
       OnClick = nmFluxoDeCaixaClick
       HotImageIndex = 50
+      LargeImageIndex = 50
       SyncImageIndex = False
       ImageIndex = 50
     end
@@ -6118,9 +6121,9 @@ object frmPrinc: TfrmPrinc
       Category = 13
       Hint = 'Contas A Pagar (Programa'#231#227'o)'
       Visible = ivAlways
-      LargeImageIndex = 48
       OnClick = btnContaAPagarClick
       HotImageIndex = 48
+      LargeImageIndex = 48
       SyncImageIndex = False
       ImageIndex = 48
     end
@@ -6129,9 +6132,9 @@ object frmPrinc: TfrmPrinc
       Category = 13
       Hint = 'Contas A Receber (Programa'#231#227'o)'
       Visible = ivAlways
-      LargeImageIndex = 49
       OnClick = btnContaAReceberClick
       HotImageIndex = 49
+      LargeImageIndex = 49
       SyncImageIndex = False
       ImageIndex = 49
     end
@@ -6140,9 +6143,9 @@ object frmPrinc: TfrmPrinc
       Category = 14
       Hint = 'Gera'#231#227'o de Boletos'
       Visible = ivAlways
-      LargeImageIndex = 53
       OnClick = nmGerarBoletoClick
       HotImageIndex = 53
+      LargeImageIndex = 53
       SyncImageIndex = False
       ImageIndex = 53
     end
@@ -6151,9 +6154,9 @@ object frmPrinc: TfrmPrinc
       Category = 14
       Hint = 'Gerar Remessas de Boletos'
       Visible = ivAlways
-      LargeImageIndex = 55
       OnClick = nmRemessaBoletoClick
       HotImageIndex = 55
+      LargeImageIndex = 55
       SyncImageIndex = False
       ImageIndex = 55
     end
@@ -6162,9 +6165,9 @@ object frmPrinc: TfrmPrinc
       Category = 14
       Hint = 'Processar Retorno de Boletos'
       Visible = ivAlways
-      LargeImageIndex = 57
       OnClick = nmRetornoBoletoClick
       HotImageIndex = 57
+      LargeImageIndex = 57
       SyncImageIndex = False
       ImageIndex = 57
     end
@@ -6175,8 +6178,8 @@ object frmPrinc: TfrmPrinc
       Visible = ivAlways
       ButtonStyle = bsDropDown
       DropDownMenu = BrPpFinanceiroQuitarLote
-      LargeImageIndex = 59
       HotImageIndex = 59
+      LargeImageIndex = 59
       SyncImageIndex = False
       ImageIndex = 59
     end
@@ -6199,9 +6202,9 @@ object frmPrinc: TfrmPrinc
       Category = 15
       Hint = 'Clientes'
       Visible = ivAlways
-      LargeImageIndex = 60
       OnClick = nmRelatorioClienteClick
       HotImageIndex = 60
+      LargeImageIndex = 60
       SyncImageIndex = False
       ImageIndex = 60
     end
@@ -6210,9 +6213,9 @@ object frmPrinc: TfrmPrinc
       Category = 15
       Hint = 'Fornecedores'
       Visible = ivAlways
-      LargeImageIndex = 61
       OnClick = nmRelatorioFornecedorClick
       HotImageIndex = 61
+      LargeImageIndex = 61
       SyncImageIndex = False
       ImageIndex = 61
     end
@@ -6221,9 +6224,9 @@ object frmPrinc: TfrmPrinc
       Category = 15
       Hint = 'Produtos'
       Visible = ivAlways
-      LargeImageIndex = 62
       OnClick = nmRelatorioProdutoClick
       HotImageIndex = 62
+      LargeImageIndex = 62
       SyncImageIndex = False
       ImageIndex = 62
     end
@@ -6232,9 +6235,9 @@ object frmPrinc: TfrmPrinc
       Category = 16
       Hint = 'Entradas de Produtos/Servi'#231'os'
       Visible = ivAlways
-      LargeImageIndex = 62
       OnClick = mnRelatorioEntradaProdutoClick
       HotImageIndex = 62
+      LargeImageIndex = 62
       SyncImageIndex = False
       ImageIndex = 62
     end
@@ -6245,8 +6248,8 @@ object frmPrinc: TfrmPrinc
       Visible = ivAlways
       ButtonStyle = bsDropDown
       DropDownMenu = BrPpRelatorioEstoque
-      LargeImageIndex = 62
       HotImageIndex = 62
+      LargeImageIndex = 62
       SyncImageIndex = False
       ImageIndex = 62
     end
@@ -6264,8 +6267,8 @@ object frmPrinc: TfrmPrinc
       Visible = ivAlways
       ButtonStyle = bsDropDown
       DropDownMenu = BrPpRelatorioFaturamento
-      LargeImageIndex = 63
       HotImageIndex = 63
+      LargeImageIndex = 63
       SyncImageIndex = False
       ImageIndex = 63
     end
@@ -6290,8 +6293,8 @@ object frmPrinc: TfrmPrinc
       Visible = ivAlways
       ButtonStyle = bsDropDown
       DropDownMenu = BrPpRelatorioFinanceiro
-      LargeImageIndex = 64
       HotImageIndex = 64
+      LargeImageIndex = 64
       SyncImageIndex = False
       ImageIndex = 64
     end
@@ -6321,9 +6324,9 @@ object frmPrinc: TfrmPrinc
       Category = 17
       Hint = 'Resultado Exerc'#237'cio'
       Visible = ivAlways
-      LargeImageIndex = 79
       OnClick = BrBtnRelatorioResultadoExercicioClick
       HotImageIndex = 79
+      LargeImageIndex = 79
       SyncImageIndex = False
       ImageIndex = 79
     end
@@ -6356,9 +6359,9 @@ object frmPrinc: TfrmPrinc
       Category = 17
       Hint = 'Contas A Pagar x Contas A Receber (Financeiro)'
       Visible = ivAlways
-      LargeImageIndex = 81
       OnClick = BrBtnRelatorioFinanceiroAPxARClick
       HotImageIndex = 81
+      LargeImageIndex = 81
       SyncImageIndex = False
       ImageIndex = 81
     end
@@ -6367,9 +6370,9 @@ object frmPrinc: TfrmPrinc
       Category = 18
       Hint = 'Carregar Licen'#231'a'
       Visible = ivAlways
-      LargeImageIndex = 67
       OnClick = nmCarregarLicencaClick
       HotImageIndex = 67
+      LargeImageIndex = 67
       SyncImageIndex = False
       ImageIndex = 67
     end
@@ -6378,9 +6381,9 @@ object frmPrinc: TfrmPrinc
       Category = 18
       Hint = 'Registros de Computadores'
       Visible = ivAlways
-      LargeImageIndex = 65
       OnClick = nmRegistroEstacaoClick
       HotImageIndex = 65
+      LargeImageIndex = 65
       SyncImageIndex = False
       ImageIndex = 65
     end
@@ -6391,8 +6394,8 @@ object frmPrinc: TfrmPrinc
       Visible = ivAlways
       ButtonStyle = bsDropDown
       DropDownMenu = BrPpTeamViewer
-      LargeImageIndex = 78
       HotImageIndex = 78
+      LargeImageIndex = 78
       SyncImageIndex = False
       ImageIndex = 78
     end
@@ -6415,9 +6418,9 @@ object frmPrinc: TfrmPrinc
       Category = 18
       Hint = 'Atualizar Sistema'
       Visible = ivAlways
-      LargeImageIndex = 77
       OnClick = BrBtnUpgradeClick
       HotImageIndex = 77
+      LargeImageIndex = 77
       SyncImageIndex = False
       ImageIndex = 77
     end
@@ -6426,9 +6429,9 @@ object frmPrinc: TfrmPrinc
       Category = 18
       Hint = 'Sobre o Sistema'
       Visible = ivAlways
-      LargeImageIndex = 68
       OnClick = nmAboutClick
       HotImageIndex = 68
+      LargeImageIndex = 68
       SyncImageIndex = False
       ImageIndex = 68
     end
@@ -6456,6 +6459,7 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 272
     Top = 246
+    PixelsPerInch = 96
   end
   object BrPpTabelaAuxiliar: TdxBarPopupMenu
     BarManager = BrManager
@@ -6531,6 +6535,7 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 304
     Top = 246
+    PixelsPerInch = 96
   end
   object BrPpTabelaProduto: TdxBarPopupMenu
     BarManager = BrManager
@@ -6563,6 +6568,7 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 336
     Top = 246
+    PixelsPerInch = 96
   end
   object BrPpEntradaEstoque: TdxBarPopupMenu
     BarManager = BrManager
@@ -6574,6 +6580,7 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 368
     Top = 246
+    PixelsPerInch = 96
   end
   object BrPpRequisicaoCompra: TdxBarPopupMenu
     BarManager = BrManager
@@ -6589,6 +6596,7 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 400
     Top = 246
+    PixelsPerInch = 96
   end
   object BrPpRequisicaoAlmox: TdxBarPopupMenu
     BarManager = BrManager
@@ -6596,6 +6604,7 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 432
     Top = 246
+    PixelsPerInch = 96
   end
   object BrPpNotaFiscalExportar: TdxBarPopupMenu
     BarManager = BrManager
@@ -6615,6 +6624,7 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 464
     Top = 246
+    PixelsPerInch = 96
   end
   object BrPpFinanceiroQuitarLote: TdxBarPopupMenu
     BarManager = BrManager
@@ -6630,6 +6640,7 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 496
     Top = 246
+    PixelsPerInch = 96
   end
   object BrPpRelatorioEstoque: TdxBarPopupMenu
     BarManager = BrManager
@@ -6641,6 +6652,7 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 528
     Top = 246
+    PixelsPerInch = 96
   end
   object BrPpRelatorioFaturamento: TdxBarPopupMenu
     BarManager = BrManager
@@ -6656,6 +6668,7 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 560
     Top = 246
+    PixelsPerInch = 96
   end
   object BrPpRelatorioFinanceiro: TdxBarPopupMenu
     BarManager = BrManager
@@ -6676,6 +6689,7 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 592
     Top = 246
+    PixelsPerInch = 96
   end
   object BrPpRelatorioEntradaSaida: TdxBarPopupMenu
     BarManager = BrManager
@@ -6687,6 +6701,7 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 624
     Top = 246
+    PixelsPerInch = 96
   end
   object TmrMonitorar: TTimer
     Left = 864
@@ -6706,6 +6721,7 @@ object frmPrinc: TfrmPrinc
     UseOwnFont = False
     Left = 656
     Top = 246
+    PixelsPerInch = 96
   end
   object tmrAutoUpgrade: TTimer
     Enabled = False

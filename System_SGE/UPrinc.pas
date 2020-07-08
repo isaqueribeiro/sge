@@ -336,7 +336,8 @@ uses
   UDMNFe,
   UFuncoes,
   UConstantesDGE,
-  UGrAutoUpgrade,
+  //UGrAutoUpgrade,
+  View.AutoUpgrade,
   UGeSobre,
 
   // Movimentação
