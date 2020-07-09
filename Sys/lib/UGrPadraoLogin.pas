@@ -130,8 +130,8 @@ begin
   inherited;
   fFinalizarAplicacao := False;
 
-  lblSystemName.Caption        := StringReplace(GetInternalName, '_', ' ', [rfReplaceAll]);
-  lblSystemDescription.Caption := GetFileDescription;
+  lblSystemName.Caption        := StringReplace(gPersonalizaEmpresa.InternalName, '_', ' ', [rfReplaceAll]);
+  lblSystemDescription.Caption := gPersonalizaEmpresa.FileDescription;
   lblSystemVersion.Caption     := 'Versão ' + GetExeVersion;
 
   if DataBaseOnLine then

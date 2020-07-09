@@ -828,7 +828,7 @@ begin
 
       ACBrBoletoFCFR.DirLogo        := ExtractFilePath(sAppLogo);
       ACBrBoletoFCFR.FastReportFile := sAppBoleto;
-      ACBrBoletoFCFR.SoftwareHouse  := GetCompanyName;
+      ACBrBoletoFCFR.SoftwareHouse  := gPersonalizaEmpresa.CompanyName;
 
       // Dados Conta
       Cedente.Agencia       := GetAgenciaNumero;

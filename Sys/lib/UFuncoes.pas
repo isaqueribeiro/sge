@@ -3,6 +3,9 @@ unit UFuncoes;
 interface
 
 uses
+  //Interacao.PersonalizaEmpresa,
+  //Controller.Factory,
+
   Windows, Forms, Messages, SysUtils, Classes, ExtCtrls, ShellApi, Printers, Graphics, IniFiles,
   PSApi, Winsock, WinSvc, WinInet, StrUtils, OleServer, ExcelXP, ComObj, TLHelp32, Winapi.ShlObj,
   Math, IdBaseComponent, IdComponent, IdRawBase, IdRawClient, IdIcmpClient;
@@ -19,13 +22,13 @@ uses
   function GetVersion   : String;
   function GetVersionID : Currency;
   function GetCopyright : String;
-  function GetInternalName : String;
-  function GetProductName : String;
+//  function GetInternalName : String;
+//  function GetProductName : String;
   function GetProductVersion : String;
   function GetFileVersion : String;
-  function GetFileDescription : String;
-  function GetCompanyName : String;
-  function GetContacts : String;
+//  function GetFileDescription : String;
+//  function GetCompanyName : String;
+//  function GetContacts : String;
   function GetReleaseDate : String;
   function GetConectedInternet : Boolean;
   function GetEmailValido(email : String; bShowMsg : Boolean) : Boolean;
@@ -49,7 +52,7 @@ uses
 implementation
 
 uses
-  UInfoVersao, UPersonalizaEmpresa, UConstantesDGE;
+  UInfoVersao, UConstantesDGE;
 
 var
   vet_valido : Array [0..35] of String = (
@@ -252,21 +255,22 @@ end;
 
 function GetCopyright : String;
 begin
-  //Result := TInfoVersao.GetInstance().getPropertyValue(ivLEGAL_COPYRIGHT);
-  Result := TPersonalizaEmpresa.GetInstance().LegalCopyright;
+  Result := TInfoVersao.GetInstance().getPropertyValue(ivLEGAL_COPYRIGHT);
 end;
 
-function GetInternalName : String;
-begin
-  //Result := TInfoVersao.GetInstance().getPropertyValue(ivINTERNAL_NAME);
-  Result := TPersonalizaEmpresa.GetInstance().InternalName;
-end;
-
-function GetProductName : String;
-begin
-  //Result := TInfoVersao.GetInstance().getPropertyValue(ivPRODUCT_NAME);
-  Result := TPersonalizaEmpresa.GetInstance().ProductName;
-end;
+//function GetInternalName : String;
+//begin
+//  //Result := TInfoVersao.GetInstance().getPropertyValue(ivINTERNAL_NAME);
+//  //Result := TPersonalizaEmpresa.GetInstance().InternalName;
+//  Result := TFactoryController.getInstance().getPersonalizaEmpresa.InternalName;
+//end;
+//
+//function GetProductName : String;
+//begin
+//  //Result := TInfoVersao.GetInstance().getPropertyValue(ivPRODUCT_NAME);
+//  //Result := TPersonalizaEmpresa.GetInstance().ProductName;
+//  Result := TFactoryController.getInstance().getPersonalizaEmpresa.ProductName;
+//end;
 
 function GetProductVersion : String;
 begin
@@ -278,23 +282,26 @@ begin
   Result := TInfoVersao.GetInstance().getPropertyValue(ivFILE_VERSION);
 end;
 
-function GetFileDescription : String;
-begin
-  //Result := TInfoVersao.GetInstance().getPropertyValue(ivFILE_DESCRIPTION);
-  Result := TPersonalizaEmpresa.GetInstance().FileDescription;
-end;
+//function GetFileDescription : String;
+//begin
+//  //Result := TInfoVersao.GetInstance().getPropertyValue(ivFILE_DESCRIPTION);
+//  //Result := TPersonalizaEmpresa.GetInstance().FileDescription;
+//  Result := TFactoryController.getInstance().getPersonalizaEmpresa.FileDescription;
+//end;
 
-function GetCompanyName : String;
-begin
-  //Result := TInfoVersao.GetInstance().getPropertyValue(ivCOMPANY_NAME);
-  Result := TPersonalizaEmpresa.GetInstance().CompanyName;
-end;
-
-function GetContacts : String;
-begin
-  //Result := TInfoVersao.GetInstance().getPropertyValue(ivCONTACTS);
-  Result := TPersonalizaEmpresa.GetInstance().Contacts;
-end;
+//function GetCompanyName : String;
+//begin
+//  //Result := TInfoVersao.GetInstance().getPropertyValue(ivCOMPANY_NAME);
+//  //Result := TPersonalizaEmpresa.GetInstance().CompanyName;
+//  Result := TFactoryController.getInstance().getPersonalizaEmpresa.CompanyName;
+//end;
+//
+//function GetContacts : String;
+//begin
+//  //Result := TInfoVersao.GetInstance().getPropertyValue(ivCONTACTS);
+//  //Result := TPersonalizaEmpresa.GetInstance().Contacts;
+//  Result := TFactoryController.getInstance().getPersonalizaEmpresa.Contacts;
+//end;
 
 function GetReleaseDate : String;
 begin

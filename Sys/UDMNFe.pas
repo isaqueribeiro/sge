@@ -781,7 +781,7 @@ begin
   ConfigACBr.sbtnGetCert.OnClick := SelecionarCertificado;
   ConfigACBr.btnServico.OnClick  := TestarServico;
 
-  frDANFE.Sistema := GetCompanyName + ' - Contato(s): ' + GetContacts;
+  frDANFE.Sistema := gPersonalizaEmpresa.CompanyName + ' - Contato(s): ' + gPersonalizaEmpresa.Contacts;
 
   // A leitura do Certificado será feita agora apenas na emissão da NF-e
   //LerConfiguracao(GetEmpresaIDDefault);
@@ -1231,7 +1231,7 @@ begin
       SH_IE   := edtEmitIE.Text;
       SH_IM   := qryEmitenteIM.AsString;
       SH_RazaoSocial      := edtEmitRazao.Text;
-      SH_NomeAplicativo   := GetProductName;
+      SH_NomeAplicativo   := gPersonalizaEmpresa.ProductName;
       SH_VersaoAplicativo := GetVersion;
     end;
 
@@ -1271,7 +1271,7 @@ begin
     //ACBrSATExtratoESCPOS.SoftwareHouse := RemoveAcentos( GetCompanyName );
     ACBrSATExtratoESCPOS.NumCopias     := FileIni.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_CUPOM_NFISCAL_QTDE, 1);;
 
-    nfcDANFE.Sistema   := RemoveAcentos( GetCompanyName );
+    nfcDANFE.Sistema   := RemoveAcentos( gPersonalizaEmpresa.CompanyName );
     nfcDANFE.Usuario   := RemoveAcentos( GetUserApp(gUsuarioLogado.Login) );
 
     nfcDANFE.PosPrinter.Modelo       := TACBrPosPrinterModelo(FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ID', 0));
@@ -4054,8 +4054,8 @@ begin
         sMSG.Add( sAssinaturaTxt );
         sMSG.Add('--');
         sMSG.Add('FAVOR NÃO RESPONDER ESTE E-MAIL.');
-        sMSG.Add('Composição automática de e-mail executada pelo sistema ' + GetProductName + ' (Versão ' + GetVersion +
-          '), desenvolvido pela empresa ' + GetCompanyName + '.' + #13#13 + GetCopyright);
+        sMSG.Add('Composição automática de e-mail executada pelo sistema ' + gPersonalizaEmpresa.ProductName + ' (Versão ' + GetVersion +
+          '), desenvolvido pela empresa ' + gPersonalizaEmpresa.CompanyName + '.' + #13#13 + GetCopyright);
 
         if FileExists( sArquivoBoleto ) then
           sANX.Add( sArquivoBoleto );
@@ -6039,8 +6039,8 @@ begin
         sMSG.Add( sAssinaturaTxt );
         sMSG.Add('--');
         sMSG.Add('FAVOR NÃO RESPONDER ESTE E-MAIL.');
-        sMSG.Add('Composição automática de e-mail executada pelo sistema ' + GetProductName + ' (Versão ' + GetVersion +
-          '), desenvolvido pela empresa ' + GetCompanyName + '.' + #13#13 + GetCopyright);
+        sMSG.Add('Composição automática de e-mail executada pelo sistema ' + gPersonalizaEmpresa.ProductName + ' (Versão ' + GetVersion +
+          '), desenvolvido pela empresa ' + gPersonalizaEmpresa.CompanyName + '.' + #13#13 + GetCopyright);
 
         if FileExists( sArquivo ) then
           sANX.Add( sArquivo );
@@ -6457,8 +6457,8 @@ begin
 
     with aEcf do
     begin
-      Ecf.SoftHouse := GetCompanyName;
-      Ecf.Sistema   := GetProductName;
+      Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
+      Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
       Ecf.Versao    := GetProductVersion;
 
       Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString);
@@ -8409,8 +8409,8 @@ begin
 
     with aEcf do
     begin
-      Ecf.SoftHouse := GetCompanyName;
-      Ecf.Sistema   := GetProductName;
+      Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
+      Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
       Ecf.Versao    := GetProductVersion;
 
       Ecf.Identifica_Cupom(Now

@@ -37,7 +37,8 @@ var
 
 implementation
 
-uses UDMBusiness, UFuncoes, UConstantesDGE;
+uses
+  UDMBusiness, UFuncoes, UConstantesDGE, Interacao.PersonalizaEmpresa, Controller.Factory;
 
 {$R *.dfm}
 
@@ -56,19 +57,22 @@ end;
 procedure TfrmSobre.FormCreate(Sender: TObject);
 var
   sCNPJ : String;
+  aEmp  : IPersonalizaEmpresa;
 begin
+  aEmp := TFactoryController.getInstance().getPersonalizaEmpresa();
+
   if ( ImgLogo.Picture.Height = 0 ) then
     ImgLogo.Picture.Icon := Application.Icon;
 
-  Caption := 'Sobre o ' + StringReplace(GetInternalName, '_', ' ', [rfReplaceAll]);
+  Caption := 'Sobre o ' + StringReplace(aEmp.InternalName, '_', ' ', [rfReplaceAll]);
 
   if ( StrIsCNPJ(gLicencaSistema.CNPJ) ) then
     sCNPJ := StrFormatarCnpj(gLicencaSistema.CNPJ)
   else
     sCNPJ := StrFormatarCpf(gLicencaSistema.CNPJ);
 
-  ProductName.Caption     := StringReplace(GetInternalName, '_', ' ', [rfReplaceAll]);
-  FileDescription.Caption := GetFileDescription;
+  ProductName.Caption     := StringReplace(aEmp.InternalName, '_', ' ', [rfReplaceAll]);
+  FileDescription.Caption := aEmp.FileDescription;
   {$IFDEF DGE}
   Version.Caption     := 'Versão ' + VERSION_NUMBER;
   Copyright.Caption   := '© 2012 | 2014 - Masterdados Tecnologia da Informação' + #13 + 'Todos os direitos reservados.';

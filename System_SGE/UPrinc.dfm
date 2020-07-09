@@ -4672,7 +4672,6 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4761,6 +4760,7 @@ object frmPrinc: TfrmPrinc
       Index = 7
     end
     object RbnTabAjuda: TdxRibbonTab
+      Active = True
       Caption = 'Ajuda'
       Groups = <
         item

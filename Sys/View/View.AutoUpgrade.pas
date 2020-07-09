@@ -206,7 +206,7 @@ end;
 procedure TFrmAutoUpgrade.BaixarInfo;
 begin
   ACBrDownload.DownloadUrl     := lblURLInfo.Caption;
-  ACBrDownload.DownloadNomeArq := 'VersaoHTTP_' + GetInternalName + '.inf';
+  ACBrDownload.DownloadNomeArq := 'VersaoHTTP_' + gPersonalizaEmpresa.InternalName + '.inf';
   ACBrDownload.DownloadDest    := '.\';
   ACBrDownload.StartDownload;
 
@@ -259,7 +259,7 @@ const
   URL_EXE = 'http://' + DOWNLOAD_URL_GERASYS_TI_DRH_UPGRADE + '%s.exe';
   URL_INF = 'http://' + DOWNLOAD_URL_GERASYS_TI_DRH_UPGRADE + '%s_Upgrade.inf';
 begin
-  sAppName := GetInternalName;
+  sAppName := gPersonalizaEmpresa.InternalName;
 
   lblURLApp.Caption  := Format(URL_EXE, [sAppName]);
   lblURLApp.Hint     := sAppName;
@@ -400,7 +400,7 @@ begin
     ShowInformation('Atualização Agil', 'Esta aplicação será fechada para que o processo de atualização seja iniciado.');
     Application.Terminate;
 
-    ShellExecute(Handle, 'Open', PChar(aComando), PChar(GetInternalName), '', SW_NORMAL);
+    ShellExecute(Handle, 'Open', PChar(aComando), PChar(gPersonalizaEmpresa.InternalName), '', SW_NORMAL);
   end;
 end;
 

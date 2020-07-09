@@ -147,4 +147,24 @@ inherited FrmAbertura: TFrmAbertura
       555F0460E74E7E723AC3300CC3300CC3300C53B800FC1FED7F6AA296B8EB5C00
       00000049454E44AE426082}
   end
+  object lblPropriedade: TLabel
+    Left = 33
+    Top = 232
+    Width = 535
+    Height = 73
+    AutoSize = False
+    Caption = 
+      'Copyright '#169' 2019 '#193'gil Solu'#231#245'es em Softwares. Todos os direitos r' +
+      'eservados.'
+    Enabled = False
+    Font.Charset = ANSI_CHARSET
+    Font.Color = 937000
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+    Visible = False
+    WordWrap = True
+  end
 end

@@ -47,6 +47,7 @@ type
     property PersonalizaController : IPersonalizaEmpresa read FPersonaliza;
 
     procedure LoadInformation(); virtual;
+    procedure SetMensagem(aInfo : String); virtual;
   end;
 
 var
@@ -386,6 +387,11 @@ begin
       FVersao.FileVersion,
       FVersao.getPropertyValue(TPropertyValue.ivRELEASE_DATE)]);
   lblCopyright.Caption := FPersonaliza.LegalCopyright;
+end;
+
+procedure TFrmPadraoAbertura.SetMensagem(aInfo: String);
+begin
+  ;
 end;
 
 end.

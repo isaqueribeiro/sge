@@ -4,6 +4,7 @@ object DMRecursos: TDMRecursos
   Height = 467
   Width = 672
   object ImgPrincipalEnabled: TcxImageList
+    SourceDPI = 96
     Height = 32
     Width = 32
     FormatVersion = 1
@@ -10919,6 +10920,7 @@ object DMRecursos: TDMRecursos
       end>
   end
   object ImgPrincipalDisabled: TcxImageList
+    SourceDPI = 96
     Height = 32
     Width = 32
     FormatVersion = 1
@@ -21834,6 +21836,7 @@ object DMRecursos: TDMRecursos
       end>
   end
   object ImgPrincipalHot: TcxImageList
+    SourceDPI = 96
     Height = 32
     Width = 32
     FormatVersion = 1
@@ -32749,6 +32752,7 @@ object DMRecursos: TDMRecursos
       end>
   end
   object ImgPrincipal16x16: TcxImageList
+    SourceDPI = 96
     FormatVersion = 1
     DesignInfo = 2621504
     ImageInfo = <
@@ -35788,6 +35792,7 @@ object DMRecursos: TDMRecursos
       end>
   end
   object ImgBotoesEnabled: TcxImageList
+    SourceDPI = 96
     Height = 32
     Width = 32
     FormatVersion = 1
@@ -40583,6 +40588,7 @@ object DMRecursos: TDMRecursos
       end>
   end
   object ImgBotoesDisabled: TcxImageList
+    SourceDPI = 96
     Height = 32
     Width = 32
     FormatVersion = 1
@@ -45378,6 +45384,7 @@ object DMRecursos: TDMRecursos
       end>
   end
   object ImgBotoesHot: TcxImageList
+    SourceDPI = 96
     Height = 32
     Width = 32
     FormatVersion = 1
@@ -50173,6 +50180,7 @@ object DMRecursos: TDMRecursos
       end>
   end
   object ImgBotoes16x16: TcxImageList
+    SourceDPI = 96
     FormatVersion = 1
     DesignInfo = 2621624
     ImageInfo = <

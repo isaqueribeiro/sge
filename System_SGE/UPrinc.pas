@@ -338,7 +338,8 @@ uses
   UConstantesDGE,
   //UGrAutoUpgrade,
   View.AutoUpgrade,
-  UGeSobre,
+  //UGeSobre,
+  View.Abertura,
 
   // Movimentação
   UGeRequisicaoCliente,
@@ -852,8 +853,8 @@ begin
   gSistema.Nome   := Self.Caption;
 
   Self.Caption             := Application.Title + ' [ v' + GetExeVersion + ' ]';
-  Self.ProductName.Caption := GetInternalName;
-  Self.FileDescription.Caption := GetFileDescription;
+  Self.ProductName.Caption := gPersonalizaEmpresa.InternalName;
+  Self.FileDescription.Caption := gPersonalizaEmpresa.FileDescription;
   Self.Version.Caption     := 'Versão ' + GetExeVersion;
   Self.Copyright.Caption   := GetCopyright;
   Self.DisableAero         := True;

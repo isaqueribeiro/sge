@@ -3,16 +3,19 @@ unit UDMRecursos;
 interface
 
 uses
+  Interacao.PersonalizaEmpresa,
+
   {$IFNDEF PRINTER_CUPOM}
-  USplash,
+  //USplash,
+  View.Abertura,
   {$ENDIF}
   UGrAguarde,
-  UPersonalizaEmpresa,
+  //UPersonalizaEmpresa,
   UConstantesDGE,
   UBaseObject,
   Winapi.Windows,
   Vcl.Forms, SysUtils, Classes, ImgList, Controls, cxGraphics, Vcl.ExtCtrls,
-  System.ImageList;
+  System.ImageList, cxImageList;
 
 type
   TLoteProduto = class(TBaseObject)
@@ -51,7 +54,8 @@ type
 
 var
   DMRecursos: TDMRecursos;
-  gPersonalizaEmpresa : TPersonalizaEmpresa;
+  //gPersonalizaEmpresa : TPersonalizaEmpresa;
+  gPersonalizaEmpresa : IPersonalizaEmpresa;
 
   procedure WaitAMomentFree;
   procedure WaitAMoment(const aTag : Integer = -1; const aMensabem : String = '');
@@ -67,6 +71,9 @@ var
 implementation
 
 {$R *.dfm}
+
+uses
+  Controller.Factory;
 
 procedure WaitAMomentFree;
 begin
@@ -111,8 +118,10 @@ procedure SplashFree;
 begin
   try
     try
-      if ( frmSplash <> nil ) then
-        frmSplash.Close;
+//      if ( frmSplash <> nil ) then
+//        frmSplash.Close;
+      if (FrmAbertura <> nil) then
+        FrmAbertura.Close;
     except
     end
   finally
@@ -123,10 +132,17 @@ procedure SplashShow(const Aonwer : TComponent);
 begin
   try
     try
-      if (frmSplash = nil) then
+//      if (frmSplash = nil) then
+//      begin
+//        frmSplash := TfrmSplash.Create(Aonwer);
+//        frmSplash.Show;
+//
+//        Sleep(500);
+//      end;
+      if (FrmAbertura = nil) then
       begin
-        frmSplash := TfrmSplash.Create(Aonwer);
-        frmSplash.Show;
+        FrmAbertura := TFrmAbertura.Create(Aonwer);
+        FrmAbertura.Show;
 
         Sleep(500);
       end;
@@ -134,7 +150,8 @@ begin
     end
   finally
     try
-      frmSplash.Update;
+//      frmSplash.Update;
+      FrmAbertura.Update;
     except
     end
   end
@@ -144,8 +161,10 @@ procedure SplashMessage(pMessage : String);
 begin
   try
     try
-      if (frmSplash <> nil) then
-          frmSplash.lblCarregando.Caption := Trim(pMessage);
+//      if (frmSplash <> nil) then
+//          frmSplash.lblCarregando.Caption := Trim(pMessage);
+      if (FrmAbertura <> nil) then
+          FrmAbertura.SetMensagem( Trim(pMessage) );
     except
     end
   finally
@@ -194,6 +213,7 @@ begin
 end;
 
 initialization
-  gPersonalizaEmpresa := TPersonalizaEmpresa.GetInstance;
+  //gPersonalizaEmpresa := TPersonalizaEmpresa.GetInstance;
+  gPersonalizaEmpresa := TFactoryController.getInstance().getPersonalizaEmpresa();
 
 end.

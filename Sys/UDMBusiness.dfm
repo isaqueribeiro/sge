@@ -65,6 +65,8 @@ object DMBusiness: TDMBusiness
     CenterWindow = False
     PrintScaling = False
     PdfA = False
+    PDFStandard = psNone
+    PDFVersion = pv17
     Left = 40
     Top = 168
   end
@@ -121,7 +123,7 @@ object DMBusiness: TDMBusiness
     Top = 504
   end
   object fastReport: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -154,6 +156,7 @@ object DMBusiness: TDMBusiness
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
     end
   end
   object ACBrValidador: TACBrValidador

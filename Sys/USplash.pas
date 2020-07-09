@@ -46,7 +46,7 @@ implementation
 {$R *.dfm}
 
 uses
-  UFuncoes, UPersonalizaEmpresa;
+  UFuncoes, Interacao.PersonalizaEmpresa, Controller.Factory;
 
 procedure TfrmSplash.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -57,11 +57,13 @@ end;
 
 procedure TfrmSplash.FormCreate(Sender: TObject);
 var
-  aPersonalize : TPersonalizaEmpresa;
+  aPersonalize : IPersonalizaEmpresa;
 begin
   inherited;
-  lblProductName.Caption     := StringReplace(GetInternalName, '_', ' ', [rfReplaceAll]);
-  lblFileDescription.Caption := GetFileDescription;
+  aPersonalize := TFactoryController.getInstance().getPersonalizaEmpresa();
+
+  lblProductName.Caption     := StringReplace(aPersonalize.InternalName, '_', ' ', [rfReplaceAll]);
+  lblFileDescription.Caption := aPersonalize.FileDescription;
   lblVersion.Caption         := 'Versão ' + GetExeVersion;
   lblCopyright.Caption       := GetCopyright;
   lblManifestoAgil.Caption   := MANIFESTO_AGIL;
@@ -69,7 +71,8 @@ begin
   gifCarregando.Animate := True;
 
   // Carregar Logotipo da Empresa
-  aPersonalize := TPersonalizaEmpresa.GetInstance;
+  //aPersonalize := TPersonalizaEmpresa.GetInstance;
+  aPersonalize := TFactoryController.getInstance().getPersonalizaEmpresa();
   if FileExists(aPersonalize.FileNameImagePNG_Company) then
   begin
     img_company.AutoSize := False;

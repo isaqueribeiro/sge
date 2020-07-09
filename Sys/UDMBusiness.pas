@@ -5258,7 +5258,7 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
       with RegistroSistema do
       begin
         RootKey := HKEY_CURRENT_USER;
-        OpenKey(SYS_PATH_REGISTER + GetInternalName, True);
+        OpenKey(SYS_PATH_REGISTER + gPersonalizaEmpresa.InternalName, True);
 
         WriteString(KEY_REG_VERSAO, GetExeVersion);
         WriteString(KEY_REG_DATA,   DateToStr(Date));
