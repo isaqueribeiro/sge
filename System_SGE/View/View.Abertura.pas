@@ -28,12 +28,12 @@ implementation
 {$R *.dfm}
 
 uses
-  UInfoVersao, UFuncoes, UDMBusiness;
+  UFuncoes, UDMBusiness, Interacao.Versao, Controller.Versao, Controller.Licenca;
 
 procedure ShowAbout(const AOwer : TComponent);
 var
   sCNPJ : String;
-  ver : TInfoVersao;
+  ver : IVersao;
   frm : TFrmAbertura;
 begin
   frm := TFrmAbertura.Create(AOwer);
@@ -41,19 +41,19 @@ begin
   try
     frm.lblPropriedade.Caption := EmptyStr;
 
-    ver := TInfoVersao.GetInstance;
+    ver := TVersaoController.GetInstance();
 
-    if ( StrIsCNPJ(gLicencaSistema.CNPJ) ) then
-      sCNPJ := StrFormatarCnpj(gLicencaSistema.CNPJ)
+    if ( StrIsCNPJ(TLicencaController.GetInstance().CNPJ) ) then
+      sCNPJ := StrFormatarCnpj(TLicencaController.GetInstance().CNPJ)
     else
-      sCNPJ := StrFormatarCpf(gLicencaSistema.CNPJ);
+      sCNPJ := StrFormatarCpf(TLicencaController.GetInstance().CNPJ);
 
     frm.lblPropriedade.Caption :=
       'Propriedade intelectual de ' + ver.getPropertyValue(ivOWNER) + ', ' +
-      'com licença de uso para ' + gLicencaSistema.Empresa    + ', com CPF/CNPJ.: '  + sCNPJ + '.' + #13 +
+      'com licença de uso para ' + TLicencaController.GetInstance().Empresa    + ', com CPF/CNPJ.: '  + sCNPJ + '.' + #13 +
       'Atualizada em ' + ver.getPropertyValue(ivRELEASE_DATE) + ', ' +
-      'tendo como competência limite ' + IntToStr(gLicencaSistema.Competencia) +
-      ' (' + DateToStr(gLicencaSistema.DataBloqueio) + ').';
+      'tendo como competência limite ' + IntToStr(TLicencaController.GetInstance().Competencia) +
+      ' (' + DateToStr(TLicencaController.GetInstance().DataBloqueio) + ').';
 
     frm.lblPropriedade.Visible := True;
     frm.lblPropriedade.BringToFront;

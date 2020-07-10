@@ -78,7 +78,7 @@ object FrmPadraoAbertura: TFrmPadraoAbertura
     Height = 108
     Caption = 'SGO'
     Font.Charset = ANSI_CHARSET
-    Font.Color = clWhite
+    Font.Color = 937000
     Font.Height = -96
     Font.Name = 'Bauhaus 93'
     Font.Style = [fsBold]

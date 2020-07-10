@@ -9,6 +9,7 @@ uses
 type
   TFrmLogin = class(TFrmPadraoLogin)
     imgLogo: TImage;
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -21,5 +22,13 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TFrmLogin.FormCreate(Sender: TObject);
+begin
+  inherited;
+  imgLogo.BringToFront;
+  // Inverter cor
+  //lblSystemName.Font.Color := RGB(255 - GetRValue(Self.Color), 255 - GetGValue(Self.Color), 255 - GetBValue(Self.Color));
+end;
 
 end.

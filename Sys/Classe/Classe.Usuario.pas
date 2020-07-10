@@ -4,11 +4,13 @@ interface
 
 Uses
   System.SysUtils,
-  Classe.Pessoa, Classe.PessoaFisica, Classe.PessoaJuridica, Classe.Funcao,
-  Interacao.Pessoa, Interacao.Usuario, Interacao.Funcao;
+  Classe.Pessoa, Classe.PessoaFisica, Classe.Empresa, Classe.Funcao,
+  Interacao.Pessoa, Interacao.Usuario, Interacao.Funcao, Interacao.Empresa;
 
 type
   TUsuario = class(TPessoa, IUsuarioModel)
+    strict private
+      class var _instance : IUsuarioModel;
     private
       FLogin  ,
       FSenha  : String;
@@ -16,7 +18,7 @@ type
       FLogado ,
       FAlterarValorVenda : Boolean;
       FVendedor : IPessoaFisicaModel;
-      FEmpresa  : IPessoaJuridicaModel;
+      FEmpresa  : IEmpresaModel;
 
       function Login(const Value: String) : IUsuarioModel; overload;
       function Login : String; overload;
@@ -29,8 +31,8 @@ type
       function Funcao : IFuncao; overload;
 
       function Empresa(const aCNPJ: String) : IUsuarioModel; overload;
-      function Empresa(const Value: IPessoaJuridicaModel)  : IUsuarioModel; overload;
-      function Empresa : IPessoaJuridicaModel; overload;
+      function Empresa(const Value: IEmpresaModel)  : IUsuarioModel; overload;
+      function Empresa : IEmpresaModel; overload;
 
       function Vendedor(const aCodigo: Integer) : IUsuarioModel; overload;
       function Vendedor(const Value: IPessoaFisicaModel) : IUsuarioModel; overload;
@@ -74,7 +76,7 @@ begin
 
   FFuncao   := TFuncao.New;
   FVendedor := TPessoaFisica.New;
-  FEmpresa  := TPessoaJuridica.New;
+  FEmpresa  := TEmpresa.New;
 end;
 
 destructor TUsuario.Destroy;
@@ -82,12 +84,12 @@ begin
   inherited;
 end;
 
-function TUsuario.Empresa: IPessoaJuridicaModel;
+function TUsuario.Empresa: IEmpresaModel;
 begin
   Result := FEmpresa;
 end;
 
-function TUsuario.Empresa(const Value: IPessoaJuridicaModel): IUsuarioModel;
+function TUsuario.Empresa(const Value: IEmpresaModel): IUsuarioModel;
 begin
   Result   := Self;
   FEmpresa := Value;
@@ -132,7 +134,11 @@ end;
 
 class function TUsuario.New: IUsuarioModel;
 begin
-  Result := Self.Create;
+  //Result := Self.Create;
+  if not Assigned(_instance) then
+    _instance := Self.Create;
+
+  Result := _instance;
 end;
 
 function TUsuario.Login(const Value: String): IUsuarioModel;
@@ -150,7 +156,7 @@ begin
     raise Exception.Create('Senha não informada');
 
   Result := Self;
-  FLogin := Value.Trim();
+  FSenha := Value.Trim();
 end;
 
 function TUsuario.Senha: String;

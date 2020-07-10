@@ -94,7 +94,7 @@ begin
       with FrmAutoUpgrade do
       begin
         BaixarInfo;
-        if GetExeVersionID < ObterIdVersaoHTTP(ObterVersaoHTTP) then
+        if gVersaoApp.VersionID < ObterIdVersaoHTTP(ObterVersaoHTTP) then
           if ShowConfirmation(Caption, ObterMessageHTTP + #13#13 + 'Deseja atualizar agora o sistema?') then
             BaixarAtualizacao;
       end;
@@ -229,7 +229,7 @@ end;
 procedure TFrmAutoUpgrade.btnVerificarUpgradeClick(Sender: TObject);
 begin
   BaixarInfo;
-  if GetExeVersionID >= ObterIdVersaoHTTP(ObterVersaoHTTP) then
+  if gVersaoApp.VersionID >= ObterIdVersaoHTTP(ObterVersaoHTTP) then
   begin
     lblProgresso.Caption := 'Nenhuma versão nova disponível!';
     ShowInformation(Self.Caption, 'Nenhuma versão nova disponível!' + #13 + 'Você está com a versão mais atual do sistema.');

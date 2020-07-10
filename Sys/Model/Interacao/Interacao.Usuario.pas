@@ -3,7 +3,7 @@ unit Interacao.Usuario;
 interface
 
 uses
-  Interacao.Conexao, Interacao.Pessoa, Interacao.Funcao;
+  FireDAC.Comp.Client, Interacao.Pessoa, Interacao.Empresa, Interacao.Funcao;
 
 type
   IUsuarioModel = interface(IPessoaModel)
@@ -19,8 +19,8 @@ type
     function Funcao : IFuncao; overload;
 
     function Empresa(const aCNPJ: String) : IUsuarioModel; overload;
-    function Empresa(const Value: IPessoaJuridicaModel)  : IUsuarioModel; overload;
-    function Empresa : IPessoaJuridicaModel; overload;
+    function Empresa(const Value: IEmpresaModel)  : IUsuarioModel; overload;
+    function Empresa : IEmpresaModel; overload; // IEmpresaModel
 
     function Vendedor(const aCodigo: Integer) : IUsuarioModel; overload;
     function Vendedor(const Value: IPessoaFisicaModel) : IUsuarioModel; overload;
@@ -35,12 +35,12 @@ type
 
   IUsuario = interface
     ['{78704687-CA14-4235-A460-8373A947E15A}']
-    function Conexao(const Value : IConexao) : IUsuario;
-    function Load(aLogin : String) : IUsuario; overload;
+    function Load(aConn : TFDConnection; aLogin : String) : IUsuario; overload;
 
     function Autenticar : Boolean; overload;
-    function Autenticar(aLogin, aSenha, aEmpresa : String) : Boolean; overload;
-    function Autenticar(aUsuario : IUsuarioModel) : Boolean; overload;
+    function Autenticar(aConn : TFDConnection; aLogin, aSenha, aEmpresa : String) : Boolean; overload;
+    function Autenticar(aConn : TFDConnection; aLogin, aSenha : String; aEmpresa : TObject) : Boolean; overload;
+    function Autenticar(aConn : TFDConnection; aUsuario : IUsuarioModel) : Boolean; overload;
 
     function getLogin() : String;
   end;

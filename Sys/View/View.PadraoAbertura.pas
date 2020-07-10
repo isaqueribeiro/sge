@@ -379,7 +379,7 @@ begin
   begin
     FVersao      := getVersaoController();
     FPersonaliza := getPersonalizaEmpresa().SetVersao(FVersao);
-    FLicenca     := getLicenca().Carregar;
+    FLicenca     := getLicenca();
   end;
 
   lblVersion.Caption := Format('Licenciado para %s - Version %s - Release %s'
@@ -392,6 +392,7 @@ end;
 procedure TFrmPadraoAbertura.SetMensagem(aInfo: String);
 begin
   ;
+  LoadInformation;
 end;
 
 end.

@@ -7,6 +7,8 @@ uses
 
 type
   TLicenca = class(TInterfacedObject, ILicencaModel)
+    strict private
+      class var _instance : ILicencaModel;
     private
       FEmpresa  : String;
       FNomeFantasia : String;
@@ -254,7 +256,11 @@ end;
 
 class function TLicenca.New: ILicencaModel;
 begin
-  Result := Self.Create;
+  //Result := Self.Create;
+  if not Assigned(_instance) then
+    _instance := Self.Create;
+
+  Result := _instance;
 end;
 
 end.

@@ -3,7 +3,7 @@ unit View.PadraoLogin;
 interface
 
 uses
-  Interacao.Factory, Interacao.Conexao, Interacao.Usuario, Interacao.Empresa,
+  Interacao.Factory, Interacao.Usuario, Interacao.Empresa,
   View.PadraoAbertura,
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
@@ -31,13 +31,12 @@ type
     procedure btnEntrarClick(Sender: TObject);
   private
     { Private declarations }
-    FConexao   : IConexao;
-    shpUsuario : TShape;
     FController: IUsuario;
     FEmpresa   : IEmpresa;
+    shpUsuario : TShape;
     procedure Destacar(const aDestaque : Boolean);
     procedure SetController(const Value: IUsuario);
-    procedure CarregarEmpresa;
+    procedure CarregarEmpresa; virtual;
 
     function Autenticar : Boolean; virtual;
   public
@@ -53,7 +52,7 @@ implementation
 {$R *.dfm}
 
 Uses
-  Controller.Factory;
+  Controller.Factory, UDMBusiness;
 
 function TFrmPadraoLogin.Autenticar: Boolean;
 var
@@ -62,18 +61,21 @@ begin
   aRetorno := False;
 
   try
-    try
-      aRetorno := FController
-        .Conexao(FConexao)
-        .Load(edtUsuario.Text)
-        .Autenticar(edtUsuario.getText(), edtSenha.getText(), cmbEmpresa.Text);
-    except
-      On E : Exception do
-      begin
-        Result := False;
-        ShowMessage(E.Message);
+    if (cmbEmpresa.ItemIndex > -1) then
+      try
+        aRetorno := FController
+          .Load(DMBusiness.fdConexao, edtUsuario.Text)
+          .Autenticar(nil
+            , edtUsuario.getText()
+            , edtSenha.getText()
+            , cmbEmpresa.Items.Objects[cmbEmpresa.ItemIndex]); // AQUI
+      except
+        On E : Exception do
+        begin
+          Result := False;
+          ShowMessage(E.Message);
+        end;
       end;
-    end;
   finally
     Result := aRetorno;
   end;
@@ -87,11 +89,8 @@ begin
 end;
 
 procedure TFrmPadraoLogin.CarregarEmpresa;
-//var
-//  aEmpresa : TObject;
 begin
-  cmbEmpresa.Clear;
-//  cmbEmpresa.Items.AddObject(aEmpresa.ToString, aEmpresa);
+  FEmpresa.ListarEmpresas(DMBusiness.fdConexao, cmbEmpresa.Items);
 end;
 
 procedure TFrmPadraoLogin.Destacar(const aDestaque: Boolean);
@@ -129,12 +128,8 @@ begin
 
   ReportMemoryLeaksOnShutdown := True; // Evitar vazamento de memória
 
-  FConexao    := TFactoryController.getInstance().getConexao();
   FController := TFactoryController.getInstance().getUsuarioController();
-  FController.Conexao(FConexao);
-
-  FEmpresa := TFactoryController.getInstance().getEmpresaController();
-  FEmpresa.Conexao(FConexao);
+  FEmpresa    := TFactoryController.getInstance().getEmpresaController();
 
   CarregarEmpresa;
 end;

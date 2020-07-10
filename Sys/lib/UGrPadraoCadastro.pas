@@ -4,10 +4,12 @@ interface
 
 uses
   UGrPadrao,
+  Interacao.Versao,
+  Controller.Versao,
 
   System.ImageList,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, DB, UInfoVersao, IBCustomDataSet, StdCtrls, Buttons, ExtCtrls, Grids,
+  Dialogs, DB, IBCustomDataSet, StdCtrls, Buttons, ExtCtrls, Grids,
   DBGrids, ComCtrls, ToolWin, Mask, DBCtrls, IBUpdateSQL, ImgList, TypInfo,
   DBClient, frxClass, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
   Menus, cxButtons,
@@ -102,7 +104,7 @@ type
     sSQL : TStringList;
     fControlFirst : TWinControl;
 
-    _ver : TInfoVersao;
+    _ver : IVersao;
     _frReport: TfrxReport;
     _SubTituloRelario : String;
     _Todos ,
@@ -123,7 +125,7 @@ type
     function ExecutarRefreshRecord : Boolean;
   public
     { Public declarations }
-    property ver : TInfoVersao read _ver;
+    property ver : IVersao read _ver;
     property DisplayFormatCodigo : String read fDisplayFormat write fDisplayFormat;
     property WhereAdditional : String read fWhereAdditional write SetWhereAdditional;
     property OcorreuErro : Boolean read fOcorreuErro;
@@ -200,7 +202,7 @@ begin
   inherited;
   fLiberarUso := DMBusiness.LiberarUsoLicenca(GetDateDB);
 
-  _ver := TInfoVersao.GetInstance;
+  _ver := TVersaoController.GetInstance();
 
   DisplayFormatCodigo := '00000';
   NomeTabela      := EmptyStr;

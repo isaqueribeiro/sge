@@ -12,10 +12,9 @@ type
       FNome   : String;
 
       function Codigo(Value : Integer) : IPessoaModel; overload;
-      function Codigo : Integer; overload;
-
       function Nome(Value : String) : IPessoaModel; overload;
     published
+      function Codigo : Integer; overload;
       function Nome : String; overload;
     public
       constructor Create;

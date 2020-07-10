@@ -15,6 +15,7 @@ type
       function Fantasia : String; overload;
       function CNPJ : String; overload;
     public
+      function Codigo(Value : Integer) : IPessoaJuridicaModel; overload;
       function RazaoSocial(Value : String) : IPessoaJuridicaModel; overload;
       function Fantasia(Value : String) : IPessoaJuridicaModel; overload;
       function CNPJ(Value : String) : IPessoaJuridicaModel; overload;
@@ -38,6 +39,12 @@ function TPessoaJuridica.CNPJ(Value: String): IPessoaJuridicaModel;
 begin
   Result := Self;
   FCNPJ  := Value.Trim();
+end;
+
+function TPessoaJuridica.Codigo(Value: Integer): IPessoaJuridicaModel;
+begin
+  Result := Self;
+  IPessoaModel(Self).Codigo(Value);
 end;
 
 constructor TPessoaJuridica.Create;

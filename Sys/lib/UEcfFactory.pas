@@ -3,7 +3,7 @@ unit UEcfFactory;
 interface
 
 Uses
-  Classes, UInfoVersao, UEcfAgil, UEcfWindowsPrinter{$IFDEF PDV}, UEcfBematechNaoFiscal{$ENDIF}, Printers;
+  Classes, UEcfAgil, UEcfWindowsPrinter{$IFDEF PDV}, UEcfBematechNaoFiscal{$ENDIF}, Printers;
 
   Type
     TFonteImpressao = record
@@ -65,17 +65,17 @@ Uses
 implementation
 
 uses
-  UEcfGenerico, SysUtils, Math;
+  UEcfGenerico, SysUtils, Math, Interacao.Versao, Controller.Versao;
 
 { TEcfFactory }
 
 constructor TEcfFactory.Create;
 var
-  ver : TInfoVersao;
+  ver : IVersao;
 begin
   inherited Create;
 
-  ver := TInfoVersao.GetInstance;
+  ver := TVersaoController.GetInstance();
 
   with aConfiguracao do
   begin

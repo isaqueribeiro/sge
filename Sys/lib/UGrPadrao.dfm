@@ -14,6 +14,7 @@ object frmGrPadrao: TfrmGrPadrao
   OldCreateOrder = False
   Position = poMainFormCenter
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96

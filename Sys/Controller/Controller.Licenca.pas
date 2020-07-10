@@ -3,7 +3,7 @@ unit Controller.Licenca;
 interface
 
 uses
-  System.SysUtils, Classe.Licenca, Interacao.Licenca, Interacao.Conexao;
+  System.SysUtils, Classe.Licenca, Interacao.Licenca;
 
 type
   TLicencaController = class(TInterfacedObject, ILicenca)
@@ -11,7 +11,6 @@ type
       class var _instance : ILicenca;
     private
       [weak]
-      FConexao : IConexao;
       FModel   : ILicencaModel;
       procedure GravarArquivo(aFileName : TFileName);
       procedure CarregarDados;
@@ -21,13 +20,19 @@ type
       constructor Create;
       destructor Destroy; override;
 
-      function Carregar(aConexao : IConexao) : ILicenca; overload;
       function Carregar(aFileName : TFileName) : ILicenca; overload;
       function Carregar : ILicenca; overload;
 
+      function Model : ILicencaModel;
       function Empresa : String;
       function NomeFantasia : String;
       function CNPJ : String;
+      function DataBloqueio : TDateTime;
+      function Competencia : Integer;
+      function UsarSGE : Boolean;
+      function UsarSGI : Boolean;
+      function UsarSGF : Boolean;
+      function UsarSGO : Boolean;
 
       class function GetInstance() : ILicenca;
   end;
@@ -42,13 +47,6 @@ begin
     _instance := Self.Create;
 
   Result := _instance;
-end;
-
-function TLicencaController.Carregar(aConexao: IConexao): ILicenca;
-begin
-  Result   := Self;
-  FConexao := aConexao;
-  Self.CarregarDados();
 end;
 
 function TLicencaController.Carregar: ILicenca;
@@ -67,6 +65,11 @@ begin
   Result := FModel.CNPJ;
 end;
 
+function TLicencaController.Competencia: Integer;
+begin
+  Result := FModel.Competencia;
+end;
+
 function TLicencaController.Carregar(aFileName: TFileName): ILicenca;
 begin
   Result := Self;
@@ -81,6 +84,11 @@ end;
 constructor TLicencaController.Create;
 begin
   FModel := TLicenca.New;
+end;
+
+function TLicencaController.DataBloqueio: TDateTime;
+begin
+  Result := FModel.DataBloqueio;
 end;
 
 destructor TLicencaController.Destroy;
@@ -103,9 +111,34 @@ begin
   Result := False;
 end;
 
+function TLicencaController.Model: ILicencaModel;
+begin
+  Result := FModel;
+end;
+
 function TLicencaController.NomeFantasia: String;
 begin
   Result := FModel.NomeFantasia;
+end;
+
+function TLicencaController.UsarSGE: Boolean;
+begin
+  Result := FModel.UsarSGE;
+end;
+
+function TLicencaController.UsarSGF: Boolean;
+begin
+  Result := FModel.UsarSGF;
+end;
+
+function TLicencaController.UsarSGI: Boolean;
+begin
+  Result := FModel.UsarSGI;
+end;
+
+function TLicencaController.UsarSGO: Boolean;
+begin
+  Result := FModel.UsarSGO;
 end;
 
 end.

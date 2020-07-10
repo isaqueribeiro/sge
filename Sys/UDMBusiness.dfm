@@ -1,6 +1,7 @@
 object DMBusiness: TDMBusiness
   OldCreateOrder = True
   OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
   Height = 648
   Width = 1043
   object ibdtbsBusiness: TIBDatabase

@@ -9,10 +9,10 @@ Uses
 type
   TEmpresa = class(TPessoaJuridica, IEmpresaModel)
     private
-      FCodigo : Integer;
-      function Codigo(Value : Integer) : IEmpresaModel; overload;
-    published
-      function Codigo : Integer; overload;
+//      FCodigo : Integer;
+//      function Codigo(Value : Integer) : IEmpresaModel; overload;
+//    published
+//      function Codigo : Integer; overload;
     public
       constructor Create;
       destructor Destroy; override;
@@ -31,21 +31,21 @@ begin
   Result := Self.Create;
 end;
 
-function TEmpresa.Codigo: Integer;
-begin
-  Result := FCodigo;
-end;
-
-function TEmpresa.Codigo(Value : Integer): IEmpresaModel;
-begin
-  Result  := Self;
-  FCodigo := Value;
-end;
-
+//function TEmpresa.Codigo: Integer;
+//begin
+//  Result := FCodigo;
+//end;
+//
+//function TEmpresa.Codigo(Value : Integer): IEmpresaModel;
+//begin
+//  Result  := Self;
+//  FCodigo := Value;
+//end;
+//
 constructor TEmpresa.Create;
 begin
   inherited;
-  FCodigo := 0;
+//  FCodigo := 0;
   Self.RazaoSocial('EMPRESA DE DEMONSTRAÇÃO')
     .Fantasia('DEMONSTRAÇÃO')
     .CNPJ('00.000.000/0000-00');

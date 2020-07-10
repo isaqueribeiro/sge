@@ -150,7 +150,7 @@ inherited FrmAbertura: TFrmAbertura
   object lblPropriedade: TLabel
     Left = 33
     Top = 232
-    Width = 535
+    Width = 568
     Height = 73
     AutoSize = False
     Caption = 
@@ -161,7 +161,7 @@ inherited FrmAbertura: TFrmAbertura
     Font.Color = 937000
     Font.Height = -13
     Font.Name = 'Tahoma'
-    Font.Style = []
+    Font.Style = [fsBold]
     ParentFont = False
     Transparent = True
     Visible = False

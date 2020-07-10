@@ -852,11 +852,11 @@ begin
   gSistema.Codigo := Self.Tag;
   gSistema.Nome   := Self.Caption;
 
-  Self.Caption             := Application.Title + ' [ v' + GetExeVersion + ' ]';
+  Self.Caption             := Application.Title + ' [ v' + gVersaoApp.Version + ' ]';
   Self.ProductName.Caption := gPersonalizaEmpresa.InternalName;
   Self.FileDescription.Caption := gPersonalizaEmpresa.FileDescription;
-  Self.Version.Caption     := 'Versão ' + GetExeVersion;
-  Self.Copyright.Caption   := GetCopyright;
+  Self.Version.Caption     := 'Versão ' + gVersaoApp.Version;
+  Self.Copyright.Caption   := gVersaoApp.Copyright;
   Self.DisableAero         := True;
 
   Ribbon.ActiveTab := RbnTabPrincipal;
@@ -883,7 +883,7 @@ begin
     Exit;
 
   FAcesso := False;
-  SetSistema(gSistema.Codigo, gSistema.Nome, GetVersion);
+  SetSistema(gSistema.Codigo, gSistema.Nome, gVersaoApp.Version);
   RegistrarRotinasMenu;
 end;
 

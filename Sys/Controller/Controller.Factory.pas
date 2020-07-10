@@ -3,7 +3,7 @@ unit Controller.Factory;
 interface
 
 uses
-  Interacao.Factory, Interacao.Conexao, Interacao.Versao, Interacao.PersonalizaEmpresa, Interacao.Licenca,
+  Interacao.Factory, Interacao.Versao, Interacao.PersonalizaEmpresa, Interacao.Licenca,
   Interacao.Usuario, Interacao.Empresa;
 
 type
@@ -12,12 +12,11 @@ type
       class var _instance : IFactory;
     private
     public
-      function getConexao : IConexao;
       function getVersaoController : IVersao;
       function getPersonalizaEmpresa : IPersonalizaEmpresa;
       function getLicenca : ILicenca;
-      function getUsuarioCOntroller : IUsuario;
-      function getEmpresaCOntroller : IEmpresa;
+      function getUsuarioController : IUsuario;
+      function getEmpresaController : IEmpresa;
 
       class function getInstance() : IFactory;
   end;
@@ -25,7 +24,7 @@ type
 implementation
 
 uses
-  Classe.Conexao, Controller.Versao, Controller.PersonalizaEmpresa, Controller.Licenca,
+  Controller.Versao, Controller.PersonalizaEmpresa, Controller.Licenca,
   Controller.Usuario, Controller.Empresa;
 
 { TFactoryController }
@@ -41,11 +40,6 @@ end;
 function TFactoryController.getEmpresaCOntroller: IEmpresa;
 begin
   Result := TEmpresaController.getInstance();
-end;
-
-function TFactoryController.getConexao : IConexao;
-begin
-  Result := TConexao.GetInstance();
 end;
 
 function TFactoryController.getPersonalizaEmpresa: IPersonalizaEmpresa;

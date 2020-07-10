@@ -21,6 +21,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure AnularBeepEnter(Sender: TObject; var Key: Char);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     fNomeTabela     ,
@@ -441,6 +442,11 @@ begin
   CampoCadastroAtivo := EmptyStr;
   NomeTabela     := EmptyStr;
   GeneratorName  := EmptyStr;
+end;
+
+procedure TfrmGrPadrao.FormDestroy(Sender: TObject);
+begin
+  FuncoesString.DisposeOf;
 end;
 
 procedure TfrmGrPadrao.FormKeyDown(Sender: TObject; var Key: Word;

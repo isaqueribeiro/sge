@@ -15,21 +15,21 @@ uses
 
   function GetHostNameLocal : String;
   function GetIPLocal : String;
-  function GetExeVersion(const FileName : TFileName) : String; overload;
-  function GetExeVersionID(const FileName : TFileName) : Currency; overload;
-  function GetExeVersionID : Currency; overload;
-  function GetExeVersion : String; overload;
-  function GetVersion   : String;
-  function GetVersionID : Currency;
-  function GetCopyright : String;
+  function GetExeVersion(const FileName : TFileName) : String;
+  function GetExeVersionID(const FileName : TFileName) : Currency;
+//  function GetExeVersionID : Currency; overload;
+//  function GetExeVersion : String; overload;
+//  function GetVersion   : String;
+//  function GetVersionID : Currency;
+//  function GetCopyright : String;
 //  function GetInternalName : String;
 //  function GetProductName : String;
-  function GetProductVersion : String;
-  function GetFileVersion : String;
+//  function GetProductVersion : String;
+//  function GetFileVersion : String;
 //  function GetFileDescription : String;
 //  function GetCompanyName : String;
 //  function GetContacts : String;
-  function GetReleaseDate : String;
+//  function GetReleaseDate : String;
   function GetConectedInternet : Boolean;
   function GetEmailValido(email : String; bShowMsg : Boolean) : Boolean;
 
@@ -52,7 +52,7 @@ uses
 implementation
 
 uses
-  UInfoVersao, UConstantesDGE;
+  UConstantesDGE;
 
 var
   vet_valido : Array [0..35] of String = (
@@ -165,98 +165,98 @@ begin
   Result := StrToCurrDef(sVersaoID, 0);
 end;
 
-function GetExeVersionID : Currency;
-var
-  I : Integer;
-  sVersao   ,
-  sVersaoID : String;
-  aVersao   : TArray<String>;
-  aRetorno  : Currency;
-begin
-  sVersao := GetExeVersion;
-
-  aVersao   := sVersao.Split(['.'], 4);
-  sVersaoID := EmptyStr;
-
-  for I := Low(aVersao) to High(aVersao) do
-    sVersaoID := sVersaoID + FormatFloat('00', StrToIntDef(aVersao[I], 0));
-
-  Result := StrToCurrDef(sVersaoID, 0);
-end;
-
-Function GetExeVersion : String;
-type
-   PFFI = ^vs_FixedFileInfo;
-var
-   F       : PFFI;
-   Handle  : Dword;
-   Len     : Longint;
-   Data    : Pchar;
-   Buffer  : Pointer;
-   Tamanho : Dword;
-   Parquivo: Pchar;
-   Arquivo : String;
-begin
-   Arquivo  := ParamStr(0);
-   Parquivo := StrAlloc(Length(Arquivo) + 1);
-   StrPcopy(Parquivo, Arquivo);
-   Len := GetFileVersionInfoSize(Parquivo, Handle);
-   Result := '';
-   if Len > 0 then
-   begin
-      Data:=StrAlloc(Len+1);
-      if GetFileVersionInfo(Parquivo,Handle,Len,Data) then
-      begin
-         VerQueryValue(Data, '',Buffer,Tamanho);
-         F := PFFI(Buffer);
-         Result := Format('%d.%d.%d.%d',
-                          [HiWord(F^.dwFileVersionMs),
-                           LoWord(F^.dwFileVersionMs),
-                           HiWord(F^.dwFileVersionLs),
-                           Loword(F^.dwFileVersionLs)]
-                         );
-      end;
-      StrDispose(Data);
-   end;
-   StrDispose(Parquivo);
-end;
-
-function GetVersion : String;
-begin
-  {$IFDEF DGE}
-  Result := VERSION_NUMBER;
-  {$ELSE}
-  Result := TInfoVersao.GetInstance().getPropertyValue(ivFILE_VERSION);
-  {$ENDIF}
-end;
-
-function GetVersionID : Currency;
-var
-  I : Integer;
-  sVersao   ,
-  sVersaoID : String;
-  aVersao   : TArray<String>;
-  aRetorno  : Currency;
-begin
-  {$IFDEF DGE}
-  sVersao := VERSION_NUMBER;
-  {$ELSE}
-  sVersao := TInfoVersao.GetInstance().getPropertyValue(ivFILE_VERSION);
-  {$ENDIF}
-
-  aVersao   := sVersao.Split(['.'], 4);
-  sVersaoID := EmptyStr;
-
-  for I := Low(aVersao) to High(aVersao) do
-    sVersaoID := sVersaoID + FormatFloat('00', StrToIntDef(aVersao[I], 0));
-
-  Result := StrToCurrDef(sVersaoID, 0);
-end;
-
-function GetCopyright : String;
-begin
-  Result := TInfoVersao.GetInstance().getPropertyValue(ivLEGAL_COPYRIGHT);
-end;
+//function GetExeVersionID : Currency;
+//var
+//  I : Integer;
+//  sVersao   ,
+//  sVersaoID : String;
+//  aVersao   : TArray<String>;
+//  aRetorno  : Currency;
+//begin
+//  sVersao := GetExeVersion;
+//
+//  aVersao   := sVersao.Split(['.'], 4);
+//  sVersaoID := EmptyStr;
+//
+//  for I := Low(aVersao) to High(aVersao) do
+//    sVersaoID := sVersaoID + FormatFloat('00', StrToIntDef(aVersao[I], 0));
+//
+//  Result := StrToCurrDef(sVersaoID, 0);
+//end;
+//
+//Function GetExeVersion : String;
+//type
+//   PFFI = ^vs_FixedFileInfo;
+//var
+//   F       : PFFI;
+//   Handle  : Dword;
+//   Len     : Longint;
+//   Data    : Pchar;
+//   Buffer  : Pointer;
+//   Tamanho : Dword;
+//   Parquivo: Pchar;
+//   Arquivo : String;
+//begin
+//   Arquivo  := ParamStr(0);
+//   Parquivo := StrAlloc(Length(Arquivo) + 1);
+//   StrPcopy(Parquivo, Arquivo);
+//   Len := GetFileVersionInfoSize(Parquivo, Handle);
+//   Result := '';
+//   if Len > 0 then
+//   begin
+//      Data:=StrAlloc(Len+1);
+//      if GetFileVersionInfo(Parquivo,Handle,Len,Data) then
+//      begin
+//         VerQueryValue(Data, '',Buffer,Tamanho);
+//         F := PFFI(Buffer);
+//         Result := Format('%d.%d.%d.%d',
+//                          [HiWord(F^.dwFileVersionMs),
+//                           LoWord(F^.dwFileVersionMs),
+//                           HiWord(F^.dwFileVersionLs),
+//                           Loword(F^.dwFileVersionLs)]
+//                         );
+//      end;
+//      StrDispose(Data);
+//   end;
+//   StrDispose(Parquivo);
+//end;
+//
+//function GetVersion : String;
+//begin
+//  {$IFDEF DGE}
+//  Result := VERSION_NUMBER;
+//  {$ELSE}
+//  Result := TInfoVersao.GetInstance().getPropertyValue(ivFILE_VERSION);
+//  {$ENDIF}
+//end;
+//
+//function GetVersionID : Currency;
+//var
+//  I : Integer;
+//  sVersao   ,
+//  sVersaoID : String;
+//  aVersao   : TArray<String>;
+//  aRetorno  : Currency;
+//begin
+//  {$IFDEF DGE}
+//  sVersao := VERSION_NUMBER;
+//  {$ELSE}
+//  sVersao := TInfoVersao.GetInstance().getPropertyValue(ivFILE_VERSION);
+//  {$ENDIF}
+//
+//  aVersao   := sVersao.Split(['.'], 4);
+//  sVersaoID := EmptyStr;
+//
+//  for I := Low(aVersao) to High(aVersao) do
+//    sVersaoID := sVersaoID + FormatFloat('00', StrToIntDef(aVersao[I], 0));
+//
+//  Result := StrToCurrDef(sVersaoID, 0);
+//end;
+//
+//function GetCopyright : String;
+//begin
+//  Result := TInfoVersao.GetInstance().getPropertyValue(ivLEGAL_COPYRIGHT);
+//end;
 
 //function GetInternalName : String;
 //begin
@@ -271,17 +271,17 @@ end;
 //  //Result := TPersonalizaEmpresa.GetInstance().ProductName;
 //  Result := TFactoryController.getInstance().getPersonalizaEmpresa.ProductName;
 //end;
-
-function GetProductVersion : String;
-begin
-  Result := TInfoVersao.GetInstance().getPropertyValue(ivPRODUCT_VERSION);
-end;
-
-function GetFileVersion : String;
-begin
-  Result := TInfoVersao.GetInstance().getPropertyValue(ivFILE_VERSION);
-end;
-
+//
+//function GetProductVersion : String;
+//begin
+//  Result := TInfoVersao.GetInstance().getPropertyValue(ivPRODUCT_VERSION);
+//end;
+//
+//function GetFileVersion : String;
+//begin
+//  Result := TInfoVersao.GetInstance().getPropertyValue(ivFILE_VERSION);
+//end;
+//
 //function GetFileDescription : String;
 //begin
 //  //Result := TInfoVersao.GetInstance().getPropertyValue(ivFILE_DESCRIPTION);
@@ -302,11 +302,11 @@ end;
 //  //Result := TPersonalizaEmpresa.GetInstance().Contacts;
 //  Result := TFactoryController.getInstance().getPersonalizaEmpresa.Contacts;
 //end;
-
-function GetReleaseDate : String;
-begin
-  Result := TInfoVersao.GetInstance().getPropertyValue(ivRELEASE_DATE);
-end;
+//
+//function GetReleaseDate : String;
+//begin
+//  Result := TInfoVersao.GetInstance().getPropertyValue(ivRELEASE_DATE);
+//end;
 
 function GetConectedInternet : Boolean;
 var

@@ -3,9 +3,10 @@ unit UDMNFe;
 interface
 
 uses
-  UInfoVersao,
   Variants,
   UDMBusiness,
+  Interacao.Versao,
+  Controller.Versao,
   Vcl.Imaging.PngImage,
 
   UGeConfigurarNFeACBr,
@@ -252,7 +253,7 @@ type
       var Value: Variant);
   private
     { Private declarations }
-    ver : TInfoVersao;
+    ver : IVersao;
 
     frmACBr : TfrmGeConfigurarNFeACBr;
     fr3Designer: TfrxDesigner;
@@ -773,7 +774,7 @@ begin
   if not DataBaseOnLine then
     Exit;
 
-  ver := TInfoVersao.GetInstance();
+  ver := TVersaoController.GetInstance();
   
   AbrirEmitente( GetEmpresaIDDefault );
   ConfigACBr := TfrmGeConfigurarNFeACBr.Create(Application);
@@ -1232,7 +1233,7 @@ begin
       SH_IM   := qryEmitenteIM.AsString;
       SH_RazaoSocial      := edtEmitRazao.Text;
       SH_NomeAplicativo   := gPersonalizaEmpresa.ProductName;
-      SH_VersaoAplicativo := GetVersion;
+      SH_VersaoAplicativo := TVersaoController.GetInstance().Version;
     end;
 
     with ACBrAAC, IdentPAF, ConfigACBr do
@@ -4054,8 +4055,8 @@ begin
         sMSG.Add( sAssinaturaTxt );
         sMSG.Add('--');
         sMSG.Add('FAVOR NÃO RESPONDER ESTE E-MAIL.');
-        sMSG.Add('Composição automática de e-mail executada pelo sistema ' + gPersonalizaEmpresa.ProductName + ' (Versão ' + GetVersion +
-          '), desenvolvido pela empresa ' + gPersonalizaEmpresa.CompanyName + '.' + #13#13 + GetCopyright);
+        sMSG.Add('Composição automática de e-mail executada pelo sistema ' + gPersonalizaEmpresa.ProductName + ' (Versão ' + TVersaoController.GetInstance().Version +
+          '), desenvolvido pela empresa ' + gPersonalizaEmpresa.CompanyName + '.' + #13#13 + TVersaoController.GetInstance().Copyright);
 
         if FileExists( sArquivoBoleto ) then
           sANX.Add( sArquivoBoleto );
@@ -6039,8 +6040,8 @@ begin
         sMSG.Add( sAssinaturaTxt );
         sMSG.Add('--');
         sMSG.Add('FAVOR NÃO RESPONDER ESTE E-MAIL.');
-        sMSG.Add('Composição automática de e-mail executada pelo sistema ' + gPersonalizaEmpresa.ProductName + ' (Versão ' + GetVersion +
-          '), desenvolvido pela empresa ' + gPersonalizaEmpresa.CompanyName + '.' + #13#13 + GetCopyright);
+        sMSG.Add('Composição automática de e-mail executada pelo sistema ' + gPersonalizaEmpresa.ProductName + ' (Versão ' + TVersaoController.GetInstance().Version +
+          '), desenvolvido pela empresa ' + gPersonalizaEmpresa.CompanyName + '.' + #13#13 + TVersaoController.GetInstance().Copyright);
 
         if FileExists( sArquivo ) then
           sANX.Add( sArquivo );
@@ -6459,7 +6460,7 @@ begin
     begin
       Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
       Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
-      Ecf.Versao    := GetProductVersion;
+      Ecf.Versao    := TVersaoController.GetInstance().ProductVersion;
 
       Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString);
 
@@ -8411,7 +8412,7 @@ begin
     begin
       Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
       Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
-      Ecf.Versao    := GetProductVersion;
+      Ecf.Versao    := TVersaoController.GetInstance().ProductVersion;
 
       Ecf.Identifica_Cupom(Now
         , FormatFloat('###0000000', iNumCaixa)

@@ -3,14 +3,16 @@ unit UDMRecursos;
 interface
 
 uses
+  Interacao.Versao,
   Interacao.PersonalizaEmpresa,
+  Interacao.Licenca,
 
   {$IFNDEF PRINTER_CUPOM}
-  //USplash,
   View.Abertura,
+  View.Login,
   {$ENDIF}
+
   UGrAguarde,
-  //UPersonalizaEmpresa,
   UConstantesDGE,
   UBaseObject,
   Winapi.Windows,
@@ -54,8 +56,9 @@ type
 
 var
   DMRecursos: TDMRecursos;
-  //gPersonalizaEmpresa : TPersonalizaEmpresa;
+  gVersaoApp : IVersao;
   gPersonalizaEmpresa : IPersonalizaEmpresa;
+  gLicencaSistema : ILicenca;
 
   procedure WaitAMomentFree;
   procedure WaitAMoment(const aTag : Integer = -1; const aMensabem : String = '');
@@ -65,6 +68,8 @@ var
   procedure SplashFree;
   procedure SplashShow(const Aonwer : TComponent);
   procedure SplashMessage(pMessage : String);
+
+  function ExecutarLogin() : Boolean;
   {$ENDIF}
   procedure ExcluirArquivosAlertaSistema;
 
@@ -118,8 +123,6 @@ procedure SplashFree;
 begin
   try
     try
-//      if ( frmSplash <> nil ) then
-//        frmSplash.Close;
       if (FrmAbertura <> nil) then
         FrmAbertura.Close;
     except
@@ -132,13 +135,6 @@ procedure SplashShow(const Aonwer : TComponent);
 begin
   try
     try
-//      if (frmSplash = nil) then
-//      begin
-//        frmSplash := TfrmSplash.Create(Aonwer);
-//        frmSplash.Show;
-//
-//        Sleep(500);
-//      end;
       if (FrmAbertura = nil) then
       begin
         FrmAbertura := TFrmAbertura.Create(Aonwer);
@@ -150,7 +146,6 @@ begin
     end
   finally
     try
-//      frmSplash.Update;
       FrmAbertura.Update;
     except
     end
@@ -161,8 +156,6 @@ procedure SplashMessage(pMessage : String);
 begin
   try
     try
-//      if (frmSplash <> nil) then
-//          frmSplash.lblCarregando.Caption := Trim(pMessage);
       if (FrmAbertura <> nil) then
           FrmAbertura.SetMensagem( Trim(pMessage) );
     except
@@ -170,6 +163,20 @@ begin
   finally
   end
 end;
+
+function ExecutarLogin() : Boolean;
+var
+  aRetorno : Boolean;
+begin
+  aRetorno := False;
+  try
+    FrmLogin := TFrmLogin.Create(Application);
+    aRetorno := (FrmLogin.ShowModal = mrOK);
+  finally
+    Result := aRetorno;
+  end;
+end;
+
 {$ENDIF}
 
 procedure ExcluirArquivosAlertaSistema;
@@ -213,7 +220,8 @@ begin
 end;
 
 initialization
-  //gPersonalizaEmpresa := TPersonalizaEmpresa.GetInstance;
+  gVersaoApp := TFactoryController.getInstance().getVersaoController();
   gPersonalizaEmpresa := TFactoryController.getInstance().getPersonalizaEmpresa();
+  gLicencaSistema := TFactoryController.getInstance().getLicenca();
 
 end.

@@ -132,7 +132,7 @@ begin
 
   lblSystemName.Caption        := StringReplace(gPersonalizaEmpresa.InternalName, '_', ' ', [rfReplaceAll]);
   lblSystemDescription.Caption := gPersonalizaEmpresa.FileDescription;
-  lblSystemVersion.Caption     := 'Versão ' + GetExeVersion;
+  lblSystemVersion.Caption     := 'Versão ' + gVersaoApp.Version;
 
   if DataBaseOnLine then
     CarregarEmpresa;

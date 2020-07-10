@@ -3,8 +3,9 @@ unit UGeInventario;
 interface
 
 uses
-  UInfoVersao,
-  UGrPadrao, 
+  UGrPadrao,
+  Interacao.Versao,
+  Controller.Versao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, cxGraphics,
   cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, cxGroupBox, StdCtrls, Mask, DBCtrls,
@@ -21,7 +22,7 @@ uses
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
   dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
   dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light, dxSkinscxPCPainter;
+  dxSkinVisualStudio2013Light, dxSkinscxPCPainter, dxDateRanges, cxDataControllerConditionalFormattingRulesManagerDialog;
 
 type
   TfrmGeInventario = class(TfrmGrPadrao)
@@ -208,7 +209,7 @@ type
     procedure qryInventarioCENTRO_CUSTO_DESCGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
-    ver : TInfoVersao;
+    ver : IVersao;
     procedure CarregarDataSet(const aDataSet : TFDQuery);
     procedure CarregarInventario(Empresa : String; Ano, Codigo : Integer);
     procedure CarregarDadosProduto( Codigo : Integer );
@@ -280,7 +281,7 @@ procedure TfrmGeInventario.FormCreate(Sender: TObject);
 begin
   inherited;
 
-  ver := TInfoVersao.GetInstance();
+  ver := TVersaoController.GetInstance();
 
   RotinaID          := ROTINA_MOV_INVENTARIO_ESTOQU_ID;
   PnlTitulo.Caption := StringofChar(' ', 8)+ AnsiUpperCase(Self.Caption);

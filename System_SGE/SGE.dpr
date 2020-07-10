@@ -60,7 +60,6 @@ uses
   UGeCaixa in '..\Sys\UGeCaixa.pas' {frmGeCaixa},
   UGeFluxoCaixa in '..\Sys\UGeFluxoCaixa.pas' {frmGeFluxoCaixa},
   UFuncoes in '..\Sys\lib\UFuncoes.pas',
-  UInfoVersao in '..\Sys\lib\UInfoVersao.pas',
   UGeFabricante in '..\Sys\UGeFabricante.pas' {frmGeFabricante},
   FormFactoryU in '..\Sys\lib\FormFactoryU.pas',
   FuncoesFormulario in '..\Sys\lib\FuncoesFormulario.pas',
@@ -145,7 +144,6 @@ uses
   UGeContasAPagarAReceberImpressao in 'UGeContasAPagarAReceberImpressao.pas' {frmGeContasAPagarAReceberImpressao},
   View.PadraoAbertura in '..\Sys\View\View.PadraoAbertura.pas' {FrmPadraoAbertura},
   View.Abertura in 'View\View.Abertura.pas' {FrmAbertura},
-  Interacao.Conexao in '..\Sys\Model\Interacao\Interacao.Conexao.pas',
   Interacao.Empresa in '..\Sys\Model\Interacao\Interacao.Empresa.pas',
   Interacao.Factory in '..\Sys\Model\Interacao\Interacao.Factory.pas',
   Interacao.Funcao in '..\Sys\Model\Interacao\Interacao.Funcao.pas',
@@ -160,7 +158,6 @@ uses
   Controller.PersonalizaEmpresa in '..\Sys\Controller\Controller.PersonalizaEmpresa.pas',
   Controller.Usuario in '..\Sys\Controller\Controller.Usuario.pas',
   Controller.Versao in '..\Sys\Controller\Controller.Versao.pas',
-  Classe.Conexao in '..\Sys\Classe\Classe.Conexao.pas',
   Classe.Empresa in '..\Sys\Classe\Classe.Empresa.pas',
   Classe.Funcao in '..\Sys\Classe\Classe.Funcao.pas',
   Classe.Licenca in '..\Sys\Classe\Classe.Licenca.pas',
@@ -184,8 +181,10 @@ begin
   Application.CreateForm(TDMRecursos, DMRecursos);
   Application.CreateForm(TDMBusiness, DMBusiness);
   Application.CreateForm(TDMNFe, DMNFe);
-  Application.CreateForm(TfrmPrinc, frmPrinc);
-  Application.CreateForm(TfrmPesq, frmPesq);
-  Application.CreateForm(TFrmPadraoLogin, FrmPadraoLogin);
+  SplashFree;
+
+  if ExecutarLogin() then
+    Application.CreateForm(TfrmPrinc, frmPrinc);
+
   Application.Run;
 end.

@@ -97,7 +97,7 @@
         <EnabledSysJars>android-support-v4.dex.jar;cloud-messaging.dex.jar;com-google-android-gms.play-services-ads-base.17.2.0.dex.jar;com-google-android-gms.play-services-ads-identifier.16.0.0.dex.jar;com-google-android-gms.play-services-ads-lite.17.2.0.dex.jar;com-google-android-gms.play-services-ads.17.2.0.dex.jar;com-google-android-gms.play-services-analytics-impl.16.0.8.dex.jar;com-google-android-gms.play-services-analytics.16.0.8.dex.jar;com-google-android-gms.play-services-base.16.0.1.dex.jar;com-google-android-gms.play-services-basement.16.2.0.dex.jar;com-google-android-gms.play-services-gass.17.2.0.dex.jar;com-google-android-gms.play-services-identity.16.0.0.dex.jar;com-google-android-gms.play-services-maps.16.1.0.dex.jar;com-google-android-gms.play-services-measurement-base.16.4.0.dex.jar;com-google-android-gms.play-services-measurement-sdk-api.16.4.0.dex.jar;com-google-android-gms.play-services-stats.16.0.1.dex.jar;com-google-android-gms.play-services-tagmanager-v4-impl.16.0.8.dex.jar;com-google-android-gms.play-services-tasks.16.0.1.dex.jar;com-google-android-gms.play-services-wallet.16.0.1.dex.jar;com-google-firebase.firebase-analytics.16.4.0.dex.jar;com-google-firebase.firebase-common.16.1.0.dex.jar;com-google-firebase.firebase-iid-interop.16.0.1.dex.jar;com-google-firebase.firebase-iid.17.1.1.dex.jar;com-google-firebase.firebase-measurement-connector.17.0.1.dex.jar;com-google-firebase.firebase-messaging.17.5.0.dex.jar;fmx.dex.jar;google-play-billing.dex.jar;google-play-licensing.dex.jar</EnabledSysJars>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <BT_BuildType>Debug</BT_BuildType>
         <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.30.0;InternalName=SGE;LegalCopyright=Copyright 2013 - 2020 © Ágil Soluções em Softwares - ME
 Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.30;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=05/03/2020;Contacts=(91) 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
@@ -304,7 +304,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <Form>frmGeFluxoCaixa</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UFuncoes.pas"/>
-        <DCCReference Include="..\Sys\lib\UInfoVersao.pas"/>
         <DCCReference Include="..\Sys\UGeFabricante.pas">
             <Form>frmGeFabricante</Form>
         </DCCReference>
@@ -542,7 +541,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="View\View.Abertura.pas">
             <Form>FrmAbertura</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\Model\Interacao\Interacao.Conexao.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Empresa.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Factory.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Funcao.pas"/>
@@ -557,7 +555,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\Controller.PersonalizaEmpresa.pas"/>
         <DCCReference Include="..\Sys\Controller\Controller.Usuario.pas"/>
         <DCCReference Include="..\Sys\Controller\Controller.Versao.pas"/>
-        <DCCReference Include="..\Sys\Classe\Classe.Conexao.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.Empresa.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.Funcao.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.Licenca.pas"/>
@@ -591,9 +588,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                 <Source>
                     <Source Name="MainSource">SGE.dpr</Source>
                 </Source>
-                <Language>
-                    <Language Name="RootDir">C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\</Language>
-                </Language>
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k260.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp260.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>

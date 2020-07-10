@@ -131,6 +131,7 @@ type
     procedure fdScriptBeforeExecute(Sender: TObject);
     procedure fdScriptError(ASender: TObject; const AInitiator: IFDStanObject;
       var AException: Exception);
+    procedure DataModuleDestroy(Sender: TObject);
   private
     { Private declarations }
 
@@ -149,6 +150,7 @@ type
     _PermissaoPerfil_SYSTEM_ADM : TStringList;
     procedure MontarPermissao;
     procedure MontarPermissao_Diretoria;
+    procedure DestruirPermissao;
   public
     { Public declarations }
     procedure CarregarLicencaAuto;
@@ -170,7 +172,6 @@ var
   gSistema    : TSistema;
   gUsuarioLogado : TUsuarioLogado;
   gContaEmail : TContaEmail;
-  gLicencaSistema : TLicenca;
   RegistroSistema : TRegistry;
 
 
@@ -560,7 +561,7 @@ const
 implementation
 
 uses
-  UFuncoes, UGrMessage, UDMRecursos;
+  UFuncoes, UGrMessage, UDMRecursos, Controller.Factory;
 
 {$R *.dfm}
 
@@ -869,7 +870,7 @@ var
   aVersaoApp    : Currency;
 begin
   aVersaoBase    := GetVersionDB(gSistema.Codigo) + 1;
-  aVersaoApp     := GetVersionID;
+  aVersaoApp     := gVersaoApp.VersionID;
   aVersaoUpgrade := aVersaoBase;
   while (aVersaoUpgrade <= aVersaoApp) do
   begin
@@ -998,7 +999,7 @@ begin
   try
     sLOG_Error.BeginUpdate;
     sLOG_Error.Add('Aplicativo: ' + Application.Title);
-    sLOG_Error.Add('Versão    : ' + GetVersion);
+    sLOG_Error.Add('Versão    : ' + gVersaoApp.Version);
     sLOG_Error.Add('-');
     sLOG_Error.Add('ERRO:');
     sLOG_Error.Add(sMsg);
@@ -1026,7 +1027,7 @@ begin
     sLOG_Error.BeginUpdate;
     sLOG_Error.Add('Cliente   : ' + gLicencaSistema.Empresa);
     sLOG_Error.Add('Aplicativo: ' + Application.Title);
-    sLOG_Error.Add('Versão    : ' + GetVersion);
+    sLOG_Error.Add('Versão    : ' + gVersaoApp.Version);
     sLOG_Error.Add('-');
     sLOG_Error.Add('UnitName  : ' + Sender.UnitName);
     sLOG_Error.Add('ClassName : ' + E.ClassName);
@@ -1455,12 +1456,16 @@ begin
       Close;
       SQL.Clear;
       SQL.Add('Select');
-      SQL.Add('  e.codigo');
+      SQL.Add('    e.codigo');
+      SQL.Add('  , coalesce(nullif(trim(e.nmfant), ''''), e.rzsoc) as fantasia ');
       SQL.Add('from TBEMPRESA e');
       SQL.Add('where e.cnpj = ' + QuotedStr(StrOnlyNumbers(gLicencaSistema.CNPJ)));
       Open;
 
       bRegistrada := (FieldByName('codigo').AsInteger = 1);
+
+      if bRegistrada then
+        gLicencaSistema.Model.NomeFantasia( FieldByName('fantasia').AsString );
 
       Close;
 
@@ -1473,12 +1478,14 @@ begin
         SQL.Add('  , cnpj');
         SQL.Add('  , pessoa_fisica');
         SQL.Add('  , rzsoc');
+        SQL.Add('  , nmfant');
         SQL.Add('  , segmento');
         SQL.Add(') values (');
         SQL.Add('    1');
         SQL.Add('  , ' + QuotedStr(StrOnlyNumbers(gLicencaSistema.CNPJ)));
         SQL.Add('  , 0');
         SQL.Add('  , ' + QuotedStr(gLicencaSistema.Empresa));
+        SQL.Add('  , ' + QuotedStr(gLicencaSistema.NomeFantasia));
         SQL.Add('  , ' + IntToStr(SEGMENTO_PADRAO_ID));
         SQL.Add(')');
       end
@@ -5114,19 +5121,21 @@ begin
 
     ini := TIniFile.Create(ExtractFilePath(Application.ExeName) + '_temp.ini');
 
-    gLicencaSistema.Empresa  := ini.ReadString('Licenca', 'edEmpresa',  '');
-    gLicencaSistema.CNPJ     := ini.ReadString('Licenca', 'edCGC',      '');
-    gLicencaSistema.Endereco := ini.ReadString('Licenca', 'edEndereco', '');
-    gLicencaSistema.Bairro   := ini.ReadString('Licenca', 'edBairro',   '');
-    gLicencaSistema.Cidade   := ini.ReadString('Licenca', 'edCidade',   '');
-    gLicencaSistema.UF       := ini.ReadString('Licenca', 'edUF',       '');
-    gLicencaSistema.CEP      := ini.ReadString('Licenca', 'edCEP',      '');
-    gLicencaSistema.Competencia  := StrToIntDef(ini.ReadString('Licenca', 'edCompetencia', FormatDateTime('yyyymm', Date + 30)), 0);
-    gLicencaSistema.DataBloqueio := ini.ReadDateTime('Licenca', 'edDataBloqueio', Date + 45);
-    gLicencaSistema.UsarSGE  := ini.ReadBool('Licenca', 'chkSGE', False);
-    gLicencaSistema.UsarSGI  := ini.ReadBool('Licenca', 'chkSGI', False);
-    gLicencaSistema.UsarSGF  := ini.ReadBool('Licenca', 'chkSGF', False);
-    gLicencaSistema.UsarSGO  := ini.ReadBool('Licenca', 'chkSGO', False);
+    gLicencaSistema.Model
+      .Empresa( ini.ReadString('Licenca', 'edEmpresa',  '') )
+      .NomeFantasia( ini.ReadString('Licenca', 'edFantasia',  '') )
+      .CNPJ( ini.ReadString('Licenca', 'edCGC',      '') )
+      .Endereco( ini.ReadString('Licenca', 'edEndereco', '') )
+      .Bairro( ini.ReadString('Licenca', 'edBairro',   '') )
+      .Cidade( ini.ReadString('Licenca', 'edCidade',   '') )
+      .UF( ini.ReadString('Licenca', 'edUF',       '') )
+      .CEP( ini.ReadString('Licenca', 'edCEP',      '') )
+      .Competencia( StrToIntDef(ini.ReadString('Licenca', 'edCompetencia', FormatDateTime('yyyymm', Date + 30)), 0) )
+      .DataBloqueio( ini.ReadDateTime('Licenca', 'edDataBloqueio', Date + 45) )
+      .UsarSGE( ini.ReadBool('Licenca', 'chkSGE', False) )
+      .UsarSGI( ini.ReadBool('Licenca', 'chkSGI', False) )
+      .UsarSGF( ini.ReadBool('Licenca', 'chkSGF', False) )
+      .UsarSGO( ini.ReadBool('Licenca', 'chkSGO', False) );
 
     SetSegmento(SEGMENTO_PADRAO_ID,          SEGMENTO_PADRAO_DS);
     SetSegmento(SEGMENTO_VAREJO_ATACADO_ID,  SEGMENTO_VAREJO_ATACADO_DS);
@@ -5167,10 +5176,6 @@ C:\Program Files (x86)\Firebird\Firebird_2_5\bin>isql -extract -o d:\agil.sql AG
 isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA -p masterkey
 *)
   fdConexao.Connected := False;
-
-  {$IFNDEF PRINTER_CUPOM}
-  SplashMessage('Conectando-se à base de dados...');
-  {$ENDIF}
 
   gSistema.Codigo := SISTEMA_GESTAO_COM;
   gSistema.Nome   := Application.Title;
@@ -5260,7 +5265,7 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
         RootKey := HKEY_CURRENT_USER;
         OpenKey(SYS_PATH_REGISTER + gPersonalizaEmpresa.InternalName, True);
 
-        WriteString(KEY_REG_VERSAO, GetExeVersion);
+        WriteString(KEY_REG_VERSAO, gVersaoApp.Version);
         WriteString(KEY_REG_DATA,   DateToStr(Date));
         CloseKey;
       end;
@@ -5278,10 +5283,37 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
       fdQryUsers.Open;
       fdQryEmpresa.Open;
     end;
+
+    {$IFNDEF PRINTER_CUPOM}
+    SplashMessage('Conectando-se à base de dados...');
+    {$ENDIF}
   except
     On E : Exception do
       ShowError('Erro ao tentar conectar no Servidor/Base.' + #13#13 + E.Message);
   end;
+end;
+
+procedure TDMBusiness.DataModuleDestroy(Sender: TObject);
+begin
+  DestruirPermissao;
+  FileINI.DisposeOf;
+end;
+
+procedure TDMBusiness.DestruirPermissao;
+begin
+  _PermissaoPerfilDiretoria.DisposeOf;
+  _PermissaoPerfil_DIRETORIA.DisposeOf;
+  _PermissaoPerfil_GERENTE_VND.DisposeOf;
+  _PermissaoPerfil_GERENTE_FIN.DisposeOf;
+  _PermissaoPerfil_VENDEDOR.DisposeOf;
+  _PermissaoPerfil_GERENTE_ADM.DisposeOf;
+  _PermissaoPerfil_CAIXA.DisposeOf;
+  _PermissaoPerfil_AUX_FINANC1.DisposeOf;
+  _PermissaoPerfil_AUX_FINANC2.DisposeOf;
+  _PermissaoPerfil_SUPERV_CX.DisposeOf;
+  _PermissaoPerfil_ESTOQUISTA.DisposeOf;
+  _PermissaoPerfil_SUPORTE_TI.DisposeOf;
+  _PermissaoPerfil_SYSTEM_ADM.DisposeOf;
 end;
 
 procedure TDMBusiness.fdScriptBeforeExecute(Sender: TObject);
@@ -5300,7 +5332,7 @@ begin
   try
     sLOG_Error.BeginUpdate;
     sLOG_Error.Add('Aplicativo: ' + Application.Title);
-    sLOG_Error.Add('Versão    : ' + GetVersion);
+    sLOG_Error.Add('Versão    : ' + gVersaoApp.Version);
 
     if (fdScript.SQLScripts.Count > 0) then
     begin
@@ -5561,5 +5593,6 @@ initialization
 
 finalization
   FormFunction.Destroy;
+  RegistroSistema.Destroy;
 
 end.

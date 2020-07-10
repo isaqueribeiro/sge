@@ -4,7 +4,8 @@ interface
 
 uses
   UGrPadrao,
-  UInfoVersao,
+  Interacao.Versao,
+  Controller.Versao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, ComCtrls, ExtCtrls,
@@ -42,7 +43,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
-    ver : TInfoVersao;
+    ver : IVersao;
     _frReport: TfrxReport;
     _PeriodoRelatorio ,
     _SubTituloRelario : String;
@@ -187,7 +188,7 @@ end;
 procedure TfrmGrPadraoImpressao.FormCreate(Sender: TObject);
 begin
   inherited;
-  ver := TInfoVersao.GetInstance();
+  ver := TVersaoController.GetInstance();
 
   PeriodoRelatorio := EmptyStr;
   SubTituloRelario := EmptyStr;

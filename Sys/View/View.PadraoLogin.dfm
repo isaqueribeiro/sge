@@ -8,6 +8,9 @@ inherited FrmPadraoLogin: TFrmPadraoLogin
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   ExplicitHeight = 458
+  DesignSize = (
+    694
+    458)
   PixelsPerInch = 96
   TextHeight = 19
   inherited lblCopyright: TLabel

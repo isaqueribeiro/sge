@@ -17,6 +17,9 @@ Type
       function GetCompanyName : String;
       function GetFileVersion : String;
       function GetProductVersion : String;
+      function GetVersion : String;
+      function GetVersionID : Currency;
+      function GetCopyright : String;
     protected
       constructor Create;
     public
@@ -25,6 +28,9 @@ Type
       property CompanyName: String read GetCompanyName write SetCompanyName;
       property FileVersion: String read GetFileVersion;
       property ProductVersion: String read GetProductVersion;
+      property Version : String read GetVersion;
+      property VersionID : Currency read GetVersionID;
+      property Copyright : String read GetCopyright;
 
       function getPropertyValue(aPropertyValue : TPropertyValue): String;
 
@@ -49,6 +55,11 @@ end;
 function TVersaoController.GetCompanyName: String;
 begin
   Result := getPropertyValue(TPropertyValue.ivCOMPANY_NAME);
+end;
+
+function TVersaoController.GetCopyright: String;
+begin
+  Result := getPropertyValue(TPropertyValue.ivLEGAL_COPYRIGHT);
 end;
 
 function TVersaoController.GetFileVersion: String;
@@ -112,6 +123,30 @@ begin
     end;
 
   end;
+end;
+
+function TVersaoController.GetVersion: String;
+begin
+  Result := getPropertyValue(TPropertyValue.ivFILE_VERSION);
+end;
+
+function TVersaoController.GetVersionID: Currency;
+var
+  I : Integer;
+  sVersao   ,
+  sVersaoID : String;
+  aVersao   : TArray<String>;
+  aRetorno  : Currency;
+begin
+  sVersao := getPropertyValue(TPropertyValue.ivFILE_VERSION);
+
+  aVersao   := sVersao.Split(['.'], 4);
+  sVersaoID := EmptyStr;
+
+  for I := Low(aVersao) to High(aVersao) do
+    sVersaoID := sVersaoID + FormatFloat('00', StrToIntDef(aVersao[I], 0));
+
+  Result := StrToCurrDef(sVersaoID, 0);
 end;
 
 procedure TVersaoController.SetCompanyName(const Value: String);

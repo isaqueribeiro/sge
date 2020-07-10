@@ -3,7 +3,7 @@ unit Interacao.Licenca;
 interface
 
 uses
-  System.SysUtils, Interacao.Conexao;
+  System.SysUtils;
 
 type
   ILicencaModel = interface
@@ -53,13 +53,19 @@ type
 
   ILicenca = interface
     ['{2C9ECC1B-2888-4C99-A01F-0A600F796617}']
-    function Carregar(aConexao : IConexao) : ILicenca; overload;
     function Carregar(aFileName : TFileName) : ILicenca; overload;
     function Carregar : ILicenca; overload;
 
+    function Model : ILicencaModel;
     function Empresa : String;
     function NomeFantasia : String;
     function CNPJ : String;
+    function DataBloqueio : TDateTime;
+    function Competencia : Integer;
+    function UsarSGE : Boolean;
+    function UsarSGI : Boolean;
+    function UsarSGF : Boolean;
+    function UsarSGO : Boolean;
   end;
 
 implementation

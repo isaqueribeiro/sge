@@ -20,6 +20,8 @@ type
 
   IPessoaJuridicaModel = interface(IPessoaModel)
     ['{FC61E34B-C55E-4E13-BBBF-1D2B437B70CA}']
+    function Codigo(Value : Integer) : IPessoaJuridicaModel;
+
     function RazaoSocial(Value : String) : IPessoaJuridicaModel; overload;
     function RazaoSocial : String; overload;
 
