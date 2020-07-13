@@ -307,6 +307,7 @@ type
     FAcesso : Boolean;
     procedure RegistrarRotinasMenu;
     procedure AutoUpdateSystem;
+    procedure GetInformacoesGerais;
   public
     { Public declarations }
     procedure AlertarCliente;
@@ -774,27 +775,13 @@ end;
 
 procedure TfrmPrinc.FormActivate(Sender: TObject);
 var
-  sCNPJ     ,
   sHostName ,
-  aProcesso ,
-  aConexao  : String;
+  aProcesso : String;
 begin
+  GetInformacoesGerais;
+
   if not DataBaseOnLine then
     Exit;
-
-  if ( StrIsCNPJ(gLicencaSistema.CNPJ) ) then
-    sCNPJ := 'CNPJ: ' + StrFormatarCnpj(gLicencaSistema.CNPJ)
-  else
-    sCNPJ := 'CPF: ' + StrFormatarCpf(gLicencaSistema.CNPJ);
-
-  stbMain.Panels.Items[2].Text := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ]);
-  BrBtnAlterarSenha.Caption    := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
-  BrBtnAlterarSenha.Hint       := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
-
-  with DMBusiness do
-    aConexao := fdConexao.Params.Values['Server'] + '/' + fdConexao.Params.Values['Port'] + ':' + fdConexao.Params.Values['Database'];
-
-  stbMain.Panels[1].Text := AnsiLowerCase(gUsuarioLogado.Login + '@' + aConexao);
 
   Self.WindowState := wsMaximized;
 
@@ -891,6 +878,26 @@ begin
   FAcesso := False;
   SetSistema(gSistema.Codigo, gSistema.Nome, gVersaoApp.Version);
   RegistrarRotinasMenu;
+end;
+
+procedure TfrmPrinc.GetInformacoesGerais;
+var
+  sCNPJ    ,
+  aConexao : String;
+begin
+  if ( StrIsCNPJ(gLicencaSistema.CNPJ) ) then
+    sCNPJ := 'CNPJ: ' + StrFormatarCnpj(gLicencaSistema.CNPJ)
+  else
+    sCNPJ := 'CPF: ' + StrFormatarCpf(gLicencaSistema.CNPJ);
+
+  stbMain.Panels.Items[2].Text := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ]);
+  BrBtnAlterarSenha.Caption    := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
+  BrBtnAlterarSenha.Hint       := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
+
+  with DMBusiness do
+    aConexao := fdConexao.Params.Values['Server'] + '/' + fdConexao.Params.Values['Port'] + ':' + fdConexao.Params.Values['Database'];
+
+  stbMain.Panels[1].Text := AnsiLowerCase(gUsuarioLogado.Login + '@' + aConexao);
 end;
 
 procedure TfrmPrinc.nmGerarBoletoClick(Sender: TObject);
