@@ -42,7 +42,13 @@ type
     function Autenticar(aConn : TFDConnection; aLogin, aSenha : String; aEmpresa : TObject) : Boolean; overload;
     function Autenticar(aConn : TFDConnection; aUsuario : IUsuarioModel) : Boolean; overload;
 
-    function getLogin() : String;
+    function Logado : Boolean;
+    function Login : String;
+    function Nome : String;
+    function Empresa : String;
+    function Funcao : Integer;
+    function Vendedor : Integer;
+    function AlterarValorVenda : Boolean;
   end;
 
 implementation

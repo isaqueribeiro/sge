@@ -5,6 +5,7 @@ inherited FrmPadraoLogin: TFrmPadraoLogin
   KeyPreview = True
   Position = poScreenCenter
   OnActivate = FormActivate
+  OnDestroy = FormDestroy
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   ExplicitHeight = 458

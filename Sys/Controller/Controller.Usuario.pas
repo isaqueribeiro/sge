@@ -3,7 +3,9 @@ unit Controller.Usuario;
 interface
 
 Uses
-  FireDAC.Comp.Client, Classe.Usuario, Classe.Empresa, Interacao.Usuario, Interacao.Funcao;
+  FireDAC.Comp.Client, System.SysUtils, IdCoder, IdCoder3to4, IdCoderMIME, IdBaseComponent,
+  Interacao.Usuario, Interacao.Funcao, Interacao.Empresa,
+  Classe.Usuario, Classe.Empresa;
 
 type
   TUsuarioController = class(TInterfacedObject, IUsuario)
@@ -11,7 +13,11 @@ type
       class var _instancia : TUsuarioCOntroller;
     private
       [weak]
-      FModel   : IUsuarioModel;
+      FModel : IUsuarioModel;
+
+      function EncriptSenha(const Value, Key : String) : String;
+      function DecriptarSenha(const Value, Key : String) : String;
+      function GetSenhaFormatada(const Value : String; const WithKey : Boolean) : String;
     protected
       constructor Create();
       destructor Destroy();
@@ -23,10 +29,22 @@ type
       function Autenticar(aConn : TFDConnection; aLogin, aSenha : String; aEmpresa : TObject) : Boolean; overload;
       function Autenticar(aConn : TFDConnection; aUsuario : IUsuarioModel) : Boolean; overload;
 
-      function getLogin() : String;
+      function Logado : Boolean;
+      function Login : String;
+      function Nome : String;
+      function Empresa : String;
+      function Funcao : Integer;
+      function Vendedor : Integer;
+      function AlterarValorVenda : Boolean;
 
       class function GetInstance() : TUsuarioController;
   end;
+
+const
+  USER_PASSWD_LIMITE  = 16;
+  USER_PASSWD_ENCRIPT = 'x|';
+  USER_PASSWD_DEFAULT = 'ABC123';
+  USER_PASSWD_KEY     = 'ADONAI';
 
 implementation
 
@@ -54,6 +72,7 @@ begin
       SQL.Add('  , u.vendedor');
       SQL.Add('  , v.nome as nome_vendador');
       SQL.Add('  , v.cpf  as cpf_vendedor');
+      SQL.Add('  , u.perm_alterar_valor_venda as alterar_valor_venda');
       SQL.Add('from TBUSERS u');
       SQL.Add('  left join TBFUNCAO f on (f.cod = u.codfuncao)');
       SQL.Add('  left join TBVENDEDOR v on (v.cod = u.vendedor)');
@@ -65,12 +84,21 @@ begin
 
       if OpenOrExecute then
       begin
-        FModel.Nome( FieldByName('nome').AsString );
+        FModel
+          .Nome( FieldByName('nome').AsString );
+
         FModel
           .Login( FieldByName('login').AsString )
           .Senha( FieldByName('senha').AsString )
           .Funcao( FieldByName('funcao').AsInteger )
-          .Vendedor( FieldByName('vendedor').AsInteger );
+          .Vendedor( FieldByName('vendedor').AsInteger )
+          .AlterarValorVenda( FieldByName('alterar_valor_venda').AsInteger = 1 )
+          .Logado(True);
+
+        FModel.Vendedor
+          .CPF( FieldByName('cpf_vendedor').AsString )
+          .Codigo( FieldByName('vendedor').AsInteger )
+          .Nome( FieldByName('nome_vendador').AsString );
       end;
     end;
   finally
@@ -79,39 +107,83 @@ begin
   end;
 end;
 
+function TUsuarioController.Logado: Boolean;
+begin
+  Result := FModel.Logado;
+end;
+
+function TUsuarioController.Login: String;
+begin
+  Result := FModel.Login;
+end;
+
+function TUsuarioController.Nome: String;
+begin
+  Result := FModel.Nome;
+end;
+
+function TUsuarioController.Vendedor: Integer;
+begin
+  Result := FModel.Vendedor.Codigo;
+end;
+
 function TUsuarioCOntroller.Autenticar: Boolean;
 begin
-  Result := True;
+  Result := (not FModel.Login.IsEmpty) and (not FModel.Senha.IsEmpty);
 end;
 
 function TUsuarioCOntroller.Autenticar(aConn : TFDConnection; aLogin, aSenha, aEmpresa: String): Boolean;
 begin
-  FModel
-    .Login(aLogin)
-    .Senha(aSenha)
-    .Empresa(aEmpresa);
+  if (aConn = nil) then
+    Result := (FModel.Senha = GetSenhaFormatada(aSenha, False))
+  else
+  begin
+    Self.Load(aConn, aLogin);
+    Result := (FModel.Senha = GetSenhaFormatada(aSenha, False));
+  end;
 
-  Result := True;
+  FModel.Empresa(aEmpresa);
+end;
+
+function TUsuarioController.AlterarValorVenda: Boolean;
+begin
+  Result := FModel.AlterarValorVenda;
 end;
 
 function TUsuarioCOntroller.Autenticar(aConn : TFDConnection; aUsuario: IUsuarioModel): Boolean;
+var
+  aLogin ,
+  aSenha : String;
 begin
+  aLogin := aUsuario.Login;
+  aSenha := aUsuario.Senha;
   FModel := aUsuario;
-  Result := False;
+
+  Self.Load(aConn, aLogin);
+
+  Result := (FModel.Senha = GetSenhaFormatada(aSenha, False));
 end;
 
 function TUsuarioController.Autenticar(aConn : TFDConnection; aLogin, aSenha: String; aEmpresa: TObject): Boolean;
+var
+  ModelEmpresa : IEmpresaModel;
 begin
   if (aConn = nil) then
-    Result := (FModel.Senha = aSenha)
+    Result := (FModel.Senha = GetSenhaFormatada(aSenha, False))
   else
-    Result := False;
-//  FModel
-//    .Login(aLogin)
-//    .Senha(aSenha);
-////    .Empresa( TEmpresa(aEmpresa) );
-//
-//  Result := True;
+  begin
+    Self.Load(aConn, aLogin);
+    Result := (FModel.Senha = GetSenhaFormatada(aSenha, False));
+  end;
+
+  ModelEmpresa := TEmpresa.getInstance();
+  ModelEmpresa
+    .Codigo( TEmpresaObject(aEmpresa).Codigo )
+    .RazaoSocial( TEmpresaObject(aEmpresa).RazaoSocial )
+    .Fantasia( TEmpresaObject(aEmpresa).Fantasia )
+    .CNPJ( TEmpresaObject(aEmpresa).CNPJ );
+
+  FModel.Empresa(ModelEmpresa);
 end;
 
 constructor TUsuarioCOntroller.Create;
@@ -120,15 +192,80 @@ begin
   FModel := TUsuario.New;
 end;
 
+function TUsuarioController.DecriptarSenha(const Value, Key: String): String;
+var
+  sKeyChar   ,
+  sStrEncode : String;
+  IdEncoder  : TIdEncoderMIME;
+  IdDecoder  : TIdDecoderMIME;
+begin
+  IdEncoder := TIdEncoderMIME.Create(nil);
+  IdDecoder := TIdDecoderMIME.Create(nil);
+  try
+    sKeyChar   := IdEncoder.EncodeString(Key);
+    sStrEncode := Value;
+
+    if (Pos(sKeyChar, sStrEncode) = 0)  then
+      raise Exception.Create('Criptografia corrompida!!!')
+    else
+      sStrEncode := StringReplace(sStrEncode, sKeyChar, EmptyStr, [rfReplaceAll]);
+
+    Result := IdDecoder.DecodeString(sStrEncode);
+  finally
+    IdEncoder.Free;
+    IdDecoder.Free;
+  end;
+end;
+
 destructor TUsuarioCOntroller.Destroy;
 begin
   TUsuario(FModel).DisposeOf;
   inherited Destroy;
 end;
 
-function TUsuarioController.getLogin: String;
+function TUsuarioController.Empresa: String;
 begin
-  Result := FModel.Login;
+  Result := FModel.Empresa.CNPJ;
+end;
+
+function TUsuarioController.EncriptSenha(const Value, Key: String): String;
+var
+  sKeyChar    ,
+  sStrEncode  ,
+  sResult     : String;
+  iTamanhoStr ,
+  iPosicaoKey : Integer;
+  IdEncoder   : TIdEncoderMIME;
+begin
+  IdEncoder := TIdEncoderMIME.Create(nil);
+  try
+    sKeyChar    := IdEncoder.EncodeString(Key);
+    sStrEncode  := IdEncoder.EncodeString(Value);
+    iTamanhoStr := Length(sStrEncode);
+
+    iPosicaoKey := -1;
+    while (iPosicaoKey < 0) do
+      iPosicaoKey := Random(iTamanhoStr);
+
+    sResult := Copy(sStrEncode, 1, iPosicaoKey) + sKeyChar + Copy(sStrEncode, iPosicaoKey + 1, iTamanhoStr);
+
+    Result := sResult;
+  finally
+    IdEncoder.Free;
+  end;
+end;
+
+function TUsuarioController.Funcao: Integer;
+begin
+  Result := FModel.Funcao.Codigo;
+end;
+
+function TUsuarioController.GetSenhaFormatada(const Value: String; const WithKey: Boolean): String;
+begin
+  if WithKey then
+    Result := USER_PASSWD_ENCRIPT + Copy(EncriptSenha(Value, USER_PASSWD_KEY), 1, USER_PASSWD_LIMITE - 2)
+  else
+    Result := USER_PASSWD_ENCRIPT + Copy(EncriptSenha(Value, EmptyStr), 1, USER_PASSWD_LIMITE - 2);
 end;
 
 class function TUsuarioController.GetInstance: TUsuarioController;

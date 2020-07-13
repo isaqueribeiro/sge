@@ -29,6 +29,7 @@ type
     procedure FormActivate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnEntrarClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     FController: IUsuario;
@@ -68,7 +69,7 @@ begin
           .Autenticar(nil
             , edtUsuario.getText()
             , edtSenha.getText()
-            , cmbEmpresa.Items.Objects[cmbEmpresa.ItemIndex]); // AQUI
+            , cmbEmpresa.Items.Objects[cmbEmpresa.ItemIndex]);
       except
         On E : Exception do
         begin
@@ -84,8 +85,12 @@ end;
 procedure TFrmPadraoLogin.btnEntrarClick(Sender: TObject);
 begin
   Destacar(True);
+
   if Autenticar then
-    ModalResult := mrOk;
+  begin
+    gUsuarioLogado := TFactoryController.getInstance().getUsuarioController();
+    ModalResult    := mrOk;
+  end;
 end;
 
 procedure TFrmPadraoLogin.CarregarEmpresa;
@@ -132,6 +137,15 @@ begin
   FEmpresa    := TFactoryController.getInstance().getEmpresaController();
 
   CarregarEmpresa;
+end;
+
+procedure TFrmPadraoLogin.FormDestroy(Sender: TObject);
+var
+  I : Integer;
+begin
+  // Destruit objetos Empresa
+  for I := 0 to cmbEmpresa.Items.Count - 1 do
+    TObject(cmbEmpresa.Items.Objects[I]).DisposeOf;
 end;
 
 procedure TFrmPadraoLogin.FormKeyPress(Sender: TObject; var Key: Char);

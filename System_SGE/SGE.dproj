@@ -325,9 +325,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="UGrUsuarioAlterarSenha_v2.pas">
             <Form>frmGrUsuarioAlterarSenha</Form>
         </DCCReference>
-        <DCCReference Include="UGrPesq.pas">
-            <Form>frmPesq</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeVendaConfirmaTitulos.pas">
             <Form>frmGeVendaConfirmaTitulos</Form>
         </DCCReference>
@@ -352,9 +349,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="UGeConsultarLoteNFe_v2.pas">
             <Form>frmGeConsultarLoteNFe_v2</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrPadraoLogin.pas">
-            <Form>frmGrPadraoLogin</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrConsultarCNJP.pas">
             <Form>frmGrConsultarCNJP</Form>
         </DCCReference>
@@ -378,9 +372,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="UGeVendaImpressao.pas">
             <Form>frmGeVendaImpressao</Form>
-        </DCCReference>
-        <DCCReference Include="UGeEfetuarLogin.pas">
-            <Form>FrmEfetuarLogin</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrMessage.pas">
             <Form>frmGeMessage</Form>

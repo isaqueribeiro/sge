@@ -5,6 +5,7 @@ interface
 uses
   FuncoesFormulario,
   UConstantesDGE,
+  Interacao.Usuario,
 
   Windows, Forms, SysUtils, Classes, Controls, IBX.IBDatabase, IniFIles,
   ShellApi, Printers, DateUtils, IBX.IBQuery, IdCoder, IdCoder3to4, IdCoderMIME,
@@ -170,7 +171,8 @@ var
   FormFunction : TFormularios;
 
   gSistema    : TSistema;
-  gUsuarioLogado : TUsuarioLogado;
+  //gUsuarioLogado : TUsuarioLogado;
+  gUsuarioLogado : IUsuario;
   gContaEmail : TContaEmail;
   RegistroSistema : TRegistry;
 
@@ -4140,38 +4142,42 @@ end;
 
 function GetUserApp(const aLogin : String = '') : String;
 begin
-  with DMBusiness, fdQryUsers do
-    if fdQryUsers.Locate('NOME', aLogin, []) then
-      Result := AnsiUpperCase( Trim(fdQryUsers.FieldByName('NOME').AsString) )
-    else
-      Result := gUsuarioLogado.Login;
+//  with DMBusiness, fdQryUsers do
+//    if fdQryUsers.Locate('NOME', aLogin, []) then
+//      Result := AnsiUpperCase( Trim(fdQryUsers.FieldByName('NOME').AsString) )
+//    else
+//      Result := gUsuarioLogado.Login;
+  Result := gUsuarioLogado.Login;
 end;
 
 function GetUserFullName : String;
 begin
-  with DMBusiness, fdQryUsers do
-    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
-      Result := AnsiUpperCase( Trim(fdQryUsers.FieldByName('NOMECOMPLETO').AsString) )
-    else
-      Result := EmptyStr;
+//  with DMBusiness, fdQryUsers do
+//    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+//      Result := AnsiUpperCase( Trim(fdQryUsers.FieldByName('NOMECOMPLETO').AsString) )
+//    else
+//      Result := EmptyStr;
+  Result := gUsuarioLogado.Nome;
 end;
 
 function GetUserFunctionID : Integer;
 begin
-  with DMBusiness, fdQryUsers do
-    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
-      Result := fdQryUsers.FieldByName('CODFUNCAO').AsInteger
-    else
-      Result := 0;
+//  with DMBusiness, fdQryUsers do
+//    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+//      Result := fdQryUsers.FieldByName('CODFUNCAO').AsInteger
+//    else
+//      Result := 0;
+  Result := gUsuarioLogado.Funcao;
 end;
 
 function GetUserCodigoVendedorID : Integer;
 begin
-  with DMBusiness, fdQryUsers do
-    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
-      Result := fdQryUsers.FieldByName('VENDEDOR').AsInteger
-    else
-      Result := 0;
+//  with DMBusiness, fdQryUsers do
+//    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+//      Result := fdQryUsers.FieldByName('VENDEDOR').AsInteger
+//    else
+//      Result := 0;
+  Result := gUsuarioLogado.Vendedor;
 end;
 
 function GetUserUpdatePassWord : Boolean;
@@ -4180,7 +4186,7 @@ begin
     Result := False
   else
   with DMBusiness, fdQryUsers do
-    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+    if fdQryUsers.Locate('NOME', AnsiUpperCase(gUsuarioLogado.Login), []) then
       Result := (fdQryUsers.FieldByName('ALTERAR_SENHA').AsInteger = 1)
     else
       Result := False;
@@ -4189,7 +4195,7 @@ end;
 function GetLimiteDescontoUser : Currency;
 begin
   with DMBusiness, fdQryUsers do
-    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+    if fdQryUsers.Locate('NOME', AnsiUpperCase(gUsuarioLogado.Login), []) then
       Result := fdQryUsers.FieldByName('LIMIDESC').AsCurrency
     else
       Result := 0.0;
@@ -4198,7 +4204,7 @@ end;
 function GetUserPermitirAlterarValorVenda : Boolean;
 begin
   with DMBusiness, fdQryUsers do
-    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+    if fdQryUsers.Locate('NOME', AnsiUpperCase(gUsuarioLogado.Login), []) then
       Result := (fdQryUsers.FieldByName('PERM_ALTERAR_VALOR_VENDA').AsInteger = 1)
     else
       Result := False;
@@ -4207,7 +4213,7 @@ end;
 function GetUserPermitirAlterarValorVendaLivre : Boolean;
 begin
   with DMBusiness, fdQryUsers do
-    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+    if fdQryUsers.Locate('NOME', AnsiUpperCase(gUsuarioLogado.Login), []) then
       Result := (fdQryUsers.FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger = 1)
     else
       Result := False;
@@ -4216,7 +4222,7 @@ end;
 function GetUserPermitirAlterarValorVendaParaMaior : Boolean;
 begin
   with DMBusiness, fdQryUsers do
-    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+    if fdQryUsers.Locate('NOME', AnsiUpperCase(gUsuarioLogado.Login), []) then
       Result := (fdQryUsers.FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger in [1, 2])
     else
       Result := False;
@@ -4225,7 +4231,7 @@ end;
 function GetUserPermitirAlterarValorVendaParaMenor : Boolean;
 begin
   with DMBusiness, fdQryUsers do
-    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+    if fdQryUsers.Locate('NOME', AnsiUpperCase(gUsuarioLogado.Login), []) then
       Result := (fdQryUsers.FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger in [1, 3])
     else
       Result := False;
@@ -4234,7 +4240,7 @@ end;
 function GetUserManifestoAutomatico : Boolean;
 begin
   with DMBusiness, fdQryUsers do
-    if fdQryUsers.Locate('NOME', gUsuarioLogado.Login, []) then
+    if fdQryUsers.Locate('NOME', AnsiUpperCase(gUsuarioLogado.Login), []) then
       Result := (fdQryUsers.FieldByName('ALMOX_MANIFESTO_AUTOMATICO').AsInteger = 1)
     else
       Result := False;

@@ -137,4 +137,7 @@ inherited FrmLogin: TFrmLogin
       555F0460E74E7E723AC3300CC3300CC3300C53B800FC1FED7F6AA296B8EB5C00
       00000049454E44AE426082}
   end
+  inherited edtSenha: TEdit
+    CharCase = ecUpperCase
+  end
 end

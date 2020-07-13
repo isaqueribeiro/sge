@@ -776,7 +776,8 @@ procedure TfrmPrinc.FormActivate(Sender: TObject);
 var
   sCNPJ     ,
   sHostName ,
-  aProcesso : String;
+  aProcesso ,
+  aConexao  : String;
 begin
   if not DataBaseOnLine then
     Exit;
@@ -789,6 +790,11 @@ begin
   stbMain.Panels.Items[2].Text := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ]);
   BrBtnAlterarSenha.Caption    := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
   BrBtnAlterarSenha.Hint       := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
+
+  with DMBusiness do
+    aConexao := fdConexao.Params.Values['Server'] + '/' + fdConexao.Params.Values['Port'] + ':' + fdConexao.Params.Values['Database'];
+
+  stbMain.Panels[1].Text := AnsiLowerCase(gUsuarioLogado.Login + '@' + aConexao);
 
   Self.WindowState := wsMaximized;
 

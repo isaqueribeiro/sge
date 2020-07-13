@@ -16,7 +16,7 @@ type
 
   IEmpresa = interface
     ['{A0C7FDC9-267D-408B-9BE4-B089908886FA}']
-    procedure ListarEmpresas(aConn : TFDConnection; aLista : TStrings);
+    procedure ListarEmpresas(aConn : TFDConnection; const aLista : TStrings);
   end;
 
 implementation

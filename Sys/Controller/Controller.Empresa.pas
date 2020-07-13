@@ -16,7 +16,7 @@ type
       constructor Create();
       destructor Destroy();
     public
-      procedure ListarEmpresas(aConn : TFDConnection; aLista : TStrings);
+      procedure ListarEmpresas(aConn : TFDConnection; const aLista : TStrings);
 
       class function getInstance() : TEmpresaController;
   end;
@@ -45,10 +45,10 @@ begin
   Result := _instance;
 end;
 
-procedure TEmpresaController.ListarEmpresas(aConn: TFDConnection; aLista : TStrings);
+procedure TEmpresaController.ListarEmpresas(aConn: TFDConnection; const aLista : TStrings);
 var
   aQry : TFDQuery;
-  aEmpresa : TEmpresa;
+  aEmpresa : TEmpresaObject;
 begin
   aLista.Clear;
   aQry := TFDQuery.Create(nil);
@@ -69,20 +69,30 @@ begin
       SQL.EndUpdate;
 
       if OpenOrExecute then
+      begin
         while not Eof do
         begin
-          aEmpresa := TEmpresa.Create;
+          aEmpresa := TEmpresaObject.Create;
 
-          aEmpresa
-            .Codigo( FieldByName('codigo').AsInteger )
-            .CNPJ( FieldByName('cnpj').AsString )
-            .RazaoSocial( FieldByName('razao').AsString )
-            .Fantasia( FieldByName('fantasia').AsString );
+          with aEmpresa do
+          begin
+            Codigo := FieldByName('codigo').AsInteger;
+            CNPJ   := FieldByName('cnpj').AsString;
+            RazaoSocial := FieldByName('razao').AsString;
+            Fantasia    := FieldByName('fantasia').AsString;
+          end;
 
           aLista.AddObject(aEmpresa.Fantasia, aEmpresa);
 
           Next;
-        end;
+        end
+      end
+      else
+      begin
+        // Empresa de demonstração
+        aEmpresa := TEmpresaObject.Create;
+        aLista.AddObject(aEmpresa.Fantasia, aEmpresa);
+      end;
     end;
   finally
     aQry.DisposeOf;
