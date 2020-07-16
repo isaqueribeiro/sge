@@ -1,16 +1,15 @@
-unit UGrMessage;
+unit View.Mensagem;
 
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadrao, ExtCtrls, StdCtrls, Buttons, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
-  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, UGrPadrao,
+  ExtCtrls, StdCtrls, Buttons, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+
+  dxSkinsCore;
 
 type
-  TfrmGeMessage = class(TfrmGrPadrao)
+  TFrmMensagem = class(TfrmGrPadrao)
     ImgAlerta: TImage;
     memoMensagem: TMemo;
     ImgInforme: TImage;
@@ -20,9 +19,15 @@ type
     btnSim: TcxButton;
     btnNao: TcxButton;
     shpColorPDV: TShape;
+
     procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  strict private
+    class var _instance : TFrmMensagem;
   private
     { Private declarations }
+  protected
+    constructor Create(AOnwer: TComponent);
   public
     { Public declarations }
     procedure Informe(sTitulo, sMensagem : String);
@@ -32,10 +37,9 @@ type
     procedure Confirmar(sTitulo, sMensagem : String);
 
     procedure RegistrarRotinaSistema; override;
-  end;
 
-var
-  frmGeMessage: TfrmGeMessage;
+    class function GetInstance(AOnwer : TComponent) : TFrmMensagem;
+  end;
 
 implementation
 
@@ -46,7 +50,15 @@ uses
 
 { TfrmGeMessage }
 
-procedure TfrmGeMessage.Alerta(sTitulo, sMensagem: String);
+class function TFrmMensagem.GetInstance(AOnwer: TComponent): TFrmMensagem;
+begin
+  if not Assigned(_instance) then
+    _instance := TFrmMensagem.Create(AOnwer);
+
+  Result := _instance;
+end;
+
+procedure TFrmMensagem.Alerta(sTitulo, sMensagem: String);
 begin
   Caption := sTitulo;
   memoMensagem.Lines.Text := sMensagem;
@@ -60,7 +72,7 @@ begin
   MessageBeep(MB_ICONWARNING);
 end;
 
-procedure TfrmGeMessage.Confirmar(sTitulo, sMensagem: String);
+procedure TFrmMensagem.Confirmar(sTitulo, sMensagem: String);
 begin
   Caption := sTitulo;
   memoMensagem.Lines.Text := sMensagem;
@@ -76,7 +88,12 @@ begin
   MessageBeep(MB_ICONQUESTION);
 end;
 
-procedure TfrmGeMessage.Erro(sTitulo, sMensagem: String);
+constructor TFrmMensagem.Create(AOnwer: TComponent);
+begin
+  inherited Create(AOnwer);
+end;
+
+procedure TFrmMensagem.Erro(sTitulo, sMensagem: String);
 begin
   Caption := sTitulo;
   memoMensagem.Lines.Text := sMensagem;
@@ -90,13 +107,21 @@ begin
   MessageBeep(MB_ICONERROR);
 end;
 
-procedure TfrmGeMessage.FormShow(Sender: TObject);
+procedure TFrmMensagem.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   inherited;
+  Action    := TCloseAction.caFree;
+  _instance := nil;
+end;
+
+procedure TFrmMensagem.FormShow(Sender: TObject);
+begin
+  inherited;
+  Self.Color := shpColorPDV.Brush.Color;
   memoMensagem.Color := shpColorPDV.Brush.Color;
 end;
 
-procedure TfrmGeMessage.Informe(sTitulo, sMensagem: String);
+procedure TFrmMensagem.Informe(sTitulo, sMensagem: String);
 begin
   Caption := sTitulo;
   memoMensagem.Lines.Text := sMensagem;
@@ -110,7 +135,7 @@ begin
   MessageBeep(MB_ICONINFORMATION);
 end;
 
-procedure TfrmGeMessage.Parar(sTitulo, sMensagem: String);
+procedure TFrmMensagem.Parar(sTitulo, sMensagem: String);
 begin
   Caption := sTitulo;
   memoMensagem.Lines.Text := sMensagem;
@@ -124,7 +149,7 @@ begin
   MessageBeep(MB_ICONSTOP);
 end;
 
-procedure TfrmGeMessage.RegistrarRotinaSistema;
+procedure TFrmMensagem.RegistrarRotinaSistema;
 begin
   ;
 end;

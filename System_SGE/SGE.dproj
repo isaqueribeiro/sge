@@ -373,8 +373,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="UGeVendaImpressao.pas">
             <Form>frmGeVendaImpressao</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrMessage.pas">
-            <Form>frmGeMessage</Form>
+        <DCCReference Include="..\Sys\View\View.Mensagem.pas">
+            <Form>FrmMensagem</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeExportarChaveNFeGerada.pas">
             <Form>frmGeExportarChaveNFeGerada</Form>

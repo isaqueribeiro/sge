@@ -1294,7 +1294,10 @@ end;
 
 procedure TfrmPrinc.nmEfetuarLogoffClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'FrmEfetuarLogin');
+  //FormFunction.ShowModalForm(Self, 'FrmEfetuarLogin');
+  gUsuarioLogado.LogOff;
+  if ExecutarLogin() then
+    GetInformacoesGerais;
 end;
 
 procedure TfrmPrinc.FormCloseQuery(Sender: TObject; var CanClose: Boolean);

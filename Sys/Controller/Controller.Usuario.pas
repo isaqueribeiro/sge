@@ -22,6 +22,7 @@ type
       constructor Create();
       destructor Destroy();
     public
+      procedure LogOff;
       function Load(aConn : TFDConnection; aLogin : String) : IUsuario; overload;
 
       function Autenticar : Boolean; overload;
@@ -82,7 +83,7 @@ begin
 
       ParamByName('login').AsString := aLogin;
 
-      if OpenOrExecute then
+      if OpenOrExecute and (RecordCount > 0) then
       begin
         FModel
           .Nome( FieldByName('nome').AsString );
@@ -115,6 +116,14 @@ end;
 function TUsuarioController.Login: String;
 begin
   Result := FModel.Login;
+end;
+
+procedure TUsuarioController.LogOff;
+begin
+  FModel
+    .Login('empty')
+    .Senha('empty')
+    .Logado(False);
 end;
 
 function TUsuarioController.Nome: String;

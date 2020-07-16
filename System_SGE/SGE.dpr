@@ -87,7 +87,7 @@ uses
   UGeRequisicaoCliente in 'UGeRequisicaoCliente.pas' {frmGeRequisicaoCliente},
   UGrUsuario in 'UGrUsuario.pas' {frmGrUsuario},
   UGeVendaImpressao in 'UGeVendaImpressao.pas' {frmGeVendaImpressao},
-  UGrMessage in '..\Sys\lib\UGrMessage.pas' {frmGeMessage},
+  View.Mensagem in '..\Sys\View\View.Mensagem.pas' {FrmMensagem},
   UGeExportarChaveNFeGerada in '..\Sys\UGeExportarChaveNFeGerada.pas' {frmGeExportarChaveNFeGerada},
   UGeExportarNFC in '..\Sys\UGeExportarNFC.pas' {frmGeExportarNFC},
   UGeContasAReceberImpressao in 'UGeContasAReceberImpressao.pas' {frmGeContasAReceberImpressao},

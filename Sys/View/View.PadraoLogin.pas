@@ -70,11 +70,14 @@ begin
             , edtUsuario.getText()
             , edtSenha.getText()
             , cmbEmpresa.Items.Objects[cmbEmpresa.ItemIndex]);
+
+        if not aRetorno then
+          MessageDlg('Usuário e/ou senha inválido!', TMsgDlgType.mtInformation, [mbOK], 0);
       except
         On E : Exception do
         begin
+          MessageDlg(PChar(E.Message), TMsgDlgType.mtError, [mbOK], 0);
           Result := False;
-          ShowMessage(E.Message);
         end;
       end;
   finally

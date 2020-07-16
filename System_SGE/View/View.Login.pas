@@ -23,6 +23,9 @@ implementation
 
 {$R *.dfm}
 
+uses
+  UDMBusiness;
+
 procedure TFrmLogin.FormCreate(Sender: TObject);
 begin
   inherited;
@@ -30,5 +33,8 @@ begin
   // Inverter cor
   //lblSystemName.Font.Color := RGB(255 - GetRValue(Self.Color), 255 - GetGValue(Self.Color), 255 - GetBValue(Self.Color));
 end;
+
+initialization
+  FormFunction.RegisterForm('FrmLogin', TFrmLogin);
 
 end.

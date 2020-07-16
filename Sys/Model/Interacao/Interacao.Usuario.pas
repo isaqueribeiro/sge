@@ -35,6 +35,7 @@ type
 
   IUsuario = interface
     ['{78704687-CA14-4235-A460-8373A947E15A}']
+    procedure LogOff;
     function Load(aConn : TFDConnection; aLogin : String) : IUsuario; overload;
 
     function Autenticar : Boolean; overload;

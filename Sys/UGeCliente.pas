@@ -20,7 +20,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, JvMaskEdit;
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, JvMaskEdit,
+  cxDataControllerConditionalFormattingRulesManagerDialog;
 
 type
   TfrmGeCliente = class(TfrmGrPadraoCadastro, IObserver)
@@ -198,9 +199,6 @@ type
     fdQryTipoCnpj: TFDQuery;
     fdQryVendedor: TFDQuery;
     fdQryTotalComprasAbertas: TFDQuery;
-    fdQryTotalComprasAbertasVALOR_LIMITE: TBCDField;
-    fdQryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TBCDField;
-    fdQryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TBCDField;
     fdQryTitulos: TFDQuery;
     fdQryTitulosTIPO: TIntegerField;
     fdQryTitulosANOLANC: TSmallintField;
@@ -212,10 +210,6 @@ type
     fdQryTitulosFORMA_PAGTO: TSmallintField;
     fdQryTitulosFORMA_PAGTO_DESC: TStringField;
     fdQryTitulosNOSSONUMERO: TStringField;
-    fdQryTitulosVALORREC: TBCDField;
-    fdQryTitulosVALORMULTA: TBCDField;
-    fdQryTitulosVALORRECTOT: TBCDField;
-    fdQryTitulosVALORSALDO: TBCDField;
     fdQryTitulosSTATUS: TStringField;
     fdQryTitulosSITUACAO: TSmallintField;
     fdQryTitulosANOVENDA: TSmallintField;
@@ -251,7 +245,6 @@ type
     fdQryTabelaEMAIL: TStringField;
     fdQryTabelaSITE: TStringField;
     fdQryTabelaPAIS_ID: TStringField;
-    fdQryTabelaVALOR_LIMITE_COMPRA: TBCDField;
     fdQryTabelaVENDEDOR_COD: TIntegerField;
     fdQryTabelaBLOQUEADO: TSmallintField;
     fdQryTabelaBLOQUEADO_DATA: TDateField;
@@ -309,13 +302,21 @@ type
     QryEstoqueSateliteCODIGO: TIntegerField;
     fdQryTabelaPRODUTOS: TIntegerField;
     fdQryTabelaVALORES: TFMTBCDField;
-    fdQryTitulosVALOR_PAGO: TBCDField;
     fdQryTabelaDTCAD: TDateField;
     QryEstoqueSateliteSEQUENCIAL: TSmallintField;
     QryEstoqueSateliteLOTE_ID: TStringField;
     QryEstoqueSateliteLOTE: TStringField;
     QryEstoqueSateliteFABRICACAO: TDateField;
     QryEstoqueSateliteVALIDADE: TDateField;
+    fdQryTabelaVALOR_LIMITE_COMPRA: TFMTBCDField;
+    fdQryTotalComprasAbertasVALOR_LIMITE: TFMTBCDField;
+    fdQryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TFMTBCDField;
+    fdQryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TFMTBCDField;
+    fdQryTitulosVALORMULTA: TFMTBCDField;
+    fdQryTitulosVALORRECTOT: TFMTBCDField;
+    fdQryTitulosVALORSALDO: TFMTBCDField;
+    fdQryTitulosVALOR_PAGO: TFMTBCDField;
+    fdQryTitulosVALORREC: TFMTBCDField;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);

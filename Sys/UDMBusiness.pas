@@ -563,7 +563,7 @@ const
 implementation
 
 uses
-  UFuncoes, UGrMessage, UDMRecursos, Controller.Factory;
+  UFuncoes, UDMRecursos, View.Mensagem, Controller.Factory;
 
 {$R *.dfm}
 
@@ -843,11 +843,11 @@ end;
 
 function ShowConfirmation(sTitle, sMsg : String) : Boolean;
 var
-  fMsg : TfrmGeMessage;
+  fMsg : TFrmMensagem;
 begin
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
-      fMsg := TfrmGeMessage.Create(Application);
+      fMsg := TFrmMensagem.GetInstance(Application);
       fMsg.Confirmar(sTitle, sMsg);
 
       Result := (fMsg.ShowModal = mrYes);
@@ -855,7 +855,7 @@ begin
       fMsg.Free;
     end
   else
-    Result := (MessageDlg(PChar(sMsg), mtConfirmation, [mbYes, mbNo], 0, mbNo) = ID_YES);
+    Result := (MessageDlg(PChar(sMsg), TMsgDlgType.mtConfirmation, [mbYes, mbNo], 0, mbNo) = ID_YES);
 //    Result := (Application.MessageBox(PChar(sMsg), PChar(sTitle), MB_ICONQUESTION + MB_YESNO + MB_DEFBUTTON2) = ID_YES);
 end;
 
@@ -885,13 +885,13 @@ end;
 
 procedure ShowInformation(sTitle, sMsg : String);
 var
-  fMsg : TfrmGeMessage;
+  fMsg : TFrmMensagem;
 begin
   WaitAMomentFree;
 
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
-      fMsg := TfrmGeMessage.Create(Application);
+      fMsg := TFrmMensagem.GetInstance(Application);
       fMsg.Informe(sTitle, sMsg);
       fMsg.ShowModal;
     finally
@@ -903,49 +903,49 @@ end;
 
 procedure ShowInformation(sMsg : String);
 var
-  fMsg : TfrmGeMessage;
+  fMsg : TFrmMensagem;
 begin
   WaitAMomentFree;
 
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
-      fMsg := TfrmGeMessage.Create(Application);
+      fMsg := TFrmMensagem.GetInstance(Application);
       fMsg.Informe('Informação', sMsg);
       fMsg.ShowModal;
     finally
       fMsg.Free;
     end
   else
-    MessageDlg(PChar(sMsg), mtInformation, [mbOK], 0);
+    MessageDlg(PChar(sMsg), TMsgDlgType.mtInformation, [mbOK], 0);
 end;
 
 procedure ShowWarning(sMsg : String);
 var
-  fMsg : TfrmGeMessage;
+  fMsg : TFrmMensagem;
 begin
   WaitAMomentFree;
 
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
-      fMsg := TfrmGeMessage.Create(Application);
+      fMsg := TFrmMensagem.GetInstance(Application);
       fMsg.Alerta('Alerta', sMsg);
       fMsg.ShowModal;
     finally
       fMsg.Free;
     end
   else
-    MessageDlg(PChar(sMsg), mtWarning, [mbOK], 0);
+    MessageDlg(PChar(sMsg), TMsgDlgType.mtWarning, [mbOK], 0);
 end;
 
 procedure ShowWarning(sTitulo, sMsg : String);
 var
-  fMsg : TfrmGeMessage;
+  fMsg : TFrmMensagem;
 begin
   WaitAMomentFree;
 
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
-      fMsg := TfrmGeMessage.Create(Application);
+      fMsg := TFrmMensagem.GetInstance(Application);
       fMsg.Alerta(IfThen(Trim(sTitulo) = EmptyStr, 'Alerta', Trim(sTitulo)), sMsg);
       fMsg.ShowModal;
     finally
@@ -957,13 +957,13 @@ end;
 
 procedure ShowStop(sMsg : String);
 var
-  fMsg : TfrmGeMessage;
+  fMsg : TFrmMensagem;
 begin
   WaitAMomentFree;
 
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
-      fMsg := TfrmGeMessage.Create(Application);
+      fMsg := TFrmMensagem.GetInstance(Application);
       fMsg.Parar('Pare!', sMsg);
       fMsg.ShowModal;
     finally
@@ -975,13 +975,13 @@ end;
 
 procedure ShowStop(sTitulo, sMsg : String);
 var
-  fMsg : TfrmGeMessage;
+  fMsg : TFrmMensagem;
 begin
   WaitAMomentFree;
 
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
-      fMsg := TfrmGeMessage.Create(Application);
+      fMsg := TFrmMensagem.GetInstance(Application);
       fMsg.Parar(IfThen(Trim(sTitulo) = EmptyStr, 'Pare!', Trim(sTitulo)), sMsg);
       fMsg.ShowModal;
     finally
@@ -1010,7 +1010,7 @@ begin
     ForceDirectories(ExtractFilePath(Application.ExeName) + '_logError\');
     sLOG_Error.SaveToFile(ExtractFilePath(Application.ExeName) + '_logError\' + FormatDateTime('yyyy-mm-dd.hhmmss".log"', Now));
 
-    MessageDlg(PChar(sMsg), mtError, [mbOK], 0);
+    MessageDlg(PChar(sMsg), TMsgDlgType.mtError, [mbOK], 0);
   finally
     sLOG_Error.Free;
   end;
