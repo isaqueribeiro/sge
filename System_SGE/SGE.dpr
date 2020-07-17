@@ -163,7 +163,9 @@ uses
   Classe.PessoaJuridica in '..\Sys\Classe\Classe.PessoaJuridica.pas',
   Classe.Usuario in '..\Sys\Classe\Classe.Usuario.pas',
   View.PadraoLogin in '..\Sys\View\View.PadraoLogin.pas' {FrmPadraoLogin},
-  View.Login in 'View\View.Login.pas' {FrmLogin};
+  View.Login in 'View\View.Login.pas' {FrmLogin},
+  Interacao.Tabela in '..\Sys\Model\Interacao\Interacao.Tabela.pas',
+  Controller.Tabela in '..\Sys\Controller\Controller.Tabela.pas';
 
 {$R *.res}
 

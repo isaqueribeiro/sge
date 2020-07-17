@@ -3,8 +3,12 @@ unit Interacao.Factory;
 interface
 
 uses
-  Interacao.Versao, Interacao.PersonalizaEmpresa, Interacao.Licenca, Interacao.Usuario,
-  Interacao.Empresa;
+  Interacao.Versao,
+  Interacao.PersonalizaEmpresa,
+  Interacao.Licenca,
+  Interacao.Usuario,
+  Interacao.Empresa,
+  Interacao.Tabela;
 
 type
   IFactory = interface
@@ -14,6 +18,7 @@ type
     function getLicenca : ILicenca;
     function getUsuarioController : IUsuario;
     function getEmpresaController : IEmpresa;
+    function getTabelaController  : ITabela;
   end;
 
 implementation

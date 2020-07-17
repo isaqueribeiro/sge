@@ -55,20 +55,20 @@ type
     fdQryTabelaDESCRICAO: TStringField;
     fdQryTabelaDATA_INICIO: TDateField;
     fdQryTabelaDATA_FINAL: TDateField;
-    fdQryTabelaPERCENTUAL_DESCONTO: TBCDField;
     fdQryTabelaATIVA: TSmallintField;
     qryProduto: TFDQuery;
     cdsProdutos: TFDQuery;
     IbUpdProdutos: TFDUpdateSQL;
+    cdsProdutosSequencial: TIntegerField;
     cdsProdutosCODIGO_PROM: TIntegerField;
     cdsProdutosCODIGO_PROD: TStringField;
-    cdsProdutosPRECO_VENDA: TBCDField;
-    cdsProdutosDESCONTO: TBCDField;
-    cdsProdutosPRECO_PROMOCAO: TBCDField;
+    cdsProdutosPRECO_VENDA: TFMTBCDField;
+    cdsProdutosDESCONTO: TFMTBCDField;
+    cdsProdutosPRECO_PROMOCAO: TFMTBCDField;
     cdsProdutosUSUARIO: TStringField;
     cdsProdutosDESCRI: TStringField;
     cdsProdutosUNIDADE: TStringField;
-    cdsProdutosSequencial: TIntegerField;
+    fdQryTabelaPERCENTUAL_DESCONTO: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure btbtnExcluirClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
@@ -89,9 +89,12 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure fdQryTabelaNewRecord(DataSet: TDataSet);
     procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
+    procedure cdsProdutosCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     SQL_Produtos : TStringList;
+    procedure ConfigurarTabelaProdutos;
+
     procedure AbrirTabelaProdutos(const PromocaoID : Integer);
     procedure CarregarDadosProduto(const ProdutoID : Integer);
   public
@@ -123,7 +126,11 @@ var
 implementation
 
 uses
-  UDMBusiness, UGeProduto, UConstantesDGE;
+    UDMBusiness
+  , UGeProduto
+  , UConstantesDGE
+  , Interacao.Tabela
+  , Controller.Tabela;
 
 {$R *.dfm}
 
@@ -183,6 +190,16 @@ begin
 
   SQL_Produtos := TStringList.Create;
   SQL_Produtos.AddStrings( cdsProdutos.SQL );
+
+  Tabela
+    .Display('codigo', 'Código', '##0000', TAlignment.taCenter)
+    .Display('descricao', 'Descrição')
+    .Display('data_inicio', 'Data Início', 'dd/mm/yyyy')
+    .Display('data_final', 'Data Final', 'dd/mm/yyyy')
+    .Display('percentual_desconto', '% Desconto', ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
+
+  ConfigurarTabelaProdutos;
 end;
 
 procedure TfrmGePromocao.btbtnExcluirClick(Sender: TObject);
@@ -322,6 +339,21 @@ begin
   end;
 end;
 
+procedure TfrmGePromocao.ConfigurarTabelaProdutos;
+begin
+  TTabelaController
+    .New
+    .Tabela( cdsProdutos )
+    .Display('sequencial', '#', '00', TAlignment.taCenter)
+    .Display('codigo_prod', 'Código')
+    .Display('descri', 'Produto')
+    .Display('unidade', 'Und.')
+    .Display('preco_venda', 'Valor Venda (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('desconto', '% Desconto', ',0.00', TAlignment.taRightJustify)
+    .Display('preco_promocao', 'Valor Promoção (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsProdutos );
+end;
+
 procedure TfrmGePromocao.ControlEditExit(Sender: TObject);
 begin
   inherited;
@@ -399,10 +431,15 @@ begin
     
     if ( cValor > 0 ) then
     begin
-      cdsProdutosPRECO_PROMOCAO.AsCurrency := cValor;
-      cdsProdutosDESCONTO.AsCurrency       := (1 - (cdsProdutosPRECO_PROMOCAO.Value / cdsProdutosPRECO_VENDA.AsCurrency)) * 100;
+      cdsProdutosPRECO_PROMOCAO.Value := cValor;
+      cdsProdutosDESCONTO.Value       := (1 - (cdsProdutosPRECO_PROMOCAO.Value / cdsProdutosPRECO_VENDA.Value)) * 100.0;
     end;
   end;
+end;
+
+procedure TfrmGePromocao.cdsProdutosCalcFields(DataSet: TDataSet);
+begin
+  cdsProdutosSequencial.Value := DataSet.RecNo;
 end;
 
 procedure TfrmGePromocao.cdsProdutosXXXCalcFields(DataSet: TDataSet);

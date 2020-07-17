@@ -104,10 +104,7 @@ inherited frmGePromocao: TfrmGePromocao
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 745
-      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 217
         Width = 745
@@ -1059,7 +1056,6 @@ inherited frmGePromocao: TfrmGePromocao
   end
   inherited fdQryTabela: TFDQuery
     AfterCancel = fdQryTabelaAfterCancel
-    OnNewRecord = fdQryTabelaNewRecord
     UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
     UpdateOptions.FetchGeneratorsPoint = gpImmediate
     UpdateOptions.GeneratorName = 'GEN_TBPROMOCAO_ID'
@@ -1103,12 +1099,9 @@ inherited frmGePromocao: TfrmGePromocao
       Required = True
       DisplayFormat = 'dd/mm/yyyy'
     end
-    object fdQryTabelaPERCENTUAL_DESCONTO: TBCDField
-      DisplayLabel = '% Desconto'
+    object fdQryTabelaPERCENTUAL_DESCONTO: TFMTBCDField
       FieldName = 'PERCENTUAL_DESCONTO'
       Origin = 'PERCENTUAL_DESCONTO'
-      Required = True
-      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
@@ -1216,6 +1209,7 @@ inherited frmGePromocao: TfrmGePromocao
       end>
   end
   object cdsProdutos: TFDQuery
+    OnCalcFields = cdsProdutosCalcFields
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -1235,6 +1229,12 @@ inherited frmGePromocao: TfrmGePromocao
       '  inner join TBPRODUTO pr on (pr.Cod = p.Codigo_prod)')
     Left = 640
     Top = 253
+    object cdsProdutosSequencial: TIntegerField
+      Alignment = taCenter
+      FieldKind = fkInternalCalc
+      FieldName = 'Sequencial'
+      DisplayFormat = '00'
+    end
     object cdsProdutosCODIGO_PROM: TIntegerField
       FieldName = 'CODIGO_PROM'
       Origin = 'CODIGO_PROM'
@@ -1242,35 +1242,27 @@ inherited frmGePromocao: TfrmGePromocao
       Required = True
     end
     object cdsProdutosCODIGO_PROD: TStringField
-      DisplayLabel = 'C'#243'digo'
       FieldName = 'CODIGO_PROD'
       Origin = 'CODIGO_PROD'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 10
     end
-    object cdsProdutosPRECO_VENDA: TBCDField
-      DisplayLabel = 'Valor Venda (R$)'
+    object cdsProdutosPRECO_VENDA: TFMTBCDField
       FieldName = 'PRECO_VENDA'
       Origin = 'PRECO_VENDA'
-      Required = True
-      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsProdutosDESCONTO: TBCDField
-      DisplayLabel = '% Desconto'
+    object cdsProdutosDESCONTO: TFMTBCDField
       FieldName = 'DESCONTO'
       Origin = 'DESCONTO'
-      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsProdutosPRECO_PROMOCAO: TBCDField
-      DisplayLabel = 'Valor Promo'#231#227'o (R$)'
+    object cdsProdutosPRECO_PROMOCAO: TFMTBCDField
       FieldName = 'PRECO_PROMOCAO'
       Origin = 'PRECO_PROMOCAO'
-      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
@@ -1281,7 +1273,6 @@ inherited frmGePromocao: TfrmGePromocao
     end
     object cdsProdutosDESCRI: TStringField
       AutoGenerateValue = arDefault
-      DisplayLabel = 'Produto'
       FieldName = 'DESCRI'
       Origin = 'DESCRI'
       ProviderFlags = []
@@ -1289,16 +1280,10 @@ inherited frmGePromocao: TfrmGePromocao
     end
     object cdsProdutosUNIDADE: TStringField
       AutoGenerateValue = arDefault
-      DisplayLabel = 'Und.'
       FieldName = 'UNIDADE'
       Origin = 'UNIDADE'
       ProviderFlags = []
-    end
-    object cdsProdutosSequencial: TIntegerField
-      Alignment = taCenter
-      FieldKind = fkInternalCalc
-      FieldName = 'Sequencial'
-      DisplayFormat = '00'
+      ReadOnly = True
     end
   end
   object IbUpdProdutos: TFDUpdateSQL

@@ -5,6 +5,7 @@ interface
 uses
   UGrPadrao,
   Interacao.Versao,
+  Interacao.Tabela,
   Controller.Versao,
 
   System.ImageList,
@@ -95,6 +96,8 @@ type
     procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
+    FTabela : ITabela;
+
     fDisplayFormat  ,
     fWhereAdditional: String;
     fManterDados    ,
@@ -126,6 +129,8 @@ type
   public
     { Public declarations }
     property ver : IVersao read _ver;
+    property Tabela : ITabela read FTabela;
+
     property DisplayFormatCodigo : String read fDisplayFormat write fDisplayFormat;
     property WhereAdditional : String read fWhereAdditional write SetWhereAdditional;
     property OcorreuErro : Boolean read fOcorreuErro;
@@ -182,7 +187,13 @@ const
 implementation
 
 uses
-  UConstantesDGE, UFuncoes, UGrCampoRequisitado, UDMBusiness, UDMRecursos, UDMNFe;
+    Controller.Tabela
+  , UConstantesDGE
+  , UFuncoes
+  , UGrCampoRequisitado
+  , UDMBusiness
+  , UDMRecursos
+  , UDMNFe;
 
 {$R *.dfm}
 
@@ -257,6 +268,8 @@ begin
         else
           ;
     end;
+
+    FTabela := TTabelaController.New.Tabela(fdQryTabela as TFDDataSet);
   end;
 end;
 
