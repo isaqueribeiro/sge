@@ -76,10 +76,6 @@ type
     qryAjusteCODFORN: TIntegerField;
     qryAjusteSISTEMA: TSmallintField;
     qryAjusteDOC: TStringField;
-    qryAjusteQTDEATUAL: TBCDField;
-    qryAjusteQTDENOVA: TBCDField;
-    qryAjusteQTDEFINAL: TBCDField;
-    qryAjusteFRACIONADOR: TBCDField;
     qryAjusteMOTIVO: TStringField;
     qryAjusteDTAJUST: TSQLTimeStampField;
     qryAjusteUSUARIO: TStringField;
@@ -88,6 +84,10 @@ type
     qryAjusteLOTE_DATA_FAB: TDateField;
     qryAjusteLOTE_DATA_VAL: TDateField;
     qryAjusteNOMEFORN: TStringField;
+    qryAjusteQTDEATUAL: TFMTBCDField;
+    qryAjusteQTDENOVA: TFMTBCDField;
+    qryAjusteQTDEFINAL: TFMTBCDField;
+    qryAjusteFRACIONADOR: TFMTBCDField;
     procedure ControlEditExit(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure qryEmpresaCNPJGetText(Sender: TField; var Text: String;
@@ -134,7 +134,12 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UDMRecursos, UGeProduto, UGeFornecedor;
+    Controller.Tabela
+  , UConstantesDGE
+  , UDMBusiness
+  , UDMRecursos
+  , UGeProduto
+  , UGeFornecedor;
 
 {$R *.dfm}
 
@@ -150,6 +155,16 @@ begin
     SQL.Add('order by 2');
     Open;
   end;
+
+  // Configurar tabela de ajustes
+  TTabelaController
+    .New
+    .Tabela( qryAjuste )
+    .Display('QTDEATUAL', 'Estoque', ',0.###', TAlignment.taRightJustify)
+    .Display('QTDENOVA', 'Quantidade', ',0.###', TAlignment.taRightJustify)
+    .Display('QTDEFINAL', 'Novo Estoque', ',0.###', TAlignment.taRightJustify)
+    .Display('FRACIONADOR', 'Fracionador', '0', TAlignment.taRightJustify)
+    .Configurar( qryAjuste );
 
   qryAjuste.Open;
 
@@ -213,6 +228,7 @@ end;
 
 procedure TfrmGeEstoqueAjusteManual.btnNovoAjusteClick(Sender: TObject);
 begin
+  qryAjuste.ParamByName('controle').Value := 0;
   qryAjuste.Append;
 end;
 
@@ -368,6 +384,8 @@ begin
       qryAjusteMOTIVO.AsString    := AnsiUpperCase( (dbMotivo.Lines.Text) );
       qryAjuste.Post;
 
+      qryAjuste.ParamByName('controle').Value := qryAjusteCONTROLE.Value;
+
       // Se o estoque do produto for gerenciado por Lote
       if pnlLote.Visible then
         UpdateLotes
@@ -449,11 +467,11 @@ begin
         qryAjuste.Edit;
         qryAjusteLOTE_ID.AsString := fdSetLoteProduto.FieldByName('lote_id').AsString;
         qryAjuste.Post;
-
-        fdSetLoteProduto.Close;
       end;
     end;
   finally
+    fdSetLoteProduto.Close;
+
     qryAjuste.ApplyUpdates();
     qryAjuste.CommitUpdates;
 

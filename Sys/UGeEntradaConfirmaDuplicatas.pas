@@ -62,11 +62,15 @@ type
     cdsDuplicatasTIPPAG: TStringField;
     cdsDuplicatasDTEMISS: TDateField;
     cdsDuplicatasDTVENC: TDateField;
-    cdsDuplicatasVALORPAG: TBCDField;
     updParcela: TFDUpdateSQL;
-    qryParcelaDTVENC: TDateField;
-    qryParcelaVALORPAG: TBCDField;
     cdsDuplicatasDTPAG: TDateField;
+    cdsDuplicatasVALORPAG: TFMTBCDField;
+    qryParcelaANOLANC: TSmallintField;
+    qryParcelaNUMLANC: TIntegerField;
+    qryParcelaANOCOMPRA: TSmallintField;
+    qryParcelaNUMCOMPRA: TIntegerField;
+    qryParcelaDTVENC: TDateField;
+    qryParcelaVALORPAG: TFMTBCDField;
     procedure btFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -120,7 +124,10 @@ type
 
 implementation
 
-uses DateUtils, UDMBusiness;
+uses
+    DateUtils
+  , Controller.Tabela
+  , UDMBusiness;
 
 {$R *.dfm}
 
@@ -159,6 +166,21 @@ begin
   AnoCompra      := 0;
   DataEmissaoDOC := Date;
   ControleCompra := 0;
+
+  // Configurar tabela dos lotes
+  TTabelaController
+    .New
+    .Tabela( cdsDuplicatas )
+    .Display('TotalEntrada', 'Total Entrada (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORPAG', 'Valor A Pagar (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsDuplicatas );
+
+  // Configurar tabela dos lotes
+  TTabelaController
+    .New
+    .Tabela( qryParcela )
+    .Display('VALORPAG', 'Valor A Pagar (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( qryParcela );
 end;
 
 procedure TfrmGeEntradaConfirmaDuplicatas.FormShow(Sender: TObject);
@@ -240,8 +262,8 @@ begin
   if ( not ShowConfirm('Confirma os valores e vencimentos das parcelas?') ) then
     Exit;
 
-  cTotalNF := StrToCurrDef( StringReplace(dbTotalEntrada.Text,  '.', '', [rfReplaceAll]), 0 );
-  cTotalDC := StrToCurrDef( StringReplace(dbTotalParcelas.Text, '.', '', [rfReplaceAll]), 0 );
+  cTotalNF := StrToCurrDef( Trim(StringReplace(StringReplace(dbTotalEntrada.Text,  '.', '', [rfReplaceAll]),  'R$', '', [rfReplaceAll])), 0 );
+  cTotalDC := StrToCurrDef( Trim(StringReplace(StringReplace(dbTotalParcelas.Text, '.', '', [rfReplaceAll]),  'R$', '', [rfReplaceAll])), 0 );
 
   if ( cTotalNF <> cTotalDC ) then
   begin
@@ -264,9 +286,9 @@ begin
 
   with qryDuplicatas, SQL do
   begin
-    Add('where AnoCompra = ' + IntToStr(AnoCompra));
-    Add('  and NumCompra = ' + IntToStr(ControleCompra));
-    Add('order by numlanc, parcela');
+    Add('where d.AnoCompra = ' + IntToStr(AnoCompra));
+    Add('  and d.NumCompra = ' + IntToStr(ControleCompra));
+    Add('order by d.numlanc, d.parcela');
   end;
 
   cdsDuplicatas.Open;
@@ -332,8 +354,8 @@ var
   cTotalNF ,
   cTotalDC : Currency;
 begin
-  cTotalNF := StrToCurrDef( StringReplace(dbTotalEntrada.Text,  '.', '', [rfReplaceAll]), 0 );
-  cTotalDC := StrToCurrDef( StringReplace(dbTotalParcelas.Text, '.', '', [rfReplaceAll]), 0 );
+  cTotalNF := StrToCurrDef( Trim(StringReplace(StringReplace(dbTotalEntrada.Text,  '.', '', [rfReplaceAll]),  'R$', '', [rfReplaceAll])), 0 );
+  cTotalDC := StrToCurrDef( Trim(StringReplace(StringReplace(dbTotalParcelas.Text, '.', '', [rfReplaceAll]),  'R$', '', [rfReplaceAll])), 0 );
 
   lblTotalEntrada.Caption   := FormatFloat(',0.00', cTotalNF);
   lblTotalParcelas.Caption  := FormatFloat(',0.00', cTotalDC);

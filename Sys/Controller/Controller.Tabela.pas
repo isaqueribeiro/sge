@@ -21,9 +21,12 @@ type
       function Display(aKey, aValue, aFormato : String) : ITabela; overload;
       function Display(aKey, aValue, aFormato : String; aAlinhamento : TAlignment) : ITabela; overload;
       function Display(aKey, aValue : String; aAlinhamento : TAlignment) : ITabela; overload;
-      function Tabela(aDataSet : TFDDataSet) : ITabela;
 
-      procedure Configurar(aDataSet : TFDDataSet);
+      function Tabela(aDataSet : TDataSet) : ITabela; overload;
+      function Tabela(aDataSet : TFDDataSet) : ITabela; overload;
+
+      procedure Configurar(aDataSet : TDataSet); overload;
+      procedure Configurar(aDataSet : TFDDataSet); overload;
 
       class function New : ITabela;
   end;
@@ -33,6 +36,57 @@ implementation
 { TControllerTabela }
 
 procedure TTabelaController.Configurar(aDataSet: TFDDataSet);
+//var
+//  I : Integer;
+begin
+//  with aDataSet do
+//  begin
+//    for I := 0 to FNomesCampos.Count - 1 do
+//      if Assigned(Fields.FindField( FNomesCampos.KeyNames[I] )) then
+//      begin
+//        FieldByName( FNomesCampos.KeyNames[I] ).ReadOnly := False; // Recurso para liberar manipulação dos campos
+//
+//        // Configurar DisplayName
+//        FieldByName( FNomesCampos.KeyNames[I] ).DisplayLabel := FNomesCampos.Values[ FNomesCampos.KeyNames[I] ];
+//        // Configurar Alinhamento
+//        FieldByName( FNomesCampos.KeyNames[I] ).Alignment    := FAlinhamentos[I];
+//
+//        // Configurar Formato
+//        // .. Inteiro
+//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TSmallintField) then
+//          TSmallintField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
+//        else
+//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TIntegerField) then
+//          TIntegerField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
+//        else
+//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TLargeintField) then
+//          TLargeintField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
+//        // .. Ponto flutuante
+//        else
+//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TCurrencyField) then
+//          TCurrencyField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
+//        else
+//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TBCDField) then
+//          TBCDField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
+//        else
+//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TFMTBCDField) then
+//          TFMTBCDField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
+//        // .. Data e hora
+//        else
+//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TTimeField) then
+//          TTimeField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
+//        else
+//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TDateField) then
+//          TDateField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
+//        else
+//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TDateTimeField) then
+//          TDateTimeField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '');
+//      end;
+//  end;
+  Self.Configurar(aDataSet as TDataSet);
+end;
+
+procedure TTabelaController.Configurar(aDataSet: TDataSet);
 var
   I : Integer;
 begin
@@ -137,7 +191,7 @@ begin
   Result := Self.Create;
 end;
 
-function TTabelaController.Tabela(aDataSet: TFDDataSet): ITabela;
+function TTabelaController.Tabela(aDataSet: TDataSet): ITabela;
 var
   I : Integer;
 begin
@@ -153,6 +207,8 @@ begin
 
   for I := 0 to aDataSet.FieldCount - 1 do
   begin
+    aDataSet.Fields[I].ReadOnly := False; // Recurso para liberar manipulação dos campos
+
     FNomesCampos
       .Add( LowerCase(aDataSet.Fields[I].FieldName) + '=' + aDataSet.Fields[I].DisplayLabel);
 
@@ -164,6 +220,38 @@ begin
 
   FNomesCampos.EndUpdate;
   FFormatos.EndUpdate;
+end;
+
+function TTabelaController.Tabela(aDataSet: TFDDataSet): ITabela;
+//var
+//  I : Integer;
+begin
+//  Result := Self;
+//
+//  FNomesCampos.BeginUpdate;
+//  FNomesCampos.Clear;
+//
+//  FFormatos.BeginUpdate;
+//  FFormatos.Clear;
+//
+//  SetLength(FAlinhamentos, aDataSet.FieldCount);
+//
+//  for I := 0 to aDataSet.FieldCount - 1 do
+//  begin
+//    aDataSet.Fields[I].ReadOnly := False; // Recurso para liberar manipulação dos campos
+//
+//    FNomesCampos
+//      .Add( LowerCase(aDataSet.Fields[I].FieldName) + '=' + aDataSet.Fields[I].DisplayLabel);
+//
+//    FFormatos
+//      .Add( LowerCase(aDataSet.Fields[I].FieldName) + '=vazio');
+//
+//    FAlinhamentos[I] := aDataSet.Fields[I].Alignment;
+//  end;
+//
+//  FNomesCampos.EndUpdate;
+//  FFormatos.EndUpdate;
+  Result := Self.Tabela(aDataSet as TDataSet);
 end;
 
 end.

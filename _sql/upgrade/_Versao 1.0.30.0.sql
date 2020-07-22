@@ -242,3 +242,178 @@ DROP SEQUENCE GEN_CAIXA_2019;
 
 DROP SEQUENCE GEN_CAIXA_2020;
 
+
+
+
+/*------ SYSDBA 22/07/2020 17:47:36 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SET_LOTE_PRODUTO (
+    EMPRESA varchar(18),
+    CENTRO_CUSTO integer,
+    SISTEMA smallint,
+    PRODUTO varchar(10),
+    LOTE_DESCRICAO varchar(30),
+    LOTE_FAB date,
+    LOTE_VAL date,
+    LOTE_QTDE numeric(18,3) = 0)
+returns (
+    LOTE_ID varchar(38))
+as
+declare variable LOTE integer;
+declare variable QTDE_NOVA numeric(18,3);
+declare variable QTDE numeric(18,3);
+declare variable ESTOQUE numeric(18,3);
+declare variable FRACIONADOR numeric(15,3);
+declare variable UNIDADE smallint;
+declare variable USUARIO varchar(60);
+begin
+  if (exists(
+    Select
+      cc.centro_custo
+    from TBCENTRO_CUSTO_EMPRESA cc
+    where cc.centro_custo = :centro_custo
+      and cc.empresa      = :empresa
+  ) and (trim(coalesce(:lote_descricao, '')) <> '')) then
+  begin
+    -- Buscar identificacao do Lote
+    Select
+        ea.id
+      , ea.qtde
+      , ea.lote
+    from TBESTOQUE_ALMOX ea
+    where ea.empresa      = :empresa
+      and ea.centro_custo = :centro_custo
+      and ea.produto      = :produto
+      and ea.descricao    = :lote_descricao
+    Into
+        lote_id
+      , qtde
+      , lote;
+
+    --qtde_nova = coalesce(:qtde, 0.000) + coalesce(:lote_qtde, 0.000);
+    qtde_nova = coalesce(:lote_qtde, 0.000);
+
+    -- Buscar dados importantes do produto
+    Select
+        pr.fracionador
+      , pr.codunidade_fracionada
+      , coalesce(pr.qtde, 0.000)
+      , pr.usuario
+    from TBPRODUTO pr
+    where pr.cod = :produto
+    Into
+        fracionador
+      , unidade
+      , estoque
+      , usuario;
+
+    if ( trim(coalesce(:lote_id, '')) = '' ) then
+    begin
+        Select
+          g.hex_uuid_format
+        from GET_GUID_UUID_HEX g
+        Into
+          lote_id;
+
+        Select
+            max(ea.lote)
+        from TBESTOQUE_ALMOX ea
+        where ea.empresa      = :empresa
+          and ea.centro_custo = :centro_custo
+          and ea.produto      = :produto
+        Into
+            lote;
+
+        lote = coalesce(:lote, 0) + 1;
+
+        Insert Into TBESTOQUE_ALMOX (
+            empresa
+          , centro_custo
+          , produto
+          , lote
+          , descricao
+          , data_fabricacao
+          , data_validade
+          , qtde
+          , fracionador
+          , unidade
+          , custo_medio
+          , id
+        ) values (
+            :empresa
+          , :centro_custo
+          , :produto
+          , :lote
+          , trim(:lote_descricao)
+          , :lote_fab
+          , :lote_val
+          , :qtde_nova   -- Informando a quantidade fracionada
+          , :fracionador
+          , :unidade
+          , null         -- Informando o custo medio fracionado
+          , :lote_id
+        );
+    end
+    else
+    begin
+      Update TBESTOQUE_ALMOX ea Set
+          ea.qtde        = :qtde_nova -- Informando a quantidade fracionada
+        , ea.fracionador = :fracionador
+        , ea.unidade     = :unidade
+      where ea.empresa      = :empresa
+        and ea.centro_custo = :centro_custo
+        and ea.produto      = :produto
+        and ea.lote         = :lote;
+    end
+
+    /* SISTEMA_GESTAO_SGE e SISTEMA_GESTAO_OPME */
+    if ((coalesce(:sistema, -1) = 0) or (coalesce(:sistema, -1) = 3)) then
+    begin
+      Select
+        sum( (e.qtde / coalesce(nullif(e.fracionador, 0), 1)) )
+      from TBESTOQUE_ALMOX e
+      where e.empresa      = :empresa
+        and e.centro_custo = :centro_custo
+        and e.produto      = :produto
+      Into
+        qtde_nova;
+
+      -- Atualizar Estoque de Venda
+      Update TBPRODUTO p Set
+        p.qtde = :qtde_nova
+      where p.cod = :produto;
+
+      Insert Into TBPRODHIST (
+          Codempresa
+        , Codprod
+        , Doc
+        , Historico
+        , Dthist
+        , Qtdeatual
+        , Qtdenova
+        , Qtdefinal
+        , Resp
+        , Motivo
+      ) values (
+          :empresa
+        , :produto
+        , 'LOTE'
+        , case when ((:qtde_nova - :estoque) > 0.000) then 'AJUSTE DE ESTOQUE - ENTRADA' else 'AJUSTE DE ESTOQUE - SAIDA' end
+        , current_timestamp
+        , :estoque
+        , (:qtde_nova - :estoque)
+        , :qtde_nova
+        , coalesce(:usuario, user)
+        , 'Ajuste manual do estoque'
+      );
+    end
+
+    suspend;
+  end 
+end
+^
+
+SET TERM ; ^
+

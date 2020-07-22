@@ -28,6 +28,8 @@ inherited frmGeProduto: TfrmGeProduto
     ExplicitWidth = 961
     ExplicitHeight = 543
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 953
       ExplicitHeight = 514
       inherited Bevel4: TBevel
@@ -826,6 +828,10 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblCusto: TLabel
             Left = 272
             Top = 8
@@ -2178,6 +2184,10 @@ inherited frmGeProduto: TfrmGeProduto
         object TbsEspecificacao: TTabSheet
           Caption = 'Especifica'#231#245'es'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object pnlVeiculo: TPanel
             Left = 0
             Top = 0
@@ -2577,13 +2587,12 @@ inherited frmGeProduto: TfrmGeProduto
             object lblEspecificacao: TLabel
               Left = 2
               Top = 2
-              Width = 941
+              Width = 105
               Height = 13
               Align = alTop
               Caption = 'Especifica'#231#227'o textual:'
               FocusControl = dbEspecificacao
               Transparent = True
-              ExplicitWidth = 105
             end
             object Bevel9: TBevel
               Left = 2
@@ -2608,6 +2617,10 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsHistoricoVeiculo: TTabSheet
           Caption = 'Hist'#243'ricos'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           DesignSize = (
             945
             249)

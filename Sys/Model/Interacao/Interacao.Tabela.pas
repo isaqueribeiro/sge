@@ -8,13 +8,15 @@ uses
 type
   ITabela = interface
     ['{85A93449-3220-44BE-84AD-494B50B9C170}']
-    function Tabela(aDataSet : TFDDataSet) : ITabela;
+    function Tabela(aDataSet : TDataSet) : ITabela; overload;
+    function Tabela(aDataSet : TFDDataSet) : ITabela; overload;
     function Display(aKey, aValue : String) : ITabela; overload;
     function Display(aKey, aValue, aFormato : String) : ITabela; overload;
     function Display(aKey, aValue, aFormato : String; aAlinhamento : TAlignment) : ITabela; overload;
     function Display(aKey, aValue : String; aAlinhamento : TAlignment) : ITabela; overload;
 
-    procedure Configurar(aDataSet : TFDDataSet);
+    procedure Configurar(aDataSet : TDataSet); overload;
+    procedure Configurar(aDataSet : TFDDataSet); overload;
   end;
 
 implementation

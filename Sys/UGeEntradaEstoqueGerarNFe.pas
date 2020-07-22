@@ -83,23 +83,24 @@ type
     cdsCompraNF: TIntegerField;
     cdsCompraNFCFOP: TIntegerField;
     cdsCompraSTATUS: TSmallintField;
-    cdsCompraICMSBASE: TBCDField;
-    cdsCompraICMSVALOR: TBCDField;
-    cdsCompraICMSSUBSTBASE: TBCDField;
-    cdsCompraICMSSUBSTVALOR: TBCDField;
-    cdsCompraTOTALPROD: TBCDField;
-    cdsCompraFRETE: TBCDField;
-    cdsCompraIPI: TBCDField;
-    cdsCompraVALORSEGURO: TBCDField;
-    cdsCompraDESCONTO: TBCDField;
-    cdsCompraVALORTOTAL_II: TBCDField;
-    cdsCompraVALORTOTAL_IPI: TBCDField;
-    cdsCompraVALORPIS: TBCDField;
-    cdsCompraVALORCOFINS: TBCDField;
-    cdsCompraOUTROSCUSTOS: TBCDField;
-    cdsCompraTOTALNF: TBCDField;
+    cdsCompraICMSBASE: TFMTBCDField;
+    cdsCompraICMSVALOR: TFMTBCDField;
+    cdsCompraICMSSUBSTBASE: TFMTBCDField;
+    cdsCompraICMSSUBSTVALOR: TFMTBCDField;
+    cdsCompraTOTALPROD: TFMTBCDField;
+    cdsCompraFRETE: TFMTBCDField;
+    cdsCompraIPI: TFMTBCDField;
+    cdsCompraVALORSEGURO: TFMTBCDField;
+    cdsCompraDESCONTO: TFMTBCDField;
+    cdsCompraVALORTOTAL_II: TFMTBCDField;
+    cdsCompraVALORTOTAL_IPI: TFMTBCDField;
+    cdsCompraVALORPIS: TFMTBCDField;
+    cdsCompraVALORCOFINS: TFMTBCDField;
+    cdsCompraOUTROSCUSTOS: TFMTBCDField;
+    cdsCompraTOTALNF: TFMTBCDField;
+    cdsCompraVALOR_TOTAL_IPI: TFMTBCDField;
     cdsCompraVALOR_TOTAL_BRUTO: TFMTBCDField;
-    cdsCompraVALOR_TOTAL_DESCONTO: TBCDField;
+    cdsCompraVALOR_TOTAL_DESCONTO: TFMTBCDField;
     cdsCompraVALOR_TOTAL_LIQUIDO: TFMTBCDField;
     cdsCompraVALOR_BASE_ICMS_NORMAL_ENTRADA: TFMTBCDField;
     cdsCompraVALOR_TOTAL_ICMS_NORMAL_ENTRADA: TFMTBCDField;
@@ -108,7 +109,6 @@ type
     cdsCompraVALOR_TOTAL_ICMS_NORMAL_DEVIDO: TFMTBCDField;
     cdsCompraVALOR_TOTAL_PIS: TFMTBCDField;
     cdsCompraVALOR_TOTAL_COFINS: TFMTBCDField;
-    cdsCompraVALOR_TOTAL_IPI: TFMTBCDField;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -149,7 +149,12 @@ type
 
 implementation
 
-uses UDMBusiness, UDMNFe, UFuncoes, UGeConsultarLoteNFe_v2;
+uses
+    Controller.Tabela
+  , UDMBusiness
+  , UDMNFe
+  , UFuncoes
+  , UGeConsultarLoteNFe_v2;
 
 {$R *.dfm}
 
@@ -421,6 +426,26 @@ begin
   sReciboNFE    := EmptyStr;
   iNumeroLote   := 0;
   lblInforme.Caption := EmptyStr;
+
+  TTabelaController
+    .New
+    .Tabela( cdsCompra )
+    .Display('CODCONTROL', 'No. Entrada', '###0000000', TAlignment.taCenter)
+    .Display('IPI', 'IPI', ',0.00', TAlignment.taRightJustify)
+    .Display('ICMSBASE', 'Base ICMS', ',0.00', TAlignment.taRightJustify)
+    .Display('ICMSVALOR', 'Valor ICMS', ',0.00', TAlignment.taRightJustify)
+    .Display('ICMSSUBSTBASE', 'Base ICMS Subst.', ',0.00', TAlignment.taRightJustify)
+    .Display('ICMSSUBSTVALOR', 'Valor ICMS Subst.', ',0.00', TAlignment.taRightJustify)
+    .Display('FRETE', 'Frete', ',0.00', TAlignment.taRightJustify)
+    .Display('OUTROSCUSTOS', 'Outros Custos', ',0.00', TAlignment.taRightJustify)
+    .Display('DESCONTO', 'Desconto', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTALNF', 'Total Nota Fiscal', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTALPROD', 'Total Produto', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORSEGURO', 'Valor Seguro', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORTOTAL_IPI', 'Total IPI', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORPIS', 'Total PIS', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORCOFINS', 'Total COFINS', ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsCompra );
 end;
 
 procedure TfrmGeEntradaEstoqueGerarNFe.TmrAlertaTimer(Sender: TObject);

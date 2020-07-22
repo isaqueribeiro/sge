@@ -608,7 +608,7 @@ begin
     frm.lblAliquotaTipo.Enabled      := False;
     frm.dbAliquotaTipo.Enabled       := False;
 
-    whr := '(p.codemp = ' + QuotedStr(Empresa) + ') and (p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota)) + ')';
+    whr := PRD_ARQUIVO_MORTO + ' and (p.codemp = ' + QuotedStr(Empresa) + ') and (p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota)) + ')';
 
     if frm.chkProdutoComEstoque.Checked then
       whr := whr + ' and (p.Qtde > 0)';

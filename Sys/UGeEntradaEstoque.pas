@@ -253,16 +253,6 @@ type
     fdQryTabelaNATUREZA: TStringField;
     fdQryTabelaSTATUS: TSmallintField;
     fdQryTabelaCALCULAR_TOTAIS: TSmallintField;
-    fdQryTabelaIPI: TBCDField;
-    fdQryTabelaICMSBASE: TBCDField;
-    fdQryTabelaICMSVALOR: TBCDField;
-    fdQryTabelaICMSSUBSTBASE: TBCDField;
-    fdQryTabelaICMSSUBSTVALOR: TBCDField;
-    fdQryTabelaFRETE: TBCDField;
-    fdQryTabelaOUTROSCUSTOS: TBCDField;
-    fdQryTabelaDESCONTO: TBCDField;
-    fdQryTabelaTOTALNF: TBCDField;
-    fdQryTabelaTOTALPROD: TBCDField;
     fdQryTabelaOBS: TMemoField;
     fdQryTabelaUSUARIO: TStringField;
     fdQryTabelaFORMAPAGTO_COD: TSmallintField;
@@ -323,31 +313,13 @@ type
     cdsTabelaItensCODPROD: TStringField;
     cdsTabelaItensCODFORN: TIntegerField;
     cdsTabelaItensDTENT: TDateField;
-    cdsTabelaItensQTDE: TBCDField;
-    cdsTabelaItensQTDEANTES: TBCDField;
-    cdsTabelaItensQTDEFINAL: TBCDField;
-    cdsTabelaItensPRECOUNIT: TBCDField;
-    cdsTabelaItensCUSTOMEDIO: TBCDField;
     cdsTabelaItensNF: TIntegerField;
-    cdsTabelaItensPERC_PARTICIPACAO: TBCDField;
-    cdsTabelaItensVALOR_FRETE: TBCDField;
-    cdsTabelaItensVALOR_DESCONTO: TBCDField;
-    cdsTabelaItensVALOR_OUTROS: TBCDField;
-    cdsTabelaItensVALOR_IPI: TBCDField;
     cdsTabelaItensUNID_COD: TSmallintField;
     cdsTabelaItensNCM_SH: TStringField;
     cdsTabelaItensCST: TStringField;
     cdsTabelaItensCSOSN: TStringField;
     cdsTabelaItensCFOP: TIntegerField;
-    cdsTabelaItensALIQUOTA: TBCDField;
-    cdsTabelaItensALIQUOTA_CSOSN: TBCDField;
-    cdsTabelaItensALIQUOTA_PIS: TBCDField;
-    cdsTabelaItensALIQUOTA_COFINS: TBCDField;
-    cdsTabelaItensPERCENTUAL_REDUCAO_BC: TBCDField;
-    cdsTabelaItensTOTAL_BRUTO: TBCDField;
-    cdsTabelaItensTOTAL_LIQUIDO: TBCDField;
     cdsTabelaItensDESCRI: TStringField;
-    cdsTabelaItensESTOQUE: TBCDField;
     cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField;
     cdsTabelaItensUNP_SIGLA: TStringField;
     updTabelaItens: TFDUpdateSQL;
@@ -363,7 +335,6 @@ type
     qryDuplicatasTIPPAG: TStringField;
     qryDuplicatasDTEMISS: TDateField;
     qryDuplicatasDTVENC: TDateField;
-    qryDuplicatasVALORPAG: TBCDField;
     qryDuplicatasBANCO: TSmallintField;
     qryDuplicatasBCO_NOME: TStringField;
     qryDuplicatasNUMCHQ: TStringField;
@@ -395,7 +366,36 @@ type
     cdsTabelaLotesLOTE_DESCRICAO: TStringField;
     cdsTabelaLotesLOTE_DATA_FAB: TDateField;
     cdsTabelaLotesLOTE_DATA_VAL: TDateField;
-    cdsTabelaLotesQTDE: TBCDField;
+    fdQryTabelaIPI: TFMTBCDField;
+    fdQryTabelaICMSBASE: TFMTBCDField;
+    fdQryTabelaICMSVALOR: TFMTBCDField;
+    fdQryTabelaICMSSUBSTBASE: TFMTBCDField;
+    fdQryTabelaICMSSUBSTVALOR: TFMTBCDField;
+    fdQryTabelaFRETE: TFMTBCDField;
+    fdQryTabelaOUTROSCUSTOS: TFMTBCDField;
+    fdQryTabelaDESCONTO: TFMTBCDField;
+    fdQryTabelaTOTALNF: TFMTBCDField;
+    fdQryTabelaTOTALPROD: TFMTBCDField;
+    cdsTabelaItensQTDE: TFMTBCDField;
+    cdsTabelaItensQTDEANTES: TFMTBCDField;
+    cdsTabelaItensQTDEFINAL: TFMTBCDField;
+    cdsTabelaItensPRECOUNIT: TFMTBCDField;
+    cdsTabelaItensCUSTOMEDIO: TFMTBCDField;
+    cdsTabelaItensPERC_PARTICIPACAO: TFMTBCDField;
+    cdsTabelaItensVALOR_FRETE: TFMTBCDField;
+    cdsTabelaItensVALOR_DESCONTO: TFMTBCDField;
+    cdsTabelaItensVALOR_OUTROS: TFMTBCDField;
+    cdsTabelaItensVALOR_IPI: TFMTBCDField;
+    cdsTabelaItensALIQUOTA: TFMTBCDField;
+    cdsTabelaItensALIQUOTA_CSOSN: TFMTBCDField;
+    cdsTabelaItensALIQUOTA_PIS: TFMTBCDField;
+    cdsTabelaItensALIQUOTA_COFINS: TFMTBCDField;
+    cdsTabelaItensPERCENTUAL_REDUCAO_BC: TFMTBCDField;
+    cdsTabelaItensTOTAL_BRUTO: TFMTBCDField;
+    cdsTabelaItensTOTAL_LIQUIDO: TFMTBCDField;
+    cdsTabelaItensESTOQUE: TFMTBCDField;
+    cdsTabelaLotesQTDE: TFMTBCDField;
+    qryDuplicatasVALORPAG: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
@@ -465,6 +465,7 @@ type
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
     procedure InserirItensAutorizacao;
+    procedure ConfigurarCamposTabelas;
 
     function GetRotinaFinalizarID : String;
     function GetRotinaGerarNFeID : String;
@@ -519,11 +520,23 @@ var
 implementation
 
 uses
-  UConstantesDGE, DateUtils, UGeCondicaoPagto, UGeProduto, UGeTabelaCFOP, UGeFornecedor,
-  UFuncoes, UDMNFe, UGeConsultarLoteNFe_v2,
-  {$IFNDEF DGE}UGeAutorizacaoCompra,{$ENDIF}
-  UGeEntradaEstoqueLote, UGeEntradaEstoqueCancelar, UGeEntradaConfirmaDuplicatas, UGeEntradaEstoqueGerarNFe,
-  UGeEntradaEstoqueDevolucaoNF, UDMRecursos;
+    Controller.Tabela
+  , UDMRecursos
+  , UConstantesDGE
+  , DateUtils
+  , UGeCondicaoPagto
+  , UGeProduto
+  , UGeTabelaCFOP
+  , UGeFornecedor
+  , UFuncoes
+  , UDMNFe
+  , UGeConsultarLoteNFe_v2
+  {$IFNDEF DGE}, UGeAutorizacaoCompra{$ENDIF}
+  , UGeEntradaEstoqueLote
+  , UGeEntradaEstoqueCancelar
+  , UGeEntradaConfirmaDuplicatas
+  , UGeEntradaEstoqueGerarNFe
+  , UGeEntradaEstoqueDevolucaoNF;
 
 {$R *.dfm}
 
@@ -787,6 +800,8 @@ begin
     GrpBxDadosValores.Height := 76
   else
     GrpBxDadosValores.Height := 90;
+
+  ConfigurarCamposTabelas;
 end;
 
 procedure TfrmGeEntradaEstoque.btnFiltrarClick(Sender: TObject);
@@ -1463,6 +1478,61 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TfrmGeEntradaEstoque.ConfigurarCamposTabelas;
+begin
+  // Configurar tabela de cadastro
+  Tabela
+    .Display('CODCONTROL', 'No. Entrada', '###0000000', TAlignment.taCenter)
+    .Display('IPI', 'IPI', ',0.00', TAlignment.taRightJustify)
+    .Display('ICMSBASE', 'Base ICMS', ',0.00', TAlignment.taRightJustify)
+    .Display('ICMSVALOR', 'Valor ICMS', ',0.00', TAlignment.taRightJustify)
+    .Display('ICMSSUBSTBASE', 'Base ICMS Subst.', ',0.00', TAlignment.taRightJustify)
+    .Display('ICMSSUBSTVALOR', 'Valor ICMS Subst.', ',0.00', TAlignment.taRightJustify)
+    .Display('FRETE', 'Frete', ',0.00', TAlignment.taRightJustify)
+    .Display('OUTROSCUSTOS', 'Outros', ',0.00', TAlignment.taRightJustify)
+    .Display('DESCONTO', 'Desconto', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTALNF', 'Total Nota Fiscal', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTALPROD', 'Total Produto', ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
+
+  // Configurar tabela dos itens
+  TTabelaController
+    .New
+    .Tabela( cdsTabelaItens )
+    .Display('SEQ', '#', '00', TAlignment.taCenter)
+    .Display('CODPROD', 'Produto')
+    .Display('QTDE', 'Qtde.', ',0.##', TAlignment.taRightJustify)
+    .Display('PRECOUNIT', 'Valor Unitário (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('CUSTOMEDIO', 'Outros (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('PERC_PARTICIPACAO', '% Partic.', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_FRETE', 'Frete (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_DESCONTO', 'Desconto (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_OUTROS', 'Outros (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_IPI', 'Valor IPI (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('ALIQUOTA', '% Alíquota', ',0.00', TAlignment.taRightJustify)
+    .Display('ALIQUOTA_CSOSN', '% Alíquota SN', ',0.00', TAlignment.taRightJustify)
+    .Display('ALIQUOTA_PIS', '% Alíquota PIS', ',0.00', TAlignment.taRightJustify)
+    .Display('ALIQUOTA_COFINS', '% Alíquota COFINS', ',0.00', TAlignment.taRightJustify)
+    .Display('PERCENTUAL_REDUCAO_BC', '% Redução BC', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTAL_BRUTO', 'Total Bruto (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTAL_LIQUIDO', 'Total Líquido (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsTabelaItens );
+
+  // Configurar tabela dos lotes
+  TTabelaController
+    .New
+    .Tabela( cdsTabelaLotes )
+    .Display('QTDE', 'Qtde.', ',0.##', TAlignment.taRightJustify)
+    .Configurar( cdsTabelaLotes );
+
+  // Configurar tabela das duplicatas
+  TTabelaController
+    .New
+    .Tabela( qryDuplicatas )
+    .Display('VALORPAG', 'Valor A Pagar', ',0.00', TAlignment.taRightJustify)
+    .Configurar( qryDuplicatas );
 end;
 
 procedure TfrmGeEntradaEstoque.ControlEditExit(Sender: TObject);

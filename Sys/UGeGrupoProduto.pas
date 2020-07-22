@@ -26,7 +26,7 @@ type
     dbComissao: TDBEdit;
     fdQryTabelaCOD: TSmallintField;
     fdQryTabelaDESCRI: TStringField;
-    fdQryTabelaPERC_VENDA_COMISSAO: TBCDField;
+    fdQryTabelaPERC_VENDA_COMISSAO: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
   private
@@ -107,6 +107,12 @@ begin
   CampoCodigo    := 'g.COD';
   CampoDescricao := 'g.DESCRI';
   CampoOrdenacao := 'g.DESCRI';
+
+  Tabela
+    .Display('COD', 'Código', '##000', TAlignment.taCenter)
+    .Display('DESCRI', 'Descrição')
+    .Display('PERC_VENDA_COMISSAO', '% Comissão', ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
 
   UpdateGenerator;
 end;

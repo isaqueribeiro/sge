@@ -60,16 +60,6 @@ type
     cdsEntradaNFCFOP: TIntegerField;
     cdsEntradaNATUREZA: TStringField;
     cdsEntradaSTATUS: TSmallintField;
-    cdsEntradaIPI: TBCDField;
-    cdsEntradaICMSBASE: TBCDField;
-    cdsEntradaICMSVALOR: TBCDField;
-    cdsEntradaICMSSUBSTBASE: TBCDField;
-    cdsEntradaICMSSUBSTVALOR: TBCDField;
-    cdsEntradaFRETE: TBCDField;
-    cdsEntradaOUTROSCUSTOS: TBCDField;
-    cdsEntradaDESCONTO: TBCDField;
-    cdsEntradaTOTALNF: TBCDField;
-    cdsEntradaTOTALPROD: TBCDField;
     cdsEntradaOBS: TMemoField;
     cdsEntradaUSUARIO: TStringField;
     cdsEntradaFORMAPAGTO_COD: TSmallintField;
@@ -92,8 +82,10 @@ type
     cdsEntradaCANCEL_MOTIVO: TMemoField;
     cdsEntradaNOMEFORN: TStringField;
     cdsEntradaCNPJ: TStringField;
+    cdsEntradaTOTALNF: TFMTBCDField;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -119,7 +111,11 @@ type
 
 implementation
 
-uses UDMBusiness, UDMNFe, UFuncoes;
+uses
+    Controller.Tabela
+  , UDMBusiness
+  , UDMNFe
+  , UFuncoes;
 
 {$R *.dfm}
 
@@ -223,6 +219,16 @@ begin
         ModalResult := mrOk;
       end;
   end;
+end;
+
+procedure TfrmGeEntradaEstoqueCancelar.FormCreate(Sender: TObject);
+begin
+  inherited;
+  TTabelaController
+    .New
+    .Tabela( cdsEntrada )
+    .Display('TOTALNF', 'Total Nota Fiscal', ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsEntrada );
 end;
 
 procedure TfrmGeEntradaEstoqueCancelar.RegistrarRotinaSistema;
