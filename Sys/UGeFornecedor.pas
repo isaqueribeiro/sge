@@ -20,7 +20,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, JvMaskEdit;
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, JvMaskEdit,
+  cxDataControllerConditionalFormattingRulesManagerDialog;
 
 type
   TfrmGeFornecedor = class(TfrmGrPadraoCadastro)
@@ -194,13 +195,13 @@ type
     fdQryTabelaPRACA_3: TStringField;
     fdQryTabelaOBSERVACAO: TMemoField;
     fdQryTabelaDTCAD: TDateField;
-    fdQryTabelaFATURAMENTO_MINIMO: TBCDField;
     fdQryTabelaATIVO: TSmallintField;
     fdQryTabelaLOGRADOURO: TStringField;
     fdQryTabelaBAI_NOME: TStringField;
     fdQryTabelaCID_NOME: TStringField;
     fdQryTabelaEST_NOME: TStringField;
     fdQryTabelaPAIS_NOME: TStringField;
+    fdQryTabelaFATURAMENTO_MINIMO: TFMTBCDField;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -361,6 +362,11 @@ begin
   tbsConsultarCPF.TabVisible   := False;
 
   tbsDuplicatas.TabVisible := False; // Temporário
+
+  Tabela
+    .Display('CODFORN', 'Código', '##0000', TAlignment.taCenter)
+    .Display('FATURAMENTO_MINIMO', 'Fatura Mínima (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
 end;
 
 procedure TfrmGeFornecedor.ProximoCampoKeyPress(Sender: TObject;

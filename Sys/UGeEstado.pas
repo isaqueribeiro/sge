@@ -34,10 +34,10 @@ type
     fdQryTabelaEST_NOME: TStringField;
     fdQryTabelaEST_SIGLA: TStringField;
     fdQryTabelaEST_SIAFI: TIntegerField;
-    fdQryTabelaALIQUOTA_ICMS: TBCDField;
-    fdQryTabelaALIQUOTA_FCP: TBCDField;
     lblAliquotaFCP: TLabel;
     dbAliquotaFCP: TDBEdit;
+    fdQryTabelaALIQUOTA_ICMS: TFMTBCDField;
+    fdQryTabelaALIQUOTA_FCP: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
@@ -129,6 +129,14 @@ begin
   CampoCodigo     := 'est_cod';
   CampoDescricao  := 'est_nome';
   CampoOrdenacao  := 'est_nome';
+
+  Tabela
+    .Display('est_cod', 'Código', '00', TAlignment.taCenter)
+    .Display('est_nome', 'Nome')
+    .Display('est_sigla', 'Sigla')
+    .Display('aliquota_icms', '% Aliquota ICMS', ',0.00#', TAlignment.taRightJustify)
+    .Display('aliquota_fcp', '% Aliquota FCP', ',0.00#', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
 
   AbrirTabelaAuto := True;
 end;

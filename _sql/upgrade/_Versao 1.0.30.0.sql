@@ -1,6 +1,4 @@
 
-
-
 /*------ SYSDBA 16/01/2020 16:02:27 --------*/
 
 DROP TABLE TB_TESTE;
@@ -184,4 +182,63 @@ begin
 end^
 
 SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 21/07/2020 21:02:09 --------*/
+
+COMMENT ON TRIGGER TG_CAIXA_NUMERO IS 'Trigger Novo Caixa (Financeiro).
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   21/07/2020
+
+Trigger responsavel por gerar um sequencial unico para cada novo registro de caixa no ano.';
+
+
+
+
+/*------ SYSDBA 21/07/2020 21:02:15 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_caixa_numero for tbcaixa
+active before insert position 0
+AS
+begin
+  if (new.numero is null) then
+  begin
+    Select
+      g.generator_id
+    from GET_GENERATOR('GEN_CAIXA', cast(new.ano as varchar(4))) g
+    Into
+      new.numero;
+  end
+end
+^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 21/07/2020 21:05:11 --------*/
+
+DROP SEQUENCE GEN_CAIXA_2012;
+
+DROP SEQUENCE GEN_CAIXA_2013;
+
+DROP SEQUENCE GEN_CAIXA_2014;
+
+DROP SEQUENCE GEN_CAIXA_2015;
+
+DROP SEQUENCE GEN_CAIXA_2016;
+
+DROP SEQUENCE GEN_CAIXA_2017;
+
+DROP SEQUENCE GEN_CAIXA_2018;
+
+DROP SEQUENCE GEN_CAIXA_2019;
+
+DROP SEQUENCE GEN_CAIXA_2020;
 

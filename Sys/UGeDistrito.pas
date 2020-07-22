@@ -85,10 +85,11 @@ begin
   ControlFirstEdit := dbNome;
 
   DisplayFormatCodigo := '000';
-  NomeTabela     := 'TBDISTRITO';
-  CampoCodigo    := 'dis_cod';
-  CampoDescricao := 'dis_nome';
-  CampoOrdenacao := 'dis_nome';
+  NomeTabela      := 'TBDISTRITO';
+  CampoCodigo     := 'dis_cod';
+  CampoDescricao  := 'dis_nome';
+  CampoOrdenacao  := 'dis_nome';
+  WhereAdditional := '(trim(d.Dis_nome) <> ' + QuotedStr('') +  ')';
 
   UpdateGenerator;
 end;

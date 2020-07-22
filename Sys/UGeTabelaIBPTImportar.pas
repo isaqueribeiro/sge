@@ -70,11 +70,11 @@ type
     qryTabelaIBPTEX_IBPT: TStringField;
     qryTabelaIBPTTABELA_IBPT: TStringField;
     qryTabelaIBPTDESCRICAO_IBPT: TMemoField;
-    qryTabelaIBPTALIQNACIONAL_IBPT: TBCDField;
-    qryTabelaIBPTALIQINTERNACIONAL_IBPT: TBCDField;
-    qryTabelaIBPTALIQESTADUAL_IBPT: TBCDField;
-    qryTabelaIBPTALIQMUNICIPAL_IBPT: TBCDField;
     qryTabelaIBPTATIVO: TSmallintField;
+    qryTabelaIBPTALIQNACIONAL_IBPT: TFMTBCDField;
+    qryTabelaIBPTALIQINTERNACIONAL_IBPT: TFMTBCDField;
+    qryTabelaIBPTALIQESTADUAL_IBPT: TFMTBCDField;
+    qryTabelaIBPTALIQMUNICIPAL_IBPT: TFMTBCDField;
     procedure btnDownloadClick(Sender: TObject);
     procedure btnImportarClick(Sender: TObject);
     procedure ACBrIBPTErroImportacao(const ALinha, AErro: string);

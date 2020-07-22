@@ -466,25 +466,25 @@ inherited frmGeTabelaIBPTImportar: TfrmGeTabelaIBPTImportar
       Origin = 'DESCRICAO_IBPT'
       BlobType = ftMemo
     end
-    object qryTabelaIBPTALIQNACIONAL_IBPT: TBCDField
+    object qryTabelaIBPTALIQNACIONAL_IBPT: TFMTBCDField
       FieldName = 'ALIQNACIONAL_IBPT'
       Origin = 'ALIQNACIONAL_IBPT'
       Precision = 18
       Size = 2
     end
-    object qryTabelaIBPTALIQINTERNACIONAL_IBPT: TBCDField
+    object qryTabelaIBPTALIQINTERNACIONAL_IBPT: TFMTBCDField
       FieldName = 'ALIQINTERNACIONAL_IBPT'
       Origin = 'ALIQINTERNACIONAL_IBPT'
       Precision = 18
       Size = 2
     end
-    object qryTabelaIBPTALIQESTADUAL_IBPT: TBCDField
+    object qryTabelaIBPTALIQESTADUAL_IBPT: TFMTBCDField
       FieldName = 'ALIQESTADUAL_IBPT'
       Origin = 'ALIQESTADUAL_IBPT'
       Precision = 18
       Size = 2
     end
-    object qryTabelaIBPTALIQMUNICIPAL_IBPT: TBCDField
+    object qryTabelaIBPTALIQMUNICIPAL_IBPT: TFMTBCDField
       FieldName = 'ALIQMUNICIPAL_IBPT'
       Origin = 'ALIQMUNICIPAL_IBPT'
       Precision = 18

@@ -343,10 +343,11 @@ end;
 procedure TfrmGeCaixa.FormCreate(Sender: TObject);
 begin
   sGeneratorName := 'GEN_CAIXA_' + FormatFloat('0000', YearOf(GetDateDB));
+  CriarGenerator(sGeneratorName, 0);
 
   inherited;
 
-  AbrirTabelaAuto:= True;
+  AbrirTabelaAuto := True;
 
   SQL_Consolidado := TStringList.Create;
   SQL_Consolidado.Clear;

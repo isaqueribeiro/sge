@@ -142,12 +142,12 @@ type
     fdQryTabelaNFSE_EMITIR: TSmallintField;
     fdQryTabelaNFSE_SERIE: TStringField;
     fdQryTabelaNFSE_NUMERO: TIntegerField;
-    fdQryTabelaNFSE_PERCENTUAL_PIS: TBCDField;
-    fdQryTabelaNFSE_PERCENTUAL_COFINS: TBCDField;
-    fdQryTabelaNFSE_PERCENTUAL_CSLL: TBCDField;
-    fdQryTabelaNFSE_PERCENTUAL_ISSQN: TBCDField;
     fdQryTabelaRZSOC: TStringField;
     fdQryTabelaNMFANT: TStringField;
+    fdQryTabelaNFSE_PERCENTUAL_PIS: TFMTBCDField;
+    fdQryTabelaNFSE_PERCENTUAL_COFINS: TFMTBCDField;
+    fdQryTabelaNFSE_PERCENTUAL_CSLL: TFMTBCDField;
+    fdQryTabelaNFSE_PERCENTUAL_ISSQN: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
@@ -211,6 +211,14 @@ begin
   chkNFE_SalvarNotaDenegada.Enabled := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
   chkNFE_SolicitaDHSaida.Enabled    := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
   chkImprimirCodCliente.Enabled     := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
+
+  Tabela
+    .Display('EMPRESA', 'Empresa')
+    .Display('NFSE_PERCENTUAL_PIS',    'NFS-e: Percentual PIS',    ',0.00#', TAlignment.taRightJustify)
+    .Display('NFSE_PERCENTUAL_COFINS', 'NFS-e: Percentual COFINS', ',0.00#', TAlignment.taRightJustify)
+    .Display('NFSE_PERCENTUAL_CSLL',   'NFS-e: Percentual CSLL',   ',0.00#', TAlignment.taRightJustify)
+    .Display('NFSE_PERCENTUAL_ISSQN',  'NFS-e: Percentual ISSQN',  ',0.00#', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
 end;
 
 procedure TfrmGeConfiguracaoEmpresa.DtSrcTabelaStateChange(

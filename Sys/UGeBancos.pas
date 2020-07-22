@@ -95,12 +95,12 @@ type
     fdQryTabelaBCO_DIRETORIO_REMESSA: TStringField;
     fdQryTabelaBCO_DIRETORIO_RETORNO: TStringField;
     fdQryTabelaBCO_SEQUENCIAL_REM: TIntegerField;
-    fdQryTabelaBCO_PERCENTUAL_JUROS: TBCDField;
-    fdQryTabelaBCO_PERCENTUAL_MORA: TBCDField;
     fdQryTabelaBCO_DIA_PROTESTO: TSmallintField;
     fdQryTabelaBCO_MSG_INSTRUCAO: TStringField;
     fdQryTabelaBCO_LAYOUT_REMESSA: TSmallintField;
     fdQryTabelaBCO_LAYOUT_RETORNO: TSmallintField;
+    fdQryTabelaBCO_PERCENTUAL_JUROS: TFMTBCDField;
+    fdQryTabelaBCO_PERCENTUAL_MORA: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure imgAjudaClick(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
@@ -288,6 +288,12 @@ begin
   CampoCodigo    := 'b.bco_cod';
   CampoDescricao := 'b.bco_nome';
   CampoOrdenacao := 'b.bco_nome';
+
+  Tabela
+    .Display('bco_cod', 'Código', '0000', TAlignment.taCenter)
+    .Display('BCO_PERCENTUAL_JUROS', '% Multa', ',0.00', TAlignment.taRightJustify)
+    .Display('BCO_PERCENTUAL_MORA',  '% Mora Mês', ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
 
   CarregarLista(fdQryEmpresa);
   CarregarLista(fdQryLayout);

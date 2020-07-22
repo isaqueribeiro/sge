@@ -53,12 +53,12 @@ type
     fdQryTabelaEX_IBPT: TStringField;
     fdQryTabelaTABELA_IBPT: TStringField;
     fdQryTabelaDESCRICAO_IBPT: TMemoField;
-    fdQryTabelaALIQNACIONAL_IBPT: TBCDField;
-    fdQryTabelaALIQINTERNACIONAL_IBPT: TBCDField;
-    fdQryTabelaALIQESTADUAL_IBPT: TBCDField;
-    fdQryTabelaALIQMUNICIPAL_IBPT: TBCDField;
     fdQryTabelaATIVO: TSmallintField;
     fdQryTabelaDESCRICAO: TStringField;
+    fdQryTabelaALIQNACIONAL_IBPT: TFMTBCDField;
+    fdQryTabelaALIQINTERNACIONAL_IBPT: TFMTBCDField;
+    fdQryTabelaALIQESTADUAL_IBPT: TFMTBCDField;
+    fdQryTabelaALIQMUNICIPAL_IBPT: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure btnFiltrarClick(Sender: TObject);
@@ -67,6 +67,7 @@ type
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure fdQryTabelaCalcFields(DataSet: TDataSet);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     FTipoTabela : TTipoTabelaIBPT;
@@ -154,6 +155,14 @@ procedure TfrmGeTabelaIBPT.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
   btnImportar.Enabled := btbtnIncluir.Enabled;
+end;
+
+procedure TfrmGeTabelaIBPT.fdQryTabelaBeforePost(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+    if FieldByName('ATIVO').IsNull then
+      FieldByName('ATIVO').Value := 1;
 end;
 
 procedure TfrmGeTabelaIBPT.fdQryTabelaCalcFields(DataSet: TDataSet);
@@ -250,6 +259,16 @@ begin
   AbrirTabelaAuto    := True;
 
   UpdateGenerator;
+
+  Tabela
+    .Display('ID_IBPT',  'Código', '0000000', TAlignment.taCenter)
+    .Display('NCM_IBPT', 'Código NCM')
+    .Display('EX_IBPT',  'Exceção')
+    .Display('ALIQNACIONAL_IBPT',      'Tributação Nacional',      '0.00#', TAlignment.taRightJustify)
+    .Display('ALIQINTERNACIONAL_IBPT', 'Tributação Internacional', '0.00#', TAlignment.taRightJustify)
+    .Display('ALIQESTADUAL_IBPT',      'Tributação Estadual',      '0.00#', TAlignment.taRightJustify)
+    .Display('ALIQMUNICIPAL_IBPT',     'Tributação Municipal',     '0.00#', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
 
   CarregarLista(fdQryNivelIBPT);
   CarregarLista(fdQryTabelaIBPT);
