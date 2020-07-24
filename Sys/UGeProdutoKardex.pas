@@ -29,12 +29,12 @@ type
     fdQryPesquisaDOC: TStringField;
     fdQryPesquisaHISTORICO: TStringField;
     fdQryPesquisaDTHIST: TSQLTimeStampField;
-    fdQryPesquisaQTDEATUAL: TBCDField;
-    fdQryPesquisaQTDENOVA: TBCDField;
-    fdQryPesquisaQTDEFINAL: TBCDField;
     fdQryPesquisaUNIDADE: TStringField;
     fdQryPesquisaRESP: TStringField;
     fdQryPesquisaMOTIVO: TStringField;
+    fdQryPesquisaQTDEATUAL: TFMTBCDField;
+    fdQryPesquisaQTDENOVA: TFMTBCDField;
+    fdQryPesquisaQTDEFINAL: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure edProdutoButtonClick(Sender: TObject);
     procedure edProdutoKeyPress(Sender: TObject; var Key: Char);
@@ -65,7 +65,10 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, UGrPadrao, UGeProduto;
+    UDMBusiness
+  , UConstantesDGE
+  , UGrPadrao
+  , UGeProduto;
 
 {$R *.dfm}
 
@@ -113,6 +116,12 @@ begin
   inherited;
   e1Data.Date := Date - 30;
   e2Data.Date := Date;
+
+  Tabela
+    .Display('QTDEATUAL', 'Estoque', ',0.###', TAlignment.taRightJustify)
+    .Display('QTDENOVA',  'Qtde.',   ',0.###', TAlignment.taRightJustify)
+    .Display('QTDEFINAL', 'Saldo',   ',0.###', TAlignment.taRightJustify)
+    .Configurar( fdQryPesquisa );
 end;
 
 procedure TfrmGeProdutoKardex.edProdutoButtonClick(Sender: TObject);

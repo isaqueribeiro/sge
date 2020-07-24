@@ -375,27 +375,24 @@ inherited frmGeProdutoKardex: TfrmGeProdutoKardex
       Origin = 'DTHIST'
       DisplayFormat = 'dd/mm/yyyy hh:mm'
     end
-    object fdQryPesquisaQTDEATUAL: TBCDField
+    object fdQryPesquisaQTDEATUAL: TFMTBCDField
       FieldName = 'QTDEATUAL'
       Origin = 'QTDEATUAL'
       Required = True
-      DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
     end
-    object fdQryPesquisaQTDENOVA: TBCDField
+    object fdQryPesquisaQTDENOVA: TFMTBCDField
       FieldName = 'QTDENOVA'
       Origin = 'QTDENOVA'
       Required = True
-      DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
     end
-    object fdQryPesquisaQTDEFINAL: TBCDField
+    object fdQryPesquisaQTDEFINAL: TFMTBCDField
       FieldName = 'QTDEFINAL'
       Origin = 'QTDEFINAL'
       Required = True
-      DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
     end

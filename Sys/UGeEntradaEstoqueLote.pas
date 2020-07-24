@@ -57,13 +57,13 @@ type
     fdQryLotes: TFDQuery;
     dtsLotes: TDataSource;
     dbDescricao: TDBComboBox;
-    fdQryCompraItensQTDE: TBCDField;
-    fdQryCompraItensFRACIONADOR: TBCDField;
     fdSetLoteProduto: TFDStoredProc;
     lblQTDE: TLabel;
     dbQTDE: TDBEdit;
     pnlDicaFormaPagto: TPanel;
     lblDicaFormaPagto: TLabel;
+    fdQryCompraItensQTDE: TFMTBCDField;
+    fdQryCompraItensFRACIONADOR: TFMTBCDField;
     procedure ControlEditEnter(Sender: TObject);
     procedure ControlEditExit(Sender: TObject);
     procedure fdQryCompraItensAfterScroll(DataSet: TDataSet);
@@ -73,6 +73,7 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure dbgTitulosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
     procedure CarregarLotes(const aEmpresa, aProduto : String);
@@ -103,7 +104,8 @@ implementation
 {$R *.dfm}
 
 uses
-    UConstantesDGE
+    Controller.Tabela
+  , UConstantesDGE
   , UDMRecursos
   , UDMBusiness;
 
@@ -312,6 +314,16 @@ begin
 
   if (fdQryCompraItensLOTE_DESCRICAO.IsNull and fdQryCompraItensLOTE_DATA_FAB.IsNull and fdQryCompraItensLOTE_DATA_VAL.IsNull) then
     fdQryCompraItensLOTE_ID.Clear;
+end;
+
+procedure TfrmGeEntradaEstoqueLote.FormCreate(Sender: TObject);
+begin
+  inherited;
+  TTabelaController
+    .New
+    .Tabela( fdQryCompraItens )
+    .Display('QTDE', 'Quantidade', ',0', TAlignment.taRightJustify)
+    .Configurar( fdQryCompraItens );
 end;
 
 procedure TfrmGeEntradaEstoqueLote.FormKeyDown(Sender: TObject; var Key: Word;

@@ -226,9 +226,6 @@ type
     qryProduto: TFDQuery;
     qryCFOP: TFDQuery;
     qryTotalComprasAbertas: TFDQuery;
-    qryTotalComprasAbertasVALOR_LIMITE: TBCDField;
-    qryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TBCDField;
-    qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TBCDField;
     cdsVendaFormaPagto: TFDQuery;
     updVendaFormaPagto: TFDUpdateSQL;
     cdsVendaFormaPagtoANO_VENDA: TSmallintField;
@@ -236,7 +233,6 @@ type
     cdsVendaFormaPagtoFORMAPAGTO_COD: TSmallintField;
     cdsVendaFormaPagtoCONDICAOPAGTO_COD: TSmallintField;
     cdsVendaFormaPagtoVENDA_PRAZO: TSmallintField;
-    cdsVendaFormaPagtoVALOR_FPAGTO: TBCDField;
     cdsVendaFormaPagtoPRAZO_01: TSmallintField;
     cdsVendaFormaPagtoPRAZO_02: TSmallintField;
     cdsVendaFormaPagtoPRAZO_03: TSmallintField;
@@ -260,8 +256,6 @@ type
     cdsVendaVolumeQUANTIDADE: TSmallintField;
     cdsVendaVolumeESPECIE: TStringField;
     cdsVendaVolumeMARCA: TStringField;
-    cdsVendaVolumePESO_BRUTO: TBCDField;
-    cdsVendaVolumePESO_LIQUIDO: TBCDField;
     cdsTabelaItens: TFDQuery;
     updTabelaItens: TFDUpdateSQL;
     qryNFE: TFDQuery;
@@ -275,32 +269,14 @@ type
     cdsTabelaItensCODCLIENTE: TIntegerField;
     cdsTabelaItensCODVENDEDOR: TIntegerField;
     cdsTabelaItensDTVENDA: TSQLTimeStampField;
-    cdsTabelaItensQTDE: TBCDField;
     cdsTabelaItensLOTE_ID: TStringField;
     cdsTabelaItensREFERENCIA: TStringField;
-    cdsTabelaItensPUNIT: TBCDField;
-    cdsTabelaItensPUNIT_PROMOCAO: TBCDField;
-    cdsTabelaItensDESCONTO: TBCDField;
-    cdsTabelaItensDESCONTO_VALOR: TBCDField;
-    cdsTabelaItensPFINAL: TBCDField;
-    cdsTabelaItensQTDEFINAL: TBCDField;
     cdsTabelaItensUNID_COD: TSmallintField;
     cdsTabelaItensCFOP_COD: TIntegerField;
     cdsTabelaItensCST: TStringField;
     cdsTabelaItensCSOSN: TStringField;
-    cdsTabelaItensALIQUOTA: TBCDField;
-    cdsTabelaItensALIQUOTA_CSOSN: TBCDField;
-    cdsTabelaItensALIQUOTA_PIS: TBCDField;
-    cdsTabelaItensALIQUOTA_COFINS: TBCDField;
-    cdsTabelaItensVALOR_IPI: TBCDField;
-    cdsTabelaItensPERCENTUAL_REDUCAO_BC: TBCDField;
-    cdsTabelaItensTOTAL_BRUTO: TBCDField;
-    cdsTabelaItensTOTAL_DESCONTO: TBCDField;
-    cdsTabelaItensTOTAL_LIQUIDO: TBCDField;
     cdsTabelaItensDESCRI: TStringField;
     cdsTabelaItensDESCRI_APRESENTACAO: TStringField;
-    cdsTabelaItensESTOQUE: TBCDField;
-    cdsTabelaItensRESERVA: TBCDField;
     cdsTabelaItensUNP_SIGLA: TStringField;
     cdsTabelaItensCFOP_DESCRICAO: TStringField;
     cdsTabelaItensMOVIMENTA_ESTOQUE: TSmallintField;
@@ -316,12 +292,6 @@ type
     qryTitulosTIPPAG: TStringField;
     qryTitulosDTEMISS: TDateField;
     qryTitulosDTVENC: TDateField;
-    qryTitulosVALORREC: TBCDField;
-    qryTitulosPERCENTJUROS: TCurrencyField;
-    qryTitulosPERCENTMULTA: TCurrencyField;
-    qryTitulosPERCENTDESCONTO: TCurrencyField;
-    qryTitulosVALORRECTOT: TBCDField;
-    qryTitulosVALORSALDO: TBCDField;
     qryTitulosDATAPROCESSOBOLETO: TDateField;
     qryTitulosBAIXADO: TSmallintField;
     qryTitulosBAIXADO_: TStringField;
@@ -332,7 +302,6 @@ type
     qryTitulosPGTO_USUARIO: TStringField;
     qryTitulosPGTO_DATA: TDateField;
     qryTitulosPGTO_FORMA: TSmallintField;
-    qryTitulosPGTO_VALOR: TBCDField;
     qryTitulosPGTO_OK: TIntegerField;
     qryTitulosLancamento: TStringField;
     spSetGerarTitulos: TFDStoredProc;
@@ -343,9 +312,6 @@ type
     fdQryTabelaCODCLI: TStringField;
     fdQryTabelaDTVENDA: TSQLTimeStampField;
     fdQryTabelaSTATUS: TSmallintField;
-    fdQryTabelaTOTALVENDA_BRUTA: TBCDField;
-    fdQryTabelaDESCONTO: TBCDField;
-    fdQryTabelaTOTALVENDA: TBCDField;
     fdQryTabelaDTFINALIZACAO_VENDA: TDateField;
     fdQryTabelaOBS: TMemoField;
     fdQryTabelaDADOS_ENTREGA: TMemoField;
@@ -402,7 +368,6 @@ type
     fdQryTabelaNOME: TStringField;
     fdQryTabelaBLOQUEADO: TSmallintField;
     fdQryTabelaBLOQUEADO_MOTIVO: TMemoField;
-    fdQryTabelaLUCRO_CALCULADO: TBCDField;
     lblDicaDadosEntrega: TLabel;
     pnlDicaFormaPagto: TPanel;
     lblDicaFormaPagto: TLabel;
@@ -428,7 +393,6 @@ type
     qryNFENUMCOMPRA: TIntegerField;
     fdQryTabelaPESSOA_FISICA: TSmallintField;
     fdQryTabelaINSCEST: TStringField;
-    cdsVendaVolumeCUBAGEM: TBCDField;
     nmGerarReciboAvulso: TMenuItem;
     CdsRecibo: TClientDataSet;
     CdsReciboANOLANC: TSmallintField;
@@ -461,6 +425,39 @@ type
     ACBrExtenso: TACBrExtenso;
     FrReciboA4: TfrxReport;
     FrdRecibo: TfrxDBDataset;
+    fdQryTabelaTOTALVENDA_BRUTA: TFMTBCDField;
+    fdQryTabelaDESCONTO: TBCDField;
+    fdQryTabelaTOTALVENDA: TFMTBCDField;
+    fdQryTabelaLUCRO_CALCULADO: TBCDField;
+    cdsTabelaItensQTDE: TFMTBCDField;
+    cdsTabelaItensPUNIT: TFMTBCDField;
+    cdsTabelaItensPUNIT_PROMOCAO: TFMTBCDField;
+    cdsTabelaItensDESCONTO: TFMTBCDField;
+    cdsTabelaItensDESCONTO_VALOR: TBCDField;
+    cdsTabelaItensPFINAL: TFMTBCDField;
+    cdsTabelaItensQTDEFINAL: TFMTBCDField;
+    cdsTabelaItensALIQUOTA: TFMTBCDField;
+    cdsTabelaItensALIQUOTA_CSOSN: TFMTBCDField;
+    cdsTabelaItensALIQUOTA_PIS: TFMTBCDField;
+    cdsTabelaItensALIQUOTA_COFINS: TFMTBCDField;
+    cdsTabelaItensVALOR_IPI: TFMTBCDField;
+    cdsTabelaItensPERCENTUAL_REDUCAO_BC: TFMTBCDField;
+    cdsTabelaItensTOTAL_BRUTO: TFMTBCDField;
+    cdsTabelaItensTOTAL_DESCONTO: TFMTBCDField;
+    cdsTabelaItensTOTAL_LIQUIDO: TFMTBCDField;
+    cdsTabelaItensESTOQUE: TFMTBCDField;
+    cdsTabelaItensRESERVA: TFMTBCDField;
+    qryTitulosVALORREC: TFMTBCDField;
+    qryTitulosPERCENTJUROS: TCurrencyField;
+    qryTitulosPERCENTMULTA: TCurrencyField;
+    qryTitulosPERCENTDESCONTO: TCurrencyField;
+    qryTitulosVALORRECTOT: TFMTBCDField;
+    qryTitulosVALORSALDO: TFMTBCDField;
+    qryTitulosPGTO_VALOR: TFMTBCDField;
+    cdsVendaFormaPagtoVALOR_FPAGTO: TFMTBCDField;
+    cdsVendaVolumePESO_BRUTO: TFMTBCDField;
+    cdsVendaVolumePESO_LIQUIDO: TFMTBCDField;
+    cdsVendaVolumeCUBAGEM: TBCDField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -559,6 +556,7 @@ type
     procedure GravarEmailCliente(iCliente : Integer; sEmail : String);
     procedure ControleCampoLote;
     procedure DefinirCSTNaoTributada;
+    procedure ConfigurarCamposTabelas;
 
     //function ValidarQuantidade(Codigo : Integer; Quantidade : Integer) : Boolean;
     function PossuiTitulosPagos(AnoVenda : Smallint; NumVenda : Integer) : Boolean;
@@ -624,7 +622,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UFuncoes, UGeCliente, UGeCondicaoPagto, UGeProduto, UGeTabelaCFOP,
+  Controller.Tabela, UDMBusiness, UFuncoes, UGeCliente, UGeCondicaoPagto, UGeProduto, UGeTabelaCFOP,
   UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos, UGeEfetuarPagtoREC,
   UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte, UGeVendaConfirmaTitulos,
   {$IFNDEF PDV}UGeVendaDevolucaoNF, UGeConsultarLoteNFe_v2, UGeRequisicaoCliente, {$ENDIF}
@@ -784,6 +782,8 @@ begin
 
   lblReferencia.Visible := (gSistema.Codigo = SISTEMA_GESTAO_OPME);
   dbReferencia.Visible  := (gSistema.Codigo = SISTEMA_GESTAO_OPME);
+
+  ConfigurarCamposTabelas;
 end;
 
 procedure TfrmGeVenda.btnFiltrarClick(Sender: TObject);
@@ -1748,6 +1748,71 @@ begin
   end;
 end;
 
+procedure TfrmGeVenda.ConfigurarCamposTabelas;
+begin
+  // Configurar tabela de cadastro
+  Tabela
+    .Display('CODCONTROL', 'No. Venda', '###0000000', TAlignment.taCenter)
+    .Display('TOTALVENDA_BRUTA', 'Total Venda (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('DESCONTO', 'Desconto (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTALVENDA', 'Total Líquido (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('LUCRO_CALCULADO', 'Lucro Calculado (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
+
+  // Configurar tabela dos itens
+  TTabelaController
+    .New
+    .Tabela( cdsTabelaItens )
+    .Display('QTDE',  'Qtde.', ',0.##', TAlignment.taRightJustify)
+    .Display('PUNIT', 'Valor Unitário (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('PUNIT_PROMOCAO', 'Valor Promoção (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('DESCONTO',       '% Desconto', ',0.00', TAlignment.taRightJustify)
+    .Display('DESCONTO_VALOR', 'Desconto (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('PFINAL',    'Valor Bruto (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('QTDEFINAL', 'Saldo Estoque', ',0.00', TAlignment.taRightJustify)
+    .Display('ALIQUOTA',        '% Alíquota', ',0.00', TAlignment.taRightJustify)
+    .Display('ALIQUOTA_CSOSN',  '% Alíquota SN', ',0.00', TAlignment.taRightJustify)
+    .Display('ALIQUOTA_PIS',    '% Alíquota PIS', ',0.00', TAlignment.taRightJustify)
+    .Display('ALIQUOTA_COFINS', '% Alíquota COFINS', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_IPI', 'Valor IPI (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('PERCENTUAL_REDUCAO_BC', '% Redução BC', ',0.##', TAlignment.taRightJustify)
+    .Display('TOTAL_BRUTO',    'Total Produto (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTAL_DESCONTO', 'Total Desconto (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTAL_LIQUIDO',  'Total Líquido (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('ESTOQUE', 'Estoque', ',0.###', TAlignment.taRightJustify)
+    .Display('RESERVA', 'Reserva', ',0.###', TAlignment.taRightJustify)
+    .Configurar( cdsTabelaItens );
+
+  // Configurar tabela das formas de pagamento
+  TTabelaController
+    .New
+    .Tabela( cdsVendaFormaPagto )
+    .Display('VALOR_FPAGTO', 'Valor (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsVendaFormaPagto );
+
+  // Configurar tabela dos volumes
+  TTabelaController
+    .New
+    .Tabela( cdsVendaVolume )
+    .Display('PESO_BRUTO', 'Peso Bruto (Kg)', ',0.###', TAlignment.taRightJustify)
+    .Display('PESO_LIQUIDO', 'Peso Líquido (Kg)', ',0.###', TAlignment.taRightJustify)
+    .Display('CUBAGEM', 'Cubagem (m³)', ',0.###', TAlignment.taRightJustify)
+    .Configurar( cdsVendaVolume );
+
+  // Configurar tabela dos títulos
+  TTabelaController
+    .New
+    .Tabela( qryTitulos )
+    .Display('VALORREC', 'Valor A Receber (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('PERCENTJUROS', '% JUros', ',0.00', TAlignment.taRightJustify)
+    .Display('PERCENTMULTA', '% Multa', ',0.00', TAlignment.taRightJustify)
+    .Display('PERCENTDESCONTO', '% Desconto', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORRECTOT', 'Total Recebido (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORSALDO', 'Saldo A Receber (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('PGTO_VALOR', 'Valor Pago (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( qryTitulos );
+end;
+
 procedure TfrmGeVenda.ControleCampoLote;
 begin
   lblLoteProduto.Visible := (cdsTabelaItensESTOQUE_APROP_LOTE.AsInteger = FLAG_SIM);
@@ -2215,7 +2280,7 @@ begin
         if ( aGerarTitulos and (DtSrcTabela.DataSet.FieldByName('VENDA_PRAZO').AsInteger = 1) ) then
         begin
           GetComprasAbertas( DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger );
-          if ( (qryTotalComprasAbertasVALOR_LIMITE.AsCurrency > 0.0) and (GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL.AsCurrency) ) then
+          if ( (qryTotalComprasAbertas.FieldByName('VALOR_LIMITE').AsCurrency > 0.0) and (GetTotalValorFormaPagto_APrazo > qryTotalComprasAbertas.FieldByName('VALOR_LIMITE_DISPONIVEL').AsCurrency) ) then
           begin
             ShowWarning(
                 'O Valor Total A Prazo da venda está acima do Valor Limite disponível para o cliente.'

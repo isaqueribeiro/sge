@@ -316,8 +316,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1106
       ExplicitHeight = 605
       inherited Bevel8: TBevel
@@ -2076,6 +2074,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object tbsLotes: TTabSheet
           Caption = 'Lote(s) Gerado(s) no Estoque'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object DBGrid1: TDBGrid
             Left = 0
             Top = 0
@@ -2162,6 +2164,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0

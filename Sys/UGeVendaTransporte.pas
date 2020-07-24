@@ -113,7 +113,14 @@ type
 
 implementation
 
-uses UDMBusiness, UDMNFe, UGeVenda, UGrCampoRequisitado, UGeFornecedor, UGeEstado, UConstantesDGE;
+uses
+    UConstantesDGE
+  , UDMBusiness
+  , UDMNFe
+  , UGeVenda
+  , UGrCampoRequisitado
+  , UGeFornecedor
+  , UGeEstado;
 
 {$R *.dfm}
 

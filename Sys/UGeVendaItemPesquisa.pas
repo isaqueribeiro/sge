@@ -63,7 +63,9 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, UGrPadrao;
+    UConstantesDGE
+  , UDMBusiness
+  , UGrPadrao;
 
 {$R *.dfm}
 

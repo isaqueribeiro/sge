@@ -3,6 +3,9 @@ unit UGrPadraoPesquisa;
 interface
 
 uses
+  Interacao.Tabela,
+  Controller.Tabela,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadrao, ExtCtrls, Buttons, StdCtrls, DB, IBCustomDataSet, cxButtons,
   IBQuery, Grids, DBGrids, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
@@ -42,9 +45,11 @@ type
   private
     { Private declarations }
     sSQL : TStringList;
+    FTabela : ITabela;
   public
     { Public declarations }
     property SQLSelect : TStringList read sSQL;
+    property Tabela : ITabela read FTabela;
 
     procedure RegistrarRotinaSistema; override;
 
@@ -57,7 +62,9 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UDMRecursos;
+    UConstantesDGE
+  , UDMBusiness
+  , UDMRecursos;
 
 {$R *.dfm}
 
@@ -94,6 +101,8 @@ begin
 
   sSQL := TStringList.Create;
   sSQL.AddStrings( fdQryPesquisa.SQL );
+
+  FTabela := TTabelaController.New.Tabela(fdQryPesquisa as TFDDataSet);
 end;
 
 procedure TfrmGrPadraoPesquisa.BrnPesquisarClick(Sender: TObject);
