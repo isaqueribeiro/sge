@@ -51,7 +51,7 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       Top = 4
       Width = 904
       Height = 391
-      ActivePage = tbsClientes
+      ActivePage = tbsTitulos
       Align = alClient
       Images = ImgList
       TabOrder = 0
@@ -59,10 +59,6 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       object tbsClientes: TTabSheet
         Caption = '&Clientes'
         ImageIndex = 12
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Bevel3: TBevel
           Left = 0
           Top = 296
@@ -277,10 +273,6 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       object tbsTitulos: TTabSheet
         Caption = '&T'#237'tulos'
         ImageIndex = 30
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Bevel4: TBevel
           Left = 0
           Top = 105
@@ -2111,36 +2103,6 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       FieldName = 'DTVENC'
       DisplayFormat = 'dd/mm/yyyy'
     end
-    object CdsTitulosVALORREC: TBCDField
-      FieldName = 'VALORREC'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object CdsTitulosPERCENTJUROS: TCurrencyField
-      FieldName = 'PERCENTJUROS'
-      DisplayFormat = ',0.00#'
-    end
-    object CdsTitulosPERCENTMULTA: TCurrencyField
-      FieldName = 'PERCENTMULTA'
-      DisplayFormat = ',0.00#'
-    end
-    object CdsTitulosPERCENTDESCONTO: TCurrencyField
-      FieldName = 'PERCENTDESCONTO'
-      DisplayFormat = ',0.00#'
-    end
-    object CdsTitulosVALORRECTOT: TBCDField
-      FieldName = 'VALORRECTOT'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object CdsTitulosVALORSALDO: TBCDField
-      FieldName = 'VALORSALDO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
     object CdsTitulosDATAPROCESSOBOLETO: TDateField
       Alignment = taCenter
       FieldName = 'DATAPROCESSOBOLETO'
@@ -2178,6 +2140,30 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
       OnGetText = CdsTitulosGERARGetText
       Size = 15
     end
+    object CdsTitulosVALORREC: TFMTBCDField
+      FieldName = 'VALORREC'
+      Precision = 18
+      Size = 2
+    end
+    object CdsTitulosPERCENTJUROS: TCurrencyField
+      FieldName = 'PERCENTJUROS'
+    end
+    object CdsTitulosPERCENTMULTA: TCurrencyField
+      FieldName = 'PERCENTMULTA'
+    end
+    object CdsTitulosPERCENTDESCONTO: TCurrencyField
+      FieldName = 'PERCENTDESCONTO'
+    end
+    object CdsTitulosVALORRECTOT: TFMTBCDField
+      FieldName = 'VALORRECTOT'
+      Precision = 18
+      Size = 2
+    end
+    object CdsTitulosVALORSALDO: TFMTBCDField
+      FieldName = 'VALORSALDO'
+      Precision = 18
+      Size = 2
+    end
   end
   object ACBrBoleto: TACBrBoleto
     Banco.TamanhoMaximoNossoNum = 10
@@ -2189,6 +2175,12 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
     Cedente.IdentDistribuicao = tbBancoDistribui
     NumeroArquivo = 0
     ACBrBoletoFC = ACBrBoletoFCFR
+    Configuracoes.Arquivos.LogRegistro = False
+    Configuracoes.WebService.SSLHttpLib = httpOpenSSL
+    Configuracoes.WebService.StoreName = 'My'
+    Configuracoes.WebService.Ambiente = taHomologacao
+    Configuracoes.WebService.Operacao = tpInclui
+    Configuracoes.WebService.VersaoDF = '1.2'
     Left = 320
     Top = 245
   end
@@ -2540,13 +2532,14 @@ object frmGeGerarBoleto: TfrmGeGerarBoleto
         ParamType = ptInput
       end
       item
+        Position = 2
         Name = 'EMPRESA'
         DataType = ftString
         ParamType = ptInput
         Size = 18
       end
       item
-        Position = 2
+        Position = 3
         Name = 'BANCO'
         DataType = ftInteger
         ParamType = ptInput

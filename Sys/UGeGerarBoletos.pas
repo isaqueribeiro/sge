@@ -107,12 +107,6 @@ type
     CdsTitulosTIPPAG: TStringField;
     CdsTitulosDTEMISS: TDateField;
     CdsTitulosDTVENC: TDateField;
-    CdsTitulosVALORREC: TBCDField;
-    CdsTitulosPERCENTJUROS: TCurrencyField;
-    CdsTitulosPERCENTMULTA: TCurrencyField;
-    CdsTitulosPERCENTDESCONTO: TCurrencyField;
-    CdsTitulosVALORRECTOT: TBCDField;
-    CdsTitulosVALORSALDO: TBCDField;
     CdsTitulosDATAPROCESSOBOLETO: TDateField;
     CdsTitulosANOVENDA: TSmallintField;
     CdsTitulosNUMVENDA: TIntegerField;
@@ -123,6 +117,12 @@ type
     CdsTitulosNFE: TLargeintField;
     CdsTitulosGERAR: TStringField;
     btnFiltrar: TcxButton;
+    CdsTitulosVALORREC: TFMTBCDField;
+    CdsTitulosPERCENTJUROS: TCurrencyField;
+    CdsTitulosPERCENTMULTA: TCurrencyField;
+    CdsTitulosPERCENTDESCONTO: TCurrencyField;
+    CdsTitulosVALORRECTOT: TFMTBCDField;
+    CdsTitulosVALORSALDO: TFMTBCDField;
     procedure edtFiltrarKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -198,8 +198,16 @@ var
 
 implementation
 
-uses UDMBusiness, StrUtils, TypInfo, DateUtils, UConstantesDGE, UFuncoes,
-  UDMRecursos;
+uses
+    StrUtils
+  , TypInfo
+  , DateUtils
+  , ACBrBoletoConversao
+  , Controller.Tabela
+  , UConstantesDGE
+  , UFuncoes
+  , UDMRecursos
+  , UDMBusiness;
 
 {$R *.dfm}
 
@@ -424,6 +432,18 @@ begin
   inherited;
   pgcGuias.ActivePageIndex := 0;
   FFecharAoGerar := False;
+
+  // Configurar tabela de títulos
+  TTabelaController
+    .New
+    .Tabela( CdsTitulos )
+    .Display('VALORREC',     'Valor (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('PERCENTJUROS', '% Mora', ',0.00#', TAlignment.taRightJustify)
+    .Display('PERCENTMULTA', '% Multa', ',0.00#', TAlignment.taRightJustify)
+    .Display('PERCENTDESCONTO', '% Desconto', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORRECTOT', 'Recebido (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORSALDO',  'Saldo (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( CdsTitulos );
 end;
 
 procedure TfrmGeGerarBoleto.FormShow(Sender: TObject);
@@ -839,10 +859,10 @@ begin
 
       // Dados Cedente
       if StrIsCPF(fdQryBancos.FieldByName('EMPRESA').AsString) then
-        Cedente.TipoInscricao := pFisica
+        Cedente.TipoInscricao := TACBrPessoa.pFisica
       else
       if StrIsCNPJ(fdQryBancos.FieldByName('EMPRESA').AsString) then
-        Cedente.TipoInscricao := pJuridica;
+        Cedente.TipoInscricao := TACBrPessoa.pJuridica;
 
       Cedente.CNPJCPF     := fdQryBancos.FieldByName('EMPRESA').AsString;
       Cedente.Nome        := fdQryBancos.FieldByName('RZSOC').AsString;

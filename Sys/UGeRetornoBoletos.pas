@@ -76,9 +76,9 @@ type
     qryBaixarRECHISTORICO: TMemoField;
     qryBaixarRECDATA_PAGTO: TDateField;
     qryBaixarRECFORMA_PAGTO: TSmallintField;
-    qryBaixarRECVALOR_BAIXA: TBCDField;
     qryBaixarRECBANCO: TSmallintField;
     qryBaixarRECDOCUMENTO_BAIXA: TStringField;
+    qryBaixarRECVALOR_BAIXA: TFMTBCDField;
     procedure edBancoChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
@@ -140,7 +140,14 @@ var
 
 implementation
 
-uses UDMBusiness, UConstantesDGE, UFuncoes, Contnrs, StrUtils, UDMRecursos;
+uses
+    ACBrBoletoConversao
+  , Contnrs
+  , StrUtils
+  , UConstantesDGE
+  , UFuncoes
+  , UDMBusiness
+  , UDMRecursos;
 
 {$R *.dfm}
 
@@ -936,10 +943,10 @@ begin
 
       // Dados Cedente
       if StrIsCPF(fdQryBancos.FieldByName('EMPRESA').AsString) then
-        Cedente.TipoInscricao := pFisica
+        Cedente.TipoInscricao := TACBrPessoa.pFisica
       else
       if StrIsCNPJ(fdQryBancos.FieldByName('EMPRESA').AsString) then
-        Cedente.TipoInscricao := pJuridica;
+        Cedente.TipoInscricao := TACBrPessoa.pJuridica;
 
       Cedente.CNPJCPF     := fdQryBancos.FieldByName('EMPRESA').AsString;
       Cedente.Nome        := fdQryBancos.FieldByName('RZSOC').AsString;

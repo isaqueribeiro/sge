@@ -642,36 +642,6 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
       FieldName = 'DTVENC'
       DisplayFormat = 'dd/mm/yyyy'
     end
-    object CdsTitulosVALORREC: TBCDField
-      FieldName = 'VALORREC'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object CdsTitulosPERCENTJUROS: TCurrencyField
-      FieldName = 'PERCENTJUROS'
-      DisplayFormat = ',0.00#'
-    end
-    object CdsTitulosPERCENTMULTA: TCurrencyField
-      FieldName = 'PERCENTMULTA'
-      DisplayFormat = ',0.00#'
-    end
-    object CdsTitulosPERCENTDESCONTO: TCurrencyField
-      FieldName = 'PERCENTDESCONTO'
-      DisplayFormat = ',0.00#'
-    end
-    object CdsTitulosVALORRECTOT: TBCDField
-      FieldName = 'VALORRECTOT'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object CdsTitulosVALORSALDO: TBCDField
-      FieldName = 'VALORSALDO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
     object CdsTitulosDATAPROCESSOBOLETO: TDateField
       Alignment = taCenter
       FieldName = 'DATAPROCESSOBOLETO'
@@ -749,6 +719,30 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
       FieldName = 'EMAIL'
       ReadOnly = True
       Size = 60
+    end
+    object CdsTitulosVALORREC: TFMTBCDField
+      FieldName = 'VALORREC'
+      Precision = 18
+      Size = 2
+    end
+    object CdsTitulosPERCENTJUROS: TCurrencyField
+      FieldName = 'PERCENTJUROS'
+    end
+    object CdsTitulosPERCENTMULTA: TCurrencyField
+      FieldName = 'PERCENTMULTA'
+    end
+    object CdsTitulosPERCENTDESCONTO: TCurrencyField
+      FieldName = 'PERCENTDESCONTO'
+    end
+    object CdsTitulosVALORRECTOT: TFMTBCDField
+      FieldName = 'VALORRECTOT'
+      Precision = 18
+      Size = 2
+    end
+    object CdsTitulosVALORSALDO: TFMTBCDField
+      FieldName = 'VALORSALDO'
+      Precision = 18
+      Size = 2
     end
     object CdsTitulosNumeroDocumento: TStringField
       FieldKind = fkInternalCalc
@@ -1348,6 +1342,12 @@ object frmGeRemessaBoleto: TfrmGeRemessaBoleto
     Cedente.IdentDistribuicao = tbBancoDistribui
     NumeroArquivo = 0
     ACBrBoletoFC = ACBrBoletoFCFR
+    Configuracoes.Arquivos.LogRegistro = False
+    Configuracoes.WebService.SSLHttpLib = httpOpenSSL
+    Configuracoes.WebService.StoreName = 'My'
+    Configuracoes.WebService.Ambiente = taHomologacao
+    Configuracoes.WebService.Operacao = tpInclui
+    Configuracoes.WebService.VersaoDF = '1.2'
     Left = 344
     Top = 245
   end

@@ -648,6 +648,12 @@ object frmGeRetornoBoleto: TfrmGeRetornoBoleto
     Cedente.IdentDistribuicao = tbBancoDistribui
     NumeroArquivo = 0
     ACBrBoletoFC = ACBrBoletoFCFR
+    Configuracoes.Arquivos.LogRegistro = False
+    Configuracoes.WebService.SSLHttpLib = httpOpenSSL
+    Configuracoes.WebService.StoreName = 'My'
+    Configuracoes.WebService.Ambiente = taHomologacao
+    Configuracoes.WebService.Operacao = tpInclui
+    Configuracoes.WebService.VersaoDF = '1.2'
     Left = 344
     Top = 245
   end
@@ -896,7 +902,7 @@ object frmGeRetornoBoleto: TfrmGeRetornoBoleto
       FieldName = 'FORMA_PAGTO'
       Origin = 'FORMA_PAGTO'
     end
-    object qryBaixarRECVALOR_BAIXA: TBCDField
+    object qryBaixarRECVALOR_BAIXA: TFMTBCDField
       FieldName = 'VALOR_BAIXA'
       Origin = 'VALOR_BAIXA'
       Precision = 18

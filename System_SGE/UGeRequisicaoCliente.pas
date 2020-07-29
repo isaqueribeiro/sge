@@ -308,6 +308,14 @@ begin
   sGeneratorName := 'GEN_REQUISICAO_' + FormatFloat('0000', YearOf(GetDateDB));
   CriarGenerator(sGeneratorName, 0);
 
+  with fdQryTabela.UpdateOptions do
+  begin
+    AutoIncFields := 'NUMERO';
+    KeyFields     := 'ANO;NUMERO';
+    GeneratorName := sGeneratorName;
+    FetchGeneratorsPoint := TFDFetchGeneratorsPoint.gpImmediate;
+  end;
+
   inherited;
 
   SQL_Itens := TStringList.Create;

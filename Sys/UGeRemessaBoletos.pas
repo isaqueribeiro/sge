@@ -68,12 +68,6 @@ type
     CdsTitulosTIPPAG: TStringField;
     CdsTitulosDTEMISS: TDateField;
     CdsTitulosDTVENC: TDateField;
-    CdsTitulosVALORREC: TBCDField;
-    CdsTitulosPERCENTJUROS: TCurrencyField;
-    CdsTitulosPERCENTMULTA: TCurrencyField;
-    CdsTitulosPERCENTDESCONTO: TCurrencyField;
-    CdsTitulosVALORRECTOT: TBCDField;
-    CdsTitulosVALORSALDO: TBCDField;
     CdsTitulosDATAPROCESSOBOLETO: TDateField;
     CdsTitulosANOVENDA: TSmallintField;
     CdsTitulosNUMVENDA: TIntegerField;
@@ -91,6 +85,12 @@ type
     CdsTitulosUF: TStringField;
     CdsTitulosCEP: TStringField;
     CdsTitulosEMAIL: TStringField;
+    CdsTitulosVALORREC: TFMTBCDField;
+    CdsTitulosPERCENTJUROS: TCurrencyField;
+    CdsTitulosPERCENTMULTA: TCurrencyField;
+    CdsTitulosPERCENTDESCONTO: TCurrencyField;
+    CdsTitulosVALORRECTOT: TFMTBCDField;
+    CdsTitulosVALORSALDO: TFMTBCDField;
     procedure FormShow(Sender: TObject);
     procedure edBancoChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -147,7 +147,13 @@ var
 
 implementation
 
-uses UDMBusiness, UConstantesDGE, UFuncoes, UDMRecursos;
+uses
+    ACBrBoletoConversao
+  , Controller.Tabela
+  , UDMBusiness
+  , UConstantesDGE
+  , UFuncoes
+  , UDMRecursos;
 
 {$R *.dfm}
 
@@ -218,6 +224,18 @@ begin
   inherited;
   edInicio.Date := Date;
   edFinal.Date  := Date;
+
+  // Configurar tabela de títulos
+  TTabelaController
+    .New
+    .Tabela( CdsTitulos )
+    .Display('VALORREC',     'Valor (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('PERCENTJUROS', '% Mora', ',0.00#', TAlignment.taRightJustify)
+    .Display('PERCENTMULTA', '% Multa', ',0.00#', TAlignment.taRightJustify)
+    .Display('PERCENTDESCONTO', '% Desconto', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORRECTOT', 'Recebido (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORSALDO',  'Saldo (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( CdsTitulos );
 end;
 
 procedure TfrmGeRemessaBoleto.DefinirNomeArquivo(iBanco: Integer);
@@ -501,10 +519,10 @@ begin
 
       // Dados Cedente
       if StrIsCPF(fdQryBancos.FieldByName('EMPRESA').AsString) then
-        Cedente.TipoInscricao := pFisica
+        Cedente.TipoInscricao := TACBrPessoa.pFisica
       else
       if StrIsCNPJ(fdQryBancos.FieldByName('EMPRESA').AsString) then
-        Cedente.TipoInscricao := pJuridica;
+        Cedente.TipoInscricao := TACBrPessoa.pJuridica;
 
       Cedente.CNPJCPF     := fdQryBancos.FieldByName('EMPRESA').AsString;
       Cedente.Nome        := fdQryBancos.FieldByName('RZSOC').AsString;
