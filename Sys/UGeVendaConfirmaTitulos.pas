@@ -64,9 +64,6 @@ type
     qryTitulosFORMA_PAGTO: TSmallintField;
     qryTitulosDTEMISS: TDateField;
     qryTitulosDTVENC: TDateField;
-    qryTitulosVALORREC: TBCDField;
-    qryTitulosVALORRECTOT: TBCDField;
-    qryTitulosVALORSALDO: TBCDField;
     qryTitulosBAIXADO: TSmallintField;
     cdsTitulosANOLANC: TSmallintField;
     cdsTitulosNUMLANC: TIntegerField;
@@ -76,13 +73,20 @@ type
     cdsTitulosFORMA_PAGTO: TSmallintField;
     cdsTitulosDTEMISS: TDateField;
     cdsTitulosDTVENC: TDateField;
-    cdsTitulosVALORREC: TBCDField;
-    cdsTitulosVALORRECTOT: TBCDField;
-    cdsTitulosVALORSALDO: TBCDField;
     cdsTitulosBAIXADO: TSmallintField;
     qryContaAReceber: TFDQuery;
     updContaAReceber: TFDUpdateSQL;
     dbDataVencimento: TJvDBDateEdit;
+    qryTitulosVALORREC: TFMTBCDField;
+    qryTitulosVALORRECTOT: TFMTBCDField;
+    qryTitulosVALORSALDO: TFMTBCDField;
+    qryTitulosANOVENDA: TSmallintField;
+    qryTitulosNUMVENDA: TIntegerField;
+    cdsTitulosVALORREC: TFMTBCDField;
+    cdsTitulosVALORRECTOT: TFMTBCDField;
+    cdsTitulosVALORSALDO: TFMTBCDField;
+    cdsTitulosANOVENDA: TSmallintField;
+    cdsTitulosNUMVENDA: TIntegerField;
     procedure btFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -138,7 +142,10 @@ var
 
 implementation
 
-uses DateUtils, UDMBusiness;
+uses
+    DateUtils
+  , Controller.Tabela
+  , UDMBusiness;
 
 {$R *.dfm}
 
@@ -177,6 +184,15 @@ begin
   AnoVenda       := 0;
   DataEmissaoDOC := Date;
   ControleVenda  := 0;
+
+  // Configurar tabela de títulos
+  TTabelaController
+    .New
+    .Tabela( cdsTitulos )
+    .Display('VALORREC',    'Total A Receber (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORRECTOT', 'Total Recebido (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORSALDO',  'Total Saldo (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsTitulos );
 
   CarregarListaDB(fdQryFormaPagto);
 end;
@@ -326,8 +342,6 @@ begin
     fdQryFormaPagto.Locate('COD', cdsTitulosFORMA_PAGTO.AsInteger, []);
 
     qryContaAReceber.Close;
-//    qryContaAReceber.ParamByName('anolanc').AsSmallInt := cdsTitulosANOLANC.Value;
-//    qryContaAReceber.ParamByName('numlanc').AsInteger  := cdsTitulosNUMLANC.AsInteger;
     qryContaAReceber.ParamByName('anolanc').Assign( cdsTitulosANOLANC );
     qryContaAReceber.ParamByName('numlanc').Assign( cdsTitulosNUMLANC );
     qryContaAReceber.Open;

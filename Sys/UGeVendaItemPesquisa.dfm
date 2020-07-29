@@ -279,33 +279,6 @@ inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
       Origin = 'UNIDADE'
       Size = 5
     end
-    object fdQryPesquisaQUANTIDADE: TBCDField
-      FieldName = 'QUANTIDADE'
-      Origin = 'QUANTIDADE'
-      Precision = 18
-      Size = 3
-    end
-    object fdQryPesquisaTOTAL_BRUTO: TBCDField
-      FieldName = 'TOTAL_BRUTO'
-      Origin = 'TOTAL_BRUTO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryPesquisaTOTAL_DESCONTO: TBCDField
-      FieldName = 'TOTAL_DESCONTO'
-      Origin = 'TOTAL_DESCONTO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryPesquisaTOTAL_FINAL: TBCDField
-      FieldName = 'TOTAL_FINAL'
-      Origin = 'TOTAL_FINAL'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
     object fdQryPesquisaVENDEDOR: TStringField
       FieldName = 'VENDEDOR'
       Origin = 'VENDEDOR'
@@ -320,6 +293,30 @@ inherited FrmGeVendaItemPesquisa: TFrmGeVendaItemPesquisa
       FieldName = 'CLIENTE_NOME'
       Origin = 'CLIENTE_NOME'
       Size = 100
+    end
+    object fdQryPesquisaQUANTIDADE: TFMTBCDField
+      FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
+      Precision = 18
+      Size = 3
+    end
+    object fdQryPesquisaTOTAL_BRUTO: TFMTBCDField
+      FieldName = 'TOTAL_BRUTO'
+      Origin = 'TOTAL_BRUTO'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaTOTAL_DESCONTO: TFMTBCDField
+      FieldName = 'TOTAL_DESCONTO'
+      Origin = 'TOTAL_DESCONTO'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaTOTAL_FINAL: TFMTBCDField
+      FieldName = 'TOTAL_FINAL'
+      Origin = 'TOTAL_FINAL'
+      Precision = 18
+      Size = 2
     end
   end
   inherited QryPesquisaXXX: TIBQuery

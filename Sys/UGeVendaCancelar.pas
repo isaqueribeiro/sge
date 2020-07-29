@@ -54,8 +54,6 @@ type
     cdsVendaCODCLI: TStringField;
     cdsVendaDTVENDA: TSQLTimeStampField;
     cdsVendaSTATUS: TSmallintField;
-    cdsVendaDESCONTO: TBCDField;
-    cdsVendaTOTALVENDA: TBCDField;
     cdsVendaSERIE: TStringField;
     cdsVendaNFE: TLargeintField;
     cdsVendaLOTE_NFE_ANO: TSmallintField;

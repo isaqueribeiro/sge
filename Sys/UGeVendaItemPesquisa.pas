@@ -25,13 +25,13 @@ type
     fdQryPesquisaPRODUTO: TStringField;
     fdQryPesquisaGRUPO: TStringField;
     fdQryPesquisaUNIDADE: TStringField;
-    fdQryPesquisaQUANTIDADE: TBCDField;
-    fdQryPesquisaTOTAL_BRUTO: TBCDField;
-    fdQryPesquisaTOTAL_DESCONTO: TBCDField;
-    fdQryPesquisaTOTAL_FINAL: TBCDField;
     fdQryPesquisaVENDEDOR: TStringField;
     fdQryPesquisaCLIENTE_CPF: TStringField;
     fdQryPesquisaCLIENTE_NOME: TStringField;
+    fdQryPesquisaTOTAL_BRUTO: TFMTBCDField;
+    fdQryPesquisaTOTAL_DESCONTO: TFMTBCDField;
+    fdQryPesquisaTOTAL_FINAL: TFMTBCDField;
+    fdQryPesquisaQUANTIDADE: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
@@ -207,6 +207,14 @@ begin
   inherited;
   e1Data.Date := Date - 7;
   e2Data.Date := Date;
+
+  // Configurar tabela de pesquisa
+  Tabela
+    .Display('QUANTIDADE',     'Quantidade', ',0.###', TAlignment.taRightJustify)
+    .Display('TOTAL_BRUTO',    'Total Bruto', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTAL_DESCONTO', 'Total Desconto', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTAL_FINAL',    'Total Final', ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryPesquisa );
 
   ConfigurarColunas;
 end;

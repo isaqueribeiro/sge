@@ -93,23 +93,24 @@ type
     cdsVendaNFE_DENEGADA: TSmallintField;
     cdsVendaNFE_DENEGADA_MOTIVO: TStringField;
     cdsVendaSTATUS: TSmallintField;
-    cdsVendaNFE_VALOR_BASE_ICMS: TBCDField;
-    cdsVendaNFE_VALOR_ICMS: TBCDField;
-    cdsVendaNFE_VALOR_BASE_ICMS_SUBST: TBCDField;
-    cdsVendaNFE_VALOR_ICMS_SUBST: TBCDField;
-    cdsVendaNFE_VALOR_TOTAL_PRODUTO: TBCDField;
-    cdsVendaNFE_VALOR_FRETE: TBCDField;
-    cdsVendaNFE_VALOR_SEGURO: TBCDField;
-    cdsVendaNFE_VALOR_DESCONTO: TBCDField;
-    cdsVendaNFE_VALOR_TOTAL_II: TBCDField;
-    cdsVendaNFE_VALOR_TOTAL_IPI: TBCDField;
-    cdsVendaNFE_VALOR_PIS: TBCDField;
-    cdsVendaNFE_VALOR_COFINS: TBCDField;
-    cdsVendaNFE_VALOR_OUTROS: TBCDField;
-    cdsVendaNFE_VALOR_TOTAL_NOTA: TBCDField;
-    cdsVendaVALOR_TOTAL_BRUTO: TBCDField;
-    cdsVendaVALOR_TOTAL_DESCONTO: TBCDField;
-    cdsVendaVALOR_TOTAL_LIQUIDO: TBCDField;
+    cdsVendaNFE_VALOR_BASE_ICMS: TFMTBCDField;
+    cdsVendaNFE_VALOR_ICMS: TFMTBCDField;
+    cdsVendaNFE_VALOR_BASE_ICMS_SUBST: TFMTBCDField;
+    cdsVendaNFE_VALOR_ICMS_SUBST: TFMTBCDField;
+    cdsVendaNFE_VALOR_TOTAL_PRODUTO: TFMTBCDField;
+    cdsVendaNFE_VALOR_FRETE: TFMTBCDField;
+    cdsVendaNFE_VALOR_SEGURO: TFMTBCDField;
+    cdsVendaNFE_VALOR_DESCONTO: TFMTBCDField;
+    cdsVendaNFE_VALOR_TOTAL_II: TFMTBCDField;
+    cdsVendaNFE_VALOR_TOTAL_IPI: TFMTBCDField;
+    cdsVendaNFE_VALOR_PIS: TFMTBCDField;
+    cdsVendaNFE_VALOR_COFINS: TFMTBCDField;
+    cdsVendaNFE_VALOR_OUTROS: TFMTBCDField;
+    cdsVendaNFE_VALOR_TOTAL_NOTA: TFMTBCDField;
+    cdsVendaVALOR_TOTAL_IPI: TFMTBCDField;
+    cdsVendaVALOR_TOTAL_BRUTO: TFMTBCDField;
+    cdsVendaVALOR_TOTAL_DESCONTO: TFMTBCDField;
+    cdsVendaVALOR_TOTAL_LIQUIDO: TFMTBCDField;
     cdsVendaVALOR_BASE_ICMS_NORMAL_ENTRADA: TFMTBCDField;
     cdsVendaVALOR_TOTAL_ICMS_NORMAL_ENTRADA: TFMTBCDField;
     cdsVendaVALOR_BASE_ICMS_NORMAL_SAIDA: TBCDField;
@@ -117,7 +118,6 @@ type
     cdsVendaVALOR_TOTAL_ICMS_NORMAL_DEVIDO: TFMTBCDField;
     cdsVendaVALOR_TOTAL_PIS: TBCDField;
     cdsVendaVALOR_TOTAL_COFINS: TBCDField;
-    cdsVendaVALOR_TOTAL_IPI: TFMTBCDField;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -164,7 +164,12 @@ var
 
 implementation
 
-uses UDMBusiness, UDMNFe, UFuncoes, UGeConsultarLoteNFe_v2;
+uses
+    Controller.Tabela
+  , UDMBusiness
+  , UDMNFe
+  , UFuncoes
+  , UGeConsultarLoteNFe_v2;
 
 {$R *.dfm}
 
@@ -495,6 +500,37 @@ begin
   iNumeroLote   := 0;
   bRetornoErro  := False;
   lblInforme.Caption := EmptyStr;
+
+  // Configurar tabela
+  TTabelaController
+    .New
+    .Tabela( cdsVenda )
+    .Display('NFE_VALOR_BASE_ICMS', 'Base Cálculo ICMS', ',0.00', TAlignment.taRightJustify)
+    .Display('NFE_VALOR_ICMS',      'Valor ICMS', ',0.00', TAlignment.taRightJustify)
+    .Display('NFE_VALOR_BASE_ICMS_SUBST', 'Base Cálculo ICMS Subs.', ',0.00', TAlignment.taRightJustify)
+    .Display('NFE_VALOR_ICMS_SUBST',      'Valor ICMS Subs.', ',0.00', TAlignment.taRightJustify)
+    .Display('NFE_VALOR_TOTAL_PRODUTO',   'Total Produto', ',0.00', TAlignment.taRightJustify)
+    .Display('NFE_VALOR_FRETE',      'Valor Frete', ',0.00', TAlignment.taRightJustify)
+    .Display('NFE_VALOR_SEGURO',     'Valor Seguro', ',0.00', TAlignment.taRightJustify)
+    .Display('NFE_VALOR_DESCONTO',   'Descontos ', ',0.00', TAlignment.taRightJustify)
+    .Display('NFE_VALOR_TOTAL_II',   'Valor II', ',0.00', TAlignment.taRightJustify)
+    .Display('NFE_VALOR_TOTAL_IPI',  'Valor IPI', ',0.00', TAlignment.taRightJustify)
+    .Display('NFE_VALOR_PIS',        'Valor PIS', ',0.00', TAlignment.taRightJustify)
+    .Display('NFE_VALOR_COFINS',     'Valor CONFINS', ',0.00', TAlignment.taRightJustify)
+    .Display('NFE_VALOR_OUTROS',     'Outros', ',0.00', TAlignment.taRightJustify)
+    .Display('NFE_VALOR_TOTAL_NOTA', 'Total NF', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_IPI',      'Total IPI', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_BRUTO',    'Total Bruto', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_DESCONTO', 'Total Descontos', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_LIQUIDO',  'Total Líquido', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_BASE_ICMS_NORMAL_ENTRADA',  'Base ICMS Entrada', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_ICMS_NORMAL_ENTRADA', 'Valor ICMS Entrada', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_BASE_ICMS_NORMAL_SAIDA',    'Base ICMS Saída', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_ICMS_NORMAL_SAIDA',   'Valor ICMS Saída', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_ICMS_NORMAL_DEVIDO',  'Total ICMS Devido', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_PIS',     'Total PIS', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_COFINS',  'Total CONFINS', ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsVenda );
 end;
 
 procedure TfrmGeVendaGerarNFe.TmrAlertaTimer(Sender: TObject);
