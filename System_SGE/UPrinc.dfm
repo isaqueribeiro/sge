@@ -4672,7 +4672,6 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4703,6 +4702,7 @@ object frmPrinc: TfrmPrinc
       Index = 2
     end
     object RbnTabMovimento: TdxRibbonTab
+      Active = True
       Caption = 'Movimenta'#231#227'o'
       Groups = <
         item
@@ -5061,7 +5061,7 @@ object frmPrinc: TfrmPrinc
     object BrMngMovimentoCmp: TdxBar
       Caption = 'Compras'
       CaptionButtons = <>
-      DockedLeft = 211
+      DockedLeft = 210
       DockedTop = 0
       FloatLeft = 478
       FloatTop = 221

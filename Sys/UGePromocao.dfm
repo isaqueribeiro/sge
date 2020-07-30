@@ -20,7 +20,6 @@ inherited frmGePromocao: TfrmGePromocao
   inherited pgcGuias: TPageControl
     Width = 753
     OnChange = pgcGuiasChange
-    ExplicitTop = -2
     ExplicitWidth = 753
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 745

@@ -242,7 +242,10 @@ type
     qrySolicitacaoCompra: TFDQuery;
     qryApropriacaoEstoque: TFDQuery;
     qryRequisicaoAlmox: TFDQuery;
-    frrEntradaEspelho: TfrxReport;    procedure SelecionarCertificado(Sender : TObject);
+    frrEntradaEspelho: TfrxReport;
+    qryEmitenteCONTADOR_CODIGO: TIntegerField;
+    qryEmitenteCONTADOR_CNPJCPF: TStringField;
+    qryEmitenteCONTADOR_NOME: TStringField;    procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure FrECFPoolerGetValue(const VarName: String;
@@ -2602,6 +2605,15 @@ begin
       Emit.CNAE              := ''; // Verifique na cidade do emissor da NFe se é permitido
                                     // a inclusão de serviços na NFe
 
+      // Ágil Soluções em Softwares
+      with autXML.Add do
+        CNPJCPF := AGIL_SOFTWARES_CNPJ;
+
+      // CNPJ/CPF Contador
+      if (Trim(qryEmitenteCONTADOR_CNPJCPF.AsString) <> EmptyStr) then
+        with autXML.Add do
+          CNPJCPF := StrOnlyNumbers( Trim(qryEmitenteCONTADOR_CNPJCPF.AsString) );
+
   //Para NFe Avulsa preencha os campos abaixo
   {      Avulsa.CNPJ    := '';
         Avulsa.xOrgao  := '';
@@ -4322,6 +4334,15 @@ begin
       Emit.IM                := ''; // Preencher no caso de existir serviços na nota
       Emit.CNAE              := ''; // Verifique na cidade do emissor da NFe se é permitido
                                     // a inclusão de serviços na NFe
+
+      // Ágil Soluções em Softwares
+      with autXML.Add do
+        CNPJCPF := AGIL_SOFTWARES_CNPJ;
+
+      // CNPJ/CPF Contador
+      if (Trim(qryEmitenteCONTADOR_CNPJCPF.AsString) <> EmptyStr) then
+        with autXML.Add do
+          CNPJCPF := StrOnlyNumbers( Trim(qryEmitenteCONTADOR_CNPJCPF.AsString) );
 
   //Para NFe Avulsa preencha os campos abaixo
   {      Avulsa.CNPJ    := '';
@@ -7107,6 +7128,15 @@ begin
       Emit.IM    := EmptyStr; // Preencher no caso de existir serviços na nota
       Emit.CNAE  := EmptyStr; // Verifique na cidade do emissor da NFe se é permitido
                               // a inclusão de serviços na NFCe
+
+      // Ágil Soluções em Softwares
+      with autXML.Add do
+        CNPJCPF := AGIL_SOFTWARES_CNPJ;
+
+      // CNPJ/CPF Contador
+      if (Trim(qryEmitenteCONTADOR_CNPJCPF.AsString) <> EmptyStr) then
+        with autXML.Add do
+          CNPJCPF := StrOnlyNumbers( Trim(qryEmitenteCONTADOR_CNPJCPF.AsString) );
 
   //Para NFe Avulsa preencha os campos abaixo
   {      Avulsa.CNPJ    := '';

@@ -1963,22 +1963,6 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       Required = True
       Size = 10
     end
-    object cdsTabelaItensQUANTIDADE: TIntegerField
-      FieldName = 'QUANTIDADE'
-      Origin = 'QUANTIDADE'
-      DisplayFormat = ',0'
-    end
-    object cdsTabelaItensQUANTIDADE_FINAL: TIntegerField
-      FieldName = 'QUANTIDADE_FINAL'
-      Origin = 'QUANTIDADE_FINAL'
-      DisplayFormat = ',0'
-    end
-    object cdsTabelaItensVALOR_MEDIO: TBCDField
-      FieldName = 'VALOR_MEDIO'
-      Origin = 'VALOR_MEDIO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
     object cdsTabelaItensUNIDADE: TSmallintField
       FieldName = 'UNIDADE'
       Origin = 'UNIDADE'
@@ -2007,16 +1991,6 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       ProviderFlags = []
       Size = 5
     end
-    object cdsTabelaItensESTOQUE_SATELITE: TBCDField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Dispon'#237'vel'
-      FieldName = 'ESTOQUE_SATELITE'
-      Origin = 'ESTOQUE_SATELITE'
-      ProviderFlags = []
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
     object cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField
       AutoGenerateValue = arDefault
       FieldName = 'ESTOQUE_APROP_LOTE'
@@ -2043,6 +2017,28 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
       Origin = 'DATA_VALIDADE'
       ProviderFlags = []
       DisplayFormat = 'dd/mm/yyyy'
+    end
+    object cdsTabelaItensQUANTIDADE: TIntegerField
+      FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
+    end
+    object cdsTabelaItensQUANTIDADE_FINAL: TIntegerField
+      FieldName = 'QUANTIDADE_FINAL'
+      Origin = 'QUANTIDADE_FINAL'
+    end
+    object cdsTabelaItensVALOR_MEDIO: TBCDField
+      FieldName = 'VALOR_MEDIO'
+      Origin = 'VALOR_MEDIO'
+      Precision = 18
+    end
+    object cdsTabelaItensESTOQUE_SATELITE: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'ESTOQUE_SATELITE'
+      Origin = 'ESTOQUE_SATELITE'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 3
     end
   end
   object updTabelaItens: TFDUpdateSQL

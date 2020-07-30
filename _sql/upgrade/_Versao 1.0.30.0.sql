@@ -417,3 +417,305 @@ end
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMPRESA position 1;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_CONTA position 2;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_SENHA position 3;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_POP position 4;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_SMTP position 5;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_SMTP_PORTA position 6;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_REQUER_AUTENTICACAO position 7;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_CONEXAO_SSL position 8;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_ASSUNTO_PADRAO position 9;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column EMAIL_MENSAGEM_PADRAO position 10;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column CLIENTE_PERMITIR_DUPLICAR_CNPJ position 11;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column CLIENTE_PERMITIR_VF_CNPJ position 12;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column CUSTO_OPER_CALCULAR position 13;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column PERMITIR_VENDA_ESTOQUE_INS position 14;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column VENDA_CARREGA_PRODUTO_EAN position 15;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column VENDA_FORMA_PAGTO_CARTACREDITO position 16;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column ESTOQUE_UNICO_EMPRESAS position 17;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column ESTOQUE_SATELITE_CLIENTE position 18;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column AUTORIZA_INFORMA_CLIENTE position 19;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column USUARIO position 20;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_EMITIR position 21;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_SERIE position 22;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_NUMERO position 23;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_LOTE position 24;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_CARTA_CORRECAO position 25;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_EMITIR_ENTRADA position 26;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_ACEITAR_NOTA_DENEGADA position 27;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_SOLICITA_DH_SAIDA position 28;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_IMPRIMIR_COD_CLIENTE position 29;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_IMPRIMIR_COD_REFERENTE position 30;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFE_IMPRIMIR_COD_REFERENCIA position 31;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_EMITIR position 32;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_SERIE position 33;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_NUMERO position 34;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_TOKEN_ID position 35;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFCE_TOKEN position 36;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_EMITIR position 37;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column RPS_SERIE position 38;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column RPS_NUMERO position 39;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_SERIE position 40;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_NUMERO position 41;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_PIS position 42;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_COFINS position 43;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_CSLL position 44;
+
+
+/*------ SYSDBA 30/07/2020 10:28:11 --------*/
+
+alter table TBCONFIGURACAO
+alter column NFSE_PERCENTUAL_ISSQN position 45;
+
+
+/*------ SYSDBA 30/07/2020 10:29:26 --------*/
+
+ALTER TABLE TBCONFIGURACAO DROP NFE_IMPRIMIR_COD_REFERENTE;
+
+
+
+
+/*------ SYSDBA 30/07/2020 10:31:35 --------*/
+
+ALTER TABLE TBCONFIGURACAO
+    ADD CONTADOR_CODIGO DMN_INTEGER_N,
+    ADD CONTADOR_CNPJCPF DMN_CNPJ;
+
+COMMENT ON COLUMN TBCONFIGURACAO.CONTADOR_CODIGO IS
+'Contador: Codigo do fornecedor.';
+
+COMMENT ON COLUMN TBCONFIGURACAO.CONTADOR_CNPJCPF IS
+'Contador: CNPJ/CPF';
+
+
+
+
+/*------ SYSDBA 30/07/2020 10:31:58 --------*/
+
+ALTER TABLE TBCONFIGURACAO
+ADD CONSTRAINT FK_TBCONFIGURACAO_CONTADOR
+FOREIGN KEY (CONTADOR_CODIGO)
+REFERENCES TBFORNECEDOR(CODFORN);
+

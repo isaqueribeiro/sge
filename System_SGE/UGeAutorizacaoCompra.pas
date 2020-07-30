@@ -157,11 +157,6 @@ type
     fdQryTabelaFORMA_PAGTO: TSmallintField;
     fdQryTabelaCONDICAO_PAGTO: TSmallintField;
     fdQryTabelaTRANSPORTADOR: TIntegerField;
-    fdQryTabelaVALOR_BRUTO: TBCDField;
-    fdQryTabelaVALOR_DESCONTO: TBCDField;
-    fdQryTabelaVALOR_TOTAL_FRETE: TBCDField;
-    fdQryTabelaVALOR_TOTAL_IPI: TBCDField;
-    fdQryTabelaVALOR_TOTAL: TBCDField;
     fdQryTabelaAUTORIZADO_DATA: TDateField;
     fdQryTabelaDATA_FATURA: TDateField;
     fdQryTabelaAUTORIZADO_USUARIO: TStringField;
@@ -172,7 +167,6 @@ type
     fdQryTabelaNOMEFORN: TStringField;
     fdQryTabelaCNPJ: TStringField;
     fdQryTabelaPESSOA_FISICA: TSmallintField;
-    fdQryTabelaFATURAMENTO_MINIMO: TBCDField;
     fdQryTabelaTRANSPORTADOR_NOME: TStringField;
     fdQryTabelaTRANSPORTADOR_CPF_CNPJ: TStringField;
     fdQryTabelaNOMECLIENTE: TStringField;
@@ -185,12 +179,7 @@ type
     cdsTabelaItensSEQ: TSmallintField;
     cdsTabelaItensFORNECEDOR: TIntegerField;
     cdsTabelaItensPRODUTO: TStringField;
-    cdsTabelaItensQUANTIDADE: TBCDField;
     cdsTabelaItensUNIDADE: TSmallintField;
-    cdsTabelaItensVALOR_UNITARIO: TBCDField;
-    cdsTabelaItensIPI_PERCENTUAL: TBCDField;
-    cdsTabelaItensIPI_VALOR_TOTAL: TBCDField;
-    cdsTabelaItensVALOR_TOTAL: TBCDField;
     cdsTabelaItensCONFIRMADO_RECEBIMENTO: TSmallintField;
     cdsTabelaItensUSUARIO: TStringField;
     cdsTabelaItensDESCRI_APRESENTACAO: TStringField;
@@ -202,6 +191,17 @@ type
     fdQryFormaPagto: TFDQuery;
     fdQryCondicaoPagto: TFDQuery;
     cdsTransportador: TFDQuery;
+    fdQryTabelaVALOR_BRUTO: TFMTBCDField;
+    fdQryTabelaVALOR_DESCONTO: TFMTBCDField;
+    fdQryTabelaVALOR_TOTAL_FRETE: TFMTBCDField;
+    fdQryTabelaVALOR_TOTAL_IPI: TFMTBCDField;
+    fdQryTabelaVALOR_TOTAL: TFMTBCDField;
+    fdQryTabelaFATURAMENTO_MINIMO: TFMTBCDField;
+    cdsTabelaItensQUANTIDADE: TFMTBCDField;
+    cdsTabelaItensVALOR_UNITARIO: TFMTBCDField;
+    cdsTabelaItensIPI_PERCENTUAL: TFMTBCDField;
+    cdsTabelaItensIPI_VALOR_TOTAL: TFMTBCDField;
+    cdsTabelaItensVALOR_TOTAL: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -301,8 +301,17 @@ var
 implementation
 
 uses
-  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeFornecedor, UGeProduto, UGeAutorizacaoCompraCancelar, UGeCliente,
-  UGeCentroCusto;
+    DateUtils
+  , SysConst
+  , Controller.Tabela
+  , UConstantesDGE
+  , UDMBusiness
+  , UDMNFe
+  , UGeFornecedor
+  , UGeProduto
+  , UGeAutorizacaoCompraCancelar
+  , UGeCliente
+  , UGeCentroCusto;
 
 {$R *.dfm}
 
@@ -488,6 +497,28 @@ begin
 
   lblCliente.Visible := GetAutorizacaoInformarCliente( gUsuarioLogado.Empresa );
   dbCliente.Visible  := lblCliente.Visible;
+
+  Tabela
+    .Display('CODIGO', 'Código', '###00000', TAlignment.taCenter)
+    .Display('INSERCAO_DATA', 'Data/Hora', 'dd/mm/yyyy hh:mm')
+    .Display('VALOR_BRUTO', 'Valor Bruto', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_DESCONTO', 'Descontos', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_FRETE', 'Frete', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_IPI', 'IPI', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL', 'Valor Total', ',0.00', TAlignment.taRightJustify)
+    .Display('FATURAMENTO_MINIMO', 'Faturamento Mínimo', ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
+
+  TTabelaController
+    .New
+    .Tabela( cdsTabelaItens )
+    .Display('SEQ', '#', '#00', TAlignment.taCenter)
+    .Display('QUANTIDADE', 'Quantidade', ',0.###', TAlignment.taRightJustify)
+    .Display('VALOR_UNITARIO', 'Valor Unit.', ',0.00', TAlignment.taRightJustify)
+    .Display('IPI_PERCENTUAL', '% IPI', ',0.00', TAlignment.taRightJustify)
+    .Display('IPI_VALOR_TOTAL', 'Valor IPI', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL', 'Valor Total', ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsTabelaItens );
 end;
 
 procedure TfrmGeAutorizacaoCompra.btbtnIncluirClick(Sender: TObject);

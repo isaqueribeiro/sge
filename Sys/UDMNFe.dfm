@@ -42738,6 +42738,11 @@ object DMNFe: TDMNFe
       '  , coalesce(cf.nfce_serie , e.Serie_nfce)  as Serie_nfce'
       '  , coalesce(cf.nfce_numero, e.Numero_nfce) as Numero_nfce'
       '  , pa.Pais_nome'
+      ''
+      '  , cf.contador_codigo'
+      '  , cf.contador_cnpjcpf'
+      '  , fn.nomeforn as contador_nome'
+      ''
       '  , case'
       '      when (e.Numero_nfe   > coalesce(cf.nfe_numero, 0)) then 1'
       '      when (e.lote_num_nfe > coalesce(cf.nfe_lote, 0))   then 1'
@@ -42754,6 +42759,7 @@ object DMNFe: TDMNFe
       '  left join TBLOGRADOURO lg on (lg.Log_cod = e.Log_cod)'
       '  left join TBTIPO_LoGRADOURO tl on (tl.Tlg_cod = e.Tlg_tipo)'
       '  left Join TBPAIS pa on (pa.Pais_id = e.Pais_id)'
+      '  left join TBFORNECEDOR fn on (fn.codforn = cf.contador_codigo)'
       'where e.Cnpj = :Cnpj')
     Left = 144
     Top = 24
@@ -43008,6 +43014,29 @@ object DMNFe: TDMNFe
       ProviderFlags = []
       ReadOnly = True
       Size = 150
+    end
+    object qryEmitenteCONTADOR_CODIGO: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'CONTADOR_CODIGO'
+      Origin = 'CONTADOR_CODIGO'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryEmitenteCONTADOR_CNPJCPF: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CONTADOR_CNPJCPF'
+      Origin = 'CONTADOR_CNPJCPF'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 18
+    end
+    object qryEmitenteCONTADOR_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CONTADOR_NOME'
+      Origin = 'NOMEFORN'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
     end
     object qryEmitenteRECONFIGURAR: TIntegerField
       AutoGenerateValue = arDefault

@@ -24,6 +24,13 @@ uses
   cxDataControllerConditionalFormattingRulesManagerDialog;
 
 type
+  TFornecedorRegistro = record
+    Codigo   : Integer;
+    CNPJ_CPF ,
+    Nome     ,
+    Fantasia : String;
+  end;
+
   TfrmGeFornecedor = class(TfrmGrPadraoCadastro)
     dbPessoaFisica: TDBCheckBox;
     lblRazao: TLabel;
@@ -257,6 +264,8 @@ var
   frmGeFornecedor: TfrmGeFornecedor;
 
   procedure MostrarTabelaFornecedores(const AOwner : TComponent);
+
+  function SelecionarFornecedor(const AOwner : TComponent; var aFornecedor : TFornecedorRegistro) : Boolean; overload;
   function SelecionarFornecedor(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean; overload;
   function SelecionarFornecedor(const AOwner : TComponent; var Codigo : Integer; var CNPJ, Nome : String) : Boolean; overload;
   function SelecionarTransportadora(const AOwner : TComponent; var Codigo : Integer; var CNPJ, Nome : String) : Boolean; overload;
@@ -278,6 +287,29 @@ begin
     frm.WhereAdditional := '(f.cliente_origem is null) and (f.fornecedor_funcionario = 0)';
     frm.tbsDuplicatas.TabVisible := False; // Temporário
     frm.ShowModal;
+  finally
+    frm.Destroy;
+  end;
+end;
+
+function SelecionarFornecedor(const AOwner : TComponent; var aFornecedor : TFornecedorRegistro) : Boolean; overload;
+var
+  frm : TfrmGeFornecedor;
+  aCodigo : Integer;
+  aNome   : String;
+begin
+  frm := TfrmGeFornecedor.Create(AOwner);
+  try
+    frm.WhereAdditional := EmptyStr;
+
+    Result := frm.SelecionarRegistro(aCodigo, aNome);
+    if Result then
+    begin
+      aFornecedor.Codigo   := aCodigo;
+      aFornecedor.Nome     := aNome;
+      aFornecedor.Fantasia := frm.DtSrcTabela.DataSet.FieldByName('NOMEFANT').AsString;
+      aFornecedor.CNPJ_CPF := StrOnlyNumbers(frm.DtSrcTabela.DataSet.FieldByName('CNPJ').AsString);
+    end;
   finally
     frm.Destroy;
   end;

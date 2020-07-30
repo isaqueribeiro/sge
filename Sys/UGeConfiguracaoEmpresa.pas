@@ -16,7 +16,7 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, System.ImageList;
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, System.ImageList, JvExMask, JvToolEdit, JvDBControls;
 
 type
   TfrmGeConfiguracaoEmpresa = class(TfrmGrPadraoCadastro)
@@ -148,6 +148,11 @@ type
     fdQryTabelaNFSE_PERCENTUAL_COFINS: TFMTBCDField;
     fdQryTabelaNFSE_PERCENTUAL_CSLL: TFMTBCDField;
     fdQryTabelaNFSE_PERCENTUAL_ISSQN: TFMTBCDField;
+    lblContador: TLabel;
+    dbContador: TJvDBComboEdit;
+    fdQryTabelaCONTADOR_CODIGO: TIntegerField;
+    fdQryTabelaCONTADOR_CNPJCPF: TStringField;
+    fdQryTabelaCONTADOR_NOME: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
@@ -156,6 +161,8 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure fdQryTabelaNewRecord(DataSet: TDataSet);
     procedure fdQryTabelaEMPRESAGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure dbContadorButtonClick(Sender: TObject);
+    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     procedure Aplicar_ModeloEstoque;
@@ -179,7 +186,10 @@ type
 
 implementation
 
-uses UConstantesDGE, UDMBusiness;
+uses
+    UConstantesDGE
+  , UDMBusiness
+  , UGeFornecedor;
 
 {$R *.dfm}
 
@@ -226,6 +236,22 @@ procedure TfrmGeConfiguracaoEmpresa.DtSrcTabelaStateChange(
 begin
   inherited;
   dbEmpresa.ReadOnly := (DtSrcTabela.DataSet.State = dsEdit);
+end;
+
+procedure TfrmGeConfiguracaoEmpresa.fdQryTabelaBeforePost(DataSet: TDataSet);
+begin
+  inherited;
+  with DtSrcTabela.DataSet do
+  begin
+    if (FieldByName('CONTADOR_CODIGO').AsInteger = 0) then
+      FieldByName('CONTADOR_CODIGO').Clear;
+
+    if (Trim(FieldByName('CONTADOR_CNPJCPF').AsString) = EmptyStr) then
+      FieldByName('CONTADOR_CNPJCPF').Clear;
+
+    if (Trim(FieldByName('CONTADOR_NOME').AsString) = EmptyStr) then
+      FieldByName('CONTADOR_NOME').Clear;
+  end;
 end;
 
 procedure TfrmGeConfiguracaoEmpresa.fdQryTabelaEMPRESAGetText(Sender: TField; var Text: string;
@@ -287,6 +313,10 @@ begin
     FieldByName('NFCE_NUMERO').Clear;
     FieldByName('NFCE_TOKEN_ID').Clear;
     FieldByName('NFCE_TOKEN').Clear;
+
+    FieldByName('CONTADOR_CODIGO').Clear;
+    FieldByName('CONTADOR_CNPJCPF').Clear;
+    FieldByName('CONTADOR_NOME').Clear;
   end;
 end;
 
@@ -339,6 +369,20 @@ begin
     if not btbtnSalvar.Enabled then
       Aplicar_ModeloEstoque;
   end;
+end;
+
+procedure TfrmGeConfiguracaoEmpresa.dbContadorButtonClick(Sender: TObject);
+var
+  aFornecedor : TFornecedorRegistro;
+begin
+  with DtSrcTabela.DataSet do
+    if ( State in [dsEdit, dsInsert] ) then
+      if ( SelecionarFornecedor(Self, aFornecedor) ) then
+      begin
+        FieldByName('CONTADOR_CODIGO').AsInteger := aFornecedor.Codigo;
+        FieldByName('CONTADOR_CNPJCPF').AsString := aFornecedor.CNPJ_CPF;
+        FieldByName('CONTADOR_NOME').AsString    := aFornecedor.Nome;
+      end;
 end;
 
 procedure TfrmGeConfiguracaoEmpresa.dbgDadosDrawColumnCell(Sender: TObject;

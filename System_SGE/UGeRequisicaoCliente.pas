@@ -103,14 +103,10 @@ type
     cdsTabelaItensCODEMPRESA: TStringField;
     cdsTabelaItensCODCLIENTE: TIntegerField;
     cdsTabelaItensCODPRODUTO: TStringField;
-    cdsTabelaItensQUANTIDADE: TIntegerField;
-    cdsTabelaItensQUANTIDADE_FINAL: TIntegerField;
-    cdsTabelaItensVALOR_MEDIO: TBCDField;
     cdsTabelaItensUNIDADE: TSmallintField;
     cdsTabelaItensUSUARIO: TStringField;
     cdsTabelaItensDESCRI: TStringField;
     cdsTabelaItensUNP_SIGLA: TStringField;
-    cdsTabelaItensESTOQUE_SATELITE: TBCDField;
     fdQryEmpresa: TFDQuery;
     qryProduto: TFDQuery;
     fdQryTabelaVENDA_ANO: TSmallintField;
@@ -125,6 +121,10 @@ type
     cdsTabelaItensFABRICACAO: TDateField;
     cdsTabelaItensVALIDADE: TDateField;
     stpSetRequisicaoCliente: TFDStoredProc;
+    cdsTabelaItensQUANTIDADE: TIntegerField;
+    cdsTabelaItensQUANTIDADE_FINAL: TIntegerField;
+    cdsTabelaItensVALOR_MEDIO: TBCDField;
+    cdsTabelaItensESTOQUE_SATELITE: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -209,7 +209,13 @@ var
 implementation
 
 uses
-  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeCliente;
+    DateUtils
+  , SysConst
+  , Controller.Tabela
+  , UConstantesDGE
+  , UDMBusiness
+  , UDMNFe
+  , UGeCliente;
 
 {$R *.dfm}
 
@@ -343,6 +349,21 @@ begin
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
 
   UpdateGenerator( 'where ano = ' + FormatFloat('0000', YearOf(Date)) );
+
+  Tabela
+    .Display('NUMERO', 'Código', '###00000', TAlignment.taCenter)
+    .Display('INSERCAO_DATA', 'Data/Hora', 'dd/mm/yyyy hh:mm')
+    .Configurar( fdQryTabela );
+
+  TTabelaController
+    .New
+    .Tabela( cdsTabelaItens )
+    .Display('ITEM', '#', '###00', TAlignment.taCenter)
+    .Display('QUANTIDADE', 'Quantidade', ',0', TAlignment.taRightJustify)
+    .Display('QUANTIDADE_FINAL', 'Quantidade Final', ',0', TAlignment.taRightJustify)
+    .Display('VALOR_MEDIO', 'Valor Médio', ',0.00', TAlignment.taRightJustify)
+    .Display('ESTOQUE_SATELITE', 'Disponível', ',0.###', TAlignment.taRightJustify)
+    .Configurar( cdsTabelaItens );
 end;
 
 procedure TfrmGeRequisicaoCliente.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);

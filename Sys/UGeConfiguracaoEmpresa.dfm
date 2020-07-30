@@ -170,7 +170,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Top = 85
         Width = 743
         Height = 349
-        ActivePage = TbsNFe
+        ActivePage = TbsOutrasConfig
         Align = alClient
         TabOrder = 1
         object tbsContaEmail: TTabSheet
@@ -1055,9 +1055,17 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         object TbsOutrasConfig: TTabSheet
           Caption = 'Outras Configura'#231#245'es'
           ImageIndex = 2
+          object lblContador: TLabel
+            Left = 16
+            Top = 13
+            Width = 186
+            Height = 13
+            Caption = 'Contador / Escrit'#243'rio de Contabilidade:'
+            FocusControl = dbContador
+          end
           object dbCustoOperacional: TDBCheckBox
             Left = 16
-            Top = 15
+            Top = 59
             Width = 313
             Height = 17
             Caption = 'Calcular Custo Operacional nas vendas por Cliente'
@@ -1069,13 +1077,13 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 0
+            TabOrder = 1
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
           object dbEstoqueUnico: TDBCheckBox
             Left = 16
-            Top = 39
+            Top = 83
             Width = 257
             Height = 17
             Caption = 'Trabalhar com estoque unificado de produtos'
@@ -1087,13 +1095,13 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 1
+            TabOrder = 2
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
           object dbDuplicarCnpj: TDBCheckBox
             Left = 16
-            Top = 87
+            Top = 131
             Width = 321
             Height = 17
             Caption = 'Permitir duplicar CPF/CNPJ no cadastro dos clientes'
@@ -1105,13 +1113,13 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 3
+            TabOrder = 4
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
           object dbEstoqueSatelite: TDBCheckBox
             Left = 16
-            Top = 63
+            Top = 107
             Width = 241
             Height = 17
             Caption = 'Habilitar estoque satelite para clientes'
@@ -1123,13 +1131,13 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 2
+            TabOrder = 3
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
           object dbAutorizacaoInformaCliente: TDBCheckBox
             Left = 16
-            Top = 133
+            Top = 177
             Width = 438
             Height = 17
             Caption = 
@@ -1143,14 +1151,14 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 5
+            TabOrder = 6
             ValueChecked = '1'
             ValueUnchecked = '0'
           end
           object dbVerdadeiroFalsoCnpj: TDBCheckBox
             Left = 16
-            Top = 110
-            Width = 449
+            Top = 154
+            Width = 438
             Height = 17
             Caption = 
               'Permitir verdadeiro-falso na valida'#231#227'o do CPF/CNPJ no cadastro d' +
@@ -1163,9 +1171,84 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
             Font.Name = 'Tahoma'
             Font.Style = []
             ParentFont = False
-            TabOrder = 4
+            TabOrder = 5
             ValueChecked = '1'
             ValueUnchecked = '0'
+          end
+          object dbContador: TJvDBComboEdit
+            Left = 16
+            Top = 32
+            Width = 438
+            Height = 21
+            ButtonHint = 'Pesquisar Contador / Contabilidade (Ctrl+P)'
+            CharCase = ecUpperCase
+            ClickKey = 16464
+            Color = clMoneyGreen
+            DataField = 'CONTADOR_NOME'
+            DataSource = DtSrcTabela
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            Glyph.Data = {
+              36060000424D3606000000000000360000002800000020000000100000000100
+              18000000000000060000000000000000000000000000000000001DE6B51DE6B5
+              1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
+              AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+              C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
+              6048306048306048306048306048306048306048306048306048305048403050
+              604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+              7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
+              FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
+              D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
+              C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
+              FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
+              E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
+              7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
+              FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
+              B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
+              7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
+              FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
+              8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+              F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
+              FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
+              5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+              F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
+              FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
+              6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+              FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
+              FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
+              951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+              FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
+              FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
+              B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
+              7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
+              FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
+              B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
+              7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
+              B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
+              B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
+              B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+              E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
+              B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+              7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
+              1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
+              B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+              C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
+            NumGlyphs = 2
+            ParentFont = False
+            ParentShowHint = False
+            ReadOnly = True
+            ShowHint = True
+            TabOrder = 0
+            OnButtonClick = dbContadorButtonClick
           end
         end
       end
@@ -1432,6 +1515,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
     Top = 0
   end
   inherited fdQryTabela: TFDQuery
+    Active = True
+    BeforePost = fdQryTabelaBeforePost
     SQL.Strings = (
       'Select'
       '    c.empresa'
@@ -1478,10 +1563,16 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  , c.nfse_percentual_cofins'
       '  , c.nfse_percentual_csll'
       '  , c.nfse_percentual_issqn'
+      '  , c.contador_codigo'
+      '  , c.contador_cnpjcpf'
       '  , e.rzsoc'
       '  , e.nmfant'
+      '  , f.nomeforn as contador_nome'
       'from TBCONFIGURACAO c'
       '  inner join TBEMPRESA e on (e.cnpj = c.empresa)'
+      '  left join TBFORNECEDOR f on (f.codforn = c.contador_codigo)'
+      ''
+      ''
       '')
     Left = 376
     object fdQryTabelaEMPRESA: TStringField
@@ -1750,6 +1841,22 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       ProviderFlags = []
       Size = 25
     end
+    object fdQryTabelaCONTADOR_CODIGO: TIntegerField
+      FieldName = 'CONTADOR_CODIGO'
+      Origin = 'CONTADOR_CODIGO'
+    end
+    object fdQryTabelaCONTADOR_CNPJCPF: TStringField
+      FieldName = 'CONTADOR_CNPJCPF'
+      Origin = 'CONTADOR_CNPJCPF'
+      Size = 18
+    end
+    object fdQryTabelaCONTADOR_NOME: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CONTADOR_NOME'
+      Origin = 'NOMEFORN'
+      ProviderFlags = []
+      Size = 100
+    end
   end
   inherited fdUpdTabela: TFDUpdateSQL
     InsertSQL.Strings = (
@@ -1767,11 +1874,13 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  NFE_SERIE, NFE_NUMERO, NFE_LOTE, NFE_CARTA_CORRECAO, '
       '  NFE_EMITIR_ENTRADA, NFE_ACEITAR_NOTA_DENEGADA, '
       '  NFE_SOLICITA_DH_SAIDA, NFE_IMPRIMIR_COD_CLIENTE, '
-      '  NFCE_EMITIR, NFCE_SERIE, NFCE_NUMERO, NFCE_TOKEN_ID, '
-      '  NFCE_TOKEN, NFSE_EMITIR, RPS_SERIE, RPS_NUMERO, '
-      '  NFSE_SERIE, NFSE_NUMERO, NFSE_PERCENTUAL_PIS, '
-      '  NFSE_PERCENTUAL_COFINS, NFSE_PERCENTUAL_CSLL, '
-      '  NFSE_PERCENTUAL_ISSQN, NFE_IMPRIMIR_COD_REFERENCIA)'
+      '  NFE_IMPRIMIR_COD_REFERENCIA, NFCE_EMITIR, NFCE_SERIE, '
+      '  NFCE_NUMERO, NFCE_TOKEN_ID, NFCE_TOKEN, NFSE_EMITIR, '
+      '  RPS_SERIE, RPS_NUMERO, NFSE_SERIE, NFSE_NUMERO, '
+      
+        '  NFSE_PERCENTUAL_PIS, NFSE_PERCENTUAL_COFINS, NFSE_PERCENTUAL_C' +
+        'SLL, '
+      '  NFSE_PERCENTUAL_ISSQN, CONTADOR_CODIGO, CONTADOR_CNPJCPF)'
       
         'VALUES (:NEW_EMPRESA, :NEW_EMAIL_CONTA, :NEW_EMAIL_SENHA, :NEW_E' +
         'MAIL_POP, '
@@ -1796,14 +1905,20 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       '  :NEW_NFE_EMITIR_ENTRADA, :NEW_NFE_ACEITAR_NOTA_DENEGADA, '
       '  :NEW_NFE_SOLICITA_DH_SAIDA, :NEW_NFE_IMPRIMIR_COD_CLIENTE, '
       
-        '  :NEW_NFCE_EMITIR, :NEW_NFCE_SERIE, :NEW_NFCE_NUMERO, :NEW_NFCE' +
-        '_TOKEN_ID, '
+        '  :NEW_NFE_IMPRIMIR_COD_REFERENCIA, :NEW_NFCE_EMITIR, :NEW_NFCE_' +
+        'SERIE, '
       
-        '  :NEW_NFCE_TOKEN, :NEW_NFSE_EMITIR, :NEW_RPS_SERIE, :NEW_RPS_NU' +
+        '  :NEW_NFCE_NUMERO, :NEW_NFCE_TOKEN_ID, :NEW_NFCE_TOKEN, :NEW_NF' +
+        'SE_EMITIR, '
+      
+        '  :NEW_RPS_SERIE, :NEW_RPS_NUMERO, :NEW_NFSE_SERIE, :NEW_NFSE_NU' +
         'MERO, '
-      '  :NEW_NFSE_SERIE, :NEW_NFSE_NUMERO, :NEW_NFSE_PERCENTUAL_PIS, '
-      '  :NEW_NFSE_PERCENTUAL_COFINS, :NEW_NFSE_PERCENTUAL_CSLL, '
-      '  :NEW_NFSE_PERCENTUAL_ISSQN, :NEW_NFE_IMPRIMIR_COD_REFERENCIA)')
+      
+        '  :NEW_NFSE_PERCENTUAL_PIS, :NEW_NFSE_PERCENTUAL_COFINS, :NEW_NF' +
+        'SE_PERCENTUAL_CSLL, '
+      
+        '  :NEW_NFSE_PERCENTUAL_ISSQN, :NEW_CONTADOR_CODIGO, :NEW_CONTADO' +
+        'R_CNPJCPF)')
     ModifySQL.Strings = (
       'UPDATE TBCONFIGURACAO'
       
@@ -1842,6 +1957,9 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       
         '  NFE_SOLICITA_DH_SAIDA = :NEW_NFE_SOLICITA_DH_SAIDA, NFE_IMPRIM' +
         'IR_COD_CLIENTE = :NEW_NFE_IMPRIMIR_COD_CLIENTE, '
+      
+        '  NFE_IMPRIMIR_COD_REFERENCIA = :NEW_NFE_IMPRIMIR_COD_REFERENCIA' +
+        ', '
       '  NFCE_EMITIR = :NEW_NFCE_EMITIR, NFCE_SERIE = :NEW_NFCE_SERIE, '
       
         '  NFCE_NUMERO = :NEW_NFCE_NUMERO, NFCE_TOKEN_ID = :NEW_NFCE_TOKE' +
@@ -1855,7 +1973,9 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       
         '  NFSE_PERCENTUAL_CSLL = :NEW_NFSE_PERCENTUAL_CSLL, NFSE_PERCENT' +
         'UAL_ISSQN = :NEW_NFSE_PERCENTUAL_ISSQN, '
-      '  NFE_IMPRIMIR_COD_REFERENCIA = :NEW_NFE_IMPRIMIR_COD_REFERENCIA'
+      
+        '  CONTADOR_CODIGO = :NEW_CONTADOR_CODIGO, CONTADOR_CNPJCPF = :NE' +
+        'W_CONTADOR_CNPJCPF'
       'WHERE EMPRESA = :OLD_EMPRESA')
     DeleteSQL.Strings = (
       'DELETE FROM TBCONFIGURACAO'
@@ -1882,8 +2002,8 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         '  NFE_EMITIR_ENTRADA, NFE_ACEITAR_NOTA_DENEGADA, NFE_SOLICITA_DH' +
         '_SAIDA, '
       
-        '  NFE_IMPRIMIR_COD_CLIENTE, NFE_IMPRIMIR_COD_REFERENTE, NFCE_EMI' +
-        'TIR, '
+        '  NFE_IMPRIMIR_COD_CLIENTE, NFE_IMPRIMIR_COD_REFERENCIA, NFCE_EM' +
+        'ITIR, '
       
         '  NFCE_SERIE, NFCE_NUMERO, NFCE_TOKEN_ID, NFCE_TOKEN, NFSE_EMITI' +
         'R, '
@@ -1893,9 +2013,9 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
       
         '  NFSE_PERCENTUAL_COFINS, NFSE_PERCENTUAL_CSLL, NFSE_PERCENTUAL_' +
         'ISSQN, '
-      '  NFE_IMPRIMIR_COD_REFERENCIA'
+      '  CONTADOR_CODIGO, CONTADOR_CNPJCPF'
       'FROM TBCONFIGURACAO'
-      'WHERE EMPRESA = :EMPRESA')
+      'WHERE EMPRESA = :OLD_EMPRESA')
     Left = 408
   end
   object dtsEmpresa: TDataSource

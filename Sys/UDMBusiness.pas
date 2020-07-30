@@ -563,7 +563,11 @@ const
 implementation
 
 uses
-  UFuncoes, UDMRecursos, View.Mensagem, Controller.Factory;
+    Vcl.StdCtrls
+  , UFuncoes
+  , UDMRecursos
+  , View.Mensagem
+  , Controller.Factory;
 
 {$R *.dfm}
 
@@ -843,7 +847,8 @@ end;
 
 function ShowConfirmation(sTitle, sMsg : String) : Boolean;
 var
-  fMsg : TFrmMensagem;
+  fMsg  : TFrmMensagem;
+  aForm : TForm;
 begin
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
@@ -855,7 +860,20 @@ begin
       fMsg.Free;
     end
   else
-    Result := (MessageDlg(PChar(sMsg), TMsgDlgType.mtConfirmation, [mbYes, mbNo], 0, mbNo) = ID_YES);
+  begin
+    aForm := CreateMessageDialog(PChar(sMsg), mtConfirmation, [mbYes, mbNo], TMsgDlgBtn.mbNo);
+    try
+      aForm.Caption := IfThen(sTitle.Trim.IsEmpty, 'Confirmar', sTitle);
+
+      (aForm.FindComponent('Yes') as TButton).Caption  := '&Sim';
+      (aForm.FindComponent('No')  as TButton).Caption  := '&Não';
+
+      Result := ( aForm.ShowModal = ID_YES );
+    finally
+      FreeAndNil(aForm);
+    end;
+  end;
+//    Result := (MessageDlg(PChar(sMsg), TMsgDlgType.mtConfirmation, [mbYes, mbNo], 0, mbNo) = ID_YES);
 //    Result := (Application.MessageBox(PChar(sMsg), PChar(sTitle), MB_ICONQUESTION + MB_YESNO + MB_DEFBUTTON2) = ID_YES);
 end;
 
@@ -921,7 +939,8 @@ end;
 
 procedure ShowWarning(sMsg : String);
 var
-  fMsg : TFrmMensagem;
+  fMsg  : TFrmMensagem;
+  aForm : TForm;
 begin
   WaitAMomentFree;
 
@@ -934,7 +953,19 @@ begin
       fMsg.Free;
     end
   else
-    MessageDlg(PChar(sMsg), TMsgDlgType.mtWarning, [mbOK], 0);
+  begin
+    aForm := CreateMessageDialog(PChar(sMsg), TMsgDlgType.mtWarning, [mbOK], TMsgDlgBtn.mbOK);
+    try
+//      (aForm.FindComponent('Yes') as TButton).Caption  := 'Sim';
+//      (aForm.FindComponent('No')  as TButton).Caption  := 'Não';
+
+      aForm.ShowModal;
+    finally
+      FreeAndNil(aForm);
+    end;
+//
+//    MessageDlg(PChar(sMsg), TMsgDlgType.mtWarning, [mbOK], 0);
+  end;
 end;
 
 procedure ShowWarning(sTitulo, sMsg : String);
@@ -2396,8 +2427,21 @@ begin
 end;
 
 function ShowConfirm(sMsg : String; const sTitle : String = ''; const DefaultButton : Integer = MB_DEFBUTTON2) : Boolean;
+var
+  aForm : TForm;
 begin
-  Result := ( MessageDlg(PChar(sMsg), mtConfirmation, [mbYes, mbNo], 0, mbNo) = ID_YES );
+  aForm := CreateMessageDialog(PChar(sMsg), mtConfirmation, [mbYes, mbNo], TMsgDlgBtn.mbNo);
+  try
+    aForm.Caption := IfThen(sTitle.Trim.IsEmpty, 'Confirmar', sTitle);
+
+    (aForm.FindComponent('Yes') as TButton).Caption  := '&Sim';
+    (aForm.FindComponent('No')  as TButton).Caption  := '&Não';
+
+    Result := ( aForm.ShowModal = ID_YES );
+  finally
+    FreeAndNil(aForm);
+  end;
+//  Result := ( MessageDlg(PChar(sMsg), mtConfirmation, [mbYes, mbNo], 0, mbNo) = ID_YES );
 //  Result := ( Application.MessageBox(PChar(sMsg), 'Confirmar', MB_YESNO + MB_ICONQUESTION + MB_DEFBUTTON2) = ID_YES );
 end;
 

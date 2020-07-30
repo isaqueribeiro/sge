@@ -3,9 +3,10 @@ unit UGeCotacaoCompra;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
+  UGrPadraoCadastro,
+
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ImgList,
+  IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, Menus, cxGraphics, cxLookAndFeels, System.ImageList,
   cxLookAndFeelPainters, cxButtons, JvDBControls, JvToolEdit, JvExMask,
 
@@ -332,8 +333,17 @@ var
 implementation
 
 uses
-  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeProduto,
-  UGeCotacaoCompraCancelar, UGeCotacaoCompraFornecedor, UGeFornecedor, UFuncoes;
+    DateUtils
+  , SysConst
+  , Controller.Tabela
+  , UConstantesDGE
+  , UDMBusiness
+  , UDMNFe
+  , UGeProduto
+  , UGeCotacaoCompraCancelar
+  , UGeCotacaoCompraFornecedor
+  , UGeFornecedor
+  , UFuncoes;
 
 {$R *.dfm}
 
