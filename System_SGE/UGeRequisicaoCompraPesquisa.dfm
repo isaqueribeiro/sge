@@ -679,33 +679,42 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       ProviderFlags = []
       ReadOnly = True
     end
-    object fdQryPesquisaVALOR_BRUTO: TBCDField
+    object fdQryPesquisaVALOR_BRUTO: TFMTBCDField
       FieldName = 'VALOR_BRUTO'
       Origin = 'VALOR_BRUTO'
       Precision = 18
       Size = 2
     end
-    object fdQryPesquisaVALOR_DESCONTO: TBCDField
+    object fdQryPesquisaVALOR_DESCONTO: TFMTBCDField
       FieldName = 'VALOR_DESCONTO'
       Origin = 'VALOR_DESCONTO'
       Precision = 18
       Size = 2
     end
-    object fdQryPesquisaVALOR_TOTAL_FRETE: TBCDField
+    object fdQryPesquisaVALOR_TOTAL_FRETE: TFMTBCDField
       FieldName = 'VALOR_TOTAL_FRETE'
       Origin = 'VALOR_TOTAL_FRETE'
       Precision = 18
       Size = 2
     end
-    object fdQryPesquisaVALOR_TOTAL_IPI: TBCDField
+    object fdQryPesquisaVALOR_TOTAL_IPI: TFMTBCDField
       FieldName = 'VALOR_TOTAL_IPI'
       Origin = 'VALOR_TOTAL_IPI'
       Precision = 18
       Size = 2
     end
-    object fdQryPesquisaVALOR_TOTAL: TBCDField
+    object fdQryPesquisaVALOR_TOTAL: TFMTBCDField
       FieldName = 'VALOR_TOTAL'
       Origin = 'VALOR_TOTAL'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryPesquisaFATURAMENTO_MINIMO: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'FATURAMENTO_MINIMO'
+      Origin = 'FATURAMENTO_MINIMO'
+      ProviderFlags = []
+      ReadOnly = True
       Precision = 18
       Size = 2
     end
@@ -758,15 +767,6 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       Origin = 'PESSOA_FISICA'
       ProviderFlags = []
       ReadOnly = True
-    end
-    object fdQryPesquisaFATURAMENTO_MINIMO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'FATURAMENTO_MINIMO'
-      Origin = 'FATURAMENTO_MINIMO'
-      ProviderFlags = []
-      ReadOnly = True
-      Precision = 18
-      Size = 2
     end
     object fdQryPesquisaTRANSPORTADOR_NOME: TStringField
       AutoGenerateValue = arDefault
@@ -1062,38 +1062,39 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       FieldName = 'ITENS'
       ReadOnly = True
     end
-    object CdsPesquisaVALOR_BRUTO: TBCDField
-      FieldName = 'VALOR_BRUTO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object CdsPesquisaVALOR_DESCONTO: TBCDField
-      FieldName = 'VALOR_DESCONTO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object CdsPesquisaVALOR_TOTAL_FRETE: TBCDField
-      FieldName = 'VALOR_TOTAL_FRETE'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object CdsPesquisaVALOR_TOTAL_IPI: TBCDField
-      FieldName = 'VALOR_TOTAL_IPI'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object CdsPesquisaVALOR_TOTAL: TBCDField
-      FieldName = 'VALOR_TOTAL'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
     object CdsPesquisaREQUISITADO_DATA: TDateField
       FieldName = 'REQUISITADO_DATA'
+    end
+    object CdsPesquisaVALOR_BRUTO: TFMTBCDField
+      FieldName = 'VALOR_BRUTO'
+      Precision = 18
+      Size = 2
+    end
+    object CdsPesquisaVALOR_DESCONTO: TFMTBCDField
+      FieldName = 'VALOR_DESCONTO'
+      Precision = 18
+      Size = 2
+    end
+    object CdsPesquisaVALOR_TOTAL_FRETE: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_FRETE'
+      Precision = 18
+      Size = 2
+    end
+    object CdsPesquisaVALOR_TOTAL_IPI: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_IPI'
+      Precision = 18
+      Size = 2
+    end
+    object CdsPesquisaVALOR_TOTAL: TFMTBCDField
+      FieldName = 'VALOR_TOTAL'
+      Precision = 18
+      Size = 2
+    end
+    object CdsPesquisaFATURAMENTO_MINIMO: TFMTBCDField
+      FieldName = 'FATURAMENTO_MINIMO'
+      ReadOnly = True
+      Precision = 18
+      Size = 2
     end
     object CdsPesquisaDATA_FATURA: TDateField
       FieldName = 'DATA_FATURA'
@@ -1126,12 +1127,6 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
     object CdsPesquisaPESSOA_FISICA: TSmallintField
       FieldName = 'PESSOA_FISICA'
       ReadOnly = True
-    end
-    object CdsPesquisaFATURAMENTO_MINIMO: TBCDField
-      FieldName = 'FATURAMENTO_MINIMO'
-      ReadOnly = True
-      Precision = 18
-      Size = 2
     end
     object CdsPesquisaTRANSPORTADOR_NOME: TStringField
       FieldName = 'TRANSPORTADOR_NOME'
@@ -1340,36 +1335,6 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       FieldName = 'TRANSPORTADOR'
       Origin = 'TRANSPORTADOR'
     end
-    object cdsAutorizacaoVALOR_BRUTO: TBCDField
-      FieldName = 'VALOR_BRUTO'
-      Origin = 'VALOR_BRUTO'
-      Precision = 18
-      Size = 2
-    end
-    object cdsAutorizacaoVALOR_DESCONTO: TBCDField
-      FieldName = 'VALOR_DESCONTO'
-      Origin = 'VALOR_DESCONTO'
-      Precision = 18
-      Size = 2
-    end
-    object cdsAutorizacaoVALOR_TOTAL_FRETE: TBCDField
-      FieldName = 'VALOR_TOTAL_FRETE'
-      Origin = 'VALOR_TOTAL_FRETE'
-      Precision = 18
-      Size = 2
-    end
-    object cdsAutorizacaoVALOR_TOTAL_IPI: TBCDField
-      FieldName = 'VALOR_TOTAL_IPI'
-      Origin = 'VALOR_TOTAL_IPI'
-      Precision = 18
-      Size = 2
-    end
-    object cdsAutorizacaoVALOR_TOTAL: TBCDField
-      FieldName = 'VALOR_TOTAL'
-      Origin = 'VALOR_TOTAL'
-      Precision = 18
-      Size = 2
-    end
     object cdsAutorizacaoAUTORIZADO_DATA: TDateField
       FieldName = 'AUTORIZADO_DATA'
       Origin = 'AUTORIZADO_DATA'
@@ -1396,6 +1361,36 @@ inherited frmGeRequisicaoCompraPesquisa: TfrmGeRequisicaoCompraPesquisa
       FieldName = 'CANCELADO_MOTIVO'
       Origin = 'CANCELADO_MOTIVO'
       BlobType = ftMemo
+    end
+    object cdsAutorizacaoVALOR_BRUTO: TFMTBCDField
+      FieldName = 'VALOR_BRUTO'
+      Origin = 'VALOR_BRUTO'
+      Precision = 18
+      Size = 2
+    end
+    object cdsAutorizacaoVALOR_DESCONTO: TFMTBCDField
+      FieldName = 'VALOR_DESCONTO'
+      Origin = 'VALOR_DESCONTO'
+      Precision = 18
+      Size = 2
+    end
+    object cdsAutorizacaoVALOR_TOTAL_FRETE: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_FRETE'
+      Origin = 'VALOR_TOTAL_FRETE'
+      Precision = 18
+      Size = 2
+    end
+    object cdsAutorizacaoVALOR_TOTAL_IPI: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_IPI'
+      Origin = 'VALOR_TOTAL_IPI'
+      Precision = 18
+      Size = 2
+    end
+    object cdsAutorizacaoVALOR_TOTAL: TFMTBCDField
+      FieldName = 'VALOR_TOTAL'
+      Origin = 'VALOR_TOTAL'
+      Precision = 18
+      Size = 2
     end
   end
   object updAutorizacao: TFDUpdateSQL

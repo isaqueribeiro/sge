@@ -3,8 +3,10 @@ unit UGeRequisicaoCompraPesquisa;
 interface
 
 uses
+  UGrPadraoPesquisa,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoPesquisa, DB, IBCustomDataSet, IBQuery, Grids, DBGrids, Menus, cxButtons,
+  Dialogs, DB, IBCustomDataSet, IBQuery, Grids, DBGrids, Menus, cxButtons,
   StdCtrls, Buttons, ExtCtrls, Mask, DBClient, Provider, IBTable, IBUpdateSQL, IBStoredProc,
   JvToolEdit, JvExMask, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
 
@@ -55,11 +57,6 @@ type
     CdsPesquisaCONDICAO_PAGTO: TSmallintField;
     CdsPesquisaTRANSPORTADOR: TIntegerField;
     CdsPesquisaITENS: TIntegerField;
-    CdsPesquisaVALOR_BRUTO: TBCDField;
-    CdsPesquisaVALOR_DESCONTO: TBCDField;
-    CdsPesquisaVALOR_TOTAL_FRETE: TBCDField;
-    CdsPesquisaVALOR_TOTAL_IPI: TBCDField;
-    CdsPesquisaVALOR_TOTAL: TBCDField;
     CdsPesquisaREQUISITADO_DATA: TDateField;
     CdsPesquisaDATA_FATURA: TDateField;
     CdsPesquisaREQUISITADO_USUARIO: TStringField;
@@ -69,7 +66,6 @@ type
     CdsPesquisaNOMEFORN: TStringField;
     CdsPesquisaCNPJ: TStringField;
     CdsPesquisaPESSOA_FISICA: TSmallintField;
-    CdsPesquisaFATURAMENTO_MINIMO: TBCDField;
     CdsPesquisaTRANSPORTADOR_NOME: TStringField;
     CdsPesquisaTRANSPORTADOR_CPF_CNPJ: TStringField;
     CdsPesquisaNOMECLIENTE: TStringField;
@@ -100,11 +96,6 @@ type
     cdsAutorizacaoFORMA_PAGTO: TSmallintField;
     cdsAutorizacaoCONDICAO_PAGTO: TSmallintField;
     cdsAutorizacaoTRANSPORTADOR: TIntegerField;
-    cdsAutorizacaoVALOR_BRUTO: TBCDField;
-    cdsAutorizacaoVALOR_DESCONTO: TBCDField;
-    cdsAutorizacaoVALOR_TOTAL_FRETE: TBCDField;
-    cdsAutorizacaoVALOR_TOTAL_IPI: TBCDField;
-    cdsAutorizacaoVALOR_TOTAL: TBCDField;
     cdsAutorizacaoAUTORIZADO_DATA: TDateField;
     cdsAutorizacaoDATA_FATURA: TDateField;
     cdsAutorizacaoAUTORIZADO_USUARIO: TStringField;
@@ -138,11 +129,6 @@ type
     fdQryPesquisaCONDICAO_PAGTO: TSmallintField;
     fdQryPesquisaTRANSPORTADOR: TIntegerField;
     fdQryPesquisaITENS: TIntegerField;
-    fdQryPesquisaVALOR_BRUTO: TBCDField;
-    fdQryPesquisaVALOR_DESCONTO: TBCDField;
-    fdQryPesquisaVALOR_TOTAL_FRETE: TBCDField;
-    fdQryPesquisaVALOR_TOTAL_IPI: TBCDField;
-    fdQryPesquisaVALOR_TOTAL: TBCDField;
     fdQryPesquisaREQUISITADO_DATA: TDateField;
     fdQryPesquisaDATA_FATURA: TDateField;
     fdQryPesquisaREQUISITADO_USUARIO: TStringField;
@@ -152,10 +138,26 @@ type
     fdQryPesquisaNOMEFORN: TStringField;
     fdQryPesquisaCNPJ: TStringField;
     fdQryPesquisaPESSOA_FISICA: TSmallintField;
-    fdQryPesquisaFATURAMENTO_MINIMO: TBCDField;
     fdQryPesquisaTRANSPORTADOR_NOME: TStringField;
     fdQryPesquisaTRANSPORTADOR_CPF_CNPJ: TStringField;
     fdQryPesquisaNOMECLIENTE: TStringField;
+    fdQryPesquisaVALOR_BRUTO: TFMTBCDField;
+    fdQryPesquisaVALOR_DESCONTO: TFMTBCDField;
+    fdQryPesquisaVALOR_TOTAL_FRETE: TFMTBCDField;
+    fdQryPesquisaVALOR_TOTAL_IPI: TFMTBCDField;
+    fdQryPesquisaVALOR_TOTAL: TFMTBCDField;
+    fdQryPesquisaFATURAMENTO_MINIMO: TFMTBCDField;
+    CdsPesquisaVALOR_BRUTO: TFMTBCDField;
+    CdsPesquisaVALOR_DESCONTO: TFMTBCDField;
+    CdsPesquisaVALOR_TOTAL_FRETE: TFMTBCDField;
+    CdsPesquisaVALOR_TOTAL_IPI: TFMTBCDField;
+    CdsPesquisaVALOR_TOTAL: TFMTBCDField;
+    CdsPesquisaFATURAMENTO_MINIMO: TFMTBCDField;
+    cdsAutorizacaoVALOR_BRUTO: TFMTBCDField;
+    cdsAutorizacaoVALOR_DESCONTO: TFMTBCDField;
+    cdsAutorizacaoVALOR_TOTAL_FRETE: TFMTBCDField;
+    cdsAutorizacaoVALOR_TOTAL_IPI: TFMTBCDField;
+    cdsAutorizacaoVALOR_TOTAL: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure CdsPesquisaSTATUSGetText(Sender: TField; var Text: String;
       DisplayText: Boolean);
@@ -208,7 +210,12 @@ var
 implementation
 
 uses
-  DateUtils, UDMBusiness, UConstantesDGE, UGrPadrao, UGeFornecedor;
+    DateUtils
+  , COntroller.Tabela
+  , UDMBusiness
+  , UConstantesDGE
+  , UGrPadrao
+  , UGeFornecedor;
 
 {$R *.dfm}
 
@@ -264,6 +271,26 @@ begin
   inherited;
   e1Data.Date := StrToDate(FormatDateTime('"01/"mm/yyyy', GetDateDB));
   e2Data.Date := GetDateDB;
+
+  // Configurar tabela de pesquisa
+  TTabelaController
+    .New
+    .Tabela( CdsPesquisa )
+    .Display('QUANTIDADE',     'Quantidade', ',0.###', TAlignment.taRightJustify)
+    .Display('TOTAL_BRUTO',    'Total Bruto', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTAL_DESCONTO', 'Total Desconto', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTAL_FINAL',    'Total Final', ',0.00', TAlignment.taRightJustify)
+    .Configurar( CdsPesquisa );
+
+  TTabelaController
+    .New
+    .Tabela( cdsAutorizacao )
+    .Display('VALOR_BRUTO',       'Total Bruto', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_DESCONTO',    'Total Desconto', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_FRETE', 'Total Frete', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_IPI',   'Total IPI', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL',       'Total Líquido', ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsAutorizacao );
 
   CarregarTipos;
 end;

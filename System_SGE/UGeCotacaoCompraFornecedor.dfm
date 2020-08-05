@@ -42,7 +42,6 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    ExplicitTop = -2
     DesignSize = (
       756
       121)
@@ -684,7 +683,6 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       end>
   end
   object qryFornecedor: TFDQuery
-    Active = True
     BeforePost = qryFornecedorBeforePost
     OnNewRecord = qryFornecedorNewRecord
     CachedUpdates = True
@@ -819,24 +817,6 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       Origin = 'USUARIO'
       Size = 12
     end
-    object qryFornecedorVALOR_TOTAL_BRUTO: TBCDField
-      FieldName = 'VALOR_TOTAL_BRUTO'
-      Origin = 'VALOR_TOTAL_BRUTO'
-      Precision = 18
-      Size = 2
-    end
-    object qryFornecedorVALOR_TOTAL_DESCONTO: TBCDField
-      FieldName = 'VALOR_TOTAL_DESCONTO'
-      Origin = 'VALOR_TOTAL_DESCONTO'
-      Precision = 18
-      Size = 2
-    end
-    object qryFornecedorVALOR_TOTAL_LIQUIDO: TBCDField
-      FieldName = 'VALOR_TOTAL_LIQUIDO'
-      Origin = 'VALOR_TOTAL_LIQUIDO'
-      Precision = 18
-      Size = 2
-    end
     object qryFornecedorVENCEDOR: TSmallintField
       FieldName = 'VENCEDOR'
       Origin = 'VENCEDOR'
@@ -902,6 +882,24 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       Origin = 'VALIDADE'
       ProviderFlags = []
       DisplayFormat = 'dd/mm/yyyy'
+    end
+    object qryFornecedorVALOR_TOTAL_BRUTO: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_BRUTO'
+      Origin = 'VALOR_TOTAL_BRUTO'
+      Precision = 18
+      Size = 2
+    end
+    object qryFornecedorVALOR_TOTAL_DESCONTO: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_DESCONTO'
+      Origin = 'VALOR_TOTAL_DESCONTO'
+      Precision = 18
+      Size = 2
+    end
+    object qryFornecedorVALOR_TOTAL_LIQUIDO: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_LIQUIDO'
+      Origin = 'VALOR_TOTAL_LIQUIDO'
+      Precision = 18
+      Size = 2
     end
   end
   object updFornecedor: TFDUpdateSQL
@@ -1004,7 +1002,6 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     Top = 16
   end
   object qryItem: TFDQuery
-    Active = True
     BeforePost = qryItemBeforePost
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
@@ -1086,13 +1083,6 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       Origin = 'PRODUTO'
       Size = 10
     end
-    object qryItemQUANTIDADE: TBCDField
-      FieldName = 'QUANTIDADE'
-      Origin = 'QUANTIDADE'
-      Required = True
-      Precision = 18
-      Size = 3
-    end
     object qryItemUNIDADE: TSmallintField
       FieldName = 'UNIDADE'
       Origin = 'UNIDADE'
@@ -1130,21 +1120,28 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       Origin = 'ITEM'
       ProviderFlags = []
     end
-    object qryItemVALOR_UNITARIO: TBCDField
+    object qryItemQUANTIDADE: TFMTBCDField
+      FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
+      Required = True
+      Precision = 18
+      Size = 3
+    end
+    object qryItemVALOR_UNITARIO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VALOR_UNITARIO'
       Origin = 'VALOR_UNITARIO'
       ProviderFlags = []
-      DisplayFormat = ',0.00'
+      ReadOnly = True
       Precision = 18
       Size = 2
     end
-    object qryItemVALOR_TOTAL: TBCDField
+    object qryItemVALOR_TOTAL: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL'
       Origin = 'VALOR_TOTAL'
       ProviderFlags = []
-      DisplayFormat = ',0.00'
+      ReadOnly = True
       Precision = 18
       Size = 2
     end

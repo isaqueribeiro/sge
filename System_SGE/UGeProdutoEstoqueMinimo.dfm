@@ -98,41 +98,42 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
         Height = 22
         Hint = 'Executar Pesquisa'
         Anchors = [akTop, akRight]
+        OptionsImage.Glyph.SourceDPI = 96
         OptionsImage.Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          20000000000000040000C30E0000C30E00000000000000000000000000000000
-          00000000000000000000000000000000000000000000AC6B2CBAAC6B2CCC0000
+          424D360400000000000036000000280000001000000010000000010020000000
+          000000000000C40E0000C40E0000000000000000000000000000000000000000
+          000000000000000000000000000000000000AC6B2CBAAC6B2CCC000000000000
           0000000000000000000000000000000000000000000000000000000000000000
-          00000000000000000000000000000000000000000000AC6B2CC0AC6B2CFFAC6B
-          2CD1B5712F29B87330BDB87330CAB974306B0000000000000000000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E0100000000AC6B2CC4AC6B
-          2CFFAC6B2CFFAC6B2CFFAC6B2CF9AC6B2CFFAC6B2CFF00000000000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E4200000000B06D2D2AAC6B
-          2CFFAC6B2C830000000000000000AC6B2C22AC6B2CFFB16F2EA3000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E1E00000000B3712EBDAC6B
-          2CFF00000000000000000000000000000000AC6B2CA9AF6D2DFF000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E1700000000B3712ECAAC6B
-          2CFF00000000000000000000000000000000AD6C2C93AF6D2DFF000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E4900000000B5712E6AAC6B
-          2CFFAD6C2C31000000000000000000000000AC6B2CFFB06D2DCB000000000000
-          000000000000000000006E6E6E166E6E6EFF6E6E6EAE0000000000000000AC6B
-          2CFCAC6B2CFFAD6C2CB7AE6D2D9CAC6B2CFFAC6B2CFF00000000000000000000
-          0000000000006E6E6E046E6E6EBC6E6E6EFF6E6E6EFFC6C6C666000000000000
-          0000AE6C2C9BAC6B2CFFAC6B2CFFAD6C2CCA0000000000000000000000000000
-          0000000000006E6E6E926E6E6EFF6E6E6EFF6E6E6EFF858585FEE9E9E9967A7A
-          7A1E000000000000000000000000000000000000000000000000000000000000
-          00006E6E6E636E6E6EFE6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC9C9C9FFDFDF
-          DFFF727272FE6E6E6E5C00000000000000000000000000000000000000006E6E
-          6E3B6E6E6EF86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF808080FFFCFC
-          FCFFCECECEFF6E6E6EF66E6E6E350000000000000000000000006E6E6E1D6E6E
-          6EE86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC3C3
-          C3FFFFFFFFFFB9B9B9FF6E6E6EE36E6E6E1800000000000000006E6E6ECC6E6E
-          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF7C7C
-          7CFFFAFAFAFFFEFEFEFF9F9F9FFF6E6E6EC66E6E6E07000000006E6E6EFF6E6E
-          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E
-          6EFF707070FF707070FF6E6E6EFF6E6E6EFF6E6E6E7D00000000000000000000
+          000000000000000000000000000000000000AC6B2CC0AC6B2CFFAC6B2CD1B571
+          2F29B87330BDB87330CAB974306B000000000000000000000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E0100000000AC6B2CC4AC6B2CFFAC6B
+          2CFFAC6B2CFFAC6B2CF9AC6B2CFFAC6B2CFF0000000000000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E4200000000B06D2D2AAC6B2CFFAC6B
+          2C830000000000000000AC6B2C22AC6B2CFFB16F2EA300000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E1E00000000B3712EBDAC6B2CFF0000
+          0000000000000000000000000000AC6B2CA9AF6D2DFF00000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E1700000000B3712ECAAC6B2CFF0000
+          0000000000000000000000000000AD6C2C93AF6D2DFF00000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E4900000000B5712E6AAC6B2CFFAD6C
+          2C31000000000000000000000000AC6B2CFFB06D2DCB00000000000000000000
+          0000000000006E6E6E166E6E6EFF6E6E6EAE0000000000000000AC6B2CFCAC6B
+          2CFFAD6C2CB7AE6D2D9CAC6B2CFFAC6B2CFF0000000000000000000000000000
+          00006E6E6E046E6E6EBC6E6E6EFF6E6E6EFFC6C6C6660000000000000000AE6C
+          2C9BAC6B2CFFAC6B2CFFAD6C2CCA000000000000000000000000000000000000
+          00006E6E6E926E6E6EFF6E6E6EFF6E6E6EFF858585FEE9E9E9967A7A7A1E0000
+          0000000000000000000000000000000000000000000000000000000000006E6E
+          6E636E6E6EFE6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC9C9C9FFDFDFDFFF7272
+          72FE6E6E6E5C00000000000000000000000000000000000000006E6E6E3B6E6E
+          6EF86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF808080FFFCFCFCFFCECE
+          CEFF6E6E6EF66E6E6E350000000000000000000000006E6E6E1D6E6E6EE86E6E
+          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC3C3C3FFFFFF
+          FFFFB9B9B9FF6E6E6EE36E6E6E1800000000000000006E6E6ECC6E6E6EFF6E6E
+          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF7C7C7CFFFAFA
+          FAFFFEFEFEFF9F9F9FFF6E6E6EC66E6E6E07000000006E6E6EFF6E6E6EFF6E6E
+          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF7070
+          70FF707070FF6E6E6EFF6E6E6EFF6E6E6E7D0000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000}
+          00000000000000000000000000000000000000000000}
         ParentShowHint = False
         ShowHint = True
         SpeedButtonOptions.CanBeFocused = False
@@ -148,7 +149,7 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
     Top = 81
     Width = 1041
     Height = 523
-    ActivePage = TbsProduto
+    ActivePage = TbsGrupo
     Align = alClient
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -284,7 +285,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn33: TcxGridDBBandedColumn
+            Caption = 'Quant. '
             DataBinding.FieldName = 'COMPRA_QTDE_01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.###'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -294,7 +298,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn34: TcxGridDBBandedColumn
+            Caption = 'Valor '
             DataBinding.FieldName = 'COMPRA_VALOR_01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.00#'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -304,7 +311,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn35: TcxGridDBBandedColumn
+            Caption = 'Quant. '
             DataBinding.FieldName = 'VENDA_QTDE_01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.###'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -314,7 +324,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn36: TcxGridDBBandedColumn
+            Caption = 'Valor '
             DataBinding.FieldName = 'VENDA_VALOR_01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.00#'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -334,7 +347,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = -1
           end
           object cxGridDBBandedColumn57: TcxGridDBBandedColumn
+            Caption = 'M'#237'nimo '
             DataBinding.FieldName = 'ESTOQUE_MINIMO'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.###'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -344,6 +360,7 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn58: TcxGridDBBandedColumn
+            Caption = 'Itens '
             DataBinding.FieldName = 'ITENS'
             Options.Filtering = False
             Options.Moving = False
@@ -354,7 +371,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object dbgGrupoTblColumn1: TcxGridDBBandedColumn
+            Caption = '% '
             DataBinding.FieldName = 'PERCENT_CQ01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.0#'
             HeaderAlignmentHorz = taCenter
             Options.Filtering = False
             Options.Moving = False
@@ -365,7 +385,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object dbgGrupoTblColumn2: TcxGridDBBandedColumn
+            Caption = '% '
             DataBinding.FieldName = 'PERCENT_CV01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.0#'
             HeaderAlignmentHorz = taCenter
             Options.Filtering = False
             Options.Moving = False
@@ -376,7 +399,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object dbgGrupoTblColumn3: TcxGridDBBandedColumn
+            Caption = '% '
             DataBinding.FieldName = 'PERCENT_VQ01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.0#'
             HeaderAlignmentHorz = taCenter
             Options.Filtering = False
             Options.Moving = False
@@ -387,7 +413,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object dbgGrupoTblColumn4: TcxGridDBBandedColumn
+            Caption = '% '
             DataBinding.FieldName = 'PERCENT_VV01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.0#'
             HeaderAlignmentHorz = taCenter
             Options.Filtering = False
             Options.Moving = False
@@ -398,7 +427,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object dbgGrupoTblColumn5: TcxGridDBBandedColumn
+            Caption = 'Atual '
             DataBinding.FieldName = 'ESTOQUE'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.###'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -540,7 +572,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn7: TcxGridDBBandedColumn
+            Caption = 'Quant. '
             DataBinding.FieldName = 'COMPRA_QTDE_01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.###'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -550,7 +585,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn8: TcxGridDBBandedColumn
+            Caption = 'Valor '
             DataBinding.FieldName = 'COMPRA_VALOR_01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.00#'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -560,7 +598,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn9: TcxGridDBBandedColumn
+            Caption = 'Quant. '
             DataBinding.FieldName = 'VENDA_QTDE_01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.###'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -570,7 +611,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn10: TcxGridDBBandedColumn
+            Caption = 'Valor '
             DataBinding.FieldName = 'VENDA_VALOR_01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.00#'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -590,7 +634,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = -1
           end
           object cxGridDBBandedColumn12: TcxGridDBBandedColumn
+            Caption = 'M'#237'nimo'
             DataBinding.FieldName = 'ESTOQUE_MINIMO'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.###'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -610,7 +657,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn14: TcxGridDBBandedColumn
+            Caption = '% '
             DataBinding.FieldName = 'PERCENT_CQ01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.0#'
             HeaderAlignmentHorz = taCenter
             Options.Filtering = False
             Options.Moving = False
@@ -621,7 +671,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn15: TcxGridDBBandedColumn
+            Caption = '% '
             DataBinding.FieldName = 'PERCENT_CV01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.0#'
             HeaderAlignmentHorz = taCenter
             Options.Filtering = False
             Options.Moving = False
@@ -632,7 +685,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn16: TcxGridDBBandedColumn
+            Caption = '% '
             DataBinding.FieldName = 'PERCENT_VQ01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.0#'
             HeaderAlignmentHorz = taCenter
             Options.Filtering = False
             Options.Moving = False
@@ -643,7 +699,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn17: TcxGridDBBandedColumn
+            Caption = '% '
             DataBinding.FieldName = 'PERCENT_VV01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.0#'
             HeaderAlignmentHorz = taCenter
             Options.Filtering = False
             Options.Moving = False
@@ -654,7 +713,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object cxGridDBBandedColumn18: TcxGridDBBandedColumn
+            Caption = 'Atual'
             DataBinding.FieldName = 'ESTOQUE'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.###'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -798,7 +860,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object dbgProdutoTblColumn5: TcxGridDBBandedColumn
+            Caption = 'Qtde.'
             DataBinding.FieldName = 'COMPRA_QTDE_01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -808,7 +873,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object dbgProdutoTblColumn6: TcxGridDBBandedColumn
+            Caption = 'Valor'
             DataBinding.FieldName = 'COMPRA_VALOR_01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.00#'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -818,7 +886,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object dbgProdutoTblColumn7: TcxGridDBBandedColumn
+            Caption = 'Qtde.'
             DataBinding.FieldName = 'VENDA_QTDE_01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -828,7 +899,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object dbgProdutoTblColumn8: TcxGridDBBandedColumn
+            Caption = 'Valor'
             DataBinding.FieldName = 'VENDA_VALOR_01'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0.00#'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -837,7 +911,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object dbgProdutoTblColumn29: TcxGridDBBandedColumn
+            Caption = 'M'#237'nimo'
             DataBinding.FieldName = 'ESTOQMIN'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -882,7 +959,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
             Position.RowIndex = 0
           end
           object dbgProdutoTblColumn9: TcxGridDBBandedColumn
+            Caption = 'Atual'
             DataBinding.FieldName = 'QTDE'
+            PropertiesClassName = 'TcxCurrencyEditProperties'
+            Properties.DisplayFormat = ',0'
             Options.Filtering = False
             Options.Moving = False
             Options.Sorting = False
@@ -969,51 +1049,9 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       FieldName = 'CODFABRICANTE'
       Origin = '"TBPRODUTO"."CODFABRICANTE"'
     end
-    object CdsProdutoQTDE: TBCDField
-      DisplayLabel = 'Atual'
-      FieldName = 'QTDE'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object CdsProdutoESTOQMIN: TBCDField
-      DisplayLabel = 'M'#237'nimo'
-      FieldName = 'ESTOQMIN'
-      DisplayFormat = ',0'
-      Precision = 18
-      Size = 3
-    end
     object CdsProdutoCODUNIDADE: TSmallintField
       FieldName = 'CODUNIDADE'
       Origin = '"TBPRODUTO"."CODUNIDADE"'
-    end
-    object CdsProdutoCOMPRA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'COMPRA_QTDE_01'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_QTDE_01"'
-      DisplayFormat = ',0.###'
-      Precision = 18
-    end
-    object CdsProdutoCOMPRA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'COMPRA_VALOR_01'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_VALOR_01"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'VENDA_QTDE_01'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_QTDE_01"'
-      DisplayFormat = ',0.###'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'VENDA_VALOR_01'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_VALOR_01"'
-      DisplayFormat = ',0.00'
-      Precision = 18
     end
     object CdsProdutoDATA_ULTIMA_COMPRA: TDateField
       Alignment = taCenter
@@ -1065,6 +1103,32 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       ReadOnly = True
       Size = 50
     end
+    object CdsProdutoQTDE: TFMTBCDField
+      FieldName = 'QTDE'
+      Precision = 18
+      Size = 3
+    end
+    object CdsProdutoESTOQMIN: TFMTBCDField
+      FieldName = 'ESTOQMIN'
+      Precision = 18
+      Size = 3
+    end
+    object CdsProdutoCOMPRA_QTDE_01: TBCDField
+      FieldName = 'COMPRA_QTDE_01'
+      Precision = 18
+    end
+    object CdsProdutoCOMPRA_VALOR_01: TBCDField
+      FieldName = 'COMPRA_VALOR_01'
+      Precision = 18
+    end
+    object CdsProdutoVENDA_QTDE_01: TBCDField
+      FieldName = 'VENDA_QTDE_01'
+      Precision = 18
+    end
+    object CdsProdutoVENDA_VALOR_01: TBCDField
+      FieldName = 'VENDA_VALOR_01'
+      Precision = 18
+    end
   end
   object dsProduto: TDataSource
     DataSet = CdsProduto
@@ -1092,48 +1156,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       ReadOnly = True
       Size = 30
     end
-    object CdsGrupoESTOQUE: TBCDField
-      DisplayLabel = 'Atual'
-      FieldName = 'ESTOQUE'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object CdsGrupoESTOQUE_MINIMO: TBCDField
-      DisplayLabel = 'M'#237'nimo'
-      FieldName = 'ESTOQUE_MINIMO'
-      DisplayFormat = ',0'
-      Precision = 18
-      Size = 3
-    end
     object CdsGrupoITENS: TIntegerField
       DisplayLabel = 'Itens'
       FieldName = 'ITENS'
       DisplayFormat = ',0'
-    end
-    object CdsGrupoCOMPRA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'COMPRA_QTDE_01'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsGrupoCOMPRA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'COMPRA_VALOR_01'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsGrupoVENDA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'VENDA_QTDE_01'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsGrupoVENDA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'VENDA_VALOR_01'
-      DisplayFormat = ',0.00'
-      Precision = 18
     end
     object CdsGrupoDATA_ULTIMA_COMPRA: TDateField
       Alignment = taCenter
@@ -1147,28 +1173,52 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       FieldName = 'DATA_ULTIMA_VENDA'
       DisplayFormat = 'dd/mm/yyyy'
     end
+    object CdsGrupoESTOQUE: TFMTBCDField
+      FieldName = 'ESTOQUE'
+      ReadOnly = True
+      Precision = 18
+      Size = 3
+    end
+    object CdsGrupoESTOQUE_MINIMO: TFMTBCDField
+      FieldName = 'ESTOQUE_MINIMO'
+      ReadOnly = True
+      Precision = 18
+      Size = 3
+    end
+    object CdsGrupoCOMPRA_QTDE_01: TBCDField
+      FieldName = 'COMPRA_QTDE_01'
+      ReadOnly = True
+      Precision = 18
+    end
+    object CdsGrupoCOMPRA_VALOR_01: TBCDField
+      FieldName = 'COMPRA_VALOR_01'
+      ReadOnly = True
+      Precision = 18
+    end
+    object CdsGrupoVENDA_QTDE_01: TBCDField
+      FieldName = 'VENDA_QTDE_01'
+      ReadOnly = True
+      Precision = 18
+    end
+    object CdsGrupoVENDA_VALOR_01: TBCDField
+      FieldName = 'VENDA_VALOR_01'
+      ReadOnly = True
+      Precision = 18
+    end
     object CdsGrupoPERCENT_CQ01: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CQ01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_CV01: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CV01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_VQ01: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VQ01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_VV01: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VV01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
   end
@@ -1198,48 +1248,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       ReadOnly = True
       Size = 50
     end
-    object CdsFabricanteESTOQUE: TBCDField
-      DisplayLabel = 'Atual'
-      FieldName = 'ESTOQUE'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object CdsFabricanteESTOQUE_MINIMO: TBCDField
-      DisplayLabel = 'M'#237'nimo'
-      FieldName = 'ESTOQUE_MINIMO'
-      DisplayFormat = ',0'
-      Precision = 18
-      Size = 3
-    end
     object CdsFabricanteITENS: TIntegerField
       DisplayLabel = 'Itens'
       FieldName = 'ITENS'
       DisplayFormat = ',0'
-    end
-    object CdsFabricanteCOMPRA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'COMPRA_QTDE_01'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsFabricanteCOMPRA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'COMPRA_VALOR_01'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsFabricanteVENDA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'VENDA_QTDE_01'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsFabricanteVENDA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'VENDA_VALOR_01'
-      DisplayFormat = ',0.00'
-      Precision = 18
     end
     object CdsFabricanteDATA_ULTIMA_COMPRA: TDateField
       Alignment = taCenter
@@ -1253,28 +1265,46 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       FieldName = 'DATA_ULTIMA_VENDA'
       DisplayFormat = 'dd/mm/yyyy'
     end
+    object CdsFabricanteESTOQUE: TFMTBCDField
+      FieldName = 'ESTOQUE'
+      Precision = 18
+      Size = 3
+    end
+    object CdsFabricanteESTOQUE_MINIMO: TFMTBCDField
+      FieldName = 'ESTOQUE_MINIMO'
+      Precision = 18
+      Size = 3
+    end
+    object CdsFabricanteCOMPRA_QTDE_01: TBCDField
+      FieldName = 'COMPRA_QTDE_01'
+      Precision = 18
+    end
+    object CdsFabricanteCOMPRA_VALOR_01: TBCDField
+      FieldName = 'COMPRA_VALOR_01'
+      Precision = 18
+    end
+    object CdsFabricanteVENDA_QTDE_01: TBCDField
+      FieldName = 'VENDA_QTDE_01'
+      Precision = 18
+    end
+    object CdsFabricanteVENDA_VALOR_01: TBCDField
+      FieldName = 'VENDA_VALOR_01'
+      Precision = 18
+    end
     object CdsFabricantePERCENT_CQ01: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CQ01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsFabricantePERCENT_CV01: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CV01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsFabricantePERCENT_VQ01: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VQ01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsFabricantePERCENT_VV01: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VV01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
   end
@@ -1387,8 +1417,8 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
       ''
       
-        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
-        'lesce(p.estoqmin, 0))'
+        'where ((coalesce(p.estoqmin, 0) > 0) and (coalesce(p.qtde, 0) < ' +
+        'coalesce(p.estoqmin, 0)))'
       '  and (1=1)'
       ''
       'group by 1, 2'
@@ -1422,8 +1452,8 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
       ''
       
-        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
-        'lesce(p.estoqmin, 0))'
+        'where ((coalesce(p.estoqmin, 0) > 0) and (coalesce(p.qtde, 0) < ' +
+        'coalesce(p.estoqmin, 0)))'
       '  and (1=1)'
       ''
       'group by 1, 2'
@@ -1466,8 +1496,8 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
       ''
       
-        'where (coalesce(p.estoqmin, 0) > 0 and coalesce(p.qtde, 0) < coa' +
-        'lesce(p.estoqmin, 0))'
+        'where ((coalesce(p.estoqmin, 0) > 0) and (coalesce(p.qtde, 0) < ' +
+        'coalesce(p.estoqmin, 0)))'
       '  and (1=1)'
       ''
       'order by'
@@ -1513,7 +1543,10 @@ inherited FrmGeProdutoEstoqueMinimo: TFrmGeProdutoEstoqueMinimo
       'from TBPRODUTO p'
       '  left join TBPRODUTO_ROTATIVIDADE r on (r.cod_produto = p.cod)'
       ''
-      'where 1=1')
+      
+        'where ((coalesce(p.estoqmin, 0) > 0) and (coalesce(p.qtde, 0) < ' +
+        'coalesce(p.estoqmin, 0)))'
+      '  and (1=1)')
     Left = 56
     Top = 400
   end

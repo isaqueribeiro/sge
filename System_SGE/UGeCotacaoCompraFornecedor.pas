@@ -3,8 +3,10 @@ unit UGeCotacaoCompraFornecedor;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs,
-  UGrPadrao, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB, OleServer, ExcelXP, ComCtrls, Grids, DBGrids,
+  StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, DB, OleServer, ExcelXP, ComCtrls, Grids, DBGrids,
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvDBControls, JvExMask, JvToolEdit,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
@@ -74,9 +76,6 @@ type
     qryFornecedorOBSERVACAO: TMemoField;
     qryFornecedorATIVO: TSmallintField;
     qryFornecedorUSUARIO: TStringField;
-    qryFornecedorVALOR_TOTAL_BRUTO: TBCDField;
-    qryFornecedorVALOR_TOTAL_DESCONTO: TBCDField;
-    qryFornecedorVALOR_TOTAL_LIQUIDO: TBCDField;
     qryFornecedorVENCEDOR: TSmallintField;
     qryFornecedorNOMEFORN: TStringField;
     qryFornecedorCNPJ: TStringField;
@@ -94,15 +93,18 @@ type
     qryItemEMPRESA: TStringField;
     qryItemSEQ: TSmallintField;
     qryItemPRODUTO: TStringField;
-    qryItemQUANTIDADE: TBCDField;
     qryItemUNIDADE: TSmallintField;
     qryItemDESCRI_APRESENTACAO: TStringField;
     qryItemUNP_DESCRICAO: TStringField;
     qryItemUNP_SIGLA: TStringField;
     qryItemFORNECEDOR: TIntegerField;
     qryItemITEM: TSmallintField;
-    qryItemVALOR_UNITARIO: TBCDField;
-    qryItemVALOR_TOTAL: TBCDField;
+    qryFornecedorVALOR_TOTAL_BRUTO: TFMTBCDField;
+    qryFornecedorVALOR_TOTAL_DESCONTO: TFMTBCDField;
+    qryFornecedorVALOR_TOTAL_LIQUIDO: TFMTBCDField;
+    qryItemQUANTIDADE: TFMTBCDField;
+    qryItemVALOR_UNITARIO: TFMTBCDField;
+    qryItemVALOR_TOTAL: TFMTBCDField;
     procedure btFecharClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure dtsFornecedorStateChange(Sender: TObject);
@@ -170,7 +172,14 @@ type
 implementation
 
 uses
-  UDMBusiness, UDMNFe, UFuncoes, UGeFornecedor, DateUtils, UDMRecursos, UConstantesDGE;
+    DateUtils
+  , Controller.Tabela
+  , UDMRecursos
+  , UDMBusiness
+  , UDMNFe
+  , UFuncoes
+  , UGeFornecedor
+  , UConstantesDGE;
 
 {$R *.dfm}
 
@@ -1028,6 +1037,22 @@ begin
 
   FDescricao  := EmptyStr;
   FArquivoXLS := EmptyStr;
+
+  TTabelaController
+    .New
+    .Tabela( qryFornecedor )
+    .Display('VALOR_TOTAL_BRUTO',    'Total Bruto',    ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_DESCONTO', 'Total Desconto', ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_LIQUIDO',  'Total Líquido',  ',0.00#', TAlignment.taRightJustify)
+    .Configurar( qryFornecedor );
+
+  TTabelaController
+    .New
+    .Tabela( qryItem )
+    .Display('QUANTIDADE',     'Quantidade',  ',0.###', TAlignment.taRightJustify)
+    .Display('VALOR_UNITARIO', 'Valor Un.',   ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL',    'Valor Total', ',0.00#', TAlignment.taRightJustify)
+    .Configurar( qryItem );
 end;
 
 procedure TfrmGeCotacaoCompraFornecedor.qryFornecedorBeforePost(DataSet: TDataSet);

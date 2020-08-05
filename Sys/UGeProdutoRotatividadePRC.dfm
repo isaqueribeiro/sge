@@ -201,41 +201,42 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
         Height = 22
         Hint = 'Executar Pesquisa'
         Anchors = [akTop, akRight]
+        OptionsImage.Glyph.SourceDPI = 96
         OptionsImage.Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          20000000000000040000C30E0000C30E00000000000000000000000000000000
-          00000000000000000000000000000000000000000000AC6B2CBAAC6B2CCC0000
+          424D360400000000000036000000280000001000000010000000010020000000
+          000000000000C40E0000C40E0000000000000000000000000000000000000000
+          000000000000000000000000000000000000AC6B2CBAAC6B2CCC000000000000
           0000000000000000000000000000000000000000000000000000000000000000
-          00000000000000000000000000000000000000000000AC6B2CC0AC6B2CFFAC6B
-          2CD1B5712F29B87330BDB87330CAB974306B0000000000000000000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E0100000000AC6B2CC4AC6B
-          2CFFAC6B2CFFAC6B2CFFAC6B2CF9AC6B2CFFAC6B2CFF00000000000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E4200000000B06D2D2AAC6B
-          2CFFAC6B2C830000000000000000AC6B2C22AC6B2CFFB16F2EA3000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E1E00000000B3712EBDAC6B
-          2CFF00000000000000000000000000000000AC6B2CA9AF6D2DFF000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E1700000000B3712ECAAC6B
-          2CFF00000000000000000000000000000000AD6C2C93AF6D2DFF000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E4900000000B5712E6AAC6B
-          2CFFAD6C2C31000000000000000000000000AC6B2CFFB06D2DCB000000000000
-          000000000000000000006E6E6E166E6E6EFF6E6E6EAE0000000000000000AC6B
-          2CFCAC6B2CFFAD6C2CB7AE6D2D9CAC6B2CFFAC6B2CFF00000000000000000000
-          0000000000006E6E6E046E6E6EBC6E6E6EFF6E6E6EFFC6C6C666000000000000
-          0000AE6C2C9BAC6B2CFFAC6B2CFFAD6C2CCA0000000000000000000000000000
-          0000000000006E6E6E926E6E6EFF6E6E6EFF6E6E6EFF858585FEE9E9E9967A7A
-          7A1E000000000000000000000000000000000000000000000000000000000000
-          00006E6E6E636E6E6EFE6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC9C9C9FFDFDF
-          DFFF727272FE6E6E6E5C00000000000000000000000000000000000000006E6E
-          6E3B6E6E6EF86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF808080FFFCFC
-          FCFFCECECEFF6E6E6EF66E6E6E350000000000000000000000006E6E6E1D6E6E
-          6EE86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC3C3
-          C3FFFFFFFFFFB9B9B9FF6E6E6EE36E6E6E1800000000000000006E6E6ECC6E6E
-          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF7C7C
-          7CFFFAFAFAFFFEFEFEFF9F9F9FFF6E6E6EC66E6E6E07000000006E6E6EFF6E6E
-          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E
-          6EFF707070FF707070FF6E6E6EFF6E6E6EFF6E6E6E7D00000000000000000000
+          000000000000000000000000000000000000AC6B2CC0AC6B2CFFAC6B2CD1B571
+          2F29B87330BDB87330CAB974306B000000000000000000000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E0100000000AC6B2CC4AC6B2CFFAC6B
+          2CFFAC6B2CFFAC6B2CF9AC6B2CFFAC6B2CFF0000000000000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E4200000000B06D2D2AAC6B2CFFAC6B
+          2C830000000000000000AC6B2C22AC6B2CFFB16F2EA300000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E1E00000000B3712EBDAC6B2CFF0000
+          0000000000000000000000000000AC6B2CA9AF6D2DFF00000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E1700000000B3712ECAAC6B2CFF0000
+          0000000000000000000000000000AD6C2C93AF6D2DFF00000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E4900000000B5712E6AAC6B2CFFAD6C
+          2C31000000000000000000000000AC6B2CFFB06D2DCB00000000000000000000
+          0000000000006E6E6E166E6E6EFF6E6E6EAE0000000000000000AC6B2CFCAC6B
+          2CFFAD6C2CB7AE6D2D9CAC6B2CFFAC6B2CFF0000000000000000000000000000
+          00006E6E6E046E6E6EBC6E6E6EFF6E6E6EFFC6C6C6660000000000000000AE6C
+          2C9BAC6B2CFFAC6B2CFFAD6C2CCA000000000000000000000000000000000000
+          00006E6E6E926E6E6EFF6E6E6EFF6E6E6EFF858585FEE9E9E9967A7A7A1E0000
+          0000000000000000000000000000000000000000000000000000000000006E6E
+          6E636E6E6EFE6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC9C9C9FFDFDFDFFF7272
+          72FE6E6E6E5C00000000000000000000000000000000000000006E6E6E3B6E6E
+          6EF86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF808080FFFCFCFCFFCECE
+          CEFF6E6E6EF66E6E6E350000000000000000000000006E6E6E1D6E6E6EE86E6E
+          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC3C3C3FFFFFF
+          FFFFB9B9B9FF6E6E6EE36E6E6E1800000000000000006E6E6ECC6E6E6EFF6E6E
+          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF7C7C7CFFFAFA
+          FAFFFEFEFEFF9F9F9FFF6E6E6EC66E6E6E07000000006E6E6EFF6E6E6EFF6E6E
+          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF7070
+          70FF707070FF6E6E6EFF6E6E6EFF6E6E6E7D0000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000}
+          00000000000000000000000000000000000000000000}
         ParentShowHint = False
         ShowHint = True
         SpeedButtonOptions.CanBeFocused = False
@@ -457,7 +458,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn5: TcxGridDBBandedColumn
+                Caption = 'Quant. '
                 DataBinding.FieldName = 'COMPRA_QTDE_01'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -467,7 +471,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn6: TcxGridDBBandedColumn
+                Caption = 'Valor'
                 DataBinding.FieldName = 'COMPRA_VALOR_01'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0.00'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -477,7 +484,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn7: TcxGridDBBandedColumn
+                Caption = 'Quant. '
                 DataBinding.FieldName = 'VENDA_QTDE_01'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -487,7 +497,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn8: TcxGridDBBandedColumn
+                Caption = 'Valor'
                 DataBinding.FieldName = 'VENDA_VALOR_01'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0.00'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -497,7 +510,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               end
               object cxGridDBBandedColumn9: TcxGridDBBandedColumn
                 Tag = 60
+                Caption = 'Quant. '
                 DataBinding.FieldName = 'COMPRA_QTDE_03'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -507,7 +523,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn10: TcxGridDBBandedColumn
+                Caption = 'Valor'
                 DataBinding.FieldName = 'COMPRA_VALOR_03'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0.00'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -518,7 +537,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               end
               object cxGridDBBandedColumn11: TcxGridDBBandedColumn
                 Tag = 60
+                Caption = 'Quant. '
                 DataBinding.FieldName = 'VENDA_QTDE_03'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -528,7 +550,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn12: TcxGridDBBandedColumn
+                Caption = 'Valor'
                 DataBinding.FieldName = 'VENDA_VALOR_03'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0.00'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -538,7 +563,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn13: TcxGridDBBandedColumn
+                Caption = 'Quant. '
                 DataBinding.FieldName = 'COMPRA_QTDE_06'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -548,7 +576,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn14: TcxGridDBBandedColumn
+                Caption = 'Valor'
                 DataBinding.FieldName = 'COMPRA_VALOR_06'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0.00'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -558,7 +589,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn15: TcxGridDBBandedColumn
+                Caption = 'Quant. '
                 DataBinding.FieldName = 'VENDA_QTDE_06'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -568,7 +602,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn16: TcxGridDBBandedColumn
+                Caption = 'Valor'
                 DataBinding.FieldName = 'VENDA_VALOR_06'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0.00'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -578,7 +615,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn17: TcxGridDBBandedColumn
+                Caption = 'Quant. '
                 DataBinding.FieldName = 'COMPRA_QTDE_09'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -588,7 +628,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn18: TcxGridDBBandedColumn
+                Caption = 'Valor'
                 DataBinding.FieldName = 'COMPRA_VALOR_09'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0.00'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -598,7 +641,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn19: TcxGridDBBandedColumn
+                Caption = 'Quant. '
                 DataBinding.FieldName = 'VENDA_QTDE_09'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -608,7 +654,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn20: TcxGridDBBandedColumn
+                Caption = 'Valor'
                 DataBinding.FieldName = 'VENDA_VALOR_09'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0.00'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -618,7 +667,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn21: TcxGridDBBandedColumn
+                Caption = 'Quant. '
                 DataBinding.FieldName = 'COMPRA_QTDE_12'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -628,7 +680,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn22: TcxGridDBBandedColumn
+                Caption = 'Valor'
                 DataBinding.FieldName = 'COMPRA_VALOR_12'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0.00'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -638,7 +693,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn23: TcxGridDBBandedColumn
+                Caption = 'Quant. '
                 DataBinding.FieldName = 'VENDA_QTDE_12'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -648,7 +706,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn24: TcxGridDBBandedColumn
+                Caption = 'Valor'
                 DataBinding.FieldName = 'VENDA_VALOR_12'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0.00'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -658,7 +719,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn25: TcxGridDBBandedColumn
+                Caption = 'Quant. '
                 DataBinding.FieldName = 'COMPRA_QTDE_99'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -668,7 +732,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn26: TcxGridDBBandedColumn
+                Caption = 'Valor'
                 DataBinding.FieldName = 'COMPRA_VALOR_99'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0.00'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -678,7 +745,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn27: TcxGridDBBandedColumn
+                Caption = 'Quant. '
                 DataBinding.FieldName = 'VENDA_QTDE_99'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -688,7 +758,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object cxGridDBBandedColumn28: TcxGridDBBandedColumn
+                Caption = 'Valor'
                 DataBinding.FieldName = 'VENDA_VALOR_99'
+                PropertiesClassName = 'TcxCurrencyEditProperties'
+                Properties.DisplayFormat = ',0.00'
                 Options.Filtering = False
                 Options.Moving = False
                 Options.Sorting = False
@@ -698,6 +771,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object dbgTotalTblEstoque: TcxGridDBBandedColumn
+                Caption = 'Estoque '
                 DataBinding.FieldName = 'QTDE'
                 Options.Filtering = False
                 Options.Moving = False
@@ -708,6 +782,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
                 Position.RowIndex = 0
               end
               object dbgTotalTblITEM: TcxGridDBBandedColumn
+                Caption = 'Itens '
                 DataBinding.FieldName = 'ITENS'
                 Options.Filtering = False
                 Options.Moving = False
@@ -733,6 +808,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
             's" no registro.'
           Align = alClient
           TabOrder = 0
+          ExplicitTop = -6
           object dbgGrupoTbl: TcxGridDBBandedTableView
             OnDblClick = dbgGrupoTblDblClick
             OnKeyPress = NovaPesquisaKeyPress
@@ -991,7 +1067,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn33: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1000,7 +1079,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn34: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1009,7 +1091,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn35: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1018,7 +1103,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn36: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1028,7 +1116,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
             end
             object cxGridDBBandedColumn37: TcxGridDBBandedColumn
               Tag = 60
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1037,7 +1128,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn38: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1047,7 +1141,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
             end
             object cxGridDBBandedColumn39: TcxGridDBBandedColumn
               Tag = 60
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1056,7 +1153,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn40: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1065,7 +1165,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn41: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1074,7 +1177,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn42: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1083,7 +1189,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn43: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1092,7 +1201,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn44: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1101,7 +1213,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn45: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1110,7 +1225,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn46: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1119,7 +1237,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn47: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1128,7 +1249,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn48: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1137,7 +1261,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn49: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1146,7 +1273,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn50: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1155,7 +1285,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn51: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1164,7 +1297,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn52: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1173,7 +1309,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn53: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1182,7 +1321,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn54: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1191,7 +1333,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn55: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1200,7 +1345,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn56: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1209,7 +1357,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblESTOQUE: TcxGridDBBandedColumn
+              Caption = 'Estoque '
               DataBinding.FieldName = 'QTDE'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Options.Sorting = False
@@ -1229,7 +1380,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn1: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CQ01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Filtering = False
               Options.Moving = False
@@ -1241,7 +1395,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn2: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CV01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Filtering = False
               Options.Moving = False
@@ -1253,7 +1410,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn3: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CQ03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Filtering = False
               Options.Moving = False
@@ -1265,7 +1425,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn4: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CV03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Filtering = False
               Options.Moving = False
@@ -1277,7 +1440,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn5: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CQ03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Editing = False
               Options.Filtering = False
@@ -1289,7 +1455,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn6: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CV03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Editing = False
               Options.Filtering = False
@@ -1301,7 +1470,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn7: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VQ03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Editing = False
               Options.Filtering = False
@@ -1313,7 +1485,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn8: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VV03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Editing = False
               Options.Filtering = False
@@ -1325,7 +1500,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn9: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CQ06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1338,7 +1516,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn10: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CV06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1351,7 +1532,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn11: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VQ06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1364,7 +1548,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn12: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VV06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1377,7 +1564,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn13: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CQ09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1390,7 +1580,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn14: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CV09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1403,7 +1596,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn15: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VQ09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1416,7 +1612,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn16: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VV09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1429,7 +1628,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn17: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CQ12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1442,7 +1644,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn18: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CV12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1455,7 +1660,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn19: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VQ12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1468,7 +1676,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn20: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VV12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1481,7 +1692,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn21: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CQ99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1493,7 +1707,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn22: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CV99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1505,7 +1722,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn23: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VQ99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1517,7 +1737,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblColumn24: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VV99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -1805,7 +2028,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn63: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1814,7 +2040,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn64: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1823,7 +2052,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn65: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1832,7 +2064,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn66: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1842,7 +2077,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
             end
             object cxGridDBBandedColumn67: TcxGridDBBandedColumn
               Tag = 60
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1851,7 +2089,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn68: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1861,7 +2102,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
             end
             object cxGridDBBandedColumn69: TcxGridDBBandedColumn
               Tag = 60
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1870,7 +2114,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn70: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1879,7 +2126,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn71: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1888,7 +2138,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn72: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1897,7 +2150,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn73: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1906,7 +2162,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn74: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1915,7 +2174,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn75: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1924,7 +2186,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn76: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1933,7 +2198,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn77: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1942,7 +2210,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn78: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1951,7 +2222,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn79: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1960,7 +2234,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn80: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1969,7 +2246,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn81: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1978,7 +2258,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn82: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -1987,7 +2270,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn83: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -1996,7 +2282,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn84: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -2005,7 +2294,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn85: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -2014,7 +2306,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn86: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 90
@@ -2023,7 +2318,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgFabTblESTOQUE: TcxGridDBBandedColumn
+              Caption = 'Estoque '
               DataBinding.FieldName = 'QTDE'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Options.Sorting = False
@@ -2043,7 +2341,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn89: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CQ01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Filtering = False
               Options.Moving = False
@@ -2055,7 +2356,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn90: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CV01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Filtering = False
               Options.Moving = False
@@ -2067,7 +2371,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn91: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CQ03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Filtering = False
               Options.Moving = False
@@ -2079,7 +2386,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn92: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CV03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Filtering = False
               Options.Moving = False
@@ -2091,7 +2401,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn93: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CQ03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Editing = False
               Options.Filtering = False
@@ -2103,7 +2416,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn94: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CV03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Editing = False
               Options.Filtering = False
@@ -2115,7 +2431,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn95: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VQ03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Editing = False
               Options.Filtering = False
@@ -2127,7 +2446,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn96: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VV03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               Options.Editing = False
               Options.Filtering = False
@@ -2139,7 +2461,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn97: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CQ06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2152,7 +2477,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn98: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CV06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2165,7 +2493,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn99: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VQ06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2178,7 +2509,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn100: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VV06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2191,7 +2525,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn101: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CQ09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2204,7 +2541,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn102: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CV09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2217,7 +2557,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn103: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VQ09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2230,7 +2573,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn104: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VV09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2243,7 +2589,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn105: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CQ12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2256,7 +2605,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn106: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CV12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2269,7 +2621,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn107: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VQ12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2282,7 +2637,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn108: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VV12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2295,7 +2653,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn109: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CQ99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2307,7 +2668,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn110: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_CV99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2319,7 +2683,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn111: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VQ99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2331,7 +2698,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object cxGridDBBandedColumn112: TcxGridDBBandedColumn
+              Caption = '% '
               DataBinding.FieldName = 'PERCENT_VV99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.0#'
               HeaderAlignmentHorz = taCenter
               MinWidth = 45
               Options.Filtering = False
@@ -2363,6 +2733,8 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
           Height = 437
           Align = alClient
           TabOrder = 0
+          ExplicitLeft = -3
+          ExplicitTop = 64
           object dbgProdutoTbl: TcxGridDBBandedTableView
             OnKeyPress = NovaPesquisaKeyPress
             Navigator.Buttons.CustomButtons = <>
@@ -2623,7 +2995,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn5: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -2632,7 +3007,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn6: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 80
@@ -2641,7 +3019,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn7: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -2650,7 +3031,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn8: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_01'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Position.BandIndex = 4
@@ -2659,7 +3043,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
             end
             object dbgProdutoTblColumn9: TcxGridDBBandedColumn
               Tag = 60
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -2668,7 +3055,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn10: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 80
@@ -2678,7 +3068,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
             end
             object dbgProdutoTblColumn11: TcxGridDBBandedColumn
               Tag = 60
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -2687,7 +3080,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn12: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_03'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 80
@@ -2696,7 +3092,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn13: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -2705,7 +3104,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn14: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 80
@@ -2714,7 +3116,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn15: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -2723,7 +3128,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn16: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_06'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 80
@@ -2732,7 +3140,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn17: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -2741,7 +3152,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn18: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 80
@@ -2750,7 +3164,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn19: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -2759,7 +3176,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn20: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_09'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 80
@@ -2768,7 +3188,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn21: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -2777,7 +3200,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn22: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 80
@@ -2786,7 +3212,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn23: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -2795,7 +3224,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn24: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_12'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 80
@@ -2804,7 +3236,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn25: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'COMPRA_QTDE_99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -2813,7 +3248,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn26: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'COMPRA_VALOR_99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 80
@@ -2822,7 +3260,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn27: TcxGridDBBandedColumn
+              Caption = 'Quant. '
               DataBinding.FieldName = 'VENDA_QTDE_99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0'
               Options.Filtering = False
               Options.Moving = False
               Width = 60
@@ -2831,7 +3272,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblColumn28: TcxGridDBBandedColumn
+              Caption = 'Valor '
               DataBinding.FieldName = 'VENDA_VALOR_99'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
               Options.Filtering = False
               Options.Moving = False
               Width = 80
@@ -2840,7 +3284,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgProdutoTblESTOQUE: TcxGridDBBandedColumn
+              Caption = 'Estoque '
               DataBinding.FieldName = 'QTDE'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.###'
               Options.Filtering = False
               Options.Moving = False
               Options.Sorting = False
@@ -3039,214 +3486,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     ProviderName = 'DspProduto'
     Left = 88
     Top = 248
-    object CdsProdutoQTDE: TBCDField
-      DisplayLabel = 'Estoque'
-      FieldName = 'QTDE'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object CdsProdutoESTOQUE_ALMOX: TFMTBCDField
-      DisplayLabel = 'Estoque'
-      FieldName = 'ESTOQUE_ALMOX'
-      DisplayFormat = ',0.##'
-      Precision = 18
-      Size = 6
-    end
-    object CdsProdutoDATA_ULTIMA_COMPRA: TDateField
-      Alignment = taCenter
-      FieldName = 'DATA_ULTIMA_COMPRA'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."DATA_ULTIMA_COMPRA"'
-    end
-    object CdsProdutoDATA_ULTIMA_VENDA: TDateField
-      Alignment = taCenter
-      FieldName = 'DATA_ULTIMA_VENDA'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."DATA_ULTIMA_VENDA"'
-    end
-    object CdsProdutoCOMPRA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'COMPRA_QTDE_01'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_QTDE_01"'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsProdutoCOMPRA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'COMPRA_VALOR_01'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_VALOR_01"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'VENDA_QTDE_01'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_QTDE_01"'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'VENDA_VALOR_01'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_VALOR_01"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoCOMPRA_QTDE_03: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'COMPRA_QTDE_03'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_QTDE_03"'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsProdutoCOMPRA_VALOR_03: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'COMPRA_VALOR_03'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_VALOR_03"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_QTDE_03: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'VENDA_QTDE_03'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_QTDE_03"'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_VALOR_03: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'VENDA_VALOR_03'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_VALOR_03"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoCOMPRA_QTDE_06: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'COMPRA_QTDE_06'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_QTDE_06"'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsProdutoCOMPRA_VALOR_06: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'COMPRA_VALOR_06'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_VALOR_06"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_QTDE_06: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'VENDA_QTDE_06'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_QTDE_06"'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_VALOR_06: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'VENDA_VALOR_06'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_VALOR_06"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoCOMPRA_QTDE_09: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'COMPRA_QTDE_09'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_QTDE_09"'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsProdutoCOMPRA_VALOR_09: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'COMPRA_VALOR_09'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_VALOR_09"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_QTDE_09: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'VENDA_QTDE_09'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_QTDE_09"'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_VALOR_09: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'VENDA_VALOR_09'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_VALOR_09"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoCOMPRA_QTDE_12: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'COMPRA_QTDE_12'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_QTDE_12"'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsProdutoCOMPRA_VALOR_12: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'COMPRA_VALOR_12'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_VALOR_12"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_QTDE_12: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'VENDA_QTDE_12'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_QTDE_12"'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_VALOR_12: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'VENDA_VALOR_12'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_VALOR_12"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoCOMPRA_QTDE_99: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'COMPRA_QTDE_99'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_QTDE_99"'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsProdutoCOMPRA_VALOR_99: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'COMPRA_VALOR_99'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."COMPRA_VALOR_99"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_QTDE_99: TBCDField
-      DisplayLabel = 'Quant.'
-      FieldName = 'VENDA_QTDE_99'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_QTDE_99"'
-      DisplayFormat = ',0'
-      Precision = 18
-    end
-    object CdsProdutoVENDA_VALOR_99: TBCDField
-      DisplayLabel = 'Valor'
-      FieldName = 'VENDA_VALOR_99'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."VENDA_VALOR_99"'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object CdsProdutoMOVIMENTADO: TSmallintField
-      FieldName = 'MOVIMENTADO'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."MOVIMENTADO"'
-    end
-    object CdsProdutoPROCESSO_DATA: TDateField
-      FieldName = 'PROCESSO_DATA'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."PROCESSO_DATA"'
-    end
-    object CdsProdutoPROCESSO_HORA: TTimeField
-      FieldName = 'PROCESSO_HORA'
-      Origin = '"TBPRODUTO_ROTATIVIDADE"."PROCESSO_HORA"'
-    end
-    object CdsProdutoPROCESSO_USUARIO: TStringField
-      FieldName = 'PROCESSO_USUARIO'
-      Size = 50
-    end
     object CdsProdutoCODIGO: TStringField
       FieldName = 'CODIGO'
       Size = 10
@@ -3276,6 +3515,138 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       ReadOnly = True
       Size = 5
     end
+    object CdsProdutoDATA_ULTIMA_COMPRA: TDateField
+      Alignment = taCenter
+      FieldName = 'DATA_ULTIMA_COMPRA'
+      Origin = '"TBPRODUTO_ROTATIVIDADE"."DATA_ULTIMA_COMPRA"'
+    end
+    object CdsProdutoDATA_ULTIMA_VENDA: TDateField
+      Alignment = taCenter
+      FieldName = 'DATA_ULTIMA_VENDA'
+      Origin = '"TBPRODUTO_ROTATIVIDADE"."DATA_ULTIMA_VENDA"'
+    end
+    object CdsProdutoMOVIMENTADO: TSmallintField
+      FieldName = 'MOVIMENTADO'
+      Origin = '"TBPRODUTO_ROTATIVIDADE"."MOVIMENTADO"'
+    end
+    object CdsProdutoPROCESSO_DATA: TDateField
+      FieldName = 'PROCESSO_DATA'
+      Origin = '"TBPRODUTO_ROTATIVIDADE"."PROCESSO_DATA"'
+    end
+    object CdsProdutoPROCESSO_HORA: TTimeField
+      FieldName = 'PROCESSO_HORA'
+      Origin = '"TBPRODUTO_ROTATIVIDADE"."PROCESSO_HORA"'
+    end
+    object CdsProdutoPROCESSO_USUARIO: TStringField
+      FieldName = 'PROCESSO_USUARIO'
+      Size = 50
+    end
+    object CdsProdutoQTDE: TFMTBCDField
+      FieldName = 'QTDE'
+      Precision = 18
+      Size = 3
+    end
+    object CdsProdutoESTOQUE_ALMOX: TFMTBCDField
+      FieldName = 'ESTOQUE_ALMOX'
+      Precision = 18
+      Size = 6
+    end
+    object CdsProdutoCOMPRA_QTDE_01: TBCDField
+      FieldName = 'COMPRA_QTDE_01'
+      Precision = 18
+    end
+    object CdsProdutoCOMPRA_VALOR_01: TBCDField
+      FieldName = 'COMPRA_VALOR_01'
+      Precision = 18
+    end
+    object CdsProdutoVENDA_QTDE_01: TBCDField
+      FieldName = 'VENDA_QTDE_01'
+      Precision = 18
+    end
+    object CdsProdutoVENDA_VALOR_01: TBCDField
+      FieldName = 'VENDA_VALOR_01'
+      Precision = 18
+    end
+    object CdsProdutoCOMPRA_QTDE_03: TBCDField
+      FieldName = 'COMPRA_QTDE_03'
+      Precision = 18
+    end
+    object CdsProdutoCOMPRA_VALOR_03: TBCDField
+      FieldName = 'COMPRA_VALOR_03'
+      Precision = 18
+    end
+    object CdsProdutoVENDA_QTDE_03: TBCDField
+      FieldName = 'VENDA_QTDE_03'
+      Precision = 18
+    end
+    object CdsProdutoVENDA_VALOR_03: TBCDField
+      FieldName = 'VENDA_VALOR_03'
+      Precision = 18
+    end
+    object CdsProdutoCOMPRA_QTDE_06: TBCDField
+      FieldName = 'COMPRA_QTDE_06'
+      Precision = 18
+    end
+    object CdsProdutoCOMPRA_VALOR_06: TBCDField
+      FieldName = 'COMPRA_VALOR_06'
+      Precision = 18
+    end
+    object CdsProdutoVENDA_QTDE_06: TBCDField
+      FieldName = 'VENDA_QTDE_06'
+      Precision = 18
+    end
+    object CdsProdutoVENDA_VALOR_06: TBCDField
+      FieldName = 'VENDA_VALOR_06'
+      Precision = 18
+    end
+    object CdsProdutoCOMPRA_QTDE_09: TBCDField
+      FieldName = 'COMPRA_QTDE_09'
+      Precision = 18
+    end
+    object CdsProdutoCOMPRA_VALOR_09: TBCDField
+      FieldName = 'COMPRA_VALOR_09'
+      Precision = 18
+    end
+    object CdsProdutoVENDA_QTDE_09: TBCDField
+      FieldName = 'VENDA_QTDE_09'
+      Precision = 18
+    end
+    object CdsProdutoVENDA_VALOR_09: TBCDField
+      FieldName = 'VENDA_VALOR_09'
+      Precision = 18
+    end
+    object CdsProdutoCOMPRA_QTDE_12: TBCDField
+      FieldName = 'COMPRA_QTDE_12'
+      Precision = 18
+    end
+    object CdsProdutoCOMPRA_VALOR_12: TBCDField
+      FieldName = 'COMPRA_VALOR_12'
+      Precision = 18
+    end
+    object CdsProdutoVENDA_QTDE_12: TBCDField
+      FieldName = 'VENDA_QTDE_12'
+      Precision = 18
+    end
+    object CdsProdutoVENDA_VALOR_12: TBCDField
+      FieldName = 'VENDA_VALOR_12'
+      Precision = 18
+    end
+    object CdsProdutoCOMPRA_QTDE_99: TBCDField
+      FieldName = 'COMPRA_QTDE_99'
+      Precision = 18
+    end
+    object CdsProdutoCOMPRA_VALOR_99: TBCDField
+      FieldName = 'COMPRA_VALOR_99'
+      Precision = 18
+    end
+    object CdsProdutoVENDA_QTDE_99: TBCDField
+      FieldName = 'VENDA_QTDE_99'
+      Precision = 18
+    end
+    object CdsProdutoVENDA_VALOR_99: TBCDField
+      FieldName = 'VENDA_VALOR_99'
+      Precision = 18
+    end
   end
   object DspGrupo: TDataSetProvider
     DataSet = QryGrupo
@@ -3293,19 +3664,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       FieldName = 'CODIGO'
       DisplayFormat = '##000'
     end
-    object CdsGrupoQTDE: TBCDField
-      DisplayLabel = 'Estoque'
-      FieldName = 'QTDE'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object CdsGrupoESTOQUE_ALMOX: TFMTBCDField
-      DisplayLabel = 'Estoque'
-      FieldName = 'ESTOQUE_ALMOX'
-      DisplayFormat = ',0.##'
-      Precision = 18
-      Size = 6
+    object CdsGrupoDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      ReadOnly = True
+      Size = 30
     end
     object CdsGrupoITENS: TIntegerField
       DisplayLabel = 'Itens'
@@ -3329,298 +3691,207 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       FieldName = 'DATA_ULTIMA_VENDA'
       DisplayFormat = 'dd/mm/yyyy'
     end
+    object CdsGrupoQTDE: TFMTBCDField
+      FieldName = 'QTDE'
+      Precision = 18
+      Size = 3
+    end
+    object CdsGrupoESTOQUE_ALMOX: TFMTBCDField
+      FieldName = 'ESTOQUE_ALMOX'
+      Precision = 18
+      Size = 6
+    end
     object CdsGrupoCOMPRA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'COMPRA_QTDE_01'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsGrupoCOMPRA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'COMPRA_VALOR_01'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsGrupoVENDA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'VENDA_QTDE_01'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsGrupoVENDA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'VENDA_VALOR_01'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsGrupoCOMPRA_QTDE_03: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'COMPRA_QTDE_03'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsGrupoCOMPRA_VALOR_03: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'COMPRA_VALOR_03'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsGrupoVENDA_QTDE_03: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'VENDA_QTDE_03'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsGrupoVENDA_VALOR_03: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'VENDA_VALOR_03'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsGrupoCOMPRA_QTDE_06: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'COMPRA_QTDE_06'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsGrupoCOMPRA_VALOR_06: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'COMPRA_VALOR_06'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsGrupoVENDA_QTDE_06: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'VENDA_QTDE_06'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsGrupoVENDA_VALOR_06: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'VENDA_VALOR_06'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsGrupoCOMPRA_QTDE_09: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'COMPRA_QTDE_09'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsGrupoCOMPRA_VALOR_09: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'COMPRA_VALOR_09'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsGrupoVENDA_QTDE_09: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'VENDA_QTDE_09'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsGrupoVENDA_VALOR_09: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'VENDA_VALOR_09'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsGrupoCOMPRA_QTDE_12: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'COMPRA_QTDE_12'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsGrupoCOMPRA_VALOR_12: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'COMPRA_VALOR_12'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsGrupoVENDA_QTDE_12: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'VENDA_QTDE_12'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsGrupoVENDA_VALOR_12: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'VENDA_VALOR_12'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsGrupoCOMPRA_QTDE_99: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'COMPRA_QTDE_99'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsGrupoCOMPRA_VALOR_99: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'COMPRA_VALOR_99'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsGrupoVENDA_QTDE_99: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'VENDA_QTDE_99'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsGrupoVENDA_VALOR_99: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'VENDA_VALOR_99'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsGrupoPERCENT_CQ01: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CQ01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_CV01: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CV01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_VQ01: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VQ01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_VV01: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VV01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_CQ03: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CQ03'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_CV03: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CV03'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_VQ03: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VQ03'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_VV03: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VV03'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_CQ06: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CQ06'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_CV06: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CV06'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_VQ06: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VQ06'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_VV06: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VV06'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_CQ09: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CQ09'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_CV09: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CV09'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_VQ09: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VQ09'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_VV09: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VV09'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_CQ12: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CQ12'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_CV12: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CV12'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_VQ12: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VQ12'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_VV12: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VV12'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_CQ99: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CQ99'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_CV99: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_CV99'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_VQ99: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VQ99'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
     object CdsGrupoPERCENT_VV99: TBCDField
-      DisplayLabel = '%'
       FieldName = 'PERCENT_VV99'
-      DisplayFormat = ',0.0#'
       Precision = 18
-    end
-    object CdsGrupoDESCRICAO: TStringField
-      FieldName = 'DESCRICAO'
-      ReadOnly = True
-      Size = 30
     end
   end
   object dsGrupo: TDataSource
@@ -3674,20 +3945,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     ProviderName = 'DspTotal'
     Left = 88
     Top = 352
-    object CdsTotalQTDE: TBCDField
-      DisplayLabel = 'Estoque'
-      FieldName = 'QTDE'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object CdsTotalESTOQUE_ALMOX: TFMTBCDField
-      DisplayLabel = 'Estoque'
-      FieldName = 'ESTOQUE_ALMOX'
-      DisplayFormat = ',0.##'
-      Precision = 18
-      Size = 6
-    end
     object CdsTotalITENS: TIntegerField
       DisplayLabel = 'Itens'
       FieldName = 'ITENS'
@@ -3710,148 +3967,110 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       FieldName = 'DATA_ULTIMA_VENDA'
       DisplayFormat = 'dd/mm/yyyy'
     end
+    object CdsTotalQTDE: TFMTBCDField
+      FieldName = 'QTDE'
+      Precision = 18
+      Size = 3
+    end
+    object CdsTotalESTOQUE_ALMOX: TFMTBCDField
+      FieldName = 'ESTOQUE_ALMOX'
+      Precision = 18
+      Size = 6
+    end
     object CdsTotalCOMPRA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'COMPRA_QTDE_01'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsTotalCOMPRA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'COMPRA_VALOR_01'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsTotalVENDA_QTDE_01: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'VENDA_QTDE_01'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsTotalVENDA_VALOR_01: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'VENDA_VALOR_01'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsTotalCOMPRA_QTDE_03: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'COMPRA_QTDE_03'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsTotalCOMPRA_VALOR_03: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'COMPRA_VALOR_03'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsTotalVENDA_QTDE_03: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'VENDA_QTDE_03'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsTotalVENDA_VALOR_03: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'VENDA_VALOR_03'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsTotalCOMPRA_QTDE_06: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'COMPRA_QTDE_06'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsTotalCOMPRA_VALOR_06: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'COMPRA_VALOR_06'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsTotalVENDA_QTDE_06: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'VENDA_QTDE_06'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsTotalVENDA_VALOR_06: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'VENDA_VALOR_06'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsTotalCOMPRA_QTDE_09: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'COMPRA_QTDE_09'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsTotalCOMPRA_VALOR_09: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'COMPRA_VALOR_09'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsTotalVENDA_QTDE_09: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'VENDA_QTDE_09'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsTotalVENDA_VALOR_09: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'VENDA_VALOR_09'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsTotalCOMPRA_QTDE_12: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'COMPRA_QTDE_12'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsTotalCOMPRA_VALOR_12: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'COMPRA_VALOR_12'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsTotalVENDA_QTDE_12: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'VENDA_QTDE_12'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsTotalVENDA_VALOR_12: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'VENDA_VALOR_12'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsTotalCOMPRA_QTDE_99: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'COMPRA_QTDE_99'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsTotalCOMPRA_VALOR_99: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'COMPRA_VALOR_99'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
     object CdsTotalVENDA_QTDE_99: TBCDField
-      DisplayLabel = 'Quant.'
       FieldName = 'VENDA_QTDE_99'
-      DisplayFormat = ',0'
       Precision = 18
     end
     object CdsTotalVENDA_VALOR_99: TBCDField
-      DisplayLabel = 'Valor'
       FieldName = 'VENDA_VALOR_99'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
   end
@@ -3883,19 +4102,9 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       FieldName = 'CODIGO'
       DisplayFormat = '###000'
     end
-    object CdsFabricanteQTDE: TBCDField
-      DisplayLabel = 'Estoque'
-      FieldName = 'QTDE'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object CdsFabricanteESTOQUE_ALMOX: TFMTBCDField
-      DisplayLabel = 'Estoque'
-      FieldName = 'ESTOQUE_ALMOX'
-      DisplayFormat = ',0.##'
-      Precision = 18
-      Size = 6
+    object CdsFabricanteDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 50
     end
     object IntegerField1: TIntegerField
       DisplayLabel = 'Itens'
@@ -3919,297 +4128,207 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       FieldName = 'DATA_ULTIMA_VENDA'
       DisplayFormat = 'dd/mm/yyyy'
     end
-    object BCDField1: TBCDField
-      DisplayLabel = 'Quant.'
+    object CdsFabricanteQTDE: TFMTBCDField
+      FieldName = 'QTDE'
+      Precision = 18
+      Size = 3
+    end
+    object CdsFabricanteESTOQUE_ALMOX: TFMTBCDField
+      FieldName = 'ESTOQUE_ALMOX'
+      Precision = 18
+      Size = 6
+    end
+    object CdsFabricanteCOMPRA_QTDE_01: TBCDField
       FieldName = 'COMPRA_QTDE_01'
-      DisplayFormat = ',0'
       Precision = 18
     end
-    object BCDField2: TBCDField
-      DisplayLabel = 'Valor'
+    object CdsFabricanteCOMPRA_VALOR_01: TBCDField
       FieldName = 'COMPRA_VALOR_01'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
-    object BCDField3: TBCDField
-      DisplayLabel = 'Quant.'
+    object CdsFabricanteVENDA_QTDE_01: TBCDField
       FieldName = 'VENDA_QTDE_01'
-      DisplayFormat = ',0'
       Precision = 18
     end
-    object BCDField4: TBCDField
-      DisplayLabel = 'Valor'
+    object CdsFabricanteVENDA_VALOR_01: TBCDField
       FieldName = 'VENDA_VALOR_01'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
-    object BCDField5: TBCDField
-      DisplayLabel = 'Quant.'
+    object CdsFabricanteCOMPRA_QTDE_03: TBCDField
       FieldName = 'COMPRA_QTDE_03'
-      DisplayFormat = ',0'
       Precision = 18
     end
-    object BCDField6: TBCDField
-      DisplayLabel = 'Valor'
+    object CdsFabricanteCOMPRA_VALOR_03: TBCDField
       FieldName = 'COMPRA_VALOR_03'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
-    object BCDField7: TBCDField
-      DisplayLabel = 'Quant.'
+    object CdsFabricanteVENDA_QTDE_03: TBCDField
       FieldName = 'VENDA_QTDE_03'
-      DisplayFormat = ',0'
       Precision = 18
     end
-    object BCDField8: TBCDField
-      DisplayLabel = 'Valor'
+    object CdsFabricanteVENDA_VALOR_03: TBCDField
       FieldName = 'VENDA_VALOR_03'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
-    object BCDField9: TBCDField
-      DisplayLabel = 'Quant.'
+    object CdsFabricanteCOMPRA_QTDE_06: TBCDField
       FieldName = 'COMPRA_QTDE_06'
-      DisplayFormat = ',0'
       Precision = 18
     end
-    object BCDField10: TBCDField
-      DisplayLabel = 'Valor'
+    object CdsFabricanteCOMPRA_VALOR_06: TBCDField
       FieldName = 'COMPRA_VALOR_06'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
-    object BCDField11: TBCDField
-      DisplayLabel = 'Quant.'
+    object CdsFabricanteVENDA_QTDE_06: TBCDField
       FieldName = 'VENDA_QTDE_06'
-      DisplayFormat = ',0'
       Precision = 18
     end
-    object BCDField12: TBCDField
-      DisplayLabel = 'Valor'
+    object CdsFabricanteVENDA_VALOR_06: TBCDField
       FieldName = 'VENDA_VALOR_06'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
-    object BCDField13: TBCDField
-      DisplayLabel = 'Quant.'
+    object CdsFabricanteCOMPRA_QTDE_09: TBCDField
       FieldName = 'COMPRA_QTDE_09'
-      DisplayFormat = ',0'
       Precision = 18
     end
-    object BCDField14: TBCDField
-      DisplayLabel = 'Valor'
+    object CdsFabricanteCOMPRA_VALOR_09: TBCDField
       FieldName = 'COMPRA_VALOR_09'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
-    object BCDField15: TBCDField
-      DisplayLabel = 'Quant.'
+    object CdsFabricanteVENDA_QTDE_09: TBCDField
       FieldName = 'VENDA_QTDE_09'
-      DisplayFormat = ',0'
       Precision = 18
     end
-    object BCDField16: TBCDField
-      DisplayLabel = 'Valor'
+    object CdsFabricanteVENDA_VALOR_09: TBCDField
       FieldName = 'VENDA_VALOR_09'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
-    object BCDField17: TBCDField
-      DisplayLabel = 'Quant.'
+    object CdsFabricanteCOMPRA_QTDE_12: TBCDField
       FieldName = 'COMPRA_QTDE_12'
-      DisplayFormat = ',0'
       Precision = 18
     end
-    object BCDField18: TBCDField
-      DisplayLabel = 'Valor'
+    object CdsFabricanteCOMPRA_VALOR_12: TBCDField
       FieldName = 'COMPRA_VALOR_12'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
-    object BCDField19: TBCDField
-      DisplayLabel = 'Quant.'
+    object CdsFabricanteVENDA_QTDE_12: TBCDField
       FieldName = 'VENDA_QTDE_12'
-      DisplayFormat = ',0'
       Precision = 18
     end
-    object BCDField20: TBCDField
-      DisplayLabel = 'Valor'
+    object CdsFabricanteVENDA_VALOR_12: TBCDField
       FieldName = 'VENDA_VALOR_12'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
-    object BCDField21: TBCDField
-      DisplayLabel = 'Quant.'
+    object CdsFabricanteCOMPRA_QTDE_99: TBCDField
       FieldName = 'COMPRA_QTDE_99'
-      DisplayFormat = ',0'
       Precision = 18
     end
-    object BCDField22: TBCDField
-      DisplayLabel = 'Valor'
+    object CdsFabricanteCOMPRA_VALOR_99: TBCDField
       FieldName = 'COMPRA_VALOR_99'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
-    object BCDField23: TBCDField
-      DisplayLabel = 'Quant.'
+    object CdsFabricanteVENDA_QTDE_99: TBCDField
       FieldName = 'VENDA_QTDE_99'
-      DisplayFormat = ',0'
       Precision = 18
     end
-    object BCDField24: TBCDField
-      DisplayLabel = 'Valor'
+    object CdsFabricanteVENDA_VALOR_99: TBCDField
       FieldName = 'VENDA_VALOR_99'
-      DisplayFormat = ',0.00'
       Precision = 18
     end
-    object BCDField25: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_CQ01: TBCDField
       FieldName = 'PERCENT_CQ01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField26: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_CV01: TBCDField
       FieldName = 'PERCENT_CV01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField27: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_VQ01: TBCDField
       FieldName = 'PERCENT_VQ01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField28: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_VV01: TBCDField
       FieldName = 'PERCENT_VV01'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField29: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_CQ03: TBCDField
       FieldName = 'PERCENT_CQ03'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField30: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_CV03: TBCDField
       FieldName = 'PERCENT_CV03'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField31: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_VQ03: TBCDField
       FieldName = 'PERCENT_VQ03'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField32: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_VV03: TBCDField
       FieldName = 'PERCENT_VV03'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField33: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_CQ06: TBCDField
       FieldName = 'PERCENT_CQ06'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField34: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_CV06: TBCDField
       FieldName = 'PERCENT_CV06'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField35: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_VQ06: TBCDField
       FieldName = 'PERCENT_VQ06'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField36: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_VV06: TBCDField
       FieldName = 'PERCENT_VV06'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField37: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_CQ09: TBCDField
       FieldName = 'PERCENT_CQ09'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField38: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_CV09: TBCDField
       FieldName = 'PERCENT_CV09'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField39: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_VQ09: TBCDField
       FieldName = 'PERCENT_VQ09'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField40: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_VV09: TBCDField
       FieldName = 'PERCENT_VV09'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField41: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_CQ12: TBCDField
       FieldName = 'PERCENT_CQ12'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField42: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_CV12: TBCDField
       FieldName = 'PERCENT_CV12'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField43: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_VQ12: TBCDField
       FieldName = 'PERCENT_VQ12'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField44: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_VV12: TBCDField
       FieldName = 'PERCENT_VV12'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField45: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_CQ99: TBCDField
       FieldName = 'PERCENT_CQ99'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField46: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_CV99: TBCDField
       FieldName = 'PERCENT_CV99'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField47: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_VQ99: TBCDField
       FieldName = 'PERCENT_VQ99'
-      DisplayFormat = ',0.0#'
       Precision = 18
     end
-    object BCDField48: TBCDField
-      DisplayLabel = '%'
+    object CdsFabricantePERCENT_VV99: TBCDField
       FieldName = 'PERCENT_VV99'
-      DisplayFormat = ',0.0#'
       Precision = 18
-    end
-    object CdsFabricanteDESCRICAO: TStringField
-      FieldName = 'DESCRICAO'
-      Size = 50
     end
   end
   object dsFabricante: TDataSource
@@ -4400,265 +4519,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       'order by 2')
     Left = 24
     Top = 248
-    object QryProdutoCODIGO: TStringField
-      FieldName = 'CODIGO'
-      Origin = 'COD'
-      Size = 10
-    end
-    object QryProdutoDESCRICAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO'
-      Origin = 'DESCRICAO'
-      ProviderFlags = []
-      Size = 100
-    end
-    object QryProdutoGRUPO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'GRUPO'
-      Origin = 'DESCRI'
-      ProviderFlags = []
-      Size = 30
-    end
-    object QryProdutoFABRICANTE: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'FABRICANTE'
-      Origin = 'NOME'
-      ProviderFlags = []
-      Size = 50
-    end
-    object QryProdutoQTDE: TBCDField
-      FieldName = 'QTDE'
-      Origin = 'QTDE'
-      Precision = 18
-      Size = 3
-    end
-    object QryProdutoESTOQUE_ALMOX: TFMTBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'ESTOQUE_ALMOX'
-      Origin = 'ESTOQUE_ALMOX'
-      ProviderFlags = []
-      Precision = 18
-      Size = 6
-    end
-    object QryProdutoUNP_DESCRICAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'UNP_DESCRICAO'
-      Origin = 'UNP_DESCRICAO'
-      ProviderFlags = []
-      Size = 50
-    end
-    object QryProdutoUNP_SIGLA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'UNP_SIGLA'
-      Origin = 'UNP_SIGLA'
-      ProviderFlags = []
-      Size = 5
-    end
-    object QryProdutoDATA_ULTIMA_COMPRA: TDateField
-      AutoGenerateValue = arDefault
-      FieldName = 'DATA_ULTIMA_COMPRA'
-      Origin = 'DATA_ULTIMA_COMPRA'
-      ProviderFlags = []
-    end
-    object QryProdutoDATA_ULTIMA_VENDA: TDateField
-      AutoGenerateValue = arDefault
-      FieldName = 'DATA_ULTIMA_VENDA'
-      Origin = 'DATA_ULTIMA_VENDA'
-      ProviderFlags = []
-    end
-    object QryProdutoCOMPRA_QTDE_01: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'COMPRA_QTDE_01'
-      Origin = 'COMPRA_QTDE_01'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoCOMPRA_VALOR_01: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'COMPRA_VALOR_01'
-      Origin = 'COMPRA_VALOR_01'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoVENDA_QTDE_01: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VENDA_QTDE_01'
-      Origin = 'VENDA_QTDE_01'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoVENDA_VALOR_01: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VENDA_VALOR_01'
-      Origin = 'VENDA_VALOR_01'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoCOMPRA_QTDE_03: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'COMPRA_QTDE_03'
-      Origin = 'COMPRA_QTDE_03'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoCOMPRA_VALOR_03: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'COMPRA_VALOR_03'
-      Origin = 'COMPRA_VALOR_03'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoVENDA_QTDE_03: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VENDA_QTDE_03'
-      Origin = 'VENDA_QTDE_03'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoVENDA_VALOR_03: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VENDA_VALOR_03'
-      Origin = 'VENDA_VALOR_03'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoCOMPRA_QTDE_06: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'COMPRA_QTDE_06'
-      Origin = 'COMPRA_QTDE_06'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoCOMPRA_VALOR_06: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'COMPRA_VALOR_06'
-      Origin = 'COMPRA_VALOR_06'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoVENDA_QTDE_06: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VENDA_QTDE_06'
-      Origin = 'VENDA_QTDE_06'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoVENDA_VALOR_06: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VENDA_VALOR_06'
-      Origin = 'VENDA_VALOR_06'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoCOMPRA_QTDE_09: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'COMPRA_QTDE_09'
-      Origin = 'COMPRA_QTDE_09'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoCOMPRA_VALOR_09: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'COMPRA_VALOR_09'
-      Origin = 'COMPRA_VALOR_09'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoVENDA_QTDE_09: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VENDA_QTDE_09'
-      Origin = 'VENDA_QTDE_09'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoVENDA_VALOR_09: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VENDA_VALOR_09'
-      Origin = 'VENDA_VALOR_09'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoCOMPRA_QTDE_12: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'COMPRA_QTDE_12'
-      Origin = 'COMPRA_QTDE_12'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoCOMPRA_VALOR_12: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'COMPRA_VALOR_12'
-      Origin = 'COMPRA_VALOR_12'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoVENDA_QTDE_12: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VENDA_QTDE_12'
-      Origin = 'VENDA_QTDE_12'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoVENDA_VALOR_12: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VENDA_VALOR_12'
-      Origin = 'VENDA_VALOR_12'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoCOMPRA_QTDE_99: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'COMPRA_QTDE_99'
-      Origin = 'COMPRA_QTDE_99'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoCOMPRA_VALOR_99: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'COMPRA_VALOR_99'
-      Origin = 'COMPRA_VALOR_99'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoVENDA_QTDE_99: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VENDA_QTDE_99'
-      Origin = 'VENDA_QTDE_99'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoVENDA_VALOR_99: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VENDA_VALOR_99'
-      Origin = 'VENDA_VALOR_99'
-      ProviderFlags = []
-      Precision = 18
-    end
-    object QryProdutoMOVIMENTADO: TSmallintField
-      AutoGenerateValue = arDefault
-      FieldName = 'MOVIMENTADO'
-      Origin = 'MOVIMENTADO'
-      ProviderFlags = []
-    end
-    object QryProdutoPROCESSO_DATA: TDateField
-      AutoGenerateValue = arDefault
-      FieldName = 'PROCESSO_DATA'
-      Origin = 'PROCESSO_DATA'
-      ProviderFlags = []
-    end
-    object QryProdutoPROCESSO_HORA: TTimeField
-      AutoGenerateValue = arDefault
-      FieldName = 'PROCESSO_HORA'
-      Origin = 'PROCESSO_HORA'
-      ProviderFlags = []
-    end
-    object QryProdutoPROCESSO_USUARIO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'PROCESSO_USUARIO'
-      Origin = 'PROCESSO_USUARIO'
-      ProviderFlags = []
-      Size = 50
-    end
   end
   object QryGrupo: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -4758,7 +4618,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       ProviderFlags = []
       Size = 30
     end
-    object QryGrupoQTDE: TBCDField
+    object QryGrupoQTDE: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'QTDE'
       Origin = 'QTDE'
@@ -5233,7 +5093,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       ProviderFlags = []
       Size = 50
     end
-    object QryFabricanteQTDE: TBCDField
+    object QryFabricanteQTDE: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'QTDE'
       Origin = 'QTDE'

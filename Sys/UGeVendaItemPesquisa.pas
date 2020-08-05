@@ -3,8 +3,10 @@ unit UGeVendaItemPesquisa;
 interface
 
 uses
+  UGrPadraoPesquisa,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoPesquisa, DB, IBCustomDataSet, IBQuery, Grids, DBGrids,
+  Dialogs, DB, IBCustomDataSet, IBQuery, Grids, DBGrids,
   StdCtrls, Buttons, ExtCtrls, Mask, JvExMask, JvToolEdit, cxGraphics,
   cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
 

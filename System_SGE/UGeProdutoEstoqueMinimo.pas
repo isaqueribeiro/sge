@@ -24,7 +24,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxDateRanges,
+  cxDataControllerConditionalFormattingRulesManagerDialog, cxCurrencyEdit;
 
 type
   TFrmGeProdutoEstoqueMinimo = class(TfrmGrPadrao)
@@ -87,10 +88,6 @@ type
     CdsProdutoCODGRUPO: TSmallintField;
     CdsProdutoCODFABRICANTE: TIntegerField;
     CdsProdutoCODUNIDADE: TSmallintField;
-    CdsProdutoCOMPRA_QTDE_01: TBCDField;
-    CdsProdutoCOMPRA_VALOR_01: TBCDField;
-    CdsProdutoVENDA_QTDE_01: TBCDField;
-    CdsProdutoVENDA_VALOR_01: TBCDField;
     CdsProdutoDATA_ULTIMA_COMPRA: TDateField;
     CdsProdutoDATA_ULTIMA_VENDA: TDateField;
     StyleRepository: TcxStyleRepository;
@@ -105,16 +102,8 @@ type
     dsTotal: TDataSource;
     CdsGrupoCODIGO: TSmallintField;
     CdsGrupoITENS: TIntegerField;
-    CdsGrupoCOMPRA_QTDE_01: TBCDField;
-    CdsGrupoCOMPRA_VALOR_01: TBCDField;
-    CdsGrupoVENDA_QTDE_01: TBCDField;
-    CdsGrupoVENDA_VALOR_01: TBCDField;
     CdsGrupoDATA_ULTIMA_COMPRA: TDateField;
     CdsGrupoDATA_ULTIMA_VENDA: TDateField;
-    CdsGrupoPERCENT_CQ01: TBCDField;
-    CdsGrupoPERCENT_CV01: TBCDField;
-    CdsGrupoPERCENT_VQ01: TBCDField;
-    CdsGrupoPERCENT_VV01: TBCDField;
     dbgGrupoTblColumn5: TcxGridDBBandedColumn;
     dbgFab: TcxGrid;
     dbgFabTbl: TcxGridDBBandedTableView;
@@ -137,22 +126,8 @@ type
     dbgFabLvl: TcxGridLevel;
     CdsFabricanteCODIGO: TIntegerField;
     CdsFabricanteITENS: TIntegerField;
-    CdsFabricanteCOMPRA_QTDE_01: TBCDField;
-    CdsFabricanteCOMPRA_VALOR_01: TBCDField;
-    CdsFabricanteVENDA_QTDE_01: TBCDField;
-    CdsFabricanteVENDA_VALOR_01: TBCDField;
     CdsFabricanteDATA_ULTIMA_COMPRA: TDateField;
     CdsFabricanteDATA_ULTIMA_VENDA: TDateField;
-    CdsFabricantePERCENT_CQ01: TBCDField;
-    CdsFabricantePERCENT_CV01: TBCDField;
-    CdsFabricantePERCENT_VQ01: TBCDField;
-    CdsFabricantePERCENT_VV01: TBCDField;
-    CdsGrupoESTOQUE: TBCDField;
-    CdsFabricanteESTOQUE: TBCDField;
-    CdsProdutoQTDE: TBCDField;
-    CdsGrupoESTOQUE_MINIMO: TBCDField;
-    CdsFabricanteESTOQUE_MINIMO: TBCDField;
-    CdsProdutoESTOQMIN: TBCDField;
     tlbBotoes: TPanel;
     Bevel2: TBevel;
     btBtnExportar: TcxButton;
@@ -172,6 +147,32 @@ type
     CdsProdutoGRUPO: TStringField;
     CdsProdutoFABRICANTE: TStringField;
     CdsProdutoUNIDADE: TStringField;
+    CdsGrupoESTOQUE: TFMTBCDField;
+    CdsGrupoESTOQUE_MINIMO: TFMTBCDField;
+    CdsGrupoCOMPRA_QTDE_01: TBCDField;
+    CdsGrupoCOMPRA_VALOR_01: TBCDField;
+    CdsGrupoVENDA_QTDE_01: TBCDField;
+    CdsGrupoVENDA_VALOR_01: TBCDField;
+    CdsGrupoPERCENT_CQ01: TBCDField;
+    CdsGrupoPERCENT_CV01: TBCDField;
+    CdsGrupoPERCENT_VQ01: TBCDField;
+    CdsGrupoPERCENT_VV01: TBCDField;
+    CdsProdutoQTDE: TFMTBCDField;
+    CdsProdutoESTOQMIN: TFMTBCDField;
+    CdsProdutoCOMPRA_QTDE_01: TBCDField;
+    CdsProdutoCOMPRA_VALOR_01: TBCDField;
+    CdsProdutoVENDA_QTDE_01: TBCDField;
+    CdsProdutoVENDA_VALOR_01: TBCDField;
+    CdsFabricanteESTOQUE: TFMTBCDField;
+    CdsFabricanteESTOQUE_MINIMO: TFMTBCDField;
+    CdsFabricanteCOMPRA_QTDE_01: TBCDField;
+    CdsFabricanteCOMPRA_VALOR_01: TBCDField;
+    CdsFabricanteVENDA_QTDE_01: TBCDField;
+    CdsFabricanteVENDA_VALOR_01: TBCDField;
+    CdsFabricantePERCENT_CQ01: TBCDField;
+    CdsFabricantePERCENT_CV01: TBCDField;
+    CdsFabricantePERCENT_VQ01: TBCDField;
+    CdsFabricantePERCENT_VV01: TBCDField;
     procedure NovaPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -183,6 +184,7 @@ type
     procedure btBtnExportarClick(Sender: TObject);
     procedure btBtnEnviarEmailClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     FSQLTotal   ,
@@ -220,7 +222,11 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, cxGridExportLink, UDMRecursos;
+    cxGridExportLink
+  , COntroller.Tabela
+  , UConstantesDGE
+  , UDMBusiness
+  , UDMRecursos;
 
 {$R *.dfm}
 
@@ -250,20 +256,6 @@ end;
 
 procedure TFrmGeProdutoEstoqueMinimo.FormCreate(Sender: TObject);
 begin
-  {$IFDEF DGE}
-  dbgGrupo.LookAndFeel.AssignedValues := [lfvKind,lfvNativeStyle,lfvSkinName];
-  dbgGrupo.LookAndFeel.Kind           := lfStandard;
-  dbgGrupo.LookAndFeel.NativeStyle    := True;
-
-  dbgFab.LookAndFeel.AssignedValues := [lfvKind,lfvNativeStyle,lfvSkinName];
-  dbgFab.LookAndFeel.Kind           := lfStandard;
-  dbgFab.LookAndFeel.NativeStyle    := True;
-
-  dbgProduto.LookAndFeel.AssignedValues := [lfvKind,lfvNativeStyle,lfvSkinName];
-  dbgProduto.LookAndFeel.Kind           := lfStandard;
-  dbgProduto.LookAndFeel.NativeStyle    := True;
-  {$ENDIF}
-
   inherited;
 
   FSQLTotal := TStringList.Create;
@@ -280,6 +272,16 @@ begin
 
   edTipoFiltro.ItemIndex := TIPO_PRD;
   HabilitarGuia(edTipoFiltro.ItemIndex);
+end;
+
+procedure TFrmGeProdutoEstoqueMinimo.FormDestroy(Sender: TObject);
+begin
+  FSQLTotal.Free;
+  FSQLGrupo.Free;
+  FSQLFabricante.Free;
+  FSQLProduto.Free;
+
+  inherited;
 end;
 
 procedure TFrmGeProdutoEstoqueMinimo.FormKeyDown(Sender: TObject;
@@ -329,7 +331,7 @@ procedure TFrmGeProdutoEstoqueMinimo.ExecutarPesquisa(
 var
   sWhr : String;
 begin
-  sWhr := '(p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
+  sWhr := '((p.arquivo_morto = 0) and (p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + '))';
 
   CdsTotal.Close;
   with QryTotal do

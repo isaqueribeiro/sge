@@ -27,8 +27,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -663,10 +661,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
           object TbsCotacaoObservacao: TTabSheet
             Caption = 'Observa'#231#245'es Gerais'
             ImageIndex = 1
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbObservacao: TDBMemo
               Left = 0
               Top = 0
@@ -688,10 +682,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
           object TbsCotacaoCancelado: TTabSheet
             Caption = 'Motivo do Cancelamento'
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -872,10 +862,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         object tbsDadoConsolidado: TTabSheet
           Caption = 'Dados Consolidados'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxPagamento: TGroupBox
             Left = 0
             Top = 0
@@ -1058,12 +1044,13 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
             object lblEnderecoEntrega: TLabel
               Left = 0
               Top = 4
-              Width = 160
+              Width = 1100
               Height = 13
               Align = alTop
               Caption = 'Endere'#231'o de Entrega/Realiza'#231#227'o:'
               FocusControl = dbEnderecoEntrega
               Visible = False
+              ExplicitWidth = 160
             end
             object Bevel5: TBevel
               Left = 0
@@ -1484,10 +1471,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         object tbsEventoLOG: TTabSheet
           Caption = 'LOG de Eventos'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbEventoLOG: TDBMemo
             Left = 0
             Top = 0
@@ -4510,82 +4493,72 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       Origin = 'CANCELADO_MOTIVO'
       BlobType = ftMemo
     end
-    object fdQryTabelaVALOR_REF_TOTAL: TBCDField
-      FieldName = 'VALOR_REF_TOTAL'
-      Origin = 'VALOR_REF_TOTAL'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaVALOR_MAX_BRUTO: TBCDField
-      FieldName = 'VALOR_MAX_BRUTO'
-      Origin = 'VALOR_MAX_BRUTO'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaVALOR_MAX_DESCONTO: TBCDField
-      FieldName = 'VALOR_MAX_DESCONTO'
-      Origin = 'VALOR_MAX_DESCONTO'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaVALOR_MAX_TOTAL: TBCDField
-      FieldName = 'VALOR_MAX_TOTAL'
-      Origin = 'VALOR_MAX_TOTAL'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaVALOR_MIN_BRUTO: TBCDField
-      FieldName = 'VALOR_MIN_BRUTO'
-      Origin = 'VALOR_MIN_BRUTO'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaVALOR_MIN_DESCONTO: TBCDField
-      FieldName = 'VALOR_MIN_DESCONTO'
-      Origin = 'VALOR_MIN_DESCONTO'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaVALOR_MIN_TOTAL: TBCDField
-      FieldName = 'VALOR_MIN_TOTAL'
-      Origin = 'VALOR_MIN_TOTAL'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaVALOR_MEDIA_BRUTO: TBCDField
-      FieldName = 'VALOR_MEDIA_BRUTO'
-      Origin = 'VALOR_MEDIA_BRUTO'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaVALOR_MEDIA_DESCONTO: TBCDField
-      FieldName = 'VALOR_MEDIA_DESCONTO'
-      Origin = 'VALOR_MEDIA_DESCONTO'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaVALOR_MEDIA_TOTAL: TBCDField
-      FieldName = 'VALOR_MEDIA_TOTAL'
-      Origin = 'VALOR_MEDIA_TOTAL'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
     object fdQryTabelaITENS: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'ITENS'
       Origin = 'ITENS'
       ProviderFlags = []
       DisplayFormat = ',0'
+    end
+    object fdQryTabelaVALOR_REF_TOTAL: TFMTBCDField
+      FieldName = 'VALOR_REF_TOTAL'
+      Origin = 'VALOR_REF_TOTAL'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaVALOR_MAX_BRUTO: TFMTBCDField
+      FieldName = 'VALOR_MAX_BRUTO'
+      Origin = 'VALOR_MAX_BRUTO'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaVALOR_MAX_DESCONTO: TFMTBCDField
+      FieldName = 'VALOR_MAX_DESCONTO'
+      Origin = 'VALOR_MAX_DESCONTO'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaVALOR_MAX_TOTAL: TFMTBCDField
+      FieldName = 'VALOR_MAX_TOTAL'
+      Origin = 'VALOR_MAX_TOTAL'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaVALOR_MIN_BRUTO: TFMTBCDField
+      FieldName = 'VALOR_MIN_BRUTO'
+      Origin = 'VALOR_MIN_BRUTO'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaVALOR_MIN_DESCONTO: TFMTBCDField
+      FieldName = 'VALOR_MIN_DESCONTO'
+      Origin = 'VALOR_MIN_DESCONTO'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaVALOR_MIN_TOTAL: TFMTBCDField
+      FieldName = 'VALOR_MIN_TOTAL'
+      Origin = 'VALOR_MIN_TOTAL'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaVALOR_MEDIA_BRUTO: TFMTBCDField
+      FieldName = 'VALOR_MEDIA_BRUTO'
+      Origin = 'VALOR_MEDIA_BRUTO'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaVALOR_MEDIA_DESCONTO: TFMTBCDField
+      FieldName = 'VALOR_MEDIA_DESCONTO'
+      Origin = 'VALOR_MEDIA_DESCONTO'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaVALOR_MEDIA_TOTAL: TFMTBCDField
+      FieldName = 'VALOR_MEDIA_TOTAL'
+      Origin = 'VALOR_MEDIA_TOTAL'
+      Precision = 18
+      Size = 2
     end
   end
   inherited fdUpdTabela: TFDUpdateSQL
@@ -4880,72 +4853,9 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       Origin = 'PRODUTO'
       Size = 10
     end
-    object cdsTabelaItensQUANTIDADE: TBCDField
-      FieldName = 'QUANTIDADE'
-      Origin = 'QUANTIDADE'
-      Required = True
-      Precision = 18
-      Size = 3
-    end
     object cdsTabelaItensUNIDADE: TSmallintField
       FieldName = 'UNIDADE'
       Origin = 'UNIDADE'
-    end
-    object cdsTabelaItensVALOR_UNITARIO_REF: TBCDField
-      FieldName = 'VALOR_UNITARIO_REF'
-      Origin = 'VALOR_UNITARIO_REF'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_TOTAL_REF: TBCDField
-      FieldName = 'VALOR_TOTAL_REF'
-      Origin = 'VALOR_TOTAL_REF'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_UNITARIO_MIN: TBCDField
-      FieldName = 'VALOR_UNITARIO_MIN'
-      Origin = 'VALOR_UNITARIO_MIN'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_TOTAL_MIN: TBCDField
-      FieldName = 'VALOR_TOTAL_MIN'
-      Origin = 'VALOR_TOTAL_MIN'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_UNITARIO_MAX: TBCDField
-      FieldName = 'VALOR_UNITARIO_MAX'
-      Origin = 'VALOR_UNITARIO_MAX'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_TOTAL_MAX: TBCDField
-      FieldName = 'VALOR_TOTAL_MAX'
-      Origin = 'VALOR_TOTAL_MAX'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_UNITARIO_MEDIA: TBCDField
-      FieldName = 'VALOR_UNITARIO_MEDIA'
-      Origin = 'VALOR_UNITARIO_MEDIA'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_TOTAL_MEDIA: TBCDField
-      FieldName = 'VALOR_TOTAL_MEDIA'
-      Origin = 'VALOR_TOTAL_MEDIA'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
     end
     object cdsTabelaItensUSUARIO: TStringField
       FieldName = 'USUARIO'
@@ -4972,6 +4882,61 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       Origin = 'UNP_SIGLA'
       ProviderFlags = []
       Size = 5
+    end
+    object cdsTabelaItensQUANTIDADE: TFMTBCDField
+      FieldName = 'QUANTIDADE'
+      Origin = 'QUANTIDADE'
+      Required = True
+      Precision = 18
+      Size = 3
+    end
+    object cdsTabelaItensVALOR_UNITARIO_REF: TFMTBCDField
+      FieldName = 'VALOR_UNITARIO_REF'
+      Origin = 'VALOR_UNITARIO_REF'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_TOTAL_REF: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_REF'
+      Origin = 'VALOR_TOTAL_REF'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_UNITARIO_MIN: TFMTBCDField
+      FieldName = 'VALOR_UNITARIO_MIN'
+      Origin = 'VALOR_UNITARIO_MIN'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_TOTAL_MIN: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_MIN'
+      Origin = 'VALOR_TOTAL_MIN'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_UNITARIO_MAX: TFMTBCDField
+      FieldName = 'VALOR_UNITARIO_MAX'
+      Origin = 'VALOR_UNITARIO_MAX'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_TOTAL_MAX: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_MAX'
+      Origin = 'VALOR_TOTAL_MAX'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_UNITARIO_MEDIA: TFMTBCDField
+      FieldName = 'VALOR_UNITARIO_MEDIA'
+      Origin = 'VALOR_UNITARIO_MEDIA'
+      Precision = 18
+      Size = 2
+    end
+    object cdsTabelaItensVALOR_TOTAL_MEDIA: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_MEDIA'
+      Origin = 'VALOR_TOTAL_MEDIA'
+      Precision = 18
+      Size = 2
     end
   end
   object updTabelaItens: TFDUpdateSQL
@@ -5165,27 +5130,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       Origin = 'USUARIO'
       Size = 12
     end
-    object qryFornecedorVALOR_TOTAL_BRUTO: TBCDField
-      FieldName = 'VALOR_TOTAL_BRUTO'
-      Origin = 'VALOR_TOTAL_BRUTO'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object qryFornecedorVALOR_TOTAL_DESCONTO: TBCDField
-      FieldName = 'VALOR_TOTAL_DESCONTO'
-      Origin = 'VALOR_TOTAL_DESCONTO'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object qryFornecedorVALOR_TOTAL_LIQUIDO: TBCDField
-      FieldName = 'VALOR_TOTAL_LIQUIDO'
-      Origin = 'VALOR_TOTAL_LIQUIDO'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
     object qryFornecedorVENCEDOR: TSmallintField
       Alignment = taCenter
       FieldName = 'VENCEDOR'
@@ -5234,6 +5178,24 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       Origin = 'ITENS'
       ProviderFlags = []
       DisplayFormat = ',0'
+    end
+    object qryFornecedorVALOR_TOTAL_BRUTO: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_BRUTO'
+      Origin = 'VALOR_TOTAL_BRUTO'
+      Precision = 18
+      Size = 2
+    end
+    object qryFornecedorVALOR_TOTAL_DESCONTO: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_DESCONTO'
+      Origin = 'VALOR_TOTAL_DESCONTO'
+      Precision = 18
+      Size = 2
+    end
+    object qryFornecedorVALOR_TOTAL_LIQUIDO: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_LIQUIDO'
+      Origin = 'VALOR_TOTAL_LIQUIDO'
+      Precision = 18
+      Size = 2
     end
   end
   object updFornecedor: TFDUpdateSQL

@@ -3,7 +3,7 @@ unit FuncoesFormulario;
 interface
 
 uses
-  Classes, Forms, Controls,  UObserverInterface;
+  Forms, Controls, System.Classes, System.SysUtils, UObserverInterface;
 
 type
   TFormularios = class
@@ -147,7 +147,11 @@ begin
       Result := (FForm.ShowModal = mrOk);
     end;
   finally
-    FForm.Free;
+    try
+      FForm.Free;
+    except
+      FreeAndNil( FForm );
+    end;
   end;
 end;
 

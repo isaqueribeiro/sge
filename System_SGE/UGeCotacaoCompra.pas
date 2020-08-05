@@ -160,16 +160,6 @@ type
     fdQryTabelaCANCELADO_DATA: TDateField;
     fdQryTabelaCANCELADO_USUARIO: TStringField;
     fdQryTabelaCANCELADO_MOTIVO: TMemoField;
-    fdQryTabelaVALOR_REF_TOTAL: TBCDField;
-    fdQryTabelaVALOR_MAX_BRUTO: TBCDField;
-    fdQryTabelaVALOR_MAX_DESCONTO: TBCDField;
-    fdQryTabelaVALOR_MAX_TOTAL: TBCDField;
-    fdQryTabelaVALOR_MIN_BRUTO: TBCDField;
-    fdQryTabelaVALOR_MIN_DESCONTO: TBCDField;
-    fdQryTabelaVALOR_MIN_TOTAL: TBCDField;
-    fdQryTabelaVALOR_MEDIA_BRUTO: TBCDField;
-    fdQryTabelaVALOR_MEDIA_DESCONTO: TBCDField;
-    fdQryTabelaVALOR_MEDIA_TOTAL: TBCDField;
     fdQryTabelaITENS: TIntegerField;
     cdsTabelaItens: TFDQuery;
     updTabelaItens: TFDUpdateSQL;
@@ -178,16 +168,7 @@ type
     cdsTabelaItensEMPRESA: TStringField;
     cdsTabelaItensSEQ: TSmallintField;
     cdsTabelaItensPRODUTO: TStringField;
-    cdsTabelaItensQUANTIDADE: TBCDField;
     cdsTabelaItensUNIDADE: TSmallintField;
-    cdsTabelaItensVALOR_UNITARIO_REF: TBCDField;
-    cdsTabelaItensVALOR_TOTAL_REF: TBCDField;
-    cdsTabelaItensVALOR_UNITARIO_MIN: TBCDField;
-    cdsTabelaItensVALOR_TOTAL_MIN: TBCDField;
-    cdsTabelaItensVALOR_UNITARIO_MAX: TBCDField;
-    cdsTabelaItensVALOR_TOTAL_MAX: TBCDField;
-    cdsTabelaItensVALOR_UNITARIO_MEDIA: TBCDField;
-    cdsTabelaItensVALOR_TOTAL_MEDIA: TBCDField;
     cdsTabelaItensUSUARIO: TStringField;
     cdsTabelaItensDESCRI_APRESENTACAO: TStringField;
     cdsTabelaItensUNP_DESCRICAO: TStringField;
@@ -207,9 +188,6 @@ type
     qryFornecedorOBSERVACAO: TMemoField;
     qryFornecedorATIVO: TSmallintField;
     qryFornecedorUSUARIO: TStringField;
-    qryFornecedorVALOR_TOTAL_BRUTO: TBCDField;
-    qryFornecedorVALOR_TOTAL_DESCONTO: TBCDField;
-    qryFornecedorVALOR_TOTAL_LIQUIDO: TBCDField;
     qryFornecedorVENCEDOR: TSmallintField;
     qryFornecedorNOMEFORN: TStringField;
     qryFornecedorCNPJ: TStringField;
@@ -225,6 +203,28 @@ type
     fdQryTipoCotacao: TFDQuery;
     spSetCotacaoFornecedorItem: TFDStoredProc;
     spSetCotacaoFornecedorProcessa: TFDStoredProc;
+    fdQryTabelaVALOR_REF_TOTAL: TFMTBCDField;
+    fdQryTabelaVALOR_MAX_BRUTO: TFMTBCDField;
+    fdQryTabelaVALOR_MAX_DESCONTO: TFMTBCDField;
+    fdQryTabelaVALOR_MAX_TOTAL: TFMTBCDField;
+    fdQryTabelaVALOR_MIN_BRUTO: TFMTBCDField;
+    fdQryTabelaVALOR_MIN_DESCONTO: TFMTBCDField;
+    fdQryTabelaVALOR_MIN_TOTAL: TFMTBCDField;
+    fdQryTabelaVALOR_MEDIA_BRUTO: TFMTBCDField;
+    fdQryTabelaVALOR_MEDIA_DESCONTO: TFMTBCDField;
+    fdQryTabelaVALOR_MEDIA_TOTAL: TFMTBCDField;
+    cdsTabelaItensQUANTIDADE: TFMTBCDField;
+    cdsTabelaItensVALOR_UNITARIO_REF: TFMTBCDField;
+    cdsTabelaItensVALOR_TOTAL_REF: TFMTBCDField;
+    cdsTabelaItensVALOR_UNITARIO_MIN: TFMTBCDField;
+    cdsTabelaItensVALOR_TOTAL_MIN: TFMTBCDField;
+    cdsTabelaItensVALOR_UNITARIO_MAX: TFMTBCDField;
+    cdsTabelaItensVALOR_TOTAL_MAX: TFMTBCDField;
+    cdsTabelaItensVALOR_UNITARIO_MEDIA: TFMTBCDField;
+    cdsTabelaItensVALOR_TOTAL_MEDIA: TFMTBCDField;
+    qryFornecedorVALOR_TOTAL_BRUTO: TFMTBCDField;
+    qryFornecedorVALOR_TOTAL_DESCONTO: TFMTBCDField;
+    qryFornecedorVALOR_TOTAL_LIQUIDO: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -477,6 +477,44 @@ begin
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
 
   UpdateGenerator( 'where ano = ' + FormatFloat('0000', YearOf(Date)) );
+
+  Tabela
+    .Display('CODIGO', 'Código', '###00000', TAlignment.taCenter)
+    .Display('INSERCAO_DATA', 'Data/Hora', 'dd/mm/yyyy hh:mm')
+    .Display('VALOR_REF_TOTAL',      'Valor Referência', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_MAX_BRUTO',      'Valor Bruto',      ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_MAX_DESCONTO',   'Valor Desconto',   ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_MAX_TOTAL',      'Valor Total',      ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_MIN_BRUTO',      'Valor Bruto',      ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_MIN_DESCONTO',   'Valor Desconto',   ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_MIN_TOTAL',      'Valor Total',      ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_MEDIA_BRUTO',    'Valor Bruto',      ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_MEDIA_DESCONTO', 'Valor Desconto',   ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_MEDIA_TOTAL',    'Valor Total',      ',0.00#', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
+
+  TTabelaController
+    .New
+    .Tabela( cdsTabelaItens )
+    .Display('SEQ', '#', '#00', TAlignment.taCenter)
+    .Display('QUANTIDADE', 'Quantidade', ',0.###', TAlignment.taRightJustify)
+    .Display('VALOR_UNITARIO_REF',   'Valor Ref.', ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_REF',      'Total Ref.', ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_UNITARIO_MIN',   'Valor Min.', ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_MIN',      'Total Min.', ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_UNITARIO_MAX',   'Valor Max.', ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_MAX',      'Total Max.', ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_UNITARIO_MEDIA', 'Valor Med.', ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_MEDIA',    'Total Med.', ',0.00#', TAlignment.taRightJustify)
+    .Configurar( cdsTabelaItens );
+
+  TTabelaController
+    .New
+    .Tabela( qryFornecedor )
+    .Display('VALOR_TOTAL_BRUTO',    'Total Bruto',    ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_DESCONTO', 'Total Desconto', ',0.00#', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_LIQUIDO',  'Total Líquido',  ',0.00#', TAlignment.taRightJustify)
+    .Configurar( qryFornecedor );
 end;
 
 procedure TfrmGeCotacaoCompra.btbtnIncluirClick(Sender: TObject);
