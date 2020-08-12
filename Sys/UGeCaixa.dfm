@@ -28,8 +28,6 @@ inherited frmGeCaixa: TfrmGeCaixa
     ExplicitWidth = 950
     ExplicitHeight = 460
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 942
       ExplicitHeight = 431
       inherited Bevel4: TBevel
@@ -891,10 +889,6 @@ inherited frmGeCaixa: TfrmGeCaixa
         object tbsMovimento: TTabSheet
           Caption = 'Movimento'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbgMovimento: TDBGrid
             Left = 0
             Top = 0
@@ -1379,22 +1373,6 @@ inherited frmGeCaixa: TfrmGeCaixa
       FieldName = 'CONTA_CORRENTE'
       Origin = 'CONTA_CORRENTE'
     end
-    object fdQryTabelaVALOR_TOTAL_CREDITO: TBCDField
-      DisplayLabel = 'Entrada (R$)'
-      FieldName = 'VALOR_TOTAL_CREDITO'
-      Origin = 'VALOR_TOTAL_CREDITO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaVALOR_TOTAL_DEBITO: TBCDField
-      DisplayLabel = 'Sa'#237'da (R$)'
-      FieldName = 'VALOR_TOTAL_DEBITO'
-      Origin = 'VALOR_TOTAL_DEBITO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
     object fdQryTabelaMOTIVO_CANCEL: TStringField
       DisplayLabel = 'Motivo do cancelamento'
       FieldName = 'MOTIVO_CANCEL'
@@ -1438,6 +1416,18 @@ inherited frmGeCaixa: TfrmGeCaixa
       Origin = 'FANTASIA'
       ProviderFlags = []
       Size = 60
+    end
+    object fdQryTabelaVALOR_TOTAL_CREDITO: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_CREDITO'
+      Origin = 'VALOR_TOTAL_CREDITO'
+      Precision = 18
+      Size = 2
+    end
+    object fdQryTabelaVALOR_TOTAL_DEBITO: TFMTBCDField
+      FieldName = 'VALOR_TOTAL_DEBITO'
+      Origin = 'VALOR_TOTAL_DEBITO'
+      Precision = 18
+      Size = 2
     end
   end
   inherited fdUpdTabela: TFDUpdateSQL
@@ -4272,10 +4262,9 @@ inherited frmGeCaixa: TfrmGeCaixa
       Origin = 'HISTORICO'
       Size = 250
     end
-    object qryMovimentoVALOR: TBCDField
+    object qryMovimentoVALOR: TFMTBCDField
       FieldName = 'VALOR'
       Origin = 'VALOR'
-      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
@@ -4370,17 +4359,15 @@ inherited frmGeCaixa: TfrmGeCaixa
       Origin = 'DESCRICAO'
       Size = 50
     end
-    object cdsCosolidadoTOTAL_CREDITO: TBCDField
+    object cdsCosolidadoTOTAL_CREDITO: TFMTBCDField
       FieldName = 'TOTAL_CREDITO'
       Origin = 'TOTAL_CREDITO'
-      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsCosolidadoTOTAL_DEBITO: TBCDField
+    object cdsCosolidadoTOTAL_DEBITO: TFMTBCDField
       FieldName = 'TOTAL_DEBITO'
       Origin = 'TOTAL_DEBITO'
-      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end

@@ -88,7 +88,6 @@ type
     qryMovimentoDATAHORA: TSQLTimeStampField;
     qryMovimentoTIPO: TStringField;
     qryMovimentoHISTORICO: TStringField;
-    qryMovimentoVALOR: TBCDField;
     qryMovimentoSITUACAO: TIntegerField;
     qryMovimentoVENDA_ANO: TSmallintField;
     qryMovimentoVENDA_NUM: TIntegerField;
@@ -106,8 +105,6 @@ type
     cdsCosolidadoSEQ: TSmallintField;
     cdsCosolidadoFORMA_PAGTO: TSmallintField;
     cdsCosolidadoDESCRICAO: TStringField;
-    cdsCosolidadoTOTAL_CREDITO: TBCDField;
-    cdsCosolidadoTOTAL_DEBITO: TBCDField;
     fdQryTabelaANO: TSmallintField;
     fdQryTabelaNUMERO: TIntegerField;
     fdQryTabelaDATA_ABERTURA: TDateField;
@@ -117,14 +114,17 @@ type
     fdQryTabelaUSUARIO_CANCEL: TStringField;
     fdQryTabelaSITUACAO: TSmallintField;
     fdQryTabelaCONTA_CORRENTE: TIntegerField;
-    fdQryTabelaVALOR_TOTAL_CREDITO: TBCDField;
-    fdQryTabelaVALOR_TOTAL_DEBITO: TBCDField;
     fdQryTabelaMOTIVO_CANCEL: TStringField;
     fdQryTabelaDESCRICAO: TStringField;
     fdQryTabelaTIPO: TStringField;
     fdQryTabelaEMPRESA: TStringField;
     fdQryTabelaEMPRESA_RAZAO: TStringField;
     fdQryTabelaEMPRESA_FANTASIA: TStringField;
+    fdQryTabelaVALOR_TOTAL_CREDITO: TFMTBCDField;
+    fdQryTabelaVALOR_TOTAL_DEBITO: TFMTBCDField;
+    cdsCosolidadoTOTAL_CREDITO: TFMTBCDField;
+    cdsCosolidadoTOTAL_DEBITO: TFMTBCDField;
+    qryMovimentoVALOR: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btbtnExcluirClick(Sender: TObject);
@@ -161,6 +161,7 @@ type
     procedure AbrirTabelaMovimento(const AnoCaixa : Smallint; const NumeroCaixa : Integer);
     procedure HabilitarDesabilitar_Btns;
     procedure ConsolidarCaixa(const AnoCaixa : Smallint; const NumeroCaixa : Integer);
+    procedure ConfigurarDisplayTabelas;
 
     function GetRotinaEncerrarCaixaID : String;
     function GetRotinaCancelarCaixaID : String;
@@ -211,7 +212,11 @@ const
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UDMNFe, UDMRecursos;
+    UConstantesDGE
+  , COntroller.Tabela
+  , UDMBusiness
+  , UDMNFe
+  , UDMRecursos;
 
 {$R *.dfm}
 
@@ -402,6 +407,8 @@ begin
 
   FAbrirCaixa  := False;
   FFecharCaixa := False;
+
+  ConfigurarDisplayTabelas;
 end;
 
 procedure TfrmGeCaixa.DtSrcTabelaStateChange(Sender: TObject);
@@ -834,6 +841,30 @@ procedure TfrmGeCaixa.btbtnListaClick(Sender: TObject);
 begin
   inherited;
   ppImprimir.Popup(btbtnLista.ClientOrigin.X, btbtnLista.ClientOrigin.Y + btbtnLista.Height);
+end;
+
+procedure TfrmGeCaixa.ConfigurarDisplayTabelas;
+begin
+  Tabela
+    .Display('NUMERO', 'Número', '###0000000', TAlignment.taCenter)
+    .Display('DATA_ABERTURA', 'Abertura', 'dd/mm/yyyy')
+    .Display('VALOR_TOTAL_CREDITO', 'Entrada (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_TOTAL_DEBITO',  'Saída (R$)',   ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
+
+  TTabelaController
+    .New
+    .Tabela( cdsCosolidado )
+    .Display('SEQ', '#', '#00', TAlignment.taCenter)
+    .Display('TOTAL_CREDITO', 'Total Entrada (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTAL_DEBITO',  'Total Saída (R$)',   ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsCosolidado );
+
+  TTabelaController
+    .New
+    .Tabela( qryMovimento )
+    .Display('VALOR', 'Valor (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( qryMovimento );
 end;
 
 procedure TfrmGeCaixa.ConsolidarCaixa(const AnoCaixa: Smallint;

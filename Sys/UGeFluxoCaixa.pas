@@ -137,18 +137,12 @@ type
     fdQryTipoReceita: TFDQuery;
     fdQrySaldosDias: TFDQuery;
     fdQrySaldosDiasSALDO_ANTERIOR_DATA: TDateField;
-    fdQrySaldosDiasSALDO_ANTERIOR_VALOR: TBCDField;
     fdQrySaldosDiasSALDO_INICIAL_DATA: TDateField;
-    fdQrySaldosDiasSALDO_INICIAL_VALOR: TBCDField;
     fdQrySaldosDiasSALDO_FINAL_DATA: TDateField;
-    fdQrySaldosDiasSALDO_FINAL_VALOR: TBCDField;
     fdQryConsolidadoFormaPagto: TFDQuery;
     fdQryConsolidadoFormaPagtoDATA: TDateField;
     fdQryConsolidadoFormaPagtoFORMA_PAGTO: TIntegerField;
     fdQryConsolidadoFormaPagtoFORMA_PAGTO_DESC: TStringField;
-    fdQryConsolidadoFormaPagtoSALDO: TBCDField;
-    fdQryConsolidadoFormaPagtoENTRADA: TBCDField;
-    fdQryConsolidadoFormaPagtoSAIDA: TBCDField;
     fdQryConsolidadoFormaPagtoSaldoDIsplay: TStringField;
     fdQryTabelaANO: TSmallintField;
     fdQryTabelaNUMERO: TIntegerField;
@@ -161,7 +155,6 @@ type
     fdQryTabelaTIPO_RECEITA: TSmallintField;
     fdQryTabelaTIPO_DESPESA: TSmallintField;
     fdQryTabelaHISTORICO: TStringField;
-    fdQryTabelaVALOR: TBCDField;
     fdQryTabelaSITUACAO: TSmallintField;
     fdQryTabelaVENDA_ANO: TSmallintField;
     fdQryTabelaVENDA_NUM: TIntegerField;
@@ -175,8 +168,6 @@ type
     fdQryTabelaFORMA_PAGTO_DESC: TStringField;
     fdQryTabelaNOME_CLENTE: TStringField;
     fdQryTabelaNOME_FORNECEDOR: TStringField;
-    fdQryTabelaVALOR_CREDITO: TBCDField;
-    fdQryTabelaVALOR_DEBITO: TBCDField;
     fdQryTabelaDATA: TDateField;
     fdQryTabelaHORA: TTimeField;
     fdQryTabelaVENDA: TStringField;
@@ -207,7 +198,6 @@ type
     CdsReciboDTEMISS: TDateField;
     CdsReciboDTVENC: TDateField;
     CdsReciboDTPAG: TDateField;
-    CdsReciboVALORPAG: TBCDField;
     CdsReciboBANCO: TIntegerField;
     CdsReciboBCO_NOME: TStringField;
     CdsReciboNUMCHQ: TStringField;
@@ -220,7 +210,17 @@ type
     CdsReciboFORMA_PAGTO: TSmallintField;
     CdsReciboFORMA_PAGTO_DESC: TStringField;
     CdsReciboHISTORICO: TStringField;
-    CdsReciboVALOR_BAIXA: TBCDField;
+    CdsReciboVALORPAG: TFMTBCDField;
+    CdsReciboVALOR_BAIXA: TFMTBCDField;
+    fdQryTabelaVALOR: TFMTBCDField;
+    fdQryTabelaVALOR_CREDITO: TFMTBCDField;
+    fdQryTabelaVALOR_DEBITO: TFMTBCDField;
+    fdQrySaldosDiasSALDO_ANTERIOR_VALOR: TFMTBCDField;
+    fdQrySaldosDiasSALDO_INICIAL_VALOR: TFMTBCDField;
+    fdQrySaldosDiasSALDO_FINAL_VALOR: TFMTBCDField;
+    fdQryConsolidadoFormaPagtoSALDO: TFMTBCDField;
+    fdQryConsolidadoFormaPagtoENTRADA: TFMTBCDField;
+    fdQryConsolidadoFormaPagtoSAIDA: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure edContaCorrentePesqChange(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -303,8 +303,15 @@ const
 implementation
 
 uses
-  DateUtils, UDMBusiness, UGeCliente, UGeFornecedor, UGeCaixa, UDMNFe,
-  UConstantesDGE, UDMRecursos;
+    DateUtils
+  , Controller.Tabela
+  , UConstantesDGE
+  , UDMBusiness
+  , UDMNFe
+  , UDMRecursos
+  , UGeCliente
+  , UGeFornecedor
+  , UGeCaixa;
 
 {$R *.dfm}
 
@@ -385,6 +392,29 @@ begin
   CampoCodigo    := 'm.Numero';
   CampoDescricao := 'm.Historico';
   CampoOrdenacao := 'm.Ano, m.Numero';
+
+  Tabela
+    .Display('NUMERO', 'Código', '###0000000', TAlignment.taCenter)
+    .Display('VALOR', 'Valor (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_CREDITO', 'Crédito (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_DEBITO',  'Débito (R$)',  ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
+
+  TTabelaController
+    .New
+    .Tabela( fdQrySaldosDias )
+    .Display('SALDO_ANTERIOR_VALOR', 'Saldo Anterior (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('SALDO_INICIAL_VALOR',  'Saldo Inicial (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('SALDO_FINAL_VALOR',    'Saldo Final (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQrySaldosDias );
+
+  TTabelaController
+    .New
+    .Tabela( fdQryConsolidadoFormaPagto )
+    .Display('SALDO',   'Saldo', ',0.00', TAlignment.taRightJustify)
+    .Display('ENTRADA', 'Entradas', '"+",0.00', TAlignment.taRightJustify)
+    .Display('SAIDA',   'Saídas',   '"-",0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryConsolidadoFormaPagto );
 end;
 
 procedure TfrmGeFluxoCaixa.FormShow(Sender: TObject);
@@ -404,14 +434,20 @@ end;
 
 procedure TfrmGeFluxoCaixa.fdQryConsolidadoFormaPagtoCalcFields(
   DataSet: TDataSet);
+var
+  aSaldo : String;
 begin
   if ( fdQryConsolidadoFormaPagtoFORMA_PAGTO.AsInteger > 0 ) then
     fdQryConsolidadoFormaPagtoSaldoDisplay.AsString := EmptyStr
   else
+  begin
+    aSaldo := FormatFloat(',0.00', fdQryConsolidadoFormaPagtoSALDO.AsCurrency);
+
     if ( fdQryConsolidadoFormaPagtoSALDO.AsCurrency >= 0 ) then
-      fdQryConsolidadoFormaPagtoSaldoDisplay.AsString := FormatFloat(',0.00', fdQryConsolidadoFormaPagtoSALDO.AsCurrency)
+      fdQryConsolidadoFormaPagtoSaldoDisplay.AsString := aSaldo
     else
-      fdQryConsolidadoFormaPagtoSaldoDisplay.AsString := FormatFloat('"- ",0.00', fdQryConsolidadoFormaPagtoSALDO.AsCurrency);
+      fdQryConsolidadoFormaPagtoSaldoDisplay.AsString := StringReplace(aSaldo, '-', '- ', [rfReplaceAll]);
+  end;
 end;
 
 procedure TfrmGeFluxoCaixa.fdQryTabelaNewRecord(DataSet: TDataSet);

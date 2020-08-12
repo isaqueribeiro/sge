@@ -103,7 +103,6 @@ type
     CdsReciboDTEMISS: TDateField;
     CdsReciboDTVENC: TDateField;
     CdsReciboDTPAG: TDateField;
-    CdsReciboVALORPAG: TBCDField;
     CdsReciboBANCO: TSmallintField;
     CdsReciboBCO_NOME: TStringField;
     CdsReciboNUMCHQ: TStringField;
@@ -116,7 +115,6 @@ type
     CdsReciboFORMA_PAGTO: TSmallintField;
     CdsReciboFORMA_PAGTO_DESC: TStringField;
     CdsReciboHISTORICO: TMemoField;
-    CdsReciboVALOR_BAIXA: TBCDField;
     fdQryTabelaANOLANC: TSmallintField;
     fdQryTabelaNUMLANC: TIntegerField;
     fdQryTabelaEMPRESA: TStringField;
@@ -130,8 +128,6 @@ type
     fdQryTabelaDTEMISS: TDateField;
     fdQryTabelaDTVENC: TDateField;
     fdQryTabelaDTPAG: TDateField;
-    fdQryTabelaVALORPAG: TBCDField;
-    fdQryTabelaVALORSALDO: TBCDField;
     fdQryTabelaBANCO: TSmallintField;
     fdQryTabelaBCO_NOME: TStringField;
     fdQryTabelaNUMCHQ: TStringField;
@@ -155,12 +151,16 @@ type
     cdsPagamentosDATA_PAGTO: TDateField;
     cdsPagamentosFORMA_PAGTO: TSmallintField;
     cdsPagamentosFORMA_PAGTO_DESC: TStringField;
-    cdsPagamentosVALOR_BAIXA: TBCDField;
     cdsPagamentosNUMERO_CHEQUE: TStringField;
     cdsPagamentosBANCO: TSmallintField;
     cdsPagamentosBANCO_FEBRABAN: TStringField;
     cdsPagamentosBCO_NOME: TStringField;
     cdsPagamentosDOCUMENTO_BAIXA: TStringField;
+    fdQryTabelaVALORPAG: TFMTBCDField;
+    fdQryTabelaVALORSALDO: TFMTBCDField;
+    CdsReciboVALORPAG: TFMTBCDField;
+    CdsReciboVALOR_BAIXA: TFMTBCDField;
+    cdsPagamentosVALOR_BAIXA: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -242,8 +242,14 @@ const
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UGeFornecedor, DateUtils, UGeEfetuarPagtoPAG,
-  UGrPadrao, UGeContasAPagarLoteParcela;
+    DateUtils
+  , Controller.Tabela
+  , UGrPadrao
+  , UConstantesDGE
+  , UDMBusiness
+  , UGeFornecedor
+  , UGeEfetuarPagtoPAG
+  , UGeContasAPagarLoteParcela;
 
 {$R *.dfm}
 
@@ -320,6 +326,18 @@ begin
     '(p.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ')' +
     ' and (cast(p.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
     ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')';
+
+  Tabela
+    .Display('NUMLANC', 'Código', '###0000000', TAlignment.taCenter)
+    .Display('VALORPAG', 'Valor A Pagar (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORSALDO', 'Saldo A Pagar (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
+
+  TTabelaController
+    .New
+    .Tabela( cdsPagamentos )
+    .Display('VALOR_BAIXA', 'Valor Pago (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsPagamentos );
 end;
 
 procedure TfrmGeContasAPagar.dbFornecedorButtonClick(Sender: TObject);

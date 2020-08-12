@@ -126,7 +126,6 @@ type
     CdsReciboDTEMISS: TDateField;
     CdsReciboDTVENC: TDateField;
     CdsReciboDTREC: TDateField;
-    CdsReciboVALORREC: TBCDField;
     CdsReciboBANCO: TSmallintField;
     CdsReciboBCO_NOME: TStringField;
     CdsReciboNUMERO_CHEQUE: TStringField;
@@ -138,7 +137,6 @@ type
     CdsReciboFORMA_PAGTO: TSmallintField;
     CdsReciboFORMA_PAGTO_DESC: TStringField;
     CdsReciboHISTORICO: TMemoField;
-    CdsReciboVALOR_BAIXA: TBCDField;
     fdQryTabelaANOLANC: TSmallintField;
     fdQryTabelaNUMLANC: TIntegerField;
     fdQryTabelaPARCELA: TSmallintField;
@@ -154,17 +152,10 @@ type
     fdQryTabelaDTVENC: TDateField;
     fdQryTabelaDTREC: TDateField;
     fdQryTabelaDOCBAIX: TStringField;
-    fdQryTabelaVALORREC: TBCDField;
-    fdQryTabelaVALORMULTA: TBCDField;
-    fdQryTabelaVALORRECTOT: TBCDField;
     fdQryTabelaNUMCONTRATO: TStringField;
     fdQryTabelaCODBANCO: TIntegerField;
     fdQryTabelaNOSSONUMERO: TStringField;
     fdQryTabelaREMESSA: TIntegerField;
-    fdQryTabelaVALORSALDO: TBCDField;
-    fdQryTabelaPERCENTJUROS: TCurrencyField;
-    fdQryTabelaPERCENTMULTA: TCurrencyField;
-    fdQryTabelaPERCENTDESCONTO: TCurrencyField;
     fdQryTabelaDATAPROCESSOBOLETO: TDateField;
     fdQryTabelaBAIXADO: TSmallintField;
     fdQryTabelaENVIADO: TSmallintField;
@@ -190,12 +181,21 @@ type
     cdsPagamentosDATA_PAGTO: TDateField;
     cdsPagamentosFORMA_PAGTO: TSmallintField;
     cdsPagamentosFORMA_PAGTO_DESC: TStringField;
-    cdsPagamentosVALOR_BAIXA: TBCDField;
     cdsPagamentosNUMERO_CHEQUE: TStringField;
     cdsPagamentosBANCO: TSmallintField;
     cdsPagamentosBANCO_FEBRABAN: TStringField;
     cdsPagamentosBCO_NOME: TStringField;
     cdsPagamentosDOCUMENTO_BAIXA: TStringField;
+    cdsPagamentosVALOR_BAIXA: TFMTBCDField;
+    fdQryTabelaVALORREC: TFMTBCDField;
+    fdQryTabelaVALORMULTA: TFMTBCDField;
+    fdQryTabelaVALORRECTOT: TFMTBCDField;
+    fdQryTabelaVALORSALDO: TFMTBCDField;
+    fdQryTabelaPERCENTJUROS: TCurrencyField;
+    fdQryTabelaPERCENTMULTA: TCurrencyField;
+    fdQryTabelaPERCENTDESCONTO: TCurrencyField;
+    CdsReciboVALORREC: TFMTBCDField;
+    CdsReciboVALOR_BAIXA: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -279,8 +279,13 @@ const
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UGeCliente, DateUtils, UGeEfetuarPagtoREC,
-  UGeContasAReceberLoteParcela;
+    DateUtils
+  , Controller.Tabela
+  , UConstantesDGE
+  , UDMBusiness
+  , UGeCliente
+  , UGeEfetuarPagtoREC
+  , UGeContasAReceberLoteParcela;
 
 {$R *.dfm}
 
@@ -358,6 +363,23 @@ begin
     '( (r.empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and (r.Situacao > 0) and (r.Parcela > 0) ) and (' +
     'cast(r.dtvenc as date) between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
     ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')';
+
+  Tabela
+    .Display('NUMLANC', 'Código', '###0000000', TAlignment.taCenter)
+    .Display('VALORREC', 'Valor A Receber (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORMULTA', 'Valor Multa', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORRECTOT', 'Valor Total Recebido', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORSALDO', 'Valor Saldo', ',0.00', TAlignment.taRightJustify)
+    .Display('PERCENTJUROS', '% Juros', ',0.00#', TAlignment.taRightJustify)
+    .Display('PERCENTMULTA', '% Multa', ',0.00#', TAlignment.taRightJustify)
+    .Display('PERCENTDESCONTO', '% Desconto', ',0.00#', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
+
+  TTabelaController
+    .New
+    .Tabela( cdsPagamentos )
+    .Display('VALOR_BAIXA', 'Valor Pago (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsPagamentos );
 end;
 
 procedure TfrmGeContasAReceber.dbClienteButtonClick(Sender: TObject);

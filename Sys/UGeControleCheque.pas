@@ -118,7 +118,6 @@ type
     fdQryTabelaDATA_APRESENTACAO: TDateField;
     fdQryTabelaDATA_DEVOLUCAO: TDateField;
     fdQryTabelaDATA_COMPENSACAO: TDateField;
-    fdQryTabelaVALOR: TBCDField;
     fdQryTabelaNOMINAL_A: TStringField;
     fdQryTabelaDATA_CADASTRO: TDateField;
     fdQryTabelaUSUARIO_CADASTRO: TStringField;
@@ -142,7 +141,6 @@ type
     qryBaixasNUMLANC: TIntegerField;
     qryBaixasSEQ: TSmallintField;
     qryBaixasDATA_PAGTO: TDateField;
-    qryBaixasVALOR_BAIXA: TBCDField;
     qryBaixasDOCUMENTO_BAIXA: TStringField;
     qryBaixasUSUARIO: TStringField;
     qryBaixasNOME: TStringField;
@@ -162,7 +160,6 @@ type
     CdsChequeDATA_EMISSAO: TDateField;
     CdsChequeDATA_APRESENTACAO: TDateField;
     CdsChequeDATA_COMPENSACAO: TDateField;
-    CdsChequeVALOR: TBCDField;
     CdsChequeNOMINAL_A: TStringField;
     CdsChequeDATA_CADASTRO: TDateField;
     CdsChequeUSUARIO_CADASTRO: TStringField;
@@ -188,7 +185,6 @@ type
     QryChequeDATA_EMISSAO: TDateField;
     QryChequeDATA_APRESENTACAO: TDateField;
     QryChequeDATA_COMPENSACAO: TDateField;
-    QryChequeVALOR: TBCDField;
     QryChequeNOMINAL_A: TStringField;
     QryChequeDATA_CADASTRO: TDateField;
     QryChequeUSUARIO_CADASTRO: TStringField;
@@ -199,6 +195,10 @@ type
     QryChequeEMISSOR_NOME: TStringField;
     QryChequeEMISSOR_CNPJ: TStringField;
     QryChequeEMISSOR_PF: TSmallintField;
+    fdQryTabelaVALOR: TFMTBCDField;
+    QryChequeVALOR: TFMTBCDField;
+    CdsChequeVALOR: TFMTBCDField;
+    qryBaixasVALOR_BAIXA: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure dbEmissorNomeButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -276,8 +276,15 @@ type
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UGeCliente, DateUtils, UGrMemoData,
-  UGeFornecedorClientePesquisa, UDMRecursos, UDMNFe;
+    DateUtils
+  , Controller.Tabela
+  , UConstantesDGE
+  , UDMBusiness
+  , UDMRecursos
+  , UDMNFe
+  , UGeCliente
+  , UGrMemoData
+  , UGeFornecedorClientePesquisa;
 
 {$R *.dfm}
 
@@ -352,6 +359,18 @@ begin
   FChequeParaBaixa := False;
 
   AddWhereAdditional;
+
+  Tabela
+    .Display('CONTROLE', 'Controle', '###0000000', TAlignment.taCenter)
+    .Display('DATA_CADASTRO', 'Cadastrado em:', 'dd/mm/yyyy')
+    .Display('VALOR', 'Valor (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
+
+  TTabelaController
+    .New
+    .Tabela( qryBaixas )
+    .Display('VALOR_BAIXA', 'Valor (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( qryBaixas );
 end;
 
 procedure TfrmGeControleCheque.dbEmissorNomeButtonClick(Sender: TObject);

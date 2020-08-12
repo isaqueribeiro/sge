@@ -958,7 +958,7 @@ begin
     try
 //      (aForm.FindComponent('Yes') as TButton).Caption  := 'Sim';
 //      (aForm.FindComponent('No')  as TButton).Caption  := 'Não';
-
+      aForm.Caption := 'Alerta!';
       aForm.ShowModal;
     finally
       FreeAndNil(aForm);
@@ -1025,6 +1025,7 @@ end;
 procedure ShowError(sMsg : String);
 var
   sLOG_Error : TStringList;
+  aForm : TForm;
 begin
   WaitAMomentFree;
 
@@ -1041,9 +1042,14 @@ begin
     ForceDirectories(ExtractFilePath(Application.ExeName) + '_logError\');
     sLOG_Error.SaveToFile(ExtractFilePath(Application.ExeName) + '_logError\' + FormatDateTime('yyyy-mm-dd.hhmmss".log"', Now));
 
-    MessageDlg(PChar(sMsg), TMsgDlgType.mtError, [mbOK], 0);
+    aForm := CreateMessageDialog(PChar(sMsg), TMsgDlgType.mtError, [mbOK], TMsgDlgBtn.mbOK);
+
+    aForm.Caption := 'Erro';
+    aForm.ShowModal;
+    //MessageDlg(PChar(sMsg), TMsgDlgType.mtError, [mbOK], 0);
   finally
     sLOG_Error.Free;
+    FreeAndNil(aForm);
   end;
 end;
 
@@ -1051,6 +1057,7 @@ procedure ShowErrorNotify(Sender: TObject; E: Exception);
 var
   sLOG_File  : String;
   sLOG_Error : TStringList;
+  aForm : TForm;
 begin
   WaitAMomentFree;
 
@@ -1072,9 +1079,14 @@ begin
     ForceDirectories(ExtractFilePath(sLOG_File));
     sLOG_Error.SaveToFile(sLOG_File);
 
-    MessageDlg(PChar(E.Message), mtError, [mbOK], 0);
+    aForm := CreateMessageDialog(PChar(E.Message), TMsgDlgType.mtError, [mbOK], TMsgDlgBtn.mbOK);
+
+    aForm.Caption := '.:: Erro ::.';
+    aForm.ShowModal;
+    //MessageDlg(PChar(E.Message), mtError, [mbOK], 0);
   finally
     sLOG_Error.Free;
+    FreeAndNil(aForm);
   end;
 end;
 
