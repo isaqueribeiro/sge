@@ -3,7 +3,8 @@ unit UDMNFSe;
 interface
 
 uses
-  UInfoVersao,
+  Interacao.Versao,
+  Controller.Versao,
   UDMBusiness,
   UEcfFactory,
 
@@ -299,9 +300,9 @@ begin
 
       with aEcf do
       begin
-        Ecf.SoftHouse := GetCompanyName;
-        Ecf.Sistema   := GetProductName;
-        Ecf.Versao    := GetProductVersion;
+        Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
+        Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
+        Ecf.Versao    := TVersaoController.GetInstance().ProductVersion;
 
         Ecf.Identifica_CupomOS(Now, FormatFloat('###0000000', iNumOS), fdQryOSCalculoImposto.FieldByName('RESPONSAVEL_NOME').AsString);
 
@@ -540,9 +541,9 @@ begin
 
         with aEcf do
         begin
-          Ecf.SoftHouse := GetCompanyName;
-          Ecf.Sistema   := GetProductName;
-          Ecf.Versao    := GetVersion;
+          Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
+          Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
+          Ecf.Versao    := TVersaoController.GetInstance().ProductVersion;
 
           Ecf.Identifica_CupomOS(Now, FormatFloat('###0000000', iNumOS), fdQryOSCalculoImposto.FieldByName('RESPONSAVEL_NOME').AsString);
           Ecf.Titulo_Livre( 'RELATORIO GERENCIAL' );
@@ -713,9 +714,9 @@ begin
 
     with aEcf do
     begin
-      Ecf.SoftHouse := GetCompanyName;
-      Ecf.Sistema   := GetProductName;
-      Ecf.Versao    := GetProductVersion;
+      Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
+      Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
+      Ecf.Versao    := TVersaoController.GetInstance().ProductVersion;
 
       Ecf.Identifica_CupomOS(Now, FormatFloat('###0000000', iNumOS), fdQryOSCalculoImposto.FieldByName('RESPONSAVEL_NOME').AsString);
 

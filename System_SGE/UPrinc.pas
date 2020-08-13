@@ -541,7 +541,7 @@ end;
 procedure TfrmPrinc.BrBtnUpgradeClick(Sender: TObject);
 begin
   if DMBusiness.LiberarUsoLicenca(GetDateDB, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeAutoUpgrade');
+    FormFunction.ShowModalForm(Self, 'FrmAutoUpgrade');
 end;
 
 procedure TfrmPrinc.btnClienteClick(Sender: TObject);
@@ -899,6 +899,9 @@ begin
     aConexao := fdConexao.Params.Values['Server'] + '/' + fdConexao.Params.Values['Port'] + ':' + fdConexao.Params.Values['Database'];
 
   stbMain.Panels[1].Text := AnsiLowerCase(gUsuarioLogado.Login + '@' + aConexao);
+
+  if (gUsuarioLogado.Empresa <> gLicencaSistema.Empresa) then
+    stbMain.Panels.Items[2].Text := '[' + GetEmpresaNome(gUsuarioLogado.Empresa) + '] | ' + stbMain.Panels.Items[2].Text;
 end;
 
 procedure TfrmPrinc.nmGerarBoletoClick(Sender: TObject);

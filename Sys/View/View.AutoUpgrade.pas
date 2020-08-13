@@ -82,14 +82,13 @@ uses
 
 procedure AtivarUpgradeAutomatico;
 begin
-  if FormFunction.EstaAberto('frmGeAutoUpgrade') or Assigned(FrmAutoUpgrade) then
+  if FormFunction.EstaAberto('FrmAutoUpgrade') or Assigned(FrmAutoUpgrade) then
     Exit;
 
   try
     try
 
       FrmAutoUpgrade := TFrmAutoUpgrade.Create(Application);
-      //frmGeAutoUpgrade.AutoUpgraderPro.AutoCheck := True;
 
       with FrmAutoUpgrade do
       begin

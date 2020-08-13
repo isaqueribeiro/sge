@@ -346,6 +346,7 @@ type
     procedure AlertarCliente;
     procedure ConfigurarRotuloBotoes;
     procedure Notificar;
+    procedure GetInformacoesGerais;
   end;
 
 var
@@ -360,8 +361,9 @@ uses
   UDMNFe,
   UFuncoes,
   UConstantesDGE,
-  UGrAutoUpgrade,
-  UGeSobre,
+
+  View.AutoUpgrade,
+  View.Abertura,
 
   // Movimentação
   UGeSolicitacaoCompra,  
@@ -630,7 +632,7 @@ end;
 procedure TfrmPrinc.BrBtnUpgradeClick(Sender: TObject);
 begin
   if DMBusiness.LiberarUsoLicenca(GetDateDB, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeAutoUpgrade');
+    FormFunction.ShowModalForm(Self, 'FrmAutoUpgrade');
 end;
 
 procedure TfrmPrinc.btnClienteClick(Sender: TObject);
@@ -857,21 +859,12 @@ var
   sHostName ,
   aProcesso : String;
 begin
+  GetInformacoesGerais;
+
   if not DataBaseOnLine then
     Exit;
 
-  if ( StrIsCNPJ(gLicencaSistema.CNPJ) ) then
-    sCNPJ := 'CNPJ: ' + StrFormatarCnpj(gLicencaSistema.CNPJ)
-  else
-    sCNPJ := 'CPF: ' + StrFormatarCpf(gLicencaSistema.CNPJ);
-
-  stbMain.Panels.Items[2].Text := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ]);
-  BrBtnAlterarSenha.Caption    := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
-  BrBtnAlterarSenha.Hint       := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
-
   Self.WindowState := wsMaximized;
-
-  BrBtnRequisicaoCliente.Enabled := GetEstoqueSateliteEmpresa( gUsuarioLogado.Empresa );
 
   if not DMBusiness.LiberarUsoLicenca(GetDateDB, True) then
   begin
@@ -907,6 +900,8 @@ begin
     BrBtnContaAReceber.Enabled := False;
   end;
 
+  BrBtnRequisicaoCliente.Enabled := GetEstoqueSateliteEmpresa( gUsuarioLogado.Empresa );
+
   if not gLicencaSistema.UsarSGI then
   begin
     ShowWarning(
@@ -923,18 +918,18 @@ end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
 var
-  sFileImageWallPaper : String;
+  sFileImage : String;
 begin
   Self.Tag := SISTEMA_GESTAO_IND;
 
   gSistema.Codigo := Self.Tag;
   gSistema.Nome   := Self.Caption;
 
-  Self.Caption             := Application.Title + ' [ v' + GetExeVersion + ' ]';
-  Self.ProductName.Caption := GetInternalName;
-  Self.FileDescription.Caption := GetFileDescription;
-  Self.Version.Caption     := 'Versão ' + GetExeVersion;
-  Self.Copyright.Caption   := GetCopyright;
+  Self.Caption             := Application.Title + ' [ v' + gVersaoApp.Version + ' ]';
+  Self.ProductName.Caption := gPersonalizaEmpresa.InternalName;
+  Self.FileDescription.Caption := gPersonalizaEmpresa.FileDescription;
+  Self.Version.Caption     := 'Versão ' + gVersaoApp.Version;
+  Self.Copyright.Caption   := gVersaoApp.Copyright;
   Self.DisableAero         := True;
 
   Ribbon.ActiveTab := RbnTabPrincipal;
@@ -943,11 +938,12 @@ begin
   // Carregar Imagem de Fundo da Tele Principal
   if GetCarregarPapelDeParedeLocal then
   begin
-    sFileImageWallPaper := gPersonalizaEmpresa.FileNameImagePNG_Wallpaper;
+    //sFileImage := ExtractFilePath(Application.ExeName) + FILE_WALLPAPER;
+    sFileImage := gPersonalizaEmpresa.FileNameImagePNG_Wallpaper;
 
-    if ( FileExists(sFileImageWallPaper) ) then
+    if ( FileExists(sFileImage) ) then
     begin
-      imgFundo.Picture.LoadFromFile(sFileImageWallPaper);
+      imgFundo.Picture.LoadFromFile(sFileImage);
       imgFundo.Center := True;
     end;
   end;
@@ -960,8 +956,31 @@ begin
     Exit;
 
   FAcesso := False;
-  SetSistema(gSistema.Codigo, gSistema.Nome, GetVersion);
+  SetSistema(gSistema.Codigo, gSistema.Nome, gVersaoApp.Version);
   RegistrarRotinasMenu;
+end;
+
+procedure TfrmPrinc.GetInformacoesGerais;
+var
+  sCNPJ    ,
+  aConexao : String;
+begin
+  if ( StrIsCNPJ(gLicencaSistema.CNPJ) ) then
+    sCNPJ := 'CNPJ: ' + StrFormatarCnpj(gLicencaSistema.CNPJ)
+  else
+    sCNPJ := 'CPF: ' + StrFormatarCpf(gLicencaSistema.CNPJ);
+
+  stbMain.Panels.Items[2].Text := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ]);
+  BrBtnAlterarSenha.Caption    := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
+  BrBtnAlterarSenha.Hint       := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
+
+  with DMBusiness do
+    aConexao := fdConexao.Params.Values['Server'] + '/' + fdConexao.Params.Values['Port'] + ':' + fdConexao.Params.Values['Database'];
+
+  stbMain.Panels[1].Text := AnsiLowerCase(gUsuarioLogado.Login + '@' + aConexao);
+
+  if (gUsuarioLogado.Empresa <> gLicencaSistema.Empresa) then
+    stbMain.Panels.Items[2].Text := '[' + GetEmpresaNome(gUsuarioLogado.Empresa) + '] | ' + stbMain.Panels.Items[2].Text;
 end;
 
 procedure TfrmPrinc.nmGerarBoletoClick(Sender: TObject);
@@ -1374,7 +1393,9 @@ end;
 
 procedure TfrmPrinc.nmEfetuarLogoffClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'FrmEfetuarLogin');
+  gUsuarioLogado.LogOff;
+  if ExecutarLogin() then
+    GetInformacoesGerais;
 end;
 
 procedure TfrmPrinc.nmRequisicaoCompraClick(Sender: TObject);

@@ -183,7 +183,7 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UGrPadrao, UFuncoes, UDMNFe,
+  UConstantesDGE, UDMRecursos, UDMBusiness, UGrPadrao, UFuncoes, UDMNFe,
   UGeBairro, UGeCidade, UGeDistrito, UGeEstado, UGeLogradouro, UGrUsuario;
 
 {$R *.dfm}

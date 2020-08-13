@@ -1885,16 +1885,12 @@ inherited frmGeVenda: TfrmGeVenda
         Top = 427
         Width = 1108
         Height = 186
-        ActivePage = tbsTransporte
+        ActivePage = tbsRecebimento
         Align = alBottom
         TabOrder = 3
         object tbsRecebimento: TTabSheet
           BorderWidth = 4
           Caption = 'Recebimento'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object pnlObservacao: TPanel
             Left = 0
             Top = 0
@@ -1906,11 +1902,12 @@ inherited frmGeVenda: TfrmGeVenda
             object lblObservacao: TLabel
               Left = 0
               Top = 0
-              Width = 67
+              Width = 520
               Height = 13
               Align = alTop
               Caption = '&Observa'#231#245'es:'
               FocusControl = dbObservacao
+              ExplicitWidth = 67
             end
             object Bevel14: TBevel
               Left = 516
@@ -2402,10 +2399,6 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsDadosEntrega: TTabSheet
           Caption = 'Dados para Entrega'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object pnlDadosEntrega: TPanel
             Left = 0
             Top = 0
@@ -2423,7 +2416,7 @@ inherited frmGeVenda: TfrmGeVenda
             object lblDadosEntrega: TLabel
               Left = 0
               Top = 0
-              Width = 214
+              Width = 1100
               Height = 13
               Align = alTop
               Caption = '&Dados gerais para entrega do(s) produto(s):'
@@ -2434,6 +2427,7 @@ inherited frmGeVenda: TfrmGeVenda
               Font.Name = 'Tahoma'
               Font.Style = []
               ParentFont = False
+              ExplicitWidth = 214
             end
             object Bevel11: TBevel
               Left = 1096
@@ -2457,7 +2451,7 @@ inherited frmGeVenda: TfrmGeVenda
             object lblDicaDadosEntrega: TLabel
               Left = 0
               Top = 145
-              Width = 801
+              Width = 1100
               Height = 13
               Align = alBottom
               Caption = 
@@ -2471,6 +2465,7 @@ inherited frmGeVenda: TfrmGeVenda
               Font.Name = 'Tahoma'
               Font.Style = [fsBold]
               ParentFont = False
+              ExplicitWidth = 801
             end
             object dbDadosEntrega: TDBMemo
               Left = 0
@@ -2489,10 +2484,6 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsITitulos: TTabSheet
           Caption = 'T'#237'tulo(s) Gerado(s)'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel9: TBevel
             Left = 74
             Top = 0
@@ -2967,10 +2958,6 @@ inherited frmGeVenda: TfrmGeVenda
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0

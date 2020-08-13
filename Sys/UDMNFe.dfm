@@ -21614,7 +21614,7 @@ object DMNFe: TDMNFe
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftBottom]
           Frame.Width = 0.100000000000000000
-          HAlign = haCenter
+          HAlign = haBlock
           Memo.UTF8W = (
             '[frdSolicitacaoCompra."OBSERVACAO"]')
           ParentFont = False

@@ -127,12 +127,12 @@ type
     cdsTabelaItensITEM_CODIGO: TStringField;
     cdsTabelaItensITEM_DESCRICAO: TStringField;
     cdsTabelaItensITEM_CADASTRADO: TSmallintField;
-    cdsTabelaItensQUANTIDADE: TBCDField;
     cdsTabelaItensUNIDADE: TSmallintField;
     cdsTabelaItensUSUARIO: TStringField;
     cdsTabelaItensUNP_DESCRICAO: TStringField;
     cdsTabelaItensCENTRO_CUSTO_NOME: TStringField;
     fdQryProduto: TFDQuery;
+    cdsTabelaItensQUANTIDADE: TFMTBCDField;
     procedure dbCentroCustoSelecionar(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
@@ -180,6 +180,7 @@ type
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
     procedure SetEventoLOG(sEvento : String);
+    procedure ConfigurarCamposTabelas;
 
     function GetRotinaFinalizarID : String;
     function GetRotinaAprovarID : String;
@@ -219,8 +220,15 @@ var
 implementation
 
 uses
-  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeProduto,
-  UGeCentroCusto, UGeSolicitacaoCompraCancelar;
+    DateUtils
+  , Controller.Tabela
+  , SysConst
+  , UConstantesDGE
+  , UDMBusiness
+  , UDMNFe
+  , UGeProduto
+  , UGeCentroCusto
+  , UGeSolicitacaoCompraCancelar;
 
 {$R *.dfm}
 
@@ -339,6 +347,8 @@ begin
   WhereAdditional :=  '(cast(s.data_emissao as date) between ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')';
+
+  ConfigurarCamposTabelas;
 end;
 
 procedure TfrmGeSolicitacaoCompra.btbtnIncluirClick(Sender: TObject);
@@ -852,6 +862,22 @@ begin
       HabilitarDesabilitar_Btns;
     end;
   end;
+end;
+
+procedure TfrmGeSolicitacaoCompra.ConfigurarCamposTabelas;
+begin
+  // Configurar tabela de cadastro
+  Tabela
+    .Display('CODIGO', 'No. Controle', '###0000000', TAlignment.taCenter)
+    .Configurar( fdQryTabela );
+
+  // Configurar tabela de itens
+  TTabelaController
+    .New
+    .Tabela( cdsTabelaItens )
+    .Display('SEQ', '#', '###00', TAlignment.taCenter)
+    .Display('QUANTIDADE', 'Quantidade', ',0.###', TAlignment.taRightJustify)
+    .Configurar( cdsTabelaItens );
 end;
 
 procedure TfrmGeSolicitacaoCompra.ControlEditExit(Sender: TObject);

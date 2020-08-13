@@ -713,7 +713,7 @@ object DMNFSe: TDMNFSe
       end>
   end
   object frrOSOrcamento: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -806,6 +806,7 @@ object DMNFSe: TDMNFSe
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
         Frame.Typ = []
@@ -813,6 +814,7 @@ object DMNFSe: TDMNFSe
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object frdVendaCODCONTROL: TfrxMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 18.897650000000000000
           Width = 166.299320000000000000
@@ -836,6 +838,7 @@ object DMNFSe: TDMNFSe
             end>
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Width = 166.299320000000000000
           Height = 18.897650000000000000
@@ -853,6 +856,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 37.795300000000000000
           Width = 166.299320000000000000
@@ -878,6 +882,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Width = 139.842610000000000000
           Height = 79.370130000000000000
@@ -890,6 +895,7 @@ object DMNFSe: TDMNFSe
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 143.622140000000000000
           Width = 404.409710000000000000
           Height = 18.897650000000000000
@@ -905,6 +911,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 143.622140000000000000
           Top = 18.897650000000000000
           Width = 404.409710000000000000
@@ -924,6 +931,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 143.622140000000000000
           Top = 34.015770000000010000
           Width = 404.409710000000000000
@@ -941,6 +949,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 143.622140000000000000
           Top = 49.133889999999990000
           Width = 404.409710000000000000
@@ -962,12 +971,14 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 83.149660000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 143.622140000000000000
           Top = 64.252010000000000000
           Width = 574.488560000000000000
@@ -998,6 +1009,7 @@ object DMNFSe: TDMNFSe
         DataSetName = 'OSDadosItem'
         RowCount = 0
         object frdItensCODPROD: TfrxMemoView
+          AllowVectorExport = True
           Left = 22.677180000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -1014,6 +1026,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object frdItensSEQ: TfrxMemoView
+          AllowVectorExport = True
           Width = 22.677180000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1030,6 +1043,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object frdItensDESCRI: TfrxMemoView
+          AllowVectorExport = True
           Left = 75.590600000000000000
           Width = 291.023639130000000000
           Height = 18.897650000000000000
@@ -1053,6 +1067,7 @@ object DMNFSe: TDMNFSe
             end>
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 366.614410000000000000
           Width = 45.354360000000000000
           Height = 18.897650000000000000
@@ -1070,6 +1085,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 642.520100000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -1087,6 +1103,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 37.795300000000000000
           Height = 18.897650000000000000
@@ -1103,6 +1120,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 449.764070000000000000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
@@ -1120,6 +1138,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
@@ -1137,6 +1156,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Left = 578.268090000000000000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
@@ -1161,6 +1181,7 @@ object DMNFSe: TDMNFSe
         Top = 884.410020000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 566.929500000000000000
           Width = 151.181200000000000000
           Height = 18.897650000000000000
@@ -1193,6 +1214,7 @@ object DMNFSe: TDMNFSe
         Width = 718.110700000000000000
         Stretched = True
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 415.748300000000000000
           Height = 11.338590000000000000
@@ -1209,6 +1231,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 415.748300000000000000
           Top = 18.897650000000000000
           Width = 207.874150000000000000
@@ -1226,6 +1249,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Top = 18.897650000000000000
           Width = 94.488250000000000000
@@ -1244,6 +1268,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Top = 30.236240000000010000
           Width = 94.488250000000000000
@@ -1262,6 +1287,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Top = 49.133890000000010000
           Width = 718.110700000000000000
           Height = 11.338590000000000000
@@ -1278,6 +1304,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 415.748300000000000000
           Top = 30.236240000000010000
           Width = 207.874150000000000000
@@ -1298,6 +1325,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Top = 60.472479999999990000
           Width = 718.110700000000000000
           Height = 18.897650000000000000
@@ -1328,6 +1356,7 @@ object DMNFSe: TDMNFSe
             end>
         end
         object frdVendaNOME: TfrxMemoView
+          AllowVectorExport = True
           Top = 30.236240000000010000
           Width = 415.748300000000000000
           Height = 18.897650000000000000
@@ -1351,6 +1380,7 @@ object DMNFSe: TDMNFSe
             end>
         end
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110529130000000000
           Height = 15.118120000000000000
           CharSpacing = 2.000000000000000000
@@ -1369,6 +1399,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Top = 83.149659999999990000
           Width = 718.110529130000000000
           Height = 15.118120000000000000
@@ -1388,6 +1419,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Rich2: TfrxRichView
+          AllowVectorExport = True
           Top = 98.267780000000010000
           Width = 718.110700000000000000
           Height = 37.795300000000000000
@@ -1401,7 +1433,7 @@ object DMNFSe: TDMNFSe
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430204C756369646120436F6E736F6C653B
             7D7D0D0A7B5C2A5C67656E657261746F722052696368656432302031302E302E
-            31343339337D5C766965776B696E64345C756331200D0A5C706172645C6C6936
+            31383336327D5C766965776B696E64345C756331200D0A5C706172645C6C6936
             305C726932305C716A5C66305C667331345C7061720D0A5B4F532E2252454C41
             544F5F534F4C494349544143414F225D5C7061720D0A5C7061720D0A7D0D0A00}
         end
@@ -1415,6 +1447,7 @@ object DMNFSe: TDMNFSe
         Child = frrOSOrcamento.bndChildSummary
         Stretched = True
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
@@ -1434,6 +1467,7 @@ object DMNFSe: TDMNFSe
           WordWrap = False
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 480.000310000000000000
           Width = 143.622140000000000000
           Height = 18.897650000000000000
@@ -1451,6 +1485,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Top = 98.267779999999900000
           Width = 249.448980000000000000
           Height = 18.897650000000000000
@@ -1466,6 +1501,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Top = 86.929190000000060000
           Width = 249.448980000000000000
           Height = 11.338590000000000000
@@ -1481,12 +1517,14 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Line3: TfrxLineView
+          AllowVectorExport = True
           Top = 22.677180000000130000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 718.110700000000000000
           Height = 18.897650000000000000
@@ -1502,6 +1540,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Top = 26.456709999999930000
           Width = 718.110700000000000000
           Height = 11.338590000000000000
@@ -1517,6 +1556,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Top = 68.031539999999950000
           Width = 718.110700000000000000
           Height = 18.897650000000000000
@@ -1532,6 +1572,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Top = 56.692950000000110000
           Width = 718.110700000000000000
           Height = 11.338590000000000000
@@ -1547,6 +1588,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 249.448980000000000000
           Top = 98.267779999999900000
           Width = 102.047310000000000000
@@ -1565,6 +1607,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Left = 249.448980000000000000
           Top = 86.929190000000060000
           Width = 102.047310000000000000
@@ -1582,6 +1625,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 453.543600000000000000
           Top = 98.267779999999900000
           Width = 75.590600000000000000
@@ -1600,6 +1644,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 453.543600000000000000
           Top = 86.929190000000060000
           Width = 75.590600000000000000
@@ -1617,6 +1662,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo38: TfrxMemoView
+          AllowVectorExport = True
           Left = 529.134199999999900000
           Top = 98.267779999999900000
           Width = 94.488250000000000000
@@ -1635,6 +1681,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Left = 529.134199999999900000
           Top = 86.929190000000060000
           Width = 94.488250000000000000
@@ -1652,6 +1699,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Rich1: TfrxRichView
+          AllowVectorExport = True
           Top = 120.944960000000000000
           Width = 718.110700000000000000
           Height = 64.252010000000000000
@@ -1665,8 +1713,8 @@ object DMNFSe: TDMNFSe
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430204C756369646120436F6E736F6C653B
             7D7B5C66315C666E696C5C666368617273657430205461686F6D613B7D7D0D0A
-            7B5C2A5C67656E657261746F722052696368656432302031302E302E31343339
-            337D5C766965776B696E64345C756331200D0A5C706172645C6C6936305C7269
+            7B5C2A5C67656E657261746F722052696368656432302031302E302E31383336
+            327D5C766965776B696E64345C756331200D0A5C706172645C6C6936305C7269
             32305C716A5C625C66305C667331345C7061720D0A4F6273657276615C276537
             5C27663565733A5C62305C7061720D0A5B4F532E224F425345525641434F4553
             225D5C7061720D0A5C7061720D0A5C62205B494946285472696D283C4F532E22
@@ -1676,6 +1724,7 @@ object DMNFSe: TDMNFSe
             0D0A5C66315C667331365C7061720D0A7D0D0A00}
         end
         object Memo50: TfrxMemoView
+          AllowVectorExport = True
           Left = 351.496290000000000000
           Top = 98.267779999999900000
           Width = 102.047310000000000000
@@ -1694,6 +1743,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo51: TfrxMemoView
+          AllowVectorExport = True
           Left = 351.496290000000000000
           Top = 86.929190000000060000
           Width = 102.047310000000000000
@@ -1711,6 +1761,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo52: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Top = 98.267779999999900000
           Width = 94.488250000000000000
@@ -1730,6 +1781,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo53: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Top = 86.929190000000060000
           Width = 94.488250000000000000
@@ -1758,6 +1810,7 @@ object DMNFSe: TDMNFSe
         ToNRows = 0
         ToNRowsMode = rmCount
         object Memo42: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 138.842610000000000000
           Width = 249.448980000000000000
@@ -1775,6 +1828,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object mmTextoAutorizacao: TfrxMemoView
+          AllowVectorExport = True
           Left = 37.795300000000000000
           Top = 26.456710000000040000
           Width = 623.622450000000000000
@@ -1794,6 +1848,7 @@ object DMNFSe: TDMNFSe
           ParentFont = False
         end
         object subRptTitulos: TfrxSubreport
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Page = frrOSOrcamento.PgTitulos
@@ -1808,6 +1863,7 @@ object DMNFSe: TDMNFSe
         Condition = 'OSDadosItem."TIPO"'
         OutlineText = 'OSDadosItem."TIPO"'
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 22.677180000000000000
           Height = 15.118120000000000000
@@ -1826,6 +1882,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 22.677180000000000000
           Top = 18.897650000000000000
           Width = 52.913420000000000000
@@ -1844,6 +1901,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 75.590600000000000000
           Top = 18.897650000000000000
           Width = 291.023639130000000000
@@ -1862,6 +1920,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Top = 18.897650000000000000
           Width = 37.795300000000000000
@@ -1880,6 +1939,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 449.764070000000000000
           Top = 18.897650000000000000
           Width = 64.252010000000000000
@@ -1899,6 +1959,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Top = 18.897650000000000000
           Width = 64.252010000000000000
@@ -1918,6 +1979,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 578.268090000000000000
           Top = 18.897650000000000000
           Width = 64.252010000000000000
@@ -1937,6 +1999,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 642.520100000000000000
           Top = 18.897650000000000000
           Width = 75.590600000000000000
@@ -1956,6 +2019,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 366.614410000000000000
           Top = 18.897650000000000000
           Width = 45.354323390000000000
@@ -1975,6 +2039,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo49: TfrxMemoView
+          AllowVectorExport = True
           Top = 3.779530000000022000
           Width = 718.110529130000000000
           Height = 15.118120000000000000
@@ -2013,6 +2078,7 @@ object DMNFSe: TDMNFSe
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndHeaderTitulos: TfrxHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -2020,6 +2086,7 @@ object DMNFSe: TDMNFSe
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Top = 3.779530000000000000
           Width = 75.590600000000000000
           Height = 15.118120000000000000
@@ -2036,6 +2103,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 75.590600000000000000
           Top = 3.779530000000000000
           Width = 75.590600000000000000
@@ -2053,6 +2121,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo46: TfrxMemoView
+          AllowVectorExport = True
           Left = 151.181200000000000000
           Top = 3.779530000000000000
           Width = 90.708720000000000000
@@ -2070,6 +2139,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo47: TfrxMemoView
+          AllowVectorExport = True
           Left = 241.889920000000000000
           Top = 3.779530000000000000
           Width = 90.708720000000000000
@@ -2088,6 +2158,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo48: TfrxMemoView
+          AllowVectorExport = True
           Left = 332.598640000000000000
           Top = 3.779530000000000000
           Width = 385.512060000000000000
@@ -2113,6 +2184,7 @@ object DMNFSe: TDMNFSe
         DataSetName = 'OSDuplicatas'
         RowCount = 0
         object frdTituloPARCELA: TfrxMemoView
+          AllowVectorExport = True
           Left = 75.590600000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -2130,6 +2202,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object frdTituloANOLANC: TfrxMemoView
+          AllowVectorExport = True
           Width = 75.590600000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2153,6 +2226,7 @@ object DMNFSe: TDMNFSe
             end>
         end
         object frdTituloDTVENC: TfrxMemoView
+          AllowVectorExport = True
           Left = 151.181200000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -2170,6 +2244,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object frdTituloVALORREC: TfrxMemoView
+          AllowVectorExport = True
           Left = 241.889920000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -2190,6 +2265,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object frdTituloHISTORIC: TfrxMemoView
+          AllowVectorExport = True
           Left = 332.598640000000000000
           Width = 385.512060000000000000
           Height = 18.897650000000000000
@@ -2414,7 +2490,7 @@ object DMNFSe: TDMNFSe
       end>
   end
   object frrECFPoolerOS: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -2495,6 +2571,7 @@ object DMNFSe: TDMNFSe
       TopMargin = 4.000000000000000000
       BottomMargin = 4.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
         Frame.Typ = []
@@ -2502,6 +2579,7 @@ object DMNFSe: TDMNFSe
         Top = 18.897650000000000000
         Width = 249.448980000000000000
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Width = 249.448980000000000000
           Height = 26.456710000000000000
           DataField = 'NMFANT'
@@ -2519,6 +2597,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           ShiftMode = smWhenOverlapped
           Top = 26.456710000000000000
           Width = 249.448980000000000000
@@ -2541,6 +2620,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           ShiftMode = smWhenOverlapped
           Top = 94.488250000000000000
           Width = 249.448980000000000000
@@ -2569,6 +2649,7 @@ object DMNFSe: TDMNFSe
         DataSetName = 'ItensOS'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Width = 22.677180000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2584,6 +2665,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 22.677180000000000000
           Width = 37.795300000000000000
           Height = 15.118120000000000000
@@ -2600,6 +2682,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 60.472480000000000000
           Width = 188.976500000000000000
           Height = 15.118120000000000000
@@ -2616,6 +2699,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 192.756030000000000000
           Top = 15.118119999999980000
           Width = 56.692950000000000000
@@ -2634,6 +2718,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 136.063080000000000000
           Top = 15.118119999999980000
           Width = 56.692950000000010000
@@ -2652,6 +2737,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 79.370130000000000000
           Top = 15.118119999999980000
           Width = 56.692950000000010000
@@ -2677,6 +2763,7 @@ object DMNFSe: TDMNFSe
         Top = 196.535560000000000000
         Width = 249.448980000000000000
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Top = 75.590600000000030000
           Width = 249.448980000000000000
           Height = 30.236240000000000000
@@ -2696,6 +2783,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 52.913420000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2710,6 +2798,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 52.913420000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -2726,6 +2815,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 143.622140000000000000
           Width = 41.574830000000000000
           Height = 18.897650000000000000
@@ -2742,6 +2832,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 185.196970000000000000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
@@ -2764,6 +2855,7 @@ object DMNFSe: TDMNFSe
             end>
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -2779,6 +2871,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 52.913420000000000000
           Top = 18.897650000000000000
           Width = 196.535560000000000000
@@ -2796,6 +2889,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -2811,6 +2905,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 52.913420000000000000
           Top = 37.795300000000000000
           Width = 196.535560000000000000
@@ -2828,6 +2923,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Top = 105.826840000000000000
           Width = 22.677180000000000000
           Height = 18.897650000000000000
@@ -2843,6 +2939,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 22.677180000000000000
           Top = 105.826840000000000000
           Width = 37.795300000000000000
@@ -2859,6 +2956,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 60.472480000000000000
           Top = 105.826840000000000000
           Width = 188.976500000000000000
@@ -2875,6 +2973,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Top = 124.724490000000000000
           Width = 136.063080000000000000
           Height = 18.897650000000000000
@@ -2891,6 +2990,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 136.063080000000000000
           Top = 124.724490000000000000
           Width = 56.692950000000000000
@@ -2908,6 +3008,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 192.756030000000000000
           Top = 124.724490000000000000
           Width = 56.692950000000000000
@@ -2925,6 +3026,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Top = 56.692949999999990000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -2940,6 +3042,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 52.913420000000000000
           Top = 56.692949999999990000
           Width = 196.535560000000000000
@@ -2964,6 +3067,7 @@ object DMNFSe: TDMNFSe
         Top = 457.323130000000000000
         Width = 249.448980000000000000
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Width = 132.283550000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2978,6 +3082,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Left = 132.283550000000000000
           Width = 117.165430000000000000
           Height = 18.897650000000000000
@@ -2995,6 +3100,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 132.283550000000000000
           Height = 18.897650000000000000
@@ -3010,6 +3116,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 132.283550000000000000
           Top = 18.897650000000000000
           Width = 117.165430000000000000
@@ -3028,6 +3135,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 132.283550000000000000
           Height = 18.897650000000000000
@@ -3044,6 +3152,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 132.283550000000000000
           Top = 37.795300000000000000
           Width = 117.165430000000000000
@@ -3062,6 +3171,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Top = 56.692949999999990000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
@@ -3077,6 +3187,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 64.252010000000000000
           Top = 56.692949999999990000
           Width = 185.196970000000000000
@@ -3094,6 +3205,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Top = 75.590600000000000000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
@@ -3109,6 +3221,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 64.252010000000000000
           Top = 75.590600000000000000
           Width = 185.196970000000000000
@@ -3126,6 +3239,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 249.448980000000000000
           Height = 22.677180000000000000
@@ -3365,6 +3479,12 @@ object DMNFSe: TDMNFSe
     MargemSuperior = 0.800000000000000000
     MargemEsquerda = 0.600000000000000000
     MargemDireita = 0.510000000000000000
+    ExpandeLogoMarcaConfig.Altura = 0
+    ExpandeLogoMarcaConfig.Esquerda = 0
+    ExpandeLogoMarcaConfig.Topo = 0
+    ExpandeLogoMarcaConfig.Largura = 0
+    ExpandeLogoMarcaConfig.Dimensionar = False
+    ExpandeLogoMarcaConfig.Esticar = True
     CasasDecimais.Formato = tdetInteger
     CasasDecimais.qCom = 2
     CasasDecimais.vUnCom = 2
@@ -3450,7 +3570,7 @@ object DMNFSe: TDMNFSe
       end>
   end
   object frrOS: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3518,6 +3638,7 @@ object DMNFSe: TDMNFSe
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
         Frame.Typ = []
@@ -3525,6 +3646,7 @@ object DMNFSe: TDMNFSe
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object frdVendaCODCONTROL: TfrxMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 18.897650000000000000
           Width = 166.299320000000000000
@@ -3548,6 +3670,7 @@ object DMNFSe: TDMNFSe
             end>
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Width = 166.299320000000000000
           Height = 18.897650000000000000
@@ -3565,6 +3688,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 37.795300000000000000
           Width = 166.299320000000000000
@@ -3590,6 +3714,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Width = 139.842610000000000000
           Height = 79.370130000000000000
@@ -3602,6 +3727,7 @@ object DMNFSe: TDMNFSe
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 143.622140000000000000
           Width = 404.409710000000000000
           Height = 18.897650000000000000
@@ -3617,6 +3743,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 143.622140000000000000
           Top = 18.897650000000000000
           Width = 404.409710000000000000
@@ -3636,6 +3763,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 143.622140000000000000
           Top = 34.015770000000010000
           Width = 404.409710000000000000
@@ -3653,6 +3781,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 143.622140000000000000
           Top = 49.133890000000010000
           Width = 404.409710000000000000
@@ -3674,12 +3803,14 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 83.149660000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 143.622140000000000000
           Top = 64.252010000000000000
           Width = 574.488560000000000000
@@ -3715,6 +3846,7 @@ object DMNFSe: TDMNFSe
         Child = frrOS.btnFilho
         Stretched = True
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 415.748300000000000000
           Height = 11.338590000000000000
@@ -3731,6 +3863,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 415.748300000000000000
           Top = 18.897650000000000000
           Width = 207.874150000000000000
@@ -3748,6 +3881,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Top = 18.897650000000000000
           Width = 94.488250000000000000
@@ -3766,6 +3900,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Top = 30.236240000000010000
           Width = 94.488250000000000000
@@ -3784,6 +3919,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Top = 49.133890000000010000
           Width = 718.110700000000000000
           Height = 11.338590000000000000
@@ -3800,6 +3936,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 415.748300000000000000
           Top = 30.236240000000010000
           Width = 207.874150000000000000
@@ -3820,6 +3957,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Top = 60.472479999999990000
           Width = 718.110700000000000000
           Height = 18.897650000000000000
@@ -3850,6 +3988,7 @@ object DMNFSe: TDMNFSe
             end>
         end
         object frdVendaNOME: TfrxMemoView
+          AllowVectorExport = True
           Top = 30.236240000000010000
           Width = 415.748300000000000000
           Height = 18.897650000000000000
@@ -3873,6 +4012,7 @@ object DMNFSe: TDMNFSe
             end>
         end
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110529130000000000
           Height = 15.118120000000000000
           CharSpacing = 2.000000000000000000
@@ -3891,6 +4031,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Top = 83.149659999999990000
           Width = 718.110529130000000000
           Height = 15.118120000000000000
@@ -3910,6 +4051,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Rich2: TfrxRichView
+          AllowVectorExport = True
           Top = 98.267780000000010000
           Width = 718.110700000000000000
           Height = 37.795300000000000000
@@ -3923,7 +4065,7 @@ object DMNFSe: TDMNFSe
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430204C756369646120436F6E736F6C653B
             7D7D0D0A7B5C2A5C67656E657261746F722052696368656432302031302E302E
-            31343339337D5C766965776B696E64345C756331200D0A5C706172645C6C6936
+            31383336327D5C766965776B696E64345C756331200D0A5C706172645C6C6936
             305C726932305C716A5C66305C667331345C7061720D0A5B4F532E2252454C41
             544F5F534F4C494349544143414F225D5C7061720D0A5C7061720D0A7D0D0A00}
         end
@@ -3937,6 +4079,7 @@ object DMNFSe: TDMNFSe
         Condition = 'OSDadosItem."TIPO"'
         OutlineText = 'OSDadosItem."TIPO"'
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 22.677180000000000000
           Height = 15.118120000000000000
@@ -3955,6 +4098,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 22.677180000000000000
           Top = 18.897650000000000000
           Width = 52.913420000000000000
@@ -3973,6 +4117,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 75.590600000000000000
           Top = 18.897650000000000000
           Width = 408.189069130000000000
@@ -3991,6 +4136,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 529.134200000000000000
           Top = 18.897650000000000000
           Width = 37.795300000000000000
@@ -4009,6 +4155,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 642.520100000000000000
           Top = 18.897650000000000000
           Width = 75.590600000000000000
@@ -4028,6 +4175,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 483.779840000000000000
           Top = 18.897650000000000000
           Width = 45.354323390000000000
@@ -4047,6 +4195,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo49: TfrxMemoView
+          AllowVectorExport = True
           Top = 3.779530000000022000
           Width = 718.110529130000000000
           Height = 15.118120000000000000
@@ -4068,6 +4217,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 566.929500000000000000
           Top = 18.897650000000000000
           Width = 75.590600000000000000
@@ -4097,6 +4247,7 @@ object DMNFSe: TDMNFSe
         DataSetName = 'OSDadosItem'
         RowCount = 0
         object frdItensCODPROD: TfrxMemoView
+          AllowVectorExport = True
           Left = 22.677180000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -4113,6 +4264,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object frdItensSEQ: TfrxMemoView
+          AllowVectorExport = True
           Width = 22.677180000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -4129,6 +4281,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object frdItensDESCRI: TfrxMemoView
+          AllowVectorExport = True
           Left = 75.590600000000000000
           Width = 408.189069130000000000
           Height = 18.897650000000000000
@@ -4152,6 +4305,7 @@ object DMNFSe: TDMNFSe
             end>
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 483.779840000000000000
           Width = 45.354360000000000000
           Height = 18.897650000000000000
@@ -4169,6 +4323,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 529.134200000000000000
           Width = 37.795300000000000000
           Height = 18.897650000000000000
@@ -4185,6 +4340,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 642.520100000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -4204,6 +4360,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 566.929500000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -4238,6 +4395,7 @@ object DMNFSe: TDMNFSe
         Width = 718.110700000000000000
         Stretched = True
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118119999999980000
           Width = 279.685220000000000000
           Height = 18.897650000000000000
@@ -4253,6 +4411,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Top = 3.779530000000022000
           Width = 279.685220000000000000
           Height = 11.338590000000000000
@@ -4268,11 +4427,13 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Line3: TfrxLineView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Rich1: TfrxRichView
+          AllowVectorExport = True
           Top = 34.015769999999970000
           Width = 718.110700000000000000
           Height = 64.252010000000000000
@@ -4286,8 +4447,8 @@ object DMNFSe: TDMNFSe
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430204C756369646120436F6E736F6C653B
             7D7B5C66315C666E696C5C666368617273657430205461686F6D613B7D7D0D0A
-            7B5C2A5C67656E657261746F722052696368656432302031302E302E31343339
-            337D5C766965776B696E64345C756331200D0A5C706172645C6C6936305C7269
+            7B5C2A5C67656E657261746F722052696368656432302031302E302E31383336
+            327D5C766965776B696E64345C756331200D0A5C706172645C6C6936305C7269
             32305C716A5C625C66305C667331345C7061720D0A4F6273657276615C276537
             5C27663565733A5C62305C7061720D0A5B4F532E224F425345525641434F4553
             225D5C7061720D0A5C7061720D0A5C62205B494946285472696D283C4F532E22
@@ -4297,6 +4458,7 @@ object DMNFSe: TDMNFSe
             0D0A5C66315C667331365C7061720D0A7D0D0A00}
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 279.685220000000000000
           Top = 15.118119999999980000
           Width = 249.448980000000000000
@@ -4322,6 +4484,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 279.685220000000000000
           Top = 3.779530000000022000
           Width = 249.448980000000000000
@@ -4345,6 +4508,7 @@ object DMNFSe: TDMNFSe
         Top = 657.638220000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 566.929500000000000000
           Width = 151.181200000000000000
           Height = 18.897650000000000000
@@ -4372,6 +4536,7 @@ object DMNFSe: TDMNFSe
         ToNRows = 0
         ToNRowsMode = rmCount
         object sbrEvento: TfrxSubreport
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Page = frrOS.PgEvento
@@ -4387,6 +4552,7 @@ object DMNFSe: TDMNFSe
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object bndHeaderEventos: TfrxHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -4394,6 +4560,7 @@ object DMNFSe: TDMNFSe
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 18.897650000000000000
           Height = 15.118120000000000000
@@ -4411,6 +4578,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 18.897650000000000000
           Top = 15.118120000000000000
           Width = 75.590600000000000000
@@ -4428,6 +4596,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo46: TfrxMemoView
+          AllowVectorExport = True
           Left = 94.488250000000000000
           Top = 15.118120000000000000
           Width = 188.976500000000000000
@@ -4445,6 +4614,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo48: TfrxMemoView
+          AllowVectorExport = True
           Left = 283.464750000000000000
           Top = 15.118120000000000000
           Width = 434.645950000000000000
@@ -4460,6 +4630,7 @@ object DMNFSe: TDMNFSe
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110529130000000000
           Height = 15.118120000000000000
           CharSpacing = 2.000000000000000000
@@ -4489,6 +4660,7 @@ object DMNFSe: TDMNFSe
         RowCount = 0
         Stretched = True
         object frdTituloPARCELA: TfrxMemoView
+          AllowVectorExport = True
           Left = 18.897650000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -4506,6 +4678,7 @@ object DMNFSe: TDMNFSe
           WordWrap = False
         end
         object frdTituloANOLANC: TfrxMemoView
+          AllowVectorExport = True
           Width = 18.897650000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -4527,6 +4700,7 @@ object DMNFSe: TDMNFSe
             end>
         end
         object frdTituloDTVENC: TfrxMemoView
+          AllowVectorExport = True
           Left = 94.488250000000000000
           Width = 188.976500000000000000
           Height = 18.897650000000000000
@@ -4546,6 +4720,7 @@ object DMNFSe: TDMNFSe
           WordWrap = False
         end
         object Rich3: TfrxRichView
+          AllowVectorExport = True
           Left = 283.464750000000000000
           Width = 434.645950000000000000
           Height = 18.897650000000000000
@@ -4559,7 +4734,7 @@ object DMNFSe: TDMNFSe
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430204C756369646120436F6E736F6C653B
             7D7D0D0A7B5C2A5C67656E657261746F722052696368656432302031302E302E
-            31343339337D5C766965776B696E64345C756331200D0A5C706172645C6C6931
+            31383336327D5C766965776B696E64345C756331200D0A5C706172645C6C6931
             32305C726932305C716A5C625C66305C66733134205B4F534576656E746F732E
             2244455343524943414F225D3A5C623020205B4F534576656E746F732E224556
             454E544F225D5C7061720D0A7D0D0A00}

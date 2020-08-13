@@ -6,11 +6,9 @@ uses
   UGrPadraoCadastro,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, rxToolEdit, RXDBCtrl, ACBrConsultaCPF, ACBrBase,
-  ACBrSocket, ACBrConsultaCNPJ, JPEG, JvExMask, JvToolEdit, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, cxButtons,
+  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids,
+  ComCtrls, ToolWin, IBTable, ACBrConsultaCPF, ACBrBase, ACBrSocket, ACBrConsultaCNPJ, JPEG, JvExMask, JvToolEdit,
+  cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, cxButtons,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
@@ -19,7 +17,7 @@ uses
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Green, dxSkinOffice2010Black,
   dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, System.ImageList;
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, System.ImageList, JvDBControls;
 
 type
   TEquipamentoCliente = record
@@ -40,8 +38,6 @@ type
     lblReferencia: TLabel;
     dbReferencia: TDBEdit;
     dtsTipo: TDataSource;
-    lblCliente: TLabel;
-    dbCliente: TRxDBComboEdit;
     dbUsuario: TDBEdit;
     lblUsuario: TLabel;
     lblDescricao: TLabel;
@@ -71,6 +67,8 @@ type
     dbEspecificacao: TDBMemo;
     Bevel5: TBevel;
     fdQryTipo: TFDQuery;
+    lblCliente: TLabel;
+    dbCliente: TJvDBComboEdit;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure IbDtstTabelaNewRecord(DataSet: TDataSet);

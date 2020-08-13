@@ -10,16 +10,47 @@ uses
   SysUtils,
   MidasLIB,
   HPL_Strings in '..\Sys\lib\HPL_Strings.pas',
+  Interacao.Conexao in '..\Sys\Model\Interacao\Interacao.Conexao.pas',
+  Interacao.Empresa in '..\Sys\Model\Interacao\Interacao.Empresa.pas',
+  Interacao.Factory in '..\Sys\Model\Interacao\Interacao.Factory.pas',
+  Interacao.Funcao in '..\Sys\Model\Interacao\Interacao.Funcao.pas',
+  Interacao.Licenca in '..\Sys\Model\Interacao\Interacao.Licenca.pas',
+  Interacao.PersonalizaEmpresa in '..\Sys\Model\Interacao\Interacao.PersonalizaEmpresa.pas',
+  Interacao.Pessoa in '..\Sys\Model\Interacao\Interacao.Pessoa.pas',
+  Interacao.Tabela in '..\Sys\Model\Interacao\Interacao.Tabela.pas',
+  Interacao.Usuario in '..\Sys\Model\Interacao\Interacao.Usuario.pas',
+  Interacao.Versao in '..\Sys\Model\Interacao\Interacao.Versao.pas',
+  Classe.Conexao in '..\Sys\Classe\Classe.Conexao.pas',
+  Classe.Empresa in '..\Sys\Classe\Classe.Empresa.pas',
+  Classe.Funcao in '..\Sys\Classe\Classe.Funcao.pas',
+  Classe.Licenca in '..\Sys\Classe\Classe.Licenca.pas',
+  Classe.Pessoa in '..\Sys\Classe\Classe.Pessoa.pas',
+  Classe.PessoaFisica in '..\Sys\Classe\Classe.PessoaFisica.pas',
+  Classe.PessoaJuridica in '..\Sys\Classe\Classe.PessoaJuridica.pas',
+  Classe.Usuario in '..\Sys\Classe\Classe.Usuario.pas',
+  Controller.Empresa in '..\Sys\Controller\Controller.Empresa.pas',
+  Controller.Factory in '..\Sys\Controller\Controller.Factory.pas',
+  Controller.Licenca in '..\Sys\Controller\Controller.Licenca.pas',
+  Controller.PersonalizaEmpresa in '..\Sys\Controller\Controller.PersonalizaEmpresa.pas',
+  Controller.Tabela in '..\Sys\Controller\Controller.Tabela.pas',
+  Controller.Usuario in '..\Sys\Controller\Controller.Usuario.pas',
+  Controller.Versao in '..\Sys\Controller\Controller.Versao.pas',
   UEcfAgil in '..\Sys\lib\UEcfAgil.pas',
   UEcfGenerico in '..\Sys\lib\UEcfGenerico.pas',
   UEcfFactory in '..\Sys\lib\UEcfFactory.pas',
+  UDMRecursos in '..\Sys\UDMRecursos.pas' {DMRecursos: TDataModule},
   UDMBusiness in '..\Sys\UDMBusiness.pas' {DMBusiness: TDataModule},
-  USobre in '..\Sys\USobre.pas' {frmSobre},
-  USplash in '..\Sys\USplash.pas' {frmSplash},
+  UDMNFe in '..\Sys\UDMNFe.pas' {DMNFe: TDataModule},
+  UDMNFSe in '..\Sys\UDMNFSe.pas' {DMNFSe: TDataModule},
+  View.PadraoAbertura in '..\Sys\View\View.PadraoAbertura.pas' {FrmPadraoAbertura},
+  View.AutoUpgrade in '..\Sys\View\View.AutoUpgrade.pas' {FrmAutoUpgrade},
+  View.Mensagem in '..\Sys\View\View.Mensagem.pas' {FrmMensagem},
+  View.PadraoLogin in '..\Sys\View\View.PadraoLogin.pas' {FrmPadraoLogin},
+  View.Abertura in 'View\View.Abertura.pas' {FrmAbertura},
+  View.Login in 'View\View.Login.pas' {FrmLogin},
   UPrinc in 'UPrinc.pas' {frmPrinc},
   UGrPadraoCadastro in '..\Sys\lib\UGrPadraoCadastro.pas' {frmGrPadraoCadastro},
   UGrPadrao in '..\Sys\lib\UGrPadrao.pas' {frmGrPadrao},
-  UGrAutoUpgrade in '..\Sys\lib\UGrAutoUpgrade.pas' {frmGeAutoUpgrade},
   UGeBancos in '..\Sys\UGeBancos.pas' {frmGeBancos},
   UGeTipoLogradouro in '..\Sys\UGeTipoLogradouro.pas' {frmGeTipoLogradouro},
   UGeEstado in '..\Sys\UGeEstado.pas' {frmGeEstado},
@@ -45,7 +76,6 @@ uses
   UGeEfetuarPagtoREC in '..\Sys\UGeEfetuarPagtoREC.pas' {frmGeEfetuarPagtoREC},
   UGeContasAPagar in '..\Sys\UGeContasAPagar.pas' {frmGeContasAPagar},
   UGeEfetuarPagtoPAG in '..\Sys\UGeEfetuarPagtoPAG.pas' {frmGeEfetuarPagtoPAG},
-  UDMNFe in '..\Sys\UDMNFe.pas' {DMNFe: TDataModule},
   UGeVendaGerarNFe in '..\Sys\UGeVendaGerarNFe.pas' {frmGeVendaGerarNFe},
   UGeConfigurarNFeACBr in '..\Sys\UGeConfigurarNFeACBr.pas' {frmGeConfigurarNFeACBr},
   UGeEntradaEstoqueCancelar in '..\Sys\UGeEntradaEstoqueCancelar.pas' {frmGeEntradaEstoqueCancelar},
@@ -72,9 +102,7 @@ uses
   UGeEntradaEstoqueGerarNFe in '..\Sys\UGeEntradaEstoqueGerarNFe.pas' {frmGeEntradaEstoqueGerarNFe},
   UGeExportarNFeGerada in '..\Sys\UGeExportarNFeGerada.pas' {frmGeExportarNFeGerada},
   UGeVendaTransporte in '..\Sys\UGeVendaTransporte.pas' {frmGeVendaTransporte},
-  UGeSobre in '..\System_SGE\UGeSobre.pas' {frmGeSobre},
   UGrUsuarioAlterarSenha_v2 in '..\System_SGE\UGrUsuarioAlterarSenha_v2.pas' {frmGrUsuarioAlterarSenha},
-  UGrPesq in '..\System_SGE\UGrPesq.pas' {frmPesq},
   UGeVendaConfirmaTitulos in '..\Sys\UGeVendaConfirmaTitulos.pas' {frmGeVendaConfirmaTitulos},
   UGrPadraoPesquisa in '..\Sys\lib\UGrPadraoPesquisa.pas' {frmGrPadraoPesquisa},
   UGeVendaItemPesquisa in '..\Sys\UGeVendaItemPesquisa.pas' {FrmGeVendaItemPesquisa},
@@ -83,7 +111,6 @@ uses
   UGeInutilizarNumeroNFe in '..\Sys\UGeInutilizarNumeroNFe.pas' {frmGeInutilizarNumeroNFe},
   UGeProdutoEstoqueMinimo in '..\System_SGE\UGeProdutoEstoqueMinimo.pas' {FrmGeProdutoEstoqueMinimo},
   UGeConsultarLoteNFe_v2 in '..\System_SGE\UGeConsultarLoteNFe_v2.pas' {frmGeConsultarLoteNFe_v2},
-  UGrPadraoLogin in '..\Sys\lib\UGrPadraoLogin.pas' {frmGrPadraoLogin},
   UGrConsultarCNJP in '..\Sys\lib\UGrConsultarCNJP.pas' {frmGrConsultarCNJP},
   UObserverInterface in '..\Sys\lib\UObserverInterface.pas',
   UBaseObject in '..\Sys\lib\UBaseObject.pas',
@@ -94,7 +121,6 @@ uses
   UGeRequisicaoCliente in '..\System_SGE\UGeRequisicaoCliente.pas' {frmGeRequisicaoCliente},
   UGrUsuario in '..\System_SGE\UGrUsuario.pas' {frmGrUsuario},
   UGeVendaImpressao in '..\System_SGE\UGeVendaImpressao.pas' {frmGeVendaImpressao},
-  UGeEfetuarLogin in '..\System_SGE\UGeEfetuarLogin.pas' {FrmEfetuarLogin},
   UGrMessage in '..\Sys\lib\UGrMessage.pas' {frmGeMessage},
   UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde},
   UGeExportarChaveNFeGerada in '..\Sys\UGeExportarChaveNFeGerada.pas' {frmGeExportarChaveNFeGerada},
@@ -132,7 +158,6 @@ uses
   UGeInventario in 'UGeInventario.pas' {frmGeInventario},
   UGrMemo in '..\Sys\lib\UGrMemo.pas' {frmGrMemo},
   UGeProdutoEstoqueImpressao in '..\System_SGE\UGeProdutoEstoqueImpressao.pas' {frmGeProdutoEstoqueImpressao},
-  UDMRecursos in '..\Sys\UDMRecursos.pas' {DMRecursos: TDataModule},
   UGeSolicitacaoCompra in 'UGeSolicitacaoCompra.pas' {frmGeSolicitacaoCompra},
   UGeSolicitacaoCompraCancelar in 'UGeSolicitacaoCompraCancelar.pas' {frmGeSolicitacaoCompraCancelar},
   UGeApropriacaoEstoqueImpressao in 'UGeApropriacaoEstoqueImpressao.pas' {frmGeApropriacaoEstoqueImpressao},
@@ -161,7 +186,6 @@ uses
   UGeOSCancelar in '..\Sys\UGeOSCancelar.pas' {frmGeOSCancelar},
   UGeOSConfirmaTitulos in '..\Sys\UGeOSConfirmaTitulos.pas' {frmGeOSConfirmaTitulos},
   UGeOSFormaPagto in '..\Sys\UGeOSFormaPagto.pas' {frmGeOSFormaPagto},
-  UDMNFSe in '..\Sys\UDMNFSe.pas' {DMNFSe: TDataModule},
   UGeContasAPagarAReceberImpressao in '..\System_SGE\UGeContasAPagarAReceberImpressao.pas' {frmGeContasAPagarAReceberImpressao};
 
 {$R *.res}
@@ -171,11 +195,17 @@ begin
 
   Application.Initialize;
   Application.Title := 'SGI | Sistema Integrado de Gestão Industrial';
+
+  SplashShow(Application);
+
   Application.CreateForm(TDMRecursos, DMRecursos);
   Application.CreateForm(TDMBusiness, DMBusiness);
   Application.CreateForm(TDMNFe, DMNFe);
   Application.CreateForm(TDMNFSe, DMNFSe);
-  Application.CreateForm(TfrmPrinc, frmPrinc);
-  Application.CreateForm(TfrmPesq, frmPesq);
+  SplashFree;
+
+  if ExecutarLogin() then
+    Application.CreateForm(TfrmPrinc, frmPrinc);
+
   Application.Run;
 end.
