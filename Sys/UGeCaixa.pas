@@ -680,7 +680,12 @@ begin
 
   if ( DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger = STATUS_CAIXA_ABERTO ) then
   begin
-    AbrirTabelaMovimento(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger);
+    WaitAMoment(WAIT_AMOMENT_TextoLivre, 'Consolidando lançamentos...');
+    try
+      AbrirTabelaMovimento(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('NUMERO').AsInteger);
+    finally
+      WaitAMomentFree;
+    end;
 
     // Consolidar Movimentacao
 

@@ -4506,26 +4506,23 @@ inherited frmGeInventario: TfrmGeInventario
       Required = True
       Size = 10
     end
-    object qryMaterialQTDE: TBCDField
+    object qryMaterialQTDE: TFMTBCDField
       FieldName = 'QTDE'
       Origin = 'QTDE'
       Required = True
-      DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
     end
-    object qryMaterialESTOQUE: TBCDField
+    object qryMaterialESTOQUE: TFMTBCDField
       FieldName = 'ESTOQUE'
       Origin = 'ESTOQUE'
       Required = True
-      DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
     end
-    object qryMaterialFRACIONADOR: TBCDField
+    object qryMaterialFRACIONADOR: TFMTBCDField
       FieldName = 'FRACIONADOR'
       Origin = 'FRACIONADOR'
-      DisplayFormat = ',0.###'
       Precision = 18
       Size = 3
     end
@@ -4537,13 +4534,11 @@ inherited frmGeInventario: TfrmGeInventario
     object qryMaterialCUSTO: TBCDField
       FieldName = 'CUSTO'
       Origin = 'CUSTO'
-      DisplayFormat = ',0.00##'
       Precision = 18
     end
-    object qryMaterialTOTAL: TBCDField
+    object qryMaterialTOTAL: TFMTBCDField
       FieldName = 'TOTAL'
       Origin = 'TOTAL'
-      DisplayFormat = ',0.00#'
       Precision = 18
       Size = 2
     end

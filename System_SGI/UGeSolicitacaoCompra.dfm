@@ -647,6 +647,10 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           object TbsSolicitacaoMotivo: TTabSheet
             Caption = 'Motivo da Solicita'#231#227'o'
             ImageIndex = 3
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbMotivo: TDBMemo
               Left = 0
               Top = 0
@@ -668,6 +672,10 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           object TbsSolicitacaoObservacao: TTabSheet
             Caption = 'Observa'#231#245'es Gerais'
             ImageIndex = 1
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbObservacao: TDBMemo
               Left = 0
               Top = 0
@@ -689,6 +697,10 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           object TbsSolicitacaoCancelado: TTabSheet
             Caption = 'Motivo do Cancelamento'
             ImageIndex = 2
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0

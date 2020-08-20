@@ -979,7 +979,7 @@ begin
 
   stbMain.Panels[1].Text := AnsiLowerCase(gUsuarioLogado.Login + '@' + aConexao);
 
-  if (gUsuarioLogado.Empresa <> gLicencaSistema.Empresa) then
+  if (gUsuarioLogado.Empresa <> StrOnlyNumbers(gLicencaSistema.CNPJ)) then
     stbMain.Panels.Items[2].Text := '[' + GetEmpresaNome(gUsuarioLogado.Empresa) + '] | ' + stbMain.Panels.Items[2].Text;
 end;
 

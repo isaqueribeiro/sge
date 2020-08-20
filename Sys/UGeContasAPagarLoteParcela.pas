@@ -21,7 +21,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxDateRanges,
+  cxDataControllerConditionalFormattingRulesManagerDialog;
 
 type
   TfrmGeContasAPagarLoteParcela = class(TfrmGrPadrao)
@@ -118,9 +119,6 @@ type
     cdsContaAPagarDTEMISS: TDateField;
     cdsContaAPagarDTVENC: TDateField;
     cdsContaAPagarCOMPETENCIA_APURACAO: TIntegerField;
-    cdsContaAPagarVALORPAG: TBCDField;
-    cdsContaAPagarVALORPAGTOT: TBCDField;
-    cdsContaAPagarVALORSALDO: TBCDField;
     cdsContaAPagarNOMEEMP: TStringField;
     cdsContaAPagarTIPOCATEG: TSmallintField;
     cdsContaAPagarFORMA_PAGTO: TSmallintField;
@@ -129,6 +127,9 @@ type
     cdsContaAPagarCODTPDESP: TSmallintField;
     cdsContaAPagarSITUACAO: TSmallintField;
     cdsContaAPagarLOTE: TStringField;
+    cdsContaAPagarVALORPAG: TFMTBCDField;
+    cdsContaAPagarVALORPAGTOT: TFMTBCDField;
+    cdsContaAPagarVALORSALDO: TFMTBCDField;
     procedure tmrAlertaTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cdsDadosNominaisNewRecord(DataSet: TDataSet);

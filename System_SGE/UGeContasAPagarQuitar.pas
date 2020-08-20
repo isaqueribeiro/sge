@@ -52,11 +52,6 @@ type
     CdsPesquisaDTEMISS: TDateField;
     CdsPesquisaDTVENC: TDateField;
     CdsPesquisaDTPAG: TDateField;
-    CdsPesquisaVALORPAG: TBCDField;
-    CdsPesquisaVALORMULTA: TBCDField;
-    CdsPesquisaVALORPAGTOT: TBCDField;
-    CdsPesquisaVALORSALDO: TBCDField;
-    CdsPesquisaVALOR_APAGAR: TBCDField;
     CdsPesquisaENTRADA: TStringField;
     CdsPesquisaENTRADA_ANO: TSmallintField;
     CdsPesquisaENTRADA_NUMERO: TIntegerField;
@@ -77,11 +72,6 @@ type
     fdQryPesquisaDTEMISS: TDateField;
     fdQryPesquisaDTVENC: TDateField;
     fdQryPesquisaDTPAG: TDateField;
-    fdQryPesquisaVALORPAG: TBCDField;
-    fdQryPesquisaVALORMULTA: TBCDField;
-    fdQryPesquisaVALORPAGTOT: TBCDField;
-    fdQryPesquisaVALORSALDO: TBCDField;
-    fdQryPesquisaVALOR_APAGAR: TBCDField;
     fdQryPesquisaENTRADA: TStringField;
     fdQryPesquisaENTRADA_ANO: TSmallintField;
     fdQryPesquisaENTRADA_NUMERO: TIntegerField;
@@ -107,6 +97,16 @@ type
     cdsPagamentosBCO_NOME: TStringField;
     cdsPagamentosDOCUMENTO_BAIXA: TStringField;
     cdsPagamentosUSUARIO: TStringField;
+    fdQryPesquisaVALORPAG: TFMTBCDField;
+    fdQryPesquisaVALORMULTA: TFMTBCDField;
+    fdQryPesquisaVALORPAGTOT: TFMTBCDField;
+    fdQryPesquisaVALORSALDO: TFMTBCDField;
+    fdQryPesquisaVALOR_APAGAR: TFMTBCDField;
+    CdsPesquisaVALORPAG: TFMTBCDField;
+    CdsPesquisaVALORMULTA: TFMTBCDField;
+    CdsPesquisaVALORPAGTOT: TFMTBCDField;
+    CdsPesquisaVALORSALDO: TFMTBCDField;
+    CdsPesquisaVALOR_APAGAR: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure CdsPesquisaSELECIONARGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -146,7 +146,9 @@ var
 implementation
 
 uses
-  UDMBusiness, DateUtils;
+    DateUtils
+  , Controller.Tabela
+  , UDMBusiness;
 
 {$R *.dfm}
 
@@ -154,7 +156,7 @@ uses
 
 const
   TIPO_AUT = 0;
-  
+
 function TfrmGeContasAPagarQuitar.ExecutarPesquisa: Boolean;
 var
   sDataInicial,
@@ -222,6 +224,17 @@ begin
   e2Data.Date := GetDateDB;
 
   cdsPagamentoLOTE.CreateDataSet;
+
+  // Configurar tabela de pesquisa
+  TTabelaController
+    .New
+    .Tabela( CdsPesquisa )
+    .Display('VALORPAG', 'Despesa (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORMULTA', 'Multa (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORPAGTOT', 'Pago (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORSALDO', 'Saldo (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_APAGAR', 'A Pagar (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( CdsPesquisa );
 end;
 
 procedure TfrmGeContasAPagarQuitar.CdsPesquisaSELECIONARGetText(

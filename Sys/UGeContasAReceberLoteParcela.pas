@@ -19,7 +19,8 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxDateRanges,
+  cxDataControllerConditionalFormattingRulesManagerDialog;
 
 
 type
@@ -118,14 +119,14 @@ type
     cdsContaAReceberDTEMISS: TDateField;
     cdsContaAReceberDTVENC: TDateField;
     cdsContaAReceberCOMPETENCIA_APURACAO: TIntegerField;
-    cdsContaAReceberVALORREC: TBCDField;
-    cdsContaAReceberVALORRECTOT: TBCDField;
-    cdsContaAReceberVALORSALDO: TBCDField;
     cdsContaAReceberPARCELA: TSmallintField;
     cdsContaAReceberBAIXADO: TSmallintField;
     cdsContaAReceberENVIADO: TSmallintField;
     cdsContaAReceberSITUACAO: TSmallintField;
     cdsContaAReceberLOTE: TStringField;
+    cdsContaAReceberVALORREC: TFMTBCDField;
+    cdsContaAReceberVALORRECTOT: TFMTBCDField;
+    cdsContaAReceberVALORSALDO: TFMTBCDField;
     procedure tmrAlertaTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cdsDadosNominaisNewRecord(DataSet: TDataSet);

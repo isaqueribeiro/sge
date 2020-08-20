@@ -122,7 +122,6 @@ type
     fdQryTabelaSTATUS: TSmallintField;
     fdQryTabelaMOTIVO: TMemoField;
     fdQryTabelaOBS: TMemoField;
-    fdQryTabelaVALOR_TOTAL: TBCDField;
     fdQryTabelaATENDIMENTO_USUARIO: TStringField;
     fdQryTabelaATENDIMENTO_DATA: TSQLTimeStampField;
     fdQryTabelaCANCEL_USUARIO: TStringField;
@@ -141,12 +140,7 @@ type
     cdsTabelaItensCONTROLE: TIntegerField;
     cdsTabelaItensITEM: TSmallintField;
     cdsTabelaItensPRODUTO: TStringField;
-    cdsTabelaItensQTDE: TBCDField;
-    cdsTabelaItensQTDE_ATENDIDA: TBCDField;
     cdsTabelaItensUNIDADE: TSmallintField;
-    cdsTabelaItensCUSTO: TBCDField;
-    cdsTabelaItensFRACIONADOR: TBCDField;
-    cdsTabelaItensTOTAL: TBCDField;
     cdsTabelaItensSTATUS: TSmallintField;
     cdsTabelaItensLOTE_ATENDIMENTO: TStringField;
     cdsTabelaItensLOTE_REQUISITANTE: TStringField;
@@ -156,13 +150,19 @@ type
     cdsTabelaItensUNP_DESCRICAO: TStringField;
     cdsTabelaItensUNP_SIGLA: TStringField;
     cdsTabelaItensUNIDADE_SIGLA: TStringField;
-    cdsTabelaItensESTOQUE: TBCDField;
-    cdsTabelaItensRESERVA: TBCDField;
-    cdsTabelaItensDISPONIVEL: TBCDField;
     cdsTabelaItensDISPONIVEL_TMP: TCurrencyField;
     fdQryEmpresa: TFDQuery;
     fdQryTipoRequisicao: TFDQuery;
     qryProdutoAlmox: TFDQuery;
+    cdsTabelaItensQTDE: TFMTBCDField;
+    cdsTabelaItensQTDE_ATENDIDA: TFMTBCDField;
+    cdsTabelaItensCUSTO: TBCDField;
+    cdsTabelaItensFRACIONADOR: TFMTBCDField;
+    cdsTabelaItensTOTAL: TFMTBCDField;
+    cdsTabelaItensESTOQUE: TFMTBCDField;
+    cdsTabelaItensRESERVA: TFMTBCDField;
+    cdsTabelaItensDISPONIVEL: TFMTBCDField;
+    fdQryTabelaVALOR_TOTAL: TFMTBCDField;
     procedure dbCentroCustoSelecionar(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
@@ -220,6 +220,7 @@ type
     procedure MontarFiltrosAdcionais;
     procedure RecarregarRegistro;
     procedure ValidarToTais(var Total_Custo : Currency);
+    procedure ConfigurarCamposTabelas;
 
     function GetRotinaFinalizarID : String;
     function GetRotinaEnviarID  : String;
@@ -267,8 +268,17 @@ var
 implementation
 
 uses
-  DateUtils, SysConst, RTLConsts, UConstantesDGE, UDMBusiness, UDMNFe, UGrUsuario,
-  UGeRequisicaoAlmoxCancelar, UGeCentroCusto, UGeApropriacaoEstoquePesquisa;
+    DateUtils
+  , SysConst
+  , RTLConsts
+  , UConstantesDGE
+  , Controller.Tabela
+  , UDMBusiness
+  , UDMNFe
+  , UGrUsuario
+  , UGeRequisicaoAlmoxCancelar
+  , UGeCentroCusto
+  , UGeApropriacaoEstoquePesquisa;
 
 {$R *.dfm}
 
@@ -432,6 +442,8 @@ begin
   WhereAdditional :=  'cast(r.data_emissao as date) between ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) + ' and ' +
                         QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) );
+
+  ConfigurarCamposTabelas;
 end;
 
 procedure TfrmGeRequisicaoAlmox.btbtnIncluirClick(Sender: TObject);
@@ -1020,6 +1032,29 @@ begin
 
     HabilitarDesabilitar_Btns;
   end;
+end;
+
+procedure TfrmGeRequisicaoAlmox.ConfigurarCamposTabelas;
+begin
+  // Configurar tabela de cadastro
+  Tabela
+    .Display('CONTROLE', 'No. Controle', '###0000000', TAlignment.taCenter)
+    .Display('VALOR_TOTAL', 'Custo Total (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
+
+  // Configurar tabela de itens
+  TTabelaController
+    .New
+    .Tabela( cdsTabelaItens )
+    .Display('ITEM', '#', '###00', TAlignment.taCenter)
+    .Display('QTDE', 'Solicitado', ',0.###', TAlignment.taRightJustify)
+    .Display('QTDE_ATENDIDA', 'Atendido', ',0.###', TAlignment.taRightJustify)
+    .Display('ESTOQUE', 'Estoque', ',0.###', TAlignment.taRightJustify)
+    .Display('RESERVA', 'Reservado', ',0.###', TAlignment.taRightJustify)
+    .Display('DISPONIVEL', 'Disponível', ',0.###', TAlignment.taRightJustify)
+    .Display('CUSTO', 'Custo Un. (R$)', ',0.00#', TAlignment.taRightJustify)
+    .Display('TOTAL', 'Custo Total (R$)', ',0.00#', TAlignment.taRightJustify)
+    .Configurar( cdsTabelaItens );
 end;
 
 procedure TfrmGeRequisicaoAlmox.ControlEditExit(Sender: TObject);

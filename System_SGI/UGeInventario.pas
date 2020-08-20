@@ -5,6 +5,7 @@ interface
 uses
   UGrPadrao,
   Interacao.Versao,
+  Interacao.Tabela,
   Controller.Versao,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, cxGraphics,
@@ -154,12 +155,7 @@ type
     qryMaterialCONTROLE: TIntegerField;
     qryMaterialITEM: TIntegerField;
     qryMaterialPRODUTO: TStringField;
-    qryMaterialQTDE: TBCDField;
-    qryMaterialESTOQUE: TBCDField;
-    qryMaterialFRACIONADOR: TBCDField;
     qryMaterialUNIDADE: TSmallintField;
-    qryMaterialCUSTO: TBCDField;
-    qryMaterialTOTAL: TBCDField;
     qryMaterialUSUARIO: TStringField;
     qryMaterialLOTE_CONFERIDO: TStringField;
     qryMaterialLOTE_RESULTADO: TStringField;
@@ -172,6 +168,11 @@ type
     QryRelacaoProduto: TFDQuery;
     QryRelacaoProdutoCC: TFDQuery;
     QryRelacaoInventarioCC: TFDQuery;
+    qryMaterialQTDE: TFMTBCDField;
+    qryMaterialESTOQUE: TFMTBCDField;
+    qryMaterialFRACIONADOR: TFMTBCDField;
+    qryMaterialCUSTO: TBCDField;
+    qryMaterialTOTAL: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure nmCarregarIAClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -210,6 +211,7 @@ type
   private
     { Private declarations }
     ver : IVersao;
+    FTabelaMaterial : ITabela;
     procedure CarregarDataSet(const aDataSet : TFDQuery);
     procedure CarregarInventario(Empresa : String; Ano, Codigo : Integer);
     procedure CarregarDadosProduto( Codigo : Integer );
@@ -247,8 +249,18 @@ var
 implementation
 
 uses
-  UDMBusiness, UFuncoes, UGeProduto,  DateUtils, UDMNFe, SysConst,  UConstantesDGE,
-  UGrCampoRequisitado, UGeCentroCusto, UGrMemo, UDMRecursos;
+    UDMBusiness
+  , DateUtils
+  , SysConst
+  , UConstantesDGE
+  , UFuncoes
+  , Controller.Tabela
+  , UDMRecursos
+  , UDMNFe
+  , UGeProduto
+  , UGrCampoRequisitado
+  , UGeCentroCusto
+  , UGrMemo;
 
 {$R *.dfm}
 
@@ -285,6 +297,15 @@ begin
 
   RotinaID          := ROTINA_MOV_INVENTARIO_ESTOQU_ID;
   PnlTitulo.Caption := StringofChar(' ', 8)+ AnsiUpperCase(Self.Caption);
+
+  FTabelaMaterial := TTabelaController.New.Tabela( qryMaterial );
+  FTabelaMaterial
+    .Display('QTDE', 'Quantidade', ',0.###', TAlignment.taRightJustify)
+    .Display('ESTOQUE', 'Estoque', ',0.###', TAlignment.taRightJustify)
+    .Display('FRACIONADOR', 'Fracionador', ',0.###', TAlignment.taRightJustify)
+    .Display('CUSTO', 'Custo Unitário', ',0.00#', TAlignment.taRightJustify)
+    .Display('TOTAL', 'Custo Unitário', ',0.00#', TAlignment.taRightJustify)
+    .Configurar( qryMaterial );
 
   CarregarDataSet(fdQryEmpresa);
   CarregarDataSet(fdQryTipoInventario);

@@ -3,8 +3,10 @@ unit UGeContasAReceberQuitar;
 interface
 
 uses
+  UGrPadraoPesquisa,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoPesquisa, DB, Grids, DBGrids, StdCtrls, Buttons, ExtCtrls, Mask, DBClient,
+  Dialogs, DB, Grids, DBGrids, StdCtrls, Buttons, ExtCtrls, Mask, DBClient,
   Provider, DBCtrls, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
   JvDBControls, JvExMask, JvToolEdit,
 
@@ -46,11 +48,6 @@ type
     CdsPesquisaDTEMISS: TDateField;
     CdsPesquisaDTVENC: TDateField;
     CdsPesquisaDTREC: TDateField;
-    CdsPesquisaVALORREC: TBCDField;
-    CdsPesquisaVALORMULTA: TBCDField;
-    CdsPesquisaVALORRECTOT: TBCDField;
-    CdsPesquisaVALORSALDO: TBCDField;
-    CdsPesquisaVALOR_ARECEBER: TBCDField;
     fdQryFormaPagto: TFDQuery;
     cdsRecebimentos: TFDQuery;
     updRecebimentos: TFDUpdateSQL;
@@ -77,11 +74,6 @@ type
     fdQryPesquisaDTEMISS: TDateField;
     fdQryPesquisaDTVENC: TDateField;
     fdQryPesquisaDTREC: TDateField;
-    fdQryPesquisaVALORREC: TBCDField;
-    fdQryPesquisaVALORMULTA: TBCDField;
-    fdQryPesquisaVALORRECTOT: TBCDField;
-    fdQryPesquisaVALORSALDO: TBCDField;
-    fdQryPesquisaVALOR_ARECEBER: TBCDField;
     fdQryPesquisaSAIDA: TStringField;
     fdQryPesquisaSAIDA_ANO: TSmallintField;
     fdQryPesquisaSAIDA_NUMERO: TIntegerField;
@@ -105,6 +97,16 @@ type
     CdsPesquisaSAIDA_FORNECEDOR: TStringField;
     CdsPesquisaSAIDA_FORNECEDOR_CNPJ: TStringField;
     CdsPesquisaTIPPAG: TStringField;
+    fdQryPesquisaVALORREC: TFMTBCDField;
+    fdQryPesquisaVALORMULTA: TFMTBCDField;
+    fdQryPesquisaVALORRECTOT: TFMTBCDField;
+    fdQryPesquisaVALORSALDO: TFMTBCDField;
+    fdQryPesquisaVALOR_ARECEBER: TFMTBCDField;
+    CdsPesquisaVALORREC: TFMTBCDField;
+    CdsPesquisaVALORMULTA: TFMTBCDField;
+    CdsPesquisaVALORRECTOT: TFMTBCDField;
+    CdsPesquisaVALORSALDO: TFMTBCDField;
+    CdsPesquisaVALOR_ARECEBER: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure CdsPesquisaSELECIONARGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
@@ -143,7 +145,9 @@ var
 implementation
 
 uses
-  UDMBusiness, DateUtils;
+    DateUtils
+  , Controller.Tabela
+  , UDMBusiness;
 
 {$R *.dfm}
 
@@ -219,6 +223,17 @@ begin
   e2Data.Date := GetDateDB;
 
   cdsRecebimentoLOTE.CreateDataSet;
+
+  // Configurar tabela de pesquisa
+  TTabelaController
+    .New
+    .Tabela( CdsPesquisa )
+    .Display('VALORREC', 'Receita (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORMULTA', 'Multa (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORRECTOT', 'Recebido (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORSALDO', 'Saldo (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALOR_ARECEBER', 'A Receber (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( CdsPesquisa );
 end;
 
 procedure TfrmGeContasAReceberQuitar.CdsPesquisaSELECIONARGetText(
