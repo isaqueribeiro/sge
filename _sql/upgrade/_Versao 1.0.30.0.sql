@@ -4,8 +4,6 @@
 DROP TABLE TB_TESTE;
 
 
-
-
 /*------ SYSDBA 02/04/2020 14:44:18 --------*/
 
 SET TERM ^ ;
