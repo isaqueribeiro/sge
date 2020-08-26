@@ -914,6 +914,20 @@ begin
     aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
     KillTask(aProcesso);
   end;
+
+//  // A função "ExecuteScriptMetaData()" atualiza a base de dados
+//  if (gVersaoApp.VersionID > GetVersionDB(gSistema.Codigo)) then
+//  begin
+//    ShowWarning(
+//      'Esta versão da aplicação necessidade que a base de dados esteja atualizada!' + #13#13 +
+//      'Favor entrar em contato com o fornecedor do software.');
+//    Application.Terminate;
+//
+//    // Remover processo da memória do Windows
+//    aProcesso := ParamStr(0);
+//    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+//    KillTask(aProcesso);
+//  end;
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);

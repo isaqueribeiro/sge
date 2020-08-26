@@ -817,7 +817,7 @@ function GetVersionDB(aSistema : Integer) : Currency;
 var
   aRetorno : Currency;
 begin
-  aRetorno := 01002000; // 1.0.20.0
+  aRetorno := VERSION_NUMBER_ID;
   try
     try
       with DMBusiness, fdQryBusca do
@@ -825,7 +825,7 @@ begin
           Close;
           SQL.Clear;
           SQL.Add('Select');
-          SQL.Add('  coalesce(x.sis_version, 01002000) as sis_version');
+          SQL.Add('  coalesce(x.sis_version, ' + VERSION_NUMBER_STR + ') as sis_version');
           SQL.Add('from (');
           SQL.Add('  Select');
           SQL.Add('    max(u.sis_version) as sis_version');
@@ -838,7 +838,7 @@ begin
           aRetorno := FieldByName('sis_version').AsCurrency;
       end;
     except
-      aRetorno := 01002000; // 1.0.20.0
+      aRetorno := VERSION_NUMBER_ID;
     end;
   finally
     Result := aRetorno;
