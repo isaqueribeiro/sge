@@ -717,3 +717,16 @@ ADD CONSTRAINT FK_TBCONFIGURACAO_CONTADOR
 FOREIGN KEY (CONTADOR_CODIGO)
 REFERENCES TBFORNECEDOR(CODFORN);
 
+
+
+
+/*------ SYSDBA 31/08/2020 19:43:32 --------*/
+
+COMMENT ON TABLE SYS_UPGRADE IS 'Tabela Upgrade.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   23/03/2018
+
+Tabela responsavel por armazenar os scripts de upgrade da base de dados a cada
+nova atualizacao do(s) sistema(s).';
+

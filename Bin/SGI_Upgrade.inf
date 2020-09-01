@@ -1,9 +1,9 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 23/09/2018 13:46:00     #
+#    Gerado por AGIL SOFTWARES em : 31/08/2020 19:53:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
-- Atualização das Taxas Tributárias para JAN/2020 até ABR/2020.
+- Atualização das Taxas Tributárias para AGO/2020 até DEZ/2020.
 - Ajustes na geração de NF-e.
 - Ajustes na geração de Recibos.
 - Novos relatórios de Custo dos Materiais/Produtos vendidos no módulo Faturamento.
@@ -13,16 +13,12 @@
 - Ajustes na emissão de NF-e 4.0.
 - Correção nos filtros de pesquisas.
 - Nova definição para os tipos de CFOPs.
-- Atualização das Taxas Tributárias para ABR/2018.
-- Atualização das Taxas Tributárias para JAN/2018;
 - Novos controles no Cadastro de Conta-Corrente e Formas de Pagamento;
 - Novo relatório gerencial: Resultado do Exercício;
 - Nova regra que não permite lançamento de duplicatas e títulos com vencimento anterior a data de emissão do documento de origem;
 - Ajustes na Validação de CPF/CNPJ dos Clientes;
 - Novo relatório de comissões por baixa de títulos;
 - Novos relatórios de Vendas (Faturamento)
-- Financeiro / Controle de Cheques;
-- NF-e / Emissão de CC-e (Carta de Correção Eletrônica);
 - Outros ajustes na otimização de processos.}
 
 #url1=http://www.drhtransparencia.com.br/agil/upgrade/SGI.exe
@@ -45,8 +41,9 @@
 #url18=http://www.drhtransparencia.com.br/agil/upgrade/db/01002700.sql
 #url19=http://www.drhtransparencia.com.br/agil/upgrade/db/01002800.sql
 #url20=http://www.drhtransparencia.com.br/agil/upgrade/db/01002900.sql
-#url16=http://www.drhtransparencia.com.br/agil/upgrade/db/01002903.sql
+#url21=http://www.drhtransparencia.com.br/agil/upgrade/db/01002903.sql
+#url22=http://www.drhtransparencia.com.br/agil/upgrade/db/01003000.sql
 
 #method=0 (self-upgrade)
 
-#version=1.0.29.4
+#version=1.0.30.0

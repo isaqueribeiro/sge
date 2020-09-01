@@ -16,12 +16,12 @@ File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_S
 File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeRequisicaoAlmox.pas',0,1,1013,67,1039,0,0,,
 
 [Modules]
-Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
 Module2=default.htm
 Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
 Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFSe.pas
 Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UEcfFactory.pas
@@ -29,10 +29,10 @@ Module9=documentation.htm
 Count=10
 EditWindowCount=1
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
 ModuleType=TSourceModule
 
 [default.htm]
@@ -41,10 +41,10 @@ ModuleType=TURLModule
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj]
 ModuleType=TBaseProject
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
@@ -61,7 +61,7 @@ ModuleType=TURLModule
 
 [EditWindow0]
 ViewCount=10
-CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
+CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
 View0=0
 View1=1
 View2=2
@@ -95,8 +95,8 @@ RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
 RightPanelData=00000800010100000000201300000000000001D00700000000000001000000004412000009000000446F636B536974653201000000000022000009000000446F636B5369746534FFFFFFFF
 BottomPanelSize=0
-BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020200000009000000446F636B53697465310F0000004D65737361676556696577466F726D1534000000000000022606000000000000FFFFFFFF
+BottomPanelClients=MessageView,DockSite1
+BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B5369746531DE44000000000000020A060000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -134,9 +134,9 @@ EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UEcfFactor
 [View4]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
-CursorX=21
-CursorY=24
-TopLine=1
+CursorX=91
+CursorY=491
+TopLine=487
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -162,7 +162,7 @@ TopLine=1142
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+EditViewName=Borland.FormDesignerView
 
 [View7]
 CustomEditViewType=TEditView
@@ -189,8 +189,8 @@ EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFSe.pas
 [View9]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
-CursorX=1
-CursorY=930
+CursorX=65
+CursorY=895
 TopLine=889
 LeftCol=1
 Elisions=
@@ -309,13 +309,13 @@ Docked=1
 State=0
 Left=0
 Top=28
-Width=2771
-Height=1413
+Width=9917
+Height=1337
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2771
-ClientHeight=1413
-TBDockHeight=1413
+ClientWidth=9917
+ClientHeight=1337
+TBDockHeight=1337
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -378,6 +378,11 @@ Dockable=1
 StayOnTop=0
 SplitPos=111
 
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Connected,
+ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,ActiveControl=0,ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,"LiveBindings Designer=0",Params=0,ResourceOptions=0,Transaction=0,TxOptions=0,UpdateOptions=0,UpdateTransaction=0
+
 [frmDesignPreview]
 PercentageSizes=1
 Create=1
@@ -403,8 +408,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1528
-Top=249
+Left=0
+Top=0
 Width=276
 Height=365
 MaxLeft=-1
@@ -608,8 +613,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=380
-Top=817
+Left=0
+Top=0
 Width=2854
 Height=3212
 MaxLeft=-1
@@ -628,7 +633,7 @@ Visible=0
 Docked=1
 State=0
 Left=-8
-Top=-120
+Top=-8
 Width=1849
 Height=3144
 MaxLeft=-1
@@ -796,8 +801,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=0
-Top=28
+Left=8
+Top=8
 Width=3823
 Height=1423
 MaxLeft=-1
