@@ -3,8 +3,10 @@ unit UGrRegistroEstacao;
 interface
 
 uses
+  UGrPadrao,
+
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  System.ImageList, Dialogs, UGrPadrao, StdCtrls, Buttons, ExtCtrls, ToolWin, ComCtrls,
+  System.ImageList, Dialogs, StdCtrls, Buttons, ExtCtrls, ToolWin, ComCtrls,
   Grids, DBGrids, ImgList, DB, IBCustomDataSet, IBUpdateSQL, cxGraphics, cxLabel,
   cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, cxControls, cxContainer, cxEdit,
 

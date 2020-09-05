@@ -3,7 +3,8 @@ unit UDMCupom;
 interface
 
 uses
-  UInfoVersao,
+  Interacao.Versao,
+  Controller.Versao,
   UFuncoes,
   UEcfFactory,
   UGeConfigurarNFeACBr,

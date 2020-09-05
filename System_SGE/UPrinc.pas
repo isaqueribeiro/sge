@@ -3,7 +3,7 @@ unit UPrinc;
 interface
 
 uses
-  StdCtrls, Buttons, ShellAPI,
+  System.Threading, StdCtrls, Buttons, //ShellAPI,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ComCtrls, ExtCtrls, jpeg, dxRibbonForm, dxRibbonBackstageView,
@@ -338,9 +338,7 @@ uses
   UFuncoes,
   UConstantesDGE,
 
-  //UGrAutoUpgrade,
   View.AutoUpgrade,
-  //UGeSobre,
   View.Abertura,
 
   // Movimentação
@@ -403,6 +401,7 @@ end;
 procedure TfrmPrinc.AutoUpdateSystem;
 var
   aInterval : Cardinal;
+  aTask : ITask;
 begin
   aInterval := (1000 * 60) * 15; // 15 minutos
 
@@ -412,7 +411,12 @@ begin
     tmrAutoUpgrade.Interval := aInterval;
     tmrAutoUpgrade.Enabled  := True;
 
-    AtivarUpgradeAutomatico;
+    // Thread
+    aTask := TTask.Create(procedure ()
+      begin
+        AtivarUpgradeAutomatico;
+      end);
+     aTask.Start;
   end;
 end;
 
@@ -836,19 +840,19 @@ begin
     KillTask(aProcesso);
   end;
 
-//  // A função "ExecuteScriptMetaData()" atualiza a base de dados
-//  if (gVersaoApp.VersionID > GetVersionDB(gSistema.Codigo)) then
-//  begin
-//    ShowWarning(
-//      'Esta versão da aplicação necessidade que a base de dados esteja atualizada!' + #13#13 +
-//      'Favor entrar em contato com o fornecedor do software.');
-//    Application.Terminate;
-//
-//    // Remover processo da memória do Windows
-//    aProcesso := ParamStr(0);
-//    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
-//    KillTask(aProcesso);
-//  end;
+  // O procedimento "UpgradeDataBase()" atualiza a base de dados
+  if (Trunc(gVersaoApp.VersionID / 100) > Trunc(GetVersionDB(gSistema.Codigo) / 100)) then
+  begin
+    ShowWarning(
+      'Esta versão da aplicação necessidade que a base de dados esteja atualizada!' + #13#13 +
+      'Favor entrar em contato com o fornecedor do software.');
+    Application.Terminate;
+
+    // Remover processo da memória do Windows
+    aProcesso := ParamStr(0);
+    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+    KillTask(aProcesso);
+  end;
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
@@ -914,7 +918,7 @@ begin
 
   stbMain.Panels[1].Text := AnsiLowerCase(gUsuarioLogado.Login + '@' + aConexao);
 
-  if (gUsuarioLogado.Empresa <> gLicencaSistema.Empresa) then
+  if (gUsuarioLogado.Empresa <> StrOnlyNumbers(gLicencaSistema.CNPJ)) then
     stbMain.Panels.Items[2].Text := '[' + GetEmpresaNome(gUsuarioLogado.Empresa) + '] | ' + stbMain.Panels.Items[2].Text;
 end;
 

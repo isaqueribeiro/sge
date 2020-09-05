@@ -5239,8 +5239,21 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
 *)
   fdConexao.Connected := False;
 
-  gSistema.Codigo := SISTEMA_GESTAO_COM;
-  gSistema.Nome   := Application.Title;
+  if gVersaoApp.InternalName.Equals('SGE') then
+    gSistema.Codigo := SISTEMA_GESTAO_COM
+  else
+  if gVersaoApp.InternalName.Equals('SGE_PDV') then
+    gSistema.Codigo := SISTEMA_PDV
+  else
+  if gVersaoApp.InternalName.Equals('SGI') then
+    gSistema.Codigo := SISTEMA_GESTAO_IND
+  else
+  if gVersaoApp.InternalName.Equals('SGO') then
+    gSistema.Codigo := SISTEMA_GESTAO_OPME
+  else
+    gSistema.Codigo := SISTEMA_GESTAO_COM;
+
+  gSistema.Nome := Application.Title;
 
   try
     with FileINI do
@@ -5300,6 +5313,7 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
       Connected := True;
     end;
 
+    UpgradeDataBase;
     MontarPermissao;
 
     cdsLicenca.Open;

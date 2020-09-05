@@ -16,6 +16,7 @@ Type
 
       function GetCompanyName : String;
       function GetFileVersion : String;
+      function GetInternalName : String;
       function GetProductVersion : String;
       function GetVersion : String;
       function GetVersionID : Currency;
@@ -27,6 +28,7 @@ Type
 
       property CompanyName: String read GetCompanyName write SetCompanyName;
       property FileVersion: String read GetFileVersion;
+      property InternalName : String read GetInternalName;
       property ProductVersion: String read GetProductVersion;
       property Version : String read GetVersion;
       property VersionID : Currency read GetVersionID;
@@ -160,6 +162,11 @@ begin
     _instance := Self.Create;
 
   Result := _instance;
+end;
+
+function TVersaoController.GetInternalName: String;
+begin
+  Result := getPropertyValue(TPropertyValue.ivINTERNAL_NAME);
 end;
 
 end.

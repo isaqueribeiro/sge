@@ -163,6 +163,7 @@ end;
 procedure TFrmPadraoLogin.FormShow(Sender: TObject);
 begin
   inherited;
+
   Self.BringToFront;
   Self.Activate;
 end;

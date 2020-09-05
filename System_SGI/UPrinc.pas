@@ -915,19 +915,19 @@ begin
     KillTask(aProcesso);
   end;
 
-//  // A função "ExecuteScriptMetaData()" atualiza a base de dados
-//  if (gVersaoApp.VersionID > GetVersionDB(gSistema.Codigo)) then
-//  begin
-//    ShowWarning(
-//      'Esta versão da aplicação necessidade que a base de dados esteja atualizada!' + #13#13 +
-//      'Favor entrar em contato com o fornecedor do software.');
-//    Application.Terminate;
-//
-//    // Remover processo da memória do Windows
-//    aProcesso := ParamStr(0);
-//    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
-//    KillTask(aProcesso);
-//  end;
+  // O procedimento "UpgradeDataBase()" atualiza a base de dados
+  if (Trunc(gVersaoApp.VersionID / 100) > Trunc(GetVersionDB(gSistema.Codigo) / 100)) then
+  begin
+    ShowWarning(
+      'Esta versão da aplicação necessidade que a base de dados esteja atualizada!' + #13#13 +
+      'Favor entrar em contato com o fornecedor do software.');
+    Application.Terminate;
+
+    // Remover processo da memória do Windows
+    aProcesso := ParamStr(0);
+    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+    KillTask(aProcesso);
+  end;
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);

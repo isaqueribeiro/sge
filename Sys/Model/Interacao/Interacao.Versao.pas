@@ -29,6 +29,7 @@ type
 
     function GetCompanyName : String;
     function GetFileVersion : String;
+    function GetInternalName : String;
     function GetProductVersion : String;
     function GetVersion : String;
     function GetVersionID : Currency;
@@ -36,6 +37,7 @@ type
 
     property CompanyName: String read GetCompanyName write SetCompanyName;
     property FileVersion: String read GetFileVersion;
+    property InternalName: String read GetInternalName;
     property ProductVersion: String read GetProductVersion;
     property Version : String read GetVersion;
     property VersionID : Currency read GetVersionID;

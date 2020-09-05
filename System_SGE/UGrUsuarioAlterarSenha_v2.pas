@@ -71,7 +71,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UGrCampoRequisitado, UGrUsuario, UDMRecursos;
+  UDMBusiness, UGrCampoRequisitado, UDMRecursos, UGrUsuario;
 
 {$R *.dfm}
 
