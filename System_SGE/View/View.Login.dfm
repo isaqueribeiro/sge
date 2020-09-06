@@ -2,6 +2,16 @@ inherited FrmLogin: TFrmLogin
   Caption = 'FrmLogin'
   PixelsPerInch = 96
   TextHeight = 19
+  inherited lblSystemName: TLabel
+    Width = 148
+    Caption = 'SGE'
+    ExplicitWidth = 148
+  end
+  inherited lblSystemDescription: TLabel
+    Width = 372
+    Caption = 'Sistema Integrado de Gest'#227'o Empresarial/Comerciall'
+    ExplicitWidth = 372
+  end
   object imgLogo: TImage [9]
     Left = 33
     Top = 33
