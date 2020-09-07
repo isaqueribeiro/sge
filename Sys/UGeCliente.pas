@@ -429,8 +429,8 @@ var
 implementation
 
 uses
-  UDMBusiness, UDMRecursos, UGeBairro, UGeCidade, UGeDistrito, UGeEstado,
-  UGeLogradouro, UGrPadrao, FuncoesFormulario, UConstantesDGE;
+  Classe.InputQuery, UDMBusiness, UDMRecursos, UGeBairro, UGeCidade, UGeDistrito,
+  UGeEstado, UGeLogradouro, UGrPadrao, FuncoesFormulario, UConstantesDGE;
 
 {$R *.dfm}
 
@@ -1045,7 +1045,7 @@ var
   sMotivo : String;
 begin
   if ( DtSrcTabela.DataSet.FieldByName('BLOQUEADO').AsInteger = 1 ) then
-    if InputQuery('Desbloquear cliente:', 'Informe o motivo do desbloqueio:', sMotivo) then
+    if TServiceInputQuery.InputQuery(Self, 'Desbloquear cliente:', 'Informe o motivo do desbloqueio:', sMotivo) then
       if Trim(sMotivo) <> EmptyStr then
         try
           WaitAMoment(WAIT_AMOMENT_Process);
@@ -1064,7 +1064,7 @@ var
   sMotivo : String;
 begin
   if ( DtSrcTabela.DataSet.FieldByName('BLOQUEADO').AsInteger = 0 ) then
-    if InputQuery('Bloquear cliente:', 'Informe o motivo do bloqueio:', sMotivo) then
+    if TServiceInputQuery.InputQuery(Self, 'Bloquear cliente:', 'Informe o motivo do bloqueio:', sMotivo) then
       if Trim(sMotivo) <> EmptyStr then
       try
         WaitAMoment(WAIT_AMOMENT_Process);

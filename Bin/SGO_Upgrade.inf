@@ -1,10 +1,10 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 05/03/2020 13:12:00     #
+#    Gerado por AGIL SOFTWARES em : 07/08/2020 19:07:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
-- Atualização das Taxas Tributárias para JAN/2020 até ABR/2020.
-- Ajustes na geração de NF-e.
+- Atualização das Taxas Tributárias para AGO/2020 até DEZ/2020.
+- Ajustes na geração de NF-e 4.0.
 - Ajustes na geração de Recibos.
 - Novos relatórios de Produtos consignados no módulo Estoque.
 - Novos relatórios de Custo dos Materiais/Produtos vendidos no módulo Faturamento.
@@ -13,11 +13,9 @@
 - Ajustes de emissão de Notas Fiscais de Devolução.
 - Impresão do Espelho do Documento de Entrada de Produtos.
 - Novos relatórios e filtros de Produtos e Faturamento em Vendas.
-- Atualização das Taxas Tributárias para MAI/2019 até JUL/2019.
 - Novos relatórios no grupo de Entradas e Faturamento que consolidam as movimentações de entrada e saída por CFOP.
 - Novo relatório de Faturamento calculando a rentabilidade por produto nas vendas.
 - Nova configuração na CFOF que gerencia movimentação do estoque dos produtos.
-- Ajustes na emissão de NF-e 4.0.
 - Atualização no processo de Inutilização de números de NF-e.
 - Novo relatório de Movimentação Financeira Mensal.
 - Nova definição para os tipos de CFOPs.
@@ -42,7 +40,8 @@
 #url14=http://www.drhtransparencia.com.br/agil/upgrade/db/01002800.sql
 #url15=http://www.drhtransparencia.com.br/agil/upgrade/db/01002900.sql
 #url16=http://www.drhtransparencia.com.br/agil/upgrade/db/01002903.sql
+#url17=http://www.drhtransparencia.com.br/agil/upgrade/db/01003000.sql
 
 #method=0 (self-upgrade)
 
-#version=1.0.29.4
+#version=1.0.30.0

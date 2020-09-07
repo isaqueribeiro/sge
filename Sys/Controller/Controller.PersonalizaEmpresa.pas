@@ -21,6 +21,7 @@ type
       function GetFileDescription : String;
       function GetInternalName : String;
       function GetProductName : String;
+      function GetProductVersion : String;
       function GetFileNameImagePNG_Company : String;
       function GetFileNameImagePNG_Wallpaper : String;
       function GetFileNameImagePNG_BackgroundLogin : String;
@@ -37,6 +38,7 @@ type
       property FileDescription: String read GetFileDescription;
       property InternalName : String read GetInternalName;
       property ProductName : String read GetProductName;
+      property ProductVersion : String read GetProductVersion;
 
       property FileNameImagePNG_Company : String read GetFileNameImagePNG_Company;
       property FileNameImagePNG_Wallpaper : String read GetFileNameImagePNG_Wallpaper;
@@ -155,6 +157,11 @@ begin
         FInformacaoVersao.getPropertyValue(TPropertyValue.ivPRODUCT_NAME))
   else
     Result := FInformacaoVersao.getPropertyValue(TPropertyValue.ivPRODUCT_NAME);
+end;
+
+function TPersonalizaEmpresaController.GetProductVersion: String;
+begin
+  Result := FInformacaoVersao.getPropertyValue(TPropertyValue.ivPRODUCT_VERSION);
 end;
 
 function TPersonalizaEmpresaController.SetVersao(Value: IVersao): IPersonalizaEmpresa;

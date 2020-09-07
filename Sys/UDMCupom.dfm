@@ -1,5 +1,6 @@
 object DMCupom: TDMCupom
   OldCreateOrder = False
+  OnCreate = DataModuleCreate
   Height = 631
   Width = 1015
   object qryCFOP: TFDQuery
@@ -429,13 +430,13 @@ object DMCupom: TDMCupom
       Origin = 'MARCA'
       Size = 50
     end
-    object cdsVendaVolumePESO_BRUTO: TBCDField
+    object cdsVendaVolumePESO_BRUTO: TFMTBCDField
       FieldName = 'PESO_BRUTO'
       Origin = 'PESO_BRUTO'
       Precision = 18
       Size = 3
     end
-    object cdsVendaVolumePESO_LIQUIDO: TBCDField
+    object cdsVendaVolumePESO_LIQUIDO: TFMTBCDField
       FieldName = 'PESO_LIQUIDO'
       Origin = 'PESO_LIQUIDO'
       Precision = 18
@@ -562,18 +563,15 @@ object DMCupom: TDMCupom
       FieldName = 'VENDA_PRAZO'
       Origin = 'VENDA_PRAZO'
     end
-    object cdsVendaFormaPagtoVALOR_FPAGTO: TBCDField
-      DisplayLabel = 'Valor (R$)'
+    object cdsVendaFormaPagtoVALOR_FPAGTO: TFMTBCDField
       FieldName = 'VALOR_FPAGTO'
       Origin = 'VALOR_FPAGTO'
-      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
-    object cdsVendaFormaPagtoVALOR_RECEBIDO: TBCDField
+    object cdsVendaFormaPagtoVALOR_RECEBIDO: TFMTBCDField
       FieldName = 'VALOR_RECEBIDO'
       Origin = 'VALOR_RECEBIDO'
-      DisplayFormat = ',0.00'
       Precision = 18
       Size = 2
     end
@@ -844,58 +842,6 @@ object DMCupom: TDMCupom
       FieldName = 'DTVENDA'
       Origin = 'DTVENDA'
     end
-    object cdsVendaItemQTDE: TBCDField
-      DisplayLabel = 'Quantidade'
-      FieldName = 'QTDE'
-      Origin = 'QTDE'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object cdsVendaItemPUNIT: TBCDField
-      DisplayLabel = 'Valor Unit'#225'rio'
-      FieldName = 'PUNIT'
-      Origin = 'PUNIT'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaItemPUNIT_PROMOCAO: TBCDField
-      FieldName = 'PUNIT_PROMOCAO'
-      Origin = 'PUNIT_PROMOCAO'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaItemDESCONTO: TBCDField
-      DisplayLabel = '% Desconto'
-      FieldName = 'DESCONTO'
-      Origin = 'DESCONTO'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 3
-    end
-    object cdsVendaItemDESCONTO_VALOR: TBCDField
-      DisplayLabel = 'Valor Desconto (R$)'
-      FieldName = 'DESCONTO_VALOR'
-      Origin = 'DESCONTO_VALOR'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-    end
-    object cdsVendaItemPFINAL: TBCDField
-      DisplayLabel = 'Valor L'#237'quido'
-      FieldName = 'PFINAL'
-      Origin = 'PFINAL'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaItemQTDEFINAL: TBCDField
-      FieldName = 'QTDEFINAL'
-      Origin = 'QTDEFINAL'
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
     object cdsVendaItemUNID_COD: TSmallintField
       FieldName = 'UNID_COD'
       Origin = 'UNID_COD'
@@ -922,72 +868,6 @@ object DMCupom: TDMCupom
       ProviderFlags = []
       Size = 3
     end
-    object cdsVendaItemALIQUOTA: TBCDField
-      FieldName = 'ALIQUOTA'
-      Origin = 'ALIQUOTA'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaItemALIQUOTA_CSOSN: TBCDField
-      FieldName = 'ALIQUOTA_CSOSN'
-      Origin = 'ALIQUOTA_CSOSN'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaItemALIQUOTA_PIS: TBCDField
-      FieldName = 'ALIQUOTA_PIS'
-      Origin = 'ALIQUOTA_PIS'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaItemALIQUOTA_COFINS: TBCDField
-      FieldName = 'ALIQUOTA_COFINS'
-      Origin = 'ALIQUOTA_COFINS'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaItemVALOR_IPI: TBCDField
-      FieldName = 'VALOR_IPI'
-      Origin = 'VALOR_IPI'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaItemPERCENTUAL_REDUCAO_BC: TBCDField
-      FieldName = 'PERCENTUAL_REDUCAO_BC'
-      Origin = 'PERCENTUAL_REDUCAO_BC'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaItemTOTAL_BRUTO: TBCDField
-      DisplayLabel = 'Total Bruto'
-      FieldName = 'TOTAL_BRUTO'
-      Origin = 'TOTAL_BRUTO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaItemTOTAL_DESCONTO: TBCDField
-      DisplayLabel = 'Total Desc.'
-      FieldName = 'TOTAL_DESCONTO'
-      Origin = 'TOTAL_DESCONTO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaItemTOTAL_LIQUIDO: TBCDField
-      DisplayLabel = 'Total L'#237'quido'
-      FieldName = 'TOTAL_LIQUIDO'
-      Origin = 'TOTAL_LIQUIDO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
     object cdsVendaItemDESCRI: TStringField
       AutoGenerateValue = arDefault
       DisplayLabel = 'Nome do produto'
@@ -995,22 +875,6 @@ object DMCupom: TDMCupom
       Origin = 'DESCRI'
       ProviderFlags = []
       Size = 50
-    end
-    object cdsVendaItemESTOQUE: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'ESTOQUE'
-      Origin = 'QTDE'
-      ProviderFlags = []
-      Precision = 18
-      Size = 3
-    end
-    object cdsVendaItemRESERVA: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'RESERVA'
-      Origin = 'RESERVA'
-      ProviderFlags = []
-      Precision = 18
-      Size = 3
     end
     object cdsVendaItemUNP_SIGLA: TStringField
       AutoGenerateValue = arDefault
@@ -1045,6 +909,121 @@ object DMCupom: TDMCupom
       FieldName = 'CSOSN_PRODUTO'
       Origin = 'CSOSN'
       ProviderFlags = []
+      Size = 3
+    end
+    object cdsVendaItemQTDE: TFMTBCDField
+      FieldName = 'QTDE'
+      Origin = 'QTDE'
+      Required = True
+      Precision = 18
+      Size = 3
+    end
+    object cdsVendaItemPUNIT: TFMTBCDField
+      FieldName = 'PUNIT'
+      Origin = 'PUNIT'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaItemPUNIT_PROMOCAO: TFMTBCDField
+      FieldName = 'PUNIT_PROMOCAO'
+      Origin = 'PUNIT_PROMOCAO'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaItemDESCONTO: TFMTBCDField
+      FieldName = 'DESCONTO'
+      Origin = 'DESCONTO'
+      Precision = 18
+      Size = 3
+    end
+    object cdsVendaItemDESCONTO_VALOR: TBCDField
+      FieldName = 'DESCONTO_VALOR'
+      Origin = 'DESCONTO_VALOR'
+      Precision = 18
+    end
+    object cdsVendaItemPFINAL: TFMTBCDField
+      FieldName = 'PFINAL'
+      Origin = 'PFINAL'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaItemQTDEFINAL: TFMTBCDField
+      FieldName = 'QTDEFINAL'
+      Origin = 'QTDEFINAL'
+      Required = True
+      Precision = 18
+      Size = 3
+    end
+    object cdsVendaItemALIQUOTA: TFMTBCDField
+      FieldName = 'ALIQUOTA'
+      Origin = 'ALIQUOTA'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaItemALIQUOTA_CSOSN: TFMTBCDField
+      FieldName = 'ALIQUOTA_CSOSN'
+      Origin = 'ALIQUOTA_CSOSN'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaItemALIQUOTA_PIS: TFMTBCDField
+      FieldName = 'ALIQUOTA_PIS'
+      Origin = 'ALIQUOTA_PIS'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaItemALIQUOTA_COFINS: TFMTBCDField
+      FieldName = 'ALIQUOTA_COFINS'
+      Origin = 'ALIQUOTA_COFINS'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaItemVALOR_IPI: TFMTBCDField
+      FieldName = 'VALOR_IPI'
+      Origin = 'VALOR_IPI'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaItemPERCENTUAL_REDUCAO_BC: TFMTBCDField
+      FieldName = 'PERCENTUAL_REDUCAO_BC'
+      Origin = 'PERCENTUAL_REDUCAO_BC'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaItemTOTAL_BRUTO: TFMTBCDField
+      FieldName = 'TOTAL_BRUTO'
+      Origin = 'TOTAL_BRUTO'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaItemTOTAL_DESCONTO: TFMTBCDField
+      FieldName = 'TOTAL_DESCONTO'
+      Origin = 'TOTAL_DESCONTO'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaItemTOTAL_LIQUIDO: TFMTBCDField
+      FieldName = 'TOTAL_LIQUIDO'
+      Origin = 'TOTAL_LIQUIDO'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaItemESTOQUE: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'ESTOQUE'
+      Origin = 'QTDE'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
+      Size = 3
+    end
+    object cdsVendaItemRESERVA: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'RESERVA'
+      Origin = 'RESERVA'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
       Size = 3
     end
   end
@@ -1322,35 +1301,6 @@ object DMCupom: TDMCupom
       FieldName = 'STATUS'
       Origin = 'STATUS'
     end
-    object cdsVendaTOTALVENDA_BRUTA: TBCDField
-      DisplayLabel = 'Total Bruto (R$)'
-      FieldName = 'TOTALVENDA_BRUTA'
-      Origin = 'TOTALVENDA_BRUTA'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaDESCONTO: TBCDField
-      DisplayLabel = 'Desconto (R$)'
-      FieldName = 'DESCONTO'
-      Origin = 'DESCONTO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object cdsVendaDESCONTO_CUPOM: TBCDField
-      FieldName = 'DESCONTO_CUPOM'
-      Origin = 'DESCONTO_CUPOM'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaTOTALVENDA: TBCDField
-      DisplayLabel = 'Valor Total (R$)'
-      FieldName = 'TOTALVENDA'
-      Origin = 'TOTALVENDA'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
     object cdsVendaDTFINALIZACAO_VENDA: TDateField
       FieldName = 'DTFINALIZACAO_VENDA'
       Origin = 'DTFINALIZACAO_VENDA'
@@ -1571,24 +1521,6 @@ object DMCupom: TDMCupom
       Origin = 'NFE_PLACA_RNTC'
       Size = 10
     end
-    object cdsVendaNFE_VALOR_TOTAL_PRODUTO: TBCDField
-      FieldName = 'NFE_VALOR_TOTAL_PRODUTO'
-      Origin = 'NFE_VALOR_TOTAL_PRODUTO'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaNFE_VALOR_DESCONTO: TBCDField
-      FieldName = 'NFE_VALOR_DESCONTO'
-      Origin = 'NFE_VALOR_DESCONTO'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaNFE_VALOR_TOTAL_NOTA: TBCDField
-      FieldName = 'NFE_VALOR_TOTAL_NOTA'
-      Origin = 'NFE_VALOR_TOTAL_NOTA'
-      Precision = 18
-      Size = 2
-    end
     object cdsVendaGERAR_ESTOQUE_CLIENTE: TSmallintField
       FieldName = 'GERAR_ESTOQUE_CLIENTE'
       Origin = 'GERAR_ESTOQUE_CLIENTE'
@@ -1641,19 +1573,59 @@ object DMCupom: TDMCupom
       ProviderFlags = []
       BlobType = ftMemo
     end
-    object cdsVendaLUCRO_CALCULADO: TBCDField
-      AutoGenerateValue = arDefault
-      DisplayLabel = '% Lucro'
-      FieldName = 'LUCRO_CALCULADO'
-      Origin = 'LUCRO_CALCULADO'
-      ProviderFlags = []
-      DisplayFormat = ',0.00##'
-      Precision = 18
-    end
     object cdsVendaDESCONTO_TOTAL: TCurrencyField
       FieldKind = fkInternalCalc
       FieldName = 'DESCONTO_TOTAL'
       DisplayFormat = ',0.00'
+    end
+    object cdsVendaTOTALVENDA_BRUTA: TFMTBCDField
+      FieldName = 'TOTALVENDA_BRUTA'
+      Origin = 'TOTALVENDA_BRUTA'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaDESCONTO: TBCDField
+      FieldName = 'DESCONTO'
+      Origin = 'DESCONTO'
+      Precision = 18
+    end
+    object cdsVendaDESCONTO_CUPOM: TFMTBCDField
+      FieldName = 'DESCONTO_CUPOM'
+      Origin = 'DESCONTO_CUPOM'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaTOTALVENDA: TFMTBCDField
+      FieldName = 'TOTALVENDA'
+      Origin = 'TOTALVENDA'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaNFE_VALOR_TOTAL_PRODUTO: TFMTBCDField
+      FieldName = 'NFE_VALOR_TOTAL_PRODUTO'
+      Origin = 'NFE_VALOR_TOTAL_PRODUTO'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaNFE_VALOR_DESCONTO: TFMTBCDField
+      FieldName = 'NFE_VALOR_DESCONTO'
+      Origin = 'NFE_VALOR_DESCONTO'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaNFE_VALOR_TOTAL_NOTA: TFMTBCDField
+      FieldName = 'NFE_VALOR_TOTAL_NOTA'
+      Origin = 'NFE_VALOR_TOTAL_NOTA'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaLUCRO_CALCULADO: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'LUCRO_CALCULADO'
+      Origin = 'LUCRO_CALCULADO'
+      ProviderFlags = []
+      ReadOnly = True
+      Precision = 18
     end
   end
   object updVenda: TFDUpdateSQL

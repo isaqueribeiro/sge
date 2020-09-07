@@ -3,7 +3,7 @@ unit UPrinc;
 interface
 
 uses
-  StdCtrls, Buttons, ShellAPI,
+  System.Threading, StdCtrls, Buttons, ShellAPI,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ComCtrls, ExtCtrls, jpeg, dxRibbonForm, dxRibbonBackstageView,
@@ -310,6 +310,7 @@ type
     FAcesso : Boolean;
     procedure RegistrarRotinasMenu;
     procedure AutoUpdateSystem;
+    procedure GetInformacoesGerais;
   public
     { Public declarations }
     procedure AlertarCliente;
@@ -339,8 +340,9 @@ uses
   UDMNFe,
   UFuncoes,
   UConstantesDGE,
-  UGrAutoUpgrade,
-  UGeSobre,
+
+  View.AutoUpgrade,
+  View.Abertura,
 
   // Movimentação
   UGeRequisicaoCliente,
@@ -402,6 +404,7 @@ end;
 procedure TfrmPrinc.AutoUpdateSystem;
 var
   aInterval : Cardinal;
+  aTask : ITask;
 begin
   aInterval := (1000 * 60) * 15; // 15 minutos
 
@@ -411,7 +414,12 @@ begin
     tmrAutoUpgrade.Interval := aInterval;
     tmrAutoUpgrade.Enabled  := True;
 
-    AtivarUpgradeAutomatico;
+    // Thread
+    aTask := TTask.Create(procedure ()
+      begin
+        AtivarUpgradeAutomatico;
+      end);
+     aTask.Start;
   end;
 end;
 
@@ -794,21 +802,13 @@ end;
 
 procedure TfrmPrinc.FormActivate(Sender: TObject);
 var
-  sCNPJ     ,
   sHostName ,
   aProcesso : String;
 begin
+  GetInformacoesGerais;
+
   if not DataBaseOnLine then
     Exit;
-
-  if ( StrIsCNPJ(gLicencaSistema.CNPJ) ) then
-    sCNPJ := 'CNPJ: ' + StrFormatarCnpj(gLicencaSistema.CNPJ)
-  else
-    sCNPJ := 'CPF: ' + StrFormatarCpf(gLicencaSistema.CNPJ);
-
-  stbMain.Panels.Items[2].Text := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ]);
-  BrBtnAlterarSenha.Caption    := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
-  BrBtnAlterarSenha.Hint       := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
 
   Self.WindowState := wsMaximized;
 
@@ -861,26 +861,36 @@ begin
     aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
     KillTask(aProcesso);
   end;
+
+  // O procedimento "UpgradeDataBase()" atualiza a base de dados
+  if (Trunc(gVersaoApp.VersionID / 100) > Trunc(GetVersionDB(gSistema.Codigo) / 100)) then
+  begin
+    ShowWarning(
+      'Esta versão da aplicação necessidade que a base de dados esteja atualizada!' + #13#13 +
+      'Favor entrar em contato com o fornecedor do software.');
+    Application.Terminate;
+
+    // Remover processo da memória do Windows
+    aProcesso := ParamStr(0);
+    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+    KillTask(aProcesso);
+  end;
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
 var
-//  sCommand   ,
   sFileImage : String;
 begin
-//  sCommand := ExtractFilePath(ParamStr(0)) + 'Upgrades.bat';
-//  DeleteFile(sCommand);
-//
   Self.Tag := SISTEMA_GESTAO_OPME;
 
   gSistema.Codigo := Self.Tag;
   gSistema.Nome   := Self.Caption;
 
-  Self.Caption             := Application.Title + ' [ v' + GetExeVersion + ' ]';
-  Self.ProductName.Caption := GetInternalName;
-  Self.FileDescription.Caption := GetFileDescription;
-  Self.Version.Caption     := 'Versão ' + GetExeVersion;
-  Self.Copyright.Caption   := GetCopyright;
+  Self.Caption             := Application.Title + ' [ v' + gVersaoApp.Version + ' ]';
+  Self.ProductName.Caption := gPersonalizaEmpresa.InternalName;
+  Self.FileDescription.Caption := gPersonalizaEmpresa.FileDescription;
+  Self.Version.Caption     := 'Versão ' + gVersaoApp.Version;
+  Self.Copyright.Caption   := gVersaoApp.Copyright;
   Self.DisableAero         := True;
 
   Ribbon.ActiveTab := RbnTabPrincipal;
@@ -907,8 +917,31 @@ begin
     Exit;
 
   FAcesso := False;
-  SetSistema(gSistema.Codigo, gSistema.Nome, GetVersion);
+  SetSistema(gSistema.Codigo, gSistema.Nome, gVersaoApp.Version);
   RegistrarRotinasMenu;
+end;
+
+procedure TfrmPrinc.GetInformacoesGerais;
+var
+  sCNPJ    ,
+  aConexao : String;
+begin
+  if ( StrIsCNPJ(gLicencaSistema.CNPJ) ) then
+    sCNPJ := 'CNPJ: ' + StrFormatarCnpj(gLicencaSistema.CNPJ)
+  else
+    sCNPJ := 'CPF: ' + StrFormatarCpf(gLicencaSistema.CNPJ);
+
+  stbMain.Panels.Items[2].Text := Format('Licenciado a empresa %s, %s', [gLicencaSistema.Empresa, sCNPJ]);
+  BrBtnAlterarSenha.Caption    := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
+  BrBtnAlterarSenha.Hint       := Format('Alteração de Senha (%s)', [gUsuarioLogado.Login]);
+
+  with DMBusiness do
+    aConexao := fdConexao.Params.Values['Server'] + '/' + fdConexao.Params.Values['Port'] + ':' + fdConexao.Params.Values['Database'];
+
+  stbMain.Panels[1].Text := AnsiLowerCase(gUsuarioLogado.Login + '@' + aConexao);
+
+  if (gUsuarioLogado.Empresa <> StrOnlyNumbers(gLicencaSistema.CNPJ)) then
+    stbMain.Panels.Items[2].Text := '[' + GetEmpresaNome(gUsuarioLogado.Empresa) + '] | ' + stbMain.Panels.Items[2].Text;
 end;
 
 procedure TfrmPrinc.nmGerarBoletoClick(Sender: TObject);

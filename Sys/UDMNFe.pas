@@ -8032,9 +8032,9 @@ begin
 
       with aEcf do
       begin
-        Ecf.SoftHouse := GetCompanyName;
-        Ecf.Sistema   := GetProductName;
-        Ecf.Versao    := GetProductVersion;
+        Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
+        Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
+        Ecf.Versao    := gVersaoApp.ProductVersion;
 
         Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString);
 
@@ -8268,9 +8268,9 @@ begin
 
         with aEcf do
         begin
-          Ecf.SoftHouse := GetCompanyName;
-          Ecf.Sistema   := GetProductName;
-          Ecf.Versao    := GetVersion;
+          Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
+          Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
+          Ecf.Versao    := gVersaoApp.Version;
 
           Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString);
           Ecf.Titulo_Livre( 'RELATORIO GERENCIAL' );

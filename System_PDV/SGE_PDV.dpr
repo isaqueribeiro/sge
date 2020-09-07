@@ -117,7 +117,10 @@ uses
   UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa},
   UGeVendaPDVFormaPagto in 'UGeVendaPDVFormaPagto.pas' {frmGeVendaPDVFormaPagto},
   UGeConsultarLoteNFe_v2 in '..\System_SGE\UGeConsultarLoteNFe_v2.pas' {frmGeConsultarLoteNFe_v2},
-  UGrUsuario in '..\System_SGE\UGrUsuario.pas' {frmGrUsuario};
+  UGrUsuario in '..\System_SGE\UGrUsuario.pas' {frmGrUsuario},
+  Interfaces.InputQuery in '..\Sys\Services\InputQuery\Interfaces.InputQuery.pas',
+  View.InputQuery in '..\Sys\Services\InputQuery\View.InputQuery.pas' {ViewInputQuery},
+  Classe.InputQuery in '..\Sys\Services\Classe.InputQuery.pas';
 
 {$R *.res}
 
@@ -132,7 +135,6 @@ begin
   Application.CreateForm(TDMRecursos, DMRecursos);
   Application.CreateForm(TDMBusiness, DMBusiness);
   Application.CreateForm(TDMNFe, DMNFe);
-
   SplashFree;
 
   if ExecutarLogin() then

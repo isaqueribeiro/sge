@@ -10,7 +10,6 @@ uses
   Grids, DBGrids, ImgList, DB, IBCustomDataSet, IBUpdateSQL, cxGraphics, cxLabel,
   cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, cxControls, cxContainer, cxEdit,
 
-
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
   FireDAC.Comp.DataSet,
@@ -66,7 +65,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, UGrUsuario, IdIPWatch, UFuncoes;
+  UDMBusiness, UConstantesDGE, UGrUsuario, IdIPWatch, UFuncoes, Classe.InputQuery;
 
 {$R *.dfm}
 
@@ -95,40 +94,37 @@ begin
   if not btbtnIncluir.Enabled then
     Exit;
 
-  if ShowConfirmation('Registro', 'Deseja registrar na base do sistema esta estação de trabalho?') then
+  if not cdsRegistro.Active then
+    cdsRegistro.Open;
+
+  if cdsRegistro.Locate('EST_NOME', lblHostName.Caption, []) then
   begin
-    if not cdsRegistro.Active then
-      cdsRegistro.Open;
-
-    if cdsRegistro.Locate('EST_NOME', lblHostName.Caption, []) then
-    begin
-      sLocal := Trim(cdsRegistroEST_LOCAL.AsString);
-      cdsRegistro.Edit;
-    end
-    else
-    begin
-      sLocal := EmptyStr;
-      cdsRegistro.Append;
-    end;
-
-    if InputQuery('Local', 'Favor informar o Local da Estação de Trabalho:', sLocal) then
-    begin
-      cdsRegistroEST_LOCAL.AsString    := Trim(sLocal);
-      cdsRegistroEST_NOME.AsString     := lblHostName.Caption;
-      cdsRegistroEST_IP.AsString       := DMBusiness.IdIPWatch.LocalIP;
-      cdsRegistroEST_REGISTRO.AsString := EncriptSenha(gUsuarioLogado.Login + DateTimeToStr(Now), USER_PASSWD_KEY);
-      cdsRegistroEST_ULTIMO_ACESSO.AsDateTime := Now;
-
-      cdsRegistro.Post;
-      cdsRegistro.ApplyUpdates;
-      CommitTransaction;
-
-      ShowInformation('Estação de trabalho registrada com sucesso.');
-      dbgRegistro.SetFocus;
-    end
-    else
-      cdsRegistro.Cancel;
+    sLocal := Trim(cdsRegistroEST_LOCAL.AsString);
+    cdsRegistro.Edit;
+  end
+  else
+  begin
+    sLocal := EmptyStr;
+    cdsRegistro.Append;
   end;
+
+  if TServiceInputQuery.InputQuery(Self, 'Local', 'Favor informar o Local da Estação de Trabalho:', sLocal) then
+  begin
+    cdsRegistroEST_LOCAL.AsString    := Trim(sLocal);
+    cdsRegistroEST_NOME.AsString     := lblHostName.Caption;
+    cdsRegistroEST_IP.AsString       := DMBusiness.IdIPWatch.LocalIP;
+    cdsRegistroEST_REGISTRO.AsString := EncriptSenha(gUsuarioLogado.Login + DateTimeToStr(Now), USER_PASSWD_KEY);
+    cdsRegistroEST_ULTIMO_ACESSO.AsDateTime := Now;
+
+    cdsRegistro.Post;
+    cdsRegistro.ApplyUpdates;
+    CommitTransaction;
+
+    ShowInformation('Estação de trabalho registrada com sucesso.');
+    dbgRegistro.SetFocus;
+  end
+  else
+    cdsRegistro.Cancel;
 end;
 
 procedure TFrmGrRegistroEstacao.cdsRegistroXSEQGetText(Sender: TField;

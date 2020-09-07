@@ -29,6 +29,8 @@ inherited frmGeCliente: TfrmGeCliente
     ExplicitWidth = 844
     ExplicitHeight = 492
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 836
       ExplicitHeight = 463
       inherited Bevel4: TBevel
@@ -1018,6 +1020,10 @@ inherited frmGeCliente: TfrmGeCliente
         TabStop = False
         object tbsContato: TTabSheet
           Caption = '&1. Contato'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblFoneFixo: TLabel
             Left = 8
             Top = 0
@@ -1143,6 +1149,10 @@ inherited frmGeCliente: TfrmGeCliente
         object tbsDadosAdcionais: TTabSheet
           Caption = '&2. Outras Informa'#231#245'es'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbNFeDevolucao: TDBCheckBox
             Left = 12
             Top = 114
@@ -2020,6 +2030,10 @@ inherited frmGeCliente: TfrmGeCliente
         object tbsDadoFinanceiro: TTabSheet
           Caption = '&3. Dados Financeiro'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbgContaCorrente: TcxDBVerticalGrid
             Left = 0
             Top = 0
@@ -2204,6 +2218,10 @@ inherited frmGeCliente: TfrmGeCliente
         object tbsObservacao: TTabSheet
           Caption = '&4. Observa'#231#245'es'
           ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -3055,6 +3073,10 @@ inherited frmGeCliente: TfrmGeCliente
     object tbsConsultarCPF: TTabSheet
       Caption = 'Consultar CPF'
       ImageIndex = 12
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pnlConsultarCPF: TPanel
         Left = 0
         Top = 0
@@ -3153,6 +3175,10 @@ inherited frmGeCliente: TfrmGeCliente
       Tag = 12
       Caption = 'Estoque &Sat'#233'lite'
       ImageIndex = 30
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Bevel11: TBevel
         Left = 0
         Top = 62

@@ -622,8 +622,8 @@ var
 implementation
 
 uses
-  Controller.Tabela, UDMBusiness, UFuncoes, UGeCliente, UGeCondicaoPagto, UGeProduto, UGeTabelaCFOP,
-  UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos, UGeEfetuarPagtoREC,
+  Classe.InputQuery, Controller.Tabela, UDMBusiness, UFuncoes, UGeCliente, UGeCondicaoPagto, UGeProduto,
+  UGeTabelaCFOP, UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos, UGeEfetuarPagtoREC,
   UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte, UGeVendaConfirmaTitulos,
   {$IFNDEF PDV}UGeVendaDevolucaoNF, UGeConsultarLoteNFe_v2, UGeRequisicaoCliente, {$ENDIF}
   UDMRecursos, UGrMemo;
@@ -3809,7 +3809,7 @@ begin
 
   sDestinatario := GetClienteEmail(DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger);
 
-  if not InputQuery('E-mail do Cliente:', 'Favor informar/confirmar e-mail do cliente para onde os arquivos (Boleto(s) e NF-e) serão enviados:', sDestinatario) then
+  if not TServiceInputQuery.InputQuery(Self, 'E-mail do Cliente:', 'Favor informar/confirmar e-mail do cliente para onde os arquivos (Boleto(s) e NF-e) serão enviados:', sDestinatario) then
     Exit
   else
     GravarEmailCliente( DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger, sDestinatario );
