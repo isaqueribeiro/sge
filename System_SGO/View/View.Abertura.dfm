@@ -1,5 +1,6 @@
 inherited FrmAbertura: TFrmAbertura
   Caption = 'FrmAbertura'
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 19
   inherited lblSystemDescription: TLabel

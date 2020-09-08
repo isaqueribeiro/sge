@@ -12,6 +12,7 @@ type
     imgLogo: TImage;
     lblPropriedade: TLabel;
     procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -72,9 +73,19 @@ begin
   CriarLinhasInferiores  := True;
   lblPropriedade.Visible := False;
 
+  lblSystemName.Transparent := False;
+  lblSystemDescription.Transparent := False;
+
   inherited;
 
   imgLogo.BringToFront;
+end;
+
+procedure TFrmAbertura.FormShow(Sender: TObject);
+begin
+  inherited;
+  lblSystemName.Transparent := True;
+  lblSystemDescription.Transparent := True;
 end;
 
 end.

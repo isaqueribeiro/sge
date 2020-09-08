@@ -10,6 +10,7 @@ type
   TFrmLogin = class(TFrmPadraoLogin)
     imgLogo: TImage;
     procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,6 +33,16 @@ begin
   imgLogo.BringToFront;
   // Inverter cor
   //lblSystemName.Font.Color := RGB(255 - GetRValue(Self.Color), 255 - GetGValue(Self.Color), 255 - GetBValue(Self.Color));
+
+  lblSystemName.Transparent := False;
+  lblSystemDescription.Transparent := False;
+end;
+
+procedure TFrmLogin.FormShow(Sender: TObject);
+begin
+  inherited;
+  lblSystemName.Transparent := True;
+  lblSystemDescription.Transparent := True;
 end;
 
 initialization
