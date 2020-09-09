@@ -84,9 +84,6 @@ type
     cdsVendaDTFINALIZACAO_VENDA: TDateField;
     cdsVendaDATAEMISSAO: TDateField;
     cdsVendaHORAEMISSAO: TTimeField;
-    cdsVendaTOTALVENDA_BRUTA: TBCDField;
-    cdsVendaDESCONTO: TBCDField;
-    cdsVendaTOTALVENDA: TBCDField;
     cdsVendaSERIE: TStringField;
     cdsVendaNFE: TLargeintField;
     cdsVendaCFOP: TIntegerField;
@@ -118,6 +115,9 @@ type
     cdsVendaVALOR_TOTAL_ICMS_NORMAL_DEVIDO: TFMTBCDField;
     cdsVendaVALOR_TOTAL_PIS: TBCDField;
     cdsVendaVALOR_TOTAL_COFINS: TBCDField;
+    cdsVendaTOTALVENDA_BRUTA: TFMTBCDField;
+    cdsVendaDESCONTO: TBCDField;
+    cdsVendaTOTALVENDA: TFMTBCDField;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -505,6 +505,9 @@ begin
   TTabelaController
     .New
     .Tabela( cdsVenda )
+    .Display('TOTALVENDA_BRUTA', 'Total Bruto', ',0.00', TAlignment.taRightJustify)
+    .Display('DESCONTO', 'Desconto', ',0.00', TAlignment.taRightJustify)
+    .Display('TOTALVENDA', 'Total Venda', ',0.00', TAlignment.taRightJustify)
     .Display('NFE_VALOR_BASE_ICMS', 'Base Cálculo ICMS', ',0.00', TAlignment.taRightJustify)
     .Display('NFE_VALOR_ICMS',      'Valor ICMS', ',0.00', TAlignment.taRightJustify)
     .Display('NFE_VALOR_BASE_ICMS_SUBST', 'Base Cálculo ICMS Subs.', ',0.00', TAlignment.taRightJustify)

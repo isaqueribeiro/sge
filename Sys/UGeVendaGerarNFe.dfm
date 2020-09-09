@@ -1152,23 +1152,6 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       Origin = 'HORAEMISSAO'
       DisplayFormat = 'hh:mm:ss'
     end
-    object cdsVendaTOTALVENDA_BRUTA: TBCDField
-      FieldName = 'TOTALVENDA_BRUTA'
-      Origin = 'TOTALVENDA_BRUTA'
-      Precision = 18
-      Size = 2
-    end
-    object cdsVendaDESCONTO: TBCDField
-      FieldName = 'DESCONTO'
-      Origin = 'DESCONTO'
-      Precision = 18
-    end
-    object cdsVendaTOTALVENDA: TBCDField
-      FieldName = 'TOTALVENDA'
-      Origin = 'TOTALVENDA'
-      Precision = 18
-      Size = 2
-    end
     object cdsVendaSERIE: TStringField
       FieldName = 'SERIE'
       Origin = 'SERIE'
@@ -1195,6 +1178,23 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
       FieldName = 'STATUS'
       Origin = 'STATUS'
       Required = True
+    end
+    object cdsVendaTOTALVENDA_BRUTA: TFMTBCDField
+      FieldName = 'TOTALVENDA_BRUTA'
+      Origin = 'TOTALVENDA_BRUTA'
+      Precision = 18
+      Size = 2
+    end
+    object cdsVendaDESCONTO: TBCDField
+      FieldName = 'DESCONTO'
+      Origin = 'DESCONTO'
+      Precision = 18
+    end
+    object cdsVendaTOTALVENDA: TFMTBCDField
+      FieldName = 'TOTALVENDA'
+      Origin = 'TOTALVENDA'
+      Precision = 18
+      Size = 2
     end
     object cdsVendaNFE_VALOR_BASE_ICMS: TFMTBCDField
       FieldName = 'NFE_VALOR_BASE_ICMS'
