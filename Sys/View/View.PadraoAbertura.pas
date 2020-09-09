@@ -357,7 +357,7 @@ begin
   DefinirLabels;
 
   shapeMolduraIcone.Visible   := False;
-  ReportMemoryLeaksOnShutdown := True; // Evitar vazamento de memória
+  ReportMemoryLeaksOnShutdown := True; // Notificar vazamento de memória
 
   LoadInformation();
 end;

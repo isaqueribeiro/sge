@@ -129,7 +129,7 @@ end;
 
 function TUsuario.Login: String;
 begin
-  Result := FLogin;
+  Result := FLogin.ToUpper;
 end;
 
 class function TUsuario.New: IUsuarioModel;

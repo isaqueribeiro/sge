@@ -271,6 +271,8 @@ begin
 
   ArquivosBaixados := TStringList.Create;
   ArquivosBaixados.Clear;
+
+  ReportMemoryLeaksOnShutdown := False; // Não notificar vazamento de memória
 end;
 
 procedure TFrmAutoUpgrade.FormShow(Sender: TObject);

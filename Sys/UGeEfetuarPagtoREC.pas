@@ -3,7 +3,7 @@ unit UGeEfetuarPagtoREC;
 interface
 
 uses
-  UGrPadrao,
+  UGrPadrao, Interacao.Tabela,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Mask, DBCtrls, ExtCtrls, DB, Buttons, cxGraphics,
@@ -64,7 +64,6 @@ type
     cdsPagamentosDATA_PAGTO: TDateField;
     cdsPagamentosFORMA_PAGTO: TSmallintField;
     cdsPagamentosFORMA_PAGTO_DESC: TStringField;
-    cdsPagamentosVALOR_BAIXA: TBCDField;
     cdsPagamentosCONTROLE_CHEQUE: TIntegerField;
     cdsPagamentosNUMERO_CHEQUE: TStringField;
     cdsPagamentosBANCO: TSmallintField;
@@ -73,6 +72,7 @@ type
     cdsPagamentosDOCUMENTO_BAIXA: TStringField;
     cdsPagamentosUSUARIO: TStringField;
     cdsPagamentosEMPRESA: TStringField;
+    cdsPagamentosVALOR_BAIXA: TFMTBCDField;
     procedure dtsPagamentosStateChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -84,6 +84,7 @@ type
     procedure cdsPagamentosNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
+    FTabelaPagamento : ITabela;
     CxContaCorrente : Integer;
   public
     { Public declarations }
@@ -119,7 +120,9 @@ var
 implementation
 
 uses
-  UDMBusiness, UGeControleCheque;
+    UDMBusiness
+  , Controller.Tabela
+  , UGeControleCheque;
 
 {$R *.dfm}
 
@@ -271,6 +274,11 @@ begin
   CarregarListaDB(fdQryBancoFebraban);
 
   CxContaCorrente := 0;
+
+  FTabelaPagamento := TTabelaController.New.Tabela( cdsPagamentos );
+  FTabelaPagamento
+    .Display('VALOR_BAIXA', 'Valor Pago (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsPagamentos );
 end;
 
 procedure TfrmGeEfetuarPagtoREC.btnConfirmarClick(Sender: TObject);

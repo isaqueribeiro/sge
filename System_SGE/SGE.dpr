@@ -165,7 +165,10 @@ uses
   View.PadraoLogin in '..\Sys\View\View.PadraoLogin.pas' {FrmPadraoLogin},
   View.Login in 'View\View.Login.pas' {FrmLogin},
   Interacao.Tabela in '..\Sys\Model\Interacao\Interacao.Tabela.pas',
-  Controller.Tabela in '..\Sys\Controller\Controller.Tabela.pas';
+  Controller.Tabela in '..\Sys\Controller\Controller.Tabela.pas',
+  Interfaces.InputQuery in '..\Sys\Services\InputQuery\Interfaces.InputQuery.pas',
+  View.InputQuery in '..\Sys\Services\InputQuery\View.InputQuery.pas' {ViewInputQuery},
+  Classe.InputQuery in '..\Sys\Services\Classe.InputQuery.pas';
 
 {$R *.res}
 
