@@ -173,6 +173,8 @@ begin
     .Tabela( cdsDuplicatas )
     .Display('TotalEntrada', 'Total Entrada (R$)', ',0.00', TAlignment.taRightJustify)
     .Display('VALORPAG', 'Valor A Pagar (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('TotalEntrada',  'Total Entrada',  ',0.00', TAlignment.taRightJustify)
+    .Display('TotalParcelas', 'Total Parcelas', ',0.00', TAlignment.taRightJustify)
     .Configurar( cdsDuplicatas );
 
   // Configurar tabela dos lotes
@@ -259,9 +261,6 @@ var
   cTotalNF ,
   cTotalDC : Currency;
 begin
-  if ( not ShowConfirm('Confirma os valores e vencimentos das parcelas?') ) then
-    Exit;
-
   cTotalNF := StrToCurrDef( Trim(StringReplace(StringReplace(dbTotalEntrada.Text,  '.', '', [rfReplaceAll]),  'R$', '', [rfReplaceAll])), 0 );
   cTotalDC := StrToCurrDef( Trim(StringReplace(StringReplace(dbTotalParcelas.Text, '.', '', [rfReplaceAll]),  'R$', '', [rfReplaceAll])), 0 );
 

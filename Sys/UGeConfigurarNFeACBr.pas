@@ -168,6 +168,8 @@ type
     lblPathDownload: TLabel;
     edPathDownload: TEdit;
     sbPathDownload: TSpeedButton;
+    Label51: TLabel;
+    edtURLPFX: TEdit;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);

@@ -189,9 +189,11 @@ begin
   TTabelaController
     .New
     .Tabela( cdsTitulos )
-    .Display('VALORREC',    'Total A Receber (R$)', ',0.00', TAlignment.taRightJustify)
-    .Display('VALORRECTOT', 'Total Recebido (R$)', ',0.00', TAlignment.taRightJustify)
-    .Display('VALORSALDO',  'Total Saldo (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORREC',      'Total A Receber (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORRECTOT',   'Total Recebido (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('VALORSALDO',    'Total Saldo (R$)', ',0.00', TAlignment.taRightJustify)
+    .Display('TotalEntrada',  'Total Entrada',  ',0.00', TAlignment.taRightJustify)
+    .Display('TotalParcelas', 'Total Parcelas', ',0.00', TAlignment.taRightJustify)
     .Configurar( cdsTitulos );
 
   CarregarListaDB(fdQryFormaPagto);
@@ -270,9 +272,6 @@ var
   cTotalNF ,
   cTotalDC : Currency;
 begin
-  if ( not ShowConfirm('Confirma os valores e vencimentos das parcelas?') ) then
-    Exit;
-
   cTotalNF := StrToCurrDef( StringReplace(dbTotalEntrada.Text,  '.', '', [rfReplaceAll]), 0 );
   cTotalDC := StrToCurrDef( StringReplace(dbTotalParcelas.Text, '.', '', [rfReplaceAll]), 0 );
 

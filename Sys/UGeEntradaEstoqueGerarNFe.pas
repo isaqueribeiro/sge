@@ -109,6 +109,8 @@ type
     cdsCompraVALOR_TOTAL_ICMS_NORMAL_DEVIDO: TFMTBCDField;
     cdsCompraVALOR_TOTAL_PIS: TFMTBCDField;
     cdsCompraVALOR_TOTAL_COFINS: TFMTBCDField;
+    cdsCompraNFE_DENEGADA: TSmallintField;
+    cdsCompraNFE_DENEGADA_MOTIVO: TStringField;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -259,6 +261,8 @@ var
   sCompraID : String;
   aTipoMovimento : TTipoMovimento;
   aFileXML       : TStringList;
+  aDenegada : Boolean;
+  aDenegadaMotivo : String;
 begin
 (*
   IMR - 04/10/2019 :
@@ -322,24 +326,27 @@ begin
     if ( DMNFe.GerarNFeOnLine(cdsCompraCODEMP.AsString) ) then
       bOK := DMNFe.GerarNFeEntradaOnLineACBr ( cdsCompraCODEMP.AsString, cdsCompraCODFORN.AsInteger, cdsCompraANO.AsInteger, cdsCompraCODCONTROL.AsInteger,
                iSerieNFe, iNumeroNFe, sFileNameXML, sChaveNFE, sProtocoloNFE, sReciboNFE, iNumeroLote,
+               aDenegada, aDenegadaMotivo,
                chkNaoInformarVencimento.Checked, False)
     else
       bOK := DMNFe.GerarNFeEntradaOffLineACBr( cdsCompraCODEMP.AsString, cdsCompraCODFORN.AsInteger, cdsCompraANO.AsInteger, cdsCompraCODCONTROL.AsInteger,
                iSerieNFe, iNumeroNFe, sFileNameXML, sChaveNFE,
                chkNaoInformarVencimento.Checked, False);
 
-//    if bDenegada then
-//    begin
-//      cdsVenda.Edit;
-//
-//      cdsVendaNFE_DENEGADA.AsInteger       := 1;
-//      cdsVendaNFE_DENEGADA_MOTIVO.AsString := AnsiUpperCase(Trim(sDenegadaMotivo));
-//
-//      cdsVenda.Post;
-//      cdsVenda.ApplyUpdates;
-//      CommitTransaction;
-//    end;
-//
+    if aDenegada then
+    begin
+      cdsCompra.Edit;
+
+      cdsCompraNFE_DENEGADA.AsInteger       := 1;
+      cdsCompraNFE_DENEGADA_MOTIVO.AsString := AnsiUpperCase(Trim(aDenegadaMotivo));
+
+      cdsCompra.Post;
+      cdsCompra.ApplyUpdates;
+      cdsCompra.CommitUpdates;
+
+      CommitTransaction;
+    end;
+
     if not bOk then
     begin
       // Refeição: Duplicidade de NF-e [nRec:999999999999999]
@@ -368,7 +375,9 @@ begin
                 , sFileNameXML
                 , sChaveNFE
                 , sProtocoloNFE
-                , aTipoMovimento);
+                , aTipoMovimento
+                , aDenegada
+                , aDenegadaMotivo);
 
               if bRT and (aTipoMovimento = tmNFeEntrada) then
               begin

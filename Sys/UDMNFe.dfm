@@ -5,9 +5,9 @@ object DMNFe: TDMNFe
   Width = 1093
   object ACBrNFe: TACBrNFe
     MAIL = DMBusiness.ACBrMail
-    Configuracoes.Geral.SSLLib = libCapicomDelphiSoap
+    Configuracoes.Geral.SSLLib = libCapicom
     Configuracoes.Geral.SSLCryptLib = cryCapicom
-    Configuracoes.Geral.SSLHttpLib = httpIndy
+    Configuracoes.Geral.SSLHttpLib = httpWinINet
     Configuracoes.Geral.SSLXmlSignLib = xsMsXmlCapicom
     Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
     Configuracoes.Geral.ValidarDigest = False

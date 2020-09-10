@@ -1436,9 +1436,12 @@ begin
 
     if (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taISS) then
     begin
-      FieldByName('CODTIPO').AsInteger           := Ord(tpMaterialGeral);
+      FieldByName('CODTIPO').AsInteger           := Ord(TTipoProduto.tpMaterialGeral);
       FieldByName('MOVIMENTA_ESTOQUE').AsInteger := 0;
     end;
+
+    if FieldByName('CODTIPO').IsNull then
+      FieldByName('CODTIPO').AsInteger := Ord(TTipoProduto.tpMaterialGeral);
 
     if ( (FieldByName('RESERVA').AsCurrency < 0) or (FieldByName('RESERVA').AsCurrency > FieldByName('QTDE').AsCurrency) ) then
       FieldByName('RESERVA').AsCurrency := 0;
@@ -1548,7 +1551,7 @@ begin
     FieldByName('PRECO').AsCurrency        := 0;
     FieldByName('CODCFOP').AsInteger       := GetCfopIDDefault;
     FieldByName('CFOP_DESCRICAO').AsString := GetCfopNomeDefault;
-    FieldByName('CODTIPO').AsInteger       := Ord(tpMaterialGeral);
+    FieldByName('CODTIPO').AsInteger       := Ord(TTipoProduto.tpMaterialGeral);
     FieldByName('ALIQUOTA_TIPO').AsInteger := Ord(fAliquota);
     FieldByName('ALIQUOTA').AsCurrency       := 0;
     FieldByName('ALIQUOTA_CSOSN').AsCurrency := 0;
@@ -1838,7 +1841,7 @@ begin
     lblModelo.Enabled     := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS);
     dbModelo.Enabled      := (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS);
 
-    lblCodigoAnvisa.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) and (TTipoProduto(FieldByName('CODTIPO').AsInteger) in [tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME] );
+    lblCodigoAnvisa.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) and (TTipoProduto(FieldByName('CODTIPO').AsInteger) in [TTipoProduto.tpMaterialMedicoHosp, TTipoProduto.tpMedicamento, TTipoProduto.tpSolucao, TTipoProduto.tpOPME] );
     dbCodigoAnvisa.Visible  := lblCodigoAnvisa.Visible;
     lblModelo.Visible := not lblCodigoAnvisa.Visible;
     dbModelo.Visible  := not dbCodigoAnvisa.Visible;
@@ -2090,6 +2093,9 @@ begin
           Exit;
         end;
       end;
+
+      if FieldByName('CODTIPO').IsNull then
+        FieldByName('CODTIPO').AsInteger := Ord(TTipoProduto.tpMaterialGeral);
 
       if (TAliquota(FieldByName('ALIQUOTA_TIPO').AsInteger) = taISS) then
       begin

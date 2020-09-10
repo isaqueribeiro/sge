@@ -972,6 +972,8 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
       '  , c.valorcofins'
       '  , c.outroscustos'
       '  , c.totalnf'
+      '  , c.nfe_denegada'
+      '  , c.nfe_denegada_motivo'
       ''
       
         '  , sum( coalesce(i.Qtde, 0) * coalesce(i.Valor_ipi, 0) ) as val' +
@@ -1057,7 +1059,10 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
       '  , c.valorpis'
       '  , c.valorcofins'
       '  , c.outroscustos'
-      '  , c.totalnf')
+      '  , c.totalnf'
+      '  , c.nfe_denegada'
+      '  , c.nfe_denegada_motivo'
+      '')
     Left = 320
     ParamData = <
       item
@@ -1223,6 +1228,15 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
       Precision = 18
       Size = 2
     end
+    object cdsCompraNFE_DENEGADA: TSmallintField
+      FieldName = 'NFE_DENEGADA'
+      Origin = 'NFE_DENEGADA'
+    end
+    object cdsCompraNFE_DENEGADA_MOTIVO: TStringField
+      FieldName = 'NFE_DENEGADA_MOTIVO'
+      Origin = 'NFE_DENEGADA_MOTIVO'
+      Size = 100
+    end
     object cdsCompraVALOR_TOTAL_IPI: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL_IPI'
@@ -1375,7 +1389,10 @@ inherited frmGeEntradaEstoqueGerarNFe: TfrmGeEntradaEstoqueGerarNFe
       '  VALORCOFINS = :NEW_VALORCOFINS, TOTALPROD = :NEW_TOTALPROD, '
       
         '  TOTALNF = :NEW_TOTALNF, DTFINALIZACAO_COMPRA = :NEW_DTFINALIZA' +
-        'CAO_COMPRA'
+        'CAO_COMPRA,'
+      
+        '  NFE_DENEGADA = :NEW_NFE_DENEGADA, NFE_DENEGADA_MOTIVO = :NEW_N' +
+        'FE_DENEGADA_MOTIVO'
       
         'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL AND CODEMP' +
         ' = :OLD_CODEMP')

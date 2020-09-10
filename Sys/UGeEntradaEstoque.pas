@@ -2191,6 +2191,8 @@ var
   iNumeroLote   : Int64;
   bNFeGerada    : Boolean;
   TipoMovimento : TTipoMovimento;
+  aDenegada : Boolean;
+  aDenegadaMotivo : String;
 begin
 {
   IMR - 23/04/2018 :
@@ -2277,7 +2279,9 @@ begin
           , sFileNameXML
           , sChaveNFE
           , sProtocoloNFE
-          , TipoMovimento);
+          , TipoMovimento
+          , aDenegada
+          , aDenegadaMotivo);
 
         if not bNFeGerada then
           Exit;
@@ -2290,6 +2294,12 @@ begin
 
         sReciboNFE  := Trim(FieldByName('LOTE_NFE_RECIBO').AsString);
         iNumeroLote := iNumeroNFe;
+
+        if aDenegada then
+          DMNFe.UpdateNFeDenegadaEntrada(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString
+            , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
+            , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger
+            , aDenegadaMotivo);
       end;
 
     if not bNFeGerada then

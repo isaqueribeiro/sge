@@ -455,7 +455,7 @@ inherited frmGeVendaConfirmaTitulos: TfrmGeVendaConfirmaTitulos
       ParentFont = False
     end
     object lblTotalParcelas: TLabel
-      Left = 117
+      Left = 118
       Top = 16
       Width = 105
       Height = 19

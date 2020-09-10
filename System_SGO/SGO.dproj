@@ -76,13 +76,13 @@
         <Icon_MainIcon>..\_diversos\Imagens\Icones\icon_gestao_opme-v1-512x512.ico</Icon_MainIcon>
         <VerInfo_Release>30</VerInfo_Release>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.30.2;InternalName=SGE;LegalCopyright=Copyright 2013 - 2020 © Ágil Soluções em Softwares - ME
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.30.3;InternalName=SGE;LegalCopyright=Copyright 2013 - 2020 © Ágil Soluções em Softwares - ME
 Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.30;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=09/09/2020;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <UWP_DelphiLogo44>..\_diversos\Imagens\_Matriz\icon_gestao_opme-v1-44x44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>..\_diversos\Imagens\_Matriz\icon_gestao_opme-v1-150x150.png</UWP_DelphiLogo150>
-        <VerInfo_Build>2</VerInfo_Build>
+        <VerInfo_Build>3</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <Icon_MainIcon>SGE_Icon.ico</Icon_MainIcon>
@@ -100,9 +100,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductN
         <VerInfo_Release>30</VerInfo_Release>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.30.2;InternalName=SGO;LegalCopyright=Copyright 2013 - 2020 © Ágil Soluções em Softwares - ME
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.30.3;InternalName=SGO;LegalCopyright=Copyright 2013 - 2020 © Ágil Soluções em Softwares - ME
 Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.30;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=09/09/2020;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
-        <VerInfo_Build>2</VerInfo_Build>
+        <VerInfo_Build>3</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Icon_MainIcon>SGO_Icon_v3.ico</Icon_MainIcon>
@@ -115,11 +115,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductN
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.30.2;InternalName=SGO;LegalCopyright=Copyright 2013 - 2020 © Ágil Soluções em Softwares - ME
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado para Gestão de OPME;FileVersion=1.0.30.3;InternalName=SGO;LegalCopyright=Copyright 2013 - 2020 © Ágil Soluções em Softwares - ME
 Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductName=SGO - Sistema para Gestão de OPME;ProductVersion=1.0.30;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=09/09/2020;Contacts=(91) 9146.0444 / 3295.3390;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
         <Icon_MainIcon>..\_diversos\Imagens\Icones\icon_gestao_opme-v1-512x512.ico</Icon_MainIcon>
-        <VerInfo_Build>2</VerInfo_Build>
+        <VerInfo_Build>3</VerInfo_Build>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">

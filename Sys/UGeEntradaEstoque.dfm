@@ -1354,6 +1354,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         TabOrder = 4
         object tbsPagamento: TTabSheet
           Caption = 'Pagamento'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           DesignSize = (
             1098
             157)
@@ -1902,6 +1906,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object tbsDuplicatas: TTabSheet
           Caption = 'Duplicata(s) Gerada(s)'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 89
             Top = 0

@@ -465,7 +465,9 @@ begin
         , sFileNameXML
         , sChaveNFE
         , sProtocoloNFE
-        , TipoMovimento );
+        , TipoMovimento
+        , bDenegada
+        , sDenegadaMotivo);
 
       if ( Ord(TipoMovimento) <> dbTipo.Field.AsInteger ) then
       begin

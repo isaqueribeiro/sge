@@ -307,6 +307,9 @@ type
     procedure GuardarLoteNFeEntrada(const sCNPJEmitente : String; const Ano, Numero, NumeroLote : Integer; const Recibo : String);
     procedure GuardarCodigoNFeEntrada(const sCNPJEmitente : String; const Ano, Numero, CodigoNF : Integer);
 
+    procedure UpdateNFeDenegadaVenda(const aCNPJEmitente : String; const aAno, aVenda : Integer; aMotivo : String);
+    procedure UpdateNFeDenegadaEntrada(const aCNPJEmitente : String; const aAno, aCompra : Integer; aMotivo : String);
+
     procedure LerConfiguracao(const sCNPJEmitente : String; const tipoDANFE : TTipoDANFE = tipoDANFEFast);
     procedure GravarConfiguracao(const sCNPJEmitente : String);
     procedure ConfigurarEmail(const sCNPJEmitente, sDestinatario, sAssunto, sMensagem : String);
@@ -394,6 +397,7 @@ type
 
     function GerarNFeEntradaOnLineACBr(const sCNPJEmitente : String; const iCodFornecedor : Integer; const iAnoCompra, iNumCompra : Integer;
       var iSerieNFe, iNumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE, ReciboNFE : String; var iNumeroLote  : Int64;
+      var Denegada : Boolean; var DenegadaMotivo : String;
       const OcultarVencimentos : Boolean = FALSE; const Imprimir : Boolean = TRUE) : Boolean;
 
     function GerarNFeEntradaOffLineACBr(const sCNPJEmitente : String; const iCodFornecedor : Integer; const iAnoCompra, iNumCompra : Integer;
@@ -406,7 +410,8 @@ type
     function InutilizaNumeroNFeACBr(const sCNPJEmitente : String; iAno, iModelo, iSerie, iNumeroInicial, iNumeroFinal : Integer; const sJustificativa : String;
       var sRetorno, sFileXML : String) : Boolean;
     function ConsultarNumeroLoteNFeACBr(const sCNPJEmitente : String; sNumeroRecibo : String;
-      var sChaveNFe, sProtocolo, sRetorno : String; var dDHEnvio : TDateTime) : Boolean;
+      var sChaveNFe, sProtocolo, sRetorno : String; var dDHEnvio : TDateTime;
+      var Denegada : Boolean; var DenegadaMotivo : String) : Boolean;
     function ConsultarChaveNFeACBr(const sCNPJEmitente, sChave : String;
       var iSerieNFe, iNumeroNFe, iTipoNFe : Integer; var DestinatarioNFE, FileNameXML, ChaveNFE, ProtocoloNFE : String;
       var DataEmissao : TDateTime; const Imprimir : Boolean = TRUE) : Boolean;
@@ -842,6 +847,7 @@ begin
       WriteString( sSecaoCertificado, 'Caminho' , edtCaminho.Text) ;
       WriteString( sSecaoCertificado, 'Senha'   , edtSenha.Text) ;
       WriteString( sSecaoCertificado, 'NumSerie', edtNumSerie.Text) ;
+      WriteString( sSecaoCertificado, 'URL'     , edtURLPFX.Text) ;
 
       WriteBool   (sSecaoGeral, 'AtualizarXML',     ckAtualizarXML.Checked);
       WriteBool   (sSecaoGeral, 'ExibirErroSchema', ckExibirErroSchema.Checked);
@@ -943,6 +949,10 @@ Var
   sSecaoArquivos   : String;
 begin
 (*
+  IMR - 09/09/2020 :
+    Ajustes na parametrização de leitura do certificado.
+    Deixar em bloco separado a configuração do componente ACBr.
+
   IMR - 11/06/2018 :
     Remoção da linha "ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := True"
     na nova versão do código-fonte ACBr.
@@ -988,13 +998,12 @@ begin
       {$IFDEF ACBrNFeOpenSSL}
          edtCaminho.Text  := ReadString( sSecaoCertificado, 'Caminho' , '') ;
          edtSenha.Text    := ReadString( sSecaoCertificado, 'Senha'   , '') ;
+         edtURLPFX.Text   := ReadString( sSecaoCertificado, 'URL' , '') ;
          edtNumSerie.Visible := False;
          Label25.Visible     := False;
          sbtnGetCert.Visible := False;
-
-         ACBrNFe.Configuracoes.Certificados.Certificado  := Trim(edtCaminho.Text);
-         ACBrNFe.Configuracoes.Certificados.Senha        := Trim(edtSenha.Text);
       {$ELSE}
+         edtURLPFX.Text      := ReadString( sSecaoCertificado, 'URL' , '') ;
          edtNumSerie.Text    := ReadString( sSecaoCertificado, 'NumSerie', '') ;
          lbltCaminho.Caption := 'Informe o número de série do certificado'#13+
                                 'Disponível no Internet Explorer no menu'#13+
@@ -1005,8 +1014,6 @@ begin
          edtCaminho.Visible := False;
          edtSenha.Visible   := False;
          sbtnCaminhoCert.Visible := False;
-
-         ACBrNFe.Configuracoes.Certificados.NumeroSerie := Trim(edtNumSerie.Text);
       {$ENDIF}
 
       ckAtualizarXML.Checked     := ReadBool   (sSecaoGeral, 'AtualizarXML',     ACBrNFe.Configuracoes.Geral.AtualizarXMLCancelado);
@@ -1025,21 +1032,6 @@ begin
 
       frDANFE.PathPDF := ExtractFilePath( ParamStr(0) ) + DIRECTORY_PRINT;
 
-      with ACBrNFe.Configuracoes do
-      begin
-        Arquivos.PathSalvar  := edPathLogs.Text;
-        Arquivos.PathSchemas := edPathSchemas.Text;
-
-        Arquivos.PathNFe     := StringReplace(Arquivos.PathSalvar + '\NFe',         '\\', '\', [rfReplaceAll]);
-        Arquivos.PathInu     := StringReplace(Arquivos.PathSalvar + '\NFeInutiliz', '\\', '\', [rfReplaceAll]);
-        Arquivos.PathEvento  := StringReplace(Arquivos.PathSalvar + '\NFeEvento',   '\\', '\', [rfReplaceAll]);
-        //Arquivos.DownloadNFe.PathDownload := StringReplace(Arquivos.PathSalvar + '\Down',   '\\', '\', [rfReplaceAll]);
-        //Arquivos.PathCan    := StringReplace(Arquivos.PathSalvar + '\NFeCancelar', '\\', '\', [rfReplaceAll]);
-        //Arquivos.PathCCe    := StringReplace(Arquivos.PathSalvar + '\CCe',         '\\', '\', [rfReplaceAll]);
-        //Arquivos.PathMDe    := StringReplace(Arquivos.PathSalvar + '\MDe',         '\\', '\', [rfReplaceAll]);
-        //Arquivos.PathDPEC   := StringReplace(Arquivos.PathSalvar + '\DPEC',        '\\', '\', [rfReplaceAll]);
-      end;
-
       ckSalvarArqs.Checked                     := ReadBool(sSecaoArquivos, 'Salvar'        , True);
       ckPastaMensal.Checked                    := ReadBool(sSecaoArquivos, 'PastaMensal'   , False);
       ckAdicionaLiteral.Checked                := IfThen(gSistema.Codigo = SISTEMA_PDV, True, ReadBool(sSecaoArquivos, 'AddLiteral', False));
@@ -1052,48 +1044,6 @@ begin
       edPathInu.Text      := ACBrNFe.Configuracoes.Arquivos.PathInu;
       edPathEvento.Text   := ACBrNFe.Configuracoes.Arquivos.PathEvento;
       edPathDownload.Text := StringReplace(edPathLogs.Text + '\Down',   '\\', '\', [rfReplaceAll]); //ACBrNFe.Configuracoes.Arquivos.DownloadNFe.PathDownload;
-      //ACBrNFe.Configuracoes.Arquivos.PathCan;
-      //ACBrNFe.Configuracoes.Arquivos.PathCCe;
-      //ACBrNFe.Configuracoes.Arquivos.PathMDe;
-      //ACBrNFe.Configuracoes.Arquivos.PathDPEC;
-
-      with ACBrNFe.Configuracoes.Arquivos do
-      begin
-        Salvar             := ckSalvarArqs.Checked; // Se TRUE o componente salva em disco os arquivos que tem validade jurídica, tais como: *-nfe.xml, *-procEventoNFe.xml e *-procInutNFe.xml
-        //PastaMensal        := ckPastaMensal.Checked;
-        AdicionarLiteral   := ckAdicionaLiteral.Checked;
-        EmissaoPathNFe     := ckEmissaoPathNFe.Checked;
-        //SalvarCCeCanEvento := ckSalvaCCeCancelamentoPathEvento.Checked;
-        SepararPorCNPJ     := ckSepararPorCNPJ.Checked;
-        SepararPorModelo   := ckSepararPorModelo.Checked;
-      end;
-
-//      with ACBrNFe.Configuracoes.Geral do
-//      begin
-//        SSLLib        := libCapicom;     //libCustom; //TSSLLib(cbSSLLib.ItemIndex);
-//        SSLCryptLib   := cryCapicom;     //TSSLCryptLib(cbCryptLib.ItemIndex);
-//        SSLHttpLib    := httpWinINet;    //TSSLHttpLib(cbHttpLib.ItemIndex);
-//        SSLXmlSignLib := xsMsXmlCapicom; //TSSLXmlSignLib(cbXmlSignLib.ItemIndex);
-//      end;
-//
-      ACBrNFe.Configuracoes.Geral.AtualizarXMLCancelado := ckAtualizarXML.Checked;
-      ACBrNFe.Configuracoes.Geral.ExibirErroSchema      := ckExibirErroSchema.Checked;
-      ACBrNFe.Configuracoes.Geral.FormatoAlerta         := edFormatoAlerta.Text;
-      ACBrNFe.Configuracoes.Geral.FormaEmissao   := StrToTpEmis(OK, IntToStr(cbFormaEmissao.ItemIndex + 1));
-      ACBrNFe.Configuracoes.Geral.Salvar         := ckSalvar.Checked; // Se TRUE o componente salva em disco os arquivos de envio e de retorno da SEFAZ, esses XML não tem validade jurídica.
-      ACBrNFe.Configuracoes.Geral.RetirarAcentos := ckRetirarAcentos.Checked;
-      ACBrNFe.Configuracoes.Geral.IdCSC          := FormatFloat('000000', StrToIntDef(Trim(edIdToken.Text), 1));
-      ACBrNFe.Configuracoes.Geral.CSC            := edToken.Text;
-
-      ACBrNFe.Configuracoes.Geral.ModeloDF := moNFe;
-      ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF.ve400; // TpcnVersaoDF(cbVersaoDF.ItemIndex);
-      //ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := False;
-
-      if ( tipoDANFE = tipoDANFEFast ) then
-        ACBrNFe.DANFE := frDANFE
-      else
-      if ( tipoDANFE = tipoDANFE_ESCPOS ) then
-        ACBrNFe.DANFE := nfcDANFE;
 
       cbUF.ItemIndex       := cbUF.Items.IndexOf(ReadString( sSecaoWebService, 'UF', 'PA')) ;
       rgTipoAmb.ItemIndex  := ReadInteger(sSecaoWebService, 'Ambiente'  , 0) ;
@@ -1104,6 +1054,84 @@ begin
       edAguardar.Text      := ReadString (sSecaoWebService, 'Aguardar'  , '0') ;
       edTentativas.Text    := ReadString (sSecaoWebService, 'Tentativas', '5') ;
       edIntervalo.Text     := ReadString (sSecaoWebService, 'Intervalo' , '0') ;
+
+      edtProxyHost.Text  := ReadString( 'Proxy', 'Host'  , '') ;
+      edtProxyPorta.Text := ReadString( 'Proxy', 'Porta' , '') ;
+      edtProxyUser.Text  := ReadString( 'Proxy', 'User'  , '') ;
+      edtProxySenha.Text := ReadString( 'Proxy', 'Pass'  , '') ;
+
+      rgTipoDanfe.ItemIndex := ReadInteger( sSecaoGeral, 'DANFE'     , 0) ;
+      edtLogoMarca.Text     := ReadString ( sSecaoGeral, 'LogoMarca' , ExtractFilePath(ParamStr(0)) + sCNPJEmitente + '.bmp') ;
+
+      edtEmitCNPJ.Text        := ReadString( sSecaoEmitente, 'CNPJ'       , EmptyStr ) ;
+      edtEmitIE.Text          := ReadString( sSecaoEmitente, 'IE'         , EmptyStr ) ;
+      edtEmitRazao.Text       := ReadString( sSecaoEmitente, 'RazaoSocial', EmptyStr ) ;
+      edtEmitFantasia.Text    := ReadString( sSecaoEmitente, 'Fantasia'   , EmptyStr ) ;
+      edtEmitFone.Text        := ReadString( sSecaoEmitente, 'Fone'       , EmptyStr ) ;
+      edtEmitCEP.Text         := ReadString( sSecaoEmitente, 'CEP'        , EmptyStr ) ;
+      edtEmitLogradouro.Text  := ReadString( sSecaoEmitente, 'Logradouro' , EmptyStr ) ;
+      edtEmitNumero.Text      := ReadString( sSecaoEmitente, 'Numero'     , EmptyStr ) ;
+      edtEmitComp.Text        := ReadString( sSecaoEmitente, 'Complemento', EmptyStr ) ;
+      edtEmitBairro.Text      := ReadString( sSecaoEmitente, 'Bairro'     , EmptyStr ) ;
+      edtEmitCodCidade.Text   := ReadString( sSecaoEmitente, 'CodCidade'  , EmptyStr ) ;
+      edtEmitCidade.Text      := ReadString( sSecaoEmitente, 'Cidade'     , EmptyStr ) ;
+      edtEmitUF.Text          := ReadString( sSecaoEmitente, 'UF'         , EmptyStr ) ;
+      edInfoFisco.Text        := ReadString( sSecaoEmitente, 'InfoFisco'  , 'EMPRESA OPTANTE PELO SIMPLES DE ACORDO COM A LEI COMPLEMENTAR 123, DE DEZEMBRO DE 2006' ) ;
+      edInfoComplementar.Text := ReadString( sSecaoEmitente, 'InfoComple' , EmptyStr) ;
+
+      // ============== Configurar Componente ACBr ============== //
+
+      ACBrNFe.Configuracoes.Certificados.URLPFX      := Trim(edtURLPFX.Text);
+      ACBrNFe.Configuracoes.Certificados.ArquivoPFX  := Trim(edtCaminho.Text);
+      ACBrNFe.Configuracoes.Certificados.Senha       := Trim(edtSenha.Text);
+      ACBrNFe.Configuracoes.Certificados.NumeroSerie := Trim(edtNumSerie.Text);
+
+      with ACBrNFe.Configuracoes do
+      begin
+        Arquivos.PathSalvar  := edPathLogs.Text;
+        Arquivos.PathSchemas := edPathSchemas.Text;
+
+        Arquivos.PathNFe     := StringReplace(Arquivos.PathSalvar + '\NFe',         '\\', '\', [rfReplaceAll]);
+        Arquivos.PathInu     := StringReplace(Arquivos.PathSalvar + '\NFeInutiliz', '\\', '\', [rfReplaceAll]);
+        Arquivos.PathEvento  := StringReplace(Arquivos.PathSalvar + '\NFeEvento',   '\\', '\', [rfReplaceAll]);
+      end;
+
+      with ACBrNFe.Configuracoes.Arquivos do
+      begin
+        Salvar             := ckSalvarArqs.Checked; // Se TRUE o componente salva em disco os arquivos que tem validade jurídica, tais como: *-nfe.xml, *-procEventoNFe.xml e *-procInutNFe.xml
+        AdicionarLiteral   := ckAdicionaLiteral.Checked;
+        EmissaoPathNFe     := ckEmissaoPathNFe.Checked;
+        SepararPorCNPJ     := ckSepararPorCNPJ.Checked;
+        SepararPorModelo   := ckSepararPorModelo.Checked;
+      end;
+
+      with ACBrNFe.Configuracoes.Geral do
+      begin
+        SSLLib        := TSSLLib.libCapicom;
+        SSLCryptLib   := TSSLCryptLib.cryCapicom;
+        SSLHttpLib    := TSSLHttpLib.httpWinINet;
+        SSLXmlSignLib := TSSLXmlSignLib.xsMsXmlCapicom;
+      end;
+
+      ACBrNFe.Configuracoes.Geral.AtualizarXMLCancelado := ckAtualizarXML.Checked;
+      ACBrNFe.Configuracoes.Geral.ExibirErroSchema      := ckExibirErroSchema.Checked;
+      ACBrNFe.Configuracoes.Geral.FormatoAlerta         := edFormatoAlerta.Text;
+      ACBrNFe.Configuracoes.Geral.FormaEmissao   := StrToTpEmis(OK, IntToStr(cbFormaEmissao.ItemIndex + 1));
+      ACBrNFe.Configuracoes.Geral.Salvar         := ckSalvar.Checked; // Se TRUE o componente salva em disco os arquivos de envio e de retorno da SEFAZ, esses XML não tem validade jurídica.
+      ACBrNFe.Configuracoes.Geral.RetirarAcentos := ckRetirarAcentos.Checked;
+
+      ACBrNFe.Configuracoes.Geral.IdCSC          := FormatFloat('000000', StrToIntDef(Trim(edIdToken.Text), 1));
+      ACBrNFe.Configuracoes.Geral.CSC            := edToken.Text;
+      ACBrNFe.Configuracoes.Geral.VersaoQRCode   := TpcnVersaoQrCode.veqr200;
+
+      ACBrNFe.Configuracoes.Geral.ModeloDF := moNFe;
+      ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF.ve400; // TpcnVersaoDF(cbVersaoDF.ItemIndex);
+
+      if ( tipoDANFE = tipoDANFEFast ) then
+        ACBrNFe.DANFE := frDANFE
+      else
+      if ( tipoDANFE = tipoDANFE_ESCPOS ) then
+        ACBrNFe.DANFE := nfcDANFE;
 
       ACBrNFe.Configuracoes.WebServices.UF         := cbUF.Text;
       ACBrNFe.Configuracoes.WebServices.Ambiente   := StrToTpAmb(Ok, IntToStr(rgTipoAmb.ItemIndex + 1));
@@ -1126,18 +1154,10 @@ begin
       else
         edIntervalo.Text := IntToStr(ACBrNFe.Configuracoes.WebServices.IntervaloTentativas);
 
-      edtProxyHost.Text  := ReadString( 'Proxy', 'Host'  , '') ;
-      edtProxyPorta.Text := ReadString( 'Proxy', 'Porta' , '') ;
-      edtProxyUser.Text  := ReadString( 'Proxy', 'User'  , '') ;
-      edtProxySenha.Text := ReadString( 'Proxy', 'Pass'  , '') ;
-
       ACBrNFe.Configuracoes.WebServices.ProxyHost := edtProxyHost.Text;
       ACBrNFe.Configuracoes.WebServices.ProxyPort := edtProxyPorta.Text;
       ACBrNFe.Configuracoes.WebServices.ProxyUser := edtProxyUser.Text;
       ACBrNFe.Configuracoes.WebServices.ProxyPass := edtProxySenha.Text;
-
-      rgTipoDanfe.ItemIndex := ReadInteger( sSecaoGeral, 'DANFE'     , 0) ;
-      edtLogoMarca.Text     := ReadString ( sSecaoGeral, 'LogoMarca' , ExtractFilePath(ParamStr(0)) + sCNPJEmitente + '.bmp') ;
 
       if ACBrNFe.DANFE <> nil then
       begin
@@ -1152,23 +1172,7 @@ begin
           ACBrNFe.DANFE.Logo := EmptyStr;
       end;
 
-      edtEmitCNPJ.Text        := ReadString( sSecaoEmitente, 'CNPJ'       , EmptyStr ) ;
-      edtEmitIE.Text          := ReadString( sSecaoEmitente, 'IE'         , EmptyStr ) ;
-      edtEmitRazao.Text       := ReadString( sSecaoEmitente, 'RazaoSocial', EmptyStr ) ;
-      edtEmitFantasia.Text    := ReadString( sSecaoEmitente, 'Fantasia'   , EmptyStr ) ;
-      edtEmitFone.Text        := ReadString( sSecaoEmitente, 'Fone'       , EmptyStr ) ;
-      edtEmitCEP.Text         := ReadString( sSecaoEmitente, 'CEP'        , EmptyStr ) ;
-      edtEmitLogradouro.Text  := ReadString( sSecaoEmitente, 'Logradouro' , EmptyStr ) ;
-      edtEmitNumero.Text      := ReadString( sSecaoEmitente, 'Numero'     , EmptyStr ) ;
-      edtEmitComp.Text        := ReadString( sSecaoEmitente, 'Complemento', EmptyStr ) ;
-      edtEmitBairro.Text      := ReadString( sSecaoEmitente, 'Bairro'     , EmptyStr ) ;
-      edtEmitCodCidade.Text   := ReadString( sSecaoEmitente, 'CodCidade'  , EmptyStr ) ;
-      edtEmitCidade.Text      := ReadString( sSecaoEmitente, 'Cidade'     , EmptyStr ) ;
-      edtEmitUF.Text          := ReadString( sSecaoEmitente, 'UF'         , EmptyStr ) ;
-      edInfoFisco.Text        := ReadString( sSecaoEmitente, 'InfoFisco'  , 'EMPRESA OPTANTE PELO SIMPLES DE ACORDO COM A LEI COMPLEMENTAR 123, DE DEZEMBRO DE 2006' ) ;
-      edInfoComplementar.Text := ReadString( sSecaoEmitente, 'InfoComple' , EmptyStr) ;
-
-      // Configuração para envio de e-mails
+      // ============== Configuração para envio de e-mails ============== //
 
       CarregarConfiguracoesEmpresa(sCNPJEmitente, 'Envio de NF-e (Emitente: ' + edtEmitRazao.Text + ')', sAssinaturaHtml, sAssinaturaTxt);
 
@@ -1219,7 +1223,7 @@ begin
       end;
     end;
 
-    // Definir configurações do RFD - Registro do Fisco CAT 52/07
+    // ============== Definir configurações do RFD - Registro do Fisco CAT 52/07 ============== //
 
     with ACBrRFD, ConfigACBr  do
     begin
@@ -1253,7 +1257,7 @@ begin
       Empresa.Email       := qryEmitenteEMAIL.AsString;
     end;
 
-    // Configurações necessárias e Emissão da NFC-e
+    // ============== Configurações necessárias e Emissão da NFC-e ============== //
 
     with ACBrSAT, Config, ConfigArquivos, ConfigACBr do
     begin
@@ -1803,14 +1807,6 @@ begin
     LerConfiguracao(sCNPJEmitente);
     FMensagemErro := EmptyStr;
 
-//    if ( DelphiIsRunning ) then
-//      Result := True
-//    else
-//      Result := ACBrNFe.WebServices.StatusServico.Executar;
-//
-//    if not Result then
-//      Exit;
-//
     GerarNFEACBr(sCNPJEmitente, iCodigoCliente, sDataHoraSaida,
       iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
@@ -1837,6 +1833,18 @@ begin
       // Renomer no diretório os arquivos XML de envio e retorno dos lotes e recibos de NF-e
       RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFE, 'nfe');
       ACBrNFe.NotasFiscais.Clear;
+
+      // Verificar se a nota foi Denegada
+      if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1 ) then
+      begin
+        if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_NOTA_DENEGADA)
+        or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_EMIT)
+        or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_DEST) then
+        begin
+          Denegada       := True;
+          DenegadaMotivo := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
+        end;
+      end;
     end
     // Guarda rebido de retorno, caso ele exista, mesmo o envio ter retornado FALSE
     else
@@ -1861,7 +1869,7 @@ begin
       if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1 ) then
       begin
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat of
-          REJEICAO_NFE_NOTA_DENEGADA:
+          REJEICAO_NFE_NOTA_DENEGADA, REJEICAO_NFE_IRREG_FISCO_EMIT, REJEICAO_NFE_IRREG_FISCO_DEST:
             begin
               UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
               UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
@@ -1871,7 +1879,7 @@ begin
                 Result := True;
 
                 Denegada       := True;
-                DenegadaMotivo := 'NF-e denegada por ' + ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
+                DenegadaMotivo := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
 
                 ChaveNFE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
                 ProtocoloNFE := ACBrNFe.WebServices.Retorno.Protocolo;
@@ -2288,6 +2296,50 @@ begin
   except
     On E : Exception do
       raise Exception.Create('UpdateLoteNFe > ' + E.Message);
+  end;
+end;
+
+procedure TDMNFe.UpdateNFeDenegadaVenda(const aCNPJEmitente : String; const aAno, aVenda : Integer; aMotivo : String);
+begin
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      SQL.Clear;
+      SQL.Add('Update TBVENDAS Set');
+      SQL.Add('    NFE_DENEGADA  = 1 ');
+      SQL.Add('  , NFE_DENEGADA_MOTIVO  = ' + QuotedStr(Copy(Trim(aMotivo), 1, 100)) );
+      SQL.Add('Where ANO        = ' + aAno.ToString);
+      SQL.Add('  and CODCONTROL = ' + aVenda.ToString);
+      SQL.Add('  and CODEMP     = ' + aCNPJEmitente.QuotedString);
+
+      ExecSQL;
+      CommitTransaction;
+    end;
+  except
+    On E : Exception do
+      raise Exception.Create('UpdateNFeDenegadaVenda > ' + E.Message);
+  end;
+end;
+
+procedure TDMNFe.UpdateNFeDenegadaEntrada(const aCNPJEmitente : String; const aAno, aCompra : Integer; aMotivo : String);
+begin
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      SQL.Clear;
+      SQL.Add('Update TBCOMPRAS Set');
+      SQL.Add('    NFE_DENEGADA  = 1 ');
+      SQL.Add('  , NFE_DENEGADA_MOTIVO  = ' + QuotedStr(Copy(Trim(aMotivo), 1, 100)) );
+      SQL.Add('Where ANO        = ' + aAno.ToString);
+      SQL.Add('  and CODCONTROL = ' + aCompra.ToString);
+      SQL.Add('  and CODEMP     = ' + aCNPJEmitente.QuotedString);
+
+      ExecSQL;
+      CommitTransaction;
+    end;
+  except
+    On E : Exception do
+      raise Exception.Create('UpdateNFeDenegadaVenda > ' + E.Message);
   end;
 end;
 
@@ -3758,6 +3810,7 @@ end;
 
 function TDMNFe.GerarNFeEntradaOnLineACBr(const sCNPJEmitente : String; const iCodFornecedor : Integer; const iAnoCompra, iNumCompra: Integer;
   var iSerieNFe, iNumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE, ReciboNFE : String; var iNumeroLote  : Int64;
+  var Denegada : Boolean; var DenegadaMotivo : String;
   const OcultarVencimentos : Boolean = FALSE; const Imprimir : Boolean = TRUE): Boolean;
 var
   DtHoraEmiss : TDateTime;
@@ -3825,6 +3878,18 @@ begin
       // Renomer no diretório os arquivos XML de envio e retorno dos lotes e recibos de NF-e
       RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFE, 'nfe');
       ACBrNFe.NotasFiscais.Clear;
+
+      // Verificar se a nota foi Denegada
+      if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1 ) then
+      begin
+        if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_NOTA_DENEGADA)
+        or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_EMIT)
+        or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_DEST) then
+        begin
+          Denegada       := True;
+          DenegadaMotivo := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
+        end;
+      end;
     end
     // Guarda rebido de retorno, caso ele exista, mesmo o envio ter retornado FALSE
     else
@@ -3860,7 +3925,7 @@ begin
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
             end;
 
-          REJEICAO_NFE_NOTA_DENEGADA:
+          REJEICAO_NFE_NOTA_DENEGADA, REJEICAO_NFE_IRREG_FISCO_EMIT, REJEICAO_NFE_IRREG_FISCO_DEST:
             begin
               UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
               UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
@@ -5745,7 +5810,8 @@ begin
 end;
 
 function TDMNFe.ConsultarNumeroLoteNFeACBr(const sCNPJEmitente: String;
-  sNumeroRecibo: String; var sChaveNFe, sProtocolo, sRetorno: String; var dDHEnvio : TDateTime): Boolean;
+  sNumeroRecibo: String; var sChaveNFe, sProtocolo, sRetorno: String; var dDHEnvio : TDateTime;
+  var Denegada : Boolean; var DenegadaMotivo : String): Boolean;
 var
   sTextoRetorno : TStringList;
   bReturn : Boolean;
@@ -5766,25 +5832,32 @@ begin
 
         // Verificar se houve retorno
         if bReturn then
-//          bReturn := (WebServices.Recibo.NFeRetorno.ProtNFe.Count = 1);
           bReturn := (WebServices.Recibo.NFeRetorno.ProtDFe.Count = 1);
 
         // Verificar se o retorno foi de NF-e autorizada
         if bReturn then
-//          bReturn := (WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].cStat = PROCESSO_NFE_AUTORIZADA);
-          bReturn := (WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].cStat = PROCESSO_NFE_AUTORIZADA);
+          bReturn := (WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].cStat = PROCESSO_NFE_AUTORIZADA)
+            or (WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_NOTA_DENEGADA)
+            or (WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_EMIT)
+            or (WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_DEST);
 
         if bReturn then
         begin
-//          sChaveNFe  := WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].chNFe;
-//          sProtocolo := WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].nProt;
-//          dDHEnvio   := WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].dhRecbto;
           sChaveNFe  := WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].chDFe;
           sProtocolo := WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].nProt;
           dDHEnvio   := WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].dhRecbto;
+
+          Denegada :=
+               (WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_NOTA_DENEGADA)
+            or (WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_EMIT)
+            or (WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_DEST);
+
+          if Denegada then
+            DenegadaMotivo := WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].xMotivo
+          else
+            DenegadaMotivo := EmptyStr;
         end;
 
-//        if ( WebServices.Recibo.NFeRetorno.ProtNFe.Count = 1 ) then
         if ( WebServices.Recibo.NFeRetorno.ProtDFe.Count = 1 ) then
         begin
           sTextoRetorno.Add( 'Ambiente    : ' + IntToStr( Ord(WebServices.Recibo.NFeRetorno.tpAmb) ) );
@@ -5792,17 +5865,12 @@ begin
           sTextoRetorno.Add( 'Status Trn. : ' + IntToStr(WebServices.Recibo.NFeRetorno.cStat) + ' - ' + WebServices.Recibo.NFeRetorno.xMotivo );
           sTextoRetorno.Add( '---' );
           sTextoRetorno.Add( 'Emitente    : ' + sCNPJEmitente );
-//          sTextoRetorno.Add( 'Chave NF-e  : ' + WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].chNFe );
-//          sTextoRetorno.Add( 'Status      : ' + IntToStr(WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].cStat) );
-//          sTextoRetorno.Add( 'Motivo      : ' + WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].xMotivo );
           sTextoRetorno.Add( 'Chave NF-e  : ' + WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].chDFe );
           sTextoRetorno.Add( 'Status      : ' + IntToStr(WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].cStat) );
           sTextoRetorno.Add( 'Motivo      : ' + WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].xMotivo );
           sTextoRetorno.Add( 'Mensagem    : ' + WebServices.Recibo.NFeRetorno.xMsg );
           sTextoRetorno.Add( '---' );
           sTextoRetorno.Add( 'Nro. Recibo : ' + WebServices.Recibo.NFeRetorno.nRec );
-//          sTextoRetorno.Add( 'Data Recibo : ' + FormatDateTime('dd/mm/yyyy', WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].dhRecbto) );
-//          sTextoRetorno.Add( 'Protocolo   : ' + WebServices.Recibo.NFeRetorno.ProtNFe.Items[0].nProt );
           sTextoRetorno.Add( 'Data Recibo : ' + FormatDateTime('dd/mm/yyyy', WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].dhRecbto) );
           sTextoRetorno.Add( 'Protocolo   : ' + WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].nProt );
 
@@ -6860,7 +6928,7 @@ begin
 
       if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1 ) then
         Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat of
-          REJEICAO_NFE_NOTA_DENEGADA:
+          REJEICAO_NFE_NOTA_DENEGADA, REJEICAO_NFE_IRREG_FISCO_EMIT, REJEICAO_NFE_IRREG_FISCO_DEST:
             begin
               UpdateNumeroNFCe(sCNPJEmitente, qryEmitenteSERIE_NFCE.AsInteger, iNumeroNFCe);
 

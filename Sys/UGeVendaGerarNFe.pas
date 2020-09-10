@@ -292,6 +292,8 @@ var
   aDataHora : TDateTime;
   aTipoMovimento : TTipoMovimento;
   aFileXML       : TStringList;
+  aDenegada : Boolean;
+  aDenegadaMotivo : String;
 begin
 (*
   IMR - 04/10/2019 :
@@ -442,7 +444,9 @@ begin
                 , sFileNameXML
                 , sChaveNFE
                 , sProtocoloNFE
-                , aTipoMovimento);
+                , aTipoMovimento
+                , aDenegada
+                , aDenegadaMotivo);
 
               if bRT and (aTipoMovimento = tmNFeSaida) then
               begin

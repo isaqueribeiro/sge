@@ -105,7 +105,7 @@ type
     procedure CarregarLotePendente(const sCnpjEmitente, sRecibo : String);
 
     function PesquisarLote(const iAno, iNumero : Integer; const sRecibo : String; var Ano, Controle : Integer; var Destinaratio : String) : Boolean;
-    function ConfirmarRetorno : Boolean;
+    function ConfirmarRetorno(var Denegada : Boolean; var DenegadaMotivo : String) : Boolean;
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -113,7 +113,9 @@ type
 
   function BuscarRetornoReciboNFe(const AOnwer : TComponent; const sEmpresa, sRecibo : String;
     var SerieNFe, NumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE : String;
-    var TipoMovimento : TTipoMovimento) : Boolean;
+    var TipoMovimento : TTipoMovimento;
+    var Denegada : Boolean;
+    var DenegadaMotivo : String) : Boolean;
 
 (*
   Tabelas:
@@ -147,7 +149,9 @@ uses UDMBusiness, UDMNFe, UConstantesDGE, UFuncoes, UDMRecursos;
 
 function BuscarRetornoReciboNFe(const AOnwer : TComponent; const sEmpresa, sRecibo : String;
   var SerieNFe, NumeroNFe  : Integer; var FileNameXML, ChaveNFE, ProtocoloNFE : String;
-  var TipoMovimento : TTipoMovimento) : Boolean;
+  var TipoMovimento : TTipoMovimento;
+  var Denegada : Boolean;
+  var DenegadaMotivo : String) : Boolean;
 var
   AForm : TfrmGeConsultarLoteNFe_v2;
 begin
@@ -165,7 +169,7 @@ begin
       edJustificativa.Lines.Text := 'Busca automática de retorno do recibo de envio da NF-e';
       edNumeroRecibo.Text        := sRecibo;
 
-      Result := ConfirmarRetorno;
+      Result := ConfirmarRetorno(Denegada, DenegadaMotivo);
 
       if Result then
       begin
@@ -348,8 +352,11 @@ procedure TfrmGeConsultarLoteNFe_v2.btnConfirmarClick(Sender: TObject);
 //  dDataEmissao : TDateTime;
 //const
 //  NOME_ARQUIVO_XML = '%s-nfe.xml';
+var
+  aDenegada : Boolean;
+  aDenegadaMotivo : String;
 begin
-  ConfirmarRetorno;
+  ConfirmarRetorno(aDenegada, aDenegadaMotivo);
 //  btnConfirmar.Enabled := False;
 //  lblInforme.Visible   := True;
 //  try
@@ -618,7 +625,7 @@ begin
   end;
 end;
 
-function TfrmGeConsultarLoteNFe_v2.ConfirmarRetorno: Boolean;
+function TfrmGeConsultarLoteNFe_v2.ConfirmarRetorno(var Denegada : Boolean; var DenegadaMotivo : String): Boolean;
 var
   bRetorno,
   bTudo   ,
@@ -640,6 +647,8 @@ var
   sReciboNFE   : String;
   dDataEnvio   ,
   dDataEmissao : TDateTime;
+  aDenegada : Boolean;
+  aDenegadaMotivo : String;
 const
   NOME_ARQUIVO_XML = '%s-nfe.xml';
 begin
@@ -675,7 +684,7 @@ begin
       lblInforme.Caption := 'Executando consulta do Recibo... Aguarde!';
       lblInforme.Update;
 
-      if DMNFe.ConsultarNumeroLoteNFeACBr(dbCNPJ.Field.AsString, Trim(edNumeroRecibo.Text), sChaveNFE, sProtocoloTMP, sRetorno, dDataEnvio ) then
+      if DMNFe.ConsultarNumeroLoteNFeACBr(dbCNPJ.Field.AsString, Trim(edNumeroRecibo.Text), sChaveNFE, sProtocoloTMP, sRetorno, dDataEnvio, aDenegada, aDenegadaMotivo) then
       begin
 
         edChaveNFe.Text     := Trim(sChaveNFE);
@@ -685,6 +694,13 @@ begin
         edJustificativa.Lines.Add('Retorno:');
         edJustificativa.Lines.Add('--');
         edJustificativa.Lines.Add(sRetorno);
+
+        if aDenegada then
+        begin
+          edJustificativa.Lines.Add('--');
+          edJustificativa.Lines.Add('Nota Denegada - Motivo:');
+          edJustificativa.Lines.Add(aDenegadaMotivo);
+        end;
 
         sFileNameXML := GetDiretorioNFe + Format(NOME_ARQUIVO_XML, [Trim(edChaveNFe.Text)]);
         sMensagem    := 'Arquivo referenciado da NF-e:' + #13#13 + ExtractFileName(sFileNameXML);
