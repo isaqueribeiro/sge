@@ -4,15 +4,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
   BorderWidth = 4
   Caption = 'Importar NF-e'
   ClientHeight = 626
-  ClientWidth = 740
-  ExplicitWidth = 754
+  ClientWidth = 826
+  ExplicitWidth = 840
   ExplicitHeight = 663
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
     Top = 73
-    Width = 740
+    Width = 826
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -22,7 +22,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
   object Bevel2: TBevel
     Left = 0
     Top = 153
-    Width = 740
+    Width = 826
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -48,7 +48,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
   object Bevel3: TBevel
     Left = 0
     Top = 587
-    Width = 740
+    Width = 826
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -58,7 +58,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
   object GrpBxEmpresa: TGroupBox
     Left = 0
     Top = 0
-    Width = 740
+    Width = 826
     Height = 73
     Align = alTop
     Caption = 'Dados do Destinat'#225'rio da NF-e'
@@ -69,8 +69,9 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 740
     DesignSize = (
-      740
+      826
       73)
     object lblCNPJEmpresa: TLabel
       Left = 16
@@ -121,7 +122,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     object dbRazaoSocialEmpresa: TDBEdit
       Left = 184
       Top = 40
-      Width = 540
+      Width = 626
       Height = 21
       TabStop = False
       Anchors = [akLeft, akTop, akRight]
@@ -136,12 +137,13 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       ParentFont = False
       ReadOnly = True
       TabOrder = 1
+      ExplicitWidth = 540
     end
   end
   object GrpBxManifesto: TGroupBox
     Left = 0
     Top = 77
-    Width = 740
+    Width = 826
     Height = 76
     Align = alTop
     Caption = 'Dados para Manifesto da NF-e'
@@ -152,8 +154,9 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
+    ExplicitWidth = 740
     DesignSize = (
-      740
+      826
       76)
     object lblChaveNFe: TLabel
       Left = 16
@@ -172,7 +175,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     object edChaveNFe: TEdit
       Left = 16
       Top = 40
-      Width = 609
+      Width = 695
       Height = 21
       Hint = 'Pressione F5 para recuperar a Chave da '#225'rea de transfer'#234'ncia.'
       Anchors = [akLeft, akTop, akRight]
@@ -187,22 +190,24 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
+      ExplicitWidth = 609
     end
     object btnManifesto: TcxButton
-      Left = 631
+      Left = 717
       Top = 40
       Width = 93
       Height = 21
       Anchors = [akTop, akRight]
-      Caption = 'Manifesto'
+      Caption = 'Buscar'
       OptionsImage.ImageIndex = 39
       OptionsImage.Images = DMRecursos.ImgPrincipal16x16
       TabOrder = 1
       OnClick = btnManifestoClick
+      ExplicitLeft = 631
     end
   end
   object btnConfirmar: TcxButton
-    Left = 550
+    Left = 636
     Top = 593
     Width = 92
     Height = 33
@@ -211,9 +216,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     OptionsImage.ImageIndex = 20
     OptionsImage.Images = DMRecursos.ImgPrincipal16x16
     TabOrder = 2
+    ExplicitLeft = 550
   end
   object btFechar: TcxButton
-    Left = 648
+    Left = 734
     Top = 593
     Width = 92
     Height = 33
@@ -224,11 +230,12 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     OptionsImage.ImageIndex = 15
     OptionsImage.Images = DMRecursos.ImgBotoes16x16
     TabOrder = 3
+    ExplicitLeft = 648
   end
   object GrpBxDadosNFe: TGroupBox
     Left = 0
     Top = 157
-    Width = 740
+    Width = 826
     Height = 430
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
@@ -240,8 +247,9 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Font.Style = []
     ParentFont = False
     TabOrder = 4
+    ExplicitWidth = 740
     DesignSize = (
-      740
+      826
       430)
     object lblArquivoXML: TLabel
       Left = 16
@@ -271,10 +279,11 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       Properties.Images = DMRecursos.ImgBotoes16x16
       Properties.OnButtonClick = edArquivoXMLPropertiesButtonClick
       TabOrder = 0
-      Width = 609
+      ExplicitWidth = 609
+      Width = 695
     end
     object btnCarregarXML: TcxButton
-      Left = 631
+      Left = 717
       Top = 40
       Width = 93
       Height = 21
@@ -284,17 +293,23 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       OptionsImage.Images = DMRecursos.ImgBotoes16x16
       TabOrder = 1
       OnClick = btnCarregarXMLClick
+      ExplicitLeft = 631
     end
     object pgcNFe: TPageControl
       Left = 16
       Top = 67
-      Width = 708
+      Width = 794
       Height = 350
-      ActivePage = tbsProdutos
+      ActivePage = tbsEmitente
       Anchors = [akLeft, akTop, akRight, akBottom]
       TabOrder = 2
+      ExplicitWidth = 708
       object tbsNFe: TTabSheet
         Caption = 'NFe'
+        ExplicitWidth = 700
+        DesignSize = (
+          786
+          322)
         object lblId: TLabel
           Left = 16
           Top = 16
@@ -304,28 +319,33 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           FocusControl = dbId
         end
         object lblChave: TLabel
-          Left = 375
+          Left = 431
           Top = 16
           Width = 35
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'Chave:'
           FocusControl = dbChave
         end
         object lblcUF: TLabel
-          Left = 567
+          Left = 653
           Top = 16
           Width = 17
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'UF:'
           FocusControl = dbcUF
+          ExplicitLeft = 567
         end
         object lblcNF: TLabel
-          Left = 599
+          Left = 685
           Top = 16
           Width = 67
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'Controle XML:'
           FocusControl = dbcNF
+          ExplicitLeft = 599
         end
         object lblNatOp: TLabel
           Left = 16
@@ -336,36 +356,41 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           FocusControl = dbNatOp
         end
         object lblMod_: TLabel
-          Left = 375
+          Left = 431
           Top = 56
           Width = 28
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'Mod.:'
           FocusControl = dbMod_
         end
         object lblSerie: TLabel
-          Left = 409
+          Left = 465
           Top = 56
           Width = 28
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'S'#233'rie:'
           FocusControl = dbSerie
         end
         object lblNNF: TLabel
-          Left = 443
+          Left = 499
           Top = 56
           Width = 67
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'N'#250'mero NF-e:'
           FocusControl = dbNNF
         end
         object lblDEmi: TLabel
-          Left = 567
+          Left = 653
           Top = 56
           Width = 83
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'Data de Emiss'#227'o:'
           FocusControl = dbDEmi
+          ExplicitLeft = 567
         end
         object lblMensagemFiscal: TLabel
           Left = 16
@@ -378,9 +403,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
         object dbId: TDBEdit
           Left = 16
           Top = 32
-          Width = 353
+          Width = 409
           Height = 21
           TabStop = False
+          Anchors = [akLeft, akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsIdentificacao
           Font.Charset = ANSI_CHARSET
@@ -393,11 +419,12 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           TabOrder = 0
         end
         object dbChave: TDBEdit
-          Left = 375
+          Left = 431
           Top = 32
-          Width = 186
+          Width = 216
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsIdentificacao
           Font.Charset = ANSI_CHARSET
@@ -410,11 +437,12 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           TabOrder = 1
         end
         object dbcUF: TDBEdit
-          Left = 567
+          Left = 653
           Top = 32
           Width = 26
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsIdentificacao
           Font.Charset = ANSI_CHARSET
@@ -425,13 +453,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 2
+          ExplicitLeft = 567
         end
         object dbcNF: TDBEdit
-          Left = 599
+          Left = 685
           Top = 32
           Width = 82
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsIdentificacao
           Font.Charset = ANSI_CHARSET
@@ -442,13 +472,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 3
+          ExplicitLeft = 599
         end
         object dbNatOp: TDBEdit
           Left = 16
           Top = 72
-          Width = 353
+          Width = 409
           Height = 21
           TabStop = False
+          Anchors = [akLeft, akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsIdentificacao
           Font.Charset = ANSI_CHARSET
@@ -461,11 +493,12 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           TabOrder = 4
         end
         object dbMod_: TDBEdit
-          Left = 375
+          Left = 431
           Top = 72
           Width = 28
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsIdentificacao
           Font.Charset = ANSI_CHARSET
@@ -478,11 +511,12 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           TabOrder = 5
         end
         object dbSerie: TDBEdit
-          Left = 409
+          Left = 465
           Top = 72
           Width = 28
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsIdentificacao
           Font.Charset = ANSI_CHARSET
@@ -495,11 +529,12 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           TabOrder = 6
         end
         object dbNNF: TDBEdit
-          Left = 443
+          Left = 499
           Top = 72
-          Width = 118
+          Width = 148
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsIdentificacao
           Font.Charset = ANSI_CHARSET
@@ -512,11 +547,12 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           TabOrder = 7
         end
         object dbDEmi: TDBEdit
-          Left = 567
+          Left = 653
           Top = 72
           Width = 114
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsIdentificacao
           Font.Charset = ANSI_CHARSET
@@ -527,13 +563,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 8
+          ExplicitLeft = 567
         end
         object dbMensagemFiscal: TDBMemo
           Left = 16
           Top = 118
-          Width = 665
-          Height = 89
+          Width = 751
+          Height = 107
           TabStop = False
+          Anchors = [akLeft, akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsIdentificacao
           Font.Charset = ANSI_CHARSET
@@ -549,6 +587,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsEmitente: TTabSheet
         Caption = 'Emitente'
         ImageIndex = 1
+        ExplicitWidth = 700
+        DesignSize = (
+          786
+          322)
         object lblCNPJ: TLabel
           Left = 119
           Top = 16
@@ -582,10 +624,11 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           FocusControl = dbXFant
         end
         object lblIE: TLabel
-          Left = 286
+          Left = 372
           Top = 56
           Width = 91
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'Inscri'#231#227'o Estadual:'
           FocusControl = dbIE
           Font.Charset = ANSI_CHARSET
@@ -594,12 +637,14 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitLeft = 286
         end
         object lblIM: TLabel
-          Left = 407
+          Left = 493
           Top = 56
           Width = 93
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'Inscri'#231#227'o Municipal:'
           FocusControl = dbIM
           Font.Charset = ANSI_CHARSET
@@ -608,12 +653,14 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitLeft = 407
         end
         object lblCRT: TLabel
-          Left = 528
+          Left = 614
           Top = 56
           Width = 24
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'CRT:'
           FocusControl = dbCRT
           Font.Charset = ANSI_CHARSET
@@ -622,6 +669,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitLeft = 528
         end
         object lblXLgr: TLabel
           Left = 16
@@ -632,10 +680,11 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           FocusControl = dbXLgr
         end
         object lblNro: TLabel
-          Left = 407
+          Left = 493
           Top = 96
           Width = 21
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'No.:'
           FocusControl = dbNro
           Font.Charset = ANSI_CHARSET
@@ -644,12 +693,14 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitLeft = 407
         end
         object lblXCpl: TLabel
-          Left = 479
+          Left = 565
           Top = 96
           Width = 69
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'Complemento:'
           FocusControl = dbXCpl
           Font.Charset = ANSI_CHARSET
@@ -658,6 +709,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitLeft = 479
         end
         object lblXBairro: TLabel
           Left = 16
@@ -668,10 +720,11 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           FocusControl = dbXBairro
         end
         object lblCMun: TLabel
-          Left = 407
+          Left = 493
           Top = 136
           Width = 47
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'Munic'#237'pio:'
           FocusControl = dbCMun
           Font.Charset = ANSI_CHARSET
@@ -680,12 +733,14 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitLeft = 407
         end
         object lblUF: TLabel
-          Left = 648
+          Left = 734
           Top = 136
           Width = 17
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'UF:'
           FocusControl = dbUF
           Font.Charset = ANSI_CHARSET
@@ -694,12 +749,14 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitLeft = 648
         end
         object lblCEP: TLabel
-          Left = 286
+          Left = 372
           Top = 136
           Width = 23
           Height = 13
+          Anchors = [akTop, akRight]
           Caption = 'CEP:'
           FocusControl = dbCEP
           Font.Charset = ANSI_CHARSET
@@ -708,6 +765,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitLeft = 286
         end
         object lblFone: TLabel
           Left = 16
@@ -737,9 +795,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
         object dbXNome: TDBEdit
           Left = 286
           Top = 32
-          Width = 395
+          Width = 481
           Height = 21
           TabStop = False
+          Anchors = [akLeft, akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -750,13 +809,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 2
+          ExplicitWidth = 395
         end
         object dbXFant: TDBEdit
           Left = 16
           Top = 72
-          Width = 264
+          Width = 350
           Height = 21
           TabStop = False
+          Anchors = [akLeft, akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -767,13 +828,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 3
+          ExplicitWidth = 264
         end
         object dbIE: TDBEdit
-          Left = 286
+          Left = 372
           Top = 72
           Width = 115
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -784,13 +847,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 4
+          ExplicitLeft = 286
         end
         object dbIM: TDBEdit
-          Left = 407
+          Left = 493
           Top = 72
           Width = 115
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -801,13 +866,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 5
+          ExplicitLeft = 407
         end
         object dbCRT: TDBEdit
-          Left = 528
+          Left = 614
           Top = 72
           Width = 41
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -818,13 +885,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 6
+          ExplicitLeft = 528
         end
         object dbDESCR_CST: TDBEdit
-          Left = 575
+          Left = 661
           Top = 72
           Width = 106
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -835,13 +904,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 7
+          ExplicitLeft = 575
         end
         object dbXLgr: TDBEdit
           Left = 16
           Top = 112
-          Width = 385
+          Width = 471
           Height = 21
           TabStop = False
+          Anchors = [akLeft, akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -852,13 +923,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 8
+          ExplicitWidth = 385
         end
         object dbNro: TDBEdit
-          Left = 407
+          Left = 493
           Top = 112
           Width = 66
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -869,13 +942,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 9
+          ExplicitLeft = 407
         end
         object dbXCpl: TDBEdit
-          Left = 479
+          Left = 565
           Top = 112
           Width = 202
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -886,13 +961,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 10
+          ExplicitLeft = 479
         end
         object dbXBairro: TDBEdit
           Left = 16
           Top = 152
-          Width = 264
+          Width = 350
           Height = 21
           TabStop = False
+          Anchors = [akLeft, akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -903,13 +980,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 11
+          ExplicitWidth = 264
         end
         object dbCMun: TDBEdit
-          Left = 407
+          Left = 493
           Top = 152
           Width = 66
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -920,13 +999,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 13
+          ExplicitLeft = 407
         end
         object dbXMun: TDBEdit
-          Left = 479
+          Left = 565
           Top = 152
           Width = 163
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -937,13 +1018,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 14
+          ExplicitLeft = 479
         end
         object dbUF: TDBEdit
-          Left = 648
+          Left = 734
           Top = 152
           Width = 33
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -954,13 +1037,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 15
+          ExplicitLeft = 648
         end
         object dbCEP: TDBEdit
-          Left = 286
+          Left = 372
           Top = 152
           Width = 115
           Height = 21
           TabStop = False
+          Anchors = [akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -971,13 +1056,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 12
+          ExplicitLeft = 286
         end
         object dbFone: TDBEdit
           Left = 16
           Top = 192
-          Width = 264
+          Width = 350
           Height = 21
           TabStop = False
+          Anchors = [akLeft, akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsEmitente
           Font.Charset = ANSI_CHARSET
@@ -988,6 +1075,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 16
+          ExplicitWidth = 264
         end
         object edFornecedorCadastro: TJvComboEdit
           Left = 16
@@ -1057,6 +1145,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsDestinatario: TTabSheet
         Caption = 'Destinat'#225'rio'
         ImageIndex = 8
+        ExplicitWidth = 700
+        DesignSize = (
+          786
+          322)
         object lblCNPJCPF_Dest: TLabel
           Left = 16
           Top = 16
@@ -1072,6 +1164,29 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           Height = 13
           Caption = 'Nome / Raz'#227'o Social:'
           FocusControl = dbXNome_Dest
+        end
+        object lblXFant_Dest: TLabel
+          Left = 16
+          Top = 56
+          Width = 45
+          Height = 13
+          Caption = 'Fantasia:'
+          FocusControl = dbXFant_Dest
+        end
+        object lblIE_Dest: TLabel
+          Left = 372
+          Top = 56
+          Width = 91
+          Height = 13
+          Anchors = [akTop, akRight]
+          Caption = 'Inscri'#231#227'o Estadual:'
+          FocusControl = dbIE_Dest
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
         object dbCNPJCPF_Dest: TDBEdit
           Left = 16
@@ -1093,9 +1208,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
         object dbXNome_Dest: TDBEdit
           Left = 183
           Top = 32
-          Width = 498
+          Width = 584
           Height = 21
           TabStop = False
+          Anchors = [akLeft, akTop, akRight]
           Color = clMoneyGreen
           DataSource = dtsDestinatario
           Font.Charset = ANSI_CHARSET
@@ -1106,42 +1222,192 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 1
+          ExplicitWidth = 498
+        end
+        object dbXFant_Dest: TDBEdit
+          Left = 16
+          Top = 72
+          Width = 350
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsDestinatario
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 2
+        end
+        object dbIE_Dest: TDBEdit
+          Left = 372
+          Top = 72
+          Width = 115
+          Height = 21
+          TabStop = False
+          Anchors = [akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsDestinatario
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 3
         end
       end
       object tbsProdutos: TTabSheet
         Caption = 'Produtos e Servi'#231'os'
         ImageIndex = 3
-        object dbProdutos: TDBGrid
+        ExplicitWidth = 700
+        object GrdProdutos: TcxGrid
           Left = 0
           Top = 0
-          Width = 700
+          Width = 786
           Height = 322
           Align = alClient
-          DataSource = dtsDadosProdutos
-          ReadOnly = True
           TabOrder = 0
-          TitleFont.Charset = ANSI_CHARSET
-          TitleFont.Color = clWindowText
-          TitleFont.Height = -11
-          TitleFont.Name = 'Tahoma'
-          TitleFont.Style = []
+          ExplicitLeft = 216
+          ExplicitTop = 72
+          ExplicitWidth = 250
+          ExplicitHeight = 200
+          object GrdProdutosDBTableView: TcxGridDBTableView
+            Navigator.Buttons.CustomButtons = <>
+            DataController.DataSource = dtsDadosProdutos
+            DataController.Summary.DefaultGroupSummaryItems = <>
+            DataController.Summary.FooterSummaryItems = <>
+            DataController.Summary.SummaryGroups = <>
+            OptionsBehavior.FocusCellOnTab = True
+            OptionsBehavior.GoToNextCellOnEnter = True
+            OptionsBehavior.FocusCellOnCycle = True
+            OptionsData.Deleting = False
+            OptionsData.DeletingConfirmation = False
+            OptionsData.Inserting = False
+            OptionsView.CellEndEllipsis = True
+            OptionsView.NoDataToDisplayInfoText = '<Sem produtos para exibi'#231#227'o>'
+            OptionsView.GroupByBox = False
+            Styles.Content = StyleContent
+            Styles.ContentEven = StyleContentEven
+            Styles.Selection = StyleSelecao
+            object GrdProdutosDBTableViewCadastro: TcxGridDBColumn
+              Caption = 'Cadastro '
+              DataBinding.FieldName = 'ID'
+              PropertiesClassName = 'TcxButtonEditProperties'
+              Properties.Buttons = <
+                item
+                  Default = True
+                  ImageIndex = 1
+                  Kind = bkGlyph
+                end>
+              Properties.ClickKey = 16464
+              Properties.Images = DMRecursos.ImgBotoes16x16
+              Options.Filtering = False
+              Options.Moving = False
+              Styles.Header = cxStyleHeader
+              Width = 80
+            end
+            object GrdProdutosDBTableViewCodigo: TcxGridDBColumn
+              Caption = 'C'#243'digo'
+              DataBinding.FieldName = 'CProd'
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.Moving = False
+              Width = 120
+            end
+            object GrdProdutosDBTableViewDescricao: TcxGridDBColumn
+              Caption = 'Descri'#231#227'o'
+              DataBinding.FieldName = 'XProd'
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.Moving = False
+              Width = 340
+            end
+            object GrdProdutosDBTableViewQtde: TcxGridDBColumn
+              Caption = 'Qtde.'
+              DataBinding.FieldName = 'QCom'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.###'
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.Moving = False
+              Options.Sorting = False
+              Width = 50
+            end
+            object GrdProdutosDBTableViewUND: TcxGridDBColumn
+              Caption = 'UN'
+              DataBinding.FieldName = 'UCom'
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.Moving = False
+              Options.Sorting = False
+              Width = 35
+            end
+            object GrdProdutosDBTableViewValor: TcxGridDBColumn
+              Caption = 'Valor (R$)'
+              DataBinding.FieldName = 'VUnCom'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.Moving = False
+              Options.Sorting = False
+              Width = 80
+            end
+            object GrdProdutosDBTableViewNCM: TcxGridDBColumn
+              Caption = 'NCM '
+              DataBinding.FieldName = 'NCM'
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.Moving = False
+              Options.Sorting = False
+              Width = 80
+            end
+            object GrdProdutosDBTableViewCFOP: TcxGridDBColumn
+              Caption = 'CFOP '
+              DataBinding.FieldName = 'CFOP'
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.Moving = False
+              Options.Sorting = False
+              Width = 50
+            end
+          end
+          object GrdProdutosLevel: TcxGridLevel
+            GridView = GrdProdutosDBTableView
+          end
         end
       end
       object tbsTotais: TTabSheet
         Caption = 'Totais'
         ImageIndex = 4
+        ExplicitWidth = 700
       end
       object tbsTransporte: TTabSheet
         Caption = 'Transporte'
         ImageIndex = 5
+        ExplicitWidth = 700
       end
       object tbsCobranca: TTabSheet
         Caption = 'Cobran'#231'a'
         ImageIndex = 6
+        ExplicitWidth = 700
       end
       object tbsInformacaoAdcional: TTabSheet
         Caption = 'Informa'#231#245'es Adicionais'
         ImageIndex = 7
+        ExplicitWidth = 700
       end
     end
   end
@@ -1349,5 +1615,48 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
         ParamType = ptInput
         Value = Null
       end>
+  end
+  object StyleRepository: TcxStyleRepository
+    Left = 424
+    Top = 448
+    PixelsPerInch = 96
+    object StyleSelecao: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clMoneyGreen
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      TextColor = clBlack
+    end
+    object StyleContent: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clMenuBar
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      TextColor = clBlack
+    end
+    object StyleContentEven: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 10930928
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      TextColor = clBlack
+    end
+    object cxStyleHeader: TcxStyle
+      AssignedValues = [svFont]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+    end
   end
 end

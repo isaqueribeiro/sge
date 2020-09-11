@@ -5991,7 +5991,6 @@ object frmPrinc: TfrmPrinc
     object BrBtnNotaFiscalDownload: TdxBarLargeButton
       Caption = 'Download de NF-e(s) Emitida(s)'
       Category = 10
-      Enabled = False
       Hint = 'Download de NF-e(s) Emitida(s)'
       Visible = ivAlways
       OnClick = nmDownloadNFeGeradaClick

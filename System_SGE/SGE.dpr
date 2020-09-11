@@ -168,7 +168,9 @@ uses
   Controller.Tabela in '..\Sys\Controller\Controller.Tabela.pas',
   Interfaces.InputQuery in '..\Sys\Services\InputQuery\Interfaces.InputQuery.pas',
   View.InputQuery in '..\Sys\Services\InputQuery\View.InputQuery.pas' {ViewInputQuery},
-  Classe.InputQuery in '..\Sys\Services\Classe.InputQuery.pas';
+  Classe.InputQuery in '..\Sys\Services\Classe.InputQuery.pas',
+  Classe.DistribuicaoDFe.DocumentoRetornado in '..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas',
+  UGeDistribuicaoDFe in '..\Sys\UGeDistribuicaoDFe.pas' {frmDistribuicaoDFe};
 
 {$R *.res}
 

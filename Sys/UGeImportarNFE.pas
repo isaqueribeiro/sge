@@ -3,6 +3,8 @@ unit UGeImportarNFE;
 interface
 
 uses
+  UGrPadrao,
+
   ACBrNFeDANFEFRDM,
   ACBrNFeDANFEFR,
   ACBrNFeDANFEClass,
@@ -19,7 +21,7 @@ uses
 //  System.StrUtils,
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ClipBrd, UGrPadrao, System.TypInfo,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ClipBrd, System.TypInfo,
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Vcl.StdCtrls, cxButtons,
   Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Data.DB, IBX.IBCustomDataSet, IBX.IBQuery,
   cxControls, cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxButtonEdit, Vcl.ComCtrls,
@@ -31,7 +33,10 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, cxStyles, cxCustomData, cxFilter,
+  cxData, cxDataStorage, cxNavigator, dxDateRanges, cxDataControllerConditionalFormattingRulesManagerDialog, cxDBData,
+  cxClasses, cxGridLevel, cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
+  cxCurrencyEdit;
 
 type
   TfrmGeImportarNFE = class(TfrmGrPadrao)
@@ -157,7 +162,26 @@ type
     dbXNome_Dest: TDBEdit;
     lblXNome_Dest: TLabel;
     fdQryEmpresa: TFDQuery;
-    dbProdutos: TDBGrid;
+    lblXFant_Dest: TLabel;
+    dbXFant_Dest: TDBEdit;
+    lblIE_Dest: TLabel;
+    dbIE_Dest: TDBEdit;
+    GrdProdutosDBTableView: TcxGridDBTableView;
+    GrdProdutosLevel: TcxGridLevel;
+    GrdProdutos: TcxGrid;
+    StyleRepository: TcxStyleRepository;
+    StyleSelecao: TcxStyle;
+    StyleContent: TcxStyle;
+    StyleContentEven: TcxStyle;
+    cxStyleHeader: TcxStyle;
+    GrdProdutosDBTableViewCodigo: TcxGridDBColumn;
+    GrdProdutosDBTableViewDescricao: TcxGridDBColumn;
+    GrdProdutosDBTableViewQtde: TcxGridDBColumn;
+    GrdProdutosDBTableViewUND: TcxGridDBColumn;
+    GrdProdutosDBTableViewValor: TcxGridDBColumn;
+    GrdProdutosDBTableViewNCM: TcxGridDBColumn;
+    GrdProdutosDBTableViewCFOP: TcxGridDBColumn;
+    GrdProdutosDBTableViewCadastro: TcxGridDBColumn;
     procedure ApenasNumeroKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
@@ -235,7 +259,7 @@ type
   Procedures:
 
   Arquivo:
-  - C:\Delphi\ACBr_2016\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFRDM.pas
+  - C:\Delphi\Comps\ACBr\Fontes\ACBrDFe\ACBrNFe\DANFE\NFe\Fast\ACBrNFeDANFEFRDM.pas
 
   Referências:
   - FDANFEClassOwner -> FrDANFE
@@ -247,8 +271,14 @@ var
 implementation
 
 uses
-  UDMBusiness, UDMNFe, UConstantesDGE, UFuncoes, UDMRecursos,
-  UGeFornecedor;
+    UConstantesDGE
+  , UFuncoes
+  , Classe.DistribuicaoDFe.DocumentoRetornado
+  , UDMRecursos
+  , UDMBusiness
+  , UDMNFe
+  , UGeDistribuicaoDFe
+  , UGeFornecedor;
 
 {$R *.dfm}
 
@@ -283,8 +313,9 @@ end;
 
 procedure TfrmGeImportarNFE.btnManifestoClick(Sender: TObject);
 var
-  sFile,
-  sLog : String;
+  sChave,
+  sFile ,
+  sLog  : String;
 
   procedure DownloadNFe;
   begin
@@ -297,6 +328,14 @@ begin
     sLog := EmptyStr;
     edChaveNFe.Text    := OnlyNumber(Trim(edChaveNFe.Text));
     lblInforme.Visible := True;
+
+    if (edChaveNFe.Text = EmptyStr) then
+    begin
+      if TfrmDistribuicaoDFe.getInstance(fdQryEmpresa.FieldByName('CNPJ').AsString).&End(sChave) then
+        edChaveNFe.Text := OnlyNumber(Trim(sChave))
+      else
+        Exit;
+    end;
 
     if not ValidarChave(edChaveNFe.Text) then
       ShowWarning('A Chave informada é inválida!')
@@ -1852,6 +1891,7 @@ begin
   cdsEmitente := TClientDataSet.Create(Self);
   with cdsEmitente do
   begin
+    FieldDefs.Add('ID'            , ftString, 10); // Código no Cadastros
     FieldDefs.Add('CNPJ'          , ftString, 18);
     FieldDefs.Add('XNome'         , ftString, 60);
     FieldDefs.Add('XFant'         , ftString, 60);
@@ -1903,7 +1943,7 @@ begin
   cdsDadosProdutos   := TClientDataSet.Create(Self);
   with cdsDadosProdutos do
   begin
-    FieldDefs.Add('ID'        , ftString, 10);
+    FieldDefs.Add('ID'        , ftString, 10); // Código no Cadastros
     FieldDefs.Add('CProd'     , ftString, 60);
     FieldDefs.Add('cEAN'      , ftString, 60);
     FieldDefs.Add('XProd'     , ftString, 120);
@@ -1955,37 +1995,43 @@ begin
   cdsParametros  := TClientDataSet.Create(Self);
   with cdsParametros do
   begin
-    FieldDefs.Add('poscanhoto'    , ftString, 1);
-    FieldDefs.Add('ResumoCanhoto' , ftString, 200);
-    FieldDefs.Add('Mensagem0'     , ftString, 60);
-    FieldDefs.Add('Imagem'        , ftString, 256);
-    FieldDefs.Add('Sistema'       , ftString, 150);
-    FieldDefs.Add('Usuario'       , ftString, 60);
-    FieldDefs.Add('Fax'           , ftString, 60);
-    FieldDefs.Add('Site'          , ftString, 60);
-    FieldDefs.Add('Email'         , ftString, 60);
-    FieldDefs.Add('Desconto'      , ftString, 60);
-    FieldDefs.Add('TotalLiquido'          , ftString, 60);
-    FieldDefs.Add('ChaveAcesso_Descricao' , ftString, 90);
-    FieldDefs.Add('Contingencia_ID'       , ftString, 36);
+    FieldDefs.Add('poscanhoto', ftString, 1);
+    FieldDefs.Add('ResumoCanhoto', ftString, 200);
+    FieldDefs.Add('Mensagem0', ftString, 60);
+    FieldDefs.Add('Imagem', ftString, 256);
+    FieldDefs.Add('Sistema', ftString, 300);
+    FieldDefs.Add('Usuario', ftString, 60);
+    FieldDefs.Add('Fax', ftString, 60);
+    FieldDefs.Add('Site', ftString, 60);
+    FieldDefs.Add('Email', ftString, 60);
+    FieldDefs.Add('Desconto', ftString, 60);
+    FieldDefs.Add('TotalLiquido', ftString, 60);
+    FieldDefs.Add('ChaveAcesso_Descricao', ftString, 90);
+    FieldDefs.Add('Contingencia_ID', ftString, 36);
     FieldDefs.Add('Contingencia_Descricao', ftString, 60);
-    FieldDefs.Add('Contingencia_Valor'    , ftString, 60);
-    FieldDefs.Add('LinhasPorPagina'       , ftInteger);
-    FieldDefs.Add('LogoExpandido'         , ftString, 1);
-    FieldDefs.Add('DESCR_CST'             , ftString, 30);
-    FieldDefs.Add('ConsultaAutenticidade' , ftString, 300);
-    FieldDefs.Add('sDisplayFormat'        , ftString, 25);
-    FieldDefs.Add('iFormato'              , ftInteger);
-    FieldDefs.Add('Casas_qCom'            , ftInteger);
-    FieldDefs.Add('Casas_vUnCom'          , ftInteger);
-    FieldDefs.Add('Mask_qCom'             , ftString, 30);
-    FieldDefs.Add('Mask_vUnCom'           , ftString, 30);
-    FieldDefs.Add('LogoCarregado'         , ftBlob);
-    FieldDefs.Add('QrCodeCarregado'       , ftGraphic, 1000);
-    FieldDefs.Add('DescricaoViaEstabelec' , ftString, 30);
-    FieldDefs.Add('QtdeItens'             , ftInteger);
+    FieldDefs.Add('Contingencia_Valor', ftString, 60);
+    FieldDefs.Add('LinhasPorPagina', ftInteger);
+    FieldDefs.Add('LogoExpandido', ftString, 1);
+    FieldDefs.Add('DESCR_CST', ftString, 30);
+    FieldDefs.Add('ConsultaAutenticidade', ftString, 300);
+    FieldDefs.Add('sDisplayFormat', ftString, 25);
+    FieldDefs.Add('iFormato', ftInteger);
+    FieldDefs.Add('Casas_qCom', ftInteger);
+    FieldDefs.Add('Casas_vUnCom', ftInteger);
+    FieldDefs.Add('Mask_qCom', ftString, 30);
+    FieldDefs.Add('Mask_vUnCom', ftString, 30);
+    FieldDefs.Add('LogoCarregado', ftBlob);
+    FieldDefs.Add('QrCodeCarregado', ftGraphic, 1000);
+    FieldDefs.Add('QrCodeLateral', ftString, 1);
+    FieldDefs.Add('ImprimeEm1Linha', ftString, 1);
+    FieldDefs.Add('ImprimeEmDuasLinhas', ftString, 1);
+    FieldDefs.Add('DescricaoViaEstabelec', ftString, 30);
+    FieldDefs.Add('QtdeItens', ftInteger);
     FieldDefs.Add('ExpandirDadosAdicionaisAuto', ftString, 1);
-    FieldDefs.Add('ImprimeDescAcrescItem'      , ftInteger);
+    FieldDefs.Add('ImprimeDescAcrescItem', ftInteger);
+    FieldDefs.Add('nProt', ftString, 30);
+    FieldDefs.Add('dhRecbto', ftDateTime);
+    FieldDefs.Add('poscanhotolayout', ftString, 1);
     CreateDataSet;
   end;
   dtsParametros.DataSet := cdsParametros;
@@ -2014,6 +2060,7 @@ begin
     FieldDefs.Add('VFrete'      , ftFloat);
     FieldDefs.Add('VSeg'        , ftFloat);
     FieldDefs.Add('VDesc'       , ftFloat);
+    FieldDefs.Add('vICMSDeson'  , ftFloat);
     FieldDefs.Add('VII'         , ftFloat);
     FieldDefs.Add('VIPI'        , ftFloat);
     FieldDefs.Add('VPIS'        , ftFloat);
@@ -2026,6 +2073,10 @@ begin
     FieldDefs.Add('vTotPago'    , ftFloat);
     FieldDefs.Add('vTroco'      , ftFloat);
     FieldDefs.Add('ValorApagar' , ftFloat);
+    FieldDefs.Add('VFCP'        , ftFloat);
+    FieldDefs.Add('VFCPST'      , ftFloat);
+    FieldDefs.Add('VFCPSTRet'   , ftFloat);
+    FieldDefs.Add('VIPIDevol'   , ftFloat);
     CreateDataSet;
   end;
   dtsCalculoImposto.DataSet := cdsCalculoImposto;
@@ -2078,10 +2129,12 @@ begin
   cdsISSQN := TClientDataSet.Create(Self);
   with cdsISSQN do
   begin
-     FieldDefs.Add('vSERV', ftFloat);
-     FieldDefs.Add('vBC'  , ftFloat);
-     FieldDefs.Add('vISS' , ftFloat);
-     CreateDataSet;
+    FieldDefs.Add('vSERV', ftFloat);
+    FieldDefs.Add('vBC', ftFloat);
+    FieldDefs.Add('vISS', ftFloat);
+    FieldDefs.Add('vDescIncond', ftFloat);
+    FieldDefs.Add('vISSRet', ftFloat);
+    CreateDataSet;
   end;
   dtsISSQN.DataSet := cdsISSQN;
 
@@ -2103,15 +2156,21 @@ begin
   cdsLocalRetirada := TClientDataSet.Create(Self);
   with cdsLocalRetirada do
   begin
-     FieldDefs.Add('CNPJ'   , ftString, 18);
-     FieldDefs.Add('XLgr'   , ftString, 60);
-     FieldDefs.Add('Nro'    , ftString, 60);
-     FieldDefs.Add('XCpl'   , ftString, 60);
-     FieldDefs.Add('XBairro', ftString, 60);
-     FieldDefs.Add('CMun'   , ftString, 7);
-     FieldDefs.Add('XMun'   , ftString, 60);
-     FieldDefs.Add('UF'     , ftString, 2);
-     CreateDataSet;
+    FieldDefs.Add('CNPJ', ftString, 18);
+    FieldDefs.Add('XLgr', ftString, 60);
+    FieldDefs.Add('Nro', ftString, 60);
+    FieldDefs.Add('XCpl', ftString, 60);
+    FieldDefs.Add('XBairro', ftString, 60);
+    FieldDefs.Add('CMun', ftString, 7);
+    FieldDefs.Add('XMun', ftString, 60);
+    FieldDefs.Add('UF', ftString, 2);
+    FieldDefs.Add('XNome', ftString, 60);
+    FieldDefs.Add('CEP', ftString, 9);
+    FieldDefs.Add('CPais', ftString, 4);
+    FieldDefs.Add('XPais', ftString, 60);
+    FieldDefs.Add('Fone', ftString, 17);
+    FieldDefs.Add('IE', ftString, 15);
+    CreateDataSet;
   end;
   dtsLocalRetirada.DataSet := cdsLocalRetirada;
 
@@ -2119,15 +2178,21 @@ begin
   cdsLocalEntrega := TClientDataSet.Create(Self);
   with cdsLocalEntrega do
   begin
-     FieldDefs.Add('CNPJ'   , ftString, 18);
-     FieldDefs.Add('XLgr'   , ftString, 60);
-     FieldDefs.Add('Nro'    , ftString, 60);
-     FieldDefs.Add('XCpl'   , ftString, 60);
-     FieldDefs.Add('XBairro', ftString, 60);
-     FieldDefs.Add('CMun'   , ftString, 7);
-     FieldDefs.Add('XMun'   , ftString, 60);
-     FieldDefs.Add('UF'     , ftString, 2);
-     CreateDataSet;
+    FieldDefs.Add('CNPJ', ftString, 18);
+    FieldDefs.Add('XLgr', ftString, 60);
+    FieldDefs.Add('Nro', ftString, 60);
+    FieldDefs.Add('XCpl', ftString, 60);
+    FieldDefs.Add('XBairro', ftString, 60);
+    FieldDefs.Add('CMun', ftString, 7);
+    FieldDefs.Add('XMun', ftString, 60);
+    FieldDefs.Add('UF', ftString, 2);
+    FieldDefs.Add('XNome', ftString, 60);
+    FieldDefs.Add('CEP', ftString, 9);
+    FieldDefs.Add('CPais', ftString, 4);
+    FieldDefs.Add('XPais', ftString, 60);
+    FieldDefs.Add('Fone', ftString, 17);
+    FieldDefs.Add('IE', ftString, 15);
+    CreateDataSet;
   end;
   dtsLocalEntrega.DataSet := cdsLocalEntrega;
 
@@ -2135,8 +2200,9 @@ begin
   cdsInformacoesAdicionais := TClientDataSet.Create(Self);
   with cdsInformacoesAdicionais do
   begin
-    FieldDefs.Add('OBS'      , ftString, 6900);
+    FieldDefs.Add('OBS', ftString, 6900);
     FieldDefs.Add('LinhasOBS', ftInteger);
+    FieldDefs.Add('MensagemSEFAZ', ftString, 200);
     CreateDataSet;
   end;
   dtsInformacoesAdicionais.DataSet := cdsInformacoesAdicionais;
@@ -2145,11 +2211,12 @@ begin
   cdsPagamento := TClientDataSet.Create(Self);
   with cdsPagamento do
   begin
-    FieldDefs.Add('tPag' , ftString, 50);
-    FieldDefs.Add('vPag' , ftFloat);
-    FieldDefs.Add('CNPJ' , ftString, 50);
+    FieldDefs.Add('tPag', ftString, 50);
+    FieldDefs.Add('vPag', ftFloat);
+    FieldDefs.Add('vTroco', ftFloat);
+    FieldDefs.Add('CNPJ', ftString, 50);
     FieldDefs.Add('tBand', ftString, 50);
-    FieldDefs.Add('cAut' , ftString, 20);
+    FieldDefs.Add('cAut', ftString, 20);
     CreateDataSet;
   end;
   dtsPagamento.DataSet := cdsPagamento;

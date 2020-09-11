@@ -24,6 +24,9 @@ uses
   pcnAuxiliar,
   SHDocVw,
 
+  System.Generics.Collections,
+  Classe.DistribuicaoDFe.DocumentoRetornado,
+
   Windows, SysUtils, Classes, ACBrNFeDANFEClass, DB,
   frxClass, frxDBSet, frxExportRTF, frxExportXLS, frxExportPDF, frxExportMail,
   TypInfo, HTTPApp, WinInet, Graphics, ExtCtrls, Jpeg, ShellApi,
@@ -435,6 +438,8 @@ type
     function GerarEnviarCCeACBr(const sCNPJEmitente : String; const ControleCCe : Integer; sCondicaoUso : String) : Boolean;
     function IsNFeManifestoDestinatarioRegistrado(const sCNPJ, sChave : String) : Boolean;
     function ExecutarManifestoDestinatarioNFe(const sCNPJ, sChave : String; var aLog : String) : Boolean;
+    function ExisteNFeParaBaixar(const sCNPJ : String; aNSU : Integer; var aFileName, aMensagem : String;
+      var aDocumentos : TDictionary<String, TDistribuicaoDFeDocumentoRetornado>) : Boolean;
 
     function GetModeloDF : Integer;
     function GetVersaoDF : Integer;
@@ -503,7 +508,8 @@ uses
   UDMRecursos, Forms, FileCtrl, ACBrNFeConfiguracoes,
   ACBrNFeNotasFiscais, ACBrNFeWebServices, StdCtrls, pcnNFe, UFuncoes,
   UConstantesDGE, DateUtils, UEcfFactory, // pcnRetConsReciNFe, pcnDownloadNFe,
-  pcnConversaoNFe, pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass, IniFiles;
+  pcnConversaoNFe, pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass, IniFiles,
+  System.IOUtils;
 
 {$R *.dfm}
 
@@ -6196,7 +6202,7 @@ begin
   sDescricao := 'Execução de Manifesto Dest. NF-e';
   try
     try
-      LerConfiguracao(sCNPJ, tipoDANFEFast);
+      LerConfiguracao(sCNPJ, TTipoDANFE.tipoDANFEFast);
 
       with ACBrNFe do
       begin
@@ -6320,6 +6326,124 @@ begin
 
     sLOG.Free;
     Result := bRetorno;
+  end;
+end;
+
+function TDMNFe.ExisteNFeParaBaixar(const sCNPJ : String; aNSU : Integer; var aFileName, aMensagem : String;
+  var aDocumentos : TDictionary<String, TDistribuicaoDFeDocumentoRetornado>) : Boolean;
+var
+  aRetorno   : Boolean;
+  aErrorMsg  ,
+  aDescricao : String;
+  aFileXML   : TStringList;
+  I : Integer;
+  aDocumento : TDistribuicaoDFeDocumentoRetornado;
+begin
+  aRetorno   := False;
+  aDescricao := 'DISTRIBUICAO_DEF_' + sCNPJ + FormatFloat('000000000000000', aNSU);
+  aFileXML   := TStringList.Create;
+
+  if not GetConectedInternet then
+  begin
+    aMensagem := 'Estação sem conexão com a internet!';
+    Result    := False;
+    Exit;
+  end;
+
+  try
+    try
+      LerConfiguracao(sCNPJ, TTipoDANFE.tipoDANFEFast);
+      AbrirEmitente(sCNPJ);
+
+      with ACBrNFe do
+      begin
+        NotasFiscais.Clear;
+
+        aRetorno  := DistribuicaoDFe(qryEmitenteEST_COD.AsInteger, sCNPJ, FormatFloat('000000000000000', aNSU), EmptyStr, EmptyStr);
+        aFileName := TPath.Combine(Configuracoes.Arquivos.PathSalvar, FormatDateTime('yyyymmddhhmmss', Now) + '-dist-dfe.xml');
+
+        if aRetorno then
+        begin
+          if not FileExists(aFileName) then
+          begin
+            aFileXML.Text := WebServices.DistribuicaoDFe.RetornoWS;
+            aFileXML.SaveToFile(aFileName);
+          end
+          else
+            aFileXML.LoadFromFile(aFileName);
+
+          aRetorno  := (WebServices.DistribuicaoDFe.retDistDFeInt.cStat = 138); // Documento(s) localizado(s)
+          aMensagem := WebServices.DistribuicaoDFe.retDistDFeInt.xMotivo;
+
+          if aRetorno then
+          begin
+            for I := 0 to (WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Count - 1) do
+            begin
+              aDocumento := TDistribuicaoDFeDocumentoRetornado.Create;
+
+              aDocumento.Chave     := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[i].resdFe.chdFe;
+              aDocumento.Serie     := Copy(aDocumento.Chave, 23, 3);
+              aDocumento.Numero    := Copy(aDocumento.Chave, 26, 9);
+              aDocumento.NSU       := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[i].NSU;
+              aDocumento.Protocolo := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[i].resdFe.nProt;
+              aDocumento.CNPJ      := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[i].resdFe.CNPJCPF;
+              aDocumento.Nome      := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[i].resdFe.xNome;
+              aDocumento.IEst      := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[i].resdFe.IE;
+              aDocumento.Emissao   := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[i].resdFe.dhEmi;
+              aDocumento.Valor     := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[i].resdFe.vNF;
+
+              case WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[i].resdFe.tpNF of
+                TpcnTipoNFe.tnEntrada : aDocumento.TipoNFe := TTipoNFe.tnNFeEntrada;
+                TpcnTipoNFe.tnSaida   : aDocumento.TipoNFe := TTipoNFe.tnNFeSaida;
+              end;
+
+              case WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[i].resdFe.cSitdFe of
+                TSituacaoDFe.snAutorizado : aDocumento.Situacao := TSituacaoDocumentoDFe.snDFeAutorizado;
+                TSituacaoDFe.snDenegado   : aDocumento.Situacao := TSituacaoDocumentoDFe.snDFeDenegado;
+                TSituacaoDFe.snCancelado  : aDocumento.Situacao := TSituacaoDocumentoDFe.snDFeCancelado;
+              end;
+
+              if not aDocumentos.ContainsKey(aDocumento.Chave) then
+                aDocumentos.Add(aDocumento.Chave, aDocumento);
+            end;
+
+            aDocumentos.TrimExcess;
+          end;
+        end;
+      end;
+
+    except
+      On E : Exception do
+      begin
+        aErrorMsg  := E.Message;
+        aDescricao := 'Tentativa de Execução do processo de Distribuição DF-e';
+
+        ShowError('Erro ao tentar buscar notas emitidas para ' + StrFormatarCnpj(sCNPJ) + '.' + #13#13 + 'ExisteNFeParaBaixar() --> ' + aErrorMsg);
+      end;
+    end;
+  finally
+    // Gravar LOG
+
+    with cdsLOG do
+    begin
+      Open;
+      Append;
+
+      cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
+      cdsLOGDATA_HORA.AsDateTime   := Now;
+      cdsLOGEMPRESA.AsString       := sCNPJ;
+      cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
+      cdsLOGDESCRICAO.AsString     := aDescricao;
+      cdsLOGESPECIFICACAO.AsString := aFileXML.Text;
+
+      Post;
+      ApplyUpdates;
+      CommitTransaction;
+    end;
+
+    aFileXML.Free;
+
+    Result := aRetorno;
   end;
 end;
 
