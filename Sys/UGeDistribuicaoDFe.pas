@@ -12,7 +12,7 @@ uses
   Vcl.Menus, dxSkinsCore, cxButtons, Vcl.ExtCtrls, Datasnap.DBClient, cxControls, cxStyles, cxCustomData, cxFilter,
   cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges, cxDataControllerConditionalFormattingRulesManagerDialog,
   cxDBData, cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
-  cxGridBandedTableView, cxGridDBBandedTableView, cxImageComboBox;
+  cxGridBandedTableView, cxGridDBBandedTableView, cxImageComboBox, dxLayoutContainer, cxGridInplaceEditForm;
 
 type
   TfrmDistribuicaoDFe = class(TfrmGrPadrao)

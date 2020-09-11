@@ -192,6 +192,9 @@ type
       DisplayText: Boolean);
     procedure btnManifestoClick(Sender: TObject);
     procedure edFornecedorCadastroButtonClick(Sender: TObject);
+    procedure GrdProdutosEnter(Sender: TObject);
+    procedure GrdProdutosExit(Sender: TObject);
+    procedure GrdProdutosDBTableViewCadastroPropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
   private
     { Private declarations }
     sQuebraLinha : String;
@@ -278,7 +281,8 @@ uses
   , UDMBusiness
   , UDMNFe
   , UGeDistribuicaoDFe
-  , UGeFornecedor;
+  , UGeFornecedor
+  , UGeProduto;
 
 {$R *.dfm}
 
@@ -1536,6 +1540,32 @@ begin
     inherited;
 end;
 
+procedure TfrmGeImportarNFE.GrdProdutosDBTableViewCadastroPropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
+var
+  aProduto : TProdutoServico;
+begin
+  if not cdsDadosProdutos.IsEmpty then
+    if SelecionarProdutoParaEntrada(Self, aProduto) then
+    begin
+      cdsDadosProdutos.Edit;
+      cdsDadosProdutos.FieldByName('ID').AsString := aProduto.aCodigoAlfa;
+    end;
+end;
+
+procedure TfrmGeImportarNFE.GrdProdutosEnter(Sender: TObject);
+begin
+  if not cdsDadosProdutos.IsEmpty then
+  begin
+    Self.OnKeyDown := nil;
+    cdsDadosProdutos.Edit;
+  end;
+end;
+
+procedure TfrmGeImportarNFE.GrdProdutosExit(Sender: TObject);
+begin
+  Self.OnKeyDown := FormKeyDown;
+end;
+
 procedure TfrmGeImportarNFE.IdentificarFornecedor(const aCnpj: String);
 begin
   edFornecedorCadastro.Text := FormatFloat('###00000', GetFornecedorCodigo(StrOnlyNumbers(aCnpj)));
@@ -1546,7 +1576,7 @@ procedure TfrmGeImportarNFE.IdentificarProduto(aCampo: TField; const aProduto,
   aCnpjFornecedor: String);
 begin
   if (aCampo.DataSet.State in [dsEdit, dsInsert]) then
-    aCampo.AsString := '0';
+    aCampo.AsString := GetProdutoFornecedorCodigo(StrOnlyNumbers(aCnpjFornecedor), aProduto.Trim);
 end;
 
 function TfrmGeImportarNFE.IfThenX(AValue: Boolean; const ATrue: String;

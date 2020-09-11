@@ -42,9 +42,6 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    ExplicitLeft = 0
-    ExplicitTop = 0
-    ExplicitWidth = 740
     DesignSize = (
       994
       73)
@@ -371,14 +368,14 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
         Index = -1
       end
       object GrdDocumentosDBTableViewGroup1: TdxLayoutAutoCreatedGroup
-        Parent = GrdDocumentosDBTableViewRootGroup.Owner
+        Parent = GrdDocumentosDBTableViewRootGroup
         AlignHorz = ahLeft
         AlignVert = avTop
         Index = 0
         AutoCreated = True
       end
       object GrdDocumentosDBTableViewGroup2: TdxLayoutAutoCreatedGroup
-        Parent = GrdDocumentosDBTableViewRootGroup.Owner
+        Parent = GrdDocumentosDBTableViewRootGroup
         AlignHorz = ahLeft
         AlignVert = avTop
         Index = 1

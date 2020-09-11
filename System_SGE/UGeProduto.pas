@@ -473,12 +473,13 @@ var
     var CodigoAlfa, Nome, Unidade : String;
     var ValorVenda, ValorPromocao : Currency) : Boolean; overload;
 
+  function SelecionarProdutoParaEntrada(const AOwner : TComponent; var pProduto : TProdutoServico) : Boolean; overload;
   function SelecionarProdutoParaEntrada(const AOwner : TComponent;
     var Codigo : Integer;
     var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
     var iUnidade, CFOP : Integer;
     var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC, ValorCusto : Currency;
-    var Estoque, Reserva : Currency) : Boolean;
+    var Estoque, Reserva : Currency) : Boolean; overload;
   function SelecionarServicoParaEntrada(const AOwner : TComponent;
     var Codigo : Integer;
     var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
@@ -825,15 +826,12 @@ begin
   end;
 end;
 
-function SelecionarProdutoParaEntrada(const AOwner : TComponent;
-  var Codigo : Integer;
-  var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
-  var iUnidade, CFOP : Integer;
-  var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC, ValorCusto : Currency;
-  var Estoque, Reserva : Currency) : Boolean; overload;
+function SelecionarProdutoParaEntrada(const AOwner : TComponent; var pProduto : TProdutoServico) : Boolean;
 var
   frm : TfrmGeProduto;
-  whr : String;
+//  whr : String;
+  aCodigo : Integer;
+  aNome   : String;
 begin
   frm := TfrmGeProduto.Create(AOwner);
   try
@@ -844,12 +842,88 @@ begin
     frm.lblAliquotaTipo.Enabled := False;
     frm.dbAliquotaTipo.Enabled  := False;
 
-    whr := '(p.arquivo_morto = 0) and (p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota)) + ')';
+//    whr := '(p.arquivo_morto = 0) and (p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota)) + ')';
+//
+//    if frm.chkProdutoComEstoque.Checked then
+//      whr := whr + ' and (p.Qtde > 0)';
+//
+    frm.AddWhereAdditional;
 
-    if frm.chkProdutoComEstoque.Checked then
-      whr := whr + ' and (p.Qtde > 0)';
+    Result := frm.SelecionarRegistro(aCodigo, aNome, frm.WhereAdditional);
 
-    Result := frm.SelecionarRegistro(Codigo, Nome, whr);
+    if Result then
+      with frm, DtSrcTabela.DataSet, pProduto do
+      begin
+        aCodigo     := FieldByName('CODIGO').AsInteger;
+        aCodigoAlfa := FieldByName('COD').AsString;
+        aCodigoEAN  := FieldByName('CODBARRA_EAN').AsString;
+
+        aDescricao    := FieldByName('DESCRI').AsString;
+        aApresentacao := FieldByName('APRESENTACAO').AsString;
+        aNome         := FieldByName('DESCRI_APRESENTACAO').AsString;
+
+        aUnidadeCompra.aCodigo     := FieldByName('CODUNIDADE').AsInteger;
+        aUnidadeCompra.aDescricao  := FieldByName('DESCRICAO_UNIDADE').AsString;
+        aUnidadeCompra.aSigla      := FieldByName('UNP_SIGLA').AsString;
+
+        aUnidadeConsumo.aCodigo    := FieldByName('CODUNIDADE_FRACIONADA').AsInteger;
+        aUnidadeConsumo.aDescricao := FieldByName('DESCRICAO_UNIDADE_FRAC').AsString;
+        aUnidadeConsumo.aSigla     := FieldByName('UNP_SIGLA_FRAC').AsString;
+
+        aCST    := FieldByName('CST').AsString;
+        aNCM_SH := FieldByName('NCM_SH').AsString;
+        aCFOP   := FieldByName('CODCFOP').AsInteger;
+        aCNAE   := 0;
+
+        aAliquota       := FieldByName('ALIQUOTA').AsCurrency;
+        aAliquotaPIS    := FieldByName('ALIQUOTA_PIS').AsCurrency;
+        aAliquotaCOFINS := FieldByName('ALIQUOTA_COFINS').AsCurrency;
+
+        aValorVenda     := FieldByName('PRECO').AsCurrency;
+        aValorPromocao  := FieldByName('PRECO_PROMOCAO').AsCurrency;
+        aValorIPI       := FieldByName('VALOR_IPI').AsCurrency;
+        aValorCusto     := FieldByName('CUSTOMEDIO').AsCurrency;
+
+        aPercentualRedBC := FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
+
+        aEstoque := FieldByName('QTDE').AsCurrency;
+        aReserva := FieldByName('RESERVA').AsCurrency;
+
+        aMovimentaEstoque := (FieldByName('MOVIMENTA_ESTOQUE').AsInteger  = FLAG_SIM);
+        aEstoquePorLote   := (FieldByName('ESTOQUE_APROP_LOTE').AsInteger = FLAG_SIM);
+      end;
+  finally
+    frm.Destroy;
+  end;
+end;
+
+function SelecionarProdutoParaEntrada(const AOwner : TComponent;
+  var Codigo : Integer;
+  var CodigoAlfa, Nome, sUnidade, sNCM_SH, CST : String;
+  var iUnidade, CFOP : Integer;
+  var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC, ValorCusto : Currency;
+  var Estoque, Reserva : Currency) : Boolean; overload;
+var
+  frm : TfrmGeProduto;
+//  whr : String;
+begin
+  frm := TfrmGeProduto.Create(AOwner);
+  try
+    frm.fAliquota       := taICMS;
+    frm.fApenasProdutos := True;
+
+    frm.chkProdutoComEstoque.Checked := False;
+    frm.lblAliquotaTipo.Enabled := False;
+    frm.dbAliquotaTipo.Enabled  := False;
+
+//    whr := '(p.arquivo_morto = 0) and (p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota)) + ')';
+//
+//    if frm.chkProdutoComEstoque.Checked then
+//      whr := whr + ' and (p.Qtde > 0)';
+//
+    frm.AddWhereAdditional;
+
+    Result := frm.SelecionarRegistro(Codigo, Nome, frm.WhereAdditional);
 
     if ( Result ) then
       with frm, DtSrcTabela.DataSet do

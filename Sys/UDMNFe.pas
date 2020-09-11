@@ -248,7 +248,8 @@ type
     frrEntradaEspelho: TfrxReport;
     qryEmitenteCONTADOR_CODIGO: TIntegerField;
     qryEmitenteCONTADOR_CNPJCPF: TStringField;
-    qryEmitenteCONTADOR_NOME: TStringField;    procedure SelecionarCertificado(Sender : TObject);
+    qryEmitenteCONTADOR_NOME: TStringField;
+    procedure SelecionarCertificado(Sender : TObject);
     procedure TestarServico(Sender : TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure FrECFPoolerGetValue(const VarName: String;

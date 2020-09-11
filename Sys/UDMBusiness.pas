@@ -369,6 +369,7 @@ var
   function GetFornecedorContato(const iCodigo : Integer) : String;
   function GetFornecedorUF(const iCodigo : Integer) : String;
   function GetFornecedorCodigo(const aCnpj : String) : Integer;
+  function GetProdutoFornecedorCodigo(const aCnpj, aProduto : String) : String;
   function GetVendedorNomeDefault : String;
   function GetVendedorNome(const iCodigo : Integer) : String;
   function GetFormaPagtoNomeDefault : String;
@@ -3984,6 +3985,30 @@ begin
     Open;
 
     Result := FieldByName('CODFORN').AsInteger;
+
+    Close;
+  end;
+end;
+
+function GetProdutoFornecedorCodigo(const aCnpj, aProduto : String) : String;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('  cd_produto ');
+    SQL.Add('from TBFORNECEDOR_PRODUTO');
+    SQL.Add('where (fornecedor_cnpj    = :cnpj)');
+    SQL.Add('  and (fornecedor_produto = :produto)');
+
+    ParamByName('cnpj').AsString    := aCnpj.Trim;
+    ParamByName('produto').AsString := aProduto.Trim;
+
+    Open;
+
+    Result := FieldByName('cd_produto').AsString;
 
     Close;
   end;
