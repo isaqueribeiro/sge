@@ -4672,7 +4672,6 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4714,6 +4713,7 @@ object frmPrinc: TfrmPrinc
       Index = 3
     end
     object RbnTabNota: TdxRibbonTab
+      Active = True
       Caption = 'Notas Fiscais (NF-e)'
       Groups = <
         item
@@ -5989,9 +5989,9 @@ object frmPrinc: TfrmPrinc
       OnClick = nmGerarArquivoNFCClick
     end
     object BrBtnNotaFiscalDownload: TdxBarLargeButton
-      Caption = 'Download de NF-e(s) Emitida(s)'
+      Caption = 'Download de Notas Fiscais'
       Category = 10
-      Hint = 'Download de NF-e(s) Emitida(s)'
+      Hint = 'Download de Notas Fiscais Eletr'#244'nicas'
       Visible = ivAlways
       OnClick = nmDownloadNFeGeradaClick
       HotImageIndex = 39

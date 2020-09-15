@@ -69,7 +69,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 826
     DesignSize = (
       920
       73)
@@ -137,7 +136,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       ParentFont = False
       ReadOnly = True
       TabOrder = 1
-      ExplicitWidth = 626
     end
   end
   object GrpBxManifesto: TGroupBox
@@ -154,7 +152,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
-    ExplicitWidth = 826
     DesignSize = (
       920
       76)
@@ -190,7 +187,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
-      ExplicitWidth = 695
     end
     object btnManifesto: TcxButton
       Left = 811
@@ -203,7 +199,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       OptionsImage.Images = DMRecursos.ImgPrincipal16x16
       TabOrder = 1
       OnClick = btnManifestoClick
-      ExplicitLeft = 717
     end
   end
   object btnConfirmar: TcxButton
@@ -216,7 +211,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     OptionsImage.ImageIndex = 20
     OptionsImage.Images = DMRecursos.ImgPrincipal16x16
     TabOrder = 2
-    ExplicitLeft = 636
   end
   object btFechar: TcxButton
     Left = 828
@@ -230,7 +224,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     OptionsImage.ImageIndex = 15
     OptionsImage.Images = DMRecursos.ImgBotoes16x16
     TabOrder = 3
-    ExplicitLeft = 734
   end
   object GrpBxDadosNFe: TGroupBox
     Left = 0
@@ -247,7 +240,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Font.Style = []
     ParentFont = False
     TabOrder = 4
-    ExplicitWidth = 826
     DesignSize = (
       920
       430)
@@ -267,7 +259,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     end
     object edArquivoXML: TcxButtonEdit
       Left = 16
-      Top = 40
+      Top = 39
       Anchors = [akLeft, akTop, akRight]
       Properties.Buttons = <
         item
@@ -279,7 +271,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       Properties.Images = DMRecursos.ImgBotoes16x16
       Properties.OnButtonClick = edArquivoXMLPropertiesButtonClick
       TabOrder = 0
-      Width = 789
+      Width = 888
     end
     object btnCarregarXML: TcxButton
       Left = 811
@@ -291,8 +283,8 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       OptionsImage.ImageIndex = 35
       OptionsImage.Images = DMRecursos.ImgBotoes16x16
       TabOrder = 1
+      Visible = False
       OnClick = btnCarregarXMLClick
-      ExplicitLeft = 717
     end
     object pgcNFe: TPageControl
       Left = 16
@@ -302,13 +294,8 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       ActivePage = tbsProdutos
       Anchors = [akLeft, akTop, akRight, akBottom]
       TabOrder = 2
-      ExplicitWidth = 794
       object tbsNFe: TTabSheet
         Caption = 'NFe'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 786
-        ExplicitHeight = 0
         DesignSize = (
           880
           322)
@@ -423,7 +410,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 0
-          ExplicitWidth = 409
         end
         object dbChave: TDBEdit
           Left = 525
@@ -442,7 +428,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 1
-          ExplicitLeft = 431
         end
         object dbcUF: TDBEdit
           Left = 747
@@ -461,7 +446,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 2
-          ExplicitLeft = 653
         end
         object dbcNF: TDBEdit
           Left = 779
@@ -480,7 +464,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 3
-          ExplicitLeft = 685
         end
         object dbNatOp: TDBEdit
           Left = 16
@@ -499,7 +482,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 4
-          ExplicitWidth = 409
         end
         object dbMod_: TDBEdit
           Left = 525
@@ -518,7 +500,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 5
-          ExplicitLeft = 431
         end
         object dbSerie: TDBEdit
           Left = 559
@@ -537,7 +518,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 6
-          ExplicitLeft = 465
         end
         object dbNNF: TDBEdit
           Left = 593
@@ -556,7 +536,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 7
-          ExplicitLeft = 499
         end
         object dbDEmi: TDBEdit
           Left = 747
@@ -575,7 +554,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 8
-          ExplicitLeft = 653
         end
         object dbMensagemFiscal: TDBMemo
           Left = 16
@@ -594,16 +572,11 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 9
-          ExplicitWidth = 751
         end
       end
       object tbsEmitente: TTabSheet
         Caption = 'Emitente'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 786
-        ExplicitHeight = 0
         DesignSize = (
           880
           322)
@@ -825,7 +798,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 2
-          ExplicitWidth = 481
         end
         object dbXFant: TDBEdit
           Left = 16
@@ -844,7 +816,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 3
-          ExplicitWidth = 350
         end
         object dbIE: TDBEdit
           Left = 466
@@ -863,7 +834,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 4
-          ExplicitLeft = 372
         end
         object dbIM: TDBEdit
           Left = 587
@@ -882,7 +852,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 5
-          ExplicitLeft = 493
         end
         object dbCRT: TDBEdit
           Left = 708
@@ -901,7 +870,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 6
-          ExplicitLeft = 614
         end
         object dbDESCR_CST: TDBEdit
           Left = 755
@@ -920,7 +888,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 7
-          ExplicitLeft = 661
         end
         object dbXLgr: TDBEdit
           Left = 16
@@ -939,7 +906,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 8
-          ExplicitWidth = 471
         end
         object dbNro: TDBEdit
           Left = 587
@@ -958,7 +924,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 9
-          ExplicitLeft = 493
         end
         object dbXCpl: TDBEdit
           Left = 659
@@ -977,7 +942,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 10
-          ExplicitLeft = 565
         end
         object dbXBairro: TDBEdit
           Left = 16
@@ -996,7 +960,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 11
-          ExplicitWidth = 350
         end
         object dbCMun: TDBEdit
           Left = 587
@@ -1015,7 +978,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 13
-          ExplicitLeft = 493
         end
         object dbXMun: TDBEdit
           Left = 659
@@ -1034,7 +996,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 14
-          ExplicitLeft = 565
         end
         object dbUF: TDBEdit
           Left = 828
@@ -1053,7 +1014,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 15
-          ExplicitLeft = 734
         end
         object dbCEP: TDBEdit
           Left = 466
@@ -1072,7 +1032,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 12
-          ExplicitLeft = 372
         end
         object dbFone: TDBEdit
           Left = 16
@@ -1091,7 +1050,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 16
-          ExplicitWidth = 350
         end
         object edFornecedorCadastro: TJvComboEdit
           Left = 16
@@ -1161,10 +1119,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsDestinatario: TTabSheet
         Caption = 'Destinat'#225'rio'
         ImageIndex = 8
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 786
-        ExplicitHeight = 0
         DesignSize = (
           880
           322)
@@ -1242,7 +1196,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 1
-          ExplicitWidth = 584
         end
         object dbXFant_Dest: TDBEdit
           Left = 16
@@ -1261,7 +1214,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 2
-          ExplicitWidth = 350
         end
         object dbIE_Dest: TDBEdit
           Left = 466
@@ -1280,16 +1232,11 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           ParentFont = False
           ReadOnly = True
           TabOrder = 3
-          ExplicitLeft = 372
         end
       end
       object tbsProdutos: TTabSheet
         Caption = 'Produtos e Servi'#231'os'
         ImageIndex = 3
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 786
-        ExplicitHeight = 0
         object GrdProdutos: TcxGrid
           Left = 0
           Top = 0
@@ -1299,7 +1246,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           TabOrder = 0
           OnEnter = GrdProdutosEnter
           OnExit = GrdProdutosExit
-          ExplicitWidth = 786
           object GrdProdutosDBTableView: TcxGridDBTableView
             Navigator.Buttons.CustomButtons = <>
             DataController.DataSource = dtsDadosProdutos
@@ -1418,34 +1364,18 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsTotais: TTabSheet
         Caption = 'Totais'
         ImageIndex = 4
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 786
-        ExplicitHeight = 0
       end
       object tbsTransporte: TTabSheet
         Caption = 'Transporte'
         ImageIndex = 5
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 786
-        ExplicitHeight = 0
       end
       object tbsCobranca: TTabSheet
         Caption = 'Cobran'#231'a'
         ImageIndex = 6
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 786
-        ExplicitHeight = 0
       end
       object tbsInformacaoAdcional: TTabSheet
         Caption = 'Informa'#231#245'es Adicionais'
         ImageIndex = 7
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 786
-        ExplicitHeight = 0
       end
     end
   end

@@ -422,6 +422,8 @@ begin
 
   SetControlsDataSets;
   pgcNFe.ActivePage := tbsNFe;
+
+  cdsDadosProdutos.First;
 end;
 
 procedure TfrmGeImportarNFE.CarregaDadosProdutos;
@@ -657,6 +659,7 @@ begin
       FieldByName('CNPJ').AsString  := FormatarCNPJ(CNPJCPF);
       FieldByName('XNome').AsString := DANFE.ManterNomeImpresso( XNome , XFant );
       FieldByName('XFant').AsString := XFant;
+
       with EnderEmit do
       begin
         FieldByName('Xlgr').AsString    := XLgr;
@@ -671,6 +674,7 @@ begin
         FieldByName('XPais').AsString   := XPais;
         FieldByName('Fone').AsString    := FormatarFone(Fone);
       end;
+
       FieldByName('IE').AsString        := IE;
       FieldByName('IM').AsString        := IM;
       FieldByName('IEST').AsString      := IEST;
@@ -1459,7 +1463,12 @@ begin
     end;
 
     if opdNotas.Execute then
+    begin
       edArquivoXML.Text := opdNotas.FileName;
+      CarregarXML(gUsuarioLogado.Empresa, Trim(edArquivoXML.Text));
+
+      IdentificarFornecedor(cdsEmitente.FieldByName('CNPJ').AsString);
+    end;
   end;
 end;
 
