@@ -1020,10 +1020,6 @@ inherited frmGeCliente: TfrmGeCliente
         TabStop = False
         object tbsContato: TTabSheet
           Caption = '&1. Contato'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblFoneFixo: TLabel
             Left = 8
             Top = 0
@@ -2236,6 +2232,10 @@ inherited frmGeCliente: TfrmGeCliente
         object tbsCompra: TTabSheet
           Caption = '&5. Compras'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           DesignSize = (
             828
             198)
@@ -2486,6 +2486,10 @@ inherited frmGeCliente: TfrmGeCliente
     object tbsConsultarCNPJ: TTabSheet
       Caption = 'Consultar CNPJ'
       ImageIndex = 12
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object BvlConsultar: TBevel
         Left = 377
         Top = 0

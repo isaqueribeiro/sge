@@ -291,7 +291,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       Top = 67
       Width = 888
       Height = 350
-      ActivePage = tbsProdutos
+      ActivePage = tbsTotais
       Anchors = [akLeft, akTop, akRight, akBottom]
       TabOrder = 2
       object tbsNFe: TTabSheet
@@ -1056,9 +1056,11 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           Top = 32
           Width = 97
           Height = 21
+          ButtonFlat = True
           ButtonHint = 'Pesquisar Cadastro de Fornecedor (Ctrl + P)'
           CharCase = ecUpperCase
           ClickKey = 16464
+          Enabled = False
           Glyph.Data = {
             36060000424D3606000000000000360000002800000020000000100000000100
             180000000000000600000000000000000000000000000000000000FF0000FF00
@@ -1364,6 +1366,411 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsTotais: TTabSheet
         Caption = 'Totais'
         ImageIndex = 4
+        DesignSize = (
+          880
+          322)
+        object lblVBC: TLabel
+          Left = 16
+          Top = 16
+          Width = 82
+          Height = 13
+          Caption = 'Valor Base ICMS:'
+          FocusControl = dbVBC
+        end
+        object lblVICMS: TLabel
+          Left = 163
+          Top = 16
+          Width = 56
+          Height = 13
+          Caption = 'Valor ICMS:'
+          FocusControl = dbVICMS
+        end
+        object lblVBCST: TLabel
+          Left = 310
+          Top = 16
+          Width = 113
+          Height = 13
+          Caption = 'Valor Base Subst. Trib.:'
+          FocusControl = dbVBCST
+        end
+        object lblVST: TLabel
+          Left = 457
+          Top = 16
+          Width = 87
+          Height = 13
+          Caption = 'Valor Subst. Trib.:'
+          FocusControl = dbVST
+        end
+        object lblVProd: TLabel
+          Left = 604
+          Top = 16
+          Width = 118
+          Height = 13
+          Caption = 'Valor Total Produtos:'
+          FocusControl = dbVProd
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblVFrete: TLabel
+          Left = 16
+          Top = 56
+          Width = 30
+          Height = 13
+          Caption = 'Frete:'
+          FocusControl = dbVFrete
+        end
+        object lblVSeg: TLabel
+          Left = 163
+          Top = 56
+          Width = 38
+          Height = 13
+          Caption = 'Seguro:'
+          FocusControl = dbVSeg
+        end
+        object lblVDesc: TLabel
+          Left = 310
+          Top = 56
+          Width = 54
+          Height = 13
+          Caption = 'Descontos:'
+          FocusControl = dbVDesc
+        end
+        object lblVII: TLabel
+          Left = 457
+          Top = 56
+          Width = 39
+          Height = 13
+          Caption = 'Valor II:'
+          FocusControl = dbVII
+        end
+        object lblVIPI: TLabel
+          Left = 604
+          Top = 56
+          Width = 45
+          Height = 13
+          Caption = 'Valor IPI:'
+          FocusControl = dbVIPI
+        end
+        object lblVPIS: TLabel
+          Left = 16
+          Top = 96
+          Width = 47
+          Height = 13
+          Caption = 'Valor PIS:'
+          FocusControl = dbVPIS
+        end
+        object lblVCOFINS: TLabel
+          Left = 163
+          Top = 96
+          Width = 76
+          Height = 13
+          Caption = 'Valor CONFINS:'
+          FocusControl = dbVCOFINS
+        end
+        object lblVOutro: TLabel
+          Left = 310
+          Top = 96
+          Width = 84
+          Height = 13
+          Caption = 'Outros Impostos:'
+          FocusControl = dbVOutro
+        end
+        object lblVTotTrib: TLabel
+          Left = 457
+          Top = 96
+          Width = 70
+          Height = 13
+          Caption = 'Total Tributos:'
+          FocusControl = dbVTotTrib
+        end
+        object lblVNF: TLabel
+          Left = 604
+          Top = 96
+          Width = 95
+          Height = 13
+          Caption = 'Valor nota Fiscal:'
+          FocusControl = dbVNF
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object dbVBC: TDBEdit
+          Left = 16
+          Top = 32
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 0
+        end
+        object dbVICMS: TDBEdit
+          Left = 163
+          Top = 32
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 1
+        end
+        object dbVBCST: TDBEdit
+          Left = 310
+          Top = 32
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 2
+        end
+        object dbVST: TDBEdit
+          Left = 457
+          Top = 32
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 3
+        end
+        object dbVProd: TDBEdit
+          Left = 604
+          Top = 32
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 4
+        end
+        object dbVFrete: TDBEdit
+          Left = 16
+          Top = 72
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 5
+        end
+        object dbVSeg: TDBEdit
+          Left = 163
+          Top = 72
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 6
+        end
+        object dbVDesc: TDBEdit
+          Left = 310
+          Top = 72
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 7
+        end
+        object dbVII: TDBEdit
+          Left = 457
+          Top = 72
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 8
+        end
+        object dbVIPI: TDBEdit
+          Left = 604
+          Top = 72
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 9
+        end
+        object dbVPIS: TDBEdit
+          Left = 16
+          Top = 112
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 10
+        end
+        object dbVCOFINS: TDBEdit
+          Left = 163
+          Top = 112
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 11
+        end
+        object dbVOutro: TDBEdit
+          Left = 310
+          Top = 112
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 12
+        end
+        object dbVTotTrib: TDBEdit
+          Left = 457
+          Top = 112
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 13
+        end
+        object dbVNF: TDBEdit
+          Left = 604
+          Top = 112
+          Width = 141
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsCalculoImposto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 14
+        end
       end
       object tbsTransporte: TTabSheet
         Caption = 'Transporte'
@@ -1626,5 +2033,188 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
     end
+  end
+  object fdQryFornecedor: TFDQuery
+    Active = True
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
+    UpdateOptions.FetchGeneratorsPoint = gpImmediate
+    UpdateOptions.GeneratorName = 'GEN_FORNECEDOR_ID'
+    UpdateOptions.KeyFields = 'CODFORN'
+    UpdateOptions.AutoIncFields = 'CODFORN'
+    UpdateObject = fdUpdFornecedor
+    SQL.Strings = (
+      'Select'
+      '    f.Codforn'
+      '  , f.Pessoa_fisica'
+      '  , f.Cnpj'
+      '  , f.Nomeforn'
+      '  , f.Nomefant'
+      '  , f.Inscest'
+      '  , f.Inscmun'
+      '  , f.Ender'
+      '  , f.Complemento'
+      '  , f.Numero_end'
+      '  , f.Cep'
+      '  , f.Cidade'
+      '  , f.Uf'
+      '  , f.Fone'
+      '  , f.FoneCel'
+      '  , f.FoneFax'
+      '  , f.Tlg_tipo'
+      '  , f.Log_cod'
+      '  , f.Bai_cod'
+      '  , f.Cid_cod'
+      '  , f.Est_cod'
+      '  , f.Email'
+      '  , f.Site'
+      '  , f.Contato'
+      '  , f.Pais_id'
+      '  , f.Grf_cod'
+      '  , f.Transportadora'
+      '  , f.banco'
+      '  , f.agencia'
+      '  , f.cc'
+      '  , f.praca'
+      '  , f.banco_2'
+      '  , f.agencia_2'
+      '  , f.cc_2'
+      '  , f.praca_2'
+      '  , f.banco_3'
+      '  , f.agencia_3'
+      '  , f.cc_3'
+      '  , f.praca_3'
+      '  , f.observacao'
+      '  , f.DtCad'
+      '  , f.Faturamento_minimo'
+      '  , f.ativo'
+      
+        '  , coalesce( cast(coalesce(coalesce(t.Tlg_sigla, t.Tlg_descrica' +
+        'o) || '#39' '#39', '#39#39') || l.Log_nome as varchar(250)), f.Ender ) as Logr' +
+        'adouro'
+      '  , b.Bai_nome'
+      '  , coalesce(c.Cid_nome, f.Cidade) as Cid_nome'
+      '  , coalesce(u.Est_nome, f.Uf) as Est_nome'
+      '  , p.Pais_nome'
+      'from TBFORNECEDOR f'
+      '  left join TBTIPO_LOGRADOURO t on (t.Tlg_cod = f.Tlg_tipo)'
+      '  left join TBLOGRADOURO l on (l.Log_cod = f.Log_cod)'
+      '  left join TBBAIRRO b on (b.Bai_cod = f.Bai_cod)'
+      '  left join TBCIDADE c on (c.Cid_cod = f.Cid_cod)'
+      '  left join TBESTADO u on (u.Est_cod = f.Est_cod)'
+      '  left join TBPAIS p on (p.Pais_id = f.Pais_id)'
+      'where (f.Cnpj = :cnpj)')
+    Left = 96
+    Top = 472
+    ParamData = <
+      item
+        Name = 'CNPJ'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end>
+  end
+  object fdUpdFornecedor: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBFORNECEDOR'
+      '(CODFORN, PESSOA_FISICA, NOMEFORN, NOMEFANT, '
+      '  CNPJ, INSCEST, INSCMUN, ENDER, COMPLEMENTO, '
+      '  NUMERO_END, CEP, CIDADE, UF, CONTATO, '
+      '  FONE, FONECEL, FONEFAX, EMAIL, SITE, '
+      '  TLG_TIPO, LOG_COD, BAI_COD, CID_COD, '
+      '  EST_COD, PAIS_ID, GRF_COD, TRANSPORTADORA, '
+      '  BANCO, AGENCIA, CC, PRACA, BANCO_2, '
+      '  AGENCIA_2, CC_2, PRACA_2, BANCO_3, AGENCIA_3, '
+      '  CC_3, PRACA_3, OBSERVACAO, DTCAD, ATIVO, '
+      '  FATURAMENTO_MINIMO)'
+      
+        'VALUES (:NEW_CODFORN, :NEW_PESSOA_FISICA, :NEW_NOMEFORN, :NEW_NO' +
+        'MEFANT, '
+      
+        '  :NEW_CNPJ, :NEW_INSCEST, :NEW_INSCMUN, :NEW_ENDER, :NEW_COMPLE' +
+        'MENTO, '
+      
+        '  :NEW_NUMERO_END, :NEW_CEP, :NEW_CIDADE, :NEW_UF, :NEW_CONTATO,' +
+        ' '
+      '  :NEW_FONE, :NEW_FONECEL, :NEW_FONEFAX, :NEW_EMAIL, :NEW_SITE, '
+      '  :NEW_TLG_TIPO, :NEW_LOG_COD, :NEW_BAI_COD, :NEW_CID_COD, '
+      
+        '  :NEW_EST_COD, :NEW_PAIS_ID, :NEW_GRF_COD, :NEW_TRANSPORTADORA,' +
+        ' '
+      '  :NEW_BANCO, :NEW_AGENCIA, :NEW_CC, :NEW_PRACA, :NEW_BANCO_2, '
+      
+        '  :NEW_AGENCIA_2, :NEW_CC_2, :NEW_PRACA_2, :NEW_BANCO_3, :NEW_AG' +
+        'ENCIA_3, '
+      
+        '  :NEW_CC_3, :NEW_PRACA_3, :NEW_OBSERVACAO, :NEW_DTCAD, :NEW_ATI' +
+        'VO, '
+      '  :NEW_FATURAMENTO_MINIMO)'
+      'RETURNING CODFORN')
+    ModifySQL.Strings = (
+      'UPDATE TBFORNECEDOR'
+      'SET CODFORN = :NEW_CODFORN, PESSOA_FISICA = :NEW_PESSOA_FISICA, '
+      
+        '  NOMEFORN = :NEW_NOMEFORN, NOMEFANT = :NEW_NOMEFANT, CNPJ = :NE' +
+        'W_CNPJ, '
+      
+        '  INSCEST = :NEW_INSCEST, INSCMUN = :NEW_INSCMUN, ENDER = :NEW_E' +
+        'NDER, '
+      '  COMPLEMENTO = :NEW_COMPLEMENTO, NUMERO_END = :NEW_NUMERO_END, '
+      
+        '  CEP = :NEW_CEP, CIDADE = :NEW_CIDADE, UF = :NEW_UF, CONTATO = ' +
+        ':NEW_CONTATO, '
+      
+        '  FONE = :NEW_FONE, FONECEL = :NEW_FONECEL, FONEFAX = :NEW_FONEF' +
+        'AX, '
+      
+        '  EMAIL = :NEW_EMAIL, SITE = :NEW_SITE, TLG_TIPO = :NEW_TLG_TIPO' +
+        ', '
+      
+        '  LOG_COD = :NEW_LOG_COD, BAI_COD = :NEW_BAI_COD, CID_COD = :NEW' +
+        '_CID_COD, '
+      
+        '  EST_COD = :NEW_EST_COD, PAIS_ID = :NEW_PAIS_ID, GRF_COD = :NEW' +
+        '_GRF_COD, '
+      '  TRANSPORTADORA = :NEW_TRANSPORTADORA, BANCO = :NEW_BANCO, '
+      '  AGENCIA = :NEW_AGENCIA, CC = :NEW_CC, PRACA = :NEW_PRACA, '
+      
+        '  BANCO_2 = :NEW_BANCO_2, AGENCIA_2 = :NEW_AGENCIA_2, CC_2 = :NE' +
+        'W_CC_2, '
+      
+        '  PRACA_2 = :NEW_PRACA_2, BANCO_3 = :NEW_BANCO_3, AGENCIA_3 = :N' +
+        'EW_AGENCIA_3, '
+      
+        '  CC_3 = :NEW_CC_3, PRACA_3 = :NEW_PRACA_3, OBSERVACAO = :NEW_OB' +
+        'SERVACAO, '
+      
+        '  DTCAD = :NEW_DTCAD, ATIVO = :NEW_ATIVO, FATURAMENTO_MINIMO = :' +
+        'NEW_FATURAMENTO_MINIMO'
+      'WHERE CODFORN = :OLD_CODFORN'
+      'RETURNING CODFORN')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBFORNECEDOR'
+      'WHERE CODFORN = :OLD_CODFORN')
+    FetchRowSQL.Strings = (
+      
+        'SELECT CODFORN, TIPO, PESSOA_FISICA, NOMEFORN, NOMEFANT, CNPJ, I' +
+        'NSCEST, '
+      '  INSCMUN, ENDER, COMPLEMENTO, NUMERO_END, CEP, CIDADE, UF, '
+      '  CONTATO, FONE, FONECEL, FONEFAX, EMAIL, SITE, TLG_TIPO, '
+      
+        '  LOG_COD, BAI_COD, CID_COD, EST_COD, PAIS_ID, GRF_COD, TRANSPOR' +
+        'TADORA, '
+      '  BANCO, AGENCIA, CC, PRACA, BANCO_2, AGENCIA_2, CC_2, PRACA_2, '
+      '  BANCO_3, AGENCIA_3, CC_3, PRACA_3, OBSERVACAO, DTCAD, ATIVO, '
+      '  CLIENTE_ORIGEM, CLIENTE_ORIGEM_COD, FATURAMENTO_MINIMO, '
+      '  FORNECEDOR_FUNCIONARIO'
+      'FROM TBFORNECEDOR'
+      'WHERE CODFORN = :OLD_CODFORN')
+    Left = 112
+    Top = 488
   end
 end

@@ -539,6 +539,15 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGO.EXE;ProductN
         <DCCReference Include="UGeProdutoEstoqueConsigImpressao.pas">
             <Form>frmGeProdutoEstoqueConsigImpressao</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Esmaecer.pas">
+            <Form>ViewEsmaecer</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas"/>
+        <DCCReference Include="..\Sys\UGeDistribuicaoDFe.pas">
+            <Form>frmDistribuicaoDFe</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include="SGO.todo"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>

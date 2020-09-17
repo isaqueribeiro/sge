@@ -173,7 +173,10 @@ uses
   UGeEntradaEstoqueLote in '..\Sys\UGeEntradaEstoqueLote.pas' {frmGeEntradaEstoqueLote},
   UGeInventario in '..\System_SGI\UGeInventario.pas' {frmGeInventario},
   UGeContasAPagarAReceberImpressao in '..\System_SGE\UGeContasAPagarAReceberImpressao.pas' {frmGeContasAPagarAReceberImpressao},
-  UGeProdutoEstoqueConsigImpressao in 'UGeProdutoEstoqueConsigImpressao.pas' {frmGeProdutoEstoqueConsigImpressao};
+  UGeProdutoEstoqueConsigImpressao in 'UGeProdutoEstoqueConsigImpressao.pas' {frmGeProdutoEstoqueConsigImpressao},
+  View.Esmaecer in '..\Sys\View\View.Esmaecer.pas' {ViewEsmaecer},
+  Classe.DistribuicaoDFe.DocumentoRetornado in '..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas',
+  UGeDistribuicaoDFe in '..\Sys\UGeDistribuicaoDFe.pas' {frmDistribuicaoDFe};
 
 {$R *.res}
 

@@ -186,6 +186,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Services\InputQuery\View.InputQuery.pas">
             <Form>ViewInputQuery</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Esmaecer.pas">
+            <Form>ViewEsmaecer</Form>
+        </DCCReference>
         <DCCReference Include="..\Sys\Services\Classe.InputQuery.pas"/>
         <DCCReference Include="UPrinc.pas">
             <Form>frmPrinc</Form>
@@ -583,6 +586,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\System_SGE\UGeContasAPagarAReceberImpressao.pas">
             <Form>frmGeContasAPagarAReceberImpressao</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas"/>
+        <DCCReference Include="..\Sys\UGeDistribuicaoDFe.pas">
+            <Form>frmDistribuicaoDFe</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Debug">

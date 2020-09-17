@@ -10,12 +10,14 @@ Uses
     TTipoAlertaSistema = (tpaLicenca, tpaBackup);
     TTipoProduto = (tpMaterialGeral, tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME);
     TTipoCFOP    = (tcfopADefinir, tcfopEntrada, tcfopSaida);
+    TGrupoFornecedor = (gpFornecedorADefinir = 1, gpFornecedorProduto = 2, gpFornecedorServico = 3, gpFornecedorProdutoServico = 4, gpFornecedorColaborador = 5);
 
     TTipoAlertaSistemaCollection = Set of TTipoAlertaSistema;
     TTipoProdutoCollection       = Set of TTipoProduto;
 
     TTipoAlertaSistemaLista = Array[Low(TTipoAlertaSistema)..High(TTipoAlertaSistema)] of String;
     TTipoProdutoLista       = Array[Low(TTipoProduto)..High(TTipoProduto)] of String;
+    TGrupoFornecedorLista   = Array[Low(TGrupoFornecedor)..High(TGrupoFornecedor)] of String;
     TPermissaoLista         = Array [0..45] of String;
 
 const
@@ -55,6 +57,14 @@ const
     , 'Medicamento'
     , 'Solução'
     , 'Opm'
+  );
+
+  SYS_GRUPOS_FORNECEDOR : TGrupoFornecedorLista = (
+      'A Definir'
+    , 'Produtos'
+    , 'Serviços'
+    , 'Produtos de Serviços'
+    , 'Colaboradores'
   );
 
   LENGTH_QRCODE_150 = 150;
@@ -365,6 +375,13 @@ const
   ROTINA_FIN_ABRIR_CAIXA_PDV_ID     = '0130010000';
   ROTINA_FIN_ENCERRAR_CAIXA_PDV_ID  = '0130020000';
   ROTINA_FIN_GERENCIAR_CAIXA_PDV_ID = '0130030000';
+
+  // Notificações de Sistema
+
+  SGE_NOTIFICAR_LICENCA     = 'SGE - Licença';
+  SGE_PDV_NOTIFICAR_LICENCA = 'SGE PDV - Licença';
+  SGO_NOTIFICAR_LICENCA     = 'SGO - Licença';
+  SGI_NOTIFICAR_LICENCA     = 'SGI - Licença';
 
   // Permissões
 

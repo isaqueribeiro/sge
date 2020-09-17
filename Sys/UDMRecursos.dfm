@@ -51517,4 +51517,8 @@ object DMRecursos: TDMRecursos
           63FF585858E30B0B0B1C00000000000000000000000000000000}
       end>
   end
+  object ncNotificationCenter: TNotificationCenter
+    Left = 64
+    Top = 304
+  end
 end

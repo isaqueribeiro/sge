@@ -15,7 +15,7 @@ uses
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinsdxStatusBarPainter,
   dxRibbonSkins, dxSkinsdxRibbonPainter, dxStatusBar, dxSkinsdxBarPainter,
   dxSkinsForm, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, Vcl.AppEvnts;
 
 type
   TfrmPrinc = class(TdxRibbonForm)
@@ -202,6 +202,7 @@ type
     BrBtnServico: TdxBarLargeButton;
     BrBtnRelatorioFinanceiroAPxAR: TdxBarLargeButton;
     BrBtnRelatorioEstoqueProdConsig: TdxBarLargeButton;
+    ApplicationEvents: TApplicationEvents;
     procedure tmrAutoUpgradeTimer(Sender: TObject);
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
@@ -305,6 +306,9 @@ type
     procedure BrBtnRelatorioFinanceiroAPxARClick(Sender: TObject);
     procedure BrBtnRelatorioEstoqueProdConsigClick(Sender: TObject);
     procedure BrBtnRelatorioEstoqueProdClick(Sender: TObject);
+    procedure ApplicationEventsActivate(Sender: TObject);
+    procedure ApplicationEventsModalBegin(Sender: TObject);
+    procedure ApplicationEventsModalEnd(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -334,6 +338,8 @@ var
 implementation
 
 uses
+  System.Notification,
+
   // Conexão e Controles Aplicação
   UDMRecursos,
   UDMBusiness,
@@ -343,6 +349,7 @@ uses
 
   View.AutoUpgrade,
   View.Abertura,
+  View.Esmaecer,
 
   // Movimentação
   UGeRequisicaoCliente,
@@ -375,6 +382,7 @@ var
   tipoAlerta  : TTipoAlertaSistema;
   aFileAlerta : String;
   aTextoAlerta: TStringList;
+  aNotificacao : TNotification;
 begin
   aTextoAlerta := TStringList.Create;
   try
@@ -396,9 +404,38 @@ begin
     lblAberta.Caption := Trim(aTextoAlerta.Text);
     lblAberta.Visible := Trim(lblAberta.Caption) <> EmptyStr;
     TmrAlertaCliente.Enabled := lblAberta.Visible;
+
+    aNotificacao := NotificationCenter.CreateNotification;
+
+    aNotificacao.Name  := SGE_NOTIFICAR_LICENCA;
+    aNotificacao.Title := 'Licença de Uso do SGE';
+    aNotificacao.AlertBody := Trim(aTextoAlerta.Text);
+
+    NotificarUsuario(aNotificacao);
   finally
     aTextoAlerta.Free;
+
+    if Assigned(aNotificacao) then
+      aNotificacao.Free;
   end;
+end;
+
+procedure TfrmPrinc.ApplicationEventsActivate(Sender: TObject);
+begin
+  Application.BringToFront;
+end;
+
+procedure TfrmPrinc.ApplicationEventsModalBegin(Sender: TObject);
+begin
+  if Self.Showing then
+    if not TViewEsmaecer.GetInstance(Self).Showing then
+      TViewEsmaecer.GetInstance(Application).Show;
+end;
+
+procedure TfrmPrinc.ApplicationEventsModalEnd(Sender: TObject);
+begin
+  if Self.Showing then
+    TViewEsmaecer.GetInstance(Self).Close;
 end;
 
 procedure TfrmPrinc.AutoUpdateSystem;

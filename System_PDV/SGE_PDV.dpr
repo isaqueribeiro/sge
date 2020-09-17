@@ -120,7 +120,8 @@ uses
   UGrUsuario in '..\System_SGE\UGrUsuario.pas' {frmGrUsuario},
   Interfaces.InputQuery in '..\Sys\Services\InputQuery\Interfaces.InputQuery.pas',
   View.InputQuery in '..\Sys\Services\InputQuery\View.InputQuery.pas' {ViewInputQuery},
-  Classe.InputQuery in '..\Sys\Services\Classe.InputQuery.pas';
+  Classe.InputQuery in '..\Sys\Services\Classe.InputQuery.pas',
+  View.Esmaecer in '..\Sys\View\View.Esmaecer.pas' {ViewEsmaecer};
 
 {$R *.res}
 

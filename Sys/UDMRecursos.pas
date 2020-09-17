@@ -17,7 +17,7 @@ uses
   UBaseObject,
   Winapi.Windows,
   Vcl.Forms, SysUtils, Classes, ImgList, Controls, cxGraphics, Vcl.ExtCtrls,
-  System.ImageList, cxImageList;
+  System.ImageList, cxImageList, System.Notification;
 
 type
   TLoteProduto = class(TBaseObject)
@@ -47,6 +47,7 @@ type
     ImgBotoesDisabled: TcxImageList;
     ImgBotoesHot: TcxImageList;
     ImgBotoes16x16: TcxImageList;
+    ncNotificationCenter: TNotificationCenter;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -63,6 +64,9 @@ var
   procedure WaitAMomentFree;
   procedure WaitAMoment(const aTag : Integer = -1; const aMensabem : String = '');
   procedure InstalarFonteWindows(aFontName, aFontDescription : String);
+  procedure NotificarUsuario(aNotificacao : TNotification);
+
+  function NotificationCenter : TNotificationCenter;
 
   {$IFNDEF PRINTER_CUPOM}
   procedure SplashFree;
@@ -116,6 +120,17 @@ begin
   aFileName := ExtractFilePath(ParamStr(0)) + aFontName;
   if (not aExiste) and FileExists(aFileName) then
     AddFontResource(PChar(aFileName));
+end;
+
+procedure NotificarUsuario(aNotificacao : TNotification);
+begin
+  if Assigned(aNotificacao) then
+    NotificationCenter.PresentNotification(aNotificacao);
+end;
+
+function NotificationCenter : TNotificationCenter;
+begin
+  Result := DMRecursos.ncNotificationCenter;
 end;
 
 {$IFNDEF PRINTER_CUPOM}

@@ -25,7 +25,9 @@ uses
   SHDocVw,
 
   System.Generics.Collections,
+  {$IF NOT (DEFINED(PRINTER_CUPOM) AND DEFINED(PDV))}
   Classe.DistribuicaoDFe.DocumentoRetornado,
+  {$ENDIF}
 
   Windows, SysUtils, Classes, ACBrNFeDANFEClass, DB,
   frxClass, frxDBSet, frxExportRTF, frxExportXLS, frxExportPDF, frxExportMail,
@@ -439,8 +441,10 @@ type
     function GerarEnviarCCeACBr(const sCNPJEmitente : String; const ControleCCe : Integer; sCondicaoUso : String) : Boolean;
     function IsNFeManifestoDestinatarioRegistrado(const sCNPJ, sChave : String) : Boolean;
     function ExecutarManifestoDestinatarioNFe(const sCNPJ, sChave : String; var aLog : String) : Boolean;
+    {$IF NOT (DEFINED(PRINTER_CUPOM) AND DEFINED(PDV))}
     function ExisteNFeParaBaixar(const sCNPJ : String; aNSU : Integer; var aFileName, aMensagem : String;
       var aDocumentos : TDictionary<String, TDistribuicaoDFeDocumentoRetornado>) : Boolean;
+    {$ENDIF}
 
     function GetModeloDF : Integer;
     function GetVersaoDF : Integer;
@@ -6330,6 +6334,7 @@ begin
   end;
 end;
 
+{$IF NOT (DEFINED(PRINTER_CUPOM) AND DEFINED(PDV))}
 function TDMNFe.ExisteNFeParaBaixar(const sCNPJ : String; aNSU : Integer; var aFileName, aMensagem : String;
   var aDocumentos : TDictionary<String, TDistribuicaoDFeDocumentoRetornado>) : Boolean;
 var
@@ -6447,6 +6452,7 @@ begin
     Result := aRetorno;
   end;
 end;
+{$ENDIF}
 
 function TDMNFe.ImprimirCupomNaoFiscal(const sCNPJEmitente: String;
   iCodigoCliente: Integer; const sDataHoraSaida: String; const iAnoVenda,

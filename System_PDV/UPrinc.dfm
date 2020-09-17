@@ -4311,7 +4311,6 @@ object frmPrinc: TfrmPrinc
         49D230F795AFFC7F1AC9E54AAE0FE9690000000049454E44AE426082}
       Proportional = True
       Stretch = True
-      Transparent = True
       IsControl = True
       ExplicitTop = 254
     end
@@ -5307,5 +5306,12 @@ object frmPrinc: TfrmPrinc
     OnTimer = TmrAlertaClienteTimer
     Left = 384
     Top = 448
+  end
+  object ApplicationEvents: TApplicationEvents
+    OnActivate = ApplicationEventsActivate
+    OnModalBegin = ApplicationEventsModalBegin
+    OnModalEnd = ApplicationEventsModalEnd
+    Left = 384
+    Top = 491
   end
 end

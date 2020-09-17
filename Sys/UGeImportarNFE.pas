@@ -182,6 +182,38 @@ type
     GrdProdutosDBTableViewNCM: TcxGridDBColumn;
     GrdProdutosDBTableViewCFOP: TcxGridDBColumn;
     GrdProdutosDBTableViewCadastro: TcxGridDBColumn;
+    fdQryFornecedor: TFDQuery;
+    fdUpdFornecedor: TFDUpdateSQL;
+    lblVBC: TLabel;
+    dbVBC: TDBEdit;
+    lblVICMS: TLabel;
+    dbVICMS: TDBEdit;
+    lblVBCST: TLabel;
+    dbVBCST: TDBEdit;
+    lblVST: TLabel;
+    dbVST: TDBEdit;
+    lblVProd: TLabel;
+    dbVProd: TDBEdit;
+    lblVFrete: TLabel;
+    dbVFrete: TDBEdit;
+    dbVSeg: TDBEdit;
+    lblVSeg: TLabel;
+    dbVDesc: TDBEdit;
+    lblVDesc: TLabel;
+    lblVII: TLabel;
+    dbVII: TDBEdit;
+    lblVIPI: TLabel;
+    dbVIPI: TDBEdit;
+    lblVPIS: TLabel;
+    dbVPIS: TDBEdit;
+    lblVCOFINS: TLabel;
+    dbVCOFINS: TDBEdit;
+    lblVOutro: TLabel;
+    dbVOutro: TDBEdit;
+    lblVTotTrib: TLabel;
+    dbVTotTrib: TDBEdit;
+    lblVNF: TLabel;
+    dbVNF: TDBEdit;
     procedure ApenasNumeroKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
@@ -204,6 +236,7 @@ type
     procedure CarregarXML(const sCnpj : String; aArquivoXmlNFe : String);
     procedure SetDataSetsXML;
     procedure SetControlsDataSets;
+
     procedure CarregaIdentificacao;
     procedure CarregaEmitente;
     procedure CarregaDestinatario;
@@ -225,6 +258,7 @@ type
     procedure LimparDadosRelacao;
     procedure IdentificarFornecedor(const aCnpj : String);
     procedure IdentificarProduto(aCampo : TField; const aProduto, aCnpjFornecedor : String);
+    procedure CadastrarFornecedor;
 
     function IfThenX(AValue: Boolean; const ATrue: String; AFalse: string = ''): string;
 //    function QuebraLinha: String;
@@ -276,11 +310,11 @@ implementation
 uses
     UConstantesDGE
   , UFuncoes
-  , Classe.DistribuicaoDFe.DocumentoRetornado
+//  , Classe.DistribuicaoDFe.DocumentoRetornado
   , UDMRecursos
   , UDMBusiness
   , UDMNFe
-  , UGeDistribuicaoDFe
+//  , UGeDistribuicaoDFe
   , UGeFornecedor
   , UGeProduto;
 
@@ -311,7 +345,11 @@ begin
     if (not btnConfirmar.Enabled) then
       ShowWarning('Arquivo XML de NF-e não pertence a empresa ' + QuotedStr(dbRazaoSocialEmpresa.Field.AsString) + '.')
     else
+    begin
       IdentificarFornecedor(cdsEmitente.FieldByName('CNPJ').AsString);
+      if fdQryFornecedor.IsEmpty then
+        CadastrarFornecedor;
+    end;
   end;
 end;
 
@@ -354,6 +392,76 @@ begin
       DownloadNFe;
   finally
     lblInforme.Visible := False;
+  end;
+end;
+
+procedure TfrmGeImportarNFE.CadastrarFornecedor;
+var
+  I : Integer;
+  iTipo : Smallint;
+begin
+  with fdQryFornecedor do
+  begin
+    // Permitir que todos campos sejam editáveis
+    for I := 0 to Fields.Count - 1 do
+    begin
+      Fields[I].Required := False;
+      Fields[I].ReadOnly := False;
+    end;
+
+    Append;
+
+    FieldByName('CNPJ').AsString       := StrOnlyNumbers(dbCNPJ.Text);
+    FieldByName('INSCEST').AsString    := StrOnlyNumbers(dbIE.Text);
+    FieldByName('INSCMUN').AsString    := StrOnlyNumbers(dbIM.Text);
+    FieldByName('NOMEFORN').AsString   := Copy(Trim(dbXNome.Text), 1, FieldByName('NOMEFORN').Size);
+    FieldByName('NOMEFANT').AsString   := Copy(Trim(dbXFant.Text),    1, FieldByName('NOMEFANT').Size);
+    FieldByName('EST_COD').AsInteger   := GetEstadoID( Trim(dbUF.Text) );
+    FieldByName('EST_NOME').AsString   := GetEstadoNome( Trim(dbUF.Text) );
+    FieldByName('UF').AsString         := Trim(dbUF.Text);
+    FieldByName('CID_COD').AsInteger   := IfThen(StrToIntDef(Trim(dbCMun.Text), 0) = 0, GetCidadeID(FieldByName('EST_COD').AsInteger, dbXMun.Text), GetCidadeID(StrToCurr(Trim(dbCMun.Text))) );
+    FieldByName('CID_NOME').AsString   := GetCidadeNome(FieldByName('CID_COD').AsInteger);
+
+    if ( (FieldByName('CID_COD').AsInteger = 0) and (Trim(dbCEP.Text) <> EmptyStr) ) then
+    begin
+      FieldByName('CID_COD').AsInteger  := GetCidadeID(Trim(dbCEP.Text));
+      FieldByName('CID_NOME').AsString  := GetCidadeNome(FieldByName('CID_COD').AsInteger);
+    end;
+
+    FieldByName('CIDADE').AsString   := Copy(FieldByName('CID_NOME').AsString + ' (' + Trim(dbUF.Text) + ')', 1, FieldByName('CIDADE').Size);
+
+    FieldByName('BAI_COD').AsInteger := SetBairro(FieldByName('CID_COD').AsInteger, Copy(Trim(dbXBairro.Text), 1, FieldByName('BAI_NOME').Size));
+    FieldByName('BAI_NOME').AsString := Trim(dbXBairro.Text);
+
+    FieldByName('LOG_COD').AsInteger   := SetLogradouro(FieldByName('CID_COD').AsInteger, Copy(Trim(dbXLgr.Text), 1, FieldByName('LOGRADOURO').Size), iTipo);
+    FieldByName('LOGRADOURO').AsString := Trim(GetLogradouroTipo(FieldByName('LOG_COD').AsInteger) + ' ' + GetLogradouroNome(FieldByName('LOG_COD').AsInteger));
+    FieldByName('ENDER').AsString      := Trim(FieldByName('LOGRADOURO').AsString);
+
+    if (iTipo = 0) then
+      FieldByName('TLG_TIPO').Clear
+    else
+      FieldByName('TLG_TIPO').AsInteger := iTipo;
+
+    FieldByName('COMPLEMENTO').AsString := Copy(Trim(dbXCpl.Text), 1, FieldByName('COMPLEMENTO').Size);
+    FieldByName('NUMERO_END').AsString  := Copy(Trim(dbNro.Text),      1, FieldByName('NUMERO_END').Size);
+    FieldByName('CEP').AsString         := Copy(StrOnlyNumbers(Trim(dbCEP.Text)), 1, FieldByName('CEP').Size);
+
+    // Informações adicionais
+    FieldByName('FONE').AsString      := Copy(StrOnlyNumbers(Trim(dbFone.Text)), 1, FieldByName('FONE').Size);
+    FieldByName('GRF_COD').Value      := Ord(TGrupoFornecedor.gpFornecedorProdutoServico);
+    FieldByName('PAIS_ID').AsString   := GetPaisIDDefault;
+    FieldByName('PAIS_NOME').AsString := GetPaisNomeDefault;
+    FieldByName('ATIVO').AsInteger    := 1;
+    FieldByName('DTCAD').AsDateTime   := Date;
+    FieldByName('PESSOA_FISICA').AsInteger  := IfThen(StrIsCPF(FieldByName('CNPJ').AsString), 1, 0);
+    FieldByName('TRANSPORTADORA').AsInteger := 0;
+
+    Post;
+    ApplyUpdates;
+    CommitUpdates;
+    RefreshRecord;
+
+    edFornecedorCadastro.Text := FormatFloat('###00000', FieldByName('codforn').AsInteger);
   end;
 end;
 
@@ -403,27 +511,32 @@ end;
 
 procedure TfrmGeImportarNFE.CarregaDadosNFe;
 begin
-  CarregaParametros;
-  CarregaIdentificacao;
-  CarregaEmitente;
-  CarregaDestinatario;
-  CarregaDadosProdutos;
-  CarregaCalculoImposto;
-  CarregaTransportador;
-  CarregaVeiculo;
-  CarregaVolumes;
-  CarregaDuplicatas;
-  CarregaISSQN;
-  CarregaLocalRetirada;
-  CarregaLocalEntrega;
-  CarregaFatura;
-  CarregaPagamento;
-  CarregaInformacoesAdicionais;
+  WaitAMoment(WAIT_AMOMENT_TextoLivre, 'Carregando arquivo XML...');
+  try
+    CarregaParametros;
+    CarregaIdentificacao;
+    CarregaEmitente;
+    CarregaDestinatario;
+    CarregaDadosProdutos;
+    CarregaCalculoImposto;
+    CarregaTransportador;
+    CarregaVeiculo;
+    CarregaVolumes;
+    CarregaDuplicatas;
+    CarregaISSQN;
+    CarregaLocalRetirada;
+    CarregaLocalEntrega;
+    CarregaFatura;
+    CarregaPagamento;
+    CarregaInformacoesAdicionais;
 
-  SetControlsDataSets;
-  pgcNFe.ActivePage := tbsNFe;
+    SetControlsDataSets;
+  finally
+    pgcNFe.ActivePage := tbsNFe;
+    cdsDadosProdutos.First;
 
-  cdsDadosProdutos.First;
+    WaitAMomentFree;
+  end;
 end;
 
 procedure TfrmGeImportarNFE.CarregaDadosProdutos;
@@ -1468,6 +1581,9 @@ begin
       CarregarXML(gUsuarioLogado.Empresa, Trim(edArquivoXML.Text));
 
       IdentificarFornecedor(cdsEmitente.FieldByName('CNPJ').AsString);
+
+      if fdQryFornecedor.IsEmpty then
+        CadastrarFornecedor;
     end;
   end;
 end;
@@ -1526,6 +1642,7 @@ end;
 procedure TfrmGeImportarNFE.FormCreate(Sender: TObject);
 begin
   inherited;
+  SetGruposFornecedores;
   SetDataSetsXML;
 
   CarregarEmpresa(gUsuarioLogado.Empresa);
@@ -1577,7 +1694,11 @@ end;
 
 procedure TfrmGeImportarNFE.IdentificarFornecedor(const aCnpj: String);
 begin
-  edFornecedorCadastro.Text := FormatFloat('###00000', GetFornecedorCodigo(StrOnlyNumbers(aCnpj)));
+  fdQryFornecedor.Close;
+  fdQryFornecedor.ParamByName('cnpj').AsString := StrOnlyNumbers(aCnpj);
+  fdQryFornecedor.Open;
+
+  edFornecedorCadastro.Text := FormatFloat('###00000', fdQryFornecedor.FieldByName('codforn').AsInteger);
   edFornecedorCadastro.Hint := aCnpj;
 end;
 
@@ -1885,12 +2006,17 @@ procedure TfrmGeImportarNFE.SetControlsDataSets;
           if cControle is TDBMemo then
             TDBMemo(cControle).DataField := Fields[I].FieldName;
         end;
+
+        // Definir formatação do campo
+        if (Fields[I] is TFloatField) then
+          TFloatField(Fields[I]).DisplayFormat := ',0.00';
       end;
   end;
 begin
   SetControlsDataSet(cdsIdentificacao);
   SetControlsDataSet(cdsEmitente);
   SetControlsDataSet(cdsDestinatario, '_Dest');
+  SetControlsDataSet(cdsCalculoImposto);
 end;
 
 procedure TfrmGeImportarNFE.SetDataSetsXML;

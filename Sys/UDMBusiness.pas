@@ -243,9 +243,11 @@ var
   procedure SetTipoDespesaPadrao;
   procedure SetTipoReceitaPadrao;
   procedure SetTipoProduto(const iCodigo : Integer; const sDescricao : String);
+  procedure SetGrupoFornecedor(const iCodigo : Integer; const sDescricao : String);
   procedure SetAtualizarSaldoContasAPagar(const aEmpresa : String);
   procedure SetAtualizarSaldoContasAReceber(const aEmpresa : String);
   procedure SetTiposProdutos;
+  procedure SetGruposFornecedores;
 
   procedure CarregarListaDB(const pDataSet : TDataSet);
 
@@ -346,6 +348,7 @@ var
   function GetCidadeCEP(const iCidade : Integer) : String;
   function GetCidadeID(const iEstado : Integer; const sNome : String) : Integer; overload;
   function GetCidadeID(const sCEP : String) : Integer; overload;
+  function GetCidadeID(const aIBGE : Currency) : Integer; overload;
   function GetBairroNome(const iBairro : Integer) : String;
   function GetLogradouroNome(const iLogradouro : Integer) : String;
   function GetLogradouroTipo(const iLogradouro : Integer) : String;
@@ -2205,6 +2208,49 @@ begin
   end;
 end;
 
+procedure SetGrupoFornecedor(const iCodigo : Integer; const sDescricao : String);
+begin
+  Screen.Cursor := crSQLWait;
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('');
+      SQL.Add('execute block');
+      SQL.Add('as');
+      SQL.Add('  declare variable cd DMN_SMALLINT_N;');
+      SQL.Add('  declare variable ds DMN_VCHAR_50;');
+      SQL.Add('begin');
+      SQL.Add('  cd = ' + IntToStr(iCodigo) + ';');
+      SQL.Add('  ds = ' + QuotedStr(sDescricao) + ';');
+
+      SQL.Add('  if (not exists(');
+      SQL.Add('    Select');
+      SQL.Add('      g.grf_cod ');
+      SQL.Add('    from TBFORNECEDOR_GRUPO g');
+      SQL.Add('    where (g.grf_cod    = :cd)');
+      SQL.Add('       or (g.grf_descricao = :ds)');
+      SQL.Add('  )) then');
+      SQL.Add('  begin');
+      SQL.Add('    Insert into TBFORNECEDOR_GRUPO (');
+      SQL.Add('        grf_cod ');
+      SQL.Add('      , grf_descricao ');
+      SQL.Add('    ) values (');
+      SQL.Add('        :cd ');  // Codigo
+      SQL.Add('      , :ds ');  // Descrição
+      SQL.Add('    );');
+      SQL.Add('  end');
+      SQL.Add('end');  //SQL.SaveToFile('_TBFORNECEDOR_GRUPO.sql');
+      ExecSQL;
+
+      CommitTransaction;
+    end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
 procedure SetAtualizarSaldoContasAPagar(const aEmpresa : String);
 begin
   Screen.Cursor := crSQLWait;
@@ -2359,6 +2405,19 @@ begin
   except
     On E : Exception do
       ShowError('Erro ao tentar registrar tipo de produto.' + #13#13 + E.Message);
+  end;
+end;
+
+procedure SetGruposFornecedores;
+var
+  grupoFornecedor : TGrupoFornecedor;
+begin
+  try
+    for grupoFornecedor := Low(SYS_GRUPOS_FORNECEDOR) to High(SYS_GRUPOS_FORNECEDOR) do
+      SetGrupoFornecedor(Ord(grupoFornecedor), SYS_GRUPOS_FORNECEDOR[grupoFornecedor]);
+  except
+    On E : Exception do
+      ShowError('Erro ao tentar registrar grupo de fornecedor.' + #13#13 + E.Message);
   end;
 end;
 
@@ -3634,6 +3693,21 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('Select cid_cod from TBCIDADE where ' + StrOnlyNumbers(sCEP) + ' between cid_cep_inicial and cid_cep_final');
+    Open;
+
+    Result := FieldByName('cid_cod').AsInteger;
+
+    Close;
+  end;
+end;
+
+function GetCidadeID(const aIBGE : Currency) : Integer; overload;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select cid_cod from TBCIDADE where cid_ibge = ' + CurrToStr(aIBGE));
     Open;
 
     Result := FieldByName('cid_cod').AsInteger;

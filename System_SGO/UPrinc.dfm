@@ -4319,7 +4319,6 @@ object frmPrinc: TfrmPrinc
         9224499224499224499224499224499224499224499224499224499224499224
         49D230F795AFFC7F1AC9E54AAE0FE9690000000049454E44AE426082}
       Proportional = True
-      Stretch = True
       Transparent = True
       IsControl = True
       ExplicitTop = 379
@@ -4713,6 +4712,7 @@ object frmPrinc: TfrmPrinc
       Index = 3
     end
     object RbnTabNota: TdxRibbonTab
+      Active = True
       Caption = 'Notas Fiscais (NF-e)'
       Groups = <
         item
@@ -4760,7 +4760,6 @@ object frmPrinc: TfrmPrinc
       Index = 7
     end
     object RbnTabAjuda: TdxRibbonTab
-      Active = True
       Caption = 'Ajuda'
       Groups = <
         item
@@ -5988,10 +5987,10 @@ object frmPrinc: TfrmPrinc
       OnClick = nmGerarArquivoNFCClick
     end
     object BrBtnNotaFiscalDownload: TdxBarLargeButton
-      Caption = 'Download de NF-e(s) Emitida(s)'
+      Caption = 'Download de Notas Fiscais'
       Category = 10
       Enabled = False
-      Hint = 'Download de NF-e(s) Emitida(s)'
+      Hint = 'Download de Notas Fiscais Eletr'#244'nicas'
       Visible = ivAlways
       OnClick = nmDownloadNFeGeradaClick
       HotImageIndex = 39
@@ -6748,5 +6747,12 @@ object frmPrinc: TfrmPrinc
     OnTimer = TmrAlertaClienteTimer
     Left = 864
     Top = 264
+  end
+  object ApplicationEvents: TApplicationEvents
+    OnActivate = ApplicationEventsActivate
+    OnModalBegin = ApplicationEventsModalBegin
+    OnModalEnd = ApplicationEventsModalEnd
+    Left = 864
+    Top = 307
   end
 end

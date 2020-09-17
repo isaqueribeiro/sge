@@ -170,7 +170,8 @@ uses
   View.InputQuery in '..\Sys\Services\InputQuery\View.InputQuery.pas' {ViewInputQuery},
   Classe.InputQuery in '..\Sys\Services\Classe.InputQuery.pas',
   Classe.DistribuicaoDFe.DocumentoRetornado in '..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas',
-  UGeDistribuicaoDFe in '..\Sys\UGeDistribuicaoDFe.pas' {frmDistribuicaoDFe};
+  UGeDistribuicaoDFe in '..\Sys\UGeDistribuicaoDFe.pas' {frmDistribuicaoDFe},
+  View.Esmaecer in '..\Sys\View\View.Esmaecer.pas' {ViewEsmaecer};
 
 {$R *.res}
 

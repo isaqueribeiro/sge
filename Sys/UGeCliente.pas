@@ -578,6 +578,8 @@ begin
 
   inherited;
 
+  SetGruposFornecedores;
+
   CarregarLista(fdQryVendedor);
   CarregarLista(fdQryTipoCnpj);
   CarregarLista(fdQryBancoFebraban);

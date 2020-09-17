@@ -375,6 +375,8 @@ begin
   RotinaID         := ROTINA_CAD_FORNECEDOR_ID;
   ControlFirstEdit := dbPessoaFisica;
 
+  SetGruposFornecedores;
+
   CarregarLista(fdQryGrupo);
   CarregarLista(fdQryBancoFebraban);
 

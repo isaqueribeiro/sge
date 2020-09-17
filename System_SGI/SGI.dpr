@@ -50,6 +50,7 @@ uses
   View.Login in 'View\View.Login.pas' {FrmLogin},
   Interfaces.InputQuery in '..\Sys\Services\InputQuery\Interfaces.InputQuery.pas',
   View.InputQuery in '..\Sys\Services\InputQuery\View.InputQuery.pas' {ViewInputQuery},
+  View.Esmaecer in '..\Sys\View\View.Esmaecer.pas' {ViewEsmaecer},
   Classe.InputQuery in '..\Sys\Services\Classe.InputQuery.pas',
   UPrinc in 'UPrinc.pas' {frmPrinc},
   UGrPadraoCadastro in '..\Sys\lib\UGrPadraoCadastro.pas' {frmGrPadraoCadastro},
@@ -189,7 +190,9 @@ uses
   UGeOSCancelar in '..\Sys\UGeOSCancelar.pas' {frmGeOSCancelar},
   UGeOSConfirmaTitulos in '..\Sys\UGeOSConfirmaTitulos.pas' {frmGeOSConfirmaTitulos},
   UGeOSFormaPagto in '..\Sys\UGeOSFormaPagto.pas' {frmGeOSFormaPagto},
-  UGeContasAPagarAReceberImpressao in '..\System_SGE\UGeContasAPagarAReceberImpressao.pas' {frmGeContasAPagarAReceberImpressao};
+  UGeContasAPagarAReceberImpressao in '..\System_SGE\UGeContasAPagarAReceberImpressao.pas' {frmGeContasAPagarAReceberImpressao},
+  Classe.DistribuicaoDFe.DocumentoRetornado in '..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas',
+  UGeDistribuicaoDFe in '..\Sys\UGeDistribuicaoDFe.pas' {frmDistribuicaoDFe};
 
 {$R *.res}
 
