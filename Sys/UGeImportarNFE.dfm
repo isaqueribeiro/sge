@@ -210,7 +210,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Caption = '&Confirmar'
     OptionsImage.ImageIndex = 20
     OptionsImage.Images = DMRecursos.ImgPrincipal16x16
-    TabOrder = 2
+    TabOrder = 3
   end
   object btFechar: TcxButton
     Left = 828
@@ -223,7 +223,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     ModalResult = 2
     OptionsImage.ImageIndex = 15
     OptionsImage.Images = DMRecursos.ImgBotoes16x16
-    TabOrder = 3
+    TabOrder = 4
   end
   object GrpBxDadosNFe: TGroupBox
     Left = 0
@@ -239,7 +239,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 2
     DesignSize = (
       920
       430)
@@ -291,7 +291,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       Top = 67
       Width = 888
       Height = 350
-      ActivePage = tbsTotais
+      ActivePage = tbsProdutos
       Anchors = [akLeft, akTop, akRight, akBottom]
       TabOrder = 2
       object tbsNFe: TTabSheet
@@ -1254,14 +1254,18 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
             DataController.Summary.DefaultGroupSummaryItems = <>
             DataController.Summary.FooterSummaryItems = <>
             DataController.Summary.SummaryGroups = <>
+            OptionsBehavior.CellHints = True
             OptionsBehavior.FocusCellOnTab = True
             OptionsBehavior.GoToNextCellOnEnter = True
             OptionsBehavior.FocusCellOnCycle = True
+            OptionsCustomize.ColumnFiltering = False
+            OptionsCustomize.ColumnMoving = False
             OptionsData.Deleting = False
             OptionsData.DeletingConfirmation = False
             OptionsData.Inserting = False
             OptionsView.CellEndEllipsis = True
             OptionsView.NoDataToDisplayInfoText = '<Sem produtos para exibi'#231#227'o>'
+            OptionsView.ColumnAutoWidth = True
             OptionsView.GroupByBox = False
             Styles.Content = StyleContent
             Styles.ContentEven = StyleContentEven

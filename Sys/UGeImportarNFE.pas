@@ -343,13 +343,7 @@ begin
     CarregarXML(gUsuarioLogado.Empresa, Trim(edArquivoXML.Text));
     btnConfirmar.Enabled := (gUsuarioLogado.Empresa = StrOnlyNumbers(cdsDestinatario.FieldByName('CNPJCPF').AsString));
     if (not btnConfirmar.Enabled) then
-      ShowWarning('Arquivo XML de NF-e não pertence a empresa ' + QuotedStr(dbRazaoSocialEmpresa.Field.AsString) + '.')
-    else
-    begin
-      IdentificarFornecedor(cdsEmitente.FieldByName('CNPJ').AsString);
-      if fdQryFornecedor.IsEmpty then
-        CadastrarFornecedor;
-    end;
+      ShowWarning('Arquivo XML de NF-e não pertence a empresa ' + QuotedStr(dbRazaoSocialEmpresa.Field.AsString) + '.');
   end;
 end;
 
@@ -531,6 +525,10 @@ begin
     CarregaInformacoesAdicionais;
 
     SetControlsDataSets;
+
+    IdentificarFornecedor(cdsEmitente.FieldByName('CNPJ').AsString);
+    if fdQryFornecedor.IsEmpty then
+      CadastrarFornecedor;
   finally
     pgcNFe.ActivePage := tbsNFe;
     cdsDadosProdutos.First;
@@ -1443,7 +1441,7 @@ begin
             Exit;
           end;
 
-          // Ler arquivo por completo
+          // Ler arquivo por completo e identificar os dados já referenciados
           CarregaDadosNFe;
         end;
       end;
@@ -1579,11 +1577,6 @@ begin
     begin
       edArquivoXML.Text := opdNotas.FileName;
       CarregarXML(gUsuarioLogado.Empresa, Trim(edArquivoXML.Text));
-
-      IdentificarFornecedor(cdsEmitente.FieldByName('CNPJ').AsString);
-
-      if fdQryFornecedor.IsEmpty then
-        CadastrarFornecedor;
     end;
   end;
 end;
