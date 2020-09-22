@@ -2039,7 +2039,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     end
   end
   object fdQryFornecedor: TFDQuery
-    Active = True
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao

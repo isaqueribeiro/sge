@@ -109,7 +109,6 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
       ParentFont = False
       ReadOnly = True
       TabOrder = 1
-      ExplicitWidth = 540
     end
   end
   object PanelBotoes: TPanel
@@ -142,8 +141,6 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
       OptionsImage.Images = DMRecursos.ImgPrincipal16x16
       TabOrder = 0
       OnClick = btnConfirmarClick
-      ExplicitLeft = 550
-      ExplicitTop = 8
     end
     object btFechar: TcxButton
       AlignWithMargins = True
@@ -158,8 +155,6 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
       OptionsImage.ImageIndex = 15
       OptionsImage.Images = DMRecursos.ImgBotoes16x16
       TabOrder = 1
-      ExplicitLeft = 648
-      ExplicitTop = 8
     end
   end
   object GrdDocumentos: TcxGrid
@@ -169,10 +164,6 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
     Height = 409
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 632
-    ExplicitTop = 288
-    ExplicitWidth = 250
-    ExplicitHeight = 200
     object GrdDocumentosDBTableView: TcxGridDBBandedTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dtsDocumentos
@@ -219,6 +210,7 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
       object GrdDocumentosDBTableViewNome: TcxGridDBBandedColumn
         DataBinding.FieldName = 'Nome'
         LayoutItem = GrdDocumentosDBTableViewLayoutItem6.Owner
+        Options.Moving = False
         Width = 250
         Position.BandIndex = 0
         Position.ColIndex = 1
@@ -288,7 +280,6 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
         LayoutItem = GrdDocumentosDBTableViewLayoutItem9.Owner
         Options.Filtering = False
         Options.Moving = False
-        Options.Sorting = False
         Width = 80
         Position.BandIndex = 1
         Position.ColIndex = 2
@@ -528,6 +519,11 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
         Name = 'cdsDocumentosIndexNSU'
         Fields = 'NSU'
         Options = [ixPrimary]
+      end
+      item
+        Name = 'cdsDocumentosIndexNSU_Desc'
+        Fields = 'NSU'
+        Options = [ixPrimary, ixDescending]
       end>
     IndexName = 'cdsDocumentosIndexNSU'
     Params = <>
