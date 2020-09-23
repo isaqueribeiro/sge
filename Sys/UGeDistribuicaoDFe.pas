@@ -77,7 +77,7 @@ type
   public
     { Public declarations }
     class function getInstance(const aEmpresa : String) : TfrmDistribuicaoDFe;
-    class function &End(var aChave : String) : Boolean;
+    class function &End(var aChave, aNSU : String) : Boolean;
 
     procedure RegistrarRotinaSistema; override;
   end;
@@ -99,11 +99,14 @@ uses
 
 { TfrmDistribuicaoDFe }
 
-class function TfrmDistribuicaoDFe.&End(var aChave : String): Boolean;
+class function TfrmDistribuicaoDFe.&End(var aChave, aNSU : String): Boolean;
 begin
   Result := (_instance.ShowModal = mrOk);
   if Result then
+  begin
     aChave := _instance.cdsDocumentosChave.AsString;
+    aNSU   := _instance.cdsDocumentosNSU.AsString;
+  end;
 end;
 
 procedure TfrmDistribuicaoDFe.fdQryEmpresaCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);

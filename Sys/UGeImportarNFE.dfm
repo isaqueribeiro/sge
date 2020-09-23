@@ -194,7 +194,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       Width = 93
       Height = 21
       Anchors = [akTop, akRight]
-      Caption = 'Buscar'
+      Caption = 'Baixar'
       OptionsImage.ImageIndex = 39
       OptionsImage.Images = DMRecursos.ImgPrincipal16x16
       TabOrder = 1

@@ -316,6 +316,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1106
       ExplicitHeight = 605
       inherited Bevel8: TBevel
@@ -1348,16 +1350,12 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         Top = 420
         Width = 1106
         Height = 185
-        ActivePage = tbsDuplicatas
+        ActivePage = tbsPagamento
         Align = alBottom
         HotTrack = True
         TabOrder = 4
         object tbsPagamento: TTabSheet
           Caption = 'Pagamento'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           DesignSize = (
             1098
             157)
@@ -1906,10 +1904,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object tbsDuplicatas: TTabSheet
           Caption = 'Duplicata(s) Gerada(s)'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 89
             Top = 0
@@ -2082,10 +2076,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object tbsLotes: TTabSheet
           Caption = 'Lote(s) Gerado(s) no Estoque'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object DBGrid1: TDBGrid
             Left = 0
             Top = 0
@@ -2172,10 +2162,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0
@@ -3677,8 +3663,14 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     Width = 1114
     ExplicitTop = 638
     ExplicitWidth = 1114
+    inherited bvlTool1: TBevel
+      Left = 333
+    end
+    inherited bvlTool2: TBevel
+      Left = 487
+    end
     inherited bvlTool3: TBevel
-      Left = 1031
+      Left = 811
       ExplicitLeft = 1031
     end
     inherited bvlTool4: TBevel
@@ -3692,7 +3684,32 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       Height = 31
       Shape = bsSpacer
     end
+    object bvlImportar: TBevel [6]
+      Left = 104
+      Top = 0
+      Width = 4
+      Height = 35
+      Align = alLeft
+      Shape = bsSpacer
+      ExplicitLeft = 16
+    end
+    inherited btbtnIncluir: TcxButton
+      Left = 108
+    end
+    inherited btbtnAlterar: TcxButton
+      Left = 183
+    end
+    inherited btbtnExcluir: TcxButton
+      Left = 258
+    end
+    inherited btbtnCancelar: TcxButton
+      Left = 337
+    end
+    inherited btbtnSalvar: TcxButton
+      Left = 412
+    end
     inherited btbtnLista: TcxButton
+      Left = 491
       Caption = 'Imprimir'
       Visible = True
     end
@@ -3702,18 +3719,21 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       ExplicitLeft = 1035
     end
     inherited btbtnSelecionar: TcxButton
-      Left = 911
+      Left = 925
+      Width = 110
       TabOrder = 9
-      ExplicitLeft = 911
+      ExplicitLeft = 935
+      ExplicitWidth = 110
     end
     object btbtnFinalizar: TcxButton
       Tag = 11
-      Left = 551
+      Left = 591
       Top = 0
-      Width = 120
+      Width = 110
       Height = 35
+      Hint = 'Finalizar Entrada'
       Align = alRight
-      Caption = '&Finalizar Entrada'
+      Caption = '&Finalizar'
       Enabled = False
       OptionsImage.Glyph.SourceDPI = 96
       OptionsImage.Glyph.Data = {
@@ -3788,15 +3808,17 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       ShowHint = True
       TabOrder = 6
       OnClick = btbtnFinalizarClick
+      ExplicitLeft = 631
     end
     object btbtnGerarNFe: TcxButton
       Tag = 12
-      Left = 791
+      Left = 815
       Top = 0
-      Width = 120
+      Width = 110
       Height = 35
+      Hint = 'Gerar NF-e de Entrada'
       Align = alRight
-      Caption = '&Gerar NF-e Entrada'
+      Caption = '&Gerar NF-e'
       Enabled = False
       OptionsImage.Glyph.SourceDPI = 96
       OptionsImage.Glyph.Data = {
@@ -3871,16 +3893,17 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       ShowHint = True
       TabOrder = 8
       OnClick = btbtnGerarNFeClick
+      ExplicitLeft = 831
     end
     object btbtnCancelarENT: TcxButton
       Tag = 13
-      Left = 671
+      Left = 701
       Top = 0
-      Width = 120
+      Width = 110
       Height = 35
       Hint = 'Cancelar Entrada Selecionada'
       Align = alRight
-      Caption = 'Cancelar Entrada'
+      Caption = 'Cancelar'
       Enabled = False
       OptionsImage.Glyph.SourceDPI = 96
       OptionsImage.Glyph.Data = {
@@ -3955,6 +3978,24 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       ShowHint = True
       TabOrder = 7
       OnClick = btbtnCancelarENTClick
+      ExplicitLeft = 699
+      ExplicitTop = -2
+    end
+    object btnImportar: TcxButton
+      Tag = 1
+      Left = 4
+      Top = 0
+      Width = 100
+      Height = 35
+      Hint = 'Baixa/Importar XML da NF-e'
+      Align = alLeft
+      Caption = 'Importar NF-e'
+      OptionsImage.ImageIndex = 28
+      OptionsImage.Images = DMRecursos.ImgBotoes16x16
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 11
+      OnClick = btnImportarClick
     end
   end
   inherited IbDtstTabela: TIBDataSet

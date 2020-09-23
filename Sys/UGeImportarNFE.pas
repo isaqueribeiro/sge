@@ -310,11 +310,9 @@ implementation
 uses
     UConstantesDGE
   , UFuncoes
-//  , Classe.DistribuicaoDFe.DocumentoRetornado
   , UDMRecursos
   , UDMBusiness
   , UDMNFe
-//  , UGeDistribuicaoDFe
   , UGeFornecedor
   , UGeProduto;
 
@@ -365,14 +363,6 @@ begin
     edChaveNFe.Text    := OnlyNumber(Trim(edChaveNFe.Text));
     lblInforme.Visible := True;
 
-//    if (edChaveNFe.Text = EmptyStr) then
-//    begin
-//      if TfrmDistribuicaoDFe.getInstance(fdQryEmpresa.FieldByName('CNPJ').AsString).&End(sChave) then
-//        edChaveNFe.Text := OnlyNumber(Trim(sChave))
-//      else
-//        Exit;
-//    end;
-//
     if not ValidarChave(edChaveNFe.Text) then
       ShowWarning('A Chave informada é inválida!')
     else

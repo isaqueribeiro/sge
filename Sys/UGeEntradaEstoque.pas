@@ -396,6 +396,8 @@ type
     cdsTabelaItensESTOQUE: TFMTBCDField;
     cdsTabelaLotesQTDE: TFMTBCDField;
     qryDuplicatasVALORPAG: TFMTBCDField;
+    btnImportar: TcxButton;
+    bvlImportar: TBevel;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
@@ -445,6 +447,7 @@ type
     procedure btnTituloEditarClick(Sender: TObject);
     procedure dbSerieKeyPress(Sender: TObject; var Key: Char);
     procedure nmImprimirEspelhoClick(Sender: TObject);
+    procedure btnImportarClick(Sender: TObject);
   private
     { Private declarations }
     sGeneratorName,
@@ -474,6 +477,7 @@ type
 
     procedure RegistrarNovaRotinaSistema;
     procedure CarregarTipoDespesa(const ApenasAtivos : Boolean);
+    procedure BaixarImportarNFe;
   public
     { Public declarations }
     procedure pgcGuiasOnChange; override;
@@ -521,6 +525,7 @@ implementation
 
 uses
     Controller.Tabela
+  , Classe.DistribuicaoDFe.DocumentoRetornado
   , UDMRecursos
   , UConstantesDGE
   , DateUtils
@@ -531,12 +536,13 @@ uses
   , UFuncoes
   , UDMNFe
   , UGeConsultarLoteNFe_v2
-  {$IFNDEF DGE}, UGeAutorizacaoCompra{$ENDIF}
+  , UGeAutorizacaoCompra
   , UGeEntradaEstoqueLote
   , UGeEntradaEstoqueCancelar
   , UGeEntradaConfirmaDuplicatas
   , UGeEntradaEstoqueGerarNFe
-  , UGeEntradaEstoqueDevolucaoNF;
+  , UGeEntradaEstoqueDevolucaoNF
+  , UGeDistribuicaoDFe;
 
 {$R *.dfm}
 
@@ -834,6 +840,45 @@ begin
   inherited;
 end;
 
+procedure TfrmGeEntradaEstoque.btnImportarClick(Sender: TObject);
+begin
+  if not GetConectedInternet then
+  begin
+    ShowWarning('Estação de trabalho sem acesso a Internet!');
+    Exit;
+  end;
+
+  DMNFe.LerConfiguracao(gUsuarioLogado.Empresa, tipoDANFEFast);
+
+  if (DMNFe.GetCnpjCertificado <> EmptyStr) then
+  begin
+    ShowWarning('Este recurso necessita do Certificado Digital da empresa ' + #13
+      + StrFormatarCnpj(gUsuarioLogado.Empresa)
+      + ' - ' + GetEmpresaNome(gUsuarioLogado.Empresa));
+    Exit;
+  end;
+
+  if (Copy(DMNFe.GetCnpjCertificado, 1, 8) <> Copy(gUsuarioLogado.Empresa, 1, 8)) then
+  begin
+    ShowWarning('A Empresa selecionada no login do sistema não está de acordo com o Certificado informado!');
+    Exit;
+  end;
+
+  if not DMNFe.GetValidadeCertificado(gUsuarioLogado.Empresa) then
+    Exit;
+
+  if not DMNFe.ACBrNFe.WebServices.StatusServico.Executar then
+    ShowWarning('Serviço Inoperante!' + #13#13 +
+      'Motivos:' + #13 +
+      '------------------------------------------' + #13 +
+      '1. Certificado A1 ou A3 não instalado '     + #13 +
+      '2. Certificado A3 não conectado na UBS'     + #13 +
+      '3. Servidor Web para consulta das NF-e não está respondendo.'
+    )
+  else
+    BaixarImportarNFe;
+end;
+
 procedure TfrmGeEntradaEstoque.dbFornecedorButtonClick(Sender: TObject);
 var
   iCodigo : Integer;
@@ -841,6 +886,7 @@ var
   sNome   : String;
 begin
   with DtSrcTabela.DataSet do
+  begin
     if ( State in [dsEdit, dsInsert] ) then
       if ( SelecionarFornecedor(Self, iCodigo, sCNPJ, sNome) ) then
       begin
@@ -848,6 +894,7 @@ begin
         FieldByName('CNPJ').AsString     := sCNPJ;
         FieldByName('NOMEFORN').AsString := sNome;
       end;
+  end;
 end;
 
 procedure TfrmGeEntradaEstoque.InserirItensAutorizacao;
@@ -1077,6 +1124,18 @@ begin
     ParamByName('compra').AsInteger := ControleCompra;
     Open;
   end;
+end;
+
+procedure TfrmGeEntradaEstoque.BaixarImportarNFe;
+var
+  aChaveNFe,
+  aNSU     : String;
+begin
+  aChaveNFe := EmptyStr;
+  aNSU      := EmptyStr;
+
+  if TfrmDistribuicaoDFe.getInstance(gUsuarioLogado.Empresa).&End(aChaveNFe, aNSU) then
+    ;
 end;
 
 procedure TfrmGeEntradaEstoque.AbrirTabelaDuplicatas(
@@ -1998,6 +2057,7 @@ end;
 procedure TfrmGeEntradaEstoque.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
+  btnImportar.Enabled := btbtnIncluir.Enabled;
   pgcMaisDados.ActivePageIndex := 0;
 
   DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger < STATUS_CMP_FIN );
@@ -2571,6 +2631,9 @@ end;
 procedure TfrmGeEntradaEstoque.FormShow(Sender: TObject);
 begin
   inherited;
+  btnImportar.Visible := (FTipoMovimento = tmeProduto);
+  bvlImportar.Visible := (FTipoMovimento = tmeProduto);
+
   nmImprimirEspelho.Visible := (FTipoMovimento = tmeProduto);
   dvImprimirEspelho.Visible := (FTipoMovimento = tmeProduto);
 
