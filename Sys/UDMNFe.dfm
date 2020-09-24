@@ -42466,9 +42466,23 @@ object DMNFe: TDMNFe
       '  , t.descricao'
       '  , t.especificacao'
       'from TBLOG_TRANSACAO t'
-      'where 1=0')
+      'where (t.usuario = :usuario)'
+      '  and (t.data_hora = :data_hora)')
     Left = 312
     Top = 576
+    ParamData = <
+      item
+        Name = 'USUARIO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 50
+        Value = Null
+      end
+      item
+        Name = 'DATA_HORA'
+        DataType = ftTimeStamp
+        ParamType = ptInput
+      end>
     object cdsLOGUSUARIO: TStringField
       FieldName = 'USUARIO'
       Origin = 'USUARIO'

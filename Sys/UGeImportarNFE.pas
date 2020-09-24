@@ -214,6 +214,41 @@ type
     dbVTotTrib: TDBEdit;
     lblVNF: TLabel;
     dbVNF: TDBEdit;
+    Label1: TLabel;
+    edTransportadoraCadastro: TJvComboEdit;
+    dbCNPJCPF_Transp: TDBEdit;
+    lblCNPJCPF_Transp: TLabel;
+    dbXNome_Transp: TDBEdit;
+    lblXNome_Transp: TLabel;
+    lblIE_Transp: TLabel;
+    dbIE_Transp: TDBEdit;
+    lblXEnder_Transp: TLabel;
+    dbXEnder_Transp: TDBEdit;
+    lblXMun_Transp: TLabel;
+    dbXMun_Transp: TDBEdit;
+    dbUF_Transp: TDBEdit;
+    lblUF_Transp: TLabel;
+    pnlFatura: TPanel;
+    lblPagamento_Fat: TLabel;
+    dbPagamento_Fat: TDBEdit;
+    dbnfat_Fat: TDBEdit;
+    lblnfat_Fat: TLabel;
+    dbvOrig_Fat: TDBEdit;
+    lblvOrig_Fat: TLabel;
+    lblvDesc_Fat: TLabel;
+    dbvDesc_Fat: TDBEdit;
+    lblvLiq_Fat: TLabel;
+    dbvLiq_Fat: TDBEdit;
+    GrdDuplicatas: TcxGrid;
+    GrdDuplicatasDBTableView: TcxGridDBTableView;
+    cxGridDBDuplicata: TcxGridDBColumn;
+    cxGridDBVencimento: TcxGridDBColumn;
+    cxGridDBValor: TcxGridDBColumn;
+    GrdDuplicatasLevel: TcxGridLevel;
+    btnImprimir: TcxButton;
+    dbOBS: TDBMemo;
+    Label2: TLabel;
+    procedure EmpresaCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure ApenasNumeroKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
@@ -227,6 +262,8 @@ type
     procedure GrdProdutosEnter(Sender: TObject);
     procedure GrdProdutosExit(Sender: TObject);
     procedure GrdProdutosDBTableViewCadastroPropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
+    procedure btnImprimirClick(Sender: TObject);
+    procedure edArquivoXMLPropertiesChange(Sender: TObject);
   private
     { Private declarations }
     sQuebraLinha : String;
@@ -256,9 +293,13 @@ type
     procedure CarregaDadosNFe;
 
     procedure LimparDadosRelacao;
+
     procedure IdentificarFornecedor(const aCnpj : String);
+    procedure IdentificarTransportadora(const aCnpj : String);
     procedure IdentificarProduto(aCampo : TField; const aProduto, aCnpjFornecedor : String);
+
     procedure CadastrarFornecedor;
+    procedure CadastrarTransportadora;
 
     function IfThenX(AValue: Boolean; const ATrue: String; AFalse: string = ''): string;
 //    function QuebraLinha: String;
@@ -305,6 +346,8 @@ type
 var
   frmGeImportarNFE: TfrmGeImportarNFE;
 
+  function ImportarNFE(const AOnwer : TComponent; aChave : String) : Boolean;
+
 implementation
 
 uses
@@ -318,7 +361,23 @@ uses
 
 {$R *.dfm}
 
-{ TfrmGrPadrao1 }
+{ TfrmGeImportarNFE }
+
+function ImportarNFE(const AOnwer : TComponent; aChave : String) : Boolean;
+begin
+  frmGeImportarNFE := TfrmGeImportarNFE.Create(AOnwer);
+  try
+    frmGeImportarNFE.edChaveNFe.Text := StrOnlyNumbers(aChave.Trim);
+    frmGeImportarNFE.btnManifesto.Click;
+
+    Result := (frmGeImportarNFE.ShowModal = mrOk);
+
+    if Result then
+      ;
+  finally
+    frmGeImportarNFE.FreeOnRelease;
+  end;
+end;
 
 procedure TfrmGeImportarNFE.ApenasNumeroKeyPress(Sender: TObject; var Key: Char);
 begin
@@ -345,35 +404,92 @@ begin
   end;
 end;
 
+procedure TfrmGeImportarNFE.btnImprimirClick(Sender: TObject);
+var
+  sNomeArquivoXML,
+  sEmitente      ,
+  sDestinatario  ,
+  sRecibo   ,
+  sProtocolo,
+  sChave    : String;
+  dDataHoraEmissao : TDateTime;
+  bNotaValida : Boolean;
+  sSerieNFe  : String;
+  iNumeroNFe ,
+  iModeloNFe ,
+  iVersaoNFe : Integer;
+  tTipoNota  : TTipoNF;
+  cValorProdutoNF : Currency;
+begin
+  if FileExists(edArquivoXML.Text) then
+  begin
+    DMNFe.ImprimirArquivoNFeDANFE(gUsuarioLogado.Empresa
+      , edArquivoXML.Text
+      , sNomeArquivoXML
+      , sEmitente
+      , sDestinatario
+      , sRecibo
+      , sProtocolo
+      , sChave
+      , dDataHoraEmissao
+      , bNotaValida
+      , sSerieNFe
+      , iNumeroNFe
+      , iModeloNFe
+      , iVersaoNFe
+      , tTipoNota
+      , cValorProdutoNF
+    );
+  end;
+end;
+
 procedure TfrmGeImportarNFE.btnManifestoClick(Sender: TObject);
 var
   sChave,
   sFile ,
   sLog  : String;
+  aImportar : Boolean;
 
   procedure DownloadNFe;
   begin
-    lblInforme.Caption := 'Executando download da NF-e...';
-    DMNFe.DownloadNFeACBr(gUsuarioLogado.Empresa, gUsuarioLogado.Empresa, edChaveNFe.Text, sFile);
+    sFile := StringReplace(DMNFe.ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\Down\', '\\', '\', [rfReplaceAll]) + edChaveNFe.Text + '-nfe.xml';
+
+    if not FileExists(sFile) then
+    begin
+      sFile := EmptyStr;
+      lblInforme.Caption := 'Executando download da NF-e...';
+      DMNFe.DownloadNFeACBr(gUsuarioLogado.Empresa, gUsuarioLogado.Empresa, edChaveNFe.Text, sFile);
+    end;
+
     edArquivoXML.Text := sFile;
+    aImportar := FileExists(Trim(edArquivoXML.Text));
   end;
+
 begin
   try
     sLog := EmptyStr;
-    edChaveNFe.Text    := OnlyNumber(Trim(edChaveNFe.Text));
+    sChave    := OnlyNumber(Trim(edChaveNFe.Text));
+    aImportar := False;
+    edChaveNFe.Text    := sChave;
     lblInforme.Visible := True;
 
+    if sChave.IsEmpty then
+      ShowWarning('Informe a Chave da nota fiscal para ser baixada!')
+    else
     if not ValidarChave(edChaveNFe.Text) then
       ShowWarning('A Chave informada é inválida!')
     else
-    if not DMNFe.IsNFeManifestoDestinatarioRegistrado(gUsuarioLogado.Empresa, edChaveNFe.Text) then
+    if not DMNFe.IsNFeManifestoDestinatarioRegistrado(gUsuarioLogado.Empresa, sChave) then
     begin
       lblInforme.Caption := 'Executando manifesto da NF-e junto à Sefa...';
-      if DMNFe.ExecutarManifestoDestinatarioNFe(gUsuarioLogado.Empresa, edChaveNFe.Text, sLog) then
+      if DMNFe.ExecutarManifestoDestinatarioNFe(gUsuarioLogado.Empresa, sChave, sLog) then
         DownloadNFe;
     end
     else
       DownloadNFe;
+
+    if aImportar then
+      CarregarXML(gUsuarioLogado.Empresa, Trim(edArquivoXML.Text));
   finally
     lblInforme.Visible := False;
   end;
@@ -449,6 +565,77 @@ begin
   end;
 end;
 
+procedure TfrmGeImportarNFE.CadastrarTransportadora;
+var
+  I : Integer;
+  iTipo : Smallint;
+begin
+  with fdQryFornecedor do
+  begin
+    // Permitir que todos campos sejam editáveis
+    for I := 0 to Fields.Count - 1 do
+    begin
+      Fields[I].Required := False;
+      Fields[I].ReadOnly := False;
+    end;
+
+    Append;
+
+    FieldByName('CNPJ').AsString       := StrOnlyNumbers(dbCNPJCPF_Transp.Text);
+    FieldByName('INSCEST').AsString    := IfThen(StrOnlyNumbers(dbIE_Transp.Text) = EmptyStr, 'ISENTO', StrOnlyNumbers(dbIE_Transp.Text));
+    FieldByName('INSCMUN').AsString    := EmptyStr;
+    FieldByName('NOMEFORN').AsString   := Copy(Trim(dbXNome_Transp.Text), 1, FieldByName('NOMEFORN').Size);
+    FieldByName('NOMEFANT').AsString   := Copy(Trim(dbXNome_Transp.Text), 1, FieldByName('NOMEFANT').Size);
+    FieldByName('EST_COD').AsInteger   := GetEstadoID( Trim(dbUF_Transp.Text) );
+    FieldByName('EST_NOME').AsString   := GetEstadoNome( Trim(dbUF_Transp.Text) );
+    FieldByName('UF').AsString         := Trim(dbUF_Transp.Text);
+    FieldByName('CID_COD').AsInteger   := GetCidadeID(FieldByName('EST_COD').AsInteger, dbXMun_Transp.Text);
+    FieldByName('CID_NOME').AsString   := GetCidadeNome(FieldByName('CID_COD').AsInteger);
+
+    // Caso a cidade da transportadora não seja identificada, empresta-se esse dados do emitente da nota
+    if ( (FieldByName('CID_COD').AsInteger = 0) and (Trim(dbCEP.Text) <> EmptyStr) ) then
+    begin
+      FieldByName('CID_COD').AsInteger  := GetCidadeID(Trim(dbCEP.Text));
+      FieldByName('CID_NOME').AsString  := GetCidadeNome(FieldByName('CID_COD').AsInteger);
+    end;
+
+    FieldByName('CIDADE').AsString   := Copy(FieldByName('CID_NOME').AsString + ' (' + Trim(dbUF_Transp.Text) + ')', 1, FieldByName('CIDADE').Size);
+
+    FieldByName('BAI_COD').AsInteger := SetBairro(FieldByName('CID_COD').AsInteger, Copy(Trim(dbXBairro.Text), 1, FieldByName('BAI_NOME').Size));
+    FieldByName('BAI_NOME').AsString := Trim(dbXBairro.Text);
+
+    FieldByName('LOG_COD').AsInteger   := SetLogradouro(FieldByName('CID_COD').AsInteger, Copy(Trim(dbXEnder_Transp.Text), 1, FieldByName('LOGRADOURO').Size), iTipo);
+    FieldByName('LOGRADOURO').AsString := Trim(GetLogradouroTipo(FieldByName('LOG_COD').AsInteger) + ' ' + GetLogradouroNome(FieldByName('LOG_COD').AsInteger));
+    FieldByName('ENDER').AsString      := Trim(FieldByName('LOGRADOURO').AsString);
+
+    if (iTipo = 0) then
+      FieldByName('TLG_TIPO').Clear
+    else
+      FieldByName('TLG_TIPO').AsInteger := iTipo;
+
+    FieldByName('COMPLEMENTO').AsString := EmptyStr;
+    FieldByName('NUMERO_END').AsString  := 'S/N';
+    FieldByName('CEP').AsString         := GetCidadeCEP(FieldByName('CID_COD').AsInteger);
+
+    // Informações adicionais
+    FieldByName('FONE').AsString      := EmptyStr;
+    FieldByName('GRF_COD').Value      := Ord(TGrupoFornecedor.gpFornecedorProdutoServico);
+    FieldByName('PAIS_ID').AsString   := GetPaisIDDefault;
+    FieldByName('PAIS_NOME').AsString := GetPaisNomeDefault;
+    FieldByName('ATIVO').AsInteger    := 1;
+    FieldByName('DTCAD').AsDateTime   := Date;
+    FieldByName('PESSOA_FISICA').AsInteger  := IfThen(StrIsCPF(FieldByName('CNPJ').AsString), 1, 0);
+    FieldByName('TRANSPORTADORA').AsInteger := 1;
+
+    Post;
+    ApplyUpdates;
+    CommitUpdates;
+    RefreshRecord;
+
+    edTransportadoraCadastro.Text := FormatFloat('###00000', FieldByName('codforn').AsInteger);
+  end;
+end;
+
 procedure TfrmGeImportarNFE.CarregaCalculoImposto;
 begin
   with cdsCalculoImposto, DMNFe, ACBrNFe, NotasFiscais.Items[0] do
@@ -519,6 +706,10 @@ begin
     IdentificarFornecedor(cdsEmitente.FieldByName('CNPJ').AsString);
     if fdQryFornecedor.IsEmpty then
       CadastrarFornecedor;
+
+    IdentificarTransportadora(cdsTransportador.FieldByName('CNPJCPF').AsString);
+    if fdQryFornecedor.IsEmpty then
+      CadastrarTransportadora;
   finally
     pgcNFe.ActivePage := tbsNFe;
     cdsDadosProdutos.First;
@@ -553,43 +744,42 @@ begin
             , Trim(Prod.cProd)
             , StrOnlyNumbers(cdsEmitente.FieldByName('CNPJ').AsString));
 
-          FieldByName('ChaveNFe').AsString          := NFe.infNFe.ID;
-          //FieldByName('ID').AsString                := IndentificarProduto(Trim(Prod.cProd), StrOnlyNumbers(cdsEmitente.FieldByName('CNPJ').AsString));
-          FieldByName('cProd').AsString             := frDANFE.ManterCodigo( Prod.cEAN,Prod.cProd);
-          FieldByName('cEAN').AsString              := Prod.cEAN;
-          FieldByName('XProd').AsString             := StringReplace( Prod.xProd, ';', #13, [rfReplaceAll]);
-          FieldByName('VProd').AsString             := ManterVprod( Prod.VProd , Prod.vDesc );
-          FieldByName('vTotTrib').AsString          := ManterdvTotTrib( Imposto.vTotTrib );
-          FieldByName('infAdProd').AsString         := ManterinfAdProd(NFe, inItem);
-          FieldByName('DescricaoProduto').AsString  := ManterXProd(NFe, inItem);
-          FieldByName('NCM').AsString               := Prod.NCM;
-          FieldByName('EXTIPI').AsString            := Prod.EXTIPI;
-          FieldByName('genero').AsString            := '';
-          FieldByName('CFOP').AsString              := Prod.CFOP;
-          FieldByName('Ucom').AsString              := Prod.UCom;
-          FieldByName('QCom').AsFloat               := Prod.QCom;
-          FieldByName('VUnCom').AsFloat             := Prod.VUnCom;
-          FieldByName('cEANTrib').AsString          := Prod.cEANTrib;
-          FieldByName('UTrib').AsString             := Prod.uTrib;
-          FieldByName('QTrib').AsFloat              := Prod.qTrib;
-          FieldByName('VUnTrib').AsFloat            := Prod.vUnTrib;
-          FieldByName('vFrete').AsString            := FormatFloatBr( Prod.vFrete ,'###,###,##0.00');
-          FieldByName('vSeg').AsString              := FormatFloatBr( Prod.vSeg   ,'###,###,##0.00');
-          FieldByName('vOutro').AsString            := FormatFloatBr( Prod.vOutro ,'###,###,##0.00');
-          FieldByName('vDesc').AsString             := FormatFloatBr( ManterVDesc( Prod.vDesc , Prod.VUnCom , Prod.QCom),'###,###,##0.00');
-          FieldByName('ORIGEM').AsString            :=     OrigToStr( Imposto.ICMS.orig);
-          FieldByName('CST').AsString               :=     ManterCst( NFe.Emit.CRT , Imposto.ICMS.CSOSN , Imposto.ICMS.CST );
-          FieldByName('VBC').AsString               := FormatFloatBr( Imposto.ICMS.vBC        ,'###,###,##0.00');
-          FieldByName('PICMS').AsString             := FormatFloatBr( Imposto.ICMS.pICMS      ,'###,###,##0.00');
-          FieldByName('VICMS').AsString             := FormatFloatBr( Imposto.ICMS.vICMS      ,'###,###,##0.00');
-          FieldByName('VBCST').AsString             := FormatFloatBr( Imposto.ICMS.vBcST      ,'###,###,##0.00');
-          FieldByName('VICMSST').AsString           := FormatFloatBr( Imposto.ICMS.vICMSST    ,'###,###,##0.00');
-          FieldByName('VIPI').AsString              := FormatFloatBr( Imposto.IPI.VIPI        ,'###,###,##0.00');
-          FieldByName('PIPI').AsString              := FormatFloatBr( Imposto.IPI.PIPI        ,'###,###,##0.00');
-          FieldByName('vISSQN').AsString            := FormatFloatBr( Imposto.ISSQN.vISSQN    ,'###,###,##0.00');
-          FieldByName('vBcISSQN').AsString          := FormatFloatBr( Imposto.ISSQN.vBC       ,'###,###,##0.00');
-          FieldByName('Valorliquido').AsString      := FormatFloatBr( Prod.vProd - Prod.vDesc ,'###,###,##0.00');
-          FieldByName('ValorAcrescimos').AsString   := FormatFloatBr( Prod.vProd + Prod.vOutro,'###,###,##0.00');
+          FieldByName('ChaveNFe').AsString         := NFe.infNFe.ID;
+          FieldByName('cProd').AsString            := frDANFE.ManterCodigo( Prod.cEAN,Prod.cProd);
+          FieldByName('cEAN').AsString             := Prod.cEAN;
+          FieldByName('XProd').AsString            := StringReplace( Prod.xProd, ';', #13, [rfReplaceAll]);
+          FieldByName('VProd').AsString            := ManterVprod( Prod.VProd , Prod.vDesc );
+          FieldByName('vTotTrib').AsString         := ManterdvTotTrib( Imposto.vTotTrib );
+          FieldByName('infAdProd').AsString        := ManterinfAdProd(NFe, inItem);
+          FieldByName('DescricaoProduto').AsString := ManterXProd(NFe, inItem);
+          FieldByName('NCM').AsString              := Prod.NCM;
+          FieldByName('EXTIPI').AsString           := Prod.EXTIPI;
+          FieldByName('genero').AsString           := '';
+          FieldByName('CFOP').AsString             := Prod.CFOP;
+          FieldByName('Ucom').AsString             := Prod.UCom;
+          FieldByName('QCom').AsFloat              := Prod.QCom;
+          FieldByName('VUnCom').AsFloat            := Prod.VUnCom;
+          FieldByName('cEANTrib').AsString         := Prod.cEANTrib;
+          FieldByName('UTrib').AsString            := Prod.uTrib;
+          FieldByName('QTrib').AsFloat             := Prod.qTrib;
+          FieldByName('VUnTrib').AsFloat           := Prod.vUnTrib;
+          FieldByName('vFrete').AsString           := FormatFloatBr( Prod.vFrete ,'###,###,##0.00');
+          FieldByName('vSeg').AsString             := FormatFloatBr( Prod.vSeg   ,'###,###,##0.00');
+          FieldByName('vOutro').AsString           := FormatFloatBr( Prod.vOutro ,'###,###,##0.00');
+          FieldByName('vDesc').AsString            := FormatFloatBr( ManterVDesc( Prod.vDesc , Prod.VUnCom , Prod.QCom),'###,###,##0.00');
+          FieldByName('ORIGEM').AsString           :=     OrigToStr( Imposto.ICMS.orig );
+          FieldByName('CST').AsString              :=     ManterCst( NFe.Emit.CRT , Imposto.ICMS.CSOSN , Imposto.ICMS.CST );
+          FieldByName('VBC').AsString              := FormatFloatBr( Imposto.ICMS.vBC        ,'###,###,##0.00');
+          FieldByName('PICMS').AsString            := FormatFloatBr( Imposto.ICMS.pICMS      ,'###,###,##0.00');
+          FieldByName('VICMS').AsString            := FormatFloatBr( Imposto.ICMS.vICMS      ,'###,###,##0.00');
+          FieldByName('VBCST').AsString            := FormatFloatBr( Imposto.ICMS.vBcST      ,'###,###,##0.00');
+          FieldByName('VICMSST').AsString          := FormatFloatBr( Imposto.ICMS.vICMSST    ,'###,###,##0.00');
+          FieldByName('VIPI').AsString             := FormatFloatBr( Imposto.IPI.VIPI        ,'###,###,##0.00');
+          FieldByName('PIPI').AsString             := FormatFloatBr( Imposto.IPI.PIPI        ,'###,###,##0.00');
+          FieldByName('vISSQN').AsString           := FormatFloatBr( Imposto.ISSQN.vISSQN    ,'###,###,##0.00');
+          FieldByName('vBcISSQN').AsString         := FormatFloatBr( Imposto.ISSQN.vBC       ,'###,###,##0.00');
+          FieldByName('Valorliquido').AsString     := FormatFloatBr( Prod.vProd - Prod.vDesc ,'###,###,##0.00');
+          FieldByName('ValorAcrescimos').AsString  := FormatFloatBr( Prod.vProd + Prod.vOutro,'###,###,##0.00');
 
 //          case frDANFE.ImprimirUnQtVlComercial of
 //          true:
@@ -823,9 +1013,10 @@ begin
     FieldByName('iForma').asInteger := Integer( NFe.Ide.indPag);
 
     case NFe.Ide.indPag of
-      ipVista : FieldByName('Pagamento').AsString := ACBrStr('PAGAMENTO À VISTA');
-      ipPrazo : FieldByName('Pagamento').AsString := ACBrStr('PAGAMENTO À PRAZO');
-      ipOutras: FieldByName('Pagamento').AsString := ACBrStr('OUTROS');
+      ipVista  : FieldByName('Pagamento').AsString := ACBrStr('PAGAMENTO À VISTA');
+      ipPrazo  : FieldByName('Pagamento').AsString := ACBrStr('PAGAMENTO À PRAZO');
+      ipOutras ,
+      ipNenhum : FieldByName('Pagamento').AsString := ACBrStr('OUTROS');
     end;
 
     if NaoEstaVazio(NFe.Cobr.Fat.nFat) then
@@ -1328,6 +1519,8 @@ begin
     Close;
     ParamByName('cnpj').AsString := sCnpj;
     Open;
+
+    FieldByName('cnpj').OnGetText := EmpresaCNPJGetText;
   end;
 end;
 
@@ -1558,8 +1751,8 @@ begin
     edArquivoXML.Text := Trim(edArquivoXML.Text);
     if (edArquivoXML.Text <> EmptyStr) then
     begin
-      if not DirectoryExists(edArquivoXML.Text) then
-        ForceDirectories(edArquivoXML.Text);
+      if not DirectoryExists( ExtractFilePath(edArquivoXML.Text) ) then
+        ForceDirectories( ExtractFilePath(edArquivoXML.Text) );
       opdNotas.InitialDir := edArquivoXML.Text;
     end;
 
@@ -1569,6 +1762,11 @@ begin
       CarregarXML(gUsuarioLogado.Empresa, Trim(edArquivoXML.Text));
     end;
   end;
+end;
+
+procedure TfrmGeImportarNFE.edArquivoXMLPropertiesChange(Sender: TObject);
+begin
+  btnImprimir.Enabled := FileExists(Trim(edArquivoXML.Text));
 end;
 
 procedure TfrmGeImportarNFE.edFornecedorCadastroButtonClick(Sender: TObject);
@@ -1581,6 +1779,11 @@ begin
   aNome := dbXNome.Text;
   if SelecionarFornecedor(Self, aCodigo, aCnpj, aNome) then
     IdentificarFornecedor(aCNPJ);
+end;
+
+procedure TfrmGeImportarNFE.EmpresaCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  Text := StrFormatarCnpj(Sender.AsString);
 end;
 
 //function TfrmGeImportarNFE.Explode(sPart, sInput: String): ArrOfStr;
@@ -1690,6 +1893,16 @@ procedure TfrmGeImportarNFE.IdentificarProduto(aCampo: TField; const aProduto,
 begin
   if (aCampo.DataSet.State in [dsEdit, dsInsert]) then
     aCampo.AsString := GetProdutoFornecedorCodigo(StrOnlyNumbers(aCnpjFornecedor), aProduto.Trim);
+end;
+
+procedure TfrmGeImportarNFE.IdentificarTransportadora(const aCnpj: String);
+begin
+  fdQryFornecedor.Close;
+  fdQryFornecedor.ParamByName('cnpj').AsString := StrOnlyNumbers(aCnpj);
+  fdQryFornecedor.Open;
+
+  edTransportadoraCadastro.Text := FormatFloat('###00000', fdQryFornecedor.FieldByName('codforn').AsInteger);
+  edTransportadoraCadastro.Hint := aCnpj;
 end;
 
 function TfrmGeImportarNFE.IfThenX(AValue: Boolean; const ATrue: String;
@@ -2000,6 +2213,8 @@ begin
   SetControlsDataSet(cdsEmitente);
   SetControlsDataSet(cdsDestinatario, '_Dest');
   SetControlsDataSet(cdsCalculoImposto);
+  SetControlsDataSet(cdsTransportador, '_Transp');
+  SetControlsDataSet(cdsFatura, '_Fat');
 end;
 
 procedure TfrmGeImportarNFE.SetDataSetsXML;

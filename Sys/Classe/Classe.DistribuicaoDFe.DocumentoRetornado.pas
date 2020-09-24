@@ -11,6 +11,7 @@ type
   TDistribuicaoDFeDocumentoRetornado = class
     private
       FCNPJ: String;
+      FUF  : String;
       FValor: Currency;
       FIEst: String;
       FSerie: String;
@@ -34,6 +35,7 @@ type
       procedure SetValor(const Value: Currency);
       procedure SetChave(const Value: String);
       procedure SetProtocolo(const Value: String);
+      procedure SetUF(const Value: String);
     public
       constructor Create;
       destructor Destroy; override;
@@ -45,6 +47,7 @@ type
       property CNPJ      : String read FCNPJ write SetCNPJ;
       property Nome      : String read FNome write SetNome;
       property IEst      : String read FIEst write SetIEst;
+      property UF        : String read FUF write SetUF;
       property NSU       : String read FNSU write SetNSU;
       property Emissao   : TDateTime read FEmissao write SetEmissao;
       property TipoNFe   : TTipoNFe read FTipoNFe write SetTipoNFe;
@@ -61,6 +64,7 @@ begin
   FCNPJ      := EmptyStr;
   FValor     := 0.0;
   FIEst      := EmptyStr;
+  FUF        := EmptyStr;
   FChave     := EmptyStr;
   FSerie     := EmptyStr;
   FNumero    := EmptyStr;
@@ -130,6 +134,11 @@ end;
 procedure TDistribuicaoDFeDocumentoRetornado.SetTipoNFe(const Value: TTipoNFe);
 begin
   FTipoNFe := Value;
+end;
+
+procedure TDistribuicaoDFeDocumentoRetornado.SetUF(const Value: String);
+begin
+  FUF := Value.Trim.ToUpper;
 end;
 
 procedure TDistribuicaoDFeDocumentoRetornado.SetValor(const Value: Currency);

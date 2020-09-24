@@ -542,7 +542,8 @@ uses
   , UGeEntradaConfirmaDuplicatas
   , UGeEntradaEstoqueGerarNFe
   , UGeEntradaEstoqueDevolucaoNF
-  , UGeDistribuicaoDFe;
+  , UGeDistribuicaoDFe
+  , UGeImportarNFE;
 
 {$R *.dfm}
 
@@ -850,7 +851,7 @@ begin
 
   DMNFe.LerConfiguracao(gUsuarioLogado.Empresa, tipoDANFEFast);
 
-  if (DMNFe.GetCnpjCertificado <> EmptyStr) then
+  if (DMNFe.GetCnpjCertificado = EmptyStr) then
   begin
     ShowWarning('Este recurso necessita do Certificado Digital da empresa ' + #13
       + StrFormatarCnpj(gUsuarioLogado.Empresa)
@@ -1128,14 +1129,19 @@ end;
 
 procedure TfrmGeEntradaEstoque.BaixarImportarNFe;
 var
+  aEmissor ,
+  aUF      ,
   aChaveNFe,
   aNSU     : String;
 begin
   aChaveNFe := EmptyStr;
   aNSU      := EmptyStr;
 
-  if TfrmDistribuicaoDFe.getInstance(gUsuarioLogado.Empresa).&End(aChaveNFe, aNSU) then
-    ;
+  if TfrmDistribuicaoDFe.getInstance(gUsuarioLogado.Empresa).&End(aEmissor, aUF, aChaveNFe, aNSU) then
+    if ImportarNFE(Self, aChaveNFe) then
+    begin
+
+    end;
 end;
 
 procedure TfrmGeEntradaEstoque.AbrirTabelaDuplicatas(

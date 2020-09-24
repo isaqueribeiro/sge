@@ -3665,9 +3665,11 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     ExplicitWidth = 1114
     inherited bvlTool1: TBevel
       Left = 333
+      ExplicitLeft = 333
     end
     inherited bvlTool2: TBevel
       Left = 487
+      ExplicitLeft = 487
     end
     inherited bvlTool3: TBevel
       Left = 811
@@ -3695,23 +3697,29 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     end
     inherited btbtnIncluir: TcxButton
       Left = 108
+      ExplicitLeft = 108
     end
     inherited btbtnAlterar: TcxButton
       Left = 183
+      ExplicitLeft = 183
     end
     inherited btbtnExcluir: TcxButton
       Left = 258
+      ExplicitLeft = 258
     end
     inherited btbtnCancelar: TcxButton
       Left = 337
+      ExplicitLeft = 337
     end
     inherited btbtnSalvar: TcxButton
       Left = 412
+      ExplicitLeft = 412
     end
     inherited btbtnLista: TcxButton
       Left = 491
       Caption = 'Imprimir'
       Visible = True
+      ExplicitLeft = 491
     end
     inherited btbtnFechar: TcxButton
       Left = 1035
@@ -3722,7 +3730,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       Left = 925
       Width = 110
       TabOrder = 9
-      ExplicitLeft = 935
+      ExplicitLeft = 925
       ExplicitWidth = 110
     end
     object btbtnFinalizar: TcxButton
@@ -3808,7 +3816,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       ShowHint = True
       TabOrder = 6
       OnClick = btbtnFinalizarClick
-      ExplicitLeft = 631
     end
     object btbtnGerarNFe: TcxButton
       Tag = 12
@@ -3893,7 +3900,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       ShowHint = True
       TabOrder = 8
       OnClick = btbtnGerarNFeClick
-      ExplicitLeft = 831
     end
     object btbtnCancelarENT: TcxButton
       Tag = 13
@@ -3978,8 +3984,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       ShowHint = True
       TabOrder = 7
       OnClick = btbtnCancelarENTClick
-      ExplicitLeft = 699
-      ExplicitTop = -2
     end
     object btnImportar: TcxButton
       Tag = 1

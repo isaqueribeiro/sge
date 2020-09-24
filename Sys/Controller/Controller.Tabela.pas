@@ -36,53 +36,7 @@ implementation
 { TControllerTabela }
 
 procedure TTabelaController.Configurar(aDataSet: TFDDataSet);
-//var
-//  I : Integer;
 begin
-//  with aDataSet do
-//  begin
-//    for I := 0 to FNomesCampos.Count - 1 do
-//      if Assigned(Fields.FindField( FNomesCampos.KeyNames[I] )) then
-//      begin
-//        FieldByName( FNomesCampos.KeyNames[I] ).ReadOnly := False; // Recurso para liberar manipulação dos campos
-//
-//        // Configurar DisplayName
-//        FieldByName( FNomesCampos.KeyNames[I] ).DisplayLabel := FNomesCampos.Values[ FNomesCampos.KeyNames[I] ];
-//        // Configurar Alinhamento
-//        FieldByName( FNomesCampos.KeyNames[I] ).Alignment    := FAlinhamentos[I];
-//
-//        // Configurar Formato
-//        // .. Inteiro
-//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TSmallintField) then
-//          TSmallintField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
-//        else
-//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TIntegerField) then
-//          TIntegerField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
-//        else
-//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TLargeintField) then
-//          TLargeintField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
-//        // .. Ponto flutuante
-//        else
-//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TCurrencyField) then
-//          TCurrencyField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
-//        else
-//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TBCDField) then
-//          TBCDField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
-//        else
-//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TFMTBCDField) then
-//          TFMTBCDField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
-//        // .. Data e hora
-//        else
-//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TTimeField) then
-//          TTimeField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
-//        else
-//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TDateField) then
-//          TDateField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
-//        else
-//        if (FieldByName( FNomesCampos.KeyNames[I] ) is TDateTimeField) then
-//          TDateTimeField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '');
-//      end;
-//  end;
   Self.Configurar(aDataSet as TDataSet);
 end;
 
@@ -93,10 +47,11 @@ begin
   with aDataSet do
   begin
     for I := 0 to FNomesCampos.Count - 1 do
+    begin
+      FieldByName( FNomesCampos.KeyNames[I] ).ReadOnly := False; // Recurso para liberar manipulação dos campos
+
       if Assigned(Fields.FindField( FNomesCampos.KeyNames[I] )) then
       begin
-        FieldByName( FNomesCampos.KeyNames[I] ).ReadOnly := False; // Recurso para liberar manipulação dos campos
-
         // Configurar DisplayName
         FieldByName( FNomesCampos.KeyNames[I] ).DisplayLabel := FNomesCampos.Values[ FNomesCampos.KeyNames[I] ];
         // Configurar Alinhamento
@@ -133,6 +88,7 @@ begin
         if (FieldByName( FNomesCampos.KeyNames[I] ) is TDateTimeField) then
           TDateTimeField( FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '');
       end;
+    end;
   end;
 end;
 

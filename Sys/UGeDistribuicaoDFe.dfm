@@ -494,6 +494,11 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
         Size = 20
       end
       item
+        Name = 'UF'
+        DataType = ftString
+        Size = 20
+      end
+      item
         Name = 'NSU'
         DataType = ftString
         Size = 20
@@ -554,6 +559,9 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
     end
     object cdsDocumentosIEstadual: TStringField
       FieldName = 'IEstadual'
+    end
+    object cdsDocumentosUF: TStringField
+      FieldName = 'UF'
     end
     object cdsDocumentosNSU: TStringField
       FieldName = 'NSU'

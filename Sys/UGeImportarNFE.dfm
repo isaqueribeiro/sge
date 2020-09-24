@@ -202,7 +202,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     end
   end
   object btnConfirmar: TcxButton
-    Left = 730
+    Left = 632
     Top = 593
     Width = 92
     Height = 33
@@ -223,7 +223,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     ModalResult = 2
     OptionsImage.ImageIndex = 15
     OptionsImage.Images = DMRecursos.ImgBotoes16x16
-    TabOrder = 4
+    TabOrder = 5
   end
   object GrpBxDadosNFe: TGroupBox
     Left = 0
@@ -270,6 +270,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
         end>
       Properties.Images = DMRecursos.ImgBotoes16x16
       Properties.OnButtonClick = edArquivoXMLPropertiesButtonClick
+      Properties.OnChange = edArquivoXMLPropertiesChange
       TabOrder = 0
       Width = 888
     end
@@ -291,7 +292,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       Top = 67
       Width = 888
       Height = 350
-      ActivePage = tbsProdutos
+      ActivePage = tbsNFe
       Anchors = [akLeft, akTop, akRight, akBottom]
       TabOrder = 2
       object tbsNFe: TTabSheet
@@ -1779,16 +1780,522 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsTransporte: TTabSheet
         Caption = 'Transporte'
         ImageIndex = 5
+        DesignSize = (
+          880
+          322)
+        object Label1: TLabel
+          Left = 16
+          Top = 16
+          Width = 48
+          Height = 13
+          Caption = 'Cadastro:'
+          FocusControl = edTransportadoraCadastro
+        end
+        object lblCNPJCPF_Transp: TLabel
+          Left = 119
+          Top = 16
+          Width = 25
+          Height = 13
+          Caption = 'CNPJ'
+          FocusControl = dbCNPJCPF_Transp
+        end
+        object lblXNome_Transp: TLabel
+          Left = 286
+          Top = 16
+          Width = 64
+          Height = 13
+          Caption = 'Raz'#227'o Social:'
+          FocusControl = dbXNome_Transp
+        end
+        object lblIE_Transp: TLabel
+          Left = 16
+          Top = 56
+          Width = 91
+          Height = 13
+          Anchors = [akTop, akRight]
+          Caption = 'Inscri'#231#227'o Estadual:'
+          FocusControl = dbIE_Transp
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblXEnder_Transp: TLabel
+          Left = 137
+          Top = 56
+          Width = 59
+          Height = 13
+          Caption = 'Logradouro:'
+          FocusControl = dbXEnder_Transp
+        end
+        object lblXMun_Transp: TLabel
+          Left = 587
+          Top = 56
+          Width = 47
+          Height = 13
+          Anchors = [akTop, akRight]
+          Caption = 'Munic'#237'pio:'
+          FocusControl = dbXMun_Transp
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblUF_Transp: TLabel
+          Left = 828
+          Top = 56
+          Width = 17
+          Height = 13
+          Anchors = [akTop, akRight]
+          Caption = 'UF:'
+          FocusControl = dbUF_Transp
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object edTransportadoraCadastro: TJvComboEdit
+          Left = 16
+          Top = 32
+          Width = 97
+          Height = 21
+          ButtonFlat = True
+          ButtonHint = 'Pesquisar Cadastro da Transportadora (Ctrl + P)'
+          CharCase = ecUpperCase
+          ClickKey = 16464
+          Enabled = False
+          Glyph.Data = {
+            36060000424D3606000000000000360000002800000020000000100000000100
+            180000000000000600000000000000000000000000000000000000FF0000FF00
+            00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF009993
+            9D203040938B9300FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+            FF0000FF0000FF0000FF0000FF009696963333338E8E8E00FF0000FF00B0A090
+            6048306048306048306048306048306048306048306048306048305048403050
+            604078C03048609C989D00FF009C9C9C43434343434343434343434343434343
+            43434343434343434343434646465151518888884C4C4C99999900FF00B0A090
+            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
+            D04098E050B0F050687000FF009C9C9CFFFFFF9C9C9C9C9C9C9C9C9C9C9C9C9C
+            9C9C9C9C9C9C9C9C868686565656909090A4A4A4B9B9B968686800FF00B0A090
+            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
+            E060C8FF7090A0B7B3B500FF009C9C9CFFFFFFFFFFFFFAFAFAF0F0F0D4D4D494
+            9494666666646464595959747474A9A9A9CECECE919191B4B4B400FF00B0A090
+            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
+            B07098B0A6AAAE00FF0000FF009C9C9CFFFFFFFFFFFFFFFFFFE0E0E0909090A6
+            A6A6BCBCBCAEAEAE7676765454549494949B9B9BAAAAAA00FF0000FF00B0A090
+            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B0807870988D
+            92A8ADB100FF0000FF0000FF009C9C9CFFFFFFFFFFFFFFFFFFB0B0B0B6B6B6EC
+            ECECE7E7E7D3D3D3C9C9C97676768F8F8FADADAD00FF0000FF0000FF00C0A890
+            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06267
+            6000FF0000FF0000FF0000FF00A3A3A3FFFFFFFFFFFFFFFFFF969696E6E6E6F6
+            F6F6F1F1F1E7E7E7D8D8D8AEAEAE64646400FF0000FF0000FF0000FF00C0A8A0
+            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716F
+            6F00FF0000FF0000FF0000FF00A8A8A8FFFFFFFFFFFFFFFFFF9B9B9BE6E6E6FF
+            FFFFF6F6F6F1F1F1E7E7E7BEBEBE6F6F6F00FF0000FF0000FF0000FF00C0B0A0
+            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A5A0
+            A000FF0000FF0000FF0000FF00ACACACFFFFFFFFFFFFFFFFFFC4C4C4C0C0C0FF
+            FFFFFFFFFFF6F6F6ECECEC9C9C9CA0A0A000FF0000FF0000FF0000FF00D0B0A0
+            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A070706000FF
+            0000FF0000FF0000FF0000FF00AEAEAEFFFFFFFFFFFFFFFFFFF9F9F9B6B6B6C0
+            C0C0E6E6E6E6E6E6ABABAB6B6B6B00FF0000FF0000FF0000FF0000FF00D0B8A0
+            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A09090908090909060504000FF
+            0000FF0000FF0000FF0000FF00B3B3B3FFFFFFFFFFFFFFFFFFFFFFFFF9F9F9C4
+            C4C49B9B9B8B8B8B9090904C4C4C00FF0000FF0000FF0000FF0000FF00D0B8B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A09060483060483060483000FF
+            0000FF0000FF0000FF0000FF00B8B8B8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF9C9C9C43434343434343434300FF0000FF0000FF0000FF0000FF00D0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C060483000FF0000FF
+            0000FF0000FF0000FF0000FF00BCBCBCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFA3A3A3C6C6C643434300FF0000FF0000FF0000FF0000FF0000FF00E0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A060483000FF0000FF0000FF
+            0000FF0000FF0000FF0000FF00BEBEBEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFA8A8A843434300FF0000FF0000FF0000FF0000FF0000FF0000FF00E0C0B0
+            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A000FF0000FF0000FF0000FF
+            0000FF0000FF0000FF0000FF00BEBEBEBEBEBEBEBEBEBEBEBEBEBEBEBCBCBCB8
+            B8B8AEAEAE00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00
+            00FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF
+            0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000
+            FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
+          NumGlyphs = 2
+          TabOrder = 0
+          Text = ''
+        end
+        object dbCNPJCPF_Transp: TDBEdit
+          Left = 119
+          Top = 32
+          Width = 161
+          Height = 21
+          TabStop = False
+          Color = clMoneyGreen
+          DataSource = dtsTransportador
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 1
+        end
+        object dbXNome_Transp: TDBEdit
+          Left = 286
+          Top = 32
+          Width = 575
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsTransportador
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 2
+        end
+        object dbIE_Transp: TDBEdit
+          Left = 16
+          Top = 72
+          Width = 115
+          Height = 21
+          TabStop = False
+          Anchors = [akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsTransportador
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 3
+        end
+        object dbXEnder_Transp: TDBEdit
+          Left = 137
+          Top = 72
+          Width = 444
+          Height = 21
+          TabStop = False
+          Anchors = [akLeft, akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsTransportador
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 4
+        end
+        object dbXMun_Transp: TDBEdit
+          Left = 587
+          Top = 72
+          Width = 235
+          Height = 21
+          TabStop = False
+          Anchors = [akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsTransportador
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 5
+        end
+        object dbUF_Transp: TDBEdit
+          Left = 828
+          Top = 72
+          Width = 33
+          Height = 21
+          TabStop = False
+          Anchors = [akTop, akRight]
+          Color = clMoneyGreen
+          DataSource = dtsTransportador
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 6
+        end
       end
       object tbsCobranca: TTabSheet
         Caption = 'Cobran'#231'a'
         ImageIndex = 6
+        object pnlFatura: TPanel
+          Left = 0
+          Top = 0
+          Width = 880
+          Height = 73
+          Align = alTop
+          BevelOuter = bvNone
+          TabOrder = 0
+          DesignSize = (
+            880
+            73)
+          object lblPagamento_Fat: TLabel
+            Left = 16
+            Top = 16
+            Width = 106
+            Height = 13
+            Caption = 'Forma de Pagamento:'
+            FocusControl = dbPagamento_Fat
+          end
+          object lblnfat_Fat: TLabel
+            Left = 244
+            Top = 16
+            Width = 36
+            Height = 13
+            Caption = 'Fatura:'
+            FocusControl = dbnfat_Fat
+          end
+          object lblvOrig_Fat: TLabel
+            Left = 356
+            Top = 16
+            Width = 91
+            Height = 13
+            Caption = 'Valor Original (R$):'
+            FocusControl = dbvOrig_Fat
+          end
+          object lblvDesc_Fat: TLabel
+            Left = 468
+            Top = 16
+            Width = 73
+            Height = 13
+            Caption = 'Desconto (R$):'
+            FocusControl = dbvDesc_Fat
+          end
+          object lblvLiq_Fat: TLabel
+            Left = 580
+            Top = 16
+            Width = 52
+            Height = 13
+            Caption = 'Valor (R$):'
+            FocusControl = dbvLiq_Fat
+          end
+          object dbPagamento_Fat: TDBEdit
+            Left = 16
+            Top = 32
+            Width = 222
+            Height = 21
+            TabStop = False
+            Anchors = [akLeft, akTop, akRight]
+            Color = clMoneyGreen
+            DataSource = dtsFatura
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 0
+          end
+          object dbnfat_Fat: TDBEdit
+            Left = 244
+            Top = 32
+            Width = 106
+            Height = 21
+            TabStop = False
+            Anchors = [akLeft, akTop, akRight]
+            Color = clMoneyGreen
+            DataSource = dtsFatura
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 1
+          end
+          object dbvOrig_Fat: TDBEdit
+            Left = 356
+            Top = 32
+            Width = 106
+            Height = 21
+            TabStop = False
+            Anchors = [akLeft, akTop, akRight]
+            Color = clMoneyGreen
+            DataSource = dtsFatura
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 2
+          end
+          object dbvDesc_Fat: TDBEdit
+            Left = 468
+            Top = 32
+            Width = 106
+            Height = 21
+            TabStop = False
+            Anchors = [akLeft, akTop, akRight]
+            Color = clMoneyGreen
+            DataSource = dtsFatura
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 3
+          end
+          object dbvLiq_Fat: TDBEdit
+            Left = 580
+            Top = 32
+            Width = 106
+            Height = 21
+            TabStop = False
+            Anchors = [akLeft, akTop, akRight]
+            Color = clMoneyGreen
+            DataSource = dtsFatura
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 4
+          end
+        end
+        object GrdDuplicatas: TcxGrid
+          Left = 0
+          Top = 73
+          Width = 880
+          Height = 249
+          Align = alClient
+          TabOrder = 1
+          OnEnter = GrdProdutosEnter
+          OnExit = GrdProdutosExit
+          ExplicitTop = 0
+          ExplicitHeight = 322
+          object GrdDuplicatasDBTableView: TcxGridDBTableView
+            Navigator.Buttons.CustomButtons = <>
+            DataController.DataSource = dtsDuplicatas
+            DataController.Summary.DefaultGroupSummaryItems = <>
+            DataController.Summary.FooterSummaryItems = <>
+            DataController.Summary.SummaryGroups = <>
+            OptionsBehavior.CellHints = True
+            OptionsBehavior.FocusCellOnTab = True
+            OptionsBehavior.GoToNextCellOnEnter = True
+            OptionsBehavior.FocusCellOnCycle = True
+            OptionsCustomize.ColumnFiltering = False
+            OptionsCustomize.ColumnMoving = False
+            OptionsData.Deleting = False
+            OptionsData.DeletingConfirmation = False
+            OptionsData.Inserting = False
+            OptionsView.CellEndEllipsis = True
+            OptionsView.NoDataToDisplayInfoText = '<Sem duplicatas para exibi'#231#227'o>'
+            OptionsView.GroupByBox = False
+            Styles.Content = StyleContent
+            Styles.ContentEven = StyleContentEven
+            Styles.Selection = StyleSelecao
+            object cxGridDBDuplicata: TcxGridDBColumn
+              Caption = 'Duplicata'
+              DataBinding.FieldName = 'NDup'
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.Moving = False
+              Width = 120
+            end
+            object cxGridDBVencimento: TcxGridDBColumn
+              Caption = 'Vencimento'
+              DataBinding.FieldName = 'DVenc'
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.Moving = False
+              Width = 100
+            end
+            object cxGridDBValor: TcxGridDBColumn
+              Caption = 'Valor (R$)'
+              DataBinding.FieldName = 'VDup'
+              PropertiesClassName = 'TcxCurrencyEditProperties'
+              Properties.DisplayFormat = ',0.00'
+              Options.Editing = False
+              Options.Filtering = False
+              Options.Focusing = False
+              Options.Moving = False
+              Options.Sorting = False
+              Width = 80
+            end
+          end
+          object GrdDuplicatasLevel: TcxGridLevel
+            GridView = GrdDuplicatasDBTableView
+          end
+        end
       end
       object tbsInformacaoAdcional: TTabSheet
         Caption = 'Informa'#231#245'es Adicionais'
         ImageIndex = 7
+        object Label2: TLabel
+          AlignWithMargins = True
+          Left = 16
+          Top = 16
+          Width = 848
+          Height = 13
+          Margins.Left = 16
+          Margins.Top = 16
+          Margins.Right = 16
+          Align = alTop
+          Caption = 'Observa'#231#245'es'
+          FocusControl = dbMensagemFiscal
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 63
+        end
+        object dbOBS: TDBMemo
+          AlignWithMargins = True
+          Left = 16
+          Top = 35
+          Width = 848
+          Height = 271
+          Margins.Left = 16
+          Margins.Right = 16
+          Margins.Bottom = 16
+          Align = alClient
+          Color = clMoneyGreen
+          DataField = 'obs'
+          DataSource = dtsInformacoesAdicionais
+          ReadOnly = True
+          TabOrder = 0
+        end
       end
     end
+  end
+  object btnImprimir: TcxButton
+    Left = 730
+    Top = 593
+    Width = 92
+    Height = 33
+    Anchors = [akRight, akBottom]
+    Caption = '&DANFE'
+    Enabled = False
+    OptionsImage.ImageIndex = 62
+    OptionsImage.Images = DMRecursos.ImgPrincipal16x16
+    TabOrder = 4
+    OnClick = btnImprimirClick
   end
   object dtsEmpresa: TDataSource
     DataSet = fdQryEmpresa
@@ -1996,8 +2503,8 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       end>
   end
   object StyleRepository: TcxStyleRepository
-    Left = 424
-    Top = 448
+    Left = 768
+    Top = 24
     PixelsPerInch = 96
     object StyleSelecao: TcxStyle
       AssignedValues = [svColor, svFont, svTextColor]

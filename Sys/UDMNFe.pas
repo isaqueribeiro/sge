@@ -2163,19 +2163,27 @@ begin
 
             with cdsLOG do
             begin
+
+              Close;
+              ParamByName('usuario').AsString     := gUsuarioLogado.Login;
+              ParamByName('data_hora').AsDateTime := Now;
               Open;
-              Append;
 
-              cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
-              cdsLOGDATA_HORA.AsDateTime   := Now;
-              cdsLOGEMPRESA.AsString       := sCNPJEmitente;
-              cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
-              cdsLOGDESCRICAO.AsString     := DESC_LOG_EVENTO_CANCELAR_NFE_SD;
-              cdsLOGESPECIFICACAO.AsString := sLOG.Text;
+              if IsEmpty then
+              begin
+                Append;
 
-              Post;
-              ApplyUpdates;
-              CommitTransaction;
+                cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
+                cdsLOGDATA_HORA.AsDateTime   := Now;
+                cdsLOGEMPRESA.AsString       := sCNPJEmitente;
+                cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
+                cdsLOGDESCRICAO.AsString     := DESC_LOG_EVENTO_CANCELAR_NFE_SD;
+                cdsLOGESPECIFICACAO.AsString := sLOG.Text;
+
+                Post;
+                ApplyUpdates;
+                CommitTransaction;
+              end;
 
             end;
           end;
@@ -5528,19 +5536,27 @@ begin
 
             with cdsLOG do
             begin
+
+              Close;
+              ParamByName('usuario').AsString     := gUsuarioLogado.Login;
+              ParamByName('data_hora').AsDateTime := Now;
               Open;
-              Append;
 
-              cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
-              cdsLOGDATA_HORA.AsDateTime   := Now;
-              cdsLOGEMPRESA.AsString       := sCNPJEmitente;
-              cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
-              cdsLOGDESCRICAO.AsString     := DESC_LOG_EVENTO_CANCELAR_NFE_ET;
-              cdsLOGESPECIFICACAO.AsString := sLOG.Text;
+              if IsEmpty then
+              begin
+                Append;
 
-              Post;
-              ApplyUpdates;
-              CommitTransaction;
+                cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
+                cdsLOGDATA_HORA.AsDateTime   := Now;
+                cdsLOGEMPRESA.AsString       := sCNPJEmitente;
+                cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
+                cdsLOGDESCRICAO.AsString     := DESC_LOG_EVENTO_CANCELAR_NFE_ET;
+                cdsLOGESPECIFICACAO.AsString := sLOG.Text;
+
+                Post;
+                ApplyUpdates;
+                CommitTransaction;
+              end;
 
             end;
           end;
@@ -5998,6 +6014,7 @@ end;
 function TDMNFe.DownloadNFeACBr(const sCNPJEmitente, sCNPJDestinatario, sChaveNFe: String;
   var FileNameXML: String): Boolean;
 var
+  aUF  : Integer;
   aXML : TStringList;
 begin
 (*
@@ -6013,25 +6030,23 @@ begin
 
       with ACBrNFe do
       begin
-        // Troquei do ACBrNFe1.Download. para ACBrNFe1.DistribuicaoDFePorChaveNFe(uf,cnpj,chave);
-  //      DownloadNFe.Download.Chaves.Clear;
-  //      DownloadNFe.Download.Chaves.Add.chNFe := sChaveNFe;
-  //      DownloadNFe.Download.CNPJ             := sCNPJDestinatario;
-  //
-  //      if ( WebServices.DownloadNFe.Executar ) then
-        if DistribuicaoDFePorChaveNFe(GetEstadoID(Configuracoes.WebServices.UF), sCNPJDestinatario, sChaveNFe) then
+        aUF := StrToInt(Copy(sChaveNFe, 1, 2)); // Código UF do autor da NF-e
+        if DistribuicaoDFePorChaveNFe(aUF, sCNPJDestinatario, sChaveNFe) then
         begin
-          //FileNameXML := Configuracoes.Arquivos.DownloadNFe.PathDownload + '\'  + sChaveNFe + '-nfe.xml';
           FileNameXML := Configuracoes.Arquivos.PathSalvar + '\Down\'  + sChaveNFe + '-nfe.xml';
           FileNameXML := StringReplace(FileNameXML, '\\', '\', [rfReplaceAll]);
           ForceDirectories( ExtractFilePath(FileNameXML) );
 
-          aXML.Text   := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[0].XML;
-          aXML.SaveToFile(FileNameXML);
-  //        FileNameXML := Configuracoes.Arquivos.PathSalvar + '\Down\'  + sChaveNFe + '-nfe.xml';
+          if (WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Count > 0) then
+          begin
+            aXML.Text   := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[0].XML;
+            aXML.SaveToFile(FileNameXML);
+          end
+          else
+            raise Exception.Create('Arquivo XML não disponível para download.' + #13 +
+              WebServices.DistribuicaoDFe.retDistDFeInt.cStat.ToString + ' - ' + WebServices.DistribuicaoDFe.retDistDFeInt.xMotivo);
         end
         else
-  //        raise Exception.Create(WebServices.DownloadNFe.RetornoWS);
           raise Exception.Create(WebServices.DistribuicaoDFe.RetornoWS);
 
         if not FileExists(FileNameXML) then
@@ -6314,19 +6329,26 @@ begin
 
     with cdsLOG do
     begin
+      Close;
+      ParamByName('usuario').AsString     := gUsuarioLogado.Login;
+      ParamByName('data_hora').AsDateTime := Now;
       Open;
-      Append;
 
-      cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
-      cdsLOGDATA_HORA.AsDateTime   := Now;
-      cdsLOGEMPRESA.AsString       := sCNPJ;
-      cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
-      cdsLOGDESCRICAO.AsString     := sDescricao;
-      cdsLOGESPECIFICACAO.AsString := sLOG.Text;
+      if IsEmpty then
+      begin
+        Append;
 
-      Post;
-      ApplyUpdates;
-      CommitTransaction;
+        cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
+        cdsLOGDATA_HORA.AsDateTime   := Now;
+        cdsLOGEMPRESA.AsString       := sCNPJ;
+        cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
+        cdsLOGDESCRICAO.AsString     := sDescricao;
+        cdsLOGESPECIFICACAO.AsString := sLOG.Text;
+
+        Post;
+        ApplyUpdates;
+        CommitTransaction;
+      end;
     end;
 
     sLOG.Free;
@@ -6398,6 +6420,9 @@ begin
               aDocumento.Emissao   := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[i].resdFe.dhEmi;
               aDocumento.Valor     := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[i].resdFe.vNF;
 
+              if ( StrToIntDef(Copy(aDocumento.Chave, 1, 2).Trim, 0) > 0) then
+                aDocumento.UF := CUFtoUF( Copy(aDocumento.Chave, 1, 2).ToInteger );
+
               case WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[i].resdFe.tpNF of
                 TpcnTipoNFe.tnEntrada : aDocumento.TipoNFe := TTipoNFe.tnNFeEntrada;
                 TpcnTipoNFe.tnSaida   : aDocumento.TipoNFe := TTipoNFe.tnNFeSaida;
@@ -6432,19 +6457,26 @@ begin
 
     with cdsLOG do
     begin
+      Close;
+      ParamByName('usuario').AsString     := gUsuarioLogado.Login;
+      ParamByName('data_hora').AsDateTime := Now;
       Open;
-      Append;
 
-      cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
-      cdsLOGDATA_HORA.AsDateTime   := Now;
-      cdsLOGEMPRESA.AsString       := sCNPJ;
-      cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
-      cdsLOGDESCRICAO.AsString     := aDescricao;
-      cdsLOGESPECIFICACAO.AsString := aFileXML.Text;
+      if IsEmpty then
+      begin
+        Append;
 
-      Post;
-      ApplyUpdates;
-      CommitTransaction;
+        cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
+        cdsLOGDATA_HORA.AsDateTime   := Now;
+        cdsLOGEMPRESA.AsString       := sCNPJ;
+        cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
+        cdsLOGDESCRICAO.AsString     := aDescricao;
+        cdsLOGESPECIFICACAO.AsString := aFileXML.Text;
+
+        Post;
+        ApplyUpdates;
+        CommitTransaction;
+      end;
     end;
 
     aFileXML.Free;
@@ -6896,19 +6928,26 @@ begin
 
     with cdsLOG do
     begin
+      Close;
+      ParamByName('usuario').AsString     := gUsuarioLogado.Login;
+      ParamByName('data_hora').AsDateTime := Now;
       Open;
-      Append;
 
-      cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
-      cdsLOGDATA_HORA.AsDateTime   := Now;
-      cdsLOGEMPRESA.AsString       := sCNPJEmitente;
-      cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
-      cdsLOGDESCRICAO.AsString     := AnsiUpperCase(DESC_LOG_EVENTO_CCE_NFE);
-      cdsLOGESPECIFICACAO.AsString := sLOG.Text;
+      if IsEmpty then
+      begin
+        Append;
 
-      Post;
-      ApplyUpdates;
-      CommitTransaction;
+        cdsLOGUSUARIO.AsString       := gUsuarioLogado.Login;
+        cdsLOGDATA_HORA.AsDateTime   := Now;
+        cdsLOGEMPRESA.AsString       := sCNPJEmitente;
+        cdsLOGTIPO.AsInteger         := TIPO_LOG_TRANS_SEFA;
+        cdsLOGDESCRICAO.AsString     := AnsiUpperCase(DESC_LOG_EVENTO_CCE_NFE);
+        cdsLOGESPECIFICACAO.AsString := sLOG.Text;
+
+        Post;
+        ApplyUpdates;
+        CommitTransaction;
+      end;
     end;
 
     sLOG.Free;
@@ -8775,11 +8814,17 @@ begin
 
       with NotasFiscais.Items[0].NFe do
       begin
-        DANFE.Logo    := EmptyStr;
+        if Emit.CNPJCPF <> sCNPJEmitente then
+        begin
+          DANFE.Email := EmptyStr;
+          DANFE.Site  := EmptyStr;
+          DANFE.Logo  := EmptyStr;
+        end;
+
         aEmitente     := Emit.CNPJCPF;
         aDestinatario := Dest.CNPJCPF;
-        aSerie    := FormatFloat('#00', Ide.serie);
-        aNumero   := Ide.nNF;
+        aSerie        := FormatFloat('#00', Ide.serie);
+        aNumero       := Ide.nNF;
 
         Case Ide.modelo of
           MODELO_NFE  : aModelo := Ord(moNFe);

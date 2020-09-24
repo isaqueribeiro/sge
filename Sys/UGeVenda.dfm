@@ -6384,7 +6384,6 @@ inherited frmGeVenda: TfrmGeVenda
       FieldName = 'ESTOQUE'
       Origin = 'QTDE'
       ProviderFlags = []
-      ReadOnly = True
       Precision = 18
       Size = 3
     end
@@ -6393,7 +6392,6 @@ inherited frmGeVenda: TfrmGeVenda
       FieldName = 'RESERVA'
       Origin = 'RESERVA'
       ProviderFlags = []
-      ReadOnly = True
       Precision = 18
       Size = 3
     end

@@ -65,6 +65,7 @@ type
     StyleContent: TcxStyle;
     StyleContentEven: TcxStyle;
     cxStyleHeader: TcxStyle;
+    cdsDocumentosUF: TStringField;
     procedure fdQryEmpresaCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure FormShow(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -77,10 +78,19 @@ type
   public
     { Public declarations }
     class function getInstance(const aEmpresa : String) : TfrmDistribuicaoDFe;
-    class function &End(var aChave, aNSU : String) : Boolean;
+    class function &End(var aCNPJEmissor, aUFEmissor, aChave, aNSU : String) : Boolean;
 
     procedure RegistrarRotinaSistema; override;
   end;
+
+(*
+  Tabelas:
+
+  Views:
+  = VW_EMPRESA
+
+  Procedures:
+*)
 
 //var
 //  frmDistribuicaoDFe: TfrmDistribuicaoDFe;
@@ -99,13 +109,15 @@ uses
 
 { TfrmDistribuicaoDFe }
 
-class function TfrmDistribuicaoDFe.&End(var aChave, aNSU : String): Boolean;
+class function TfrmDistribuicaoDFe.&End(var aCNPJEmissor, aUFEmissor, aChave, aNSU : String): Boolean;
 begin
   Result := (_instance.ShowModal = mrOk);
   if Result then
   begin
-    aChave := _instance.cdsDocumentosChave.AsString;
-    aNSU   := _instance.cdsDocumentosNSU.AsString;
+    aCNPJEmissor := _instance.cdsDocumentosCNPJ.AsString;
+    aUFEmissor   := _instance.cdsDocumentosUF.AsString;
+    aChave       := _instance.cdsDocumentosChave.AsString;
+    aNSU         := _instance.cdsDocumentosNSU.AsString;
   end;
 end;
 
@@ -155,6 +167,7 @@ begin
         cdsDocumentosCNPJ.AsString      := StrFormatarCnpj(aDocumento.CNPJ);
         cdsDocumentosNome.AsString      := aDocumento.Nome;
         cdsDocumentosIEstadual.AsString := aDocumento.IEst;
+        cdsDocumentosUF.AsString        := aDocumento.UF;
         cdsDocumentosNSU.AsString       := aDocumento.NSU;
         cdsDocumentosEmissao.AsDateTime := aDocumento.Emissao;
         cdsDocumentosValor.AsCurrency   := aDocumento.Valor;
