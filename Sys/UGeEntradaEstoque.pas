@@ -398,6 +398,7 @@ type
     qryDuplicatasVALORPAG: TFMTBCDField;
     btnImportar: TcxButton;
     bvlImportar: TBevel;
+    fdQryTabelaNFNSU: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
@@ -543,7 +544,8 @@ uses
   , UGeEntradaEstoqueGerarNFe
   , UGeEntradaEstoqueDevolucaoNF
   , UGeDistribuicaoDFe
-  , UGeImportarNFE;
+  , UGeImportarNFE
+  , pcnConversao;
 
 {$R *.dfm}
 
@@ -1132,16 +1134,91 @@ var
   aEmissor ,
   aUF      ,
   aChaveNFe,
-  aNSU     : String;
+  aNSU     ,
+  aProduto : String;
+  aFileName: TFileName;
+  I : Integer;
 begin
   aChaveNFe := EmptyStr;
   aNSU      := EmptyStr;
 
-  if TfrmDistribuicaoDFe.getInstance(gUsuarioLogado.Empresa).&End(aEmissor, aUF, aChaveNFe, aNSU) then
-    if ImportarNFE(Self, aChaveNFe) then
-    begin
+  if TfrmDistribuicaoDFe
+    .getInstance(gUsuarioLogado.Empresa)
+    .&End(aEmissor, aUF, aChaveNFe, aNSU) then
+  begin
+    if ImportarNFE(Self, aChaveNFe, aNSU, aFileName) then
+      with DMNFe.ACBrNFe do
+      begin
+        NotasFiscais.Clear;
+        NotasFiscais.LoadFromFile(aFileName, False );
 
-    end;
+        with NotasFiscais.Items[0].NFe do
+        begin
+          DtSrcTabela.DataSet.Append;
+
+          // Identificação
+          DtSrcTabela.DataSet.FieldByName('CODEMP').AsString    := StrOnlyNumbers(Dest.CNPJCPF);
+          DtSrcTabela.DataSet.FieldByName('TIPO_MOVIMENTO').AsInteger := Ord(TTipoMovimentoEntrada.tmeProduto);
+          DtSrcTabela.DataSet.FieldByName('TIPO_ENTRADA').AsInteger   := 4; // Outras -> VW_TIPO_ENTRADA
+          // Fornecedor
+          DtSrcTabela.DataSet.FieldByName('CODFORN').AsInteger  := GetFornecedorCodigo( StrOnlyNumbers(Emit.CNPJCPF) );
+          DtSrcTabela.DataSet.FieldByName('CNPJ').AsString      := StrOnlyNumbers(Emit.CNPJCPF);
+          DtSrcTabela.DataSet.FieldByName('NOMEFORN').AsString  := Emit.xNome;
+          // Documento
+          DtSrcTabela.DataSet.FieldByName('DTEMISS').AsDateTime       := Ide.dEmi;
+          DtSrcTabela.DataSet.FieldByName('TIPO_DOCUMENTO').AsInteger := TIPO_DOCUMENTO_ENTRADA_NFE;
+          DtSrcTabela.DataSet.FieldByName('NF').AsString        := FormatFloat('###0000000', Ide.cNF);
+          DtSrcTabela.DataSet.FieldByName('NFSERIE').AsString   := FormatFloat('###00', Ide.serie);
+          DtSrcTabela.DataSet.FieldByName('NFNSU').AsString     := aNSU;
+          // Valores
+          DtSrcTabela.DataSet.FieldByName('CALCULAR_TOTAIS').AsInteger := FLAG_NAO;
+          DtSrcTabela.DataSet.FieldByName('ICMSBASE').AsCurrency       := Total.ICMSTot.vBC;
+          DtSrcTabela.DataSet.FieldByName('ICMSVALOR').AsCurrency      := Total.ICMSTot.vICMS;
+          DtSrcTabela.DataSet.FieldByName('ICMSSUBSTBASE').AsCurrency  := Total.ICMSTot.vBCST;
+          DtSrcTabela.DataSet.FieldByName('ICMSSUBSTVALOR').AsCurrency := Total.ICMSTot.vST;
+          DtSrcTabela.DataSet.FieldByName('TOTALPROD').AsCurrency      := Total.ICMSTot.vProd;
+          DtSrcTabela.DataSet.FieldByName('FRETE').AsCurrency          := Total.ICMSTot.vFrete;
+          DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency       := Total.ICMSTot.vDesc;
+          DtSrcTabela.DataSet.FieldByName('IPI').AsCurrency            := Total.ICMSTot.vIPI;
+          DtSrcTabela.DataSet.FieldByName('OUTROSCUSTOS').AsCurrency   := Total.ICMSTot.vSeg + Total.ICMSTot.vII + Total.ICMSTot.vOutro;
+          DtSrcTabela.DataSet.FieldByName('TOTALNF').AsCurrency        := Total.ICMSTot.vNF;
+
+          // Produtos
+          for I := 0 to Det.Count - 1 do
+          begin
+            aProduto := GetProdutoFornecedorCodigo(StrOnlyNumbers(Emit.CNPJCPF), Det.Items[I].Prod.cProd);
+            if not aProduto.IsEmpty then
+            begin
+              DtSrcTabelaItens.DataSet.Append;
+
+              DtSrcTabelaItens.DataSet.FieldByName('CODPROD').AsString   := aProduto;
+              CarregarDadosProduto( DtSrcTabelaItens.DataSet.FieldByName('CODPROD').AsInteger ); // Forçar carga da descrição do produto
+
+              DtSrcTabelaItens.DataSet.FieldByName('CFOP').AsString   := Det.Items[I].Prod.CFOP;
+              DtSrcTabelaItens.DataSet.FieldByName('NCM_SH').AsString := Det.Items[I].Prod.NCM;
+
+              if Emit.CRT = TpcnCRT.crtSimplesNacional then
+                DtSrcTabelaItens.DataSet.FieldByName('CSOSN').AsString := CSOSNIcmsToStr(Det.Items[I].Imposto.ICMS.CSOSN)
+              else
+                DtSrcTabelaItens.DataSet.FieldByName('CST').AsString   := CSTICMSToStr(Det.Items[I].Imposto.ICMS.CST);
+
+              DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency := Det.Items[I].Prod.qCom;
+              DtSrcTabelaItens.DataSet.FieldByName('PRECOUNIT').AsCurrency := Det.Items[I].Prod.qCom;
+              DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').AsCurrency := Det.Items[I].Prod.qCom;
+
+              ControlEditExit(dbValorUnit); // Forçar cálculo de totais do produto
+
+              DtSrcTabelaItens.DataSet.Post;
+            end;
+          end;
+
+          DtSrcTabela.DataSet.Post; // Salvar apenas na memória
+          DtSrcTabela.DataSet.Edit; // Colocar registro em edição para que usuário possa continuar o processo
+        end;
+
+        NotasFiscais.Clear;
+      end;
+  end;
 end;
 
 procedure TfrmGeEntradaEstoque.AbrirTabelaDuplicatas(
@@ -1267,17 +1344,17 @@ begin
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
     btbtnFinalizar.Enabled   := ( FieldByName('STATUS').AsInteger < STATUS_CMP_FIN) and (not cdsTabelaItens.IsEmpty);
-    btbtnCancelarENT.Enabled := ((FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) or (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE)); // and (not cdsTabelaItens.IsEmpty);
+    btbtnCancelarENT.Enabled := ((FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) or  (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE)); // and (not cdsTabelaItens.IsEmpty);
     btbtnGerarNFe.Enabled    := ( FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) and (not cdsTabelaItens.IsEmpty);
 
-    nmImprimirDANFE.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE);
-    nmGerarDANFEXML.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE);
+    nmImprimirDANFE.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) or  (FieldByName('NFNSU').AsString <> EmptyStr);
+    nmGerarDANFEXML.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) and (FieldByName('NFNSU').AsString = EmptyStr);
 
     TbsInformeNFe.TabVisible    := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr);
-    nmPpLimparDadosNFe.Enabled  := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr);
-    BtnLimparDadosNFe.Enabled   := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr);
-    BtnCorrigirDadosNFe.Enabled      := (FieldByName('STATUS').AsInteger in [STATUS_CMP_ABR, STATUS_CMP_FIN]) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr);
-    nmPpCorrigirDadosNFeCFOP.Enabled := (FieldByName('STATUS').AsInteger in [STATUS_CMP_ABR, STATUS_CMP_FIN]) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr);
+    nmPpLimparDadosNFe.Enabled  := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
+    BtnLimparDadosNFe.Enabled   := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
+    BtnCorrigirDadosNFe.Enabled      := (FieldByName('STATUS').AsInteger in [STATUS_CMP_ABR, STATUS_CMP_FIN]) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
+    nmPpCorrigirDadosNFeCFOP.Enabled := (FieldByName('STATUS').AsInteger in [STATUS_CMP_ABR, STATUS_CMP_FIN]) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
   end
   else
   begin
@@ -1285,12 +1362,12 @@ begin
     btbtnCancelarENT.Enabled := False;
     btbtnGerarNFe.Enabled    := False;
 
-    nmImprimirDANFE.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE);
-    nmGerarDANFEXML.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE);
+    nmImprimirDANFE.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) or  (FieldByName('NFNSU').AsString <> EmptyStr);
+    nmGerarDANFEXML.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) and (FieldByName('NFNSU').AsString = EmptyStr);
 
     TbsInformeNFe.TabVisible    := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr);
-    nmPpLimparDadosNFe.Enabled  := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr);
-    BtnLimparDadosNFe.Enabled   := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr);
+    nmPpLimparDadosNFe.Enabled  := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
+    BtnLimparDadosNFe.Enabled   := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
     BtnCorrigirDadosNFe.Enabled      := False;
     nmPpCorrigirDadosNFeCFOP.Enabled := False;
   end;
@@ -2161,6 +2238,7 @@ begin
     FieldByName('USUARIO').AsString         := gUsuarioLogado.Login;
     FieldByName('VERIFICADOR_NFE').Clear;
     FieldByName('XML_NFE_FILENAME').Clear;
+    FieldByName('NFNSU').Clear;
     FieldByName('CODFORN').Clear;
     FieldByName('TIPO_ENTRADA').Clear;
     FieldByName('TIPO_DOCUMENTO').Clear;

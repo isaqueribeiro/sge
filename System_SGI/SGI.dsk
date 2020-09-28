@@ -17,13 +17,13 @@ File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Clas
 
 [Modules]
 Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
-Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module3=default.htm
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module1=default.htm
+Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
+Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
 Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFSe.pas
 Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UEcfFactory.pas
 Module10=documentation.htm
@@ -31,12 +31,6 @@ Count=11
 EditWindowCount=1
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 
 [default.htm]
@@ -48,10 +42,16 @@ ModuleType=TBaseProject
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFSe.pas]
@@ -101,7 +101,7 @@ RightPanelClients=DockSite2,DockSite4
 RightPanelData=00000800010100000000201300000000000001D00700000000000001000000004412000009000000446F636B536974653201000000000022000009000000446F636B5369746534FFFFFFFF
 BottomPanelSize=0
 BottomPanelClients=MessageView,DockSite1
-BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B5369746531DE44000000000000022F060000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B53697465311534000000000000022606000000000000FFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -324,14 +324,14 @@ Visible=0
 Docked=1
 State=0
 Left=0
-Top=28
-Width=9917
-Height=1375
+Top=0
+Width=2771
+Height=1413
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=9917
-ClientHeight=1375
-TBDockHeight=1375
+ClientWidth=2771
+ClientHeight=1413
+TBDockHeight=1413
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -388,16 +388,16 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=4952
-TBDockHeight=8769
+TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
-SplitPos=116
+SplitPos=111
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=Name,OnClick
-ExpandedItems=Anchors=0,BevelEdges=0,Constraints=0,Font=0,"LiveBindings Designer=0",BorderIcons=0,LiveBindings=0,Margins=0,StyleElements=0,Touch=0,GlassFrame=0,HorzScrollBar=0,Padding=0,VertScrollBar=0,Glyph=0,HotGlyph=0,ActiveControl=0,LargeGlyph=0
+SelectedItem=Caption,
+ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -424,8 +424,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1528
-Top=249
+Left=0
+Top=0
 Width=276
 Height=365
 MaxLeft=-1
@@ -629,8 +629,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=380
-Top=817
+Left=0
+Top=0
 Width=2854
 Height=3212
 MaxLeft=-1
@@ -649,7 +649,7 @@ Visible=0
 Docked=1
 State=0
 Left=-8
-Top=-120
+Top=-8
 Width=1849
 Height=3144
 MaxLeft=-1
@@ -817,8 +817,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=952
-Top=28
+Left=8
+Top=8
 Width=3823
 Height=1423
 MaxLeft=-1
@@ -849,7 +849,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=4510
-TBDockHeight=8769
+TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0
@@ -873,7 +873,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=3471
-TBDockHeight=8769
+TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
@@ -897,7 +897,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=3913
-TBDockHeight=8769
+TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0

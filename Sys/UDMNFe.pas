@@ -5328,15 +5328,18 @@ begin
 
       if NotasFiscais.Items[0].NFe.Ide.tpEmis = teDPEC then
       begin
-//        WebServices.ConsultaDPEC.NFeChave := NotasFiscais.Items[0].NFe.infNFe.ID;
-//        WebServices.ConsultaDPEC.Executar;
-//
-//        DANFE.ProtocoloNFe := WebServices.ConsultaDPEC.nRegDPEC + ' ' + DateTimeToStr(WebServices.ConsultaDPEC.dhRegDPEC);
         WebServices.Consulta.NFeChave := NotasFiscais.Items[0].NFe.infNFe.ID;
         WebServices.Consulta.Executar;
 
-//        DANFE.ProtocoloNFe := WebServices.Consulta.protNFe.nProt + ' ' + DateTimeToStr(WebServices.Consulta.protNFe.dhRecbto);
         DANFE.Protocolo := WebServices.Consulta.protNFe.nProt + ' ' + DateTimeToStr(WebServices.Consulta.protNFe.dhRecbto);
+      end;
+
+      // Remover a logomarca do DANFE quando o emissor da nota não for a empresa
+      if OnlyNumber(NotasFiscais.Items[0].NFe.Emit.CNPJCPF) <> OnlyNumber(sCNPJEmitente) then
+      begin
+        DANFE.Email := EmptyStr;
+        DANFE.Site  := EmptyStr;
+        DANFE.Logo  := EmptyStr;
       end;
 
       if ( IsPDF ) then
@@ -6459,7 +6462,7 @@ begin
     begin
       Close;
       ParamByName('usuario').AsString     := gUsuarioLogado.Login;
-      ParamByName('data_hora').AsDateTime := Now;
+      ParamByName('data_hora').AsDateTime := StrToDateTimeDef(FormatDateTime('dd/mm/yyyy hh:mm', Now) + ':00', Now);
       Open;
 
       if IsEmpty then

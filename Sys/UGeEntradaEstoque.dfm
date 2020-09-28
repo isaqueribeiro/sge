@@ -734,6 +734,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Top = 80
           Width = 89
           Height = 21
+          Alignment = taCenter
           ButtonHint = 'Pesquisar CFOP (Ctrl+P)'
           CharCase = ecUpperCase
           ClickKey = 16464
@@ -810,6 +811,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Top = 80
           Width = 121
           Height = 21
+          Alignment = taRightJustify
           ButtonHint = 'Pesquisar Autoriza'#231#227'o (Ctrl+P)'
           CharCase = ecUpperCase
           ClickKey = 16464
@@ -4296,6 +4298,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     Top = 40
   end
   inherited fdQryTabela: TFDQuery
+    Active = True
     BeforeCancel = fdQryTabelaBeforeCancel
     AfterCancel = fdQryTabelaAfterCancel
     AfterScroll = fdQryTabelaAfterScroll
@@ -4315,6 +4318,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       '  , c.TIPO_MOVIMENTO'
       '  , c.NF'
       '  , c.NFSERIE'
+      '  , c.NFNSU'
       '  , c.VERIFICADOR_NFE'
       '  , c.XML_NFE_FILENAME'
       '  , c.LOTE_NFE_ANO'
@@ -4433,6 +4437,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       FieldName = 'NFSERIE'
       Origin = 'NFSERIE'
       Size = 4
+    end
+    object fdQryTabelaNFNSU: TStringField
+      FieldName = 'NFNSU'
+      Origin = 'NFNSU'
     end
     object fdQryTabelaVERIFICADOR_NFE: TStringField
       FieldName = 'VERIFICADOR_NFE'
@@ -4724,26 +4732,26 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     InsertSQL.Strings = (
       'INSERT INTO TBCOMPRAS'
       '(ANO, CODCONTROL, CODEMP, CODFORN, TIPO_ENTRADA, '
-      '  TIPO_DOCUMENTO, TIPO_MOVIMENTO, NF, NFSERIE, '
-      '  LOTE_NFE_ANO, LOTE_NFE_NUMERO, LOTE_NFE_RECIBO, '
-      '  VERIFICADOR_NFE, XML_NFE_FILENAME, DTLANCAMENTO, '
-      '  DTEMISS, DTENT, NFCFOP, NATUREZA, STATUS, '
-      '  CALCULAR_TOTAIS, IPI, ICMSBASE, ICMSVALOR, '
-      '  ICMSSUBSTBASE, ICMSSUBSTVALOR, FRETE, OUTROSCUSTOS, '
-      '  DESCONTO, TOTALPROD, TOTALNF, OBS, USUARIO, '
-      '  FORMAPAGTO_COD, CONDICAOPAGTO_COD, COMPRA_PRAZO, '
-      '  PRAZO_01, PRAZO_02, PRAZO_03, PRAZO_04, '
-      '  PRAZO_05, PRAZO_06, PRAZO_07, PRAZO_08, '
-      '  PRAZO_09, PRAZO_10, PRAZO_11, PRAZO_12, '
-      '  DTFINALIZACAO_COMPRA, TIPO_DESPESA, CANCEL_USUARIO, '
-      '  CANCEL_DATAHORA, CANCEL_MOTIVO, AUTORIZACAO_ANO, '
+      '  TIPO_DOCUMENTO, TIPO_MOVIMENTO, NF, NFSERIE, NFNSU,'
+      '  LOTE_NFE_ANO, LOTE_NFE_NUMERO, LOTE_NFE_RECIBO,'
+      '  VERIFICADOR_NFE, XML_NFE_FILENAME, DTLANCAMENTO,'
+      '  DTEMISS, DTENT, NFCFOP, NATUREZA, STATUS,'
+      '  CALCULAR_TOTAIS, IPI, ICMSBASE, ICMSVALOR,'
+      '  ICMSSUBSTBASE, ICMSSUBSTVALOR, FRETE, OUTROSCUSTOS,'
+      '  DESCONTO, TOTALPROD, TOTALNF, OBS, USUARIO,'
+      '  FORMAPAGTO_COD, CONDICAOPAGTO_COD, COMPRA_PRAZO,'
+      '  PRAZO_01, PRAZO_02, PRAZO_03, PRAZO_04,'
+      '  PRAZO_05, PRAZO_06, PRAZO_07, PRAZO_08,'
+      '  PRAZO_09, PRAZO_10, PRAZO_11, PRAZO_12,'
+      '  DTFINALIZACAO_COMPRA, TIPO_DESPESA, CANCEL_USUARIO,'
+      '  CANCEL_DATAHORA, CANCEL_MOTIVO, AUTORIZACAO_ANO,'
       '  AUTORIZACAO_CODIGO, AUTORIZACAO_EMPRESA)'
       
         'VALUES (:NEW_ANO, :NEW_CODCONTROL, :NEW_CODEMP, :NEW_CODFORN, :N' +
-        'EW_TIPO_ENTRADA, '
+        'EW_TIPO_ENTRADA,'
       
         '  :NEW_TIPO_DOCUMENTO, :NEW_TIPO_MOVIMENTO, :NEW_NF, :NEW_NFSERI' +
-        'E, '
+        'E, :NEW_NFNSU,'
       
         '  :NEW_LOTE_NFE_ANO, :NEW_LOTE_NFE_NUMERO, :NEW_LOTE_NFE_RECIBO,' +
         ' '
@@ -4786,8 +4794,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         '  TIPO_DOCUMENTO = :NEW_TIPO_DOCUMENTO, TIPO_MOVIMENTO = :NEW_TI' +
         'PO_MOVIMENTO, '
       
-        '  NF = :NEW_NF, NFSERIE = :NEW_NFSERIE, LOTE_NFE_ANO = :NEW_LOTE' +
-        '_NFE_ANO, '
+        '  NF = :NEW_NF, NFSERIE = :NEW_NFSERIE, NFNSU = :NEW_NFNSU, LOTE' +
+        '_NFE_ANO = :NEW_LOTE_NFE_ANO,'
       
         '  LOTE_NFE_NUMERO = :NEW_LOTE_NFE_NUMERO, LOTE_NFE_RECIBO = :NEW' +
         '_LOTE_NFE_RECIBO, '

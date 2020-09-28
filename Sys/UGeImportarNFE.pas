@@ -248,6 +248,10 @@ type
     btnImprimir: TcxButton;
     dbOBS: TDBMemo;
     Label2: TLabel;
+    cdsProdutoFornecedor: TFDQuery;
+    updProdutoFornecedor: TFDUpdateSQL;
+    cdsNota: TFDQuery;
+    updNota: TFDUpdateSQL;
     procedure EmpresaCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure ApenasNumeroKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -264,8 +268,10 @@ type
     procedure GrdProdutosDBTableViewCadastroPropertiesButtonClick(Sender: TObject; AButtonIndex: Integer);
     procedure btnImprimirClick(Sender: TObject);
     procedure edArquivoXMLPropertiesChange(Sender: TObject);
+    procedure btnConfirmarClick(Sender: TObject);
   private
     { Private declarations }
+    FNSU : String;
     sQuebraLinha : String;
     vTroco       : Currency;
 
@@ -300,6 +306,8 @@ type
 
     procedure CadastrarFornecedor;
     procedure CadastrarTransportadora;
+    procedure CadastrarNotaImportada;
+    procedure CadastrarProdutoFornecedor;
 
     function IfThenX(AValue: Boolean; const ATrue: String; AFalse: string = ''): string;
 //    function QuebraLinha: String;
@@ -346,7 +354,7 @@ type
 var
   frmGeImportarNFE: TfrmGeImportarNFE;
 
-  function ImportarNFE(const AOnwer : TComponent; aChave : String) : Boolean;
+  function ImportarNFE(const AOnwer : TComponent; aChave, aNSU : String; var aFileName : TFileName) : Boolean;
 
 implementation
 
@@ -363,17 +371,18 @@ uses
 
 { TfrmGeImportarNFE }
 
-function ImportarNFE(const AOnwer : TComponent; aChave : String) : Boolean;
+function ImportarNFE(const AOnwer : TComponent; aChave, aNSU : String; var aFileName : TFileName) : Boolean;
 begin
   frmGeImportarNFE := TfrmGeImportarNFE.Create(AOnwer);
   try
+    frmGeImportarNFE.FNSU := aNSU.Trim;
     frmGeImportarNFE.edChaveNFe.Text := StrOnlyNumbers(aChave.Trim);
     frmGeImportarNFE.btnManifesto.Click;
 
     Result := (frmGeImportarNFE.ShowModal = mrOk);
 
     if Result then
-      ;
+      aFileName := frmGeImportarNFE.edArquivoXML.Text;
   finally
     frmGeImportarNFE.FreeOnRelease;
   end;
@@ -401,6 +410,17 @@ begin
     btnConfirmar.Enabled := (gUsuarioLogado.Empresa = StrOnlyNumbers(cdsDestinatario.FieldByName('CNPJCPF').AsString));
     if (not btnConfirmar.Enabled) then
       ShowWarning('Arquivo XML de NF-e não pertence a empresa ' + QuotedStr(dbRazaoSocialEmpresa.Field.AsString) + '.');
+  end;
+end;
+
+procedure TfrmGeImportarNFE.btnConfirmarClick(Sender: TObject);
+begin
+  if FileExists(edArquivoXML.Text) then
+  begin
+    CadastrarNotaImportada;
+    CadastrarProdutoFornecedor;
+
+    ModalResult := mrOk;
   end;
 end;
 
@@ -565,6 +585,100 @@ begin
   end;
 end;
 
+procedure TfrmGeImportarNFE.CadastrarNotaImportada;
+begin
+  if cdsEmitente.IsEmpty or FNSU.IsEmpty or (not FileExists(edArquivoXML.Text)) then
+    Abort;
+
+  with DMNFe.ACBrNFe do
+  begin
+    NotasFiscais.Clear;
+    NotasFiscais.LoadFromFile(edArquivoXML.Text, False );
+
+    with NotasFiscais.Items[0].NFe do
+    begin
+      // Buscar Nota Importada
+      cdsNota.Close;
+      cdsNota.ParamByName('empresa').AsString := OnlyNumber(cdsDestinatario.FieldByName('CNPJCPF').AsString);
+      cdsNota.ParamByName('nsu').AsString     := FNSU.Trim;
+      cdsNota.Open;
+
+      if cdsNota.IsEmpty then
+      begin
+        cdsNota.Append;
+
+        cdsNota.FieldByName('empresa').AsString := OnlyNumber(cdsDestinatario.FieldByName('CNPJCPF').AsString);
+        cdsNota.FieldByName('nsu').AsString     := FNSU.Trim;
+        cdsNota.FieldByName('emissor_cnpj').AsString    := cdsEmitente.FieldByName('CNPJ').AsString;
+        cdsNota.FieldByName('emissor_codigo').AsInteger := StrToInt(edFornecedorCadastro.Text);
+        cdsNota.FieldByName('serie').AsString        := FormatFloat('###00', Ide.serie);
+        cdsNota.FieldByName('numero').AsString       := FormatFloat('###0000000', Ide.cNF);
+        cdsNota.FieldByName('emissao').AsDateTime    := Ide.dEmi;
+        cdsNota.FieldByName('valor').AsCurrency      := Total.ICMSTot.vNF;
+        cdsNota.FieldByName('protocolo').AsString    := procNFe.nProt;
+        cdsNota.FieldByName('chave').AsString        := procNFe.chNFe;
+        cdsNota.FieldByName('usuario').AsString      := gUsuarioLogado.Login;
+
+        // Arquivo
+        cdsNota.FieldByName('xml_filename').AsString := ExtractFileName(edArquivoXML.Text);
+        cdsNota.FieldByName('datahora_importacao').AsDateTime := Now;
+        TMemoField(cdsNota.FieldByName('xml_file')).LoadFromFile( edArquivoXML.Text );
+
+        cdsNota.Post;
+        cdsNota.ApplyUpdates;
+        cdsNota.CommitUpdates;
+
+        CommitTransaction;
+      end;
+    end;
+
+    NotasFiscais.Clear;
+  end;
+end;
+
+procedure TfrmGeImportarNFE.CadastrarProdutoFornecedor;
+begin
+  if cdsDadosProdutos.IsEmpty then
+    Abort;
+
+  cdsDadosProdutos.DisableControls;
+  try
+    cdsDadosProdutos.First;
+    while not cdsDadosProdutos.Eof do
+    begin
+      if (Trim(cdsDadosProdutos.FieldByName('ID').AsString) <> EmptyStr) then
+      begin
+        // Buscar Produto x FOrnecedor
+        cdsProdutoFornecedor.Close;
+        cdsProdutoFornecedor.ParamByName('cnpj').AsString    := OnlyNumber(cdsEmitente.FieldByName('CNPJ').AsString);
+        cdsProdutoFornecedor.ParamByName('produto').AsString := cdsDadosProdutos.FieldByName('CProd').AsString;
+        cdsProdutoFornecedor.Open;
+
+        // Cadastrar referência Produto x FOrnecedor
+        if cdsProdutoFornecedor.IsEmpty then
+        begin
+          cdsProdutoFornecedor.Append;
+          cdsProdutoFornecedor.FieldByName('fornecedor_cnpj').AsString    := OnlyNumber(cdsEmitente.FieldByName('CNPJ').AsString);
+          cdsProdutoFornecedor.FieldByName('fornecedor_produto').AsString := cdsDadosProdutos.FieldByName('CProd').AsString;
+          cdsProdutoFornecedor.FieldByName('cd_fornecedor').AsInteger     := StrToIntDef(edFornecedorCadastro.Text, 0);
+          cdsProdutoFornecedor.FieldByName('cd_produto').AsString         := cdsDadosProdutos.FieldByName('ID').AsString;
+          cdsProdutoFornecedor.Post;
+        end;
+      end;
+
+      cdsDadosProdutos.Next;
+    end;
+
+    cdsProdutoFornecedor.ApplyUpdates;
+    cdsProdutoFornecedor.CommitUpdates;
+
+    CommitTransaction;
+  finally
+    cdsDadosProdutos.First;
+    cdsDadosProdutos.EnableControls;
+  end;
+end;
+
 procedure TfrmGeImportarNFE.CadastrarTransportadora;
 var
   I : Integer;
@@ -703,13 +817,21 @@ begin
 
     SetControlsDataSets;
 
-    IdentificarFornecedor(cdsEmitente.FieldByName('CNPJ').AsString);
-    if fdQryFornecedor.IsEmpty then
-      CadastrarFornecedor;
+    // Fornecedor
+    if (Trim(cdsEmitente.FieldByName('CNPJ').AsString) <> EmptyStr) then
+    begin
+      IdentificarFornecedor(cdsEmitente.FieldByName('CNPJ').AsString);
+      if fdQryFornecedor.IsEmpty then
+        CadastrarFornecedor;
+    end;
 
-    IdentificarTransportadora(cdsTransportador.FieldByName('CNPJCPF').AsString);
-    if fdQryFornecedor.IsEmpty then
-      CadastrarTransportadora;
+    // Transportadora
+    if (Trim(cdsTransportador.FieldByName('CNPJCPF').AsString) <> EmptyStr) then
+    begin
+      IdentificarTransportadora(cdsTransportador.FieldByName('CNPJCPF').AsString);
+      if fdQryFornecedor.IsEmpty then
+        CadastrarTransportadora;
+    end;
   finally
     pgcNFe.ActivePage := tbsNFe;
     cdsDadosProdutos.First;
@@ -1766,7 +1888,8 @@ end;
 
 procedure TfrmGeImportarNFE.edArquivoXMLPropertiesChange(Sender: TObject);
 begin
-  btnImprimir.Enabled := FileExists(Trim(edArquivoXML.Text));
+  btnConfirmar.Enabled := FileExists(Trim(edArquivoXML.Text));
+  btnImprimir.Enabled  := FileExists(Trim(edArquivoXML.Text));
 end;
 
 procedure TfrmGeImportarNFE.edFornecedorCadastroButtonClick(Sender: TObject);
@@ -1837,6 +1960,8 @@ begin
 
   DMNFe.LerConfiguracao(gUsuarioLogado.Empresa);
   edArquivoXML.Text := StringReplace(DMNFe.ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\Down\', '\\', '\', [rfReplaceAll]);
+
+  FNSU := EmptyStr;
 end;
 
 procedure TfrmGeImportarNFE.FormKeyDown(Sender: TObject; var Key: Word;

@@ -211,6 +211,7 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     OptionsImage.ImageIndex = 20
     OptionsImage.Images = DMRecursos.ImgPrincipal16x16
     TabOrder = 3
+    OnClick = btnConfirmarClick
   end
   object btFechar: TcxButton
     Left = 828
@@ -2187,8 +2188,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           TabOrder = 1
           OnEnter = GrdProdutosEnter
           OnExit = GrdProdutosExit
-          ExplicitTop = 0
-          ExplicitHeight = 322
           object GrdDuplicatasDBTableView: TcxGridDBTableView
             Navigator.Buttons.CustomButtons = <>
             DataController.DataSource = dtsDuplicatas
@@ -2261,8 +2260,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           Align = alTop
           Caption = 'Observa'#231#245'es'
           FocusControl = dbMensagemFiscal
-          ExplicitLeft = 0
-          ExplicitTop = 0
           ExplicitWidth = 63
         end
         object dbOBS: TDBMemo
@@ -2289,11 +2286,14 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Top = 593
     Width = 92
     Height = 33
+    Hint = 'Visualizar/Imprimir DANFE'
     Anchors = [akRight, akBottom]
     Caption = '&DANFE'
     Enabled = False
     OptionsImage.ImageIndex = 62
     OptionsImage.Images = DMRecursos.ImgPrincipal16x16
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 4
     OnClick = btnImprimirClick
   end
@@ -2726,5 +2726,166 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       'WHERE CODFORN = :OLD_CODFORN')
     Left = 112
     Top = 488
+  end
+  object cdsProdutoFornecedor: TFDQuery
+    Active = True
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updProdutoFornecedor
+    SQL.Strings = (
+      'Select'
+      '    p.fornecedor_cnpj'
+      '  , p.fornecedor_produto'
+      '  , p.cd_fornecedor'
+      '  , p.cd_produto'
+      'from TBFORNECEDOR_PRODUTO p'
+      'where (p.fornecedor_cnpj = :cnpj)'
+      '  and (p.fornecedor_produto = :produto)'
+      '')
+    Left = 288
+    Top = 496
+    ParamData = <
+      item
+        Name = 'CNPJ'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'PRODUTO'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 30
+      end>
+  end
+  object updProdutoFornecedor: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBFORNECEDOR_PRODUTO'
+      '(FORNECEDOR_CNPJ, FORNECEDOR_PRODUTO, CD_FORNECEDOR, '
+      '  CD_PRODUTO)'
+      
+        'VALUES (:NEW_FORNECEDOR_CNPJ, :NEW_FORNECEDOR_PRODUTO, :NEW_CD_F' +
+        'ORNECEDOR, '
+      '  :NEW_CD_PRODUTO)')
+    ModifySQL.Strings = (
+      'UPDATE TBFORNECEDOR_PRODUTO'
+      
+        'SET FORNECEDOR_CNPJ = :NEW_FORNECEDOR_CNPJ, FORNECEDOR_PRODUTO =' +
+        ' :NEW_FORNECEDOR_PRODUTO, '
+      
+        '  CD_FORNECEDOR = :NEW_CD_FORNECEDOR, CD_PRODUTO = :NEW_CD_PRODU' +
+        'TO'
+      
+        'WHERE FORNECEDOR_CNPJ = :OLD_FORNECEDOR_CNPJ AND FORNECEDOR_PROD' +
+        'UTO = :OLD_FORNECEDOR_PRODUTO')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBFORNECEDOR_PRODUTO'
+      
+        'WHERE FORNECEDOR_CNPJ = :OLD_FORNECEDOR_CNPJ AND FORNECEDOR_PROD' +
+        'UTO = :OLD_FORNECEDOR_PRODUTO')
+    FetchRowSQL.Strings = (
+      
+        'SELECT FORNECEDOR_CNPJ, FORNECEDOR_PRODUTO, CD_FORNECEDOR, CD_PR' +
+        'ODUTO'
+      'FROM TBFORNECEDOR_PRODUTO'
+      
+        'WHERE FORNECEDOR_CNPJ = :OLD_FORNECEDOR_CNPJ AND FORNECEDOR_PROD' +
+        'UTO = :OLD_FORNECEDOR_PRODUTO')
+    Left = 304
+    Top = 512
+  end
+  object cdsNota: TFDQuery
+    Active = True
+    CachedUpdates = True
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    UpdateObject = updNota
+    SQL.Strings = (
+      'Select'
+      '    n.empresa'
+      '  , n.nsu'
+      '  , n.emissor_cnpj'
+      '  , n.emissor_codigo'
+      '  , n.serie'
+      '  , n.numero'
+      '  , n.emissao'
+      '  , n.valor'
+      '  , n.protocolo'
+      '  , n.chave'
+      '  , n.xml_filename'
+      '  , n.xml_file'
+      '  , n.usuario'
+      '  , n.datahora_importacao'
+      'from TBNFE_IMPORTADA n'
+      'where (n.empresa = :empresa)'
+      '  and (n.nsu = :nsu)'
+      '')
+    Left = 424
+    Top = 488
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'NSU'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 20
+      end>
+  end
+  object updNota: TFDUpdateSQL
+    Connection = DMBusiness.fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO TBNFE_IMPORTADA'
+      '(EMPRESA, NSU, EMISSOR_CNPJ, EMISSOR_CODIGO, '
+      '  SERIE, NUMERO, EMISSAO, VALOR, PROTOCOLO, '
+      '  CHAVE, XML_FILENAME, XML_FILE, USUARIO, '
+      '  DATAHORA_IMPORTACAO)'
+      
+        'VALUES (:NEW_EMPRESA, :NEW_NSU, :NEW_EMISSOR_CNPJ, :NEW_EMISSOR_' +
+        'CODIGO, '
+      
+        '  :NEW_SERIE, :NEW_NUMERO, :NEW_EMISSAO, :NEW_VALOR, :NEW_PROTOC' +
+        'OLO, '
+      '  :NEW_CHAVE, :NEW_XML_FILENAME, :NEW_XML_FILE, :NEW_USUARIO, '
+      '  :NEW_DATAHORA_IMPORTACAO)')
+    ModifySQL.Strings = (
+      'UPDATE TBNFE_IMPORTADA'
+      
+        'SET EMPRESA = :NEW_EMPRESA, NSU = :NEW_NSU, EMISSOR_CNPJ = :NEW_' +
+        'EMISSOR_CNPJ, '
+      '  EMISSOR_CODIGO = :NEW_EMISSOR_CODIGO, SERIE = :NEW_SERIE, '
+      
+        '  NUMERO = :NEW_NUMERO, EMISSAO = :NEW_EMISSAO, VALOR = :NEW_VAL' +
+        'OR, '
+      
+        '  PROTOCOLO = :NEW_PROTOCOLO, CHAVE = :NEW_CHAVE, XML_FILENAME =' +
+        ' :NEW_XML_FILENAME, '
+      
+        '  XML_FILE = :NEW_XML_FILE, USUARIO = :NEW_USUARIO, DATAHORA_IMP' +
+        'ORTACAO = :NEW_DATAHORA_IMPORTACAO'
+      'WHERE EMPRESA = :OLD_EMPRESA AND NSU = :OLD_NSU')
+    DeleteSQL.Strings = (
+      'DELETE FROM TBNFE_IMPORTADA'
+      'WHERE EMPRESA = :OLD_EMPRESA AND NSU = :OLD_NSU')
+    FetchRowSQL.Strings = (
+      
+        'SELECT EMPRESA, NSU, EMISSOR_CNPJ, EMISSOR_CODIGO, SERIE, NUMERO' +
+        ', EMISSAO, '
+      '  VALOR, PROTOCOLO, CHAVE, XML_FILENAME, XML_FILE, USUARIO, '
+      '  DATAHORA_IMPORTACAO'
+      'FROM TBNFE_IMPORTADA'
+      'WHERE EMPRESA = :OLD_EMPRESA AND NSU = :OLD_NSU')
+    Left = 440
+    Top = 504
   end
 end
