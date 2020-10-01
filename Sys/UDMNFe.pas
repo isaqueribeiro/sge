@@ -6021,6 +6021,10 @@ var
   aXML : TStringList;
 begin
 (*
+  IMR - 30/09/2020 :
+    Inserção do bloco IF..THEN (137) para tratar a falta de sincroniza do ambiente nacional
+    com a SEFA do estado quanto a confirmação do manifesto.
+
   IMR - 10/08/2017 :
     Alteração na forma de execução do download das NFs, a partir da nova função
     "DistribuicaoDFePorChaveNFe()".
@@ -6042,8 +6046,18 @@ begin
 
           if (WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Count > 0) then
           begin
-            aXML.Text   := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[0].XML;
+            aXML.Text := WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Items[0].XML;
             aXML.SaveToFile(FileNameXML);
+          end
+          else
+          if (WebServices.DistribuicaoDFe.retDistDFeInt.cStat = 137) then // 137 - Nenhum documento localizado
+          begin
+            ShowWarning('Arquivo XML não disponível para download.' + #13 +
+              WebServices.DistribuicaoDFe.retDistDFeInt.cStat.ToString + ' - ' + WebServices.DistribuicaoDFe.retDistDFeInt.xMotivo + #13#13 +
+              'Motivo: Ambiente nacional ainda não sincronizou o evento de manifesto com a SEFA.');
+            Result := False;
+
+            Exit;
           end
           else
             raise Exception.Create('Arquivo XML não disponível para download.' + #13 +

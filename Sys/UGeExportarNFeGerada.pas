@@ -38,7 +38,7 @@ type
     edDiretorioExportacao: TJvDirectoryEdit;
     cdsNFe: TFDQuery;
     cdsNFeSERIE: TStringField;
-    cdsNFeNUMERO: TIntegerField;
+    cdsNFeNUMERO: TStringField;
     cdsNFeDATAEMISSAO: TDateField;
     cdsNFeHORAEMISSAO: TTimeField;
     cdsNFeXML_FILENAME: TStringField;

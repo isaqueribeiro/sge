@@ -358,7 +358,7 @@ inherited frmGeExportarNFeGerada: TfrmGeExportarNFeGerada
         '  left join TBCOMPRAS cmp on (cmp.ano = nfe.anocompra and cmp.co' +
         'dcontrol = nfe.numcompra)'
       ''
-      'where nfe.dataemissao between :data_inicial and :data_final'
+      'where (nfe.dataemissao between :data_inicial and :data_final)'
       '  and (:todas = 1 or ('
       
         '    (:entradas = 1 and nfe.anocompra is not null) or (:saidas = ' +
@@ -367,9 +367,31 @@ inherited frmGeExportarNFeGerada: TfrmGeExportarNFeGerada
       '  and (nfe.empresa = :empresa)'
       '  and (1 = 1)'
       ''
-      'order by'
+      'union'
+      ''
+      'Select'
       '    nfe.serie'
-      '  , nfe.numero')
+      '  , nfe.numero'
+      '  , nfe.emissao as dataemissao'
+      '  , cast('#39'00:00:00'#39' as time) as horaemissao'
+      '  , nfe.xml_filename'
+      '  , nfe.xml_file'
+      '  , null as anovenda'
+      '  , null as numvenda'
+      '  , cmp.ano as anocompra'
+      '  , cmp.codcontrol as numcompra'
+      '  , 0 as Saida'
+      '  , 1 as Entrada'
+      'from TBNFE_IMPORTADA nfe'
+      
+        '  left join TBCOMPRAS cmp on (cmp.codemp = nfe.empresa and cmp.n' +
+        'fnsu = nfe.nsu)'
+      'where (nfe.emissao between :data_inicial and :data_final)'
+      '  and ((:todas = 1) or (:entradas = 1))'
+      ''
+      'order by'
+      '    3'
+      '  , 4')
     Left = 479
     Top = 16
     ParamData = <
@@ -410,14 +432,15 @@ inherited frmGeExportarNFeGerada: TfrmGeExportarNFeGerada
       FieldName = 'SERIE'
       Origin = 'SERIE'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
       Size = 4
     end
-    object cdsNFeNUMERO: TIntegerField
+    object cdsNFeNUMERO: TStringField
+      AutoGenerateValue = arDefault
       FieldName = 'NUMERO'
       Origin = 'NUMERO'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
+      ProviderFlags = [pfInKey]
+      ReadOnly = True
+      Size = 11
     end
     object cdsNFeDATAEMISSAO: TDateField
       FieldName = 'DATAEMISSAO'

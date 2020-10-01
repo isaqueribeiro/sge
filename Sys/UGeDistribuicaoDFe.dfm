@@ -588,7 +588,7 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
   end
   object StyleRepository: TcxStyleRepository
     Left = 392
-    Top = 312
+    Top = 296
     PixelsPerInch = 96
     object StyleSelecao: TcxStyle
       AssignedValues = [svColor, svFont, svTextColor]
@@ -628,5 +628,49 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
     end
+  end
+  object cdsNSU: TFDQuery
+    Connection = DMBusiness.fdConexao
+    Transaction = DMBusiness.fdTransacao
+    UpdateTransaction = DMBusiness.fdTransacao
+    SQL.Strings = (
+      'Select distinct'
+      '    nsu'
+      'from ('
+      '    Select'
+      '      n.nsu'
+      '    from TBNFE_IMPORTADA n'
+      '    where (n.empresa = :empresa)'
+      '      and (:todos = 1)'
+      '    '
+      '    union'
+      '    '
+      '    Select'
+      '      max(n.nsu)'
+      '    from TBNFE_IMPORTADA n'
+      '    where (n.empresa = :empresa)'
+      '      and (:maximo = 1)'
+      ')'
+      'where nsu is not null')
+    Left = 388
+    Top = 344
+    ParamData = <
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 18
+        Value = Null
+      end
+      item
+        Name = 'TODOS'
+        DataType = ftInteger
+        ParamType = ptInput
+      end
+      item
+        Name = 'MAXIMO'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
   end
 end

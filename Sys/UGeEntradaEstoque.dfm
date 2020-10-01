@@ -734,7 +734,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Top = 80
           Width = 89
           Height = 21
-          Alignment = taCenter
           ButtonHint = 'Pesquisar CFOP (Ctrl+P)'
           CharCase = ecUpperCase
           ClickKey = 16464
@@ -811,7 +810,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
           Top = 80
           Width = 121
           Height = 21
-          Alignment = taRightJustify
           ButtonHint = 'Pesquisar Autoriza'#231#227'o (Ctrl+P)'
           CharCase = ecUpperCase
           ClickKey = 16464
@@ -4298,7 +4296,6 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     Top = 40
   end
   inherited fdQryTabela: TFDQuery
-    Active = True
     BeforeCancel = fdQryTabelaBeforeCancel
     AfterCancel = fdQryTabelaAfterCancel
     AfterScroll = fdQryTabelaAfterScroll

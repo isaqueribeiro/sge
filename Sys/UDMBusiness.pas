@@ -336,6 +336,7 @@ var
   function GetCountID(NomeTabela : String; const sWhere : String = '') : Largeint;
   function GetNumeroNFe(const aEmissorCNPJ : String; const aSerie, aModelo : Integer) : Largeint;
   function GetNumeroNFCe(const aEmissorCNPJ : String; const aSerie, aModelo : Integer) : Largeint;
+  function GetNumeroNSU(const aEmpresa : String) : Largeint;
   function GetGuidID38 : String;
   function GetPaisNomeDefault : String;
   function GetEstadoNomeDefault : String;
@@ -3535,6 +3536,44 @@ begin
     begin
       aNumero := (aNumero + 1);
       Inc(aControle);
+    end;
+  finally
+    Result := aNumero;
+  end;
+end;
+
+function GetNumeroNSU(const aEmpresa : String) : Largeint;
+var
+  aNumero : Largeint;
+begin
+  aNumero := 0;
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Select');
+      SQL.Add('    min(n.nsu) as nsu_min');
+      SQL.Add('from TBNFE_IMPORTADA');
+      SQL.Add('where (empresa = ' + QuotedStr(aEmpresa) + ')');
+      Open;
+
+      aNumero := StrToInt64Def(FieldByName('nsu_min').AsString, 2) - 1;
+
+      if (aNumero = 0) then
+      begin
+        Close;
+        SQL.Clear;
+        SQL.Add('Select');
+        SQL.Add('    max(n.nsu) as nsu_max');
+        SQL.Add('from TBNFE_IMPORTADA');
+        SQL.Add('where (empresa = ' + QuotedStr(aEmpresa) + ')');
+        Open;
+
+        aNumero := StrToInt64Def(FieldByName('nsu_max').AsString, 0) + 1;
+      end;
+
+      Close;
     end;
   finally
     Result := aNumero;

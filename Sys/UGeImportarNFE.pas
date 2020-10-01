@@ -377,6 +377,7 @@ begin
   try
     frmGeImportarNFE.FNSU := aNSU.Trim;
     frmGeImportarNFE.edChaveNFe.Text := StrOnlyNumbers(aChave.Trim);
+    frmGeImportarNFE.btnConfirmar.Visible := True;
     frmGeImportarNFE.btnManifesto.Click;
 
     Result := (frmGeImportarNFE.ShowModal = mrOk);
@@ -601,6 +602,7 @@ begin
       cdsNota.Close;
       cdsNota.ParamByName('empresa').AsString := OnlyNumber(cdsDestinatario.FieldByName('CNPJCPF').AsString);
       cdsNota.ParamByName('nsu').AsString     := FNSU.Trim;
+      cdsNota.ParamByName('chave').AsString   := OnlyNumber(edChaveNFe.Text);
       cdsNota.Open;
 
       if cdsNota.IsEmpty then
@@ -663,14 +665,14 @@ begin
           cdsProdutoFornecedor.FieldByName('cd_fornecedor').AsInteger     := StrToIntDef(edFornecedorCadastro.Text, 0);
           cdsProdutoFornecedor.FieldByName('cd_produto').AsString         := cdsDadosProdutos.FieldByName('ID').AsString;
           cdsProdutoFornecedor.Post;
+
+          cdsProdutoFornecedor.ApplyUpdates;
+          cdsProdutoFornecedor.CommitUpdates;
         end;
       end;
 
       cdsDadosProdutos.Next;
     end;
-
-    cdsProdutoFornecedor.ApplyUpdates;
-    cdsProdutoFornecedor.CommitUpdates;
 
     CommitTransaction;
   finally
@@ -1737,14 +1739,17 @@ begin
           aNomeArquivoXML := aChave + '_view.xml';
           NotasFiscais.Items[0].GravarXML(aNomeArquivoXML, ExtractFilePath(aArquivoXmlNFe));
 
-          if (Trim(edChaveNFe.Text) = EmptyStr) then
-            edChaveNFe.Text := aChave;
+//          if (Trim(edChaveNFe.Text) = EmptyStr) then
+//            edChaveNFe.Text := aChave;
+//
+//          if (Trim(edChaveNFe.Text) <> aChave) then
+//          begin
+//            ShowError('Arquivo selecionado não pertence a chave informada!');
+//            Exit;
+//          end;
 
-          if (Trim(edChaveNFe.Text) <> aChave) then
-          begin
-            ShowError('Arquivo selecionado não pertence a chave informada!');
-            Exit;
-          end;
+          edChaveNFe.Text    := aChave;
+          edChaveNFe.Enabled := False;
 
           // Ler arquivo por completo e identificar os dados já referenciados
           CarregaDadosNFe;
@@ -1962,6 +1967,8 @@ begin
   edArquivoXML.Text := StringReplace(DMNFe.ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\Down\', '\\', '\', [rfReplaceAll]);
 
   FNSU := EmptyStr;
+
+  btnConfirmar.Visible := False;
 end;
 
 procedure TfrmGeImportarNFE.FormKeyDown(Sender: TObject; var Key: Word;

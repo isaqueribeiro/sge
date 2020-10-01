@@ -520,7 +520,7 @@ var
 
   function SelecionarEntrada(const AOwner : TComponent; var Ano, Controle : Integer; var Empresa : String) : Boolean;
   function SelecionarNFParaDevolver(const AOwner : TComponent; var Ano, Controle : Integer;
-    var Empresa : String; var Emissao : TDateTime; var Serie, Numero, UF, Cnpj, IE : String) : Boolean;
+    var Empresa : String; var Emissao : TDateTime; var Serie, Numero, Chave, UF, Cnpj, IE : String) : Boolean;
 
 implementation
 
@@ -678,7 +678,7 @@ begin
 end;
 
 function SelecionarNFParaDevolver(const AOwner : TComponent; var Ano, Controle : Integer;
-  var Empresa : String; var Emissao : TDateTime; var Serie, Numero, UF, Cnpj, IE : String) : Boolean;
+  var Empresa : String; var Emissao : TDateTime; var Serie, Numero, Chave, UF, Cnpj, IE : String) : Boolean;
 var
   sWhr  : String;
   AForm : TfrmGeEntradaEstoque;
@@ -727,6 +727,7 @@ begin
           Emissao  := FieldByName('DTEMISS').AsDateTime;
           Serie    := FieldByName('NFSERIE').AsString;
           Numero   := FormatFloat('###0000000', FieldByName('NF').AsInteger);
+          Chave    := Trim(FieldByName('VERIFICADOR_NFE').AsString);
           UF       := EmptyStr;
           Cnpj     := FieldByName('CNPJ').AsString;
           IE       := EmptyStr;
@@ -1142,83 +1143,82 @@ begin
   aChaveNFe := EmptyStr;
   aNSU      := EmptyStr;
 
-  if TfrmDistribuicaoDFe
-    .getInstance(gUsuarioLogado.Empresa)
-    .&End(aEmissor, aUF, aChaveNFe, aNSU) then
-  begin
-    if ImportarNFE(Self, aChaveNFe, aNSU, aFileName) then
-      with DMNFe.ACBrNFe do
+  if not TfrmDistribuicaoDFe.getInstance(gUsuarioLogado.Empresa).&End(aEmissor, aUF, aChaveNFe, aNSU) then
+    aNSU := FormatFloat('000000000000000', GetNumeroNSU(gUsuarioLogado.Empresa));
+
+  if ImportarNFE(Self, aChaveNFe, aNSU, aFileName) then
+    with DMNFe.ACBrNFe do
+    begin
+      NotasFiscais.Clear;
+      NotasFiscais.LoadFromFile(aFileName, False );
+
+      with NotasFiscais.Items[0].NFe do
       begin
-        NotasFiscais.Clear;
-        NotasFiscais.LoadFromFile(aFileName, False );
+        DtSrcTabela.DataSet.Append;
 
-        with NotasFiscais.Items[0].NFe do
+        // Identificação
+        DtSrcTabela.DataSet.FieldByName('CODEMP').AsString    := StrOnlyNumbers(Dest.CNPJCPF);
+        DtSrcTabela.DataSet.FieldByName('TIPO_MOVIMENTO').AsInteger := Ord(TTipoMovimentoEntrada.tmeProduto);
+        DtSrcTabela.DataSet.FieldByName('TIPO_ENTRADA').AsInteger   := 4; // Outras -> VW_TIPO_ENTRADA
+        DtSrcTabela.DataSet.FieldByName('TIPO_DESPESA').AsInteger   := TIPO_RECEITA_PADRAO;
+        // Fornecedor
+        DtSrcTabela.DataSet.FieldByName('CODFORN').AsInteger  := GetFornecedorCodigo( StrOnlyNumbers(Emit.CNPJCPF) );
+        DtSrcTabela.DataSet.FieldByName('CNPJ').AsString      := StrOnlyNumbers(Emit.CNPJCPF);
+        DtSrcTabela.DataSet.FieldByName('NOMEFORN').AsString  := Emit.xNome;
+        // Documento
+        DtSrcTabela.DataSet.FieldByName('DTEMISS').AsDateTime       := Ide.dEmi;
+        DtSrcTabela.DataSet.FieldByName('TIPO_DOCUMENTO').AsInteger := TIPO_DOCUMENTO_ENTRADA_NFE;
+        DtSrcTabela.DataSet.FieldByName('NF').AsString        := FormatFloat('###0000000', Ide.cNF);
+        DtSrcTabela.DataSet.FieldByName('NFSERIE').AsString   := FormatFloat('###00', Ide.serie);
+        DtSrcTabela.DataSet.FieldByName('NFNSU').AsString     := aNSU;
+        // Valores
+        DtSrcTabela.DataSet.FieldByName('CALCULAR_TOTAIS').AsInteger := FLAG_NAO;
+        DtSrcTabela.DataSet.FieldByName('ICMSBASE').AsCurrency       := Total.ICMSTot.vBC;
+        DtSrcTabela.DataSet.FieldByName('ICMSVALOR').AsCurrency      := Total.ICMSTot.vICMS;
+        DtSrcTabela.DataSet.FieldByName('ICMSSUBSTBASE').AsCurrency  := Total.ICMSTot.vBCST;
+        DtSrcTabela.DataSet.FieldByName('ICMSSUBSTVALOR').AsCurrency := Total.ICMSTot.vST;
+        DtSrcTabela.DataSet.FieldByName('TOTALPROD').AsCurrency      := Total.ICMSTot.vProd;
+        DtSrcTabela.DataSet.FieldByName('FRETE').AsCurrency          := Total.ICMSTot.vFrete;
+        DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency       := Total.ICMSTot.vDesc;
+        DtSrcTabela.DataSet.FieldByName('IPI').AsCurrency            := Total.ICMSTot.vIPI;
+        DtSrcTabela.DataSet.FieldByName('OUTROSCUSTOS').AsCurrency   := Total.ICMSTot.vSeg + Total.ICMSTot.vII + Total.ICMSTot.vOutro;
+        DtSrcTabela.DataSet.FieldByName('TOTALNF').AsCurrency        := Total.ICMSTot.vNF;
+
+        // Produtos
+        for I := 0 to Det.Count - 1 do
         begin
-          DtSrcTabela.DataSet.Append;
-
-          // Identificação
-          DtSrcTabela.DataSet.FieldByName('CODEMP').AsString    := StrOnlyNumbers(Dest.CNPJCPF);
-          DtSrcTabela.DataSet.FieldByName('TIPO_MOVIMENTO').AsInteger := Ord(TTipoMovimentoEntrada.tmeProduto);
-          DtSrcTabela.DataSet.FieldByName('TIPO_ENTRADA').AsInteger   := 4; // Outras -> VW_TIPO_ENTRADA
-          // Fornecedor
-          DtSrcTabela.DataSet.FieldByName('CODFORN').AsInteger  := GetFornecedorCodigo( StrOnlyNumbers(Emit.CNPJCPF) );
-          DtSrcTabela.DataSet.FieldByName('CNPJ').AsString      := StrOnlyNumbers(Emit.CNPJCPF);
-          DtSrcTabela.DataSet.FieldByName('NOMEFORN').AsString  := Emit.xNome;
-          // Documento
-          DtSrcTabela.DataSet.FieldByName('DTEMISS').AsDateTime       := Ide.dEmi;
-          DtSrcTabela.DataSet.FieldByName('TIPO_DOCUMENTO').AsInteger := TIPO_DOCUMENTO_ENTRADA_NFE;
-          DtSrcTabela.DataSet.FieldByName('NF').AsString        := FormatFloat('###0000000', Ide.cNF);
-          DtSrcTabela.DataSet.FieldByName('NFSERIE').AsString   := FormatFloat('###00', Ide.serie);
-          DtSrcTabela.DataSet.FieldByName('NFNSU').AsString     := aNSU;
-          // Valores
-          DtSrcTabela.DataSet.FieldByName('CALCULAR_TOTAIS').AsInteger := FLAG_NAO;
-          DtSrcTabela.DataSet.FieldByName('ICMSBASE').AsCurrency       := Total.ICMSTot.vBC;
-          DtSrcTabela.DataSet.FieldByName('ICMSVALOR').AsCurrency      := Total.ICMSTot.vICMS;
-          DtSrcTabela.DataSet.FieldByName('ICMSSUBSTBASE').AsCurrency  := Total.ICMSTot.vBCST;
-          DtSrcTabela.DataSet.FieldByName('ICMSSUBSTVALOR').AsCurrency := Total.ICMSTot.vST;
-          DtSrcTabela.DataSet.FieldByName('TOTALPROD').AsCurrency      := Total.ICMSTot.vProd;
-          DtSrcTabela.DataSet.FieldByName('FRETE').AsCurrency          := Total.ICMSTot.vFrete;
-          DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency       := Total.ICMSTot.vDesc;
-          DtSrcTabela.DataSet.FieldByName('IPI').AsCurrency            := Total.ICMSTot.vIPI;
-          DtSrcTabela.DataSet.FieldByName('OUTROSCUSTOS').AsCurrency   := Total.ICMSTot.vSeg + Total.ICMSTot.vII + Total.ICMSTot.vOutro;
-          DtSrcTabela.DataSet.FieldByName('TOTALNF').AsCurrency        := Total.ICMSTot.vNF;
-
-          // Produtos
-          for I := 0 to Det.Count - 1 do
+          aProduto := GetProdutoFornecedorCodigo(StrOnlyNumbers(Emit.CNPJCPF), Det.Items[I].Prod.cProd);
+          if not aProduto.IsEmpty then
           begin
-            aProduto := GetProdutoFornecedorCodigo(StrOnlyNumbers(Emit.CNPJCPF), Det.Items[I].Prod.cProd);
-            if not aProduto.IsEmpty then
-            begin
-              DtSrcTabelaItens.DataSet.Append;
+            DtSrcTabelaItens.DataSet.Append;
 
-              DtSrcTabelaItens.DataSet.FieldByName('CODPROD').AsString   := aProduto;
-              CarregarDadosProduto( DtSrcTabelaItens.DataSet.FieldByName('CODPROD').AsInteger ); // Forçar carga da descrição do produto
+            DtSrcTabelaItens.DataSet.FieldByName('CODPROD').AsString   := aProduto;
+            CarregarDadosProduto( DtSrcTabelaItens.DataSet.FieldByName('CODPROD').AsInteger ); // Forçar carga da descrição do produto
 
-              DtSrcTabelaItens.DataSet.FieldByName('CFOP').AsString   := Det.Items[I].Prod.CFOP;
-              DtSrcTabelaItens.DataSet.FieldByName('NCM_SH').AsString := Det.Items[I].Prod.NCM;
+            DtSrcTabelaItens.DataSet.FieldByName('CFOP').AsString   := Det.Items[I].Prod.CFOP;
+            DtSrcTabelaItens.DataSet.FieldByName('NCM_SH').AsString := Det.Items[I].Prod.NCM;
 
-              if Emit.CRT = TpcnCRT.crtSimplesNacional then
-                DtSrcTabelaItens.DataSet.FieldByName('CSOSN').AsString := CSOSNIcmsToStr(Det.Items[I].Imposto.ICMS.CSOSN)
-              else
-                DtSrcTabelaItens.DataSet.FieldByName('CST').AsString   := CSTICMSToStr(Det.Items[I].Imposto.ICMS.CST);
+            if Emit.CRT = TpcnCRT.crtSimplesNacional then
+              DtSrcTabelaItens.DataSet.FieldByName('CSOSN').AsString := CSOSNIcmsToStr(Det.Items[I].Imposto.ICMS.CSOSN)
+            else
+              DtSrcTabelaItens.DataSet.FieldByName('CST').AsString   := CSTICMSToStr(Det.Items[I].Imposto.ICMS.CST);
 
-              DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency := Det.Items[I].Prod.qCom;
-              DtSrcTabelaItens.DataSet.FieldByName('PRECOUNIT').AsCurrency := Det.Items[I].Prod.qCom;
-              DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').AsCurrency := Det.Items[I].Prod.qCom;
+            DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency := Det.Items[I].Prod.qCom;
+            DtSrcTabelaItens.DataSet.FieldByName('PRECOUNIT').AsCurrency := Det.Items[I].Prod.qCom;
+            DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').AsCurrency := Det.Items[I].Prod.qCom;
 
-              ControlEditExit(dbValorUnit); // Forçar cálculo de totais do produto
+            ControlEditExit(dbValorUnit); // Forçar cálculo de totais do produto
 
-              DtSrcTabelaItens.DataSet.Post;
-            end;
+            DtSrcTabelaItens.DataSet.Post;
           end;
-
-          DtSrcTabela.DataSet.Post; // Salvar apenas na memória
-          DtSrcTabela.DataSet.Edit; // Colocar registro em edição para que usuário possa continuar o processo
         end;
 
-        NotasFiscais.Clear;
+        DtSrcTabela.DataSet.Post; // Salvar apenas na memória
+        DtSrcTabela.DataSet.Edit; // Colocar registro em edição para que usuário possa continuar o processo
       end;
-  end;
+
+      NotasFiscais.Clear;
+    end;
 end;
 
 procedure TfrmGeEntradaEstoque.AbrirTabelaDuplicatas(

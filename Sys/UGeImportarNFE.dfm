@@ -2728,7 +2728,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Top = 488
   end
   object cdsProdutoFornecedor: TFDQuery
-    Active = True
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -2799,7 +2798,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
     Top = 512
   end
   object cdsNota: TFDQuery
-    Active = True
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -2822,12 +2820,20 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       '  , n.usuario'
       '  , n.datahora_importacao'
       'from TBNFE_IMPORTADA n'
-      'where (n.empresa = :empresa)'
-      '  and (n.nsu = :nsu)'
+      'where (n.chave = :chave)'
+      '  or ((n.empresa = :empresa)'
+      '  and (n.nsu = :nsu))'
       '')
     Left = 424
     Top = 488
     ParamData = <
+      item
+        Name = 'CHAVE'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 250
+        Value = Null
+      end
       item
         Name = 'EMPRESA'
         DataType = ftString

@@ -203,6 +203,7 @@ var
   sEmpresa,
   sSerie  ,
   sNumero ,
+  sChave  ,
   sUF  ,
   sCnpj,
   sIE  : String;
@@ -210,13 +211,14 @@ var
 begin
   sEmpresa := cdsVendaCODEMP.AsString;
   if ( cdsVenda.State = dsEdit ) then
-    if SelecionarNFParaDevolver(Self, iANo, iControle, sEmpresa, dEmissao, sSerie, sNumero, sUF, sCnpj, sIE) then
+    if SelecionarNFParaDevolver(Self, iANo, iControle, sEmpresa, dEmissao, sSerie, sNumero, sChave, sUF, sCnpj, sIE) then
     begin
       cdsVendaDNFE_COMPRA_ANO.AsInteger := iAno;
       cdsVendaDNFE_COMPRA_COD.AsInteger := iControle;
       cdsVendaDNFE_COMPETENCIA.AsString := FormatDateTime('yymm', dEmissao);
       cdsVendaDNFE_SERIE.AsString    := sSerie;
       cdsVendaDNFE_NUMERO.AsInteger  := StrToInt(sNumero);
+      cdsVendaDNFE_CHAVE.AsString    := sChave;
       cdsVendaDNFE_UF.AsString       := sUF;
       cdsVendaDNFE_CNPJ_CPF.AsString := sCnpj;
       cdsVendaDNFE_IE.AsString       := sIE;

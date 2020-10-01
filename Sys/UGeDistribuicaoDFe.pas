@@ -66,6 +66,7 @@ type
     StyleContentEven: TcxStyle;
     cxStyleHeader: TcxStyle;
     cdsDocumentosUF: TStringField;
+    cdsNSU: TFDQuery;
     procedure fdQryEmpresaCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure FormShow(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -75,6 +76,9 @@ type
     { Private declarations }
     procedure CarregarEmpresa(const aEmpresa : String);
     procedure CarregarDocumentos;
+
+    function getNSUImportados(const aEmpresa : String) : String;
+    function GetUltimoNSUImportado(const aEmpresa : String) : Integer;
   public
     { Public declarations }
     class function getInstance(const aEmpresa : String) : TfrmDistribuicaoDFe;
@@ -85,9 +89,10 @@ type
 
 (*
   Tabelas:
+  - TBNFE_IMPORTADA
 
   Views:
-  = VW_EMPRESA
+  - VW_EMPRESA
 
   Procedures:
 *)
@@ -140,7 +145,7 @@ var
   aDocumento  : TDistribuicaoDFeDocumentoRetornado;
   aDocumentos : TDictionary<String, TDistribuicaoDFeDocumentoRetornado>;
 begin
-  aNSU := 0;
+  aNSU := GetUltimoNSUImportado(gUsuarioLogado.Empresa);
   aDocumentos := TDictionary<String, TDistribuicaoDFeDocumentoRetornado>.Create;
 
   if cdsDocumentos.Active then
@@ -150,6 +155,9 @@ begin
   end;
 
   cdsDocumentos.CreateDataSet;
+//  // Bloco de código se tornou desnecessário
+//  cdsDocumentos.Filter   := 'NOT (NSU IN ( ' + getNSUImportados(gUsuarioLogado.Empresa) + ' ) )';
+//  cdsDocumentos.Filtered := True;
 
   if not DMNFe.ExisteNFeParaBaixar(gUsuarioLogado.Empresa, aNSU, aFileXML, aRetorno, aDocumentos) then
     GrdDocumentosDBTableView.OptionsView.NoDataToDisplayInfoText := aRetorno.ToUpper
@@ -213,6 +221,55 @@ begin
   _instance.CarregarEmpresa(aEmpresa);
 
   Result := _instance;
+end;
+
+function TfrmDistribuicaoDFe.getNSUImportados(const aEmpresa : String): String;
+var
+  aRetorno : String;
+begin
+  aRetorno := QuotedStr('000000000000000');
+  try
+    cdsNSU.Close;
+    cdsNSU.ParamByName('empresa').AsString := aEmpresa;
+    cdsNSU.ParamByName('todos').AsInteger  := 1;
+    cdsNSU.ParamByName('maximo').AsInteger := 0;
+    cdsNSU.Open;
+
+    while not cdsNSU.Eof do
+    begin
+      aRetorno := aRetorno + ' , ' + QuotedStr(Trim(cdsNSU.FieldByName('nsu').AsString));
+      cdsNSU.Next;
+    end;
+
+    cdsNSU.Close;
+  finally
+    Result := aRetorno;
+  end;
+end;
+
+function TfrmDistribuicaoDFe.GetUltimoNSUImportado(const aEmpresa: String): Integer;
+var
+  aRetorno : Integer;
+begin
+  aRetorno := 0;
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Select');
+      SQL.Add('  max(n.nsu) as nsu_max');
+      SQL.Add('from TBNFE_IMPORTADA');
+      SQL.Add('where (empresa = ' + QuotedStr(aEmpresa) + ')');
+      Open;
+
+      aRetorno := StrToIntDef(cdsNSU.FieldByName('nsu_max').AsString, 0);
+
+      Close;
+    end;
+  finally
+    Result := aRetorno;
+  end;
 end;
 
 procedure TfrmDistribuicaoDFe.RegistrarRotinaSistema;

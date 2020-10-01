@@ -4671,6 +4671,7 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
+      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4712,7 +4713,6 @@ object frmPrinc: TfrmPrinc
       Index = 3
     end
     object RbnTabNota: TdxRibbonTab
-      Active = True
       Caption = 'Notas Fiscais (NF-e)'
       Groups = <
         item
@@ -5963,9 +5963,9 @@ object frmPrinc: TfrmPrinc
       ImageIndex = 40
     end
     object BrBtnNotaFiscalExportarNF: TdxBarLargeButton
-      Caption = 'Exportar NF-e(s) Gerada(s)'
+      Caption = 'Exportar NF-e(s) Gerada(s) e Importada(s)'
       Category = 10
-      Hint = 'Exportar NF-e(s) Gerada(s)'
+      Hint = 'Exportar NF-e(s) Gerada(s) e Importada(s)'
       Visible = ivAlways
       OnClick = nmExportarNFeGeradaClick
       HotImageIndex = 40

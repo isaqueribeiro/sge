@@ -1,6 +1,3 @@
-
-
-
 /*------ SYSDBA 31/08/2020 20:53:09 --------*/
 
 COMMENT ON TABLE SYS_LICENCA IS 'Tabela Licenca de Uso
@@ -558,13 +555,11 @@ FOREIGN KEY (CODEMP,NFNSU)
 REFERENCES TBNFE_IMPORTADA(EMPRESA,NSU);
 
 
-
-
-/*------ SYSDBA 22/09/2020 22:08:32 --------*/
+/*------ SYSDBA 30/09/2020 19:13:27 --------*/
 
 SET TERM ^ ;
 
-CREATE trigger tg_compras_ver_nfe_importada for tbcompras
+CREATE OR ALTER trigger tg_compras_ver_nfe_importada for tbcompras
 active before insert or update position 11
 AS
 begin
@@ -572,37 +567,28 @@ begin
     Select
       n.emissor_cnpj
     from TBNFE_IMPORTADA n
-    where n.empresa = new.codemp
-      and n.nsu = new.nfnsu
+    where (n.empresa = new.codemp)
+      and (n.nsu     = new.nfnsu)
   )) then
     new.nfnsu = null;
+  else
+  begin
+    Select
+        n.chave
+      , n.xml_file
+      , n.xml_filename
+    from TBNFE_IMPORTADA n
+    where (n.empresa = new.codemp)
+      and (n.nsu     = new.nfnsu)
+    Into
+        new.verificador_nfe
+      , new.xml_nfe
+      , new.xml_nfe_filename;
+  end
 end
 ^
 
 SET TERM ; ^
-
-COMMENT ON TRIGGER TG_COMPRAS_VER_NFE_IMPORTADA IS 'Trigger Verificar Nota Fiscal Importada (Entrada).
-
-    Autor   :   Isaque Marinho Ribeiro
-    Data    :   22/09/2020
-
-Trigger responsavel por verificar, atraves do NSU, a existencia da nota fiscal
-eletronica importada. Caso ela nao exista, o campo NSU recebera um valor NULL
-para evitar erro de integridade referencial.
-
-
-Historico:
-
-    Legendas:
-        + Novo objeto de banco (Campos, Triggers)
-        - Remocao de objeto de banco
-        * Modificacao no objeto de banco
-
-    22/09/2020 - IMR:
-        * Documentacao do objeto.';
-
-
-
 
 /*------ SYSDBA 28/09/2020 19:25:01 --------*/
 
@@ -630,7 +616,9 @@ Historico:
 
 
 
-/*------ SYSDBA 28/09/2020 19:25:10 --------*/
+
+
+/*------ SYSDBA 30/09/2020 19:16:55 --------*/
 
 SET TERM ^ ;
 
@@ -642,20 +630,22 @@ begin
     Select
       n.emissor_cnpj
     from TBNFE_IMPORTADA n
-    where n.empresa = new.codemp
-      and n.nsu = new.nfnsu
+    where (n.empresa = new.codemp)
+      and (n.nsu     = new.nfnsu)
   )) then
     new.nfnsu = null;
   else
   begin
     Select
-        n.xml_file
+        n.chave
+      , n.xml_file
       , n.xml_filename
     from TBNFE_IMPORTADA n
-    where n.empresa = new.codemp
-      and n.nsu = new.nfnsu
+    where (n.empresa = new.codemp)
+      and (n.nsu     = new.nfnsu)
     Into
-        new.xml_nfe
+        new.verificador_nfe
+      , new.xml_nfe
       , new.xml_nfe_filename;
   end
 end

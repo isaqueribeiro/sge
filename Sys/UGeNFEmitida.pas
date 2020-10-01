@@ -42,7 +42,6 @@ type
     fdQryTabelaNFE_DESTINATARIO_CNPJ: TStringField;
     fdQryTabelaNFE_DESTINATARIO_INSCEST: TStringField;
     fdQryTabelaNFE_DESTINATARIO_UF: TStringField;
-    fdQryTabelaNFE_VALOR_TOTAL: TBCDField;
     fdQryTabelaEMPRESA: TStringField;
     fdQryTabelaSERIE: TStringField;
     fdQryTabelaNUMERO: TIntegerField;
@@ -60,6 +59,7 @@ type
     fdQryTabelaXML_FILENAME: TStringField;
     fdQryTabelaXML_FILE: TMemoField;
     fdQryTabelaCANCELADA: TSmallintField;
+    fdQryTabelaNFE_VALOR_TOTAL: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -212,6 +212,12 @@ begin
 
   e1Data.Date := StrToDate('01/' + FormatDateTime('mm/yyyy', GetDateDB));
   e2Data.Date := GetDateDB;
+
+  // Configurar tabela de cadastro
+  Tabela
+    .Display('NUMERO', 'Número', '###0000000', TAlignment.taCenter)
+    .Display('NFE_VALOR_TOTAL', 'Valor NF (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
 end;
 
 procedure TfrmGeNFEmitida.btnFiltrarClick(Sender: TObject);
