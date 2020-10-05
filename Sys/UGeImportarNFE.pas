@@ -588,6 +588,9 @@ end;
 
 procedure TfrmGeImportarNFE.CadastrarNotaImportada;
 begin
+  if FNSU.IsEmpty then
+    FNSU := FormatFloat('000000000000000', GetNumeroNSU(gUsuarioLogado.Empresa));
+
   if cdsEmitente.IsEmpty or FNSU.IsEmpty or (not FileExists(edArquivoXML.Text)) then
     Abort;
 
@@ -631,7 +634,20 @@ begin
         cdsNota.CommitUpdates;
 
         CommitTransaction;
-      end;
+      end
+      else
+      if (cdsNota.FieldByName('compra_num').AsInteger = 0) then
+        if (StrToCurrDef(FNSU.Trim, 0) > StrToCurrDef(cdsNota.FieldByName('nsu').AsString, 0)) then
+        begin
+          cdsNota.Edit;
+          cdsNota.FieldByName('nsu').AsString := FNSU.Trim;
+
+          cdsNota.Post;
+          cdsNota.ApplyUpdates;
+          cdsNota.CommitUpdates;
+
+          CommitTransaction;
+        end;
     end;
 
     NotasFiscais.Clear;

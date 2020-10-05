@@ -1184,6 +1184,18 @@ begin
         DtSrcTabela.DataSet.FieldByName('OUTROSCUSTOS').AsCurrency   := Total.ICMSTot.vSeg + Total.ICMSTot.vII + Total.ICMSTot.vOutro;
         DtSrcTabela.DataSet.FieldByName('TOTALNF').AsCurrency        := Total.ICMSTot.vNF;
 
+        DtSrcTabela.DataSet.Post; // Salvar apenas na memória
+
+        AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString
+          , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
+          , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+
+        AbrirTabelaItens( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+        AbrirTabelaLotes( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+        AbrirTabelaDuplicatas( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+
+        DtSrcTabela.DataSet.Edit; // Colocar registro em edição para que usuário possa continuar o processo
+
         // Produtos
         for I := 0 to Det.Count - 1 do
         begin
@@ -1212,9 +1224,6 @@ begin
             DtSrcTabelaItens.DataSet.Post;
           end;
         end;
-
-        DtSrcTabela.DataSet.Post; // Salvar apenas na memória
-        DtSrcTabela.DataSet.Edit; // Colocar registro em edição para que usuário possa continuar o processo
       end;
 
       NotasFiscais.Clear;

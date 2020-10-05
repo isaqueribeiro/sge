@@ -3553,7 +3553,7 @@ begin
       Close;
       SQL.Clear;
       SQL.Add('Select');
-      SQL.Add('    min(n.nsu) as nsu_min');
+      SQL.Add('    min(nsu) as nsu_min');
       SQL.Add('from TBNFE_IMPORTADA');
       SQL.Add('where (empresa = ' + QuotedStr(aEmpresa) + ')');
       Open;
@@ -3565,7 +3565,7 @@ begin
         Close;
         SQL.Clear;
         SQL.Add('Select');
-        SQL.Add('    max(n.nsu) as nsu_max');
+        SQL.Add('    max(nsu) as nsu_max');
         SQL.Add('from TBNFE_IMPORTADA');
         SQL.Add('where (empresa = ' + QuotedStr(aEmpresa) + ')');
         Open;

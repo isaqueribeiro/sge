@@ -2819,7 +2819,12 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       '  , n.xml_file'
       '  , n.usuario'
       '  , n.datahora_importacao'
+      '  , c.ano as compra_ano'
+      '  , c.codcontrol as compra_num'
       'from TBNFE_IMPORTADA n'
+      
+        '  left join TBCOMPRAS c on (c.codemp = n.empresa and c.nfnsu = n' +
+        '.nsu)'
       'where (n.chave = :chave)'
       '  or ((n.empresa = :empresa)'
       '  and (n.nsu = :nsu))'
@@ -2884,13 +2889,28 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       'DELETE FROM TBNFE_IMPORTADA'
       'WHERE EMPRESA = :OLD_EMPRESA AND NSU = :OLD_NSU')
     FetchRowSQL.Strings = (
+      'Select'
+      '    n.empresa'
+      '  , n.nsu'
+      '  , n.emissor_cnpj'
+      '  , n.emissor_codigo'
+      '  , n.serie'
+      '  , n.numero'
+      '  , n.emissao'
+      '  , n.valor'
+      '  , n.protocolo'
+      '  , n.chave'
+      '  , n.xml_filename'
+      '  , n.xml_file'
+      '  , n.usuario'
+      '  , n.datahora_importacao'
+      '  , c.ano as compra_ano'
+      '  , c.codcontrol as compra_num'
+      'from TBNFE_IMPORTADA n'
       
-        'SELECT EMPRESA, NSU, EMISSOR_CNPJ, EMISSOR_CODIGO, SERIE, NUMERO' +
-        ', EMISSAO, '
-      '  VALOR, PROTOCOLO, CHAVE, XML_FILENAME, XML_FILE, USUARIO, '
-      '  DATAHORA_IMPORTACAO'
-      'FROM TBNFE_IMPORTADA'
-      'WHERE EMPRESA = :OLD_EMPRESA AND NSU = :OLD_NSU')
+        '  left join TBCOMPRAS c on (c.codemp = n.empresa and c.nfnsu = n' +
+        '.nsu)'
+      'WHERE n.EMPRESA = :OLD_EMPRESA AND n.NSU = :OLD_NSU')
     Left = 440
     Top = 504
   end

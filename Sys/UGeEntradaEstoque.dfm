@@ -1350,7 +1350,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         Top = 420
         Width = 1106
         Height = 185
-        ActivePage = tbsPagamento
+        ActivePage = TbsInformeNFe
         Align = alBottom
         HotTrack = True
         TabOrder = 4

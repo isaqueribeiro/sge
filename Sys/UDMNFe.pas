@@ -6404,7 +6404,7 @@ begin
       begin
         NotasFiscais.Clear;
 
-        aRetorno  := DistribuicaoDFe(qryEmitenteEST_COD.AsInteger, sCNPJ, FormatFloat('000000000000000', aNSU), EmptyStr, EmptyStr);
+        aRetorno  := DistribuicaoDFePorUltNSU(qryEmitenteEST_COD.AsInteger, sCNPJ, FormatFloat('000000000000000', aNSU));
         aFileName := TPath.Combine(Configuracoes.Arquivos.PathSalvar, FormatDateTime('yyyymmddhhmmss', Now) + '-dist-dfe.xml');
 
         if aRetorno then

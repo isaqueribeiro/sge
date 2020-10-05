@@ -258,12 +258,12 @@ begin
       Close;
       SQL.Clear;
       SQL.Add('Select');
-      SQL.Add('  max(n.nsu) as nsu_max');
+      SQL.Add('  max(nsu) as nsu');
       SQL.Add('from TBNFE_IMPORTADA');
       SQL.Add('where (empresa = ' + QuotedStr(aEmpresa) + ')');
       Open;
 
-      aRetorno := StrToIntDef(cdsNSU.FieldByName('nsu_max').AsString, 0);
+      aRetorno := StrToIntDef(FieldByName('nsu').AsString, 0);
 
       Close;
     end;
