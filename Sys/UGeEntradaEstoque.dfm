@@ -3991,7 +3991,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
       Top = 0
       Width = 100
       Height = 35
-      Hint = 'Baixa/Importar XML da NF-e'
+      Hint = 'Baixar/Importar XML da NF-e'
       Align = alLeft
       Caption = 'Importar NF-e'
       OptionsImage.ImageIndex = 28
