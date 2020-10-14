@@ -478,7 +478,9 @@ type
 
     procedure RegistrarNovaRotinaSistema;
     procedure CarregarTipoDespesa(const ApenasAtivos : Boolean);
-    procedure BaixarImportarNFe;
+    procedure BaixarImportarNFe(aChaveNFe, aNSU : String);
+
+    function IdentificarNFe(var aCNPJEmissor, aUFEmissor, aChave, aNSU : String) : Boolean;
   public
     { Public declarations }
     procedure pgcGuiasOnChange; override;
@@ -845,42 +847,24 @@ begin
 end;
 
 procedure TfrmGeEntradaEstoque.btnImportarClick(Sender: TObject);
+var
+  aEmissor ,
+  aUF      ,
+  aChaveNFe,
+  aNSU     : String;
 begin
-  if not GetConectedInternet then
-  begin
-    ShowWarning('Estação de trabalho sem acesso a Internet!');
-    Exit;
-  end;
-
   DMNFe.LerConfiguracao(gUsuarioLogado.Empresa, tipoDANFEFast);
 
-  if (DMNFe.GetCnpjCertificado = EmptyStr) then
-  begin
-    ShowWarning('Este recurso necessita do Certificado Digital da empresa ' + #13
-      + StrFormatarCnpj(gUsuarioLogado.Empresa)
-      + ' - ' + GetEmpresaNome(gUsuarioLogado.Empresa));
-    Exit;
-  end;
+  aEmissor  := EmptyStr;
+  aUF       := EmptyStr;
+  aChaveNFe := EmptyStr;
+  aNSU      := FormatFloat('000000000000000', GetNumeroNSU(gUsuarioLogado.Empresa));
 
-  if (Copy(DMNFe.GetCnpjCertificado, 1, 8) <> Copy(gUsuarioLogado.Empresa, 1, 8)) then
-  begin
-    ShowWarning('A Empresa selecionada no login do sistema não está de acordo com o Certificado informado!');
-    Exit;
-  end;
+  if (DMNFe.GetCnpjCertificado <> EmptyStr) then
+    if not IdentificarNFe(aEmissor, aUF, aChaveNFe, aNSU) then
+      aNSU := FormatFloat('000000000000000', GetNumeroNSU(gUsuarioLogado.Empresa));
 
-  if not DMNFe.GetValidadeCertificado(gUsuarioLogado.Empresa) then
-    Exit;
-
-  if not DMNFe.ACBrNFe.WebServices.StatusServico.Executar then
-    ShowWarning('Serviço Inoperante!' + #13#13 +
-      'Motivos:' + #13 +
-      '------------------------------------------' + #13 +
-      '1. Certificado A1 ou A3 não instalado '     + #13 +
-      '2. Certificado A3 não conectado na UBS'     + #13 +
-      '3. Servidor Web para consulta das NF-e não está respondendo.'
-    )
-  else
-    BaixarImportarNFe;
+  BaixarImportarNFe(aChaveNFe, aNSU);
 end;
 
 procedure TfrmGeEntradaEstoque.dbFornecedorButtonClick(Sender: TObject);
@@ -898,6 +882,36 @@ begin
         FieldByName('CNPJ').AsString     := sCNPJ;
         FieldByName('NOMEFORN').AsString := sNome;
       end;
+  end;
+end;
+
+function TfrmGeEntradaEstoque.IdentificarNFe(var aCNPJEmissor, aUFEmissor, aChave, aNSU : String): Boolean;
+var
+  aRetorno : Boolean;
+begin
+  aRetorno := False;
+
+  try
+    if (Copy(DMNFe.GetCnpjCertificado, 1, 8) <> Copy(gUsuarioLogado.Empresa, 1, 8)) then
+    begin
+      ShowWarning('A Empresa selecionada no login do sistema não está de acordo com o Certificado informado!');
+      Exit;
+    end;
+
+    if not GetConectedInternet then
+    begin
+      ShowWarning('Estação de trabalho sem acesso a Internet!');
+      Exit;
+    end;
+
+    if not DMNFe.GetValidadeCertificado(gUsuarioLogado.Empresa) then
+      Exit;
+
+    aRetorno := TfrmDistribuicaoDFe
+      .getInstance(gUsuarioLogado.Empresa)
+      .&End(aCNPJEmissor, aUFEmissor, aChave, aNSU);
+  finally
+    Result := aRetorno;
   end;
 end;
 
@@ -1130,22 +1144,12 @@ begin
   end;
 end;
 
-procedure TfrmGeEntradaEstoque.BaixarImportarNFe;
+procedure TfrmGeEntradaEstoque.BaixarImportarNFe(aChaveNFe, aNSU : String);
 var
-  aEmissor ,
-  aUF      ,
-  aChaveNFe,
-  aNSU     ,
-  aProduto : String;
-  aFileName: TFileName;
+  aProduto  : String;
+  aFileName : TFileName;
   I : Integer;
 begin
-  aChaveNFe := EmptyStr;
-  aNSU      := EmptyStr;
-
-  if not TfrmDistribuicaoDFe.getInstance(gUsuarioLogado.Empresa).&End(aEmissor, aUF, aChaveNFe, aNSU) then
-    aNSU := FormatFloat('000000000000000', GetNumeroNSU(gUsuarioLogado.Empresa));
-
   if ImportarNFE(Self, aChaveNFe, aNSU, aFileName) then
     with DMNFe.ACBrNFe do
     begin

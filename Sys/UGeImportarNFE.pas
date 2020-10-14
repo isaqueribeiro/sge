@@ -503,8 +503,18 @@ begin
     if not DMNFe.IsNFeManifestoDestinatarioRegistrado(gUsuarioLogado.Empresa, sChave) then
     begin
       lblInforme.Caption := 'Executando manifesto da NF-e junto à Sefa...';
-      if DMNFe.ExecutarManifestoDestinatarioNFe(gUsuarioLogado.Empresa, sChave, sLog) then
-        DownloadNFe;
+
+      if not DMNFe.ACBrNFe.WebServices.StatusServico.Executar then
+        ShowWarning('Serviço Inoperante!' + #13#13 +
+          'Motivos:' + #13 +
+          '------------------------------------------' + #13 +
+          '1. Certificado A1 ou A3 não instalado '     + #13 +
+          '2. Certificado A3 não conectado na UBS'     + #13 +
+          '3. Servidor Web para manifesto das NF-e não está respondendo.'
+        )
+      else
+        if DMNFe.ExecutarManifestoDestinatarioNFe(gUsuarioLogado.Empresa, sChave, sLog) then
+          DownloadNFe;
     end
     else
       DownloadNFe;

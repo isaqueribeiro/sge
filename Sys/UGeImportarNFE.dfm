@@ -298,6 +298,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       TabOrder = 2
       object tbsNFe: TTabSheet
         Caption = 'NFe'
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         DesignSize = (
           880
           322)
@@ -579,6 +583,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsEmitente: TTabSheet
         Caption = 'Emitente'
         ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         DesignSize = (
           880
           322)
@@ -1123,6 +1131,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsDestinatario: TTabSheet
         Caption = 'Destinat'#225'rio'
         ImageIndex = 8
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         DesignSize = (
           880
           322)
@@ -1241,6 +1253,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsProdutos: TTabSheet
         Caption = 'Produtos e Servi'#231'os'
         ImageIndex = 3
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object GrdProdutos: TcxGrid
           Left = 0
           Top = 0
@@ -1372,6 +1388,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsTotais: TTabSheet
         Caption = 'Totais'
         ImageIndex = 4
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         DesignSize = (
           880
           322)
@@ -1781,6 +1801,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsTransporte: TTabSheet
         Caption = 'Transporte'
         ImageIndex = 5
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         DesignSize = (
           880
           322)
@@ -2037,6 +2061,10 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsCobranca: TTabSheet
         Caption = 'Cobran'#231'a'
         ImageIndex = 6
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object pnlFatura: TPanel
           Left = 0
           Top = 0
@@ -2248,11 +2276,15 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
       object tbsInformacaoAdcional: TTabSheet
         Caption = 'Informa'#231#245'es Adicionais'
         ImageIndex = 7
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Label2: TLabel
           AlignWithMargins = True
           Left = 16
           Top = 16
-          Width = 848
+          Width = 63
           Height = 13
           Margins.Left = 16
           Margins.Top = 16
@@ -2260,7 +2292,6 @@ inherited frmGeImportarNFE: TfrmGeImportarNFE
           Align = alTop
           Caption = 'Observa'#231#245'es'
           FocusControl = dbMensagemFiscal
-          ExplicitWidth = 63
         end
         object dbOBS: TDBMemo
           AlignWithMargins = True
