@@ -1145,9 +1145,18 @@ begin
 end;
 
 procedure TfrmGeEntradaEstoque.BaixarImportarNFe(aChaveNFe, aNSU : String);
+
+  procedure GerarSequencial(var Seq : Integer);
+  begin
+    Seq := cdsTabelaItens.RecordCount + 1;
+    while ( cdsTabelaItens.Locate('SEQ', Seq, []) ) do
+      Seq := Seq + 1;
+  end;
+
 var
   aProduto  : String;
   aFileName : TFileName;
+  Sequencial,
   I : Integer;
 begin
   if ImportarNFE(Self, aChaveNFe, aNSU, aFileName) then
@@ -1161,7 +1170,7 @@ begin
         DtSrcTabela.DataSet.Append;
 
         // Identificação
-        DtSrcTabela.DataSet.FieldByName('CODEMP').AsString    := StrOnlyNumbers(Dest.CNPJCPF);
+        DtSrcTabela.DataSet.FieldByName('CODEMP').AsString          := StrOnlyNumbers(Dest.CNPJCPF);
         DtSrcTabela.DataSet.FieldByName('TIPO_MOVIMENTO').AsInteger := Ord(TTipoMovimentoEntrada.tmeProduto);
         DtSrcTabela.DataSet.FieldByName('TIPO_ENTRADA').AsInteger   := 4; // Outras -> VW_TIPO_ENTRADA
         DtSrcTabela.DataSet.FieldByName('TIPO_DESPESA').AsInteger   := TIPO_RECEITA_PADRAO;
@@ -1206,9 +1215,12 @@ begin
           aProduto := GetProdutoFornecedorCodigo(StrOnlyNumbers(Emit.CNPJCPF), Det.Items[I].Prod.cProd);
           if not aProduto.IsEmpty then
           begin
+            GerarSequencial(Sequencial);
+
             DtSrcTabelaItens.DataSet.Append;
 
-            DtSrcTabelaItens.DataSet.FieldByName('CODPROD').AsString   := aProduto;
+            DtSrcTabelaItens.DataSet.FieldByName('SEQ').AsInteger    := Sequencial;
+            DtSrcTabelaItens.DataSet.FieldByName('CODPROD').AsString := aProduto;
             CarregarDadosProduto( DtSrcTabelaItens.DataSet.FieldByName('CODPROD').AsInteger ); // Forçar carga da descrição do produto
 
             DtSrcTabelaItens.DataSet.FieldByName('CFOP').AsString   := Det.Items[I].Prod.CFOP;
@@ -1220,14 +1232,29 @@ begin
               DtSrcTabelaItens.DataSet.FieldByName('CST').AsString   := CSTICMSToStr(Det.Items[I].Imposto.ICMS.CST);
 
             DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency := Det.Items[I].Prod.qCom;
-            DtSrcTabelaItens.DataSet.FieldByName('PRECOUNIT').AsCurrency := Det.Items[I].Prod.qCom;
-            DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').AsCurrency := Det.Items[I].Prod.qCom;
+            DtSrcTabelaItens.DataSet.FieldByName('PRECOUNIT').AsCurrency := (Det.Items[I].Prod.vProd / Det.Items[I].Prod.qCom);
+            DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').AsCurrency := (Det.Items[I].Imposto.IPI.vIPI / Det.Items[I].Prod.qCom);
 
             ControlEditExit(dbValorUnit); // Forçar cálculo de totais do produto
 
             DtSrcTabelaItens.DataSet.Post;
           end;
         end;
+
+        // Gravar dados na base
+        fdQryTabela.Post;
+        fdQryTabela.ApplyUpdates();
+        fdQryTabela.CommitUpdates;
+
+        if (DtSrcTabelaItens.DataSet.RecordCount > 0) then
+        begin
+          cdsTabelaItens.ApplyUpdates;
+          cdsTabelaItens.CommitUpdates;
+        end;
+
+        CommitTransaction;
+
+        DtSrcTabela.DataSet.Edit; // Colocar registro em edição para que usuário possa continuar o processo
       end;
 
       NotasFiscais.Clear;

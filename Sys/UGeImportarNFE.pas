@@ -354,7 +354,7 @@ type
 var
   frmGeImportarNFE: TfrmGeImportarNFE;
 
-  function ImportarNFE(const AOnwer : TComponent; aChave, aNSU : String; var aFileName : TFileName) : Boolean;
+  function ImportarNFE(const AOnwer : TComponent; aChave : String; var aNSU : String; var aFileName : TFileName) : Boolean;
 
 implementation
 
@@ -371,7 +371,7 @@ uses
 
 { TfrmGeImportarNFE }
 
-function ImportarNFE(const AOnwer : TComponent; aChave, aNSU : String; var aFileName : TFileName) : Boolean;
+function ImportarNFE(const AOnwer : TComponent; aChave : String; var aNSU : String; var aFileName : TFileName) : Boolean;
 begin
   frmGeImportarNFE := TfrmGeImportarNFE.Create(AOnwer);
   try
@@ -383,7 +383,11 @@ begin
     Result := (frmGeImportarNFE.ShowModal = mrOk);
 
     if Result then
+    begin
       aFileName := frmGeImportarNFE.edArquivoXML.Text;
+      if not aNSU.Equals(frmGeImportarNFE.FNSU) then
+        aNSU := frmGeImportarNFE.FNSU;
+    end;
   finally
     frmGeImportarNFE.FreeOnRelease;
   end;
@@ -647,6 +651,7 @@ begin
       end
       else
       if (cdsNota.FieldByName('compra_num').AsInteger = 0) then
+      begin
         if (StrToCurrDef(FNSU.Trim, 0) > StrToCurrDef(cdsNota.FieldByName('nsu').AsString, 0)) then
         begin
           cdsNota.Edit;
@@ -657,7 +662,11 @@ begin
           cdsNota.CommitUpdates;
 
           CommitTransaction;
-        end;
+        end
+        else
+        if (StrToCurrDef(cdsNota.FieldByName('nsu').AsString, 0) > 0) then
+          FNSU := cdsNota.FieldByName('nsu').AsString;
+      end;
     end;
 
     NotasFiscais.Clear;
