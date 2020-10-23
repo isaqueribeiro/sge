@@ -446,6 +446,7 @@ const
 
   TIPO_RECEITA_PADRAO = 1;
   TIPO_DESPESA_PADRAO = 1;
+  VENDEDOR_PADRAO     = '1';
 
   // Tipos de Documentos de Entrada
 
@@ -604,7 +605,7 @@ const
   INI_KEY_CIDADE_VALUE   = '170';
   INI_KEY_FORMA_PGTO_VALUE = '1';
   INI_KEY_COND_PGTO_VALUE  = '1';
-  INI_KEY_VENDEDOR_VALUE   = '1';
+  INI_KEY_VENDEDOR_VALUE   = VENDEDOR_PADRAO;
 
   INI_SECAO_VENDA      = 'Venda';
   INI_KEY_CODIGO_EAN   = 'CarregarPeloCodigoEAN';

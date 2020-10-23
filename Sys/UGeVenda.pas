@@ -685,6 +685,7 @@ begin
 *)
   Desativar_Promocoes;
   SetTipoReceitaPadrao;
+  SetVendedorPadrao;
 
   sGeneratorName := 'GEN_VENDAS_CONTROLE_' + FormatFloat('0000', YearOf(GetDateDB));
   CriarGenerator(sGeneratorName, 0);

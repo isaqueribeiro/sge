@@ -370,7 +370,7 @@ inherited frmGrUsuario: TfrmGrUsuario
             object dbTipoAlteraValorVendaItem: TDBLookupComboBox
               Left = 16
               Top = 95
-              Width = 209
+              Width = 269
               Height = 21
               DataField = 'TIPO_ALTERAR_VALOR_VENDA'
               DataSource = DtSrcTabela

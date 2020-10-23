@@ -140,6 +140,8 @@ var
   I : Integer;
 begin
   inherited;
+  SetVendedorPadrao;
+
   PgcConfiguracao.ActivePage := TbsGeral;
 
   // Listar Tipo de Emissões

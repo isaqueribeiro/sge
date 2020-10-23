@@ -653,3 +653,649 @@ end
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 22/10/2020 14:22:25 --------*/
+
+CREATE DOMAIN DMN_VCHAR_150_NN AS
+VARCHAR(150)
+NOT NULL;
+
+
+/*------ SYSDBA 22/10/2020 14:23:50 --------*/
+
+CREATE TABLE SYS_USUARIO (
+    ID_USUARIO DMN_GUID_38_NN NOT NULL,
+    NM_USUARIO DMN_VCHAR_100,
+    DS_EMAIL DMN_VCHAR_150_NN,
+    DS_SENHA DMN_VCHAR_250,
+    NR_CPF DMN_VCHAR_20,
+    SN_ATIVO DMN_LOGICO);
+
+ALTER TABLE SYS_USUARIO
+ADD CONSTRAINT PK_SYS_USUARIO
+PRIMARY KEY (ID_USUARIO);
+
+COMMENT ON COLUMN SYS_USUARIO.ID_USUARIO IS
+'ID';
+
+COMMENT ON COLUMN SYS_USUARIO.NM_USUARIO IS
+'Nome completo';
+
+COMMENT ON COLUMN SYS_USUARIO.DS_EMAIL IS
+'E-mail';
+
+COMMENT ON COLUMN SYS_USUARIO.DS_SENHA IS
+'Senha';
+
+COMMENT ON COLUMN SYS_USUARIO.NR_CPF IS
+'Numero CPF';
+
+COMMENT ON COLUMN SYS_USUARIO.SN_ATIVO IS
+'Ativo:
+0 - Nao
+1 - Sim';
+
+
+
+
+/*------ SYSDBA 22/10/2020 14:23:51 --------*/
+
+COMMENT ON TABLE SYS_USUARIO IS 'Tabela de Usuarios App (Forca de Vendas)
+
+    Autor   :   Isaque M. Ribeiro
+    Data    :   22/10/2020
+
+Tabela responsavel por armazenar os regitros de usuarios habilitados para usar
+o aplicativo forca de venda "Venda Simples".
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    22/10/2020 - IMR :
+        + Criacao e documentacao da tabela.';
+
+GRANT ALL ON SYS_USUARIO TO "PUBLIC";
+
+
+
+/*------ SYSDBA 22/10/2020 14:24:18 --------*/
+
+ALTER TABLE SYS_USUARIO
+ADD CONSTRAINT UNQ_SYS_USUARIO_EMAIL
+UNIQUE (DS_EMAIL);
+
+
+
+
+/*------ SYSDBA 22/10/2020 14:25:31 --------*/
+
+ALTER TABLE TBUSERS
+    ADD USUARIO_APP_ID DMN_GUID_38;
+
+COMMENT ON COLUMN TBUSERS.USUARIO_APP_ID IS
+'Usuario no App "Venda Simples"';
+
+
+
+
+/*------ SYSDBA 22/10/2020 14:30:19 --------*/
+
+SET TERM ^ ;
+
+CREATE trigger tg_users_app for tbusers
+active before insert or update position 0
+AS
+begin
+  if (not exists(
+    Select
+      u.id_usuario
+    from SYS_USUARIO u
+    where u.id_usuario = coalesce(new.usuario_app_id, '')
+  )) then
+    new.usuario_app_id = null;
+end
+^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_USERS_APP IS 'Trigger Identificar Usuario (Forca de Venda)
+
+    Autor   :   Isaque M. Ribeiro
+    Data    :   22/10/2020
+
+Trigger responsavel por buscar o ID informado na tabela de usuarios do app
+"Venda Simples", caso ele nao exista, remove a relacao para evitar violacao de
+chave estrangeira.';
+
+
+
+
+/*------ SYSDBA 22/10/2020 14:31:10 --------*/
+
+ALTER TABLE TBUSERS
+ADD CONSTRAINT FK_TBUSERS_USER_APP
+FOREIGN KEY (USUARIO_APP_ID)
+REFERENCES SYS_USUARIO(ID_USUARIO)
+ON DELETE SET NULL;
+
+
+
+
+/*------ SYSDBA 22/10/2020 14:34:00 --------*/
+
+CREATE TABLE SYS_USUARIO_DISPOSITIVO (
+    ID_USUARIO DMN_GUID_38_NN NOT NULL,
+    NR_CELULAR DMN_VCHAR_20,
+    ID_DISPOSITIVO DMN_VCHAR_250,
+    TK_DISPOSITIVO DMN_VCHAR_250);
+
+ALTER TABLE SYS_USUARIO_DISPOSITIVO
+ADD CONSTRAINT PK_SYS_USUARIO_DISPOSITIVO
+PRIMARY KEY (ID_USUARIO);
+
+COMMENT ON COLUMN SYS_USUARIO_DISPOSITIVO.ID_USUARIO IS
+'Usuario';
+
+COMMENT ON COLUMN SYS_USUARIO_DISPOSITIVO.NR_CELULAR IS
+'Numero do Celular';
+
+COMMENT ON COLUMN SYS_USUARIO_DISPOSITIVO.ID_DISPOSITIVO IS
+'Id do dispositivo';
+
+COMMENT ON COLUMN SYS_USUARIO_DISPOSITIVO.TK_DISPOSITIVO IS
+'Token do dispositivo';
+
+
+
+
+/*------ SYSDBA 22/10/2020 14:34:01 --------*/
+
+COMMENT ON TABLE SYS_USUARIO_DISPOSITIVO IS 'Tabela de Usuarios App x Dispositivos (Forca de Vendas)
+
+    Autor   :   Isaque M. Ribeiro
+    Data    :   22/10/2020
+
+Tabela responsavel por armazenar os regitros de dispositivos dos usuarios habilitados
+para usar o aplicativo forca de venda "Venda Simples".
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    22/10/2020 - IMR :
+        + Criacao e documentacao da tabela.';
+
+
+
+
+/*------ SYSDBA 22/10/2020 14:34:31 --------*/
+
+ALTER TABLE SYS_USUARIO_DISPOSITIVO
+ADD CONSTRAINT FK_SYS_USUARIO_DISPOSITIVO
+FOREIGN KEY (ID_USUARIO)
+REFERENCES SYS_USUARIO(ID_USUARIO)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+GRANT ALL ON SYS_USUARIO_DISPOSITIVO TO "PUBLIC";
+
+
+
+/*------ SYSDBA 22/10/2020 14:36:01 --------*/
+
+ALTER TABLE TBVENDEDOR
+    ADD EMAIL DMN_VCHAR_150;
+
+COMMENT ON COLUMN TBVENDEDOR.EMAIL IS
+'E-mail';
+
+alter table TBVENDEDOR
+alter COD position 1;
+
+alter table TBVENDEDOR
+alter NOME position 2;
+
+alter table TBVENDEDOR
+alter CPF position 3;
+
+alter table TBVENDEDOR
+alter EMAIL position 4;
+
+alter table TBVENDEDOR
+alter COMISSAO_TIPO position 5;
+
+alter table TBVENDEDOR
+alter COMISSAO position 6;
+
+alter table TBVENDEDOR
+alter COMISSAO_VL position 7;
+
+alter table TBVENDEDOR
+alter TIPO position 8;
+
+alter table TBVENDEDOR
+alter ATIVO position 9;
+
+
+
+
+/*------ SYSDBA 22/10/2020 14:37:45 --------*/
+
+COMMENT ON TABLE TBVENDEDOR IS 'Tabela de Vendedores/Tecnicos
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   21/09/2015
+
+Tabela responsavel por armazenar os dados referentes aos clientes mantidos pelos sistemas de gestao.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    22/10/2020 - IMR :
+        + Criacao dos campos EMAIL para estabelecer integracao do cadastro do(a)
+          vendedor(a) e seu registro de acesso no aplicativo de forca de venda
+          "Venda Simples".
+
+    21/09/2015 - IMR :
+        + Criacao dos campos TIPO para definir o tipo de registro, sendo que o tipo
+          0 (zero) esta definido como padrao.';
+
+
+
+
+/*------ SYSDBA 22/10/2020 17:14:32 --------*/
+
+SET TERM ^ ;
+
+CREATE trigger tg_vendedor_email for tbvendedor
+active before insert or update position 1
+AS
+  declare variable id DMN_GUID_38;
+  declare variable email DMN_VCHAR_150;
+begin
+  if (coalesce(new.email, '') <> '') then
+  begin
+    -- Padronizar formato do e-mail
+    email = lower(trim(new.email));
+
+    -- Buscar ID do usuario app pelo e-mail
+    Select
+      u.id_usuario
+    from SYS_USUARIO u
+    where u.ds_email = :email
+    Into
+      id;
+
+    -- Gerar ID caso o e-mail/usuario nao esteja cadastrado
+    if (coalesce(:id, '') = '') then
+    begin
+      Select
+        g.hex_uuid_format
+      from GET_GUID_UUID_HEX g
+      Into
+        id;
+    end
+
+    -- Inserir/atualizar cadastro do vendedor como usuario do app "Venda Simples"
+
+  end
+end
+^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 22/10/2020 17:15:28 --------*/
+
+CREATE INDEX IDX_TBVENDEDOR_CPF
+ON TBVENDEDOR (CPF);
+
+CREATE INDEX IDX_TBVENDEDOR_EMAIL
+ON TBVENDEDOR (EMAIL);
+
+
+
+
+/*------ SYSDBA 22/10/2020 17:20:01 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_vendedor_email for tbvendedor
+active before insert or update position 1
+AS
+  declare variable id DMN_GUID_38;
+  declare variable email DMN_VCHAR_150;
+begin
+  if (coalesce(new.email, '') <> '') then
+  begin
+    -- Padronizar formato do e-mail
+    email = lower(trim(new.email));
+
+    -- Buscar ID do usuario app pelo e-mail
+    Select
+      u.id_usuario
+    from SYS_USUARIO u
+    where u.ds_email = :email
+    Into
+      id;
+
+    -- Gerar ID caso o e-mail/usuario nao esteja cadastrado
+    if (coalesce(:id, '') = '') then
+    begin
+      Select
+        g.hex_uuid_format
+      from GET_GUID_UUID_HEX g
+      Into
+        id;
+    end
+
+    -- Inserir/atualizar cadastro do vendedor como usuario do app "Venda Simples"
+    UPDATE OR INSERT INTO SYS_USUARIO (
+        id_usuario
+      , nm_usuario
+      , ds_email
+      , nr_cpf
+      , sn_ativo
+    ) values (
+        :id
+      , new.nome
+      , :email
+      , new.cpf
+      , new.ativo
+    ) MATCHING ( id_usuario );
+  end
+end
+^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 22/10/2020 17:21:50 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SET_VENDEDOR_FUNCIONARIO (
+    NOME_COMPLETO DMN_NOME,
+    CPF DMN_CPF,
+    EMAIL DMN_VCHAR_150,
+    ATIVO DMN_LOGICO)
+returns (
+    CODIGO_VENDEDOR DMN_INTEGER_N)
+as
+begin
+  -- Buscar codigo do vendedor de acordo com o CPF
+  Select first 1
+    v.cod
+  from TBVENDEDOR v
+  where v.cpf = :cpf
+  Into
+    codigo_vendedor;
+
+  if ( coalesce(:codigo_vendedor, 0) = 0 ) then
+  begin
+    -- Gerar codigo para o novo registro de vendedor
+    Select
+      max(v.cod)
+    from TBVENDEDOR v
+    Into
+      codigo_vendedor;
+
+    codigo_vendedor = coalesce(:codigo_vendedor, 0) + 1;
+
+    Insert Into TBVENDEDOR (
+        cod
+      , nome
+      , cpf
+      , email
+      , ativo
+    ) values (
+        :codigo_vendedor
+      , :nome_completo
+      , :cpf
+      , :email
+      , :ativo
+    );
+  end 
+
+  suspend;
+end
+^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 22/10/2020 17:22:25 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure SET_VENDEDOR_FUNCIONARIO (
+    NOME_COMPLETO DMN_NOME,
+    CPF DMN_CPF,
+    EMAIL DMN_VCHAR_150,
+    ATIVO DMN_LOGICO)
+returns (
+    CODIGO_VENDEDOR DMN_INTEGER_N)
+as
+begin
+  -- Buscar codigo do vendedor de acordo com o CPF
+  Select first 1
+    v.cod
+  from TBVENDEDOR v
+  where v.cpf = :cpf
+  Into
+    codigo_vendedor;
+
+  if ( coalesce(:codigo_vendedor, 0) = 0 ) then
+  begin
+    -- Gerar codigo para o novo registro de vendedor
+    Select
+      max(v.cod)
+    from TBVENDEDOR v
+    Into
+      codigo_vendedor;
+
+    codigo_vendedor = coalesce(:codigo_vendedor, 0) + 1;
+
+    Insert Into TBVENDEDOR (
+        cod
+      , nome
+      , cpf
+      , email
+      , ativo
+    ) values (
+        :codigo_vendedor
+      , :nome_completo
+      , :cpf
+      , :email
+      , :ativo
+    );
+  end 
+
+  suspend;
+end
+^
+
+SET TERM ; ^
+
+COMMENT ON PROCEDURE SET_VENDEDOR_FUNCIONARIO IS 'Procedure SET Vendedor x Funcionario.
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   11/03/2015
+
+Store procedure responsavel por cadastrar gerar um registro de vendedor correspondente ao CPF do funcionario
+informado atraves do sistema SGI.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    22/10/2020 - IMR :
+        + Inclusao do parametro EMAIL.
+
+    12/03/2015 - IMR :
+        * Documentacao da procedure.';
+
+
+
+
+/*------ SYSDBA 22/10/2020 17:24:26 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_vendedor_email for tbvendedor
+active before insert or update position 1
+AS
+  declare variable id DMN_GUID_38;
+  declare variable email DMN_VCHAR_150;
+begin
+  if (coalesce(new.email, '') <> '') then
+  begin
+    -- Padronizar formato do e-mail
+    email = lower(trim(new.email));
+
+    -- Buscar ID do usuario app pelo e-mail
+    Select
+      u.id_usuario
+    from SYS_USUARIO u
+    where u.ds_email = :email
+    Into
+      id;
+
+    -- Gerar ID caso o e-mail/usuario nao esteja cadastrado
+    if (coalesce(:id, '') = '') then
+    begin
+      Select
+        g.hex_uuid_format
+      from GET_GUID_UUID_HEX g
+      Into
+        id;
+    end
+
+    -- Inserir/atualizar cadastro do vendedor como usuario do app "Venda Simples"
+    UPDATE OR INSERT INTO SYS_USUARIO (
+        id_usuario
+      , nm_usuario
+      , ds_email
+      , nr_cpf
+      , sn_ativo
+    ) values (
+        :id
+      , new.nome
+      , :email
+      , new.cpf
+      , new.ativo
+    ) MATCHING ( id_usuario );
+  end
+end
+^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_VENDEDOR_EMAIL IS 'Trigger Cadastrar E-mail/Usuario (Forca de Venda)
+
+    Autor   :   Isaque M. Ribeiro
+    Data    :   22/10/2020
+
+Trigger responsavel por gerar um usuario para o app forca de venda "Venda Simples"
+com os dados do vendedor, quanto este for inserido ou atualizado.';
+
+
+
+
+/*------ SYSDBA 22/10/2020 18:02:19 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_users_app for tbusers
+active before insert or update position 0
+AS
+begin
+  -- Identificar ID do usuario app
+  if ((coalesce(new.vendedor, 0) > 0) and (coalesce(new.usuario_app_id, '') <> '')) then
+  begin
+    Select
+      u.id_usuario
+    from TBVENDEDOR v
+      inner join SYS_USUARIO u on (u.ds_email = v.email)
+    where (v.cod = coalesce(new.vendedor, 0))
+      and (v.email is not null)
+    Into
+      new.usuario_app_id;
+  end
+
+  -- Garantir integridade referencial
+  if (not exists(
+    Select
+      u.id_usuario
+    from SYS_USUARIO u
+    where u.id_usuario = coalesce(new.usuario_app_id, '')
+  )) then
+    new.usuario_app_id = null;
+end
+^
+
+SET TERM ; ^
+
+
+
+
+/*------ SYSDBA 22/10/2020 18:02:44 --------*/
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_users_app for tbusers
+active before insert or update position 0
+AS
+begin
+  -- Identificar ID do usuario app
+  if ((coalesce(new.vendedor, 0) > 0) and (coalesce(new.usuario_app_id, '') = '')) then
+  begin
+    Select
+      u.id_usuario
+    from TBVENDEDOR v
+      inner join SYS_USUARIO u on (u.ds_email = v.email)
+    where (v.cod = coalesce(new.vendedor, 0))
+      and (v.email is not null)
+    Into
+      new.usuario_app_id;
+  end
+
+  -- Garantir integridade referencial
+  if (not exists(
+    Select
+      u.id_usuario
+    from SYS_USUARIO u
+    where u.id_usuario = coalesce(new.usuario_app_id, '')
+  )) then
+    new.usuario_app_id = null;
+end
+^
+
+SET TERM ; ^
+

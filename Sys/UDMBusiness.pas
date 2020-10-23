@@ -242,6 +242,7 @@ var
   procedure SetCentroCustoGeral(const aEmpresa : String);
   procedure SetTipoDespesaPadrao;
   procedure SetTipoReceitaPadrao;
+  procedure SetVendedorPadrao;
   procedure SetTipoProduto(const iCodigo : Integer; const sDescricao : String);
   procedure SetGrupoFornecedor(const iCodigo : Integer; const sDescricao : String);
   procedure SetAtualizarSaldoContasAPagar(const aEmpresa : String);
@@ -327,6 +328,7 @@ var
   function StrDescricaoProdutoBtn(const NoPlural : Boolean = TRUE) : String;
   function StrOnlyNumbers(const Str : String) : String;
   Function StrInscricaoEstadual(const IE, UF : String) : Boolean;
+  Function StrIsEmail(aValue : String; out aError : String) : Boolean;
 
   function SetBairro(const iCidade : Integer; const sNome : String) : Integer;
   function SetLogradouro(const iCidade : Integer; const sNome : String; var Tipo : Smallint) : Integer;
@@ -2166,6 +2168,51 @@ begin
   end;
 end;
 
+procedure SetVendedorPadrao;
+begin
+  Screen.Cursor := crSQLWait;
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('');
+      SQL.Add('execute block');
+      SQL.Add('as');
+      SQL.Add('  declare variable cd Integer;');
+      SQL.Add('begin');
+      SQL.Add('    cd = ' + VENDEDOR_PADRAO + ';');
+      SQL.Add('    UPDATE OR INSERT INTO TBVENDEDOR (');
+      SQL.Add('        cod                           ');
+      SQL.Add('      , nome                          ');
+      SQL.Add('      , cpf                           ');
+      SQL.Add('      , email                         ');
+      SQL.Add('      , comissao_tipo                 ');
+      SQL.Add('      , comissao                      ');
+      SQL.Add('      , comissao_vl                   ');
+      SQL.Add('      , tipo                          ');
+      SQL.Add('      , ativo                         ');
+      SQL.Add('    ) values (                        ');
+      SQL.Add('        :cd                           ');
+      SQL.Add('      , ' + QuotedStr('ESTABELECIMENTO') + ' ');
+      SQL.Add('      , ' + QuotedStr('00000000000')     + ' ');
+      SQL.Add('      , null ');
+      SQL.Add('      , 0    '); // 0 - Direta (Por Percentual/Valor sobre o Valor Total da Venda)
+      SQL.Add('      , 0.0  '); // % Comissão
+      SQL.Add('      , 0.0  '); // Valor Comissão
+      SQL.Add('      , 0    '); // 0 - Vendedor
+      SQL.Add('      , 1    '); // 1 - Ativo
+      SQL.Add('    ) MATCHING ( cod ); ');
+      SQL.Add('end');
+      ExecSQL;
+
+      CommitTransaction;
+    end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
 procedure SetTipoProduto(const iCodigo : Integer; const sDescricao : String);
 begin
   Screen.Cursor := crSQLWait;
@@ -3383,6 +3430,7 @@ begin
       sComplemento := Trim(UF);
 
 
+      ACBrValidador.TipoDocto   := TACBrValTipoDocto.docInscEst;
       ACBrValidador.Documento   := sDocumento;
       ACBrValidador.Complemento := sComplemento;
 
@@ -3391,6 +3439,20 @@ begin
       if not Result then
          sMensErro := Trim(ACBrValidador.MsgErro);
     end;
+end;
+
+Function StrIsEmail(aValue : String; out aError : String) : Boolean;
+begin
+  with DMBusiness do
+  begin
+    ACBrValidador.TipoDocto := TACBrValTipoDocto.docEmail;
+    ACBrValidador.Documento := aValue.Trim;
+
+    Result := ACBrValidador.Validar;
+
+    if not Result then
+       aError := Trim(ACBrValidador.MsgErro);
+  end;
 end;
 
 function SetBairro(const iCidade : Integer; const sNome : String) : Integer;

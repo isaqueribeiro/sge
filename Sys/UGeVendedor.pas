@@ -41,6 +41,10 @@ type
     fdQryTabelaCOMISSAO: TCurrencyField;
     fdQryTabelaCOMISSAO_VL: TCurrencyField;
     fdQryTabelaCOMISSAO_TIPO_FLAG: TStringField;
+    lblEmail: TLabel;
+    dbEmail: TDBEdit;
+    fdQryTabelaEMAIL: TStringField;
+    fdQryTabelaTIPO: TSmallintField;
     procedure FormCreate(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
@@ -172,6 +176,9 @@ begin
     if ( FieldByName('ATIVO').IsNull ) then
       FieldByName('ATIVO').AsInteger := 1;
 
+    if ( FieldByName('TIPO').IsNull ) then
+      FieldByName('TIPO').AsInteger := 1;
+
     if ( FieldByName('COMISSAO_TIPO').AsInteger = 1 ) then
     begin
       FieldByName('COMISSAO').AsCurrency    := 0.0;
@@ -180,6 +187,9 @@ begin
 
     if (Length(Trim(FieldByName('CPF').AsString)) < 11) then
       FieldByName('CPF').Clear;
+
+    if (Length(Trim(FieldByName('EMAIL').AsString)) <= 8) then
+      FieldByName('EMAIL').Clear;
 
     FieldByName('COMISSAO_TIPO_FLAG').AsString := Copy(AnsiUpperCase(Trim(dbTipoComissao.Text)), 1, 1);
   end;
@@ -193,20 +203,26 @@ begin
   begin
     FieldByName('COD').AsInteger   := GetNextID(NomeTabela, GetCampoCodigoLimpo);
     FieldByName('ATIVO').AsInteger := 1;
+    FieldByName('TIPO').AsInteger  := 0;
     FieldByName('COMISSAO_TIPO').AsInteger := 0;
     FieldByName('COMISSAO').AsCurrency     := 0.0;
     FieldByName('COMISSAO_VL').AsCurrency  := 0.0;
+    FieldByName('EMAIL').Clear;
   end;
 end;
 
 procedure TfrmGeVendedor.FormCreate(Sender: TObject);
 begin
   inherited;
+  SetVendedorPadrao;
+
   CarregarLista(fdQryTipoComissao);
 
   RotinaID            := ROTINA_CAD_VENDEDOR_ID;
   ControlFirstEdit    := dbNome;
   DisplayFormatCodigo := '000';
+  AbrirTabelaAuto     := True;
+
   NomeTabela     := 'TBVENDEDOR';
   CampoCodigo    := 'v.COD';
   CampoDescricao := 'v.NOME';
@@ -217,12 +233,23 @@ begin
 end;
 
 procedure TfrmGeVendedor.btbtnSalvarClick(Sender: TObject);
+var
+  aError : String;
 begin
   if ( not FuncoesString.StrIsCPF(DtSrcTabela.DataSet.FieldByName('CPF').AsString) ) then
   begin
     ShowWarning('Favor informar um CPF válido.');
     Abort;
   end;
+
+  if (DtSrcTabela.DataSet.FieldByName('EMAIL').AsString <> EmptyStr) then
+    if StrIsEmail(DtSrcTabela.DataSet.FieldByName('EMAIL').AsString, aError) then
+      DtSrcTabela.DataSet.FieldByName('EMAIL').AsString := Trim(DtSrcTabela.DataSet.FieldByName('EMAIL').AsString)
+    else
+    begin
+      ShowWarning('Restrinção: ' + aError);
+      Abort;
+    end;
 
   if (DtSrcTabela.DataSet.FieldByName('COMISSAO').AsCurrency < 0) or (DtSrcTabela.DataSet.FieldByName('COMISSAO').AsCurrency > 100) then
     ShowWarning('Favor informar um percentual válido de comissão!')

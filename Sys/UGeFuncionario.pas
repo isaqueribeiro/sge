@@ -499,6 +499,7 @@ begin
       Close;
       ParamByName('nome_completo').AsString := Trim(DtSrcTabela.DataSet.FieldByName('NOME_COMPLETO').AsString);
       ParamByName('cpf').AsString           := Trim(DtSrcTabela.DataSet.FieldByName('CPF').AsString);
+      ParamByName('email').AsString         := Trim(DtSrcTabela.DataSet.FieldByName('EMAIL').AsString);
       ParamByName('ativo').AsSmallInt       := DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger;
       ExecProc;
 
