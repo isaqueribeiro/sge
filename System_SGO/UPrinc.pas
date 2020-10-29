@@ -1137,7 +1137,8 @@ end;
 
 procedure TfrmPrinc.nmDownloadNFeGeradaClick(Sender: TObject);
 begin
-  ;
+  if GetPermissaoRotinaSistema(ROTINA_NFE_DOWNLOAD_NFE_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeImportarNFE');
 end;
 
 procedure TfrmPrinc.RbnBackstageGalleryConfigItemClick(Sender: TObject;

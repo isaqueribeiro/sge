@@ -1113,10 +1113,8 @@ end;
 
 procedure TfrmPrinc.nmDownloadNFeGeradaClick(Sender: TObject);
 begin
-  if DelphiIsRunning then
-    FormFunction.ShowModalForm(Self, 'frmGeImportarNFE')
-  else
-    ShowInformation('Informação', 'Este recurso ainda não está disponível nesta versão.');
+  if GetPermissaoRotinaSistema(ROTINA_NFE_DOWNLOAD_NFE_ID, True) then
+    FormFunction.ShowModalForm(Self, 'frmGeImportarNFE');
 end;
 
 procedure TfrmPrinc.RbnBackstageGalleryConfigItemClick(Sender: TObject;

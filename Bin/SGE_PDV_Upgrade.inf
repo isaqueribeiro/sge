@@ -1,10 +1,10 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 08/09/2020 20:48:00     #
+#    Gerado por AGIL SOFTWARES em : 29/10/2020 13:58:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
-- Atualização das Taxas Tributárias para AGO/2020 até DEZ/2020.
 - Melhoria na performance.
+- Atualização das Taxas Tributárias para AGO/2020 até DEZ/2020.
 - Ajustes na emissão de NFC-e.
 - Pesquisa de vendas de produtos pelo valor líquido do movimento.
 - Novos controles no Cadastro de Conta-Corrente e Formas de Pagamento.
@@ -21,4 +21,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.30.3
+#version=1.0.31.0

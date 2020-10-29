@@ -64,7 +64,7 @@ object frmPrinterCupom: TfrmPrinterCupom
     Width = 121
     Height = 21
     TabOrder = 0
-    Text = '15138569000195'
+    Text = '17327623000176'
   end
   object edCliente: TEdit
     Left = 143
@@ -72,7 +72,7 @@ object frmPrinterCupom: TfrmPrinterCupom
     Width = 81
     Height = 21
     TabOrder = 1
-    Text = '0389'
+    Text = '14'
   end
   object edDataHora: TEdit
     Left = 230
@@ -87,7 +87,7 @@ object frmPrinterCupom: TfrmPrinterCupom
     Width = 89
     Height = 21
     TabOrder = 3
-    Text = '2015'
+    Text = '2020'
     TextHint = '2015'
   end
   object edControle: TEdit
@@ -96,7 +96,7 @@ object frmPrinterCupom: TfrmPrinterCupom
     Width = 121
     Height = 21
     TabOrder = 4
-    Text = '11838'
+    Text = '11'
     TextHint = '11838'
   end
   object btnImprimirCupom: TButton

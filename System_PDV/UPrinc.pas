@@ -140,6 +140,7 @@ type
     FAcesso : Boolean;
     procedure RegistrarRotinasMenu;
     procedure AutoUpdateSystem;
+    procedure GetInformacoesGerais;
 
     procedure AjustarDataHoraSistema;
   public
@@ -147,7 +148,6 @@ type
     procedure AlertarCliente;
     procedure ConfigurarRotuloBotoes;
     procedure Notificar;
-    procedure GetInformacoesGerais;
   end;
 
 (*
@@ -732,7 +732,10 @@ end;
 
 procedure TfrmPrinc.nmEfetuarLogoffClick(Sender: TObject);
 begin
-  FormFunction.ShowModalForm(Self, 'FrmEfetuarLogin');
+  //FormFunction.ShowModalForm(Self, 'FrmEfetuarLogin');
+  gUsuarioLogado.LogOff;
+  if ExecutarLogin() then
+    GetInformacoesGerais;
 end;
 
 end.

@@ -25,7 +25,7 @@ uses
   SHDocVw,
 
   System.Generics.Collections,
-  {$IF NOT (DEFINED(PRINTER_CUPOM) AND DEFINED(PDV))}
+  {$IF NOT (DEFINED(PRINTER_CUPOM) OR DEFINED(PDV))}
   Classe.DistribuicaoDFe.DocumentoRetornado,
   {$ENDIF}
 
@@ -441,7 +441,7 @@ type
     function GerarEnviarCCeACBr(const sCNPJEmitente : String; const ControleCCe : Integer; sCondicaoUso : String) : Boolean;
     function IsNFeManifestoDestinatarioRegistrado(const sCNPJ, sChave : String) : Boolean;
     function ExecutarManifestoDestinatarioNFe(const sCNPJ, sChave : String; var aLog : String) : Boolean;
-    {$IF NOT (DEFINED(PRINTER_CUPOM) AND DEFINED(PDV))}
+    {$IF NOT (DEFINED(PRINTER_CUPOM) OR DEFINED(PDV))}
     function ExisteNFeParaBaixar(const sCNPJ : String; aNSU : Integer; var aFileName, aMensagem : String;
       var aDocumentos : TDictionary<String, TDistribuicaoDFeDocumentoRetornado>) : Boolean;
     {$ENDIF}
@@ -801,7 +801,11 @@ begin
   ConfigACBr.sbtnGetCert.OnClick := SelecionarCertificado;
   ConfigACBr.btnServico.OnClick  := TestarServico;
 
+  {$IFNDEF PRINTER_CUPOM}
   frDANFE.Sistema := gPersonalizaEmpresa.CompanyName + ' - Contato(s): ' + gPersonalizaEmpresa.Contacts;
+  {$ELSE}
+  frDANFE.Sistema := AGIL_SOFTWARES_FANTASIA;
+  {$ENDIF}
 
   // A leitura do Certificado será feita agora apenas na emissão da NF-e
   //LerConfiguracao(GetEmpresaIDDefault);
@@ -1250,7 +1254,11 @@ begin
       SH_IE   := edtEmitIE.Text;
       SH_IM   := qryEmitenteIM.AsString;
       SH_RazaoSocial      := edtEmitRazao.Text;
+      {$IFNDEF PRINTER_CUPOM}
       SH_NomeAplicativo   := gPersonalizaEmpresa.ProductName;
+      {$ELSE}
+      SH_NomeAplicativo   := 'PDV | Controle do Ponto de Venda do SGE/SGI';
+      {$ENDIF}
       SH_VersaoAplicativo := TVersaoController.GetInstance().Version;
     end;
 
@@ -1290,8 +1298,14 @@ begin
     //ACBrSATExtratoESCPOS.SoftwareHouse := RemoveAcentos( GetCompanyName );
     ACBrSATExtratoESCPOS.NumCopias     := FileIni.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_CUPOM_NFISCAL_QTDE, 1);;
 
+    {$IFNDEF PRINTER_CUPOM}
     nfcDANFE.Sistema   := RemoveAcentos( gPersonalizaEmpresa.CompanyName );
     nfcDANFE.Usuario   := RemoveAcentos( GetUserApp(gUsuarioLogado.Login) );
+    {$ELSE}
+    nfcDANFE.Sistema   := 'PDV | Controle do Ponto de Venda do SGE/SGI';
+    nfcDANFE.Usuario   := 'USER SYSTEM';
+    {$ENDIF}
+
 
     nfcDANFE.PosPrinter.Modelo       := TACBrPosPrinterModelo(FileINI.ReadInteger(INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL_MOD + '_ID', 0));
     nfcDANFE.PosPrinter.Device.Porta := FileINI.ReadString (INI_SECAO_CUMPO_PDV, INI_KEY_PORTA_CUPOM_NFISCAL + '_DS', 'COM1');
@@ -6373,7 +6387,7 @@ begin
   end;
 end;
 
-{$IF NOT (DEFINED(PRINTER_CUPOM) AND DEFINED(PDV))}
+{$IF NOT (DEFINED(PRINTER_CUPOM) OR DEFINED(PDV))}
 function TDMNFe.ExisteNFeParaBaixar(const sCNPJ : String; aNSU : Integer; var aFileName, aMensagem : String;
   var aDocumentos : TDictionary<String, TDistribuicaoDFeDocumentoRetornado>) : Boolean;
 var
@@ -6727,8 +6741,13 @@ begin
 
     with aEcf do
     begin
+      {$IFNDEF PRINTER_CUPOM}
       Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
       Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
+      {$ELSE}
+      Ecf.SoftHouse := AGIL_SOFTWARES_FANTASIA;
+      Ecf.Sistema   := 'PDV | Controle do Ponto de Venda do SGE/SGI';
+      {$ENDIF}
       Ecf.Versao    := TVersaoController.GetInstance().ProductVersion;
 
       Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString);
@@ -8228,6 +8247,9 @@ begin
 
   {$IFDEF PRINTER_CUPOM}
 
+  // Definir como usuário o sistema o usuário definido na venda
+  gUsuarioLogado.Load(DMBusiness.fdConexao, qryCalculoImposto.FieldByName('Usuario').AsString);
+
   // Carregar XML da NF quando este existir
 
   if Trim(qryCalculoImposto.FieldByName('XML_NFE_FILENAME').AsString) <> EmptyStr then
@@ -8287,8 +8309,10 @@ begin
 
       with aEcf do
       begin
-        Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
-        Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
+//        Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
+//        Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
+        Ecf.SoftHouse := AGIL_SOFTWARES_FANTASIA;
+        Ecf.Sistema   := 'PDV | Controle do Ponto de Venda do SGE/SGI';
         Ecf.Versao    := gVersaoApp.ProductVersion;
 
         Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString);
@@ -8523,8 +8547,10 @@ begin
 
         with aEcf do
         begin
-          Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
-          Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
+//          Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
+//          Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
+          Ecf.SoftHouse := AGIL_SOFTWARES_FANTASIA;
+          Ecf.Sistema   := 'PDV | Controle do Ponto de Venda do SGE/SGI';
           Ecf.Versao    := gVersaoApp.Version;
 
           Ecf.Identifica_Cupom(Now, FormatFloat('###0000000', iNumVenda), qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString);
@@ -8695,8 +8721,13 @@ begin
 
     with aEcf do
     begin
+      {$IFNDEF PRINTER_CUPOM}
       Ecf.SoftHouse := gPersonalizaEmpresa.CompanyName;
       Ecf.Sistema   := gPersonalizaEmpresa.ProductName;
+      {$ELSE}
+      Ecf.SoftHouse := AGIL_SOFTWARES_FANTASIA;
+      Ecf.Sistema   := 'PDV | Controle do Ponto de Venda do SGE/SGI';
+      {$ENDIF}
       Ecf.Versao    := TVersaoController.GetInstance().ProductVersion;
 
       Ecf.Identifica_Cupom(Now

@@ -5535,6 +5535,7 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
     else
       CarregarLicenca(EmptyStr);
 
+    {$IFNDEF PRINTER_CUPOM}
     try
       with RegistroSistema do
       begin
@@ -5553,12 +5554,17 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
       X := StrToInt(FormatDateTime('YYYY', Date)) + I;
       GerarCompetencias( X );
     end;
+    {$ENDIF}
 
     if ( fdConexao.Connected ) then
     begin
       fdQryUsers.Open;
       fdQryEmpresa.Open;
     end;
+
+    {$IFDEF PRINTER_CUPOM}
+    gUsuarioLogado := TFactoryController.getInstance().getUsuarioController();
+    {$ENDIF}
 
     {$IFNDEF PRINTER_CUPOM}
     SplashMessage('Conectando-se à base de dados...');

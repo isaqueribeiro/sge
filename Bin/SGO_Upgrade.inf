@@ -1,8 +1,9 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 09/08/2020 20:43:00     #
+#    Gerado por AGIL SOFTWARES em : 29/10/2020 13:01:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Manifesto e baixa de notas fiscais recebidas
 - Atualização das Taxas Tributárias para AGO/2020 até DEZ/2020.
 - Ajustes na geração de NF-e 4.0.
 - Ajustes na geração de Recibos.
@@ -41,7 +42,8 @@
 #url15=http://www.drhtransparencia.com.br/agil/upgrade/db/01002900.sql
 #url16=http://www.drhtransparencia.com.br/agil/upgrade/db/01002903.sql
 #url17=http://www.drhtransparencia.com.br/agil/upgrade/db/01003000.sql
+#url18=http://www.drhtransparencia.com.br/agil/upgrade/db/01003100.sql
 
 #method=0 (self-upgrade)
 
-#version=1.0.30.3
+#version=1.0.31.0

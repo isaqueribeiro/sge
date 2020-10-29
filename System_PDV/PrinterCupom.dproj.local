@@ -3,10 +3,5 @@
 	<Transactions>
     <Transaction>2015/11/25 22:35:16.000.750,C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\Projetos\ASS\SGE\trunk\Sys\UPrinterCupom.dfm</Transaction>
     <Transaction>2015/11/25 22:35:43.000.474,C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Projetos\ASS\SGE\trunk\System_PDV\PrinterCupom.dproj</Transaction>
-    <Transaction>2020/09/07 17:12:10.000.629,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Controller\Controller.Versao.pas</Transaction>
-    <Transaction>2020/09/07 17:12:32.000.221,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Classe.Licenca.pas</Transaction>
-    <Transaction>2020/09/07 17:12:32.000.351,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Classe.Usuario.pas</Transaction>
-    <Transaction>2020/09/07 17:14:58.000.709,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Mensagem.pas</Transaction>
-    <Transaction>2020/09/07 17:16:25.000.497,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrMessage.pas=</Transaction>
   </Transactions>
 </BorlandProject>
