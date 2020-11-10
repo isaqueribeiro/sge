@@ -90,7 +90,7 @@ RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
 RightPanelData=000008000101000000007C0F00000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000861B000009000000446F636B5369746534FFFFFFFF
 BottomPanelSize=1583
-BottomPanelClients=DockSite1,MessageView
+BottomPanelClients=MessageView,DockSite1
 BottomPanelData=0000080001020100000009000000446F636B5369746531DE44000000000000022F060000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
@@ -173,13 +173,13 @@ EditViewName=Borland.FormDesignerView
 [View8]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
-CursorX=76
-CursorY=456
-TopLine=425
+CursorX=3
+CursorY=538
+TopLine=505
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
 
 [UndockedDesigner]
 Count=0
@@ -778,7 +778,7 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=0
+Left=952
 Top=28
 Width=3823
 Height=1423

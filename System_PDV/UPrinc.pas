@@ -340,6 +340,7 @@ var
   aProcesso : String;
 begin
   GetInformacoesGerais;
+  Self.Notificar;
 
   if not DataBaseOnLine then
     Exit;

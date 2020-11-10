@@ -462,13 +462,16 @@ begin
     lblAberta.Visible := Trim(lblAberta.Caption) <> EmptyStr;
     TmrAlertaCliente.Enabled := lblAberta.Visible;
 
-    aNotificacao := NotificationCenter.CreateNotification;
+    if (Trim(aTextoAlerta.Text) <> EmptyStr) then
+    begin
+      aNotificacao := NotificationCenter.CreateNotification;
 
-    aNotificacao.Name  := SGI_NOTIFICAR_LICENCA;
-    aNotificacao.Title := 'Licença de Uso do ' + ProductName.Caption;
-    aNotificacao.AlertBody := Trim(aTextoAlerta.Text);
+      aNotificacao.Name      := SGE_NOTIFICAR_LICENCA;
+      aNotificacao.Title     := 'Licença de Uso do ' + ProductName.Caption;
+      aNotificacao.AlertBody := Trim(aTextoAlerta.Text);
 
-    NotificarUsuario(aNotificacao);
+      NotificarUsuario(aNotificacao);
+    end;
   finally
     aTextoAlerta.Free;
 
@@ -897,6 +900,7 @@ var
   aProcesso : String;
 begin
   GetInformacoesGerais;
+  Self.Notificar;
 
   if not DataBaseOnLine then
     Exit;
