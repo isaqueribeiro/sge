@@ -324,6 +324,7 @@ var
   function StrFormatarCpf(sCpf: String): String;
   function StrFormatarCEP(sCEP: String): String;
   function StrFormatarFONE(sFone: String): String;
+  function StrFormatarNome(aNome : String): String;
   function StrDescricaoProduto(const NoPlural : Boolean = TRUE) : String;
   function StrDescricaoProdutoBtn(const NoPlural : Boolean = TRUE) : String;
   function StrOnlyNumbers(const Str : String) : String;
@@ -3353,6 +3354,26 @@ begin
     S := Copy(S, 1, 8) + '-' + Copy(S, 9, Length(S));
 
   Result := S;
+end;
+
+function StrFormatarNome(aNome : String): String;
+const
+  excecao: array[0..5] of string = (' da ', ' de ', ' do ', ' das ', ' dos ', ' e ');
+var
+  tamanho,
+  j : Integer;
+  i : Byte;
+begin
+  Result  := AnsiLowerCase(aNome);
+  tamanho := Length(Result);
+
+  for j := 1 to tamanho do
+    // Se é a primeira letra ou se o caracter anterior é um espaço
+    if (j = 1) or ((j > 1) and (Result[j - 1] = Chr(32))) then
+      Result[j] := AnsiUpperCase(Result[j])[1];
+
+  for i := 0 to Length(excecao) - 1 do
+    Result := StringReplace(Result, excecao[i], excecao[i], [rfReplaceAll, rfIgnoreCase]);
 end;
 
 function StrDescricaoProduto(const NoPlural : Boolean = TRUE) : String;

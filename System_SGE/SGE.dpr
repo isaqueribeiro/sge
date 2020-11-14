@@ -2,6 +2,8 @@ program SGE;
 
 
 
+{$R *.dres}
+
 uses
   Windows,
   Forms,
@@ -171,7 +173,11 @@ uses
   Classe.InputQuery in '..\Sys\Services\Classe.InputQuery.pas',
   Classe.DistribuicaoDFe.DocumentoRetornado in '..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas',
   UGeDistribuicaoDFe in '..\Sys\UGeDistribuicaoDFe.pas' {frmDistribuicaoDFe},
-  View.Esmaecer in '..\Sys\View\View.Esmaecer.pas' {ViewEsmaecer};
+  View.Esmaecer in '..\Sys\View\View.Esmaecer.pas' {ViewEsmaecer},
+  View.VendaMobile in 'View\View.VendaMobile.pas' {ViewVendaMobile},
+  Interfaces.PrevisaoTempo in '..\Sys\Services\PrevisaoTempo\Interfaces.PrevisaoTempo.pas',
+  Controller.ProvisaoTempo.Inpe in '..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.Inpe.pas',
+  Classe.PrevisaoTempo in '..\Sys\Services\Classe.PrevisaoTempo.pas';
 
 {$R *.res}
 

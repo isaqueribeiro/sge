@@ -201,6 +201,7 @@ type
     TmrAlertaCliente: TTimer;
     BrBtnRelatorioFinanceiroAPxAR: TdxBarLargeButton;
     ApplicationEvents: TApplicationEvents;
+    BrBtnVendaMobile: TdxBarLargeButton;
     procedure tmrAutoUpgradeTimer(Sender: TObject);
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
@@ -306,6 +307,7 @@ type
     procedure ApplicationEventsModalBegin(Sender: TObject);
     procedure ApplicationEventsModalEnd(Sender: TObject);
     procedure ApplicationEventsActivate(Sender: TObject);
+    procedure BrBtnVendaMobileClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -586,6 +588,12 @@ procedure TfrmPrinc.BrBtnUpgradeClick(Sender: TObject);
 begin
   if DMBusiness.LiberarUsoLicenca(GetDateDB, True) then
     FormFunction.ShowModalForm(Self, 'FrmAutoUpgrade');
+end;
+
+procedure TfrmPrinc.BrBtnVendaMobileClick(Sender: TObject);
+begin
+//  if GetPermissaoRotinaSistema(ROTINA_CAD_FORNECEDOR_ID, True) then
+    FormFunction.ShowModalForm(Self, 'ViewVendaMobile');
 end;
 
 procedure TfrmPrinc.btnClienteClick(Sender: TObject);
@@ -893,7 +901,10 @@ begin
     aProcesso := ParamStr(0);
     aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
     KillTask(aProcesso);
-  end;
+  end
+  else
+  if (Trunc(GetVersionDB(gSistema.Codigo) / 100) > Trunc(gVersaoApp.VersionID / 100)) then
+    ShowWarning('O sistema está desatualizado em relação à base de dados.' + #13 + 'Favor atualize seu sistema.');
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);

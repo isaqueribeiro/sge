@@ -4905,6 +4905,10 @@ object frmPrinc: TfrmPrinc
         end
         item
           Visible = True
+          ItemName = 'BrBtnVendaMobile'
+        end
+        item
+          Visible = True
           ItemName = 'BrBtnOrdemServico'
         end
         item
@@ -4920,7 +4924,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 535
+      DockedLeft = 605
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213
@@ -5045,6 +5049,10 @@ object frmPrinc: TfrmPrinc
         end
         item
           Visible = True
+          ItemName = 'BrBtnVendaMobile'
+        end
+        item
+          Visible = True
           ItemName = 'BrBtnOrdemServico'
         end
         item
@@ -5060,7 +5068,7 @@ object frmPrinc: TfrmPrinc
     object BrMngMovimentoCmp: TdxBar
       Caption = 'Compras'
       CaptionButtons = <>
-      DockedLeft = 210
+      DockedLeft = 280
       DockedTop = 0
       FloatLeft = 478
       FloatTop = 221
@@ -5821,6 +5829,13 @@ object frmPrinc: TfrmPrinc
       LargeImageIndex = 17
       SyncImageIndex = False
       ImageIndex = 17
+    end
+    object BrBtnVendaMobile: TdxBarLargeButton
+      Caption = 'Vendas no Aplicativo'
+      Category = 7
+      Hint = 'Vendas no Aplicativo'
+      Visible = ivAlways
+      OnClick = BrBtnVendaMobileClick
     end
     object BrBtnOrdemServico: TdxBarLargeButton
       Caption = 'Ordens de Servi'#231'os'

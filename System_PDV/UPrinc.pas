@@ -399,7 +399,10 @@ begin
     aProcesso := ParamStr(0);
     aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
     KillTask(aProcesso);
-  end;
+  end
+  else
+  if (Trunc(GetVersionDB(gSistema.Codigo) / 100) > Trunc(gVersaoApp.VersionID / 100)) then
+    ShowWarning('O sistema está desatualizado em relação à base de dados.' + #13 + 'Favor atualize seu sistema.');
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
