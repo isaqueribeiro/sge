@@ -24,7 +24,7 @@ type
       function Cidade(Value : TCidadePrevisaoTempo) : IPrevisaoTempo; overload;
       function Cidade : TCidadePrevisaoTempo; overload;
 
-      function GetCidade(var aCidade : TCidadePrevisaoTempo; out aRetornoXML : String) : IPrevisaoTempo;
+      function GetCidade(const AccessKey : String; var aCidade : TCidadePrevisaoTempo; out aRetornoXML : String) : IPrevisaoTempo;
   end;
 
 implementation
@@ -60,7 +60,7 @@ begin
   end;
 end;
 
-function TPrevisaoTempoInpe.GetCidade(var aCidade : TCidadePrevisaoTempo; out aRetornoXML : String): IPrevisaoTempo;
+function TPrevisaoTempoInpe.GetCidade(const AccessKey : String; var aCidade : TCidadePrevisaoTempo; out aRetornoXML : String): IPrevisaoTempo;
 var
   aRequest  : TRESTRequest;
   aResponse : TRESTResponse;
@@ -87,7 +87,7 @@ begin
       Client   := FRESTClient;
       Method   := TRESTRequestMethod.rmGET;
       Timeout  := 30000;
-      Resource := 'listaCidades?city=' + aCity.Replace(' ', '%20');
+      Resource := 'listaCidades?city={city}';
 
       Params.BeginUpdate;
       Params.AddUrlSegment('city', aCity.Replace(' ', '%20'));
@@ -111,11 +111,11 @@ begin
           for I := 0 to aXML.DocumentElement.ChildNodes.Count - 1 do
             with aXML.DocumentElement.ChildNodes[I] do  // Item "cidade" identificado
             begin
-              if (ChildNodes['uf'].Text = aCidade.UF) then
+              if (UpperCase(ChildNodes['uf'].Text) = UpperCase(aCidade.UF)) then
               begin
                 FCidade.Id   := StrToIntDef(ChildNodes['id'].Text, 0);
                 FCidade.Nome := ChildNodes['nome'].Text;
-                FCidade.UF   := ChildNodes['uf'].Text;
+                FCidade.UF   := UpperCase(ChildNodes['uf'].Text);
                 Break;
               end;
             end;

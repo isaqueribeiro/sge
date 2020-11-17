@@ -14,7 +14,7 @@ type
     function Cidade(Value : TCidadePrevisaoTempo) : IPrevisaoTempo; overload;
     function Cidade : TCidadePrevisaoTempo; overload;
 
-    function GetCidade(var aCidade : TCidadePrevisaoTempo; out aRetornoXML : String) : IPrevisaoTempo;
+    function GetCidade(const AccessKey : String; var aCidade : TCidadePrevisaoTempo; out aRetornoXML : String) : IPrevisaoTempo;
   end;
 
 implementation

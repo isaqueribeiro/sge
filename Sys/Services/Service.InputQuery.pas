@@ -1,4 +1,4 @@
-unit Classe.InputQuery;
+unit Service.InputQuery;
 
 interface
 
