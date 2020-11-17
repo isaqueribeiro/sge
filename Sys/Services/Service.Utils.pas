@@ -1,15 +1,19 @@
-unit Services.Utils;
+unit Service.Utils;
 
 interface
 
 uses
-  System.SysUtils, System.StrUtils, Soap.EncdDecd, Vcl.ExtCtrls, Vcl.Graphics;
+  System.SysUtils, System.StrUtils, Soap.EncdDecd, Vcl.ExtCtrls, Vcl.Graphics, Vcl.Buttons,
+  Vcl.Imaging.pngimage;
 
 type
   TServicesUtils = class
     private
     public
-      class procedure ResourceImage( aResourceName : String; aImage : TImage);
+      class procedure ResourceImage( aResourceName : String; aImage : TImage); overload;
+      class procedure ResourceImage( aResourceName : String; aButton : TSpeedButton); overload;
+
+      class function PngToBmp(Png : TPngImage) : TBitmap;
       class function Base64FromBitmap(aBitmap : TBitmap) : String;
       class function BitmapFromBase64(const aBase64 : String) : TBitmap;
       class function MonthName(aData : TDateTime) : String;
@@ -107,6 +111,28 @@ begin
   end;
 
   Result := aRetorno;
+end;
+
+class function TServicesUtils.PngToBmp(Png: TPngImage): TBitmap;
+begin
+  Result := TBitmap.Create;
+  Result.Assign(Png);
+end;
+
+class procedure TServicesUtils.ResourceImage(aResourceName: String; aButton: TSpeedButton);
+var
+  Resource : TResourceStream;
+  aPng : TPngImage;
+begin
+  Resource := TResourceStream.Create(HInstance, aResourceName, RT_RCDATA);
+  try
+    aPng := TPngImage.Create;
+    aPng.LoadFromStream(Resource);
+    aButton.Glyph.Assign( TServicesUtils.PngToBmp(aPng) );
+  finally
+    Resource.DisposeOf;
+    aPng.DisposeOf;
+  end;
 end;
 
 class procedure TServicesUtils.ResourceImage(aResourceName: String; aImage: TImage);
