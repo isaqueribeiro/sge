@@ -3,8 +3,8 @@ unit Service.Utils;
 interface
 
 uses
-  System.SysUtils, System.StrUtils, Soap.EncdDecd, Vcl.ExtCtrls, Vcl.Graphics, Vcl.Buttons,
-  Vcl.Imaging.pngimage;
+  System.SysUtils, System.StrUtils, Soap.EncdDecd,
+  Vcl.ExtCtrls, Vcl.Graphics, Vcl.Buttons, Vcl.Imaging.pngimage;
 
 type
   TServicesUtils = class

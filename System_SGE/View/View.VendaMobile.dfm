@@ -56,8 +56,7 @@ inherited ViewVendaMobile: TViewVendaMobile
         Font.Name = 'Segoe UI Semibold'
         Font.Style = [fsBold]
         ParentFont = False
-        ExplicitLeft = 130
-        ExplicitTop = 19
+        ExplicitLeft = 191
         ExplicitWidth = 55
       end
       object lblUsuario: TLabel
@@ -88,22 +87,21 @@ inherited ViewVendaMobile: TViewVendaMobile
       end
     end
     object pnlNameApp: TPanel
-      AlignWithMargins = True
-      Left = 3
-      Top = 3
-      Width = 222
-      Height = 75
+      Left = 0
+      Top = 0
+      Width = 255
+      Height = 81
       Align = alLeft
       BevelOuter = bvNone
       Color = 1848330
       ParentBackground = False
       TabOrder = 1
-      object Image1: TImage
+      object imgApp: TImage
         Left = 0
         Top = 0
-        Width = 222
-        Height = 75
-        Align = alClient
+        Width = 225
+        Height = 81
+        Align = alLeft
         Picture.Data = {
           0B546478504E47496D61676589504E470D0A1A0A0000000D494844520000011C
           000000600806000000CF63CDEE000000017352474200AECE1CE9000000046741
@@ -301,21 +299,20 @@ inherited ViewVendaMobile: TViewVendaMobile
           100303FF0FBE50425C868ED3B80000000049454E44AE426082}
         Stretch = True
         Transparent = True
-        ExplicitLeft = 48
-        ExplicitTop = 8
-        ExplicitWidth = 105
-        ExplicitHeight = 105
+        ExplicitHeight = 75
       end
     end
     object pnlHora: TPanel
       AlignWithMargins = True
-      Left = 231
+      Left = 265
       Top = 3
       Width = 98
       Height = 75
+      Margins.Left = 10
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 2
+      ExplicitLeft = 231
       object Bevel2: TBevel
         Left = 0
         Top = 0
@@ -343,17 +340,21 @@ inherited ViewVendaMobile: TViewVendaMobile
     end
     object pnlPrevisaoTempo: TPanel
       AlignWithMargins = True
-      Left = 335
+      Left = 369
       Top = 3
-      Width = 226
+      Width = 218
       Height = 75
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 3
+      ExplicitLeft = 335
+      DesignSize = (
+        218
+        75)
       object Bevel3: TBevel
         Left = 0
         Top = 0
-        Width = 226
+        Width = 218
         Height = 9
         Align = alTop
         Shape = bsSpacer
@@ -376,7 +377,9 @@ inherited ViewVendaMobile: TViewVendaMobile
         Left = 0
         Top = 37
         Width = 210
-        Height = 21
+        Height = 36
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        AutoSize = False
         Caption = 'Rio de Janeiro/RJ, 32'#176' m'#225'xima'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWhite
@@ -384,10 +387,11 @@ inherited ViewVendaMobile: TViewVendaMobile
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
+        WordWrap = True
       end
     end
   end
-  object Panel1: TPanel
+  object pnlBotoes: TPanel
     Left = 0
     Top = 81
     Width = 81
@@ -707,6 +711,9 @@ inherited ViewVendaMobile: TViewVendaMobile
       ParentShowHint = False
       ParentBiDiMode = False
       ShowHint = True
+      OnClick = btnConfigurarClick
+      OnMouseEnter = btnConfigurarMouseEnter
+      OnMouseLeave = btnConfigurarMouseLeave
       ExplicitTop = 451
     end
     object btnSincronizar: TSpeedButton
@@ -1020,7 +1027,114 @@ inherited ViewVendaMobile: TViewVendaMobile
       ParentBiDiMode = False
       ShowHint = True
       OnClick = btnSincronizarClick
+      OnMouseEnter = btnSincronizarMouseEnter
+      OnMouseLeave = btnSincronizarMouseLeave
       ExplicitTop = 451
+    end
+  end
+  object pnlContent: TPanel
+    Left = 81
+    Top = 81
+    Width = 975
+    Height = 509
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 2
+    object pnlDesktop: TPanel
+      Left = 0
+      Top = 0
+      Width = 975
+      Height = 509
+      Align = alClient
+      BevelOuter = bvNone
+      TabOrder = 0
+      OnClick = pnlDesktopClick
+      ExplicitLeft = 3
+      ExplicitTop = 1
+      object SplitViewMenu: TSplitView
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 509
+        Color = 5413660
+        Opened = False
+        OpenedWidth = 174
+        Placement = svpLeft
+        TabOrder = 0
+        object lblSincronizar: TLabel
+          AlignWithMargins = True
+          Left = 10
+          Top = 10
+          Width = -13
+          Height = 25
+          Margins.Left = 10
+          Margins.Top = 10
+          Align = alTop
+          Caption = 'SINCRONIZAR'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -19
+          Font.Name = 'Segoe UI Semibold'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ExplicitWidth = 126
+        end
+        object lblSincronizarVendedor: TLabel
+          AlignWithMargins = True
+          Left = 10
+          Top = 41
+          Width = -13
+          Height = 21
+          Margins.Left = 10
+          Align = alTop
+          Caption = 'Vendedores'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -16
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentFont = False
+          ExplicitLeft = 13
+          ExplicitTop = 83
+          ExplicitWidth = 167
+        end
+        object lblSincronizarProduto: TLabel
+          AlignWithMargins = True
+          Left = 10
+          Top = 68
+          Width = -13
+          Height = 21
+          Margins.Left = 10
+          Align = alTop
+          Caption = 'Produtos'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -16
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentFont = False
+          ExplicitLeft = 26
+          ExplicitTop = 131
+          ExplicitWidth = 167
+        end
+        object lblSincronizarCliente: TLabel
+          AlignWithMargins = True
+          Left = 10
+          Top = 95
+          Width = -13
+          Height = 21
+          Margins.Left = 10
+          Align = alTop
+          Caption = 'Clientes'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -16
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentFont = False
+          ExplicitWidth = 55
+        end
+      end
     end
   end
   object TmrContador: TTimer

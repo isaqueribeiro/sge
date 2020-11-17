@@ -39,6 +39,10 @@ inherited FrmGrRegistroEstacao: TFrmGrRegistroEstacao
     object TbsLista: TTabSheet
       Caption = '&Lista'
       ImageIndex = 37
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object dbgRegistro: TDBGrid
         Left = 0
         Top = 0

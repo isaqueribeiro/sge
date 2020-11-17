@@ -566,7 +566,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <Form>ViewInputQuery</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Sys\Services\Classe.InputQuery.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.InputQuery.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas"/>
         <DCCReference Include="..\Sys\UGeDistribuicaoDFe.pas">
             <Form>frmDistribuicaoDFe</Form>
@@ -582,7 +582,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\Services\PrevisaoTempo\Interfaces.PrevisaoTempo.pas"/>
         <DCCReference Include="..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.Inpe.pas"/>
-        <DCCReference Include="..\Sys\Services\Classe.PrevisaoTempo.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.PrevisaoTempo.pas"/>
+        <DCCReference Include="..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.WeatherstackAPI.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Utils.pas"/>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>

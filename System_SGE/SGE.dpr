@@ -170,14 +170,16 @@ uses
   Controller.Tabela in '..\Sys\Controller\Controller.Tabela.pas',
   Interfaces.InputQuery in '..\Sys\Services\InputQuery\Interfaces.InputQuery.pas',
   View.InputQuery in '..\Sys\Services\InputQuery\View.InputQuery.pas' {ViewInputQuery},
-  Classe.InputQuery in '..\Sys\Services\Classe.InputQuery.pas',
+  Service.InputQuery in '..\Sys\Services\Service.InputQuery.pas',
   Classe.DistribuicaoDFe.DocumentoRetornado in '..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas',
   UGeDistribuicaoDFe in '..\Sys\UGeDistribuicaoDFe.pas' {frmDistribuicaoDFe},
   View.Esmaecer in '..\Sys\View\View.Esmaecer.pas' {ViewEsmaecer},
   View.VendaMobile in 'View\View.VendaMobile.pas' {ViewVendaMobile},
   Interfaces.PrevisaoTempo in '..\Sys\Services\PrevisaoTempo\Interfaces.PrevisaoTempo.pas',
   Controller.ProvisaoTempo.Inpe in '..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.Inpe.pas',
-  Classe.PrevisaoTempo in '..\Sys\Services\Classe.PrevisaoTempo.pas';
+  Service.PrevisaoTempo in '..\Sys\Services\Service.PrevisaoTempo.pas',
+  Controller.ProvisaoTempo.WeatherstackAPI in '..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.WeatherstackAPI.pas',
+  Service.Utils in '..\Sys\Services\Service.Utils.pas';
 
 {$R *.res}
 

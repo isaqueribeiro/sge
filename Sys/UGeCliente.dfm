@@ -1020,6 +1020,10 @@ inherited frmGeCliente: TfrmGeCliente
         TabStop = False
         object tbsContato: TTabSheet
           Caption = '&1. Contato'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblFoneFixo: TLabel
             Left = 8
             Top = 0

@@ -1893,6 +1893,10 @@ inherited frmGeVenda: TfrmGeVenda
         object tbsRecebimento: TTabSheet
           BorderWidth = 4
           Caption = 'Recebimento'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object pnlObservacao: TPanel
             Left = 0
             Top = 0
@@ -1904,12 +1908,11 @@ inherited frmGeVenda: TfrmGeVenda
             object lblObservacao: TLabel
               Left = 0
               Top = 0
-              Width = 520
+              Width = 67
               Height = 13
               Align = alTop
               Caption = '&Observa'#231#245'es:'
               FocusControl = dbObservacao
-              ExplicitWidth = 67
             end
             object Bevel14: TBevel
               Left = 516

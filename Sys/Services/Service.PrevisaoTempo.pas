@@ -49,7 +49,7 @@ var
   aStr : String;
   aRetorno : TCidadePrevisaoTempo;
 begin
-  aRetorno.Id := 0;
+  aRetorno.Id   := 0;
   aRetorno.Nome := aCidade;
   aRetorno.UF   := aUF;
 

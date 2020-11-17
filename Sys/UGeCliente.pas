@@ -429,7 +429,7 @@ var
 implementation
 
 uses
-  Classe.InputQuery, UDMBusiness, UDMRecursos, UGeBairro, UGeCidade, UGeDistrito,
+  Service.InputQuery, UDMBusiness, UDMRecursos, UGeBairro, UGeCidade, UGeDistrito,
   UGeEstado, UGeLogradouro, UGrPadrao, FuncoesFormulario, UConstantesDGE;
 
 {$R *.dfm}
@@ -1831,3 +1831,4 @@ initialization
   FormFunction.RegisterForm('frmGeCliente', TfrmGeCliente);
 
 end.
+

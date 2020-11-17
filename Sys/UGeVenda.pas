@@ -622,7 +622,7 @@ var
 implementation
 
 uses
-  Classe.InputQuery, Controller.Tabela, UDMBusiness, UFuncoes, UGeCliente, UGeCondicaoPagto, UGeProduto,
+  Service.InputQuery, Controller.Tabela, UDMBusiness, UFuncoes, UGeCliente, UGeCondicaoPagto, UGeProduto,
   UGeTabelaCFOP, UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos, UGeEfetuarPagtoREC,
   UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte, UGeVendaConfirmaTitulos,
   {$IFNDEF PDV}UGeVendaDevolucaoNF, UGeConsultarLoteNFe_v2, UGeRequisicaoCliente, {$ENDIF}
