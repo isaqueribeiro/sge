@@ -3,21 +3,21 @@ unit FuncoesFormulario;
 interface
 
 uses
-  Forms, Controls, System.Classes, System.SysUtils, UObserverInterface;
+  Forms, Controls, System.Classes, System.SysUtils, Vcl.ExtCtrls, UObserverInterface;
 
 type
   TFormularios = class
+//  strict private
+//    class var FForm  : TForm;
   private
 
   public
     class function EstaAberto(sForm: String): Boolean;
     class function ShowModalForm(const AOnwer : TComponent; NomeForm: String): Boolean;
     class function ShowModalFormObserver(const AOnwer : TComponent; NomeForm: String; Observador : IObserver): Boolean;
+    class function ShowPanelForm(const AOnwer : TComponent; NomeForm : String) : TPanel;
+
     class procedure ShowForm(const AOnwer : TComponent; NomeForm: String);
-//    class procedure ShowFormReport(const AOnwer : TComponent; NomeForm: String); overload;
-//    class procedure ShowFormReport(const AOnwer : TComponent; NomeForm, NomeQuickRep: String); overload;
-//    class procedure ShowFormReportParams(const AOnwer : TComponent; NomeForm, NomeQuickRep,
-//      NomePropriedade: String; ValorPropriedade : Variant);
     class procedure RegisterForm(const aFormName: string; aFormClass: TComponentClass);
     class procedure FecharTodosForm;
 end;
@@ -71,69 +71,6 @@ begin
   FForm.Show;
 end;
 
-//class procedure TFormularios.ShowFormReport(const AOnwer : TComponent; NomeForm: String);
-//var
-//  I : Integer;
-//  qckrp : TComponent;
-//begin
-//  try
-//    if not TFormularios.EstaAberto(NomeForm) then
-//      FForm := _FormFactory.CreateForm(AOnwer, NomeForm);
-//
-//    qckrp := nil;
-//    for I := 0 to FForm.ComponentCount - 1 do
-//      if FForm.Components[I] is TQuickRep then
-//      begin
-//        qckrp     := FForm.Components[I];
-//        Break;
-//      end;
-//
-//    if ( qckrp <> nil ) then
-//      TQuickRep(qckrp).PreviewModal;
-//  finally
-//    FForm.Free;
-//  end;
-//end;
-//
-//class procedure TFormularios.ShowFormReport(const AOnwer : TComponent; NomeForm, NomeQuickRep: String);
-//var
-//  qckrp : TComponent;
-//begin
-//  try
-//    if not TFormularios.EstaAberto(NomeForm) then
-//      FForm := _FormFactory.CreateForm(AOnwer, NomeForm);
-//
-//    qckrp := FForm.FindComponent(NomeQuickRep);
-//
-//    if Assigned(qckrp) then
-//      TQuickRep(qckrp).PreviewModal;
-//  finally
-//    FForm.Free;
-//  end;
-//end;
-//
-//class procedure TFormularios.ShowFormReportParams(const AOnwer : TComponent; NomeForm, NomeQuickRep,
-//  NomePropriedade: String; ValorPropriedade : Variant);
-//var
-//  qckrp : TComponent;
-//  pProp : PPropInfo;
-//begin
-//  try
-//    if not TFormularios.EstaAberto(NomeForm) then
-//      FForm := _FormFactory.CreateForm(AOnwer, NomeForm);
-//
-//    pProp := GetPropInfo( FForm.ClassInfo, NomePropriedade);
-//    if Assigned(pProp) then
-//      SetPropValue(FForm, NomePropriedade, ValorPropriedade);
-//
-//    qckrp := FForm.FindComponent(NomeQuickRep);
-//    if Assigned(qckrp) then
-//      TQuickRep(qckrp).PreviewModal;
-//  finally
-//    FForm.Free;
-//  end;
-//end;
-//
 class function TFormularios.ShowModalForm(const AOnwer: TComponent;
   NomeForm: String): Boolean;
 begin
@@ -169,6 +106,17 @@ begin
   finally
     FForm.Free;
   end;
+end;
+
+class function TFormularios.ShowPanelForm(const AOnwer: TComponent; NomeForm: String): TPanel;
+begin
+  if not TFormularios.EstaAberto(NomeForm) then
+    FForm := _FormFactory.CreateForm(AOnwer, NomeForm);
+
+  if Assigned(FForm.FindComponent('pnlContent')) then
+    Result := TPanel(FForm.FindComponent('pnlContent'))
+  else
+    Result := nil;
 end;
 
 end.

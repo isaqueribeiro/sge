@@ -66,7 +66,8 @@ uses
   , UDMRecursos
   , UDMBusiness
   , Service.PrevisaoTempo
-  , Service.Utils;
+  , Service.Utils
+  , Classe.Gerenciador.View;
 
 { TViewVendaMobile }
 

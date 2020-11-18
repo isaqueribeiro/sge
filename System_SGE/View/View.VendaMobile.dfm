@@ -28,10 +28,9 @@ inherited ViewVendaMobile: TViewVendaMobile
       Width = 65
       Height = 75
       Align = alRight
+      Pen.Style = psClear
       Shape = stCircle
-      ExplicitLeft = 696
-      ExplicitTop = 8
-      ExplicitHeight = 65
+      ExplicitTop = 0
     end
     object pnlUsuario: TPanel
       AlignWithMargins = True
@@ -312,7 +311,6 @@ inherited ViewVendaMobile: TViewVendaMobile
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitLeft = 231
       object Bevel2: TBevel
         Left = 0
         Top = 0
@@ -347,7 +345,6 @@ inherited ViewVendaMobile: TViewVendaMobile
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 3
-      ExplicitLeft = 335
       DesignSize = (
         218
         75)
@@ -1049,15 +1046,12 @@ inherited ViewVendaMobile: TViewVendaMobile
       BevelOuter = bvNone
       TabOrder = 0
       OnClick = pnlDesktopClick
-      ExplicitLeft = 3
-      ExplicitTop = 1
       object SplitViewMenu: TSplitView
         Left = 0
         Top = 0
-        Width = 0
+        Width = 174
         Height = 509
         Color = 5413660
-        Opened = False
         OpenedWidth = 174
         Placement = svpLeft
         TabOrder = 0
@@ -1065,7 +1059,7 @@ inherited ViewVendaMobile: TViewVendaMobile
           AlignWithMargins = True
           Left = 10
           Top = 10
-          Width = -13
+          Width = 161
           Height = 25
           Margins.Left = 10
           Margins.Top = 10
@@ -1083,7 +1077,7 @@ inherited ViewVendaMobile: TViewVendaMobile
           AlignWithMargins = True
           Left = 10
           Top = 41
-          Width = -13
+          Width = 161
           Height = 21
           Margins.Left = 10
           Align = alTop
@@ -1094,15 +1088,13 @@ inherited ViewVendaMobile: TViewVendaMobile
           Font.Name = 'Segoe UI'
           Font.Style = []
           ParentFont = False
-          ExplicitLeft = 13
-          ExplicitTop = 83
-          ExplicitWidth = 167
+          ExplicitWidth = 82
         end
         object lblSincronizarProduto: TLabel
           AlignWithMargins = True
           Left = 10
           Top = 68
-          Width = -13
+          Width = 161
           Height = 21
           Margins.Left = 10
           Align = alTop
@@ -1113,15 +1105,13 @@ inherited ViewVendaMobile: TViewVendaMobile
           Font.Name = 'Segoe UI'
           Font.Style = []
           ParentFont = False
-          ExplicitLeft = 26
-          ExplicitTop = 131
-          ExplicitWidth = 167
+          ExplicitWidth = 63
         end
         object lblSincronizarCliente: TLabel
           AlignWithMargins = True
           Left = 10
           Top = 95
-          Width = -13
+          Width = 161
           Height = 21
           Margins.Left = 10
           Align = alTop

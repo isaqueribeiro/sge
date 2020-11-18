@@ -179,7 +179,10 @@ uses
   Controller.ProvisaoTempo.Inpe in '..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.Inpe.pas',
   Service.PrevisaoTempo in '..\Sys\Services\Service.PrevisaoTempo.pas',
   Controller.ProvisaoTempo.WeatherstackAPI in '..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.WeatherstackAPI.pas',
-  Service.Utils in '..\Sys\Services\Service.Utils.pas';
+  Service.Utils in '..\Sys\Services\Service.Utils.pas',
+  View.VendaMobile.Vendedor in 'View\View.VendaMobile.Vendedor.pas' {ViewVendaMobileVendedor},
+  Classe.Gerenciador.View in '..\Sys\Classe\Classe.Gerenciador.View.pas',
+  Interacao.Gerenciador.View in '..\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas';
 
 {$R *.res}
 

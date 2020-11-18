@@ -585,6 +585,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Services\Service.PrevisaoTempo.pas"/>
         <DCCReference Include="..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.WeatherstackAPI.pas"/>
         <DCCReference Include="..\Sys\Services\Service.Utils.pas"/>
+        <DCCReference Include="View\View.VendaMobile.Vendedor.pas">
+            <Form>ViewVendaMobileVendedor</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Classe\Classe.Gerenciador.View.pas"/>
+        <DCCReference Include="..\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas"/>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>
