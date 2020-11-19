@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.ExtCtrls, Vcl.StdCtrls, dxGDIPlusClasses, Vcl.Buttons,
-  Vcl.WinXCtrls;
+  Vcl.WinXCtrls, REST.Types, REST.Client, Data.Bind.Components, Data.Bind.ObjectScope;
 
 type
   TViewVendaMobile = class(TfrmGrPadrao)
@@ -35,6 +35,9 @@ type
     lblSincronizarVendedor: TLabel;
     lblSincronizarProduto: TLabel;
     lblSincronizarCliente: TLabel;
+    RESTClient1: TRESTClient;
+    RESTRequest1: TRESTRequest;
+    RESTResponse1: TRESTResponse;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TmrContadorTimer(Sender: TObject);
@@ -67,14 +70,21 @@ uses
   , UDMBusiness
   , Service.PrevisaoTempo
   , Service.Utils
-  , Classe.Gerenciador.View;
+  , Classe.Gerenciador.View, Interfaces.PrevisaoTempo;
 
 { TViewVendaMobile }
 
 procedure TViewVendaMobile.btnConfigurarClick(Sender: TObject);
+var
+  aPrevisao : TCidadePrevisaoTempo;
 begin
-  lblCidade.Caption := TServicePrevisaoTempo
-    .GetCidade(TTipoServicePrevisaoTempo.sptWeatherstackAPI, '60f0318e8b6fa78085190379ad56025c', 'Ananindeua', 'PA').Nome;
+  try
+    aPrevisao := TServicePrevisaoTempo
+      .GetCidade(TTipoServicePrevisaoTempo.sptWeatherstackAPI, '60f0318e8b6fa78085190379ad56025c', 'Ananindeua', 'PA');
+    lblCidade.Caption := Format('%s, %s, %s°', [aPrevisao.Nome, aPrevisao.Regiao, aPrevisao.PrevisaoTempo.Temperatura]);
+  finally
+    aPrevisao.DisposeOf;
+  end;
 end;
 
 procedure TViewVendaMobile.btnConfigurarMouseEnter(Sender: TObject);

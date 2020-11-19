@@ -24,13 +24,12 @@ type
       function Cidade(Value : TCidadePrevisaoTempo) : IPrevisaoTempo; overload;
       function Cidade : TCidadePrevisaoTempo; overload;
 
-      function GetCidade(const AccessKey : String; var aCidade : TCidadePrevisaoTempo; out aRetornoXML : String) : IPrevisaoTempo;
+      function GetCidade(const AccessKey : String; var aCidade : TCidadePrevisaoTempo; out Error : String) : IPrevisaoTempo;
   end;
 
 implementation
 
 { TPrevisaoTempoInpe }
-
 
 (*
  * DOCUMENTAÇÃO DA APLI:
@@ -51,6 +50,7 @@ end;
 constructor TPrevisaoTempoInpe.Create(const aURL : String);
 begin
   FRESTClient := TRESTClient.Create(aURL);
+  FCidade     := TCidadePrevisaoTempo.New;
 
   with FRESTClient do
   begin
@@ -60,18 +60,17 @@ begin
   end;
 end;
 
-function TPrevisaoTempoInpe.GetCidade(const AccessKey : String; var aCidade : TCidadePrevisaoTempo; out aRetornoXML : String): IPrevisaoTempo;
+function TPrevisaoTempoInpe.GetCidade(const AccessKey : String; var aCidade : TCidadePrevisaoTempo; out Error : String): IPrevisaoTempo;
 var
   aRequest  : TRESTRequest;
   aResponse : TRESTResponse;
-  aCity : String;
 
   aXML : IXMLDocument;
   I : Integer;
 begin
-  aRetornoXML := EmptyStr;
-  aRequest    := TRESTRequest.Create(FRESTClient);
-  aResponse   := TRESTResponse.Create(aRequest);
+  Error     := EmptyStr;
+  aRequest  := TRESTRequest.Create(FRESTClient);
+  aResponse := TRESTResponse.Create(aRequest);
 
   aXML := TXMLDocument.Create(EmptyStr);
 
@@ -82,7 +81,8 @@ begin
       AcceptCharset := FRESTClient.AcceptCharset;
       SynchronizedEvents := False;
 
-      aCity := RemoveAllAccents(aCidade.Nome);
+      aCidade.Nome := RemoveAllAccents(aCidade.Nome);
+      FCidade.Assign( aCidade );
 
       Client   := FRESTClient;
       Method   := TRESTRequestMethod.rmGET;
@@ -90,21 +90,16 @@ begin
       Resource := 'listaCidades?city={city}';
 
       Params.BeginUpdate;
-      Params.AddUrlSegment('city', aCity.Replace(' ', '%20'));
+      Params.AddUrlSegment('city', FCidade.Nome.Replace(' ', '%20'));
       Params.EndUpdate;
 
       Execute;
 
-      // Response.StatusCode = Código do retorno
-      // Response.StatusText = Descrição do retorno
-
       if (Response.StatusCode = 200) or Response.Status.SuccessOK_200 then
       begin
-        aRetornoXML := Response.Content;
-
-        if (aRetornoXML <> EmptyStr) then
+        if (Response.Content <> EmptyStr) then
         begin
-          aXML.LoadFromXML( aRetornoXML );
+          aXML.LoadFromXML( Response.Content );
           aXML.Active := True;
 
           // Percorrer itens do no "cidades"
@@ -120,13 +115,15 @@ begin
               end;
             end;
         end;
-      end;
+      end
+      else
+        Error := 'Error ' + Response.StatusCode.ToString + ' - ' + Response.StatusText;
     end;
   finally
     aResponse.DisposeOf;
     aRequest.DisposeOf;
 
-    aCidade := FCidade;
+    aCidade.Assign( FCidade );
   end;
 end;
 

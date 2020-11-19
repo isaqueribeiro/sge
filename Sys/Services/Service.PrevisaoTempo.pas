@@ -46,10 +46,11 @@ end;
 class function TServicePrevisaoTempo.GetCidade(const aTipo : TTipoServicePrevisaoTempo; const AccessKey : String;
   aCidade, aUF: String): TCidadePrevisaoTempo;
 var
-  aStr : String;
+  aError   : String;
   aRetorno : TCidadePrevisaoTempo;
 begin
-  aRetorno.Id   := 0;
+  aRetorno := TCidadePrevisaoTempo.New;
+
   aRetorno.Nome := aCidade;
   aRetorno.UF   := aUF;
 
@@ -57,7 +58,7 @@ begin
     TServicePrevisaoTempo
       .Create(aTipo)
       .FService
-        .GetCidade(AccessKey, aRetorno, aStr);
+        .GetCidade(AccessKey, aRetorno, aError);
   finally
     Result := aRetorno;
   end;
