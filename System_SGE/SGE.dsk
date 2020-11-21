@@ -1,79 +1,70 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\PrevisaoTempo\Interfaces.PrevisaoTempo.pas',0,1,1,1,128,0,0,,
-File_1=TSourceModule,'c:\delphi\rio\studio\20.0\source\rtl\common\System.Classes.pas',0,1,5797,51,5823,0,0,,
-File_2=TSourceModule,'c:\delphi\rio\studio\20.0\source\Internet\Web.HTTPApp.pas',0,1,166,31,46,0,0,,
-File_3=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\RTL\SYS\System.pas',0,1,17557,1,17596,0,0,,
-File_4=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.InputQuery.pas',0,1,1,1,46,0,0,,
-File_5=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrRegistroEstacao.pas',0,1,42,72,68,0,0,,
-File_6=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeCliente.pas',0,1,1808,1,1834,0,0,,
-File_7=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,599,10,625,0,0,,
-File_8=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\XML\Xml.XMLIntf.pas',0,1,171,1,182,0,0,,
-File_9=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\HPL_Strings.pas',0,1,385,1,390,0,0,,
-File_10=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\View.InputQuery.pas',0,1,13,1,1,0,0,,
-File_11=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\rest\REST.Client.pas',0,1,1000,29,1032,0,0,,
-File_12=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Controller\Controller.Empresa.pas',0,1,1,47,9,0,0,,
-File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\Interfaces.InputQuery.pas',0,1,1,97,3,0,0,,
-File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeInventario.pas',0,1,1192,1,1217,0,0,,
+File_0=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\PrevisaoTempo\Interfaces.PrevisaoTempo.pas',0,1,179,19,184,0,0,,
+File_1=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\Interacao.Empresa.pas',0,1,1,1,1,0,0,,
+File_2=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.OpenWeatherMapAPI.pas',0,1,1,1,126,0,0,,
+File_3=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.WeatherstackAPI.pas',0,1,109,56,129,0,0,,
+File_4=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\rest\REST.Client.pas',0,1,2343,3,2369,0,0,,
+File_5=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrConsultarCNJP.pas',0,1,159,26,166,0,0,,
+File_6=TSourceModule,'C:\Delphi\Comps\ACBr\Fontes\ACBrTCP\ACBrConsultaCNPJ.pas',0,1,128,8,155,0,0,,
+File_7=TSourceModule,'C:\Delphi\Comps\ACBr\Fontes\ACBrTCP\ACBrSocket.pas',0,1,577,3,844,0,0,,
+File_8=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.Utils.pas',0,1,117,1,122,0,0,,
+File_9=TSourceModule,'C:\Delphi\Comps\ACBr\Fontes\Terceiros\synalist\httpsend.pas',0,1,37,3,91,0,0,,
+File_10=TSourceModule,'c:\delphi\rio\studio\20.0\source\rtl\common\System.Classes.pas',0,1,5797,51,5823,0,0,,
+File_11=TSourceModule,'c:\delphi\rio\studio\20.0\source\Internet\Web.HTTPApp.pas',0,1,166,31,46,0,0,,
+File_12=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\RTL\SYS\System.pas',0,1,17557,1,17596,0,0,,
+File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.InputQuery.pas',0,1,1,1,46,0,0,,
+File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrRegistroEstacao.pas',0,1,42,72,68,0,0,,
 
 [Modules]
-Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.WeatherstackAPI.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.Inpe.pas
-Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.PrevisaoTempo.pas
-Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.pas
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Classe.Gerenciador.View.pas
-Module5=default.htm
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas
-Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\FormFactoryU.pas
-Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\Interacao.Empresa.pas
-Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Vendedor.pas
-Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\FuncoesFormulario.pas
-Module12=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
-Module13=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module14=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module15=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.Utils.pas
-Module16=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module17=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
-Module18=C:\Delphi\Comps\ACBr\Fontes\ACBrDiversos\ACBrValidador.pas
-Module19=C:\Delphi\Comps\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
-Module20=C:\Delphi\Comps\ACBr\Fontes\ACBrDFe\ACBrDFeSSL.pas
-Module21=C:\Delphi\Comps\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Frm_ACBrNFe.pas
-Module22=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
-Module23=documentation.htm
-Count=24
+Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.pas
+Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.PrevisaoTempo.pas
+Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Vendedor.pas
+Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.Inpe.pas
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\FormFactoryU.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Classe.Gerenciador.View.pas
+Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\FuncoesFormulario.pas
+Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
+Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module12=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module13=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Module14=C:\Delphi\Comps\ACBr\Fontes\ACBrDiversos\ACBrValidador.pas
+Module15=C:\Delphi\Comps\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
+Module16=C:\Delphi\Comps\ACBr\Fontes\ACBrDFe\ACBrDFeSSL.pas
+Module17=C:\Delphi\Comps\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Frm_ACBrNFe.pas
+Module18=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
+Module19=default.htm
+Module20=documentation.htm
+Count=21
 EditWindowCount=1
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.WeatherstackAPI.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.Inpe.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.PrevisaoTempo.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Vendedor.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Classe.Gerenciador.View.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas]
 ModuleType=TSourceModule
 
-[default.htm]
-ModuleType=TURLModule
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.Inpe.pas]
+ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj]
 ModuleType=TBaseProject
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\FormFactoryU.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\Interacao.Empresa.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Vendedor.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Classe.Gerenciador.View.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\FuncoesFormulario.pas]
@@ -83,12 +74,6 @@ ModuleType=TSourceModule
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.Utils.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
@@ -112,12 +97,15 @@ ModuleType=TSourceModule
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas]
 ModuleType=TSourceModule
 
+[default.htm]
+ModuleType=TURLModule
+
 [documentation.htm]
 ModuleType=TURLModule
 
 [EditWindow0]
-ViewCount=24
-CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.WeatherstackAPI.pas
+ViewCount=21
+CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.pas
 View0=0
 View1=1
 View2=2
@@ -139,9 +127,6 @@ View17=17
 View18=18
 View19=19
 View20=20
-View21=21
-View22=22
-View23=23
 PercentageSizes=1
 Create=1
 Visible=1
@@ -165,8 +150,8 @@ RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
 RightPanelData=00000800010100000000201300000000000001D00700000000000001000000004412000009000000446F636B536974653201000000000022000009000000446F636B5369746534FFFFFFFF
 BottomPanelSize=0
-BottomPanelClients=MessageView,DockSite1
-BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B5369746531DE44000000000000020A060000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelClients=DockSite1,MessageView
+BottomPanelData=0000080001020200000009000000446F636B53697465310F0000004D65737361676556696577466F726DDE4400000000000002C905000000000000FFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -215,12 +200,12 @@ EditViewName=Borland.FormDesignerView
 [View5]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-CursorX=28
-CursorY=171
-TopLine=138
+CursorX=1
+CursorY=3989
+TopLine=3975
 LeftCol=1
 Elisions=
-Bookmarks={1,2172,18}
+Bookmarks={1,2173,18}
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
 
 [View6]
@@ -314,26 +299,15 @@ EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.
 [View14]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.pas
-CursorX=82
-CursorY=96
-TopLine=77
+CursorX=77
+CursorY=103
+TopLine=134
 LeftCol=1
 Elisions=
-Bookmarks={1,79,16}
+Bookmarks={1,77,1}
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.pas
 
 [View15]
-CustomEditViewType=TEditView
-Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\Interacao.Empresa.pas
-CursorX=1
-CursorY=1
-TopLine=1
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\Interacao.Empresa.pas
-
-[View16]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Vendedor.pas
 CursorX=28
@@ -344,7 +318,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Vendedor.pas
 
-[View17]
+[View16]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Classe.Gerenciador.View.pas
 CursorX=1
@@ -355,7 +329,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Classe.Gerenciador.View.pas
 
-[View18]
+[View17]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas
 CursorX=1
@@ -366,7 +340,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas
 
-[View19]
+[View18]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\FormFactoryU.pas
 CursorX=45
@@ -377,45 +351,23 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\FormFactoryU.pas
 
-[View20]
-CustomEditViewType=TEditView
-Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.Utils.pas
-CursorX=44
-CursorY=7
-TopLine=91
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.Utils.pas
-
-[View21]
+[View19]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.PrevisaoTempo.pas
-CursorX=3
-CursorY=52
+CursorX=47
+CursorY=14
 TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.PrevisaoTempo.pas
 
-[View22]
-CustomEditViewType=TEditView
-Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.WeatherstackAPI.pas
-CursorX=1
-CursorY=105
-TopLine=43
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.WeatherstackAPI.pas
-
-[View23]
+[View20]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.Inpe.pas
 CursorX=1
 CursorY=38
-TopLine=49
+TopLine=52
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -438,11 +390,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1067
+Height=1038
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1067
+ClientHeight=1038
 TBDockHeight=212
 LRDockWidth=13604
 Dockable=1
@@ -533,13 +485,13 @@ Docked=1
 State=0
 Left=0
 Top=28
-Width=9917
-Height=1337
+Width=2771
+Height=1269
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=9917
-ClientHeight=1337
-TBDockHeight=1337
+ClientWidth=2771
+ClientHeight=1269
+TBDockHeight=1269
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -571,14 +523,14 @@ Docked=0
 State=0
 Left=0
 Top=0
-Width=1786
-Height=6115
+Width=1948
+Height=4279
 MaxLeft=-5
 MaxTop=-10
-ClientWidth=1724
-ClientHeight=5750
-TBDockHeight=6115
-LRDockWidth=1786
+ClientWidth=1885
+ClientHeight=3913
+TBDockHeight=4279
+LRDockWidth=1948
 Dockable=1
 StayOnTop=0
 
@@ -600,7 +552,7 @@ TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
-SplitPos=146
+SplitPos=111
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -652,11 +604,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1067
+Height=1038
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1067
+ClientHeight=1038
 TBDockHeight=413
 LRDockWidth=4953
 Dockable=1
@@ -671,11 +623,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1067
+Height=1038
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1067
+ClientHeight=1038
 TBDockHeight=212
 LRDockWidth=7406
 Dockable=1
@@ -694,11 +646,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1067
+Height=1038
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1067
+ClientHeight=1038
 TBDockHeight=1538
 LRDockWidth=3484
 Dockable=1
@@ -713,11 +665,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1067
+Height=1038
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1067
+ClientHeight=1038
 TBDockHeight=2067
 LRDockWidth=3484
 Dockable=1
@@ -911,11 +863,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1067
+Height=1038
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1067
+ClientHeight=1038
 TBDockHeight=1548
 LRDockWidth=8740
 Dockable=1
@@ -1020,15 +972,15 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=952
+Left=0
 Top=28
 Width=3823
-Height=1337
+Height=1308
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1337
-TBDockHeight=1337
+ClientHeight=1308
+TBDockHeight=1308
 LRDockWidth=3823
 Dockable=1
 StayOnTop=0

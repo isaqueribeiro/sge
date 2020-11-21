@@ -12,14 +12,20 @@ type
       FURLClima    : String;
       FStrClima    : String;
       FFileNameClima : String;
+      FMaxima: String;
+      FMinima: String;
       procedure SetStrClima(const Value: String);
       procedure SetTemperatura(const Value: String);
       procedure SetURLClima(const Value: String);
       procedure SetFileNameClima(const Value: String);
+      procedure SetMaxima(const Value: String);
+      procedure SetMinima(const Value: String);
     protected
       constructor Create;
     public
       property Temperatura : String read FTemperatura write SetTemperatura;
+      property Maxima      : String read FMaxima write SetMaxima;
+      property Minima      : String read FMinima write SetMinima;
       property URLClima    : String read FURLClima write SetURLClima;
       property StrClima    : String read FStrClima write SetStrClima;
       property FileNameClima : String read FFileNameClima write SetFileNameClima;
@@ -49,6 +55,8 @@ type
       procedure SetPrevisaoTempo(const Value: TPrevisaoTempo);
       procedure SetRegiao(const Value: String);
       procedure SetUF(const Value: String);
+
+      function GetRegiao : String;
     protected
       constructor Create;
     public
@@ -57,7 +65,7 @@ type
       property Id     : Integer read FId write SetId;
       property Nome   : String read FNome write SetNome;
       property Pais   : String read FPais write SetPais;
-      property Regiao : String read FRegiao write SetRegiao;
+      property Regiao : String read GetRegiao write SetRegiao;
       property UF     : String read FUF write SetUF;
       property Latitude  : String read FLatitude write SetLatitude;
       property Longitude : String read FLongitude write SetLongitude;
@@ -109,6 +117,16 @@ begin
     FFileNameClima := EmptyStr;
 end;
 
+procedure TPrevisaoTempo.SetMaxima(const Value: String);
+begin
+  FMaxima := Value.Trim;
+end;
+
+procedure TPrevisaoTempo.SetMinima(const Value: String);
+begin
+  FMinima := Value.Trim;
+end;
+
 procedure TPrevisaoTempo.SetStrClima(const Value: String);
 begin
   FStrClima := Value;
@@ -143,7 +161,7 @@ constructor TCidadePrevisaoTempo.Create;
 begin
   FId       := 0;
   FNome     := EmptyStr;
-  FPais     := EmptyStr;
+  FPais     := 'BRASIL';
   FRegiao   := EmptyStr;
   FUF       := EmptyStr;
   FLatitude := EmptyStr;
@@ -156,6 +174,14 @@ destructor TCidadePrevisaoTempo.Destroy;
 begin
   FPrevisaoTempo.DisposeOf;
   inherited;
+end;
+
+function TCidadePrevisaoTempo.GetRegiao: String;
+begin
+  if not FRegiao.IsEmpty then
+    Result := FRegiao
+  else
+    Result := FUF;
 end;
 
 class function TCidadePrevisaoTempo.New: TCidadePrevisaoTempo;

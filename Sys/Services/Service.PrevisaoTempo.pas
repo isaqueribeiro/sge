@@ -11,6 +11,7 @@ uses
     Interfaces.PrevisaoTempo
   , Controller.ProvisaoTempo.Inpe
   , Controller.ProvisaoTempo.WeatherstackAPI
+  , Controller.ProvisaoTempo.OpenWeatherMapAPI
   , IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP;
 
 type
@@ -37,7 +38,7 @@ constructor TServicePrevisaoTempo.Create(const aTipo : TTipoServicePrevisaoTempo
 begin
   case aTipo of
     sptOpenWeatherMapAPI:
-      ;
+      FService := TPrevisaoTempoOpenWeatherMapAPI.GetInstance;
     sptWeatherstackAPI:
       FService := TPrevisaoTempoWeatherstackAPI.GetInstance;
     sptInep:

@@ -182,7 +182,8 @@ uses
   Service.Utils in '..\Sys\Services\Service.Utils.pas',
   View.VendaMobile.Vendedor in 'View\View.VendaMobile.Vendedor.pas' {ViewVendaMobileVendedor},
   Classe.Gerenciador.View in '..\Sys\Classe\Classe.Gerenciador.View.pas',
-  Interacao.Gerenciador.View in '..\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas';
+  Interacao.Gerenciador.View in '..\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas',
+  Controller.ProvisaoTempo.OpenWeatherMapAPI in '..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.OpenWeatherMapAPI.pas';
 
 {$R *.res}
 

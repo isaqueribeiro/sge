@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
-  Vcl.WinXCtrls, dxGDIPlusClasses;
+  Vcl.WinXCtrls, dxGDIPlusClasses, REST.Types, REST.Client, Data.Bind.Components, Data.Bind.ObjectScope;
 
 type
   TViewVendaMobile = class(TfrmGrPadrao)
@@ -35,6 +35,9 @@ type
     lblSincronizarVendedor: TLabel;
     lblSincronizarProduto: TLabel;
     lblSincronizarCliente: TLabel;
+    RESTClient1: TRESTClient;
+    RESTRequest1: TRESTRequest;
+    RESTResponse1: TRESTResponse;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TmrContadorTimer(Sender: TObject);
@@ -148,8 +151,10 @@ begin
     try
       aPrevisao := TServicePrevisaoTempo
         .GetCidade(
-            TTipoServicePrevisaoTempo.sptWeatherstackAPI
-          , '60f0318e8b6fa78085190379ad56025c'
+//            TTipoServicePrevisaoTempo.sptWeatherstackAPI
+//          , '60f0318e8b6fa78085190379ad56025c'
+            TTipoServicePrevisaoTempo.sptOpenWeatherMapAPI
+          , 'd7fe8308damshcb0e9ebdaf09920p151576jsncf5fb2fd0ee0'
           , GetEmpresaCidade(gUsuarioLogado.Empresa)
           , GetEmpresaUF(gUsuarioLogado.Empresa));
 

@@ -125,6 +125,8 @@ begin
           aParse := aJson.FindValue('current') as TJSONObject;
 
           FCidade.PrevisaoTempo.Temperatura := aParse.GetValue('temperature').Value;
+          FCidade.PrevisaoTempo.Maxima      := EmptyStr;
+          FCidade.PrevisaoTempo.Minima      := EmptyStr;
           FCidade.PrevisaoTempo.URLClima    := TJSONArray(aParse.GetValue('weather_icons')).Items[0].Value;
           FCidade.PrevisaoTempo.StrClima    := TJSONArray(aParse.GetValue('weather_descriptions')).Items[0].Value;
 
