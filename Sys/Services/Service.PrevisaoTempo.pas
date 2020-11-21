@@ -10,7 +10,8 @@ interface
 uses
     Interfaces.PrevisaoTempo
   , Controller.ProvisaoTempo.Inpe
-  , Controller.ProvisaoTempo.WeatherstackAPI;
+  , Controller.ProvisaoTempo.WeatherstackAPI
+  , IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP;
 
 type
   TTipoServicePrevisaoTempo = (sptOpenWeatherMapAPI, sptWeatherstackAPI, sptInep);
@@ -20,6 +21,7 @@ type
     public
       constructor Create(const aTipo : TTipoServicePrevisaoTempo);
 
+      class function DownloadImage(const aURL, aFileName : String) : Boolean;
       class function GetCidade(const aTipo : TTipoServicePrevisaoTempo; const AccessKey : String;
         aCidade, aUF : String) : TCidadePrevisaoTempo;
   end;
@@ -40,6 +42,23 @@ begin
       FService := TPrevisaoTempoWeatherstackAPI.GetInstance;
     sptInep:
       FService := TPrevisaoTempoInpe.GetInstance;
+  end;
+end;
+
+class function TServicePrevisaoTempo.DownloadImage(const aURL, aFileName: String): Boolean;
+var
+  IdHTTP : TIdHTTP;
+  aFile  : TFileStream;
+begin
+  Result := False;
+  IdHTTP := TIdHTTP.Create(nil);
+  try
+    aFile := TFileStream.Create(aFileName, fmCreate);
+    IdHTTP.Get(aURL, aFile);
+
+    Result := True;
+  finally
+    IdHTTP.DisposeOf;
   end;
 end;
 

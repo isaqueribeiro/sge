@@ -13,7 +13,8 @@ type
       class procedure ResourceImage( aResourceName : String; aImage : TImage); overload;
       class procedure ResourceImage( aResourceName : String; aButton : TSpeedButton); overload;
 
-      class function PngToBmp(Png : TPngImage) : TBitmap;
+      class function PngToBmp(Png : TPngImage) : TBitmap; overload;
+      class function PngToBmp(aFileNamePNG : TFileName) : TBitmap; overload;
       class function Base64FromBitmap(aBitmap : TBitmap) : String;
       class function BitmapFromBase64(const aBase64 : String) : TBitmap;
       class function MonthName(aData : TDateTime) : String;
@@ -111,6 +112,21 @@ begin
   end;
 
   Result := aRetorno;
+end;
+
+class function TServicesUtils.PngToBmp(aFileNamePNG: TFileName): TBitmap;
+var
+  aPng : TPngImage;
+begin
+  try
+    aPng := TPngImage.Create;
+    aPng.LoadFromFile(aFileNamePNG);
+
+    Result := TBitmap.Create;
+    Result.Assign(aPng);
+  finally
+    aPng.DisposeOf;
+  end;
 end;
 
 class function TServicesUtils.PngToBmp(Png: TPngImage): TBitmap;

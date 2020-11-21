@@ -13,7 +13,6 @@ type
     private
       FRESTClient : TRESTClient;
       FCidade     : TCidadePrevisaoTempo;
-
       function StrToLocalDateTime(Str : String) : TDateTime;
     protected
       constructor Create(const aURL : String);
@@ -126,8 +125,8 @@ begin
           aParse := aJson.FindValue('current') as TJSONObject;
 
           FCidade.PrevisaoTempo.Temperatura := aParse.GetValue('temperature').Value;
-          FCidade.PrevisaoTempo.URLClima    := aParse.GetValue('weather_icons').ToString;
-          FCidade.PrevisaoTempo.StrClima    := aParse.GetValue('weather_descriptions').ToString;
+          FCidade.PrevisaoTempo.URLClima    := TJSONArray(aParse.GetValue('weather_icons')).Items[0].Value;
+          FCidade.PrevisaoTempo.StrClima    := TJSONArray(aParse.GetValue('weather_descriptions')).Items[0].Value;
 
           aParse.DisposeOf;
         end;

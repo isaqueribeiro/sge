@@ -4,8 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.ExtCtrls, Vcl.StdCtrls, dxGDIPlusClasses, Vcl.Buttons,
-  Vcl.WinXCtrls, REST.Types, REST.Client, Data.Bind.Components, Data.Bind.ObjectScope;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.WinXCtrls, dxGDIPlusClasses;
 
 type
   TViewVendaMobile = class(TfrmGrPadrao)
@@ -35,9 +35,6 @@ type
     lblSincronizarVendedor: TLabel;
     lblSincronizarProduto: TLabel;
     lblSincronizarCliente: TLabel;
-    RESTClient1: TRESTClient;
-    RESTRequest1: TRESTRequest;
-    RESTResponse1: TRESTResponse;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TmrContadorTimer(Sender: TObject);
@@ -45,13 +42,13 @@ type
     procedure btnSincronizarMouseLeave(Sender: TObject);
     procedure btnConfigurarMouseEnter(Sender: TObject);
     procedure btnConfigurarMouseLeave(Sender: TObject);
-    procedure btnConfigurarClick(Sender: TObject);
     procedure btnSincronizarClick(Sender: TObject);
     procedure pnlDesktopClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     procedure ConfigurarIcon(aResource : String; Sender : TSpeedButton);
+    procedure LerPrevisaoTempo;
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -73,19 +70,6 @@ uses
   , Classe.Gerenciador.View, Interfaces.PrevisaoTempo;
 
 { TViewVendaMobile }
-
-procedure TViewVendaMobile.btnConfigurarClick(Sender: TObject);
-var
-  aPrevisao : TCidadePrevisaoTempo;
-begin
-  try
-    aPrevisao := TServicePrevisaoTempo
-      .GetCidade(TTipoServicePrevisaoTempo.sptWeatherstackAPI, '60f0318e8b6fa78085190379ad56025c', 'Ananindeua', 'PA');
-    lblCidade.Caption := Format('%s, %s, %s°', [aPrevisao.Nome, aPrevisao.Regiao, aPrevisao.PrevisaoTempo.Temperatura]);
-  finally
-    aPrevisao.DisposeOf;
-  end;
-end;
 
 procedure TViewVendaMobile.btnConfigurarMouseEnter(Sender: TObject);
 begin
@@ -132,6 +116,8 @@ begin
 
   SplitViewMenu.Opened := False;
   SplitViewMenu.OpenedWidth := pnlNameApp.Width - pnlBotoes.Width;
+
+  lblCidade.Caption := Format('%s, %s', [GetEmpresaCidade(gUsuarioLogado.Empresa), GetEmpresaUF(gUsuarioLogado.Empresa)]);
 end;
 
 procedure TViewVendaMobile.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -149,6 +135,51 @@ procedure TViewVendaMobile.FormShow(Sender: TObject);
 begin
   inherited;
   lblUsuario.Caption := StrFormatarNome(gUsuarioLogado.Nome);
+  LerPrevisaoTempo;
+end;
+
+procedure TViewVendaMobile.LerPrevisaoTempo;
+begin
+  TThread.CreateAnonymousThread(procedure
+  var
+    aPrevisao : TCidadePrevisaoTempo;
+    aFileName : String;
+  begin
+    try
+      aPrevisao := TServicePrevisaoTempo
+        .GetCidade(
+            TTipoServicePrevisaoTempo.sptWeatherstackAPI
+          , '60f0318e8b6fa78085190379ad56025c'
+          , GetEmpresaCidade(gUsuarioLogado.Empresa)
+          , GetEmpresaUF(gUsuarioLogado.Empresa));
+
+      // Exibir caption sincronizando com a trigger principal
+      TThread.Synchronize(nil, procedure
+      begin
+        lblCidade.Caption := Format('%s, %s, %s°C',
+          [ aPrevisao.Nome
+            , aPrevisao.Regiao
+            , aPrevisao.PrevisaoTempo.Temperatura]);
+      end);
+
+      // Fazer download da image de privisão do tempo
+      if not aPrevisao.PrevisaoTempo.URLClima.IsEmpty then
+      begin
+        ForceDirectories(ExtractFilePath(ParamStr(0)) + 'temp/');
+        aFileName := './temp/'
+          + aPrevisao.PrevisaoTempo.StrClima.Replace(' ', '_')
+          + ExtractFileExt(aPrevisao.PrevisaoTempo.URLClima);
+
+        if FileExists(aFileName) then
+          aPrevisao.PrevisaoTempo.FileNameClima := aFileName
+        else
+        if TServicePrevisaoTempo.DownloadImage(aPrevisao.PrevisaoTempo.URLClima, aFileName) then
+          aPrevisao.PrevisaoTempo.FileNameClima := aFileName;
+      end;
+    finally
+      aPrevisao.DisposeOf;
+    end;
+  end).Start;
 end;
 
 procedure TViewVendaMobile.pnlDesktopClick(Sender: TObject);

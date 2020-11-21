@@ -11,15 +11,18 @@ type
       FTemperatura : String;
       FURLClima    : String;
       FStrClima    : String;
+      FFileNameClima : String;
       procedure SetStrClima(const Value: String);
       procedure SetTemperatura(const Value: String);
       procedure SetURLClima(const Value: String);
+      procedure SetFileNameClima(const Value: String);
     protected
       constructor Create;
     public
       property Temperatura : String read FTemperatura write SetTemperatura;
       property URLClima    : String read FURLClima write SetURLClima;
       property StrClima    : String read FStrClima write SetStrClima;
+      property FileNameClima : String read FFileNameClima write SetFileNameClima;
 
       procedure Assign(Source : TPrevisaoTempo);
 
@@ -87,14 +90,23 @@ end;
 
 constructor TPrevisaoTempo.Create;
 begin
-  FTemperatura := EmptyStr;
-  FURLClima    := EmptyStr;
-  FStrClima    := EmptyStr;
+  FTemperatura   := EmptyStr;
+  FURLClima      := EmptyStr;
+  FStrClima      := EmptyStr;
+  FFileNameClima := EmptyStr;
 end;
 
 class function TPrevisaoTempo.New: TPrevisaoTempo;
 begin
   Result := TPrevisaoTempo.Create;
+end;
+
+procedure TPrevisaoTempo.SetFileNameClima(const Value: String);
+begin
+  if FileExists(Value.Trim) then
+    FFileNameClima := Value.Trim
+  else
+    FFileNameClima := EmptyStr;
 end;
 
 procedure TPrevisaoTempo.SetStrClima(const Value: String);

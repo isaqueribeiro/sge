@@ -708,7 +708,6 @@ inherited ViewVendaMobile: TViewVendaMobile
       ParentShowHint = False
       ParentBiDiMode = False
       ShowHint = True
-      OnClick = btnConfigurarClick
       OnMouseEnter = btnConfigurarMouseEnter
       OnMouseLeave = btnConfigurarMouseLeave
       ExplicitTop = 451
@@ -1131,37 +1130,5 @@ inherited ViewVendaMobile: TViewVendaMobile
     OnTimer = TmrContadorTimer
     Left = 712
     Top = 312
-  end
-  object RESTClient1: TRESTClient
-    Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
-    AcceptCharset = 'utf-8, *;q=0.8'
-    BaseURL = 'http://api.weatherstack.com'
-    Params = <>
-    RaiseExceptionOn500 = False
-    Left = 392
-    Top = 248
-  end
-  object RESTRequest1: TRESTRequest
-    Client = RESTClient1
-    Params = <
-      item
-        Kind = pkQUERY
-        Name = 'access_key'
-        Value = '60f0318e8b6fa78085190379ad56025c'
-      end
-      item
-        Name = 'query'
-        Value = 'Bel'#233'm'
-      end>
-    Resource = 'current'
-    Response = RESTResponse1
-    SynchronizedEvents = False
-    Left = 392
-    Top = 296
-  end
-  object RESTResponse1: TRESTResponse
-    ContentType = 'application/json'
-    Left = 392
-    Top = 352
   end
 end

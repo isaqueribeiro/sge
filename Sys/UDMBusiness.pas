@@ -363,6 +363,7 @@ var
   function GetEmpresaNome(const sCNPJEmpresa : String) : String;
   function GetEmpresaEnderecoDefault : String;
   function GetEmpresaEndereco(const sCNPJEmitente : String) : String;
+  function GetEmpresaCidade(const sCNPJEmitente : String) : String;
   function GetEmpresaUF(const sCNPJEmitente : String) : String;
   function GetClienteNomeDefault : String;
   function GetClienteNome(const iCodigo : Integer) : String;
@@ -3962,6 +3963,7 @@ begin
     SQL.Add('  , e.uf');
     SQL.Add('  , e.cep');
     SQL.Add('from TBEMPRESA e');
+
     if Trim(sCNPJEmitente) = EmptyStr then
       SQL.Add('where e.cnpj = ' + QuotedStr(GetEmpresaIDDefault))
     else
@@ -3972,6 +3974,30 @@ begin
       IfThen(Trim(FieldByName('complemento').AsString) = EmptyStr, '', ' (' + Trim(FieldByName('complemento').AsString) + ')') + ', ' +
       'BAIRRO: ' + Trim(FieldByName('bairro').AsString) + ' - ' + Trim(FieldByName('cidade').AsString) + ' ' +
       'CEP: ' + StrFormatarCEP(Trim(FieldByName('cep').AsString));
+
+    Close;
+  end;
+end;
+
+function GetEmpresaCidade(const sCNPJEmitente : String) : String;
+begin
+  with DMBusiness, fdQryBusca do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('Select');
+    SQL.Add('    c.cid_nome as cidade');
+    SQL.Add('  , e.uf');
+    SQL.Add('from TBEMPRESA e');
+    SQL.Add('  left join TBCIDADE c on (c.cid_cod = e.cid_cod)');
+
+    if Trim(sCNPJEmitente) = EmptyStr then
+      SQL.Add('where e.cnpj = ' + QuotedStr(GetEmpresaIDDefault))
+    else
+      SQL.Add('where e.cnpj = ' + QuotedStr(sCNPJEmitente));
+    Open;
+
+    Result := Trim(FieldByName('cidade').AsString);
 
     Close;
   end;
