@@ -3,6 +3,7 @@ unit View.VendaMobile;
 interface
 
 uses
+  HPL_Strings,
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, Vcl.WinXCtrls,
   dxGDIPlusClasses;
@@ -35,6 +36,9 @@ type
     lblSincronizarVendedor: TLabel;
     lblSincronizarProduto: TLabel;
     lblSincronizarCliente: TLabel;
+    procedure DestacarMouseEnter(Sender: TObject);
+    procedure DestacarMouseLeave(Sender: TObject);
+
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TmrContadorTimer(Sender: TObject);
@@ -45,10 +49,14 @@ type
     procedure btnSincronizarClick(Sender: TObject);
     procedure pnlDesktopClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure lblSincronizarVendedorClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
+    FStr : THopeString;
     procedure ConfigurarIcon(aResource : String; Sender : TSpeedButton);
     procedure LerPrevisaoTempo;
+    procedure MarcarLabelMouseEnter(Sender: TObject);
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -104,11 +112,32 @@ begin
   TServicesUtils.ResourceImage(aResource, Sender);
 end;
 
+procedure TViewVendaMobile.DestacarMouseEnter(Sender: TObject);
+begin
+  if Sender is TLabel then
+    TLabel(Sender).Font.Color := FStr.StrHexToColor('1c340a');
+end;
+
+procedure TViewVendaMobile.DestacarMouseLeave(Sender: TObject);
+begin
+  if Sender is TLabel then
+    TLabel(Sender).Font.Color := FStr.StrHexToColor('ffffff');
+end;
+
+procedure TViewVendaMobile.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  _GerenciadorView.RemoverViewAll();
+  FStr.DisposeOf;
+end;
+
 procedure TViewVendaMobile.FormCreate(Sender: TObject);
 const
   MARGEM = 16;
 begin
   inherited;
+  FStr := THopeString.Create;
+
   Self.Left   := 0;
   Self.Top    := 156;
   Self.Width  := Application.MainForm.Width  - MARGEM;
@@ -138,6 +167,13 @@ begin
   inherited;
   lblUsuario.Caption := StrFormatarNome(gUsuarioLogado.Nome);
   LerPrevisaoTempo;
+end;
+
+procedure TViewVendaMobile.lblSincronizarVendedorClick(Sender: TObject);
+begin
+  _GerenciadorView.InstanciarView(Self, 'ViewVendaMobileVendedor', pnlDesktop, True);
+  SplitViewMenu.Close;
+  SplitViewMenu.BringToFront;
 end;
 
 procedure TViewVendaMobile.LerPrevisaoTempo;
@@ -186,6 +222,10 @@ begin
       aPrevisao.DisposeOf;
     end;
   end).Start;
+end;
+
+procedure TViewVendaMobile.MarcarLabelMouseEnter(Sender: TObject);
+begin
 end;
 
 procedure TViewVendaMobile.pnlDesktopClick(Sender: TObject);

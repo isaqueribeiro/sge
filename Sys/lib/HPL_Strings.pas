@@ -3,11 +3,13 @@ unit HPL_Strings;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Controls, DateUtils;
+  Windows, Messages, SysUtils, Classes, Controls, DateUtils,
+  Vcl.Graphics;
 
 type
   THopeString = class
   public
+    function StrHexToColor(aColor : String) : TColor;
     function StrIsInt(const S: string): Boolean;
     function StrIsDate(const S: string): Boolean;
     function StrToQuotedDate(const Format, Date: string): string;
@@ -22,7 +24,7 @@ type
     function StrFormatarCnpj(sCnpj: String): String;
     function StrFormatarCpf(sCpf: String): String;
     function StrGetAge(const AStartDate, AEndDate: TDate): string;
-    function StrGetAgeYearMonthDay(const StartDate, EndDate: TDate): string;    
+    function StrGetAgeYearMonthDay(const StartDate, EndDate: TDate): string;
     function StrEncode(const S: string): string; virtual;
     function StrDecode(const S: string): string; virtual;
     function StrCentralizar(const S : String; Tam : Smallint) : String;
@@ -332,6 +334,15 @@ var
   Dt: TDatetime;
 begin
   Result := TryStrToDate(S, Dt);
+end;
+
+function THopeString.StrHexToColor(aColor : String) : TColor;
+begin
+  Result := RGB(
+        StrToInt('$' + Copy(aColor, 1, 2))
+      , StrToInt('$' + Copy(aColor, 3, 2))
+      , StrToInt('$' + Copy(aColor, 5, 2))
+    );
 end;
 
 function THopeString.StrIsInt(const S: string): Boolean;

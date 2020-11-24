@@ -7,6 +7,7 @@ inherited ViewVendaMobile: TViewVendaMobile
   Font.Height = -16
   Font.Name = 'Segoe UI'
   Position = poDefault
+  OnClose = FormClose
   ExplicitWidth = 1072
   ExplicitHeight = 629
   PixelsPerInch = 96
@@ -1045,6 +1046,8 @@ inherited ViewVendaMobile: TViewVendaMobile
       BevelOuter = bvNone
       TabOrder = 0
       OnClick = pnlDesktopClick
+      ExplicitLeft = 3
+      ExplicitTop = 1
       object SplitViewMenu: TSplitView
         Left = 0
         Top = 0
@@ -1082,11 +1085,14 @@ inherited ViewVendaMobile: TViewVendaMobile
           Align = alTop
           Caption = 'Vendedores'
           Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
+          Font.Color = 15794164
           Font.Height = -16
           Font.Name = 'Segoe UI'
           Font.Style = []
           ParentFont = False
+          OnClick = lblSincronizarVendedorClick
+          OnMouseEnter = DestacarMouseEnter
+          OnMouseLeave = DestacarMouseLeave
           ExplicitWidth = 82
         end
         object lblSincronizarProduto: TLabel
@@ -1104,6 +1110,8 @@ inherited ViewVendaMobile: TViewVendaMobile
           Font.Name = 'Segoe UI'
           Font.Style = []
           ParentFont = False
+          OnMouseEnter = DestacarMouseEnter
+          OnMouseLeave = DestacarMouseLeave
           ExplicitWidth = 63
         end
         object lblSincronizarCliente: TLabel
@@ -1121,6 +1129,8 @@ inherited ViewVendaMobile: TViewVendaMobile
           Font.Name = 'Segoe UI'
           Font.Style = []
           ParentFont = False
+          OnMouseEnter = DestacarMouseEnter
+          OnMouseLeave = DestacarMouseLeave
           ExplicitWidth = 55
         end
       end
