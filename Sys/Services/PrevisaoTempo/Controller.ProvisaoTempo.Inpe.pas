@@ -5,7 +5,8 @@ interface
 uses
   System.SysUtils, System.Classes, Interfaces.PrevisaoTempo,
   REST.Client, REST.Types, Web.HTTPApp,
-  Xml.xmldom, Xml.XMLIntf, Xml.XMLDoc;
+  Xml.xmldom, Xml.XMLIntf, Xml.XMLDoc,
+  IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP;
 
 type
   TPrevisaoTempoInpe = class(TInterfacedObject, IPrevisaoTempo)
@@ -14,11 +15,16 @@ type
     private
       FRESTClient : TRESTClient;
       FCidade     : TCidadePrevisaoTempo;
+      FIdHTTP     : TIdHTTP;
+
       function RemoveAccent(C: Char): Char;
       function RemoveAllAccents(const S: string): string;
+      function GetEstacao(CidadeID : Integer) : String;
     protected
       constructor Create(const aURL : String);
     public
+      destructor Destroy; override;
+
       class function GetInstance : IPrevisaoTempo;
 
       function Cidade(Value : TCidadePrevisaoTempo) : IPrevisaoTempo; overload;
@@ -55,9 +61,20 @@ begin
   with FRESTClient do
   begin
     Accept        := 'application/xml, application/json, text/plain; q=0.9, text/html;q=0.8,';
-    AcceptCharset := 'utf-8, *;q=0.8';
+    AcceptCharset := 'ISO-8859-1, *;q=0.8';
+    //AcceptCharset := 'utf-8, *;q=0.8';
     BaseURL       := aURL;
   end;
+
+  ForceDirectories(ExtractFilePath(ParamStr(0)) + 'temp/');
+end;
+
+destructor TPrevisaoTempoInpe.Destroy;
+begin
+  if Assigned(FIdHTTP) then
+    FIdHTTP.DisposeOf;
+
+  inherited;
 end;
 
 function TPrevisaoTempoInpe.GetCidade(const AccessKey : String; var aCidade : TCidadePrevisaoTempo; out Error : String): IPrevisaoTempo;
@@ -65,8 +82,11 @@ var
   aRequest  : TRESTRequest;
   aResponse : TRESTResponse;
 
+  aOK  : Boolean;
   aXML : IXMLDocument;
   I : Integer;
+
+  aFile : TFileStream;
 begin
   Error     := EmptyStr;
   aRequest  := TRESTRequest.Create(FRESTClient);
@@ -85,6 +105,7 @@ begin
       FCidade.Assign( aCidade );
 
       Client   := FRESTClient;
+      Response := aResponse;
       Method   := TRESTRequestMethod.rmGET;
       Timeout  := 30000;
       Resource := 'listaCidades?city={city}';
@@ -95,7 +116,12 @@ begin
 
       Execute;
 
-      if (Response.StatusCode = 200) or Response.Status.SuccessOK_200 then
+      // 1. Identificar o ID da Cidade
+      aOK := (Response.StatusCode = 200) or Response.Status.SuccessOK_200;
+
+      if not aOK then
+        Error := 'Error ' + Response.StatusCode.ToString + ' - ' + Response.StatusText
+      else
       begin
         if (Response.Content <> EmptyStr) then
         begin
@@ -114,10 +140,82 @@ begin
                 Break;
               end;
             end;
+
+          aXML.Active := False;
         end;
-      end
+
+        aOK := (FCidade.Id > 0);
+      end;
+
+      // 2. Ler a previsão do tempo da cidade
+      Resource := 'cidade/' + FCidade.Id.ToString + '/previsao.xml';
+
+      Params.BeginUpdate;
+      Params.Clear;
+      Params.EndUpdate;
+
+      Execute;
+
+      aOK := (Response.StatusCode = 200) or Response.Status.SuccessOK_200;
+
+      if not aOK then
+        Error := 'Error ' + Response.StatusCode.ToString + ' - ' + Response.StatusText
       else
-        Error := 'Error ' + Response.StatusCode.ToString + ' - ' + Response.StatusText;
+      begin
+        if (Response.Content <> EmptyStr) then
+        begin
+          aXML.LoadFromXML( Response.Content );
+          aXML.Active := True;
+
+          // Percorrer os itens
+          for I := 0 to aXML.DocumentElement.ChildNodes.Count - 1 do
+            with aXML.DocumentElement.ChildNodes[I] do
+            begin
+              if (UpperCase(NodeName) = 'PREVISAO') then
+              begin
+                FCidade.PrevisaoTempo.Maxima  := ChildNodes['maxima'].Text;
+                FCidade.PrevisaoTempo.Minima  := ChildNodes['minima'].Text;
+                Break;
+              end;
+            end;
+
+          aXML.Active := False;
+        end;
+      end;
+
+      FCidade.PrevisaoTempo.Estacao := GetEstacao(FCidade.Id);
+
+      if FCidade.PrevisaoTempo.Estacao.IsEmpty then
+        Exit;
+
+      // 3. Buscar valor da temperatura na estação
+      FIdHTTP := TIdHTTP.Create(nil);
+      aFile   := TFileStream.Create('./temp/estacao.xml', fmCreate or fmOpenReadWrite);
+
+      FIdHTTP.Get(FRESTClient.BaseURL + '/estacao/' + FCidade.PrevisaoTempo.Estacao + '/condicoesAtuais.xml', aFile);
+
+      Sleep(1000);
+
+      aOK := (FIdHTTP.ResponseCode = 200);
+
+      if not aOK then
+        Error := 'Error ' + FIdHTTP.ResponseCode.ToString + ' - ' + FIdHTTP.ResponseText
+      else
+      begin
+        aXML.LoadFromStream( FIdHTTP.Response.ContentStream );
+        aXML.Active := True;
+
+        with aXML.DocumentElement do
+        begin
+          FCidade.PrevisaoTempo.Temperatura := ChildNodes['temperatura'].Text;
+          FCidade.PrevisaoTempo.StrClima    := Format('%s (%s)', [ChildNodes['tempo_desc'].Text, ChildNodes['tempo'].Text]);
+        end;
+
+        aXML.Active := False;
+      end;
+
+      aFile.DisposeOf;
+      DeleteFile('./temp/estacao.xml');
     end;
   finally
     aResponse.DisposeOf;
@@ -125,6 +223,27 @@ begin
 
     aCidade.Assign( FCidade );
   end;
+end;
+
+function TPrevisaoTempoInpe.GetEstacao(CidadeID: Integer): String;
+var
+  aStr : String;
+const
+  BELEM      =  '221';
+  ANANINDEUA =  '462';
+  BENEVIDES  =  '838';
+  CASTANHAL  = '1396';
+  MARITUBA   = '3167';
+  SBBE : Array [0..4] of String = (BELEM, ANANINDEUA, BENEVIDES, CASTANHAL, MARITUBA);
+begin
+  Result := EmptyStr;
+
+  for aStr in SBBE do
+    if aStr.Equals(CidadeID.ToString) then
+    begin
+      Result := 'SBBE';
+      Break;
+    end;
 end;
 
 class function TPrevisaoTempoInpe.GetInstance : IPrevisaoTempo;

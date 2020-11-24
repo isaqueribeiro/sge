@@ -14,15 +14,18 @@ type
       FFileNameClima : String;
       FMaxima: String;
       FMinima: String;
+      FEstacao: String;
       procedure SetStrClima(const Value: String);
       procedure SetTemperatura(const Value: String);
       procedure SetURLClima(const Value: String);
       procedure SetFileNameClima(const Value: String);
       procedure SetMaxima(const Value: String);
       procedure SetMinima(const Value: String);
+      procedure SetEstacao(const Value: String);
     protected
       constructor Create;
     public
+      property Estacao     : String read FEstacao write SetEstacao;
       property Temperatura : String read FTemperatura write SetTemperatura;
       property Maxima      : String read FMaxima write SetMaxima;
       property Minima      : String read FMinima write SetMinima;
@@ -98,6 +101,7 @@ end;
 
 constructor TPrevisaoTempo.Create;
 begin
+  FEstacao       := EmptyStr;
   FTemperatura   := EmptyStr;
   FURLClima      := EmptyStr;
   FStrClima      := EmptyStr;
@@ -107,6 +111,11 @@ end;
 class function TPrevisaoTempo.New: TPrevisaoTempo;
 begin
   Result := TPrevisaoTempo.Create;
+end;
+
+procedure TPrevisaoTempo.SetEstacao(const Value: String);
+begin
+  FEstacao := Value.Trim.ToUpper;
 end;
 
 procedure TPrevisaoTempo.SetFileNameClima(const Value: String);

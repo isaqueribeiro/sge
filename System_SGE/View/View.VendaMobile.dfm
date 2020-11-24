@@ -1131,47 +1131,4 @@ inherited ViewVendaMobile: TViewVendaMobile
     Left = 712
     Top = 312
   end
-  object RESTClient1: TRESTClient
-    Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
-    AcceptCharset = 'utf-8, *;q=0.8'
-    BaseURL = 'https://community-open-weather-map.p.rapidapi.com'
-    Params = <>
-    RaiseExceptionOn500 = False
-    Left = 416
-    Top = 256
-  end
-  object RESTRequest1: TRESTRequest
-    Client = RESTClient1
-    Params = <
-      item
-        Kind = pkQUERY
-        Name = 'q'
-        Value = 'Ananindeua,Brasil'
-      end
-      item
-        Kind = pkQUERY
-        Name = 'units'
-        Value = 'metric'
-      end
-      item
-        Kind = pkHTTPHEADER
-        Name = 'X-Rapidapi-Key'
-        Value = 'd7fe8308damshcb0e9ebdaf09920p151576jsncf5fb2fd0ee0'
-      end
-      item
-        Kind = pkHTTPHEADER
-        Name = 'X-Rapidapi-Host'
-        Value = 'community-open-weather-map.p.rapidapi.com'
-      end>
-    Resource = 'weather'
-    Response = RESTResponse1
-    SynchronizedEvents = False
-    Left = 416
-    Top = 312
-  end
-  object RESTResponse1: TRESTResponse
-    ContentType = 'application/json'
-    Left = 416
-    Top = 384
-  end
 end
