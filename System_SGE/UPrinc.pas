@@ -848,10 +848,10 @@ begin
   end;
 
   sHostName := GetHostNameLocal;
+
   if not SetAcessoEstacao(sHostName) then
   begin
     ShowError('Host -> ' + sHostName + #13 + 'Estação de trabalho não registrada no sistema!');
-
 
     RbnTabCadastro.Visible   := False;
     RbnTabEntrada.Visible    := False;

@@ -12,10 +12,11 @@ uses
   , Controller.ProvisaoTempo.Inpe
   , Controller.ProvisaoTempo.WeatherstackAPI
   , Controller.ProvisaoTempo.OpenWeatherMapAPI
+  , Controller.ProvisaoTempo.HGWeatherAPI
   , IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP;
 
 type
-  TTipoServicePrevisaoTempo = (sptOpenWeatherMapAPI, sptWeatherstackAPI, sptInep);
+  TTipoServicePrevisaoTempo = (sptHGWeatherAPI, sptOpenWeatherMapAPI, sptWeatherstackAPI, sptInep);
   TServicePrevisaoTempo = class
     private
       FService : IPrevisaoTempo;
@@ -37,6 +38,8 @@ uses
 constructor TServicePrevisaoTempo.Create(const aTipo : TTipoServicePrevisaoTempo);
 begin
   case aTipo of
+    sptHGWeatherAPI:
+      FService := TPrevisaoTempoHGWeatherAPI.GetInstance;
     sptOpenWeatherMapAPI:
       FService := TPrevisaoTempoOpenWeatherMapAPI.GetInstance;
     sptWeatherstackAPI:
@@ -47,19 +50,39 @@ begin
 end;
 
 class function TServicePrevisaoTempo.DownloadImage(const aURL, aFileName: String): Boolean;
-var
-  IdHTTP : TIdHTTP;
-  aFile  : TFileStream;
+  var
+    aRetorno : Boolean;
+    IdHTTP   : TIdHTTP;
+    aFile    : TFileStream;
 begin
-  Result := False;
-  IdHTTP := TIdHTTP.Create(nil);
+//  TThread.CreateAnonymousThread(procedure
+//  var
+//    aRetorno : Boolean;
+//    IdHTTP   : TIdHTTP;
+//    aFile    : TFileStream;
+//  begin
+//    aRetorno := False;
+//    IdHTTP   := TIdHTTP.Create(nil);
+//    try
+//      aFile := TFileStream.Create(aFileName, fmCreate);
+//      IdHTTP.Get(aURL, aFile);
+//
+//      aRetorno := True;
+//    finally
+//      IdHTTP.DisposeOf;
+//      Result := aRetorno;
+//    end;
+//  end).Start;
+  aRetorno := False;
+  IdHTTP   := TIdHTTP.Create(nil);
   try
     aFile := TFileStream.Create(aFileName, fmCreate);
     IdHTTP.Get(aURL, aFile);
 
-    Result := True;
+    aRetorno := True;
   finally
     IdHTTP.DisposeOf;
+    Result := aRetorno;
   end;
 end;
 

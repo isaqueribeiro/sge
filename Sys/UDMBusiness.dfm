@@ -989,4 +989,88 @@ object DMBusiness: TDMBusiness
     Left = 80
     Top = 280
   end
+  object cdsRegistro: TFDQuery
+    CachedUpdates = True
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    UpdateObject = updRegistro
+    SQL.Strings = (
+      'Select'
+      '    e.EST_LOCAL'
+      '  , e.EST_NOME'
+      '  , e.EST_IP'
+      '  , e.EST_REGISTRO'
+      '  , e.EST_ULTIMO_ACESSO'
+      'from SYS_ESTACAO e'
+      ''
+      'order by'
+      '    e.EST_LOCAL'
+      '  , e.EST_NOME')
+    Left = 473
+    Top = 480
+    object cdsRegistroEST_LOCAL: TStringField
+      FieldName = 'EST_LOCAL'
+      Origin = 'EST_LOCAL'
+      Size = 100
+    end
+    object cdsRegistroEST_NOME: TStringField
+      FieldName = 'EST_NOME'
+      Origin = 'EST_NOME'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 60
+    end
+    object cdsRegistroEST_IP: TStringField
+      FieldName = 'EST_IP'
+      Origin = 'EST_IP'
+      Size = 30
+    end
+    object cdsRegistroEST_REGISTRO: TStringField
+      FieldName = 'EST_REGISTRO'
+      Origin = 'EST_REGISTRO'
+      Size = 250
+    end
+    object cdsRegistroEST_ULTIMO_ACESSO: TSQLTimeStampField
+      FieldName = 'EST_ULTIMO_ACESSO'
+      Origin = 'EST_ULTIMO_ACESSO'
+    end
+  end
+  object updRegistro: TFDUpdateSQL
+    Connection = fdConexao
+    InsertSQL.Strings = (
+      'INSERT INTO SYS_ESTACAO'
+      '(EST_NOME, EST_IP, EST_LOCAL, EST_REGISTRO, '
+      '  EST_ULTIMO_ACESSO)'
+      
+        'VALUES (:NEW_EST_NOME, :NEW_EST_IP, :NEW_EST_LOCAL, :NEW_EST_REG' +
+        'ISTRO, '
+      '  :NEW_EST_ULTIMO_ACESSO)')
+    ModifySQL.Strings = (
+      'UPDATE SYS_ESTACAO'
+      
+        'SET EST_NOME = :NEW_EST_NOME, EST_IP = :NEW_EST_IP, EST_LOCAL = ' +
+        ':NEW_EST_LOCAL, '
+      
+        '  EST_REGISTRO = :NEW_EST_REGISTRO, EST_ULTIMO_ACESSO = :NEW_EST' +
+        '_ULTIMO_ACESSO'
+      'WHERE EST_NOME = :OLD_EST_NOME')
+    DeleteSQL.Strings = (
+      'DELETE FROM SYS_ESTACAO'
+      'WHERE EST_NOME = :OLD_EST_NOME')
+    FetchRowSQL.Strings = (
+      
+        'SELECT EST_NOME, EST_IP, EST_LOCAL, EST_REGISTRO, EST_ULTIMO_ACE' +
+        'SSO'
+      'FROM SYS_ESTACAO'
+      'WHERE EST_NOME = :EST_NOME')
+    Left = 505
+    Top = 480
+  end
+  object dtsRegistro: TDataSource
+    AutoEdit = False
+    DataSet = cdsRegistro
+    Left = 536
+    Top = 480
+  end
 end

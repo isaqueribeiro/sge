@@ -20,8 +20,10 @@ inherited ViewVendaMobile: TViewVendaMobile
     Align = alTop
     BevelOuter = bvNone
     Color = 2640910
+    FullRepaint = False
     ParentBackground = False
     TabOrder = 0
+    StyleElements = []
     object shpUsuario: TShape
       AlignWithMargins = True
       Left = 988
@@ -397,8 +399,10 @@ inherited ViewVendaMobile: TViewVendaMobile
     Align = alLeft
     BevelOuter = bvNone
     Color = 3960852
+    FullRepaint = False
     ParentBackground = False
     TabOrder = 1
+    StyleElements = []
     object btnConfigurar: TSpeedButton
       AlignWithMargins = True
       Left = 3
@@ -1036,7 +1040,11 @@ inherited ViewVendaMobile: TViewVendaMobile
     Height = 509
     Align = alClient
     BevelOuter = bvNone
+    Color = clWhite
+    FullRepaint = False
+    ParentBackground = False
     TabOrder = 2
+    StyleElements = []
     object pnlDesktop: TPanel
       Left = 0
       Top = 0
@@ -1044,19 +1052,23 @@ inherited ViewVendaMobile: TViewVendaMobile
       Height = 509
       Align = alClient
       BevelOuter = bvNone
+      Color = clWhite
+      FullRepaint = False
+      ParentBackground = False
       TabOrder = 0
+      StyleElements = []
       OnClick = pnlDesktopClick
-      ExplicitLeft = 3
-      ExplicitTop = 1
       object SplitViewMenu: TSplitView
         Left = 0
         Top = 0
         Width = 174
         Height = 509
         Color = 5413660
+        FullRepaint = False
         OpenedWidth = 174
         Placement = svpLeft
         TabOrder = 0
+        StyleElements = []
         object lblSincronizar: TLabel
           AlignWithMargins = True
           Left = 10

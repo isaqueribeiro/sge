@@ -14,7 +14,9 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
     Height = 447
     Align = alClient
     BevelOuter = bvNone
+    FullRepaint = False
     TabOrder = 0
+    StyleElements = []
     object pnlHeader: TPanel
       Left = 0
       Top = 0
@@ -58,7 +60,6 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
         Font.Name = 'Segoe UI Semibold'
         Font.Style = [fsBold]
         ParentFont = False
-        ExplicitLeft = 116
         ExplicitHeight = 21
       end
     end

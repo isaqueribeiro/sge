@@ -170,7 +170,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
         Top = 85
         Width = 743
         Height = 349
-        ActivePage = TbsOutrasConfig
+        ActivePage = tbsContaEmail
         Align = alClient
         TabOrder = 1
         object tbsContaEmail: TTabSheet
@@ -296,10 +296,10 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           end
           object dbEmailAutentica: TDBCheckBox
             Left = 16
-            Top = 88
+            Top = 96
             Width = 201
             Height = 17
-            Caption = 'Servidor requer autentica'#231#227'o'
+            Caption = 'Servidor requer autentica'#231#227'o (TLS)'
             DataField = 'EMAIL_REQUER_AUTENTICACAO'
             DataSource = DtSrcTabela
             TabOrder = 5
@@ -308,7 +308,7 @@ inherited frmGeConfiguracaoEmpresa: TfrmGeConfiguracaoEmpresa
           end
           object dbEmailConexaoSSL: TDBCheckBox
             Left = 16
-            Top = 112
+            Top = 120
             Width = 201
             Height = 17
             Caption = 'Conex'#227'o Segura (SSL)'

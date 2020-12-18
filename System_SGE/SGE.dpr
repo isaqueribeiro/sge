@@ -183,7 +183,8 @@ uses
   View.VendaMobile.Vendedor in 'View\View.VendaMobile.Vendedor.pas' {ViewVendaMobileVendedor},
   Classe.Gerenciador.View in '..\Sys\Classe\Classe.Gerenciador.View.pas',
   Interacao.Gerenciador.View in '..\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas',
-  Controller.ProvisaoTempo.OpenWeatherMapAPI in '..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.OpenWeatherMapAPI.pas';
+  Controller.ProvisaoTempo.OpenWeatherMapAPI in '..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.OpenWeatherMapAPI.pas',
+  Controller.ProvisaoTempo.HGWeatherAPI in '..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.HGWeatherAPI.pas';
 
 {$R *.res}
 

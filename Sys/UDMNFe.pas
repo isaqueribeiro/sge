@@ -817,18 +817,23 @@ begin
 
   FImprimirCabecalho := True;
 
-  frrNFeRetrato.SaveToFile( ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST );
-  frrNFeRetrato.SaveToFile ( StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Retrato.fr3',  [rfReplaceAll]) );
-  frrNFePaisagem.SaveToFile( StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Paisagem.fr3', [rfReplaceAll]) );
-  frrNFeEventoCCe.SaveToFile   ( ExtractFilePath(ParamStr(0)) + FILENAME_NFE_EVENTO );
-  frrNFeInutilizacao.SaveToFile( ExtractFilePath(ParamStr(0)) + FILENAME_NFE_INUTIL );
-
-  frrBoletoEntrega.SaveToFile( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO_ENTREGA );
-  frrBoletoFatura.SaveToFile ( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO_FATURA );
-  frrBoletoCarne.SaveToFile  ( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO_CARNE );
-
-  if not FileExists(ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO) then
-    frrBoletoEntrega.SaveToFile( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO );
+//  ESSE BLOCO ESTÁ CAUSANDO PROBLEMAS (BUSCAR NOVA SOLUÇAO PARA DISTRIBUIÇÃO DE ARQUIVOS)
+//  try
+//    frrNFeRetrato.SaveToFile( ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST );
+//    frrNFeRetrato.SaveToFile ( StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Retrato.fr3',  [rfReplaceAll]) );
+//    frrNFePaisagem.SaveToFile( StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Paisagem.fr3', [rfReplaceAll]) );
+//    frrNFeEventoCCe.SaveToFile   ( ExtractFilePath(ParamStr(0)) + FILENAME_NFE_EVENTO );
+//    frrNFeInutilizacao.SaveToFile( ExtractFilePath(ParamStr(0)) + FILENAME_NFE_INUTIL );
+//
+//    frrBoletoEntrega.SaveToFile( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO_ENTREGA );
+//    frrBoletoFatura.SaveToFile ( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO_FATURA );
+//    frrBoletoCarne.SaveToFile  ( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO_CARNE );
+//
+//    if not FileExists(ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO) then
+//      frrBoletoEntrega.SaveToFile( ExtractFilePath(ParamStr(0)) + LAYOUT_BOLETO );
+//  except
+//    ;
+//  end;
 end;
 
 procedure TDMNFe.GravarConfiguracao(const sCNPJEmitente : String);

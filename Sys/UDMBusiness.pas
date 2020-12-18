@@ -128,6 +128,14 @@ type
     frxXML: TfrxXMLExport;
     stpContaCorrenteSaldo_v2: TFDStoredProc;
     frxXLS: TfrxXLSExport;
+    cdsRegistro: TFDQuery;
+    cdsRegistroEST_LOCAL: TStringField;
+    cdsRegistroEST_NOME: TStringField;
+    cdsRegistroEST_IP: TStringField;
+    cdsRegistroEST_REGISTRO: TStringField;
+    cdsRegistroEST_ULTIMO_ACESSO: TSQLTimeStampField;
+    updRegistro: TFDUpdateSQL;
+    dtsRegistro: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
     procedure fdScriptBeforeExecute(Sender: TObject);
     procedure fdScriptError(ASender: TObject; const AInitiator: IFDStanObject;
@@ -218,6 +226,7 @@ var
   procedure GerarCompetencias(const pAno : Smallint);
   procedure CriarGenerator(const aName : String; const aAno : Smallint);
   procedure RegistrarEmpresa;
+  procedure RegistrarEstacaoDefault;
   procedure RegistrarSegmentos(Codigo : Integer; Descricao : String);
   procedure RegistrarCaixaNaVenda(const AnoVenda, NumVenda, AnoCaixa, NumCaixa : Integer; const IsPDV : Boolean);
   procedure RegistrarCaixaNaOS(const AnoOS, NumOS, AnoCaixa, NumCaixa : Integer);
@@ -1557,6 +1566,37 @@ begin
   except
     On E : Exception do
       ShowError('Erro na inserção/atualização do registro da empresa.' + #13#13 + E.Message);
+  end;
+end;
+
+procedure RegistrarEstacaoDefault;
+var
+  aHost : String;
+begin
+  try
+    with DMBusiness do
+    begin
+      aHost := GetHostNameLocal;
+
+      cdsRegistro.Open;
+      if not cdsRegistro.Locate('EST_NOME', aHost, []) then
+      begin
+        cdsRegistro.Append;
+        cdsRegistroEST_LOCAL.AsString    := 'Default';
+        cdsRegistroEST_NOME.AsString     := aHost;
+        cdsRegistroEST_IP.AsString       := DMBusiness.IdIPWatch.LocalIP;
+        cdsRegistroEST_REGISTRO.AsString := StrCrypt(SYS_SYSDBA_LOGIN + SYS_SYSDBA_PWD, SYS_PASSWD_KEY);
+        cdsRegistroEST_ULTIMO_ACESSO.AsDateTime := Now;
+
+        cdsRegistro.Post;
+        cdsRegistro.ApplyUpdates;
+        CommitTransaction;
+      end;
+      cdsRegistro.Close;
+    end;
+  except
+    On E : Exception do
+      ShowError('Erro ao tentar registrar estação inicial de trabalho.' + #13#13 + E.Message);
   end;
 end;
 
@@ -5456,6 +5496,7 @@ begin
     SetSegmento(SEGMENTO_INDUSTRIA_GERAL_ID, SEGMENTO_INDUSTRIA_GERAL_DS);
 
     RegistrarEmpresa;
+    RegistrarEstacaoDefault;
     GerarCompetencias( StrToInt(Copy(IntToStr(gLicencaSistema.Competencia), 1, 4)) );
   finally
     ini.Free;
@@ -5896,16 +5937,17 @@ begin
 
   with ACBrMail do
   begin
-    From     := gContaEmail.Conta;
-    FromName := RemoveAcentos(GetRazaoSocialEmpresa(sCNPJEmitente));
-    Host     := gContaEmail.Servidor_SMTP;
-    Username := gContaEmail.Conta;
-    Password := gContaEmail.Senha;
-    Port     := IntToStr(gContaEmail.Porta_SMTP);
-    SetSSL   := gContaEmail.ConexaoSeguraSSL;
-    SetTLS   := gContaEmail.RequerAutenticacao;
-    IsHTML   := False;
-    Subject  := Trim(sAssunto);
+    From      := gContaEmail.Conta;
+    FromName  := RemoveAcentos(GetRazaoSocialEmpresa(sCNPJEmitente));
+    Host      := gContaEmail.Servidor_SMTP;
+    Username  := gContaEmail.Conta;
+    Password  := gContaEmail.Senha;
+    Port      := IntToStr(gContaEmail.Porta_SMTP);
+    SetSSL    := gContaEmail.ConexaoSeguraSSL;
+    SetTLS    := gContaEmail.RequerAutenticacao;
+    IsHTML    := False;
+    UseThread := False;
+    Subject   := Trim(sAssunto);
     AddAddress( AnsiLowerCase(Trim(sDestinatario)) );
 
     Body.BeginUpdate;

@@ -21,8 +21,8 @@ Uses
     TPermissaoLista         = Array [0..45] of String;
 
 const
-  VERSION_NUMBER     = '1.0.30.0';
-  VERSION_NUMBER_ID  = 01003000;
+  VERSION_NUMBER     = '1.0.31.0';
+  VERSION_NUMBER_ID  = 01003100;
   VERSION_NUMBER_STR = '01003000';
 
   MANIFESTO_AGIL =

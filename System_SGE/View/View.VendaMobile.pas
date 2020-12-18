@@ -186,12 +186,12 @@ begin
     try
       aPrevisao := TServicePrevisaoTempo
         .GetCidade(
-//            TTipoServicePrevisaoTempo.sptWeatherstackAPI
-//          , '60f0318e8b6fa78085190379ad56025c'
-//            TTipoServicePrevisaoTempo.sptOpenWeatherMapAPI
-//          , 'd7fe8308damshcb0e9ebdaf09920p151576jsncf5fb2fd0ee0'
-            TTipoServicePrevisaoTempo.sptInep
-          , EmptyStr
+//            TTipoServicePrevisaoTempo.sptWeatherstackAPI         // Tipo API = Weather Stack API
+//          , '60f0318e8b6fa78085190379ad56025c'                   // Access Key
+//            TTipoServicePrevisaoTempo.sptOpenWeatherMapAPI       // Tipo API = Open Weather Map API
+//          , 'd7fe8308damshcb0e9ebdaf09920p151576jsncf5fb2fd0ee0' // Access Key
+            TTipoServicePrevisaoTempo.sptInep                      // Tipo API = Inep API XML
+          , EmptyStr                                               // Access Key
           , GetEmpresaCidade(gUsuarioLogado.Empresa)
           , GetEmpresaUF(gUsuarioLogado.Empresa));
 
@@ -220,6 +220,7 @@ begin
       end;
     finally
       aPrevisao.DisposeOf;
+      aPrevisao := nil;
     end;
   end).Start;
 end;
