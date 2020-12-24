@@ -22,7 +22,7 @@ uses
   UGrPadrao in '..\Sys\lib\UGrPadrao.pas' {frmGrPadrao},
   UGeBancos in '..\Sys\UGeBancos.pas' {frmGeBancos},
   UGeTipoLogradouro in '..\Sys\UGeTipoLogradouro.pas' {frmGeTipoLogradouro},
-  UGeEstado in '..\Sys\UGeEstado.pas' {frmGeEstado},
+  View.Estado in '..\Sys\View\View.Estado.pas' {ViewEstado},
   UGeCidade in '..\Sys\UGeCidade.pas' {frmGeCidade},
   UGeDistrito in '..\Sys\UGeDistrito.pas' {frmGeDistrito},
   UGeBairro in '..\Sys\UGeBairro.pas' {frmGeBairro},
@@ -184,7 +184,14 @@ uses
   Classe.Gerenciador.View in '..\Sys\Classe\Classe.Gerenciador.View.pas',
   Interacao.Gerenciador.View in '..\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas',
   Controller.ProvisaoTempo.OpenWeatherMapAPI in '..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.OpenWeatherMapAPI.pas',
-  Controller.ProvisaoTempo.HGWeatherAPI in '..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.HGWeatherAPI.pas';
+  Controller.ProvisaoTempo.HGWeatherAPI in '..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.HGWeatherAPI.pas',
+  SGE.Model.Dados in '..\Sys\Model\SGE.Model.Dados.pas' {DMDados: TDataModule},
+  SGE.Model.Conexao.DataSet in '..\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas' {ModelConexaoDataSet: TDataModule},
+  SGE.Model.Factory in '..\Sys\Model\SGE.Model.Factory.pas',
+  SGE.Controller.Estado in '..\Sys\Controller\SGE.Controller.Estado.pas',
+  SGE.Model.Interacao.DataSet in '..\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas',
+  UGeEstado in '..\Sys\UGeEstado.pas' {frmGeEstado},
+  Frame.VendaMobile.Menu in 'View\Components\Frame.VendaMobile.Menu.pas' {FrameVendaMobileMenu: TFrame};
 
 {$R *.res}
 

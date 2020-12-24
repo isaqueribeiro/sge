@@ -1,4 +1,4 @@
-unit UGeEstado;
+unit View.Estado;
 
 interface
 
@@ -20,7 +20,7 @@ uses
   dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
-  TfrmGeEstado = class(TfrmGrPadraoCadastro)
+  TViewEstado = class(TfrmGrPadraoCadastro)
     lblNome: TLabel;
     dbNome: TDBEdit;
     lblSigla: TLabel;
@@ -58,7 +58,7 @@ type
 *)
 
 var
-  frmGeEstado: TfrmGeEstado;
+  ViewEstado: TViewEstado;
 
   procedure MostrarTabelaEstados(const AOwner : TComponent);
   function SelecionarEstado(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean; overload;
@@ -73,9 +73,9 @@ uses
 
 procedure MostrarTabelaEstados(const AOwner : TComponent);
 var
-  frm : TfrmGeEstado;
+  frm : TViewEstado;
 begin
-  frm := TfrmGeEstado.Create(AOwner);
+  frm := TViewEstado.Create(AOwner);
   try
     frm.ShowModal;
   finally
@@ -85,9 +85,9 @@ end;
 
 function SelecionarEstado(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
 var
-  frm : TfrmGeEstado;
+  frm : TViewEstado;
 begin
-  frm := TfrmGeEstado.Create(AOwner);
+  frm := TViewEstado.Create(AOwner);
   try
     Result := frm.SelecionarRegistro(Codigo, Nome);
   finally
@@ -97,9 +97,9 @@ end;
 
 function SelecionarEstado(const AOwner : TComponent; var Codigo : Integer; var Nome, UF : String) : Boolean;
 var
-  frm : TfrmGeEstado;
+  frm : TViewEstado;
 begin
-  frm := TfrmGeEstado.Create(AOwner);
+  frm := TViewEstado.Create(AOwner);
   try
     Result := frm.SelecionarRegistro(Codigo, Nome, UF);
   finally
@@ -107,7 +107,7 @@ begin
   end;
 end;
 
-procedure TfrmGeEstado.fdQryTabelaNewRecord(DataSet: TDataSet);
+procedure TViewEstado.fdQryTabelaNewRecord(DataSet: TDataSet);
 begin
   with DtSrcTabela.DataSet do
   begin
@@ -118,7 +118,7 @@ begin
   end;
 end;
 
-procedure TfrmGeEstado.FormCreate(Sender: TObject);
+procedure TViewEstado.FormCreate(Sender: TObject);
 begin
   inherited;
   RotinaID         := ROTINA_CAD_ESTADO_ID;
@@ -141,7 +141,7 @@ begin
   AbrirTabelaAuto := True;
 end;
 
-function TfrmGeEstado.SelecionarRegistro(var Codigo: Integer;
+function TViewEstado.SelecionarRegistro(var Codigo: Integer;
   var Descricao, UF: String): Boolean;
 begin
   try
@@ -168,6 +168,6 @@ begin
 end;
 
 initialization
-  FormFunction.RegisterForm('frmGeEstado', TfrmGeEstado);
+  FormFunction.RegisterForm('ViewEstado', TViewEstado);
 
 end.

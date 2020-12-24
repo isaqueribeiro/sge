@@ -1,4 +1,4 @@
-inherited frmGeEstado: TfrmGeEstado
+inherited ViewEstado: TViewEstado
   Left = 388
   Top = 215
   Caption = 'Tabela de Estados (UF)'

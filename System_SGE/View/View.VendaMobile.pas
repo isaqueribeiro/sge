@@ -4,6 +4,7 @@ interface
 
 uses
   HPL_Strings,
+  Frame.VendaMobile.Menu,
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Buttons, Vcl.WinXCtrls,
   dxGDIPlusClasses;
@@ -27,8 +28,6 @@ type
     TmrContador: TTimer;
     imgApp: TImage;
     pnlBotoes: TPanel;
-    btnConfigurar: TSpeedButton;
-    btnSincronizar: TSpeedButton;
     pnlContent: TPanel;
     pnlDesktop: TPanel;
     SplitViewMenu: TSplitView;
@@ -42,18 +41,19 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TmrContadorTimer(Sender: TObject);
-    procedure btnSincronizarMouseEnter(Sender: TObject);
-    procedure btnSincronizarMouseLeave(Sender: TObject);
-    procedure btnConfigurarMouseEnter(Sender: TObject);
-    procedure btnConfigurarMouseLeave(Sender: TObject);
     procedure btnSincronizarClick(Sender: TObject);
     procedure pnlDesktopClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure lblSincronizarVendedorClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     FStr : THopeString;
+    FMenu : TFrameVendaMobileMenu;
+
+    procedure InicializarMenu;
+
     procedure ConfigurarIcon(aResource : String; Sender : TSpeedButton);
     procedure LerPrevisaoTempo;
     procedure MarcarLabelMouseEnter(Sender: TObject);
@@ -79,32 +79,12 @@ uses
 
 { TViewVendaMobile }
 
-procedure TViewVendaMobile.btnConfigurarMouseEnter(Sender: TObject);
-begin
-  ConfigurarIcon('app_configurar_hot', TSpeedButton(Sender));
-end;
-
-procedure TViewVendaMobile.btnConfigurarMouseLeave(Sender: TObject);
-begin
-  ConfigurarIcon('app_configurar', TSpeedButton(Sender));
-end;
-
 procedure TViewVendaMobile.btnSincronizarClick(Sender: TObject);
 begin
-  if SplitViewMenu.Opened then
-    SplitViewMenu.Close
-  else
-    SplitViewMenu.Open;
-end;
-
-procedure TViewVendaMobile.btnSincronizarMouseEnter(Sender: TObject);
-begin
-  ConfigurarIcon('app_sincronizar_hot', TSpeedButton(Sender));
-end;
-
-procedure TViewVendaMobile.btnSincronizarMouseLeave(Sender: TObject);
-begin
-  ConfigurarIcon('app_sincronizar', TSpeedButton(Sender));
+//  if SplitViewMenu.Opened then
+//    SplitViewMenu.Close
+//  else
+//    SplitViewMenu.Open;
 end;
 
 procedure TViewVendaMobile.ConfigurarIcon(aResource: String; Sender: TSpeedButton);
@@ -149,6 +129,14 @@ begin
   lblData.Caption   := FormatDateTime('dd/mm/yyyy', Date);
   lblHora.Caption   := FormatDateTime('hh:mm', Time);
   lblCidade.Caption := Format('%s, %s', [StrFormatarNome(GetEmpresaCidade(gUsuarioLogado.Empresa)), GetEmpresaUF(gUsuarioLogado.Empresa)]);
+
+  InicializarMenu;
+end;
+
+procedure TViewVendaMobile.FormDestroy(Sender: TObject);
+begin
+  FreeAndNil(FMenu);
+  inherited;
 end;
 
 procedure TViewVendaMobile.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -167,6 +155,13 @@ begin
   inherited;
   lblUsuario.Caption := StrFormatarNome(gUsuarioLogado.Nome);
   LerPrevisaoTempo;
+end;
+
+procedure TViewVendaMobile.InicializarMenu;
+begin
+  FMenu := TFrameVendaMobileMenu.Create(Self);
+  FMenu.Parent := pnlBotoes;
+  FMenu.Show;
 end;
 
 procedure TViewVendaMobile.lblSincronizarVendedorClick(Sender: TObject);
@@ -190,8 +185,10 @@ begin
 //          , '60f0318e8b6fa78085190379ad56025c'                   // Access Key
 //            TTipoServicePrevisaoTempo.sptOpenWeatherMapAPI       // Tipo API = Open Weather Map API
 //          , 'd7fe8308damshcb0e9ebdaf09920p151576jsncf5fb2fd0ee0' // Access Key
-            TTipoServicePrevisaoTempo.sptInep                      // Tipo API = Inep API XML
-          , EmptyStr                                               // Access Key
+//            TTipoServicePrevisaoTempo.sptInep                    // Tipo API = Inep API XML
+//          , EmptyStr                                             // Access Key
+            TTipoServicePrevisaoTempo.sptHGWeatherAPI              // Tipo API = HG Weather API
+          , '223f1e5e'                                             // Access Key
           , GetEmpresaCidade(gUsuarioLogado.Empresa)
           , GetEmpresaUF(gUsuarioLogado.Empresa));
 

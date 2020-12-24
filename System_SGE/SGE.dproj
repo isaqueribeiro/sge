@@ -185,8 +185,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeTipoLogradouro.pas">
             <Form>frmGeTipoLogradouro</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeEstado.pas">
-            <Form>frmGeEstado</Form>
+        <DCCReference Include="..\Sys\View\View.Estado.pas">
+            <Form>ViewEstado</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeCidade.pas">
             <Form>frmGeCidade</Form>
@@ -593,6 +593,28 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas"/>
         <DCCReference Include="..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.OpenWeatherMapAPI.pas"/>
         <DCCReference Include="..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.HGWeatherAPI.pas"/>
+        <DCCReference Include="..\Sys\Model\SGE.Model.Dados.pas">
+            <Form>DMDados</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas">
+            <Form>ModelConexaoDataSet</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Model\SGE.Model.Factory.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Estado.pas"/>
+        <DCCReference Include="..\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas"/>
+        <DCCReference Include="..\Sys\UGeEstado.pas">
+            <Form>frmGeEstado</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="View\Components\Frame.VendaMobile.Menu.pas">
+            <Form>FrameVendaMobileMenu</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>
@@ -608,6 +630,22 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_sincronizar_48x48-hot.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_sincronizar_hot</ResourceId>
+        </RcItem>
+        <RcItem Include="..\_diversos\Imagens\Glyphs\setting-48x48.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>setting</ResourceId>
+        </RcItem>
+        <RcItem Include="..\_diversos\Imagens\Glyphs\synchronize-48x48.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>synchronize</ResourceId>
+        </RcItem>
+        <RcItem Include="..\_diversos\Imagens\Glyphs\white_setting-48x48.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>white_setting</ResourceId>
+        </RcItem>
+        <RcItem Include="..\_diversos\Imagens\Glyphs\white_synchronize-48x48.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>white_synchronize</ResourceId>
         </RcItem>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
@@ -650,7 +688,19 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\setting-48x48.png" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="..\_diversos\Imagens\Glyphs\app_configurar_48x48-hot.png" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\synchronize-48x48.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -682,6 +732,18 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="..\_diversos\Imagens\Glyphs\app_sincronizar_48x48.png" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_setting-48x48.png" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_synchronize-48x48.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
