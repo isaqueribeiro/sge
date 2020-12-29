@@ -1,4 +1,4 @@
-unit View.VendaMobile.Vendedor;
+unit View.VendaMobile.Configurar;
 
 interface
 
@@ -7,13 +7,13 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.ExtCtrls, Vcl.StdCtrls;
 
 type
-  TViewVendaMobileVendedor = class(TfrmGrPadrao)
+  TViewVendaMobileConfigurar = class(TfrmGrPadrao)
     pnlContent: TPanel;
     pnlHeader: TPanel;
-    pnlFooter: TPanel;
     lblMenu: TLabel;
     lblEtata: TLabel;
     lblRotina: TLabel;
+    pnlFooter: TPanel;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
@@ -24,6 +24,9 @@ type
     procedure RegistrarRotinaSistema; override;
   end;
 
+//var
+//  ViewVendaMobileConfigurar: TViewVendaMobileConfigurar;
+//
 implementation
 
 {$R *.dfm}
@@ -34,37 +37,37 @@ uses
   , UDMBusiness
   , Classe.Gerenciador.View;
 
-{ TViewVendaMobileVendedor }
+{ TViewVendaMobileConfigurar }
 
-procedure TViewVendaMobileVendedor.FormCreate(Sender: TObject);
+procedure TViewVendaMobileConfigurar.FormCreate(Sender: TObject);
 begin
   inherited;
   InicializarComponentes;
   IdentificarEtapa( 0 );
 end;
 
-procedure TViewVendaMobileVendedor.IdentificarEtapa(AEtapa: Word);
+procedure TViewVendaMobileConfigurar.IdentificarEtapa(AEtapa: Word);
 begin
   case AEtapa of
     0 :
     begin
       lblRotina.Caption := EmptyStr;
-      lblEtata.Caption  := 'Vendedores';
+      lblEtata.Caption  := 'Servidor';
     end;
   end;
 end;
 
-procedure TViewVendaMobileVendedor.InicializarComponentes;
+procedure TViewVendaMobileConfigurar.InicializarComponentes;
 begin
   ;
 end;
 
-procedure TViewVendaMobileVendedor.RegistrarRotinaSistema;
+procedure TViewVendaMobileConfigurar.RegistrarRotinaSistema;
 begin
   ;
 end;
 
 initialization
-  _GerenciadorView.RegistrarView('ViewVendaMobileVendedor', TViewVendaMobileVendedor);
+  _GerenciadorView.RegistrarView('ViewVendaMobileConfigurar', TViewVendaMobileConfigurar);
 
 end.

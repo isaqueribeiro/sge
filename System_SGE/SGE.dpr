@@ -191,7 +191,8 @@ uses
   SGE.Controller.Estado in '..\Sys\Controller\SGE.Controller.Estado.pas',
   SGE.Model.Interacao.DataSet in '..\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas',
   UGeEstado in '..\Sys\UGeEstado.pas' {frmGeEstado},
-  Frame.VendaMobile.Menu in 'View\Components\Frame.VendaMobile.Menu.pas' {FrameVendaMobileMenu: TFrame};
+  Frame.VendaMobile.Menu in 'View\Components\Frame.VendaMobile.Menu.pas' {FrameVendaMobileMenu: TFrame},
+  View.VendaMobile.Configurar in 'View\View.VendaMobile.Configurar.pas' {ViewVendaMobileConfigurar};
 
 {$R *.res}
 

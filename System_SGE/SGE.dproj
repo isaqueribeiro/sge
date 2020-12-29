@@ -615,6 +615,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
+        <DCCReference Include="View\View.VendaMobile.Configurar.pas">
+            <Form>ViewVendaMobileConfigurar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>

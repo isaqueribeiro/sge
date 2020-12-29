@@ -26,7 +26,7 @@ type
       function RegistrarView(Key : String; ComponentClass : TComponentClass) : IGerenciadorView;
       function RemoverView(Key : String) : IGerenciadorView;
       function RemoverViewAll() : IGerenciadorView;
-      function InstanciarView(AOnwer : TComponent; Key : String; Parent : TPanel; const Index : Boolean = False) : IGerenciadorView;
+      function InstanciarView(AOnwer : TComponent; Key : String; Parent : TPanel; const Index : Boolean = True) : IGerenciadorView;
       function ExibirView(Key : String) : TForm;
       function ExibirViewIndex : TForm;
   end;
@@ -73,7 +73,7 @@ begin
     if not FListViews.TryGetValue(Key, aForm) then
     begin
       aForm := TComponentClass(aClassName).Create(AOnwer) as TForm;
-      aForm.Name   := Key;
+      aForm.Name := Key;
 
       if Assigned(Parent) then
       begin
@@ -86,6 +86,10 @@ begin
       end;
 
       FListViews.Add(Key, aForm);
+
+      if Index then
+        if Assigned(FViewIndex) and Assigned(Parent) then
+          TForm(FViewIndex).Close;
     end;
 
     aForm.Show;

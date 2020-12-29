@@ -41,7 +41,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure TmrContadorTimer(Sender: TObject);
-    procedure btnSincronizarClick(Sender: TObject);
     procedure pnlDesktopClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure lblSincronizarVendedorClick(Sender: TObject);
@@ -53,6 +52,8 @@ type
     FMenu : TFrameVendaMobileMenu;
 
     procedure InicializarMenu;
+    procedure Sincronizar(Sender: TObject);
+    procedure Configurar(Sender: TObject);
 
     procedure ConfigurarIcon(aResource : String; Sender : TSpeedButton);
     procedure LerPrevisaoTempo;
@@ -65,6 +66,13 @@ type
 var
   ViewVendaMobile: TViewVendaMobile;
 
+(*
+  Estilo de cores (https://colors.lol/) :
+  . foggiest jungle green     #048243 -> $00438204
+  . recluse greenish teal     #32BF84 -> $0084BF32
+  . merging light light blue  #CAFFFB -> $00FBFFCA
+*)
+
 implementation
 
 {$R *.dfm}
@@ -73,18 +81,17 @@ uses
     UConstantesDGE
   , UDMRecursos
   , UDMBusiness
+  , Interfaces.PrevisaoTempo
   , Service.PrevisaoTempo
   , Service.Utils
-  , Classe.Gerenciador.View, Interfaces.PrevisaoTempo;
+  , Classe.Gerenciador.View;
 
 { TViewVendaMobile }
 
-procedure TViewVendaMobile.btnSincronizarClick(Sender: TObject);
+procedure TViewVendaMobile.Configurar(Sender: TObject);
 begin
-//  if SplitViewMenu.Opened then
-//    SplitViewMenu.Close
-//  else
-//    SplitViewMenu.Open;
+  _GerenciadorView.InstanciarView(Self, 'ViewVendaMobileConfigurar', pnlDesktop, True);
+  SplitViewMenu.BringToFront;
 end;
 
 procedure TViewVendaMobile.ConfigurarIcon(aResource: String; Sender: TSpeedButton);
@@ -161,6 +168,10 @@ procedure TViewVendaMobile.InicializarMenu;
 begin
   FMenu := TFrameVendaMobileMenu.Create(Self);
   FMenu.Parent := pnlBotoes;
+
+  FMenu.SetSincronizarOnClick( Sincronizar );
+  FMenu.SetConfigurarOnClick( Configurar );
+
   FMenu.Show;
 end;
 
@@ -234,6 +245,14 @@ end;
 procedure TViewVendaMobile.RegistrarRotinaSistema;
 begin
   ;
+end;
+
+procedure TViewVendaMobile.Sincronizar(Sender: TObject);
+begin
+  if SplitViewMenu.Opened then
+    SplitViewMenu.Close
+  else
+    SplitViewMenu.Open;
 end;
 
 procedure TViewVendaMobile.TmrContadorTimer(Sender: TObject);

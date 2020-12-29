@@ -1,43 +1,46 @@
-inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
-  Caption = 'ViewVendaMobileVendedor'
-  ClientHeight = 447
-  ClientWidth = 811
+inherited ViewVendaMobileConfigurar: TViewVendaMobileConfigurar
+  Caption = 'ViewVendaMobileConfigurar'
+  ClientHeight = 464
+  ClientWidth = 828
   Color = 16515018
-  ExplicitWidth = 827
-  ExplicitHeight = 486
+  ExplicitWidth = 844
+  ExplicitHeight = 503
   PixelsPerInch = 96
   TextHeight = 13
   object pnlContent: TPanel
     Left = 0
     Top = 0
-    Width = 811
-    Height = 447
+    Width = 828
+    Height = 464
     Align = alClient
     BevelOuter = bvNone
-    FullRepaint = False
-    ParentBackground = False
     ParentColor = True
     TabOrder = 0
-    StyleElements = []
+    ExplicitLeft = 160
+    ExplicitTop = 40
+    ExplicitWidth = 281
+    ExplicitHeight = 121
     object pnlHeader: TPanel
       Left = 0
       Top = 0
-      Width = 811
+      Width = 828
       Height = 50
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitTop = 8
+      ExplicitWidth = 539
       object lblMenu: TLabel
         AlignWithMargins = True
         Left = 15
         Top = 12
-        Width = 93
+        Width = 90
         Height = 26
         Margins.Left = 15
         Margins.Top = 12
         Margins.Bottom = 12
         Align = alLeft
-        Caption = 'Sincronizar >'
+        Caption = 'Configurar >'
         Font.Charset = ANSI_CHARSET
         Font.Color = 1848330
         Font.Height = -16
@@ -48,7 +51,7 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
       end
       object lblEtata: TLabel
         AlignWithMargins = True
-        Left = 211
+        Left = 185
         Top = 12
         Width = 64
         Height = 26
@@ -63,37 +66,40 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
         Font.Name = 'Segoe UI Semibold'
         Font.Style = [fsBold]
         ParentFont = False
-        ExplicitLeft = 229
+        ExplicitLeft = 211
         ExplicitHeight = 21
       end
       object lblRotina: TLabel
         AlignWithMargins = True
-        Left = 111
+        Left = 108
         Top = 12
-        Width = 97
+        Width = 74
         Height = 26
         Margins.Left = 0
         Margins.Top = 12
         Margins.Bottom = 12
         Align = alLeft
-        Caption = 'Vendedores >'
+        Caption = 'Servidor >'
         Font.Charset = ANSI_CHARSET
         Font.Color = 1848330
         Font.Height = -16
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
-        ExplicitLeft = 110
+        ExplicitLeft = 111
+        ExplicitHeight = 21
       end
     end
     object pnlFooter: TPanel
       Left = 0
-      Top = 397
-      Width = 811
+      Top = 414
+      Width = 828
       Height = 50
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 1
+      ExplicitTop = 397
+      ExplicitWidth = 811
     end
   end
 end
