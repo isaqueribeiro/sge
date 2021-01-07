@@ -71,6 +71,13 @@ var
   . foggiest jungle green     #048243 -> $00438204
   . recluse greenish teal     #32BF84 -> $0084BF32
   . merging light light blue  #CAFFFB -> $00FBFFCA
+
+  . Default  #003C14 -> $00143C00   (Verde escuro)
+  . Error    #DF5447 -> $004754DF
+  . Inform   #1E87AF -> $00AF871E
+  . Warning  #F4B300 ->
+  . Success  #317C24 ->
+  . Question #87ADBD ->
 *)
 
 implementation

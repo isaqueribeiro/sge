@@ -14,6 +14,14 @@ type
     lblMenu: TLabel;
     lblEtata: TLabel;
     lblRotina: TLabel;
+    pnlBody: TPanel;
+    pnlMessage: TPanel;
+    Panel2: TPanel;
+    Panel1: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    Label1: TLabel;
+    pnlBtnClose: TPanel;
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
@@ -56,7 +64,8 @@ end;
 
 procedure TViewVendaMobileVendedor.InicializarComponentes;
 begin
-  ;
+  pnlMessage.Visible := False;
+
 end;
 
 procedure TViewVendaMobileVendedor.RegistrarRotinaSistema;
