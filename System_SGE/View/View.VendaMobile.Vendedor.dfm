@@ -65,7 +65,6 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
         Font.Style = [fsBold]
         ParentFont = False
         StyleElements = []
-        ExplicitLeft = 211
         ExplicitHeight = 21
       end
       object lblRotina: TLabel
@@ -106,10 +105,6 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitLeft = 120
-      ExplicitTop = 152
-      ExplicitWidth = 281
-      ExplicitHeight = 121
       object pnlMessage: TPanel
         Left = 0
         Top = 0
@@ -120,7 +115,6 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
         Color = 11503390
         ParentBackground = False
         TabOrder = 0
-        ExplicitTop = 3
         object pnlMessageIcon: TPanel
           Left = 0
           Top = 0
@@ -139,9 +133,6 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
           Align = alRight
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitLeft = 773
-          ExplicitTop = 0
-          ExplicitHeight = 81
           object pnlBtnClose: TPanel
             AlignWithMargins = True
             Left = 3
@@ -154,7 +145,6 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
             Color = 11503390
             ParentBackground = False
             TabOrder = 0
-            ExplicitTop = 8
             object shpBtnClose: TShape
               Left = 2
               Top = 2
@@ -205,8 +195,6 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 2
-          ExplicitLeft = 8
-          ExplicitWidth = 81
           object Label1: TLabel
             AlignWithMargins = True
             Left = 3
@@ -229,8 +217,7 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
             ParentFont = False
             WordWrap = True
             StyleElements = []
-            ExplicitTop = 10
-            ExplicitWidth = 625
+            ExplicitWidth = 664
             ExplicitHeight = 63
           end
         end

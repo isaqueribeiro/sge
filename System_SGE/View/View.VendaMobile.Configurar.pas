@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.ExtCtrls, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.ExtCtrls, Vcl.StdCtrls, dxGDIPlusClasses;
 
 type
   TViewVendaMobileConfigurar = class(TfrmGrPadrao)
@@ -14,9 +14,24 @@ type
     lblEtata: TLabel;
     lblRotina: TLabel;
     pnlFooter: TPanel;
+    pnlBody: TPanel;
+    pnlMessage: TPanel;
+    pnlMessageIcon: TPanel;
+    pnlMessageButton: TPanel;
+    pnlBtnClose: TPanel;
+    shpBtnClose: TShape;
+    imgBtnClose: TImage;
+    pnlMessageText: TPanel;
+    Label1: TLabel;
+    Panel2: TPanel;
     procedure FormCreate(Sender: TObject);
+    procedure imgBtnCloseMouseEnter(Sender: TObject);
+    procedure imgBtnCloseMouseLeave(Sender: TObject);
   private
     { Private declarations }
+    procedure FormatarBotaoEnter(AShape: TShape; AImage : TImage; AResourceName : String);
+    procedure FormatarBotaoLeave(AShape: TShape; AImage : TImage; AResourceName : String);
+
     procedure InicializarComponentes;
     procedure IdentificarEtapa(AEtapa : Word);
   public
@@ -35,9 +50,24 @@ uses
     UConstantesDGE
   , UDMRecursos
   , UDMBusiness
+  , Service.Utils
   , Classe.Gerenciador.View;
 
 { TViewVendaMobileConfigurar }
+
+procedure TViewVendaMobileConfigurar.FormatarBotaoEnter(AShape: TShape; AImage: TImage; AResourceName: String);
+begin
+  AShape.Visible := True;
+  AShape.SendToBack;
+  TServicesUtils.ResourceImage(AResourceName, AImage);
+end;
+
+procedure TViewVendaMobileConfigurar.FormatarBotaoLeave(AShape: TShape; AImage: TImage; AResourceName: String);
+begin
+  AShape.Visible := False;
+  AShape.SendToBack;
+  TServicesUtils.ResourceImage(AResourceName, AImage);
+end;
 
 procedure TViewVendaMobileConfigurar.FormCreate(Sender: TObject);
 begin
@@ -57,8 +87,19 @@ begin
   end;
 end;
 
+procedure TViewVendaMobileConfigurar.imgBtnCloseMouseEnter(Sender: TObject);
+begin
+  FormatarBotaoEnter(shpBtnClose, imgBtnClose, 'btn_close_24_info');
+end;
+
+procedure TViewVendaMobileConfigurar.imgBtnCloseMouseLeave(Sender: TObject);
+begin
+  FormatarBotaoLeave(shpBtnClose, imgBtnClose, 'btn_close_24_white');
+end;
+
 procedure TViewVendaMobileConfigurar.InicializarComponentes;
 begin
+  pnlMessage.Visible := False;
   ;
 end;
 

@@ -96,7 +96,7 @@ end;
 
 procedure TViewVendaMobileVendedor.InicializarComponentes;
 begin
-  //pnlMessage.Visible := False;
+  pnlMessage.Visible := False;
 
 end;
 
