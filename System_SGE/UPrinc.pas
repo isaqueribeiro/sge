@@ -404,6 +404,9 @@ begin
     lblAberta.Visible := Trim(lblAberta.Caption) <> EmptyStr;
     TmrAlertaCliente.Enabled := lblAberta.Visible;
 
+    aTextoAlerta.Text := aTextoAlerta.Text.Replace('=', '').Replace(#13#13, #13).Replace(#$D#$A#$D#$A, #$D#$A);
+    aTextoAlerta.Text := aTextoAlerta.Text.Replace(#$D#$A#$D#$A#$D#$A, #$D#$A#$D#$A);
+
     if (Trim(aTextoAlerta.Text) <> EmptyStr) then
     begin
       aNotificacao := NotificationCenter.CreateNotification;
@@ -592,7 +595,7 @@ end;
 
 procedure TfrmPrinc.BrBtnVendaMobileClick(Sender: TObject);
 begin
-//  if GetPermissaoRotinaSistema(ROTINA_CAD_FORNECEDOR_ID, True) then
+  if GetPermissaoRotinaSistema(ROTINA_MOV_VENDA_MOBILE_ID, True) then
     FormFunction.ShowModalForm(Self, 'ViewVendaMobile');
 end;
 
@@ -1196,8 +1199,9 @@ begin
 
   // Movimento
 
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_MOV_VENDA_ID,      Trim(BrBtnVenda.Caption),        ROTINA_MENU_MOVIMENTO_ID);
-  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_MOV_ORDEM_SERV_ID, Trim(BrBtnOrdemServico.Caption), ROTINA_MENU_MOVIMENTO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_MOV_VENDA_ID,        Trim(BrBtnVenda.Caption),        ROTINA_MENU_MOVIMENTO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_MOV_VENDA_MOBILE_ID, Trim(BrBtnVendaMobile.Caption),  ROTINA_MENU_MOVIMENTO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_MOV_ORDEM_SERV_ID,   Trim(BrBtnOrdemServico.Caption), ROTINA_MENU_MOVIMENTO_ID);
 
   // Notas Fiscais
 

@@ -4671,6 +4671,7 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
+      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4685,7 +4686,6 @@ object frmPrinc: TfrmPrinc
       Index = 0
     end
     object RbnTabCadastro: TdxRibbonTab
-      Active = True
       Caption = 'Cadastro'
       Groups = <
         item
@@ -5836,6 +5836,10 @@ object frmPrinc: TfrmPrinc
       Hint = 'Vendas no Aplicativo'
       Visible = ivAlways
       OnClick = BrBtnVendaMobileClick
+      HotImageIndex = 82
+      LargeImageIndex = 82
+      SyncImageIndex = False
+      ImageIndex = 82
     end
     object BrBtnOrdemServico: TdxBarLargeButton
       Caption = 'Ordens de Servi'#231'os'

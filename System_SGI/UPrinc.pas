@@ -462,6 +462,9 @@ begin
     lblAberta.Visible := Trim(lblAberta.Caption) <> EmptyStr;
     TmrAlertaCliente.Enabled := lblAberta.Visible;
 
+    aTextoAlerta.Text := aTextoAlerta.Text.Replace('=', '').Replace(#13#13, #13).Replace(#$D#$A#$D#$A, #$D#$A);
+    aTextoAlerta.Text := aTextoAlerta.Text.Replace(#$D#$A#$D#$A#$D#$A, #$D#$A#$D#$A);
+
     if (Trim(aTextoAlerta.Text) <> EmptyStr) then
     begin
       aNotificacao := NotificationCenter.CreateNotification;
