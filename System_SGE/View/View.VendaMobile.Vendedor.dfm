@@ -107,14 +107,15 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
       TabOrder = 2
       object pnlMessage: TPanel
         Left = 0
-        Top = 0
+        Top = 266
         Width = 811
         Height = 81
-        Align = alTop
+        Align = alBottom
         BevelOuter = bvNone
         Color = 11503390
         ParentBackground = False
         TabOrder = 0
+        ExplicitTop = 0
         object pnlMessageIcon: TPanel
           Left = 0
           Top = 0
@@ -224,13 +225,13 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
       end
       object Panel2: TPanel
         Left = 0
-        Top = 81
+        Top = 0
         Width = 811
         Height = 266
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitTop = 84
+        ExplicitTop = 81
       end
     end
   end

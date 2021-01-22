@@ -3,8 +3,10 @@ unit View.VendaMobile.Configurar;
 interface
 
 uses
+  HPL_Strings,
+  Frame.VendaMobile.Configurar.Menu,
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.ExtCtrls, Vcl.StdCtrls, dxGDIPlusClasses;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, UGrPadrao, Vcl.ExtCtrls, Vcl.StdCtrls, dxGDIPlusClasses, Vcl.ComCtrls;
 
 type
   TViewVendaMobileConfigurar = class(TfrmGrPadrao)
@@ -22,18 +24,27 @@ type
     shpBtnClose: TShape;
     imgBtnClose: TImage;
     pnlMessageText: TPanel;
-    Label1: TLabel;
+    lblMessageText: TLabel;
     Panel2: TPanel;
+    pnlBotoes: TPanel;
+    pnlData: TPanel;
     procedure FormCreate(Sender: TObject);
     procedure imgBtnCloseMouseEnter(Sender: TObject);
     procedure imgBtnCloseMouseLeave(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
+    FStr : THopeString;
+    FMenu : TFrameVendaMobileConfigurarMenu;
+
     procedure FormatarBotaoEnter(AShape: TShape; AImage : TImage; AResourceName : String);
     procedure FormatarBotaoLeave(AShape: TShape; AImage : TImage; AResourceName : String);
 
+    procedure InicializarMenu;
     procedure InicializarComponentes;
     procedure IdentificarEtapa(AEtapa : Word);
+    procedure CarregarChaveAcesso(Sender : TObject);
+    procedure CarregarServidorWeb(Sender : TObject);
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -55,6 +66,16 @@ uses
 
 { TViewVendaMobileConfigurar }
 
+procedure TViewVendaMobileConfigurar.CarregarChaveAcesso(Sender: TObject);
+begin
+  _GerenciadorView.InstanciarView(Self, 'ViewVendaMobileConfigurarChave', pnlData, False);
+end;
+
+procedure TViewVendaMobileConfigurar.CarregarServidorWeb(Sender: TObject);
+begin
+  ;
+end;
+
 procedure TViewVendaMobileConfigurar.FormatarBotaoEnter(AShape: TShape; AImage: TImage; AResourceName: String);
 begin
   AShape.Visible := True;
@@ -72,8 +93,15 @@ end;
 procedure TViewVendaMobileConfigurar.FormCreate(Sender: TObject);
 begin
   inherited;
+  InicializarMenu;
   InicializarComponentes;
   IdentificarEtapa( 0 );
+end;
+
+procedure TViewVendaMobileConfigurar.FormDestroy(Sender: TObject);
+begin
+  FreeAndNil(FMenu);
+  inherited;
 end;
 
 procedure TViewVendaMobileConfigurar.IdentificarEtapa(AEtapa: Word);
@@ -100,7 +128,16 @@ end;
 procedure TViewVendaMobileConfigurar.InicializarComponentes;
 begin
   pnlMessage.Visible := False;
-  ;
+end;
+
+procedure TViewVendaMobileConfigurar.InicializarMenu;
+begin
+  FMenu := TFrameVendaMobileConfigurarMenu.Create(Self);
+  FMenu.Parent := pnlBotoes;
+  FMenu.SetChaveAcessoOnClick( CarregarChaveAcesso );
+  FMenu.SetServidorWebOnClick( CarregarServidorWeb );
+  FMenu.LimparSelecaoBotao;
+  FMenu.Show;
 end;
 
 procedure TViewVendaMobileConfigurar.RegistrarRotinaSistema;

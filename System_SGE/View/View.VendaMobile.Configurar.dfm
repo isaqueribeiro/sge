@@ -102,14 +102,12 @@ inherited ViewVendaMobileConfigurar: TViewVendaMobileConfigurar
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitWidth = 811
-      ExplicitHeight = 347
       object pnlMessage: TPanel
         Left = 0
-        Top = 0
+        Top = 283
         Width = 828
         Height = 81
-        Align = alTop
+        Align = alBottom
         BevelOuter = bvNone
         Color = 11503390
         ParentBackground = False
@@ -194,7 +192,7 @@ inherited ViewVendaMobileConfigurar: TViewVendaMobileConfigurar
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 2
-          object Label1: TLabel
+          object lblMessageText: TLabel
             AlignWithMargins = True
             Left = 3
             Top = 5
@@ -223,12 +221,39 @@ inherited ViewVendaMobileConfigurar: TViewVendaMobileConfigurar
       end
       object Panel2: TPanel
         Left = 0
-        Top = 81
+        Top = 0
         Width = 828
         Height = 283
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 1
+        object pnlBotoes: TPanel
+          Left = 0
+          Top = 0
+          Width = 182
+          Height = 283
+          Align = alLeft
+          BevelOuter = bvNone
+          TabOrder = 0
+        end
+        object pnlData: TPanel
+          Left = 182
+          Top = 0
+          Width = 646
+          Height = 283
+          Align = alClient
+          BevelOuter = bvNone
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+          ExplicitLeft = 206
+          ExplicitTop = -3
+          ExplicitWidth = 628
+        end
       end
     end
   end

@@ -619,6 +619,15 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <Form>ViewVendaMobileConfigurar</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="View\Components\Frame.VendaMobile.Configurar.Menu.pas">
+            <Form>FrameVendaMobileConfigurarMenu</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="View\View.VendaMobile.Configurar.Chave.pas">
+            <Form>ViewVendaMobileConfigurarChave</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>
@@ -662,6 +671,22 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_close_24x24-inf.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>btn_close_24_info</ResourceId>
+        </RcItem>
+        <RcItem Include="..\_diversos\Imagens\Glyphs\access-key.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>accesskey</ResourceId>
+        </RcItem>
+        <RcItem Include="..\_diversos\Imagens\Glyphs\white_access-key.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>white_accesskey</ResourceId>
+        </RcItem>
+        <RcItem Include="..\_diversos\Imagens\Glyphs\webserver.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>webserver</ResourceId>
+        </RcItem>
+        <RcItem Include="..\_diversos\Imagens\Glyphs\white_webserver.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>white_webserver</ResourceId>
         </RcItem>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
@@ -715,6 +740,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\access-key.png" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
@@ -752,6 +783,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_webserver.png" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="..\_diversos\Imagens\_Matriz\icon_gestao_estoque-v2-44x44.png" Configuration="Debug" Class="UWP_DelphiLogo44">
                     <Platform Name="Win32">
                         <RemoteDir>Assets\</RemoteDir>
@@ -778,6 +815,18 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_setting-48x48.png" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key.png" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

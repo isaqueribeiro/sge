@@ -91,7 +91,7 @@ inherited ViewVendaMobile: TViewVendaMobile
     object pnlNameApp: TPanel
       Left = 0
       Top = 0
-      Width = 255
+      Width = 265
       Height = 81
       Align = alLeft
       BevelOuter = bvNone
@@ -306,7 +306,7 @@ inherited ViewVendaMobile: TViewVendaMobile
     end
     object pnlHora: TPanel
       AlignWithMargins = True
-      Left = 265
+      Left = 275
       Top = 3
       Width = 98
       Height = 75
@@ -314,6 +314,7 @@ inherited ViewVendaMobile: TViewVendaMobile
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 2
+      ExplicitLeft = 265
       object Bevel2: TBevel
         Left = 0
         Top = 0
@@ -341,13 +342,14 @@ inherited ViewVendaMobile: TViewVendaMobile
     end
     object pnlPrevisaoTempo: TPanel
       AlignWithMargins = True
-      Left = 369
+      Left = 379
       Top = 3
       Width = 218
       Height = 75
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 3
+      ExplicitLeft = 369
       DesignSize = (
         218
         75)

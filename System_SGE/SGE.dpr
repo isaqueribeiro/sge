@@ -192,7 +192,9 @@ uses
   SGE.Model.Interacao.DataSet in '..\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas',
   UGeEstado in '..\Sys\UGeEstado.pas' {frmGeEstado},
   Frame.VendaMobile.Menu in 'View\Components\Frame.VendaMobile.Menu.pas' {FrameVendaMobileMenu: TFrame},
-  View.VendaMobile.Configurar in 'View\View.VendaMobile.Configurar.pas' {ViewVendaMobileConfigurar};
+  View.VendaMobile.Configurar in 'View\View.VendaMobile.Configurar.pas' {ViewVendaMobileConfigurar},
+  Frame.VendaMobile.Configurar.Menu in 'View\Components\Frame.VendaMobile.Configurar.Menu.pas' {FrameVendaMobileConfigurarMenu: TFrame},
+  View.VendaMobile.Configurar.Chave in 'View\View.VendaMobile.Configurar.Chave.pas' {ViewVendaMobileConfigurarChave};
 
 {$R *.res}
 
