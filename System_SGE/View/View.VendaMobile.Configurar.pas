@@ -133,10 +133,12 @@ end;
 procedure TViewVendaMobileConfigurar.InicializarMenu;
 begin
   FMenu := TFrameVendaMobileConfigurarMenu.Create(Self);
+
   FMenu.Parent := pnlBotoes;
   FMenu.SetChaveAcessoOnClick( CarregarChaveAcesso );
   FMenu.SetServidorWebOnClick( CarregarServidorWeb );
-  FMenu.LimparSelecaoBotao;
+  FMenu.LimparSelecaoBotao(nil);
+
   FMenu.Show;
 end;
 

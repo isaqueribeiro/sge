@@ -26,7 +26,6 @@ type
     procedure LabelMouseLeave(Sender: TObject);
     procedure lblSalvarClick(Sender: TObject);
     procedure lblFecharClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,14 +45,6 @@ uses
   , Classe.Gerenciador.View;
 
 { TViewVendaMobileConfigurarChave }
-
-procedure TViewVendaMobileConfigurarChave.FormCreate(Sender: TObject);
-begin
-  inherited;
-  // Provisório
-  pnlSalvar.Left := pnlFechar.Left;
-  pnlFechar.Visible := False;
-end;
 
 procedure TViewVendaMobileConfigurarChave.LabelMouseEnter(Sender: TObject);
 var
@@ -99,6 +90,7 @@ end;
 
 procedure TViewVendaMobileConfigurarChave.lblFecharClick(Sender: TObject);
 begin
+  _GerenciadorView.ExecuteEvento('FrameVendaMobileConfigurarMenu.LimparSelecaoBotao');
   Close;
 end;
 

@@ -250,9 +250,6 @@ inherited ViewVendaMobileConfigurar: TViewVendaMobileConfigurar
           Font.Style = []
           ParentFont = False
           TabOrder = 1
-          ExplicitLeft = 206
-          ExplicitTop = -3
-          ExplicitWidth = 628
         end
       end
     end

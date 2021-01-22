@@ -15,8 +15,9 @@ type
       class var _instance : IGerenciadorView;
     private
       FViewIndex : TForm;
-      FListClass : TObjectDictionary<String, TComponentClass>;
-      FListViews : TObjectDictionary<String, TForm>;
+      FListEvents : TObjectDictionary<String, TEventNotifity>;
+      FListClass  : TObjectDictionary<String, TComponentClass>;
+      FListViews  : TObjectDictionary<String, TForm>;
     public
       constructor Create;
       destructor Destroy; override;
@@ -29,6 +30,9 @@ type
       function InstanciarView(AOnwer : TComponent; Key : String; Parent : TPanel; const Index : Boolean = True) : IGerenciadorView;
       function ExibirView(Key : String) : TForm;
       function ExibirViewIndex : TForm;
+
+      function RegistrarEvento(Key : String; AEvent : TEventNotifity) : IGerenciadorView;
+      function ExecuteEvento(Key : String) : Boolean;
   end;
 
 var
@@ -40,15 +44,38 @@ implementation
 
 constructor TGerenciadorView.Create;
 begin
-  FListClass := TObjectDictionary<String, TComponentClass>.Create; // Armazenar registro das classes de formulários do projeto
-  FListViews := TObjectDictionary<String, TForm>.Create;           // Armazenar formulários instanciados
+  FListEvents := TObjectDictionary<String, TEventNotifity>.Create;  // Armazenar procedimentos de notificação de views
+  FListClass  := TObjectDictionary<String, TComponentClass>.Create; // Armazenar registro das classes de formulários do projeto
+  FListViews  := TObjectDictionary<String, TForm>.Create;           // Armazenar formulários instanciados
 end;
 
 destructor TGerenciadorView.Destroy;
 begin
+  FListEvents.DisposeOf;
   FListClass.DisposeOf;
   FListViews.DisposeOf;
   inherited;
+end;
+
+function TGerenciadorView.ExecuteEvento(Key: String): Boolean;
+var
+  aRetorno : Boolean;
+  aEvento  : TEventNotifity;
+begin
+  aRetorno := False;
+  try
+    if FListEvents.TryGetValue(Key, aEvento) then
+    begin
+      aEvento(nil);
+
+      FListEvents.Remove(Key);
+      FListEvents.TrimExcess;
+
+      aRetorno := True;
+    end;
+  finally
+    Result := aRetorno;
+  end;
 end;
 
 function TGerenciadorView.ExibirView(Key: String): TForm;
@@ -105,6 +132,13 @@ begin
     _instance := Self.Create;
 
   Result := _instance;
+end;
+
+function TGerenciadorView.RegistrarEvento(Key: String; AEvent: TEventNotifity): IGerenciadorView;
+begin
+  Result := Self;
+  if not FListEvents.ContainsKey(Key) then
+    FListEvents.Add(Key, AEvent);
 end;
 
 function TGerenciadorView.RegistrarView(Key: String; ComponentClass : TComponentClass): IGerenciadorView;

@@ -16,7 +16,6 @@ object FrameVendaMobileConfigurarMenu: TFrameVendaMobileConfigurarMenu
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitLeft = 5
     object pnlChaveAcesso: TPanel
       Left = 0
       Top = 0
@@ -29,7 +28,6 @@ object FrameVendaMobileConfigurarMenu: TFrameVendaMobileConfigurarMenu
       OnClick = ChaveAcessoClick
       OnMouseEnter = ChaveAcessoEnter
       OnMouseLeave = ChaveAcessoLeave
-      ExplicitWidth = 200
       object shpChaveAcesso: TShape
         AlignWithMargins = True
         Left = 3
@@ -135,8 +133,6 @@ object FrameVendaMobileConfigurarMenu: TFrameVendaMobileConfigurarMenu
       OnClick = ServidorWebClick
       OnMouseEnter = ServidorWebEnter
       OnMouseLeave = ServidorWebLeave
-      ExplicitLeft = -16
-      ExplicitTop = 168
       object shpServidorWeb: TShape
         AlignWithMargins = True
         Left = 3

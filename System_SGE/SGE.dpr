@@ -194,7 +194,10 @@ uses
   Frame.VendaMobile.Menu in 'View\Components\Frame.VendaMobile.Menu.pas' {FrameVendaMobileMenu: TFrame},
   View.VendaMobile.Configurar in 'View\View.VendaMobile.Configurar.pas' {ViewVendaMobileConfigurar},
   Frame.VendaMobile.Configurar.Menu in 'View\Components\Frame.VendaMobile.Configurar.Menu.pas' {FrameVendaMobileConfigurarMenu: TFrame},
-  View.VendaMobile.Configurar.Chave in 'View\View.VendaMobile.Configurar.Chave.pas' {ViewVendaMobileConfigurarChave};
+  View.VendaMobile.Configurar.Chave in 'View\View.VendaMobile.Configurar.Chave.pas' {ViewVendaMobileConfigurarChave},
+  Model.Conexao.Interfaces in '..\Sys\Model\Conexao\Model.Conexao.Interfaces.pas',
+  Model.Conexao.Firedac in '..\Sys\Model\Conexao\Model.Conexao.Firedac.pas',
+  Model.Conexao.Firedac.Firebird in '..\Sys\Model\Conexao\Model.Conexao.Firedac.Firebird.pas';
 
 {$R *.res}
 

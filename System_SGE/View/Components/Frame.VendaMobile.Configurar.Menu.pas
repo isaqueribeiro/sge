@@ -33,15 +33,16 @@ type
     procedure FormatarBotaoLeave(APanel : TPanel; AShape : TShape; AImage : TImage; ALabel : TLabel; AResourceName : String);
   public
     { Public declarations }
-    procedure LimparSelecaoBotao;
+    procedure LimparSelecaoBotao(Sender : TObject);
     procedure SetChaveAcessoOnClick(Value : TOnClickMenuButton);
     procedure SetServidorWebOnClick(Value : TOnClickMenuButton);
+    procedure RegistrarEventos;
   end;
 
 implementation
 
 uses
-  Service.Utils;
+  Service.Utils, Classe.Gerenciador.View;
 
 {$R *.dfm}
 
@@ -57,7 +58,9 @@ end;
 
 procedure TFrameVendaMobileConfigurarMenu.ChaveAcessoClick(Sender: TObject);
 begin
-  LimparSelecaoBotao;
+  LimparSelecaoBotao(Sender);
+  RegistrarEventos;
+
   shpChaveAcesso.Tag := 1;
   FormatarBotaoEnter(PnlChaveAcesso, shpChaveAcesso, ImgChaveAcesso, LblChaveAcesso, 'accesskey');
 
@@ -93,7 +96,7 @@ begin
   TServicesUtils.ResourceImage(AResourceName, AImage);
 end;
 
-procedure TFrameVendaMobileConfigurarMenu.LimparSelecaoBotao;
+procedure TFrameVendaMobileConfigurarMenu.LimparSelecaoBotao(Sender : TObject);
 begin
   shpChaveAcesso.Tag := 0;
   shpServidorWeb.Tag := 0;
@@ -101,9 +104,17 @@ begin
   FormatarBotaoLeave(pnlServidorWeb, shpServidorWeb, imgServidorWeb, lblServidorWeb, 'webserver');
 end;
 
+procedure TFrameVendaMobileConfigurarMenu.RegistrarEventos;
+begin
+  _GerenciadorView
+    .RegistrarEvento('FrameVendaMobileConfigurarMenu.LimparSelecaoBotao', LimparSelecaoBotao);
+end;
+
 procedure TFrameVendaMobileConfigurarMenu.ServidorWebClick(Sender: TObject);
 begin
-  LimparSelecaoBotao;
+  LimparSelecaoBotao(Sender);
+  RegistrarEventos;
+
   shpServidorWeb.Tag := 1;
   FormatarBotaoEnter(pnlServidorWeb, shpServidorWeb, imgServidorWeb, lblServidorWeb, 'webserver');
 

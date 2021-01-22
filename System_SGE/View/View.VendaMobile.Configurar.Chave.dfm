@@ -20,10 +20,6 @@ inherited ViewVendaMobileConfigurarChave: TViewVendaMobileConfigurarChave
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = 176
-    ExplicitTop = 32
-    ExplicitWidth = 281
-    ExplicitHeight = 121
     object pnlHeader: TPanel
       Left = 0
       Top = 0
@@ -34,7 +30,6 @@ inherited ViewVendaMobileConfigurarChave: TViewVendaMobileConfigurarChave
       Color = clWhite
       ParentBackground = False
       TabOrder = 0
-      ExplicitWidth = 675
       object lblTitle: TLabel
         AlignWithMargins = True
         Left = 10
@@ -148,7 +143,6 @@ inherited ViewVendaMobileConfigurarChave: TViewVendaMobileConfigurarChave
       Color = clWhite
       ParentBackground = False
       TabOrder = 1
-      ExplicitTop = 51
       object lblTipoChave: TLabel
         Left = 10
         Top = 6
