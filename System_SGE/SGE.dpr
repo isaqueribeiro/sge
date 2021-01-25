@@ -197,7 +197,12 @@ uses
   View.VendaMobile.Configurar.Chave in 'View\View.VendaMobile.Configurar.Chave.pas' {ViewVendaMobileConfigurarChave},
   Model.Conexao.Interfaces in '..\Sys\Model\Conexao\Model.Conexao.Interfaces.pas',
   Model.Conexao.Firedac in '..\Sys\Model\Conexao\Model.Conexao.Firedac.pas',
-  Model.Conexao.Firedac.Firebird in '..\Sys\Model\Conexao\Model.Conexao.Firedac.Firebird.pas';
+  Model.Conexao.Firedac.Firebird in '..\Sys\Model\Conexao\Model.Conexao.Firedac.Firebird.pas',
+  Model.Conexao.Factory.Interfaces in '..\Sys\Model\Conexao\Model.Conexao.Factory.Interfaces.pas',
+  Model.Conexao.Factory in '..\Sys\Model\Conexao\Model.Conexao.Factory.pas',
+  Model.Query.Interfaces in '..\Sys\Model\Conexao\Model.Query.Interfaces.pas',
+  Model.Query.Firedac in '..\Sys\Model\Conexao\Model.Query.Firedac.pas',
+  Model.Constantes in '..\Sys\Model\Model.Constantes.pas';
 
 {$R *.res}
 

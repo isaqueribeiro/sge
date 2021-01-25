@@ -1,49 +1,52 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\firedac\FireDAC.Stan.Option.pas',0,1,86,3,98,0,0,,
-File_1=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\IBX\IBX.IBDatabase.pas',0,1,205,36,231,0,0,,
-File_2=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\firedac\FireDAC.Comp.Client.pas',0,1,620,35,646,0,0,,
-File_3=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\firedac\FireDAC.Stan.Intf.pas',0,1,200,1,226,0,0,,
-File_4=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Classe.Gerenciador.View.pas',0,1,115,1,139,0,0,,
-File_5=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas',0,1,1,61,6,0,0,,
-File_6=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\VCL\Vcl.Controls.pas',0,1,6647,1,6649,0,0,,
-File_7=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\VCL\Vcl.Forms.pas',0,1,302,54,305,0,0,{{1755,4},{1771,15},{'TScrollWindow'}}{{1858,4},{1959,15},{'TMainMenuBarStyleHook'}},
-File_8=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\Components\Frame.VendaMobile.Menu.pas',0,1,1,46,10,0,0,,
-File_9=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\RTL\SYS\System.pas',0,1,1,1,1,0,0,,
-File_10=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.Utils.pas',0,1,134,1,158,0,0,,
-File_11=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Vendedor.pas',0,1,1,31,99,0,0,,
-File_12=TSourceModule,'c:\delphi\rio\studio\20.0\source\rtl\common\System.Notification.pas',0,1,446,1,472,0,0,,
-File_13=TSourceModule,'c:\delphi\comps\fastreport\fastreport_637\libd26\frxClass.pas',0,1,3718,78,3746,0,0,,
-File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.InputQuery.pas',0,1,1,29,64,0,0,,
+File_0=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Factory.Interfaces.pas',0,1,1,14,11,0,0,,
+File_1=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\firedac\FireDAC.Comp.Client.pas',0,1,1471,31,1504,0,0,,
+File_2=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\firedac\FireDAC.Comp.DataSet.pas',0,1,258,27,291,0,0,,
+File_3=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\Data.DB.pas',0,1,2475,3,2508,0,0,,
+File_4=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Controller\Controller.Usuario.pas',0,1,1,13,15,0,0,,
+File_5=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas',0,1,1,42,14,0,0,,
+File_6=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\Interacao.Factory.pas',0,1,1,1,1,0,0,,
+File_7=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\firedac\FireDAC.Stan.Option.pas',0,1,86,3,98,0,0,,
+File_8=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\IBX\IBX.IBDatabase.pas',0,1,205,36,231,0,0,,
+File_9=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\firedac\FireDAC.Stan.Intf.pas',0,1,200,1,226,0,0,,
+File_10=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Classe.Gerenciador.View.pas',0,1,115,1,139,0,0,,
+File_11=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas',0,1,1,61,6,0,0,,
 
 [Modules]
-Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Firedac.Firebird.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Firedac.pas
-Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Firedac.Firebird.pas
+Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Firedac.pas
 Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Interfaces.pas
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.Chave.pas
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.pas
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.pas
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\Components\Frame.VendaMobile.Configurar.Menu.pas
-Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Estado.pas
-Module9=default.htm
-Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
-Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
-Module12=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module13=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Factory.pas
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.Chave.pas
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Model.Constantes.pas
+Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Query.Firedac.pas
+Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Query.Interfaces.pas
+Module11=default.htm
+Module12=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
+Module13=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas
 Module14=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\SGE.Model.Factory.pas
-Module15=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas
-Module16=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas
-Module17=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Controller\SGE.Controller.Estado.pas
-Module18=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\SGE.Model.Dados.pas
-Module19=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module20=C:\Delphi\Comps\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
-Module21=C:\Delphi\Comps\ACBr\Fontes\ACBrDiversos\ACBrValidador.pas
-Module22=C:\Delphi\Comps\ACBr\Fontes\ACBrDFe\ACBrDFeSSL.pas
-Module23=C:\Delphi\Comps\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Frm_ACBrNFe.pas
-Module24=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
-Module25=documentation.htm
-Count=26
+Module15=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.pas
+Module16=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\Components\Frame.VendaMobile.Configurar.Menu.pas
+Module17=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Estado.pas
+Module18=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
+Module19=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Module20=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Controller\SGE.Controller.Estado.pas
+Module21=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\SGE.Model.Dados.pas
+Module22=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module23=C:\Delphi\Comps\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
+Module24=C:\Delphi\Comps\ACBr\Fontes\ACBrDiversos\ACBrValidador.pas
+Module25=C:\Delphi\Comps\ACBr\Fontes\ACBrDFe\ACBrDFeSSL.pas
+Module26=C:\Delphi\Comps\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Frm_ACBrNFe.pas
+Module27=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
+Module28=documentation.htm
+Count=29
 EditWindowCount=1
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Firedac.Firebird.pas]
 ModuleType=TSourceModule
@@ -51,25 +54,28 @@ ModuleType=TSourceModule
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Firedac.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Interfaces.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Interfaces.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Factory.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.Chave.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\Components\Frame.VendaMobile.Configurar.Menu.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Model.Constantes.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Estado.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Query.Firedac.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Query.Interfaces.pas]
 ModuleType=TSourceModule
 
 [default.htm]
@@ -78,22 +84,25 @@ ModuleType=TURLModule
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj]
 ModuleType=TBaseProject
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\SGE.Model.Factory.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\Components\Frame.VendaMobile.Configurar.Menu.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Estado.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Controller\SGE.Controller.Estado.pas]
@@ -124,8 +133,8 @@ ModuleType=TSourceModule
 ModuleType=TURLModule
 
 [EditWindow0]
-ViewCount=26
-CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Firedac.Firebird.pas
+ViewCount=29
+CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
 View0=0
 View1=1
 View2=2
@@ -152,6 +161,9 @@ View22=22
 View23=23
 View24=24
 View25=25
+View26=26
+View27=27
+View28=28
 PercentageSizes=1
 Create=1
 Visible=1
@@ -170,13 +182,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=00000800010100000000A00F00000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000C71B00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=00000800010100000000201300000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000002200001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=00000800010100000000A00F00000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000C71B000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=1519
-BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020100000009000000446F636B5369746531DE4400000000000002EF050000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
+RightPanelData=00000800010100000000201300000000000001D00700000000000001000000004412000009000000446F636B536974653201000000000022000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=0
+BottomPanelClients=MessageView,DockSite1
+BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B5369746531DE44000000000000020A06000000000000FFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -193,7 +205,7 @@ WelcomePageURL=bds:/documentation.htm
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dpr
 CursorX=1
-CursorY=220
+CursorY=225
 TopLine=173
 LeftCol=1
 Elisions=
@@ -214,24 +226,24 @@ EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE
 [View4]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-CursorX=27
-CursorY=125
-TopLine=119
+CursorX=5
+CursorY=242
+TopLine=206
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
 
 [View5]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-CursorX=41
-CursorY=98
-TopLine=56
+CursorX=1
+CursorY=5672
+TopLine=5653
 LeftCol=1
 Elisions=
-Bookmarks={1,2213,18}
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Bookmarks={1,2225,18}
+EditViewName=Borland.FormDesignerView
 
 [View6]
 CustomEditViewType=TEditView
@@ -324,26 +336,15 @@ EditViewName=Borland.FormDesignerView
 [View14]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas
-CursorX=23
-CursorY=86
-TopLine=79
+CursorX=29
+CursorY=26
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas
 
 [View15]
-CustomEditViewType=TEditView
-Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas
-CursorX=42
-CursorY=14
-TopLine=1
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas
-
-[View16]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Controller\SGE.Controller.Estado.pas
 CursorX=16
@@ -354,7 +355,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Controller\SGE.Controller.Estado.pas
 
-[View17]
+[View16]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\SGE.Model.Factory.pas
 CursorX=72
@@ -365,7 +366,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\SGE.Model.Factory.pas
 
-[View18]
+[View17]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Estado.pas
 CursorX=5
@@ -376,7 +377,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Estado.pas
 
-[View19]
+[View18]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.pas
 CursorX=1
@@ -387,7 +388,7 @@ Elisions=
 Bookmarks={1,104,1}
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.pas
 
-[View20]
+[View19]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.pas
 CursorX=3
@@ -398,7 +399,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.pas
 
-[View21]
+[View20]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\Components\Frame.VendaMobile.Configurar.Menu.pas
 CursorX=1
@@ -409,49 +410,93 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\Components\Frame.VendaMobile.Configurar.Menu.pas
 
-[View22]
+[View21]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.Chave.pas
-CursorX=1
-CursorY=53
-TopLine=64
+CursorX=73
+CursorY=66
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.Chave.pas
 
-[View23]
+[View22]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Interfaces.pas
-CursorX=1
-CursorY=16
+CursorX=39
+CursorY=13
 TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Interfaces.pas
 
+[View23]
+CustomEditViewType=TEditView
+Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Query.Interfaces.pas
+CursorX=1
+CursorY=11
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Query.Interfaces.pas
+
 [View24]
 CustomEditViewType=TEditView
+Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Query.Firedac.pas
+CursorX=3
+CursorY=45
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Query.Firedac.pas
+
+[View25]
+CustomEditViewType=TEditView
+Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Factory.pas
+CursorX=27
+CursorY=1
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Factory.pas
+
+[View26]
+CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Firedac.pas
-CursorX=42
-CursorY=26
+CursorX=33
+CursorY=14
 TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Firedac.pas
 
-[View25]
+[View27]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Firedac.Firebird.pas
-CursorX=25
-CursorY=62
-TopLine=19
+CursorX=71
+CursorY=27
+TopLine=4
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Firedac.Firebird.pas
+
+[View28]
+CustomEditViewType=TEditView
+Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Model.Constantes.pas
+CursorX=22
+CursorY=1
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Model.Constantes.pas
 
 [UndockedDesigner]
 Count=0
@@ -470,11 +515,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1077
+Height=1067
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1077
+ClientHeight=1067
 TBDockHeight=212
 LRDockWidth=13604
 Dockable=1
@@ -560,18 +605,18 @@ StayOnTop=0
 [MessageView]
 PercentageSizes=1
 Create=1
-Visible=1
+Visible=0
 Docked=1
 State=0
 Left=0
 Top=28
-Width=9917
-Height=1308
+Width=2771
+Height=1337
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=9917
-ClientHeight=1308
-TBDockHeight=1308
+ClientWidth=2771
+ClientHeight=1337
+TBDockHeight=1337
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -585,11 +630,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=2260
+Height=3913
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2260
+ClientHeight=3913
 TBDockHeight=7154
 LRDockWidth=2000
 Dockable=1
@@ -623,21 +668,21 @@ State=0
 Left=0
 Top=425
 Width=1896
-Height=3298
+Height=4952
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=3298
+ClientHeight=4952
 TBDockHeight=8769
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
-SplitPos=174
+SplitPos=111
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=Name,
-ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,Font=0,LiveBindings=0,"LiveBindings Designer=0",Margins=0,StyleElements=0,Touch=0,Connection=0,Options=1,Options.StopOptions=0
+SelectedItem=Connected,
+ExpandedItems=Anchors=0,BorderIcons=0,"LiveBindings Designer=0",ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,Params=0,ResourceOptions=0,Transaction=0,TxOptions=0,UpdateOptions=0,UpdateTransaction=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -689,11 +734,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1077
+Height=1067
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1077
+ClientHeight=1067
 TBDockHeight=413
 LRDockWidth=4953
 Dockable=1
@@ -708,11 +753,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1077
+Height=1067
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1077
+ClientHeight=1067
 TBDockHeight=212
 LRDockWidth=7406
 Dockable=1
@@ -731,11 +776,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1077
+Height=1067
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1077
+ClientHeight=1067
 TBDockHeight=1538
 LRDockWidth=3484
 Dockable=1
@@ -750,11 +795,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1077
+Height=1067
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1077
+ClientHeight=1067
 TBDockHeight=2067
 LRDockWidth=3484
 Dockable=1
@@ -948,11 +993,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1077
+Height=1067
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1077
+ClientHeight=1067
 TBDockHeight=1548
 LRDockWidth=8740
 Dockable=1
@@ -1060,12 +1105,12 @@ State=0
 Left=0
 Top=28
 Width=3823
-Height=1346
+Height=1337
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1346
-TBDockHeight=1346
+ClientHeight=1337
+TBDockHeight=1337
 LRDockWidth=3823
 Dockable=1
 StayOnTop=0
@@ -1132,11 +1177,11 @@ State=0
 Left=0
 Top=533
 Width=2000
-Height=2260
+Height=3913
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2260
+ClientHeight=3913
 TBDockHeight=8769
 LRDockWidth=2000
 Dockable=1

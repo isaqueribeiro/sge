@@ -3,12 +3,13 @@ unit Model.Conexao.Firedac;
 interface
 
 uses
-  Model.Conexao.Interfaces, FireDAC.Comp.Client, Data.DB, System.IniFiles,
-  System.Classes;
+  Model.Conexao.Interfaces, FireDAC.Comp.Client, Data.DB,
+  System.IniFiles, System.Classes, System.SysUtils;
 
 type
   TModelConexaoFiredac = class (TInterfacedObject, IModelConexao)
     private
+      [weak]
       FConfiguracoes : TIniFile;
       FConexao   : TFDConnection;
       FTransacao : TComponent;
@@ -19,6 +20,7 @@ type
       destructor Destroy; override;
 
       function Configurar(AConfiguracoes : TIniFile) : IModelConexao;
+      function Configuracoes : TIniFile;
       function Conexao : TCustomConnection;
       function Transacao(Value : TComponent) : IModelConexao; overload;
       function Transacao : TComponent; overload;
@@ -32,10 +34,12 @@ implementation
 
 procedure TModelConexaoFiredac.Configuracao;
 begin
-  if Assigned(FConexao) and Assigned(FConfiguracoes) then
-  begin
+  ;
+end;
 
-  end;
+function TModelConexaoFiredac.Configuracoes: TIniFile;
+begin
+  Result := FConfiguracoes;
 end;
 
 function TModelConexaoFiredac.Configurar(AConfiguracoes: TIniFile): IModelConexao;
@@ -52,7 +56,7 @@ end;
 
 constructor TModelConexaoFiredac.Create;
 begin
-  FConexao := TFDConnection.Create(nil);
+  FConexao   := TFDConnection.Create(nil);
   FTransacao := TComponent.Create(nil);
 end;
 

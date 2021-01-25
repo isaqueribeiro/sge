@@ -6,6 +6,10 @@ uses
   FuncoesFormulario,
   UConstantesDGE,
   Interacao.Usuario,
+  {$IFNDEF PRINTER_CUPOM}
+  Model.Conexao.Factory.Interfaces,
+  Model.Conexao.Interfaces,
+  {$ENDIF}
 
   Windows, Forms, SysUtils, Classes, Controls, IBX.IBDatabase, IniFIles,
   ShellApi, Printers, DateUtils, IBX.IBQuery, IdCoder, IdCoder3to4, IdCoderMIME,
@@ -177,6 +181,11 @@ var
 
   FileINI : TIniFile;
   FormFunction : TFormularios;
+
+  {$IFNDEF PRINTER_CUPOM}
+  gModelConexaoFactory : IModelConexaoFactory;
+  gModelConexao : IModelConexao;
+  {$ENDIF}
 
   gSistema    : TSistema;
   //gUsuarioLogado : TUsuarioLogado;
@@ -584,6 +593,9 @@ uses
     Vcl.StdCtrls
   , UFuncoes
   , UDMRecursos
+  {$IFNDEF PRINTER_CUPOM}
+  , Model.Conexao.Factory
+  {$ENDIF}
   , View.Mensagem
   , Controller.Factory;
 
@@ -5655,6 +5667,8 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
     {$ENDIF}
 
     {$IFNDEF PRINTER_CUPOM}
+    gModelConexaoFactory := TModelConexaoFactory.New(TTipoConexaoFactory.conexaoFiredacFireBird);
+    gModelConexao        := gModelConexaoFactory.Conexao.Configurar( FileINI );
     SplashMessage('Conectando-se à base de dados...');
     {$ENDIF}
   except
