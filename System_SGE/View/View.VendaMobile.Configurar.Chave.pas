@@ -26,8 +26,10 @@ type
     procedure LabelMouseLeave(Sender: TObject);
     procedure lblSalvarClick(Sender: TObject);
     procedure lblFecharClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
+    procedure ListarTipos;
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -42,9 +44,17 @@ uses
   , UDMRecursos
   , UDMBusiness
   , Service.Utils
-  , Classe.Gerenciador.View;
+  , Service.PrevisaoTempo
+  , Classe.Gerenciador.View
+  , System.TypInfo;
 
 { TViewVendaMobileConfigurarChave }
+
+procedure TViewVendaMobileConfigurarChave.FormCreate(Sender: TObject);
+begin
+  inherited;
+  ListarTipos;
+end;
 
 procedure TViewVendaMobileConfigurarChave.LabelMouseEnter(Sender: TObject);
 var
@@ -97,6 +107,18 @@ end;
 procedure TViewVendaMobileConfigurarChave.lblSalvarClick(Sender: TObject);
 begin
   ShowMessage('Teste de execução de evento!');
+end;
+
+procedure TViewVendaMobileConfigurarChave.ListarTipos;
+var
+ I : TTipoServicePrevisaoTempo;
+begin
+  cmbTipoChave.Items.Clear ;
+
+  For I := Low(TTipoServicePrevisaoTempo) to High(TTipoServicePrevisaoTempo) do
+     cmbTipoChave.Items.Add( GetEnumName(TypeInfo(TTipoServicePrevisaoTempo), Integer(I) ).Replace('spt', '') ) ;
+
+  cmbTipoChave.ItemIndex := 0 ;
 end;
 
 procedure TViewVendaMobileConfigurarChave.RegistrarRotinaSistema;

@@ -202,7 +202,8 @@ uses
   Model.Conexao.Factory in '..\Sys\Model\Conexao\Model.Conexao.Factory.pas',
   Model.Query.Interfaces in '..\Sys\Model\Conexao\Model.Query.Interfaces.pas',
   Model.Query.Firedac in '..\Sys\Model\Conexao\Model.Query.Firedac.pas',
-  Model.Constantes in '..\Sys\Model\Model.Constantes.pas';
+  Model.Constantes in '..\Sys\Model\Model.Constantes.pas',
+  Model.Entidade.ConfiguracaoAPI in '..\Sys\Model\Entidade\Model.Entidade.ConfiguracaoAPI.pas';
 
 {$R *.res}
 

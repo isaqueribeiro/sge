@@ -164,6 +164,7 @@ inherited ViewVendaMobileConfigurarChave: TViewVendaMobileConfigurarChave
         Top = 33
         Width = 527
         Height = 29
+        Style = csDropDownList
         TabOrder = 0
         StyleElements = []
       end

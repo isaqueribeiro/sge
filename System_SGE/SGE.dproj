@@ -636,6 +636,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\Conexao\Model.Query.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Model\Conexao\Model.Query.Firedac.pas"/>
         <DCCReference Include="..\Sys\Model\Model.Constantes.pas"/>
+        <DCCReference Include="..\Sys\Model\Entidade\Model.Entidade.ConfiguracaoAPI.pas"/>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>
