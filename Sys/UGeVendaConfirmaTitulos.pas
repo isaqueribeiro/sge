@@ -335,32 +335,44 @@ end;
 
 procedure TfrmGeVendaConfirmaTitulos.UpdateParcelas;
 begin
-  cdsTitulos.First;
-  while not cdsTitulos.Eof do
-  begin
-    fdQryFormaPagto.Locate('COD', cdsTitulosFORMA_PAGTO.AsInteger, []);
+  try
 
-    qryContaAReceber.Close;
-    qryContaAReceber.ParamByName('anolanc').Assign( cdsTitulosANOLANC );
-    qryContaAReceber.ParamByName('numlanc').Assign( cdsTitulosNUMLANC );
-    qryContaAReceber.Open;
+    cdsTitulos.First;
 
-    qryContaAReceber.Edit;
+    try
+      while not cdsTitulos.Eof do
+      begin
+        fdQryFormaPagto.Locate('COD', cdsTitulosFORMA_PAGTO.AsInteger, []);
 
-    qryContaAReceber.FieldByName('Tippag').AsString       := fdQryFormaPagto.FieldByName('DESCRI').AsString;
-    qryContaAReceber.FieldByName('Forma_Pagto').AsInteger := cdsTitulosFORMA_PAGTO.AsInteger;
-    qryContaAReceber.FieldByName('Dtvenc').AsDateTime     := cdsTitulosDTVENC.AsDateTime;
-    qryContaAReceber.FieldByName('Valorrec').AsCurrency   := cdsTitulosVALORREC.AsCurrency;
-    qryContaAReceber.FieldByName('anovenda').AsInteger    := AnoVenda;
-    qryContaAReceber.FieldByName('numvenda').AsInteger    := ControleVenda;
+        qryContaAReceber.Close;
+        qryContaAReceber.ParamByName('anolanc').Assign( cdsTitulosANOLANC );
+        qryContaAReceber.ParamByName('numlanc').Assign( cdsTitulosNUMLANC );
+        qryContaAReceber.Open;
 
-    qryContaAReceber.Post;
-    qryContaAReceber.ApplyUpdates;
-    qryContaAReceber.CommitUpdates;
+        qryContaAReceber.Edit;
 
-    cdsTitulos.Next;
+        qryContaAReceber.FieldByName('Tippag').AsString       := fdQryFormaPagto.FieldByName('DESCRI').AsString;
+        qryContaAReceber.FieldByName('Forma_Pagto').AsInteger := cdsTitulosFORMA_PAGTO.AsInteger;
+        qryContaAReceber.FieldByName('Dtvenc').AsDateTime     := cdsTitulosDTVENC.AsDateTime;
+        qryContaAReceber.FieldByName('Valorrec').AsCurrency   := cdsTitulosVALORREC.AsCurrency;
+        qryContaAReceber.FieldByName('anovenda').AsInteger    := AnoVenda;
+        qryContaAReceber.FieldByName('numvenda').AsInteger    := ControleVenda;
+
+        qryContaAReceber.Post;
+        qryContaAReceber.ApplyUpdates;
+        qryContaAReceber.CommitUpdates;
+
+        cdsTitulos.Next;
+      end;
+    except
+      On E : Exception do
+        ShowError('Erro ao tentar atualizar títulos gerados.' + #13#13 + E.Message);
+    end;
+
+  finally
+    CommitTransaction;
+    cdsTitulos.First;
   end;
-  CommitTransaction;
 end;
 
 procedure TfrmGeVendaConfirmaTitulos.DisplayTotais;

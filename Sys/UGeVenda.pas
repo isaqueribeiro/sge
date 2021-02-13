@@ -2299,7 +2299,6 @@ begin
         else
           iGerarEstoqueCliente := 0;
 
-
         DtSrcTabela.DataSet.Edit;
 
         DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger                := STATUS_VND_FIN;
@@ -2334,8 +2333,6 @@ begin
             , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger
             , DtSrcTabela.DataSet.FieldByName('OBS').AsString);
         {$ENDIF}
-
-        ShowInformation('Venda finalizada com sucesso !' + #13#13 + 'Ano/Controle: ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger));
 
         // Confirmar vencimentos de cada parcela
 
@@ -2374,6 +2371,8 @@ begin
           GerarSaldoContaCorrente(CxContaCorrente, GetDateDB);
 
         RdgStatusVenda.ItemIndex := 0;
+
+        ShowInformation('Venda finalizada com sucesso !' + #13#13 + 'Ano/Controle: ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger));
 
         // Imprimir Cupom
 
