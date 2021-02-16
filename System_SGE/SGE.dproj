@@ -100,7 +100,7 @@
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <BT_BuildType>Debug</BT_BuildType>
         <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.31.2;InternalName=SGE;LegalCopyright=Copyright 2013 - 2021 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.31;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=12/02/2021;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.31;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=16/02/2021;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <Icon_MainIcon>SGE_Icon.ico</Icon_MainIcon>
@@ -130,7 +130,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <VerInfo_Build>2</VerInfo_Build>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.31.2;InternalName=SGE;LegalCopyright=Copyright 2013 - 2021 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.31;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=12/02/2021;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.31;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=16/02/2021;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -151,7 +151,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.31.2;InternalName=SGE;LegalCopyright=Copyright 2013 - 2021 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.31;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=12/02/2021;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.31;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=16/02/2021;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=</VerInfo_Keys>
         <VerInfo_Release>31</VerInfo_Release>
         <VerInfo_Build>2</VerInfo_Build>
     </PropertyGroup>
