@@ -6737,6 +6737,7 @@ object frmPrinc: TfrmPrinc
   end
   object tmrAutoUpgrade: TTimer
     Enabled = False
+    Interval = 60000
     OnTimer = tmrAutoUpgradeTimer
     Left = 864
     Top = 168

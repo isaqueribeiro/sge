@@ -168,6 +168,13 @@ begin
   FTotalAPagar := 0.0;
 end;
 
+procedure TfrmGeVendaFormaPagto.FormShow(Sender: TObject);
+begin
+  inherited;
+  if (dbCondicaoPagto.Field.AsInteger > 0) then
+    dbCondicaoPagtoClick( dbCondicaoPagto );
+end;
+
 procedure TfrmGeVendaFormaPagto.btnConfirmarClick(Sender: TObject);
 begin
   if ( Trim(dbFormaPagto.Text) = EmptyStr ) then
@@ -210,13 +217,6 @@ end;
 procedure TfrmGeVendaFormaPagto.RegistrarRotinaSistema;
 begin
   ;
-end;
-
-procedure TfrmGeVendaFormaPagto.FormShow(Sender: TObject);
-begin
-  inherited;
-  if (dbCondicaoPagto.Field.AsInteger > 0) then
-    dbCondicaoPagtoClick( dbCondicaoPagto );
 end;
 
 end.

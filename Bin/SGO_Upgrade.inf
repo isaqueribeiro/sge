@@ -1,28 +1,10 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 29/10/2020 13:01:00     #
+#    Gerado por AGIL SOFTWARES em : 19/02/2021 11:10:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Atualização das Taxas Tributárias para FEV/2021 até MAI/2021.
 - Manifesto e baixa de notas fiscais recebidas
-- Atualização das Taxas Tributárias para AGO/2020 até DEZ/2020.
-- Ajustes na geração de NF-e 4.0.
-- Ajustes na geração de Recibos.
-- Novos relatórios de Produtos consignados no módulo Estoque.
-- Novos relatórios de Custo dos Materiais/Produtos vendidos no módulo Faturamento.
-- Novos relatórios de Lotes de Produtos no módulo Estoque de Produtos.
-- Novo módulo de relatórios de Contas A Pagar x Contas A Receber.
-- Ajustes de emissão de Notas Fiscais de Devolução.
-- Impresão do Espelho do Documento de Entrada de Produtos.
-- Novos relatórios e filtros de Produtos e Faturamento em Vendas.
-- Novos relatórios no grupo de Entradas e Faturamento que consolidam as movimentações de entrada e saída por CFOP.
-- Novo relatório de Faturamento calculando a rentabilidade por produto nas vendas.
-- Nova configuração na CFOF que gerencia movimentação do estoque dos produtos.
-- Atualização no processo de Inutilização de números de NF-e.
-- Novo relatório de Movimentação Financeira Mensal.
-- Nova definição para os tipos de CFOPs.
-- Ajustes na Confirmação de Entrada dos Lotes de Produtos.
-- Impressão dos lotes no Orçamento de Venda.
-- Novas configurações para emissão de NF-e.
 - Outros ajustes na otimização de processos.}
 
 #url1=http://www.drhtransparencia.com.br/agil/downloads/cce_informe.rtf
@@ -46,4 +28,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.31.1
+#version=1.0.31.2

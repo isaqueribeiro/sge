@@ -20,6 +20,7 @@ uses
   Interacao.Tabela in '..\Sys\Model\Interacao\Interacao.Tabela.pas',
   Interacao.Usuario in '..\Sys\Model\Interacao\Interacao.Usuario.pas',
   Interacao.Versao in '..\Sys\Model\Interacao\Interacao.Versao.pas',
+  Interfaces.InputQuery in '..\Sys\Services\InputQuery\Interfaces.InputQuery.pas',
   Classe.Conexao in '..\Sys\Classe\Classe.Conexao.pas',
   Classe.Empresa in '..\Sys\Classe\Classe.Empresa.pas',
   Classe.Funcao in '..\Sys\Classe\Classe.Funcao.pas',
@@ -35,6 +36,15 @@ uses
   Controller.Tabela in '..\Sys\Controller\Controller.Tabela.pas',
   Controller.Usuario in '..\Sys\Controller\Controller.Usuario.pas',
   Controller.Versao in '..\Sys\Controller\Controller.Versao.pas',
+  Model.Constantes in '..\Sys\Model\Model.Constantes.pas',
+  Model.Conexao.Factory.Interfaces in '..\Sys\Model\Conexao\Model.Conexao.Factory.Interfaces.pas',
+  Model.Conexao.Factory in '..\Sys\Model\Conexao\Model.Conexao.Factory.pas',
+  Model.Conexao.Firedac.Firebird in '..\Sys\Model\Conexao\Model.Conexao.Firedac.Firebird.pas',
+  Model.Conexao.Firedac in '..\Sys\Model\Conexao\Model.Conexao.Firedac.pas',
+  Model.Conexao.Interfaces in '..\Sys\Model\Conexao\Model.Conexao.Interfaces.pas',
+  Model.Query.Firedac in '..\Sys\Model\Conexao\Model.Query.Firedac.pas',
+  Model.Query.Interfaces in '..\Sys\Model\Conexao\Model.Query.Interfaces.pas',
+  SGE.Model.Interacao.DataSet in '..\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas',
   UEcfAgil in '..\Sys\lib\UEcfAgil.pas',
   UEcfGenerico in '..\Sys\lib\UEcfGenerico.pas',
   UEcfFactory in '..\Sys\lib\UEcfFactory.pas',
@@ -42,16 +52,18 @@ uses
   UDMBusiness in '..\Sys\UDMBusiness.pas' {DMBusiness: TDataModule},
   UDMNFe in '..\Sys\UDMNFe.pas' {DMNFe: TDataModule},
   UDMNFSe in '..\Sys\UDMNFSe.pas' {DMNFSe: TDataModule},
+  SGE.Model.Dados in '..\Sys\Model\SGE.Model.Dados.pas' {DMDados: TDataModule},
+  SGE.Model.Conexao.DataSet in '..\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas' {ModelConexaoDataSet: TDataModule},
+  Service.InputQuery in '..\Sys\Services\Service.InputQuery.pas',
+  Service.Utils in '..\Sys\Services\Service.Utils.pas',
+  View.InputQuery in '..\Sys\Services\InputQuery\View.InputQuery.pas' {ViewInputQuery},
   View.PadraoAbertura in '..\Sys\View\View.PadraoAbertura.pas' {FrmPadraoAbertura},
   View.AutoUpgrade in '..\Sys\View\View.AutoUpgrade.pas' {FrmAutoUpgrade},
   View.Mensagem in '..\Sys\View\View.Mensagem.pas' {FrmMensagem},
   View.PadraoLogin in '..\Sys\View\View.PadraoLogin.pas' {FrmPadraoLogin},
   View.Abertura in 'View\View.Abertura.pas' {FrmAbertura},
   View.Login in 'View\View.Login.pas' {FrmLogin},
-  Interfaces.InputQuery in '..\Sys\Services\InputQuery\Interfaces.InputQuery.pas',
-  View.InputQuery in '..\Sys\Services\InputQuery\View.InputQuery.pas' {ViewInputQuery},
   View.Esmaecer in '..\Sys\View\View.Esmaecer.pas' {ViewEsmaecer},
-  Classe.InputQuery in '..\Sys\Services\Classe.InputQuery.pas',
   UPrinc in 'UPrinc.pas' {frmPrinc},
   UGrPadraoCadastro in '..\Sys\lib\UGrPadraoCadastro.pas' {frmGrPadraoCadastro},
   UGrPadrao in '..\Sys\lib\UGrPadrao.pas' {frmGrPadrao},
@@ -208,6 +220,7 @@ begin
   Application.CreateForm(TDMBusiness, DMBusiness);
   Application.CreateForm(TDMNFe, DMNFe);
   Application.CreateForm(TDMNFSe, DMNFSe);
+  Application.CreateForm(TDMDados, DMDados);
   SplashFree;
 
   if ExecutarLogin() then

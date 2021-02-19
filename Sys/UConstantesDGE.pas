@@ -23,7 +23,7 @@ Uses
 const
   VERSION_NUMBER     = '1.0.31.0';
   VERSION_NUMBER_ID  = 01003100;
-  VERSION_NUMBER_STR = '01003000';
+  VERSION_NUMBER_STR = '01003100';
 
   MANIFESTO_AGIL =
      'Estamos descobrindo maneiras melhores de desenvolver software, '
@@ -43,7 +43,7 @@ const
   SISTEMA_GESTAO_IND  = 2;
   SISTEMA_GESTAO_OPME = 3;
 
-  SYS_ALERTA_PERIODO_LICENCA = 15; // Dias
+  SYS_ALERTA_PERIODO_LICENCA = 5; // Dias
   SYS_ALERTA_ARQUIVO_LICENCA = 'AlertaLicenca.txt';
   SYS_ALERTA_ARQUIVO_BACKUP  = 'AlertaBackup.txt';
   SYS_ALERTA_ARQUIVOS : TTipoAlertaSistemaLista = (

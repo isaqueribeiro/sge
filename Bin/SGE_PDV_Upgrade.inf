@@ -1,13 +1,11 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 29/10/2020 13:58:00     #
+#    Gerado por AGIL SOFTWARES em : 19/02/2021 11:05:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Atualização das Taxas Tributárias para FEV/2021 até MAI/2021.
 - Melhoria na performance.
-- Atualização das Taxas Tributárias para AGO/2020 até DEZ/2020.
-- Ajustes na emissão de NFC-e.
 - Pesquisa de vendas de produtos pelo valor líquido do movimento.
-- Novos controles no Cadastro de Conta-Corrente e Formas de Pagamento.
 - Outros ajustes na otimização de processos.}
 
 #url1=http://www.drhtransparencia.com.br/agil/upgrade/SGE_PDV.exe
@@ -21,4 +19,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.31.1
+#version=1.0.31.2

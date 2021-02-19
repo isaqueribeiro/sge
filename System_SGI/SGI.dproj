@@ -70,13 +70,13 @@
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.1;InternalName=SGI;LegalCopyright=Copyright 2013 - 2020 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=10/11/2020;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.2;InternalName=SGI;LegalCopyright=Copyright 2013 - 2021 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=20/02/2021;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <UWP_DelphiLogo44>..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-44x44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-150x150.png</UWP_DelphiLogo150>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
-        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Build>2</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <Icon_MainIcon>SGI_Icon2.ico</Icon_MainIcon>
@@ -94,11 +94,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCC_LocalDebugSymbols>true</DCC_LocalDebugSymbols>
         <VerInfo_Release>31</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.1;InternalName=SGI;LegalCopyright=Copyright 2013 - 2020 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=10/11/2020;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.2;InternalName=SGI;LegalCopyright=Copyright 2013 - 2021 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=20/02/2021;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
-        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Build>2</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -109,11 +109,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <VerInfo_Release>31</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.1;InternalName=SGI;LegalCopyright=Copyright 2013 - 2020 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=10/11/2020;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.2;InternalName=SGI;LegalCopyright=Copyright 2013 - 2021 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=20/02/2021;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
-        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Build>2</VerInfo_Build>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -130,6 +130,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Tabela.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Usuario.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Versao.pas"/>
+        <DCCReference Include="..\Sys\Services\InputQuery\Interfaces.InputQuery.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.Conexao.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.Empresa.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.Funcao.pas"/>
@@ -145,6 +146,15 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\Controller.Tabela.pas"/>
         <DCCReference Include="..\Sys\Controller\Controller.Usuario.pas"/>
         <DCCReference Include="..\Sys\Controller\Controller.Versao.pas"/>
+        <DCCReference Include="..\Sys\Model\Model.Constantes.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Factory.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Factory.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Firedac.Firebird.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Firedac.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\Model.Query.Firedac.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\Model.Query.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas"/>
         <DCCReference Include="..\Sys\lib\UEcfAgil.pas"/>
         <DCCReference Include="..\Sys\lib\UEcfGenerico.pas"/>
         <DCCReference Include="..\Sys\lib\UEcfFactory.pas"/>
@@ -164,6 +174,19 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
             <Form>DMNFSe</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="..\Sys\Model\SGE.Model.Dados.pas">
+            <Form>DMDados</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas">
+            <Form>ModelConexaoDataSet</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Services\Service.InputQuery.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Utils.pas"/>
+        <DCCReference Include="..\Sys\Services\InputQuery\View.InputQuery.pas">
+            <Form>ViewInputQuery</Form>
+        </DCCReference>
         <DCCReference Include="..\Sys\View\View.PadraoAbertura.pas">
             <Form>FrmPadraoAbertura</Form>
         </DCCReference>
@@ -182,14 +205,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="View\View.Login.pas">
             <Form>FrmLogin</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\Services\InputQuery\Interfaces.InputQuery.pas"/>
-        <DCCReference Include="..\Sys\Services\InputQuery\View.InputQuery.pas">
-            <Form>ViewInputQuery</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\View\View.Esmaecer.pas">
             <Form>ViewEsmaecer</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\Services\Classe.InputQuery.pas"/>
         <DCCReference Include="UPrinc.pas">
             <Form>frmPrinc</Form>
         </DCCReference>
@@ -590,7 +608,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas"/>
         <DCCReference Include="..\Sys\UGeDistribuicaoDFe.pas">
             <Form>frmDistribuicaoDFe</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Debug">

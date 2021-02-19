@@ -1124,22 +1124,6 @@ procedure UpdateSequence(GeneratorName, NomeTabela, CampoChave : String; const s
 var
   ID : Largeint;
 begin
-//  with DMBusiness, qryBusca do
-//  begin
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('Select max(' + CampoChave + ') as ID from ' + NomeTabela + ' ' + sWhr);
-//    Open;
-//
-//    ID := FieldByName('ID').AsInteger;
-//
-//    Close;
-//    SQL.Clear;
-//    SQL.Add('ALTER SEQUENCE ' + GeneratorName + ' RESTART WITH ' + IntToStr(ID));
-//    ExecSQL;
-//
-//    CommitTransaction;
-//  end;
   with DMBusiness, fdQryBusca do
   begin
     Close;
@@ -1148,6 +1132,11 @@ begin
     Open;
 
     ID := FieldByName('ID').AsInteger;
+
+    Close;
+    SQL.Clear;
+    SQL.Add('Execute procedure SET_GENERATOR(' + QuotedStr(GeneratorName) + ', null)');
+    ExecSQL;
 
     Close;
     SQL.Clear;
@@ -1162,9 +1151,6 @@ procedure CommitTransaction;
 begin
   with DMBusiness do
   begin
-//    if ibdtbsBusiness.Connected then
-//      ibtrnsctnBusiness.CommitRetaining;
-//
     if fdConexao.InTransaction then
       fdConexao.CommitRetaining;
   end;

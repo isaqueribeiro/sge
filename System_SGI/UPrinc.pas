@@ -345,6 +345,7 @@ type
     FAcesso : Boolean;
     procedure RegistrarRotinasMenu;
     procedure AutoUpdateSystem;
+    procedure OcultarTabs;
   public
     { Public declarations }
     procedure AlertarCliente;
@@ -873,6 +874,14 @@ begin
   AlertarCliente;
 end;
 
+procedure TfrmPrinc.OcultarTabs;
+var
+  I : Integer;
+begin
+  for I := 1 to Ribbon.Tabs.Count - 2 do
+    Ribbon.Tabs.Items[I].Visible := False;
+end;
+
 procedure TfrmPrinc.nmCondicaoPagtoClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_CONDICAO_PAGTO_ID, True) then
@@ -911,14 +920,10 @@ begin
   Self.WindowState := wsMaximized;
 
   if not DMBusiness.LiberarUsoLicenca(GetDateDB, True) then
-  begin
-    RbnTabCadastro.Visible   := False;
-    RbnTabEntrada.Visible    := False;
-    RbnTabMovimento.Visible  := False;
-    RbnTabFinanceiro.Visible := False;
-  end;
+    OcultarTabs;
 
   sHostName := GetHostNameLocal;
+
   if not SetAcessoEstacao(sHostName) then
   begin
     ShowError('Host -> ' + sHostName + #13 + 'Estação de trabalho não registrada no sistema!');

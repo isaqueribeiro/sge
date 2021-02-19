@@ -1885,7 +1885,7 @@ inherited frmGeVenda: TfrmGeVenda
         Top = 427
         Width = 1108
         Height = 186
-        ActivePage = tbsRecebimento
+        ActivePage = TbsInformeNFe
         Align = alBottom
         TabOrder = 3
         object tbsRecebimento: TTabSheet
@@ -3733,8 +3733,6 @@ inherited frmGeVenda: TfrmGeVenda
       ShowHint = True
       TabOrder = 6
       OnClick = btbtnFinalizarClick
-      ExplicitLeft = 585
-      ExplicitTop = 2
     end
     object btbtnGerarNFe: TcxButton
       Tag = 12

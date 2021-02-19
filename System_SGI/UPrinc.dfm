@@ -4,7 +4,7 @@ object frmPrinc: TfrmPrinc
   Top = 206
   Caption = 'SGI | Sistema Integrado de Gest'#227'o Industrial'
   ClientHeight = 641
-  ClientWidth = 1048
+  ClientWidth = 1086
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,35 +18,37 @@ object frmPrinc: TfrmPrinc
   PixelsPerInch = 96
   TextHeight = 13
   object SptDockReqAlmox: TSplitter
-    Left = 1044
+    Left = 1082
     Top = 160
     Height = 481
     Align = alRight
     Color = clBtnFace
     ParentColor = False
+    ExplicitLeft = 1044
     ExplicitTop = 126
     ExplicitHeight = 516
   end
   object pnlMain: TPanel
     Left = 0
     Top = 160
-    Width = 1044
+    Width = 1082
     Height = 481
     Align = alClient
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
     DesignSize = (
-      1044
+      1082
       481)
     object imgFundo: TImage
       Left = 1
       Top = 1
-      Width = 1042
+      Width = 1080
       Height = 459
       Align = alClient
       AutoSize = True
       Transparent = True
+      ExplicitWidth = 1042
       ExplicitHeight = 494
     end
     object imgEmpresa: TImage
@@ -4394,7 +4396,7 @@ object frmPrinc: TfrmPrinc
       ExplicitTop = 457
     end
     object lblAberta: TLabel
-      Left = 777
+      Left = 815
       Top = 6
       Width = 261
       Height = 13
@@ -4410,11 +4412,12 @@ object frmPrinc: TfrmPrinc
       Visible = False
       WordWrap = True
       IsControl = True
+      ExplicitLeft = 777
     end
     object stbMain: TdxStatusBar
       Left = 1
       Top = 460
-      Width = 1042
+      Width = 1080
       Height = 20
       Images = DMRecursos.ImgPrincipal16x16
       Panels = <
@@ -4653,7 +4656,7 @@ object frmPrinc: TfrmPrinc
     end
   end
   object PnlDockReqAlmox: TPanel
-    Left = 1047
+    Left = 1085
     Top = 160
     Width = 1
     Height = 481
@@ -4665,7 +4668,7 @@ object frmPrinc: TfrmPrinc
   object Ribbon: TdxRibbon
     Left = 0
     Top = 0
-    Width = 1048
+    Width = 1086
     Height = 160
     ApplicationButton.Menu = RbnBackstageView
     BarManager = BrManager
@@ -5345,7 +5348,7 @@ object frmPrinc: TfrmPrinc
     object BrMngFinanceiroBoleto: TdxBar
       Caption = 'Boletos Banc'#225'rios / Quita'#231#245'es'
       CaptionButtons = <>
-      DockedLeft = 517
+      DockedLeft = 516
       DockedTop = 0
       FloatLeft = 379
       FloatTop = 206
@@ -7013,6 +7016,7 @@ object frmPrinc: TfrmPrinc
   end
   object tmrAutoUpgrade: TTimer
     Enabled = False
+    Interval = 60000
     OnTimer = tmrAutoUpgradeTimer
     Left = 176
     Top = 275

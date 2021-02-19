@@ -1,5 +1,5 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\VCL\Vcl.Forms.pas',0,1,513,5,539,0,0,{{1755,4},{1771,15},{'TScrollWindow'}}{{1858,4},{1959,15},{'TMainMenuBarStyleHook'}},
+File_0=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\VCL\Vcl.Forms.pas',0,1,513,5,539,0,0,{{1755,4}
 File_1=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\VCL\Vcl.Graphics.pas',0,1,4197,1,4221,0,0,,
 File_2=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas',0,1,1,1,1,0,0,,
 File_3=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas',0,1,1,1,1,0,0,,
@@ -18,16 +18,16 @@ File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeD
 [Modules]
 Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\UPrinc.pas
 Module1=default.htm
-Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj
-Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Module2=documentation.htm
+Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
 Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\View.InputQuery.pas
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\Interfaces.InputQuery.pas
-Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.InputQuery.pas
-Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
-Module11=documentation.htm
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\View.InputQuery.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\Interfaces.InputQuery.pas
+Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.InputQuery.pas
+Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
 Count=12
 EditWindowCount=1
 
@@ -37,16 +37,19 @@ ModuleType=TSourceModule
 [default.htm]
 ModuleType=TURLModule
 
+[documentation.htm]
+ModuleType=TURLModule
+
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj]
 ModuleType=TBaseProject
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\View.InputQuery.pas]
@@ -63,9 +66,6 @@ ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas]
 ModuleType=TSourceModule
-
-[documentation.htm]
-ModuleType=TURLModule
 
 [EditWindow0]
 ViewCount=12
@@ -106,7 +106,7 @@ RightPanelClients=DockSite2,DockSite4
 RightPanelData=00000800010100000000201300000000000001D00700000000000001000000004412000009000000446F636B536974653201000000000022000009000000446F636B5369746534FFFFFFFF
 BottomPanelSize=0
 BottomPanelClients=MessageView,DockSite1
-BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B5369746531DE44000000000000022F06000000000000FFFFFFFF
+BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B5369746531DE44000000000000022F060000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -188,9 +188,9 @@ EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pa
 [View8]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-CursorX=28
-CursorY=850
-TopLine=817
+CursorX=3
+CursorY=5797
+TopLine=5776
 LeftCol=1
 Elisions=
 Bookmarks={1,3363,1}
@@ -221,13 +221,13 @@ EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarN
 [View11]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\UPrinc.pas
-CursorX=38
-CursorY=1403
-TopLine=1171
+CursorX=33
+CursorY=868
+TopLine=843
 LeftCol=1
 Elisions=
 Bookmarks={1,868,30}
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\UPrinc.pas
+EditViewName=Borland.FormDesignerView
 
 [UndockedDesigner]
 Count=0
@@ -248,11 +248,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1106
+Height=1154
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1106
+ClientHeight=1154
 TBDockHeight=212
 LRDockWidth=13604
 Dockable=1
@@ -337,11 +337,11 @@ Docked=1
 State=0
 Left=0
 Top=28
-Width=2771
+Width=9917
 Height=1375
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2771
+ClientWidth=9917
 ClientHeight=1375
 TBDockHeight=1375
 LRDockWidth=2771
@@ -400,7 +400,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=4952
-TBDockHeight=8769
+TBDockHeight=8500
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
@@ -408,8 +408,8 @@ SplitPos=116
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=Align,OnCloseQuery
-ExpandedItems="LiveBindings Designer=0",Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0,BarManager=0,ApplicationButton=0,BackgroundImage=0,Fonts=0,HelpButton=0,Margins=0,OptionsFading=0,PopupMenuItems=0,QuickAccessToolbar=0,TabAreaSearchToolbar=0,TabAreaToolbar=0,Touch=0,ApplicationButton.Glyph=0,ApplicationButton.Menu=0,Fonts.ApplicationButton=0,Fonts.AssignedFonts=0,Fonts.Group=0,Fonts.GroupHeader=0,Fonts.TabHeader=0
+SelectedItem=Interval,OnTimer
+ExpandedItems="LiveBindings Designer=0",ActiveControl=0,Anchors=0,BorderIcons=0,LiveBindings=0,DataSource=0,ListSource=0,BevelEdges=0,Constraints=0,Font=0,Margins=0,ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,Params=0,ResourceOptions=0,Transaction=0,TxOptions=0,UpdateOptions=0,UpdateTransaction=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -420,11 +420,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=6433
+Height=8231
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=6433
+ClientHeight=8231
 TBDockHeight=5962
 LRDockWidth=2510
 Dockable=1
@@ -461,11 +461,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1106
+Height=1154
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1106
+ClientHeight=1154
 TBDockHeight=413
 LRDockWidth=4953
 Dockable=1
@@ -480,11 +480,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1106
+Height=1154
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1106
+ClientHeight=1154
 TBDockHeight=212
 LRDockWidth=7406
 Dockable=1
@@ -503,11 +503,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1106
+Height=1154
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1106
+ClientHeight=1154
 TBDockHeight=1538
 LRDockWidth=3484
 Dockable=1
@@ -522,11 +522,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1106
+Height=1154
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1106
+ClientHeight=1154
 TBDockHeight=2067
 LRDockWidth=3484
 Dockable=1
@@ -560,11 +560,11 @@ State=0
 Left=0
 Top=0
 Width=2339
-Height=971
+Height=1212
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2339
-ClientHeight=971
+ClientHeight=1212
 TBDockHeight=2317
 LRDockWidth=2823
 Dockable=1
@@ -625,11 +625,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=6433
+Height=8231
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=6433
+ClientHeight=8231
 TBDockHeight=4885
 LRDockWidth=7151
 Dockable=1
@@ -720,11 +720,11 @@ State=0
 Left=0
 Top=0
 Width=3823
-Height=1106
+Height=1154
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1106
+ClientHeight=1154
 TBDockHeight=1548
 LRDockWidth=8740
 Dockable=1
@@ -765,11 +765,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=6433
+Height=8231
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=6433
+ClientHeight=8231
 TBDockHeight=4885
 LRDockWidth=5307
 Dockable=1
@@ -829,15 +829,15 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=0
+Left=952
 Top=28
 Width=3823
-Height=1375
+Height=1423
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=3823
-ClientHeight=1375
-TBDockHeight=1375
+ClientHeight=1423
+TBDockHeight=1423
 LRDockWidth=3823
 Dockable=1
 StayOnTop=0
@@ -861,7 +861,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=4510
-TBDockHeight=8769
+TBDockHeight=8500
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0
@@ -885,7 +885,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=3471
-TBDockHeight=8769
+TBDockHeight=8500
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
@@ -909,7 +909,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=3913
-TBDockHeight=8769
+TBDockHeight=8500
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0

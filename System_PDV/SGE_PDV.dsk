@@ -1,62 +1,66 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Esmaecer.pas',0,1,1,1,1,0,0,,
-File_1=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrRegistroEstacao.pas',0,1,58,90,6,0,0,,
-File_2=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\View.InputQuery.pas',0,1,130,87,148,0,0,,
-File_3=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Classe.InputQuery.pas',0,1,1,21,9,0,0,,
-File_4=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeCliente.pas',0,1,390,14,433,0,0,,
-File_5=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas',0,1,608,1,626,0,0,,
-File_6=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\Interfaces.InputQuery.pas',0,1,1,1,1,0,0,,
-File_7=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.AutoUpgrade.pas',0,1,386,1,396,0,0,,
-File_8=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas',0,1,345,26,369,0,0,,
-File_9=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeTabelaIBPT.pas',0,1,235,1,268,0,0,,
-File_10=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\VCL\Vcl.Dialogs.pas',0,1,6764,20,6928,0,0,,
-File_11=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\View\View.Login.pas',0,1,23,43,45,0,0,,
-File_12=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\View\View.Abertura.pas',0,1,68,3,80,0,0,,
-File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.PadraoAbertura.pas',0,1,1,18,19,0,0,,
-File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGrUsuarioAlterarSenha_v2.pas',0,1,48,59,74,0,0,,
+File_0=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.InputQuery.pas',0,1,1,1,1,0,0,,
+File_1=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\SGE.Model.Dados.pas',0,1,1,6,1,0,0,,
+File_2=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas',0,1,55,3,34,0,0,,
+File_3=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas',0,1,1,1,1,0,0,,
+File_4=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\Interfaces.InputQuery.pas',0,1,1,1,1,0,0,,
+File_5=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Firedac.Firebird.pas',0,1,1,18,26,0,0,,
+File_6=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Model.Constantes.pas',0,1,1,1,1,0,0,,
+File_7=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Conexao.Factory.Interfaces.pas',0,1,1,1,1,0,0,,
+File_8=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Esmaecer.pas',0,1,1,1,1,0,0,,
+File_9=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UGrRegistroEstacao.pas',0,1,58,90,6,0,0,,
+File_10=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Classe.InputQuery.pas',0,1,1,21,9,0,0,,
+File_11=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeCliente.pas',0,1,390,14,433,0,0,,
+File_12=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.AutoUpgrade.pas',0,1,386,1,396,0,0,,
+File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UGeVendaPDV.pas',0,1,345,26,369,0,0,,
+File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeTabelaIBPT.pas',0,1,235,1,268,0,0,,
 
 [Modules]
 Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj
 Module2=default.htm
-Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj
+Module3=documentation.htm
 Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas
-Module8=documentation.htm
-Count=9
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas
+Count=10
 EditWindowCount=1
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
-ModuleType=TSourceModule
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj]
+ModuleType=TBaseProject
 
 [default.htm]
 ModuleType=TURLModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dproj]
-ModuleType=TBaseProject
+[documentation.htm]
+ModuleType=TURLModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
+ModuleType=TSourceModule
+
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas]
 ModuleType=TSourceModule
 
-[documentation.htm]
-ModuleType=TURLModule
-
 [EditWindow0]
-ViewCount=9
+ViewCount=10
 CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
 View0=0
 View1=1
@@ -67,6 +71,7 @@ View5=5
 View6=6
 View7=7
 View8=8
+View9=9
 PercentageSizes=1
 Create=1
 Visible=1
@@ -90,8 +95,8 @@ RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
 RightPanelData=00000800010100000000201300000000000001D00700000000000001000000004412000009000000446F636B536974653201000000000022000009000000446F636B5369746534FFFFFFFF
 BottomPanelSize=0
-BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020200000009000000446F636B53697465310F0000004D65737361676556696577466F726D1534000000000000022606000000000000FFFFFFFF
+BottomPanelClients=MessageView,DockSite1
+BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B5369746531DE44000000000000022F060000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -107,9 +112,9 @@ WelcomePageURL=bds:/documentation.htm
 [View2]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\SGE_PDV.dpr
-CursorX=3
-CursorY=135
-TopLine=74
+CursorX=22
+CursorY=44
+TopLine=31
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -140,15 +145,26 @@ EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pa
 [View5]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-CursorX=12
-CursorY=190
-TopLine=301
+CursorX=34
+CursorY=10
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
 
 [View6]
+CustomEditViewType=TEditView
+Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
+CursorX=60
+CursorY=613
+TopLine=599
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVenda.pas
+
+[View7]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 CursorX=72
@@ -159,7 +175,7 @@ Elisions=
 Bookmarks={1,7203,1}{2,2446,3}
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
 
-[View7]
+[View8]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMCupom.pas
 CursorX=48
@@ -170,16 +186,16 @@ Elisions=
 Bookmarks=
 EditViewName=Borland.FormDesignerView
 
-[View8]
+[View9]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
-CursorX=1
-CursorY=240
-TopLine=194
+CursorX=102
+CursorY=168
+TopLine=157
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_PDV\UPrinc.pas
+EditViewName=Borland.FormDesignerView
 
 [UndockedDesigner]
 Count=0
@@ -291,13 +307,13 @@ Docked=1
 State=0
 Left=0
 Top=28
-Width=2771
-Height=1385
+Width=9917
+Height=1375
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2771
-ClientHeight=1385
-TBDockHeight=1385
+ClientWidth=9917
+ClientHeight=1375
+TBDockHeight=1375
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -354,11 +370,16 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=4952
-TBDockHeight=8769
+TBDockHeight=8500
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
-SplitPos=111
+SplitPos=116
+
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Interval,OnTimer
+ExpandedItems="LiveBindings Designer=0",ActiveControl=0,Anchors=0,BorderIcons=0,LiveBindings=0,DataSource=0,ListSource=0,BevelEdges=0,Constraints=0,Font=0,Margins=0,ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,Params=0,ResourceOptions=0,Transaction=0,TxOptions=0,UpdateOptions=0,UpdateTransaction=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -369,11 +390,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=8500
+Height=8231
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=8500
+ClientHeight=8231
 TBDockHeight=5962
 LRDockWidth=2510
 Dockable=1
@@ -574,11 +595,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=8500
+Height=8231
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=8500
+ClientHeight=8231
 TBDockHeight=4885
 LRDockWidth=7151
 Dockable=1
@@ -714,11 +735,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=8500
+Height=8231
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=8500
+ClientHeight=8231
 TBDockHeight=4885
 LRDockWidth=5307
 Dockable=1
@@ -778,7 +799,7 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=0
+Left=952
 Top=28
 Width=3823
 Height=1423
@@ -810,7 +831,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=4510
-TBDockHeight=8769
+TBDockHeight=8500
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0
@@ -834,7 +855,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=3471
-TBDockHeight=8769
+TBDockHeight=8500
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
@@ -858,7 +879,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=3913
-TBDockHeight=8769
+TBDockHeight=8500
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0

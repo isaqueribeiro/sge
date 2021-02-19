@@ -6,9 +6,5 @@
     <Transaction>2018/03/14 15:29:31.000.442,D:\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj=D:\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj</Transaction>
     <Transaction>2018/03/14 15:55:38.000.726,D:\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.dfm=D:\Projetos\ASS\SGE\trunk\System_SGO\UPrinc.dfm</Transaction>
     <Transaction>2019/11/28 11:38:36.000.403,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\UGeProdutoEstoqueConsigImpressao.dfm=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeApropriacaoEstoqueImpressao.dfm</Transaction>
-    <Transaction>2021/02/15 21:06:16.000.164,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Query.Firedac.pas</Transaction>
-    <Transaction>2021/02/15 21:06:16.000.311,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\Model.Query.Interfaces.pas</Transaction>
-    <Transaction>2021/02/15 21:06:53.000.240,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Model.Constantes.pas</Transaction>
-    <Transaction>2021/02/15 21:08:54.000.516,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.InputQuery.pas</Transaction>
   </Transactions>
 </BorlandProject>

@@ -72,13 +72,13 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.31.1;InternalName=SGE_PDV;LegalCopyright=Copyright 2013 - 2020 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=10/11/2020;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.31.2;InternalName=SGE_PDV;LegalCopyright=Copyright 2013 - 2021 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=20/02/2021;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_Release>31</VerInfo_Release>
         <UWP_DelphiLogo44>..\_diversos\Imagens\_Matriz\icon_gestao_pdv-v1-44x44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>..\_diversos\Imagens\_Matriz\icon_gestao_pdv-v1-150x150.png</UWP_DelphiLogo150>
         <Icon_MainIcon>..\_diversos\Imagens\Icones\icon_gestao_pdv-v1-512x512.ico</Icon_MainIcon>
-        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Build>2</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <Icon_MainIcon>SGE_PDV_Icon1.ico</Icon_MainIcon>
@@ -94,11 +94,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <VerInfo_Release>31</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.31.1;InternalName=SGE_PDV;LegalCopyright=Copyright 2013 - 2020 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=10/11/2020;Contacts=(91) 9 9146.0444;Owner=Isaque Mainho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.31.2;InternalName=SGE_PDV;LegalCopyright=Copyright 2013 - 2021 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=20/02/2021;Contacts=(91) 9 9146.0444;Owner=Isaque Mainho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Icon_MainIcon>..\_diversos\Imagens\Icones\icon_gestao_pdv-v1-512x512.ico</Icon_MainIcon>
-        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Build>2</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -109,12 +109,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
         <VerInfo_Release>31</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.31.1;InternalName=SGE_PDV;LegalCopyright=Copyright 2013 - 2020 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=10/11/2020;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Controle do Ponto de Venda do SGE/SGI;FileVersion=1.0.31.2;InternalName=SGE_PDV;LegalCopyright=Copyright 2013 - 2021 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;ProductName=PDV - Controle do Ponto de Venda do SGE/SGI;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=20/02/2021;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <BT_BuildType>Debug</BT_BuildType>
         <Icon_MainIcon>..\_diversos\Imagens\Icones\icon_gestao_pdv-v1-512x512.ico</Icon_MainIcon>
-        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Build>2</VerInfo_Build>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -131,6 +131,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Tabela.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Usuario.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Versao.pas"/>
+        <DCCReference Include="..\Sys\Services\InputQuery\Interfaces.InputQuery.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.InputQuery.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Utils.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.Conexao.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.Empresa.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.Funcao.pas"/>
@@ -146,6 +149,19 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <DCCReference Include="..\Sys\Controller\Controller.Tabela.pas"/>
         <DCCReference Include="..\Sys\Controller\Controller.Usuario.pas"/>
         <DCCReference Include="..\Sys\Controller\Controller.Versao.pas"/>
+        <DCCReference Include="..\Sys\Model\Model.Constantes.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Factory.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Factory.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Firedac.Firebird.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Firedac.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\Model.Query.Firedac.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\Model.Query.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas">
+            <Form>ModelConexaoDataSet</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas"/>
         <DCCReference Include="..\Sys\lib\UEcfAgil.pas"/>
         <DCCReference Include="..\Sys\lib\UEcfFactory.pas"/>
         <DCCReference Include="..\Sys\lib\UEcfGenerico.pas"/>
@@ -167,6 +183,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
             <Form>DMCupom</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="..\Sys\Model\SGE.Model.Dados.pas">
+            <Form>DMDados</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <DCCReference Include="..\Sys\View\View.PadraoAbertura.pas">
             <Form>FrmPadraoAbertura</Form>
         </DCCReference>
@@ -184,6 +204,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         </DCCReference>
         <DCCReference Include="View\View.Login.pas">
             <Form>FrmLogin</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Esmaecer.pas">
+            <Form>ViewEsmaecer</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Services\InputQuery\View.InputQuery.pas">
+            <Form>ViewInputQuery</Form>
         </DCCReference>
         <DCCReference Include="UPrinc.pas">
             <Form>frmPrinc</Form>
@@ -380,17 +406,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         </DCCReference>
         <DCCReference Include="..\System_SGE\UGrUsuario.pas">
             <Form>frmGrUsuario</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\Sys\Services\InputQuery\Interfaces.InputQuery.pas"/>
-        <DCCReference Include="..\Sys\Services\InputQuery\View.InputQuery.pas">
-            <Form>ViewInputQuery</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\Sys\Services\Classe.InputQuery.pas"/>
-        <DCCReference Include="..\Sys\View\View.Esmaecer.pas">
-            <Form>ViewEsmaecer</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>

@@ -1321,7 +1321,7 @@ begin
 
     nmGerarImprimirBoletos.Enabled := (not qryTitulos.IsEmpty) and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger < STATUS_VND_CAN);
 
-    nmImprimirDANFE.Enabled         := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE);
+    nmImprimirDANFE.Enabled         := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) or (DtSrcTabela.DataSet.FieldByName('NFE_DENEGADA').AsInteger = 1) );
     nmImprimirNotaEntrega.Enabled   := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
     nmImprimirNotaEntregaX.Enabled  := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
     nmImprimirCartaCredito.Enabled  := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) ) and (DtSrcTabela.DataSet.FieldByName('GERAR_ESTOQUE_CLIENTE').AsInteger = 1);
@@ -1350,7 +1350,7 @@ begin
 
     nmGerarImprimirBoletos.Enabled := (not qryTitulos.IsEmpty) and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger < STATUS_VND_CAN);
 
-    nmImprimirDANFE.Enabled         := (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE);
+    nmImprimirDANFE.Enabled         := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) or (DtSrcTabela.DataSet.FieldByName('NFE_DENEGADA').AsInteger = 1) );
     nmImprimirNotaEntrega.Enabled   := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
     nmImprimirNotaEntregaX.Enabled  := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) );
     nmImprimirCartaCredito.Enabled  := ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_FIN) or (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) ) and (DtSrcTabela.DataSet.FieldByName('GERAR_ESTOQUE_CLIENTE').AsInteger = 1);
