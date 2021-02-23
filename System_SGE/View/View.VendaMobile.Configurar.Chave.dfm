@@ -67,16 +67,17 @@ inherited ViewVendaMobileConfigurarChave: TViewVendaMobileConfigurarChave
         object lblSalvar: TLabel
           AlignWithMargins = True
           Left = 3
-          Top = 3
+          Top = 5
           Width = 91
-          Height = 24
+          Height = 22
+          Margins.Top = 5
           Align = alClient
           Alignment = taCenter
           Caption = 'Salvar'
           Color = 1848330
           Font.Charset = ANSI_CHARSET
           Font.Color = clWhite
-          Font.Height = -16
+          Font.Height = -13
           Font.Name = 'Segoe UI'
           Font.Style = []
           ParentColor = False
@@ -85,8 +86,9 @@ inherited ViewVendaMobileConfigurarChave: TViewVendaMobileConfigurarChave
           OnClick = lblSalvarClick
           OnMouseEnter = LabelMouseEnter
           OnMouseLeave = LabelMouseLeave
-          ExplicitWidth = 43
-          ExplicitHeight = 21
+          ExplicitTop = 3
+          ExplicitWidth = 35
+          ExplicitHeight = 17
         end
       end
       object pnlFechar: TPanel
@@ -110,16 +112,17 @@ inherited ViewVendaMobileConfigurarChave: TViewVendaMobileConfigurarChave
         object lblFechar: TLabel
           AlignWithMargins = True
           Left = 3
-          Top = 3
+          Top = 5
           Width = 91
-          Height = 24
+          Height = 22
+          Margins.Top = 5
           Align = alClient
           Alignment = taCenter
           Caption = 'Fechar'
           Color = 1848330
           Font.Charset = ANSI_CHARSET
           Font.Color = clWhite
-          Font.Height = -16
+          Font.Height = -13
           Font.Name = 'Segoe UI'
           Font.Style = []
           ParentColor = False
@@ -128,8 +131,9 @@ inherited ViewVendaMobileConfigurarChave: TViewVendaMobileConfigurarChave
           OnClick = lblFecharClick
           OnMouseEnter = LabelMouseEnter
           OnMouseLeave = LabelMouseLeave
-          ExplicitWidth = 46
-          ExplicitHeight = 21
+          ExplicitTop = 3
+          ExplicitWidth = 38
+          ExplicitHeight = 17
         end
       end
     end

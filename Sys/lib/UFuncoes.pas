@@ -777,6 +777,7 @@ begin
                                       0));
        ContinueLoop := Process32Next(FSnapshotHandle, FProcessEntry32);
     end;
+
     CloseHandle(FSnapshotHandle);
   except
   end;

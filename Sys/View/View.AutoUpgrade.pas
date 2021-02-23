@@ -393,15 +393,22 @@ end;
 
 procedure TFrmAutoUpgrade.ACBrDownloadAfterDownload(Sender: TObject);
 var
+  aProcesso,
   aComando : String;
 begin
   if (ACBrDownload.DownloadNomeArq = UPGRADE_AGIL) then
   begin
     aComando := ExtractFilePath(ParamStr(0)) + UPGRADE_AGIL;
     ShowInformation('Atualização Agil', 'Esta aplicação será fechada para que o processo de atualização seja iniciado.');
-    Application.Terminate;
 
     ShellExecute(Handle, 'Open', PChar(aComando), PChar(gPersonalizaEmpresa.InternalName), '', SW_NORMAL);
+
+    Application.Terminate;
+
+    // Remover processo da memória do Windows
+    aProcesso := ParamStr(0);
+    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+    KillTask(aProcesso);
   end;
 end;
 

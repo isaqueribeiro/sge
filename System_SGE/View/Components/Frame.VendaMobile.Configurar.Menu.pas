@@ -62,7 +62,7 @@ begin
   RegistrarEventos;
 
   shpChaveAcesso.Tag := 1;
-  FormatarBotaoEnter(PnlChaveAcesso, shpChaveAcesso, ImgChaveAcesso, LblChaveAcesso, 'accesskey');
+  FormatarBotaoEnter(PnlChaveAcesso, shpChaveAcesso, ImgChaveAcesso, LblChaveAcesso, 'accesskey_24x24');
 
   if Assigned(FChaveAcessoOnClick) then
     FChaveAcessoOnClick(Sender);
@@ -70,12 +70,12 @@ end;
 
 procedure TFrameVendaMobileConfigurarMenu.ChaveAcessoEnter(Sender: TObject);
 begin
-  FormatarBotaoEnter(PnlChaveAcesso, shpChaveAcesso, ImgChaveAcesso, LblChaveAcesso, 'accesskey');
+  FormatarBotaoEnter(PnlChaveAcesso, shpChaveAcesso, ImgChaveAcesso, LblChaveAcesso, 'accesskey_24x24');
 end;
 
 procedure TFrameVendaMobileConfigurarMenu.ChaveAcessoLeave(Sender: TObject);
 begin
-  FormatarBotaoLeave(PnlChaveAcesso, shpChaveAcesso, ImgChaveAcesso, LblChaveAcesso, 'accesskey');
+  FormatarBotaoLeave(PnlChaveAcesso, shpChaveAcesso, ImgChaveAcesso, LblChaveAcesso, 'accesskey_24x24');
 end;
 
 procedure TFrameVendaMobileConfigurarMenu.FormatarBotaoEnter(APanel: TPanel; AShape : TShape; AImage: TImage; ALabel: TLabel;
@@ -100,8 +100,8 @@ procedure TFrameVendaMobileConfigurarMenu.LimparSelecaoBotao(Sender : TObject);
 begin
   shpChaveAcesso.Tag := 0;
   shpServidorWeb.Tag := 0;
-  FormatarBotaoLeave(PnlChaveAcesso, shpChaveAcesso, ImgChaveAcesso, LblChaveAcesso, 'accesskey');
-  FormatarBotaoLeave(pnlServidorWeb, shpServidorWeb, imgServidorWeb, lblServidorWeb, 'webserver');
+  FormatarBotaoLeave(PnlChaveAcesso, shpChaveAcesso, ImgChaveAcesso, LblChaveAcesso, 'accesskey_24x24');
+  FormatarBotaoLeave(pnlServidorWeb, shpServidorWeb, imgServidorWeb, lblServidorWeb, 'webserver_24x24');
 end;
 
 procedure TFrameVendaMobileConfigurarMenu.RegistrarEventos;
@@ -116,7 +116,7 @@ begin
   RegistrarEventos;
 
   shpServidorWeb.Tag := 1;
-  FormatarBotaoEnter(pnlServidorWeb, shpServidorWeb, imgServidorWeb, lblServidorWeb, 'webserver');
+  FormatarBotaoEnter(pnlServidorWeb, shpServidorWeb, imgServidorWeb, lblServidorWeb, 'webserver_24x24');
 
   if Assigned(FServidorWebOnClick) then
     FServidorWebOnClick(Sender);
@@ -124,12 +124,12 @@ end;
 
 procedure TFrameVendaMobileConfigurarMenu.ServidorWebEnter(Sender: TObject);
 begin
-  FormatarBotaoEnter(pnlServidorWeb, shpServidorWeb, imgServidorWeb, lblServidorWeb, 'webserver');
+  FormatarBotaoEnter(pnlServidorWeb, shpServidorWeb, imgServidorWeb, lblServidorWeb, 'webserver_24x24');
 end;
 
 procedure TFrameVendaMobileConfigurarMenu.ServidorWebLeave(Sender: TObject);
 begin
-  FormatarBotaoLeave(pnlServidorWeb, shpServidorWeb, imgServidorWeb, lblServidorWeb, 'webserver');
+  FormatarBotaoLeave(pnlServidorWeb, shpServidorWeb, imgServidorWeb, lblServidorWeb, 'webserver_24x24');
 end;
 
 procedure TFrameVendaMobileConfigurarMenu.SetChaveAcessoOnClick(Value: TOnClickMenuButton);

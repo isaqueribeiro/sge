@@ -118,7 +118,9 @@ end;
 
 procedure TFrmAtualizarSistemas.GerarListaSistemasAgil;
 var
+  aProcesso ,
   aSistemaParaAtualizar : String;
+  I : Integer;
 begin
   aSistemaParaAtualizar := Trim(ParamStr(1)) + '.exe';
 
@@ -133,6 +135,14 @@ begin
   end
   else
     aSistemasAgil.Add(aSistemaParaAtualizar);
+
+  // Remover processo da memória do Windows
+  for I := 0 to Pred(aSistemasAgil.Count) do
+  begin
+    aProcesso := aSistemasAgil.Strings[I];
+    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+    KillTask(aProcesso);
+  end;
 end;
 
 function TFrmAtualizarSistemas.ObterDiretorioExecutavel: String;
