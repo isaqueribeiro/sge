@@ -134,7 +134,7 @@ begin
 
   inherited;
 
-  ReportMemoryLeaksOnShutdown := True; // Evitar vazamento de memória
+  ReportMemoryLeaksOnShutdown := DelphiIsRunning; // Notificar vazamento de memória
 
   FController := TFactoryController.getInstance().getUsuarioController();
   FEmpresa    := TFactoryController.getInstance().getEmpresaController();

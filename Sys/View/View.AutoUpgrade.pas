@@ -9,7 +9,7 @@ uses
   ACBrDownload,
   ACBrDownloadClass,
 
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, System.IOUtils,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, // auHTTP, auAutoUpgrader,
   Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls, dxGDIPlusClasses;
 
@@ -68,6 +68,7 @@ const
   UPGRADE_AGIL = 'UpgradeAgil.exe';
 
   procedure AtivarUpgradeAutomatico;
+  procedure ExcluirArquivosTemporarios;
 
 implementation
 
@@ -103,6 +104,31 @@ begin
   finally
     if Assigned(FrmAutoUpgrade) then
       FrmAutoUpgrade.Free;
+  end;
+end;
+
+procedure ExcluirArquivosTemporarios;
+var
+  I : Integer;
+  aFiles : TStringList;
+begin
+  aFiles := TStringList.Create;
+  try
+    aFiles.Clear;
+    aFiles.BeginUpdate;
+    aFiles.Add('SGE.exe.part');
+    aFiles.Add('SGI.exe.part');
+    aFiles.Add('SGO.exe.part');
+    aFiles.Add('PrinterCupom.exe.part');
+    aFiles.Add(UPGRADE_AGIL + '.part');
+    aFiles.Add('cce_informe.rtf.part');
+    aFiles.EndUpdate;
+
+    for I := 0 to Pred(aFiles.Count) do
+      if FileExists( TPath.Combine(ExtractFilePath(ParamStr(0)), aFiles.Strings[I]) ) then
+        DeleteFile( TPath.Combine(ExtractFilePath(ParamStr(0)), aFiles.Strings[I]) );
+  finally
+    aFiles.Free;
   end;
 end;
 

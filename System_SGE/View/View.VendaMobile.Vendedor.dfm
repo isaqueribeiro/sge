@@ -23,7 +23,7 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
       Left = 0
       Top = 0
       Width = 811
-      Height = 50
+      Height = 36
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
@@ -31,61 +31,58 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
         AlignWithMargins = True
         Left = 15
         Top = 12
-        Width = 88
-        Height = 26
+        Width = 73
+        Height = 21
         Margins.Left = 15
         Margins.Top = 12
-        Margins.Bottom = 12
         Align = alLeft
         Caption = 'Sincronizar /'
         Font.Charset = ANSI_CHARSET
         Font.Color = 1848330
-        Font.Height = -16
+        Font.Height = -13
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
         StyleElements = []
-        ExplicitHeight = 21
+        ExplicitHeight = 17
       end
       object lblEtata: TLabel
         AlignWithMargins = True
-        Left = 201
+        Left = 173
         Top = 12
-        Width = 64
-        Height = 26
+        Width = 58
+        Height = 21
         Margins.Left = 0
         Margins.Top = 12
-        Margins.Bottom = 12
         Align = alLeft
         Caption = 'Etapa . . .'
         Font.Charset = ANSI_CHARSET
         Font.Color = 1848330
-        Font.Height = -16
-        Font.Name = 'Segoe UI Semibold'
+        Font.Height = -13
+        Font.Name = 'Segoe UI'
         Font.Style = [fsBold]
         ParentFont = False
         StyleElements = []
-        ExplicitHeight = 21
+        ExplicitHeight = 17
       end
       object lblRotina: TLabel
         AlignWithMargins = True
-        Left = 106
+        Left = 91
         Top = 12
-        Width = 92
-        Height = 26
+        Width = 79
+        Height = 21
         Margins.Left = 0
         Margins.Top = 12
-        Margins.Bottom = 12
         Align = alLeft
         Caption = 'Vendedores /'
         Font.Charset = ANSI_CHARSET
         Font.Color = 1848330
-        Font.Height = -16
+        Font.Height = -13
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
         StyleElements = []
-        ExplicitHeight = 21
+        ExplicitHeight = 17
       end
     end
     object pnlFooter: TPanel
@@ -99,15 +96,17 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
     end
     object pnlBody: TPanel
       Left = 0
-      Top = 50
+      Top = 36
       Width = 811
-      Height = 347
+      Height = 361
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
+      ExplicitTop = 50
+      ExplicitHeight = 347
       object pnlMessage: TPanel
         Left = 0
-        Top = 266
+        Top = 280
         Width = 811
         Height = 81
         Align = alBottom
@@ -115,7 +114,7 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
         Color = 11503390
         ParentBackground = False
         TabOrder = 0
-        ExplicitTop = 0
+        ExplicitTop = 266
         object pnlMessageIcon: TPanel
           Left = 0
           Top = 0
@@ -227,11 +226,11 @@ inherited ViewVendaMobileVendedor: TViewVendaMobileVendedor
         Left = 0
         Top = 0
         Width = 811
-        Height = 266
+        Height = 280
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitTop = 81
+        ExplicitHeight = 266
       end
     end
   end

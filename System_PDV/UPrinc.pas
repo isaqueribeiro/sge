@@ -279,6 +279,7 @@ begin
     // Thread
     aTask := TTask.Create(procedure ()
       begin
+        ExcluirArquivosTemporarios;
         AtivarUpgradeAutomatico;
       end);
      aTask.Start;

@@ -33,15 +33,15 @@ inherited ViewVendaMobileConfigurarChave: TViewVendaMobileConfigurarChave
       object lblTitle: TLabel
         AlignWithMargins = True
         Left = 10
-        Top = 12
-        Width = 225
-        Height = 30
+        Top = 14
+        Width = 205
+        Height = 25
         Margins.Left = 10
         Caption = 'Chave de acesso da API'
         Font.Charset = ANSI_CHARSET
         Font.Color = 1848330
-        Font.Height = -21
-        Font.Name = 'Segoe UI Semibold'
+        Font.Height = -19
+        Font.Name = 'Segoe UI'
         Font.Style = [fsBold]
         ParentFont = False
         StyleElements = []
@@ -86,7 +86,6 @@ inherited ViewVendaMobileConfigurarChave: TViewVendaMobileConfigurarChave
           OnClick = lblSalvarClick
           OnMouseEnter = LabelMouseEnter
           OnMouseLeave = LabelMouseLeave
-          ExplicitTop = 3
           ExplicitWidth = 35
           ExplicitHeight = 17
         end
@@ -131,7 +130,6 @@ inherited ViewVendaMobileConfigurarChave: TViewVendaMobileConfigurarChave
           OnClick = lblFecharClick
           OnMouseEnter = LabelMouseEnter
           OnMouseLeave = LabelMouseLeave
-          ExplicitTop = 3
           ExplicitWidth = 38
           ExplicitHeight = 17
         end
@@ -150,33 +148,57 @@ inherited ViewVendaMobileConfigurarChave: TViewVendaMobileConfigurarChave
       object lblTipoChave: TLabel
         Left = 10
         Top = 6
-        Width = 30
-        Height = 21
+        Width = 26
+        Height = 17
         Caption = 'Tipo'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = 1848330
+        Font.Height = -13
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
         StyleElements = []
       end
       object lblValorChave: TLabel
         Left = 10
-        Top = 68
-        Width = 101
-        Height = 21
+        Top = 60
+        Width = 86
+        Height = 17
         Caption = 'Valor da chave'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = 1848330
+        Font.Height = -13
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
         StyleElements = []
       end
       object cmbTipoChave: TComboBox
         Left = 10
-        Top = 33
+        Top = 29
         Width = 527
-        Height = 29
+        Height = 25
         Style = csDropDownList
+        Font.Charset = ANSI_CHARSET
+        Font.Color = 1848330
+        Font.Height = -13
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 0
         StyleElements = []
       end
       object edtValorChave: TEdit
         Left = 10
-        Top = 95
+        Top = 83
         Width = 527
-        Height = 29
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = 1848330
+        Font.Height = -13
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 1
         StyleElements = []
       end

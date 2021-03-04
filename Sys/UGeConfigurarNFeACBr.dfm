@@ -1549,7 +1549,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         Caption = 'Logo Marca'
       end
       object sbtnLogoMarca: TSpeedButton
-        Left = 416
+        Left = 424
         Top = 71
         Width = 23
         Height = 24
@@ -1574,7 +1574,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       object edtLogoMarca: TEdit
         Left = 0
         Top = 74
-        Width = 410
+        Width = 418
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 1

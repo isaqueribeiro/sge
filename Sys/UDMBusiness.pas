@@ -2574,7 +2574,7 @@ end;
 
 function DelphiIsRunning : Boolean;
 begin
-  // Verifica se o programa rodou a partir do IDE do Delphi7:
+  // Verifica se o programa rodou a partir do IDE do Delphi:
   Result := DebugHook <> 0;
 end;
 

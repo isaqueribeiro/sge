@@ -1125,6 +1125,8 @@ begin
         SepararPorModelo   := ckSepararPorModelo.Checked;
       end;
 
+      // ===== Configurar librarys para uso dos certificados SSL, TLS, ETC... =====
+
       with ACBrNFe.Configuracoes.Geral do
       begin
         SSLLib        := TSSLLib.libCapicom;

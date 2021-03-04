@@ -15601,6 +15601,7 @@ object DMNFe: TDMNFe
     CasasDecimais.MaskvUnCom = ',0.00'
     EspessuraBorda = 1
     BorderIcon = [biSystemMenu, biMinimize, biMaximize]
+    ThreadSafe = False
     Left = 24
     Top = 72
   end

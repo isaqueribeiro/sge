@@ -20,7 +20,7 @@ inherited ViewVendaMobileConfigurar: TViewVendaMobileConfigurar
       Left = 0
       Top = 0
       Width = 828
-      Height = 50
+      Height = 36
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
@@ -28,61 +28,58 @@ inherited ViewVendaMobileConfigurar: TViewVendaMobileConfigurar
         AlignWithMargins = True
         Left = 15
         Top = 12
-        Width = 85
-        Height = 26
+        Width = 71
+        Height = 21
         Margins.Left = 15
         Margins.Top = 12
-        Margins.Bottom = 12
         Align = alLeft
         Caption = 'Configurar /'
         Font.Charset = ANSI_CHARSET
         Font.Color = 1848330
-        Font.Height = -16
+        Font.Height = -13
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
         StyleElements = []
-        ExplicitHeight = 21
+        ExplicitHeight = 17
       end
       object lblEtata: TLabel
         AlignWithMargins = True
-        Left = 175
+        Left = 150
         Top = 12
-        Width = 64
-        Height = 26
+        Width = 58
+        Height = 21
         Margins.Left = 0
         Margins.Top = 12
-        Margins.Bottom = 12
         Align = alLeft
         Caption = 'Etapa . . .'
         Font.Charset = ANSI_CHARSET
         Font.Color = 1848330
-        Font.Height = -16
-        Font.Name = 'Segoe UI Semibold'
-        Font.Style = []
+        Font.Height = -13
+        Font.Name = 'Segoe UI'
+        Font.Style = [fsBold]
         ParentFont = False
         StyleElements = []
-        ExplicitHeight = 21
+        ExplicitHeight = 17
       end
       object lblRotina: TLabel
         AlignWithMargins = True
-        Left = 103
+        Left = 89
         Top = 12
-        Width = 69
-        Height = 26
+        Width = 58
+        Height = 21
         Margins.Left = 0
         Margins.Top = 12
-        Margins.Bottom = 12
         Align = alLeft
         Caption = 'Servidor /'
         Font.Charset = ANSI_CHARSET
         Font.Color = 1848330
-        Font.Height = -16
+        Font.Height = -13
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
         StyleElements = []
-        ExplicitHeight = 21
+        ExplicitHeight = 17
       end
     end
     object pnlFooter: TPanel
@@ -96,15 +93,17 @@ inherited ViewVendaMobileConfigurar: TViewVendaMobileConfigurar
     end
     object pnlBody: TPanel
       Left = 0
-      Top = 50
+      Top = 36
       Width = 828
-      Height = 364
+      Height = 378
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
+      ExplicitTop = 50
+      ExplicitHeight = 364
       object pnlMessage: TPanel
         Left = 0
-        Top = 283
+        Top = 297
         Width = 828
         Height = 81
         Align = alBottom
@@ -112,6 +111,7 @@ inherited ViewVendaMobileConfigurar: TViewVendaMobileConfigurar
         Color = 11503390
         ParentBackground = False
         TabOrder = 0
+        ExplicitTop = 283
         object pnlMessageIcon: TPanel
           Left = 0
           Top = 0
@@ -223,24 +223,26 @@ inherited ViewVendaMobileConfigurar: TViewVendaMobileConfigurar
         Left = 0
         Top = 0
         Width = 828
-        Height = 283
+        Height = 297
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 1
+        ExplicitHeight = 283
         object pnlBotoes: TPanel
           Left = 0
           Top = 0
           Width = 182
-          Height = 283
+          Height = 297
           Align = alLeft
           BevelOuter = bvNone
           TabOrder = 0
+          ExplicitHeight = 283
         end
         object pnlData: TPanel
           Left = 182
           Top = 0
           Width = 646
-          Height = 283
+          Height = 297
           Align = alClient
           BevelOuter = bvNone
           Font.Charset = ANSI_CHARSET
@@ -250,6 +252,7 @@ inherited ViewVendaMobileConfigurar: TViewVendaMobileConfigurar
           Font.Style = []
           ParentFont = False
           TabOrder = 1
+          ExplicitHeight = 283
         end
       end
     end

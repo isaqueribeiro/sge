@@ -314,7 +314,7 @@ type
     procedure RegistrarRotinasMenu;
     procedure AutoUpdateSystem;
     procedure GetInformacoesGerais;
-	procedure OcultarTabs;
+	  procedure OcultarTabs;
   public
     { Public declarations }
     procedure AlertarCliente;
@@ -460,6 +460,7 @@ begin
     // Thread
     aTask := TTask.Create(procedure ()
       begin
+        ExcluirArquivosTemporarios;
         AtivarUpgradeAutomatico;
       end);
      aTask.Start;
