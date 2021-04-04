@@ -203,6 +203,7 @@ var
   function ControlFBSvr(aStart : Boolean): Boolean;
   function DataBaseOnLine : Boolean;
   function GetVersionDB(aSistema : Integer) : Currency;
+  function UsoSistema(aSistema : Integer) : Boolean;
 
   function ShowConfirmation(sTitle, sMsg : String) : Boolean; overload;
   function ShowConfirmation(sMsg : String) : Boolean; overload;
@@ -875,6 +876,33 @@ begin
   end;
 end;
 
+function UsoSistema(aSistema : Integer) : Boolean;
+var
+  aRetorno : Boolean;
+begin
+  aRetorno := False;
+  try
+    try
+      with DMBusiness, fdQryBusca do
+      begin
+          Close;
+          SQL.Clear;
+          SQL.Add('Select');
+          SQL.Add('  s.sis_nome ');
+          SQL.Add('from SYS_SISTEMA s');
+          SQL.Add('where s.sis_cod = ' + aSistema.ToString);
+          Open;
+
+          aRetorno := (FieldByName('sis_nome').AsString.Trim <> EmptyStr);
+      end;
+    except
+      aRetorno := False;
+    end;
+  finally
+    Result := aRetorno;
+  end;
+end;
+
 function ShowConfirmation(sTitle, sMsg : String) : Boolean;
 var
   fMsg  : TFrmMensagem;
@@ -1216,6 +1244,10 @@ begin
 
           GravarSriptSQL(gSistema.Codigo, EmptyStr, True);
           RenameFile(aFileName, ChangeFileExt(aFileName, '.upgraded'));
+
+          // Gravar registro referente ao PDV, caso ele essteja em uso...
+          if UsoSistema(SISTEMA_PDV) then
+            GravarSriptSQL(SISTEMA_PDV, EmptyStr, True);
         end;
     except
       On E : Exception do
