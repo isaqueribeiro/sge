@@ -1286,7 +1286,6 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
           Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Observa'#231#245'es:'
           TabOrder = 11
-          TabStop = True
           object Bevel7: TBevel
             Left = 2
             Top = 213

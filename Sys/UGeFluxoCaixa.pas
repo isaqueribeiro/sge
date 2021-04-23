@@ -526,11 +526,6 @@ begin
           aData := e2Data.Date - 30;
 
         GerarSaldoContaCorrente_v2(FieldByName('codigo').AsInteger, aData, e2Data.Date);
-//        while aData <= e2Data.Date do
-//        begin
-//          GerarSaldoContaCorrente(FieldByName('codigo').AsInteger, aData);
-//          aData := aData + 1;
-//        end;
       end;
 
     end;
@@ -572,11 +567,6 @@ begin
         dData := e1Data.Date;
 
         GerarSaldoContaCorrente_v2(FieldByName('codigo').AsInteger, dData, e2Data.Date);
-//        while dData <= e2Data.Date do
-//        begin
-//          GerarSaldoContaCorrente(FieldByName('codigo').AsInteger, dData);
-//          dData := dData + 1;
-//        end;
       end;
 
     end;
@@ -811,6 +801,12 @@ var
 begin
   with DtSrcTabela.DataSet do
   begin
+    if (FieldByName('ANO').AsInteger = 0) or (FieldByName('NUMERO').AsInteger = 0) then
+    begin
+      FieldByName('ANO').AsInteger    := YearOf(GetDateDB);
+      FieldByName('NUMERO').AsInteger := GetGeneratorID(sGeneratorName);
+    end;
+
     FieldByName('CLIENTE').Required      := ( FieldByName('TIPO').AsString = TIPO_MOVIMENTO_CREDITO );
     FieldByName('TIPO_RECEITA').Required := ( FieldByName('TIPO').AsString = TIPO_MOVIMENTO_CREDITO );
 
@@ -855,10 +851,13 @@ begin
       inherited;
 
       if ( not OcorreuErro ) then
-      begin
-        GerarSaldoContaCorrente(FieldByName('CONTA_CORRENTE').AsInteger, FieldByName('DATAHORA').AsDateTime);
-        CarregarSaldos;
-      end;
+        try
+          WaitAMoment(WAIT_AMOMENT_TextoLivre, 'Recalculando saldo do dia...');
+          GerarSaldoContaCorrente(FieldByName('CONTA_CORRENTE').AsInteger, FieldByName('DATAHORA').AsDateTime);
+          CarregarSaldos;
+        finally
+          WaitAMomentFree;
+        end;
     end;
   end;
 end;
@@ -995,25 +994,14 @@ begin
 end;
 
 procedure TfrmGeFluxoCaixa.btbtnIncluirClick(Sender: TObject);
-var
-  iAno ,
-  iNum : Integer;
 begin
-(*
-  IMR - 14/10/2014 :
-    Inserção deste bloco de código para substituir a função da propriedade GeneratorField do dataset por está gerando erro de campo não
-    localizado.
-*)
-  iAno := YearOf(GetDateDB);
-  iNum := GetGeneratorID(sGeneratorName);
-
   inherited;
 
   if ( not OcorreuErro ) then
     with DtSrcTabela.DataSet do
     begin
-      FieldByName('ANO').AsInteger        := iAno;
-      FieldByName('NUMERO').AsInteger     := iNum;
+      FieldByName('ANO').AsInteger    := 0;
+      FieldByName('NUMERO').AsInteger := 0;
       FieldByName('CONTA_CORRENTE').AsInteger := fdQryContaCorrente.FieldByName('codigo').AsInteger;
     end;
 end;
@@ -1035,11 +1023,6 @@ begin
       Data := e2Data.Date - 30;
 
     GerarSaldoContaCorrente_v2(DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger, Data, e2Data.Date);
-//    while Data <= e2Data.Date do
-//    begin
-//      GerarSaldoContaCorrente(DtSrcTabela.DataSet.FieldByName('CONTA_CORRENTE').AsInteger, Data);
-//      Data := Data + 1;
-//    end;
 
     with DMNFe do
     begin
