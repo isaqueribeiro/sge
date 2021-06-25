@@ -18,16 +18,16 @@ File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeD
 [Modules]
 Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\UPrinc.pas
 Module1=default.htm
-Module2=documentation.htm
-Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\View.InputQuery.pas
-Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\Interfaces.InputQuery.pas
-Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.InputQuery.pas
-Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
+Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj
+Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\View.InputQuery.pas
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\Interfaces.InputQuery.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.InputQuery.pas
+Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
+Module11=documentation.htm
 Count=12
 EditWindowCount=1
 
@@ -35,9 +35,6 @@ EditWindowCount=1
 ModuleType=TSourceModule
 
 [default.htm]
-ModuleType=TURLModule
-
-[documentation.htm]
 ModuleType=TURLModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGO\SGO.dproj]
@@ -66,6 +63,9 @@ ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas]
 ModuleType=TSourceModule
+
+[documentation.htm]
+ModuleType=TURLModule
 
 [EditWindow0]
 ViewCount=12
@@ -105,7 +105,7 @@ RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
 RightPanelData=000008000101000000007C0F00000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000861B000009000000446F636B5369746534FFFFFFFF
 BottomPanelSize=1583
-BottomPanelClients=DockSite1,MessageView
+BottomPanelClients=MessageView,DockSite1
 BottomPanelData=0000080001020100000009000000446F636B5369746531DE44000000000000022F060000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
@@ -431,7 +431,7 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1528
+Left=-1560
 Top=249
 Width=276
 Height=365

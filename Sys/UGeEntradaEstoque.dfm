@@ -528,7 +528,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         end
         object dbEmpresa: TDBLookupComboBox
           Left = 241
-          Top = 37
+          Top = 40
           Width = 281
           Height = 21
           DataField = 'CODEMP'
@@ -1350,7 +1350,7 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         Top = 420
         Width = 1106
         Height = 185
-        ActivePage = TbsInformeNFe
+        ActivePage = tbsPagamento
         Align = alBottom
         HotTrack = True
         TabOrder = 4

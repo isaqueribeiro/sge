@@ -179,41 +179,42 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
         Height = 22
         Hint = 'Executar Pesquisa'
         Anchors = [akTop, akRight]
+        OptionsImage.Glyph.SourceDPI = 96
         OptionsImage.Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          20000000000000040000C30E0000C30E00000000000000000000000000000000
-          00000000000000000000000000000000000000000000AC6B2CBAAC6B2CCC0000
+          424D360400000000000036000000280000001000000010000000010020000000
+          000000000000C40E0000C40E0000000000000000000000000000000000000000
+          000000000000000000000000000000000000AC6B2CBAAC6B2CCC000000000000
           0000000000000000000000000000000000000000000000000000000000000000
-          00000000000000000000000000000000000000000000AC6B2CC0AC6B2CFFAC6B
-          2CD1B5712F29B87330BDB87330CAB974306B0000000000000000000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E0100000000AC6B2CC4AC6B
-          2CFFAC6B2CFFAC6B2CFFAC6B2CF9AC6B2CFFAC6B2CFF00000000000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E4200000000B06D2D2AAC6B
-          2CFFAC6B2C830000000000000000AC6B2C22AC6B2CFFB16F2EA3000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E1E00000000B3712EBDAC6B
-          2CFF00000000000000000000000000000000AC6B2CA9AF6D2DFF000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E1700000000B3712ECAAC6B
-          2CFF00000000000000000000000000000000AD6C2C93AF6D2DFF000000000000
-          000000000000000000006E6E6E056E6E6EFF6E6E6E4900000000B5712E6AAC6B
-          2CFFAD6C2C31000000000000000000000000AC6B2CFFB06D2DCB000000000000
-          000000000000000000006E6E6E166E6E6EFF6E6E6EAE0000000000000000AC6B
-          2CFCAC6B2CFFAD6C2CB7AE6D2D9CAC6B2CFFAC6B2CFF00000000000000000000
-          0000000000006E6E6E046E6E6EBC6E6E6EFF6E6E6EFFC6C6C666000000000000
-          0000AE6C2C9BAC6B2CFFAC6B2CFFAD6C2CCA0000000000000000000000000000
-          0000000000006E6E6E926E6E6EFF6E6E6EFF6E6E6EFF858585FEE9E9E9967A7A
-          7A1E000000000000000000000000000000000000000000000000000000000000
-          00006E6E6E636E6E6EFE6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC9C9C9FFDFDF
-          DFFF727272FE6E6E6E5C00000000000000000000000000000000000000006E6E
-          6E3B6E6E6EF86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF808080FFFCFC
-          FCFFCECECEFF6E6E6EF66E6E6E350000000000000000000000006E6E6E1D6E6E
-          6EE86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC3C3
-          C3FFFFFFFFFFB9B9B9FF6E6E6EE36E6E6E1800000000000000006E6E6ECC6E6E
-          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF7C7C
-          7CFFFAFAFAFFFEFEFEFF9F9F9FFF6E6E6EC66E6E6E07000000006E6E6EFF6E6E
-          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E
-          6EFF707070FF707070FF6E6E6EFF6E6E6EFF6E6E6E7D00000000000000000000
+          000000000000000000000000000000000000AC6B2CC0AC6B2CFFAC6B2CD1B571
+          2F29B87330BDB87330CAB974306B000000000000000000000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E0100000000AC6B2CC4AC6B2CFFAC6B
+          2CFFAC6B2CFFAC6B2CF9AC6B2CFFAC6B2CFF0000000000000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E4200000000B06D2D2AAC6B2CFFAC6B
+          2C830000000000000000AC6B2C22AC6B2CFFB16F2EA300000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E1E00000000B3712EBDAC6B2CFF0000
+          0000000000000000000000000000AC6B2CA9AF6D2DFF00000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E1700000000B3712ECAAC6B2CFF0000
+          0000000000000000000000000000AD6C2C93AF6D2DFF00000000000000000000
+          0000000000006E6E6E056E6E6EFF6E6E6E4900000000B5712E6AAC6B2CFFAD6C
+          2C31000000000000000000000000AC6B2CFFB06D2DCB00000000000000000000
+          0000000000006E6E6E166E6E6EFF6E6E6EAE0000000000000000AC6B2CFCAC6B
+          2CFFAD6C2CB7AE6D2D9CAC6B2CFFAC6B2CFF0000000000000000000000000000
+          00006E6E6E046E6E6EBC6E6E6EFF6E6E6EFFC6C6C6660000000000000000AE6C
+          2C9BAC6B2CFFAC6B2CFFAD6C2CCA000000000000000000000000000000000000
+          00006E6E6E926E6E6EFF6E6E6EFF6E6E6EFF858585FEE9E9E9967A7A7A1E0000
+          0000000000000000000000000000000000000000000000000000000000006E6E
+          6E636E6E6EFE6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC9C9C9FFDFDFDFFF7272
+          72FE6E6E6E5C00000000000000000000000000000000000000006E6E6E3B6E6E
+          6EF86E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF808080FFFCFCFCFFCECE
+          CEFF6E6E6EF66E6E6E350000000000000000000000006E6E6E1D6E6E6EE86E6E
+          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFFC3C3C3FFFFFF
+          FFFFB9B9B9FF6E6E6EE36E6E6E1800000000000000006E6E6ECC6E6E6EFF6E6E
+          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF7C7C7CFFFAFA
+          FAFFFEFEFEFF9F9F9FFF6E6E6EC66E6E6E07000000006E6E6EFF6E6E6EFF6E6E
+          6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF6E6E6EFF7070
+          70FF707070FF6E6E6EFF6E6E6EFF6E6E6E7D0000000000000000000000000000
           0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000}
+          00000000000000000000000000000000000000000000}
         ParentShowHint = False
         ShowHint = True
         SpeedButtonOptions.CanBeFocused = False
@@ -1268,37 +1269,37 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       FieldName = 'DATA_ULTIMA_VENDA'
       Origin = 'DATA_ULTIMA_VENDA'
     end
-    object QryGrupoESTOQUE: TBCDField
+    object QryGrupoESTOQUE: TFMTBCDField
       FieldName = 'ESTOQUE'
       Origin = 'ESTOQUE'
       Precision = 18
       Size = 3
     end
-    object QryGrupoRESERVA: TBCDField
+    object QryGrupoRESERVA: TFMTBCDField
       FieldName = 'RESERVA'
       Origin = 'RESERVA'
       Precision = 18
       Size = 3
     end
-    object QryGrupoDISPONIVEL: TBCDField
+    object QryGrupoDISPONIVEL: TFMTBCDField
       FieldName = 'DISPONIVEL'
       Origin = 'DISPONIVEL'
       Precision = 18
       Size = 3
     end
-    object QryGrupoCUSTO_TOTAL: TBCDField
+    object QryGrupoCUSTO_TOTAL: TFMTBCDField
       FieldName = 'CUSTO_TOTAL'
       Origin = 'CUSTO_TOTAL'
       Precision = 18
       Size = 2
     end
-    object QryGrupoCUSTO_RESERVA: TBCDField
+    object QryGrupoCUSTO_RESERVA: TFMTBCDField
       FieldName = 'CUSTO_RESERVA'
       Origin = 'CUSTO_RESERVA'
       Precision = 18
       Size = 2
     end
-    object QryGrupoCUSTO_DISPONIVEL: TBCDField
+    object QryGrupoCUSTO_DISPONIVEL: TFMTBCDField
       FieldName = 'CUSTO_DISPONIVEL'
       Origin = 'CUSTO_DISPONIVEL'
       Precision = 18
@@ -1368,6 +1369,14 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       Origin = 'ITENS'
       Required = True
     end
+    object QryFabricanteDATA_ULTIMA_COMPRA: TDateField
+      FieldName = 'DATA_ULTIMA_COMPRA'
+      Origin = 'DATA_ULTIMA_COMPRA'
+    end
+    object QryFabricanteDATA_ULTIMA_VENDA: TDateField
+      FieldName = 'DATA_ULTIMA_VENDA'
+      Origin = 'DATA_ULTIMA_VENDA'
+    end
     object QryFabricanteCOMPRA_QTDE_01: TBCDField
       FieldName = 'COMPRA_QTDE_01'
       Origin = 'COMPRA_QTDE_01'
@@ -1388,45 +1397,37 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       Origin = 'VENDA_VALOR_01'
       Precision = 18
     end
-    object QryFabricanteDATA_ULTIMA_COMPRA: TDateField
-      FieldName = 'DATA_ULTIMA_COMPRA'
-      Origin = 'DATA_ULTIMA_COMPRA'
-    end
-    object QryFabricanteDATA_ULTIMA_VENDA: TDateField
-      FieldName = 'DATA_ULTIMA_VENDA'
-      Origin = 'DATA_ULTIMA_VENDA'
-    end
-    object QryFabricanteESTOQUE: TBCDField
+    object QryFabricanteESTOQUE: TFMTBCDField
       FieldName = 'ESTOQUE'
       Origin = 'ESTOQUE'
       Precision = 18
       Size = 3
     end
-    object QryFabricanteRESERVA: TBCDField
+    object QryFabricanteRESERVA: TFMTBCDField
       FieldName = 'RESERVA'
       Origin = 'RESERVA'
       Precision = 18
       Size = 3
     end
-    object QryFabricanteDISPONIVEL: TBCDField
+    object QryFabricanteDISPONIVEL: TFMTBCDField
       FieldName = 'DISPONIVEL'
       Origin = 'DISPONIVEL'
       Precision = 18
       Size = 3
     end
-    object QryFabricanteCUSTO_TOTAL: TBCDField
+    object QryFabricanteCUSTO_TOTAL: TFMTBCDField
       FieldName = 'CUSTO_TOTAL'
       Origin = 'CUSTO_TOTAL'
       Precision = 18
       Size = 2
     end
-    object QryFabricanteCUSTO_RESERVA: TBCDField
+    object QryFabricanteCUSTO_RESERVA: TFMTBCDField
       FieldName = 'CUSTO_RESERVA'
       Origin = 'CUSTO_RESERVA'
       Precision = 18
       Size = 2
     end
-    object QryFabricanteCUSTO_DISPONIVEL: TBCDField
+    object QryFabricanteCUSTO_DISPONIVEL: TFMTBCDField
       FieldName = 'CUSTO_DISPONIVEL'
       Origin = 'CUSTO_DISPONIVEL'
       Precision = 18
@@ -1618,6 +1619,29 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       ReadOnly = True
       Size = 50
     end
+    object QryProdutoDATA_ULTIMA_COMPRA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_ULTIMA_COMPRA'
+      Origin = 'DATA_ULTIMA_COMPRA'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object QryProdutoDATA_ULTIMA_VENDA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_ULTIMA_VENDA'
+      Origin = 'DATA_ULTIMA_VENDA'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object QryProdutoLOTE_ID: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'LOTE_ID'
+      Origin = 'LOTE_ID'
+      ProviderFlags = []
+      ReadOnly = True
+      FixedChar = True
+      Size = 40
+    end
     object QryProdutoCOMPRA_QTDE_01: TBCDField
       AutoGenerateValue = arDefault
       FieldName = 'COMPRA_QTDE_01'
@@ -1650,27 +1674,13 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       ReadOnly = True
       Precision = 18
     end
-    object QryProdutoDATA_ULTIMA_COMPRA: TDateField
-      AutoGenerateValue = arDefault
-      FieldName = 'DATA_ULTIMA_COMPRA'
-      Origin = 'DATA_ULTIMA_COMPRA'
-      ProviderFlags = []
-      ReadOnly = True
-    end
-    object QryProdutoDATA_ULTIMA_VENDA: TDateField
-      AutoGenerateValue = arDefault
-      FieldName = 'DATA_ULTIMA_VENDA'
-      Origin = 'DATA_ULTIMA_VENDA'
-      ProviderFlags = []
-      ReadOnly = True
-    end
-    object QryProdutoFRACIONADOR: TBCDField
+    object QryProdutoFRACIONADOR: TFMTBCDField
       FieldName = 'FRACIONADOR'
       Origin = 'FRACIONADOR'
       Precision = 18
       Size = 3
     end
-    object QryProdutoESTOQUE: TBCDField
+    object QryProdutoESTOQUE: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'ESTOQUE'
       Origin = 'ESTOQUE'
@@ -1679,7 +1689,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       Precision = 18
       Size = 3
     end
-    object QryProdutoRESERVA: TBCDField
+    object QryProdutoRESERVA: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'RESERVA'
       Origin = 'RESERVA'
@@ -1688,7 +1698,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       Precision = 18
       Size = 3
     end
-    object QryProdutoDISPONIVEL: TBCDField
+    object QryProdutoDISPONIVEL: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'DISPONIVEL'
       Origin = 'DISPONIVEL'
@@ -1697,7 +1707,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       Precision = 18
       Size = 3
     end
-    object QryProdutoCUSTO_TOTAL: TBCDField
+    object QryProdutoCUSTO_TOTAL: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'CUSTO_TOTAL'
       Origin = 'CUSTO_TOTAL'
@@ -1706,7 +1716,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       Precision = 18
       Size = 2
     end
-    object QryProdutoCUSTO_RESERVA: TBCDField
+    object QryProdutoCUSTO_RESERVA: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'CUSTO_RESERVA'
       Origin = 'CUSTO_RESERVA'
@@ -1715,7 +1725,7 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       Precision = 18
       Size = 2
     end
-    object QryProdutoCUSTO_DISPONIVEL: TBCDField
+    object QryProdutoCUSTO_DISPONIVEL: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'CUSTO_DISPONIVEL'
       Origin = 'CUSTO_DISPONIVEL'
@@ -1723,15 +1733,6 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       ReadOnly = True
       Precision = 18
       Size = 2
-    end
-    object QryProdutoLOTE_ID: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'LOTE_ID'
-      Origin = 'LOTE_ID'
-      ProviderFlags = []
-      ReadOnly = True
-      FixedChar = True
-      Size = 40
     end
     object QryProdutoPERCENTUAL: TBCDField
       AutoGenerateValue = arDefault

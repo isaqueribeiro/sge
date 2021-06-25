@@ -115,7 +115,6 @@ type
     fdQryTabelaSTATUS: TSmallintField;
     fdQryTabelaMOTIVO: TMemoField;
     fdQryTabelaOBS: TMemoField;
-    fdQryTabelaVALOR_TOTAL: TBCDField;
     fdQryTabelaCANCEL_USUARIO: TStringField;
     fdQryTabelaCANCEL_DATAHORA: TSQLTimeStampField;
     fdQryTabelaCANCEL_MOTIVO: TMemoField;
@@ -135,21 +134,14 @@ type
     cdsTabelaItensITEM: TSmallintField;
     cdsTabelaItensPRODUTO: TStringField;
     cdsTabelaItensQTDE_TIPO_LANCAMENTO: TSmallintField;
-    cdsTabelaItensQTDE: TBCDField;
-    cdsTabelaItensQTDE_FRACIONADA: TBCDField;
-    cdsTabelaItensFRACIONADOR: TBCDField;
     cdsTabelaItensUNIDADE: TSmallintField;
     cdsTabelaItensUNIDADE_FRACAO: TSmallintField;
-    cdsTabelaItensCUSTO_UNITARIO: TBCDField;
-    cdsTabelaItensCUSTO_TOTAL: TBCDField;
     cdsTabelaItensDESCRI: TStringField;
     cdsTabelaItensAPRESENTACAO: TStringField;
     cdsTabelaItensDESCRI_APRESENTACAO: TStringField;
     cdsTabelaItensUNP_DESCRICAO: TStringField;
     cdsTabelaItensUNP_SIGLA: TStringField;
     cdsTabelaItensUNIDADE_SIGLA: TStringField;
-    cdsTabelaItensESTOQUE: TBCDField;
-    cdsTabelaItensRESERVA: TBCDField;
     cdsTabelaItensMOVIMENTA_ESTOQUE: TSmallintField;
     cdsTabelaItensUNIDADE_FRACIONADA: TStringField;
     spAjusteEstoqueVenda: TFDStoredProc;
@@ -159,6 +151,14 @@ type
     fdQryProduto: TFDQuery;
     fdQryEntradaProduto: TFDQuery;
     fdQryAutorizacaoProduto: TFDQuery;
+    fdQryTabelaVALOR_TOTAL: TFMTBCDField;
+    cdsTabelaItensQTDE: TFMTBCDField;
+    cdsTabelaItensQTDE_FRACIONADA: TFMTBCDField;
+    cdsTabelaItensFRACIONADOR: TFMTBCDField;
+    cdsTabelaItensCUSTO_UNITARIO: TFMTBCDField;
+    cdsTabelaItensCUSTO_TOTAL: TFMTBCDField;
+    cdsTabelaItensESTOQUE: TFMTBCDField;
+    cdsTabelaItensRESERVA: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -261,7 +261,7 @@ implementation
 
 uses
   DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeProduto, UGeApropriacaoEstoqueCancelar,
-  UGeCentroCusto, UGeEntradaEstoque, UGeAutorizacaoCompra;
+  UGeCentroCusto, UGeEntradaEstoque, UGeAutorizacaoCompra, Controller.Tabela;
 
 {$R *.dfm}
 
@@ -384,6 +384,19 @@ begin
 
   if (gSistema.Codigo <> SISTEMA_GESTAO_IND) then
     raise Exception.Create('Rotina se aplica apenas ao Sistema de Gestão Industrial (SGI)');
+
+  Tabela
+    .Display('CONTROLE', 'Contole', DisplayFormatCodigo, TAlignment.taCenter)
+    .Display('VALOR_TOTAL', 'Valor Total (R$)', ',0.00', TAlignment.taRightJustify)
+    .Configurar( fdQryTabela );
+
+  TTabelaController
+    .New
+    .Tabela( cdsTabelaItens )
+    .Display('QTDE', 'Quantidade', ',0.###', TAlignment.taRightJustify)
+    .Display('CUSTO_UNITARIO', 'Custo Unitário', ',0.00', TAlignment.taRightJustify)
+    .Display('CUSTO_TOTAL',    'Custo Total',    ',0.00', TAlignment.taRightJustify)
+    .Configurar( cdsTabelaItens );
 end;
 
 procedure TfrmGeApropriacaoEstoque.btbtnIncluirClick(Sender: TObject);

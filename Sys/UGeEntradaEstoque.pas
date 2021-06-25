@@ -952,8 +952,8 @@ begin
         cdsTabelaItensQTDE.Assign          ( FieldByName('quantidade') );
         cdsTabelaItensUNID_COD.Assign      ( FieldByName('unidade') );
         cdsTabelaItensUNP_SIGLA.Assign     ( FieldByName('unp_sigla') );
-        //cdsTabelaItensCFOP.Assign          ( FieldByName('codcfop') );
         cdsTabelaItensCFOP.Assign          ( DtSrcTabela.DataSet.FieldByName('NFCFOP') );
+        cdsTabelaItensNCM_SH.Assign        ( FieldByName('ncm_sh') );
         cdsTabelaItensCST.Assign           ( FieldByName('cst') );
         cdsTabelaItensCSOSN.Assign         ( FieldByName('csosn') );
         cdsTabelaItensALIQUOTA.Assign      ( FieldByName('aliquota') );
@@ -2631,6 +2631,8 @@ var
   sMotivo ,
   sObservacao  : String;
   dDataInicial : TDateTime;
+  iFormaPagto    ,
+  iCOndicaoPagto : Integer;
 begin
   with DtSrcTabela.DataSet do
     if ( State in [dsEdit, dsInsert] ) then
@@ -2648,7 +2650,7 @@ begin
         if ( (GetDateDB - dDataInicial) < 7 ) then
           dDataInicial := GetDateDB - 7;
 
-        if ( SelecionarAutorizacao(Self, FieldByName('CODFORN').AsInteger, dDataInicial, iAno, iCodigo, sEmpresa, sMotivo, sObservacao) ) then
+        if ( SelecionarAutorizacao(Self, FieldByName('CODFORN').AsInteger, dDataInicial, iAno, iCodigo, sEmpresa, sMotivo, sObservacao, iFormaPagto, iCOndicaoPagto) ) then
         begin
           FieldByName('AUTORIZACAO_ANO').AsInteger    := iAno;
           FieldByName('AUTORIZACAO_CODIGO').AsInteger := iCodigo;
@@ -2659,55 +2661,24 @@ begin
 
           if (sObservacao <> EmptyStr) then
             dbObservacao.Lines.Add(sObservacao);
+
+          if (iFormaPagto > 0) then
+            FieldByName('FORMAPAGTO_COD').AsInteger := iFormaPagto;
+
+          if (iCOndicaoPagto > 0) then
+          begin
+            FieldByName('CONDICAOPAGTO_COD').AsInteger := iCOndicaoPagto;
+            dbCondicaoPagtoClick(dbCondicaoPagto);
+          end;
         end;
       end
     end;
 end;
 
 procedure TfrmGeEntradaEstoque.RecarregarRegistro;
-//var
-//  iAno ,
-//  iCod : Integer;
-//  sID : String;
 begin
   with DtSrcTabela.DataSet do
   begin
-  //  { DONE -oIsaque -cEntrada : 22/05/2014 - Rotina de busca dos dados atualizados dos registros antes de qualquer manipulação }
-  //
-  //  if ( State in [dsEdit, dsInsert] ) then
-  //    Exit;
-  //
-  //  if IsEmpty then
-  //    sID := EmptyStr
-  //  else
-  //    sID := FieldByName('CODCONTROL').AsString;
-  //
-  //  if ( sID <> EmptyStr ) then
-  //  begin
-  //    iAno := FieldByName('ANO').AsInteger;
-  //    iCod := FieldByName('CODCONTROL').AsInteger;
-  //
-  //    if ( not FieldByName('DTEMISS').IsNull ) then
-  //    begin
-  //      if ( FieldByName('DTEMISS').AsDateTime < e1Data.Date ) then
-  //        e1Data.Date := FieldByName('DTEMISS').AsDateTime;
-  //
-  //      if ( FieldByName('DTEMISS').AsDateTime > e2Data.Date ) then
-  //        e2Data.Date := FieldByName('DTEMISS').AsDateTime;
-  //    end;
-  //
-  //    Close;
-  //    Open;
-  //
-  //    if not Locate('CODCONTROL', sID, []) then
-  //    begin
-  //      Close;
-  //
-  //      ShowInformation('Favor pesquisar novamente o registro de entrada de ' + IfThen(FTipoMovimento = tmeProduto, 'produtos', 'serviços') +'!');
-  //      pgcGuias.ActivePage := tbsTabela;
-  //      edtFiltrar.SetFocus;
-  //    end;
-  //  end;
       if ( not FieldByName('DTEMISS').IsNull ) then
       begin
         if ( FieldByName('DTEMISS').AsDateTime < e1Data.Date ) then
@@ -2745,7 +2716,6 @@ begin
   end;
 
   // Desistir na inserção de um novo produto/serviço
-//  if ( (Key = VK_ESCAPE) and (pgcGuias.ActivePage = tbsCadastro) and (cdsTabelaItens.State in [dsEdit, dsInsert]) and (Trim(dbProduto.Text) = EmptyStr) ) then
   if ( (Key = VK_ESCAPE) and (pgcGuias.ActivePage = tbsCadastro) and (cdsTabelaItens.State in [dsEdit, dsInsert]) ) then
     cdsTabelaItens.Cancel
   else
