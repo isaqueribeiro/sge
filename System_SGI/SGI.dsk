@@ -1,39 +1,48 @@
 ﻿[Closed Files]
 File_0=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeCentroCusto.pas',0,1,1,1,1,0,0,,
 File_1=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeApropriacaoEstoquePesquisa.pas',0,1,650,1,698,0,0,,
-File_2=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeApropriacaoEstoque.pas',0,1,376,49,398,0,0,,
-File_3=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\Data.DB.pas',0,1,3205,1,3229,0,0,,
-File_4=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeContasAPagar.pas',0,1,297,1,341,0,0,,
-File_5=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas',0,1,335,16,374,0,0,,
-File_6=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixa.pas',0,1,805,100,829,0,0,,{1
-File_7=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.AutoUpgrade.pas',0,1,60,3,86,0,0,,
-File_8=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\VCL\Vcl.Graphics.pas',0,1,4332,1,4356,0,0,,
-File_9=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas',0,1,1,17,34,0,0,,
-File_10=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\SGE.Model.Dados.pas',0,1,1,1,1,0,0,,
-File_11=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas',0,1,1,1,1,0,0,,
-File_12=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.InputQuery.pas',0,1,1,1,1,0,0,,
-File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\Interfaces.InputQuery.pas',0,1,1,1,1,0,0,,
+File_2=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\Data.DB.pas',0,1,3205,1,3229,0,0,,
+File_3=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeContasAPagar.pas',0,1,297,1,341,0,0,,
+File_4=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeProduto.pas',0,1,335,16,374,0,0,,
+File_5=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeFluxoCaixa.pas',0,1,805,100,829,0,0,,{1
+File_6=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.AutoUpgrade.pas',0,1,60,3,86,0,0,,
+File_7=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\VCL\Vcl.Graphics.pas',0,1,4332,1,4356,0,0,,
+File_8=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas',0,1,1,17,34,0,0,,
+File_9=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\SGE.Model.Dados.pas',0,1,1,1,1,0,0,,
+File_10=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas',0,1,1,1,1,0,0,,
+File_11=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\Service.InputQuery.pas',0,1,1,1,1,0,0,,
+File_12=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Services\InputQuery\Interfaces.InputQuery.pas',0,1,1,1,1,0,0,,
 
 [Modules]
-Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas
+Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeApropriacaoEstoque.pas
 Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeAutorizacaoCompra.pas
-Module2=default.htm
-Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
-Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFSe.pas
-Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UEcfFactory.pas
-Module11=documentation.htm
-Count=12
+Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas
+Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module5=default.htm
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\SGI.dproj
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas
+Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFSe.pas
+Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\lib\UEcfFactory.pas
+Module12=documentation.htm
+Count=13
 EditWindowCount=1
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeApropriacaoEstoque.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeAutorizacaoCompra.pas]
+ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeAutorizacaoCompra.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 
 [default.htm]
@@ -45,13 +54,7 @@ ModuleType=TBaseProject
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas]
-ModuleType=TSourceModule
-
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UPrinc.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas]
@@ -67,8 +70,8 @@ ModuleType=TSourceModule
 ModuleType=TURLModule
 
 [EditWindow0]
-ViewCount=12
-CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas
+ViewCount=13
+CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeApropriacaoEstoque.pas
 View0=0
 View1=1
 View2=2
@@ -81,6 +84,7 @@ View8=8
 View9=9
 View10=10
 View11=11
+View12=12
 PercentageSizes=1
 Create=1
 Visible=1
@@ -104,8 +108,8 @@ RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
 RightPanelData=00000800010100000000201300000000000001D00700000000000001000000004412000009000000446F636B536974653201000000000022000009000000446F636B5369746534FFFFFFFF
 BottomPanelSize=0
-BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020200000009000000446F636B53697465310F0000004D65737361676556696577466F726D1534000000000000022606000000000000FFFFFFFF
+BottomPanelClients=MessageView,DockSite1
+BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B53697465311534000000000000022606000000000000FFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -176,13 +180,13 @@ EditViewName=Borland.FormDesignerView
 [View7]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-CursorX=43
-CursorY=29
-TopLine=3
+CursorX=5
+CursorY=250
+TopLine=217
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+EditViewName=Borland.FormDesignerView
 
 [View8]
 CustomEditViewType=TEditView
@@ -210,8 +214,8 @@ EditViewName=Borland.FormDesignerView
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoque.pas
 CursorX=1
-CursorY=955
-TopLine=911
+CursorY=2637
+TopLine=2626
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -227,6 +231,17 @@ LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UGeAutorizacaoCompra.pas
+
+[View12]
+CustomEditViewType=TEditView
+Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeApropriacaoEstoque.pas
+CursorX=3
+CursorY=1693
+TopLine=1694
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGI\UGeApropriacaoEstoque.pas
 
 [UndockedDesigner]
 Count=0
@@ -339,7 +354,7 @@ Visible=0
 Docked=1
 State=0
 Left=0
-Top=28
+Top=0
 Width=2771
 Height=1413
 MaxLeft=-1
@@ -403,7 +418,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=4952
-TBDockHeight=8500
+TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
@@ -411,8 +426,8 @@ SplitPos=111
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=Name,Action
-ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,Font=0,LiveBindings=0,"LiveBindings Designer=0",Margins=1,BevelEdges=0,Touch=0,StyleElements=0,DataSource=0,ListSource=0
+SelectedItem=AboutJVCL,OnButtonClick
+ExpandedItems=Constraints=0,DataSource=0,Font=0,LiveBindings=0,"LiveBindings Designer=0",Margins=0,ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,Params=0,ResourceOptions=0,Transaction=0,TxOptions=0,UpdateOptions=0,UpdateTransaction=0,Anchors=0,BevelEdges=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -423,11 +438,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=8231
+Height=8500
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=8231
+ClientHeight=8500
 TBDockHeight=5962
 LRDockWidth=2510
 Dockable=1
@@ -439,8 +454,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1528
-Top=249
+Left=0
+Top=0
 Width=276
 Height=365
 MaxLeft=-1
@@ -495,8 +510,7 @@ StayOnTop=0
 Column0Width=145
 Column1Width=100
 Column2Width=115
-Column3Width=250
-Column4Width=124
+Column3Width=374
 
 [LocalVarsWindow]
 PercentageSizes=1
@@ -629,11 +643,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=8231
+Height=8500
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=8231
+ClientHeight=8500
 TBDockHeight=4885
 LRDockWidth=7151
 Dockable=1
@@ -645,8 +659,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=380
-Top=817
+Left=0
+Top=0
 Width=2854
 Height=3212
 MaxLeft=-1
@@ -665,7 +679,7 @@ Visible=0
 Docked=1
 State=0
 Left=-8
-Top=-120
+Top=-8
 Width=1849
 Height=3144
 MaxLeft=-1
@@ -769,11 +783,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=8231
+Height=8500
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=8231
+ClientHeight=8500
 TBDockHeight=4885
 LRDockWidth=5307
 Dockable=1
@@ -833,8 +847,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=0
-Top=28
+Left=8
+Top=8
 Width=3823
 Height=1423
 MaxLeft=-1
@@ -865,7 +879,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=4510
-TBDockHeight=8500
+TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0
@@ -889,7 +903,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=3471
-TBDockHeight=8500
+TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
@@ -913,7 +927,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=3913
-TBDockHeight=8500
+TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0

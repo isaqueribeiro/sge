@@ -972,12 +972,12 @@ begin
         cdsTabelaItensCUSTOMEDIO.AsCurrency  := cPrecoUN + cdsTabelaItensVALOR_IPI.AsCurrency;
         cdsTabelaItensTOTAL_BRUTO.AsCurrency := cPrecoUN * cdsTabelaItensQTDE.AsCurrency;
 
-        cdsTabelaItensPERC_PARTICIPACAO.AsCurrency := cdsTabelaItensTOTAL_BRUTO.AsCurrency / DtSrcTabela.DataSet.FieldByName('TOTALPROD').AsCurrency * 100;
+        cdsTabelaItensPERC_PARTICIPACAO.AsCurrency := cdsTabelaItensTOTAL_BRUTO.AsCurrency  / DtSrcTabela.DataSet.FieldByName('TOTALPROD').AsCurrency * 100;
         cdsTabelaItensVALOR_FRETE.Value            := cdsTabelaItensPERC_PARTICIPACAO.Value * DtSrcTabela.DataSet.FieldByName('FRETE').AsCurrency / 100;
         cdsTabelaItensVALOR_DESCONTO.Value         := cdsTabelaItensPERC_PARTICIPACAO.Value * DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency / 100;
         cdsTabelaItensVALOR_OUTROS.Value           := cdsTabelaItensPERC_PARTICIPACAO.Value * DtSrcTabela.DataSet.FieldByName('OUTROSCUSTOS').AsCurrency / 100;
 
-        cdsTabelaItensTOTAL_LIQUIDO.AsCurrency     := cdsTabelaItensTOTAL_BRUTO.AsCurrency - cdsTabelaItensVALOR_DESCONTO.AsCurrency; //cdsTabelaItensCUSTOMEDIO.AsCurrency * cdsTabelaItensQTDE.AsCurrency;
+        cdsTabelaItensTOTAL_LIQUIDO.AsCurrency     := cdsTabelaItensTOTAL_BRUTO.AsCurrency - cdsTabelaItensVALOR_DESCONTO.AsCurrency;
 
         cdsTabelaItens.Post;
 
@@ -1759,7 +1759,7 @@ begin
           cdsTabelaItensVALOR_DESCONTO.Value     := cdsTabelaItensPERC_PARTICIPACAO.Value * FieldByName('DESCONTO').AsCurrency / 100;
           cdsTabelaItensVALOR_OUTROS.Value       := cdsTabelaItensPERC_PARTICIPACAO.Value * FieldByName('OUTROSCUSTOS').AsCurrency / 100;
 
-          cdsTabelaItensTOTAL_LIQUIDO.AsCurrency := cdsTabelaItensTOTAL_BRUTO.AsCurrency - cdsTabelaItensVALOR_DESCONTO.AsCurrency; //cdsTabelaItensCUSTOMEDIO.AsCurrency * cdsTabelaItensQTDE.AsCurrency;
+          cdsTabelaItensTOTAL_LIQUIDO.AsCurrency := cdsTabelaItensTOTAL_BRUTO.AsCurrency - cdsTabelaItensVALOR_DESCONTO.AsCurrency;
         end;
       end;
     end;
