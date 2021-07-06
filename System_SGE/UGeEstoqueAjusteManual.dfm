@@ -438,6 +438,8 @@ inherited frmGeEstoqueAjusteManual: TfrmGeEstoqueAjusteManual
         FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF0000FF00}
       NumGlyphs = 2
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 0
       OnButtonClick = dbProdutoButtonClick
       OnExit = ControlEditExit

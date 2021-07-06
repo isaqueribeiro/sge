@@ -173,6 +173,7 @@ type
     qryMaterialFRACIONADOR: TFMTBCDField;
     qryMaterialCUSTO: TBCDField;
     qryMaterialTOTAL: TFMTBCDField;
+    btnPesquisarProduto: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure nmCarregarIAClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -208,6 +209,7 @@ type
     procedure qryInventarioCONTROLEGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure qryInventarioSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure qryInventarioCENTRO_CUSTO_DESCGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure btnPesquisarProdutoClick(Sender: TObject);
   private
     { Private declarations }
     ver : IVersao;
@@ -378,7 +380,8 @@ end;
 procedure TfrmGeInventario.FormShow(Sender: TObject);
 begin
   inherited;
-  nmCarregarIAClick(Self);
+  if not PnlMaterial.Visible then
+    nmCarregarIAClick(Self);
 end;
 
 procedure TfrmGeInventario.nmCarregarIEClick(Sender: TObject);
@@ -666,11 +669,31 @@ begin
   end;
 end;
 
+procedure TfrmGeInventario.btnPesquisarProdutoClick(Sender: TObject);
+var
+  aProduto : TProdutoServico;
+begin
+  if not PnlMaterial.Visible then
+    Exit;
+
+  if ( not qryMaterial.Active ) then
+    Exit
+  else
+  if ( qryMaterial.State in [dsEdit, dsInsert] ) then
+  begin
+    if SelecionarProdutoParaEntrada(Self, aProduto) then
+    begin
+      CarregarDadosProduto(aProduto.aCodigo);
+      dbProdutoQtde.SetFocus;
+    end;
+  end;
+end;
+
 procedure TfrmGeInventario.CarregarDadosProduto(Codigo: Integer);
 begin
   if not PnlMaterial.Visible then
     Exit;
-    
+
   if ( Codigo = 0 ) then
   begin
     ShowWarning('Favor informar o código do material/produto');
@@ -699,10 +722,13 @@ begin
         qryMaterialUNIDADE.AsInteger            := FieldByName('unidade').AsInteger;
 
         if (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) then
-          qryMaterialCUSTO.AsCurrency           := FieldByName('preco').AsCurrency        // Custo médio inteiro
+          qryMaterialCUSTO.AsCurrency           := FieldByName('preco').AsCurrency         // Custo médio inteiro
         else
         if ( FieldByName('custo_medio').AsCurrency > 0.0 ) then
-          qryMaterialCUSTO.AsCurrency           := FieldByName('custo_medio').AsCurrency  // Custo médio fracionado
+          qryMaterialCUSTO.AsCurrency           := FieldByName('custo_medio').AsCurrency   // Custo médio fracionado
+        else
+        if ( FieldByName('custo_entrada').AsCurrency > 0.0 ) then
+          qryMaterialCUSTO.AsCurrency           := FieldByName('custo_entrada').AsCurrency // Custo entrada fracionado
         else
           qryMaterialCUSTO.AsCurrency           := FieldByName('preco').AsCurrency;
 
@@ -716,7 +742,11 @@ begin
       end
       else
       begin
-        ShowWarning('Código de produto não cadastrado!');
+        if (qryInventarioCENTRO_CUSTO.AsInteger = 0) then
+          ShowWarning('Código de produto não cadastrado!')
+        else
+          ShowWarning('Produto não encontrado no estoque do centro de custo ' + QuotedStr(qryInventarioCENTRO_CUSTO_DESC.AsString)  +'!');
+
         qryMaterialPRODUTO.Clear;
         
         if ( dbProdutoCodigo.Visible and dbProdutoCodigo.Enabled ) then
@@ -737,9 +767,13 @@ procedure TfrmGeInventario.ControlEditExit(Sender: TObject);
 begin
   inherited;
   if ( Sender = dbProdutoCodigo ) then
-    if ( qryMaterial.State in [dsEdit, dsInsert] ) then
-      CarregarDadosProduto( StrToIntDef(qryMaterialPRODUTO.AsString, 0) );
-
+    if PnlMaterial.Visible and (qryMaterial.State in [dsEdit, dsInsert]) then
+    begin
+      if (StrToIntDef(qryMaterialPRODUTO.AsString, 0) = 0) then
+        btnPesquisarProduto.SetFocus
+      else
+        CarregarDadosProduto( StrToIntDef(qryMaterialPRODUTO.AsString, 0) );
+    end;
 end;
 
 procedure TfrmGeInventario.FormKeyDown(Sender: TObject; var Key: Word;
@@ -764,6 +798,12 @@ begin
     begin
       if nmExcluirProduto.Visible and nmExcluirProduto.Enabled then
         nmExcluirProduto.Click;
+    end
+    else
+    if (Key = SYS_KEY_P) then
+    begin
+      if PnlMaterial.Visible and dbProdutoCodigo.Focused then
+        btnPesquisarProduto.Click;
     end;
 
   end

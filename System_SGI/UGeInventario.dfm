@@ -1105,8 +1105,8 @@ inherited frmGeInventario: TfrmGeInventario
       OnClick = BtnCancelarItemClick
     end
     object dbProdutoCodigo: TDBEdit
-      Left = 24
-      Top = 72
+      Left = 25
+      Top = 74
       Width = 113
       Height = 24
       CharCase = ecUpperCase
@@ -1122,9 +1122,9 @@ inherited frmGeInventario: TfrmGeInventario
       OnExit = ControlEditExit
     end
     object dbProdutoNome: TDBEdit
-      Left = 144
+      Left = 174
       Top = 72
-      Width = 449
+      Width = 419
       Height = 24
       TabStop = False
       Color = clMoneyGreen
@@ -1206,6 +1206,38 @@ inherited frmGeInventario: TfrmGeInventario
       Font.Style = []
       ParentFont = False
       TabOrder = 6
+    end
+    object btnPesquisarProduto: TcxButton
+      Left = 144
+      Top = 72
+      Width = 24
+      Height = 24
+      Hint = 'Pesquisar Produto (Ctrl + P)'
+      OptionsImage.Glyph.SourceDPI = 96
+      OptionsImage.Glyph.Data = {
+        89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+        61000000097048597300000EC400000EC401952B0E1B000001ED49444154388D
+        95D14F68D3601CC6F1EFBB942E8319AD75A8D082DB6438A98A3090A00813664F
+        5E4484E9D1C306A23BAEE0401C548297512FF5201EC5D29B273B26388A768888
+        856A10458A06FF4334832D640BAF97A6A45D2BFA3BBDBCBCCFE7CDF3464829E9
+        362353C539E02C3008AC032B8AAA2D98B9743938233A01A94CE598675B2BDD60
+        45D59E98B9F478472095A9ECF76CEB1DC080A6CA6B9363E26042C359DFA4F0F4
+        13C5653340CA662E7D720B303255FC0AEC3E3A14F70BB3A714D938208410524A
+        F9B2BECAA451120DE4740B303A533AECBB4E15E0ED9D7332088501801B4553DC
+        7FFC1AA01469AB3701A01FDA670B216241B0F9608DF58513491AC0F176600740
+        BC3FBA29A5ECFA05F16DBD01DADF0E7C007855FFD5C35FE68DE504CB8F2D80D2
+        A7157CD7B9677DF91EAFFF74BDC181BE68A70AD9072F242080875BFEC2E84C69
+        D1779D0980A59B6736923B7B23E10A97F3CFE452F5730F80A26A5A0B90CA542E
+        79B675370C0E25F7FC181B8E29BFD73694D2F3F7DB83FD682C71BE66E8C52690
+        CA54A63DDBCA37EBA85AD5779D231D9EC08FC612E335432F03441AE12B9E6DDD
+        0EE9B76A863E9BCA5476F9EBCE456018580596CD5C7A31AC8903571F4DFBAE93
+        0F85B335439FEB7073C789F8AE930D85AFD70C7DFE5FC34185BDC03745D5E66B
+        86BEF03F61803F17E7D816108DFDA70000000049454E44AE426082}
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 9
+      TabStop = False
+      OnClick = btnPesquisarProdutoClick
     end
   end
   object dtsEmpresa: TDataSource
@@ -4650,6 +4682,7 @@ inherited frmGeInventario: TfrmGeInventario
       '  , g.fracionador'
       '  , g.unidade'
       '  , g.custo_medio'
+      '  , p.customedio / coalesce(p.fracionador, 1.0) as custo_entrada'
       '  , p.preco'
       '  , g.lote_id'
       '  , u.unp_descricao as und_descricao'

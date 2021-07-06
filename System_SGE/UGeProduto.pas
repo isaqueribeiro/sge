@@ -51,7 +51,8 @@ type
     aValorCusto     ,
     aPercentualRedBC,
     aEstoque ,
-    aReserva : Currency;
+    aReserva ,
+    aFracionador : Currency;
     aMovimentaEstoque,
     aEstoquePorLote  : Boolean;
   end;
@@ -675,6 +676,7 @@ begin
 
         aEstoque := FieldByName('QTDE').AsCurrency;
         aReserva := FieldByName('RESERVA').AsCurrency;
+        aFracionador := FieldByName('FRACIONADOR').AsCurrency;
 
         aMovimentaEstoque := (FieldByName('MOVIMENTA_ESTOQUE').AsInteger  = FLAG_SIM);
         aEstoquePorLote   := (FieldByName('ESTOQUE_APROP_LOTE').AsInteger = FLAG_SIM);
@@ -888,6 +890,7 @@ begin
 
         aEstoque := FieldByName('QTDE').AsCurrency;
         aReserva := FieldByName('RESERVA').AsCurrency;
+        aFracionador := FieldByName('FRACIONADOR').AsCurrency;
 
         aMovimentaEstoque := (FieldByName('MOVIMENTA_ESTOQUE').AsInteger  = FLAG_SIM);
         aEstoquePorLote   := (FieldByName('ESTOQUE_APROP_LOTE').AsInteger = FLAG_SIM);

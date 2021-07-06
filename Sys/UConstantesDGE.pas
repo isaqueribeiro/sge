@@ -93,6 +93,8 @@ const
   SYS_KEY_M   = 77;
   SYS_KEY_N   = 78;
   SYS_KEY_O   = 79;
+  SYS_KEY_P   = 80;
+  SYS_KEY_Q   = 81;
   SYS_KEY_R   = 82;
   SYS_KEY_S   = 83;
   SYS_KEY_T   = 84;

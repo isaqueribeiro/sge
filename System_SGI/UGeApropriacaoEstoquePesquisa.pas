@@ -456,9 +456,19 @@ end;
 procedure TfrmGeApropriacaoEstoquePesquisa.ExecutarPesquisa(
   const TipoFiltro: Integer);
 var
-  sWhr : String;
+  sWhr ,
+  sFind: String;
 begin
-  sWhr := '(1=1)';
+  sWhr  := '(1=1)';
+  sFind := AnsiUpperCase(Trim(edPesquisar.Text));
+  sFind := StringReplace(sFind, ' EM ', ' ', [rfReplaceAll]);
+  sFind := StringReplace(sFind, ' DA ', ' ', [rfReplaceAll]);
+  sFind := StringReplace(sFind, ' DE ', ' ', [rfReplaceAll]);
+  sFind := StringReplace(sFind, ' DO ', ' ', [rfReplaceAll]);
+  sFind := StringReplace(sFind, ' NA ', ' ', [rfReplaceAll]);
+  sFind := StringReplace(sFind, ' NE ', ' ', [rfReplaceAll]);
+  sFind := StringReplace(sFind, ' NO ', ' ', [rfReplaceAll]);
+  sFind := StringReplace(sFind, ' ', '%', [rfReplaceAll]);
 
   CdsTotal.Close;
 
@@ -482,16 +492,16 @@ begin
           SQL.Clear;
           SQL.AddStrings( FSQLProduto );
 
-          if ( Trim(edPesquisar.Text) <> EmptyStr ) then
-            if ( StrToIntDef(Trim(edPesquisar.Text), 0) > 0 ) then
-              sWhr := sWhr + ' and (p.cod like ' + QuotedStr('%' + edPesquisar.Text + '%') + ')'
+          if ( Trim(sFind) <> EmptyStr ) then
+            if ( StrToIntDef(Trim(sFind), 0) > 0 ) then
+              sWhr := sWhr + ' and (p.cod like ' + QuotedStr('%' + sFind + '%') + ')'
             else
             begin
-              sWhr := sWhr + ' and (upper(p.descri) like ' + QuotedStr(UpperCase(Trim(edPesquisar.Text)) + '%') +
-                   '    or upper(p.descri) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edPesquisar.Text))) + '%') +
-                   '    or upper(p.metafonema) like ' + QuotedStr(Metafonema(edPesquisar.Text) + '%') +
-                   '    or upper(p.nome_amigo) like ' + QuotedStr(UpperCase(Trim(edPesquisar.Text)) + '%') +
-                   '    or upper(p.nome_amigo) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edPesquisar.Text))) + '%') + ')';
+              sWhr := sWhr + ' and (upper(p.descri) like ' + QuotedStr(UpperCase(Trim(sFind)) + '%') +
+                   '    or upper(p.descri) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(sFind))) + '%') +
+                   '    or upper(p.metafonema) like ' + QuotedStr(Metafonema(sFind) + '%') +
+                   '    or upper(p.nome_amigo) like ' + QuotedStr(UpperCase(Trim(sFind)) + '%') +
+                   '    or upper(p.nome_amigo) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(sFind))) + '%') + ')';
             end;
 
           if chkProdutoComEstoque.Checked then
@@ -530,11 +540,11 @@ begin
           SQL.Clear;
           SQL.AddStrings( FSQLGrupo );
 
-          if ( Trim(edPesquisar.Text) <> EmptyStr ) then
-            if ( StrToIntDef(Trim(edPesquisar.Text), 0) > 0 ) then
-              sWhr := sWhr + ' and (p.codgrupo like ' + QuotedStr('%' + edPesquisar.Text + '%') + ')'
+          if ( Trim(sFind) <> EmptyStr ) then
+            if ( StrToIntDef(Trim(sFind), 0) > 0 ) then
+              sWhr := sWhr + ' and (p.codgrupo like ' + QuotedStr('%' + sFind + '%') + ')'
             else
-              sWhr := sWhr + ' and ((upper(g.descri) like ' + QuotedStr(edPesquisar.Text + '%') + ') or (g.descri is null))';
+              sWhr := sWhr + ' and ((upper(g.descri) like ' + QuotedStr(sFind + '%') + ') or (g.descri is null))';
 
           if chkProdutoComEstoque.Checked then
             sWhr := sWhr + ' and (e.estoque > 0.0)';
@@ -564,11 +574,11 @@ begin
           SQL.Clear;
           SQL.AddStrings( FSQLFabricante );
 
-          if ( Trim(edPesquisar.Text) <> EmptyStr ) then
-            if ( StrToIntDef(Trim(edPesquisar.Text), 0) > 0 ) then
-              sWhr := sWhr + ' and (p.codfabricante like ' + QuotedStr('%' + edPesquisar.Text + '%') + ')'
+          if ( Trim(sFind) <> EmptyStr ) then
+            if ( StrToIntDef(Trim(sFind), 0) > 0 ) then
+              sWhr := sWhr + ' and (p.codfabricante like ' + QuotedStr('%' + sFind + '%') + ')'
             else
-              sWhr := sWhr + ' and ((upper(f.nome) like ' + QuotedStr(edPesquisar.Text + '%') + ') or (f.nome is null))';
+              sWhr := sWhr + ' and ((upper(f.nome) like ' + QuotedStr(sFind + '%') + ') or (f.nome is null))';
 
           if chkProdutoComEstoque.Checked then
             sWhr := sWhr + ' and (e.estoque > 0.0)';

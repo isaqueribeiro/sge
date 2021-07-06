@@ -46,3 +46,11 @@ Historico:
         + Criacao e documentacao da tabela.';
 
 GRANT ALL ON SYS_CONFIG TO "PUBLIC";
+
+
+
+/*------ SYSDBA 05/07/2021 13:37:21 --------*/
+
+COMMENT ON COLUMN TBPRODUTO.CODUNIDADE IS
+'Unidade de Compra';
+
