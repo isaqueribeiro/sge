@@ -16,23 +16,23 @@ File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeV
 File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeVendaFormaPagto.pas',0,1,138,49,147,0,0,,
 
 [Modules]
-Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
-Module1=default.htm
-Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
-Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.Chave.pas
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.pas
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Vendedor.pas
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.pas
-Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
-Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
-Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
-Module11=C:\Delphi\Comps\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Frm_ACBrNFe.pas
-Module12=C:\Delphi\Comps\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
-Module13=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
-Module14=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas
-Module15=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\SGE.Model.Factory.pas
-Module16=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Estado.pas
+Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Estado.pas
+Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
+Module2=default.htm
+Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\SGE.dproj
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMRecursos.pas
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.Chave.pas
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Configurar.pas
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.Vendedor.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\View\View.VendaMobile.pas
+Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UConstantesDGE.pas
+Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMBusiness.pas
+Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas
+Module12=C:\Delphi\Comps\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Frm_ACBrNFe.pas
+Module13=C:\Delphi\Comps\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
+Module14=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeConfigurarNFeACBr.pas
+Module15=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas
+Module16=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\SGE.Model.Factory.pas
 Module17=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Controller\SGE.Controller.Estado.pas
 Module18=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\SGE.Model.Dados.pas
 Module19=C:\Delphi\Comps\ACBr\Fontes\ACBrDiversos\ACBrValidador.pas
@@ -40,6 +40,9 @@ Module20=C:\Delphi\Comps\ACBr\Fontes\ACBrDFe\ACBrDFeSSL.pas
 Module21=documentation.htm
 Count=22
 EditWindowCount=1
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Estado.pas]
+ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas]
 ModuleType=TSourceModule
@@ -89,9 +92,6 @@ ModuleType=TSourceModule
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Model\SGE.Model.Factory.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Estado.pas]
-ModuleType=TSourceModule
-
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Controller\SGE.Controller.Estado.pas]
 ModuleType=TSourceModule
 
@@ -109,7 +109,7 @@ ModuleType=TURLModule
 
 [EditWindow0]
 ViewCount=22
-CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_SGE\UPrinc.pas
+CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Estado.pas
 View0=0
 View1=1
 View2=2
@@ -150,13 +150,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=000008000101000000007C0F00000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000861B00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=00000800010100000000201300000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000002200001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=000008000101000000007C0F00000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000861B000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=1583
+RightPanelData=00000800010100000000201300000000000001D00700000000000001000000004412000009000000446F636B536974653201000000000022000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=0
 BottomPanelClients=MessageView,DockSite1
-BottomPanelData=0000080001020100000009000000446F636B5369746531DE44000000000000022F060000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B53697465311534000000000000022606000000000000FFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -339,11 +339,11 @@ CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Estado.pas
 CursorX=5
 CursorY=150
-TopLine=140
+TopLine=49
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\View.Estado.pas
+EditViewName=Borland.FormDesignerView
 
 [View18]
 CustomEditViewType=TEditView
@@ -495,18 +495,18 @@ StayOnTop=0
 [MessageView]
 PercentageSizes=1
 Create=1
-Visible=1
+Visible=0
 Docked=1
 State=0
 Left=0
 Top=28
-Width=9917
-Height=1375
+Width=2771
+Height=1413
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=9917
-ClientHeight=1375
-TBDockHeight=1375
+ClientWidth=2771
+ClientHeight=1413
+TBDockHeight=1413
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -520,11 +520,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=2192
+Height=3913
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2192
+ClientHeight=3913
 TBDockHeight=7154
 LRDockWidth=2000
 Dockable=1
@@ -558,16 +558,21 @@ State=0
 Left=0
 Top=425
 Width=1896
-Height=3231
+Height=4952
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=3231
+ClientHeight=4952
 TBDockHeight=8769
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
 SplitPos=116
+
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Caption,Action
+ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,"LiveBindings Designer=0",AuthenticationOptions=1,CriptOptions=0,ProxyOptions=0,SSLVerifyMode=0,SSLVersions=0,ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,Params=0,ResourceOptions=0,TxOptions=0,UpdateOptions=0,Transaction=0,ActiveStoredUsage=0,Connection=0,FieldOptions=0,FilterChanges=0,FilterOptions=0,UpdateTransaction=0,RESTDriver=0,AuthenticationOptions.OptionParams=1,ClientConnectionDefs=0,StateConnection=0,Font=0,LiveBindings=0,Margins=0,DataBase=0,Options=0,ImageMargins=0,ActiveControl=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -594,7 +599,7 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1560
+Left=-1528
 Top=249
 Width=276
 Height=365
@@ -1062,11 +1067,11 @@ State=0
 Left=0
 Top=533
 Width=2000
-Height=2192
+Height=3913
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2192
+ClientHeight=3913
 TBDockHeight=8769
 LRDockWidth=2000
 Dockable=1
