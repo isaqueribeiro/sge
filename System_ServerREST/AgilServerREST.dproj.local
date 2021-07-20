@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019/04/01 13:05:40.000.781,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/04/01 16:03:22.000.442,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/04/01 16:06:52.000.361,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/04/05 15:53:39.000.069,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/04/05 16:15:59.000.938,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/04/07 21:08:08.000.250,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/05/03 17:26:42.000.092,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/05/23 18:59:11.000.915,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/07/05 10:11:45.000.857,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/07/05 10:15:12.000.441,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/08/08 22:13:11.000.486,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/09/26 08:33:06.000.511,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/09/26 09:32:36.000.260,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/10/22 22:11:24.000.040,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/01/23 09:33:21.000.659,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/03/06 13:13:55.000.016,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/11/12 09:47:34.000.419,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/11/12 09:50:37.000.510,C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Isaque\Documents\Projetos\ASS\mobile\trunk\delphi\appVendaSimples\server\View.Principal.pas</Transaction>
+    <Transaction>2020/11/12 09:50:37.000.510,C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.fmx=C:\Users\Isaque\Documents\Projetos\ASS\mobile\trunk\delphi\appVendaSimples\server\View.Principal.fmx</Transaction>
+    <Transaction>2020/11/12 09:50:57.000.754,C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Isaque\Documents\Projetos\ASS\mobile\trunk\delphi\appVendaSimples\ServerVendaSimples.dproj</Transaction>
+    <Transaction>2020/11/12 12:29:46.000.233,=C:\Users\Isaque\Documents\Projetos\ASS\mobile\trunk\delphi\appVendaSimples\Unit1.pas</Transaction>
+    <Transaction>2020/12/21 20:15:20.000.058,=C:\Users\Isaque\Documents\Projetos\ASS\mobile\trunk\delphi\appVendaSimples\Unit1.pas</Transaction>
+    <Transaction>2020/12/21 20:17:43.000.992,C:\Users\Isaque\Documents\Projetos\ASS\mobile\trunk\delphi\appVendaSimples\Unit1.pas=C:\Users\Isaque\Documents\Projetos\ASS\mobile\trunk\delphi\appVendaSimples\server\DataModule\DataModule.Base.pas</Transaction>
+    <Transaction>2020/12/21 20:17:43.000.992,C:\Users\Isaque\Documents\Projetos\ASS\mobile\trunk\delphi\appVendaSimples\Unit1.dfm=C:\Users\Isaque\Documents\Projetos\ASS\mobile\trunk\delphi\appVendaSimples\server\DataModule\DataModule.Base.dfm</Transaction>
+    <Transaction>2021/03/15 10:05:13.000.569,C:\Users\Isaque\Documents\Projetos\ASS\mobile\trunk\delphi\appVendaSimples\ServerVendaSimples.dproj=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\RemuneratusServer.dproj</Transaction>
+    <Transaction>2021/03/15 10:06:14.000.537,C:\Users\Isaque\Documents\Projetos\ASS\mobile\trunk\delphi\appVendaSimples\server\View.Principal.pas=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\src\Views\RemuneratusServer.Views.Principal.pas</Transaction>
+    <Transaction>2021/03/15 10:06:14.000.537,C:\Users\Isaque\Documents\Projetos\ASS\mobile\trunk\delphi\appVendaSimples\server\View.Principal.fmx=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\src\Views\RemuneratusServer.Views.Principal.fmx</Transaction>
+    <Transaction>2021/03/15 10:08:51.000.765,C:\Users\Isaque\Documents\Projetos\ASS\mobile\trunk\delphi\appVendaSimples\server\DataModule\DataModule.Base.pas=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\src\DataModules\RemuneratusServer.DataModules.BasePublica.pas</Transaction>
+    <Transaction>2021/03/15 10:08:51.000.765,C:\Users\Isaque\Documents\Projetos\ASS\mobile\trunk\delphi\appVendaSimples\server\DataModule\DataModule.Base.dfm=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\src\DataModules\RemuneratusServer.DataModules.BasePublica.dfm</Transaction>
+    <Transaction>2021/03/15 10:31:12.000.088,=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\Unit1.pas</Transaction>
+    <Transaction>2021/03/15 10:42:52.000.012,C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\src\DataModules\RemuneratusServer.DataModules.RESTDatawareService.pas=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\Unit1.pas</Transaction>
+    <Transaction>2021/03/15 10:42:52.000.012,C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\src\DataModules\RemuneratusServer.DataModules.RESTDatawareService.dfm=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\Unit1.dfm</Transaction>
+    <Transaction>2021/03/15 10:46:43.000.941,=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RenuneratusPlus\src\Assets\RemuneratusPlus.Assets.Style.pas</Transaction>
+    <Transaction>2021/07/19 20:34:44.643,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\AgilServerREST.dproj=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\RemuneratusServer.dproj</Transaction>
+    <Transaction>2021/07/19 20:36:24.155,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\View\AgilServerREST.View.Principal.pas=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\src\Views\RemuneratusServer.Views.Principal.pas</Transaction>
+    <Transaction>2021/07/19 20:36:24.155,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\View\AgilServerREST.View.Principal.fmx=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\src\Views\RemuneratusServer.Views.Principal.fmx</Transaction>
+    <Transaction>2021/07/19 20:38:28.050,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\DataModule\AgilServerREST.DataModule.RDWService.pas=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\src\DataModules\RemuneratusServer.DataModules.RESTDatawareService.pas</Transaction>
+    <Transaction>2021/07/19 20:38:28.050,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\DataModule\AgilServerREST.DataModule.RDWService.dfm=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\src\DataModules\RemuneratusServer.DataModules.RESTDatawareService.dfm</Transaction>
+    <Transaction>2021/07/19 20:40:55.437,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\View\Assets\SGE.Assets.Style.pas=C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RenuneratusPlus\src\Assets\RemuneratusPlus.Assets.Style.pas</Transaction>
+    <Transaction>2021/07/19 20:43:09.711,C:\Users\Isaque\Documents\Projetos\GeraSysTI\Plus\RemuneratusServer\src\DataModules\RemuneratusServer.DataModules.BasePublica.pas=</Transaction>
+    <Transaction>2021/07/19 21:24:36.131,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\Unit1.pas</Transaction>
+    <Transaction>2021/07/19 21:25:15.609,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\Controller\AgilServerREST.Controller.Configuracao.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\Unit1.pas</Transaction>
+    <Transaction>2021/07/19 21:29:38.394,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\Unit1.pas</Transaction>
+    <Transaction>2021/07/19 21:30:00.367,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\Model\AgilServerREST.Model.Configuracao.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\Unit1.pas</Transaction>
+    <Transaction>2021/07/19 22:16:16.799,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\Unit1.pas</Transaction>
+    <Transaction>2021/07/19 22:16:28.677,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\Controller\AgilServerREST.Controller.Interfaces.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\Unit1.pas</Transaction>
+    <Transaction>2021/07/19 22:20:54.108,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\Unit1.pas</Transaction>
+    <Transaction>2021/07/19 22:21:07.982,C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\Controller\AgilServerREST.Controller.Factory.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\System_ServerREST\Unit1.pas</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile iOSSimulator="iPhone5"/>
+	</ActiveMobileDevice>
+</BorlandProject>
