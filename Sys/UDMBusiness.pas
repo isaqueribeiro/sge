@@ -17,7 +17,7 @@ uses
 
   frxClass, frxDBSet, frxBarcode, frxChart, frxCross, frxRich, frxExportMail, frxExportXML,
   frxExportODF, frxExportDOCX, frxExportXLSX, frxExportImage, frxExportRTF, frxExportPDF,
-  frxExportBaseDialog,
+  frxExportBaseDialog, frxExportXLS,
 
   ACBrBase, ACBrValidador, ACBrMail, ACBrUtil,
 
@@ -28,7 +28,7 @@ uses
   FireDAC.Phys.IB, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
   FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.VCLUI.Wait, FireDAC.Comp.UI,
   FireDAC.Comp.ScriptCommands, FireDAC.Stan.Util,
-  FireDAC.Comp.Script, frxExportXLS;
+  FireDAC.Comp.Script;
 
 type
   TSistema = record

@@ -203,7 +203,13 @@ uses
   Model.Query.Interfaces in '..\Sys\Model\Conexao\Model.Query.Interfaces.pas',
   Model.Query.Firedac in '..\Sys\Model\Conexao\Model.Query.Firedac.pas',
   Model.Constantes in '..\Sys\Model\Model.Constantes.pas',
-  Model.Entidade.ConfiguracaoAPI in '..\Sys\Model\Entidade\Model.Entidade.ConfiguracaoAPI.pas';
+  Model.Entidade.ConfiguracaoAPI in '..\Sys\Model\Entidade\Model.Entidade.ConfiguracaoAPI.pas',
+  SGE.Model.Entity.UF in '..\Sys\Model\Entity\SGE.Model.Entity.UF.pas',
+  SGE.Model.DAO.UF in '..\Sys\Model\DAO\SGE.Model.DAO.UF.pas',
+  SGE.Model.Connection.Component.SQL in '..\Sys\Model\Connection\Component\SGE.Model.Connection.Component.SQL.pas',
+  SGE.Model.Connection.Interfaces in '..\Sys\Model\Connection\SGE.Model.Connection.Interfaces.pas',
+  SGE.Model.Connection.FireDAC in '..\Sys\Model\Connection\SGE.Model.Connection.FireDAC.pas',
+  SGE.Model.Connection.Factory in '..\Sys\Model\Connection\SGE.Model.Connection.Factory.pas';
 
 {$R *.res}
 
