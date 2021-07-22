@@ -3,30 +3,31 @@ unit SGE.Model.DAO.UF;
 interface
 
 uses
-  SGE.Model.Connection.Factory,
-  SGE.Model.Entity.UF;
+  Data.DB,
+  SGE.Model.DAO,
+  SGE.Model.DAO.Interfaces;
 
 type
-  TDAOUF = class
+  TModelDAOUF = class(TModelDAO, IModelDAOCustom)
     private
-      FConn : IConnection;
-//      FThis : TUF;
     protected
       constructor Create;
     public
       destructor Destroy; override;
+      class function New : IModelDAOCustom;
   end;
 
 implementation
 
 { TDAOUF }
 
-constructor TDAOUF.Create;
+constructor TModelDAOUF.Create;
 begin
-  FConn := TConnectionFactory.New;
+  inherited Create;
   FConn
     .Query
       .TableName('TBESTADO')
+      .KeyFields('Est_cod')
       .SQL
         .Clear
         .Add('Select')
@@ -40,9 +41,14 @@ begin
       .&End;
 end;
 
-destructor TDAOUF.Destroy;
+destructor TModelDAOUF.Destroy;
 begin
   inherited;
+end;
+
+class function TModelDAOUF.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
 end;
 
 end.

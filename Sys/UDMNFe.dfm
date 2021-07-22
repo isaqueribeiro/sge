@@ -3,23 +3,6 @@ object DMNFe: TDMNFe
   OnCreate = DataModuleCreate
   Height = 813
   Width = 1093
-  object ACBrNFe: TACBrNFe
-    MAIL = DMBusiness.ACBrMail
-    Configuracoes.Geral.SSLLib = libCapicom
-    Configuracoes.Geral.SSLCryptLib = cryCapicom
-    Configuracoes.Geral.SSLHttpLib = httpWinINet
-    Configuracoes.Geral.SSLXmlSignLib = xsMsXmlCapicom
-    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
-    Configuracoes.Geral.ValidarDigest = False
-    Configuracoes.Geral.VersaoQRCode = veqr000
-    Configuracoes.Arquivos.OrdenacaoPath = <>
-    Configuracoes.WebServices.UF = 'PA'
-    Configuracoes.WebServices.AguardarConsultaRet = 0
-    Configuracoes.WebServices.QuebradeLinha = '|'
-    Configuracoes.RespTec.IdCSRT = 0
-    Left = 24
-    Top = 24
-  end
   object frdEmpresa: TfrxDBDataset
     UserName = 'frdEmpresa'
     CloseDataSource = False

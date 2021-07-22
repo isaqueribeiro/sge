@@ -634,12 +634,14 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\Conexao\Model.Query.Firedac.pas"/>
         <DCCReference Include="..\Sys\Model\Model.Constantes.pas"/>
         <DCCReference Include="..\Sys\Model\Entidade\Model.Entidade.ConfiguracaoAPI.pas"/>
-        <DCCReference Include="..\Sys\Model\Entity\SGE.Model.Entity.UF.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.UF.pas"/>
         <DCCReference Include="..\Sys\Model\Connection\Component\SGE.Model.Connection.Component.SQL.pas"/>
         <DCCReference Include="..\Sys\Model\Connection\SGE.Model.Connection.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Model\Connection\SGE.Model.Connection.FireDAC.pas"/>
         <DCCReference Include="..\Sys\Model\Connection\SGE.Model.Connection.Factory.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.UF.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>

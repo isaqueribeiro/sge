@@ -165,18 +165,6 @@ object DMBusiness: TDMBusiness
     Left = 112
     Top = 408
   end
-  object ACBrMail: TACBrMail
-    Host = '127.0.0.1'
-    Port = '25'
-    SetSSL = False
-    SetTLS = False
-    Priority = MP_high
-    Attempts = 3
-    DefaultCharset = UTF_8
-    IDECharset = CP1252
-    Left = 112
-    Top = 456
-  end
   object fdConexao: TFDConnection
     Params.Strings = (
       'User_Name=sysdba'
