@@ -3,6 +3,7 @@ unit SGE.Model.DAO.UF;
 interface
 
 uses
+  System.Classes,
   Data.DB,
   SGE.Model.DAO,
   SGE.Model.DAO.Interfaces;
@@ -10,6 +11,7 @@ uses
 type
   TModelDAOUF = class(TModelDAO, IModelDAOCustom)
     private
+      procedure DataSetNewRecord(DataSet: TDataSet);
     protected
       constructor Create;
     public
@@ -19,7 +21,7 @@ type
 
 implementation
 
-{ TDAOUF }
+{ TModelDAOUF }
 
 constructor TModelDAOUF.Create;
 begin
@@ -38,7 +40,24 @@ begin
         .Add('  , e.Aliquota_icms')
         .Add('  , e.Aliquota_fcp ')
         .Add('from TBESTADO e')
-      .&End;
+      .&End
+      .OpenEmpty
+      .CloseEmpty;
+
+  FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
+end;
+
+procedure TModelDAOUF.DataSetNewRecord(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+  begin
+    FieldByName('Est_cod').AsInteger := FConn.Query.NewID;
+
+    FieldByName('EST_SIGLA').Clear;
+    FieldByName('EST_SIAFI').Clear;
+    FieldByName('ALIQUOTA_ICMS').Clear;
+    FieldByName('ALIQUOTA_FCP').Clear;
+  end;
 end;
 
 destructor TModelDAOUF.Destroy;

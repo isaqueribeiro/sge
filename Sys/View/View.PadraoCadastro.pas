@@ -7,6 +7,7 @@ uses
   System.StrUtils,
   System.ImageList,
   System.Classes,
+  System.Variants,
   Winapi.Windows,
 
   Vcl.Forms,
@@ -91,8 +92,6 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure btnFiltrarClick(Sender: TObject);
-    procedure edtFiltrarKeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     procedure btbtnSelecionarClick(Sender: TObject);
     procedure dbgDadosKeyDown(Sender: TObject; var Key: Word;
@@ -100,10 +99,10 @@ type
     procedure btbtnListaClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure fdQryTabelaNewRecord(DataSet: TDataSet);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     FTabela     : ITabela;
-    FController : IControllerCustom;
 
     fDisplayFormat  ,
     fWhereAdditional: String;
@@ -132,6 +131,8 @@ type
     function GetRotinaImprimirID  : String;
     function GetRotinaPesquisarID : String;
     function ExecutarRefreshRecord : Boolean;
+  protected
+    FController : IControllerCustom;
   public
     { Public declarations }
     property ver : IVersao read _ver;
@@ -154,7 +155,6 @@ type
     property RotinaImprimirID  : String read GetRotinaImprimirID;
     property RotinaPesquisarID : String read GetRotinaPesquisarID;
 
-    procedure UpdateGenerator(const sWhr : String = ''); override;
     procedure RedimencionarBevel(const ToolBar : TToolBar; const bvl : TBevel);
     procedure RegistrarRotinaSistema; override;
     procedure pgcGuiasOnChange; virtual;
@@ -164,7 +164,7 @@ type
     procedure CentralizarCodigo;
     procedure SetVariablesDefault(const pFastReport : TfrxReport);
     procedure FiltarDados; overload;
-    procedure FecharAbrirTabela(const Tabela : TDataSet; const Vazia : Boolean = FALSE); overload;
+    procedure FecharAbrirTabela(const Tabela : TDataSet; const Vazia : Boolean = FALSE);
     procedure GerarSequencial(const pDataSet : TDataSet; const pCampo : String; var pSequencial : Integer);
 
     function SelecionarRegistro(var Codigo : Integer; var Descricao : String; const FiltroAdicional : String = '') : Boolean; overload;
@@ -202,12 +202,6 @@ uses
 
 {$R *.dfm}
 
-(*
-  IMR - 08/12/2015 :
-    Inserção da property "LiberarUso" que corresponderá a liberação de uso da
-    aplicação de acordo com a política da Licença de Uso do Sistema.
-*)
-
 procedure TViewPadraoCadastro.btbtnFecharClick(Sender: TObject);
 begin
   Close;
@@ -216,7 +210,6 @@ end;
 procedure TViewPadraoCadastro.FormCreate(Sender: TObject);
 begin
   inherited;
-  //FController := IModelDAOCustom;
   fLiberarUso := DMBusiness.LiberarUsoLicenca(GetDateDB);
 
   _ver := TVersaoController.GetInstance();
@@ -244,7 +237,12 @@ begin
 
   ControlFirstEdit := nil;
 
+  // Abrir a tabela vazio para carregar os campos
+  FController.DAO.OpenEmpty;
+
+  // Preparar DataSet para a configuração dos campos
   FTabela := TTabelaController.New.Tabela(DtSrcTabela.DataSet);
+  FController.DAO.CloseEmpty;
 end;
 
 procedure TViewPadraoCadastro.dbgDadosDrawColumnCell(Sender: TObject;
@@ -437,7 +435,7 @@ begin
   if not TBitBtn(Sender).Visible then
     Exit;
 
-  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
+  if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
     if ShowConfirmation('Cancelar', 'Deseja cancelar a inserção/edição do registro?') then
       DtSrcTabela.DataSet.Cancel;
 end;
@@ -547,7 +545,24 @@ begin
     VK_DOWN : if ( (DtSrcTabela.DataSet.Active) and (ActiveControl = edtFiltrar) ) then
                 DtSrcTabela.DataSet.Next;
     else
-      CustomKeyDown(Self, Key, Shift);            
+    begin
+      if (Key = VK_RETURN) and (ActiveControl = edtFiltrar) then
+        btnFiltrar.Click
+      else
+        CustomKeyDown(Self, Key, Shift);
+    end;
+  end;
+end;
+
+procedure TViewPadraoCadastro.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (Key = #13) then
+  begin
+    if not (ActiveControl is TDBGrid) then
+    begin
+      Key := #0;
+      Exit;
+    end;
   end;
 end;
 
@@ -563,13 +578,6 @@ begin
   finally
     WaitAMomentFree;
   end;
-end;
-
-procedure TViewPadraoCadastro.edtFiltrarKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-  if ( Key = 13 ) then
-    btnFiltrar.Click;
 end;
 
 function TViewPadraoCadastro.ExecutarRefreshRecord: Boolean;
@@ -615,13 +623,14 @@ begin
 end;
 
 procedure TViewPadraoCadastro.FiltarDados;
+var
+  aExpressionOr : String;
 begin
-  Screen.Cursor := crSQLWait;
+  Screen.Cursor   := crSQLWait;
+  edtFiltrar.Text := Trim(edtFiltrar.Text);
 
   try
-
     try
-
       fOcorreuErro := False;
       if (Trim(CampoCodigo) = EmptyStr) or ((Trim(CampoDescricao) = EmptyStr)) then
       begin
@@ -629,97 +638,50 @@ begin
         Abort;
       end;
 
-      if (DtSrcTabela.DataSet = IbDtstTabela) then
-        with IbDtstTabela, SelectSQL do
+      FController.DAO.ClearWhere;
+
+      if (edtFiltrar.Text <> EmptyStr) and (Pos(',', edtFiltrar.Text) = 0) then
+      begin
+        if (StrToIntDef(edtFiltrar.Text, 0) > 0) then
+          FController.DAO.Where(CampoCodigo, StrToIntDef(edtFiltrar.Text, 0))
+        else
+        if (StrToInt64Def(edtFiltrar.Text, 0) > 0) then
+          FController.DAO.Where(CampoCodigo, StrToInt64Def(edtFiltrar.Text, 0))
+        else
         begin
-          if ( Trim(CampoOrdenacao) = EmptyStr ) then
-            CampoOrdenacao := CampoDescricao;
+          aExpressionOr :=
+            '    (upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') +
+            '  or upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + ')';
 
-          Close;
-          Clear;
-          AddStrings( sSQL );
-
-          if ( Trim(edtFiltrar.Text) <> EmptyStr ) then
-            if ( (StrToIntDef(Trim(edtFiltrar.Text), 0) > 0) and (Pos(',', Trim(edtFiltrar.Text)) = 0) ) then
-              Add( 'WHERE (' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) + ')' )
-            else
-            if ( Pos(',', Trim(edtFiltrar.Text)) = 0 ) then
-              Add( 'WHERE (upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') +
-                   '    or upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + ')');
-
-          if (WhereAdditional <> EmptyStr ) then
-            if ( Pos('WHERE', SelectSQL.Text) > 0 ) then
-              Add( '  and (' + WhereAdditional + ')' )
-            else
-              Add( 'WHERE (' + WhereAdditional + ')' );
-
-          Add( 'order by ' + CampoOrdenacao );
-
-          Open;
-
-          try
-
-            if Showing and (pgcGuias.ActivePage = tbsTabela) then
-              if ( not IsEmpty ) then
-                dbgDados.SetFocus
-              else
-              begin
-                ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
-
-                edtFiltrar.SetFocus;
-                edtFiltrar.SelectAll;
-              end;
-
-          except
-          end;
-
-        end
-      else
-        with fdQryTabela, SQL do
-        begin
-          if ( Trim(CampoOrdenacao) = EmptyStr ) then
-            CampoOrdenacao := CampoDescricao;
-
-          Close;
-          Clear;
-          AddStrings( sSQL );
-
-          if ( Trim(edtFiltrar.Text) <> EmptyStr ) then
-            if ( (StrToIntDef(Trim(edtFiltrar.Text), 0) > 0) and (Pos(',', Trim(edtFiltrar.Text)) = 0) ) then
-              Add( 'WHERE (' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) + ')' )
-            else
-            if ( Pos(',', Trim(edtFiltrar.Text)) = 0 ) then
-              Add( 'WHERE (upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') +
-                   '    or upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + ')');
-
-          if (WhereAdditional <> EmptyStr ) then
-            if ( Pos('WHERE', SQL.Text) > 0 ) then
-              Add( '  and (' + WhereAdditional + ')' )
-            else
-              Add( 'WHERE (' + WhereAdditional + ')' );
-
-          Add( 'order by ' + CampoOrdenacao );
-
-          Open;
-
-          try
-
-            if Showing and (pgcGuias.ActivePage = tbsTabela) then
-              if ( not IsEmpty ) then
-                dbgDados.SetFocus
-              else
-              begin
-                ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
-
-                edtFiltrar.SetFocus;
-                edtFiltrar.SelectAll;
-              end;
-
-          except
-          end;
-
+          FController.DAO.Where(aExpressionOr);
         end;
+      end;
 
+      if (not fWhereAdditional.IsEmpty) then
+        FController.DAO.Where('(' + WhereAdditional + ')');
+
+      if ( Trim(CampoOrdenacao) = EmptyStr ) then
+        CampoOrdenacao := CampoDescricao;
+
+      if (not CampoOrdenacao.IsEmpty) then
+        FController.DAO.OrderBy(CampoOrdenacao);
+
+      FController.DAO.Open;
+      FTabela.Configurar;
+
+      try
+        if Showing and (pgcGuias.ActivePage = tbsTabela) then
+          if ( not DtSrcTabela.DataSet.IsEmpty ) then
+            dbgDados.SetFocus
+          else
+          begin
+            ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
+
+            edtFiltrar.SetFocus;
+            edtFiltrar.SelectAll;
+          end;
+      except
+      end;
     except
       On E : Exception do
       begin
@@ -735,14 +697,13 @@ end;
 
 procedure TViewPadraoCadastro.FecharAbrirTabela(const Tabela : TDataSet; const Vazia : Boolean = FALSE);
 begin
-  with Tabela do
-  begin
-    Close;
-    if ( Vazia ) then
-      if ( Pos('where', LowerCase(FController.DAO.SelectSQL)) = 0 ) then
-        SelectSQL.Add('where 1=0');
-    Open;
-  end;
+  Tabela.Close;
+  Tabela.Filtered := Vazia;
+
+  if Tabela.Filtered then
+    Tabela.Filter := Format('(%s is null)', [CampoCodigo]);
+
+  Tabela.Open;
 end;
 
 function TViewPadraoCadastro.SelecionarRegistro(var Codigo : Integer; var Descricao : String; const FiltroAdicional : String = '') : Boolean;
@@ -847,52 +808,29 @@ begin
   inherited;
   CentralizarCodigo;
 
-  if ( not DtSrcTabela.DataSet.Active ) then
+  if (not DtSrcTabela.DataSet.Active) then
   begin
     if ( AbrirTabelaAuto ) then
     begin
       DtSrcTabela.DataSet.Close;
 
-      if ( WhereAdditional <> EmptyStr ) then
-      begin
-        if (DtSrcTabela.DataSet = IbDtstTabela) then
-        begin
-          if ( Pos('where', IbDtstTabela.SelectSQL.Text) > 0 ) then
-            IbDtstTabela.SelectSQL.Add( '  and (' + WhereAdditional + ')' )
-          else
-            IbDtstTabela.SelectSQL.Add( 'where (' + WhereAdditional + ')' );
-        end
-        else
-        begin
-          if ( Pos('where', fdQryTabela.SQL.Text) > 0 ) then
-            fdQryTabela.SQL.Add( '  and (' + WhereAdditional + ')' )
-          else
-            fdQryTabela.SQL.Add( 'where (' + WhereAdditional + ')' );
-        end;
-      end;
+      if (not WhereAdditional.IsEmpty) then
+        FController.DAO.Where('(' + WhereAdditional + ')');
 
-      // Inserir ORDER BY na script caso não exista
-      if (DtSrcTabela.DataSet = IbDtstTabela) then
-      begin
-        if ( (Pos('order by', IbDtstTabela.SelectSQL.Text) = 0) and (CampoOrdenacao <> EmptyStr) ) then
-          IbDtstTabela.SelectSQL.Add( 'order by ' + CampoOrdenacao );
-      end
-      else
-      begin
-        if ( (Pos('order by', fdQryTabela.SQL.Text) = 0) and (CampoOrdenacao <> EmptyStr) ) then
-          fdQryTabela.SQL.Add( 'order by ' + CampoOrdenacao );
-      end;
+      if ( Trim(CampoOrdenacao) = EmptyStr ) then
+        CampoOrdenacao := CampoDescricao;
 
-      DtSrcTabela.DataSet.Open;
+      if (not CampoOrdenacao.IsEmpty) then
+        FController.DAO.OrderBy(CampoOrdenacao);
+
+      FController.DAO.Open;
+      FTabela.Configurar;
     end;
 
     DtSrcTabelaStateChange( DtSrcTabela );
     if Trim(DisplayFormatCodigo) <> EmptyStr then
       CentralizarCodigo;
-  end
-  else
-  if ( not AbrirTabelaAuto ) then
-    DtSrcTabela.DataSet.Close;
+  end;
 
   if ( tbsTabela.TabVisible and (pgcGuias.ActivePage = tbsTabela) and (edtFiltrar.Visible) and (edtFiltrar.Enabled) ) then
     edtFiltrar.SetFocus;
@@ -932,6 +870,7 @@ end;
 
 procedure TViewPadraoCadastro.CentralizarCodigo;
 var
+  aFechar : Boolean;
   sCampoCodigo : String;
 begin
   if (Trim(DisplayFormatCodigo) = EmptyStr) then
@@ -939,7 +878,7 @@ begin
 
   if ( Trim(CampoCodigo) = EmptyStr ) then
     Exit;
-    
+
   if ( dbgDados.Columns.Count > 0 ) then
   begin
     if ( pos('.', CampoCodigo) > 0 ) then
@@ -948,7 +887,10 @@ begin
       sCampoCodigo := Trim(CampoCodigo);
 
     // Testar se o valor do campo código é do tipo numérico
-    if ( StrToCurrDef(DtSrcTabela.DataSet.FieldByName(sCampoCodigo).AsString, -1) = -1 ) then
+    if (not Assigned(DtSrcTabela.DataSet.Fields.FindField(sCampoCodigo)))  then
+      Exit
+    else
+    if (StrToCurrDef(DtSrcTabela.DataSet.FieldByName(sCampoCodigo).AsString, -1) = -1) then
       Exit;
 
     dbgDados.Columns[0].Alignment       := taCenter;
@@ -996,48 +938,6 @@ begin
   end;
 
   ModalResult := mrOk;
-end;
-
-procedure TViewPadraoCadastro.UpdateGenerator(const sWhr : String = '');
-var
-  sGenerator ,
-  sTabela    ,
-  sCampoCodigo : String;
-begin
-  sGenerator   := EmptyStr;
-  sTabela      := EmptyStr;
-  sCampoCodigo := EmptyStr;
-
-  if (DtSrcTabela.DataSet = IbDtstTabela) then
-  begin
-    if ( (CampoCodigo = EmptyStr) and (Trim(IbDtstTabela.GeneratorField.Field) <> EmptyStr) ) then
-      CampoCodigo := IbDtstTabela.GeneratorField.Field;
-
-    sGenerator := IbDtstTabela.GeneratorField.Generator;
-  end
-  else
-  begin
-    if ( (CampoCodigo = EmptyStr) and (Trim(fdQryTabela.UpdateOptions.AutoIncFields) <> EmptyStr) ) then
-      CampoCodigo := fdQryTabela.UpdateOptions.AutoIncFields;
-
-    sGenerator := Trim(fdQryTabela.UpdateOptions.GeneratorName);
-
-    // Gerar o código com o GENERATOR imediatamente ao comando de APPEND no DataSet
-    if (sGenerator <> EmptyStr) then
-      if (fdQryTabela.UpdateOptions.FetchGeneratorsPoint <> TFDFetchGeneratorsPoint.gpImmediate) then
-        fdQryTabela.UpdateOptions.FetchGeneratorsPoint := TFDFetchGeneratorsPoint.gpImmediate;
-  end;
-
-  sTabela := NomeTabela;
-
-  if ( pos('.', CampoCodigo) > 0 ) then
-    sCampoCodigo := Copy(CampoCodigo, pos('.', CampoCodigo) + 1, Length(CampoCodigo))
-  else
-    sCampoCodigo := Trim(CampoCodigo);
-
-
-  if ( (sGenerator <> EmptyStr) and (sTabela <> EmptyStr) and (sCampoCodigo <> EmptyStr) ) then
-    UpdateSequence(sGenerator, sTabela, sCampoCodigo, sWhr);
 end;
 
 procedure TViewPadraoCadastro.dbgDadosKeyDown(Sender: TObject;

@@ -182,15 +182,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeTipoLogradouro.pas">
             <Form>frmGeTipoLogradouro</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\View\View.Estado.pas">
-            <Form>ViewEstado</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeCidade.pas">
-            <Form>frmGeCidade</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeDistrito.pas">
-            <Form>frmGeDistrito</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeBairro.pas">
             <Form>frmGeBairro</Form>
         </DCCReference>
@@ -553,6 +544,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\View\View.PadraoLogin.pas">
             <Form>FrmPadraoLogin</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\View\View.PadraoCadastro.pas">
+            <Form>ViewPadraoCadastro</Form>
+        </DCCReference>
         <DCCReference Include="View\View.Login.pas">
             <Form>FrmLogin</Form>
         </DCCReference>
@@ -603,27 +597,21 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\SGE.Model.Factory.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Estado.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas"/>
-        <DCCReference Include="..\Sys\UGeEstado.pas">
-            <Form>frmGeEstado</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="View\Components\Frame.VendaMobile.Menu.pas">
             <Form>FrameVendaMobileMenu</Form>
             <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="View\Components\Frame.VendaMobile.Configurar.Menu.pas">
+            <Form>FrameVendaMobileConfigurarMenu</Form>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="View\View.VendaMobile.Configurar.pas">
             <Form>ViewVendaMobileConfigurar</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="View\Components\Frame.VendaMobile.Configurar.Menu.pas">
-            <Form>FrameVendaMobileConfigurarMenu</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TFrame</DesignClass>
-        </DCCReference>
         <DCCReference Include="View\View.VendaMobile.Configurar.Chave.pas">
             <Form>ViewVendaMobileConfigurarChave</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Firedac.pas"/>
@@ -640,8 +628,32 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\Connection\SGE.Model.Connection.Factory.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Factory.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.UF.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cidade.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Distrito.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Bairro.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Factory.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.UF.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Cidade.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Distrito.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Bairro.pas"/>
+        <DCCReference Include="..\Sys\View\View.Estado.pas">
+            <Form>ViewEstado</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Cidade.pas">
+            <Form>ViewCidade</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Distrito.pas">
+            <Form>ViewDistrito</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Bairro.pas">
+            <Form>ViewBairro</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>
@@ -758,7 +770,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -880,7 +892,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

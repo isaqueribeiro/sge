@@ -120,7 +120,7 @@ uses
   , UGeVenda
   , UGrCampoRequisitado
   , UGeFornecedor
-  , UGeEstado;
+  , View.Estado;
 
 {$R *.dfm}
 

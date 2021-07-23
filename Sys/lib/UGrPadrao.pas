@@ -221,7 +221,7 @@ begin
 
     if Result then
     begin
-      Key := 0;
+      Key  := 0;
       Frm.Perform(WM_NEXTDLGCTL, 0, 0);
     end;
 

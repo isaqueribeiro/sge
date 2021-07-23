@@ -1,63 +1,106 @@
-unit Controller.Tabela;
+unit SGE.Model.DAO.ConfigureFields;
 
 interface
 
 uses
   System.SysUtils,
   System.Classes,
-  System.Generics.Collections,
   Data.DB,
-  FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client,
-  Interacao.Tabela;
+  SGE.Model.DAO.Interfaces;
 
 type
-  TAlignmentList = Array of TAlignment;
-  TTabelaController = class(TInterfacedObject, ITabela)
+  TAlignmentList   = Array of TAlignment;
+  TConfigureFields = class(TInterfacedObject, IConfigureFields)
     private
       [weak]
-      FDataSet      : TDataSet;
+      FDataSet : TDataSet;
       FNomesCampos  : TStringList;
       FAlinhamentos : TAlignmentList;
       FFormatos     : TStringList;
-      FRequired     : TDictionary<String, Boolean>;
     protected
-      constructor Create;
+      constructor Create(aDataSet : TDataSet);
     public
       destructor Destroy; override;
+      class function New(aDataSet : TDataSet) : IConfigureFields;
 
-      function Display(aKey, aValue : String; const aRequired : Boolean = False) : ITabela; overload;
-      function Display(aKey, aValue, aFormato : String; const aRequired : Boolean = False) : ITabela; overload;
-      function Display(aKey, aValue, aFormato : String; aAlinhamento : TAlignment; const aRequired : Boolean = False) : ITabela; overload;
-      function Display(aKey, aValue : String; aAlinhamento : TAlignment; const aRequired : Boolean = False) : ITabela; overload;
+      function Table(aDataSet : TDataSet) : IConfigureFields;
+      function Display(aKey, aValue : String) : IConfigureFields; overload;
+      function Display(aKey, aValue, aFormato : String) : IConfigureFields; overload;
+      function Display(aKey, aValue, aFormato : String; aAlinhamento : TAlignment) : IConfigureFields; overload;
+      function Display(aKey, aValue : String; aAlinhamento : TAlignment) : IConfigureFields; overload;
 
-      function Tabela(aDataSet : TDataSet) : ITabela; overload;
-      function Tabela(aDataSet : TFDDataSet) : ITabela; overload;
-
-      procedure Configurar; overload;
-      procedure Configurar(aDataSet : TDataSet); overload;
-      procedure Configurar(aDataSet : TFDDataSet); overload;
-
-      class function New : ITabela;
+      procedure Setup; overload;
+      procedure Setup(aDataSet : TDataSet); overload;
   end;
 
 implementation
 
-{ TControllerTabela }
+{ TConfigureFields }
 
-procedure TTabelaController.Configurar(aDataSet: TFDDataSet);
-begin
-  FDataSet := aDataSet as TDataSet;
-  Configurar;
-end;
-
-procedure TTabelaController.Configurar(aDataSet: TDataSet);
+constructor TConfigureFields.Create(aDataSet : TDataSet);
 begin
   FDataSet := aDataSet;
-  Configurar;
+
+  FNomesCampos := TStringList.Create;
+  FNomesCampos.Clear;
+
+  FFormatos := TStringList.Create;
+  FFormatos.Clear;
 end;
 
-procedure TTabelaController.Configurar;
+destructor TConfigureFields.Destroy;
+begin
+  FNomesCampos.DisposeOf;
+  FFormatos.DisposeOf;
+  inherited;
+end;
+
+class function TConfigureFields.New(aDataSet: TDataSet): IConfigureFields;
+begin
+  Result := Self.Create(aDataSet);
+end;
+
+function TConfigureFields.Display(aKey, aValue: String): IConfigureFields;
+begin
+  Result := Self;
+  FNomesCampos.Values[ LowerCase(aKey.Trim) ] := aValue.Trim;
+end;
+
+function TConfigureFields.Display(aKey, aValue, aFormato: String): IConfigureFields;
+var
+  I : Integer;
+begin
+  Result := Self.Display(aKey, aValue);
+  FFormatos.Values[ LowerCase(aKey.Trim) ] := aFormato;
+end;
+
+function TConfigureFields.Display(aKey, aValue: String; aAlinhamento: TAlignment): IConfigureFields;
+var
+  I : Integer;
+begin
+  Result := Self.Display(aKey, aValue);
+  I := FNomesCampos.IndexOfName( LowerCase(aKey.Trim) );
+  if (I > -1) then
+    FAlinhamentos[I] := aAlinhamento;
+end;
+
+function TConfigureFields.Display(aKey, aValue, aFormato: String; aAlinhamento: TAlignment): IConfigureFields;
+var
+  I : Integer;
+begin
+  Result := Self.Display(aKey, aValue, aFormato);
+  I := FNomesCampos.IndexOfName( LowerCase(aKey.Trim) );
+  if (I > -1) then
+    FAlinhamentos[I] := aAlinhamento;
+end;
+
+procedure TConfigureFields.Setup(aDataSet: TDataSet);
+begin
+  FDataSet := aDataSet;
+  Setup;
+end;
+
+procedure TConfigureFields.Setup;
 var
   I : Integer;
 begin
@@ -72,9 +115,6 @@ begin
       FDataSet.FieldByName( FNomesCampos.KeyNames[I] ).DisplayLabel := FNomesCampos.Values[ FNomesCampos.KeyNames[I] ];
       // Configurar Alinhamento
       FDataSet.FieldByName( FNomesCampos.KeyNames[I] ).Alignment    := FAlinhamentos[I];
-      // Configurar campos requiridos
-      if FRequired.ContainsKey(FNomesCampos.KeyNames[I]) then
-        FDataSet.FieldByName( FNomesCampos.KeyNames[I] ).Required     := FRequired.Items[ FNomesCampos.KeyNames[I] ];
 
       // Configurar Formato
       // .. Inteiro
@@ -110,66 +150,7 @@ begin
   end;
 end;
 
-constructor TTabelaController.Create;
-begin
-  FNomesCampos := TStringList.Create;
-  FNomesCampos.Clear;
-
-  FFormatos := TStringList.Create;
-  FFormatos.Clear;
-
-  FRequired := TDictionary<String, Boolean>.Create;
-end;
-
-destructor TTabelaController.Destroy;
-begin
-  FNomesCampos.DisposeOf;
-  FFormatos.DisposeOf;
-  FRequired.DisposeOf;
-  inherited;
-end;
-
-function TTabelaController.Display(aKey, aValue, aFormato: String; aAlinhamento: TAlignment; const aRequired : Boolean = False): ITabela;
-var
-  I : Integer;
-begin
-  Result := Self.Display(aKey, aValue, aFormato, aRequired);
-  I := FNomesCampos.IndexOfName( LowerCase(aKey.Trim) );
-  if (I > -1) then
-    FAlinhamentos[I] := aAlinhamento;
-end;
-
-function TTabelaController.Display(aKey, aValue, aFormato: String; const aRequired : Boolean = False): ITabela;
-var
-  I : Integer;
-begin
-  Result := Self.Display(aKey, aValue, aRequired);
-  FFormatos.Values[ LowerCase(aKey.Trim) ] := aFormato;
-end;
-
-function TTabelaController.Display(aKey, aValue: String; aAlinhamento: TAlignment; const aRequired : Boolean = False): ITabela;
-var
-  I : Integer;
-begin
-  Result := Self.Display(aKey, aValue, aRequired);
-  I := FNomesCampos.IndexOfName( LowerCase(aKey.Trim) );
-  if (I > -1) then
-    FAlinhamentos[I] := aAlinhamento;
-end;
-
-function TTabelaController.Display(aKey, aValue: String; const aRequired : Boolean = False): ITabela;
-begin
-  Result := Self;
-  FNomesCampos.Values[ LowerCase(aKey.Trim) ] := aValue.Trim;
-  FRequired.AddOrSetValue(aKey, aRequired);
-end;
-
-class function TTabelaController.New: ITabela;
-begin
-  Result := Self.Create;
-end;
-
-function TTabelaController.Tabela(aDataSet: TDataSet): ITabela;
+function TConfigureFields.Table(aDataSet: TDataSet): IConfigureFields;
 var
   I : Integer;
 begin
@@ -195,17 +176,10 @@ begin
       .Add( LowerCase(aDataSet.Fields[I].FieldName) + '=vazio');
 
     FAlinhamentos[I] := aDataSet.Fields[I].Alignment;
-
-    FRequired.AddOrSetValue(LowerCase(aDataSet.Fields[I].FieldName), aDataSet.Fields[I].Required);
   end;
 
   FNomesCampos.EndUpdate;
   FFormatos.EndUpdate;
-end;
-
-function TTabelaController.Tabela(aDataSet: TFDDataSet): ITabela;
-begin
-  Result := Self.Tabela(aDataSet as TDataSet);
 end;
 
 end.

@@ -1,4 +1,4 @@
-inherited frmGeCidade: TfrmGeCidade
+inherited ViewCidade: TViewCidade
   Left = 390
   Top = 215
   Caption = 'Tabela de Cidades (Munic'#237'pios)'
@@ -47,10 +47,6 @@ inherited frmGeCidade: TfrmGeCidade
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
-      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 225
         ExplicitTop = 225
@@ -313,6 +309,24 @@ inherited frmGeCidade: TfrmGeCidade
           Caption = 'Outros:'
           FocusControl = dbOutros
         end
+        object lblCustosOpereracional: TLabel
+          Left = 229
+          Top = 32
+          Width = 196
+          Height = 39
+          AutoSize = False
+          Caption = 
+            'A entidade n'#227'o est'#225' habilitada para calcular o custo operacional' +
+            ' por cliente de forma autom'#225'tica.'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clRed
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Transparent = True
+          WordWrap = True
+        end
         object dbCustoOperacional: TDBCheckBox
           Left = 16
           Top = 24
@@ -366,239 +380,7 @@ inherited frmGeCidade: TfrmGeCidade
       end
     end
   end
-  inherited IbDtstTabela: TIBDataSet
-    OnNewRecord = IbDtstTabelaNewRecord
-    SelectSQL.Strings = (
-      'Select'
-      '    c.Cid_cod'
-      '  , c.Cid_nome'
-      '  , c.Est_cod'
-      '  , c.Cid_siafi'
-      '  , c.Cid_ibge'
-      '  , c.Cid_ddd'
-      '  , c.Cid_cep_inicial'
-      '  , c.Cid_cep_final'
-      '  , c.Custo_oper_percentual'
-      '  , c.Custo_oper_frete'
-      '  , c.Custo_oper_outros'
-      '  , e.Est_nome'
-      '  , e.Est_sigla'
-      'from TBCIDADE c'
-      '  inner join TBESTADO e on (e.Est_cod = c.Est_cod)'
-      '')
-    GeneratorField.Field = 'CID_COD'
-    GeneratorField.Generator = 'GEN_CIDADE_ID'
-  end
   inherited DtSrcTabela: TDataSource
-    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
-  end
-  inherited IbUpdTabela: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  CID_COD,'
-      '  CID_NOME,'
-      '  EST_COD,'
-      '  CID_SIAFI,'
-      '  CID_IBGE,'
-      '  CID_DDD,'
-      '  CID_CEP_INICIAL,'
-      '  CID_CEP_FINAL,'
-      '  CUSTO_OPER_PERCENTUAL,'
-      '  CUSTO_OPER_FRETE,'
-      '  CUSTO_OPER_OUTROS'
-      'from TBCIDADE '
-      'where'
-      '  CID_COD = :CID_COD')
-    ModifySQL.Strings = (
-      'update TBCIDADE'
-      'set'
-      '  CID_CEP_FINAL = :CID_CEP_FINAL,'
-      '  CID_CEP_INICIAL = :CID_CEP_INICIAL,'
-      '  CID_COD = :CID_COD,'
-      '  CID_DDD = :CID_DDD,'
-      '  CID_IBGE = :CID_IBGE,'
-      '  CID_NOME = :CID_NOME,'
-      '  CID_SIAFI = :CID_SIAFI,'
-      '  CUSTO_OPER_FRETE = :CUSTO_OPER_FRETE,'
-      '  CUSTO_OPER_OUTROS = :CUSTO_OPER_OUTROS,'
-      '  CUSTO_OPER_PERCENTUAL = :CUSTO_OPER_PERCENTUAL,'
-      '  EST_COD = :EST_COD'
-      'where'
-      '  CID_COD = :OLD_CID_COD')
-    InsertSQL.Strings = (
-      'insert into TBCIDADE'
-      
-        '  (CID_CEP_FINAL, CID_CEP_INICIAL, CID_COD, CID_DDD, CID_IBGE, C' +
-        'ID_NOME, '
-      
-        '   CID_SIAFI, CUSTO_OPER_FRETE, CUSTO_OPER_OUTROS, CUSTO_OPER_PE' +
-        'RCENTUAL, '
-      '   EST_COD)'
-      'values'
-      
-        '  (:CID_CEP_FINAL, :CID_CEP_INICIAL, :CID_COD, :CID_DDD, :CID_IB' +
-        'GE, :CID_NOME, '
-      
-        '   :CID_SIAFI, :CUSTO_OPER_FRETE, :CUSTO_OPER_OUTROS, :CUSTO_OPE' +
-        'R_PERCENTUAL, '
-      '   :EST_COD)')
-    DeleteSQL.Strings = (
-      'delete from TBCIDADE'
-      'where'
-      '  CID_COD = :OLD_CID_COD')
-  end
-  inherited fdQryTabela: TFDQuery
-    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
-    UpdateOptions.FetchGeneratorsPoint = gpImmediate
-    UpdateOptions.GeneratorName = 'GEN_CIDADE_ID'
-    UpdateOptions.KeyFields = 'CID_COD'
-    UpdateOptions.AutoIncFields = 'CID_COD'
-    SQL.Strings = (
-      'Select'
-      '    c.Cid_cod'
-      '  , c.Cid_nome'
-      '  , c.Est_cod'
-      '  , c.Cid_siafi'
-      '  , c.Cid_ibge'
-      '  , c.Cid_ddd'
-      '  , c.Cid_cep_inicial'
-      '  , c.Cid_cep_final'
-      '  , c.Custo_oper_percentual'
-      '  , c.Custo_oper_frete'
-      '  , c.Custo_oper_outros'
-      '  , e.Est_nome'
-      '  , e.Est_sigla'
-      'from TBCIDADE c'
-      '  inner join TBESTADO e on (e.Est_cod = c.Est_cod)'
-      '')
-    object fdQryTabelaCID_COD: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CID_COD'
-      Origin = 'CID_COD'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object fdQryTabelaCID_NOME: TStringField
-      DisplayLabel = 'Nome'
-      FieldName = 'CID_NOME'
-      Origin = 'CID_NOME'
-      Required = True
-      Size = 100
-    end
-    object fdQryTabelaEST_COD: TSmallintField
-      DisplayLabel = 'Estado'
-      FieldName = 'EST_COD'
-      Origin = 'EST_COD'
-      Required = True
-    end
-    object fdQryTabelaCID_SIAFI: TIntegerField
-      DisplayLabel = 'SIAFI'
-      FieldName = 'CID_SIAFI'
-      Origin = 'CID_SIAFI'
-    end
-    object fdQryTabelaCID_IBGE: TIntegerField
-      DisplayLabel = 'IBGE'
-      FieldName = 'CID_IBGE'
-      Origin = 'CID_IBGE'
-    end
-    object fdQryTabelaCID_DDD: TSmallintField
-      DisplayLabel = 'DDD'
-      FieldName = 'CID_DDD'
-      Origin = 'CID_DDD'
-    end
-    object fdQryTabelaCID_CEP_INICIAL: TIntegerField
-      DisplayLabel = 'CEP Inicial'
-      FieldName = 'CID_CEP_INICIAL'
-      Origin = 'CID_CEP_INICIAL'
-    end
-    object fdQryTabelaCID_CEP_FINAL: TIntegerField
-      DisplayLabel = 'CEP Final'
-      FieldName = 'CID_CEP_FINAL'
-      Origin = 'CID_CEP_FINAL'
-    end
-    object fdQryTabelaCUSTO_OPER_PERCENTUAL: TSmallintField
-      FieldName = 'CUSTO_OPER_PERCENTUAL'
-      Origin = 'CUSTO_OPER_PERCENTUAL'
-    end
-    object fdQryTabelaCUSTO_OPER_FRETE: TBCDField
-      FieldName = 'CUSTO_OPER_FRETE'
-      Origin = 'CUSTO_OPER_FRETE'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-    end
-    object fdQryTabelaCUSTO_OPER_OUTROS: TBCDField
-      FieldName = 'CUSTO_OPER_OUTROS'
-      Origin = 'CUSTO_OPER_OUTROS'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-    end
-    object fdQryTabelaEST_NOME: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Estado'
-      FieldName = 'EST_NOME'
-      Origin = 'EST_NOME'
-      ProviderFlags = []
-      Size = 100
-    end
-    object fdQryTabelaEST_SIGLA: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'UF'
-      FieldName = 'EST_SIGLA'
-      Origin = 'EST_SIGLA'
-      ProviderFlags = []
-      Size = 2
-    end
-  end
-  inherited fdUpdTabela: TFDUpdateSQL
-    InsertSQL.Strings = (
-      'INSERT INTO TBCIDADE'
-      '(CID_COD, CID_NOME, EST_COD, CID_SIAFI, CID_IBGE, '
-      '  CID_DDD, CID_CEP_INICIAL, CID_CEP_FINAL, '
-      '  CUSTO_OPER_PERCENTUAL, CUSTO_OPER_FRETE, CUSTO_OPER_OUTROS)'
-      
-        'VALUES (:NEW_CID_COD, :NEW_CID_NOME, :NEW_EST_COD, :NEW_CID_SIAF' +
-        'I, :NEW_CID_IBGE, '
-      '  :NEW_CID_DDD, :NEW_CID_CEP_INICIAL, :NEW_CID_CEP_FINAL, '
-      
-        '  :NEW_CUSTO_OPER_PERCENTUAL, :NEW_CUSTO_OPER_FRETE, :NEW_CUSTO_' +
-        'OPER_OUTROS)')
-    ModifySQL.Strings = (
-      'UPDATE TBCIDADE'
-      
-        'SET CID_COD = :NEW_CID_COD, CID_NOME = :NEW_CID_NOME, EST_COD = ' +
-        ':NEW_EST_COD, '
-      
-        '  CID_SIAFI = :NEW_CID_SIAFI, CID_IBGE = :NEW_CID_IBGE, CID_DDD ' +
-        '= :NEW_CID_DDD, '
-      
-        '  CID_CEP_INICIAL = :NEW_CID_CEP_INICIAL, CID_CEP_FINAL = :NEW_C' +
-        'ID_CEP_FINAL, '
-      
-        '  CUSTO_OPER_PERCENTUAL = :NEW_CUSTO_OPER_PERCENTUAL, CUSTO_OPER' +
-        '_FRETE = :NEW_CUSTO_OPER_FRETE, '
-      '  CUSTO_OPER_OUTROS = :NEW_CUSTO_OPER_OUTROS'
-      'WHERE CID_COD = :OLD_CID_COD')
-    DeleteSQL.Strings = (
-      'DELETE FROM TBCIDADE'
-      'WHERE CID_COD = :OLD_CID_COD')
-    FetchRowSQL.Strings = (
-      'Select'
-      '    c.Cid_cod'
-      '  , c.Cid_nome'
-      '  , c.Est_cod'
-      '  , c.Cid_siafi'
-      '  , c.Cid_ibge'
-      '  , c.Cid_ddd'
-      '  , c.Cid_cep_inicial'
-      '  , c.Cid_cep_final'
-      '  , c.Custo_oper_percentual'
-      '  , c.Custo_oper_frete'
-      '  , c.Custo_oper_outros'
-      '  , e.Est_nome'
-      '  , e.Est_sigla'
-      'from TBCIDADE c'
-      '  inner join TBESTADO e on (e.Est_cod = c.Est_cod)'
-      'WHERE c.CID_COD = :CID_COD')
   end
 end

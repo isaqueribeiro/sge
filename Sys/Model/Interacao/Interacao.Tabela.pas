@@ -10,11 +10,12 @@ type
     ['{85A93449-3220-44BE-84AD-494B50B9C170}']
     function Tabela(aDataSet : TDataSet) : ITabela; overload;
     function Tabela(aDataSet : TFDDataSet) : ITabela; overload;
-    function Display(aKey, aValue : String) : ITabela; overload;
-    function Display(aKey, aValue, aFormato : String) : ITabela; overload;
-    function Display(aKey, aValue, aFormato : String; aAlinhamento : TAlignment) : ITabela; overload;
-    function Display(aKey, aValue : String; aAlinhamento : TAlignment) : ITabela; overload;
+    function Display(aKey, aValue : String; const aRequired : Boolean = False) : ITabela; overload;
+    function Display(aKey, aValue, aFormato : String; const aRequired : Boolean = False) : ITabela; overload;
+    function Display(aKey, aValue, aFormato : String; aAlinhamento : TAlignment; const aRequired : Boolean = False) : ITabela; overload;
+    function Display(aKey, aValue : String; aAlinhamento : TAlignment; const aRequired : Boolean = False) : ITabela; overload;
 
+    procedure Configurar; overload;
     procedure Configurar(aDataSet : TDataSet); overload;
     procedure Configurar(aDataSet : TFDDataSet); overload;
   end;

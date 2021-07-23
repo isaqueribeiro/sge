@@ -21,6 +21,13 @@ type
     function ParamByName(aParamName, aParamValue : String) : IConnection<T>; overload;
     function ParamByName(aParamName : String; aParamValue : Integer) : IConnection<T>; overload;
     function ParamByName(aParamName : String; aParamValue : Int64) : IConnection<T>; overload;
+    function Where(aExpressionWhere : String) : IConnection<T>; overload;
+    function Where(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<T>; overload;
+    function Where(aFieldName : String; aFielValue : Integer) : IConnection<T>; overload;
+    function Where(aFieldName : String; aFielValue : Int64) : IConnection<T>; overload;
+    function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<T>;
+    function OpenEmpty : IConnection<T>;
+    function CloseEmpty : IConnection<T>;
     function OpenOrExecute : Boolean;
     function DataSet : TDataSet;
 
@@ -35,6 +42,9 @@ type
 
     procedure RefreshRecord;
     procedure SetupKeyFields;
+    procedure UpdateGenerator(const aExpressionWhere : String = '');
+
+    function NewID : Variant;
   end;
 
 implementation

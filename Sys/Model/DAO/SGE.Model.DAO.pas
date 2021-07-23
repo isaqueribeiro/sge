@@ -20,9 +20,25 @@ type
       function DataSet : TDataSet;
       function SelectSQL : String;
 
+      function Where(aExpressionWhere : String) : IModelDAO; overload;
+      function Where(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO; overload;
+      function Where(aFieldName : String; aFielValue : Integer) : IModelDAO; overload;
+      function Where(aFieldName : String; aFielValue : Int64) : IModelDAO; overload;
+      function WhereLike(aFieldName, aFielValue : String) : IModelDAO;
+      function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO;
+      function OrderBy(aFieldName : String) : IModelDAO; overload;
+
+      function OpenEmpty  : IModelDAO;
+      function CloseEmpty : IModelDAO;
+
+      procedure Open;
+
+      procedure Clear;
+      procedure ClearWhere;
       procedure ApplyUpdates;
       procedure CommitUpdates;
       procedure RefreshRecord;
+      procedure UpdateGenerator(const aExpressionWhere : String = '');
 
       procedure StartTransaction;
       procedure CommitTransaction;
@@ -36,6 +52,28 @@ implementation
 procedure TModelDAO.ApplyUpdates;
 begin
   FConn.Query.ApplyUpdates;
+end;
+
+procedure TModelDAO.Clear;
+begin
+  if FConn.Query.DataSet.Active then
+    FConn.Query.DataSet.Close;
+
+  FConn.Query.SQL.Clear;
+end;
+
+procedure TModelDAO.ClearWhere;
+begin
+  if FConn.Query.DataSet.Active then
+    FConn.Query.DataSet.Close;
+
+  FConn.Query.SQL.ClearWhere;
+end;
+
+function TModelDAO.CloseEmpty: IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.CloseEmpty;
 end;
 
 procedure TModelDAO.CommitTransaction;
@@ -63,6 +101,23 @@ begin
   inherited;
 end;
 
+procedure TModelDAO.Open;
+begin
+  FConn.Query.Open;
+end;
+
+function TModelDAO.OpenEmpty: IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.OpenEmpty;
+end;
+
+function TModelDAO.OrderBy(aFieldName: String): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.SQL.OrderBy(aFieldName);
+end;
+
 procedure TModelDAO.RefreshRecord;
 begin
   FConn.Query.RefreshRecord;
@@ -75,12 +130,56 @@ end;
 
 function TModelDAO.SelectSQL: String;
 begin
-  Result := FConn.Query.SQL.Text;
+  Result := FConn.Query.SQL.Text + #13 + FConn.Query.SQL.Where;
 end;
 
 procedure TModelDAO.StartTransaction;
 begin
   FConn.Query.StartTransaction;
+end;
+
+procedure TModelDAO.UpdateGenerator(const aExpressionWhere : String = '');
+begin
+  FConn.Query.UpdateGenerator(aExpressionWhere);
+end;
+
+function TModelDAO.Where(aExpressionWhere: String): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.Where(aExpressionWhere);
+end;
+
+function TModelDAO.Where(aFieldName, aFielValue: String; const aQuotedString : Boolean = True): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.Where(aFieldName, aFielValue, aQuotedString);
+end;
+
+function TModelDAO.Where(aFieldName: String; aFielValue: Integer): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.Where(aFieldName, aFielValue);
+end;
+
+function TModelDAO.Where(aFieldName: String; aFielValue: Int64): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.Where(aFieldName, aFielValue);
+end;
+
+function TModelDAO.WhereLike(aFieldName, aFielValue: String): IModelDAO;
+var
+  aExpression : String;
+begin
+  Result := Self;
+  aExpression := '(' + aFieldName.Trim + ' like ' + aFielValue.Trim.QuotedString + ')';
+  FConn.Query.Where(aExpression);
+end;
+
+function TModelDAO.WhereOr(aFieldName, aFielValue: String; const aQuotedString : Boolean = True): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.WhereOr(aFieldName, aFielValue, aQuotedString);
 end;
 
 end.

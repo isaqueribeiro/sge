@@ -72,7 +72,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UGeCidade, UGeTipoLogradouro, UConstantesDGE;
+  UDMBusiness, View.Cidade, UGeTipoLogradouro, UConstantesDGE;
 
 {$R *.dfm}
 

@@ -67,7 +67,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UGeCidade, UGeDistrito, UConstantesDGE;
+  UDMBusiness, View.Cidade, View.Distrito, UConstantesDGE;
 
 {$R *.dfm}
 

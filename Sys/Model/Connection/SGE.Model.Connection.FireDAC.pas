@@ -4,6 +4,7 @@ interface
 
 uses
   System.SysUtils,
+  System.Variants,
   Data.DB,
 
   FireDAC.UI.Intf,
@@ -38,8 +39,12 @@ uses
 type
   TConnectionFireDAC = class(TInterfacedObject, IConnection<TConnectionFireDAC>)
     private
-      FScript : TSQL<TConnectionFireDAC>;
-      FQuery  : TFDQuery;
+      FScript    : TSQL<TConnectionFireDAC>;
+      FFieldDefs : TFieldDefs;
+      FQuery     : TFDQuery;
+
+      procedure UpdateSequence(aGeneratorName, aTableName, aFielNameKey : String; const sWhr : String = '');
+      procedure CreateFieldDefs;
 
       function ExistParamByName(aParamName : String) : Boolean;
     protected
@@ -63,6 +68,14 @@ type
       function ParamByName(aParamName, aParamValue : String) : IConnection<TConnectionFireDAC>; overload;
       function ParamByName(aParamName : String; aParamValue : Integer) : IConnection<TConnectionFireDAC>; overload;
       function ParamByName(aParamName : String; aParamValue : Int64) : IConnection<TConnectionFireDAC>; overload;
+      function Where(aExpressionWhere : String) : IConnection<TConnectionFireDAC>; overload;
+      function Where(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<TConnectionFireDAC>; overload;
+      function Where(aFieldName : String; aFielValue : Integer) : IConnection<TConnectionFireDAC>; overload;
+      function Where(aFieldName : String; aFielValue : Int64) : IConnection<TConnectionFireDAC>; overload;
+      function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<TConnectionFireDAC>;
+      function OpenEmpty : IConnection<TConnectionFireDAC>;
+      function CloseEmpty : IConnection<TConnectionFireDAC>;
+
       function OpenOrExecute : Boolean;
       function DataSet : TDataSet;
 
@@ -77,6 +90,9 @@ type
 
       procedure RefreshRecord;
       procedure SetupKeyFields;
+      procedure UpdateGenerator(const aExpressionWhere : String = '');
+
+      function NewID : Variant;
   end;
 
 implementation
@@ -95,6 +111,17 @@ begin
   FQuery.UpdateOptions.FetchGeneratorsPoint := TFDFetchGeneratorsPoint.gpImmediate;
 end;
 
+function TConnectionFireDAC.CloseEmpty: IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+
+  if FQuery.Active then
+    FQuery.Close;
+
+  FScript.ClearWhereEmpty;
+  CreateFieldDefs;
+end;
+
 procedure TConnectionFireDAC.CommitTransaction;
 begin
   if FQuery.Connection.InTransaction then
@@ -109,6 +136,32 @@ begin
   FQuery.Transaction   := TFDCustomConnection(aConn).Transaction;
   FQuery.CachedUpdates := True;
   FQuery.OnUpdateError := QueryUpdateError;
+
+  FFieldDefs := TFieldDefs.Create(FQuery);
+end;
+
+procedure TConnectionFireDAC.CreateFieldDefs;
+var
+  I : Integer;
+begin
+  if FQuery.Active then
+  begin
+    FFieldDefs.Clear;
+    for I := 0 to Pred(FQuery.FieldDefs.Count) do
+    begin
+      FFieldDefs.AddFieldDef;
+      FFieldDefs.Items[I].Assign( FQuery.FieldDefs.Items[I] );
+    end;
+  end
+  else
+  begin
+    FQuery.FieldDefs.Clear;
+    for I := 0 to Pred(FFieldDefs.Count) do
+    begin
+      FQuery.FieldDefs.AddFieldDef;
+      FQuery.FieldDefs.Items[I].Assign( FFieldDefs.Items[I] );
+    end;
+  end;
 end;
 
 destructor TConnectionFireDAC.Destroy;
@@ -118,12 +171,36 @@ begin
 
   FQuery.DisposeOf;
   FScript.DisposeOf;
+
+  if Assigned(FFieldDefs) then
+  begin
+    FFieldDefs.Clear;
+    FFieldDefs.DisposeOf;
+  end;
+
   inherited;
 end;
 
 class function TConnectionFireDAC.New(aConn : TCustomConnection) : IConnection<TConnectionFireDAC>;
 begin
   Result := Self.Create(aConn);
+end;
+
+function TConnectionFireDAC.NewID : Variant;
+var
+  aFieldName ,
+  aTableName : String;
+  ID : Variant;
+begin
+  aFieldName := FQuery.UpdateOptions.KeyFields;
+  aTableName := FQuery.UpdateOptions.UpdateTableName;
+  ID := TFDConnection(FQuery.Connection)
+    .ExecSQLScalar('Select (max(' + aFieldName + ') + 1) as ID from ' + aTableName);
+
+  if VarIsNull(ID) then
+    Result := 1
+  else
+    Result := ID;
 end;
 
 procedure TConnectionFireDAC.ApplyUpdates;
@@ -147,6 +224,8 @@ begin
   FQuery.SQL.BeginUpdate;
   FQuery.SQL.Clear;
   FQuery.SQL.Add( FScript.Text );
+  FQuery.SQL.Add( FScript.Where );
+  FQuery.SQL.Add( FScript.OrderBy );
   FQuery.SQL.EndUpdate;
   FQuery.ExecSQL;
 end;
@@ -184,10 +263,20 @@ begin
   FQuery.SQL.BeginUpdate;
   FQuery.SQL.Clear;
   FQuery.SQL.Add( FScript.Text );
+  FQuery.SQL.Add( FScript.Where );
+  FQuery.SQL.Add( FScript.OrderBy );
   FQuery.SQL.EndUpdate;
   FQuery.Open;
 
   SetupKeyFields;
+end;
+
+function TConnectionFireDAC.OpenEmpty: IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  FScript.WhereEmpty;
+  Open;
+  CreateFieldDefs;
 end;
 
 function TConnectionFireDAC.OpenOrExecute: Boolean;
@@ -196,6 +285,8 @@ begin
   FQuery.SQL.BeginUpdate;
   FQuery.SQL.Clear;
   FQuery.SQL.Add( FScript.Text );
+  FQuery.SQL.Add( FScript.Where );
+  FQuery.SQL.Add( FScript.OrderBy );
   FQuery.SQL.EndUpdate;
 
   Result := FQuery.OpenOrExecute;
@@ -285,6 +376,55 @@ end;
 function TConnectionFireDAC.TableName: String;
 begin
   Result := FQuery.UpdateOptions.UpdateTableName;
+end;
+
+procedure TConnectionFireDAC.UpdateGenerator(const aExpressionWhere: String);
+begin
+  UpdateSequence(GeneratorName, TableName, AutoIncFields, aExpressionWhere);
+end;
+
+procedure TConnectionFireDAC.UpdateSequence(aGeneratorName, aTableName, aFielNameKey : String; const sWhr : String = '');
+var
+  ID : Variant;
+begin
+  with FQuery.Connection do
+  begin
+    ID := TFDConnection(FQuery.Connection).ExecSQLScalar('Select max(' + aFielNameKey + ') as ID from ' + aTableName + ' ' + sWhr);
+    TFDConnection(FQuery.Connection).ExecSQL('Execute procedure SET_GENERATOR(' + QuotedStr(GeneratorName) + ', null)');
+    TFDConnection(FQuery.Connection).ExecSQL('ALTER SEQUENCE ' + GeneratorName + ' RESTART WITH ' + VarToStr(ID));
+
+    CommitTransaction;
+  end;
+end;
+
+function TConnectionFireDAC.Where(aExpressionWhere: String): IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  FScript.Where(aExpressionWhere);
+end;
+
+function TConnectionFireDAC.Where(aFieldName, aFielValue: String; const aQuotedString : Boolean = True): IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  FScript.Where(aFieldName, aFielValue, aQuotedString);
+end;
+
+function TConnectionFireDAC.Where(aFieldName: String; aFielValue: Integer): IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  FScript.Where(aFieldName, aFielValue);
+end;
+
+function TConnectionFireDAC.Where(aFieldName: String; aFielValue: Int64): IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  FScript.Where(aFieldName, aFielValue);
+end;
+
+function TConnectionFireDAC.WhereOr(aFieldName, aFielValue: String; const aQuotedString : Boolean = True): IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  FScript.WhereOr(aFieldName, aFielValue, aQuotedString);
 end;
 
 function TConnectionFireDAC.TableName(aTableName: String): IConnection<TConnectionFireDAC>;

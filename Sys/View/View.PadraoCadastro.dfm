@@ -19,6 +19,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -97,9 +98,9 @@ object ViewPadraoCadastro: TViewPadraoCadastro
         BorderWidth = 4
         TabOrder = 1
         object grpBxFiltro: TGroupBox
-          Left = 471
+          Left = 464
           Top = 4
-          Width = 252
+          Width = 259
           Height = 54
           Align = alRight
           Caption = 'Pesquisar ...'
@@ -110,11 +111,8 @@ object ViewPadraoCadastro: TViewPadraoCadastro
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
-          DesignSize = (
-            252
-            54)
           object lbltFiltrar: TLabel
-            Left = 6
+            Left = 17
             Top = 25
             Width = 41
             Height = 13
@@ -122,26 +120,34 @@ object ViewPadraoCadastro: TViewPadraoCadastro
             FocusControl = edtFiltrar
           end
           object edtFiltrar: TEdit
-            Left = 55
-            Top = 21
+            AlignWithMargins = True
+            Left = 64
+            Top = 20
             Width = 148
-            Height = 21
+            Height = 23
             Hint = 'Digite aqui a palavra-chave da pesquisa'
-            Anchors = [akLeft, akTop, akRight]
+            Margins.Top = 5
+            Margins.Bottom = 9
+            Align = alRight
             CharCase = ecUpperCase
             ParentShowHint = False
             ShowHint = True
             TabOrder = 0
-            OnKeyDown = edtFiltrarKeyDown
+            ExplicitLeft = 57
+            ExplicitTop = 25
+            ExplicitHeight = 21
           end
           object btnFiltrar: TcxButton
             Tag = 5
-            Left = 207
-            Top = 16
+            AlignWithMargins = True
+            Left = 218
+            Top = 18
             Width = 29
-            Height = 27
+            Height = 26
             Hint = 'Clique aqui para executar a pesquisa ...'
-            Anchors = [akTop, akRight, akBottom]
+            Margins.Right = 10
+            Margins.Bottom = 8
+            Align = alRight
             OptionsImage.Glyph.SourceDPI = 96
             OptionsImage.Glyph.Data = {
               424D360400000000000036000000280000001000000010000000010020000000
@@ -186,6 +192,9 @@ object ViewPadraoCadastro: TViewPadraoCadastro
             TabOrder = 1
             TabStop = False
             OnClick = btnFiltrarClick
+            ExplicitLeft = 207
+            ExplicitTop = 16
+            ExplicitHeight = 27
           end
         end
       end

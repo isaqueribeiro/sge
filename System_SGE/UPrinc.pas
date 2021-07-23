@@ -732,25 +732,25 @@ end;
 procedure TfrmPrinc.nmEstadosClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_ESTADO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeEstado');
+    FormFunction.ShowModalForm(Self, 'ViewEstado');
 end;
 
 procedure TfrmPrinc.nmCidadesClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_CIDADE_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeCidade');
+    FormFunction.ShowModalForm(Self, 'ViewCidade');
 end;
 
 procedure TfrmPrinc.nmDistritosClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_DISTRITO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeDistrito');
+    FormFunction.ShowModalForm(Self, 'ViewDistrito');
 end;
 
 procedure TfrmPrinc.nmBairrosClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_BAIRRO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeBairro');
+    FormFunction.ShowModalForm(Self, 'ViewBairro');
 end;
 
 procedure TfrmPrinc.nmLogradourosClick(Sender: TObject);

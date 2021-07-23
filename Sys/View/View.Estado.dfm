@@ -7,10 +7,6 @@ inherited ViewEstado: TViewEstado
   TextHeight = 13
   inherited pgcGuias: TPageControl
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       inherited dbgDados: TDBGrid
         Columns = <
           item
@@ -52,14 +48,19 @@ inherited ViewEstado: TViewEstado
           inherited lbltFiltrar: TLabel
             Caption = 'Estado:'
           end
+          inherited edtFiltrar: TEdit
+            ExplicitLeft = 64
+            ExplicitTop = 20
+          end
+          inherited btnFiltrar: TcxButton
+            ExplicitLeft = 218
+            ExplicitTop = 18
+            ExplicitHeight = 26
+          end
         end
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
-      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 75
         ExplicitTop = 81
@@ -197,118 +198,5 @@ inherited ViewEstado: TViewEstado
         end
       end
     end
-  end
-  inherited IbDtstTabela: TIBDataSet
-    SelectSQL.Strings = ()
-  end
-  inherited DtSrcTabela: TDataSource
-    DataSet = fdQryTabela
-  end
-  inherited IbUpdTabela: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  EST_COD,'
-      '  EST_NOME,'
-      '  EST_SIGLA,'
-      '  EST_SIAFI,'
-      '  ALIQUOTA_ICMS'
-      'from TBESTADO '
-      'where'
-      '  EST_COD = :EST_COD')
-    ModifySQL.Strings = (
-      'update TBESTADO'
-      'set'
-      '  ALIQUOTA_ICMS = :ALIQUOTA_ICMS,'
-      '  EST_COD = :EST_COD,'
-      '  EST_NOME = :EST_NOME,'
-      '  EST_SIAFI = :EST_SIAFI,'
-      '  EST_SIGLA = :EST_SIGLA'
-      'where'
-      '  EST_COD = :OLD_EST_COD')
-    InsertSQL.Strings = (
-      'insert into TBESTADO'
-      '  (ALIQUOTA_ICMS, EST_COD, EST_NOME, EST_SIAFI, EST_SIGLA)'
-      'values'
-      '  (:ALIQUOTA_ICMS, :EST_COD, :EST_NOME, :EST_SIAFI, :EST_SIGLA)')
-    DeleteSQL.Strings = (
-      'delete from TBESTADO'
-      'where'
-      '  EST_COD = :OLD_EST_COD')
-  end
-  inherited fdQryTabela: TFDQuery
-    SQL.Strings = (
-      'Select'
-      '    e.Est_cod'
-      '  , e.Est_nome'
-      '  , e.Est_sigla'
-      '  , e.Est_siafi'
-      '  , e.Aliquota_icms'
-      '  , e.Aliquota_fcp'
-      'from TBESTADO e')
-    object fdQryTabelaEST_COD: TSmallintField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'EST_COD'
-      Origin = 'EST_COD'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object fdQryTabelaEST_NOME: TStringField
-      DisplayLabel = 'Nome'
-      FieldName = 'EST_NOME'
-      Origin = 'EST_NOME'
-      Size = 100
-    end
-    object fdQryTabelaEST_SIGLA: TStringField
-      DisplayLabel = 'Sigla'
-      FieldName = 'EST_SIGLA'
-      Origin = 'EST_SIGLA'
-      Size = 2
-    end
-    object fdQryTabelaEST_SIAFI: TIntegerField
-      DisplayLabel = 'SIAFI'
-      FieldName = 'EST_SIAFI'
-      Origin = 'EST_SIAFI'
-    end
-    object fdQryTabelaALIQUOTA_ICMS: TFMTBCDField
-      FieldName = 'ALIQUOTA_ICMS'
-      Origin = 'ALIQUOTA_ICMS'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaALIQUOTA_FCP: TFMTBCDField
-      FieldName = 'ALIQUOTA_FCP'
-      Origin = 'ALIQUOTA_FCP'
-      Precision = 18
-      Size = 2
-    end
-  end
-  inherited fdUpdTabela: TFDUpdateSQL
-    InsertSQL.Strings = (
-      'INSERT INTO TBESTADO'
-      '(EST_COD, EST_NOME, EST_SIGLA, EST_SIAFI, '
-      '  ALIQUOTA_ICMS, ALIQUOTA_FCP)'
-      
-        'VALUES (:NEW_EST_COD, :NEW_EST_NOME, :NEW_EST_SIGLA, :NEW_EST_SI' +
-        'AFI, '
-      '  :NEW_ALIQUOTA_ICMS, :NEW_ALIQUOTA_FCP)')
-    ModifySQL.Strings = (
-      'UPDATE TBESTADO'
-      
-        'SET EST_COD = :NEW_EST_COD, EST_NOME = :NEW_EST_NOME, EST_SIGLA ' +
-        '= :NEW_EST_SIGLA, '
-      
-        '  EST_SIAFI = :NEW_EST_SIAFI, ALIQUOTA_ICMS = :NEW_ALIQUOTA_ICMS' +
-        ', '
-      '  ALIQUOTA_FCP = :NEW_ALIQUOTA_FCP'
-      'WHERE EST_COD = :OLD_EST_COD')
-    DeleteSQL.Strings = (
-      'DELETE FROM TBESTADO'
-      'WHERE EST_COD = :OLD_EST_COD')
-    FetchRowSQL.Strings = (
-      
-        'SELECT EST_COD, EST_NOME, EST_SIGLA, EST_SIAFI, ALIQUOTA_ICMS, A' +
-        'LIQUOTA_FCP'
-      'FROM TBESTADO'
-      'WHERE EST_COD = :EST_COD')
   end
 end

@@ -3,24 +3,40 @@ unit View.Estado;
 interface
 
 uses
-  UGrPadraoCadastro,
+  System.SysUtils,
+  System.StrUtils,
+  System.ImageList,
+  System.Classes,
+  System.Variants,
+  Winapi.Windows,
 
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
-  cxButtons, System.ImageList,
+  Vcl.Forms,
+  Vcl.Menus,
+  Vcl.ImgList,
+  Vcl.Controls,
+  Vcl.Mask,
+  Vcl.DBCtrls,
+  Vcl.StdCtrls,
+  Vcl.ExtCtrls,
+  Vcl.Grids,
+  Vcl.DBGrids,
+  Vcl.ComCtrls,
+  Vcl.Graphics,
+  Vcl.Buttons,
 
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
-  FireDAC.Comp.DataSet,
+  Data.DB,
+  Datasnap.DBClient,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  frxClass,
+  cxGraphics,
+  cxLookAndFeels,
+  cxLookAndFeelPainters,
+  cxButtons,
+  dxSkinsCore,
+  View.PadraoCadastro;
 
 type
-  TViewEstado = class(TfrmGrPadraoCadastro)
+  TViewEstado = class(TViewPadraoCadastro)
     lblNome: TLabel;
     dbNome: TDBEdit;
     lblSigla: TLabel;
@@ -30,16 +46,9 @@ type
     GrpBxTributacoes: TGroupBox;
     lblAliquotaICMS: TLabel;
     dbAliquotaICMS: TDBEdit;
-    fdQryTabelaEST_COD: TSmallintField;
-    fdQryTabelaEST_NOME: TStringField;
-    fdQryTabelaEST_SIGLA: TStringField;
-    fdQryTabelaEST_SIAFI: TIntegerField;
     lblAliquotaFCP: TLabel;
     dbAliquotaFCP: TDBEdit;
-    fdQryTabelaALIQUOTA_ICMS: TFMTBCDField;
-    fdQryTabelaALIQUOTA_FCP: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
-    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -67,7 +76,10 @@ var
 implementation
 
 uses
-  UDMBusiness, UGrPadrao, UConstantesDGE;
+  UDMBusiness,
+  UGrPadrao,
+  UConstantesDGE,
+  SGE.Controller.Factory;
 
 {$R *.dfm}
 
@@ -107,19 +119,10 @@ begin
   end;
 end;
 
-procedure TViewEstado.fdQryTabelaNewRecord(DataSet: TDataSet);
-begin
-  with DtSrcTabela.DataSet do
-  begin
-    FieldByName('EST_SIGLA').Clear;
-    FieldByName('EST_SIAFI').Clear;
-    FieldByName('ALIQUOTA_ICMS').Clear;
-    FieldByName('ALIQUOTA_FCP').Clear;
-  end;
-end;
-
 procedure TViewEstado.FormCreate(Sender: TObject);
 begin
+  FController := TControllerFactory.New.UF;
+
   inherited;
   RotinaID         := ROTINA_CAD_ESTADO_ID;
   ControlFirstEdit := dbCodigo;
@@ -131,12 +134,11 @@ begin
   CampoOrdenacao  := 'est_nome';
 
   Tabela
-    .Display('est_cod', 'Código', '00', TAlignment.taCenter)
-    .Display('est_nome', 'Nome')
-    .Display('est_sigla', 'Sigla')
+    .Display('est_cod', 'Código', DisplayFormatCodigo, TAlignment.taCenter)
+    .Display('est_nome', 'Nome', True)
+    .Display('est_sigla', 'Sigla', True)
     .Display('aliquota_icms', '% Aliquota ICMS', ',0.00#', TAlignment.taRightJustify)
-    .Display('aliquota_fcp', '% Aliquota FCP', ',0.00#', TAlignment.taRightJustify)
-    .Configurar( fdQryTabela );
+    .Display('aliquota_fcp', '% Aliquota FCP', ',0.00#', TAlignment.taRightJustify);
 
   AbrirTabelaAuto := True;
 end;

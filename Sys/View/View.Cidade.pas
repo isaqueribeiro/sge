@@ -1,26 +1,45 @@
-unit UGeCidade;
+unit View.Cidade;
 
 interface
 
 uses
-  UGrPadraoCadastro,
+  System.SysUtils,
+  System.StrUtils,
+  System.ImageList,
+  System.Classes,
+  System.Variants,
+  Winapi.Windows,
 
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, System.ImageList, ImgList, IBCustomDataSet, IBUpdateSQL, DB, JvDBControls,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, JvToolEdit,
-  ToolWin, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask,
+  Vcl.Forms,
+  Vcl.Menus,
+  Vcl.ImgList,
+  Vcl.Controls,
+  Vcl.Mask,
+  Vcl.DBCtrls,
+  Vcl.StdCtrls,
+  Vcl.ExtCtrls,
+  Vcl.Grids,
+  Vcl.DBGrids,
+  Vcl.ComCtrls,
+  Vcl.Graphics,
+  Vcl.Buttons,
 
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
-  FireDAC.Comp.DataSet,
+  Data.DB,
+  Datasnap.DBClient,
 
-
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  frxClass,
+  cxGraphics,
+  cxLookAndFeels,
+  cxLookAndFeelPainters,
+  cxButtons,
+  dxSkinsCore,
+  JvExMask,
+  JvToolEdit,
+  JvDBControls,
+  View.PadraoCadastro;
 
 type
-  TfrmGeCidade = class(TfrmGrPadraoCadastro)
+  TViewCidade = class(TViewPadraoCadastro)
     lblNome: TLabel;
     dbNome: TDBEdit;
     lblBGE: TLabel;
@@ -42,26 +61,14 @@ type
     dbOutros: TDBEdit;
     Bevel5: TBevel;
     dbEstado: TJvDBComboEdit;
-    fdQryTabelaCID_COD: TIntegerField;
-    fdQryTabelaCID_NOME: TStringField;
-    fdQryTabelaEST_COD: TSmallintField;
-    fdQryTabelaCID_SIAFI: TIntegerField;
-    fdQryTabelaCID_IBGE: TIntegerField;
-    fdQryTabelaCID_DDD: TSmallintField;
-    fdQryTabelaCID_CEP_INICIAL: TIntegerField;
-    fdQryTabelaCID_CEP_FINAL: TIntegerField;
-    fdQryTabelaCUSTO_OPER_PERCENTUAL: TSmallintField;
-    fdQryTabelaCUSTO_OPER_FRETE: TBCDField;
-    fdQryTabelaCUSTO_OPER_OUTROS: TBCDField;
-    fdQryTabelaEST_NOME: TStringField;
-    fdQryTabelaEST_SIGLA: TStringField;
+    lblCustosOpereracional: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure pgcGuiasChange(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
+    procedure btbtnIncluirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -80,7 +87,7 @@ type
 *)
 
 var
-  frmGeCidade: TfrmGeCidade;
+  ViewCidade: TViewCidade;
 
   procedure MostrarTabelaCidades(const AOwner : TComponent);
 
@@ -93,15 +100,16 @@ uses
   UDMBusiness,
   View.Estado,
   UGrPadrao,
-  UConstantesDGE;
+  UConstantesDGE,
+  SGE.Controller.Factory;
 
 {$R *.dfm}
 
 procedure MostrarTabelaCidades(const AOwner : TComponent);
 var
-  frm : TfrmGeCidade;
+  frm : TViewCidade;
 begin
-  frm := TfrmGeCidade.Create(AOwner);
+  frm := TViewCidade.Create(AOwner);
   try
     frm.ShowModal;
   finally
@@ -111,9 +119,9 @@ end;
 
 function SelecionarCidade(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
 var
-  frm : TfrmGeCidade;
+  frm : TViewCidade;
 begin
-  frm := TfrmGeCidade.Create(AOwner);
+  frm := TViewCidade.Create(AOwner);
   try
     Result := frm.SelecionarRegistro(Codigo, Nome);
   finally
@@ -123,19 +131,18 @@ end;
 
 function SelecionarCidade(const AOwner : TComponent; const Estado : Smallint; var Codigo : Integer; var Nome : String) : Boolean; overload;
 var
-  frm : TfrmGeCidade;
+  frm : TViewCidade;
   whr : String;
 begin
-  frm := TfrmGeCidade.Create(AOwner);
+  frm := TViewCidade.Create(AOwner);
   try
-    whr    := 'c.est_cod = ' + IntToStr(Estado);
+    frm.DtSrcTabela.DataSet.Close;
 
-    with frm, fdQryTabela do
-    begin
-      Close;
-      SQL.Add('where ' + whr);
-      Open;
-    end;
+    whr := 'c.est_cod = ' + IntToStr(Estado);
+
+    frm.FController.DAO.ClearWhere;
+    frm.FController.DAO.Where(whr);
+    frm.FController.DAO.Open;
 
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
   finally
@@ -143,23 +150,38 @@ begin
   end;
 end;
 
-procedure TfrmGeCidade.FormCreate(Sender: TObject);
+procedure TViewCidade.FormCreate(Sender: TObject);
 begin
+  FController := TControllerFactory.New.Cidade;
+
   inherited;
   RotinaID         := ROTINA_CAD_CIDADE_ID;
   ControlFirstEdit := dbNome;
+
+  DisplayFormatCodigo := '0000';
 
   NomeTabela     := 'TBCIDADE';
   CampoCodigo    := 'c.cid_cod';
   CampoDescricao := 'c.cid_nome';
   CampoOrdenacao := 'c.cid_nome';
 
-  UpdateGenerator;
 
-  GrpBxCustosOper.Enabled := GetCalcularCustoOperEmpresa(gUsuarioLogado.Empresa);
+  Tabela
+    .Display('cid_cod',  'Código', DisplayFormatCodigo, TAlignment.taCenter)
+    .Display('cid_nome', 'Nome', True)
+    .Display('Cid_ibge', 'IBGE', True)
+    .Display('est_cod',  'Estado', True)
+    .Display('Custo_oper_frete',  'Frete',  ',0.00#', TAlignment.taRightJustify)
+    .Display('Custo_oper_outros', 'Outros', ',0.00#', TAlignment.taRightJustify);
+
+  AbrirTabelaAuto := True;
+  FController.DAO.UpdateGenerator(EmptyStr);
+
+  GrpBxCustosOper.Enabled        := GetCalcularCustoOperEmpresa(gUsuarioLogado.Empresa);
+  lblCustosOpereracional.Visible := not GrpBxCustosOper.Enabled;
 end;
 
-procedure TfrmGeCidade.dbEstadoButtonClick(Sender: TObject);
+procedure TViewCidade.dbEstadoButtonClick(Sender: TObject);
 var
   iEstado : Integer;
   sEstado : String;
@@ -175,24 +197,7 @@ begin
   end;
 end;
 
-procedure TfrmGeCidade.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  with DtSrcTabela.DataSet do
-  begin
-    if ( GetEstadoIDDefault > 0 ) then
-    begin
-      FieldByName('EST_COD').AsInteger := GetEstadoIDDefault;
-      FieldByName('EST_NOME').AsString := GetEstadoNomeDefault;
-    end;
-
-    FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger := 0; // Ord(False);
-    FieldByName('CUSTO_OPER_FRETE').Clear;
-    FieldByName('CUSTO_OPER_OUTROS').Clear;
-  end;
-end;
-
-procedure TfrmGeCidade.DtSrcTabelaDataChange(Sender: TObject;
+procedure TViewCidade.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 begin
   with DtSrcTabela.DataSet do
@@ -211,14 +216,24 @@ begin
   end;
 end;
 
-procedure TfrmGeCidade.pgcGuiasChange(Sender: TObject);
+procedure TViewCidade.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
   with DtSrcTabela.DataSet do
     DtSrcTabelaDataChange(FieldByName('CUSTO_OPER_PERCENTUAL'), FieldByName('CUSTO_OPER_PERCENTUAL'));
 end;
 
-procedure TfrmGeCidade.btbtnSalvarClick(Sender: TObject);
+procedure TViewCidade.btbtnIncluirClick(Sender: TObject);
+begin
+  inherited;
+  if (GetEstadoIDDefault > 0) and (DtSrcTabela.DataSet.State in [TDataSetState.dsInsert, TDataSetState.dsEdit])  then
+  begin
+    DtSrcTabela.DataSet.FieldByName('EST_COD').AsInteger := GetEstadoIDDefault;
+    DtSrcTabela.DataSet.FieldByName('EST_NOME').AsString := GetEstadoNomeDefault;
+  end;
+end;
+
+procedure TViewCidade.btbtnSalvarClick(Sender: TObject);
 begin
   with DtSrcTabela.DataSet do
   begin
@@ -244,7 +259,7 @@ begin
   inherited;
 end;
 
-procedure TfrmGeCidade.btbtnAlterarClick(Sender: TObject);
+procedure TViewCidade.btbtnAlterarClick(Sender: TObject);
 begin
   inherited;
   with DtSrcTabela.DataSet do
@@ -256,6 +271,6 @@ begin
 end;
 
 initialization
-  FormFunction.RegisterForm('frmGeCidade', TfrmGeCidade);
+  FormFunction.RegisterForm('ViewCidade', TViewCidade);
 
 end.

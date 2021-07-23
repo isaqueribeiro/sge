@@ -159,7 +159,7 @@ var
 
 implementation
 
-uses UDMBusiness, UGeBairro, UGeCidade, UGeDistrito, UGeEstado,
+uses UDMBusiness, UGeBairro, View.Cidade, View.Distrito, View.Estado,
   UGeLogradouro, DateUtils, UConstantesDGE, UGrPadrao;
 
 {$R *.dfm}
