@@ -21,6 +21,8 @@ type
     function Where(aFieldName : String; aFielValue : Int64) : IModelDAO; overload;
     function WhereLike(aFieldName, aFielValue : String) : IModelDAO;
     function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO;
+    function WhereAdditional(aExpression : String) : IModelDAO; overload;
+    function WhereAdditional : String; overload;
     function OrderBy(aFieldName : String) : IModelDAO; overload;
 
     function OpenEmpty  : IModelDAO;
@@ -42,6 +44,7 @@ type
 
   IModelDAOCustom = interface(IModelDAO)
     ['{08EF0520-4A95-4194-B5B7-AFE88A77E4DD}']
+    function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
 //  IConfigureFields = interface
@@ -62,6 +65,8 @@ type
     function Cidade   : IModelDAOCustom;
     function Distrito : IModelDAOCustom;
     function Bairro   : IModelDAOCustom;
+    function TipoLogradouro : IModelDAOCustom;
+    function Logradouro : IModelDAOCustom;
   end;
 
 implementation

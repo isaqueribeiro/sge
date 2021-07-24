@@ -21,9 +21,7 @@ uses
   UGrPadraoCadastro in '..\Sys\lib\UGrPadraoCadastro.pas' {frmGrPadraoCadastro},
   UGrPadrao in '..\Sys\lib\UGrPadrao.pas' {frmGrPadrao},
   UGeBancos in '..\Sys\UGeBancos.pas' {frmGeBancos},
-  UGeTipoLogradouro in '..\Sys\UGeTipoLogradouro.pas' {frmGeTipoLogradouro},
   UGeBairro in '..\Sys\UGeBairro.pas' {frmGeBairro},
-  UGeLogradouro in '..\Sys\UGeLogradouro.pas' {frmGeLogradouro},
   UGeEmpresa in '..\Sys\UGeEmpresa.pas' {frmGeEmpresa},
   UGeCliente in '..\Sys\UGeCliente.pas' {frmGeCliente},
   UGeFornecedor in '..\Sys\UGeFornecedor.pas' {frmGeFornecedor},
@@ -212,6 +210,7 @@ uses
   SGE.Model.DAO.Cidade in '..\Sys\Model\DAO\SGE.Model.DAO.Cidade.pas',
   SGE.Model.DAO.Distrito in '..\Sys\Model\DAO\SGE.Model.DAO.Distrito.pas',
   SGE.Model.DAO.Bairro in '..\Sys\Model\DAO\SGE.Model.DAO.Bairro.pas',
+  SGE.Model.DAO.TipoLogradouro in '..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas',
   SGE.Controller.Interfaces in '..\Sys\Controller\SGE.Controller.Interfaces.pas',
   SGE.Controller in '..\Sys\Controller\SGE.Controller.pas',
   SGE.Controller.Factory in '..\Sys\Controller\SGE.Controller.Factory.pas',
@@ -219,10 +218,15 @@ uses
   SGE.Controller.Cidade in '..\Sys\Controller\SGE.Controller.Cidade.pas',
   SGE.Controller.Distrito in '..\Sys\Controller\SGE.Controller.Distrito.pas',
   SGE.Controller.Bairro in '..\Sys\Controller\SGE.Controller.Bairro.pas',
+  SGE.Controller.TipoLogradouro in '..\Sys\Controller\SGE.Controller.TipoLogradouro.pas',
   View.Estado in '..\Sys\View\View.Estado.pas' {ViewEstado},
   View.Cidade in '..\Sys\View\View.Cidade.pas' {ViewCidade},
   View.Distrito in '..\Sys\View\View.Distrito.pas' {ViewDistrito},
-  View.Bairro in '..\Sys\View\View.Bairro.pas' {ViewBairro};
+  View.Bairro in '..\Sys\View\View.Bairro.pas' {ViewBairro},
+  View.TipoLogradouro in '..\Sys\View\View.TipoLogradouro.pas' {ViewTipoLogradouro},
+  SGE.Model.DAO.Logradouro in '..\Sys\Model\DAO\SGE.Model.DAO.Logradouro.pas',
+  SGE.Controller.Logradouro in '..\Sys\Controller\SGE.Controller.Logradouro.pas',
+  View.Logradouro in '..\Sys\View\View.Logradouro.pas' {ViewLogradouro};
 
 {$R *.res}
 
@@ -237,6 +241,7 @@ begin
   Application.CreateForm(TDMRecursos, DMRecursos);
   Application.CreateForm(TDMBusiness, DMBusiness);
   Application.CreateForm(TDMNFe, DMNFe);
+  Application.CreateForm(TViewLogradouro, ViewLogradouro);
   SplashFree;
 
   if ExecutarLogin() then

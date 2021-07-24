@@ -17,6 +17,8 @@ type
     public
       destructor Destroy; override;
       class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
 implementation
@@ -45,6 +47,24 @@ begin
       .CloseEmpty;
 
   FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
+end;
+
+function TModelDAOUF.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    e.Est_cod  ')
+        .Add('  , e.Est_nome ')
+        .Add('  , e.Est_sigla')
+        .Add('from TBESTADO e')
+        .Add('order by       ')
+        .Add('    e.Est_nome ')
+      .&End
+      .Open;
 end;
 
 procedure TModelDAOUF.DataSetNewRecord(DataSet: TDataSet);

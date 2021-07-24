@@ -17,6 +17,8 @@ type
     public
       destructor Destroy; override;
       class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
 implementation

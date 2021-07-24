@@ -17,6 +17,8 @@ type
     function KeyFields : String; overload;
     function AutoIncFields(aAutoIncFields : String) : IConnection<T>; overload;
     function AutoIncFields : String; overload;
+    function WhereAdditional(aExpression : String) : IConnection<T>; overload;
+    function WhereAdditional : String; overload;
     function SQL : TSQL<T>;
     function ParamByName(aParamName, aParamValue : String) : IConnection<T>; overload;
     function ParamByName(aParamName : String; aParamValue : Integer) : IConnection<T>; overload;

@@ -7,7 +7,9 @@ uses
   SGE.Model.DAO.UF,
   SGE.Model.DAO.Cidade,
   SGE.Model.DAO.Distrito,
-  SGE.Model.DAO.Bairro;
+  SGE.Model.DAO.Bairro,
+  SGE.Model.DAO.TipoLogradouro,
+  SGE.Model.DAO.Logradouro;
 
 type
   TModelDAOFactory = class(TInterfacedObject, IModelDAOFactory)
@@ -15,7 +17,9 @@ type
       FUF       ,
       FCidade   ,
       FDistrito ,
-      FBairro   : IModelDAOCustom;
+      FBairro   ,
+      FTipoLogradouro,
+      FLogradouro    : IModelDAOCustom;
     protected
       constructor Create;
     public
@@ -26,6 +30,8 @@ type
       function Cidade   : IModelDAOCustom;
       function Distrito : IModelDAOCustom;
       function Bairro   : IModelDAOCustom;
+      function TipoLogradouro : IModelDAOCustom;
+      function Logradouro : IModelDAOCustom;
   end;
 
 implementation
@@ -45,6 +51,14 @@ end;
 class function TModelDAOFactory.New: IModelDAOFactory;
 begin
   Result := Self.Create;
+end;
+
+function TModelDAOFactory.TipoLogradouro: IModelDAOCustom;
+begin
+  if not Assigned(FTipoLogradouro) then
+    FTipoLogradouro := TModelDAOTipoLogradouro.New;
+
+  Result := FTipoLogradouro;
 end;
 
 function TModelDAOFactory.Bairro: IModelDAOCustom;
@@ -69,6 +83,14 @@ begin
     FDistrito := TModelDAODistrito.New;
 
   Result := FDistrito;
+end;
+
+function TModelDAOFactory.Logradouro: IModelDAOCustom;
+begin
+  if not Assigned(FLogradouro) then
+    FLogradouro := TModelDAOLogradouro.New;
+
+  Result := FLogradouro;
 end;
 
 function TModelDAOFactory.UF: IModelDAOCustom;

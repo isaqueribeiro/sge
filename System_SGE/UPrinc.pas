@@ -726,7 +726,7 @@ end;
 procedure TfrmPrinc.nmTiposdeLogradourosClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_TIPO_LOG_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeTipoLogradouro');
+    FormFunction.ShowModalForm(Self, 'ViewTipoLogradouro');
 end;
 
 procedure TfrmPrinc.nmEstadosClick(Sender: TObject);
@@ -756,7 +756,7 @@ end;
 procedure TfrmPrinc.nmLogradourosClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_LOGRADOURO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeLogradouro');
+    FormFunction.ShowModalForm(Self, 'ViewLogradouro');
 end;
 
 procedure TfrmPrinc.nmGruposProdutoClick(Sender: TObject);

@@ -26,6 +26,8 @@ type
       function Where(aFieldName : String; aFielValue : Int64) : IModelDAO; overload;
       function WhereLike(aFieldName, aFielValue : String) : IModelDAO;
       function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO;
+      function WhereAdditional(aExpression : String) : IModelDAO; overload;
+      function WhereAdditional : String; overload;
       function OrderBy(aFieldName : String) : IModelDAO; overload;
 
       function OpenEmpty  : IModelDAO;
@@ -165,6 +167,17 @@ function TModelDAO.Where(aFieldName: String; aFielValue: Int64): IModelDAO;
 begin
   Result := Self;
   FConn.Query.Where(aFieldName, aFielValue);
+end;
+
+function TModelDAO.WhereAdditional: String;
+begin
+  Result := FConn.Query.WhereAdditional;
+end;
+
+function TModelDAO.WhereAdditional(aExpression: String): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.WhereAdditional(aExpression);
 end;
 
 function TModelDAO.WhereLike(aFieldName, aFielValue: String): IModelDAO;

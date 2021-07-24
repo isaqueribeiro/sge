@@ -33,8 +33,8 @@ uses
   cxLookAndFeelPainters,
   cxButtons,
   dxSkinsCore,
-  JvExMask,
   JvToolEdit,
+  JvExMask,
   JvDBControls,
   View.PadraoCadastro;
 

@@ -179,14 +179,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeBancos.pas">
             <Form>frmGeBancos</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeTipoLogradouro.pas">
-            <Form>frmGeTipoLogradouro</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeBairro.pas">
             <Form>frmGeBairro</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeLogradouro.pas">
-            <Form>frmGeLogradouro</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeEmpresa.pas">
             <Form>frmGeEmpresa</Form>
@@ -633,6 +627,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cidade.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Distrito.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Bairro.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Factory.pas"/>
@@ -640,6 +635,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Cidade.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Distrito.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Bairro.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoLogradouro.pas"/>
         <DCCReference Include="..\Sys\View\View.Estado.pas">
             <Form>ViewEstado</Form>
         </DCCReference>
@@ -652,6 +648,16 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Bairro.pas">
             <Form>ViewBairro</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.TipoLogradouro.pas">
+            <Form>ViewTipoLogradouro</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Logradouro.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Logradouro.pas"/>
+        <DCCReference Include="..\Sys\View\View.Logradouro.pas">
+            <Form>ViewLogradouro</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">

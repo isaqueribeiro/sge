@@ -18,9 +18,11 @@ type
   IControllerFactory = interface
     ['{52DB68E4-A6DE-428B-867A-F0EE203E7CCA}']
     function UF : IControllerCustom;
-    function Cidade : IControllerCustom;
+    function Cidade   : IControllerCustom;
     function Distrito : IControllerCustom;
     function Bairro   : IControllerCustom;
+    function TipoLogradouro : IControllerCustom;
+    function Logradouro : IControllerCustom;
   end;
 
 implementation

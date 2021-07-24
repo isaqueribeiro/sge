@@ -42,6 +42,7 @@ type
       FScript    : TSQL<TConnectionFireDAC>;
       FFieldDefs : TFieldDefs;
       FQuery     : TFDQuery;
+      FWhereAdditional : String;
 
       procedure UpdateSequence(aGeneratorName, aTableName, aFielNameKey : String; const sWhr : String = '');
       procedure CreateFieldDefs;
@@ -64,6 +65,8 @@ type
       function KeyFields : String; overload;
       function AutoIncFields(aAutoIncFields : String) : IConnection<TConnectionFireDAC>; overload;
       function AutoIncFields : String; overload;
+      function WhereAdditional(aExpression : String) : IConnection<TConnectionFireDAC>; overload;
+      function WhereAdditional : String; overload;
       function SQL : TSQL<TConnectionFireDAC>;
       function ParamByName(aParamName, aParamValue : String) : IConnection<TConnectionFireDAC>; overload;
       function ParamByName(aParamName : String; aParamValue : Integer) : IConnection<TConnectionFireDAC>; overload;
@@ -220,6 +223,10 @@ end;
 
 procedure TConnectionFireDAC.ExecSQL;
 begin
+  // Cláusula adicional, independente dos filtros informados
+  if not FWhereAdditional.IsEmpty then
+    FScript.Where(FWhereAdditional);
+
   FQuery.Close;
   FQuery.SQL.BeginUpdate;
   FQuery.SQL.Clear;
@@ -259,6 +266,10 @@ end;
 
 procedure TConnectionFireDAC.Open;
 begin
+  // Cláusula adicional, independente dos filtros informados
+  if not FWhereAdditional.IsEmpty then
+    FScript.Where(FWhereAdditional);
+
   FQuery.Close;
   FQuery.SQL.BeginUpdate;
   FQuery.SQL.Clear;
@@ -281,6 +292,10 @@ end;
 
 function TConnectionFireDAC.OpenOrExecute: Boolean;
 begin
+  // Cláusula adicional, independente dos filtros informados
+  if not FWhereAdditional.IsEmpty then
+    FScript.Where(FWhereAdditional);
+
   FQuery.Close;
   FQuery.SQL.BeginUpdate;
   FQuery.SQL.Clear;
@@ -419,6 +434,17 @@ function TConnectionFireDAC.Where(aFieldName: String; aFielValue: Int64): IConne
 begin
   Result := Self;
   FScript.Where(aFieldName, aFielValue);
+end;
+
+function TConnectionFireDAC.WhereAdditional: String;
+begin
+  Result := FWhereAdditional;
+end;
+
+function TConnectionFireDAC.WhereAdditional(aExpression: String): IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  FWhereAdditional := aExpression.Trim;
 end;
 
 function TConnectionFireDAC.WhereOr(aFieldName, aFielValue: String; const aQuotedString : Boolean = True): IConnection<TConnectionFireDAC>;

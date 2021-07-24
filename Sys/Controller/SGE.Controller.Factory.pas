@@ -7,7 +7,9 @@ uses
   SGE.Controller.UF,
   SGE.Controller.Cidade,
   SGE.Controller.Distrito,
-  SGE.Controller.Bairro;
+  SGE.Controller.Bairro,
+  SGE.Controller.TipoLogradouro,
+  SGE.Controller.Logradouro;
 
 type
   TControllerFactory = class(TInterfacedObject, IControllerFactory)
@@ -15,7 +17,9 @@ type
       FUF       ,
       FCidade   ,
       FDistrito ,
-      FBairro   : IControllerCustom;
+      FBairro   ,
+      FTipoLogradouro,
+      FLogradouro    : IControllerCustom;
     protected
       constructor Create;
     public
@@ -26,7 +30,10 @@ type
       function Cidade   : IControllerCustom;
       function Distrito : IControllerCustom;
       function Bairro   : IControllerCustom;
+      function TipoLogradouro : IControllerCustom;
+      function Logradouro : IControllerCustom;
   end;
+
 implementation
 
 { TControllerFactory }
@@ -65,9 +72,25 @@ begin
   Result := FDistrito;
 end;
 
+function TControllerFactory.Logradouro: IControllerCustom;
+begin
+  if not Assigned(FLogradouro) then
+    FLogradouro := TControllerLogradouro.New;
+
+  Result := FLogradouro;
+end;
+
 class function TControllerFactory.New: IControllerFactory;
 begin
   Result := Self.Create;
+end;
+
+function TControllerFactory.TipoLogradouro: IControllerCustom;
+begin
+  if not Assigned(FTipoLogradouro) then
+    FTipoLogradouro := TControllerTipoLogradouro.New;
+
+  Result := FTipoLogradouro;
 end;
 
 function TControllerFactory.UF: IControllerCustom;

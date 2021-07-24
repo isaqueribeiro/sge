@@ -1,27 +1,46 @@
-unit UGeLogradouro;
+unit View.Logradouro;
 
 interface
 
 uses
-  UGrPadraoCadastro,
+  System.SysUtils,
+  System.StrUtils,
+  System.ImageList,
+  System.Classes,
+  System.Variants,
+  Winapi.Windows,
 
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBQuery, IBTable, cxGraphics,
-  cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons, JvExMask,
-  JvToolEdit, JvDBControls,
+  Vcl.Forms,
+  Vcl.Menus,
+  Vcl.ImgList,
+  Vcl.Controls,
+  Vcl.Mask,
+  Vcl.DBCtrls,
+  Vcl.StdCtrls,
+  Vcl.ExtCtrls,
+  Vcl.Grids,
+  Vcl.DBGrids,
+  Vcl.ComCtrls,
+  Vcl.Graphics,
+  Vcl.Buttons,
 
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
-  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  Data.DB,
+  Datasnap.DBClient,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  frxClass,
+  cxGraphics,
+  cxLookAndFeels,
+  cxLookAndFeelPainters,
+  cxButtons,
+  dxSkinsCore,
+  JvExMask,
+  JvToolEdit,
+  JvDBControls,
+  View.PadraoCadastro,
+  SGE.Controller.Interfaces;
 
 type
-  TfrmGeLogradouro = class(TfrmGrPadraoCadastro)
+  TViewLogradouro = class(TViewPadraoCadastro)
     lblNome: TLabel;
     dbNome: TDBEdit;
     lblTipo: TLabel;
@@ -29,20 +48,14 @@ type
     dbTipo: TDBLookupComboBox;
     lblCidade: TLabel;
     dbCidade: TJvDBComboEdit;
-    fdQryTipo: TFDQuery;
-    fdQryTabelaLOG_COD: TIntegerField;
-    fdQryTabelaLOG_NOME: TStringField;
-    fdQryTabelaTLG_COD: TSmallintField;
-    fdQryTabelaCID_COD: TIntegerField;
-    fdQryTabelaLOGRADOURO: TStringField;
-    fdQryTabelaCID_NOME: TStringField;
     procedure FormCreate(Sender: TObject);
-    procedure IbDtstTabelaNewRecord(DataSet: TDataSet);
     procedure dbCidadeButtonClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
+    procedure btbtnIncluirClick(Sender: TObject);
   private
     { Private declarations }
     fCidade : Integer;
+    FControllerTipo : IControllerCustom;
     function GetTipoSigla(const pCodigo : Integer) : String;
   public
     { Public declarations }
@@ -62,7 +75,7 @@ type
 *)
 
 var
-  frmGeLogradouro: TfrmGeLogradouro;
+  ViewLogradouro: TViewLogradouro;
 
   procedure MostrarTabelaLogradouros(const AOwner : TComponent);
 
@@ -72,15 +85,18 @@ var
 implementation
 
 uses
-  UDMBusiness, View.Cidade, View.TipoLogradouro, UConstantesDGE;
+  UDMBusiness,
+  UConstantesDGE,
+  View.Cidade,
+  SGE.Controller.Factory;
 
 {$R *.dfm}
 
 procedure MostrarTabelaLogradouros(const AOwner : TComponent);
 var
-  frm : TfrmGeLogradouro;
+  frm : TViewLogradouro;
 begin
-  frm := TfrmGeLogradouro.Create(AOwner);
+  frm := TViewLogradouro.Create(AOwner);
   try
     frm.ShowModal;
   finally
@@ -90,9 +106,9 @@ end;
 
 function SelecionarLogradouro(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
 var
-  frm : TfrmGeLogradouro;
+  frm : TViewLogradouro;
 begin
-  frm := TfrmGeLogradouro.Create(AOwner);
+  frm := TViewLogradouro.Create(AOwner);
   try
     Result := frm.SelecionarRegistro(Codigo, Nome);
   finally
@@ -102,27 +118,24 @@ end;
 
 function SelecionarLogradouro(const AOwner : TComponent; const Cidade : Integer; var Tipo : Smallint; var TipoDesc : String; var Codigo : Integer; var Nome : String) : Boolean;
 var
-  frm : TfrmGeLogradouro;
+  frm : TViewLogradouro;
   whr : String;
 begin
-  frm := TfrmGeLogradouro.Create(AOwner);
+  frm := TViewLogradouro.Create(AOwner);
   try
     frm.fCidade := Cidade;
 
     whr := 'l.cid_cod = ' + IntToStr(Cidade);
 
-    with frm, fdQryTabela do
-    begin
-      Close;
-      SQL.Add('where ' + whr);
-      Open;
-    end;
+    frm.FController.DAO.ClearWhere;
+    frm.FController.DAO.Where(whr);
+    frm.FController.DAO.Open;
 
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
     if ( Result ) then
     begin
-      Tipo     := frm.fdQryTipo.FieldByName('TLG_COD').AsInteger;
+      Tipo     := frm.dtsTipo.DataSet.FieldByName('TLG_COD').AsInteger;
       TipoDesc := frm.GetTipoSigla(Tipo);
     end;
   finally
@@ -130,30 +143,42 @@ begin
   end;
 end;
 
-procedure TfrmGeLogradouro.FormCreate(Sender: TObject);
+procedure TViewLogradouro.FormCreate(Sender: TObject);
 begin
+  FControllerTipo := TControllerFactory.New.TipoLogradouro;
+  FController     := TControllerFactory.New.Logradouro;
+
   inherited;
   fCidade := 0;
 
   RotinaID         := ROTINA_CAD_LOGRADOURO_ID;
   ControlFirstEdit := dbTipo;
 
-  CarregarLista(fdQryTipo);
+  dtsTipo.DataSet := FControllerTipo.DAO.CreateLookupComboBoxList.DataSet;
 
   DisplayFormatCodigo := '0000';
   NomeTabela     := 'TBLOGRADOURO';
   CampoCodigo    := 'l.log_cod';
   CampoDescricao := 'l.log_nome';
   CampoOrdenacao := '5'; // Logradouro
+
+  Tabela
+    .Display('Log_cod',  'Código', DisplayFormatCodigo, TAlignment.taCenter)
+    .Display('Log_nome', 'Nome',   True)
+    .Display('Tlg_cod',  'Tipo',   True)
+    .Display('Cid_cod',  'Cidade', True);
+
+  AbrirTabelaAuto := True;
+//  FController.DAO.UpdateGenerator(EmptyStr);
 end;
 
-function TfrmGeLogradouro.GetTipoSigla(const pCodigo: Integer): String;
+function TViewLogradouro.GetTipoSigla(const pCodigo: Integer): String;
 var
   aTipo : String;
 begin
   aTipo := EmptyStr;
 
-  with fdQryTipo do
+  with dtsTipo.DataSet do
   begin
     if not Active then
       Open();
@@ -170,26 +195,7 @@ begin
   Result := Trim(aTipo);
 end;
 
-procedure TfrmGeLogradouro.IbDtstTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  with DtSrcTabela.DataSet do
-  begin
-    if ( fCidade > 0 ) then
-    begin
-      FieldByName('CID_COD').AsInteger := fCidade;
-      FieldByName('CID_NOME').AsString := GetCidadeNome( fCidade );
-    end
-    else
-    if ( GetCidadeIDDefault > 0 ) then
-    begin
-      FieldByName('CID_COD').AsInteger := GetCidadeIDDefault;
-      FieldByName('CID_NOME').AsString := GetCidadeNomeDefault;
-    end;
-  end;
-end;
-
-procedure TfrmGeLogradouro.dbCidadeButtonClick(Sender: TObject);
+procedure TViewLogradouro.dbCidadeButtonClick(Sender: TObject);
 var
   iCidade : Integer;
   sCidade : String;
@@ -205,7 +211,26 @@ begin
   end;
 end;
 
-procedure TfrmGeLogradouro.btbtnSalvarClick(Sender: TObject);
+procedure TViewLogradouro.btbtnIncluirClick(Sender: TObject);
+begin
+  inherited;
+  if (DtSrcTabela.DataSet.State in [TDataSetState.dsInsert, TDataSetState.dsEdit])  then
+  begin
+    if ( fCidade > 0 ) then
+    begin
+      DtSrcTabela.DataSet.FieldByName('CID_COD').AsInteger := fCidade;
+      DtSrcTabela.DataSet.FieldByName('CID_NOME').AsString := GetCidadeNome( fCidade );
+    end
+    else
+    if ( GetCidadeIDDefault > 0 ) then
+    begin
+      DtSrcTabela.DataSet.FieldByName('CID_COD').AsInteger := GetCidadeIDDefault;
+      DtSrcTabela.DataSet.FieldByName('CID_NOME').AsString := GetCidadeNomeDefault;
+    end;
+  end;
+end;
+
+procedure TViewLogradouro.btbtnSalvarClick(Sender: TObject);
 var
   aTipo : String;
 begin
@@ -223,6 +248,6 @@ begin
 end;
 
 initialization
-  FormFunction.RegisterForm('frmGeLogradouro', TfrmGeLogradouro);
+  FormFunction.RegisterForm('ViewLogradouro', TViewLogradouro);
 
 end.
