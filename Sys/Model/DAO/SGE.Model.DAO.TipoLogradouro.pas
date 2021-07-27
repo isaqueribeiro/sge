@@ -3,6 +3,7 @@ unit SGE.Model.DAO.TipoLogradouro;
 interface
 
 uses
+  System.SysUtils,
   System.Classes,
   Data.DB,
   SGE.Model.DAO,
@@ -63,7 +64,9 @@ begin
         .Add('from TBTIPO_LOGRADOURO t')
         .Add('order by ')
         .Add('    t.Tlg_descricao')
+//        .OrderBy('t.Tlg_descricao')
       .&End
+      .WhereAdditional(EmptyStr)
       .Open;
 end;
 

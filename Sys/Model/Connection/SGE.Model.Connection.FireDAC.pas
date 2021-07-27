@@ -82,6 +82,7 @@ type
       function OpenOrExecute : Boolean;
       function DataSet : TDataSet;
 
+      procedure Close;
       procedure Open;
       procedure ExecSQL;
       procedure ApplyUpdates;
@@ -114,6 +115,12 @@ begin
   FQuery.UpdateOptions.FetchGeneratorsPoint := TFDFetchGeneratorsPoint.gpImmediate;
 end;
 
+procedure TConnectionFireDAC.Close;
+begin
+  if FQuery.Active then
+    FQuery.Close;
+end;
+
 function TConnectionFireDAC.CloseEmpty: IConnection<TConnectionFireDAC>;
 begin
   Result := Self;
@@ -139,6 +146,7 @@ begin
   FQuery.Transaction   := TFDCustomConnection(aConn).Transaction;
   FQuery.CachedUpdates := True;
   FQuery.OnUpdateError := QueryUpdateError;
+  FWhereAdditional     := EmptyStr;
 
   FFieldDefs := TFieldDefs.Create(FQuery);
 end;

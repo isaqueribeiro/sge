@@ -67,6 +67,7 @@ type
     function Bairro   : IModelDAOCustom;
     function TipoLogradouro : IModelDAOCustom;
     function Logradouro : IModelDAOCustom;
+    function CST : IModelDAOCustom;
   end;
 
 implementation

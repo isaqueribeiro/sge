@@ -211,21 +211,24 @@ uses
   SGE.Model.DAO.Distrito in '..\Sys\Model\DAO\SGE.Model.DAO.Distrito.pas',
   SGE.Model.DAO.Bairro in '..\Sys\Model\DAO\SGE.Model.DAO.Bairro.pas',
   SGE.Model.DAO.TipoLogradouro in '..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas',
+  SGE.Model.DAO.Logradouro in '..\Sys\Model\DAO\SGE.Model.DAO.Logradouro.pas',
+  SGE.Model.DAO.CST in '..\Sys\Model\DAO\SGE.Model.DAO.CST.pas',
+  SGE.Model.DAO.CFOP in '..\Sys\Model\DAO\SGE.Model.DAO.CFOP.pas',
   SGE.Controller.Interfaces in '..\Sys\Controller\SGE.Controller.Interfaces.pas',
   SGE.Controller in '..\Sys\Controller\SGE.Controller.pas',
   SGE.Controller.Factory in '..\Sys\Controller\SGE.Controller.Factory.pas',
+  SGE.Controller.Helper in '..\Sys\Controller\SGE.Controller.Helper.pas',
   SGE.Controller.UF in '..\Sys\Controller\SGE.Controller.UF.pas',
   SGE.Controller.Cidade in '..\Sys\Controller\SGE.Controller.Cidade.pas',
   SGE.Controller.Distrito in '..\Sys\Controller\SGE.Controller.Distrito.pas',
   SGE.Controller.Bairro in '..\Sys\Controller\SGE.Controller.Bairro.pas',
   SGE.Controller.TipoLogradouro in '..\Sys\Controller\SGE.Controller.TipoLogradouro.pas',
+  SGE.Controller.Logradouro in '..\Sys\Controller\SGE.Controller.Logradouro.pas',
   View.Estado in '..\Sys\View\View.Estado.pas' {ViewEstado},
   View.Cidade in '..\Sys\View\View.Cidade.pas' {ViewCidade},
   View.Distrito in '..\Sys\View\View.Distrito.pas' {ViewDistrito},
   View.Bairro in '..\Sys\View\View.Bairro.pas' {ViewBairro},
   View.TipoLogradouro in '..\Sys\View\View.TipoLogradouro.pas' {ViewTipoLogradouro},
-  SGE.Model.DAO.Logradouro in '..\Sys\Model\DAO\SGE.Model.DAO.Logradouro.pas',
-  SGE.Controller.Logradouro in '..\Sys\Controller\SGE.Controller.Logradouro.pas',
   View.Logradouro in '..\Sys\View\View.Logradouro.pas' {ViewLogradouro};
 
 {$R *.res}
@@ -241,7 +244,6 @@ begin
   Application.CreateForm(TDMRecursos, DMRecursos);
   Application.CreateForm(TDMBusiness, DMBusiness);
   Application.CreateForm(TDMNFe, DMNFe);
-  Application.CreateForm(TViewLogradouro, ViewLogradouro);
   SplashFree;
 
   if ExecutarLogin() then

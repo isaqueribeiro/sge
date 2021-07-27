@@ -160,7 +160,7 @@ var
 implementation
 
 uses UDMBusiness, UGeBairro, View.Cidade, View.Distrito, View.Estado,
-  UGeLogradouro, DateUtils, UConstantesDGE, UGrPadrao;
+  View.Logradouro, DateUtils, UConstantesDGE, UGrPadrao;
 
 {$R *.dfm}
 

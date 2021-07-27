@@ -33,6 +33,7 @@ type
     function OpenOrExecute : Boolean;
     function DataSet : TDataSet;
 
+    procedure Close;
     procedure Open;
     procedure ExecSQL;
     procedure ApplyUpdates;

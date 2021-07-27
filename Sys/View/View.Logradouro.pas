@@ -88,7 +88,9 @@ uses
   UDMBusiness,
   UConstantesDGE,
   View.Cidade,
-  SGE.Controller.Factory;
+  SGE.Controller.Factory,
+  SGE.Controller,
+  SGE.Controller.Helper;
 
 {$R *.dfm}
 
@@ -154,8 +156,6 @@ begin
   RotinaID         := ROTINA_CAD_LOGRADOURO_ID;
   ControlFirstEdit := dbTipo;
 
-  dtsTipo.DataSet := FControllerTipo.DAO.CreateLookupComboBoxList.DataSet;
-
   DisplayFormatCodigo := '0000';
   NomeTabela     := 'TBLOGRADOURO';
   CampoCodigo    := 'l.log_cod';
@@ -169,7 +169,7 @@ begin
     .Display('Cid_cod',  'Cidade', True);
 
   AbrirTabelaAuto := True;
-//  FController.DAO.UpdateGenerator(EmptyStr);
+  TController(FControllerTipo).LookupComboBox(dbTipo, dtsTipo, 'tlg_cod', 'tlg_cod', 'tlg_descricao');
 end;
 
 function TViewLogradouro.GetTipoSigla(const pCodigo: Integer): String;

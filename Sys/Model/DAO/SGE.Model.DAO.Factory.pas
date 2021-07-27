@@ -9,7 +9,8 @@ uses
   SGE.Model.DAO.Distrito,
   SGE.Model.DAO.Bairro,
   SGE.Model.DAO.TipoLogradouro,
-  SGE.Model.DAO.Logradouro;
+  SGE.Model.DAO.Logradouro,
+  SGE.Model.DAO.CST;
 
 type
   TModelDAOFactory = class(TInterfacedObject, IModelDAOFactory)
@@ -19,7 +20,8 @@ type
       FDistrito ,
       FBairro   ,
       FTipoLogradouro,
-      FLogradouro    : IModelDAOCustom;
+      FLogradouro    ,
+      FCST : IModelDAOCustom;
     protected
       constructor Create;
     public
@@ -32,6 +34,7 @@ type
       function Bairro   : IModelDAOCustom;
       function TipoLogradouro : IModelDAOCustom;
       function Logradouro : IModelDAOCustom;
+      function CST : IModelDAOCustom;
   end;
 
 implementation
@@ -51,6 +54,14 @@ end;
 class function TModelDAOFactory.New: IModelDAOFactory;
 begin
   Result := Self.Create;
+end;
+
+function TModelDAOFactory.CST: IModelDAOCustom;
+begin
+  if not Assigned(FCST) then
+    FCST := TModelDAOCST.New;
+
+  Result := FCST;
 end;
 
 function TModelDAOFactory.TipoLogradouro: IModelDAOCustom;

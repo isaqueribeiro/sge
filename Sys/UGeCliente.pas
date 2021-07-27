@@ -430,7 +430,7 @@ implementation
 
 uses
   Service.InputQuery, UDMBusiness, UDMRecursos, UGeBairro, View.Cidade, View.Distrito,
-  View.Estado, UGeLogradouro, UGrPadrao, FuncoesFormulario, UConstantesDGE;
+  View.Estado, View.Logradouro, UGrPadrao, FuncoesFormulario, UConstantesDGE;
 
 {$R *.dfm}
 

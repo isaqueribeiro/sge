@@ -274,7 +274,7 @@ implementation
 
 uses
   UDMBusiness, UGeBairro, View.Cidade, View.Distrito, View.Estado,
-  UGeLogradouro, UGrPadrao, UConstantesDGE;
+  View.Logradouro, UGrPadrao, UConstantesDGE;
 
 {$R *.dfm}
 
