@@ -28,7 +28,6 @@ uses
   UGeGrupoProduto in '..\Sys\UGeGrupoProduto.pas' {frmGeGrupoProduto},
   UGeSecaoProduto in '..\Sys\UGeSecaoProduto.pas' {frmGeSecaoProduto},
   UGeUnidade in '..\Sys\UGeUnidade.pas' {frmGeUnidade},
-  UGeTabelaCFOP in '..\Sys\UGeTabelaCFOP.pas' {frmGeTabelaCFOP},
   UGeFormaPagto in '..\Sys\UGeFormaPagto.pas' {frmGeFormaPagto},
   UGeVendedor in '..\Sys\UGeVendedor.pas' {frmGeVendedor},
   UGeProduto in 'UGeProduto.pas' {frmGeProduto},
@@ -123,7 +122,6 @@ uses
   UGeContasAReceberQuitar in 'UGeContasAReceberQuitar.pas' {frmGeContasAReceberQuitar},
   UGeContasAPagarLoteParcela in '..\Sys\UGeContasAPagarLoteParcela.pas' {frmGeContasAPagarLoteParcela},
   UGeContasAReceberLoteParcela in '..\Sys\UGeContasAReceberLoteParcela.pas' {frmGeContasAReceberLoteParcela},
-  UGeTabelaIBPT in '..\Sys\UGeTabelaIBPT.pas' {frmGeTabelaIBPT},
   UGeTabelaIBPTImportar in '..\Sys\UGeTabelaIBPTImportar.pas' {frmGeTabelaIBPTImportar},
   UGeTipoReceita in '..\Sys\UGeTipoReceita.pas' {frmGeTipoReceita},
   UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao},
@@ -214,6 +212,7 @@ uses
   SGE.Model.DAO.Logradouro in '..\Sys\Model\DAO\SGE.Model.DAO.Logradouro.pas',
   SGE.Model.DAO.CST in '..\Sys\Model\DAO\SGE.Model.DAO.CST.pas',
   SGE.Model.DAO.CFOP in '..\Sys\Model\DAO\SGE.Model.DAO.CFOP.pas',
+  SGE.Model.DAO.IBPT in '..\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas',
   SGE.Controller.Interfaces in '..\Sys\Controller\SGE.Controller.Interfaces.pas',
   SGE.Controller in '..\Sys\Controller\SGE.Controller.pas',
   SGE.Controller.Factory in '..\Sys\Controller\SGE.Controller.Factory.pas',
@@ -224,12 +223,17 @@ uses
   SGE.Controller.Bairro in '..\Sys\Controller\SGE.Controller.Bairro.pas',
   SGE.Controller.TipoLogradouro in '..\Sys\Controller\SGE.Controller.TipoLogradouro.pas',
   SGE.Controller.Logradouro in '..\Sys\Controller\SGE.Controller.Logradouro.pas',
+  SGE.Controller.CST in '..\Sys\Controller\SGE.Controller.CST.pas',
+  SGE.Controller.CFOP in '..\Sys\Controller\SGE.Controller.CFOP.pas',
+  SGE.Controller.IBPT in '..\Sys\Controller\SGE.Controller.IBPT.pas',
   View.Estado in '..\Sys\View\View.Estado.pas' {ViewEstado},
   View.Cidade in '..\Sys\View\View.Cidade.pas' {ViewCidade},
   View.Distrito in '..\Sys\View\View.Distrito.pas' {ViewDistrito},
   View.Bairro in '..\Sys\View\View.Bairro.pas' {ViewBairro},
   View.TipoLogradouro in '..\Sys\View\View.TipoLogradouro.pas' {ViewTipoLogradouro},
-  View.Logradouro in '..\Sys\View\View.Logradouro.pas' {ViewLogradouro};
+  View.Logradouro in '..\Sys\View\View.Logradouro.pas' {ViewLogradouro},
+  View.CFOP in '..\Sys\View\View.CFOP.pas' {ViewCFOP},
+  View.IBPT in '..\Sys\View\View.IBPT.pas' {ViewIBPT};
 
 {$R *.res}
 

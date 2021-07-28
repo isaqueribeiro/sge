@@ -421,7 +421,7 @@ begin
     if (DtSrcTabela.DataSet is TFDQuery) then
       FecharAbrirTabela(fdQryTabela, True);
 
-  if ( (pgcGuias.ActivePage = tbsTabela) and edtFiltrar.Visible and edtFiltrar.Enabled ) then
+  if ( (pgcGuias.ActivePage = tbsTabela) and (Sender <> btbtnIncluir) and (Sender <> btbtnAlterar) and edtFiltrar.Visible and edtFiltrar.Enabled ) then
     edtFiltrar.SetFocus;
 
   DtSrcTabela.DataSet.Append;

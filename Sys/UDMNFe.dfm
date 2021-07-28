@@ -15582,6 +15582,7 @@ object DMNFe: TDMNFe
     CasasDecimais.vUnCom = 2
     CasasDecimais.MaskqCom = ',0.###'
     CasasDecimais.MaskvUnCom = ',0.00'
+    ACBrNFe = ACBrNFe
     EspessuraBorda = 1
     BorderIcon = [biSystemMenu, biMinimize, biMaximize]
     ThreadSafe = False
@@ -48162,5 +48163,20 @@ object DMNFe: TDMNFe
         end
       end
     end
+  end
+  object ACBrNFe: TACBrNFe
+    Configuracoes.Geral.SSLLib = libNone
+    Configuracoes.Geral.SSLCryptLib = cryNone
+    Configuracoes.Geral.SSLHttpLib = httpNone
+    Configuracoes.Geral.SSLXmlSignLib = xsNone
+    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
+    Configuracoes.Arquivos.OrdenacaoPath = <>
+    Configuracoes.WebServices.UF = 'SP'
+    Configuracoes.WebServices.AguardarConsultaRet = 0
+    Configuracoes.WebServices.QuebradeLinha = '|'
+    Configuracoes.RespTec.IdCSRT = 0
+    DANFE = frDANFE
+    Left = 24
+    Top = 24
   end
 end

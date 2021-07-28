@@ -13,6 +13,7 @@ type
   TModelDAOCFOP = class(TModelDAO, IModelDAOCustom)
     private
       procedure DataSetNewRecord(DataSet: TDataSet);
+      procedure DataSetBeforePost(DataSet: TDataSet);
     protected
       constructor Create;
     public
@@ -21,6 +22,16 @@ type
 
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
+
+(*
+  Tabelas:
+  - TBCFOP
+
+  Views:
+
+  Procedures:
+  - GET_CST_NORMAL
+*)
 
 implementation
 
@@ -60,6 +71,7 @@ begin
       .CloseEmpty;
 
   FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
+  FConn.Query.DataSet.BeforePost  := DataSetBeforePost;
 end;
 
 function TModelDAOCFOP.CreateLookupComboBoxList: IModelDAOCustom;
@@ -79,6 +91,37 @@ begin
       .Open;
 end;
 
+procedure TModelDAOCFOP.DataSetBeforePost(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+  begin
+    if (FieldByName('CFOP_COD').AsInteger = 0) then
+      FieldByName('CFOP_COD').Clear;
+
+    if FieldByName('CFOP_REMESSA').IsNull then
+      FieldByName('CFOP_REMESSA').AsInteger := 0;
+
+    if FieldByName('CFOP_FATURAR_REMESSA').IsNull then
+      FieldByName('CFOP_FATURAR_REMESSA').AsInteger := 0;
+
+    if FieldByName('CFOP_GERAR_TITULO').IsNull then
+      FieldByName('CFOP_GERAR_TITULO').AsInteger := 1;
+
+    if FieldByName('CFOP_GERAR_DUPLICATA').IsNull then
+      FieldByName('CFOP_GERAR_DUPLICATA').AsInteger := 1;
+
+    if FieldByName('CFOP_ALTERA_CUSTO_PRODUTO').IsNull then
+      FieldByName('CFOP_ALTERA_CUSTO_PRODUTO').AsInteger := 1;
+
+    // Regra 2 : Apenas CFOPs de Remessa terão CFOPs de Retorno
+    if (FieldByName('CFOP_REMESSA').AsInteger = 0) then
+    begin
+      FieldByName('CFOP_RETORNO_INTERNO').Clear;
+      FieldByName('CFOP_RETORNO_EXTERNO').Clear;
+    end;
+  end;
+end;
+
 procedure TModelDAOCFOP.DataSetNewRecord(DataSet: TDataSet);
 begin
   with FConn.Query.DataSet do
@@ -89,12 +132,13 @@ begin
     FieldByName('Cfop_especificacao').Clear;
     FieldByName('Cfop_informacao_fisco').Clear;
 
-    FieldByName('CFOP_ALTERA_CUSTO_PRODUTO').AsInteger := 1;
-    FieldByName('CFOP_FATURAR_REMESSA').AsInteger      := 0;
-    FieldByName('CFOP_DEVOLUCAO').AsInteger            := 0;
-    FieldByName('CFOP_REMESSA').AsInteger              := 0;
-    FieldByName('CFOP_GERAR_TITULO').AsInteger         := 1;
-    FieldByName('CFOP_GERAR_DUPLICATA').AsInteger      := 1;
+    FieldByName('CFOP_ALTERA_CUSTO_PRODUTO').AsInteger   := 1;
+    FieldByName('CFOP_ALTERA_ESTOQUE_PRODUTO').AsInteger := 1;
+    FieldByName('CFOP_FATURAR_REMESSA').AsInteger        := 0;
+    FieldByName('CFOP_DEVOLUCAO').AsInteger              := 0;
+    FieldByName('CFOP_REMESSA').AsInteger                := 0;
+    FieldByName('CFOP_GERAR_TITULO').AsInteger           := 1;
+    FieldByName('CFOP_GERAR_DUPLICATA').AsInteger        := 1;
     FieldByName('CFOP_TIPO').Clear;
     FieldByName('CFOP_CST_PADRAO_ENTRADA').Clear;
     FieldByName('CFOP_CST_PADRAO_SAIDA').Clear;

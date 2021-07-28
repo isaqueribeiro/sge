@@ -10,7 +10,9 @@ uses
   SGE.Model.DAO.Bairro,
   SGE.Model.DAO.TipoLogradouro,
   SGE.Model.DAO.Logradouro,
-  SGE.Model.DAO.CST;
+  SGE.Model.DAO.CST,
+  SGE.Model.DAO.CFOP,
+  SGE.Model.DAO.IBPT;
 
 type
   TModelDAOFactory = class(TInterfacedObject, IModelDAOFactory)
@@ -21,7 +23,11 @@ type
       FBairro   ,
       FTipoLogradouro,
       FLogradouro    ,
-      FCST : IModelDAOCustom;
+      FCST  ,
+      FCFOP ,
+      FIBPT ,
+      FTabelaIBPT,
+      FNivelIBPT : IModelDAOCustom;
     protected
       constructor Create;
     public
@@ -35,6 +41,10 @@ type
       function TipoLogradouro : IModelDAOCustom;
       function Logradouro : IModelDAOCustom;
       function CST : IModelDAOCustom;
+      function CFOP : IModelDAOCustom;
+      function IBPT : IModelDAOCustom;
+      function TabelaIBPT : IModelDAOCustom;
+      function NivelIBPT : IModelDAOCustom;
   end;
 
 implementation
@@ -56,12 +66,28 @@ begin
   Result := Self.Create;
 end;
 
+function TModelDAOFactory.NivelIBPT: IModelDAOCustom;
+begin
+  if not Assigned(FNivelIBPT) then
+    FNivelIBPT := TModelDAONivelIBPT.New;
+
+  Result := FNivelIBPT;
+end;
+
 function TModelDAOFactory.CST: IModelDAOCustom;
 begin
   if not Assigned(FCST) then
     FCST := TModelDAOCST.New;
 
   Result := FCST;
+end;
+
+function TModelDAOFactory.TabelaIBPT: IModelDAOCustom;
+begin
+  if not Assigned(FTabelaIBPT) then
+    FTabelaIBPT := TModelDAOTabelaIBPT.New;
+
+  Result := FTabelaIBPT;
 end;
 
 function TModelDAOFactory.TipoLogradouro: IModelDAOCustom;
@@ -80,6 +106,14 @@ begin
   Result := FBairro;
 end;
 
+function TModelDAOFactory.CFOP: IModelDAOCustom;
+begin
+  if not Assigned(FCFOP) then
+    FCFOP := TModelDAOCFOP.New;
+
+  Result := FCFOP;
+end;
+
 function TModelDAOFactory.Cidade: IModelDAOCustom;
 begin
   if not Assigned(FCidade) then
@@ -94,6 +128,14 @@ begin
     FDistrito := TModelDAODistrito.New;
 
   Result := FDistrito;
+end;
+
+function TModelDAOFactory.IBPT: IModelDAOCustom;
+begin
+  if not Assigned(FIBPT) then
+    FIBPT := TModelDAOIBPT.New;
+
+  Result := FIBPT;
 end;
 
 function TModelDAOFactory.Logradouro: IModelDAOCustom;

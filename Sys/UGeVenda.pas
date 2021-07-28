@@ -623,7 +623,7 @@ implementation
 
 uses
   Service.InputQuery, Controller.Tabela, UDMBusiness, UFuncoes, UGeCliente, UGeCondicaoPagto, UGeProduto,
-  UGeTabelaCFOP, UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos, UGeEfetuarPagtoREC,
+  View.CFOP, UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos, UGeEfetuarPagtoREC,
   UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte, UGeVendaConfirmaTitulos,
   {$IFNDEF PDV}UGeVendaDevolucaoNF, UGeConsultarLoteNFe_v2, UGeRequisicaoCliente, {$ENDIF}
   UDMRecursos, UGrMemo;
@@ -2057,7 +2057,7 @@ var
   sDescricao : String;
 begin
   if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarCFOP(Self, iCodigo, sDescricao) ) then
+    if ( SelecionarCFOP(Self, TTipoCFOP.tcfopSaida, iCodigo, sDescricao) ) then
     begin
       cdsTabelaItensCFOP_COD.AsInteger      := iCodigo;
       cdsTabelaItensCFOP_DESCRICAO.AsString := sDescricao;
@@ -2700,7 +2700,7 @@ var
   sDescricao : String;
 begin
   if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarCFOP(Self, iCodigo, sDescricao) ) then
+    if ( SelecionarCFOP(Self, TTipoCFOP.tcfopSaida, iCodigo, sDescricao) ) then
       DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger := iCodigo;
 end;
 
@@ -4177,7 +4177,7 @@ begin
   if not BtnCorrigirDadosNFe.Enabled then
     Exit;
 
-  if ( SelecionarCFOP(Self, iCodigo, sDescricao) ) then
+  if ( SelecionarCFOP(Self, TTipoCFOP.tcfopSaida, iCodigo, sDescricao) ) then
   begin
     sCFOP := IntToStr(iCodigo);
 

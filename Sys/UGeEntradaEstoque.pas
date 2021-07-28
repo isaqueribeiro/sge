@@ -534,7 +534,7 @@ uses
   , DateUtils
   , UGeCondicaoPagto
   , UGeProduto
-  , UGeTabelaCFOP
+  , View.CFOP
   , UGeFornecedor
   , UFuncoes
   , UDMNFe
@@ -2133,7 +2133,7 @@ var
   sDescricao : String;
 begin
   if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarCFOP(Self, iCodigo, sDescricao) ) then
+    if ( SelecionarCFOP(Self, TTipoCFOP.tcfopADefinir, iCodigo, sDescricao) ) then
     begin
       DtSrcTabela.DataSet.FieldByName('NFCFOP').AsInteger        := iCodigo;
       DtSrcTabela.DataSet.FieldByName('CFOP_DESCRICAO').AsString := sDescricao;
@@ -2829,7 +2829,7 @@ begin
     Exit;
 
   with DtSrcTabela.DataSet do
-    if ( SelecionarCFOP(Self, iCodigo, sDescricao) ) then
+    if ( SelecionarCFOP(Self, TTipoCFOP.tcfopADefinir, iCodigo, sDescricao) ) then
     begin
       sCFOP := IntToStr(iCodigo);
 

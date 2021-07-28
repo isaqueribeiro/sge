@@ -9,7 +9,10 @@ uses
   SGE.Controller.Distrito,
   SGE.Controller.Bairro,
   SGE.Controller.TipoLogradouro,
-  SGE.Controller.Logradouro;
+  SGE.Controller.Logradouro,
+  SGE.Controller.CST,
+  SGE.Controller.CFOP,
+  SGE.Controller.IBPT;
 
 type
   TControllerFactory = class(TInterfacedObject, IControllerFactory)
@@ -19,7 +22,12 @@ type
       FDistrito ,
       FBairro   ,
       FTipoLogradouro,
-      FLogradouro    : IControllerCustom;
+      FLogradouro    ,
+      FCST  ,
+      FCFOP ,
+      FIBPT ,
+      FTabelaIBPT,
+      FNivelIBPT : IControllerCustom;
     protected
       constructor Create;
     public
@@ -32,27 +40,16 @@ type
       function Bairro   : IControllerCustom;
       function TipoLogradouro : IControllerCustom;
       function Logradouro : IControllerCustom;
+      function CST : IControllerCustom;
+      function CFOP : IControllerCustom;
+      function IBPT : IControllerCustom;
+      function TabelaIBPT : IControllerCustom;
+      function NivelIBPT : IControllerCustom;
   end;
 
 implementation
 
 { TControllerFactory }
-
-function TControllerFactory.Bairro: IControllerCustom;
-begin
-  if not Assigned(FBairro) then
-    FBairro := TControllerBairro.New;
-
-  Result := FBairro;
-end;
-
-function TControllerFactory.Cidade: IControllerCustom;
-begin
-  if not Assigned(FCidade) then
-    FCidade := TControllerCidade.New;
-
-  Result := FCidade;
-end;
 
 constructor TControllerFactory.Create;
 begin
@@ -64,12 +61,65 @@ begin
   inherited;
 end;
 
+class function TControllerFactory.New: IControllerFactory;
+begin
+  Result := Self.Create;
+end;
+
+function TControllerFactory.NivelIBPT: IControllerCustom;
+begin
+  if not Assigned(FNivelIBPT) then
+    FNivelIBPT := TControllerNivelIBPT.New;
+
+  Result := FNivelIBPT;
+end;
+
+function TControllerFactory.CST: IControllerCustom;
+begin
+  if not Assigned(FCST) then
+    FCST := TControllerCST.New;
+
+  Result := FCST;
+end;
+
+function TControllerFactory.Bairro: IControllerCustom;
+begin
+  if not Assigned(FBairro) then
+    FBairro := TControllerBairro.New;
+
+  Result := FBairro;
+end;
+
+function TControllerFactory.CFOP: IControllerCustom;
+begin
+  if not Assigned(FCFOP) then
+    FCFOP := TControllerCFOP.New;
+
+  Result := FCFOP;
+end;
+
+function TControllerFactory.Cidade: IControllerCustom;
+begin
+  if not Assigned(FCidade) then
+    FCidade := TControllerCidade.New;
+
+  Result := FCidade;
+end;
+
 function TControllerFactory.Distrito: IControllerCustom;
 begin
   if not Assigned(FDistrito) then
     FDistrito := TControllerDistrito.New;
 
   Result := FDistrito;
+end;
+
+function TControllerFactory.IBPT: IControllerCustom;
+begin
+  if not Assigned(FIBPT) then
+    FIBPT := TControllerIBPT.New;
+
+  Result := FIBPT;
 end;
 
 function TControllerFactory.Logradouro: IControllerCustom;
@@ -80,9 +130,12 @@ begin
   Result := FLogradouro;
 end;
 
-class function TControllerFactory.New: IControllerFactory;
+function TControllerFactory.TabelaIBPT: IControllerCustom;
 begin
-  Result := Self.Create;
+  if not Assigned(FTabelaIBPT) then
+    FTabelaIBPT := TControllerTabelaIBPT.New;
+
+  Result := FTabelaIBPT;
 end;
 
 function TControllerFactory.TipoLogradouro: IControllerCustom;

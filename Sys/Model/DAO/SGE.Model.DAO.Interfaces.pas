@@ -68,6 +68,10 @@ type
     function TipoLogradouro : IModelDAOCustom;
     function Logradouro : IModelDAOCustom;
     function CST : IModelDAOCustom;
+    function CFOP : IModelDAOCustom;
+    function IBPT : IModelDAOCustom;
+    function TabelaIBPT : IModelDAOCustom;
+    function NivelIBPT : IModelDAOCustom;
   end;
 
 implementation

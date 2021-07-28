@@ -515,8 +515,8 @@ implementation
 
 uses
   UDMBusiness, UGeSecaoProduto, UGeGrupoProduto, UGeUnidade,
-  UGeTabelaCFOP, UGeFabricante, UConstantesDGE, UFuncoes, UGrPadrao,
-  UGeTabelaIBPT;
+  View.CFOP, UGeFabricante, UConstantesDGE, UFuncoes, UGrPadrao,
+  View.IBPT;
 
 {$R *.dfm}
 
@@ -1406,7 +1406,7 @@ var
   sDescricao : String;
 begin
   if ( DtsrCTabela.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarCFOP(Self, iCodigo, sDescricao) ) then
+    if ( SelecionarCFOP(Self, TTipoCFOP.tcfopSaida, iCodigo, sDescricao) ) then
     begin
       DtSrcTabela.DataSet.FieldByName('CODCFOP').AsInteger       := iCodigo;
       DtSrcTabela.DataSet.FieldByName('CFOP_DESCRICAO').AsString := sDescricao;

@@ -39,8 +39,9 @@ begin
         .Add('order by ')
         .Add('    c.descricao_full')
       .&End
-      .OpenEmpty
-      .CloseEmpty;
+      .Open;
+
+  FConn.Query.Close;
 end;
 
 function TModelDAOCST.CreateLookupComboBoxList: IModelDAOCustom;

@@ -575,7 +575,7 @@ end;
 procedure TfrmPrinc.BrBtnTabelaIBPTClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_TABELA_IBPT_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeTabelaIBPT');
+    FormFunction.ShowModalForm(Self, 'ViewIBPT');
 end;
 
 procedure TfrmPrinc.BrBtnTestesGeraisClick(Sender: TObject);
@@ -780,7 +780,7 @@ end;
 procedure TfrmPrinc.nmTabelaCFOPClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_CFOP_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeTabelaCFOP');
+    FormFunction.ShowModalForm(Self, 'ViewCFOP');
 end;
 
 procedure TfrmPrinc.nmFormaPagtoClick(Sender: TObject);

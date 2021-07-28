@@ -10,6 +10,7 @@ Uses
     TTipoAlertaSistema = (tpaLicenca, tpaBackup);
     TTipoProduto = (tpMaterialGeral, tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME);
     TTipoCFOP    = (tcfopADefinir, tcfopEntrada, tcfopSaida);
+    TTipoTabelaIBPT  = (tIbptGeral, tIbptProdutos, tIbptServicos);
     TGrupoFornecedor = (gpFornecedorADefinir = 1, gpFornecedorProduto = 2, gpFornecedorServico = 3, gpFornecedorProdutoServico = 4, gpFornecedorColaborador = 5);
 
     TTipoAlertaSistemaCollection = Set of TTipoAlertaSistema;

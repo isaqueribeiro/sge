@@ -23,6 +23,11 @@ type
     function Bairro   : IControllerCustom;
     function TipoLogradouro : IControllerCustom;
     function Logradouro : IControllerCustom;
+    function CST  : IControllerCustom;
+    function CFOP : IControllerCustom;
+    function IBPT : IControllerCustom;
+    function TabelaIBPT : IControllerCustom;
+    function NivelIBPT : IControllerCustom;
   end;
 
 implementation
