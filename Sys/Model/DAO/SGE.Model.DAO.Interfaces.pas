@@ -72,6 +72,10 @@ type
     function IBPT : IModelDAOCustom;
     function TabelaIBPT : IModelDAOCustom;
     function NivelIBPT : IModelDAOCustom;
+    function Empresa : IModelDAOCustom;
+    function EmpresaView : IModelDAOCustom;
+    function ContaCorrente : IModelDAOCustom;
+    function ContaCorrenteView : IModelDAOCustom;
   end;
 
 implementation

@@ -45,16 +45,6 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
-(*
-  Tabelas:
-  - SYS_IBPT
-
-  Views:
-
-  Procedures:
-
-*)
-
 implementation
 
 { TModelDAOIBPT }
@@ -87,8 +77,8 @@ begin
         .Add('    end as descricao ')
         .Add('from SYS_IBPT t')
       .&End
-      .OpenEmpty
-      .CloseEmpty;
+    .OpenEmpty
+    .CloseEmpty;
 
   FConn.Query.DataSet.OnNewRecord  := DataSetNewRecord;
   FConn.Query.DataSet.BeforePost   := DataSetBeforePost;
@@ -146,7 +136,7 @@ begin
         .Add('Select ''1'' as Codigo , ''Serviços de Engenharia/Construção'' as Descricao from RDB$DATABASE Union')
         .Add('Select ''2'' as Codigo , ''Serviços Gerais'' as Descricao from RDB$DATABASE')
       .&End
-      .Open;
+    .Open;
 end;
 
 destructor TModelDAOTabelaIBPT.Destroy;
@@ -184,7 +174,7 @@ begin
         .Add('Select ''8'' as Codigo , ''Exceção 8'' as Descricao from RDB$DATABASE Union')
         .Add('Select ''9'' as Codigo , ''Exceção 9'' as Descricao from RDB$DATABASE      ')
       .&End
-      .Open;
+    .Open;
 end;
 
 destructor TModelDAONivelIBPT.Destroy;

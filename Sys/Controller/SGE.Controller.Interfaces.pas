@@ -28,6 +28,10 @@ type
     function IBPT : IControllerCustom;
     function TabelaIBPT : IControllerCustom;
     function NivelIBPT : IControllerCustom;
+    function Empresa : IControllerCustom;
+    function EmpresaView : IControllerCustom;
+    function ContaCorrente : IControllerCustom;
+    function ContaCorrenteView : IControllerCustom;
   end;
 
 implementation

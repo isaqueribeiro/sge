@@ -718,10 +718,6 @@ inherited frmGeEmpresa: TfrmGeEmpresa
         TabOrder = 2
         object tbsContato: TTabSheet
           Caption = 'Contato'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblFone1: TLabel
             Left = 8
             Top = 0

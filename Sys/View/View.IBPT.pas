@@ -106,7 +106,7 @@ uses
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper,
-  UGeTabelaIBPTImportar;
+  View.IBPT.Importar;
 
 {$R *.dfm}
 

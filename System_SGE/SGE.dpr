@@ -122,7 +122,6 @@ uses
   UGeContasAReceberQuitar in 'UGeContasAReceberQuitar.pas' {frmGeContasAReceberQuitar},
   UGeContasAPagarLoteParcela in '..\Sys\UGeContasAPagarLoteParcela.pas' {frmGeContasAPagarLoteParcela},
   UGeContasAReceberLoteParcela in '..\Sys\UGeContasAReceberLoteParcela.pas' {frmGeContasAReceberLoteParcela},
-  UGeTabelaIBPTImportar in '..\Sys\UGeTabelaIBPTImportar.pas' {frmGeTabelaIBPTImportar},
   UGeTipoReceita in '..\Sys\UGeTipoReceita.pas' {frmGeTipoReceita},
   UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao},
   UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde},
@@ -213,6 +212,7 @@ uses
   SGE.Model.DAO.CST in '..\Sys\Model\DAO\SGE.Model.DAO.CST.pas',
   SGE.Model.DAO.CFOP in '..\Sys\Model\DAO\SGE.Model.DAO.CFOP.pas',
   SGE.Model.DAO.IBPT in '..\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas',
+  SGE.Model.DAO.Empresa in '..\Sys\Model\DAO\SGE.Model.DAO.Empresa.pas',
   SGE.Controller.Interfaces in '..\Sys\Controller\SGE.Controller.Interfaces.pas',
   SGE.Controller in '..\Sys\Controller\SGE.Controller.pas',
   SGE.Controller.Factory in '..\Sys\Controller\SGE.Controller.Factory.pas',
@@ -226,6 +226,7 @@ uses
   SGE.Controller.CST in '..\Sys\Controller\SGE.Controller.CST.pas',
   SGE.Controller.CFOP in '..\Sys\Controller\SGE.Controller.CFOP.pas',
   SGE.Controller.IBPT in '..\Sys\Controller\SGE.Controller.IBPT.pas',
+  SGE.Controller.Empresa in '..\Sys\Controller\SGE.Controller.Empresa.pas',
   View.Estado in '..\Sys\View\View.Estado.pas' {ViewEstado},
   View.Cidade in '..\Sys\View\View.Cidade.pas' {ViewCidade},
   View.Distrito in '..\Sys\View\View.Distrito.pas' {ViewDistrito},
@@ -233,7 +234,11 @@ uses
   View.TipoLogradouro in '..\Sys\View\View.TipoLogradouro.pas' {ViewTipoLogradouro},
   View.Logradouro in '..\Sys\View\View.Logradouro.pas' {ViewLogradouro},
   View.CFOP in '..\Sys\View\View.CFOP.pas' {ViewCFOP},
-  View.IBPT in '..\Sys\View\View.IBPT.pas' {ViewIBPT};
+  View.IBPT in '..\Sys\View\View.IBPT.pas' {ViewIBPT},
+  View.IBPT.Importar in '..\Sys\View\View.IBPT.Importar.pas' {ViewIBPTImportar},
+  SGE.Model.DAO.ContaCorrente in '..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas',
+  SGE.Controller.ContaCorrente in '..\Sys\Controller\SGE.Controller.ContaCorrente.pas',
+  View.ContaCorrente in '..\Sys\View\View.ContaCorrente.pas' {ViewContaCorrente};
 
 {$R *.res}
 

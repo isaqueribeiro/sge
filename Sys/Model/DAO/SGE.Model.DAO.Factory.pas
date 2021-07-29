@@ -12,7 +12,9 @@ uses
   SGE.Model.DAO.Logradouro,
   SGE.Model.DAO.CST,
   SGE.Model.DAO.CFOP,
-  SGE.Model.DAO.IBPT;
+  SGE.Model.DAO.IBPT,
+  SGE.Model.DAO.Empresa,
+  SGE.Model.DAO.ContaCorrente;
 
 type
   TModelDAOFactory = class(TInterfacedObject, IModelDAOFactory)
@@ -27,7 +29,11 @@ type
       FCFOP ,
       FIBPT ,
       FTabelaIBPT,
-      FNivelIBPT : IModelDAOCustom;
+      FNivelIBPT ,
+      FEmpresaView,
+      FEmpresa    ,
+      FContaCorrente     ,
+      FContaCorrenteView : IModelDAOCustom;
     protected
       constructor Create;
     public
@@ -45,6 +51,10 @@ type
       function IBPT : IModelDAOCustom;
       function TabelaIBPT : IModelDAOCustom;
       function NivelIBPT : IModelDAOCustom;
+      function Empresa : IModelDAOCustom;
+      function EmpresaView : IModelDAOCustom;
+      function ContaCorrente : IModelDAOCustom;
+      function ContaCorrenteView : IModelDAOCustom;
   end;
 
 implementation
@@ -122,12 +132,44 @@ begin
   Result := FCidade;
 end;
 
+function TModelDAOFactory.ContaCorrente: IModelDAOCustom;
+begin
+  if not Assigned(FContaCorrente) then
+    FContaCorrente := TModelDAOContaCorrente.New;
+
+  Result := FContaCorrente;
+end;
+
+function TModelDAOFactory.ContaCorrenteView: IModelDAOCustom;
+begin
+  if not Assigned(FContaCorrenteView) then
+    FContaCorrenteView := TModelDAOContaCorrenteView.New;
+
+  Result := FContaCorrenteView;
+end;
+
 function TModelDAOFactory.Distrito: IModelDAOCustom;
 begin
   if not Assigned(FDistrito) then
     FDistrito := TModelDAODistrito.New;
 
   Result := FDistrito;
+end;
+
+function TModelDAOFactory.Empresa: IModelDAOCustom;
+begin
+  if not Assigned(FEmpresa) then
+    FEmpresa := TModelDAOEmpresa.New;
+
+  Result := FEmpresa;
+end;
+
+function TModelDAOFactory.EmpresaView: IModelDAOCustom;
+begin
+  if not Assigned(FEmpresaView) then
+    FEmpresaView := TModelDAOEmpresaView.New;
+
+  Result := FEmpresaView;
 end;
 
 function TModelDAOFactory.IBPT: IModelDAOCustom;

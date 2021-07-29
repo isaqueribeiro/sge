@@ -1009,7 +1009,7 @@ end;
 procedure TfrmPrinc.nmContaCorrenteClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_CONTA_CORRENTE_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeContaCorrente');
+    FormFunction.ShowModalForm(Self, 'ViewContaCorrente');
 end;
 
 procedure TfrmPrinc.nmGerenciaCaixaClick(Sender: TObject);

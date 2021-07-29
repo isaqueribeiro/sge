@@ -23,16 +23,6 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
-(*
-  Tabelas:
-  - TBCFOP
-
-  Views:
-
-  Procedures:
-  - GET_CST_NORMAL
-*)
-
 implementation
 
 { TModelDAOCFOP }

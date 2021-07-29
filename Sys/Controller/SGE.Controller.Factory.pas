@@ -12,7 +12,9 @@ uses
   SGE.Controller.Logradouro,
   SGE.Controller.CST,
   SGE.Controller.CFOP,
-  SGE.Controller.IBPT;
+  SGE.Controller.IBPT,
+  SGE.Controller.Empresa,
+  SGE.Controller.ContaCorrente;
 
 type
   TControllerFactory = class(TInterfacedObject, IControllerFactory)
@@ -26,8 +28,12 @@ type
       FCST  ,
       FCFOP ,
       FIBPT ,
-      FTabelaIBPT,
-      FNivelIBPT : IControllerCustom;
+      FTabelaIBPT   ,
+      FNivelIBPT    ,
+      FEmpresa      ,
+      FEmpresaView  ,
+      FContaCorrente,
+      FContaCorrenteView : IControllerCustom;
     protected
       constructor Create;
     public
@@ -45,6 +51,10 @@ type
       function IBPT : IControllerCustom;
       function TabelaIBPT : IControllerCustom;
       function NivelIBPT : IControllerCustom;
+      function Empresa : IControllerCustom;
+      function EmpresaView : IControllerCustom;
+      function ContaCorrente : IControllerCustom;
+      function ContaCorrenteView : IControllerCustom;
   end;
 
 implementation
@@ -106,12 +116,44 @@ begin
   Result := FCidade;
 end;
 
+function TControllerFactory.ContaCorrente: IControllerCustom;
+begin
+  if not Assigned(FContaCorrente) then
+    FContaCorrente := TControllerContaCorrente.New;
+
+  Result := FContaCorrente;
+end;
+
+function TControllerFactory.ContaCorrenteView: IControllerCustom;
+begin
+  if not Assigned(FContaCorrenteView) then
+    FContaCorrenteView := TControllerContaCorrenteView.New;
+
+  Result := FContaCorrenteView;
+end;
+
 function TControllerFactory.Distrito: IControllerCustom;
 begin
   if not Assigned(FDistrito) then
     FDistrito := TControllerDistrito.New;
 
   Result := FDistrito;
+end;
+
+function TControllerFactory.Empresa: IControllerCustom;
+begin
+  if not Assigned(FEmpresa) then
+    FEmpresa := TControllerEmpresa.New;
+
+  Result := FEmpresa;
+end;
+
+function TControllerFactory.EmpresaView: IControllerCustom;
+begin
+  if not Assigned(FEmpresaView) then
+    FEmpresaView := TControllerEmpresaView.New;
+
+  Result := FEmpresaView;
 end;
 
 function TControllerFactory.IBPT: IControllerCustom;
