@@ -1,7 +1,7 @@
 object ViewPadraoCadastro: TViewPadraoCadastro
   Left = 389
   Top = 211
-  ActiveControl = dbCodigo
+  ActiveControl = dbgDados
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Tabela Padr'#227'o de Cadastro'
   ClientHeight = 401
@@ -46,7 +46,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
     Top = 0
     Width = 735
     Height = 358
-    ActivePage = tbsCadastro
+    ActivePage = tbsTabela
     Align = alClient
     Images = ImgList
     TabOrder = 0
@@ -133,8 +133,6 @@ object ViewPadraoCadastro: TViewPadraoCadastro
             ParentShowHint = False
             ShowHint = True
             TabOrder = 0
-            ExplicitLeft = 57
-            ExplicitTop = 25
             ExplicitHeight = 21
           end
           object btnFiltrar: TcxButton
@@ -192,9 +190,6 @@ object ViewPadraoCadastro: TViewPadraoCadastro
             TabOrder = 1
             TabStop = False
             OnClick = btnFiltrarClick
-            ExplicitLeft = 207
-            ExplicitTop = 16
-            ExplicitHeight = 27
           end
         end
       end

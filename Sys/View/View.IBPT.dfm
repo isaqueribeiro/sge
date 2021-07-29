@@ -109,18 +109,19 @@ inherited ViewIBPT: TViewIBPT
         Width = 801
         ExplicitTop = 338
         ExplicitWidth = 801
-        object lblNCMDesativado: TLabel [0]
-          Left = 0
-          Top = 6
-          Width = 117
+        object lblRegistroDesativado: TLabel [0]
+          Left = 2
+          Top = 44
+          Width = 141
           Height = 13
-          Caption = 'C'#243'digos Desativados'
+          Caption = '* C'#243'digo NCM desativado'
           Font.Charset = ANSI_CHARSET
-          Font.Color = clRed
+          Font.Color = 7303023
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
+          Transparent = True
         end
         inherited grpBxFiltro: TGroupBox
           Left = 462
@@ -138,20 +139,16 @@ inherited ViewIBPT: TViewIBPT
             Left = 78
             Width = 210
             ExplicitLeft = 78
-            ExplicitTop = 20
             ExplicitWidth = 210
-            ExplicitHeight = 23
           end
           inherited btnFiltrar: TcxButton
             Left = 294
-            ExplicitLeft = 281
+            ExplicitLeft = 294
           end
         end
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 801
       ExplicitHeight = 400
       inherited Bevel8: TBevel

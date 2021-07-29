@@ -32,6 +32,7 @@ type
     fGeneratorName  ,
     fRotinaID       : String;
     procedure SetRotinaID(Value : String);
+    procedure SetCampoCadastroAtivo(const Value: String);
     procedure SetOnEnterExit( const Win : TWinControl );
     procedure LabelTransparente;
 
@@ -46,7 +47,7 @@ type
     property CampoCodigo : String read fCampoCodigo write fCampoCodigo;
     property CampoDescricao : String read fCampoDescricao write fCampoDescricao;
     property CampoOrdenacao : String read fCampoOrdenacao write fCampoOrdenacao;
-    property CampoCadastroAtivo : String read fCampoCadastroAtivo write fCampoCadastroAtivo;
+    property CampoCadastroAtivo : String read fCampoCadastroAtivo write SetCampoCadastroAtivo;
     property GeneratorName  : String read fGeneratorName write fGeneratorName;
 
     procedure RegistrarRotinaSistema; virtual; abstract;
@@ -460,6 +461,15 @@ begin
   // Tirar o som
   if (Key = #13) then
     Key := #0;
+end;
+
+procedure TfrmGrPadrao.SetCampoCadastroAtivo(const Value: String);
+begin
+  // Este campo não pode está com a referência "alias" da tabela
+  if ( pos('.', Value) > 0 ) then
+    fCampoCadastroAtivo := Copy(Value, pos('.', Value) + 1, Length(Value))
+  else
+    fCampoCadastroAtivo := Trim(Value);
 end;
 
 procedure TfrmGrPadrao.SetOnEnterExit(const Win: TWinControl);

@@ -66,7 +66,7 @@ type
     btnImportar: TcxButton;
     Bevel5: TBevel;
     dbAtivo: TDBCheckBox;
-    lblNCMDesativado: TLabel;
+    lblRegistroDesativado: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
@@ -150,11 +150,11 @@ procedure TViewIBPT.dbgDadosDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
   inherited;
-  // Destacar códigos NCM desativados
-  if ( DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger = 0 ) then
-    dbgDados.Canvas.Font.Color := lblNCMDesativado.Font.Color;
-
-  dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
+//  // Destacar códigos NCM desativados
+//  if ( DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger = 0 ) then
+//    dbgDados.Canvas.Font.Color := lblNCMDesativado.Font.Color;
+//
+//  dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
 end;
 
 procedure TViewIBPT.DtSrcTabelaStateChange(Sender: TObject);
