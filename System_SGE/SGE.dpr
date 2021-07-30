@@ -28,7 +28,6 @@ uses
   UGeGrupoProduto in '..\Sys\UGeGrupoProduto.pas' {frmGeGrupoProduto},
   UGeSecaoProduto in '..\Sys\UGeSecaoProduto.pas' {frmGeSecaoProduto},
   UGeUnidade in '..\Sys\UGeUnidade.pas' {frmGeUnidade},
-  UGeFormaPagto in '..\Sys\UGeFormaPagto.pas' {frmGeFormaPagto},
   UGeVendedor in '..\Sys\UGeVendedor.pas' {frmGeVendedor},
   UGeProduto in 'UGeProduto.pas' {frmGeProduto},
   UGeVenda in '..\Sys\UGeVenda.pas' {frmGeVenda},
@@ -213,6 +212,9 @@ uses
   SGE.Model.DAO.CFOP in '..\Sys\Model\DAO\SGE.Model.DAO.CFOP.pas',
   SGE.Model.DAO.IBPT in '..\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas',
   SGE.Model.DAO.Empresa in '..\Sys\Model\DAO\SGE.Model.DAO.Empresa.pas',
+  SGE.Model.DAO.ContaCorrente in '..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas',
+  SGE.Model.DAO.FormaPagto in '..\Sys\Model\DAO\SGE.Model.DAO.FormaPagto.pas',
+  SGE.Model.DAO.CondicaoPagto in '..\Sys\Model\DAO\SGE.Model.DAO.CondicaoPagto.pas',
   SGE.Controller.Interfaces in '..\Sys\Controller\SGE.Controller.Interfaces.pas',
   SGE.Controller in '..\Sys\Controller\SGE.Controller.pas',
   SGE.Controller.Factory in '..\Sys\Controller\SGE.Controller.Factory.pas',
@@ -227,6 +229,9 @@ uses
   SGE.Controller.CFOP in '..\Sys\Controller\SGE.Controller.CFOP.pas',
   SGE.Controller.IBPT in '..\Sys\Controller\SGE.Controller.IBPT.pas',
   SGE.Controller.Empresa in '..\Sys\Controller\SGE.Controller.Empresa.pas',
+  SGE.Controller.ContaCorrente in '..\Sys\Controller\SGE.Controller.ContaCorrente.pas',
+  SGE.Controller.FormaPagto in '..\Sys\Controller\SGE.Controller.FormaPagto.pas',
+  SGE.Controller.CondicaoPagto in '..\Sys\Controller\SGE.Controller.CondicaoPagto.pas',
   View.Estado in '..\Sys\View\View.Estado.pas' {ViewEstado},
   View.Cidade in '..\Sys\View\View.Cidade.pas' {ViewCidade},
   View.Distrito in '..\Sys\View\View.Distrito.pas' {ViewDistrito},
@@ -236,9 +241,9 @@ uses
   View.CFOP in '..\Sys\View\View.CFOP.pas' {ViewCFOP},
   View.IBPT in '..\Sys\View\View.IBPT.pas' {ViewIBPT},
   View.IBPT.Importar in '..\Sys\View\View.IBPT.Importar.pas' {ViewIBPTImportar},
-  SGE.Model.DAO.ContaCorrente in '..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas',
-  SGE.Controller.ContaCorrente in '..\Sys\Controller\SGE.Controller.ContaCorrente.pas',
-  View.ContaCorrente in '..\Sys\View\View.ContaCorrente.pas' {ViewContaCorrente};
+  View.ContaCorrente in '..\Sys\View\View.ContaCorrente.pas' {ViewContaCorrente},
+  View.FormaPagto in '..\Sys\View\View.FormaPagto.pas' {ViewFormaPagto},
+  View.CondicaoPagto in '..\Sys\View\View.CondicaoPagto.pas' {ViewCondicaoPagto};
 
 {$R *.res}
 

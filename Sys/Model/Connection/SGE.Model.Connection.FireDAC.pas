@@ -71,6 +71,7 @@ type
       function ParamByName(aParamName, aParamValue : String) : IConnection<TConnectionFireDAC>; overload;
       function ParamByName(aParamName : String; aParamValue : Integer) : IConnection<TConnectionFireDAC>; overload;
       function ParamByName(aParamName : String; aParamValue : Int64) : IConnection<TConnectionFireDAC>; overload;
+      function ParamByName(aParamName : String) : String; overload;
       function Where(aExpressionWhere : String) : IConnection<TConnectionFireDAC>; overload;
       function Where(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<TConnectionFireDAC>; overload;
       function Where(aFieldName : String; aFielValue : Integer) : IConnection<TConnectionFireDAC>; overload;
@@ -316,6 +317,14 @@ begin
 
   if (FQuery.RecordCount > 0) then
     SetupKeyFields;
+end;
+
+function TConnectionFireDAC.ParamByName(aParamName: String): String;
+begin
+  if Assigned(FQuery.Params.FindParam(aParamName)) then
+    Result := FQuery.ParamByName(aParamName).AsString
+  else
+    Result := EmptyStr;
 end;
 
 function TConnectionFireDAC.ParamByName(aParamName: String; aParamValue: Int64): IConnection<TConnectionFireDAC>;

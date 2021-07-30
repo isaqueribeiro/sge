@@ -98,9 +98,9 @@ object ViewPadraoCadastro: TViewPadraoCadastro
         BorderWidth = 4
         TabOrder = 1
         object grpBxFiltro: TGroupBox
-          Left = 464
+          Left = 456
           Top = 4
-          Width = 259
+          Width = 267
           Height = 54
           Align = alRight
           Caption = 'Pesquisar ...'
@@ -121,7 +121,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
           end
           object edtFiltrar: TEdit
             AlignWithMargins = True
-            Left = 64
+            Left = 72
             Top = 20
             Width = 148
             Height = 23
@@ -133,12 +133,11 @@ object ViewPadraoCadastro: TViewPadraoCadastro
             ParentShowHint = False
             ShowHint = True
             TabOrder = 0
-            ExplicitHeight = 21
           end
           object btnFiltrar: TcxButton
             Tag = 5
             AlignWithMargins = True
-            Left = 218
+            Left = 226
             Top = 18
             Width = 29
             Height = 26
@@ -190,6 +189,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
             TabOrder = 1
             TabStop = False
             OnClick = btnFiltrarClick
+            ExplicitLeft = 218
           end
         end
       end

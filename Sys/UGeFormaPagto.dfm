@@ -1,13 +1,11 @@
 inherited frmGeFormaPagto: TfrmGeFormaPagto
   Left = 393
   Top = 215
-  ActiveControl = dbgDados
   Caption = 'Tabela de Formas de Pagamento'
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
-    ActivePage = tbsTabela
     inherited tbsTabela: TTabSheet
       inherited dbgDados: TDBGrid
         Columns = <

@@ -23,6 +23,9 @@ type
     function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO;
     function WhereAdditional(aExpression : String) : IModelDAO; overload;
     function WhereAdditional : String; overload;
+    function ParamsByName(aParamsName, aParamsValue : String) : IModelDAO; overload;
+    function ParamsByName(aParamsName : String; aParamsValue : Integer) : IModelDAO; overload;
+    function ParamsByName(aParamsName : String; aParamsValue : Int64) : IModelDAO; overload;
     function OrderBy(aFieldName : String) : IModelDAO; overload;
 
     function OpenEmpty  : IModelDAO;
@@ -36,6 +39,7 @@ type
     procedure CommitUpdates;
     procedure RefreshRecord;
     procedure UpdateGenerator(const aExpressionWhere : String = '');
+    procedure ExecuteScriptSQL(aScript : String);
 
     procedure StartTransaction;
     procedure CommitTransaction;
@@ -76,6 +80,12 @@ type
     function EmpresaView : IModelDAOCustom;
     function ContaCorrente : IModelDAOCustom;
     function ContaCorrenteView : IModelDAOCustom;
+    function FormaPagto : IModelDAOCustom;
+    function FormaPagtoContaCorrente : IModelDAOCustom;
+    function FormaPagtoNFCEView : IModelDAOCustom;
+    function CondicaoPagto : IModelDAOCustom;
+    function CondicaoPagtoForma : IModelDAOCustom;
+    function CondicaoPagtoView : IModelDAOCustom;
   end;
 
 implementation

@@ -32,6 +32,12 @@ type
     function EmpresaView : IControllerCustom;
     function ContaCorrente : IControllerCustom;
     function ContaCorrenteView : IControllerCustom;
+    function FormaPagto : IControllerCustom;
+    function FormaPagtoContaCorrente : IControllerCustom;
+    function FormaPagtoNFCEView : IControllerCustom;
+    function CondicaoPagto : IControllerCustom;
+    function CondicaoPagtoForma : IControllerCustom;
+    function CondicaoPagtoView : IControllerCustom;
   end;
 
 implementation

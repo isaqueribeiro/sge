@@ -14,7 +14,9 @@ uses
   SGE.Model.DAO.CFOP,
   SGE.Model.DAO.IBPT,
   SGE.Model.DAO.Empresa,
-  SGE.Model.DAO.ContaCorrente;
+  SGE.Model.DAO.ContaCorrente,
+  SGE.Model.DAO.FormaPagto,
+  SGE.Model.DAO.CondicaoPagto;
 
 type
   TModelDAOFactory = class(TInterfacedObject, IModelDAOFactory)
@@ -34,6 +36,12 @@ type
       FEmpresa    ,
       FContaCorrente     ,
       FContaCorrenteView : IModelDAOCustom;
+      FFormaPagto ,
+      FFormaPagtoContaCorrente,
+      FFormaPagtoNFCEView     ,
+      FCondicaoPagto     ,
+      FCondicaoPagtoForma,
+      FCondicaoPagtoView : IModelDAOCustom;
     protected
       constructor Create;
     public
@@ -55,6 +63,12 @@ type
       function EmpresaView : IModelDAOCustom;
       function ContaCorrente : IModelDAOCustom;
       function ContaCorrenteView : IModelDAOCustom;
+      function FormaPagto : IModelDAOCustom;
+      function FormaPagtoContaCorrente : IModelDAOCustom;
+      function FormaPagtoNFCEView : IModelDAOCustom;
+      function CondicaoPagto : IModelDAOCustom;
+      function CondicaoPagtoForma : IModelDAOCustom;
+      function CondicaoPagtoView : IModelDAOCustom;
   end;
 
 implementation
@@ -132,6 +146,30 @@ begin
   Result := FCidade;
 end;
 
+function TModelDAOFactory.CondicaoPagto: IModelDAOCustom;
+begin
+  if not Assigned(FCondicaoPagto) then
+    FCondicaoPagto := TModelDAOCondicaoPagto.New;
+
+  Result := FCondicaoPagto;
+end;
+
+function TModelDAOFactory.CondicaoPagtoForma: IModelDAOCustom;
+begin
+  if not Assigned(FCondicaoPagtoForma) then
+    FCondicaoPagtoForma := TModelDAOCondicaoPagtoForma.New;
+
+  Result := FCondicaoPagtoForma;
+end;
+
+function TModelDAOFactory.CondicaoPagtoView: IModelDAOCustom;
+begin
+  if not Assigned(FCondicaoPagtoView) then
+    FCondicaoPagtoView := TModelDAOCondicaoPagtoView.New;
+
+  Result := FCondicaoPagtoView;
+end;
+
 function TModelDAOFactory.ContaCorrente: IModelDAOCustom;
 begin
   if not Assigned(FContaCorrente) then
@@ -170,6 +208,30 @@ begin
     FEmpresaView := TModelDAOEmpresaView.New;
 
   Result := FEmpresaView;
+end;
+
+function TModelDAOFactory.FormaPagto: IModelDAOCustom;
+begin
+  if not Assigned(FFormaPagto) then
+    FFormaPagto := TModelDAOFormaPagto.New;
+
+  Result := FFormaPagto;
+end;
+
+function TModelDAOFactory.FormaPagtoContaCorrente: IModelDAOCustom;
+begin
+  if not Assigned(FFormaPagtoContaCorrente) then
+    FFormaPagtoContaCorrente := TModelDAOFormaPagtoContaCorrente.New;
+
+  Result := FFormaPagtoContaCorrente;
+end;
+
+function TModelDAOFactory.FormaPagtoNFCEView: IModelDAOCustom;
+begin
+  if not Assigned(FFormaPagtoNFCEView) then
+    FFormaPagtoNFCEView := TModelDAOFormaPagtoNFCEView.New;
+
+  Result := FFormaPagtoNFCEView;
 end;
 
 function TModelDAOFactory.IBPT: IModelDAOCustom;

@@ -28,6 +28,9 @@ type
       function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO;
       function WhereAdditional(aExpression : String) : IModelDAO; overload;
       function WhereAdditional : String; overload;
+      function ParamsByName(aParamsName, aParamsValue : String) : IModelDAO; overload;
+      function ParamsByName(aParamsName : String; aParamsValue : Integer) : IModelDAO; overload;
+      function ParamsByName(aParamsName : String; aParamsValue : Int64) : IModelDAO; overload;
       function OrderBy(aFieldName : String) : IModelDAO; overload;
 
       function OpenEmpty  : IModelDAO;
@@ -41,6 +44,7 @@ type
       procedure CommitUpdates;
       procedure RefreshRecord;
       procedure UpdateGenerator(const aExpressionWhere : String = '');
+      procedure ExecuteScriptSQL(aScript : String);
 
       procedure StartTransaction;
       procedure CommitTransaction;
@@ -103,6 +107,12 @@ begin
   inherited;
 end;
 
+procedure TModelDAO.ExecuteScriptSQL(aScript: String);
+begin
+  if not aScript.Trim.IsEmpty then
+    FConn.ExecuteSQL(aScript.Trim);
+end;
+
 procedure TModelDAO.Open;
 begin
   FConn.Query.Open;
@@ -118,6 +128,24 @@ function TModelDAO.OrderBy(aFieldName: String): IModelDAO;
 begin
   Result := Self;
   FConn.Query.SQL.OrderBy(aFieldName);
+end;
+
+function TModelDAO.ParamsByName(aParamsName: String; aParamsValue: Int64): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.ParamByName(aParamsName, aParamsValue);
+end;
+
+function TModelDAO.ParamsByName(aParamsName: String; aParamsValue: Integer): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.ParamByName(aParamsName, aParamsValue);
+end;
+
+function TModelDAO.ParamsByName(aParamsName, aParamsValue: String): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.ParamByName(aParamsName, aParamsValue);
 end;
 
 procedure TModelDAO.RefreshRecord;

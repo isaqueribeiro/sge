@@ -14,7 +14,9 @@ uses
   SGE.Controller.CFOP,
   SGE.Controller.IBPT,
   SGE.Controller.Empresa,
-  SGE.Controller.ContaCorrente;
+  SGE.Controller.ContaCorrente,
+  SGE.Controller.FormaPagto,
+  SGE.Controller.CondicaoPagto;
 
 type
   TControllerFactory = class(TInterfacedObject, IControllerFactory)
@@ -33,7 +35,13 @@ type
       FEmpresa      ,
       FEmpresaView  ,
       FContaCorrente,
-      FContaCorrenteView : IControllerCustom;
+      FContaCorrenteView,
+      FFormaPagto       : IControllerCustom;
+      FFormaPagtoContaCorrente,
+      FFormaPagtoNFCEView     : IControllerCustom;
+      FCondicaoPagto     ,
+      FCondicaoPagtoForma,
+      FCondicaoPagtoView : IControllerCustom;
     protected
       constructor Create;
     public
@@ -55,6 +63,12 @@ type
       function EmpresaView : IControllerCustom;
       function ContaCorrente : IControllerCustom;
       function ContaCorrenteView : IControllerCustom;
+      function FormaPagto : IControllerCustom;
+      function FormaPagtoContaCorrente : IControllerCustom;
+      function FormaPagtoNFCEView : IControllerCustom;
+      function CondicaoPagto : IControllerCustom;
+      function CondicaoPagtoForma : IControllerCustom;
+      function CondicaoPagtoView : IControllerCustom;
   end;
 
 implementation
@@ -116,6 +130,30 @@ begin
   Result := FCidade;
 end;
 
+function TControllerFactory.CondicaoPagto: IControllerCustom;
+begin
+  if not Assigned(FCondicaoPagto) then
+    FCondicaoPagto := TControllerCondicaoPagto.New;
+
+  Result := FCondicaoPagto;
+end;
+
+function TControllerFactory.CondicaoPagtoForma: IControllerCustom;
+begin
+  if not Assigned(FCondicaoPagtoForma) then
+    FCondicaoPagtoForma := TControllerCondicaoPagtoForma.New;
+
+  Result := FCondicaoPagtoForma;
+end;
+
+function TControllerFactory.CondicaoPagtoView: IControllerCustom;
+begin
+  if not Assigned(FCondicaoPagtoView) then
+    FCondicaoPagtoView := TControllerCondicaoPagtoView.New;
+
+  Result := FCondicaoPagtoView;
+end;
+
 function TControllerFactory.ContaCorrente: IControllerCustom;
 begin
   if not Assigned(FContaCorrente) then
@@ -154,6 +192,30 @@ begin
     FEmpresaView := TControllerEmpresaView.New;
 
   Result := FEmpresaView;
+end;
+
+function TControllerFactory.FormaPagto: IControllerCustom;
+begin
+  if not Assigned(FFormaPagto) then
+    FFormaPagto := TControllerFormaPagto.New;
+
+  Result := FFormaPagto;
+end;
+
+function TControllerFactory.FormaPagtoContaCorrente: IControllerCustom;
+begin
+  if not Assigned(FFormaPagtoContaCorrente) then
+    FFormaPagtoContaCorrente := TControllerFormaPagtoContaCorrente.New;
+
+  Result := FFormaPagtoContaCorrente;
+end;
+
+function TControllerFactory.FormaPagtoNFCEView: IControllerCustom;
+begin
+  if not Assigned(FFormaPagtoNFCEView) then
+    FFormaPagtoNFCEView := TControllerFormaPagtoNFCEView.New;
+
+  Result := FFormaPagtoNFCEView;
 end;
 
 function TControllerFactory.IBPT: IControllerCustom;

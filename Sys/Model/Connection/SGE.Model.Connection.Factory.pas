@@ -11,6 +11,7 @@ type
   IConnection = interface
     ['{A8E8C0DC-6BFC-46CF-ACBD-F96D70490D7B}']
     function Query : IConnection<TConnectionFireDAC>;
+    function ExecuteSQL(Value : String) : IConnection<TConnectionFireDAC>;
   end;
 
   TConnectionFactory = class(TInterfacedObject, IConnection)
@@ -23,6 +24,7 @@ type
       class function New : IConnection;
 
       function Query : IConnection<TConnectionFireDAC>;
+      function ExecuteSQL(Value : String) : IConnection<TConnectionFireDAC>;
   end;
 
 implementation
@@ -40,6 +42,12 @@ end;
 destructor TConnectionFactory.Destroy;
 begin
   inherited;
+end;
+
+function TConnectionFactory.ExecuteSQL(Value: String): IConnection<TConnectionFireDAC>;
+begin
+  Result := Self.FQuery;
+  DMBusiness.fdConexao.ExecSQL(Value, True);
 end;
 
 class function TConnectionFactory.New : IConnection;

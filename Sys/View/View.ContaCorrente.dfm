@@ -1,6 +1,7 @@
 inherited ViewContaCorrente: TViewContaCorrente
   Left = 393
   Top = 212
+  ActiveControl = dbCodigo
   Caption = 'Controle de Conta Corrente'
   ClientHeight = 439
   ClientWidth = 743
@@ -24,6 +25,7 @@ inherited ViewContaCorrente: TViewContaCorrente
   inherited pgcGuias: TPageControl
     Width = 743
     Height = 396
+    ActivePage = tbsCadastro
     ExplicitWidth = 743
     ExplicitHeight = 396
     inherited tbsTabela: TTabSheet
@@ -89,7 +91,6 @@ inherited ViewContaCorrente: TViewContaCorrente
             Left = 109
             Width = 192
             ExplicitLeft = 109
-            ExplicitTop = 20
             ExplicitWidth = 192
             ExplicitHeight = 23
           end
@@ -101,8 +102,6 @@ inherited ViewContaCorrente: TViewContaCorrente
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 735
       ExplicitHeight = 367
       inherited Bevel8: TBevel

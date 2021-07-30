@@ -200,9 +200,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeUnidade.pas">
             <Form>frmGeUnidade</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeFormaPagto.pas">
-            <Form>frmGeFormaPagto</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeVendedor.pas">
             <Form>frmGeVendedor</Form>
         </DCCReference>
@@ -624,6 +621,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CFOP.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Empresa.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.FormaPagto.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CondicaoPagto.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Factory.pas"/>
@@ -638,6 +638,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CFOP.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.IBPT.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Empresa.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaCorrente.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.FormaPagto.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.CondicaoPagto.pas"/>
         <DCCReference Include="..\Sys\View\View.Estado.pas">
             <Form>ViewEstado</Form>
         </DCCReference>
@@ -665,10 +668,15 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\View\View.IBPT.Importar.pas">
             <Form>ViewIBPTImportar</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaCorrente.pas"/>
         <DCCReference Include="..\Sys\View\View.ContaCorrente.pas">
             <Form>ViewContaCorrente</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.FormaPagto.pas">
+            <Form>ViewFormaPagto</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.CondicaoPagto.pas">
+            <Form>ViewCondicaoPagto</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
@@ -787,7 +795,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -909,7 +917,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

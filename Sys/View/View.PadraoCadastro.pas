@@ -813,6 +813,7 @@ begin
     if ( AbrirTabelaAuto ) then
     begin
       DtSrcTabela.DataSet.Close;
+      FController.DAO.ClearWhere;
 
       if (not WhereAdditional.IsEmpty) then
         FController.DAO.Where('(' + WhereAdditional + ')');

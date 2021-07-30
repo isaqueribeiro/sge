@@ -12,6 +12,7 @@ uses
   Controller.Factory;
 
 type
+  // Table
   TModelDAOContaCorrente = class(TModelDAO, IModelDAOCustom)
     private
       FUsuario : IUsuario;
@@ -26,6 +27,7 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // View
   TModelDAOContaCorrenteView = class(TModelDAO, IModelDAOCustom)
     private
     protected

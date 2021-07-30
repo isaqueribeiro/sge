@@ -786,7 +786,7 @@ end;
 procedure TfrmPrinc.nmFormaPagtoClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_FORMA_PAGTO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeFormaPagto');
+    FormFunction.ShowModalForm(Self, 'ViewFormaPagto');
 end;
 
 procedure TfrmPrinc.nmVendedorClick(Sender: TObject);

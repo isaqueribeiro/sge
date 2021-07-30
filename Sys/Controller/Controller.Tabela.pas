@@ -96,6 +96,9 @@ begin
       else
       if (FDataSet.FieldByName( FNomesCampos.KeyNames[I] ) is TFMTBCDField) then
         TFMTBCDField( FDataSet.FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
+      else
+      if (FDataSet.FieldByName( FNomesCampos.KeyNames[I] ) is TNumericField) then
+        TNumericField( FDataSet.FieldByName( FNomesCampos.KeyNames[I] ) ).DisplayFormat := FFormatos.Values[ FNomesCampos.KeyNames[I] ].Replace('vazio', '')
       // .. Data e hora
       else
       if (FDataSet.FieldByName( FNomesCampos.KeyNames[I] ) is TTimeField) then
