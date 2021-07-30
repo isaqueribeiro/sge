@@ -532,7 +532,7 @@ uses
   , UDMRecursos
   , UConstantesDGE
   , DateUtils
-  , UGeCondicaoPagto
+  , View.CondicaoPagto
   , UGeProduto
   , View.CFOP
   , UGeFornecedor

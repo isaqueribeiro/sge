@@ -819,7 +819,7 @@ end;
 procedure TfrmPrinc.nmCondicaoPagtoClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_CONDICAO_PAGTO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeCondicaoPagto');
+    FormFunction.ShowModalForm(Self, 'ViewCondicaoPagto');
 end;
 
 procedure TfrmPrinc.nmConfigurarNFeACBrClick(Sender: TObject);

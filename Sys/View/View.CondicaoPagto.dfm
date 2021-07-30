@@ -3,17 +3,30 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
   Top = 247
   ActiveControl = nil
   Caption = 'Tabela de Condi'#231#245'es de Pagamento'
+  ClientHeight = 484
   OldCreateOrder = True
+  ExplicitHeight = 523
   PixelsPerInch = 96
   TextHeight = 13
+  inherited Bevel1: TBevel
+    Top = 480
+  end
+  inherited Bevel3: TBevel
+    Top = 441
+  end
   inherited pgcGuias: TPageControl
+    Height = 441
     ActivePage = tbsCadastro
     inherited tbsTabela: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 25
       ExplicitWidth = 727
       ExplicitHeight = 329
+      inherited Bevel4: TBevel
+        Top = 346
+      end
       inherited dbgDados: TDBGrid
+        Height = 346
         Columns = <
           item
             Expanded = False
@@ -39,6 +52,7 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
           end>
       end
       inherited pnlFiltros: TPanel
+        Top = 350
         object lblRegistroDesativado: TLabel [0]
           Left = 2
           Top = 44
@@ -68,10 +82,11 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
             Width = 177
             ExplicitLeft = 116
             ExplicitWidth = 177
+            ExplicitHeight = 21
           end
           inherited btnFiltrar: TcxButton
             Left = 299
-            ExplicitLeft = 241
+            ExplicitLeft = 299
           end
         end
       end
@@ -458,21 +473,21 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
         Left = 0
         Top = 189
         Width = 727
-        Height = 140
+        Height = 223
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitTop = 157
-        ExplicitHeight = 182
+        ExplicitHeight = 140
         object pnlDicas: TPanel
           AlignWithMargins = True
           Left = 3
-          Top = 88
+          Top = 171
           Width = 721
           Height = 49
           Align = alBottom
           BevelOuter = bvNone
           TabOrder = 0
+          ExplicitTop = 88
           object lblDicasTitulo: TLabel
             AlignWithMargins = True
             Left = 3
@@ -518,7 +533,7 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
           Left = 0
           Top = 0
           Width = 727
-          Height = 85
+          Height = 168
           Hint = 
             'Dica:'#13#10#13#10'Pressione a tecla "Espa'#231'o" para marcar o desmarcar a Fo' +
             'rma de Pagamento'#13#10'selecionada. E atente para o fato de que a for' +
@@ -581,6 +596,9 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
       end
     end
   end
+  inherited tlbBotoes: TPanel
+    Top = 445
+  end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
     Left = 664
@@ -589,107 +607,10 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
   inherited ImgList: TImageList
     Top = 16
   end
-  object dspFormaPagtoLista: TDataSetProvider
-    DataSet = qryFormaPagtoLista
-    Left = 576
-    Top = 128
-  end
-  object cdsFormaPagtoLista: TClientDataSet
-    Aggregates = <>
-    Params = <
-      item
-        DataType = ftSmallint
-        Name = 'CONDICAO_PAGTO'
-        ParamType = ptInput
-        Value = 0
-      end>
-    ProviderName = 'dspFormaPagtoLista'
-    Left = 608
-    Top = 128
-    object cdsFormaPagtoListaSELECIONAR: TIntegerField
-      Alignment = taCenter
-      FieldName = 'SELECIONAR'
-      OnGetText = cdsFormaPagtoListaSELECIONARGetText
-    end
-    object cdsFormaPagtoListaCODIGO: TSmallintField
-      Alignment = taCenter
-      FieldName = 'CODIGO'
-      Required = True
-      DisplayFormat = '00'
-    end
-    object cdsFormaPagtoListaDESCRICAO: TStringField
-      DisplayLabel = 'Forma de Pagamento'
-      FieldName = 'DESCRICAO'
-      Size = 30
-    end
-    object cdsFormaPagtoListaUSAR_PDV: TStringField
-      Alignment = taCenter
-      FieldName = 'USAR_PDV'
-      FixedChar = True
-      Size = 1
-    end
-  end
   object dtsFormaPagto: TDataSource
     DataSet = cdsFormaPagto
     Left = 592
     Top = 232
-  end
-  object qryFormaPagtoLista: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      
-        '    Case when c.condicao_pagto is null then 0 else 1 end as sele' +
-        'cionar'
-      '  , f.cod    as codigo'
-      '  , f.descri as descricao'
-      
-        '  , Case when f.formapagto_pdv = 1 then '#39'X'#39' else '#39'.'#39' end usar_pd' +
-        'v'
-      'from TBFORMPAGTO f'
-      
-        '  left join TBFORMPAGTO_CONDICAO c on (c.forma_pagto = f.cod and' +
-        ' c.condicao_pagto = :condicao_pagto)'
-      ''
-      'order by'
-      '    f.cod')
-    Left = 544
-    Top = 128
-    ParamData = <
-      item
-        Position = 1
-        Name = 'CONDICAO_PAGTO'
-        DataType = ftSmallint
-        ParamType = ptInput
-        Value = 0
-      end>
-    object qryFormaPagtoListaSELECIONAR: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'SELECIONAR'
-      Origin = 'SELECIONAR'
-      ProviderFlags = []
-    end
-    object qryFormaPagtoListaCODIGO: TSmallintField
-      FieldName = 'CODIGO'
-      Origin = 'COD'
-      Required = True
-    end
-    object qryFormaPagtoListaDESCRICAO: TStringField
-      FieldName = 'DESCRICAO'
-      Origin = 'DESCRI'
-      Size = 30
-    end
-    object qryFormaPagtoListaUSAR_PDV: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'USAR_PDV'
-      Origin = 'USAR_PDV'
-      ProviderFlags = []
-      ReadOnly = True
-      FixedChar = True
-      Size = 1
-    end
   end
   object cdsFormaPagto: TClientDataSet
     Aggregates = <>

@@ -37,9 +37,7 @@ uses
   View.PadraoCadastro,
   SGE.Controller.Interfaces,
   Interacao.Tabela,
-  Controller.Tabela, UGrPadraoCadastro, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
-  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Datasnap.Provider,
-  FireDAC.Comp.Client, FireDAC.Comp.DataSet, IBX.IBCustomDataSet, IBX.IBUpdateSQL;
+  Controller.Tabela;
 
 type
   TViewCondicaoPagto = class(TViewPadraoCadastro)
@@ -71,20 +69,9 @@ type
     dbPrazo12: TDBEdit;
     lblPrazo12: TLabel;
     dbCondicaoPagtoPDV: TDBCheckBox;
-    dspFormaPagtoLista: TDataSetProvider;
-    cdsFormaPagtoLista: TClientDataSet;
     dtsFormaPagto: TDataSource;
-    cdsFormaPagtoListaSELECIONAR: TIntegerField;
-    cdsFormaPagtoListaCODIGO: TSmallintField;
     lblRegistroDesativado: TLabel;
     dbAtiva: TDBCheckBox;
-    qryFormaPagtoLista: TFDQuery;
-    cdsFormaPagtoListaDESCRICAO: TStringField;
-    cdsFormaPagtoListaUSAR_PDV: TStringField;
-    qryFormaPagtoListaSELECIONAR: TIntegerField;
-    qryFormaPagtoListaCODIGO: TSmallintField;
-    qryFormaPagtoListaDESCRICAO: TStringField;
-    qryFormaPagtoListaUSAR_PDV: TStringField;
     pnlFormaPagto: TPanel;
     pnlDicas: TPanel;
     lblDicasTitulo: TLabel;
@@ -99,10 +86,11 @@ type
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
-    procedure cdsFormaPagtoListaSELECIONARGetText(Sender: TField;
+    procedure cdsFormaPagtoSelecionarGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
-    procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
-    procedure fdQryTabelaCalcFields(DataSet: TDataSet);
+    procedure DtSrcTabelaAfterScroll(DataSet: TDataSet);
+    procedure DtSrcTabelaAPrazoGetText(Sender: TField;
+      var Text: String; DisplayText: Boolean);
   private
     { Private declarations }
     FControllerCondicaoPagtoForma : IControllerCustom;
@@ -231,10 +219,13 @@ begin
 
   Tabela
     .Display('COND_COD', 'Código', DisplayFormatCodigo, TAlignment.taCenter, True)
-    .Display('COND_DESCRICAO', 'Descrição', True);
+    .Display('COND_DESCRICAO', 'Descrição', True)
+    .Display('APrazo', 'A Prazo?', TAlignment.taCenter);
 
   AbrirTabelaAuto := True;
   FController.DAO.UpdateGenerator(EmptyStr);
+
+  DtSrcTabela.DataSet.AfterScroll := DtSrcTabelaAfterScroll;
 end;
 
 procedure TViewCondicaoPagto.DtSrcTabelaDataChange(Sender: TObject;
@@ -263,11 +254,50 @@ end;
 
 procedure TViewCondicaoPagto.CarregarFormaPagto;
 begin
-  with cdsFormaPagtoLista, Params do
+  FControllerCondicaoPagtoForma.DAO.DataSet.Close;
+
+  FControllerCondicaoPagtoForma.DAO
+    .ParamsByName('condicao_pagto', DtSrcTabela.DataSet.FieldByName('Cond_cod').AsInteger)
+    .Open;
+
+  if not cdsFormaPagto.Active then
   begin
-    Close;
-    ParamByName('condicao_pagto').AsInteger := DtSrcTabela.DataSet.FieldByName('COND_COD').AsInteger;
-    Open;
+    cdsFormaPagto.CreateDataSet;
+    cdsFormaPagto.FieldByName('selecionar').OnGetText := cdsFormaPagtoSelecionarGetText;
+
+    // Preparar DataSet para a configuração dos campos
+    TTabelaController.New
+      .Tabela(cdsFormaPagto)
+      .Display('selecionar', 'S', TAlignment.taCenter)
+      .Display('codigo', 'Código', '00', TAlignment.taCenter)
+      .Display('descricao', 'Forma de Pagamento')
+      .Display('pdv', 'PDV', TAlignment.taCenter)
+      .Configurar;
+  end
+  else
+    cdsFormaPagto.EmptyDataSet;
+
+  with FControllerCondicaoPagtoForma do
+  begin
+    cdsFormaPagto.DisableControls;
+    DAO.DataSet.DisableControls;
+    try
+      while not DAO.DataSet.Eof do
+      begin
+        cdsFormaPagto.Append;
+        cdsFormaPagto.FieldByName('selecionar').Assign( DAO.DataSet.FieldByName('selecionar') );
+        cdsFormaPagto.FieldByName('codigo').Assign( DAO.DataSet.FieldByName('forma_pagto') );
+        cdsFormaPagto.FieldByName('descricao').Assign( DAO.DataSet.FieldByName('descricao') );
+        cdsFormaPagto.FieldByName('pdv').Assign( DAO.DataSet.FieldByName('pdv') );
+        cdsFormaPagto.Post;
+
+        DAO.DataSet.Next;
+      end;
+    finally
+      cdsFormaPagto.First;
+      cdsFormaPagto.EnableControls;
+      DAO.DataSet.EnableControls;
+    end;
   end;
 end;
 
@@ -278,47 +308,47 @@ const
   SQL_INSERT = 'Insert Into TBFORMPAGTO_CONDICAO (FORMA_PAGTO, CONDICAO_PAGTO, SELECIONAR) values (%s, %s, 1)';
   SQL_DELETE = 'Delete from TBFORMPAGTO_CONDICAO where FORMA_PAGTO = %s and CONDICAO_PAGTO = %s';
 begin
-(*
-  IMR - 11/03/2015 :
-    Rotina que permite a gravação de várias formas de pagamento para a mesma condição de pagamento.
-*)
-  cdsFormaPagtoLista.First;
-  while not cdsFormaPagtoLista.Eof do
-  begin
-    if cdsFormaPagtoListaSELECIONAR.AsInteger = 1 then
-      sSQL := SQL_INSERT
-    else
-      sSQL := SQL_DELETE;
-
-    with DMBusiness, fdQryBusca do
+  dtsFormaPagto.DataSet.First;
+  dtsFormaPagto.DataSet.DisableControls;
+  try
+    while not dtsFormaPagto.DataSet.Eof do
     begin
-      SQL.Clear;
-      SQL.Add( Format(SQL_DELETE, [cdsFormaPagtoListaCODIGO.AsString, DtSrcTabela.DataSet.FieldByName('COND_COD').AsString]) );
-      ExecSQL;
+      if dtsFormaPagto.DataSet.FieldByName('selecionar').AsInteger = 1 then
+        sSQL := SQL_INSERT
+      else
+        sSQL := SQL_DELETE;
 
-      SQL.Clear;
-      SQL.Add( Format(sSQL, [cdsFormaPagtoListaCODIGO.AsString, DtSrcTabela.DataSet.FieldByName('COND_COD').AsString]) );
-      ExecSQL;
+      FController.DAO.ExecuteScriptSQL(
+        Format(SQL_DELETE,
+          [dtsFormaPagto.DataSet.FieldByName('codigo').AsString, DtSrcTabela.DataSet.FieldByName('Cond_cod').AsString])
+      );
 
-      CommitTransaction;
+      FController.DAO.ExecuteScriptSQL(
+        Format(sSQL,
+          [dtsFormaPagto.DataSet.FieldByName('codigo').AsString, DtSrcTabela.DataSet.FieldByName('Cond_cod').AsString])
+      );
+
+      dtsFormaPagto.DataSet.Next;
     end;
 
-    cdsFormaPagtoLista.Next;
+    FController.DAO.CommitTransaction;
+  finally
+    dtsFormaPagto.DataSet.First;
+    dtsFormaPagto.DataSet.EnableControls;
   end;
-  cdsFormaPagtoLista.First;
 end;
 
 procedure TViewCondicaoPagto.dbgFormaPagtoDblClick(Sender: TObject);
 begin
-  if dtsFormaPagtoLista.AutoEdit then
-    if ( not cdsFormaPagtoLista.IsEmpty ) then
+  if dtsFormaPagto.AutoEdit then
+    if ( not dtsFormaPagto.DataSet.IsEmpty ) then
     begin
-      cdsFormaPagtoLista.Edit;
-      if ( cdsFormaPagtoListaSELECIONAR.AsInteger = 0 ) then
-        cdsFormaPagtoListaSELECIONAR.AsInteger := 1
+      dtsFormaPagto.DataSet.Edit;
+      if ( dtsFormaPagto.DataSet.FieldByName('selecionar').AsInteger = 0 ) then
+        dtsFormaPagto.DataSet.FieldByName('selecionar').AsInteger := 1
       else
-        cdsFormaPagtoListaSELECIONAR.AsInteger := 0;
-      cdsFormaPagtoLista.Post;
+        dtsFormaPagto.DataSet.FieldByName('selecionar').AsInteger := 0;
+      dtsFormaPagto.DataSet.Post;
     end;
 end;
 
@@ -338,13 +368,9 @@ end;
 
 procedure TViewCondicaoPagto.btbtnSalvarClick(Sender: TObject);
 begin
-(*
-  IMR - 11/03/2015 :
-    Rotina que permite a gravação de várias formas de pagamentos para a mesma condição de pagamento.
-*)
-  fdQryTabela.AfterScroll := nil;
+  DtSrcTabela.DataSet.AfterScroll := nil;
   inherited;
-  fdQryTabela.AfterScroll := fdQryTabelaAfterScroll;
+  DtSrcTabela.DataSet.AfterScroll := DtSrcTabelaAfterScroll;
 
   if ( not OcorreuErro ) then
     GravarRelacaoFormaCondicao;
@@ -353,23 +379,25 @@ end;
 procedure TViewCondicaoPagto.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
-  dtsFormaPagtoLista.AutoEdit := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
+  dtsFormaPagto.AutoEdit := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
 end;
 
-procedure TViewCondicaoPagto.fdQryTabelaAfterScroll(DataSet: TDataSet);
+procedure TViewCondicaoPagto.DtSrcTabelaAfterScroll(DataSet: TDataSet);
 begin
   inherited;
   CarregarFormaPagto;
 end;
 
-procedure TViewCondicaoPagto.fdQryTabelaCalcFields(DataSet: TDataSet);
+procedure TViewCondicaoPagto.DtSrcTabelaAPrazoGetText(Sender: TField; var Text: String; DisplayText: Boolean);
 begin
-  inherited;
-  with DtSrcTabela.DataSet do
-    FieldByName('APrazo').AsString := IfThen(FieldByName('COND_PRAZO').AsInteger = 1, 'X', '.');
+  if not Sender.IsNull then
+    Case Sender.AsInteger of
+      0 : Text := '.';
+      1 : Text := 'X';
+    end;
 end;
 
-procedure TViewCondicaoPagto.cdsFormaPagtoListaSELECIONARGetText(
+procedure TViewCondicaoPagto.cdsFormaPagtoSelecionarGetText(
   Sender: TField; var Text: String; DisplayText: Boolean);
 begin
   if not Sender.IsNull then
