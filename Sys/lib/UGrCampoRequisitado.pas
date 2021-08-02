@@ -97,6 +97,13 @@ begin
     begin
       frm.pnlDescricao.Caption := Trim(TabelaNome);
 
+      // Limpar campos requeridos
+      if (Tabela.State in [dsEdit, dsInsert]) then
+        for I := 0 to Tabela.Fields.Count - 1 do
+          if Tabela.Fields[I].Required and (Trim(Tabela.Fields[I].AsString) = EmptyStr) then
+            Tabela.Fields[I].Clear;
+
+      // Identificar campos requeridos
       X := 1;
       CreateDataSet;
       for I := 0 to Tabela.Fields.Count - 1 do

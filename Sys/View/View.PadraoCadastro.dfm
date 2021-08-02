@@ -133,6 +133,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
             ParentShowHint = False
             ShowHint = True
             TabOrder = 0
+            ExplicitHeight = 21
           end
           object btnFiltrar: TcxButton
             Tag = 5
@@ -189,7 +190,6 @@ object ViewPadraoCadastro: TViewPadraoCadastro
             TabOrder = 1
             TabStop = False
             OnClick = btnFiltrarClick
-            ExplicitLeft = 218
           end
         end
       end

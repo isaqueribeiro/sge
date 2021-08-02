@@ -38,6 +38,15 @@ type
     function CondicaoPagto : IControllerCustom;
     function CondicaoPagtoForma : IControllerCustom;
     function CondicaoPagtoView : IControllerCustom;
+    function PlanoConta : IControllerCustom;
+    function PlanoContaNivel : IControllerCustom;
+    function PlanoContaTipo : IControllerCustom;
+    function TipoReceita : IControllerCustom;
+    function TipoReceitaPlanoConta : IControllerCustom;
+    function ClasseReceita : IControllerCustom;
+    function TipoDespesa : IControllerCustom;
+    function TipoDespesaPlanoConta : IControllerCustom;
+    function ClasseDespesa : IControllerCustom;
   end;
 
 implementation

@@ -136,7 +136,7 @@ function TTabelaController.Display(aKey, aValue, aFormato: String; aAlinhamento:
 var
   I : Integer;
 begin
-  Result := Self.Display(aKey, aValue, aFormato, aRequired);
+  Result := Self.Display(LowerCase(aKey.Trim), aValue, aFormato, aRequired);
   I := FNomesCampos.IndexOfName( LowerCase(aKey.Trim) );
   if (I > -1) then
     FAlinhamentos[I] := aAlinhamento;
@@ -154,7 +154,7 @@ function TTabelaController.Display(aKey, aValue: String; aAlinhamento: TAlignmen
 var
   I : Integer;
 begin
-  Result := Self.Display(aKey, aValue, aRequired);
+  Result := Self.Display(LowerCase(aKey.Trim), aValue, aRequired);
   I := FNomesCampos.IndexOfName( LowerCase(aKey.Trim) );
   if (I > -1) then
     FAlinhamentos[I] := aAlinhamento;
@@ -164,7 +164,7 @@ function TTabelaController.Display(aKey, aValue: String; const aRequired : Boole
 begin
   Result := Self;
   FNomesCampos.Values[ LowerCase(aKey.Trim) ] := aValue.Trim;
-  FRequired.AddOrSetValue(aKey, aRequired);
+  FRequired.AddOrSetValue(LowerCase(aKey.Trim), aRequired);
 end;
 
 class function TTabelaController.New: ITabela;

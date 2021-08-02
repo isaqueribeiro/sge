@@ -209,9 +209,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeVenda.pas">
             <Form>frmGeVenda</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeCondicaoPagto.pas">
-            <Form>frmGeCondicaoPagto</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeEntradaEstoque.pas">
             <Form>frmGeEntradaEstoque</Form>
         </DCCReference>
@@ -269,9 +266,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\UGePromocao.pas">
             <Form>frmGePromocao</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeContaCorrente.pas">
-            <Form>frmGeContaCorrente</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeCaixa.pas">
             <Form>frmGeCaixa</Form>
@@ -419,9 +413,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeCentroCusto.pas">
             <Form>frmGeCentroCusto</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGePlanoContas.pas">
-            <Form>frmGePlanoContas</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeProdutoKardex.pas">
             <Form>frmGeProdutoKardex</Form>
         </DCCReference>
@@ -462,9 +453,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\UGeContasAReceberLoteParcela.pas">
             <Form>frmGeContasAReceberLoteParcela</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeTipoReceita.pas">
-            <Form>frmGeTipoReceita</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeFluxoCaixaImpressao.pas">
             <Form>frmGeFluxoCaixaImpressao</Form>
@@ -679,6 +667,20 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <Form>ViewCondicaoPagto</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.PlanoConta.pas"/>
+        <DCCReference Include="..\Sys\View\View.PlanoConta.pas">
+            <Form>ViewPlanoConta</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoReceita.pas"/>
+        <DCCReference Include="..\Sys\View\View.TipoReceita.pas">
+            <Form>ViewTipoReceita</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoDespesa.pas"/>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>
@@ -795,7 +797,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -917,7 +919,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

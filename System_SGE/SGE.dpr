@@ -31,7 +31,6 @@ uses
   UGeVendedor in '..\Sys\UGeVendedor.pas' {frmGeVendedor},
   UGeProduto in 'UGeProduto.pas' {frmGeProduto},
   UGeVenda in '..\Sys\UGeVenda.pas' {frmGeVenda},
-  UGeCondicaoPagto in '..\Sys\UGeCondicaoPagto.pas' {frmGeCondicaoPagto},
   UGeEntradaEstoque in '..\Sys\UGeEntradaEstoque.pas' {frmGeEntradaEstoque},
   UGeContasAReceber in '..\Sys\UGeContasAReceber.pas' {frmGeContasAReceber},
   UGrPadraoCadastroSimples in '..\Sys\lib\UGrPadraoCadastroSimples.pas' {frmGrPadraoCadastroSimples},
@@ -51,7 +50,6 @@ uses
   UGeRetornoBoletos in '..\Sys\UGeRetornoBoletos.pas' {frmGeRetornoBoleto},
   UGeEntradaConfirmaDuplicatas in '..\Sys\UGeEntradaConfirmaDuplicatas.pas' {frmGeEntradaConfirmaDuplicatas},
   UGePromocao in '..\Sys\UGePromocao.pas' {frmGePromocao},
-  UGeContaCorrente in '..\Sys\UGeContaCorrente.pas' {frmGeContaCorrente},
   UGeCaixa in '..\Sys\UGeCaixa.pas' {frmGeCaixa},
   UGeFluxoCaixa in '..\Sys\UGeFluxoCaixa.pas' {frmGeFluxoCaixa},
   UFuncoes in '..\Sys\lib\UFuncoes.pas',
@@ -106,7 +104,6 @@ uses
   UGeCartaCorrecao in '..\Sys\UGeCartaCorrecao.pas' {frmGeCartaCorrecao},
   UGeNFEmitida in '..\Sys\UGeNFEmitida.pas' {frmGeNFEmitida},
   UGeCentroCusto in '..\Sys\UGeCentroCusto.pas' {frmGeCentroCusto},
-  UGePlanoContas in '..\Sys\UGePlanoContas.pas' {frmGePlanoContas},
   UGeProdutoKardex in '..\Sys\UGeProdutoKardex.pas' {frmGeProdutoKardex},
   UEcfBematechNaoFiscal in '..\Sys\lib\UEcfBematechNaoFiscal.pas',
   UDMRecursos in '..\Sys\UDMRecursos.pas' {DMRecursos: TDataModule},
@@ -121,7 +118,6 @@ uses
   UGeContasAReceberQuitar in 'UGeContasAReceberQuitar.pas' {frmGeContasAReceberQuitar},
   UGeContasAPagarLoteParcela in '..\Sys\UGeContasAPagarLoteParcela.pas' {frmGeContasAPagarLoteParcela},
   UGeContasAReceberLoteParcela in '..\Sys\UGeContasAReceberLoteParcela.pas' {frmGeContasAReceberLoteParcela},
-  UGeTipoReceita in '..\Sys\UGeTipoReceita.pas' {frmGeTipoReceita},
   UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao},
   UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde},
   UGeControleCheque in '..\Sys\UGeControleCheque.pas' {frmGeControleCheque},
@@ -243,7 +239,15 @@ uses
   View.IBPT.Importar in '..\Sys\View\View.IBPT.Importar.pas' {ViewIBPTImportar},
   View.ContaCorrente in '..\Sys\View\View.ContaCorrente.pas' {ViewContaCorrente},
   View.FormaPagto in '..\Sys\View\View.FormaPagto.pas' {ViewFormaPagto},
-  View.CondicaoPagto in '..\Sys\View\View.CondicaoPagto.pas' {ViewCondicaoPagto};
+  View.CondicaoPagto in '..\Sys\View\View.CondicaoPagto.pas' {ViewCondicaoPagto},
+  SGE.Model.DAO.PlanoConta in '..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas',
+  SGE.Controller.PlanoConta in '..\Sys\Controller\SGE.Controller.PlanoConta.pas',
+  View.PlanoConta in '..\Sys\View\View.PlanoConta.pas' {ViewPlanoConta},
+  SGE.Model.DAO.TipoReceita in '..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas',
+  SGE.Controller.TipoReceita in '..\Sys\Controller\SGE.Controller.TipoReceita.pas',
+  View.TipoReceita in '..\Sys\View\View.TipoReceita.pas' {ViewTipoReceita},
+  SGE.Model.DAO.TipoDespesa in '..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas',
+  SGE.Controller.TipoDespesa in '..\Sys\Controller\SGE.Controller.TipoDespesa.pas';
 
 {$R *.res}
 

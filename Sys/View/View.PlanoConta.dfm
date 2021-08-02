@@ -1,4 +1,4 @@
-inherited frmGePlanoContas: TfrmGePlanoContas
+inherited ViewPlanoConta: TViewPlanoConta
   Left = 427
   Top = 240
   ActiveControl = nil
@@ -25,6 +25,7 @@ inherited frmGePlanoContas: TfrmGePlanoContas
   inherited pgcGuias: TPageControl
     Width = 796
     Height = 439
+    ActivePage = tbsCadastro
     ExplicitWidth = 796
     ExplicitHeight = 439
     inherited tbsTabela: TTabSheet
@@ -122,14 +123,15 @@ inherited frmGePlanoContas: TfrmGePlanoContas
             ExplicitWidth = 58
           end
           inherited edtFiltrar: TEdit
-            Left = 72
-            Width = 279
-            ExplicitLeft = 72
-            ExplicitWidth = 279
+            Left = 81
+            Width = 272
+            ExplicitLeft = 81
+            ExplicitWidth = 272
+            ExplicitHeight = 23
           end
           inherited btnFiltrar: TcxButton
-            Left = 355
-            ExplicitLeft = 355
+            Left = 359
+            ExplicitLeft = 359
           end
           object chkPlanoContaAtivo: TCheckBox
             Left = 68
@@ -373,7 +375,7 @@ inherited frmGePlanoContas: TfrmGePlanoContas
         end
         object dbTipo: TDBLookupComboBox
           Left = 17
-          Top = 117
+          Top = 120
           Width = 265
           Height = 21
           Hint = 'Limpar Campo (Ctrl + L)'
@@ -460,354 +462,27 @@ inherited frmGePlanoContas: TfrmGePlanoContas
       ExplicitLeft = 593
     end
   end
-  inherited IbDtstTabela: TIBDataSet
-    SelectSQL.Strings = (
-      'Select'
-      '    p.codigo'
-      '  , p.exercicio'
-      '  , p.empresa'
-      '  , p.grupo'
-      '  , p.nivel'
-      '  , p.tipo'
-      '  , p.codigo_contabil'
-      '  , p.codigo_resumido'
-      '  , p.descricao_resumida'
-      '  , p.descricao_completa'
-      '  , p.situacao'
-      '  , t.descricao as tipo_descricao'
-      '  , coalesce(e.rzsoc,  '#39'Todas'#39') as razao'
-      '  , coalesce(e.nmfant, '#39'Todas'#39') as fantasia'
-      'from TBPLANO_CONTA p'
-      '  left join VW_TIPO_PLANO_CONTA t on (t.codigo = p.tipo)'
-      '  left join TBEMPRESA e on (e.cnpj = p.empresa)')
-    GeneratorField.Field = 'CODIGO'
-    GeneratorField.Generator = 'GEN_PLANO_CONTA'
-    GeneratorField.ApplyEvent = gamOnNewRecord
-  end
   inherited DtSrcTabela: TDataSource
-    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
-  end
-  inherited IbUpdTabela: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  CODIGO,'
-      '  EXERCICIO,'
-      '  EMPRESA,'
-      '  GRUPO,'
-      '  NIVEL,'
-      '  TIPO,'
-      '  CODIGO_CONTABIL,'
-      '  CODIGO_RESUMIDO,'
-      '  DESCRICAO_RESUMIDA,'
-      '  DESCRICAO_COMPLETA,'
-      '  SITUACAO'
-      'from TBPLANO_CONTA '
-      'where'
-      '  CODIGO = :CODIGO')
-    ModifySQL.Strings = (
-      'update TBPLANO_CONTA'
-      'set'
-      '  CODIGO = :CODIGO,'
-      '  CODIGO_CONTABIL = :CODIGO_CONTABIL,'
-      '  CODIGO_RESUMIDO = :CODIGO_RESUMIDO,'
-      '  DESCRICAO_COMPLETA = :DESCRICAO_COMPLETA,'
-      '  DESCRICAO_RESUMIDA = :DESCRICAO_RESUMIDA,'
-      '  EMPRESA = :EMPRESA,'
-      '  EXERCICIO = :EXERCICIO,'
-      '  GRUPO = :GRUPO,'
-      '  NIVEL = :NIVEL,'
-      '  SITUACAO = :SITUACAO,'
-      '  TIPO = :TIPO'
-      'where'
-      '  CODIGO = :OLD_CODIGO')
-    InsertSQL.Strings = (
-      'insert into TBPLANO_CONTA'
-      
-        '  (CODIGO, CODIGO_CONTABIL, CODIGO_RESUMIDO, DESCRICAO_COMPLETA,' +
-        ' DESCRICAO_RESUMIDA, '
-      '   EMPRESA, EXERCICIO, GRUPO, NIVEL, SITUACAO, TIPO)'
-      'values'
-      
-        '  (:CODIGO, :CODIGO_CONTABIL, :CODIGO_RESUMIDO, :DESCRICAO_COMPL' +
-        'ETA, :DESCRICAO_RESUMIDA, '
-      '   :EMPRESA, :EXERCICIO, :GRUPO, :NIVEL, :SITUACAO, :TIPO)')
-    DeleteSQL.Strings = (
-      'delete from TBPLANO_CONTA'
-      'where'
-      '  CODIGO = :OLD_CODIGO')
+    Left = 472
   end
   inherited ImgList: TImageList
-    Left = 24
-    Top = 296
-  end
-  inherited fdQryTabela: TFDQuery
-    BeforePost = fdQryTabelaBeforePost
-    OnCalcFields = fdQryTabelaCalcFields
-    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
-    UpdateOptions.FetchGeneratorsPoint = gpImmediate
-    UpdateOptions.GeneratorName = 'GEN_PLANO_CONTA'
-    UpdateOptions.KeyFields = 'CODIGO'
-    UpdateOptions.AutoIncFields = 'CODIGO'
-    SQL.Strings = (
-      'Select'
-      '    p.codigo'
-      '  , p.exercicio'
-      '  , p.empresa'
-      '  , p.grupo'
-      '  , p.nivel'
-      '  , p.tipo'
-      '  , p.codigo_contabil'
-      '  , p.codigo_resumido'
-      '  , p.descricao_resumida'
-      '  , p.descricao_completa'
-      '  , p.situacao'
-      '  , t.descricao as tipo_descricao'
-      '  , coalesce(e.rzsoc,  '#39'Todas'#39') as razao'
-      '  , coalesce(e.nmfant, '#39'Todas'#39') as fantasia'
-      'from TBPLANO_CONTA p'
-      '  left join VW_TIPO_PLANO_CONTA t on (t.codigo = p.tipo)'
-      '  left join TBEMPRESA e on (e.cnpj = p.empresa)')
-    object fdQryTabelaCODIGO: TIntegerField
-      AutoGenerateValue = arAutoInc
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object fdQryTabelaEXERCICIO: TSmallintField
-      DisplayLabel = 'Exerc'#237'cio'
-      FieldName = 'EXERCICIO'
-      Origin = 'EXERCICIO'
-    end
-    object fdQryTabelaEMPRESA: TStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'EMPRESA'
-      Origin = 'EMPRESA'
-      Size = 18
-    end
-    object fdQryTabelaGRUPO: TIntegerField
-      DisplayLabel = 'Grupo'
-      FieldName = 'GRUPO'
-      Origin = 'GRUPO'
-    end
-    object fdQryTabelaNIVEL: TSmallintField
-      DisplayLabel = 'N'#237'vel'
-      FieldName = 'NIVEL'
-      Origin = 'NIVEL'
-      Required = True
-    end
-    object fdQryTabelaTIPO: TSmallintField
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO'
-      Origin = 'TIPO'
-      Required = True
-    end
-    object fdQryTabelaCODIGO_CONTABIL: TStringField
-      DisplayLabel = 'C'#243'digo Cont'#225'bil'
-      FieldName = 'CODIGO_CONTABIL'
-      Origin = 'CODIGO_CONTABIL'
-      Size = 30
-    end
-    object fdQryTabelaCODIGO_RESUMIDO: TStringField
-      DisplayLabel = 'C'#243'digo Resumido'
-      FieldName = 'CODIGO_RESUMIDO'
-      Origin = 'CODIGO_RESUMIDO'
-      Size = 10
-    end
-    object fdQryTabelaDESCRICAO_RESUMIDA: TStringField
-      DisplayLabel = 'Descri'#231#227'o resumida'
-      FieldName = 'DESCRICAO_RESUMIDA'
-      Origin = 'DESCRICAO_RESUMIDA'
-      Required = True
-      Size = 100
-    end
-    object fdQryTabelaDESCRICAO_COMPLETA: TStringField
-      DisplayLabel = 'Descri'#231#227'o completa'
-      FieldName = 'DESCRICAO_COMPLETA'
-      Origin = 'DESCRICAO_COMPLETA'
-      Required = True
-      Size = 250
-    end
-    object fdQryTabelaSITUACAO: TSmallintField
-      Alignment = taLeftJustify
-      DisplayLabel = 'Ativo'
-      FieldName = 'SITUACAO'
-      Origin = 'SITUACAO'
-      Required = True
-    end
-    object fdQryTabelaTIPO_DESCRICAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'TIPO_DESCRICAO'
-      Origin = 'DESCRICAO'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 22
-    end
-    object fdQryTabelaRAZAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'RAZAO'
-      Origin = 'RAZAO'
-      ProviderFlags = []
-      Size = 60
-    end
-    object fdQryTabelaFANTASIA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'FANTASIA'
-      Origin = 'FANTASIA'
-      ProviderFlags = []
-      Size = 25
-    end
-    object fdQryTabelaAtivo: TStringField
-      Alignment = taCenter
-      DisplayLabel = 'Ativo?'
-      FieldKind = fkInternalCalc
-      FieldName = 'Ativo'
-      Size = 1
-    end
-  end
-  inherited fdUpdTabela: TFDUpdateSQL
-    InsertSQL.Strings = (
-      'INSERT INTO TBPLANO_CONTA'
-      '(CODIGO, EXERCICIO, EMPRESA, GRUPO, NIVEL, '
-      '  TIPO, CODIGO_CONTABIL, CODIGO_RESUMIDO, DESCRICAO_RESUMIDA, '
-      '  DESCRICAO_COMPLETA, SITUACAO)'
-      
-        'VALUES (:NEW_CODIGO, :NEW_EXERCICIO, :NEW_EMPRESA, :NEW_GRUPO, :' +
-        'NEW_NIVEL, '
-      
-        '  :NEW_TIPO, :NEW_CODIGO_CONTABIL, :NEW_CODIGO_RESUMIDO, :NEW_DE' +
-        'SCRICAO_RESUMIDA, '
-      '  :NEW_DESCRICAO_COMPLETA, :NEW_SITUACAO)'
-      'RETURNING CODIGO')
-    ModifySQL.Strings = (
-      'UPDATE TBPLANO_CONTA'
-      
-        'SET CODIGO = :NEW_CODIGO, EXERCICIO = :NEW_EXERCICIO, EMPRESA = ' +
-        ':NEW_EMPRESA, '
-      '  GRUPO = :NEW_GRUPO, NIVEL = :NEW_NIVEL, TIPO = :NEW_TIPO, '
-      
-        '  CODIGO_CONTABIL = :NEW_CODIGO_CONTABIL, CODIGO_RESUMIDO = :NEW' +
-        '_CODIGO_RESUMIDO, '
-      
-        '  DESCRICAO_RESUMIDA = :NEW_DESCRICAO_RESUMIDA, DESCRICAO_COMPLE' +
-        'TA = :NEW_DESCRICAO_COMPLETA, '
-      '  SITUACAO = :NEW_SITUACAO'
-      'WHERE CODIGO = :OLD_CODIGO'
-      'RETURNING CODIGO')
-    DeleteSQL.Strings = (
-      'DELETE FROM TBPLANO_CONTA'
-      'WHERE CODIGO = :OLD_CODIGO')
-    FetchRowSQL.Strings = (
-      'Select'
-      '    p.codigo'
-      '  , p.exercicio'
-      '  , p.empresa'
-      '  , p.grupo'
-      '  , p.nivel'
-      '  , p.tipo'
-      '  , p.codigo_contabil'
-      '  , p.codigo_resumido'
-      '  , p.descricao_resumida'
-      '  , p.descricao_completa'
-      '  , p.situacao'
-      '  , t.descricao as tipo_descricao'
-      '  , coalesce(e.rzsoc,  '#39'Todas'#39') as razao'
-      '  , coalesce(e.nmfant, '#39'Todas'#39') as fantasia'
-      'from TBPLANO_CONTA p'
-      '  left join VW_TIPO_PLANO_CONTA t on (t.codigo = p.tipo)'
-      '  left join TBEMPRESA e on (e.cnpj = p.empresa)'
-      'WHERE p.CODIGO = :CODIGO')
+    Left = 408
   end
   object dtsGrupo: TDataSource
-    DataSet = fdQryGrupo
-    Left = 696
-    Top = 288
+    Left = 680
+    Top = 8
   end
   object dtsTipo: TDataSource
-    DataSet = fdQryTipo
-    Left = 224
-    Top = 280
+    Left = 528
+    Top = 8
   end
   object dtsNivel: TDataSource
-    DataSet = fdQryNivel
-    Left = 552
-    Top = 288
-  end
-  object fdQryEmpresa: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    null as cnpj'
-      '  , 0 as codigo'
-      '  , '#39'(Todas)'#39' as razao'
-      '  , '#39'(Todas)'#39' as fantasia'
-      'from RDB$DATABASE'
-      ''
-      'union'
-      ''
-      'Select'
-      '    e.cnpj'
-      '  , e.codigo'
-      '  , e.razao'
-      '  , e.fantasia'
-      'from VW_EMPRESA e'
-      ''
-      'order by'
-      '    3')
-    Left = 328
-    Top = 280
+    Left = 632
+    Top = 8
   end
   object dtsEmpresa: TDataSource
-    DataSet = fdQryEmpresa
-    Left = 392
-    Top = 280
-  end
-  object fdQryTipo: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    t.codigo'
-      '  , t.descricao'
-      'from VW_TIPO_PLANO_CONTA t')
-    Left = 168
-    Top = 280
-  end
-  object fdQryNivel: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    n.codigo'
-      '  , n.descricao'
-      'from VW_NIVEL_PLANO_CONTA n')
-    Left = 504
-    Top = 288
-  end
-  object fdQryGrupo: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    p.codigo'
-      '  , p.descricao_resumida'
-      '  , p.codigo_contabil'
-      
-        '  , coalesce(nullif(trim(p.codigo_contabil), '#39#39') || '#39' - '#39', '#39#39') |' +
-        '| p.descricao_resumida as descricao_resumida_geral'
-      '  , p.nivel'
-      '  , p.empresa'
-      'from TBPLANO_CONTA p'
-      ''
-      'order by'
-      '    4')
-    Left = 640
-    Top = 288
+    Left = 576
+    Top = 8
   end
 end

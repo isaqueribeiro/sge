@@ -421,9 +421,14 @@ var
 begin
   with FQuery.Connection do
   begin
-    ID := TFDConnection(FQuery.Connection).ExecSQLScalar('Select max(' + aFielNameKey + ') as ID from ' + aTableName + ' ' + sWhr);
     TFDConnection(FQuery.Connection).ExecSQL('Execute procedure SET_GENERATOR(' + QuotedStr(GeneratorName) + ', null)');
-    TFDConnection(FQuery.Connection).ExecSQL('ALTER SEQUENCE ' + GeneratorName + ' RESTART WITH ' + VarToStr(ID));
+
+    ID := TFDConnection(FQuery.Connection).ExecSQLScalar('Select max(' + aFielNameKey + ') as ID from ' + aTableName + ' ' + sWhr);
+
+    if (ID = Null) then
+      TFDConnection(FQuery.Connection).ExecSQL('ALTER SEQUENCE ' + GeneratorName + ' RESTART WITH 0')
+    else
+      TFDConnection(FQuery.Connection).ExecSQL('ALTER SEQUENCE ' + GeneratorName + ' RESTART WITH ' + VarToStr(ID));
 
     CommitTransaction;
   end;

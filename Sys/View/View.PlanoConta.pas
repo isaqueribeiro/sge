@@ -1,21 +1,42 @@
-unit UGePlanoContas;
+unit View.PlanoConta;
 
 interface
 
 uses
-  UConstantesDGE,
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB, cxButtons,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, Menus,
-  ToolWin, IBTable, IBQuery, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, System.ImageList,
+  System.SysUtils,
+  System.StrUtils,
+  System.ImageList,
+  System.Classes,
+  System.Variants,
+  Winapi.Windows,
 
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
-  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
-  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  Vcl.Forms,
+  Vcl.Menus,
+  Vcl.ImgList,
+  Vcl.Controls,
+  Vcl.Mask,
+  Vcl.DBCtrls,
+  Vcl.StdCtrls,
+  Vcl.ExtCtrls,
+  Vcl.Grids,
+  Vcl.DBGrids,
+  Vcl.ComCtrls,
+  Vcl.Graphics,
+  Vcl.Buttons,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  Data.DB,
+  Datasnap.DBClient,
+
+  frxClass,
+  cxGraphics,
+  cxLookAndFeels,
+  cxLookAndFeelPainters,
+  cxButtons,
+  dxSkinsCore,
+
+  View.PadraoCadastro,
+  SGE.Controller.Interfaces,
+  UConstantesDGE;
 
 type
   TPlanoConta = record
@@ -27,7 +48,7 @@ type
     Fantasia       : String;
   end;
 
-  TfrmGePlanoContas = class(TfrmGrPadraoCadastro)
+  TViewPlanoConta = class(TViewPadraoCadastro)
     lblDescricaoResumida: TLabel;
     dbDescricaoResumida: TDBEdit;
     dbSituacao: TDBCheckBox;
@@ -48,43 +69,24 @@ type
     lblNivel: TLabel;
     dbNivel: TDBLookupComboBox;
     dtsNivel: TDataSource;
-    fdQryEmpresa: TFDQuery;
     dtsEmpresa: TDataSource;
-    fdQryTipo: TFDQuery;
-    fdQryNivel: TFDQuery;
-    fdQryGrupo: TFDQuery;
     lblEmpresa: TLabel;
     dbEmpresa: TDBLookupComboBox;
     lblRegistroDesativado: TLabel;
     chkPlanoContaAtivo: TCheckBox;
-    fdQryTabelaCODIGO: TIntegerField;
-    fdQryTabelaEXERCICIO: TSmallintField;
-    fdQryTabelaEMPRESA: TStringField;
-    fdQryTabelaGRUPO: TIntegerField;
-    fdQryTabelaNIVEL: TSmallintField;
-    fdQryTabelaTIPO: TSmallintField;
-    fdQryTabelaCODIGO_CONTABIL: TStringField;
-    fdQryTabelaCODIGO_RESUMIDO: TStringField;
-    fdQryTabelaDESCRICAO_RESUMIDA: TStringField;
-    fdQryTabelaDESCRICAO_COMPLETA: TStringField;
-    fdQryTabelaSITUACAO: TSmallintField;
-    fdQryTabelaTIPO_DESCRICAO: TStringField;
-    fdQryTabelaRAZAO: TStringField;
-    fdQryTabelaFANTASIA: TStringField;
-    fdQryTabelaAtivo: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
-    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
-      DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
-    procedure fdQryTabelaCalcFields(DataSet: TDataSet);
-    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
-    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
+    procedure btbtnSalvarClick(Sender: TObject);
   private
     { Private declarations }
+    FControllerEmpresaView,
+    FControllerNivelView  ,
+    FControllerTipoView   ,
+    FControllerGrupo      : IControllerCustom;
   public
     { Public declarations }
   end;
@@ -103,7 +105,7 @@ type
 *)
 
 var
-  frmGePlanoContas: TfrmGePlanoContas;
+  ViewPlanoConta: TViewPlanoConta;
 
   function SelecionarPlanoConta(const AOwner : TComponent;
     const TipoPlanoConta : TTipoPlanoConta; const Exercicio : Smallint;
@@ -114,7 +116,11 @@ var
 
 implementation
 
-uses UDMBusiness;
+uses
+  UDMBusiness,
+  SGE.Controller.Factory,
+  SGE.Controller,
+  SGE.Controller.Helper;
 
 {$R *.dfm}
 
@@ -122,12 +128,13 @@ function SelecionarPlanoConta(const AOwner : TComponent;
   const TipoPlanoConta : TTipoPlanoConta; const Exercicio : Smallint;
   const aEmpresa : String; var Codigo : Integer; var Descricao : String) : Boolean;
 var
-  AForm  : TfrmGePlanoContas;
+  AForm  : TViewPlanoConta;
   sWhere : String;
 begin
-  AForm := TfrmGePlanoContas.Create(AOwner);
+  AForm := TViewPlanoConta.Create(AOwner);
   try
     sWhere := '(p.situacao = 1)';
+
     if (Trim(aEmpresa) <> EmptyStr) then
       sWhere := sWhere + ' and ((p.empresa is null) or (p.empresa = ' + QuotedStr(aEmpresa) + '))';
 
@@ -154,14 +161,15 @@ function SelecionarPlanoConta(const AOwner : TComponent;
   const TipoPlanoConta : TTipoPlanoConta; const Exercicio : Smallint;
   const aEmpresa : String; var aPlanoConta : TPlanoConta) : Boolean;
 var
-  AForm  : TfrmGePlanoContas;
+  AForm  : TViewPlanoConta;
   aCodigo   : Integer;
   aDescricao,
   sWhere    : String;
 begin
-  AForm := TfrmGePlanoContas.Create(AOwner);
+  AForm := TViewPlanoConta.Create(AOwner);
   try
     sWhere := '(p.situacao = 1)';
+
     if (Trim(aEmpresa) <> EmptyStr) then
       sWhere := sWhere + ' and ((p.empresa is null) or (p.empresa = ' + QuotedStr(aEmpresa) + '))';
 
@@ -196,8 +204,14 @@ begin
   end;
 end;
 
-procedure TfrmGePlanoContas.FormCreate(Sender: TObject);
+procedure TViewPlanoConta.FormCreate(Sender: TObject);
 begin
+  FController := TControllerFactory.New.PlanoConta;
+  FControllerEmpresaView  := TControllerFactory.New.EmpresaView;
+  FControllerNivelView    := TControllerFactory.New.PlanoContaNivel;
+  FControllerTipoView     := TControllerFactory.New.PlanoCOntaTipo;
+  FControllerGrupo        := TControllerFactory.New.PlanoConta;
+
   inherited;
   RotinaID         := ROTINA_CAD_PLANO_CONTAS_ID;
   ControlFirstEdit := dbNivel;
@@ -210,15 +224,26 @@ begin
   CampoDescricao     := 'p.descricao_resumida';
   CampoOrdenacao     := 'p.codigo_contabil, p.descricao_resumida';
   CampoCadastroAtivo := 'situacao';
-  UpdateGenerator;
 
-  CarregarLista(fdQryEmpresa);
-  CarregarLista(fdQryTipo);
-  CarregarLista(fdQryNivel);
-  CarregarLista(fdQryGrupo);
+  Tabela
+    .Display('CODIGO',  'Código', DisplayFormatCodigo, TAlignment.taCenter, True)
+    .Display('NIVEL', 'Nível', True)
+    .Display('EMPRESA', 'Empresa', True)
+    .Display('DESCRICAO_RESUMIDA', 'Descrição Resumida', True)
+    .Display('TIPO', 'Tipo', True)
+    .Display('CODIGO_CONTABIL', 'Código Contábil', True)
+    .Display('DESCRICAO_COMPLETA', 'Descrição Completa', True);
+
+  AbrirTabelaAuto := True;
+  FController.DAO.UpdateGenerator(EmptyStr);
+
+  TController(FControllerEmpresaView).LookupComboBox(dbEmpresa, dtsEmpresa, 'empresa', 'cnpj', 'razao');
+  TController(FControllerNivelView).LookupComboBox(dbNivel, dtsNivel, 'nivel', 'codigo', 'descricao');
+  TController(FControllerTipoView).LookupComboBox(dbTipo, dtsTipo, 'tipo', 'codigo', 'descricao');
+  TController(FControllerGrupo).LookupComboBox(dbGrupo, dtsGrupo, 'grupo', 'codigo', 'descricao_resumida_geral');
 end;
 
-procedure TfrmGePlanoContas.DtSrcTabelaDataChange(Sender: TObject;
+procedure TViewPlanoConta.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 var
   sFiltro : String;
@@ -231,14 +256,30 @@ begin
     else
       sFiltro := '(' + sFiltro + '  and ((empresa is null) or (empresa = ' + QuotedStr(DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString) + ')))';
 
-    fdQryGrupo.Close;
-    fdQryGrupo.Filter   := sFiltro;
-    fdQryGrupo.Filtered := True;
-    fdQryGrupo.Open;
+
+    FControllerGrupo.DAO.DataSet.Close;
+    FControllerGrupo.DAO.DataSet.Filter   := sFiltro;
+    FControllerGrupo.DAO.DataSet.Filtered := True;
+    FControllerGrupo.DAO.DataSet.Open;
   end;
 end;
 
-procedure TfrmGePlanoContas.btnFiltrarClick(Sender: TObject);
+procedure TViewPlanoConta.btbtnSalvarClick(Sender: TObject);
+begin
+  if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
+    with DtSrcTabela.DataSet do
+    begin
+      if Trim(FieldByName('empresa').AsString) = EmptyStr then
+        FieldByName('empresa').Clear;
+
+      if FieldByName('grupo').AsLargeInt = 0 then
+        FieldByName('grupo').Clear;
+    end;
+
+  inherited;
+end;
+
+procedure TViewPlanoConta.btnFiltrarClick(Sender: TObject);
 var
   sWhere ,
   sAtivo : String;
@@ -263,19 +304,7 @@ begin
   inherited;
 end;
 
-procedure TfrmGePlanoContas.dbgDadosDrawColumnCell(Sender: TObject;
-  const Rect: TRect; DataCol: Integer; Column: TColumn;
-  State: TGridDrawState);
-begin
-  inherited;
-//  // Destacar Planos de Contas desativados
-//  if ( DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger = 0 ) then
-//    dbgDados.Canvas.Font.Color := clRed;
-//
-//  dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
-end;
-
-procedure TfrmGePlanoContas.FormKeyDown(Sender: TObject; var Key: Word;
+procedure TViewPlanoConta.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (Shift = [ssCtrl]) and (Key = SYS_KEY_L) Then
@@ -300,43 +329,13 @@ begin
   inherited;
 end;
 
-procedure TfrmGePlanoContas.DtSrcTabelaStateChange(Sender: TObject);
+procedure TViewPlanoConta.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
-  fdQryGrupo.Filtered := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
-end;
-
-procedure TfrmGePlanoContas.fdQryTabelaBeforePost(DataSet: TDataSet);
-begin
-  inherited;
-  with DtSrcTabela.DataSet do
-    if Trim(FieldByName('EMPRESA').AsString) = EmptyStr then
-      FieldByName('EMPRESA').Clear;
-end;
-
-procedure TfrmGePlanoContas.fdQryTabelaCalcFields(DataSet: TDataSet);
-begin
-  with DtSrcTabela.DataSet do
-    FieldByName('Ativo').AsString := IfThen(FieldByName('SITUACAO').AsInteger = 1, 'X', '.');
-end;
-
-procedure TfrmGePlanoContas.fdQryTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  with DtSrcTabela.DataSet do
-  begin
-    FieldByName('TIPO').AsInteger      := 0;
-    FieldByName('SITUACAO').AsInteger  := 1;
-    FieldByName('EXERCICIO').AsInteger := 0;
-    FieldByName('EMPRESA').Clear;
-    FieldByName('NIVEL').Clear;
-    FieldByName('GRUPO').Clear;
-    FieldByName('CODIGO_CONTABIL').Clear;
-    FieldByName('CODIGO_RESUMIDO').Clear;
-  end;
+  FControllerGrupo.DAO.DataSet.Filtered := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
 end;
 
 initialization
-  FormFunction.RegisterForm('frmGePlanoContas', TfrmGePlanoContas);
+  FormFunction.RegisterForm('ViewPlanoConta', TViewPlanoConta);
 
 end.

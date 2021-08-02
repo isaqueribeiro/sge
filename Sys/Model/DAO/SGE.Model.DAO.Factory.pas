@@ -16,7 +16,10 @@ uses
   SGE.Model.DAO.Empresa,
   SGE.Model.DAO.ContaCorrente,
   SGE.Model.DAO.FormaPagto,
-  SGE.Model.DAO.CondicaoPagto;
+  SGE.Model.DAO.CondicaoPagto,
+  SGE.Model.DAO.PlanoConta,
+  SGE.Model.DAO.TipoReceita,
+  SGE.Model.DAO.TipoDespesa;
 
 type
   TModelDAOFactory = class(TInterfacedObject, IModelDAOFactory)
@@ -41,7 +44,16 @@ type
       FFormaPagtoNFCEView     ,
       FCondicaoPagto     ,
       FCondicaoPagtoForma,
-      FCondicaoPagtoView : IModelDAOCustom;
+      FCondicaoPagtoView ,
+      FPlanoConta     ,
+      FPlanoContaNivel,
+      FPlanoContaTipo ,
+      FTipoReceita    ,
+      FTipoReceitaPlanoConta,
+      FClasseReceita,
+      FTipoDespesa  ,
+      FTipoDespesaPlanoConta,
+      FClasseDespesa : IModelDAOCustom;
     protected
       constructor Create;
     public
@@ -69,6 +81,15 @@ type
       function CondicaoPagto : IModelDAOCustom;
       function CondicaoPagtoForma : IModelDAOCustom;
       function CondicaoPagtoView : IModelDAOCustom;
+      function PlanoConta : IModelDAOCustom;
+      function PlanoContaNivel : IModelDAOCustom;
+      function PlanoContaTipo : IModelDAOCustom;
+      function TipoReceita : IModelDAOCustom;
+      function TipoReceitaPlanoConta : IModelDAOCustom;
+      function ClasseReceita : IModelDAOCustom;
+      function TipoDespesa : IModelDAOCustom;
+      function TipoDespesaPlanoConta : IModelDAOCustom;
+      function ClasseDespesa : IModelDAOCustom;
   end;
 
 implementation
@@ -98,6 +119,30 @@ begin
   Result := FNivelIBPT;
 end;
 
+function TModelDAOFactory.PlanoConta: IModelDAOCustom;
+begin
+  if not Assigned(FPlanoConta) then
+    FPlanoConta := TModelDAOPlanoConta.New;
+
+  Result := FPlanoConta;
+end;
+
+function TModelDAOFactory.PlanoContaNivel: IModelDAOCustom;
+begin
+  if not Assigned(FPlanoContaNivel) then
+    FPlanoContaNivel := TModelDAOPlanoContaNivel.New;
+
+  Result := FPlanoContaNivel;
+end;
+
+function TModelDAOFactory.PlanoContaTipo: IModelDAOCustom;
+begin
+  if not Assigned(FPlanoContaTipo) then
+    FPlanoContaTipo := TModelDAOPlanoContaTipo.New;
+
+  Result := FPlanoContaTipo;
+end;
+
 function TModelDAOFactory.CST: IModelDAOCustom;
 begin
   if not Assigned(FCST) then
@@ -114,12 +159,44 @@ begin
   Result := FTabelaIBPT;
 end;
 
+function TModelDAOFactory.TipoDespesa: IModelDAOCustom;
+begin
+  if not Assigned(FTipoDespesa) then
+    FTipoDespesa := TModelDAOTipoDespesa.New;
+
+  Result := FTipoDespesa;
+end;
+
+function TModelDAOFactory.TipoDespesaPlanoConta: IModelDAOCustom;
+begin
+  if not Assigned(FTipoDespesaPlanoConta) then
+    FTipoDespesaPlanoConta := TModelDAOTipoDespesaPlanoConta.New;
+
+  Result := FTipoDespesaPlanoConta;
+end;
+
 function TModelDAOFactory.TipoLogradouro: IModelDAOCustom;
 begin
   if not Assigned(FTipoLogradouro) then
     FTipoLogradouro := TModelDAOTipoLogradouro.New;
 
   Result := FTipoLogradouro;
+end;
+
+function TModelDAOFactory.TipoReceita: IModelDAOCustom;
+begin
+  if not Assigned(FTipoReceita) then
+    FTipoReceita := TModelDAOTipoReceita.New;
+
+  Result := FTipoReceita;
+end;
+
+function TModelDAOFactory.TipoReceitaPlanoConta: IModelDAOCustom;
+begin
+  if not Assigned(FTipoReceitaPlanoConta) then
+    FTipoReceitaPlanoConta := TModelDAOTipoReceitaPlanoConta.New;
+
+  Result := FTipoReceitaPlanoConta;
 end;
 
 function TModelDAOFactory.Bairro: IModelDAOCustom;
@@ -144,6 +221,22 @@ begin
     FCidade := TModelDAOCidade.New;
 
   Result := FCidade;
+end;
+
+function TModelDAOFactory.ClasseDespesa: IModelDAOCustom;
+begin
+  if not Assigned(FClasseDespesa) then
+    FClasseDespesa := TModelDAOClasseDespesa.New;
+
+  Result := FClasseDespesa;
+end;
+
+function TModelDAOFactory.ClasseReceita: IModelDAOCustom;
+begin
+  if not Assigned(FClasseReceita) then
+    FClasseReceita := TModelDAOClasseReceita.New;
+
+  Result := FClasseReceita;
 end;
 
 function TModelDAOFactory.CondicaoPagto: IModelDAOCustom;

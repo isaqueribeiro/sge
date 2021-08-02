@@ -86,6 +86,15 @@ type
     function CondicaoPagto : IModelDAOCustom;
     function CondicaoPagtoForma : IModelDAOCustom;
     function CondicaoPagtoView : IModelDAOCustom;
+    function PlanoConta : IModelDAOCustom;
+    function PlanoContaNivel : IModelDAOCustom;
+    function PlanoContaTipo : IModelDAOCustom;
+    function TipoReceita : IModelDAOCustom;
+    function TipoReceitaPlanoConta : IModelDAOCustom;
+    function ClasseReceita : IModelDAOCustom;
+    function TipoDespesa : IModelDAOCustom;
+    function TipoDespesaPlanoConta : IModelDAOCustom;
+    function ClasseDespesa : IModelDAOCustom;
   end;
 
 implementation

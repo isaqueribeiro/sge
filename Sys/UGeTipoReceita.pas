@@ -113,7 +113,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, UGePlanoContas, UDMNFe;
+  UDMBusiness, UConstantesDGE, View.PlanoConta, UDMNFe;
 
 {$R *.dfm}
 

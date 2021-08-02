@@ -459,7 +459,8 @@ begin
         begin
           if (Trim(GetCampoDescricaoLimpo) <> EmptyStr) then
             if Assigned( DtSrcTabela.DataSet.Fields.FindField(GetCampoDescricaoLimpo) ) then
-              DtSrcTabela.DataSet.FieldByName(GetCampoDescricaoLimpo).AsString := Trim(DtSrcTabela.DataSet.FieldByName(GetCampoDescricaoLimpo).AsString);
+              if not DtSrcTabela.DataSet.FieldByName(GetCampoDescricaoLimpo).IsNull then
+                DtSrcTabela.DataSet.FieldByName(GetCampoDescricaoLimpo).AsString := Trim(DtSrcTabela.DataSet.FieldByName(GetCampoDescricaoLimpo).AsString);
 
           if Assigned( DtSrcTabela.DataSet.Fields.FindField(CAMPO_USUARIO) ) then
             DtSrcTabela.DataSet.FieldByName(CAMPO_USUARIO).AsString := gUsuarioLogado.Login;
@@ -963,6 +964,10 @@ begin
 
     if ( DtSrcTabela.DataSet.Fields[I].Required ) then
       if ( Trim(DtSrcTabela.DataSet.Fields[I].AsString) = EmptyStr ) then
+        DtSrcTabela.DataSet.Fields[I].Clear;
+
+    if (DtSrcTabela.DataSet.Fields[I] is TNumericField) then
+      if (DtSrcTabela.DataSet.Fields[I].Value = -1) then
         DtSrcTabela.DataSet.Fields[I].Clear;
   end;
 end;

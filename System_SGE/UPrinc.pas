@@ -586,7 +586,7 @@ end;
 procedure TfrmPrinc.BrBtnTipoReceitaClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_TIPO_RECEITA_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeTipoReceita');
+    FormFunction.ShowModalForm(Self, 'ViewTipoReceita');
 end;
 
 procedure TfrmPrinc.BrBtnUpgradeClick(Sender: TObject);
@@ -1419,7 +1419,7 @@ end;
 procedure TfrmPrinc.nmPlanoContaClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_PLANO_CONTAS_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGePlanoContas');
+    FormFunction.ShowModalForm(Self, 'ViewPlanoConta');
 end;
 
 procedure TfrmPrinc.nmEstoqueApropriadoClick(Sender: TObject);

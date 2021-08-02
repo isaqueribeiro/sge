@@ -16,7 +16,10 @@ uses
   SGE.Controller.Empresa,
   SGE.Controller.ContaCorrente,
   SGE.Controller.FormaPagto,
-  SGE.Controller.CondicaoPagto;
+  SGE.Controller.CondicaoPagto,
+  SGE.Controller.PlanoConta,
+  SGE.Controller.TipoReceita,
+  SGE.Controller.TipoDespesa;
 
 type
   TControllerFactory = class(TInterfacedObject, IControllerFactory)
@@ -36,12 +39,21 @@ type
       FEmpresaView  ,
       FContaCorrente,
       FContaCorrenteView,
-      FFormaPagto       : IControllerCustom;
+      FFormaPagto       ,
       FFormaPagtoContaCorrente,
-      FFormaPagtoNFCEView     : IControllerCustom;
+      FFormaPagtoNFCEView     ,
       FCondicaoPagto     ,
       FCondicaoPagtoForma,
-      FCondicaoPagtoView : IControllerCustom;
+      FCondicaoPagtoView ,
+      FPlanoConta     ,
+      FPlanoContaNivel,
+      FPlanoContaTipo ,
+      FTipoReceita    ,
+      FTipoReceitaPlanoConta,
+      FClasseReceita,
+      FTipoDespesa  ,
+      FTipoDespesaPlanoConta,
+      FClasseDespesa : IControllerCustom;
     protected
       constructor Create;
     public
@@ -69,6 +81,15 @@ type
       function CondicaoPagto : IControllerCustom;
       function CondicaoPagtoForma : IControllerCustom;
       function CondicaoPagtoView : IControllerCustom;
+      function PlanoConta : IControllerCustom;
+      function PlanoContaNivel : IControllerCustom;
+      function PlanoContaTipo : IControllerCustom;
+      function TipoReceita : IControllerCustom;
+      function TipoReceitaPlanoConta : IControllerCustom;
+      function ClasseReceita : IControllerCustom;
+      function TipoDespesa : IControllerCustom;
+      function TipoDespesaPlanoConta : IControllerCustom;
+      function ClasseDespesa : IControllerCustom;
   end;
 
 implementation
@@ -96,6 +117,30 @@ begin
     FNivelIBPT := TControllerNivelIBPT.New;
 
   Result := FNivelIBPT;
+end;
+
+function TControllerFactory.PlanoConta: IControllerCustom;
+begin
+  if not Assigned(FPlanoConta) then
+    FPlanoConta := TControllerPlanoConta.New;
+
+  Result := FPlanoConta;
+end;
+
+function TControllerFactory.PlanoContaNivel: IControllerCustom;
+begin
+  if not Assigned(FPlanoContaNivel) then
+    FPlanoContaNivel := TControllerPlanoContaNivel.New;
+
+  Result := FPlanoContaNivel;
+end;
+
+function TControllerFactory.PlanoContaTipo: IControllerCustom;
+begin
+  if not Assigned(FPlanoContaTipo) then
+    FPlanoContaTipo := TControllerPlanoContaTipo.New;
+
+  Result := FPlanoContaTipo;
 end;
 
 function TControllerFactory.CST: IControllerCustom;
@@ -128,6 +173,22 @@ begin
     FCidade := TControllerCidade.New;
 
   Result := FCidade;
+end;
+
+function TControllerFactory.ClasseDespesa: IControllerCustom;
+begin
+  if not Assigned(FClasseDespesa) then
+    FClasseDespesa := TControllerClasseDespesa.New;
+
+  Result := FClasseDespesa;
+end;
+
+function TControllerFactory.ClasseReceita: IControllerCustom;
+begin
+  if not Assigned(FClasseReceita) then
+    FClasseReceita := TControllerClasseReceita.New;
+
+  Result := FClasseReceita;
 end;
 
 function TControllerFactory.CondicaoPagto: IControllerCustom;
@@ -242,12 +303,44 @@ begin
   Result := FTabelaIBPT;
 end;
 
+function TControllerFactory.TipoDespesa: IControllerCustom;
+begin
+  if not Assigned(FTipoReceita) then
+    FTipoReceita := TControllerTipoReceita.New;
+
+  Result := FTipoReceita;
+end;
+
+function TControllerFactory.TipoDespesaPlanoConta: IControllerCustom;
+begin
+  if not Assigned(FTipoReceitaPlanoCOnta) then
+    FTipoReceitaPlanoCOnta := TControllerTipoReceitaPlanoConta.New;
+
+  Result := FTipoReceitaPlanoCOnta;
+end;
+
 function TControllerFactory.TipoLogradouro: IControllerCustom;
 begin
   if not Assigned(FTipoLogradouro) then
     FTipoLogradouro := TControllerTipoLogradouro.New;
 
   Result := FTipoLogradouro;
+end;
+
+function TControllerFactory.TipoReceita: IControllerCustom;
+begin
+  if not Assigned(FTipoReceita) then
+    FTipoReceita := TControllerTipoReceita.New;
+
+  Result := FTipoReceita;
+end;
+
+function TControllerFactory.TipoReceitaPlanoConta: IControllerCustom;
+begin
+  if not Assigned(FTipoReceitaPlanoCOnta) then
+    FTipoReceitaPlanoCOnta := TControllerTipoReceitaPlanoConta.New;
+
+  Result := FTipoReceitaPlanoCOnta;
 end;
 
 function TControllerFactory.UF: IControllerCustom;

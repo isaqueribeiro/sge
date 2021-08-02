@@ -168,8 +168,8 @@ begin
   // Ignorar campos no Insert e Update
   for I := 0 to Pred(FConn.Query.DataSet.Fields.Count) do
   begin
-    FConn.Query.DataSet.Fields[0].ReadOnly      := False; // Liberar edição dos campos
-    FConn.Query.DataSet.Fields[0].ProviderFlags := [];  
+    FConn.Query.DataSet.Fields[I].ReadOnly      := False; // Liberar edição dos campos
+    FConn.Query.DataSet.Fields[I].ProviderFlags := [];
   end;
 
   // Configurar campos para a geração de Insert e Update 
