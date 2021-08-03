@@ -59,14 +59,14 @@ inherited ViewPlanoConta: TViewPlanoConta
             Expanded = False
             FieldName = 'DESCRICAO_RESUMIDA'
             Title.Caption = 'Descri'#231#227'o resumida '
-            Width = 400
+            Width = 380
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TIPO_DESCRICAO'
             Title.Caption = 'Tipo '
-            Width = 120
+            Width = 140
             Visible = True
           end
           item
@@ -127,7 +127,6 @@ inherited ViewPlanoConta: TViewPlanoConta
             Width = 272
             ExplicitLeft = 81
             ExplicitWidth = 272
-            ExplicitHeight = 23
           end
           inherited btnFiltrar: TcxButton
             Left = 359
@@ -146,8 +145,6 @@ inherited ViewPlanoConta: TViewPlanoConta
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 788
       ExplicitHeight = 410
       inherited Bevel8: TBevel

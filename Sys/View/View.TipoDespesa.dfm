@@ -1,7 +1,7 @@
-inherited ViewTipoReceita: TViewTipoReceita
+inherited ViewTipoDespesa: TViewTipoDespesa
   Left = 390
   ActiveControl = dbCodigo
-  Caption = 'Cadastro de Tipos de Receita'
+  Caption = 'Cadastro de Tipos de Despesas'
   ClientHeight = 459
   ClientWidth = 741
   OldCreateOrder = True
@@ -49,7 +49,7 @@ inherited ViewTipoReceita: TViewTipoReceita
           end
           item
             Expanded = False
-            FieldName = 'TIPOREC'
+            FieldName = 'TIPODESP'
             Title.Caption = 'Descri'#231#227'o '
             Width = 280
             Visible = True
@@ -57,7 +57,7 @@ inherited ViewTipoReceita: TViewTipoReceita
           item
             Expanded = False
             FieldName = 'DESCRICAO_RESUMIDA'
-            Title.Caption = 'Plano de Contas '
+            Title.Caption = 'Plano de Contas'
             Width = 300
             Visible = True
           end
@@ -65,7 +65,7 @@ inherited ViewTipoReceita: TViewTipoReceita
             Expanded = False
             FieldName = 'TIPO_PARTICULAR_DESC'
             Title.Alignment = taCenter
-            Title.Caption = 'Particular '
+            Title.Caption = 'Particular'
             Visible = True
           end>
       end
@@ -77,9 +77,9 @@ inherited ViewTipoReceita: TViewTipoReceita
         object lblRegistroDesativado: TLabel [0]
           Left = 2
           Top = 44
-          Width = 181
+          Width = 186
           Height = 13
-          Caption = '* Tipos de Receitas desativados'
+          Caption = '* Tipos de Despesas desativados'
           Font.Charset = ANSI_CHARSET
           Font.Color = 7303023
           Font.Height = -11
@@ -89,25 +89,24 @@ inherited ViewTipoReceita: TViewTipoReceita
           Transparent = True
         end
         inherited grpBxFiltro: TGroupBox
-          Left = 439
-          Width = 290
-          ExplicitLeft = 439
-          ExplicitWidth = 290
+          Left = 383
+          Width = 346
+          ExplicitLeft = 383
+          ExplicitWidth = 346
           inherited lbltFiltrar: TLabel
-            Left = 9
-            Width = 73
-            Caption = 'Tipo Receita:'
-            ExplicitLeft = 9
-            ExplicitWidth = 73
+            Width = 78
+            Caption = 'Tipo Despesa:'
+            ExplicitWidth = 78
           end
           inherited edtFiltrar: TEdit
-            Left = 90
-            Width = 153
-            ExplicitLeft = 90
-            ExplicitWidth = 153
+            Left = 101
+            Width = 198
+            ExplicitLeft = 101
+            ExplicitWidth = 198
+            ExplicitHeight = 23
           end
           inherited btnFiltrar: TcxButton
-            Left = 249
+            Left = 305
             ExplicitLeft = 249
           end
         end
@@ -119,8 +118,8 @@ inherited ViewTipoReceita: TViewTipoReceita
       inherited Bevel8: TBevel
         Top = 166
         Width = 733
-        ExplicitLeft = 16
-        ExplicitTop = 292
+        ExplicitLeft = 3
+        ExplicitTop = 284
         ExplicitWidth = 733
       end
       object Bevel5: TBevel [1]
@@ -138,7 +137,8 @@ inherited ViewTipoReceita: TViewTipoReceita
         Height = 4
         Align = alTop
         Shape = bsSpacer
-        ExplicitTop = 318
+        ExplicitLeft = -3
+        ExplicitTop = 294
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 733
@@ -157,12 +157,12 @@ inherited ViewTipoReceita: TViewTipoReceita
           DataField = 'COD'
         end
         object dbDescricao: TDBEdit
-          Left = 88
-          Top = 40
+          Left = 87
+          Top = 43
           Width = 625
           Height = 21
           CharCase = ecUpperCase
-          DataField = 'TIPOREC'
+          DataField = 'TIPODESP'
           DataSource = DtSrcTabela
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -183,7 +183,7 @@ inherited ViewTipoReceita: TViewTipoReceita
         TabOrder = 1
         object lblPlanoContas: TLabel
           Left = 223
-          Top = 18
+          Top = 25
           Width = 155
           Height = 13
           Caption = 'Plano de Contas de lan'#231'amento:'
@@ -192,7 +192,7 @@ inherited ViewTipoReceita: TViewTipoReceita
         end
         object lblClassificacao: TLabel
           Left = 16
-          Top = 18
+          Top = 25
           Width = 122
           Height = 13
           Caption = 'Classifica'#231#227'o / Categoria:'
@@ -200,8 +200,8 @@ inherited ViewTipoReceita: TViewTipoReceita
         end
         object dbPlanoContas: TJvDBComboEdit
           Left = 223
-          Top = 36
-          Width = 490
+          Top = 41
+          Width = 484
           Height = 21
           ButtonHint = 'Pesquisar Plano de Contas (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
           CharCase = ecUpperCase
@@ -275,7 +275,7 @@ inherited ViewTipoReceita: TViewTipoReceita
         end
         object dbClassificacao: TDBLookupComboBox
           Left = 16
-          Top = 36
+          Top = 41
           Width = 201
           Height = 21
           DataField = 'CLASSIFICACAO'
@@ -471,18 +471,20 @@ inherited ViewTipoReceita: TViewTipoReceita
     end
   end
   inherited DtSrcTabela: TDataSource
-    Left = 472
+    Left = 544
+    Top = 0
   end
   inherited ImgList: TImageList
-    Left = 392
+    Left = 440
+    Top = 0
   end
   object DtsClassificacao: TDataSource
-    Left = 472
-    Top = 56
+    Left = 544
+    Top = 48
   end
   object dtsPlanoConta: TDataSource
     AutoEdit = False
-    Left = 472
-    Top = 104
+    Left = 544
+    Top = 96
   end
 end

@@ -95,6 +95,8 @@ type
     function TipoDespesa : IModelDAOCustom;
     function TipoDespesaPlanoConta : IModelDAOCustom;
     function ClasseDespesa : IModelDAOCustom;
+    function CentroCusto : IModelDAOCustom;
+    function CentroCustoEmpresa : IModelDAOCustom;
   end;
 
 implementation

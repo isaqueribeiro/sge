@@ -836,7 +836,7 @@ end;
 procedure TfrmPrinc.nmTipoDespesaClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_TIPO_DESPESA_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeTipoDespesa');
+    FormFunction.ShowModalForm(Self, 'ViewTipoDespesa');
 end;
 
 procedure TfrmPrinc.FormActivate(Sender: TObject);

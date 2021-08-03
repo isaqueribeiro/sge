@@ -243,9 +243,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UEnviarLoteNFe.pas">
             <Form>frmEnviarLoteNFe</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeTipoDespesa.pas">
-            <Form>frmGeTipoDespesa</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeVendaCancelar.pas">
             <Form>frmGeVendaCancelar</Form>
         </DCCReference>
@@ -612,6 +609,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.FormaPagto.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CondicaoPagto.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Factory.pas"/>
@@ -629,6 +629,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaCorrente.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.FormaPagto.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CondicaoPagto.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.PlanoConta.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoReceita.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\View\View.Estado.pas">
             <Form>ViewEstado</Form>
         </DCCReference>
@@ -667,20 +670,19 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <Form>ViewCondicaoPagto</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.PlanoConta.pas"/>
         <DCCReference Include="..\Sys\View\View.PlanoConta.pas">
             <Form>ViewPlanoConta</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoReceita.pas"/>
         <DCCReference Include="..\Sys\View\View.TipoReceita.pas">
             <Form>ViewTipoReceita</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoDespesa.pas"/>
+        <DCCReference Include="..\Sys\View\View.TipoDespesa.pas">
+            <Form>ViewTipoDespesa</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CentroCusto.pas"/>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>

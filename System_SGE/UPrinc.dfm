@@ -6539,11 +6539,11 @@ object frmPrinc: TfrmPrinc
       end
       item
         Visible = True
-        ItemName = 'BrBtnTipoReceita'
+        ItemName = 'BrBtnTipoDespesa'
       end
       item
         Visible = True
-        ItemName = 'BrBtnTipoDespesa'
+        ItemName = 'BrBtnTipoReceita'
       end
       item
         Visible = True

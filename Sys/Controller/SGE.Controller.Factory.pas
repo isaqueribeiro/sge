@@ -305,18 +305,18 @@ end;
 
 function TControllerFactory.TipoDespesa: IControllerCustom;
 begin
-  if not Assigned(FTipoReceita) then
-    FTipoReceita := TControllerTipoReceita.New;
+  if not Assigned(FTipoDespesa) then
+    FTipoDespesa := TControllerTipoDespesa.New;
 
-  Result := FTipoReceita;
+  Result := FTipoDespesa;
 end;
 
 function TControllerFactory.TipoDespesaPlanoConta: IControllerCustom;
 begin
-  if not Assigned(FTipoReceitaPlanoCOnta) then
-    FTipoReceitaPlanoCOnta := TControllerTipoReceitaPlanoConta.New;
+  if not Assigned(FTipoDespesaPlanoCOnta) then
+    FTipoDespesaPlanoCOnta := TControllerTipoDespesaPlanoConta.New;
 
-  Result := FTipoReceitaPlanoCOnta;
+  Result := FTipoDespesaPlanoCOnta;
 end;
 
 function TControllerFactory.TipoLogradouro: IControllerCustom;

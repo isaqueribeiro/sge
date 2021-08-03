@@ -42,7 +42,6 @@ uses
   UGeConfigurarNFeACBr in '..\Sys\UGeConfigurarNFeACBr.pas' {frmGeConfigurarNFeACBr},
   UGeEntradaEstoqueCancelar in '..\Sys\UGeEntradaEstoqueCancelar.pas' {frmGeEntradaEstoqueCancelar},
   UEnviarLoteNFe in '..\Sys\UEnviarLoteNFe.pas' {frmEnviarLoteNFe},
-  UGeTipoDespesa in '..\Sys\UGeTipoDespesa.pas' {frmGeTipoDespesa},
   UGeVendaCancelar in '..\Sys\UGeVendaCancelar.pas' {frmGeVendaCancelar},
   UGrCampoRequisitado in '..\Sys\lib\UGrCampoRequisitado.pas' {frmCampoRequisitado},
   UGeGerarBoletos in '..\Sys\UGeGerarBoletos.pas' {frmGeGerarBoleto},
@@ -211,6 +210,9 @@ uses
   SGE.Model.DAO.ContaCorrente in '..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas',
   SGE.Model.DAO.FormaPagto in '..\Sys\Model\DAO\SGE.Model.DAO.FormaPagto.pas',
   SGE.Model.DAO.CondicaoPagto in '..\Sys\Model\DAO\SGE.Model.DAO.CondicaoPagto.pas',
+  SGE.Model.DAO.PlanoConta in '..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas',
+  SGE.Model.DAO.TipoReceita in '..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas',
+  SGE.Model.DAO.TipoDespesa in '..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas',
   SGE.Controller.Interfaces in '..\Sys\Controller\SGE.Controller.Interfaces.pas',
   SGE.Controller in '..\Sys\Controller\SGE.Controller.pas',
   SGE.Controller.Factory in '..\Sys\Controller\SGE.Controller.Factory.pas',
@@ -228,6 +230,9 @@ uses
   SGE.Controller.ContaCorrente in '..\Sys\Controller\SGE.Controller.ContaCorrente.pas',
   SGE.Controller.FormaPagto in '..\Sys\Controller\SGE.Controller.FormaPagto.pas',
   SGE.Controller.CondicaoPagto in '..\Sys\Controller\SGE.Controller.CondicaoPagto.pas',
+  SGE.Controller.PlanoConta in '..\Sys\Controller\SGE.Controller.PlanoConta.pas',
+  SGE.Controller.TipoReceita in '..\Sys\Controller\SGE.Controller.TipoReceita.pas',
+  SGE.Controller.TipoDespesa in '..\Sys\Controller\SGE.Controller.TipoDespesa.pas',
   View.Estado in '..\Sys\View\View.Estado.pas' {ViewEstado},
   View.Cidade in '..\Sys\View\View.Cidade.pas' {ViewCidade},
   View.Distrito in '..\Sys\View\View.Distrito.pas' {ViewDistrito},
@@ -240,14 +245,10 @@ uses
   View.ContaCorrente in '..\Sys\View\View.ContaCorrente.pas' {ViewContaCorrente},
   View.FormaPagto in '..\Sys\View\View.FormaPagto.pas' {ViewFormaPagto},
   View.CondicaoPagto in '..\Sys\View\View.CondicaoPagto.pas' {ViewCondicaoPagto},
-  SGE.Model.DAO.PlanoConta in '..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas',
-  SGE.Controller.PlanoConta in '..\Sys\Controller\SGE.Controller.PlanoConta.pas',
   View.PlanoConta in '..\Sys\View\View.PlanoConta.pas' {ViewPlanoConta},
-  SGE.Model.DAO.TipoReceita in '..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas',
-  SGE.Controller.TipoReceita in '..\Sys\Controller\SGE.Controller.TipoReceita.pas',
   View.TipoReceita in '..\Sys\View\View.TipoReceita.pas' {ViewTipoReceita},
-  SGE.Model.DAO.TipoDespesa in '..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas',
-  SGE.Controller.TipoDespesa in '..\Sys\Controller\SGE.Controller.TipoDespesa.pas';
+  View.TipoDespesa in '..\Sys\View\View.TipoDespesa.pas' {ViewTipoDespesa},
+  SGE.Model.DAO.CentroCusto in '..\Sys\Model\DAO\SGE.Model.DAO.CentroCusto.pas';
 
 {$R *.res}
 

@@ -1,4 +1,4 @@
-unit View.TipoReceita;
+unit View.TipoDespesa;
 
 interface
 
@@ -43,7 +43,7 @@ uses
   UConstantesDGE;
 
 type
-  TViewTipoReceita = class(TViewPadraoCadastro)
+  TViewTipoDespesa = class(TViewPadraoCadastro)
     lblDescricao: TLabel;
     dbDescricao: TDBEdit;
     GrpBxDadosClassificacao: TGroupBox;
@@ -53,39 +53,38 @@ type
     Bevel5: TBevel;
     dbTipoParticular: TDBCheckBox;
     dbAtivo: TDBCheckBox;
-    DtsClassificacao: TDataSource;
     lblClassificacao: TLabel;
     dbClassificacao: TDBLookupComboBox;
-    Bevel6: TBevel;
+    DtsClassificacao: TDataSource;
     dtsPlanoConta: TDataSource;
+    Bevel6: TBevel;
     GrpBxPlanoConta: TGroupBox;
     PnlPlanoContaBtn: TPanel;
-    Bevel7: TBevel;
     BtnPlanoAdicionar: TcxButton;
     BtnPlanoExcluir: TcxButton;
+    Bevel7: TBevel;
     dbgPlanoContas: TDBGrid;
     lblRegistroDesativado: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure btbtnListaClick(Sender: TObject);
-    procedure btbtnCancelarClick(Sender: TObject);
+    procedure DtSrcTabelaStateChange(Sender: TObject);
+    procedure dbgPlanoContasDblClick(Sender: TObject);
+    procedure dbgPlanoContasKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure btbtnExcluirClick(Sender: TObject);
+    procedure btbtnCancelarClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure BtnPlanoAdicionarClick(Sender: TObject);
     procedure cdsPlanoContaSelecionarGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
-    procedure dbgPlanoContasDblClick(Sender: TObject);
-    procedure dbgPlanoContasKeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
-    procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure DtSrcTabelaAfterScroll(DataSet: TDataSet);
-    procedure btbtnIncluirClick(Sender: TObject);
     procedure BtnPlanoExcluirClick(Sender: TObject);
   private
     { Private declarations }
-    FControllerTipoReceitaPlanoConta,
-    FControllerClasseReceitaView    : IControllerCustom;
+    FControllerTipoDespesaPlanoConta,
+    FControllerClasseDespesaView    : IControllerCustom;
     procedure CarregarPlanoConta;
     procedure GravarRelacaoPlanoConta;
   public
@@ -94,24 +93,24 @@ type
 
 (*
   Tabelas:
-  - TBTPRECEITA
-  - TBTPRECEITA_PLANO
+  - TBTPDESPESA
+  - TBTPDESPESA_PLANO
   - TBPLANO_CONTA
   - TBEMPRESA
 
   Views:
-  - VW_CLASSIFICAO_RECEITA
+  - VW_CLASSIFICAO_DESPESA
 
   Procedures:
 
 *)
 
 var
-  ViewTipoReceita: TViewTipoReceita;
+  ViewTipoDespesa: TViewTipoDespesa;
 
-  procedure MostrarTipoReceitas(const AOwner : TComponent);
+  procedure MostrarTipoDespesas(const AOwner : TComponent);
 
-  function SelecionarTipoReceita(const AOwner : TComponent; const aEmpresa : String;
+  function SelecionarTipoDespesa(const AOwner : TComponent; const aEmpresa : String;
     var Codigo : Integer; var Nome : String) : Boolean;
 
 implementation
@@ -126,11 +125,11 @@ uses
 
 {$R *.dfm}
 
-procedure MostrarTipoReceitas(const AOwner : TComponent);
+procedure MostrarTipoDespesas(const AOwner : TComponent);
 var
-  frm : TViewTipoReceita;
+  frm : TViewTipoDespesa;
 begin
-  frm := TViewTipoReceita.Create(AOwner);
+  frm := TViewTipoDespesa.Create(AOwner);
   try
     frm.ShowModal;
   finally
@@ -138,12 +137,12 @@ begin
   end;
 end;
 
-function SelecionarTipoReceita(const AOwner : TComponent; const aEmpresa : String;
+function SelecionarTipoDespesa(const AOwner : TComponent; const aEmpresa : String;
   var Codigo : Integer; var Nome : String) : Boolean;
 var
-  frm : TViewTipoReceita;
+  frm : TViewTipoDespesa;
 begin
-  frm := TViewTipoReceita.Create(AOwner);
+  frm := TViewTipoDespesa.Create(AOwner);
   try
     frm.FController
       .DAO
@@ -156,20 +155,20 @@ begin
   end;
 end;
 
-procedure TViewTipoReceita.FormCreate(Sender: TObject);
+procedure TViewTipoDespesa.FormCreate(Sender: TObject);
 begin
-  FController := TControllerFactory.New.TipoReceita;
-  FControllerTipoReceitaPlanoConta := TControllerFactory.New.TipoReceitaPlanoConta;
-  FControllerClasseReceitaView     := TControllerFactory.New.ClasseReceita;
+  FController := TControllerFactory.New.TipoDespesa;
+  FControllerTipoDespesaPlanoConta := TControllerFactory.New.TipoDespesaPlanoConta;
+  FControllerClasseDespesaView     := TControllerFactory.New.ClasseDespesa;
 
   inherited;
-  RotinaID            := ROTINA_CAD_TIPO_RECEITA_ID;
+  RotinaID            := ROTINA_CAD_TIPO_DESPESA_ID;
   ControlFirstEdit    := dbDescricao;
   DisplayFormatCodigo := '##000';
-  NomeTabela          := 'TBTPRECEITA';
+  NomeTabela          := 'TBTPDESPESA';
   CampoCodigo         := 'COD';
-  CampoDescricao      := 'TIPOREC';
-  CampoOrdenacao      := 'TIPOREC';
+  CampoDescricao      := 'TIPODESP';
+  CampoOrdenacao      := 'TIPODESP';
   CampoCadastroAtivo  := 'ATIVO';
 
   FController.DAO.ParamsByName('empresa', gUsuarioLogado.Empresa);
@@ -177,44 +176,37 @@ begin
 
   Tabela
     .Display('COD',  'Código', DisplayFormatCodigo, TAlignment.taCenter, True)
-    .Display('TIPOREC', 'Descrição', True)
+    .Display('TIPODESP', 'Descrição', True)
     .Display('CLASSIFICACAO', 'Classificação', True)
     .Display('TIPO_PARTICULAR_DESC', 'Particular', TAlignment.taCenter);
 
   AbrirTabelaAuto := True;
-  TController(FControllerClasseReceitaView).LookupComboBox(dbClassificacao, DtsClassificacao, 'classificacao', 'tpe_codigo', 'tpe_descricao');
-  dtsPlanoConta.DataSet := FControllerTipoReceitaPlanoConta.DAO.DataSet;
+  TController(FControllerClasseDespesaView).LookupComboBox(dbClassificacao, DtsClassificacao, 'classificacao', 'tpe_codigo', 'tpe_descricao');
+  dtsPlanoConta.DataSet := FControllerTipoDespesaPlanoConta.DAO.DataSet;
 end;
 
-procedure TViewTipoReceita.btbtnCancelarClick(Sender: TObject);
+procedure TViewTipoDespesa.btbtnCancelarClick(Sender: TObject);
 begin
   inherited;
   if ( not OcorreuErro ) then
     CarregarPlanoConta;
 end;
 
-procedure TViewTipoReceita.btbtnExcluirClick(Sender: TObject);
+procedure TViewTipoDespesa.btbtnExcluirClick(Sender: TObject);
 begin
   inherited;
   if ( not OcorreuErro ) then
     CarregarPlanoConta;
 end;
 
-procedure TViewTipoReceita.btbtnIncluirClick(Sender: TObject);
+procedure TViewTipoDespesa.btbtnListaClick(Sender: TObject);
 begin
   inherited;
-  if not OcorreuErro then
-    CarregarPlanoConta;
+  DMNFe.fdQryListaTipoDespesa.ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
+  DMNFe.frrListaTipoDespesa.ShowReport;
 end;
 
-procedure TViewTipoReceita.btbtnListaClick(Sender: TObject);
-begin
-  inherited;
-  DMNFe.fdQryListaTipoReceita.ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
-  DMNFe.frrListaTipoReceita.ShowReport;
-end;
-
-procedure TViewTipoReceita.btbtnSalvarClick(Sender: TObject);
+procedure TViewTipoDespesa.btbtnSalvarClick(Sender: TObject);
 begin
   try
     FController.DAO.DataSet.AfterScroll := nil;
@@ -226,7 +218,7 @@ begin
   end;
 end;
 
-procedure TViewTipoReceita.BtnPlanoAdicionarClick(Sender: TObject);
+procedure TViewTipoDespesa.BtnPlanoAdicionarClick(Sender: TObject);
 var
   aPlanoConta : TPlanoConta;
 begin
@@ -235,24 +227,24 @@ begin
   aPlanoConta.Descricao      := EmptyStr;
   aPlanoConta.Empresa        := EmptyStr;
   if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarPlanoConta(Self, tpLancamento, 0, EmptyStr, '4', aPlanoConta) ) then  // 4. Receitas
+    if ( SelecionarPlanoConta(Self, tpLancamento, 0, EmptyStr, '3', aPlanoConta) ) then // 3. Despesas
     begin
-      if (Trim(aPlanoConta.Empresa) = EmptyStr) and (FControllerTipoReceitaPlanoConta.DAO.DataSet.RecordCount > 0) then
+      if (Trim(aPlanoConta.Empresa) = EmptyStr) and (FControllerTipoDespesaPlanoConta.DAO.DataSet.RecordCount > 0) then
         ShowWarning('É permitida a associação de apenas 1 (um) plano de conta quando este será usado por todas as empresas')
       else
-      if (not aPlanoConta.Empresa.IsEmpty) and FControllerTipoReceitaPlanoConta.DAO.DataSet.Locate('plano;empresa', VarArrayOf([aPlanoConta.Codigo, aPlanoConta.Empresa]), []) then
-        ShowWarning('Plano de Contas já associado ao Tipo de Receita')
+      if (not aPlanoConta.Empresa.IsEmpty) and FControllerTipoDespesaPlanoConta.DAO.DataSet.Locate('plano;empresa', VarArrayOf([aPlanoConta.Codigo, aPlanoConta.Empresa]), []) then
+        ShowWarning('Plano de Contas já associado ao Tipo de Despesa')
       else
-      if aPlanoConta.Empresa.IsEmpty and FControllerTipoReceitaPlanoConta.DAO.DataSet.Locate('plano', aPlanoConta.Codigo, []) then
-        ShowWarning('Plano de Contas já associado ao Tipo de Receita')
+      if aPlanoConta.Empresa.IsEmpty and FControllerTipoDespesaPlanoConta.DAO.DataSet.Locate('plano', aPlanoConta.Codigo, []) then
+        ShowWarning('Plano de Contas já associado ao Tipo de Despesa')
       else
-      if FControllerTipoReceitaPlanoConta.DAO.DataSet.Locate('empresa', aPlanoConta.Empresa, []) then
-        ShowWarning('Não é permitido mais de um Plano de Contas por empresa para o mesmo Tipo de Receita')
+      if FControllerTipoDespesaPlanoConta.DAO.DataSet.Locate('empresa', aPlanoConta.Empresa, []) then
+        ShowWarning('Não é permitido mais de um Plano de Contas por empresa para o mesmo Tipo de Despesa')
       else
-        with FControllerTipoReceitaPlanoConta.DAO.DataSet do
+        with FControllerTipoDespesaPlanoConta.DAO.DataSet do
         begin
           Append;
-          FieldByName('receita').AsInteger    := DtSrcTabela.DataSet.FieldByName('COD').AsInteger;
+          FieldByName('despesa').AsInteger    := DtSrcTabela.DataSet.FieldByName('COD').AsInteger;
           FieldByName('selecionar').AsInteger := 1;
           FieldByName('plano').AsInteger      := aPlanoConta.Codigo;
           FieldByName('plano_conta').AsString := aPlanoConta.CodigoContabil + ' - ' + aPlanoConta.Descricao;
@@ -269,27 +261,27 @@ begin
     end;
 end;
 
-procedure TViewTipoReceita.BtnPlanoExcluirClick(Sender: TObject);
+procedure TViewTipoDespesa.BtnPlanoExcluirClick(Sender: TObject);
 begin
   if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
-    if (FControllerTipoReceitaPlanoConta.DAO.DataSet.RecordCount > 0) then
+    if (FControllerTipoDespesaPlanoConta.DAO.DataSet.RecordCount > 0) then
     begin
-      FControllerTipoReceitaPlanoConta.DAO.DataSet.Delete;
-      FControllerTipoReceitaPlanoConta.DAO.ApplyUpdates;
+      FControllerTipoDespesaPlanoConta.DAO.DataSet.Delete;
+      FControllerTipoDespesaPlanoConta.DAO.ApplyUpdates;
     end;
 end;
 
-procedure TViewTipoReceita.CarregarPlanoConta;
+procedure TViewTipoDespesa.CarregarPlanoConta;
 begin
-  FControllerTipoReceitaPlanoConta.DAO.DataSet.Close;
-  FControllerTipoReceitaPlanoConta.DAO.ParamsByName('tipo', DtSrcTabela.DataSet.FieldByName('cod').AsInteger);
-  FControllerTipoReceitaPlanoConta.DAO.Open;
+  FControllerTipoDespesaPlanoConta.DAO.DataSet.Close;
+  FControllerTipoDespesaPlanoConta.DAO.ParamsByName('tipo', DtSrcTabela.DataSet.FieldByName('cod').AsInteger);
+  FControllerTipoDespesaPlanoConta.DAO.Open;
 
-  FControllerTipoReceitaPlanoConta.DAO.DataSet.FieldByName('selecionar').Alignment := TAlignment.taCenter;
-  FControllerTipoReceitaPlanoConta.DAO.DataSet.FieldByName('selecionar').OnGetText := cdsPlanoContaSelecionarGetText;
+  FControllerTipoDespesaPlanoConta.DAO.DataSet.FieldByName('selecionar').Alignment := TAlignment.taCenter;
+  FControllerTipoDespesaPlanoConta.DAO.DataSet.FieldByName('selecionar').OnGetText := cdsPlanoContaSelecionarGetText;
 end;
 
-procedure TViewTipoReceita.cdsPlanoContaSelecionarGetText(Sender: TField;
+procedure TViewTipoDespesa.cdsPlanoContaSelecionarGetText(Sender: TField;
   var Text: string; DisplayText: Boolean);
 begin
   if not Sender.IsNull then
@@ -299,7 +291,7 @@ begin
     end;
 end;
 
-procedure TViewTipoReceita.dbgPlanoContasDblClick(Sender: TObject);
+procedure TViewTipoDespesa.dbgPlanoContasDblClick(Sender: TObject);
 begin
   if dtsPlanoConta.AutoEdit then
     if ( not dtsPlanoConta.DataSet.IsEmpty ) then
@@ -315,14 +307,14 @@ begin
     end;
 end;
 
-procedure TViewTipoReceita.dbgPlanoContasKeyDown(Sender: TObject;
+procedure TViewTipoDespesa.dbgPlanoContasKeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   if ( Key = VK_SPACE ) then
     dbgPlanoContasDblClick(Sender);
 end;
 
-procedure TViewTipoReceita.DtSrcTabelaStateChange(Sender: TObject);
+procedure TViewTipoDespesa.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
   BtnPlanoAdicionar.Enabled := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
@@ -330,15 +322,27 @@ begin
   dtsPlanoConta.AutoEdit    := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
 end;
 
-procedure TViewTipoReceita.DtSrcTabelaAfterScroll(DataSet: TDataSet);
+procedure TViewTipoDespesa.DtSrcTabelaAfterScroll(DataSet: TDataSet);
 begin
   inherited;
   CarregarPlanoConta;
 end;
 
-procedure TViewTipoReceita.FormKeyDown(Sender: TObject; var Key: Word;
+procedure TViewTipoDespesa.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
+//  if (Shift = [ssCtrl]) and (Key = SYS_KEY_L) Then
+//  begin
+//
+//    if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
+//      if ( dbPlanoContas.Focused ) then
+//      begin
+//        DtSrcTabela.DataSet.FieldByName('PLANO_CONTA').Clear;
+//        DtSrcTabela.DataSet.FieldByName('DESCRICAO_RESUMIDA').Clear;
+//      end;
+//
+//  end;
+//
   if (Shift = [ssCtrl]) and (Key = VK_INSERT) Then
     if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
       BtnPlanoAdicionar.Click;
@@ -350,12 +354,12 @@ begin
   inherited;
 end;
 
-procedure TViewTipoReceita.GravarRelacaoPlanoConta;
+procedure TViewTipoDespesa.GravarRelacaoPlanoConta;
 begin
-  FControllerTipoReceitaPlanoConta.DAO.ApplyUpdates;
+  FControllerTipoDespesaPlanoConta.DAO.ApplyUpdates;
 end;
 
 initialization
-  FormFunction.RegisterForm('ViewTipoReceita', TViewTipoReceita);
+  FormFunction.RegisterForm('ViewTipoDespesa', TViewTipoDespesa);
 
 end.

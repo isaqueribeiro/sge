@@ -142,8 +142,8 @@ begin
   inherited Create;
   FConn
     .Query
-      .TableName('TBTPRECEITA_PLANO')
-      .KeyFields('receita;plano')
+      .TableName('TBTPDESPESA_PLANO')
+      .KeyFields('despesa;plano')
       .SQL
         .Clear
         .Add('Select')

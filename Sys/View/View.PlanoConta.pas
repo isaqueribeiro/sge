@@ -112,7 +112,7 @@ var
     const aEmpresa : String; var Codigo : Integer; var Descricao : String) : Boolean; overload;
   function SelecionarPlanoConta(const AOwner : TComponent;
     const TipoPlanoConta : TTipoPlanoConta; const Exercicio : Smallint;
-    const aEmpresa : String; var aPlanoConta : TPlanoConta) : Boolean; overload;
+    const aEmpresa, aGrupoContabil : String; var aPlanoConta : TPlanoConta) : Boolean; overload;
 
 implementation
 
@@ -159,7 +159,7 @@ end;
 
 function SelecionarPlanoConta(const AOwner : TComponent;
   const TipoPlanoConta : TTipoPlanoConta; const Exercicio : Smallint;
-  const aEmpresa : String; var aPlanoConta : TPlanoConta) : Boolean;
+  const aEmpresa, aGrupoContabil : String; var aPlanoConta : TPlanoConta) : Boolean;
 var
   AForm  : TViewPlanoConta;
   aCodigo   : Integer;
@@ -172,6 +172,9 @@ begin
 
     if (Trim(aEmpresa) <> EmptyStr) then
       sWhere := sWhere + ' and ((p.empresa is null) or (p.empresa = ' + QuotedStr(aEmpresa) + '))';
+
+    if (Trim(aGrupoContabil) <> EmptyStr) then
+      sWhere := sWhere + ' and (p.codigo_contabil like ' +  QuotedStr(aGrupoContabil + '%') + ')';
 
     if ( Exercicio = 0 ) then
       AForm.WhereAdditional := sWhere + ' and (p.exercicio = 0)'
@@ -228,7 +231,7 @@ begin
   Tabela
     .Display('CODIGO',  'Código', DisplayFormatCodigo, TAlignment.taCenter, True)
     .Display('NIVEL', 'Nível', True)
-    .Display('EMPRESA', 'Empresa', True)
+    .Display('EMPRESA', 'Empresa', False)
     .Display('DESCRICAO_RESUMIDA', 'Descrição Resumida', True)
     .Display('TIPO', 'Tipo', True)
     .Display('CODIGO_CONTABIL', 'Código Contábil', True)

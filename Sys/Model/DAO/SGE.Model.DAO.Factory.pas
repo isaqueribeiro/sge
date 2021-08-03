@@ -19,7 +19,8 @@ uses
   SGE.Model.DAO.CondicaoPagto,
   SGE.Model.DAO.PlanoConta,
   SGE.Model.DAO.TipoReceita,
-  SGE.Model.DAO.TipoDespesa;
+  SGE.Model.DAO.TipoDespesa,
+  SGE.Model.DAO.CentroCusto;
 
 type
   TModelDAOFactory = class(TInterfacedObject, IModelDAOFactory)
@@ -53,7 +54,9 @@ type
       FClasseReceita,
       FTipoDespesa  ,
       FTipoDespesaPlanoConta,
-      FClasseDespesa : IModelDAOCustom;
+      FClasseDespesa,
+      FCentroCusto  ,
+      FCentroCustoEmpresa : IModelDAOCustom;
     protected
       constructor Create;
     public
@@ -90,6 +93,8 @@ type
       function TipoDespesa : IModelDAOCustom;
       function TipoDespesaPlanoConta : IModelDAOCustom;
       function ClasseDespesa : IModelDAOCustom;
+      function CentroCusto : IModelDAOCustom;
+      function CentroCustoEmpresa : IModelDAOCustom;
   end;
 
 implementation
@@ -205,6 +210,22 @@ begin
     FBairro := TModelDAOBairro.New;
 
   Result := FBairro;
+end;
+
+function TModelDAOFactory.CentroCusto: IModelDAOCustom;
+begin
+  if not Assigned(FCentroCusto) then
+    FCentroCusto := TModelDAOCentroCusto.New;
+
+  Result := FCentroCusto;
+end;
+
+function TModelDAOFactory.CentroCustoEmpresa: IModelDAOCustom;
+begin
+  if not Assigned(FCentroCustoEmpresa) then
+    FCentroCustoEmpresa := TModelDAOCentroCustoEmpresa.New;
+
+  Result := FCentroCustoEmpresa;
 end;
 
 function TModelDAOFactory.CFOP: IModelDAOCustom;
