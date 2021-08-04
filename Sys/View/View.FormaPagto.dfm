@@ -19,11 +19,9 @@ inherited ViewFormaPagto: TViewFormaPagto
   inherited pgcGuias: TPageControl
     Height = 368
     ActivePage = tbsCadastro
+    OnChange = pgcGuiasChange
     ExplicitHeight = 368
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
       ExplicitHeight = 339
       inherited Bevel4: TBevel
         Top = 273
@@ -91,7 +89,6 @@ inherited ViewFormaPagto: TViewFormaPagto
             Width = 175
             ExplicitLeft = 118
             ExplicitWidth = 175
-            ExplicitHeight = 21
           end
           inherited btnFiltrar: TcxButton
             Left = 299
@@ -101,9 +98,6 @@ inherited ViewFormaPagto: TViewFormaPagto
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
       ExplicitHeight = 339
       inherited Bevel8: TBevel
         Top = 153

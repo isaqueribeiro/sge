@@ -47,6 +47,10 @@ type
     function TipoDespesa : IControllerCustom;
     function TipoDespesaPlanoConta : IControllerCustom;
     function ClasseDespesa : IControllerCustom;
+    function CentroCusto : IControllerCustom;
+    function CentroCustoEmpresa : IControllerCustom;
+    function Segmento : IControllerCustom;
+    function TipoRegimeView : IControllerCustom;
   end;
 
 implementation

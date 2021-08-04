@@ -19,7 +19,9 @@ uses
   SGE.Controller.CondicaoPagto,
   SGE.Controller.PlanoConta,
   SGE.Controller.TipoReceita,
-  SGE.Controller.TipoDespesa;
+  SGE.Controller.TipoDespesa,
+  SGE.Controller.CentroCusto,
+  SGE.Controller.Tabelas;
 
 type
   TControllerFactory = class(TInterfacedObject, IControllerFactory)
@@ -53,7 +55,11 @@ type
       FClasseReceita,
       FTipoDespesa  ,
       FTipoDespesaPlanoConta,
-      FClasseDespesa : IControllerCustom;
+      FClasseDespesa,
+      FCentroCusto  ,
+      FCentroCustoEmpresa,
+      FSegmento       ,
+      FTipoRegimeView : IControllerCustom;
     protected
       constructor Create;
     public
@@ -90,6 +96,10 @@ type
       function TipoDespesa : IControllerCustom;
       function TipoDespesaPlanoConta : IControllerCustom;
       function ClasseDespesa : IControllerCustom;
+      function CentroCusto : IControllerCustom;
+      function CentroCustoEmpresa : IControllerCustom;
+      function Segmento : IControllerCustom;
+      function TipoRegimeView : IControllerCustom;
   end;
 
 implementation
@@ -143,6 +153,14 @@ begin
   Result := FPlanoContaTipo;
 end;
 
+function TControllerFactory.Segmento: IControllerCustom;
+begin
+  if not Assigned(FSegmento) then
+    FSegmento := TControllerSegmento.New;
+
+  Result := FSegmento;
+end;
+
 function TControllerFactory.CST: IControllerCustom;
 begin
   if not Assigned(FCST) then
@@ -157,6 +175,22 @@ begin
     FBairro := TControllerBairro.New;
 
   Result := FBairro;
+end;
+
+function TControllerFactory.CentroCusto: IControllerCustom;
+begin
+  if not Assigned(FCentroCusto) then
+    FCentroCusto := TControllerCentroCusto.New;
+
+  Result := FCentroCusto;
+end;
+
+function TControllerFactory.CentroCustoEmpresa: IControllerCustom;
+begin
+  if not Assigned(FCentroCustoEmpresa) then
+    FCentroCustoEmpresa := TControllerCentroCustoEmpresa.New;
+
+  Result := FCentroCustoEmpresa;
 end;
 
 function TControllerFactory.CFOP: IControllerCustom;
@@ -341,6 +375,14 @@ begin
     FTipoReceitaPlanoCOnta := TControllerTipoReceitaPlanoConta.New;
 
   Result := FTipoReceitaPlanoCOnta;
+end;
+
+function TControllerFactory.TipoRegimeView: IControllerCustom;
+begin
+  if not Assigned(FTipoRegimeView) then
+    FTipoRegimeView := TControllerTipoRegimeView.New;
+
+  Result := FTipoRegimeView;
 end;
 
 function TControllerFactory.UF: IControllerCustom;

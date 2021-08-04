@@ -454,7 +454,6 @@ begin
         fOcorreuErro := True
       else
       begin
-        fOcorreuErro := False;
         if ShowConfirmation('Salvar', 'Deseja salvar a inserção/edição do registro?') then
         begin
           if (Trim(GetCampoDescricaoLimpo) <> EmptyStr) then
@@ -473,6 +472,8 @@ begin
 
           if ExecutarRefreshRecord then
             FController.DAO.RefreshRecord;
+
+          fOcorreuErro := False;
         end;
       end;
     except

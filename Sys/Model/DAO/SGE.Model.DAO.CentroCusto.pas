@@ -68,7 +68,6 @@ begin
       .OpenEmpty
       .CloseEmpty;
 
-  SetProviderFlags;
   FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
   FConn.Query.DataSet.BeforePost  := DataSetBeforePost;
 end;
@@ -92,6 +91,7 @@ end;
 
 procedure TModelDAOCentroCusto.DataSetBeforePost(DataSet: TDataSet);
 begin
+  SetProviderFlags;
   with FConn.Query.DataSet do
     FieldByName('ativo_temp').AsString := IfThen(FieldByName('ATIVO').AsInteger = 1, 'S', EmptyStr);
 end;

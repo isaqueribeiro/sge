@@ -20,7 +20,8 @@ uses
   SGE.Model.DAO.PlanoConta,
   SGE.Model.DAO.TipoReceita,
   SGE.Model.DAO.TipoDespesa,
-  SGE.Model.DAO.CentroCusto;
+  SGE.Model.DAO.CentroCusto,
+  SGE.Model.DAO.Tabelas;
 
 type
   TModelDAOFactory = class(TInterfacedObject, IModelDAOFactory)
@@ -56,7 +57,9 @@ type
       FTipoDespesaPlanoConta,
       FClasseDespesa,
       FCentroCusto  ,
-      FCentroCustoEmpresa : IModelDAOCustom;
+      FCentroCustoEmpresa,
+      FSegmento       ,
+      FTipoRegimeView : IModelDAOCustom;
     protected
       constructor Create;
     public
@@ -95,6 +98,8 @@ type
       function ClasseDespesa : IModelDAOCustom;
       function CentroCusto : IModelDAOCustom;
       function CentroCustoEmpresa : IModelDAOCustom;
+      function Segmento : IModelDAOCustom;
+      function TipoRegimeView : IModelDAOCustom;
   end;
 
 implementation
@@ -146,6 +151,14 @@ begin
     FPlanoContaTipo := TModelDAOPlanoContaTipo.New;
 
   Result := FPlanoContaTipo;
+end;
+
+function TModelDAOFactory.Segmento: IModelDAOCustom;
+begin
+  if not Assigned(FSegmento) then
+    FSegmento := TModelDAOSegmento.New;
+
+  Result := FSegmento;
 end;
 
 function TModelDAOFactory.CST: IModelDAOCustom;
@@ -202,6 +215,14 @@ begin
     FTipoReceitaPlanoConta := TModelDAOTipoReceitaPlanoConta.New;
 
   Result := FTipoReceitaPlanoConta;
+end;
+
+function TModelDAOFactory.TipoRegimeView: IModelDAOCustom;
+begin
+  if not Assigned(FTipoRegimeView) then
+    FTipoRegimeView := TModelDAOTipoRegimeView.New;
+
+  Result := FTipoRegimeView;
 end;
 
 function TModelDAOFactory.Bairro: IModelDAOCustom;

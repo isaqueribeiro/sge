@@ -273,7 +273,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UGeBairro, View.Cidade, View.Distrito, View.Estado,
+  UDMBusiness, View.Bairro, View.Cidade, View.Distrito, View.Estado,
   View.Logradouro, UGrPadrao, UConstantesDGE;
 
 {$R *.dfm}

@@ -13,6 +13,8 @@ type
   // Table
   TModelDAOEmpresa = class(TModelDAO, IModelDAOCustom)
     private
+      procedure SetProviderFlags;
+      procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetNewRecord(DataSet: TDataSet);
       procedure DataSetBeforePost(DataSet: TDataSet);
     protected
@@ -37,6 +39,9 @@ type
   end;
 
 implementation
+
+uses
+  UConstantesDGE;
 
 { TModelDAOEmpresa }
 
@@ -101,16 +106,10 @@ begin
         .Add('  left join TBESTADO u on (u.Est_cod = e.Est_cod)          ')
         .Add('  left join TBPAIS p on (p.Pais_id = e.Pais_id)            ')
       .&End
-    .OpenEmpty;
+    .OpenEmpty
+    .CloseEmpty;
 
-  // Ignorar campos no Insert e Update
-  FConn.Query.DataSet.FieldByName('Logradouro').ProviderFlags := [];
-  FConn.Query.DataSet.FieldByName('Cid_nome').ProviderFlags   := [];
-  FConn.Query.DataSet.FieldByName('Est_nome').ProviderFlags   := [];
-  FConn.Query.DataSet.FieldByName('Pais_nome').ProviderFlags  := [];
-
-  FConn.Query.CloseEmpty;
-
+  FConn.Query.DataSet.AfterOpen    := DataSetAfterOpen;
   FConn.Query.DataSet.OnNewRecord  := DataSetNewRecord;
   FConn.Query.DataSet.BeforePost   := DataSetBeforePost;
 end;
@@ -125,6 +124,25 @@ begin
   Result := Self.Create;
 end;
 
+procedure TModelDAOEmpresa.SetProviderFlags;
+var
+  I : Integer;
+begin
+  for I := 0 to Pred(FConn.Query.DataSet.Fields.Count) do
+    FConn.Query.DataSet.Fields[I].ReadOnly := False; // Liberar edição dos campos
+
+  // Ignorar campos no Insert e Update
+  FConn.Query.DataSet.FieldByName('Logradouro').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('Cid_nome').ProviderFlags   := [];
+  FConn.Query.DataSet.FieldByName('Est_nome').ProviderFlags   := [];
+  FConn.Query.DataSet.FieldByName('Pais_nome').ProviderFlags  := [];
+end;
+
+procedure TModelDAOEmpresa.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  SetProviderFlags;
+end;
+
 procedure TModelDAOEmpresa.DataSetBeforePost(DataSet: TDataSet);
 begin
 //  with FConn.Query.DataSet do
@@ -136,17 +154,19 @@ end;
 
 procedure TModelDAOEmpresa.DataSetNewRecord(DataSet: TDataSet);
 begin
-//  with FConn.Query.DataSet do
-//  begin
-//    FieldByName('EX_IBPT').AsString := '0';
-//    FieldByName('ALIQNACIONAL_IBPT').AsCurrency      := 0.0;
-//    FieldByName('ALIQINTERNACIONAL_IBPT').AsCurrency := 0.0;
-//    FieldByName('ALIQESTADUAL_IBPT').AsCurrency      := 0.0;
-//    FieldByName('ALIQMUNICIPAL_IBPT').AsCurrency     := 0.0;
-//    FieldByName('ATIVO').AsInteger                   := 1;
-//    FieldByName('TABELA_IBPT').Clear;
-//    FieldByName('DESCRICAO_IBPT').Clear;
-//  end;
+  with FConn.Query.DataSet do
+  begin
+    FieldByName('PESSOA_FISICA').AsInteger := 0;
+    FieldByName('SERIE_NFE').AsInteger     := 1;
+    FieldByName('NUMERO_NFE').AsInteger    := 0;
+    FieldByName('SERIE_NFCE').AsInteger    := 1;
+    FieldByName('NUMERO_NFCE').AsInteger   := 0;
+    FieldByName('LOTE_ANO_NFE').AsInteger  := FormatDateTime('yyyy', Date).ToInteger;
+    FieldByName('LOTE_NUM_NFE').AsInteger  := 0;
+    FieldByName('CARTA_CORRECAO_NFE').AsInteger := 0;
+    FieldByName('SEGMENTO').AsInteger     := SEGMENTO_PADRAO_ID;
+    FieldByName('ATIVA').AsInteger        := FLAG_SIM;
+  end;
 end;
 
 { TModelDAOEmpresaView }

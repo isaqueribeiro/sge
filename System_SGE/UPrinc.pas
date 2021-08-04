@@ -374,7 +374,7 @@ begin
   if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
     ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
   else
-    FormFunction.ShowModalForm(Self, 'frmGeEmpresa');
+    FormFunction.ShowModalForm(Self, 'ViewEmpresa');
 end;
 
 procedure TfrmPrinc.AlertarCliente;
@@ -1413,7 +1413,7 @@ end;
 procedure TfrmPrinc.nmCentroCustoClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_CENTRO_CUSTO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeCentroCusto');
+    FormFunction.ShowModalForm(Self, 'ViewCentroCusto');
 end;
 
 procedure TfrmPrinc.nmPlanoContaClick(Sender: TObject);

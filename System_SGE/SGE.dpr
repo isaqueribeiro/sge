@@ -21,8 +21,6 @@ uses
   UGrPadraoCadastro in '..\Sys\lib\UGrPadraoCadastro.pas' {frmGrPadraoCadastro},
   UGrPadrao in '..\Sys\lib\UGrPadrao.pas' {frmGrPadrao},
   UGeBancos in '..\Sys\UGeBancos.pas' {frmGeBancos},
-  UGeBairro in '..\Sys\UGeBairro.pas' {frmGeBairro},
-  UGeEmpresa in '..\Sys\UGeEmpresa.pas' {frmGeEmpresa},
   UGeCliente in '..\Sys\UGeCliente.pas' {frmGeCliente},
   UGeFornecedor in '..\Sys\UGeFornecedor.pas' {frmGeFornecedor},
   UGeGrupoProduto in '..\Sys\UGeGrupoProduto.pas' {frmGeGrupoProduto},
@@ -102,7 +100,6 @@ uses
   UGeRequisicaoCompraPesquisa in 'UGeRequisicaoCompraPesquisa.pas' {frmGeRequisicaoCompraPesquisa},
   UGeCartaCorrecao in '..\Sys\UGeCartaCorrecao.pas' {frmGeCartaCorrecao},
   UGeNFEmitida in '..\Sys\UGeNFEmitida.pas' {frmGeNFEmitida},
-  UGeCentroCusto in '..\Sys\UGeCentroCusto.pas' {frmGeCentroCusto},
   UGeProdutoKardex in '..\Sys\UGeProdutoKardex.pas' {frmGeProdutoKardex},
   UEcfBematechNaoFiscal in '..\Sys\lib\UEcfBematechNaoFiscal.pas',
   UDMRecursos in '..\Sys\UDMRecursos.pas' {DMRecursos: TDataModule},
@@ -213,6 +210,8 @@ uses
   SGE.Model.DAO.PlanoConta in '..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas',
   SGE.Model.DAO.TipoReceita in '..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas',
   SGE.Model.DAO.TipoDespesa in '..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas',
+  SGE.Model.DAO.CentroCusto in '..\Sys\Model\DAO\SGE.Model.DAO.CentroCusto.pas',
+  SGE.Model.DAO.Tabelas in '..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas',
   SGE.Controller.Interfaces in '..\Sys\Controller\SGE.Controller.Interfaces.pas',
   SGE.Controller in '..\Sys\Controller\SGE.Controller.pas',
   SGE.Controller.Factory in '..\Sys\Controller\SGE.Controller.Factory.pas',
@@ -233,6 +232,8 @@ uses
   SGE.Controller.PlanoConta in '..\Sys\Controller\SGE.Controller.PlanoConta.pas',
   SGE.Controller.TipoReceita in '..\Sys\Controller\SGE.Controller.TipoReceita.pas',
   SGE.Controller.TipoDespesa in '..\Sys\Controller\SGE.Controller.TipoDespesa.pas',
+  SGE.Controller.CentroCusto in '..\Sys\Controller\SGE.Controller.CentroCusto.pas',
+  SGE.Controller.Tabelas in '..\Sys\Controller\SGE.Controller.Tabelas.pas',
   View.Estado in '..\Sys\View\View.Estado.pas' {ViewEstado},
   View.Cidade in '..\Sys\View\View.Cidade.pas' {ViewCidade},
   View.Distrito in '..\Sys\View\View.Distrito.pas' {ViewDistrito},
@@ -248,7 +249,8 @@ uses
   View.PlanoConta in '..\Sys\View\View.PlanoConta.pas' {ViewPlanoConta},
   View.TipoReceita in '..\Sys\View\View.TipoReceita.pas' {ViewTipoReceita},
   View.TipoDespesa in '..\Sys\View\View.TipoDespesa.pas' {ViewTipoDespesa},
-  SGE.Model.DAO.CentroCusto in '..\Sys\Model\DAO\SGE.Model.DAO.CentroCusto.pas';
+  View.CentroCusto in '..\Sys\View\View.CentroCusto.pas' {ViewCentroCusto},
+  View.Empresa in '..\Sys\View\View.Empresa.pas' {ViewEmpresa};
 
 {$R *.res}
 

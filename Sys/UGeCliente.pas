@@ -429,7 +429,7 @@ var
 implementation
 
 uses
-  Service.InputQuery, UDMBusiness, UDMRecursos, UGeBairro, View.Cidade, View.Distrito,
+  Service.InputQuery, UDMBusiness, UDMRecursos, View.Bairro, View.Cidade, View.Distrito,
   View.Estado, View.Logradouro, UGrPadrao, FuncoesFormulario, UConstantesDGE;
 
 {$R *.dfm}

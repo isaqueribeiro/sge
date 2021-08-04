@@ -91,6 +91,9 @@ type
     procedure DtSrcTabelaAfterScroll(DataSet: TDataSet);
     procedure DtSrcTabelaAPrazoGetText(Sender: TField;
       var Text: String; DisplayText: Boolean);
+    procedure btbtnIncluirClick(Sender: TObject);
+    procedure btbtnExcluirClick(Sender: TObject);
+    procedure pgcGuiasChange(Sender: TObject);
   private
     { Private declarations }
     FControllerCondicaoPagtoForma : IControllerCustom;
@@ -338,6 +341,12 @@ begin
   end;
 end;
 
+procedure TViewCondicaoPagto.pgcGuiasChange(Sender: TObject);
+begin
+  if (pgcGuias.ActivePage = tbsCadastro) then
+    CarregarFormaPagto;
+end;
+
 procedure TViewCondicaoPagto.dbgFormaPagtoDblClick(Sender: TObject);
 begin
   if dtsFormaPagto.AutoEdit then
@@ -363,6 +372,20 @@ procedure TViewCondicaoPagto.btbtnCancelarClick(Sender: TObject);
 begin
   inherited;
   if ( not OcorreuErro ) then
+    CarregarFormaPagto;
+end;
+
+procedure TViewCondicaoPagto.btbtnExcluirClick(Sender: TObject);
+begin
+  inherited;
+  if (not OcorreuErro) then
+    CarregarFormaPagto;
+end;
+
+procedure TViewCondicaoPagto.btbtnIncluirClick(Sender: TObject);
+begin
+  inherited;
+  if (not OcorreuErro) then
     CarregarFormaPagto;
 end;
 

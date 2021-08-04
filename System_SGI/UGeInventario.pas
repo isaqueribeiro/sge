@@ -261,7 +261,7 @@ uses
   , UDMNFe
   , UGeProduto
   , UGrCampoRequisitado
-  , UGeCentroCusto
+  , View.CentroCusto
   , UGrMemo;
 
 {$R *.dfm}

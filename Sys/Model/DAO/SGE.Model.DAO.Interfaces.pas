@@ -97,6 +97,8 @@ type
     function ClasseDespesa : IModelDAOCustom;
     function CentroCusto : IModelDAOCustom;
     function CentroCustoEmpresa : IModelDAOCustom;
+    function Segmento : IModelDAOCustom;
+    function TipoRegimeView : IModelDAOCustom;
   end;
 
 implementation

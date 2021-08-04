@@ -10,20 +10,22 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 480
+    ExplicitTop = 480
   end
   inherited Bevel3: TBevel
     Top = 441
+    ExplicitTop = 441
   end
   inherited pgcGuias: TPageControl
     Height = 441
     ActivePage = tbsCadastro
+    OnChange = pgcGuiasChange
+    ExplicitHeight = 441
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
-      ExplicitHeight = 329
+      ExplicitHeight = 412
       inherited Bevel4: TBevel
         Top = 346
+        ExplicitTop = 346
       end
       inherited dbgDados: TDBGrid
         Height = 346
@@ -53,6 +55,7 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
       end
       inherited pnlFiltros: TPanel
         Top = 350
+        ExplicitTop = 350
         object lblRegistroDesativado: TLabel [0]
           Left = 2
           Top = 44
@@ -82,7 +85,6 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
             Width = 177
             ExplicitLeft = 116
             ExplicitWidth = 177
-            ExplicitHeight = 21
           end
           inherited btnFiltrar: TcxButton
             Left = 299
@@ -92,10 +94,7 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
-      ExplicitHeight = 329
+      ExplicitHeight = 412
       inherited Bevel8: TBevel
         Top = 185
         ExplicitTop = 185
@@ -477,7 +476,6 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitHeight = 140
         object pnlDicas: TPanel
           AlignWithMargins = True
           Left = 3
@@ -487,7 +485,6 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
           Align = alBottom
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitTop = 88
           object lblDicasTitulo: TLabel
             AlignWithMargins = True
             Left = 3
@@ -598,6 +595,7 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
   end
   inherited tlbBotoes: TPanel
     Top = 445
+    ExplicitTop = 445
   end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange

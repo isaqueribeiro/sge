@@ -71,6 +71,9 @@ type
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure DtSrcTabelaAfterScroll(DataSet: TDataSet);
+    procedure pgcGuiasChange(Sender: TObject);
+    procedure btbtnIncluirClick(Sender: TObject);
+    procedure btbtnExcluirClick(Sender: TObject);
   private
     { Private declarations }
     FControllerFormaPagtoContaCorrente,
@@ -339,6 +342,26 @@ begin
     dtsContaCorrente.DataSet.First;
     dtsContaCorrente.DataSet.EnableControls;
   end;
+end;
+
+procedure TViewFormaPagto.pgcGuiasChange(Sender: TObject);
+begin
+  if (pgcGuias.ActivePage = tbsCadastro) then
+    CarregarContaCorrente;
+end;
+
+procedure TViewFormaPagto.btbtnExcluirClick(Sender: TObject);
+begin
+  inherited;
+  if (not OcorreuErro) then
+    CarregarContaCorrente;
+end;
+
+procedure TViewFormaPagto.btbtnIncluirClick(Sender: TObject);
+begin
+  inherited;
+  if (not OcorreuErro) then
+    CarregarContaCorrente;
 end;
 
 procedure TViewFormaPagto.btbtnSalvarClick(Sender: TObject);

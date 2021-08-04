@@ -96,7 +96,6 @@ type
     frxChartObject: TfrxChartObject;
     fastReport: TfrxReport;
     ACBrValidador: TACBrValidador;
-    ACBrMail: TACBrMail;
     fdConexao: TFDConnection;
     fdIBDriverLink: TFDPhysIBDriverLink;
     fdFBDriverLink: TFDPhysFBDriverLink;
@@ -140,6 +139,7 @@ type
     cdsRegistroEST_ULTIMO_ACESSO: TSQLTimeStampField;
     updRegistro: TFDUpdateSQL;
     dtsRegistro: TDataSource;
+    ACBrMail: TACBrMail;
     procedure DataModuleCreate(Sender: TObject);
     procedure fdScriptBeforeExecute(Sender: TObject);
     procedure fdScriptError(ASender: TObject; const AInitiator: IFDStanObject;

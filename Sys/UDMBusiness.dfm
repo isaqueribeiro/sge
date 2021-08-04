@@ -175,6 +175,7 @@ object DMBusiness: TDMBusiness
       'Port=3050'
       'Server=localhost'
       'DriverID=FB')
+    Connected = True
     LoginPrompt = False
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
@@ -1060,5 +1061,16 @@ object DMBusiness: TDMBusiness
     DataSet = cdsRegistro
     Left = 536
     Top = 480
+  end
+  object ACBrMail: TACBrMail
+    Host = '127.0.0.1'
+    Port = '25'
+    SetSSL = False
+    SetTLS = False
+    Attempts = 3
+    DefaultCharset = UTF_8
+    IDECharset = CP1252
+    Left = 112
+    Top = 456
   end
 end
