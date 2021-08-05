@@ -9,6 +9,7 @@ uses
   SGE.Model.DAO.Factory;
 
 type
+  // Table
   TControllerEmpresa = class(TController, IControllerCustom)
     private
     protected
@@ -18,6 +19,17 @@ type
       class function New : IControllerCustom;
   end;
 
+  // Table
+  TControllerConfiguracaoEmpresa = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
+  // View
   TControllerEmpresaView = class(TController, IControllerCustom)
     private
     protected
@@ -42,6 +54,23 @@ begin
 end;
 
 class function TControllerEmpresa.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerConfiguracaoEmpresa }
+
+constructor TControllerConfiguracaoEmpresa.Create;
+begin
+  inherited Create(TModelDAOFactory.New.ConfiguracaoEmpresa);
+end;
+
+destructor TControllerConfiguracaoEmpresa.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerConfiguracaoEmpresa.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

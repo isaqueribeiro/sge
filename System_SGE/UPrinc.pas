@@ -1088,7 +1088,7 @@ begin
   if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
     ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
   else
-    FormFunction.ShowModalForm(Self, 'frmGeConfiguracaoEmpresa');
+    FormFunction.ShowModalForm(Self, 'ViewConfiguracaoEmpresa');
 end;
 
 procedure TfrmPrinc.nmEstoqueMinimoClick(Sender: TObject);

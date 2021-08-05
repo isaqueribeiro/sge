@@ -63,7 +63,6 @@ uses
   UGrPadraoPesquisa in '..\Sys\lib\UGrPadraoPesquisa.pas' {frmGrPadraoPesquisa},
   UGeVendaItemPesquisa in '..\Sys\UGeVendaItemPesquisa.pas' {FrmGeVendaItemPesquisa},
   UGeProdutoRotatividadePRC in '..\Sys\UGeProdutoRotatividadePRC.pas' {FrmGeProdutoRotatividadePRC},
-  UGeConfiguracaoEmpresa in '..\Sys\UGeConfiguracaoEmpresa.pas' {frmGeConfiguracaoEmpresa},
   UGeInutilizarNumeroNFe in '..\Sys\UGeInutilizarNumeroNFe.pas' {frmGeInutilizarNumeroNFe},
   UGeProdutoEstoqueMinimo in 'UGeProdutoEstoqueMinimo.pas' {FrmGeProdutoEstoqueMinimo},
   UGeConsultarLoteNFe_v2 in 'UGeConsultarLoteNFe_v2.pas' {frmGeConsultarLoteNFe_v2},
@@ -250,7 +249,8 @@ uses
   View.TipoReceita in '..\Sys\View\View.TipoReceita.pas' {ViewTipoReceita},
   View.TipoDespesa in '..\Sys\View\View.TipoDespesa.pas' {ViewTipoDespesa},
   View.CentroCusto in '..\Sys\View\View.CentroCusto.pas' {ViewCentroCusto},
-  View.Empresa in '..\Sys\View\View.Empresa.pas' {ViewEmpresa};
+  View.Empresa in '..\Sys\View\View.Empresa.pas' {ViewEmpresa},
+  View.ConfiguracaoEmpresa in '..\Sys\View\View.ConfiguracaoEmpresa.pas' {ViewConfiguracaoEmpresa};
 
 {$R *.res}
 

@@ -214,8 +214,10 @@ begin
   AbrirTabelaAuto := True;
   FController.DAO.UpdateGenerator(EmptyStr);
 
-  TController(FControllerSegmento).LookupComboBox(dbSegmento, dtsSegmento, 'Segmento', 'seg_id', 'seg_descricao');
-  TController(FControllerTipoRegimeView).LookupComboBox(dbTipoRegime, dtsTipoRegimeNFe, 'Tipo_Regime_nfe', 'codigo', 'descricao');
+  TController(FControllerSegmento)
+    .LookupComboBox(dbSegmento, dtsSegmento, 'Segmento', 'seg_id', 'seg_descricao');
+  TController(FControllerTipoRegimeView)
+    .LookupComboBox(dbTipoRegime, dtsTipoRegimeNFe, 'Tipo_Regime_nfe', 'codigo', 'descricao');
 end;
 
 procedure TViewEmpresa.ProximoCampoKeyPress(Sender: TObject;

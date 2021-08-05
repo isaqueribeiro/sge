@@ -96,6 +96,17 @@ end;
 function TModelDAOFormaPagto.CreateLookupComboBoxList: IModelDAOCustom;
 begin
   Result := Self;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    f.cod          as codigo')
+        .Add('  , trim(f.descri) as descricao ')
+        .Add('  , lpad(f.cod, 2, ''0'') || '' - '' || trim(f.descri) as codigo_descricao ')
+        .Add('from TBFORMPAGTO f ')
+      .&End
+    .Open;
 end;
 
 procedure TModelDAOFormaPagto.DataSetNewRecord(DataSet: TDataSet);

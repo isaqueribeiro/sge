@@ -54,3 +54,16 @@ GRANT ALL ON SYS_CONFIG TO "PUBLIC";
 COMMENT ON COLUMN TBPRODUTO.CODUNIDADE IS
 'Unidade de Compra';
 
+
+
+
+/*------ SYSDBA 04/08/2021 22:28:06 --------*/
+
+COMMENT ON COLUMN TBCONFIGURACAO.ESTOQUE_UNICO_EMPRESAS IS
+'Trabalhar com estoque unificado de produtos entre as demais empresa:
+0 - Nao
+1 - Sim
+
+A empresa que possue esta flag marcada tem acesso a todos os dados de produtos e
+estoque das demais empresa.';
+

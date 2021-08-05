@@ -60,13 +60,12 @@ type
     pnlContaCorrente: TPanel;
     lblDicasTitulo: TLabel;
     lblDicasTexto: TLabel;
+    imgGrid: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure dbgContaCorrenteDblClick(Sender: TObject);
     procedure dbgContaCorrenteKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DtSrcTabelaStateChange(Sender: TObject);
-    procedure cdsContaCorrenteSelecionarGetText(Sender: TField;
-      var Text: String; DisplayText: Boolean);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -74,6 +73,8 @@ type
     procedure pgcGuiasChange(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnExcluirClick(Sender: TObject);
+    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
+      State: TGridDrawState);
   private
     { Private declarations }
     FControllerFormaPagtoContaCorrente,
@@ -179,7 +180,6 @@ begin
   if not cdsContaCorrente.Active then
   begin
     cdsContaCorrente.CreateDataSet;
-    cdsContaCorrente.FieldByName('selecionar').OnGetText := cdsContaCorrenteSelecionarGetText;
 
     // Preparar DataSet para a configuração dos campos
     TTabelaController.New
@@ -285,6 +285,39 @@ begin
     dbgContaCorrenteDblClick(Sender);
 end;
 
+procedure TViewFormaPagto.dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
+  State: TGridDrawState);
+var
+  aImage : Byte;
+begin
+  inherited;
+  if (Sender = dbgContaCorrente) then
+  begin
+
+    if (AnsiUpperCase(Column.Field.FieldName) = 'SELECIONAR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 10, Rect.Top + 1, aImage);
+    end
+    else
+    if (AnsiUpperCase(Column.Field.FieldName) = 'SELECIONAR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 10, Rect.Top + 1, aImage);
+    end
+    else
+    if (AnsiUpperCase(Column.Field.FieldName) = 'SELECIONAR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 10, Rect.Top + 1, aImage);
+    end;
+
+  end;
+end;
+
 procedure TViewFormaPagto.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
@@ -295,16 +328,6 @@ procedure TViewFormaPagto.DtSrcTabelaAfterScroll(DataSet: TDataSet);
 begin
   inherited;
   CarregarContaCorrente;
-end;
-
-procedure TViewFormaPagto.cdsContaCorrenteSelecionarGetText(
-  Sender: TField; var Text: String; DisplayText: Boolean);
-begin
-  if not Sender.IsNull then
-    Case Sender.AsInteger of
-      0 : Text := '.';
-      1 : Text := 'X';
-    end;
 end;
 
 procedure TViewFormaPagto.GravarRelacaoFormaConta;

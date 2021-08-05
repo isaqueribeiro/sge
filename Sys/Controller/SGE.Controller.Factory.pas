@@ -39,9 +39,10 @@ type
       FNivelIBPT    ,
       FEmpresa      ,
       FEmpresaView  ,
-      FContaCorrente,
-      FContaCorrenteView,
-      FFormaPagto       ,
+      FConfiguracaoEmpresa,
+      FContaCorrente      ,
+      FContaCorrenteView  ,
+      FFormaPagto         ,
       FFormaPagtoContaCorrente,
       FFormaPagtoNFCEView     ,
       FCondicaoPagto     ,
@@ -79,6 +80,7 @@ type
       function NivelIBPT : IControllerCustom;
       function Empresa : IControllerCustom;
       function EmpresaView : IControllerCustom;
+      function ConfiguracaoEmpresa : IControllerCustom;
       function ContaCorrente : IControllerCustom;
       function ContaCorrenteView : IControllerCustom;
       function FormaPagto : IControllerCustom;
@@ -247,6 +249,14 @@ begin
     FCondicaoPagtoView := TControllerCondicaoPagtoView.New;
 
   Result := FCondicaoPagtoView;
+end;
+
+function TControllerFactory.ConfiguracaoEmpresa: IControllerCustom;
+begin
+  if not Assigned(FConfiguracaoEmpresa) then
+    FConfiguracaoEmpresa := TControllerConfiguracaoEmpresa.New;
+
+  Result := FConfiguracaoEmpresa;
 end;
 
 function TControllerFactory.ContaCorrente: IControllerCustom;

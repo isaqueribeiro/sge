@@ -65,6 +65,10 @@ type
     Bevel7: TBevel;
     dbgPlanoContas: TDBGrid;
     lblRegistroDesativado: TLabel;
+    imgGrid: TImageList;
+    pnlDicas: TPanel;
+    lblDicasTitulo: TLabel;
+    lblDicasTexto: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);

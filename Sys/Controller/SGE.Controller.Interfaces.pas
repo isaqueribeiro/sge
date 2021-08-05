@@ -30,6 +30,7 @@ type
     function NivelIBPT : IControllerCustom;
     function Empresa : IControllerCustom;
     function EmpresaView : IControllerCustom;
+    function ConfiguracaoEmpresa : IControllerCustom;
     function ContaCorrente : IControllerCustom;
     function ContaCorrenteView : IControllerCustom;
     function FormaPagto : IControllerCustom;

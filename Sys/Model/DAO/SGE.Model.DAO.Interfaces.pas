@@ -78,6 +78,7 @@ type
     function NivelIBPT : IModelDAOCustom;
     function Empresa : IModelDAOCustom;
     function EmpresaView : IModelDAOCustom;
+    function ConfiguracaoEmpresa : IModelDAOCustom;
     function ContaCorrente : IModelDAOCustom;
     function ContaCorrenteView : IModelDAOCustom;
     function FormaPagto : IModelDAOCustom;

@@ -26,6 +26,22 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
+  // Table
+  TModelDAOConfiguracaoEmpresa = class(TModelDAO, IModelDAOCustom)
+    private
+      procedure SetProviderFlags;
+      procedure DataSetAfterOpen(DataSet: TDataSet);
+      procedure DataSetNewRecord(DataSet: TDataSet);
+      procedure DataSetBeforePost(DataSet: TDataSet);
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+  end;
+
   // View
   TModelDAOEmpresaView = class(TModelDAO, IModelDAOCustom)
     private
@@ -167,6 +183,172 @@ begin
     FieldByName('SEGMENTO').AsInteger     := SEGMENTO_PADRAO_ID;
     FieldByName('ATIVA').AsInteger        := FLAG_SIM;
   end;
+end;
+
+{ TModelDAOConfiguracaoEmpresa }
+
+constructor TModelDAOConfiguracaoEmpresa.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .TableName('TBCONFIGURACAO')
+      .KeyFields('empresa')
+      .SQL
+        .Clear
+        .Add('Select                              ')
+        .Add('    c.empresa                       ')
+        .Add('  , c.email_conta                   ')
+        .Add('  , c.email_senha                   ')
+        .Add('  , c.email_pop                     ')
+        .Add('  , c.email_smtp                    ')
+        .Add('  , c.email_smtp_porta              ')
+        .Add('  , c.email_requer_autenticacao     ')
+        .Add('  , c.email_conexao_ssl             ')
+        .Add('  , c.email_assunto_padrao          ')
+        .Add('  , c.email_mensagem_padrao         ')
+        .Add('  , c.cliente_permitir_duplicar_cnpj')
+        .Add('  , c.cliente_permitir_vf_cnpj      ')
+        .Add('  , c.custo_oper_calcular           ')
+        .Add('  , c.permitir_venda_estoque_ins    ')
+        .Add('  , c.venda_carrega_produto_ean     ')
+        .Add('  , c.venda_forma_pagto_cartacredito')
+        .Add('  , c.estoque_unico_empresas        ')
+        .Add('  , c.estoque_satelite_cliente      ')
+        .Add('  , c.autoriza_informa_cliente      ')
+        .Add('  , c.usuario                       ')
+        .Add('  , c.nfe_emitir                    ')
+        .Add('  , c.nfe_serie                     ')
+        .Add('  , c.nfe_numero                    ')
+        .Add('  , c.nfe_lote                      ')
+        .Add('  , c.nfe_carta_correcao            ')
+        .Add('  , c.nfe_emitir_entrada            ')
+        .Add('  , c.nfe_aceitar_nota_denegada     ')
+        .Add('  , c.nfe_solicita_dh_saida         ')
+        .Add('  , c.nfe_imprimir_cod_cliente      ')
+        .Add('  , c.nfe_imprimir_cod_referencia   ')
+        .Add('  , c.nfce_emitir                   ')
+        .Add('  , c.nfce_serie                    ')
+        .Add('  , c.nfce_numero                   ')
+        .Add('  , c.nfce_token_id                 ')
+        .Add('  , c.nfce_token                    ')
+        .Add('  , c.rps_serie                     ')
+        .Add('  , c.rps_numero                    ')
+        .Add('  , c.nfse_emitir                   ')
+        .Add('  , c.nfse_serie                    ')
+        .Add('  , c.nfse_numero                   ')
+        .Add('  , c.nfse_percentual_pis           ')
+        .Add('  , c.nfse_percentual_cofins        ')
+        .Add('  , c.nfse_percentual_csll          ')
+        .Add('  , c.nfse_percentual_issqn         ')
+        .Add('  , c.contador_codigo               ')
+        .Add('  , c.contador_cnpjcpf              ')
+        .Add('  , e.rzsoc                         ')
+        .Add('  , e.nmfant                        ')
+        .Add('  , f.nomeforn as contador_nome     ')
+        .Add('from TBCONFIGURACAO c               ')
+        .Add('  inner join TBEMPRESA e on (e.cnpj = c.empresa)')
+        .Add('  left join TBFORNECEDOR f on (f.codforn = c.contador_codigo)')
+      .&End
+    .OpenEmpty
+    .CloseEmpty;
+
+  FConn.Query.DataSet.AfterOpen    := DataSetAfterOpen;
+  FConn.Query.DataSet.OnNewRecord  := DataSetNewRecord;
+  FConn.Query.DataSet.BeforePost   := DataSetBeforePost;
+end;
+
+destructor TModelDAOConfiguracaoEmpresa.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOConfiguracaoEmpresa.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+procedure TModelDAOConfiguracaoEmpresa.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  SetProviderFlags;
+end;
+
+procedure TModelDAOConfiguracaoEmpresa.DataSetBeforePost(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+  begin
+    if (FieldByName('CONTADOR_CODIGO').AsInteger = 0) then
+      FieldByName('CONTADOR_CODIGO').Clear;
+
+    if (Trim(FieldByName('CONTADOR_CNPJCPF').AsString) = EmptyStr) then
+      FieldByName('CONTADOR_CNPJCPF').Clear;
+
+    if (Trim(FieldByName('CONTADOR_NOME').AsString) = EmptyStr) then
+      FieldByName('CONTADOR_NOME').Clear;
+  end;
+end;
+
+procedure TModelDAOConfiguracaoEmpresa.DataSetNewRecord(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+  begin
+    //FieldByName('EMPRESA').AsString            := gUsuarioLogado.Empresa;
+    FieldByName('EMPRESA').Clear;
+    FieldByName('EMAIL_SMTP_PORTA').AsInteger  := PORTA_SMTP_PADRAO;
+    FieldByName('EMAIL_REQUER_AUTENTICACAO').AsInteger := 0;
+    FieldByName('EMAIL_CONEXAO_SSL').AsInteger         := 0;
+
+    FieldByName('VENDA_CARREGA_PRODUTO_EAN').AsInteger := 0;
+
+    FieldByName('NFE_EMITIR').AsInteger                := 0;
+    FieldByName('NFE_EMITIR_ENTRADA').AsInteger        := 0;
+    FieldByName('NFCE_EMITIR').AsInteger               := 0;
+    FieldByName('NFSE_EMITIR').AsInteger               := 0;
+    FieldByName('NFE_ACEITAR_NOTA_DENEGADA').AsInteger := 1;
+    FieldByName('NFE_SOLICITA_DH_SAIDA').AsInteger     := 0;
+    FieldByName('NFE_IMPRIMIR_COD_CLIENTE').AsInteger  := 0;
+    FieldByName('NFE_IMPRIMIR_COD_REFERENCIA').AsInteger    := 0;
+    FieldByName('CLIENTE_PERMITIR_DUPLICAR_CNPJ').AsInteger := 0;
+    FieldByName('CLIENTE_PERMITIR_VF_CNPJ').AsInteger       := 0;
+    FieldByName('CUSTO_OPER_CALCULAR').AsInteger            := 0;
+    FieldByName('PERMITIR_VENDA_ESTOQUE_INS').AsInteger := 0;
+    FieldByName('ESTOQUE_UNICO_EMPRESAS').AsInteger     := 0;
+    FieldByName('ESTOQUE_SATELITE_CLIENTE').AsInteger   := 0;
+    FieldByName('AUTORIZA_INFORMA_CLIENTE').AsInteger   := 0;
+
+    FieldByName('RPS_SERIE').AsString                := '99';
+    FieldByName('RPS_NUMERO').AsCurrency             := 0;
+    FieldByName('NFSE_SERIE').AsString               := '99';
+    FieldByName('NFSE_NUMERO').AsCurrency            := 0;
+    FieldByName('NFSE_PERCENTUAL_PIS').AsCurrency    := 0.0;
+    FieldByName('NFSE_PERCENTUAL_COFINS').AsCurrency := 0.0;
+    FieldByName('NFSE_PERCENTUAL_CSLL').AsCurrency   := 0.0;
+    FieldByName('NFSE_PERCENTUAL_ISSQN').AsCurrency  := 0.0;
+
+    FieldByName('VENDA_FORMA_PAGTO_CARTACREDITO').Clear;
+
+    FieldByName('NFE_SERIE').Clear;
+    FieldByName('NFE_NUMERO').Clear;
+    FieldByName('NFE_LOTE').Clear;
+    FieldByName('NFE_CARTA_CORRECAO').Clear;
+
+    FieldByName('NFCE_SERIE').Clear;
+    FieldByName('NFCE_NUMERO').Clear;
+    FieldByName('NFCE_TOKEN_ID').Clear;
+    FieldByName('NFCE_TOKEN').Clear;
+
+    FieldByName('CONTADOR_CODIGO').Clear;
+    FieldByName('CONTADOR_CNPJCPF').Clear;
+    FieldByName('CONTADOR_NOME').Clear;
+  end;
+end;
+
+procedure TModelDAOConfiguracaoEmpresa.SetProviderFlags;
+begin
+  // Ignorar campos no Insert e Update
+  FConn.Query.DataSet.FieldByName('rzsoc').ProviderFlags  := [];
+  FConn.Query.DataSet.FieldByName('nmfant').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('contador_nome').ProviderFlags := [];
 end;
 
 { TModelDAOEmpresaView }

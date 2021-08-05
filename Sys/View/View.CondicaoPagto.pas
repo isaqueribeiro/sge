@@ -78,6 +78,7 @@ type
     lblDicasTexto: TLabel;
     dbgFormaPagto: TDBGrid;
     cdsFormaPagto: TClientDataSet;
+    imgGrid: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure dbgFormaPagtoDblClick(Sender: TObject);

@@ -39,9 +39,10 @@ type
       FNivelIBPT ,
       FEmpresaView,
       FEmpresa    ,
-      FContaCorrente     ,
-      FContaCorrenteView : IModelDAOCustom;
-      FFormaPagto ,
+      FConfiguracaoEmpresa,
+      FContaCorrente      ,
+      FContaCorrenteView  ,
+      FFormaPagto         ,
       FFormaPagtoContaCorrente,
       FFormaPagtoNFCEView     ,
       FCondicaoPagto     ,
@@ -79,6 +80,7 @@ type
       function NivelIBPT : IModelDAOCustom;
       function Empresa : IModelDAOCustom;
       function EmpresaView : IModelDAOCustom;
+      function ConfiguracaoEmpresa : IModelDAOCustom;
       function ContaCorrente : IModelDAOCustom;
       function ContaCorrenteView : IModelDAOCustom;
       function FormaPagto : IModelDAOCustom;
@@ -303,6 +305,14 @@ begin
     FCondicaoPagtoView := TModelDAOCondicaoPagtoView.New;
 
   Result := FCondicaoPagtoView;
+end;
+
+function TModelDAOFactory.ConfiguracaoEmpresa: IModelDAOCustom;
+begin
+  if not Assigned(FConfiguracaoEmpresa) then
+    FConfiguracaoEmpresa := TModelDAOConfiguracaoEmpresa.New;
+
+  Result := FConfiguracaoEmpresa;
 end;
 
 function TModelDAOFactory.ContaCorrente: IModelDAOCustom;

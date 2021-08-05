@@ -46,6 +46,7 @@ type
 
       procedure UpdateSequence(aGeneratorName, aTableName, aFielNameKey : String; const sWhr : String = '');
       procedure CreateFieldDefs;
+      procedure AllowEditAllFields;
 
       function ExistParamByName(aParamName : String) : Boolean;
     protected
@@ -215,6 +216,15 @@ begin
     Result := ID;
 end;
 
+procedure TConnectionFireDAC.AllowEditAllFields;
+var
+  I : Integer;
+begin
+  if FQuery.Active then
+    for I := 0 to Pred(FQuery.Fields.Count) do
+      FQuery.Fields[I].ReadOnly := False; // Liberar edição dos campos
+end;
+
 procedure TConnectionFireDAC.ApplyUpdates;
 begin
   FQuery.ApplyUpdates(0);
@@ -244,6 +254,8 @@ begin
   FQuery.SQL.Add( FScript.OrderBy );
   FQuery.SQL.EndUpdate;
   FQuery.ExecSQL;
+
+  AllowEditAllFields;
 end;
 
 function TConnectionFireDAC.ExistParamByName(aParamName: String): Boolean;
@@ -289,6 +301,7 @@ begin
   FQuery.Open;
 
   SetupKeyFields;
+  AllowEditAllFields;
 end;
 
 function TConnectionFireDAC.OpenEmpty: IConnection<TConnectionFireDAC>;
@@ -314,6 +327,8 @@ begin
   FQuery.SQL.EndUpdate;
 
   Result := FQuery.OpenOrExecute;
+
+  AllowEditAllFields;
 
   if (FQuery.RecordCount > 0) then
     SetupKeyFields;
