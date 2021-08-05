@@ -711,7 +711,7 @@ inherited ViewEmpresa: TViewEmpresa
         Top = 237
         Width = 739
         Height = 117
-        ActivePage = tbsInforme
+        ActivePage = tbsContato
         Align = alClient
         TabOrder = 2
         object tbsContato: TTabSheet
@@ -1021,7 +1021,7 @@ inherited ViewEmpresa: TViewEmpresa
   object ppmLogo: TPopupMenu
     Images = ImgList
     Left = 664
-    Top = 257
+    Top = 9
     object ppmCarregarImagem: TMenuItem
       Caption = 'Carregar Imagem'
       OnClick = ppmCarregarImagemClick
@@ -1035,7 +1035,7 @@ inherited ViewEmpresa: TViewEmpresa
     Filter = 'Imagens BMP (*.bmp)|*.bmp'
     Title = 'Selecionar Arquivo de Imagem'
     Left = 696
-    Top = 257
+    Top = 9
   end
   object dtsTipoRegimeNFe: TDataSource
     Left = 536
