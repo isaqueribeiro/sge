@@ -4,104 +4,120 @@ interface
 
 uses
   SGE.Model.DAO.Interfaces,
-  SGE.Model.DAO.UF,
-  SGE.Model.DAO.Cidade,
-  SGE.Model.DAO.Distrito,
   SGE.Model.DAO.Bairro,
-  SGE.Model.DAO.TipoLogradouro,
-  SGE.Model.DAO.Logradouro,
-  SGE.Model.DAO.CST,
-  SGE.Model.DAO.CFOP,
-  SGE.Model.DAO.IBPT,
-  SGE.Model.DAO.Empresa,
-  SGE.Model.DAO.ContaCorrente,
-  SGE.Model.DAO.FormaPagto,
-  SGE.Model.DAO.CondicaoPagto,
-  SGE.Model.DAO.PlanoConta,
-  SGE.Model.DAO.TipoReceita,
-  SGE.Model.DAO.TipoDespesa,
   SGE.Model.DAO.CentroCusto,
-  SGE.Model.DAO.Tabelas;
+  SGE.Model.DAO.CFOP,
+  SGE.Model.DAO.Cidade,
+  SGE.Model.DAO.Cliente,
+  SGE.Model.DAO.CondicaoPagto,
+  SGE.Model.DAO.ContaCorrente,
+  SGE.Model.DAO.CST,
+  SGE.Model.DAO.Distrito,
+  SGE.Model.DAO.Empresa,
+  SGE.Model.DAO.FormaPagto,
+  SGE.Model.DAO.IBPT,
+  SGE.Model.DAO.Logradouro,
+  SGE.Model.DAO.PlanoConta,
+  SGE.Model.DAO.Tabelas,
+  SGE.Model.DAO.TipoDespesa,
+  SGE.Model.DAO.TipoLogradouro,
+  SGE.Model.DAO.TipoReceita,
+  SGE.Model.DAO.UF,
+  SGE.Model.DAO.Vendedor;
 
 type
   TModelDAOFactory = class(TInterfacedObject, IModelDAOFactory)
     private
       FUF       ,
-      FCidade   ,
-      FDistrito ,
       FBairro   ,
-      FTipoLogradouro,
-      FLogradouro    ,
-      FCST  ,
-      FCFOP ,
-      FIBPT ,
-      FTabelaIBPT,
-      FNivelIBPT ,
-      FEmpresaView,
-      FEmpresa    ,
+      FBancoFebrabanView ,
+      FCentroCusto       ,
+      FCentroCustoEmpresa,
+      FCFOP         ,
+      FCidade       ,
+      FClasseDespesa,
+      FClasseReceita,
+      FCliente      ,
+      FClienteTitulos     ,
+      FClienteTotalCompras,
+      FCondicaoPagto      ,
+      FCondicaoPagtoForma ,
+      FCondicaoPagtoView  ,
       FConfiguracaoEmpresa,
       FContaCorrente      ,
       FContaCorrenteView  ,
-      FFormaPagto         ,
+      FCST        ,
+      FDistrito   ,
+      FEmpresa    ,
+      FEmpresaView,
+      FFormaPagto ,
       FFormaPagtoContaCorrente,
       FFormaPagtoNFCEView     ,
-      FCondicaoPagto     ,
-      FCondicaoPagtoForma,
-      FCondicaoPagtoView ,
+      FIBPT           ,
+      FLogradouro     ,
+      FNivelIBPT      ,
       FPlanoConta     ,
       FPlanoContaNivel,
       FPlanoContaTipo ,
+      FSegmento       ,
+      FTabelaIBPT     ,
+      FTipoCNPJView   ,
+      FTipoComissaoView,
+      FTipoDespesa     ,
+      FTipoDespesaPlanoConta,
+      FTipoLogradouro ,
       FTipoReceita    ,
       FTipoReceitaPlanoConta,
-      FClasseReceita,
-      FTipoDespesa  ,
-      FTipoDespesaPlanoConta,
-      FClasseDespesa,
-      FCentroCusto  ,
-      FCentroCustoEmpresa,
-      FSegmento       ,
-      FTipoRegimeView : IModelDAOCustom;
+      FTipoRegimeView,
+      FVendedor      : IModelDAOCustom;
     protected
       constructor Create;
     public
       destructor Destroy; override;
       class function New : IModelDAOFactory;
 
-      function UF       : IModelDAOCustom;
-      function Cidade   : IModelDAOCustom;
-      function Distrito : IModelDAOCustom;
       function Bairro   : IModelDAOCustom;
-      function TipoLogradouro : IModelDAOCustom;
-      function Logradouro : IModelDAOCustom;
-      function CST : IModelDAOCustom;
+      function BancoFebrabanView : IModelDAOCustom;
+      function CentroCusto : IModelDAOCustom;
+      function CentroCustoEmpresa : IModelDAOCustom;
       function CFOP : IModelDAOCustom;
-      function IBPT : IModelDAOCustom;
-      function TabelaIBPT : IModelDAOCustom;
-      function NivelIBPT : IModelDAOCustom;
-      function Empresa : IModelDAOCustom;
-      function EmpresaView : IModelDAOCustom;
-      function ConfiguracaoEmpresa : IModelDAOCustom;
-      function ContaCorrente : IModelDAOCustom;
-      function ContaCorrenteView : IModelDAOCustom;
-      function FormaPagto : IModelDAOCustom;
-      function FormaPagtoContaCorrente : IModelDAOCustom;
-      function FormaPagtoNFCEView : IModelDAOCustom;
+      function Cidade   : IModelDAOCustom;
+      function ClasseDespesa : IModelDAOCustom;
+      function ClasseReceita : IModelDAOCustom;
+      function Cliente : IModelDAOCustom;
+      function ClienteTitulos : IModelDAOCustom;
+      function ClienteTotalCompras : IModelDAOCustom;
       function CondicaoPagto : IModelDAOCustom;
       function CondicaoPagtoForma : IModelDAOCustom;
       function CondicaoPagtoView : IModelDAOCustom;
+      function ConfiguracaoEmpresa : IModelDAOCustom;
+      function ContaCorrente : IModelDAOCustom;
+      function ContaCorrenteView : IModelDAOCustom;
+      function CST : IModelDAOCustom;
+      function Distrito : IModelDAOCustom;
+      function Empresa : IModelDAOCustom;
+      function EmpresaView : IModelDAOCustom;
+      function FormaPagto : IModelDAOCustom;
+      function FormaPagtoContaCorrente : IModelDAOCustom;
+      function FormaPagtoNFCEView : IModelDAOCustom;
+      function IBPT : IModelDAOCustom;
+      function Logradouro : IModelDAOCustom;
+      function NivelIBPT : IModelDAOCustom;
       function PlanoConta : IModelDAOCustom;
       function PlanoContaNivel : IModelDAOCustom;
       function PlanoContaTipo : IModelDAOCustom;
-      function TipoReceita : IModelDAOCustom;
-      function TipoReceitaPlanoConta : IModelDAOCustom;
-      function ClasseReceita : IModelDAOCustom;
+      function Segmento : IModelDAOCustom;
+      function TabelaIBPT : IModelDAOCustom;
+      function TipoCNPJView : IModelDAOCustom;
+      function TipoComissaoView : IModelDAOCustom;
       function TipoDespesa : IModelDAOCustom;
       function TipoDespesaPlanoConta : IModelDAOCustom;
-      function ClasseDespesa : IModelDAOCustom;
-      function CentroCusto : IModelDAOCustom;
-      function CentroCustoEmpresa : IModelDAOCustom;
-      function Segmento : IModelDAOCustom;
+      function TipoLogradouro : IModelDAOCustom;
+      function TipoReceita : IModelDAOCustom;
+      function TipoReceitaPlanoConta : IModelDAOCustom;
       function TipoRegimeView : IModelDAOCustom;
+      function UF       : IModelDAOCustom;
+      function Vendedor : IModelDAOCustom;
   end;
 
 implementation
@@ -179,6 +195,22 @@ begin
   Result := FTabelaIBPT;
 end;
 
+function TModelDAOFactory.TipoCNPJView: IModelDAOCustom;
+begin
+  if not Assigned(FTipoCNPJView) then
+    FTipoCNPJView := TModelDAOTipoCNPJView.New;
+
+  Result := FTipoCNPJView;
+end;
+
+function TModelDAOFactory.TipoComissaoView: IModelDAOCustom;
+begin
+  if not Assigned(FTipoComissaoView) then
+    FTipoComissaoView := TModelDAOTipoComissaoView.New;
+
+  Result := FTipoComissaoView;
+end;
+
 function TModelDAOFactory.TipoDespesa: IModelDAOCustom;
 begin
   if not Assigned(FTipoDespesa) then
@@ -235,6 +267,14 @@ begin
   Result := FBairro;
 end;
 
+function TModelDAOFactory.BancoFebrabanView: IModelDAOCustom;
+begin
+  if not Assigned(FBancoFebrabanView) then
+    FBancoFebrabanView := TModelDAOBancoFebrabanView.New;
+
+  Result := FBancoFebrabanView;
+end;
+
 function TModelDAOFactory.CentroCusto: IModelDAOCustom;
 begin
   if not Assigned(FCentroCusto) then
@@ -281,6 +321,30 @@ begin
     FClasseReceita := TModelDAOClasseReceita.New;
 
   Result := FClasseReceita;
+end;
+
+function TModelDAOFactory.Cliente: IModelDAOCustom;
+begin
+  if not Assigned(FCliente) then
+    FCliente := TModelDAOCliente.New;
+
+  Result := FCliente;
+end;
+
+function TModelDAOFactory.ClienteTitulos: IModelDAOCustom;
+begin
+  if not Assigned(FClienteTitulos) then
+    FClienteTitulos := TModelDAOClienteTitulos.New;
+
+  Result := FClienteTitulos;
+end;
+
+function TModelDAOFactory.ClienteTotalCompras: IModelDAOCustom;
+begin
+  if not Assigned(FClienteTotalCompras) then
+    FClienteTotalCompras := TModelDAOClienteTotalCompras.New;
+
+  Result := FClienteTotalCompras;
 end;
 
 function TModelDAOFactory.CondicaoPagto: IModelDAOCustom;
@@ -401,6 +465,14 @@ begin
     FUF := TModelDAOUF.New;
 
   Result := FUF;
+end;
+
+function TModelDAOFactory.Vendedor: IModelDAOCustom;
+begin
+  if not Assigned(FVendedor) then
+    FVendedor := TModelDAOVendedor.New;
+
+  Result := FVendedor;
 end;
 
 end.

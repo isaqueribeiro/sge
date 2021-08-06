@@ -22,6 +22,9 @@ inherited ViewFormaPagto: TViewFormaPagto
     OnChange = pgcGuiasChange
     ExplicitHeight = 368
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 727
       ExplicitHeight = 339
       inherited Bevel4: TBevel
         Top = 273
@@ -98,6 +101,9 @@ inherited ViewFormaPagto: TViewFormaPagto
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 727
       ExplicitHeight = 339
       inherited Bevel8: TBevel
         Top = 153
@@ -352,7 +358,7 @@ inherited ViewFormaPagto: TViewFormaPagto
               FieldName = 'selecionar'
               Title.Alignment = taCenter
               Title.Caption = 'S'
-              Width = 30
+              Width = 25
               Visible = True
             end
             item

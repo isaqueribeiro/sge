@@ -13,6 +13,11 @@ uses
   JvDBControls, Datasnap.DBClient, Datasnap.Provider, IBX.IBQuery, ACBrBase,
   ACBrExtenso, frxClass, frxDBSet,
 
+  SGE.Controller.Interfaces,
+  SGE.Controller.Factory,
+  SGE.Controller,
+  SGE.Controller.Helper,
+
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
@@ -109,7 +114,6 @@ type
     fdQryEmpresa: TFDQuery;
     fdQryCondicaoPagto: TFDQuery;
     fdQryCompetencia: TFDQuery;
-    fdQryTipoReceita: TFDQuery;
     fdQryFormaPagto: TFDQuery;
     fdQryBanco: TFDQuery;
     fdQryRecibo: TFDQuery;
@@ -196,6 +200,7 @@ type
     fdQryTabelaPERCENTDESCONTO: TCurrencyField;
     CdsReciboVALORREC: TFMTBCDField;
     CdsReciboVALOR_BAIXA: TFMTBCDField;
+    fdQryTipoReceita: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -226,6 +231,7 @@ type
     procedure fdQryTabelaBAIXADOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
+    FControllerTipoReceita : IControllerCustom;
     FDataAtual     : TDateTime;
     sGeneratorName ,
     FLoteParcelas  : String;
@@ -321,7 +327,8 @@ begin
   sGeneratorName := 'GEN_CONTAREC_NUM_' + FormatFloat('0000', YearOf(Date));
   CriarGenerator(sGeneratorName, 0);
 
-  SetTipoReceitaPadrao;
+  FControllerTipoReceita := TControllerFactory.New.TipoReceita;
+  TController(FControllerTipoReceita).LookupComboBox(dbTipoReceita, dtsTpReceita, 'codtprec', 'codigo', 'descricao');
 
   with fdQryTabela.UpdateOptions do
   begin

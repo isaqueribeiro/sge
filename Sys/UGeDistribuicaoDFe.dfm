@@ -5,8 +5,8 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Distribui'#231#227'o DF-e'
-  ClientHeight = 535
-  ClientWidth = 1000
+  ClientHeight = 577
+  ClientWidth = 1073
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,7 +20,7 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
   object Bevel1: TBevel
     Left = 0
     Top = 79
-    Width = 1000
+    Width = 1073
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -31,7 +31,7 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 994
+    Width = 1067
     Height = 73
     Align = alTop
     Caption = 'Empresa'
@@ -42,8 +42,9 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 994
     DesignSize = (
-      994
+      1067
       73)
     object lblCNPJEmpresa: TLabel
       Left = 16
@@ -94,7 +95,7 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
     object dbRazaoSocialEmpresa: TDBEdit
       Left = 184
       Top = 40
-      Width = 794
+      Width = 867
       Height = 21
       TabStop = False
       Anchors = [akLeft, akTop, akRight]
@@ -109,20 +110,23 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
       ParentFont = False
       ReadOnly = True
       TabOrder = 1
+      ExplicitWidth = 794
     end
   end
   object PanelBotoes: TPanel
     Left = 0
-    Top = 492
-    Width = 1000
+    Top = 534
+    Width = 1073
     Height = 43
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitTop = 492
+    ExplicitWidth = 1000
     object Bevel3: TBevel
       Left = 0
       Top = 0
-      Width = 1000
+      Width = 1073
       Height = 4
       Align = alTop
       Shape = bsSpacer
@@ -131,7 +135,7 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
     end
     object btnConfirmar: TcxButton
       AlignWithMargins = True
-      Left = 807
+      Left = 880
       Top = 7
       Width = 92
       Height = 33
@@ -141,10 +145,11 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
       OptionsImage.Images = DMRecursos.ImgPrincipal16x16
       TabOrder = 0
       OnClick = btnConfirmarClick
+      ExplicitLeft = 807
     end
     object btFechar: TcxButton
       AlignWithMargins = True
-      Left = 905
+      Left = 978
       Top = 7
       Width = 92
       Height = 33
@@ -155,15 +160,18 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
       OptionsImage.ImageIndex = 15
       OptionsImage.Images = DMRecursos.ImgBotoes16x16
       TabOrder = 1
+      ExplicitLeft = 905
     end
   end
   object GrdDocumentos: TcxGrid
     Left = 0
     Top = 83
-    Width = 1000
-    Height = 409
+    Width = 1073
+    Height = 451
     Align = alClient
     TabOrder = 1
+    ExplicitWidth = 1000
+    ExplicitHeight = 409
     object GrdDocumentosDBTableView: TcxGridDBBandedTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dtsDocumentos
@@ -231,7 +239,7 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
         Options.Filtering = False
         Width = 330
         Position.BandIndex = 2
-        Position.ColIndex = 2
+        Position.ColIndex = 3
         Position.RowIndex = 0
       end
       object GrdDocumentosDBTableViewSerie: TcxGridDBBandedColumn
@@ -262,16 +270,16 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
         Options.Filtering = False
         Width = 120
         Position.BandIndex = 2
-        Position.ColIndex = 3
+        Position.ColIndex = 4
         Position.RowIndex = 0
       end
       object GrdDocumentosDBTableViewNSU: TcxGridDBBandedColumn
         DataBinding.FieldName = 'NSU'
         LayoutItem = GrdDocumentosDBTableViewLayoutItem8.Owner
         Options.Filtering = False
-        Width = 120
+        Width = 100
         Position.BandIndex = 2
-        Position.ColIndex = 4
+        Position.ColIndex = 0
         Position.RowIndex = 0
       end
       object GrdDocumentosDBTableViewEmissao: TcxGridDBBandedColumn
@@ -318,7 +326,7 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
         LayoutItem = GrdDocumentosDBTableViewLayoutItem11.Owner
         Width = 70
         Position.BandIndex = 2
-        Position.ColIndex = 0
+        Position.ColIndex = 1
         Position.RowIndex = 0
       end
       object GrdDocumentosDBTableViewSituacao: TcxGridDBBandedColumn
@@ -346,7 +354,7 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
         LayoutItem = GrdDocumentosDBTableViewLayoutItem12.Owner
         Width = 100
         Position.BandIndex = 2
-        Position.ColIndex = 1
+        Position.ColIndex = 2
         Position.RowIndex = 0
       end
       object GrdDocumentosDBTableViewRootGroup: TcxGridInplaceEditFormGroup

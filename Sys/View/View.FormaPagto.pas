@@ -298,21 +298,21 @@ begin
     begin
       aImage := Column.Field.AsInteger;
       TDBGrid(Sender).Canvas.FillRect(Rect);
-      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 10, Rect.Top + 1, aImage);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 5, Rect.Top + 1, aImage);
     end
     else
     if (AnsiUpperCase(Column.Field.FieldName) = 'SELECIONAR') then
     begin
       aImage := Column.Field.AsInteger;
       TDBGrid(Sender).Canvas.FillRect(Rect);
-      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 10, Rect.Top + 1, aImage);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 5, Rect.Top + 1, aImage);
     end
     else
     if (AnsiUpperCase(Column.Field.FieldName) = 'SELECIONAR') then
     begin
       aImage := Column.Field.AsInteger;
       TDBGrid(Sender).Canvas.FillRect(Rect);
-      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 10, Rect.Top + 1, aImage);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 5, Rect.Top + 1, aImage);
     end;
 
   end;

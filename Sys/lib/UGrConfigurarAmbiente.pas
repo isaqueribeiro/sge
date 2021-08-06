@@ -11,6 +11,11 @@ uses
   cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
   ACBrBase, ACBrPosPrinter,
 
+  SGE.Controller.Interfaces,
+  SGE.Controller.Factory,
+  SGE.Controller,
+  SGE.Controller.Helper,
+
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Green,
   dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
@@ -95,6 +100,7 @@ type
     procedure chkOrcamentoEmitirClick(Sender: TObject);
   private
     { Private declarations }
+    FControllerVendedor : IControllerCustom;
     procedure CarregarDadosINI;
     procedure GravarDadosINI;
   public
@@ -140,7 +146,7 @@ var
   I : Integer;
 begin
   inherited;
-  SetVendedorPadrao;
+  FControllerVendedor := TControllerFactory.New.Vendedor;
 
   PgcConfiguracao.ActivePage := TbsGeral;
 
@@ -343,7 +349,13 @@ begin
     else
     if edVendedor.Focused then
     begin
-      edVendedorNome.Text := GetVendedorNome( StrToIntDef(edVendedor.Text, 0) );
+      FControllerVendedor.DAO.DataSet.Close;
+      FControllerVendedor.DAO.ClearWhere;
+      FControllerVendedor.DAO
+        .Where('v.Cod = ' + StrToIntDef(edVendedor.Text, 0).ToString)
+        .Open;
+
+      edVendedorNome.Text := FControllerVendedor.DAO.DataSet.FieldByName('nome').AsString;
       Perform(WM_NEXTDLGCTL, 0, 0);
     end;
   end;

@@ -12,6 +12,11 @@ uses
   frxClass, frxDBSet, Menus, IBQuery, ClipBrd, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, cxButtons, JvExMask, JvToolEdit, JvDBControls,
 
+  SGE.Controller.Interfaces,
+  SGE.Controller.Factory,
+  SGE.Controller,
+  SGE.Controller.Helper,
+
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
@@ -218,7 +223,6 @@ type
     cdsCondicaoPagto: TClientDataSet;
     lblLoteProduto: TLabel;
     dbLoteProduto: TDBLookupComboBox;
-    fdQryVendedor: TFDQuery;
     fdQryLotes: TFDQuery;
     dtsLotes: TDataSource;
     Bevel18: TBevel;
@@ -532,6 +536,8 @@ type
     procedure FrReciboA4GetValue(const VarName: string; var Value: Variant);
   private
     { Private declarations }
+    FControllerTipoReceita,
+    FControllerVendedor   : IControllerCustom;
     sGeneratorName : String;
     iSeq : Integer;
     SQL_Itens     ,
@@ -684,8 +690,9 @@ begin
     para "LOTE_NFE_RECIBO"
 *)
   Desativar_Promocoes;
-  SetTipoReceitaPadrao;
-  SetVendedorPadrao;
+  FControllerTipoReceita := TControllerFactory.New.TipoReceita;
+  FControllerVendedor    := TControllerFactory.New.Vendedor;
+  TController(FControllerVendedor).LookupComboBox(dbVendedor, dtsVendedor, 'vendedor_cod', 'codigo', 'nome');
 
   sGeneratorName := 'GEN_VENDAS_CONTROLE_' + FormatFloat('0000', YearOf(GetDateDB));
   CriarGenerator(sGeneratorName, 0);
@@ -714,7 +721,6 @@ begin
   ControlFirstEdit := dbEmpresa;
 
   CarregarLista(fdQryEmpresa);
-  CarregarLista(fdQryVendedor);
   CarregarLista(cdsFormaPagto);
   CarregarLista(cdsCondicaoPagto);
   CarregarLista(fdQryModalidadeFrete);
@@ -887,7 +893,8 @@ begin
   inherited;
   pgcMaisDados.ActivePageIndex := 0;
 
-  fdQryVendedor.Filtered      := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
+  FControllerVendedor.DAO.DataSet.Filtered := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
+
   DtSrcTabelaItens.AutoEdit   := DtSrcTabela.AutoEdit and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger < STATUS_VND_FIN );
   dtsVendaFormaPagto.AutoEdit := DtSrcTabela.AutoEdit and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger < STATUS_VND_FIN );
   DtSrcTabelaItensStateChange( DtSrcTabelaItens );

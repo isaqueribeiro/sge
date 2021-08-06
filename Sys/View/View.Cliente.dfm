@@ -1,6 +1,7 @@
-inherited frmGeCliente: TfrmGeCliente
+inherited ViewCliente: TViewCliente
   Left = 400
   Top = 237
+  ActiveControl = dbCodigo
   Caption = 'Cadastro de Clientes'
   ClientHeight = 535
   ClientWidth = 844
@@ -25,10 +26,13 @@ inherited frmGeCliente: TfrmGeCliente
   inherited pgcGuias: TPageControl
     Width = 844
     Height = 492
+    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 844
     ExplicitHeight = 492
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 463
       inherited Bevel4: TBevel
@@ -83,12 +87,13 @@ inherited frmGeCliente: TfrmGeCliente
         ExplicitTop = 401
         ExplicitWidth = 836
         object Bevel6: TBevel [0]
-          Left = 460
+          Left = 456
           Top = 4
           Width = 4
           Height = 54
           Align = alRight
           Shape = bsSpacer
+          ExplicitLeft = 460
         end
         object lblClienteDesativado: TLabel [1]
           Left = 2
@@ -106,13 +111,10 @@ inherited frmGeCliente: TfrmGeCliente
           Visible = False
         end
         inherited grpBxFiltro: TGroupBox
-          Left = 464
-          Width = 368
-          ExplicitLeft = 464
-          ExplicitWidth = 368
-          DesignSize = (
-            368
-            54)
+          Left = 460
+          Width = 372
+          ExplicitLeft = 460
+          ExplicitWidth = 372
           inherited lbltFiltrar: TLabel
             Width = 42
             Caption = 'Cliente:'
@@ -121,14 +123,15 @@ inherited frmGeCliente: TfrmGeCliente
           end
           inherited edtFiltrar: TEdit
             Left = 167
-            Width = 152
+            Width = 158
             TabOrder = 2
             ExplicitLeft = 167
-            ExplicitWidth = 152
+            ExplicitWidth = 158
+            ExplicitHeight = 23
           end
           inherited btnFiltrar: TcxButton
-            Left = 323
-            ExplicitLeft = 323
+            Left = 331
+            ExplicitLeft = 327
           end
           object CmbBxFiltrarTipo: TComboBox
             Left = 8
@@ -150,7 +153,7 @@ inherited frmGeCliente: TfrmGeCliente
         object GrpBxBloqueio: TGroupBox
           Left = 4
           Top = 4
-          Width = 456
+          Width = 452
           Height = 54
           Align = alClient
           Font.Charset = ANSI_CHARSET
@@ -160,13 +163,15 @@ inherited frmGeCliente: TfrmGeCliente
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 1
+          ExplicitWidth = 456
           object Bevel7: TBevel
-            Left = 450
+            Left = 446
             Top = 15
             Width = 4
             Height = 37
             Align = alRight
             Shape = bsSpacer
+            ExplicitLeft = 450
           end
           object Bevel9: TBevel
             Left = 2
@@ -179,7 +184,7 @@ inherited frmGeCliente: TfrmGeCliente
           object dbmMotivoBloqueio: TDBMemo
             Left = 6
             Top = 15
-            Width = 444
+            Width = 440
             Height = 37
             Hint = 'O cliente encontra-se bloqueado por haver t'#237'tulos em atraso.'
             TabStop = False
@@ -195,6 +200,7 @@ inherited frmGeCliente: TfrmGeCliente
             ScrollBars = ssVertical
             ShowHint = True
             TabOrder = 0
+            ExplicitWidth = 444
           end
         end
       end
@@ -2309,7 +2315,7 @@ inherited frmGeCliente: TfrmGeCliente
             Height = 21
             Color = clMoneyGreen
             DataField = 'VALOR_COMPRAS_ABERTAS'
-            DataSource = cdsTotalComprasAbertas
+            DataSource = dtsTotalComprasAbertas
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -2326,7 +2332,7 @@ inherited frmGeCliente: TfrmGeCliente
             Height = 21
             Color = clMoneyGreen
             DataField = 'VALOR_LIMITE_DISPONIVEL'
-            DataSource = cdsTotalComprasAbertas
+            DataSource = dtsTotalComprasAbertas
             Font.Charset = ANSI_CHARSET
             Font.Color = clWindowText
             Font.Height = -11
@@ -3642,912 +3648,16 @@ inherited frmGeCliente: TfrmGeCliente
       OnClick = BtBtnProcessoClick
     end
   end
-  inherited IbDtstTabela: TIBDataSet
-    SelectSQL.Strings = (
-      'Select'
-      '    cl.Codigo'
-      '  , cl.Pessoa_fisica'
-      '  , cl.Cnpj'
-      '  , cl.Tipo'
-      '  , cl.Nome'
-      '  , cl.NomeFant'
-      '  , cl.Inscest'
-      '  , cl.Inscmun'
-      '  , cl.Ender'
-      '  , cl.Complemento'
-      '  , cl.Numero_end'
-      '  , cl.Bairro'
-      '  , cl.Cep'
-      '  , cl.Cidade'
-      '  , cl.Uf'
-      '  , cl.Fone'
-      '  , cl.FoneCel'
-      '  , cl.FoneComerc'
-      '  , cl.Tlg_tipo'
-      '  , cl.Log_cod'
-      '  , cl.Bai_cod'
-      '  , cl.Cid_cod'
-      '  , cl.Est_cod'
-      '  , cl.Email'
-      '  , cl.Site'
-      '  , cl.Pais_id'
-      '  , cl.Valor_limite_compra'
-      '  , cl.Vendedor_cod'
-      '  , coalesce(cl.DtCad, current_date) as DtCad'
-      '  , cl.Bloqueado'
-      '  , cl.Bloqueado_data'
-      '  , cl.Bloqueado_motivo'
-      '  , cl.Bloqueado_usuario'
-      '  , cl.Bloqueado_automatico'
-      '  , cl.DesBloqueado_data'
-      '  , cl.Usuario'
-      '  , cl.emitir_nfe_devolucao'
-      '  , cl.custo_oper_percentual'
-      '  , cl.custo_oper_frete'
-      '  , cl.custo_oper_outros'
-      '  , cl.entrega_fracionada_venda'
-      '  , cl.banco'
-      '  , cl.agencia'
-      '  , cl.cc'
-      '  , cl.praca'
-      '  , cl.banco_2'
-      '  , cl.agencia_2'
-      '  , cl.cc_2'
-      '  , cl.praca_2'
-      '  , cl.banco_3'
-      '  , cl.agencia_3'
-      '  , cl.cc_3'
-      '  , cl.praca_3'
-      '  , cl.observacao'
-      '  , cl.ativo'
-      
-        '  , coalesce( cast(coalesce(coalesce(t.Tlg_sigla, t.Tlg_descrica' +
-        'o) || '#39' '#39', '#39#39') || l.Log_nome as varchar(250)), cl.Ender ) as Log' +
-        'radouro'
-      '  , coalesce(c.Cid_nome, cl.Cidade) as Cid_nome'
-      '  , coalesce(u.Est_nome, cl.Uf) as Est_nome'
-      '  , p.Pais_nome'
-      'from TBCLIENTE cl'
-      '  left join TBTIPO_LOGRADOURO t on (t.Tlg_cod = cl.Tlg_tipo)'
-      '  left join TBLOGRADOURO l on (l.Log_cod = cl.Log_cod)'
-      '  left join TBCIDADE c on (c.Cid_cod = cl.Cid_cod)'
-      '  left join TBESTADO u on (u.Est_cod = cl.Est_cod)'
-      '  left join TBPAIS p on (p.Pais_id = cl.Pais_id)')
-    GeneratorField.Field = 'CODIGO'
-    GeneratorField.Generator = 'GEN_CLIENTE_ID'
-  end
   inherited DtSrcTabela: TDataSource
-    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
-  end
-  inherited IbUpdTabela: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  CODIGO,'
-      '  TIPO,'
-      '  PESSOA_FISICA,'
-      '  CNPJ,'
-      '  NOME,'
-      '  NOMEFANT,'
-      '  INSCEST,'
-      '  INSCMUN,'
-      '  ENDER,'
-      '  COMPLEMENTO,'
-      '  BAIRRO,'
-      '  CEP,'
-      '  CIDADE,'
-      '  UF,'
-      '  FONE,'
-      '  FONECEL,'
-      '  FONECOMERC,'
-      '  EMAIL,'
-      '  SITE,'
-      '  TLG_TIPO,'
-      '  LOG_COD,'
-      '  BAI_COD,'
-      '  CID_COD,'
-      '  EST_COD,'
-      '  NUMERO_END,'
-      '  PAIS_ID,'
-      '  VALOR_LIMITE_COMPRA,'
-      '  BLOQUEADO,'
-      '  BLOQUEADO_DATA,'
-      '  BLOQUEADO_MOTIVO,'
-      '  BLOQUEADO_USUARIO,'
-      '  BLOQUEADO_AUTOMATICO,'
-      '  DESBLOQUEADO_DATA,'
-      '  VENDEDOR_COD,'
-      '  USUARIO,'
-      '  EMITIR_NFE_DEVOLUCAO,'
-      '  CUSTO_OPER_PERCENTUAL,'
-      '  CUSTO_OPER_FRETE,'
-      '  CUSTO_OPER_OUTROS,'
-      '  ENTREGA_FRACIONADA_VENDA,'
-      '  BANCO,'
-      '  AGENCIA,'
-      '  CC,'
-      '  PRACA,'
-      '  BANCO_2,'
-      '  AGENCIA_2,'
-      '  CC_2,'
-      '  PRACA_2,'
-      '  BANCO_3,'
-      '  AGENCIA_3,'
-      '  CC_3,'
-      '  PRACA_3,'
-      '  OBSERVACAO,'
-      '  DTCAD,'
-      '  ATIVO'
-      'from TBCLIENTE '
-      'where'
-      '  CODIGO = :CODIGO')
-    ModifySQL.Strings = (
-      'update TBCLIENTE'
-      'set'
-      '  AGENCIA = :AGENCIA,'
-      '  AGENCIA_2 = :AGENCIA_2,'
-      '  AGENCIA_3 = :AGENCIA_3,'
-      '  ATIVO = :ATIVO,'
-      '  BAI_COD = :BAI_COD,'
-      '  BAIRRO = :BAIRRO,'
-      '  BANCO = :BANCO,'
-      '  BANCO_2 = :BANCO_2,'
-      '  BANCO_3 = :BANCO_3,'
-      '  BLOQUEADO = :BLOQUEADO,'
-      '  BLOQUEADO_AUTOMATICO = :BLOQUEADO_AUTOMATICO,'
-      '  BLOQUEADO_DATA = :BLOQUEADO_DATA,'
-      '  BLOQUEADO_MOTIVO = :BLOQUEADO_MOTIVO,'
-      '  BLOQUEADO_USUARIO = :BLOQUEADO_USUARIO,'
-      '  CC = :CC,'
-      '  CC_2 = :CC_2,'
-      '  CC_3 = :CC_3,'
-      '  CEP = :CEP,'
-      '  CID_COD = :CID_COD,'
-      '  CIDADE = :CIDADE,'
-      '  CNPJ = :CNPJ,'
-      '  CODIGO = :CODIGO,'
-      '  COMPLEMENTO = :COMPLEMENTO,'
-      '  CUSTO_OPER_FRETE = :CUSTO_OPER_FRETE,'
-      '  CUSTO_OPER_OUTROS = :CUSTO_OPER_OUTROS,'
-      '  CUSTO_OPER_PERCENTUAL = :CUSTO_OPER_PERCENTUAL,'
-      '  DESBLOQUEADO_DATA = :DESBLOQUEADO_DATA,'
-      '  DTCAD = :DTCAD,'
-      '  EMAIL = :EMAIL,'
-      '  EMITIR_NFE_DEVOLUCAO = :EMITIR_NFE_DEVOLUCAO,'
-      '  ENDER = :ENDER,'
-      '  ENTREGA_FRACIONADA_VENDA = :ENTREGA_FRACIONADA_VENDA,'
-      '  EST_COD = :EST_COD,'
-      '  FONE = :FONE,'
-      '  FONECEL = :FONECEL,'
-      '  FONECOMERC = :FONECOMERC,'
-      '  INSCEST = :INSCEST,'
-      '  INSCMUN = :INSCMUN,'
-      '  LOG_COD = :LOG_COD,'
-      '  NOME = :NOME,'
-      '  NOMEFANT = :NOMEFANT,'
-      '  NUMERO_END = :NUMERO_END,'
-      '  OBSERVACAO = :OBSERVACAO,'
-      '  PAIS_ID = :PAIS_ID,'
-      '  PESSOA_FISICA = :PESSOA_FISICA,'
-      '  PRACA = :PRACA,'
-      '  PRACA_2 = :PRACA_2,'
-      '  PRACA_3 = :PRACA_3,'
-      '  SITE = :SITE,'
-      '  TIPO = :TIPO,'
-      '  TLG_TIPO = :TLG_TIPO,'
-      '  UF = :UF,'
-      '  USUARIO = :USUARIO,'
-      '  VALOR_LIMITE_COMPRA = :VALOR_LIMITE_COMPRA,'
-      '  VENDEDOR_COD = :VENDEDOR_COD'
-      'where'
-      '  CODIGO = :OLD_CODIGO')
-    InsertSQL.Strings = (
-      'insert into TBCLIENTE'
-      
-        '  (AGENCIA, AGENCIA_2, AGENCIA_3, ATIVO, BAI_COD, BAIRRO, BANCO,' +
-        ' BANCO_2, '
-      
-        '   BANCO_3, BLOQUEADO, BLOQUEADO_AUTOMATICO, BLOQUEADO_DATA, BLO' +
-        'QUEADO_MOTIVO, '
-      
-        '   BLOQUEADO_USUARIO, CC, CC_2, CC_3, CEP, CID_COD, CIDADE, CNPJ' +
-        ', CODIGO, '
-      
-        '   COMPLEMENTO, CUSTO_OPER_FRETE, CUSTO_OPER_OUTROS, CUSTO_OPER_' +
-        'PERCENTUAL, '
-      
-        '   DESBLOQUEADO_DATA, DTCAD, EMAIL, EMITIR_NFE_DEVOLUCAO, ENDER,' +
-        ' ENTREGA_FRACIONADA_VENDA, '
-      
-        '   EST_COD, FONE, FONECEL, FONECOMERC, INSCEST, INSCMUN, LOG_COD' +
-        ', NOME, '
-      
-        '   NOMEFANT, NUMERO_END, OBSERVACAO, PAIS_ID, PESSOA_FISICA, PRA' +
-        'CA, PRACA_2, '
-      
-        '   PRACA_3, SITE, TIPO, TLG_TIPO, UF, USUARIO, VALOR_LIMITE_COMP' +
-        'RA, VENDEDOR_COD)'
-      'values'
-      
-        '  (:AGENCIA, :AGENCIA_2, :AGENCIA_3, :ATIVO, :BAI_COD, :BAIRRO, ' +
-        ':BANCO, '
-      
-        '   :BANCO_2, :BANCO_3, :BLOQUEADO, :BLOQUEADO_AUTOMATICO, :BLOQU' +
-        'EADO_DATA, '
-      
-        '   :BLOQUEADO_MOTIVO, :BLOQUEADO_USUARIO, :CC, :CC_2, :CC_3, :CE' +
-        'P, :CID_COD, '
-      
-        '   :CIDADE, :CNPJ, :CODIGO, :COMPLEMENTO, :CUSTO_OPER_FRETE, :CU' +
-        'STO_OPER_OUTROS, '
-      
-        '   :CUSTO_OPER_PERCENTUAL, :DESBLOQUEADO_DATA, :DTCAD, :EMAIL, :' +
-        'EMITIR_NFE_DEVOLUCAO, '
-      
-        '   :ENDER, :ENTREGA_FRACIONADA_VENDA, :EST_COD, :FONE, :FONECEL,' +
-        ' :FONECOMERC, '
-      
-        '   :INSCEST, :INSCMUN, :LOG_COD, :NOME, :NOMEFANT, :NUMERO_END, ' +
-        ':OBSERVACAO, '
-      
-        '   :PAIS_ID, :PESSOA_FISICA, :PRACA, :PRACA_2, :PRACA_3, :SITE, ' +
-        ':TIPO, '
-      
-        '   :TLG_TIPO, :UF, :USUARIO, :VALOR_LIMITE_COMPRA, :VENDEDOR_COD' +
-        ')')
-    DeleteSQL.Strings = (
-      'delete from TBCLIENTE'
-      'where'
-      '  CODIGO = :OLD_CODIGO')
+    Left = 528
+    Top = 0
   end
   inherited ImgList: TImageList
-    Left = 552
+    Left = 496
+    Top = 0
   end
-  inherited fdQryTabela: TFDQuery
-    BeforePost = fdQryTabelaBeforePost
-    AfterScroll = fdQryTabelaAfterScroll
-    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
-    UpdateOptions.FetchGeneratorsPoint = gpImmediate
-    UpdateOptions.GeneratorName = 'GEN_CLIENTE_ID'
-    UpdateOptions.KeyFields = 'CODIGO'
-    UpdateOptions.AutoIncFields = 'CODIGO'
-    SQL.Strings = (
-      'Select'
-      '    cl.Codigo'
-      '  , cl.Pessoa_fisica'
-      '  , cl.Cnpj'
-      '  , cl.Tipo'
-      '  , cl.Nome'
-      '  , cl.NomeFant'
-      '  , cl.Inscest'
-      '  , cl.Inscmun'
-      '  , cl.Ender'
-      '  , cl.Complemento'
-      '  , cl.Numero_end'
-      '  , cl.Bairro'
-      '  , cl.Cep'
-      '  , cl.Cidade'
-      '  , cl.Uf'
-      '  , cl.Fone'
-      '  , cl.FoneCel'
-      '  , cl.FoneComerc'
-      '  , cl.Tlg_tipo'
-      '  , cl.Log_cod'
-      '  , cl.Bai_cod'
-      '  , cl.Cid_cod'
-      '  , cl.Est_cod'
-      '  , cl.Email'
-      '  , cl.Site'
-      '  , cl.Pais_id'
-      '  , cl.Valor_limite_compra'
-      '  , cl.Vendedor_cod'
-      '  , cl.DtCad'
-      '  , cl.Bloqueado'
-      '  , cl.Bloqueado_data'
-      '  , cl.Bloqueado_motivo'
-      '  , cl.Bloqueado_usuario'
-      '  , cl.Bloqueado_automatico'
-      '  , cl.DesBloqueado_data'
-      '  , cl.Usuario'
-      '  , cl.emitir_nfe_devolucao'
-      '  , cl.custo_oper_percentual'
-      '  , cl.custo_oper_frete'
-      '  , cl.custo_oper_outros'
-      '  , cl.entrega_fracionada_venda'
-      '  , cl.banco'
-      '  , cl.agencia'
-      '  , cl.cc'
-      '  , cl.praca'
-      '  , cl.banco_2'
-      '  , cl.agencia_2'
-      '  , cl.cc_2'
-      '  , cl.praca_2'
-      '  , cl.banco_3'
-      '  , cl.agencia_3'
-      '  , cl.cc_3'
-      '  , cl.praca_3'
-      '  , cl.observacao'
-      '  , cl.ativo'
-      
-        '  , coalesce( cast(coalesce(coalesce(t.Tlg_sigla, t.Tlg_descrica' +
-        'o) || '#39' '#39', '#39#39') || l.Log_nome as varchar(250)), cl.Ender ) as Log' +
-        'radouro'
-      '  , coalesce(c.Cid_nome, cl.Cidade) as Cid_nome'
-      '  , coalesce(u.Est_nome, cl.Uf) as Est_nome'
-      '  , p.Pais_nome'
-      '  , coalesce(est.produtos,  0) as produtos'
-      '  , coalesce(est.valores, 0.0) as valores'
-      'from TBCLIENTE cl'
-      '  left join TBTIPO_LOGRADOURO t on (t.Tlg_cod = cl.Tlg_tipo)'
-      '  left join TBLOGRADOURO l on (l.Log_cod = cl.Log_cod)'
-      '  left join TBCIDADE c on (c.Cid_cod = cl.Cid_cod)'
-      '  left join TBESTADO u on (u.Est_cod = cl.Est_cod)'
-      '  left join TBPAIS p on (p.Pais_id = cl.Pais_id)'
-      '  left join ('
-      '    Select'
-      '        x.cod_cliente'
-      '      , count(x.cod_produto) as produtos'
-      '      , sum(x.quantidade * x.valor_medio) as valores'
-      '    from TBCLIENTE_ESTOQUE x'
-      '    where (x.cod_cliente <> 1)'
-      '      and (x.quantidade > 0.0)'
-      '    group by'
-      '        x.cod_cliente'
-      '  ) est on (est.cod_cliente = cl.codigo)')
-    object fdQryTabelaCODIGO: TIntegerField
-      AutoGenerateValue = arAutoInc
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-    end
-    object fdQryTabelaPESSOA_FISICA: TSmallintField
-      DisplayLabel = 'Pessoa F'#237'sica'
-      FieldName = 'PESSOA_FISICA'
-      Origin = 'PESSOA_FISICA'
-      Required = True
-    end
-    object fdQryTabelaCNPJ: TStringField
-      FieldName = 'CNPJ'
-      Origin = 'CNPJ'
-      Required = True
-      Size = 18
-    end
-    object fdQryTabelaTIPO: TSmallintField
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO'
-      Origin = 'TIPO'
-      Required = True
-    end
-    object fdQryTabelaNOME: TStringField
-      DisplayLabel = 'Nome / Raz'#227'o Social'
-      FieldName = 'NOME'
-      Origin = 'NOME'
-      Required = True
-      Size = 100
-    end
-    object fdQryTabelaNOMEFANT: TStringField
-      DisplayLabel = 'Nome Fantasia'
-      FieldName = 'NOMEFANT'
-      Origin = 'NOMEFANT'
-      Size = 100
-    end
-    object fdQryTabelaINSCEST: TStringField
-      DisplayLabel = 'RG / Inscri'#231#227'o Estadual'
-      FieldName = 'INSCEST'
-      Origin = 'INSCEST'
-    end
-    object fdQryTabelaINSCMUN: TStringField
-      DisplayLabel = 'Inscri'#231#227'o Estadual'
-      FieldName = 'INSCMUN'
-      Origin = 'INSCMUN'
-    end
-    object fdQryTabelaENDER: TStringField
-      DisplayLabel = 'Endere'#231'o'
-      FieldName = 'ENDER'
-      Origin = 'ENDER'
-      Size = 250
-    end
-    object fdQryTabelaCOMPLEMENTO: TStringField
-      DisplayLabel = 'Complemento'
-      FieldName = 'COMPLEMENTO'
-      Origin = 'COMPLEMENTO'
-      Size = 50
-    end
-    object fdQryTabelaNUMERO_END: TStringField
-      DisplayLabel = 'N'#250'mero'
-      FieldName = 'NUMERO_END'
-      Origin = 'NUMERO_END'
-      Required = True
-      Size = 10
-    end
-    object fdQryTabelaBAIRRO: TStringField
-      DisplayLabel = 'Bairro'
-      FieldName = 'BAIRRO'
-      Origin = 'BAIRRO'
-      Size = 100
-    end
-    object fdQryTabelaCEP: TStringField
-      FieldName = 'CEP'
-      Origin = 'CEP'
-      Required = True
-      Size = 8
-    end
-    object fdQryTabelaCIDADE: TStringField
-      DisplayLabel = 'Cidade'
-      FieldName = 'CIDADE'
-      Origin = 'CIDADE'
-      Required = True
-      Size = 30
-    end
-    object fdQryTabelaUF: TStringField
-      FieldName = 'UF'
-      Origin = 'UF'
-      FixedChar = True
-      Size = 2
-    end
-    object fdQryTabelaFONE: TStringField
-      DisplayLabel = 'Telefone Fixo'
-      FieldName = 'FONE'
-      Origin = 'FONE'
-      EditMask = '!\(00\)0000-0000;0; '
-      Size = 11
-    end
-    object fdQryTabelaFONECEL: TStringField
-      DisplayLabel = 'Telefone Celular'
-      FieldName = 'FONECEL'
-      Origin = 'FONECEL'
-      EditMask = '!\(00\)00000-0000;0; '
-      Size = 11
-    end
-    object fdQryTabelaFONECOMERC: TStringField
-      DisplayLabel = 'Telefone Comercial'
-      FieldName = 'FONECOMERC'
-      Origin = 'FONECOMERC'
-      EditMask = '!\(00\)0000-0000;0; '
-      Size = 11
-    end
-    object fdQryTabelaTLG_TIPO: TSmallintField
-      DisplayLabel = 'Tipo End.'
-      FieldName = 'TLG_TIPO'
-      Origin = 'TLG_TIPO'
-    end
-    object fdQryTabelaLOG_COD: TIntegerField
-      DisplayLabel = 'Logradouro'
-      FieldName = 'LOG_COD'
-      Origin = 'LOG_COD'
-    end
-    object fdQryTabelaBAI_COD: TIntegerField
-      DisplayLabel = 'Bairro'
-      FieldName = 'BAI_COD'
-      Origin = 'BAI_COD'
-    end
-    object fdQryTabelaCID_COD: TIntegerField
-      DisplayLabel = 'Cidade'
-      FieldName = 'CID_COD'
-      Origin = 'CID_COD'
-    end
-    object fdQryTabelaEST_COD: TSmallintField
-      DisplayLabel = 'Estado'
-      FieldName = 'EST_COD'
-      Origin = 'EST_COD'
-    end
-    object fdQryTabelaEMAIL: TStringField
-      DisplayLabel = 'E-mail'
-      FieldName = 'EMAIL'
-      Origin = 'EMAIL'
-      Size = 60
-    end
-    object fdQryTabelaSITE: TStringField
-      DisplayLabel = 'Home page'
-      FieldName = 'SITE'
-      Origin = 'SITE'
-      Size = 40
-    end
-    object fdQryTabelaPAIS_ID: TStringField
-      DisplayLabel = 'Pa'#237's'
-      FieldName = 'PAIS_ID'
-      Origin = 'PAIS_ID'
-      Size = 5
-    end
-    object fdQryTabelaVALOR_LIMITE_COMPRA: TFMTBCDField
-      DisplayLabel = 'Valor Limite p/ Compra'
-      FieldName = 'VALOR_LIMITE_COMPRA'
-      Origin = 'VALOR_LIMITE_COMPRA'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaVENDEDOR_COD: TIntegerField
-      DisplayLabel = 'Vendedor repons'#225'vel'
-      FieldName = 'VENDEDOR_COD'
-      Origin = 'VENDEDOR_COD'
-    end
-    object fdQryTabelaBLOQUEADO: TSmallintField
-      FieldName = 'BLOQUEADO'
-      Origin = 'BLOQUEADO'
-      Required = True
-    end
-    object fdQryTabelaBLOQUEADO_DATA: TDateField
-      FieldName = 'BLOQUEADO_DATA'
-      Origin = 'BLOQUEADO_DATA'
-    end
-    object fdQryTabelaBLOQUEADO_MOTIVO: TMemoField
-      FieldName = 'BLOQUEADO_MOTIVO'
-      Origin = 'BLOQUEADO_MOTIVO'
-      BlobType = ftMemo
-    end
-    object fdQryTabelaBLOQUEADO_USUARIO: TStringField
-      FieldName = 'BLOQUEADO_USUARIO'
-      Origin = 'BLOQUEADO_USUARIO'
-      Size = 50
-    end
-    object fdQryTabelaBLOQUEADO_AUTOMATICO: TSmallintField
-      FieldName = 'BLOQUEADO_AUTOMATICO'
-      Origin = 'BLOQUEADO_AUTOMATICO'
-      Required = True
-    end
-    object fdQryTabelaDESBLOQUEADO_DATA: TDateField
-      FieldName = 'DESBLOQUEADO_DATA'
-      Origin = 'DESBLOQUEADO_DATA'
-    end
-    object fdQryTabelaUSUARIO: TStringField
-      FieldName = 'USUARIO'
-      Origin = 'USUARIO'
-      Size = 50
-    end
-    object fdQryTabelaEMITIR_NFE_DEVOLUCAO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'EMITIR_NFE_DEVOLUCAO'
-      Origin = 'EMITIR_NFE_DEVOLUCAO'
-    end
-    object fdQryTabelaCUSTO_OPER_PERCENTUAL: TSmallintField
-      FieldName = 'CUSTO_OPER_PERCENTUAL'
-      Origin = 'CUSTO_OPER_PERCENTUAL'
-    end
-    object fdQryTabelaCUSTO_OPER_FRETE: TBCDField
-      FieldName = 'CUSTO_OPER_FRETE'
-      Origin = 'CUSTO_OPER_FRETE'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-    end
-    object fdQryTabelaCUSTO_OPER_OUTROS: TBCDField
-      FieldName = 'CUSTO_OPER_OUTROS'
-      Origin = 'CUSTO_OPER_OUTROS'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-    end
-    object fdQryTabelaENTREGA_FRACIONADA_VENDA: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'ENTREGA_FRACIONADA_VENDA'
-      Origin = 'ENTREGA_FRACIONADA_VENDA'
-      Required = True
-    end
-    object fdQryTabelaBANCO: TStringField
-      DisplayLabel = 'Banco (1)'
-      FieldName = 'BANCO'
-      Origin = 'BANCO'
-      Size = 10
-    end
-    object fdQryTabelaAGENCIA: TStringField
-      DisplayLabel = 'Ag'#234'ncia (1)'
-      FieldName = 'AGENCIA'
-      Origin = 'AGENCIA'
-      Size = 10
-    end
-    object fdQryTabelaCC: TStringField
-      DisplayLabel = 'N'#250'mero da Conta (1)'
-      FieldName = 'CC'
-      Origin = 'CC'
-      Size = 10
-    end
-    object fdQryTabelaPRACA: TStringField
-      DisplayLabel = 'Pra'#231'a de Cobran'#231'a'
-      FieldName = 'PRACA'
-      Origin = 'PRACA'
-      Size = 250
-    end
-    object fdQryTabelaBANCO_2: TStringField
-      DisplayLabel = 'Banco (2)'
-      FieldName = 'BANCO_2'
-      Origin = 'BANCO_2'
-      Size = 10
-    end
-    object fdQryTabelaAGENCIA_2: TStringField
-      DisplayLabel = 'Ag'#234'ncia (2)'
-      FieldName = 'AGENCIA_2'
-      Origin = 'AGENCIA_2'
-      Size = 10
-    end
-    object fdQryTabelaCC_2: TStringField
-      DisplayLabel = 'N'#250'mero da Conta (2)'
-      FieldName = 'CC_2'
-      Origin = 'CC_2'
-      Size = 10
-    end
-    object fdQryTabelaPRACA_2: TStringField
-      FieldName = 'PRACA_2'
-      Origin = 'PRACA_2'
-      Size = 250
-    end
-    object fdQryTabelaBANCO_3: TStringField
-      DisplayLabel = 'Banco (3)'
-      FieldName = 'BANCO_3'
-      Origin = 'BANCO_3'
-      Size = 10
-    end
-    object fdQryTabelaAGENCIA_3: TStringField
-      DisplayLabel = 'Ag'#234'ncia (3)'
-      FieldName = 'AGENCIA_3'
-      Origin = 'AGENCIA_3'
-      Size = 10
-    end
-    object fdQryTabelaCC_3: TStringField
-      DisplayLabel = 'N'#250'mero da Conta (3)'
-      FieldName = 'CC_3'
-      Origin = 'CC_3'
-      Size = 10
-    end
-    object fdQryTabelaPRACA_3: TStringField
-      FieldName = 'PRACA_3'
-      Origin = 'PRACA_3'
-      Size = 250
-    end
-    object fdQryTabelaOBSERVACAO: TMemoField
-      DisplayLabel = 'Observa'#231#245'es'
-      FieldName = 'OBSERVACAO'
-      Origin = 'OBSERVACAO'
-      BlobType = ftMemo
-    end
-    object fdQryTabelaATIVO: TSmallintField
-      FieldName = 'ATIVO'
-      Origin = 'ATIVO'
-      Required = True
-    end
-    object fdQryTabelaLOGRADOURO: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Logradouro'
-      FieldName = 'LOGRADOURO'
-      Origin = 'LOGRADOURO'
-      ProviderFlags = []
-      Size = 250
-    end
-    object fdQryTabelaCID_NOME: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CID_NOME'
-      Origin = 'CID_NOME'
-      ProviderFlags = []
-      Size = 100
-    end
-    object fdQryTabelaEST_NOME: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'EST_NOME'
-      Origin = 'EST_NOME'
-      ProviderFlags = []
-      Size = 100
-    end
-    object fdQryTabelaPAIS_NOME: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'PAIS_NOME'
-      Origin = 'PAIS_NOME'
-      ProviderFlags = []
-      Size = 150
-    end
-    object fdQryTabelaPRODUTOS: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'PRODUTOS'
-      Origin = 'PRODUTOS'
-      ProviderFlags = []
-    end
-    object fdQryTabelaVALORES: TFMTBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALORES'
-      Origin = 'VALORES'
-      ProviderFlags = []
-      Precision = 18
-      Size = 7
-    end
-    object fdQryTabelaDTCAD: TDateField
-      DisplayLabel = 'Data Cadastro'
-      FieldName = 'DTCAD'
-      Origin = 'DTCAD'
-      Required = True
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-  end
-  inherited fdUpdTabela: TFDUpdateSQL
-    InsertSQL.Strings = (
-      'INSERT INTO TBCLIENTE'
-      '(CODIGO, TIPO, PESSOA_FISICA, CNPJ, NOME, '
-      '  NOMEFANT, INSCEST, INSCMUN, ENDER, COMPLEMENTO, '
-      '  BAIRRO, CEP, CIDADE, UF, FONE, '
-      '  FONECEL, FONECOMERC, EMAIL, SITE, TLG_TIPO, '
-      '  LOG_COD, BAI_COD, CID_COD, EST_COD, '
-      '  NUMERO_END, PAIS_ID, VALOR_LIMITE_COMPRA, '
-      '  BLOQUEADO, BLOQUEADO_DATA, BLOQUEADO_MOTIVO, '
-      '  BLOQUEADO_USUARIO, BLOQUEADO_AUTOMATICO, DESBLOQUEADO_DATA, '
-      '  VENDEDOR_COD, USUARIO, EMITIR_NFE_DEVOLUCAO, '
-      '  CUSTO_OPER_PERCENTUAL, CUSTO_OPER_FRETE, CUSTO_OPER_OUTROS, '
-      '  ENTREGA_FRACIONADA_VENDA, BANCO, AGENCIA, '
-      '  CC, PRACA, BANCO_2, AGENCIA_2, CC_2, '
-      '  PRACA_2, BANCO_3, AGENCIA_3, CC_3, PRACA_3, '
-      '  OBSERVACAO, DTCAD, ATIVO)'
-      
-        'VALUES (:NEW_CODIGO, :NEW_TIPO, :NEW_PESSOA_FISICA, :NEW_CNPJ, :' +
-        'NEW_NOME, '
-      
-        '  :NEW_NOMEFANT, :NEW_INSCEST, :NEW_INSCMUN, :NEW_ENDER, :NEW_CO' +
-        'MPLEMENTO, '
-      '  :NEW_BAIRRO, :NEW_CEP, :NEW_CIDADE, :NEW_UF, :NEW_FONE, '
-      
-        '  :NEW_FONECEL, :NEW_FONECOMERC, :NEW_EMAIL, :NEW_SITE, :NEW_TLG' +
-        '_TIPO, '
-      '  :NEW_LOG_COD, :NEW_BAI_COD, :NEW_CID_COD, :NEW_EST_COD, '
-      '  :NEW_NUMERO_END, :NEW_PAIS_ID, :NEW_VALOR_LIMITE_COMPRA, '
-      '  :NEW_BLOQUEADO, :NEW_BLOQUEADO_DATA, :NEW_BLOQUEADO_MOTIVO, '
-      
-        '  :NEW_BLOQUEADO_USUARIO, :NEW_BLOQUEADO_AUTOMATICO, :NEW_DESBLO' +
-        'QUEADO_DATA, '
-      '  :NEW_VENDEDOR_COD, :NEW_USUARIO, :NEW_EMITIR_NFE_DEVOLUCAO, '
-      
-        '  :NEW_CUSTO_OPER_PERCENTUAL, :NEW_CUSTO_OPER_FRETE, :NEW_CUSTO_' +
-        'OPER_OUTROS, '
-      '  :NEW_ENTREGA_FRACIONADA_VENDA, :NEW_BANCO, :NEW_AGENCIA, '
-      '  :NEW_CC, :NEW_PRACA, :NEW_BANCO_2, :NEW_AGENCIA_2, :NEW_CC_2, '
-      
-        '  :NEW_PRACA_2, :NEW_BANCO_3, :NEW_AGENCIA_3, :NEW_CC_3, :NEW_PR' +
-        'ACA_3, '
-      '  :NEW_OBSERVACAO, :NEW_DTCAD, :NEW_ATIVO)'
-      'RETURNING CODIGO, DTCAD')
-    ModifySQL.Strings = (
-      'UPDATE TBCLIENTE'
-      
-        'SET CODIGO = :NEW_CODIGO, TIPO = :NEW_TIPO, PESSOA_FISICA = :NEW' +
-        '_PESSOA_FISICA, '
-      '  CNPJ = :NEW_CNPJ, NOME = :NEW_NOME, NOMEFANT = :NEW_NOMEFANT, '
-      
-        '  INSCEST = :NEW_INSCEST, INSCMUN = :NEW_INSCMUN, ENDER = :NEW_E' +
-        'NDER, '
-      
-        '  COMPLEMENTO = :NEW_COMPLEMENTO, BAIRRO = :NEW_BAIRRO, CEP = :N' +
-        'EW_CEP, '
-      
-        '  CIDADE = :NEW_CIDADE, UF = :NEW_UF, FONE = :NEW_FONE, FONECEL ' +
-        '= :NEW_FONECEL, '
-      
-        '  FONECOMERC = :NEW_FONECOMERC, EMAIL = :NEW_EMAIL, SITE = :NEW_' +
-        'SITE, '
-      
-        '  TLG_TIPO = :NEW_TLG_TIPO, LOG_COD = :NEW_LOG_COD, BAI_COD = :N' +
-        'EW_BAI_COD, '
-      
-        '  CID_COD = :NEW_CID_COD, EST_COD = :NEW_EST_COD, NUMERO_END = :' +
-        'NEW_NUMERO_END, '
-      
-        '  PAIS_ID = :NEW_PAIS_ID, VALOR_LIMITE_COMPRA = :NEW_VALOR_LIMIT' +
-        'E_COMPRA, '
-      
-        '  BLOQUEADO = :NEW_BLOQUEADO, BLOQUEADO_DATA = :NEW_BLOQUEADO_DA' +
-        'TA, '
-      
-        '  BLOQUEADO_MOTIVO = :NEW_BLOQUEADO_MOTIVO, BLOQUEADO_USUARIO = ' +
-        ':NEW_BLOQUEADO_USUARIO, '
-      
-        '  BLOQUEADO_AUTOMATICO = :NEW_BLOQUEADO_AUTOMATICO, DESBLOQUEADO' +
-        '_DATA = :NEW_DESBLOQUEADO_DATA, '
-      '  VENDEDOR_COD = :NEW_VENDEDOR_COD, USUARIO = :NEW_USUARIO, '
-      
-        '  EMITIR_NFE_DEVOLUCAO = :NEW_EMITIR_NFE_DEVOLUCAO, CUSTO_OPER_P' +
-        'ERCENTUAL = :NEW_CUSTO_OPER_PERCENTUAL, '
-      
-        '  CUSTO_OPER_FRETE = :NEW_CUSTO_OPER_FRETE, CUSTO_OPER_OUTROS = ' +
-        ':NEW_CUSTO_OPER_OUTROS, '
-      '  ENTREGA_FRACIONADA_VENDA = :NEW_ENTREGA_FRACIONADA_VENDA, '
-      '  BANCO = :NEW_BANCO, AGENCIA = :NEW_AGENCIA, CC = :NEW_CC, '
-      
-        '  PRACA = :NEW_PRACA, BANCO_2 = :NEW_BANCO_2, AGENCIA_2 = :NEW_A' +
-        'GENCIA_2, '
-      
-        '  CC_2 = :NEW_CC_2, PRACA_2 = :NEW_PRACA_2, BANCO_3 = :NEW_BANCO' +
-        '_3, '
-      
-        '  AGENCIA_3 = :NEW_AGENCIA_3, CC_3 = :NEW_CC_3, PRACA_3 = :NEW_P' +
-        'RACA_3, '
-      
-        '  OBSERVACAO = :NEW_OBSERVACAO, DTCAD = :NEW_DTCAD, ATIVO = :NEW' +
-        '_ATIVO'
-      'WHERE CODIGO = :OLD_CODIGO'
-      'RETURNING CODIGO, DTCAD')
-    DeleteSQL.Strings = (
-      'DELETE FROM TBCLIENTE'
-      'WHERE CODIGO = :OLD_CODIGO')
-    FetchRowSQL.Strings = (
-      'Select'
-      '    cl.Codigo'
-      '  , cl.Pessoa_fisica'
-      '  , cl.Cnpj'
-      '  , cl.Tipo'
-      '  , cl.Nome'
-      '  , cl.NomeFant'
-      '  , cl.Inscest'
-      '  , cl.Inscmun'
-      '  , cl.Ender'
-      '  , cl.Complemento'
-      '  , cl.Numero_end'
-      '  , cl.Bairro'
-      '  , cl.Cep'
-      '  , cl.Cidade'
-      '  , cl.Uf'
-      '  , cl.Fone'
-      '  , cl.FoneCel'
-      '  , cl.FoneComerc'
-      '  , cl.Tlg_tipo'
-      '  , cl.Log_cod'
-      '  , cl.Bai_cod'
-      '  , cl.Cid_cod'
-      '  , cl.Est_cod'
-      '  , cl.Email'
-      '  , cl.Site'
-      '  , cl.Pais_id'
-      '  , cl.Valor_limite_compra'
-      '  , cl.Vendedor_cod'
-      '  , cl.DtCad'
-      '  , cl.Bloqueado'
-      '  , cl.Bloqueado_data'
-      '  , cl.Bloqueado_motivo'
-      '  , cl.Bloqueado_usuario'
-      '  , cl.Bloqueado_automatico'
-      '  , cl.DesBloqueado_data'
-      '  , cl.Usuario'
-      '  , cl.emitir_nfe_devolucao'
-      '  , cl.custo_oper_percentual'
-      '  , cl.custo_oper_frete'
-      '  , cl.custo_oper_outros'
-      '  , cl.entrega_fracionada_venda'
-      '  , cl.banco'
-      '  , cl.agencia'
-      '  , cl.cc'
-      '  , cl.praca'
-      '  , cl.banco_2'
-      '  , cl.agencia_2'
-      '  , cl.cc_2'
-      '  , cl.praca_2'
-      '  , cl.banco_3'
-      '  , cl.agencia_3'
-      '  , cl.cc_3'
-      '  , cl.praca_3'
-      '  , cl.observacao'
-      '  , cl.ativo'
-      
-        '  , coalesce( cast(coalesce(coalesce(t.Tlg_sigla, t.Tlg_descrica' +
-        'o) || '#39' '#39', '#39#39') || l.Log_nome as varchar(250)), cl.Ender ) as Log' +
-        'radouro'
-      '  , coalesce(c.Cid_nome, cl.Cidade) as Cid_nome'
-      '  , coalesce(u.Est_nome, cl.Uf) as Est_nome'
-      '  , p.Pais_nome'
-      '  , coalesce(est.produtos,  0) as produtos'
-      '  , coalesce(est.valores, 0.0) as valores'
-      'from TBCLIENTE cl'
-      '  left join TBTIPO_LOGRADOURO t on (t.Tlg_cod = cl.Tlg_tipo)'
-      '  left join TBLOGRADOURO l on (l.Log_cod = cl.Log_cod)'
-      '  left join TBCIDADE c on (c.Cid_cod = cl.Cid_cod)'
-      '  left join TBESTADO u on (u.Est_cod = cl.Est_cod)'
-      '  left join TBPAIS p on (p.Pais_id = cl.Pais_id)'
-      '  left join ('
-      '    Select'
-      '        x.cod_cliente'
-      '      , count(x.cod_produto) as produtos'
-      '      , sum(x.quantidade * x.valor_medio) as valores'
-      '    from TBCLIENTE_ESTOQUE x'
-      '    where (x.cod_cliente <> 1)'
-      '      and (x.quantidade > 0.0)'
-      '    group by'
-      '        x.cod_cliente'
-      '  ) est on (est.cod_cliente = cl.codigo)'
-      ''
-      'WHERE cl.CODIGO = :CODIGO')
-  end
-  object cdsTotalComprasAbertas: TDataSource
+  object dtsTotalComprasAbertas: TDataSource
     DataSet = fdQryTotalComprasAbertas
     Left = 536
     Top = 337
@@ -4558,9 +3668,7 @@ inherited frmGeCliente: TfrmGeCliente
     Top = 369
   end
   object dtsVendedor: TDataSource
-    DataSet = fdQryVendedor
-    Left = 600
-    Top = 336
+    Left = 560
   end
   object popProcesso: TPopupMenu
     Images = ImgList
@@ -4595,9 +3703,7 @@ inherited frmGeCliente: TfrmGeCliente
     Top = 216
   end
   object dtsTipoCnpj: TDataSource
-    DataSet = fdQryTipoCnpj
-    Left = 600
-    Top = 368
+    Left = 592
   end
   object dtsBancoFebraban: TDataSource
     DataSet = fdQryBancoFebraban
@@ -4620,34 +3726,6 @@ inherited frmGeCliente: TfrmGeCliente
       '    b.nome')
     Left = 568
     Top = 398
-  end
-  object fdQryTipoCnpj: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    t.codigo'
-      '  , t.descricao'
-      'from VW_TIPO_CNPJ t')
-    Left = 568
-    Top = 366
-  end
-  object fdQryVendedor: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    v.cod'
-      '  , trim(v.nome) as nome'
-      '  , v.cpf'
-      '  , v.ativo'
-      'from TBVENDEDOR v'
-      'order by'
-      '    trim(v.nome)')
-    Left = 568
-    Top = 334
   end
   object fdQryTotalComprasAbertas: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -4956,7 +4034,6 @@ inherited frmGeCliente: TfrmGeCliente
   end
   object QryEstoqueSatelite: TFDQuery
     CachedUpdates = True
-    OnUpdateError = fdQryTabelaUpdateError
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
     UpdateTransaction = DMBusiness.fdTransacao

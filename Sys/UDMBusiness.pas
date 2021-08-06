@@ -6,6 +6,7 @@ uses
   FuncoesFormulario,
   UConstantesDGE,
   Interacao.Usuario,
+
   {$IFNDEF PRINTER_CUPOM}
   Model.Conexao.Factory.Interfaces,
   Model.Conexao.Interfaces,
@@ -20,6 +21,9 @@ uses
   frxExportBaseDialog, frxExportXLS,
 
   ACBrBase, ACBrValidador, ACBrMail, ACBrUtil,
+
+  SGE.Controller.Interfaces,
+  SGE.Controller.Factory,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
@@ -259,9 +263,6 @@ var
   procedure SetAtulizarCustoEstoqueRequisicao(const aData : TDateTime);
   procedure SetAtulizarCustoEstoqueInventario(const aData : TDateTime);
   procedure SetCentroCustoGeral(const aEmpresa : String);
-  procedure SetTipoDespesaPadrao;
-  procedure SetTipoReceitaPadrao;
-  procedure SetVendedorPadrao;
   procedure SetTipoProduto(const iCodigo : Integer; const sDescricao : String);
   procedure SetGrupoFornecedor(const iCodigo : Integer; const sDescricao : String);
   procedure SetAtualizarSaldoContasAPagar(const aEmpresa : String);
@@ -2132,149 +2133,6 @@ begin
       SQL.Add('      , 1');
       SQL.Add('    );');
       SQL.Add('  end');
-      SQL.Add('end');
-      ExecSQL;
-
-      CommitTransaction;
-    end;
-  finally
-    Screen.Cursor := crDefault;
-  end;
-end;
-
-procedure SetTipoDespesaPadrao;
-begin
-  Screen.Cursor := crSQLWait;
-  try
-    with DMBusiness, fdQryBusca do
-    begin
-      Close;
-      SQL.Clear;
-      SQL.Add('');
-      SQL.Add('execute block');
-      SQL.Add('as');
-      SQL.Add('  declare variable cd Integer;');
-      SQL.Add('begin');
-      SQL.Add('  cd = ' + IntToStr(TIPO_RECEITA_PADRAO) + ';');
-
-      SQL.Add('  if (not exists(');
-      SQL.Add('    Select');
-      SQL.Add('      d.tipodesp');
-      SQL.Add('    from TBTPDESPESA d');
-      SQL.Add('    where (d.cod = :cd)');
-      SQL.Add('       or (d.tipodesp = ' + QuotedStr('ENTRADAS EM GERAL') + ')');
-      SQL.Add('  )) then');
-      SQL.Add('  begin');
-      SQL.Add('    Insert into TBTPDESPESA (');
-      SQL.Add('        cod');
-      SQL.Add('      , classificacao');
-      SQL.Add('      , tipodesp');
-      SQL.Add('      , tipo_particular');
-      SQL.Add('      , plano_conta');
-      SQL.Add('      , ativo');
-      SQL.Add('    ) values (');
-      SQL.Add('        :cd');  // Codigo
-      SQL.Add('      , 0');    // Classificação
-      SQL.Add('      , ' + QuotedStr('ENTRADAS EM GERAL') + ' ');
-      SQL.Add('      , 0');    // Tipo particular
-      SQL.Add('      , null'); // Plano de Contas
-      SQL.Add('      , 1');    // Ativo
-      SQL.Add('    );');
-      SQL.Add('  end');
-      SQL.Add('end');
-      ExecSQL;
-
-      CommitTransaction;
-    end;
-  finally
-    Screen.Cursor := crDefault;
-  end;
-end;
-
-procedure SetTipoReceitaPadrao;
-begin
-  Screen.Cursor := crSQLWait;
-  try
-    with DMBusiness, fdQryBusca do
-    begin
-      Close;
-      SQL.Clear;
-      SQL.Add('');
-      SQL.Add('execute block');
-      SQL.Add('as');
-      SQL.Add('  declare variable cd Integer;');
-      SQL.Add('begin');
-      SQL.Add('  cd = ' + IntToStr(TIPO_RECEITA_PADRAO) + ';');
-
-      SQL.Add('  if (not exists(');
-      SQL.Add('    Select');
-      SQL.Add('      r.tiporec');
-      SQL.Add('    from TBTPRECEITA r');
-      SQL.Add('    where (r.cod = :cd)');
-      SQL.Add('       or (r.tiporec = ' + QuotedStr('SAÍDAS EM GERAL') + ')');
-      SQL.Add('  )) then');
-      SQL.Add('  begin');
-      SQL.Add('    Insert into TBTPRECEITA (');
-      SQL.Add('        cod');
-      SQL.Add('      , classificacao');
-      SQL.Add('      , tiporec');
-      SQL.Add('      , tipo_particular');
-      SQL.Add('      , plano_conta');
-      SQL.Add('      , ativo');
-      SQL.Add('    ) values (');
-      SQL.Add('        :cd');  // Codigo
-      SQL.Add('      , 0');    // Classificação
-      SQL.Add('      , ' + QuotedStr('SAÍDAS EM GERAL') + ' ');
-      SQL.Add('      , 0');    // Tipo particular
-      SQL.Add('      , null'); // Plano de Contas
-      SQL.Add('      , 1');    // Ativo
-      SQL.Add('    );');
-      SQL.Add('  end');
-      SQL.Add('end');   //SQL.SaveToFile('_teste.sql'); ShowMessage(SQL.Text);
-      ExecSQL;
-
-      CommitTransaction;
-    end;
-  finally
-    Screen.Cursor := crDefault;
-  end;
-end;
-
-procedure SetVendedorPadrao;
-begin
-  Screen.Cursor := crSQLWait;
-  try
-    with DMBusiness, fdQryBusca do
-    begin
-      Close;
-      SQL.Clear;
-      SQL.Add('');
-      SQL.Add('execute block');
-      SQL.Add('as');
-      SQL.Add('  declare variable cd Integer;');
-      SQL.Add('begin');
-      SQL.Add('    cd = ' + VENDEDOR_PADRAO + ';');
-      SQL.Add('    UPDATE OR INSERT INTO TBVENDEDOR (');
-      SQL.Add('        cod                           ');
-      SQL.Add('      , nome                          ');
-      SQL.Add('      , cpf                           ');
-      SQL.Add('      , email                         ');
-      SQL.Add('      , comissao_tipo                 ');
-      SQL.Add('      , comissao                      ');
-      SQL.Add('      , comissao_vl                   ');
-      SQL.Add('      , tipo                          ');
-      SQL.Add('      , ativo                         ');
-      SQL.Add('    ) values (                        ');
-      SQL.Add('        :cd                           ');
-      SQL.Add('      , ' + QuotedStr('ESTABELECIMENTO') + ' ');
-      SQL.Add('      , ' + QuotedStr('00000000000')     + ' ');
-      SQL.Add('      , null ');
-      SQL.Add('      , 0    '); // 0 - Direta (Por Percentual/Valor sobre o Valor Total da Venda)
-      SQL.Add('      , 0.0  '); // % Comissão
-      SQL.Add('      , 0.0  '); // Valor Comissão
-      SQL.Add('      , 0    '); // 0 - Vendedor
-      SQL.Add('      , 1    '); // 1 - Ativo
-      SQL.Add('    ) MATCHING ( cod ); ');
       SQL.Add('end');
       ExecSQL;
 

@@ -29,6 +29,36 @@ type
       class function New : IControllerCustom;
   end;
 
+  // View
+  TControllerTipoCNPJView = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
+  // View
+  TControllerTipoComissaoView = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
+  // View
+  TControllerBancoFebrabanView = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
 implementation
 
 { TControllerSegmento }
@@ -61,6 +91,57 @@ begin
 end;
 
 class function TControllerTipoRegimeView.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerTipoCNPJView }
+
+constructor TControllerTipoCNPJView.Create;
+begin
+  inherited Create(TModelDAOFactory.New.TipoCNPJView);
+end;
+
+destructor TControllerTipoCNPJView.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerTipoCNPJView.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerTipoComissaoView }
+
+constructor TControllerTipoComissaoView.Create;
+begin
+  inherited Create(TModelDAOFactory.New.TipoComissaoView);
+end;
+
+destructor TControllerTipoComissaoView.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerTipoComissaoView.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerBancoFebrabanView }
+
+constructor TControllerBancoFebrabanView.Create;
+begin
+  inherited Create(TModelDAOFactory.New.BancoFebrabanView);
+end;
+
+destructor TControllerBancoFebrabanView.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerBancoFebrabanView.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

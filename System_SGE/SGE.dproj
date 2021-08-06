@@ -194,9 +194,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeUnidade.pas">
             <Form>frmGeUnidade</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeVendedor.pas">
-            <Form>frmGeVendedor</Form>
-        </DCCReference>
         <DCCReference Include="UGeProduto.pas">
             <Form>frmGeProduto</Form>
         </DCCReference>
@@ -602,6 +599,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CentroCusto.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cliente.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Factory.pas"/>
@@ -624,6 +623,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CentroCusto.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Tabelas.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Vendedor.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Cliente.pas"/>
         <DCCReference Include="..\Sys\View\View.Estado.pas">
             <Form>ViewEstado</Form>
         </DCCReference>
@@ -678,6 +679,14 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.ConfiguracaoEmpresa.pas">
             <Form>ViewConfiguracaoEmpresa</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Vendedor.pas">
+            <Form>ViewVendedor</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Cliente.pas">
+            <Form>ViewCliente</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">

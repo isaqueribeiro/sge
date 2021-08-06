@@ -26,7 +26,6 @@ uses
   UGeGrupoProduto in '..\Sys\UGeGrupoProduto.pas' {frmGeGrupoProduto},
   UGeSecaoProduto in '..\Sys\UGeSecaoProduto.pas' {frmGeSecaoProduto},
   UGeUnidade in '..\Sys\UGeUnidade.pas' {frmGeUnidade},
-  UGeVendedor in '..\Sys\UGeVendedor.pas' {frmGeVendedor},
   UGeProduto in 'UGeProduto.pas' {frmGeProduto},
   UGeVenda in '..\Sys\UGeVenda.pas' {frmGeVenda},
   UGeEntradaEstoque in '..\Sys\UGeEntradaEstoque.pas' {frmGeEntradaEstoque},
@@ -211,6 +210,8 @@ uses
   SGE.Model.DAO.TipoDespesa in '..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas',
   SGE.Model.DAO.CentroCusto in '..\Sys\Model\DAO\SGE.Model.DAO.CentroCusto.pas',
   SGE.Model.DAO.Tabelas in '..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas',
+  SGE.Model.DAO.Vendedor in '..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas',
+  SGE.Model.DAO.Cliente in '..\Sys\Model\DAO\SGE.Model.DAO.Cliente.pas',
   SGE.Controller.Interfaces in '..\Sys\Controller\SGE.Controller.Interfaces.pas',
   SGE.Controller in '..\Sys\Controller\SGE.Controller.pas',
   SGE.Controller.Factory in '..\Sys\Controller\SGE.Controller.Factory.pas',
@@ -233,6 +234,8 @@ uses
   SGE.Controller.TipoDespesa in '..\Sys\Controller\SGE.Controller.TipoDespesa.pas',
   SGE.Controller.CentroCusto in '..\Sys\Controller\SGE.Controller.CentroCusto.pas',
   SGE.Controller.Tabelas in '..\Sys\Controller\SGE.Controller.Tabelas.pas',
+  SGE.Controller.Vendedor in '..\Sys\Controller\SGE.Controller.Vendedor.pas',
+  SGE.Controller.Cliente in '..\Sys\Controller\SGE.Controller.Cliente.pas',
   View.Estado in '..\Sys\View\View.Estado.pas' {ViewEstado},
   View.Cidade in '..\Sys\View\View.Cidade.pas' {ViewCidade},
   View.Distrito in '..\Sys\View\View.Distrito.pas' {ViewDistrito},
@@ -250,7 +253,9 @@ uses
   View.TipoDespesa in '..\Sys\View\View.TipoDespesa.pas' {ViewTipoDespesa},
   View.CentroCusto in '..\Sys\View\View.CentroCusto.pas' {ViewCentroCusto},
   View.Empresa in '..\Sys\View\View.Empresa.pas' {ViewEmpresa},
-  View.ConfiguracaoEmpresa in '..\Sys\View\View.ConfiguracaoEmpresa.pas' {ViewConfiguracaoEmpresa};
+  View.ConfiguracaoEmpresa in '..\Sys\View\View.ConfiguracaoEmpresa.pas' {ViewConfiguracaoEmpresa},
+  View.Vendedor in '..\Sys\View\View.Vendedor.pas' {ViewVendedor},
+  View.Cliente in '..\Sys\View\View.Cliente.pas' {ViewCliente};
 
 {$R *.res}
 

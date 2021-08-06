@@ -1,6 +1,7 @@
-inherited frmGeVendedor: TfrmGeVendedor
+inherited ViewVendedor: TViewVendedor
   Left = 396
   Top = 231
+  ActiveControl = dbCodigo
   Caption = 'Cadastro de Vendedores'
   ClientWidth = 730
   OldCreateOrder = True
@@ -17,9 +18,14 @@ inherited frmGeVendedor: TfrmGeVendedor
   end
   inherited pgcGuias: TPageControl
     Width = 730
+    ActivePage = tbsCadastro
+    OnChange = pgcGuiasChange
     ExplicitWidth = 730
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 722
+      ExplicitHeight = 329
       inherited Bevel4: TBevel
         Width = 722
         ExplicitWidth = 722
@@ -82,28 +88,39 @@ inherited frmGeVendedor: TfrmGeVendedor
       inherited pnlFiltros: TPanel
         Width = 722
         ExplicitWidth = 722
+        object lblRegistroDesativado: TLabel [0]
+          Left = 2
+          Top = 44
+          Width = 215
+          Height = 13
+          Caption = '* Registro de vendedor(a) desativado'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 7303023
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Transparent = True
+        end
         inherited grpBxFiltro: TGroupBox
-          Left = 428
-          Width = 290
-          ExplicitLeft = 428
-          ExplicitWidth = 290
-          DesignSize = (
-            290
-            54)
+          Left = 383
+          Width = 335
+          ExplicitLeft = 383
+          ExplicitWidth = 335
           inherited lbltFiltrar: TLabel
             Width = 57
             Caption = 'Vendedor:'
             ExplicitWidth = 57
           end
           inherited edtFiltrar: TEdit
-            Left = 72
-            Width = 169
-            ExplicitLeft = 72
-            ExplicitWidth = 169
+            Left = 80
+            Width = 208
+            ExplicitLeft = 80
+            ExplicitWidth = 208
           end
           inherited btnFiltrar: TcxButton
-            Left = 245
-            ExplicitLeft = 245
+            Left = 294
+            ExplicitLeft = 294
           end
         end
       end
@@ -309,199 +326,16 @@ inherited frmGeVendedor: TfrmGeVendedor
       ExplicitLeft = 527
     end
   end
-  inherited IbDtstTabela: TIBDataSet
-    SelectSQL.Strings = (
-      'Select'
-      '    v.Cod'
-      '  , v.Nome'
-      '  , v.Cpf'
-      '  , v.Ativo'
-      '  , v.comissao_tipo'
-      '  , v.comissao'
-      '  , v.Comissao_vl'
-      '  , Case'
-      '      when v.comissao_tipo = 0 then '#39'D'#39
-      '      when v.comissao_tipo = 1 then '#39'P'#39
-      '      else '#39'*'#39
-      '    end comissao_tipo_flag'
-      'from TBVENDEDOR v')
-    GeneratorField.Field = 'COD'
-    GeneratorField.Generator = 'GEN_GRUPOPRODUTO_COD'
-  end
   inherited DtSrcTabela: TDataSource
-    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
-  end
-  inherited IbUpdTabela: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  COD,'
-      '  NOME,'
-      '  CPF,'
-      '  COMISSAO_TIPO,'
-      '  COMISSAO,'
-      '  COMISSAO_VL,'
-      '  TIPO,'
-      '  ATIVO'
-      'from TBVENDEDOR '
-      'where'
-      '  COD = :COD')
-    ModifySQL.Strings = (
-      'update TBVENDEDOR'
-      'set'
-      '  ATIVO = :ATIVO,'
-      '  COD = :COD,'
-      '  COMISSAO = :COMISSAO,'
-      '  COMISSAO_TIPO = :COMISSAO_TIPO,'
-      '  COMISSAO_VL = :COMISSAO_VL,'
-      '  CPF = :CPF,'
-      '  NOME = :NOME'
-      'where'
-      '  COD = :OLD_COD')
-    InsertSQL.Strings = (
-      'insert into TBVENDEDOR'
-      '  (ATIVO, COD, COMISSAO, COMISSAO_TIPO, COMISSAO_VL, CPF, NOME)'
-      'values'
-      
-        '  (:ATIVO, :COD, :COMISSAO, :COMISSAO_TIPO, :COMISSAO_VL, :CPF, ' +
-        ':NOME)')
-    DeleteSQL.Strings = (
-      'delete from TBVENDEDOR'
-      'where'
-      '  COD = :OLD_COD')
+    Left = 632
+    Top = 0
   end
   inherited ImgList: TImageList
     Left = 600
     Top = 0
   end
-  inherited fdQryTabela: TFDQuery
-    BeforePost = fdQryTabelaBeforePost
-    AfterScroll = fdQryTabelaAfterScroll
-    SQL.Strings = (
-      'Select'
-      '    v.Cod'
-      '  , v.Nome'
-      '  , v.Email'
-      '  , v.Cpf'
-      '  , v.Tipo'
-      '  , v.Ativo'
-      '  , v.comissao_tipo'
-      '  , v.comissao'
-      '  , v.Comissao_vl'
-      '  , Case'
-      '      when v.comissao_tipo = 0 then '#39'D'#39
-      '      when v.comissao_tipo = 1 then '#39'P'#39
-      '      else '#39'*'#39
-      '    end comissao_tipo_flag'
-      'from TBVENDEDOR v')
-    object fdQryTabelaCOD: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'COD'
-      Origin = 'COD'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object fdQryTabelaNOME: TStringField
-      DisplayLabel = 'Nome'
-      FieldName = 'NOME'
-      Origin = 'NOME'
-      Required = True
-      Size = 60
-    end
-    object fdQryTabelaCPF: TStringField
-      FieldName = 'CPF'
-      Origin = 'CPF'
-      Required = True
-      EditMask = '000\.000\.000\-00;0; '
-      Size = 12
-    end
-    object fdQryTabelaEMAIL: TStringField
-      FieldName = 'EMAIL'
-      Origin = 'EMAIL'
-      Size = 150
-    end
-    object fdQryTabelaTIPO: TSmallintField
-      FieldName = 'TIPO'
-      Origin = 'TIPO'
-    end
-    object fdQryTabelaCOMISSAO_TIPO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'COMISSAO_TIPO'
-      Origin = 'COMISSAO_TIPO'
-    end
-    object fdQryTabelaCOMISSAO: TCurrencyField
-      DisplayLabel = '% Comiss'#227'o'
-      FieldName = 'COMISSAO'
-      Origin = 'COMISSAO'
-      Required = True
-      DisplayFormat = '#0.00'
-    end
-    object fdQryTabelaCOMISSAO_VL: TCurrencyField
-      DisplayLabel = 'Valor Comiss'#227'o'
-      FieldName = 'COMISSAO_VL'
-      Origin = 'COMISSAO_VL'
-      Required = True
-      DisplayFormat = ',0.00'
-    end
-    object fdQryTabelaCOMISSAO_TIPO_FLAG: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      FieldName = 'COMISSAO_TIPO_FLAG'
-      Origin = 'COMISSAO_TIPO_FLAG'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 1
-    end
-    object fdQryTabelaATIVO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'ATIVO'
-      Origin = 'ATIVO'
-      Required = True
-    end
-  end
-  inherited fdUpdTabela: TFDUpdateSQL
-    InsertSQL.Strings = (
-      'INSERT INTO TBVENDEDOR'
-      '(COD, NOME, CPF, EMAIL, COMISSAO_TIPO, '
-      '  COMISSAO, COMISSAO_VL, TIPO, ATIVO)'
-      
-        'VALUES (:NEW_COD, :NEW_NOME, :NEW_CPF, :NEW_EMAIL, :NEW_COMISSAO' +
-        '_TIPO, '
-      '  :NEW_COMISSAO, :NEW_COMISSAO_VL, :NEW_TIPO, :NEW_ATIVO)')
-    ModifySQL.Strings = (
-      'UPDATE TBVENDEDOR'
-      
-        'SET COD = :NEW_COD, NOME = :NEW_NOME, CPF = :NEW_CPF, EMAIL = :N' +
-        'EW_EMAIL, '
-      '  COMISSAO_TIPO = :NEW_COMISSAO_TIPO, COMISSAO = :NEW_COMISSAO, '
-      
-        '  COMISSAO_VL = :NEW_COMISSAO_VL, TIPO = :NEW_TIPO, ATIVO = :NEW' +
-        '_ATIVO'
-      'WHERE COD = :OLD_COD')
-    DeleteSQL.Strings = (
-      'DELETE FROM TBVENDEDOR'
-      'WHERE COD = :OLD_COD')
-    FetchRowSQL.Strings = (
-      
-        'SELECT COD, NOME, CPF, EMAIL, COMISSAO_TIPO, COMISSAO, COMISSAO_' +
-        'VL, '
-      '  TIPO, ATIVO'
-      'FROM TBVENDEDOR'
-      'WHERE COD = :OLD_COD')
-  end
   object dtsTipoComissao: TDataSource
-    DataSet = fdQryTipoComissao
-    Left = 624
-    Top = 256
-  end
-  object fdQryTipoComissao: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select *'
-      'from VW_TIPO_COMISSAO')
-    Left = 596
-    Top = 257
+    Left = 664
   end
 end

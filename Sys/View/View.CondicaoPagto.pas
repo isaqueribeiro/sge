@@ -95,6 +95,8 @@ type
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnExcluirClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
+    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
+      State: TGridDrawState);
   private
     { Private declarations }
     FControllerCondicaoPagtoForma : IControllerCustom;
@@ -346,6 +348,39 @@ procedure TViewCondicaoPagto.pgcGuiasChange(Sender: TObject);
 begin
   if (pgcGuias.ActivePage = tbsCadastro) then
     CarregarFormaPagto;
+end;
+
+procedure TViewCondicaoPagto.dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer;
+  Column: TColumn; State: TGridDrawState);
+var
+  aImage : Byte;
+begin
+  inherited;
+  if (Sender = dbgFormaPagto) then
+  begin
+
+    if (AnsiUpperCase(Column.Field.FieldName) = 'SELECIONAR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 5, Rect.Top + 1, aImage);
+    end
+    else
+    if (AnsiUpperCase(Column.Field.FieldName) = 'SELECIONAR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 5, Rect.Top + 1, aImage);
+    end
+    else
+    if (AnsiUpperCase(Column.Field.FieldName) = 'SELECIONAR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 5, Rect.Top + 1, aImage);
+    end;
+
+  end;
 end;
 
 procedure TViewCondicaoPagto.dbgFormaPagtoDblClick(Sender: TObject);

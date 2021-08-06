@@ -12,6 +12,7 @@ type
     ['{A8E8C0DC-6BFC-46CF-ACBD-F96D70490D7B}']
     function Query : IConnection<TConnectionFireDAC>;
     function ExecuteSQL(Value : String) : IConnection<TConnectionFireDAC>;
+    procedure CommitRetaining;
   end;
 
   TConnectionFactory = class(TInterfacedObject, IConnection)
@@ -25,6 +26,7 @@ type
 
       function Query : IConnection<TConnectionFireDAC>;
       function ExecuteSQL(Value : String) : IConnection<TConnectionFireDAC>;
+      procedure CommitRetaining;
   end;
 
 implementation
@@ -33,6 +35,11 @@ implementation
 
 uses
   UDMBusiness;
+
+procedure TConnectionFactory.CommitRetaining;
+begin
+  DMBusiness.fdConexao.CommitRetaining;
+end;
 
 constructor TConnectionFactory.Create;
 begin

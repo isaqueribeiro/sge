@@ -34,6 +34,42 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // View
+  TModelDAOTipoCNPJView = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
+  // View
+  TModelDAOTipoComissaoView = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
+  // View
+  TModelDAOBancoFebrabanView = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
 implementation
 
 uses
@@ -104,6 +140,7 @@ begin
       .&End
       .Open;
 end;
+
 destructor TModelDAOTipoRegimeView.Destroy;
 begin
   inherited;
@@ -116,6 +153,112 @@ end;
 
 
 function TModelDAOTipoRegimeView.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+{ TModelDAOTipoCNPJView }
+
+constructor TModelDAOTipoCNPJView.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    t.codigo   ')
+        .Add('  , t.descricao')
+        .Add('from VW_TIPO_CNPJ t')
+      .&End
+    .Open;
+end;
+
+destructor TModelDAOTipoCNPJView.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOTipoCNPJView.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOTipoCNPJView.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+{ TModelDAOTipoComissaoView }
+
+constructor TModelDAOTipoComissaoView.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    t.codigo   ')
+        .Add('  , t.descricao')
+        .Add('from VW_TIPO_COMISSAO t')
+      .&End
+    .Open;
+end;
+
+destructor TModelDAOTipoComissaoView.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOTipoComissaoView.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOTipoComissaoView.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+{ TModelDAOBancoFebrabanView }
+
+constructor TModelDAOBancoFebrabanView.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    b.codigo     ')
+        .Add('  , b.nome       ')
+        .Add('  , b.codigo_nome')
+        .Add('  , b.nome_codigo')
+        .Add('from VW_BANCO_FEBRABAN b')
+        .Add('order by  ')
+        .Add('    b.nome')
+      .&End
+    .Open;
+end;
+
+destructor TModelDAOBancoFebrabanView.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOBancoFebrabanView.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOBancoFebrabanView.CreateLookupComboBoxList: IModelDAOCustom;
 begin
   Result := Self;
   if not FConn.Query.DataSet.Active then

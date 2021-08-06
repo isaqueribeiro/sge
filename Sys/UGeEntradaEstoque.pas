@@ -13,6 +13,11 @@ uses
   IBX.IBTable, ToolWin, IBStoredProc, Menus, IBQuery, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, cxButtons, JvDBControls, JvExMask, JvToolEdit,
 
+  SGE.Controller.Interfaces,
+  SGE.Controller.Factory,
+  SGE.Controller,
+  SGE.Controller.Helper,
+
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
@@ -451,6 +456,7 @@ type
     procedure btnImportarClick(Sender: TObject);
   private
     { Private declarations }
+    FControllerTipoDespesa : IControllerCustom;
     sGeneratorName,
     FEmpresa      : String;
     FTipoMovimento : TTipoMovimentoEntrada;
@@ -758,7 +764,8 @@ begin
   fdQryTabela.UpdateOptions.GeneratorName := sGeneratorName;
   CriarGenerator(fdQryTabela.UpdateOptions.GeneratorName, 0);
 
-  SetTipoDespesaPadrao;
+  FControllerTipoDespesa := TControllerFactory.New.TipoDespesa;
+  TController(FControllerTipoDespesa).LookupComboBox(dbTipoDespesa, dtsTpDespesa, 'tipo_despesa', 'codigo', 'descricao');
 
   {$IFDEF DGE}
   OcutarCampoAutorizacao;

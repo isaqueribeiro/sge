@@ -85,6 +85,8 @@ type
       DisplayText: Boolean);
     procedure DtSrcTabelaAfterScroll(DataSet: TDataSet);
     procedure BtnPlanoExcluirClick(Sender: TObject);
+    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
+      State: TGridDrawState);
   private
     { Private declarations }
     FControllerTipoDespesaPlanoConta,
@@ -293,6 +295,39 @@ begin
       0 : Text := '.';
       1 : Text := 'X';
     end;
+end;
+
+procedure TViewTipoDespesa.dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
+  State: TGridDrawState);
+var
+  aImage : Byte;
+begin
+  inherited;
+  if (Sender = dbgPlanoContas) then
+  begin
+
+    if (AnsiUpperCase(Column.Field.FieldName) = 'SELECIONAR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 5, Rect.Top + 1, aImage);
+    end
+    else
+    if (AnsiUpperCase(Column.Field.FieldName) = 'SELECIONAR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 5, Rect.Top + 1, aImage);
+    end
+    else
+    if (AnsiUpperCase(Column.Field.FieldName) = 'SELECIONAR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 5, Rect.Top + 1, aImage);
+    end;
+
+  end;
 end;
 
 procedure TViewTipoDespesa.dbgPlanoContasDblClick(Sender: TObject);

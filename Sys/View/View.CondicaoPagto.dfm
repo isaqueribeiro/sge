@@ -563,7 +563,7 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
               FieldName = 'selecionar'
               Title.Alignment = taCenter
               Title.Caption = 'S'
-              Width = 30
+              Width = 25
               Visible = True
             end
             item

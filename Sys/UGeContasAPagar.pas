@@ -11,6 +11,11 @@ uses
   ACBrExtenso, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, cxButtons, JvToolEdit,
   JvDBControls, JvExMask, System.ImageList,
 
+  SGE.Controller.Interfaces,
+  SGE.Controller.Factory,
+  SGE.Controller,
+  SGE.Controller.Helper,
+
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
@@ -188,6 +193,7 @@ type
     procedure fdQryTabelaQUITADOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
+    FControllerTipoDespesa : IControllerCustom;
     FDataAtual     : TDateTime;
     sGeneratorName ,
     FLoteParcelas  : String;
@@ -284,7 +290,8 @@ begin
   sGeneratorName := 'GEN_CONTAPAG_NUM_' + FormatFloat('0000', YearOf(Date));
   CriarGenerator(sGeneratorName, 0);
 
-  SetTipoDespesaPadrao;
+  FControllerTipoDespesa := TControllerFactory.New.TipoDespesa;
+  TController(FControllerTipoDespesa).LookupComboBox(dbTipoDespesa, dtsTpDespesa, 'codtpdesp', 'codigo', 'descricao');
 
   with fdQryTabela.UpdateOptions do
   begin

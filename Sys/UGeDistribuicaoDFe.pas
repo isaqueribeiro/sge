@@ -155,9 +155,6 @@ begin
   end;
 
   cdsDocumentos.CreateDataSet;
-//  // Bloco de código se tornou desnecessário
-//  cdsDocumentos.Filter   := 'NOT (NSU IN ( ' + getNSUImportados(gUsuarioLogado.Empresa) + ' ) )';
-//  cdsDocumentos.Filtered := True;
 
   if not DMNFe.ExisteNFeParaBaixar(gUsuarioLogado.Empresa, aNSU, aFileXML, aRetorno, aDocumentos) then
     GrdDocumentosDBTableView.OptionsView.NoDataToDisplayInfoText := aRetorno.ToUpper

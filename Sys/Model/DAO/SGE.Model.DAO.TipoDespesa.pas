@@ -53,11 +53,59 @@ type
 
 implementation
 
+uses
+  UConstantesDGE;
+
 { TModelDAOTipoDespesa }
 
 constructor TModelDAOTipoDespesa.Create;
+var
+  aScriptSQL  : TStringList;
 begin
   inherited Create;
+
+  aScriptSQL := TStringList.Create;
+  try
+    aScriptSQL.BeginUpdate;
+    aScriptSQL.Clear;
+    aScriptSQL.Add('execute block');
+    aScriptSQL.Add('as');
+    aScriptSQL.Add('  declare variable cd Integer;');
+    aScriptSQL.Add('begin');
+    aScriptSQL.Add('  cd = ' + IntToStr(TIPO_RECEITA_PADRAO) + ';');
+    aScriptSQL.Add('  if (not exists(');
+    aScriptSQL.Add('    Select');
+    aScriptSQL.Add('      d.tipodesp');
+    aScriptSQL.Add('    from TBTPDESPESA d');
+    aScriptSQL.Add('    where (d.cod = :cd)');
+    aScriptSQL.Add('       or (d.tipodesp = ' + QuotedStr('ENTRADAS EM GERAL') + ')');
+    aScriptSQL.Add('  )) then');
+    aScriptSQL.Add('  begin');
+    aScriptSQL.Add('    Insert into TBTPDESPESA (');
+    aScriptSQL.Add('        cod');
+    aScriptSQL.Add('      , classificacao');
+    aScriptSQL.Add('      , tipodesp');
+    aScriptSQL.Add('      , tipo_particular');
+    aScriptSQL.Add('      , plano_conta');
+    aScriptSQL.Add('      , ativo');
+    aScriptSQL.Add('    ) values (');
+    aScriptSQL.Add('        :cd');  // Codigo
+    aScriptSQL.Add('      , 0');    // Classificação
+    aScriptSQL.Add('      , ' + QuotedStr('ENTRADAS EM GERAL') + ' ');
+    aScriptSQL.Add('      , 0');    // Tipo particular
+    aScriptSQL.Add('      , null'); // Plano de Contas
+    aScriptSQL.Add('      , 1');    // Ativo
+    aScriptSQL.Add('    );');
+    aScriptSQL.Add('  end');
+    aScriptSQL.Add('end');
+    aScriptSQL.EndUpdate;
+
+    FConn.ExecuteSQL(aScriptSQL.Text);
+    FConn.CommitRetaining;
+  finally
+    aScriptSQL.DisposeOf;
+  end;
+
   FConn
     .Query
       .TableName('TBTPDESPESA')
@@ -102,6 +150,8 @@ begin
         .Add('    t.Tipodesp')
       .&End
       .Open;
+
+  FConn.Query.DataSet.Filter := '(ativo = 1)';
 end;
 
 procedure TModelDAOTipoDespesa.DataSetBeforePost(DataSet: TDataSet);

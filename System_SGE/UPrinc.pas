@@ -792,7 +792,7 @@ end;
 procedure TfrmPrinc.nmVendedorClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_VENDEDOR_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeVendedor');
+    FormFunction.ShowModalForm(Self, 'ViewVendedor');
 end;
 
 procedure TfrmPrinc.Notificar;
