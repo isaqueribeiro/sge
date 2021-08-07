@@ -229,64 +229,8 @@ type
     dbContaCorrente3: TcxDBEditorRow;
     dbPracaCobranca3: TcxDBEditorRow;
     fdQryBancoFebraban: TFDQuery;
-    fdQryTotalComprasAbertas: TFDQuery;
-    fdQryTitulos: TFDQuery;
-    fdQryTitulosTIPO: TIntegerField;
-    fdQryTitulosANOLANC: TSmallintField;
-    fdQryTitulosNUMLANC: TIntegerField;
-    fdQryTitulosLANCAMENTO: TStringField;
-    fdQryTitulosPARCELA: TSmallintField;
-    fdQryTitulosDTEMISS: TDateField;
-    fdQryTitulosDTVENC: TDateField;
-    fdQryTitulosFORMA_PAGTO: TSmallintField;
-    fdQryTitulosFORMA_PAGTO_DESC: TStringField;
-    fdQryTitulosNOSSONUMERO: TStringField;
-    fdQryTitulosSTATUS: TStringField;
-    fdQryTitulosSITUACAO: TSmallintField;
-    fdQryTitulosANOVENDA: TSmallintField;
-    fdQryTitulosNUMVENDA: TIntegerField;
-    fdQryTitulosVENDA: TStringField;
-    fdQryTitulosSERIE: TStringField;
-    fdQryTitulosNFE: TLargeintField;
-    fdQryTitulosNFE_SERIE: TStringField;
     imgAjuda: TImage;
     dbCEP: TJvDBMaskEdit;
-    QryEstoqueSatelite: TFDQuery;
-    UpdEstoqueSatelite: TFDUpdateSQL;
-    QryEstoqueSateliteCOD_CLIENTE: TIntegerField;
-    QryEstoqueSateliteCOD_PRODUTO: TStringField;
-    QryEstoqueSateliteQUANTIDADE: TBCDField;
-    QryEstoqueSateliteVALOR_MEDIO: TBCDField;
-    QryEstoqueSateliteUSUARIO: TStringField;
-    QryEstoqueSateliteANO_VENDA_ULT: TSmallintField;
-    QryEstoqueSateliteCOD_VENDA_ULT: TIntegerField;
-    QryEstoqueSateliteDESCRI: TStringField;
-    QryEstoqueSateliteAPRESENTACAO: TStringField;
-    QryEstoqueSateliteDESCRI_APRESENTACAO: TStringField;
-    QryEstoqueSateliteMODELO: TStringField;
-    QryEstoqueSateliteREFERENCIA: TStringField;
-    QryEstoqueSateliteSECAO: TStringField;
-    QryEstoqueSatelitePRECO: TBCDField;
-    QryEstoqueSateliteUNIDADE: TStringField;
-    QryEstoqueSateliteDESCRICAO_GRUPO: TStringField;
-    QryEstoqueSateliteNOME_FABRICANTE: TStringField;
-    QryEstoqueSateliteDESCRICAO_SECAO: TStringField;
-    QryEstoqueSateliteDESCRICAO_UNIDADE: TStringField;
-    QryEstoqueSateliteUNP_SIGLA: TStringField;
-    QryEstoqueSateliteCODIGO: TIntegerField;
-    QryEstoqueSateliteSEQUENCIAL: TSmallintField;
-    QryEstoqueSateliteLOTE_ID: TStringField;
-    QryEstoqueSateliteLOTE: TStringField;
-    QryEstoqueSateliteFABRICACAO: TDateField;
-    QryEstoqueSateliteVALIDADE: TDateField;
-    fdQryTotalComprasAbertasVALOR_LIMITE: TFMTBCDField;
-    fdQryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TFMTBCDField;
-    fdQryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TFMTBCDField;
-    fdQryTitulosVALORMULTA: TFMTBCDField;
-    fdQryTitulosVALORRECTOT: TFMTBCDField;
-    fdQryTitulosVALORSALDO: TFMTBCDField;
-    fdQryTitulosVALOR_PAGO: TFMTBCDField;
-    fdQryTitulosVALORREC: TFMTBCDField;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -326,25 +270,25 @@ type
     procedure dbgContaCorrenteEnter(Sender: TObject);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure CmbBxFiltrarTipoKeyPress(Sender: TObject; var Key: Char);
-    procedure fdQryTitulosSITUACAOGetText(Sender: TField; var Text: string;
+    procedure DataSetTituloSituacaoGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
     procedure imgAjudaClick(Sender: TObject);
     procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
-    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
     procedure fdQryTabelaBeforePost(DataSet: TDataSet);
-    procedure QryEstoqueSateliteCOD_VENDA_ULTGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure DataSetEstoqueUltimaVendaGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure btbtnIncluirClick(Sender: TObject);
   private
     { Private declarations }
     FControllerVendedor           ,
     FControllerTipoCNPJView       ,
     FControllerBancoFebrabanView  ,
     FControllerClienteTotalCompras,
-    FControllerClienteTitulos     : IControllerCustom;
+    FControllerClienteTitulos     ,
+    FControllerClienteEstoque     : IControllerCustom;
 
     aEstoqueSateliteEmpresa,
     aEstoqueSateliteCliente,
     bApenasPossuiEstoque   : Boolean;
-    FSQLEstoqueSatelite    : TStringList;
     procedure GetComprasAbertas(iCodigoCliente : Integer);
     procedure HabilitarAbaEstoque;
     procedure EstoqueSateliteFiltarDados(const iTipoPesquisa : Integer);
@@ -352,6 +296,7 @@ type
 
     function GetRotinaBloqueioID : String;
     function GetRotinaVisualizarEstoqueID : String;
+    function Controller : IControllerCliente;
   public
     { Public declarations }
     property RotinaBloqueioID : String read GetRotinaBloqueioID;
@@ -548,11 +493,11 @@ begin
 
       if Result then
       begin
-        sCodigo     := QryEstoqueSateliteCOD_PRODUTO.AsString;
-        sDescricao  := QryEstoqueSateliteDESCRI.AsString;
-        sLote       := QryEstoqueSateliteLOTE_ID.AsString;
-        iEstoque    := QryEstoqueSateliteQUANTIDADE.AsInteger;
-        cValorMedio := QryEstoqueSateliteVALOR_MEDIO.AsCurrency;
+        sCodigo     := DtsEstoqueSatelite.DataSet.FieldByName('COD_PRODUTO').AsString;
+        sDescricao  := DtsEstoqueSatelite.DataSet.FieldByName('DESCRI').AsString;
+        sLote       := DtsEstoqueSatelite.DataSet.FieldByName('LOTE_ID').AsString;
+        iEstoque    := DtsEstoqueSatelite.DataSet.FieldByName('QUANTIDADE').AsInteger;
+        cValorMedio := DtsEstoqueSatelite.DataSet.FieldByName('VALOR_MEDIO').AsCurrency;
       end;
     end;
   finally
@@ -562,18 +507,17 @@ end;
 
 procedure TViewCliente.FormCreate(Sender: TObject);
 begin
-  FController := TControllerFactory.New.Empresa;
+  FController := TControllerFactory.New.Cliente;
   FControllerVendedor            := TControllerFactory.New.Vendedor;
   FControllerTipoCNPJView        := TControllerFactory.New.TipoCNPJView;
   FControllerBancoFebrabanView   := TControllerFactory.New.BancoFebrabanView;
   FControllerClienteTotalCompras := TControllerFactory.New.ClienteTotalCompras;
   FControllerClienteTitulos      := TControllerFactory.New.ClienteTitulos;
+  FControllerClienteEstoque      := TControllerFactory.New.ClienteEstoque;
 
   dtsTotalComprasAbertas.DataSet := FControllerClienteTotalCompras.DAO.DataSet;
   dtsTitulos.DataSet := FControllerClienteTitulos.DAO.DataSet;
-
-  FSQLEstoqueSatelite := TStringList.Create;
-  FSQLEstoqueSatelite.AddStrings( QryEstoqueSatelite.SQL );
+  DtsEstoqueSatelite.DataSet := FControllerClienteEstoque.DAO.DataSet;
 
   inherited;
 
@@ -584,7 +528,7 @@ begin
   aEstoqueSateliteEmpresa := GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa);
   aEstoqueSateliteCliente := GetPermissaoRotinaInterna(tbsEstoqueSatelite, False);
 
-  BloquearClientes;
+  Controller.BloquearClientes;
 
   RotinaID         := ROTINA_CAD_CLIENTE_ID;
   ControlFirstEdit := dbPessoaFisica;
@@ -645,7 +589,8 @@ begin
     .Display('CID_COD',  'Cidade', True)
     .Display('BAI_COD',  'Bairro', False)
     .Display('CEP',      'CEP', False)
-    .Display('LOG_COD',  'Logradouro', False);
+    .Display('LOG_COD',  'Logradouro', False)
+    .Display('VALOR_LIMITE_COMPRA',  'Limte p/ Compras (R$)', ',0.00', TAlignment.taRightJustify, False);
 
   AbrirTabelaAuto := True;
 
@@ -942,7 +887,7 @@ begin
 
   // Preparar DataSet para a configuração dos campos
   TTabelaController.New
-    .Tabela(dtsTotalComprasAbertas)
+    .Tabela(dtsTotalComprasAbertas.DataSet)
     .Display('VALOR_COMPRAS_ABERTAS', 'Total Compras Abertas (R$)', ',0.00', TAlignment.taRightJustify)
     .Display('VALOR_LIMITE_DISPONIVEL', 'Limite Disponível (R$)', ',0.00', TAlignment.taRightJustify)
     .Configurar;
@@ -951,9 +896,11 @@ begin
     .ParamsByName('cliente', iCodigoCliente)
     .Open;
 
+  dtsTitulos.DataSet.FieldByName('SITUACAO').OnGetText := DataSetTituloSituacaoGetText;
+
   // Preparar DataSet para a configuração dos campos
   TTabelaController.New
-    .Tabela(dtsTitulos)
+    .Tabela(dtsTitulos.DataSet)
     .Display('DTEMISS',    'Emissão', 'dd/mm/yyyy', TAlignment.taCenter)
     .Display('DTVENC',     'Vencimento', 'dd/mm/yyyy', TAlignment.taCenter)
     .Display('VALORREC',   'Valor (R$)', ',0.00', TAlignment.taRightJustify)
@@ -1004,15 +951,15 @@ begin
   if ( Sender = dbgTitulos ) then
   begin
     // Destacar Títulos em Pagamento
-    if ( (fdQryTitulosVALOR_PAGO.AsCurrency > 0) and (fdQryTitulosTIPO.AsInteger = 1) ) then
+    if ( (dtsTitulos.DataSet.FieldByName('VALOR_PAGO').AsCurrency > 0) and (dtsTitulos.DataSet.FieldByName('TIPO').AsInteger = 1) ) then
       dbgTitulos.Canvas.Font.Color := lblTituloPagando.Font.Color
     else
     // Destacar Títulos Cancelados
-    if ( fdQryTitulosTIPO.AsInteger = 1 ) then
+    if ( dtsTitulos.DataSet.FieldByName('TIPO').AsInteger = 1 ) then
       dbgTitulos.Canvas.Font.Color := lblTituloEmAberto.Font.Color
     else
     // Títulos pagos de forma imediata (A Vista)
-    if ( fdQryTitulosTIPO.AsInteger = 0 ) then
+    if ( dtsTitulos.DataSet.FieldByName('TIPO').AsInteger = 0 ) then
       dbgTitulos.Canvas.Font.Style := [];
 
     dbgTitulos.DefaultDrawDataCell(Rect, dbgTitulos.Columns[DataCol].Field, State);
@@ -1021,7 +968,7 @@ begin
   if ( Sender = dbgEstoqueSatelite ) then
   begin
     // Estoque satélite zerado
-    if ( QryEstoqueSateliteQUANTIDADE.AsInteger < 1 ) then
+    if ( DtsEstoqueSatelite.DataSet.FieldByName('QUANTIDADE').AsInteger < 1 ) then
       dbgEstoqueSatelite.Canvas.Font.Color := GrpBxBloqueio.Font.Color;
 
     dbgEstoqueSatelite.DefaultDrawDataCell(Rect, dbgEstoqueSatelite.Columns[DataCol].Field, State);
@@ -1080,10 +1027,15 @@ begin
       if Trim(sMotivo) <> EmptyStr then
         try
           WaitAMoment(WAIT_AMOMENT_Process);
-          iCodigo := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
-          DesbloquearCliente(iCodigo, gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo));
-
-          fdQryTabela.RefreshRecord();
+          Controller.DesbloquearCliente(
+            DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger,
+            gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo)
+          );
+          FController.DAO.RefreshRecord;
+//          iCodigo := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
+//          DesbloquearCliente(iCodigo, gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo));
+//
+//          fdQryTabela.RefreshRecord();
         finally
           WaitAMomentFree;
         end;
@@ -1099,10 +1051,15 @@ begin
       if Trim(sMotivo) <> EmptyStr then
       try
         WaitAMoment(WAIT_AMOMENT_Process);
-        iCodigo := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
-        BloquearCliente(iCodigo, gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo));
-
-        fdQryTabela.RefreshRecord();
+          Controller.BloquearCliente(
+            DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger,
+            gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo)
+          );
+          FController.DAO.RefreshRecord;
+//        iCodigo := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
+//        BloquearCliente(iCodigo, gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo));
+//
+//        fdQryTabela.RefreshRecord();
       finally
         WaitAMomentFree;
       end;
@@ -1311,6 +1268,11 @@ begin
   end;
 end;
 
+function TViewCliente.Controller: IControllerCliente;
+begin
+  Result := (FController as IControllerCliente);
+end;
+
 procedure TViewCliente.btnRecuperarCNPJClick(Sender: TObject);
 var
   bCPF  : Boolean;
@@ -1430,84 +1392,93 @@ begin
   end;
 end;
 
-procedure TViewCliente.QryEstoqueSateliteCOD_VENDA_ULTGetText(Sender: TField; var Text: string;
+procedure TViewCliente.DataSetEstoqueUltimaVendaGetText(Sender: TField; var Text: string;
   DisplayText: Boolean);
 begin
   if Sender.IsNull then
     Exit;
 
-  Text :=  QryEstoqueSateliteANO_VENDA_ULT.AsString + FormatFloat('"/"###00000', Sender.AsInteger);
+  Text := DtsEstoqueSatelite.DataSet.FieldByName('ano_venda_ult').AsString + FormatFloat('"/"###00000', Sender.AsInteger);
 end;
 
 procedure TViewCliente.EstoqueSateliteFiltarDados(
   const iTipoPesquisa: Integer);
+var
+  aFilter : String;
 begin
   try
+    aFilter := Trim(edFiltrarEstoqueSatelite.Text);
 
-    with QryEstoqueSatelite, SQL do
+    DtsEstoqueSatelite.DataSet.Close;
+    FControllerClienteEstoque.DAO.ClearWhere;
+
+    if (not aFilter.IsEmpty) then
     begin
-      Close;
-      Clear;
-      AddStrings( FSQLEstoqueSatelite );
 
-      if ( Trim(edFiltrarEstoqueSatelite.Text) <> EmptyStr ) then
-      begin
+      Case iTipoPesquisa of
+        // Por Código, Descrição
+        0:
+          if ( StrToIntDef(aFilter, 0) > 0 ) then
+            FControllerClienteEstoque.DAO.Where('p.codigo = ' + aFilter)
+          else
+            FControllerClienteEstoque.DAO.Where(
+              '(upper(p.Descri) like ' + QuotedStr('%' + UpperCase(aFilter) + '%') +
+              ' or upper(p.Descri) like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(aFilter)) + '%') + ')');
 
-        Case iTipoPesquisa of
-          // Por Código, Descrição
-          0:
-            if ( StrToIntDef(Trim(edFiltrarEstoqueSatelite.Text), 0) > 0 ) then
-              Add( 'where p.codigo = ' + Trim(edFiltrarEstoqueSatelite.Text) )
-            else
-              Add( 'where (upper(p.Descri) like ' + QuotedStr('%' + UpperCase(Trim(edFiltrarEstoqueSatelite.Text)) + '%') +
-                   '    or upper(p.Descri) like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edFiltrarEstoqueSatelite.Text))) + '%') + ')');
+        // Por Referência
+        1:
+          FControllerClienteEstoque.DAO.Where('p.Referencia = ' + aFilter.QuotedString);
 
-          // Por Referência
-          1:
-            Add( 'where p.Referencia = ' + QuotedStr(Trim(edFiltrarEstoqueSatelite.Text)) );
+        // Por Fabricante
+        2:
+          if ( StrToIntDef(aFilter, 0) > 0 ) then
+            FControllerClienteEstoque.DAO.Where(' p.Codfabricante = ' + aFilter)
+          else
+            FControllerClienteEstoque.DAO.Where('(upper(f.Nome) like ' + QuotedStr('%' + UpperCase(aFilter) + '%') + ')');
 
-          // Por Fabricante
-          2:
-            if ( StrToIntDef(Trim(edFiltrarEstoqueSatelite.Text), 0) > 0 ) then
-              Add( 'where p.Codfabricante = ' + Trim(edFiltrarEstoqueSatelite.Text) )
-            else
-              Add( 'where (upper(f.Nome) like ' + QuotedStr('%' + UpperCase(Trim(edFiltrarEstoqueSatelite.Text)) + '%') + ')' );
-
-          // Por Grupo
-          3:
-            if ( StrToIntDef(Trim(edFiltrarEstoqueSatelite.Text), 0) > 0 ) then
-              Add( 'where p.Codgrupo = ' + Trim(edFiltrarEstoqueSatelite.Text) )
-            else
-              Add( 'where (upper(g.Descri) like ' + QuotedStr('%' + UpperCase(Trim(edFiltrarEstoqueSatelite.Text)) + '%') + ')' );
-        end;
-
+        // Por Grupo
+        3:
+          if ( StrToIntDef(aFilter, 0) > 0 ) then
+            FControllerClienteEstoque.DAO.Where('p.Codgrupo = ' + aFilter)
+          else
+            FControllerClienteEstoque.DAO.Where('(upper(g.Descri) like ' + QuotedStr('%' + UpperCase(aFilter) + '%') + ')');
       end;
 
-      if ( Pos('where', SQL.Text) > 0 ) then
-        Add( '  and (e.cod_cliente = ' + DtSrcTabela.DataSet.FieldByName('CODIGO').AsString + ')' )
-      else
-        Add( 'where (e.cod_cliente = ' + DtSrcTabela.DataSet.FieldByName('CODIGO').AsString + ')' );
+    end;
 
-      if chkProdutoComEstoque.Checked then
-        Add('  and (e.quantidade > 0)');
+    FControllerClienteEstoque.DAO.Where('(e.cod_cliente = ' + DtSrcTabela.DataSet.FieldByName('CODIGO').AsString + ')');
 
-      Add( 'order by p.Descri' );
+    if chkProdutoComEstoque.Checked then
+      FControllerClienteEstoque.DAO.Where('(e.quantidade > 0)');
 
-      Open;
+    FControllerClienteEstoque
+      .DAO
+        .OrderBy('p.Descri')
+      .Open;
 
-      if ( not IsEmpty ) then
-        dbgEstoqueSatelite.SetFocus
-      else
-      begin
-        ShowWarning('Não existe registros de produtos no estoque satélite do cliente para este tipo de pesquisa');
+    FControllerClienteEstoque.DAO.DataSet.FieldByName('COD_VENDA_ULT').OnGetText := DataSetEstoqueUltimaVendaGetText;
 
-        edFiltrarEstoqueSatelite.SetFocus;
-        edFiltrarEstoqueSatelite.SelectAll;
-      end;
+    // Preparar DataSet para a configuração dos campos
+    TTabelaController.New
+      .Tabela(DtsEstoqueSatelite.DataSet)
+      .Display('VALIDADE',    'Validade', 'dd/mm/yyyy', TAlignment.taCenter)
+      .Display('QUANTIDADE', 'Estoque', ',0.###', TAlignment.taRightJustify)
+      .Display('VALOR_MEDIO', 'Valor Médio (R$)', ',0.00', TAlignment.taRightJustify)
+      .Configurar;
+
+    if ( not DtsEstoqueSatelite.DataSet.IsEmpty ) then
+      dbgEstoqueSatelite.SetFocus
+    else
+    begin
+      ShowWarning('Não existe registros de produtos no estoque satélite do cliente para este tipo de pesquisa');
+
+      edFiltrarEstoqueSatelite.SetFocus;
+      edFiltrarEstoqueSatelite.SelectAll;
     end;
   except
     On E : Exception do
-      ShowWarning('Erro ao tentar filtrar registros de produtos no estoque satélite do cliente.' + #13#13 + E.Message + #13#13 + 'Script:' + #13 + QryEstoqueSatelite.SQL.Text);
+      ShowWarning('Erro ao tentar filtrar registros de produtos no estoque satélite do cliente.' + #13 +
+        E.Message + #13 + 'Script:' + #13#13 + FControllerClienteEstoque.DAO.SelectSQL);
   end;
 end;
 
@@ -1515,7 +1486,7 @@ procedure TViewCliente.fdQryTabelaAfterScroll(DataSet: TDataSet);
 begin
   inherited;
   HabilitarAbaEstoque;
-  QryEstoqueSatelite.Close;
+  DtsEstoqueSatelite.DataSet.Close;
 end;
 
 procedure TViewCliente.fdQryTabelaBeforePost(DataSet: TDataSet);
@@ -1539,76 +1510,7 @@ begin
   end;
 end;
 
-procedure TViewCliente.fdQryTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  with DtSrcTabela.DataSet do
-  begin
-    if (gSistema.Codigo = SISTEMA_PDV) then
-      if (Trim(edtFiltrar.Text) <> EmptyStr) then
-        if StrIsCPF(Trim(edtFiltrar.Text)) then
-        begin
-          FieldByName('PESSOA_FISICA').AsInteger := 1;
-          FieldByName('CNPJ').AsString           := Trim(edtFiltrar.Text);
-        end
-        else
-        if StrIsCNPJ(Trim(edtFiltrar.Text)) then
-        begin
-          FieldByName('PESSOA_FISICA').AsInteger := 0;
-          FieldByName('CNPJ').AsString           := Trim(edtFiltrar.Text);
-        end
-        else
-          FieldByName('PESSOA_FISICA').AsInteger := 1
-      else
-        FieldByName('PESSOA_FISICA').AsInteger := 1
-    else
-      FieldByName('PESSOA_FISICA').AsInteger  := 1;
-
-    FieldByName('TIPO').AsInteger             := 0;
-    FieldByName('VALOR_LIMITE_COMPRA').AsCurrency := 0;
-    FieldByName('PAIS_ID').AsString           := GetPaisIDDefault;
-    FieldByName('PAIS_NOME').AsString         := GetPaisNomeDefault;
-    FieldByName('EST_COD').AsInteger          := GetEstadoIDDefault;
-    FieldByName('EST_NOME').AsString          := GetEstadoNomeDefault;
-    FieldByName('UF').AsString                := GetEstadoUF(GetEstadoIDDefault);
-    FieldByName('CID_COD').AsInteger          := GetCidadeIDDefault;
-    FieldByName('CID_NOME').AsString          := GetCidadeNomeDefault;
-    FieldByName('CIDADE').AsString            := Copy(GetCidadeNomeDefault + ' (' + FieldByName('UF').AsString + ')', 1, FieldByName('CIDADE').Size);
-    FieldByName('CEP').AsString               := GetCidadeCEP(GetCidadeIDDefault);
-    FieldByName('NUMERO_END').AsString        := 'S/N';
-    FieldByName('COMPLEMENTO').AsString       := EmptyStr;
-    FieldByName('DTCAD').AsDateTime           := GetDateDB;
-    FieldByName('USUARIO').AsString           := gUsuarioLogado.Login;
-    FieldByName('ATIVO').AsInteger            := 1;
-    FieldByName('BLOQUEADO').AsInteger                := 0; // Ord(False);
-    FieldByName('BLOQUEADO_AUTOMATICO').AsInteger     := 0;
-    FieldByName('EMITIR_NFE_DEVOLUCAO').AsInteger     := 0; // Ord(False);
-    FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger    := 0; // Ord(False);
-    FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger := IfThen(gSistema.Codigo = SISTEMA_GESTAO_OPME, 1, 0);
-
-    FieldByName('VENDEDOR_COD').Clear;
-    FieldByName('BLOQUEADO_DATA').Clear;
-    FieldByName('BLOQUEADO_MOTIVO').Clear;
-    FieldByName('BLOQUEADO_USUARIO').Clear;
-    FieldByName('BANCO').Clear;
-    FieldByName('AGENCIA').Clear;
-    FieldByName('CC').Clear;
-    FieldByName('PRACA').Clear;
-    FieldByName('BANCO_2').Clear;
-    FieldByName('AGENCIA_2').Clear;
-    FieldByName('CC_2').Clear;
-    FieldByName('PRACA_2').Clear;
-    FieldByName('BANCO_3').Clear;
-    FieldByName('AGENCIA_3').Clear;
-    FieldByName('CC_3').Clear;
-    FieldByName('PRACA_3').Clear;
-    FieldByName('OBSERVACAO').Clear;
-
-    GetComprasAbertas( FieldByName('CODIGO').AsInteger );
-  end;
-end;
-
-procedure TViewCliente.fdQryTitulosSITUACAOGetText(Sender: TField;
+procedure TViewCliente.DataSetTituloSituacaoGetText(Sender: TField;
   var Text: string; DisplayText: Boolean);
 begin
   if ( Sender.IsNull ) then
@@ -1658,9 +1560,12 @@ begin
 end;
 
 procedure TViewCliente.FiltarDados(const iTipoPesquisa: Integer);
+var
+  aExpressionOr : String;
 begin
   try
     WaitAMoment(WAIT_AMOMENT_LoadData);
+    edtFiltrar.Text := Trim(edtFiltrar.Text);
 
     try
 
@@ -1671,84 +1576,84 @@ begin
         Abort;
       end;
 
-      with fdQryTabela, SQL do
+      FController.DAO.DataSet.Close;
+      FController.DAO.ClearWhere;
+
+      if ( edtFiltrar.Text <> EmptyStr ) then
       begin
-        if ( Trim(CampoOrdenacao) = EmptyStr ) then
-          CampoOrdenacao := CampoDescricao;
 
-        Close;
-        Clear;
-        AddStrings( SQLTabela );
+        Case iTipoPesquisa of
+          // Por Código, Razão
+          0:
+            if (StrToIntDef(edtFiltrar.Text, 0) > 0) then
+              FController.DAO.Where(CampoCodigo, StrToIntDef(edtFiltrar.Text, 0))
+            else
+            if (StrToInt64Def(edtFiltrar.Text, 0) > 0) then
+              FController.DAO.Where(CampoCodigo, StrToInt64Def(edtFiltrar.Text, 0))
+            else
+            begin
+              aExpressionOr :=
+                '    (upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') +
+                '  or upper(' + CampoDescricao +  ') like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + ')';
 
-        if ( Trim(edtFiltrar.Text) <> EmptyStr ) then
-        begin
+              FController.DAO.Where(aExpressionOr);
+            end;
 
-          Case iTipoPesquisa of
-            // Por Código, Razão
-            0:
-              if ( StrToIntDef(Trim(edtFiltrar.Text), 0) > 0 ) then
-                Add( 'where ' + CampoCodigo +  ' = ' + Trim(edtFiltrar.Text) )
-              else
-              begin
-                Add( 'where ((upper(cl.Nome) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
-                     '     or upper(cl.Nome) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
-                Add( '   or ((upper(cl.Nomefant) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
-                     '     or upper(cl.Nomefant) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
-              end;
+          // Por CPF/CNPJ
+          1:
+            FController.DAO.Where( 'cl.cnpj like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') );
 
-            // Por CPF/CNPJ
-            1:
-              Add( 'where cl.cnpj like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') );
+          // Por Cidade
+          2:
+            FController.DAO.Where( '((upper(cl.Cidade) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
+                 ' or upper(cl.Cidade) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
 
-            // Por Cidade
-            2:
-              Add( 'where ((upper(cl.Cidade) like ' + QuotedStr(UpperCase(Trim(edtFiltrar.Text)) + '%') +
-                   '     or upper(cl.Cidade) like ' + QuotedStr(UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + '))');
+          // Por Telefones
+          3:
+            begin
+              aExpressionOr :=
+                '   ((cl.fone       like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + ')' +
+                ' or (cl.fonecel    like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + ')' +
+                ' or (cl.fonecomerc like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + '))';
 
-            // Por Telefones
-            3:
-              begin
-                Add( 'where ((cl.fone       like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + ')');
-                Add( '    or (cl.fonecel    like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + ')');
-                Add( '    or (cl.fonecomerc like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + '))');
-              end;
-          end;
-
+              FController.DAO.Where(aExpressionOr);
+            end;
         end;
 
-        if ( WhereAdditional <> EmptyStr ) then
-          if ( Pos('where', SQL.Text) > 0 ) then
-            Add( '  and (' + WhereAdditional + ')' )
-          else
-            Add( 'where (' + WhereAdditional + ')' );
+      end;
 
-        Add( 'order by ' + CampoOrdenacao );
+      if (not WhereAdditional.IsEmpty) then
+        FController.DAO.Where('(' + WhereAdditional + ')');
 
-        Open;
+      if ( Trim(CampoOrdenacao) = EmptyStr ) then
+        CampoOrdenacao := CampoDescricao;
 
-        try
+      if (not CampoOrdenacao.IsEmpty) then
+        FController.DAO.OrderBy(CampoOrdenacao);
 
-          if ( not IsEmpty ) then
+      FController.DAO.Open;
+      Tabela.Configurar;
+
+      try
+        if Showing and (pgcGuias.ActivePage = tbsTabela) then
+          if ( not DtSrcTabela.DataSet.IsEmpty ) then
             dbgDados.SetFocus
           else
           begin
-            WaitAMomentFree;
             ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
 
             edtFiltrar.SetFocus;
             edtFiltrar.SelectAll;
           end;
-
-        except
-          WaitAMomentFree;
-        end;
-
+      except
+        WaitAMomentFree;
       end;
     except
       On E : Exception do
       begin
         WaitAMomentFree;
-        ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13#13 + E.Message + #13#13 + 'Script:' + #13 + fdQryTabela.SQL.Text);
+        ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13 + E.Message + #13 +
+          'Script:' + #13#13 + FController.DAO.SelectSQL);
       end;
     end;
 
@@ -1765,13 +1670,13 @@ begin
   if ( not DtSrcTabela.DataSet.Active ) then
     Exit;
 
-  if ( not QryEstoqueSatelite.Active ) then
+  if ( not DtsEstoqueSatelite.DataSet.Active ) then
     Exit;
 
-  if ( QryEstoqueSatelite.IsEmpty ) then
+  if ( DtsEstoqueSatelite.DataSet.IsEmpty ) then
     Exit;
 
-  if ( QryEstoqueSateliteQUANTIDADE.AsInteger <= 0 ) then
+  if (DtsEstoqueSatelite.DataSet.FieldByName('QUANTIDADE').AsInteger <= 0 ) then
   begin
     ShowWarning('Produto selecionado sem estoque disponível para atender!');
     Exit;
@@ -1821,6 +1726,50 @@ begin
     inherited;
     GetComprasAbertas( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger );
   end;
+end;
+
+procedure TViewCliente.btbtnIncluirClick(Sender: TObject);
+begin
+  inherited;
+  edtFiltrar.Text := Trim(edtFiltrar.Text);
+
+  if (not OcorreuErro) then
+    with DtSrcTabela.DataSet do
+    begin
+      if (gSistema.Codigo = SISTEMA_PDV) then
+        if (edtFiltrar.Text <> EmptyStr) then
+          if StrIsCPF(edtFiltrar.Text) then
+          begin
+            FieldByName('PESSOA_FISICA').AsInteger := 1;
+            FieldByName('CNPJ').AsString           := edtFiltrar.Text;
+          end
+          else
+          if StrIsCNPJ(Trim(edtFiltrar.Text)) then
+          begin
+            FieldByName('PESSOA_FISICA').AsInteger := 0;
+            FieldByName('CNPJ').AsString           := edtFiltrar.Text;
+          end
+          else
+            FieldByName('PESSOA_FISICA').AsInteger := 1
+        else
+          FieldByName('PESSOA_FISICA').AsInteger := 1
+      else
+        FieldByName('PESSOA_FISICA').AsInteger  := 1;
+
+      FieldByName('PAIS_ID').AsString           := GetPaisIDDefault;
+      FieldByName('PAIS_NOME').AsString         := GetPaisNomeDefault;
+      FieldByName('EST_COD').AsInteger          := GetEstadoIDDefault;
+      FieldByName('EST_NOME').AsString          := GetEstadoNomeDefault;
+      FieldByName('UF').AsString                := GetEstadoUF(GetEstadoIDDefault);
+      FieldByName('CID_COD').AsInteger          := GetCidadeIDDefault;
+      FieldByName('CID_NOME').AsString          := GetCidadeNomeDefault;
+      FieldByName('CIDADE').AsString            := Copy(GetCidadeNomeDefault + ' (' + FieldByName('UF').AsString + ')', 1, FieldByName('CIDADE').Size);
+      FieldByName('CEP').AsString               := GetCidadeCEP(GetCidadeIDDefault);
+      FieldByName('USUARIO').AsString           := gUsuarioLogado.Login;
+      FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger := IfThen(gSistema.Codigo = SISTEMA_GESTAO_OPME, 1, 0);
+
+      GetComprasAbertas( FieldByName('CODIGO').AsInteger );
+    end;
 end;
 
 procedure TViewCliente.RegistrarNovaRotinaSistema;

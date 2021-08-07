@@ -33,11 +33,12 @@ type
       FBancoFebrabanView ,
       FCentroCusto       ,
       FCentroCustoEmpresa,
-      FCFOP         ,
-      FCidade       ,
-      FClasseDespesa,
-      FClasseReceita,
-      FCliente      ,
+      FCFOP          ,
+      FCidade        ,
+      FClasseDespesa ,
+      FClasseReceita ,
+      FCliente       ,
+      FClienteEstoque,
       FClienteTitulos     ,
       FClienteTotalCompras,
       FCondicaoPagto      ,
@@ -85,6 +86,7 @@ type
       function ClasseDespesa : IModelDAOCustom;
       function ClasseReceita : IModelDAOCustom;
       function Cliente : IModelDAOCustom;
+      function ClienteEstoque : IModelDAOCustom;
       function ClienteTitulos : IModelDAOCustom;
       function ClienteTotalCompras : IModelDAOCustom;
       function CondicaoPagto : IModelDAOCustom;
@@ -329,6 +331,14 @@ begin
     FCliente := TModelDAOCliente.New;
 
   Result := FCliente;
+end;
+
+function TModelDAOFactory.ClienteEstoque: IModelDAOCustom;
+begin
+  if not Assigned(FClienteEstoque) then
+    FClienteEstoque := TModelDAOClienteEstoque.New;
+
+  Result := FClienteEstoque;
 end;
 
 function TModelDAOFactory.ClienteTitulos: IModelDAOCustom;

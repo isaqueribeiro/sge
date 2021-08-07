@@ -127,11 +127,10 @@ inherited ViewCliente: TViewCliente
             TabOrder = 2
             ExplicitLeft = 167
             ExplicitWidth = 158
-            ExplicitHeight = 23
           end
           inherited btnFiltrar: TcxButton
             Left = 331
-            ExplicitLeft = 327
+            ExplicitLeft = 331
           end
           object CmbBxFiltrarTipo: TComboBox
             Left = 8
@@ -163,7 +162,6 @@ inherited ViewCliente: TViewCliente
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 1
-          ExplicitWidth = 456
           object Bevel7: TBevel
             Left = 446
             Top = 15
@@ -200,7 +198,6 @@ inherited ViewCliente: TViewCliente
             ScrollBars = ssVertical
             ShowHint = True
             TabOrder = 0
-            ExplicitWidth = 444
           end
         end
       end
@@ -3222,16 +3219,16 @@ inherited ViewCliente: TViewCliente
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
-          DesignSize = (
-            557
-            54)
           object btnPesquisarEstoqueSatelite: TSpeedButton
-            Left = 512
-            Top = 16
+            AlignWithMargins = True
+            Left = 516
+            Top = 18
             Width = 29
-            Height = 27
+            Height = 26
             Hint = 'Clique aqui para executar a pesquisa ...'
-            Anchors = [akTop, akRight, akBottom]
+            Margins.Right = 10
+            Margins.Bottom = 8
+            Align = alRight
             Flat = True
             Glyph.Data = {
               36060000424D3606000000000000360000002800000020000000100000000100
@@ -3288,25 +3285,38 @@ inherited ViewCliente: TViewCliente
             ParentShowHint = False
             ShowHint = True
             OnClick = btnPesquisarEstoqueSateliteClick
+            ExplicitLeft = 512
+            ExplicitTop = 16
+            ExplicitHeight = 27
           end
           object edFiltrarEstoqueSatelite: TEdit
-            Left = 231
-            Top = 21
+            AlignWithMargins = True
+            Left = 234
+            Top = 20
             Width = 276
-            Height = 21
+            Height = 23
             Hint = 'Digite aqui a palavra-chave da pesquisa'
-            Anchors = [akLeft, akTop, akRight]
+            Margins.Top = 5
+            Margins.Bottom = 9
+            Align = alRight
+            Anchors = [akLeft, akTop, akRight, akBottom]
             CharCase = ecUpperCase
             ParentShowHint = False
             ShowHint = True
             TabOrder = 2
             OnKeyDown = edFiltrarEstoqueSateliteKeyDown
+            ExplicitLeft = 231
+            ExplicitTop = 21
+            ExplicitHeight = 21
           end
           object edFiltrarTipoEstoqueSatelite: TComboBox
-            Left = 16
+            Left = 19
             Top = 21
             Width = 209
             Height = 21
+            Margins.Left = 10
+            Margins.Top = 5
+            Margins.Bottom = 9
             Style = csDropDownList
             ItemIndex = 0
             TabOrder = 1
@@ -3658,14 +3668,12 @@ inherited ViewCliente: TViewCliente
     Top = 0
   end
   object dtsTotalComprasAbertas: TDataSource
-    DataSet = fdQryTotalComprasAbertas
-    Left = 536
-    Top = 337
+    Left = 624
+    Top = 1
   end
   object dtsTitulos: TDataSource
-    DataSet = fdQryTitulos
-    Left = 536
-    Top = 369
+    Left = 656
+    Top = 1
   end
   object dtsVendedor: TDataSource
     Left = 560
@@ -3698,9 +3706,7 @@ inherited ViewCliente: TViewCliente
   end
   object DtsEstoqueSatelite: TDataSource
     AutoEdit = False
-    DataSet = QryEstoqueSatelite
-    Left = 648
-    Top = 216
+    Left = 688
   end
   object dtsTipoCnpj: TDataSource
     Left = 592
@@ -3726,605 +3732,5 @@ inherited ViewCliente: TViewCliente
       '    b.nome')
     Left = 568
     Top = 398
-  end
-  object fdQryTotalComprasAbertas: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    g.Valor_limite'
-      '  , g.Valor_compras_abertas'
-      '  , g.Valor_limite_disponivel'
-      'from GET_LIMITE_DISPONIVEL_CLIENTE(:CLIENTE) g')
-    Left = 504
-    Top = 336
-    ParamData = <
-      item
-        Name = 'CLIENTE'
-        DataType = ftInteger
-        ParamType = ptInput
-        Value = Null
-      end>
-    object fdQryTotalComprasAbertasVALOR_LIMITE: TFMTBCDField
-      FieldName = 'VALOR_LIMITE'
-      Origin = 'VALOR_LIMITE'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTotalComprasAbertasVALOR_COMPRAS_ABERTAS: TFMTBCDField
-      FieldName = 'VALOR_COMPRAS_ABERTAS'
-      Origin = 'VALOR_COMPRAS_ABERTAS'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTotalComprasAbertasVALOR_LIMITE_DISPONIVEL: TFMTBCDField
-      FieldName = 'VALOR_LIMITE_DISPONIVEL'
-      Origin = 'VALOR_LIMITE_DISPONIVEL'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-  end
-  object fdQryTitulos: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    1 as tipo -- T'#237'tulos em aberto'
-      '  , r.Anolanc'
-      '  , r.Numlanc'
-      
-        '  , r.Anolanc || '#39'/'#39' || right('#39'0000000'#39' || r.Numlanc, 7) as Lanc' +
-        'amento'
-      '  , r.Parcela'
-      '  , r.Dtemiss'
-      '  , r.Dtvenc'
-      '  , r.Forma_pagto'
-      '  , f.Descri as Forma_pagto_Desc'
-      '  , r.Nossonumero'
-      '  , r.Valorrec'
-      '  , r.Valormulta'
-      '  , r.Valorrectot'
-      '  , r.Valorsaldo'
-      '  , bx.valor_pago'
-      '  , r.Status'
-      '  , r.Situacao'
-      '  , r.Anovenda'
-      '  , r.Numvenda'
-      
-        '  , r.Anovenda || '#39'/'#39' || right('#39'0000000'#39' || r.Numvenda, 7) as Ve' +
-        'nda'
-      '  , v.Serie'
-      '  , v.Nfe'
-      
-        '  , '#39'S'#39' || v.Serie || '#39'/'#39' || right('#39'0000000'#39' || v.Nfe, 7) as NFE' +
-        '_Serie'
-      'from TBCONTREC r'
-      '  inner join TBFORMPAGTO f on (f.Cod = r.Forma_pagto)'
-      '  left join ('
-      '    Select'
-      '        b.anolanc'
-      '      , b.numlanc'
-      '      , sum(b.valor_baixa) as valor_pago'
-      '    from TBCONTREC_BAIXA b'
-      '    group by'
-      '        b.anolanc'
-      '      , b.numlanc'
-      '  ) bx on (bx.anolanc = r.anolanc and bx.numlanc = r.numlanc)'
-      
-        '  left join TBVENDAS v on (v.Ano = r.Anovenda and v.Codcontrol =' +
-        ' r.Numvenda)'
-      'where r.Baixado = 0'
-      '  and r.Parcela > 0'
-      '  and r.Situacao = 1'
-      '  and r.Cliente = :cliente'
-      ''
-      'Union'
-      ''
-      'Select first 12'
-      '    0 as tipo -- T'#237'tulos quitados'
-      '  , r.Anolanc'
-      '  , r.Numlanc'
-      
-        '  , r.Anolanc || '#39'/'#39' || right('#39'0000000'#39' || r.Numlanc, 7) as Lanc' +
-        'amento'
-      '  , r.Parcela'
-      '  , r.Dtemiss'
-      '  , r.Dtvenc'
-      '  , r.Forma_pagto'
-      '  , f.Descri as Forma_pagto_Desc'
-      '  , r.Nossonumero'
-      '  , r.Valorrec'
-      '  , r.Valormulta'
-      '  , r.Valorrectot'
-      '  , r.Valorsaldo'
-      '  , bx.valor_pago'
-      '  , r.Status'
-      '  , r.Situacao'
-      '  , r.Anovenda'
-      '  , r.Numvenda'
-      
-        '  , r.Anovenda || '#39'/'#39' || right('#39'0000000'#39' || r.Numvenda, 7) as Ve' +
-        'nda'
-      '  , v.Serie'
-      '  , v.Nfe'
-      
-        '  , '#39'S'#39' || v.Serie || '#39'/'#39' || right('#39'0000000'#39' || v.Nfe, 7) as NFE' +
-        '_Serie'
-      'from TBCONTREC r'
-      '  inner join TBFORMPAGTO f on (f.Cod = r.Forma_pagto)'
-      '  left join ('
-      '    Select'
-      '        b.anolanc'
-      '      , b.numlanc'
-      '      , sum(b.valor_baixa) as valor_pago'
-      '    from TBCONTREC_BAIXA b'
-      '    group by'
-      '        b.anolanc'
-      '      , b.numlanc'
-      '  ) bx on (bx.anolanc = r.anolanc and bx.numlanc = r.numlanc)'
-      
-        '  left join TBVENDAS v on (v.Ano = r.Anovenda and v.Codcontrol =' +
-        ' r.Numvenda)'
-      'where r.Baixado  = 1'
-      '  --and r.Parcela  = 0'
-      '  and r.Situacao = 1'
-      '  and r.Cliente  = :cliente'
-      ''
-      'order by    '
-      '    1 desc, 4 desc, 7 desc  -- Tipo, Lancamentos, Vencimentos')
-    Left = 504
-    Top = 368
-    ParamData = <
-      item
-        Name = 'CLIENTE'
-        DataType = ftInteger
-        ParamType = ptInput
-        Value = Null
-      end>
-    object fdQryTitulosTIPO: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'TIPO'
-      Origin = 'TIPO'
-      ProviderFlags = []
-      ReadOnly = True
-    end
-    object fdQryTitulosANOLANC: TSmallintField
-      FieldName = 'ANOLANC'
-      Origin = 'ANOLANC'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object fdQryTitulosNUMLANC: TIntegerField
-      FieldName = 'NUMLANC'
-      Origin = 'NUMLANC'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object fdQryTitulosLANCAMENTO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'LANCAMENTO'
-      Origin = 'LANCAMENTO'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 25
-    end
-    object fdQryTitulosPARCELA: TSmallintField
-      FieldName = 'PARCELA'
-      Origin = 'PARCELA'
-    end
-    object fdQryTitulosDTEMISS: TDateField
-      FieldName = 'DTEMISS'
-      Origin = 'DTEMISS'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object fdQryTitulosDTVENC: TDateField
-      FieldName = 'DTVENC'
-      Origin = 'DTVENC'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object fdQryTitulosFORMA_PAGTO: TSmallintField
-      FieldName = 'FORMA_PAGTO'
-      Origin = 'FORMA_PAGTO'
-    end
-    object fdQryTitulosFORMA_PAGTO_DESC: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'FORMA_PAGTO_DESC'
-      Origin = 'DESCRI'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 30
-    end
-    object fdQryTitulosNOSSONUMERO: TStringField
-      FieldName = 'NOSSONUMERO'
-      Origin = 'NOSSONUMERO'
-    end
-    object fdQryTitulosSTATUS: TStringField
-      FieldName = 'STATUS'
-      Origin = 'STATUS'
-      Size = 12
-    end
-    object fdQryTitulosVALORREC: TFMTBCDField
-      FieldName = 'VALORREC'
-      Origin = 'VALORREC'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTitulosVALORMULTA: TFMTBCDField
-      FieldName = 'VALORMULTA'
-      Origin = 'VALORMULTA'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTitulosVALORRECTOT: TFMTBCDField
-      FieldName = 'VALORRECTOT'
-      Origin = 'VALORRECTOT'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTitulosVALORSALDO: TFMTBCDField
-      FieldName = 'VALORSALDO'
-      Origin = 'VALORSALDO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTitulosVALOR_PAGO: TFMTBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALOR_PAGO'
-      Origin = 'VALOR_PAGO'
-      ProviderFlags = []
-      ReadOnly = True
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTitulosSITUACAO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'SITUACAO'
-      Origin = 'SITUACAO'
-      OnGetText = fdQryTitulosSITUACAOGetText
-    end
-    object fdQryTitulosANOVENDA: TSmallintField
-      FieldName = 'ANOVENDA'
-      Origin = 'ANOVENDA'
-    end
-    object fdQryTitulosNUMVENDA: TIntegerField
-      FieldName = 'NUMVENDA'
-      Origin = 'NUMVENDA'
-    end
-    object fdQryTitulosVENDA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'VENDA'
-      Origin = 'VENDA'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 25
-    end
-    object fdQryTitulosSERIE: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'SERIE'
-      Origin = 'SERIE'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 4
-    end
-    object fdQryTitulosNFE: TLargeintField
-      AutoGenerateValue = arDefault
-      FieldName = 'NFE'
-      Origin = 'NFE'
-      ProviderFlags = []
-      ReadOnly = True
-    end
-    object fdQryTitulosNFE_SERIE: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'NFE_SERIE'
-      Origin = 'NFE_SERIE'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 33
-    end
-  end
-  object QryEstoqueSatelite: TFDQuery
-    CachedUpdates = True
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    UpdateObject = UpdEstoqueSatelite
-    SQL.Strings = (
-      'Select'
-      '    e.cod_cliente'
-      '  , e.cod_produto'
-      '  , e.sequencial'
-      '  , e.quantidade'
-      '  , e.valor_medio'
-      '  , e.usuario'
-      '  , e.ano_venda_ult'
-      '  , e.cod_venda_ult'
-      '  , e.lote_id'
-      ''
-      '  , p.Codigo'
-      '  , p.Descri'
-      '  , p.Apresentacao'
-      '  , p.Descri_apresentacao'
-      '  , p.Modelo'
-      '  , p.Referencia'
-      '  , p.Secao'
-      '  , p.Preco'
-      '  , p.Unidade'
-      '  , g.Descri as Descricao_Grupo'
-      '  , f.Nome   as Nome_Fabricante'
-      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
-      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
-      '  , u.Unp_sigla'
-      '  , a.descricao       as lote'
-      '  , a.data_fabricacao as fabricacao'
-      '  , a.data_validade   as validade'
-      'from TBCLIENTE_ESTOQUE e'
-      '  inner join TBPRODUTO p on (p.cod = e.cod_produto)'
-      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
-      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)'
-      '  left join TBESTOQUE_ALMOX a on (a.id = e.lote_id)')
-    Left = 584
-    Top = 216
-    object QryEstoqueSateliteCOD_CLIENTE: TIntegerField
-      DisplayLabel = 'Cliente'
-      FieldName = 'COD_CLIENTE'
-      Origin = 'COD_CLIENTE'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object QryEstoqueSateliteCOD_PRODUTO: TStringField
-      FieldName = 'COD_PRODUTO'
-      Origin = 'COD_PRODUTO'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object QryEstoqueSateliteSEQUENCIAL: TSmallintField
-      FieldName = 'SEQUENCIAL'
-      Origin = 'SEQUENCIAL'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object QryEstoqueSateliteQUANTIDADE: TBCDField
-      FieldName = 'QUANTIDADE'
-      Origin = 'QUANTIDADE'
-      Required = True
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object QryEstoqueSateliteVALOR_MEDIO: TBCDField
-      FieldName = 'VALOR_MEDIO'
-      Origin = 'VALOR_MEDIO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-    end
-    object QryEstoqueSateliteUSUARIO: TStringField
-      FieldName = 'USUARIO'
-      Origin = 'USUARIO'
-      Size = 50
-    end
-    object QryEstoqueSateliteANO_VENDA_ULT: TSmallintField
-      FieldName = 'ANO_VENDA_ULT'
-      Origin = 'ANO_VENDA_ULT'
-    end
-    object QryEstoqueSateliteCOD_VENDA_ULT: TIntegerField
-      FieldName = 'COD_VENDA_ULT'
-      Origin = 'COD_VENDA_ULT'
-      OnGetText = QryEstoqueSateliteCOD_VENDA_ULTGetText
-    end
-    object QryEstoqueSateliteLOTE_ID: TStringField
-      FieldName = 'LOTE_ID'
-      Origin = 'LOTE_ID'
-      Size = 38
-    end
-    object QryEstoqueSateliteCODIGO: TIntegerField
-      AutoGenerateValue = arDefault
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      ProviderFlags = []
-      ReadOnly = True
-    end
-    object QryEstoqueSateliteDESCRI: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRI'
-      Origin = 'DESCRI'
-      ProviderFlags = []
-      Size = 50
-    end
-    object QryEstoqueSateliteAPRESENTACAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'APRESENTACAO'
-      Origin = 'APRESENTACAO'
-      ProviderFlags = []
-      Size = 50
-    end
-    object QryEstoqueSateliteDESCRI_APRESENTACAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRI_APRESENTACAO'
-      Origin = 'DESCRI_APRESENTACAO'
-      ProviderFlags = []
-      Size = 100
-    end
-    object QryEstoqueSateliteMODELO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'MODELO'
-      Origin = 'MODELO'
-      ProviderFlags = []
-      Size = 40
-    end
-    object QryEstoqueSateliteREFERENCIA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'REFERENCIA'
-      Origin = 'REFERENCIA'
-      ProviderFlags = []
-      Size = 15
-    end
-    object QryEstoqueSateliteSECAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'SECAO'
-      Origin = 'SECAO'
-      ProviderFlags = []
-    end
-    object QryEstoqueSatelitePRECO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'PRECO'
-      Origin = 'PRECO'
-      ProviderFlags = []
-      Precision = 18
-      Size = 2
-    end
-    object QryEstoqueSateliteUNIDADE: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'UNIDADE'
-      Origin = 'UNIDADE'
-      ProviderFlags = []
-    end
-    object QryEstoqueSateliteDESCRICAO_GRUPO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO_GRUPO'
-      Origin = 'DESCRI'
-      ProviderFlags = []
-      Size = 30
-    end
-    object QryEstoqueSateliteNOME_FABRICANTE: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'NOME_FABRICANTE'
-      Origin = 'NOME'
-      ProviderFlags = []
-      Size = 50
-    end
-    object QryEstoqueSateliteDESCRICAO_SECAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO_SECAO'
-      Origin = 'DESCRICAO_SECAO'
-      ProviderFlags = []
-      Size = 50
-    end
-    object QryEstoqueSateliteDESCRICAO_UNIDADE: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO_UNIDADE'
-      Origin = 'DESCRICAO_UNIDADE'
-      ProviderFlags = []
-      Size = 50
-    end
-    object QryEstoqueSateliteUNP_SIGLA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'UNP_SIGLA'
-      Origin = 'UNP_SIGLA'
-      ProviderFlags = []
-      Size = 5
-    end
-    object QryEstoqueSateliteLOTE: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'LOTE'
-      Origin = 'DESCRICAO'
-      ProviderFlags = []
-      Size = 30
-    end
-    object QryEstoqueSateliteFABRICACAO: TDateField
-      AutoGenerateValue = arDefault
-      FieldName = 'FABRICACAO'
-      Origin = 'DATA_FABRICACAO'
-      ProviderFlags = []
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object QryEstoqueSateliteVALIDADE: TDateField
-      AutoGenerateValue = arDefault
-      FieldName = 'VALIDADE'
-      Origin = 'DATA_VALIDADE'
-      ProviderFlags = []
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-  end
-  object UpdEstoqueSatelite: TFDUpdateSQL
-    Connection = DMBusiness.fdConexao
-    InsertSQL.Strings = (
-      'INSERT INTO TBCLIENTE_ESTOQUE'
-      '(COD_CLIENTE, COD_PRODUTO, SEQUENCIAL, QUANTIDADE, '
-      '  VALOR_MEDIO, USUARIO, ANO_VENDA_ULT, COD_VENDA_ULT, '
-      '  LOTE_ID)'
-      
-        'VALUES (:NEW_COD_CLIENTE, :NEW_COD_PRODUTO, :NEW_SEQUENCIAL, :NE' +
-        'W_QUANTIDADE, '
-      
-        '  :NEW_VALOR_MEDIO, :NEW_USUARIO, :NEW_ANO_VENDA_ULT, :NEW_COD_V' +
-        'ENDA_ULT, '
-      '  :NEW_LOTE_ID)')
-    ModifySQL.Strings = (
-      'UPDATE TBCLIENTE_ESTOQUE'
-      
-        'SET COD_CLIENTE = :NEW_COD_CLIENTE, COD_PRODUTO = :NEW_COD_PRODU' +
-        'TO, '
-      '  SEQUENCIAL = :NEW_SEQUENCIAL, QUANTIDADE = :NEW_QUANTIDADE, '
-      '  VALOR_MEDIO = :NEW_VALOR_MEDIO, USUARIO = :NEW_USUARIO, '
-      
-        '  ANO_VENDA_ULT = :NEW_ANO_VENDA_ULT, COD_VENDA_ULT = :NEW_COD_V' +
-        'ENDA_ULT, '
-      '  LOTE_ID = :NEW_LOTE_ID'
-      
-        'WHERE COD_CLIENTE = :OLD_COD_CLIENTE AND COD_PRODUTO = :OLD_COD_' +
-        'PRODUTO AND '
-      '  SEQUENCIAL = :OLD_SEQUENCIAL')
-    DeleteSQL.Strings = (
-      'DELETE FROM TBCLIENTE_ESTOQUE'
-      
-        'WHERE COD_CLIENTE = :OLD_COD_CLIENTE AND COD_PRODUTO = :OLD_COD_' +
-        'PRODUTO AND '
-      '  SEQUENCIAL = :OLD_SEQUENCIAL')
-    FetchRowSQL.Strings = (
-      'Select'
-      '    e.cod_cliente'
-      '  , e.cod_produto'
-      '  , e.sequencial'
-      '  , e.quantidade'
-      '  , e.valor_medio'
-      '  , e.usuario'
-      '  , e.ano_venda_ult'
-      '  , e.cod_venda_ult'
-      '  , e.lote_id'
-      ''
-      '  , p.Codigo'
-      '  , p.Descri'
-      '  , p.Apresentacao'
-      '  , p.Descri_apresentacao'
-      '  , p.Modelo'
-      '  , p.Referencia'
-      '  , p.Secao'
-      '  , p.Preco'
-      '  , p.Unidade'
-      '  , g.Descri as Descricao_Grupo'
-      '  , f.Nome   as Nome_Fabricante'
-      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
-      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
-      '  , u.Unp_sigla'
-      '  , a.descricao       as lote'
-      '  , a.data_fabricacao as fabricacao'
-      '  , a.data_validade   as validade'
-      'from TBCLIENTE_ESTOQUE e'
-      '  inner join TBPRODUTO p on (p.cod = e.cod_produto)'
-      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
-      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)'
-      '  left join TBESTOQUE_ALMOX a on (a.id = e.lote_id)'
-      ''
-      
-        'WHERE e.COD_CLIENTE = :COD_CLIENTE AND e.COD_PRODUTO = :COD_PROD' +
-        'UTO AND'
-      '  e.SEQUENCIAL = :SEQUENCIAL')
-    Left = 616
-    Top = 216
   end
 end

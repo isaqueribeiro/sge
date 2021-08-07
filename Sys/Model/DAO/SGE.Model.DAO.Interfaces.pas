@@ -74,6 +74,7 @@ type
     function ClasseDespesa : IModelDAOCustom;
     function ClasseReceita : IModelDAOCustom;
     function Cliente : IModelDAOCustom;
+    function ClienteEstoque : IModelDAOCustom;
     function ClienteTitulos : IModelDAOCustom;
     function ClienteTotalCompras : IModelDAOCustom;
     function CondicaoPagto : IModelDAOCustom;

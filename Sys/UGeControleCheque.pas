@@ -282,7 +282,7 @@ uses
   , UDMBusiness
   , UDMRecursos
   , UDMNFe
-  , UGeCliente
+  , View.Cliente
   , UGrMemoData
   , UGeFornecedorClientePesquisa;
 

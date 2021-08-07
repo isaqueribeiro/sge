@@ -647,6 +647,9 @@ const
   KEY_REG_VERSAO    = 'Versão';
   KEY_REG_DATA      = 'Data acesso';
 
+  // Mensagens padrões do sistema
+  CLIENTE_BLOQUEADO_PORDEBITO = 'Cliente bloqueado automaticamente pelo sistema por se encontrar com títulos vencidos. Favor buscar mais informações junto ao FINANCEIRO.';
+
 implementation
 
 end.

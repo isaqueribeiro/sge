@@ -27,6 +27,8 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -708,6 +710,10 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
         object tbsRecebimento: TTabSheet
           BorderWidth = 4
           Caption = 'Requisi'#231#227'o do Cliente'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object pnlObservacao: TPanel
             Left = 0
             Top = 0
@@ -719,11 +725,10 @@ inherited frmGeRequisicaoCliente: TfrmGeRequisicaoCliente
             object lblObservacao: TLabel
               Left = 0
               Top = 0
-              Width = 1092
+              Width = 67
               Height = 13
               Align = alTop
               Caption = '&Observa'#231#245'es:'
-              ExplicitWidth = 67
             end
             object Bevel15: TBevel
               Left = 0

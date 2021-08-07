@@ -50,6 +50,20 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
+  // Table
+  TModelDAOClienteEstoque = class(TModelDAO, IModelDAOCustom)
+    private
+      procedure SetProviderFlags;
+      procedure DataSetAfterOpen(DataSet: TDataSet);
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+  end;
+
 implementation
 
 uses
@@ -167,12 +181,7 @@ begin
 end;
 
 procedure TModelDAOCliente.SetProviderFlags;
-var
-  I : Integer;
 begin
-  for I := 0 to Pred(FConn.Query.DataSet.Fields.Count) do
-    FConn.Query.DataSet.Fields[I].ReadOnly := False; // Liberar edição dos campos
-
   // Ignorar campos no Insert e Update
   FConn.Query.DataSet.FieldByName('Logradouro').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('Cid_nome').ProviderFlags   := [];
@@ -212,47 +221,14 @@ procedure TModelDAOCliente.DataSetNewRecord(DataSet: TDataSet);
 begin
   with FConn.Query.DataSet do
   begin
-//    if (gSistema.Codigo = SISTEMA_PDV) then
-//      if (Trim(edtFiltrar.Text) <> EmptyStr) then
-//        if StrIsCPF(Trim(edtFiltrar.Text)) then
-//        begin
-//          FieldByName('PESSOA_FISICA').AsInteger := 1;
-//          FieldByName('CNPJ').AsString           := Trim(edtFiltrar.Text);
-//        end
-//        else
-//        if StrIsCNPJ(Trim(edtFiltrar.Text)) then
-//        begin
-//          FieldByName('PESSOA_FISICA').AsInteger := 0;
-//          FieldByName('CNPJ').AsString           := Trim(edtFiltrar.Text);
-//        end
-//        else
-//          FieldByName('PESSOA_FISICA').AsInteger := 1
-//      else
-//        FieldByName('PESSOA_FISICA').AsInteger := 1
-//    else
-//      FieldByName('PESSOA_FISICA').AsInteger  := 1;
-//
-//    FieldByName('TIPO').AsInteger             := 0;
-//    FieldByName('VALOR_LIMITE_COMPRA').AsCurrency := 0;
-//    FieldByName('PAIS_ID').AsString           := GetPaisIDDefault;
-//    FieldByName('PAIS_NOME').AsString         := GetPaisNomeDefault;
-//    FieldByName('EST_COD').AsInteger          := GetEstadoIDDefault;
-//    FieldByName('EST_NOME').AsString          := GetEstadoNomeDefault;
-//    FieldByName('UF').AsString                := GetEstadoUF(GetEstadoIDDefault);
-//    FieldByName('CID_COD').AsInteger          := GetCidadeIDDefault;
-//    FieldByName('CID_NOME').AsString          := GetCidadeNomeDefault;
-//    FieldByName('CIDADE').AsString            := Copy(GetCidadeNomeDefault + ' (' + FieldByName('UF').AsString + ')', 1, FieldByName('CIDADE').Size);
-//    FieldByName('CEP').AsString               := GetCidadeCEP(GetCidadeIDDefault);
     FieldByName('NUMERO_END').AsString        := 'S/N';
     FieldByName('COMPLEMENTO').AsString       := EmptyStr;
     FieldByName('DTCAD').AsDateTime           := Now;
-//    FieldByName('USUARIO').AsString           := gUsuarioLogado.Login;
     FieldByName('ATIVO').AsInteger            := 1;
     FieldByName('BLOQUEADO').AsInteger                := 0; // Ord(False);
     FieldByName('BLOQUEADO_AUTOMATICO').AsInteger     := 0;
     FieldByName('EMITIR_NFE_DEVOLUCAO').AsInteger     := 0; // Ord(False);
     FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger    := 0; // Ord(False);
-//    FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger := IfThen(gSistema.Codigo = SISTEMA_GESTAO_OPME, 1, 0);
 
     FieldByName('VENDEDOR_COD').Clear;
     FieldByName('BLOQUEADO_DATA').Clear;
@@ -271,8 +247,6 @@ begin
     FieldByName('CC_3').Clear;
     FieldByName('PRACA_3').Clear;
     FieldByName('OBSERVACAO').Clear;
-//
-//    GetComprasAbertas( FieldByName('CODIGO').AsInteger );
   end;
 end;
 
@@ -414,6 +388,98 @@ end;
 class function TModelDAOClienteTitulos.New: IModelDAOCustom;
 begin
   Result := Self.Create;
+end;
+
+{ TModelDAOClienteEstoque }
+
+constructor TModelDAOClienteEstoque.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .TableName('TBCLIENTE_ESTOQUE')
+      .KeyFields('cod_cliente;cod_produto;sequencial')
+      .SQL
+        .Clear
+        .Add('Select                   ')
+        .Add('    e.cod_cliente        ')
+        .Add('  , e.cod_produto        ')
+        .Add('  , e.sequencial         ')
+        .Add('  , e.quantidade         ')
+        .Add('  , e.valor_medio        ')
+        .Add('  , e.usuario            ')
+        .Add('  , e.ano_venda_ult      ')
+        .Add('  , e.cod_venda_ult      ')
+        .Add('  , e.lote_id            ')
+        .Add('                         ')
+        .Add('  , p.Codigo             ')
+        .Add('  , p.Descri             ')
+        .Add('  , p.Apresentacao       ')
+        .Add('  , p.Descri_apresentacao')
+        .Add('  , p.Modelo             ')
+        .Add('  , p.Referencia         ')
+        .Add('  , p.Secao              ')
+        .Add('  , p.Preco              ')
+        .Add('  , p.Unidade            ')
+        .Add('  , g.Descri as Descricao_Grupo')
+        .Add('  , f.Nome   as Nome_Fabricante')
+        .Add('  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao    ')
+        .Add('  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade')
+        .Add('  , u.Unp_sigla                    ')
+        .Add('  , a.descricao       as lote      ')
+        .Add('  , a.data_fabricacao as fabricacao')
+        .Add('  , a.data_validade   as validade  ')
+        .Add('from TBCLIENTE_ESTOQUE e           ')
+        .Add('  inner join TBPRODUTO p on (p.cod = e.cod_produto)      ')
+        .Add('  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)        ')
+        .Add('  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)    ')
+        .Add('  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)')
+        .Add('  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)  ')
+        .Add('  left join TBESTOQUE_ALMOX a on (a.id = e.lote_id)      ')
+      .&End
+    .OpenEmpty
+    .CloseEmpty;
+
+  FConn.Query.DataSet.AfterOpen    := DataSetAfterOpen;
+//  FConn.Query.DataSet.OnNewRecord  := DataSetNewRecord;
+//  FConn.Query.DataSet.BeforePost   := DataSetBeforePost;
+end;
+
+destructor TModelDAOClienteEstoque.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOClienteEstoque.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+procedure TModelDAOClienteEstoque.SetProviderFlags;
+begin
+  // Ignorar campos no Insert e Update
+  FConn.Query.DataSet.FieldByName('Codigo').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('Descri').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('Apresentacao').ProviderFlags        := [];
+  FConn.Query.DataSet.FieldByName('Descri_apresentacao').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('Modelo').ProviderFlags     := [];
+  FConn.Query.DataSet.FieldByName('Referencia').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('Secao').ProviderFlags      := [];
+  FConn.Query.DataSet.FieldByName('Preco').ProviderFlags      := [];
+  FConn.Query.DataSet.FieldByName('Unidade').ProviderFlags    := [];
+  FConn.Query.DataSet.FieldByName('Descricao_Grupo').ProviderFlags   := [];
+  FConn.Query.DataSet.FieldByName('Nome_Fabricante').ProviderFlags   := [];
+  FConn.Query.DataSet.FieldByName('Descricao_Secao').ProviderFlags   := [];
+  FConn.Query.DataSet.FieldByName('Descricao_Unidade').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('Unp_sigla').ProviderFlags  := [];
+  FConn.Query.DataSet.FieldByName('lote').ProviderFlags       := [];
+  FConn.Query.DataSet.FieldByName('fabricacao').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('validade  ').ProviderFlags := [];
+end;
+
+procedure TModelDAOClienteEstoque.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  SetProviderFlags;
 end;
 
 end.

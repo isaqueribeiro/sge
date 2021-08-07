@@ -312,7 +312,7 @@ uses
   , UGeFornecedor
   , UGeProduto
   , UGeAutorizacaoCompraCancelar
-  , UGeCliente
+  , View.Cliente
   , View.CentroCusto;
 
 {$R *.dfm}

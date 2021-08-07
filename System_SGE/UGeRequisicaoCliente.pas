@@ -215,7 +215,7 @@ uses
   , UConstantesDGE
   , UDMBusiness
   , UDMNFe
-  , UGeCliente;
+  , View.Cliente;
 
 {$R *.dfm}
 

@@ -234,9 +234,9 @@ var
   procedure Desativar_Promocoes;
   procedure GerarSaldoContaCorrente(const pContaCorrente : Integer; const pData : TDateTime);
   procedure GerarSaldoContaCorrente_v2(const pContaCorrente : Integer; const pDataInicial, pDataFinal : TDateTime);
-  procedure BloquearClientes;
-  procedure DesbloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
-  procedure BloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
+//  procedure BloquearClientes;
+//  procedure DesbloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
+//  procedure BloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
   procedure GerarCompetencias(const pAno : Smallint);
   procedure CriarGenerator(const aName : String; const aAno : Smallint);
   procedure RegistrarEmpresa;
@@ -585,9 +585,6 @@ const
   STATUS_SOLICITACAO_FIN = 2;
   STATUS_SOLICITACAO_APR = 3;
   STATUS_SOLICITACAO_CAN = 4;
-
-  // Mensagens padrões do sistema
-  CLIENTE_BLOQUEADO_PORDEBITO = 'Cliente bloqueado automaticamente pelo sistema por se encontrar com títulos vencidos. Favor buscar mais informações junto ao FINANCEIRO.';
 
 implementation
 
@@ -1413,93 +1410,93 @@ begin
   end;
 end;
 
-procedure BloquearClientes;
-begin
-  with DMBusiness, fdQryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Update TBCLIENTE Set');
-    SQL.Add('    Dtcad = coalesce(Dtcad, Current_date)');
-    SQL.Add('  , Bloqueado = 1');
-    SQL.Add('  , Bloqueado_automatico = 1');
-    SQL.Add('  , Bloqueado_data = Current_date');
-    SQL.Add('  , Bloqueado_usuario = user');
-    SQL.Add('  , Usuario = user');
-    SQL.Add('  , Desbloqueado_data = null');
-    SQL.Add('  , Bloqueado_motivo = ' + QuotedStr(CLIENTE_BLOQUEADO_PORDEBITO));
-    SQL.Add('where Bloqueado = 0');
-    SQL.Add('  and ((Desbloqueado_data is null) or (Desbloqueado_data <> Current_date))');
-    SQL.Add('  and Codigo in (');
-    SQL.Add('    Select Distinct');
-    SQL.Add('      r.Cliente');
-    SQL.Add('    from TBCONTREC r');
-    SQL.Add('    where r.Parcela  > 0'); // Parcelas a prazo
-    SQL.Add('      and r.Situacao = 1'); // Situação ativa
-    SQL.Add('      and r.Baixado  = 0'); // Títulos não baixados (em aberto)
-    SQL.Add('      and r.Cliente  <> ' + IntToStr(CONSUMIDOR_FINAL_CODIGO));
-    // O cliente encontra-se bloqueado por haver títulos em atraso.
-    SQL.Add('      and r.Dtvenc < Current_date');
-    SQL.Add('  )');
-    ExecSQL;
-
-    CommitTransaction;
-  end;
-end;
-
-procedure DesbloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
-begin
-  with DMBusiness, fdQryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Update TBCLIENTE Set');
-    SQL.Add('    Dtcad = coalesce(Dtcad, Current_date)');
-    SQL.Add('  , Desbloqueado_data = Current_date');
-    SQL.Add('  , Bloqueado = 0');
-    SQL.Add('  , Bloqueado_automatico = 0');
-    SQL.Add('  , Bloqueado_data = Null');
-    SQL.Add('  , Bloqueado_usuario = Null');
-    SQL.Add('  , Usuario = ' + QuotedStr(gUsuarioLogado.Login));
-
-    if Trim(Motivo) = EmptyStr then
-      SQL.Add('  , Bloqueado_motivo = Null')
-    else
-      SQL.Add('  , Bloqueado_motivo = ' + QuotedStr(Trim(Motivo)));
-
-    SQL.Add('where Codigo = ' + IntToStr(iCodigoCliente));
-    ExecSQL;
-
-    CommitTransaction;
-  end;
-end;
-
-procedure BloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
-begin
-  with DMBusiness, fdQryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Update TBCLIENTE Set');
-    SQL.Add('    Dtcad = coalesce(Dtcad, Current_date)');
-    SQL.Add('  , Desbloqueado_data = Null');
-    SQL.Add('  , Bloqueado = 1');
-    SQL.Add('  , Bloqueado_automatico = 0');
-    SQL.Add('  , Bloqueado_data = Current_date');
-    SQL.Add('  , Bloqueado_usuario = ' + QuotedStr(gUsuarioLogado.Login));
-    SQL.Add('  , Usuario = ' + QuotedStr(gUsuarioLogado.Login));
-
-    if Trim(Motivo) = EmptyStr then
-      SQL.Add('  , Bloqueado_motivo = Null')
-    else
-      SQL.Add('  , Bloqueado_motivo = ' + QuotedStr(Trim(Motivo)));
-
-    SQL.Add('where Codigo = ' + IntToStr(iCodigoCliente));
-    ExecSQL;
-
-    CommitTransaction;
-  end;
-end;
+//procedure BloquearClientes;
+//begin
+//  with DMBusiness, fdQryBusca do
+//  begin
+//    Close;
+//    SQL.Clear;
+//    SQL.Add('Update TBCLIENTE Set');
+//    SQL.Add('    Dtcad = coalesce(Dtcad, Current_date)');
+//    SQL.Add('  , Bloqueado = 1');
+//    SQL.Add('  , Bloqueado_automatico = 1');
+//    SQL.Add('  , Bloqueado_data = Current_date');
+//    SQL.Add('  , Bloqueado_usuario = user');
+//    SQL.Add('  , Usuario = user');
+//    SQL.Add('  , Desbloqueado_data = null');
+//    SQL.Add('  , Bloqueado_motivo = ' + QuotedStr(CLIENTE_BLOQUEADO_PORDEBITO));
+//    SQL.Add('where Bloqueado = 0');
+//    SQL.Add('  and ((Desbloqueado_data is null) or (Desbloqueado_data <> Current_date))');
+//    SQL.Add('  and Codigo in (');
+//    SQL.Add('    Select Distinct');
+//    SQL.Add('      r.Cliente');
+//    SQL.Add('    from TBCONTREC r');
+//    SQL.Add('    where r.Parcela  > 0'); // Parcelas a prazo
+//    SQL.Add('      and r.Situacao = 1'); // Situação ativa
+//    SQL.Add('      and r.Baixado  = 0'); // Títulos não baixados (em aberto)
+//    SQL.Add('      and r.Cliente  <> ' + IntToStr(CONSUMIDOR_FINAL_CODIGO));
+//    // O cliente encontra-se bloqueado por haver títulos em atraso.
+//    SQL.Add('      and r.Dtvenc < Current_date');
+//    SQL.Add('  )');
+//    ExecSQL;
+//
+//    CommitTransaction;
+//  end;
+//end;
+//
+//procedure DesbloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
+//begin
+//  with DMBusiness, fdQryBusca do
+//  begin
+//    Close;
+//    SQL.Clear;
+//    SQL.Add('Update TBCLIENTE Set');
+//    SQL.Add('    Dtcad = coalesce(Dtcad, Current_date)');
+//    SQL.Add('  , Desbloqueado_data = Current_date');
+//    SQL.Add('  , Bloqueado = 0');
+//    SQL.Add('  , Bloqueado_automatico = 0');
+//    SQL.Add('  , Bloqueado_data = Null');
+//    SQL.Add('  , Bloqueado_usuario = Null');
+//    SQL.Add('  , Usuario = ' + QuotedStr(gUsuarioLogado.Login));
+//
+//    if Trim(Motivo) = EmptyStr then
+//      SQL.Add('  , Bloqueado_motivo = Null')
+//    else
+//      SQL.Add('  , Bloqueado_motivo = ' + QuotedStr(Trim(Motivo)));
+//
+//    SQL.Add('where Codigo = ' + IntToStr(iCodigoCliente));
+//    ExecSQL;
+//
+//    CommitTransaction;
+//  end;
+//end;
+//
+//procedure BloquearCliente(iCodigoCliente : Integer; const Motivo : String = '');
+//begin
+//  with DMBusiness, fdQryBusca do
+//  begin
+//    Close;
+//    SQL.Clear;
+//    SQL.Add('Update TBCLIENTE Set');
+//    SQL.Add('    Dtcad = coalesce(Dtcad, Current_date)');
+//    SQL.Add('  , Desbloqueado_data = Null');
+//    SQL.Add('  , Bloqueado = 1');
+//    SQL.Add('  , Bloqueado_automatico = 0');
+//    SQL.Add('  , Bloqueado_data = Current_date');
+//    SQL.Add('  , Bloqueado_usuario = ' + QuotedStr(gUsuarioLogado.Login));
+//    SQL.Add('  , Usuario = ' + QuotedStr(gUsuarioLogado.Login));
+//
+//    if Trim(Motivo) = EmptyStr then
+//      SQL.Add('  , Bloqueado_motivo = Null')
+//    else
+//      SQL.Add('  , Bloqueado_motivo = ' + QuotedStr(Trim(Motivo)));
+//
+//    SQL.Add('where Codigo = ' + IntToStr(iCodigoCliente));
+//    ExecSQL;
+//
+//    CommitTransaction;
+//  end;
+//end;
 
 procedure GerarCompetencias(const pAno: Smallint);
 var

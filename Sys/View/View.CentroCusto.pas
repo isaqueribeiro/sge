@@ -115,7 +115,7 @@ uses
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper,
-  UGeCliente;
+  View.Cliente;
 
 {$R *.dfm}
 

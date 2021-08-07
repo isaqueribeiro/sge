@@ -21,7 +21,6 @@ uses
   UGrPadraoCadastro in '..\Sys\lib\UGrPadraoCadastro.pas' {frmGrPadraoCadastro},
   UGrPadrao in '..\Sys\lib\UGrPadrao.pas' {frmGrPadrao},
   UGeBancos in '..\Sys\UGeBancos.pas' {frmGeBancos},
-  UGeCliente in '..\Sys\UGeCliente.pas' {frmGeCliente},
   UGeFornecedor in '..\Sys\UGeFornecedor.pas' {frmGeFornecedor},
   UGeGrupoProduto in '..\Sys\UGeGrupoProduto.pas' {frmGeGrupoProduto},
   UGeSecaoProduto in '..\Sys\UGeSecaoProduto.pas' {frmGeSecaoProduto},

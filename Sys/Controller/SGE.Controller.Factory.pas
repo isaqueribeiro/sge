@@ -36,8 +36,9 @@ type
       FCFOP  ,
       FCidade,
       FClasseDespesa ,
-      FClasseReceita ,
-      FCliente       ,
+      FClasseReceita : IControllerCustom;
+      FCliente       : IControllerCliente;
+      FClienteEstoque,
       FClienteTitulos,
       FClienteTotalCompras,
       FCondicaoPagto      ,
@@ -84,7 +85,8 @@ type
       function Cidade   : IControllerCustom;
       function ClasseDespesa : IControllerCustom;
       function ClasseReceita : IControllerCustom;
-      function Cliente   : IControllerCustom;
+      function Cliente   : IControllerCliente;
+      function ClienteEstoque : IControllerCustom;
       function ClienteTotalCompras : IControllerCustom;
       function ClienteTitulos : IControllerCustom;
       function CondicaoPagto : IControllerCustom;
@@ -251,7 +253,7 @@ begin
   Result := FClasseReceita;
 end;
 
-function TControllerFactory.Cliente: IControllerCustom;
+function TControllerFactory.Cliente: IControllerCliente;
 begin
   if not Assigned(FCliente) then
     FCliente := TControllerCliente.New;
@@ -259,20 +261,28 @@ begin
   Result := FCliente;
 end;
 
-function TControllerFactory.ClienteTitulos: IControllerCustom;
+function TControllerFactory.ClienteEstoque: IControllerCustom;
 begin
-  if not Assigned(FClienteTotalCompras) then
-    FClienteTotalCompras := TControllerClienteTotalCompras.New;
+  if not Assigned(FClienteEstoque) then
+    FClienteEstoque := TControllerClienteEstoque.New;
 
-  Result := FClienteTotalCompras;
+  Result := FClienteEstoque;
 end;
 
-function TControllerFactory.ClienteTotalCompras: IControllerCustom;
+function TControllerFactory.ClienteTitulos: IControllerCustom;
 begin
   if not Assigned(FClienteTitulos) then
     FClienteTitulos := TControllerClienteTitulos.New;
 
   Result := FClienteTitulos;
+end;
+
+function TControllerFactory.ClienteTotalCompras: IControllerCustom;
+begin
+  if not Assigned(FClienteTotalCompras) then
+    FClienteTotalCompras := TControllerClienteTotalCompras.New;
+
+  Result := FClienteTotalCompras;
 end;
 
 function TControllerFactory.CondicaoPagto: IControllerCustom;

@@ -393,19 +393,23 @@ procedure TConnectionFireDAC.SetupKeyFields;
 begin
   if (FQuery.FieldCount > 0) then
   begin
+//    // Remover a obrigatoriedade de informar código quando o GENERATOR é responsável por sua geração
+//    if (GeneratorName <> EmptyStr) and (KeyFields <> EmptyStr) then
+//    begin
+//      if (Pos(';', KeyFields) = 0) then
+//      begin
+//        if Assigned(FQuery.Fields.FindField(KeyFields)) then
+//          FQuery.FieldByName(KeyFields).Required := False;
+//      end
+//      else
+//      begin
+//
+//      end;
+//    end;
     // Remover a obrigatoriedade de informar código quando o GENERATOR é responsável por sua geração
-    if (GeneratorName <> EmptyStr) and (KeyFields <> EmptyStr) then
-    begin
-      if (Pos(';', KeyFields) = 0) then
-      begin
-        if Assigned(FQuery.Fields.FindField(KeyFields)) then
-          FQuery.FieldByName(KeyFields).Required := False;
-      end
-      else
-      begin
-
-      end;
-    end;
+    if (not GeneratorName.IsEmpty) and (not AutoIncFields.IsEmpty) then
+      if Assigned(FQuery.Fields.FindField(AutoIncFields)) then
+        FQuery.FieldByName(AutoIncFields).Required := False;
   end;
 end;
 

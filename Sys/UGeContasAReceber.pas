@@ -289,7 +289,7 @@ uses
   , Controller.Tabela
   , UConstantesDGE
   , UDMBusiness
-  , UGeCliente
+  , View.Cliente
   , UGeEfetuarPagtoREC
   , UGeContasAReceberLoteParcela;
 
@@ -488,7 +488,8 @@ begin
 
       RecarregarRegistro;
       AbrirPagamentos( FieldByName('ANOLANC').AsInteger, FieldByName('NUMLANC').AsInteger );
-      DesbloquearCliente(FieldByName('CLIENTE').AsInteger, EmptyStr);
+      TControllerFactory.New.Cliente
+        .DesbloquearCliente(FieldByName('CLIENTE').AsInteger, EmptyStr);
     end;
   end;
 end;
@@ -939,7 +940,7 @@ begin
 
     if ( State = dsEdit ) then
       if ( VarToStr(FieldByName('DTVENC').OldValue) <> VarToStr(FieldByName('DTVENC').NewValue) ) then
-        DesbloquearCliente(FieldByName('CLIENTE').AsInteger, EmptyStr);
+        TControllerFactory.New.Cliente.DesbloquearCliente(FieldByName('CLIENTE').AsInteger, EmptyStr);
   end;
 end;
 

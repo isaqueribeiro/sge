@@ -15,6 +15,13 @@ type
     ['{EF078F48-0F46-48FF-B6A2-B2926E490606}']
   end;
 
+  IControllerCliente = interface(IControllerCustom)
+    ['{85EFADEE-8A88-4026-B72B-D801148C296D}']
+    procedure BloquearClientes;
+    procedure BloquearCliente(aCodigo : Integer; aLog : String);
+    procedure DesbloquearCliente(aCodigo : Integer; aLog : String);
+  end;
+
   IControllerFactory = interface
     ['{52DB68E4-A6DE-428B-867A-F0EE203E7CCA}']
     function Bairro   : IControllerCustom;
@@ -25,7 +32,8 @@ type
     function Cidade   : IControllerCustom;
     function ClasseDespesa : IControllerCustom;
     function ClasseReceita : IControllerCustom;
-    function Cliente   : IControllerCustom;
+    function Cliente   : IControllerCliente;
+    function ClienteEstoque : IControllerCustom;
     function ClienteTotalCompras : IControllerCustom;
     function ClienteTitulos : IControllerCustom;
     function CondicaoPagto : IControllerCustom;

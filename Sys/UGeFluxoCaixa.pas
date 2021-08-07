@@ -309,7 +309,7 @@ uses
   , UDMBusiness
   , UDMNFe
   , UDMRecursos
-  , UGeCliente
+  , View.Cliente
   , UGeFornecedor
   , UGeCaixa;
 

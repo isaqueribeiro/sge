@@ -604,7 +604,7 @@ end;
 procedure TfrmPrinc.btnClienteClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_CLIENTE_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeCliente');
+    FormFunction.ShowModalForm(Self, 'ViewCliente');
 end;
 
 procedure TfrmPrinc.btnContaAReceberClick(Sender: TObject);
