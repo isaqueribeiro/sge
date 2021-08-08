@@ -67,3 +67,26 @@ COMMENT ON COLUMN TBCONFIGURACAO.ESTOQUE_UNICO_EMPRESAS IS
 A empresa que possue esta flag marcada tem acesso a todos os dados de produtos e
 estoque das demais empresa.';
 
+
+
+/*------ SYSDBA 08/08/2021 13:30:45 --------*/
+
+/*!!! Error occured !!!
+Invalid token.
+Dynamic SQL Error.
+SQL error code = -104.
+Token unknown - line 2, column 1.
+Select.
+
+*/
+
+/*------ SYSDBA 08/08/2021 13:30:49 --------*/
+
+/*!!! Error occured !!!
+Invalid token.
+Dynamic SQL Error.
+SQL error code = -104.
+Token unknown - line 2, column 1.
+Select.
+
+*/

@@ -54,6 +54,7 @@ type
       FFormaPagto ,
       FFormaPagtoContaCorrente,
       FFormaPagtoNFCEView     ,
+      FGrupoFornecedor,
       FIBPT      ,
       FLogradouro,
       FNivelIBPT ,
@@ -102,6 +103,7 @@ type
       function FormaPagto : IControllerCustom;
       function FormaPagtoContaCorrente : IControllerCustom;
       function FormaPagtoNFCEView : IControllerCustom;
+      function GrupoFornecedor : IControllerCustom;
       function IBPT : IControllerCustom;
       function Logradouro : IControllerCustom;
       function NivelIBPT : IControllerCustom;
@@ -379,6 +381,14 @@ begin
     FFormaPagtoNFCEView := TControllerFormaPagtoNFCEView.New;
 
   Result := FFormaPagtoNFCEView;
+end;
+
+function TControllerFactory.GrupoFornecedor: IControllerCustom;
+begin
+  if not Assigned(FGrupoFornecedor) then
+    FGrupoFornecedor := TControllerGrupoFornecedor.New;
+
+  Result := FGrupoFornecedor;
 end;
 
 function TControllerFactory.IBPT: IControllerCustom;

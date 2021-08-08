@@ -432,7 +432,6 @@ var
   function GetImprimirCodClienteNFe(const sCNPJEmitente : String) : Boolean;
   function GetImprimirCodigoReferenciaProdutoNFe(const sCNPJEmitente : String) : Boolean;
   function GetImprimirCodigoExternoProdutoNFe(const sCNPJEmitente : String) : Boolean;
-  function GetExisteCPF_CNPJ(iCodigoCliente : Integer; sCpfCnpj : String; var iCodigo : Integer; var sRazao : String) : Boolean;
   function GetExisteNumeroAutorizacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroCotacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroSolicitacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
@@ -4574,32 +4573,6 @@ begin
     Open;
 
     Result := (FieldByName('nfe_imprimir_cod_referencia').AsInteger = 1);
-
-    Close;
-  end;
-end;
-
-function GetExisteCPF_CNPJ(iCodigoCliente : Integer; sCpfCnpj : String; var iCodigo : Integer; var sRazao : String) : Boolean;
-begin
-  with DMBusiness, fdQryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Select');
-    SQL.Add('    c.codigo');
-    SQL.Add('  , c.nome');
-    SQL.Add('from TBCLIENTE c');
-    SQL.Add('where c.Cnpj    = ' + QuotedStr(Trim(sCpfCnpj)));
-    SQL.Add('  and c.codigo <> ' + IntToStr(iCodigoCliente));
-    Open;
-
-    Result := (FieldByName('codigo').AsInteger > 0);
-
-    if Result then
-    begin
-      iCodigo := FieldByName('codigo').AsInteger;
-      sRazao  := Trim(FieldByName('nome').AsString);
-    end;
 
     Close;
   end;

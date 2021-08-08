@@ -22,6 +22,18 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // Table
+  TModelDAOGrupoFornecedor = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
   // View
   TModelDAOTipoRegimeView = class(TModelDAO, IModelDAOCustom)
     private
@@ -118,6 +130,63 @@ begin
 end;
 
 function TModelDAOSegmento.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+{ TModelDAOGrupoFornecedor }
+
+constructor TModelDAOGrupoFornecedor.Create;
+var
+  grupoFornecedor : TGrupoFornecedor;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .TableName('TBSEGMENTO')
+      .KeyFields('seg_id')
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    g.grf_cod  ')
+        .Add('  , g.grf_descricao ')
+        .Add('from TBFORNECEDOR_GRUPO g')
+      .&End
+      .Open;
+
+  // Inserir grupos de fornecedores padrões
+  FConn.Query.DataSet.DisableControls;
+  try
+    for grupoFornecedor := Low(SYS_GRUPOS_FORNECEDOR) to High(SYS_GRUPOS_FORNECEDOR) do
+    begin
+      if not FConn.Query.DataSet.Locate('grf_cod', Ord(grupoFornecedor), []) then
+      begin
+        FConn.Query.DataSet.Append;
+        FConn.Query.DataSet.FieldByName('grf_cod').AsInteger := Ord(grupoFornecedor);
+        FConn.Query.DataSet.FieldByName('grf_descricao').AsString  := SYS_GRUPOS_FORNECEDOR[grupoFornecedor];
+        FConn.Query.DataSet.Post;
+        FConn.Query.ApplyUpdates;
+      end;
+    end;
+  finally
+    FConn.Query.DataSet.First;
+    FConn.Query.DataSet.EnableControls;
+  end;
+end;
+
+destructor TModelDAOGrupoFornecedor.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOGrupoFornecedor.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOGrupoFornecedor.CreateLookupComboBoxList: IModelDAOCustom;
 begin
   Result := Self;
   if not FConn.Query.DataSet.Active then

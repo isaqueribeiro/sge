@@ -356,6 +356,8 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       ShowHint = True
       TabOrder = 4
       OnClick = btbtnCancelarClick
+      ExplicitLeft = 235
+      ExplicitTop = -2
     end
     object btbtnSalvar: TcxButton
       Left = 308

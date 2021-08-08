@@ -286,10 +286,20 @@ begin
 end;
 
 procedure TConnectionFireDAC.Open;
+var
+  aAfterScroll : procedure(DataSet : TDataSet) of Object;
 begin
+  aAfterScroll := nil;
+
   // Cláusula adicional, independente dos filtros informados
   if not FWhereAdditional.IsEmpty then
     FScript.Where(FWhereAdditional);
+
+  if Assigned(FQuery.AfterScroll) then
+  begin
+    aAfterScroll := FQuery.AfterScroll;
+    FQuery.AfterScroll := nil;
+  end;
 
   FQuery.Close;
   FQuery.SQL.BeginUpdate;
@@ -299,6 +309,12 @@ begin
   FQuery.SQL.Add( FScript.OrderBy );
   FQuery.SQL.EndUpdate;
   FQuery.Open;
+
+  if Assigned(aAfterScroll) then
+  begin
+    FQuery.AfterScroll := aAfterScroll;
+    aAfterScroll(FQuery);
+  end;
 
   SetupKeyFields;
   AllowEditAllFields;

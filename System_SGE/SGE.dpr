@@ -254,7 +254,8 @@ uses
   View.Empresa in '..\Sys\View\View.Empresa.pas' {ViewEmpresa},
   View.ConfiguracaoEmpresa in '..\Sys\View\View.ConfiguracaoEmpresa.pas' {ViewConfiguracaoEmpresa},
   View.Vendedor in '..\Sys\View\View.Vendedor.pas' {ViewVendedor},
-  View.Cliente in '..\Sys\View\View.Cliente.pas' {ViewCliente};
+  View.Cliente in '..\Sys\View\View.Cliente.pas' {ViewCliente},
+  SGE.Model.DAO.Fornecedor in '..\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas';
 
 {$R *.res}
 

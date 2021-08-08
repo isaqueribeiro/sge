@@ -20,6 +20,7 @@ type
     procedure BloquearClientes;
     procedure BloquearCliente(aCodigo : Integer; aLog : String);
     procedure DesbloquearCliente(aCodigo : Integer; aLog : String);
+    function CpfCnpjCadastro(Codigo : Integer;  CpfCnpj : String; var aCodigo : Integer; var aNome : String) : Boolean;
   end;
 
   IControllerFactory = interface
@@ -49,6 +50,7 @@ type
     function FormaPagto : IControllerCustom;
     function FormaPagtoContaCorrente : IControllerCustom;
     function FormaPagtoNFCEView : IControllerCustom;
+    function GrupoFornecedor : IControllerCustom;
     function IBPT : IControllerCustom;
     function Logradouro : IControllerCustom;
     function NivelIBPT : IControllerCustom;

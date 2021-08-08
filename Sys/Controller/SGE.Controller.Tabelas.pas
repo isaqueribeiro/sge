@@ -19,6 +19,16 @@ type
       class function New : IControllerCustom;
   end;
 
+  // Table
+  TControllerGrupoFornecedor = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
   // View
   TControllerTipoRegimeView = class(TController, IControllerCustom)
     private
@@ -74,6 +84,23 @@ begin
 end;
 
 class function TControllerSegmento.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerGrupoFornecedor }
+
+constructor TControllerGrupoFornecedor.Create;
+begin
+  inherited Create(TModelDAOFactory.New.GrupoFornecedor);
+end;
+
+destructor TControllerGrupoFornecedor.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerGrupoFornecedor.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

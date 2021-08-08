@@ -28,8 +28,6 @@ inherited frmGeFornecedor: TfrmGeFornecedor
     ExplicitWidth = 844
     ExplicitHeight = 457
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 836
       ExplicitHeight = 428
       inherited Bevel4: TBevel
@@ -898,10 +896,6 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         TabOrder = 2
         object tbsContato: TTabSheet
           Caption = '&1. Contato'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblFone: TLabel
             Left = 8
             Top = 0
@@ -1050,10 +1044,6 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         object tbsDadosAdcionais: TTabSheet
           Caption = '&2. Outras Informa'#231#245'es'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbTransportadora: TDBCheckBox
             Left = 13
             Top = 10
@@ -1084,10 +1074,6 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         object tbsDadoFinanceiro: TTabSheet
           Caption = '&3. Dados Financeiros'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblFaturaMinima: TLabel
             Left = 8
             Top = 0
@@ -1294,10 +1280,6 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         object tbsObservacao: TTabSheet
           Caption = '&4. Observa'#231#245'es'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -1312,20 +1294,12 @@ inherited frmGeFornecedor: TfrmGeFornecedor
         object tbsDuplicatas: TTabSheet
           Caption = '&5. Duplicatas'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
       end
     end
     object tbsConsultarCNPJ: TTabSheet
       Caption = 'Consultar CNPJ'
       ImageIndex = 12
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object BvlConsultar: TBevel
         Left = 377
         Top = 0
@@ -1913,10 +1887,6 @@ inherited frmGeFornecedor: TfrmGeFornecedor
     object tbsConsultarCPF: TTabSheet
       Caption = 'Consultar CPF'
       ImageIndex = 12
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pnlConsultarCPF: TPanel
         Left = 0
         Top = 0

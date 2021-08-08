@@ -21,6 +21,8 @@ type
       procedure BloquearClientes;
       procedure BloquearCliente(aCodigo : Integer; aLog : String);
       procedure DesbloquearCliente(aCodigo : Integer; aLog : String);
+
+      function CpfCnpjCadastro(Codigo : Integer;  CpfCnpj : String; var aCodigo : Integer; var aNome : String) : Boolean;
   end;
 
   // Table
@@ -62,6 +64,26 @@ uses
   Controller.Factory;
 
 { TControllerCliente }
+
+function TControllerCliente.CpfCnpjCadastro(Codigo : Integer;  CpfCnpj : String; var aCodigo : Integer; var aNome : String) : Boolean;
+var
+  aDAO : IModelDAOCustom;
+begin
+  aDAO := TModelDAOFactory.New.Cliente;
+  aDAO.ClearWhere;
+  aDAO
+    .Where('cl.Cnpj    = ' + CpfCnpj.Trim.QuotedString)
+    .Where('cl.Codigo != ' + Codigo.ToString)
+    .Open;
+
+  Result := not aDAO.DataSet.IsEmpty;
+
+  if Result then
+  begin
+    aCodigo := aDAO.DataSet.FieldByName('Codigo').AsInteger;
+    aNome   := aDAO.DataSet.FieldByName('Nome').AsString;
+  end;
+end;
 
 constructor TControllerCliente.Create;
 begin

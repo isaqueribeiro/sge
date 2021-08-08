@@ -41,20 +41,27 @@ uses
   cxButtons,
   dxSkinsCore,
 
+  cxControls,
+  cxStyles,
+  cxEdit,
+  cxDBLookupComboBox,
+  cxDataControllerConditionalFormattingRulesManagerDialog,
+  cxVGrid,
+  cxDBVGrid,
+  cxInplaceContainer,
+
+  ACBrConsultaCPF,
+  ACBrBase,
+  ACBrSocket,
+  ACBrConsultaCNPJ,
+
   View.PadraoCadastro,
   SGE.Controller.Interfaces,
   UObserverInterface,
   UCliente,
   UGrPadraoCadastro,
   Interacao.Tabela,
-  Controller.Tabela,
-
-
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
-  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, cxControls,
-  cxStyles, cxEdit, cxDBLookupComboBox, cxDataControllerConditionalFormattingRulesManagerDialog, ACBrConsultaCPF,
-  ACBrBase, ACBrSocket, ACBrConsultaCNPJ, cxVGrid, cxDBVGrid, cxInplaceContainer, FireDAC.Comp.Client,
-  FireDAC.Comp.DataSet, IBX.IBCustomDataSet, IBX.IBUpdateSQL;
+  Controller.Tabela;
 
 type
   TViewCliente = class(TViewPadraoCadastro, IObserver)
@@ -101,11 +108,7 @@ type
     lblTituloPagando: TLabel;
     lblDataCadastro: TLabel;
     dbDataCadastro: TDBEdit;
-    GrpBxBloqueio: TGroupBox;
     Bevel6: TBevel;
-    Bevel7: TBevel;
-    Bevel9: TBevel;
-    dbmMotivoBloqueio: TDBMemo;
     dbcBloqueio: TDBCheckBox;
     Bevel10: TBevel;
     lblFoneCelular: TLabel;
@@ -209,7 +212,6 @@ type
     dbLogradouro: TJvDBComboEdit;
     dbPais: TJvDBComboEdit;
     dbCadastroAtivo: TDBCheckBox;
-    lblClienteDesativado: TLabel;
     lblDataNasc: TLabel;
     edDataNasc: TMaskEdit;
     dbgContaCorrente: TcxDBVerticalGrid;
@@ -228,9 +230,11 @@ type
     dbAgencia3: TcxDBEditorRow;
     dbContaCorrente3: TcxDBEditorRow;
     dbPracaCobranca3: TcxDBEditorRow;
-    fdQryBancoFebraban: TFDQuery;
     imgAjuda: TImage;
     dbCEP: TJvDBMaskEdit;
+    Panel1: TPanel;
+    lblRegistroDesativado: TLabel;
+    lblMotivoBloqueio: TLabel;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -273,10 +277,9 @@ type
     procedure DataSetTituloSituacaoGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
     procedure imgAjudaClick(Sender: TObject);
-    procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
-    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
     procedure DataSetEstoqueUltimaVendaGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure btbtnIncluirClick(Sender: TObject);
+    procedure DtSrcTabelaAfterScroll(DataSet : TDataSet);
   private
     { Private declarations }
     FControllerVendedor           ,
@@ -293,6 +296,7 @@ type
     procedure HabilitarAbaEstoque;
     procedure EstoqueSateliteFiltarDados(const iTipoPesquisa : Integer);
     procedure RegistrarNovaRotinaSistema;
+    procedure CarregarInformeUsuario;
 
     function GetRotinaBloqueioID : String;
     function GetRotinaVisualizarEstoqueID : String;
@@ -523,8 +527,6 @@ begin
 
   SetGruposFornecedores;
 
-  CarregarLista(fdQryBancoFebraban);
-
   aEstoqueSateliteEmpresa := GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa);
   aEstoqueSateliteCliente := GetPermissaoRotinaInterna(tbsEstoqueSatelite, False);
 
@@ -596,6 +598,11 @@ begin
 
   TController(FControllerVendedor).LookupComboBox(dbVendedor, dtsVendedor, 'vendedor_cod', 'codigo', 'nome');
   TController(FControllerTipoCNPJView).LookupComboBox(dbTipoCNPJ, dtsTipoCnpj, 'tipo', 'codigo', 'descricao');
+  TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco1, dtsBancoFebraban, 'banco', 'codigo', 'nome_codigo');
+  TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco2, dtsBancoFebraban, 'banco_2', 'codigo', 'nome_codigo');
+  TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco3, dtsBancoFebraban, 'banco_3', 'codigo', 'nome_codigo');
+
+  FController.DAO.DataSet.AfterScroll := DtSrcTabelaAfterScroll;
 end;
 
 procedure TViewCliente.ProximoCampoKeyPress(Sender: TObject;
@@ -742,6 +749,11 @@ begin
   end;
 end;
 
+procedure TViewCliente.DtSrcTabelaAfterScroll(DataSet: TDataSet);
+begin
+  CarregarInformeUsuario;
+end;
+
 procedure TViewCliente.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 begin
@@ -824,7 +836,7 @@ begin
 
     { DONE 1 -oIsaque -cCliente : 16/05/2014 - Rotina para verificar a duplicidade de CPF/CNPJ (1) }
 
-    if GetExisteCPF_CNPJ(FieldByName('CODIGO').AsInteger, FieldByName('CNPJ').AsString, iCodigo, sRazao) then
+    if Controller.CpfCnpjCadastro(FieldByName('CODIGO').AsInteger, FieldByName('CNPJ').AsString, iCodigo, sRazao) then
       if not GetPermitirDuplicarCNPJCliente(gUsuarioLogado.Empresa) then
       begin
         ShowWarning('CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")."', iCodigo) );
@@ -850,6 +862,9 @@ begin
       end;
     end;
 
+    if (Trim(FieldByName('USUARIO').AsString) = EmptyStr) then
+      FieldByName('USUARIO').AsString := gUsuarioLogado.Login;
+
     if FieldByName('CUSTO_OPER_PERCENTUAL').IsNull then
       FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger := 1;
 
@@ -865,13 +880,8 @@ begin
     if (FieldByName('PESSOA_FISICA').AsInteger = 1) then
       FieldByName('TIPO').AsInteger := 0;
 
-    try
-      dbgContaCorrente.DataController.DataSource := nil;
-      inherited;
-      GetComprasAbertas( FieldByName('CODIGO').AsInteger );
-    finally
-      dbgContaCorrente.DataController.DataSource := DtSrcTabela;
-    end;
+    inherited;
+    GetComprasAbertas( FieldByName('CODIGO').AsInteger );
   end;
 
   HabilitarAbaEstoque;
@@ -939,11 +949,7 @@ begin
   begin
     // Cliente bloqueado
     if ( DtSrcTabela.DataSet.FieldByName('BLOQUEADO').AsInteger = 1 ) then
-      dbgDados.Canvas.Font.Color := GrpBxBloqueio.Font.Color;
-
-    // Destacar clientes desativados
-    if ( DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger = 0 ) then
-      dbgDados.Canvas.Font.Color := lblClienteDesativado.Font.Color;
+      dbgDados.Canvas.Font.Color := lblMotivoBloqueio.Font.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end
@@ -969,7 +975,7 @@ begin
   begin
     // Estoque satélite zerado
     if ( DtsEstoqueSatelite.DataSet.FieldByName('QUANTIDADE').AsInteger < 1 ) then
-      dbgEstoqueSatelite.Canvas.Font.Color := GrpBxBloqueio.Font.Color;
+      dbgEstoqueSatelite.Canvas.Font.Color := clRed;
 
     dbgEstoqueSatelite.DefaultDrawDataCell(Rect, dbgEstoqueSatelite.Columns[DataCol].Field, State);
   end;
@@ -1032,10 +1038,6 @@ begin
             gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo)
           );
           FController.DAO.RefreshRecord;
-//          iCodigo := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
-//          DesbloquearCliente(iCodigo, gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo));
-//
-//          fdQryTabela.RefreshRecord();
         finally
           WaitAMomentFree;
         end;
@@ -1056,10 +1058,6 @@ begin
             gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo)
           );
           FController.DAO.RefreshRecord;
-//        iCodigo := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
-//        BloquearCliente(iCodigo, gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo));
-//
-//        fdQryTabela.RefreshRecord();
       finally
         WaitAMomentFree;
       end;
@@ -1245,6 +1243,24 @@ begin
   dbCNPJ.SetFocus;
 end;
 
+procedure TViewCliente.CarregarInformeUsuario;
+begin
+  if (pgcGuias.ActivePage = tbsTabela) then
+  begin
+    HabilitarAbaEstoque;
+    DtsEstoqueSatelite.DataSet.Close;
+
+    if DtSrcTabela.DataSet.Active then
+    begin
+      lblMotivoBloqueio.Visible     := (DtSrcTabela.DataSet.FieldByName('bloqueado').AsInteger = 1);
+      lblRegistroDesativado.Visible := (DtSrcTabela.DataSet.FieldByName('ativo').AsInteger = 0) and (not lblMotivoBloqueio.Visible);
+
+      if lblMotivoBloqueio.Visible then
+        lblMotivoBloqueio.Caption := DtSrcTabela.DataSet.FieldByName('Bloqueado_motivo').AsString;
+    end;
+  end;
+end;
+
 procedure TViewCliente.CmbBxFiltrarTipoKeyPress(Sender: TObject;
   var Key: Char);
 begin
@@ -1352,9 +1368,6 @@ begin
     begin
       EditRazaoSocial.Text := ACBrConsultaCPF.Nome;
       EditSituacao.Text    := ACBrConsultaCPF.Situacao;
-      //EditAbertura.Text    := ACBrConsultaCPF.Emissao;
-      //EditTipo.Text        := ACBrConsultaCPF.CodCtrlControle;
-      //EditFantasia.Text    := ACBrConsultaCPF.DigitoVerificador;
 
       btnRecuperarCNPJ.Enabled := True;
     end;
@@ -1479,34 +1492,6 @@ begin
     On E : Exception do
       ShowWarning('Erro ao tentar filtrar registros de produtos no estoque satélite do cliente.' + #13 +
         E.Message + #13 + 'Script:' + #13#13 + FControllerClienteEstoque.DAO.SelectSQL);
-  end;
-end;
-
-procedure TViewCliente.fdQryTabelaAfterScroll(DataSet: TDataSet);
-begin
-  inherited;
-  HabilitarAbaEstoque;
-  DtsEstoqueSatelite.DataSet.Close;
-end;
-
-procedure TViewCliente.fdQryTabelaBeforePost(DataSet: TDataSet);
-begin
-  with DtSrcTabela.DataSet do
-  begin
-    if FieldByName('DTCAD').IsNull then
-      FieldByName('DTCAD').AsDateTime := GetDateTimeDB;
-
-    if (Trim(FieldByName('USUARIO').AsString) = EmptyStr) then
-      FieldByName('USUARIO').AsString := gUsuarioLogado.Login;
-
-    if (Trim(FieldByName('BANCO').AsString) = EmptyStr) then
-      FieldByName('BANCO').Clear;
-
-    if (Trim(FieldByName('BANCO_2').AsString) = EmptyStr) then
-      FieldByName('BANCO_2').Clear;
-
-    if (Trim(FieldByName('BANCO_3').AsString) = EmptyStr) then
-      FieldByName('BANCO_3').Clear;
   end;
 end;
 
@@ -1658,6 +1643,7 @@ begin
     end;
 
   finally
+    CarregarInformeUsuario;
     WaitAMomentFree;
   end;
 end;
@@ -1689,29 +1675,23 @@ procedure TViewCliente.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var
   iCodigo : Integer;
-  sRazao  : String;  
+  sRazao  : String;
 begin
   { DONE -oIsaque -cCliente : 16/05/2014 - Rotina para verificar a duplicidade de CPF/CNPJ (2) }
 
   if ( dbCNPJ.Focused and (Key = VK_RETURN) and (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) )  then
     if ( Length(dbCNPJ.Text) > 10 ) then
-      if GetExisteCPF_CNPJ(DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger, dbCNPJ.Text, iCodigo, sRazao) then
+      if Controller.CpfCnpjCadastro(DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger, dbCNPJ.Text, iCodigo, sRazao) then
         ShowWarning(
           'CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")."', iCodigo) );
 
   inherited;
-
 end;
 
 procedure TViewCliente.btbtnCancelarClick(Sender: TObject);
 begin
-  try
-    dbgContaCorrente.DataController.DataSource := nil;
-    inherited;
-    GetComprasAbertas( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger );
-  finally
-    dbgContaCorrente.DataController.DataSource := DtSrcTabela;
-  end;
+  inherited;
+  GetComprasAbertas( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger );
 end;
 
 procedure TViewCliente.btbtnExcluirClick(Sender: TObject);

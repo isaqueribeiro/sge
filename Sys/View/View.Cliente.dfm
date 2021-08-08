@@ -1,7 +1,6 @@
 inherited ViewCliente: TViewCliente
   Left = 400
   Top = 237
-  ActiveControl = dbCodigo
   Caption = 'Cadastro de Clientes'
   ClientHeight = 535
   ClientWidth = 844
@@ -26,13 +25,10 @@ inherited ViewCliente: TViewCliente
   inherited pgcGuias: TPageControl
     Width = 844
     Height = 492
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 844
     ExplicitHeight = 492
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 463
       inherited Bevel4: TBevel
@@ -95,21 +91,6 @@ inherited ViewCliente: TViewCliente
           Shape = bsSpacer
           ExplicitLeft = 460
         end
-        object lblClienteDesativado: TLabel [1]
-          Left = 2
-          Top = 41
-          Width = 127
-          Height = 13
-          Caption = '* Clientes desativados'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = 7303023
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Transparent = True
-          Visible = False
-        end
         inherited grpBxFiltro: TGroupBox
           Left = 460
           Width = 372
@@ -149,62 +130,62 @@ inherited ViewCliente: TViewCliente
               'por Telefones')
           end
         end
-        object GrpBxBloqueio: TGroupBox
+        object Panel1: TPanel
           Left = 4
           Top = 4
           Width = 452
           Height = 54
           Align = alClient
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clRed
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
+          BevelOuter = bvNone
           TabOrder = 1
-          object Bevel7: TBevel
-            Left = 446
-            Top = 15
-            Width = 4
-            Height = 37
-            Align = alRight
-            Shape = bsSpacer
-            ExplicitLeft = 450
+          ExplicitLeft = 56
+          ExplicitTop = 24
+          ExplicitWidth = 185
+          ExplicitHeight = 41
+          object lblRegistroDesativado: TLabel
+            AlignWithMargins = True
+            Left = 3
+            Top = 38
+            Width = 446
+            Height = 13
+            Align = alBottom
+            Caption = '* Clientes desativados'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = 7303023
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            Visible = False
+            ExplicitLeft = 2
+            ExplicitTop = 39
+            ExplicitWidth = 127
           end
-          object Bevel9: TBevel
-            Left = 2
-            Top = 15
-            Width = 4
-            Height = 37
-            Align = alLeft
-            Shape = bsSpacer
-          end
-          object dbmMotivoBloqueio: TDBMemo
-            Left = 6
-            Top = 15
-            Width = 440
-            Height = 37
-            Hint = 'O cliente encontra-se bloqueado por haver t'#237'tulos em atraso.'
-            TabStop = False
+          object lblMotivoBloqueio: TLabel
+            AlignWithMargins = True
+            Left = 3
+            Top = 3
+            Width = 446
+            Height = 29
             Align = alClient
-            BorderStyle = bsNone
-            Color = clBtnFace
-            Ctl3D = False
-            DataField = 'BLOQUEADO_MOTIVO'
-            DataSource = DtSrcTabela
-            ParentCtl3D = False
-            ParentShowHint = False
-            ReadOnly = True
-            ScrollBars = ssVertical
-            ShowHint = True
-            TabOrder = 0
+            Caption = 'Motivo do bloqueio...'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clRed
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+            Transparent = True
+            Visible = False
+            WordWrap = True
+            ExplicitWidth = 116
+            ExplicitHeight = 13
           end
         end
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 463
       inherited Bevel8: TBevel
@@ -3305,8 +3286,6 @@ inherited ViewCliente: TViewCliente
             ShowHint = True
             TabOrder = 2
             OnKeyDown = edFiltrarEstoqueSateliteKeyDown
-            ExplicitLeft = 231
-            ExplicitTop = 21
             ExplicitHeight = 21
           end
           object edFiltrarTipoEstoqueSatelite: TComboBox
@@ -3712,25 +3691,6 @@ inherited ViewCliente: TViewCliente
     Left = 592
   end
   object dtsBancoFebraban: TDataSource
-    DataSet = fdQryBancoFebraban
-    Left = 600
-    Top = 400
-  end
-  object fdQryBancoFebraban: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    b.codigo'
-      '  , b.nome'
-      '  , b.codigo_nome'
-      '  , b.nome_codigo'
-      'from VW_BANCO_FEBRABAN b'
-      ''
-      'order by'
-      '    b.nome')
-    Left = 568
-    Top = 398
+    Left = 720
   end
 end
