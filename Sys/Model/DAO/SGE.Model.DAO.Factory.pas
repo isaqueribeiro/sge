@@ -15,6 +15,7 @@ uses
   SGE.Model.DAO.Distrito,
   SGE.Model.DAO.Empresa,
   SGE.Model.DAO.FormaPagto,
+  SGE.Model.DAO.Fornecedor,
   SGE.Model.DAO.IBPT,
   SGE.Model.DAO.Logradouro,
   SGE.Model.DAO.PlanoConta,
@@ -54,6 +55,7 @@ type
       FFormaPagto ,
       FFormaPagtoContaCorrente,
       FFormaPagtoNFCEView     ,
+      FFornecedor     ,
       FGrupoFornecedor,
       FIBPT           ,
       FLogradouro     ,
@@ -103,6 +105,7 @@ type
       function FormaPagto : IModelDAOCustom;
       function FormaPagtoContaCorrente : IModelDAOCustom;
       function FormaPagtoNFCEView : IModelDAOCustom;
+      function Fornecedor : IModelDAOCustom;
       function GrupoFornecedor : IModelDAOCustom;
       function IBPT : IModelDAOCustom;
       function Logradouro : IModelDAOCustom;
@@ -453,6 +456,14 @@ begin
     FFormaPagtoNFCEView := TModelDAOFormaPagtoNFCEView.New;
 
   Result := FFormaPagtoNFCEView;
+end;
+
+function TModelDAOFactory.Fornecedor: IModelDAOCustom;
+begin
+  if not Assigned(FFornecedor) then
+    FFornecedor := TModelDAOFornecedor.New;
+
+  Result := FFornecedor;
 end;
 
 function TModelDAOFactory.GrupoFornecedor: IModelDAOCustom;

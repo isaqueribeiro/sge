@@ -50,6 +50,7 @@ type
     function FormaPagto : IControllerCustom;
     function FormaPagtoContaCorrente : IControllerCustom;
     function FormaPagtoNFCEView : IControllerCustom;
+    function Fornecedor : IControllerCustom;
     function GrupoFornecedor : IControllerCustom;
     function IBPT : IControllerCustom;
     function Logradouro : IControllerCustom;

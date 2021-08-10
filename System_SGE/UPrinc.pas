@@ -622,7 +622,7 @@ end;
 procedure TfrmPrinc.nmFornecedorClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_FORNECEDOR_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeFornecedor');
+    FormFunction.ShowModalForm(Self, 'ViewFornecedor');
 end;
 
 procedure TfrmPrinc.btnProdutoClick(Sender: TObject);

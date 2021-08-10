@@ -90,6 +90,7 @@ type
     function FormaPagto : IModelDAOCustom;
     function FormaPagtoContaCorrente : IModelDAOCustom;
     function FormaPagtoNFCEView : IModelDAOCustom;
+    function Fornecedor : IModelDAOCustom;
     function GrupoFornecedor : IModelDAOCustom;
     function IBPT : IModelDAOCustom;
     function Logradouro : IModelDAOCustom;

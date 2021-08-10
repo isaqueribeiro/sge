@@ -1,6 +1,7 @@
 inherited ViewCliente: TViewCliente
   Left = 400
   Top = 237
+  ActiveControl = dbCodigo
   Caption = 'Cadastro de Clientes'
   ClientHeight = 535
   ClientWidth = 844
@@ -25,10 +26,13 @@ inherited ViewCliente: TViewCliente
   inherited pgcGuias: TPageControl
     Width = 844
     Height = 492
+    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 844
     ExplicitHeight = 492
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 463
       inherited Bevel4: TBevel
@@ -138,10 +142,6 @@ inherited ViewCliente: TViewCliente
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitLeft = 56
-          ExplicitTop = 24
-          ExplicitWidth = 185
-          ExplicitHeight = 41
           object lblRegistroDesativado: TLabel
             AlignWithMargins = True
             Left = 3
@@ -158,8 +158,6 @@ inherited ViewCliente: TViewCliente
             ParentFont = False
             Transparent = True
             Visible = False
-            ExplicitLeft = 2
-            ExplicitTop = 39
             ExplicitWidth = 127
           end
           object lblMotivoBloqueio: TLabel
@@ -186,6 +184,8 @@ inherited ViewCliente: TViewCliente
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 463
       inherited Bevel8: TBevel
@@ -3540,6 +3540,10 @@ inherited ViewCliente: TViewCliente
       Width = 4
       Height = 31
       Shape = bsSpacer
+    end
+    inherited btbtnCancelar: TcxButton
+      ExplicitLeft = 233
+      ExplicitTop = 0
     end
     inherited btbtnFechar: TcxButton
       Left = 765

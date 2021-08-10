@@ -145,8 +145,8 @@ begin
   inherited Create;
   FConn
     .Query
-      .TableName('TBSEGMENTO')
-      .KeyFields('seg_id')
+      .TableName('TBFORNECEDOR_GRUPO')
+      .KeyFields('grf_cod')
       .SQL
         .Clear
         .Add('Select')
@@ -161,7 +161,7 @@ begin
   try
     for grupoFornecedor := Low(SYS_GRUPOS_FORNECEDOR) to High(SYS_GRUPOS_FORNECEDOR) do
     begin
-      if not FConn.Query.DataSet.Locate('grf_cod', Ord(grupoFornecedor), []) then
+      if (not FConn.Query.DataSet.Locate('grf_cod', Ord(grupoFornecedor), [])) then
       begin
         FConn.Query.DataSet.Append;
         FConn.Query.DataSet.FieldByName('grf_cod').AsInteger := Ord(grupoFornecedor);

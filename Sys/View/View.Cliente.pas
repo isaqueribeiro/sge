@@ -598,9 +598,9 @@ begin
 
   TController(FControllerVendedor).LookupComboBox(dbVendedor, dtsVendedor, 'vendedor_cod', 'codigo', 'nome');
   TController(FControllerTipoCNPJView).LookupComboBox(dbTipoCNPJ, dtsTipoCnpj, 'tipo', 'codigo', 'descricao');
-  TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco1, dtsBancoFebraban, 'banco', 'codigo', 'nome_codigo');
-  TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco2, dtsBancoFebraban, 'banco_2', 'codigo', 'nome_codigo');
-  TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco3, dtsBancoFebraban, 'banco_3', 'codigo', 'nome_codigo');
+  TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco1, dtsBancoFebraban, 'banco',   'codigo', 'codigo_nome');
+  TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco2, dtsBancoFebraban, 'banco_2', 'codigo', 'codigo_nome');
+  TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco3, dtsBancoFebraban, 'banco_3', 'codigo', 'codigo_nome');
 
   FController.DAO.DataSet.AfterScroll := DtSrcTabelaAfterScroll;
 end;
@@ -1586,7 +1586,7 @@ begin
 
           // Por CPF/CNPJ
           1:
-            FController.DAO.Where( 'cl.cnpj like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') );
+            FController.DAO.Where( 'cl.cnpj like ' + QuotedStr('%' + StrOnlyNumbers(edtFiltrar.Text) + '%') );
 
           // Por Cidade
           2:

@@ -577,51 +577,53 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\Connection\SGE.Model.Connection.Factory.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Factory.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.UF.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cidade.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Distrito.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Bairro.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Logradouro.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CST.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CFOP.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Empresa.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.FormaPagto.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CondicaoPagto.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CentroCusto.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CFOP.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cidade.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cliente.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CondicaoPagto.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CST.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Distrito.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Empresa.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Factory.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.FormaPagto.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Logradouro.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.UF.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.Factory.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.Helper.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.UF.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.Cidade.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.Distrito.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Bairro.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoLogradouro.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.Logradouro.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.CST.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.CFOP.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.IBPT.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.Empresa.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaCorrente.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.FormaPagto.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.CondicaoPagto.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.PlanoConta.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoReceita.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CentroCusto.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.Tabelas.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.Vendedor.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.CFOP.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Cidade.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Cliente.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.CondicaoPagto.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaCorrente.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.CST.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Distrito.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Empresa.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Factory.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.FormaPagto.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Fornecedor.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Helper.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.IBPT.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Logradouro.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.PlanoConta.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Tabelas.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoDespesa.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoLogradouro.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoReceita.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.UF.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Vendedor.pas"/>
         <DCCReference Include="..\Sys\View\View.Estado.pas">
             <Form>ViewEstado</Form>
         </DCCReference>
@@ -686,7 +688,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <Form>ViewCliente</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas"/>
+        <DCCReference Include="..\Sys\View\View.Fornecedor.pas">
+            <Form>ViewFornecedor</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>
@@ -803,7 +808,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -925,7 +930,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

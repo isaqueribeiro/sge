@@ -15,6 +15,7 @@ uses
   SGE.Controller.Distrito,
   SGE.Controller.Empresa,
   SGE.Controller.FormaPagto,
+  SGE.Controller.Fornecedor,
   SGE.Controller.IBPT,
   SGE.Controller.Logradouro,
   SGE.Controller.PlanoConta,
@@ -54,6 +55,7 @@ type
       FFormaPagto ,
       FFormaPagtoContaCorrente,
       FFormaPagtoNFCEView     ,
+      FFornecedor     ,
       FGrupoFornecedor,
       FIBPT      ,
       FLogradouro,
@@ -103,6 +105,7 @@ type
       function FormaPagto : IControllerCustom;
       function FormaPagtoContaCorrente : IControllerCustom;
       function FormaPagtoNFCEView : IControllerCustom;
+      function Fornecedor : IControllerCustom;
       function GrupoFornecedor : IControllerCustom;
       function IBPT : IControllerCustom;
       function Logradouro : IControllerCustom;
@@ -381,6 +384,14 @@ begin
     FFormaPagtoNFCEView := TControllerFormaPagtoNFCEView.New;
 
   Result := FFormaPagtoNFCEView;
+end;
+
+function TControllerFactory.Fornecedor: IControllerCustom;
+begin
+  if not Assigned(FFornecedor) then
+    FFornecedor := TControllerFornecedor.New;
+
+  Result := FFornecedor;
 end;
 
 function TControllerFactory.GrupoFornecedor: IControllerCustom;
