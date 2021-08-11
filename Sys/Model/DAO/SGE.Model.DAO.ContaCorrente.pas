@@ -7,15 +7,12 @@ uses
   System.Classes,
   Data.DB,
   SGE.Model.DAO,
-  SGE.Model.DAO.Interfaces,
-  Interacao.Usuario,
-  Controller.Factory;
+  SGE.Model.DAO.Interfaces;
 
 type
   // Table
   TModelDAOContaCorrente = class(TModelDAO, IModelDAOCustom)
     private
-      FUsuario : IUsuario;
       procedure DataSetNewRecord(DataSet: TDataSet);
       procedure DataSetBeforePost(DataSet: TDataSet);
     protected
@@ -79,8 +76,6 @@ begin
 
   FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
   FConn.Query.DataSet.BeforePost  := DataSetBeforePost;
-
-  FUsuario := TFactoryController.getInstance().getUsuarioController();
 end;
 
 destructor TModelDAOContaCorrente.Destroy;
@@ -109,7 +104,7 @@ begin
   begin
     FieldByName('CODIGO').AsInteger := FConn.Query.NewID;
     FieldByName('TIPO').AsInteger   := CONTA_CORRENTE_TIPO_CAIXA;
-    FieldByName('EMPRESA').AsString := FUsuario.Empresa;
+    FieldByName('EMPRESA').AsString := Usuario.Empresa.CNPJ;
     FieldByName('BCO_CODIGO_CC').Clear;
     FieldByName('CONTA_BANCO_BOLETO').Clear;
     FieldByName('CODIGO_CONTABIL').Clear;

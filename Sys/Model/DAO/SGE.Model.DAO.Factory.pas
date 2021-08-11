@@ -5,6 +5,7 @@ interface
 uses
   SGE.Model.DAO.Interfaces,
   SGE.Model.DAO.Bairro,
+  SGE.Model.DAO.Banco,
   SGE.Model.DAO.CentroCusto,
   SGE.Model.DAO.CFOP,
   SGE.Model.DAO.Cidade,
@@ -29,8 +30,9 @@ uses
 type
   TModelDAOFactory = class(TInterfacedObject, IModelDAOFactory)
     private
-      FUF       ,
-      FBairro   ,
+      FUF    ,
+      FBairro,
+      FBanco ,
       FBancoFebrabanView ,
       FCentroCusto       ,
       FCentroCustoEmpresa,
@@ -58,6 +60,7 @@ type
       FFornecedor     ,
       FGrupoFornecedor,
       FIBPT           ,
+      FLayoutRemessaBancoView,
       FLogradouro     ,
       FNivelIBPT      ,
       FPlanoConta     ,
@@ -80,7 +83,8 @@ type
       destructor Destroy; override;
       class function New : IModelDAOFactory;
 
-      function Bairro   : IModelDAOCustom;
+      function Bairro : IModelDAOCustom;
+      function Banco : IModelDAOCustom;
       function BancoFebrabanView : IModelDAOCustom;
       function CentroCusto : IModelDAOCustom;
       function CentroCustoEmpresa : IModelDAOCustom;
@@ -108,6 +112,7 @@ type
       function Fornecedor : IModelDAOCustom;
       function GrupoFornecedor : IModelDAOCustom;
       function IBPT : IModelDAOCustom;
+      function LayoutRemessaBancoView : IModelDAOCustom;
       function Logradouro : IModelDAOCustom;
       function NivelIBPT : IModelDAOCustom;
       function PlanoConta : IModelDAOCustom;
@@ -272,6 +277,14 @@ begin
     FBairro := TModelDAOBairro.New;
 
   Result := FBairro;
+end;
+
+function TModelDAOFactory.Banco: IModelDAOCustom;
+begin
+  if not Assigned(FBanco) then
+    FBanco := TModelDAOBanco.New;
+
+  Result := FBanco;
 end;
 
 function TModelDAOFactory.BancoFebrabanView: IModelDAOCustom;
@@ -480,6 +493,14 @@ begin
     FIBPT := TModelDAOIBPT.New;
 
   Result := FIBPT;
+end;
+
+function TModelDAOFactory.LayoutRemessaBancoView: IModelDAOCustom;
+begin
+  if not Assigned(FLayoutRemessaBancoView) then
+    FLayoutRemessaBancoView := TModelDAOLayoutRemessaBancoView.New;
+
+  Result := FLayoutRemessaBancoView;
 end;
 
 function TModelDAOFactory.Logradouro: IModelDAOCustom;

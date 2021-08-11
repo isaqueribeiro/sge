@@ -173,6 +173,10 @@ inherited ViewConfiguracaoEmpresa: TViewConfiguracaoEmpresa
         TabOrder = 1
         object tbsContaEmail: TTabSheet
           Caption = 'Conta de E-mail'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblEmailConta: TLabel
             Left = 16
             Top = 8
@@ -320,6 +324,10 @@ inherited ViewConfiguracaoEmpresa: TViewConfiguracaoEmpresa
         object tbsVenda: TTabSheet
           Caption = 'Vendas'
           ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblFormaPagtoCartaCredito: TLabel
             Left = 16
             Top = 8
@@ -387,6 +395,10 @@ inherited ViewConfiguracaoEmpresa: TViewConfiguracaoEmpresa
         object TbsNFe: TTabSheet
           Caption = 'NF-e / NFC-e'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object chkNFE_SolicitaDHSaida: TDBCheckBox
             Left = 16
             Top = 244
@@ -775,6 +787,10 @@ inherited ViewConfiguracaoEmpresa: TViewConfiguracaoEmpresa
         object TbsNFSe: TTabSheet
           Caption = 'NFS-e'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object chkNFSE_Emitir: TDBCheckBox
             Left = 16
             Top = 16
@@ -1053,6 +1069,10 @@ inherited ViewConfiguracaoEmpresa: TViewConfiguracaoEmpresa
         object TbsOutrasConfig: TTabSheet
           Caption = 'Outras Configura'#231#245'es'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblContador: TLabel
             Left = 16
             Top = 13

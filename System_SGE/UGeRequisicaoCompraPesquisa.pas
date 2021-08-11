@@ -215,7 +215,7 @@ uses
   , UDMBusiness
   , UConstantesDGE
   , UGrPadrao
-  , UGeFornecedor;
+  , View.Fornecedor;
 
 {$R *.dfm}
 

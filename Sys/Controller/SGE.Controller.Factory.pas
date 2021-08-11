@@ -5,6 +5,7 @@ interface
 uses
   SGE.Controller.Interfaces,
   SGE.Controller.Bairro,
+  SGE.Controller.Banco,
   SGE.Controller.CentroCusto,
   SGE.Controller.CFOP,
   SGE.Controller.Cidade,
@@ -29,8 +30,9 @@ uses
 type
   TControllerFactory = class(TInterfacedObject, IControllerFactory)
     private
-      FUF       ,
-      FBairro   ,
+      FUF    ,
+      FBairro,
+      FBanco ,
       FBancoFebrabanView ,
       FCentroCusto       ,
       FCentroCustoEmpresa,
@@ -58,6 +60,7 @@ type
       FFornecedor     ,
       FGrupoFornecedor,
       FIBPT      ,
+      FLayoutRemessaBancoView,
       FLogradouro,
       FNivelIBPT ,
       FPlanoConta      ,
@@ -80,7 +83,8 @@ type
       destructor Destroy; override;
       class function New : IControllerFactory;
 
-      function Bairro   : IControllerCustom;
+      function Bairro : IControllerCustom;
+      function Banco : IControllerCustom;
       function BancoFebrabanView : IControllerCustom;
       function CentroCusto : IControllerCustom;
       function CentroCustoEmpresa : IControllerCustom;
@@ -108,6 +112,7 @@ type
       function Fornecedor : IControllerCustom;
       function GrupoFornecedor : IControllerCustom;
       function IBPT : IControllerCustom;
+      function LayoutRemessaBancoView : IControllerCustom;
       function Logradouro : IControllerCustom;
       function NivelIBPT : IControllerCustom;
       function PlanoConta : IControllerCustom;
@@ -200,6 +205,14 @@ begin
     FBairro := TControllerBairro.New;
 
   Result := FBairro;
+end;
+
+function TControllerFactory.Banco: IControllerCustom;
+begin
+  if not Assigned(FBanco) then
+    FBanco := TControllerBanco.New;
+
+  Result := FBanco;
 end;
 
 function TControllerFactory.BancoFebrabanView: IControllerCustom;
@@ -408,6 +421,14 @@ begin
     FIBPT := TControllerIBPT.New;
 
   Result := FIBPT;
+end;
+
+function TControllerFactory.LayoutRemessaBancoView: IControllerCustom;
+begin
+  if not Assigned(FLayoutRemessaBancoView) then
+    FLayoutRemessaBancoView := TControllerLayoutRemessaBancoView.New;
+
+  Result := FLayoutRemessaBancoView;
 end;
 
 function TControllerFactory.Logradouro: IControllerCustom;

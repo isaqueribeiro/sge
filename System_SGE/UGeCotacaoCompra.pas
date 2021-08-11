@@ -342,7 +342,7 @@ uses
   , UGeProduto
   , UGeCotacaoCompraCancelar
   , UGeCotacaoCompraFornecedor
-  , UGeFornecedor
+  , View.Fornecedor
   , UFuncoes;
 
 {$R *.dfm}

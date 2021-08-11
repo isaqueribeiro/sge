@@ -292,7 +292,7 @@ procedure TModelDAOConfiguracaoEmpresa.DataSetNewRecord(DataSet: TDataSet);
 begin
   with FConn.Query.DataSet do
   begin
-    //FieldByName('EMPRESA').AsString            := gUsuarioLogado.Empresa;
+    //FieldByName('EMPRESA').AsString            := Usuario.Empresa.CNPJ;
     FieldByName('EMPRESA').Clear;
     FieldByName('EMAIL_SMTP_PORTA').AsInteger  := PORTA_SMTP_PADRAO;
     FieldByName('EMAIL_REQUER_AUTENTICACAO').AsInteger := 0;

@@ -541,7 +541,7 @@ uses
   , View.CondicaoPagto
   , UGeProduto
   , View.CFOP
-  , UGeFornecedor
+  , View.Fornecedor
   , UFuncoes
   , UDMNFe
   , UGeConsultarLoteNFe_v2

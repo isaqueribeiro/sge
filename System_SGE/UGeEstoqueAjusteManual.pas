@@ -139,7 +139,7 @@ uses
   , UDMBusiness
   , UDMRecursos
   , UGeProduto
-  , UGeFornecedor;
+  , View.Fornecedor;
 
 {$R *.dfm}
 

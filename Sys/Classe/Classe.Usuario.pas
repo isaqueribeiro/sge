@@ -134,7 +134,6 @@ end;
 
 class function TUsuario.New: IUsuarioModel;
 begin
-  //Result := Self.Create;
   if not Assigned(_instance) then
     _instance := Self.Create;
 

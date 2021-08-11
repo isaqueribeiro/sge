@@ -253,7 +253,7 @@ uses
   , UGrPadrao
   , UConstantesDGE
   , UDMBusiness
-  , UGeFornecedor
+  , View.Fornecedor
   , UGeEfetuarPagtoPAG
   , UGeContasAPagarLoteParcela;
 

@@ -21,7 +21,6 @@ uses
   UGrPadraoCadastro in '..\Sys\lib\UGrPadraoCadastro.pas' {frmGrPadraoCadastro},
   UGrPadrao in '..\Sys\lib\UGrPadrao.pas' {frmGrPadrao},
   UGeBancos in '..\Sys\UGeBancos.pas' {frmGeBancos},
-  UGeFornecedor in '..\Sys\UGeFornecedor.pas' {frmGeFornecedor},
   UGeGrupoProduto in '..\Sys\UGeGrupoProduto.pas' {frmGeGrupoProduto},
   UGeSecaoProduto in '..\Sys\UGeSecaoProduto.pas' {frmGeSecaoProduto},
   UGeUnidade in '..\Sys\UGeUnidade.pas' {frmGeUnidade},
@@ -212,6 +211,7 @@ uses
   SGE.Model.DAO.TipoReceita in '..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas',
   SGE.Model.DAO.UF in '..\Sys\Model\DAO\SGE.Model.DAO.UF.pas',
   SGE.Model.DAO.Vendedor in '..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas',
+  SGE.Model.DAO.Banco in '..\Sys\Model\DAO\SGE.Model.DAO.Banco.pas',
   SGE.Controller.Interfaces in '..\Sys\Controller\SGE.Controller.Interfaces.pas',
   SGE.Controller in '..\Sys\Controller\SGE.Controller.pas',
   SGE.Controller.Bairro in '..\Sys\Controller\SGE.Controller.Bairro.pas',
@@ -237,6 +237,7 @@ uses
   SGE.Controller.TipoReceita in '..\Sys\Controller\SGE.Controller.TipoReceita.pas',
   SGE.Controller.UF in '..\Sys\Controller\SGE.Controller.UF.pas',
   SGE.Controller.Vendedor in '..\Sys\Controller\SGE.Controller.Vendedor.pas',
+  SGE.Controller.Banco in '..\Sys\Controller\SGE.Controller.Banco.pas',
   View.Estado in '..\Sys\View\View.Estado.pas' {ViewEstado},
   View.Cidade in '..\Sys\View\View.Cidade.pas' {ViewCidade},
   View.Distrito in '..\Sys\View\View.Distrito.pas' {ViewDistrito},
@@ -257,7 +258,8 @@ uses
   View.ConfiguracaoEmpresa in '..\Sys\View\View.ConfiguracaoEmpresa.pas' {ViewConfiguracaoEmpresa},
   View.Vendedor in '..\Sys\View\View.Vendedor.pas' {ViewVendedor},
   View.Cliente in '..\Sys\View\View.Cliente.pas' {ViewCliente},
-  View.Fornecedor in '..\Sys\View\View.Fornecedor.pas' {ViewFornecedor};
+  View.Fornecedor in '..\Sys\View\View.Fornecedor.pas' {ViewFornecedor},
+  View.Banco in '..\Sys\View\View.Banco.pas' {ViewBanco};
 
 {$R *.res}
 

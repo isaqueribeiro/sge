@@ -20,7 +20,8 @@ type
     function Where(aFieldName : String; aFielValue : Integer) : IModelDAO; overload;
     function Where(aFieldName : String; aFielValue : Int64) : IModelDAO; overload;
     function WhereLike(aFieldName, aFielValue : String) : IModelDAO;
-    function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO;
+    function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO; overload;
+    function WhereOr(aExpressionWhere : String) : IModelDAO; overload;
     function WhereAdditional(aExpression : String) : IModelDAO; overload;
     function WhereAdditional : String; overload;
     function ParamsByName(aParamsName, aParamsValue : String) : IModelDAO; overload;
@@ -66,6 +67,7 @@ type
   IModelDAOFactory = interface
     ['{0EF3B708-2B61-4B02-A8EB-A59A1E9ADD81}']
     function Bairro   : IModelDAOCustom;
+    function Banco : IModelDAOCustom;
     function BancoFebrabanView : IModelDAOCustom;
     function CentroCusto : IModelDAOCustom;
     function CentroCustoEmpresa : IModelDAOCustom;
@@ -93,6 +95,7 @@ type
     function Fornecedor : IModelDAOCustom;
     function GrupoFornecedor : IModelDAOCustom;
     function IBPT : IModelDAOCustom;
+    function LayoutRemessaBancoView : IModelDAOCustom;
     function Logradouro : IModelDAOCustom;
     function NivelIBPT : IModelDAOCustom;
     function PlanoConta : IModelDAOCustom;

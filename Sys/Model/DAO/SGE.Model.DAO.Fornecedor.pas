@@ -157,15 +157,6 @@ begin
   with FConn.Query.DataSet do
   begin
     FieldByName('PESSOA_FISICA').AsInteger  := 0;
-//    FieldByName('PAIS_ID').AsString         := GetPaisIDDefault;
-//    FieldByName('PAIS_NOME').AsString       := GetPaisNomeDefault;
-//    FieldByName('EST_COD').AsInteger        := GetEstadoIDDefault;
-//    FieldByName('EST_NOME').AsString        := GetEstadoNomeDefault;
-//    FieldByName('UF').AsString              := GetEstadoUF(GetEstadoIDDefault);
-//    FieldByName('CID_COD').AsInteger        := GetCidadeIDDefault;
-//    FieldByName('CID_NOME').AsString        := GetCidadeNomeDefault;
-//    FieldByName('CIDADE').AsString          := Copy(FieldByName('CID_NOME').AsString + ' (' + Trim(FieldByName('UF').AsString) + ')', 1, FieldByName('CIDADE').Size);
-//    FieldByName('CEP').AsString             := GetCidadeCEP(GetCidadeIDDefault);
     FieldByName('NUMERO_END').AsString      := 'S/N';
     FieldByName('COMPLEMENTO').AsString     := EmptyStr;
     FieldByName('TRANSPORTADORA').AsInteger := 0;
@@ -173,11 +164,6 @@ begin
     FieldByName('FATURAMENTO_MINIMO').AsCurrency := 0.0;
     FieldByName('ATIVO').AsInteger          := 1;
 
-//    if (fdQryGrupo.RecordCount > 0) then
-//      FieldByName('GRF_COD').Value := fdQryGrupo.FieldByName('GRF_COD').AsInteger
-//    else
-//      FieldByName('GRF_COD').Clear;
-//
     FieldByName('BANCO').Clear;
     FieldByName('AGENCIA').Clear;
     FieldByName('CC').Clear;

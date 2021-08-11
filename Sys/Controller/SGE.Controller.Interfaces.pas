@@ -26,6 +26,7 @@ type
   IControllerFactory = interface
     ['{52DB68E4-A6DE-428B-867A-F0EE203E7CCA}']
     function Bairro   : IControllerCustom;
+    function Banco : IControllerCustom;
     function BancoFebrabanView : IControllerCustom;
     function CentroCusto : IControllerCustom;
     function CentroCustoEmpresa : IControllerCustom;
@@ -53,6 +54,7 @@ type
     function Fornecedor : IControllerCustom;
     function GrupoFornecedor : IControllerCustom;
     function IBPT : IControllerCustom;
+    function LayoutRemessaBancoView : IControllerCustom;
     function Logradouro : IControllerCustom;
     function NivelIBPT : IControllerCustom;
     function PlanoConta : IControllerCustom;

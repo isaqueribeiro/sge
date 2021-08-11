@@ -310,7 +310,7 @@ uses
   , UDMNFe
   , UDMRecursos
   , View.Cliente
-  , UGeFornecedor
+  , View.Fornecedor
   , UGeCaixa;
 
 {$R *.dfm}

@@ -119,7 +119,7 @@ uses
   , UDMNFe
   , UGeVenda
   , UGrCampoRequisitado
-  , UGeFornecedor
+  , View.Fornecedor
   , View.Estado;
 
 {$R *.dfm}

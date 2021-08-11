@@ -364,7 +364,7 @@ uses
   , UDMRecursos
   , UDMBusiness
   , UDMNFe
-  , UGeFornecedor
+  , View.Fornecedor
   , UGeProduto;
 
 {$R *.dfm}

@@ -77,7 +77,8 @@ type
       function Where(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<TConnectionFireDAC>; overload;
       function Where(aFieldName : String; aFielValue : Integer) : IConnection<TConnectionFireDAC>; overload;
       function Where(aFieldName : String; aFielValue : Int64) : IConnection<TConnectionFireDAC>; overload;
-      function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<TConnectionFireDAC>;
+      function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<TConnectionFireDAC>; overload;
+      function WhereOr(aExpressionWhere : String) : IConnection<TConnectionFireDAC>; overload;
       function OpenEmpty : IConnection<TConnectionFireDAC>;
       function CloseEmpty : IConnection<TConnectionFireDAC>;
 
@@ -496,6 +497,12 @@ end;
 function TConnectionFireDAC.WhereAdditional: String;
 begin
   Result := FWhereAdditional;
+end;
+
+function TConnectionFireDAC.WhereOr(aExpressionWhere: String): IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  FScript.WhereOr(aExpressionWhere);
 end;
 
 function TConnectionFireDAC.WhereAdditional(aExpression: String): IConnection<TConnectionFireDAC>;

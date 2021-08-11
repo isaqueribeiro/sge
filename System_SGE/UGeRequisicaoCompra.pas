@@ -305,7 +305,7 @@ uses
   , UConstantesDGE
   , UDMBusiness
   , UDMNFe
-  , UGeFornecedor
+  , View.Fornecedor
   , UGeProduto
   , UGeRequisicaoCompraCancelar
   , View.Cliente

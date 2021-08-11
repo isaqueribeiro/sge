@@ -34,7 +34,8 @@ type
       function Where(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) :  TSQL<T>; overload;
       function Where(aFieldName : String; aFielValue : Integer) :  TSQL<T>; overload;
       function Where(aFieldName : String; aFielValue : Int64) :  TSQL<T>; overload;
-      function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) :  TSQL<T>;
+      function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) :  TSQL<T>; overload;
+      function WhereOr(aExpressionWhere : String) :  TSQL<T>; overload;
       function OrderBy(aFieldName : String) :  TSQL<T>; overload;
 
       function &End : T;
@@ -125,6 +126,15 @@ function TSQL<T>.WhereEmpty: TSQL<T>;
 begin
   Result := Self;
   AddWhere('(1 = 0)');
+end;
+
+function TSQL<T>.WhereOr(aExpressionWhere: String): TSQL<T>;
+var
+  aExpression : String;
+begin
+  Result := Self;
+  aExpression := '(' + aExpressionWhere.Trim + ')';
+  AddWhere(aExpression, False);
 end;
 
 function TSQL<T>.WhereOr(aFieldName, aFielValue: String; const aQuotedString: Boolean): TSQL<T>;

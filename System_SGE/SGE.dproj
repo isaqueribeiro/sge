@@ -179,9 +179,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeBancos.pas">
             <Form>frmGeBancos</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeFornecedor.pas">
-            <Form>frmGeFornecedor</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeGrupoProduto.pas">
             <Form>frmGeGrupoProduto</Form>
         </DCCReference>
@@ -599,6 +596,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.UF.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Banco.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Bairro.pas"/>
@@ -624,6 +622,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoReceita.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.UF.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Vendedor.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Banco.pas"/>
         <DCCReference Include="..\Sys\View\View.Estado.pas">
             <Form>ViewEstado</Form>
         </DCCReference>
@@ -690,6 +689,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Fornecedor.pas">
             <Form>ViewFornecedor</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Banco.pas">
+            <Form>ViewBanco</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">

@@ -1999,6 +1999,10 @@ inherited ViewFornecedor: TViewFornecedor
       ExplicitLeft = 233
       ExplicitTop = 0
     end
+    inherited btbtnSalvar: TcxButton
+      ExplicitLeft = 306
+      ExplicitTop = -2
+    end
     inherited btbtnFechar: TcxButton
       Left = 765
       ExplicitLeft = 765

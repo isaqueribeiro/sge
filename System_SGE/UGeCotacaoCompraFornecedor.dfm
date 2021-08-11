@@ -265,6 +265,10 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     TabOrder = 1
     object TbsFornecedor: TTabSheet
       Caption = '&Fornecedor'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         748
         270)
@@ -484,6 +488,10 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     object TbsFornecedorItem: TTabSheet
       Caption = '&Itens'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object dbgProdutos: TDBGrid
         Left = 0
         Top = 0

@@ -178,7 +178,7 @@ uses
   , UDMBusiness
   , UDMNFe
   , UFuncoes
-  , UGeFornecedor
+  , View.Fornecedor
   , UConstantesDGE;
 
 {$R *.dfm}

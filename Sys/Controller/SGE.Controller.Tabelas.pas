@@ -69,6 +69,16 @@ type
       class function New : IControllerCustom;
   end;
 
+  // View
+  TControllerLayoutRemessaBancoView = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
 implementation
 
 { TControllerSegmento }
@@ -169,6 +179,23 @@ begin
 end;
 
 class function TControllerBancoFebrabanView.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerLayoutRemessaBancoView }
+
+constructor TControllerLayoutRemessaBancoView.Create;
+begin
+  inherited Create(TModelDAOFactory.New.LayoutRemessaBancoView);
+end;
+
+destructor TControllerLayoutRemessaBancoView.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerLayoutRemessaBancoView.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

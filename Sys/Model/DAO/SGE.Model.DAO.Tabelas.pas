@@ -82,6 +82,18 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // View
+  TModelDAOLayoutRemessaBancoView = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
 implementation
 
 uses
@@ -328,6 +340,40 @@ begin
 end;
 
 function TModelDAOBancoFebrabanView.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+{ TModelDAOLayoutRemessaBancoView }
+
+constructor TModelDAOLayoutRemessaBancoView.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    l.codigo    ')
+        .Add('  , l.descricao ')
+        .Add('from VW_LAYOUT_REM_RET_BANCO l')
+      .&End
+    .Open;
+end;
+
+destructor TModelDAOLayoutRemessaBancoView.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOLayoutRemessaBancoView.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOLayoutRemessaBancoView.CreateLookupComboBoxList: IModelDAOCustom;
 begin
   Result := Self;
   if not FConn.Query.DataSet.Active then

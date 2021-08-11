@@ -187,7 +187,7 @@ implementation
 
 uses
   UConstantesDGE, UDMRecursos, UDMBusiness, UGrCampoRequisitado,
-  UGeFornecedor, DateUtils;
+  View.Fornecedor, DateUtils;
 
 function GerarLoteParcelas(const AOnwer : TComponent;
   var aEmpresa, aLote : String;

@@ -167,7 +167,7 @@ uses
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper,
-  UGeFornecedor;
+  View.Fornecedor;
 
 {$R *.dfm}
 

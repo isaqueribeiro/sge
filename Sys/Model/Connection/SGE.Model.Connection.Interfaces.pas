@@ -28,7 +28,8 @@ type
     function Where(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<T>; overload;
     function Where(aFieldName : String; aFielValue : Integer) : IConnection<T>; overload;
     function Where(aFieldName : String; aFielValue : Int64) : IConnection<T>; overload;
-    function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<T>;
+    function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<T>; overload;
+    function WhereOr(aExpressionWhere : String) : IConnection<T>; overload;
     function OpenEmpty : IConnection<T>;
     function CloseEmpty : IConnection<T>;
     function OpenOrExecute : Boolean;

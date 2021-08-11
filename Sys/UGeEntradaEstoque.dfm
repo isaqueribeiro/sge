@@ -29,6 +29,8 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
     ExplicitWidth = 1114
     ExplicitHeight = 634
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 1106
       ExplicitHeight = 605
       inherited Bevel4: TBevel
@@ -1356,6 +1358,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         TabOrder = 4
         object tbsPagamento: TTabSheet
           Caption = 'Pagamento'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           DesignSize = (
             1098
             157)
@@ -1904,6 +1910,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object tbsDuplicatas: TTabSheet
           Caption = 'Duplicata(s) Gerada(s)'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 89
             Top = 0
@@ -2076,6 +2086,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object tbsLotes: TTabSheet
           Caption = 'Lote(s) Gerado(s) no Estoque'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object DBGrid1: TDBGrid
             Left = 0
             Top = 0
@@ -2162,6 +2176,10 @@ inherited frmGeEntradaEstoque: TfrmGeEntradaEstoque
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0

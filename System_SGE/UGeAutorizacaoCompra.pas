@@ -309,7 +309,7 @@ uses
   , UConstantesDGE
   , UDMBusiness
   , UDMNFe
-  , UGeFornecedor
+  , View.Fornecedor
   , UGeProduto
   , UGeAutorizacaoCompraCancelar
   , View.Cliente

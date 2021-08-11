@@ -1,4 +1,4 @@
-unit SGE.Controller.Fornecedor;
+unit SGE.Controller.Banco;
 
 interface
 
@@ -10,7 +10,7 @@ uses
 
 type
   // Table
-  TControllerFornecedor = class(TController, IControllerCustom)
+  TControllerBanco = class(TController, IControllerCustom)
     private
     protected
       constructor Create;
@@ -24,19 +24,19 @@ implementation
 uses
   Controller.Factory;
 
-{ TControllerFornecedor }
+{ TControllerBanco }
 
-constructor TControllerFornecedor.Create;
+constructor TControllerBanco.Create;
 begin
-  inherited Create(TModelDAOFactory.New.Fornecedor);
+  inherited Create(TModelDAOFactory.New.Banco);
 end;
 
-destructor TControllerFornecedor.Destroy;
+destructor TControllerBanco.Destroy;
 begin
   inherited;
 end;
 
-class function TControllerFornecedor.New: IControllerCustom;
+class function TControllerBanco.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

@@ -6,26 +6,32 @@ uses
   System.SysUtils,
   Data.DB,
   SGE.Model.Connection.Factory,
-  SGE.Model.DAO.Interfaces;
+  SGE.Model.DAO.Interfaces,
+
+  Interacao.Usuario,
+  Classe.Usuario;
 
 type
   TModelDAO = class(TInterfacedObject, IModelDAO)
     private
     protected
-      FConn : IConnection;
+      FConn    : IConnection;
+      FUsuario : IUsuarioModel;
       constructor Create;
     public
       destructor Destroy; override;
 
       function DataSet : TDataSet;
       function SelectSQL : String;
+      function Usuario : IUsuarioModel;
 
       function Where(aExpressionWhere : String) : IModelDAO; overload;
       function Where(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO; overload;
       function Where(aFieldName : String; aFielValue : Integer) : IModelDAO; overload;
       function Where(aFieldName : String; aFielValue : Int64) : IModelDAO; overload;
       function WhereLike(aFieldName, aFielValue : String) : IModelDAO;
-      function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO;
+      function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO; overload;
+      function WhereOr(aExpressionWhere : String) : IModelDAO; overload;
       function WhereAdditional(aExpression : String) : IModelDAO; overload;
       function WhereAdditional : String; overload;
       function ParamsByName(aParamsName, aParamsValue : String) : IModelDAO; overload;
@@ -94,7 +100,8 @@ end;
 
 constructor TModelDAO.Create;
 begin
-  FConn := TConnectionFactory.New;
+  FConn    := TConnectionFactory.New;
+  FUsuario := TUsuario.New;
 end;
 
 function TModelDAO.DataSet: TDataSet;
@@ -173,6 +180,11 @@ begin
   FConn.Query.UpdateGenerator(aExpressionWhere);
 end;
 
+function TModelDAO.Usuario: IUsuarioModel;
+begin
+  Result := FUsuario;
+end;
+
 function TModelDAO.Where(aExpressionWhere: String): IModelDAO;
 begin
   Result := Self;
@@ -215,6 +227,12 @@ begin
   Result := Self;
   aExpression := '(' + aFieldName.Trim + ' like ' + aFielValue.Trim.QuotedString + ')';
   FConn.Query.Where(aExpression);
+end;
+
+function TModelDAO.WhereOr(aExpressionWhere: String): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.WhereOr(aExpressionWhere);
 end;
 
 function TModelDAO.WhereOr(aFieldName, aFielValue: String; const aQuotedString : Boolean = True): IModelDAO;
