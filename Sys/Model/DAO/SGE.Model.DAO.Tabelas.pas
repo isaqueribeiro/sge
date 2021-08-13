@@ -94,6 +94,54 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // Tipo de Alíquota (View)
+  TModelDAOTipoAliquotaView = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
+  // Tipo de Tributação
+  TModelDAOTipoTributacao = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
+  // Alíquota PIS (View)
+  TModelDAOAliquotaPISView = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
+  // Alíquota COFINS (View)
+  TModelDAOAliquotaCOFINSView = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
 implementation
 
 uses
@@ -374,6 +422,155 @@ begin
 end;
 
 function TModelDAOLayoutRemessaBancoView.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+{ TModelDAOTipoAliquotaView }
+
+constructor TModelDAOTipoAliquotaView.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    codigo    ')
+        .Add('  , descricao ')
+        .Add('  , tipo      ')
+        .Add('from VW_TIPO_ALIQUOTA')
+      .&End
+    .Open;
+end;
+
+destructor TModelDAOTipoAliquotaView.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOTipoAliquotaView.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOTipoAliquotaView.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+{ TModelDAOTipoTributacao }
+
+constructor TModelDAOTipoTributacao.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    t.Tpt_cod      ')
+        .Add('  , t.Tpt_descricao')
+        .Add('  , t.Tpt_cod || '' - '' || t.Tpt_descricao as Tpt_descricao_full')
+        .Add('  , t.Tpt_sigla')
+        .Add('  , t.Crt      ')
+        .Add('  , coalesce(t.obrigar_cest, 0) as obrigar_cest')
+        .Add('from TBTRIBUTACAO_TIPO t                       ')
+        .Where('coalesce(t.obrigar_cest, 0) = 0')
+        .OrderBy('t.Crt')
+        .OrderBy('t.Tpt_cod')
+      .&End
+    .OpenEmpty
+    .CloseEmpty;
+end;
+
+destructor TModelDAOTipoTributacao.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOTipoTributacao.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOTipoTributacao.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+{ TModelDAOAliquotaPISView }
+
+constructor TModelDAOAliquotaPISView.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    codigo    ')
+        .Add('  , descricao ')
+        .Add('  , descricao_full')
+        .Add('  , indice_acbr   ')
+        .Add('from VW_ALIQUOTA_PIS')
+      .&End
+    .Open;
+end;
+
+destructor TModelDAOAliquotaPISView.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOAliquotaPISView.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOAliquotaPISView.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+{ TModelDAOAliquotaCOFINSView }
+
+constructor TModelDAOAliquotaCOFINSView.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    codigo    ')
+        .Add('  , descricao ')
+        .Add('  , descricao_full')
+        .Add('  , indice_acbr   ')
+        .Add('from VW_ALIQUOTA_COFINS')
+      .&End
+    .Open;
+end;
+
+destructor TModelDAOAliquotaCOFINSView.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOAliquotaCOFINSView.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOAliquotaCOFINSView.CreateLookupComboBoxList: IModelDAOCustom;
 begin
   Result := Self;
   if not FConn.Query.DataSet.Active then

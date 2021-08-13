@@ -720,7 +720,7 @@ end;
 procedure TfrmPrinc.mnBancoClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_BANCO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeBancos');
+    FormFunction.ShowModalForm(Self, 'ViewBanco');
 end;
 
 procedure TfrmPrinc.nmTiposdeLogradourosClick(Sender: TObject);
@@ -762,19 +762,19 @@ end;
 procedure TfrmPrinc.nmGruposProdutoClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_GRUPO_PROD_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeGrupoProduto');
+    FormFunction.ShowModalForm(Self, 'ViewGrupoProduto');
 end;
 
 procedure TfrmPrinc.nmSecaoProdutoClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_SECAO_PROD_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeSecaoProduto');
+    FormFunction.ShowModalForm(Self, 'ViewSecaoProduto');
 end;
 
 procedure TfrmPrinc.nmUnidadeClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_UNIDA_PROD_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeUnidade');
+    FormFunction.ShowModalForm(Self, 'ViewUnidadeProduto');
 end;
 
 procedure TfrmPrinc.nmTabelaCFOPClick(Sender: TObject);
@@ -1047,7 +1047,7 @@ end;
 procedure TfrmPrinc.nmFabricanteProdutoClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_FABRI_PROD_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeFabricante');
+    FormFunction.ShowModalForm(Self, 'ViewFabricanteProduto');
 end;
 
 procedure TfrmPrinc.nmUsuarioAlterarSenhaClick(Sender: TObject);

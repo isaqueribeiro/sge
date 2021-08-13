@@ -20,6 +20,7 @@ uses
   SGE.Model.DAO.IBPT,
   SGE.Model.DAO.Logradouro,
   SGE.Model.DAO.PlanoConta,
+  SGE.Model.DAO.Produto,
   SGE.Model.DAO.Tabelas,
   SGE.Model.DAO.TipoDespesa,
   SGE.Model.DAO.TipoLogradouro,
@@ -30,7 +31,8 @@ uses
 type
   TModelDAOFactory = class(TInterfacedObject, IModelDAOFactory)
     private
-      FUF    ,
+      FAliquotaCOFINSView,
+      FAliquotaPISView   ,
       FBairro,
       FBanco ,
       FBancoFebrabanView ,
@@ -54,28 +56,39 @@ type
       FDistrito   ,
       FEmpresa    ,
       FEmpresaView,
+      FFabricanteProduto,
       FFormaPagto ,
       FFormaPagtoContaCorrente,
       FFormaPagtoNFCEView     ,
       FFornecedor     ,
       FGrupoFornecedor,
+      FGrupoProduto   ,
       FIBPT           ,
       FLayoutRemessaBancoView,
       FLogradouro     ,
       FNivelIBPT      ,
+      FOrigemProdutoView,
       FPlanoConta     ,
       FPlanoContaNivel,
       FPlanoContaTipo ,
+      FProduto        ,
+      FSecaoProduto   ,
       FSegmento       ,
       FTabelaIBPT     ,
-      FTipoCNPJView   ,
+      FTipoAliquotaView,
+      FTipoCNPJView    ,
       FTipoComissaoView,
       FTipoDespesa     ,
       FTipoDespesaPlanoConta,
-      FTipoLogradouro ,
-      FTipoReceita    ,
+      FTipoLogradouro,
+      FTipoProduto   ,
+      FTipoReceita   ,
       FTipoReceitaPlanoConta,
       FTipoRegimeView,
+      FTipoTributacao,
+      FTipoVeiculo   ,
+      FUF ,
+      FUnidadeProduto,
       FVendedor      : IModelDAOCustom;
     protected
       constructor Create;
@@ -83,6 +96,8 @@ type
       destructor Destroy; override;
       class function New : IModelDAOFactory;
 
+      function AliquotaCOFINSView : IModelDAOCustom;
+      function AliquotaPISView : IModelDAOCustom;
       function Bairro : IModelDAOCustom;
       function Banco : IModelDAOCustom;
       function BancoFebrabanView : IModelDAOCustom;
@@ -106,29 +121,39 @@ type
       function Distrito : IModelDAOCustom;
       function Empresa : IModelDAOCustom;
       function EmpresaView : IModelDAOCustom;
+      function FabricanteProduto : IModelDAOCustom;
       function FormaPagto : IModelDAOCustom;
       function FormaPagtoContaCorrente : IModelDAOCustom;
       function FormaPagtoNFCEView : IModelDAOCustom;
       function Fornecedor : IModelDAOCustom;
       function GrupoFornecedor : IModelDAOCustom;
+      function GrupoProduto : IModelDAOCustom;
       function IBPT : IModelDAOCustom;
       function LayoutRemessaBancoView : IModelDAOCustom;
       function Logradouro : IModelDAOCustom;
       function NivelIBPT : IModelDAOCustom;
+      function OrigemProdutoView : IModelDAOCustom;
       function PlanoConta : IModelDAOCustom;
       function PlanoContaNivel : IModelDAOCustom;
       function PlanoContaTipo : IModelDAOCustom;
+      function Produto : IModelDAOCustom;
+      function SecaoProduto : IModelDAOCustom;
       function Segmento : IModelDAOCustom;
       function TabelaIBPT : IModelDAOCustom;
+      function TipoAliquotaView : IModelDAOCustom;
       function TipoCNPJView : IModelDAOCustom;
       function TipoComissaoView : IModelDAOCustom;
       function TipoDespesa : IModelDAOCustom;
       function TipoDespesaPlanoConta : IModelDAOCustom;
       function TipoLogradouro : IModelDAOCustom;
+      function TipoProduto : IModelDAOCustom;
       function TipoReceita : IModelDAOCustom;
       function TipoReceitaPlanoConta : IModelDAOCustom;
       function TipoRegimeView : IModelDAOCustom;
+      function TipoTributacao : IModelDAOCustom;
+      function TipoVeiculo : IModelDAOCustom;
       function UF       : IModelDAOCustom;
+      function UnidadeProduto : IModelDAOCustom;
       function Vendedor : IModelDAOCustom;
   end;
 
@@ -159,6 +184,14 @@ begin
   Result := FNivelIBPT;
 end;
 
+function TModelDAOFactory.OrigemProdutoView: IModelDAOCustom;
+begin
+  if not Assigned(FOrigemProdutoView) then
+    FOrigemProdutoView := TModelDAOOrigemProdutoView.New;
+
+  Result := FOrigemProdutoView;
+end;
+
 function TModelDAOFactory.PlanoConta: IModelDAOCustom;
 begin
   if not Assigned(FPlanoConta) then
@@ -183,6 +216,22 @@ begin
   Result := FPlanoContaTipo;
 end;
 
+function TModelDAOFactory.Produto: IModelDAOCustom;
+begin
+  if not Assigned(FProduto) then
+    FProduto := TModelDAOProduto.New;
+
+  Result := FProduto;
+end;
+
+function TModelDAOFactory.SecaoProduto: IModelDAOCustom;
+begin
+  if not Assigned(FSecaoProduto) then
+    FSecaoProduto := TModelDAOSecaoProduto.New;
+
+  Result := FSecaoProduto;
+end;
+
 function TModelDAOFactory.Segmento: IModelDAOCustom;
 begin
   if not Assigned(FSegmento) then
@@ -205,6 +254,14 @@ begin
     FTabelaIBPT := TModelDAOTabelaIBPT.New;
 
   Result := FTabelaIBPT;
+end;
+
+function TModelDAOFactory.TipoAliquotaView: IModelDAOCustom;
+begin
+  if not Assigned(FTipoAliquotaView) then
+    FTipoAliquotaView := TModelDAOTipoAliquotaView.New;
+
+  Result := FTipoAliquotaView;
 end;
 
 function TModelDAOFactory.TipoCNPJView: IModelDAOCustom;
@@ -247,6 +304,14 @@ begin
   Result := FTipoLogradouro;
 end;
 
+function TModelDAOFactory.TipoProduto: IModelDAOCustom;
+begin
+  if not Assigned(FTipoProduto) then
+    FTipoProduto := TModelDAOTipoProduto.New;
+
+  Result := FTipoProduto;
+end;
+
 function TModelDAOFactory.TipoReceita: IModelDAOCustom;
 begin
   if not Assigned(FTipoReceita) then
@@ -269,6 +334,38 @@ begin
     FTipoRegimeView := TModelDAOTipoRegimeView.New;
 
   Result := FTipoRegimeView;
+end;
+
+function TModelDAOFactory.TipoTributacao: IModelDAOCustom;
+begin
+  if not Assigned(FTipoTributacao) then
+    FTipoTributacao := TModelDAOTipoTributacao.New;
+
+  Result := FTipoTributacao;
+end;
+
+function TModelDAOFactory.TipoVeiculo: IModelDAOCustom;
+begin
+  if not Assigned(FTipoVeiculo) then
+    FTipoVeiculo := TModelDAOTipoVeiculo.New;
+
+  Result := FTipoVeiculo;
+end;
+
+function TModelDAOFactory.AliquotaCOFINSView: IModelDAOCustom;
+begin
+  if not Assigned(FAliquotaCOFINSView) then
+    FAliquotaCOFINSView := TModelDAOAliquotaCOFINSView.New;
+
+  Result := FAliquotaCOFINSView;
+end;
+
+function TModelDAOFactory.AliquotaPISView: IModelDAOCustom;
+begin
+  if not Assigned(FAliquotaPISView) then
+    FAliquotaPISView := TModelDAOAliquotaPISView.New;
+
+  Result := FAliquotaPISView;
 end;
 
 function TModelDAOFactory.Bairro: IModelDAOCustom;
@@ -447,6 +544,14 @@ begin
   Result := FEmpresaView;
 end;
 
+function TModelDAOFactory.FabricanteProduto: IModelDAOCustom;
+begin
+  if not Assigned(FFabricanteProduto) then
+    FFabricanteProduto := TModelDAOFabricanteProduto.New;
+
+  Result := FFabricanteProduto;
+end;
+
 function TModelDAOFactory.FormaPagto: IModelDAOCustom;
 begin
   if not Assigned(FFormaPagto) then
@@ -487,6 +592,14 @@ begin
   Result := FGrupoFornecedor;
 end;
 
+function TModelDAOFactory.GrupoProduto: IModelDAOCustom;
+begin
+  if not Assigned(FGrupoProduto) then
+    FGrupoProduto := TModelDAOGrupoProduto.New;
+
+  Result := FGrupoProduto;
+end;
+
 function TModelDAOFactory.IBPT: IModelDAOCustom;
 begin
   if not Assigned(FIBPT) then
@@ -517,6 +630,14 @@ begin
     FUF := TModelDAOUF.New;
 
   Result := FUF;
+end;
+
+function TModelDAOFactory.UnidadeProduto: IModelDAOCustom;
+begin
+  if not Assigned(FUnidadeProduto) then
+    FUnidadeProduto := TModelDAOUnidadeProduto.New;
+
+  Result := FUnidadeProduto;
 end;
 
 function TModelDAOFactory.Vendedor: IModelDAOCustom;

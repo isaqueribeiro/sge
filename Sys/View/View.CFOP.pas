@@ -260,3 +260,4 @@ initialization
   FormFunction.RegisterForm('ViewCFOP', TViewCFOP);
 
 end.
+

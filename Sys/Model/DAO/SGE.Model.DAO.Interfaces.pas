@@ -66,6 +66,8 @@ type
 //
   IModelDAOFactory = interface
     ['{0EF3B708-2B61-4B02-A8EB-A59A1E9ADD81}']
+    function AliquotaCOFINSView : IModelDAOCustom;
+    function AliquotaPISView : IModelDAOCustom;
     function Bairro   : IModelDAOCustom;
     function Banco : IModelDAOCustom;
     function BancoFebrabanView : IModelDAOCustom;
@@ -89,29 +91,39 @@ type
     function Distrito : IModelDAOCustom;
     function Empresa : IModelDAOCustom;
     function EmpresaView : IModelDAOCustom;
+    function FabricanteProduto : IModelDAOCustom;
     function FormaPagto : IModelDAOCustom;
     function FormaPagtoContaCorrente : IModelDAOCustom;
     function FormaPagtoNFCEView : IModelDAOCustom;
     function Fornecedor : IModelDAOCustom;
     function GrupoFornecedor : IModelDAOCustom;
+    function GrupoProduto : IModelDAOCustom;
     function IBPT : IModelDAOCustom;
     function LayoutRemessaBancoView : IModelDAOCustom;
     function Logradouro : IModelDAOCustom;
     function NivelIBPT : IModelDAOCustom;
+    function OrigemProdutoView : IModelDAOCustom;
     function PlanoConta : IModelDAOCustom;
     function PlanoContaNivel : IModelDAOCustom;
     function PlanoContaTipo : IModelDAOCustom;
+    function Produto : IModelDAOCustom;
+    function SecaoProduto : IModelDAOCustom;
     function Segmento : IModelDAOCustom;
     function TabelaIBPT : IModelDAOCustom;
+    function TipoAliquotaView : IModelDAOCustom;
     function TipoCNPJView : IModelDAOCustom;
     function TipoComissaoView : IModelDAOCustom;
     function TipoDespesa : IModelDAOCustom;
     function TipoDespesaPlanoConta : IModelDAOCustom;
     function TipoLogradouro : IModelDAOCustom;
+    function TipoProduto : IModelDAOCustom;
     function TipoReceita : IModelDAOCustom;
     function TipoReceitaPlanoConta : IModelDAOCustom;
     function TipoRegimeView : IModelDAOCustom;
+    function TipoTributacao : IModelDAOCustom;
+    function TipoVeiculo : IModelDAOCustom;
     function UF       : IModelDAOCustom;
+    function UnidadeProduto : IModelDAOCustom;
     function Vendedor : IModelDAOCustom;
   end;
 

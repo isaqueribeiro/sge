@@ -361,11 +361,13 @@ begin
       .SQL
         .Clear
         .Add('Select')
-        .Add('    e.cnpj')
-        .Add('  , e.codigo')
-        .Add('  , e.razao')
-        .Add('  , e.fantasia')
+        .Add('    e.cnpj     ')
+        .Add('  , e.codigo   ')
+        .Add('  , e.razao    ')
+        .Add('  , e.fantasia ')
+        .Add('  , c.segmento ')
         .Add('from VW_EMPRESA e')
+        .Add('  inner join TBEMPRESA c on (c.cnpj = e.cnpj)')
         .Add('order by')
         .Add('    e.razao')
       .&End

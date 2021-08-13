@@ -88,14 +88,11 @@ inherited ViewCFOP: TViewCFOP
             Left = 50
             Width = 163
             ExplicitLeft = 50
-            ExplicitTop = 20
             ExplicitWidth = 163
           end
           inherited btnFiltrar: TcxButton
             Left = 219
             ExplicitLeft = 219
-            ExplicitTop = 18
-            ExplicitHeight = 26
           end
         end
         object rgpTipo: TRadioGroup

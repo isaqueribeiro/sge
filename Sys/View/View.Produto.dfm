@@ -1,6 +1,7 @@
-inherited frmGeProduto: TfrmGeProduto
+inherited ViewProduto: TViewProduto
   Left = 383
   Top = 220
+  ActiveControl = dbCodigo
   Caption = 'Cadastro de Produtos/Servi'#231'os'
   ClientHeight = 586
   ClientWidth = 961
@@ -24,12 +25,13 @@ inherited frmGeProduto: TfrmGeProduto
   inherited pgcGuias: TPageControl
     Width = 961
     Height = 543
+    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 961
     ExplicitHeight = 543
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 953
       ExplicitHeight = 514
       inherited Bevel4: TBevel
@@ -251,14 +253,11 @@ inherited frmGeProduto: TfrmGeProduto
           Transparent = True
         end
         inherited grpBxFiltro: TGroupBox
-          Left = 392
-          Width = 557
+          Left = 387
+          Width = 562
           Caption = 'Pesquisar    '
-          ExplicitLeft = 392
-          ExplicitWidth = 557
-          DesignSize = (
-            557
-            54)
+          ExplicitLeft = 387
+          ExplicitWidth = 562
           inherited lbltFiltrar: TLabel
             Width = 48
             Caption = 'Produto:'
@@ -266,16 +265,16 @@ inherited frmGeProduto: TfrmGeProduto
             ExplicitWidth = 48
           end
           inherited edtFiltrar: TEdit
-            Left = 231
+            Left = 239
             Width = 276
             TabOrder = 2
-            ExplicitLeft = 231
+            ExplicitLeft = 234
             ExplicitWidth = 276
           end
           inherited btnFiltrar: TcxButton
-            Left = 512
+            Left = 521
             TabOrder = 3
-            ExplicitLeft = 512
+            ExplicitLeft = 516
           end
           object chkProdutoComEstoque: TCheckBox
             Left = 68
@@ -817,7 +816,7 @@ inherited frmGeProduto: TfrmGeProduto
         Top = 237
         Width = 953
         Height = 277
-        ActivePage = tbsTributacao
+        ActivePage = TbsEspecificacao
         Align = alClient
         TabOrder = 2
         object tbsValores: TTabSheet
@@ -828,10 +827,6 @@ inherited frmGeProduto: TfrmGeProduto
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblCusto: TLabel
             Left = 272
             Top = 8
@@ -1083,8 +1078,8 @@ inherited frmGeProduto: TfrmGeProduto
               TabOrder = 0
             end
             object dbPrecoPromocaoFrac: TDBEdit
-              Left = 136
-              Top = 40
+              Left = 137
+              Top = 43
               Width = 113
               Height = 21
               Color = clMoneyGreen
@@ -1216,7 +1211,7 @@ inherited frmGeProduto: TfrmGeProduto
             object dbProdutoPorLote: TDBCheckBox
               Left = 15
               Top = 73
-              Width = 210
+              Width = 346
               Height = 17
               Caption = 'Gerenciar Estoque por Lote / Estoque Apropriado por Lote'
               DataField = 'ESTOQUE_APROP_LOTE'
@@ -1226,7 +1221,7 @@ inherited frmGeProduto: TfrmGeProduto
               ValueUnchecked = '0'
             end
             object dbGerarSubproduto: TDBCheckBox
-              Left = 236
+              Left = 260
               Top = 27
               Width = 150
               Height = 17
@@ -1328,10 +1323,6 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsCustoVeiculo: TTabSheet
           Caption = 'Custos e F&&I p/ Ve'#237'culos'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object grpCustosVeiculo: TGroupBox
             Left = 0
             Top = 0
@@ -1626,10 +1617,6 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsTributacao: TTabSheet
           Caption = 'Tributa'#231#245'es'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 0
             Top = 233
@@ -2184,10 +2171,6 @@ inherited frmGeProduto: TfrmGeProduto
         object TbsEspecificacao: TTabSheet
           Caption = 'Especifica'#231#245'es'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object pnlVeiculo: TPanel
             Left = 0
             Top = 0
@@ -2560,7 +2543,7 @@ inherited frmGeProduto: TfrmGeProduto
               end
               object dbEspessura: TDBEdit
                 Left = 488
-                Top = 32
+                Top = 35
                 Width = 97
                 Height = 21
                 DataField = 'ESPESSURA'
@@ -2587,12 +2570,13 @@ inherited frmGeProduto: TfrmGeProduto
             object lblEspecificacao: TLabel
               Left = 2
               Top = 2
-              Width = 105
+              Width = 941
               Height = 13
               Align = alTop
               Caption = 'Especifica'#231#227'o textual:'
               FocusControl = dbEspecificacao
               Transparent = True
+              ExplicitWidth = 105
             end
             object Bevel9: TBevel
               Left = 2
@@ -2617,10 +2601,6 @@ inherited frmGeProduto: TfrmGeProduto
         object tbsHistoricoVeiculo: TTabSheet
           Caption = 'Hist'#243'ricos'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           DesignSize = (
             945
             249)
@@ -3011,6 +2991,10 @@ inherited frmGeProduto: TfrmGeProduto
       Left = 957
       ExplicitLeft = 957
     end
+    inherited btbtnCancelar: TcxButton
+      ExplicitLeft = 233
+      ExplicitTop = 0
+    end
     inherited btbtnFechar: TcxButton
       Left = 882
       ExplicitLeft = 882
@@ -3020,1515 +3004,27 @@ inherited frmGeProduto: TfrmGeProduto
       ExplicitLeft = 758
     end
   end
-  inherited IbDtstTabela: TIBDataSet
-    SelectSQL.Strings = (
-      'Select'
-      '    p.Codigo'
-      '  , p.Cod'
-      '  , p.Descri'
-      '  , p.Apresentacao'
-      '  , p.Descri_apresentacao'
-      '  , p.Metafonema'
-      '  , p.Modelo'
-      '  , p.Anvisa'
-      '  , p.Referencia'
-      '  , p.Nome_amigo'
-      '  , p.Especificacao'
-      '  , p.Preco'
-      '  , p.Preco_Promocao'
-      '  , p.Preco_Sugerido'
-      '  , p.Secao'
-      '  , p.Qtde'
-      '  , p.Unidade'
-      '  , p.Estoqmin'
-      '  , p.fracionador'
-      '  , p.peso_bruto'
-      '  , p.peso_liquido'
-      '  , p.altura'
-      '  , p.largura'
-      '  , p.espessura'
-      '  , p.cubagem'
-      '  , p.venda_fracionada'
-      '  , p.codunidade_fracionada'
-      '  , p.Codtipo'
-      '  , p.Codgrupo'
-      '  , p.Codfabricante'
-      '  , p.Customedio'
-      '  , p.Percentual_marckup'
-      '  , p.Percentual_margem'
-      '  , p.Codemp'
-      '  , p.Codsecao'
-      '  , p.Codorigem'
-      '  , p.Codtributacao'
-      '  , p.Cst'
-      '  , p.Csosn'
-      '  , p.Cst_pis'
-      '  , p.Cst_cofins'
-      '  , p.Tabela_IBPT'
-      '  , p.NCM_SH'
-      '  , p.Codigo_NVE'
-      '  , p.Codcfop'
-      '  , p.Codbarra_ean'
-      '  , p.Codunidade'
-      '  , p.Aliquota_tipo'
-      '  , p.Aliquota'
-      '  , p.Aliquota_CSOSN'
-      '  , p.Aliquota_pis'
-      '  , p.Aliquota_cofins'
-      '  , p.Valor_ipi'
-      '  , p.Reserva'
-      '  , p.Produto_novo'
-      '  , p.Cor_veiculo'
-      '  , p.Combustivel_veiculo'
-      '  , p.Tipo_veiculo'
-      '  , p.Renavam_veiculo'
-      '  , p.Chassi_veiculo'
-      '  , p.Ano_modelo_veiculo'
-      '  , p.Ano_fabricacao_veiculo'
-      '  , p.Kilometragem_veiculo'
-      '  , p.Situacao_atual_veiculo'
-      '  , p.Situacao_historico_veiculo'
-      '  , p.Percentual_reducao_BC'
-      '  , p.Usuario'
-      '  , p.Cadastro_ativo'
-      '  , p.Produto_imobilizado'
-      '  , p.Movimenta_estoque'
-      '  , p.Compor_faturamento'
-      '  , p.Estoque_Aprop_lote'
-      '  , p.Ultima_compra_data'
-      '  , p.Ultima_compra_valor'
-      '  , p.Ultima_compra_fornec'
-      '  , p.gerar_subproduto'
-      '  , p.produto_pai'
-      '  , case when coalesce(p.Reserva, 0) > 0'
-      '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
-      '      else coalesce(p.Qtde, 0)'
-      '    end as Disponivel'
-      '  , g.Descri as Descricao_Grupo'
-      '  , f.Nome   as Nome_Fabricante'
-      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
-      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
-      '  , u.Unp_sigla'
-      '  , uf.unp_descricao as Descricao_Unidade_frac'
-      '  , uf.unp_sigla as unp_sigla_frac'
-      '  , c.Cfop_descricao'
-      '  , c.Cfop_especificacao'
-      '  , cr.Descricao as descricao_cor'
-      '  , coalesce(cb.Apelido, cb.Descricao) as descricao_combustivel'
-      
-        '  , coalesce(p.Ano_fabricacao_veiculo || '#39'/'#39' || p.Ano_modelo_vei' +
-        'culo, '#39#39') as modelo_fabricacao'
-      '  , Case when p.Customedio > 0'
-      '      then ((p.Preco / p.Customedio) - 1) * 100'
-      '      else 100.0'
-      '    end Lucro_Calculado'
-      '  , (p.Preco - p.Customedio) as Lucro_Valor'
-      
-        '  , p.preco / coalesce(nullif(p.fracionador, 0), 1) as preco_fra' +
-        'c'
-      
-        '  , p.preco_promocao / coalesce(nullif(p.fracionador, 0), 1) as ' +
-        'preco_promocao_frac'
-      
-        '  , p.preco_sugerido / coalesce(nullif(p.fracionador, 0), 1) as ' +
-        'preco_sugerido_frac'
-      'from TBPRODUTO p'
-      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
-      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      
-        '  left join TBUNIDADEPROD uf on (uf.Unp_cod = p.codunidade_fraci' +
-        'onada)'
-      '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
-      '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)'
-      '  left join RENAVAM_COR cr on (cr.Codigo = p.Cor_veiculo)'
-      
-        '  left join RENAVAM_COBUSTIVEL cb on (cb.Codigo = p.Combustivel_' +
-        'veiculo)')
-    GeneratorField.Field = 'CODIGO'
-    GeneratorField.Generator = 'GEN_PRODUTO_ID'
-    Left = 872
-    Top = 296
-  end
   inherited DtSrcTabela: TDataSource
-    DataSet = fdQryTabela
     OnDataChange = DtSrcTabelaDataChange
-    Left = 872
-    Top = 360
-  end
-  inherited IbUpdTabela: TIBUpdateSQL
-    RefreshSQL.Strings = (
-      'Select '
-      '  CODIGO,'
-      '  COD,'
-      '  DESCRI,'
-      '  APRESENTACAO,'
-      '  DESCRI_APRESENTACAO,'
-      '  METAFONEMA,'
-      '  MODELO,'
-      '  ANVISA,'
-      '  REFERENCIA,'
-      '  NOME_AMIGO,'
-      '  ESPECIFICACAO,'
-      '  PRECO,'
-      '  PRECO_PROMOCAO,'
-      '  SECAO,'
-      '  QTDE,'
-      '  FRACIONADOR,'
-      '  PESO_BRUTO,'
-      '  PESO_LIQUIDO,'
-      '  LARGURA,'
-      '  ALTURA,'
-      '  ESPESSURA,'
-      '  CUBAGEM,'
-      '  VENDA_FRACIONADA,'
-      '  UNIDADE,'
-      '  ESTOQMIN,'
-      '  CODTIPO,'
-      '  CODGRUPO,'
-      '  CODFABRICANTE,'
-      '  CUSTOMEDIO,'
-      '  PERCENTUAL_MARCKUP,'
-      '  PERCENTUAL_MARGEM,'
-      '  PRECO_SUGERIDO,'
-      '  CODEMP,'
-      '  CODSECAO,'
-      '  CODORIGEM,'
-      '  CODTRIBUTACAO,'
-      '  CST,'
-      '  CSOSN,'
-      '  CST_PIS,'
-      '  CST_COFINS,'
-      '  TABELA_IBPT,'
-      '  NCM_SH,'
-      '  CODIGO_NVE,'
-      '  CODIGO_CEST,'
-      '  CODCFOP,'
-      '  CODBARRA_EAN,'
-      '  CODUNIDADE,'
-      '  CODUNIDADE_FRACIONADA,'
-      '  ALIQUOTA_TIPO,'
-      '  ALIQUOTA,'
-      '  ALIQUOTA_CSOSN,'
-      '  ALIQUOTA_PIS,'
-      '  ALIQUOTA_COFINS,'
-      '  VALOR_IPI,'
-      '  PERCENTUAL_REDUCAO_BC,'
-      '  RESERVA,'
-      '  PRODUTO_NOVO,'
-      '  COR_VEICULO,'
-      '  COMBUSTIVEL_VEICULO,'
-      '  TIPO_VEICULO,'
-      '  ANO_MODELO_VEICULO,'
-      '  ANO_FABRICACAO_VEICULO,'
-      '  RENAVAM_VEICULO,'
-      '  CHASSI_VEICULO,'
-      '  KILOMETRAGEM_VEICULO,'
-      '  SITUACAO_ATUAL_VEICULO,'
-      '  SITUACAO_HISTORICO_VEICULO,'
-      '  USUARIO,'
-      '  CADASTRO_ATIVO,'
-      '  MOVIMENTA_ESTOQUE,'
-      '  COMPOR_FATURAMENTO,'
-      '  PRODUTO_IMOBILIZADO,'
-      '  ESTOQUE_APROP_LOTE,'
-      '  CUST_DESP_OFIC,'
-      '  CUST_DESP_GERAIS,'
-      '  CUST_DESP_ADM,'
-      '  CUST_COMISSAO,'
-      '  CUST_IMPOSTO,'
-      '  FI_RET_FINANC,'
-      '  FI_RET_PLANO,'
-      '  ULTIMA_COMPRA_DATA,'
-      '  ULTIMA_COMPRA_VALOR,'
-      '  ULTIMA_COMPRA_FORNEC,'
-      '  GERAR_SUBPRODUTO,'
-      '  PRODUTO_PAI,'
-      '  ARQUIVO_MORTO'
-      'from TBPRODUTO '
-      'where'
-      '  COD = :COD')
-    ModifySQL.Strings = (
-      'update TBPRODUTO'
-      'set'
-      '  ALIQUOTA = :ALIQUOTA,'
-      '  ALIQUOTA_COFINS = :ALIQUOTA_COFINS,'
-      '  ALIQUOTA_CSOSN = :ALIQUOTA_CSOSN,'
-      '  ALIQUOTA_PIS = :ALIQUOTA_PIS,'
-      '  ALIQUOTA_TIPO = :ALIQUOTA_TIPO,'
-      '  ALTURA = :ALTURA,'
-      '  ANO_FABRICACAO_VEICULO = :ANO_FABRICACAO_VEICULO,'
-      '  ANO_MODELO_VEICULO = :ANO_MODELO_VEICULO,'
-      '  ANVISA = :ANVISA,'
-      '  APRESENTACAO = :APRESENTACAO,'
-      '  CADASTRO_ATIVO = :CADASTRO_ATIVO,'
-      '  CHASSI_VEICULO = :CHASSI_VEICULO,'
-      '  COD = :COD,'
-      '  CODBARRA_EAN = :CODBARRA_EAN,'
-      '  CODCFOP = :CODCFOP,'
-      '  CODEMP = :CODEMP,'
-      '  CODFABRICANTE = :CODFABRICANTE,'
-      '  CODGRUPO = :CODGRUPO,'
-      '  CODIGO = :CODIGO,'
-      '  CODIGO_NVE = :CODIGO_NVE,'
-      '  CODORIGEM = :CODORIGEM,'
-      '  CODSECAO = :CODSECAO,'
-      '  CODTIPO = :CODTIPO,'
-      '  CODTRIBUTACAO = :CODTRIBUTACAO,'
-      '  CODUNIDADE = :CODUNIDADE,'
-      '  CODUNIDADE_FRACIONADA = :CODUNIDADE_FRACIONADA,'
-      '  COMBUSTIVEL_VEICULO = :COMBUSTIVEL_VEICULO,'
-      '  COMPOR_FATURAMENTO = :COMPOR_FATURAMENTO,'
-      '  COR_VEICULO = :COR_VEICULO,'
-      '  CSOSN = :CSOSN,'
-      '  CST = :CST,'
-      '  CST_COFINS = :CST_COFINS,'
-      '  CST_PIS = :CST_PIS,'
-      '  CUBAGEM = :CUBAGEM,'
-      '  CUSTOMEDIO = :CUSTOMEDIO,'
-      '  DESCRI = :DESCRI,'
-      '  DESCRI_APRESENTACAO = :DESCRI_APRESENTACAO,'
-      '  ESPECIFICACAO = :ESPECIFICACAO,'
-      '  ESPESSURA = :ESPESSURA,'
-      '  ESTOQMIN = :ESTOQMIN,'
-      '  ESTOQUE_APROP_LOTE = :ESTOQUE_APROP_LOTE,'
-      '  FRACIONADOR = :FRACIONADOR,'
-      '  GERAR_SUBPRODUTO = :GERAR_SUBPRODUTO,'
-      '  KILOMETRAGEM_VEICULO = :KILOMETRAGEM_VEICULO,'
-      '  LARGURA = :LARGURA,'
-      '  METAFONEMA = :METAFONEMA,'
-      '  MODELO = :MODELO,'
-      '  MOVIMENTA_ESTOQUE = :MOVIMENTA_ESTOQUE,'
-      '  NCM_SH = :NCM_SH,'
-      '  NOME_AMIGO = :NOME_AMIGO,'
-      '  PERCENTUAL_MARCKUP = :PERCENTUAL_MARCKUP,'
-      '  PERCENTUAL_MARGEM = :PERCENTUAL_MARGEM,'
-      '  PERCENTUAL_REDUCAO_BC = :PERCENTUAL_REDUCAO_BC,'
-      '  PESO_BRUTO = :PESO_BRUTO,'
-      '  PESO_LIQUIDO = :PESO_LIQUIDO,'
-      '  PRECO = :PRECO,'
-      '  PRECO_PROMOCAO = :PRECO_PROMOCAO,'
-      '  PRECO_SUGERIDO = :PRECO_SUGERIDO,'
-      '  PRODUTO_IMOBILIZADO = :PRODUTO_IMOBILIZADO,'
-      '  PRODUTO_NOVO = :PRODUTO_NOVO,'
-      '  PRODUTO_PAI = :PRODUTO_PAI,'
-      '  QTDE = :QTDE,'
-      '  REFERENCIA = :REFERENCIA,'
-      '  RENAVAM_VEICULO = :RENAVAM_VEICULO,'
-      '  RESERVA = :RESERVA,'
-      '  SECAO = :SECAO,'
-      '  SITUACAO_ATUAL_VEICULO = :SITUACAO_ATUAL_VEICULO,'
-      '  SITUACAO_HISTORICO_VEICULO = :SITUACAO_HISTORICO_VEICULO,'
-      '  TABELA_IBPT = :TABELA_IBPT,'
-      '  TIPO_VEICULO = :TIPO_VEICULO,'
-      '  ULTIMA_COMPRA_DATA = :ULTIMA_COMPRA_DATA,'
-      '  ULTIMA_COMPRA_FORNEC = :ULTIMA_COMPRA_FORNEC,'
-      '  ULTIMA_COMPRA_VALOR = :ULTIMA_COMPRA_VALOR,'
-      '  UNIDADE = :UNIDADE,'
-      '  USUARIO = :USUARIO,'
-      '  VALOR_IPI = :VALOR_IPI,'
-      '  VENDA_FRACIONADA = :VENDA_FRACIONADA'
-      'where'
-      '  COD = :OLD_COD')
-    InsertSQL.Strings = (
-      'insert into TBPRODUTO'
-      
-        '  (ALIQUOTA, ALIQUOTA_COFINS, ALIQUOTA_CSOSN, ALIQUOTA_PIS, ALIQ' +
-        'UOTA_TIPO, '
-      
-        '   ALTURA, ANO_FABRICACAO_VEICULO, ANO_MODELO_VEICULO, ANVISA, A' +
-        'PRESENTACAO, '
-      
-        '   CADASTRO_ATIVO, CHASSI_VEICULO, COD, CODBARRA_EAN, CODCFOP, C' +
-        'ODEMP, '
-      
-        '   CODFABRICANTE, CODGRUPO, CODIGO, CODIGO_NVE, CODORIGEM, CODSE' +
-        'CAO, CODTIPO, '
-      
-        '   CODTRIBUTACAO, CODUNIDADE, CODUNIDADE_FRACIONADA, COMBUSTIVEL' +
-        '_VEICULO, '
-      
-        '   COMPOR_FATURAMENTO, COR_VEICULO, CSOSN, CST, CST_COFINS, CST_' +
-        'PIS, CUBAGEM, '
-      
-        '   CUSTOMEDIO, DESCRI, DESCRI_APRESENTACAO, ESPECIFICACAO, ESPES' +
-        'SURA, ESTOQMIN, '
-      
-        '   ESTOQUE_APROP_LOTE, FRACIONADOR, GERAR_SUBPRODUTO, KILOMETRAG' +
-        'EM_VEICULO, '
-      
-        '   LARGURA, METAFONEMA, MODELO, MOVIMENTA_ESTOQUE, NCM_SH, NOME_' +
-        'AMIGO, '
-      
-        '   PERCENTUAL_MARCKUP, PERCENTUAL_MARGEM, PERCENTUAL_REDUCAO_BC,' +
-        ' PESO_BRUTO, '
-      
-        '   PESO_LIQUIDO, PRECO, PRECO_PROMOCAO, PRECO_SUGERIDO, PRODUTO_' +
-        'IMOBILIZADO, '
-      
-        '   PRODUTO_NOVO, PRODUTO_PAI, QTDE, REFERENCIA, RENAVAM_VEICULO,' +
-        ' RESERVA, '
-      
-        '   SECAO, SITUACAO_ATUAL_VEICULO, SITUACAO_HISTORICO_VEICULO, TA' +
-        'BELA_IBPT, '
-      
-        '   TIPO_VEICULO, ULTIMA_COMPRA_DATA, ULTIMA_COMPRA_FORNEC, ULTIM' +
-        'A_COMPRA_VALOR, '
-      '   UNIDADE, USUARIO, VALOR_IPI, VENDA_FRACIONADA)'
-      'values'
-      
-        '  (:ALIQUOTA, :ALIQUOTA_COFINS, :ALIQUOTA_CSOSN, :ALIQUOTA_PIS, ' +
-        ':ALIQUOTA_TIPO, '
-      
-        '   :ALTURA, :ANO_FABRICACAO_VEICULO, :ANO_MODELO_VEICULO, :ANVIS' +
-        'A, :APRESENTACAO, '
-      
-        '   :CADASTRO_ATIVO, :CHASSI_VEICULO, :COD, :CODBARRA_EAN, :CODCF' +
-        'OP, :CODEMP, '
-      
-        '   :CODFABRICANTE, :CODGRUPO, :CODIGO, :CODIGO_NVE, :CODORIGEM, ' +
-        ':CODSECAO, '
-      
-        '   :CODTIPO, :CODTRIBUTACAO, :CODUNIDADE, :CODUNIDADE_FRACIONADA' +
-        ', :COMBUSTIVEL_VEICULO, '
-      
-        '   :COMPOR_FATURAMENTO, :COR_VEICULO, :CSOSN, :CST, :CST_COFINS,' +
-        ' :CST_PIS, '
-      
-        '   :CUBAGEM, :CUSTOMEDIO, :DESCRI, :DESCRI_APRESENTACAO, :ESPECI' +
-        'FICACAO, '
-      
-        '   :ESPESSURA, :ESTOQMIN, :ESTOQUE_APROP_LOTE, :FRACIONADOR, :GE' +
-        'RAR_SUBPRODUTO, '
-      
-        '   :KILOMETRAGEM_VEICULO, :LARGURA, :METAFONEMA, :MODELO, :MOVIM' +
-        'ENTA_ESTOQUE, '
-      
-        '   :NCM_SH, :NOME_AMIGO, :PERCENTUAL_MARCKUP, :PERCENTUAL_MARGEM' +
-        ', :PERCENTUAL_REDUCAO_BC, '
-      
-        '   :PESO_BRUTO, :PESO_LIQUIDO, :PRECO, :PRECO_PROMOCAO, :PRECO_S' +
-        'UGERIDO, '
-      
-        '   :PRODUTO_IMOBILIZADO, :PRODUTO_NOVO, :PRODUTO_PAI, :QTDE, :RE' +
-        'FERENCIA, '
-      
-        '   :RENAVAM_VEICULO, :RESERVA, :SECAO, :SITUACAO_ATUAL_VEICULO, ' +
-        ':SITUACAO_HISTORICO_VEICULO, '
-      
-        '   :TABELA_IBPT, :TIPO_VEICULO, :ULTIMA_COMPRA_DATA, :ULTIMA_COM' +
-        'PRA_FORNEC, '
-      
-        '   :ULTIMA_COMPRA_VALOR, :UNIDADE, :USUARIO, :VALOR_IPI, :VENDA_' +
-        'FRACIONADA)')
-    DeleteSQL.Strings = (
-      'delete from TBPRODUTO'
-      'where'
-      '  COD = :OLD_COD')
-    Left = 904
-    Top = 296
+    Left = 912
   end
   inherited ImgList: TImageList
-    Left = 840
-    Top = 296
-  end
-  inherited fdQryTabela: TFDQuery
-    BeforePost = fdQryTabelaBeforePost
-    UpdateOptions.AssignedValues = [uvFetchGeneratorsPoint, uvGeneratorName]
-    UpdateOptions.FetchGeneratorsPoint = gpImmediate
-    UpdateOptions.GeneratorName = 'GEN_PRODUTO_ID'
-    UpdateOptions.KeyFields = 'COD'
-    UpdateOptions.AutoIncFields = 'CODIGO'
-    SQL.Strings = (
-      'Select'
-      '    p.Codigo'
-      '  , p.Cod'
-      '  , p.Descri'
-      '  , p.Apresentacao'
-      '  , p.Descri_apresentacao'
-      '  , p.Metafonema'
-      '  , p.Modelo'
-      '  , p.Anvisa'
-      '  , p.Referencia'
-      '  , p.Nome_amigo'
-      '  , p.Especificacao'
-      '  , p.Preco'
-      '  , p.Preco_Promocao'
-      '  , p.Preco_Sugerido'
-      '  , p.Secao'
-      '  , p.Qtde'
-      '  , p.Unidade'
-      '  , p.Estoqmin'
-      '  , p.fracionador'
-      '  , p.peso_bruto'
-      '  , p.peso_liquido'
-      '  , p.altura'
-      '  , p.largura'
-      '  , p.espessura'
-      '  , p.cubagem'
-      '  , p.venda_fracionada'
-      '  , p.codunidade_fracionada'
-      '  , p.Codtipo'
-      '  , p.Codgrupo'
-      '  , p.Codfabricante'
-      '  , p.Customedio'
-      '  , p.Percentual_marckup'
-      '  , p.Percentual_margem'
-      '  , p.Codemp'
-      '  , p.Codsecao'
-      '  , p.Codorigem'
-      '  , p.Codtributacao'
-      '  , p.Cst'
-      '  , p.Csosn'
-      '  , p.Cst_pis'
-      '  , p.Cst_cofins'
-      '  , p.Tabela_IBPT'
-      '  , p.NCM_SH'
-      '  , p.Codigo_NVE'
-      '  , p.Codcfop'
-      '  , p.Codbarra_ean'
-      '  , p.Codunidade'
-      '  , p.Aliquota_tipo'
-      '  , p.Aliquota'
-      '  , p.Aliquota_CSOSN'
-      '  , p.Aliquota_pis'
-      '  , p.Aliquota_cofins'
-      '  , p.Valor_ipi'
-      '  , p.Reserva'
-      '  , p.Produto_novo'
-      '  , p.Cor_veiculo'
-      '  , p.Combustivel_veiculo'
-      '  , p.Tipo_veiculo'
-      '  , p.Renavam_veiculo'
-      '  , p.Chassi_veiculo'
-      '  , p.Ano_modelo_veiculo'
-      '  , p.Ano_fabricacao_veiculo'
-      '  , p.Kilometragem_veiculo'
-      '  , p.Situacao_atual_veiculo'
-      '  , p.Situacao_historico_veiculo'
-      '  , p.Percentual_reducao_BC'
-      '  , p.Usuario'
-      '  , p.Cadastro_ativo'
-      '  , p.Produto_imobilizado'
-      '  , p.Movimenta_estoque'
-      '  , p.Compor_faturamento'
-      '  , p.Estoque_Aprop_lote'
-      '  , p.Ultima_compra_data'
-      '  , p.Ultima_compra_valor'
-      '  , p.Ultima_compra_fornec'
-      '  , p.gerar_subproduto'
-      '  , p.produto_pai'
-      '  , case when coalesce(p.Reserva, 0) > 0'
-      '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
-      '      else coalesce(p.Qtde, 0)'
-      '    end as Disponivel'
-      '  , g.Descri as Descricao_Grupo'
-      '  , f.Nome   as Nome_Fabricante'
-      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
-      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
-      '  , u.Unp_sigla'
-      '  , uf.unp_descricao as Descricao_Unidade_frac'
-      '  , uf.unp_sigla as unp_sigla_frac'
-      '  , c.Cfop_descricao'
-      '  , c.Cfop_especificacao'
-      '  , cr.Descricao as descricao_cor'
-      '  , coalesce(cb.Apelido, cb.Descricao) as descricao_combustivel'
-      
-        '  , coalesce(p.Ano_fabricacao_veiculo || '#39'/'#39' || p.Ano_modelo_vei' +
-        'culo, '#39#39') as modelo_fabricacao'
-      '  , Case when p.Customedio > 0'
-      '      then ((p.Preco / p.Customedio) - 1) * 100'
-      '      else 100.0'
-      '    end Lucro_Calculado'
-      '  , (p.Preco - p.Customedio) as Lucro_Valor'
-      
-        '  , p.preco / coalesce(nullif(p.fracionador, 0), 1) as preco_fra' +
-        'c'
-      
-        '  , p.preco_promocao / coalesce(nullif(p.fracionador, 0), 1) as ' +
-        'preco_promocao_frac'
-      
-        '  , p.preco_sugerido / coalesce(nullif(p.fracionador, 0), 1) as ' +
-        'preco_sugerido_frac'
-      'from TBPRODUTO p'
-      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
-      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      
-        '  left join TBUNIDADEPROD uf on (uf.Unp_cod = p.codunidade_fraci' +
-        'onada)'
-      '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
-      '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)'
-      '  left join RENAVAM_COR cr on (cr.Codigo = p.Cor_veiculo)'
-      
-        '  left join RENAVAM_COBUSTIVEL cb on (cb.Codigo = p.Combustivel_' +
-        'veiculo)')
-    Left = 872
-    Top = 328
-    object fdQryTabelaCODIGO: TFDAutoIncField
-      Alignment = taCenter
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'CODIGO'
-      Origin = 'CODIGO'
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      DisplayFormat = '###0000000'
-      IdentityInsert = True
-    end
-    object fdQryTabelaCOD: TStringField
-      Alignment = taCenter
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'COD'
-      Origin = 'COD'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 10
-    end
-    object fdQryTabelaDESCRI: TStringField
-      DisplayLabel = 'Descri'#231#227'o'
-      FieldName = 'DESCRI'
-      Origin = 'DESCRI'
-      Required = True
-      Size = 50
-    end
-    object fdQryTabelaAPRESENTACAO: TStringField
-      DisplayLabel = 'Apresenta'#231#227'o'
-      FieldName = 'APRESENTACAO'
-      Origin = 'APRESENTACAO'
-      Size = 50
-    end
-    object fdQryTabelaDESCRI_APRESENTACAO: TStringField
-      DisplayLabel = 'Descri'#231#227'o + Apresenta'#231#227'o'
-      FieldName = 'DESCRI_APRESENTACAO'
-      Origin = 'DESCRI_APRESENTACAO'
-      Size = 100
-    end
-    object fdQryTabelaMETAFONEMA: TStringField
-      FieldName = 'METAFONEMA'
-      Origin = 'METAFONEMA'
-      Size = 100
-    end
-    object fdQryTabelaMODELO: TStringField
-      DisplayLabel = 'Modelo'
-      FieldName = 'MODELO'
-      Origin = 'MODELO'
-      Size = 40
-    end
-    object fdQryTabelaANVISA: TStringField
-      DisplayLabel = 'C'#243'digo Anvisa'
-      FieldName = 'ANVISA'
-      Origin = 'ANVISA'
-      Size = 30
-    end
-    object fdQryTabelaREFERENCIA: TStringField
-      DisplayLabel = 'Refer'#234'ncia'
-      FieldName = 'REFERENCIA'
-      Origin = 'REFERENCIA'
-      Size = 15
-    end
-    object fdQryTabelaNOME_AMIGO: TStringField
-      DisplayLabel = 'Nome Amigo'
-      FieldName = 'NOME_AMIGO'
-      Origin = 'NOME_AMIGO'
-      Required = True
-      Size = 100
-    end
-    object fdQryTabelaESPECIFICACAO: TBlobField
-      DisplayLabel = 'Especifica'#231#227'o'
-      FieldName = 'ESPECIFICACAO'
-      Origin = 'ESPECIFICACAO'
-    end
-    object fdQryTabelaSECAO: TStringField
-      DisplayLabel = 'Se'#231#227'o'
-      FieldName = 'SECAO'
-      Origin = 'SECAO'
-    end
-    object fdQryTabelaUNIDADE: TStringField
-      FieldName = 'UNIDADE'
-      Origin = 'UNIDADE'
-    end
-    object fdQryTabelaALTURA: TBCDField
-      DisplayLabel = 'Altura (m)'
-      FieldName = 'ALTURA'
-      Origin = 'ALTURA'
-      DisplayFormat = ',0.###'
-      Precision = 18
-    end
-    object fdQryTabelaLARGURA: TBCDField
-      DisplayLabel = 'Largura (m)'
-      FieldName = 'LARGURA'
-      Origin = 'LARGURA'
-      DisplayFormat = ',0.###'
-      Precision = 18
-    end
-    object fdQryTabelaESPESSURA: TBCDField
-      DisplayLabel = 'Espessura (m)'
-      FieldName = 'ESPESSURA'
-      Origin = 'ESPESSURA'
-      DisplayFormat = ',0.###'
-      Precision = 18
-    end
-    object fdQryTabelaCUBAGEM: TBCDField
-      DisplayLabel = 'Cubagem (m3)'
-      FieldName = 'CUBAGEM'
-      Origin = 'CUBAGEM'
-      DisplayFormat = ',0.000#'
-      Precision = 18
-    end
-    object fdQryTabelaVENDA_FRACIONADA: TSmallintField
-      FieldName = 'VENDA_FRACIONADA'
-      Origin = 'VENDA_FRACIONADA'
-      Required = True
-    end
-    object fdQryTabelaCODUNIDADE_FRACIONADA: TSmallintField
-      DisplayLabel = 'Unidade da Fra'#231#227'o'
-      FieldName = 'CODUNIDADE_FRACIONADA'
-      Origin = 'CODUNIDADE_FRACIONADA'
-      Required = True
-    end
-    object fdQryTabelaCODTIPO: TSmallintField
-      DisplayLabel = 'Tipo do Produto'
-      FieldName = 'CODTIPO'
-      Origin = 'CODTIPO'
-      Required = True
-    end
-    object fdQryTabelaCODGRUPO: TSmallintField
-      DisplayLabel = 'Grupo'
-      FieldName = 'CODGRUPO'
-      Origin = 'CODGRUPO'
-    end
-    object fdQryTabelaCODFABRICANTE: TIntegerField
-      DisplayLabel = 'Fabricante'
-      FieldName = 'CODFABRICANTE'
-      Origin = 'CODFABRICANTE'
-    end
-    object fdQryTabelaCODEMP: TStringField
-      DisplayLabel = 'Empresa'
-      FieldName = 'CODEMP'
-      Origin = 'CODEMP'
-      Required = True
-      Size = 18
-    end
-    object fdQryTabelaCODSECAO: TSmallintField
-      DisplayLabel = 'Se'#231#227'o'
-      FieldName = 'CODSECAO'
-      Origin = 'CODSECAO'
-    end
-    object fdQryTabelaCODORIGEM: TStringField
-      DisplayLabel = 'Origem'
-      FieldName = 'CODORIGEM'
-      Origin = 'CODORIGEM'
-      Required = True
-      Size = 1
-    end
-    object fdQryTabelaCODTRIBUTACAO: TStringField
-      DisplayLabel = 'Tipo Tributa'#231#227'o'
-      FieldName = 'CODTRIBUTACAO'
-      Origin = 'CODTRIBUTACAO'
-      Required = True
-      Size = 2
-    end
-    object fdQryTabelaCST: TStringField
-      FieldName = 'CST'
-      Origin = 'CST'
-      Required = True
-      Size = 3
-    end
-    object fdQryTabelaCSOSN: TStringField
-      DisplayLabel = 'Tipo Tributa'#231#227'o ICMS (SN)'
-      FieldName = 'CSOSN'
-      Origin = 'CSOSN'
-      Required = True
-      Size = 3
-    end
-    object fdQryTabelaCST_PIS: TStringField
-      DisplayLabel = 'CST PIS'
-      FieldName = 'CST_PIS'
-      Origin = 'CST_PIS'
-      Size = 3
-    end
-    object fdQryTabelaCST_COFINS: TStringField
-      DisplayLabel = 'CST COFINS'
-      FieldName = 'CST_COFINS'
-      Origin = 'CST_COFINS'
-      Size = 3
-    end
-    object fdQryTabelaTABELA_IBPT: TIntegerField
-      DisplayLabel = 'Tabela IBPT (NCM/SH)'
-      FieldName = 'TABELA_IBPT'
-      Origin = 'TABELA_IBPT'
-      Required = True
-    end
-    object fdQryTabelaNCM_SH: TStringField
-      DisplayLabel = 'NCM/SH'
-      FieldName = 'NCM_SH'
-      Origin = 'NCM_SH'
-      Size = 10
-    end
-    object fdQryTabelaCODIGO_NVE: TStringField
-      DisplayLabel = 'C'#243'digo NVE'
-      FieldName = 'CODIGO_NVE'
-      Origin = 'CODIGO_NVE'
-      Size = 10
-    end
-    object fdQryTabelaCODCFOP: TIntegerField
-      DisplayLabel = 'CFOP'
-      FieldName = 'CODCFOP'
-      Origin = 'CODCFOP'
-    end
-    object fdQryTabelaCODBARRA_EAN: TStringField
-      DisplayLabel = 'C'#243'digo Externo'
-      FieldName = 'CODBARRA_EAN'
-      Origin = 'CODBARRA_EAN'
-      Size = 15
-    end
-    object fdQryTabelaCODUNIDADE: TSmallintField
-      DisplayLabel = 'Unidade'
-      FieldName = 'CODUNIDADE'
-      Origin = 'CODUNIDADE'
-      Required = True
-    end
-    object fdQryTabelaALIQUOTA_TIPO: TSmallintField
-      DisplayLabel = 'Al'#237'quota'
-      FieldName = 'ALIQUOTA_TIPO'
-      Origin = 'ALIQUOTA_TIPO'
-      Required = True
-    end
-    object fdQryTabelaPRODUTO_NOVO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'PRODUTO_NOVO'
-      Origin = 'PRODUTO_NOVO'
-      Required = True
-    end
-    object fdQryTabelaCOR_VEICULO: TStringField
-      DisplayLabel = 'Cor'
-      FieldName = 'COR_VEICULO'
-      Origin = 'COR_VEICULO'
-      Size = 3
-    end
-    object fdQryTabelaCOMBUSTIVEL_VEICULO: TStringField
-      DisplayLabel = 'Combust'#237'vel'
-      FieldName = 'COMBUSTIVEL_VEICULO'
-      Origin = 'COMBUSTIVEL_VEICULO'
-      Size = 3
-    end
-    object fdQryTabelaTIPO_VEICULO: TStringField
-      DisplayLabel = 'Tipo'
-      FieldName = 'TIPO_VEICULO'
-      Origin = 'TIPO_VEICULO'
-      Size = 3
-    end
-    object fdQryTabelaRENAVAM_VEICULO: TStringField
-      DisplayLabel = 'Renavam'
-      FieldName = 'RENAVAM_VEICULO'
-      Origin = 'RENAVAM_VEICULO'
-      Size = 50
-    end
-    object fdQryTabelaCHASSI_VEICULO: TStringField
-      DisplayLabel = 'Chassi'
-      FieldName = 'CHASSI_VEICULO'
-      Origin = 'CHASSI_VEICULO'
-      Size = 50
-    end
-    object fdQryTabelaANO_MODELO_VEICULO: TSmallintField
-      DisplayLabel = 'Ano Modelo'
-      FieldName = 'ANO_MODELO_VEICULO'
-      Origin = 'ANO_MODELO_VEICULO'
-    end
-    object fdQryTabelaANO_FABRICACAO_VEICULO: TSmallintField
-      DisplayLabel = 'Ano Fabrica'#231#227'o'
-      FieldName = 'ANO_FABRICACAO_VEICULO'
-      Origin = 'ANO_FABRICACAO_VEICULO'
-    end
-    object fdQryTabelaKILOMETRAGEM_VEICULO: TIntegerField
-      DisplayLabel = 'Kilometragem'
-      FieldName = 'KILOMETRAGEM_VEICULO'
-      Origin = 'KILOMETRAGEM_VEICULO'
-    end
-    object fdQryTabelaSITUACAO_ATUAL_VEICULO: TStringField
-      DisplayLabel = 'Situa'#231#227'o Ve'#237'culo'
-      FieldName = 'SITUACAO_ATUAL_VEICULO'
-      Origin = 'SITUACAO_ATUAL_VEICULO'
-      Size = 100
-    end
-    object fdQryTabelaSITUACAO_HISTORICO_VEICULO: TMemoField
-      FieldName = 'SITUACAO_HISTORICO_VEICULO'
-      Origin = 'SITUACAO_HISTORICO_VEICULO'
-      BlobType = ftMemo
-    end
-    object fdQryTabelaUSUARIO: TStringField
-      FieldName = 'USUARIO'
-      Origin = 'USUARIO'
-      Size = 50
-    end
-    object fdQryTabelaCADASTRO_ATIVO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'CADASTRO_ATIVO'
-      Origin = 'CADASTRO_ATIVO'
-      Required = True
-    end
-    object fdQryTabelaPRODUTO_IMOBILIZADO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'PRODUTO_IMOBILIZADO'
-      Origin = 'PRODUTO_IMOBILIZADO'
-      Required = True
-    end
-    object fdQryTabelaMOVIMENTA_ESTOQUE: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'MOVIMENTA_ESTOQUE'
-      Origin = 'MOVIMENTA_ESTOQUE'
-      Required = True
-    end
-    object fdQryTabelaCOMPOR_FATURAMENTO: TSmallintField
-      Alignment = taLeftJustify
-      FieldName = 'COMPOR_FATURAMENTO'
-      Origin = 'COMPOR_FATURAMENTO'
-      Required = True
-    end
-    object fdQryTabelaESTOQUE_APROP_LOTE: TSmallintField
-      FieldName = 'ESTOQUE_APROP_LOTE'
-      Origin = 'ESTOQUE_APROP_LOTE'
-      Required = True
-    end
-    object fdQryTabelaULTIMA_COMPRA_DATA: TDateField
-      FieldName = 'ULTIMA_COMPRA_DATA'
-      Origin = 'ULTIMA_COMPRA_DATA'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object fdQryTabelaULTIMA_COMPRA_VALOR: TFMTBCDField
-      FieldName = 'ULTIMA_COMPRA_VALOR'
-      Origin = 'ULTIMA_COMPRA_VALOR'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaULTIMA_COMPRA_FORNEC: TIntegerField
-      FieldName = 'ULTIMA_COMPRA_FORNEC'
-      Origin = 'ULTIMA_COMPRA_FORNEC'
-    end
-    object fdQryTabelaGERAR_SUBPRODUTO: TSmallintField
-      FieldName = 'GERAR_SUBPRODUTO'
-      Origin = 'GERAR_SUBPRODUTO'
-      Required = True
-    end
-    object fdQryTabelaPRODUTO_PAI: TStringField
-      FieldName = 'PRODUTO_PAI'
-      Origin = 'PRODUTO_PAI'
-      Size = 10
-    end
-    object fdQryTabelaDESCRICAO_GRUPO: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Grupo'
-      FieldName = 'DESCRICAO_GRUPO'
-      Origin = 'DESCRI'
-      ProviderFlags = []
-      Size = 30
-    end
-    object fdQryTabelaNOME_FABRICANTE: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Fabricante'
-      FieldName = 'NOME_FABRICANTE'
-      Origin = 'NOME'
-      ProviderFlags = []
-      Size = 50
-    end
-    object fdQryTabelaDESCRICAO_SECAO: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Se'#231#227'o'
-      FieldName = 'DESCRICAO_SECAO'
-      Origin = 'DESCRICAO_SECAO'
-      ProviderFlags = []
-      Size = 50
-    end
-    object fdQryTabelaDESCRICAO_UNIDADE: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Unidade'
-      FieldName = 'DESCRICAO_UNIDADE'
-      Origin = 'DESCRICAO_UNIDADE'
-      ProviderFlags = []
-      Size = 50
-    end
-    object fdQryTabelaUNP_SIGLA: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'UND'
-      FieldName = 'UNP_SIGLA'
-      Origin = 'UNP_SIGLA'
-      ProviderFlags = []
-      Size = 5
-    end
-    object fdQryTabelaDESCRICAO_UNIDADE_FRAC: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRICAO_UNIDADE_FRAC'
-      Origin = 'UNP_DESCRICAO'
-      ProviderFlags = []
-      Size = 50
-    end
-    object fdQryTabelaUNP_SIGLA_FRAC: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'UNP_SIGLA_FRAC'
-      Origin = 'UNP_SIGLA'
-      ProviderFlags = []
-      Size = 5
-    end
-    object fdQryTabelaCFOP_DESCRICAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CFOP_DESCRICAO'
-      Origin = 'CFOP_DESCRICAO'
-      ProviderFlags = []
-      Size = 250
-    end
-    object fdQryTabelaCFOP_ESPECIFICACAO: TMemoField
-      AutoGenerateValue = arDefault
-      FieldName = 'CFOP_ESPECIFICACAO'
-      Origin = 'CFOP_ESPECIFICACAO'
-      ProviderFlags = []
-      BlobType = ftMemo
-    end
-    object fdQryTabelaDESCRICAO_COR: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Cor'
-      FieldName = 'DESCRICAO_COR'
-      Origin = 'DESCRICAO'
-      ProviderFlags = []
-      Size = 50
-    end
-    object fdQryTabelaDESCRICAO_COMBUSTIVEL: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Combust'#237'vel'
-      FieldName = 'DESCRICAO_COMBUSTIVEL'
-      Origin = 'DESCRICAO_COMBUSTIVEL'
-      ProviderFlags = []
-      Size = 100
-    end
-    object fdQryTabelaMODELO_FABRICACAO: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Ano/Modelo'
-      FieldName = 'MODELO_FABRICACAO'
-      Origin = 'MODELO_FABRICACAO'
-      ProviderFlags = []
-      Size = 13
-    end
-    object fdQryTabelaPRECO: TFMTBCDField
-      DisplayLabel = 'Pre'#231'o (R$)'
-      FieldName = 'PRECO'
-      Origin = 'PRECO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaPRECO_PROMOCAO: TFMTBCDField
-      FieldName = 'PRECO_PROMOCAO'
-      Origin = 'PRECO_PROMOCAO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaPRECO_SUGERIDO: TFMTBCDField
-      FieldName = 'PRECO_SUGERIDO'
-      Origin = 'PRECO_SUGERIDO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaLUCRO_CALCULADO: TBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'LUCRO_CALCULADO'
-      Origin = 'LUCRO_CALCULADO'
-      ProviderFlags = []
-      ReadOnly = True
-      DisplayFormat = ',0.00#'
-      Precision = 18
-    end
-    object fdQryTabelaLUCRO_VALOR: TFMTBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'LUCRO_VALOR'
-      Origin = 'LUCRO_VALOR'
-      ProviderFlags = []
-      ReadOnly = True
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaPRECO_FRAC: TFMTBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'PRECO_FRAC'
-      Origin = 'PRECO_FRAC'
-      ProviderFlags = []
-      ReadOnly = True
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 5
-    end
-    object fdQryTabelaPRECO_PROMOCAO_FRAC: TFMTBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'PRECO_PROMOCAO_FRAC'
-      Origin = 'PRECO_PROMOCAO_FRAC'
-      ProviderFlags = []
-      ReadOnly = True
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 5
-    end
-    object fdQryTabelaPRECO_SUGERIDO_FRAC: TFMTBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'PRECO_SUGERIDO_FRAC'
-      Origin = 'PRECO_SUGERIDO_FRAC'
-      ProviderFlags = []
-      ReadOnly = True
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 5
-    end
-    object fdQryTabelaQTDE: TFMTBCDField
-      DisplayLabel = 'Quantidade'
-      FieldName = 'QTDE'
-      Origin = 'QTDE'
-      Required = True
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object fdQryTabelaESTOQMIN: TFMTBCDField
-      DisplayLabel = 'M'#237'nimo'
-      FieldName = 'ESTOQMIN'
-      Origin = 'ESTOQMIN'
-      Required = True
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object fdQryTabelaRESERVA: TFMTBCDField
-      DisplayLabel = 'Reserva'
-      FieldName = 'RESERVA'
-      Origin = 'RESERVA'
-      Required = True
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-    object fdQryTabelaCUSTOMEDIO: TFMTBCDField
-      FieldName = 'CUSTOMEDIO'
-      Origin = 'CUSTOMEDIO'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaPERCENTUAL_MARCKUP: TFMTBCDField
-      FieldName = 'PERCENTUAL_MARCKUP'
-      Origin = 'PERCENTUAL_MARCKUP'
-      DisplayFormat = ',0.##'
-      Precision = 18
-      Size = 3
-    end
-    object fdQryTabelaPERCENTUAL_MARGEM: TFMTBCDField
-      FieldName = 'PERCENTUAL_MARGEM'
-      Origin = 'PERCENTUAL_MARGEM'
-      DisplayFormat = ',0.##'
-      Precision = 18
-      Size = 3
-    end
-    object fdQryTabelaFRACIONADOR: TFMTBCDField
-      FieldName = 'FRACIONADOR'
-      Origin = 'FRACIONADOR'
-      Precision = 18
-      Size = 3
-    end
-    object fdQryTabelaPESO_BRUTO: TFMTBCDField
-      DisplayLabel = 'Peso Bruto (Kg)'
-      FieldName = 'PESO_BRUTO'
-      Origin = 'PESO_BRUTO'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 3
-    end
-    object fdQryTabelaPESO_LIQUIDO: TFMTBCDField
-      DisplayLabel = 'Peso L'#237'quido (Kg)'
-      FieldName = 'PESO_LIQUIDO'
-      Origin = 'PESO_LIQUIDO'
-      DisplayFormat = ',0.00#'
-      Precision = 18
-      Size = 3
-    end
-    object fdQryTabelaPERCENTUAL_REDUCAO_BC: TFMTBCDField
-      DisplayLabel = '% Redu'#231#227'o da Base de C'#225'lculo (BC)'
-      FieldName = 'PERCENTUAL_REDUCAO_BC'
-      Origin = 'PERCENTUAL_REDUCAO_BC'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaVALOR_IPI: TFMTBCDField
-      DisplayLabel = 'Valor IPI (R$)'
-      FieldName = 'VALOR_IPI'
-      Origin = 'VALOR_IPI'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaALIQUOTA: TFMTBCDField
-      DisplayLabel = '% Al'#237'quota'
-      FieldName = 'ALIQUOTA'
-      Origin = 'ALIQUOTA'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaALIQUOTA_CSOSN: TFMTBCDField
-      DisplayLabel = '% Al'#237'quota SN'
-      FieldName = 'ALIQUOTA_CSOSN'
-      Origin = 'ALIQUOTA_CSOSN'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaALIQUOTA_PIS: TFMTBCDField
-      DisplayLabel = '% Al'#237'quota PIS'
-      FieldName = 'ALIQUOTA_PIS'
-      Origin = 'ALIQUOTA_PIS'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaALIQUOTA_COFINS: TFMTBCDField
-      DisplayLabel = '% Al'#237'quota COFINS'
-      FieldName = 'ALIQUOTA_COFINS'
-      Origin = 'ALIQUOTA_COFINS'
-      DisplayFormat = ',0.00'
-      Precision = 18
-      Size = 2
-    end
-    object fdQryTabelaDISPONIVEL: TFMTBCDField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Dispon'#237'vel'
-      FieldName = 'DISPONIVEL'
-      Origin = 'DISPONIVEL'
-      ProviderFlags = []
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
-  end
-  inherited fdUpdTabela: TFDUpdateSQL
-    InsertSQL.Strings = (
-      'INSERT INTO TBPRODUTO'
-      '(CODIGO, COD, DESCRI, APRESENTACAO, DESCRI_APRESENTACAO, '
-      '  METAFONEMA, MODELO, ANVISA, REFERENCIA, '
-      '  NOME_AMIGO, ESPECIFICACAO, SECAO, QTDE, '
-      '  FRACIONADOR, PESO_BRUTO, PESO_LIQUIDO, LARGURA, '
-      '  ALTURA, ESPESSURA, CUBAGEM, VENDA_FRACIONADA, '
-      '  UNIDADE, ESTOQMIN, CODTIPO, CODGRUPO, '
-      '  CODFABRICANTE, PERCENTUAL_MARCKUP, PERCENTUAL_MARGEM, '
-      '  PRECO_SUGERIDO, CODEMP, CODSECAO, CODORIGEM, '
-      '  CODTRIBUTACAO, CST, CSOSN, CST_PIS, '
-      '  CST_COFINS, TABELA_IBPT, NCM_SH, CODIGO_NVE, '
-      '  CODCFOP, CODBARRA_EAN, CODUNIDADE, CODUNIDADE_FRACIONADA, '
-      '  ALIQUOTA_TIPO, ALIQUOTA, ALIQUOTA_CSOSN, '
-      '  ALIQUOTA_PIS, ALIQUOTA_COFINS, VALOR_IPI, '
-      '  PERCENTUAL_REDUCAO_BC, RESERVA, PRODUTO_NOVO, '
-      '  COR_VEICULO, COMBUSTIVEL_VEICULO, TIPO_VEICULO, '
-      '  ANO_MODELO_VEICULO, ANO_FABRICACAO_VEICULO, RENAVAM_VEICULO, '
-      '  CHASSI_VEICULO, KILOMETRAGEM_VEICULO, SITUACAO_ATUAL_VEICULO, '
-      '  SITUACAO_HISTORICO_VEICULO, USUARIO, CADASTRO_ATIVO, '
-      '  MOVIMENTA_ESTOQUE, COMPOR_FATURAMENTO, PRODUTO_IMOBILIZADO, '
-      '  ESTOQUE_APROP_LOTE, PRECO, PRECO_PROMOCAO, '
-      '  CUSTOMEDIO, ULTIMA_COMPRA_DATA, ULTIMA_COMPRA_VALOR, '
-      '  ULTIMA_COMPRA_FORNEC, GERAR_SUBPRODUTO, PRODUTO_PAI)'
-      
-        'VALUES (:NEW_CODIGO, :NEW_COD, :NEW_DESCRI, :NEW_APRESENTACAO, :' +
-        'NEW_DESCRI_APRESENTACAO, '
-      '  :NEW_METAFONEMA, :NEW_MODELO, :NEW_ANVISA, :NEW_REFERENCIA, '
-      '  :NEW_NOME_AMIGO, :NEW_ESPECIFICACAO, :NEW_SECAO, :NEW_QTDE, '
-      
-        '  :NEW_FRACIONADOR, :NEW_PESO_BRUTO, :NEW_PESO_LIQUIDO, :NEW_LAR' +
-        'GURA, '
-      
-        '  :NEW_ALTURA, :NEW_ESPESSURA, :NEW_CUBAGEM, :NEW_VENDA_FRACIONA' +
-        'DA, '
-      '  :NEW_UNIDADE, :NEW_ESTOQMIN, :NEW_CODTIPO, :NEW_CODGRUPO, '
-      
-        '  :NEW_CODFABRICANTE, :NEW_PERCENTUAL_MARCKUP, :NEW_PERCENTUAL_M' +
-        'ARGEM, '
-      
-        '  :NEW_PRECO_SUGERIDO, :NEW_CODEMP, :NEW_CODSECAO, :NEW_CODORIGE' +
-        'M, '
-      '  :NEW_CODTRIBUTACAO, :NEW_CST, :NEW_CSOSN, :NEW_CST_PIS, '
-      
-        '  :NEW_CST_COFINS, :NEW_TABELA_IBPT, :NEW_NCM_SH, :NEW_CODIGO_NV' +
-        'E, '
-      
-        '  :NEW_CODCFOP, :NEW_CODBARRA_EAN, :NEW_CODUNIDADE, :NEW_CODUNID' +
-        'ADE_FRACIONADA, '
-      '  :NEW_ALIQUOTA_TIPO, :NEW_ALIQUOTA, :NEW_ALIQUOTA_CSOSN, '
-      '  :NEW_ALIQUOTA_PIS, :NEW_ALIQUOTA_COFINS, :NEW_VALOR_IPI, '
-      '  :NEW_PERCENTUAL_REDUCAO_BC, :NEW_RESERVA, :NEW_PRODUTO_NOVO, '
-      
-        '  :NEW_COR_VEICULO, :NEW_COMBUSTIVEL_VEICULO, :NEW_TIPO_VEICULO,' +
-        ' '
-      
-        '  :NEW_ANO_MODELO_VEICULO, :NEW_ANO_FABRICACAO_VEICULO, :NEW_REN' +
-        'AVAM_VEICULO, '
-      
-        '  :NEW_CHASSI_VEICULO, :NEW_KILOMETRAGEM_VEICULO, :NEW_SITUACAO_' +
-        'ATUAL_VEICULO, '
-      
-        '  :NEW_SITUACAO_HISTORICO_VEICULO, :NEW_USUARIO, :NEW_CADASTRO_A' +
-        'TIVO, '
-      
-        '  :NEW_MOVIMENTA_ESTOQUE, :NEW_COMPOR_FATURAMENTO, :NEW_PRODUTO_' +
-        'IMOBILIZADO, '
-      '  :NEW_ESTOQUE_APROP_LOTE, :NEW_PRECO, :NEW_PRECO_PROMOCAO, '
-      
-        '  :NEW_CUSTOMEDIO, :NEW_ULTIMA_COMPRA_DATA, :NEW_ULTIMA_COMPRA_V' +
-        'ALOR, '
-      
-        '  :NEW_ULTIMA_COMPRA_FORNEC, :NEW_GERAR_SUBPRODUTO, :NEW_PRODUTO' +
-        '_PAI)'
-      
-        'RETURNING CODIGO, DESCRI, QTDE, USUARIO, ULTIMA_COMPRA_DATA, ULT' +
-        'IMA_COMPRA_VALOR, ULTIMA_COMPRA_FORNEC')
-    ModifySQL.Strings = (
-      'UPDATE TBPRODUTO'
-      'SET CODIGO = :NEW_CODIGO, COD = :NEW_COD, DESCRI = :NEW_DESCRI, '
-      
-        '  APRESENTACAO = :NEW_APRESENTACAO, DESCRI_APRESENTACAO = :NEW_D' +
-        'ESCRI_APRESENTACAO, '
-      
-        '  METAFONEMA = :NEW_METAFONEMA, MODELO = :NEW_MODELO, ANVISA = :' +
-        'NEW_ANVISA, '
-      '  REFERENCIA = :NEW_REFERENCIA, NOME_AMIGO = :NEW_NOME_AMIGO, '
-      '  ESPECIFICACAO = :NEW_ESPECIFICACAO, SECAO = :NEW_SECAO, '
-      
-        '  QTDE = :NEW_QTDE, FRACIONADOR = :NEW_FRACIONADOR, PESO_BRUTO =' +
-        ' :NEW_PESO_BRUTO, '
-      '  PESO_LIQUIDO = :NEW_PESO_LIQUIDO, LARGURA = :NEW_LARGURA, '
-      
-        '  ALTURA = :NEW_ALTURA, ESPESSURA = :NEW_ESPESSURA, CUBAGEM = :N' +
-        'EW_CUBAGEM, '
-      
-        '  VENDA_FRACIONADA = :NEW_VENDA_FRACIONADA, UNIDADE = :NEW_UNIDA' +
-        'DE, '
-      
-        '  ESTOQMIN = :NEW_ESTOQMIN, CODTIPO = :NEW_CODTIPO, CODGRUPO = :' +
-        'NEW_CODGRUPO, '
-      
-        '  CODFABRICANTE = :NEW_CODFABRICANTE, PERCENTUAL_MARCKUP = :NEW_' +
-        'PERCENTUAL_MARCKUP, '
-      
-        '  PERCENTUAL_MARGEM = :NEW_PERCENTUAL_MARGEM, PRECO_SUGERIDO = :' +
-        'NEW_PRECO_SUGERIDO, '
-      
-        '  CODEMP = :NEW_CODEMP, CODSECAO = :NEW_CODSECAO, CODORIGEM = :N' +
-        'EW_CODORIGEM, '
-      
-        '  CODTRIBUTACAO = :NEW_CODTRIBUTACAO, CST = :NEW_CST, CSOSN = :N' +
-        'EW_CSOSN, '
-      
-        '  CST_PIS = :NEW_CST_PIS, CST_COFINS = :NEW_CST_COFINS, TABELA_I' +
-        'BPT = :NEW_TABELA_IBPT, '
-      
-        '  NCM_SH = :NEW_NCM_SH, CODIGO_NVE = :NEW_CODIGO_NVE, CODCFOP = ' +
-        ':NEW_CODCFOP, '
-      
-        '  CODBARRA_EAN = :NEW_CODBARRA_EAN, CODUNIDADE = :NEW_CODUNIDADE' +
-        ', '
-      
-        '  CODUNIDADE_FRACIONADA = :NEW_CODUNIDADE_FRACIONADA, ALIQUOTA_T' +
-        'IPO = :NEW_ALIQUOTA_TIPO, '
-      
-        '  ALIQUOTA = :NEW_ALIQUOTA, ALIQUOTA_CSOSN = :NEW_ALIQUOTA_CSOSN' +
-        ', '
-      
-        '  ALIQUOTA_PIS = :NEW_ALIQUOTA_PIS, ALIQUOTA_COFINS = :NEW_ALIQU' +
-        'OTA_COFINS, '
-      
-        '  VALOR_IPI = :NEW_VALOR_IPI, PERCENTUAL_REDUCAO_BC = :NEW_PERCE' +
-        'NTUAL_REDUCAO_BC, '
-      '  RESERVA = :NEW_RESERVA, PRODUTO_NOVO = :NEW_PRODUTO_NOVO, '
-      
-        '  COR_VEICULO = :NEW_COR_VEICULO, COMBUSTIVEL_VEICULO = :NEW_COM' +
-        'BUSTIVEL_VEICULO, '
-      
-        '  TIPO_VEICULO = :NEW_TIPO_VEICULO, ANO_MODELO_VEICULO = :NEW_AN' +
-        'O_MODELO_VEICULO, '
-      
-        '  ANO_FABRICACAO_VEICULO = :NEW_ANO_FABRICACAO_VEICULO, RENAVAM_' +
-        'VEICULO = :NEW_RENAVAM_VEICULO, '
-      
-        '  CHASSI_VEICULO = :NEW_CHASSI_VEICULO, KILOMETRAGEM_VEICULO = :' +
-        'NEW_KILOMETRAGEM_VEICULO, '
-      
-        '  SITUACAO_ATUAL_VEICULO = :NEW_SITUACAO_ATUAL_VEICULO, SITUACAO' +
-        '_HISTORICO_VEICULO = :NEW_SITUACAO_HISTORICO_VEICULO, '
-      '  USUARIO = :NEW_USUARIO, CADASTRO_ATIVO = :NEW_CADASTRO_ATIVO, '
-      
-        '  MOVIMENTA_ESTOQUE = :NEW_MOVIMENTA_ESTOQUE, COMPOR_FATURAMENTO' +
-        ' = :NEW_COMPOR_FATURAMENTO, '
-      
-        '  PRODUTO_IMOBILIZADO = :NEW_PRODUTO_IMOBILIZADO, ESTOQUE_APROP_' +
-        'LOTE = :NEW_ESTOQUE_APROP_LOTE, '
-      '  PRECO = :NEW_PRECO, PRECO_PROMOCAO = :NEW_PRECO_PROMOCAO, '
-      
-        '  CUSTOMEDIO = :NEW_CUSTOMEDIO, ULTIMA_COMPRA_DATA = :NEW_ULTIMA' +
-        '_COMPRA_DATA, '
-      
-        '  ULTIMA_COMPRA_VALOR = :NEW_ULTIMA_COMPRA_VALOR, ULTIMA_COMPRA_' +
-        'FORNEC = :NEW_ULTIMA_COMPRA_FORNEC, '
-      
-        '  GERAR_SUBPRODUTO = :NEW_GERAR_SUBPRODUTO, PRODUTO_PAI = :NEW_P' +
-        'RODUTO_PAI'
-      'WHERE COD = :OLD_COD'
-      
-        'RETURNING CODIGO, DESCRI, QTDE, USUARIO, ULTIMA_COMPRA_DATA, ULT' +
-        'IMA_COMPRA_VALOR, ULTIMA_COMPRA_FORNEC')
-    DeleteSQL.Strings = (
-      'DELETE FROM TBPRODUTO'
-      'WHERE COD = :OLD_COD')
-    FetchRowSQL.Strings = (
-      'Select'
-      '    p.Codigo'
-      '  , p.Cod'
-      '  , p.Descri'
-      '  , p.Apresentacao'
-      '  , p.Descri_apresentacao'
-      '  , p.Metafonema'
-      '  , p.Modelo'
-      '  , p.Anvisa'
-      '  , p.Referencia'
-      '  , p.Nome_amigo'
-      '  , p.Especificacao'
-      '  , p.Preco'
-      '  , p.Preco_Promocao'
-      '  , p.Preco_Sugerido'
-      '  , p.Secao'
-      '  , p.Qtde'
-      '  , p.Unidade'
-      '  , p.Estoqmin'
-      '  , p.fracionador'
-      '  , p.peso_bruto'
-      '  , p.peso_liquido'
-      '  , p.altura'
-      '  , p.largura'
-      '  , p.espessura'
-      '  , p.cubagem'
-      '  , p.venda_fracionada'
-      '  , p.codunidade_fracionada'
-      '  , p.Codtipo'
-      '  , p.Codgrupo'
-      '  , p.Codfabricante'
-      '  , p.Customedio'
-      '  , p.Percentual_marckup'
-      '  , p.Percentual_margem'
-      '  , p.Codemp'
-      '  , p.Codsecao'
-      '  , p.Codorigem'
-      '  , p.Codtributacao'
-      '  , p.Cst'
-      '  , p.Csosn'
-      '  , p.Cst_pis'
-      '  , p.Cst_cofins'
-      '  , p.Tabela_IBPT'
-      '  , p.NCM_SH'
-      '  , p.Codigo_NVE'
-      '  , p.Codcfop'
-      '  , p.Codbarra_ean'
-      '  , p.Codunidade'
-      '  , p.Aliquota_tipo'
-      '  , p.Aliquota'
-      '  , p.Aliquota_CSOSN'
-      '  , p.Aliquota_pis'
-      '  , p.Aliquota_cofins'
-      '  , p.Valor_ipi'
-      '  , p.Reserva'
-      '  , p.Produto_novo'
-      '  , p.Cor_veiculo'
-      '  , p.Combustivel_veiculo'
-      '  , p.Tipo_veiculo'
-      '  , p.Renavam_veiculo'
-      '  , p.Chassi_veiculo'
-      '  , p.Ano_modelo_veiculo'
-      '  , p.Ano_fabricacao_veiculo'
-      '  , p.Kilometragem_veiculo'
-      '  , p.Situacao_atual_veiculo'
-      '  , p.Situacao_historico_veiculo'
-      '  , p.Percentual_reducao_BC'
-      '  , p.Usuario'
-      '  , p.Cadastro_ativo'
-      '  , p.Produto_imobilizado'
-      '  , p.Movimenta_estoque'
-      '  , p.Compor_faturamento'
-      '  , p.Estoque_Aprop_lote'
-      '  , p.Ultima_compra_data'
-      '  , p.Ultima_compra_valor'
-      '  , p.Ultima_compra_fornec'
-      '  , p.gerar_subproduto'
-      '  , p.produto_pai'
-      '  , case when coalesce(p.Reserva, 0) > 0'
-      '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
-      '      else coalesce(p.Qtde, 0)'
-      '    end as Disponivel'
-      '  , g.Descri as Descricao_Grupo'
-      '  , f.Nome   as Nome_Fabricante'
-      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
-      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
-      '  , u.Unp_sigla'
-      '  , uf.unp_descricao as Descricao_Unidade_frac'
-      '  , uf.unp_sigla as unp_sigla_frac'
-      '  , c.Cfop_descricao'
-      '  , c.Cfop_especificacao'
-      '  , cr.Descricao as descricao_cor'
-      '  , coalesce(cb.Apelido, cb.Descricao) as descricao_combustivel'
-      
-        '  , coalesce(p.Ano_fabricacao_veiculo || '#39'/'#39' || p.Ano_modelo_vei' +
-        'culo, '#39#39') as modelo_fabricacao'
-      '  , Case when p.Customedio > 0'
-      '      then ((p.Preco / p.Customedio) - 1) * 100'
-      '      else 100.0'
-      '    end Lucro_Calculado'
-      '  , (p.Preco - p.Customedio) as Lucro_Valor'
-      
-        '  , p.preco / coalesce(nullif(p.fracionador, 0), 1) as preco_fra' +
-        'c'
-      
-        '  , p.preco_promocao / coalesce(nullif(p.fracionador, 0), 1) as ' +
-        'preco_promocao_frac'
-      
-        '  , p.preco_sugerido / coalesce(nullif(p.fracionador, 0), 1) as ' +
-        'preco_sugerido_frac'
-      'from TBPRODUTO p'
-      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
-      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      
-        '  left join TBUNIDADEPROD uf on (uf.Unp_cod = p.codunidade_fraci' +
-        'onada)'
-      '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
-      '  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)'
-      '  left join RENAVAM_COR cr on (cr.Codigo = p.Cor_veiculo)'
-      
-        '  left join RENAVAM_COBUSTIVEL cb on (cb.Codigo = p.Combustivel_' +
-        'veiculo)'
-      'WHERE p.COD = :COD')
-    Left = 904
-    Top = 328
+    Left = 880
   end
   object dtsEmpresa: TDataSource
-    DataSet = fdQryEmpresa
-    Left = 280
+    Left = 248
   end
   object dtsOrigem: TDataSource
-    DataSet = fdQryOrigem
-    Left = 344
+    Left = 280
   end
   object dtsTributacaoNM: TDataSource
-    DataSet = fdQryTributacaoNM
-    Left = 408
+    Left = 312
   end
   object dtsAliquota: TDataSource
-    DataSet = tblAliquota
-    Left = 728
+    Left = 184
   end
   object dtsTributacaoSN: TDataSource
-    DataSet = qryTributacaoSN
-    Left = 472
+    Left = 344
   end
   object dtsCor: TDataSource
     DataSet = tblCor
@@ -4536,19 +3032,16 @@ inherited frmGeProduto: TfrmGeProduto
   end
   object dtsCombustivel: TDataSource
     DataSet = tblCombustivel
-    Left = 536
+    Left = 632
   end
   object dtsTipoVeiculo: TDataSource
-    DataSet = tblTipoVeiculo
-    Left = 600
+    Left = 440
   end
   object dtsAliquotaPIS: TDataSource
-    DataSet = qryAliquotaPIS
-    Left = 856
+    Left = 376
   end
   object dtsAliquotaCOFINS: TDataSource
-    DataSet = qryAliquotaCOFINS
-    Left = 664
+    Left = 408
   end
   object popFerramentas: TPopupMenu
     Left = 528
@@ -4710,110 +3203,8 @@ inherited frmGeProduto: TfrmGeProduto
       Enabled = False
     end
   end
-  object fdQryEmpresa: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    e.cnpj'
-      '  , e.codigo'
-      '  , e.razao'
-      '  , e.fantasia'
-      'from VW_EMPRESA e'
-      'order by'
-      '    e.razao')
-    Left = 248
-  end
-  object fdQryTipoProduto: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    t.codigo'
-      '  , t.descricao'
-      'from SYS_TIPO_PRODUTO t')
-    Left = 184
-  end
   object dtsTipoProduto: TDataSource
-    DataSet = fdQryTipoProduto
     Left = 216
-  end
-  object fdQryOrigem: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select *'
-      'from VW_ORIGEM_PRODUTO')
-    Left = 312
-  end
-  object fdQryTributacaoNM: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      '/*'
-      'Select'
-      '    t.tpt_cod'
-      '  , t.tpt_descricao'
-      '  , t.tpt_descricao_full'
-      '  , t.tpt_sigla'
-      '  , t.crt'
-      'from VW_TIPO_TRIBUTACAO t'
-      'where t.crt = 0'
-      '*/'
-      'Select'
-      '    t.Tpt_cod'
-      '  , t.Tpt_descricao'
-      '  , t.Tpt_cod || '#39' - '#39' || t.Tpt_descricao as Tpt_descricao_full'
-      '  , t.Tpt_sigla'
-      '  , t.Crt'
-      '  , coalesce(t.obrigar_cest, 0) as obrigar_cest'
-      'from TBTRIBUTACAO_TIPO t'
-      'where coalesce(t.obrigar_cest, 0) = 0'
-      'order by'
-      '    t.Crt'
-      '  , t.Tpt_cod')
-    Left = 376
-  end
-  object qryTributacaoSN: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      '/*'
-      'Select'
-      '    t.tpt_cod'
-      '  , t.tpt_descricao'
-      '  , t.tpt_descricao_full'
-      '  , t.tpt_sigla'
-      '  , t.crt'
-      'from VW_TIPO_TRIBUTACAO t'
-      'where t.crt = 1'
-      '*/'
-      'Select'
-      '    t.Tpt_cod'
-      '  , t.Tpt_descricao'
-      '  , t.Tpt_cod || '#39' - '#39' || t.Tpt_descricao as Tpt_descricao_full'
-      '  , t.Tpt_sigla'
-      '  , t.Crt'
-      '  , coalesce(t.obrigar_cest, 0) as obrigar_cest'
-      'from TBTRIBUTACAO_TIPO t'
-      'where coalesce(t.obrigar_cest, 0) = 0'
-      'order by'
-      '    t.Crt'
-      '  , t.Tpt_cod')
-    Left = 440
-  end
-  object tblAliquota: TFDTable
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    UpdateOptions.UpdateTableName = 'VW_TIPO_ALIQUOTA'
-    TableName = 'VW_TIPO_ALIQUOTA'
-    Left = 696
   end
   object tblCombustivel: TFDTable
     Connection = DMBusiness.fdConexao
@@ -4821,7 +3212,7 @@ inherited frmGeProduto: TfrmGeProduto
     UpdateTransaction = DMBusiness.fdTransacao
     UpdateOptions.UpdateTableName = 'RENAVAM_COBUSTIVEL'
     TableName = 'RENAVAM_COBUSTIVEL'
-    Left = 504
+    Left = 600
   end
   object tblCor: TFDTable
     Connection = DMBusiness.fdConexao
@@ -4830,39 +3221,5 @@ inherited frmGeProduto: TfrmGeProduto
     UpdateOptions.UpdateTableName = 'RENAVAM_COR'
     TableName = 'RENAVAM_COR'
     Left = 760
-  end
-  object tblTipoVeiculo: TFDTable
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    UpdateOptions.UpdateTableName = 'RENAVAM_TIPOVEICULO'
-    TableName = 'RENAVAM_TIPOVEICULO'
-    Left = 568
-  end
-  object qryAliquotaPIS: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'select'
-      '    Codigo'
-      '  , Descricao_FULL'
-      '  , Descricao'
-      '  , Indice_acbr'
-      'from VW_ALIQUOTA_PIS')
-    Left = 824
-  end
-  object qryAliquotaCOFINS: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'select'
-      '    Codigo'
-      '  , Descricao_FULL'
-      '  , Descricao'
-      '  , Indice_acbr'
-      'from VW_ALIQUOTA_COFINS')
-    Left = 632
   end
 end

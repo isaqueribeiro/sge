@@ -6,9 +6,33 @@ uses
   //Interacao.PersonalizaEmpresa,
   //Controller.Factory,
 
-  Windows, Forms, Messages, SysUtils, Classes, ExtCtrls, ShellApi, Printers, Graphics, IniFiles,
-  PSApi, Winsock, WinSvc, WinInet, StrUtils, OleServer, ExcelXP, ComObj, TLHelp32, Winapi.ShlObj,
-  Math, IdBaseComponent, IdComponent, IdRawBase, IdRawClient, IdIcmpClient;
+  System.SysUtils,
+  System.StrUtils,
+  System.Math,
+  System.Classes,
+  System.IOUtils,
+  Winapi.Windows,
+  Winapi.WinSvc,
+  Winapi.WinInet,
+  Winapi.ShlObj,
+  VCL.Forms,
+  Messages,
+  ExtCtrls,
+  ShellApi,
+  Printers,
+  Graphics,
+  IniFiles,
+  PSApi,
+  Winsock,
+  OleServer,
+  ExcelXP,
+  ComObj,
+  TLHelp32,
+  IdBaseComponent,
+  IdComponent,
+  IdRawBase,
+  IdRawClient,
+  IdIcmpClient;
 
   procedure ExecuteResource(pHandle : HWND; pComand : String);
   procedure Split(pDelimiter : Char; pStr: String; pListOfStrings : TStrings);
@@ -510,29 +534,30 @@ end;
 end;
 
 function Path_MeusDocumentos : String;
-var
-  aPath : String;
-  r     : Bool;
-  cPath : array [0 .. Max_Path] of Char;
+//var
+//  aPath : String;
+//  r     : Bool;
+//  cPath : array [0 .. Max_Path] of Char;
 begin
-  r := ShGetSpecialFolderPath(0, cPath, CSIDL_Personal, False);
-  if not r then
-  begin
-    aPath := GetEnvironmentVariable('USERPROFILE');
-
-    if Pos('Documents', aPath) = 0 then
-      aPath := GetEnvironmentVariable('USERPROFILE') + '\Documents';
-
-    if not DirectoryExists(aPath) then
-      aPath := GetEnvironmentVariable('USERPROFILE') + '\Documentos';
-
-    if not DirectoryExists(aPath) then
-      aPath := GetEnvironmentVariable('USERPROFILE') + '\Meus Documentos';
-  end
-  else
-    aPath := cPath;
-
-  Result := Trim(aPath);
+  Result := TPath.GetDocumentsPath;
+//  r := ShGetSpecialFolderPath(0, cPath, CSIDL_Personal, False);
+//  if not r then
+//  begin
+//    aPath := GetEnvironmentVariable('USERPROFILE');
+//
+//    if Pos('Documents', aPath) = 0 then
+//      aPath := GetEnvironmentVariable('USERPROFILE') + '\Documents';
+//
+//    if not DirectoryExists(aPath) then
+//      aPath := GetEnvironmentVariable('USERPROFILE') + '\Documentos';
+//
+//    if not DirectoryExists(aPath) then
+//      aPath := GetEnvironmentVariable('USERPROFILE') + '\Meus Documentos';
+//  end
+//  else
+//    aPath := cPath;
+//
+//  Result := Trim(aPath);
 end;
 
 function Path_Windows : String;

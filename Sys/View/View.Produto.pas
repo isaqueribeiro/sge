@@ -1,24 +1,58 @@
-unit UGeProduto;
+unit View.Produto;
 
 interface
 
 uses
+  System.SysUtils,
+  System.StrUtils,
+  System.ImageList,
+  System.Classes,
+  System.Variants,
+  Winapi.Windows,
+
+  Vcl.Forms,
+  Vcl.Menus,
+  Vcl.ImgList,
+  Vcl.Controls,
+  Vcl.Mask,
+  Vcl.DBCtrls,
+  Vcl.StdCtrls,
+  Vcl.ExtCtrls,
+  Vcl.Grids,
+  Vcl.DBGrids,
+  Vcl.ComCtrls,
+  Vcl.Graphics,
+  Vcl.Buttons,
+  Vcl.Dialogs,
+  Vcl.ExtDlgs,
+
+  Data.DB,
+  Datasnap.DBClient,
+
+  JvExMask,
+  JvToolEdit,
+  JvDBControls,
+  JvMaskEdit,
+
+  frxClass,
+  cxGraphics,
+  cxLookAndFeels,
+  cxLookAndFeelPainters,
+  cxButtons,
+  dxSkinsCore,
+
+  View.PadraoCadastro,
+  SGE.Controller.Interfaces,
+  UObserverInterface,
+  UCliente,
   UGrPadraoCadastro,
+  Interacao.Tabela,
+  Controller.Tabela,
   UConstantesDGE,
 
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
-  Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
-  ToolWin, IBTable, Menus, cxGraphics, JvDBControls,
-  cxLookAndFeels, cxLookAndFeelPainters, cxButtons, JvExMask, JvToolEdit,
-
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
-  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
-  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
+  IBX.IBCustomDataSet, IBX.IBUpdateSQL;
 
 type
   TUnidade = record
@@ -58,7 +92,7 @@ type
 
   ProdutoServicoPonteiro = ^TProdutoServico;
 
-  TfrmGeProduto = class(TfrmGrPadraoCadastro)
+  TViewProduto = class(TViewPadraoCadastro)
     lblDescricao: TLabel;
     dbDescricao: TDBEdit;
     lblReferencia: TLabel;
@@ -251,124 +285,20 @@ type
     dbUltimaCompraValor: TDBEdit;
     lblPercentualMargem: TLabel;
     dbPercentualMargem: TDBEdit;
-    fdQryEmpresa: TFDQuery;
-    fdQryTipoProduto: TFDQuery;
     dtsTipoProduto: TDataSource;
     lblTipoProduto: TLabel;
     dbTipoProduto: TDBLookupComboBox;
     lblCodigoAnvisa: TLabel;
     dbCodigoAnvisa: TDBEdit;
     dbGerarSubproduto: TDBCheckBox;
-    fdQryOrigem: TFDQuery;
     lblAltura: TLabel;
     dbAltura: TDBEdit;
     dbLargura: TDBEdit;
     lblLargura: TLabel;
     dbEspessura: TDBEdit;
     lblEspessura: TLabel;
-    fdQryTributacaoNM: TFDQuery;
-    qryTributacaoSN: TFDQuery;
-    tblAliquota: TFDTable;
     tblCombustivel: TFDTable;
     tblCor: TFDTable;
-    tblTipoVeiculo: TFDTable;
-    qryAliquotaPIS: TFDQuery;
-    qryAliquotaCOFINS: TFDQuery;
-    fdQryTabelaCODIGO: TFDAutoIncField;
-    fdQryTabelaCOD: TStringField;
-    fdQryTabelaDESCRI: TStringField;
-    fdQryTabelaAPRESENTACAO: TStringField;
-    fdQryTabelaDESCRI_APRESENTACAO: TStringField;
-    fdQryTabelaMETAFONEMA: TStringField;
-    fdQryTabelaMODELO: TStringField;
-    fdQryTabelaANVISA: TStringField;
-    fdQryTabelaREFERENCIA: TStringField;
-    fdQryTabelaNOME_AMIGO: TStringField;
-    fdQryTabelaESPECIFICACAO: TBlobField;
-    fdQryTabelaSECAO: TStringField;
-    fdQryTabelaUNIDADE: TStringField;
-    fdQryTabelaALTURA: TBCDField;
-    fdQryTabelaLARGURA: TBCDField;
-    fdQryTabelaESPESSURA: TBCDField;
-    fdQryTabelaCUBAGEM: TBCDField;
-    fdQryTabelaVENDA_FRACIONADA: TSmallintField;
-    fdQryTabelaCODUNIDADE_FRACIONADA: TSmallintField;
-    fdQryTabelaCODTIPO: TSmallintField;
-    fdQryTabelaCODGRUPO: TSmallintField;
-    fdQryTabelaCODFABRICANTE: TIntegerField;
-    fdQryTabelaCODEMP: TStringField;
-    fdQryTabelaCODSECAO: TSmallintField;
-    fdQryTabelaCODORIGEM: TStringField;
-    fdQryTabelaCODTRIBUTACAO: TStringField;
-    fdQryTabelaCST: TStringField;
-    fdQryTabelaCSOSN: TStringField;
-    fdQryTabelaCST_PIS: TStringField;
-    fdQryTabelaCST_COFINS: TStringField;
-    fdQryTabelaTABELA_IBPT: TIntegerField;
-    fdQryTabelaNCM_SH: TStringField;
-    fdQryTabelaCODIGO_NVE: TStringField;
-    fdQryTabelaCODCFOP: TIntegerField;
-    fdQryTabelaCODBARRA_EAN: TStringField;
-    fdQryTabelaCODUNIDADE: TSmallintField;
-    fdQryTabelaALIQUOTA_TIPO: TSmallintField;
-    fdQryTabelaPRODUTO_NOVO: TSmallintField;
-    fdQryTabelaCOR_VEICULO: TStringField;
-    fdQryTabelaCOMBUSTIVEL_VEICULO: TStringField;
-    fdQryTabelaTIPO_VEICULO: TStringField;
-    fdQryTabelaRENAVAM_VEICULO: TStringField;
-    fdQryTabelaCHASSI_VEICULO: TStringField;
-    fdQryTabelaANO_MODELO_VEICULO: TSmallintField;
-    fdQryTabelaANO_FABRICACAO_VEICULO: TSmallintField;
-    fdQryTabelaKILOMETRAGEM_VEICULO: TIntegerField;
-    fdQryTabelaSITUACAO_ATUAL_VEICULO: TStringField;
-    fdQryTabelaSITUACAO_HISTORICO_VEICULO: TMemoField;
-    fdQryTabelaUSUARIO: TStringField;
-    fdQryTabelaCADASTRO_ATIVO: TSmallintField;
-    fdQryTabelaPRODUTO_IMOBILIZADO: TSmallintField;
-    fdQryTabelaMOVIMENTA_ESTOQUE: TSmallintField;
-    fdQryTabelaCOMPOR_FATURAMENTO: TSmallintField;
-    fdQryTabelaESTOQUE_APROP_LOTE: TSmallintField;
-    fdQryTabelaULTIMA_COMPRA_DATA: TDateField;
-    fdQryTabelaULTIMA_COMPRA_FORNEC: TIntegerField;
-    fdQryTabelaGERAR_SUBPRODUTO: TSmallintField;
-    fdQryTabelaPRODUTO_PAI: TStringField;
-    fdQryTabelaDESCRICAO_GRUPO: TStringField;
-    fdQryTabelaNOME_FABRICANTE: TStringField;
-    fdQryTabelaDESCRICAO_SECAO: TStringField;
-    fdQryTabelaDESCRICAO_UNIDADE: TStringField;
-    fdQryTabelaUNP_SIGLA: TStringField;
-    fdQryTabelaDESCRICAO_UNIDADE_FRAC: TStringField;
-    fdQryTabelaUNP_SIGLA_FRAC: TStringField;
-    fdQryTabelaCFOP_DESCRICAO: TStringField;
-    fdQryTabelaCFOP_ESPECIFICACAO: TMemoField;
-    fdQryTabelaDESCRICAO_COR: TStringField;
-    fdQryTabelaDESCRICAO_COMBUSTIVEL: TStringField;
-    fdQryTabelaMODELO_FABRICACAO: TStringField;
-    fdQryTabelaPRECO: TFMTBCDField;
-    fdQryTabelaPRECO_PROMOCAO: TFMTBCDField;
-    fdQryTabelaPRECO_SUGERIDO: TFMTBCDField;
-    fdQryTabelaLUCRO_CALCULADO: TBCDField;
-    fdQryTabelaLUCRO_VALOR: TFMTBCDField;
-    fdQryTabelaPRECO_FRAC: TFMTBCDField;
-    fdQryTabelaPRECO_PROMOCAO_FRAC: TFMTBCDField;
-    fdQryTabelaPRECO_SUGERIDO_FRAC: TFMTBCDField;
-    fdQryTabelaQTDE: TFMTBCDField;
-    fdQryTabelaESTOQMIN: TFMTBCDField;
-    fdQryTabelaRESERVA: TFMTBCDField;
-    fdQryTabelaCUSTOMEDIO: TFMTBCDField;
-    fdQryTabelaPERCENTUAL_MARCKUP: TFMTBCDField;
-    fdQryTabelaPERCENTUAL_MARGEM: TFMTBCDField;
-    fdQryTabelaFRACIONADOR: TFMTBCDField;
-    fdQryTabelaPESO_BRUTO: TFMTBCDField;
-    fdQryTabelaPESO_LIQUIDO: TFMTBCDField;
-    fdQryTabelaPERCENTUAL_REDUCAO_BC: TFMTBCDField;
-    fdQryTabelaVALOR_IPI: TFMTBCDField;
-    fdQryTabelaALIQUOTA: TFMTBCDField;
-    fdQryTabelaALIQUOTA_CSOSN: TFMTBCDField;
-    fdQryTabelaALIQUOTA_PIS: TFMTBCDField;
-    fdQryTabelaALIQUOTA_COFINS: TFMTBCDField;
-    fdQryTabelaULTIMA_COMPRA_VALOR: TFMTBCDField;
-    fdQryTabelaDISPONIVEL: TFMTBCDField;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);
@@ -402,6 +332,16 @@ type
     procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
+    FControllerTipoAliquotaView,
+    FControllerTipoProduto     ,
+    FControllerEmpresaView     ,
+    FControllerOrigemProdutoView   ,
+    FControllerTipoTributacaoNormal,
+    FControllerTipoTributacaoSN    ,
+    FControllerAliquotaPISView     ,
+    FControllerAliquotaCOFINSView,
+    FControllerTipoVeiculo  : IControllerCustom;
+
     fOrdenado : Boolean;
     fAliquota : TAliquota;
     fRealizarVenda  ,
@@ -442,7 +382,7 @@ type
 *)
 
 var
-  frmGeProduto: TfrmGeProduto;
+  ViewProduto: TViewProduto;
 
   procedure MostrarTabelaProdutos(const AOwner : TComponent; const TipoAliquota : TAliquota); overload;
   procedure MostrarTabelaProdutos(const AOwner : TComponent); overload;
@@ -515,6 +455,9 @@ implementation
 uses
   UDMBusiness,
   UFuncoes,
+  SGE.Controller.Factory,
+  SGE.Controller,
+  SGE.Controller.Helper,
   UGrPadrao,
   View.UnidadeProduto,
   View.FabricanteProduto,
@@ -534,29 +477,16 @@ const
 
 procedure MostrarTabelaProdutos(const AOwner : TComponent; const TipoAliquota : TAliquota);
 var
-  AForm : TfrmGeProduto;
+  AForm : TViewProduto;
 begin
-  AForm := TfrmGeProduto.Create(AOwner);
+  AForm := TViewProduto.Create(AOwner);
   try
     AForm.fAliquota       := TipoAliquota;
     AForm.fApenasProdutos := True;
     AForm.fApenasServicos := False;
-//    AForm.fApenasProdutos := (frm.fAliquota = taICMS);
-//    AForm.fApenasServicos := (frm.fAliquota = taISS);
     AForm.chkProdutoComEstoque.Checked := False;
     AForm.AddWhereAdditional;
-//
-//    if not GetEstoqueUnificadoEmpresa(gUsuarioLogado.Empresa) then
-//      AForm.WhereAdditional := '(p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')'
-//    else
-//      AForm.WhereAdditional := '(1 = 1)';
-//
-//    // Carregar apenas produtos com estoque e serviços em geral
-//    if AForm.chkProdutoComEstoque.Checked then
-//      AForm.WhereAdditional := frm.WhereAdditional + ' and ((p.Qtde > 0) or (p.Aliquota_tipo = 1))';
-//
-//    AForm.WhereAdditional := frm.WhereAdditional + '  and (' + PRD_ARQUIVO_MORTO + ')';
-//
+
     AForm.ShowModal;
   finally
     AForm.Destroy;
@@ -565,9 +495,9 @@ end;
 
 procedure MostrarTabelaProdutos(const AOwner : TComponent);
 var
-  AForm : TfrmGeProduto;
+  AForm : TViewProduto;
 begin
-  AForm := TfrmGeProduto.Create(AOwner);
+  AForm := TViewProduto.Create(AOwner);
   try
     AForm.fAliquota       := taICMS;
     AForm.fApenasProdutos := True;
@@ -584,9 +514,9 @@ end;
 
 procedure MostrarTabelaServicos(const AOwner : TComponent);
 var
-  AForm : TfrmGeProduto;
+  AForm : TViewProduto;
 begin
-  AForm := TfrmGeProduto.Create(AOwner);
+  AForm := TViewProduto.Create(AOwner);
   try
     AForm.fAliquota := taISS;
     AForm.fApenasProdutos := False;
@@ -604,10 +534,10 @@ function SelecionarProdutoParaAjuste(const AOwner : TComponent; const Empresa : 
   var Codigo : Integer;
   var CodigoAlfa, Nome : String) : Boolean;
 var
-  frm : TfrmGeProduto;
+  frm : TViewProduto;
   whr : String;
 begin
-  frm := TfrmGeProduto.Create(AOwner);
+  frm := TViewProduto.Create(AOwner);
   try
     frm.fAliquota := taICMS;
 
@@ -620,6 +550,10 @@ begin
     if frm.chkProdutoComEstoque.Checked then
       whr := whr + ' and (p.Qtde > 0)';
 
+    frm.FController.DAO.ClearWhere;
+    frm.FController.DAO.Where(whr);
+    frm.FController.DAO.Open;
+
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
     if ( Result ) then
@@ -631,16 +565,20 @@ end;
 
 function SelecionarProdutoParaVenda(const AOwner : TComponent; var pProduto : TProdutoServico) : Boolean;
 var
-  AForm : TfrmGeProduto;
+  AForm : TViewProduto;
   iCodigo    : Integer;
   sDescricao : String;
 begin
-  AForm := TfrmGeProduto.Create(AOwner);
+  AForm := TViewProduto.Create(AOwner);
   try
     AForm.fAliquota       := taICMS;
     AForm.fApenasProdutos := True;
     AForm.fRealizarVenda  := True;
     AForm.AddWhereAdditional;
+
+    AForm.FController.DAO.ClearWhere;
+    AForm.FController.DAO.Where(AForm.WhereAdditional);
+    AForm.FController.DAO.Open;
 
     Result := AForm.SelecionarRegistro(iCodigo, sDescricao, AForm.WhereAdditional);
 
@@ -695,9 +633,9 @@ function SelecionarProduto(const AOwner : TComponent;
   var Codigo : Integer;
   var Nome : String) : Boolean;
 var
-  frm : TfrmGeProduto;
+  frm : TViewProduto;
 begin
-  frm := TfrmGeProduto.Create(AOwner);
+  frm := TViewProduto.Create(AOwner);
   try
     frm.fAliquota := taICMS;
     Result := frm.SelecionarRegistro(Codigo, Nome);
@@ -710,10 +648,10 @@ function SelecionarProduto(const AOwner : TComponent;
   var Codigo : Integer;
   var CodigoAlfa, Nome : String) : Boolean;
 var
-  frm : TfrmGeProduto;
+  frm : TViewProduto;
   whr : String;
 begin
-  frm := TfrmGeProduto.Create(AOwner);
+  frm := TViewProduto.Create(AOwner);
   try
     frm.fAliquota := taICMS;
 
@@ -727,6 +665,10 @@ begin
 
     if frm.chkProdutoComEstoque.Checked then
       whr := whr + ' and p.Qtde > 0';
+
+    frm.FController.DAO.ClearWhere;
+    frm.FController.DAO.Where(whr);
+    frm.FController.DAO.Open;
 
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
@@ -742,10 +684,10 @@ function SelecionarProduto(const AOwner : TComponent;
   var CodigoAlfa, CodigoEAN, Nome, Unidade : String;
   var ValorVenda : Currency) : Boolean;
 var
-  frm : TfrmGeProduto;
+  frm : TViewProduto;
   whr : String;
 begin
-  frm := TfrmGeProduto.Create(AOwner);
+  frm := TViewProduto.Create(AOwner);
   try
     frm.fAliquota := taICMS;
 
@@ -759,6 +701,10 @@ begin
 
     if frm.chkProdutoComEstoque.Checked then
       whr := whr + ' and p.Qtde > 0';
+
+    frm.FController.DAO.ClearWhere;
+    frm.FController.DAO.Where(whr);
+    frm.FController.DAO.Open;
 
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
@@ -788,10 +734,10 @@ function SelecionarProduto(const AOwner : TComponent;
   var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
   var Estoque, Reserva : Currency) : Boolean; overload;
 var
-  frm : TfrmGeProduto;
+  frm : TViewProduto;
   whr : String;
 begin
-  frm := TfrmGeProduto.Create(AOwner);
+  frm := TViewProduto.Create(AOwner);
   try
     frm.fAliquota := taICMS;
 
@@ -805,6 +751,10 @@ begin
 
     if frm.chkProdutoComEstoque.Checked then
       whr := whr + ' and p.Qtde > 0';
+
+    frm.FController.DAO.ClearWhere;
+    frm.FController.DAO.Where(whr);
+    frm.FController.DAO.Open;
 
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
@@ -835,12 +785,11 @@ end;
 
 function SelecionarProdutoParaEntrada(const AOwner : TComponent; var pProduto : TProdutoServico) : Boolean;
 var
-  frm : TfrmGeProduto;
-//  whr : String;
+  frm : TViewProduto;
   aCodigo : Integer;
   aNome   : String;
 begin
-  frm := TfrmGeProduto.Create(AOwner);
+  frm := TViewProduto.Create(AOwner);
   try
     frm.fAliquota       := taICMS;
     frm.fApenasProdutos := True;
@@ -849,12 +798,11 @@ begin
     frm.lblAliquotaTipo.Enabled := False;
     frm.dbAliquotaTipo.Enabled  := False;
 
-//    whr := '(p.arquivo_morto = 0) and (p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota)) + ')';
-//
-//    if frm.chkProdutoComEstoque.Checked then
-//      whr := whr + ' and (p.Qtde > 0)';
-//
     frm.AddWhereAdditional;
+
+    frm.FController.DAO.ClearWhere;
+    frm.FController.DAO.Where(frm.WhereAdditional);
+    frm.FController.DAO.Open;
 
     Result := frm.SelecionarRegistro(aCodigo, aNome, frm.WhereAdditional);
 
@@ -912,10 +860,9 @@ function SelecionarProdutoParaEntrada(const AOwner : TComponent;
   var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC, ValorCusto : Currency;
   var Estoque, Reserva : Currency) : Boolean; overload;
 var
-  frm : TfrmGeProduto;
-//  whr : String;
+  frm : TViewProduto;
 begin
-  frm := TfrmGeProduto.Create(AOwner);
+  frm := TViewProduto.Create(AOwner);
   try
     frm.fAliquota       := taICMS;
     frm.fApenasProdutos := True;
@@ -924,12 +871,11 @@ begin
     frm.lblAliquotaTipo.Enabled := False;
     frm.dbAliquotaTipo.Enabled  := False;
 
-//    whr := '(p.arquivo_morto = 0) and (p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota)) + ')';
-//
-//    if frm.chkProdutoComEstoque.Checked then
-//      whr := whr + ' and (p.Qtde > 0)';
-//
     frm.AddWhereAdditional;
+
+    frm.FController.DAO.ClearWhere;
+    frm.FController.DAO.Where(frm.WhereAdditional);
+    frm.FController.DAO.Open;
 
     Result := frm.SelecionarRegistro(Codigo, Nome, frm.WhereAdditional);
 
@@ -966,10 +912,10 @@ function SelecionarServicoParaEntrada(const AOwner : TComponent;
   var iUnidade, CNAE : Integer;
   var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao : Currency) : Boolean;
 var
-  frm : TfrmGeProduto;
+  frm : TViewProduto;
   whr : String;
 begin
-  frm := TfrmGeProduto.Create(AOwner);
+  frm := TViewProduto.Create(AOwner);
   try
     frm.fAliquota       := taISS;
     frm.fApenasServicos := True;
@@ -981,6 +927,10 @@ begin
     frm.dbAliquotaTipo.Enabled  := False;
 
     whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
+
+    frm.FController.DAO.ClearWhere;
+    frm.FController.DAO.Where(whr);
+    frm.FController.DAO.Open;
 
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
@@ -1011,10 +961,9 @@ function SelecionarProdutoServicoParaEntrada(const AOwner : TComponent;
   var Aliquota, AliquotaPIS, AliquotaCOFINS, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
   var Estoque, Reserva : Currency) : Boolean; overload;
 var
-  frm : TfrmGeProduto;
-  whr : String;
+  frm : TViewProduto;
 begin
-  frm := TfrmGeProduto.Create(AOwner);
+  frm := TViewProduto.Create(AOwner);
   try
     frm.fAliquota := taICMS;
 
@@ -1024,7 +973,7 @@ begin
     frm.lblAliquotaTipo.Enabled := False;
     frm.dbAliquotaTipo.Enabled  := False;
 
-    Result := frm.SelecionarRegistro(Codigo, Nome, whr);
+    Result := frm.SelecionarRegistro(Codigo, Nome);
 
     if ( Result ) then
       with frm, DtSrcTabela.DataSet do
@@ -1064,10 +1013,10 @@ function SelecionarProdutoParaCotacao(const AOwner : TComponent;
   var ValorCusto, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
   var Estoque, Reserva : Currency) : Boolean;
 var
-  frm : TfrmGeProduto;
+  frm : TViewProduto;
   whr : String;
 begin
-  frm := TfrmGeProduto.Create(AOwner);
+  frm := TViewProduto.Create(AOwner);
   try
     frm.fAliquota       := taICMS;
     frm.fApenasProdutos := True;
@@ -1113,10 +1062,10 @@ function SelecionarServicoParaCotacao(const AOwner : TComponent;
   var iUnidade, CNAE : Integer;
   var ValorCusto, ValorVenda, ValorPromocao : Currency) : Boolean;
 var
-  frm : TfrmGeProduto;
+  frm : TViewProduto;
   whr : String;
 begin
-  frm := TfrmGeProduto.Create(AOwner);
+  frm := TViewProduto.Create(AOwner);
   try
     frm.fAliquota       := taISS;
     frm.fApenasServicos := True;
@@ -1128,6 +1077,10 @@ begin
     frm.dbAliquotaTipo.Enabled  := False;
 
     whr := 'p.Aliquota_tipo = ' + IntToStr(Ord(frm.fAliquota));
+
+    frm.FController.DAO.ClearWhere;
+    frm.FController.DAO.Where(whr);
+    frm.FController.DAO.Open;
 
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
@@ -1156,10 +1109,9 @@ function SelecionarProdutoServicoParaCotacao(const AOwner : TComponent;
   var ValorCusto, ValorVenda, ValorPromocao, ValorIPI, PercentualRedBC : Currency;
   var Estoque, Reserva : Currency) : Boolean;
 var
-  frm : TfrmGeProduto;
-  whr : String;
+  frm : TViewProduto;
 begin
-  frm := TfrmGeProduto.Create(AOwner);
+  frm := TViewProduto.Create(AOwner);
   try
     frm.fAliquota := taICMS;
 
@@ -1167,7 +1119,7 @@ begin
     frm.lblAliquotaTipo.Enabled := False;
     frm.dbAliquotaTipo.Enabled  := False;
 
-    Result := frm.SelecionarRegistro(Codigo, Nome, whr);
+    Result := frm.SelecionarRegistro(Codigo, Nome);
 
     if ( Result ) then
       with frm, DtSrcTabela.DataSet do
@@ -1203,10 +1155,10 @@ function SelecionarProduto(const AOwner : TComponent;
   var CodigoAlfa, Nome, Unidade : String;
   var ValorVenda, ValorPromocao : Currency) : Boolean;
 var
-  frm : TfrmGeProduto;
+  frm : TViewProduto;
   whr : String;
 begin
-  frm := TfrmGeProduto.Create(AOwner);
+  frm := TViewProduto.Create(AOwner);
   try
     frm.fAliquota := taICMS;
 
@@ -1217,6 +1169,10 @@ begin
 
     if frm.chkProdutoComEstoque.Checked then
       whr := whr + ' and p.Qtde > 0';
+
+    frm.FController.DAO.ClearWhere;
+    frm.FController.DAO.Where(whr);
+    frm.FController.DAO.Open;
 
     Result := frm.SelecionarRegistro(Codigo, Nome, whr);
 
@@ -1233,9 +1189,17 @@ begin
   end;
 end;
 
-procedure TfrmGeProduto.FormCreate(Sender: TObject);
+procedure TViewProduto.FormCreate(Sender: TObject);
 begin
-  SetTiposProdutos;
+  FController := TControllerFactory.New.Produto;
+  FControllerTipoAliquotaView := TControllerFactory.New.TipoAliquotaView;
+  FControllerTipoProduto := TControllerFactory.New.TipoProduto;
+  FControllerEmpresaView := TControllerFactory.New.EmpresaView;
+  FControllerOrigemProdutoView := TControllerFactory.New.OrigemProdutoView;
+  FControllerTipoTributacaoNormal := TControllerFactory.New.TipoTributacao;
+  FControllerTipoTributacaoSN     := TControllerFactory.New.TipoTributacao;
+  FControllerAliquotaPISView     := TControllerFactory.New.AliquotaCOFINSView;
+  FControllerAliquotaCOFINSView  := TControllerFactory.New.AliquotaPISView;
 
   inherited;
   RotinaID         := ROTINA_CAD_PRODUTO_ID;
@@ -1256,13 +1220,6 @@ begin
   CarregarLista(tblAliquota);
   CarregarLista(qryAliquotaPIS);
   CarregarLista(qryAliquotaCOFINS);
-
-  if ( GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID ) then
-  begin
-    CarregarLista(tblCor);
-    CarregarLista(tblCombustivel);
-    CarregarLista(tblTipoVeiculo);
-  end;
 
   if (gSistema.Codigo = SISTEMA_GESTAO_IND) or (GetSegmentoID(gUsuarioLogado.Empresa) in [
         SEGMENTO_MERCADO_CARRO_ID
@@ -1322,9 +1279,105 @@ begin
 
   if (GetPermitirVendaEstoqueInsEmpresa(gUsuarioLogado.Empresa) and (gSistema.Codigo = SISTEMA_PDV)) then
     chkProdutoComEstoque.Checked := False;
+
+  Tabela
+    .Display('CODIGO',        'Código', DisplayFormatCodigo, TAlignment.taCenter, True)
+    .Display('COD',           '#', TAlignment.taCenter, True)
+    .Display('ALIQUOTA_TIPO', 'Tipo Cadastro', TAlignment.taLeftJustify, True)
+    .Display('CODBARRA_EAN',  'Código EAN', False)
+    .Display('DESCRI',        'Descrição', True)
+    .Display('APRESENTACAO',  'Apresentação', False)
+    .Display('CODTIPO',       'Tipo do Produto', True)
+    .Display('NOME_AMIGO',    'Nome amigo', False)
+    .Display('CODFABRICANTE', 'Fabricante', False)
+    .Display('ANVISA',        'Código Ansiva', (gSistema.Codigo = SISTEMA_GESTAO_OPME))
+    .Display('REFERENCIA',    'Referência', (gSistema.Codigo = SISTEMA_GESTAO_OPME))
+    .Display('MODELO',        'Modelo', False)
+    .Display('CODGRUPO',      'Grupo', True)
+    .Display('CODSECAO',      'Seção', False)
+      //  Para veículos
+//    .Display('PRECO2',  'Outros na Compra (R$)', ',0.00', TAlignment.taRightJustify, False)
+//    .Display('CUST_COMISSAO',  'Outros da Comissão (R$)', ',0.00', TAlignment.taRightJustify, False)
+//    .Display('CUST_DESP_OFIC',  'Outros de Oficina (R$)', ',0.00', TAlignment.taRightJustify, False)
+//    .Display('CUST_IMPOSTO',  'Outros de Impostos (R$)', ',0.00', TAlignment.taRightJustify, False)
+//    .Display('CUST_DESP_ADM',  'Outros Administrativo (R$)', ',0.00', TAlignment.taRightJustify, False)
+//    .Display('CUST_DESP_GERAIS',  'Outros Custo (R$)', ',0.00', TAlignment.taRightJustify, False)
+//    .Display('FI_RET_FINANC',  'Retorno Financeiadora (R$)', ',0.00', TAlignment.taRightJustify, False)
+//    .Display('FI_RET_PLANO',   'Retorno por Plano (R$)', ',0.00', TAlignment.taRightJustify, False)
+    // Valores de Venda e Custo
+    .Display('PRECO',          'Preço Venda (R$)', ',0.00', TAlignment.taRightJustify, False)
+    .Display('PRECO_PROMOCAO', 'Preço Promoção (R$)', ',0.00', TAlignment.taRightJustify, False)
+    .Display('CUSTOMEDIO',     'Custo Médio (R$)', ',0.00', TAlignment.taRightJustify, False)
+    .Display('PERCENTUAL_MARGEM',  '% Margem de Lucro', ',0.###', TAlignment.taRightJustify, False)
+    .Display('LUCRO_VALOR',        'Lucro Calculado (R$)', ',0.00', TAlignment.taRightJustify, False)
+    .Display('PRECO_SUGERIDO',     'Preço Venda Sugerido (R$)', ',0.00', TAlignment.taRightJustify, False)
+    .Display('PERCENTUAL_MARCKUP', '% Markup', ',0.###', TAlignment.taRightJustify, False)
+    // Fracionamento
+    .Display('PRECO_FRAC',          'Preço Venda Frac. (R$)', ',0.00##', TAlignment.taRightJustify, False)
+    .Display('PRECO_PROMOCAO_FRAC', 'Preço Promoção Frac. (R$)', ',0.00##', TAlignment.taRightJustify, False)
+    .Display('PRECO_SUGERIDO_FRAC', 'Preço Venda Sugerido Frac. (R$)', ',0.00##', TAlignment.taRightJustify, False)
+    // Última compra
+    .Display('ULTIMA_COMPRA_DATA',  'Data Última Compra', 'dd/mm/yyyy', TAlignment.taLeftJustify, False)
+    .Display('ULTIMA_COMPRA_VALOR', 'Valor Última Compra (R$)', ',0.00', TAlignment.taRightJustify, False)
+    // Especificações
+    .Display('PESO_BRUTO',   'Peso bruto (Kg)', ',0.###', TAlignment.taRightJustify, False)
+    .Display('PESO_LIQUIDO', 'Peso líquido (Kg)', ',0.###', TAlignment.taRightJustify, False)
+    .Display('ALTURA',       'Altura (m)', ',0.###', TAlignment.taRightJustify, False)
+    .Display('LARGURA',      'Largura (m)', ',0.###', TAlignment.taRightJustify, False)
+    .Display('ESPESSURA',    'Espessura (m)', ',0.###', TAlignment.taRightJustify, False)
+    .Display('CUBAGEM',      'Cubagem (m3)', ',0.###', TAlignment.taRightJustify, False);
+
+  AbrirTabelaAuto := True;
+
+  // Tipo de Tributação Normal
+  FControllerTipoTributacaoNormal.DAO.ClearWhere;
+  FControllerTipoTributacaoNormal
+    .DAO
+    .Where('coalesce(t.obrigar_cest, 0) = 0')
+    .Where('t.Crt = 0')
+    .Open;
+
+  // Tipo de Tributação Simples Nacional
+  FControllerTipoTributacaoSN.DAO.ClearWhere;
+  FControllerTipoTributacaoSN
+    .DAO
+    .Where('coalesce(t.obrigar_cest, 0) = 0')
+    .Where('t.Crt = 1')
+    .Open;
+
+  // Configurando os campos de listagem (LookupComboBox)
+  TController(FControllerTipoAliquotaView)
+    .LookupComboBox(dbTipoCadastro, dtsAliquota, 'aliquota_tipo', 'codigo', 'tipo');
+  TController(FControllerTipoAliquotaView)
+    .LookupComboBox(dbAliquotaTipo, dtsAliquota, 'aliquota_tipo', 'codigo', 'descricao');
+  TController(FControllerTipoProduto)
+    .LookupComboBox(dbTipoProduto, dtsTipoProduto, 'codtipo', 'codigo', 'descricao');
+  TController(FControllerEmpresaView)
+    .LookupComboBox(dbEmpresa, dtsEmpresa, 'codemp', 'cnpj', 'razao');
+  TController(FControllerOrigemProdutoView)
+    .LookupComboBox(dbOrigem, dtsOrigem, 'codorigem', 'orp_cod', 'orp_descricao_full');
+  TController(FControllerTipoTributacaoNormal)
+    .LookupComboBox(dbTipoTributacaoNM, dtsTributacaoNM, 'codtributacao', 'Tpt_cod', 'Tpt_descricao_full');
+  TController(FControllerTipoTributacaoSN)
+    .LookupComboBox(dbTipoTributacaoSN, dtsTributacaoSN, 'csosn', 'Tpt_cod', 'Tpt_descricao_full');
+  TController(FControllerAliquotaPISView)
+    .LookupComboBox(dbCSTPIS, dtsAliquotaPIS, 'cst_pis', 'codigo', 'descricao_full');
+  TController(FControllerAliquotaCOFINSView)
+    .LookupComboBox(dbCSTCOFINS, dtsAliquotaCOFINS, 'cst_cofins', 'codigo', 'descricao_full');
+
+  if ((FControllerEmpresaView as IControllerEmpresa).GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID) then
+  begin
+    FControllerTipoVeiculo := TControllerFactory.New.TipoVeiculo;
+
+    CarregarLista(tblCor);
+    CarregarLista(tblCombustivel);
+
+    TController(FControllerTipoVeiculo)
+      .LookupComboBox(dbTipoVeiculo, dtsTipoVeiculo, 'tipo_veiculo', 'codigo', 'descricao');
+  end;
 end;
 
-procedure TfrmGeProduto.dbGrupoButtonClick(Sender: TObject);
+procedure TViewProduto.dbGrupoButtonClick(Sender: TObject);
 var
   iCodigo    : Integer;
   sDescricao : String;
@@ -1337,7 +1390,7 @@ begin
     end;
 end;
 
-procedure TfrmGeProduto.dbNCM_SHButtonClick(Sender: TObject);
+procedure TViewProduto.dbNCM_SHButtonClick(Sender: TObject);
 var
   iCodigo    : Integer;
   sCodigo    ,
@@ -1357,7 +1410,7 @@ begin
     end;
 end;
 
-procedure TfrmGeProduto.dbProdutoMovEstoqueClick(Sender: TObject);
+procedure TViewProduto.dbProdutoMovEstoqueClick(Sender: TObject);
 begin
   if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
     if Assigned(dbProdutoPorLote.Field) then
@@ -1365,7 +1418,7 @@ begin
         dbProdutoPorLote.Field.AsInteger := 0;
 end;
 
-procedure TfrmGeProduto.dbSecaoButtonClick(Sender: TObject);
+procedure TViewProduto.dbSecaoButtonClick(Sender: TObject);
 var
   iCodigo    : Integer;
   sDescricao : String;
@@ -1379,7 +1432,7 @@ begin
     end;
 end;
 
-procedure TfrmGeProduto.dbUnidadeButtonClick(Sender: TObject);
+procedure TViewProduto.dbUnidadeButtonClick(Sender: TObject);
 var
   iCodigo    : Integer;
   sDescricao,
@@ -1405,7 +1458,7 @@ begin
   end;
 end;
 
-procedure TfrmGeProduto.dbCFOPButtonClick(Sender: TObject);
+procedure TViewProduto.dbCFOPButtonClick(Sender: TObject);
 var
   iCodigo    : Integer;
   sDescricao : String;
@@ -1418,7 +1471,7 @@ begin
     end;
 end;
 
-procedure TfrmGeProduto.OcultarTipoProduto;
+procedure TViewProduto.OcultarTipoProduto;
 begin
   // Ocultar campo "Tipo Produto"
   lblTipoProduto.Visible := False;
@@ -1440,7 +1493,7 @@ begin
 //  dbSecao.Width := 322;
 end;
 
-procedure TfrmGeProduto.FormShow(Sender: TObject);
+procedure TViewProduto.FormShow(Sender: TObject);
 var
   S : String;
 begin
@@ -1495,14 +1548,14 @@ begin
   end;
 end;
 
-procedure TfrmGeProduto.DtSrcTabelaStateChange(Sender: TObject);
+procedure TViewProduto.DtSrcTabelaStateChange(Sender: TObject);
 begin
   inherited;
   if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
     pgcMaisDados.ActivePageIndex := 0;
 end;
 
-procedure TfrmGeProduto.fdQryTabelaBeforePost(DataSet: TDataSet);
+procedure TViewProduto.fdQryTabelaBeforePost(DataSet: TDataSet);
 begin
   with DtSrcTabela.DataSet do
   begin
@@ -1595,7 +1648,7 @@ begin
   end;
 end;
 
-procedure TfrmGeProduto.fdQryTabelaNewRecord(DataSet: TDataSet);
+procedure TViewProduto.fdQryTabelaNewRecord(DataSet: TDataSet);
 begin
   inherited;
   with DtSrcTabela.DataSet do
@@ -1687,7 +1740,7 @@ begin
   end;
 end;
 
-procedure TfrmGeProduto.FormActivate(Sender: TObject);
+procedure TViewProduto.FormActivate(Sender: TObject);
 begin
   inherited;
   {$IFDEF DGE}
@@ -1737,7 +1790,7 @@ begin
     and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
 end;
 
-procedure TfrmGeProduto.dbgDadosDrawColumnCell(Sender: TObject;
+procedure TViewProduto.dbgDadosDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn;
   State: TGridDrawState);
 begin
@@ -1776,7 +1829,7 @@ begin
   dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
 end;
 
-procedure TfrmGeProduto.dbFabricanteButtonClick(Sender: TObject);
+procedure TViewProduto.dbFabricanteButtonClick(Sender: TObject);
 var
   iCodigo : Integer;
   sNome   : String;
@@ -1789,7 +1842,7 @@ begin
     end;
 end;
 
-procedure TfrmGeProduto.FormKeyDown(Sender: TObject; var Key: Word;
+procedure TViewProduto.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if Key = VK_RETURN then
@@ -1869,13 +1922,13 @@ begin
 
 end;
 
-procedure TfrmGeProduto.chkProdutoComEstoqueClick(Sender: TObject);
+procedure TViewProduto.chkProdutoComEstoqueClick(Sender: TObject);
 begin
   if ( Showing and (pgcGuias.ActivePage = tbsTabela) and (edtFiltrar.Visible and edtFiltrar.Enabled) ) then
     edtFiltrar.SetFocus;
 end;
 
-procedure TfrmGeProduto.ConfigurarLabels;
+procedure TViewProduto.ConfigurarLabels;
 begin
   with DtSrcTabela.DataSet do
   begin
@@ -1906,7 +1959,7 @@ begin
   end;
 end;
 
-procedure TfrmGeProduto.ControleCampos;
+procedure TViewProduto.ControleCampos;
 begin
   with DtSrcTabela.DataSet do
   begin
@@ -1935,7 +1988,7 @@ begin
   end;
 end;
 
-procedure TfrmGeProduto.btnFiltrarClick(Sender: TObject);
+procedure TViewProduto.btnFiltrarClick(Sender: TObject);
 begin
 //  if not GetEstoqueUnificadoEmpresa(gUsuarioLogado.Empresa) then
 //    WhereAdditional := '(p.codemp = ' + QuotedStr(gUsuarioLogado.Empresa) + ')'
@@ -1957,7 +2010,7 @@ begin
   FiltarDados(CmbBxFiltrarTipo.ItemIndex);
 end;
 
-procedure TfrmGeProduto.DtSrcTabelaDataChange(Sender: TObject;
+procedure TViewProduto.DtSrcTabelaDataChange(Sender: TObject;
   Field: TField);
 var
   cAliquotaIss   ,
@@ -2031,7 +2084,7 @@ begin
     end;
 end;
 
-procedure TfrmGeProduto.FiltarDados(const iTipoPesquisa : Integer);
+procedure TViewProduto.FiltarDados(const iTipoPesquisa : Integer);
 begin
   try
 
@@ -2119,7 +2172,7 @@ begin
   end;
 end;
 
-procedure TfrmGeProduto.dbUnidadeFracaoButtonClick(Sender: TObject);
+procedure TViewProduto.dbUnidadeFracaoButtonClick(Sender: TObject);
 var
   iCodigo    : Integer;
   sDescricao,
@@ -2135,7 +2188,7 @@ begin
       end;
 end;
 
-procedure TfrmGeProduto.btbtnSalvarClick(Sender: TObject);
+procedure TViewProduto.btbtnSalvarClick(Sender: TObject);
 begin
   // Validações de Dados
 
@@ -2206,14 +2259,14 @@ begin
   inherited;
 end;
 
-procedure TfrmGeProduto.pgcGuiasChange(Sender: TObject);
+procedure TViewProduto.pgcGuiasChange(Sender: TObject);
 begin
   inherited;
   ControleCampos;
   ConfigurarLabels;
 end;
 
-procedure TfrmGeProduto.ppMnAtualizarMetafonemaClick(Sender: TObject);
+procedure TViewProduto.ppMnAtualizarMetafonemaClick(Sender: TObject);
 var
   sUpdate : String;
 begin
@@ -2247,7 +2300,7 @@ begin
   end;
 end;
 
-procedure TfrmGeProduto.ppMnAtualizarNomeAmigoClick(Sender: TObject);
+procedure TViewProduto.ppMnAtualizarNomeAmigoClick(Sender: TObject);
 var
   sUpdate    ,
   sNomeAmigo : String;
@@ -2289,7 +2342,7 @@ begin
   end;
 end;
 
-procedure TfrmGeProduto.ppMnAtualizarTabelaIBPTClick(Sender: TObject);
+procedure TViewProduto.ppMnAtualizarTabelaIBPTClick(Sender: TObject);
 var
   iCodigoNCM : Integer;
   sCodigoNCM ,
@@ -2331,7 +2384,7 @@ begin
   end;
 end;
 
-procedure TfrmGeProduto.AddWhereAdditional;
+procedure TViewProduto.AddWhereAdditional;
 var
   sWhr : String;
 begin
@@ -2356,35 +2409,35 @@ begin
   WhereAdditional := '(' + sWhr + ')';
 end;
 
-procedure TfrmGeProduto.btbtnIncluirClick(Sender: TObject);
+procedure TViewProduto.btbtnIncluirClick(Sender: TObject);
 begin
   inherited;
   if not OcorreuErro then
     ControleCampos;
 end;
 
-procedure TfrmGeProduto.btbtnAlterarClick(Sender: TObject);
+procedure TViewProduto.btbtnAlterarClick(Sender: TObject);
 begin
   inherited;
   if not OcorreuErro then
     ControleCampos;
 end;
 
-procedure TfrmGeProduto.btbtnCancelarClick(Sender: TObject);
+procedure TViewProduto.btbtnCancelarClick(Sender: TObject);
 begin
   inherited;
   if not OcorreuErro then
     ControleCampos;
 end;
 
-procedure TfrmGeProduto.btbtnExcluirClick(Sender: TObject);
+procedure TViewProduto.btbtnExcluirClick(Sender: TObject);
 begin
   inherited;
   if not OcorreuErro then
     ControleCampos;
 end;
 
-procedure TfrmGeProduto.btbtnListaClick(Sender: TObject);
+procedure TViewProduto.btbtnListaClick(Sender: TObject);
 begin
   inherited;
   ppImprimir.Popup(btbtnLista.ClientOrigin.X, btbtnLista.ClientOrigin.Y + btbtnLista.Height);

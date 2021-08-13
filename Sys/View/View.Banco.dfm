@@ -84,10 +84,10 @@ inherited ViewBanco: TViewBanco
             Width = 233
             ExplicitLeft = 60
             ExplicitWidth = 233
-            ExplicitHeight = 23
           end
           inherited btnFiltrar: TcxButton
             Left = 299
+            ExplicitLeft = 299
           end
         end
       end
@@ -1472,41 +1472,11 @@ inherited ViewBanco: TViewBanco
     OnDataChange = DtSrcTabelaDataChange
   end
   object dtsEmpresa: TDataSource
-    DataSet = fdQryEmpresa
-    Left = 672
-    Top = 104
+    Left = 656
+    Top = 8
   end
   object dtsLayout: TDataSource
-    DataSet = fdQryLayout
-    Left = 672
-    Top = 152
-  end
-  object fdQryEmpresa: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    e.cnpj'
-      '  , e.codigo'
-      '  , e.razao'
-      '  , e.fantasia'
-      'from VW_EMPRESA e'
-      'order by'
-      '    e.razao')
-    Left = 640
-    Top = 104
-  end
-  object fdQryLayout: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    v.codigo'
-      '  , v.descricao'
-      'from VW_LAYOUT_REM_RET_BANCO v')
-    Left = 640
-    Top = 152
+    Left = 688
+    Top = 8
   end
 end

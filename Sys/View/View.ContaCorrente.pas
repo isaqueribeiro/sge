@@ -94,7 +94,7 @@ uses
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper,
-  UGeBancos;
+  View.Banco;
 
 {$R *.dfm}
 

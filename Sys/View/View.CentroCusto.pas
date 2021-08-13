@@ -83,6 +83,7 @@ type
     procedure GravarRelacaoCentroCustoEmpresa;
 
     function EmpresaSelecionada : Boolean;
+    function Controller : IControllerCentroCusto;
   public
     { Public declarations }
   end;
@@ -157,6 +158,8 @@ procedure TViewCentroCusto.FormCreate(Sender: TObject);
 begin
   FController := TControllerFactory.New.CentroCusto;
   FControllerCentroCustoEmpresa := TControllerFactory.New.CentroCustoEmpresa;
+
+  Controller.SetCentroCustoGeral(gUsuarioLogado.Empresa);
 
   inherited;
   RotinaID         := ROTINA_CAD_CENTRO_CUSTO_ID;
@@ -405,6 +408,11 @@ begin
       0 : Text := '.';
       1 : Text := 'X';
     end;
+end;
+
+function TViewCentroCusto.Controller: IControllerCentroCusto;
+begin
+  Result := (FController as IControllerCentroCusto);
 end;
 
 procedure TViewCentroCusto.dbgEmpresaListaKeyDown(Sender: TObject;

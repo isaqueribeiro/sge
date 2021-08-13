@@ -47,9 +47,7 @@ uses
   UCliente,
   UGrPadraoCadastro,
   Interacao.Tabela,
-  Controller.Tabela, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
-  IBX.IBCustomDataSet, IBX.IBUpdateSQL;
+  Controller.Tabela;
 
 type
   TViewBanco = class(TViewPadraoCadastro)
@@ -107,16 +105,16 @@ type
     lblLayoutRetorno: TLabel;
     dbLayoutRetorno: TDBLookupComboBox;
     dbInstrucao: TDBComboBox;
-    fdQryEmpresa: TFDQuery;
-    fdQryLayout: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure imgAjudaClick(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure btnFiltrarClick(Sender: TObject);
-    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
-    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
+    procedure btbtnIncluirClick(Sender: TObject);
+    procedure btbtnSalvarClick(Sender: TObject);
   private
     { Private declarations }
+    FControllerEmpresaView,
+    FControllerLayoutRemessaBancoView : IControllerCustom;
   public
     { Public declarations }
   end;
@@ -144,15 +142,20 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, UFuncoes;
+  System.IOUtils,
+  UDMBusiness,
+  UConstantesDGE,
+  SGE.Controller.Factory,
+  SGE.Controller,
+  SGE.Controller.Helper;
 
 {$R *.dfm}
 
 procedure MostrarTabelaBancos(const AOwner : TComponent);
 var
-  frm : TfrmGeBancos;
+  frm : TViewBanco;
 begin
-  frm := TfrmGeBancos.Create(AOwner);
+  frm := TViewBanco.Create(AOwner);
   try
     frm.ShowModal;
   finally
@@ -162,12 +165,18 @@ end;
 
 function SelecionarBanco(const AOwner : TComponent; var Codigo : Integer; var Nome : String) : Boolean;
 var
-  frm : TfrmGeBancos;
+  frm : TViewBanco;
 begin
-  frm := TfrmGeBancos.Create(AOwner);
+  frm := TViewBanco.Create(AOwner);
   try
-    // frm.WhereAdditional := '(b.Empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
-    Result := frm.SelecionarRegistro(Codigo, Nome);
+    frm.WhereAdditional :=
+      '(b.empresa in ( ' +
+      '  Select      ' +
+      '    e.cnpj    ' +
+      '  from VW_EMPRESA e ' +
+      '))';
+
+    Result := frm.SelecionarRegistro(Codigo, Nome, frm.WhereAdditional);
   finally
     frm.Destroy;
   end;
@@ -176,12 +185,18 @@ end;
 function SelecionarBanco(const AOwner : TComponent;
   var CodigoUnico, Codigo : Integer; var Nome, Agencia, Conta, Empresa : String) : Boolean; overload;
 var
-  frm : TfrmGeBancos;
+  frm : TViewBanco;
 begin
-  frm := TfrmGeBancos.Create(AOwner);
+  frm := TViewBanco.Create(AOwner);
   try
-    // frm.WhereAdditional := '(b.Empresa = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
-    Result := frm.SelecionarRegistro(Codigo, Nome);
+    frm.WhereAdditional :=
+      '(b.empresa in ( ' +
+      '  Select      ' +
+      '    e.cnpj    ' +
+      '  from VW_EMPRESA e ' +
+      '))';
+
+    Result := frm.SelecionarRegistro(Codigo, Nome, frm.WhereAdditional);
     if ( Result ) then
       with frm.DtSrcTabela.DataSet do
       begin
@@ -193,6 +208,62 @@ begin
   finally
     frm.Destroy;
   end;
+end;
+
+procedure TViewBanco.btbtnIncluirClick(Sender: TObject);
+begin
+  inherited;
+  if (not OcorreuErro) then
+    with DtSrcTabela.DataSet do
+    begin
+      FieldByName('BCO_DIRETORIO_REMESSA').AsString := TPath.Combine(TPath.GetDocumentsPath, 'Banco\Remessa\');
+      FieldByName('BCO_DIRETORIO_RETORNO').AsString := TPath.Combine(TPath.GetDocumentsPath, 'Banco\Retorno\');
+    end;
+end;
+
+procedure TViewBanco.btbtnSalvarClick(Sender: TObject);
+var
+  aBanco : ICOntrollerCustom;
+begin
+  aBanco := TControllerFactory.New.BancoFebrabanView;
+  aBanco.DAO.Open;
+
+  if (not aBanco.DAO.DataSet.Locate('codigo', FormatFloat('000', DtSrcTabela.DataSet.FieldByName('bco_cod').AsInteger), [])) then
+  begin
+    ShowWarning('', 'O código informado é inválido para a tabela FEBRABAN');
+    Abort;
+  end;
+
+  with DtSrcTabela.DataSet do
+  begin
+    if (State in [dsEdit, dsInsert]) then
+    begin
+      FieldByName('BCO_CODIGO_CEDENTE').Required := (FieldByName('BCO_GERAR_BOLETO').AsInteger = 1);
+      FieldByName('BCO_CHAVE').Required          := (FieldByName('BCO_GERAR_BOLETO').AsInteger = 1);
+      FieldByName('BCO_CARTEIRA').Required       := (FieldByName('BCO_GERAR_BOLETO').AsInteger = 1);
+
+      FieldByName('BCO_DIRETORIO_REMESSA').AsString := Trim(FieldByName('BCO_DIRETORIO_REMESSA').AsString);
+      FieldByName('BCO_DIRETORIO_RETORNO').AsString := Trim(FieldByName('BCO_DIRETORIO_RETORNO').AsString);
+
+      if (FieldByName('BCO_DIRETORIO_REMESSA').AsString = EmptyStr) then
+        FieldByName('BCO_DIRETORIO_REMESSA').AsString := TPath.Combine(TPath.GetDocumentsPath, 'Banco\Remessa\');
+
+      if (FieldByName('BCO_DIRETORIO_RETORNO').AsString = EmptyStr) then
+        FieldByName('BCO_DIRETORIO_RETORNO').AsString := TPath.Combine(TPath.GetDocumentsPath, 'Banco\Retorno\');
+
+      if (Copy(FieldByName('BCO_DIRETORIO_REMESSA').AsString, Length(FieldByName('BCO_DIRETORIO_REMESSA').AsString), 1) <> '\') then
+        FieldByName('BCO_DIRETORIO_REMESSA').AsString := FieldByName('BCO_DIRETORIO_REMESSA').AsString + '\';
+
+      if (Copy(FieldByName('BCO_DIRETORIO_RETORNO').AsString, Length(FieldByName('BCO_DIRETORIO_RETORNO').AsString), 1) <> '\') then
+        FieldByName('BCO_DIRETORIO_RETORNO').AsString := FieldByName('BCO_DIRETORIO_RETORNO').AsString + '\';
+
+
+      ForceDirectories(FieldByName('BCO_DIRETORIO_REMESSA').AsString);
+      ForceDirectories(FieldByName('BCO_DIRETORIO_RETORNO').AsString);
+    end;
+  end;
+
+  inherited;
 end;
 
 procedure TViewBanco.btnFiltrarClick(Sender: TObject);
@@ -220,91 +291,42 @@ begin
   end;
 end;
 
-procedure TViewBanco.fdQryTabelaBeforePost(DataSet: TDataSet);
-begin
-  try
-    // Normalizando diretório de remessa
-    with DtSrcTabela.DataSet do
-    begin
-      FieldByName('BCO_DIRETORIO_REMESSA').AsString := Trim(FieldByName('BCO_DIRETORIO_REMESSA').AsString);
-
-      if ( FieldByName('BCO_DIRETORIO_REMESSA').AsString = EmptyStr ) then
-        FieldByName('BCO_DIRETORIO_REMESSA').AsString  := Path_MeusDocumentos + '\Banco\Remessa\';
-
-      if ( Copy(FieldByName('BCO_DIRETORIO_REMESSA').AsString, Length(FieldByName('BCO_DIRETORIO_REMESSA').AsString), 1) <> '\' ) then
-        FieldByName('BCO_DIRETORIO_REMESSA').AsString := FieldByName('BCO_DIRETORIO_REMESSA').AsString + '\';
-
-      ForceDirectories(FieldByName('BCO_DIRETORIO_REMESSA').AsString);
-
-      // Normalizando diretório de retorno
-
-      FieldByName('BCO_DIRETORIO_RETORNO').AsString := Trim(FieldByName('BCO_DIRETORIO_RETORNO').AsString);
-
-      if ( FieldByName('BCO_DIRETORIO_RETORNO').AsString = EmptyStr ) then
-        FieldByName('BCO_DIRETORIO_RETORNO').AsString  := Path_MeusDocumentos + '\Banco\Retorno\';
-
-      if ( Copy(FieldByName('BCO_DIRETORIO_RETORNO').AsString, Length(FieldByName('BCO_DIRETORIO_RETORNO').AsString), 1) <> '\' ) then
-        FieldByName('BCO_DIRETORIO_RETORNO').AsString := FieldByName('BCO_DIRETORIO_RETORNO').AsString + '\';
-
-      ForceDirectories(FieldByName('BCO_DIRETORIO_RETORNO').AsString);
-    end;
-
-    inherited;
-  except
-    On E : Exception do
-    begin
-      Application.MessageBox(PChar('Erro ao tentar salvar configurações de diretórios de arquivos.' + #13 + E.Message), 'Erro', MB_ICONERROR);
-      Abort;
-    end;
-  end;
-end;
-
-procedure TViewBanco.fdQryTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  with DtSrcTabela.DataSet do
-  begin
-    FieldByName('BCO_CODIGO').AsInteger           := GetNextID(NomeTabela, 'BCO_CODIGO'); // Código interno de controle
-    FieldByName('EMPRESA').AsString               := gUsuarioLogado.Empresa;
-    FieldByName('BCO_GERAR_BOLETO').AsInteger     := 0;
-    FieldByName('BCO_NOSSO_NUM_INICIO').AsString  := FormatFloat('0000000', 1);
-    FieldByName('BCO_NOSSO_NUM_FINAL').AsString   := FormatFloat('0000000', 999999);
-    FieldByName('BCO_NOSSO_NUM_PROXIMO').AsString := FormatFloat('0000000', 1);
-    FieldByName('BCO_SEQUENCIAL_REM').AsInteger   := 1;
-    FieldByName('BCO_CODIGO_CEDENTE').Clear;
-
-    FieldByName('BCO_DIRETORIO_REMESSA').AsString  := Path_MeusDocumentos + '\Banco\Remessa\';
-    FieldByName('BCO_DIRETORIO_RETORNO').AsString  := Path_MeusDocumentos + '\Banco\Retorno\';
-
-    FieldByName('BCO_LAYOUT_REMESSA').AsInteger    := 400; // cnab400
-    FieldByName('BCO_LAYOUT_RETORNO').AsInteger    := 400; // cnab400
-    FieldByName('BCO_PERCENTUAL_JUROS').AsCurrency := 0.0;
-    FieldByName('BCO_PERCENTUAL_MORA').AsCurrency  := 0.0;
-    FieldByName('BCO_DIA_PROTESTO').AsInteger      := 0;
-    FieldByName('BCO_MSG_INSTRUCAO').AsString      := 'Não receber pagamento após o vencimento.';
-  end;
-end;
-
 procedure TViewBanco.FormCreate(Sender: TObject);
 begin
+  FController := TControllerFactory.New.Banco;
+  FControllerEmpresaView := TControllerFactory.New.EmpresaView;
+  FControllerLayoutRemessaBancoView := TControllerFactory.New.LayoutRemessaBancoView;
+
   inherited;
   RotinaID         := ROTINA_CAD_BANCO_ID;
   ControlFirstEdit := dbCodigo;
 
-  DisplayFormatCodigo := '0000';
+  DisplayFormatCodigo := '000';
   NomeTabela     := 'TBBANCO_BOLETO';
   CampoCodigo    := 'b.bco_cod';
   CampoDescricao := 'b.bco_nome';
   CampoOrdenacao := 'b.bco_nome';
 
   Tabela
-    .Display('bco_cod', 'Código', '0000', TAlignment.taCenter)
-    .Display('BCO_PERCENTUAL_JUROS', '% Multa', ',0.00', TAlignment.taRightJustify)
-    .Display('BCO_PERCENTUAL_MORA',  '% Mora Mês', ',0.00', TAlignment.taRightJustify)
-    .Configurar( fdQryTabela );
+    .Display('bco_cod',     'Código', DisplayFormatCodigo, TAlignment.taCenter, True)
+    .Display('BCO_NOME',    'Nome', True)
+    .Display('BCO_AGENCIA', 'Agência', True)
+    .Display('BCO_CC',      'C/C', True)
+    .Display('BCO_CODIGO_CEDENTE', 'Código do Cedente', False)
+    .Display('BCO_CHAVE',    'Convênvio/Contrato', False)
+    .Display('BCO_CARTEIRA', 'Carteira', False)
+    .Display('BCO_PERCENTUAL_JUROS', '% Multa', ',0.00', TAlignment.taRightJustify, True)
+    .Display('BCO_PERCENTUAL_MORA',  '% Mora Mês', ',0.00', TAlignment.taRightJustify, True);
 
-  CarregarLista(fdQryEmpresa);
-  CarregarLista(fdQryLayout);
+
+  AbrirTabelaAuto := True;
+
+  TController(FControllerEmpresaView)
+    .LookupComboBox(dbEmpresa, dtsEmpresa, 'empresa', 'cnpj', 'razao');
+  TController(FControllerLayoutRemessaBancoView)
+    .LookupComboBox(dbLayoutRemessa, dtsLayout, 'bco_layout_remessa', 'codigo', 'descricao');
+  TController(FControllerLayoutRemessaBancoView)
+    .LookupComboBox(dbLayoutRemessa, dtsLayout, 'bco_layout_retorno', 'codigo', 'descricao');
 end;
 
 procedure TViewBanco.imgAjudaClick(Sender: TObject);
@@ -313,9 +335,9 @@ var
 begin
   sMsg := 'Informações importantes para a geração de boletos.' + #13 +
     '---' + #13#13 +
-    '1. Para alguns bancos o "Código da Empresa" informado por eles é o mesmo "Código do Cedente" solicitado pela aplicação.' + #13 +
-    '2. O código da Agência deve ser informada com o dígito. Ex: 1232-1' + #13 +
-    '3. A Conta Corrente (C/C) deverá ser informanda fundamentalmente com o seu dígito. Ex: 06598-7' + #13 +
+    '1. Para alguns bancos o "Código da Empresa" informado por eles é o mesmo "Código do Cedente" solicitado pela aplicação.' + #13#13 +
+    '2. O código da Agência deve ser informada com o dígito. Ex: 1232-1' + #13#13 +
+    '3. A Conta Corrente (C/C) deverá ser informanda fundamentalmente com o seu dígito. Ex: 06598-7' + #13#13 +
     '4. Para determinados bancos o Código do Cedente é o mesmo número de Conta Corrente.';
 
   ShowInformation(Self.Caption, sMsg);

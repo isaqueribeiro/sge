@@ -30,13 +30,15 @@ type
   end;
 
   // View
-  TControllerEmpresaView = class(TController, IControllerCustom)
+  TControllerEmpresaView = class(TController, IControllerEmpresa)
     private
     protected
       constructor Create;
     public
       destructor Destroy; override;
-      class function New : IControllerCustom;
+      class function New : IControllerEmpresa;
+
+      function GetSegmentoID(aCNPJ : String) : Integer;
   end;
 
 implementation
@@ -87,7 +89,18 @@ begin
   inherited;
 end;
 
-class function TControllerEmpresaView.New: IControllerCustom;
+function TControllerEmpresaView.GetSegmentoID(aCNPJ: String): Integer;
+begin
+  Result := 0;
+
+  if not FDAO.DataSet.Active then
+    FDAO.Open;
+
+  if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
+    Result := FDAO.DataSet.FieldByName('segmento').AsInteger;
+end;
+
+class function TControllerEmpresaView.New: IControllerEmpresa;
 begin
   Result := Self.Create;
 end;

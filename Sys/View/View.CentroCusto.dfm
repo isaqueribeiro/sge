@@ -216,10 +216,6 @@ inherited ViewCentroCusto: TViewCentroCusto
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitLeft = 352
-        ExplicitTop = 216
-        ExplicitWidth = 185
-        ExplicitHeight = 41
         object dbgEmpresaLista: TDBGrid
           Left = 0
           Top = 0
@@ -280,7 +276,7 @@ inherited ViewCentroCusto: TViewCentroCusto
             Left = 3
             Top = 3
             Width = 33
-            Height = 13
+            Height = 19
             Align = alLeft
             Caption = 'Dica : '
             Font.Charset = ANSI_CHARSET
@@ -290,13 +286,14 @@ inherited ViewCentroCusto: TViewCentroCusto
             Font.Style = [fsBold]
             ParentFont = False
             Transparent = True
+            ExplicitHeight = 13
           end
           object lblDicasTexto: TLabel
             AlignWithMargins = True
             Left = 42
             Top = 3
-            Width = 439
-            Height = 13
+            Width = 676
+            Height = 19
             Align = alClient
             Caption = 
               'Pressione a tecla "Espa'#231'o" para marcar ou desmarcar a Empresa se' +
@@ -309,6 +306,8 @@ inherited ViewCentroCusto: TViewCentroCusto
             ParentFont = False
             Transparent = True
             WordWrap = True
+            ExplicitWidth = 439
+            ExplicitHeight = 13
           end
         end
       end

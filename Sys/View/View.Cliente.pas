@@ -525,7 +525,8 @@ begin
 
   inherited;
 
-  SetGruposFornecedores;
+  // Forçar a criação dos registros padrões de grupos de fornecedores
+  TControllerFactory.New.GrupoFornecedor.DAO.OpenEmpty;
 
   aEstoqueSateliteEmpresa := GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa);
   aEstoqueSateliteCliente := GetPermissaoRotinaInterna(tbsEstoqueSatelite, False);

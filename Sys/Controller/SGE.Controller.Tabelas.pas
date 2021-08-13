@@ -79,6 +79,46 @@ type
       class function New : IControllerCustom;
   end;
 
+  // Tipo de Alíquota (View)
+  TControllerTipoAliquotaView = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
+  // Tipo de Tributação
+  TControllerTipoTributacao = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
+  // Alíquota PIS (View)
+  TControllerAliquotaPISView = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
+  // Alíquota COFINS (View)
+  TControllerAliquotaCOFINSView = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
 implementation
 
 { TControllerSegmento }
@@ -196,6 +236,74 @@ begin
 end;
 
 class function TControllerLayoutRemessaBancoView.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerTipoAliquotaView }
+
+constructor TControllerTipoAliquotaView.Create;
+begin
+  inherited Create(TModelDAOFactory.New.TipoAliquotaView);
+end;
+
+destructor TControllerTipoAliquotaView.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerTipoAliquotaView.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerTipoTributacao }
+
+constructor TControllerTipoTributacao.Create;
+begin
+  inherited Create(TModelDAOFactory.New.TipoTributacao);
+end;
+
+destructor TControllerTipoTributacao.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerTipoTributacao.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerAliquotaPISView }
+
+constructor TControllerAliquotaPISView.Create;
+begin
+  inherited Create(TModelDAOFactory.New.AliquotaPISView);
+end;
+
+destructor TControllerAliquotaPISView.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerAliquotaPISView.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerAliquotaCOFINSView }
+
+constructor TControllerAliquotaCOFINSView.Create;
+begin
+  inherited Create(TModelDAOFactory.New.AliquotaCOFINSView);
+end;
+
+destructor TControllerAliquotaCOFINSView.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerAliquotaCOFINSView.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

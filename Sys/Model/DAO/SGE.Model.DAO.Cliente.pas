@@ -203,8 +203,8 @@ begin
     if FieldByName('DTCAD').IsNull then
       FieldByName('DTCAD').AsDateTime := Now;
 
-//    if (Trim(FieldByName('USUARIO').AsString) = EmptyStr) then
-//      FieldByName('USUARIO').AsString := gUsuarioLogado.Login;
+    if (Trim(FieldByName('USUARIO').AsString) = EmptyStr) then
+      FieldByName('USUARIO').AsString := Usuario.Login;
 
     if (Trim(FieldByName('BANCO').AsString) = EmptyStr) then
       FieldByName('BANCO').Clear;

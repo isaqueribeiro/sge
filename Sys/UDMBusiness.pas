@@ -262,13 +262,8 @@ var
   procedure SetAtulizarCustoEstoqueAlmoxarifado(const aData : TDateTime);
   procedure SetAtulizarCustoEstoqueRequisicao(const aData : TDateTime);
   procedure SetAtulizarCustoEstoqueInventario(const aData : TDateTime);
-  procedure SetCentroCustoGeral(const aEmpresa : String);
-  procedure SetTipoProduto(const iCodigo : Integer; const sDescricao : String);
-  procedure SetGrupoFornecedor(const iCodigo : Integer; const sDescricao : String);
   procedure SetAtualizarSaldoContasAPagar(const aEmpresa : String);
   procedure SetAtualizarSaldoContasAReceber(const aEmpresa : String);
-  procedure SetTiposProdutos;
-  procedure SetGruposFornecedores;
 
   procedure CarregarListaDB(const pDataSet : TDataSet);
 
@@ -2070,75 +2065,6 @@ begin
   end;
 end;
 
-procedure SetCentroCustoGeral(const aEmpresa : String);
-begin
-  Screen.Cursor := crSQLWait;
-  try
-    with DMBusiness, fdQryBusca do
-    begin
-      Close;
-      SQL.Clear;
-      SQL.Add('');
-      SQL.Add('execute block');
-      SQL.Add('as');
-      SQL.Add('  declare variable cc Integer;');
-      SQL.Add('  declare variable ep varchar(18);');
-      SQL.Add('begin');
-      SQL.Add('  cc = ' + IntToStr(CENTRO_CUSTO_ESTOQUE_GERAL) + ';');
-      SQL.Add('  ep = ' + QuotedStr(aEmpresa) + '; ');
-
-      SQL.Add('  /* Cadastrar Centro de Custo 1 */');
-
-      SQL.Add('  if (not exists(');
-      SQL.Add('    Select');
-      SQL.Add('      c.descricao');
-      SQL.Add('    from TBCENTRO_CUSTO c');
-      SQL.Add('    where c.codigo = :cc');
-      SQL.Add('  )) then');
-      SQL.Add('  begin');
-      SQL.Add('    Insert into TBCENTRO_CUSTO (');
-      SQL.Add('        codigo     ');
-      SQL.Add('      , descricao  ');
-      SQL.Add('      , ativo      ');
-      SQL.Add('      , codcliente ');
-      SQL.Add('    ) values (');
-      SQL.Add('        :cc');
-      SQL.Add('      , ' + QuotedStr(CENTRO_CUSTO_ESTOQUE_GERAL_DSC) + ' ');
-      SQL.Add('      , 1');
-      SQL.Add('      , null');
-      SQL.Add('    );');
-      SQL.Add('  end');
-
-      SQL.Add('  /* Associar Centro de Custo 1 a Empresa */');
-
-      SQL.Add('  if (not exists(');
-      SQL.Add('    Select');
-      SQL.Add('      ce.centro_custo');
-      SQL.Add('    from TBCENTRO_CUSTO_EMPRESA ce');
-      SQL.Add('    where ce.centro_custo = :cc');
-      SQL.Add('      and ce.empresa      = :ep');
-      SQL.Add('  )) then');
-      SQL.Add('  begin');
-      SQL.Add('    Insert Into TBCENTRO_CUSTO_EMPRESA (');
-      SQL.Add('        centro_custo ');
-      SQL.Add('      , empresa      ');
-      SQL.Add('      , selecionar   ');
-      SQL.Add('    ) values (');
-      SQL.Add('        :cc');
-      SQL.Add('      , :ep');
-      SQL.Add('      , 1');
-      SQL.Add('    );');
-      SQL.Add('  end');
-      SQL.Add('end');
-      ExecSQL;
-
-      CommitTransaction;
-    end;
-  finally
-    Screen.Cursor := crDefault;
-  end;
-end;
-
 procedure SetTipoProduto(const iCodigo : Integer; const sDescricao : String);
 begin
   Screen.Cursor := crSQLWait;
@@ -2173,49 +2099,6 @@ begin
       SQL.Add('    );');
       SQL.Add('  end');
       SQL.Add('end');  //SQL.SaveToFile('_SYS_TIPO_PRODUTO.sql');
-      ExecSQL;
-
-      CommitTransaction;
-    end;
-  finally
-    Screen.Cursor := crDefault;
-  end;
-end;
-
-procedure SetGrupoFornecedor(const iCodigo : Integer; const sDescricao : String);
-begin
-  Screen.Cursor := crSQLWait;
-  try
-    with DMBusiness, fdQryBusca do
-    begin
-      Close;
-      SQL.Clear;
-      SQL.Add('');
-      SQL.Add('execute block');
-      SQL.Add('as');
-      SQL.Add('  declare variable cd DMN_SMALLINT_N;');
-      SQL.Add('  declare variable ds DMN_VCHAR_50;');
-      SQL.Add('begin');
-      SQL.Add('  cd = ' + IntToStr(iCodigo) + ';');
-      SQL.Add('  ds = ' + QuotedStr(sDescricao) + ';');
-
-      SQL.Add('  if (not exists(');
-      SQL.Add('    Select');
-      SQL.Add('      g.grf_cod ');
-      SQL.Add('    from TBFORNECEDOR_GRUPO g');
-      SQL.Add('    where (g.grf_cod    = :cd)');
-      SQL.Add('       or (g.grf_descricao = :ds)');
-      SQL.Add('  )) then');
-      SQL.Add('  begin');
-      SQL.Add('    Insert into TBFORNECEDOR_GRUPO (');
-      SQL.Add('        grf_cod ');
-      SQL.Add('      , grf_descricao ');
-      SQL.Add('    ) values (');
-      SQL.Add('        :cd ');  // Codigo
-      SQL.Add('      , :ds ');  // Descrição
-      SQL.Add('    );');
-      SQL.Add('  end');
-      SQL.Add('end');  //SQL.SaveToFile('_TBFORNECEDOR_GRUPO.sql');
       ExecSQL;
 
       CommitTransaction;
@@ -2366,32 +2249,6 @@ begin
     end;
   finally
     Screen.Cursor := crDefault;
-  end;
-end;
-
-procedure SetTiposProdutos;
-var
-  tipoProduto : TTipoProduto;
-begin
-  try
-    for tipoProduto := Low(SYS_TIPOS_PRODUTO) to High(SYS_TIPOS_PRODUTO) do
-      SetTipoProduto(Ord(tipoProduto), SYS_TIPOS_PRODUTO[tipoProduto]);
-  except
-    On E : Exception do
-      ShowError('Erro ao tentar registrar tipo de produto.' + #13#13 + E.Message);
-  end;
-end;
-
-procedure SetGruposFornecedores;
-var
-  grupoFornecedor : TGrupoFornecedor;
-begin
-  try
-    for grupoFornecedor := Low(SYS_GRUPOS_FORNECEDOR) to High(SYS_GRUPOS_FORNECEDOR) do
-      SetGrupoFornecedor(Ord(grupoFornecedor), SYS_GRUPOS_FORNECEDOR[grupoFornecedor]);
-  except
-    On E : Exception do
-      ShowError('Erro ao tentar registrar grupo de fornecedor.' + #13#13 + E.Message);
   end;
 end;
 

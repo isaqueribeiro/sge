@@ -22,6 +22,8 @@ Uses
     TGrupoFornecedorLista   = Array[Low(TGrupoFornecedor)..High(TGrupoFornecedor)] of String;
     TPermissaoLista         = Array [0..45] of String;
 
+    TAliquota = (taICMS, taISS);
+
 const
   VERSION_NUMBER     = '1.0.31.0';
   VERSION_NUMBER_ID  = 01003100;
