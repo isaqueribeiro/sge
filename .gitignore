@@ -6,6 +6,8 @@
 *.exe
 *.o
 *.so
+*.ddp
+*.dcu
 
 # OS generated files #
 ######################
@@ -19,7 +21,10 @@ Thumbs.db
 
 # Logs and databases #
 ######################
+*.~*
 *.log
+*.xml
+*.ini
 Bin/*.sql
 *.sqlite
 
@@ -31,5 +36,6 @@ Bin/*.upgraded
 Bin/*.dat
 Bin/*.inf
 Bin/*.part
+Bin/*._dll
 _diversos/Imagens/*.*
 doc/*
