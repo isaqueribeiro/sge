@@ -251,15 +251,16 @@ var
 implementation
 
 uses
-    UDMBusiness
-  , DateUtils
+    System.StrUtils
+  , System.DateUtils
+  , UDMBusiness
   , SysConst
   , UConstantesDGE
   , UFuncoes
   , Controller.Tabela
   , UDMRecursos
   , UDMNFe
-  , UGeProduto
+  , View.Produto
   , UGrCampoRequisitado
   , View.CentroCusto
   , UGrMemo;

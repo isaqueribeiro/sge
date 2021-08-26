@@ -170,7 +170,11 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UDMNFe, UDMRecursos;
+    System.StrUtils
+  , UConstantesDGE
+  , UDMBusiness
+  , UDMNFe
+  , UDMRecursos;
 
 const
   REPORT_RELACAO_VENDA_VENDEDOR_SINTETICO  = 0;

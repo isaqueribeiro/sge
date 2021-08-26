@@ -3,9 +3,25 @@ unit UDMRecursos;
 interface
 
 uses
+  System.SysUtils,
+  System.Classes,
+  System.ImageList,
+  System.Notification,
+  System.IOUtils,
+
+  Winapi.Windows,
+  Vcl.Forms,
+  Vcl.ExtCtrls,
+  Vcl.ImgList,
+  Vcl.Controls,
+
+  cxGraphics,
+  cxImageList,
+
   Interacao.Versao,
   Interacao.PersonalizaEmpresa,
   Interacao.Licenca,
+  Model.Entidade.ConfiguracaoINI,
 
   {$IFNDEF PRINTER_CUPOM}
   View.Abertura,
@@ -14,10 +30,7 @@ uses
 
   UGrAguarde,
   UConstantesDGE,
-  UBaseObject,
-  Winapi.Windows,
-  Vcl.Forms, SysUtils, Classes, ImgList, Controls, cxGraphics, Vcl.ExtCtrls,
-  System.ImageList, cxImageList, System.Notification;
+  UBaseObject;
 
 type
   TLoteProduto = class(TBaseObject)
@@ -57,7 +70,8 @@ type
 
 var
   DMRecursos: TDMRecursos;
-  gVersaoApp : IVersao;
+  gConfiguracoes : IConfiguracaoIni;
+  gVersaoApp     : IVersao;
   gPersonalizaEmpresa : IPersonalizaEmpresa;
   gLicencaSistema : ILicenca;
 
@@ -203,7 +217,7 @@ begin
   begin
     aFileAlerta := ExtractFilePath(ParamStr(0)) + SYS_ALERTA_ARQUIVOS[tipoAlerta];
     if FileExists(aFileAlerta) then
-      DeleteFile(aFileAlerta);
+      System.SysUtils.DeleteFile(aFileAlerta);
   end;
 end;
 
@@ -235,7 +249,8 @@ begin
 end;
 
 initialization
-  gVersaoApp := TFactoryController.getInstance().getVersaoController();
+  gConfiguracoes := TConfiguracaoIni.New(TPath.Combine(ExtractFilePath(ParamStr(0)), FILE_SETTINGS_INI)).Load;
+  gVersaoApp     := TFactoryController.getInstance().getVersaoController();
   gPersonalizaEmpresa := TFactoryController.getInstance().getPersonalizaEmpresa();
   gLicencaSistema := TFactoryController.getInstance().getLicenca();
 

@@ -628,7 +628,10 @@ var
 implementation
 
 uses
-  Service.InputQuery, Controller.Tabela, UDMBusiness, UFuncoes, View.Cliente, View.CondicaoPagto, UGeProduto,
+    System.StrUtils
+  , Service.InputQuery
+  , Controller.Tabela
+  , UDMBusiness, UFuncoes, View.Cliente, View.CondicaoPagto, View.Produto,
   View.CFOP, UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos, UGeEfetuarPagtoREC,
   UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte, UGeVendaConfirmaTitulos,
   {$IFNDEF PDV}UGeVendaDevolucaoNF, UGeConsultarLoteNFe_v2, UGeRequisicaoCliente, {$ENDIF}
@@ -689,7 +692,7 @@ begin
     Ajustes da verificação do antamento do processo de emissão de Nota Fiscal, trocando o campo de validaçaõ de "LOTE_NFE_NUMERO"
     para "LOTE_NFE_RECIBO"
 *)
-  Desativar_Promocoes;
+  TControllerFactory.New.Promocao.DesativarPromocoes;
   FControllerTipoReceita := TControllerFactory.New.TipoReceita;
   FControllerVendedor    := TControllerFactory.New.Vendedor;
   TController(FControllerVendedor).LookupComboBox(dbVendedor, dtsVendedor, 'vendedor_cod', 'codigo', 'nome');

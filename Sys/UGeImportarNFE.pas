@@ -359,13 +359,15 @@ var
 implementation
 
 uses
-    UConstantesDGE
+    System.StrUtils
+  , UConstantesDGE
   , UFuncoes
   , UDMRecursos
   , UDMBusiness
   , UDMNFe
+  , SGE.Controller.Factory
   , View.Fornecedor
-  , UGeProduto;
+  , View.Produto;
 
 {$R *.dfm}
 
@@ -1991,7 +1993,9 @@ end;
 procedure TfrmGeImportarNFE.FormCreate(Sender: TObject);
 begin
   inherited;
-  SetGruposFornecedores;
+  // Forçar a criação dos registros padrões de grupos de fornecedores
+  TControllerFactory.New.GrupoFornecedor.DAO.OpenEmpty;
+
   SetDataSetsXML;
 
   CarregarEmpresa(gUsuarioLogado.Empresa);

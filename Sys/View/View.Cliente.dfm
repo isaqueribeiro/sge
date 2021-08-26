@@ -2211,10 +2211,6 @@ inherited ViewCliente: TViewCliente
         object tbsCompra: TTabSheet
           Caption = '&5. Compras'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           DesignSize = (
             828
             198)
@@ -2465,10 +2461,6 @@ inherited ViewCliente: TViewCliente
     object tbsConsultarCNPJ: TTabSheet
       Caption = 'Consultar CNPJ'
       ImageIndex = 12
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object BvlConsultar: TBevel
         Left = 377
         Top = 0
@@ -3158,10 +3150,6 @@ inherited ViewCliente: TViewCliente
       Tag = 12
       Caption = 'Estoque &Sat'#233'lite'
       ImageIndex = 30
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel11: TBevel
         Left = 0
         Top = 62

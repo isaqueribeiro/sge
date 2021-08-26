@@ -4,7 +4,9 @@ interface
 
 uses
   System.SysUtils,
+  System.StrUtils,
   System.Variants,
+  System.Classes,
   Data.DB,
 
   FireDAC.UI.Intf,
@@ -42,11 +44,14 @@ type
       FScript    : TSQL<TConnectionFireDAC>;
       FFieldDefs : TFieldDefs;
       FQuery     : TFDQuery;
+      FUpdateSQL : TFDUpdateSQL;
+      FAliasTableName  ,
       FWhereAdditional : String;
 
       procedure UpdateSequence(aGeneratorName, aTableName, aFielNameKey : String; const sWhr : String = '');
       procedure CreateFieldDefs;
       procedure AllowEditAllFields;
+      procedure CreateRefreshSQL;
 
       function ExistParamByName(aParamName : String) : Boolean;
     protected
@@ -60,6 +65,8 @@ type
 
       function TableName(aTableName : String) : IConnection<TConnectionFireDAC>; overload;
       function TableName : String; overload;
+      function AliasTableName(aAliasTableName : String) : IConnection<TConnectionFireDAC>; overload;
+      function AliasTableName : String; overload;
       function GeneratorName(aGeneratorName : String) : IConnection<TConnectionFireDAC>; overload;
       function GeneratorName : String; overload;
       function KeyFields(aKeyFields : String) : IConnection<TConnectionFireDAC>; overload;
@@ -79,6 +86,7 @@ type
       function Where(aFieldName : String; aFielValue : Int64) : IConnection<TConnectionFireDAC>; overload;
       function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<TConnectionFireDAC>; overload;
       function WhereOr(aExpressionWhere : String) : IConnection<TConnectionFireDAC>; overload;
+      function OrderBy(aExpression : String) : IConnection<TConnectionFireDAC>;
       function OpenEmpty : IConnection<TConnectionFireDAC>;
       function CloseEmpty : IConnection<TConnectionFireDAC>;
 
@@ -97,6 +105,7 @@ type
 
       procedure RefreshRecord;
       procedure SetupKeyFields;
+      procedure CreateGenerator(const aGeneratorName : String; const aYear : Smallint = 0);
       procedure UpdateGenerator(const aExpressionWhere : String = '');
 
       function NewID : Variant;
@@ -149,9 +158,14 @@ begin
   FQuery.Transaction   := TFDCustomConnection(aConn).Transaction;
   FQuery.CachedUpdates := True;
   FQuery.OnUpdateError := QueryUpdateError;
+  FAliasTableName      := EmptyStr;
   FWhereAdditional     := EmptyStr;
 
   FFieldDefs := TFieldDefs.Create(FQuery);
+
+  FUpdateSQL := TFDUpdateSQL.Create(FQuery);
+  FUpdateSQL.Connection := FQuery.Connection;
+  FQuery.UpdateObject   := FUpdateSQL;
 end;
 
 procedure TConnectionFireDAC.CreateFieldDefs;
@@ -174,6 +188,50 @@ begin
     begin
       FQuery.FieldDefs.AddFieldDef;
       FQuery.FieldDefs.Items[I].Assign( FFieldDefs.Items[I] );
+    end;
+  end;
+end;
+
+procedure TConnectionFireDAC.CreateGenerator(const aGeneratorName: String; const aYear: Smallint);
+var
+  aDiff : String;
+begin
+  if (aYear > 0) then
+    aDiff := aYear.ToString.QuotedString
+  else
+    aDiff := 'NULL';
+
+  FQuery.Connection.ExecSQL('Execute Procedure SET_GENERATOR(' + aGeneratorName.QuotedString + ',' + aDiff + ')');
+  FQuery.Connection.CommitRetaining;
+end;
+
+procedure TConnectionFireDAC.CreateRefreshSQL;
+var
+  aAlias    : String;
+  aKeyField : TStringList;
+  I : Integer;
+begin
+  if (not FQuery.UpdateOptions.UpdateTableName.IsEmpty) and (not FQuery.UpdateOptions.KeyFields.IsEmpty) then
+  begin
+    aKeyField := TStringList.Create;
+    try
+      aKeyField.Delimiter := ';';
+      aKeyField.CommaText := FQuery.UpdateOptions.KeyFields;
+
+      aAlias := IfThen(not FAliasTableName.IsEmpty, FAliasTableName.Trim + '.', EmptyStr);
+
+      FUpdateSQL.FetchRowSQL.BeginUpdate;
+      FUpdateSQL.FetchRowSQL.Clear;
+      FUpdateSQL.FetchRowSQL.Add(FScript.Text);
+      FUpdateSQL.FetchRowSQL.Add('where (' + aAlias + aKeyField.Strings[0] + ' is not null)');
+
+      for I := 0 to Pred(aKeyField.Count) do
+        FUpdateSQL.FetchRowSQL.Add('  and (' + aAlias + aKeyField.Strings[0] + ' =  :old_' + aKeyField.Strings[0] + ')');
+
+      FUpdateSQL.FetchRowSQL.EndUpdate;
+      FQuery.FetchOptions;
+    finally
+      aKeyField.DisposeOf;
     end;
   end;
 end;
@@ -215,6 +273,17 @@ begin
     Result := 1
   else
     Result := ID;
+end;
+
+function TConnectionFireDAC.AliasTableName: String;
+begin
+  Result := FAliasTableName;
+end;
+
+function TConnectionFireDAC.AliasTableName(aAliasTableName: String): IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  FAliasTableName := aAliasTableName.Trim;
 end;
 
 procedure TConnectionFireDAC.AllowEditAllFields;
@@ -319,6 +388,7 @@ begin
 
   SetupKeyFields;
   AllowEditAllFields;
+  CreateFieldDefs;
 end;
 
 function TConnectionFireDAC.OpenEmpty: IConnection<TConnectionFireDAC>;
@@ -349,6 +419,12 @@ begin
 
   if (FQuery.RecordCount > 0) then
     SetupKeyFields;
+end;
+
+function TConnectionFireDAC.OrderBy(aExpression : String): IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  FScript.OrderBy(aExpression);
 end;
 
 function TConnectionFireDAC.ParamByName(aParamName: String): String;
@@ -383,7 +459,11 @@ end;
 
 procedure TConnectionFireDAC.RefreshRecord;
 begin
-  FQuery.RefreshRecord();
+  if Assigned(FUpdateSQL) then
+  begin
+    CreateRefreshSQL;
+    FQuery.RefreshRecord();
+  end;
 end;
 
 procedure TConnectionFireDAC.RollbackTransaction;
@@ -407,22 +487,26 @@ begin
 end;
 
 procedure TConnectionFireDAC.SetupKeyFields;
+var
+  aKeyField : TStringList;
+  I : Integer;
 begin
   if (FQuery.FieldCount > 0) then
   begin
-//    // Remover a obrigatoriedade de informar código quando o GENERATOR é responsável por sua geração
-//    if (GeneratorName <> EmptyStr) and (KeyFields <> EmptyStr) then
-//    begin
-//      if (Pos(';', KeyFields) = 0) then
-//      begin
-//        if Assigned(FQuery.Fields.FindField(KeyFields)) then
-//          FQuery.FieldByName(KeyFields).Required := False;
-//      end
-//      else
-//      begin
-//
-//      end;
-//    end;
+    aKeyField := TStringList.Create;
+
+    try
+      aKeyField.Delimiter := ';';
+      aKeyField.CommaText := FQuery.UpdateOptions.KeyFields;
+
+      for I := 0 to Pred(aKeyField.Count) do
+        if Assigned(FQuery.Fields.FindField(aKeyField.Strings[I])) then
+          FQuery.FieldByName(aKeyField.Strings[I]).Required := True;
+
+    finally
+      aKeyField.DisposeOf;
+    end;
+
     // Remover a obrigatoriedade de informar código quando o GENERATOR é responsável por sua geração
     if (not GeneratorName.IsEmpty) and (not AutoIncFields.IsEmpty) then
       if Assigned(FQuery.Fields.FindField(AutoIncFields)) then

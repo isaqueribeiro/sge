@@ -9,13 +9,15 @@ uses
   SGE.Model.DAO.Factory;
 
 type
-  TControllerIBPT = class(TController, IControllerCustom)
+  TControllerIBPT = class(TController, IControllerIBPT)
     private
     protected
       constructor Create;
     public
       destructor Destroy; override;
-      class function New : IControllerCustom;
+      class function New : IControllerIBPT;
+
+      function GetTabelaIBPTCodigo(aCodigoNCM : String) : Integer;
   end;
 
   TControllerTabelaIBPT = class(TController, IControllerCustom)
@@ -38,6 +40,9 @@ type
 
 implementation
 
+uses
+  System.SysUtils;
+
 { TControllerIBPT }
 
 constructor TControllerIBPT.Create;
@@ -50,7 +55,26 @@ begin
   inherited;
 end;
 
-class function TControllerIBPT.New: IControllerCustom;
+function TControllerIBPT.GetTabelaIBPTCodigo(aCodigoNCM: String): Integer;
+begin
+  Result := 0;
+  try
+    if FDAO.DataSet.Active then
+      FDAO.DataSet.Close;
+
+    FDAO.ClearWhere;
+    FDAO
+      .Where('t.ativo    = 1')
+      .Where('t.ncm_ibpt = ' + aCodigoNCM.QuotedString)
+      .Open;
+
+    Result := FDAO.DataSet.FieldByName('id_ibpt').AsInteger;
+  finally
+    FDAO.DataSet.Close;
+  end;
+end;
+
+class function TControllerIBPT.New: IControllerIBPT;
 begin
   Result := Self.Create;
 end;

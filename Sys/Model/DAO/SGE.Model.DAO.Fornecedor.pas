@@ -39,6 +39,7 @@ begin
   FConn
     .Query
       .TableName('TBFORNECEDOR')
+      .AliasTableName('f')
       .KeyFields('Codforn')
       .AutoIncFields('Codforn')
       .GeneratorName('GEN_FORNECEDOR_ID')

@@ -77,6 +77,7 @@ begin
   FConn
     .Query
       .TableName('TBCLIENTE')
+      .AliasTableName('cl')
       .KeyFields('codigo')
       .AutoIncFields('codigo')
       .GeneratorName('GEN_CLIENTE_ID')

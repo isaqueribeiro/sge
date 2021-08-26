@@ -338,28 +338,29 @@ var
 implementation
 
 uses
-  System.Notification,
+    System.StrUtils
+  , System.Notification
 
   // Conexão e Controles Aplicação
-  UDMRecursos,
-  UDMBusiness,
-  UDMNFe,
-  UFuncoes,
-  UConstantesDGE,
+  , UDMRecursos
+  , UDMBusiness
+  , UDMNFe
+  , UFuncoes
+  , UConstantesDGE
 
-  View.AutoUpgrade,
-  View.Abertura,
-  View.Esmaecer,
+  , View.AutoUpgrade
+  , View.Abertura
+  , View.Esmaecer
 
   // Movimentação
-  UGeRequisicaoCliente,
+  ,UGeRequisicaoCliente,
   UGeAutorizacaoCompra,
   UGeRequisicaoCompra,
 
   // Estoque, Entrada e Saída
-  UGeProduto,
+  View.Produto,
   UGeVenda,
-  UGeEntradaEstoque,
+  View.Entrada,
 
   // Financeiro
   UGeContasAPagar,
@@ -1003,7 +1004,7 @@ end;
 procedure TfrmPrinc.nmPromocoesClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_PROMOCAO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGePromocao');
+    FormFunction.ShowModalForm(Self, 'ViewPromocao');
 end;
 
 procedure TfrmPrinc.nmContaCorrenteClick(Sender: TObject);

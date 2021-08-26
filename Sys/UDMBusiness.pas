@@ -82,9 +82,7 @@ type
   TBlocoImpressaoCupom = (bicCupomRelatorioGerencial, bicCupom, bicRelatorioGerencial);
   TTipoDANFE = (tipoDANFEFast, tipoDANFE_ESCPOS);
 
-  TTipoRegime = (trSimplesNacional, trSimplesExcessoReceita, trRegimeNormal);
   TTipoMovimentoCaixa = (tmcxCredito, tmcxDebito);
-  TTipoMovimentoEntrada = (tmeProduto, tmeServico);
   TDMBusiness = class(TDataModule)
     ibdtbsBusiness: TIBDatabase;
     ibtrnsctnBusiness: TIBTransaction;
@@ -192,13 +190,12 @@ var
   {$ENDIF}
 
   gSistema    : TSistema;
-  //gUsuarioLogado : TUsuarioLogado;
   gUsuarioLogado : IUsuario;
   gContaEmail : TContaEmail;
   RegistroSistema : TRegistry;
 
 
-  function IfThen(AValue: Boolean; const ATrue: string; AFalse: string = ''): string; overload;
+  function IfThenStr(AValue: Boolean; const ATrue: string; AFalse: string = ''): string;
   function IfThen(AValue: Boolean; const ATrue: TDateTime; AFalse: TDateTime = 0): TDateTime; overload;
   function IfThen(AValue: Boolean; const ATrue: Integer; AFalse: Integer = 0): Integer; overload;
   function IfThen(AValue: Boolean; const ATrue: Currency; AFalse: Currency = 0.0): Currency; overload;
@@ -231,7 +228,6 @@ var
   procedure ExportarFR3_ToXSL(const FrrLayout: TfrxReport; var sFileName : String);
   procedure ExportarFR3_ToXLSX(const FrrLayout: TfrxReport; var sFileName : String);
 
-  procedure Desativar_Promocoes;
   procedure GerarSaldoContaCorrente(const pContaCorrente : Integer; const pData : TDateTime);
   procedure GerarSaldoContaCorrente_v2(const pContaCorrente : Integer; const pDataInicial, pDataFinal : TDateTime);
 //  procedure BloquearClientes;
@@ -490,11 +486,6 @@ const
   STATUS_OS_NFS = 8; // Nota Fiscal de Serviço emitida
   STATUS_OS_CAN = 9; // Cancelada
 
-  STATUS_CMP_ABR = 1;
-  STATUS_CMP_FIN = 2;
-  STATUS_CMP_CAN = 3;
-  STATUS_CMP_NFE = 4;
-
   STATUS_REQ_ABR = 1;
   STATUS_REQ_AUT = 2;
   STATUS_REQ_FCH = 3;
@@ -594,7 +585,7 @@ uses
 
 {$R *.dfm}
 
-function IfThen(AValue: Boolean; const ATrue: string;
+function IfThenStr(AValue: Boolean; const ATrue: string;
   AFalse: string = ''): string;
 begin
   if AValue then
@@ -913,7 +904,7 @@ begin
   begin
     aForm := CreateMessageDialog(PChar(sMsg), mtConfirmation, [mbYes, mbNo], TMsgDlgBtn.mbNo);
     try
-      aForm.Caption := IfThen(sTitle.Trim.IsEmpty, 'Confirmar', sTitle);
+      aForm.Caption := IfThenStr(sTitle.Trim.IsEmpty, 'Confirmar', sTitle);
 
       (aForm.FindComponent('Yes') as TButton).Caption  := '&Sim';
       (aForm.FindComponent('No')  as TButton).Caption  := '&Não';
@@ -1027,13 +1018,13 @@ begin
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
       fMsg := TFrmMensagem.GetInstance(Application);
-      fMsg.Alerta(IfThen(Trim(sTitulo) = EmptyStr, 'Alerta', Trim(sTitulo)), sMsg);
+      fMsg.Alerta(IfThenStr(Trim(sTitulo) = EmptyStr, 'Alerta', Trim(sTitulo)), sMsg);
       fMsg.ShowModal;
     finally
       fMsg.Free;
     end
   else
-    Application.MessageBox(PChar(sMsg), PChar(IfThen(Trim(sTitulo) = EmptyStr, 'Alerta', Trim(sTitulo))), MB_ICONWARNING);
+    Application.MessageBox(PChar(sMsg), PChar(IfThenStr(Trim(sTitulo) = EmptyStr, 'Alerta', Trim(sTitulo))), MB_ICONWARNING);
 end;
 
 procedure ShowStop(sMsg : String);
@@ -1063,13 +1054,13 @@ begin
   if (gSistema.Codigo = SISTEMA_PDV) then
     try
       fMsg := TFrmMensagem.GetInstance(Application);
-      fMsg.Parar(IfThen(Trim(sTitulo) = EmptyStr, 'Pare!', Trim(sTitulo)), sMsg);
+      fMsg.Parar(IfThenStr(Trim(sTitulo) = EmptyStr, 'Pare!', Trim(sTitulo)), sMsg);
       fMsg.ShowModal;
     finally
       fMsg.Free;
     end
   else
-    Application.MessageBox(PChar(sMsg), PChar(IfThen(Trim(sTitulo) = EmptyStr, 'Pare!', Trim(sTitulo))), MB_ICONSTOP);
+    Application.MessageBox(PChar(sMsg), PChar(IfThenStr(Trim(sTitulo) = EmptyStr, 'Pare!', Trim(sTitulo))), MB_ICONSTOP);
 end;
 
 procedure ShowError(sMsg : String);
@@ -1328,20 +1319,6 @@ begin
     Export(frxXLSX);
 
     sFileName := frxXLSX.FileName;
-  end;
-end;
-
-procedure Desativar_Promocoes;
-begin
-  with DMBusiness, fdQryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Update TBPROMOCAO Set Ativa = 0');
-    SQL.Add('where (Ativa = 1) and ((Data_inicio > Current_date) or (Data_final < Current_date))');
-    ExecSQL;
-
-    CommitTransaction;
   end;
 end;
 
@@ -1648,7 +1625,7 @@ begin
     SQL.Add('Update TBVENDAS Set');
     SQL.Add('    caixa_ano = ' + IntToStr(AnoCaixa));
     SQL.Add('  , caixa_num = ' + IntToStr(NumCaixa));
-    SQL.Add('  , caixa_pdv = ' + IfThen(IsPDV, '1', '0'));
+    SQL.Add('  , caixa_pdv = ' + IfThenStr(IsPDV, '1', '0'));
     SQL.Add('where ano        = ' + IntToStr(AnoVenda));
     SQL.Add('  and codcontrol = ' + IntToStr(NumVenda));
     ExecSQL;
@@ -2335,7 +2312,7 @@ var
 begin
   aForm := CreateMessageDialog(PChar(sMsg), mtConfirmation, [mbYes, mbNo], TMsgDlgBtn.mbNo);
   try
-    aForm.Caption := IfThen(sTitle.Trim.IsEmpty, 'Confirmar', sTitle);
+    aForm.Caption := IfThenStr(sTitle.Trim.IsEmpty, 'Confirmar', sTitle);
 
     (aForm.FindComponent('Yes') as TButton).Caption  := '&Sim';
     (aForm.FindComponent('No')  as TButton).Caption  := '&Não';
@@ -3163,15 +3140,15 @@ var
   S : String;
 begin
   try
-    S := 'Produto' + IfThen(NoPlural, 's', EmptyStr);
+    S := 'Produto' + IfThenStr(NoPlural, 's', EmptyStr);
 
     if (gSistema.Codigo <> SISTEMA_GESTAO_OPME) then
     begin
       Case GetSegmentoID(gUsuarioLogado.Empresa)  of
         SEGMENTO_MERCADO_CARRO_ID:
-          S := 'Veículo' + IfThen(NoPlural, 's', EmptyStr);
+          S := 'Veículo' + IfThenStr(NoPlural, 's', EmptyStr);
         else
-          s := IfThen(NoPlural, 'Produtos / Serviços', 'Produto / Serviço');
+          s := IfThenStr(NoPlural, 'Produtos / Serviços', 'Produto / Serviço');
       end;
     end;
   finally
@@ -3184,11 +3161,11 @@ var
   S : String;
 begin
   try
-    S := 'Produto' + IfThen(NoPlural, 's', EmptyStr);
+    S := 'Produto' + IfThenStr(NoPlural, 's', EmptyStr);
 
     Case GetSegmentoID(gUsuarioLogado.Empresa)  of
       SEGMENTO_MERCADO_CARRO_ID:
-        S := 'Veículo' + IfThen(NoPlural, 's', EmptyStr);
+        S := 'Veículo' + IfThenStr(NoPlural, 's', EmptyStr);
 //      SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID:
 //        s := IfThen(NoPlural, 'Produtos/Serviços', 'Produto/Serviço')
 //      else
@@ -3752,7 +3729,7 @@ begin
     Open;
 
     Result := Trim(FieldByName('ender').AsString) + ', No. ' + Trim(FieldByName('numero_end').AsString) +
-      IfThen(Trim(FieldByName('complemento').AsString) = EmptyStr, '', ' (' + Trim(FieldByName('complemento').AsString) + ')') + ', ' +
+      IfThenStr(Trim(FieldByName('complemento').AsString) = EmptyStr, '', ' (' + Trim(FieldByName('complemento').AsString) + ')') + ', ' +
       'BAIRRO: ' + Trim(FieldByName('bairro').AsString) + ' - ' + Trim(FieldByName('cidade').AsString) + ' ' +
       'CEP: ' + StrFormatarCEP(Trim(FieldByName('cep').AsString));
 
@@ -3873,10 +3850,10 @@ begin
     Open;
 
     Result := Trim(FieldByName('ender').AsString) + ', No. ' + Trim(FieldByName('numero_end').AsString) +
-      IfThen(Trim(FieldByName('complemento').AsString) = EmptyStr, '', ' (' + Trim(FieldByName('complemento').AsString) + ')') +
-      IfThen(aQuebrarLinha, #13, ', ') +
+      IfThenStr(Trim(FieldByName('complemento').AsString) = EmptyStr, '', ' (' + Trim(FieldByName('complemento').AsString) + ')') +
+      IfThenStr(aQuebrarLinha, #13, ', ') +
       'BAIRRO: ' + Trim(FieldByName('bairro').AsString) + ' - ' + Trim(FieldByName('cidade').AsString) +
-      IfThen(aQuebrarLinha, #13, ' ') +
+      IfThenStr(aQuebrarLinha, #13, ' ') +
       'CEP: ' + StrFormatarCEP(Trim(FieldByName('cep').AsString));
 
     Close;

@@ -11,6 +11,8 @@ type
     ['{5A9F985A-8901-4220-B4F3-3F423B43C137}']
     function TableName(aTableName : String) : IConnection<T>; overload;
     function TableName : String; overload;
+    function AliasTableName(aAliasTableName : String) : IConnection<T>; overload;
+    function AliasTableName : String; overload;
     function GeneratorName(aGeneratorName : String) : IConnection<T>; overload;
     function GeneratorName : String; overload;
     function KeyFields(aKeyFields : String) : IConnection<T>; overload;
@@ -30,6 +32,7 @@ type
     function Where(aFieldName : String; aFielValue : Int64) : IConnection<T>; overload;
     function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<T>; overload;
     function WhereOr(aExpressionWhere : String) : IConnection<T>; overload;
+    function OrderBy(aExpression : String) : IConnection<T>;
     function OpenEmpty : IConnection<T>;
     function CloseEmpty : IConnection<T>;
     function OpenOrExecute : Boolean;
@@ -47,6 +50,7 @@ type
 
     procedure RefreshRecord;
     procedure SetupKeyFields;
+    procedure CreateGenerator(const aGeneratorName : String; const aYear : Smallint = 0);
     procedure UpdateGenerator(const aExpressionWhere : String = '');
 
     function NewID : Variant;

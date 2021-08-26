@@ -353,9 +353,12 @@ begin
         .Add(' , cond_descricao_full')
         .Add(' , cond_descricao_pdv ')
         .Add(' , cond_pdv           ')
+        .Add(' , ativa              ')
         .Add('from VW_CONDICAOPAGTO ')
       .&End
     .Open;
+
+  FConn.Query.DataSet.Filter := '(ativa = 1)';
 end;
 
 destructor TModelDAOCondicaoPagtoView.Destroy;

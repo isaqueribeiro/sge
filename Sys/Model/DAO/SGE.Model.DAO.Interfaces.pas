@@ -4,16 +4,22 @@ interface
 
 uses
   System.Classes,
-  Data.DB;
+  Data.DB,
+  Interacao.Usuario,
+  Model.Entidade.ConfiguracaoINI;
 
 type
 //  IConfigureFields = interface;
 //
   IModelDAO = interface
     ['{2CE64058-14C2-4585-9FCA-6EACD931AA08}']
+    function Usuario : IUsuarioModel;
+    function Configuracao : IConfiguracaoIni;
     function DataSet   : TDataSet;
 //    function ConfigureFields : IConfigureFields;
     function SelectSQL : String;
+    function Clear : IModelDAO;
+    function SQL(Value : String) : IModelDAO;
 
     function Where(aExpressionWhere : String) : IModelDAO; overload;
     function Where(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO; overload;
@@ -34,7 +40,6 @@ type
 
     procedure Open;
 
-    procedure Clear;
     procedure ClearWhere;
     procedure ApplyUpdates;
     procedure CommitUpdates;
@@ -67,10 +72,12 @@ type
   IModelDAOFactory = interface
     ['{0EF3B708-2B61-4B02-A8EB-A59A1E9ADD81}']
     function AliquotaCOFINSView : IModelDAOCustom;
+    function AliquotaICMS : IModelDAOCustom;
     function AliquotaPISView : IModelDAOCustom;
     function Bairro   : IModelDAOCustom;
     function Banco : IModelDAOCustom;
     function BancoFebrabanView : IModelDAOCustom;
+    function Busca : IModelDAOCustom;
     function CentroCusto : IModelDAOCustom;
     function CentroCustoEmpresa : IModelDAOCustom;
     function CFOP : IModelDAOCustom;
@@ -81,16 +88,19 @@ type
     function ClienteEstoque : IModelDAOCustom;
     function ClienteTitulos : IModelDAOCustom;
     function ClienteTotalCompras : IModelDAOCustom;
+    function CombustivelVeiculo : IModelDAOCustom;
     function CondicaoPagto : IModelDAOCustom;
     function CondicaoPagtoForma : IModelDAOCustom;
     function CondicaoPagtoView : IModelDAOCustom;
     function ConfiguracaoEmpresa : IModelDAOCustom;
     function ContaCorrente : IModelDAOCustom;
     function ContaCorrenteView : IModelDAOCustom;
+    function CorVeiculo : IModelDAOCustom;
     function CST : IModelDAOCustom;
     function Distrito : IModelDAOCustom;
     function Empresa : IModelDAOCustom;
     function EmpresaView : IModelDAOCustom;
+    function Entrada : IModelDAOCustom;
     function FabricanteProduto : IModelDAOCustom;
     function FormaPagto : IModelDAOCustom;
     function FormaPagtoContaCorrente : IModelDAOCustom;
@@ -107,6 +117,8 @@ type
     function PlanoContaNivel : IModelDAOCustom;
     function PlanoContaTipo : IModelDAOCustom;
     function Produto : IModelDAOCustom;
+    function Promocao : IModelDAOCustom;
+    function PromocaoProduto : IModelDAOCustom;
     function SecaoProduto : IModelDAOCustom;
     function Segmento : IModelDAOCustom;
     function TabelaIBPT : IModelDAOCustom;
@@ -115,6 +127,8 @@ type
     function TipoComissaoView : IModelDAOCustom;
     function TipoDespesa : IModelDAOCustom;
     function TipoDespesaPlanoConta : IModelDAOCustom;
+    function TipoDocumentoEntradaView : IModelDAOCustom;
+    function TipoEntradaView : IModelDAOCustom;
     function TipoLogradouro : IModelDAOCustom;
     function TipoProduto : IModelDAOCustom;
     function TipoReceita : IModelDAOCustom;

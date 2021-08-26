@@ -4,19 +4,19 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Configurar NF-e / NFC-e (ACBr)'
-  ClientHeight = 581
+  ClientHeight = 591
   ClientWidth = 383
   OldCreateOrder = True
   ExplicitWidth = 397
-  ExplicitHeight = 618
+  ExplicitHeight = 628
   DesignSize = (
     383
-    581)
+    591)
   PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
-    Top = 542
+    Top = 552
     Width = 383
     Height = 39
     Align = alBottom
@@ -25,7 +25,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
   end
   object btnServico: TcxButton
     Left = 1
-    Top = 545
+    Top = 555
     Width = 83
     Height = 33
     Hint = 'Verificar Status do Servi'#231'o'
@@ -104,7 +104,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
   end
   object btnSalvar: TcxButton
     Left = 212
-    Top = 545
+    Top = 555
     Width = 83
     Height = 33
     Anchors = [akRight, akBottom]
@@ -183,7 +183,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
   end
   object btnCancelar: TcxButton
     Left = 300
-    Top = 545
+    Top = 555
     Width = 83
     Height = 33
     Anchors = [akRight, akBottom]
@@ -265,7 +265,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
     Left = 0
     Top = 0
     Width = 383
-    Height = 542
+    Height = 552
     ActivePage = TbsConfiguracoes
     Align = alClient
     TabOrder = 3
@@ -275,8 +275,8 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         Left = 0
         Top = 0
         Width = 375
-        Height = 514
-        ActivePage = TbsGeral
+        Height = 524
+        ActivePage = TbsWebService
         Align = alClient
         MultiLine = True
         TabOrder = 0
@@ -285,22 +285,23 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           Caption = 'Geral'
           ImageIndex = 1
           object GrpBxGeral: TGroupBox
-            Left = 0
-            Top = 0
-            Width = 359
-            Height = 436
+            AlignWithMargins = True
+            Left = 3
+            Top = 3
+            Width = 353
+            Height = 423
             Align = alClient
             Caption = 'Geral'
             TabOrder = 0
             DesignSize = (
-              359
-              436)
+              353
+              423)
             object sbtnPathSalvar: TSpeedButton
-              Left = 327
-              Top = 360
+              Left = 318
+              Top = 344
               Width = 23
               Height = 24
-              Anchors = [akLeft, akBottom]
+              Anchors = [akTop, akRight]
               Glyph.Data = {
                 76010000424D7601000000000000760000002800000020000000100000000100
                 04000000000000010000130B0000130B00001000000000000000000000000000
@@ -316,24 +317,26 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 3BB33773333773333773B333333B3333333B7333333733333337}
               NumGlyphs = 2
               OnClick = sbtnPathSalvarClick
-              ExplicitTop = 357
             end
             object lblPathSchemas: TLabel
-              Left = 8
-              Top = 390
-              Width = 201
+              AlignWithMargins = True
+              Left = 12
+              Top = 373
+              Width = 239
               Height = 13
-              Anchors = [akLeft, akBottom]
+              Margins.Left = 10
+              Margins.Right = 100
+              Align = alTop
               Caption = 'Diret'#243'rios com os arquivos XSD (Schemas)'
               FocusControl = edPathSchemas
-              ExplicitTop = 387
+              ExplicitWidth = 201
             end
             object spPathSchemas: TSpeedButton
-              Left = 327
-              Top = 406
+              Left = 318
+              Top = 387
               Width = 23
               Height = 24
-              Anchors = [akLeft, akBottom]
+              Anchors = [akTop, akRight]
               Glyph.Data = {
                 76010000424D7601000000000000760000002800000020000000100000000100
                 04000000000000010000130B0000130B00001000000000000000000000000000
@@ -349,65 +352,95 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 3BB33773333773333773B333333B3333333B7333333733333337}
               NumGlyphs = 2
               OnClick = spPathSchemasClick
-              ExplicitTop = 403
             end
             object lblFormaEmissao: TLabel
-              Left = 8
-              Top = 112
-              Width = 86
+              AlignWithMargins = True
+              Left = 12
+              Top = 107
+              Width = 139
               Height = 13
+              Margins.Left = 10
+              Margins.Right = 200
+              Align = alTop
               Caption = 'Forma de Emiss'#227'o'
               FocusControl = cbFormaEmissao
+              ExplicitWidth = 86
             end
             object lblVersaoDF: TLabel
-              Left = 8
-              Top = 157
-              Width = 134
+              AlignWithMargins = True
+              Left = 12
+              Top = 150
+              Width = 189
               Height = 13
+              Margins.Left = 10
+              Margins.Right = 150
+              Align = alTop
               Caption = 'Vers'#227'o do Documento Fiscal'
               Enabled = False
               FocusControl = cbVersaoDF
+              ExplicitWidth = 134
             end
             object lblIdToken: TLabel
-              Left = 8
-              Top = 203
-              Width = 85
+              AlignWithMargins = True
+              Left = 12
+              Top = 193
+              Width = 139
               Height = 13
+              Margins.Left = 10
+              Margins.Right = 200
+              Align = alTop
               Caption = 'Id Token / Id CSC'
               Enabled = False
               FocusControl = edIdToken
+              ExplicitWidth = 85
             end
             object lblToken: TLabel
-              Left = 8
-              Top = 247
-              Width = 249
+              AlignWithMargins = True
+              Left = 12
+              Top = 236
+              Width = 329
               Height = 13
+              Margins.Left = 10
+              Margins.Right = 10
+              Align = alTop
               Caption = 'Token / CSC (C'#243'digo de Seguran'#231'a do Contribuinte)'
               Enabled = False
               FocusControl = edToken
+              ExplicitWidth = 249
             end
             object lblFormatoAlerta: TLabel
-              Left = 8
-              Top = 66
-              Width = 72
+              AlignWithMargins = True
+              Left = 12
+              Top = 64
+              Width = 139
               Height = 13
+              Margins.Left = 10
+              Margins.Right = 200
+              Align = alTop
               Caption = 'Formato Alerta'
               FocusControl = edFormatoAlerta
+              ExplicitWidth = 72
             end
             object edPathLogs: TEdit
-              Left = 8
-              Top = 363
-              Width = 313
+              AlignWithMargins = True
+              Left = 12
+              Top = 346
+              Width = 303
               Height = 21
-              Anchors = [akLeft, akBottom]
+              Margins.Left = 10
+              Margins.Right = 36
+              Align = alTop
               TabOrder = 10
             end
             object ckSalvar: TCheckBox
-              Left = 8
-              Top = 342
-              Width = 249
+              AlignWithMargins = True
+              Left = 12
+              Top = 325
+              Width = 269
               Height = 15
-              Anchors = [akLeft, akBottom]
+              Margins.Left = 10
+              Margins.Right = 70
+              Align = alTop
               Caption = 'Salvar Arquivos de Envio e Resposta'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
@@ -418,62 +451,92 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               TabOrder = 9
             end
             object edPathSchemas: TEdit
-              Left = 8
-              Top = 409
-              Width = 313
+              AlignWithMargins = True
+              Left = 12
+              Top = 389
+              Width = 303
               Height = 21
-              Anchors = [akLeft, akBottom]
+              Margins.Left = 10
+              Margins.Top = 0
+              Margins.Right = 36
+              Align = alTop
               TabOrder = 11
             end
             object cbFormaEmissao: TComboBox
-              Left = 8
-              Top = 128
-              Width = 342
+              AlignWithMargins = True
+              Left = 12
+              Top = 123
+              Width = 329
               Height = 21
+              Margins.Left = 10
+              Margins.Top = 0
+              Margins.Right = 10
+              Align = alTop
               Style = csDropDownList
               TabOrder = 3
             end
             object cbVersaoDF: TComboBox
-              Left = 8
-              Top = 173
-              Width = 342
+              AlignWithMargins = True
+              Left = 12
+              Top = 166
+              Width = 329
               Height = 21
+              Margins.Left = 10
+              Margins.Top = 0
+              Margins.Right = 10
+              Align = alTop
               Style = csDropDownList
               Enabled = False
               TabOrder = 4
             end
             object ckRetirarAcentos: TCheckBox
-              Left = 8
-              Top = 318
-              Width = 249
+              AlignWithMargins = True
+              Left = 12
+              Top = 302
+              Width = 269
               Height = 17
-              Anchors = [akLeft, akBottom]
+              Margins.Left = 10
+              Margins.Right = 70
+              Align = alTop
               Caption = 'Retirar Acentos dos XMLs enviados'
               Enabled = False
               TabOrder = 8
             end
             object edIdToken: TEdit
-              Left = 8
-              Top = 219
-              Width = 342
+              AlignWithMargins = True
+              Left = 12
+              Top = 209
+              Width = 329
               Height = 21
+              Margins.Left = 10
+              Margins.Top = 0
+              Margins.Right = 10
+              Align = alTop
               Enabled = False
               TabOrder = 5
             end
             object edToken: TEdit
-              Left = 8
-              Top = 263
-              Width = 342
+              AlignWithMargins = True
+              Left = 12
+              Top = 252
+              Width = 329
               Height = 21
+              Margins.Left = 10
+              Margins.Top = 0
+              Margins.Right = 10
+              Align = alTop
               Enabled = False
               TabOrder = 6
             end
             object ckEmitirNFCe: TCheckBox
-              Left = 8
-              Top = 295
-              Width = 249
+              AlignWithMargins = True
+              Left = 12
+              Top = 279
+              Width = 269
               Height = 17
-              Anchors = [akLeft, akBottom]
+              Margins.Left = 10
+              Margins.Right = 70
+              Align = alTop
               Caption = 'Esta esta'#231#227'o emite e imprime NFC-e  pelo PDV'
               Enabled = False
               Font.Charset = ANSI_CHARSET
@@ -485,35 +548,48 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               TabOrder = 7
             end
             object ckAtualizarXML: TCheckBox
-              Left = 8
-              Top = 20
-              Width = 97
+              AlignWithMargins = True
+              Left = 12
+              Top = 18
+              Width = 139
               Height = 17
+              Margins.Left = 10
+              Margins.Right = 200
+              Align = alTop
               Caption = 'Atualizar XML'
               TabOrder = 0
             end
             object ckExibirErroSchema: TCheckBox
-              Left = 8
-              Top = 43
-              Width = 129
+              AlignWithMargins = True
+              Left = 12
+              Top = 41
+              Width = 139
               Height = 17
+              Margins.Left = 10
+              Margins.Right = 200
+              Align = alTop
               Caption = 'Exibir Erro Schema'
               TabOrder = 1
             end
             object edFormatoAlerta: TEdit
-              Left = 8
-              Top = 85
-              Width = 342
+              AlignWithMargins = True
+              Left = 12
+              Top = 80
+              Width = 329
               Height = 21
-              Anchors = [akLeft, akTop, akRight]
+              Margins.Left = 10
+              Margins.Top = 0
+              Margins.Right = 10
+              Align = alTop
               TabOrder = 2
             end
           end
           object rgModoGerarNFe: TRadioGroup
-            Left = 0
-            Top = 436
-            Width = 359
-            Height = 42
+            AlignWithMargins = True
+            Left = 3
+            Top = 432
+            Width = 353
+            Height = 53
             Align = alBottom
             Caption = 'Modo de Gerar a NF-e'
             Columns = 2
@@ -528,33 +604,50 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         object TbsCertificado: TTabSheet
           BorderWidth = 4
           Caption = 'Certificado'
+          ExplicitLeft = 0
+          ExplicitTop = 26
           object GroupBox2: TGroupBox
-            Left = 0
-            Top = 0
-            Width = 359
-            Height = 241
+            AlignWithMargins = True
+            Left = 3
+            Top = 3
+            Width = 353
+            Height = 278
             Align = alTop
             Caption = 'Certificado'
             TabOrder = 0
+            DesignSize = (
+              353
+              278)
             object lbltCaminho: TLabel
-              Left = 9
-              Top = 20
-              Width = 41
+              AlignWithMargins = True
+              Left = 12
+              Top = 18
+              Width = 329
               Height = 13
+              Margins.Left = 10
+              Margins.Right = 10
+              Align = alTop
               Caption = 'Caminho'
+              ExplicitWidth = 41
             end
             object lbltSenha: TLabel
-              Left = 9
-              Top = 60
-              Width = 30
+              AlignWithMargins = True
+              Left = 12
+              Top = 61
+              Width = 329
               Height = 13
+              Margins.Left = 10
+              Margins.Right = 10
+              Align = alTop
               Caption = 'Senha'
+              ExplicitWidth = 30
             end
             object sbtnCaminhoCert: TSpeedButton
-              Left = 329
-              Top = 33
+              Left = 318
+              Top = 32
               Width = 23
               Height = 24
+              Anchors = [akTop, akRight]
               Glyph.Data = {
                 76010000424D7601000000000000760000002800000020000000100000000100
                 04000000000000010000130B0000130B00001000000000000000000000000000
@@ -570,17 +663,23 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 3BB33773333773333773B333333B3333333B7333333733333337}
               NumGlyphs = 2
               OnClick = sbtnCaminhoCertClick
+              ExplicitLeft = 324
             end
             object lbltNumSerie: TLabel
-              Left = 9
-              Top = 148
-              Width = 79
+              AlignWithMargins = True
+              Left = 12
+              Top = 150
+              Width = 329
               Height = 13
+              Margins.Left = 10
+              Margins.Right = 10
+              Align = alTop
               Caption = 'N'#250'mero de S'#233'rie'
+              ExplicitWidth = 79
             end
             object sbtnGetCert: TSpeedButton
-              Left = 329
-              Top = 161
+              Left = 318
+              Top = 164
               Width = 23
               Height = 24
               Glyph.Data = {
@@ -599,120 +698,619 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               NumGlyphs = 2
             end
             object Label51: TLabel
-              Left = 9
-              Top = 101
-              Width = 65
+              AlignWithMargins = True
+              Left = 12
+              Top = 104
+              Width = 329
               Height = 13
+              Margins.Left = 10
+              Margins.Right = 10
+              Align = alTop
               Caption = 'URL para PFX'
+              ExplicitWidth = 65
             end
             object edtCaminho: TEdit
-              Left = 9
-              Top = 36
-              Width = 316
+              AlignWithMargins = True
+              Left = 12
+              Top = 34
+              Width = 303
               Height = 21
+              Margins.Left = 10
+              Margins.Top = 0
+              Margins.Right = 36
+              Align = alTop
               TabOrder = 0
+              ExplicitLeft = 9
+              ExplicitTop = 36
+              ExplicitWidth = 316
             end
             object edtSenha: TEdit
-              Left = 9
-              Top = 75
-              Width = 343
+              AlignWithMargins = True
+              Left = 12
+              Top = 77
+              Width = 329
               Height = 21
+              Margins.Left = 10
+              Margins.Top = 0
+              Margins.Right = 10
+              Align = alTop
               PasswordChar = '*'
               TabOrder = 1
+              ExplicitLeft = 9
+              ExplicitTop = 75
+              ExplicitWidth = 343
             end
             object edtNumSerie: TEdit
-              Left = 9
-              Top = 164
-              Width = 316
+              AlignWithMargins = True
+              Left = 12
+              Top = 166
+              Width = 303
               Height = 21
+              Margins.Left = 10
+              Margins.Top = 0
+              Margins.Right = 36
+              Align = alTop
               TabOrder = 3
               OnChange = edtNumSerieChange
-            end
-            object btnValidadeCertificado: TcxButton
-              Left = 9
-              Top = 191
-              Width = 83
-              Height = 33
-              Hint = 'Verificar validade do Certificado'
-              Caption = 'Validade'
-              OptionsImage.Glyph.SourceDPI = 96
-              OptionsImage.Glyph.Data = {
-                424D360800000000000036000000280000002000000010000000010020000000
-                000000000000C40E0000C40E0000000000000000000000FF000000FF000000FF
-                000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
-                000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
-                000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
-                000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
-                000000FF000000FF000000FF000000FF00009A8F8CFF203040FF5F6869FF00FF
-                000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
-                000000FF000000FF000000FF000000FF00008F8F8FFF333333FF676767FF00FF
-                000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
-                000000FF000000FF000000FF00008C8C88FF405060FF2098C0FF303840FF5F6D
-                72FF00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
-                000000FF000000FF000000FF00008A8A8AFF535353FF989898FF393939FF6D6D
-                6DFF00FF000000FF000000FF000000FF000000FF000000FF000000FF0000E1C0
-                A7FFD1AC93FFD5B8A1FF7F8285FF506070FF20A0D0FF30B8F0FF60A0B0FF5068
-                70FF806850FF705840FF604830FF604830FF00FF000000FF000000FF0000BBBB
-                BBFFA8A8A8FFB4B4B4FF828282FF636363FFA1A1A1FFBBBBBBFF9E9E9EFF6868
-                68FF636363FF535353FF434343FF434343FF00FF000000FF000000FF00007068
-                60FF605040FF605040FF606860FF4088A0FF40C0F0FF60B0D0FF708890FFA098
-                90FFC0B0A0FFB0A090FFB0A090FF604830FF00FF000000FF000000FF00006666
-                66FF4C4C4CFF4C4C4CFF646464FF888888FFC1C1C1FFB1B1B1FF888888FF9696
-                96FFACACACFF9C9C9CFF9C9C9CFF434343FF00FF000000FF0000776E65FFC0A0
-                80FFF0E0A0FFF0D8A0FFB0A890FF607070FF6098B0FF708890FF9098A0FFD0F0
-                E0FFB0E8D0FFB0E8C0FFB0A090FF604830FF00FF000000FF00006C6C6CFF9999
-                99FFCECECEFFC9C9C9FFA1A1A1FF6E6E6EFF999999FF888888FF999999FFE8E8
-                E8FFDBDBDBFFD6D6D6FF9C9C9CFF434343FF00FF0000968372FFB09880FFFFFF
-                C0FFFFF8C0FFFFF0C0FFFFF0D0FFB0A890FF707070FF90A0A0FFF0F8F0FFE0F8
-                F0FFC0F0D0FFC0E8D0FFC0A890FF604830FF00FF00007F7F7FFF939393FFECEC
-                ECFFE7E7E7FFE3E3E3FFE7E7E7FFA1A1A1FF707070FF9E9E9EFFF4F4F4FFF3F3
-                F3FFE1E1E1FFDCDCDCFFA3A3A3FF434343FF00FF0000968575FFE0D0B0FFFFFF
-                E0FFFFFFE0FFFFFFD0FFFFF0C0FFF0D8B0FF605040FFE0D8C0FFE0C8B0FFD0B0
-                A0FFD0A890FFC0E8D0FFC0A890FF604830FF00FF0000818181FFC8C8C8FFF5F5
-                F5FFF5F5F5FFF0F0F0FFE3E3E3FFCECECEFF4C4C4CFFD1D1D1FFC3C3C3FFAEAE
-                AEFFA4A4A4FFDCDCDCFFA3A3A3FF434343FF00FF0000BCA997FFE0D0B0FFFFFF
-                F0FFFFFFF0FFFFFFE0FFFFF8C0FFF0D8A0FF705850FFFFFFFFFFFFFFFFFFFFFF
-                FFFFE0F8F0FFD0F0E0FFC0A8A0FF604830FF00FF0000A5A5A5FFC8C8C8FFFAFA
-                FAFFFAFAFAFFF5F5F5FFE7E7E7FFC9C9C9FF585858FFFFFFFFFFFFFFFFFFFFFF
-                FFFFF3F3F3FFE8E8E8FFA8A8A8FF434343FF00FF0000D5C0ADFFC0A8A0FFFFFF
-                FFFFFFFFFFFFFFFFE0FFFFFFD0FFC0B080FF908070FFF0E0D0FFE0C8B0FFD0B0
-                A0FFD0A890FFE0F8F0FFC0A8A0FF604830FF00FF0000BCBCBCFFA8A8A8FFFFFF
-                FFFFFFFFFFFFF5F5F5FFF0F0F0FFA3A3A3FF7C7C7CFFDCDCDCFFC3C3C3FFAEAE
-                AEFFA4A4A4FFF3F3F3FFA8A8A8FF434343FF00FF000000FF0000B4ABA2FFC0B0
-                B0FFF0E8D0FFF0E8C0FFC0B090FF807860FFD0D0D0FFFFFFFFFFFFFFFFFFFFFF
-                FFFFFFFFFFFFF0F8F0FFC0B0A0FF604830FF00FF000000FF0000A9A9A9FFB1B1
-                B1FFE1E1E1FFDCDCDCFFA8A8A8FF717171FFD0D0D0FFFFFFFFFFFFFFFFFFFFFF
-                FFFFFFFFFFFFF4F4F4FFACACACFF434343FF00FF000000FF000000FF0000C0B0
-                A0FFB0A090FFA09080FFB0A0A0FFB0A8A0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-                FFFFFFFFFFFFFFFFFFFFC0B0A0FF604830FF00FF000000FF000000FF0000ACAC
-                ACFF9C9C9CFF8C8C8CFFA1A1A1FFA6A6A6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-                FFFFFFFFFFFFFFFFFFFFACACACFF434343FF00FF000000FF000000FF0000F0A8
-                90FFF0A890FFF0A890FFF0A880FFF0A080FFE09870FFE09060FFE08850FFE080
-                50FFE07040FFE07040FFE07040FFD06030FF00FF000000FF000000FF0000A8A8
-                A8FFA8A8A8FFA8A8A8FFA3A3A3FF9E9E9EFF939393FF898989FF808080FF7B7B
-                7BFF6C6C6CFF6C6C6CFF6C6C6CFF5C5C5CFF00FF000000FF000000FF0000F0A8
-                90FFFFC0A0FFFFC0A0FFFFC0A0FFFFB890FFFFB890FFFFB090FFFFA880FFFFA8
-                80FFF0A070FFF09870FFF09860FFD06830FF00FF000000FF000000FF0000A8A8
-                A8FFBCBCBCFFBCBCBCFFBCBCBCFFB3B3B3FFB3B3B3FFAEAEAEFFA4A4A4FFA4A4
-                A4FF999999FF949494FF909090FF616161FF00FF000000FF000000FF0000F0A8
-                90FFF0A890FFF0A890FFF0A890FFF0A880FFF0A080FFF09870FFE09870FFE090
-                60FFE08050FFE07840FFE07840FFE07040FF00FF000000FF000000FF0000A8A8
-                A8FFA8A8A8FFA8A8A8FFA8A8A8FFA3A3A3FF9E9E9EFF949494FF939393FF8989
-                89FF7B7B7BFF717171FF717171FF6C6C6CFF00FF000000FF000000FF000000FF
-                000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
-                000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
-                000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
-                000000FF000000FF000000FF000000FF000000FF0000}
-              OptionsImage.NumGlyphs = 2
-              TabOrder = 4
-              OnClick = btnValidadeCertificadoClick
+              ExplicitLeft = 9
+              ExplicitTop = 164
+              ExplicitWidth = 316
             end
             object edtURLPFX: TEdit
-              Left = 9
-              Top = 120
-              Width = 343
+              AlignWithMargins = True
+              Left = 12
+              Top = 123
+              Width = 329
               Height = 21
+              Margins.Left = 10
+              Margins.Right = 10
+              Align = alTop
               TabOrder = 2
+              ExplicitLeft = 9
+              ExplicitTop = 120
+              ExplicitWidth = 343
+            end
+            object Panel1: TPanel
+              AlignWithMargins = True
+              Left = 12
+              Top = 193
+              Width = 329
+              Height = 33
+              Margins.Left = 10
+              Margins.Right = 10
+              Align = alTop
+              BevelOuter = bvNone
+              TabOrder = 4
+              ExplicitLeft = 14
+              object btnValidadeCertificado: TcxButton
+                AlignWithMargins = True
+                Left = 0
+                Top = 0
+                Width = 107
+                Height = 33
+                Margins.Left = 0
+                Margins.Top = 0
+                Margins.Right = 0
+                Margins.Bottom = 0
+                Align = alLeft
+                Caption = 'Validade'
+                OptionsImage.Glyph.SourceDPI = 96
+                OptionsImage.Glyph.Data = {
+                  424D360800000000000036000000280000002000000010000000010020000000
+                  000000000000C40E0000C40E0000000000000000000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF00009A8F8CFF203040FF5F6869FF00FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF00008F8F8FFF333333FF676767FF00FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF00008C8C88FF405060FF2098C0FF303840FF5F6D
+                  72FF00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF00008A8A8AFF535353FF989898FF393939FF6D6D
+                  6DFF00FF000000FF000000FF000000FF000000FF000000FF000000FF0000E1C0
+                  A7FFD1AC93FFD5B8A1FF7F8285FF506070FF20A0D0FF30B8F0FF60A0B0FF5068
+                  70FF806850FF705840FF604830FF604830FF00FF000000FF000000FF0000BBBB
+                  BBFFA8A8A8FFB4B4B4FF828282FF636363FFA1A1A1FFBBBBBBFF9E9E9EFF6868
+                  68FF636363FF535353FF434343FF434343FF00FF000000FF000000FF00007068
+                  60FF605040FF605040FF606860FF4088A0FF40C0F0FF60B0D0FF708890FFA098
+                  90FFC0B0A0FFB0A090FFB0A090FF604830FF00FF000000FF000000FF00006666
+                  66FF4C4C4CFF4C4C4CFF646464FF888888FFC1C1C1FFB1B1B1FF888888FF9696
+                  96FFACACACFF9C9C9CFF9C9C9CFF434343FF00FF000000FF0000776E65FFC0A0
+                  80FFF0E0A0FFF0D8A0FFB0A890FF607070FF6098B0FF708890FF9098A0FFD0F0
+                  E0FFB0E8D0FFB0E8C0FFB0A090FF604830FF00FF000000FF00006C6C6CFF9999
+                  99FFCECECEFFC9C9C9FFA1A1A1FF6E6E6EFF999999FF888888FF999999FFE8E8
+                  E8FFDBDBDBFFD6D6D6FF9C9C9CFF434343FF00FF0000968372FFB09880FFFFFF
+                  C0FFFFF8C0FFFFF0C0FFFFF0D0FFB0A890FF707070FF90A0A0FFF0F8F0FFE0F8
+                  F0FFC0F0D0FFC0E8D0FFC0A890FF604830FF00FF00007F7F7FFF939393FFECEC
+                  ECFFE7E7E7FFE3E3E3FFE7E7E7FFA1A1A1FF707070FF9E9E9EFFF4F4F4FFF3F3
+                  F3FFE1E1E1FFDCDCDCFFA3A3A3FF434343FF00FF0000968575FFE0D0B0FFFFFF
+                  E0FFFFFFE0FFFFFFD0FFFFF0C0FFF0D8B0FF605040FFE0D8C0FFE0C8B0FFD0B0
+                  A0FFD0A890FFC0E8D0FFC0A890FF604830FF00FF0000818181FFC8C8C8FFF5F5
+                  F5FFF5F5F5FFF0F0F0FFE3E3E3FFCECECEFF4C4C4CFFD1D1D1FFC3C3C3FFAEAE
+                  AEFFA4A4A4FFDCDCDCFFA3A3A3FF434343FF00FF0000BCA997FFE0D0B0FFFFFF
+                  F0FFFFFFF0FFFFFFE0FFFFF8C0FFF0D8A0FF705850FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFE0F8F0FFD0F0E0FFC0A8A0FF604830FF00FF0000A5A5A5FFC8C8C8FFFAFA
+                  FAFFFAFAFAFFF5F5F5FFE7E7E7FFC9C9C9FF585858FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFF3F3F3FFE8E8E8FFA8A8A8FF434343FF00FF0000D5C0ADFFC0A8A0FFFFFF
+                  FFFFFFFFFFFFFFFFE0FFFFFFD0FFC0B080FF908070FFF0E0D0FFE0C8B0FFD0B0
+                  A0FFD0A890FFE0F8F0FFC0A8A0FF604830FF00FF0000BCBCBCFFA8A8A8FFFFFF
+                  FFFFFFFFFFFFF5F5F5FFF0F0F0FFA3A3A3FF7C7C7CFFDCDCDCFFC3C3C3FFAEAE
+                  AEFFA4A4A4FFF3F3F3FFA8A8A8FF434343FF00FF000000FF0000B4ABA2FFC0B0
+                  B0FFF0E8D0FFF0E8C0FFC0B090FF807860FFD0D0D0FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFF0F8F0FFC0B0A0FF604830FF00FF000000FF0000A9A9A9FFB1B1
+                  B1FFE1E1E1FFDCDCDCFFA8A8A8FF717171FFD0D0D0FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFF4F4F4FFACACACFF434343FF00FF000000FF000000FF0000C0B0
+                  A0FFB0A090FFA09080FFB0A0A0FFB0A8A0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFC0B0A0FF604830FF00FF000000FF000000FF0000ACAC
+                  ACFF9C9C9CFF8C8C8CFFA1A1A1FFA6A6A6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFACACACFF434343FF00FF000000FF000000FF0000F0A8
+                  90FFF0A890FFF0A890FFF0A880FFF0A080FFE09870FFE09060FFE08850FFE080
+                  50FFE07040FFE07040FFE07040FFD06030FF00FF000000FF000000FF0000A8A8
+                  A8FFA8A8A8FFA8A8A8FFA3A3A3FF9E9E9EFF939393FF898989FF808080FF7B7B
+                  7BFF6C6C6CFF6C6C6CFF6C6C6CFF5C5C5CFF00FF000000FF000000FF0000F0A8
+                  90FFFFC0A0FFFFC0A0FFFFC0A0FFFFB890FFFFB890FFFFB090FFFFA880FFFFA8
+                  80FFF0A070FFF09870FFF09860FFD06830FF00FF000000FF000000FF0000A8A8
+                  A8FFBCBCBCFFBCBCBCFFBCBCBCFFB3B3B3FFB3B3B3FFAEAEAEFFA4A4A4FFA4A4
+                  A4FF999999FF949494FF909090FF616161FF00FF000000FF000000FF0000F0A8
+                  90FFF0A890FFF0A890FFF0A890FFF0A880FFF0A080FFF09870FFE09870FFE090
+                  60FFE08050FFE07840FFE07840FFE07040FF00FF000000FF000000FF0000A8A8
+                  A8FFA8A8A8FFA8A8A8FFA8A8A8FFA3A3A3FF9E9E9EFF949494FF939393FF8989
+                  89FF7B7B7BFF717171FF717171FF6C6C6CFF00FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF0000}
+                OptionsImage.NumGlyphs = 2
+                ParentShowHint = False
+                ShowHint = False
+                TabOrder = 0
+                OnClick = btnValidadeCertificadoClick
+              end
+              object btnIssuerName: TcxButton
+                AlignWithMargins = True
+                Left = 222
+                Top = 0
+                Width = 107
+                Height = 33
+                Margins.Top = 0
+                Margins.Right = 0
+                Margins.Bottom = 0
+                Align = alRight
+                Caption = 'Issuer Name'
+                Enabled = False
+                OptionsImage.Glyph.SourceDPI = 96
+                OptionsImage.Glyph.Data = {
+                  424D360800000000000036000000280000002000000010000000010020000000
+                  000000000000C40E0000C40E0000000000000000000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF00009A8F8CFF203040FF5F6869FF00FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF00008F8F8FFF333333FF676767FF00FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF00008C8C88FF405060FF2098C0FF303840FF5F6D
+                  72FF00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF00008A8A8AFF535353FF989898FF393939FF6D6D
+                  6DFF00FF000000FF000000FF000000FF000000FF000000FF000000FF0000E1C0
+                  A7FFD1AC93FFD5B8A1FF7F8285FF506070FF20A0D0FF30B8F0FF60A0B0FF5068
+                  70FF806850FF705840FF604830FF604830FF00FF000000FF000000FF0000BBBB
+                  BBFFA8A8A8FFB4B4B4FF828282FF636363FFA1A1A1FFBBBBBBFF9E9E9EFF6868
+                  68FF636363FF535353FF434343FF434343FF00FF000000FF000000FF00007068
+                  60FF605040FF605040FF606860FF4088A0FF40C0F0FF60B0D0FF708890FFA098
+                  90FFC0B0A0FFB0A090FFB0A090FF604830FF00FF000000FF000000FF00006666
+                  66FF4C4C4CFF4C4C4CFF646464FF888888FFC1C1C1FFB1B1B1FF888888FF9696
+                  96FFACACACFF9C9C9CFF9C9C9CFF434343FF00FF000000FF0000776E65FFC0A0
+                  80FFF0E0A0FFF0D8A0FFB0A890FF607070FF6098B0FF708890FF9098A0FFD0F0
+                  E0FFB0E8D0FFB0E8C0FFB0A090FF604830FF00FF000000FF00006C6C6CFF9999
+                  99FFCECECEFFC9C9C9FFA1A1A1FF6E6E6EFF999999FF888888FF999999FFE8E8
+                  E8FFDBDBDBFFD6D6D6FF9C9C9CFF434343FF00FF0000968372FFB09880FFFFFF
+                  C0FFFFF8C0FFFFF0C0FFFFF0D0FFB0A890FF707070FF90A0A0FFF0F8F0FFE0F8
+                  F0FFC0F0D0FFC0E8D0FFC0A890FF604830FF00FF00007F7F7FFF939393FFECEC
+                  ECFFE7E7E7FFE3E3E3FFE7E7E7FFA1A1A1FF707070FF9E9E9EFFF4F4F4FFF3F3
+                  F3FFE1E1E1FFDCDCDCFFA3A3A3FF434343FF00FF0000968575FFE0D0B0FFFFFF
+                  E0FFFFFFE0FFFFFFD0FFFFF0C0FFF0D8B0FF605040FFE0D8C0FFE0C8B0FFD0B0
+                  A0FFD0A890FFC0E8D0FFC0A890FF604830FF00FF0000818181FFC8C8C8FFF5F5
+                  F5FFF5F5F5FFF0F0F0FFE3E3E3FFCECECEFF4C4C4CFFD1D1D1FFC3C3C3FFAEAE
+                  AEFFA4A4A4FFDCDCDCFFA3A3A3FF434343FF00FF0000BCA997FFE0D0B0FFFFFF
+                  F0FFFFFFF0FFFFFFE0FFFFF8C0FFF0D8A0FF705850FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFE0F8F0FFD0F0E0FFC0A8A0FF604830FF00FF0000A5A5A5FFC8C8C8FFFAFA
+                  FAFFFAFAFAFFF5F5F5FFE7E7E7FFC9C9C9FF585858FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFF3F3F3FFE8E8E8FFA8A8A8FF434343FF00FF0000D5C0ADFFC0A8A0FFFFFF
+                  FFFFFFFFFFFFFFFFE0FFFFFFD0FFC0B080FF908070FFF0E0D0FFE0C8B0FFD0B0
+                  A0FFD0A890FFE0F8F0FFC0A8A0FF604830FF00FF0000BCBCBCFFA8A8A8FFFFFF
+                  FFFFFFFFFFFFF5F5F5FFF0F0F0FFA3A3A3FF7C7C7CFFDCDCDCFFC3C3C3FFAEAE
+                  AEFFA4A4A4FFF3F3F3FFA8A8A8FF434343FF00FF000000FF0000B4ABA2FFC0B0
+                  B0FFF0E8D0FFF0E8C0FFC0B090FF807860FFD0D0D0FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFF0F8F0FFC0B0A0FF604830FF00FF000000FF0000A9A9A9FFB1B1
+                  B1FFE1E1E1FFDCDCDCFFA8A8A8FF717171FFD0D0D0FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFF4F4F4FFACACACFF434343FF00FF000000FF000000FF0000C0B0
+                  A0FFB0A090FFA09080FFB0A0A0FFB0A8A0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFC0B0A0FF604830FF00FF000000FF000000FF0000ACAC
+                  ACFF9C9C9CFF8C8C8CFFA1A1A1FFA6A6A6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFACACACFF434343FF00FF000000FF000000FF0000F0A8
+                  90FFF0A890FFF0A890FFF0A880FFF0A080FFE09870FFE09060FFE08850FFE080
+                  50FFE07040FFE07040FFE07040FFD06030FF00FF000000FF000000FF0000A8A8
+                  A8FFA8A8A8FFA8A8A8FFA3A3A3FF9E9E9EFF939393FF898989FF808080FF7B7B
+                  7BFF6C6C6CFF6C6C6CFF6C6C6CFF5C5C5CFF00FF000000FF000000FF0000F0A8
+                  90FFFFC0A0FFFFC0A0FFFFC0A0FFFFB890FFFFB890FFFFB090FFFFA880FFFFA8
+                  80FFF0A070FFF09870FFF09860FFD06830FF00FF000000FF000000FF0000A8A8
+                  A8FFBCBCBCFFBCBCBCFFBCBCBCFFB3B3B3FFB3B3B3FFAEAEAEFFA4A4A4FFA4A4
+                  A4FF999999FF949494FF909090FF616161FF00FF000000FF000000FF0000F0A8
+                  90FFF0A890FFF0A890FFF0A890FFF0A880FFF0A080FFF09870FFE09870FFE090
+                  60FFE08050FFE07840FFE07840FFE07040FF00FF000000FF000000FF0000A8A8
+                  A8FFA8A8A8FFA8A8A8FFA8A8A8FFA3A3A3FF9E9E9EFF949494FF939393FF8989
+                  89FF7B7B7BFF717171FF717171FF6C6C6CFF00FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF0000}
+                OptionsImage.NumGlyphs = 2
+                ParentShowHint = False
+                ShowHint = False
+                TabOrder = 1
+                ExplicitLeft = 224
+              end
+              object btnSerieNumber: TcxButton
+                AlignWithMargins = True
+                Left = 110
+                Top = 0
+                Width = 109
+                Height = 33
+                Margins.Top = 0
+                Margins.Right = 0
+                Margins.Bottom = 0
+                Align = alClient
+                Caption = 'Serie Number'
+                Enabled = False
+                OptionsImage.Glyph.SourceDPI = 96
+                OptionsImage.Glyph.Data = {
+                  424D360800000000000036000000280000002000000010000000010020000000
+                  000000000000C40E0000C40E0000000000000000000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF00009A8F8CFF203040FF5F6869FF00FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF00008F8F8FFF333333FF676767FF00FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF00008C8C88FF405060FF2098C0FF303840FF5F6D
+                  72FF00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF00008A8A8AFF535353FF989898FF393939FF6D6D
+                  6DFF00FF000000FF000000FF000000FF000000FF000000FF000000FF0000E1C0
+                  A7FFD1AC93FFD5B8A1FF7F8285FF506070FF20A0D0FF30B8F0FF60A0B0FF5068
+                  70FF806850FF705840FF604830FF604830FF00FF000000FF000000FF0000BBBB
+                  BBFFA8A8A8FFB4B4B4FF828282FF636363FFA1A1A1FFBBBBBBFF9E9E9EFF6868
+                  68FF636363FF535353FF434343FF434343FF00FF000000FF000000FF00007068
+                  60FF605040FF605040FF606860FF4088A0FF40C0F0FF60B0D0FF708890FFA098
+                  90FFC0B0A0FFB0A090FFB0A090FF604830FF00FF000000FF000000FF00006666
+                  66FF4C4C4CFF4C4C4CFF646464FF888888FFC1C1C1FFB1B1B1FF888888FF9696
+                  96FFACACACFF9C9C9CFF9C9C9CFF434343FF00FF000000FF0000776E65FFC0A0
+                  80FFF0E0A0FFF0D8A0FFB0A890FF607070FF6098B0FF708890FF9098A0FFD0F0
+                  E0FFB0E8D0FFB0E8C0FFB0A090FF604830FF00FF000000FF00006C6C6CFF9999
+                  99FFCECECEFFC9C9C9FFA1A1A1FF6E6E6EFF999999FF888888FF999999FFE8E8
+                  E8FFDBDBDBFFD6D6D6FF9C9C9CFF434343FF00FF0000968372FFB09880FFFFFF
+                  C0FFFFF8C0FFFFF0C0FFFFF0D0FFB0A890FF707070FF90A0A0FFF0F8F0FFE0F8
+                  F0FFC0F0D0FFC0E8D0FFC0A890FF604830FF00FF00007F7F7FFF939393FFECEC
+                  ECFFE7E7E7FFE3E3E3FFE7E7E7FFA1A1A1FF707070FF9E9E9EFFF4F4F4FFF3F3
+                  F3FFE1E1E1FFDCDCDCFFA3A3A3FF434343FF00FF0000968575FFE0D0B0FFFFFF
+                  E0FFFFFFE0FFFFFFD0FFFFF0C0FFF0D8B0FF605040FFE0D8C0FFE0C8B0FFD0B0
+                  A0FFD0A890FFC0E8D0FFC0A890FF604830FF00FF0000818181FFC8C8C8FFF5F5
+                  F5FFF5F5F5FFF0F0F0FFE3E3E3FFCECECEFF4C4C4CFFD1D1D1FFC3C3C3FFAEAE
+                  AEFFA4A4A4FFDCDCDCFFA3A3A3FF434343FF00FF0000BCA997FFE0D0B0FFFFFF
+                  F0FFFFFFF0FFFFFFE0FFFFF8C0FFF0D8A0FF705850FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFE0F8F0FFD0F0E0FFC0A8A0FF604830FF00FF0000A5A5A5FFC8C8C8FFFAFA
+                  FAFFFAFAFAFFF5F5F5FFE7E7E7FFC9C9C9FF585858FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFF3F3F3FFE8E8E8FFA8A8A8FF434343FF00FF0000D5C0ADFFC0A8A0FFFFFF
+                  FFFFFFFFFFFFFFFFE0FFFFFFD0FFC0B080FF908070FFF0E0D0FFE0C8B0FFD0B0
+                  A0FFD0A890FFE0F8F0FFC0A8A0FF604830FF00FF0000BCBCBCFFA8A8A8FFFFFF
+                  FFFFFFFFFFFFF5F5F5FFF0F0F0FFA3A3A3FF7C7C7CFFDCDCDCFFC3C3C3FFAEAE
+                  AEFFA4A4A4FFF3F3F3FFA8A8A8FF434343FF00FF000000FF0000B4ABA2FFC0B0
+                  B0FFF0E8D0FFF0E8C0FFC0B090FF807860FFD0D0D0FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFF0F8F0FFC0B0A0FF604830FF00FF000000FF0000A9A9A9FFB1B1
+                  B1FFE1E1E1FFDCDCDCFFA8A8A8FF717171FFD0D0D0FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFF4F4F4FFACACACFF434343FF00FF000000FF000000FF0000C0B0
+                  A0FFB0A090FFA09080FFB0A0A0FFB0A8A0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFC0B0A0FF604830FF00FF000000FF000000FF0000ACAC
+                  ACFF9C9C9CFF8C8C8CFFA1A1A1FFA6A6A6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFACACACFF434343FF00FF000000FF000000FF0000F0A8
+                  90FFF0A890FFF0A890FFF0A880FFF0A080FFE09870FFE09060FFE08850FFE080
+                  50FFE07040FFE07040FFE07040FFD06030FF00FF000000FF000000FF0000A8A8
+                  A8FFA8A8A8FFA8A8A8FFA3A3A3FF9E9E9EFF939393FF898989FF808080FF7B7B
+                  7BFF6C6C6CFF6C6C6CFF6C6C6CFF5C5C5CFF00FF000000FF000000FF0000F0A8
+                  90FFFFC0A0FFFFC0A0FFFFC0A0FFFFB890FFFFB890FFFFB090FFFFA880FFFFA8
+                  80FFF0A070FFF09870FFF09860FFD06830FF00FF000000FF000000FF0000A8A8
+                  A8FFBCBCBCFFBCBCBCFFBCBCBCFFB3B3B3FFB3B3B3FFAEAEAEFFA4A4A4FFA4A4
+                  A4FF999999FF949494FF909090FF616161FF00FF000000FF000000FF0000F0A8
+                  90FFF0A890FFF0A890FFF0A890FFF0A880FFF0A080FFF09870FFE09870FFE090
+                  60FFE08050FFE07840FFE07840FFE07040FF00FF000000FF000000FF0000A8A8
+                  A8FFA8A8A8FFA8A8A8FFA8A8A8FFA3A3A3FF9E9E9EFF949494FF939393FF8989
+                  89FF7B7B7BFF717171FF717171FF6C6C6CFF00FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF0000}
+                OptionsImage.NumGlyphs = 2
+                ParentShowHint = False
+                ShowHint = False
+                TabOrder = 2
+                ExplicitTop = -3
+              end
+            end
+            object Panel2: TPanel
+              AlignWithMargins = True
+              Left = 12
+              Top = 229
+              Width = 329
+              Height = 33
+              Margins.Left = 10
+              Margins.Top = 0
+              Margins.Right = 10
+              Align = alTop
+              BevelOuter = bvNone
+              TabOrder = 5
+              ExplicitLeft = 20
+              ExplicitTop = 201
+              object btnSubjectName: TcxButton
+                AlignWithMargins = True
+                Left = 0
+                Top = 0
+                Width = 107
+                Height = 33
+                Margins.Left = 0
+                Margins.Top = 0
+                Margins.Right = 0
+                Margins.Bottom = 0
+                Align = alLeft
+                Caption = 'Subject Name'
+                Enabled = False
+                OptionsImage.Glyph.SourceDPI = 96
+                OptionsImage.Glyph.Data = {
+                  424D360800000000000036000000280000002000000010000000010020000000
+                  000000000000C40E0000C40E0000000000000000000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF00009A8F8CFF203040FF5F6869FF00FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF00008F8F8FFF333333FF676767FF00FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF00008C8C88FF405060FF2098C0FF303840FF5F6D
+                  72FF00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF00008A8A8AFF535353FF989898FF393939FF6D6D
+                  6DFF00FF000000FF000000FF000000FF000000FF000000FF000000FF0000E1C0
+                  A7FFD1AC93FFD5B8A1FF7F8285FF506070FF20A0D0FF30B8F0FF60A0B0FF5068
+                  70FF806850FF705840FF604830FF604830FF00FF000000FF000000FF0000BBBB
+                  BBFFA8A8A8FFB4B4B4FF828282FF636363FFA1A1A1FFBBBBBBFF9E9E9EFF6868
+                  68FF636363FF535353FF434343FF434343FF00FF000000FF000000FF00007068
+                  60FF605040FF605040FF606860FF4088A0FF40C0F0FF60B0D0FF708890FFA098
+                  90FFC0B0A0FFB0A090FFB0A090FF604830FF00FF000000FF000000FF00006666
+                  66FF4C4C4CFF4C4C4CFF646464FF888888FFC1C1C1FFB1B1B1FF888888FF9696
+                  96FFACACACFF9C9C9CFF9C9C9CFF434343FF00FF000000FF0000776E65FFC0A0
+                  80FFF0E0A0FFF0D8A0FFB0A890FF607070FF6098B0FF708890FF9098A0FFD0F0
+                  E0FFB0E8D0FFB0E8C0FFB0A090FF604830FF00FF000000FF00006C6C6CFF9999
+                  99FFCECECEFFC9C9C9FFA1A1A1FF6E6E6EFF999999FF888888FF999999FFE8E8
+                  E8FFDBDBDBFFD6D6D6FF9C9C9CFF434343FF00FF0000968372FFB09880FFFFFF
+                  C0FFFFF8C0FFFFF0C0FFFFF0D0FFB0A890FF707070FF90A0A0FFF0F8F0FFE0F8
+                  F0FFC0F0D0FFC0E8D0FFC0A890FF604830FF00FF00007F7F7FFF939393FFECEC
+                  ECFFE7E7E7FFE3E3E3FFE7E7E7FFA1A1A1FF707070FF9E9E9EFFF4F4F4FFF3F3
+                  F3FFE1E1E1FFDCDCDCFFA3A3A3FF434343FF00FF0000968575FFE0D0B0FFFFFF
+                  E0FFFFFFE0FFFFFFD0FFFFF0C0FFF0D8B0FF605040FFE0D8C0FFE0C8B0FFD0B0
+                  A0FFD0A890FFC0E8D0FFC0A890FF604830FF00FF0000818181FFC8C8C8FFF5F5
+                  F5FFF5F5F5FFF0F0F0FFE3E3E3FFCECECEFF4C4C4CFFD1D1D1FFC3C3C3FFAEAE
+                  AEFFA4A4A4FFDCDCDCFFA3A3A3FF434343FF00FF0000BCA997FFE0D0B0FFFFFF
+                  F0FFFFFFF0FFFFFFE0FFFFF8C0FFF0D8A0FF705850FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFE0F8F0FFD0F0E0FFC0A8A0FF604830FF00FF0000A5A5A5FFC8C8C8FFFAFA
+                  FAFFFAFAFAFFF5F5F5FFE7E7E7FFC9C9C9FF585858FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFF3F3F3FFE8E8E8FFA8A8A8FF434343FF00FF0000D5C0ADFFC0A8A0FFFFFF
+                  FFFFFFFFFFFFFFFFE0FFFFFFD0FFC0B080FF908070FFF0E0D0FFE0C8B0FFD0B0
+                  A0FFD0A890FFE0F8F0FFC0A8A0FF604830FF00FF0000BCBCBCFFA8A8A8FFFFFF
+                  FFFFFFFFFFFFF5F5F5FFF0F0F0FFA3A3A3FF7C7C7CFFDCDCDCFFC3C3C3FFAEAE
+                  AEFFA4A4A4FFF3F3F3FFA8A8A8FF434343FF00FF000000FF0000B4ABA2FFC0B0
+                  B0FFF0E8D0FFF0E8C0FFC0B090FF807860FFD0D0D0FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFF0F8F0FFC0B0A0FF604830FF00FF000000FF0000A9A9A9FFB1B1
+                  B1FFE1E1E1FFDCDCDCFFA8A8A8FF717171FFD0D0D0FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFF4F4F4FFACACACFF434343FF00FF000000FF000000FF0000C0B0
+                  A0FFB0A090FFA09080FFB0A0A0FFB0A8A0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFC0B0A0FF604830FF00FF000000FF000000FF0000ACAC
+                  ACFF9C9C9CFF8C8C8CFFA1A1A1FFA6A6A6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFACACACFF434343FF00FF000000FF000000FF0000F0A8
+                  90FFF0A890FFF0A890FFF0A880FFF0A080FFE09870FFE09060FFE08850FFE080
+                  50FFE07040FFE07040FFE07040FFD06030FF00FF000000FF000000FF0000A8A8
+                  A8FFA8A8A8FFA8A8A8FFA3A3A3FF9E9E9EFF939393FF898989FF808080FF7B7B
+                  7BFF6C6C6CFF6C6C6CFF6C6C6CFF5C5C5CFF00FF000000FF000000FF0000F0A8
+                  90FFFFC0A0FFFFC0A0FFFFC0A0FFFFB890FFFFB890FFFFB090FFFFA880FFFFA8
+                  80FFF0A070FFF09870FFF09860FFD06830FF00FF000000FF000000FF0000A8A8
+                  A8FFBCBCBCFFBCBCBCFFBCBCBCFFB3B3B3FFB3B3B3FFAEAEAEFFA4A4A4FFA4A4
+                  A4FF999999FF949494FF909090FF616161FF00FF000000FF000000FF0000F0A8
+                  90FFF0A890FFF0A890FFF0A890FFF0A880FFF0A080FFF09870FFE09870FFE090
+                  60FFE08050FFE07840FFE07840FFE07040FF00FF000000FF000000FF0000A8A8
+                  A8FFA8A8A8FFA8A8A8FFA8A8A8FFA3A3A3FF9E9E9EFF949494FF939393FF8989
+                  89FF7B7B7BFF717171FF717171FF6C6C6CFF00FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF0000}
+                OptionsImage.NumGlyphs = 2
+                ParentShowHint = False
+                ShowHint = False
+                TabOrder = 0
+              end
+              object btnVersionSSL: TcxButton
+                AlignWithMargins = True
+                Left = 222
+                Top = 0
+                Width = 107
+                Height = 33
+                Margins.Top = 0
+                Margins.Right = 0
+                Margins.Bottom = 0
+                Align = alRight
+                Caption = 'Version SSL'
+                Enabled = False
+                OptionsImage.Glyph.SourceDPI = 96
+                OptionsImage.Glyph.Data = {
+                  424D360800000000000036000000280000002000000010000000010020000000
+                  000000000000C40E0000C40E0000000000000000000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF00009A8F8CFF203040FF5F6869FF00FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF00008F8F8FFF333333FF676767FF00FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF00008C8C88FF405060FF2098C0FF303840FF5F6D
+                  72FF00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF00008A8A8AFF535353FF989898FF393939FF6D6D
+                  6DFF00FF000000FF000000FF000000FF000000FF000000FF000000FF0000E1C0
+                  A7FFD1AC93FFD5B8A1FF7F8285FF506070FF20A0D0FF30B8F0FF60A0B0FF5068
+                  70FF806850FF705840FF604830FF604830FF00FF000000FF000000FF0000BBBB
+                  BBFFA8A8A8FFB4B4B4FF828282FF636363FFA1A1A1FFBBBBBBFF9E9E9EFF6868
+                  68FF636363FF535353FF434343FF434343FF00FF000000FF000000FF00007068
+                  60FF605040FF605040FF606860FF4088A0FF40C0F0FF60B0D0FF708890FFA098
+                  90FFC0B0A0FFB0A090FFB0A090FF604830FF00FF000000FF000000FF00006666
+                  66FF4C4C4CFF4C4C4CFF646464FF888888FFC1C1C1FFB1B1B1FF888888FF9696
+                  96FFACACACFF9C9C9CFF9C9C9CFF434343FF00FF000000FF0000776E65FFC0A0
+                  80FFF0E0A0FFF0D8A0FFB0A890FF607070FF6098B0FF708890FF9098A0FFD0F0
+                  E0FFB0E8D0FFB0E8C0FFB0A090FF604830FF00FF000000FF00006C6C6CFF9999
+                  99FFCECECEFFC9C9C9FFA1A1A1FF6E6E6EFF999999FF888888FF999999FFE8E8
+                  E8FFDBDBDBFFD6D6D6FF9C9C9CFF434343FF00FF0000968372FFB09880FFFFFF
+                  C0FFFFF8C0FFFFF0C0FFFFF0D0FFB0A890FF707070FF90A0A0FFF0F8F0FFE0F8
+                  F0FFC0F0D0FFC0E8D0FFC0A890FF604830FF00FF00007F7F7FFF939393FFECEC
+                  ECFFE7E7E7FFE3E3E3FFE7E7E7FFA1A1A1FF707070FF9E9E9EFFF4F4F4FFF3F3
+                  F3FFE1E1E1FFDCDCDCFFA3A3A3FF434343FF00FF0000968575FFE0D0B0FFFFFF
+                  E0FFFFFFE0FFFFFFD0FFFFF0C0FFF0D8B0FF605040FFE0D8C0FFE0C8B0FFD0B0
+                  A0FFD0A890FFC0E8D0FFC0A890FF604830FF00FF0000818181FFC8C8C8FFF5F5
+                  F5FFF5F5F5FFF0F0F0FFE3E3E3FFCECECEFF4C4C4CFFD1D1D1FFC3C3C3FFAEAE
+                  AEFFA4A4A4FFDCDCDCFFA3A3A3FF434343FF00FF0000BCA997FFE0D0B0FFFFFF
+                  F0FFFFFFF0FFFFFFE0FFFFF8C0FFF0D8A0FF705850FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFE0F8F0FFD0F0E0FFC0A8A0FF604830FF00FF0000A5A5A5FFC8C8C8FFFAFA
+                  FAFFFAFAFAFFF5F5F5FFE7E7E7FFC9C9C9FF585858FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFF3F3F3FFE8E8E8FFA8A8A8FF434343FF00FF0000D5C0ADFFC0A8A0FFFFFF
+                  FFFFFFFFFFFFFFFFE0FFFFFFD0FFC0B080FF908070FFF0E0D0FFE0C8B0FFD0B0
+                  A0FFD0A890FFE0F8F0FFC0A8A0FF604830FF00FF0000BCBCBCFFA8A8A8FFFFFF
+                  FFFFFFFFFFFFF5F5F5FFF0F0F0FFA3A3A3FF7C7C7CFFDCDCDCFFC3C3C3FFAEAE
+                  AEFFA4A4A4FFF3F3F3FFA8A8A8FF434343FF00FF000000FF0000B4ABA2FFC0B0
+                  B0FFF0E8D0FFF0E8C0FFC0B090FF807860FFD0D0D0FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFF0F8F0FFC0B0A0FF604830FF00FF000000FF0000A9A9A9FFB1B1
+                  B1FFE1E1E1FFDCDCDCFFA8A8A8FF717171FFD0D0D0FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFF4F4F4FFACACACFF434343FF00FF000000FF000000FF0000C0B0
+                  A0FFB0A090FFA09080FFB0A0A0FFB0A8A0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFC0B0A0FF604830FF00FF000000FF000000FF0000ACAC
+                  ACFF9C9C9CFF8C8C8CFFA1A1A1FFA6A6A6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFACACACFF434343FF00FF000000FF000000FF0000F0A8
+                  90FFF0A890FFF0A890FFF0A880FFF0A080FFE09870FFE09060FFE08850FFE080
+                  50FFE07040FFE07040FFE07040FFD06030FF00FF000000FF000000FF0000A8A8
+                  A8FFA8A8A8FFA8A8A8FFA3A3A3FF9E9E9EFF939393FF898989FF808080FF7B7B
+                  7BFF6C6C6CFF6C6C6CFF6C6C6CFF5C5C5CFF00FF000000FF000000FF0000F0A8
+                  90FFFFC0A0FFFFC0A0FFFFC0A0FFFFB890FFFFB890FFFFB090FFFFA880FFFFA8
+                  80FFF0A070FFF09870FFF09860FFD06830FF00FF000000FF000000FF0000A8A8
+                  A8FFBCBCBCFFBCBCBCFFBCBCBCFFB3B3B3FFB3B3B3FFAEAEAEFFA4A4A4FFA4A4
+                  A4FF999999FF949494FF909090FF616161FF00FF000000FF000000FF0000F0A8
+                  90FFF0A890FFF0A890FFF0A890FFF0A880FFF0A080FFF09870FFE09870FFE090
+                  60FFE08050FFE07840FFE07840FFE07040FF00FF000000FF000000FF0000A8A8
+                  A8FFA8A8A8FFA8A8A8FFA8A8A8FFA3A3A3FF9E9E9EFF949494FF939393FF8989
+                  89FF7B7B7BFF717171FF717171FF6C6C6CFF00FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF0000}
+                OptionsImage.NumGlyphs = 2
+                ParentShowHint = False
+                ShowHint = False
+                TabOrder = 1
+              end
+              object btnNumeroCNPJ: TcxButton
+                AlignWithMargins = True
+                Left = 110
+                Top = 0
+                Width = 109
+                Height = 33
+                Margins.Top = 0
+                Margins.Right = 0
+                Margins.Bottom = 0
+                Align = alClient
+                Caption = 'N'#250'mero CNPJ'
+                Enabled = False
+                OptionsImage.Glyph.SourceDPI = 96
+                OptionsImage.Glyph.Data = {
+                  424D360800000000000036000000280000002000000010000000010020000000
+                  000000000000C40E0000C40E0000000000000000000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF00009A8F8CFF203040FF5F6869FF00FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF00008F8F8FFF333333FF676767FF00FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF00008C8C88FF405060FF2098C0FF303840FF5F6D
+                  72FF00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF00008A8A8AFF535353FF989898FF393939FF6D6D
+                  6DFF00FF000000FF000000FF000000FF000000FF000000FF000000FF0000E1C0
+                  A7FFD1AC93FFD5B8A1FF7F8285FF506070FF20A0D0FF30B8F0FF60A0B0FF5068
+                  70FF806850FF705840FF604830FF604830FF00FF000000FF000000FF0000BBBB
+                  BBFFA8A8A8FFB4B4B4FF828282FF636363FFA1A1A1FFBBBBBBFF9E9E9EFF6868
+                  68FF636363FF535353FF434343FF434343FF00FF000000FF000000FF00007068
+                  60FF605040FF605040FF606860FF4088A0FF40C0F0FF60B0D0FF708890FFA098
+                  90FFC0B0A0FFB0A090FFB0A090FF604830FF00FF000000FF000000FF00006666
+                  66FF4C4C4CFF4C4C4CFF646464FF888888FFC1C1C1FFB1B1B1FF888888FF9696
+                  96FFACACACFF9C9C9CFF9C9C9CFF434343FF00FF000000FF0000776E65FFC0A0
+                  80FFF0E0A0FFF0D8A0FFB0A890FF607070FF6098B0FF708890FF9098A0FFD0F0
+                  E0FFB0E8D0FFB0E8C0FFB0A090FF604830FF00FF000000FF00006C6C6CFF9999
+                  99FFCECECEFFC9C9C9FFA1A1A1FF6E6E6EFF999999FF888888FF999999FFE8E8
+                  E8FFDBDBDBFFD6D6D6FF9C9C9CFF434343FF00FF0000968372FFB09880FFFFFF
+                  C0FFFFF8C0FFFFF0C0FFFFF0D0FFB0A890FF707070FF90A0A0FFF0F8F0FFE0F8
+                  F0FFC0F0D0FFC0E8D0FFC0A890FF604830FF00FF00007F7F7FFF939393FFECEC
+                  ECFFE7E7E7FFE3E3E3FFE7E7E7FFA1A1A1FF707070FF9E9E9EFFF4F4F4FFF3F3
+                  F3FFE1E1E1FFDCDCDCFFA3A3A3FF434343FF00FF0000968575FFE0D0B0FFFFFF
+                  E0FFFFFFE0FFFFFFD0FFFFF0C0FFF0D8B0FF605040FFE0D8C0FFE0C8B0FFD0B0
+                  A0FFD0A890FFC0E8D0FFC0A890FF604830FF00FF0000818181FFC8C8C8FFF5F5
+                  F5FFF5F5F5FFF0F0F0FFE3E3E3FFCECECEFF4C4C4CFFD1D1D1FFC3C3C3FFAEAE
+                  AEFFA4A4A4FFDCDCDCFFA3A3A3FF434343FF00FF0000BCA997FFE0D0B0FFFFFF
+                  F0FFFFFFF0FFFFFFE0FFFFF8C0FFF0D8A0FF705850FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFE0F8F0FFD0F0E0FFC0A8A0FF604830FF00FF0000A5A5A5FFC8C8C8FFFAFA
+                  FAFFFAFAFAFFF5F5F5FFE7E7E7FFC9C9C9FF585858FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFF3F3F3FFE8E8E8FFA8A8A8FF434343FF00FF0000D5C0ADFFC0A8A0FFFFFF
+                  FFFFFFFFFFFFFFFFE0FFFFFFD0FFC0B080FF908070FFF0E0D0FFE0C8B0FFD0B0
+                  A0FFD0A890FFE0F8F0FFC0A8A0FF604830FF00FF0000BCBCBCFFA8A8A8FFFFFF
+                  FFFFFFFFFFFFF5F5F5FFF0F0F0FFA3A3A3FF7C7C7CFFDCDCDCFFC3C3C3FFAEAE
+                  AEFFA4A4A4FFF3F3F3FFA8A8A8FF434343FF00FF000000FF0000B4ABA2FFC0B0
+                  B0FFF0E8D0FFF0E8C0FFC0B090FF807860FFD0D0D0FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFF0F8F0FFC0B0A0FF604830FF00FF000000FF0000A9A9A9FFB1B1
+                  B1FFE1E1E1FFDCDCDCFFA8A8A8FF717171FFD0D0D0FFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFF4F4F4FFACACACFF434343FF00FF000000FF000000FF0000C0B0
+                  A0FFB0A090FFA09080FFB0A0A0FFB0A8A0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFC0B0A0FF604830FF00FF000000FF000000FF0000ACAC
+                  ACFF9C9C9CFF8C8C8CFFA1A1A1FFA6A6A6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                  FFFFFFFFFFFFFFFFFFFFACACACFF434343FF00FF000000FF000000FF0000F0A8
+                  90FFF0A890FFF0A890FFF0A880FFF0A080FFE09870FFE09060FFE08850FFE080
+                  50FFE07040FFE07040FFE07040FFD06030FF00FF000000FF000000FF0000A8A8
+                  A8FFA8A8A8FFA8A8A8FFA3A3A3FF9E9E9EFF939393FF898989FF808080FF7B7B
+                  7BFF6C6C6CFF6C6C6CFF6C6C6CFF5C5C5CFF00FF000000FF000000FF0000F0A8
+                  90FFFFC0A0FFFFC0A0FFFFC0A0FFFFB890FFFFB890FFFFB090FFFFA880FFFFA8
+                  80FFF0A070FFF09870FFF09860FFD06830FF00FF000000FF000000FF0000A8A8
+                  A8FFBCBCBCFFBCBCBCFFBCBCBCFFB3B3B3FFB3B3B3FFAEAEAEFFA4A4A4FFA4A4
+                  A4FF999999FF949494FF909090FF616161FF00FF000000FF000000FF0000F0A8
+                  90FFF0A890FFF0A890FFF0A890FFF0A880FFF0A080FFF09870FFE09870FFE090
+                  60FFE08050FFE07840FFE07840FFE07040FF00FF000000FF000000FF0000A8A8
+                  A8FFA8A8A8FFA8A8A8FFA8A8A8FFA3A3A3FF9E9E9EFF949494FF939393FF8989
+                  89FF7B7B7BFF717171FF717171FF6C6C6CFF00FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF
+                  000000FF000000FF000000FF000000FF000000FF0000}
+                OptionsImage.NumGlyphs = 2
+                ParentShowHint = False
+                ShowHint = False
+                TabOrder = 2
+              end
             end
           end
         end
@@ -724,15 +1322,19 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Left = 0
             Top = 0
             Width = 359
-            Height = 169
+            Height = 173
             Align = alTop
             Caption = 'WebService'
             TabOrder = 0
             object lblUF: TLabel
-              Left = 8
-              Top = 16
-              Width = 121
+              AlignWithMargins = True
+              Left = 12
+              Top = 18
+              Width = 335
               Height = 13
+              Margins.Left = 10
+              Margins.Right = 10
+              Align = alTop
               Caption = 'Selecione UF de Destino:'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
@@ -740,12 +1342,19 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Font.Name = 'MS Sans Serif'
               Font.Style = []
               ParentFont = False
+              ExplicitLeft = 8
+              ExplicitTop = 16
+              ExplicitWidth = 121
             end
             object ckVisualizar: TCheckBox
-              Left = 8
-              Top = 119
-              Width = 153
+              AlignWithMargins = True
+              Left = 12
+              Top = 122
+              Width = 145
               Height = 17
+              Margins.Left = 10
+              Margins.Right = 200
+              Align = alTop
               Caption = 'Visualizar Mensagem'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
@@ -754,13 +1363,22 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Font.Style = []
               ParentFont = False
               TabOrder = 0
+              ExplicitLeft = 8
+              ExplicitTop = 119
+              ExplicitWidth = 153
             end
             object cbUF: TComboBox
-              Left = 8
-              Top = 32
-              Width = 342
+              AlignWithMargins = True
+              Left = 12
+              Top = 34
+              Width = 335
               Height = 24
+              Margins.Left = 10
+              Margins.Top = 0
+              Margins.Right = 10
+              Align = alTop
               Style = csDropDownList
+              Enabled = False
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -13
@@ -798,12 +1416,19 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 'SP'
                 'SE'
                 'TO')
+              ExplicitLeft = 8
+              ExplicitTop = 32
+              ExplicitWidth = 342
             end
             object rgTipoAmb: TRadioGroup
-              Left = 8
-              Top = 61
-              Width = 342
+              AlignWithMargins = True
+              Left = 12
+              Top = 64
+              Width = 335
               Height = 52
+              Margins.Left = 10
+              Margins.Right = 10
+              Align = alTop
               Caption = 'Selecione o Ambiente de Destino'
               Columns = 2
               ItemIndex = 0
@@ -811,93 +1436,218 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 'Produ'#231#227'o'
                 'Homologa'#231#227'o')
               TabOrder = 2
+              ExplicitLeft = 8
+              ExplicitTop = 61
+              ExplicitWidth = 342
             end
             object ckSalvarSOAP: TCheckBox
-              Left = 8
-              Top = 142
-              Width = 153
+              AlignWithMargins = True
+              Left = 12
+              Top = 145
+              Width = 145
               Height = 17
+              Margins.Left = 10
+              Margins.Right = 200
+              Align = alTop
               Caption = 'Salvar envelope SOAP'
               TabOrder = 3
+              ExplicitLeft = 8
+              ExplicitTop = 142
+              ExplicitWidth = 153
             end
           end
           object GrpBxProxy: TGroupBox
             Left = 0
-            Top = 257
+            Top = 265
             Width = 359
-            Height = 105
+            Height = 112
             Align = alTop
             Caption = 'Proxy'
             TabOrder = 2
-            object lbltProxyHost: TLabel
-              Left = 8
-              Top = 16
-              Width = 22
-              Height = 13
-              Caption = 'Host'
-            end
-            object lbltProxyPorta: TLabel
-              Left = 293
-              Top = 16
-              Width = 26
-              Height = 13
-              Caption = 'Porta'
-            end
-            object lbltProxyUser: TLabel
-              Left = 8
-              Top = 56
-              Width = 36
-              Height = 13
-              Caption = 'Usu'#225'rio'
-            end
-            object lbltProxySenha: TLabel
-              Left = 205
-              Top = 56
-              Width = 30
-              Height = 13
-              Caption = 'Senha'
-            end
-            object edtProxyHost: TEdit
-              Left = 8
-              Top = 32
-              Width = 279
-              Height = 21
+            object pnlProxyServer: TPanel
+              Left = 2
+              Top = 15
+              Width = 355
+              Height = 42
+              Align = alTop
+              BevelOuter = bvNone
               TabOrder = 0
+              object pnlProxyHost: TPanel
+                Left = 0
+                Top = 0
+                Width = 256
+                Height = 42
+                Align = alClient
+                BevelOuter = bvNone
+                TabOrder = 0
+                ExplicitWidth = 54
+                ExplicitHeight = 54
+                object lbltProxyHost: TLabel
+                  AlignWithMargins = True
+                  Left = 10
+                  Top = 3
+                  Width = 243
+                  Height = 13
+                  Margins.Left = 10
+                  Align = alTop
+                  Caption = 'Host'
+                  ExplicitLeft = 16
+                  ExplicitTop = 24
+                  ExplicitWidth = 22
+                end
+                object edtProxyHost: TEdit
+                  AlignWithMargins = True
+                  Left = 10
+                  Top = 19
+                  Width = 243
+                  Height = 21
+                  Margins.Left = 10
+                  Margins.Top = 0
+                  Align = alTop
+                  TabOrder = 0
+                  ExplicitLeft = 7
+                  ExplicitTop = 22
+                end
+              end
+              object pnlProxyPorta: TPanel
+                Left = 256
+                Top = 0
+                Width = 99
+                Height = 42
+                Align = alRight
+                BevelOuter = bvNone
+                TabOrder = 1
+                ExplicitHeight = 54
+                object lbltProxyPorta: TLabel
+                  AlignWithMargins = True
+                  Left = 3
+                  Top = 3
+                  Width = 86
+                  Height = 13
+                  Margins.Right = 10
+                  Align = alTop
+                  Caption = 'Porta'
+                  ExplicitLeft = 73
+                  ExplicitTop = 16
+                  ExplicitWidth = 26
+                end
+                object edtProxyPorta: TEdit
+                  AlignWithMargins = True
+                  Left = 3
+                  Top = 19
+                  Width = 86
+                  Height = 21
+                  Margins.Top = 0
+                  Margins.Right = 10
+                  Align = alTop
+                  TabOrder = 0
+                  ExplicitLeft = 42
+                  ExplicitTop = 32
+                  ExplicitWidth = 57
+                end
+              end
             end
-            object edtProxyPorta: TEdit
-              Left = 293
-              Top = 32
-              Width = 57
-              Height = 21
+            object pnlProxyAuth: TPanel
+              Left = 2
+              Top = 57
+              Width = 355
+              Height = 42
+              Align = alTop
+              BevelOuter = bvNone
               TabOrder = 1
-            end
-            object edtProxyUser: TEdit
-              Left = 8
-              Top = 72
-              Width = 188
-              Height = 21
-              TabOrder = 2
-            end
-            object edtProxySenha: TEdit
-              Left = 202
-              Top = 72
-              Width = 148
-              Height = 21
-              PasswordChar = '*'
-              TabOrder = 3
+              ExplicitTop = 15
+              object pnlProxyUser: TPanel
+                Left = 0
+                Top = 0
+                Width = 185
+                Height = 42
+                Align = alClient
+                BevelOuter = bvNone
+                TabOrder = 0
+                ExplicitWidth = 256
+                object lbltProxyUser: TLabel
+                  AlignWithMargins = True
+                  Left = 10
+                  Top = 3
+                  Width = 172
+                  Height = 13
+                  Margins.Left = 10
+                  Align = alTop
+                  Caption = 'Usu'#225'rio'
+                  ExplicitLeft = 3
+                  ExplicitTop = 29
+                  ExplicitWidth = 36
+                end
+                object edtProxyUser: TEdit
+                  AlignWithMargins = True
+                  Left = 10
+                  Top = 19
+                  Width = 172
+                  Height = 21
+                  Margins.Left = 10
+                  Margins.Top = 0
+                  Align = alTop
+                  TabOrder = 0
+                  ExplicitLeft = 7
+                  ExplicitTop = 22
+                  ExplicitWidth = 243
+                end
+              end
+              object pnlProxySenha: TPanel
+                Left = 185
+                Top = 0
+                Width = 170
+                Height = 42
+                Align = alRight
+                BevelOuter = bvNone
+                TabOrder = 1
+                object lbltProxySenha: TLabel
+                  AlignWithMargins = True
+                  Left = 3
+                  Top = 3
+                  Width = 157
+                  Height = 13
+                  Margins.Right = 10
+                  Align = alTop
+                  Caption = 'Senha'
+                  ExplicitLeft = 140
+                  ExplicitTop = 29
+                  ExplicitWidth = 30
+                end
+                object edtProxySenha: TEdit
+                  AlignWithMargins = True
+                  Left = 3
+                  Top = 19
+                  Width = 157
+                  Height = 21
+                  Margins.Top = 0
+                  Margins.Right = 10
+                  Align = alTop
+                  PasswordChar = '*'
+                  TabOrder = 0
+                  ExplicitLeft = 22
+                  ExplicitTop = 21
+                  ExplicitWidth = 148
+                end
+              end
             end
           end
           object WBResposta: TWebBrowser
-            Left = 0
-            Top = 443
-            Width = 359
-            Height = 35
-            Align = alBottom
+            AlignWithMargins = True
+            Left = 10
+            Top = 380
+            Width = 339
+            Height = 105
+            Margins.Left = 10
+            Margins.Right = 10
+            Align = alClient
             TabOrder = 3
+            ExplicitLeft = 0
             ExplicitTop = 437
             ExplicitWidth = 363
+            ExplicitHeight = 35
             ControlData = {
-              4C0000001B2500009E0300000000000000000000000000000000000000000000
+              4C00000009230000DA0A00000000000000000000000000000000000000000000
               000000004C000000000000000000000001000000E0D057007335CF11AE690800
               2B2E126208000000000000004C0000000114020000000000C000000000000046
               8000000000000000000000000000000000000000000000000000000000000000
@@ -905,70 +1655,154 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           end
           object GrpBxRetornoEnvio: TGroupBox
             Left = 0
-            Top = 169
+            Top = 173
             Width = 359
-            Height = 88
+            Height = 92
             Align = alTop
             Caption = 'Retorno de Envio de NFe'
             TabOrder = 1
-            object lblTentativas: TLabel
-              Left = 102
-              Top = 43
-              Width = 51
-              Height = 13
-              Caption = 'Tentativas'
-              FocusControl = edTentativas
-            end
-            object lblIntervalo: TLabel
-              Left = 193
-              Top = 43
-              Width = 44
-              Height = 13
-              Caption = 'Intervalo'
-              FocusControl = edIntervalo
-            end
-            object lblAguardar: TLabel
-              Left = 8
-              Top = 43
-              Width = 45
-              Height = 13
-              Hint = 
-                'Aguardar quantos segundos para primeira consulta de retorno de e' +
-                'nvio'
-              Caption = 'Aguardar'
-              FocusControl = edAguardar
-            end
             object ckAjustarAut: TCheckBox
-              Left = 8
-              Top = 20
-              Width = 311
+              AlignWithMargins = True
+              Left = 12
+              Top = 18
+              Width = 335
               Height = 17
+              Margins.Left = 10
+              Margins.Right = 10
+              Align = alTop
               Caption = 'Ajustar Automaticamente a propriedade "Aguardar"'
               TabOrder = 0
+              ExplicitLeft = 8
+              ExplicitTop = 20
+              ExplicitWidth = 311
             end
-            object edTentativas: TEdit
-              Left = 102
-              Top = 59
-              Width = 85
-              Height = 21
-              TabOrder = 2
-            end
-            object edIntervalo: TEdit
-              Left = 193
-              Top = 59
-              Width = 85
-              Height = 21
-              TabOrder = 3
-            end
-            object edAguardar: TEdit
-              Left = 8
-              Top = 59
-              Width = 85
-              Height = 21
-              Hint = 
-                'Aguardar quantos segundos para primeira consulta de retorno de e' +
-                'nvio'
+            object pnlAjustarAguardar: TPanel
+              Left = 2
+              Top = 38
+              Width = 355
+              Height = 51
+              Align = alTop
+              AutoSize = True
+              BevelOuter = bvNone
               TabOrder = 1
+              object pnlIntervalo: TPanel
+                Left = 182
+                Top = 0
+                Width = 91
+                Height = 51
+                Align = alLeft
+                AutoSize = True
+                BevelOuter = bvNone
+                TabOrder = 2
+                object lblIntervalo: TLabel
+                  AlignWithMargins = True
+                  Left = 3
+                  Top = 3
+                  Width = 85
+                  Height = 13
+                  Align = alTop
+                  Caption = 'Intervalo'
+                  FocusControl = edIntervalo
+                  ExplicitLeft = 47
+                  ExplicitTop = 43
+                  ExplicitWidth = 44
+                end
+                object edIntervalo: TEdit
+                  AlignWithMargins = True
+                  Left = 3
+                  Top = 19
+                  Width = 85
+                  Height = 21
+                  Margins.Top = 0
+                  Align = alTop
+                  TabOrder = 0
+                  ExplicitLeft = 6
+                  ExplicitTop = 59
+                end
+              end
+              object pnlTentativas: TPanel
+                Left = 91
+                Top = 0
+                Width = 91
+                Height = 51
+                Align = alLeft
+                AutoSize = True
+                BevelOuter = bvNone
+                TabOrder = 1
+                ExplicitLeft = 8
+                ExplicitHeight = 121
+                object lblTentativas: TLabel
+                  AlignWithMargins = True
+                  Left = 3
+                  Top = 3
+                  Width = 85
+                  Height = 13
+                  Align = alTop
+                  Caption = 'Tentativas'
+                  FocusControl = edTentativas
+                  ExplicitLeft = 40
+                  ExplicitTop = 43
+                  ExplicitWidth = 51
+                end
+                object edTentativas: TEdit
+                  AlignWithMargins = True
+                  Left = 3
+                  Top = 19
+                  Width = 85
+                  Height = 21
+                  Margins.Top = 0
+                  Align = alTop
+                  TabOrder = 0
+                  ExplicitLeft = 6
+                  ExplicitTop = 59
+                end
+              end
+              object pnlAguardar: TPanel
+                Left = 0
+                Top = 0
+                Width = 91
+                Height = 51
+                Align = alLeft
+                AutoSize = True
+                BevelOuter = bvNone
+                TabOrder = 0
+                ExplicitTop = -4
+                ExplicitHeight = 121
+                object lblAguardar: TLabel
+                  AlignWithMargins = True
+                  Left = 10
+                  Top = 3
+                  Width = 78
+                  Height = 13
+                  Hint = 
+                    'Aguardar quantos segundos para primeira consulta de retorno de e' +
+                    'nvio'
+                  Margins.Left = 10
+                  Align = alTop
+                  Caption = 'Aguardar'
+                  FocusControl = edAguardar
+                  ExplicitLeft = 8
+                  ExplicitTop = 43
+                  ExplicitWidth = 45
+                end
+                object edAguardar: TEdit
+                  AlignWithMargins = True
+                  Left = 10
+                  Top = 19
+                  Width = 78
+                  Height = 21
+                  Hint = 
+                    'Aguardar quantos segundos para primeira consulta de retorno de e' +
+                    'nvio'
+                  Margins.Left = 10
+                  Margins.Top = 0
+                  Align = alTop
+                  TabOrder = 0
+                  ExplicitLeft = 6
+                  ExplicitTop = 59
+                  ExplicitWidth = 85
+                end
+              end
             end
           end
         end
@@ -1540,16 +2374,9 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       ImageIndex = 1
       DesignSize = (
         367
-        506)
-      object lbltLogoMarca: TLabel
-        Left = 0
-        Top = 55
-        Width = 55
-        Height = 13
-        Caption = 'Logo Marca'
-      end
+        516)
       object sbtnLogoMarca: TSpeedButton
-        Left = 424
+        Left = 440
         Top = 71
         Width = 23
         Height = 24
@@ -1571,18 +2398,11 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         OnClick = sbtnLogoMarcaClick
         ExplicitLeft = 344
       end
-      object edtLogoMarca: TEdit
-        Left = 0
-        Top = 74
-        Width = 418
-        Height = 21
-        Anchors = [akLeft, akTop, akRight]
-        TabOrder = 1
-      end
       object rgTipoDanfe: TRadioGroup
-        Left = 0
-        Top = 0
-        Width = 367
+        AlignWithMargins = True
+        Left = 3
+        Top = 3
+        Width = 361
         Height = 49
         Align = alTop
         Caption = 'DANFE'
@@ -1592,6 +2412,45 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           'Retrato'
           'Paisagem')
         TabOrder = 0
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 367
+      end
+      object GrpBxLogoMarca: TGroupBox
+        AlignWithMargins = True
+        Left = 3
+        Top = 58
+        Width = 361
+        Height = 71
+        Align = alTop
+        Caption = 'Logo Marca'
+        TabOrder = 1
+        object lbltLogoMarca: TLabel
+          AlignWithMargins = True
+          Left = 12
+          Top = 18
+          Width = 337
+          Height = 13
+          Margins.Left = 10
+          Margins.Right = 10
+          Align = alTop
+          Caption = 'Caminho'
+          ExplicitWidth = 41
+        end
+        object edtLogoMarca: TEdit
+          AlignWithMargins = True
+          Left = 12
+          Top = 34
+          Width = 337
+          Height = 21
+          Margins.Left = 10
+          Margins.Top = 0
+          Margins.Right = 10
+          Align = alTop
+          TabOrder = 0
+          ExplicitLeft = 20
+          ExplicitTop = 42
+        end
       end
     end
     object TbsEmail: TTabSheet
@@ -1717,7 +2576,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       'Arquivos NFE (*-nfe.XML)|*-nfe.XML|Arquivos XML (*.XML)|*.XML|To' +
       'dos os Arquivos (*.*)|*.*'
     Title = 'Selecione a NFe'
-    Left = 120
-    Top = 496
+    Left = 328
+    Top = 8
   end
 end

@@ -319,7 +319,12 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, UGeNFEmitida, UDMNFe, UGeConsultarLoteNFe_v2;
+  System.StrUtils,
+  UDMBusiness,
+  UConstantesDGE,
+  UGeNFEmitida,
+  UDMNFe,
+  UGeConsultarLoteNFe_v2;
 
 {$R *.dfm}
 

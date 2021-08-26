@@ -127,7 +127,13 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UDMNFe, UGrPadrao;
+  System.StrUtils,
+  UConstantesDGE,
+  UDMBusiness,
+  UDMNFe,
+  SGE.Controller.Interfaces,
+  SGE.Controller.Factory,
+  UGrPadrao;
 
 const
   REPORT_RELACAO_ESTOQUE_PRODUTO    = 0;
@@ -552,7 +558,7 @@ var
   I : Integer;
 begin
   if (Trim(aEmpresa) <> EmptyStr) and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) then
-    SetCentroCustoGeral(aEmpresa);
+    (TControllerFactory.New.CentroCusto as IControllerCentroCusto).SetCentroCustoGeral(gUsuarioLogado.Empresa);
 
   with cdsCentroCusto do
   begin

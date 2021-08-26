@@ -10,13 +10,17 @@ uses
 
 type
   // Table
-  TControllerProduto = class(TController, IControllerCustom)
+  TControllerProduto = class(TController, IControllerProduto)
     private
     protected
       constructor Create;
     public
       destructor Destroy; override;
-      class function New : IControllerCustom;
+      class function New : IControllerProduto;
+
+      procedure AtualizarMetafonema(aDescricao, aApresentacao, aCodigo : String);
+      procedure AtualizarNomeAmigo(aDescricao, aApresentacao, aCodigo : String);
+      procedure AtualizarTabelaIBPT(aCodigoNCM, aIdNCM, aCodigoProduto : String);
   end;
 
   // Table
@@ -89,12 +93,98 @@ type
       class function New : IControllerCustom;
   end;
 
+  // Cor de Veículo
+  TControllerCorVeiculo = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
+  // Tipo de Combustível do Veículo
+  TControllerCombustivelVeiculo = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
 implementation
 
 uses
-  Controller.Factory;
+  System.SysUtils,
+  System.StrUtils,
+  System.Classes,
+  Controller.Factory,
+  UFuncoes,
+  UConstantesDGE;
 
 { TControllerProduto }
+
+procedure TControllerProduto.AtualizarMetafonema(aDescricao, aApresentacao, aCodigo: String);
+var
+  aScriptSQL  : TStringList;
+begin
+  aScriptSQL := TStringList.Create;
+  try
+    aScriptSQL.BeginUpdate;
+    aScriptSQL.Clear;
+    aScriptSQL.Add('Update TBPRODUTO Set');
+    aScriptSQL.Add('    metafonema = ' + Metafonema(Trim(aDescricao.Trim + ' ' + aApresentacao.Trim)).QuotedString);
+    aScriptSQL.Add('where cod = ' + aCodigo.Trim.QuotedString);
+    aScriptSQL.EndUpdate;
+
+    FDAO.ExecuteScriptSQL(aScriptSQL.Text);
+    FDAO.CommitTransaction;
+  finally
+    aScriptSQL.DisposeOf;
+  end;
+end;
+
+procedure TControllerProduto.AtualizarNomeAmigo(aDescricao, aApresentacao, aCodigo: String);
+var
+  aScriptSQL  : TStringList;
+begin
+  aScriptSQL := TStringList.Create;
+  try
+    aScriptSQL.BeginUpdate;
+    aScriptSQL.Clear;
+    aScriptSQL.Add('Update TBPRODUTO Set');
+    aScriptSQL.Add('    nome_amigo = ' + Trim(aDescricao.Trim + ' ' + aApresentacao.Trim).QuotedString);
+    aScriptSQL.Add('where cod = ' + aCodigo.Trim.QuotedString);
+    aScriptSQL.EndUpdate;
+
+    FDAO.ExecuteScriptSQL(aScriptSQL.Text);
+    FDAO.CommitTransaction;
+  finally
+    aScriptSQL.DisposeOf;
+  end;
+end;
+
+procedure TControllerProduto.AtualizarTabelaIBPT(aCodigoNCM, aIdNCM, aCodigoProduto : String);
+var
+  aScriptSQL  : TStringList;
+begin
+  aScriptSQL := TStringList.Create;
+  try
+    aScriptSQL.BeginUpdate;
+    aScriptSQL.Clear;
+    aScriptSQL.Add('Update TBPRODUTO Set');
+    aScriptSQL.Add('    tabela_ibpt = ' + IfThen(aIdNCM.Trim = '0', 'null', aIdNCM.Trim));
+    aScriptSQL.Add('  , ncm_sh      = ' + IfThen((aCodigoNCM.Trim = EmptyStr) or (aCodigoNCM.Trim = TRIBUTO_NCM_SH_PADRAO) or (aCodigoNCM = '10203000'), 'null', aCodigoNCM.Trim.QuotedString));
+    aScriptSQL.Add('where cod = ' + aCodigoProduto.Trim.QuotedString);
+    aScriptSQL.EndUpdate;
+
+    FDAO.ExecuteScriptSQL(aScriptSQL.Text);
+    FDAO.CommitTransaction;
+  finally
+    aScriptSQL.DisposeOf;
+  end;
+end;
 
 constructor TControllerProduto.Create;
 begin
@@ -106,7 +196,7 @@ begin
   inherited;
 end;
 
-class function TControllerProduto.New: IControllerCustom;
+class function TControllerProduto.New: IControllerProduto;
 begin
   Result := Self.Create;
 end;
@@ -226,6 +316,40 @@ begin
 end;
 
 class function TControllerTipoVeiculo.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerCorVeiculo }
+
+constructor TControllerCorVeiculo.Create;
+begin
+  inherited Create(TModelDAOFactory.New.CorVeiculo);
+end;
+
+destructor TControllerCorVeiculo.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerCorVeiculo.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerCombustivelVeiculo }
+
+constructor TControllerCombustivelVeiculo.Create;
+begin
+  inherited Create(TModelDAOFactory.New.CombustivelVeiculo);
+end;
+
+destructor TControllerCombustivelVeiculo.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerCombustivelVeiculo.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

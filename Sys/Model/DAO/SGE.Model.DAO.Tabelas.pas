@@ -142,6 +142,18 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // Alíquota ICMS (Stored Procedure)
+  TModelDAOAliquotaICMS = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+  end;
+
 implementation
 
 uses
@@ -575,6 +587,36 @@ begin
   Result := Self;
   if not FConn.Query.DataSet.Active then
     FConn.Query.Open;
+end;
+
+{ TModelDAOAliquotaICMS }
+
+constructor TModelDAOAliquotaICMS.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select first 1')
+        .Add('    icms.aliquota_inter')
+        .Add('  , icms.aliquota_intra')
+        .Add('  , icms.aliquota_st   ')
+        .Add('from GET_ALIQUOTA_ICMS(:uf_origem, :uf_destino) icms')
+      .&End
+      .ParamByName('uf_origem',  EmptyStr)
+      .ParamByName('uf_destino', EmptyStr)
+    .Open;
+end;
+
+destructor TModelDAOAliquotaICMS.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOAliquotaICMS.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
 end;
 
 end.

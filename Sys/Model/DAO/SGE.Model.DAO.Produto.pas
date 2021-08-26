@@ -110,6 +110,30 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // Tipo de Veículo
+  TModelDAOCorVeiculo = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
+  // Tipo de Combustível do Veículo
+  TModelDAOCombustivelVeiculo = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
 implementation
 
 uses
@@ -126,6 +150,7 @@ begin
   FConn
     .Query
       .TableName('TBPRODUTO')
+      .AliasTableName('p')
       .KeyFields('Cod')
       .AutoIncFields('Codigo')
       .GeneratorName('GEN_PRODUTO_ID')
@@ -315,9 +340,6 @@ begin
     if ( FieldByName('MOVIMENTA_ESTOQUE').IsNull ) then
       FieldByName('MOVIMENTA_ESTOQUE').AsInteger := 1;
 
-//    if ( FieldByName('COMPOR_FATURAMENTO').IsNull ) then
-//      FieldByName('COMPOR_FATURAMENTO').AsInteger := StrToInt(IfThen(GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID], '0', '1'));
-
     if ( (FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency < 0) or (FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency > 100) ) then
       FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency := 0;
 
@@ -334,10 +356,6 @@ begin
     if ( FieldByName('PERCENTUAL_MARGEM').IsNull and (not FieldByName('PERCENTUAL_MARCKUP').IsNull) ) then
       FieldByName('PERCENTUAL_MARGEM').AsCurrency := FieldByName('PERCENTUAL_MARCKUP').AsCurrency;
 
-//    if ( DtSrcTabela.DataSet.State = dsInsert ) then
-//      if ( Trim(FieldByName('COD').AsString) = EmptyStr ) then
-//        FieldByName('COD').Value := FormatFloat(DisplayFormatCodigo, FieldByName('CODIGO').AsInteger);
-//
     if Trim(VarToStr(FieldByName('SITUACAO_ATUAL_VEICULO').OldValue)) <> Trim(VarToStr(FieldByName('SITUACAO_ATUAL_VEICULO').NewValue)) then
       if (Trim(VarToStr(FieldByName('SITUACAO_ATUAL_VEICULO').OldValue)) <> EmptyStr) and (Trim(VarToStr(FieldByName('SITUACAO_ATUAL_VEICULO').NewValue)) <> EmptyStr) then
         FieldByName('SITUACAO_HISTORICO_VEICULO').AsString :=
@@ -346,24 +364,11 @@ begin
           Trim(VarToStr(FieldByName('SITUACAO_ATUAL_VEICULO').NewValue)) + ' (' + Usuario.Login + ')' + #13 +
           Trim(FieldByName('SITUACAO_HISTORICO_VEICULO').AsString);
 
-//    FieldByName('DESCRICAO_COR').AsString         := dbCorVeiculo.Text;
-//    FieldByName('DESCRICAO_COMBUSTIVEL').AsString := dbTipoCombustivel.Text;
-//    FieldByName('MODELO_FABRICACAO').AsString     := dbAnoFabricacao.Text + '/' + dbAnoModelo.Text;
-
     if ( FieldByName('FRACIONADOR').AsCurrency <= 0 ) then
       FieldByName('FRACIONADOR').AsCurrency := 1;
 
     if ( Trim(FieldByName('NOME_AMIGO').AsString) = EmptyStr ) then
       FieldByName('NOME_AMIGO').AsString := Copy(Trim(Trim(FieldByName('DESCRI').AsString) + ' ' + Trim(FieldByName('APRESENTACAO').AsString)), 1, FieldByName('NOME_AMIGO').Size);
-
-//    // Gerar Centro de Custo Geral para armazanamento dos Lotes do produto quando
-//    // o sistema for de Gestão Comercial.
-//    if (FieldByName('ESTOQUE_APROP_LOTE').AsInteger = 1) and (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) then
-//    begin
-//      SetCentroCustoGeral(FieldByName('CODEMP').AsString);
-//      if (FieldByName('CODEMP').AsString <> gUsuarioLogado.Empresa) then
-//        SetCentroCustoGeral(gUsuarioLogado.Empresa);
-//    end;
 
     if ( Trim(FieldByName('TIPO_VEICULO').AsString) = EmptyStr ) then
       FieldByName('TIPO_VEICULO').Clear;
@@ -380,30 +385,7 @@ procedure TModelDAOProduto.DataSetNewRecord(DataSet: TDataSet);
 begin
   with FConn.Query.DataSet do
   begin
-    FieldByName('CODEMP').AsString := Usuario.Empresa.CNPJ;
-//
-//    if Trim(FieldByName('CODEMP').AsString) = EmptyStr then
-//      if ( not fdQryEmpresa.IsEmpty ) then
-//        FieldByName('CODEMP').AsString := fdQryEmpresa.FieldByName('cnpj').AsString;
-//
-//    if ( not fdQryOrigem.IsEmpty ) then
-//      FieldByName('CODORIGEM').AsString := TRIBUTO_ORIGEM_NACIONAL;
-//
-//    if ( GetRegimeEmpresa(FieldByName('CODEMP').AsString) = trSimplesNacional ) then
-//    begin
-//      if ( not fdQryTributacaoNM.IsEmpty ) then
-//        FieldByName('CODTRIBUTACAO').AsString := TRIBUTO_TRIBUTADA_ISENTA;
-//      if ( not qryTributacaoSN.IsEmpty ) then
-//        FieldByName('CSOSN').AsString := TRIBUTO_NAO_TRIBUTADA_SN;
-//    end
-//    else
-//    begin
-//      if ( not fdQryTributacaoNM.IsEmpty ) then
-//        FieldByName('CODTRIBUTACAO').AsString := TRIBUTO_TRIBUTADA_INTEG;
-//      if ( not qryTributacaoSN.IsEmpty ) then
-//        FieldByName('CSOSN').AsString := TRIBUTO_NAO_TRIBUTADA_SN;
-//    end;
-
+    FieldByName('CODEMP').AsString         := Usuario.Empresa.CNPJ;
     FieldByName('CST').AsString            := Trim(FieldByName('CODORIGEM').AsString) + Trim(FieldByName('CODTRIBUTACAO').AsString);
     FieldByName('ESTOQMIN').AsCurrency     := 0;
     FieldByName('QTDE').AsCurrency         := 0;
@@ -411,10 +393,7 @@ begin
     FieldByName('RESERVA').AsCurrency      := 0;
     FieldByName('CUSTOMEDIO').AsCurrency   := 0;
     FieldByName('PRECO').AsCurrency        := 0;
-//    FieldByName('CODCFOP').AsInteger       := GetCfopIDDefault;
-//    FieldByName('CFOP_DESCRICAO').AsString := GetCfopNomeDefault;
     FieldByName('CODTIPO').AsInteger       := Ord(TTipoProduto.tpMaterialGeral);
-//    FieldByName('ALIQUOTA_TIPO').AsInteger := Ord(fAliquota);
     FieldByName('ALIQUOTA').AsCurrency       := 0;
     FieldByName('ALIQUOTA_CSOSN').AsCurrency := 0;
     FieldByName('VALOR_IPI').AsCurrency      := 0;
@@ -452,7 +431,6 @@ begin
     FieldByName('ULTIMA_COMPRA_FORNEC').Clear;
     FieldByName('PRODUTO_PAI').Clear;
 
-//    FieldByName('TABELA_IBPT').AsInteger := GetTabelaIBPT_Codigo(TRIBUTO_NCM_SH_PADRAO);
     FieldByName('CST_PIS').AsString      := '99';
     FieldByName('CST_COFINS').AsString   := '99';
     FieldByName('ALIQUOTA_PIS').AsCurrency       := 0.0;
@@ -460,10 +438,6 @@ begin
     FieldByName('MOVIMENTA_ESTOQUE').AsInteger   := FLAG_SIM;
     FieldByName('CADASTRO_ATIVO').AsInteger      := FLAG_SIM;
     FieldByName('PRODUTO_IMOBILIZADO').AsInteger := FLAG_NAO;
-//    FieldByName('COMPOR_FATURAMENTO').AsInteger := StrToInt(IfThen(GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID], '0', '1'));
-//    FieldByName('ESTOQUE_APROP_LOTE').AsInteger := IfThen(gSistema.Codigo = SISTEMA_GESTAO_OPME, FLAG_SIM, FLAG_NAO);
-//
-//    DtSrcTabelaDataChange(DtSrcTabela, FieldByName('ALIQUOTA_TIPO'));
   end;
 end;
 
@@ -756,6 +730,79 @@ begin
 end;
 
 function TModelDAOTipoVeiculo.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+{ TModelDAOCorVeiculo }
+
+constructor TModelDAOCorVeiculo.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .TableName('RENAVAM_COR')
+      .KeyFields('codigo')
+      .SQL
+        .Clear
+        .Add('Select       ')
+        .Add('    codigo   ')
+        .Add('  , descricao')
+        .Add('from RENAVAM_COR')
+      .&End
+    .Open;
+end;
+
+destructor TModelDAOCorVeiculo.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOCorVeiculo.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOCorVeiculo.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+{ TModelDAOCombustivelVeiculo }
+
+constructor TModelDAOCombustivelVeiculo.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .TableName('RENAVAM_COBUSTIVEL')
+      .KeyFields('codigo')
+      .SQL
+        .Clear
+        .Add('Select       ')
+        .Add('    codigo   ')
+        .Add('  , descricao')
+        .Add('  , apelido  ')
+        .Add('from RENAVAM_COBUSTIVEL')
+      .&End
+    .Open;
+end;
+
+destructor TModelDAOCombustivelVeiculo.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOCombustivelVeiculo.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOCombustivelVeiculo.CreateLookupComboBoxList: IModelDAOCustom;
 begin
   Result := Self;
   if not FConn.Query.DataSet.Active then

@@ -303,14 +303,15 @@ var
 implementation
 
 uses
-    DateUtils
+    System.StrUtils
+  , System.DateUtils
   , SysConst
   , Controller.Tabela
   , UConstantesDGE
   , UDMBusiness
   , UDMNFe
   , View.Fornecedor
-  , UGeProduto
+  , View.Produto
   , UGeAutorizacaoCompraCancelar
   , View.Cliente
   , View.CentroCusto;

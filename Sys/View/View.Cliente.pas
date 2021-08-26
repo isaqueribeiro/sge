@@ -484,7 +484,7 @@ begin
       AbrirTabelaAuto := True;
 
       frm.FController.DAO.ClearWhere;
-      frm.FController.DAO.Where('where cl.codigo = ' + IntToStr(iCodigo));
+      frm.FController.DAO.Where('cl.codigo = ' + IntToStr(iCodigo));
       frm.FController.DAO.Open;
 
       Caption := 'Cliente : ' + FormatFloat('00000', iCodigo) + ' - ' + DtSrcTabela.DataSet.FieldByName('NOME').AsString;

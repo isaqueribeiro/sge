@@ -5,6 +5,7 @@ interface
 uses
   UGrPadraoCadastro,
   UDMBusiness,
+  UConstantesDGE,
   Clipbrd,
 
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
@@ -443,7 +444,6 @@ type
     procedure nmPpArquivoNFeClick(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure fdQryTabelaAfterScroll(DataSet: TDataSet);
-    procedure fdQryTabelaBeforeCancel(DataSet: TDataSet);
     procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
     procedure fdQryTabelaNewRecord(DataSet: TDataSet);
     procedure fdQryTabelaSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
@@ -533,13 +533,13 @@ var
 implementation
 
 uses
-    Controller.Tabela
+    System.StrUtils
+  , System.DateUtils
   , Classe.DistribuicaoDFe.DocumentoRetornado
   , UDMRecursos
-  , UConstantesDGE
-  , DateUtils
+  , Controller.Tabela
   , View.CondicaoPagto
-  , UGeProduto
+  , View.Produto
   , View.CFOP
   , View.Fornecedor
   , UFuncoes
@@ -2224,17 +2224,6 @@ procedure TfrmGeEntradaEstoque.fdQryTabelaAUTORIZACAO_CODIGOGetText(Sender: TFie
 begin
   if not Sender.IsNull then
     Text := FormatFloat('###0000000"/"', Sender.AsInteger) + Copy(DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_ANO').AsString, 3, 2);
-end;
-
-procedure TfrmGeEntradaEstoque.fdQryTabelaBeforeCancel(DataSet: TDataSet);
-begin
-  inherited;
-//  with DtSrcTabela.DataSet do
-//  begin
-//    AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-//    AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-//    AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-//  end;
 end;
 
 procedure TfrmGeEntradaEstoque.fdQryTabelaNewRecord(DataSet: TDataSet);

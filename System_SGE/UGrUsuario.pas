@@ -111,7 +111,9 @@ const
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness;
+    System.StrUtils
+  , UConstantesDGE
+  , UDMBusiness;
 
 {$R *.dfm}
 

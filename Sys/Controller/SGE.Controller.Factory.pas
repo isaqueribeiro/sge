@@ -15,12 +15,14 @@ uses
   SGE.Controller.CST,
   SGE.Controller.Distrito,
   SGE.Controller.Empresa,
+  SGE.Controller.Entrada,
   SGE.Controller.FormaPagto,
   SGE.Controller.Fornecedor,
   SGE.Controller.IBPT,
   SGE.Controller.Logradouro,
   SGE.Controller.PlanoConta,
   SGE.Controller.Produto,
+  SGE.Controller.Promocao,
   SGE.Controller.Tabelas,
   SGE.Controller.TipoDespesa,
   SGE.Controller.TipoLogradouro,
@@ -31,7 +33,8 @@ uses
 type
   TControllerFactory = class(TInterfacedObject, IControllerFactory)
     private
-      FAliquotaCOFINSView,
+      FAliquotaCOFINSView: IControllerCustom;
+      FAliquotaICMS      : IControllerAliquotaICMS;
       FAliquotaPISView   ,
       FBairro,
       FBanco ,
@@ -46,16 +49,19 @@ type
       FClienteEstoque,
       FClienteTitulos,
       FClienteTotalCompras,
+      FCombustivelVeiculo ,
       FCondicaoPagto      ,
       FCondicaoPagtoForma ,
       FCondicaoPagtoView  ,
       FConfiguracaoEmpresa,
       FContaCorrente      ,
       FContaCorrenteView  ,
+      FCorVeiculo  ,
       FCST         ,
       FDistrito    ,
       FEmpresa     : IControllerCustom;
       FEmpresaView : IControllerEmpresa;
+      FEntrada     : IControllerEntrada;
       FFabricanteProduto,
       FFormaPagto ,
       FFormaPagtoContaCorrente,
@@ -63,15 +69,17 @@ type
       FFornecedor     ,
       FGrupoFornecedor,
       FGrupoProduto   ,
-      FIBPT      ,
+      FIBPT           ,
       FLayoutRemessaBancoView,
       FLogradouro,
       FNivelIBPT ,
       FOrigemProdutoView,
       FPlanoConta      ,
       FPlanoContaNivel ,
-      FPlanoContaTipo  ,
-      FProduto         ,
+      FPlanoContaTipo  : IControllerCustom;
+      FProduto         : IControllerProduto;
+      FPromocao        : IControllerPromocao;
+      FPromocaoProduto ,
       FSecaoProduto    ,
       FSegmento        ,
       FTabelaIBPT      ,
@@ -79,10 +87,12 @@ type
       FTipoCNPJView    ,
       FTipoComissaoView,
       FTipoDespesa     ,
-      FTipoDespesaPlanoConta,
-      FTipoLogradouro,
-      FTipoProduto   ,
-      FTipoReceita   ,
+      FTipoDespesaPlanoConta   ,
+      FTipoDocumentoEntradaView,
+      FTipoEntradaView,
+      FTipoLogradouro ,
+      FTipoProduto    ,
+      FTipoReceita    ,
       FTipoReceitaPlanoConta,
       FTipoRegimeView,
       FTipoTributacao,
@@ -97,6 +107,7 @@ type
       class function New : IControllerFactory;
 
       function AliquotaCOFINSView : IControllerCustom;
+      function AliquotaICMS : IControllerAliquotaICMS;
       function AliquotaPISView : IControllerCustom;
       function Bairro : IControllerCustom;
       function Banco : IControllerCustom;
@@ -111,16 +122,19 @@ type
       function ClienteEstoque : IControllerCustom;
       function ClienteTotalCompras : IControllerCustom;
       function ClienteTitulos : IControllerCustom;
+      function CombustivelVeiculo : IControllerCustom;
       function CondicaoPagto : IControllerCustom;
       function CondicaoPagtoForma : IControllerCustom;
       function CondicaoPagtoView : IControllerCustom;
       function ConfiguracaoEmpresa : IControllerCustom;
       function ContaCorrente : IControllerCustom;
       function ContaCorrenteView : IControllerCustom;
+      function CorVeiculo : IControllerCustom;
       function CST : IControllerCustom;
       function Distrito : IControllerCustom;
       function Empresa : IControllerCustom;
       function EmpresaView : IControllerEmpresa;
+      function Entrada : IControllerEntrada;
       function FabricanteProduto : IControllerCustom;
       function FormaPagto : IControllerCustom;
       function FormaPagtoContaCorrente : IControllerCustom;
@@ -136,7 +150,9 @@ type
       function PlanoConta : IControllerCustom;
       function PlanoContaNivel : IControllerCustom;
       function PlanoContaTipo : IControllerCustom;
-      function Produto : IControllerCustom;
+      function Produto           : IControllerProduto;
+      function Promocao          : IControllerPromocao;
+      function PromocaoProduto   : IControllerCustom;
       function SecaoProduto : IControllerCustom;
       function Segmento : IControllerCustom;
       function TabelaIBPT : IControllerCustom;
@@ -145,6 +161,8 @@ type
       function TipoComissaoView : IControllerCustom;
       function TipoDespesa : IControllerCustom;
       function TipoDespesaPlanoConta : IControllerCustom;
+      function TipoDocumentoEntradaView : IControllerCustom;
+      function TipoEntradaView : IControllerCustom;
       function TipoLogradouro : IControllerCustom;
       function TipoProduto : IControllerCustom;
       function TipoReceita : IControllerCustom;
@@ -216,12 +234,28 @@ begin
   Result := FPlanoContaTipo;
 end;
 
-function TControllerFactory.Produto: IControllerCustom;
+function TControllerFactory.Produto: IControllerProduto;
 begin
   if not Assigned(FProduto) then
     FProduto := TControllerProduto.New;
 
   Result := FProduto;
+end;
+
+function TControllerFactory.Promocao: IControllerPromocao;
+begin
+  if not Assigned(FPromocao) then
+    FPromocao := TControllerPromocao.New;
+
+  Result := FPromocao;
+end;
+
+function TControllerFactory.PromocaoProduto: IControllerCustom;
+begin
+  if not Assigned(FPromocaoProduto) then
+    FPromocaoProduto := TControllerPromocaoProduto.New;
+
+  Result := FPromocaoProduto;
 end;
 
 function TControllerFactory.SecaoProduto: IControllerCustom;
@@ -254,6 +288,14 @@ begin
     FAliquotaCOFINSView := TControllerAliquotaCOFINSView.New;
 
   Result := FAliquotaCOFINSView;
+end;
+
+function TControllerFactory.AliquotaICMS: IControllerAliquotaICMS;
+begin
+  if not Assigned(FAliquotaICMS) then
+    FAliquotaICMS := TControllerAliquotaICMS.New;
+
+  Result := FAliquotaICMS;
 end;
 
 function TControllerFactory.AliquotaPISView: IControllerCustom;
@@ -368,6 +410,14 @@ begin
   Result := FClienteTotalCompras;
 end;
 
+function TControllerFactory.CombustivelVeiculo: IControllerCustom;
+begin
+  if not Assigned(FCombustivelVeiculo) then
+    FCombustivelVeiculo := TControllerCombustivelVeiculo.New;
+
+  Result := FCombustivelVeiculo;
+end;
+
 function TControllerFactory.CondicaoPagto: IControllerCustom;
 begin
   if not Assigned(FCondicaoPagto) then
@@ -416,6 +466,14 @@ begin
   Result := FContaCorrenteView;
 end;
 
+function TControllerFactory.CorVeiculo: IControllerCustom;
+begin
+  if not Assigned(FCorVeiculo) then
+    FCorVeiculo := TControllerCorVeiculo.New;
+
+  Result := FCorVeiculo;
+end;
+
 function TControllerFactory.Distrito: IControllerCustom;
 begin
   if not Assigned(FDistrito) then
@@ -438,6 +496,14 @@ begin
     FEmpresaView := TControllerEmpresaView.New;
 
   Result := FEmpresaView;
+end;
+
+function TControllerFactory.Entrada: IControllerEntrada;
+begin
+  if not Assigned(FEntrada) then
+    FEntrada := TControllerEntrada.New;
+
+  Result := FEntrada;
 end;
 
 function TControllerFactory.FabricanteProduto: IControllerCustom;
@@ -566,6 +632,22 @@ begin
     FTipoDespesaPlanoCOnta := TControllerTipoDespesaPlanoConta.New;
 
   Result := FTipoDespesaPlanoCOnta;
+end;
+
+function TControllerFactory.TipoDocumentoEntradaView: IControllerCustom;
+begin
+  if not Assigned(FTipoDocumentoEntradaView) then
+    FTipoDocumentoEntradaView := TControllerTipoDocumentoEntradaView.New;
+
+  Result := FTipoDocumentoEntradaView;
+end;
+
+function TControllerFactory.TipoEntradaView: IControllerCustom;
+begin
+  if not Assigned(FTipoEntradaView) then
+    FTipoEntradaView := TControllerTipoEntradaView.New;
+
+  Result := FTipoEntradaView;
 end;
 
 function TControllerFactory.TipoLogradouro: IControllerCustom;

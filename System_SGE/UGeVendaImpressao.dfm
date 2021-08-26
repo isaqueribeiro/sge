@@ -321,7 +321,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 8
   end
   object frRelacaoVendaSintetico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -393,6 +393,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -400,6 +401,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -416,6 +418,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -429,6 +432,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -448,6 +452,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -469,6 +474,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -488,12 +494,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -510,6 +518,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -527,6 +536,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 483.779840000000000000
@@ -543,6 +553,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 411.968770000000000000
@@ -566,6 +577,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 574.488560000000000000
@@ -595,6 +607,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -611,6 +624,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -627,6 +641,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -654,6 +669,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Condition = 'FrdsRelacaoVendaSintetico."VENDEDOR_COD"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -673,6 +689,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -691,6 +708,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
@@ -711,6 +729,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 18.897650000000000000
           Width = 294.803340000000000000
@@ -732,6 +751,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -754,6 +774,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Top = 37.795300000000000000
           Width = 98.267780000000000000
@@ -776,6 +797,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 279.685220000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -798,6 +820,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 377.953000000000000000
           Top = 18.897650000000000000
           Width = 249.448980000000000000
@@ -819,6 +842,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 627.401980000000000000
           Top = 18.897650000000000000
           Width = 90.708720000000000000
@@ -841,6 +865,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 377.953000000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -863,6 +888,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 461.102660000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -885,6 +911,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -917,6 +944,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         DataSetName = 'FrdsRelacaoVendaSintetico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 627.401980000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -937,6 +965,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -955,6 +984,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -977,6 +1007,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -999,6 +1030,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 279.685220000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -1021,6 +1053,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 377.953000000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -1043,6 +1076,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 461.102660000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -1065,6 +1099,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -1094,6 +1129,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 355.275820000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 627.401980000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -1112,6 +1148,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -1132,6 +1169,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 461.102660000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -1152,6 +1190,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo4: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 377.953000000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -1172,6 +1211,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 279.685220000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -1192,6 +1232,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -1212,6 +1253,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -1240,6 +1282,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1256,6 +1299,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 45.354360000000000000
           Width = 173.858380000000000000
@@ -1278,6 +1322,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 45.354360000000000000
           Width = 79.370066540000000000
@@ -1300,6 +1345,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 26.456710000000000000
           Width = 253.228446540000000000
@@ -1322,6 +1368,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 64.252010000000000000
           Width = 79.370066540000000000
@@ -1344,6 +1391,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 83.149660000000000000
           Width = 79.370066540000000000
@@ -1366,6 +1414,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 64.252010000000000000
           Width = 173.858380000000000000
@@ -1388,6 +1437,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 83.149660000000000000
           Width = 173.858380000000000000
@@ -1410,6 +1460,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 102.047310000000000000
           Width = 79.370066540000000000
@@ -1432,6 +1483,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 102.047310000000000000
           Width = 173.858380000000000000
@@ -1503,7 +1555,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 40
   end
   object frRelacaoVendaAnalitico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1584,6 +1636,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -1591,6 +1644,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -1607,6 +1661,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -1620,6 +1675,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -1639,6 +1695,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -1660,6 +1717,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -1679,12 +1737,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -1701,6 +1761,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -1718,6 +1779,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 812.598950000000000000
@@ -1734,6 +1796,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 411.968770000000000000
@@ -1757,6 +1820,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 574.488560000000000000
@@ -1786,6 +1850,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1802,6 +1867,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -1818,6 +1884,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -1845,6 +1912,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Condition = 'FrdsRelacaoVendaAnalitico."VENDEDOR_COD"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
@@ -1864,6 +1932,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1892,6 +1961,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         DataSetName = 'FrdsRelacaoVendaAnalitico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 956.221090000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -1920,6 +1990,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -1950,6 +2021,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 759.685530000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -1980,6 +2052,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 857.953310000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -2010,6 +2083,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149596540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -2038,6 +2112,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -2067,6 +2142,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 166.299320000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -2097,6 +2173,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 249.448980000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
@@ -2128,6 +2205,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 362.834880000000000000
           Width = 298.582806540000000000
           Height = 18.897650000000000000
@@ -2162,6 +2240,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 956.221090000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -2180,6 +2259,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 857.953310000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -2200,6 +2280,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 759.685530000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -2220,6 +2301,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -2240,6 +2322,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 362.834880000000000000
           Width = 298.582806540000000000
           Height = 18.897650000000000000
@@ -2269,6 +2352,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 793.701300000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2283,6 +2367,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 18.897650000000000000
           Width = 173.858380000000000000
@@ -2305,6 +2390,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 18.897650000000000000
           Width = 79.370066540000000000
@@ -2327,6 +2413,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
@@ -2348,6 +2435,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 37.795300000000000000
           Width = 79.370066540000000000
@@ -2370,6 +2458,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 56.692950000000000000
           Width = 79.370066540000000000
@@ -2392,6 +2481,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 37.795300000000000000
           Width = 173.858380000000000000
@@ -2414,6 +2504,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 56.692950000000000000
           Width = 173.858380000000000000
@@ -2436,6 +2527,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 75.590600000000000000
           Width = 79.370066540000000000
@@ -2458,6 +2550,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 75.590600000000000000
           Width = 173.858380000000000000
@@ -2477,6 +2570,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo42: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 793.701300000000000000
           Height = 18.897650000000000000
@@ -2503,6 +2597,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Condition = 'FrdsRelacaoVendaAnalitico."COMPETENCIA"'
         ReprintOnNewPage = True
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -2522,6 +2617,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Top = 18.897650000000000000
           Width = 294.803340000000000000
@@ -2543,6 +2639,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -2565,6 +2662,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 759.685530000000000000
           Top = 37.795300000000000000
           Width = 98.267780000000000000
@@ -2587,6 +2685,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 857.953310000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -2609,6 +2708,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 956.221090000000000000
           Top = 18.897650000000000000
           Width = 90.708720000000000000
@@ -2631,6 +2731,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
@@ -2652,6 +2753,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -2672,6 +2774,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 249.448980000000000000
           Top = 18.897650000000000000
           Width = 411.968706540000000000
@@ -2694,6 +2797,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -2715,6 +2819,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo38: TfrxMemoView
+          AllowVectorExport = True
           Left = 166.299320000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -2736,6 +2841,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 249.448980000000000000
           Height = 18.897650000000000000
@@ -2756,6 +2862,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 249.448980000000000000
           Top = 37.795300000000000000
           Width = 113.385836540000000000
@@ -2777,6 +2884,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 362.834880000000000000
           Top = 37.795300000000000000
           Width = 298.582806540000000000
@@ -2805,6 +2913,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 956.221090000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -2823,6 +2932,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 857.953310000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -2843,6 +2953,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo4: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 759.685530000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -2863,6 +2974,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo12: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -2883,6 +2995,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 362.834880000000000000
           Width = 298.582806540000000000
           Height = 18.897650000000000000
@@ -2952,7 +3065,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 40
   end
   object frRelacaoVendaComparativo: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3029,6 +3142,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -3036,6 +3150,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -3052,6 +3167,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -3065,6 +3181,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -3084,6 +3201,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -3105,6 +3223,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -3124,6 +3243,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 464.882190000000000000
@@ -3147,12 +3267,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -3169,6 +3291,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -3185,6 +3308,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 812.598950000000000000
@@ -3201,6 +3325,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 574.488560000000000000
@@ -3230,6 +3355,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 408.189240000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3246,6 +3372,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -3262,6 +3389,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -3290,6 +3418,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         DataSetName = 'FrdsRelacaoVendaSintetico'
         RowCount = 0
         object DBCross1: TfrxDBCrossView
+          AllowVectorExport = True
           Width = 381.000000000000000000
           Height = 72.000000000000000000
           CellLevels = 2
@@ -3308,238 +3437,254 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Memos = {
             3C3F786D6C2076657273696F6E3D22312E302220656E636F64696E673D227574
             662D3822207374616E64616C6F6E653D226E6F223F3E3C63726F73733E3C6365
-            6C6C6D656D6F733E3C546672784D656D6F56696577204C6566743D2231303322
-            20546F703D223237302C3333303836222057696474683D223730222048656967
-            68743D22313822205265737472696374696F6E733D2232342220416C6C6F7745
-            787072657373696F6E733D2246616C73652220446973706C6179466F726D6174
-            2E466F726D61745374723D2225322E326E2220446973706C6179466F726D6174
-            2E4B696E643D22666B4E756D657269632220466F6E742E436861727365743D22
-            312220466F6E742E436F6C6F723D22302220466F6E742E4865696768743D222D
-            31312220466F6E742E4E616D653D225461686F6D612220466F6E742E5374796C
-            653D223022204672616D652E5479703D22313522204672616D652E5769647468
-            3D22302C312220476170583D22332220476170593D2233222048416C69676E3D
-            22686152696768742220506172656E74466F6E743D2246616C7365222056416C
-            69676E3D22766143656E7465722220546578743D22302C3030222F3E3C546672
-            784D656D6F56696577204C6566743D223137332220546F703D223237302C3333
-            303836222057696474683D22383122204865696768743D223138222052657374
-            72696374696F6E733D2232342220416C6C6F7745787072657373696F6E733D22
-            46616C73652220446973706C6179466F726D61742E466F726D61745374723D22
-            25322E326E2220446973706C6179466F726D61742E4B696E643D22666B4E756D
-            657269632220466F6E742E436861727365743D22312220466F6E742E436F6C6F
-            723D22302220466F6E742E4865696768743D222D31312220466F6E742E4E616D
-            653D225461686F6D612220466F6E742E5374796C653D223022204672616D652E
-            5479703D22313522204672616D652E57696474683D22302C312220476170583D
-            22332220476170593D2233222048416C69676E3D226861526967687422205061
-            72656E74466F6E743D2246616C7365222056416C69676E3D22766143656E7465
-            722220546578743D22302C3030222F3E3C546672784D656D6F56696577204C65
-            66743D223130332220546F703D223238382C3333303836222057696474683D22
-            373022204865696768743D22313822205265737472696374696F6E733D223234
-            2220416C6C6F7745787072657373696F6E733D2246616C73652220446973706C
-            6179466F726D61742E466F726D61745374723D2225322E326E2220446973706C
-            6179466F726D61742E4B696E643D22666B4E756D657269632220466F6E742E43
-            6861727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E48
-            65696768743D222D31312220466F6E742E4E616D653D225461686F6D61222046
-            6F6E742E5374796C653D223122204672616D652E5479703D2231352220467261
-            6D652E57696474683D22302C31222046696C6C2E4261636B436F6C6F723D222D
-            31363737373230312220476170583D22332220476170593D2233222048416C69
-            676E3D22686152696768742220506172656E74466F6E743D2246616C73652220
-            56416C69676E3D22766143656E7465722220546578743D22302C3030222F3E3C
-            546672784D656D6F56696577204C6566743D223137332220546F703D22323838
-            2C3333303836222057696474683D22383122204865696768743D223138222052
-            65737472696374696F6E733D2232342220416C6C6F7745787072657373696F6E
-            733D2246616C73652220446973706C6179466F726D61742E466F726D61745374
-            723D2225322E326E2220446973706C6179466F726D61742E4B696E643D22666B
-            4E756D657269632220466F6E742E436861727365743D22312220466F6E742E43
-            6F6C6F723D22302220466F6E742E4865696768743D222D31312220466F6E742E
-            4E616D653D225461686F6D612220466F6E742E5374796C653D22312220467261
-            6D652E5479703D22313522204672616D652E57696474683D22302C3122204669
-            6C6C2E4261636B436F6C6F723D222D31363737373230312220476170583D2233
-            2220476170593D2233222048416C69676E3D2268615269676874222050617265
-            6E74466F6E743D2246616C7365222056416C69676E3D22766143656E74657222
-            20546578743D22302C3030222F3E3C546672784D656D6F56696577204C656674
-            3D223235342220546F703D223237302C3333303836222057696474683D223730
+            6C6C6D656D6F733E3C546672784D656D6F5669657720416C6C6F77566563746F
+            724578706F72743D225472756522204C6566743D223130332220546F703D2232
+            37302C3333303836222057696474683D22373022204865696768743D22313822
+            205265737472696374696F6E733D2232342220416C6C6F774578707265737369
+            6F6E733D2246616C73652220446973706C6179466F726D61742E466F726D6174
+            5374723D2225322E326E2220446973706C6179466F726D61742E4B696E643D22
+            666B4E756D657269632220466F6E742E436861727365743D22312220466F6E74
+            2E436F6C6F723D22302220466F6E742E4865696768743D222D31312220466F6E
+            742E4E616D653D225461686F6D612220466F6E742E5374796C653D2230222046
+            72616D652E5479703D22313522204672616D652E57696474683D22302C312220
+            476170583D22332220476170593D2233222048416C69676E3D22686152696768
+            742220506172656E74466F6E743D2246616C7365222056416C69676E3D227661
+            43656E7465722220546578743D22302C3030222F3E3C546672784D656D6F5669
+            657720416C6C6F77566563746F724578706F72743D225472756522204C656674
+            3D223137332220546F703D223237302C3333303836222057696474683D223831
             22204865696768743D22313822205265737472696374696F6E733D2232342220
             416C6C6F7745787072657373696F6E733D2246616C73652220446973706C6179
             466F726D61742E466F726D61745374723D2225322E326E2220446973706C6179
             466F726D61742E4B696E643D22666B4E756D657269632220466F6E742E436861
-            727365743D22312220466F6E742E436F6C6F723D223136373131363830222046
-            6F6E742E4865696768743D222D31312220466F6E742E4E616D653D225461686F
-            6D612220466F6E742E5374796C653D223022204672616D652E5479703D223135
-            22204672616D652E57696474683D22302C312220476170583D22332220476170
-            593D2233222048416C69676E3D22686152696768742220506172656E74466F6E
-            743D2246616C7365222056416C69676E3D22766143656E746572222054657874
-            3D22302C3030222F3E3C546672784D656D6F56696577204C6566743D22333234
-            2220546F703D223237302C3333303836222057696474683D2235372220486569
-            6768743D22313822205265737472696374696F6E733D2232342220416C6C6F77
-            45787072657373696F6E733D2246616C73652220446973706C6179466F726D61
-            742E466F726D61745374723D2225322E326E2220446973706C6179466F726D61
-            742E4B696E643D22666B4E756D657269632220466F6E742E436861727365743D
-            22312220466F6E742E436F6C6F723D2231363731313638302220466F6E742E48
-            65696768743D222D31312220466F6E742E4E616D653D225461686F6D61222046
-            6F6E742E5374796C653D223022204672616D652E5479703D2231352220467261
-            6D652E57696474683D22302C312220476170583D22332220476170593D223322
-            2048416C69676E3D22686152696768742220506172656E74466F6E743D224661
-            6C7365222056416C69676E3D22766143656E7465722220546578743D22302C30
-            30222F3E3C546672784D656D6F56696577204C6566743D223235342220546F70
-            3D223238382C3333303836222057696474683D22373022204865696768743D22
-            313822205265737472696374696F6E733D2232342220416C6C6F774578707265
-            7373696F6E733D2246616C73652220446973706C6179466F726D61742E466F72
-            6D61745374723D2225322E326E2220446973706C6179466F726D61742E4B696E
-            643D22666B4E756D657269632220466F6E742E436861727365743D2231222046
-            6F6E742E436F6C6F723D2231363731313638302220466F6E742E486569676874
-            3D222D31312220466F6E742E4E616D653D225461686F6D612220466F6E742E53
-            74796C653D223122204672616D652E5479703D22313522204672616D652E5769
-            6474683D22302C31222046696C6C2E4261636B436F6C6F723D222D3136373737
-            3230312220476170583D22332220476170593D2233222048416C69676E3D2268
-            6152696768742220506172656E74466F6E743D2246616C7365222056416C6967
-            6E3D22766143656E7465722220546578743D22302C3030222F3E3C546672784D
-            656D6F56696577204C6566743D223332342220546F703D223238382C33333038
-            36222057696474683D22353722204865696768743D2231382220526573747269
-            6374696F6E733D2232342220416C6C6F7745787072657373696F6E733D224661
-            6C73652220446973706C6179466F726D61742E466F726D61745374723D222532
-            2E326E2220446973706C6179466F726D61742E4B696E643D22666B4E756D6572
-            69632220466F6E742E436861727365743D22312220466F6E742E436F6C6F723D
-            2231363731313638302220466F6E742E4865696768743D222D31312220466F6E
-            742E4E616D653D225461686F6D612220466F6E742E5374796C653D2231222046
-            72616D652E5479703D22313522204672616D652E57696474683D22302C312220
-            46696C6C2E4261636B436F6C6F723D222D31363737373230312220476170583D
-            22332220476170593D2233222048416C69676E3D226861526967687422205061
-            72656E74466F6E743D2246616C7365222056416C69676E3D22766143656E7465
-            722220546578743D22302C3030222F3E3C2F63656C6C6D656D6F733E3C63656C
-            6C6865616465726D656D6F733E3C546672784D656D6F56696577204C6566743D
-            223130332220546F703D223235322C3333303836222057696474683D22373022
-            204865696768743D22313822205265737472696374696F6E733D22382220416C
-            6C6F7745787072657373696F6E733D2246616C73652220466F6E742E43686172
-            7365743D22312220466F6E742E436F6C6F723D22302220466F6E742E48656967
-            68743D222D31312220466F6E742E4E616D653D225461686F6D612220466F6E74
-            2E5374796C653D223022204672616D652E5479703D22313522204672616D652E
-            57696474683D22302C31222046696C6C2E4261636B436F6C6F723D222D313637
-            37373230312220476170583D22332220476170593D22332220506172656E7446
-            6F6E743D2246616C7365222056416C69676E3D22766143656E74657222205465
-            78743D22204CC3AD717569646F202852242920222F3E3C546672784D656D6F56
-            696577204C6566743D223137332220546F703D223235322C3333303836222057
-            696474683D22383122204865696768743D22313822205265737472696374696F
-            6E733D22382220416C6C6F7745787072657373696F6E733D2246616C73652220
-            466F6E742E436861727365743D22312220466F6E742E436F6C6F723D22302220
-            466F6E742E4865696768743D222D31312220466F6E742E4E616D653D22546168
-            6F6D612220466F6E742E5374796C653D223022204672616D652E5479703D2231
-            3522204672616D652E57696474683D22302C31222046696C6C2E4261636B436F
-            6C6F723D222D31363737373230312220476170583D22332220476170593D2233
-            2220506172656E74466F6E743D2246616C7365222056416C69676E3D22766143
-            656E7465722220546578743D2220436F6D697373C3A36F202852242920222F3E
-            3C546672784D656D6F56696577204C6566743D223235342220546F703D223235
-            322C3333303836222057696474683D22373022204865696768743D2231382220
-            5265737472696374696F6E733D22382220416C6C6F7745787072657373696F6E
-            733D2246616C73652220466F6E742E436861727365743D22312220466F6E742E
-            436F6C6F723D2231363731313638302220466F6E742E4865696768743D222D31
-            312220466F6E742E4E616D653D225461686F6D612220466F6E742E5374796C65
-            3D223022204672616D652E5479703D22313522204672616D652E57696474683D
-            22302C31222046696C6C2E4261636B436F6C6F723D222D313637373732303122
-            20476170583D22332220476170593D22332220506172656E74466F6E743D2246
-            616C7365222056416C69676E3D22766143656E7465722220546578743D22204C
-            C3AD717569646F202852242920222F3E3C546672784D656D6F56696577204C65
-            66743D223332342220546F703D223235322C3333303836222057696474683D22
-            353722204865696768743D22313822205265737472696374696F6E733D223822
-            20416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E43
-            6861727365743D22312220466F6E742E436F6C6F723D22313637313136383022
-            20466F6E742E4865696768743D222D31312220466F6E742E4E616D653D225461
-            686F6D612220466F6E742E5374796C653D223022204672616D652E5479703D22
-            313522204672616D652E57696474683D22302C31222046696C6C2E4261636B43
-            6F6C6F723D222D31363737373230312220476170583D22332220476170593D22
-            332220506172656E74466F6E743D2246616C7365222056416C69676E3D227661
-            43656E7465722220546578743D2220436F6D697373C3A36F20222F3E3C2F6365
-            6C6C6865616465726D656D6F733E3C636F6C756D6E6D656D6F733E3C54667278
-            4D656D6F56696577204C6566743D223130332220546F703D223233342C333330
-            3836222057696474683D2231353122204865696768743D223138222052657374
-            72696374696F6E733D2232342220416C6C6F7745787072657373696F6E733D22
-            46616C73652220466F6E742E436861727365743D22312220466F6E742E436F6C
-            6F723D22302220466F6E742E4865696768743D222D31312220466F6E742E4E61
-            6D653D225461686F6D612220466F6E742E5374796C653D223122204672616D65
-            2E5479703D22313522204672616D652E57696474683D22302C31222046696C6C
-            2E4261636B436F6C6F723D222D31363737373230312220476170583D22332220
-            476170593D2233222048416C69676E3D22686143656E7465722220506172656E
-            74466F6E743D2246616C7365222056416C69676E3D22766143656E7465722220
-            546578743D22222F3E3C2F636F6C756D6E6D656D6F733E3C636F6C756D6E746F
-            74616C6D656D6F733E3C546672784D656D6F56696577204C6566743D22323534
-            2220546F703D223233342C3333303836222057696474683D2231323722204865
-            696768743D22313822205265737472696374696F6E733D22382220416C6C6F77
-            45787072657373696F6E733D2246616C73652220466F6E742E43686172736574
-            3D22312220466F6E742E436F6C6F723D2231363731313638302220466F6E742E
-            4865696768743D222D31312220466F6E742E4E616D653D225461686F6D612220
-            466F6E742E5374796C653D223122204672616D652E5479703D22313522204672
-            616D652E57696474683D22302C31222046696C6C2E4261636B436F6C6F723D22
-            2D31363737373230312220476170583D22332220476170593D2233222048416C
-            69676E3D22686143656E7465722220506172656E74466F6E743D2246616C7365
-            222056416C69676E3D22766143656E7465722220546578743D22544F54414C22
-            2F3E3C2F636F6C756D6E746F74616C6D656D6F733E3C636F726E65726D656D6F
-            733E3C546672784D656D6F56696577204C6566743D22302220546F703D223233
-            342C3333303836222057696474683D2231303322204865696768743D22302220
-            5265737472696374696F6E733D2238222056697369626C653D2246616C736522
-            20416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E43
-            6861727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E48
-            65696768743D222D31312220466F6E742E4E616D653D225461686F6D61222046
-            6F6E742E5374796C653D223022204672616D652E5479703D2231352220476170
-            583D22332220476170593D2233222048416C69676E3D22686143656E74657222
-            20506172656E74466F6E743D2246616C7365222056416C69676E3D2276614365
-            6E7465722220546578743D2256454E44415F4C49515549444F222F3E3C546672
-            784D656D6F56696577204C6566743D223130332220546F703D223233342C3333
-            303836222057696474683D2232373822204865696768743D2230222052657374
-            72696374696F6E733D2238222056697369626C653D2246616C73652220416C6C
-            6F7745787072657373696F6E733D2246616C73652220466F6E742E4368617273
-            65743D22312220466F6E742E436F6C6F723D22302220466F6E742E4865696768
-            743D222D31312220466F6E742E4E616D653D225461686F6D612220466F6E742E
-            5374796C653D223022204672616D652E5479703D2231352220476170583D2233
-            2220476170593D2233222048416C69676E3D22686143656E7465722220506172
-            656E74466F6E743D2246616C7365222056416C69676E3D22766143656E746572
-            2220546578743D22434F4D504554454E434941222F3E3C546672784D656D6F56
-            696577204C6566743D223133362220546F703D223232222057696474683D2231
-            333122204865696768743D22323222205265737472696374696F6E733D223822
-            2056697369626C653D2246616C73652220416C6C6F7745787072657373696F6E
-            733D2246616C736522204672616D652E5479703D2231352220476170583D2233
-            2220476170593D2233222048416C69676E3D22686143656E746572222056416C
-            69676E3D22766143656E7465722220546578743D22222F3E3C546672784D656D
-            6F56696577204C6566743D22302220546F703D223233342C3333303836222057
-            696474683D2231303322204865696768743D2233362220526573747269637469
-            6F6E733D22382220416C6C6F7745787072657373696F6E733D2246616C736522
-            20466F6E742E436861727365743D22312220466F6E742E436F6C6F723D223022
-            20466F6E742E4865696768743D222D31312220466F6E742E4E616D653D225461
-            686F6D612220466F6E742E5374796C653D223122204672616D652E5479703D22
-            313522204672616D652E57696474683D22302C31222046696C6C2E4261636B43
-            6F6C6F723D222D31363737373230312220476170583D22332220476170593D22
-            33222048416C69676E3D22686143656E7465722220506172656E74466F6E743D
-            2246616C7365222056416C69676E3D22766143656E7465722220546578743D22
-            56656E6465646F72222F3E3C2F636F726E65726D656D6F733E3C726F776D656D
-            6F733E3C546672784D656D6F56696577204C6566743D22302220546F703D2232
-            37302C3333303836222057696474683D2231303322204865696768743D223138
-            22205265737472696374696F6E733D2232342220416C6C6F7745787072657373
-            696F6E733D2246616C73652220466F6E742E436861727365743D22312220466F
-            6E742E436F6C6F723D22302220466F6E742E4865696768743D222D3131222046
-            6F6E742E4E616D653D225461686F6D612220466F6E742E5374796C653D223022
-            204672616D652E5479703D22313522204672616D652E57696474683D22302C31
-            2220476170583D22332220476170593D22332220506172656E74466F6E743D22
-            46616C7365222056416C69676E3D22766143656E7465722220546578743D2222
-            2F3E3C2F726F776D656D6F733E3C726F77746F74616C6D656D6F733E3C546672
-            784D656D6F56696577204C6566743D22302220546F703D223238382C33333038
-            36222057696474683D2231303322204865696768743D22313822205265737472
-            696374696F6E733D22382220416C6C6F7745787072657373696F6E733D224661
-            6C73652220466F6E742E436861727365743D22312220466F6E742E436F6C6F72
+            727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E486569
+            6768743D222D31312220466F6E742E4E616D653D225461686F6D612220466F6E
+            742E5374796C653D223022204672616D652E5479703D22313522204672616D65
+            2E57696474683D22302C312220476170583D22332220476170593D2233222048
+            416C69676E3D22686152696768742220506172656E74466F6E743D2246616C73
+            65222056416C69676E3D22766143656E7465722220546578743D22302C303022
+            2F3E3C546672784D656D6F5669657720416C6C6F77566563746F724578706F72
+            743D225472756522204C6566743D223130332220546F703D223238382C333330
+            3836222057696474683D22373022204865696768743D22313822205265737472
+            696374696F6E733D2232342220416C6C6F7745787072657373696F6E733D2246
+            616C73652220446973706C6179466F726D61742E466F726D61745374723D2225
+            322E326E2220446973706C6179466F726D61742E4B696E643D22666B4E756D65
+            7269632220466F6E742E436861727365743D22312220466F6E742E436F6C6F72
             3D22302220466F6E742E4865696768743D222D31312220466F6E742E4E616D65
             3D225461686F6D612220466F6E742E5374796C653D223122204672616D652E54
             79703D22313522204672616D652E57696474683D22302C31222046696C6C2E42
             61636B436F6C6F723D222D31363737373230312220476170583D223322204761
-            70593D2233222048416C69676E3D22686143656E7465722220506172656E7446
-            6F6E743D2246616C7365222056416C69676E3D22766143656E74657222205465
-            78743D22544F54414C222F3E3C2F726F77746F74616C6D656D6F733E3C63656C
-            6C66756E6374696F6E733E3C6974656D20312F3E3C6974656D20312F3E3C2F63
-            656C6C66756E6374696F6E733E3C636F6C756D6E736F72743E3C6974656D2030
-            2F3E3C2F636F6C756D6E736F72743E3C726F77736F72743E3C6974656D20302F
-            3E3C2F726F77736F72743E3C2F63726F73733E}
+            70593D2233222048416C69676E3D22686152696768742220506172656E74466F
+            6E743D2246616C7365222056416C69676E3D22766143656E7465722220546578
+            743D22302C3030222F3E3C546672784D656D6F5669657720416C6C6F77566563
+            746F724578706F72743D225472756522204C6566743D223137332220546F703D
+            223238382C3333303836222057696474683D22383122204865696768743D2231
+            3822205265737472696374696F6E733D2232342220416C6C6F77457870726573
+            73696F6E733D2246616C73652220446973706C6179466F726D61742E466F726D
+            61745374723D2225322E326E2220446973706C6179466F726D61742E4B696E64
+            3D22666B4E756D657269632220466F6E742E436861727365743D22312220466F
+            6E742E436F6C6F723D22302220466F6E742E4865696768743D222D3131222046
+            6F6E742E4E616D653D225461686F6D612220466F6E742E5374796C653D223122
+            204672616D652E5479703D22313522204672616D652E57696474683D22302C31
+            222046696C6C2E4261636B436F6C6F723D222D31363737373230312220476170
+            583D22332220476170593D2233222048416C69676E3D22686152696768742220
+            506172656E74466F6E743D2246616C7365222056416C69676E3D22766143656E
+            7465722220546578743D22302C3030222F3E3C546672784D656D6F5669657720
+            416C6C6F77566563746F724578706F72743D225472756522204C6566743D2232
+            35342220546F703D223237302C3333303836222057696474683D223730222048
+            65696768743D22313822205265737472696374696F6E733D2232342220416C6C
+            6F7745787072657373696F6E733D2246616C73652220446973706C6179466F72
+            6D61742E466F726D61745374723D2225322E326E2220446973706C6179466F72
+            6D61742E4B696E643D22666B4E756D657269632220466F6E742E436861727365
+            743D22312220466F6E742E436F6C6F723D2231363731313638302220466F6E74
+            2E4865696768743D222D31312220466F6E742E4E616D653D225461686F6D6122
+            20466F6E742E5374796C653D223022204672616D652E5479703D223135222046
+            72616D652E57696474683D22302C312220476170583D22332220476170593D22
+            33222048416C69676E3D22686152696768742220506172656E74466F6E743D22
+            46616C7365222056416C69676E3D22766143656E7465722220546578743D2230
+            2C3030222F3E3C546672784D656D6F5669657720416C6C6F77566563746F7245
+            78706F72743D225472756522204C6566743D223332342220546F703D22323730
+            2C3333303836222057696474683D22353722204865696768743D223138222052
+            65737472696374696F6E733D2232342220416C6C6F7745787072657373696F6E
+            733D2246616C73652220446973706C6179466F726D61742E466F726D61745374
+            723D2225322E326E2220446973706C6179466F726D61742E4B696E643D22666B
+            4E756D657269632220466F6E742E436861727365743D22312220466F6E742E43
+            6F6C6F723D2231363731313638302220466F6E742E4865696768743D222D3131
+            2220466F6E742E4E616D653D225461686F6D612220466F6E742E5374796C653D
+            223022204672616D652E5479703D22313522204672616D652E57696474683D22
+            302C312220476170583D22332220476170593D2233222048416C69676E3D2268
+            6152696768742220506172656E74466F6E743D2246616C7365222056416C6967
+            6E3D22766143656E7465722220546578743D22302C3030222F3E3C546672784D
+            656D6F5669657720416C6C6F77566563746F724578706F72743D225472756522
+            204C6566743D223235342220546F703D223238382C3333303836222057696474
+            683D22373022204865696768743D22313822205265737472696374696F6E733D
+            2232342220416C6C6F7745787072657373696F6E733D2246616C736522204469
+            73706C6179466F726D61742E466F726D61745374723D2225322E326E22204469
+            73706C6179466F726D61742E4B696E643D22666B4E756D657269632220466F6E
+            742E436861727365743D22312220466F6E742E436F6C6F723D22313637313136
+            38302220466F6E742E4865696768743D222D31312220466F6E742E4E616D653D
+            225461686F6D612220466F6E742E5374796C653D223122204672616D652E5479
+            703D22313522204672616D652E57696474683D22302C31222046696C6C2E4261
+            636B436F6C6F723D222D31363737373230312220476170583D22332220476170
+            593D2233222048416C69676E3D22686152696768742220506172656E74466F6E
+            743D2246616C7365222056416C69676E3D22766143656E746572222054657874
+            3D22302C3030222F3E3C546672784D656D6F5669657720416C6C6F7756656374
+            6F724578706F72743D225472756522204C6566743D223332342220546F703D22
+            3238382C3333303836222057696474683D22353722204865696768743D223138
+            22205265737472696374696F6E733D2232342220416C6C6F7745787072657373
+            696F6E733D2246616C73652220446973706C6179466F726D61742E466F726D61
+            745374723D2225322E326E2220446973706C6179466F726D61742E4B696E643D
+            22666B4E756D657269632220466F6E742E436861727365743D22312220466F6E
+            742E436F6C6F723D2231363731313638302220466F6E742E4865696768743D22
+            2D31312220466F6E742E4E616D653D225461686F6D612220466F6E742E537479
+            6C653D223122204672616D652E5479703D22313522204672616D652E57696474
+            683D22302C31222046696C6C2E4261636B436F6C6F723D222D31363737373230
+            312220476170583D22332220476170593D2233222048416C69676E3D22686152
+            696768742220506172656E74466F6E743D2246616C7365222056416C69676E3D
+            22766143656E7465722220546578743D22302C3030222F3E3C2F63656C6C6D65
+            6D6F733E3C63656C6C6865616465726D656D6F733E3C546672784D656D6F5669
+            657720416C6C6F77566563746F724578706F72743D225472756522204C656674
+            3D223130332220546F703D223235322C3333303836222057696474683D223730
+            22204865696768743D22313822205265737472696374696F6E733D2238222041
+            6C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E436861
+            727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E486569
+            6768743D222D31312220466F6E742E4E616D653D225461686F6D612220466F6E
+            742E5374796C653D223022204672616D652E5479703D22313522204672616D65
+            2E57696474683D22302C31222046696C6C2E4261636B436F6C6F723D222D3136
+            3737373230312220476170583D22332220476170593D22332220506172656E74
+            466F6E743D2246616C7365222056416C69676E3D22766143656E746572222054
+            6578743D22204CC3AD717569646F202852242920222F3E3C546672784D656D6F
+            5669657720416C6C6F77566563746F724578706F72743D225472756522204C65
+            66743D223137332220546F703D223235322C3333303836222057696474683D22
+            383122204865696768743D22313822205265737472696374696F6E733D223822
+            20416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E43
+            6861727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E48
+            65696768743D222D31312220466F6E742E4E616D653D225461686F6D61222046
+            6F6E742E5374796C653D223022204672616D652E5479703D2231352220467261
+            6D652E57696474683D22302C31222046696C6C2E4261636B436F6C6F723D222D
+            31363737373230312220476170583D22332220476170593D2233222050617265
+            6E74466F6E743D2246616C7365222056416C69676E3D22766143656E74657222
+            20546578743D2220436F6D697373C3A36F202852242920222F3E3C546672784D
+            656D6F5669657720416C6C6F77566563746F724578706F72743D225472756522
+            204C6566743D223235342220546F703D223235322C3333303836222057696474
+            683D22373022204865696768743D22313822205265737472696374696F6E733D
+            22382220416C6C6F7745787072657373696F6E733D2246616C73652220466F6E
+            742E436861727365743D22312220466F6E742E436F6C6F723D22313637313136
+            38302220466F6E742E4865696768743D222D31312220466F6E742E4E616D653D
+            225461686F6D612220466F6E742E5374796C653D223022204672616D652E5479
+            703D22313522204672616D652E57696474683D22302C31222046696C6C2E4261
+            636B436F6C6F723D222D31363737373230312220476170583D22332220476170
+            593D22332220506172656E74466F6E743D2246616C7365222056416C69676E3D
+            22766143656E7465722220546578743D22204CC3AD717569646F202852242920
+            222F3E3C546672784D656D6F5669657720416C6C6F77566563746F724578706F
+            72743D225472756522204C6566743D223332342220546F703D223235322C3333
+            303836222057696474683D22353722204865696768743D223138222052657374
+            72696374696F6E733D22382220416C6C6F7745787072657373696F6E733D2246
+            616C73652220466F6E742E436861727365743D22312220466F6E742E436F6C6F
+            723D2231363731313638302220466F6E742E4865696768743D222D3131222046
+            6F6E742E4E616D653D225461686F6D612220466F6E742E5374796C653D223022
+            204672616D652E5479703D22313522204672616D652E57696474683D22302C31
+            222046696C6C2E4261636B436F6C6F723D222D31363737373230312220476170
+            583D22332220476170593D22332220506172656E74466F6E743D2246616C7365
+            222056416C69676E3D22766143656E7465722220546578743D2220436F6D6973
+            73C3A36F20222F3E3C2F63656C6C6865616465726D656D6F733E3C636F6C756D
+            6E6D656D6F733E3C546672784D656D6F5669657720416C6C6F77566563746F72
+            4578706F72743D225472756522204C6566743D223130332220546F703D223233
+            342C3333303836222057696474683D2231353122204865696768743D22313822
+            205265737472696374696F6E733D2232342220416C6C6F774578707265737369
+            6F6E733D2246616C73652220466F6E742E436861727365743D22312220466F6E
+            742E436F6C6F723D22302220466F6E742E4865696768743D222D31312220466F
+            6E742E4E616D653D225461686F6D612220466F6E742E5374796C653D22312220
+            4672616D652E5479703D22313522204672616D652E57696474683D22302C3122
+            2046696C6C2E4261636B436F6C6F723D222D3136373737323031222047617058
+            3D22332220476170593D2233222048416C69676E3D22686143656E7465722220
+            506172656E74466F6E743D2246616C7365222056416C69676E3D22766143656E
+            7465722220546578743D22222F3E3C2F636F6C756D6E6D656D6F733E3C636F6C
+            756D6E746F74616C6D656D6F733E3C546672784D656D6F5669657720416C6C6F
+            77566563746F724578706F72743D225472756522204C6566743D223235342220
+            546F703D223233342C3333303836222057696474683D22313237222048656967
+            68743D22313822205265737472696374696F6E733D22382220416C6C6F774578
+            7072657373696F6E733D2246616C73652220466F6E742E436861727365743D22
+            312220466F6E742E436F6C6F723D2231363731313638302220466F6E742E4865
+            696768743D222D31312220466F6E742E4E616D653D225461686F6D612220466F
+            6E742E5374796C653D223122204672616D652E5479703D22313522204672616D
+            652E57696474683D22302C31222046696C6C2E4261636B436F6C6F723D222D31
+            363737373230312220476170583D22332220476170593D2233222048416C6967
+            6E3D22686143656E7465722220506172656E74466F6E743D2246616C73652220
+            56416C69676E3D22766143656E7465722220546578743D22544F54414C222F3E
+            3C2F636F6C756D6E746F74616C6D656D6F733E3C636F726E65726D656D6F733E
+            3C546672784D656D6F5669657720416C6C6F77566563746F724578706F72743D
+            225472756522204C6566743D22302220546F703D223233342C33333038362220
+            57696474683D2231303322204865696768743D22302220526573747269637469
+            6F6E733D2238222056697369626C653D2246616C73652220416C6C6F77457870
+            72657373696F6E733D2246616C73652220466F6E742E436861727365743D2231
+            2220466F6E742E436F6C6F723D22302220466F6E742E4865696768743D222D31
+            312220466F6E742E4E616D653D225461686F6D612220466F6E742E5374796C65
+            3D223022204672616D652E5479703D2231352220476170583D22332220476170
+            593D2233222048416C69676E3D22686143656E7465722220506172656E74466F
+            6E743D2246616C7365222056416C69676E3D22766143656E7465722220546578
+            743D2256454E44415F4C49515549444F222F3E3C546672784D656D6F56696577
+            20416C6C6F77566563746F724578706F72743D225472756522204C6566743D22
+            3130332220546F703D223233342C3333303836222057696474683D2232373822
+            204865696768743D223022205265737472696374696F6E733D22382220566973
+            69626C653D2246616C73652220416C6C6F7745787072657373696F6E733D2246
+            616C73652220466F6E742E436861727365743D22312220466F6E742E436F6C6F
+            723D22302220466F6E742E4865696768743D222D31312220466F6E742E4E616D
+            653D225461686F6D612220466F6E742E5374796C653D223022204672616D652E
+            5479703D2231352220476170583D22332220476170593D2233222048416C6967
+            6E3D22686143656E7465722220506172656E74466F6E743D2246616C73652220
+            56416C69676E3D22766143656E7465722220546578743D22434F4D504554454E
+            434941222F3E3C546672784D656D6F5669657720416C6C6F77566563746F7245
+            78706F72743D225472756522204C6566743D223133362220546F703D22323222
+            2057696474683D2231333122204865696768743D223232222052657374726963
+            74696F6E733D2238222056697369626C653D2246616C73652220416C6C6F7745
+            787072657373696F6E733D2246616C736522204672616D652E5479703D223135
+            2220476170583D22332220476170593D2233222048416C69676E3D2268614365
+            6E746572222056416C69676E3D22766143656E7465722220546578743D22222F
+            3E3C546672784D656D6F5669657720416C6C6F77566563746F724578706F7274
+            3D225472756522204C6566743D22302220546F703D223233342C333330383622
+            2057696474683D2231303322204865696768743D223336222052657374726963
+            74696F6E733D22382220416C6C6F7745787072657373696F6E733D2246616C73
+            652220466F6E742E436861727365743D22312220466F6E742E436F6C6F723D22
+            302220466F6E742E4865696768743D222D31312220466F6E742E4E616D653D22
+            5461686F6D612220466F6E742E5374796C653D223122204672616D652E547970
+            3D22313522204672616D652E57696474683D22302C31222046696C6C2E426163
+            6B436F6C6F723D222D31363737373230312220476170583D2233222047617059
+            3D2233222048416C69676E3D22686143656E7465722220506172656E74466F6E
+            743D2246616C7365222056416C69676E3D22766143656E746572222054657874
+            3D2256656E6465646F72222F3E3C2F636F726E65726D656D6F733E3C726F776D
+            656D6F733E3C546672784D656D6F5669657720416C6C6F77566563746F724578
+            706F72743D225472756522204C6566743D22302220546F703D223237302C3333
+            303836222057696474683D2231303322204865696768743D2231382220526573
+            7472696374696F6E733D2232342220416C6C6F7745787072657373696F6E733D
+            2246616C73652220466F6E742E436861727365743D22312220466F6E742E436F
+            6C6F723D22302220466F6E742E4865696768743D222D31312220466F6E742E4E
+            616D653D225461686F6D612220466F6E742E5374796C653D223022204672616D
+            652E5479703D22313522204672616D652E57696474683D22302C312220476170
+            583D22332220476170593D22332220506172656E74466F6E743D2246616C7365
+            222056416C69676E3D22766143656E7465722220546578743D22222F3E3C2F72
+            6F776D656D6F733E3C726F77746F74616C6D656D6F733E3C546672784D656D6F
+            5669657720416C6C6F77566563746F724578706F72743D225472756522204C65
+            66743D22302220546F703D223238382C3333303836222057696474683D223130
+            3322204865696768743D22313822205265737472696374696F6E733D22382220
+            416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E4368
+            61727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E4865
+            696768743D222D31312220466F6E742E4E616D653D225461686F6D612220466F
+            6E742E5374796C653D223122204672616D652E5479703D22313522204672616D
+            652E57696474683D22302C31222046696C6C2E4261636B436F6C6F723D222D31
+            363737373230312220476170583D22332220476170593D2233222048416C6967
+            6E3D22686143656E7465722220506172656E74466F6E743D2246616C73652220
+            56416C69676E3D22766143656E7465722220546578743D22544F54414C222F3E
+            3C2F726F77746F74616C6D656D6F733E3C63656C6C66756E6374696F6E733E3C
+            6974656D20312F3E3C6974656D20312F3E3C2F63656C6C66756E6374696F6E73
+            3E3C636F6C756D6E736F72743E3C6974656D20302F3E3C2F636F6C756D6E736F
+            72743E3C726F77736F72743E3C6974656D20302F3E3C2F726F77736F72743E3C
+            2F63726F73733E}
         end
       end
     end
   end
   object frRelacaoVendaClienteSintetico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3615,6 +3760,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -3622,6 +3768,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -3638,6 +3785,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -3651,6 +3799,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -3670,6 +3819,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -3691,6 +3841,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -3710,6 +3861,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 464.882190000000000000
@@ -3733,12 +3885,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -3755,6 +3909,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -3772,6 +3927,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 483.779840000000000000
@@ -3788,6 +3944,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 574.488560000000000000
@@ -3817,6 +3974,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3833,6 +3991,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -3849,6 +4008,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -3876,6 +4036,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Condition = 'FrdsRelacaoVendaClienteSintetico."CLIENTE_CPF_CNPJ"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -3900,6 +4061,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -3918,6 +4080,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
@@ -3938,6 +4101,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 18.897650000000000000
           Width = 294.803340000000000000
@@ -3959,6 +4123,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -3981,6 +4146,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Top = 37.795300000000000000
           Width = 98.267780000000000000
@@ -4003,6 +4169,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 279.685220000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -4025,6 +4192,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 377.953000000000000000
           Top = 18.897650000000000000
           Width = 249.448980000000000000
@@ -4046,6 +4214,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 627.401980000000000000
           Top = 18.897650000000000000
           Width = 90.708720000000000000
@@ -4068,6 +4237,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 377.953000000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -4090,6 +4260,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 461.102660000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -4112,6 +4283,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -4144,6 +4316,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         DataSetName = 'FrdsRelacaoVendaClienteSintetico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 627.401980000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -4164,6 +4337,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -4182,6 +4356,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -4204,6 +4379,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -4226,6 +4402,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 279.685220000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -4248,6 +4425,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 377.953000000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -4270,6 +4448,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 461.102660000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -4292,6 +4471,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -4321,6 +4501,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 355.275820000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 627.401980000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -4339,6 +4520,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -4359,6 +4541,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 461.102660000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -4379,6 +4562,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo4: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 377.953000000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -4399,6 +4583,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 279.685220000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -4419,6 +4604,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -4439,6 +4625,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -4467,6 +4654,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -4483,6 +4671,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 45.354360000000000000
           Width = 173.858380000000000000
@@ -4505,6 +4694,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 45.354360000000000000
           Width = 79.370066540000000000
@@ -4527,6 +4717,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 26.456710000000000000
           Width = 253.228446540000000000
@@ -4549,6 +4740,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 64.252010000000000000
           Width = 79.370066540000000000
@@ -4571,6 +4763,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 83.149660000000000000
           Width = 79.370066540000000000
@@ -4593,6 +4786,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 64.252010000000000000
           Width = 173.858380000000000000
@@ -4615,6 +4809,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 83.149660000000000000
           Width = 173.858380000000000000
@@ -4637,6 +4832,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 102.047310000000000000
           Width = 79.370066540000000000
@@ -4659,6 +4855,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 102.047310000000000000
           Width = 173.858380000000000000
@@ -4718,7 +4915,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 112
   end
   object frRelacaoVendaClienteAnalitico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -4799,6 +4996,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -4806,6 +5004,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -4822,6 +5021,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -4835,6 +5035,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -4854,6 +5055,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -4875,6 +5077,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -4894,6 +5097,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 464.882190000000000000
@@ -4917,12 +5121,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -4939,6 +5145,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -4956,6 +5163,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 812.598950000000000000
@@ -4972,6 +5180,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 574.488560000000000000
@@ -5001,6 +5210,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -5017,6 +5227,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -5033,6 +5244,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -5060,6 +5272,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Condition = 'FrdsRelacaoVendaClienteAnalitico."CLIENTE_COD"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
@@ -5084,6 +5297,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -5112,6 +5326,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         DataSetName = 'FrdsRelacaoVendaClienteAnalitico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 956.221090000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -5142,6 +5357,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -5174,6 +5390,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 759.685530000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -5206,6 +5423,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 857.953310000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -5238,6 +5456,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149596540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -5268,6 +5487,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -5299,6 +5519,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 166.299320000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -5332,6 +5553,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 249.448980000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
@@ -5363,6 +5585,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 362.834880000000000000
           Width = 298.582806540000000000
           Height = 18.897650000000000000
@@ -5399,6 +5622,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 956.221090000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -5417,6 +5641,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 857.953310000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -5437,6 +5662,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 759.685530000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -5457,6 +5683,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -5477,6 +5704,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 362.834880000000000000
           Width = 298.582806540000000000
           Height = 18.897650000000000000
@@ -5506,6 +5734,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 793.701300000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -5520,6 +5749,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 18.897650000000000000
           Width = 173.858380000000000000
@@ -5542,6 +5772,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 18.897650000000000000
           Width = 79.370066540000000000
@@ -5564,6 +5795,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
@@ -5585,6 +5817,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 37.795300000000000000
           Width = 79.370066540000000000
@@ -5607,6 +5840,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 56.692950000000000000
           Width = 79.370066540000000000
@@ -5629,6 +5863,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 37.795300000000000000
           Width = 173.858380000000000000
@@ -5651,6 +5886,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 56.692950000000000000
           Width = 173.858380000000000000
@@ -5673,6 +5909,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 75.590600000000000000
           Width = 79.370066540000000000
@@ -5695,6 +5932,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 75.590600000000000000
           Width = 173.858380000000000000
@@ -5714,6 +5952,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo42: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 793.701300000000000000
           Height = 18.897650000000000000
@@ -5740,6 +5979,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Condition = 'FrdsRelacaoVendaClienteAnalitico."COMPETENCIA"'
         ReprintOnNewPage = True
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -5759,6 +5999,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Top = 18.897650000000000000
           Width = 294.803340000000000000
@@ -5780,6 +6021,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -5802,6 +6044,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 759.685530000000000000
           Top = 37.795300000000000000
           Width = 98.267780000000000000
@@ -5824,6 +6067,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 857.953310000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -5846,6 +6090,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 956.221090000000000000
           Top = 18.897650000000000000
           Width = 90.708720000000000000
@@ -5868,6 +6113,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
@@ -5889,6 +6135,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -5909,6 +6156,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 249.448980000000000000
           Top = 18.897650000000000000
           Width = 411.968706540000000000
@@ -5931,6 +6179,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -5952,6 +6201,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo38: TfrxMemoView
+          AllowVectorExport = True
           Left = 166.299320000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -5973,6 +6223,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 249.448980000000000000
           Height = 18.897650000000000000
@@ -5993,6 +6244,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 249.448980000000000000
           Top = 37.795300000000000000
           Width = 113.385836540000000000
@@ -6014,6 +6266,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 362.834880000000000000
           Top = 37.795300000000000000
           Width = 298.582806540000000000
@@ -6042,6 +6295,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 956.221090000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -6060,6 +6314,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 857.953310000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -6080,6 +6335,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo4: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 759.685530000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -6100,6 +6356,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo12: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -6120,6 +6377,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 362.834880000000000000
           Width = 298.582806540000000000
           Height = 18.897650000000000000
@@ -6189,7 +6447,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 160
   end
   object frRelacaoVendaClienteComparativo: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -6266,6 +6524,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -6273,6 +6532,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -6289,6 +6549,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -6302,6 +6563,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -6321,6 +6583,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -6342,6 +6605,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -6361,12 +6625,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -6383,6 +6649,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -6399,6 +6666,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 812.598950000000000000
@@ -6415,6 +6683,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 411.968770000000000000
@@ -6438,6 +6707,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 574.488560000000000000
@@ -6467,6 +6737,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 468.661720000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -6483,6 +6754,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -6499,6 +6771,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -6527,6 +6800,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         DataSetName = 'FrdsRelacaoVendaClienteSintetico'
         RowCount = 0
         object DBCross1: TfrxDBCrossView
+          AllowVectorExport = True
           Width = 334.000000000000000000
           Height = 72.000000000000000000
           DownThenAcross = False
@@ -6545,57 +6819,21 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Memos = {
             3C3F786D6C2076657273696F6E3D22312E302220656E636F64696E673D227574
             662D3822207374616E64616C6F6E653D226E6F223F3E3C63726F73733E3C6365
-            6C6C6D656D6F733E3C546672784D656D6F56696577204C6566743D2231393922
-            20546F703D223235322C3333303836222057696474683D223935222048656967
-            68743D22313822205265737472696374696F6E733D2232342220416C6C6F7745
-            787072657373696F6E733D2246616C73652220446973706C6179466F726D6174
-            2E466F726D61745374723D2225322E326E2220446973706C6179466F726D6174
-            2E4B696E643D22666B4E756D657269632220466F6E742E436861727365743D22
-            312220466F6E742E436F6C6F723D22302220466F6E742E4865696768743D222D
-            31312220466F6E742E4E616D653D225461686F6D612220466F6E742E5374796C
-            653D223022204672616D652E5479703D22313522204672616D652E5769647468
-            3D22302C312220476170583D22332220476170593D2233222048416C69676E3D
-            22686152696768742220506172656E74466F6E743D2246616C7365222056416C
-            69676E3D22766143656E7465722220546578743D22302C3030222F3E3C546672
-            784D656D6F56696577204C6566743D223139392220546F703D223237302C3333
-            303836222057696474683D22393522204865696768743D223138222052657374
-            72696374696F6E733D2232342220416C6C6F7745787072657373696F6E733D22
-            46616C73652220446973706C6179466F726D61742E466F726D61745374723D22
-            25322E326E2220446973706C6179466F726D61742E4B696E643D22666B4E756D
-            657269632220466F6E742E436861727365743D22312220466F6E742E436F6C6F
-            723D2231363731313638302220466F6E742E4865696768743D222D3131222046
-            6F6E742E4E616D653D225461686F6D612220466F6E742E5374796C653D223122
-            204672616D652E5479703D22313522204672616D652E57696474683D22302C31
-            222046696C6C2E4261636B436F6C6F723D222D31363737373230312220476170
-            583D22332220476170593D2233222048416C69676E3D22686152696768742220
-            506172656E74466F6E743D2246616C7365222056416C69676E3D22766143656E
-            7465722220546578743D22302C3030222F3E3C546672784D656D6F5669657720
-            4C6566743D223139392220546F703D223238382C333330383622205769647468
-            3D22393522204865696768743D22313822205265737472696374696F6E733D22
-            32342220416C6C6F7745787072657373696F6E733D2246616C73652220446973
-            706C6179466F726D61742E466F726D61745374723D2225322E326E2220446973
-            706C6179466F726D61742E4B696E643D22666B4E756D657269632220466F6E74
-            2E436861727365743D22312220466F6E742E436F6C6F723D22302220466F6E74
-            2E4865696768743D222D31312220466F6E742E4E616D653D225461686F6D6122
-            20466F6E742E5374796C653D223122204672616D652E5479703D223135222046
-            72616D652E57696474683D22302C31222046696C6C2E4261636B436F6C6F723D
-            2231343231313238382220476170583D22332220476170593D2233222048416C
-            69676E3D22686152696768742220506172656E74466F6E743D2246616C736522
-            2056416C69676E3D22766143656E7465722220546578743D22302C3030222F3E
-            3C546672784D656D6F56696577204C6566743D223239342220546F703D223235
-            322C3333303836222057696474683D22343022204865696768743D2231382220
-            5265737472696374696F6E733D2232342220416C6C6F7745787072657373696F
-            6E733D2246616C73652220446973706C6179466F726D61742E466F726D617453
-            74723D2225322E326E2220446973706C6179466F726D61742E4B696E643D2266
-            6B4E756D657269632220466F6E742E436861727365743D22312220466F6E742E
-            436F6C6F723D22302220466F6E742E4865696768743D222D31312220466F6E74
-            2E4E616D653D225461686F6D612220466F6E742E5374796C653D223122204672
-            616D652E5479703D22313522204672616D652E57696474683D22302C31222046
-            696C6C2E4261636B436F6C6F723D2231343231313238382220476170583D2233
-            2220476170593D2233222048416C69676E3D2268615269676874222050617265
-            6E74466F6E743D2246616C7365222056416C69676E3D22766143656E74657222
-            20546578743D22302C3030222F3E3C546672784D656D6F56696577204C656674
-            3D223239342220546F703D223237302C3333303836222057696474683D223430
+            6C6C6D656D6F733E3C546672784D656D6F5669657720416C6C6F77566563746F
+            724578706F72743D225472756522204C6566743D223139392220546F703D2232
+            35322C3333303836222057696474683D22393522204865696768743D22313822
+            205265737472696374696F6E733D2232342220416C6C6F774578707265737369
+            6F6E733D2246616C73652220446973706C6179466F726D61742E466F726D6174
+            5374723D2225322E326E2220446973706C6179466F726D61742E4B696E643D22
+            666B4E756D657269632220466F6E742E436861727365743D22312220466F6E74
+            2E436F6C6F723D22302220466F6E742E4865696768743D222D31312220466F6E
+            742E4E616D653D225461686F6D612220466F6E742E5374796C653D2230222046
+            72616D652E5479703D22313522204672616D652E57696474683D22302C312220
+            476170583D22332220476170593D2233222048416C69676E3D22686152696768
+            742220506172656E74466F6E743D2246616C7365222056416C69676E3D227661
+            43656E7465722220546578743D22302C3030222F3E3C546672784D656D6F5669
+            657720416C6C6F77566563746F724578706F72743D225472756522204C656674
+            3D223139392220546F703D223237302C3333303836222057696474683D223935
             22204865696768743D22313822205265737472696374696F6E733D2232342220
             416C6C6F7745787072657373696F6E733D2246616C73652220446973706C6179
             466F726D61742E466F726D61745374723D2225322E326E2220446973706C6179
@@ -6607,167 +6845,219 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             6F723D222D31363737373230312220476170583D22332220476170593D223322
             2048416C69676E3D22686152696768742220506172656E74466F6E743D224661
             6C7365222056416C69676E3D22766143656E7465722220546578743D22302C30
-            30222F3E3C546672784D656D6F56696577204C6566743D223239342220546F70
-            3D223238382C3333303836222057696474683D22343022204865696768743D22
-            313822205265737472696374696F6E733D2232342220416C6C6F774578707265
-            7373696F6E733D2246616C73652220446973706C6179466F726D61742E466F72
-            6D61745374723D2225322E326E2220446973706C6179466F726D61742E4B696E
-            643D22666B4E756D657269632220466F6E742E436861727365743D2231222046
-            6F6E742E436F6C6F723D2231363731313638302220466F6E742E486569676874
-            3D222D31312220466F6E742E4E616D653D225461686F6D612220466F6E742E53
-            74796C653D223122204672616D652E5479703D22313522204672616D652E5769
-            6474683D22302C31222046696C6C2E4261636B436F6C6F723D22313432313132
-            38382220476170583D22332220476170593D2233222048416C69676E3D226861
-            52696768742220506172656E74466F6E743D2246616C7365222056416C69676E
-            3D22766143656E7465722220546578743D22302C3030222F3E3C2F63656C6C6D
-            656D6F733E3C63656C6C6865616465726D656D6F733E3C546672784D656D6F56
-            696577204C6566743D2239322220546F703D223138222057696474683D223837
-            22204865696768743D22313822205265737472696374696F6E733D2238222041
-            6C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E436861
-            727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E486569
-            6768743D222D31312220466F6E742E4E616D653D225461686F6D612220466F6E
-            742E5374796C653D223022204672616D652E5479703D22313522204672616D65
-            2E57696474683D22302C31222046696C6C2E4261636B436F6C6F723D222D3136
-            3737373230312220476170583D22332220476170593D22332220506172656E74
-            466F6E743D2246616C7365222056416C69676E3D22766143656E746572222054
-            6578743D2256454E44415F4C49515549444F222F3E3C546672784D656D6F5669
-            6577204C6566743D223137392220546F703D223138222057696474683D223134
-            3822204865696768743D22313822205265737472696374696F6E733D22382220
-            416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E4368
-            61727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E4865
-            696768743D222D31312220466F6E742E4E616D653D225461686F6D612220466F
-            6E742E5374796C653D223022204672616D652E5479703D22313522204672616D
-            652E57696474683D22302C31222046696C6C2E4261636B436F6C6F723D222D31
-            363737373230312220476170583D22332220476170593D22332220506172656E
-            74466F6E743D2246616C7365222056416C69676E3D22766143656E7465722220
-            546578743D2256454E44415F4C49515549444F222F3E3C546672784D656D6F56
-            696577204C6566743D223332372220546F703D223138222057696474683D2238
-            3722204865696768743D22313822205265737472696374696F6E733D22382220
-            416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E4368
-            61727365743D22312220466F6E742E436F6C6F723D2231363731313638302220
-            466F6E742E4865696768743D222D31312220466F6E742E4E616D653D22546168
-            6F6D612220466F6E742E5374796C653D223022204672616D652E5479703D2231
-            3522204672616D652E57696474683D22302C31222046696C6C2E4261636B436F
-            6C6F723D222D31363737373230312220476170583D22332220476170593D2233
-            2220506172656E74466F6E743D2246616C7365222056416C69676E3D22766143
-            656E7465722220546578743D2256454E44415F4C49515549444F222F3E3C2F63
-            656C6C6865616465726D656D6F733E3C636F6C756D6E6D656D6F733E3C546672
-            784D656D6F56696577204C6566743D223139392220546F703D223233342C3333
-            303836222057696474683D22393522204865696768743D223138222052657374
-            72696374696F6E733D2232342220416C6C6F7745787072657373696F6E733D22
-            46616C73652220466F6E742E436861727365743D22312220466F6E742E436F6C
+            30222F3E3C546672784D656D6F5669657720416C6C6F77566563746F72457870
+            6F72743D225472756522204C6566743D223139392220546F703D223238382C33
+            33303836222057696474683D22393522204865696768743D2231382220526573
+            7472696374696F6E733D2232342220416C6C6F7745787072657373696F6E733D
+            2246616C73652220446973706C6179466F726D61742E466F726D61745374723D
+            2225322E326E2220446973706C6179466F726D61742E4B696E643D22666B4E75
+            6D657269632220466F6E742E436861727365743D22312220466F6E742E436F6C
             6F723D22302220466F6E742E4865696768743D222D31312220466F6E742E4E61
             6D653D225461686F6D612220466F6E742E5374796C653D223122204672616D65
             2E5479703D22313522204672616D652E57696474683D22302C31222046696C6C
             2E4261636B436F6C6F723D2231343231313238382220476170583D2233222047
-            6170593D2233222048416C69676E3D22686143656E7465722220506172656E74
-            466F6E743D2246616C7365222056416C69676E3D22766143656E746572222054
-            6578743D22222F3E3C2F636F6C756D6E6D656D6F733E3C636F6C756D6E746F74
-            616C6D656D6F733E3C546672784D656D6F56696577204C6566743D2232393422
-            20546F703D223233342C3333303836222057696474683D223430222048656967
-            68743D22313822205265737472696374696F6E733D22382220416C6C6F774578
-            7072657373696F6E733D2246616C73652220466F6E742E436861727365743D22
-            312220466F6E742E436F6C6F723D2231363731313638302220466F6E742E4865
-            696768743D222D31312220466F6E742E4E616D653D225461686F6D612220466F
-            6E742E5374796C653D223122204672616D652E5479703D22313522204672616D
-            652E57696474683D22302C31222046696C6C2E4261636B436F6C6F723D223134
-            3231313238382220476170583D22332220476170593D2233222048416C69676E
-            3D22686143656E7465722220506172656E74466F6E743D2246616C7365222056
-            416C69676E3D22766143656E7465722220546578743D22544F54414C222F3E3C
-            2F636F6C756D6E746F74616C6D656D6F733E3C636F726E65726D656D6F733E3C
-            546672784D656D6F56696577204C6566743D22302220546F703D223233342C33
-            33303836222057696474683D2231393922204865696768743D22302220526573
-            7472696374696F6E733D2238222056697369626C653D2246616C73652220416C
-            6C6F7745787072657373696F6E733D2246616C73652220466F6E742E43686172
-            7365743D22312220466F6E742E436F6C6F723D22302220466F6E742E48656967
-            68743D222D31312220466F6E742E4E616D653D225461686F6D612220466F6E74
-            2E5374796C653D223022204672616D652E5479703D2231352220476170583D22
-            332220476170593D2233222048416C69676E3D22686143656E74657222205061
-            72656E74466F6E743D2246616C7365222056416C69676E3D22766143656E7465
-            722220546578743D2256454E44415F4C49515549444F222F3E3C546672784D65
-            6D6F56696577204C6566743D223139392220546F703D223233342C3333303836
-            222057696474683D2231333522204865696768743D2230222052657374726963
-            74696F6E733D2238222056697369626C653D2246616C73652220416C6C6F7745
-            787072657373696F6E733D2246616C73652220466F6E742E436861727365743D
-            22312220466F6E742E436F6C6F723D22302220466F6E742E4865696768743D22
-            2D31312220466F6E742E4E616D653D225461686F6D612220466F6E742E537479
-            6C653D223022204672616D652E5479703D2231352220476170583D2233222047
-            6170593D2233222048416C69676E3D22686143656E7465722220506172656E74
-            466F6E743D2246616C7365222056416C69676E3D22766143656E746572222054
-            6578743D22434F4D504554454E434941222F3E3C546672784D656D6F56696577
-            204C6566743D223133362220546F703D223232222057696474683D2231333122
-            204865696768743D22323222205265737472696374696F6E733D223822205669
-            7369626C653D2246616C73652220416C6C6F7745787072657373696F6E733D22
-            46616C736522204672616D652E5479703D2231352220476170583D2233222047
-            6170593D2233222048416C69676E3D22686143656E746572222056416C69676E
-            3D22766143656E7465722220546578743D22222F3E3C546672784D656D6F5669
-            6577204C6566743D22302220546F703D223233342C3333303836222057696474
-            683D22393022204865696768743D22313822205265737472696374696F6E733D
-            22382220416C6C6F7745787072657373696F6E733D2246616C73652220466F6E
-            742E436861727365743D22312220466F6E742E436F6C6F723D22302220466F6E
-            742E4865696768743D222D31312220466F6E742E4E616D653D225461686F6D61
-            2220466F6E742E5374796C653D223122204672616D652E5479703D2231352220
-            4672616D652E57696474683D22302C31222046696C6C2E4261636B436F6C6F72
-            3D2231343231313238382220476170583D22332220476170593D223322204841
-            6C69676E3D22686143656E7465722220506172656E74466F6E743D2246616C73
-            65222056416C69676E3D22766143656E7465722220546578743D22436C69656E
-            7465222F3E3C546672784D656D6F56696577204C6566743D2239302220546F70
-            3D223233342C3333303836222057696474683D2231303922204865696768743D
-            22313822205265737472696374696F6E733D22382220416C6C6F774578707265
-            7373696F6E733D2246616C73652220466F6E742E436861727365743D22312220
-            466F6E742E436F6C6F723D22302220466F6E742E4865696768743D222D313122
-            20466F6E742E4E616D653D225461686F6D612220466F6E742E5374796C653D22
-            3122204672616D652E5479703D22313522204672616D652E57696474683D2230
-            2C31222046696C6C2E4261636B436F6C6F723D22313432313132383822204761
-            70583D22332220476170593D2233222048416C69676E3D22686143656E746572
-            2220506172656E74466F6E743D2246616C7365222056416C69676E3D22766143
-            656E7465722220546578743D224350462F434E504A222F3E3C2F636F726E6572
-            6D656D6F733E3C726F776D656D6F733E3C546672784D656D6F56696577204C65
-            66743D22302220546F703D223235322C3333303836222057696474683D223930
-            22204865696768743D22333622205265737472696374696F6E733D2232342220
-            416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E4368
-            61727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E4865
-            696768743D222D31312220466F6E742E4E616D653D225461686F6D612220466F
-            6E742E5374796C653D223022204672616D652E5479703D22313522204672616D
-            652E57696474683D22302C312220476170583D22332220476170593D22332220
+            6170593D2233222048416C69676E3D22686152696768742220506172656E7446
+            6F6E743D2246616C7365222056416C69676E3D22766143656E74657222205465
+            78743D22302C3030222F3E3C546672784D656D6F5669657720416C6C6F775665
+            63746F724578706F72743D225472756522204C6566743D223239342220546F70
+            3D223235322C3333303836222057696474683D22343022204865696768743D22
+            313822205265737472696374696F6E733D2232342220416C6C6F774578707265
+            7373696F6E733D2246616C73652220446973706C6179466F726D61742E466F72
+            6D61745374723D2225322E326E2220446973706C6179466F726D61742E4B696E
+            643D22666B4E756D657269632220466F6E742E436861727365743D2231222046
+            6F6E742E436F6C6F723D22302220466F6E742E4865696768743D222D31312220
+            466F6E742E4E616D653D225461686F6D612220466F6E742E5374796C653D2231
+            22204672616D652E5479703D22313522204672616D652E57696474683D22302C
+            31222046696C6C2E4261636B436F6C6F723D2231343231313238382220476170
+            583D22332220476170593D2233222048416C69676E3D22686152696768742220
             506172656E74466F6E743D2246616C7365222056416C69676E3D22766143656E
-            7465722220546578743D22222F3E3C546672784D656D6F56696577204C656674
-            3D2239302220546F703D223235322C3333303836222057696474683D22313039
-            22204865696768743D22313822205265737472696374696F6E733D2232342220
-            416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E4368
-            61727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E4865
-            696768743D222D31312220466F6E742E4E616D653D225461686F6D612220466F
-            6E742E5374796C653D223022204672616D652E5479703D22313522204672616D
-            652E57696474683D22302C312220476170583D22332220476170593D22332220
-            48416C69676E3D22686143656E7465722220506172656E74466F6E743D224661
-            6C7365222056416C69676E3D22766143656E7465722220546578743D22222F3E
-            3C2F726F776D656D6F733E3C726F77746F74616C6D656D6F733E3C546672784D
-            656D6F56696577204C6566743D22302220546F703D223238382C333330383622
-            2057696474683D2231393922204865696768743D223138222052657374726963
-            74696F6E733D22382220416C6C6F7745787072657373696F6E733D2246616C73
+            7465722220546578743D22302C3030222F3E3C546672784D656D6F5669657720
+            416C6C6F77566563746F724578706F72743D225472756522204C6566743D2232
+            39342220546F703D223237302C3333303836222057696474683D223430222048
+            65696768743D22313822205265737472696374696F6E733D2232342220416C6C
+            6F7745787072657373696F6E733D2246616C73652220446973706C6179466F72
+            6D61742E466F726D61745374723D2225322E326E2220446973706C6179466F72
+            6D61742E4B696E643D22666B4E756D657269632220466F6E742E436861727365
+            743D22312220466F6E742E436F6C6F723D2231363731313638302220466F6E74
+            2E4865696768743D222D31312220466F6E742E4E616D653D225461686F6D6122
+            20466F6E742E5374796C653D223122204672616D652E5479703D223135222046
+            72616D652E57696474683D22302C31222046696C6C2E4261636B436F6C6F723D
+            222D31363737373230312220476170583D22332220476170593D223322204841
+            6C69676E3D22686152696768742220506172656E74466F6E743D2246616C7365
+            222056416C69676E3D22766143656E7465722220546578743D22302C3030222F
+            3E3C546672784D656D6F5669657720416C6C6F77566563746F724578706F7274
+            3D225472756522204C6566743D223239342220546F703D223238382C33333038
+            36222057696474683D22343022204865696768743D2231382220526573747269
+            6374696F6E733D2232342220416C6C6F7745787072657373696F6E733D224661
+            6C73652220446973706C6179466F726D61742E466F726D61745374723D222532
+            2E326E2220446973706C6179466F726D61742E4B696E643D22666B4E756D6572
+            69632220466F6E742E436861727365743D22312220466F6E742E436F6C6F723D
+            2231363731313638302220466F6E742E4865696768743D222D31312220466F6E
+            742E4E616D653D225461686F6D612220466F6E742E5374796C653D2231222046
+            72616D652E5479703D22313522204672616D652E57696474683D22302C312220
+            46696C6C2E4261636B436F6C6F723D2231343231313238382220476170583D22
+            332220476170593D2233222048416C69676E3D22686152696768742220506172
+            656E74466F6E743D2246616C7365222056416C69676E3D22766143656E746572
+            2220546578743D22302C3030222F3E3C2F63656C6C6D656D6F733E3C63656C6C
+            6865616465726D656D6F733E3C546672784D656D6F5669657720416C6C6F7756
+            6563746F724578706F72743D225472756522204C6566743D2239322220546F70
+            3D223138222057696474683D22383722204865696768743D2231382220526573
+            7472696374696F6E733D22382220416C6C6F7745787072657373696F6E733D22
+            46616C73652220466F6E742E436861727365743D22312220466F6E742E436F6C
+            6F723D22302220466F6E742E4865696768743D222D31312220466F6E742E4E61
+            6D653D225461686F6D612220466F6E742E5374796C653D223022204672616D65
+            2E5479703D22313522204672616D652E57696474683D22302C31222046696C6C
+            2E4261636B436F6C6F723D222D31363737373230312220476170583D22332220
+            476170593D22332220506172656E74466F6E743D2246616C7365222056416C69
+            676E3D22766143656E7465722220546578743D2256454E44415F4C4951554944
+            4F222F3E3C546672784D656D6F5669657720416C6C6F77566563746F72457870
+            6F72743D225472756522204C6566743D223137392220546F703D223138222057
+            696474683D2231343822204865696768743D2231382220526573747269637469
+            6F6E733D22382220416C6C6F7745787072657373696F6E733D2246616C736522
+            20466F6E742E436861727365743D22312220466F6E742E436F6C6F723D223022
+            20466F6E742E4865696768743D222D31312220466F6E742E4E616D653D225461
+            686F6D612220466F6E742E5374796C653D223022204672616D652E5479703D22
+            313522204672616D652E57696474683D22302C31222046696C6C2E4261636B43
+            6F6C6F723D222D31363737373230312220476170583D22332220476170593D22
+            332220506172656E74466F6E743D2246616C7365222056416C69676E3D227661
+            43656E7465722220546578743D2256454E44415F4C49515549444F222F3E3C54
+            6672784D656D6F5669657720416C6C6F77566563746F724578706F72743D2254
+            72756522204C6566743D223332372220546F703D223138222057696474683D22
+            383722204865696768743D22313822205265737472696374696F6E733D223822
+            20416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E43
+            6861727365743D22312220466F6E742E436F6C6F723D22313637313136383022
+            20466F6E742E4865696768743D222D31312220466F6E742E4E616D653D225461
+            686F6D612220466F6E742E5374796C653D223022204672616D652E5479703D22
+            313522204672616D652E57696474683D22302C31222046696C6C2E4261636B43
+            6F6C6F723D222D31363737373230312220476170583D22332220476170593D22
+            332220506172656E74466F6E743D2246616C7365222056416C69676E3D227661
+            43656E7465722220546578743D2256454E44415F4C49515549444F222F3E3C2F
+            63656C6C6865616465726D656D6F733E3C636F6C756D6E6D656D6F733E3C5466
+            72784D656D6F5669657720416C6C6F77566563746F724578706F72743D225472
+            756522204C6566743D223139392220546F703D223233342C3333303836222057
+            696474683D22393522204865696768743D22313822205265737472696374696F
+            6E733D2232342220416C6C6F7745787072657373696F6E733D2246616C736522
+            20466F6E742E436861727365743D22312220466F6E742E436F6C6F723D223022
+            20466F6E742E4865696768743D222D31312220466F6E742E4E616D653D225461
+            686F6D612220466F6E742E5374796C653D223122204672616D652E5479703D22
+            313522204672616D652E57696474683D22302C31222046696C6C2E4261636B43
+            6F6C6F723D2231343231313238382220476170583D22332220476170593D2233
+            222048416C69676E3D22686143656E7465722220506172656E74466F6E743D22
+            46616C7365222056416C69676E3D22766143656E7465722220546578743D2222
+            2F3E3C2F636F6C756D6E6D656D6F733E3C636F6C756D6E746F74616C6D656D6F
+            733E3C546672784D656D6F5669657720416C6C6F77566563746F724578706F72
+            743D225472756522204C6566743D223239342220546F703D223233342C333330
+            3836222057696474683D22343022204865696768743D22313822205265737472
+            696374696F6E733D22382220416C6C6F7745787072657373696F6E733D224661
+            6C73652220466F6E742E436861727365743D22312220466F6E742E436F6C6F72
+            3D2231363731313638302220466F6E742E4865696768743D222D31312220466F
+            6E742E4E616D653D225461686F6D612220466F6E742E5374796C653D22312220
+            4672616D652E5479703D22313522204672616D652E57696474683D22302C3122
+            2046696C6C2E4261636B436F6C6F723D2231343231313238382220476170583D
+            22332220476170593D2233222048416C69676E3D22686143656E746572222050
+            6172656E74466F6E743D2246616C7365222056416C69676E3D22766143656E74
+            65722220546578743D22544F54414C222F3E3C2F636F6C756D6E746F74616C6D
+            656D6F733E3C636F726E65726D656D6F733E3C546672784D656D6F5669657720
+            416C6C6F77566563746F724578706F72743D225472756522204C6566743D2230
+            2220546F703D223233342C3333303836222057696474683D2231393922204865
+            696768743D223022205265737472696374696F6E733D2238222056697369626C
+            653D2246616C73652220416C6C6F7745787072657373696F6E733D2246616C73
             652220466F6E742E436861727365743D22312220466F6E742E436F6C6F723D22
             302220466F6E742E4865696768743D222D31312220466F6E742E4E616D653D22
-            5461686F6D612220466F6E742E5374796C653D223122204672616D652E547970
-            3D22313522204672616D652E57696474683D22302C31222046696C6C2E426163
-            6B436F6C6F723D2231343231313238382220476170583D22332220476170593D
-            2233222048416C69676E3D22686143656E7465722220506172656E74466F6E74
-            3D2246616C7365222056416C69676E3D22766143656E7465722220546578743D
-            22544F54414C222F3E3C546672784D656D6F56696577204C6566743D22393022
-            20546F703D223237302C3333303836222057696474683D223130392220486569
-            6768743D22313822205265737472696374696F6E733D22382220416C6C6F7745
-            787072657373696F6E733D2246616C73652220466F6E742E436861727365743D
-            22312220466F6E742E436F6C6F723D2231363731313638302220466F6E742E48
-            65696768743D222D31312220466F6E742E4E616D653D225461686F6D61222046
-            6F6E742E5374796C653D223122204672616D652E5479703D2231352220467261
-            6D652E57696474683D22302C31222046696C6C2E4261636B436F6C6F723D222D
-            31363737373230312220476170583D22332220476170593D2233222048416C69
-            676E3D22686143656E7465722220506172656E74466F6E743D2246616C736522
-            2056416C69676E3D22766143656E7465722220546578743D22546F74616C2043
-            6C69656E7465222F3E3C2F726F77746F74616C6D656D6F733E3C63656C6C6675
-            6E6374696F6E733E3C6974656D20312F3E3C2F63656C6C66756E6374696F6E73
-            3E3C636F6C756D6E736F72743E3C6974656D20302F3E3C2F636F6C756D6E736F
-            72743E3C726F77736F72743E3C6974656D20302F3E3C6974656D20302F3E3C2F
-            726F77736F72743E3C2F63726F73733E}
+            5461686F6D612220466F6E742E5374796C653D223022204672616D652E547970
+            3D2231352220476170583D22332220476170593D2233222048416C69676E3D22
+            686143656E7465722220506172656E74466F6E743D2246616C7365222056416C
+            69676E3D22766143656E7465722220546578743D2256454E44415F4C49515549
+            444F222F3E3C546672784D656D6F5669657720416C6C6F77566563746F724578
+            706F72743D225472756522204C6566743D223139392220546F703D223233342C
+            3333303836222057696474683D2231333522204865696768743D223022205265
+            737472696374696F6E733D2238222056697369626C653D2246616C7365222041
+            6C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E436861
+            727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E486569
+            6768743D222D31312220466F6E742E4E616D653D225461686F6D612220466F6E
+            742E5374796C653D223022204672616D652E5479703D2231352220476170583D
+            22332220476170593D2233222048416C69676E3D22686143656E746572222050
+            6172656E74466F6E743D2246616C7365222056416C69676E3D22766143656E74
+            65722220546578743D22434F4D504554454E434941222F3E3C546672784D656D
+            6F5669657720416C6C6F77566563746F724578706F72743D225472756522204C
+            6566743D223133362220546F703D223232222057696474683D22313331222048
+            65696768743D22323222205265737472696374696F6E733D2238222056697369
+            626C653D2246616C73652220416C6C6F7745787072657373696F6E733D224661
+            6C736522204672616D652E5479703D2231352220476170583D22332220476170
+            593D2233222048416C69676E3D22686143656E746572222056416C69676E3D22
+            766143656E7465722220546578743D22222F3E3C546672784D656D6F56696577
+            20416C6C6F77566563746F724578706F72743D225472756522204C6566743D22
+            302220546F703D223233342C3333303836222057696474683D22393022204865
+            696768743D22313822205265737472696374696F6E733D22382220416C6C6F77
+            45787072657373696F6E733D2246616C73652220466F6E742E43686172736574
+            3D22312220466F6E742E436F6C6F723D22302220466F6E742E4865696768743D
+            222D31312220466F6E742E4E616D653D225461686F6D612220466F6E742E5374
+            796C653D223122204672616D652E5479703D22313522204672616D652E576964
+            74683D22302C31222046696C6C2E4261636B436F6C6F723D2231343231313238
+            382220476170583D22332220476170593D2233222048416C69676E3D22686143
+            656E7465722220506172656E74466F6E743D2246616C7365222056416C69676E
+            3D22766143656E7465722220546578743D22436C69656E7465222F3E3C546672
+            784D656D6F5669657720416C6C6F77566563746F724578706F72743D22547275
+            6522204C6566743D2239302220546F703D223233342C33333038362220576964
+            74683D2231303922204865696768743D22313822205265737472696374696F6E
+            733D22382220416C6C6F7745787072657373696F6E733D2246616C7365222046
+            6F6E742E436861727365743D22312220466F6E742E436F6C6F723D2230222046
+            6F6E742E4865696768743D222D31312220466F6E742E4E616D653D225461686F
+            6D612220466F6E742E5374796C653D223122204672616D652E5479703D223135
+            22204672616D652E57696474683D22302C31222046696C6C2E4261636B436F6C
+            6F723D2231343231313238382220476170583D22332220476170593D22332220
+            48416C69676E3D22686143656E7465722220506172656E74466F6E743D224661
+            6C7365222056416C69676E3D22766143656E7465722220546578743D22435046
+            2F434E504A222F3E3C2F636F726E65726D656D6F733E3C726F776D656D6F733E
+            3C546672784D656D6F5669657720416C6C6F77566563746F724578706F72743D
+            225472756522204C6566743D22302220546F703D223235322C33333038362220
+            57696474683D22393022204865696768743D2233362220526573747269637469
+            6F6E733D2232342220416C6C6F7745787072657373696F6E733D2246616C7365
+            2220466F6E742E436861727365743D22312220466F6E742E436F6C6F723D2230
+            2220466F6E742E4865696768743D222D31312220466F6E742E4E616D653D2254
+            61686F6D612220466F6E742E5374796C653D223022204672616D652E5479703D
+            22313522204672616D652E57696474683D22302C312220476170583D22332220
+            476170593D22332220506172656E74466F6E743D2246616C7365222056416C69
+            676E3D22766143656E7465722220546578743D22222F3E3C546672784D656D6F
+            5669657720416C6C6F77566563746F724578706F72743D225472756522204C65
+            66743D2239302220546F703D223235322C3333303836222057696474683D2231
+            303922204865696768743D22313822205265737472696374696F6E733D223234
+            2220416C6C6F7745787072657373696F6E733D2246616C73652220466F6E742E
+            436861727365743D22312220466F6E742E436F6C6F723D22302220466F6E742E
+            4865696768743D222D31312220466F6E742E4E616D653D225461686F6D612220
+            466F6E742E5374796C653D223022204672616D652E5479703D22313522204672
+            616D652E57696474683D22302C312220476170583D22332220476170593D2233
+            222048416C69676E3D22686143656E7465722220506172656E74466F6E743D22
+            46616C7365222056416C69676E3D22766143656E7465722220546578743D2222
+            2F3E3C2F726F776D656D6F733E3C726F77746F74616C6D656D6F733E3C546672
+            784D656D6F5669657720416C6C6F77566563746F724578706F72743D22547275
+            6522204C6566743D22302220546F703D223238382C3333303836222057696474
+            683D2231393922204865696768743D22313822205265737472696374696F6E73
+            3D22382220416C6C6F7745787072657373696F6E733D2246616C73652220466F
+            6E742E436861727365743D22312220466F6E742E436F6C6F723D22302220466F
+            6E742E4865696768743D222D31312220466F6E742E4E616D653D225461686F6D
+            612220466F6E742E5374796C653D223122204672616D652E5479703D22313522
+            204672616D652E57696474683D22302C31222046696C6C2E4261636B436F6C6F
+            723D2231343231313238382220476170583D22332220476170593D2233222048
+            416C69676E3D22686143656E7465722220506172656E74466F6E743D2246616C
+            7365222056416C69676E3D22766143656E7465722220546578743D22544F5441
+            4C222F3E3C546672784D656D6F5669657720416C6C6F77566563746F72457870
+            6F72743D225472756522204C6566743D2239302220546F703D223237302C3333
+            303836222057696474683D2231303922204865696768743D2231382220526573
+            7472696374696F6E733D22382220416C6C6F7745787072657373696F6E733D22
+            46616C73652220466F6E742E436861727365743D22312220466F6E742E436F6C
+            6F723D2231363731313638302220466F6E742E4865696768743D222D31312220
+            466F6E742E4E616D653D225461686F6D612220466F6E742E5374796C653D2231
+            22204672616D652E5479703D22313522204672616D652E57696474683D22302C
+            31222046696C6C2E4261636B436F6C6F723D222D313637373732303122204761
+            70583D22332220476170593D2233222048416C69676E3D22686143656E746572
+            2220506172656E74466F6E743D2246616C7365222056416C69676E3D22766143
+            656E7465722220546578743D22546F74616C20436C69656E7465222F3E3C2F72
+            6F77746F74616C6D656D6F733E3C63656C6C66756E6374696F6E733E3C697465
+            6D20312F3E3C2F63656C6C66756E6374696F6E733E3C636F6C756D6E736F7274
+            3E3C6974656D20302F3E3C2F636F6C756D6E736F72743E3C726F77736F72743E
+            3C6974656D20302F3E3C6974656D20302F3E3C2F726F77736F72743E3C2F6372
+            6F73733E}
         end
       end
       object BndReportSummary: TfrxReportSummary
@@ -6777,6 +7067,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 408.189240000000000000
         Width = 1046.929810000000000000
         object SubReport_Competencia: TfrxSubreport
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 1046.929810000000000000
           Height = 18.897650000000000000
@@ -6793,6 +7084,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndMasterDataC: TfrxMasterData
         FillType = ftBrush
         Frame.Typ = []
@@ -6803,6 +7095,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         DataSetName = 'FrdsVendaCompetencia'
         RowCount = 0
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149596540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -6821,6 +7114,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 627.401980000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -6842,6 +7136,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -6862,6 +7157,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -6882,6 +7178,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 279.685220000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -6902,6 +7199,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 377.953000000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -6925,6 +7223,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 461.102660000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -6948,6 +7247,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -6978,6 +7278,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 37.795300000000000000
           DataSet = DMNFe.frdEmpresa
@@ -6997,6 +7298,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 294.803340000000000000
           Height = 18.897650000000000000
@@ -7017,6 +7319,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 18.897650000000000000
           Width = 98.267716540000000000
@@ -7039,6 +7342,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Top = 18.897650000000000000
           Width = 98.267780000000000000
@@ -7061,6 +7365,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 279.685220000000000000
           Top = 18.897650000000000000
           Width = 98.267716540000000000
@@ -7083,6 +7388,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 377.953000000000000000
           Width = 249.448980000000000000
           Height = 18.897650000000000000
@@ -7104,6 +7410,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 627.401980000000000000
           Width = 90.708720000000000000
           Height = 37.795300000000000000
@@ -7126,6 +7433,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 377.953000000000000000
           Top = 18.897650000000000000
           Width = 83.149596540000000000
@@ -7149,6 +7457,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 461.102660000000000000
           Top = 18.897650000000000000
           Width = 83.149596540000000000
@@ -7172,6 +7481,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 18.897650000000000000
           Width = 83.149596540000000000
@@ -7202,6 +7512,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 120.944960000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 627.401980000000000000
           Top = -0.000000000000000007
           Width = 90.708720000000000000
@@ -7222,6 +7533,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = -0.000000000000000007
           Width = 83.149660000000000000
@@ -7244,6 +7556,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 461.102660000000000000
           Top = -0.000000000000000007
           Width = 83.149660000000000000
@@ -7266,6 +7579,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo4: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 377.953000000000000000
           Top = -0.000000000000000007
           Width = 83.149660000000000000
@@ -7288,6 +7602,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 279.685220000000000000
           Top = -0.000000000000000007
           Width = 98.267780000000000000
@@ -7309,6 +7624,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Top = -0.000000000000000007
           Width = 98.267780000000000000
@@ -7330,6 +7646,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -7399,7 +7716,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 72
   end
   object frRelacaoVendaRotaEntrega: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -7477,6 +7794,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -7485,6 +7803,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -7501,6 +7820,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559059999999999000
           Width = 109.606370000000000000
@@ -7514,6 +7834,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -7533,6 +7854,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -7554,6 +7876,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -7573,12 +7896,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 933.543910000000000000
@@ -7597,6 +7922,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 411.968770000000000000
@@ -7620,6 +7946,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 574.488560000000000000
@@ -7649,6 +7976,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 487.559370000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -7665,6 +7993,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118119999999980000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -7681,6 +8010,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -7708,6 +8038,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Condition = 'FrdsRelacaoVendaRotaEntrega."CID_COD"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
@@ -7728,6 +8059,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           CharSpacing = 2.000000000000000000
@@ -7747,6 +8079,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -7766,6 +8099,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 861.732840000000000000
           Top = 18.897650000000000000
           Width = 185.196970000000000000
@@ -7787,6 +8121,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 903.307670000000000000
           Top = 37.795300000000000000
           Width = 52.913346770000000000
@@ -7809,6 +8144,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 956.221090000000000000
           Top = 37.795299999999940000
           Width = 90.708720000000000000
@@ -7831,6 +8167,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 37.795300000000000000
           Width = 177.637846540000000000
@@ -7852,6 +8189,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 861.732840000000000000
           Top = 37.795299999999940000
           Width = 41.574756770000000000
@@ -7874,6 +8212,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 37.795300000000000000
           Width = 83.149660000000000000
@@ -7894,6 +8233,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 234.330860000000000000
           Height = 18.897650000000000000
@@ -7914,6 +8254,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 166.299320000000000000
           Top = 37.795299999999940000
           Width = 68.031540000000010000
@@ -7934,6 +8275,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Top = 37.795300000000000000
           Width = 306.141866540000000000
@@ -7955,6 +8297,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 718.110700000000000000
           Top = 37.795299999999940000
           Width = 143.622076540000000000
@@ -7976,6 +8319,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 18.897650000000000000
           Width = 627.401980000000000000
@@ -8008,6 +8352,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         RowCount = 0
         Stretched = True
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Width = 30.236240000000000000
           Height = 18.897650000000000000
@@ -8026,6 +8371,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -8045,6 +8391,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 903.307670000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
@@ -8066,6 +8413,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 238.110390000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
@@ -8095,6 +8443,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
             end>
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 956.221090000000000000
           Width = 90.708656540000010000
           Height = 18.897650000000000000
@@ -8119,6 +8468,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Left = 861.732840000000000000
           Width = 41.574766540000000000
           Height = 18.897650000000000000
@@ -8140,6 +8490,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -8160,6 +8511,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 166.299320000000000000
           Width = 68.031540000000010000
           Height = 18.897650000000000000
@@ -8182,6 +8534,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 718.110700000000000000
           Width = 30.236240000000000000
           Height = 18.897650000000000000
@@ -8200,6 +8553,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 721.890230000000000000
           Width = 139.842610000000000000
           Height = 18.897650000000000000
@@ -8219,6 +8573,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 30.236240000000000000
           Height = 18.897650000000000000
@@ -8237,6 +8592,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 415.748300000000000000
           Width = 302.362400000000000000
           Height = 18.897650000000000000
@@ -8266,6 +8622,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 340.157700000000000000
         Width = 1046.929810000000000000
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 956.221090000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -8287,6 +8644,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 903.307670000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -8307,6 +8665,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 861.732840000000000000
           Width = 41.574830000000000000
           Height = 18.897650000000000000
@@ -8392,7 +8751,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 40
   end
   object frRelacaoVendaCfopSintetico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -8458,6 +8817,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -8465,6 +8825,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -8481,6 +8842,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -8494,6 +8856,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -8513,6 +8876,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -8534,6 +8898,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -8553,6 +8918,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 464.882190000000000000
@@ -8576,12 +8942,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -8598,6 +8966,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -8615,6 +8984,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 483.779840000000000000
@@ -8631,6 +9001,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 574.488560000000000000
@@ -8660,6 +9031,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 574.488560000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -8676,6 +9048,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -8692,6 +9065,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -8719,6 +9093,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Condition = 'FrdsRelacaoVendaCfopSintetico."COMPETENCIA"'
         ReprintOnNewPage = True
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 3.779529999999994000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -8739,6 +9114,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Top = 26.456710000000000000
           Width = 366.614410000000000000
           Height = 18.897650000000000000
@@ -8759,6 +9135,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 366.614410000000000000
           Top = 45.354360000000000000
           Width = 79.370081180000000000
@@ -8781,6 +9158,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 445.984540000000000000
           Top = 45.354360000000000000
           Width = 68.031491180000000000
@@ -8803,6 +9181,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 366.614410000000000000
           Top = 26.456710000000000000
           Width = 351.496290000000000000
@@ -8824,6 +9203,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 638.740570000000000000
           Top = 45.354360000000000000
           Width = 79.370073860000000000
@@ -8846,6 +9226,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Top = 45.354360000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -8866,6 +9247,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 45.354360000000000000
           Width = 234.330796540000000000
@@ -8887,6 +9269,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Top = 45.354360000000000000
           Width = 79.370073860000000000
@@ -8909,6 +9292,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 3.779529999999994000
           Width = 634.961040000000000000
@@ -8930,6 +9314,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 317.480520000000000000
           Top = 45.354360000000000000
           Width = 49.133826540000000000
@@ -8952,6 +9337,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 593.386210000000000000
           Top = 45.354360000000000000
           Width = 45.354296540000000000
@@ -8984,6 +9370,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         DataSetName = 'FrdsRelacaoVendaCfopSintetico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 638.740570000000000000
           Width = 79.370073860000000000
           Height = 18.897650000000000000
@@ -9006,6 +9393,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 366.614410000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
@@ -9028,6 +9416,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 445.984540000000000000
           Width = 68.031491180000000000
           Height = 18.897650000000000000
@@ -9050,6 +9439,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -9068,6 +9458,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 234.330860000000000000
           Height = 18.897650000000000000
@@ -9087,6 +9478,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 79.370073860000000000
           Height = 18.897650000000000000
@@ -9109,6 +9501,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 317.480520000000000000
           Width = 49.133826540000000000
           Height = 18.897650000000000000
@@ -9131,6 +9524,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Left = 593.386210000000000000
           Width = 45.354296540000000000
           Height = 18.897650000000000000
@@ -9161,6 +9555,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Visible = False
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 638.740570000000000000
           Width = 79.370073860000000000
           Height = 18.897650000000000000
@@ -9181,6 +9576,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 445.984540000000000000
           Width = 68.031491180000000000
           Height = 18.897650000000000000
@@ -9201,6 +9597,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 366.614410000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
@@ -9221,6 +9618,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 79.370073860000000000
           Height = 18.897650000000000000
@@ -9241,6 +9639,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 317.480520000000000000
           Width = 49.133890000000000000
           Height = 18.897650000000000000
@@ -9261,6 +9660,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 593.386210000000000000
           Width = 45.354360000000000000
           Height = 18.897650000000000000
@@ -9289,6 +9689,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Width = 718.110700000000000000
         Stretched = True
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 22.677180000000000000
           Width = 173.858380000000000000
@@ -9310,6 +9711,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 468.661720000000000000
           Top = 22.677180000000000000
           Width = 75.590536540000000000
@@ -9332,6 +9734,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 468.661720000000000000
           Top = 3.779530000000000000
           Width = 249.448916540000000000
@@ -9354,6 +9757,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 468.661720000000000000
           Top = 79.370130000000000000
           Width = 75.590536540000000000
@@ -9376,6 +9780,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 79.370130000000000000
           Width = 173.858380000000000000
@@ -9397,6 +9802,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 41.574830000000000000
           Width = 173.858380000000000000
@@ -9418,6 +9824,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 468.661720000000000000
           Top = 41.574830000000000000
           Width = 75.590536540000000000
@@ -9440,6 +9847,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 468.661720000000000000
           Top = 60.472480000000000000
           Width = 75.590536540000000000
@@ -9462,6 +9870,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo4: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 60.472480000000000000
           Width = 173.858380000000000000
@@ -9531,7 +9940,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 248
   end
   object frComissaoVendedorSintetico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -9605,6 +10014,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -9612,6 +10022,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -9628,6 +10039,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559059999999999000
           Width = 109.606370000000000000
@@ -9641,12 +10053,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           TransparentColor = clWhite
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -9663,6 +10077,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -9680,6 +10095,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 483.779840000000000000
@@ -9696,6 +10112,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 411.968770000000000000
@@ -9716,6 +10133,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 411.968770000000000000
@@ -9738,6 +10156,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 411.968770000000000000
@@ -9758,6 +10177,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692949999999990000
           Width = 411.968770000000000000
@@ -9782,6 +10202,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 574.488560000000000000
@@ -9812,6 +10233,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 616.063390000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -9828,6 +10250,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118119999999980000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -9844,6 +10267,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -9871,6 +10295,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Condition = 'FrdsComissaoVendedorSintetico."VENDEDOR_COD"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -9890,6 +10315,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -9918,6 +10344,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         DataSetName = 'FrdsComissaoVendedorSintetico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 627.401980000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -9938,6 +10365,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 249.448980000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -9960,6 +10388,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 151.181200000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -9982,6 +10411,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 347.716760000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -10004,6 +10434,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 544.252320000000100000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -10026,6 +10457,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149596540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -10044,6 +10476,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 68.031476540000000000
           Height = 18.897650000000000000
@@ -10065,6 +10498,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 476.220780000000000000
           Width = 68.031476540000000000
           Height = 18.897650000000000000
@@ -10086,6 +10520,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 423.307360000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
@@ -10113,6 +10548,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 445.984540000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 627.401980000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -10131,6 +10567,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo4: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000100000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -10159,6 +10596,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 461.102660000000000000
           Height = 56.692950000000010000
           Font.Charset = DEFAULT_CHARSET
@@ -10177,6 +10615,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           ParentFont = False
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
@@ -10198,6 +10637,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 18.897650000000000000
           Width = 79.370066540000000000
@@ -10220,6 +10660,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000100000
           Top = 18.897650000000000000
           Width = 173.858380000000000000
@@ -10241,6 +10682,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 37.795300000000000000
           Width = 79.370066540000000000
@@ -10263,6 +10705,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000100000
           Top = 37.795300000000000000
           Width = 173.858380000000000000
@@ -10291,6 +10734,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Condition = 'FrdsComissaoVendedorSintetico."COMPETENCIA"'
         ReprintOnNewPage = True
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 423.307360000000000000
           Height = 18.897650000000000000
@@ -10311,6 +10755,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 249.448980000000000000
           Top = 37.795300000000000000
           Width = 98.267780000000000000
@@ -10333,6 +10778,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 151.181200000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -10355,6 +10801,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 423.307360000000000000
           Top = 18.897650000000000000
           Width = 204.094620000000000000
@@ -10376,6 +10823,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 627.401980000000000000
           Top = 18.897650000000000000
           Width = 90.708720000000000000
@@ -10398,6 +10846,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 347.716760000000000000
           Top = 37.795300000000000000
           Width = 75.590536540000000000
@@ -10420,6 +10869,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -10440,6 +10890,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 37.795300000000000000
           Width = 68.031476540000000000
@@ -10461,6 +10912,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -10480,6 +10932,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -10498,6 +10951,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 476.220780000000000000
           Top = 37.795300000000000000
           Width = 68.031476540000000000
@@ -10519,6 +10973,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 423.307360000000000000
           Top = 37.795300000000000000
           Width = 52.913356540000000000
@@ -10541,6 +10996,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Left = 544.252320000000100000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -10569,6 +11025,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 400.630180000000000000
         Width = 718.110700000000000000
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 627.401980000000000000
           Width = 90.708720000000000000
           Height = 18.897650000000000000
@@ -10587,6 +11044,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 476.220780000000000000
           Width = 68.031540000000010000
           Height = 18.897650000000000000
@@ -10606,6 +11064,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000100000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -11348,7 +11807,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 248
   end
   object frRelacaoRentabilidadeProduto: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -11433,6 +11892,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -11440,6 +11900,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -11456,6 +11917,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -11469,6 +11931,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 574.488560000000000000
@@ -11488,6 +11951,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 574.488560000000000000
@@ -11509,6 +11973,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 574.488560000000000000
@@ -11528,6 +11993,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 574.488560000000000000
@@ -11551,12 +12017,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -11573,6 +12041,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -11590,6 +12059,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 812.598950000000000000
@@ -11606,6 +12076,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 574.488560000000000000
@@ -11635,6 +12106,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 559.370440000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -11651,6 +12123,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -11667,6 +12140,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -11694,6 +12168,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Condition = 'FrdsRelacaoRentabilidadeProduto."COMPETENCIA"'
         ReprintOnNewPage = True
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -11713,6 +12188,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Top = 22.677180000000000000
           Width = 540.472790000000000000
           Height = 18.897650000000000000
@@ -11733,6 +12209,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 540.472790000000000000
           Top = 41.574830000000000000
           Width = 83.149611180000000000
@@ -11755,6 +12232,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Top = 41.574830000000000000
           Width = 71.811021180000000000
@@ -11777,6 +12255,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 540.472790000000000000
           Top = 22.677180000000000000
           Width = 154.960730000000000000
@@ -11798,6 +12277,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Top = 41.574830000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -11818,6 +12298,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 41.574830000000000000
           Width = 396.850586540000000000
@@ -11839,6 +12320,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 695.433520000000000000
           Top = 41.574830000000000000
           Width = 98.267723860000000000
@@ -11861,6 +12343,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
@@ -11880,6 +12363,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 695.433520000000000000
           Top = 22.677180000000000000
           Width = 196.535560000000000000
@@ -11901,6 +12385,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 41.574830000000000000
           Width = 98.267723860000000000
@@ -11923,6 +12408,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 891.969080000000000000
           Top = 22.677180000000000000
           Width = 154.960730000000000000
@@ -11944,6 +12430,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 891.969080000000000000
           Top = 41.574830000000000000
           Width = 98.267723860000000000
@@ -11966,6 +12453,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 990.236860000000000000
           Top = 41.574830000000000000
           Width = 56.692893860000000000
@@ -11988,6 +12476,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 480.000310000000000000
           Top = 41.574830000000000000
           Width = 60.472431180000000000
@@ -12021,6 +12510,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         RowCount = 0
         Stretched = True
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 540.472790000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -12054,6 +12544,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Width = 71.811021180000000000
           Height = 18.897650000000000000
@@ -12087,6 +12578,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -12116,6 +12608,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 695.433520000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -12149,6 +12642,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 30.236176540000000000
           Height = 18.897650000000000000
@@ -12178,6 +12672,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -12211,6 +12706,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 891.969080000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -12242,6 +12738,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo38: TfrxMemoView
+          AllowVectorExport = True
           Left = 990.236860000000000000
           Width = 56.692886540000000000
           Height = 18.897650000000000000
@@ -12273,6 +12770,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 480.000310000000000000
           Width = 60.472416540000000000
           Height = 18.897650000000000000
@@ -12306,6 +12804,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo42: TfrxMemoView
+          AllowVectorExport = True
           Left = 449.764070000000000000
           Width = 30.236176540000000000
           Height = 18.897650000000000000
@@ -12335,6 +12834,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 86.929190000000000000
           Width = 389.291590000000000000
           Height = 18.897650000000000000
@@ -12380,6 +12880,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 823.937540000000000000
           Top = 26.456710000000000000
           Width = 222.992270000000000000
@@ -12401,6 +12902,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 695.433520000000000000
           Top = 26.456710000000000000
           Width = 128.503956540000000000
@@ -12423,6 +12925,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 695.433520000000000000
           Top = 7.559060000000000000
           Width = 351.496226540000000000
@@ -12445,6 +12948,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 823.937540000000000000
           Top = 45.354360000000000000
           Width = 222.992270000000000000
@@ -12466,6 +12970,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Left = 695.433520000000000000
           Top = 45.354360000000000000
           Width = 128.503956540000000000
@@ -12488,6 +12993,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 823.937540000000000000
           Top = 64.252010000000000000
           Width = 222.992270000000000000
@@ -12509,6 +13015,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Left = 823.937540000000000000
           Top = 83.149660000000000000
           Width = 222.992206540000000000
@@ -12531,6 +13038,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 695.433520000000000000
           Top = 64.252010000000000000
           Width = 128.503956540000000000
@@ -12551,6 +13059,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Left = 695.433520000000000000
           Top = 68.031540000000000000
           Width = 128.503956540000000000
@@ -12718,7 +13227,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
     Top = 104
   end
   object frRelacaoCustoProdutoVendido: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -12802,6 +13311,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -12809,6 +13319,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -12825,6 +13336,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -12838,6 +13350,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724800000000000000
@@ -12857,6 +13370,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724800000000000000
@@ -12878,6 +13392,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724800000000000000
@@ -12897,6 +13412,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724800000000000000
@@ -12920,12 +13436,14 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -12942,6 +13460,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -12959,6 +13478,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 483.779840000000000000
@@ -12975,6 +13495,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -13004,6 +13525,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 619.842920000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -13020,6 +13542,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -13036,6 +13559,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -13063,6 +13587,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Condition = 'FrdsRelacaoCustoProdutoVendido."COMPETENCIA"'
         ReprintOnNewPage = True
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Top = 22.677180000000000000
           Width = 559.370440000000000000
           Height = 18.897650000000000000
@@ -13083,6 +13608,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Top = 41.574830000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -13103,6 +13629,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 41.574830000000000000
           Width = 415.748236540000000000
@@ -13124,6 +13651,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 559.370440000000000000
           Top = 41.574830000000000000
           Width = 79.370073860000000000
@@ -13146,6 +13674,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 559.370440000000000000
           Top = 22.677180000000000000
           Width = 158.740260000000000000
@@ -13167,6 +13696,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 638.740570000000000000
           Top = 41.574830000000000000
           Width = 79.370078740000000000
@@ -13189,6 +13719,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 498.897960000000000000
           Top = 41.574830000000000000
           Width = 60.472431180000000000
@@ -13211,6 +13742,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo46: TfrxMemoView
+          AllowVectorExport = True
           Top = 3.779530000000000000
           Width = 718.110700000000000000
           Height = 18.897650000000000000
@@ -13242,6 +13774,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         RowCount = 0
         Stretched = True
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -13271,6 +13804,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 559.370440000000000000
           Width = 79.370078740000000000
           Height = 18.897650000000000000
@@ -13304,6 +13838,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 30.236176540000000000
           Height = 18.897650000000000000
@@ -13333,6 +13868,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 638.740570000000000000
           Width = 79.370078740000000000
           Height = 18.897650000000000000
@@ -13366,6 +13902,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 498.897960000000000000
           Width = 60.472416540000000000
           Height = 18.897650000000000000
@@ -13397,6 +13934,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo42: TfrxMemoView
+          AllowVectorExport = True
           Left = 468.661720000000000000
           Width = 30.236176540000000000
           Height = 18.897650000000000000
@@ -13426,6 +13964,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 86.929190000000000000
           Width = 408.189240000000000000
           Height = 18.897650000000000000
@@ -13471,6 +14010,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Width = 718.110700000000000000
         Stretched = True
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 559.370440000000000000
           Top = 18.897650000000000000
           Width = 158.740260000000000000
@@ -13492,6 +14032,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 498.897960000000000000
           Top = 18.897650000000000000
           Width = 60.472416540000000000
@@ -13514,6 +14055,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 498.897960000000000000
           Width = 219.212676540000000000
           Height = 18.897650000000000000
@@ -13535,6 +14077,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 559.370440000000000000
           Top = 37.795300000000000000
           Width = 158.740260000000000000
@@ -13556,6 +14099,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Left = 498.897960000000000000
           Top = 37.795300000000000000
           Width = 60.472416540000000000
@@ -13578,6 +14122,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 15.118120000000000000
           Width = 222.992270000000000000
@@ -13600,6 +14145,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 34.015770000000000000
           Width = 222.992206540000000000
@@ -13623,6 +14169,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 128.504020000000000000
           Top = 15.118120000000000000
           Width = 128.503956540000000000
@@ -13644,6 +14191,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Left = 128.504020000000000000
           Top = 18.897650000000000000
           Width = 128.503956540000000000
@@ -13666,6 +14214,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 154.960730000000000000
@@ -13688,6 +14237,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 26.456710000000000000
           Width = 98.267723860000000000
@@ -13711,6 +14261,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 102.047310000000000000
           Top = 26.456710000000000000
           Width = 56.692893860000000000
@@ -13734,6 +14285,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 52.913420000000000000
           Width = 98.267716540000000000
@@ -13767,6 +14319,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo38: TfrxMemoView
+          AllowVectorExport = True
           Left = 102.047310000000000000
           Top = 52.913420000000000000
           Width = 56.692886540000000000
@@ -13809,6 +14362,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Condition = 'FrdsRelacaoCustoProdutoVendido."COMPETENCIA"'
         ReprintOnNewPage = True
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -13829,6 +14383,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -13856,6 +14411,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
         Top = 430.866420000000000000
         Width = 718.110700000000000000
         object Line2: TfrxLineView
+          AllowVectorExport = True
           Top = 7.559060000000000000
           Width = 718.110700000000000000
           Color = clBlack
@@ -13864,6 +14420,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           Frame.Width = 0.100000000000000000
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 559.370440000000000000
           Top = 11.338590000000000000
           Width = 79.370130000000000000
@@ -13886,6 +14443,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object SysMemo4: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 638.740570000000000000
           Top = 11.338590000000000000
           Width = 79.370130000000000000
@@ -13908,6 +14466,7 @@ inherited frmGeVendaImpressao: TfrmGeVendaImpressao
           WordWrap = False
         end
         object Memo47: TfrxMemoView
+          AllowVectorExport = True
           Left = 498.897960000000000000
           Top = 11.338590000000000000
           Width = 60.472480000000000000

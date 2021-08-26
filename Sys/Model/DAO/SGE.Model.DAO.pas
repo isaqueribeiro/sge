@@ -9,7 +9,8 @@ uses
   SGE.Model.DAO.Interfaces,
 
   Interacao.Usuario,
-  Classe.Usuario;
+  Classe.Usuario,
+  Model.Entidade.ConfiguracaoINI;
 
 type
   TModelDAO = class(TInterfacedObject, IModelDAO)
@@ -17,13 +18,17 @@ type
     protected
       FConn    : IConnection;
       FUsuario : IUsuarioModel;
+      FConfiguracao : IConfiguracaoIni;
       constructor Create;
     public
       destructor Destroy; override;
 
       function DataSet : TDataSet;
       function SelectSQL : String;
+      function Clear : IModelDAO;
+      function SQL(Value : String) : IModelDAO;
       function Usuario : IUsuarioModel;
+      function Configuracao : IConfiguracaoIni;
 
       function Where(aExpressionWhere : String) : IModelDAO; overload;
       function Where(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO; overload;
@@ -44,7 +49,6 @@ type
 
       procedure Open;
 
-      procedure Clear;
       procedure ClearWhere;
       procedure ApplyUpdates;
       procedure CommitUpdates;
@@ -61,13 +65,19 @@ implementation
 
 { TModelDAO }
 
+uses
+  System.IOUtils,
+  UConstantesDGE;
+
 procedure TModelDAO.ApplyUpdates;
 begin
   FConn.Query.ApplyUpdates;
 end;
 
-procedure TModelDAO.Clear;
+function TModelDAO.Clear : IModelDAO;
 begin
+  Result := Self;
+
   if FConn.Query.DataSet.Active then
     FConn.Query.DataSet.Close;
 
@@ -98,10 +108,19 @@ begin
   FConn.Query.CommitUpdates;
 end;
 
+function TModelDAO.Configuracao: IConfiguracaoIni;
+begin
+  Result := FConfiguracao;
+end;
+
 constructor TModelDAO.Create;
 begin
   FConn    := TConnectionFactory.New;
   FUsuario := TUsuario.New;
+
+  FConfiguracao := TConfiguracaoIni.New(TPath.Combine(ExtractFilePath(ParamStr(0)), FILE_SETTINGS_INI));
+  if not FConfiguracao.Carregado then
+    FConfiguracao.Load;
 end;
 
 function TModelDAO.DataSet: TDataSet;
@@ -167,7 +186,13 @@ end;
 
 function TModelDAO.SelectSQL: String;
 begin
-  Result := FConn.Query.SQL.Text + #13 + FConn.Query.SQL.Where;
+  Result := FConn.Query.SQL.Text + #13 + FConn.Query.SQL.Where + #13 + FConn.Query.SQL.OrderBy;
+end;
+
+function TModelDAO.SQL(Value: String): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.SQL.Add(Value);
 end;
 
 procedure TModelDAO.StartTransaction;

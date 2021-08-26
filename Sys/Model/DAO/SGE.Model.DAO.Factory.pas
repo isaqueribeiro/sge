@@ -6,6 +6,7 @@ uses
   SGE.Model.DAO.Interfaces,
   SGE.Model.DAO.Bairro,
   SGE.Model.DAO.Banco,
+  SGE.Model.DAO.Busca,
   SGE.Model.DAO.CentroCusto,
   SGE.Model.DAO.CFOP,
   SGE.Model.DAO.Cidade,
@@ -15,12 +16,14 @@ uses
   SGE.Model.DAO.CST,
   SGE.Model.DAO.Distrito,
   SGE.Model.DAO.Empresa,
+  SGE.Model.DAO.Entrada,
   SGE.Model.DAO.FormaPagto,
   SGE.Model.DAO.Fornecedor,
   SGE.Model.DAO.IBPT,
   SGE.Model.DAO.Logradouro,
   SGE.Model.DAO.PlanoConta,
   SGE.Model.DAO.Produto,
+  SGE.Model.DAO.Promocao,
   SGE.Model.DAO.Tabelas,
   SGE.Model.DAO.TipoDespesa,
   SGE.Model.DAO.TipoLogradouro,
@@ -32,10 +35,12 @@ type
   TModelDAOFactory = class(TInterfacedObject, IModelDAOFactory)
     private
       FAliquotaCOFINSView,
+      FAliquotaICMS      ,
       FAliquotaPISView   ,
       FBairro,
       FBanco ,
       FBancoFebrabanView ,
+      FBusca ,
       FCentroCusto       ,
       FCentroCustoEmpresa,
       FCFOP          ,
@@ -46,16 +51,19 @@ type
       FClienteEstoque,
       FClienteTitulos     ,
       FClienteTotalCompras,
+      FCombustivelVeiculo ,
       FCondicaoPagto      ,
       FCondicaoPagtoForma ,
       FCondicaoPagtoView  ,
       FConfiguracaoEmpresa,
       FContaCorrente      ,
       FContaCorrenteView  ,
+      FCorVeiculo ,
       FCST        ,
       FDistrito   ,
       FEmpresa    ,
       FEmpresaView,
+      FEntrada    ,
       FFabricanteProduto,
       FFormaPagto ,
       FFormaPagtoContaCorrente,
@@ -72,6 +80,8 @@ type
       FPlanoContaNivel,
       FPlanoContaTipo ,
       FProduto        ,
+      FPromocao       ,
+      FPromocaoProduto,
       FSecaoProduto   ,
       FSegmento       ,
       FTabelaIBPT     ,
@@ -79,10 +89,12 @@ type
       FTipoCNPJView    ,
       FTipoComissaoView,
       FTipoDespesa     ,
-      FTipoDespesaPlanoConta,
-      FTipoLogradouro,
-      FTipoProduto   ,
-      FTipoReceita   ,
+      FTipoDespesaPlanoConta   ,
+      FTipoDocumentoEntradaView,
+      FTipoEntradaView,
+      FTipoLogradouro ,
+      FTipoProduto    ,
+      FTipoReceita    ,
       FTipoReceitaPlanoConta,
       FTipoRegimeView,
       FTipoTributacao,
@@ -97,10 +109,12 @@ type
       class function New : IModelDAOFactory;
 
       function AliquotaCOFINSView : IModelDAOCustom;
+      function AliquotaICMS : IModelDAOCustom;
       function AliquotaPISView : IModelDAOCustom;
       function Bairro : IModelDAOCustom;
       function Banco : IModelDAOCustom;
       function BancoFebrabanView : IModelDAOCustom;
+      function Busca : IModelDAOCustom;
       function CentroCusto : IModelDAOCustom;
       function CentroCustoEmpresa : IModelDAOCustom;
       function CFOP : IModelDAOCustom;
@@ -111,16 +125,19 @@ type
       function ClienteEstoque : IModelDAOCustom;
       function ClienteTitulos : IModelDAOCustom;
       function ClienteTotalCompras : IModelDAOCustom;
+      function CombustivelVeiculo : IModelDAOCustom;
       function CondicaoPagto : IModelDAOCustom;
       function CondicaoPagtoForma : IModelDAOCustom;
       function CondicaoPagtoView : IModelDAOCustom;
       function ConfiguracaoEmpresa : IModelDAOCustom;
       function ContaCorrente : IModelDAOCustom;
       function ContaCorrenteView : IModelDAOCustom;
+      function CorVeiculo : IModelDAOCustom;
       function CST : IModelDAOCustom;
       function Distrito : IModelDAOCustom;
       function Empresa : IModelDAOCustom;
       function EmpresaView : IModelDAOCustom;
+      function Entrada : IModelDAOCustom;
       function FabricanteProduto : IModelDAOCustom;
       function FormaPagto : IModelDAOCustom;
       function FormaPagtoContaCorrente : IModelDAOCustom;
@@ -137,6 +154,8 @@ type
       function PlanoContaNivel : IModelDAOCustom;
       function PlanoContaTipo : IModelDAOCustom;
       function Produto : IModelDAOCustom;
+      function Promocao : IModelDAOCustom;
+      function PromocaoProduto : IModelDAOCustom;
       function SecaoProduto : IModelDAOCustom;
       function Segmento : IModelDAOCustom;
       function TabelaIBPT : IModelDAOCustom;
@@ -145,6 +164,8 @@ type
       function TipoComissaoView : IModelDAOCustom;
       function TipoDespesa : IModelDAOCustom;
       function TipoDespesaPlanoConta : IModelDAOCustom;
+      function TipoDocumentoEntradaView : IModelDAOCustom;
+      function TipoEntradaView : IModelDAOCustom;
       function TipoLogradouro : IModelDAOCustom;
       function TipoProduto : IModelDAOCustom;
       function TipoReceita : IModelDAOCustom;
@@ -224,6 +245,22 @@ begin
   Result := FProduto;
 end;
 
+function TModelDAOFactory.Promocao: IModelDAOCustom;
+begin
+  if not Assigned(FPromocao) then
+    FPromocao := TModelDAOPromocao.New;
+
+  Result := FPromocao;
+end;
+
+function TModelDAOFactory.PromocaoProduto: IModelDAOCustom;
+begin
+  if not Assigned(FPromocaoProduto) then
+    FPromocaoProduto := TModelDAOPromocaoProduto.New;
+
+  Result := FPromocaoProduto;
+end;
+
 function TModelDAOFactory.SecaoProduto: IModelDAOCustom;
 begin
   if not Assigned(FSecaoProduto) then
@@ -296,6 +333,22 @@ begin
   Result := FTipoDespesaPlanoConta;
 end;
 
+function TModelDAOFactory.TipoDocumentoEntradaView: IModelDAOCustom;
+begin
+  if not Assigned(FTipoDocumentoEntradaView) then
+    FTipoDocumentoEntradaView := TModelDAOTipoDocumentoEntradaView.New;
+
+  Result := FTipoDocumentoEntradaView;
+end;
+
+function TModelDAOFactory.TipoEntradaView: IModelDAOCustom;
+begin
+  if not Assigned(FTipoEntradaView) then
+    FTipoEntradaView := TModelDAOTipoEntradaView.New;
+
+  Result := FTipoEntradaView;
+end;
+
 function TModelDAOFactory.TipoLogradouro: IModelDAOCustom;
 begin
   if not Assigned(FTipoLogradouro) then
@@ -360,6 +413,14 @@ begin
   Result := FAliquotaCOFINSView;
 end;
 
+function TModelDAOFactory.AliquotaICMS: IModelDAOCustom;
+begin
+  if not Assigned(FAliquotaICMS) then
+    FAliquotaICMS := TModelDAOAliquotaICMS.New;
+
+  Result := FAliquotaICMS;
+end;
+
 function TModelDAOFactory.AliquotaPISView: IModelDAOCustom;
 begin
   if not Assigned(FAliquotaPISView) then
@@ -390,6 +451,14 @@ begin
     FBancoFebrabanView := TModelDAOBancoFebrabanView.New;
 
   Result := FBancoFebrabanView;
+end;
+
+function TModelDAOFactory.Busca: IModelDAOCustom;
+begin
+  if not Assigned(FBusca) then
+    FBusca := TModelDAOBusca.New;
+
+  Result := FBusca;
 end;
 
 function TModelDAOFactory.CentroCusto: IModelDAOCustom;
@@ -472,6 +541,14 @@ begin
   Result := FClienteTotalCompras;
 end;
 
+function TModelDAOFactory.CombustivelVeiculo: IModelDAOCustom;
+begin
+  if not Assigned(FCombustivelVeiculo) then
+    FCombustivelVeiculo := TModelDAOCombustivelVeiculo.New;
+
+  Result := FCombustivelVeiculo;
+end;
+
 function TModelDAOFactory.CondicaoPagto: IModelDAOCustom;
 begin
   if not Assigned(FCondicaoPagto) then
@@ -520,6 +597,14 @@ begin
   Result := FContaCorrenteView;
 end;
 
+function TModelDAOFactory.CorVeiculo: IModelDAOCustom;
+begin
+  if not Assigned(FCorVeiculo) then
+    FCorVeiculo := TModelDAOCorVeiculo.New;
+
+  Result := FCorVeiculo;
+end;
+
 function TModelDAOFactory.Distrito: IModelDAOCustom;
 begin
   if not Assigned(FDistrito) then
@@ -542,6 +627,14 @@ begin
     FEmpresaView := TModelDAOEmpresaView.New;
 
   Result := FEmpresaView;
+end;
+
+function TModelDAOFactory.Entrada: IModelDAOCustom;
+begin
+  if not Assigned(FEntrada) then
+    FEntrada := TModelDAOEntrada.New;
+
+  Result := FEntrada;
 end;
 
 function TModelDAOFactory.FabricanteProduto: IModelDAOCustom;

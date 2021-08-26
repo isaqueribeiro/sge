@@ -13,6 +13,7 @@ Uses
     TTipoTabelaIBPT  = (tIbptGeral, tIbptProdutos, tIbptServicos);
     TGrupoFornecedor = (gpFornecedorADefinir = 1, gpFornecedorProduto = 2, gpFornecedorServico = 3, gpFornecedorProdutoServico = 4, gpFornecedorColaborador = 5);
     TTipoPlanoConta = (tpNull = -1, tpAgrupador = 0, tpLancamento = 1);
+    TTipoMovimentoEntrada = (tmeProduto, tmeServico);
 
     TTipoAlertaSistemaCollection = Set of TTipoAlertaSistema;
     TTipoProdutoCollection       = Set of TTipoProduto;
@@ -22,7 +23,20 @@ Uses
     TGrupoFornecedorLista   = Array[Low(TGrupoFornecedor)..High(TGrupoFornecedor)] of String;
     TPermissaoLista         = Array [0..45] of String;
 
-    TAliquota = (taICMS, taISS);
+    TAliquota   = (taICMS, taISS);
+    TTipoRegime = (trSimplesNacional, trSimplesExcessoReceita, trRegimeNormal);
+
+  TLancamentoEntrada = record
+    Ano      : Smallint;
+    Controle : Integer;
+    Emissao  : TDateTime;
+  end;
+
+  TDocumentoEntrada = record
+    Fornecedor : Integer;
+    Tipo       : Smallint;
+    Numero     : Integer;
+  end;
 
 const
   VERSION_NUMBER     = '1.0.31.0';
@@ -455,6 +469,14 @@ const
   TIPO_DESPESA_PADRAO = 1;
   VENDEDOR_PADRAO     = '1';
 
+  // Status de Entradas (Compras)
+
+  STATUS_CMP_ABR = 1;
+  STATUS_CMP_FIN = 2;
+  STATUS_CMP_CAN = 3;
+  STATUS_CMP_NFE = 4;
+
+
   // Tipos de Documentos de Entrada
 
   TIPO_DOCUMENTO_ENTRADA_AVULSA      = 0;
@@ -528,13 +550,15 @@ const
   BOLETO_IMAGENS          = 'Imagens\';
   BOLETO_LICENCAS         = 'Licencas\';
 
+  // Arquivos padrões
+
   LAYOUT_BOLETO         = 'Boleto\Boleto.fr3';
   LAYOUT_BOLETO_ENTREGA = 'Boleto\BoletoEntrega.fr3';
   LAYOUT_BOLETO_FATURA  = 'Boleto\BoletoFatura.fr3';
   LAYOUT_BOLETO_CARNE   = 'Boleto\BoletoCarne.fr3';
 
-
   //FILE_WALLPAPER   = 'PapelDeParede.jpg';
+  FILE_SETTINGS_INI  = 'Conexao.ini';
   FILE_COMPANY_LOGO  = 'LogotipoEmpresa.png';
   FILE_AUTOBACKUP    = 'AutoBackupGA.exe';
   FILE_REMOTE_ACCESS = 'TeamViewerQS_pt-idcn9zva8a.exe';
@@ -635,6 +659,11 @@ const
   INI_KEY_CUPOM_NFISCAL_QTDE   = 'CupomNaoFiscalQtde';
 
   INI_SECAO_CERTIFICADO = 'Certificado';
+  INI_KEY_CERTIFICADO_NUMERO_SERIE ='NumSerie';
+  INI_KEY_CERTIFICADO_CAMINHO      = 'Caminho';
+  INI_KEY_CERTIFICADO_SENHA        = 'Senha';
+  INI_KEY_CERTIFICADO_URL          = 'URL';
+
   INI_SECAO_GERAL       = 'Geral';
   INI_SECAO_EMITENTE    = 'Emitente';
   INI_SECAO_WEBSERVICE  = 'WebService';

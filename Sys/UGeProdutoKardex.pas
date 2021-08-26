@@ -68,7 +68,7 @@ uses
     UDMBusiness
   , UConstantesDGE
   , UGrPadrao
-  , UGeProduto;
+  , View.Produto;
 
 {$R *.dfm}
 

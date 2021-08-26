@@ -108,7 +108,12 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, UDMNFe, UGeNFEmitida, UDMRecursos;
+    System.StrUtils
+  , UDMBusiness
+  , UConstantesDGE
+  , UDMNFe
+  , UGeNFEmitida
+  , UDMRecursos;
 
 {$R *.dfm}
 

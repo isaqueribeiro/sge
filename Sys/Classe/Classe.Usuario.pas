@@ -33,6 +33,7 @@ type
       function Empresa(const aCNPJ: String) : IUsuarioModel; overload;
       function Empresa(const Value: IEmpresaModel)  : IUsuarioModel; overload;
       function Empresa : IEmpresaModel; overload;
+      function CNPJ : String;
 
       function Vendedor(const aCodigo: Integer) : IUsuarioModel; overload;
       function Vendedor(const Value: IPessoaFisicaModel) : IUsuarioModel; overload;
@@ -64,6 +65,11 @@ function TUsuario.AlterarValorVenda(const Value: Boolean): IUsuarioModel;
 begin
   Result := Self;
   FAlterarValorVenda := Value;
+end;
+
+function TUsuario.CNPJ: String;
+begin
+  Result := FEmpresa.CNPJ;
 end;
 
 constructor TUsuario.Create;

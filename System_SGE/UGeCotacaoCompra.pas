@@ -333,13 +333,14 @@ var
 implementation
 
 uses
-    DateUtils
+    System.StrUtils
+  , System.DateUtils
   , SysConst
   , Controller.Tabela
   , UConstantesDGE
   , UDMBusiness
   , UDMNFe
-  , UGeProduto
+  , View.Produto
   , UGeCotacaoCompraCancelar
   , UGeCotacaoCompraFornecedor
   , View.Fornecedor

@@ -127,7 +127,7 @@ implementation
 
 uses
     UDMBusiness
-  , UGeProduto
+  , View.Produto
   , UConstantesDGE
   , Interacao.Tabela
   , Controller.Tabela;

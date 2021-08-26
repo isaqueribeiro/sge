@@ -299,14 +299,15 @@ var
 implementation
 
 uses
-    DateUtils
+    System.StrUtils
+  , System.DateUtils
   , SysConst
   , Controller.Tabela
   , UConstantesDGE
   , UDMBusiness
   , UDMNFe
   , View.Fornecedor
-  , UGeProduto
+  , View.Produto
   , UGeRequisicaoCompraCancelar
   , View.Cliente
   , View.CentroCusto;

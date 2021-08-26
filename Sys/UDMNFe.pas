@@ -3,13 +3,28 @@ unit UDMNFe;
 interface
 
 uses
-  Variants,
-  UDMBusiness,
+  System.SysUtils,
+  System.Classes,
+  System.StrUtils,
+  System.Variants,
+  System.TypInfo,
+  System.Generics.Collections,
+  Web.HTTPApp,
+  Winapi.Windows,
+  Winapi.ShellApi,
+  Winapi.WinInet,
+  Vcl.Graphics,
+  Vcl.ExtCtrls,
+  Vcl.Imaging.PngImage,
+  Vcl.Imaging.jpeg,
+  Data.DB,
+  SHDocVw,
+
   Interacao.Versao,
   Controller.Versao,
-  Vcl.Imaging.PngImage,
-
+  UDMBusiness,
   UGeConfigurarNFeACBr,
+
   ACBrNFe,
   ACBrDFe,
   ACBrDFeSSL,
@@ -22,16 +37,13 @@ uses
   pcnNFeW,
   pcnNFeRTXT,
   pcnAuxiliar,
-  SHDocVw,
 
-  System.Generics.Collections,
   {$IF NOT (DEFINED(PRINTER_CUPOM) OR DEFINED(PDV))}
   Classe.DistribuicaoDFe.DocumentoRetornado,
   {$ENDIF}
 
-  Windows, SysUtils, Classes, ACBrNFeDANFEClass, DB,
+  ACBrNFeDANFEClass,
   frxClass, frxDBSet, frxExportRTF, frxExportXLS, frxExportPDF, frxExportMail,
-  TypInfo, HTTPApp, WinInet, Graphics, ExtCtrls, Jpeg, ShellApi,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
@@ -510,11 +522,14 @@ const
 implementation
 
 uses
+  System.IniFiles,
+  System.IOUtils,
+  System.UITypes,
+  View.Certificado,
   UDMRecursos, Forms, FileCtrl, ACBrNFeConfiguracoes,
   ACBrNFeNotasFiscais, ACBrNFeWebServices, StdCtrls, pcnNFe, UFuncoes,
   UConstantesDGE, DateUtils, UEcfFactory, // pcnRetConsReciNFe, pcnDownloadNFe,
-  pcnConversaoNFe, pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass, IniFiles,
-  System.IOUtils;
+  pcnConversaoNFe, pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass;
 
 {$R *.dfm}
 
@@ -1226,6 +1241,7 @@ begin
 
       if ( (Trim(edtEmitCNPJ.Text) = EmptyStr) and (not qryEmitente.IsEmpty) ) then
       begin
+        cbUF.ItemIndex         := cbUF.Items.IndexOf(ReadString( sSecaoWebService, 'UF', Trim(qryEmitenteEST_SIGLA.AsString))) ;
         edtEmitCNPJ.Text       := Trim(qryEmitenteCNPJ.AsString);
         edtEmitIE.Text         := Trim(qryEmitenteIE.AsString);
         edtEmitRazao.Text      := Trim(qryEmitenteRZSOC.AsString);
@@ -1355,10 +1371,63 @@ begin
 end;
 
 procedure TDMNFe.SelecionarCertificado(Sender: TObject);
+var
+  i      : Integer;
+  ASerie : String;
+  AddRow : Boolean;
+  AForm  : TViewCertificado;
 begin
-  {$IFNDEF ACBrNFeOpenSSL}
-  ConfigACBr.edtNumSerie.Text := ACBrNFe.SSL.SelecionarCertificado;
-  {$ENDIF}
+//  {$IFNDEF ACBrNFeOpenSSL}
+//  ConfigACBr.edtNumSerie.Text := ACBrNFe.SSL.SelecionarCertificado;
+//  {$ENDIF}
+  AForm := TViewCertificado.Create(Self);
+  try
+    ACBrNFe.SSL.LerCertificadosStore;
+    AddRow := False;
+
+    with AForm.stgCertificado do
+    begin
+      ColWidths[0] := 170;
+      ColWidths[1] := 250;
+      ColWidths[2] := 120;
+      ColWidths[3] := 80;
+      ColWidths[4] := 150;
+      Cells[0, 0] := 'Num.Série';
+      Cells[1, 0] := 'Razão Social';
+      Cells[2, 0] := 'CNPJ';
+      Cells[3, 0] := 'Validade';
+      Cells[4, 0] := 'Certificadora';
+    end;
+
+    for i := 0 to ACBrNFe.SSL.ListaCertificados.Count - 1 do
+    begin
+      with ACBrNFe.SSL.ListaCertificados[i] do
+      begin
+        ASerie := NumeroSerie;
+        if (CNPJ <> '') then
+        begin
+          with AForm.stgCertificado do
+          begin
+            if AddRow then
+              RowCount := RowCount + 1;
+
+            Cells[0, RowCount - 1] := NumeroSerie;
+            Cells[1, RowCount - 1] := RazaoSocial;
+            Cells[2, RowCount - 1] := CNPJ;
+            Cells[3, RowCount - 1] := FormatDateBr(DataVenc);
+            Cells[4, RowCount - 1] := Certificadora;
+
+            AddRow := True;
+          end;
+        end;
+      end;
+    end;
+
+    if (AForm.ShowModal = mrOK) then
+      ConfigACBr.edtNumSerie.Text := AForm.stgCertificado.Cells[0, AForm.stgCertificado.Row];
+  finally
+    FreeAndNil(AForm);
+  end;
 end;
 
 procedure TDMNFe.TestarServico(Sender: TObject);
@@ -1465,7 +1534,7 @@ var
   sLogXmlEnv   ,
   sLogXmlRec   : String;
 begin
-  sNovaExtensao := '.xml.' + IfThen(Trim(pExtensao) = EmptyStr, 'nf', Trim(pExtensao));
+  sNovaExtensao := '.xml.' + IfThenStr(Trim(pExtensao) = EmptyStr, 'nf', Trim(pExtensao));
 
   // Renomer no diretório os arquivos XML de envio e retorno dos lotes de NF-e
   sLogXmlEnv := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + IntToStr(pNumeroLote) + '-env-lot.xml', '\\', '/', [rfReplaceAll]);
@@ -1694,7 +1763,7 @@ begin
       sTexto := Trim(DataSetOrigem.FieldByName('CFOP_INFORMACAO_FISCO').AsString);
   end;
 
-  Result := IfThen(sTexto = EmptyStr, Trim(ConfigACBr.edInfoFisco.Text), sTexto);
+  Result := IfThenStr(sTexto = EmptyStr, Trim(ConfigACBr.edInfoFisco.Text), sTexto);
 end;
 
 function TDMNFe.GetFileNameDANFE_FR3 : String;
@@ -4223,8 +4292,8 @@ begin
     sMSG.Free;
     sCC.Free;
 
-    DeleteFile( sFileNameXML );
-    DeleteFile( ExtractFilePath(ParamStr(0)) + ExtractFileName(sFileNameXML) );
+    System.SysUtils.DeleteFile( sFileNameXML );
+    System.SysUtils.DeleteFile( ExtractFilePath(ParamStr(0)) + ExtractFileName(sFileNameXML) );
   end;
 
 end;

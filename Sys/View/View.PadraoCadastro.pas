@@ -551,6 +551,7 @@ begin
       if (Key = VK_RETURN) and (ActiveControl = edtFiltrar) then
         btnFiltrar.Click
       else
+      if not (ActiveControl is TDBGrid) then
         CustomKeyDown(Self, Key, Shift);
     end;
   end;
@@ -629,7 +630,7 @@ var
   aExpressionOr : String;
 begin
   Screen.Cursor   := crSQLWait;
-  edtFiltrar.Text := Trim(edtFiltrar.Text);
+  edtFiltrar.Text := Trim(edtFiltrar.Text).Replace(' ', '%');
 
   try
     try
@@ -673,11 +674,11 @@ begin
 
       try
         if Showing and (pgcGuias.ActivePage = tbsTabela) then
-          if ( not DtSrcTabela.DataSet.IsEmpty ) then
+          if (not DtSrcTabela.DataSet.IsEmpty) then
             dbgDados.SetFocus
           else
           begin
-            ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
+            ShowWarning('Não existem registros na tabela para este tipo de pesquisa');
 
             edtFiltrar.SetFocus;
             edtFiltrar.SelectAll;

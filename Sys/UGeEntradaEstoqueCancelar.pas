@@ -113,6 +113,7 @@ implementation
 
 uses
     Controller.Tabela
+  , UConstantesDGE
   , UDMBusiness
   , UDMNFe
   , UFuncoes;

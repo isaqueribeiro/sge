@@ -57,6 +57,7 @@ type
     lblDicasTitulo: TLabel;
     lblDicasTexto: TLabel;
     cdsEmpresa: TClientDataSet;
+    imgGrid: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -74,6 +75,8 @@ type
     procedure pgcGuiasChange(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnExcluirClick(Sender: TObject);
+    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
+      State: TGridDrawState);
   private
     { Private declarations }
     FControllerCentroCustoEmpresa : IControllerCustom;
@@ -346,6 +349,39 @@ begin
 
   if (not OcorreuErro) then
     GravarRelacaoCentroCustoEmpresa;
+end;
+
+procedure TViewCentroCusto.dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
+  State: TGridDrawState);
+var
+  aImage : Byte;
+begin
+  inherited;
+  if (Sender = dbgEmpresaLista) then
+  begin
+
+    if (AnsiUpperCase(Column.Field.FieldName) = 'SELECIONAR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 5, Rect.Top + 1, aImage);
+    end
+    else
+    if (AnsiUpperCase(Column.Field.FieldName) = 'SELECIONAR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 5, Rect.Top + 1, aImage);
+    end
+    else
+    if (AnsiUpperCase(Column.Field.FieldName) = 'SELECIONAR') then
+    begin
+      aImage := Column.Field.AsInteger;
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 5, Rect.Top + 1, aImage);
+    end;
+
+  end;
 end;
 
 procedure TViewCentroCusto.dbgEmpresaListaDblClick(Sender: TObject);

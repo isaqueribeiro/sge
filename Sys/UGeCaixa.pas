@@ -212,7 +212,8 @@ const
 implementation
 
 uses
-    UConstantesDGE
+    System.StrUtils
+  , UConstantesDGE
   , COntroller.Tabela
   , UDMBusiness
   , UDMNFe

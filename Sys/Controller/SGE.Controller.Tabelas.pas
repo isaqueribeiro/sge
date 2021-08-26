@@ -119,6 +119,18 @@ type
       class function New : IControllerCustom;
   end;
 
+  // Alíquota ICMS (Stored Procedure)
+  TControllerAliquotaICMS = class(TController, IControllerAliquotaICMS)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerAliquotaICMS;
+
+      procedure AliquotaIcms(const UF_Origem, UF_Destino : String; var aAliquotaInter, aAliquotaIntra, aAliquotaST : Currency);
+  end;
+
 implementation
 
 { TControllerSegmento }
@@ -306,6 +318,40 @@ end;
 class function TControllerAliquotaCOFINSView.New: IControllerCustom;
 begin
   Result := Self.Create;
+end;
+
+{ TControllerAliquotaICMS }
+
+constructor TControllerAliquotaICMS.Create;
+begin
+  inherited Create(TModelDAOFactory.New.AliquotaICMS);
+end;
+
+destructor TControllerAliquotaICMS.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerAliquotaICMS.New: IControllerAliquotaICMS;
+begin
+  Result := Self.Create;
+end;
+
+procedure TControllerAliquotaICMS.AliquotaIcms(const UF_Origem, UF_Destino: String; var aAliquotaInter, aAliquotaIntra,
+  aAliquotaST: Currency);
+begin
+  FDAO.DataSet.Close;
+
+  FDAO
+    .ParamsByName('uf_origem',  UF_Origem)
+    .ParamsByName('uf_destino', UF_Destino)
+    .Open;
+
+  aAliquotaInter := FDAO.DataSet.FieldByName('aliquota_inter').AsCurrency;  // ICMS do proprio Estado
+  aAliquotaIntra := FDAO.DataSet.FieldByName('aliquota_intra').AsCurrency;  // ICMS do Estado de destino
+  aAliquotaST    := FDAO.DataSet.FieldByName('aliquota_st').AsCurrency;     // ICMS de destino (quando o produto sai do Estado)
+
+  FDAO.DataSet.Close;
 end;
 
 end.

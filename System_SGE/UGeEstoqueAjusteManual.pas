@@ -134,11 +134,12 @@ var
 implementation
 
 uses
-    Controller.Tabela
+    System.StrUtils
+  , Controller.Tabela
   , UConstantesDGE
   , UDMBusiness
   , UDMRecursos
-  , UGeProduto
+  , View.Produto
   , View.Fornecedor;
 
 {$R *.dfm}

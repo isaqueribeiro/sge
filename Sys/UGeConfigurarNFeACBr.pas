@@ -65,14 +65,6 @@ type
     cbUF: TComboBox;
     rgTipoAmb: TRadioGroup;
     GrpBxProxy: TGroupBox;
-    lbltProxyHost: TLabel;
-    lbltProxyPorta: TLabel;
-    lbltProxyUser: TLabel;
-    lbltProxySenha: TLabel;
-    edtProxyHost: TEdit;
-    edtProxyPorta: TEdit;
-    edtProxyUser: TEdit;
-    edtProxySenha: TEdit;
     WBResposta: TWebBrowser;
     TbsEmitente: TTabSheet;
     lbltEmitCNPJ: TLabel;
@@ -104,7 +96,6 @@ type
     edtEmitUF: TEdit;
     edInfoFisco: TEdit;
     TbsDanfe: TTabSheet;
-    lbltLogoMarca: TLabel;
     sbtnLogoMarca: TSpeedButton;
     rgTipoDanfe: TRadioGroup;
     TbsEmail: TTabSheet;
@@ -122,21 +113,13 @@ type
     edtEmailAssunto: TEdit;
     cbEmailSSL: TCheckBox;
     mmEmailMsg: TMemo;
-    edtLogoMarca: TEdit;
     ckAtualizarXML: TCheckBox;
     ckExibirErroSchema: TCheckBox;
     lblFormatoAlerta: TLabel;
     edFormatoAlerta: TEdit;
-    btnValidadeCertificado: TcxButton;
     ckSalvarSOAP: TCheckBox;
     GrpBxRetornoEnvio: TGroupBox;
-    lblTentativas: TLabel;
-    lblIntervalo: TLabel;
-    lblAguardar: TLabel;
     ckAjustarAut: TCheckBox;
-    edTentativas: TEdit;
-    edIntervalo: TEdit;
-    edAguardar: TEdit;
     TbsArquivos: TTabSheet;
     ckSalvarArqs: TCheckBox;
     ckPastaMensal: TCheckBox;
@@ -170,6 +153,41 @@ type
     sbPathDownload: TSpeedButton;
     Label51: TLabel;
     edtURLPFX: TEdit;
+    pnlAjustarAguardar: TPanel;
+    pnlIntervalo: TPanel;
+    pnlTentativas: TPanel;
+    pnlAguardar: TPanel;
+    lblAguardar: TLabel;
+    edAguardar: TEdit;
+    lblTentativas: TLabel;
+    edTentativas: TEdit;
+    lblIntervalo: TLabel;
+    edIntervalo: TEdit;
+    pnlProxyServer: TPanel;
+    pnlProxyHost: TPanel;
+    pnlProxyPorta: TPanel;
+    lbltProxyHost: TLabel;
+    edtProxyHost: TEdit;
+    lbltProxyPorta: TLabel;
+    edtProxyPorta: TEdit;
+    pnlProxyAuth: TPanel;
+    pnlProxyUser: TPanel;
+    pnlProxySenha: TPanel;
+    lbltProxyUser: TLabel;
+    edtProxyUser: TEdit;
+    lbltProxySenha: TLabel;
+    edtProxySenha: TEdit;
+    GrpBxLogoMarca: TGroupBox;
+    lbltLogoMarca: TLabel;
+    edtLogoMarca: TEdit;
+    Panel1: TPanel;
+    btnValidadeCertificado: TcxButton;
+    btnIssuerName: TcxButton;
+    btnSerieNumber: TcxButton;
+    Panel2: TPanel;
+    btnSubjectName: TcxButton;
+    btnVersionSSL: TcxButton;
+    btnNumeroCNPJ: TcxButton;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
@@ -201,7 +219,7 @@ var
 implementation
 
 uses
-  FileCtrl, DateUtils, UDMNFe, ACBrDFe, pcnConversaoNFe;
+  System.DateUtils, Vcl.FileCtrl, UDMNFe, ACBrDFe, pcnConversaoNFe;
 
 {$R *.dfm}
 
@@ -240,6 +258,8 @@ begin
   inherited;
   pgcGuiasGerais.ActivePage        := TbsConfiguracoes;
   pgcGuiasConfiguracoes.ActivePage := TbsGeral;
+  sbtnGetCert.Top  := edtNumSerie.Top - 2;
+  sbtnGetCert.Left := edtNumSerie.Left + edtNumSerie.Width + 3;
 end;
 
 procedure TfrmGeConfigurarNFeACBr.btnSalvarClick(Sender: TObject);

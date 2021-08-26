@@ -99,7 +99,10 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UDMNFe;
+    System.StrUtils
+  , UConstantesDGE
+  , UDMBusiness
+  , UDMNFe;
 
 {$R *.dfm}
 

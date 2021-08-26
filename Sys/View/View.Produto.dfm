@@ -30,8 +30,6 @@ inherited ViewProduto: TViewProduto
     ExplicitWidth = 961
     ExplicitHeight = 543
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 953
       ExplicitHeight = 514
       inherited Bevel4: TBevel
@@ -211,15 +209,15 @@ inherited ViewProduto: TViewProduto
           Transparent = True
         end
         object ShpLucroZerado: TShape [3]
-          Left = 288
-          Top = 9
+          Left = 271
+          Top = 15
           Width = 15
           Height = 15
           Brush.Color = clYellow
         end
         object lblLucroZerado: TLabel [4]
-          Left = 308
-          Top = 10
+          Left = 292
+          Top = 18
           Width = 73
           Height = 13
           Caption = 'Lucro zerado'
@@ -232,15 +230,15 @@ inherited ViewProduto: TViewProduto
           Transparent = True
         end
         object ShpLucroNegativo: TShape [5]
-          Left = 288
-          Top = 27
+          Left = 272
+          Top = 35
           Width = 15
           Height = 15
           Brush.Color = 12171775
         end
         object lblLucroNegativo: TLabel [6]
-          Left = 308
-          Top = 28
+          Left = 292
+          Top = 36
           Width = 46
           Height = 13
           Caption = 'Preju'#237'zo'
@@ -253,11 +251,11 @@ inherited ViewProduto: TViewProduto
           Transparent = True
         end
         inherited grpBxFiltro: TGroupBox
-          Left = 387
-          Width = 562
+          Left = 379
+          Width = 570
           Caption = 'Pesquisar    '
-          ExplicitLeft = 387
-          ExplicitWidth = 562
+          ExplicitLeft = 379
+          ExplicitWidth = 570
           inherited lbltFiltrar: TLabel
             Width = 48
             Caption = 'Produto:'
@@ -265,16 +263,16 @@ inherited ViewProduto: TViewProduto
             ExplicitWidth = 48
           end
           inherited edtFiltrar: TEdit
-            Left = 239
-            Width = 276
+            Left = 231
+            Width = 292
             TabOrder = 2
-            ExplicitLeft = 234
-            ExplicitWidth = 276
+            ExplicitLeft = 231
+            ExplicitWidth = 292
           end
           inherited btnFiltrar: TcxButton
-            Left = 521
+            Left = 529
             TabOrder = 3
-            ExplicitLeft = 516
+            ExplicitLeft = 529
           end
           object chkProdutoComEstoque: TCheckBox
             Left = 68
@@ -309,8 +307,6 @@ inherited ViewProduto: TViewProduto
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 953
       ExplicitHeight = 514
       inherited Bevel8: TBevel
@@ -816,7 +812,7 @@ inherited ViewProduto: TViewProduto
         Top = 237
         Width = 953
         Height = 277
-        ActivePage = TbsEspecificacao
+        ActivePage = tbsValores
         Align = alClient
         TabOrder = 2
         object tbsValores: TTabSheet
@@ -1079,7 +1075,7 @@ inherited ViewProduto: TViewProduto
             end
             object dbPrecoPromocaoFrac: TDBEdit
               Left = 137
-              Top = 43
+              Top = 40
               Width = 113
               Height = 21
               Color = clMoneyGreen
@@ -2301,7 +2297,7 @@ inherited ViewProduto: TViewProduto
                 Font.Style = []
                 KeyField = 'CODIGO'
                 ListField = 'DESCRICAO'
-                ListSource = dtsCor
+                ListSource = dtsCorVeiculo
                 ParentFont = False
                 TabOrder = 2
               end
@@ -2336,7 +2332,7 @@ inherited ViewProduto: TViewProduto
                 Font.Style = []
                 KeyField = 'CODIGO'
                 ListField = 'DESCRICAO'
-                ListSource = dtsCombustivel
+                ListSource = dtsTipoCombustivel
                 ParentFont = False
                 TabOrder = 4
               end
@@ -2543,7 +2539,7 @@ inherited ViewProduto: TViewProduto
               end
               object dbEspessura: TDBEdit
                 Left = 488
-                Top = 35
+                Top = 32
                 Width = 97
                 Height = 21
                 DataField = 'ESPESSURA'
@@ -2991,10 +2987,6 @@ inherited ViewProduto: TViewProduto
       Left = 957
       ExplicitLeft = 957
     end
-    inherited btbtnCancelar: TcxButton
-      ExplicitLeft = 233
-      ExplicitTop = 0
-    end
     inherited btbtnFechar: TcxButton
       Left = 882
       ExplicitLeft = 882
@@ -3026,13 +3018,11 @@ inherited ViewProduto: TViewProduto
   object dtsTributacaoSN: TDataSource
     Left = 344
   end
-  object dtsCor: TDataSource
-    DataSet = tblCor
-    Left = 792
+  object dtsCorVeiculo: TDataSource
+    Left = 472
   end
-  object dtsCombustivel: TDataSource
-    DataSet = tblCombustivel
-    Left = 632
+  object dtsTipoCombustivel: TDataSource
+    Left = 504
   end
   object dtsTipoVeiculo: TDataSource
     Left = 440
@@ -3205,21 +3195,5 @@ inherited ViewProduto: TViewProduto
   end
   object dtsTipoProduto: TDataSource
     Left = 216
-  end
-  object tblCombustivel: TFDTable
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    UpdateOptions.UpdateTableName = 'RENAVAM_COBUSTIVEL'
-    TableName = 'RENAVAM_COBUSTIVEL'
-    Left = 600
-  end
-  object tblCor: TFDTable
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    UpdateOptions.UpdateTableName = 'RENAVAM_COR'
-    TableName = 'RENAVAM_COR'
-    Left = 760
   end
 end

@@ -276,7 +276,8 @@ type
 implementation
 
 uses
-    DateUtils
+    System.StrUtils
+  , System.DateUtils
   , Controller.Tabela
   , UConstantesDGE
   , UDMBusiness

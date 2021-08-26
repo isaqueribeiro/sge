@@ -120,7 +120,8 @@ var
 implementation
 
 uses
-    UDMBusiness
+    System.StrUtils
+  , UDMBusiness
   , Controller.Tabela
   , UGeControleCheque;
 

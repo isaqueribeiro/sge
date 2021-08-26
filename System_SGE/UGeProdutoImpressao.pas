@@ -128,7 +128,12 @@ type
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UDMNFe, UFuncoes, UGeProduto;
+    System.StrUtils
+  , UConstantesDGE
+  , UDMBusiness
+  , UDMNFe
+  , UFuncoes
+  , View.Produto;
 
 const
   REPORT_RELACAO_PRODUTO          = 0;

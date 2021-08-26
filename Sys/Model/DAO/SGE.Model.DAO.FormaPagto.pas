@@ -104,9 +104,12 @@ begin
         .Add('    f.cod          as codigo')
         .Add('  , trim(f.descri) as descricao ')
         .Add('  , lpad(f.cod, 2, ''0'') || '' - '' || trim(f.descri) as codigo_descricao ')
+        .Add('  , f.Ativa')
         .Add('from TBFORMPAGTO f ')
       .&End
     .Open;
+
+  FConn.Query.DataSet.Filter := '(ativa = 1)';
 end;
 
 procedure TModelDAOFormaPagto.DataSetNewRecord(DataSet: TDataSet);
