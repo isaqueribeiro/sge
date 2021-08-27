@@ -22,6 +22,7 @@ type
     function Empresa(const Value: IEmpresaModel)  : IUsuarioModel; overload;
     function Empresa : IEmpresaModel; overload; // IEmpresaModel
     function CNPJ : String;
+    function RazaoSocial : String;
 
     function Vendedor(const aCodigo: Integer) : IUsuarioModel; overload;
     function Vendedor(const Value: IPessoaFisicaModel) : IUsuarioModel; overload;

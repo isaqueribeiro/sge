@@ -94,6 +94,7 @@ type
     function CondicaoPagtoForma : IModelDAOCustom;
     function CondicaoPagtoView : IModelDAOCustom;
     function ConfiguracaoEmpresa : IModelDAOCustom;
+    function ContaAPagar : IModelDAOCustom;
     function ContaCorrente : IModelDAOCustom;
     function ContaCorrenteView : IModelDAOCustom;
     function CorVeiculo : IModelDAOCustom;

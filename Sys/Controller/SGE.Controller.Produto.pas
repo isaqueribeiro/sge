@@ -12,6 +12,7 @@ type
   // Table
   TControllerProduto = class(TController, IControllerProduto)
     private
+      FBusca : IModelDAOCustom;
     protected
       constructor Create;
     public
@@ -21,6 +22,8 @@ type
       procedure AtualizarMetafonema(aDescricao, aApresentacao, aCodigo : String);
       procedure AtualizarNomeAmigo(aDescricao, aApresentacao, aCodigo : String);
       procedure AtualizarTabelaIBPT(aCodigoNCM, aIdNCM, aCodigoProduto : String);
+
+      function Get(aCodigo : Integer) : IModelDAOCustom;
   end;
 
   // Table
@@ -194,6 +197,67 @@ end;
 destructor TControllerProduto.Destroy;
 begin
   inherited;
+end;
+
+function TControllerProduto.Get(aCodigo: Integer): IModelDAOCustom;
+begin
+  if not Assigned(FBusca) then
+  begin
+    FBusca := TModelDAOFactory.New.Busca;
+    FBusca
+      .Clear
+      .SQL('Select               ')
+      .SQL('    p.Codigo         ')
+      .SQL('  , p.Cod            ')
+      .SQL('  , p.Descri         ')
+      .SQL('  , p.Modelo         ')
+      .SQL('  , p.Preco          ')
+      .SQL('  , p.Referencia     ')
+      .SQL('  , p.Secao          ')
+      .SQL('  , p.Qtde           ')
+      .SQL('  , p.Unidade        ')
+      .SQL('  , p.Estoqmin       ')
+      .SQL('  , p.Codgrupo       ')
+      .SQL('  , p.Customedio     ')
+      .SQL('  , p.Codemp         ')
+      .SQL('  , p.Codsecao       ')
+      .SQL('  , p.Codorigem      ')
+      .SQL('  , p.Codtributacao  ')
+      .SQL('  , p.Cst            ')
+      .SQL('  , p.Csosn          ')
+      .SQL('  , p.Codcfop        ')
+      .SQL('  , p.Codbarra_ean   ')
+      .SQL('  , p.Codunidade     ')
+      .SQL('  , p.Ncm_sh         ')
+      .SQL('  , p.Aliquota_tipo  ')
+      .SQL('  , p.Aliquota       ')
+      .SQL('  , p.Aliquota_csosn ')
+      .SQL('  , p.Aliquota_pis   ')
+      .SQL('  , p.Aliquota_cofins')
+      .SQL('  , p.Percentual_reducao_BC')
+      .SQL('  , p.Valor_ipi            ')
+      .SQL('  , p.Reserva              ')
+      .SQL('  , case when coalesce(p.Reserva, 0) > 0               ')
+      .SQL('      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)')
+      .SQL('      else coalesce(p.Qtde, 0) ')
+      .SQL('    end as Disponivel          ')
+      .SQL('  , g.Descri as Descricao_Grupo')
+      .SQL('  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao    ')
+      .SQL('  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade')
+      .SQL('  , u.Unp_sigla         ')
+      .SQL('  , c.Cfop_descricao    ')
+      .SQL('  , c.Cfop_especificacao')
+      .SQL('from TBPRODUTO p        ')
+      .SQL('  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)        ')
+      .SQL('  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)    ')
+      .SQL('  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)')
+      .SQL('  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)')
+      .SQL('where (p.Codigo = :codigo)')
+      .ParamsByName('codigo', aCodigo)
+      .Open;
+  end;
+
+  Result := FBusca;
 end;
 
 class function TControllerProduto.New: IControllerProduto;

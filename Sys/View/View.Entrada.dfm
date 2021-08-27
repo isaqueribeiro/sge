@@ -1348,7 +1348,7 @@ inherited ViewEntrada: TViewEntrada
         Top = 420
         Width = 1106
         Height = 185
-        ActivePage = tbsPagamento
+        ActivePage = tbsDuplicatas
         Align = alBottom
         HotTrack = True
         TabOrder = 4
@@ -1948,6 +1948,8 @@ inherited ViewEntrada: TViewEntrada
               ShowHint = True
               TabOrder = 0
               OnClick = btnRegerarDuplicataClick
+              ExplicitLeft = -2
+              ExplicitTop = -6
             end
             object btnTituloEditar: TBitBtn
               Left = 0
@@ -1987,7 +1989,7 @@ inherited ViewEntrada: TViewEntrada
             Height = 157
             TabStop = False
             Align = alClient
-            DataSource = dtsDuplicatas
+            DataSource = DtSrcTabelaDuplicatas
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -11
@@ -2007,6 +2009,7 @@ inherited ViewEntrada: TViewEntrada
               item
                 Expanded = False
                 FieldName = 'Lancamento'
+                Title.Caption = 'Lan'#231'amento '
                 Width = 80
                 Visible = True
               end
@@ -2014,6 +2017,7 @@ inherited ViewEntrada: TViewEntrada
                 Expanded = False
                 FieldName = 'PARCELA'
                 Title.Alignment = taCenter
+                Title.Caption = 'Parc. '
                 Width = 40
                 Visible = True
               end
@@ -2041,13 +2045,14 @@ inherited ViewEntrada: TViewEntrada
               item
                 Expanded = False
                 FieldName = 'TIPPAG'
+                Title.Caption = 'Tipo de Pagamento '
                 Width = 180
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'SITUACAO_DESC'
-                Title.Caption = 'Situa'#231#227'o'
+                Title.Caption = 'Situa'#231#227'o '
                 Width = 60
                 Visible = True
               end
@@ -2055,17 +2060,20 @@ inherited ViewEntrada: TViewEntrada
                 Expanded = False
                 FieldName = 'PAGO_'
                 Title.Alignment = taCenter
+                Title.Caption = 'Pago?  '
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'NUMCHQ'
+                Title.Caption = 'No. Cheque '
                 Width = 80
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'BCO_NOME'
+                Title.Caption = 'Banco '
                 Width = 220
                 Visible = True
               end>
@@ -3108,8 +3116,6 @@ inherited ViewEntrada: TViewEntrada
             ShowHint = True
             TabOrder = 0
             OnClick = btnProdutoInserirClick
-            ExplicitLeft = 6
-            ExplicitTop = -6
           end
           object btnProdutoEditar: TBitBtn
             Left = 0
@@ -4025,7 +4031,7 @@ inherited ViewEntrada: TViewEntrada
     OnStateChange = DtSrcTabelaItensStateChange
     Left = 248
   end
-  object dtsDuplicatas: TDataSource
+  object DtSrcTabelaDuplicatas: TDataSource
     AutoEdit = False
     DataSet = qryDuplicatas
     Left = 424
@@ -4204,68 +4210,6 @@ inherited ViewEntrada: TViewEntrada
         DataType = ftString
         ParamType = ptInput
         Size = 18
-      end>
-  end
-  object qryProduto: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    p.Codigo'
-      '  , p.Cod'
-      '  , p.Descri'
-      '  , p.Modelo'
-      '  , p.Preco'
-      '  , p.Referencia'
-      '  , p.Secao'
-      '  , p.Qtde'
-      '  , p.Unidade'
-      '  , p.Estoqmin'
-      '  , p.Codgrupo'
-      '  , p.Customedio'
-      '  , p.Codemp'
-      '  , p.Codsecao'
-      '  , p.Codorigem'
-      '  , p.Codtributacao'
-      '  , p.Cst'
-      '  , p.Csosn'
-      '  , p.Codcfop'
-      '  , p.Codbarra_ean'
-      '  , p.Codunidade'
-      '  , p.Ncm_sh'
-      '  , p.Aliquota_tipo'
-      '  , p.Aliquota'
-      '  , p.Aliquota_csosn'
-      '  , p.Aliquota_pis'
-      '  , p.Aliquota_cofins'
-      '  , p.Percentual_reducao_BC'
-      '  , p.Valor_ipi'
-      '  , p.Reserva'
-      '  , case when coalesce(p.Reserva, 0) > 0'
-      '      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)'
-      '      else coalesce(p.Qtde, 0)'
-      '    end as Disponivel'
-      '  , g.Descri as Descricao_Grupo'
-      '  , coalesce(s.Scp_descricao, p.Secao) as Descricao_Secao'
-      '  , coalesce(u.Unp_descricao, p.Unidade) as Descricao_Unidade'
-      '  , u.Unp_sigla'
-      '  , c.Cfop_descricao'
-      '  , c.Cfop_especificacao'
-      'from TBPRODUTO p'
-      '  left join TBGRUPOPROD g on (g.Cod = p.Codgrupo)'
-      '  left join TBSECAOPROD s on (s.Scp_cod = p.Codsecao)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
-      '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
-      'where p.Codigo = :Codigo')
-    Left = 744
-    Top = 392
-    ParamData = <
-      item
-        Name = 'CODIGO'
-        DataType = ftInteger
-        ParamType = ptInput
-        Value = Null
       end>
   end
   object spGerarDuplicatas: TFDStoredProc

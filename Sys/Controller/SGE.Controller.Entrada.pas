@@ -15,6 +15,7 @@ type
     private
       FBusca : IModelDAOCustom;
       FProdutos : IControllerCustom;
+      FDuplicatas : IControllerCustom;
     protected
       constructor Create;
     public
@@ -23,10 +24,12 @@ type
 
       procedure CorrigirCFOP(aCFOP : String);
       procedure CarregarProdutos;
+      procedure CarregarDuplicatas;
 
       function Busca : IModelDAOCustom;
       function DocumentoDuplicado(const aEntrada : TLancamentoEntrada; const aDocumento : TDocumentoEntrada) : Boolean;
       function Produtos : IControllerCustom;
+      function Duplicatas : IControllerCustom;
   end;
 
   // Tipo de Entrada de Produtos/Serviços (View)
@@ -59,6 +62,16 @@ type
       class function New : IControllerCustom;
   end;
 
+  // Duplicatas da Entrada (Contas A Pagar)
+  TControllerEntradaDuplicata = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
 implementation
 
 { TControllerEntrada }
@@ -66,6 +79,19 @@ implementation
 uses
   System.SysUtils,
   System.Classes;
+
+procedure TControllerEntrada.CarregarDuplicatas;
+begin
+  if not Assigned(FDuplicatas) then
+    FDuplicatas := TControllerEntradaDuplicata.New;
+
+  FDuplicatas
+    .DAO
+    .Close
+    .ParamsByName('AnoCompra', FDAO.DataSet.FieldByName('ANO').AsInteger)
+    .ParamsByName('NumCompra', FDAO.DataSet.FieldByName('CODCONTROL').AsInteger)
+    .Open;
+end;
 
 procedure TControllerEntrada.CarregarProdutos;
 begin
@@ -75,8 +101,8 @@ begin
   FProdutos
     .DAO
     .Close
-    .ParamsByName('Ano',        FDAO.DataSet.FieldByName('ANO').AsString)
-    .ParamsByName('Codcontrol', FDAO.DataSet.FieldByName('CODCONTROL').AsString)
+    .ParamsByName('Ano',        FDAO.DataSet.FieldByName('ANO').AsInteger)
+    .ParamsByName('Codcontrol', FDAO.DataSet.FieldByName('CODCONTROL').AsInteger)
     .ParamsByName('Codemp',     FDAO.DataSet.FieldByName('CODEMP').AsString)
     .Open;
 end;
@@ -97,8 +123,8 @@ begin
     aScriptSQL.Add('Update TBCOMPRAS Set ');
     aScriptSQL.Add('    NFCFOP   = ' + aCFOP.Trim);
     aScriptSQL.Add('  , NATUREZA = ' + aCFOP.Trim.QuotedString);
-    aScriptSQL.Add('where ANO        = ' + FDAO.DataSet.FieldByName('ANO').AsString);
-    aScriptSQL.Add('  and CODCONTROL = ' + FDAO.DataSet.FieldByName('CODCONTROL').AsString);
+    aScriptSQL.Add('where ANO        = ' + FDAO.DataSet.FieldByName('ANO').AsInteger.ToString);
+    aScriptSQL.Add('  and CODCONTROL = ' + FDAO.DataSet.FieldByName('CODCONTROL').AsInteger.ToString);
     aScriptSQL.Add('  and CODEMP     = ' + QuotedStr(FDAO.DataSet.FieldByName('CODEMP').AsString));
     aScriptSQL.EndUpdate;
 
@@ -108,8 +134,8 @@ begin
     aScriptSQL.Clear;
     aScriptSQL.Add('Update TBCOMPRASITENS Set ');
     aScriptSQL.Add('  CFOP = ' + aCFOP.Trim);
-    aScriptSQL.Add('where ANO        = ' + FDAO.DataSet.FieldByName('ANO').AsString);
-    aScriptSQL.Add('  and CODCONTROL = ' + FDAO.DataSet.FieldByName('CODCONTROL').AsString);
+    aScriptSQL.Add('where ANO        = ' + FDAO.DataSet.FieldByName('ANO').AsInteger.ToString);
+    aScriptSQL.Add('  and CODCONTROL = ' + FDAO.DataSet.FieldByName('CODCONTROL').AsInteger.ToString);
     aScriptSQL.Add('  and CODEMP     = ' + QuotedStr(FDAO.DataSet.FieldByName('CODEMP').AsString));
     aScriptSQL.EndUpdate;
 
@@ -152,6 +178,14 @@ begin
   finally
     Result := not FBusca.DataSet.IsEmpty;
   end;
+end;
+
+function TControllerEntrada.Duplicatas: IControllerCustom;
+begin
+  if not Assigned(FDuplicatas) then
+    FDuplicatas := TControllerEntradaDuplicata.New;
+
+  Result := FDuplicatas;
 end;
 
 class function TControllerEntrada.New: IControllerEntrada;
@@ -214,6 +248,33 @@ begin
 end;
 
 class function TControllerEntradaProduto.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerEntradaDuplicata }
+
+constructor TControllerEntradaDuplicata.Create;
+begin
+  inherited Create(TModelDAOFactory.New.ContaAPagar);
+
+  // Preparação para a entrada de parâmetros de pesquisa
+  FDAO
+    .Close
+    .ClearWhere;
+  FDAO
+    .Where('p.AnoCompra = :AnoCompra')
+    .Where('p.NumCompra = :NumCompra')
+    .OrderBy('p.numlanc')
+    .OrderBy('p.parcela');
+end;
+
+destructor TControllerEntradaDuplicata.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerEntradaDuplicata.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

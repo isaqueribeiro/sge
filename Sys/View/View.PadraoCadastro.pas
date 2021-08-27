@@ -828,13 +828,14 @@ begin
         FController.DAO.OrderBy(CampoOrdenacao);
 
       FController.DAO.Open;
-      FTabela.Configurar;
     end;
 
     DtSrcTabelaStateChange( DtSrcTabela );
     if Trim(DisplayFormatCodigo) <> EmptyStr then
       CentralizarCodigo;
   end;
+
+  FTabela.Configurar;
 
   if ( tbsTabela.TabVisible and (pgcGuias.ActivePage = tbsTabela) and (edtFiltrar.Visible) and (edtFiltrar.Enabled) ) then
     edtFiltrar.SetFocus;

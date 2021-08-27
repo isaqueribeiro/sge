@@ -2,7 +2,6 @@ unit SGE.Model.DAO.Entrada;
 
 interface
 
-
 uses
   System.SysUtils,
   Data.DB,

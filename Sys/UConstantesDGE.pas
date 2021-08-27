@@ -469,6 +469,11 @@ const
   TIPO_DESPESA_PADRAO = 1;
   VENDEDOR_PADRAO     = '1';
 
+  // Status de Contas a Pagar (Financeiro)
+
+  STATUS_APAGAR_PENDENTE = 0;
+  STATUS_APAGAR_PAGO     = 1;
+
   // Status de Entradas (Compras)
 
   STATUS_CMP_ABR = 1;

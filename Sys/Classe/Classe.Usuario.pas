@@ -34,6 +34,7 @@ type
       function Empresa(const Value: IEmpresaModel)  : IUsuarioModel; overload;
       function Empresa : IEmpresaModel; overload;
       function CNPJ : String;
+      function RazaoSocial : String;
 
       function Vendedor(const aCodigo: Integer) : IUsuarioModel; overload;
       function Vendedor(const Value: IPessoaFisicaModel) : IUsuarioModel; overload;
@@ -144,6 +145,11 @@ begin
     _instance := Self.Create;
 
   Result := _instance;
+end;
+
+function TUsuario.RazaoSocial: String;
+begin
+  Result := FEmpresa.RazaoSocial;
 end;
 
 function TUsuario.Login(const Value: String): IUsuarioModel;

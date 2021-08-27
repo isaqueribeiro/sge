@@ -55,6 +55,7 @@ type
     procedure AtualizarMetafonema(aDescricao, aApresentacao, aCodigo : String);
     procedure AtualizarNomeAmigo(aDescricao, aApresentacao, aCodigo : String);
     procedure AtualizarTabelaIBPT(aCodigoNCM, aIdNCM, aCodigoProduto : String);
+    function Get(aCodigo : Integer) : IModelDAOCustom;
   end;
 
   IControllerPromocao = interface(IControllerCustom)
@@ -68,9 +69,12 @@ type
     function Busca : IModelDAOCustom;
     function DocumentoDuplicado(const aEntrada : TLancamentoEntrada; const aDocumento : TDocumentoEntrada) : Boolean;
     function Produtos : IControllerCustom;
+    function Duplicatas : IControllerCustom;
 
     procedure CorrigirCFOP(aCFOP : String);
     procedure CarregarProdutos;
+    procedure CarregarDuplicatas;
+    procedure GerarDuplicatas;
   end;
 
   IControllerFactory = interface

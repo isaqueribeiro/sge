@@ -151,7 +151,7 @@ type
     dbgTitulos: TDBGrid;
     Bevel9: TBevel;
     DtSrcTabelaItens: TDataSource;
-    dtsDuplicatas: TDataSource;
+    DtSrcTabelaDuplicatas: TDataSource;
     GrpBxDadosProduto: TGroupBox;
     lblProduto: TLabel;
     lblQuantidade: TLabel;
@@ -264,7 +264,6 @@ type
     dbCSOSN: TDBEdit;
     dbCalcularTotais: TDBCheckBox;
     qryAutorizacaoProduto: TFDQuery;
-    qryProduto: TFDQuery;
     spGerarDuplicatas: TFDStoredProc;
     qryNFE: TFDQuery;
     updNFE: TFDUpdateSQL;
@@ -329,6 +328,8 @@ type
     btnImportar: TcxButton;
     bvlImportar: TBevel;
     procedure DataSetStatusGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+    procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
+    procedure DtSrcTabelaAfterScroll(DataSet: TDataSet);
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
@@ -366,8 +367,6 @@ type
     procedure nmPpReciboNFeClick(Sender: TObject);
     procedure nmPpChaveNFeClick(Sender: TObject);
     procedure nmPpArquivoNFeClick(Sender: TObject);
-    procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
-    procedure DtSrcTabelaAfterScroll(DataSet: TDataSet);
     procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
     procedure fdQryTabelaAUTORIZACAO_CODIGOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure qryDuplicatasCalcFields(DataSet: TDataSet);
@@ -386,7 +385,7 @@ type
     FControllerCondicaoPagtoView,
     FControllerTipoDespesa ,
     FControllerCFOP    : IControllerCustom;
-    FControllerProduto : IControllerCustom;
+    FControllerProduto : IControllerProduto;
     FEmpresa : String;
     FTipoMovimento : TTipoMovimentoEntrada;
     FApenasFinalizadas : Boolean;
@@ -394,8 +393,8 @@ type
     FValorTotalProduto : Currency;
     procedure CarregarDadosEmpresa(const pEmpresa, pTituloRelatorio : String);
     procedure AbrirTabelaItens;
+    procedure AbrirTabelaDuplicatas;
     procedure AbrirTabelaLotes(const AnoCompra : Smallint; const ControleCompra : Integer; const EmpresaCompra : String);
-    procedure AbrirTabelaDuplicatas(const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure AbrirNotaFiscal(const pEmpresa : String; const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure GerarDuplicatas(const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure CarregarDadosProduto( Codigo : Integer);
@@ -418,6 +417,7 @@ type
     function Controller : IControllerEntrada;
     function Empresa  : IControllerEmpresa;
     function Produtos : IControllerCustom;
+    function Duplicatas : IControllerCustom;
   public
     { Public declarations }
     procedure pgcGuiasOnChange; override;
@@ -716,7 +716,8 @@ begin
     if not (GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]) then
       OcutarCampoAutorizacao;
 
-  DtSrcTabelaItens.DataSet := Produtos.DAO.DataSet;
+  DtSrcTabelaItens.DataSet      := Produtos.DAO.DataSet;
+  DtSrcTabelaDuplicatas.DataSet := Duplicatas.DAO.DataSet;
 
   inherited;
 
@@ -1180,7 +1181,7 @@ begin
           , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger
           , DtSrcTabela.DataSet.FieldByName('CODEMP').AsString);
 
-        AbrirTabelaDuplicatas( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+        AbrirTabelaDuplicatas;
 
         DtSrcTabela.DataSet.Edit; // Colocar registro em edição para que usuário possa continuar o processo
 
@@ -1243,21 +1244,24 @@ begin
     end;
 end;
 
-procedure TViewEntrada.AbrirTabelaDuplicatas(
-  const AnoCompra: Smallint; const ControleCompra: Integer);
+procedure TViewEntrada.AbrirTabelaDuplicatas;
 begin
-  qryDuplicatas.Close;
+  Controller.CarregarDuplicatas;
 
-  with qryDuplicatas, SQL do
-  begin
-    Clear;
-    AddStrings( SQL_Duplicatas );
-    Add('where p.AnoCompra = ' + IntToStr(AnoCompra));
-    Add('  and p.NumCompra = ' + IntToStr(ControleCompra));
-    Add('order by p.numlanc, p.parcela');
-  end;
-
-  qryDuplicatas.Open;
+  // Configurar tabela das duplicatas
+  TTabelaController
+    .New
+    .Tabela( DtSrcTabelaDuplicatas.DataSet )
+    .Display('PARCELA',     'Parc.', '00', TAlignment.taCenter, True)
+    .Display('DTEMISS',     'Emissão', 'dd/mm/yyyy', TAlignment.taLeftJustify, True)
+    .Display('DTVENC',      'Vencimento', 'dd/mm/yyyy', TAlignment.taLeftJustify, True)
+    .Display('DTPAG',       'Data Pagto.', 'dd/mm/yyyy', TAlignment.taLeftJustify, True)
+    .Display('VALORPAG',    'Valor A Pagar', ',0.00', TAlignment.taRightJustify, True)
+    .Display('VALORMULTA',  'Valor Juros/Multas', ',0.00', TAlignment.taRightJustify, True)
+    .Display('VALORPAGTOT', 'Total Pago', ',0.00', TAlignment.taRightJustify, True)
+    .Display('VALORSALDO',  'Saldo A Pagar', ',0.00', TAlignment.taRightJustify, True)
+    .Display('PAGO_',       'Pago?', TAlignment.taCenter, False)
+    .Configurar;
 end;
 
 procedure TViewEntrada.CarregarDadosProduto(Codigo : Integer);
@@ -1268,14 +1272,10 @@ begin
   if (DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert]) then
   begin
     if not Assigned(FControllerProduto) then
-      FControllerProduto : IControllerCustom; // Implementar
+      FControllerProduto := TControllerFactory.New.Produto;
 
-    with qryProduto do
+    with FControllerProduto.Get(Codigo).DataSet do
     begin
-      Close;
-      ParamByName('Codigo').AsInteger := Codigo;
-      Open;
-
       if not IsEmpty then
       begin
         if not FControllerCFOP.DAO.DataSet.Active then
@@ -1383,7 +1383,7 @@ begin
           , FieldByName('CODCONTROL').AsInteger
           , FieldByName('CODEMP').AsString);
 
-        AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+        AbrirTabelaDuplicatas;
       end;
     end;
 end;
@@ -1634,13 +1634,6 @@ begin
     .Tabela( cdsTabelaLotes )
     .Display('QTDE', 'Qtde.', ',0.##', TAlignment.taRightJustify)
     .Configurar( cdsTabelaLotes );
-
-  // Configurar tabela das duplicatas
-  TTabelaController
-    .New
-    .Tabela( qryDuplicatas )
-    .Display('VALORPAG', 'Valor A Pagar', ',0.00', TAlignment.taRightJustify)
-    .Configurar( qryDuplicatas );
 end;
 
 procedure TViewEntrada.ControlEditExit(Sender: TObject);
@@ -1720,7 +1713,7 @@ begin
       , FieldByName('CODCONTROL').AsInteger
       , FieldByName('CODEMP').AsString);
 
-    AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+    AbrirTabelaDuplicatas;
   end;
 end;
 
@@ -1771,7 +1764,7 @@ begin
         , FieldByName('CODCONTROL').AsInteger
         , FieldByName('CODEMP').AsString);
 
-      AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaDuplicatas;
     end;
 end;
 
@@ -1806,7 +1799,7 @@ begin
          , FieldByName('CODCONTROL').AsInteger
          , FieldByName('CODEMP').AsString);
 
-        AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+        AbrirTabelaDuplicatas;
       end;
     end;
   end;
@@ -2020,13 +2013,13 @@ begin
         if aGerarTitulos then
           GerarDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 
-        AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+        AbrirTabelaDuplicatas;
 
         ShowInformation('Entrada finalizada com sucesso !');
 
         if aGerarTitulos then
           if ( DuplicatasConfirmadas(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger, FieldByName('DTEMISS').AsDateTime, FieldByName('TOTALNF').AsCurrency) ) then
-            AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+            AbrirTabelaDuplicatas;
 
         HabilitarDesabilitar_Btns;
       end;
@@ -2039,7 +2032,8 @@ procedure TViewEntrada.GerarDuplicatas(const AnoCompra: Smallint;
   const ControleCompra: Integer);
 begin
   try
-
+    ///... Implementar recurso na class controller
+    ///========================================
     try
 
       UpdateSequence('GEN_CONTAPAG_NUM_' + IntToStr(AnoCompra), 'TBCONTPAG', 'NUMLANC', 'where ANOLANC = ' + IntToStr(AnoCompra));
@@ -2083,7 +2077,7 @@ begin
   if ( ShowConfirm('Confirma geração do(s) duplicata(s) a receber da entrada?') ) then
   begin
     GerarDuplicatas( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
-    AbrirTabelaDuplicatas( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+    AbrirTabelaDuplicatas;
   end;
 end;
 
@@ -2100,7 +2094,7 @@ begin
     if ( FieldByName('COMPRA_PRAZO').AsInteger = 1 ) then
     begin
       if ( DuplicatasConfirmadas(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger, FieldByName('DTEMISS').AsDateTime, FieldByName('TOTALNF').AsCurrency) ) then
-        AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+        AbrirTabelaDuplicatas;
     end;
   end;
 end;
@@ -2174,6 +2168,11 @@ begin
     .DAO.DataSet.Filtered := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
 end;
 
+function TViewEntrada.Duplicatas: IControllerCustom;
+begin
+  Result := Controller.Duplicatas;
+end;
+
 function TViewEntrada.Empresa: IControllerEmpresa;
 begin
   Result := (FControllerEmpresaView as IControllerEmpresa);
@@ -2192,7 +2191,7 @@ begin
       , FieldByName('CODCONTROL').AsInteger
       , FieldByName('CODEMP').AsString);
 
-    AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+    AbrirTabelaDuplicatas;
   end;
 end;
 
@@ -2271,7 +2270,7 @@ begin
         , FieldByName('CODCONTROL').AsInteger
         , FieldByName('CODEMP').AsString);
 
-      AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaDuplicatas;
 
       ShowInformation('Entrada cancelada com sucesso.' + #13#13 + 'Ano/Controle: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CODCONTROL').AsInteger));
 
@@ -2792,7 +2791,7 @@ begin
         , FieldByName('CODCONTROL').AsInteger
         , FieldByName('CODEMP').AsString);
 
-      AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+      AbrirTabelaDuplicatas;
 
       ShowInformation('Correção', 'CFOP corrigido com sucesso!' + #13 + 'Favor pesquisar entrada novamente.');
     end;

@@ -12,6 +12,7 @@ uses
   SGE.Model.DAO.Cidade,
   SGE.Model.DAO.Cliente,
   SGE.Model.DAO.CondicaoPagto,
+  SGE.Model.DAO.ContaAPagar,
   SGE.Model.DAO.ContaCorrente,
   SGE.Model.DAO.CST,
   SGE.Model.DAO.Distrito,
@@ -56,8 +57,9 @@ type
       FCondicaoPagtoForma ,
       FCondicaoPagtoView  ,
       FConfiguracaoEmpresa,
-      FContaCorrente      ,
-      FContaCorrenteView  ,
+      FContaAPagar      ,
+      FContaCorrente    ,
+      FContaCorrenteView,
       FCorVeiculo ,
       FCST        ,
       FDistrito   ,
@@ -131,6 +133,7 @@ type
       function CondicaoPagtoForma : IModelDAOCustom;
       function CondicaoPagtoView : IModelDAOCustom;
       function ConfiguracaoEmpresa : IModelDAOCustom;
+      function ContaAPagar : IModelDAOCustom;
       function ContaCorrente : IModelDAOCustom;
       function ContaCorrenteView : IModelDAOCustom;
       function CorVeiculo : IModelDAOCustom;
@@ -581,6 +584,14 @@ begin
     FConfiguracaoEmpresa := TModelDAOConfiguracaoEmpresa.New;
 
   Result := FConfiguracaoEmpresa;
+end;
+
+function TModelDAOFactory.ContaAPagar: IModelDAOCustom;
+begin
+  if not Assigned(FContaAPagar) then
+    FContaAPagar := TModelDAOContaAPagar.New;
+
+  Result := FContaAPagar;
 end;
 
 function TModelDAOFactory.ContaCorrente: IModelDAOCustom;

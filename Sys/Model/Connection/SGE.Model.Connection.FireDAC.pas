@@ -330,7 +330,20 @@ end;
 
 function TConnectionFireDAC.ExistParamByName(aParamName: String): Boolean;
 begin
-  Result := Assigned(FQuery.Params.FindParam(aParamName))
+  Result := Assigned(FQuery.Params.FindParam(aParamName));
+
+  // Remontar SQL para verificar a existência do parâmetro
+  if (not Result) and (not FQuery.Active) then
+  begin
+    FQuery.SQL.BeginUpdate;
+    FQuery.SQL.Clear;
+    FQuery.SQL.Add( FScript.Text );
+    FQuery.SQL.Add( FScript.Where );
+    FQuery.SQL.Add( FScript.OrderBy );
+    FQuery.SQL.EndUpdate;
+
+    Result := Assigned(FQuery.Params.FindParam(aParamName));
+  end;
 end;
 
 function TConnectionFireDAC.GeneratorName: String;

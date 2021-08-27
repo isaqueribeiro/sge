@@ -239,10 +239,6 @@ var
 
   { DONE -oIsaque -cContas A Pagar : 22/05/2014 - Correção de BUG porque a rotina estava permitindo a gravação de um lançamento sem FORNECEDOR, DATAS e VALOR }
 
-const
-  STATUS_APAGAR_PENDENTE = 0;
-  STATUS_APAGAR_PAGO     = 1;
-
   procedure MostrarControleContasAPagar(const AOwner : TComponent);
 
 implementation

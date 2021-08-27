@@ -191,6 +191,7 @@ uses
   SGE.Model.DAO.Cidade in '..\Sys\Model\DAO\SGE.Model.DAO.Cidade.pas',
   SGE.Model.DAO.Cliente in '..\Sys\Model\DAO\SGE.Model.DAO.Cliente.pas',
   SGE.Model.DAO.CondicaoPagto in '..\Sys\Model\DAO\SGE.Model.DAO.CondicaoPagto.pas',
+  SGE.Model.DAO.ContaAPagar in '..\Sys\Model\DAO\SGE.Model.DAO.ContaAPagar.pas',
   SGE.Model.DAO.ContaCorrente in '..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas',
   SGE.Model.DAO.CST in '..\Sys\Model\DAO\SGE.Model.DAO.CST.pas',
   SGE.Model.DAO.Distrito in '..\Sys\Model\DAO\SGE.Model.DAO.Distrito.pas',
@@ -199,6 +200,7 @@ uses
   SGE.Model.DAO.Factory in '..\Sys\Model\DAO\SGE.Model.DAO.Factory.pas',
   SGE.Model.DAO.FormaPagto in '..\Sys\Model\DAO\SGE.Model.DAO.FormaPagto.pas',
   SGE.Model.DAO.Fornecedor in '..\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas',
+  SGE.Model.DAO.Helper in '..\Sys\Model\DAO\SGE.Model.DAO.Helper.pas',
   SGE.Model.DAO.IBPT in '..\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas',
   SGE.Model.DAO.Logradouro in '..\Sys\Model\DAO\SGE.Model.DAO.Logradouro.pas',
   SGE.Model.DAO.PlanoConta in '..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas',
@@ -268,7 +270,8 @@ uses
   View.Produto in '..\Sys\View\View.Produto.pas' {ViewProduto},
   View.Certificado in '..\Sys\View\View.Certificado.pas' {ViewCertificado},
   View.Promocao in 'View\View.Promocao.pas' {ViewPromocao},
-  View.Entrada in '..\Sys\View\View.Entrada.pas' {ViewEntrada};
+  View.Entrada in '..\Sys\View\View.Entrada.pas' {ViewEntrada},
+  SGE.Controller.ContaAPagar in '..\Sys\Controller\SGE.Controller.ContaAPagar.pas';
 
 {$R *.res}
 
