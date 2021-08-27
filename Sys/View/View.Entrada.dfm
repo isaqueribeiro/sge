@@ -192,12 +192,11 @@ inherited ViewEntrada: TViewEntrada
             TabOrder = 2
             ExplicitLeft = 347
             ExplicitWidth = 221
-            ExplicitHeight = 23
           end
           inherited btnFiltrar: TcxButton
             Left = 574
             TabOrder = 3
-            ExplicitLeft = 584
+            ExplicitLeft = 574
           end
           object e1Data: TJvDateEdit
             Left = 72
@@ -3109,6 +3108,8 @@ inherited ViewEntrada: TViewEntrada
             ShowHint = True
             TabOrder = 0
             OnClick = btnProdutoInserirClick
+            ExplicitLeft = 6
+            ExplicitTop = -6
           end
           object btnProdutoEditar: TBitBtn
             Left = 0
@@ -3696,8 +3697,7 @@ inherited ViewEntrada: TViewEntrada
     end
     inherited btbtnIncluir: TcxButton
       Left = 108
-      ExplicitLeft = 110
-      ExplicitTop = -2
+      ExplicitLeft = 108
     end
     inherited btbtnAlterar: TcxButton
       Left = 183
@@ -4022,10 +4022,8 @@ inherited ViewEntrada: TViewEntrada
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
-    DataSet = cdsTabelaItens
     OnStateChange = DtSrcTabelaItensStateChange
-    Left = 424
-    Top = 352
+    Left = 248
   end
   object dtsDuplicatas: TDataSource
     AutoEdit = False
@@ -4260,8 +4258,8 @@ inherited ViewEntrada: TViewEntrada
       '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)'
       '  left join TBCFOP c on (c.Cfop_cod = p.Codcfop)'
       'where p.Codigo = :Codigo')
-    Left = 896
-    Top = 336
+    Left = 744
+    Top = 392
     ParamData = <
       item
         Name = 'CODIGO'
@@ -4575,363 +4573,6 @@ inherited ViewEntrada: TViewEntrada
       '  MODELO = :MODELO')
     Left = 928
     Top = 384
-  end
-  object cdsTabelaItens: TFDQuery
-    OnNewRecord = cdsTabelaItensNewRecord
-    CachedUpdates = True
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    UpdateObject = updTabelaItens
-    SQL.Strings = (
-      'Select'
-      '    i.Ano'
-      '  , i.Codcontrol'
-      '  , i.Codemp'
-      '  , i.Seq'
-      '  , i.Codprod'
-      '  , i.Codforn'
-      '  , i.Dtent'
-      '  , i.Qtde'
-      '  , i.Qtdeantes'
-      '  , i.Qtdefinal'
-      '  , i.Precounit'
-      '  , i.Customedio'
-      '  , i.Nf'
-      '  , i.Perc_participacao'
-      '  , i.Valor_frete'
-      '  , i.Valor_desconto'
-      '  , i.Valor_outros'
-      '  , i.Valor_IPI'
-      '  , i.Unid_cod'
-      '  , i.Ncm_sh'
-      '  , i.Cst'
-      '  , i.Csosn'
-      '  , i.Cfop'
-      '  , i.aliquota'
-      '  , i.aliquota_csosn'
-      '  , i.aliquota_pis'
-      '  , i.aliquota_cofins'
-      '  , i.percentual_reducao_bc'
-      '  , i.total_bruto'
-      '  , i.total_liquido'
-      ''
-      '  , coalesce(p.descri_apresentacao, p.Descri) as Descri'
-      '  , p.Qtde as Estoque'
-      '  , p.estoque_aprop_lote'
-      '  , u.Unp_sigla'
-      'from TBCOMPRASITENS i'
-      '  inner join TBPRODUTO p on (p.Cod = i.Codprod)'
-      '  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)')
-    Left = 360
-    Top = 352
-    object cdsTabelaItensANO: TSmallintField
-      FieldName = 'ANO'
-      Origin = 'ANO'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsTabelaItensCODCONTROL: TIntegerField
-      FieldName = 'CODCONTROL'
-      Origin = 'CODCONTROL'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsTabelaItensCODEMP: TStringField
-      FieldName = 'CODEMP'
-      Origin = 'CODEMP'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 18
-    end
-    object cdsTabelaItensSEQ: TSmallintField
-      Alignment = taCenter
-      DisplayLabel = '#'
-      FieldName = 'SEQ'
-      Origin = 'SEQ'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      DisplayFormat = '00'
-    end
-    object cdsTabelaItensCODPROD: TStringField
-      DisplayLabel = 'Produto'
-      FieldName = 'CODPROD'
-      Origin = 'CODPROD'
-      Size = 10
-    end
-    object cdsTabelaItensCODFORN: TIntegerField
-      FieldName = 'CODFORN'
-      Origin = 'CODFORN'
-    end
-    object cdsTabelaItensDTENT: TDateField
-      FieldName = 'DTENT'
-      Origin = 'DTENT'
-    end
-    object cdsTabelaItensNF: TIntegerField
-      FieldName = 'NF'
-      Origin = 'NF'
-    end
-    object cdsTabelaItensUNID_COD: TSmallintField
-      DisplayLabel = 'Und.'
-      FieldName = 'UNID_COD'
-      Origin = 'UNID_COD'
-    end
-    object cdsTabelaItensNCM_SH: TStringField
-      FieldName = 'NCM_SH'
-      Origin = 'NCM_SH'
-      Size = 10
-    end
-    object cdsTabelaItensCST: TStringField
-      FieldName = 'CST'
-      Origin = 'CST'
-      Size = 3
-    end
-    object cdsTabelaItensCSOSN: TStringField
-      FieldName = 'CSOSN'
-      Origin = 'CSOSN'
-      Size = 3
-    end
-    object cdsTabelaItensCFOP: TIntegerField
-      FieldName = 'CFOP'
-      Origin = 'CFOP'
-    end
-    object cdsTabelaItensDESCRI: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRI'
-      Origin = 'DESCRI'
-      ProviderFlags = []
-      Size = 100
-    end
-    object cdsTabelaItensUNP_SIGLA: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Und.'
-      FieldName = 'UNP_SIGLA'
-      Origin = 'UNP_SIGLA'
-      ProviderFlags = []
-      Size = 5
-    end
-    object cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField
-      AutoGenerateValue = arDefault
-      FieldName = 'ESTOQUE_APROP_LOTE'
-      Origin = 'ESTOQUE_APROP_LOTE'
-      ProviderFlags = []
-    end
-    object cdsTabelaItensQTDE: TFMTBCDField
-      FieldName = 'QTDE'
-      Origin = 'QTDE'
-      Required = True
-      Precision = 18
-      Size = 3
-    end
-    object cdsTabelaItensQTDEANTES: TFMTBCDField
-      FieldName = 'QTDEANTES'
-      Origin = 'QTDEANTES'
-      Required = True
-      Precision = 18
-      Size = 3
-    end
-    object cdsTabelaItensQTDEFINAL: TFMTBCDField
-      FieldName = 'QTDEFINAL'
-      Origin = 'QTDEFINAL'
-      Required = True
-      Precision = 18
-      Size = 3
-    end
-    object cdsTabelaItensPRECOUNIT: TFMTBCDField
-      FieldName = 'PRECOUNIT'
-      Origin = 'PRECOUNIT'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensCUSTOMEDIO: TFMTBCDField
-      FieldName = 'CUSTOMEDIO'
-      Origin = 'CUSTOMEDIO'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensPERC_PARTICIPACAO: TFMTBCDField
-      FieldName = 'PERC_PARTICIPACAO'
-      Origin = 'PERC_PARTICIPACAO'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_FRETE: TFMTBCDField
-      FieldName = 'VALOR_FRETE'
-      Origin = 'VALOR_FRETE'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_DESCONTO: TFMTBCDField
-      FieldName = 'VALOR_DESCONTO'
-      Origin = 'VALOR_DESCONTO'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_OUTROS: TFMTBCDField
-      FieldName = 'VALOR_OUTROS'
-      Origin = 'VALOR_OUTROS'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensVALOR_IPI: TFMTBCDField
-      FieldName = 'VALOR_IPI'
-      Origin = 'VALOR_IPI'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensALIQUOTA: TFMTBCDField
-      FieldName = 'ALIQUOTA'
-      Origin = 'ALIQUOTA'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensALIQUOTA_CSOSN: TFMTBCDField
-      FieldName = 'ALIQUOTA_CSOSN'
-      Origin = 'ALIQUOTA_CSOSN'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensALIQUOTA_PIS: TFMTBCDField
-      FieldName = 'ALIQUOTA_PIS'
-      Origin = 'ALIQUOTA_PIS'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensALIQUOTA_COFINS: TFMTBCDField
-      FieldName = 'ALIQUOTA_COFINS'
-      Origin = 'ALIQUOTA_COFINS'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensPERCENTUAL_REDUCAO_BC: TFMTBCDField
-      FieldName = 'PERCENTUAL_REDUCAO_BC'
-      Origin = 'PERCENTUAL_REDUCAO_BC'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensTOTAL_BRUTO: TFMTBCDField
-      FieldName = 'TOTAL_BRUTO'
-      Origin = 'TOTAL_BRUTO'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensTOTAL_LIQUIDO: TFMTBCDField
-      FieldName = 'TOTAL_LIQUIDO'
-      Origin = 'TOTAL_LIQUIDO'
-      Precision = 18
-      Size = 2
-    end
-    object cdsTabelaItensESTOQUE: TFMTBCDField
-      AutoGenerateValue = arDefault
-      FieldName = 'ESTOQUE'
-      Origin = 'QTDE'
-      ProviderFlags = []
-      ReadOnly = True
-      Precision = 18
-      Size = 3
-    end
-  end
-  object updTabelaItens: TFDUpdateSQL
-    Connection = DMBusiness.fdConexao
-    InsertSQL.Strings = (
-      'INSERT INTO TBCOMPRASITENS'
-      '(ANO, CODCONTROL, CODEMP, SEQ, CODFORN, '
-      '  CODPROD, QTDE, PRECOUNIT, CUSTOMEDIO, '
-      '  DTENT, NF, QTDEANTES, QTDEFINAL, PERC_PARTICIPACAO, '
-      '  VALOR_FRETE, VALOR_DESCONTO, VALOR_OUTROS, '
-      '  VALOR_IPI, UNID_COD, NCM_SH, CST, CSOSN, '
-      '  CFOP, ALIQUOTA, ALIQUOTA_CSOSN, ALIQUOTA_PIS, '
-      '  ALIQUOTA_COFINS, PERCENTUAL_REDUCAO_BC, TOTAL_BRUTO, '
-      '  TOTAL_LIQUIDO)'
-      
-        'VALUES (:NEW_ANO, :NEW_CODCONTROL, :NEW_CODEMP, :NEW_SEQ, :NEW_C' +
-        'ODFORN, '
-      '  :NEW_CODPROD, :NEW_QTDE, :NEW_PRECOUNIT, :NEW_CUSTOMEDIO, '
-      
-        '  :NEW_DTENT, :NEW_NF, :NEW_QTDEANTES, :NEW_QTDEFINAL, :NEW_PERC' +
-        '_PARTICIPACAO, '
-      '  :NEW_VALOR_FRETE, :NEW_VALOR_DESCONTO, :NEW_VALOR_OUTROS, '
-      
-        '  :NEW_VALOR_IPI, :NEW_UNID_COD, :NEW_NCM_SH, :NEW_CST, :NEW_CSO' +
-        'SN, '
-      
-        '  :NEW_CFOP, :NEW_ALIQUOTA, :NEW_ALIQUOTA_CSOSN, :NEW_ALIQUOTA_P' +
-        'IS, '
-      
-        '  :NEW_ALIQUOTA_COFINS, :NEW_PERCENTUAL_REDUCAO_BC, :NEW_TOTAL_B' +
-        'RUTO, '
-      '  :NEW_TOTAL_LIQUIDO)'
-      'RETURNING QTDE')
-    ModifySQL.Strings = (
-      'UPDATE TBCOMPRASITENS'
-      
-        'SET ANO = :NEW_ANO, CODCONTROL = :NEW_CODCONTROL, CODEMP = :NEW_' +
-        'CODEMP, '
-      
-        '  SEQ = :NEW_SEQ, CODFORN = :NEW_CODFORN, CODPROD = :NEW_CODPROD' +
-        ', '
-      
-        '  QTDE = :NEW_QTDE, PRECOUNIT = :NEW_PRECOUNIT, CUSTOMEDIO = :NE' +
-        'W_CUSTOMEDIO, '
-      '  DTENT = :NEW_DTENT, NF = :NEW_NF, QTDEANTES = :NEW_QTDEANTES, '
-      
-        '  QTDEFINAL = :NEW_QTDEFINAL, PERC_PARTICIPACAO = :NEW_PERC_PART' +
-        'ICIPACAO, '
-      
-        '  VALOR_FRETE = :NEW_VALOR_FRETE, VALOR_DESCONTO = :NEW_VALOR_DE' +
-        'SCONTO, '
-      '  VALOR_OUTROS = :NEW_VALOR_OUTROS, VALOR_IPI = :NEW_VALOR_IPI, '
-      
-        '  UNID_COD = :NEW_UNID_COD, NCM_SH = :NEW_NCM_SH, CST = :NEW_CST' +
-        ', '
-      
-        '  CSOSN = :NEW_CSOSN, CFOP = :NEW_CFOP, ALIQUOTA = :NEW_ALIQUOTA' +
-        ', '
-      
-        '  ALIQUOTA_CSOSN = :NEW_ALIQUOTA_CSOSN, ALIQUOTA_PIS = :NEW_ALIQ' +
-        'UOTA_PIS, '
-      
-        '  ALIQUOTA_COFINS = :NEW_ALIQUOTA_COFINS, PERCENTUAL_REDUCAO_BC ' +
-        '= :NEW_PERCENTUAL_REDUCAO_BC, '
-      
-        '  TOTAL_BRUTO = :NEW_TOTAL_BRUTO, TOTAL_LIQUIDO = :NEW_TOTAL_LIQ' +
-        'UIDO'
-      
-        'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL AND CODEMP' +
-        ' = :OLD_CODEMP AND '
-      '  SEQ = :OLD_SEQ'
-      'RETURNING QTDE')
-    DeleteSQL.Strings = (
-      'DELETE FROM TBCOMPRASITENS'
-      
-        'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL AND CODEMP' +
-        ' = :OLD_CODEMP AND '
-      '  SEQ = :OLD_SEQ')
-    FetchRowSQL.Strings = (
-      
-        'SELECT ANO, CODCONTROL, CODEMP, SEQ, CODFORN, CODPROD, QTDE, PES' +
-        'O_BRUTO, '
-      '  PESO_LIQUIDO, LARGURA, ALTURA, ESPESSURA, CUBAGEM, PRECOUNIT, '
-      
-        '  CUSTOMEDIO, DTENT, NF, QTDEANTES, QTDEFINAL, PERC_PARTICIPACAO' +
-        ', '
-      
-        '  VALOR_FRETE, VALOR_DESCONTO, VALOR_OUTROS, VALOR_IPI, UNID_COD' +
-        ', '
-      
-        '  NCM_SH, CST, CSOSN, CFOP, ALIQUOTA, ALIQUOTA_CSOSN, ALIQUOTA_P' +
-        'IS, '
-      
-        '  ALIQUOTA_COFINS, PERCENTUAL_REDUCAO_BC, TOTAL_BRUTO, TOTAL_LIQ' +
-        'UIDO, '
-      '  LOTE_ID, LOTE_DESCRICAO, LOTE_DATA_FAB, LOTE_DATA_VAL'
-      'FROM TBCOMPRASITENS'
-      
-        'WHERE ANO = :ANO AND CODCONTROL = :CODCONTROL AND CODEMP = :CODE' +
-        'MP AND '
-      '  SEQ = :SEQ')
-    Left = 392
-    Top = 352
   end
   object qryDuplicatas: TFDQuery
     OnCalcFields = qryDuplicatasCalcFields

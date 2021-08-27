@@ -14,6 +14,7 @@ type
   TControllerEntrada = class(TController, IControllerEntrada)
     private
       FBusca : IModelDAOCustom;
+      FProdutos : IControllerCustom;
     protected
       constructor Create;
     public
@@ -21,9 +22,11 @@ type
       class function New : IControllerEntrada;
 
       procedure CorrigirCFOP(aCFOP : String);
+      procedure CarregarProdutos;
 
       function Busca : IModelDAOCustom;
       function DocumentoDuplicado(const aEntrada : TLancamentoEntrada; const aDocumento : TDocumentoEntrada) : Boolean;
+      function Produtos : IControllerCustom;
   end;
 
   // Tipo de Entrada de Produtos/Serviços (View)
@@ -46,6 +49,16 @@ type
       class function New : IControllerCustom;
   end;
 
+  // Produtos/Serviços da Entrada
+  TControllerEntradaProduto = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
 implementation
 
 { TControllerEntrada }
@@ -53,6 +66,20 @@ implementation
 uses
   System.SysUtils,
   System.Classes;
+
+procedure TControllerEntrada.CarregarProdutos;
+begin
+  if not Assigned(FProdutos) then
+    FProdutos := TControllerEntradaProduto.New;
+
+  FProdutos
+    .DAO
+    .Close
+    .ParamsByName('Ano',        FDAO.DataSet.FieldByName('ANO').AsString)
+    .ParamsByName('Codcontrol', FDAO.DataSet.FieldByName('CODCONTROL').AsString)
+    .ParamsByName('Codemp',     FDAO.DataSet.FieldByName('CODEMP').AsString)
+    .Open;
+end;
 
 function TControllerEntrada.Busca: IModelDAOCustom;
 begin
@@ -132,6 +159,14 @@ begin
   Result := Self.Create;
 end;
 
+function TControllerEntrada.Produtos: IControllerCustom;
+begin
+  if not Assigned(FProdutos) then
+    FProdutos := TControllerEntradaProduto.New;
+
+  Result := FProdutos;
+end;
+
 { TControllerTipoEntradaView }
 
 constructor TControllerTipoEntradaView.Create;
@@ -162,6 +197,23 @@ begin
 end;
 
 class function TControllerTipoDocumentoEntradaView.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerEntradaProduto }
+
+constructor TControllerEntradaProduto.Create;
+begin
+  inherited Create(TModelDAOFactory.New.EntradaProduto);
+end;
+
+destructor TControllerEntradaProduto.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerEntradaProduto.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

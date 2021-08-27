@@ -48,25 +48,23 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
-//
+  // Produtos/Serviços da Entrada
+  TModelDAOEntradaProduto = class(TModelDAO, IModelDAOCustom)
+    private
+      procedure SetProviderFlags;
+      procedure DataSetAfterOpen(DataSet: TDataSet);
+      procedure DataSetNewRecord(DataSet: TDataSet);
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+  end;
+
 //  // Duplicatas da Entrada
 //  TModelDAOEntradaDuplicata = class(TModelDAO, IModelDAOCustom)
-//    private
-//      procedure SetProviderFlags;
-//      procedure DataSetAfterOpen(DataSet: TDataSet);
-//      procedure DataSetNewRecord(DataSet: TDataSet);
-//      procedure DataSetBeforePost(DataSet: TDataSet);
-//    protected
-//      constructor Create;
-//    public
-//      destructor Destroy; override;
-//      class function New : IModelDAOCustom;
-//
-//      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
-//  end;
-//
-//  // Produtos/Serviços da Entrada
-//  TModelDAOEntradaProduto = class(TModelDAO, IModelDAOCustom)
 //    private
 //      procedure SetProviderFlags;
 //      procedure DataSetAfterOpen(DataSet: TDataSet);
@@ -356,6 +354,119 @@ begin
   Result := Self;
   if not FConn.Query.DataSet.Active then
     FConn.Query.Open;
+end;
+
+{ TModelDAOEntradaProduto }
+
+constructor TModelDAOEntradaProduto.Create;
+begin
+  inherited Create;
+  FConn.Query.CreateGenerator('GEN_COMPRAS_CONTROLE_' + FormatDateTime('yyyy', Date));
+  FConn
+    .Query
+      .TableName('TBCOMPRASITENS')
+      .AliasTableName('i')
+      .KeyFields('ano;codcontrol;codemp;Seq')
+      .SQL
+        .Clear
+        .Add('Select                     ')
+        .Add('    i.Ano                  ')
+        .Add('  , i.Codcontrol           ')
+        .Add('  , i.Codemp               ')
+        .Add('  , i.Seq                  ')
+        .Add('  , i.Codprod              ')
+        .Add('  , i.Codforn              ')
+        .Add('  , i.Dtent                ')
+        .Add('  , i.Qtde                 ')
+        .Add('  , i.Qtdeantes            ')
+        .Add('  , i.Qtdefinal            ')
+        .Add('  , i.Precounit            ')
+        .Add('  , i.Customedio           ')
+        .Add('  , i.Nf                   ')
+        .Add('  , i.Perc_participacao    ')
+        .Add('  , i.Valor_frete          ')
+        .Add('  , i.Valor_desconto       ')
+        .Add('  , i.Valor_outros         ')
+        .Add('  , i.Valor_IPI            ')
+        .Add('  , i.Unid_cod             ')
+        .Add('  , i.Ncm_sh               ')
+        .Add('  , i.Cst                  ')
+        .Add('  , i.Csosn                ')
+        .Add('  , i.Cfop                 ')
+        .Add('  , i.aliquota             ')
+        .Add('  , i.aliquota_csosn       ')
+        .Add('  , i.aliquota_pis         ')
+        .Add('  , i.aliquota_cofins      ')
+        .Add('  , i.percentual_reducao_bc')
+        .Add('  , i.total_bruto          ')
+        .Add('  , i.total_liquido        ')
+        .Add('                           ')
+        .Add('  , coalesce(p.descri_apresentacao, p.Descri) as Descri')
+        .Add('  , p.Qtde as Estoque   ')
+        .Add('  , p.estoque_aprop_lote')
+        .Add('  , u.Unp_sigla         ')
+        .Add('from TBCOMPRASITENS i   ')
+        .Add('  inner join TBPRODUTO p on (p.Cod = i.Codprod)          ')
+        .Add('  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)')
+        .Add('where (i.Ano        = :Ano)')
+        .Add('  and (i.Codcontrol = :Codcontrol)')
+        .Add('  and (i.Codemp     = :Codemp)')
+      .&End
+      .ParamByName('ano', 0)
+      .ParamByName('controle', 0)
+      .ParamByName('empresa', EmptyStr)
+    .Open;
+
+  FConn.Query.DataSet.AfterOpen   := DataSetAfterOpen;
+  FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
+end;
+
+destructor TModelDAOEntradaProduto.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOEntradaProduto.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+procedure TModelDAOEntradaProduto.SetProviderFlags;
+begin
+  // Ignorar campos no Insert e Update
+  FConn.Query.DataSet.FieldByName('Descri').ProviderFlags    := [];
+  FConn.Query.DataSet.FieldByName('Estoque').ProviderFlags   := [];
+  FConn.Query.DataSet.FieldByName('estoque_aprop_lote').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('Unp_sigla').ProviderFlags := [];
+end;
+
+procedure TModelDAOEntradaProduto.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  SetProviderFlags;
+end;
+
+procedure TModelDAOEntradaProduto.DataSetNewRecord(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+  begin
+    FieldByName('ANO').Clear;
+    FieldByName('CODCONTROL').Clear;
+    FieldByName('CODEMP').Clear;
+    FieldByName('SEQ').AsInteger := 1;
+    FieldByName('DTENT').Clear;
+    FieldByName('CODFORN').Clear;
+    FieldByName('NF').Clear;
+    FieldByName('CFOP').AsInteger       := Configuracao.Padrao.CfopID;
+    FieldByName('QTDE').AsCurrency      := 0;
+    FieldByName('QTDEANTES').AsCurrency := 0;
+    FieldByName('QTDEFINAL').AsCurrency := 0;
+
+    FieldByName('ALIQUOTA').AsCurrency              := 0.0;
+    FieldByName('ALIQUOTA_CSOSN').AsCurrency        := 0.0;
+    FieldByName('ALIQUOTA_PIS').AsCurrency          := 0.0;
+    FieldByName('ALIQUOTA_COFINS').AsCurrency       := 0.0;
+    FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency := 0.0;
+  end;
 end;
 
 end.

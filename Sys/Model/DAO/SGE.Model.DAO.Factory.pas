@@ -64,6 +64,7 @@ type
       FEmpresa    ,
       FEmpresaView,
       FEntrada    ,
+      FEntradaProduto   ,
       FFabricanteProduto,
       FFormaPagto ,
       FFormaPagtoContaCorrente,
@@ -138,6 +139,7 @@ type
       function Empresa : IModelDAOCustom;
       function EmpresaView : IModelDAOCustom;
       function Entrada : IModelDAOCustom;
+      function EntradaProduto : IModelDAOCustom;
       function FabricanteProduto : IModelDAOCustom;
       function FormaPagto : IModelDAOCustom;
       function FormaPagtoContaCorrente : IModelDAOCustom;
@@ -635,6 +637,14 @@ begin
     FEntrada := TModelDAOEntrada.New;
 
   Result := FEntrada;
+end;
+
+function TModelDAOFactory.EntradaProduto: IModelDAOCustom;
+begin
+  if not Assigned(FEntradaProduto) then
+    FEntradaProduto := TModelDAOEntradaProduto.New;
+
+  Result := FEntradaProduto;
 end;
 
 function TModelDAOFactory.FabricanteProduto: IModelDAOCustom;

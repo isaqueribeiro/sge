@@ -216,7 +216,7 @@ begin
     aKeyField := TStringList.Create;
     try
       aKeyField.Delimiter := ';';
-      aKeyField.CommaText := FQuery.UpdateOptions.KeyFields;
+      aKeyField.DelimitedText := FQuery.UpdateOptions.KeyFields;
 
       aAlias := IfThen(not FAliasTableName.IsEmpty, FAliasTableName.Trim + '.', EmptyStr);
 
@@ -226,7 +226,7 @@ begin
       FUpdateSQL.FetchRowSQL.Add('where (' + aAlias + aKeyField.Strings[0] + ' is not null)');
 
       for I := 0 to Pred(aKeyField.Count) do
-        FUpdateSQL.FetchRowSQL.Add('  and (' + aAlias + aKeyField.Strings[0] + ' =  :old_' + aKeyField.Strings[0] + ')');
+        FUpdateSQL.FetchRowSQL.Add('  and (' + aAlias + aKeyField.Strings[I] + ' =  :old_' + aKeyField.Strings[I] + ')');
 
       FUpdateSQL.FetchRowSQL.EndUpdate;
       FQuery.FetchOptions;
@@ -497,7 +497,7 @@ begin
 
     try
       aKeyField.Delimiter := ';';
-      aKeyField.CommaText := FQuery.UpdateOptions.KeyFields;
+      aKeyField.DelimitedText := FQuery.UpdateOptions.KeyFields;
 
       for I := 0 to Pred(aKeyField.Count) do
         if Assigned(FQuery.Fields.FindField(aKeyField.Strings[I])) then

@@ -46,6 +46,7 @@ type
 
       function OpenEmpty  : IModelDAO;
       function CloseEmpty : IModelDAO;
+      function Close      : IModelDAO;
 
       procedure Open;
 
@@ -90,6 +91,12 @@ begin
     FConn.Query.DataSet.Close;
 
   FConn.Query.SQL.ClearWhere;
+end;
+
+function TModelDAO.Close: IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.Close;
 end;
 
 function TModelDAO.CloseEmpty: IModelDAO;

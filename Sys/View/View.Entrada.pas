@@ -286,24 +286,6 @@ type
     qryNFENUMVENDA: TIntegerField;
     qryNFEANOCOMPRA: TSmallintField;
     qryNFENUMCOMPRA: TIntegerField;
-    cdsTabelaItens: TFDQuery;
-    cdsTabelaItensANO: TSmallintField;
-    cdsTabelaItensCODCONTROL: TIntegerField;
-    cdsTabelaItensCODEMP: TStringField;
-    cdsTabelaItensSEQ: TSmallintField;
-    cdsTabelaItensCODPROD: TStringField;
-    cdsTabelaItensCODFORN: TIntegerField;
-    cdsTabelaItensDTENT: TDateField;
-    cdsTabelaItensNF: TIntegerField;
-    cdsTabelaItensUNID_COD: TSmallintField;
-    cdsTabelaItensNCM_SH: TStringField;
-    cdsTabelaItensCST: TStringField;
-    cdsTabelaItensCSOSN: TStringField;
-    cdsTabelaItensCFOP: TIntegerField;
-    cdsTabelaItensDESCRI: TStringField;
-    cdsTabelaItensESTOQUE_APROP_LOTE: TSmallintField;
-    cdsTabelaItensUNP_SIGLA: TStringField;
-    updTabelaItens: TFDUpdateSQL;
     qryDuplicatas: TFDQuery;
     updDuplicatas: TFDUpdateSQL;
     qryDuplicatasANOLANC: TSmallintField;
@@ -342,24 +324,6 @@ type
     cdsTabelaLotesLOTE_DESCRICAO: TStringField;
     cdsTabelaLotesLOTE_DATA_FAB: TDateField;
     cdsTabelaLotesLOTE_DATA_VAL: TDateField;
-    cdsTabelaItensQTDE: TFMTBCDField;
-    cdsTabelaItensQTDEANTES: TFMTBCDField;
-    cdsTabelaItensQTDEFINAL: TFMTBCDField;
-    cdsTabelaItensPRECOUNIT: TFMTBCDField;
-    cdsTabelaItensCUSTOMEDIO: TFMTBCDField;
-    cdsTabelaItensPERC_PARTICIPACAO: TFMTBCDField;
-    cdsTabelaItensVALOR_FRETE: TFMTBCDField;
-    cdsTabelaItensVALOR_DESCONTO: TFMTBCDField;
-    cdsTabelaItensVALOR_OUTROS: TFMTBCDField;
-    cdsTabelaItensVALOR_IPI: TFMTBCDField;
-    cdsTabelaItensALIQUOTA: TFMTBCDField;
-    cdsTabelaItensALIQUOTA_CSOSN: TFMTBCDField;
-    cdsTabelaItensALIQUOTA_PIS: TFMTBCDField;
-    cdsTabelaItensALIQUOTA_COFINS: TFMTBCDField;
-    cdsTabelaItensPERCENTUAL_REDUCAO_BC: TFMTBCDField;
-    cdsTabelaItensTOTAL_BRUTO: TFMTBCDField;
-    cdsTabelaItensTOTAL_LIQUIDO: TFMTBCDField;
-    cdsTabelaItensESTOQUE: TFMTBCDField;
     cdsTabelaLotesQTDE: TFMTBCDField;
     qryDuplicatasVALORPAG: TFMTBCDField;
     btnImportar: TcxButton;
@@ -406,7 +370,6 @@ type
     procedure DtSrcTabelaAfterScroll(DataSet: TDataSet);
     procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
     procedure fdQryTabelaAUTORIZACAO_CODIGOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
-    procedure cdsTabelaItensNewRecord(DataSet: TDataSet);
     procedure qryDuplicatasCalcFields(DataSet: TDataSet);
     procedure btnTituloEditarClick(Sender: TObject);
     procedure dbSerieKeyPress(Sender: TObject; var Key: Char);
@@ -419,19 +382,19 @@ type
     FControllerEmpresaView    ,
     FControllerTipoEntradaView,
     FControllerTipoDocumentoView,
-    FControllerFormaPagto  ,
+    FControllerFormaPagto       ,
     FControllerCondicaoPagtoView,
     FControllerTipoDespesa ,
-    FControllerCFOP : IControllerCustom;
+    FControllerCFOP    : IControllerCustom;
+    FControllerProduto : IControllerCustom;
     FEmpresa : String;
     FTipoMovimento : TTipoMovimentoEntrada;
     FApenasFinalizadas : Boolean;
-    SQL_Itens   ,
     SQL_Duplicatas : TStringList;
     FValorTotalProduto : Currency;
     procedure CarregarDadosEmpresa(const pEmpresa, pTituloRelatorio : String);
-    procedure AbrirTabelaItens(const AnoCompra : Smallint; const ControleCompra : Integer);
-    procedure AbrirTabelaLotes(const AnoCompra : Smallint; const ControleCompra : Integer);
+    procedure AbrirTabelaItens;
+    procedure AbrirTabelaLotes(const AnoCompra : Smallint; const ControleCompra : Integer; const EmpresaCompra : String);
     procedure AbrirTabelaDuplicatas(const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure AbrirNotaFiscal(const pEmpresa : String; const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure GerarDuplicatas(const AnoCompra : Smallint; const ControleCompra : Integer);
@@ -453,7 +416,8 @@ type
 
     function IdentificarNFe(var aCNPJEmissor, aUFEmissor, aChave, aNSU : String) : Boolean;
     function Controller : IControllerEntrada;
-    function Empresa : IControllerEmpresa;
+    function Empresa  : IControllerEmpresa;
+    function Produtos : IControllerCustom;
   public
     { Public declarations }
     procedure pgcGuiasOnChange; override;
@@ -746,20 +710,18 @@ begin
   FControllerFormaPagto        := TControllerFactory.New.FormaPagto;
   FControllerCondicaoPagtoView := TControllerFactory.New.CondicaoPagtoView;
   FControllerTipoDespesa       := TControllerFactory.New.TipoDespesa;
-  FControllerCFOP := TControllerFactory.New.CFOP;
+  FControllerCFOP    := TControllerFactory.New.CFOP;
 
   if (gSistema.Codigo <> SISTEMA_GESTAO_OPME) then
     if not (GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]) then
       OcutarCampoAutorizacao;
 
+  DtSrcTabelaItens.DataSet := Produtos.DAO.DataSet;
+
   inherited;
 
   AbrirTabelaAuto := True;
   FEmpresa        := EmptyStr;
-
-  SQL_Itens := TStringList.Create;
-  SQL_Itens.Clear;
-  SQL_Itens.AddStrings( cdsTabelaItens.SQL );
 
   SQL_Duplicatas := TStringList.Create;
   SQL_Duplicatas.Clear;
@@ -788,6 +750,32 @@ begin
   else
     GrpBxDadosValores.Height := 90;
 
+  // Configurar tabela de cadastro
+  Tabela
+    .Display('CODCONTROL', 'No. Entrada', DisplayFormatCodigo, TAlignment.taCenter, True)
+    .Display('CODEMP',  'Empresa', True)
+    .Display('CODFORN', 'Fornecedor', True)
+    .Display('STATUS', 'Situação', TAlignment.taLeftJustify, True)
+    .Display('TIPO_ENTRADA', 'Tipo de Entrada', True)
+    .Display('DTEMISS', 'Data de Emissão', 'dd/mm/yyyy', TAlignment.taCenter, True)
+    .Display('TIPO_DOCUMENTO', 'Tipo do Documento', True)
+    .Display('NF', 'Número do Documento', False)
+    .Display('NFSERIE', 'Série do Documento', TAlignment.taCenter, False)
+    .Display('DTENT', 'Data de Entrada', 'dd/mm/yyyy', TAlignment.taCenter, True)
+    .Display('IPI', 'IPI', ',0.00', TAlignment.taRightJustify, False)
+    .Display('ICMSBASE', 'Base ICMS', ',0.00', TAlignment.taRightJustify, False)
+    .Display('ICMSVALOR', 'Valor ICMS', ',0.00', TAlignment.taRightJustify, False)
+    .Display('ICMSSUBSTBASE', 'Base ICMS Subst.', ',0.00', TAlignment.taRightJustify, False)
+    .Display('ICMSSUBSTVALOR', 'Valor ICMS Subst.', ',0.00', TAlignment.taRightJustify, False)
+    .Display('FRETE', 'Frete', ',0.00', TAlignment.taRightJustify, False)
+    .Display('OUTROSCUSTOS', 'Outros', ',0.00', TAlignment.taRightJustify, False)
+    .Display('DESCONTO', 'Desconto', ',0.00', TAlignment.taRightJustify, False)
+    .Display('TOTALNF', 'Total Nota Fiscal', ',0.00', TAlignment.taRightJustify, True)
+    .Display('TOTALPROD', 'Total Produto', ',0.00', TAlignment.taRightJustify, True)
+    .Display('FORMAPAGTO_COD',    'Forma de Pagamento', True)
+    .Display('CONDICAOPAGTO_COD', 'Condição de Pagamento', True)
+    .Display('TIPO_DESPESA',      'Tipo de Despesa', True);
+
   AbrirTabelaAuto := True;
 
   TController(FControllerEmpresaView)
@@ -808,9 +796,8 @@ begin
   TController(FControllerTipoDespesa)
     .LookupComboBox(dbTipoDespesa, dtsTpDespesa, 'tipo_despesa', 'codigo', 'descricao');
 
-  ConfigurarCamposTabelas;
-
   FController.DAO.DataSet.AfterScroll := DtSrcTabelaAfterScroll;
+  ConfigurarCamposTabelas;
 end;
 
 procedure TViewEntrada.btnFiltrarClick(Sender: TObject);
@@ -930,10 +917,11 @@ begin
 
     if not IsEmpty then
     begin
-      AbrirTabelaItens(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger);
-      cdsTabelaItens.First;
-      while not cdsTabelaItens.Eof do
-        cdsTabelaItens.Delete;
+      AbrirTabelaItens;
+
+      DtSrcTabelaItens.DataSet.First;
+      while not DtSrcTabelaItens.DataSet.Eof do
+        DtSrcTabelaItens.DataSet.Delete;
     end;
 
     I := 1;
@@ -943,42 +931,42 @@ begin
     begin
       if ( FieldByName('quantidade').AsCurrency > 0.0 ) then
       begin
-        cdsTabelaItens.Append;
+        DtSrcTabelaItens.DataSet.Append;
 
-        cdsTabelaItensSEQ.AsInteger := I;
-        cdsTabelaItensCODPROD.Assign       ( FieldByName('produto') );
-        cdsTabelaItensDESCRI.Assign        ( FieldByName('DESCRI') );
-        cdsTabelaItensQTDE.Assign          ( FieldByName('quantidade') );
-        cdsTabelaItensUNID_COD.Assign      ( FieldByName('unidade') );
-        cdsTabelaItensUNP_SIGLA.Assign     ( FieldByName('unp_sigla') );
-        cdsTabelaItensCFOP.Assign          ( DtSrcTabela.DataSet.FieldByName('NFCFOP') );
-        cdsTabelaItensNCM_SH.Assign        ( FieldByName('ncm_sh') );
-        cdsTabelaItensCST.Assign           ( FieldByName('cst') );
-        cdsTabelaItensCSOSN.Assign         ( FieldByName('csosn') );
-        cdsTabelaItensALIQUOTA.Assign      ( FieldByName('aliquota') );
-        cdsTabelaItensPERCENTUAL_REDUCAO_BC.Assign      ( FieldByName('percentual_reducao_bc') );
-        cdsTabelaItensALIQUOTA_CSOSN.Assign ( FieldByName('aliquota_csosn') );
-        cdsTabelaItensALIQUOTA_PIS.Assign   ( FieldByName('aliquota_pis') );
-        cdsTabelaItensALIQUOTA_COFINS.Assign( FieldByName('aliquota_cofins') );
-        cdsTabelaItensQTDE.Assign           ( FieldByName('quantidade') );
-        cdsTabelaItensQTDEANTES.Assign      ( FieldByName('estoque') );
-        cdsTabelaItensQTDEFINAL.Assign      ( FieldByName('novo_estoque') );
-        cdsTabelaItensPRECOUNIT.Assign      ( FieldByName('valor_unitario') );
-        cdsTabelaItensVALOR_IPI.Assign      ( FieldByName('valor_ipi') );
+        DtSrcTabelaItens.DataSet.FieldByName('SEQ').AsInteger := I;
+        DtSrcTabelaItens.DataSet.FieldByName('CODPROD').Assign       ( FieldByName('produto') );
+        DtSrcTabelaItens.DataSet.FieldByName('DESCRI').Assign        ( FieldByName('DESCRI') );
+        DtSrcTabelaItens.DataSet.FieldByName('QTDE').Assign          ( FieldByName('quantidade') );
+        DtSrcTabelaItens.DataSet.FieldByName('UNID_COD').Assign      ( FieldByName('unidade') );
+        DtSrcTabelaItens.DataSet.FieldByName('UNP_SIGLA').Assign     ( FieldByName('unp_sigla') );
+        DtSrcTabelaItens.DataSet.FieldByName('CFOP').Assign          ( DtSrcTabela.DataSet.FieldByName('NFCFOP') );
+        DtSrcTabelaItens.DataSet.FieldByName('NCM_SH').Assign        ( FieldByName('ncm_sh') );
+        DtSrcTabelaItens.DataSet.FieldByName('CST').Assign           ( FieldByName('cst') );
+        DtSrcTabelaItens.DataSet.FieldByName('CSOSN').Assign         ( FieldByName('csosn') );
+        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA').Assign      ( FieldByName('aliquota') );
+        DtSrcTabelaItens.DataSet.FieldByName('PERCENTUAL_REDUCAO_BC').Assign      ( FieldByName('percentual_reducao_bc') );
+        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA_CSOSN').Assign ( FieldByName('aliquota_csosn') );
+        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA_PIS').Assign   ( FieldByName('aliquota_pis') );
+        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA_COFINS').Assign( FieldByName('aliquota_cofins') );
+        DtSrcTabelaItens.DataSet.FieldByName('QTDE').Assign           ( FieldByName('quantidade') );
+        DtSrcTabelaItens.DataSet.FieldByName('QTDEANTES').Assign      ( FieldByName('estoque') );
+        DtSrcTabelaItens.DataSet.FieldByName('QTDEFINAL').Assign      ( FieldByName('novo_estoque') );
+        DtSrcTabelaItens.DataSet.FieldByName('PRECOUNIT').Assign      ( FieldByName('valor_unitario') );
+        DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').Assign      ( FieldByName('valor_ipi') );
 
-        cPrecoUN := cdsTabelaItensPRECOUNIT.AsCurrency;
+        cPrecoUN := DtSrcTabelaItens.DataSet.FieldByName('PRECOUNIT').AsCurrency;
 
-        cdsTabelaItensCUSTOMEDIO.AsCurrency  := cPrecoUN + cdsTabelaItensVALOR_IPI.AsCurrency;
-        cdsTabelaItensTOTAL_BRUTO.AsCurrency := cPrecoUN * cdsTabelaItensQTDE.AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('CUSTOMEDIO').AsCurrency  := cPrecoUN + DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency := cPrecoUN * DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency;
 
-        cdsTabelaItensPERC_PARTICIPACAO.AsCurrency := cdsTabelaItensTOTAL_BRUTO.AsCurrency  / DtSrcTabela.DataSet.FieldByName('TOTALPROD').AsCurrency * 100;
-        cdsTabelaItensVALOR_FRETE.Value            := cdsTabelaItensPERC_PARTICIPACAO.Value * DtSrcTabela.DataSet.FieldByName('FRETE').AsCurrency / 100;
-        cdsTabelaItensVALOR_DESCONTO.Value         := cdsTabelaItensPERC_PARTICIPACAO.Value * DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency / 100;
-        cdsTabelaItensVALOR_OUTROS.Value           := cdsTabelaItensPERC_PARTICIPACAO.Value * DtSrcTabela.DataSet.FieldByName('OUTROSCUSTOS').AsCurrency / 100;
+        DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency := DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency  / DtSrcTabela.DataSet.FieldByName('TOTALPROD').AsCurrency * 100;
+        DtSrcTabelaItens.DataSet.FieldByName('VALOR_FRETE').AsCurrency       := DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency * DtSrcTabela.DataSet.FieldByName('FRETE').AsCurrency / 100;
+        DtSrcTabelaItens.DataSet.FieldByName('VALOR_DESCONTO').AsCurrency    := DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency * DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency / 100;
+        DtSrcTabelaItens.DataSet.FieldByName('VALOR_OUTROS').AsCurrency      := DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency * DtSrcTabela.DataSet.FieldByName('OUTROSCUSTOS').AsCurrency / 100;
 
-        cdsTabelaItensTOTAL_LIQUIDO.AsCurrency     := cdsTabelaItensTOTAL_BRUTO.AsCurrency - cdsTabelaItensVALOR_DESCONTO.AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('TOTAL_LIQUIDO').AsCurrency     := DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency - DtSrcTabelaItens.DataSet.FieldByName('VALOR_DESCONTO').AsCurrency;
 
-        cdsTabelaItens.Post;
+        DtSrcTabelaItens.DataSet.Post;
 
         Inc(I);
       end;
@@ -1074,35 +1062,47 @@ end;
 procedure TViewEntrada.DtSrcTabelaItensStateChange(
   Sender: TObject);
 begin
-  btnProdutoInserir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) );
-  btnProdutoEditar.Enabled  := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
-  btnProdutoExcluir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
-  btnProdutoSalvar.Enabled  := ( cdsTabelaItens.State in [dsEdit, dsInsert] );
+  btnProdutoInserir.Enabled := ( DtSrcTabelaItens.AutoEdit and (DtSrcTabelaItens.DataSet.State = dsBrowse) );
+  btnProdutoEditar.Enabled  := ( DtSrcTabelaItens.AutoEdit and (DtSrcTabelaItens.DataSet.State = dsBrowse) and (not DtSrcTabelaItens.DataSet.IsEmpty) );
+  btnProdutoExcluir.Enabled := ( DtSrcTabelaItens.AutoEdit and (DtSrcTabelaItens.DataSet.State = dsBrowse) and (not DtSrcTabelaItens.DataSet.IsEmpty) );
+  btnProdutoSalvar.Enabled  := ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] );
 
-  if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] ) then
     if ( dbProduto.Visible and dbProduto.Enabled ) then
       dbProduto.SetFocus;
 end;
 
-procedure TViewEntrada.AbrirTabelaItens(const AnoCompra: Smallint;
-  const ControleCompra: Integer);
+procedure TViewEntrada.AbrirTabelaItens;
 begin
-  cdsTabelaItens.Close;
+  Controller.CarregarProdutos;
 
-  with cdsTabelaItens, SQL do
-  begin
-    Clear;
-    AddStrings( SQL_Itens );
-    Add('where i.Ano        = ' + IntToStr(AnoCompra));
-    Add('  and i.Codcontrol = ' + IntToStr(ControleCompra));
-  end;
-
-  cdsTabelaItens.Open;
+  // Configurar tabela dos itens
+  TTabelaController
+    .New
+    .Tabela( DtSrcTabelaItens.DataSet )
+    .Display('SEQ', '#', '00', TAlignment.taCenter, True)
+    .Display('CODPROD', 'Produto', True)
+    .Display('QTDE', 'Qtde.', ',0.##', TAlignment.taRightJustify, True)
+    .Display('PRECOUNIT', 'Valor Unitário (R$)', ',0.00', TAlignment.taRightJustify, True)
+    .Display('CUSTOMEDIO', 'Outros (R$)', ',0.00', TAlignment.taRightJustify, False)
+    .Display('PERC_PARTICIPACAO', '% Partic.', ',0.00', TAlignment.taRightJustify, False)
+    .Display('VALOR_FRETE', 'Frete (R$)', ',0.00', TAlignment.taRightJustify, False)
+    .Display('VALOR_DESCONTO', 'Desconto (R$)', ',0.00', TAlignment.taRightJustify, False)
+    .Display('VALOR_OUTROS', 'Outros (R$)', ',0.00', TAlignment.taRightJustify, False)
+    .Display('VALOR_IPI', 'Valor IPI (R$)', ',0.00', TAlignment.taRightJustify, False)
+    .Display('ALIQUOTA', '% Alíquota', ',0.00', TAlignment.taRightJustify, False)
+    .Display('ALIQUOTA_CSOSN', '% Alíquota SN', ',0.00', TAlignment.taRightJustify, False)
+    .Display('ALIQUOTA_PIS', '% Alíquota PIS', ',0.00', TAlignment.taRightJustify, False)
+    .Display('ALIQUOTA_COFINS', '% Alíquota COFINS', ',0.00', TAlignment.taRightJustify, False)
+    .Display('PERCENTUAL_REDUCAO_BC', '% Redução BC', ',0.00', TAlignment.taRightJustify, False)
+    .Display('TOTAL_BRUTO', 'Total Bruto (R$)', ',0.00', TAlignment.taRightJustify, True)
+    .Display('TOTAL_LIQUIDO', 'Total Líquido (R$)', ',0.00', TAlignment.taRightJustify, True)
+    .Configurar;
 
   HabilitarDesabilitar_Btns;
 end;
 
-procedure TViewEntrada.AbrirTabelaLotes(const AnoCompra: Smallint; const ControleCompra: Integer);
+procedure TViewEntrada.AbrirTabelaLotes(const AnoCompra: Smallint; const ControleCompra: Integer; const EmpresaCompra : String);
 begin
   with cdsTabelaLotes do
   begin
@@ -1117,8 +1117,8 @@ procedure TViewEntrada.BaixarImportarNFe(aChaveNFe, aNSU : String);
 
   procedure GerarSequencial(var Seq : Integer);
   begin
-    Seq := cdsTabelaItens.RecordCount + 1;
-    while ( cdsTabelaItens.Locate('SEQ', Seq, []) ) do
+    Seq := DtSrcTabelaItens.DataSet.RecordCount + 1;
+    while ( DtSrcTabelaItens.DataSet.Locate('SEQ', Seq, []) ) do
       Seq := Seq + 1;
   end;
 
@@ -1174,8 +1174,12 @@ begin
           , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
           , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
-        AbrirTabelaItens( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
-        AbrirTabelaLotes( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+        AbrirTabelaItens;
+
+        AbrirTabelaLotes(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
+          , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger
+          , DtSrcTabela.DataSet.FieldByName('CODEMP').AsString);
+
         AbrirTabelaDuplicatas( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
         DtSrcTabela.DataSet.Edit; // Colocar registro em edição para que usuário possa continuar o processo
@@ -1224,10 +1228,10 @@ begin
         FController.DAO.ApplyUpdates;
         FController.DAO.CommitUpdates;
 
-        if (DtSrcTabelaItens.DataSet.RecordCount > 0) then
+        if (not DtSrcTabelaItens.DataSet.IsEmpty) then
         begin
-          cdsTabelaItens.ApplyUpdates;
-          cdsTabelaItens.CommitUpdates;
+          Produtos.DAO.ApplyUpdates;
+          Produtos.DAO.CommitUpdates;
         end;
 
         FController.DAO.CommitTransaction;
@@ -1258,87 +1262,59 @@ end;
 
 procedure TViewEntrada.CarregarDadosProduto(Codigo : Integer);
 begin
-  if ( not cdsTabelaItens.Active ) then
+  if ( not DtSrcTabelaItens.DataSet.Active ) then
     Exit
   else
-  if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+  if (DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert]) then
   begin
+    if not Assigned(FControllerProduto) then
+      FControllerProduto : IControllerCustom; // Implementar
+
     with qryProduto do
     begin
       Close;
       ParamByName('Codigo').AsInteger := Codigo;
       Open;
+
       if not IsEmpty then
       begin
         if not FControllerCFOP.DAO.DataSet.Active then
           CarregarDadosCFOP(DtSrcTabela.DataSet.FieldByName('NFCFOP').AsInteger);
 
-        cdsTabelaItensCODPROD.AsString     := FieldByName('Cod').AsString;
-        cdsTabelaItensDESCRI.AsString      := FieldByName('Descri').AsString;
-        cdsTabelaItensUNP_SIGLA.AsString   := FieldByName('Unp_sigla').AsString;
-        cdsTabelaItensQTDEANTES.AsCurrency := FieldByName('Qtde').AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('CODPROD').AsString     := FieldByName('Cod').AsString;
+        DtSrcTabelaItens.DataSet.FieldByName('DESCRI').AsString      := FieldByName('Descri').AsString;
+        DtSrcTabelaItens.DataSet.FieldByName('UNP_SIGLA').AsString   := FieldByName('Unp_sigla').AsString;
+        DtSrcTabelaItens.DataSet.FieldByName('QTDEANTES').AsCurrency := FieldByName('Qtde').AsCurrency;
 
-        cdsTabelaItensNCM_SH.AsString                  := FieldByName('Ncm_sh').AsString;
-        cdsTabelaItensALIQUOTA.AsCurrency              := FieldByName('Aliquota').AsCurrency;
-        cdsTabelaItensALIQUOTA_CSOSN.AsCurrency        := FieldByName('Aliquota_csosn').AsCurrency;
-        cdsTabelaItensALIQUOTA_PIS.AsCurrency          := FieldByName('Aliquota_pis').AsCurrency;
-        cdsTabelaItensALIQUOTA_COFINS.AsCurrency       := FieldByName('Aliquota_cofins').AsCurrency;
-        cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency := FieldByName('Percentual_reducao_BC').AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('NCM_SH').AsString                  := FieldByName('Ncm_sh').AsString;
+        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA').AsCurrency              := FieldByName('Aliquota').AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA_CSOSN').AsCurrency        := FieldByName('Aliquota_csosn').AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA_PIS').AsCurrency          := FieldByName('Aliquota_pis').AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA_COFINS').AsCurrency       := FieldByName('Aliquota_cofins').AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency := FieldByName('Percentual_reducao_BC').AsCurrency;
 
         if ( Trim(FieldByName('Cst').AsString) <> EmptyStr ) then
-          cdsTabelaItensCST.AsString       := FieldByName('Cst').AsString;
+          DtSrcTabelaItens.DataSet.FieldByName('CST').AsString := FieldByName('Cst').AsString;
 
         if ( Trim(FieldByName('Csosn').AsString) <> EmptyStr ) then
-          cdsTabelaItensCSOSN.AsString     := FieldByName('Csosn').AsString;
+          DtSrcTabelaItens.DataSet.FieldByName('CSOSN').AsString := FieldByName('Csosn').AsString;
 
         if ( (FControllerCFOP.DAO.DataSet.FieldByName('Cfop_cst_padrao_entrada').AsString) <> EmptyStr ) then
-          cdsTabelaItensCST.AsString := Trim(FControllerCFOP.DAO.DataSet.FieldByName('Cfop_cst_padrao_entrada').AsString);
+          DtSrcTabelaItens.DataSet.FieldByName('CST').AsString := Trim(FControllerCFOP.DAO.DataSet.FieldByName('Cfop_cst_padrao_entrada').AsString);
 
         if ( FieldByName('Codunidade').AsInteger > 0 ) then
-          cdsTabelaItensUNID_COD.AsInteger   := FieldByName('Codunidade').AsInteger;
+          DtSrcTabelaItens.DataSet.FieldByName('UNID_COD').AsInteger := FieldByName('Codunidade').AsInteger;
       end
       else
       begin
         ShowWarning('Código de ' + IfThen(FTipoMovimento = tmeProduto, 'produto', 'serviço') + ' não cadastrado');
-        cdsTabelaItensCODPROD.Clear;
+
+        DtSrcTabelaItens.DataSet.FieldByName('CODPROD').Clear;
+
         if ( dbProduto.Visible and dbProduto.Enabled ) then
           dbProduto.SetFocus;
       end;
     end;
-  end;
-end;
-
-procedure TViewEntrada.cdsTabelaItensNewRecord(DataSet: TDataSet);
-begin
-  with DtSrcTabela.DataSet do
-  begin
-    cdsTabelaItensANO.Value        := FieldByName('ANO').AsInteger;
-    cdsTabelaItensCODCONTROL.Value := FieldByName('CODCONTROL').AsInteger;
-    cdsTabelaItensDTENT.Value      := FieldByName('DTENT').AsDateTime;
-    cdsTabelaItensCODEMP.Value     := FieldByName('CODEMP').AsString;
-    cdsTabelaItensCODFORN.Value    := FieldByName('CODFORN').AsInteger;
-    cdsTabelaItensNF.Value         := FieldByName('NF').AsInteger;
-
-    if ( FTipoMovimento = tmeProduto ) then
-    begin
-      if ( FieldByName('NFCFOP').IsNull ) then
-        cdsTabelaItensCFOP.Value := GetCfopIDDefault
-      else
-        cdsTabelaItensCFOP.Assign( FieldByName('NFCFOP') );
-    end
-    else
-    if ( FTipoMovimento = tmeServico ) then
-      cdsTabelaItensCFOP.Clear;
-
-    cdsTabelaItensQTDE.Value      := 0;
-    cdsTabelaItensQTDEANTES.Value := 0;
-    cdsTabelaItensQTDEFINAL.Value := 0;
-
-    cdsTabelaItensALIQUOTA.Value              := 0.0;
-    cdsTabelaItensALIQUOTA_CSOSN.Value        := 0.0;
-    cdsTabelaItensALIQUOTA_PIS.Value          := 0.0;
-    cdsTabelaItensALIQUOTA_COFINS.Value       := 0.0;
-    cdsTabelaItensPERCENTUAL_REDUCAO_BC.Value := 0.0;
   end;
 end;
 
@@ -1347,9 +1323,9 @@ begin
   with DtSrcTabela.DataSet do
   if ( pgcGuias.ActivePage = tbsCadastro ) then
   begin
-    btbtnFinalizar.Enabled   := ( FieldByName('STATUS').AsInteger < STATUS_CMP_FIN) and (not cdsTabelaItens.IsEmpty);
-    btbtnCancelarENT.Enabled := ((FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) or  (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE)); // and (not cdsTabelaItens.IsEmpty);
-    btbtnGerarNFe.Enabled    := ( FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) and (not cdsTabelaItens.IsEmpty);
+    btbtnFinalizar.Enabled   := ( FieldByName('STATUS').AsInteger < STATUS_CMP_FIN) and (not DtSrcTabelaItens.DataSet.IsEmpty);
+    btbtnCancelarENT.Enabled := ((FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) or  (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE)); // and (not DtSrcTabelaItens.DataSet.IsEmpty);
+    btbtnGerarNFe.Enabled    := ( FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) and (not DtSrcTabelaItens.DataSet.IsEmpty);
 
     nmImprimirDANFE.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) or  (FieldByName('NFNSU').AsString <> EmptyStr);
     nmGerarDANFEXML.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) and (FieldByName('NFNSU').AsString = EmptyStr);
@@ -1400,8 +1376,13 @@ begin
       if ( not OcorreuErro ) then
       begin
         AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-        AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-        AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+
+        AbrirTabelaItens;
+
+        AbrirTabelaLotes(FieldByName('ANO').AsInteger
+          , FieldByName('CODCONTROL').AsInteger
+          , FieldByName('CODEMP').AsString);
+
         AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
       end;
     end;
@@ -1411,8 +1392,8 @@ procedure TViewEntrada.btnProdutoInserirClick(Sender: TObject);
 
   procedure GerarSequencial(var Seq : Integer);
   begin
-    Seq := cdsTabelaItens.RecordCount + 1;
-    while ( cdsTabelaItens.Locate('SEQ', Seq, []) ) do
+    Seq := DtSrcTabelaItens.DataSet.RecordCount + 1;
+    while ( DtSrcTabelaItens.DataSet.Locate('SEQ', Seq, []) ) do
       Seq := Seq + 1;
   end;
 
@@ -1437,7 +1418,7 @@ begin
     dbTotalNotaFiscal.SetFocus;
   end
   else
-  if ( cdsTabelaItens.Active ) then
+  if ( DtSrcTabelaItens.DataSet.Active ) then
   begin
     if ( gSistema.Codigo in [SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME] ) then
       if ( DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_CODIGO').AsCurrency > 0 ) then
@@ -1449,26 +1430,40 @@ begin
 
     GerarSequencial(Sequencial);
 
-    cdsTabelaItens.Append;
-    cdsTabelaItensSEQ.Value := Sequencial;
+    DtSrcTabelaItens.DataSet.Append;
+    DtSrcTabelaItens.DataSet.FieldByName('SEQ').Value := Sequencial;
+
+    with DtSrcTabela.DataSet do
+    begin
+      DtSrcTabelaItens.DataSet.FieldByName('ANO').AsInteger        := FieldByName('ANO').AsInteger;
+      DtSrcTabelaItens.DataSet.FieldByName('CODCONTROL').AsInteger := FieldByName('CODCONTROL').AsInteger;
+      DtSrcTabelaItens.DataSet.FieldByName('CODEMP').AsString      := FieldByName('CODEMP').AsString;
+      DtSrcTabelaItens.DataSet.FieldByName('DTENT').AsDateTime     := FieldByName('DTENT').AsDateTime;
+      DtSrcTabelaItens.DataSet.FieldByName('CODFORN').AsInteger    := FieldByName('CODFORN').AsInteger;
+      DtSrcTabelaItens.DataSet.FieldByName('NF').AsInteger         := FieldByName('NF').AsInteger;
+
+      if (FTipoMovimento = TTipoMovimentoEntrada.tmeProduto) and (not FieldByName('NFCFOP').IsNull) then
+        DtSrcTabelaItens.DataSet.FieldByName('CFOP').Assign( FieldByName('NFCFOP') );
+    end;
+
     dbProduto.SetFocus;
   end;
 end;
 
 procedure TViewEntrada.btnProdutoEditarClick(Sender: TObject);
 begin
-  if ( not cdsTabelaItens.IsEmpty ) then
+  if ( not DtSrcTabelaItens.DataSet.IsEmpty ) then
   begin
-    cdsTabelaItens.Edit;
+    DtSrcTabelaItens.DataSet.Edit;
     dbQuantidade.SetFocus;
   end;
 end;
 
 procedure TViewEntrada.btnProdutoExcluirClick(Sender: TObject);
 begin
-  if ( not cdsTabelaItens.IsEmpty ) then
+  if ( not DtSrcTabelaItens.DataSet.IsEmpty ) then
     if ( ShowConfirm('Deseja excluir o ítem selecionado?') ) then
-      cdsTabelaItens.Delete;
+      DtSrcTabelaItens.DataSet.Delete;
 end;
 
 procedure TViewEntrada.btnProdutoSalvarClick(Sender: TObject);
@@ -1477,7 +1472,8 @@ procedure TViewEntrada.btnProdutoSalvarClick(Sender: TObject);
   var
     Item : Integer;
   begin
-    Item         := cdsTabelaItensSEQ.AsInteger;
+    Item := DtSrcTabelaItens.DataSet.FieldByName('SEQ').AsInteger;
+
     Total_Bruto    := 0.0;
     Total_desconto := 0.0;
     Total_IPI      := 0.0;
@@ -1485,32 +1481,40 @@ procedure TViewEntrada.btnProdutoSalvarClick(Sender: TObject);
     vBC_ICMS       := 0.0;
     vICMS          := 0.0;
 
-    cdsTabelaItens.First;
+    DtSrcTabelaItens.DataSet.First;
 
-    while not cdsTabelaItens.Eof do
+    while not DtSrcTabelaItens.DataSet.Eof do
     begin
-      Total_Bruto := Total_Bruto + cdsTabelaItensTOTAL_BRUTO.AsCurrency;
-      Total_IPI   := Total_IPI   + cdsTabelaItensVALOR_IPI.AsCurrency;
+      Total_Bruto := Total_Bruto + DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency;
+      Total_IPI   := Total_IPI   + DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').AsCurrency;
 
-      if ( cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency > 0 ) then
+      if (DtSrcTabelaItens.DataSet.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency > 0) then
       begin
-        vBC_ICMS := vBC_ICMS + (cdsTabelaItensTOTAL_BRUTO.AsCurrency * cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency / 100);
-        vICMS    := vICMS    + (((cdsTabelaItensTOTAL_BRUTO.AsCurrency * cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency / 100)) * cdsTabelaItensALIQUOTA.AsCurrency / 100);
+        vBC_ICMS := vBC_ICMS +
+          (DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency *
+           DtSrcTabelaItens.DataSet.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency / 100);
+
+        vICMS    := vICMS    +
+          (((DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency *
+             DtSrcTabelaItens.DataSet.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency / 100)
+           ) * DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA').AsCurrency / 100);
       end
       else
       begin
-        vBC_ICMS := vBC_ICMS + cdsTabelaItensTOTAL_BRUTO.AsCurrency;
-        vICMS    := vICMS    + (cdsTabelaItensTOTAL_BRUTO.AsCurrency * cdsTabelaItensALIQUOTA.AsCurrency / 100);
+        vBC_ICMS := vBC_ICMS + DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency;
+        vICMS    := vICMS    +
+          (DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency *
+           DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA').AsCurrency / 100);
       end;
 
 
-      cdsTabelaItens.Next;
+      DtSrcTabelaItens.DataSet.Next;
     end;
 
     Total_desconto := DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency;
     Total_Liquido  := Total_Bruto - Total_desconto;
 
-    cdsTabelaItens.Locate('SEQ', Item, []);
+    DtSrcTabelaItens.DataSet.Locate('SEQ', Item, []);
   end;
 
 var
@@ -1522,38 +1526,34 @@ var
   cValorBaseIcms,
   cValorIcms    : Currency;
 begin
-  if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] ) then
   begin
-    if ( Trim(cdsTabelaItensCODPROD.AsString) = EmptyStr ) then
+    if ( Trim(DtSrcTabelaItens.DataSet.FieldByName('CODPROD').AsString) = EmptyStr ) then
     begin
       ShowWarning('Favor selecionar o ' + lblProduto.Caption);
       dbProduto.SetFocus;
     end
     else
-    if ( cdsTabelaItensQTDE.AsCurrency <= 0 ) then
+    if (DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency <= 0) then
     begin
       ShowWarning('Quantidade inválida.');
       dbQuantidade.SetFocus;
     end
     else
-    if ( cdsTabelaItensPRECOUNIT.AsCurrency <= 0 ) then
+    if (DtSrcTabelaItens.DataSet.FieldByName('PRECOUNIT').AsCurrency <= 0) then
     begin
       ShowWarning('Valor unitário inválida.');
       dbValorUnit.SetFocus;
     end
     else
-    if ( cdsTabelaItensVALOR_IPI.AsCurrency < 0 ) then
+    if (DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').AsCurrency < 0) then
     begin
       ShowWarning('Valor IPI inválida.');
       dbValorIPIProduto.SetFocus;
     end
     else
     begin
-
-      if cdsTabelaItensSEQ.IsNull then
-        cdsTabelaItensSEQ.AsInteger := 1;
-
-      cdsTabelaItens.Post;
+      DtSrcTabelaItens.DataSet.Post;
 
       if ( dbCalcularTotais.Checked ) then
       begin
@@ -1569,7 +1569,6 @@ begin
 
       if ( btnProdutoInserir.Visible and btnProdutoInserir.Enabled ) then
         btnProdutoInserir.SetFocus;
-
     end;
   end;
 end;
@@ -1581,7 +1580,7 @@ var
 begin
   with DtSrcTabela.DataSet do
   begin
-    if ( cdsTabelaItens.IsEmpty ) then
+    if ( DtSrcTabelaItens.DataSet.IsEmpty ) then
       ShowWarning('Favor informar o(s) ' + IfThen(FTipoMovimento = tmeProduto, 'produto(s)', 'serviço(s)') + ' da entrada.')
     else
     begin
@@ -1612,13 +1611,13 @@ begin
 
         if ( not OcorreuErro ) then
         begin
-          if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-            cdsTabelaItens.Post;
+          if ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] ) then
+            DtSrcTabelaItens.DataSet.Post;
 
-          cdsTabelaItens.ApplyUpdates;
-          cdsTabelaItens.CommitUpdates;
+          Produtos.DAO.ApplyUpdates;
+          Produtos.DAO.CommitUpdates;
 
-          CommitTransaction;
+          FController.DAO.CommitTransaction;
         end;
 
         HabilitarDesabilitar_Btns;
@@ -1629,55 +1628,6 @@ end;
 
 procedure TViewEntrada.ConfigurarCamposTabelas;
 begin
-  // Configurar tabela de cadastro
-  Tabela
-    .Display('CODCONTROL', 'No. Entrada', DisplayFormatCodigo, TAlignment.taCenter, True)
-    .Display('CODEMP',  'Empresa', True)
-    .Display('CODFORN', 'Fornecedor', True)
-    .Display('STATUS', 'Situação', TAlignment.taLeftJustify, True)
-    .Display('TIPO_ENTRADA', 'Tipo de Entrada', True)
-    .Display('DTEMISS', 'Data de Emissão', 'dd/mm/yyyy', TAlignment.taCenter, True)
-    .Display('TIPO_DOCUMENTO', 'Tipo do Documento', True)
-    .Display('NF', 'Número do Documento', False)
-    .Display('NFSERIE', 'Série do Documento', TAlignment.taCenter, False)
-    .Display('DTENT', 'Data de Entrada', 'dd/mm/yyyy', TAlignment.taCenter, True)
-    .Display('IPI', 'IPI', ',0.00', TAlignment.taRightJustify, False)
-    .Display('ICMSBASE', 'Base ICMS', ',0.00', TAlignment.taRightJustify, False)
-    .Display('ICMSVALOR', 'Valor ICMS', ',0.00', TAlignment.taRightJustify, False)
-    .Display('ICMSSUBSTBASE', 'Base ICMS Subst.', ',0.00', TAlignment.taRightJustify, False)
-    .Display('ICMSSUBSTVALOR', 'Valor ICMS Subst.', ',0.00', TAlignment.taRightJustify, False)
-    .Display('FRETE', 'Frete', ',0.00', TAlignment.taRightJustify, False)
-    .Display('OUTROSCUSTOS', 'Outros', ',0.00', TAlignment.taRightJustify, False)
-    .Display('DESCONTO', 'Desconto', ',0.00', TAlignment.taRightJustify, False)
-    .Display('TOTALNF', 'Total Nota Fiscal', ',0.00', TAlignment.taRightJustify, True)
-    .Display('TOTALPROD', 'Total Produto', ',0.00', TAlignment.taRightJustify, True)
-    .Display('FORMAPAGTO_COD',    'Forma de Pagamento', True)
-    .Display('CONDICAOPAGTO_COD', 'Condição de Pagamento', True)
-    .Display('TIPO_DESPESA',      'Tipo de Despesa', True);
-
-  // Configurar tabela dos itens
-  TTabelaController
-    .New
-    .Tabela( cdsTabelaItens )
-    .Display('SEQ', '#', '00', TAlignment.taCenter)
-    .Display('CODPROD', 'Produto')
-    .Display('QTDE', 'Qtde.', ',0.##', TAlignment.taRightJustify)
-    .Display('PRECOUNIT', 'Valor Unitário (R$)', ',0.00', TAlignment.taRightJustify)
-    .Display('CUSTOMEDIO', 'Outros (R$)', ',0.00', TAlignment.taRightJustify)
-    .Display('PERC_PARTICIPACAO', '% Partic.', ',0.00', TAlignment.taRightJustify)
-    .Display('VALOR_FRETE', 'Frete (R$)', ',0.00', TAlignment.taRightJustify)
-    .Display('VALOR_DESCONTO', 'Desconto (R$)', ',0.00', TAlignment.taRightJustify)
-    .Display('VALOR_OUTROS', 'Outros (R$)', ',0.00', TAlignment.taRightJustify)
-    .Display('VALOR_IPI', 'Valor IPI (R$)', ',0.00', TAlignment.taRightJustify)
-    .Display('ALIQUOTA', '% Alíquota', ',0.00', TAlignment.taRightJustify)
-    .Display('ALIQUOTA_CSOSN', '% Alíquota SN', ',0.00', TAlignment.taRightJustify)
-    .Display('ALIQUOTA_PIS', '% Alíquota PIS', ',0.00', TAlignment.taRightJustify)
-    .Display('ALIQUOTA_COFINS', '% Alíquota COFINS', ',0.00', TAlignment.taRightJustify)
-    .Display('PERCENTUAL_REDUCAO_BC', '% Redução BC', ',0.00', TAlignment.taRightJustify)
-    .Display('TOTAL_BRUTO', 'Total Bruto (R$)', ',0.00', TAlignment.taRightJustify)
-    .Display('TOTAL_LIQUIDO', 'Total Líquido (R$)', ',0.00', TAlignment.taRightJustify)
-    .Configurar( cdsTabelaItens );
-
   // Configurar tabela dos lotes
   TTabelaController
     .New
@@ -1705,21 +1655,22 @@ begin
         CarregarDadosCFOP( FieldByName('NFCFOP').AsInteger );
 
     if ( Sender = dbProduto ) then
-      if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-        CarregarDadosProduto( cdsTabelaItensCODPROD.AsInteger );
+      if ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] ) then
+        CarregarDadosProduto( DtSrcTabelaItens.DataSet.FieldByName('CODPROD').AsInteger );
 
     if ( Sender = dbQuantidade ) then
-      if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-        cdsTabelaItensQTDEFINAL.Value := cdsTabelaItensQTDEANTES.Value + cdsTabelaItensQTDE.Value;
+      if ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] ) then
+        DtSrcTabelaItens.DataSet.FieldByName('QTDEFINAL').AsCurrency :=
+          DtSrcTabelaItens.DataSet.FieldByName('QTDEANTES').AsCurrency + DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency;
 
     if ( (Sender = dbValorUnit) or (Sender = dbValorIPIProduto) ) then
     begin
-      if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+      if ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] ) then
       begin
-        cPrecoUN := cdsTabelaItensPRECOUNIT.AsCurrency;
+        cPrecoUN := DtSrcTabelaItens.DataSet.FieldByName('PRECOUNIT').AsCurrency;
 
-        cdsTabelaItensCUSTOMEDIO.AsCurrency  := cPrecoUN + cdsTabelaItensVALOR_IPI.AsCurrency;
-        cdsTabelaItensTOTAL_BRUTO.AsCurrency := cPrecoUN * cdsTabelaItensQTDE.AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('CUSTOMEDIO').AsCurrency  := cPrecoUN + DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency := cPrecoUN * DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency;
 
         if (FValorTotalProduto = 0.0) then
           FValorTotalProduto := FieldByName('TOTALPROD').AsCurrency;
@@ -1727,15 +1678,21 @@ begin
         if ( FValorTotalProduto > 0.0 ) then
         begin
           if not dbCalcularTotais.Checked then
-            cdsTabelaItensPERC_PARTICIPACAO.AsCurrency := cdsTabelaItensTOTAL_BRUTO.AsCurrency / FValorTotalProduto * 100
+            DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency := DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency / FValorTotalProduto * 100
           else
-            cdsTabelaItensPERC_PARTICIPACAO.AsCurrency := 0.0;
+            DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency := 0.0;
 
-          cdsTabelaItensVALOR_FRETE.Value        := cdsTabelaItensPERC_PARTICIPACAO.Value * FieldByName('FRETE').AsCurrency / 100;
-          cdsTabelaItensVALOR_DESCONTO.Value     := cdsTabelaItensPERC_PARTICIPACAO.Value * FieldByName('DESCONTO').AsCurrency / 100;
-          cdsTabelaItensVALOR_OUTROS.Value       := cdsTabelaItensPERC_PARTICIPACAO.Value * FieldByName('OUTROSCUSTOS').AsCurrency / 100;
+          DtSrcTabelaItens.DataSet.FieldByName('VALOR_FRETE').AsCurrency    :=
+            DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency * FieldByName('FRETE').AsCurrency / 100;
 
-          cdsTabelaItensTOTAL_LIQUIDO.AsCurrency := cdsTabelaItensTOTAL_BRUTO.AsCurrency - cdsTabelaItensVALOR_DESCONTO.AsCurrency;
+          DtSrcTabelaItens.DataSet.FieldByName('VALOR_DESCONTO').AsCurrency :=
+            DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency * FieldByName('DESCONTO').AsCurrency / 100;
+
+          DtSrcTabelaItens.DataSet.FieldByName('VALOR_OUTROS').AsCurrency   :=
+            DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency * FieldByName('OUTROSCUSTOS').AsCurrency / 100;
+
+          DtSrcTabelaItens.DataSet.FieldByName('TOTAL_LIQUIDO').AsCurrency :=
+            DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency - DtSrcTabelaItens.DataSet.FieldByName('VALOR_DESCONTO').AsCurrency;
         end;
       end;
     end;
@@ -1756,8 +1713,13 @@ begin
   with DtSrcTabela.DataSet do
   begin
     AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-    AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-    AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+
+    AbrirTabelaItens;
+
+    AbrirTabelaLotes(FieldByName('ANO').AsInteger
+      , FieldByName('CODCONTROL').AsInteger
+      , FieldByName('CODEMP').AsString);
+
     AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
   end;
 end;
@@ -1802,8 +1764,13 @@ begin
       end;
 
       AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-      AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-      AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+
+      AbrirTabelaItens;
+
+      AbrirTabelaLotes(FieldByName('ANO').AsInteger
+        , FieldByName('CODCONTROL').AsInteger
+        , FieldByName('CODEMP').AsString);
+
       AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
     end;
 end;
@@ -1832,8 +1799,13 @@ begin
       if ( not OcorreuErro ) then
       begin
         AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-        AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-        AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+
+        AbrirTabelaItens;
+
+        AbrirTabelaLotes(FieldByName('ANO').AsInteger
+         , FieldByName('CODCONTROL').AsInteger
+         , FieldByName('CODEMP').AsString);
+
         AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
       end;
     end;
@@ -1862,7 +1834,7 @@ var
   cPercRedBC    ,
   cValorCusto   : Currency;
 begin
-  if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+  if (DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert]) then
   begin
 
     cAliquota       := 0.0;
@@ -1889,16 +1861,16 @@ begin
 
     if bSelecionado then
     begin
-      cdsTabelaItensCODPROD.AsString     := sCodigoAlfa;
-      cdsTabelaItensDESCRI.AsString      := sDescricao;
-      cdsTabelaItensUNP_SIGLA.AsString   := sUnidade;
+      DtSrcTabelaItens.DataSet.FieldByName('CODPROD').AsString   := sCodigoAlfa;
+      DtSrcTabelaItens.DataSet.FieldByName('DESCRI').AsString    := sDescricao;
+      DtSrcTabelaItens.DataSet.FieldByName('UNP_SIGLA').AsString := sUnidade;
 
-      cdsTabelaItensNCM_SH.AsString                  := sNCM_SH;
-      cdsTabelaItensCST.AsString                     := sCST;
-      cdsTabelaItensALIQUOTA.AsCurrency              := cAliquota;
-      cdsTabelaItensALIQUOTA_PIS.AsCurrency          := cAliquotaPIS;
-      cdsTabelaItensALIQUOTA_COFINS.AsCurrency       := cAliquotaCOFINS;
-      cdsTabelaItensPERCENTUAL_REDUCAO_BC.AsCurrency := cPercRedBC;
+      DtSrcTabelaItens.DataSet.FieldByName('NCM_SH').AsString                  := sNCM_SH;
+      DtSrcTabelaItens.DataSet.FieldByName('CST').AsString                     := sCST;
+      DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA').AsCurrency              := cAliquota;
+      DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA_PIS').AsCurrency          := cAliquotaPIS;
+      DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA_COFINS').AsCurrency       := cAliquotaCOFINS;
+      DtSrcTabelaItens.DataSet.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency := cPercRedBC;
 
       if (TTipoMovimentoEntrada(DtSrcTabela.DataSet.FieldByName('TIPO_MOVIMENTO').AsInteger) = tmeProduto) then
       begin
@@ -1906,11 +1878,11 @@ begin
           CarregarDadosCFOP( DtSrcTabela.DataSet.FieldByName('NFCFOP').AsInteger );
 
         if ( (FControllerCFOP.DAO.DataSet.FieldByName('Cfop_cst_padrao_entrada').AsString) <> EmptyStr ) then
-          cdsTabelaItensCST.AsString := Trim(FControllerCFOP.DAO.DataSet.FieldByName('Cfop_cst_padrao_entrada').AsString);
+          DtSrcTabelaItens.DataSet.FieldByName('CST').AsString := Trim(FControllerCFOP.DAO.DataSet.FieldByName('Cfop_cst_padrao_entrada').AsString);
       end;
 
       if ( iUnidade > 0 ) then
-        cdsTabelaItensUNID_COD.AsInteger := iUnidade;
+        DtSrcTabelaItens.DataSet.FieldByName('UNID_COD').AsInteger := iUnidade;
     end;
 
   end;
@@ -1961,34 +1933,26 @@ begin
 
     // Garantir a gravação dos itens na base
     try
-      try
-        cdsTabelaItens.First;
-        //cdsTabelaItens.DisableControls;    // Esta ocasionado problema
-        while not cdsTabelaItens.Eof do
-        begin
-          cdsTabelaItens.Edit;
-          cdsTabelaItens.Post;
-          cdsTabelaItens.ApplyUpdates;
-          cdsTabelaItens.CommitUpdates;
+      DtSrcTabelaItens.DataSet.First;
+      while not DtSrcTabelaItens.DataSet.Eof do
+      begin
+        DtSrcTabelaItens.DataSet.Edit;
+        DtSrcTabelaItens.DataSet.Post;
 
-          cdsTabelaItens.Next;
-        end;
-      except
-        //cdsTabelaItens.EnableConstraints;  // Esta ocasionado problema
+        Produtos.DAO.ApplyUpdates;
+        Produtos.DAO.CommitUpdates;
+
+        DtSrcTabelaItens.DataSet.Next;
       end;
     finally
-      CommitTransaction;
-
-      cdsTabelaItens.First;
-      //cdsTabelaItens.EnableConstraints;    // Esta ocasionado problema
+      FController.DAO.CommitTransaction;
+      DtSrcTabelaItens.DataSet.First;
     end;
-
-    //cdsTabelaItens.Refresh;                // Esta ocasionado problema
 
     if (FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) then
       ShowWarning('Movimento de Entrada já está finalizado!')
     else
-    if (cdsTabelaItens.RecordCount = 0) then
+    if (DtSrcTabelaItens.DataSet.RecordCount = 0) then
       ShowWarning('Movimento de Entrada sem produto(s)!')
     else
     begin
@@ -1998,7 +1962,7 @@ begin
           if not LotesProdutosConfirmados(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger) then
             Abort
           else
-            AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+            AbrirTabelaLotes(FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger, FieldByName('CODEMP').AsString);
 
       if ( FieldByName('CODFORN').AsInteger = 0 ) then
       begin
@@ -2221,8 +2185,13 @@ begin
   with DtSrcTabela.DataSet do
   begin
     AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-    AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-    AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+
+    AbrirTabelaItens;
+
+    AbrirTabelaLotes(FieldByName('ANO').AsInteger
+      , FieldByName('CODCONTROL').AsInteger
+      , FieldByName('CODEMP').AsString);
+
     AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
   end;
 end;
@@ -2233,6 +2202,8 @@ begin
   begin
     if (not (DtSrcTabela.DataSet.State in [dsEdit, dsInsert])) then
     begin
+      AbrirTabelaItens;
+
       FControllerCFOP.DAO.ClearWhere;
       FControllerCFOP
         .DAO
@@ -2293,8 +2264,13 @@ begin
       RecarregarRegistro;
 
       AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-      AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-      AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+
+      AbrirTabelaItens;
+
+      AbrirTabelaLotes(FieldByName('ANO').AsInteger
+        , FieldByName('CODCONTROL').AsInteger
+        , FieldByName('CODEMP').AsString);
+
       AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 
       ShowInformation('Entrada cancelada com sucesso.' + #13#13 + 'Ano/Controle: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CODCONTROL').AsInteger));
@@ -2686,8 +2662,8 @@ begin
   end;
 
   // Desistir na inserção de um novo produto/serviço
-  if ( (Key = VK_ESCAPE) and (pgcGuias.ActivePage = tbsCadastro) and (cdsTabelaItens.State in [dsEdit, dsInsert]) ) then
-    cdsTabelaItens.Cancel
+  if ( (Key = VK_ESCAPE) and (pgcGuias.ActivePage = tbsCadastro) and (DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert]) ) then
+    DtSrcTabelaItens.DataSet.Cancel
   else
     inherited;
 end;
@@ -2775,6 +2751,11 @@ begin
   HabilitarDesabilitar_Btns;
 end;
 
+function TViewEntrada.Produtos: IControllerCustom;
+begin
+  Result := Controller.Produtos;
+end;
+
 procedure TViewEntrada.AbrirNotaFiscal(const pEmpresa: String;
   const AnoCompra: Smallint; const ControleCompra: Integer);
 begin
@@ -2804,8 +2785,13 @@ begin
       RecarregarRegistro;
 
       AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-      AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-      AbrirTabelaLotes( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+
+      AbrirTabelaItens;
+
+      AbrirTabelaLotes(FieldByName('ANO').AsInteger
+        , FieldByName('CODCONTROL').AsInteger
+        , FieldByName('CODEMP').AsString);
+
       AbrirTabelaDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 
       ShowInformation('Correção', 'CFOP corrigido com sucesso!' + #13 + 'Favor pesquisar entrada novamente.');

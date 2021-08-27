@@ -67,8 +67,10 @@ type
     ['{A5627D72-25E9-4711-8F2B-528AC7904DA8}']
     function Busca : IModelDAOCustom;
     function DocumentoDuplicado(const aEntrada : TLancamentoEntrada; const aDocumento : TDocumentoEntrada) : Boolean;
+    function Produtos : IControllerCustom;
 
     procedure CorrigirCFOP(aCFOP : String);
+    procedure CarregarProdutos;
   end;
 
   IControllerFactory = interface
@@ -102,6 +104,7 @@ type
     function Empresa     : IControllerCustom;
     function EmpresaView : IControllerEmpresa;
     function Entrada : IControllerEntrada;
+    function EntradaProduto : IControllerCustom;
     function FabricanteProduto : IControllerCustom;
     function FormaPagto : IControllerCustom;
     function FormaPagtoContaCorrente : IControllerCustom;

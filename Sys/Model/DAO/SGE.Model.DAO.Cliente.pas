@@ -377,7 +377,7 @@ begin
         .Add('order by')
         .Add('    1 desc, 4 desc, 7 desc') //-- Tipo, Lancamentos, Vencimentos
       .&End
-    .ParamByName('cliente',0)
+    .ParamByName('cliente', 0)
     .Open;
 end;
 
