@@ -264,7 +264,6 @@ type
     dbCSOSN: TDBEdit;
     dbCalcularTotais: TDBCheckBox;
     qryAutorizacaoProduto: TFDQuery;
-    spGerarDuplicatas: TFDStoredProc;
     qryNFE: TFDQuery;
     updNFE: TFDUpdateSQL;
     qryNFEEMPRESA: TStringField;
@@ -285,26 +284,6 @@ type
     qryNFENUMVENDA: TIntegerField;
     qryNFEANOCOMPRA: TSmallintField;
     qryNFENUMCOMPRA: TIntegerField;
-    qryDuplicatas: TFDQuery;
-    updDuplicatas: TFDUpdateSQL;
-    qryDuplicatasANOLANC: TSmallintField;
-    qryDuplicatasNUMLANC: TIntegerField;
-    qryDuplicatasPARCELA: TSmallintField;
-    qryDuplicatasCODFORN: TSmallintField;
-    qryDuplicatasNOMEFORN: TStringField;
-    qryDuplicatasCNPJ: TStringField;
-    qryDuplicatasNOTFISC: TStringField;
-    qryDuplicatasTIPPAG: TStringField;
-    qryDuplicatasDTEMISS: TDateField;
-    qryDuplicatasDTVENC: TDateField;
-    qryDuplicatasBANCO: TSmallintField;
-    qryDuplicatasBCO_NOME: TStringField;
-    qryDuplicatasNUMCHQ: TStringField;
-    qryDuplicatasPAGO_: TStringField;
-    qryDuplicatasDOCBAIX: TStringField;
-    qryDuplicatasSITUACAO: TSmallintField;
-    qryDuplicatasSITUACAO_DESC: TStringField;
-    qryDuplicatasLancamento: TStringField;
     lblCalcularTotaisInfo: TLabel;
     tbsLotes: TTabSheet;
     DBGrid1: TDBGrid;
@@ -324,10 +303,8 @@ type
     cdsTabelaLotesLOTE_DATA_FAB: TDateField;
     cdsTabelaLotesLOTE_DATA_VAL: TDateField;
     cdsTabelaLotesQTDE: TFMTBCDField;
-    qryDuplicatasVALORPAG: TFMTBCDField;
     btnImportar: TcxButton;
     bvlImportar: TBevel;
-    procedure DataSetStatusGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure DtSrcTabelaAfterScroll(DataSet: TDataSet);
     procedure FormCreate(Sender: TObject);
@@ -369,7 +346,6 @@ type
     procedure nmPpArquivoNFeClick(Sender: TObject);
     procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
     procedure fdQryTabelaAUTORIZACAO_CODIGOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
-    procedure qryDuplicatasCalcFields(DataSet: TDataSet);
     procedure btnTituloEditarClick(Sender: TObject);
     procedure dbSerieKeyPress(Sender: TObject; var Key: Char);
     procedure nmImprimirEspelhoClick(Sender: TObject);
@@ -389,14 +365,12 @@ type
     FEmpresa : String;
     FTipoMovimento : TTipoMovimentoEntrada;
     FApenasFinalizadas : Boolean;
-    SQL_Duplicatas : TStringList;
     FValorTotalProduto : Currency;
     procedure CarregarDadosEmpresa(const pEmpresa, pTituloRelatorio : String);
     procedure AbrirTabelaItens;
     procedure AbrirTabelaDuplicatas;
     procedure AbrirTabelaLotes(const AnoCompra : Smallint; const ControleCompra : Integer; const EmpresaCompra : String);
     procedure AbrirNotaFiscal(const pEmpresa : String; const AnoCompra : Smallint; const ControleCompra : Integer);
-    procedure GerarDuplicatas(const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure CarregarDadosProduto( Codigo : Integer);
     procedure CarregarDadosCFOP( iCodigo : Integer );
     procedure HabilitarDesabilitar_Btns;
@@ -724,10 +698,6 @@ begin
   AbrirTabelaAuto := True;
   FEmpresa        := EmptyStr;
 
-  SQL_Duplicatas := TStringList.Create;
-  SQL_Duplicatas.Clear;
-  SQL_Duplicatas.AddStrings( qryDuplicatas.SQL );
-
   e1Data.Date      := Date - 30;
   e2Data.Date      := Date;
   ControlFirstEdit := dbEmpresa;
@@ -829,8 +799,6 @@ begin
     WhereAdditional := WhereAdditional + ' and (c.index_valor = ' + CurrToStr(aValor) + ')';
 
   inherited;
-
-  DtSrcTabela.DataSet.FieldByName('STATUS').OnGetText := DataSetStatusGetText;
 end;
 
 procedure TViewEntrada.btnImportarClick(Sender: TObject);
@@ -1924,12 +1892,15 @@ begin
 
     pgcGuias.ActivePage := tbsCadastro;
 
-    // Garantir a gravação dos itens na base
+    // 1. Garantir a gravação dos itens na base
+    // 2. Atualizar percentual de participação do produto no valor total
     try
       DtSrcTabelaItens.DataSet.First;
       while not DtSrcTabelaItens.DataSet.Eof do
       begin
         DtSrcTabelaItens.DataSet.Edit;
+        DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency :=
+          DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency  / DtSrcTabela.DataSet.FieldByName('TOTALPROD').AsCurrency * 100.00;
         DtSrcTabelaItens.DataSet.Post;
 
         Produtos.DAO.ApplyUpdates;
@@ -2011,7 +1982,7 @@ begin
         FController.DAO.CommitTransaction;
 
         if aGerarTitulos then
-          GerarDuplicatas( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+          Controller.GerarDuplicatas;
 
         AbrirTabelaDuplicatas;
 
@@ -2028,47 +1999,12 @@ begin
   end;
 end;
 
-procedure TViewEntrada.GerarDuplicatas(const AnoCompra: Smallint;
-  const ControleCompra: Integer);
-begin
-  try
-    ///... Implementar recurso na class controller
-    ///========================================
-    try
-
-      UpdateSequence('GEN_CONTAPAG_NUM_' + IntToStr(AnoCompra), 'TBCONTPAG', 'NUMLANC', 'where ANOLANC = ' + IntToStr(AnoCompra));
-
-      with spGerarDuplicatas do
-      begin
-        ParamByName('anocompra').AsInteger := AnoCompra;
-        ParamByName('numcompra').AsInteger := ControleCompra;
-        ExecProc;
-        CommitTransaction;
-      end;
-
-    except
-      On E : Exception do
-      begin
-        DMBusiness.ibtrnsctnBusiness.Rollback;
-        ShowError('Erro ao tentar gerar duplicatas.' + #13#13 + E.Message);
-      end;
-    end;
-
-  finally
-  end;
-end;
-
-procedure TViewEntrada.qryDuplicatasCalcFields(DataSet: TDataSet);
-begin
-  qryDuplicatasLancamento.AsString := FormatFloat('0000', qryDuplicatasANOLANC.AsInteger) + FormatFloat('000000', qryDuplicatasNUMLANC.AsInteger);
-end;
-
 procedure TViewEntrada.btnRegerarDuplicataClick(Sender: TObject);
 begin
   if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger <> STATUS_CMP_FIN ) then
     ShowWarning('É permitida a geração de duplicatas apenas para entradas finalizadas')
   else
-  if ( not qryDuplicatas.IsEmpty ) then
+  if ( not DtSrcTabelaDuplicatas.DataSet.IsEmpty ) then
     ShowWarning('Já existe(m) duplicata(s) gerado(s) para esta entrada')
   else
   if (not GetCfopGerarDuplicata(DtSrcTabela.DataSet.FieldByName('NFCFOP').AsInteger)) then
@@ -2076,7 +2012,7 @@ begin
   else
   if ( ShowConfirm('Confirma geração do(s) duplicata(s) a receber da entrada?') ) then
   begin
-    GerarDuplicatas( DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
+    Controller.GerarDuplicatas;
     AbrirTabelaDuplicatas;
   end;
 end;
@@ -2088,7 +2024,7 @@ begin
     if ( not (FieldByName('STATUS').AsInteger in [STATUS_CMP_FIN, STATUS_CMP_NFE]) ) then
       ShowWarning('É permitida a edição de duplicatas apenas para compras finalizadas')
     else
-    if ( qryDuplicatas.IsEmpty ) then
+    if ( DtSrcTabelaDuplicatas.DataSet.IsEmpty ) then
       ShowWarning('Não existe(m) duplicata(s) gerado(s) para esta compra')
     else
     if ( FieldByName('COMPRA_PRAZO').AsInteger = 1 ) then
@@ -2217,19 +2153,6 @@ procedure TViewEntrada.fdQryTabelaAUTORIZACAO_CODIGOGetText(Sender: TField; var 
 begin
   if not Sender.IsNull then
     Text := FormatFloat('###0000000"/"', Sender.AsInteger) + Copy(DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_ANO').AsString, 3, 2);
-end;
-
-procedure TViewEntrada.DataSetStatusGetText(Sender: TField; var Text: string;
-  DisplayText: Boolean);
-begin
-  Case Sender.AsInteger of
-    STATUS_CMP_ABR : Text := 'Aberta';
-    STATUS_CMP_FIN : Text := 'Finalizada';
-    STATUS_CMP_CAN : Text := 'Cancelada';
-    STATUS_CMP_NFE : Text := 'NF-e Emitida';
-    else
-      Text := Sender.AsString;
-  end;
 end;
 
 procedure TViewEntrada.btbtnCancelarENTClick(Sender: TObject);

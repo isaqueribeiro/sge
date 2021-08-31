@@ -25,6 +25,7 @@ type
       procedure CorrigirCFOP(aCFOP : String);
       procedure CarregarProdutos;
       procedure CarregarDuplicatas;
+      procedure GerarDuplicatas;
 
       function Busca : IModelDAOCustom;
       function DocumentoDuplicado(const aEntrada : TLancamentoEntrada; const aDocumento : TDocumentoEntrada) : Boolean;
@@ -186,6 +187,35 @@ begin
     FDuplicatas := TControllerEntradaDuplicata.New;
 
   Result := FDuplicatas;
+end;
+
+procedure TControllerEntrada.GerarDuplicatas;
+var
+  aScriptSQL  : TStringList;
+begin
+  if (FDAO.DataSet.FieldByName('ANO').AsInteger > 0) and (FDAO.DataSet.FieldByName('CODCONTROL').AsInteger > 0) then
+  begin
+    aScriptSQL := TStringList.Create;
+    try
+      FDAO.UpdateGenerator('GEN_CONTAPAG_NUM_' + FDAO.DataSet.FieldByName('ANO').AsInteger.ToString
+        , 'TBCONTPAG'
+        , 'NUMLANC'
+        , 'where ANOLANC = ' + FDAO.DataSet.FieldByName('ANO').AsInteger.ToString);
+
+      aScriptSQL.BeginUpdate;
+      aScriptSQL.Clear;
+      aScriptSQL.Add('Execute Procedure SET_GERAR_DUPLICATAS (');
+      aScriptSQL.Add('    ' + FDAO.DataSet.FieldByName('ANO').AsInteger.ToString);
+      aScriptSQL.Add('  , ' + FDAO.DataSet.FieldByName('CODCONTROL').AsInteger.ToString);
+      aScriptSQL.Add(')');
+      aScriptSQL.EndUpdate;
+
+      FDAO.ExecuteScriptSQL(aScriptSQL.Text);
+    finally
+      FDAO.CommitTransaction;
+      aScriptSQL.DisposeOf;
+    end;
+  end;
 end;
 
 class function TControllerEntrada.New: IControllerEntrada;

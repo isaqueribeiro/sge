@@ -106,7 +106,8 @@ type
       procedure RefreshRecord;
       procedure SetupKeyFields;
       procedure CreateGenerator(const aGeneratorName : String; const aYear : Smallint = 0);
-      procedure UpdateGenerator(const aExpressionWhere : String = '');
+      procedure UpdateGenerator(const aExpressionWhere : String = ''); overload;
+      procedure UpdateGenerator(aGeneratorName, aTableName, aFielNameKey : String; const aExpressionWhere : String = ''); overload;
 
       function NewID : Variant;
   end;
@@ -546,6 +547,11 @@ end;
 procedure TConnectionFireDAC.UpdateGenerator(const aExpressionWhere: String);
 begin
   UpdateSequence(GeneratorName, TableName, AutoIncFields, aExpressionWhere);
+end;
+
+procedure TConnectionFireDAC.UpdateGenerator(aGeneratorName, aTableName, aFielNameKey: String; const aExpressionWhere : String);
+begin
+  UpdateSequence(GeneratorName, aTableName, aFielNameKey, aExpressionWhere);
 end;
 
 procedure TConnectionFireDAC.UpdateSequence(aGeneratorName, aTableName, aFielNameKey : String; const sWhr : String = '');

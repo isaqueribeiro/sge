@@ -1948,8 +1948,6 @@ inherited ViewEntrada: TViewEntrada
               ShowHint = True
               TabOrder = 0
               OnClick = btnRegerarDuplicataClick
-              ExplicitLeft = -2
-              ExplicitTop = -6
             end
             object btnTituloEditar: TBitBtn
               Left = 0
@@ -2025,6 +2023,7 @@ inherited ViewEntrada: TViewEntrada
                 Expanded = False
                 FieldName = 'DTEMISS'
                 Title.Alignment = taCenter
+                Title.Caption = 'Emiss'#227'o '
                 Width = 80
                 Visible = True
               end
@@ -2032,6 +2031,7 @@ inherited ViewEntrada: TViewEntrada
                 Expanded = False
                 FieldName = 'DTVENC'
                 Title.Alignment = taCenter
+                Title.Caption = 'Vencimento '
                 Width = 80
                 Visible = True
               end
@@ -4033,9 +4033,7 @@ inherited ViewEntrada: TViewEntrada
   end
   object DtSrcTabelaDuplicatas: TDataSource
     AutoEdit = False
-    DataSet = qryDuplicatas
-    Left = 424
-    Top = 384
+    Left = 280
   end
   object ppImprimir: TPopupMenu
     Left = 56
@@ -4210,109 +4208,6 @@ inherited ViewEntrada: TViewEntrada
         DataType = ftString
         ParamType = ptInput
         Size = 18
-      end>
-  end
-  object spGerarDuplicatas: TFDStoredProc
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    StoredProcName = 'SET_GERAR_DUPLICATAS'
-    Left = 960
-    Top = 336
-    ParamData = <
-      item
-        Position = 1
-        Name = 'ANOCOMPRA'
-        DataType = ftSmallint
-        ParamType = ptInput
-      end
-      item
-        Position = 2
-        Name = 'NUMCOMPRA'
-        DataType = ftInteger
-        ParamType = ptInput
-      end
-      item
-        Position = 3
-        Name = 'FORNECEDOR'
-        DataType = ftInteger
-        ParamType = ptOutput
-      end
-      item
-        Position = 4
-        Name = 'NOTAFISCAL'
-        DataType = ftInteger
-        ParamType = ptOutput
-      end
-      item
-        Position = 5
-        Name = 'PARCELAS'
-        DataType = ftSmallint
-        ParamType = ptOutput
-      end
-      item
-        Position = 6
-        Name = 'VALOR_TOTAL'
-        DataType = ftFMTBcd
-        Precision = 15
-        NumericScale = 2
-        ParamType = ptOutput
-      end
-      item
-        Position = 7
-        Name = 'PARCELA'
-        DataType = ftSmallint
-        ParamType = ptOutput
-      end
-      item
-        Position = 8
-        Name = 'EMISSAO'
-        DataType = ftDate
-        ParamType = ptOutput
-      end
-      item
-        Position = 9
-        Name = 'VENCIMENTO'
-        DataType = ftDate
-        ParamType = ptOutput
-      end
-      item
-        Position = 10
-        Name = 'VALOR_DOCUMENTO'
-        DataType = ftFMTBcd
-        Precision = 15
-        NumericScale = 2
-        ParamType = ptOutput
-      end
-      item
-        Position = 11
-        Name = 'FORMA_PAGTO'
-        DataType = ftSmallint
-        ParamType = ptOutput
-      end
-      item
-        Position = 12
-        Name = 'CONDICAO_PAGTO'
-        DataType = ftSmallint
-        ParamType = ptOutput
-      end
-      item
-        Position = 13
-        Name = 'DATA_ENTRADA'
-        DataType = ftDate
-        ParamType = ptOutput
-      end
-      item
-        Position = 14
-        Name = 'ANO_LANC'
-        DataType = ftSmallint
-        ParamType = ptOutput
-      end
-      item
-        Position = 15
-        Name = 'NUM_LANC'
-        DataType = ftInteger
-        ParamType = ptOutput
       end>
   end
   object qryNFE: TFDQuery
@@ -4518,228 +4413,10 @@ inherited ViewEntrada: TViewEntrada
     Left = 928
     Top = 384
   end
-  object qryDuplicatas: TFDQuery
-    OnCalcFields = qryDuplicatasCalcFields
-    CachedUpdates = True
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    UpdateObject = updDuplicatas
-    SQL.Strings = (
-      'Select'
-      '    p.Anolanc'
-      '  , p.Numlanc'
-      '  , p.parcela'
-      '  , p.Codforn'
-      '  , f.Nomeforn'
-      '  , f.Cnpj'
-      '  , p.Notfisc'
-      '  , p.Tippag'
-      '  , p.Dtemiss'
-      '  , p.Dtvenc'
-      '  , p.Valorpag'
-      '  , p.Banco'
-      '  , b.Bco_nome'
-      '  , p.Numchq'
-      '  , Case when p.Dtpag is not null then '#39'X'#39' else '#39'.'#39' end as Pago_'
-      '  , p.Docbaix'
-      '  , p.situacao'
-      
-        '  , Case when p.situacao = 1 then '#39'Ativa'#39' else '#39'Cancelada'#39' end a' +
-        's situacao_desc'
-      'from TBCONTPAG p'
-      '  inner join TBFORNECEDOR f on (f.Codforn = p.Codforn)'
-      '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)')
-    Left = 360
-    Top = 384
-    object qryDuplicatasANOLANC: TSmallintField
-      FieldName = 'ANOLANC'
-      Origin = 'ANOLANC'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryDuplicatasNUMLANC: TIntegerField
-      FieldName = 'NUMLANC'
-      Origin = 'NUMLANC'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryDuplicatasPARCELA: TSmallintField
-      Alignment = taCenter
-      DisplayLabel = 'Parc.'
-      FieldName = 'PARCELA'
-      Origin = 'PARCELA'
-      DisplayFormat = '00'
-    end
-    object qryDuplicatasCODFORN: TSmallintField
-      FieldName = 'CODFORN'
-      Origin = 'CODFORN'
-    end
-    object qryDuplicatasNOMEFORN: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Fornecedor'
-      FieldName = 'NOMEFORN'
-      Origin = 'NOMEFORN'
-      ProviderFlags = []
-      Size = 100
-    end
-    object qryDuplicatasCNPJ: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'CNPJ'
-      Origin = 'CNPJ'
-      ProviderFlags = []
-      Size = 18
-    end
-    object qryDuplicatasNOTFISC: TStringField
-      DisplayLabel = 'Nota Fiscal'
-      FieldName = 'NOTFISC'
-      Origin = 'NOTFISC'
-      Size = 15
-    end
-    object qryDuplicatasTIPPAG: TStringField
-      DisplayLabel = 'Tipo de Pagamento'
-      FieldName = 'TIPPAG'
-      Origin = 'TIPPAG'
-      Size = 35
-    end
-    object qryDuplicatasDTEMISS: TDateField
-      DisplayLabel = 'Emiss'#227'o'
-      FieldName = 'DTEMISS'
-      Origin = 'DTEMISS'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object qryDuplicatasDTVENC: TDateField
-      DisplayLabel = 'Vencimento'
-      FieldName = 'DTVENC'
-      Origin = 'DTVENC'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object qryDuplicatasVALORPAG: TFMTBCDField
-      FieldName = 'VALORPAG'
-      Origin = 'VALORPAG'
-      Precision = 18
-      Size = 2
-    end
-    object qryDuplicatasBANCO: TSmallintField
-      FieldName = 'BANCO'
-      Origin = 'BANCO'
-    end
-    object qryDuplicatasBCO_NOME: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Banco'
-      FieldName = 'BCO_NOME'
-      Origin = 'BCO_NOME'
-      ProviderFlags = []
-      Size = 50
-    end
-    object qryDuplicatasNUMCHQ: TStringField
-      DisplayLabel = 'No. Cheque'
-      FieldName = 'NUMCHQ'
-      Origin = 'NUMCHQ'
-      Size = 10
-    end
-    object qryDuplicatasPAGO_: TStringField
-      Alignment = taCenter
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Pago?'
-      FieldName = 'PAGO_'
-      Origin = 'PAGO_'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 1
-    end
-    object qryDuplicatasDOCBAIX: TStringField
-      DisplayLabel = 'Doc. Baixa'
-      FieldName = 'DOCBAIX'
-      Origin = 'DOCBAIX'
-      Size = 15
-    end
-    object qryDuplicatasSITUACAO: TSmallintField
-      FieldName = 'SITUACAO'
-      Origin = 'SITUACAO'
-    end
-    object qryDuplicatasSITUACAO_DESC: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'SITUACAO_DESC'
-      Origin = 'SITUACAO_DESC'
-      ProviderFlags = []
-      FixedChar = True
-      Size = 9
-    end
-    object qryDuplicatasLancamento: TStringField
-      Alignment = taCenter
-      DisplayLabel = 'Lan'#231'amento'
-      FieldKind = fkInternalCalc
-      FieldName = 'Lancamento'
-      Size = 10
-    end
-  end
-  object updDuplicatas: TFDUpdateSQL
-    Connection = DMBusiness.fdConexao
-    InsertSQL.Strings = (
-      'INSERT INTO TBCONTPAG'
-      '(ANOLANC, NUMLANC, CODFORN, PARCELA, TIPPAG, '
-      '  NOTFISC, DTEMISS, DTVENC, DOCBAIX, VALORPAG, '
-      '  BANCO, NUMCHQ, SITUACAO)'
-      
-        'VALUES (:NEW_ANOLANC, :NEW_NUMLANC, :NEW_CODFORN, :NEW_PARCELA, ' +
-        ':NEW_TIPPAG, '
-      
-        '  :NEW_NOTFISC, :NEW_DTEMISS, :NEW_DTVENC, :NEW_DOCBAIX, :NEW_VA' +
-        'LORPAG, '
-      '  :NEW_BANCO, :NEW_NUMCHQ, :NEW_SITUACAO)')
-    ModifySQL.Strings = (
-      'UPDATE TBCONTPAG'
-      
-        'SET ANOLANC = :NEW_ANOLANC, NUMLANC = :NEW_NUMLANC, CODFORN = :N' +
-        'EW_CODFORN, '
-      
-        '  PARCELA = :NEW_PARCELA, TIPPAG = :NEW_TIPPAG, NOTFISC = :NEW_N' +
-        'OTFISC, '
-      
-        '  DTEMISS = :NEW_DTEMISS, DTVENC = :NEW_DTVENC, DOCBAIX = :NEW_D' +
-        'OCBAIX, '
-      
-        '  VALORPAG = :NEW_VALORPAG, BANCO = :NEW_BANCO, NUMCHQ = :NEW_NU' +
-        'MCHQ, '
-      '  SITUACAO = :NEW_SITUACAO'
-      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC')
-    DeleteSQL.Strings = (
-      'DELETE FROM TBCONTPAG'
-      'WHERE ANOLANC = :OLD_ANOLANC AND NUMLANC = :OLD_NUMLANC')
-    FetchRowSQL.Strings = (
-      'Select'
-      '    p.Anolanc'
-      '  , p.Numlanc'
-      '  , p.parcela'
-      '  , p.Codforn'
-      '  , f.Nomeforn'
-      '  , f.Cnpj'
-      '  , p.Notfisc'
-      '  , p.Tippag'
-      '  , p.Dtemiss'
-      '  , p.Dtvenc'
-      '  , p.Valorpag'
-      '  , p.Banco'
-      '  , b.Bco_nome'
-      '  , p.Numchq'
-      '  , Case when p.Dtpag is not null then '#39'X'#39' else '#39'.'#39' end as Pago_'
-      '  , p.Docbaix'
-      '  , p.situacao'
-      
-        '  , Case when p.situacao = 1 then '#39'Ativa'#39' else '#39'Cancelada'#39' end a' +
-        's situacao_desc'
-      'from TBCONTPAG p'
-      '  inner join TBFORNECEDOR f on (f.Codforn = p.Codforn)'
-      '  left join TBBANCO_BOLETO b on (b.Bco_cod = p.Banco)'
-      'WHERE p.ANOLANC = :ANOLANC AND p.NUMLANC = :NUMLANC')
-    Left = 392
-    Top = 384
-  end
   object DtSrcTabelaLotes: TDataSource
     DataSet = cdsTabelaLotes
-    Left = 392
-    Top = 416
+    Left = 384
+    Top = 328
   end
   object cdsTabelaLotes: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -4772,8 +4449,8 @@ inherited ViewEntrada: TViewEntrada
       '  and (ci.lote_id is not null)'
       'order by'
       '     ci.seq')
-    Left = 360
-    Top = 416
+    Left = 352
+    Top = 328
     ParamData = <
       item
         Name = 'ANO'

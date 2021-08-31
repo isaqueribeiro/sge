@@ -49,12 +49,14 @@ type
       function Close      : IModelDAO;
 
       procedure Open;
+      procedure OpenOrExecute;
 
       procedure ClearWhere;
       procedure ApplyUpdates;
       procedure CommitUpdates;
       procedure RefreshRecord;
-      procedure UpdateGenerator(const aExpressionWhere : String = '');
+      procedure UpdateGenerator(const aExpressionWhere : String = ''); overload;
+      procedure UpdateGenerator(aGeneratorName, aTableName, aFielNameKey : String; const aExpressionWhere : String = ''); overload;
       procedure ExecuteScriptSQL(aScript : String);
 
       procedure StartTransaction;
@@ -157,6 +159,11 @@ begin
   FConn.Query.OpenEmpty;
 end;
 
+procedure TModelDAO.OpenOrExecute;
+begin
+  FConn.Query.OpenOrExecute;
+end;
+
 function TModelDAO.OrderBy(aFieldName: String): IModelDAO;
 begin
   Result := Self;
@@ -210,6 +217,11 @@ end;
 procedure TModelDAO.UpdateGenerator(const aExpressionWhere : String = '');
 begin
   FConn.Query.UpdateGenerator(aExpressionWhere);
+end;
+
+procedure TModelDAO.UpdateGenerator(aGeneratorName, aTableName, aFielNameKey: String; const aExpressionWhere : String);
+begin
+  FConn.Query.UpdateGenerator(aGeneratorName, aTableName, aFielNameKey, aExpressionWhere);
 end;
 
 function TModelDAO.Usuario: IUsuarioModel;

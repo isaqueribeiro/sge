@@ -77,6 +77,11 @@ type
     procedure GerarDuplicatas;
   end;
 
+  IControllerContaAPagar = interface(IControllerCustom)
+    ['{12196628-B1DD-4D44-9F83-CD63D2FFB633}']
+    procedure GerarDuplicatas(aAnoCompra, aNumCompra : Integer);
+  end;
+
   IControllerFactory = interface
     ['{52DB68E4-A6DE-428B-867A-F0EE203E7CCA}']
     function AliquotaCOFINSView : IControllerCustom;
@@ -100,6 +105,7 @@ type
     function CondicaoPagtoForma  : IControllerCustom;
     function CondicaoPagtoView   : IControllerCustom;
     function ConfiguracaoEmpresa : IControllerCustom;
+    function ContaAPagar : IControllerContaAPagar;
     function ContaCorrente       : IControllerCustom;
     function ContaCorrenteView   : IControllerCustom;
     function CorVeiculo : IControllerCustom;

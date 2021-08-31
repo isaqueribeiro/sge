@@ -13,6 +13,7 @@ type
   TModelDAOEntrada = class(TModelDAO, IModelDAOCustom)
     private
       procedure SetProviderFlags;
+      procedure StatusGetText(Sender: TField; var Text: string; DisplayText: Boolean);
       procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetNewRecord(DataSet: TDataSet);
       procedure DataSetBeforePost(DataSet: TDataSet);
@@ -214,9 +215,22 @@ begin
   FConn.Query.DataSet.FieldByName('qt_itens').ProviderFlags := [];
 end;
 
+procedure TModelDAOEntrada.StatusGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  Case Sender.AsInteger of
+    STATUS_CMP_ABR : Text := 'Aberta';
+    STATUS_CMP_FIN : Text := 'Finalizada';
+    STATUS_CMP_CAN : Text := 'Cancelada';
+    STATUS_CMP_NFE : Text := 'NF-e Emitida';
+    else
+      Text := Sender.AsString;
+  end;
+end;
+
 procedure TModelDAOEntrada.DataSetAfterOpen(DataSet: TDataSet);
 begin
   SetProviderFlags;
+  FConn.Query.DataSet.FieldByName('STATUS').OnGetText := StatusGetText;
 end;
 
 procedure TModelDAOEntrada.DataSetBeforePost(DataSet: TDataSet);

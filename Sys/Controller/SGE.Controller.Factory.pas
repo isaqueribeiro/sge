@@ -11,6 +11,7 @@ uses
   SGE.Controller.Cidade,
   SGE.Controller.Cliente,
   SGE.Controller.CondicaoPagto,
+  SGE.Controller.ContaAPagar,
   SGE.Controller.ContaCorrente,
   SGE.Controller.CST,
   SGE.Controller.Distrito,
@@ -48,12 +49,13 @@ type
       FCliente       : IControllerCliente;
       FClienteEstoque,
       FClienteTitulos,
-      FClienteTotalCompras,
-      FCombustivelVeiculo ,
-      FCondicaoPagto      ,
-      FCondicaoPagtoForma ,
-      FCondicaoPagtoView  ,
-      FConfiguracaoEmpresa,
+      FClienteTotalCompras ,
+      FCombustivelVeiculo  ,
+      FCondicaoPagto       ,
+      FCondicaoPagtoForma  ,
+      FCondicaoPagtoView   ,
+      FConfiguracaoEmpresa : IControllerCustom;
+      FContaAPagar : IControllerContaAPagar;
       FContaCorrente      ,
       FContaCorrenteView  ,
       FCorVeiculo  ,
@@ -128,6 +130,7 @@ type
       function CondicaoPagtoForma : IControllerCustom;
       function CondicaoPagtoView : IControllerCustom;
       function ConfiguracaoEmpresa : IControllerCustom;
+      function ContaAPagar : IControllerContaAPagar;
       function ContaCorrente : IControllerCustom;
       function ContaCorrenteView : IControllerCustom;
       function CorVeiculo : IControllerCustom;
@@ -450,6 +453,14 @@ begin
     FConfiguracaoEmpresa := TControllerConfiguracaoEmpresa.New;
 
   Result := FConfiguracaoEmpresa;
+end;
+
+function TControllerFactory.ContaAPagar: IControllerContaAPagar;
+begin
+  if not Assigned(FContaAPagar) then
+    FContaAPagar := TControllerContaAPagar.New;
+
+  Result := FContaAPagar;
 end;
 
 function TControllerFactory.ContaCorrente: IControllerCustom;

@@ -3582,6 +3582,7 @@ begin
         begin
           indPag := ipNenhum;
           tPag   := fpSemPagamento;
+          xPag   := EmptyStr; // Descrição da forma de pagamento
           vPag   := 0.0;
 //          tpIntegra := tiNaoInformado;
 //          CNPJ      := EmptyStr;
@@ -5232,6 +5233,7 @@ begin
         begin
           indPag := ipNenhum;
           tPag   := fpSemPagamento;
+          xPag   := EmptyStr; // Descrição da forma de pagamento
           vPag   := 0.0;
 //          tpIntegra := tiNaoInformado;
 //          CNPJ      := EmptyStr;
@@ -5249,6 +5251,7 @@ begin
         begin
           indPag := ipNenhum;
           tPag   := fpSemPagamento;
+          xPag   := EmptyStr; // Descrição da forma de pagamento
           vPag   := 0.0;
 //          tpIntegra := tiNaoInformado;
 //          CNPJ      := EmptyStr;
@@ -8061,6 +8064,7 @@ begin
                else
                 tPag := fpOutro
              end;
+             xPag := qryFormaPagtos.FieldByName('Descri').AsString;
              vPag := qryFormaPagtos.FieldByName('VALOR_FPAGTO').AsCurrency;
            end;
 

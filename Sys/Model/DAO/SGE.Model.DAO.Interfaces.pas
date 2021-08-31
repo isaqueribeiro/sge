@@ -40,12 +40,14 @@ type
     function Close      : IModelDAO;
 
     procedure Open;
+    procedure OpenOrExecute;
 
     procedure ClearWhere;
     procedure ApplyUpdates;
     procedure CommitUpdates;
     procedure RefreshRecord;
-    procedure UpdateGenerator(const aExpressionWhere : String = '');
+    procedure UpdateGenerator(const aExpressionWhere : String = ''); overload;
+    procedure UpdateGenerator(aGeneratorName, aTableName, aFielNameKey : String; const sWhr : String = ''); overload;
     procedure ExecuteScriptSQL(aScript : String);
 
     procedure StartTransaction;
