@@ -413,7 +413,7 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
           TabOrder = 5
         end
         object edFormaPagto: TEdit
-          Left = 72
+          Left = 71
           Top = 152
           Width = 65
           Height = 21
@@ -544,6 +544,10 @@ inherited frmGrConfigurarAmbiente: TfrmGrConfigurarAmbiente
     object TbsPDV: TTabSheet
       Caption = 'Impress'#227'o Cupom / PDV'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object GrpBxImpressaoCupomNFiscal: TGroupBox
         AlignWithMargins = True
         Left = 3

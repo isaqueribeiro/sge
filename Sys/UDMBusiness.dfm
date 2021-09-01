@@ -33,8 +33,8 @@ object DMBusiness: TDMBusiness
     Top = 208
   end
   object IdIPWatch: TIdIPWatch
-    Active = True
-    HistoryFilename = 'NetWorkActiveDGE.dat'
+    Active = False
+    HistoryEnabled = False
     Left = 112
     Top = 504
   end
@@ -175,7 +175,6 @@ object DMBusiness: TDMBusiness
       'Port=3050'
       'Server=localhost'
       'DriverID=FB')
-    Connected = True
     LoginPrompt = False
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao

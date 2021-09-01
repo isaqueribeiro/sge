@@ -913,7 +913,13 @@ begin
   end
   else
   if (Trunc(GetVersionDB(gSistema.Codigo) / 100) > Trunc(gVersaoApp.VersionID / 100)) then
+  begin
     ShowWarning('O sistema está desatualizado em relação à base de dados.' + #13 + 'Favor atualize seu sistema.');
+    Exit;
+  end;
+
+  if gConfiguracoes.ConfigurarAmbiente then
+    BrBtnConfigurarAmbiente.Click;
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);

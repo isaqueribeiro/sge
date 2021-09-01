@@ -70,9 +70,11 @@ type
     function DocumentoDuplicado(const aEntrada : TLancamentoEntrada; const aDocumento : TDocumentoEntrada) : Boolean;
     function Produtos : IControllerCustom;
     function Duplicatas : IControllerCustom;
+    function Lotes : IControllerCustom;
 
     procedure CorrigirCFOP(aCFOP : String);
     procedure CarregarProdutos;
+    procedure CarregarLotes;
     procedure CarregarDuplicatas;
     procedure GerarDuplicatas;
   end;

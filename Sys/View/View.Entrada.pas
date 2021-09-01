@@ -352,6 +352,7 @@ type
     procedure btnImportarClick(Sender: TObject);
     procedure dbgDadosExit(Sender: TObject);
     procedure dbgDadosEnter(Sender: TObject);
+    procedure dbSerieKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     FControllerEmpresaView    ,
@@ -1846,6 +1847,15 @@ begin
         DtSrcTabelaItens.DataSet.FieldByName('UNID_COD').AsInteger := iUnidade;
     end;
 
+  end;
+end;
+
+procedure TViewEntrada.dbSerieKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  if (Key = VK_RETURN) then
+  begin
+    Key := 0;
+    dbDataEntrada.SetFocus;
   end;
 end;
 

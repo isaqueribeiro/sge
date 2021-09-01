@@ -105,6 +105,7 @@ type
     function Empresa : IModelDAOCustom;
     function EmpresaView : IModelDAOCustom;
     function Entrada : IModelDAOCustom;
+    function EntradaLoteProduto : IModelDAOCustom;
     function EntradaProduto : IModelDAOCustom;
     function FabricanteProduto : IModelDAOCustom;
     function FormaPagto : IModelDAOCustom;

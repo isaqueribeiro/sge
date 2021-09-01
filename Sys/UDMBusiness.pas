@@ -5219,6 +5219,10 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
 *)
   fdConexao.Connected := False;
 
+  IdIPWatch.HistoryFilename := FILE_HISTORY_NET;
+  IdIPWatch.HistoryEnabled  := True;
+  IdIPWatch.Active          := True;
+
   if gVersaoApp.InternalName.Equals('SGE') then
     gSistema.Codigo := SISTEMA_GESTAO_COM
   else

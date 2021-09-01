@@ -63,38 +63,22 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
-//  // Duplicatas da Entrada
-//  TModelDAOEntradaDuplicata = class(TModelDAO, IModelDAOCustom)
-//    private
-//      procedure SetProviderFlags;
-//      procedure DataSetAfterOpen(DataSet: TDataSet);
-//      procedure DataSetNewRecord(DataSet: TDataSet);
-//      procedure DataSetBeforePost(DataSet: TDataSet);
-//    protected
-//      constructor Create;
-//    public
-//      destructor Destroy; override;
-//      class function New : IModelDAOCustom;
-//
-//      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
-//  end;
-//
-//  // Lotes de Produtos da Entrada
-//  TModelDAOEntradaProdutoLote = class(TModelDAO, IModelDAOCustom)
-//    private
-//      procedure SetProviderFlags;
-//      procedure DataSetAfterOpen(DataSet: TDataSet);
-//      procedure DataSetNewRecord(DataSet: TDataSet);
-//      procedure DataSetBeforePost(DataSet: TDataSet);
-//    protected
-//      constructor Create;
-//    public
-//      destructor Destroy; override;
-//      class function New : IModelDAOCustom;
-//
-//      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
-//  end;
-//
+  // Lotes de Produtos da Entrada
+  TModelDAOEntradaProdutoLote = class(TModelDAO, IModelDAOCustom)
+    private
+      procedure SetProviderFlags;
+      procedure DataSetAfterOpen(DataSet: TDataSet);
+      procedure DataSetNewRecord(DataSet: TDataSet);
+      procedure DataSetBeforePost(DataSet: TDataSet);
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+  end;
+
 implementation
 
 uses
@@ -374,7 +358,6 @@ end;
 constructor TModelDAOEntradaProduto.Create;
 begin
   inherited Create;
-  FConn.Query.CreateGenerator('GEN_COMPRAS_CONTROLE_' + FormatDateTime('yyyy', Date));
   FConn
     .Query
       .TableName('TBCOMPRASITENS')
@@ -421,9 +404,9 @@ begin
         .Add('from TBCOMPRASITENS i   ')
         .Add('  inner join TBPRODUTO p on (p.Cod = i.Codprod)          ')
         .Add('  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)')
-        .Add('where (i.Ano        = :Ano)')
-        .Add('  and (i.Codcontrol = :Codcontrol)')
-        .Add('  and (i.Codemp     = :Codemp)')
+        .Add('where (i.Ano        = :ano)')
+        .Add('  and (i.Codcontrol = :controle)')
+        .Add('  and (i.Codemp     = :empresa)')
       .&End
       .ParamByName('ano', 0)
       .ParamByName('controle', 0)
@@ -480,6 +463,106 @@ begin
     FieldByName('ALIQUOTA_COFINS').AsCurrency       := 0.0;
     FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency := 0.0;
   end;
+end;
+
+{ TModelDAOEntradaProdutoLote }
+
+constructor TModelDAOEntradaProdutoLote.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .TableName('TBCOMPRASITENS')
+      .AliasTableName('ci')
+      .KeyFields('ano;codcontrol;codemp;Seq')
+      .SQL
+        .Clear
+        .Add('Select            ')
+        .Add('     ci.ano       ')
+        .Add('   , ci.codcontrol')
+        .Add('   , ci.codemp    ')
+        .Add('   , ci.seq       ')
+        .Add('   , ci.codprod   ')
+        .Add('   , pr.descri    ')
+        .Add('   , pr.apresentacao       ')
+        .Add('   , pr.descri_apresentacao')
+        .Add('   , pr.referencia         ')
+        .Add('   , ci.lote_id            ')
+        .Add('   , ci.lote_descricao     ')
+        .Add('   , ci.lote_data_fab      ')
+        .Add('   , ci.lote_data_val      ')
+        .Add('   , ci.qtde               ')
+        .Add('from TBCOMPRASITENS ci     ')
+        .Add('  inner join TBCOMPRAS cp on (cp.ano = ci.ano and cp.codcontrol = ci.codcontrol and cp.codemp = ci.codemp)')
+        .Add('  inner join TBPRODUTO pr on (pr.cod = ci.codprod)')
+        .Add('  left join TBCFOP cf on (cf.cfop_cod = cp.nfcfop)')
+      .&End
+      .Where('ci.ano        = :ano     ')
+      .Where('ci.codcontrol = :controle')
+      .Where('ci.Codemp     = :empresa ')
+      .Where('ci.lote_id is not null ')
+//      .Where('pr.estoque_aprop_lote = 1')
+//      .Where('pr.movimenta_estoque  = 1')
+//      .Where('coalesce(cf.cfop_altera_estoque_produto, 1) = 1')
+      .OrderBy('ci.seq')
+      .ParamByName('ano', 0)
+      .ParamByName('controle', 0)
+      .ParamByName('empresa', EmptyStr)
+    .Open;
+
+  FConn.Query.DataSet.AfterOpen   := DataSetAfterOpen;
+  FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
+  FConn.Query.DataSet.BeforePost  := DataSetBeforePost;
+end;
+
+destructor TModelDAOEntradaProdutoLote.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOEntradaProdutoLote.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+procedure TModelDAOEntradaProdutoLote.SetProviderFlags;
+begin
+  // Ignorar campos no Insert e Update
+  FConn.Query.DataSet.FieldByName('descri').ProviderFlags       := [];
+  FConn.Query.DataSet.FieldByName('apresentacao').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('referencia').ProviderFlags   := [];
+  FConn.Query.DataSet.FieldByName('descri_apresentacao').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('qtde').ProviderFlags := [];
+end;
+
+procedure TModelDAOEntradaProdutoLote.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  SetProviderFlags;
+end;
+
+procedure TModelDAOEntradaProdutoLote.DataSetBeforePost(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+  begin
+    FieldByName('LOTE_DESCRICAO').AsString := Trim(FieldByName('LOTE_DESCRICAO').AsString);
+
+    if (Trim(FieldByName('LOTE_DESCRICAO').AsString) = EmptyStr) then
+      FieldByName('LOTE_DESCRICAO').Clear;
+
+    if (FieldByName('LOTE_DATA_FAB').AsDateTime = StrToDate(SYS_EMPTY_DATE)) then
+      FieldByName('LOTE_DATA_FAB').Clear;
+
+    if (FieldByName('LOTE_DATA_VAL').AsDateTime = StrToDate(SYS_EMPTY_DATE)) then
+      FieldByName('LOTE_DATA_VAL').Clear;
+
+    if (FieldByName('LOTE_DESCRICAO').IsNull and FieldByName('LOTE_DATA_FAB').IsNull and FieldByName('LOTE_DATA_VAL').IsNull) then
+      FieldByName('LOTE_ID').Clear;
+  end;
+end;
+
+procedure TModelDAOEntradaProdutoLote.DataSetNewRecord(DataSet: TDataSet);
+begin
+  raise Exception.Create('Não é permitida inserção de registros através desta classe');
 end;
 
 end.

@@ -230,6 +230,8 @@ begin
   edCFOPEntradaNome.Text := GetCfopNome( StrToIntDef(edCFOPEntrada.Text, 0) );
   edCFOPSaidaNome.Text   := GetCfopNome( StrToIntDef(edCFOPSaida.Text, 0) );
 
+  // Venda
+
   chkCarregarPapelParede.Checked := FileINI.ReadBool  (INI_SECAO_VENDA, INI_KEY_PAPEL_PAREDE, True);
   chkCarregarPeloEAN.Checked     := FileINI.ReadBool  (INI_SECAO_VENDA, INI_KEY_CODIGO_EAN,   GetCarregarProdutoCodigoBarra(gUsuarioLogado.Empresa));
   chkAjustarDataHora.Checked     := FileINI.ReadBool  (INI_SECAO_VENDA, INI_KEY_AJUSTAR_DH,   False);
@@ -274,6 +276,8 @@ begin
 
   FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_CFOP_ENT, edCFOPEntrada.Text);
   FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_CFOP_SAI, edCFOPSaida.Text);
+
+  // Venda
 
   FileINI.WriteBool (INI_SECAO_VENDA, INI_KEY_PAPEL_PAREDE, chkCarregarPapelParede.Checked);
   FileINI.WriteBool (INI_SECAO_VENDA, INI_KEY_CODIGO_EAN,   chkCarregarPeloEAN.Checked);
@@ -356,6 +360,20 @@ begin
         .Open;
 
       edVendedorNome.Text := FControllerVendedor.DAO.DataSet.FieldByName('nome').AsString;
+      Perform(WM_NEXTDLGCTL, 0, 0);
+    end
+
+    // CFOP's
+    else
+    if edCFOPEntrada.Focused then
+    begin
+      edCFOPEntradaNome.Text := GetCfopNome( StrToIntDef(edCFOPEntrada.Text, 0) );
+      Perform(WM_NEXTDLGCTL, 0, 0);
+    end
+    else
+    if edCFOPSaida.Focused then
+    begin
+      edCFOPSaidaNome.Text := GetCfopNome( StrToIntDef(edCFOPSaida.Text, 0) );
       Perform(WM_NEXTDLGCTL, 0, 0);
     end;
   end;

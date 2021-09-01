@@ -74,7 +74,8 @@ begin
         .Add('  , p.anocompra ')
         .Add('  , p.numcompra ')
         .Add('  , lpad(p.Anolanc, 4, ''0'') || lpad(p.Numlanc, 6, ''0'') as Lancamento')
-        .Add('  , Case when p.Quitado = 1 then ''X'' else ''.'' end as Pago_')
+        .Add('  , Case when p.situacao = 1 then ''Ativa'' else ''Cancelada'' end as situacao_desc')
+        .Add('  , Case when p.Quitado  = 1 then ''X'' else ''.'' end as Pago_')
         .Add('  , f.Nomeforn  ')
         .Add('  , f.Cnpj      ')
         .Add('  , b.Bco_nome  ')
@@ -104,6 +105,7 @@ procedure TModelDAOContaAPagar.SetProviderFlags;
 begin
   // Ignorar campos no Insert e Update
   FConn.Query.DataSet.FieldByName('Lancamento').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('situacao_desc').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('Pago_').ProviderFlags      := [];
   FConn.Query.DataSet.FieldByName('Nomeforn').ProviderFlags   := [];
   FConn.Query.DataSet.FieldByName('Cnpj').ProviderFlags       := [];

@@ -66,8 +66,9 @@ type
       FEmpresa    ,
       FEmpresaView,
       FEntrada    ,
-      FEntradaProduto   ,
-      FFabricanteProduto,
+      FEntradaLoteProduto,
+      FEntradaProduto    ,
+      FFabricanteProduto ,
       FFormaPagto ,
       FFormaPagtoContaCorrente,
       FFormaPagtoNFCEView     ,
@@ -142,6 +143,7 @@ type
       function Empresa : IModelDAOCustom;
       function EmpresaView : IModelDAOCustom;
       function Entrada : IModelDAOCustom;
+      function EntradaLoteProduto : IModelDAOCustom;
       function EntradaProduto : IModelDAOCustom;
       function FabricanteProduto : IModelDAOCustom;
       function FormaPagto : IModelDAOCustom;
@@ -648,6 +650,14 @@ begin
     FEntrada := TModelDAOEntrada.New;
 
   Result := FEntrada;
+end;
+
+function TModelDAOFactory.EntradaLoteProduto: IModelDAOCustom;
+begin
+  if not Assigned(FEntradaLoteProduto) then
+    FEntradaLoteProduto := TModelDAOEntradaProdutoLote.New;
+
+  Result := FEntradaLoteProduto;
 end;
 
 function TModelDAOFactory.EntradaProduto: IModelDAOCustom;

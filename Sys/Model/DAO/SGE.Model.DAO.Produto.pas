@@ -133,6 +133,18 @@ type
 
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
+//
+//  // Lotes do Produto
+//  TModelDAOLoteProduto = class(TModelDAO, IModelDAOCustom)
+//    private
+//    protected
+//      constructor Create;
+//    public
+//      destructor Destroy; override;
+//      class function New : IModelDAOCustom;
+//
+//      function CreateLookupComboBoxList : IModelDAOCustom;
+//  end;
 
 implementation
 

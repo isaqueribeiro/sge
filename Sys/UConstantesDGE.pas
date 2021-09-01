@@ -563,6 +563,7 @@ const
   LAYOUT_BOLETO_CARNE   = 'Boleto\BoletoCarne.fr3';
 
   //FILE_WALLPAPER   = 'PapelDeParede.jpg';
+  FILE_HISTORY_NET   = 'NetWorkActive.log';
   FILE_SETTINGS_INI  = 'Conexao.ini';
   FILE_COMPANY_LOGO  = 'LogotipoEmpresa.png';
   FILE_AUTOBACKUP    = 'AutoBackupGA.exe';

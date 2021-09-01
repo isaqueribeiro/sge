@@ -4,6 +4,7 @@ interface
 
 uses
   System.SysUtils,
+  System.Classes,
   System.IniFiles;
 
 type
@@ -137,6 +138,8 @@ type
     ['{476F103A-B5C8-4063-A30A-DE1506723062}']
     function Load : IConfiguracaoIni;
     function Save : IConfiguracaoIni;
+    function Secoes : Integer;
+    function ConfigurarAmbiente : Boolean;
 
     function Padrao   : TConfiguracaoSecaoDefault;
     function Venda    : TConfiguracaoSecaoVenda;
@@ -164,6 +167,8 @@ type
 
       function Load : IConfiguracaoIni;
       function Save : IConfiguracaoIni;
+      function Secoes : Integer;
+      function ConfigurarAmbiente : Boolean;
 
       function Padrao   : TConfiguracaoSecaoDefault;
       function Venda    : TConfiguracaoSecaoVenda;
@@ -421,6 +426,13 @@ begin
   Result := FCertificado;
 end;
 
+function TConfiguracaoIni.ConfigurarAmbiente: Boolean;
+begin
+  Result := (not FINI.SectionExists(INI_SECAO_DEFAULT))
+         or (not FINI.SectionExists(INI_SECAO_VENDA))
+         or (not FINI.SectionExists(INI_SECAO_CUMPO_PDV));
+end;
+
 constructor TConfiguracaoIni.Create(aFileName : String);
 begin
   FINI := TIniFile.Create(aFileName);
@@ -463,6 +475,20 @@ end;
 function TConfiguracaoIni.Save : IConfiguracaoIni;
 begin
   Result := Self;
+end;
+
+function TConfiguracaoIni.Secoes: Integer;
+var
+  aSecoes : TStringList;
+begin
+  aSecoes := TStringList.Create;
+  Result  := 0;
+  try
+    FINI.ReadSections(aSecoes);
+    Result := aSecoes.Count;
+  finally
+    aSecoes.DisposeOf;
+  end;
 end;
 
 function TConfiguracaoIni.CupomPDV: TConfiguracaoSecaoCupomPDV;

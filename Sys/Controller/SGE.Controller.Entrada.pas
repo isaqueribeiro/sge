@@ -14,8 +14,9 @@ type
   TControllerEntrada = class(TController, IControllerEntrada)
     private
       FBusca : IModelDAOCustom;
-      FProdutos : IControllerCustom;
+      FProdutos   : IControllerCustom;
       FDuplicatas : IControllerCustom;
+      FLotes      : IControllerCustom;
     protected
       constructor Create;
     public
@@ -24,6 +25,7 @@ type
 
       procedure CorrigirCFOP(aCFOP : String);
       procedure CarregarProdutos;
+      procedure CarregarLotes;
       procedure CarregarDuplicatas;
       procedure GerarDuplicatas;
 
@@ -31,6 +33,7 @@ type
       function DocumentoDuplicado(const aEntrada : TLancamentoEntrada; const aDocumento : TDocumentoEntrada) : Boolean;
       function Produtos : IControllerCustom;
       function Duplicatas : IControllerCustom;
+      function Lotes : IControllerCustom;
   end;
 
   // Tipo de Entrada de Produtos/Serviços (View)
@@ -73,6 +76,16 @@ type
       class function New : IControllerCustom;
   end;
 
+  // Lotes dos Produtos da Entrada (Estoque)
+  TControllerEntradaLoteProduto = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
 implementation
 
 { TControllerEntrada }
@@ -89,8 +102,22 @@ begin
   FDuplicatas
     .DAO
     .Close
-    .ParamsByName('AnoCompra', FDAO.DataSet.FieldByName('ANO').AsInteger)
-    .ParamsByName('NumCompra', FDAO.DataSet.FieldByName('CODCONTROL').AsInteger)
+    .ParamsByName('ano',      FDAO.DataSet.FieldByName('ANO').AsInteger)
+    .ParamsByName('controle', FDAO.DataSet.FieldByName('CODCONTROL').AsInteger)
+    .Open;
+end;
+
+procedure TControllerEntrada.CarregarLotes;
+begin
+  if not Assigned(FLotes) then
+    FLotes := TControllerEntradaLoteProduto.New;
+
+  FLotes
+    .DAO
+    .Close
+    .ParamsByName('ano',      FDAO.DataSet.FieldByName('ANO').AsInteger)
+    .ParamsByName('controle', FDAO.DataSet.FieldByName('CODCONTROL').AsInteger)
+    .ParamsByName('empresa',  FDAO.DataSet.FieldByName('CODEMP').AsString)
     .Open;
 end;
 
@@ -102,9 +129,9 @@ begin
   FProdutos
     .DAO
     .Close
-    .ParamsByName('Ano',        FDAO.DataSet.FieldByName('ANO').AsInteger)
-    .ParamsByName('Codcontrol', FDAO.DataSet.FieldByName('CODCONTROL').AsInteger)
-    .ParamsByName('Codemp',     FDAO.DataSet.FieldByName('CODEMP').AsString)
+    .ParamsByName('ano',      FDAO.DataSet.FieldByName('ANO').AsInteger)
+    .ParamsByName('controle', FDAO.DataSet.FieldByName('CODCONTROL').AsInteger)
+    .ParamsByName('empresa',  FDAO.DataSet.FieldByName('CODEMP').AsString)
     .Open;
 end;
 
@@ -218,6 +245,14 @@ begin
   end;
 end;
 
+function TControllerEntrada.Lotes: IControllerCustom;
+begin
+  if not Assigned(FLotes) then
+    FLotes := TControllerEntradaLoteProduto.New;
+
+  Result := FLotes;
+end;
+
 class function TControllerEntrada.New: IControllerEntrada;
 begin
   Result := Self.Create;
@@ -293,8 +328,8 @@ begin
     .Close
     .ClearWhere;
   FDAO
-    .Where('p.AnoCompra = :AnoCompra')
-    .Where('p.NumCompra = :NumCompra')
+    .Where('p.AnoCompra = :ano')
+    .Where('p.NumCompra = :controle')
     .OrderBy('p.numlanc')
     .OrderBy('p.parcela');
 end;
@@ -305,6 +340,23 @@ begin
 end;
 
 class function TControllerEntradaDuplicata.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerEntradaLoteProduto }
+
+constructor TControllerEntradaLoteProduto.Create;
+begin
+  inherited Create(TModelDAOFactory.New.EntradaLoteProduto);
+end;
+
+destructor TControllerEntradaLoteProduto.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerEntradaLoteProduto.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;
