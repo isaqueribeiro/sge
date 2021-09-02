@@ -3,7 +3,6 @@ unit UDMBusiness;
 interface
 
 uses
-  FuncoesFormulario,
   UConstantesDGE,
   Interacao.Usuario,
 
@@ -35,21 +34,6 @@ uses
   FireDAC.Comp.Script;
 
 type
-  TSistema = record
-    Codigo : Integer;
-    Nome   : String;
-  end;
-
-  TUsuarioLogado = record
-    Login    : String;
-    Nome     : String;
-    Funcao   : Integer;
-    Empresa  : String;
-    Vendedor : Integer;
-    Logado   : Boolean;
-    AlterarValorVenda : Boolean;
-  end;
-
   TContaEmail = record
     Conta : String;
     Senha : String;
@@ -182,14 +166,13 @@ var
   DMBusiness: TDMBusiness;
 
   FileINI : TIniFile;
-  FormFunction : TFormularios;
 
   {$IFNDEF PRINTER_CUPOM}
   gModelConexaoFactory : IModelConexaoFactory;
   gModelConexao : IModelConexao;
   {$ENDIF}
 
-  gSistema    : TSistema;
+  //gSistema    : TSistema;
   gUsuarioLogado : IUsuario;
   gContaEmail : TContaEmail;
   RegistroSistema : TRegistry;
@@ -5657,11 +5640,9 @@ begin
 end;
 
 initialization
-  FormFunction    := TFormularios.Create;
   RegistroSistema := TRegistry.Create;
 
 finalization
-  FormFunction.Destroy;
   RegistroSistema.Destroy;
 
 end.

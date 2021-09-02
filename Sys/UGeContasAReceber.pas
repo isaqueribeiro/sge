@@ -289,6 +289,7 @@ uses
   , Controller.Tabela
   , UConstantesDGE
   , UDMBusiness
+  , UDMRecursos
   , View.Cliente
   , UGeEfetuarPagtoREC
   , UGeContasAReceberLoteParcela;

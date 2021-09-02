@@ -86,6 +86,7 @@ implementation
 
 uses
   UDMBusiness,
+  UDMRecursos,
   UConstantesDGE,
   View.Cidade,
   SGE.Controller.Factory,

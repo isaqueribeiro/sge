@@ -176,7 +176,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
     end
   end
   object frRelacaoSaldoConsolidadoDia: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -295,6 +295,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         '0'
         '95')
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -303,6 +304,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -319,6 +321,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -332,6 +335,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724800000000000000
@@ -351,6 +355,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409448818900000
@@ -372,6 +377,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409448818900000
@@ -391,6 +397,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409448818900000
@@ -414,12 +421,14 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724409450000000000
@@ -447,6 +456,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
             end>
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 211.653680000000000000
@@ -463,6 +473,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -480,6 +491,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 325.039580000000000000
           Top = 120.944960000000000000
           Width = 393.071120000000000000
@@ -503,6 +515,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -519,6 +532,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -535,6 +549,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -563,6 +578,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         ReprintOnNewPage = True
         Stretched = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           ShiftMode = smDontShift
           Top = 3.779530000000000000
           Width = 355.275820000000000000
@@ -595,6 +611,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
             end>
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 41.574830000000000000
           Width = 71.811070000000000000
           Height = 37.795300000000000000
@@ -615,6 +632,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 71.811070000000000000
           Top = 41.574830000000000000
           Width = 283.464750000000000000
@@ -636,6 +654,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 260.787570000000000000
           Top = 60.472480000000000000
           Width = 94.488176770000000000
@@ -658,6 +677,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 71.811070000000000000
           Top = 60.472480000000000000
           Width = 94.488176770000000000
@@ -680,6 +700,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 166.299320000000000000
           Top = 60.472480000000000000
           Width = 94.488176770000000000
@@ -712,6 +733,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         DataSetName = 'FrdsRelacaoSaldoConsolidadoDia'
         RowCount = 0
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 71.811070000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -733,6 +755,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 260.787570000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
@@ -755,6 +778,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 71.811070000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
@@ -777,6 +801,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 166.299320000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
@@ -807,6 +832,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         Width = 359.055350000000000000
         OnAfterCalcHeight = 'BndGrpFooterCompetenciaOnAfterCalcHeight'
         object memValorEntradas: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 71.811070000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
@@ -827,6 +853,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
         end
         object memValorSaidas: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 166.299320000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
@@ -847,6 +874,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
         end
         object mmSaldoConta: TfrxMemoView
+          AllowVectorExport = True
           Left = 260.787570000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
@@ -878,6 +906,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         OnAfterCalcHeight = 'bndReportSummaryOnAfterCalcHeight'
         Stretched = True
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 71.811070000000000000
           Width = 283.464686540000000000
           Height = 18.897650000000000000
@@ -899,6 +928,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 71.811070000000000000
           Top = 37.795300000000000000
           Width = 94.488186540000000000
@@ -921,6 +951,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 166.299320000000000000
           Top = 37.795300000000000000
           Width = 188.976500000000000000
@@ -942,6 +973,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 71.811070000000000000
           Top = 56.692950000000000000
           Width = 94.488186540000000000
@@ -964,6 +996,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 166.299320000000000000
           Top = 56.692950000000000000
           Width = 188.976500000000000000
@@ -985,6 +1018,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 71.811070000000000000
           Top = 75.590600000000000000
           Width = 94.488186540000000000
@@ -1007,6 +1041,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object memTotalSaldo: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 166.299320000000000000
           Top = 75.590600000000000000
           Width = 188.976500000000000000
@@ -1024,6 +1059,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 71.811070000000000000
           Top = 18.897650000000000000
           Width = 94.488186540000000000
@@ -1046,6 +1082,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object memSaldoAnterior: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 166.299320000000000000
           Top = 18.897650000000000000
           Width = 188.976500000000000000
@@ -1097,7 +1134,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
     Top = 8
   end
   object frRelacaoMovimentoCaixa: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1212,6 +1249,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
       BottomMargin = 10.000000000000000000
       ColumnWidth = 95.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -1220,6 +1258,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -1236,6 +1275,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559059999999999000
           Width = 109.606370000000000000
@@ -1249,6 +1289,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724800000000000000
@@ -1268,6 +1309,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409448818900000
@@ -1289,6 +1331,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409448818900000
@@ -1308,6 +1351,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692949999999990000
           Width = 604.724409448818900000
@@ -1331,12 +1375,14 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724409450000000000
@@ -1364,6 +1410,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
             end>
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 211.653680000000000000
@@ -1380,6 +1427,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -1397,6 +1445,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 325.039580000000000000
           Top = 120.944960000000000000
           Width = 393.071120000000000000
@@ -1420,6 +1469,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         Top = 585.827150000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1436,6 +1486,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118119999999980000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -1452,6 +1503,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -1480,6 +1532,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         ReprintOnNewPage = True
         Stretched = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           ShiftMode = smDontShift
           Top = 3.779529999999994000
           Width = 718.110700000000000000
@@ -1511,6 +1564,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
             end>
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 41.574829999999990000
           Width = 71.811070000000000000
           Height = 37.795300000000000000
@@ -1531,6 +1585,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 434.645950000000000000
           Top = 41.574829999999990000
           Width = 283.464750000000000000
@@ -1552,6 +1607,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Top = 60.472479999999990000
           Width = 94.488176770000000000
@@ -1574,6 +1630,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 434.645950000000000000
           Top = 60.472479999999990000
           Width = 94.488176770000000000
@@ -1596,6 +1653,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 529.134200000000000000
           Top = 60.472479999999990000
           Width = 94.488176770000000000
@@ -1618,6 +1676,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 71.811070000000000000
           Top = 41.574829999999990000
           Width = 362.834880000000000000
@@ -1650,6 +1709,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         RowCount = 0
         Stretched = True
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 71.811070000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -1672,6 +1732,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
@@ -1693,6 +1754,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 434.645950000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
@@ -1714,6 +1776,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 529.134200000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
@@ -1735,6 +1798,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Left = 71.811070000000000000
           Width = 362.834880000000000000
           Height = 18.897650000000000000
@@ -1762,6 +1826,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         Width = 718.110700000000000000
         OnAfterCalcHeight = 'BndGrpFooterContaOnAfterCalcHeight'
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 434.645950000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
@@ -1782,6 +1847,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
         end
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 529.134200000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
@@ -1802,6 +1868,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
         end
         object mmSaldoConta: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
@@ -1831,6 +1898,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
         OnAfterCalcHeight = 'bndReportSummaryOnAfterCalcHeight'
         Stretched = True
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 434.645950000000000000
           Width = 283.464686540000000000
           Height = 18.897650000000000000
@@ -1852,6 +1920,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 434.645950000000000000
           Top = 37.795300000000000000
           Width = 94.488186540000000000
@@ -1874,6 +1943,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 434.645950000000000000
           Top = 56.692950000000050000
           Width = 94.488186540000000000
@@ -1896,6 +1966,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Left = 434.645950000000000000
           Top = 75.590600000000050000
           Width = 94.488186540000000000
@@ -1918,6 +1989,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 434.645950000000000000
           Top = 18.897650000000000000
           Width = 94.488186540000000000
@@ -1940,6 +2012,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 529.134200000000000000
           Top = 37.795300000000000000
           Width = 188.976500000000000000
@@ -1961,6 +2034,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 529.134200000000000000
           Top = 56.692950000000050000
           Width = 188.976500000000000000
@@ -1982,6 +2056,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
         end
         object memTotalSaldo: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 529.134200000000000000
           Top = 75.590600000000050000
           Width = 188.976500000000000000
@@ -1999,6 +2074,7 @@ inherited frmGeFluxoCaixaImpressao: TfrmGeFluxoCaixaImpressao
           WordWrap = False
         end
         object memSaldoAnterior: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 529.134200000000000000
           Top = 18.897650000000000000
           Width = 188.976500000000000000

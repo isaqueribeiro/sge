@@ -49,6 +49,7 @@ inherited ViewSecaoProduto: TViewSecaoProduto
           end
           inherited btnFiltrar: TcxButton
             Left = 299
+            ExplicitLeft = 299
           end
         end
       end
@@ -93,12 +94,6 @@ inherited ViewSecaoProduto: TViewSecaoProduto
           TabOrder = 1
         end
       end
-    end
-  end
-  inherited tlbBotoes: TPanel
-    inherited btbtnCancelar: TcxButton
-      ExplicitLeft = 233
-      ExplicitTop = 0
     end
   end
 end

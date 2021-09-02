@@ -29,8 +29,6 @@ inherited frmGrUsuario: TfrmGrUsuario
     ExplicitWidth = 751
     ExplicitHeight = 413
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 743
       ExplicitHeight = 384
       inherited Bevel4: TBevel

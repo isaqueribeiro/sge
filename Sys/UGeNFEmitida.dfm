@@ -21,6 +21,9 @@ inherited frmGeNFEmitida: TfrmGeNFEmitida
     ActivePage = tbsTabela
     ExplicitHeight = 428
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
       ExplicitHeight = 399
       inherited Bevel4: TBevel
         Top = 333

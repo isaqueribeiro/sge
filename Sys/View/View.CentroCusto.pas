@@ -114,12 +114,13 @@ var
 implementation
 
 uses
-  UDMBusiness,
+  UDMRecursos,
   UConstantesDGE,
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper,
-  View.Cliente;
+  View.Cliente,
+  Service.Message;
 
 {$R *.dfm}
 
@@ -162,7 +163,7 @@ begin
   FController := TControllerFactory.New.CentroCusto;
   FControllerCentroCustoEmpresa := TControllerFactory.New.CentroCustoEmpresa;
 
-  Controller.SetCentroCustoGeral(gUsuarioLogado.Empresa);
+  Controller.SetCentroCustoGeral(FController.DAO.Usuario.Empresa.CNPJ);
 
   inherited;
   RotinaID         := ROTINA_CAD_CENTRO_CUSTO_ID;
@@ -339,7 +340,7 @@ begin
   if (DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger = 0) then
     if not EmpresaSelecionada then
     begin
-      ShowWarning('Favor selecionar a empresa, caso o Departamento/Centro de Custo seja interno.');
+      TServiceMessage.ShowWarning('Favor selecionar a empresa, caso o Departamento/Centro de Custo seja interno.');
       Exit;
     end;
 

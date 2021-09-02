@@ -66,6 +66,7 @@ implementation
 
 uses
     UDMBusiness
+  , UDMRecursos
   , UConstantesDGE
   , UGrPadrao
   , View.Produto;

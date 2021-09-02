@@ -129,12 +129,13 @@ var
 implementation
 
 uses
-  UDMBusiness,
+  UDMRecursos,
   UConstantesDGE,
   Service.InputQuery,
   SGE.Controller.Factory,
   SGE.Controller,
-  View.Produto;
+  View.Produto,
+  Service.Message;
 
 {$R *.dfm}
 
@@ -307,7 +308,7 @@ end;
 procedure TViewPromocao.btnProdutoExcluirClick(Sender: TObject);
 begin
   if ( not DtSrcProdutos.DataSet.IsEmpty ) then
-    if ( ShowConfirm('Deseja excluir o ítem selecionado?') ) then
+    if ( TServiceMessage.ShowConfirm('Deseja excluir o ítem selecionado?') ) then
       DtSrcProdutos.DataSet.Delete;
 end;
 
@@ -317,13 +318,13 @@ begin
   begin
     if ( Trim(DtSrcProdutos.DataSet.FieldByName('CODIGO_PROD').AsString) = EmptyStr ) then
     begin
-      ShowWarning('Favor informar o código do produto.');
+      TServiceMessage.ShowWarning('Favor informar o código do produto.');
       dbProduto.SetFocus;
     end
     else
     if ( (DtSrcProdutos.DataSet.FieldByName('DESCONTO').AsCurrency < 0) or (DtSrcProdutos.DataSet.FieldByName('DESCONTO').AsCurrency > 100) ) then
     begin
-      ShowWarning('Percentual de desconto inválido.');
+      TServiceMessage.ShowWarning('Percentual de desconto inválido.');
       dbDesconto.SetFocus;
     end
     else
@@ -375,7 +376,7 @@ procedure TViewPromocao.CarregarDadosProduto(const ProdutoID: Integer);
 begin
   if ( ProdutoID = 0 ) then
   begin
-    ShowWarning('Favor informar o código do produto');
+    TServiceMessage.ShowWarning('Favor informar o código do produto');
     Exit;
   end;
 
@@ -409,7 +410,7 @@ begin
     begin
       DtSrcProdutos.DataSet.FieldByName('CODIGO_PROD').Clear;
 
-      ShowWarning('Código de produto não cadastrado');
+      TServiceMessage.ShowWarning('Código de produto não cadastrado');
 
       if ( dbProduto.Visible and dbProduto.Enabled ) then
         dbProduto.SetFocus;

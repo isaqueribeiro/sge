@@ -24,7 +24,7 @@ implementation
 {$R *.dfm}
 
 uses
-  UDMBusiness;
+  UDMRecursos;
 
 procedure TFrmLogin.FormCreate(Sender: TObject);
 begin

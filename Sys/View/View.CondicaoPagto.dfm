@@ -490,7 +490,7 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
             Left = 3
             Top = 3
             Width = 33
-            Height = 43
+            Height = 13
             Align = alLeft
             Caption = 'Dica : '
             Font.Charset = ANSI_CHARSET
@@ -500,14 +500,13 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
             Font.Style = [fsBold]
             ParentFont = False
             Transparent = True
-            ExplicitHeight = 13
           end
           object lblDicasTexto: TLabel
             AlignWithMargins = True
             Left = 42
             Top = 3
-            Width = 676
-            Height = 43
+            Width = 673
+            Height = 39
             Align = alClient
             Caption = 
               'Pressione a tecla "Espa'#231'o" para marcar o desmarcar a Forma de Pa' +
@@ -522,8 +521,6 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
             ParentFont = False
             Transparent = True
             WordWrap = True
-            ExplicitWidth = 673
-            ExplicitHeight = 39
           end
         end
         object dbgFormaPagto: TDBGrid

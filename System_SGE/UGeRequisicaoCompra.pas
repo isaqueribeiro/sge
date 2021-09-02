@@ -305,6 +305,7 @@ uses
   , Controller.Tabela
   , UConstantesDGE
   , UDMBusiness
+  , UDMRecursos
   , UDMNFe
   , View.Fornecedor
   , View.Produto

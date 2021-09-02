@@ -343,7 +343,6 @@ inherited ViewTipoReceita: TViewTipoReceita
           Align = alLeft
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitHeight = 111
           object Bevel7: TBevel
             Left = 0
             Top = 33

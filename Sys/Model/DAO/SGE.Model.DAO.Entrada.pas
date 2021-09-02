@@ -501,9 +501,13 @@ begin
       .Where('ci.codcontrol = :controle')
       .Where('ci.Codemp     = :empresa ')
       .Where('ci.lote_id is not null ')
+
+//      // Estes filtros serão usados no processo de confirmação dos lotes
+//      // ===============================================================
 //      .Where('pr.estoque_aprop_lote = 1')
 //      .Where('pr.movimenta_estoque  = 1')
 //      .Where('coalesce(cf.cfop_altera_estoque_produto, 1) = 1')
+
       .OrderBy('ci.seq')
       .ParamByName('ano', 0)
       .ParamByName('controle', 0)

@@ -716,6 +716,10 @@ inherited ViewEmpresa: TViewEmpresa
         TabOrder = 2
         object tbsContato: TTabSheet
           Caption = 'Contato'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblFone1: TLabel
             Left = 8
             Top = 0
@@ -847,6 +851,10 @@ inherited ViewEmpresa: TViewEmpresa
         object tbsInforme: TTabSheet
           Caption = 'Outras informa'#231#245'es'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblPais: TLabel
             Left = 8
             Top = 0

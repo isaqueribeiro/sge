@@ -117,7 +117,7 @@ type
 implementation
 
 uses
-  UDMBusiness, UDMNFe, UFuncoes, UGrCampoRequisitado, UGeEntradaEstoque;
+  UDMBusiness, UDMRecursos, UDMNFe, UFuncoes, UGrCampoRequisitado, UGeEntradaEstoque;
 
 {$R *.dfm}
 

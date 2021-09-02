@@ -122,12 +122,13 @@ var
 implementation
 
 uses
-  UDMBusiness,
+  UDMRecursos,
   UDMNFe,
   View.PlanoConta,
   SGE.Controller.Factory,
   SGE.Controller,
-  SGE.Controller.Helper;
+  SGE.Controller.Helper,
+  Service.Message;
 
 {$R *.dfm}
 
@@ -177,7 +178,7 @@ begin
   CampoOrdenacao      := 'TIPODESP';
   CampoCadastroAtivo  := 'ATIVO';
 
-  FController.DAO.ParamsByName('empresa', gUsuarioLogado.Empresa);
+  FController.DAO.ParamsByName('empresa', FController.DAO.Usuario.Empresa.CNPJ);
   FController.DAO.DataSet.AfterScroll := DtSrcTabelaAfterScroll;
 
   Tabela
@@ -208,7 +209,7 @@ end;
 procedure TViewTipoDespesa.btbtnListaClick(Sender: TObject);
 begin
   inherited;
-  DMNFe.fdQryListaTipoDespesa.ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
+  DMNFe.fdQryListaTipoDespesa.ParamByName('empresa').AsString := FController.DAO.Usuario.Empresa.CNPJ;
   DMNFe.frrListaTipoDespesa.ShowReport;
 end;
 
@@ -236,16 +237,16 @@ begin
     if ( SelecionarPlanoConta(Self, tpLancamento, 0, EmptyStr, '3', aPlanoConta) ) then // 3. Despesas
     begin
       if (Trim(aPlanoConta.Empresa) = EmptyStr) and (FControllerTipoDespesaPlanoConta.DAO.DataSet.RecordCount > 0) then
-        ShowWarning('É permitida a associação de apenas 1 (um) plano de conta quando este será usado por todas as empresas')
+        TServiceMessage.ShowWarning('É permitida a associação de apenas 1 (um) plano de conta quando este será usado por todas as empresas')
       else
       if (not aPlanoConta.Empresa.IsEmpty) and FControllerTipoDespesaPlanoConta.DAO.DataSet.Locate('plano;empresa', VarArrayOf([aPlanoConta.Codigo, aPlanoConta.Empresa]), []) then
-        ShowWarning('Plano de Contas já associado ao Tipo de Despesa')
+        TServiceMessage.ShowWarning('Plano de Contas já associado ao Tipo de Despesa')
       else
       if aPlanoConta.Empresa.IsEmpty and FControllerTipoDespesaPlanoConta.DAO.DataSet.Locate('plano', aPlanoConta.Codigo, []) then
-        ShowWarning('Plano de Contas já associado ao Tipo de Despesa')
+        TServiceMessage.ShowWarning('Plano de Contas já associado ao Tipo de Despesa')
       else
       if FControllerTipoDespesaPlanoConta.DAO.DataSet.Locate('empresa', aPlanoConta.Empresa, []) then
-        ShowWarning('Não é permitido mais de um Plano de Contas por empresa para o mesmo Tipo de Despesa')
+        TServiceMessage.ShowWarning('Não é permitido mais de um Plano de Contas por empresa para o mesmo Tipo de Despesa')
       else
         with FControllerTipoDespesaPlanoConta.DAO.DataSet do
         begin

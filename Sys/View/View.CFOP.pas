@@ -115,7 +115,7 @@ var
 implementation
 
 uses
-  UDMBusiness,
+  UDMRecursos,
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper;

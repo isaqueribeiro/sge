@@ -113,7 +113,8 @@ implementation
 uses
     System.StrUtils
   , UConstantesDGE
-  , UDMBusiness;
+  , UDMBusiness
+  , UDMRecursos;
 
 {$R *.dfm}
 

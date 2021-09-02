@@ -102,11 +102,12 @@ var
 implementation
 
 uses
-  UDMBusiness,
+  UDMRecursos,
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper,
-  View.IBPT.Importar;
+  View.IBPT.Importar,
+  Service.Message;
 
 {$R *.dfm}
 
@@ -174,7 +175,7 @@ begin
     try
       if (Trim(CampoCodigo) = EmptyStr) or ((Trim(CampoDescricao) = EmptyStr)) then
       begin
-        ShowWarning('O nome do campo chave e/ou de descrição não foram informados');
+        TServiceMessage.ShowWarning('O nome do campo chave e/ou de descrição não foram informados');
         Abort;
       end;
 
@@ -215,7 +216,7 @@ begin
             dbgDados.SetFocus
           else
           begin
-            ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
+            TServiceMessage.ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
 
             edtFiltrar.SetFocus;
             edtFiltrar.SelectAll;
@@ -224,7 +225,7 @@ begin
       end;
     except
       On E : Exception do
-        ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13#13 + E.Message);
+        TServiceMessage.ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13#13 + E.Message);
     end;
 
   finally

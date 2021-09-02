@@ -456,7 +456,7 @@ inherited ViewTipoDespesa: TViewTipoDespesa
             Left = 3
             Top = 3
             Width = 33
-            Height = 29
+            Height = 13
             Align = alLeft
             Caption = 'Dica : '
             Font.Charset = ANSI_CHARSET
@@ -466,14 +466,13 @@ inherited ViewTipoDespesa: TViewTipoDespesa
             Font.Style = [fsBold]
             ParentFont = False
             Transparent = True
-            ExplicitHeight = 13
           end
           object lblDicasTexto: TLabel
             AlignWithMargins = True
             Left = 42
             Top = 3
-            Width = 678
-            Height = 29
+            Width = 649
+            Height = 26
             Align = alClient
             Caption = 
               'Pressione a tecla "Espa'#231'o" para marcar ou desmarcar o Plano de C' +
@@ -487,8 +486,6 @@ inherited ViewTipoDespesa: TViewTipoDespesa
             ParentFont = False
             Transparent = True
             WordWrap = True
-            ExplicitWidth = 649
-            ExplicitHeight = 26
           end
         end
       end

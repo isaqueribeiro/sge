@@ -475,6 +475,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="View\View.Login.pas">
             <Form>FrmLogin</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\Services\Service.InputQuery.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Utils.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.PrevisaoTempo.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Message.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Tabela.pas"/>
         <DCCReference Include="..\Sys\Controller\Controller.Tabela.pas"/>
         <DCCReference Include="..\Sys\Services\InputQuery\Interfaces.InputQuery.pas"/>
@@ -482,7 +486,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <Form>ViewInputQuery</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Sys\Services\Service.InputQuery.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas"/>
         <DCCReference Include="..\Sys\UGeDistribuicaoDFe.pas">
             <Form>frmDistribuicaoDFe</Form>
@@ -498,9 +501,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\Services\PrevisaoTempo\Interfaces.PrevisaoTempo.pas"/>
         <DCCReference Include="..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.Inpe.pas"/>
-        <DCCReference Include="..\Sys\Services\Service.PrevisaoTempo.pas"/>
         <DCCReference Include="..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.WeatherstackAPI.pas"/>
-        <DCCReference Include="..\Sys\Services\Service.Utils.pas"/>
         <DCCReference Include="View\View.VendaMobile.Vendedor.pas">
             <Form>ViewVendaMobileVendedor</Form>
             <FormType>dfm</FormType>
@@ -592,6 +593,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Cidade.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Cliente.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CondicaoPagto.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAPagar.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaCorrente.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CST.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Distrito.pas"/>
@@ -702,7 +704,14 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\View\View.Entrada.pas">
             <Form>ViewEntrada</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\View\View.Entrada.ConfirmarDuplicatas.pas">
+            <Form>ViewEntradaConfirmarDuplicatas</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Entrada.ConfirmarLote.pas">
+            <Form>ViewEntradaEstoqueLote</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>
@@ -819,7 +828,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -941,7 +950,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

@@ -67,6 +67,7 @@ implementation
 uses
     UConstantesDGE
   , UDMBusiness
+  , UDMRecursos
   , UGrPadrao;
 
 {$R *.dfm}

@@ -339,6 +339,7 @@ uses
   , Controller.Tabela
   , UConstantesDGE
   , UDMBusiness
+  , UDMRecursos
   , UDMNFe
   , View.Produto
   , UGeCotacaoCompraCancelar

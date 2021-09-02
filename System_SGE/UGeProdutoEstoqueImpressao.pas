@@ -130,6 +130,7 @@ uses
   System.StrUtils,
   UConstantesDGE,
   UDMBusiness,
+  UDMRecursos,
   UDMNFe,
   SGE.Controller.Interfaces,
   SGE.Controller.Factory,

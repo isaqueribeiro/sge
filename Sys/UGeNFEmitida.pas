@@ -96,7 +96,7 @@ type
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE;
+  UDMBusiness, UDMRecursos, UConstantesDGE;
 
 {$R *.dfm}
 

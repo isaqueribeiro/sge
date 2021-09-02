@@ -213,6 +213,7 @@ uses
     DateUtils
   , COntroller.Tabela
   , UDMBusiness
+  , UDMRecursos
   , UConstantesDGE
   , UGrPadrao
   , View.Fornecedor;

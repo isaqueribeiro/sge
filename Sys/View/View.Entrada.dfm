@@ -27,12 +27,12 @@ inherited ViewEntrada: TViewEntrada
     Height = 634
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 1114
+    ExplicitWidth = 1101
     ExplicitHeight = 634
     inherited tbsTabela: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 25
-      ExplicitWidth = 1106
+      ExplicitWidth = 1093
       ExplicitHeight = 605
       inherited Bevel4: TBevel
         Top = 539
@@ -127,7 +127,7 @@ inherited ViewEntrada: TViewEntrada
         Top = 543
         Width = 1093
         ExplicitTop = 543
-        ExplicitWidth = 1106
+        ExplicitWidth = 1093
         object lblEntradaAberta: TLabel [0]
           Left = 2
           Top = 4
@@ -171,7 +171,7 @@ inherited ViewEntrada: TViewEntrada
         inherited grpBxFiltro: TGroupBox
           Left = 474
           Width = 615
-          ExplicitLeft = 487
+          ExplicitLeft = 474
           ExplicitWidth = 615
           inherited lbltFiltrar: TLabel
             Left = 294
@@ -320,7 +320,7 @@ inherited ViewEntrada: TViewEntrada
     inherited tbsCadastro: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 25
-      ExplicitWidth = 1106
+      ExplicitWidth = 1093
       ExplicitHeight = 605
       inherited Bevel8: TBevel
         Top = 113
@@ -362,7 +362,7 @@ inherited ViewEntrada: TViewEntrada
         Width = 1093
         Height = 113
         Caption = 'Dados nominais da NF'
-        ExplicitWidth = 1106
+        ExplicitWidth = 1093
         ExplicitHeight = 113
         DesignSize = (
           1093
@@ -1025,7 +1025,6 @@ inherited ViewEntrada: TViewEntrada
         Align = alTop
         Caption = 'Valores (R$)'
         TabOrder = 1
-        ExplicitWidth = 1106
         object lblValorFrete: TLabel
           Left = 568
           Top = 24
@@ -1361,10 +1360,8 @@ inherited ViewEntrada: TViewEntrada
         Align = alBottom
         HotTrack = True
         TabOrder = 4
-        ExplicitWidth = 1106
         object tbsPagamento: TTabSheet
           Caption = 'Pagamento'
-          ExplicitWidth = 1098
           DesignSize = (
             1085
             157)
@@ -1619,7 +1616,6 @@ inherited ViewEntrada: TViewEntrada
             DataField = 'OBS'
             DataSource = DtSrcTabela
             TabOrder = 0
-            ExplicitWidth = 1098
           end
           object dbFormaPagto: TDBLookupComboBox
             Left = 0
@@ -1915,7 +1911,6 @@ inherited ViewEntrada: TViewEntrada
         object tbsDuplicatas: TTabSheet
           Caption = 'Duplicata(s) Gerada(s)'
           ImageIndex = 1
-          ExplicitWidth = 1098
           object Bevel6: TBevel
             Left = 89
             Top = 0
@@ -2096,7 +2091,6 @@ inherited ViewEntrada: TViewEntrada
         object tbsLotes: TTabSheet
           Caption = 'Lote(s) Gerado(s) no Estoque'
           ImageIndex = 3
-          ExplicitWidth = 1098
           object DBGrid1: TDBGrid
             Left = 0
             Top = 0
@@ -2167,6 +2161,7 @@ inherited ViewEntrada: TViewEntrada
               item
                 Expanded = False
                 FieldName = 'LOTE_DATA_FAB'
+                Title.Alignment = taCenter
                 Title.Caption = 'Fabrica'#231#227'o'
                 Width = 85
                 Visible = True
@@ -2174,6 +2169,7 @@ inherited ViewEntrada: TViewEntrada
               item
                 Expanded = False
                 FieldName = 'LOTE_DATA_VAL'
+                Title.Alignment = taCenter
                 Title.Caption = 'Validade'
                 Width = 85
                 Visible = True
@@ -2183,7 +2179,6 @@ inherited ViewEntrada: TViewEntrada
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 2
-          ExplicitWidth = 1098
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0
@@ -2688,7 +2683,6 @@ inherited ViewEntrada: TViewEntrada
         Align = alTop
         Caption = 'Dados do produto'
         TabOrder = 2
-        ExplicitWidth = 1106
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -3685,7 +3679,7 @@ inherited ViewEntrada: TViewEntrada
     Top = 638
     Width = 1101
     ExplicitTop = 638
-    ExplicitWidth = 1114
+    ExplicitWidth = 1101
     inherited bvlTool1: TBevel
       Left = 333
       ExplicitLeft = 333
@@ -3747,13 +3741,13 @@ inherited ViewEntrada: TViewEntrada
     inherited btbtnFechar: TcxButton
       Left = 1022
       TabOrder = 10
-      ExplicitLeft = 1035
+      ExplicitLeft = 1022
     end
     inherited btbtnSelecionar: TcxButton
       Left = 912
       Width = 110
       TabOrder = 9
-      ExplicitLeft = 925
+      ExplicitLeft = 912
       ExplicitWidth = 110
     end
     object btbtnFinalizar: TcxButton
@@ -3839,7 +3833,6 @@ inherited ViewEntrada: TViewEntrada
       ShowHint = True
       TabOrder = 6
       OnClick = btbtnFinalizarClick
-      ExplicitLeft = 591
     end
     object btbtnGerarNFe: TcxButton
       Tag = 12
@@ -3924,7 +3917,6 @@ inherited ViewEntrada: TViewEntrada
       ShowHint = True
       TabOrder = 8
       OnClick = btbtnGerarNFeClick
-      ExplicitLeft = 815
     end
     object btbtnCancelarENT: TcxButton
       Tag = 13
@@ -4009,7 +4001,6 @@ inherited ViewEntrada: TViewEntrada
       ShowHint = True
       TabOrder = 7
       OnClick = btbtnCancelarENTClick
-      ExplicitLeft = 701
     end
     object btnImportar: TcxButton
       Tag = 1
@@ -4434,146 +4425,6 @@ inherited ViewEntrada: TViewEntrada
     Top = 384
   end
   object DtSrcTabelaLotes: TDataSource
-    DataSet = cdsTabelaLotes
-    Left = 432
-    Top = 392
-  end
-  object cdsTabelaLotes: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '     ci.ano'
-      '   , ci.codcontrol'
-      '   , ci.codemp'
-      '   , ci.seq'
-      '   , ci.codprod'
-      '   , pr.descri'
-      '   , pr.apresentacao'
-      '   , pr.descri_apresentacao'
-      '   , pr.referencia'
-      '   , ci.lote_id'
-      '   , ci.lote_descricao'
-      '   , ci.lote_data_fab'
-      '   , ci.lote_data_val'
-      '   , ci.qtde'
-      'from TBCOMPRASITENS ci'
-      
-        '  inner join TBCOMPRAS cp on (cp.ano = ci.ano and cp.codcontrol ' +
-        '= ci.codcontrol and cp.codemp = ci.codemp)'
-      '  inner join TBPRODUTO pr on (pr.cod = ci.codprod)'
-      '  left join TBCFOP cf on (cf.cfop_cod = cp.nfcfop)'
-      'where (ci.ano        = :ano)'
-      '  and (ci.codcontrol = :compra)'
-      '  and (ci.lote_id is not null)'
-      'order by'
-      '     ci.seq')
-    Left = 352
-    Top = 376
-    ParamData = <
-      item
-        Name = 'ANO'
-        DataType = ftSmallint
-        ParamType = ptInput
-        Value = Null
-      end
-      item
-        Name = 'COMPRA'
-        DataType = ftInteger
-        ParamType = ptInput
-      end>
-    object cdsTabelaLotesANO: TSmallintField
-      FieldName = 'ANO'
-      Origin = 'ANO'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsTabelaLotesCODCONTROL: TIntegerField
-      FieldName = 'CODCONTROL'
-      Origin = 'CODCONTROL'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsTabelaLotesCODEMP: TStringField
-      FieldName = 'CODEMP'
-      Origin = 'CODEMP'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 18
-    end
-    object cdsTabelaLotesSEQ: TSmallintField
-      Alignment = taCenter
-      FieldName = 'SEQ'
-      Origin = 'SEQ'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      DisplayFormat = '00'
-    end
-    object cdsTabelaLotesCODPROD: TStringField
-      FieldName = 'CODPROD'
-      Origin = 'CODPROD'
-      Size = 10
-    end
-    object cdsTabelaLotesDESCRI: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRI'
-      Origin = 'DESCRI'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 50
-    end
-    object cdsTabelaLotesAPRESENTACAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'APRESENTACAO'
-      Origin = 'APRESENTACAO'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 50
-    end
-    object cdsTabelaLotesDESCRI_APRESENTACAO: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'DESCRI_APRESENTACAO'
-      Origin = 'DESCRI_APRESENTACAO'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 100
-    end
-    object cdsTabelaLotesREFERENCIA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'REFERENCIA'
-      Origin = 'REFERENCIA'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 15
-    end
-    object cdsTabelaLotesLOTE_ID: TStringField
-      FieldName = 'LOTE_ID'
-      Origin = 'LOTE_ID'
-      Size = 38
-    end
-    object cdsTabelaLotesLOTE_DESCRICAO: TStringField
-      FieldName = 'LOTE_DESCRICAO'
-      Origin = 'LOTE_DESCRICAO'
-      Size = 30
-    end
-    object cdsTabelaLotesLOTE_DATA_FAB: TDateField
-      FieldName = 'LOTE_DATA_FAB'
-      Origin = 'LOTE_DATA_FAB'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object cdsTabelaLotesLOTE_DATA_VAL: TDateField
-      FieldName = 'LOTE_DATA_VAL'
-      Origin = 'LOTE_DATA_VAL'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object cdsTabelaLotesQTDE: TFMTBCDField
-      FieldName = 'QTDE'
-      Origin = 'QTDE'
-      Required = True
-      DisplayFormat = ',0.###'
-      Precision = 18
-      Size = 3
-    end
+    Left = 312
   end
 end

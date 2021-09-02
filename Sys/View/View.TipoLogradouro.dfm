@@ -47,14 +47,11 @@ inherited ViewTipoLogradouro: TViewTipoLogradouro
             Left = 120
             Width = 140
             ExplicitLeft = 111
-            ExplicitTop = 20
             ExplicitWidth = 140
           end
           inherited btnFiltrar: TcxButton
             Left = 266
             ExplicitLeft = 257
-            ExplicitTop = 18
-            ExplicitHeight = 26
           end
         end
       end

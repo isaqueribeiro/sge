@@ -35,6 +35,7 @@ object DMBusiness: TDMBusiness
   object IdIPWatch: TIdIPWatch
     Active = False
     HistoryEnabled = False
+    HistoryFilename = 'iphist.dat'
     Left = 112
     Top = 504
   end

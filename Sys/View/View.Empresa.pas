@@ -150,6 +150,7 @@ implementation
 uses
   System.DateUtils,
   UDMBusiness,
+  UDMRecursos,
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper,

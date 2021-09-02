@@ -3566,28 +3566,57 @@ begin
           indPag := ipNenhum;
           tPag   := fpSemPagamento;
           vPag   := 0.0;
-//          tpIntegra := tiNaoInformado;
-//          CNPJ      := EmptyStr;
-//          tBand     := bcOutros;
-//          cAut      := EmptyStr;
         end;
       end
       else
       if ( Ide.finNFe = fnNormal ) then
       begin
+//
+//        // Formas de Pagamentos
+//
+//        with pag.Add do
+//        begin
+//          indPag := ipNenhum;
+//          tPag   := fpSemPagamento;
+//          //xPag   := EmptyStr;
+//          vPag   := 0.0;
+////          tpIntegra := tiNaoInformado;
+////          CNPJ      := EmptyStr;
+////          tBand     := bcOutros;
+////          cAut      := EmptyStr;
+//        end;
 
-        // Formas de Pagamentos
+        // Dados da(s) Forma(s) de Pagamento(s)
 
-        with pag.Add do
+        if ( not qryFormaPagtos.IsEmpty ) then
         begin
-          indPag := ipNenhum;
-          tPag   := fpSemPagamento;
-          xPag   := EmptyStr; // Descrição da forma de pagamento
-          vPag   := 0.0;
-//          tpIntegra := tiNaoInformado;
-//          CNPJ      := EmptyStr;
-//          tBand     := bcOutros;
-//          cAut      := EmptyStr;
+          qryFormaPagtos.First;
+          while not qryFormaPagtos.Eof do
+          begin
+            with pag.Add do // Formas de Pagamentos apenas para NFC-e
+             begin
+               Case qryFormaPagtos.FieldByName('FORMAPAGTO_NFCE').AsInteger of
+                 01 : tPag := fpDinheiro;
+                 02 : tPag := fpCheque;
+                 03 : tPag := fpCartaoCredito;
+                 04 : tPag := fpCartaoDebito;
+                 05 : tPag := fpCreditoLoja;
+                 10 : tPag := fpValeAlimentacao;
+                 11 : tPag := fpValeRefeicao;
+                 12 : tPag := fpValePresente;
+                 13 : tPag := fpValeCombustivel;
+                 else
+                 begin
+                   tPag := fpOutro;
+                   xPag := qryFormaPagtos.FieldByName('Descri').AsString;
+                 end;
+               end;
+
+               vPag := qryFormaPagtos.FieldByName('VALOR_FPAGTO').AsCurrency;
+             end;
+
+            qryFormaPagtos.Next;
+          end;
         end;
 
         if not OcultarVencimentos then
@@ -5228,18 +5257,16 @@ begin
 
       if ( Ide.finNFe = fnDevolucao ) then
       begin
+
         // Sem forma de Pagamento
+
         with pag.Add do
         begin
           indPag := ipNenhum;
           tPag   := fpSemPagamento;
-          xPag   := EmptyStr; // Descrição da forma de pagamento
           vPag   := 0.0;
-//          tpIntegra := tiNaoInformado;
-//          CNPJ      := EmptyStr;
-//          tBand     := bcOutros;
-//          cAut      := EmptyStr;
         end;
+
       end
       else
       if ( Ide.finNFe = fnNormal ) then
@@ -5251,12 +5278,7 @@ begin
         begin
           indPag := ipNenhum;
           tPag   := fpSemPagamento;
-          xPag   := EmptyStr; // Descrição da forma de pagamento
           vPag   := 0.0;
-//          tpIntegra := tiNaoInformado;
-//          CNPJ      := EmptyStr;
-//          tBand     := bcOutros;
-//          cAut      := EmptyStr;
         end;
 
         if not OcultarVencimentos then
@@ -8062,9 +8084,12 @@ begin
                12 : tPag := fpValePresente;
                13 : tPag := fpValeCombustivel;
                else
-                tPag := fpOutro
+               begin
+                 tPag := fpOutro;
+                 xPag := qryFormaPagtos.FieldByName('Descri').AsString;
+               end;
              end;
-             xPag := qryFormaPagtos.FieldByName('Descri').AsString;
+
              vPag := qryFormaPagtos.FieldByName('VALOR_FPAGTO').AsCurrency;
            end;
 

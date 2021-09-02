@@ -26,6 +26,21 @@ Uses
     TAliquota   = (taICMS, taISS);
     TTipoRegime = (trSimplesNacional, trSimplesExcessoReceita, trRegimeNormal);
 
+  TSistema = record
+    Codigo : Integer;
+    Nome   : String;
+  end;
+
+  TUsuarioLogado = record
+    Login    : String;
+    Nome     : String;
+    Funcao   : Integer;
+    Empresa  : String;
+    Vendedor : Integer;
+    Logado   : Boolean;
+    AlterarValorVenda : Boolean;
+  end;
+
   TLancamentoEntrada = record
     Ano      : Smallint;
     Controle : Integer;

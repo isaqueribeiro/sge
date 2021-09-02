@@ -81,6 +81,7 @@ implementation
 
 uses
   UDMBusiness,
+  UDMRecursos,
   UConstantesDGE,
   View.Cidade,
   View.Distrito,

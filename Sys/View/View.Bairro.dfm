@@ -41,12 +41,9 @@ inherited ViewBairro: TViewBairro
         inherited grpBxFiltro: TGroupBox
           inherited edtFiltrar: TEdit
             ExplicitLeft = 64
-            ExplicitTop = 20
           end
           inherited btnFiltrar: TcxButton
             ExplicitLeft = 218
-            ExplicitTop = 18
-            ExplicitHeight = 26
           end
         end
       end

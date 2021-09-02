@@ -288,21 +288,6 @@ type
     tbsLotes: TTabSheet;
     DBGrid1: TDBGrid;
     DtSrcTabelaLotes: TDataSource;
-    cdsTabelaLotes: TFDQuery;
-    cdsTabelaLotesANO: TSmallintField;
-    cdsTabelaLotesCODCONTROL: TIntegerField;
-    cdsTabelaLotesCODEMP: TStringField;
-    cdsTabelaLotesSEQ: TSmallintField;
-    cdsTabelaLotesCODPROD: TStringField;
-    cdsTabelaLotesDESCRI: TStringField;
-    cdsTabelaLotesAPRESENTACAO: TStringField;
-    cdsTabelaLotesDESCRI_APRESENTACAO: TStringField;
-    cdsTabelaLotesREFERENCIA: TStringField;
-    cdsTabelaLotesLOTE_ID: TStringField;
-    cdsTabelaLotesLOTE_DESCRICAO: TStringField;
-    cdsTabelaLotesLOTE_DATA_FAB: TDateField;
-    cdsTabelaLotesLOTE_DATA_VAL: TDateField;
-    cdsTabelaLotesQTDE: TFMTBCDField;
     btnImportar: TcxButton;
     bvlImportar: TBevel;
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
@@ -370,14 +355,13 @@ type
     procedure CarregarDadosEmpresa(const pEmpresa, pTituloRelatorio : String);
     procedure AbrirTabelaItens;
     procedure AbrirTabelaDuplicatas;
-    procedure AbrirTabelaLotes(const AnoCompra : Smallint; const ControleCompra : Integer; const EmpresaCompra : String);
+    procedure AbrirTabelaLotes;
     procedure AbrirNotaFiscal(const pEmpresa : String; const AnoCompra : Smallint; const ControleCompra : Integer);
     procedure CarregarDadosProduto( Codigo : Integer);
     procedure CarregarDadosCFOP( iCodigo : Integer );
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
     procedure InserirItensAutorizacao;
-    procedure ConfigurarCamposTabelas;
     procedure OcutarCampoAutorizacao;
 
     function GetRotinaFinalizarID : String;
@@ -393,6 +377,7 @@ type
     function Empresa  : IControllerEmpresa;
     function Produtos : IControllerCustom;
     function Duplicatas : IControllerCustom;
+    function Lotes : IControllerCustom;
   public
     { Public declarations }
     procedure pgcGuiasOnChange; override;
@@ -440,11 +425,11 @@ implementation
 
 uses
   System.DateUtils,
+  pcnConversao,
   UDMBusiness,
   UDMRecursos,
   UFuncoes,
   UDMNFe,
-  pcnConversao,
   Classe.DistribuicaoDFe.DocumentoRetornado,
   SGE.Controller.Factory,
   SGE.Controller,
@@ -453,11 +438,11 @@ uses
   View.Produto,
   View.CFOP,
   View.Fornecedor,
+  View.Entrada.ConfirmarDuplicatas,
+  View.Entrada.ConfirmarLote,
   UGeConsultarLoteNFe_v2,
   UGeAutorizacaoCompra,
-  UGeEntradaEstoqueLote,
   UGeEntradaEstoqueCancelar,
-  UGeEntradaConfirmaDuplicatas,
   UGeEntradaEstoqueGerarNFe,
   UGeEntradaEstoqueDevolucaoNF,
   UGeDistribuicaoDFe,
@@ -676,6 +661,8 @@ begin
 end;
 
 procedure TViewEntrada.FormCreate(Sender: TObject);
+var
+  aEmitirNFE : Boolean;
 begin
   FController := TControllerFactory.New.Entrada;
 
@@ -688,11 +675,12 @@ begin
   FControllerCFOP    := TControllerFactory.New.CFOP;
 
   if (gSistema.Codigo <> SISTEMA_GESTAO_OPME) then
-    if not (GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID]) then
+    if (not (Empresa.GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID])) then
       OcutarCampoAutorizacao;
 
   DtSrcTabelaItens.DataSet      := Produtos.DAO.DataSet;
   DtSrcTabelaDuplicatas.DataSet := Duplicatas.DAO.DataSet;
+  DtSrcTabelaLotes.DataSet      := Lotes.DAO.DataSet;
 
   inherited;
 
@@ -710,9 +698,13 @@ begin
   CampoDescricao := 'f.NomeForn';
   CampoOrdenacao := 'c.dtEnt, f.NomeForn';
 
-  dbCalcularTotais.Visible      := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
-  lblCalcularTotaisInfo.Visible := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
-  btbtnGerarNFe.Visible         := GetEstacaoEmitiNFe(gUsuarioLogado.Empresa) and GetPermititEmissaoNFeEntrada(gUsuarioLogado.Empresa);
+  aEmitirNFE := Empresa.GetPermitirEmissaoNFe(gUsuarioLogado.Empresa)
+    and Empresa.GetPermitirEmissaoNFeEntrada(gUsuarioLogado.Empresa)
+    and Empresa.DAO.Configuracao.Certificado(gUsuarioLogado.Empresa).Instalado;
+
+  dbCalcularTotais.Visible      := aEmitirNFE;
+  lblCalcularTotaisInfo.Visible := aEmitirNFE;
+  btbtnGerarNFe.Visible         := aEmitirNFE;
 
   TipoMovimento     := TTipoMovimentoEntrada.tmeProduto;
   ApenasFinalizadas := False;
@@ -769,7 +761,6 @@ begin
     .LookupComboBox(dbTipoDespesa, dtsTpDespesa, 'tipo_despesa', 'codigo', 'descricao');
 
   FController.DAO.DataSet.AfterScroll := DtSrcTabelaAfterScroll;
-  ConfigurarCamposTabelas;
 end;
 
 procedure TViewEntrada.btnFiltrarClick(Sender: TObject);
@@ -979,6 +970,11 @@ begin
   end;
 end;
 
+function TViewEntrada.Lotes: IControllerCustom;
+begin
+  Result := Controller.Lotes;
+end;
+
 procedure TViewEntrada.dbCondicaoPagtoClick(Sender: TObject);
 var
   I : Integer;
@@ -1072,15 +1068,22 @@ begin
   HabilitarDesabilitar_Btns;
 end;
 
-procedure TViewEntrada.AbrirTabelaLotes(const AnoCompra: Smallint; const ControleCompra: Integer; const EmpresaCompra : String);
+procedure TViewEntrada.AbrirTabelaLotes;
 begin
-  with cdsTabelaLotes do
-  begin
-    Close;
-    ParamByName('ano').AsSmallInt   := AnoCompra;
-    ParamByName('compra').AsInteger := ControleCompra;
-    Open;
-  end;
+  Controller.CarregarLotes;
+
+  // Configurar tabela dos lotes
+  TTabelaController
+    .New
+    .Tabela( DtSrcTabelaLotes.DataSet )
+    .Display('SEQ',     '#', '00', TAlignment.taCenter, True)
+    .Display('CODPROD', 'Código', TAlignment.taCenter, True)
+    .Display('DESCRI_APRESENTACAO', 'Produto/Serviço', TAlignment.taLeftJustify, False)
+    .Display('REFERENCIA',    'Referência', TAlignment.taLeftJustify, False)
+    .Display('QTDE',          'Qtde.', ',0.##', TAlignment.taRightJustify, True)
+    .Display('LOTE_DATA_FAB', 'Fabricação', 'dd/mm/yyyy', TAlignment.taCenter, True)
+    .Display('LOTE_DATA_VAL', 'Validade',   'dd/mm/yyyy', TAlignment.taCenter, True)
+    .Configurar;
 end;
 
 procedure TViewEntrada.BaixarImportarNFe(aChaveNFe, aNSU : String);
@@ -1145,12 +1148,8 @@ begin
           , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
 
         AbrirTabelaItens;
-
-        AbrirTabelaLotes(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
-          , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger
-          , DtSrcTabela.DataSet.FieldByName('CODEMP').AsString);
-
         AbrirTabelaDuplicatas;
+        AbrirTabelaLotes;
 
         DtSrcTabela.DataSet.Edit; // Colocar registro em edição para que usuário possa continuar o processo
 
@@ -1347,12 +1346,8 @@ begin
         AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 
         AbrirTabelaItens;
-
-        AbrirTabelaLotes(FieldByName('ANO').AsInteger
-          , FieldByName('CODCONTROL').AsInteger
-          , FieldByName('CODEMP').AsString);
-
         AbrirTabelaDuplicatas;
+        AbrirTabelaLotes;
       end;
     end;
 end;
@@ -1595,16 +1590,6 @@ begin
   end;
 end;
 
-procedure TViewEntrada.ConfigurarCamposTabelas;
-begin
-  // Configurar tabela dos lotes
-  TTabelaController
-    .New
-    .Tabela( cdsTabelaLotes )
-    .Display('QTDE', 'Qtde.', ',0.##', TAlignment.taRightJustify)
-    .Configurar( cdsTabelaLotes );
-end;
-
 procedure TViewEntrada.ControlEditExit(Sender: TObject);
 var
   cPrecoUN : Currency;
@@ -1677,12 +1662,8 @@ begin
     AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 
     AbrirTabelaItens;
-
-    AbrirTabelaLotes(FieldByName('ANO').AsInteger
-      , FieldByName('CODCONTROL').AsInteger
-      , FieldByName('CODEMP').AsString);
-
     AbrirTabelaDuplicatas;
+    AbrirTabelaLotes;
   end;
 end;
 
@@ -1728,12 +1709,8 @@ begin
       AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 
       AbrirTabelaItens;
-
-      AbrirTabelaLotes(FieldByName('ANO').AsInteger
-        , FieldByName('CODCONTROL').AsInteger
-        , FieldByName('CODEMP').AsString);
-
       AbrirTabelaDuplicatas;
+      AbrirTabelaLotes;
     end;
 end;
 
@@ -1763,12 +1740,8 @@ begin
         AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 
         AbrirTabelaItens;
-
-        AbrirTabelaLotes(FieldByName('ANO').AsInteger
-         , FieldByName('CODCONTROL').AsInteger
-         , FieldByName('CODEMP').AsString);
-
         AbrirTabelaDuplicatas;
+        AbrirTabelaLotes;
       end;
     end;
   end;
@@ -1936,7 +1909,7 @@ begin
           if not LotesProdutosConfirmados(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger) then
             Abort
           else
-            AbrirTabelaLotes(FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger, FieldByName('CODEMP').AsString);
+            AbrirTabelaLotes;
 
       if ( FieldByName('CODFORN').AsInteger = 0 ) then
       begin
@@ -2132,12 +2105,8 @@ begin
     AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 
     AbrirTabelaItens;
-
-    AbrirTabelaLotes(FieldByName('ANO').AsInteger
-      , FieldByName('CODCONTROL').AsInteger
-      , FieldByName('CODEMP').AsString);
-
     AbrirTabelaDuplicatas;
+    AbrirTabelaLotes;
   end;
 end;
 
@@ -2198,12 +2167,8 @@ begin
       AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 
       AbrirTabelaItens;
-
-      AbrirTabelaLotes(FieldByName('ANO').AsInteger
-        , FieldByName('CODCONTROL').AsInteger
-        , FieldByName('CODEMP').AsString);
-
       AbrirTabelaDuplicatas;
+      AbrirTabelaLotes;
 
       ShowInformation('Entrada cancelada com sucesso.' + #13#13 + 'Ano/Controle: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CODCONTROL').AsInteger));
 
@@ -2719,12 +2684,8 @@ begin
       AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 
       AbrirTabelaItens;
-
-      AbrirTabelaLotes(FieldByName('ANO').AsInteger
-        , FieldByName('CODCONTROL').AsInteger
-        , FieldByName('CODEMP').AsString);
-
       AbrirTabelaDuplicatas;
+      AbrirTabelaLotes;
 
       ShowInformation('Correção', 'CFOP corrigido com sucesso!' + #13 + 'Favor pesquisar entrada novamente.');
     end;

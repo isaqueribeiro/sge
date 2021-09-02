@@ -123,12 +123,13 @@ var
 implementation
 
 uses
-  UDMBusiness,
+  UDMRecursos,
   UDMNFe,
   View.PlanoConta,
   SGE.Controller.Factory,
   SGE.Controller,
-  SGE.Controller.Helper;
+  SGE.Controller.Helper,
+  Service.Message;
 
 {$R *.dfm}
 
@@ -178,7 +179,7 @@ begin
   CampoOrdenacao      := 'TIPOREC';
   CampoCadastroAtivo  := 'ATIVO';
 
-  FController.DAO.ParamsByName('empresa', gUsuarioLogado.Empresa);
+  FController.DAO.ParamsByName('empresa', FController.DAO.Usuario.Empresa.CNPJ);
   FController.DAO.DataSet.AfterScroll := DtSrcTabelaAfterScroll;
 
   Tabela
@@ -216,7 +217,7 @@ end;
 procedure TViewTipoReceita.btbtnListaClick(Sender: TObject);
 begin
   inherited;
-  DMNFe.fdQryListaTipoReceita.ParamByName('empresa').AsString := gUsuarioLogado.Empresa;
+  DMNFe.fdQryListaTipoReceita.ParamByName('empresa').AsString := FController.DAO.Usuario.Empresa.CNPJ;
   DMNFe.frrListaTipoReceita.ShowReport;
 end;
 
@@ -244,16 +245,16 @@ begin
     if ( SelecionarPlanoConta(Self, tpLancamento, 0, EmptyStr, '4', aPlanoConta) ) then  // 4. Receitas
     begin
       if (Trim(aPlanoConta.Empresa) = EmptyStr) and (FControllerTipoReceitaPlanoConta.DAO.DataSet.RecordCount > 0) then
-        ShowWarning('É permitida a associação de apenas 1 (um) plano de conta quando este será usado por todas as empresas')
+        TServiceMessage.ShowWarning('É permitida a associação de apenas 1 (um) plano de conta quando este será usado por todas as empresas')
       else
       if (not aPlanoConta.Empresa.IsEmpty) and FControllerTipoReceitaPlanoConta.DAO.DataSet.Locate('plano;empresa', VarArrayOf([aPlanoConta.Codigo, aPlanoConta.Empresa]), []) then
-        ShowWarning('Plano de Contas já associado ao Tipo de Receita')
+        TServiceMessage.ShowWarning('Plano de Contas já associado ao Tipo de Receita')
       else
       if aPlanoConta.Empresa.IsEmpty and FControllerTipoReceitaPlanoConta.DAO.DataSet.Locate('plano', aPlanoConta.Codigo, []) then
-        ShowWarning('Plano de Contas já associado ao Tipo de Receita')
+        TServiceMessage.ShowWarning('Plano de Contas já associado ao Tipo de Receita')
       else
       if FControllerTipoReceitaPlanoConta.DAO.DataSet.Locate('empresa', aPlanoConta.Empresa, []) then
-        ShowWarning('Não é permitido mais de um Plano de Contas por empresa para o mesmo Tipo de Receita')
+        TServiceMessage.ShowWarning('Não é permitido mais de um Plano de Contas por empresa para o mesmo Tipo de Receita')
       else
         with FControllerTipoReceitaPlanoConta.DAO.DataSet do
         begin

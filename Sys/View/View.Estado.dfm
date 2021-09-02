@@ -7,6 +7,10 @@ inherited ViewEstado: TViewEstado
   TextHeight = 13
   inherited pgcGuias: TPageControl
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 727
+      ExplicitHeight = 329
       inherited dbgDados: TDBGrid
         Columns = <
           item
@@ -48,19 +52,14 @@ inherited ViewEstado: TViewEstado
           inherited lbltFiltrar: TLabel
             Caption = 'Estado:'
           end
-          inherited edtFiltrar: TEdit
-            ExplicitLeft = 64
-            ExplicitTop = 20
-          end
-          inherited btnFiltrar: TcxButton
-            ExplicitLeft = 218
-            ExplicitTop = 18
-            ExplicitHeight = 26
-          end
         end
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
+      ExplicitWidth = 727
+      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 75
         ExplicitTop = 81

@@ -82,7 +82,7 @@ type
 implementation
 
 uses
-  UDMBusiness;
+  UDMBusiness, UDMRecursos;
 
 {$R *.dfm}
 

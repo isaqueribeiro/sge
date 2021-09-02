@@ -321,6 +321,7 @@ implementation
 uses
   System.StrUtils,
   UDMBusiness,
+  UDMRecursos,
   UConstantesDGE,
   UGeNFEmitida,
   UDMNFe,

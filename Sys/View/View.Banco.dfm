@@ -1463,10 +1463,6 @@ inherited ViewBanco: TViewBanco
   inherited tlbBotoes: TPanel
     Top = 432
     ExplicitTop = 432
-    inherited btbtnCancelar: TcxButton
-      ExplicitLeft = 233
-      ExplicitTop = 0
-    end
   end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange

@@ -744,7 +744,7 @@ inherited frmGeEntradaConfirmaDuplicatas: TfrmGeEntradaConfirmaDuplicatas
         '  inner join TBCOMPRAS c on (c.ano = anocompra and c.codcontrol ' +
         '= d.NumCompra)')
     Left = 98
-    Top = 151
+    Top = 143
   end
   object qryParcela: TFDQuery
     CachedUpdates = True

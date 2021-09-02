@@ -143,11 +143,12 @@ implementation
 
 uses
   System.IOUtils,
-  UDMBusiness,
+  UDMRecursos,
   UConstantesDGE,
   SGE.Controller.Factory,
   SGE.Controller,
-  SGE.Controller.Helper;
+  SGE.Controller.Helper,
+  Service.Message;
 
 {$R *.dfm}
 
@@ -230,7 +231,7 @@ begin
 
   if (not aBanco.DAO.DataSet.Locate('codigo', FormatFloat('000', DtSrcTabela.DataSet.FieldByName('bco_cod').AsInteger), [])) then
   begin
-    ShowWarning('', 'O código informado é inválido para a tabela FEBRABAN');
+    TServiceMessage.ShowWarning('', 'O código informado é inválido para a tabela FEBRABAN');
     Abort;
   end;
 
@@ -340,7 +341,7 @@ begin
     '3. A Conta Corrente (C/C) deverá ser informanda fundamentalmente com o seu dígito. Ex: 06598-7' + #13#13 +
     '4. Para determinados bancos o Código do Cedente é o mesmo número de Conta Corrente.';
 
-  ShowInformation(Self.Caption, sMsg);
+  TServiceMessage.ShowInformation(Self.Caption, sMsg);
 end;
 
 initialization

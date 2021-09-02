@@ -148,7 +148,8 @@ implementation
 uses
     DateUtils
   , Controller.Tabela
-  , UDMBusiness;
+  , UDMBusiness
+  , UDMRecursos;
 
 {$R *.dfm}
 

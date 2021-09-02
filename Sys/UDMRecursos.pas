@@ -28,6 +28,7 @@ uses
   View.Login,
   {$ENDIF}
 
+  FuncoesFormulario,
   UGrAguarde,
   UConstantesDGE,
   UBaseObject;
@@ -70,6 +71,8 @@ type
 
 var
   DMRecursos: TDMRecursos;
+  FormFunction   : TFormularios;
+  gSistema       : TSistema;
   gConfiguracoes : IConfiguracaoIni;
   gVersaoApp     : IVersao;
   gPersonalizaEmpresa : IPersonalizaEmpresa;
@@ -253,5 +256,9 @@ initialization
   gVersaoApp     := TFactoryController.getInstance().getVersaoController();
   gPersonalizaEmpresa := TFactoryController.getInstance().getPersonalizaEmpresa();
   gLicencaSistema := TFactoryController.getInstance().getLicenca();
+  FormFunction    := TFormularios.Create;
+
+finalization
+  FormFunction.Destroy;
 
 end.

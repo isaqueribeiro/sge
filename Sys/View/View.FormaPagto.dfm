@@ -285,7 +285,7 @@ inherited ViewFormaPagto: TViewFormaPagto
             Left = 3
             Top = 3
             Width = 33
-            Height = 43
+            Height = 13
             Align = alLeft
             Caption = 'Dica : '
             Font.Charset = ANSI_CHARSET
@@ -295,14 +295,13 @@ inherited ViewFormaPagto: TViewFormaPagto
             Font.Style = [fsBold]
             ParentFont = False
             Transparent = True
-            ExplicitHeight = 13
           end
           object lblDicasTexto: TLabel
             AlignWithMargins = True
             Left = 42
             Top = 3
-            Width = 676
-            Height = 43
+            Width = 675
+            Height = 39
             Align = alClient
             Caption = 
               'Pressione a tecla "Espa'#231'o" para marcar ou desmarcar a Conta Corr' +
@@ -317,8 +316,6 @@ inherited ViewFormaPagto: TViewFormaPagto
             ParentFont = False
             Transparent = True
             WordWrap = True
-            ExplicitWidth = 675
-            ExplicitHeight = 39
           end
         end
         object dbgContaCorrente: TDBGrid

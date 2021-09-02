@@ -131,6 +131,7 @@ uses
     System.StrUtils
   , UConstantesDGE
   , UDMBusiness
+  , UDMRecursos
   , UDMNFe
   , UFuncoes
   , View.Produto;

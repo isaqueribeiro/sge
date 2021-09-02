@@ -100,7 +100,7 @@ type
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UDMNFe, UGeVenda, View.CondicaoPagto, UGrCampoRequisitado;
+  UConstantesDGE, UDMBusiness, UDMRecursos, UDMNFe, UGeVenda, View.CondicaoPagto, UGrCampoRequisitado;
 
 {$R *.dfm}
 

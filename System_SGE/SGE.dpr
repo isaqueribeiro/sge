@@ -139,20 +139,21 @@ uses
   View.PadraoLogin in '..\Sys\View\View.PadraoLogin.pas' {FrmPadraoLogin},
   View.PadraoCadastro in '..\Sys\View\View.PadraoCadastro.pas' {ViewPadraoCadastro},
   View.Login in 'View\View.Login.pas' {FrmLogin},
+  Service.InputQuery in '..\Sys\Services\Service.InputQuery.pas',
+  Service.Utils in '..\Sys\Services\Service.Utils.pas',
+  Service.PrevisaoTempo in '..\Sys\Services\Service.PrevisaoTempo.pas',
+  Service.Message in '..\Sys\Services\Service.Message.pas',
   Interacao.Tabela in '..\Sys\Model\Interacao\Interacao.Tabela.pas',
   Controller.Tabela in '..\Sys\Controller\Controller.Tabela.pas',
   Interfaces.InputQuery in '..\Sys\Services\InputQuery\Interfaces.InputQuery.pas',
   View.InputQuery in '..\Sys\Services\InputQuery\View.InputQuery.pas' {ViewInputQuery},
-  Service.InputQuery in '..\Sys\Services\Service.InputQuery.pas',
   Classe.DistribuicaoDFe.DocumentoRetornado in '..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas',
   UGeDistribuicaoDFe in '..\Sys\UGeDistribuicaoDFe.pas' {frmDistribuicaoDFe},
   View.Esmaecer in '..\Sys\View\View.Esmaecer.pas' {ViewEsmaecer},
   View.VendaMobile in 'View\View.VendaMobile.pas' {ViewVendaMobile},
   Interfaces.PrevisaoTempo in '..\Sys\Services\PrevisaoTempo\Interfaces.PrevisaoTempo.pas',
   Controller.ProvisaoTempo.Inpe in '..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.Inpe.pas',
-  Service.PrevisaoTempo in '..\Sys\Services\Service.PrevisaoTempo.pas',
   Controller.ProvisaoTempo.WeatherstackAPI in '..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.WeatherstackAPI.pas',
-  Service.Utils in '..\Sys\Services\Service.Utils.pas',
   View.VendaMobile.Vendedor in 'View\View.VendaMobile.Vendedor.pas' {ViewVendaMobileVendedor},
   Classe.Gerenciador.View in '..\Sys\Classe\Classe.Gerenciador.View.pas',
   Interacao.Gerenciador.View in '..\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas',
@@ -221,6 +222,7 @@ uses
   SGE.Controller.Cidade in '..\Sys\Controller\SGE.Controller.Cidade.pas',
   SGE.Controller.Cliente in '..\Sys\Controller\SGE.Controller.Cliente.pas',
   SGE.Controller.CondicaoPagto in '..\Sys\Controller\SGE.Controller.CondicaoPagto.pas',
+  SGE.Controller.ContaAPagar in '..\Sys\Controller\SGE.Controller.ContaAPagar.pas',
   SGE.Controller.ContaCorrente in '..\Sys\Controller\SGE.Controller.ContaCorrente.pas',
   SGE.Controller.CST in '..\Sys\Controller\SGE.Controller.CST.pas',
   SGE.Controller.Distrito in '..\Sys\Controller\SGE.Controller.Distrito.pas',
@@ -271,7 +273,8 @@ uses
   View.Certificado in '..\Sys\View\View.Certificado.pas' {ViewCertificado},
   View.Promocao in 'View\View.Promocao.pas' {ViewPromocao},
   View.Entrada in '..\Sys\View\View.Entrada.pas' {ViewEntrada},
-  SGE.Controller.ContaAPagar in '..\Sys\Controller\SGE.Controller.ContaAPagar.pas';
+  View.Entrada.ConfirmarDuplicatas in '..\Sys\View\View.Entrada.ConfirmarDuplicatas.pas' {ViewEntradaConfirmarDuplicatas},
+  View.Entrada.ConfirmarLote in '..\Sys\View\View.Entrada.ConfirmarLote.pas' {ViewEntradaEstoqueLote};
 
 {$R *.res}
 

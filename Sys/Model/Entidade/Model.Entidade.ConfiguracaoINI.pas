@@ -131,6 +131,7 @@ type
       function Senha : String;
       function URL : String;
       function NumeroSerie : String;
+      function Instalado : Boolean;
   end;
 
   // Interface
@@ -393,6 +394,11 @@ end;
 destructor TConfiguracaoSecaoCertificado.Destroy;
 begin
   inherited;
+end;
+
+function TConfiguracaoSecaoCertificado.Instalado: Boolean;
+begin
+  Result := not FNumeroSerie.IsEmpty;
 end;
 
 function TConfiguracaoSecaoCertificado.NumeroSerie : String;

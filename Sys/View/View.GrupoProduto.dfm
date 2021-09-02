@@ -56,6 +56,7 @@ inherited ViewGrupoProduto: TViewGrupoProduto
           end
           inherited btnFiltrar: TcxButton
             Left = 299
+            ExplicitLeft = 299
           end
         end
       end
@@ -124,12 +125,6 @@ inherited ViewGrupoProduto: TViewGrupoProduto
           TabOrder = 2
         end
       end
-    end
-  end
-  inherited tlbBotoes: TPanel
-    inherited btbtnCancelar: TcxButton
-      ExplicitLeft = 233
-      ExplicitTop = 0
     end
   end
 end

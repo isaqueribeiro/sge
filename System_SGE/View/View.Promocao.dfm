@@ -1007,10 +1007,6 @@ inherited ViewPromocao: TViewPromocao
       Left = 749
       ExplicitLeft = 750
     end
-    inherited btbtnCancelar: TcxButton
-      ExplicitLeft = 233
-      ExplicitTop = 0
-    end
     inherited btbtnFechar: TcxButton
       Left = 674
       ExplicitLeft = 674

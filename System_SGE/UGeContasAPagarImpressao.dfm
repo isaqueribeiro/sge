@@ -254,7 +254,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarVSintetico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -326,6 +326,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -334,6 +335,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -351,6 +353,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -364,6 +367,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724800000000000000
@@ -383,6 +387,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409448818900000
@@ -404,6 +409,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409450000000000
@@ -423,6 +429,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409450000000000
@@ -446,12 +453,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 143.622140000000000000
@@ -468,6 +477,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -486,6 +496,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 120.944960000000000000
           Width = 461.102660000000000000
@@ -502,6 +513,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -536,6 +548,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -552,6 +565,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -568,6 +582,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -595,6 +610,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVSintetico."COMPETENCIA_VENCIMENTO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -614,6 +630,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -632,6 +649,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
@@ -652,6 +670,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 18.897650000000000000
           Width = 461.102660000000000000
@@ -673,6 +692,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -695,6 +715,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -717,6 +738,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Top = 37.795300000000000000
           Width = 102.047310000000000000
@@ -739,6 +761,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 18.897650000000000000
           Width = 173.858316540000000000
@@ -761,6 +784,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -783,6 +807,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 37.795300000000000000
           Width = 52.913346770000000000
@@ -815,6 +840,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarVSintetico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -843,6 +869,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -871,6 +898,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -899,6 +927,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -929,6 +958,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -959,6 +989,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
@@ -986,6 +1017,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
@@ -1021,6 +1053,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 355.275820000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -1039,6 +1072,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -1059,6 +1093,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -1079,6 +1114,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -1099,6 +1135,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -1127,6 +1164,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1143,6 +1181,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 45.354360000000000000
           Width = 173.858380000000000000
@@ -1165,6 +1204,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 45.354360000000000000
           Width = 79.370066540000000000
@@ -1187,6 +1227,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 26.456710000000000000
           Width = 253.228446540000000000
@@ -1209,6 +1250,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 64.252010000000000000
           Width = 79.370066540000000000
@@ -1231,6 +1273,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 83.149660000000000000
           Width = 79.370066540000000000
@@ -1253,6 +1296,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 64.252010000000000000
           Width = 173.858380000000000000
@@ -1275,6 +1319,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 83.149660000000000000
           Width = 173.858380000000000000
@@ -1297,6 +1342,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 102.047310000000000000
           Width = 79.370066540000000000
@@ -1319,6 +1365,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 102.047310000000000000
           Width = 173.858380000000000000
@@ -1338,6 +1385,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
@@ -1462,7 +1510,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 56
   end
   object frRelacaoAPagarVAnalitico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1543,6 +1591,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -1550,6 +1599,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -1566,6 +1616,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -1579,6 +1630,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724409450000000000
@@ -1598,6 +1650,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409450000000000
@@ -1619,6 +1672,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409450000000000
@@ -1638,6 +1692,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409450000000000
@@ -1661,12 +1716,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 139.842610000000000000
@@ -1683,6 +1740,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -1700,6 +1758,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 253.228510000000000000
           Top = 120.944960000000000000
           Width = 793.701300000000000000
@@ -1716,6 +1775,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -1750,6 +1810,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1766,6 +1827,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -1782,6 +1844,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -1809,6 +1872,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVAnalitico."COMPETENCIA_VENCIMENTO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
@@ -1828,6 +1892,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1856,6 +1921,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarVAnalitico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -1884,6 +1950,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -1912,6 +1979,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -1942,6 +2010,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -1969,6 +2038,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 453.543600000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -1999,6 +2069,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 536.693260000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -2026,6 +2097,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149596540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -2052,6 +2124,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 37.795236540000000000
           Height = 18.897650000000000000
@@ -2080,6 +2153,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.944960000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -2109,6 +2183,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo46: TfrxMemoView
+          AllowVectorExport = True
           Left = 204.094620000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -2138,6 +2213,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo48: TfrxMemoView
+          AllowVectorExport = True
           Left = 287.244280000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -2167,6 +2243,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Width = 128.503956540000000000
           Height = 18.897650000000000000
@@ -2201,6 +2278,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -2219,6 +2297,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -2239,6 +2318,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -2259,6 +2339,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
@@ -2288,6 +2369,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 793.701300000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2302,6 +2384,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 18.897650000000000000
           Width = 173.858380000000000000
@@ -2324,6 +2407,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 18.897650000000000000
           Width = 79.370066540000000000
@@ -2346,6 +2430,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
@@ -2367,6 +2452,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 37.795300000000000000
           Width = 79.370066540000000000
@@ -2389,6 +2475,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 56.692950000000000000
           Width = 79.370066540000000000
@@ -2411,6 +2498,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 37.795300000000000000
           Width = 173.858380000000000000
@@ -2433,6 +2521,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 56.692950000000000000
           Width = 173.858380000000000000
@@ -2455,6 +2544,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 75.590600000000000000
           Width = 79.370066540000000000
@@ -2477,6 +2567,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 75.590600000000000000
           Width = 173.858380000000000000
@@ -2496,6 +2587,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo42: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 793.701300000000000000
           Height = 18.897650000000000000
@@ -2522,6 +2614,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVAnalitico."FORNECEDOR_CODIGO"'
         ReprintOnNewPage = True
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -2540,6 +2633,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 18.897650000000000000
           Width = 427.086890000000000000
@@ -2561,6 +2655,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -2583,6 +2678,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -2605,6 +2701,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Top = 37.795300000000000000
           Width = 102.047310000000000000
@@ -2627,6 +2724,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 763.465060000000000000
           Height = 18.897650000000000000
@@ -2646,6 +2744,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -2667,6 +2766,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 453.543600000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -2688,6 +2788,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo38: TfrxMemoView
+          AllowVectorExport = True
           Left = 536.693260000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -2709,6 +2810,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Top = 18.897650000000000000
           Width = 249.448980000000000000
@@ -2730,6 +2832,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -2750,6 +2853,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 370.393940000000000000
           Height = 18.897650000000000000
@@ -2770,6 +2874,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 37.795300000000000000
           Width = 37.795236540000000000
@@ -2791,6 +2896,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.944960000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -2812,6 +2918,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 204.094620000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -2833,6 +2940,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo47: TfrxMemoView
+          AllowVectorExport = True
           Left = 287.244280000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -2854,6 +2962,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 37.795300000000000000
           Width = 128.503956540000000000
@@ -2875,6 +2984,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo49: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 200.315090000000000000
           Height = 18.897650000000000000
@@ -2905,6 +3015,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -2923,6 +3034,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -2943,6 +3055,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo12: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -2963,6 +3076,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
@@ -3010,7 +3124,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 64
   end
   object frRelacaoAPagarESintetico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3082,6 +3196,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -3090,6 +3205,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -3107,6 +3223,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -3120,6 +3237,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724409450000000000
@@ -3139,6 +3257,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409450000000000
@@ -3160,6 +3279,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409450000000000
@@ -3179,6 +3299,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409450000000000
@@ -3202,12 +3323,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -3226,6 +3349,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 120.944960000000000000
           Width = 461.102660000000000000
@@ -3242,6 +3366,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 143.622140000000000000
@@ -3258,6 +3383,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -3292,6 +3418,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3308,6 +3435,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -3324,6 +3452,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -3351,6 +3480,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarESintetico."COMPETENCIA_EMISSAO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -3370,6 +3500,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -3388,6 +3519,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
@@ -3408,6 +3540,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 18.897650000000000000
           Width = 461.102660000000000000
@@ -3429,6 +3562,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -3451,6 +3585,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -3473,6 +3608,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Top = 37.795300000000000000
           Width = 102.047310000000000000
@@ -3495,6 +3631,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 18.897650000000000000
           Width = 173.858316540000000000
@@ -3517,6 +3654,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -3539,6 +3677,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 37.795300000000000000
           Width = 52.913346770000000000
@@ -3571,6 +3710,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarESintetico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -3599,6 +3739,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -3627,6 +3768,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -3655,6 +3797,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -3685,6 +3828,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -3715,6 +3859,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
@@ -3742,6 +3887,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
@@ -3777,6 +3923,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 355.275820000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -3795,6 +3942,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -3815,6 +3963,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -3835,6 +3984,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -3855,6 +4005,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -3883,6 +4034,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3899,6 +4051,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 45.354360000000000000
           Width = 173.858380000000000000
@@ -3921,6 +4074,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 45.354360000000000000
           Width = 79.370066540000000000
@@ -3943,6 +4097,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 26.456710000000000000
           Width = 253.228446540000000000
@@ -3965,6 +4120,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 64.252010000000000000
           Width = 79.370066540000000000
@@ -3987,6 +4143,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 83.149660000000000000
           Width = 79.370066540000000000
@@ -4009,6 +4166,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 64.252010000000000000
           Width = 173.858380000000000000
@@ -4031,6 +4189,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 83.149660000000000000
           Width = 173.858380000000000000
@@ -4053,6 +4212,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 102.047310000000000000
           Width = 79.370066540000000000
@@ -4075,6 +4235,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 102.047310000000000000
           Width = 173.858380000000000000
@@ -4094,6 +4255,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
@@ -4153,7 +4315,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 152
   end
   object frRelacaoAPagarEAnalitico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -4234,6 +4396,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -4241,6 +4404,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -4257,6 +4421,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -4270,6 +4435,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724409450000000000
@@ -4289,6 +4455,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409450000000000
@@ -4310,6 +4477,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409450000000000
@@ -4329,6 +4497,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409450000000000
@@ -4352,12 +4521,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -4375,6 +4546,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 253.228510000000000000
           Top = 120.944960000000000000
           Width = 793.701300000000000000
@@ -4391,6 +4563,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 139.842610000000000000
@@ -4407,6 +4580,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -4441,6 +4615,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -4457,6 +4632,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -4473,6 +4649,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -4500,6 +4677,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVAnalitico."COMPETENCIA_EMISSAO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
@@ -4519,6 +4697,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -4547,6 +4726,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarVAnalitico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -4575,6 +4755,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -4603,6 +4784,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -4633,6 +4815,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -4660,6 +4843,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 453.543600000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -4690,6 +4874,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 536.693260000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -4717,6 +4902,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149596540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -4743,6 +4929,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 37.795236540000000000
           Height = 18.897650000000000000
@@ -4771,6 +4958,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.944960000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -4800,6 +4988,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo46: TfrxMemoView
+          AllowVectorExport = True
           Left = 204.094620000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -4829,6 +5018,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo48: TfrxMemoView
+          AllowVectorExport = True
           Left = 287.244280000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -4858,6 +5048,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Width = 128.503956540000000000
           Height = 18.897650000000000000
@@ -4892,6 +5083,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -4910,6 +5102,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -4930,6 +5123,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -4950,6 +5144,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
@@ -4979,6 +5174,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 793.701300000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -4993,6 +5189,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 18.897650000000000000
           Width = 173.858380000000000000
@@ -5015,6 +5212,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 18.897650000000000000
           Width = 79.370066540000000000
@@ -5037,6 +5235,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
@@ -5058,6 +5257,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 37.795300000000000000
           Width = 79.370066540000000000
@@ -5080,6 +5280,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 56.692950000000000000
           Width = 79.370066540000000000
@@ -5102,6 +5303,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 37.795300000000000000
           Width = 173.858380000000000000
@@ -5124,6 +5326,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 56.692950000000000000
           Width = 173.858380000000000000
@@ -5146,6 +5349,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 75.590600000000000000
           Width = 79.370066540000000000
@@ -5168,6 +5372,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 75.590600000000000000
           Width = 173.858380000000000000
@@ -5187,6 +5392,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo42: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 793.701300000000000000
           Height = 18.897650000000000000
@@ -5213,6 +5419,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVAnalitico."FORNECEDOR_CODIGO"'
         ReprintOnNewPage = True
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -5231,6 +5438,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 18.897650000000000000
           Width = 427.086890000000000000
@@ -5252,6 +5460,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -5274,6 +5483,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -5296,6 +5506,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Top = 37.795300000000000000
           Width = 102.047310000000000000
@@ -5318,6 +5529,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 763.465060000000000000
           Height = 18.897650000000000000
@@ -5337,6 +5549,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -5358,6 +5571,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 453.543600000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -5379,6 +5593,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo38: TfrxMemoView
+          AllowVectorExport = True
           Left = 536.693260000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -5400,6 +5615,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Top = 18.897650000000000000
           Width = 249.448980000000000000
@@ -5421,6 +5637,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -5441,6 +5658,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 370.393940000000000000
           Height = 18.897650000000000000
@@ -5461,6 +5679,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 37.795300000000000000
           Width = 37.795236540000000000
@@ -5482,6 +5701,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.944960000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -5503,6 +5723,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 204.094620000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -5524,6 +5745,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo47: TfrxMemoView
+          AllowVectorExport = True
           Left = 287.244280000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -5545,6 +5767,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 37.795300000000000000
           Width = 128.503956540000000000
@@ -5566,6 +5789,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo49: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 200.315090000000000000
           Height = 18.897650000000000000
@@ -5596,6 +5820,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -5614,6 +5839,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -5634,6 +5860,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo12: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -5654,6 +5881,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
@@ -5677,7 +5905,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarBSintetico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -5749,6 +5977,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -5757,6 +5986,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -5774,6 +6004,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -5787,6 +6018,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724409450000000000
@@ -5806,6 +6038,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409450000000000
@@ -5827,6 +6060,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409450000000000
@@ -5846,6 +6080,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409450000000000
@@ -5869,12 +6104,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -5893,6 +6130,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 120.944960000000000000
           Width = 461.102660000000000000
@@ -5909,6 +6147,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 143.622140000000000000
@@ -5925,6 +6164,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -5959,6 +6199,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -5975,6 +6216,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -5991,6 +6233,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -6018,6 +6261,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarBSintetico."COMPETENCIA_PAGAMENTO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -6037,6 +6281,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -6055,6 +6300,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
@@ -6075,6 +6321,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 18.897650000000000000
           Width = 461.102660000000000000
@@ -6096,6 +6343,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -6118,6 +6366,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -6140,6 +6389,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Top = 37.795300000000000000
           Width = 102.047310000000000000
@@ -6162,6 +6412,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 18.897650000000000000
           Width = 173.858316540000000000
@@ -6184,6 +6435,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -6206,6 +6458,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 37.795300000000000000
           Width = 52.913346770000000000
@@ -6238,6 +6491,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarBSintetico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -6266,6 +6520,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -6294,6 +6549,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -6322,6 +6578,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -6352,6 +6609,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -6382,6 +6640,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
@@ -6409,6 +6668,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
@@ -6444,6 +6704,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 355.275820000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -6462,6 +6723,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -6482,6 +6744,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -6502,6 +6765,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -6522,6 +6786,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -6550,6 +6815,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -6566,6 +6832,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 45.354360000000000000
           Width = 173.858380000000000000
@@ -6588,6 +6855,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 45.354360000000000000
           Width = 79.370066540000000000
@@ -6610,6 +6878,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 26.456710000000000000
           Width = 253.228446540000000000
@@ -6632,6 +6901,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 64.252010000000000000
           Width = 79.370066540000000000
@@ -6654,6 +6924,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 83.149660000000000000
           Width = 79.370066540000000000
@@ -6676,6 +6947,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 64.252010000000000000
           Width = 173.858380000000000000
@@ -6698,6 +6970,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 83.149660000000000000
           Width = 173.858380000000000000
@@ -6720,6 +6993,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 102.047310000000000000
           Width = 79.370066540000000000
@@ -6742,6 +7016,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 102.047310000000000000
           Width = 173.858380000000000000
@@ -6761,6 +7036,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
@@ -6820,7 +7096,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 248
   end
   object frRelacaoAPagarBAnalitico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -6901,6 +7177,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -6908,6 +7185,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -6924,6 +7202,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -6937,6 +7216,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724409450000000000
@@ -6956,6 +7236,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409450000000000
@@ -6977,6 +7258,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409450000000000
@@ -6996,6 +7278,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409450000000000
@@ -7019,12 +7302,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -7042,6 +7327,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 253.228510000000000000
           Top = 120.944960000000000000
           Width = 793.701300000000000000
@@ -7058,6 +7344,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 139.842610000000000000
@@ -7074,6 +7361,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -7108,6 +7396,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -7124,6 +7413,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -7140,6 +7430,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -7167,6 +7458,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVAnalitico."COMPETENCIA_PAGAMENTO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
@@ -7186,6 +7478,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -7214,6 +7507,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarVAnalitico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -7242,6 +7536,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -7270,6 +7565,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -7300,6 +7596,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -7327,6 +7624,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 453.543600000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -7357,6 +7655,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 536.693260000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -7384,6 +7683,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149596540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -7410,6 +7710,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 37.795236540000000000
           Height = 18.897650000000000000
@@ -7438,6 +7739,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.944960000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -7467,6 +7769,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo46: TfrxMemoView
+          AllowVectorExport = True
           Left = 204.094620000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -7496,6 +7799,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo48: TfrxMemoView
+          AllowVectorExport = True
           Left = 287.244280000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -7525,6 +7829,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Width = 128.503956540000000000
           Height = 18.897650000000000000
@@ -7559,6 +7864,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -7577,6 +7883,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -7597,6 +7904,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -7617,6 +7925,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
@@ -7646,6 +7955,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 793.701300000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -7660,6 +7970,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 18.897650000000000000
           Width = 173.858380000000000000
@@ -7682,6 +7993,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 18.897650000000000000
           Width = 79.370066540000000000
@@ -7704,6 +8016,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
@@ -7725,6 +8038,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 37.795300000000000000
           Width = 79.370066540000000000
@@ -7747,6 +8061,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 56.692950000000000000
           Width = 79.370066540000000000
@@ -7769,6 +8084,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 37.795300000000000000
           Width = 173.858380000000000000
@@ -7791,6 +8107,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 56.692950000000000000
           Width = 173.858380000000000000
@@ -7813,6 +8130,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 75.590600000000000000
           Width = 79.370066540000000000
@@ -7835,6 +8153,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 75.590600000000000000
           Width = 173.858380000000000000
@@ -7854,6 +8173,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo42: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 793.701300000000000000
           Height = 18.897650000000000000
@@ -7880,6 +8200,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVAnalitico."FORNECEDOR_CODIGO"'
         ReprintOnNewPage = True
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -7898,6 +8219,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 18.897650000000000000
           Width = 427.086890000000000000
@@ -7919,6 +8241,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -7941,6 +8264,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -7963,6 +8287,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Top = 37.795300000000000000
           Width = 102.047310000000000000
@@ -7985,6 +8310,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 763.465060000000000000
           Height = 18.897650000000000000
@@ -8004,6 +8330,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -8025,6 +8352,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 453.543600000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -8046,6 +8374,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo38: TfrxMemoView
+          AllowVectorExport = True
           Left = 536.693260000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -8067,6 +8396,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Top = 18.897650000000000000
           Width = 249.448980000000000000
@@ -8088,6 +8418,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -8108,6 +8439,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 370.393940000000000000
           Height = 18.897650000000000000
@@ -8128,6 +8460,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 37.795300000000000000
           Width = 37.795236540000000000
@@ -8149,6 +8482,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.944960000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -8170,6 +8504,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 204.094620000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -8191,6 +8526,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo47: TfrxMemoView
+          AllowVectorExport = True
           Left = 287.244280000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -8212,6 +8548,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 37.795300000000000000
           Width = 128.503956540000000000
@@ -8233,6 +8570,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo49: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 200.315090000000000000
           Height = 18.897650000000000000
@@ -8263,6 +8601,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -8281,6 +8620,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -8301,6 +8641,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo12: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -8321,6 +8662,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
@@ -8344,7 +8686,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarTPDespesaSintetico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -8416,6 +8758,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -8424,6 +8767,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -8441,6 +8785,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -8454,6 +8799,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724800000000000000
@@ -8473,6 +8819,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409450000000000
@@ -8494,6 +8841,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409448818900000
@@ -8513,6 +8861,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409448818900000
@@ -8536,12 +8885,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 143.622140000000000000
@@ -8558,6 +8909,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -8576,6 +8928,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 120.944960000000000000
           Width = 461.102660000000000000
@@ -8592,6 +8945,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -8626,6 +8980,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -8642,6 +8997,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -8658,6 +9014,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -8685,6 +9042,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVSintetico."CODTPDESP"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -8704,6 +9062,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -8722,6 +9081,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
@@ -8742,6 +9102,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 18.897650000000000000
           Width = 461.102660000000000000
@@ -8763,6 +9124,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -8785,6 +9147,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -8807,6 +9170,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Top = 37.795300000000000000
           Width = 102.047310000000000000
@@ -8829,6 +9193,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 18.897650000000000000
           Width = 173.858316540000000000
@@ -8851,6 +9216,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -8873,6 +9239,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 37.795300000000000000
           Width = 52.913346770000000000
@@ -8905,6 +9272,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarVSintetico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -8933,6 +9301,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -8961,6 +9330,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -8989,6 +9359,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -9019,6 +9390,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -9049,6 +9421,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
@@ -9076,6 +9449,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
@@ -9111,6 +9485,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 355.275820000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -9129,6 +9504,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -9149,6 +9525,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -9169,6 +9546,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -9189,6 +9567,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -9217,6 +9596,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -9233,6 +9613,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 45.354360000000000000
           Width = 173.858380000000000000
@@ -9255,6 +9636,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 45.354360000000000000
           Width = 79.370066540000000000
@@ -9277,6 +9659,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 26.456710000000000000
           Width = 253.228446540000000000
@@ -9299,6 +9682,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 64.252010000000000000
           Width = 79.370066540000000000
@@ -9321,6 +9705,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 83.149660000000000000
           Width = 79.370066540000000000
@@ -9343,6 +9728,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 64.252010000000000000
           Width = 173.858380000000000000
@@ -9365,6 +9751,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 83.149660000000000000
           Width = 173.858380000000000000
@@ -9387,6 +9774,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 102.047310000000000000
           Width = 79.370066540000000000
@@ -9409,6 +9797,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 102.047310000000000000
           Width = 173.858380000000000000
@@ -9428,6 +9817,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
@@ -9447,7 +9837,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarTPDespesaAnalitico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -9528,6 +9918,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -9535,6 +9926,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -9551,6 +9943,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -9564,6 +9957,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724409450000000000
@@ -9583,6 +9977,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409450000000000
@@ -9604,6 +9999,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409450000000000
@@ -9623,6 +10019,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409450000000000
@@ -9646,12 +10043,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -9669,6 +10068,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 253.228510000000000000
           Top = 120.944960000000000000
           Width = 793.701300000000000000
@@ -9685,6 +10085,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 139.842610000000000000
@@ -9701,6 +10102,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -9735,6 +10137,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -9751,6 +10154,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -9767,6 +10171,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -9794,6 +10199,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVAnalitico."CODTPDESP"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
@@ -9813,6 +10219,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -9841,6 +10248,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarVAnalitico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -9869,6 +10277,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -9897,6 +10306,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -9927,6 +10337,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -9954,6 +10365,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 453.543600000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -9984,6 +10396,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 536.693260000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -10011,6 +10424,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149596540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -10037,6 +10451,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 37.795236540000000000
           Height = 18.897650000000000000
@@ -10065,6 +10480,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.944960000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -10094,6 +10510,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo46: TfrxMemoView
+          AllowVectorExport = True
           Left = 204.094620000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -10123,6 +10540,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo48: TfrxMemoView
+          AllowVectorExport = True
           Left = 287.244280000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -10152,6 +10570,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Width = 128.503956540000000000
           Height = 18.897650000000000000
@@ -10186,6 +10605,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -10204,6 +10624,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -10224,6 +10645,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -10244,6 +10666,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
@@ -10273,6 +10696,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 793.701300000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -10287,6 +10711,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 18.897650000000000000
           Width = 173.858380000000000000
@@ -10309,6 +10734,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 18.897650000000000000
           Width = 79.370066540000000000
@@ -10331,6 +10757,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
@@ -10352,6 +10779,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 37.795300000000000000
           Width = 79.370066540000000000
@@ -10374,6 +10802,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 56.692950000000000000
           Width = 79.370066540000000000
@@ -10396,6 +10825,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 37.795300000000000000
           Width = 173.858380000000000000
@@ -10418,6 +10848,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 56.692950000000000000
           Width = 173.858380000000000000
@@ -10440,6 +10871,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 75.590600000000000000
           Width = 79.370066540000000000
@@ -10462,6 +10894,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 75.590600000000000000
           Width = 173.858380000000000000
@@ -10481,6 +10914,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo42: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 793.701300000000000000
           Height = 18.897650000000000000
@@ -10507,6 +10941,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVAnalitico."FORNECEDOR_CODIGO"'
         ReprintOnNewPage = True
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -10525,6 +10960,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 18.897650000000000000
           Width = 427.086890000000000000
@@ -10546,6 +10982,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -10568,6 +11005,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -10590,6 +11028,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Top = 37.795300000000000000
           Width = 102.047310000000000000
@@ -10612,6 +11051,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 763.465060000000000000
           Height = 18.897650000000000000
@@ -10631,6 +11071,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -10652,6 +11093,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 453.543600000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -10673,6 +11115,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo38: TfrxMemoView
+          AllowVectorExport = True
           Left = 536.693260000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -10694,6 +11137,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Top = 18.897650000000000000
           Width = 249.448980000000000000
@@ -10715,6 +11159,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -10735,6 +11180,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 370.393940000000000000
           Height = 18.897650000000000000
@@ -10755,6 +11201,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 37.795300000000000000
           Width = 37.795236540000000000
@@ -10776,6 +11223,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.944960000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -10797,6 +11245,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 204.094620000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -10818,6 +11267,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo47: TfrxMemoView
+          AllowVectorExport = True
           Left = 287.244280000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -10839,6 +11289,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 37.795300000000000000
           Width = 128.503956540000000000
@@ -10860,6 +11311,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo49: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 200.315090000000000000
           Height = 18.897650000000000000
@@ -10890,6 +11342,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -10908,6 +11361,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -10928,6 +11382,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo12: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -10948,6 +11403,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
@@ -10971,7 +11427,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarVFornecedor: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -11043,6 +11499,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -11051,6 +11508,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -11067,6 +11525,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -11080,6 +11539,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724800000000000000
@@ -11099,6 +11559,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409448818900000
@@ -11120,6 +11581,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409448818900000
@@ -11139,6 +11601,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409448818900000
@@ -11162,12 +11625,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 143.622140000000000000
@@ -11184,6 +11649,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -11202,6 +11668,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 120.944960000000000000
           Width = 461.102660000000000000
@@ -11218,6 +11685,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -11252,6 +11720,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -11268,6 +11737,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -11284,6 +11754,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -11311,6 +11782,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVFornecedor."COMPETENCIA_VENCIMENTO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -11330,6 +11802,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -11348,6 +11821,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
@@ -11368,6 +11842,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 317.480520000000000000
           Top = 18.897650000000000000
           Width = 400.630180000000000000
@@ -11389,6 +11864,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Top = 37.795300000000000000
           Width = 86.929133860000000000
@@ -11411,6 +11887,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 37.795300000000000000
           Width = 86.929133860000000000
@@ -11433,6 +11910,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 631.181510000000000000
           Top = 37.795300000000000000
           Width = 86.929190000000000000
@@ -11455,6 +11933,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 18.897650000000000000
           Width = 234.330796540000000000
@@ -11477,6 +11956,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 457.323130000000000000
           Top = 37.795300000000000000
           Width = 86.929133860000000000
@@ -11499,6 +11979,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 317.480520000000000000
           Top = 37.795300000000000000
           Width = 52.913346770000000000
@@ -11532,6 +12013,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         RowCount = 0
         Stretched = True
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
@@ -11558,6 +12040,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 631.181510000000000000
           Width = 86.929190000000000000
           Height = 18.897650000000000000
@@ -11587,6 +12070,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
@@ -11616,6 +12100,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 86.929133860000000000
           Height = 18.897650000000000000
@@ -11647,6 +12132,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 457.323130000000000000
           Width = 86.929133860000000000
           Height = 18.897650000000000000
@@ -11678,6 +12164,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Width = 86.929133860000000000
           Height = 18.897650000000000000
@@ -11709,6 +12196,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 86.929190000000000000
           Width = 230.551330000000000000
           Height = 18.897650000000000000
@@ -11739,6 +12227,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 317.480520000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
@@ -11775,6 +12264,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 355.275820000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 631.181510000000000000
           Width = 86.929190000000000000
           Height = 18.897650000000000000
@@ -11793,6 +12283,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Width = 86.929133860000000000
           Height = 18.897650000000000000
@@ -11813,6 +12304,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 457.323130000000000000
           Width = 86.929133860000000000
           Height = 18.897650000000000000
@@ -11833,6 +12325,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 86.929133860000000000
           Height = 18.897650000000000000
@@ -11853,6 +12346,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 317.480520000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -11881,6 +12375,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -11897,6 +12392,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 45.354360000000000000
           Width = 173.858380000000000000
@@ -11919,6 +12415,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 45.354360000000000000
           Width = 79.370066540000000000
@@ -11941,6 +12438,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 26.456710000000000000
           Width = 253.228446540000000000
@@ -11963,6 +12461,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 64.252010000000000000
           Width = 79.370066540000000000
@@ -11985,6 +12484,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 83.149660000000000000
           Width = 79.370066540000000000
@@ -12007,6 +12507,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 64.252010000000000000
           Width = 173.858380000000000000
@@ -12029,6 +12530,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 83.149660000000000000
           Width = 173.858380000000000000
@@ -12051,6 +12553,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 102.047310000000000000
           Width = 79.370066540000000000
@@ -12073,6 +12576,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 102.047310000000000000
           Width = 173.858380000000000000
@@ -12092,6 +12596,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
@@ -12198,7 +12703,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 8
   end
   object frRelacaoAPagarTPDespesaFornecedor: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -12270,6 +12775,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -12278,6 +12784,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -12294,6 +12801,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -12307,6 +12815,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724800000000000000
@@ -12326,6 +12835,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409450000000000
@@ -12347,6 +12857,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409448818900000
@@ -12366,6 +12877,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409448818900000
@@ -12389,12 +12901,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 143.622140000000000000
@@ -12411,6 +12925,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -12429,6 +12944,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 120.944960000000000000
           Width = 461.102660000000000000
@@ -12445,6 +12961,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -12479,6 +12996,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -12495,6 +13013,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -12511,6 +13030,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -12538,6 +13058,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarTPDespesaFornecedor."CODTPDESP"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -12558,6 +13079,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -12576,6 +13098,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
@@ -12596,6 +13119,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Top = 18.897650000000000000
           Width = 408.189240000000000000
@@ -12617,6 +13141,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -12639,6 +13164,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -12661,6 +13187,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Top = 37.795300000000000000
           Width = 102.047310000000000000
@@ -12683,6 +13210,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 18.897650000000000000
           Width = 226.771736540000000000
@@ -12705,6 +13233,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -12737,6 +13266,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarTPDespesaFornecedor'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -12765,6 +13295,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -12793,6 +13324,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -12823,6 +13355,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -12853,6 +13386,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -12883,6 +13417,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 226.771800000000000000
           Height = 18.897650000000000000
@@ -12917,6 +13452,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 355.275820000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -12935,6 +13471,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -12955,6 +13492,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -12975,6 +13513,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -13003,6 +13542,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -13019,6 +13559,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 45.354360000000000000
           Width = 173.858380000000000000
@@ -13041,6 +13582,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 45.354360000000000000
           Width = 79.370066540000000000
@@ -13063,6 +13605,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 26.456710000000000000
           Width = 253.228446540000000000
@@ -13085,6 +13628,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 64.252010000000000000
           Width = 79.370066540000000000
@@ -13107,6 +13651,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 83.149660000000000000
           Width = 79.370066540000000000
@@ -13129,6 +13674,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 64.252010000000000000
           Width = 173.858380000000000000
@@ -13151,6 +13697,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 83.149660000000000000
           Width = 173.858380000000000000
@@ -13173,6 +13720,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 102.047310000000000000
           Width = 79.370066540000000000
@@ -13195,6 +13743,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 102.047310000000000000
           Width = 173.858380000000000000
@@ -13214,6 +13763,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
@@ -13233,7 +13783,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarAPSintetico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -13305,6 +13855,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -13313,6 +13864,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -13330,6 +13882,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -13343,6 +13896,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724800000000000000
@@ -13362,6 +13916,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409448818900000
@@ -13383,6 +13938,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409448818900000
@@ -13402,6 +13958,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409448818900000
@@ -13425,12 +13982,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 143.622140000000000000
@@ -13447,6 +14006,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -13465,6 +14025,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 120.944960000000000000
           Width = 461.102660000000000000
@@ -13481,6 +14042,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -13515,6 +14077,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -13531,6 +14094,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -13547,6 +14111,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -13574,6 +14139,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVSintetico."COMPETENCIA_APURACAO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 461.102660000000000000
           Height = 18.897650000000000000
@@ -13593,6 +14159,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 257.008040000000000000
           Height = 18.897650000000000000
           CharSpacing = 2.000000000000000000
@@ -13612,6 +14179,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
@@ -13632,6 +14200,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 18.897650000000000000
           Width = 461.102660000000000000
@@ -13653,6 +14222,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -13675,6 +14245,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -13697,6 +14268,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Top = 37.795300000000000000
           Width = 102.047310000000000000
@@ -13719,6 +14291,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 18.897650000000000000
           Width = 173.858316540000000000
@@ -13741,6 +14314,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -13763,6 +14337,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 37.795300000000000000
           Width = 52.913346770000000000
@@ -13795,6 +14370,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarVSintetico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -13823,6 +14399,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -13851,6 +14428,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -13879,6 +14457,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -13909,6 +14488,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -13939,6 +14519,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
@@ -13966,6 +14547,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
@@ -14001,6 +14583,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 355.275820000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -14019,6 +14602,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -14039,6 +14623,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -14059,6 +14644,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -14079,6 +14665,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -14107,6 +14694,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -14123,6 +14711,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 45.354360000000000000
           Width = 173.858380000000000000
@@ -14145,6 +14734,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 45.354360000000000000
           Width = 79.370066540000000000
@@ -14167,6 +14757,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 26.456710000000000000
           Width = 253.228446540000000000
@@ -14189,6 +14780,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 64.252010000000000000
           Width = 79.370066540000000000
@@ -14211,6 +14803,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 83.149660000000000000
           Width = 79.370066540000000000
@@ -14233,6 +14826,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 64.252010000000000000
           Width = 173.858380000000000000
@@ -14255,6 +14849,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 83.149660000000000000
           Width = 173.858380000000000000
@@ -14277,6 +14872,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 102.047310000000000000
           Width = 79.370066540000000000
@@ -14299,6 +14895,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 102.047310000000000000
           Width = 173.858380000000000000
@@ -14318,6 +14915,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
@@ -14337,7 +14935,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarAPAnalitico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -14418,6 +15016,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -14425,6 +15024,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -14441,6 +15041,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -14454,6 +15055,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724409450000000000
@@ -14473,6 +15075,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409450000000000
@@ -14494,6 +15097,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409450000000000
@@ -14513,6 +15117,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409450000000000
@@ -14536,12 +15141,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 139.842610000000000000
@@ -14558,6 +15165,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -14575,6 +15183,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 253.228510000000000000
           Top = 120.944960000000000000
           Width = 793.701300000000000000
@@ -14591,6 +15200,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -14625,6 +15235,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -14641,6 +15252,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -14657,6 +15269,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -14684,6 +15297,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVAnalitico."COMPETENCIA_APURACAO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 204.094620000000000000
           Width = 842.835190000000000000
           Height = 18.897650000000000000
@@ -14703,6 +15317,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 204.094620000000000000
           Height = 18.897650000000000000
           CharSpacing = 2.000000000000000000
@@ -14732,6 +15347,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarVAnalitico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -14760,6 +15376,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -14788,6 +15405,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -14818,6 +15436,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -14845,6 +15464,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 453.543600000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -14875,6 +15495,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 536.693260000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -14902,6 +15523,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149596540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -14928,6 +15550,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 37.795236540000000000
           Height = 18.897650000000000000
@@ -14956,6 +15579,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.944960000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -14985,6 +15609,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo46: TfrxMemoView
+          AllowVectorExport = True
           Left = 204.094620000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -15014,6 +15639,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo48: TfrxMemoView
+          AllowVectorExport = True
           Left = 287.244280000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -15043,6 +15669,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Width = 128.503956540000000000
           Height = 18.897650000000000000
@@ -15077,6 +15704,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -15095,6 +15723,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -15115,6 +15744,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -15135,6 +15765,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
@@ -15164,6 +15795,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 793.701300000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -15178,6 +15810,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 18.897650000000000000
           Width = 173.858380000000000000
@@ -15200,6 +15833,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 18.897650000000000000
           Width = 79.370066540000000000
@@ -15222,6 +15856,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
@@ -15243,6 +15878,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 37.795300000000000000
           Width = 79.370066540000000000
@@ -15265,6 +15901,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 56.692950000000000000
           Width = 79.370066540000000000
@@ -15287,6 +15924,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 37.795300000000000000
           Width = 173.858380000000000000
@@ -15309,6 +15947,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 56.692950000000000000
           Width = 173.858380000000000000
@@ -15331,6 +15970,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 75.590600000000000000
           Width = 79.370066540000000000
@@ -15353,6 +15993,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 75.590600000000000000
           Width = 173.858380000000000000
@@ -15372,6 +16013,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo42: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 793.701300000000000000
           Height = 18.897650000000000000
@@ -15398,6 +16040,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVAnalitico."FORNECEDOR_CODIGO"'
         ReprintOnNewPage = True
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -15416,6 +16059,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 18.897650000000000000
           Width = 427.086890000000000000
@@ -15437,6 +16081,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -15459,6 +16104,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -15481,6 +16127,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Top = 37.795300000000000000
           Width = 102.047310000000000000
@@ -15503,6 +16150,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 763.465060000000000000
           Height = 18.897650000000000000
@@ -15522,6 +16170,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -15543,6 +16192,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 453.543600000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -15564,6 +16214,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo38: TfrxMemoView
+          AllowVectorExport = True
           Left = 536.693260000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -15585,6 +16236,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Top = 18.897650000000000000
           Width = 249.448980000000000000
@@ -15606,6 +16258,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -15626,6 +16279,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 370.393940000000000000
           Height = 18.897650000000000000
@@ -15646,6 +16300,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 37.795300000000000000
           Width = 37.795236540000000000
@@ -15667,6 +16322,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.944960000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -15688,6 +16344,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 204.094620000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -15709,6 +16366,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo47: TfrxMemoView
+          AllowVectorExport = True
           Left = 287.244280000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -15730,6 +16388,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 37.795300000000000000
           Width = 128.503956540000000000
@@ -15751,6 +16410,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo49: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 200.315090000000000000
           Height = 18.897650000000000000
@@ -15781,6 +16441,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -15799,6 +16460,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -15819,6 +16481,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo12: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -15839,6 +16502,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
@@ -15862,7 +16526,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarAPFornecedor: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -15934,6 +16598,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -15942,6 +16607,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -15959,6 +16625,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -15972,6 +16639,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724800000000000000
@@ -15991,6 +16659,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409448818900000
@@ -16012,6 +16681,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409448818900000
@@ -16031,6 +16701,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409448818900000
@@ -16054,12 +16725,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 143.622140000000000000
@@ -16076,6 +16749,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -16094,6 +16768,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 120.944960000000000000
           Width = 461.102660000000000000
@@ -16110,6 +16785,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -16144,6 +16820,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -16160,6 +16837,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -16176,6 +16854,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -16203,6 +16882,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVFornecedor."COMPETENCIA_APURACAO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 461.102660000000000000
           Height = 18.897650000000000000
@@ -16222,6 +16902,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 257.008040000000000000
           Height = 18.897650000000000000
           CharSpacing = 2.000000000000000000
@@ -16241,6 +16922,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
@@ -16261,6 +16943,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 18.897650000000000000
           Width = 461.102660000000000000
@@ -16282,6 +16965,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -16304,6 +16988,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -16326,6 +17011,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Top = 37.795300000000000000
           Width = 102.047310000000000000
@@ -16348,6 +17034,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 18.897650000000000000
           Width = 173.858316540000000000
@@ -16370,6 +17057,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -16392,6 +17080,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 37.795300000000000000
           Width = 52.913346770000000000
@@ -16424,6 +17113,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarVFornecedor'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -16452,6 +17142,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -16480,6 +17171,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -16510,6 +17202,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -16540,6 +17233,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -16570,6 +17264,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
@@ -16597,6 +17292,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
@@ -16632,6 +17328,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 355.275820000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -16650,6 +17347,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -16670,6 +17368,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -16690,6 +17389,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -16710,6 +17410,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -16738,6 +17439,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -16754,6 +17456,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 45.354360000000000000
           Width = 173.858380000000000000
@@ -16776,6 +17479,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 45.354360000000000000
           Width = 79.370066540000000000
@@ -16798,6 +17502,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 26.456710000000000000
           Width = 253.228446540000000000
@@ -16820,6 +17525,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 64.252010000000000000
           Width = 79.370066540000000000
@@ -16842,6 +17548,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 83.149660000000000000
           Width = 79.370066540000000000
@@ -16864,6 +17571,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 64.252010000000000000
           Width = 173.858380000000000000
@@ -16886,6 +17594,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 83.149660000000000000
           Width = 173.858380000000000000
@@ -16908,6 +17617,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 102.047310000000000000
           Width = 79.370066540000000000
@@ -16930,6 +17640,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 102.047310000000000000
           Width = 173.858380000000000000
@@ -16949,6 +17660,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
@@ -17034,7 +17746,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 64
   end
   object frRelacaoExtratoFornVSintetico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -17106,6 +17818,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -17114,6 +17827,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -17131,6 +17845,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -17144,6 +17859,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724800000000000000
@@ -17163,6 +17879,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409448818900000
@@ -17184,6 +17901,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409448818900000
@@ -17203,6 +17921,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409448818900000
@@ -17226,12 +17945,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 143.622140000000000000
@@ -17248,6 +17969,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -17266,6 +17988,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 120.944960000000000000
           Width = 461.102660000000000000
@@ -17282,6 +18005,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -17316,6 +18040,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 589.606680000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -17332,6 +18057,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -17348,6 +18074,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -17375,6 +18102,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVSintetico."COMPETENCIA_VENCIMENTO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -17394,6 +18122,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -17412,6 +18141,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 83.149660000000000000
           Height = 37.795300000000000000
@@ -17432,6 +18162,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 18.897650000000000000
           Width = 461.102660000000000000
@@ -17453,6 +18184,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -17475,6 +18207,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -17497,6 +18230,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Top = 37.795300000000000000
           Width = 102.047310000000000000
@@ -17519,6 +18253,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 18.897650000000000000
           Width = 173.858316540000000000
@@ -17541,6 +18276,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Top = 37.795300000000000000
           Width = 102.047236770000000000
@@ -17563,6 +18299,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Top = 37.795300000000000000
           Width = 52.913346770000000000
@@ -17595,6 +18332,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarVSintetico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -17623,6 +18361,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -17651,6 +18390,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -17679,6 +18419,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -17709,6 +18450,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -17739,6 +18481,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 173.858380000000000000
           Height = 18.897650000000000000
@@ -17766,6 +18509,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
@@ -17801,6 +18545,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 355.275820000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 616.063390000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -17819,6 +18564,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -17839,6 +18585,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 411.968770000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -17859,6 +18606,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 309.921460000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -17879,6 +18627,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 257.008040000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -17907,6 +18656,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -17923,6 +18673,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 45.354360000000000000
           Width = 173.858380000000000000
@@ -17945,6 +18696,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 45.354360000000000000
           Width = 79.370066540000000000
@@ -17967,6 +18719,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 26.456710000000000000
           Width = 253.228446540000000000
@@ -17989,6 +18742,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 64.252010000000000000
           Width = 79.370066540000000000
@@ -18011,6 +18765,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 83.149660000000000000
           Width = 79.370066540000000000
@@ -18033,6 +18788,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 64.252010000000000000
           Width = 173.858380000000000000
@@ -18055,6 +18811,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 83.149660000000000000
           Width = 173.858380000000000000
@@ -18077,6 +18834,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 102.047310000000000000
           Width = 79.370066540000000000
@@ -18099,6 +18857,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 544.252320000000000000
           Top = 102.047310000000000000
           Width = 173.858380000000000000
@@ -18118,6 +18877,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
@@ -18137,7 +18897,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoExtratoFornVAnalitico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -18218,6 +18978,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -18225,6 +18986,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -18241,6 +19003,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -18254,6 +19017,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 604.724409450000000000
@@ -18273,6 +19037,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 604.724409450000000000
@@ -18294,6 +19059,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 604.724409450000000000
@@ -18313,6 +19079,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 604.724409450000000000
@@ -18336,12 +19103,14 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 139.842610000000000000
@@ -18358,6 +19127,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -18375,6 +19145,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 253.228510000000000000
           Top = 120.944960000000000000
           Width = 793.701300000000000000
@@ -18391,6 +19162,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 604.724800000000000000
@@ -18425,6 +19197,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -18441,6 +19214,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -18457,6 +19231,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -18484,6 +19259,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVAnalitico."COMPETENCIA_VENCIMENTO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
@@ -18503,6 +19279,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -18531,6 +19308,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         DataSetName = 'FrdsRelacaoAPagarVAnalitico'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -18559,6 +19337,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -18587,6 +19366,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -18617,6 +19397,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -18644,6 +19425,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 453.543600000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -18674,6 +19456,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 536.693260000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -18701,6 +19484,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149596540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -18727,6 +19511,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 37.795236540000000000
           Height = 18.897650000000000000
@@ -18755,6 +19540,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.944960000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -18784,6 +19570,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo46: TfrxMemoView
+          AllowVectorExport = True
           Left = 204.094620000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -18813,6 +19600,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo48: TfrxMemoView
+          AllowVectorExport = True
           Left = 287.244280000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -18842,6 +19630,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Width = 128.503956540000000000
           Height = 18.897650000000000000
@@ -18876,6 +19665,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -18894,6 +19684,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -18914,6 +19705,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -18934,6 +19726,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000
@@ -18963,6 +19756,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 793.701300000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -18977,6 +19771,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 18.897650000000000000
           Width = 173.858380000000000000
@@ -18999,6 +19794,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 18.897650000000000000
           Width = 79.370066540000000000
@@ -19021,6 +19817,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Width = 253.228446540000000000
           Height = 18.897650000000000000
@@ -19042,6 +19839,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 37.795300000000000000
           Width = 79.370066540000000000
@@ -19064,6 +19862,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 56.692950000000000000
           Width = 79.370066540000000000
@@ -19086,6 +19885,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 37.795300000000000000
           Width = 173.858380000000000000
@@ -19108,6 +19908,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 56.692950000000000000
           Width = 173.858380000000000000
@@ -19130,6 +19931,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 793.701300000000000000
           Top = 75.590600000000000000
           Width = 79.370066540000000000
@@ -19152,6 +19954,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 75.590600000000000000
           Width = 173.858380000000000000
@@ -19171,6 +19974,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo42: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 793.701300000000000000
           Height = 18.897650000000000000
@@ -19197,6 +20001,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Condition = 'FrdsRelacaoAPagarVAnalitico."FORNECEDOR_CODIGO"'
         ReprintOnNewPage = True
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -19215,6 +20020,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 18.897650000000000000
           Width = 427.086890000000000000
@@ -19236,6 +20042,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -19258,6 +20065,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -19280,6 +20088,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Top = 37.795300000000000000
           Width = 102.047310000000000000
@@ -19302,6 +20111,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 763.465060000000000000
           Height = 18.897650000000000000
@@ -19321,6 +20131,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -19342,6 +20153,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 453.543600000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -19363,6 +20175,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo38: TfrxMemoView
+          AllowVectorExport = True
           Left = 536.693260000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -19384,6 +20197,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Top = 18.897650000000000000
           Width = 249.448980000000000000
@@ -19405,6 +20219,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -19425,6 +20240,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 370.393940000000000000
           Height = 18.897650000000000000
@@ -19445,6 +20261,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 37.795300000000000000
           Width = 37.795236540000000000
@@ -19466,6 +20283,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 120.944960000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -19487,6 +20305,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 204.094620000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -19508,6 +20327,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo47: TfrxMemoView
+          AllowVectorExport = True
           Left = 287.244280000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -19529,6 +20349,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 37.795300000000000000
           Width = 128.503956540000000000
@@ -19550,6 +20371,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           VAlign = vaCenter
         end
         object Memo49: TfrxMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 200.315090000000000000
           Height = 18.897650000000000000
@@ -19580,6 +20402,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
@@ -19598,6 +20421,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 846.614720000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -19618,6 +20442,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object SysMemo12: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 748.346940000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -19638,6 +20463,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           WordWrap = False
         end
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 377.952936540000000000
           Height = 18.897650000000000000

@@ -90,6 +90,7 @@ implementation
 
 uses
   UDMBusiness,
+  UDMRecursos,
   UConstantesDGE,
   SGE.Controller.Factory,
   SGE.Controller,

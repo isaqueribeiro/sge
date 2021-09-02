@@ -102,6 +102,7 @@ uses
     System.StrUtils
   , UConstantesDGE
   , UDMBusiness
+  , UDMRecursos
   , UDMNFe;
 
 {$R *.dfm}

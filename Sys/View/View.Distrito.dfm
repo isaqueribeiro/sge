@@ -1,13 +1,11 @@
 inherited ViewDistrito: TViewDistrito
   Left = 394
   Top = 222
-  ActiveControl = dbgDados
   Caption = 'Tabela de Distritos'
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcGuias: TPageControl
-    ActivePage = tbsTabela
     inherited tbsTabela: TTabSheet
       inherited dbgDados: TDBGrid
         Columns = <
@@ -40,13 +38,11 @@ inherited ViewDistrito: TViewDistrito
           end
           inherited edtFiltrar: TEdit
             Left = 64
-            ExplicitTop = 20
+            ExplicitLeft = 64
           end
           inherited btnFiltrar: TcxButton
             Left = 218
             ExplicitLeft = 211
-            ExplicitTop = 18
-            ExplicitHeight = 26
           end
         end
       end

@@ -119,7 +119,7 @@ type
 implementation
 
 uses
-  UDMBusiness, UDMNFe, UFuncoes, UGrCampoRequisitado, UGeNFEmitida;
+  UDMBusiness, UDMRecursos, UDMNFe, UFuncoes, UGrCampoRequisitado, UGeNFEmitida;
 
 {$R *.dfm}
 

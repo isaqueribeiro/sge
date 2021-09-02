@@ -77,9 +77,10 @@ var
 implementation
 
 uses
-  UDMBusiness,
+  UDMRecursos,
   UConstantesDGE,
-  SGE.Controller.Factory;
+  SGE.Controller.Factory,
+  Service.Message;
 
 {$R *.dfm}
 
@@ -167,7 +168,7 @@ begin
     end;
   except
     On E : Exception do
-      ShowWarning('Erro ao tentar selecionar o registros da tabela.' + #13#13 + E.Message);
+      TServiceMessage.ShowWarning('Erro ao tentar selecionar o registros da tabela.' + #13#13 + E.Message);
   end;
 end;
 

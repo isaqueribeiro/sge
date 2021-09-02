@@ -53,7 +53,8 @@ implementation
 {$R *.dfm}
 
 Uses
-  Controller.Factory, UDMBusiness;
+  Controller.Factory,
+  UDMBusiness;
 
 function TFrmPadraoLogin.Autenticar: Boolean;
 var

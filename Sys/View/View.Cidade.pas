@@ -98,6 +98,7 @@ implementation
 
 uses
   UDMBusiness,
+  UDMRecursos,
   View.Estado,
   UGrPadrao,
   UConstantesDGE,

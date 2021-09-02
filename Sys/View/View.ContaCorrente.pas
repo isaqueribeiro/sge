@@ -58,7 +58,6 @@ type
     procedure dbBancoButtonClick(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure btnFiltrarClick(Sender: TObject);
-    procedure fdQryTabelaNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     FControllerEmpresaView : IControllerCustom;
@@ -89,12 +88,13 @@ var
 implementation
 
 uses
-  UDMBusiness,
+  UDMRecursos,
   UConstantesDGE,
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper,
-  View.Banco;
+  View.Banco,
+  Service.Message;
 
 {$R *.dfm}
 
@@ -171,7 +171,7 @@ begin
     Result := aContaCorrente.DAO.DataSet.IsEmpty;
 
     if not Result then
-      ShowWarning('Não pode haver mais de uma Conta Corrente do tipo Caixa para a mesma empresa!');
+      TServiceMessage.ShowWarning('Não pode haver mais de uma Conta Corrente do tipo Caixa para a mesma empresa!');
   end;
 end;
 
@@ -240,20 +240,6 @@ begin
       dbBanco.Button.Enabled := (FieldByName('TIPO').AsInteger = CONTA_CORRENTE_TIPO_BANCO);
       dbEmpresa.ReadOnly     := (FieldByName('TIPO').AsInteger = CONTA_CORRENTE_TIPO_BANCO);
     end;
-end;
-
-procedure TViewContaCorrente.fdQryTabelaNewRecord(DataSet: TDataSet);
-begin
-  inherited;
-  with DtSrcTabela.DataSet do
-  begin
-    FieldByName('CODIGO').AsInteger := GetNextID(NomeTabela, 'CODIGO');
-    FieldByName('TIPO').AsInteger   := CONTA_CORRENTE_TIPO_CAIXA;
-    FieldByName('EMPRESA').AsString := gUsuarioLogado.Empresa;
-    FieldByName('BCO_CODIGO_CC').Clear;
-    FieldByName('CONTA_BANCO_BOLETO').Clear;
-    FieldByName('CODIGO_CONTABIL').Clear;
-  end;
 end;
 
 initialization

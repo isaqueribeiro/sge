@@ -87,7 +87,7 @@ const
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, DateUtils, UDMNFe;
+  UConstantesDGE, UDMBusiness, UDMRecursos, DateUtils, UDMNFe;
 
 {$R *.dfm}
 
