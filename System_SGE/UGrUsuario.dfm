@@ -291,10 +291,6 @@ inherited frmGrUsuario: TfrmGrUsuario
         TabOrder = 2
         object tbsVendas: TTabSheet
           Caption = 'Vendas / OS'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxParametrosVenda: TGroupBox
             Left = 0
             Top = 0
@@ -395,10 +391,6 @@ inherited frmGrUsuario: TfrmGrUsuario
         object tbsControleInterno: TTabSheet
           Caption = 'Controle Interno'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxParametrosAlmox: TGroupBox
             Left = 0
             Top = 0
@@ -533,9 +525,13 @@ inherited frmGrUsuario: TfrmGrUsuario
       '  , u.tipo_alterar_valor_venda'
       '  , u.vendedor'
       '  , u.almox_manifesto_automatico'
-      '  , f.funcao as perfil'
+      '  , u.usuario_app_id'
+      '  , f.funcao   as perfil'
+      '  , e.ds_email as email'
       'from TBUSERS u'
-      '  left join TBFUNCAO f on (f.cod = u.codfuncao)')
+      '  left join TBFUNCAO f on (f.cod = u.codfuncao)'
+      '  left join SYS_USUARIO e on (e.id_usuario = u.usuario_app_id)'
+      '')
     object fdQryTabelaNOME: TStringField
       DisplayLabel = 'Login'
       FieldName = 'NOME'
@@ -608,6 +604,17 @@ inherited frmGrUsuario: TfrmGrUsuario
       Origin = 'FUNCAO'
       ProviderFlags = []
       Size = 25
+    end
+    object fdQryTabelaUSUARIO_APP_ID: TStringField
+      FieldName = 'USUARIO_APP_ID'
+      Origin = 'USUARIO_APP_ID'
+      Size = 38
+    end
+    object fdQryTabelaEMAIL: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'EMAIL'
+      Origin = 'DS_EMAIL'
+      Size = 150
     end
     object fdQryTabelaATV: TStringField
       Alignment = taCenter

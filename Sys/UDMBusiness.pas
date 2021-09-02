@@ -5104,7 +5104,8 @@ procedure TDMBusiness.CarregarLicenca(const sNomeArquivo: String);
 var
   Arquivo : TStringList;
   ini : TIniFile;
-  I : Integer;
+  I   : Integer;
+  aUUID : String;
 begin
   if FileExists(sNomeArquivo) then
   begin
@@ -5144,8 +5145,10 @@ begin
     Arquivo.SaveToFile(ExtractFilePath(Application.ExeName) + '_temp.ini');
 
     ini := TIniFile.Create(ExtractFilePath(Application.ExeName) + '_temp.ini');
+    aUUID := ini.ReadString('Licenca', 'edUUID', TGUID.Empty.ToString);
 
     gLicencaSistema.Model
+      .UUID( StringToGUID(aUUID) )
       .Empresa( ini.ReadString('Licenca', 'edEmpresa',  '') )
       .NomeFantasia( ini.ReadString('Licenca', 'edFantasia',  '') )
       .CNPJ( ini.ReadString('Licenca', 'edCGC',      '') )

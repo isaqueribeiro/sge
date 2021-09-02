@@ -12,7 +12,9 @@ type
     strict private
       class var _instance : IUsuarioModel;
     private
+      FUUID   : TGUID;
       FLogin  ,
+      FEmail  ,
       FSenha  : String;
       FFuncao : IFuncao;
       FLogado ,
@@ -20,8 +22,14 @@ type
       FVendedor : IPessoaFisicaModel;
       FEmpresa  : IEmpresaModel;
 
+      function UUID(const Value: TGUID)     : IUsuarioModel; overload;
+      function UUID : TGUID; overload;
+
       function Login(const Value: String) : IUsuarioModel; overload;
       function Login : String; overload;
+
+      function Email(const Value: String)   : IUsuarioModel; overload;
+      function Email : String; overload;
 
       function Senha(const Value: String) : IUsuarioModel; overload;
       function Senha : String; overload;
@@ -76,7 +84,9 @@ end;
 constructor TUsuario.Create;
 begin
   inherited Create;
+  FUUID   := TGUID.Empty;
   FLogin  := EmptyStr;
+  FEmail  := EmptyStr;
   FSenha  := EmptyStr;
   FLogado := False;
   FAlterarValorVenda := False;
@@ -89,6 +99,17 @@ end;
 destructor TUsuario.Destroy;
 begin
   inherited;
+end;
+
+function TUsuario.Email: String;
+begin
+  Result := FEmail;
+end;
+
+function TUsuario.Email(const Value: String): IUsuarioModel;
+begin
+  Result := Self;
+  FEmail := Value.Trim.ToLower;
 end;
 
 function TUsuario.Empresa: IEmpresaModel;
@@ -173,6 +194,17 @@ end;
 function TUsuario.Senha: String;
 begin
   Result := FSenha;
+end;
+
+function TUsuario.UUID: TGUID;
+begin
+  Result := FUUID;
+end;
+
+function TUsuario.UUID(const Value: TGUID): IUsuarioModel;
+begin
+  Result := Self;
+  FUUID  := Value;
 end;
 
 function TUsuario.Vendedor: IPessoaFisicaModel;

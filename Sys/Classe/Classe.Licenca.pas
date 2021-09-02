@@ -10,6 +10,7 @@ type
     strict private
       class var _instance : ILicencaModel;
     private
+      FUUID     : TGUID;
       FEmpresa  : String;
       FNomeFantasia : String;
       FCNPJ     : String;
@@ -27,6 +28,9 @@ type
     public
       constructor Create;
       destructor Destroy; override;
+
+      function UUID(Value : TGUID) : ILicencaModel; overload;
+      function UUID : TGUID; overload;
 
       function Empresa(Value : String) : ILicencaModel; overload;
       function Empresa : String; overload;
@@ -241,6 +245,17 @@ end;
 function TLicenca.UsarSGO: Boolean;
 begin
   Result := FUsarSGO;
+end;
+
+function TLicenca.UUID: TGUID;
+begin
+  Result := FUUID;
+end;
+
+function TLicenca.UUID(Value: TGUID): ILicencaModel;
+begin
+  Result := Self;
+  FUUID  := Value;
 end;
 
 function TLicenca.NomeFantasia: String;

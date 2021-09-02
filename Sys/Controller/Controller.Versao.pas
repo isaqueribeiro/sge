@@ -3,7 +3,10 @@ unit Controller.Versao;
 interface
 
 Uses
-  Winapi.Windows, System.SysUtils, System.Classes, Interacao.Versao;
+  System.SysUtils,
+  System.Classes,
+  Winapi.Windows,
+  Interacao.Versao;
 
 Type
   TVersaoController = class(TInterfacedObject, IVersao)
@@ -17,10 +20,14 @@ Type
       function GetCompanyName : String;
       function GetFileVersion : String;
       function GetInternalName : String;
+      function GetProductGUUID: TGUID;
+      function GetProductID: String;
+      function GetProductName: String;
       function GetProductVersion : String;
       function GetVersion : String;
       function GetVersionID : Currency;
       function GetCopyright : String;
+      function GetGoogleAnalyticsPropertyID: String;
     protected
       constructor Create;
     public
@@ -29,10 +36,14 @@ Type
       property CompanyName: String read GetCompanyName write SetCompanyName;
       property FileVersion: String read GetFileVersion;
       property InternalName : String read GetInternalName;
+      property ProductID    : String read GetProductID;
+      property ProductGUUID : TGUID read GetProductGUUID;
+      property ProductName  : String read GetProductName;
       property ProductVersion: String read GetProductVersion;
       property Version : String read GetVersion;
       property VersionID : Currency read GetVersionID;
       property Copyright : String read GetCopyright;
+      property GoogleAnalyticsPropertyID : String read GetGoogleAnalyticsPropertyID;
 
       function getPropertyValue(aPropertyValue : TPropertyValue): String;
 
@@ -67,6 +78,30 @@ end;
 function TVersaoController.GetFileVersion: String;
 begin
   Result := getPropertyValue(TPropertyValue.ivFILE_VERSION);
+end;
+
+function TVersaoController.GetGoogleAnalyticsPropertyID: String;
+begin
+  Result := getPropertyValue(TPropertyValue.ivGOOGLE_ANALYTICS_PROPERTY_ID);
+end;
+
+function TVersaoController.GetProductGUUID: TGUID;
+begin
+  try
+    Result := StringToGUID(getPropertyValue(TPropertyValue.ivPRODUCT_GUUID));
+  except
+    Result := TGUID.Empty;
+  end;
+end;
+
+function TVersaoController.GetProductID: String;
+begin
+  Result := getPropertyValue(TPropertyValue.ivPRODUCT_ID);
+end;
+
+function TVersaoController.GetProductName: String;
+begin
+  Result := getPropertyValue(TPropertyValue.ivPRODUCT_NAME);
 end;
 
 function TVersaoController.GetProductVersion: String;

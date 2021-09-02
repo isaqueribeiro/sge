@@ -64,7 +64,9 @@ type
     fdQryTabelaVENDEDOR: TIntegerField;
     fdQryTabelaALMOX_MANIFESTO_AUTOMATICO: TSmallintField;
     fdQryTabelaPERFIL: TStringField;
-    fdQryTabelaATV: TStringField;    procedure FormCreate(Sender: TObject);
+    fdQryTabelaATV: TStringField;
+    fdQryTabelaUSUARIO_APP_ID: TStringField;
+    fdQryTabelaEMAIL: TStringField;    procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -312,6 +314,7 @@ begin
     FieldByName('ALMOX_MANIFESTO_AUTOMATICO').AsInteger := 0; // Não
     FieldByName('NOME').Clear;
     FieldByName('NOMECOMPLETO').Clear;
+    FieldByName('USUARIO_APP_ID').Clear;
   end;
 end;
 

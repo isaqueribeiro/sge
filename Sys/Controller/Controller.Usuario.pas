@@ -30,11 +30,13 @@ type
       function Autenticar(aConn : TFDConnection; aLogin, aSenha : String; aEmpresa : TObject) : Boolean; overload;
       function Autenticar(aConn : TFDConnection; aUsuario : IUsuarioModel) : Boolean; overload;
 
-      function Logado : Boolean;
-      function Login : String;
-      function Nome : String;
-      function Empresa : String;
-      function Funcao : Integer;
+      function Logado   : Boolean;
+      function UUID     : TGUID;
+      function Login    : String;
+      function Email    : String;
+      function Nome     : String;
+      function Empresa  : String;
+      function Funcao   : Integer;
       function Vendedor : Integer;
       function AlterarValorVenda : Boolean;
 
@@ -74,9 +76,12 @@ begin
       SQL.Add('  , v.nome as nome_vendador');
       SQL.Add('  , v.cpf  as cpf_vendedor');
       SQL.Add('  , u.perm_alterar_valor_venda as alterar_valor_venda');
+      SQL.Add('  , u.usuario_app_id as uuid  ' );
+      SQL.Add('  , e.ds_email       as email ' );
       SQL.Add('from TBUSERS u');
       SQL.Add('  left join TBFUNCAO f on (f.cod = u.codfuncao)');
       SQL.Add('  left join TBVENDEDOR v on (v.cod = u.vendedor)');
+      SQL.Add('  left join SYS_USUARIO e on (e.id_usuario = u.usuario_app_id)');
       SQL.Add('where (u.ativo = 1)');
       SQL.Add('  and (lower(u.nome) = lower(:login))');
       SQL.EndUpdate;
@@ -89,7 +94,9 @@ begin
           .Nome( FieldByName('nome').AsString );
 
         FModel
+          .UUID( StringToGUID(FieldByName('uuid').AsString) )
           .Login( FieldByName('login').AsString )
+          .Email( FieldByName('email').AsString )
           .Senha( FieldByName('senha').AsString )
           .Funcao( FieldByName('funcao').AsInteger )
           .Vendedor( FieldByName('vendedor').AsInteger )
@@ -129,6 +136,11 @@ end;
 function TUsuarioController.Nome: String;
 begin
   Result := FModel.Nome;
+end;
+
+function TUsuarioController.UUID: TGUID;
+begin
+  Result := FModel.UUID;
 end;
 
 function TUsuarioController.Vendedor: Integer;
@@ -230,6 +242,11 @@ destructor TUsuarioCOntroller.Destroy;
 begin
   TUsuario(FModel).DisposeOf;
   inherited Destroy;
+end;
+
+function TUsuarioController.Email: String;
+begin
+  Result := FModel.Email;
 end;
 
 function TUsuarioController.Empresa: String;

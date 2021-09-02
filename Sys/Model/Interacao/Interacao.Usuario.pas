@@ -8,8 +8,14 @@ uses
 type
   IUsuarioModel = interface(IPessoaModel)
     ['{3902E5A3-2355-4D90-B132-385E69824E48}']
+    function UUID(const Value: TGUID)     : IUsuarioModel; overload;
+    function UUID : TGUID; overload;
+
     function Login(const Value: String)   : IUsuarioModel; overload;
     function Login : String; overload;
+
+    function Email(const Value: String)   : IUsuarioModel; overload;
+    function Email : String; overload;
 
     function Senha(const Value: String)   : IUsuarioModel; overload;
     function Senha : String; overload;
@@ -45,11 +51,13 @@ type
     function Autenticar(aConn : TFDConnection; aLogin, aSenha : String; aEmpresa : TObject) : Boolean; overload;
     function Autenticar(aConn : TFDConnection; aUsuario : IUsuarioModel) : Boolean; overload;
 
-    function Logado : Boolean;
-    function Login : String;
-    function Nome : String;
-    function Empresa : String;
-    function Funcao : Integer;
+    function Logado   : Boolean;
+    function UUID     : TGUID;
+    function Login    : String;
+    function Email    : String;
+    function Nome     : String;
+    function Empresa  : String;
+    function Funcao   : Integer;
     function Vendedor : Integer;
     function AlterarValorVenda : Boolean;
   end;

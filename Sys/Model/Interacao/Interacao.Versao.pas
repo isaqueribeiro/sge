@@ -10,16 +10,19 @@ type
     ivINTERNAL_NAME     , //= 'InternalName',
     ivLEGAL_COPYRIGHT   , //= 'LegalCopyright',
     ivLEGAL_TRADEMARKS  , //= 'LegalTradeMarks',
-    ivORIGINAL_FILENAME , //= 'OriginalFilename',
+    ivORIGINAL_FILENAME , //= 'OriginalFilename'
+    ivPRODUCT_ID        , //= 'ProgramID'
+    ivPRODUCT_GUUID     , //= 'ProgramGUUID'
     ivPRODUCT_NAME      , //= 'ProductName',
-    ivPRODUCT_VERSION   , //= 'ProductVersion',
-    ivCOMMENTS          , //= 'Comments',
-    ivRELEASE_DATE      , //= 'ReleaseDate',
-    ivSYSTEM_ANALYST    , //= 'Systems Analyst',
-    ivCONTACTS          , //= 'Contacts',
-    ivOWNER             , //= 'Owner',
+    ivPRODUCT_VERSION   , //= 'ProductVersion'
+    ivCOMMENTS          , //= 'Comments'
+    ivRELEASE_DATE      , //= 'ReleaseDate'
+    ivSYSTEM_ANALYST    , //= 'Systems Analyst'
+    ivCONTACTS          , //= 'Contacts'
+    ivOWNER             , //= 'Owner'
     ivSPLASHNAME        , //= 'SplashName',
-    ivSPLASHDESCRIPTION   //= 'SplashDescription'
+    ivSPLASHDESCRIPTION , //= 'SplashDescription'
+    ivGOOGLE_ANALYTICS_PROPERTY_ID //= 'GoogleAnalyticsPropertyID'
   );
 
   IVersao = interface
@@ -27,21 +30,29 @@ type
 
     procedure SetCompanyName(const Value : String);
 
-    function GetCompanyName : String;
-    function GetFileVersion : String;
+    function GetCompanyName  : String;
+    function GetFileVersion  : String;
     function GetInternalName : String;
+    function GetProductID    : String;
+    function GetProductGUUID : TGUID;
+    function GetProductName  : String;
     function GetProductVersion : String;
     function GetVersion : String;
     function GetVersionID : Currency;
     function GetCopyright : String;
+    function GetGoogleAnalyticsPropertyID : String;
 
     property CompanyName: String read GetCompanyName write SetCompanyName;
     property FileVersion: String read GetFileVersion;
     property InternalName: String read GetInternalName;
+    property ProductID    : String read GetProductID;
+    property ProductGUUID : TGUID read GetProductGUUID;
+    property ProductName  : String read GetProductName;
     property ProductVersion: String read GetProductVersion;
     property Version : String read GetVersion;
     property VersionID : Currency read GetVersionID;
     property Copyright : String read GetCopyright;
+    property GoogleAnalyticsPropertyID : String read GetGoogleAnalyticsPropertyID;
 
     function getPropertyValue(aPropertyValue : TPropertyValue): String;
   end;
@@ -55,6 +66,8 @@ const
     'LegalCopyright',
     'LegalTradeMarks',
     'OriginalFilename',
+    'ProgramID',
+    'ProgramGUUID',
     'ProductName',
     'ProductVersion',
     'Comments',
@@ -63,7 +76,8 @@ const
     'Contacts',
     'Owner',
     'SplashName',
-    'SplashDescription'
+    'SplashDescription',
+    'GoogleAnalyticsPropertyID'
   );
 
 implementation
