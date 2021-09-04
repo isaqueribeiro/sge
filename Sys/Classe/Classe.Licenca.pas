@@ -10,6 +10,7 @@ type
     strict private
       class var _instance : ILicencaModel;
     private
+      Fdoc : String;
       FUUID     : TGUID;
       FEmpresa  : String;
       FNomeFantasia : String;
@@ -28,6 +29,9 @@ type
     public
       constructor Create;
       destructor Destroy; override;
+
+      function doc(Value : String) : ILicencaModel; overload;
+      function doc : String; overload;
 
       function UUID(Value : TGUID) : ILicencaModel; overload;
       function UUID : TGUID; overload;
@@ -138,6 +142,7 @@ end;
 
 constructor TLicenca.Create;
 begin
+  Fdoc          := EmptyStr;
   FEmpresa      := 'EMPRESA DE DEMONSTRAÇÃO';
   FNomeFantasia := 'DEMONSTRAÇÃO';
   FCNPJ         := '00.000.000/0000-00';
@@ -168,6 +173,17 @@ end;
 destructor TLicenca.Destroy;
 begin
   inherited;
+end;
+
+function TLicenca.doc: String;
+begin
+  Result := Fdoc;
+end;
+
+function TLicenca.doc(Value: String): ILicencaModel;
+begin
+  Result := Self;
+  Fdoc   := Value.Trim;
 end;
 
 function TLicenca.Empresa(Value: String): ILicencaModel;

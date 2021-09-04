@@ -45,7 +45,7 @@ Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\Bin\PrinterCupom.exe; DestDir
 Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\Bin\cce_informe.rtf; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\Bin\UpgradeAgil.exe; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\Bin\BAUHS93.TTF; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
-Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\Bin\Setup\Conexao.ini; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+; Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\Bin\Setup\Conexao.ini; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\app\FireBird\v25_x86\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Cliente 
 Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\_diversos\DLLs\Capicom\*.dll; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\_diversos\DLLs\Diversos\*.dll; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
@@ -65,6 +65,14 @@ Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\_diversos\DLLs\Capicom\capico
 Source: C:\Users\Isaque\Downloads\FireBird\Firebird-2.5.8.27089_0_Win32.exe; DestDir: {app}\apps; Flags: ignoreversion; Components: Servidor
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
+[INI]
+; Criação do Arquivo Conexao.ini
+Filename: {app}\Conexao.ini; Section: Conexao; Key: DriverID; String: FB; Components: Servidor Cliente Personalisado
+Filename: {app}\Conexao.ini; Section: Conexao; Key: Servidor; String: localhost; Components: Servidor Cliente Personalisado
+Filename: {app}\Conexao.ini; Section: Conexao; Key: Porta; String: 3050; Components: Servidor Cliente Personalisado
+Filename: {app}\Conexao.ini; Section: Conexao; Key: Base; String: {app}\db\AGIL_COMERCIO.FDB; Components: Servidor Cliente Personalisado
+Filename: {app}\Conexao.ini; Section: Conexao; Key: Usuario; String: SYSDBA; Components: Servidor Cliente Personalisado
+
 [Icons]
 Name: {group}\{#MyAppName}; Filename: {app}\{#MyAppExeName}
 Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; Tasks: desktopicon
@@ -73,7 +81,7 @@ Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; Tasks: desk
 Filename: {app}\{#MyAppExeName}; Description: {cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}; Flags: nowait postinstall skipifsilent unchecked
 Filename: {app}\apps\capicom.exe; Description: Capicom; Flags: waituntilidle postinstall runasoriginaluser
 Filename: {app}\apps\Firebird-2.5.5.26952_0_Win32.exe; Description: Firebird_2_5; Flags: waituntilidle runasoriginaluser; Components: Servidor
-Filename: {app}\Conexao.ini; WorkingDir: {app}; Description: Arquivo de Configurações; Flags: postinstall; Tasks: ; Languages: 
+Filename: {app}\Conexao.ini; WorkingDir: {app}; Description: Arquivo de configurações da conexão; Flags: postinstall; Tasks: ; Languages: 
 
 [Components]
 Name: Servidor; Description: Servidor; Types: full; Languages: ; Flags: fixed

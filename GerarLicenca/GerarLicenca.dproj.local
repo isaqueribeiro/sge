@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2021/09/03 16:32:50.064,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Auth.pas</Transaction>
+    <Transaction>2021/09/03 16:32:50.081,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Database.pas</Transaction>
+    <Transaction>2021/09/03 16:32:50.113,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Interfaces.pas</Transaction>
+    <Transaction>2021/09/03 16:32:50.131,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Request.pas</Transaction>
+    <Transaction>2021/09/03 16:32:50.150,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Response.pas</Transaction>
+    <Transaction>2021/09/03 17:50:30.502,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Unit1.pas</Transaction>
+    <Transaction>2021/09/03 17:50:53.520,C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Model\Model.Usuario.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Unit1.pas</Transaction>
+    <Transaction>2021/09/03 17:52:09.735,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Unit1.pas</Transaction>
+    <Transaction>2021/09/03 17:52:19.985,C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Model\Model.Interfaces.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Unit1.pas</Transaction>
+    <Transaction>2021/09/03 18:10:23.498,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Unit1.pas</Transaction>
+    <Transaction>2021/09/03 18:10:48.731,C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Interfaces.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Unit1.pas</Transaction>
+    <Transaction>2021/09/03 19:09:54.535,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Unit1.pas</Transaction>
+    <Transaction>2021/09/03 19:10:14.699,C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Usuario.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Unit1.pas</Transaction>
+    <Transaction>2021/09/03 19:17:33.091,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Unit1.pas</Transaction>
+    <Transaction>2021/09/03 19:17:46.754,C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Factory.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Unit1.pas</Transaction>
+    <Transaction>2021/09/03 19:34:28.058,C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Usuario.pas=</Transaction>
+    <Transaction>2021/09/03 19:35:34.975,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Unit1.pas</Transaction>
+    <Transaction>2021/09/03 19:35:52.574,C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Generic.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Unit1.pas</Transaction>
+    <Transaction>2021/09/03 19:41:07.736,C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Model\Model.Interfaces.pas=</Transaction>
+    <Transaction>2021/09/03 19:42:17.832,C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Generic.pas=</Transaction>
+    <Transaction>2021/09/03 19:44:18.530,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Usuario.pas</Transaction>
+  </Transactions>
+</BorlandProject>

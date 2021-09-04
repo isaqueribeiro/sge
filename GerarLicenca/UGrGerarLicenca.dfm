@@ -14,6 +14,7 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnCreate = FormCreate
   DesignSize = (
     776
     439)
@@ -30,9 +31,9 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Transparent = True
   end
   object lblCGC: TLabel
-    Left = 82
+    Left = 83
     Top = 84
-    Width = 71
+    Width = 70
     Height = 17
     Alignment = taRightJustify
     Caption = 'CGC / CNPJ:'
@@ -394,55 +395,75 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
       1EFD7EC97E2ECFE5B93CF3D2A2C5FF0139B337BB9CB978130000000049454E44
       AE426082}
   end
+  object lblUUID: TLabel
+    Left = 120
+    Top = 21
+    Width = 33
+    Height = 17
+    Alignment = taRightJustify
+    Caption = 'UUID:'
+    FocusControl = edUUID
+    Transparent = True
+  end
+  object lblEmail: TLabel
+    Left = 306
+    Top = 180
+    Width = 39
+    Height = 17
+    Alignment = taRightJustify
+    Caption = 'E-mail:'
+    FocusControl = edEmail
+    Transparent = True
+  end
   object edEmpresa: TEdit
     Left = 160
     Top = 48
     Width = 569
     Height = 25
     CharCase = ecUpperCase
-    TabOrder = 0
+    TabOrder = 1
   end
   object edCGC: TEdit
     Left = 160
     Top = 80
-    Width = 193
+    Width = 249
     Height = 25
-    TabOrder = 1
+    TabOrder = 2
   end
   object edEndereco: TEdit
     Left = 160
     Top = 112
     Width = 569
     Height = 25
-    TabOrder = 2
+    TabOrder = 3
   end
   object edBairro: TEdit
     Left = 160
     Top = 144
     Width = 249
     Height = 25
-    TabOrder = 3
+    TabOrder = 4
   end
   object edCidade: TEdit
     Left = 472
     Top = 144
     Width = 169
     Height = 25
-    TabOrder = 4
+    TabOrder = 5
   end
   object edUF: TEdit
     Left = 680
     Top = 144
     Width = 49
     Height = 25
-    TabOrder = 5
+    TabOrder = 6
   end
   object edCEP: TEdit
     Left = 160
     Top = 176
     Width = 121
     Height = 25
-    TabOrder = 6
+    TabOrder = 7
   end
   object edCompetencia: TEdit
     Left = 160
@@ -455,7 +476,7 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Font.Name = 'Segoe UI'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 9
     OnChange = edCompetenciaChange
   end
   object BtnCarregarLicenca: TButton
@@ -465,7 +486,7 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Height = 41
     Anchors = [akLeft, akBottom]
     Caption = 'Carregar Licen'#231'a'
-    TabOrder = 9
+    TabOrder = 15
     OnClick = BtnCarregarLicencaClick
   end
   object BtnGerarLicenca: TButton
@@ -475,7 +496,7 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Height = 41
     Anchors = [akLeft, akBottom]
     Caption = 'Gerar Licen'#231'a'
-    TabOrder = 10
+    TabOrder = 16
     OnClick = BtnGerarLicencaClick
   end
   object edDataBloqueio: TEdit
@@ -489,7 +510,7 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Font.Name = 'Segoe UI'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 10
   end
   object chkSGE: TCheckBox
     Left = 160
@@ -523,6 +544,23 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Caption = 'SGO - Sistema para Gest'#227'o de OPME'
     TabOrder = 14
   end
+  object edUUID: TEdit
+    Left = 160
+    Top = 17
+    Width = 569
+    Height = 25
+    Color = clBtnFace
+    ReadOnly = True
+    TabOrder = 0
+  end
+  object edEmail: TEdit
+    Left = 352
+    Top = 176
+    Width = 377
+    Height = 25
+    CharCase = ecLowerCase
+    TabOrder = 8
+  end
   object XPManifest: TXPManifest
     Left = 8
     Top = 8
@@ -531,6 +569,6 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Filter = 'Arquivo Licen'#231'a (*.lnc)|*.lnc'
     Title = 'Carregar arquivo Licen'#231'a'
     Left = 640
-    Top = 200
+    Top = 240
   end
 end

@@ -5148,6 +5148,7 @@ begin
     aUUID := ini.ReadString('Licenca', 'edUUID', TGUID.Empty.ToString);
 
     gLicencaSistema.Model
+      .doc( ini.ReadString('Licenca', 'doc',  '') )
       .UUID( StringToGUID(aUUID) )
       .Empresa( ini.ReadString('Licenca', 'edEmpresa',  '') )
       .NomeFantasia( ini.ReadString('Licenca', 'edFantasia',  '') )

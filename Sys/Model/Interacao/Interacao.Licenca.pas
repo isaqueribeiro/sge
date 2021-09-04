@@ -8,6 +8,9 @@ uses
 type
   ILicencaModel = interface
     ['{09BA0F3D-B77C-48D2-9BBA-73F48DDC9DD2}']
+    function doc(Value : String) : ILicencaModel; overload;
+    function doc : String; overload;
+
     function UUID(Value : TGUID) : ILicencaModel; overload;
     function UUID : TGUID; overload;
 
