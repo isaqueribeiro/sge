@@ -71,6 +71,7 @@ type
 
 var
   DMRecursos: TDMRecursos;
+
   FormFunction   : TFormularios;
   gSistema       : TSistema;
   gConfiguracoes : IConfiguracaoIni;

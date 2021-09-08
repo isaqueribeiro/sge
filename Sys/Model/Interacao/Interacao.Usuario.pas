@@ -8,6 +8,9 @@ uses
 type
   IUsuarioModel = interface(IPessoaModel)
     ['{3902E5A3-2355-4D90-B132-385E69824E48}']
+    function LocalId(const Value: String)   : IUsuarioModel; overload;
+    function LocalId : String; overload;
+
     function UUID(const Value: TGUID)     : IUsuarioModel; overload;
     function UUID : TGUID; overload;
 
@@ -52,6 +55,7 @@ type
     function Autenticar(aConn : TFDConnection; aUsuario : IUsuarioModel) : Boolean; overload;
 
     function Logado   : Boolean;
+    function LocalId  : String;
     function UUID     : TGUID;
     function Login    : String;
     function Email    : String;

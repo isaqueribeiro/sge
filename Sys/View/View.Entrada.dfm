@@ -30,8 +30,6 @@ inherited ViewEntrada: TViewEntrada
     ExplicitWidth = 1101
     ExplicitHeight = 634
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1093
       ExplicitHeight = 605
       inherited Bevel4: TBevel
@@ -318,8 +316,6 @@ inherited ViewEntrada: TViewEntrada
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1093
       ExplicitHeight = 605
       inherited Bevel8: TBevel

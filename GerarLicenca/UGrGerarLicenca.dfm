@@ -490,7 +490,7 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     OnClick = BtnCarregarLicencaClick
   end
   object BtnGerarLicenca: TButton
-    Left = 296
+    Left = 295
     Top = 390
     Width = 129
     Height = 41
@@ -570,5 +570,39 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Title = 'Carregar arquivo Licen'#231'a'
     Left = 640
     Top = 240
+  end
+  object cdsCliente: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'doc'
+        DataType = ftString
+        Size = 30
+      end
+      item
+        Name = 'uuid'
+        DataType = ftString
+        Size = 40
+      end
+      item
+        Name = 'cgc'
+        DataType = ftString
+        Size = 40
+      end
+      item
+        Name = 'razao'
+        DataType = ftString
+        Size = 250
+      end
+      item
+        Name = 'fantasia'
+        DataType = ftString
+        Size = 150
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 640
+    Top = 288
   end
 end

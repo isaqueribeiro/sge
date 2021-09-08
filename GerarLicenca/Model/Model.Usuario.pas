@@ -10,7 +10,8 @@ type
     private
       [weak]
       FParent: T;
-      FUID   ,
+      Fdoc   : String;
+      FUUID  : TGUID;
       FEmail ,
       FPasswd,
       FDisplayName  ,
@@ -24,8 +25,10 @@ type
       destructor Destroy; override;
       class function New(aParent: T) : TUsuario<T>;
 
-      function UID(Value : String) : TUsuario<T>; overload;
-      function UID : String; overload;
+      function doc(Value : String) : TUsuario<T>; overload;
+      function doc : String; overload;
+      function UUID(Value : TGUID) : TUsuario<T>; overload;
+      function UUID : TGUID; overload;
       function Email(Value : String) : TUsuario<T>; overload;
       function Email : String; overload;
       function Passwd(Value : String) : TUsuario<T>; overload;
@@ -56,7 +59,8 @@ end;
 constructor TUsuario<T>.Create(aParent: T);
 begin
   FParent := aParent;
-  FUID    := EmptyStr;
+  Fdoc    := EmptyStr;
+  FUUID   := TGUID.Empty;
   FEmail  := EmptyStr;
   FPasswd := EmptyStr;
   FDisplayName  := EmptyStr;
@@ -90,6 +94,17 @@ end;
 function TUsuario<T>.DisplayName: String;
 begin
   Result := FDisplayName;
+end;
+
+function TUsuario<T>.doc: String;
+begin
+  Result := Fdoc;
+end;
+
+function TUsuario<T>.doc(Value: String): TUsuario<T>;
+begin
+  Result := Self;
+  Fdoc   := Value.Trim;
 end;
 
 function TUsuario<T>.DisplayName(Value: String): TUsuario<T>;
@@ -153,15 +168,15 @@ begin
   Result := FTokenID;
 end;
 
-function TUsuario<T>.UID(Value: String): TUsuario<T>;
+function TUsuario<T>.UUID(Value: TGUID): TUsuario<T>;
 begin
   Result := Self;
-  FUID   := Value.Trim;
+  FUUID  := Value;
 end;
 
-function TUsuario<T>.UID: String;
+function TUsuario<T>.UUID: TGUID;
 begin
-  Result := FUID;
+  Result := FUUID;
 end;
 
 end.

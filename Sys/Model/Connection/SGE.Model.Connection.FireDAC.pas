@@ -79,6 +79,7 @@ type
       function ParamByName(aParamName, aParamValue : String) : IConnection<TConnectionFireDAC>; overload;
       function ParamByName(aParamName : String; aParamValue : Integer) : IConnection<TConnectionFireDAC>; overload;
       function ParamByName(aParamName : String; aParamValue : Int64) : IConnection<TConnectionFireDAC>; overload;
+      function ParamByName(aParamName : String; aParamValue : Currency) : IConnection<TConnectionFireDAC>; overload;
       function ParamByName(aParamName : String) : String; overload;
       function Where(aExpressionWhere : String) : IConnection<TConnectionFireDAC>; overload;
       function Where(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<TConnectionFireDAC>; overload;
@@ -108,6 +109,7 @@ type
       procedure CreateGenerator(const aGeneratorName : String; const aYear : Smallint = 0);
       procedure UpdateGenerator(const aExpressionWhere : String = ''); overload;
       procedure UpdateGenerator(aGeneratorName, aTableName, aFielNameKey : String; const aExpressionWhere : String = ''); overload;
+      procedure ParamByNameClear(aParamName : String);
 
       function NewID : Variant;
   end;
@@ -447,6 +449,19 @@ begin
     Result := FQuery.ParamByName(aParamName).AsString
   else
     Result := EmptyStr;
+end;
+
+function TConnectionFireDAC.ParamByName(aParamName: String; aParamValue: Currency): IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  if ExistParamByName(aParamName) then
+    FQuery.ParamByName(aParamName).AsCurrency := aParamValue;
+end;
+
+procedure TConnectionFireDAC.ParamByNameClear(aParamName: String);
+begin
+  if Assigned(FQuery.Params.FindParam(aParamName)) then
+    FQuery.ParamByName(aParamName).Clear;
 end;
 
 function TConnectionFireDAC.ParamByName(aParamName: String; aParamValue: Int64): IConnection<TConnectionFireDAC>;

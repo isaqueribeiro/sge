@@ -23,6 +23,9 @@ type
     function CNPJ(Value : String) : ILicencaModel; overload;
     function CNPJ : String; overload;
 
+    function Email(Value : String) : ILicencaModel; overload;
+    function Email : String; overload;
+
     function Endereco(Value : String) : ILicencaModel; overload;
     function Endereco : String; overload;
 

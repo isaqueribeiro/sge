@@ -23,7 +23,7 @@ type
 end;
 
 var
-  FForm: TForm;
+  FForm : TForm;
 
 implementation
 

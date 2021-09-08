@@ -42,6 +42,8 @@ type
       function ParamsByName(aParamsName, aParamsValue : String) : IModelDAO; overload;
       function ParamsByName(aParamsName : String; aParamsValue : Integer) : IModelDAO; overload;
       function ParamsByName(aParamsName : String; aParamsValue : Int64) : IModelDAO; overload;
+      function ParamsByName(aParamsName : String; aParamsValue : Currency) : IModelDAO; overload;
+      function ParamsByNameClear(aParamsName : String) : IModelDAO;
       function OrderBy(aFieldName : String) : IModelDAO; overload;
 
       function OpenEmpty  : IModelDAO;
@@ -176,6 +178,12 @@ begin
   FConn.Query.ParamByName(aParamsName, aParamsValue);
 end;
 
+function TModelDAO.ParamsByNameClear(aParamsName: String): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.ParamByNameClear(aParamsName);
+end;
+
 function TModelDAO.ParamsByName(aParamsName: String; aParamsValue: Integer): IModelDAO;
 begin
   Result := Self;
@@ -283,6 +291,12 @@ function TModelDAO.WhereOr(aFieldName, aFielValue: String; const aQuotedString :
 begin
   Result := Self;
   FConn.Query.WhereOr(aFieldName, aFielValue, aQuotedString);
+end;
+
+function TModelDAO.ParamsByName(aParamsName: String; aParamsValue: Currency): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.ParamByName(aParamsName, aParamsValue);
 end;
 
 end.

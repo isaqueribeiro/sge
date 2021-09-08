@@ -29,14 +29,14 @@ uses
 
 const
   GOOGLE_REFRESH_AUTH_URL = 'https://securetoken.googleapis.com/v1/token';
-  GOOGLE_CUSTOM_AUTH_URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken';
-  GOOGLE_GET_USER_URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/getAccountInfo';
-  GOOGLE_IDENTITY_URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyAssertion';
-  GOOGLE_SIGNUP_URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser';
-  GOOGLE_PASSWORD_URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword';
+  GOOGLE_CUSTOM_AUTH_URL  = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken';
+  GOOGLE_GET_USER_URL     = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/getAccountInfo';
+  GOOGLE_IDENTITY_URL     = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyAssertion';
+  GOOGLE_SIGNUP_URL       = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser';
+  GOOGLE_PASSWORD_URL     = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword';
+  GOOGLE_SET_ACCOUNT_URL  = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo';
+  GOOGLE_CREATE_AUTH_URL  = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/createAuthUri';
   GOOGLE_GET_CONFIRMATION_CODE_URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/getOobConfirmationCode';
-  GOOGLE_SET_ACCOUNT_URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo';
-  GOOGLE_CREATE_AUTH_URL = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/createAuthUri';
 
 type
 

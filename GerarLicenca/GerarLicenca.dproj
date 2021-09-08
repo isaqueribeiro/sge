@@ -106,9 +106,6 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="UGrGerarLicenca.pas">
-            <Form>FrmGrGerarLicenca</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UConstantesDGE.pas"/>
         <DCCReference Include="Firebase4Delphi\sources\Firebase.Auth.pas"/>
         <DCCReference Include="Firebase4Delphi\sources\Firebase.Database.pas"/>
@@ -116,9 +113,16 @@
         <DCCReference Include="Firebase4Delphi\sources\Firebase.Request.pas"/>
         <DCCReference Include="Firebase4Delphi\sources\Firebase.Response.pas"/>
         <DCCReference Include="Model\Model.Usuario.pas"/>
+        <DCCReference Include="Model\Model.Cliente.pas"/>
+        <DCCReference Include="Model\Model.Endereco.pas"/>
+        <DCCReference Include="Model\Model.Licenca.pas"/>
         <DCCReference Include="Controller\Controller.Interfaces.pas"/>
         <DCCReference Include="Controller\Controller.Factory.pas"/>
         <DCCReference Include="Controller\Controller.Usuario.pas"/>
+        <DCCReference Include="Controller\Controller.Cliente.pas"/>
+        <DCCReference Include="UGrGerarLicenca.pas">
+            <Form>FrmGrGerarLicenca</Form>
+        </DCCReference>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

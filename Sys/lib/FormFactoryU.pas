@@ -35,7 +35,7 @@ end;
 
 function TFormFactory.CreateForm(const AOnwer : TComponent; const aFormName: string): TForm;
 var
-i: Integer;
+ i : Integer;
 begin
   i := FList.IndexOf(aFormName);
   Assert(i <> -1, 'Formulário ' + aFormName + ' não existe');

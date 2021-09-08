@@ -5,12 +5,15 @@ interface
 uses
   Controller.Interfaces,
   Controller.Usuario,
-  Model.Usuario;
+  Controller.Cliente,
+  Model.Usuario,
+  Model.Cliente;
 
 type
   IControllerFactory = interface
     ['{4A528C7C-37F3-4A6B-93DF-8C10BE48F6DF}']
     function Usuario : IControllerUsuario<TControllerUsuario>;
+    function Cliente : IControllerCliente<TControllerCliente>;
   end;
 
   TControllerFactory = class(TInterfacedObject, IControllerFactory)
@@ -18,6 +21,7 @@ type
       class var _instance : IControllerFactory;
     private
       FUsuario : IControllerUsuario<TControllerUsuario>;
+      FCliente : IControllerCliente<TControllerCliente>;
     protected
       constructor Create;
     public
@@ -25,6 +29,7 @@ type
       class function New : IControllerFactory;
 
       function Usuario : IControllerUsuario<TControllerUsuario>;
+      function Cliente : IControllerCliente<TControllerCliente>;
   end;
 
 implementation
@@ -47,6 +52,14 @@ begin
     _instance := Self.Create;
 
   Result := _instance;
+end;
+
+function TControllerFactory.Cliente: IControllerCliente<TControllerCliente>;
+begin
+  if not Assigned(FCliente) then
+    FCliente := TControllerCliente.New;
+
+  Result := FCliente;
 end;
 
 function TControllerFactory.Usuario : IControllerUsuario<TControllerUsuario>;

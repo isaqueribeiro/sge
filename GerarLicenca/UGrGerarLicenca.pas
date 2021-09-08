@@ -13,17 +13,21 @@ uses
   Forms,
   Dialogs,
   StdCtrls,
+  Vcl.ExtCtrls,
   XPMan,
   IniFiles,
   IdCoder,
   IdCoder3to4,
   IdCoderMIME,
   IdBaseComponent,
-  Vcl.ExtCtrls,
   dxGDIPlusClasses,
+
+  Data.DB,
+  Datasnap.DBClient,
 
   Controller.Interfaces,
   Controller.Usuario,
+  Controller.Cliente,
   Controller.Factory;
 
 type
@@ -61,12 +65,14 @@ type
     edUUID: TEdit;
     lblEmail: TLabel;
     edEmail: TEdit;
+    cdsCliente: TClientDataSet;
     procedure BtnCarregarLicencaClick(Sender: TObject);
     procedure BtnGerarLicencaClick(Sender: TObject);
 
     function EncriptSenha(const Value, Key : String) : String;
     function DecriptarSenha(const Value, Key : String) : String;
     function SomenteNumero(Value : String): String;
+    function DataBloqueio : TDateTime;
 
     procedure edCompetenciaChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -79,6 +85,8 @@ type
     function AuthServer : Boolean;
     function CreateCustomerAccount : Boolean;
     function CustomerAccountRegistered : Boolean;
+
+    procedure RegistrarCliente;
   public
     { Public declarations }
   end;
@@ -95,6 +103,7 @@ implementation
 
 uses
   System.DateUtils,
+  System.JSON,
   UConstantesDGE;
 
 {$R *.dfm}
@@ -210,7 +219,10 @@ begin
     .&End
     .AccountRegistered;
 
-  Result := FUser.Error.IsEmpty;
+  Result := FUser.Entity.Registered;
+
+  if not FUser.Error.IsEmpty then
+    ShowStop(FUser.Error);
 end;
 
 procedure TFrmGrGerarLicenca.GerarLicenca(const sNomeArquivo: String);
@@ -260,6 +272,46 @@ begin
   end;
 end;
 
+procedure TFrmGrGerarLicenca.RegistrarCliente;
+var
+  aCliente : IControllerCliente<TControllerCliente>;
+begin
+  if not cdsCliente.Active then
+    cdsCliente.CreateDataSet;
+
+  aCliente := TControllerFactory.New.Cliente;
+
+  aCliente
+//    .DataSet(cdsCliente)
+    .Entity
+      .Razao(edEmpresa.Text)
+      .Fantasia(EmptyStr)
+      .Cnpj(edCGC.Text)
+      .Email(edEmail.Text)
+      .Endereco
+        .Logradouro(edEndereco.Text)
+        .Numero(EmptyStr)
+        .Bairro(edBairro.Text)
+        .Cep(edCEP.Text)
+        .Cidade(edCidade.Text)
+        .UF(edUF.Text)
+      .&End
+      .Licenca
+        .Competencia( StrToIntDef(Trim(edCompetencia.Text), FormatDateTime('yyyymm', Date).ToInteger) )
+        .Bloqueio( DataBloqueio )
+        .Sistemas
+          .SGE( chkSGE.Checked )
+          .SGO( chkSGO.Checked )
+          .SGI( chkSGI.Checked )
+          .SGF( chkSGF.Checked )
+        .&End
+      .&End
+    .&End
+  .Save( FUser.Entity.TokenID );
+
+  edUUID.Hint := aCliente.Entity.doc;
+end;
+
 function TFrmGrGerarLicenca.SomenteNumero(Value: String): String;
 var
   I : Byte;
@@ -299,25 +351,51 @@ begin
     Exit;
   end;
 
-  aProsseguir := AuthServer; // Autenticar
+  Screen.Cursor := crHourGlass;
+  try
+    aProsseguir := AuthServer; // Autenticar
 
-  if aProsseguir then
-  begin
-    aProsseguir := CustomerAccountRegistered; // Verificar conta do cliente
-    if not aProsseguir then
-      aProsseguir := CreateCustomerAccount;   // Gerar conta para o cliente
-  end
-  else
-    aProsseguir := True;
+    if aProsseguir then
+    begin
+      aProsseguir := CustomerAccountRegistered; // Verificar conta do cliente
+      if not aProsseguir then
+        aProsseguir := CreateCustomerAccount;   // Gerar conta para o cliente
+    end
+    else
+      aProsseguir := True;
 
-  if aProsseguir then
-  begin
-    sNomeArquivo := StringReplace(StringReplace(StringReplace(Trim(edCGC.Text), '.', '', [rfReplaceAll]), '-', '', [rfReplaceAll]), '/', '', [rfReplaceAll]) + ' - ' + Trim(edEmpresa.Text);
-    sNomeArquivo := ExtractFilePath(Application.ExeName) + sNomeArquivo + '.lnc';
+    if aProsseguir then
+    begin
+      sNomeArquivo := StringReplace(StringReplace(StringReplace(Trim(edCGC.Text), '.', '', [rfReplaceAll]), '-', '', [rfReplaceAll]), '/', '', [rfReplaceAll]) + ' - ' + Trim(edEmpresa.Text);
+      sNomeArquivo := ExtractFilePath(Application.ExeName) + sNomeArquivo + '.lnc';
 
-    GerarLicenca(sNomeArquivo);
+      if AuthServer then  // Autenticar para removar o TokenID
+        RegistrarCliente; // Gravar licença no Cloud Firestore
 
-    ShowMessageInformacao('Licença', 'Arquivo gerado com sucesso!' + #13#13 + sNomeArquivo);
+      GerarLicenca(sNomeArquivo);
+
+      ShowMessageInformacao('Licença', 'Arquivo gerado com sucesso!' + #13#13 + sNomeArquivo);
+    end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+function TFrmGrGerarLicenca.DataBloqueio: TDateTime;
+var
+  aStr : TStringList;
+begin
+  aStr := TStringList.Create;
+  try
+    aStr.Delimiter := '/';
+    aStr.DelimitedText := edDataBloqueio.Text;
+
+    if (aStr.Count = 3) then
+      Result := EncodeDate(aStr.Strings[2].ToInteger, aStr.Strings[1].ToInteger, aStr.Strings[0].ToInteger)
+    else
+      Result := IncDay(Date, 15);
+  finally
+    aStr.DisposeOf;
   end;
 end;
 

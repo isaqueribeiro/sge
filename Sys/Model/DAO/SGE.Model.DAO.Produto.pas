@@ -133,18 +133,18 @@ type
 
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
-//
-//  // Lotes do Produto
-//  TModelDAOLoteProduto = class(TModelDAO, IModelDAOCustom)
-//    private
-//    protected
-//      constructor Create;
-//    public
-//      destructor Destroy; override;
-//      class function New : IModelDAOCustom;
-//
-//      function CreateLookupComboBoxList : IModelDAOCustom;
-//  end;
+
+  // Lotes do Produto
+  TModelDAOLoteProduto = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
 
 implementation
 
@@ -815,6 +815,46 @@ begin
 end;
 
 function TModelDAOCombustivelVeiculo.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+{ TModelDAOLoteProduto }
+
+constructor TModelDAOLoteProduto.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select  ')
+        .Add('    e.id')
+        .Add('  , e.descricao       ')
+        .Add('  , e.data_fabricacao ')
+        .Add('  , e.data_validade   ')
+        .Add('from TBESTOQUE_ALMOX e')
+        .Add('where e.empresa = :empresa')
+        .Add('  and e.centro_custo = :centro_custo')
+        .Add('  and e.produto = :produto')
+      .&End
+      .OrderBy('e.descricao')
+    .Close;
+end;
+
+destructor TModelDAOLoteProduto.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOLoteProduto.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOLoteProduto.CreateLookupComboBoxList: IModelDAOCustom;
 begin
   Result := Self;
   if not FConn.Query.DataSet.Active then

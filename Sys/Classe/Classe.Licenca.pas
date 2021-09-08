@@ -15,6 +15,7 @@ type
       FEmpresa  : String;
       FNomeFantasia : String;
       FCNPJ     : String;
+      FEmail    : String;
       FEndereco : String;
       FBairro : String;
       FCidade : String;
@@ -44,6 +45,9 @@ type
 
       function CNPJ(Value : String) : ILicencaModel; overload;
       function CNPJ : String; overload;
+
+      function Email(Value : String) : ILicencaModel; overload;
+      function Email : String; overload;
 
       function Endereco(Value : String) : ILicencaModel; overload;
       function Endereco : String; overload;
@@ -146,6 +150,7 @@ begin
   FEmpresa      := 'EMPRESA DE DEMONSTRAÇÃO';
   FNomeFantasia := 'DEMONSTRAÇÃO';
   FCNPJ         := '00.000.000/0000-00';
+  FEmail        := 'isaque.ribeiro@outlook.com';
   FEndereco := EmptyStr;
   FBairro   := EmptyStr;
   FCidade   := EmptyStr;
@@ -190,6 +195,17 @@ function TLicenca.Empresa(Value: String): ILicencaModel;
 begin
   Result   := Self;
   FEmpresa := Value.Trim();
+end;
+
+function TLicenca.Email: String;
+begin
+  Result := FEmail;
+end;
+
+function TLicenca.Email(Value: String): ILicencaModel;
+begin
+  Result := Self;
+  FEmail := Value.Trim.ToLower;
 end;
 
 function TLicenca.Empresa: String;

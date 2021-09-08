@@ -4,6 +4,7 @@ interface
 
 uses
   SGE.Controller.Interfaces,
+  SGE.Controller.AutorizacaoCompra,
   SGE.Controller.Bairro,
   SGE.Controller.Banco,
   SGE.Controller.CentroCusto,
@@ -34,9 +35,10 @@ uses
 type
   TControllerFactory = class(TInterfacedObject, IControllerFactory)
     private
-      FAliquotaCOFINSView: IControllerCustom;
-      FAliquotaICMS      : IControllerAliquotaICMS;
-      FAliquotaPISView   ,
+      FAliquotaCOFINSView : IControllerCustom;
+      FAliquotaICMS       : IControllerAliquotaICMS;
+      FAliquotaPISView    : IControllerCustom;
+      FAutorizacaoCompra  : IControllerAutorizacaoCompra;
       FBairro,
       FBanco ,
       FBancoFebrabanView : IControllerCustom;
@@ -64,7 +66,7 @@ type
       FEmpresa     : IControllerCustom;
       FEmpresaView : IControllerEmpresa;
       FEntrada     : IControllerEntrada;
-      FEntradaProduto   ,
+      FEntradaProduto   : IControllerEntradaProduto;
       FFabricanteProduto,
       FFormaPagto ,
       FFormaPagtoContaCorrente,
@@ -74,8 +76,9 @@ type
       FGrupoProduto   ,
       FIBPT           ,
       FLayoutRemessaBancoView,
-      FLogradouro,
-      FNivelIBPT ,
+      FLogradouro ,
+      FLoteProduto,
+      FNivelIBPT  ,
       FOrigemProdutoView,
       FPlanoConta      ,
       FPlanoContaNivel ,
@@ -112,6 +115,7 @@ type
       function AliquotaCOFINSView : IControllerCustom;
       function AliquotaICMS : IControllerAliquotaICMS;
       function AliquotaPISView : IControllerCustom;
+      function AutorizacaoCompra  : IControllerAutorizacaoCompra;
       function Bairro : IControllerCustom;
       function Banco : IControllerCustom;
       function BancoFebrabanView : IControllerCustom;
@@ -139,7 +143,7 @@ type
       function Empresa : IControllerCustom;
       function EmpresaView : IControllerEmpresa;
       function Entrada : IControllerEntrada;
-      function EntradaProduto : IControllerCustom;
+      function EntradaProduto : IControllerEntradaProduto;
       function FabricanteProduto : IControllerCustom;
       function FormaPagto : IControllerCustom;
       function FormaPagtoContaCorrente : IControllerCustom;
@@ -150,6 +154,7 @@ type
       function IBPT : IControllerCustom;
       function LayoutRemessaBancoView : IControllerCustom;
       function Logradouro : IControllerCustom;
+      function LoteProduto : IControllerCustom;
       function NivelIBPT : IControllerCustom;
       function OrigemProdutoView : IControllerCustom;
       function PlanoConta : IControllerCustom;
@@ -309,6 +314,14 @@ begin
     FAliquotaPISView := TControllerAliquotaPISView.New;
 
   Result := FAliquotaPISView;
+end;
+
+function TControllerFactory.AutorizacaoCompra: IControllerAutorizacaoCompra;
+begin
+  if not Assigned(FAutorizacaoCompra) then
+    FAutorizacaoCompra := TControllerAutorizacaoCompra.New;
+
+  Result := FAutorizacaoCompra;
 end;
 
 function TControllerFactory.Bairro: IControllerCustom;
@@ -519,7 +532,7 @@ begin
   Result := FEntrada;
 end;
 
-function TControllerFactory.EntradaProduto: IControllerCustom;
+function TControllerFactory.EntradaProduto: IControllerEntradaProduto;
 begin
   if not Assigned(FEntradaProduto) then
     FEntradaProduto := TControllerEntradaProduto.New;
@@ -605,6 +618,14 @@ begin
     FLogradouro := TControllerLogradouro.New;
 
   Result := FLogradouro;
+end;
+
+function TControllerFactory.LoteProduto: IControllerCustom;
+begin
+  if not Assigned(FLoteProduto) then
+    FLoteProduto := TControllerLoteProduto.New;
+
+  Result := FLoteProduto;
 end;
 
 function TControllerFactory.TabelaIBPT: IControllerCustom;

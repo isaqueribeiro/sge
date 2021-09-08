@@ -71,12 +71,24 @@ type
     function Produtos : IControllerCustom;
     function Duplicatas : IControllerCustom;
     function Lotes : IControllerCustom;
+    function LoteProdutoPendente : Boolean;
 
     procedure CorrigirCFOP(aCFOP : String);
     procedure CarregarProdutos;
     procedure CarregarLotes;
     procedure CarregarDuplicatas;
     procedure GerarDuplicatas;
+    procedure LimparLoteEmissaoNFe;
+  end;
+
+  IControllerAutorizacaoCompra = interface(IControllerCustom)
+    ['{CFB62551-6810-4CF5-9E3E-7D966E96E928}']
+    function ProdutosParaEntrada(aTipoItem : TTipoItem; aAno, aCodigo : Integer; aEmpresa : String) : IControllerAutorizacaoCompra;
+  end;
+
+  IControllerEntradaProduto = interface(IControllerCustom)
+    ['{02B27486-02D0-460C-B81A-39BE177EE50B}']
+    procedure GravarLoteProduto(aSistema : Smallint);
   end;
 
   IControllerContaAPagar = interface(IControllerCustom)
@@ -89,6 +101,7 @@ type
     function AliquotaCOFINSView : IControllerCustom;
     function AliquotaICMS       : IControllerAliquotaICMS;
     function AliquotaPISView    : IControllerCustom;
+    function AutorizacaoCompra  : IControllerAutorizacaoCompra;
     function Bairro : IControllerCustom;
     function Banco  : IControllerCustom;
     function BancoFebrabanView  : IControllerCustom;
@@ -116,8 +129,8 @@ type
     function Empresa     : IControllerCustom;
     function EmpresaView : IControllerEmpresa;
     function Entrada : IControllerEntrada;
-    function EntradaProduto : IControllerCustom;
-    function FabricanteProduto : IControllerCustom;
+    function EntradaProduto : IControllerEntradaProduto;
+    function FabricanteProduto  : IControllerCustom;
     function FormaPagto : IControllerCustom;
     function FormaPagtoContaCorrente : IControllerCustom;
     function FormaPagtoNFCEView : IControllerCustom;
@@ -127,6 +140,7 @@ type
     function IBPT : IControllerCustom;
     function LayoutRemessaBancoView : IControllerCustom;
     function Logradouro : IControllerCustom;
+    function LoteProduto : IControllerCustom;
     function NivelIBPT  : IControllerCustom;
     function OrigemProdutoView : IControllerCustom;
     function PlanoConta        : IControllerCustom;

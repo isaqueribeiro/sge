@@ -33,6 +33,8 @@ type
     function ParamsByName(aParamsName, aParamsValue : String) : IModelDAO; overload;
     function ParamsByName(aParamsName : String; aParamsValue : Integer) : IModelDAO; overload;
     function ParamsByName(aParamsName : String; aParamsValue : Int64) : IModelDAO; overload;
+    function ParamsByName(aParamsName : String; aParamsValue : Currency) : IModelDAO; overload;
+    function ParamsByNameClear(aParamsName : String) : IModelDAO;
     function OrderBy(aFieldName : String) : IModelDAO; overload;
 
     function OpenEmpty  : IModelDAO;
@@ -77,6 +79,7 @@ type
     function AliquotaCOFINSView : IModelDAOCustom;
     function AliquotaICMS : IModelDAOCustom;
     function AliquotaPISView : IModelDAOCustom;
+    function AutorizacaoCompra : IModelDAOCustom;
     function Bairro   : IModelDAOCustom;
     function Banco : IModelDAOCustom;
     function BancoFebrabanView : IModelDAOCustom;
@@ -117,6 +120,7 @@ type
     function IBPT : IModelDAOCustom;
     function LayoutRemessaBancoView : IModelDAOCustom;
     function Logradouro : IModelDAOCustom;
+    function LoteProduto : IModelDAOCustom;
     function NivelIBPT : IModelDAOCustom;
     function OrigemProdutoView : IModelDAOCustom;
     function PlanoConta : IModelDAOCustom;

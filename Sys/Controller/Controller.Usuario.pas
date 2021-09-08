@@ -31,6 +31,7 @@ type
       function Autenticar(aConn : TFDConnection; aUsuario : IUsuarioModel) : Boolean; overload;
 
       function Logado   : Boolean;
+      function LocalId : String;
       function UUID     : TGUID;
       function Login    : String;
       function Email    : String;
@@ -55,7 +56,8 @@ implementation
 
 function TUsuarioController.Load(aConn : TFDConnection; aLogin: String): IUsuario;
 var
-  aQry : TFDQuery;
+  aQry  : TFDQuery;
+  aGuid : String;
 begin
   aQry := TFDQuery.Create(nil);
   try
@@ -93,8 +95,12 @@ begin
         FModel
           .Nome( FieldByName('nome').AsString );
 
+        aGuid := FieldByName('uuid').AsString;
+        if aGuid.Trim.IsEmpty then
+          aGuid := TGUID.Empty.ToString;
+
         FModel
-          .UUID( StringToGUID(FieldByName('uuid').AsString) )
+          .UUID( StringToGUID(aGuid) )
           .Login( FieldByName('login').AsString )
           .Email( FieldByName('email').AsString )
           .Senha( FieldByName('senha').AsString )
@@ -113,6 +119,11 @@ begin
     aQry.DisposeOf;
     Result := Self;
   end;
+end;
+
+function TUsuarioController.LocalId: String;
+begin
+  Result := FModel.LocalId;
 end;
 
 function TUsuarioController.Logado: Boolean;

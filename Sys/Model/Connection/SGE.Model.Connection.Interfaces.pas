@@ -25,6 +25,7 @@ type
     function ParamByName(aParamName, aParamValue : String) : IConnection<T>; overload;
     function ParamByName(aParamName : String; aParamValue : Integer) : IConnection<T>; overload;
     function ParamByName(aParamName : String; aParamValue : Int64) : IConnection<T>; overload;
+    function ParamByName(aParamName : String; aParamValue : Currency) : IConnection<T>; overload;
     function ParamByName(aParamName : String) : String; overload;
     function Where(aExpressionWhere : String) : IConnection<T>; overload;
     function Where(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<T>; overload;
@@ -53,6 +54,7 @@ type
     procedure CreateGenerator(const aGeneratorName : String; const aYear : Smallint = 0);
     procedure UpdateGenerator(const aExpressionWhere : String = ''); overload;
     procedure UpdateGenerator(aGeneratorName, aTableName, aFielNameKey : String; const aExpressionWhere : String = ''); overload;
+    procedure ParamByNameClear(aParamName : String);
 
     function NewID : Variant;
   end;

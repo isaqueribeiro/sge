@@ -4,6 +4,7 @@ interface
 
 uses
   SGE.Model.DAO.Interfaces,
+  SGE.Model.DAO.AutorizacaoCompra,
   SGE.Model.DAO.Bairro,
   SGE.Model.DAO.Banco,
   SGE.Model.DAO.Busca,
@@ -38,6 +39,7 @@ type
       FAliquotaCOFINSView,
       FAliquotaICMS      ,
       FAliquotaPISView   ,
+      FAutorizacaoCompra ,
       FBairro,
       FBanco ,
       FBancoFebrabanView ,
@@ -78,6 +80,7 @@ type
       FIBPT           ,
       FLayoutRemessaBancoView,
       FLogradouro     ,
+      FLoteProduto    ,
       FNivelIBPT      ,
       FOrigemProdutoView,
       FPlanoConta     ,
@@ -115,6 +118,7 @@ type
       function AliquotaCOFINSView : IModelDAOCustom;
       function AliquotaICMS : IModelDAOCustom;
       function AliquotaPISView : IModelDAOCustom;
+      function AutorizacaoCompra : IModelDAOCustom;
       function Bairro : IModelDAOCustom;
       function Banco : IModelDAOCustom;
       function BancoFebrabanView : IModelDAOCustom;
@@ -155,6 +159,7 @@ type
       function IBPT : IModelDAOCustom;
       function LayoutRemessaBancoView : IModelDAOCustom;
       function Logradouro : IModelDAOCustom;
+      function LoteProduto : IModelDAOCustom;
       function NivelIBPT : IModelDAOCustom;
       function OrigemProdutoView : IModelDAOCustom;
       function PlanoConta : IModelDAOCustom;
@@ -434,6 +439,14 @@ begin
     FAliquotaPISView := TModelDAOAliquotaPISView.New;
 
   Result := FAliquotaPISView;
+end;
+
+function TModelDAOFactory.AutorizacaoCompra: IModelDAOCustom;
+begin
+  if not Assigned(FAutorizacaoCompra) then
+    FAutorizacaoCompra := TModelDAOAutorizacaoCompra.New;
+
+  Result := FAutorizacaoCompra;
 end;
 
 function TModelDAOFactory.Bairro: IModelDAOCustom;
@@ -746,6 +759,14 @@ begin
     FLogradouro := TModelDAOLogradouro.New;
 
   Result := FLogradouro;
+end;
+
+function TModelDAOFactory.LoteProduto: IModelDAOCustom;
+begin
+  if not Assigned(FLoteProduto) then
+    FLoteProduto := TModelDAOLoteProduto.New;
+
+  Result := FLoteProduto;
 end;
 
 function TModelDAOFactory.UF: IModelDAOCustom;

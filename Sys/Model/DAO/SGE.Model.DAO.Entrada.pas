@@ -54,6 +54,7 @@ type
       procedure SetProviderFlags;
       procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetNewRecord(DataSet: TDataSet);
+      procedure DataSetBeforePost(DataSet: TDataSet);
     protected
       constructor Create;
     public
@@ -397,17 +398,25 @@ begin
         .Add('  , i.total_bruto          ')
         .Add('  , i.total_liquido        ')
         .Add('                           ')
+        // Lote do Produto
+        .Add('  , i.lote_id             ')
+        .Add('  , i.lote_descricao      ')
+        .Add('  , i.lote_data_fab       ')
+        .Add('  , i.lote_data_val       ')
+        // Dados do Produto
         .Add('  , coalesce(p.descri_apresentacao, p.Descri) as Descri')
+        .Add('  , p.descri_apresentacao')
         .Add('  , p.Qtde as Estoque   ')
         .Add('  , p.estoque_aprop_lote')
+        .Add('  , p.fracionador       ')
         .Add('  , u.Unp_sigla         ')
         .Add('from TBCOMPRASITENS i   ')
         .Add('  inner join TBPRODUTO p on (p.Cod = i.Codprod)          ')
         .Add('  left join TBUNIDADEPROD u on (u.Unp_cod = p.Codunidade)')
-        .Add('where (i.Ano        = :ano)')
-        .Add('  and (i.Codcontrol = :controle)')
-        .Add('  and (i.Codemp     = :empresa)')
       .&End
+      .Where('i.Ano        = :ano')
+      .Where('i.Codcontrol = :controle')
+      .Where('i.Codemp     = :empresa')
       .ParamByName('ano', 0)
       .ParamByName('controle', 0)
       .ParamByName('empresa', EmptyStr)
@@ -415,6 +424,7 @@ begin
 
   FConn.Query.DataSet.AfterOpen   := DataSetAfterOpen;
   FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
+  FConn.Query.DataSet.BeforePost  := DataSetBeforePost;
 end;
 
 destructor TModelDAOEntradaProduto.Destroy;
@@ -431,14 +441,39 @@ procedure TModelDAOEntradaProduto.SetProviderFlags;
 begin
   // Ignorar campos no Insert e Update
   FConn.Query.DataSet.FieldByName('Descri').ProviderFlags    := [];
+  FConn.Query.DataSet.FieldByName('descri_apresentacao').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('Estoque').ProviderFlags   := [];
   FConn.Query.DataSet.FieldByName('estoque_aprop_lote').ProviderFlags := [];
-  FConn.Query.DataSet.FieldByName('Unp_sigla').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('fracionador').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('Unp_sigla').ProviderFlags   := [];
 end;
 
 procedure TModelDAOEntradaProduto.DataSetAfterOpen(DataSet: TDataSet);
 begin
   SetProviderFlags;
+end;
+
+procedure TModelDAOEntradaProduto.DataSetBeforePost(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+  begin
+    if Trim(FieldByName('lote_id').AsString) = EmptyStr then
+      FieldByName('lote_id').Clear;
+
+    if Trim(FieldByName('lote_descricao').AsString) = EmptyStr then
+      FieldByName('lote_descricao').Clear
+    else
+      FieldByName('lote_descricao').AsString := Trim(FieldByName('lote_descricao').AsString);
+
+    if FormatDateTime('dd/mm/yyyy',  FieldByName('lote_data_fab').AsDateTime) = SYS_EMPTY_DATE then
+      FieldByName('lote_data_fab').Clear;
+
+    if FormatDateTime('dd/mm/yyyy',  FieldByName('lote_data_val').AsDateTime) = SYS_EMPTY_DATE then
+      FieldByName('lote_data_val').Clear;
+
+    if (FieldByName('LOTE_DESCRICAO').IsNull and FieldByName('LOTE_DATA_FAB').IsNull and FieldByName('LOTE_DATA_VAL').IsNull) then
+      FieldByName('LOTE_ID').Clear;
+  end;
 end;
 
 procedure TModelDAOEntradaProduto.DataSetNewRecord(DataSet: TDataSet);
@@ -456,6 +491,11 @@ begin
     FieldByName('QTDE').AsCurrency      := 0;
     FieldByName('QTDEANTES').AsCurrency := 0;
     FieldByName('QTDEFINAL').AsCurrency := 0;
+
+    FieldByName('lote_id').Clear;
+    FieldByName('lote_descricao').Clear;
+    FieldByName('lote_data_fab').Clear;
+    FieldByName('lote_data_val').Clear;
 
     FieldByName('ALIQUOTA').AsCurrency              := 0.0;
     FieldByName('ALIQUOTA_CSOSN').AsCurrency        := 0.0;

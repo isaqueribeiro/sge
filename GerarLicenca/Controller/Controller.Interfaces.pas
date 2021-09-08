@@ -3,7 +3,10 @@ unit Controller.Interfaces;
 interface
 
 uses
-  Model.Usuario;
+  Data.DB,
+  Datasnap.DBClient,
+  Model.Usuario,
+  Model.Cliente;
 
 type
   IControllerUsuario<T : class> = interface
@@ -17,6 +20,15 @@ type
     function Error : String;
 
     procedure RefreshToken;
+  end;
+
+  IControllerCliente<T : class> = interface
+    ['{0FA321D3-785E-4A87-949E-89C06552903A}']
+    function DataSet(Value : TClientDataSet) : IControllerCliente<T>; overload;
+    function DataSet : TClientDataSet; overload;
+    function Entity : TCliente<T>;
+    function Save(aTokenID : String) : IControllerCliente<T>;
+    function Error : String;
   end;
 
 implementation

@@ -3,27 +3,49 @@ unit View.Entrada.ConfirmarLote;
 interface
 
 uses
+  System.SysUtils,
+  System.StrUtils,
+  System.ImageList,
+  System.Classes,
+  System.Variants,
+  Winapi.Windows,
+
+  Vcl.Forms,
+  Vcl.Menus,
+  Vcl.ImgList,
+  Vcl.Controls,
+  Vcl.Mask,
+  Vcl.DBCtrls,
+  Vcl.StdCtrls,
+  Vcl.ExtCtrls,
+  Vcl.Grids,
+  Vcl.DBGrids,
+  Vcl.ComCtrls,
+  Vcl.Graphics,
+  Vcl.Buttons,
+  Vcl.Dialogs,
+  Vcl.ExtDlgs,
+  Vcl.Clipbrd,
+
+  Data.DB,
+  Datasnap.DBClient,
+  Datasnap.Provider,
+
+  JvExMask,
+  JvToolEdit,
+  JvDBControls,
+
+  cxGraphics,
+  cxLookAndFeels,
+  cxLookAndFeelPainters,
+  cxButtons,
+  dxSkinsCore,
+
   UGrPadrao,
-
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf, Vcl.StdCtrls, Vcl.Mask,
-  Vcl.DBCtrls, JvExMask, JvToolEdit, Vcl.DBGrids, Vcl.ExtCtrls,
-  JvDBControls, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus,
-  cxEdit, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxLookupEdit, cxDBLookupEdit,
-  cxDBLookupComboBox, cxControls, cxContainer, cxButtons, Vcl.Grids,
-
-  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.Client, Data.DB, FireDAC.Comp.DataSet,
-
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  SGE.Controller.Interfaces;
 
 type
   TViewEntradaEstoqueLote = class(TfrmGrPadrao)
-    fdQryCompraItens: TFDQuery;
-    fdUpdCompraItens: TFDUpdateSQL;
     GrpBxControle: TGroupBox;
     lblCodigo: TLabel;
     lblDescricao: TLabel;
@@ -33,18 +55,6 @@ type
     dbSequencial: TDBEdit;
     dbProduto: TDBEdit;
     dtsCompraItens: TDataSource;
-    fdQryCompraItensANO: TSmallintField;
-    fdQryCompraItensCODCONTROL: TIntegerField;
-    fdQryCompraItensCODEMP: TStringField;
-    fdQryCompraItensSEQ: TSmallintField;
-    fdQryCompraItensCODPROD: TStringField;
-    fdQryCompraItensDESCRI: TStringField;
-    fdQryCompraItensAPRESENTACAO: TStringField;
-    fdQryCompraItensDESCRI_APRESENTACAO: TStringField;
-    fdQryCompraItensLOTE_ID: TStringField;
-    fdQryCompraItensLOTE_DESCRICAO: TStringField;
-    fdQryCompraItensLOTE_DATA_FAB: TDateField;
-    fdQryCompraItensLOTE_DATA_VAL: TDateField;
     lblDataFabricacao: TLabel;
     dbDataFabricacao: TJvDBDateEdit;
     lblDataValidade: TLabel;
@@ -54,21 +64,16 @@ type
     dbgTitulos: TDBGrid;
     btnConfirmar: TcxButton;
     btnFechar: TcxButton;
-    fdQryLotes: TFDQuery;
     dtsLotes: TDataSource;
     dbDescricao: TDBComboBox;
-    fdSetLoteProduto: TFDStoredProc;
     lblQTDE: TLabel;
     dbQTDE: TDBEdit;
     pnlDicaFormaPagto: TPanel;
     lblDicaFormaPagto: TLabel;
-    fdQryCompraItensQTDE: TFMTBCDField;
-    fdQryCompraItensFRACIONADOR: TFMTBCDField;
     procedure ControlEditEnter(Sender: TObject);
     procedure ControlEditExit(Sender: TObject);
     procedure fdQryCompraItensAfterScroll(DataSet: TDataSet);
     procedure btnFecharClick(Sender: TObject);
-    procedure fdQryCompraItensBeforePost(DataSet: TDataSet);
     procedure btnConfirmarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure dbgTitulosDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -76,10 +81,12 @@ type
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
+    FControllerEntradaProdutos,
+    FControllerLotesProduto   : IControllerCustom;
     procedure CarregarLotes(const aEmpresa, aProduto : String);
-    procedure UpdateLotes;
 
-    function CarregarProdutos(aAno, aEntrada : Integer) : Boolean;
+    function Controller : IControllerEntradaProduto;
+    function CarregarProdutos(aAno, aEntrada : Integer; aEmpresa : String) : Boolean;
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -97,26 +104,27 @@ type
   - SET_LOTE_PRODUTO
 *)
 
-  function LotesProdutosConfirmados(const AOwner : TComponent; Ano, Controle : Integer) : Boolean;
+  function LotesProdutosConfirmados(const AOwner : TComponent; Ano, Controle : Integer; const Empresa : String) : Boolean;
 
 implementation
 
 {$R *.dfm}
 
 uses
-    Controller.Tabela
-  , UConstantesDGE
+    UConstantesDGE
   , UDMRecursos
-  , UDMBusiness;
+  , Controller.Tabela
+  , SGE.Controller.Factory
+  , Service.Message;
 
-function LotesProdutosConfirmados(const AOwner : TComponent; Ano, Controle : Integer) : Boolean;
+function LotesProdutosConfirmados(const AOwner : TComponent; Ano, Controle : Integer; const Empresa : String) : Boolean;
 var
   aRetorno : Boolean;
   AForm : TViewEntradaEstoqueLote;
 begin
   AForm := TViewEntradaEstoqueLote.Create(AOwner);
   try
-    aRetorno := AForm.CarregarProdutos(Ano, Controle);
+    aRetorno := AForm.CarregarProdutos(Ano, Controle, Empresa);
     if aRetorno then
       aRetorno := (AForm.ShowModal = mrOk)
     else
@@ -127,7 +135,7 @@ begin
   end;
 end;
 
-{ TfrmGeEntradaEstoqueLote }
+{ TViewEntradaEstoqueLote }
 
 procedure TViewEntradaEstoqueLote.RegistrarRotinaSistema;
 begin
@@ -141,9 +149,9 @@ end;
 
 procedure TViewEntradaEstoqueLote.btnConfirmarClick(Sender: TObject);
 begin
-  if ( ShowConfirm('Confirma os dados informados?') ) then
+  if ( TServiceMessage.ShowConfirm('Confirma os dados informados?') ) then
   begin
-    UpdateLotes;
+    Controller.GravarLoteProduto(gSistema.Codigo);
     ModalResult := mrOk;
   end;
 end;
@@ -153,65 +161,79 @@ procedure TViewEntradaEstoqueLote.CarregarLotes(const aEmpresa,
 var
   aLote : TLoteProduto;
 begin
-  with fdQryLotes do
-  begin
-    if fdQryLotes.Active then
-      fdQryLotes.Close;
+  FControllerLotesProduto
+    .DAO
+      .Close
+      .ParamsByName('empresa', aEmpresa)
+      .ParamsByName('centro_custo', CENTRO_CUSTO_ESTOQUE_GERAL)
+      .ParamsByName('produto', aProduto)
+      .Open;
 
-    ParamByName('empresa').AsString       := aEmpresa;
-    ParamByName('centro_custo').AsInteger := CENTRO_CUSTO_ESTOQUE_GERAL;
-    ParamByName('produto').AsString       := aProduto;
+  FControllerLotesProduto.DAO.DataSet.First;
 
-    OpenOrExecute;
-    First;
-
-    dbDescricao.Clear;
+  try
     dbDescricao.Items.BeginUpdate;
+    dbDescricao.Clear;
+
     while not Eof do
     begin
       aLote := TLoteProduto.Create;
 
-      aLote.ID         := FieldByName('id').AsString;
-      aLote.Descricao  := FieldByName('descricao').AsString;
-      aLote.Fabricacao := FieldByName('data_fabricacao').AsDateTime;
-      aLote.Validade   := FieldByName('data_validade').AsDateTime;
+      aLote.ID         := FControllerLotesProduto.DAO.DataSet.FieldByName('id').AsString;
+      aLote.Descricao  := FControllerLotesProduto.DAO.DataSet.FieldByName('descricao').AsString;
+      aLote.Fabricacao := FControllerLotesProduto.DAO.DataSet.FieldByName('data_fabricacao').AsDateTime;
+      aLote.Validade   := FControllerLotesProduto.DAO.DataSet.FieldByName('data_validade').AsDateTime;
 
       dbDescricao.Items.AddObject(aLote.Descricao, aLote);
-      Next;
+      FControllerLotesProduto.DAO.DataSet.Next;
     end;
+  finally
+    FControllerLotesProduto.DAO.Close;
     dbDescricao.Items.EndUpdate;
-
-    fdQryLotes.Close;
   end;
 end;
 
-function TViewEntradaEstoqueLote.CarregarProdutos(aAno, aEntrada: Integer) : Boolean;
-var
-  aRetorno : Boolean;
+function TViewEntradaEstoqueLote.CarregarProdutos(aAno, aEntrada: Integer; aEmpresa : String) : Boolean;
 begin
-  aRetorno := False;
-  try
-    with fdQryCompraItens do
-    begin
-      Close;
-      ParamByName('ano').AsInteger    := aAno;
-      ParamByName('compra').AsInteger := aEntrada;
-      Open;
+  FControllerEntradaProdutos
+    .DAO
+    .Close
+    .ClearWhere;
 
-      aRetorno := (fdQryCompraItens.RecordCount > 0);
-    end;
-  finally
-    Result := aRetorno;
-  end;
+  FControllerEntradaProdutos
+    .DAO
+    .Where('i.Ano        = :ano')
+    .Where('i.Codcontrol = :controle')
+    .Where('i.Codemp     = :empresa')
+    .Where('p.estoque_aprop_lote = 1') // Estoque do produto gerenciado por lote
+    .Where('p.movimenta_estoque = 1')  // Produto movimenta o estoque (Gerar entrada/saída)
+    .ParamsByName('ano',      aAno)
+    .ParamsByName('controle', aEntrada)
+    .ParamsByName('empresa',  aEmpresa)
+    .Open;
+
+  Result := not FControllerEntradaProdutos.DAO.DataSet.IsEmpty;
+
+  if Result then
+    TTabelaController
+      .New
+      .Tabela( dtsCompraItens.DataSet )
+      .Display('CODCONTROL', 'Entrada', '###0000000', TAlignment.taCenter, True)
+      .Display('SEQ', '#', '00', TAlignment.taCenter, True)
+      .Display('QTDE', 'Quantidade', ',0', TAlignment.taRightJustify, True)
+      .Display('LOTE_DESCRICAO', 'Lote', TAlignment.taLeftJustify, False)
+      .Display('LOTE_DATA_FAB',  'Fabricação', 'dd/mm/yyyy', TAlignment.taLeftJustify, False)
+      .Display('LOTE_DATA_AL',   'Validade', 'dd/mm/yyyy', TAlignment.taLeftJustify, False)
+      .Configurar;
 end;
 
 procedure TViewEntradaEstoqueLote.ControlEditEnter(Sender: TObject);
 begin
   inherited;
   if ( (Sender = dbDescricao) or (Sender = dbQTDE) or (Sender = dbDataFabricacao) or (Sender = dbDataValidade) ) then
-    if ( not fdQryCompraItens.IsEmpty ) then
-      if ( fdQryCompraItens.State <> dsEdit ) then
-        fdQryCompraItens.Edit;
+    if ( not dtsCompraItens.DataSet.IsEmpty ) then
+      if ( dtsCompraItens.DataSet.State <> dsEdit ) then
+        dtsCompraItens.DataSet.Edit;
 end;
 
 procedure TViewEntradaEstoqueLote.ControlEditExit(Sender: TObject);
@@ -222,20 +244,20 @@ begin
   if ( (Sender = dbDescricao) and (dbDescricao.ItemIndex >= 0) ) then
   begin
 
-    if ( fdQryCompraItens.State = dsEdit ) then
+    if ( dtsCompraItens.DataSet.State = dsEdit ) then
     begin
       if (dbDescricao.ItemIndex >= 0) then
       begin
         aLote := TLoteProduto(dbDescricao.Items.Objects[dbDescricao.ItemIndex]);
-        fdQryCompraItensLOTE_ID.AsString         := aLote.ID;
-        fdQryCompraItensLOTE_DATA_FAB.AsDateTime := aLote.Fabricacao;
-        fdQryCompraItensLOTE_DATA_VAL.AsDateTime := aLote.Validade;
+        dtsCompraItens.DataSet.FieldByName('LOTE_ID').AsString         := aLote.ID;
+        dtsCompraItens.DataSet.FieldByName('LOTE_DATA_FAB').AsDateTime := aLote.Fabricacao;
+        dtsCompraItens.DataSet.FieldByName('LOTE_DATA_VAL').AsDateTime := aLote.Validade;
       end
       else
       begin
-        fdQryCompraItensLOTE_ID.Clear;
-        fdQryCompraItensLOTE_DATA_FAB.Clear;
-        fdQryCompraItensLOTE_DATA_VAL.Clear;
+        dtsCompraItens.DataSet.FieldByName('LOTE_ID').Clear;
+        dtsCompraItens.DataSet.FieldByName('LOTE_DATA_FAB').Clear;
+        dtsCompraItens.DataSet.FieldByName('LOTE_DATA_VAL').Clear;
       end;
     end;
 
@@ -244,26 +266,28 @@ begin
   if ( Sender = dbDataValidade ) then
   begin
 
-    if ( fdQryCompraItens.State = dsEdit ) then
+    if ( dtsCompraItens.DataSet.State = dsEdit ) then
     begin
-      if (Trim(fdQryCompraItensLOTE_DESCRICAO.AsString) = EmptyStr) then
+      if (Trim(dtsCompraItens.DataSet.FieldByName('LOTE_DESCRICAO').AsString) = EmptyStr) then
       begin
-        ShowWarning('Informe a Descrição do Lote');
-        if dbDescricao.Visible and dbDescricao.Enabled then dbDescricao.SetFocus;
+        TServiceMessage.ShowWarning('Informe a Descrição do Lote');
+        if dbDescricao.Visible and dbDescricao.Enabled then
+          dbDescricao.SetFocus;
       end
       else
       if (dbDataFabricacao.Date = StrToDate(SYS_EMPTY_DATE)) then
       begin
-        ShowWarning('Informe a Data de Fabricação do Lote');
-        if dbDataFabricacao.Visible and dbDataFabricacao.Enabled then dbDataFabricacao.SetFocus;
+        TServiceMessage.ShowWarning('Informe a Data de Fabricação do Lote');
+        if dbDataFabricacao.Visible and dbDataFabricacao.Enabled then
+          dbDataFabricacao.SetFocus;
       end
       else
       begin
-        fdQryCompraItens.Post;
+        dtsCompraItens.DataSet.Post;
 
-        fdQryCompraItens.Next;
+        dtsCompraItens.DataSet.Next;
 
-        if ( not fdQryCompraItens.Eof ) then
+        if ( not dtsCompraItens.DataSet.Eof ) then
           dbProduto.SetFocus
         else
           btnConfirmar.SetFocus;
@@ -271,6 +295,11 @@ begin
     end;
 
   end;
+end;
+
+function TViewEntradaEstoqueLote.Controller: IControllerEntradaProduto;
+begin
+  Result := FControllerEntradaProdutos as IControllerEntradaProduto;
 end;
 
 procedure TViewEntradaEstoqueLote.dbgTitulosDrawColumnCell(Sender: TObject;
@@ -290,40 +319,26 @@ begin
       FillRect(Rect);
       Font.Style  := [fsbold]
     end;
+
+  TDbGrid(Sender).DefaultDrawDataCell(Rect, TDbGrid(Sender).columns[datacol].field, State);
 end;
 
 procedure TViewEntradaEstoqueLote.fdQryCompraItensAfterScroll(
   DataSet: TDataSet);
 begin
-  CarregarLotes(fdQryCompraItensCODEMP.AsString, fdQryCompraItensCODPROD.AsString);
-end;
-
-procedure TViewEntradaEstoqueLote.fdQryCompraItensBeforePost(
-  DataSet: TDataSet);
-begin
-  fdQryCompraItensLOTE_DESCRICAO.AsString := Trim(fdQryCompraItensLOTE_DESCRICAO.AsString);
-
-  if (Trim(fdQryCompraItensLOTE_DESCRICAO.AsString) = EmptyStr) then
-    fdQryCompraItensLOTE_DESCRICAO.Clear;
-
-  if (fdQryCompraItensLOTE_DATA_FAB.AsDateTime = StrToDate(SYS_EMPTY_DATE)) then
-    fdQryCompraItensLOTE_DATA_FAB.Clear;
-
-  if (fdQryCompraItensLOTE_DATA_VAL.AsDateTime = StrToDate(SYS_EMPTY_DATE)) then
-    fdQryCompraItensLOTE_DATA_VAL.Clear;
-
-  if (fdQryCompraItensLOTE_DESCRICAO.IsNull and fdQryCompraItensLOTE_DATA_FAB.IsNull and fdQryCompraItensLOTE_DATA_VAL.IsNull) then
-    fdQryCompraItensLOTE_ID.Clear;
+  CarregarLotes(
+    dtsCompraItens.DataSet.FieldByName('CODEMP').AsString,
+    dtsCompraItens.DataSet.FieldByName('CODPROD').AsString);
 end;
 
 procedure TViewEntradaEstoqueLote.FormCreate(Sender: TObject);
 begin
+  FControllerEntradaProdutos := TControllerFactory.New.EntradaProduto;
+  FControllerLotesProduto    := TControllerFactory.New.LoteProduto;
+
+  dtsCompraItens.DataSet := FControllerEntradaProdutos.DAO.DataSet;
+  dtsLotes.DataSet       := FControllerLotesProduto.DAO.DataSet;
   inherited;
-  TTabelaController
-    .New
-    .Tabela( fdQryCompraItens )
-    .Display('QTDE', 'Quantidade', ',0', TAlignment.taRightJustify)
-    .Configurar( fdQryCompraItens );
 end;
 
 procedure TViewEntradaEstoqueLote.FormKeyDown(Sender: TObject; var Key: Word;
@@ -331,64 +346,13 @@ procedure TViewEntradaEstoqueLote.FormKeyDown(Sender: TObject; var Key: Word;
 begin
   if (Key = VK_ESCAPE) then
   begin
-    if (fdQryCompraItens.State = dsEdit) then
-      fdQryCompraItens.Cancel
+    if (dtsCompraItens.DataSet.State = dsEdit) then
+      dtsCompraItens.DataSet.Cancel
     else
       btnFechar.Click;
   end
   else
     inherited;
-end;
-
-procedure TViewEntradaEstoqueLote.UpdateLotes;
-begin
-  if (fdQryCompraItens.State = dsEdit) then
-    fdQryCompraItens.Post;
-
-  fdQryCompraItens.DisableControls;
-  try
-    fdQryCompraItens.First;
-    while not fdQryCompraItens.Eof do
-    begin
-      if fdSetLoteProduto.Active then
-        fdSetLoteProduto.Close;
-
-      if (Trim(fdQryCompraItensLOTE_DESCRICAO.AsString) <> EmptyStr) then
-      begin
-        fdSetLoteProduto.ParamByName('empresa').AsString := fdQryCompraItensCODEMP.AsString;
-        fdSetLoteProduto.ParamByName('produto').AsString := fdQryCompraItensCODPROD.AsString;
-        fdSetLoteProduto.ParamByName('centro_custo').AsInteger  := CENTRO_CUSTO_ESTOQUE_GERAL;
-        fdSetLoteProduto.ParamByName('lote_descricao').AsString := Trim(fdQryCompraItensLOTE_DESCRICAO.AsString);
-        fdSetLoteProduto.ParamByName('lote_qtde').AsCurrency    := fdQryCompraItensQTDE.AsCurrency * fdQryCompraItensFRACIONADOR.AsCurrency;
-
-        if not fdQryCompraItensLOTE_DATA_FAB.IsNull then
-          fdSetLoteProduto.ParamByName('lote_fab').AsDateTime := fdQryCompraItensLOTE_DATA_FAB.AsDateTime
-        else
-          fdSetLoteProduto.ParamByName('lote_fab').Clear;
-
-        if not fdQryCompraItensLOTE_DATA_VAL.IsNull then
-          fdSetLoteProduto.ParamByName('lote_val').AsDateTime  := fdQryCompraItensLOTE_DATA_VAL.AsDateTime
-        else
-          fdSetLoteProduto.ParamByName('lote_val').Clear;
-
-        if fdSetLoteProduto.OpenOrExecute then
-        begin
-          fdQryCompraItens.Edit;
-          fdQryCompraItensLOTE_ID.AsString := fdSetLoteProduto.FieldByName('lote_id').AsString;
-          fdQryCompraItens.Post;
-
-          fdSetLoteProduto.Close;
-        end;
-      end;
-
-      fdQryCompraItens.Next;
-    end;
-
-    fdQryCompraItens.ApplyUpdates();
-    CommitTransaction;
-  finally
-    fdQryCompraItens.EnableControls;
-  end;
 end;
 
 end.

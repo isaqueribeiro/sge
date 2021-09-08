@@ -12,6 +12,7 @@ type
     strict private
       class var _instance : IUsuarioModel;
     private
+      FLocalId: String;
       FUUID   : TGUID;
       FLogin  ,
       FEmail  ,
@@ -21,6 +22,9 @@ type
       FAlterarValorVenda : Boolean;
       FVendedor : IPessoaFisicaModel;
       FEmpresa  : IEmpresaModel;
+
+      function LocalId(const Value: String) : IUsuarioModel; overload;
+      function LocalId : String; overload;
 
       function UUID(const Value: TGUID)     : IUsuarioModel; overload;
       function UUID : TGUID; overload;
@@ -53,8 +57,10 @@ type
 
       function AlterarValorVenda(const Value: Boolean)  : IUsuarioModel; overload;
       function AlterarValorVenda : Boolean; overload;
-    public
+
+    protected
       constructor Create;
+    public
       destructor Destroy; override;
 
       class function New : IUsuarioModel;
@@ -84,11 +90,12 @@ end;
 constructor TUsuario.Create;
 begin
   inherited Create;
-  FUUID   := TGUID.Empty;
-  FLogin  := EmptyStr;
-  FEmail  := EmptyStr;
-  FSenha  := EmptyStr;
-  FLogado := False;
+  FLocalId := EmptyStr;
+  FUUID    := TGUID.Empty;
+  FLogin   := EmptyStr;
+  FEmail   := EmptyStr;
+  FSenha   := EmptyStr;
+  FLogado  := False;
   FAlterarValorVenda := False;
 
   FFuncao   := TFuncao.New;
@@ -142,6 +149,17 @@ begin
 
   Result := Self;
   FEmpresa.CNPJ(aCNPJ);
+end;
+
+function TUsuario.LocalId: String;
+begin
+  Result := FLocalId;
+end;
+
+function TUsuario.LocalId(const Value: String): IUsuarioModel;
+begin
+  Result   := Self;
+  FLocalId := Value.Trim;
 end;
 
 function TUsuario.Logado: Boolean;

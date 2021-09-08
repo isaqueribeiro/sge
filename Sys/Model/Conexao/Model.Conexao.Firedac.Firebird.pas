@@ -11,6 +11,7 @@ type
   TModelConexaoFiredacFireBird = class(TModelConexaoFiredac)
     private
       FDriverLink : TFDPhysFBDriverLink;
+      FTransacao  : TFDTransaction;
     protected
       constructor Create;
       procedure Configuracao; override;
@@ -83,14 +84,12 @@ begin
 end;
 
 constructor TModelConexaoFiredacFireBird.Create;
-var
-  aTransacao : TFDTransaction;
 begin
   inherited;
   FDriverLink := TFDPhysFBDriverLink.Create(nil);
-  aTransacao  := TFDTransaction.Create(nil);
+  FTransacao  := TFDTransaction.Create(nil);
 
-  with aTransacao, Options do
+  with FTransacao, Options do
   begin
     Connection := TFDConnection(Conexao);
     AutoCommit := True;
@@ -99,7 +98,7 @@ begin
     Isolation  := TFDTxIsolation.xiReadCommitted;
   end;
 
-  Transacao( TComponent(aTransacao) );
+  Transacao( TComponent(FTransacao) );
 
   TFDConnection(Conexao).Transaction := TFDTransaction(Self.Transacao);
 end;
@@ -107,6 +106,7 @@ end;
 destructor TModelConexaoFiredacFireBird.Destroy;
 begin
   FDriverLink.DisposeOf;
+  FTransacao.DisposeOf;
   inherited;
 end;
 

@@ -116,6 +116,16 @@ type
       class function New : IControllerCustom;
   end;
 
+  // Lotes do Produto
+  TControllerLoteProduto = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
 implementation
 
 uses
@@ -414,6 +424,23 @@ begin
 end;
 
 class function TControllerCombustivelVeiculo.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerLoteProduto }
+
+constructor TControllerLoteProduto.Create;
+begin
+  inherited Create(TModelDAOFactory.New.LoteProduto);
+end;
+
+destructor TControllerLoteProduto.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerLoteProduto.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

@@ -54,6 +54,8 @@ begin
   try
     Result := Self;
     FError := EmptyStr;
+
+    FUsuario.Registered(False);
     try
       aAuth := TFirebaseAuth.Create;
       aAuth.SetApiKey(FApiKey);
@@ -65,7 +67,7 @@ begin
         raise Exception.Create(aRetorno.GetValue<String>('message'))
       else
         FUsuario
-          .UID( aJson.GetValue<String>('localId') )
+          .doc( aJson.GetValue<String>('localId') )
           .Registered( aJson.GetValue<Boolean>('registered') );
     except
       On E : Exception do
@@ -77,7 +79,7 @@ begin
           FError := 'A senha da conta não corresponde'
         else
         if (E.Message = 'EMAIL_NOT_FOUND') then
-          FError := 'Não há registro de usuário correspondente a este identificador'
+          FError := EmptyStr // 'Não há registro de usuário correspondente a este identificador'
         else
           FError := E.Message;
       end;
@@ -111,7 +113,7 @@ begin
       aJson := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(aResponse.ContentAsString), 0);
 
       FUsuario
-        .UID( aJson.GetValue<String>('localId') )
+        .doc( aJson.GetValue<String>('localId') )
         .Email( aJson.GetValue<String>('email') )
         .DisplayName( aJson.GetValue<String>('displayName') )
         .Registered( aJson.GetValue<Boolean>('registered') )
@@ -172,7 +174,7 @@ begin
         raise Exception.Create(aRetorno.GetValue<String>('message'))
       else
         FUsuario
-          .UID( aJson.GetValue<String>('localId') )
+          .doc( aJson.GetValue<String>('localId') )
           .Registered( True );
     except
       On E : Exception do

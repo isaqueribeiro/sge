@@ -24,6 +24,7 @@ Uses
     TPermissaoLista         = Array [0..45] of String;
 
     TAliquota   = (taICMS, taISS);
+    TTipoItem   = TAliquota;
     TTipoRegime = (trSimplesNacional, trSimplesExcessoReceita, trRegimeNormal);
 
   TSistema = record
@@ -496,6 +497,19 @@ const
   STATUS_CMP_CAN = 3;
   STATUS_CMP_NFE = 4;
 
+  // Tipos de autorizações de compras/serviços
+
+  TIPO_AUTORIZACAO_COMPRA         = 1;
+  TIPO_AUTORIZACAO_SERVICO        = 2;
+  TIPO_AUTORIZACAO_COMPRA_SERVICO = 3;
+
+  // Status de autorizações de compras/serviços
+
+  STATUS_AUTORIZACAO_EDC = 0;
+  STATUS_AUTORIZACAO_ABR = 1;
+  STATUS_AUTORIZACAO_AUT = 2;
+  STATUS_AUTORIZACAO_FAT = 3;
+  STATUS_AUTORIZACAO_CAN = 4;
 
   // Tipos de Documentos de Entrada
 

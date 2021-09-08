@@ -367,7 +367,6 @@ type
     function GetRotinaFinalizarID : String;
     function GetRotinaGerarNFeID : String;
     function GetRotinaCancelarEntradaID : String;
-    function LoteProdutoPendente  : Boolean;
 
     procedure RegistrarNovaRotinaSistema;
     procedure BaixarImportarNFe(aChaveNFe, aNSU : String);
@@ -675,7 +674,7 @@ begin
   FControllerCFOP    := TControllerFactory.New.CFOP;
 
   if (gSistema.Codigo <> SISTEMA_GESTAO_OPME) then
-    if (not (Empresa.GetSegmentoID(gUsuarioLogado.Empresa) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID])) then
+    if (not (Empresa.GetSegmentoID(FController.DAO.Usuario.Empresa.CNPJ) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID])) then
       OcutarCampoAutorizacao;
 
   DtSrcTabelaItens.DataSet      := Produtos.DAO.DataSet;
@@ -698,9 +697,9 @@ begin
   CampoDescricao := 'f.NomeForn';
   CampoOrdenacao := 'c.dtEnt, f.NomeForn';
 
-  aEmitirNFE := Empresa.GetPermitirEmissaoNFe(gUsuarioLogado.Empresa)
-    and Empresa.GetPermitirEmissaoNFeEntrada(gUsuarioLogado.Empresa)
-    and Empresa.DAO.Configuracao.Certificado(gUsuarioLogado.Empresa).Instalado;
+  aEmitirNFE := Empresa.GetPermitirEmissaoNFe(FController.DAO.Usuario.Empresa.CNPJ)
+    and Empresa.GetPermitirEmissaoNFeEntrada(FController.DAO.Usuario.Empresa.CNPJ)
+    and Empresa.DAO.Configuracao.Certificado(FController.DAO.Usuario.Empresa.CNPJ).Instalado;
 
   dbCalcularTotais.Visible      := aEmitirNFE;
   lblCalcularTotaisInfo.Visible := aEmitirNFE;
@@ -800,16 +799,16 @@ var
   aChaveNFe,
   aNSU     : String;
 begin
-  DMNFe.LerConfiguracao(gUsuarioLogado.Empresa, tipoDANFEFast);
+  DMNFe.LerConfiguracao(FController.DAO.Usuario.Empresa.CNPJ, tipoDANFEFast);
 
   aEmissor  := EmptyStr;
   aUF       := EmptyStr;
   aChaveNFe := EmptyStr;
-  aNSU      := FormatFloat('000000000000000', GetNumeroNSU(gUsuarioLogado.Empresa));
+  aNSU      := FormatFloat('000000000000000', GetNumeroNSU(FController.DAO.Usuario.Empresa.CNPJ));
 
   if (DMNFe.GetCnpjCertificado <> EmptyStr) then
     if not IdentificarNFe(aEmissor, aUF, aChaveNFe, aNSU) then
-      aNSU := FormatFloat('000000000000000', GetNumeroNSU(gUsuarioLogado.Empresa));
+      aNSU := FormatFloat('000000000000000', GetNumeroNSU(FController.DAO.Usuario.Empresa.CNPJ));
 
   BaixarImportarNFe(aChaveNFe, aNSU);
 end;
@@ -839,7 +838,7 @@ begin
   aRetorno := False;
 
   try
-    if (Copy(DMNFe.GetCnpjCertificado, 1, 8) <> Copy(gUsuarioLogado.Empresa, 1, 8)) then
+    if (Copy(DMNFe.GetCnpjCertificado, 1, 8) <> Copy(FController.DAO.Usuario.Empresa.CNPJ, 1, 8)) then
     begin
       ShowWarning('A Empresa selecionada no login do sistema não está de acordo com o Certificado informado!');
       Exit;
@@ -851,11 +850,11 @@ begin
       Exit;
     end;
 
-    if not DMNFe.GetValidadeCertificado(gUsuarioLogado.Empresa) then
+    if not DMNFe.GetValidadeCertificado(FController.DAO.Usuario.Empresa.CNPJ) then
       Exit;
 
     aRetorno := TfrmDistribuicaoDFe
-      .getInstance(gUsuarioLogado.Empresa)
+      .getInstance(FController.DAO.Usuario.Empresa.CNPJ)
       .&End(aCNPJEmissor, aUFEmissor, aChave, aNSU);
   finally
     Result := aRetorno;
@@ -934,39 +933,6 @@ begin
 
       Next;
     end;
-  end;
-end;
-
-function TViewEntrada.LoteProdutoPendente: Boolean;
-var
-  aRetorno : Boolean;
-begin
-  aRetorno := False;
-  try
-    aRetorno := (TTipoMovimentoEntrada(DtSrcTabela.DataSet.FieldByName('TIPO_MOVIMENTO').AsInteger) = tmeProduto);
-
-    // Verificar a pendência na informação de lotes caso a entrada seja de produtos
-    if aRetorno then
-      with DMBusiness, fdQryBusca do
-      begin
-        Close;
-        SQL.Clear;
-        SQL.Add('Select');
-        SQL.Add('  count(ci.seq) as pendentes');
-        SQL.Add('from TBCOMPRASITENS ci');
-        SQL.Add('  inner join TBCOMPRAS cp on (cp.ano = ci.ano and cp.codcontrol = ci.codcontrol and cp.codemp = ci.codemp)');
-        SQL.Add('  inner join TBPRODUTO pr on (pr.cod = ci.codprod and pr.estoque_aprop_lote = 1 and pr.movimenta_estoque = 1)');
-        SQL.Add('  left join TBCFOP cf on (cf.cfop_cod = cp.nfcfop)');
-        SQL.Add('where ci.ano        = ' + DtSrcTabela.DataSet.FieldByName('ANO').AsString);
-        SQL.Add('  and ci.codcontrol = ' + DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsString);
-        Open;
-
-        aRetorno := (FieldByName('pendentes').AsInteger > 0);
-
-        Close;
-      end;
-  finally
-    Result := aRetorno;
   end;
 end;
 
@@ -1905,8 +1871,8 @@ begin
     begin
 
       if (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) then
-        if LoteProdutoPendente then
-          if not LotesProdutosConfirmados(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger) then
+        if Controller.LoteProdutoPendente then
+          if not LotesProdutosConfirmados(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger, FieldByName('CODEMP').AsString) then
             Abort
           else
             AbrirTabelaLotes;
@@ -2750,24 +2716,9 @@ begin
         MoveFile(PChar(sArquivoNFe2), PChar(ExtractFilePath(sArquivoNFe2) + 'log\' + ExtractFileName(sArquivoNFe2)));
       end;
 
-      with DMBusiness, fdQryBusca do
-      begin
-        Close;
-        SQL.Clear;
-        SQL.Add('Update TBCOMPRAS Set ');
-        SQL.Add('    LOTE_NFE_ANO    = null');
-        SQL.Add('  , LOTE_NFE_NUMERO = null');
-        SQL.Add('  , LOTE_NFE_CODIGO = null');
-        SQL.Add('  , LOTE_NFE_RECIBO = null');
-        SQL.Add('where ANO        = ' + FieldByName('ANO').AsString);
-        SQL.Add('  and CODCONTROL = ' + FieldByName('CODCONTROL').AsString);
-        SQL.Add('  and CODEMP     = ' + QuotedStr(FieldByName('CODEMP').AsString));
-        ExecSQL;
-
-        CommitTransaction;
-      end;
-
+      Controller.LimparLoteEmissaoNFe;
       RecarregarRegistro;
+
       AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
 
       ShowInformation('Dados NF-e', 'LOG de envio de recibo NF-e limpo com sucesso!');

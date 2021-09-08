@@ -3,11 +3,23 @@ unit View.PadraoLogin;
 interface
 
 uses
-  Interacao.Factory, Interacao.Usuario, Interacao.Empresa,
-  View.PadraoAbertura,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Winapi.Windows,
+  Winapi.Messages,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls,
+  Vcl.Buttons,
+  Vcl.ExtCtrls,
 
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls;
+  Interacao.Factory,
+  Interacao.Usuario,
+  Interacao.Empresa,
+  View.PadraoAbertura;
 
 type
   // Injetando novos métodos em uma classe existente
