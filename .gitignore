@@ -39,4 +39,4 @@ Bin/*.part
 Bin/*._dll
 _diversos/Imagens/*.*
 doc/*
-GerarLicenca/google-services.json
+GerarLicenca/*.json
