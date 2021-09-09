@@ -26,6 +26,18 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
+  // Lista de transportadoras ativas
+  TModelDAOTransportadora = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
 implementation
 
 uses
@@ -179,6 +191,45 @@ begin
     FieldByName('PRACA_3').Clear;
     FieldByName('OBSERVACAO').Clear;
   end;
+end;
+
+{ TModelDAOTransportadora }
+
+constructor TModelDAOTransportadora.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select              ')
+        .Add('    f.Codforn       ')
+        .Add('  , f.Nomeforn      ')
+        .Add('  , f.Nomefant      ')
+        .Add('  , f.transportadora')
+        .Add('  , f.ativo         ')
+        .Add('from TBFORNECEDOR f ')
+      .&End
+      .Where('f.transportadora = 1')
+      .OrderBy('f.Nomeforn')
+    .Open;
+end;
+
+destructor TModelDAOTransportadora.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOTransportadora.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOTransportadora.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
 end;
 
 end.

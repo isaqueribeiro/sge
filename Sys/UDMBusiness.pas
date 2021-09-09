@@ -295,7 +295,6 @@ var
   function GetPermitirVendaEstoqueInsEmpresa(const sCNPJEmpresa : String) : Boolean;
   function GetPermitirDuplicarCNPJCliente(const sCNPJEmpresa : String) : Boolean;
   function GetPermitirVerdadeiroFalsoCNPJCliente(const sCNPJEmpresa : String) : Boolean;
-  function GetAutorizacaoInformarCliente(const sCNPJEmpresa : String) : Boolean;
   function GetSimplesNacionalInsEmpresa(const sCNPJEmpresa : String) : Boolean;
   function GetEstoqueUnificadoEmpresa(const sCNPJEmpresa : String) : Boolean;
   function GetEstoqueSateliteEmpresa(const sCNPJEmpresa : String) : Boolean;
@@ -2669,21 +2668,6 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('Select coalesce(cliente_permitir_vf_cnpj, 0) as permitir from TBCONFIGURACAO where empresa = ' + QuotedStr(sCNPJEmpresa));
-    Open;
-
-    Result := (FieldByName('permitir').AsInteger = 1);
-
-    Close;
-  end;
-end;
-
-function GetAutorizacaoInformarCliente(const sCNPJEmpresa : String) : Boolean;
-begin
-  with DMBusiness, fdQryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Select autoriza_informa_cliente as permitir from TBCONFIGURACAO where empresa = ' + QuotedStr(sCNPJEmpresa));
     Open;
 
     Result := (FieldByName('permitir').AsInteger = 1);

@@ -353,8 +353,8 @@ uses
   , View.Esmaecer
 
   // Movimentação
-  ,UGeRequisicaoCliente,
-  UGeAutorizacaoCompra,
+  ,UGeRequisicaoCliente
+  , View.AutorizacaoCompra,
   UGeRequisicaoCompra,
 
   // Estoque, Entrada e Saída

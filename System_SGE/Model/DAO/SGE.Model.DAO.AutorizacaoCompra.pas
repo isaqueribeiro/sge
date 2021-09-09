@@ -23,6 +23,8 @@ type
     public
       destructor Destroy; override;
       class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
   // Itens da Autorizações de Compras/Serviços
@@ -36,6 +38,20 @@ type
     public
       destructor Destroy; override;
       class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+  end;
+
+  // Tipos de Autorizações de Compras/Serviços (View)
+  TModelDAOTipoAutorizacao = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
 implementation
@@ -230,7 +246,6 @@ end;
 constructor TModelDAOAutorizacaoCompraProdutoServico.Create;
 begin
   inherited Create;
-  FConn.Query.CreateGenerator('GEN_AUTORIZA_COMPRA_' + FormatDateTime('yyyy', Date));
   FConn
     .Query
       .TableName('TBAUTORIZA_COMPRAITEM')
@@ -260,8 +275,13 @@ begin
         .Add('  left join TBPRODUTO p on (p.cod = i.produto)        ')
         .Add('  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)')
       .&End
-    .OpenEmpty
-    .CloseEmpty;
+      .Where('i.Ano     = :ano')
+      .Where('i.codigo  = :codigo')
+      .Where('i.empresa = :empresa')
+      .ParamByName('ano', 0)
+      .ParamByName('codigo', 0)
+      .ParamByName('empresa', EmptyStr)
+    .Open;
 
   FConn.Query.DataSet.AfterOpen   := DataSetAfterOpen;
   FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
@@ -310,6 +330,40 @@ begin
     FieldByName('UNIDADE').Clear;
     FieldByName('UNP_SIGLA').Clear;
   end;
+end;
+
+{ TModelDAOTipoAutorizacao }
+
+constructor TModelDAOTipoAutorizacao.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select       ')
+        .Add('  a.codigo,  ')
+        .Add('  a.descricao')
+        .Add('from VW_TIPO_AUTORIZACAO a')
+      .&End
+    .Open;
+end;
+
+destructor TModelDAOTipoAutorizacao.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOTipoAutorizacao.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOTipoAutorizacao.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
 end;
 
 end.

@@ -46,6 +46,7 @@ type
       function GetPermitirEmissaoNFe(aCNPJ : String) : Boolean;
       function GetPermitirEmissaoNFeEntrada(aCNPJ : String) : Boolean;
       function GetRegime(aCNPJ : String) : TTipoRegime;
+      function GetAutorizacaoInformarCliente(const aCNPJ : String) : Boolean;
   end;
 
 implementation
@@ -97,6 +98,17 @@ end;
 destructor TControllerEmpresaView.Destroy;
 begin
   inherited;
+end;
+
+function TControllerEmpresaView.GetAutorizacaoInformarCliente(const aCNPJ: String): Boolean;
+begin
+  Result := False;
+
+  if not FDAO.DataSet.Active then
+    FDAO.Open;
+
+  if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
+    Result := (FDAO.DataSet.FieldByName('autoriza_informa_cliente').AsInteger = 1);
 end;
 
 function TControllerEmpresaView.GetEmpresaUF(aCNPJ: String): String;

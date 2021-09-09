@@ -89,7 +89,8 @@ type
       FSecaoProduto    ,
       FSegmento        ,
       FTabelaIBPT      ,
-      FTipoAliquotaView,
+      FTipoAliquotaView   ,
+      FTipoAutorizacaoView,
       FTipoCNPJView    ,
       FTipoComissaoView,
       FTipoDespesa     ,
@@ -167,6 +168,7 @@ type
       function Segmento : IControllerCustom;
       function TabelaIBPT : IControllerCustom;
       function TipoAliquotaView : IControllerCustom;
+      function TipoAutorizacaoView : IControllerCustom;
       function TipoCNPJView : IControllerCustom;
       function TipoComissaoView : IControllerCustom;
       function TipoDespesa : IControllerCustom;
@@ -642,6 +644,14 @@ begin
     FTipoAliquotaView := TControllerTipoAliquotaView.New;
 
   Result := FTipoAliquotaView;
+end;
+
+function TControllerFactory.TipoAutorizacaoView: IControllerCustom;
+begin
+  if not Assigned(FTipoAutorizacaoView) then
+    FTipoAutorizacaoView := TControllerTipoAutorizacaoView.New;
+
+  Result := FTipoAutorizacaoView;
 end;
 
 function TControllerFactory.TipoCNPJView: IControllerCustom;

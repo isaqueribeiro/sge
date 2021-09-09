@@ -372,6 +372,7 @@ begin
         .Add('  , coalesce(c.tipo_regime_nfe, 0)            as regime')
         .Add('  , coalesce(s.nfe_emitir, 0)                 as nfe_emitir')
         .Add('  , coalesce(s.nfe_emitir_entrada, 0)         as nfe_emitir_entrada')
+        .Add('  , coalesce(s.autoriza_informa_cliente, 0)   as autoriza_informa_cliente')
         .Add('from VW_EMPRESA e')
         .Add('  inner join TBEMPRESA c on (c.cnpj = e.cnpj)')
         .Add('  left join TBCONFIGURACAO s on (s.empresa = e.cnpj)')

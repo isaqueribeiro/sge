@@ -40,6 +40,7 @@ type
       FAliquotaICMS      ,
       FAliquotaPISView   ,
       FAutorizacaoCompra ,
+      FAutorizacaoCompraProdutoServico,
       FBairro,
       FBanco ,
       FBancoFebrabanView ,
@@ -92,7 +93,8 @@ type
       FSecaoProduto   ,
       FSegmento       ,
       FTabelaIBPT     ,
-      FTipoAliquotaView,
+      FTipoAliquotaView   ,
+      FTipoAutorizacaoView,
       FTipoCNPJView    ,
       FTipoComissaoView,
       FTipoDespesa     ,
@@ -106,6 +108,7 @@ type
       FTipoRegimeView,
       FTipoTributacao,
       FTipoVeiculo   ,
+      FTransportadora,
       FUF ,
       FUnidadeProduto,
       FVendedor      : IModelDAOCustom;
@@ -119,6 +122,7 @@ type
       function AliquotaICMS : IModelDAOCustom;
       function AliquotaPISView : IModelDAOCustom;
       function AutorizacaoCompra : IModelDAOCustom;
+      function AutorizacaoCompraProdutoServico : IModelDAOCustom;
       function Bairro : IModelDAOCustom;
       function Banco : IModelDAOCustom;
       function BancoFebrabanView : IModelDAOCustom;
@@ -172,6 +176,7 @@ type
       function Segmento : IModelDAOCustom;
       function TabelaIBPT : IModelDAOCustom;
       function TipoAliquotaView : IModelDAOCustom;
+      function TipoAutorizacaoView : IModelDAOCustom;
       function TipoCNPJView : IModelDAOCustom;
       function TipoComissaoView : IModelDAOCustom;
       function TipoDespesa : IModelDAOCustom;
@@ -185,6 +190,7 @@ type
       function TipoRegimeView : IModelDAOCustom;
       function TipoTributacao : IModelDAOCustom;
       function TipoVeiculo : IModelDAOCustom;
+      function Transportadora : IModelDAOCustom;
       function UF       : IModelDAOCustom;
       function UnidadeProduto : IModelDAOCustom;
       function Vendedor : IModelDAOCustom;
@@ -313,6 +319,14 @@ begin
   Result := FTipoAliquotaView;
 end;
 
+function TModelDAOFactory.TipoAutorizacaoView: IModelDAOCustom;
+begin
+  if not Assigned(FTipoAutorizacaoView) then
+    FTipoAutorizacaoView := TModelDAOTipoAutorizacao.New;
+
+  Result := FTipoAutorizacaoView;
+end;
+
 function TModelDAOFactory.TipoCNPJView: IModelDAOCustom;
 begin
   if not Assigned(FTipoCNPJView) then
@@ -417,6 +431,14 @@ begin
   Result := FTipoVeiculo;
 end;
 
+function TModelDAOFactory.Transportadora: IModelDAOCustom;
+begin
+  if not Assigned(FTransportadora) then
+    FTransportadora := TModelDAOTransportadora.New;
+
+  Result := FTransportadora;
+end;
+
 function TModelDAOFactory.AliquotaCOFINSView: IModelDAOCustom;
 begin
   if not Assigned(FAliquotaCOFINSView) then
@@ -447,6 +469,14 @@ begin
     FAutorizacaoCompra := TModelDAOAutorizacaoCompra.New;
 
   Result := FAutorizacaoCompra;
+end;
+
+function TModelDAOFactory.AutorizacaoCompraProdutoServico: IModelDAOCustom;
+begin
+  if not Assigned(FAutorizacaoCompraProdutoServico) then
+    FAutorizacaoCompraProdutoServico := TModelDAOAutorizacaoCompraProdutoServico.New;
+
+  Result := FAutorizacaoCompraProdutoServico;
 end;
 
 function TModelDAOFactory.Bairro: IModelDAOCustom;

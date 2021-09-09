@@ -25,6 +25,7 @@ type
     function GetPermitirEmissaoNFe(aCNPJ : String) : Boolean;
     function GetPermitirEmissaoNFeEntrada(aCNPJ : String) : Boolean;
     function GetRegime(aCNPJ : String) : TTipoRegime;
+    function GetAutorizacaoInformarCliente(const aCNPJ : String) : Boolean;
   end;
 
   IControllerCliente = interface(IControllerCustom)
@@ -83,7 +84,10 @@ type
 
   IControllerAutorizacaoCompra = interface(IControllerCustom)
     ['{CFB62551-6810-4CF5-9E3E-7D966E96E928}']
+    function Produtos : IControllerCustom;
     function ProdutosParaEntrada(aTipoItem : TTipoItem; aAno, aCodigo : Integer; aEmpresa : String) : IControllerAutorizacaoCompra;
+
+    procedure CarregarProdutos;
   end;
 
   IControllerEntradaProduto = interface(IControllerCustom)
@@ -153,6 +157,7 @@ type
     function Segmento     : IControllerCustom;
     function TabelaIBPT   : IControllerCustom;
     function TipoAliquotaView : IControllerCustom;
+    function TipoAutorizacaoView : IControllerCustom;
     function TipoCNPJView     : IControllerCustom;
     function TipoComissaoView : IControllerCustom;
     function TipoDespesa      : IControllerCustom;

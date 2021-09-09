@@ -80,6 +80,7 @@ type
     function AliquotaICMS : IModelDAOCustom;
     function AliquotaPISView : IModelDAOCustom;
     function AutorizacaoCompra : IModelDAOCustom;
+    function AutorizacaoCompraProdutoServico : IModelDAOCustom;
     function Bairro   : IModelDAOCustom;
     function Banco : IModelDAOCustom;
     function BancoFebrabanView : IModelDAOCustom;
@@ -133,6 +134,7 @@ type
     function Segmento : IModelDAOCustom;
     function TabelaIBPT : IModelDAOCustom;
     function TipoAliquotaView : IModelDAOCustom;
+    function TipoAutorizacaoView : IModelDAOCustom;
     function TipoCNPJView : IModelDAOCustom;
     function TipoComissaoView : IModelDAOCustom;
     function TipoDespesa : IModelDAOCustom;
@@ -146,6 +148,7 @@ type
     function TipoRegimeView : IModelDAOCustom;
     function TipoTributacao : IModelDAOCustom;
     function TipoVeiculo : IModelDAOCustom;
+    function Transportadora : IModelDAOCustom;
     function UF       : IModelDAOCustom;
     function UnidadeProduto : IModelDAOCustom;
     function Vendedor : IModelDAOCustom;

@@ -91,7 +91,7 @@ uses
 constructor TModelDAOEntrada.Create;
 begin
   inherited Create;
-  FConn.Query.CreateGenerator('GEN_COMPRAS_CONTROLE_' + FormatDateTime('yyyy', Date));
+  FConn.Query.CreateGenerator('GEN_COMPRAS_CONTROLE', FormatDateTime('yyyy', Date).ToInteger);
   FConn
     .Query
       .TableName('TBCOMPRAS')

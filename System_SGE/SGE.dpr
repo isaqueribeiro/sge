@@ -71,8 +71,6 @@ uses
   UGeExportarNFC in '..\Sys\UGeExportarNFC.pas' {frmGeExportarNFC},
   UGeContasAReceberImpressao in 'UGeContasAReceberImpressao.pas' {frmGeContasAReceberImpressao},
   UGrConfigurarAmbiente in '..\Sys\lib\UGrConfigurarAmbiente.pas' {frmGrConfigurarAmbiente},
-  UGeAutorizacaoCompra in 'UGeAutorizacaoCompra.pas' {frmGeAutorizacaoCompra},
-  UGeAutorizacaoCompraCancelar in 'UGeAutorizacaoCompraCancelar.pas' {frmGeAutorizacaoCompraCancelar},
   UGeContasAPagarImpressao in 'UGeContasAPagarImpressao.pas' {frmGeContasAPagarImpressao},
   UGeEntradaImpressao in 'UGeEntradaImpressao.pas' {frmGeEntradaImpressao},
   UGeContasAPagarQuitar in 'UGeContasAPagarQuitar.pas' {frmGeContasAPagarQuitar},
@@ -184,6 +182,7 @@ uses
   SGE.Model.Connection.Factory in '..\Sys\Model\Connection\SGE.Model.Connection.Factory.pas',
   SGE.Model.DAO.Interfaces in '..\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas',
   SGE.Model.DAO in '..\Sys\Model\DAO\SGE.Model.DAO.pas',
+  SGE.Model.DAO.AutorizacaoCompra in 'Model\DAO\SGE.Model.DAO.AutorizacaoCompra.pas',
   SGE.Model.DAO.Bairro in '..\Sys\Model\DAO\SGE.Model.DAO.Bairro.pas',
   SGE.Model.DAO.Banco in '..\Sys\Model\DAO\SGE.Model.DAO.Banco.pas',
   SGE.Model.DAO.Busca in '..\Sys\Model\DAO\SGE.Model.DAO.Busca.pas',
@@ -215,6 +214,7 @@ uses
   SGE.Model.DAO.Vendedor in '..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas',
   SGE.Controller.Interfaces in '..\Sys\Controller\SGE.Controller.Interfaces.pas',
   SGE.Controller in '..\Sys\Controller\SGE.Controller.pas',
+  SGE.Controller.AutorizacaoCompra in 'Controller\SGE.Controller.AutorizacaoCompra.pas',
   SGE.Controller.Bairro in '..\Sys\Controller\SGE.Controller.Bairro.pas',
   SGE.Controller.Banco in '..\Sys\Controller\SGE.Controller.Banco.pas',
   SGE.Controller.CentroCusto in '..\Sys\Controller\SGE.Controller.CentroCusto.pas',
@@ -274,7 +274,9 @@ uses
   View.Promocao in 'View\View.Promocao.pas' {ViewPromocao},
   View.Entrada in '..\Sys\View\View.Entrada.pas' {ViewEntrada},
   View.Entrada.ConfirmarDuplicatas in '..\Sys\View\View.Entrada.ConfirmarDuplicatas.pas' {ViewEntradaConfirmarDuplicatas},
-  View.Entrada.ConfirmarLote in '..\Sys\View\View.Entrada.ConfirmarLote.pas' {ViewEntradaEstoqueLote};
+  View.Entrada.ConfirmarLote in '..\Sys\View\View.Entrada.ConfirmarLote.pas' {ViewEntradaEstoqueLote},
+  View.AutorizacaoCompra in 'View\View.AutorizacaoCompra.pas' {ViewAutorizacaoCompra},
+  View.AutorizacaoCompra.Cancelar in 'View\View.AutorizacaoCompra.Cancelar.pas' {ViewAutorizacaoCompraCancelar};
 
 {$R *.res}
 

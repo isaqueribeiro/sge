@@ -36,7 +36,7 @@ uses
 constructor TModelDAOContaAPagar.Create;
 begin
   inherited Create;
-  FConn.Query.CreateGenerator('GEN_CONTAPAG_NUM_' + FormatDateTime('yyyy', Date));
+  FConn.Query.CreateGenerator('GEN_CONTAPAG_NUM', FormatDateTime('yyyy', Date).ToInteger);
   FConn
     .Query
       .TableName('TBCONTPAG')
