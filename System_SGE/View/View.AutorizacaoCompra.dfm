@@ -175,20 +175,23 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Margins.Bottom = 9
             Align = alRight
             Caption = 'Autoriza'#231#227'o / Fornecedor:'
-            ExplicitLeft = 294
+            ExplicitLeft = 297
+            ExplicitTop = 28
             ExplicitWidth = 147
           end
           object lblData: TLabel [1]
             AlignWithMargins = True
-            Left = 24
+            Left = 27
             Top = 28
-            Width = 52
+            Width = 49
             Height = 19
             Margins.Top = 9
             Margins.Bottom = 9
             Align = alRight
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
+            ExplicitLeft = 24
+            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 450
@@ -196,6 +199,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Width = 183
             TabOrder = 2
             ExplicitLeft = 450
+            ExplicitTop = 24
             ExplicitWidth = 183
           end
           inherited btnFiltrar: TcxButton
@@ -203,7 +207,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Top = 22
             TabOrder = 3
             ExplicitLeft = 639
-            ExplicitHeight = 34
+            ExplicitTop = 22
           end
           object e1Data: TJvDateEdit
             AlignWithMargins = True
@@ -265,7 +269,6 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 0
-            ExplicitTop = 28
             ExplicitHeight = 21
           end
           object e2Data: TJvDateEdit
@@ -328,7 +331,6 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 1
-            ExplicitTop = 28
             ExplicitHeight = 21
           end
         end
@@ -353,7 +355,6 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             'Faturada'
             'Cancelada')
           TabOrder = 0
-          ExplicitLeft = 198
         end
       end
     end
@@ -2359,8 +2360,6 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       ParentShowHint = False
       ShowHint = True
       TabOrder = 7
-      ExplicitLeft = 667
-      ExplicitTop = -2
     end
     object btnCancelarAutorizacao: TcxButton
       Tag = 13

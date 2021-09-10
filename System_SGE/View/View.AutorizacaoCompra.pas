@@ -448,7 +448,7 @@ var
   aDataInicio,
   aDataFinal : String;
 begin
-  FController := TControllerFactory.New.Entrada;
+  FController := TControllerFactory.New.AutorizacaoCompra;
 
   FControllerEmpresaView         := TControllerFactory.New.EmpresaView;
   FControllerTipoAUtorizacaoView := TControllerFactory.New.TipoAutorizacaoView;
@@ -1366,7 +1366,7 @@ begin
     if ( FieldByName('STATUS').AsInteger <> STATUS_AUTORIZACAO_AUT ) then
       TServiceMessage.ShowInformation('Apenas registros autorizados podem ser cancelados!')
     else
-    if ( CancelarAUT(Self, FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger) ) then
+    if ( CancelarAUT(Self, FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger, FieldByName('EMPRESA').AsString) ) then
       with DtSrcTabela.DataSet do
       begin
         RecarregarRegistro;
