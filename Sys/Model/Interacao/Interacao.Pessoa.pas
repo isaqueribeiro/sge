@@ -30,6 +30,9 @@ type
 
     function CNPJ(Value : String) : IPessoaJuridicaModel; overload;
     function CNPJ : String; overload;
+
+    function Endereco(Value : String) : IPessoaJuridicaModel; overload;
+    function Endereco : String; overload;
   end;
 
 implementation

@@ -3,8 +3,13 @@ unit Service.Utils;
 interface
 
 uses
-  System.SysUtils, System.StrUtils, Soap.EncdDecd,
-  Vcl.ExtCtrls, Vcl.Graphics, Vcl.Buttons, Vcl.Imaging.pngimage;
+  System.SysUtils,
+  System.StrUtils,
+  Soap.EncdDecd,
+  Vcl.ExtCtrls,
+  Vcl.Graphics,
+  Vcl.Buttons,
+  Vcl.Imaging.pngimage;
 
 type
   TServicesUtils = class
@@ -19,6 +24,7 @@ type
       class function BitmapFromBase64(const aBase64 : String) : TBitmap;
       class function MonthName(aData : TDateTime) : String;
       class function StrToCurrency(Value : String) : Currency;
+      class function StrFormatarCEP(Value : String): String;
   end;
 implementation
 
@@ -167,5 +173,21 @@ class function TServicesUtils.StrToCurrency(Value: String): Currency;
 begin
   Result := StrToCurrDef(Value.Trim.Replace('.', '').Replace(',', ''), 0) / 100.0;
 end;
+
+class function TServicesUtils.StrFormatarCEP(Value : String): String;
+var
+  S : String;
+begin
+  S := Trim(Value); // 00.000-000
+
+  if ( Copy(S, 3, 1) <> '.' ) then
+    S := Copy(S, 1, 2) + '.' + Copy(S, 3, Length(S));
+
+  if ( Copy(S, 7, 1) <> '-' ) then
+    S := Copy(S, 1, 6) + '-' + Copy(S, 7, Length(S));
+
+  Result := S;
+end;
+
 
 end.

@@ -130,6 +130,8 @@ type
     function Produto : IModelDAOCustom;
     function Promocao : IModelDAOCustom;
     function PromocaoProduto : IModelDAOCustom;
+    function RequisicaoCompra : IModelDAOCustom;
+    function RequisicaoCompraProdutoServico : IModelDAOCustom;
     function SecaoProduto : IModelDAOCustom;
     function Segmento : IModelDAOCustom;
     function TabelaIBPT : IModelDAOCustom;
@@ -146,6 +148,7 @@ type
     function TipoReceita : IModelDAOCustom;
     function TipoReceitaPlanoConta : IModelDAOCustom;
     function TipoRegimeView : IModelDAOCustom;
+    function TipoRequisicaoView : IModelDAOCustom;
     function TipoTributacao : IModelDAOCustom;
     function TipoVeiculo : IModelDAOCustom;
     function Transportadora : IModelDAOCustom;

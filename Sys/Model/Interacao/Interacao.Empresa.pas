@@ -8,8 +8,8 @@ Uses
 type
   IEmpresaModel = interface(IPessoaJuridicaModel)
     ['{D27E9304-D08C-442A-B971-503C04CC3073}']
-//    function Codigo(Value : Integer) : IEmpresaModel;
-//    function Codigo : Integer; overload;
+    function Endereco(Value : String) : IEmpresaModel; overload;
+    function Endereco : String; overload;
 
     function toString() : String;
   end;

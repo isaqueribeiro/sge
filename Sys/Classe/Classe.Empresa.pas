@@ -12,12 +12,14 @@ type
       FCNPJ: String;
       FFantasia: String;
       FCodigo: Integer;
-      FRazaoSOcial: String;
+      FRazaoSOcial : String;
+      FEndereco : String;
 
       procedure SetCNPJ(const Value: String);
       procedure SetCodigo(const Value: Integer);
       procedure SetFantasia(const Value: String);
       procedure SetRazaoSOcial(const Value: String);
+      procedure SetEndereco(const Value: String);
     public
       constructor Create;
       destructor Destroy; override;
@@ -26,6 +28,7 @@ type
       property RazaoSOcial : String read FRazaoSOcial write SetRazaoSOcial;
       property Fantasia : String read FFantasia write SetFantasia;
       property CNPJ : String read FCNPJ write SetCNPJ;
+      property Endereco : String read FEndereco write SetEndereco;
 
       function toString() : String; override;
   end;
@@ -37,6 +40,9 @@ type
     public
       constructor Create;
       destructor Destroy; override;
+
+      function Endereco(Value : String) : IEmpresaModel; overload;
+      function Endereco : String; overload;
 
       function toString() : String; override;
 
@@ -60,12 +66,23 @@ begin
     .RazaoSocial('EMPRESA DE DEMONSTRAÇÃO')
     .Fantasia('DEMONSTRAÇÃO')
     .CNPJ('00.000.000/0000-00')
+    .Endereco('Rua Santa Maria, 68, Conj. Cristo Redentor - Icuí-Guajará - Cep.: 67.125-775 - Ananindeua/PA')
     .Codigo(0);
 end;
 
 destructor TEmpresa.Destroy;
 begin
   inherited;
+end;
+
+function TEmpresa.Endereco: String;
+begin
+  Result := EmptyStr;
+end;
+
+function TEmpresa.Endereco(Value: String): IEmpresaModel;
+begin
+  Result := Self;
 end;
 
 class function TEmpresa.GetInstance: TEmpresa;
@@ -89,6 +106,7 @@ begin
   FRazaoSOcial := 'EMPRESA DE DEMONSTRAÇÃO';
   FFantasia    := 'DEMONSTRAÇÃO';
   FCNPJ        := '00.000.000/0000-00';
+  FEndereco    := 'Rua Santa Maria, 68, Conj. Cristo Redentor - Icuí-Guajará - Cep.: 67.125-775 - Ananindeua/PA';
 end;
 
 destructor TEmpresaObject.Destroy;
@@ -104,6 +122,11 @@ end;
 procedure TEmpresaObject.SetCodigo(const Value: Integer);
 begin
   FCodigo := Value;
+end;
+
+procedure TEmpresaObject.SetEndereco(const Value: String);
+begin
+  FEndereco := Value.Trim;
 end;
 
 procedure TEmpresaObject.SetFantasia(const Value: String);

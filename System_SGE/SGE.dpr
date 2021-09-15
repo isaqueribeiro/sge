@@ -82,8 +82,6 @@ uses
   UEcfWindowsPrinter in '..\Sys\lib\UEcfWindowsPrinter.pas',
   UGeFornecedorImpressao in 'UGeFornecedorImpressao.pas' {frmGeFornecedorImpressao},
   UGrRegistroEstacao in '..\Sys\lib\UGrRegistroEstacao.pas' {FrmGrRegistroEstacao},
-  UGeRequisicaoCompra in 'UGeRequisicaoCompra.pas' {frmGeRequisicaoCompra},
-  UGeRequisicaoCompraCancelar in 'UGeRequisicaoCompraCancelar.pas' {frmGeRequisicaoCompraCancelar},
   UGeRequisicaoCompraPesquisa in 'UGeRequisicaoCompraPesquisa.pas' {frmGeRequisicaoCompraPesquisa},
   UGeCartaCorrecao in '..\Sys\UGeCartaCorrecao.pas' {frmGeCartaCorrecao},
   UGeNFEmitida in '..\Sys\UGeNFEmitida.pas' {frmGeNFEmitida},
@@ -206,6 +204,7 @@ uses
   SGE.Model.DAO.PlanoConta in '..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas',
   SGE.Model.DAO.Produto in '..\Sys\Model\DAO\SGE.Model.DAO.Produto.pas',
   SGE.Model.DAO.Promocao in 'Model\DAO\SGE.Model.DAO.Promocao.pas',
+  SGE.Model.DAO.RequisicaoCompra in 'Model\DAO\SGE.Model.DAO.RequisicaoCompra.pas',
   SGE.Model.DAO.Tabelas in '..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas',
   SGE.Model.DAO.TipoDespesa in '..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas',
   SGE.Model.DAO.TipoLogradouro in '..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas',
@@ -237,6 +236,7 @@ uses
   SGE.Controller.PlanoConta in '..\Sys\Controller\SGE.Controller.PlanoConta.pas',
   SGE.Controller.Produto in '..\Sys\Controller\SGE.Controller.Produto.pas',
   SGE.Controller.Promocao in 'Controller\SGE.Controller.Promocao.pas',
+  SGE.Controller.RequisicaoCompra in 'Controller\SGE.Controller.RequisicaoCompra.pas',
   SGE.Controller.Tabelas in '..\Sys\Controller\SGE.Controller.Tabelas.pas',
   SGE.Controller.TipoDespesa in '..\Sys\Controller\SGE.Controller.TipoDespesa.pas',
   SGE.Controller.TipoLogradouro in '..\Sys\Controller\SGE.Controller.TipoLogradouro.pas',
@@ -276,7 +276,9 @@ uses
   View.Entrada.ConfirmarDuplicatas in '..\Sys\View\View.Entrada.ConfirmarDuplicatas.pas' {ViewEntradaConfirmarDuplicatas},
   View.Entrada.ConfirmarLote in '..\Sys\View\View.Entrada.ConfirmarLote.pas' {ViewEntradaEstoqueLote},
   View.AutorizacaoCompra in 'View\View.AutorizacaoCompra.pas' {ViewAutorizacaoCompra},
-  View.AutorizacaoCompra.Cancelar in 'View\View.AutorizacaoCompra.Cancelar.pas' {ViewAutorizacaoCompraCancelar};
+  View.AutorizacaoCompra.Cancelar in 'View\View.AutorizacaoCompra.Cancelar.pas' {ViewAutorizacaoCompraCancelar},
+  View.RequisicaoCompra in 'View\View.RequisicaoCompra.pas' {ViewRequisicaoCompra},
+  View.RequisicaoCompra.Cancelar in 'View\View.RequisicaoCompra.Cancelar.pas' {ViewRequisicaoCompraCancelar};
 
 {$R *.res}
 

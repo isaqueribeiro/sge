@@ -25,6 +25,7 @@ uses
   SGE.Controller.PlanoConta,
   SGE.Controller.Produto,
   SGE.Controller.Promocao,
+  SGE.Controller.RequisicaoCompra,
   SGE.Controller.Tabelas,
   SGE.Controller.TipoDespesa,
   SGE.Controller.TipoLogradouro,
@@ -70,8 +71,8 @@ type
       FFabricanteProduto,
       FFormaPagto ,
       FFormaPagtoContaCorrente,
-      FFormaPagtoNFCEView     ,
-      FFornecedor     ,
+      FFormaPagtoNFCEView     : IControllerCustom;
+      FFornecedor     : IControllerFornecedor;
       FGrupoFornecedor,
       FGrupoProduto   ,
       FIBPT           ,
@@ -85,7 +86,8 @@ type
       FPlanoContaTipo  : IControllerCustom;
       FProduto         : IControllerProduto;
       FPromocao        : IControllerPromocao;
-      FPromocaoProduto ,
+      FPromocaoProduto : IControllerCustom;
+      FRequisicaoCompra : IControllerRequisicaoCompra;
       FSecaoProduto    ,
       FSegmento        ,
       FTabelaIBPT      ,
@@ -102,8 +104,10 @@ type
       FTipoReceita    ,
       FTipoReceitaPlanoConta,
       FTipoRegimeView,
+      FTipoRequisicaoView,
       FTipoTributacao,
       FTipoVeiculo   ,
+      FTransportadora,
       FUF ,
       FUnidadeProduto : IControllerCustom;
       FVendedor : IControllerCustom;
@@ -149,7 +153,7 @@ type
       function FormaPagto : IControllerCustom;
       function FormaPagtoContaCorrente : IControllerCustom;
       function FormaPagtoNFCEView : IControllerCustom;
-      function Fornecedor : IControllerCustom;
+      function Fornecedor : IControllerFornecedor;
       function GrupoFornecedor : IControllerCustom;
       function GrupoProduto : IControllerCustom;
       function IBPT : IControllerCustom;
@@ -164,6 +168,7 @@ type
       function Produto           : IControllerProduto;
       function Promocao          : IControllerPromocao;
       function PromocaoProduto   : IControllerCustom;
+      function RequisicaoCompra  : IControllerRequisicaoCompra;
       function SecaoProduto : IControllerCustom;
       function Segmento : IControllerCustom;
       function TabelaIBPT : IControllerCustom;
@@ -180,8 +185,10 @@ type
       function TipoReceita : IControllerCustom;
       function TipoReceitaPlanoConta : IControllerCustom;
       function TipoRegimeView : IControllerCustom;
+      function TipoRequisicaoView : IControllerCustom;
       function TipoTributacao : IControllerCustom;
       function TipoVeiculo : IControllerCustom;
+      function Transportadora : IControllerCustom;
       function UF : IControllerCustom;
       function UnidadeProduto : IControllerCustom;
       function Vendedor : IControllerCustom;
@@ -268,6 +275,14 @@ begin
     FPromocaoProduto := TControllerPromocaoProduto.New;
 
   Result := FPromocaoProduto;
+end;
+
+function TControllerFactory.RequisicaoCompra: IControllerRequisicaoCompra;
+begin
+  if not Assigned(FRequisicaoCompra) then
+    FRequisicaoCompra := TControllerRequisicaoCompra.New;
+
+  Result := FRequisicaoCompra;
 end;
 
 function TControllerFactory.SecaoProduto: IControllerCustom;
@@ -574,7 +589,7 @@ begin
   Result := FFormaPagtoNFCEView;
 end;
 
-function TControllerFactory.Fornecedor: IControllerCustom;
+function TControllerFactory.Fornecedor: IControllerFornecedor;
 begin
   if not Assigned(FFornecedor) then
     FFornecedor := TControllerFornecedor.New;
@@ -742,6 +757,14 @@ begin
   Result := FTipoRegimeView;
 end;
 
+function TControllerFactory.TipoRequisicaoView: IControllerCustom;
+begin
+  if not Assigned(FTipoRequisicaoView) then
+    FTipoRequisicaoView := TControllerTipoRequisicaoView.New;
+
+  Result := FTipoRequisicaoView;
+end;
+
 function TControllerFactory.TipoTributacao: IControllerCustom;
 begin
   if not Assigned(FTipoTributacao) then
@@ -756,6 +779,14 @@ begin
     FTipoVeiculo := TControllerTipoVeiculo.New;
 
   Result := FTipoVeiculo;
+end;
+
+function TControllerFactory.Transportadora: IControllerCustom;
+begin
+  if not Assigned(FTransportadora) then
+    FTransportadora := TControllerTransportadora.New;
+
+  Result := FTransportadora;
 end;
 
 function TControllerFactory.UF: IControllerCustom;

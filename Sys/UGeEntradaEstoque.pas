@@ -545,7 +545,7 @@ uses
   , UFuncoes
   , UDMNFe
   , UGeConsultarLoteNFe_v2
-  , UGeAutorizacaoCompra
+  , View.AutorizacaoCompra
   , UGeEntradaEstoqueLote
   , UGeEntradaEstoqueCancelar
   , UGeEntradaConfirmaDuplicatas

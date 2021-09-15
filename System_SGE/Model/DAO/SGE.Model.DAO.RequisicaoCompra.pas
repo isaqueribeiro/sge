@@ -1,4 +1,4 @@
-unit SGE.Model.DAO.AutorizacaoCompra;
+unit SGE.Model.DAO.RequisicaoCompra;
 
 interface
 
@@ -9,8 +9,8 @@ uses
   SGE.Model.DAO.Interfaces;
 
 type
-  // Autorizações de Compras/Serviços
-  TModelDAOAutorizacaoCompra = class(TModelDAO, IModelDAOCustom)
+  // Requisições de Compras/Serviços
+  TModelDAORequisicaoCompra = class(TModelDAO, IModelDAOCustom)
     private
       procedure SetProviderFlags;
       procedure DataSetAfterOpen(DataSet: TDataSet);
@@ -28,8 +28,8 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
-  // Itens da Autorizações de Compras/Serviços
-  TModelDAOAutorizacaoCompraProdutoServico = class(TModelDAO, IModelDAOCustom)
+  // Itens da Requisições de Compras/Serviços
+  TModelDAORequisicaoCompraProdutoServico = class(TModelDAO, IModelDAOCustom)
     private
       procedure SetProviderFlags;
       procedure DataSetAfterOpen(DataSet: TDataSet);
@@ -43,8 +43,8 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
-  // Tipos de Autorizações de Compras/Serviços (View)
-  TModelDAOTipoAutorizacaoView = class(TModelDAO, IModelDAOCustom)
+  // Tipos de Requisições de Compras/Serviços (View)
+  TModelDAOTipoRequisicaoView = class(TModelDAO, IModelDAOCustom)
     private
     protected
       constructor Create;
@@ -61,58 +61,59 @@ uses
   System.DateUtils,
   UConstantesDGE;
 
-{ TModelDAOAutorizacaoCompra }
+{ TModelDAORequisicaoCompra }
 
-constructor TModelDAOAutorizacaoCompra.Create;
+constructor TModelDAORequisicaoCompra.Create;
 begin
   inherited Create;
-  FConn.Query.CreateGenerator('GEN_AUTORIZA_COMPRA', FormatDateTime('yyyy', Date).ToInteger);
+  FConn.Query.CreateGenerator('GEN_REQUISITA_COMPRA', FormatDateTime('yyyy', Date).ToInteger);
   FConn
     .Query
-      .TableName('TBAUTORIZA_COMPRA')
-      .AliasTableName('a')
+      .TableName('TBREQUISITA_COMPRA')
+      .AliasTableName('r')
       .KeyFields('ano;codigo;empresa')
       .AutoIncFields('codigo')
-      .GeneratorName('GEN_AUTORIZA_COMPRA_' + FormatDateTime('yyyy', Date))
+      .GeneratorName('GEN_REQUISITA_COMPRA_' + FormatDateTime('yyyy', Date))
       .SQL
         .Clear
-        .Add('Select                  ')
-        .Add('    a.ano               ')
-        .Add('  , a.codigo            ')
-        .Add('  , a.empresa           ')
-        .Add('  , a.numero            ')
-        .Add('  , a.fornecedor        ')
-        .Add('  , a.nome_contato      ')
-        .Add('  , a.tipo              ')
-        .Add('  , a.insercao_data     ')
-        .Add('  , a.emissao_data      ')
-        .Add('  , a.emissao_usuario   ')
-        .Add('  , a.validade          ')
-        .Add('  , a.competencia       ')
-        .Add('  , a.movito            ')
-        .Add('  , a.observacao        ')
-        .Add('  , a.cliente           ')
-        .Add('  , a.centro_custo      ')
-        .Add('  , a.endereco_entrega  ')
-        .Add('  , a.status            ')
-        .Add('  , a.recebedor_nome    ')
-        .Add('  , a.recebedor_cpf     ')
-        .Add('  , a.recebedor_funcao  ')
-        .Add('  , a.forma_pagto       ')
-        .Add('  , a.condicao_pagto    ')
-        .Add('  , a.transportador     ')
-        .Add('  , a.valor_bruto       ')
-        .Add('  , a.valor_desconto    ')
-        .Add('  , a.valor_total_frete ')
-        .Add('  , a.valor_total_ipi   ')
-        .Add('  , a.valor_total       ')
-        .Add('  , a.autorizado_data   ')
-        .Add('  , a.data_fatura       ')
-        .Add('  , a.autorizado_usuario')
-        .Add('  , a.cancelado_data    ')
-        .Add('  , a.cancelado_usuario ')
-        .Add('  , a.cancelado_motivo  ')
-        .Add('  , coalesce((Select count(x.seq) from TBAUTORIZA_COMPRAITEM x where x.ano = a.ano and x.codigo = a.codigo and x.empresa = a.empresa), 0) as itens')
+        .Add('Select                   ')
+        .Add('    r.ano                ')
+        .Add('  , r.codigo             ')
+        .Add('  , r.empresa            ')
+        .Add('  , r.numero             ')
+        .Add('  , r.fornecedor         ')
+        .Add('  , r.nome_contato       ')
+        .Add('  , r.tipo               ')
+        .Add('  , r.insercao_data      ')
+        .Add('  , r.emissao_data       ')
+        .Add('  , r.emissao_usuario    ')
+        .Add('  , r.validade           ')
+        .Add('  , r.competencia        ')
+        .Add('  , r.movito             ')
+        .Add('  , r.observacao         ')
+        .Add('  , r.cliente            ')
+        .Add('  , r.centro_custo       ')
+        .Add('  , r.endereco_entrega   ')
+        .Add('  , r.status             ')
+        .Add('  , r.recebedor_nome     ')
+        .Add('  , r.recebedor_cpf      ')
+        .Add('  , r.recebedor_funcao   ')
+        .Add('  , r.forma_pagto        ')
+        .Add('  , r.condicao_pagto     ')
+        .Add('  , r.transportador      ')
+        .Add('  , r.valor_bruto        ')
+        .Add('  , r.valor_desconto     ')
+        .Add('  , r.valor_total_frete  ')
+        .Add('  , r.valor_total_ipi    ')
+        .Add('  , r.valor_total        ')
+        .Add('  , r.requisitado_data   ')
+        .Add('  , r.data_fatura        ')
+        .Add('  , r.requisitado_usuario')
+        .Add('  , r.cancelado_data     ')
+        .Add('  , r.cancelado_usuario  ')
+        .Add('  , r.cancelado_motivo   ')
+        .Add('  , coalesce((Select count(x.seq) from TBREQUISITA_COMPRAITEM x where x.ano = r.ano and x.codigo = r.codigo and x.empresa = r.empresa), 0) as itens')
+        .Add('  , coalesce((Select count(y.autorizacao_ano) from TBAUTORIZA_REQUISITA y where y.requisicao_ano = r.ano and y.requisicao_cod = r.codigo and y.requisicao_emp = r.empresa), 0) as autorizacoes')
         .Add('  , f.nomeforn          ')
         .Add('  , f.cnpj              ')
         .Add('  , f.pessoa_fisica     ')
@@ -121,11 +122,11 @@ begin
         .Add('  , t.cnpj      as transportador_cpf_cnpj')
         .Add('  , c.nome      as nomecliente           ')
         .Add('  , u.descricao as descricao_centro_custo')
-        .Add('from TBAUTORIZA_COMPRA a')
-        .Add('  left join TBFORNECEDOR f on (f.codforn = a.fornecedor)   ')
-        .Add('  left join TBFORNECEDOR t on (t.codforn = a.transportador)')
-        .Add('  left join TBCLIENTE c on (c.codigo = a.cliente)          ')
-        .Add('  left join TBCENTRO_CUSTO u on (u.codigo = a.centro_custo)')
+        .Add('from TBREQUISITA_COMPRA r')
+        .Add('  left join TBFORNECEDOR f on (f.codforn = r.fornecedor)   ')
+        .Add('  left join TBFORNECEDOR t on (t.codforn = r.transportador)')
+        .Add('  left join TBCLIENTE c on (c.codigo = r.cliente)          ')
+        .Add('  left join TBCENTRO_CUSTO u on (u.codigo = r.centro_custo)')
       .&End
     .OpenEmpty
     .CloseEmpty;
@@ -135,20 +136,50 @@ begin
   FConn.Query.DataSet.BeforePost  := DataSetBeforePost;
 end;
 
-destructor TModelDAOAutorizacaoCompra.Destroy;
+destructor TModelDAORequisicaoCompra.Destroy;
 begin
   inherited;
 end;
 
-class function TModelDAOAutorizacaoCompra.New: IModelDAOCustom;
+class function TModelDAORequisicaoCompra.New: IModelDAOCustom;
 begin
   Result := Self.Create;
 end;
 
-procedure TModelDAOAutorizacaoCompra.SetProviderFlags;
+procedure TModelDAORequisicaoCompra.StatusGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if ( Sender.IsNull ) then
+    Exit;
+
+  Case Sender.AsInteger of
+    STATUS_REQUISICAO_EDC : Text := 'Em Edição';
+    STATUS_REQUISICAO_ABR : Text := 'Aberta';
+    STATUS_REQUISICAO_REQ : Text := 'Requisitada';
+    STATUS_REQUISICAO_FAT : Text := 'Faturada';
+    STATUS_REQUISICAO_CAN : Text := 'Cancelada';
+  end;
+end;
+
+procedure TModelDAORequisicaoCompra.TipoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if (not Sender.IsNull) then
+    Case Sender.AsInteger of
+      TIPO_Requisicao_COMPRA :
+        Text := 'Compra';
+
+      TIPO_Requisicao_SERVICO:
+        Text := 'Serviço';
+
+      TIPO_Requisicao_COMPRA_SERVICO:
+        Text := 'Compra/Serviço';
+    end;
+end;
+
+procedure TModelDAORequisicaoCompra.SetProviderFlags;
 begin
   // Ignorar campos no Insert e Update
-  FConn.Query.DataSet.FieldByName('itens').ProviderFlags    := [];
+  FConn.Query.DataSet.FieldByName('itens').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('autorizacoes').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('nomeforn').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('cnpj').ProviderFlags     := [];
   FConn.Query.DataSet.FieldByName('pessoa_fisica').ProviderFlags      := [];
@@ -159,36 +190,7 @@ begin
   FConn.Query.DataSet.FieldByName('descricao_centro_custo').ProviderFlags := [];
 end;
 
-procedure TModelDAOAutorizacaoCompra.StatusGetText(Sender: TField; var Text: string; DisplayText: Boolean);
-begin
-  if ( Sender.IsNull ) then
-    Exit;
-
-  Case Sender.AsInteger of
-    STATUS_AUTORIZACAO_EDC : Text := 'Em Edição';
-    STATUS_AUTORIZACAO_ABR : Text := 'Aberta';
-    STATUS_AUTORIZACAO_AUT : Text := 'Autorizada';
-    STATUS_AUTORIZACAO_FAT : Text := 'Faturada';
-    STATUS_AUTORIZACAO_CAN : Text := 'Cancelada';
-  end;
-end;
-
-procedure TModelDAOAutorizacaoCompra.TipoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
-begin
-  if (not Sender.IsNull) then
-    Case Sender.AsInteger of
-      TIPO_AUTORIZACAO_COMPRA :
-        Text := 'Compra';
-
-      TIPO_AUTORIZACAO_SERVICO:
-        Text := 'Serviço';
-
-      TIPO_AUTORIZACAO_COMPRA_SERVICO:
-        Text := 'Compra/Serviço';
-    end;
-end;
-
-procedure TModelDAOAutorizacaoCompra.DataHoraGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+procedure TModelDAORequisicaoCompra.DataHoraGetText(Sender: TField; var Text: string; DisplayText: Boolean);
 begin
   if (not Sender.IsNull) then
     Text := FormatDateTime('dd/mm/yyyy hh:nn', Sender.AsDateTime)
@@ -196,7 +198,7 @@ begin
     Text := Sender.AsString;
 end;
 
-procedure TModelDAOAutorizacaoCompra.DataSetAfterOpen(DataSet: TDataSet);
+procedure TModelDAORequisicaoCompra.DataSetAfterOpen(DataSet: TDataSet);
 begin
   SetProviderFlags;
   FConn.Query.DataSet.FieldByName('TIPO').OnGetText   := TipoGetText;
@@ -204,33 +206,37 @@ begin
   FConn.Query.DataSet.FieldByName('INSERCAO_DATA').OnGetText := DataHoraGetText;
 end;
 
-procedure TModelDAOAutorizacaoCompra.DataSetBeforePost(DataSet: TDataSet);
+procedure TModelDAORequisicaoCompra.DataSetBeforePost(DataSet: TDataSet);
 begin
   with FConn.Query.DataSet do
   begin
-    if Trim(FieldByName('AUTORIZADO_USUARIO').AsString) = EmptyStr then
-      FieldByName('AUTORIZADO_USUARIO').Clear;
+    if Trim(FieldByName('REQUISITADO_USUARIO').AsString) = EmptyStr then
+      FieldByName('REQUISITADO_USUARIO').Clear;
 
     if Trim(FieldByName('CANCELADO_USUARIO').AsString) = EmptyStr then
       FieldByName('CANCELADO_USUARIO').Clear;
   end;
 end;
 
-procedure TModelDAOAutorizacaoCompra.DataSetNewRecord(DataSet: TDataSet);
+procedure TModelDAORequisicaoCompra.DataSetNewRecord(DataSet: TDataSet);
 begin
   with FConn.Query.DataSet do
   begin
     FieldByName('ANO').AsInteger            := FormatDateTime('yyyy', Date).ToInteger;
     FieldByName('EMPRESA').AsString         := Usuario.Empresa.CNPJ;
-    FieldByName('TIPO').AsInteger           := TIPO_AUTORIZACAO_COMPRA;
+    FieldByName('TIPO').AsInteger           := TIPO_REQUISICAO_COMPRA;
     FieldByName('INSERCAO_DATA').AsDateTime := Now;
     FieldByName('EMISSAO_DATA').AsDateTime  := Date;
     FieldByName('EMISSAO_USUARIO').AsString := Usuario.Login;
-    FieldByName('VALIDADE').AsDateTime      := IncDay(FieldByName('EMISSAO_DATA').AsDateTime, PRAZO_VALIDADE_AUTORIZACAO_COMPRA);
-    FieldByName('STATUS').AsInteger         := STATUS_AUTORIZACAO_EDC;
+    FieldByName('VALIDADE').AsDateTime      := IncDay(FieldByName('EMISSAO_DATA').AsDateTime, PRAZO_VALIDADE_REQUISICAO_COMPRA);
+    FieldByName('STATUS').AsInteger         := STATUS_REQUISICAO_EDC;
 
     FieldByName('FORMA_PAGTO').AsInteger    := Configuracao.Padrao.FormaPagtoID;
     FieldByName('CONDICAO_PAGTO').AsInteger := Configuracao.Padrao.CondicaoPagtoID;
+
+    FieldByName('VALOR_TOTAL_FRETE').AsCurrency := 0.0;
+    FieldByName('VALOR_TOTAL_IPI').AsCurrency   := 0.0;
+    FieldByName('VALOR_DESCONTO').AsCurrency    := 0.0;
 
     FieldByName('VALOR_TOTAL_FRETE').AsCurrency := 0.0;
     FieldByName('VALOR_TOTAL_IPI').AsCurrency   := 0.0;
@@ -242,8 +248,8 @@ begin
     FieldByName('RECEBEDOR_NOME').Clear;
     FieldByName('RECEBEDOR_FUNCAO').Clear;
     FieldByName('RECEBEDOR_CPF').Clear;
-    FieldByName('AUTORIZADO_DATA').Clear;
-    FieldByName('AUTORIZADO_USUARIO').Clear;
+    FieldByName('REQUISITADO_DATA').Clear;
+    FieldByName('REQUISITADO_USUARIO').Clear;
     FieldByName('CANCELADO_DATA').Clear;
     FieldByName('CANCELADO_USUARIO').Clear;
     FieldByName('CANCELADO_MOTIVO').Clear;
@@ -252,14 +258,14 @@ begin
   end;
 end;
 
-{ TModelDAOAutorizacaoCompraProdutoServico }
+{ TModelDAORequisicaoCompraProdutoServico }
 
-constructor TModelDAOAutorizacaoCompraProdutoServico.Create;
+constructor TModelDAORequisicaoCompraProdutoServico.Create;
 begin
   inherited Create;
   FConn
     .Query
-      .TableName('TBAUTORIZA_COMPRAITEM')
+      .TableName('TBREQUISITA_COMPRAITEM')
       .AliasTableName('i')
       .KeyFields('ano;codigo;empresa;seq')
       .SQL
@@ -282,7 +288,7 @@ begin
         .Add('  , p.descri_apresentacao   ')
         .Add('  , u.unp_descricao         ')
         .Add('  , u.unp_sigla             ')
-        .Add('from TBAUTORIZA_COMPRAITEM i')
+        .Add('from TBREQUISITA_COMPRAITEM i')
         .Add('  left join TBPRODUTO p on (p.cod = i.produto)        ')
         .Add('  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)')
       .&End
@@ -298,17 +304,17 @@ begin
   FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
 end;
 
-destructor TModelDAOAutorizacaoCompraProdutoServico.Destroy;
+destructor TModelDAORequisicaoCompraProdutoServico.Destroy;
 begin
   inherited;
 end;
 
-class function TModelDAOAutorizacaoCompraProdutoServico.New: IModelDAOCustom;
+class function TModelDAORequisicaoCompraProdutoServico.New: IModelDAOCustom;
 begin
   Result := Self.Create;
 end;
 
-procedure TModelDAOAutorizacaoCompraProdutoServico.SetProviderFlags;
+procedure TModelDAORequisicaoCompraProdutoServico.SetProviderFlags;
 begin
   // Ignorar campos no Insert e Update
   FConn.Query.DataSet.FieldByName('descri_apresentacao').ProviderFlags := [];
@@ -316,12 +322,12 @@ begin
   FConn.Query.DataSet.FieldByName('unp_sigla').ProviderFlags     := [];
 end;
 
-procedure TModelDAOAutorizacaoCompraProdutoServico.DataSetAfterOpen(DataSet: TDataSet);
+procedure TModelDAORequisicaoCompraProdutoServico.DataSetAfterOpen(DataSet: TDataSet);
 begin
   SetProviderFlags;
 end;
 
-procedure TModelDAOAutorizacaoCompraProdutoServico.DataSetNewRecord(DataSet: TDataSet);
+procedure TModelDAORequisicaoCompraProdutoServico.DataSetNewRecord(DataSet: TDataSet);
 begin
   with FConn.Query.DataSet do
   begin
@@ -343,9 +349,9 @@ begin
   end;
 end;
 
-{ TModelDAOTipoAutorizacaoView }
+{ TModelDAOTipoRequisicaoView }
 
-constructor TModelDAOTipoAutorizacaoView.Create;
+constructor TModelDAOTipoRequisicaoView.Create;
 begin
   inherited Create;
   FConn
@@ -355,22 +361,22 @@ begin
         .Add('Select       ')
         .Add('  a.codigo,  ')
         .Add('  a.descricao')
-        .Add('from VW_TIPO_AUTORIZACAO a')
+        .Add('from VW_TIPO_REQUISICAO a')
       .&End
     .Open;
 end;
 
-destructor TModelDAOTipoAutorizacaoView.Destroy;
+destructor TModelDAOTipoRequisicaoView.Destroy;
 begin
   inherited;
 end;
 
-class function TModelDAOTipoAutorizacaoView.New: IModelDAOCustom;
+class function TModelDAOTipoRequisicaoView.New: IModelDAOCustom;
 begin
   Result := Self.Create;
 end;
 
-function TModelDAOTipoAutorizacaoView.CreateLookupComboBoxList: IModelDAOCustom;
+function TModelDAOTipoRequisicaoView.CreateLookupComboBoxList: IModelDAOCustom;
 begin
   Result := Self;
   if not FConn.Query.DataSet.Active then

@@ -303,7 +303,6 @@ var
   function GetNomeFantasiaEmpresa(const sCNPJEmpresa : String) : String;
   function GetCnpjEmpresa(const iCodigo : Integer) : String;
   function GetCnaeEmpresa(const sCNPJEmpresa : String) : String;
-  function GetPrazoValidadeAutorizacaoCompra(const sCNPJEmpresa : String) : Integer;
   function GetPrazoValidadeCotacaoCompra(const sCNPJEmpresa : String) : Integer;
   function GetMenorDataEmissaoOS : TDateTime;
   function GetExisteNumeroNFe(const aCNPJEmpresa, aSerie : String; const aNumero : Largeint; const aModelo : Integer) : Boolean;
@@ -405,10 +404,8 @@ var
   function GetImprimirCodClienteNFe(const sCNPJEmitente : String) : Boolean;
   function GetImprimirCodigoReferenciaProdutoNFe(const sCNPJEmitente : String) : Boolean;
   function GetImprimirCodigoExternoProdutoNFe(const sCNPJEmitente : String) : Boolean;
-  function GetExisteNumeroAutorizacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroCotacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroSolicitacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
-  function GetExisteNumeroRequisicao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroApropriacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroRequisicaoAlmox(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetMenorVencimentoAPagar : TDateTime;
@@ -468,17 +465,6 @@ const
   STATUS_OS_NFS = 8; // Nota Fiscal de Serviço emitida
   STATUS_OS_CAN = 9; // Cancelada
 
-  STATUS_REQ_ABR = 1;
-  STATUS_REQ_AUT = 2;
-  STATUS_REQ_FCH = 3;
-  STATUS_REQ_CAN = 4;
-
-  STATUS_REQUISICAO_EDC = STATUS_AUTORIZACAO_EDC;
-  STATUS_REQUISICAO_ABR = STATUS_AUTORIZACAO_ABR;
-  STATUS_REQUISICAO_REQ = STATUS_AUTORIZACAO_AUT;
-  STATUS_REQUISICAO_FAT = STATUS_AUTORIZACAO_FAT;
-  STATUS_REQUISICAO_CAN = STATUS_AUTORIZACAO_CAN;
-
   STATUS_CHEQUE_PENDENTE    = 0;
   STATUS_CHEQUE_APRESENTADO = 1;
   STATUS_CHEQUE_DEVOLVIDO   = 2;
@@ -487,10 +473,6 @@ const
 
   TIPO_CHEQUE_EMITIDO  = 1;
   TIPO_CHEQUE_RECEBIDO = 2;
-
-  TIPO_REQUISICAO_COMPRA         = TIPO_AUTORIZACAO_COMPRA;
-  TIPO_REQUISICAO_SERVICO        = TIPO_AUTORIZACAO_SERVICO;
-  TIPO_REQUISICAO_COMPRA_SERVICO = TIPO_AUTORIZACAO_COMPRA_SERVICO;
 
   TIPO_COTACAO_COMPRA         = TIPO_AUTORIZACAO_COMPRA;
   TIPO_COTACAO_SERVICO        = TIPO_AUTORIZACAO_SERVICO;
@@ -2796,11 +2778,6 @@ begin
   end;
 end;
 
-function GetPrazoValidadeAutorizacaoCompra(const sCNPJEmpresa : String) : Integer;
-begin
-  Result := 5;
-end;
-
 function GetPrazoValidadeCotacaoCompra(const sCNPJEmpresa : String) : Integer;
 begin
   Result := 15;
@@ -4369,33 +4346,6 @@ begin
   end;
 end;
 
-function GetExisteNumeroAutorizacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
-begin
-  with DMBusiness, fdQryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Select');
-    SQL.Add('    a.ano');
-    SQL.Add('  , a.codigo');
-    SQL.Add('  , a.numero');
-    SQL.Add('from TBAUTORIZA_COMPRA a');
-    SQL.Add('where a.Numero  = ' + QuotedStr(Trim(sNumero)));
-    SQL.Add('  and (not (');
-    SQL.Add('           a.ano    = ' + IntToStr(iAno));
-    SQL.Add('       and a.codigo = ' + IntToStr(iCodigo));
-    SQL.Add('  ))');
-    Open;
-
-    Result := (FieldByName('codigo').AsInteger > 0);
-
-    if Result then
-      sControleInterno := Trim(FieldByName('ano').AsString) + '/' + FormatFloat('###0000000', FieldByName('codigo').AsInteger);
-
-    Close;
-  end;
-end;
-
 function GetExisteNumeroCotacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
 begin
   with DMBusiness, fdQryBusca do
@@ -4438,33 +4388,6 @@ begin
     SQL.Add('  and (not (');
     SQL.Add('           s.ano    = ' + IntToStr(iAno));
     SQL.Add('       and s.codigo = ' + IntToStr(iCodigo));
-    SQL.Add('  ))');
-    Open;
-
-    Result := (FieldByName('codigo').AsInteger > 0);
-
-    if Result then
-      sControleInterno := Trim(FieldByName('ano').AsString) + '/' + FormatFloat('###0000000', FieldByName('codigo').AsInteger);
-
-    Close;
-  end;
-end;
-
-function GetExisteNumeroRequisicao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
-begin
-  with DMBusiness, fdQryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Select');
-    SQL.Add('    r.ano');
-    SQL.Add('  , r.codigo');
-    SQL.Add('  , r.numero');
-    SQL.Add('from TBREQUISITA_COMPRA r');
-    SQL.Add('where r.Numero  = ' + QuotedStr(Trim(sNumero)));
-    SQL.Add('  and (not (');
-    SQL.Add('           r.ano    = ' + IntToStr(iAno));
-    SQL.Add('       and r.codigo = ' + IntToStr(iCodigo));
     SQL.Add('  ))');
     Open;
 

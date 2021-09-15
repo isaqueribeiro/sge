@@ -36,6 +36,11 @@ type
     function CpfCnpjCadastro(Codigo : Integer;  CpfCnpj : String; var aCodigo : Integer; var aNome : String) : Boolean;
   end;
 
+  IControllerFornecedor = interface(IControllerCustom)
+    ['{14DC201C-608A-4A16-87D3-62B62B044EF6}']
+    function Get(aCodigo : Integer) : IModelDAOCustom;
+  end;
+
   IControllerCentroCusto = interface(IControllerCustom)
     ['{2A30F0DB-6B23-4A89-AA12-06A405551944}']
     procedure SetCentroCustoGeral(aEmpresa : String);
@@ -86,6 +91,16 @@ type
     ['{CFB62551-6810-4CF5-9E3E-7D966E96E928}']
     function Produtos : IControllerCustom;
     function ProdutosParaEntrada(aTipoItem : TTipoItem; aAno, aCodigo : Integer; aEmpresa : String) : IControllerAutorizacaoCompra;
+    function GetExisteNumero(aAno, aCodigo : Integer; aNumero : String; var aControleInterno : String) : Boolean;
+
+    procedure CarregarProdutos;
+  end;
+
+  IControllerRequisicaoCompra = interface(IControllerCustom)
+    ['{2EE4BEF6-5661-418C-9232-3C90F06B98DA}']
+    function Produtos : IControllerCustom;
+    function ProdutosParaEntrada(aTipoItem : TTipoItem; aAno, aCodigo : Integer; aEmpresa : String) : IControllerRequisicaoCompra;
+    function GetExisteNumero(aAno, aCodigo : Integer; aNumero : String; var aControleInterno : String) : Boolean;
 
     procedure CarregarProdutos;
   end;
@@ -138,7 +153,7 @@ type
     function FormaPagto : IControllerCustom;
     function FormaPagtoContaCorrente : IControllerCustom;
     function FormaPagtoNFCEView : IControllerCustom;
-    function Fornecedor      : IControllerCustom;
+    function Fornecedor      : IControllerFornecedor;
     function GrupoFornecedor : IControllerCustom;
     function GrupoProduto    : IControllerCustom;
     function IBPT : IControllerCustom;
@@ -153,6 +168,7 @@ type
     function Produto           : IControllerProduto;
     function Promocao          : IControllerPromocao;
     function PromocaoProduto   : IControllerCustom;
+    function RequisicaoCompra  : IControllerRequisicaoCompra;
     function SecaoProduto : IControllerCustom;
     function Segmento     : IControllerCustom;
     function TabelaIBPT   : IControllerCustom;
@@ -169,8 +185,10 @@ type
     function TipoReceita    : IControllerCustom;
     function TipoReceitaPlanoConta : IControllerCustom;
     function TipoRegimeView : IControllerCustom;
+    function TipoRequisicaoView : IControllerCustom;
     function TipoTributacao : IControllerCustom;
     function TipoVeiculo    : IControllerCustom;
+    function Transportadora : IControllerCustom;
     function UF : IControllerCustom;
     function UnidadeProduto : IControllerCustom;
     function Vendedor : IControllerCustom;

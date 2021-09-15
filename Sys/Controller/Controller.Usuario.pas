@@ -213,6 +213,7 @@ begin
     .Codigo( TEmpresaObject(aEmpresa).Codigo )
     .RazaoSocial( TEmpresaObject(aEmpresa).RazaoSocial )
     .Fantasia( TEmpresaObject(aEmpresa).Fantasia )
+    .Endereco( TEmpresaObject(aEmpresa).Endereco )
     .CNPJ( TEmpresaObject(aEmpresa).CNPJ );
 
   FModel.Empresa(ModelEmpresa);

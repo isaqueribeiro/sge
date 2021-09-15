@@ -3,7 +3,14 @@ unit Controller.Empresa;
 interface
 
 uses
-  System.Generics.Collections, System.Classes, FireDAC.Comp.Client, Interacao.Empresa, Classe.Empresa;
+  System.SysUtils,
+  System.StrUtils,
+  System.Classes,
+  System.Generics.Collections,
+  FireDAC.Comp.Client,
+  Interacao.Empresa,
+  Classe.Empresa,
+  Service.Utils;
 
 type
   TEmpresaController = class(TInterfacedObject, IEmpresa)
@@ -61,11 +68,19 @@ begin
       SQL.BeginUpdate;
       SQL.Clear;
       SQL.Add('Select');
-      SQL.Add('    codigo  ');
-      SQL.Add('  , cnpj    ');
-      SQL.Add('  , razao   ');
-      SQL.Add('  , fantasia');
-      SQL.Add('from VW_EMPRESA');
+      SQL.Add('    e.codigo  ');
+      SQL.Add('  , e.cnpj    ');
+      SQL.Add('  , e.razao   ');
+      SQL.Add('  , e.fantasia');
+      SQL.Add('  , c.ender   ');
+      SQL.Add('  , c.numero_end ');
+      SQL.Add('  , c.complemento');
+      SQL.Add('  , c.bairro');
+      SQL.Add('  , c.cidade');
+      SQL.Add('  , c.uf    ');
+      SQL.Add('  , c.cep   ');
+      SQL.Add('from VW_EMPRESA e');
+      SQL.Add('  inner join TBEMPRESA c on (c.cnpj = e.cnpj)');
       SQL.EndUpdate;
 
       if OpenOrExecute then
@@ -80,6 +95,11 @@ begin
             CNPJ   := FieldByName('cnpj').AsString;
             RazaoSocial := FieldByName('razao').AsString;
             Fantasia    := FieldByName('fantasia').AsString;
+
+            Endereco := Trim(FieldByName('ender').AsString) + ', No. ' + Trim(FieldByName('numero_end').AsString) +
+              IfThen(Trim(FieldByName('complemento').AsString) = EmptyStr, '', ' (' + Trim(FieldByName('complemento').AsString) + ')') + ', ' +
+              'BAIRRO: ' + Trim(FieldByName('bairro').AsString) + ' - ' + Trim(FieldByName('cidade').AsString) + ' ' +
+              'CEP: ' + TServicesUtils.StrFormatarCEP(Trim(FieldByName('cep').AsString));
           end;
 
           aLista.AddObject(aEmpresa.Fantasia, aEmpresa);

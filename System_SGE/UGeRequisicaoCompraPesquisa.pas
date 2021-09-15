@@ -477,7 +477,7 @@ begin
       cdsAutorizacaoINSERCAO_DATA.AsDateTime := GetDateTimeDB;
       cdsAutorizacaoEMISSAO_DATA.AsDateTime  := GetDateDB;
       cdsAutorizacaoEMISSAO_USUARIO.Value  := gUsuarioLogado.Login;
-      cdsAutorizacaoVALIDADE.Value         := cdsAutorizacaoEMISSAO_DATA.Value + GetPrazoValidadeAutorizacaoCompra(gUsuarioLogado.Empresa);
+      cdsAutorizacaoVALIDADE.Value         := cdsAutorizacaoEMISSAO_DATA.Value + PRAZO_VALIDADE_AUTORIZACAO_COMPRA;
       cdsAutorizacaoSTATUS.AsInteger       := STATUS_AUTORIZACAO_EDC;
 
       cdsAutorizacaoFORNECEDOR.AsInteger     := edFornecedor.Tag;

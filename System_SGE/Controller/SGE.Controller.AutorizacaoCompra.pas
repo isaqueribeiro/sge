@@ -3,6 +3,7 @@ unit SGE.Controller.AutorizacaoCompra;
 interface
 
 uses
+  System.SysUtils,
   SGE.Controller,
   SGE.Controller.Interfaces,
   SGE.Model.DAO.Interfaces,
@@ -13,7 +14,8 @@ type
   // Autorizações de Compras/Serviços
   TControllerAutorizacaoCompra = class(TController, IControllerAutorizacaoCompra)
     private
-      FProdutos   : IControllerCustom;
+      FBusca    : IModelDAOCustom;
+      FProdutos : IControllerCustom;
     protected
       constructor Create;
     public
@@ -24,6 +26,7 @@ type
 
       function Produtos : IControllerCustom;
       function ProdutosParaEntrada(aTipoItem : TTipoItem; aAno, aCodigo : Integer; aEmpresa : String) : IControllerAutorizacaoCompra; virtual; abstract;
+      function GetExisteNumero(aAno, aCodigo : Integer; aNumero : String; var aControleInterno : String) : Boolean;
   end;
 
   // Itens da Autorizações de Compras/Serviços
@@ -72,6 +75,33 @@ end;
 destructor TControllerAutorizacaoCompra.Destroy;
 begin
   inherited;
+end;
+
+function TControllerAutorizacaoCompra.GetExisteNumero(aAno, aCodigo: Integer; aNumero: String;
+  var aControleInterno: String): Boolean;
+begin
+  if not Assigned(FBusca) then
+    FBusca := TModelDAOFactory.New.Busca;
+
+  FBusca
+    .Clear
+    .SQL('Select')
+    .SQL('    a.ano')
+    .SQL('  , a.codigo')
+    .SQL('  , a.numero')
+    .SQL('from TBAUTORIZA_COMPRA a')
+    .SQL('where a.Numero  = ' + aNumero.Trim.QuotedString)
+    .SQL('  and (not (')
+    .SQL('           a.ano    = ' + aAno.ToString)
+    .SQL('       and a.codigo = ' + aCodigo.ToString)
+    .SQL('  ))')
+    .Open;
+
+  Result := not FBusca.DataSet.IsEmpty;
+  if Result then
+    aControleInterno :=
+      Trim(FBusca.DataSet.FieldByName('ano').AsString) + '/' +
+      FormatFloat('###0000000', FBusca.DataSet.FieldByName('codigo').AsInteger);
 end;
 
 class function TControllerAutorizacaoCompra.New: IControllerAutorizacaoCompra;

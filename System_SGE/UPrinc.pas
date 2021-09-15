@@ -354,8 +354,8 @@ uses
 
   // Movimentação
   ,UGeRequisicaoCliente
-  , View.AutorizacaoCompra,
-  UGeRequisicaoCompra,
+  , View.AutorizacaoCompra
+  , View.RequisicaoCompra,
 
   // Estoque, Entrada e Saída
   View.Produto,

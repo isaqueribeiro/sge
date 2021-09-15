@@ -26,6 +26,7 @@ uses
   SGE.Model.DAO.PlanoConta,
   SGE.Model.DAO.Produto,
   SGE.Model.DAO.Promocao,
+  SGE.Model.DAO.RequisicaoCompra,
   SGE.Model.DAO.Tabelas,
   SGE.Model.DAO.TipoDespesa,
   SGE.Model.DAO.TipoLogradouro,
@@ -84,14 +85,16 @@ type
       FLoteProduto    ,
       FNivelIBPT      ,
       FOrigemProdutoView,
-      FPlanoConta     ,
-      FPlanoContaNivel,
-      FPlanoContaTipo ,
-      FProduto        ,
-      FPromocao       ,
-      FPromocaoProduto,
-      FSecaoProduto   ,
-      FSegmento       ,
+      FPlanoConta       ,
+      FPlanoContaNivel  ,
+      FPlanoContaTipo   ,
+      FProduto          ,
+      FPromocao         ,
+      FPromocaoProduto  ,
+      FSecaoProduto     ,
+      FSegmento         ,
+      FRequisicaoCompra ,
+      FRequisicaoCompraProdutoServico,
       FTabelaIBPT     ,
       FTipoAliquotaView   ,
       FTipoAutorizacaoView,
@@ -106,6 +109,7 @@ type
       FTipoReceita    ,
       FTipoReceitaPlanoConta,
       FTipoRegimeView,
+      FTipoRequisicaoView,
       FTipoTributacao,
       FTipoVeiculo   ,
       FTransportadora,
@@ -174,6 +178,8 @@ type
       function PromocaoProduto : IModelDAOCustom;
       function SecaoProduto : IModelDAOCustom;
       function Segmento : IModelDAOCustom;
+      function RequisicaoCompra : IModelDAOCustom;
+      function RequisicaoCompraProdutoServico : IModelDAOCustom;
       function TabelaIBPT : IModelDAOCustom;
       function TipoAliquotaView : IModelDAOCustom;
       function TipoAutorizacaoView : IModelDAOCustom;
@@ -188,6 +194,7 @@ type
       function TipoReceita : IModelDAOCustom;
       function TipoReceitaPlanoConta : IModelDAOCustom;
       function TipoRegimeView : IModelDAOCustom;
+      function TipoRequisicaoView : IModelDAOCustom;
       function TipoTributacao : IModelDAOCustom;
       function TipoVeiculo : IModelDAOCustom;
       function Transportadora : IModelDAOCustom;
@@ -279,6 +286,22 @@ begin
   Result := FPromocaoProduto;
 end;
 
+function TModelDAOFactory.RequisicaoCompra: IModelDAOCustom;
+begin
+  if not Assigned(FRequisicaoCompra) then
+    FRequisicaoCompra := TModelDAORequisicaoCompra.New;
+
+  Result := FRequisicaoCompra;
+end;
+
+function TModelDAOFactory.RequisicaoCompraProdutoServico: IModelDAOCustom;
+begin
+  if not Assigned(FRequisicaoCompraProdutoServico) then
+    FRequisicaoCompraProdutoServico := TModelDAORequisicaoCompraProdutoServico.New;
+
+  Result := FRequisicaoCompraProdutoServico;
+end;
+
 function TModelDAOFactory.SecaoProduto: IModelDAOCustom;
 begin
   if not Assigned(FSecaoProduto) then
@@ -322,7 +345,7 @@ end;
 function TModelDAOFactory.TipoAutorizacaoView: IModelDAOCustom;
 begin
   if not Assigned(FTipoAutorizacaoView) then
-    FTipoAutorizacaoView := TModelDAOTipoAutorizacao.New;
+    FTipoAutorizacaoView := TModelDAOTipoAutorizacaoView.New;
 
   Result := FTipoAutorizacaoView;
 end;
@@ -413,6 +436,14 @@ begin
     FTipoRegimeView := TModelDAOTipoRegimeView.New;
 
   Result := FTipoRegimeView;
+end;
+
+function TModelDAOFactory.TipoRequisicaoView: IModelDAOCustom;
+begin
+  if not Assigned(FTipoRequisicaoView) then
+    FTipoRequisicaoView := TModelDAOTipoRequisicaoView.New;
+
+  Result := FTipoRequisicaoView;
 end;
 
 function TModelDAOFactory.TipoTributacao: IModelDAOCustom;

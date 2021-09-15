@@ -347,12 +347,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\lib\UGrRegistroEstacao.pas">
             <Form>FrmGrRegistroEstacao</Form>
         </DCCReference>
-        <DCCReference Include="UGeRequisicaoCompra.pas">
-            <Form>frmGeRequisicaoCompra</Form>
-        </DCCReference>
-        <DCCReference Include="UGeRequisicaoCompraCancelar.pas">
-            <Form>frmGeRequisicaoCompraCancelar</Form>
-        </DCCReference>
         <DCCReference Include="UGeRequisicaoCompraPesquisa.pas">
             <Form>frmGeRequisicaoCompraPesquisa</Form>
         </DCCReference>
@@ -573,6 +567,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Produto.pas"/>
         <DCCReference Include="Model\DAO\SGE.Model.DAO.Promocao.pas"/>
+        <DCCReference Include="Model\DAO\SGE.Model.DAO.RequisicaoCompra.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas"/>
@@ -604,6 +599,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.PlanoConta.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Produto.pas"/>
         <DCCReference Include="Controller\SGE.Controller.Promocao.pas"/>
+        <DCCReference Include="Controller\SGE.Controller.RequisicaoCompra.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Tabelas.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoLogradouro.pas"/>
@@ -714,6 +710,14 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="View\View.AutorizacaoCompra.Cancelar.pas">
             <Form>ViewAutorizacaoCompraCancelar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="View\View.RequisicaoCompra.pas">
+            <Form>ViewRequisicaoCompra</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="View\View.RequisicaoCompra.Cancelar.pas">
+            <Form>ViewRequisicaoCompraCancelar</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
@@ -832,7 +836,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -954,7 +958,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

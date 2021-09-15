@@ -8,17 +8,20 @@ Uses
 type
   TPessoaJuridica = class(TPessoa, IPessoaJuridicaModel)
     private
-      FFantasia,
-      FCNPJ    : String;
+      FFantasia ,
+      FCNPJ     ,
+      FEndereco : String;
     published
       function RazaoSocial : String; overload;
       function Fantasia : String; overload;
       function CNPJ : String; overload;
+      function Endereco : String; overload;
     public
       function Codigo(Value : Integer) : IPessoaJuridicaModel; overload;
       function RazaoSocial(Value : String) : IPessoaJuridicaModel; overload;
       function Fantasia(Value : String) : IPessoaJuridicaModel; overload;
       function CNPJ(Value : String) : IPessoaJuridicaModel; overload;
+      function Endereco(Value : String) : IPessoaJuridicaModel; overload;
 
       constructor Create;
       destructor Destroy; override;
@@ -50,11 +53,23 @@ end;
 constructor TPessoaJuridica.Create;
 begin
   FCNPJ := EmptyStr;
+  FEndereco := EmptyStr;
 end;
 
 destructor TPessoaJuridica.Destroy;
 begin
   inherited;
+end;
+
+function TPessoaJuridica.Endereco(Value: String): IPessoaJuridicaModel;
+begin
+  Result    := Self;
+  FEndereco := Value.Trim;
+end;
+
+function TPessoaJuridica.Endereco: String;
+begin
+  Result := FEndereco;
 end;
 
 function TPessoaJuridica.Fantasia(Value: String): IPessoaJuridicaModel;

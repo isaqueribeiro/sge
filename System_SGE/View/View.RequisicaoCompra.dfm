@@ -1,7 +1,8 @@
-inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
-  Left = 391
+inherited ViewRequisicaoCompra: TViewRequisicaoCompra
+  Left = 396
+  Top = 223
   ActiveControl = dbCodigo
-  Caption = 'Controle de Autoriza'#231#245'es de Compra/Servi'#231'o'
+  Caption = 'Controle de Requisi'#231#245'es de Compra/Servi'#231'o'
   ClientHeight = 685
   ClientWidth = 1116
   ExplicitWidth = 1132
@@ -28,8 +29,6 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -113,38 +112,40 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
         ExplicitTop = 543
         ExplicitWidth = 1108
         ExplicitHeight = 70
-        object lblAutorizacaoAberta: TLabel [0]
+        object lblRequisicaoAberta: TLabel [0]
           Left = 2
           Top = 4
-          Width = 132
+          Width = 125
           Height = 13
-          Caption = '* Autoriza'#231#245'es Abertas'
+          Caption = '* Requisi'#231#245'es Abertas'
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlue
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
+          Transparent = True
         end
-        object lblAutorizacaoCancelada: TLabel [1]
+        object lblRequisicaoCancelada: TLabel [1]
           Left = 2
           Top = 24
-          Width = 151
+          Width = 144
           Height = 13
-          Caption = '* Autoriza'#231#245'es Canceladas'
+          Caption = '* Requisi'#231#245'es Canceladas'
           Font.Charset = ANSI_CHARSET
           Font.Color = clRed
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           ParentFont = False
+          Transparent = True
         end
-        object lblAutorizacaoEmEdicao: TLabel [2]
+        object lblRequisicaoEmEdicao: TLabel [2]
           Left = 2
           Top = 44
-          Width = 143
+          Width = 136
           Height = 13
-          Caption = '* Autoriza'#231#245'es Em Edi'#231#227'o'
+          Caption = '* Requisi'#231#245'es Em Edi'#231#227'o'
           Color = clYellow
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -174,23 +175,24 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Margins.Top = 9
             Margins.Bottom = 9
             Align = alRight
-            Caption = 'Autoriza'#231#227'o / Fornecedor:'
-            ExplicitLeft = 297
+            Caption = 'Requisi'#231#227'o / Fornecedor:'
+            ExplicitLeft = 304
             ExplicitTop = 28
             ExplicitWidth = 147
+            ExplicitHeight = 19
           end
           object lblData: TLabel [1]
             AlignWithMargins = True
-            Left = 27
+            Left = 25
             Top = 28
-            Width = 49
+            Width = 51
             Height = 19
             Margins.Top = 9
             Margins.Bottom = 9
             Align = alRight
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
-            ExplicitHeight = 13
+            ExplicitLeft = 32
           end
           inherited edtFiltrar: TEdit
             Left = 450
@@ -198,7 +200,6 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Width = 183
             TabOrder = 2
             ExplicitLeft = 450
-            ExplicitTop = 24
             ExplicitWidth = 183
           end
           inherited btnFiltrar: TcxButton
@@ -206,11 +207,11 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Top = 22
             TabOrder = 3
             ExplicitLeft = 639
-            ExplicitTop = 22
+            ExplicitHeight = 34
           end
           object e1Data: TJvDateEdit
             AlignWithMargins = True
-            Left = 82
+            Left = 191
             Top = 24
             Width = 100
             Height = 23
@@ -268,11 +269,13 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 0
+            ExplicitLeft = 72
+            ExplicitTop = 23
             ExplicitHeight = 21
           end
           object e2Data: TJvDateEdit
             AlignWithMargins = True
-            Left = 188
+            Left = 82
             Top = 24
             Width = 103
             Height = 23
@@ -330,10 +333,12 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 1
+            ExplicitLeft = 184
+            ExplicitTop = 23
             ExplicitHeight = 21
           end
         end
-        object RdgStatusAutorizacao: TRadioGroup
+        object RdgStatusRequisicao: TRadioGroup
           AlignWithMargins = True
           Left = 195
           Top = 4
@@ -343,17 +348,18 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           Margins.Top = 0
           Margins.Bottom = 0
           Align = alRight
-          Caption = '&Status Autoriza'#231#227'o'
+          Caption = '&Status Requisi'#231#227'o'
           Columns = 2
           ItemIndex = 0
           Items.Strings = (
             '(Todas)'
             'Em Edi'#231#227'o'
             'Aberta'
-            'Autorizada'
+            'Requisitada'
             'Faturada'
             'Cancelada')
           TabOrder = 0
+          ExplicitLeft = 198
         end
       end
     end
@@ -462,9 +468,9 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
         object lblAutorizador: TLabel [7]
           Left = 944
           Top = 64
-          Width = 70
+          Width = 97
           Height = 13
-          Caption = 'Autorizador:'
+          Caption = 'Requisitador por:'
           FocusControl = dbAutorizador
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -552,7 +558,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           TabOrder = 1
         end
         object dbEmpresa: TDBLookupComboBox
-          Left = 241
+          Left = 240
           Top = 40
           Width = 425
           Height = 21
@@ -613,7 +619,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           Height = 21
           TabStop = False
           Color = clMoneyGreen
-          DataField = 'AUTORIZADO_USUARIO'
+          DataField = 'REQUISITADO_USUARIO'
           DataSource = DtSrcTabela
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -655,7 +661,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           Font.Style = []
           KeyField = 'CODIGO'
           ListField = 'DESCRICAO'
-          ListSource = dtsTipoAutorizacao
+          ListSource = dtsTipoRequisicao
           ParentFont = False
           TabOrder = 4
         end
@@ -675,15 +681,15 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           ParentFont = False
           TabOrder = 11
         end
-        object PgcTextoAutorizacao: TPageControl
+        object PgcTextoRequisicao: TPageControl
           Left = 384
           Top = 104
           Width = 705
           Height = 122
-          ActivePage = TbsAutorizacaoCancelado
+          ActivePage = TbsRequisicaoMotivo
           Style = tsFlatButtons
           TabOrder = 14
-          object TbsAutorizacaoMotivo: TTabSheet
+          object TbsRequisicaoMotivo: TTabSheet
             Caption = 'Motivo do pedido de autoriza'#231#227'o'
             object dbMotivo: TDBMemo
               Left = 0
@@ -703,7 +709,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
               TabOrder = 0
             end
           end
-          object TbsAutorizacaoObservacao: TTabSheet
+          object TbsRequisicaoObservacao: TTabSheet
             Caption = 'Observa'#231#245'es Gerais'
             ImageIndex = 1
             object dbObservacao: TDBMemo
@@ -724,7 +730,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
               TabOrder = 0
             end
           end
-          object TbsAutorizacaoCancelado: TTabSheet
+          object TbsRequisicaoCancelado: TTabSheet
             Caption = 'Motivo do Cancelamento'
             ImageIndex = 2
             object dbMovitoCancelamento: TDBMemo
@@ -747,137 +753,6 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
               TabOrder = 0
             end
           end
-        end
-        object dbDataEmissao: TJvDBDateEdit
-          Left = 384
-          Top = 80
-          Width = 121
-          Height = 21
-          DataField = 'EMISSAO_DATA'
-          DataSource = DtSrcTabela
-          Color = clWhite
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          Glyph.Data = {
-            76050000424D760500000000000036000000280000001C0000000C0000000100
-            2000000000004005000000000000000000000000000000000000FF00FF00FF00
-            FF00FF00FF008080800080808000808080008080800080808000808080008080
-            800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
-            0000800000008000000000000000800000000000000000000000800000008080
-            8000FF00FF008080800080808000808080008080800080808000808080008080
-            80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
-            0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
-            80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
-            C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
-            0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
-            FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
-            8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
-            000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-            FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
-            C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000FF00FF00FF00
-            FF00FF00FF008080800080808000808080008080800080808000808080008080
-            80008080800080808000808080008080800080808000FF00FF00}
-          ImageKind = ikCustom
-          NumGlyphs = 2
-          ParentFont = False
-          PopupColor = clBtnFace
-          ShowNullDate = False
-          TabOrder = 6
-          OnExit = ControlEditExit
-        end
-        object dbDataValidade: TJvDBDateEdit
-          Left = 512
-          Top = 80
-          Width = 121
-          Height = 21
-          DataField = 'VALIDADE'
-          DataSource = DtSrcTabela
-          Color = clWhite
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          Glyph.Data = {
-            76050000424D760500000000000036000000280000001C0000000C0000000100
-            2000000000004005000000000000000000000000000000000000FF00FF00FF00
-            FF00FF00FF008080800080808000808080008080800080808000808080008080
-            800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
-            0000800000008000000000000000800000000000000000000000800000008080
-            8000FF00FF008080800080808000808080008080800080808000808080008080
-            80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
-            0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
-            80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
-            C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
-            0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
-            FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
-            8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
-            000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-            FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
-            C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000FF00FF00FF00
-            FF00FF00FF008080800080808000808080008080800080808000808080008080
-            80008080800080808000808080008080800080808000FF00FF00}
-          ImageKind = ikCustom
-          NumGlyphs = 2
-          ParentFont = False
-          PopupColor = clBtnFace
-          ShowNullDate = False
-          TabOrder = 10
         end
         object dbFornecedor: TJvDBComboEdit
           Left = 672
@@ -1104,13 +979,144 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           TabOrder = 13
           OnButtonClick = dbCentroCustoButtonClick
         end
+        object dbDataEmissao: TJvDBDateEdit
+          Left = 384
+          Top = 80
+          Width = 121
+          Height = 21
+          DataField = 'EMISSAO_DATA'
+          DataSource = DtSrcTabela
+          Color = clWhite
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Glyph.Data = {
+            76050000424D760500000000000036000000280000001C0000000C0000000100
+            2000000000004005000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF008080800080808000808080008080800080808000808080008080
+            800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+            0000800000008000000000000000800000000000000000000000800000008080
+            8000FF00FF008080800080808000808080008080800080808000808080008080
+            80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+            0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+            80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+            C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+            0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+            FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+            8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+            000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+            C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+            0000000000000000000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF008080800080808000808080008080800080808000808080008080
+            80008080800080808000808080008080800080808000FF00FF00}
+          ImageKind = ikCustom
+          NumGlyphs = 2
+          ParentFont = False
+          PopupColor = clBtnFace
+          ShowNullDate = False
+          TabOrder = 6
+          OnExit = ControlEditExit
+        end
+        object dbDataValidade: TJvDBDateEdit
+          Left = 512
+          Top = 80
+          Width = 121
+          Height = 21
+          DataField = 'VALIDADE'
+          DataSource = DtSrcTabela
+          Color = clWhite
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Glyph.Data = {
+            76050000424D760500000000000036000000280000001C0000000C0000000100
+            2000000000004005000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF008080800080808000808080008080800080808000808080008080
+            800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+            0000800000008000000000000000800000000000000000000000800000008080
+            8000FF00FF008080800080808000808080008080800080808000808080008080
+            80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+            0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+            80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+            C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+            0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+            FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+            8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+            000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+            C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+            0000000000000000000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF008080800080808000808080008080800080808000808080008080
+            80008080800080808000808080008080800080808000FF00FF00}
+          ImageKind = ikCustom
+          NumGlyphs = 2
+          ParentFont = False
+          PopupColor = clBtnFace
+          ShowNullDate = False
+          TabOrder = 10
+        end
       end
       object pgcMaisDados: TPageControl
         Left = 0
         Top = 447
         Width = 1108
         Height = 166
-        ActivePage = tbsRetirada
+        ActivePage = tbsFormaPagto
         Align = alBottom
         TabOrder = 3
         object tbsFormaPagto: TTabSheet
@@ -2192,13 +2198,13 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       TabOrder = 9
       ExplicitLeft = 913
     end
-    object btnFinalizarAutorizacao: TcxButton
+    object btnFinalizarRequisicao: TcxButton
       Tag = 11
       Left = 553
       Top = 0
       Width = 120
       Height = 35
-      Hint = 'Finalizar Autoriza'#231#227'o'
+      Hint = 'Finalizar Requisi'#231#227'o'
       Align = alRight
       Caption = 'Finalizar'
       Enabled = False
@@ -2273,19 +2279,19 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       OptionsImage.NumGlyphs = 2
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 6
-      OnClick = btnFinalizarAutorizacaoClick
+      TabOrder = 7
+      OnClick = btnFinalizarRequisicaoClick
     end
-    object btnAutorizarReabrir: TcxButton
+    object btnRequisitarReabrir: TcxButton
       Tag = 12
       Left = 673
       Top = 0
       Width = 120
       Height = 35
-      Hint = 'Autorizar/Reabrir'
+      Hint = 'Requisitar Compra/Servi'#231'o'
       Align = alRight
-      Caption = 'Autorizar/Reabrir'
-      DropDownMenu = ppAutorizacao
+      Caption = 'Requisitar/Reabrir'
+      DropDownMenu = ppRequisicao
       Kind = cxbkDropDown
       OptionsImage.Glyph.SourceDPI = 96
       OptionsImage.Glyph.Data = {
@@ -2358,17 +2364,17 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       OptionsImage.NumGlyphs = 2
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 7
+      TabOrder = 6
     end
-    object btnCancelarAutorizacao: TcxButton
+    object btnCancelarRequisicao: TcxButton
       Tag = 13
       Left = 793
       Top = 0
       Width = 120
       Height = 35
-      Hint = 'Cancelar Autoriza'#231#227'o Selecionada'
+      Hint = 'Cancelar Requisi'#231#227'o Selecionada'
       Align = alRight
-      Caption = 'Cancelar Aut.'
+      Caption = 'Cancelar Req.'
       Enabled = False
       OptionsImage.Glyph.SourceDPI = 96
       OptionsImage.Glyph.Data = {
@@ -2442,52 +2448,52 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       ParentShowHint = False
       ShowHint = True
       TabOrder = 8
-      OnClick = btnCancelarAutorizacaoClick
+      OnClick = btnCancelarRequisicaoClick
     end
   end
   inherited DtSrcTabela: TDataSource
     OnDataChange = DtSrcTabelaDataChange
-    Left = 408
+    Left = 560
     Top = 0
   end
   inherited ImgList: TImageList
-    Left = 376
-    Top = 0
+    Left = 912
+    Top = 272
   end
   object dtsEmpresa: TDataSource
-    Left = 592
+    Left = 696
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
     OnStateChange = DtSrcTabelaItensStateChange
     OnDataChange = DtSrcTabelaItensDataChange
-    Left = 440
+    Left = 592
   end
   object ppImprimir: TPopupMenu
     Images = ImgList
-    Left = 496
-    object nmImprimirAutorizacao: TMenuItem
-      Caption = 'Autoriza'#231#227'o de Compra/Servi'#231'o'
+    Left = 464
+    object nmImprimirRequisicao: TMenuItem
+      Caption = 'Requisi'#231#227'o de Compra/Servi'#231'o'
       ImageIndex = 16
-      OnClick = nmImprimirAutorizacaoClick
+      OnClick = nmImprimirRequisicaoClick
     end
   end
-  object dtsTipoAutorizacao: TDataSource
-    Left = 624
+  object dtsTipoRequisicao: TDataSource
+    Left = 728
   end
   object dtsFormaPagto: TDataSource
-    Left = 656
+    Left = 760
   end
   object dtsCondicaoPagto: TDataSource
-    Left = 688
+    Left = 792
   end
   object dtsTransportador: TDataSource
-    Left = 720
+    Left = 824
   end
-  object ppAutorizacao: TPopupMenu
-    Left = 528
-    Top = 1
-    object ppmAutorizarCompra: TMenuItem
+  object ppRequisicao: TPopupMenu
+    Left = 720
+    Top = 497
+    object ppmRequisitarCompra: TMenuItem
       Tag = 12
       Bitmap.Data = {
         36030000424D3603000000000000360000002800000010000000100000000100
@@ -2516,10 +2522,10 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-      Caption = 'Autorizar Compra/Servi'#231'o'
-      OnClick = ppmAutorizarCompraClick
+      Caption = 'Requisitar Compra/Servi'#231'o'
+      OnClick = ppmRequisitarCompraClick
     end
-    object ppmReabrirAutorizacao: TMenuItem
+    object ppmReabrirRequisicao: TMenuItem
       Tag = 14
       Bitmap.Data = {
         16050000424D160500000000000036040000280000000E0000000E0000000100
@@ -2563,8 +2569,8 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
         3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
         3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
         3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
-      Caption = 'Reabrir Autoriza'#231#227'o'
-      OnClick = ppmReabrirAutorizacaoClick
+      Caption = 'Reabrir Requisi'#231#227'o'
+      OnClick = ppmReabrirRequisicaoClick
     end
   end
 end
