@@ -263,7 +263,6 @@ type
     lblCSOSN: TLabel;
     dbCSOSN: TDBEdit;
     dbCalcularTotais: TDBCheckBox;
-    qryAutorizacaoProduto: TFDQuery;
     qryNFE: TFDQuery;
     updNFE: TFDUpdateSQL;
     qryNFEEMPRESA: TStringField;
@@ -348,6 +347,7 @@ type
     FControllerTipoDespesa ,
     FControllerCFOP    : IControllerCustom;
     FControllerProduto : IControllerProduto;
+    FControllerNFE     : IControllerXML_NFeEnviada;
     FEmpresa : String;
     FTipoMovimento : TTipoMovimentoEntrada;
     FApenasFinalizadas : Boolean;
@@ -865,24 +865,31 @@ procedure TViewEntrada.InserirItensAutorizacao;
 var
   I : Integer;
   cPrecoUN : Currency;
+  aAutorizacaoCompra : IControllerCustom;
 begin
-  with qryAutorizacaoProduto do
-  begin
-    Close;
-    ParamByName('tipo').AsInteger := IfThen(TTipoMovimentoEntrada(DtSrcTabela.DataSet.FieldByName('TIPO_MOVIMENTO').AsInteger) = tmeProduto, Ord(taICMS), Ord(taISS));
-    ParamByName('ano').AsInteger  := DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_ANO').AsInteger;
-    ParamByName('cod').AsInteger  := DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_CODIGO').AsInteger;
-    ParamByName('emp').AsString   := DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_EMPRESA').AsString;
-    Open;
+  aAutorizacaoCompra := TControllerFactory.New.ItensAutorizadosParaEntrada;
+  aAutorizacaoCompra
+    .DAO
+    .Close
+    .ParamsByName('tipo',    DtSrcTabela.DataSet.FieldByName('TIPO_MOVIMENTO').AsInteger)
+    .ParamsByName('ano',     DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_ANO').AsInteger)
+    .ParamsByName('codigo',  DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_CODIGO').AsInteger)
+    .ParamsByName('empresa', DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_EMPRESA').AsString)
+    .Open;
 
+  with aAutorizacaoCompra.DAO.DataSet do
+  begin
     if not IsEmpty then
     begin
       AbrirTabelaItens;
 
+      // Limpar a listagem atual excluíndo os produtos/serviços, caso exista itens na autorização
       DtSrcTabelaItens.DataSet.First;
       while not DtSrcTabelaItens.DataSet.Eof do
         DtSrcTabelaItens.DataSet.Delete;
     end;
+
+    // Inserir os produtos/serviços da autorização na entrada
 
     I := 1;
 
@@ -934,6 +941,75 @@ begin
       Next;
     end;
   end;
+//
+//  with qryAutorizacaoProduto do
+//  begin
+//    Close;
+//    ParamByName('tipo').AsInteger := IfThen(TTipoMovimentoEntrada(DtSrcTabela.DataSet.FieldByName('TIPO_MOVIMENTO').AsInteger) = tmeProduto, Ord(taICMS), Ord(taISS));
+//    ParamByName('ano').AsInteger  := DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_ANO').AsInteger;
+//    ParamByName('cod').AsInteger  := DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_CODIGO').AsInteger;
+//    ParamByName('emp').AsString   := DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_EMPRESA').AsString;
+//    Open;
+//
+//    if not IsEmpty then
+//    begin
+//      AbrirTabelaItens;
+//
+//      DtSrcTabelaItens.DataSet.First;
+//      while not DtSrcTabelaItens.DataSet.Eof do
+//        DtSrcTabelaItens.DataSet.Delete;
+//    end;
+//
+//    I := 1;
+//
+//    First;
+//    while not Eof do
+//    begin
+//      if ( FieldByName('quantidade').AsCurrency > 0.0 ) then
+//      begin
+//        DtSrcTabelaItens.DataSet.Append;
+//
+//        DtSrcTabelaItens.DataSet.FieldByName('SEQ').AsInteger := I;
+//        DtSrcTabelaItens.DataSet.FieldByName('CODPROD').Assign       ( FieldByName('produto') );
+//        DtSrcTabelaItens.DataSet.FieldByName('DESCRI').Assign        ( FieldByName('DESCRI') );
+//        DtSrcTabelaItens.DataSet.FieldByName('QTDE').Assign          ( FieldByName('quantidade') );
+//        DtSrcTabelaItens.DataSet.FieldByName('UNID_COD').Assign      ( FieldByName('unidade') );
+//        DtSrcTabelaItens.DataSet.FieldByName('UNP_SIGLA').Assign     ( FieldByName('unp_sigla') );
+//        DtSrcTabelaItens.DataSet.FieldByName('CFOP').Assign          ( DtSrcTabela.DataSet.FieldByName('NFCFOP') );
+//        DtSrcTabelaItens.DataSet.FieldByName('NCM_SH').Assign        ( FieldByName('ncm_sh') );
+//        DtSrcTabelaItens.DataSet.FieldByName('CST').Assign           ( FieldByName('cst') );
+//        DtSrcTabelaItens.DataSet.FieldByName('CSOSN').Assign         ( FieldByName('csosn') );
+//        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA').Assign      ( FieldByName('aliquota') );
+//        DtSrcTabelaItens.DataSet.FieldByName('PERCENTUAL_REDUCAO_BC').Assign      ( FieldByName('percentual_reducao_bc') );
+//        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA_CSOSN').Assign ( FieldByName('aliquota_csosn') );
+//        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA_PIS').Assign   ( FieldByName('aliquota_pis') );
+//        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA_COFINS').Assign( FieldByName('aliquota_cofins') );
+//        DtSrcTabelaItens.DataSet.FieldByName('QTDE').Assign           ( FieldByName('quantidade') );
+//        DtSrcTabelaItens.DataSet.FieldByName('QTDEANTES').Assign      ( FieldByName('estoque') );
+//        DtSrcTabelaItens.DataSet.FieldByName('QTDEFINAL').Assign      ( FieldByName('novo_estoque') );
+//        DtSrcTabelaItens.DataSet.FieldByName('PRECOUNIT').Assign      ( FieldByName('valor_unitario') );
+//        DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').Assign      ( FieldByName('valor_ipi') );
+//
+//        cPrecoUN := DtSrcTabelaItens.DataSet.FieldByName('PRECOUNIT').AsCurrency;
+//
+//        DtSrcTabelaItens.DataSet.FieldByName('CUSTOMEDIO').AsCurrency  := cPrecoUN + DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').AsCurrency;
+//        DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency := cPrecoUN * DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency;
+//
+//        DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency := DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency  / DtSrcTabela.DataSet.FieldByName('TOTALPROD').AsCurrency * 100;
+//        DtSrcTabelaItens.DataSet.FieldByName('VALOR_FRETE').AsCurrency       := DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency * DtSrcTabela.DataSet.FieldByName('FRETE').AsCurrency / 100;
+//        DtSrcTabelaItens.DataSet.FieldByName('VALOR_DESCONTO').AsCurrency    := DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency * DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency / 100;
+//        DtSrcTabelaItens.DataSet.FieldByName('VALOR_OUTROS').AsCurrency      := DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency * DtSrcTabela.DataSet.FieldByName('OUTROSCUSTOS').AsCurrency / 100;
+//
+//        DtSrcTabelaItens.DataSet.FieldByName('TOTAL_LIQUIDO').AsCurrency     := DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency - DtSrcTabelaItens.DataSet.FieldByName('VALOR_DESCONTO').AsCurrency;
+//
+//        DtSrcTabelaItens.DataSet.Post;
+//
+//        Inc(I);
+//      end;
+//
+//      Next;
+//    end;
+//  end;
 end;
 
 function TViewEntrada.Lotes: IControllerCustom;
@@ -2622,6 +2698,9 @@ end;
 procedure TViewEntrada.AbrirNotaFiscal(const pEmpresa: String;
   const AnoCompra: Smallint; const ControleCompra: Integer);
 begin
+  if not Assigned(FControllerNFE) then
+    FControllerNFE := TControllerFactory.New.XML_NFeEnviada;
+
   with qryNFE do
   begin
     Close;

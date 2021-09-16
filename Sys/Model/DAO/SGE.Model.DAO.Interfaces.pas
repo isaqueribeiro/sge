@@ -119,6 +119,7 @@ type
     function GrupoFornecedor : IModelDAOCustom;
     function GrupoProduto : IModelDAOCustom;
     function IBPT : IModelDAOCustom;
+    function ItensAutorizadosParaEntrada : IModelDAOCustom;
     function LayoutRemessaBancoView : IModelDAOCustom;
     function Logradouro : IModelDAOCustom;
     function LoteProduto : IModelDAOCustom;
@@ -155,6 +156,7 @@ type
     function UF       : IModelDAOCustom;
     function UnidadeProduto : IModelDAOCustom;
     function Vendedor : IModelDAOCustom;
+    function XML_NFeEnviada : IModelDAOCustom;
   end;
 
 implementation

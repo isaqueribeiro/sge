@@ -31,7 +31,8 @@ uses
   SGE.Controller.TipoLogradouro,
   SGE.Controller.TipoReceita,
   SGE.Controller.UF,
-  SGE.Controller.Vendedor;
+  SGE.Controller.Vendedor,
+  SGE.Controller.XML_NFeEnviada;
 
 type
   TControllerFactory = class(TInterfacedObject, IControllerFactory)
@@ -76,6 +77,7 @@ type
       FGrupoFornecedor,
       FGrupoProduto   ,
       FIBPT           ,
+      FItensAutorizadosParaEntrada,
       FLayoutRemessaBancoView,
       FLogradouro ,
       FLoteProduto,
@@ -111,6 +113,7 @@ type
       FUF ,
       FUnidadeProduto : IControllerCustom;
       FVendedor : IControllerCustom;
+      FXML_NFeEnviada : IControllerXML_NFeEnviada;
     protected
       constructor Create;
     public
@@ -157,6 +160,7 @@ type
       function GrupoFornecedor : IControllerCustom;
       function GrupoProduto : IControllerCustom;
       function IBPT : IControllerCustom;
+      function ItensAutorizadosParaEntrada : IControllerCustom;
       function LayoutRemessaBancoView : IControllerCustom;
       function Logradouro : IControllerCustom;
       function LoteProduto : IControllerCustom;
@@ -192,6 +196,7 @@ type
       function UF : IControllerCustom;
       function UnidadeProduto : IControllerCustom;
       function Vendedor : IControllerCustom;
+      function XML_NFeEnviada : IControllerXML_NFeEnviada;
   end;
 
 implementation
@@ -621,6 +626,14 @@ begin
   Result := FIBPT;
 end;
 
+function TControllerFactory.ItensAutorizadosParaEntrada: IControllerCustom;
+begin
+  if not Assigned(FItensAutorizadosParaEntrada) then
+    FItensAutorizadosParaEntrada := TControllerItensAutorizadosParaEntrada.New;
+
+  Result := FItensAutorizadosParaEntrada;
+end;
+
 function TControllerFactory.LayoutRemessaBancoView: IControllerCustom;
 begin
   if not Assigned(FLayoutRemessaBancoView) then
@@ -811,6 +824,14 @@ begin
     FVendedor := TControllerVendedor.New;
 
   Result := FVendedor;
+end;
+
+function TControllerFactory.XML_NFeEnviada: IControllerXML_NFeEnviada;
+begin
+  if not Assigned(FXML_NFeEnviada) then
+    FXML_NFeEnviada := TControllerXML_NFeEnviada.New;
+
+  Result := FXML_NFeEnviada;
 end;
 
 end.

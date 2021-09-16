@@ -8,11 +8,16 @@ Uses
   Type
     TArrayInteger      = Array of Integer;
     TTipoAlertaSistema = (tpaLicenca, tpaBackup);
+
+    TAliquota   = (taICMS, taISS);
+    TTipoItem   = TAliquota;
+    TTipoRegime = (trSimplesNacional, trSimplesExcessoReceita, trRegimeNormal);
+
     TTipoProduto = (tpMaterialGeral, tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME);
     TTipoCFOP    = (tcfopADefinir, tcfopEntrada, tcfopSaida);
     TTipoTabelaIBPT  = (tIbptGeral, tIbptProdutos, tIbptServicos);
     TGrupoFornecedor = (gpFornecedorADefinir = 1, gpFornecedorProduto = 2, gpFornecedorServico = 3, gpFornecedorProdutoServico = 4, gpFornecedorColaborador = 5);
-    TTipoPlanoConta = (tpNull = -1, tpAgrupador = 0, tpLancamento = 1);
+    TTipoPlanoConta  = (tpNull = -1, tpAgrupador = 0, tpLancamento = 1);
     TTipoMovimentoEntrada = (tmeProduto, tmeServico);
 
     TTipoAlertaSistemaCollection = Set of TTipoAlertaSistema;
@@ -22,10 +27,6 @@ Uses
     TTipoProdutoLista       = Array[Low(TTipoProduto)..High(TTipoProduto)] of String;
     TGrupoFornecedorLista   = Array[Low(TGrupoFornecedor)..High(TGrupoFornecedor)] of String;
     TPermissaoLista         = Array [0..45] of String;
-
-    TAliquota   = (taICMS, taISS);
-    TTipoItem   = TAliquota;
-    TTipoRegime = (trSimplesNacional, trSimplesExcessoReceita, trRegimeNormal);
 
   TSistema = record
     Codigo : Integer;

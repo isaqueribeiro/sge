@@ -278,7 +278,9 @@ uses
   View.AutorizacaoCompra in 'View\View.AutorizacaoCompra.pas' {ViewAutorizacaoCompra},
   View.AutorizacaoCompra.Cancelar in 'View\View.AutorizacaoCompra.Cancelar.pas' {ViewAutorizacaoCompraCancelar},
   View.RequisicaoCompra in 'View\View.RequisicaoCompra.pas' {ViewRequisicaoCompra},
-  View.RequisicaoCompra.Cancelar in 'View\View.RequisicaoCompra.Cancelar.pas' {ViewRequisicaoCompraCancelar};
+  View.RequisicaoCompra.Cancelar in 'View\View.RequisicaoCompra.Cancelar.pas' {ViewRequisicaoCompraCancelar},
+  SGE.Model.DAO.XML_NFeEnviada in 'Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas',
+  SGE.Controller.XML_NFeEnviada in 'Controller\SGE.Controller.XML_NFeEnviada.pas';
 
 {$R *.res}
 

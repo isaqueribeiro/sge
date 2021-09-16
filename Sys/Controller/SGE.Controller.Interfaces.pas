@@ -90,7 +90,7 @@ type
   IControllerAutorizacaoCompra = interface(IControllerCustom)
     ['{CFB62551-6810-4CF5-9E3E-7D966E96E928}']
     function Produtos : IControllerCustom;
-    function ProdutosParaEntrada(aTipoItem : TTipoItem; aAno, aCodigo : Integer; aEmpresa : String) : IControllerAutorizacaoCompra;
+    function ProdutosParaEntrada(aTipoItem : TTipoItem; aAno, aCodigo : Integer; aEmpresa : String) : IControllerCustom;
     function GetExisteNumero(aAno, aCodigo : Integer; aNumero : String; var aControleInterno : String) : Boolean;
 
     procedure CarregarProdutos;
@@ -113,6 +113,12 @@ type
   IControllerContaAPagar = interface(IControllerCustom)
     ['{12196628-B1DD-4D44-9F83-CD63D2FFB633}']
     procedure GerarDuplicatas(aAnoCompra, aNumCompra : Integer);
+  end;
+
+  IControllerXML_NFeEnviada = interface(IControllerCustom)
+    ['{E356F024-9DCD-43CA-98E2-245697574D37}']
+    function ListaNFePendente(aCNPJEmissor : String) : IControllerCustom;
+    function EmissaoNFePendente(aCNPJEmissor : String) : Boolean;
   end;
 
   IControllerFactory = interface
@@ -157,6 +163,7 @@ type
     function GrupoFornecedor : IControllerCustom;
     function GrupoProduto    : IControllerCustom;
     function IBPT : IControllerCustom;
+    function ItensAutorizadosParaEntrada : IControllerCustom;
     function LayoutRemessaBancoView : IControllerCustom;
     function Logradouro : IControllerCustom;
     function LoteProduto : IControllerCustom;
@@ -192,6 +199,7 @@ type
     function UF : IControllerCustom;
     function UnidadeProduto : IControllerCustom;
     function Vendedor : IControllerCustom;
+    function XML_NFeEnviada : IControllerXML_NFeEnviada;
   end;
 
 implementation

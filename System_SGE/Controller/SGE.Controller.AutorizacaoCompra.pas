@@ -25,7 +25,7 @@ type
       procedure CarregarProdutos;
 
       function Produtos : IControllerCustom;
-      function ProdutosParaEntrada(aTipoItem : TTipoItem; aAno, aCodigo : Integer; aEmpresa : String) : IControllerAutorizacaoCompra; virtual; abstract;
+      function ProdutosParaEntrada(aTipoItem : TTipoItem; aAno, aCodigo : Integer; aEmpresa : String) : IControllerCustom;
       function GetExisteNumero(aAno, aCodigo : Integer; aNumero : String; var aControleInterno : String) : Boolean;
   end;
 
@@ -41,6 +41,16 @@ type
 
   // Tipos de Autorizações de Compras/Serviços (View)
   TControllerTipoAutorizacaoView = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
+  // Itens da Autorizações de Compras/Serviços para entrada
+  TControllerItensAutorizadosParaEntrada = class(TController, IControllerCustom)
     private
     protected
       constructor Create;
@@ -117,6 +127,18 @@ begin
   Result := FProdutos;
 end;
 
+function TControllerAutorizacaoCompra.ProdutosParaEntrada(aTipoItem: TTipoItem; aAno, aCodigo: Integer;
+  aEmpresa: String): IControllerCustom;
+begin
+//  if not Assigned(FProdutos) then
+//    FProdutos := TControllerAutorizacaoCompraProdutoServico.New;
+//
+//
+//
+//
+//  Result := FProdutos;
+end;
+
 { TControllerAutorizacaoCompraProdutoServico }
 
 constructor TControllerAutorizacaoCompraProdutoServico.Create;
@@ -149,6 +171,23 @@ end;
 class function TControllerTipoAutorizacaoView.New: IControllerCustom;
 begin
   Result := Self.Create
+end;
+
+{ TControllerItensAutorizadosParaEntrada }
+
+constructor TControllerItensAutorizadosParaEntrada.Create;
+begin
+  inherited Create(TModelDAOFactory.New.ItensAutorizadosParaEntrada);
+end;
+
+destructor TControllerItensAutorizadosParaEntrada.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerItensAutorizadosParaEntrada.New: IControllerCustom;
+begin
+  Result := Self.Create;
 end;
 
 end.

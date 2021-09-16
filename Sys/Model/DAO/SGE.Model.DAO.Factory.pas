@@ -32,7 +32,8 @@ uses
   SGE.Model.DAO.TipoLogradouro,
   SGE.Model.DAO.TipoReceita,
   SGE.Model.DAO.UF,
-  SGE.Model.DAO.Vendedor;
+  SGE.Model.DAO.Vendedor,
+  SGE.Model.DAO.XML_NFeEnviada;
 
 type
   TModelDAOFactory = class(TInterfacedObject, IModelDAOFactory)
@@ -80,6 +81,7 @@ type
       FGrupoFornecedor,
       FGrupoProduto   ,
       FIBPT           ,
+      FItensAutorizadosParaEntrada,
       FLayoutRemessaBancoView,
       FLogradouro     ,
       FLoteProduto    ,
@@ -110,12 +112,13 @@ type
       FTipoReceitaPlanoConta,
       FTipoRegimeView,
       FTipoRequisicaoView,
-      FTipoTributacao,
-      FTipoVeiculo   ,
-      FTransportadora,
+      FTipoTributacao ,
+      FTipoVeiculo    ,
+      FTransportadora ,
       FUF ,
-      FUnidadeProduto,
-      FVendedor      : IModelDAOCustom;
+      FUnidadeProduto ,
+      FVendedor       ,
+      FXML_NFeEnviada : IModelDAOCustom;
     protected
       constructor Create;
     public
@@ -165,6 +168,7 @@ type
       function GrupoFornecedor : IModelDAOCustom;
       function GrupoProduto : IModelDAOCustom;
       function IBPT : IModelDAOCustom;
+      function ItensAutorizadosParaEntrada : IModelDAOCustom;
       function LayoutRemessaBancoView : IModelDAOCustom;
       function Logradouro : IModelDAOCustom;
       function LoteProduto : IModelDAOCustom;
@@ -201,6 +205,7 @@ type
       function UF       : IModelDAOCustom;
       function UnidadeProduto : IModelDAOCustom;
       function Vendedor : IModelDAOCustom;
+      function XML_NFeEnviada : IModelDAOCustom;
   end;
 
 implementation
@@ -806,6 +811,14 @@ begin
   Result := FIBPT;
 end;
 
+function TModelDAOFactory.ItensAutorizadosParaEntrada: IModelDAOCustom;
+begin
+  if not Assigned(FItensAutorizadosParaEntrada) then
+    FItensAutorizadosParaEntrada := TModelDAOItensAutorizadosParaEntrada.New;
+
+  Result := FItensAutorizadosParaEntrada;
+end;
+
 function TModelDAOFactory.LayoutRemessaBancoView: IModelDAOCustom;
 begin
   if not Assigned(FLayoutRemessaBancoView) then
@@ -852,6 +865,14 @@ begin
     FVendedor := TModelDAOVendedor.New;
 
   Result := FVendedor;
+end;
+
+function TModelDAOFactory.XML_NFeEnviada: IModelDAOCustom;
+begin
+  if not Assigned(FXML_NFeEnviada) then
+    FXML_NFeEnviada := TModelDAOXML_NFeEnviada.New;
+
+  Result := FXML_NFeEnviada;
 end;
 
 end.

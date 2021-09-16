@@ -14,9 +14,10 @@ type
   TControllerEntrada = class(TController, IControllerEntrada)
     private
       FBusca : IModelDAOCustom;
-      FProdutos   : IControllerCustom;
-      FDuplicatas : IControllerCustom;
-      FLotes      : IControllerCustom;
+      FProdutos    : IControllerCustom;
+      FDuplicatas  : IControllerCustom;
+      FLotes       : IControllerCustom;
+      FAutorizacao : IControllerAutorizacaoCompra;
     protected
       constructor Create;
     public

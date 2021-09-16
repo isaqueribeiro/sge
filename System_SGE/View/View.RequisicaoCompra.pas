@@ -194,6 +194,7 @@ type
     procedure ppmRequisitarCompraClick(Sender: TObject);
     procedure ppmReabrirRequisicaoClick(Sender: TObject);
     procedure btbtnCancelarClick(Sender: TObject);
+    procedure ControllerAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
     FControllerEmpresaView,
@@ -374,6 +375,7 @@ var
   aDataFinal : String;
 begin
   FController := TControllerFactory.New.RequisicaoCompra;
+  FController.DAO.DataSet.AfterScroll := ControllerAfterScroll;
 
   FControllerEmpresaView         := TControllerFactory.New.EmpresaView;
   FControllerTipoRequisicaoView  := TControllerFactory.New.TipoRequisicaoView;
@@ -985,7 +987,7 @@ begin
         DtSrcTabelaItens.DataSet.FieldByName('UNP_SIGLA').AsString           := FieldByName('Unp_sigla').AsString;
 
         if ( FieldByName('Codunidade').AsInteger > 0 ) then
-          DtSrcTabelaItens.DataSet.FieldByName('UNID_COD').AsInteger := FieldByName('Codunidade').AsInteger;
+          DtSrcTabelaItens.DataSet.FieldByName('UNIDADE').AsInteger := FieldByName('Codunidade').AsInteger;
       end
       else
       begin
@@ -1087,6 +1089,11 @@ end;
 function TViewRequisicaoCompra.Controller: IControllerRequisicaoCompra;
 begin
   Result := (FController as IControllerRequisicaoCompra);
+end;
+
+procedure TViewRequisicaoCompra.ControllerAfterScroll(DataSet: TDataSet);
+begin
+  HabilitarDesabilitar_Btns;
 end;
 
 procedure TViewRequisicaoCompra.FormActivate(Sender: TObject);

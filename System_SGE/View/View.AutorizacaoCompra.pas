@@ -195,6 +195,7 @@ type
     procedure ppmReabrirAutorizacaoClick(Sender: TObject);
     procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
     procedure btbtnCancelarClick(Sender: TObject);
+    procedure ControllerAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
     FControllerEmpresaView,
@@ -448,6 +449,7 @@ var
   aDataFinal : String;
 begin
   FController := TControllerFactory.New.AutorizacaoCompra;
+  FController.DAO.DataSet.AfterScroll := ControllerAfterScroll;
 
   FControllerEmpresaView         := TControllerFactory.New.EmpresaView;
   FControllerTipoAUtorizacaoView := TControllerFactory.New.TipoAutorizacaoView;
@@ -495,6 +497,7 @@ begin
     .Display('FORNECEDOR', 'Fornecedor', TAlignment.taLeftJustify, True)
     .Display('INSERCAO_DATA', 'Data/Hora', 'dd/mm/yyyy hh:nn', TAlignment.taLeftJustify, True)
     .Display('TIPO', 'Tipo', TAlignment.taLeftJustify, True)
+    .Display('STATUS','Situação', TAlignment.taLeftJustify, True)
     .Display('FORMA_PAGTO', 'Forma de Pagamento', TAlignment.taLeftJustify, True)
     .Display('CONDICAO_PAGTO', 'Condição de Pagamento', TAlignment.taLeftJustify, True)
     .Display('VALOR_BRUTO', 'Valor Bruto', ',0.00', TAlignment.taRightJustify, True)
@@ -1076,7 +1079,7 @@ begin
         DtSrcTabelaItens.DataSet.FieldByName('UNP_SIGLA').AsString           := FieldByName('Unp_sigla').AsString;
 
         if ( FieldByName('Codunidade').AsInteger > 0 ) then
-          DtSrcTabelaItens.DataSet.FieldByName('UNID_COD').AsInteger := FieldByName('Codunidade').AsInteger;
+          DtSrcTabelaItens.DataSet.FieldByName('UNIDADE').AsInteger := FieldByName('Codunidade').AsInteger;
       end
       else
       begin
@@ -1178,6 +1181,11 @@ end;
 function TViewAutorizacaoCompra.Controller: IControllerAutorizacaoCompra;
 begin
   Result := (FController as IControllerAutorizacaoCompra);
+end;
+
+procedure TViewAutorizacaoCompra.ControllerAfterScroll(DataSet: TDataSet);
+begin
+  HabilitarDesabilitar_Btns;
 end;
 
 procedure TViewAutorizacaoCompra.FormActivate(Sender: TObject);

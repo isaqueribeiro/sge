@@ -55,6 +55,18 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // Itens da Autorizações de Compras/Serviços para entrada
+  TModelDAOItensAutorizadosParaEntrada = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+  end;
+
 implementation
 
 uses
@@ -375,6 +387,61 @@ begin
   Result := Self;
   if not FConn.Query.DataSet.Active then
     FConn.Query.Open;
+end;
+
+{ TModelDAOItensAutorizadosParaEntrada }
+
+constructor TModelDAOItensAutorizadosParaEntrada.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select            ')
+        .Add('    i.produto     ')
+        .Add('  , p.descri      ')
+        .Add('  , p.apresentacao')
+        .Add('  , p.descri_apresentacao')
+        .Add('  , i.unidade      ')
+        .Add('  , u.unp_descricao')
+        .Add('  , u.unp_sigla    ')
+        .Add('  , p.codcfop      ')
+        .Add('  , p.ncm_sh       ')
+        .Add('  , p.cst          ')
+        .Add('  , p.csosn        ')
+        .Add('  , p.aliquota     ')
+        .Add('  , p.percentual_reducao_bc')
+        .Add('  , p.aliquota_csosn       ')
+        .Add('  , p.aliquota_pis         ')
+        .Add('  , p.aliquota_cofins      ')
+        .Add('  , i.quantidade           ')
+        .Add('  , p.qtde as estoque      ')
+        .Add('  , i.quantidade + coalesce(p.qtde, 0.0) as novo_estoque')
+        .Add('  , i.valor_unitario')
+        .Add('  , p.valor_ipi     ')
+        .Add('from TBAUTORIZA_COMPRA c')
+        .Add('  inner join TBAUTORIZA_COMPRAITEM i on (i.ano = c.ano and i.codigo = c.codigo and i.empresa = c.empresa)')
+        .Add('  inner join TBPRODUTO p on (p.cod = i.produto and p.aliquota_tipo = :tipo)')
+        .Add('  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)')
+        .Add('where c.ano     = :ano')
+        .Add('  and c.codigo  = :codigo')
+        .Add('  and c.empresa = :empresa')
+      .&End
+      .ParamByName('ano', 0)
+      .ParamByName('codigo', 0)
+      .ParamByName('empresa', EmptyStr)
+    .Open;
+end;
+
+destructor TModelDAOItensAutorizadosParaEntrada.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOItensAutorizadosParaEntrada.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
 end;
 
 end.
