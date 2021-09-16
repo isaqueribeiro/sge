@@ -60,7 +60,7 @@ begin
         .Add('  n.protocolo,      ')
         .Add('  n.recibo,         ')
         .Add('  n.xml_filename,   ')
-        //.Add('  n.xml_file,       ')
+        .Add('  n.xml_file,       ')
         .Add('  n.lote_ano,       ')
         .Add('  n.lote_num,       ')
         .Add('  n.cancelada       ')
@@ -126,7 +126,7 @@ begin
     FieldByName('protocolo').Clear;
     FieldByName('recibo').Clear;
     FieldByName('xml_filename').Clear;
-    //FieldByName('xml_file').Clear;
+    FieldByName('xml_file').Clear;
     FieldByName('lote_ano').Clear;
     FieldByName('lote_num').Clear;
     FieldByName('cancelada').AsInteger := FLAG_NAO;

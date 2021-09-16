@@ -43,10 +43,10 @@ type
       FAutorizacaoCompra  : IControllerAutorizacaoCompra;
       FBairro,
       FBanco ,
-      FBancoFebrabanView : IControllerCustom;
-      FCentroCusto       : IControllerCentroCusto;
-      FCentroCustoEmpresa,
-      FCFOP  ,
+      FBancoFebrabanView  : IControllerCustom;
+      FCentroCusto        : IControllerCentroCusto;
+      FCentroCustoEmpresa : IControllerCustom;
+      FCFOP  : IControllerCFOP;
       FCidade,
       FClasseDespesa ,
       FClasseReceita : IControllerCustom;
@@ -129,7 +129,7 @@ type
       function BancoFebrabanView : IControllerCustom;
       function CentroCusto : IControllerCentroCusto;
       function CentroCustoEmpresa : IControllerCustom;
-      function CFOP : IControllerCustom;
+      function CFOP : IControllerCFOP;
       function Cidade   : IControllerCustom;
       function ClasseDespesa : IControllerCustom;
       function ClasseReceita : IControllerCustom;
@@ -386,7 +386,7 @@ begin
   Result := FCentroCustoEmpresa;
 end;
 
-function TControllerFactory.CFOP: IControllerCustom;
+function TControllerFactory.CFOP: IControllerCFOP;
 begin
   if not Assigned(FCFOP) then
     FCFOP := TControllerCFOP.New;

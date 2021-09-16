@@ -1911,6 +1911,10 @@ inherited ViewEntrada: TViewEntrada
         object tbsDuplicatas: TTabSheet
           Caption = 'Duplicata(s) Gerada(s)'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 89
             Top = 0
@@ -2091,6 +2095,10 @@ inherited ViewEntrada: TViewEntrada
         object tbsLotes: TTabSheet
           Caption = 'Lote(s) Gerado(s) no Estoque'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object DBGrid1: TDBGrid
             Left = 0
             Top = 0
@@ -2179,6 +2187,10 @@ inherited ViewEntrada: TViewEntrada
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0
@@ -4077,7 +4089,7 @@ inherited ViewEntrada: TViewEntrada
     Left = 600
   end
   object dtsNFE: TDataSource
-    DataSet = qryNFE
+    DataSet = qryNFExxx
     Left = 960
     Top = 384
   end
@@ -4154,7 +4166,7 @@ inherited ViewEntrada: TViewEntrada
       OnClick = nmPpArquivoNFeClick
     end
   end
-  object qryNFE: TFDQuery
+  object qryNFExxx: TFDQuery
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -4204,91 +4216,91 @@ inherited ViewEntrada: TViewEntrada
         DataType = ftInteger
         ParamType = ptInput
       end>
-    object qryNFEEMPRESA: TStringField
+    object qryNFExxxEMPRESA: TStringField
       FieldName = 'EMPRESA'
       Origin = 'EMPRESA'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 18
     end
-    object qryNFESERIE: TStringField
+    object qryNFExxxSERIE: TStringField
       FieldName = 'SERIE'
       Origin = 'SERIE'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 4
     end
-    object qryNFENUMERO: TIntegerField
+    object qryNFExxxNUMERO: TIntegerField
       FieldName = 'NUMERO'
       Origin = 'NUMERO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object qryNFEMODELO: TSmallintField
+    object qryNFExxxMODELO: TSmallintField
       FieldName = 'MODELO'
       Origin = 'MODELO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object qryNFEVERSAO: TSmallintField
+    object qryNFExxxVERSAO: TSmallintField
       FieldName = 'VERSAO'
       Origin = 'VERSAO'
     end
-    object qryNFEDATAEMISSAO: TDateField
+    object qryNFExxxDATAEMISSAO: TDateField
       FieldName = 'DATAEMISSAO'
       Origin = 'DATAEMISSAO'
     end
-    object qryNFEHORAEMISSAO: TTimeField
+    object qryNFExxxHORAEMISSAO: TTimeField
       FieldName = 'HORAEMISSAO'
       Origin = 'HORAEMISSAO'
     end
-    object qryNFECHAVE: TStringField
+    object qryNFExxxCHAVE: TStringField
       FieldName = 'CHAVE'
       Origin = 'CHAVE'
       Size = 250
     end
-    object qryNFEPROTOCOLO: TStringField
+    object qryNFExxxPROTOCOLO: TStringField
       FieldName = 'PROTOCOLO'
       Origin = 'PROTOCOLO'
       Size = 250
     end
-    object qryNFERECIBO: TStringField
+    object qryNFExxxRECIBO: TStringField
       FieldName = 'RECIBO'
       Origin = 'RECIBO'
       Size = 250
     end
-    object qryNFEXML_FILENAME: TStringField
+    object qryNFExxxXML_FILENAME: TStringField
       FieldName = 'XML_FILENAME'
       Origin = 'XML_FILENAME'
       Size = 250
     end
-    object qryNFEXML_FILE: TMemoField
+    object qryNFExxxXML_FILE: TMemoField
       FieldName = 'XML_FILE'
       Origin = 'XML_FILE'
       BlobType = ftMemo
     end
-    object qryNFELOTE_ANO: TSmallintField
+    object qryNFExxxLOTE_ANO: TSmallintField
       FieldName = 'LOTE_ANO'
       Origin = 'LOTE_ANO'
     end
-    object qryNFELOTE_NUM: TIntegerField
+    object qryNFExxxLOTE_NUM: TIntegerField
       FieldName = 'LOTE_NUM'
       Origin = 'LOTE_NUM'
       Required = True
     end
-    object qryNFEANOVENDA: TSmallintField
+    object qryNFExxxANOVENDA: TSmallintField
       FieldName = 'ANOVENDA'
       Origin = 'ANOVENDA'
     end
-    object qryNFENUMVENDA: TIntegerField
+    object qryNFExxxNUMVENDA: TIntegerField
       FieldName = 'NUMVENDA'
       Origin = 'NUMVENDA'
     end
-    object qryNFEANOCOMPRA: TSmallintField
+    object qryNFExxxANOCOMPRA: TSmallintField
       FieldName = 'ANOCOMPRA'
       Origin = 'ANOCOMPRA'
     end
-    object qryNFENUMCOMPRA: TIntegerField
+    object qryNFExxxNUMCOMPRA: TIntegerField
       FieldName = 'NUMCOMPRA'
       Origin = 'NUMCOMPRA'
     end

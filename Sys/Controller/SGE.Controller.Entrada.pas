@@ -17,6 +17,7 @@ type
       FProdutos    : IControllerCustom;
       FDuplicatas  : IControllerCustom;
       FLotes       : IControllerCustom;
+      FNFE         : IControllerXML_NFeEnviada;
       FAutorizacao : IControllerAutorizacaoCompra;
     protected
       constructor Create;
@@ -28,6 +29,7 @@ type
       procedure CarregarProdutos;
       procedure CarregarLotes;
       procedure CarregarDuplicatas;
+      procedure CarregarNFe;
       procedure GerarDuplicatas;
       procedure LimparLoteEmissaoNFe;
 
@@ -36,6 +38,7 @@ type
       function Produtos : IControllerCustom;
       function Duplicatas : IControllerCustom;
       function Lotes : IControllerCustom;
+      function NFe : IControllerXML_NFeEnviada;
       function LoteProdutoPendente : Boolean;
   end;
 
@@ -99,7 +102,8 @@ implementation
 uses
   System.SysUtils,
   System.Classes,
-  Data.DB;
+  Data.DB,
+  SGE.Controller.XML_NFeEnviada;
 
 procedure TControllerEntrada.CarregarDuplicatas;
 begin
@@ -125,6 +129,27 @@ begin
     .ParamsByName('ano',      FDAO.DataSet.FieldByName('ANO').AsInteger)
     .ParamsByName('controle', FDAO.DataSet.FieldByName('CODCONTROL').AsInteger)
     .ParamsByName('empresa',  FDAO.DataSet.FieldByName('CODEMP').AsString)
+    .Open;
+end;
+
+procedure TControllerEntrada.CarregarNFe;
+begin
+  if not Assigned(FNFE) then
+    FNFE := TControllerXML_NFeEnviada.New;
+
+  FNFE
+    .DAO
+    .Close
+    .ClearWhere;
+
+  FNFE
+    .DAO
+    .Where('n.empresa   = :empresa')
+    .Where('n.anocompra = :anocompra')
+    .Where('n.numcompra = :numcompra')
+    .ParamsByName('empresa',   FDAO.DataSet.FieldByName('CODEMP').AsString)
+    .ParamsByName('anocompra', FDAO.DataSet.FieldByName('ANO').AsInteger)
+    .ParamsByName('numcompra', FDAO.DataSet.FieldByName('CODCONTROL').AsInteger)
     .Open;
 end;
 
@@ -325,6 +350,14 @@ end;
 class function TControllerEntrada.New: IControllerEntrada;
 begin
   Result := Self.Create;
+end;
+
+function TControllerEntrada.NFe: IControllerXML_NFeEnviada;
+begin
+  if not Assigned(FNFE) then
+    FNFE := TControllerXML_NFeEnviada.New;
+
+  Result := FNFE;
 end;
 
 function TControllerEntrada.Produtos: IControllerCustom;

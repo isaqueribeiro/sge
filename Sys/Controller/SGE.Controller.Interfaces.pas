@@ -56,6 +56,14 @@ type
     function GetTabelaIBPTCodigo(aCodigoNCM : String) : Integer;
   end;
 
+  IControllerCFOP = interface(IControllerCustom)
+    ['{0C883A1E-9611-4595-9E89-C90AD0F10DE7}']
+    function GetTipo(aCodigo : Integer) : TTipoCFOP;
+    function GetGerarDuplicata(aCodigo : Integer) : Boolean;
+    function GetDevolucao(aCodigo : Integer) : Boolean;
+    function Get(aCodigo : Integer) : IModelDAOCustom;
+  end;
+
   IControllerProduto = interface(IControllerCustom)
     ['{A7AC63DC-E458-4F12-8FDA-B7EF68CDD539}']
     procedure AtualizarMetafonema(aDescricao, aApresentacao, aCodigo : String);
@@ -70,6 +78,12 @@ type
     procedure AplicarPromocao;
   end;
 
+  IControllerXML_NFeEnviada = interface(IControllerCustom)
+    ['{E356F024-9DCD-43CA-98E2-245697574D37}']
+    function ListaNFePendente(aCNPJEmissor : String) : IModelDAOCustom;
+    function EmissaoNFePendente(aCNPJEmissor : String) : Boolean;
+  end;
+
   IControllerEntrada = interface(IControllerCustom)
     ['{A5627D72-25E9-4711-8F2B-528AC7904DA8}']
     function Busca : IModelDAOCustom;
@@ -77,12 +91,14 @@ type
     function Produtos : IControllerCustom;
     function Duplicatas : IControllerCustom;
     function Lotes : IControllerCustom;
+    function NFe : IControllerXML_NFeEnviada;
     function LoteProdutoPendente : Boolean;
 
     procedure CorrigirCFOP(aCFOP : String);
     procedure CarregarProdutos;
     procedure CarregarLotes;
     procedure CarregarDuplicatas;
+    procedure CarregarNFe;
     procedure GerarDuplicatas;
     procedure LimparLoteEmissaoNFe;
   end;
@@ -115,12 +131,6 @@ type
     procedure GerarDuplicatas(aAnoCompra, aNumCompra : Integer);
   end;
 
-  IControllerXML_NFeEnviada = interface(IControllerCustom)
-    ['{E356F024-9DCD-43CA-98E2-245697574D37}']
-    function ListaNFePendente(aCNPJEmissor : String) : IControllerCustom;
-    function EmissaoNFePendente(aCNPJEmissor : String) : Boolean;
-  end;
-
   IControllerFactory = interface
     ['{52DB68E4-A6DE-428B-867A-F0EE203E7CCA}']
     function AliquotaCOFINSView : IControllerCustom;
@@ -132,7 +142,7 @@ type
     function BancoFebrabanView  : IControllerCustom;
     function CentroCusto        : IControllerCentroCusto;
     function CentroCustoEmpresa : IControllerCustom;
-    function CFOP   : IControllerCustom;
+    function CFOP   : IControllerCFOP;
     function Cidade : IControllerCustom;
     function ClasseDespesa  : IControllerCustom;
     function ClasseReceita  : IControllerCustom;

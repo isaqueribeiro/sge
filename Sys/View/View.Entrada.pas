@@ -263,26 +263,26 @@ type
     lblCSOSN: TLabel;
     dbCSOSN: TDBEdit;
     dbCalcularTotais: TDBCheckBox;
-    qryNFE: TFDQuery;
+    qryNFExxx: TFDQuery;
     updNFE: TFDUpdateSQL;
-    qryNFEEMPRESA: TStringField;
-    qryNFESERIE: TStringField;
-    qryNFENUMERO: TIntegerField;
-    qryNFEMODELO: TSmallintField;
-    qryNFEVERSAO: TSmallintField;
-    qryNFEDATAEMISSAO: TDateField;
-    qryNFEHORAEMISSAO: TTimeField;
-    qryNFECHAVE: TStringField;
-    qryNFEPROTOCOLO: TStringField;
-    qryNFERECIBO: TStringField;
-    qryNFEXML_FILENAME: TStringField;
-    qryNFEXML_FILE: TMemoField;
-    qryNFELOTE_ANO: TSmallintField;
-    qryNFELOTE_NUM: TIntegerField;
-    qryNFEANOVENDA: TSmallintField;
-    qryNFENUMVENDA: TIntegerField;
-    qryNFEANOCOMPRA: TSmallintField;
-    qryNFENUMCOMPRA: TIntegerField;
+    qryNFExxxEMPRESA: TStringField;
+    qryNFExxxSERIE: TStringField;
+    qryNFExxxNUMERO: TIntegerField;
+    qryNFExxxMODELO: TSmallintField;
+    qryNFExxxVERSAO: TSmallintField;
+    qryNFExxxDATAEMISSAO: TDateField;
+    qryNFExxxHORAEMISSAO: TTimeField;
+    qryNFExxxCHAVE: TStringField;
+    qryNFExxxPROTOCOLO: TStringField;
+    qryNFExxxRECIBO: TStringField;
+    qryNFExxxXML_FILENAME: TStringField;
+    qryNFExxxXML_FILE: TMemoField;
+    qryNFExxxLOTE_ANO: TSmallintField;
+    qryNFExxxLOTE_NUM: TIntegerField;
+    qryNFExxxANOVENDA: TSmallintField;
+    qryNFExxxNUMVENDA: TIntegerField;
+    qryNFExxxANOCOMPRA: TSmallintField;
+    qryNFExxxNUMCOMPRA: TIntegerField;
     lblCalcularTotaisInfo: TLabel;
     tbsLotes: TTabSheet;
     DBGrid1: TDBGrid;
@@ -344,10 +344,9 @@ type
     FControllerTipoDocumentoView,
     FControllerFormaPagto       ,
     FControllerCondicaoPagtoView,
-    FControllerTipoDespesa ,
-    FControllerCFOP    : IControllerCustom;
+    FControllerTipoDespesa : IControllerCustom;
+    FControllerCFOP    : IControllerCFOP;
     FControllerProduto : IControllerProduto;
-    FControllerNFE     : IControllerXML_NFeEnviada;
     FEmpresa : String;
     FTipoMovimento : TTipoMovimentoEntrada;
     FApenasFinalizadas : Boolean;
@@ -356,7 +355,7 @@ type
     procedure AbrirTabelaItens;
     procedure AbrirTabelaDuplicatas;
     procedure AbrirTabelaLotes;
-    procedure AbrirNotaFiscal(const pEmpresa : String; const AnoCompra : Smallint; const ControleCompra : Integer);
+    procedure AbrirNotaFiscal;
     procedure CarregarDadosProduto( Codigo : Integer);
     procedure CarregarDadosCFOP( iCodigo : Integer );
     procedure HabilitarDesabilitar_Btns;
@@ -377,6 +376,7 @@ type
     function Produtos : IControllerCustom;
     function Duplicatas : IControllerCustom;
     function Lotes : IControllerCustom;
+    function NFE : IControllerXML_NFeEnviada;
   public
     { Public declarations }
     procedure pgcGuiasOnChange; override;
@@ -429,6 +429,7 @@ uses
   UDMRecursos,
   UFuncoes,
   UDMNFe,
+  Service.Message,
   Classe.DistribuicaoDFe.DocumentoRetornado,
   SGE.Controller.Factory,
   SGE.Controller,
@@ -840,13 +841,13 @@ begin
   try
     if (Copy(DMNFe.GetCnpjCertificado, 1, 8) <> Copy(FController.DAO.Usuario.Empresa.CNPJ, 1, 8)) then
     begin
-      ShowWarning('A Empresa selecionada no login do sistema não está de acordo com o Certificado informado!');
+      TServiceMessage.ShowWarning('A Empresa selecionada no login do sistema não está de acordo com o Certificado informado!');
       Exit;
     end;
 
     if not GetConectedInternet then
     begin
-      ShowWarning('Estação de trabalho sem acesso a Internet!');
+      TServiceMessage.ShowWarning('Estação de trabalho sem acesso a Internet!');
       Exit;
     end;
 
@@ -1017,6 +1018,11 @@ begin
   Result := Controller.Lotes;
 end;
 
+function TViewEntrada.NFE: IControllerXML_NFeEnviada;
+begin
+  Result := Controller.NFe;
+end;
+
 procedure TViewEntrada.dbCondicaoPagtoClick(Sender: TObject);
 var
   I : Integer;
@@ -1045,7 +1051,7 @@ begin
   try
     aRetorno := Controller.DocumentoDuplicado(aEntrada, aDocumento);
     if aRetorno then
-      ShowWarning(Format('Documento %s já lançado.'#13#13'Pesquise o lançamento %s/%s com emissão em %s.', [
+      TServiceMessage.ShowWarning(Format('Documento %s já lançado.'#13#13'Pesquise o lançamento %s/%s com emissão em %s.', [
           QuotedStr(Trim(Controller.Busca.DataSet.FieldByName('tipo').AsString))
         , FormatFloat('###0000000', Controller.Busca.DataSet.FieldByName('codcontrol').AsInteger)
         , FormatFloat('0000', Controller.Busca.DataSet.FieldByName('ano').AsInteger)
@@ -1185,13 +1191,10 @@ begin
 
         DtSrcTabela.DataSet.Post; // Salvar apenas na memória
 
-        AbrirNotaFiscal( DtSrcTabela.DataSet.FieldByName('CODEMP').AsString
-          , DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
-          , DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger );
-
         AbrirTabelaItens;
         AbrirTabelaDuplicatas;
         AbrirTabelaLotes;
+        AbrirNotaFiscal;
 
         DtSrcTabela.DataSet.Edit; // Colocar registro em edição para que usuário possa continuar o processo
 
@@ -1317,7 +1320,7 @@ begin
       end
       else
       begin
-        ShowWarning('Código de ' + IfThen(FTipoMovimento = tmeProduto, 'produto', 'serviço') + ' não cadastrado');
+        TServiceMessage.ShowWarning('Código de ' + IfThen(FTipoMovimento = tmeProduto, 'produto', 'serviço') + ' não cadastrado');
 
         DtSrcTabelaItens.DataSet.FieldByName('CODPROD').Clear;
 
@@ -1377,7 +1380,7 @@ begin
         STATUS_CMP_NFE : sMsg := 'Esta entrada não pode ser excluída porque exite Nota Fiscal gerar para este movimento.';
       end;
 
-      ShowWarning(sMsg);
+      TServiceMessage.ShowWarning(sMsg);
       Abort;
     end
     else
@@ -1385,11 +1388,10 @@ begin
       inherited;
       if ( not OcorreuErro ) then
       begin
-        AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-
         AbrirTabelaItens;
         AbrirTabelaDuplicatas;
         AbrirTabelaLotes;
+        AbrirNotaFiscal;
       end;
     end;
 end;
@@ -1408,19 +1410,19 @@ var
 begin
   if ( DtSrcTabela.DataSet.FieldByName('CODFORN').AsInteger = 0 ) then
   begin
-    ShowInformation('Favor selecionar o Fornecedor primeiramente!');
+    TServiceMessage.ShowInformation('Favor selecionar o Fornecedor primeiramente!');
     dbFornecedor.SetFocus;
   end
   else
   if ( (not dbCalcularTotais.Checked) and (DtSrcTabela.DataSet.FieldByName('TOTALPROD').AsCurrency = 0) ) then
   begin
-    ShowWarning('Favor informar valor Total de ' + IfThen(FTipoMovimento = tmeProduto, 'Produto(s)', 'Serviço(s)') + '.');
+    TServiceMessage.ShowWarning('Favor informar valor Total de ' + IfThen(FTipoMovimento = tmeProduto, 'Produto(s)', 'Serviço(s)') + '.');
     dbTotalProduto.SetFocus;
   end
   else
   if ( (not dbCalcularTotais.Checked) and (DtSrcTabela.DataSet.FieldByName('TOTALNF').AsCurrency = 0) ) then
   begin
-    ShowWarning('Favor informar valor Total da Nota Fiscal');
+    TServiceMessage.ShowWarning('Favor informar valor Total da Nota Fiscal');
     dbTotalNotaFiscal.SetFocus;
   end
   else
@@ -1428,7 +1430,7 @@ begin
   begin
     if ( gSistema.Codigo in [SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME] ) then
       if ( DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_CODIGO').AsCurrency > 0 ) then
-        if ShowConfirmation('Deseja carregar automaticamente os itens da autorização selecionada?') then
+        if TServiceMessage.ShowConfirmation('Deseja carregar automaticamente os itens da autorização selecionada?') then
         begin
           InserirItensAutorizacao;
           Exit;
@@ -1468,7 +1470,7 @@ end;
 procedure TViewEntrada.btnProdutoExcluirClick(Sender: TObject);
 begin
   if ( not DtSrcTabelaItens.DataSet.IsEmpty ) then
-    if ( ShowConfirm('Deseja excluir o ítem selecionado?') ) then
+    if TServiceMessage.ShowConfirm('Deseja excluir o ítem selecionado?') then
       DtSrcTabelaItens.DataSet.Delete;
 end;
 
@@ -1536,25 +1538,25 @@ begin
   begin
     if ( Trim(DtSrcTabelaItens.DataSet.FieldByName('CODPROD').AsString) = EmptyStr ) then
     begin
-      ShowWarning('Favor selecionar o ' + lblProduto.Caption);
+      TServiceMessage.ShowWarning('Favor selecionar o ' + lblProduto.Caption);
       dbProduto.SetFocus;
     end
     else
     if (DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency <= 0) then
     begin
-      ShowWarning('Quantidade inválida.');
+      TServiceMessage.ShowWarning('Quantidade inválida.');
       dbQuantidade.SetFocus;
     end
     else
     if (DtSrcTabelaItens.DataSet.FieldByName('PRECOUNIT').AsCurrency <= 0) then
     begin
-      ShowWarning('Valor unitário inválida.');
+      TServiceMessage.ShowWarning('Valor unitário inválida.');
       dbValorUnit.SetFocus;
     end
     else
     if (DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').AsCurrency < 0) then
     begin
-      ShowWarning('Valor IPI inválida.');
+      TServiceMessage.ShowWarning('Valor IPI inválida.');
       dbValorIPIProduto.SetFocus;
     end
     else
@@ -1587,7 +1589,7 @@ begin
   with DtSrcTabela.DataSet do
   begin
     if ( DtSrcTabelaItens.DataSet.IsEmpty ) then
-      ShowWarning('Favor informar o(s) ' + IfThen(FTipoMovimento = tmeProduto, 'produto(s)', 'serviço(s)') + ' da entrada.')
+      TServiceMessage.ShowWarning('Favor informar o(s) ' + IfThen(FTipoMovimento = tmeProduto, 'produto(s)', 'serviço(s)') + ' da entrada.')
     else
     begin
       if (StrToIntDef(Trim(FieldByName('NFSERIE').AsString), 0) = 0) then
@@ -1701,11 +1703,10 @@ procedure TViewEntrada.pgcGuiasChange(Sender: TObject);
 begin
   with DtSrcTabela.DataSet do
   begin
-    AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-
     AbrirTabelaItens;
     AbrirTabelaDuplicatas;
     AbrirTabelaLotes;
+    AbrirNotaFiscal;
   end;
 end;
 
@@ -1748,11 +1749,10 @@ begin
         end;
       end;
 
-      AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-
       AbrirTabelaItens;
       AbrirTabelaDuplicatas;
       AbrirTabelaLotes;
+      AbrirNotaFiscal;
     end;
 end;
 
@@ -1771,7 +1771,7 @@ begin
         STATUS_CMP_NFE : sMsg := 'Esta entrada não pode ser alterada porque exite Nota Fiscal gerada para este movimento.';
       end;
 
-      ShowWarning(sMsg);
+      TServiceMessage.ShowWarning(sMsg);
       Abort;
     end
     else
@@ -1779,11 +1779,10 @@ begin
       inherited;
       if ( not OcorreuErro ) then
       begin
-        AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-
         AbrirTabelaItens;
         AbrirTabelaDuplicatas;
         AbrirTabelaLotes;
+        AbrirNotaFiscal;
       end;
     end;
   end;
@@ -1913,7 +1912,7 @@ begin
       Abort;
 
     RecarregarRegistro;
-    aGerarTitulos := GetCfopGerarDuplicata(FieldByName('NFCFOP').AsInteger) or (FTipoMovimento = tmeServico);
+    aGerarTitulos := FControllerCFOP.GetGerarDuplicata(FieldByName('NFCFOP').AsInteger) or (FTipoMovimento = tmeServico);
 
     pgcGuias.ActivePage := tbsCadastro;
 
@@ -1939,10 +1938,10 @@ begin
     end;
 
     if (FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) then
-      ShowWarning('Movimento de Entrada já está finalizado!')
+      TServiceMessage.ShowWarning('Movimento de Entrada já está finalizado!')
     else
     if (DtSrcTabelaItens.DataSet.RecordCount = 0) then
-      ShowWarning('Movimento de Entrada sem produto(s)!')
+      TServiceMessage.ShowWarning('Movimento de Entrada sem produto(s)!')
     else
     begin
 
@@ -1957,7 +1956,7 @@ begin
       begin
         Edit;
 
-        ShowWarning('Favor informar o fornecedor');
+        TServiceMessage.ShowWarning('Favor informar o fornecedor');
         dbFornecedor.SetFocus;
       end
       else
@@ -1965,7 +1964,7 @@ begin
       begin
         Edit;
 
-        ShowWarning('Favor informar valor Total de ' + IfThen(FTipoMovimento = tmeProduto, 'Produtos', 'Serviços'));
+        TServiceMessage.ShowWarning('Favor informar valor Total de ' + IfThen(FTipoMovimento = tmeProduto, 'Produtos', 'Serviços'));
         dbTotalProduto.SetFocus;
       end
       else
@@ -1973,7 +1972,7 @@ begin
       begin
         Edit;
 
-        ShowWarning('Favor informar valor Total da Nota Fiscal');
+        TServiceMessage.ShowWarning('Favor informar valor Total da Nota Fiscal');
         dbTotalNotaFiscal.SetFocus;
       end
       else
@@ -1981,7 +1980,7 @@ begin
       begin
         Edit;
 
-        ShowWarning('Favor informar a forma de pagamento');
+        TServiceMessage.ShowWarning('Favor informar a forma de pagamento');
         dbFormaPagto.SetFocus;
       end
       else
@@ -1989,11 +1988,11 @@ begin
       begin
         Edit;
 
-        ShowWarning('Favor informar a condição de pagamento');
+        TServiceMessage.ShowWarning('Favor informar a condição de pagamento');
         dbCondicaoPagto.SetFocus;
       end
       else
-      if ( ShowConfirm('Confirma a finalização da entrada selecionada?') ) then
+      if TServiceMessage.ShowConfirm('Confirma a finalização da entrada selecionada?') then
       begin
         Edit;
 
@@ -2011,7 +2010,7 @@ begin
 
         AbrirTabelaDuplicatas;
 
-        ShowInformation('Entrada finalizada com sucesso !');
+        TServiceMessage.ShowInformation('Entrada finalizada com sucesso !');
 
         if aGerarTitulos then
           if ( DuplicatasConfirmadas(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger, FieldByName('DTEMISS').AsDateTime, FieldByName('TOTALNF').AsCurrency) ) then
@@ -2027,15 +2026,15 @@ end;
 procedure TViewEntrada.btnRegerarDuplicataClick(Sender: TObject);
 begin
   if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger <> STATUS_CMP_FIN ) then
-    ShowWarning('É permitida a geração de duplicatas apenas para entradas finalizadas')
+    TServiceMessage.ShowWarning('É permitida a geração de duplicatas apenas para entradas finalizadas')
   else
   if ( not DtSrcTabelaDuplicatas.DataSet.IsEmpty ) then
-    ShowWarning('Já existe(m) duplicata(s) gerado(s) para esta entrada')
+    TServiceMessage.ShowWarning('Já existe(m) duplicata(s) gerado(s) para esta entrada')
   else
-  if (not GetCfopGerarDuplicata(DtSrcTabela.DataSet.FieldByName('NFCFOP').AsInteger)) then
-    ShowWarning('A CFOP utilizada nesta compra não permite a geração de duplicatas')
+  if (not FControllerCFOP.GetGerarDuplicata(DtSrcTabela.DataSet.FieldByName('NFCFOP').AsInteger)) then
+    TServiceMessage.ShowWarning('A CFOP utilizada nesta compra não permite a geração de duplicatas')
   else
-  if ( ShowConfirm('Confirma geração do(s) duplicata(s) a receber da entrada?') ) then
+  if TServiceMessage.ShowConfirm('Confirma geração do(s) duplicata(s) a receber da entrada?') then
   begin
     Controller.GerarDuplicatas;
     AbrirTabelaDuplicatas;
@@ -2047,10 +2046,10 @@ begin
   with DtSrcTabela.DataSet do
   begin
     if ( not (FieldByName('STATUS').AsInteger in [STATUS_CMP_FIN, STATUS_CMP_NFE]) ) then
-      ShowWarning('É permitida a edição de duplicatas apenas para compras finalizadas')
+      TServiceMessage.ShowWarning('É permitida a edição de duplicatas apenas para compras finalizadas')
     else
     if ( DtSrcTabelaDuplicatas.DataSet.IsEmpty ) then
-      ShowWarning('Não existe(m) duplicata(s) gerado(s) para esta compra')
+      TServiceMessage.ShowWarning('Não existe(m) duplicata(s) gerado(s) para esta compra')
     else
     if ( FieldByName('COMPRA_PRAZO').AsInteger = 1 ) then
     begin
@@ -2093,7 +2092,7 @@ begin
       else
       begin
         if ( TTipoMovimentoEntrada(FieldByName('TIPO_MOVIMENTO').AsInteger) = tmeProduto ) then
-          ShowWarning('Código CFOP não cadastrado');
+          TServiceMessage.ShowWarning('Código CFOP não cadastrado');
 
         FieldByName('NFCFOP').Clear;
         if ( dbCFOPNF.Visible and dbCFOPNF.Enabled ) then
@@ -2144,11 +2143,10 @@ begin
   inherited;
   with DtSrcTabela.DataSet do
   begin
-    AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-
     AbrirTabelaItens;
     AbrirTabelaDuplicatas;
     AbrirTabelaLotes;
+    AbrirNotaFiscal;
   end;
 end;
 
@@ -2197,7 +2195,7 @@ begin
 
   if (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_CMP_CAN) then
   begin
-    ShowWarning('Movimento de Entrada já está cancelado!');
+    TServiceMessage.ShowWarning('Movimento de Entrada já está cancelado!');
     Abort;
   end;
 
@@ -2206,13 +2204,12 @@ begin
     begin
       RecarregarRegistro;
 
-      AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-
       AbrirTabelaItens;
       AbrirTabelaDuplicatas;
       AbrirTabelaLotes;
+      AbrirNotaFiscal;
 
-      ShowInformation('Entrada cancelada com sucesso.' + #13#13 + 'Ano/Controle: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CODCONTROL').AsInteger));
+      TServiceMessage.ShowInformation('Entrada cancelada com sucesso.' + #13#13 + 'Ano/Controle: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CODCONTROL').AsInteger));
 
       HabilitarDesabilitar_Btns;
     end;
@@ -2300,25 +2297,25 @@ begin
 
     if (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) then
     begin
-      ShowWarning('Movimento de Entrada já está com NF-e gerada!');
+      TServiceMessage.ShowWarning('Movimento de Entrada já está com NF-e gerada!');
       Abort;
     end;
 
     if DMNFe.ConfigurarParamentoNFE(FieldByName('CODEMP').AsString) then
     begin
-      ShowInformation('A emissão da NF-e exige a configuração dos parâmetros da empresa.' + #13 + 'Favor entrar em contrato com suporte.');
+      TServiceMessage.ShowInformation('A emissão da NF-e exige a configuração dos parâmetros da empresa.' + #13 + 'Favor entrar em contrato com suporte.');
       Exit;
     end;
 
-    if not GetPermititEmissaoNFeEntrada( FieldByName('CODEMP').AsString ) then
+    if not Empresa.GetPermitirEmissaoNFeEntrada(FieldByName('CODEMP').AsString) then
     begin
-      ShowInformation('Empresa selecionada não habilitada para emissão de NF-e p/ Entradas.' + #13 + 'Favor entrar em contato com suporte.');
+      TServiceMessage.ShowInformation('Empresa selecionada não habilitada para emissão de NF-e p/ Entradas.' + #13 + 'Favor entrar em contato com suporte.');
       Exit;
     end;
 
-    if (GetCfopTipo(FieldByName('NFCFOP').AsInteger) <> tcfopEntrada) then
+    if (FControllerCFOP.GetTipo(FieldByName('NFCFOP').AsInteger) <> tcfopEntrada) then
     begin
-      ShowInformation('CFOP ' + QuotedStr(FieldByName('NFCFOP').AsString) + ' não permitida para a Emissão de Notas Fiscais de Entrada.' + #13 + 'Favor corrigir número de CFOP.');
+      TServiceMessage.ShowInformation('CFOP ' + QuotedStr(FieldByName('NFCFOP').AsString) + ' não permitida para a Emissão de Notas Fiscais de Entrada.' + #13 + 'Favor corrigir número de CFOP.');
       Exit;
     end;
 
@@ -2332,7 +2329,7 @@ begin
       Exit;
 
     if ( Trim(FieldByName('LOTE_NFE_RECIBO').AsString) = EmptyStr ) then
-      if GetCfopDevolucao( FieldByName('NFCFOP').AsInteger ) then
+      if FControllerCFOP.GetDevolucao( FieldByName('NFCFOP').AsInteger ) then
         if not InformarDocumentoReferenciado(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger) then
           Exit;
 
@@ -2357,7 +2354,7 @@ begin
 
         if ( TipoMovimento <> tmNFeEntrada ) then
         begin
-          ShowWarning('Tipo do movimento do recibo incompatível!');
+          TServiceMessage.ShowWarning('Tipo do movimento do recibo incompatível!');
           Exit;
         end;
 
@@ -2398,7 +2395,7 @@ begin
         if (Trim(sFileNameXML) = EmptyStr) or (not FileExists(sFileNameXML)) then
           sFileNameXML := DMNFe.GetDiretorioXmlNFe + sChaveNFE + '-nfe.xml';
 
-        AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+        AbrirNotaFiscal;
 
         qryNFE.Append;
 
@@ -2435,15 +2432,15 @@ begin
           CommitTransaction;
         except
           On E : Exception do
-            ShowError('Número da NF-e não recuperado.' + #13 + 'Execute novamente o procedimento.' + #13#13 + E.Message);
+            TServiceMessage.ShowError('Número da NF-e não recuperado.' + #13 + 'Execute novamente o procedimento.' + #13#13 + E.Message);
         end;
 
         FController.DAO.RefreshRecord;
 
         if (DtSrcTabela.DataSet.FieldByName('NF').AsInteger = 0) then
-          ShowWarning('Número da NF-e não recuperado.' + #13 + 'Execute novamente o procedimento.')
+          TServiceMessage.ShowWarning('Número da NF-e não recuperado.' + #13 + 'Execute novamente o procedimento.')
         else
-          ShowInformation('Nota Fiscal de Entrada gerada com sucesso.' + #13#13 + 'Série/Número: ' + FieldByName('NFSERIE').AsString + '/' + FormatFloat('##0000000', FieldByName('NF').AsInteger));
+          TServiceMessage.ShowInformation('Nota Fiscal de Entrada gerada com sucesso.' + #13#13 + 'Série/Número: ' + FieldByName('NFSERIE').AsString + '/' + FormatFloat('##0000000', FieldByName('NF').AsInteger));
 
         HabilitarDesabilitar_Btns;
 
@@ -2524,7 +2521,7 @@ begin
     begin
       if ( FieldByName('CODFORN').AsInteger = 0 ) then
       begin
-        ShowInformation('Favor selecionar o Fornecedor primeiramente!');
+        TServiceMessage.ShowInformation('Favor selecionar o Fornecedor primeiramente!');
         dbFornecedor.SetFocus;
       end
       else
@@ -2590,11 +2587,11 @@ begin
 
       if dbDataEmissao.Focused then
         if ( dbDataEmissao.Date > Date ) then
-            ShowWarning('A Data de Emissão da NF está maior que a data atual do sistema.' + #13#13 + 'Favor confirmar!');
+            TServiceMessage.ShowWarning('A Data de Emissão da NF está maior que a data atual do sistema.' + #13#13 + 'Favor confirmar!');
 
       if dbDataEntrada.Focused then
         if ( dbDataEntrada.Date > Date ) then
-            ShowWarning('A Data de Entrada da NF está maior que a data atual do sistema.' + #13#13 + 'Favor confirmar!');
+            TServiceMessage.ShowWarning('A Data de Entrada da NF está maior que a data atual do sistema.' + #13#13 + 'Favor confirmar!');
 
     end;
 
@@ -2695,20 +2692,9 @@ begin
   Result := Controller.Produtos;
 end;
 
-procedure TViewEntrada.AbrirNotaFiscal(const pEmpresa: String;
-  const AnoCompra: Smallint; const ControleCompra: Integer);
+procedure TViewEntrada.AbrirNotaFiscal;
 begin
-  if not Assigned(FControllerNFE) then
-    FControllerNFE := TControllerFactory.New.XML_NFeEnviada;
-
-  with qryNFE do
-  begin
-    Close;
-    ParamByName('empresa').AsString    := pEmpresa;
-    ParamByName('anocompra').AsInteger := AnoCompra;
-    ParamByName('numcompra').AsInteger := ControleCompra;
-    Open;
-  end;
+  Controller.CarregarNFe;
 end;
 
 procedure TViewEntrada.nmPpCorrigirDadosNFeCFOPClick(
@@ -2726,13 +2712,12 @@ begin
       Controller.CorrigirCFOP(aCodigo.ToString);
       RecarregarRegistro;
 
-      AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
-
       AbrirTabelaItens;
       AbrirTabelaDuplicatas;
       AbrirTabelaLotes;
+      AbrirNotaFiscal;
 
-      ShowInformation('Correção', 'CFOP corrigido com sucesso!' + #13 + 'Favor pesquisar entrada novamente.');
+      TServiceMessage.ShowInformation('Correção', 'CFOP corrigido com sucesso!' + #13 + 'Favor pesquisar entrada novamente.');
     end;
 end;
 
@@ -2759,7 +2744,7 @@ begin
       if ( FieldByName('NF').AsCurrency > 0 ) then
         Exit;
 
-      if not ShowConfirmation('Limpar LOG', 'Confirma a limpeza do LOG de envio de NF-e para que esta seja enviada novamente?') then
+      if not TServiceMessage.ShowConfirmation('Limpar LOG', 'Confirma a limpeza do LOG de envio de NF-e para que esta seja enviada novamente?') then
         Exit;
 
       // Realocar arquivos XML de envio
@@ -2798,9 +2783,9 @@ begin
       Controller.LimparLoteEmissaoNFe;
       RecarregarRegistro;
 
-      AbrirNotaFiscal( FieldByName('CODEMP').AsString, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+      AbrirNotaFiscal;
 
-      ShowInformation('Dados NF-e', 'LOG de envio de recibo NF-e limpo com sucesso!');
+      TServiceMessage.ShowInformation('Dados NF-e', 'LOG de envio de recibo NF-e limpo com sucesso!');
     end;
 end;
 
@@ -2813,7 +2798,7 @@ begin
         Exit;
 
       Clipboard.AsText := Trim(FieldByName('LOTE_NFE_RECIBO').AsString);
-      ShowInformation('Dados NF-e', 'Número de Recibo de Envio da NF-e:' + #13 + Trim(FieldByName('LOTE_NFE_RECIBO').AsString));
+      TServiceMessage.ShowInformation('Dados NF-e', 'Número de Recibo de Envio da NF-e:' + #13 + Trim(FieldByName('LOTE_NFE_RECIBO').AsString));
     end;
 end;
 
@@ -2826,7 +2811,7 @@ begin
         Exit;
 
       Clipboard.AsText := Trim(FieldByName('VERIFICADOR_NFE').AsString);
-      ShowInformation('Dados NF-e', 'Chave da NF-e:' + #13 + Trim(FieldByName('VERIFICADOR_NFE').AsString));
+      TServiceMessage.ShowInformation('Dados NF-e', 'Chave da NF-e:' + #13 + Trim(FieldByName('VERIFICADOR_NFE').AsString));
     end;
 end;
 
@@ -2839,7 +2824,7 @@ begin
         Exit;
 
       Clipboard.AsText := Trim(FieldByName('XML_NFE_FILENAME').AsString);
-      ShowInformation('Dados NF-e', 'Nome do Arquivo XML NF-e:' + #13 + Trim(FieldByName('XML_NFE_FILENAME').AsString));
+      TServiceMessage.ShowInformation('Dados NF-e', 'Nome do Arquivo XML NF-e:' + #13 + Trim(FieldByName('XML_NFE_FILENAME').AsString));
     end;
 end;
 
