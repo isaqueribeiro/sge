@@ -62,10 +62,7 @@ uses
   UGrPadraoCadastro,
   Interacao.Tabela,
   Controller.Tabela,
-  UConstantesDGE,
-
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet;
+  UConstantesDGE;
 
 type
   TViewEntrada = class(TViewPadraoCadastro)
@@ -225,7 +222,7 @@ type
     dbProduto: TJvDBComboEdit;
     dbDataEmissao: TJvDBDateEdit;
     dbDataEntrada: TJvDBDateEdit;
-    dtsNFE: TDataSource;
+    DtSrcTabelaNFE: TDataSource;
     TbsInformeNFe: TTabSheet;
     lblLogNFeLote: TLabel;
     dbLogNFeLote: TDBEdit;
@@ -263,26 +260,6 @@ type
     lblCSOSN: TLabel;
     dbCSOSN: TDBEdit;
     dbCalcularTotais: TDBCheckBox;
-    qryNFExxx: TFDQuery;
-    updNFE: TFDUpdateSQL;
-    qryNFExxxEMPRESA: TStringField;
-    qryNFExxxSERIE: TStringField;
-    qryNFExxxNUMERO: TIntegerField;
-    qryNFExxxMODELO: TSmallintField;
-    qryNFExxxVERSAO: TSmallintField;
-    qryNFExxxDATAEMISSAO: TDateField;
-    qryNFExxxHORAEMISSAO: TTimeField;
-    qryNFExxxCHAVE: TStringField;
-    qryNFExxxPROTOCOLO: TStringField;
-    qryNFExxxRECIBO: TStringField;
-    qryNFExxxXML_FILENAME: TStringField;
-    qryNFExxxXML_FILE: TMemoField;
-    qryNFExxxLOTE_ANO: TSmallintField;
-    qryNFExxxLOTE_NUM: TIntegerField;
-    qryNFExxxANOVENDA: TSmallintField;
-    qryNFExxxNUMVENDA: TIntegerField;
-    qryNFExxxANOCOMPRA: TSmallintField;
-    qryNFExxxNUMCOMPRA: TIntegerField;
     lblCalcularTotaisInfo: TLabel;
     tbsLotes: TTabSheet;
     DBGrid1: TDBGrid;
@@ -440,9 +417,9 @@ uses
   View.Fornecedor,
   View.Entrada.ConfirmarDuplicatas,
   View.Entrada.ConfirmarLote,
+  View.Entrada.Cancelar,
   View.AutorizacaoCompra,
   UGeConsultarLoteNFe_v2,
-  UGeEntradaEstoqueCancelar,
   UGeEntradaEstoqueGerarNFe,
   UGeEntradaEstoqueDevolucaoNF,
   UGeDistribuicaoDFe,
@@ -681,6 +658,7 @@ begin
   DtSrcTabelaItens.DataSet      := Produtos.DAO.DataSet;
   DtSrcTabelaDuplicatas.DataSet := Duplicatas.DAO.DataSet;
   DtSrcTabelaLotes.DataSet      := Lotes.DAO.DataSet;
+  DtSrcTabelaNFE.DataSet        := NFE.DAO.DataSet;
 
   inherited;
 
@@ -942,75 +920,6 @@ begin
       Next;
     end;
   end;
-//
-//  with qryAutorizacaoProduto do
-//  begin
-//    Close;
-//    ParamByName('tipo').AsInteger := IfThen(TTipoMovimentoEntrada(DtSrcTabela.DataSet.FieldByName('TIPO_MOVIMENTO').AsInteger) = tmeProduto, Ord(taICMS), Ord(taISS));
-//    ParamByName('ano').AsInteger  := DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_ANO').AsInteger;
-//    ParamByName('cod').AsInteger  := DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_CODIGO').AsInteger;
-//    ParamByName('emp').AsString   := DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_EMPRESA').AsString;
-//    Open;
-//
-//    if not IsEmpty then
-//    begin
-//      AbrirTabelaItens;
-//
-//      DtSrcTabelaItens.DataSet.First;
-//      while not DtSrcTabelaItens.DataSet.Eof do
-//        DtSrcTabelaItens.DataSet.Delete;
-//    end;
-//
-//    I := 1;
-//
-//    First;
-//    while not Eof do
-//    begin
-//      if ( FieldByName('quantidade').AsCurrency > 0.0 ) then
-//      begin
-//        DtSrcTabelaItens.DataSet.Append;
-//
-//        DtSrcTabelaItens.DataSet.FieldByName('SEQ').AsInteger := I;
-//        DtSrcTabelaItens.DataSet.FieldByName('CODPROD').Assign       ( FieldByName('produto') );
-//        DtSrcTabelaItens.DataSet.FieldByName('DESCRI').Assign        ( FieldByName('DESCRI') );
-//        DtSrcTabelaItens.DataSet.FieldByName('QTDE').Assign          ( FieldByName('quantidade') );
-//        DtSrcTabelaItens.DataSet.FieldByName('UNID_COD').Assign      ( FieldByName('unidade') );
-//        DtSrcTabelaItens.DataSet.FieldByName('UNP_SIGLA').Assign     ( FieldByName('unp_sigla') );
-//        DtSrcTabelaItens.DataSet.FieldByName('CFOP').Assign          ( DtSrcTabela.DataSet.FieldByName('NFCFOP') );
-//        DtSrcTabelaItens.DataSet.FieldByName('NCM_SH').Assign        ( FieldByName('ncm_sh') );
-//        DtSrcTabelaItens.DataSet.FieldByName('CST').Assign           ( FieldByName('cst') );
-//        DtSrcTabelaItens.DataSet.FieldByName('CSOSN').Assign         ( FieldByName('csosn') );
-//        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA').Assign      ( FieldByName('aliquota') );
-//        DtSrcTabelaItens.DataSet.FieldByName('PERCENTUAL_REDUCAO_BC').Assign      ( FieldByName('percentual_reducao_bc') );
-//        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA_CSOSN').Assign ( FieldByName('aliquota_csosn') );
-//        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA_PIS').Assign   ( FieldByName('aliquota_pis') );
-//        DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA_COFINS').Assign( FieldByName('aliquota_cofins') );
-//        DtSrcTabelaItens.DataSet.FieldByName('QTDE').Assign           ( FieldByName('quantidade') );
-//        DtSrcTabelaItens.DataSet.FieldByName('QTDEANTES').Assign      ( FieldByName('estoque') );
-//        DtSrcTabelaItens.DataSet.FieldByName('QTDEFINAL').Assign      ( FieldByName('novo_estoque') );
-//        DtSrcTabelaItens.DataSet.FieldByName('PRECOUNIT').Assign      ( FieldByName('valor_unitario') );
-//        DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').Assign      ( FieldByName('valor_ipi') );
-//
-//        cPrecoUN := DtSrcTabelaItens.DataSet.FieldByName('PRECOUNIT').AsCurrency;
-//
-//        DtSrcTabelaItens.DataSet.FieldByName('CUSTOMEDIO').AsCurrency  := cPrecoUN + DtSrcTabelaItens.DataSet.FieldByName('VALOR_IPI').AsCurrency;
-//        DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency := cPrecoUN * DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency;
-//
-//        DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency := DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency  / DtSrcTabela.DataSet.FieldByName('TOTALPROD').AsCurrency * 100;
-//        DtSrcTabelaItens.DataSet.FieldByName('VALOR_FRETE').AsCurrency       := DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency * DtSrcTabela.DataSet.FieldByName('FRETE').AsCurrency / 100;
-//        DtSrcTabelaItens.DataSet.FieldByName('VALOR_DESCONTO').AsCurrency    := DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency * DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency / 100;
-//        DtSrcTabelaItens.DataSet.FieldByName('VALOR_OUTROS').AsCurrency      := DtSrcTabelaItens.DataSet.FieldByName('PERC_PARTICIPACAO').AsCurrency * DtSrcTabela.DataSet.FieldByName('OUTROSCUSTOS').AsCurrency / 100;
-//
-//        DtSrcTabelaItens.DataSet.FieldByName('TOTAL_LIQUIDO').AsCurrency     := DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency - DtSrcTabelaItens.DataSet.FieldByName('VALOR_DESCONTO').AsCurrency;
-//
-//        DtSrcTabelaItens.DataSet.Post;
-//
-//        Inc(I);
-//      end;
-//
-//      Next;
-//    end;
-//  end;
 end;
 
 function TViewEntrada.Lotes: IControllerCustom;
@@ -2200,7 +2109,7 @@ begin
   end;
 
   with DtSrcTabela.DataSet do
-    if ( CancelarENT(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger) ) then
+    if CancelarENT(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger, FieldByName('CODEMP').AsString) then
     begin
       RecarregarRegistro;
 
@@ -2397,39 +2306,40 @@ begin
 
         AbrirNotaFiscal;
 
-        qryNFE.Append;
+        DtSrcTabelaNFE.DataSet.Append;
 
-        qryNFEEMPRESA.Value     := FieldByName('CODEMP').AsString;
-        qryNFEANOCOMPRA.Value   := FieldByName('ANO').AsInteger;
-        qryNFENUMCOMPRA.Value   := FieldByName('CODCONTROL').AsInteger;
-        qryNFESERIE.Value       := FormatFloat('#00', iSerieNFe);
-        qryNFENUMERO.Value      := iNumeroNFe;
-        qryNFEMODELO.Value      := DMNFe.GetModeloDF;
-        qryNFEVERSAO.Value      := DMNFe.GetVersaoDF;
-        qryNFEDATAEMISSAO.Value := GetDateDB;
-        qryNFEHORAEMISSAO.Value := GetTimeDB;
-        qryNFECHAVE.Value     := sChaveNFE;
-        qryNFEPROTOCOLO.Value := sProtocoloNFE;
-        qryNFERECIBO.Value    := sReciboNFE;
-        qryNFELOTE_ANO.Value  := FieldByName('ANO').AsInteger;
-        qryNFELOTE_NUM.Value  := iNumeroLote;
+        DtSrcTabelaNFE.DataSet.FieldByName('EMPRESA').Assign( FieldByName('CODEMP') );
+        DtSrcTabelaNFE.DataSet.FieldByName('ANOCOMPRA').Assign( FieldByName('ANO') );
+        DtSrcTabelaNFE.DataSet.FieldByName('NUMCOMPRA').Assign( FieldByName('CODCONTROL') );
+        DtSrcTabelaNFE.DataSet.FieldByName('SERIE').AsString   := FormatFloat('#00', iSerieNFe);
+        DtSrcTabelaNFE.DataSet.FieldByName('NUMERO').AsInteger := iNumeroNFe;
+        DtSrcTabelaNFE.DataSet.FieldByName('MODELO').AsInteger := DMNFe.GetModeloDF;
+        DtSrcTabelaNFE.DataSet.FieldByName('VERSAO').AsInteger := DMNFe.GetVersaoDF;
+        DtSrcTabelaNFE.DataSet.FieldByName('DATAEMISSAO').AsDateTime := Date;
+        DtSrcTabelaNFE.DataSet.FieldByName('HORAEMISSAO').AsDateTime := Time;
+        DtSrcTabelaNFE.DataSet.FieldByName('CHAVE').AsString      := sChaveNFE;
+        DtSrcTabelaNFE.DataSet.FieldByName('PROTOCOLO').AsString  := sProtocoloNFE;
+        DtSrcTabelaNFE.DataSet.FieldByName('RECIBO').AsString     := sReciboNFE;
+        DtSrcTabelaNFE.DataSet.FieldByName('LOTE_ANO').AsInteger  := FieldByName('ANO').AsInteger;
+        DtSrcTabelaNFE.DataSet.FieldByName('LOTE_NUM').AsLargeInt := iNumeroLote;
 
         if ( FileExists(sFileNameXML) ) then
         begin
           CorrigirXML_NFe(EmptyWideStr, sFileNameXML);
 
-          qryNFEXML_FILENAME.Value := ExtractFileName( sFileNameXML );
-          qryNFEXML_FILE.LoadFromFile( sFileNameXML );
+          DtSrcTabelaNFE.DataSet.FieldByName('XML_FILENAME').AsString := ExtractFileName( sFileNameXML );
+          TMemoField(DtSrcTabelaNFE.DataSet.FieldByName('XML_FILE')).LoadFromFile( sFileNameXML );
         end;
 
-        qryNFEANOVENDA.Clear;
-        qryNFENUMVENDA.Clear;
+        DtSrcTabelaNFE.DataSet.FieldByName('ANOVENDA').Clear;
+        DtSrcTabelaNFE.DataSet.FieldByName('NUMVENDA').Clear;
 
         try
-          qryNFE.Post;
-          qryNFE.ApplyUpdates;
-          qryNFE.CommitUpdates;
-          CommitTransaction;
+          DtSrcTabelaNFE.DataSet.Post;
+
+          NFE.DAO.ApplyUpdates;
+          NFE.DAO.CommitUpdates;
+          NFE.DAO.CommitTransaction;
         except
           On E : Exception do
             TServiceMessage.ShowError('Número da NF-e não recuperado.' + #13 + 'Execute novamente o procedimento.' + #13#13 + E.Message);
@@ -2695,6 +2605,15 @@ end;
 procedure TViewEntrada.AbrirNotaFiscal;
 begin
   Controller.CarregarNFe;
+
+  // Configurar tabela de NFe
+  TTabelaController
+    .New
+    .Tabela( DtSrcTabelaNFE.DataSet )
+    .Display('NUMERO', 'Número', '###0000000', TAlignment.taCenter, True)
+    .Display('DATAEMISSAO', 'Data', 'dd/mm/yyyy', TAlignment.taCenter, True)
+    .Display('HORAEMISSAO', 'Hora', 'hh:nn', TAlignment.taCenter, True)
+    .Configurar;
 end;
 
 procedure TViewEntrada.nmPpCorrigirDadosNFeCFOPClick(

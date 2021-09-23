@@ -57,6 +57,8 @@ inherited frmGeEntradaEstoqueCancelar: TfrmGeEntradaEstoqueCancelar
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
+    ExplicitLeft = 8
+    ExplicitTop = -2
     object lblCodigo: TLabel
       Left = 16
       Top = 24
@@ -128,7 +130,7 @@ inherited frmGeEntradaEstoqueCancelar: TfrmGeEntradaEstoqueCancelar
       ParentFont = False
     end
     object lblTotalNota: TLabel
-      Left = 272
+      Left = 287
       Top = 64
       Width = 95
       Height = 13
@@ -216,7 +218,7 @@ inherited frmGeEntradaEstoqueCancelar: TfrmGeEntradaEstoqueCancelar
     object dbDataEntrada: TDBEdit
       Left = 184
       Top = 80
-      Width = 81
+      Width = 97
       Height = 21
       TabStop = False
       Color = clMoneyGreen
@@ -232,9 +234,9 @@ inherited frmGeEntradaEstoqueCancelar: TfrmGeEntradaEstoqueCancelar
       TabOrder = 4
     end
     object dbTotalNota: TDBEdit
-      Left = 272
+      Left = 287
       Top = 80
-      Width = 97
+      Width = 114
       Height = 21
       TabStop = False
       Color = clMoneyGreen

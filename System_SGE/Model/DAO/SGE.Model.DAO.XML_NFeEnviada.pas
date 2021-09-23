@@ -14,6 +14,8 @@ type
   TModelDAOXML_NFeEnviada = class(TModelDAO, IModelDAOCustom)
     private
       procedure SetProviderFlags;
+      procedure DataGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+      procedure HoraGetText(Sender: TField; var Text: string; DisplayText: Boolean);
       procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetNewRecord(DataSet: TDataSet);
       procedure DataSetBeforePost(DataSet: TDataSet);
@@ -86,6 +88,14 @@ begin
   inherited;
 end;
 
+procedure TModelDAOXML_NFeEnviada.HoraGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if Sender.IsNull then
+    Text := EmptyStr
+  else
+    Text := FormatDateTime('hh:nn', Sender.AsDateTime);
+end;
+
 class function TModelDAOXML_NFeEnviada.New: IModelDAOCustom;
 begin
   Result := Self.Create;
@@ -96,9 +106,19 @@ begin
   ;
 end;
 
+procedure TModelDAOXML_NFeEnviada.DataGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if Sender.IsNull then
+    Text := EmptyStr
+  else
+    Text := FormatDateTime('dd/mm/yyyy', Sender.AsDateTime);
+end;
+
 procedure TModelDAOXML_NFeEnviada.DataSetAfterOpen(DataSet: TDataSet);
 begin
   SetProviderFlags;
+  FConn.Query.DataSet.FieldByName('dataemissao').OnGetText := DataGetText;
+  FConn.Query.DataSet.FieldByName('horaemissao').OnGetText := HoraGetText;
 end;
 
 procedure TModelDAOXML_NFeEnviada.DataSetBeforePost(DataSet: TDataSet);

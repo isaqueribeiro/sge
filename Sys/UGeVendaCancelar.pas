@@ -98,7 +98,7 @@ var
 
 implementation
 
-uses UDMBusiness, UDMNFe, UFuncoes;
+uses UDMBusiness, UDMNFe, UFuncoes, UConstantesDGE;
 
 {$R *.dfm}
 

@@ -100,6 +100,7 @@ type
     procedure CarregarDuplicatas;
     procedure CarregarNFe;
     procedure GerarDuplicatas;
+    procedure GerarTotaisNFE;
     procedure LimparLoteEmissaoNFe;
   end;
 

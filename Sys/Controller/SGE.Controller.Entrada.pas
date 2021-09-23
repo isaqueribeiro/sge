@@ -14,11 +14,13 @@ type
   TControllerEntrada = class(TController, IControllerEntrada)
     private
       FBusca : IModelDAOCustom;
+      FCFOP  : IControllerCFOP;
       FProdutos    : IControllerCustom;
       FDuplicatas  : IControllerCustom;
       FLotes       : IControllerCustom;
       FNFE         : IControllerXML_NFeEnviada;
       FAutorizacao : IControllerAutorizacaoCompra;
+      function CFOP : IControllerCFOP;
     protected
       constructor Create;
     public
@@ -31,6 +33,7 @@ type
       procedure CarregarDuplicatas;
       procedure CarregarNFe;
       procedure GerarDuplicatas;
+      procedure GerarTotaisNFE;
       procedure LimparLoteEmissaoNFe;
 
       function Busca : IModelDAOCustom;
@@ -103,6 +106,7 @@ uses
   System.SysUtils,
   System.Classes,
   Data.DB,
+  SGE.Controller.CFOP,
   SGE.Controller.XML_NFeEnviada;
 
 procedure TControllerEntrada.CarregarDuplicatas;
@@ -165,6 +169,14 @@ begin
     .ParamsByName('controle', FDAO.DataSet.FieldByName('CODCONTROL').AsInteger)
     .ParamsByName('empresa',  FDAO.DataSet.FieldByName('CODEMP').AsString)
     .Open;
+end;
+
+function TControllerEntrada.CFOP: IControllerCFOP;
+begin
+  if not Assigned(FCFOP) then
+    FCFOP := TControllerCFOP.New;
+
+  Result := FCFOP;
 end;
 
 function TControllerEntrada.Busca: IModelDAOCustom;
@@ -274,6 +286,123 @@ begin
       FDAO.CommitTransaction;
       aScriptSQL.DisposeOf;
     end;
+  end;
+end;
+
+procedure TControllerEntrada.GerarTotaisNFE;
+var
+  aValorTotalIPI     ,
+  aValorTotalBruto   ,
+  aValorTotalDesconto,
+  aValorTotalLiquido ,
+  aValorBaseICMSEntrada,
+  aValorICMSEntrada   ,
+  aValorBaseICMSSaida ,
+  aValorICMSSaida     ,
+  aValorICMSSemReducao,
+  aValorICMSDevido,
+  aValorPIS       ,
+  aValorCOFINS    : Currency;
+begin
+  try
+    Self.CarregarProdutos;
+
+    FProdutos.DAO.DataSet.First;
+    FProdutos.DAO.DataSet.DisableControls;
+
+    aValorTotalIPI        := 0.0;
+    aValorTotalBruto      := 0.0;
+    aValorTotalDesconto   := 0.0;
+    aValorTotalLiquido    := 0.0;
+    aValorBaseICMSEntrada := 0.0;
+    aValorICMSEntrada     := 0.0;
+    aValorBaseICMSSaida   := 0.0;
+    aValorICMSSaida       := 0.0;
+    aValorICMSSemReducao  := 0.0;
+    aValorICMSDevido      := 0.0;
+    aValorPIS    := 0.0;
+    aValorCOFINS := 0.0;
+
+    // 1. Totalizar valores
+
+    while not FProdutos.DAO.DataSet.Eof do
+    begin
+      aValorTotalIPI      := aValorTotalIPI      + FProdutos.DAO.DataSet.FieldByName('VALOR_IPI').AsCurrency;
+      aValorTotalBruto    := aValorTotalBruto    + FProdutos.DAO.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency;
+      aValorTotalDesconto := aValorTotalDesconto + FProdutos.DAO.DataSet.FieldByName('VALOR_DESCONTO').AsCurrency;
+      aValorTotalLiquido  := aValorTotalLiquido  + FProdutos.DAO.DataSet.FieldByName('TOTAL_LIQUIDO').AsCurrency;
+
+      if (TAliquota(FProdutos.DAO.DataSet.FieldByName('Aliquota_tipo').AsInteger) = TAliquota.taICMS) then
+      begin
+        // ICMS Entrada
+        aValorBaseICMSEntrada  := aValorBaseICMSEntrada  + FProdutos.DAO.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency;
+        aValorICMSEntrada := aValorICMSEntrada +
+          (FProdutos.DAO.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency *
+           FProdutos.DAO.DataSet.FieldByName('ALIQUOTA').AsCurrency / 100.0);
+
+        // ICMS Saída
+        if (FProdutos.DAO.DataSet.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency > 0) then
+        begin
+          aValorBaseICMSSaida := aValorBaseICMSSaida +
+            (FProdutos.DAO.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency *
+             FProdutos.DAO.DataSet.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency / 100.0);
+
+          aValorICMSSaida := aValorICMSSaida  +
+            (((FProdutos.DAO.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency *
+               FProdutos.DAO.DataSet.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency / 100.0)
+             ) * FProdutos.DAO.DataSet.FieldByName('ALIQUOTA').AsCurrency / 100.0);
+        end
+        else
+        begin
+          aValorBaseICMSSaida := aValorBaseICMSSaida + FProdutos.DAO.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency;
+          aValorICMSSaida := aValorICMSSaida +
+            (FProdutos.DAO.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency *
+             FProdutos.DAO.DataSet.FieldByName('ALIQUOTA').AsCurrency / 100.0);
+        end;
+
+        // ANALISAR
+        aValorICMSSemReducao := aValorICMSSemReducao +
+          (FProdutos.DAO.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency *
+           FProdutos.DAO.DataSet.FieldByName('ALIQUOTA').AsCurrency / 100.0);
+        aValorICMSDevido     := aValorICMSSaida - aValorICMSSemReducao;
+      end;
+
+      aValorPIS    := aValorPIS    + ((FProdutos.DAO.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency * FProdutos.DAO.DataSet.FieldByName('Aliquota_pis').AsCurrency) / 100.0);
+      aValorCOFINS := aValorCOFINS + ((FProdutos.DAO.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency * FProdutos.DAO.DataSet.FieldByName('Aliquota_cofins').AsCurrency) / 100.0);
+
+      FProdutos.DAO.DataSet.Next;
+    end;
+
+    // 2. Colocar registro em edição
+
+    if (not (FDAO.DataSet.State in [dsEdit, dsInsert])) then
+      FDAO.DataSet.Edit;
+
+    // 3. Informar valores totalizados
+
+    if Self.CFOP.GetDevolucao(FDAO.DataSet.FieldByName('NFCFOP').AsInteger) then
+    begin
+      FDAO.DataSet.FieldByName('ICMSBASE').AsCurrency  := aValorBaseICMSSaida;
+      FDAO.DataSet.FieldByName('ICMSVALOR').AsCurrency := aValorICMSSaida;
+    end
+    else
+    begin
+      FDAO.DataSet.FieldByName('ICMSBASE').AsCurrency  := aValorBaseICMSEntrada;
+      FDAO.DataSet.FieldByName('ICMSVALOR').AsCurrency := aValorICMSEntrada;
+    end;
+
+    FDAO.DataSet.FieldByName('ICMSSUBSTBASE').AsCurrency  := 0.0;
+    FDAO.DataSet.FieldByName('ICMSSUBSTVALOR').AsCurrency := 0.0;
+
+    FDAO.DataSet.FieldByName('VALORSEGURO').AsCurrency     := 0.0;
+    FDAO.DataSet.FieldByName('VALORTOTAL_IPI').AsCurrency  := FDAO.DataSet.FieldByName('IPI').AsCurrency;
+    FDAO.DataSet.FieldByName('VALORPIS').AsCurrency        := FDAO.DataSet.FieldByName('VALOR_TOTAL_PIS').AsCurrency;
+    FDAO.DataSet.FieldByName('VALORCOFINS').AsCurrency     := FDAO.DataSet.FieldByName('VALOR_TOTAL_COFINS').AsCurrency;
+    FDAO.DataSet.FieldByName('VALORTOTAL_II').AsCurrency   := 0.0;
+    FDAO.DataSet.FieldByName('TOTALNF').AsCurrency         := aValorTotalLiquido + aValorTotalIPI;
+  finally
+    FProdutos.DAO.DataSet.First;
+    FProdutos.DAO.DataSet.EnableControls;
   end;
 end;
 

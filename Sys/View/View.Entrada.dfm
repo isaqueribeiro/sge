@@ -1911,10 +1911,6 @@ inherited ViewEntrada: TViewEntrada
         object tbsDuplicatas: TTabSheet
           Caption = 'Duplicata(s) Gerada(s)'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 89
             Top = 0
@@ -2095,10 +2091,6 @@ inherited ViewEntrada: TViewEntrada
         object tbsLotes: TTabSheet
           Caption = 'Lote(s) Gerado(s) no Estoque'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object DBGrid1: TDBGrid
             Left = 0
             Top = 0
@@ -2187,10 +2179,6 @@ inherited ViewEntrada: TViewEntrada
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0
@@ -2495,7 +2483,7 @@ inherited ViewEntrada: TViewEntrada
             TabStop = False
             Color = clMoneyGreen
             DataField = 'DATAEMISSAO'
-            DataSource = dtsNFE
+            DataSource = DtSrcTabelaNFE
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -11
@@ -2513,7 +2501,7 @@ inherited ViewEntrada: TViewEntrada
             TabStop = False
             Color = clMoneyGreen
             DataField = 'HORAEMISSAO'
-            DataSource = dtsNFE
+            DataSource = DtSrcTabelaNFE
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -11
@@ -2549,7 +2537,7 @@ inherited ViewEntrada: TViewEntrada
             TabStop = False
             Color = clMoneyGreen
             DataField = 'PROTOCOLO'
-            DataSource = dtsNFE
+            DataSource = DtSrcTabelaNFE
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -11
@@ -2585,7 +2573,7 @@ inherited ViewEntrada: TViewEntrada
             TabStop = False
             Color = clMoneyGreen
             DataField = 'CHAVE'
-            DataSource = dtsNFE
+            DataSource = DtSrcTabelaNFE
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -11
@@ -2603,7 +2591,7 @@ inherited ViewEntrada: TViewEntrada
             TabStop = False
             Color = clMoneyGreen
             DataField = 'XML_FILENAME'
-            DataSource = dtsNFE
+            DataSource = DtSrcTabelaNFE
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -11
@@ -4088,10 +4076,8 @@ inherited ViewEntrada: TViewEntrada
   object dtsTipoEntrada: TDataSource
     Left = 600
   end
-  object dtsNFE: TDataSource
-    DataSet = qryNFExxx
-    Left = 960
-    Top = 384
+  object DtSrcTabelaNFE: TDataSource
+    Left = 344
   end
   object ppCorrigirDadosNFe: TPopupMenu
     Left = 124
@@ -4165,209 +4151,6 @@ inherited ViewEntrada: TViewEntrada
       Caption = '&3. Visualizar Nome do Arquivo NF-e'
       OnClick = nmPpArquivoNFeClick
     end
-  end
-  object qryNFExxx: TFDQuery
-    CachedUpdates = True
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    UpdateObject = updNFE
-    SQL.Strings = (
-      'Select'
-      '    n.EMPRESA'
-      '  , n.SERIE'
-      '  , n.NUMERO'
-      '  , n.MODELO'
-      '  , n.VERSAO'
-      '  , n.DATAEMISSAO'
-      '  , n.HORAEMISSAO'
-      '  , n.CHAVE'
-      '  , n.PROTOCOLO'
-      '  , n.RECIBO'
-      '  , n.XML_FILENAME'
-      '  , n.XML_FILE'
-      '  , n.LOTE_ANO'
-      '  , n.LOTE_NUM'
-      '  , n.ANOVENDA'
-      '  , n.NUMVENDA'
-      '  , n.ANOCOMPRA'
-      '  , n.NUMCOMPRA'
-      'from TBNFE_ENVIADA n'
-      'where n.EMPRESA = :empresa'
-      '  and n.ANOCOMPRA = :anocompra'
-      '  and n.NUMCOMPRA = :numcompra')
-    Left = 896
-    Top = 384
-    ParamData = <
-      item
-        Name = 'EMPRESA'
-        DataType = ftString
-        ParamType = ptInput
-        Size = 18
-        Value = Null
-      end
-      item
-        Name = 'ANOCOMPRA'
-        DataType = ftSmallint
-        ParamType = ptInput
-      end
-      item
-        Name = 'NUMCOMPRA'
-        DataType = ftInteger
-        ParamType = ptInput
-      end>
-    object qryNFExxxEMPRESA: TStringField
-      FieldName = 'EMPRESA'
-      Origin = 'EMPRESA'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 18
-    end
-    object qryNFExxxSERIE: TStringField
-      FieldName = 'SERIE'
-      Origin = 'SERIE'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 4
-    end
-    object qryNFExxxNUMERO: TIntegerField
-      FieldName = 'NUMERO'
-      Origin = 'NUMERO'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryNFExxxMODELO: TSmallintField
-      FieldName = 'MODELO'
-      Origin = 'MODELO'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qryNFExxxVERSAO: TSmallintField
-      FieldName = 'VERSAO'
-      Origin = 'VERSAO'
-    end
-    object qryNFExxxDATAEMISSAO: TDateField
-      FieldName = 'DATAEMISSAO'
-      Origin = 'DATAEMISSAO'
-    end
-    object qryNFExxxHORAEMISSAO: TTimeField
-      FieldName = 'HORAEMISSAO'
-      Origin = 'HORAEMISSAO'
-    end
-    object qryNFExxxCHAVE: TStringField
-      FieldName = 'CHAVE'
-      Origin = 'CHAVE'
-      Size = 250
-    end
-    object qryNFExxxPROTOCOLO: TStringField
-      FieldName = 'PROTOCOLO'
-      Origin = 'PROTOCOLO'
-      Size = 250
-    end
-    object qryNFExxxRECIBO: TStringField
-      FieldName = 'RECIBO'
-      Origin = 'RECIBO'
-      Size = 250
-    end
-    object qryNFExxxXML_FILENAME: TStringField
-      FieldName = 'XML_FILENAME'
-      Origin = 'XML_FILENAME'
-      Size = 250
-    end
-    object qryNFExxxXML_FILE: TMemoField
-      FieldName = 'XML_FILE'
-      Origin = 'XML_FILE'
-      BlobType = ftMemo
-    end
-    object qryNFExxxLOTE_ANO: TSmallintField
-      FieldName = 'LOTE_ANO'
-      Origin = 'LOTE_ANO'
-    end
-    object qryNFExxxLOTE_NUM: TIntegerField
-      FieldName = 'LOTE_NUM'
-      Origin = 'LOTE_NUM'
-      Required = True
-    end
-    object qryNFExxxANOVENDA: TSmallintField
-      FieldName = 'ANOVENDA'
-      Origin = 'ANOVENDA'
-    end
-    object qryNFExxxNUMVENDA: TIntegerField
-      FieldName = 'NUMVENDA'
-      Origin = 'NUMVENDA'
-    end
-    object qryNFExxxANOCOMPRA: TSmallintField
-      FieldName = 'ANOCOMPRA'
-      Origin = 'ANOCOMPRA'
-    end
-    object qryNFExxxNUMCOMPRA: TIntegerField
-      FieldName = 'NUMCOMPRA'
-      Origin = 'NUMCOMPRA'
-    end
-  end
-  object updNFE: TFDUpdateSQL
-    Connection = DMBusiness.fdConexao
-    InsertSQL.Strings = (
-      'INSERT INTO TBNFE_ENVIADA'
-      '(EMPRESA, SERIE, NUMERO, MODELO, VERSAO, '
-      '  ANOVENDA, NUMVENDA, ANOCOMPRA, NUMCOMPRA, '
-      '  DATAEMISSAO, HORAEMISSAO, CHAVE, PROTOCOLO, '
-      '  RECIBO, XML_FILENAME, XML_FILE, LOTE_ANO, '
-      '  LOTE_NUM)'
-      
-        'VALUES (:NEW_EMPRESA, :NEW_SERIE, :NEW_NUMERO, :NEW_MODELO, :NEW' +
-        '_VERSAO, '
-      '  :NEW_ANOVENDA, :NEW_NUMVENDA, :NEW_ANOCOMPRA, :NEW_NUMCOMPRA, '
-      
-        '  :NEW_DATAEMISSAO, :NEW_HORAEMISSAO, :NEW_CHAVE, :NEW_PROTOCOLO' +
-        ', '
-      '  :NEW_RECIBO, :NEW_XML_FILENAME, :NEW_XML_FILE, :NEW_LOTE_ANO, '
-      '  :NEW_LOTE_NUM)'
-      'RETURNING DATAEMISSAO, HORAEMISSAO, CANCELADA')
-    ModifySQL.Strings = (
-      'UPDATE TBNFE_ENVIADA'
-      
-        'SET EMPRESA = :NEW_EMPRESA, SERIE = :NEW_SERIE, NUMERO = :NEW_NU' +
-        'MERO, '
-      
-        '  MODELO = :NEW_MODELO, VERSAO = :NEW_VERSAO, ANOVENDA = :NEW_AN' +
-        'OVENDA, '
-      
-        '  NUMVENDA = :NEW_NUMVENDA, ANOCOMPRA = :NEW_ANOCOMPRA, NUMCOMPR' +
-        'A = :NEW_NUMCOMPRA, '
-      
-        '  DATAEMISSAO = :NEW_DATAEMISSAO, HORAEMISSAO = :NEW_HORAEMISSAO' +
-        ', '
-      
-        '  CHAVE = :NEW_CHAVE, PROTOCOLO = :NEW_PROTOCOLO, RECIBO = :NEW_' +
-        'RECIBO, '
-      '  XML_FILENAME = :NEW_XML_FILENAME, XML_FILE = :NEW_XML_FILE, '
-      '  LOTE_ANO = :NEW_LOTE_ANO, LOTE_NUM = :NEW_LOTE_NUM'
-      
-        'WHERE EMPRESA = :OLD_EMPRESA AND SERIE = :OLD_SERIE AND NUMERO =' +
-        ' :OLD_NUMERO AND '
-      '  MODELO = :OLD_MODELO'
-      'RETURNING DATAEMISSAO, HORAEMISSAO, CANCELADA')
-    DeleteSQL.Strings = (
-      'DELETE FROM TBNFE_ENVIADA'
-      
-        'WHERE EMPRESA = :OLD_EMPRESA AND SERIE = :OLD_SERIE AND NUMERO =' +
-        ' :OLD_NUMERO AND '
-      '  MODELO = :OLD_MODELO')
-    FetchRowSQL.Strings = (
-      
-        'SELECT EMPRESA, SERIE, NUMERO, MODELO, VERSAO, ANOVENDA, NUMVEND' +
-        'A, '
-      '  ANOCOMPRA, NUMCOMPRA, NFC_NUMERO, DATAEMISSAO, HORAEMISSAO, '
-      '  CHAVE, PROTOCOLO, RECIBO, XML_FILENAME, XML_FILE, LOTE_ANO, '
-      '  LOTE_NUM, CANCELADA'
-      'FROM TBNFE_ENVIADA'
-      
-        'WHERE EMPRESA = :EMPRESA AND SERIE = :SERIE AND NUMERO = :NUMERO' +
-        ' AND '
-      '  MODELO = :MODELO')
-    Left = 928
-    Top = 384
   end
   object DtSrcTabelaLotes: TDataSource
     Left = 312

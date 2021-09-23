@@ -448,12 +448,6 @@ const
   BOLETO_IMAGENS          = 'Imagens\';
   BOLETO_LICENCAS         = 'Licencas\';
 
-  STATUS_VND_AND = 1;
-  STATUS_VND_ABR = 2;
-  STATUS_VND_FIN = 3;
-  STATUS_VND_NFE = 4;
-  STATUS_VND_CAN = 5;
-
   STATUS_OS_EDT = 0; // Em edição
   STATUS_OS_ABR = 1; // Aberta
   STATUS_OS_AVL = 2; // Em avaliação pelo técnico

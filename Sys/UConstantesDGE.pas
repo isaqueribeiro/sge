@@ -503,6 +503,14 @@ const
   STATUS_CMP_CAN = 3;
   STATUS_CMP_NFE = 4;
 
+  // Status de Saídas (Vendas)
+
+  STATUS_VND_AND = 1;
+  STATUS_VND_ABR = 2;
+  STATUS_VND_FIN = 3;
+  STATUS_VND_NFE = 4;
+  STATUS_VND_CAN = 5;
+
   // Prazos padrões em dias (Fixos)
 
   PRAZO_VALIDADE_AUTORIZACAO_COMPRA = 5;

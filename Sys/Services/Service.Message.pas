@@ -10,6 +10,8 @@ type
       class procedure ShowInformation(aTitle, aMessage : String); overload;
       class procedure ShowWarning(aMessage : String); overload;
       class procedure ShowWarning(aTitle, aMessage : String); overload;
+      class procedure ShowError(aMessage : String); overload;
+      class procedure ShowError(aTitle, aMessage : String); overload;
 
       class function ShowConfirmation(aTitle, aMessage : String) : Boolean; overload;
       class function ShowConfirmation(aMessage : String) : Boolean; overload;
@@ -72,6 +74,60 @@ end;
 class function TServiceMessage.ShowConfirmation(aMessage: String): Boolean;
 begin
   Result := TServiceMessage.ShowConfirmation('Confirme!', aMessage);
+end;
+
+class procedure TServiceMessage.ShowError(aTitle, aMessage: String);
+var
+  fMsg  : TFrmMensagem;
+  aForm : TForm;
+begin
+  WaitAMomentFree;
+
+  if (gSistema.Codigo = SISTEMA_PDV) then
+    try
+      fMsg := TFrmMensagem.GetInstance(Application);
+      fMsg.Erro(aTitle.Trim, aMessage.Trim);
+      fMsg.ShowModal;
+    finally
+      fMsg.Free;
+    end
+  else
+  begin
+    aForm := CreateMessageDialog(PChar(aMessage.Trim), TMsgDlgType.mtError, [mbOK], TMsgDlgBtn.mbOK);
+    try
+      aForm.Caption := aTitle.Trim;
+      aForm.ShowModal;
+    finally
+      FreeAndNil(aForm);
+    end;
+  end;
+end;
+
+class procedure TServiceMessage.ShowError(aMessage: String);
+var
+  fMsg  : TFrmMensagem;
+  aForm : TForm;
+begin
+  WaitAMomentFree;
+
+  if (gSistema.Codigo = SISTEMA_PDV) then
+    try
+      fMsg := TFrmMensagem.GetInstance(Application);
+      fMsg.Erro('Erro', aMessage.Trim);
+      fMsg.ShowModal;
+    finally
+      fMsg.Free;
+    end
+  else
+  begin
+    aForm := CreateMessageDialog(PChar(aMessage.Trim), TMsgDlgType.mtError, [mbOK], TMsgDlgBtn.mbOK);
+    try
+      aForm.Caption := 'Erro!';
+      aForm.ShowModal;
+    finally
+      FreeAndNil(aForm);
+    end;
+  end;
 end;
 
 class procedure TServiceMessage.ShowInformation(aTitle, aMessage: String);
