@@ -112,6 +112,8 @@ begin
         .Add('  , c.nf                  ')
         .Add('  , c.nfserie             ')
         .Add('  , c.nfnsu               ')
+        .Add('  , c.nfe_denegada        ')
+        .Add('  , c.nfe_denegada_motivo ')
         .Add('  , c.verificador_nfe     ')
         .Add('  , c.xml_nfe_filename    ')
         .Add('  , c.lote_nfe_ano        ')
@@ -162,16 +164,50 @@ begin
         .Add('  , f.nomeforn            ')
         .Add('  , f.cnpj                ')
         .Add('  , n.cfop_descricao      ')
-        .Add('  , coalesce((            ')
-        .Add('      Select              ')
-        .Add('        count(i.seq)      ')
-        .Add('      from TBCOMPRASITENS i            ')
-        .Add('      where i.ano        = c.ano       ')
-        .Add('        and i.codcontrol = c.codcontrol')
-        .Add('    ), 0) as qt_itens ')
+        .Add('  , coalesce(tmp.qt_itens, 0) as qt_itens')
+        .Add('  , coalesce(tmp.valor_total_IPI, 0)      as valor_total_IPI     ')
+        .Add('  , coalesce(tmp.valor_total_bruto, 0)    as valor_total_bruto   ')
+        .Add('  , coalesce(tmp.valor_total_desconto, 0) as valor_total_desconto')
+        .Add('  , coalesce(tmp.valor_total_liquido, 0)  as valor_total_liquido ')
+        .Add('  , coalesce(tmp.valor_base_icms_normal_entrada, 0)  as valor_base_icms_normal_entrada ')
+        .Add('  , coalesce(tmp.valor_total_icms_normal_entrada, 0) as valor_total_icms_normal_entrada')
+        .Add('  , coalesce(tmp.valor_base_icms_normal_saida, 0)    as valor_base_icms_normal_saida   ')
+        .Add('  , coalesce(tmp.valor_total_icms_normal_saida, 0)   as valor_total_icms_normal_saida  ')
+        .Add('  , coalesce(tmp.valor_total_icms_normal_devido, 0)  as valor_total_icms_normal_devido ')
+        .Add('  , coalesce(tmp.valor_total_PIS, 0)    as valor_total_PIS   ')
+        .Add('  , coalesce(tmp.valor_total_COFINS, 0) as valor_total_COFINS')
         .Add('from TBCOMPRAS c      ')
         .Add('  left join TBFORNECEDOR f on (f.Codforn = c.Codforn)')
         .Add('  left join TBCFOP n on (n.Cfop_cod = c.Nfcfop)      ')
+        .Add('  left join (       ')
+        .Add('    Select          ')
+        .Add('        i.ano       ')
+        .Add('      , i.codcontrol')
+        .Add('      , i.codemp    ')
+        .Add('      , count(i.seq) as qt_itens ')
+        .Add('      , sum( coalesce(i.Qtde, 0) * coalesce(i.Valor_ipi, 0) ) as valor_total_IPI')
+        .Add('      , sum( coalesce(i.Qtde, 0) * i.precounit )  as valor_total_bruto          ')
+        .Add('      , sum( coalesce(i.valor_desconto, 0) )      as valor_total_desconto       ')
+        .Add('      , sum( coalesce(i.Qtde, 0) * i.customedio ) as valor_total_liquido        ')
+        .Add('                                                                                ')
+        .Add('      , sum( case when coalesce(p.Aliquota, 0) = 0 then 0 else coalesce(i.Qtde, 0) * i.Customedio end ) as valor_base_icms_normal_entrada ')
+        .Add('      , sum( coalesce(i.Qtde, 0) * i.Customedio * coalesce(p.Aliquota, 0) / 100 )                       as valor_total_icms_normal_entrada')
+        .Add('                                                                                                                                          ')
+        .Add('      , sum( case when coalesce(i.Aliquota, 0) = 0 then 0 else coalesce(i.Qtde, 0) * (case when coalesce(i.Percentual_reducao_bc, 0) = 0 then i.Customedio else (i.Customedio * i.Percentual_reducao_bc / 100) end) end ) as valor_base_icms_normal_saida ')
+        .Add('      , sum( coalesce(i.Qtde, 0) * (case when coalesce(i.Percentual_reducao_bc, 0) = 0 then i.Customedio else (i.Customedio * i.Percentual_reducao_bc / 100) end) * coalesce(i.Aliquota, 0) / 100 )                       as valor_total_icms_normal_saida')
+        .Add('                                                                                                                                                                                                     ')
+        .Add('      , sum( coalesce(i.Qtde, 0) * (case when coalesce(i.Percentual_reducao_bc, 0) = 0 then i.Customedio else (i.Customedio * i.Percentual_reducao_bc / 100) end) * coalesce(i.Aliquota, 0) / 100 ) -')
+        .Add('        sum( coalesce(i.Qtde, 0) * p.Customedio * coalesce(p.Aliquota, 0) / 100 ) as valor_total_icms_normal_devido                                                                                  ')
+        .Add('                                                                                                                ')
+        .Add('      , sum( (coalesce(i.Qtde, 0) * i.customedio) * coalesce(i.Aliquota_pis, 0) / 100 )    as valor_total_PIS   ')
+        .Add('      , sum( (coalesce(i.Qtde, 0) * i.customedio) * coalesce(i.Aliquota_cofins, 0) / 100 ) as valor_total_COFINS')
+        .Add('    from TBCOMPRASITENS i                          ')
+        .Add('      inner join TBPRODUTO p on (p.Cod = i.codprod)')
+        .Add('    group by        ')
+        .Add('        i.ano       ')
+        .Add('      , i.codcontrol')
+        .Add('      , i.codemp    ')
+        .Add('  ) tmp on (tmp.ano = c.ano and tmp.codcontrol = c.codcontrol and tmp.codemp = c.codemp)')
       .&End
     .OpenEmpty
     .CloseEmpty;
@@ -197,7 +233,16 @@ begin
   FConn.Query.DataSet.FieldByName('nomeforn').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('cnpj').ProviderFlags     := [];
   FConn.Query.DataSet.FieldByName('cfop_descricao').ProviderFlags := [];
-  FConn.Query.DataSet.FieldByName('qt_itens').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('qt_itens').ProviderFlags       := [];
+  FConn.Query.DataSet.FieldByName('valor_total_IPI').ProviderFlags      := [];
+  FConn.Query.DataSet.FieldByName('valor_total_bruto').ProviderFlags    := [];
+  FConn.Query.DataSet.FieldByName('valor_total_desconto').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('valor_total_liquido').ProviderFlags  := [];
+  FConn.Query.DataSet.FieldByName('valor_base_icms_normal_entrada').ProviderFlags  := [];
+  FConn.Query.DataSet.FieldByName('valor_total_icms_normal_entrada').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('valor_base_icms_normal_saida').ProviderFlags    := [];
+  FConn.Query.DataSet.FieldByName('valor_total_icms_normal_saida').ProviderFlags   := [];
+  FConn.Query.DataSet.FieldByName('valor_total_icms_normal_devido').ProviderFlags  := [];
 end;
 
 procedure TModelDAOEntrada.StatusGetText(Sender: TField; var Text: string; DisplayText: Boolean);

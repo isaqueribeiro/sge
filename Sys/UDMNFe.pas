@@ -22,6 +22,7 @@ uses
 
   Interacao.Versao,
   Controller.Versao,
+  UConstantesDGE,
   UDMBusiness,
   UGeConfigurarNFeACBr,
 
@@ -327,6 +328,7 @@ type
 
     procedure UpdateNFeDenegadaVenda(const aCNPJEmitente : String; const aAno, aVenda : Integer; aMotivo : String);
     procedure UpdateNFeDenegadaEntrada(const aCNPJEmitente : String; const aAno, aCompra : Integer; aMotivo : String);
+    procedure SetNumeroNSUPesquisado(const aEmpresa : String; aNSU : String);
 
     procedure LerConfiguracao(const sCNPJEmitente : String; const tipoDANFE : TTipoDANFE = tipoDANFEFast);
     procedure GravarConfiguracao(const sCNPJEmitente : String);
@@ -373,6 +375,7 @@ type
     function GetInformacaoComplementar(const sCNPJEmitente : String) : String;
     function GetValidadeCertificado(const sCNPJEmitente : String; const Informe : Boolean = FALSE) : Boolean;
     function GetNumeroSerieCertificado(const sCNPJEmitente : String) : String;
+    function GetNumeroNSUPesquisado(const aEmpresa : String) : String;
     function GetFileNameDANFE_FR3 : String;
 
     function GetPathNFeXML(const sCNPJEmitente : String) : String;
@@ -456,6 +459,8 @@ type
     {$IF NOT (DEFINED(PRINTER_CUPOM) OR DEFINED(PDV))}
     function ExisteNFeParaBaixar(const sCNPJ : String; aNSU : Integer; var aFileName, aMensagem : String;
       var aDocumentos : TDictionary<String, TDistribuicaoDFeDocumentoRetornado>) : Boolean;
+    function GetUltimoNSU(const sCNPJ : String; var NSU : String) : Boolean;
+    function GetMaximoNSU(const sCNPJ : String; var NSU : String) : Boolean;
     {$ENDIF}
 
     function GetModeloDF : Integer;
@@ -495,6 +500,7 @@ const
   PROCESSO_NFE_LOTE_REJEITADO   = 104; // Processo: Lote processado, mas rejeitado
   PROCESSO_NFE_LOTE_PROCESSANDO = 105; // Processo: Lote em processamento
   PROCESSO_NFE_USO_DENEGADO     = 110; // Processo: Uso denegado
+  PROCESSO_NSU_ENCONTRADO       = 138; // Processo: Documento(s) Localizado(s)
 
   REJEICAO_NFE_EMISSOR_NAO_HABIL = 203; // Rejeicao: Emitente não habilitado para emissão de NF-e
   REJEICAO_NFE_DUPLICIDADE       = 204; // Refeição: Duplicidade de NF-e [nRec:999999999999999]
@@ -528,7 +534,7 @@ uses
   View.Certificado,
   UDMRecursos, Forms, FileCtrl, ACBrNFeConfiguracoes,
   ACBrNFeNotasFiscais, ACBrNFeWebServices, StdCtrls, pcnNFe, UFuncoes,
-  UConstantesDGE, DateUtils, UEcfFactory, // pcnRetConsReciNFe, pcnDownloadNFe,
+  DateUtils, UEcfFactory, // pcnRetConsReciNFe, pcnDownloadNFe,
   pcnConversaoNFe, pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass;
 
 {$R *.dfm}
@@ -2449,6 +2455,36 @@ begin
   except
     On E : Exception do
       raise Exception.Create('UpdateNFeDenegadaVenda > ' + E.Message);
+  end;
+end;
+
+procedure TDMNFe.SetNumeroNSUPesquisado(const aEmpresa : String; aNSU : String);
+Var
+  aKey : String;
+begin
+  try
+    aKey := 'nsu_pesquisado_' + OnlyNumber(aEmpresa.Trim);
+    aNSU := FormatFloat('000000000000000', StrToInt64Def(aNSU.Trim, 0));
+    
+    with DMBusiness, fdQryBusca do
+    begin
+      SQL.Clear;
+      SQL.Add('Update or Insert into SYS_CONFIG (');
+      SQL.Add('    ky_config');
+      SQL.Add('  , vl_config');
+      SQL.Add('  , dh_config');
+      SQL.Add(') values (    ');
+      SQL.Add('    ' + aKey.ToUpper.QuotedString );
+      SQL.Add('  , ' + aNSU.QuotedString);
+      SQL.Add('  , current_timestamp  ');
+      SQL.Add(') matching (ky_config) ');
+
+      ExecSQL;
+      CommitTransaction;
+    end;
+  except
+    On E : Exception do
+      raise Exception.Create('SetNumeroNSUPesquisado() --> ' + E.Message);
   end;
 end;
 
@@ -6532,11 +6568,13 @@ begin
           else
             aFileXML.LoadFromFile(aFileName);
 
-          aRetorno  := (WebServices.DistribuicaoDFe.retDistDFeInt.cStat = 138); // Documento(s) localizado(s)
+          aRetorno  := (WebServices.DistribuicaoDFe.retDistDFeInt.cStat = PROCESSO_NSU_ENCONTRADO); // Documento(s) localizado(s)
           aMensagem := WebServices.DistribuicaoDFe.retDistDFeInt.xMotivo;
 
           if aRetorno then
           begin
+//            aNSU := WebServices.DistribuicaoDFe.retDistDFeInt.ultNSU.ToInt64;
+//
             for I := 0 to (WebServices.DistribuicaoDFe.retDistDFeInt.docZip.Count - 1) do
             begin
               aDocumento := TDistribuicaoDFeDocumentoRetornado.Create;
@@ -6616,6 +6654,60 @@ begin
     Result := aRetorno;
   end;
 end;
+
+function TDMNFe.GetUltimoNSU(const sCNPJ : String; var NSU : String) : Boolean;
+begin
+  Result := False;
+  try
+    try
+      if not GetConectedInternet then
+        raise Exception.Create('Estação sem conexão com a internet!');
+
+      LerConfiguracao(sCNPJ, TTipoDANFE.tipoDANFEFast);
+      AbrirEmitente(sCNPJ);
+
+      if ACBrNFe.DistribuicaoDFePorUltNSU(qryEmitenteEST_COD.AsInteger, sCNPJ, FormatFloat('000000000000000', NSU.ToInt64)) then
+        Result := (ACBrNFe.WebServices.DistribuicaoDFe.retDistDFeInt.cStat = PROCESSO_NSU_ENCONTRADO);
+
+      if Result then
+        NSU := ACBrNFe.WebServices.DistribuicaoDFe.retDistDFeInt.ultNSU
+      else
+        NSU := '0';
+    except
+      On E : Exception do
+        ShowError('Erro ao tentar buscar o último NSU para ' + StrFormatarCnpj(sCNPJ) + '.' + #13#13 + 'GelUltimoNSU() --> ' + E.Message);
+    end;
+  finally
+    Result := not NSU.Trim.IsEmpty;
+  end;
+end;
+
+function TDMNFe.GetMaximoNSU(const sCNPJ : String; var NSU : String) : Boolean;
+begin
+  Result := False;
+  try
+    try
+      if not GetConectedInternet then
+        raise Exception.Create('Estação sem conexão com a internet!');
+
+      LerConfiguracao(sCNPJ, TTipoDANFE.tipoDANFEFast);
+      AbrirEmitente(sCNPJ);
+
+      if ACBrNFe.DistribuicaoDFePorUltNSU(qryEmitenteEST_COD.AsInteger, sCNPJ, '000000000000000') then
+        Result := (ACBrNFe.WebServices.DistribuicaoDFe.retDistDFeInt.cStat = PROCESSO_NSU_ENCONTRADO);
+
+      if Result then
+        NSU := ACBrNFe.WebServices.DistribuicaoDFe.retDistDFeInt.maxNSU
+      else
+        NSU := '0';
+    except
+      On E : Exception do
+        ShowError('Erro ao tentar buscar o NSU máximo para ' + StrFormatarCnpj(sCNPJ) + '.' + #13#13 + 'GelUltimoNSU() --> ' + E.Message);
+    end;
+  finally
+    Result := not NSU.Trim.IsEmpty;
+  end;
+end;
 {$ENDIF}
 
 function TDMNFe.ImprimirCupomNaoFiscal(const sCNPJEmitente: String;
@@ -6667,6 +6759,36 @@ begin
     Result := ACBrNFe.SSL.NumeroSerie
   else
     Result := EmptyStr;
+end;
+
+function TDMNFe.GetNumeroNSUPesquisado(const aEmpresa : String) : String;
+var
+  aKey   ,
+  aValue : String;
+begin
+  aKey   := 'nsu_pesquisado_' + OnlyNumber(aEmpresa.Trim);
+  aValue := '000000000000000';
+  try
+    with DMBusiness, fdQryBusca do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('Select');
+      SQL.Add('    c.vl_config as nsu_pesquisado');
+      SQL.Add('from SYS_CONFIG c');
+      SQL.Add('where (c.ky_config = ' + aKey.Trim.ToUpper.QuotedString + ')');
+      Open;
+
+      aValue := FieldByName('nsu_pesquisado').AsString;
+
+      if aValue.Trim.IsEmpty then
+        aValue := '000000000000000';
+
+      Close;
+    end;
+  finally
+    Result := aValue;
+  end;
 end;
 
 function TDMNFe.GetVersaoDF: Integer;

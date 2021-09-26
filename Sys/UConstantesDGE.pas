@@ -12,6 +12,7 @@ Uses
     TAliquota   = (taICMS, taISS);
     TTipoItem   = TAliquota;
     TTipoRegime = (trSimplesNacional, trSimplesExcessoReceita, trRegimeNormal);
+    TTipoDANFE = (tipoDANFEFast, tipoDANFE_ESCPOS);
 
     TTipoProduto = (tpMaterialGeral, tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME);
     TTipoCFOP    = (tcfopADefinir, tcfopEntrada, tcfopSaida);

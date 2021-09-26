@@ -276,7 +276,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         Top = 0
         Width = 375
         Height = 524
-        ActivePage = TbsWebService
+        ActivePage = TbsCertificado
         Align = alClient
         MultiLine = True
         TabOrder = 0
@@ -604,8 +604,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         object TbsCertificado: TTabSheet
           BorderWidth = 4
           Caption = 'Certificado'
-          ExplicitLeft = 0
-          ExplicitTop = 26
           object GroupBox2: TGroupBox
             AlignWithMargins = True
             Left = 3
@@ -720,9 +718,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Margins.Right = 36
               Align = alTop
               TabOrder = 0
-              ExplicitLeft = 9
-              ExplicitTop = 36
-              ExplicitWidth = 316
             end
             object edtSenha: TEdit
               AlignWithMargins = True
@@ -736,9 +731,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Align = alTop
               PasswordChar = '*'
               TabOrder = 1
-              ExplicitLeft = 9
-              ExplicitTop = 75
-              ExplicitWidth = 343
             end
             object edtNumSerie: TEdit
               AlignWithMargins = True
@@ -752,9 +744,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Align = alTop
               TabOrder = 3
               OnChange = edtNumSerieChange
-              ExplicitLeft = 9
-              ExplicitTop = 164
-              ExplicitWidth = 316
             end
             object edtURLPFX: TEdit
               AlignWithMargins = True
@@ -766,9 +755,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Margins.Right = 10
               Align = alTop
               TabOrder = 2
-              ExplicitLeft = 9
-              ExplicitTop = 120
-              ExplicitWidth = 343
             end
             object Panel1: TPanel
               AlignWithMargins = True
@@ -781,7 +767,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Align = alTop
               BevelOuter = bvNone
               TabOrder = 4
-              ExplicitLeft = 14
               object btnValidadeCertificado: TcxButton
                 AlignWithMargins = True
                 Left = 0
@@ -879,7 +864,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 Margins.Bottom = 0
                 Align = alRight
                 Caption = 'Issuer Name'
-                Enabled = False
                 OptionsImage.Glyph.SourceDPI = 96
                 OptionsImage.Glyph.Data = {
                   424D360800000000000036000000280000002000000010000000010020000000
@@ -952,7 +936,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 ParentShowHint = False
                 ShowHint = False
                 TabOrder = 1
-                ExplicitLeft = 224
+                OnClick = btnIssuerNameClick
               end
               object btnSerieNumber: TcxButton
                 AlignWithMargins = True
@@ -965,7 +949,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 Margins.Bottom = 0
                 Align = alClient
                 Caption = 'Serie Number'
-                Enabled = False
                 OptionsImage.Glyph.SourceDPI = 96
                 OptionsImage.Glyph.Data = {
                   424D360800000000000036000000280000002000000010000000010020000000
@@ -1038,7 +1021,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 ParentShowHint = False
                 ShowHint = False
                 TabOrder = 2
-                ExplicitTop = -3
+                OnClick = btnSerieNumberClick
               end
             end
             object Panel2: TPanel
@@ -1053,8 +1036,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Align = alTop
               BevelOuter = bvNone
               TabOrder = 5
-              ExplicitLeft = 20
-              ExplicitTop = 201
               object btnSubjectName: TcxButton
                 AlignWithMargins = True
                 Left = 0
@@ -1067,7 +1048,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 Margins.Bottom = 0
                 Align = alLeft
                 Caption = 'Subject Name'
-                Enabled = False
                 OptionsImage.Glyph.SourceDPI = 96
                 OptionsImage.Glyph.Data = {
                   424D360800000000000036000000280000002000000010000000010020000000
@@ -1140,6 +1120,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 ParentShowHint = False
                 ShowHint = False
                 TabOrder = 0
+                OnClick = btnSubjectNameClick
               end
               object btnVersionSSL: TcxButton
                 AlignWithMargins = True
@@ -1152,7 +1133,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 Margins.Bottom = 0
                 Align = alRight
                 Caption = 'Version SSL'
-                Enabled = False
                 OptionsImage.Glyph.SourceDPI = 96
                 OptionsImage.Glyph.Data = {
                   424D360800000000000036000000280000002000000010000000010020000000
@@ -1225,6 +1205,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 ParentShowHint = False
                 ShowHint = False
                 TabOrder = 1
+                OnClick = btnVersionSSLClick
               end
               object btnNumeroCNPJ: TcxButton
                 AlignWithMargins = True
@@ -1237,7 +1218,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 Margins.Bottom = 0
                 Align = alClient
                 Caption = 'N'#250'mero CNPJ'
-                Enabled = False
                 OptionsImage.Glyph.SourceDPI = 96
                 OptionsImage.Glyph.Data = {
                   424D360800000000000036000000280000002000000010000000010020000000
@@ -1310,6 +1290,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 ParentShowHint = False
                 ShowHint = False
                 TabOrder = 2
+                OnClick = btnNumeroCNPJClick
               end
             end
           end
@@ -1342,8 +1323,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Font.Name = 'MS Sans Serif'
               Font.Style = []
               ParentFont = False
-              ExplicitLeft = 8
-              ExplicitTop = 16
               ExplicitWidth = 121
             end
             object ckVisualizar: TCheckBox
@@ -1363,9 +1342,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Font.Style = []
               ParentFont = False
               TabOrder = 0
-              ExplicitLeft = 8
-              ExplicitTop = 119
-              ExplicitWidth = 153
             end
             object cbUF: TComboBox
               AlignWithMargins = True
@@ -1416,9 +1392,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 'SP'
                 'SE'
                 'TO')
-              ExplicitLeft = 8
-              ExplicitTop = 32
-              ExplicitWidth = 342
             end
             object rgTipoAmb: TRadioGroup
               AlignWithMargins = True
@@ -1436,9 +1409,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 'Produ'#231#227'o'
                 'Homologa'#231#227'o')
               TabOrder = 2
-              ExplicitLeft = 8
-              ExplicitTop = 61
-              ExplicitWidth = 342
             end
             object ckSalvarSOAP: TCheckBox
               AlignWithMargins = True
@@ -1451,9 +1421,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Align = alTop
               Caption = 'Salvar envelope SOAP'
               TabOrder = 3
-              ExplicitLeft = 8
-              ExplicitTop = 142
-              ExplicitWidth = 153
             end
           end
           object GrpBxProxy: TGroupBox
@@ -1480,8 +1447,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 Align = alClient
                 BevelOuter = bvNone
                 TabOrder = 0
-                ExplicitWidth = 54
-                ExplicitHeight = 54
                 object lbltProxyHost: TLabel
                   AlignWithMargins = True
                   Left = 10
@@ -1491,8 +1456,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Margins.Left = 10
                   Align = alTop
                   Caption = 'Host'
-                  ExplicitLeft = 16
-                  ExplicitTop = 24
                   ExplicitWidth = 22
                 end
                 object edtProxyHost: TEdit
@@ -1505,8 +1468,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Margins.Top = 0
                   Align = alTop
                   TabOrder = 0
-                  ExplicitLeft = 7
-                  ExplicitTop = 22
                 end
               end
               object pnlProxyPorta: TPanel
@@ -1517,7 +1478,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 Align = alRight
                 BevelOuter = bvNone
                 TabOrder = 1
-                ExplicitHeight = 54
                 object lbltProxyPorta: TLabel
                   AlignWithMargins = True
                   Left = 3
@@ -1527,8 +1487,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Margins.Right = 10
                   Align = alTop
                   Caption = 'Porta'
-                  ExplicitLeft = 73
-                  ExplicitTop = 16
                   ExplicitWidth = 26
                 end
                 object edtProxyPorta: TEdit
@@ -1541,9 +1499,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Margins.Right = 10
                   Align = alTop
                   TabOrder = 0
-                  ExplicitLeft = 42
-                  ExplicitTop = 32
-                  ExplicitWidth = 57
                 end
               end
             end
@@ -1555,7 +1510,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Align = alTop
               BevelOuter = bvNone
               TabOrder = 1
-              ExplicitTop = 15
               object pnlProxyUser: TPanel
                 Left = 0
                 Top = 0
@@ -1564,7 +1518,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 Align = alClient
                 BevelOuter = bvNone
                 TabOrder = 0
-                ExplicitWidth = 256
                 object lbltProxyUser: TLabel
                   AlignWithMargins = True
                   Left = 10
@@ -1574,8 +1527,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Margins.Left = 10
                   Align = alTop
                   Caption = 'Usu'#225'rio'
-                  ExplicitLeft = 3
-                  ExplicitTop = 29
                   ExplicitWidth = 36
                 end
                 object edtProxyUser: TEdit
@@ -1588,9 +1539,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Margins.Top = 0
                   Align = alTop
                   TabOrder = 0
-                  ExplicitLeft = 7
-                  ExplicitTop = 22
-                  ExplicitWidth = 243
                 end
               end
               object pnlProxySenha: TPanel
@@ -1610,8 +1558,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Margins.Right = 10
                   Align = alTop
                   Caption = 'Senha'
-                  ExplicitLeft = 140
-                  ExplicitTop = 29
                   ExplicitWidth = 30
                 end
                 object edtProxySenha: TEdit
@@ -1625,9 +1571,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Align = alTop
                   PasswordChar = '*'
                   TabOrder = 0
-                  ExplicitLeft = 22
-                  ExplicitTop = 21
-                  ExplicitWidth = 148
                 end
               end
             end
@@ -1672,9 +1615,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Align = alTop
               Caption = 'Ajustar Automaticamente a propriedade "Aguardar"'
               TabOrder = 0
-              ExplicitLeft = 8
-              ExplicitTop = 20
-              ExplicitWidth = 311
             end
             object pnlAjustarAguardar: TPanel
               Left = 2
@@ -1703,8 +1643,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Align = alTop
                   Caption = 'Intervalo'
                   FocusControl = edIntervalo
-                  ExplicitLeft = 47
-                  ExplicitTop = 43
                   ExplicitWidth = 44
                 end
                 object edIntervalo: TEdit
@@ -1716,8 +1654,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Margins.Top = 0
                   Align = alTop
                   TabOrder = 0
-                  ExplicitLeft = 6
-                  ExplicitTop = 59
                 end
               end
               object pnlTentativas: TPanel
@@ -1729,8 +1665,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 AutoSize = True
                 BevelOuter = bvNone
                 TabOrder = 1
-                ExplicitLeft = 8
-                ExplicitHeight = 121
                 object lblTentativas: TLabel
                   AlignWithMargins = True
                   Left = 3
@@ -1740,8 +1674,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Align = alTop
                   Caption = 'Tentativas'
                   FocusControl = edTentativas
-                  ExplicitLeft = 40
-                  ExplicitTop = 43
                   ExplicitWidth = 51
                 end
                 object edTentativas: TEdit
@@ -1753,8 +1685,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Margins.Top = 0
                   Align = alTop
                   TabOrder = 0
-                  ExplicitLeft = 6
-                  ExplicitTop = 59
                 end
               end
               object pnlAguardar: TPanel
@@ -1766,8 +1696,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 AutoSize = True
                 BevelOuter = bvNone
                 TabOrder = 0
-                ExplicitTop = -4
-                ExplicitHeight = 121
                 object lblAguardar: TLabel
                   AlignWithMargins = True
                   Left = 10
@@ -1781,8 +1709,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Align = alTop
                   Caption = 'Aguardar'
                   FocusControl = edAguardar
-                  ExplicitLeft = 8
-                  ExplicitTop = 43
                   ExplicitWidth = 45
                 end
                 object edAguardar: TEdit
@@ -1798,9 +1724,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Margins.Top = 0
                   Align = alTop
                   TabOrder = 0
-                  ExplicitLeft = 6
-                  ExplicitTop = 59
-                  ExplicitWidth = 85
                 end
               end
             end
@@ -2376,7 +2299,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         367
         516)
       object sbtnLogoMarca: TSpeedButton
-        Left = 440
+        Left = 448
         Top = 71
         Width = 23
         Height = 24
@@ -2412,9 +2335,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           'Retrato'
           'Paisagem')
         TabOrder = 0
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 367
       end
       object GrpBxLogoMarca: TGroupBox
         AlignWithMargins = True
@@ -2448,8 +2368,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           Margins.Right = 10
           Align = alTop
           TabOrder = 0
-          ExplicitLeft = 20
-          ExplicitTop = 42
         end
       end
     end

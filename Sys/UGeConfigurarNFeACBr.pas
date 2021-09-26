@@ -206,6 +206,11 @@ type
     procedure sbPathDPECClick(Sender: TObject);
     procedure sbPathEventoClick(Sender: TObject);
     procedure sbPathDownloadClick(Sender: TObject);
+    procedure btnNumeroCNPJClick(Sender: TObject);
+    procedure btnSerieNumberClick(Sender: TObject);
+    procedure btnIssuerNameClick(Sender: TObject);
+    procedure btnSubjectNameClick(Sender: TObject);
+    procedure btnVersionSSLClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -219,7 +224,12 @@ var
 implementation
 
 uses
-  System.DateUtils, Vcl.FileCtrl, UDMNFe, ACBrDFe, pcnConversaoNFe;
+  System.DateUtils,
+  Vcl.FileCtrl,
+  UDMNFe,
+  ACBrDFe,
+  pcnConversaoNFe,
+  Service.Message;
 
 {$R *.dfm}
 
@@ -258,13 +268,36 @@ begin
   inherited;
   pgcGuiasGerais.ActivePage        := TbsConfiguracoes;
   pgcGuiasConfiguracoes.ActivePage := TbsGeral;
-  sbtnGetCert.Top  := edtNumSerie.Top - 2;
   sbtnGetCert.Left := edtNumSerie.Left + edtNumSerie.Width + 3;
+  sbtnGetCert.Top  := edtNumSerie.Top -2;
+end;
+
+procedure TfrmGeConfigurarNFeACBr.btnIssuerNameClick(Sender: TObject);
+begin
+  if Assigned(DMNFe.ACBrNFe.SSL) then
+    TServiceMessage.ShowInformation('Nome do Emissor do Certificado: ' + #13 + DMNFe.ACBrNFe.SSL.CertIssuerName);
+end;
+
+procedure TfrmGeConfigurarNFeACBr.btnNumeroCNPJClick(Sender: TObject);
+begin
+  TServiceMessage.ShowInformation('CNPJ do Certificado: ' + #13 + DMNFe.GetCnpjCertificado);
 end;
 
 procedure TfrmGeConfigurarNFeACBr.btnSalvarClick(Sender: TObject);
 begin
   ModalResult := mrOk;
+end;
+
+procedure TfrmGeConfigurarNFeACBr.btnSerieNumberClick(Sender: TObject);
+begin
+  if Assigned(DMNFe.ACBrNFe.SSL) then
+    TServiceMessage.ShowInformation('Número de Série do Certificado: ' + #13 + DMNFe.ACBrNFe.SSL.NumeroSerie);
+end;
+
+procedure TfrmGeConfigurarNFeACBr.btnSubjectNameClick(Sender: TObject);
+begin
+  if Assigned(DMNFe.ACBrNFe.SSL) then
+    TServiceMessage.ShowInformation('Proprietário do Certificado: ' + #13 + DMNFe.ACBrNFe.SSL.CertSubjectName);
 end;
 
 procedure TfrmGeConfigurarNFeACBr.sbPathCanClick(Sender: TObject);
@@ -352,6 +385,12 @@ procedure TfrmGeConfigurarNFeACBr.btnValidadeCertificadoClick(
   Sender: TObject);
 begin
   DMNFe.GetValidadeCertificado(EmptyStr, True);
+end;
+
+procedure TfrmGeConfigurarNFeACBr.btnVersionSSLClick(Sender: TObject);
+begin
+  if Assigned(DMNFe.ACBrNFe.SSL) then
+    TServiceMessage.ShowInformation('Versão Crypt SSL: ' + #13 + DMNFe.ACBrNFe.SSL.SSLCryptClass.Versao);
 end;
 
 procedure TfrmGeConfigurarNFeACBr.RegistrarRotinaSistema;

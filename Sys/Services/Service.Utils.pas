@@ -25,6 +25,7 @@ type
       class function MonthName(aData : TDateTime) : String;
       class function StrToCurrency(Value : String) : Currency;
       class function StrFormatarCEP(Value : String): String;
+      class function StrOnlyNumbers(const Str : String) : String;
   end;
 implementation
 
@@ -189,5 +190,19 @@ begin
   Result := S;
 end;
 
+
+class function TServicesUtils.StrOnlyNumbers(const Str : String) : String;
+var
+  I : Byte;
+  Valor : String;
+begin
+  Valor := Str;
+
+  for I := 1 to Length(Valor) do
+    if not (Valor[I] in ['0'..'9']) then
+      Delete(Valor, I, 1);
+
+  Result := Valor;
+end;
 
 end.

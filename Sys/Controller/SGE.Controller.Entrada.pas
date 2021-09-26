@@ -20,7 +20,6 @@ type
       FLotes       : IControllerCustom;
       FNFE         : IControllerXML_NFeEnviada;
       FAutorizacao : IControllerAutorizacaoCompra;
-      function CFOP : IControllerCFOP;
     protected
       constructor Create;
     public
@@ -42,6 +41,7 @@ type
       function Duplicatas : IControllerCustom;
       function Lotes : IControllerCustom;
       function NFe : IControllerXML_NFeEnviada;
+      function CFOP : IControllerCFOP;
       function LoteProdutoPendente : Boolean;
   end;
 
@@ -304,6 +304,9 @@ var
   aValorPIS       ,
   aValorCOFINS    : Currency;
 begin
+  if FDAO.DataSet.IsEmpty then
+    Exit;
+
   try
     Self.CarregarProdutos;
 

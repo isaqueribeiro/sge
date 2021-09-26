@@ -64,7 +64,6 @@ type
   end;
 
   TBlocoImpressaoCupom = (bicCupomRelatorioGerencial, bicCupom, bicRelatorioGerencial);
-  TTipoDANFE = (tipoDANFEFast, tipoDANFE_ESCPOS);
 
   TTipoMovimentoCaixa = (tmcxCredito, tmcxDebito);
   TDMBusiness = class(TDataModule)
@@ -3323,7 +3322,7 @@ begin
       Close;
       SQL.Clear;
       SQL.Add('Select');
-      SQL.Add('    min(nsu) as nsu_min');
+      SQL.Add('    min(substring(nsu from 2 for 14)) as nsu_min');
       SQL.Add('from TBNFE_IMPORTADA');
       SQL.Add('where (empresa = ' + QuotedStr(aEmpresa) + ')');
       Open;
@@ -3335,7 +3334,7 @@ begin
         Close;
         SQL.Clear;
         SQL.Add('Select');
-        SQL.Add('    max(nsu) as nsu_max');
+        SQL.Add('    max(substring(nsu from 2 for 14)) as nsu_max');
         SQL.Add('from TBNFE_IMPORTADA');
         SQL.Add('where (empresa = ' + QuotedStr(aEmpresa) + ')');
         Open;

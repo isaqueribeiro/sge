@@ -281,7 +281,8 @@ uses
   View.RequisicaoCompra.Cancelar in 'View\View.RequisicaoCompra.Cancelar.pas' {ViewRequisicaoCompraCancelar},
   SGE.Model.DAO.XML_NFeEnviada in 'Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas',
   SGE.Controller.XML_NFeEnviada in 'Controller\SGE.Controller.XML_NFeEnviada.pas',
-  View.Entrada.Cancelar in '..\Sys\View\View.Entrada.Cancelar.pas' {ViewEntradaEstoqueCancelar};
+  View.Entrada.Cancelar in '..\Sys\View\View.Entrada.Cancelar.pas' {ViewEntradaEstoqueCancelar},
+  View.Entrada.GerarNFE in '..\Sys\View\View.Entrada.GerarNFE.pas' {ViewEntradaEstoqueGerarNFE};
 
 {$R *.res}
 

@@ -169,7 +169,8 @@ uses
   , UDMBusiness
   , UDMNFe
   , UFuncoes
-  , UGeConsultarLoteNFe_v2;
+  , UGeConsultarLoteNFe_v2
+  , UConstantesDGE;
 
 {$R *.dfm}
 

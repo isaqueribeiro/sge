@@ -63,10 +63,7 @@ type
     dbValorCOFINS: TDBEdit;
     lblTotalNota: TLabel;
     dbTotalNota: TDBEdit;
-    lblInforme: TLabel;
     TmrAlerta: TTimer;
-    btnConfirmar: TcxButton;
-    btnCancelar: TcxButton;
     btnCalcular: TcxButton;
     chkNaoInformarVencimento: TCheckBox;
     cdsCompra: TFDQuery;
@@ -111,6 +108,10 @@ type
     cdsCompraVALOR_TOTAL_COFINS: TFMTBCDField;
     cdsCompraNFE_DENEGADA: TSmallintField;
     cdsCompraNFE_DENEGADA_MOTIVO: TStringField;
+    btnBotoes: TPanel;
+    lblInforme: TLabel;
+    btnCancelar: TcxButton;
+    btnConfirmar: TcxButton;
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCalcularClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -156,7 +157,8 @@ uses
   , UDMBusiness
   , UDMNFe
   , UFuncoes
-  , UGeConsultarLoteNFe_v2;
+  , UGeConsultarLoteNFe_v2
+  , UConstantesDGE;
 
 {$R *.dfm}
 

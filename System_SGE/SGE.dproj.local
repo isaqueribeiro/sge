@@ -49,6 +49,7 @@
     <Transaction>2021/09/15 23:23:13.000.730,C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\Unit1.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\Controller\SGE.Controller.XML_NFeEnviada.pas</Transaction>
     <Transaction>2021/09/16 00:40:27.000.330,C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas</Transaction>
     <Transaction>2021/09/22 20:13:31.539,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.Cancelar.pas</Transaction>
+    <Transaction>2021/09/23 12:37:20.168,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.GerarNFE.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="..\..\SGE"/>
@@ -296,6 +297,8 @@
     <File Path="..\Sys\View\View.Vendedor.dfm"/>
     <File Path="..\Sys\View\View.Entrada.Cancelar.pas"/>
     <File Path="..\Sys\View\View.Entrada.Cancelar.dfm"/>
+    <File Path="..\Sys\View\View.Entrada.GerarNFE.pas"/>
+    <File Path="..\Sys\View\View.Entrada.GerarNFE.dfm"/>
     <File Path="..\Sys\UConstantesDGE.pas"/>
     <File Path="..\Sys\UDMBusiness.pas"/>
     <File Path="..\Sys\UDMBusiness.dfm"/>

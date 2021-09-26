@@ -314,6 +314,7 @@ type
     procedure dbgDadosExit(Sender: TObject);
     procedure dbgDadosEnter(Sender: TObject);
     procedure dbSerieKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btbtnCancelarClick(Sender: TObject);
   private
     { Private declarations }
     FControllerEmpresaView    ,
@@ -418,9 +419,9 @@ uses
   View.Entrada.ConfirmarDuplicatas,
   View.Entrada.ConfirmarLote,
   View.Entrada.Cancelar,
+  View.Entrada.GerarNFE,
   View.AutorizacaoCompra,
   UGeConsultarLoteNFe_v2,
-  UGeEntradaEstoqueGerarNFe,
   UGeEntradaEstoqueDevolucaoNF,
   UGeDistribuicaoDFe,
   UGeImportarNFE;
@@ -773,21 +774,31 @@ end;
 
 procedure TViewEntrada.btnImportarClick(Sender: TObject);
 var
-  aEmissor ,
-  aUF      ,
-  aChaveNFe,
-  aNSU     : String;
+  aEmissor  ,
+  aUF       ,
+  aChaveNFe ,
+  aUltimoNSU,
+  aNSU      : String;
 begin
-  DMNFe.LerConfiguracao(FController.DAO.Usuario.Empresa.CNPJ, tipoDANFEFast);
-
   aEmissor  := EmptyStr;
   aUF       := EmptyStr;
   aChaveNFe := EmptyStr;
-  aNSU      := FormatFloat('000000000000000', GetNumeroNSU(FController.DAO.Usuario.Empresa.CNPJ));
+  aNSU      := '0';
 
+  DMNFe.LerConfiguracao(FController.DAO.Usuario.Empresa.CNPJ, tipoDANFEFast);
   if (DMNFe.GetCnpjCertificado <> EmptyStr) then
-    if not IdentificarNFe(aEmissor, aUF, aChaveNFe, aNSU) then
-      aNSU := FormatFloat('000000000000000', GetNumeroNSU(FController.DAO.Usuario.Empresa.CNPJ));
+  begin
+    aUltimoNSU := DMNFe.GetNumeroNSUPesquisado(FController.DAO.Usuario.Empresa.CNPJ);
+    if DMNFe.GetUltimoNSU(FController.DAO.Usuario.Empresa.CNPJ, aUltimoNSU) then
+    begin
+      aNSU := aUltimoNSU;
+      // Buscar relação do NSU com a NF-e, e caso a relaçao não seja possível, gerar um NSU fictício.
+      if IdentificarNFe(aEmissor, aUF, aChaveNFe, aNSU) then
+        DMNFe.SetNumeroNSUPesquisado(FController.DAO.Usuario.Empresa.CNPJ, aUltimoNSU)
+      else
+        aNSU := '9' + FormatFloat('00000000000000', GetNumeroNSU(FController.DAO.Usuario.Empresa.CNPJ));
+    end;
+  end;
 
   BaixarImportarNFe(aChaveNFe, aNSU);
 end;
@@ -817,24 +828,19 @@ begin
   aRetorno := False;
 
   try
-    if (Copy(DMNFe.GetCnpjCertificado, 1, 8) <> Copy(FController.DAO.Usuario.Empresa.CNPJ, 1, 8)) then
+    if (aNSU.ToInt64 > 0) then
     begin
-      TServiceMessage.ShowWarning('A Empresa selecionada no login do sistema não está de acordo com o Certificado informado!');
-      Exit;
+      if (Copy(DMNFe.GetCnpjCertificado, 1, 8) <> Copy(FController.DAO.Usuario.Empresa.CNPJ, 1, 8)) then
+        TServiceMessage.ShowWarning('A Empresa selecionada no login do sistema não está de acordo com o Certificado informado!')
+      else
+      if not GetConectedInternet then
+        TServiceMessage.ShowWarning('Estação de trabalho sem acesso a Internet!')
+      else
+      if DMNFe.GetValidadeCertificado(FController.DAO.Usuario.Empresa.CNPJ) then
+        aRetorno := TfrmDistribuicaoDFe
+          .getInstance(FController.DAO.Usuario.Empresa.CNPJ)
+          .&End(aCNPJEmissor, aUFEmissor, aChave, aNSU);
     end;
-
-    if not GetConectedInternet then
-    begin
-      TServiceMessage.ShowWarning('Estação de trabalho sem acesso a Internet!');
-      Exit;
-    end;
-
-    if not DMNFe.GetValidadeCertificado(FController.DAO.Usuario.Empresa.CNPJ) then
-      Exit;
-
-    aRetorno := TfrmDistribuicaoDFe
-      .getInstance(FController.DAO.Usuario.Empresa.CNPJ)
-      .&End(aCNPJEmissor, aUFEmissor, aChave, aNSU);
   finally
     Result := aRetorno;
   end;
@@ -1084,7 +1090,12 @@ begin
         DtSrcTabela.DataSet.FieldByName('TIPO_DOCUMENTO').AsInteger := TIPO_DOCUMENTO_ENTRADA_NFE;
         DtSrcTabela.DataSet.FieldByName('NF').AsString        := FormatFloat('###0000000', Ide.cNF);
         DtSrcTabela.DataSet.FieldByName('NFSERIE').AsString   := FormatFloat('###00', Ide.serie);
-        DtSrcTabela.DataSet.FieldByName('NFNSU').AsString     := aNSU;
+
+        if (aNSU.ToInt64 = 0) then
+          DtSrcTabela.DataSet.FieldByName('NFNSU').Clear
+        else
+          DtSrcTabela.DataSet.FieldByName('NFNSU').AsString := aNSU;
+
         // Valores
         DtSrcTabela.DataSet.FieldByName('CALCULAR_TOTAIS').AsInteger := FLAG_NAO;
         DtSrcTabela.DataSet.FieldByName('ICMSBASE').AsCurrency       := Total.ICMSTot.vBC;
@@ -1610,7 +1621,7 @@ end;
 
 procedure TViewEntrada.pgcGuiasChange(Sender: TObject);
 begin
-  with DtSrcTabela.DataSet do
+  if (pgcGuias.ActivePage = tbsCadastro) then
   begin
     AbrirTabelaItens;
     AbrirTabelaDuplicatas;
@@ -2083,6 +2094,18 @@ begin
     Text := FormatFloat('###0000000"/"', Sender.AsInteger) + Copy(DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_ANO').AsString, 3, 2);
 end;
 
+procedure TViewEntrada.btbtnCancelarClick(Sender: TObject);
+begin
+  inherited;
+  if not OcorreuErro then
+  begin
+    AbrirTabelaItens;
+    AbrirTabelaDuplicatas;
+    AbrirTabelaLotes;
+    AbrirNotaFiscal;
+  end;
+end;
+
 procedure TViewEntrada.btbtnCancelarENTClick(Sender: TObject);
 begin
   if ( DtSrcTabela.DataSet.IsEmpty ) then
@@ -2285,6 +2308,7 @@ begin
       bNFeGerada := GerarNFeEntrada(Self
         , FieldByName('ANO').AsInteger
         , FieldByName('CODCONTROL').AsInteger
+        , FieldByName('CODEMP').AsString
         , iSerieNFe
         , iNumeroNFe
         , sFileNameXML

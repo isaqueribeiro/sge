@@ -92,6 +92,7 @@ type
     function Duplicatas : IControllerCustom;
     function Lotes : IControllerCustom;
     function NFe : IControllerXML_NFeEnviada;
+    function CFOP : IControllerCFOP;
     function LoteProdutoPendente : Boolean;
 
     procedure CorrigirCFOP(aCFOP : String);

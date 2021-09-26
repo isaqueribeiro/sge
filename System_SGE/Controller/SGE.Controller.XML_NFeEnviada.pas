@@ -58,7 +58,7 @@ begin
     .SQL('  , v.codcontrol as Numero')
     .SQL('  , cast(v.dtvenda as date) as Data')
     .SQL('  , 1            as TipoNFE') // -- Saida
-    .SQL('  , ''Saída/Venda''     as Tipo')
+    .SQL('  , ''Saída/Venda''   as Tipo')
     .SQL('  , v.lote_nfe_numero as Lote  ')
     .SQL('  , v.lote_nfe_recibo as Recibo')
     .SQL('from TBVENDAS v')
@@ -77,9 +77,9 @@ begin
     .SQL('  , c.codcontrol as Numero ')
     .SQL('  , c.dtent      as Data   ')
     .SQL('  , 0            as TipoNFE') // -- Entrada
-    .SQL('  , ''Entrada/Compra''  as Tipo')
-    .SQL('  , c.lote_nfe_numero as Lote  ')
-    .SQL('  , c.lote_nfe_recibo as Recibo')
+    .SQL('  , ''Entrada/Compra'' as Tipo')
+    .SQL('  , c.lote_nfe_numero  as Lote  ')
+    .SQL('  , c.lote_nfe_recibo  as Recibo')
     .SQL('from TBCOMPRAS c')
     .SQL('where c.codemp      = :empresa')
     .SQL('  and c.status      = 2') // -- Finalizada
