@@ -16,48 +16,64 @@ File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\Inte
 File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\Controller.Usuario.pas',0,1,181,28,185,0,0,,
 
 [Modules]
-Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas
+Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.GerarNFE.pas
+Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.ConfirmarLote.pas
 Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.CFOP.pas
-Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Produto.pas
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UConstantesDGE.pas
-Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMNFe.pas
-Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas
-Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\Controller\SGE.Controller.XML_NFeEnviada.pas
-Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas
-Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Entrada.pas
-Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\SGE.dproj
-Module12=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.PadraoCadastro.pas
-Module13=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMRecursos.pas
-Module14=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMBusiness.pas
-Module15=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Fornecedor.pas
-Module16=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Empresa.pas
-Module17=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas
-Module18=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas
-Module19=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas
-Module20=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.ContaAPagar.pas
-Module21=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\UPrinc.pas
-Module22=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Produto.pas
-Module23=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.ContaAPagar.pas
-Module24=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.ConfirmarLote.pas
-Module25=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.ConfirmarDuplicatas.pas
-Module26=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Services\Service.Message.pas
-Module27=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\Connection\SGE.Model.Connection.Factory.pas
-Module28=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Cliente.pas
-Module29=C:\Delphi\Comps\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Frm_ACBrNFe.pas
-Module30=default.htm
-Module31=documentation.htm
-Count=32
+Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.pas
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\SGE.dproj
+Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.PadraoCadastro.pas
+Module6=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMRecursos.pas
+Module7=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas
+Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Produto.pas
+Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UConstantesDGE.pas
+Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMNFe.pas
+Module12=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMBusiness.pas
+Module13=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas
+Module14=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\Controller\SGE.Controller.XML_NFeEnviada.pas
+Module15=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas
+Module16=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Entrada.pas
+Module17=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Fornecedor.pas
+Module18=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Empresa.pas
+Module19=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas
+Module20=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas
+Module21=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas
+Module22=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.ContaAPagar.pas
+Module23=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\UPrinc.pas
+Module24=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Produto.pas
+Module25=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.ContaAPagar.pas
+Module26=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.ConfirmarDuplicatas.pas
+Module27=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Services\Service.Message.pas
+Module28=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\Connection\SGE.Model.Connection.Factory.pas
+Module29=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Cliente.pas
+Module30=C:\Delphi\Comps\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Frm_ACBrNFe.pas
+Module31=default.htm
+Module32=documentation.htm
+Count=33
 EditWindowCount=1
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.GerarNFE.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.ConfirmarLote.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.CFOP.pas]
+ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\SGE.dproj]
+ModuleType=TBaseProject
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.PadraoCadastro.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.CFOP.pas]
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMRecursos.pas]
+ModuleType=TSourceModule
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas]
@@ -72,6 +88,9 @@ ModuleType=TSourceModule
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMBusiness.pas]
+ModuleType=TSourceModule
+
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas]
 ModuleType=TSourceModule
 
@@ -82,18 +101,6 @@ ModuleType=TSourceModule
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Entrada.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\SGE.dproj]
-ModuleType=TBaseProject
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.PadraoCadastro.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMRecursos.pas]
-ModuleType=TSourceModule
-
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Fornecedor.pas]
@@ -123,9 +130,6 @@ ModuleType=TSourceModule
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.ContaAPagar.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.ConfirmarLote.pas]
-ModuleType=TSourceModule
-
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.ConfirmarDuplicatas.pas]
 ModuleType=TSourceModule
 
@@ -148,8 +152,8 @@ ModuleType=TURLModule
 ModuleType=TURLModule
 
 [EditWindow0]
-ViewCount=32
-CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.pas
+ViewCount=33
+CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.GerarNFE.pas
 View0=0
 View1=1
 View2=2
@@ -182,6 +186,7 @@ View28=28
 View29=29
 View30=30
 View31=31
+View32=32
 PercentageSizes=1
 Create=1
 Visible=1
@@ -200,13 +205,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=00000800010100000000A00F00000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000C71B00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=00000800010100000000760F00000000000001680700000000000001000000005C0E000009000000446F636B536974653301000000007D1B00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=00000800010100000000A00F00000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000C71B000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=1519
+RightPanelData=00000800010100000000760F00000000000001D00700000000000001000000004412000009000000446F636B536974653201000000007D1B000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=1593
 BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020100000009000000446F636B5369746531DE4400000000000002EF050000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B5369746531DE440000000000000239060000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -343,26 +348,15 @@ EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Produto.pa
 [View13]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.pas
-CursorX=9
-CursorY=2400
-TopLine=2374
+CursorX=3
+CursorY=2496
+TopLine=2463
 LeftCol=1
 Elisions=
 Bookmarks={1,1915,55}
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.pas
 
 [View14]
-CustomEditViewType=TEditView
-Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.CFOP.pas
-CursorX=3
-CursorY=13
-TopLine=1
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.CFOP.pas
-
-[View15]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.ConfirmarDuplicatas.pas
 CursorX=1
@@ -373,7 +367,7 @@ Elisions=
 Bookmarks={1,393,1}
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.ConfirmarDuplicatas.pas
 
-[View16]
+[View15]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.ConfirmarLote.pas
 CursorX=1
@@ -383,6 +377,17 @@ LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=Borland.FormDesignerView
+
+[View16]
+CustomEditViewType=TEditView
+Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.GerarNFE.pas
+CursorX=1
+CursorY=470
+TopLine=391
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.Entrada.GerarNFE.pas
 
 [View17]
 CustomEditViewType=TEditView
@@ -397,6 +402,17 @@ EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.
 
 [View18]
 CustomEditViewType=TEditView
+Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.CFOP.pas
+CursorX=59
+CursorY=6
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.CFOP.pas
+
+[View19]
+CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.ContaAPagar.pas
 CursorX=21
 CursorY=46
@@ -406,7 +422,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.ContaAPagar.pas
 
-[View19]
+[View20]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas
 CursorX=47
@@ -417,7 +433,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas
 
-[View20]
+[View21]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Empresa.pas
 CursorX=1
@@ -428,7 +444,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Empresa.pas
 
-[View21]
+[View22]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\Controller\SGE.Controller.XML_NFeEnviada.pas
 CursorX=53
@@ -439,7 +455,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\Controller\SGE.Controller.XML_NFeEnviada.pas
 
-[View22]
+[View23]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Fornecedor.pas
 CursorX=53
@@ -450,7 +466,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Fornecedor.pas
 
-[View23]
+[View24]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas
 CursorX=1
@@ -461,7 +477,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas
 
-[View24]
+[View25]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas
 CursorX=9
@@ -472,7 +488,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas
 
-[View25]
+[View26]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas
 CursorX=28
@@ -483,7 +499,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas
 
-[View26]
+[View27]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas
 CursorX=47
@@ -494,7 +510,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas
 
-[View27]
+[View28]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\Connection\SGE.Model.Connection.Factory.pas
 CursorX=30
@@ -505,7 +521,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\Connection\SGE.Model.Connection.Factory.pas
 
-[View28]
+[View29]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.ContaAPagar.pas
 CursorX=45
@@ -516,7 +532,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.ContaAPagar.pas
 
-[View29]
+[View30]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Produto.pas
 CursorX=1
@@ -527,7 +543,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Produto.pas
 
-[View30]
+[View31]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas
 CursorX=38
@@ -538,7 +554,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas
 
-[View31]
+[View32]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas
 CursorX=27
@@ -661,12 +677,12 @@ State=0
 Left=0
 Top=28
 Width=9917
-Height=1308
+Height=1385
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=9917
-ClientHeight=1308
-TBDockHeight=1308
+ClientHeight=1385
+TBDockHeight=1385
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -680,11 +696,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=2260
+Height=2183
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2260
+ClientHeight=2183
 TBDockHeight=7154
 LRDockWidth=2000
 Dockable=1
@@ -718,21 +734,16 @@ State=0
 Left=0
 Top=425
 Width=1896
-Height=3298
+Height=3221
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=3298
+ClientHeight=3221
 TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
 SplitPos=111
-
-[PropInspDesignerSelection]
-ArrangeBy=Name
-SelectedItem=Action,Action
-ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -1227,11 +1238,11 @@ State=0
 Left=0
 Top=533
 Width=2000
-Height=2260
+Height=2183
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2260
+ClientHeight=2183
 TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1
