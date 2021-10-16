@@ -374,6 +374,11 @@ begin
         .Add('  , c.cidade')
         .Add('  , c.uf    ')
         .Add('  , c.cep   ')
+        .Add('  , c.nfe_serie  as serie_nfe    ')
+        .Add('  , c.nfe_numero as numero_nfe   ')
+        .Add('  , extract(year from current_date) as lote_ano_nfe ')
+        .Add('  , c.nfe_lote   as lote_num_nfe ')
+        .Add('  , 55 as modelo_nfe             ')
         .Add('  , coalesce(s.estoque_unico_empresas, 0)     as estoque_unico ')
         .Add('  , coalesce(s.permitir_venda_estoque_ins, 0) as permitir_venda_estoque_ins')
         .Add('  , coalesce(c.tipo_regime_nfe, 0)            as regime')
@@ -383,9 +388,8 @@ begin
         .Add('from VW_EMPRESA e')
         .Add('  inner join TBEMPRESA c on (c.cnpj = e.cnpj)')
         .Add('  left join TBCONFIGURACAO s on (s.empresa = e.cnpj)')
-        .Add('order by')
-        .Add('    e.razao')
       .&End
+      .OrderBy('e.razao')
     .Open;
 end;
 

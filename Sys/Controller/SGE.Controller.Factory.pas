@@ -22,6 +22,7 @@ uses
   SGE.Controller.Fornecedor,
   SGE.Controller.IBPT,
   SGE.Controller.Logradouro,
+  SGE.Controller.LogTransacao,
   SGE.Controller.PlanoConta,
   SGE.Controller.Produto,
   SGE.Controller.Promocao,
@@ -79,9 +80,10 @@ type
       FIBPT           ,
       FItensAutorizadosParaEntrada,
       FLayoutRemessaBancoView,
-      FLogradouro ,
-      FLoteProduto,
-      FNivelIBPT  ,
+      FLogradouro  ,
+      FLogTransacao,
+      FLoteProduto ,
+      FNivelIBPT   ,
       FOrigemProdutoView,
       FPlanoConta      ,
       FPlanoContaNivel ,
@@ -163,6 +165,7 @@ type
       function ItensAutorizadosParaEntrada : IControllerCustom;
       function LayoutRemessaBancoView : IControllerCustom;
       function Logradouro : IControllerCustom;
+      function LogTransacao : IControllerCustom;
       function LoteProduto : IControllerCustom;
       function NivelIBPT : IControllerCustom;
       function OrigemProdutoView : IControllerCustom;
@@ -648,6 +651,14 @@ begin
     FLogradouro := TControllerLogradouro.New;
 
   Result := FLogradouro;
+end;
+
+function TControllerFactory.LogTransacao: IControllerCustom;
+begin
+  if not Assigned(FLogTransacao) then
+    FLogTransacao := TControllerLogTransacao.New;
+
+  Result := FLogTransacao;
 end;
 
 function TControllerFactory.LoteProduto: IControllerCustom;

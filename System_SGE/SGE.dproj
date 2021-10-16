@@ -564,6 +564,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Helper.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Logradouro.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.LogTransacao.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Produto.pas"/>
         <DCCReference Include="Model\DAO\SGE.Model.DAO.Promocao.pas"/>
@@ -574,6 +575,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.UF.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas"/>
+        <DCCReference Include="Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.pas"/>
         <DCCReference Include="Controller\SGE.Controller.AutorizacaoCompra.pas"/>
@@ -596,6 +598,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Helper.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.IBPT.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Logradouro.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.LogTransacao.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.PlanoConta.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Produto.pas"/>
         <DCCReference Include="Controller\SGE.Controller.Promocao.pas"/>
@@ -606,6 +609,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoReceita.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.UF.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Vendedor.pas"/>
+        <DCCReference Include="Controller\SGE.Controller.XML_NFeEnviada.pas"/>
         <DCCReference Include="..\Sys\View\View.Estado.pas">
             <Form>ViewEstado</Form>
         </DCCReference>
@@ -698,37 +702,30 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Entrada.ConfirmarDuplicatas.pas">
             <Form>ViewEntradaConfirmarDuplicatas</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Entrada.ConfirmarLote.pas">
             <Form>ViewEntradaEstoqueLote</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="View\View.AutorizacaoCompra.pas">
             <Form>ViewAutorizacaoCompra</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="View\View.AutorizacaoCompra.Cancelar.pas">
             <Form>ViewAutorizacaoCompraCancelar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="View\View.RequisicaoCompra.pas">
             <Form>ViewRequisicaoCompra</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="View\View.RequisicaoCompra.Cancelar.pas">
             <Form>ViewRequisicaoCompraCancelar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas"/>
-        <DCCReference Include="Controller\SGE.Controller.XML_NFeEnviada.pas"/>
         <DCCReference Include="..\Sys\View\View.Entrada.Cancelar.pas">
             <Form>ViewEntradaEstoqueCancelar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Entrada.GerarNFE.pas">
             <Form>ViewEntradaEstoqueGerarNFE</Form>
-            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.NFE.ConsultarLote.pas">
+            <Form>ViewNFEConsultarLote</Form>
         </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
@@ -846,7 +843,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -968,7 +965,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

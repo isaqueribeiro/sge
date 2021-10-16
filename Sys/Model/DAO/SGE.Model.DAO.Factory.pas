@@ -23,6 +23,7 @@ uses
   SGE.Model.DAO.Fornecedor,
   SGE.Model.DAO.IBPT,
   SGE.Model.DAO.Logradouro,
+  SGE.Model.DAO.LogTransacao,
   SGE.Model.DAO.PlanoConta,
   SGE.Model.DAO.Produto,
   SGE.Model.DAO.Promocao,
@@ -84,6 +85,7 @@ type
       FItensAutorizadosParaEntrada,
       FLayoutRemessaBancoView,
       FLogradouro     ,
+      FLogTransacao   ,
       FLoteProduto    ,
       FNivelIBPT      ,
       FOrigemProdutoView,
@@ -171,6 +173,7 @@ type
       function ItensAutorizadosParaEntrada : IModelDAOCustom;
       function LayoutRemessaBancoView : IModelDAOCustom;
       function Logradouro : IModelDAOCustom;
+      function LogTransacao : IModelDAOCustom;
       function LoteProduto : IModelDAOCustom;
       function NivelIBPT : IModelDAOCustom;
       function OrigemProdutoView : IModelDAOCustom;
@@ -833,6 +836,14 @@ begin
     FLogradouro := TModelDAOLogradouro.New;
 
   Result := FLogradouro;
+end;
+
+function TModelDAOFactory.LogTransacao: IModelDAOCustom;
+begin
+  if not Assigned(FLogTransacao) then
+    FLogTransacao := TModelDAOLogTransacao.New;
+
+  Result := FLogTransacao;
 end;
 
 function TModelDAOFactory.LoteProduto: IModelDAOCustom;

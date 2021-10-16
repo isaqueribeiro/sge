@@ -201,6 +201,7 @@ uses
   SGE.Model.DAO.Helper in '..\Sys\Model\DAO\SGE.Model.DAO.Helper.pas',
   SGE.Model.DAO.IBPT in '..\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas',
   SGE.Model.DAO.Logradouro in '..\Sys\Model\DAO\SGE.Model.DAO.Logradouro.pas',
+  SGE.Model.DAO.LogTransacao in '..\Sys\Model\DAO\SGE.Model.DAO.LogTransacao.pas',
   SGE.Model.DAO.PlanoConta in '..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas',
   SGE.Model.DAO.Produto in '..\Sys\Model\DAO\SGE.Model.DAO.Produto.pas',
   SGE.Model.DAO.Promocao in 'Model\DAO\SGE.Model.DAO.Promocao.pas',
@@ -211,6 +212,7 @@ uses
   SGE.Model.DAO.TipoReceita in '..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas',
   SGE.Model.DAO.UF in '..\Sys\Model\DAO\SGE.Model.DAO.UF.pas',
   SGE.Model.DAO.Vendedor in '..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas',
+  SGE.Model.DAO.XML_NFeEnviada in 'Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas',
   SGE.Controller.Interfaces in '..\Sys\Controller\SGE.Controller.Interfaces.pas',
   SGE.Controller in '..\Sys\Controller\SGE.Controller.pas',
   SGE.Controller.AutorizacaoCompra in 'Controller\SGE.Controller.AutorizacaoCompra.pas',
@@ -233,6 +235,7 @@ uses
   SGE.Controller.Helper in '..\Sys\Controller\SGE.Controller.Helper.pas',
   SGE.Controller.IBPT in '..\Sys\Controller\SGE.Controller.IBPT.pas',
   SGE.Controller.Logradouro in '..\Sys\Controller\SGE.Controller.Logradouro.pas',
+  SGE.Controller.LogTransacao in '..\Sys\Controller\SGE.Controller.LogTransacao.pas',
   SGE.Controller.PlanoConta in '..\Sys\Controller\SGE.Controller.PlanoConta.pas',
   SGE.Controller.Produto in '..\Sys\Controller\SGE.Controller.Produto.pas',
   SGE.Controller.Promocao in 'Controller\SGE.Controller.Promocao.pas',
@@ -243,6 +246,7 @@ uses
   SGE.Controller.TipoReceita in '..\Sys\Controller\SGE.Controller.TipoReceita.pas',
   SGE.Controller.UF in '..\Sys\Controller\SGE.Controller.UF.pas',
   SGE.Controller.Vendedor in '..\Sys\Controller\SGE.Controller.Vendedor.pas',
+  SGE.Controller.XML_NFeEnviada in 'Controller\SGE.Controller.XML_NFeEnviada.pas',
   View.Estado in '..\Sys\View\View.Estado.pas' {ViewEstado},
   View.Cidade in '..\Sys\View\View.Cidade.pas' {ViewCidade},
   View.Distrito in '..\Sys\View\View.Distrito.pas' {ViewDistrito},
@@ -279,10 +283,9 @@ uses
   View.AutorizacaoCompra.Cancelar in 'View\View.AutorizacaoCompra.Cancelar.pas' {ViewAutorizacaoCompraCancelar},
   View.RequisicaoCompra in 'View\View.RequisicaoCompra.pas' {ViewRequisicaoCompra},
   View.RequisicaoCompra.Cancelar in 'View\View.RequisicaoCompra.Cancelar.pas' {ViewRequisicaoCompraCancelar},
-  SGE.Model.DAO.XML_NFeEnviada in 'Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas',
-  SGE.Controller.XML_NFeEnviada in 'Controller\SGE.Controller.XML_NFeEnviada.pas',
   View.Entrada.Cancelar in '..\Sys\View\View.Entrada.Cancelar.pas' {ViewEntradaEstoqueCancelar},
-  View.Entrada.GerarNFE in '..\Sys\View\View.Entrada.GerarNFE.pas' {ViewEntradaEstoqueGerarNFE};
+  View.Entrada.GerarNFE in '..\Sys\View\View.Entrada.GerarNFE.pas' {ViewEntradaEstoqueGerarNFE},
+  View.NFE.ConsultarLote in '..\Sys\View\View.NFE.ConsultarLote.pas' {ViewNFEConsultarLote};
 
 {$R *.res}
 

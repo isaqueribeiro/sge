@@ -122,6 +122,7 @@ type
     function ItensAutorizadosParaEntrada : IModelDAOCustom;
     function LayoutRemessaBancoView : IModelDAOCustom;
     function Logradouro : IModelDAOCustom;
+    function LogTransacao : IModelDAOCustom;
     function LoteProduto : IModelDAOCustom;
     function NivelIBPT : IModelDAOCustom;
     function OrigemProdutoView : IModelDAOCustom;

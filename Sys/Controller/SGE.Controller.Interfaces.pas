@@ -80,8 +80,10 @@ type
 
   IControllerXML_NFeEnviada = interface(IControllerCustom)
     ['{E356F024-9DCD-43CA-98E2-245697574D37}']
-    function ListaNFePendente(aCNPJEmissor : String) : IModelDAOCustom;
+    function ListaNFePendente(aCNPJEmissor : String) : IModelDAOCustom; overload;
+    function ListaNFePendente(aCNPJEmissor, aRecibo : String) : IModelDAOCustom; overload;
     function EmissaoNFePendente(aCNPJEmissor : String) : Boolean;
+    function PesquisarLote(const aRecibo : String; var aAno, aControle : Integer; var aDestinaratio : String) : IModelDAOCustom;
   end;
 
   IControllerEntrada = interface(IControllerCustom)
@@ -178,6 +180,7 @@ type
     function ItensAutorizadosParaEntrada : IControllerCustom;
     function LayoutRemessaBancoView : IControllerCustom;
     function Logradouro : IControllerCustom;
+    function LogTransacao : IControllerCustom;
     function LoteProduto : IControllerCustom;
     function NivelIBPT  : IControllerCustom;
     function OrigemProdutoView : IControllerCustom;

@@ -539,8 +539,8 @@ inherited frmGeConsultarLoteNFe_v2: TfrmGeConsultarLoteNFe_v2
   end
   object dtsEmpresa: TDataSource
     DataSet = fdQryEmpresa
-    Left = 552
-    Top = 16
+    Left = 520
+    Top = 80
   end
   object fdQryLotesPendentesNFe: TFDQuery
     Connection = DMBusiness.fdConexao
@@ -630,8 +630,8 @@ inherited frmGeConsultarLoteNFe_v2: TfrmGeConsultarLoteNFe_v2
       'from TBEMPRESA e'
       '  left join TBCONFIGURACAO c on (c.empresa = e.cnpj)'
       'where e.cnpj = :cnpj')
-    Left = 520
-    Top = 16
+    Left = 488
+    Top = 80
     ParamData = <
       item
         Name = 'CNPJ'
