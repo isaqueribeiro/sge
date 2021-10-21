@@ -86,7 +86,6 @@ inherited frmGeEntradaEstoqueDevolucaoNF: TfrmGeEntradaEstoqueDevolucaoNF
       Top = 40
       Width = 146
       Height = 21
-      Alignment = taRightJustify
       ButtonHint = 'Pesquisar Entrada (Ctrl+P)'#13#10#13#10'Limpar Campo (Ctrl + Delete)'
       CharCase = ecUpperCase
       ClickKey = 16464
@@ -829,7 +828,6 @@ inherited frmGeEntradaEstoqueDevolucaoNF: TfrmGeEntradaEstoqueDevolucaoNF
     Top = 128
   end
   object cdsCompra: TFDQuery
-    Active = True
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao

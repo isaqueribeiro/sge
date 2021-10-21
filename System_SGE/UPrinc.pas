@@ -1110,7 +1110,7 @@ begin
     ShowWarning('Certificado não configurado nesta estação de trabalho para que esta rotina seja executada!')
   else
   if GetPermissaoRotinaSistema(ROTINA_NFE_CONSULTA_RECIBO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeConsultarLoteNFe_v2');
+    FormFunction.ShowModalForm(Self, 'ViewNFEConsultarLote');
 end;
 
 procedure TfrmPrinc.nmConsultarCNPJClick(Sender: TObject);

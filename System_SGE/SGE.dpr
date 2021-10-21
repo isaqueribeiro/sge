@@ -55,7 +55,6 @@ uses
   UGeProdutoRotatividadePRC in '..\Sys\UGeProdutoRotatividadePRC.pas' {FrmGeProdutoRotatividadePRC},
   UGeInutilizarNumeroNFe in '..\Sys\UGeInutilizarNumeroNFe.pas' {frmGeInutilizarNumeroNFe},
   UGeProdutoEstoqueMinimo in 'UGeProdutoEstoqueMinimo.pas' {FrmGeProdutoEstoqueMinimo},
-  UGeConsultarLoteNFe_v2 in 'UGeConsultarLoteNFe_v2.pas' {frmGeConsultarLoteNFe_v2},
   UGrConsultarCNJP in '..\Sys\lib\UGrConsultarCNJP.pas' {frmGrConsultarCNJP},
   UObserverInterface in '..\Sys\lib\UObserverInterface.pas',
   UBaseObject in '..\Sys\lib\UBaseObject.pas',

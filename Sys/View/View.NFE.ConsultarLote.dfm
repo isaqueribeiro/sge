@@ -167,7 +167,7 @@ inherited ViewNFEConsultarLote: TViewNFEConsultarLote
       Height = 21
       TabStop = False
       Color = clMoneyGreen
-      DataField = 'RZSOC'
+      DataField = 'razao'
       DataSource = dtsEmpresa
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack

@@ -84,10 +84,9 @@ type
     btnConfirmar: TcxButton;
     btFechar: TcxButton;
     procedure ApenasNumeroKeyPress(Sender: TObject; var Key: Char);
+    procedure CnpjGetText(Sender: TField; var Text: String; DisplayText: Boolean);
     procedure FormCreate(Sender: TObject);
     procedure btFecharClick(Sender: TObject);
-    procedure qryEmpresaCNPJGetText(Sender: TField; var Text: String;
-      DisplayText: Boolean);
     procedure FormShow(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -139,7 +138,6 @@ type
 implementation
 
 uses
-//  UDMBusiness,
   UDMNFe,
   UConstantesDGE,
   UFuncoes,
@@ -148,7 +146,8 @@ uses
   SGE.Controller.Helper,
   SGE.Controller.Factory,
   Service.Message,
-  Service.Utils;
+  Service.Utils,
+  Controller.Tabela;
 
 {$R *.dfm}
 
@@ -215,6 +214,8 @@ begin
   inherited;
   CarregarEmpresa(FControllerEmpresaView.DAO.Usuario.Empresa.CNPJ);
 
+  dtsEmpresa.DataSet := FControllerEmpresaView.DAO.DataSet;
+
   Auditar;
 
   FTipoMovimento     := tmNull;
@@ -222,26 +223,11 @@ begin
   FSerieNFe     := 0;
   FNumeroNFe    := 0;
   FFileNameXML  := EmptyStr;
-
-  dtsEmpresa.DataSet := FControllerEmpresaView.DAO.DataSet;
 end;
 
 procedure TViewNFEConsultarLote.btFecharClick(Sender: TObject);
 begin
   ModalResult := mrCancel;
-end;
-
-procedure TViewNFEConsultarLote.qryEmpresaCNPJGetText(Sender: TField;
-  var Text: String; DisplayText: Boolean);
-begin
-  if ( Sender.IsNull ) then
-    Exit;
-
-  if TServicesUtils.StrIsCNPJ(Sender.AsString) then
-    Text := TServicesUtils.StrFormatarCnpj(Sender.AsString)
-  else
-  if TServicesUtils.StrIsCPF(Sender.AsString) then
-    Text := TServicesUtils.StrFormatarCpf(Sender.AsString);
 end;
 
 procedure TViewNFEConsultarLote.ApenasNumeroKeyPress(Sender: TObject;
@@ -273,66 +259,31 @@ end;
 
 function TViewNFEConsultarLote.PesquisarLote(const aAno, aNumero: Integer;
   const sRecibo: String; var Ano, Controle : Integer; var Destinaratio : String): Boolean;
+var
+  aLote : IControllerXML_NFeEnviada;
+  aLoteEnvioNFE : TLoteEnvioNFE;
 begin
+  Result := False;
   try
-    with DMBusiness, fdQryBusca do
-    begin
-      Close;
-      SQL.Clear;
-      SQL.Add('Select');
-      SQL.Add('    v.ano        as Ano');
-      SQL.Add('  , v.codcontrol as Numero');
-      SQL.Add('  , 1            as TipoNFE');
-      SQL.Add('  , ''Saída/Venda''   as Tipo');
-      SQL.Add('  , v.lote_nfe_numero as Lote');
-      SQL.Add('  , v.lote_nfe_recibo as Recibo');
-      SQL.Add('  , v.codcli          as Destinatario');
-      SQL.Add('from TBVENDAS v');
-      SQL.Add('where v.codemp = ' + QuotedStr(dbCNPJ.Field.AsString));
+    aLote := TControllerFactory.New.XML_NFeEnviada;
 
-      if (StrToIntDef(Trim(edAno.Text), 0) > 0) and (StrToIntDef(Trim(edNumeroLote.Text), 0) > 0) then
-        SQL.Add('  and v.lote_nfe_ano = ' + Trim(edAno.Text) + ' and v.lote_nfe_numero = ' + Trim(edNumeroLote.Text));
+    aLoteEnvioNFE.Ano    := StrToIntDef(Trim(edAno.Text), 0);
+    aLoteEnvioNFE.Numero := StrToIntDef(Trim(edNumeroLote.Text), 0);
 
-      if (Trim(edNumeroRecibo.Text) <> EmptyStr) then
-        SQL.Add('  and v.lote_nfe_recibo = ' + QuotedStr(Trim(edNumeroRecibo.Text)));
+    Result := not aLote.PesquisarLote(dbCNPJ.Field.AsString, edNumeroRecibo.Text, aLoteEnvioNFE).DataSet.IsEmpty;
 
-      SQL.Add('');
-      SQL.Add('union');
-      SQL.Add('');
-      SQL.Add('Select');
-      SQL.Add('    c.ano        as Ano');
-      SQL.Add('  , c.codcontrol as Numero');
-      SQL.Add('  , 0            as TipoNFE');
-      SQL.Add('  , ''Entrada/Compra'' as Tipo');
-      SQL.Add('  , c.lote_nfe_numero  as Lote');
-      SQL.Add('  , c.lote_nfe_recibo  as Recibo');
-      SQL.Add('  , f.cnpj             as Destinatario');
-      SQL.Add('from TBCOMPRAS c');
-      SQL.Add('  left join TBFORNECEDOR f on (f.codforn = c.codforn)');
-      SQL.Add('where c.codemp = ' + QuotedStr(dbCNPJ.Field.AsString));
-
-      if (StrToIntDef(Trim(edAno.Text), 0) > 0) and (StrToIntDef(Trim(edNumeroLote.Text), 0) > 0) then
-        SQL.Add('  and c.lote_nfe_ano = ' + Trim(edAno.Text) + ' and c.lote_nfe_numero = ' + Trim(edNumeroLote.Text));
-
-      if (Trim(edNumeroRecibo.Text) <> EmptyStr) then
-        SQL.Add('  and c.lote_nfe_recibo = ' + QuotedStr(Trim(edNumeroRecibo.Text)));
-
-      Open;
-
-      Result := not IsEmpty;
-
-      if Result then
+    if Result then
+      with aLote.DAO.DataSet do
       begin
         FTipoMovimento := TTipoMovimento(FieldByName('TipoNFE').AsInteger);
-        Ano          := FieldByName('Ano').AsInteger;
-        Controle     := FieldByName('Numero').AsInteger;
-        Destinaratio := FieldByName('Destinatario').AsString;
+        Ano            := FieldByName('Ano').AsInteger;
+        Controle       := FieldByName('Numero').AsInteger;
+        Destinaratio   := FieldByName('Destinatario').AsString;
 
         edAno.Text          := FieldByName('Ano').AsString;
         edNumeroLote.Text   := FieldByName('Lote').AsString;
         edNumeroRecibo.Text := FieldByName('Recibo').AsString;
       end;
-    end;
   except
     On E : Exception do
       TServiceMessage.ShowError('Erro ao tentar consultar lote.' + #13#13 + E.Message);
@@ -618,22 +569,47 @@ begin
     .Where('e.cnpj = :cnpj')
     .ParamsByName('cnpj', sCnpj.Trim)
     .Open;
+
+  FControllerEmpresaView.DAO.DataSet.FieldByName('cnpj').OnGetText := CnpjGetText;
+
+  TTabelaController
+    .New
+    .Tabela(FControllerEmpresaView.DAO.DataSet)
+    .Display('SERIE_NFE',    'Série NF-e',  '#00', TAlignment.taCenter)
+    .Display('NUMERO_NFE',   'Última NF-e emitida',  '###0000000', TAlignment.taRightJustify)
+    .Display('LOTE_NUM_NFE', 'Último Lote de envio', '###0000000', TAlignment.taRightJustify)
+    .Configurar;
 end;
 
 procedure TViewNFEConsultarLote.CarregarLotePendente(
   const sCnpjEmitente, sRecibo: String);
 var
-  aNFeEnviada  : IControllerCustom;
+  aNFeEnviada : IControllerXML_NFeEnviada;
 begin
-  aNFeEnviada := TControllerFactory.New.XML_NFeEnviada.ListaNFePendente(sCnpjEmitente, sRecibo);
+  aNFeEnviada := TControllerFactory.New.XML_NFeEnviada;
 
-  if not aNFeEnviada.DAO.DataSet.IsEmpty then
+  with aNFeEnviada.ListaNFePendente(sCnpjEmitente, sRecibo) do
   begin
-    edAno.Text          := aNFeEnviada.DAO.DataSet.FieldByName('ANO').AsString;
-    edNumeroLote.Text   := aNFeEnviada.DAO.DataSet.FieldByName('LOTE').AsString;
-    edNumeroRecibo.Text := aNFeEnviada.DAO.DataSet.FieldByName('RECIBO').AsString;
-    FTipoMovimento      := TTipoMovimento(aNFeEnviada.DAO.DataSet.FieldByName('TIPONFE').AsInteger);
+    if not DataSet.IsEmpty then
+    begin
+      edAno.Text          := DataSet.FieldByName('ANO').AsString;
+      edNumeroLote.Text   := DataSet.FieldByName('LOTE').AsString;
+      edNumeroRecibo.Text := DataSet.FieldByName('RECIBO').AsString;
+      FTipoMovimento      := TTipoMovimento(DataSet.FieldByName('TIPONFE').AsInteger);
+    end;
   end;
+end;
+
+procedure TViewNFEConsultarLote.CnpjGetText(Sender: TField; var Text: String; DisplayText: Boolean);
+begin
+  if Sender.IsNull then
+    Exit;
+
+  if TServicesUtils.StrIsCNPJ(Sender.AsString) then
+    Text := TServicesUtils.StrFormatarCnpj(Sender.AsString)
+  else
+  if TServicesUtils.StrIsCPF(Sender.AsString) then
+    Text := TServicesUtils.StrFormatarCpf(Sender.AsString);
 end;
 
 function TViewNFEConsultarLote.ConfirmarRetorno(var Denegada : Boolean; var DenegadaMotivo : String): Boolean;

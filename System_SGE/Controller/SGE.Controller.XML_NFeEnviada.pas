@@ -24,7 +24,7 @@ type
       function ListaNFePendente(aCNPJEmissor : String) : IModelDAOCustom; overload;
       function ListaNFePendente(aCNPJEmissor, aRecibo : String) : IModelDAOCustom; overload;
       function EmissaoNFePendente(aCNPJEmissor : String) : Boolean;
-      function PesquisarLote(const aRecibo : String; var aAno, aControle : Integer; var aDestinaratio : String) : IModelDAOCustom;
+      function PesquisarLote(aCNPJEmissor, aRecibo : String; aLoteEnvioNFE : TLoteEnvioNFE) : IModelDAOCustom;
   end;
 
 implementation
@@ -117,58 +117,66 @@ begin
   Result := Self.Create;
 end;
 
-function TControllerXML_NFeEnviada.PesquisarLote(const aRecibo: String; var aAno, aControle: Integer;
-  var aDestinaratio: String): IModelDAOCustom;
+function TControllerXML_NFeEnviada.PesquisarLote(aCNPJEmissor, aRecibo : String; aLoteEnvioNFE : TLoteEnvioNFE): IModelDAOCustom;
 begin
   if not Assigned(FListaLotePendente) then
     FListaLotePendente := TModelDAOFactory.New.Busca;
 
-    with DMBusiness, fdQryBusca do
-    begin
-      Close;
-      SQL.Clear;
-      SQL.Add('Select');
-      SQL.Add('    v.ano        as Ano');
-      SQL.Add('  , v.codcontrol as Numero');
-      SQL.Add('  , 1            as TipoNFE');
-      SQL.Add('  , ''Saída/Venda''   as Tipo');
-      SQL.Add('  , v.lote_nfe_numero as Lote');
-      SQL.Add('  , v.lote_nfe_recibo as Recibo');
-      SQL.Add('  , v.codcli          as Destinatario');
-      SQL.Add('from TBVENDAS v');
-      SQL.Add('where v.codemp = ' + QuotedStr(dbCNPJ.Field.AsString));
+  FListaNFePendente
+    .Clear
+    .SQL('Select')
+    .SQL('    v.ano        as Ano')
+    .SQL('  , v.codcontrol as Numero')
+    .SQL('  , 1            as TipoNFE')
+    .SQL('  , ''Saída/Venda''   as Tipo')
+    .SQL('  , v.lote_nfe_numero as Lote')
+    .SQL('  , v.lote_nfe_recibo as Recibo')
+    .SQL('  , v.codcli          as Destinatario')
+    .SQL('from TBVENDAS v')
+    .SQL('where (v.codemp = :empresa)');
 
-      if (StrToIntDef(Trim(edAno.Text), 0) > 0) and (StrToIntDef(Trim(edNumeroLote.Text), 0) > 0) then
-        SQL.Add('  and v.lote_nfe_ano = ' + Trim(edAno.Text) + ' and v.lote_nfe_numero = ' + Trim(edNumeroLote.Text));
+  if (aLoteEnvioNFE.Ano > 0) and (aLoteEnvioNFE.Numero > 0) then
+    FListaNFePendente
+      .SQL('  and (v.lote_nfe_ano    = :ano_lote)')
+      .SQL('  and (v.lote_nfe_numero = :numero_lote)');
 
-      if (Trim(edNumeroRecibo.Text) <> EmptyStr) then
-        SQL.Add('  and v.lote_nfe_recibo = ' + QuotedStr(Trim(edNumeroRecibo.Text)));
+  if (not aRecibo.IsEmpty) then
+    FListaNFePendente
+      .SQL('  and (v.lote_nfe_recibo = :recibo)');
 
-      SQL.Add('');
-      SQL.Add('union');
-      SQL.Add('');
-      SQL.Add('Select');
-      SQL.Add('    c.ano        as Ano');
-      SQL.Add('  , c.codcontrol as Numero');
-      SQL.Add('  , 0            as TipoNFE');
-      SQL.Add('  , ''Entrada/Compra'' as Tipo');
-      SQL.Add('  , c.lote_nfe_numero  as Lote');
-      SQL.Add('  , c.lote_nfe_recibo  as Recibo');
-      SQL.Add('  , f.cnpj             as Destinatario');
-      SQL.Add('from TBCOMPRAS c');
-      SQL.Add('  left join TBFORNECEDOR f on (f.codforn = c.codforn)');
-      SQL.Add('where c.codemp = ' + QuotedStr(dbCNPJ.Field.AsString));
+  FListaNFePendente
+    .SQL('')
+    .SQL('union')
+    .SQL('')
+    .SQL('Select')
+    .SQL('    c.ano        as Ano')
+    .SQL('  , c.codcontrol as Numero')
+    .SQL('  , 0            as TipoNFE')
+    .SQL('  , ''Entrada/Compra'' as Tipo')
+    .SQL('  , c.lote_nfe_numero  as Lote')
+    .SQL('  , c.lote_nfe_recibo  as Recibo')
+    .SQL('  , f.cnpj             as Destinatario')
+    .SQL('from TBCOMPRAS c')
+    .SQL('  left join TBFORNECEDOR f on (f.codforn = c.codforn)')
+    .SQL('where (c.codemp = :empresa)');
 
-      if (StrToIntDef(Trim(edAno.Text), 0) > 0) and (StrToIntDef(Trim(edNumeroLote.Text), 0) > 0) then
-        SQL.Add('  and c.lote_nfe_ano = ' + Trim(edAno.Text) + ' and c.lote_nfe_numero = ' + Trim(edNumeroLote.Text));
+  if (aLoteEnvioNFE.Ano > 0) and (aLoteEnvioNFE.Numero > 0) then
+    FListaNFePendente
+      .SQL('  and (c.lote_nfe_ano    = :ano_lote)')
+      .SQL('  and (c.lote_nfe_numero = :numero_lote)');
 
-      if (Trim(edNumeroRecibo.Text) <> EmptyStr) then
-        SQL.Add('  and c.lote_nfe_recibo = ' + QuotedStr(Trim(edNumeroRecibo.Text)));
+  if (not aRecibo.IsEmpty) then
+    FListaNFePendente
+      .SQL('  and (c.lote_nfe_recibo = :recibo)');
 
-      Open;
+  FListaNFePendente
+    .ParamsByName('empresa',     aCNPJEmissor.Trim)
+    .ParamsByName('ano_lote',    aLoteEnvioNFE.Ano)
+    .ParamsByName('numero_lote', aLoteEnvioNFE.Numero)
+    .ParamsByName('recibo',      aRecibo.Trim)
+    .Open;
 
-
-  Result := FListaLotePendente;
+  Result := FListaNFePendente;
 end;
 
 end.

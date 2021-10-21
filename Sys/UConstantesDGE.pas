@@ -56,6 +56,12 @@ Uses
     Numero     : Integer;
   end;
 
+  TLoteEnvioNFE = record
+    Ano    : Integer;
+    Numero : Integer;
+  end;
+
+
 const
   VERSION_NUMBER     = '1.0.31.0';
   VERSION_NUMBER_ID  = 01003100;

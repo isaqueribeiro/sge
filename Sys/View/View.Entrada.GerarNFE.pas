@@ -147,7 +147,7 @@ uses
   , SGE.Controller.Factory
   , Service.Message
   , Service.Utils
-  , UGeConsultarLoteNFe_v2;
+  , View.NFE.ConsultarLote;
 
 {$R *.dfm}
 
@@ -406,7 +406,8 @@ begin
             sRecibo := TServicesUtils.StrOnlyNumbers(Copy(DMNFe.MensagemErro,          // Passo 2.1
               Pos('[nRec:', DMNFe.MensagemErro),
               Pos(']', DMNFe.MensagemErro)) );
-            if ((Trim(sRecibo) <> EmptyStr) and (Trim(sRecibo) <> '000000000000000')) then // Passo 2.2
+
+            if (StrToInt64Def(sRecibo.Trim, 0) > 0) then // Passo 2.2 => (Número de Recibo != 000000000000000)
             begin
               bRT := BuscarRetornoReciboNFe(Self
                 , dtsCompra.DataSet.FieldByName('CODEMP').AsString

@@ -45,6 +45,7 @@ type
   // View
   TModelDAOEmpresaView = class(TModelDAO, IModelDAOCustom)
     private
+      procedure CnpjGetText(Sender: TField; var Text: String; DisplayText: Boolean);
     protected
       constructor Create;
     public
@@ -57,7 +58,8 @@ type
 implementation
 
 uses
-  UConstantesDGE;
+  UConstantesDGE,
+  Service.Utils;
 
 { TModelDAOEmpresa }
 
@@ -374,10 +376,10 @@ begin
         .Add('  , c.cidade')
         .Add('  , c.uf    ')
         .Add('  , c.cep   ')
-        .Add('  , c.nfe_serie  as serie_nfe    ')
-        .Add('  , c.nfe_numero as numero_nfe   ')
+        .Add('  , s.nfe_serie  as serie_nfe    ')
+        .Add('  , s.nfe_numero as numero_nfe   ')
         .Add('  , extract(year from current_date) as lote_ano_nfe ')
-        .Add('  , c.nfe_lote   as lote_num_nfe ')
+        .Add('  , s.nfe_lote   as lote_num_nfe ')
         .Add('  , 55 as modelo_nfe             ')
         .Add('  , coalesce(s.estoque_unico_empresas, 0)     as estoque_unico ')
         .Add('  , coalesce(s.permitir_venda_estoque_ins, 0) as permitir_venda_estoque_ins')
@@ -391,6 +393,8 @@ begin
       .&End
       .OrderBy('e.razao')
     .Open;
+
+  FConn.Query.DataSet.FieldByName('cnpj').OnGetText := CnpjGetText;
 end;
 
 destructor TModelDAOEmpresaView.Destroy;
@@ -401,6 +405,18 @@ end;
 class function TModelDAOEmpresaView.New: IModelDAOCustom;
 begin
   Result := Self.Create;
+end;
+
+procedure TModelDAOEmpresaView.CnpjGetText(Sender: TField; var Text: String; DisplayText: Boolean);
+begin
+  if Sender.IsNull then
+    Exit;
+
+  if TServicesUtils.StrIsCNPJ(Sender.AsString) then
+    Text := TServicesUtils.StrFormatarCnpj(Sender.AsString)
+  else
+  if TServicesUtils.StrIsCPF(Sender.AsString) then
+    Text := TServicesUtils.StrFormatarCpf(Sender.AsString);
 end;
 
 function TModelDAOEmpresaView.CreateLookupComboBoxList: IModelDAOCustom;

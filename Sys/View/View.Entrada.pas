@@ -421,7 +421,7 @@ uses
   View.Entrada.Cancelar,
   View.Entrada.GerarNFE,
   View.AutorizacaoCompra,
-  UGeConsultarLoteNFe_v2,
+  View.NFE.ConsultarLote,
   UGeEntradaEstoqueDevolucaoNF,
   UGeDistribuicaoDFe,
   UGeImportarNFE;

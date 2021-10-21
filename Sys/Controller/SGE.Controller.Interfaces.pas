@@ -83,7 +83,7 @@ type
     function ListaNFePendente(aCNPJEmissor : String) : IModelDAOCustom; overload;
     function ListaNFePendente(aCNPJEmissor, aRecibo : String) : IModelDAOCustom; overload;
     function EmissaoNFePendente(aCNPJEmissor : String) : Boolean;
-    function PesquisarLote(const aRecibo : String; var aAno, aControle : Integer; var aDestinaratio : String) : IModelDAOCustom;
+    function PesquisarLote(aCNPJEmissor, aRecibo : String; aLoteEnvioNFE : TLoteEnvioNFE) : IModelDAOCustom;
   end;
 
   IControllerEntrada = interface(IControllerCustom)
