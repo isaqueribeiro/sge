@@ -1165,7 +1165,7 @@ begin
         with DMBusiness, fdScript do
         begin
           aScript.LoadFromFile(aFileName);
-          aVersao := StrToCurr( OnlyNumber(ExtractFileName(aFileName)) );
+          aVersao := StrToCurr(OnlyNumber(ExtractFileName(aFileName)));
 
           SQLScriptFileName := aFileName;
           ValidateAll;
@@ -1173,7 +1173,7 @@ begin
           CommitTransaction;
 
           GravarSriptSQL(gSistema.Codigo, EmptyStr, True);
-          RenameFile(aFileName, ChangeFileExt(aFileName, '.upgraded'));
+          //RenameFile(aFileName, ChangeFileExt(aFileName, '.upgraded'));
 
           // Gravar registro referente ao PDV, caso ele essteja em uso...
           if UsoSistema(SISTEMA_PDV) then
@@ -1184,6 +1184,9 @@ begin
         GravarSriptSQL(gSistema.Codigo, E.Message, False);
     end;
   finally
+    if FileExists(aFileName) then
+      DeleteFiles(aFileName, False);
+
     aScript.Free;
   end;
 end;

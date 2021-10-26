@@ -55,7 +55,7 @@
     <Transaction>2021/10/15 21:37:11.000.745,C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\Unit1.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.LogTransacao.pas</Transaction>
     <Transaction>2021/10/15 21:50:54.000.352,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\Unit1.pas</Transaction>
     <Transaction>2021/10/15 21:52:54.000.319,C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\Unit1.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.LogTransacao.pas</Transaction>
-    <Transaction>2021/10/20 22:05:46.038,C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\UGeConsultarLoteNFe_v2.pas=</Transaction>
+    <Transaction>2021/10/20 22:05:46.000.038,C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\UGeConsultarLoteNFe_v2.pas=</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="..\..\SGE"/>
