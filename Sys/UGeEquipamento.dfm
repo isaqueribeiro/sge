@@ -29,6 +29,8 @@ inherited frmGeEquipamento: TfrmGeEquipamento
     ExplicitWidth = 999
     ExplicitHeight = 530
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 991
       ExplicitHeight = 501
       inherited Bevel4: TBevel

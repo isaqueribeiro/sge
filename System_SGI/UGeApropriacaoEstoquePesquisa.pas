@@ -241,7 +241,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, cxGridExportLink, UGeCentroCusto, UDMRecursos,
+  UDMBusiness, UConstantesDGE, cxGridExportLink, View.CentroCusto, UDMRecursos,
   UFuncoes, UGeProdutoImpressao;
 
 {$R *.dfm}

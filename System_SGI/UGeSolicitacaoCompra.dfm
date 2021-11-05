@@ -27,6 +27,8 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -626,6 +628,10 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           TabOrder = 12
           object TbsSolicitacaoObjeto: TTabSheet
             Caption = 'Objeto da Solicita'#231#227'o'
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbObjeto: TDBMemo
               Left = 0
               Top = 0
@@ -956,6 +962,10 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
         object tbsEventoLOG: TTabSheet
           Caption = 'LOG de Eventos'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbEventoLOG: TDBMemo
             Left = 0
             Top = 0

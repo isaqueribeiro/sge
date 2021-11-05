@@ -316,7 +316,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
     Top = 40
   end
   object frRequsicaoAlmoxSintetico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -400,6 +400,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -407,6 +408,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -423,6 +425,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559059999999999000
           Width = 109.606370000000000000
@@ -436,6 +439,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559059999999999000
           Width = 464.882190000000000000
@@ -454,6 +458,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -475,6 +480,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -494,6 +500,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692949999999990000
           Width = 464.882190000000000000
@@ -517,12 +524,14 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 113.385900000000000000
@@ -539,6 +548,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -556,6 +566,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 226.771800000000000000
           Top = 120.944960000000000000
           Width = 491.338900000000000000
@@ -572,6 +583,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 464.882190000000000000
@@ -606,6 +618,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 631.181510000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -622,6 +635,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118119999999980000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -638,6 +652,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -666,6 +681,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         ReprintOnNewPage = True
         StartNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -687,6 +703,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           CharSpacing = 2.000000000000000000
@@ -716,6 +733,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         DataSetName = 'frdsRequsicaoAlmoxSintetico'
         RowCount = 0
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -747,6 +765,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Width = 506.457020000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -777,6 +796,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 506.457020000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
@@ -812,6 +832,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 427.086890000000000000
         Width = 718.110700000000000000
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 3.779530000000000000
           Width = 98.267780000000000000
@@ -833,6 +854,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           WordWrap = False
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Top = 3.779530000000000000
           Width = 619.842920000000000000
           Height = 18.897650000000000000
@@ -862,6 +884,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -878,6 +901,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 37.795300000000000000
           Width = 166.299320000000000000
@@ -899,6 +923,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 37.795300000000000000
           Width = 113.385836540000000000
@@ -921,6 +946,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 18.897650000000000000
           Width = 279.685156540000000000
@@ -944,6 +970,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 75.590600000000000000
           Width = 113.385836540000000000
@@ -966,6 +993,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 75.590600000000000000
           Width = 166.299320000000000000
@@ -987,6 +1015,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           WordWrap = False
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 438.425480000000000000
           Height = 18.897650000000000000
@@ -1002,6 +1031,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           ParentFont = False
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 56.692949999999990000
           Width = 113.385836540000000000
@@ -1024,6 +1054,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object SysMemo12: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 56.692950000000000000
           Width = 166.299320000000000000
@@ -1054,6 +1085,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Width = 718.110700000000000000
         Condition = 'frdsRequsicaoAlmoxSintetico."CC_ATENDENTE"'
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 506.457020000000000000
           Height = 18.897650000000000000
@@ -1074,6 +1106,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 18.897650000000000000
           Width = 98.267716540000000000
@@ -1096,6 +1129,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 506.457020000000000000
           Top = 18.897650000000000000
           Width = 113.385836540000000000
@@ -1117,6 +1151,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -1136,6 +1171,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1161,6 +1197,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 381.732530000000000000
         Width = 718.110700000000000000
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -1181,6 +1218,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           WordWrap = False
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Width = 619.842920000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1250,7 +1288,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
     Top = 72
   end
   object frRequsicaoAlmoxAnalitico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1331,6 +1369,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -1338,6 +1377,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -1354,6 +1394,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559059999999999000
           Width = 109.606370000000000000
@@ -1367,6 +1408,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559059999999999000
           Width = 464.882190000000000000
@@ -1385,6 +1427,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -1406,6 +1449,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -1425,6 +1469,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692949999999990000
           Width = 464.882190000000000000
@@ -1448,12 +1493,14 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -1470,6 +1517,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -1487,6 +1535,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 812.598950000000000000
@@ -1503,6 +1552,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 464.882190000000000000
@@ -1537,6 +1587,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 631.181510000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1553,6 +1604,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118119999999980000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -1569,6 +1621,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -1596,6 +1649,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Condition = 'frdsRequisicaoAlmoxAnalitico."TIPO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 98.267780000000000000
           Width = 948.662030000000000000
           Height = 18.897650000000000000
@@ -1615,6 +1669,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 98.267780000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1643,6 +1698,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         DataSetName = 'frdsRequisicaoAlmoxAnalitico'
         RowCount = 0
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 646.299630000000000000
           Width = 302.362400000000000000
           Height = 18.897650000000000000
@@ -1671,6 +1727,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 948.662030000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -1702,6 +1759,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Width = 98.267716540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1729,6 +1787,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 98.267780000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -1759,6 +1818,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Width = 283.464686540000000000
           Height = 18.897650000000000000
@@ -1787,6 +1847,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 548.031849999999900000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -1815,6 +1876,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -1850,6 +1912,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 646.299630000000000000
           Width = 302.362336540000000000
           Height = 18.897650000000000000
@@ -1871,6 +1934,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 948.662030000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -1899,6 +1963,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 767.244590000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1913,6 +1978,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 880.630490000000000000
           Top = 18.897650000000000000
           Width = 166.299320000000000000
@@ -1934,6 +2000,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           WordWrap = False
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 767.244590000000000000
           Top = 18.897650000000000000
           Width = 113.385836540000000000
@@ -1956,6 +2023,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 767.244590000000000000
           Width = 279.685156540000000000
           Height = 18.897650000000000000
@@ -1977,6 +2045,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 767.244590000000000000
           Top = 56.692949999999990000
           Width = 113.385836540000000000
@@ -1999,6 +2068,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 880.630490000000000000
           Top = 56.692949999999990000
           Width = 166.299320000000000000
@@ -2020,6 +2090,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           WordWrap = False
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 767.244590000000000000
           Top = 37.795300000000000000
           Width = 113.385836540000000000
@@ -2042,6 +2113,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object SysMemo12: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 880.630490000000000000
           Top = 37.795300000000000000
           Width = 166.299320000000000000
@@ -2074,6 +2146,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         KeepTogether = True
         ReprintOnNewPage = True
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Width = 385.511996540000000000
           Height = 18.897650000000000000
@@ -2091,6 +2164,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 948.662030000000000000
           Top = 18.897650000000000000
           Width = 98.267716540000000000
@@ -2113,6 +2187,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -2133,6 +2208,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 98.267780000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -2154,6 +2230,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
@@ -2174,6 +2251,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Width = 181.417440000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -2192,6 +2270,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Width = 480.000310000000000000
           Height = 18.897650000000000000
@@ -2211,6 +2290,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Top = 37.795300000000000000
           Width = 283.464688980000000000
@@ -2232,6 +2312,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 548.031850000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -2253,6 +2334,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 18.897650000000000000
           Width = 483.779776540000000000
@@ -2275,6 +2357,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -2296,6 +2379,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 646.299630000000000000
           Top = 37.795300000000000000
           Width = 302.362336540000000000
@@ -2324,6 +2408,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 646.299630000000000000
           Width = 302.362336540000000000
           Height = 18.897650000000000000
@@ -2344,6 +2429,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 948.662030000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -2422,7 +2508,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
     Top = 40
   end
   object frRequisicaoAlmoxProdutoS: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -2493,6 +2579,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -2500,6 +2587,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -2516,6 +2604,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559059999999999000
           Width = 109.606370000000000000
@@ -2529,6 +2618,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559059999999999000
           Width = 464.882190000000000000
@@ -2547,6 +2637,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -2568,6 +2659,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -2587,6 +2679,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692949999999990000
           Width = 464.882190000000000000
@@ -2610,12 +2703,14 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -2632,6 +2727,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -2649,6 +2745,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 812.598950000000000000
@@ -2665,6 +2762,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 464.882190000000000000
@@ -2699,6 +2797,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 608.504330000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2715,6 +2814,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118119999999980000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -2731,6 +2831,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -2758,6 +2859,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Condition = 'frdsRequisicaoAlmoxProdutoS."CCUSTO_ATENDENTE"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Width = 865.512370000000000000
           Height = 18.897650000000000000
@@ -2777,6 +2879,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 181.417440000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -2805,6 +2908,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         DataSetName = 'frdsRequisicaoAlmoxProdutoS'
         RowCount = 0
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -2827,6 +2931,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Width = 68.031476540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -2845,6 +2950,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 68.031540000000000000
           Width = 495.118366540000000000
           Height = 18.897650000000000000
@@ -2864,6 +2970,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 634.961040000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
@@ -2883,6 +2990,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 563.149970000000000000
           Width = 71.811006540000000000
           Height = 18.897650000000000000
@@ -2905,6 +3013,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 729.449290000000000000
           Width = 71.811006540000000000
           Height = 18.897650000000000000
@@ -2928,6 +3037,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 801.260360000000000000
           Width = 71.811006540000000000
           Height = 18.897650000000000000
@@ -2951,6 +3061,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Width = 71.811006540000000000
           Height = 18.897650000000000000
@@ -2981,6 +3092,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 634.961040000000000000
           Width = 309.921396540000000000
           Height = 18.897650000000000000
@@ -3002,6 +3114,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -3033,6 +3146,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 767.244590000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3045,6 +3159,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           ParentFont = False
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 767.244590000000000000
           Top = 37.795300000000000000
           Width = 113.385836540000000000
@@ -3068,6 +3183,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 767.244590000000000000
           Width = 279.685156540000000000
           Height = 18.897650000000000000
@@ -3089,6 +3205,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 767.244590000000000000
           Top = 18.897650000000000000
           Width = 113.385836540000000000
@@ -3111,6 +3228,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 880.630490000000000000
           Top = 18.897650000000000000
           Width = 166.299256540000000000
@@ -3134,6 +3252,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 880.630490000000000000
           Top = 37.795300000000000000
           Width = 166.299256540000000000
@@ -3165,6 +3284,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Condition = 'frdsRequisicaoAlmoxProdutoS."TIPO"'
         ReprintOnNewPage = True
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Width = 385.511996540000000000
           Height = 18.897650000000000000
@@ -3182,6 +3302,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Top = 18.897650000000000000
           Width = 102.047246540000000000
@@ -3204,6 +3325,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 68.031476540000000000
           Height = 18.897650000000000000
@@ -3224,6 +3346,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 729.449290000000000000
           Height = 18.897650000000000000
@@ -3244,6 +3367,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Width = 181.417440000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -3262,6 +3386,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Width = 480.000310000000000000
           Height = 18.897650000000000000
@@ -3281,6 +3406,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 68.031540000000000000
           Top = 37.795300000000000000
           Width = 495.118368980000000000
@@ -3302,6 +3428,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 634.961040000000000000
           Top = 37.795300000000000000
           Width = 94.488186540000000000
@@ -3323,6 +3450,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 729.449290000000000000
           Top = 18.897650000000000000
           Width = 215.433146540000000000
@@ -3345,6 +3473,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 563.149970000000000000
           Top = 37.795300000000000000
           Width = 71.811006540000000000
@@ -3367,6 +3496,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 729.449290000000000000
           Top = 37.795300000000000000
           Width = 71.811006540000000000
@@ -3389,6 +3519,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 801.260360000000000000
           Top = 37.795300000000000000
           Width = 71.811006540000000000
@@ -3411,6 +3542,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 37.795300000000000000
           Width = 71.811006540000000000
@@ -3440,6 +3572,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 634.961040000000000000
           Width = 309.921396540000000000
           Height = 18.897650000000000000
@@ -3460,6 +3593,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -3522,7 +3656,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
     Top = 72
   end
   object frRequisicaoAlmoxProdutoE: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3593,6 +3727,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -3600,6 +3735,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -3616,6 +3752,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559059999999999000
           Width = 109.606370000000000000
@@ -3629,6 +3766,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559059999999999000
           Width = 464.882190000000000000
@@ -3647,6 +3785,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -3668,6 +3807,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -3687,6 +3827,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692949999999990000
           Width = 464.882190000000000000
@@ -3710,12 +3851,14 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -3732,6 +3875,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -3749,6 +3893,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 812.598950000000000000
@@ -3765,6 +3910,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 464.882190000000000000
@@ -3799,6 +3945,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 608.504330000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3815,6 +3962,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118119999999980000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -3831,6 +3979,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -3858,6 +4007,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Condition = 'frdsRequisicaoAlmoxProdutoE."CCUSTO_REQUISITANTE"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Width = 865.512370000000000000
           Height = 18.897650000000000000
@@ -3877,6 +4027,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 181.417440000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -3905,6 +4056,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         DataSetName = 'frdsRequisicaoAlmoxProdutoE'
         RowCount = 0
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -3927,6 +4079,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Width = 68.031476540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -3945,6 +4098,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 68.031540000000000000
           Width = 495.118366540000000000
           Height = 18.897650000000000000
@@ -3964,6 +4118,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 634.961040000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
@@ -3983,6 +4138,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 563.149970000000000000
           Width = 71.811006540000000000
           Height = 18.897650000000000000
@@ -4005,6 +4161,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 729.449290000000000000
           Width = 71.811006540000000000
           Height = 18.897650000000000000
@@ -4028,6 +4185,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 801.260360000000000000
           Width = 71.811006540000000000
           Height = 18.897650000000000000
@@ -4051,6 +4209,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Width = 71.811006540000000000
           Height = 18.897650000000000000
@@ -4081,6 +4240,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 634.961040000000000000
           Width = 309.921396540000000000
           Height = 18.897650000000000000
@@ -4104,6 +4264,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -4135,6 +4296,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 767.244590000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -4147,6 +4309,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           ParentFont = False
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 767.244590000000000000
           Top = 37.795300000000000000
           Width = 113.385836540000000000
@@ -4170,6 +4333,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 767.244590000000000000
           Width = 279.685156540000000000
           Height = 18.897650000000000000
@@ -4191,6 +4355,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 767.244590000000000000
           Top = 18.897650000000000000
           Width = 113.385836540000000000
@@ -4213,6 +4378,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 880.630490000000000000
           Top = 18.897650000000000000
           Width = 166.299256540000000000
@@ -4236,6 +4402,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 880.630490000000000000
           Top = 37.795300000000000000
           Width = 166.299256540000000000
@@ -4267,6 +4434,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Condition = 'frdsRequisicaoAlmoxProdutoE."TIPO"'
         ReprintOnNewPage = True
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Width = 385.511996540000000000
           Height = 18.897650000000000000
@@ -4284,6 +4452,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Top = 18.897650000000000000
           Width = 102.047246540000000000
@@ -4306,6 +4475,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 68.031476540000000000
           Height = 18.897650000000000000
@@ -4326,6 +4496,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 729.449290000000000000
           Height = 18.897650000000000000
@@ -4346,6 +4517,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Width = 181.417440000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -4364,6 +4536,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Width = 480.000310000000000000
           Height = 18.897650000000000000
@@ -4383,6 +4556,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 68.031540000000000000
           Top = 37.795300000000000000
           Width = 495.118368980000000000
@@ -4404,6 +4578,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 634.961040000000000000
           Top = 37.795300000000000000
           Width = 94.488186540000000000
@@ -4425,6 +4600,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 729.449290000000000000
           Top = 18.897650000000000000
           Width = 215.433146540000000000
@@ -4447,6 +4623,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 563.149970000000000000
           Top = 37.795300000000000000
           Width = 71.811006540000000000
@@ -4469,6 +4646,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 729.449290000000000000
           Top = 37.795300000000000000
           Width = 71.811006540000000000
@@ -4491,6 +4669,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 801.260360000000000000
           Top = 37.795300000000000000
           Width = 71.811006540000000000
@@ -4513,6 +4692,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 37.795300000000000000
           Width = 71.811006540000000000
@@ -4542,6 +4722,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 634.961040000000000000
           Width = 309.921396540000000000
           Height = 18.897650000000000000
@@ -4562,6 +4743,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 944.882500000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000

@@ -3,7 +3,7 @@ unit UGeApropriacaoEstoque;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Windows, Messages, SysUtils, StrUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, 
   IBTable, Menus, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, cxButtons,
@@ -118,7 +118,6 @@ type
     fdQryTabelaCANCEL_USUARIO: TStringField;
     fdQryTabelaCANCEL_DATAHORA: TSQLTimeStampField;
     fdQryTabelaCANCEL_MOTIVO: TMemoField;
-    fdQryTabelaITENS: TIntegerField;
     fdQryTabelaEMPRESA_NOME: TStringField;
     fdQryTabelaCC_DESCRICAO: TStringField;
     fdQryTabelaCC_CLIENTE_CODIGO: TIntegerField;
@@ -159,6 +158,7 @@ type
     cdsTabelaItensCUSTO_TOTAL: TFMTBCDField;
     cdsTabelaItensESTOQUE: TFMTBCDField;
     cdsTabelaItensRESERVA: TFMTBCDField;
+    fdQryTabelaITENS: TLargeintField;
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -260,8 +260,8 @@ var
 implementation
 
 uses
-  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe, UGeProduto, UGeApropriacaoEstoqueCancelar,
-  UGeCentroCusto, UGeEntradaEstoque, UGeAutorizacaoCompra, Controller.Tabela;
+  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMRecursos, UDMNFe, View.Produto,
+  UGeApropriacaoEstoqueCancelar, View.CentroCusto, UGeEntradaEstoque, View.AutorizacaoCompra, Controller.Tabela;
 
 {$R *.dfm}
 
@@ -387,6 +387,7 @@ begin
 
   Tabela
     .Display('CONTROLE', 'Contole', DisplayFormatCodigo, TAlignment.taCenter)
+    .Display('ITENS', 'Produto(s)', ',0', TAlignment.taRightJustify)
     .Display('VALOR_TOTAL', 'Valor Total (R$)', ',0.00', TAlignment.taRightJustify)
     .Configurar( fdQryTabela );
 
@@ -709,13 +710,15 @@ procedure TfrmGeApropriacaoEstoque.btnEncerrarApropriacaoClick(
       cdsTabelaItens.DisableControls;
       while not cdsTabelaItens.Eof do
       begin
-        if ( (cdsTabelaItensMOVIMENTA_ESTOQUE.AsInteger = 0) or (DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_ANO').AsInteger > 0) ) then // Produto não movimenta estoque ou autorização informada
+        // Produto não movimenta estoque ou autorização informada
+        if ( (cdsTabelaItensMOVIMENTA_ESTOQUE.AsInteger = 0) or (DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_ANO').AsInteger > 0) ) then
           Return := False
         else
           Return := ( (cdsTabelaItensQTDE.AsCurrency > (cdsTabelaItensESTOQUE.AsCurrency - cdsTabelaItensRESERVA.AsCurrency)) or (cdsTabelaItensESTOQUE.AsCurrency <= 0) );
 
         if ( Return ) then
           Break;
+
         cdsTabelaItens.Next;
       end;
 
@@ -745,10 +748,10 @@ procedure TfrmGeApropriacaoEstoque.btnEncerrarApropriacaoClick(
           begin
             ParamByName('empresa').AsString      := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
             ParamByName('produto').AsString      := cdsTabelaItensPRODUTO.AsString;
-            ParamByName('qtde_atual').AsCurrency := cdsTabelaItensESTOQUE.AsCurrency + cdsTabelaItensRESERVA.AsCurrency;
-            ParamByName('qtde_nova').AsCurrency  := cdsTabelaItensQTDE.AsCurrency    + cdsTabelaItensRESERVA.AsCurrency;
+            ParamByName('qtde_atual').Value      := cdsTabelaItensESTOQUE.AsCurrency + cdsTabelaItensRESERVA.AsCurrency;
+            ParamByName('qtde_nova').Value       := cdsTabelaItensQTDE.AsCurrency    + cdsTabelaItensRESERVA.AsCurrency;
             ParamByName('motivo').AsString       := 'APROPRIAÇÃO DE ESTOQUE PARA O CENTRO DE CUSTO ' + dbCentroCusto.Text;
-            ParamByName('data_hora').AsDateTime  := GetDateTimeDB;
+            ParamByName('data_hora').Value       := GetDateTimeDB;
             ParamByName('usuario').AsString      := gUsuarioLogado.Login;
             ParamByName('documento').AsString    := 'AE' +
               Copy(DtSrcTabela.DataSet.FieldByName('ANO').AsString, 3, 2) +

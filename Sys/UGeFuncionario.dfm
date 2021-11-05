@@ -25,6 +25,8 @@ inherited frmGeFuncionario: TfrmGeFuncionario
     ExplicitWidth = 844
     ExplicitHeight = 457
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 836
       ExplicitHeight = 428
       inherited Bevel4: TBevel
@@ -906,6 +908,10 @@ inherited frmGeFuncionario: TfrmGeFuncionario
         TabOrder = 3
         object tbsContato: TTabSheet
           Caption = '&1. Contato'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblFone: TLabel
             Left = 12
             Top = 8
@@ -1009,6 +1015,10 @@ inherited frmGeFuncionario: TfrmGeFuncionario
         object tbsDadosAdcionais: TTabSheet
           Caption = '&2. Outras Informa'#231#245'es'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbFoto3x4: TDBImage
             Left = 696
             Top = 0
@@ -1164,6 +1174,10 @@ inherited frmGeFuncionario: TfrmGeFuncionario
         object tbsObservacao: TTabSheet
           Caption = '&3. Observa'#231#245'es'
           ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0

@@ -34,6 +34,21 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // Table
+  TModelDAOCompetencia = class(TModelDAO, IModelDAOCustom)
+    private
+      procedure SetProviderFlags;
+      procedure DataSetAfterOpen(DataSet: TDataSet);
+      procedure DataSetNewRecord(DataSet: TDataSet);
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
   // View
   TModelDAOTipoRegimeView = class(TModelDAO, IModelDAOCustom)
     private
@@ -132,6 +147,18 @@ type
 
   // Alíquota COFINS (View)
   TModelDAOAliquotaCOFINSView = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
+  // Forma de Devolução (View)
+  TModelDAOFormaDevolucao = class(TModelDAO, IModelDAOCustom)
     private
     protected
       constructor Create;
@@ -617,6 +644,113 @@ end;
 class function TModelDAOAliquotaICMS.New: IModelDAOCustom;
 begin
   Result := Self.Create;
+end;
+
+{ TModelDAOFormaDevolucao }
+
+constructor TModelDAOFormaDevolucao.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    codigo    ')
+        .Add('  , descricao ')
+        .Add('from VW_FORMA_DEVOLUCAO')
+      .&End
+    .Open;
+end;
+
+destructor TModelDAOFormaDevolucao.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOFormaDevolucao.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOFormaDevolucao.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+{ TModelDAOCompetencia }
+
+constructor TModelDAOCompetencia.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .TableName('TBCOMPETENCIA')
+      .KeyFields('cmp_num')
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    c.cmp_num ')
+        .Add('  , c.cmp_desc')
+        .Add('  , right(c.cmp_num, 4) as codigo_resumo ')
+        .Add('  , substring(c.cmp_num from 5 for 2) || ''/'' || substring(c.cmp_num from 1 for 4) as descricao_resumo ')
+        .Add('from TBCOMPETENCIA c')
+      .&End
+      .OrderBy('c.cmp_num')
+      .OpenEmpty
+      .CloseEmpty;
+
+  FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
+end;
+
+destructor TModelDAOCompetencia.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOCompetencia.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOCompetencia.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if (not FConn.Query.DataSet.Active) or FConn.Query.DataSet.IsEmpty then
+  begin
+    FConn.Query.Close;
+    FConn
+      .Query
+        .SQL
+          .ClearWhere
+        .&End
+        .Open;
+  end;
+end;
+
+procedure TModelDAOCompetencia.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  SetProviderFlags;
+end;
+
+procedure TModelDAOCompetencia.DataSetNewRecord(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+  begin
+    FieldByName('cmp_num').Clear;
+    FieldByName('cmp_desc').Clear;
+    FieldByName('codigo_resumo').Clear;
+    FieldByName('descricao_resumo').Clear;
+  end;
+end;
+
+procedure TModelDAOCompetencia.SetProviderFlags;
+begin
+  // Ignorar campos no Insert e Update
+  FConn.Query.DataSet.FieldByName('codigo_resumo').ProviderFlags    := [];
+  FConn.Query.DataSet.FieldByName('descricao_resumo').ProviderFlags := [];
 end;
 
 end.

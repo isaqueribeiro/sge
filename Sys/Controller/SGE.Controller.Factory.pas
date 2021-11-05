@@ -18,6 +18,7 @@ uses
   SGE.Controller.Distrito,
   SGE.Controller.Empresa,
   SGE.Controller.Entrada,
+  SGE.Controller.Estado,
   SGE.Controller.FormaPagto,
   SGE.Controller.Fornecedor,
   SGE.Controller.IBPT,
@@ -56,6 +57,7 @@ type
       FClienteTitulos,
       FClienteTotalCompras ,
       FCombustivelVeiculo  ,
+      FCompetencia         ,
       FCondicaoPagto       ,
       FCondicaoPagtoForma  ,
       FCondicaoPagtoView   ,
@@ -70,8 +72,10 @@ type
       FEmpresaView : IControllerEmpresa;
       FEntrada     : IControllerEntrada;
       FEntradaProduto   : IControllerEntradaProduto;
+      FEstado ,
       FFabricanteProduto,
-      FFormaPagto ,
+      FFormaDevolucao,
+      FFormaPagto    ,
       FFormaPagtoContaCorrente,
       FFormaPagtoNFCEView     : IControllerCustom;
       FFornecedor     : IControllerFornecedor;
@@ -140,6 +144,7 @@ type
       function ClienteTotalCompras : IControllerCustom;
       function ClienteTitulos : IControllerCustom;
       function CombustivelVeiculo : IControllerCustom;
+      function Competencia : IControllerCustom;
       function CondicaoPagto : IControllerCustom;
       function CondicaoPagtoForma : IControllerCustom;
       function CondicaoPagtoView : IControllerCustom;
@@ -154,7 +159,9 @@ type
       function EmpresaView : IControllerEmpresa;
       function Entrada : IControllerEntrada;
       function EntradaProduto : IControllerEntradaProduto;
+      function Estado  : IControllerCustom;
       function FabricanteProduto : IControllerCustom;
+      function FormaDevolucao : IControllerCustom;
       function FormaPagto : IControllerCustom;
       function FormaPagtoContaCorrente : IControllerCustom;
       function FormaPagtoNFCEView : IControllerCustom;
@@ -461,6 +468,14 @@ begin
   Result := FCombustivelVeiculo;
 end;
 
+function TControllerFactory.Competencia: IControllerCustom;
+begin
+  if not Assigned(FCompetencia) then
+    FCompetencia := TControllerCompetencia.New;
+
+  Result := FCompetencia;
+end;
+
 function TControllerFactory.CondicaoPagto: IControllerCustom;
 begin
   if not Assigned(FCondicaoPagto) then
@@ -565,12 +580,28 @@ begin
   Result := FEntradaProduto;
 end;
 
+function TControllerFactory.Estado: IControllerCustom;
+begin
+  if not Assigned(FEstado) then
+    FEstado := TControllerEstado.New;
+
+  Result := FEstado;
+end;
+
 function TControllerFactory.FabricanteProduto: IControllerCustom;
 begin
   if not Assigned(FFabricanteProduto) then
     FFabricanteProduto := TControllerFabricanteProduto.New;
 
   Result := FFabricanteProduto;
+end;
+
+function TControllerFactory.FormaDevolucao: IControllerCustom;
+begin
+  if not Assigned(FFormaDevolucao) then
+    FFormaDevolucao := TControllerFormaDevolucao.New;
+
+  Result := FFormaDevolucao;
 end;
 
 function TControllerFactory.FormaPagto: IControllerCustom;

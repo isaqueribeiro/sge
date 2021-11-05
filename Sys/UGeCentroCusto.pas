@@ -3,7 +3,7 @@ unit UGeCentroCusto;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Windows, Messages, SysUtils, StrUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, IBCustomDataSet, IBUpdateSQL, DB, System.ImageList,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, ToolWin, DBClient,
   Provider, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
@@ -96,7 +96,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UConstantesDGE, UGeCliente;
+  UDMBusiness, UDMRecursos, UConstantesDGE, View.Cliente;
 
 {$R *.dfm}
 

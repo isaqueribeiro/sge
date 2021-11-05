@@ -128,7 +128,7 @@ const
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UDMNFe, UFuncoes;
+  UConstantesDGE, UDMRecursos, UDMBusiness, UDMNFe, UFuncoes;
 
 {$R *.dfm}
 

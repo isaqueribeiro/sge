@@ -96,6 +96,7 @@ type
     function ClienteTitulos : IModelDAOCustom;
     function ClienteTotalCompras : IModelDAOCustom;
     function CombustivelVeiculo : IModelDAOCustom;
+    function Competencia : IModelDAOCustom;
     function CondicaoPagto : IModelDAOCustom;
     function CondicaoPagtoForma : IModelDAOCustom;
     function CondicaoPagtoView : IModelDAOCustom;
@@ -111,7 +112,9 @@ type
     function Entrada : IModelDAOCustom;
     function EntradaLoteProduto : IModelDAOCustom;
     function EntradaProduto : IModelDAOCustom;
+    function Estado : IModelDAOCustom;
     function FabricanteProduto : IModelDAOCustom;
+    function FormaDevolucao : IModelDAOCustom;
     function FormaPagto : IModelDAOCustom;
     function FormaPagtoContaCorrente : IModelDAOCustom;
     function FormaPagtoNFCEView : IModelDAOCustom;

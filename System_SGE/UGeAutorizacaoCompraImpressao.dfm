@@ -193,7 +193,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
     Top = 8
   end
   object frRelacaoAutorizacaoGeralSintetico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -270,6 +270,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -277,6 +278,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -293,6 +295,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -306,6 +309,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -324,6 +328,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -345,6 +350,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -364,6 +370,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 464.882190000000000000
@@ -387,12 +394,14 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 464.882190000000000000
@@ -420,6 +429,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             end>
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 113.385900000000000000
@@ -436,6 +446,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -453,6 +464,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 226.771800000000000000
           Top = 120.944960000000000000
           Width = 491.338900000000000000
@@ -476,6 +488,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Top = 665.197280000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -492,6 +505,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -508,6 +522,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -535,6 +550,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Condition = 'frdsRelacaoAutorizacaoGeralSintetico."TIPO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 94.488250000000000000
           Width = 623.622450000000000000
           Height = 18.897650000000000000
@@ -554,6 +570,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 94.488250000000000000
           Height = 18.897650000000000000
           CharSpacing = 2.000000000000000000
@@ -573,6 +590,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 207.874150000000000000
           Height = 18.897650000000000000
@@ -593,6 +611,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 94.488250000000000000
           Top = 37.795300000000000000
           Width = 113.385826770000000000
@@ -614,6 +633,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 532.913730000000000000
           Top = 37.795300000000000000
           Width = 86.929131420000000000
@@ -636,6 +656,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -658,6 +679,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 207.874150000000000000
           Top = 18.897650000000000000
           Width = 510.236550000000000000
@@ -680,6 +702,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 94.488250000000000000
           Height = 18.897650000000000000
@@ -700,6 +723,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 207.874150000000000000
           Top = 37.795300000000000000
           Width = 52.913356540000000000
@@ -722,6 +746,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 260.787570000000000000
           Top = 37.795300000000000000
           Width = 98.267731180000000000
@@ -744,6 +769,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Left = 445.984540000000000000
           Top = 37.795300000000000000
           Width = 86.929141180000000000
@@ -766,6 +792,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 359.055350000000000000
           Top = 37.795300000000000000
           Width = 86.929141180000000000
@@ -798,6 +825,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         DataSetName = 'frdsRelacaoAutorizacaoGeralSintetico'
         RowCount = 0
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 94.488250000000000000
           Width = 113.385900000000000000
           Height = 18.897650000000000000
@@ -832,6 +860,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             end>
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 532.913730000000000000
           Width = 86.929190000000000000
           Height = 18.897650000000000000
@@ -864,6 +893,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -896,6 +926,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Width = 94.488250000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -924,6 +955,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 207.874150000000000000
           Width = 52.913356540000000000
           Height = 18.897650000000000000
@@ -956,6 +988,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 260.787570000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -988,6 +1021,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 445.984540000000000000
           Width = 86.929190000000000000
           Height = 18.897650000000000000
@@ -1020,6 +1054,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo38: TfrxMemoView
+          AllowVectorExport = True
           Left = 359.055350000000000000
           Width = 86.929190000000000000
           Height = 18.897650000000000000
@@ -1059,6 +1094,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Top = 355.275820000000000000
         Width = 718.110700000000000000
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -1079,6 +1115,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 532.913730000000000000
           Width = 86.929190000000000000
           Height = 18.897650000000000000
@@ -1099,6 +1136,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object SysMemo7: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 207.874150000000000000
           Width = 52.913420000000000000
           Height = 18.897650000000000000
@@ -1119,6 +1157,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 260.787570000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -1139,6 +1178,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object SysMemo13: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 445.984540000000000000
           Width = 86.929190000000000000
           Height = 18.897650000000000000
@@ -1159,6 +1199,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object SysMemo14: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 359.055350000000000000
           Width = 86.929190000000000000
           Height = 18.897650000000000000
@@ -1187,6 +1228,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1203,6 +1245,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 45.354360000000000000
           Width = 166.299320000000000000
@@ -1224,6 +1267,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 45.354360000000000000
           Width = 113.385836540000000000
@@ -1246,6 +1290,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 26.456710000000000000
           Width = 279.685156540000000000
@@ -1268,6 +1313,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 120.944960000000000000
           Width = 113.385836540000000000
@@ -1290,6 +1336,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 139.842610000000000000
           Width = 113.385836540000000000
@@ -1312,6 +1359,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object SysMemo9: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 120.944960000000000000
           Width = 166.299320000000000000
@@ -1333,6 +1381,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 139.842610000000000000
           Width = 166.299320000000000000
@@ -1354,6 +1403,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 177.637910000000000000
           Width = 113.385836540000000000
@@ -1376,6 +1426,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 177.637910000000000000
           Width = 166.299320000000000000
@@ -1395,6 +1446,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 438.425480000000000000
           Height = 18.897650000000000000
@@ -1410,6 +1462,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           ParentFont = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 64.252010000000000000
           Width = 166.299320000000000000
@@ -1431,6 +1484,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 64.252010000000000000
           Width = 113.385836540000000000
@@ -1453,6 +1507,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object SysMemo3: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 83.149660000000000000
           Width = 166.299320000000000000
@@ -1474,6 +1529,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 83.149660000000000000
           Width = 113.385836540000000000
@@ -1496,6 +1552,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object SysMemo4: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 102.047310000000000000
           Width = 166.299320000000000000
@@ -1517,6 +1574,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 102.047310000000000000
           Width = 113.385836540000000000
@@ -1539,6 +1597,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 158.740260000000000000
           Width = 113.385836540000000000
@@ -1561,6 +1620,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object SysMemo12: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 158.740260000000000000
           Width = 166.299320000000000000
@@ -1618,7 +1678,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
     Top = 8
   end
   object frRelacaoAutorizacaoGeralAnalitico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1700,6 +1760,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -1707,6 +1768,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -1723,6 +1785,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -1736,6 +1799,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -1754,6 +1818,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -1775,6 +1840,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -1794,6 +1860,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 464.882190000000000000
@@ -1817,12 +1884,14 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 464.882190000000000000
@@ -1850,6 +1919,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             end>
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -1866,6 +1936,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -1883,6 +1954,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 812.598950000000000000
@@ -1906,6 +1978,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Top = 665.197280000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1922,6 +1995,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -1938,6 +2012,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -1965,6 +2040,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Condition = 'frdsRelacaoAutorizacaoGeralAnalitico."COMPETENCIA"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
@@ -1984,6 +2060,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -2012,6 +2089,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         DataSetName = 'frdsRelacaoAutorizacaoGeralAnalitico'
         RowCount = 0
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -2045,6 +2123,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 797.480830000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -2078,6 +2157,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 948.662030000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -2111,6 +2191,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149596540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -2140,6 +2221,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
@@ -2172,6 +2254,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 241.889920000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -2202,6 +2285,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 162.519790000000000000
           Width = 79.370066540000000000
           Height = 18.897650000000000000
@@ -2235,6 +2319,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 340.157700000000000000
           Width = 102.047246540000000000
           Height = 18.897650000000000000
@@ -2265,6 +2350,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo48: TfrxMemoView
+          AllowVectorExport = True
           Left = 721.890230000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -2298,6 +2384,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo42: TfrxMemoView
+          AllowVectorExport = True
           Left = 442.205010000000000000
           Width = 49.133890000000000000
           Height = 18.897650000000000000
@@ -2331,6 +2418,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 491.338900000000000000
           Width = 132.283486540000000000
           Height = 18.897650000000000000
@@ -2361,6 +2449,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo58: TfrxMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -2401,6 +2490,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Top = 521.575140000000000000
         Width = 1046.929810000000000000
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 442.205010000000000000
           Width = 181.417376540000000000
           Height = 18.897650000000000000
@@ -2422,6 +2512,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo46: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -2445,6 +2536,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo47: TfrxMemoView
+          AllowVectorExport = True
           Left = 797.480830000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -2468,6 +2560,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo50: TfrxMemoView
+          AllowVectorExport = True
           Left = 948.662030000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -2489,6 +2582,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo51: TfrxMemoView
+          AllowVectorExport = True
           Left = 721.890230000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -2512,6 +2606,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo60: TfrxMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -2543,6 +2638,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 699.213050000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2557,6 +2653,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           ParentFont = False
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Width = 423.307296540000000000
           Height = 18.897650000000000000
@@ -2578,6 +2675,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo52: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Top = 18.897650000000000000
           Width = 98.267716540000000000
@@ -2602,6 +2700,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo53: TfrxMemoView
+          AllowVectorExport = True
           Left = 797.480830000000000000
           Top = 18.897650000000000000
           Width = 75.590600000000000000
@@ -2626,6 +2725,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo54: TfrxMemoView
+          AllowVectorExport = True
           Left = 948.662030000000000000
           Top = 18.897650000000000000
           Width = 98.267716540000000000
@@ -2648,6 +2748,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo55: TfrxMemoView
+          AllowVectorExport = True
           Left = 721.890230000000000000
           Top = 18.897650000000000000
           Width = 75.590600000000000000
@@ -2672,6 +2773,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo56: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 623.622450000000000000
           Height = 18.897650000000000000
@@ -2689,6 +2791,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           ParentFont = False
         end
         object Memo61: TfrxMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 18.897650000000000000
           Width = 75.590600000000000000
@@ -2722,6 +2825,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Condition = 'frdsRelacaoAutorizacaoGeralAnalitico."TIPO"'
         ReprintOnNewPage = True
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -2740,6 +2844,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 963.780150000000000000
           Height = 18.897650000000000000
@@ -2766,6 +2871,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Top = 476.220780000000000000
         Width = 1046.929810000000000000
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 442.205010000000000000
           Width = 181.417376540000000000
           Height = 18.897650000000000000
@@ -2786,6 +2892,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -2808,6 +2915,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 797.480830000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -2830,6 +2938,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 948.662030000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -2850,6 +2959,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 721.890230000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -2872,6 +2982,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo59: TfrxMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -2903,6 +3014,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Condition = 'frdsRelacaoAutorizacaoGeralAnalitico."FORN_COD"'
         ReprintOnNewPage = True
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Width = 385.511996540000000000
           Height = 18.897650000000000000
@@ -2926,6 +3038,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 491.338900000000000000
           Top = 18.897650000000000000
           Width = 555.590910000000000000
@@ -2947,6 +3060,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 623.622450000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -2971,6 +3085,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 948.662030000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -2993,6 +3108,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -3013,6 +3129,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 37.795300000000000000
           Width = 79.370066540000000000
@@ -3034,6 +3151,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo38: TfrxMemoView
+          AllowVectorExport = True
           Left = 241.889920000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -3055,6 +3173,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 491.338900000000000000
           Height = 18.897650000000000000
@@ -3075,6 +3194,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -3093,6 +3213,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 578.268090000000000000
           Height = 18.897650000000000000
@@ -3112,6 +3233,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 162.519790000000000000
           Top = 37.795300000000000000
           Width = 79.370066540000000000
@@ -3133,6 +3255,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 340.157700000000000000
           Top = 37.795300000000000000
           Width = 102.047227010000000000
@@ -3154,6 +3277,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Left = 797.480830000000000000
           Top = 37.795300000000000000
           Width = 75.590551180000000000
@@ -3176,6 +3300,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo49: TfrxMemoView
+          AllowVectorExport = True
           Left = 721.890230000000000000
           Top = 37.795300000000000000
           Width = 75.590551180000000000
@@ -3198,6 +3323,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 442.205010000000000000
           Top = 37.795300000000000000
           Width = 49.133890000000000000
@@ -3220,6 +3346,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 491.338900000000000000
           Top = 37.795300000000000000
           Width = 132.283486540000000000
@@ -3241,6 +3368,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo57: TfrxMemoView
+          AllowVectorExport = True
           Left = 873.071430000000000000
           Top = 37.795300000000000000
           Width = 75.590551180000000000
@@ -3328,7 +3456,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
     Top = 40
   end
   object frRelacaoAutorizacaoLista: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3409,6 +3537,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -3416,6 +3545,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -3432,6 +3562,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -3445,6 +3576,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -3463,6 +3595,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -3484,6 +3617,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -3503,6 +3637,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 464.882190000000000000
@@ -3526,12 +3661,14 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 464.882190000000000000
@@ -3559,6 +3696,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             end>
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -3575,6 +3713,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -3592,6 +3731,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 483.779840000000000000
@@ -3615,6 +3755,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Top = 498.897960000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3631,6 +3772,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -3647,6 +3789,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -3675,6 +3818,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         DataSetName = 'frdsRelacaoAutorizacaoGeralAnalitico'
         RowCount = 0
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149596540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -3704,6 +3848,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 68.031476540000000000
           Height = 18.897650000000000000
@@ -3736,6 +3881,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 151.181200000000000000
           Width = 370.393876540000000000
           Height = 18.897650000000000000
@@ -3776,6 +3922,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
             end>
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 521.575140000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -3809,6 +3956,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -3850,6 +3998,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 521.575140000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3864,6 +4013,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           ParentFont = False
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 521.575140000000000000
           Width = 196.535496540000000000
           Height = 18.897650000000000000
@@ -3885,6 +4035,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 521.575140000000000000
           Height = 18.897650000000000000
@@ -3902,6 +4053,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           ParentFont = False
         end
         object Memo52: TfrxMemoView
+          AllowVectorExport = True
           Left = 521.575140000000000000
           Top = 18.897650000000000000
           Width = 98.267716540000000000
@@ -3926,6 +4078,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo54: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 18.897650000000000000
           Width = 98.267716540000000000
@@ -3957,6 +4110,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Condition = 'frdsRelacaoAutorizacaoGeralAnalitico."TIPO"'
         ReprintOnNewPage = True
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 521.575140000000000000
           Top = 18.897650000000000000
           Width = 196.535560000000000000
@@ -3978,6 +4132,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -3998,6 +4153,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Top = 37.795300000000000000
           Width = 68.031476540000000000
@@ -4019,6 +4175,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 521.575140000000000000
           Height = 18.897650000000000000
@@ -4039,6 +4196,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 151.181200000000000000
           Top = 37.795300000000000000
           Width = 370.393876540000000000
@@ -4060,6 +4218,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -4078,6 +4237,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -4097,6 +4257,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 521.575140000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -4121,6 +4282,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -4150,6 +4312,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
         Top = 355.275820000000000000
         Width = 718.110700000000000000
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 151.181200000000000000
           Width = 370.393876540000000000
           Height = 18.897650000000000000
@@ -4170,6 +4333,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 521.575140000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -4192,6 +4356,7 @@ inherited frmGeAutorizacaoCompraImpressao: TfrmGeAutorizacaoCompraImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000

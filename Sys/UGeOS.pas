@@ -3,12 +3,13 @@ unit UGeOS;
 interface
 
 uses
+  UConstantesDGE,
   UGrPadrao,
   UGrMemo,
   UGrPadraoCadastro,
-  UGeProduto,
+  View.Produto,
 
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Windows, Messages, SysUtils, StrUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ImgList, IBCustomDataSet, IBUpdateSQL, DB,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls,
   ToolWin, IBTable, JvExMask, JvToolEdit, System.ImageList,
@@ -22,7 +23,7 @@ uses
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
   dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
   dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Light, cxImageList;
 
 type
   TfrmGeOS = class(TfrmGrPadraoCadastro)
@@ -716,8 +717,8 @@ var
 implementation
 
 uses
-  DateUtils, SysConst, UConstantesDGE, UFuncoes, UDMBusiness, UDMNFe, UDMNFSe,
-  UGeCliente, UGeTabelaCNAE, UGeTabelaIBPT, UGeCondicaoPagto, UGeGerarBoletos,
+  DateUtils, SysConst, UFuncoes, UDMRecursos, UDMBusiness, UDMNFe, UDMNFSe,
+  View.Cliente, UGeTabelaCNAE, View.IBPT, View.CondicaoPagto, UGeGerarBoletos,
   UGeEfetuarPagtoREC, UGeEquipamento, UGeOSFormaPagto, UGeOSConfirmaTitulos,
   UGeOSCancelar, UGrMemoData;
 

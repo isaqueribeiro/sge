@@ -29,6 +29,16 @@ type
       class function New : IControllerCustom;
   end;
 
+  // Tabela de Competências (Table)
+  TControllerCompetencia = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
   // View
   TControllerTipoRegimeView = class(TController, IControllerCustom)
     private
@@ -111,6 +121,16 @@ type
 
   // Alíquota COFINS (View)
   TControllerAliquotaCOFINSView = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
+  // Forma de Devolução (View)
+  TControllerFormaDevolucao = class(TController, IControllerCustom)
     private
     protected
       constructor Create;
@@ -352,6 +372,40 @@ begin
   aAliquotaST    := FDAO.DataSet.FieldByName('aliquota_st').AsCurrency;     // ICMS de destino (quando o produto sai do Estado)
 
   FDAO.DataSet.Close;
+end;
+
+{ TControllerFormaDevolucao }
+
+constructor TControllerFormaDevolucao.Create;
+begin
+  inherited Create(TModelDAOFactory.New.FormaDevolucao);
+end;
+
+destructor TControllerFormaDevolucao.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerFormaDevolucao.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerCompetencia }
+
+constructor TControllerCompetencia.Create;
+begin
+  inherited Create(TModelDAOFactory.New.Competencia);
+end;
+
+destructor TControllerCompetencia.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerCompetencia.New: IControllerCustom;
+begin
+  Result := Self.Create;
 end;
 
 end.

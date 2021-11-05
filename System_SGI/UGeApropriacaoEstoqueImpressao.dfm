@@ -326,7 +326,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
     ExplicitWidth = 562
   end
   object FrRelacaoEstoqueAprop: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -384,6 +384,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -391,6 +392,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -407,6 +409,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -420,6 +423,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -439,6 +443,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -460,6 +465,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -479,6 +485,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 464.882190000000000000
@@ -502,12 +509,14 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 464.882190000000000000
@@ -537,6 +546,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 646.299630000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -553,6 +563,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -569,6 +580,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -597,6 +609,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         ReprintOnNewPage = True
         StartNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 56.692950000000000000
           Width = 990.236860000000000000
           Height = 18.897650000000000000
@@ -618,6 +631,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 56.692950000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -646,6 +660,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         DataSetName = 'FrdsRelacaoEstoqueAprop'
         RowCount = 0
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 820.158010000000000000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
@@ -676,6 +691,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Width = 56.692950000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -702,6 +718,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 56.692950000000000000
           Width = 321.260050000000000000
           Height = 18.897650000000000000
@@ -729,6 +746,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 377.953000000000000000
           Width = 136.063080000000000000
           Height = 18.897650000000000000
@@ -756,6 +774,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Width = 75.590600000000000000
           Height = 18.897650000000000000
@@ -783,6 +802,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 884.410020000000000000
           Width = 49.133890000000000000
           Height = 18.897650000000000000
@@ -810,6 +830,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo32: TfrxMemoView
+          AllowVectorExport = True
           Left = 706.772110000000000000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
@@ -840,6 +861,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo33: TfrxMemoView
+          AllowVectorExport = True
           Left = 771.024120000000000000
           Width = 49.133890000000000000
           Height = 18.897650000000000000
@@ -867,6 +889,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Left = 589.606680000000000000
           Width = 117.165430000000000000
           Height = 18.897650000000000000
@@ -894,6 +917,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 933.543910000000000000
           Width = 113.385900000000000000
           Height = 18.897650000000000000
@@ -931,6 +955,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 506.457020000000000000
         Width = 1046.929810000000000000
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -948,6 +973,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           ParentFont = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 18.897650000000000000
@@ -977,6 +1003,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Condition = 'FrdsRelacaoEstoqueAprop."GRUPO_COD"'
         ReprintOnNewPage = True
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 820.158010000000000000
           Top = 37.795300000000000000
           Width = 64.252010000000000000
@@ -998,6 +1025,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 56.692950000000000000
           Height = 37.795300000000000000
@@ -1017,6 +1045,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 56.692950000000000000
           Top = 18.897650000000000000
           Width = 321.260050000000000000
@@ -1037,6 +1066,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 377.953000000000000000
           Top = 18.897650000000000000
           Width = 136.063080000000000000
@@ -1057,6 +1087,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 56.692950000000000000
           Width = 990.236860000000000000
           Height = 18.897650000000000000
@@ -1076,6 +1107,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Width = 56.692950000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1094,6 +1126,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 884.410020000000000000
           Top = 37.795300000000000000
           Width = 49.133890000000000000
@@ -1114,6 +1147,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 820.158010000000000000
           Top = 18.897650000000000000
           Width = 113.385900000000000000
@@ -1135,6 +1169,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 706.772110000000000000
           Top = 18.897650000000000000
           Width = 113.385826770000000000
@@ -1156,6 +1191,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 706.772110000000000000
           Top = 37.795300000000000000
           Width = 64.252010000000000000
@@ -1177,6 +1213,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 514.016080000000000000
           Top = 18.897650000000000000
           Width = 75.590600000000000000
@@ -1197,6 +1234,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 589.606680000000000000
           Top = 18.897650000000000000
           Width = 117.165430000000000000
@@ -1217,6 +1255,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo27: TfrxMemoView
+          AllowVectorExport = True
           Left = 771.024120000000000000
           Top = 37.795300000000000000
           Width = 49.133890000000000000
@@ -1237,6 +1276,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 933.543910000000000000
           Top = 18.897650000000000000
           Width = 113.385900000000000000
@@ -1266,6 +1306,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 415.748300000000000000
         Width = 1046.929810000000000000
         object Memo36: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1283,6 +1324,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           ParentFont = False
         end
         object SysMemo4: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 18.897650000000000000
@@ -1310,6 +1352,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 589.606680000000000000
         Width = 1046.929810000000000000
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 1046.929810000000000000
           Height = 15.118120000000000000
@@ -1325,6 +1368,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           ParentFont = False
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1339,6 +1383,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           ParentFont = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 18.897650000000000000
@@ -1368,6 +1413,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Condition = 'FrdsRelacaoEstoqueAprop."CENTRO_CUSTO"'
         ReprintOnNewPage = True
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Width = 56.692950000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1386,6 +1432,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 56.692950000000000000
           Width = 990.236860000000000000
           Height = 18.897650000000000000
@@ -1413,6 +1460,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 461.102660000000000000
         Width = 1046.929810000000000000
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1430,6 +1478,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           ParentFont = False
         end
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 18.897650000000000000
@@ -1498,7 +1547,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
     Top = 40
   end
   object FrRelacaoEstoqueResumo: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1555,6 +1604,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -1562,6 +1612,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -1578,6 +1629,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559059999999999000
           Width = 109.606370000000000000
@@ -1591,6 +1643,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -1610,6 +1663,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -1631,6 +1685,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -1650,6 +1705,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692949999999990000
           Width = 464.882190000000000000
@@ -1673,12 +1729,14 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 464.882190000000000000
@@ -1708,6 +1766,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 536.693260000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 604.724800000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1724,6 +1783,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118119999999980000
           Width = 604.724800000000000000
           Height = 15.118120000000000000
@@ -1740,6 +1800,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 604.724800000000000000
           Width = 113.385900000000000000
           Height = 30.236240000000000000
@@ -1768,6 +1829,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         ReprintOnNewPage = True
         StartNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 56.692950000000000000
           Width = 661.417750000000000000
           Height = 18.897650000000000000
@@ -1790,6 +1852,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 56.692950000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1818,6 +1881,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         DataSetName = 'FrdsRelacaoEstoqueResumo'
         RowCount = 0
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 302.362400000000000000
           Width = 238.110390000000000000
           Height = 18.897650000000000000
@@ -1845,6 +1909,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Left = 604.724800000000000000
           Width = 113.385900000000000000
           Height = 18.897650000000000000
@@ -1875,6 +1940,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 540.472790000000000000
           Width = 64.252010000000000000
           Height = 18.897650000000000000
@@ -1903,6 +1969,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Width = 302.362400000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -1936,6 +2003,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 396.850650000000000000
         Width = 718.110700000000000000
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -1953,6 +2021,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           ParentFont = False
         end
         object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 604.724800000000000000
           Width = 113.385900000000000000
           Height = 18.897650000000000000
@@ -1980,6 +2049,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 480.000310000000000000
         Width = 718.110700000000000000
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 718.110700000000000000
           Height = 15.118120000000000000
@@ -1995,6 +2065,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           ParentFont = False
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Width = 604.724800000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2009,6 +2080,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           ParentFont = False
         end
         object SysMemo6: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 604.724800000000000000
           Width = 113.385900000000000000
           Height = 18.897650000000000000
@@ -2038,6 +2110,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Condition = 'FrdsRelacaoEstoqueResumo."CENTRO_CUSTO"'
         ReprintOnNewPage = True
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Width = 113.385900000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -2056,6 +2129,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Width = 604.724800000000000000
           Height = 18.897650000000000000
@@ -2076,6 +2150,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 302.362400000000000000
           Top = 18.897650000000000000
           Width = 238.110390000000000000
@@ -2096,6 +2171,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 604.724800000000000000
           Top = 18.897650000000000000
           Width = 113.385900000000000000
@@ -2117,6 +2193,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 540.472790000000000000
           Top = 18.897650000000000000
           Width = 64.252010000000000000
@@ -2138,6 +2215,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 302.362400000000000000
           Height = 18.897650000000000000
@@ -2164,6 +2242,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 351.496290000000000000
         Width = 718.110700000000000000
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2181,6 +2260,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           ParentFont = False
         end
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 604.724800000000000000
           Width = 113.385900000000000000
           Height = 18.897650000000000000
@@ -2238,7 +2318,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
     Top = 8
   end
   object frRelacaoApropriacaoSintetico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -2321,6 +2401,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -2328,6 +2409,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 604.724800000000000000
@@ -2344,6 +2426,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559059999999999000
           Width = 109.606370000000000000
@@ -2357,6 +2440,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -2376,6 +2460,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -2397,6 +2482,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -2416,6 +2502,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692949999999990000
           Width = 464.882190000000000000
@@ -2439,12 +2526,14 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 718.110700000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 464.882190000000000000
@@ -2464,6 +2553,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -2480,6 +2570,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 604.724800000000000000
@@ -2497,6 +2588,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 483.779840000000000000
@@ -2520,6 +2612,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 540.472790000000000000
         Width = 718.110700000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 582.047620000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2536,6 +2629,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118119999999980000
           Width = 582.047620000000000000
           Height = 15.118120000000000000
@@ -2552,6 +2646,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 582.047620000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -2579,6 +2674,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Condition = 'frdsRelacaoApropriacaoSintetico."TIPO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 83.149660000000000000
           Width = 634.961040000000000000
           Height = 18.897650000000000000
@@ -2598,6 +2694,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 83.149660000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -2616,6 +2713,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 506.457020000000000000
           Height = 18.897650000000000000
@@ -2635,6 +2733,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Top = 18.897650000000000000
           Width = 98.267716540000000000
@@ -2657,6 +2756,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 506.457020000000000000
           Top = 18.897650000000000000
           Width = 113.385836540000000000
@@ -2688,6 +2788,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         DataSetName = 'frdsRelacaoApropriacaoSintetico'
         RowCount = 0
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -2718,6 +2819,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Width = 506.457020000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -2747,6 +2849,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 506.457020000000000000
           Width = 113.385836540000000000
           Height = 18.897650000000000000
@@ -2781,6 +2884,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 336.378170000000000000
         Width = 718.110700000000000000
         object SysMemo5: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 619.842920000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -2809,6 +2913,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Width = 718.110700000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 718.110700000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2825,6 +2930,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 37.795300000000000000
           Width = 166.299320000000000000
@@ -2846,6 +2952,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           WordWrap = False
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 37.795300000000000000
           Width = 113.385836540000000000
@@ -2868,6 +2975,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 18.897650000000000000
           Width = 279.685156540000000000
@@ -2890,6 +2998,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 75.590600000000000000
           Width = 113.385836540000000000
@@ -2912,6 +3021,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 75.590600000000000000
           Width = 166.299320000000000000
@@ -2933,6 +3043,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           WordWrap = False
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 438.425480000000000000
           Height = 18.897650000000000000
@@ -2948,6 +3059,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           ParentFont = False
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 438.425480000000000000
           Top = 56.692949999999990000
           Width = 113.385836540000000000
@@ -2970,6 +3082,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object SysMemo12: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 551.811380000000000000
           Top = 56.692949999999990000
           Width = 166.299320000000000000
@@ -3030,7 +3143,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
     Top = 72
   end
   object frRelacaoApropriacaoAnalitico: TfrxReport
-    Version = '6.0.7'
+    Version = '6.3.7'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3110,6 +3223,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
         Frame.Typ = []
@@ -3117,6 +3231,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 18.897650000000000000
         Width = 1046.929810000000000000
         object Memo1: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 94.488250000000000000
           Width = 933.543910000000000000
@@ -3133,6 +3248,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Picture1: TfrxPictureView
+          AllowVectorExport = True
           Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 109.606370000000000000
@@ -3146,6 +3262,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           TransparentColor = clWhite
         end
         object frdEmpresaRZSOC: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 7.559060000000000000
           Width = 464.882190000000000000
@@ -3165,6 +3282,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object frdEmpresaNMFANT: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
           Width = 464.882190000000000000
@@ -3186,6 +3304,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object frdFone: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
           Width = 464.882190000000000000
@@ -3205,6 +3324,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo11: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 56.692950000000000000
           Width = 464.882190000000000000
@@ -3228,12 +3348,14 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Line1: TfrxLineView
+          AllowVectorExport = True
           Top = 94.488250000000000000
           Width = 1046.929810000000000000
           Color = clBlack
           Frame.Typ = [ftTop]
         end
         object Memo44: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
           Width = 464.882190000000000000
@@ -3253,6 +3375,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo20: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 120.944960000000000000
           Width = 120.944960000000000000
@@ -3269,6 +3392,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo14: TfrxMemoView
+          AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 136.063080000000000000
           Width = 933.543910000000000000
@@ -3286,6 +3410,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo16: TfrxMemoView
+          AllowVectorExport = True
           Left = 234.330860000000000000
           Top = 120.944960000000000000
           Width = 812.598950000000000000
@@ -3309,6 +3434,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 631.181510000000000000
         Width = 1046.929810000000000000
         object Memo2: TfrxMemoView
+          AllowVectorExport = True
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3325,6 +3451,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaBottom
         end
         object Memo3: TfrxMemoView
+          AllowVectorExport = True
           Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
@@ -3341,6 +3468,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           WordWrap = False
         end
         object Memo4: TfrxMemoView
+          AllowVectorExport = True
           Left = 910.866730000000000000
           Width = 136.063080000000000000
           Height = 30.236240000000000000
@@ -3368,6 +3496,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Condition = 'FrdsRelacaoApropriacaoAnalitico."TIPO"'
         ReprintOnNewPage = True
         object frdEmpresaPESSOA_FISICA: TfrxMemoView
+          AllowVectorExport = True
           Left = 98.267780000000000000
           Width = 948.662030000000000000
           Height = 18.897650000000000000
@@ -3387,6 +3516,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo5: TfrxMemoView
+          AllowVectorExport = True
           Width = 98.267780000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -3415,6 +3545,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         DataSetName = 'FrdsRelacaoApropriacaoAnalitico'
         RowCount = 0
         object Memo23: TfrxMemoView
+          AllowVectorExport = True
           Left = 646.299630000000000000
           Width = 302.362400000000000000
           Height = 18.897650000000000000
@@ -3442,6 +3573,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo25: TfrxMemoView
+          AllowVectorExport = True
           Left = 948.662030000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -3472,6 +3604,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo15: TfrxMemoView
+          AllowVectorExport = True
           Width = 98.267716540000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
@@ -3498,6 +3631,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo17: TfrxMemoView
+          AllowVectorExport = True
           Left = 98.267780000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -3527,6 +3661,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo26: TfrxMemoView
+          AllowVectorExport = True
           Left = 275.905690000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
@@ -3554,6 +3689,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo7: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
@@ -3581,6 +3717,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo29: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Width = 94.488186540000000000
           Height = 18.897650000000000000
@@ -3608,6 +3745,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo10: TfrxMemoView
+          AllowVectorExport = True
           Left = 548.031850000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -3635,6 +3773,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo21: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Width = 83.149596540000000000
           Height = 18.897650000000000000
@@ -3669,6 +3808,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 445.984540000000000000
         Width = 1046.929810000000000000
         object Memo40: TfrxMemoView
+          AllowVectorExport = True
           Left = 646.299630000000000000
           Width = 302.362336540000000000
           Height = 18.897650000000000000
@@ -3690,6 +3830,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object SysMemo10: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 948.662030000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000
@@ -3718,6 +3859,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Width = 1046.929810000000000000
         Stretched = True
         object Memo18: TfrxMemoView
+          AllowVectorExport = True
           Width = 767.244590000000000000
           Height = 18.897650000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -3732,6 +3874,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 880.630490000000000000
           Top = 18.897650000000000000
           Width = 166.299320000000000000
@@ -3753,6 +3896,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           WordWrap = False
         end
         object Memo12: TfrxMemoView
+          AllowVectorExport = True
           Left = 767.244590000000000000
           Top = 18.897650000000000000
           Width = 113.385836540000000000
@@ -3775,6 +3919,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo31: TfrxMemoView
+          AllowVectorExport = True
           Left = 767.244590000000000000
           Width = 279.685156540000000000
           Height = 18.897650000000000000
@@ -3796,6 +3941,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo34: TfrxMemoView
+          AllowVectorExport = True
           Left = 767.244590000000000000
           Top = 56.692950000000000000
           Width = 113.385836540000000000
@@ -3818,6 +3964,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object SysMemo1: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 880.630490000000000000
           Top = 56.692950000000000000
           Width = 166.299320000000000000
@@ -3839,6 +3986,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           WordWrap = False
         end
         object Memo30: TfrxMemoView
+          AllowVectorExport = True
           Left = 767.244590000000000000
           Top = 37.795300000000000000
           Width = 113.385836540000000000
@@ -3861,6 +4009,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object SysMemo12: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 880.630490000000000000
           Top = 37.795300000000000000
           Width = 166.299320000000000000
@@ -3893,6 +4042,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         KeepTogether = True
         ReprintOnNewPage = True
         object Memo28: TfrxMemoView
+          AllowVectorExport = True
           Left = 661.417750000000000000
           Width = 385.511996540000000000
           Height = 18.897650000000000000
@@ -3916,6 +4066,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo24: TfrxMemoView
+          AllowVectorExport = True
           Left = 948.662030000000000000
           Top = 18.897650000000000000
           Width = 98.267716540000000000
@@ -3938,6 +4089,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo35: TfrxMemoView
+          AllowVectorExport = True
           Top = 37.795300000000000000
           Width = 98.267716540000000000
           Height = 18.897650000000000000
@@ -3958,6 +4110,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo37: TfrxMemoView
+          AllowVectorExport = True
           Left = 98.267780000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -3979,6 +4132,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
+          AllowVectorExport = True
           Top = 18.897650000000000000
           Width = 464.882190000000000000
           Height = 18.897650000000000000
@@ -3999,6 +4153,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo43: TfrxMemoView
+          AllowVectorExport = True
           Width = 98.267780000000000000
           Height = 18.897637800000000000
           DataSet = DMNFe.frdEmpresa
@@ -4017,6 +4172,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
+          AllowVectorExport = True
           Left = 98.267780000000000000
           Width = 563.149970000000000000
           Height = 18.897650000000000000
@@ -4036,6 +4192,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo46: TfrxMemoView
+          AllowVectorExport = True
           Left = 275.905690000000000000
           Top = 37.795300000000000000
           Width = 94.488186540000000000
@@ -4057,6 +4214,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo6: TfrxMemoView
+          AllowVectorExport = True
           Left = 181.417440000000000000
           Top = 37.795300000000000000
           Width = 94.488188980000000000
@@ -4078,6 +4236,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo8: TfrxMemoView
+          AllowVectorExport = True
           Left = 370.393940000000000000
           Top = 37.795300000000000000
           Width = 94.488186540000000000
@@ -4099,6 +4258,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo9: TfrxMemoView
+          AllowVectorExport = True
           Left = 548.031850000000000000
           Top = 37.795300000000000000
           Width = 98.267716540000000000
@@ -4120,6 +4280,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo13: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 18.897650000000000000
           Width = 483.779776540000000000
@@ -4142,6 +4303,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo19: TfrxMemoView
+          AllowVectorExport = True
           Left = 464.882190000000000000
           Top = 37.795300000000000000
           Width = 83.149596540000000000
@@ -4163,6 +4325,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object Memo22: TfrxMemoView
+          AllowVectorExport = True
           Left = 646.299630000000000000
           Top = 37.795300000000000000
           Width = 302.362336540000000000
@@ -4191,6 +4354,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         Top = 400.630180000000000000
         Width = 1046.929810000000000000
         object Memo41: TfrxMemoView
+          AllowVectorExport = True
           Left = 646.299630000000000000
           Width = 302.362336540000000000
           Height = 18.897650000000000000
@@ -4215,6 +4379,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           VAlign = vaCenter
         end
         object SysMemo11: TfrxSysMemoView
+          AllowVectorExport = True
           Left = 948.662030000000000000
           Width = 98.267780000000000000
           Height = 18.897650000000000000

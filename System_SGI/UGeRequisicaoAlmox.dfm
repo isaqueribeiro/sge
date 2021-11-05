@@ -27,6 +27,8 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -618,6 +620,10 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           TabOrder = 13
           object TbsRequisicaoMotivo: TTabSheet
             Caption = 'Motivo da requisi'#231#227'o'
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbMotivo: TDBMemo
               Left = 0
               Top = 0
@@ -639,6 +645,10 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           object TbsRequisicaoCancelado: TTabSheet
             Caption = 'Motivo do cancelamento'
             ImageIndex = 2
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -1018,6 +1028,10 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
         object tbsObservacoes: TTabSheet
           Caption = 'Observa'#231#245'es'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object PnlObservacoes: TPanel
             Left = 0
             Top = 0

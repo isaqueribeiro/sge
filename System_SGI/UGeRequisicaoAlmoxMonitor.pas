@@ -19,7 +19,8 @@ uses
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
   dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
   dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light, dxSkinscxPCPainter, System.ImageList;
+  dxSkinVisualStudio2013Light, dxSkinscxPCPainter, System.ImageList, dxDateRanges,
+  cxDataControllerConditionalFormattingRulesManagerDialog, cxImageList;
 
 type
   TfrmGeRequisicaoAlmoxMonitor = class(TfrmGrPadrao)
@@ -137,7 +138,7 @@ type
 implementation
 
 uses
-  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMNFe,
+  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMRecursos, UDMNFe,
   UGeRequisicaoAlmox, UGeRequisicaoAlmoxCancelar;
 
 {$R *.dfm}

@@ -155,6 +155,7 @@ type
     function ClienteTotalCompras : IControllerCustom;
     function ClienteTitulos      : IControllerCustom;
     function CombustivelVeiculo  : IControllerCustom;
+    function Competencia : IControllerCustom;
     function CondicaoPagto       : IControllerCustom;
     function CondicaoPagtoForma  : IControllerCustom;
     function CondicaoPagtoView   : IControllerCustom;
@@ -169,7 +170,9 @@ type
     function EmpresaView : IControllerEmpresa;
     function Entrada : IControllerEntrada;
     function EntradaProduto : IControllerEntradaProduto;
+    function Estado  : IControllerCustom;
     function FabricanteProduto  : IControllerCustom;
+    function FormaDevolucao : IControllerCustom;
     function FormaPagto : IControllerCustom;
     function FormaPagtoContaCorrente : IControllerCustom;
     function FormaPagtoNFCEView : IControllerCustom;

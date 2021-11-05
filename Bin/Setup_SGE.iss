@@ -5,13 +5,14 @@
 ; =========
 ; https://www.devmedia.com.br/forum/como-criar-arquivos-ini-com-base-nas-informacoes-pegas-pelo-instalador-com-inno-setup-e-istool/578003
 ; https://jrsoftware.org/ishelp/index.php?topic=inisection
+; https://i3sistema.com.br/crm/knowledge-base/article/tutorial-inno-setup
 
 #define MyAppName "SGE"
 #define MyAppVersion "SGE v1.0.31"
 #define MyAppPublisher "Agil Soluções em Softwares"
 #define MyAppURL "http://www.agilsotwares.com.br/"
 #define MyAppExeName "SGE.exe"
-
+         
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
@@ -27,7 +28,7 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName=C:\Program Files (x86)\Agil Softwares\{#MyAppName}
 DefaultGroupName=SGE
 OutputDir=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Bin\Setup
-OutputBaseFilename=Setup_SGE_x86
+OutputBaseFilename=Setup_SGE_x86_FB3_0
 SetupIconFile=C:\Users\Isaque\Documents\Projetos\ASS\SGE\_diversos\Imagens\Icones\icon_gestao_estoque-v2-512x512.ico
 Compression=lzma
 SolidCompression=yes
@@ -45,8 +46,9 @@ Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\Bin\PrinterCupom.exe; DestDir
 Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\Bin\cce_informe.rtf; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\Bin\UpgradeAgil.exe; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\Bin\BAUHS93.TTF; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
+Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\Bin\BAUHS93.TTF; DestDir: {commonfonts}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 ; Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\Bin\Setup\Conexao.ini; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
-Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\app\FireBird\v25_x86\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Cliente 
+Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\app\FireBird\v30_x86\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Cliente 
 Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\_diversos\DLLs\Capicom\*.dll; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\_diversos\DLLs\Diversos\*.dll; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\_diversos\DLLs\MSVCR\*.dll*; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
@@ -62,7 +64,7 @@ Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\Bin\Schemas\*; DestDir: {app}
 ; Source: ..\_diversos\miniprinter_delphi\UsbIO\*; DestDir: {app}; Flags: ignoreversion; Components: Servidor Cliente Personalisado
 Source: C:\Users\Isaque\Documents\Bases\firebird\AGIL_COMERCIO.FDB; DestDir: {app}\db; Flags: ignoreversion comparetimestamp uninsneveruninstall; Components: Servidor
 Source: C:\Users\Isaque\Documents\Projetos\ASS\SGE\_diversos\DLLs\Capicom\capicom.exe; DestDir: {app}\apps; Flags: ignoreversion; Components: Servidor Cliente Personalisado
-Source: C:\Users\Isaque\Downloads\FireBird\Firebird-2.5.8.27089_0_Win32.exe; DestDir: {app}\apps; Flags: ignoreversion; Components: Servidor
+Source: C:\Users\Isaque\Downloads\FireBird\Firebird-3.0.7.33374_1_Win32.exe; DestDir: {app}\apps; Flags: ignoreversion; Components: Servidor
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [INI]
@@ -79,9 +81,11 @@ Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; Tasks: desk
 
 [Run]
 Filename: {app}\{#MyAppExeName}; Description: {cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}; Flags: nowait postinstall skipifsilent unchecked
-Filename: {app}\apps\capicom.exe; Description: Capicom; Flags: waituntilidle postinstall runasoriginaluser
-Filename: {app}\apps\Firebird-2.5.5.26952_0_Win32.exe; Description: Firebird_2_5; Flags: waituntilidle runasoriginaluser; Components: Servidor
-Filename: {app}\Conexao.ini; WorkingDir: {app}; Description: Arquivo de configurações da conexão; Flags: postinstall; Tasks: ; Languages: 
+Filename: {app}\apps\capicom.exe; Flags: postinstall waituntilidle runascurrentuser; Description: Capicom; StatusMsg: Instalar Capicom (Interface para Certificados);
+;Filename: {app}\apps\capicom.exe; Description: Capicom; Flags: waituntilidle postinstall runasoriginaluser
+Filename: {app}\apps\Firebird-3.0.7.33374_1_Win32.exe; Description: Firebird_3_0; Flags: waituntilidle runasoriginaluser; StatusMsg: Instalar Firebird 3.0; Components: Servidor
+;Filename: {app}\Conexao.ini; WorkingDir: {app}; Description: Arquivo de configurações da conexão; Flags: postinstall shellexec; Tasks: ; Languages: 
+Filename: {sys}\notepad.exe; WorkingDir: {app}; Parameters: {app}\Conexao.ini; Description: Arquivo de configurações da conexão; StatusMsg: Editar arquivo de configurações da conexão; Flags: postinstall runascurrentuser skipifsilent unchecked; Languages: 
 
 [Components]
 Name: Servidor; Description: Servidor; Types: full; Languages: ; Flags: fixed

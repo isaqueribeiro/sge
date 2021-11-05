@@ -242,6 +242,10 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
     object TbsGrupo: TTabSheet
       Caption = 'TbsGrupo'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object dbgGrupo: TcxGrid
         Left = 0
         Top = 0
@@ -435,6 +439,10 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
     object TbsFabricante: TTabSheet
       Caption = 'TbsFabricante'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object dbgFab: TcxGrid
         Left = 0
         Top = 0
@@ -637,6 +645,10 @@ inherited frmGeApropriacaoEstoquePesquisa: TfrmGeApropriacaoEstoquePesquisa
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object dbgProduto: TcxGrid
         Left = 0
         Top = 0

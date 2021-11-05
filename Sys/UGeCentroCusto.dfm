@@ -6,6 +6,10 @@ inherited frmGeCentroCusto: TfrmGeCentroCusto
   TextHeight = 13
   inherited pgcGuias: TPageControl
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       inherited dbgDados: TDBGrid
         Columns = <
           item

@@ -111,7 +111,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UGrPadrao, UConstantesDGE, UGeCliente;
+  UDMRecursos, UDMBusiness, UGrPadrao, UConstantesDGE, View.Cliente;
 
 {$R *.dfm}
 

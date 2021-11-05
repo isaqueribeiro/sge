@@ -94,7 +94,7 @@ type
 implementation
 
 uses
-  UConstantesDGE, UDMBusiness, UDMNFe, UGeOS, UGeCondicaoPagto, UGrCampoRequisitado;
+  UConstantesDGE, UDMRecursos, UDMBusiness, UDMNFe, UGeOS, View.CondicaoPagto, UGrCampoRequisitado;
 
 {$R *.dfm}
 

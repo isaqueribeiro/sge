@@ -19,6 +19,7 @@ uses
   SGE.Model.DAO.Distrito,
   SGE.Model.DAO.Empresa,
   SGE.Model.DAO.Entrada,
+  SGE.Model.DAO.Estado,
   SGE.Model.DAO.FormaPagto,
   SGE.Model.DAO.Fornecedor,
   SGE.Model.DAO.IBPT,
@@ -59,6 +60,7 @@ type
       FClienteTitulos     ,
       FClienteTotalCompras,
       FCombustivelVeiculo ,
+      FCompetencia        ,
       FCondicaoPagto      ,
       FCondicaoPagtoForma ,
       FCondicaoPagtoView  ,
@@ -74,8 +76,10 @@ type
       FEntrada    ,
       FEntradaLoteProduto,
       FEntradaProduto    ,
+      FEstado            ,
       FFabricanteProduto ,
-      FFormaPagto ,
+      FFormaDevolucao,
+      FFormaPagto    ,
       FFormaPagtoContaCorrente,
       FFormaPagtoNFCEView     ,
       FFornecedor     ,
@@ -147,6 +151,7 @@ type
       function ClienteTitulos : IModelDAOCustom;
       function ClienteTotalCompras : IModelDAOCustom;
       function CombustivelVeiculo : IModelDAOCustom;
+      function Competencia : IModelDAOCustom;
       function CondicaoPagto : IModelDAOCustom;
       function CondicaoPagtoForma : IModelDAOCustom;
       function CondicaoPagtoView : IModelDAOCustom;
@@ -162,7 +167,9 @@ type
       function Entrada : IModelDAOCustom;
       function EntradaLoteProduto : IModelDAOCustom;
       function EntradaProduto : IModelDAOCustom;
+      function Estado : IModelDAOCustom;
       function FabricanteProduto : IModelDAOCustom;
+      function FormaDevolucao : IModelDAOCustom;
       function FormaPagto : IModelDAOCustom;
       function FormaPagtoContaCorrente : IModelDAOCustom;
       function FormaPagtoNFCEView : IModelDAOCustom;
@@ -638,6 +645,14 @@ begin
   Result := FCombustivelVeiculo;
 end;
 
+function TModelDAOFactory.Competencia: IModelDAOCustom;
+begin
+  if not Assigned(FCompetencia) then
+    FCompetencia := TModelDAOCompetencia.New;
+
+  Result := FCompetencia;
+end;
+
 function TModelDAOFactory.CondicaoPagto: IModelDAOCustom;
 begin
   if not Assigned(FCondicaoPagto) then
@@ -750,12 +765,28 @@ begin
   Result := FEntradaProduto;
 end;
 
+function TModelDAOFactory.Estado: IModelDAOCustom;
+begin
+  if not Assigned(FEstado) then
+    FEstado := TModelDAOEstado.New;
+
+  Result := FEstado;
+end;
+
 function TModelDAOFactory.FabricanteProduto: IModelDAOCustom;
 begin
   if not Assigned(FFabricanteProduto) then
     FFabricanteProduto := TModelDAOFabricanteProduto.New;
 
   Result := FFabricanteProduto;
+end;
+
+function TModelDAOFactory.FormaDevolucao: IModelDAOCustom;
+begin
+  if not Assigned(FFormaDevolucao) then
+    FFormaDevolucao := TModelDAOFormaDevolucao.New;
+
+  Result := FFormaDevolucao;
 end;
 
 function TModelDAOFactory.FormaPagto: IModelDAOCustom;

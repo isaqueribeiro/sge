@@ -3,7 +3,7 @@ unit UGeSolicitacaoCompra;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Windows, Messages, SysUtils, StrUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UGrPadraoCadastro, ImgList, DB, IBX.IBCustomDataSet, IBX.IBUpdateSQL,
   Mask, DBCtrls, StdCtrls, Buttons, ExtCtrls, Grids, DBGrids, ComCtrls, cxButtons,
   ToolWin, IBTable, Menus, IBStoredProc, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
@@ -225,9 +225,10 @@ uses
   , SysConst
   , UConstantesDGE
   , UDMBusiness
+  , UDMRecursos
   , UDMNFe
-  , UGeProduto
-  , UGeCentroCusto
+  , View.Produto
+  , View.CentroCusto
   , UGeSolicitacaoCompraCancelar;
 
 {$R *.dfm}

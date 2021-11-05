@@ -2351,6 +2351,13 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       Origin = 'MOTIVO'
       BlobType = ftMemo
     end
+    object fdQryTabelaITENS: TLargeintField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Produto(s)'
+      FieldName = 'ITENS'
+      Origin = 'ITENS'
+      ProviderFlags = []
+    end
     object fdQryTabelaOBS: TMemoField
       DisplayLabel = 'Observa'#231#245'es'
       FieldName = 'OBS'
@@ -2370,14 +2377,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       FieldName = 'CANCEL_MOTIVO'
       Origin = 'CANCEL_MOTIVO'
       BlobType = ftMemo
-    end
-    object fdQryTabelaITENS: TIntegerField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Produto(s)'
-      FieldName = 'ITENS'
-      Origin = 'ITENS'
-      ProviderFlags = []
-      Required = True
     end
     object fdQryTabelaEMPRESA_NOME: TStringField
       AutoGenerateValue = arDefault

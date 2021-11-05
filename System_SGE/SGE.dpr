@@ -157,7 +157,7 @@ uses
   SGE.Model.Dados in '..\Sys\Model\SGE.Model.Dados.pas' {DMDados: TDataModule},
   SGE.Model.Conexao.DataSet in '..\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas' {ModelConexaoDataSet: TDataModule},
   SGE.Model.Factory in '..\Sys\Model\SGE.Model.Factory.pas',
-  SGE.Controller.Estado in '..\Sys\Controller\SGE.Controller.Estado.pas',
+  SGE.Controller.Estado.OLD in '..\Sys\Controller\SGE.Controller.Estado.OLD.pas',
   SGE.Model.Interacao.DataSet in '..\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas',
   Frame.VendaMobile.Menu in 'View\Components\Frame.VendaMobile.Menu.pas' {FrameVendaMobileMenu: TFrame},
   Frame.VendaMobile.Configurar.Menu in 'View\Components\Frame.VendaMobile.Configurar.Menu.pas' {FrameVendaMobileConfigurarMenu: TFrame},
@@ -194,6 +194,7 @@ uses
   SGE.Model.DAO.Distrito in '..\Sys\Model\DAO\SGE.Model.DAO.Distrito.pas',
   SGE.Model.DAO.Empresa in '..\Sys\Model\DAO\SGE.Model.DAO.Empresa.pas',
   SGE.Model.DAO.Entrada in '..\Sys\Model\DAO\SGE.Model.DAO.Entrada.pas',
+  SGE.Model.DAO.Estado in '..\Sys\Model\DAO\SGE.Model.DAO.Estado.pas',
   SGE.Model.DAO.Factory in '..\Sys\Model\DAO\SGE.Model.DAO.Factory.pas',
   SGE.Model.DAO.FormaPagto in '..\Sys\Model\DAO\SGE.Model.DAO.FormaPagto.pas',
   SGE.Model.DAO.Fornecedor in '..\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas',
@@ -228,6 +229,7 @@ uses
   SGE.Controller.Distrito in '..\Sys\Controller\SGE.Controller.Distrito.pas',
   SGE.Controller.Empresa in '..\Sys\Controller\SGE.Controller.Empresa.pas',
   SGE.Controller.Entrada in '..\Sys\Controller\SGE.Controller.Entrada.pas',
+  SGE.Controller.Estado in '..\Sys\Controller\SGE.Controller.Estado.pas',
   SGE.Controller.Factory in '..\Sys\Controller\SGE.Controller.Factory.pas',
   SGE.Controller.FormaPagto in '..\Sys\Controller\SGE.Controller.FormaPagto.pas',
   SGE.Controller.Fornecedor in '..\Sys\Controller\SGE.Controller.Fornecedor.pas',
@@ -275,16 +277,17 @@ uses
   View.Produto in '..\Sys\View\View.Produto.pas' {ViewProduto},
   View.Certificado in '..\Sys\View\View.Certificado.pas' {ViewCertificado},
   View.Promocao in 'View\View.Promocao.pas' {ViewPromocao},
-  View.Entrada in '..\Sys\View\View.Entrada.pas' {ViewEntrada},
-  View.Entrada.ConfirmarDuplicatas in '..\Sys\View\View.Entrada.ConfirmarDuplicatas.pas' {ViewEntradaConfirmarDuplicatas},
-  View.Entrada.ConfirmarLote in '..\Sys\View\View.Entrada.ConfirmarLote.pas' {ViewEntradaEstoqueLote},
+  View.NFE.ConsultarLote in '..\Sys\View\View.NFE.ConsultarLote.pas' {ViewNFEConsultarLote},
   View.AutorizacaoCompra in 'View\View.AutorizacaoCompra.pas' {ViewAutorizacaoCompra},
   View.AutorizacaoCompra.Cancelar in 'View\View.AutorizacaoCompra.Cancelar.pas' {ViewAutorizacaoCompraCancelar},
   View.RequisicaoCompra in 'View\View.RequisicaoCompra.pas' {ViewRequisicaoCompra},
   View.RequisicaoCompra.Cancelar in 'View\View.RequisicaoCompra.Cancelar.pas' {ViewRequisicaoCompraCancelar},
+  View.Entrada in '..\Sys\View\View.Entrada.pas' {ViewEntrada},
+  View.Entrada.ConfirmarDuplicatas in '..\Sys\View\View.Entrada.ConfirmarDuplicatas.pas' {ViewEntradaConfirmarDuplicatas},
+  View.Entrada.ConfirmarLote in '..\Sys\View\View.Entrada.ConfirmarLote.pas' {ViewEntradaEstoqueLote},
   View.Entrada.Cancelar in '..\Sys\View\View.Entrada.Cancelar.pas' {ViewEntradaEstoqueCancelar},
   View.Entrada.GerarNFE in '..\Sys\View\View.Entrada.GerarNFE.pas' {ViewEntradaEstoqueGerarNFE},
-  View.NFE.ConsultarLote in '..\Sys\View\View.NFE.ConsultarLote.pas' {ViewNFEConsultarLote};
+  View.Entrada.DevolucaoNF in '..\Sys\View\View.Entrada.DevolucaoNF.pas' {ViewEntradaDevolucaoNF};
 
 {$R *.res}
 

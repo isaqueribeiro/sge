@@ -274,10 +274,11 @@ uses
   , UConstantesDGE
   , Controller.Tabela
   , UDMBusiness
+  , UDMRecursos
   , UDMNFe
   , UGrUsuario
   , UGeRequisicaoAlmoxCancelar
-  , UGeCentroCusto
+  , View.CentroCusto
   , UGeApropriacaoEstoquePesquisa;
 
 {$R *.dfm}

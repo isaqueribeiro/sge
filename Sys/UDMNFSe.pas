@@ -6,13 +6,14 @@ uses
   Interacao.Versao,
   Controller.Versao,
   UDMBusiness,
+  UConstantesDGE,
   UEcfFactory,
 
   PngImage,
   Variants,
   Forms,
 
-  System.SysUtils, System.Classes, Data.DB,
+  System.SysUtils, System.StrUtils, System.Classes, Data.DB,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
@@ -76,7 +77,7 @@ implementation
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 uses
-  UDMRecursos, UDMNFe, UFuncoes, UConstantesDGE, FileCtrl, IniFiles;
+  UDMRecursos, UDMNFe, UFuncoes, FileCtrl, IniFiles;
 
 {$R *.dfm}
 

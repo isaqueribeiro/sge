@@ -422,7 +422,7 @@ uses
   View.Entrada.GerarNFE,
   View.AutorizacaoCompra,
   View.NFE.ConsultarLote,
-  UGeEntradaEstoqueDevolucaoNF,
+  View.Entrada.DevolucaoNF,
   UGeDistribuicaoDFe,
   UGeImportarNFE;
 

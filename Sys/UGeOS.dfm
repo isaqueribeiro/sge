@@ -30,6 +30,8 @@ inherited frmGeOS: TfrmGeOS
     ExplicitWidth = 1145
     ExplicitHeight = 651
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 1137
       ExplicitHeight = 622
       inherited Bevel4: TBevel
@@ -363,12 +365,11 @@ inherited frmGeOS: TfrmGeOS
         object Label3: TLabel
           Left = 5
           Top = 5
-          Width = 311
+          Width = 79
           Height = 13
           Align = alTop
           Caption = 'Legendas (L) :'
           Transparent = True
-          ExplicitWidth = 79
         end
         object bvlLegendas: TBevel
           Left = 5
@@ -1206,6 +1207,10 @@ inherited frmGeOS: TfrmGeOS
         object TbsEquipamento: TTabSheet
           Caption = '&Equipamento(s)'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Bevel11: TBevel
             Left = 0
             Top = 169
@@ -2060,6 +2065,10 @@ inherited frmGeOS: TfrmGeOS
         end
         object TbsServicoARealizar: TTabSheet
           Caption = '&Servi'#231'o(s) a realizar'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 0
             Top = 112
@@ -2085,11 +2094,10 @@ inherited frmGeOS: TfrmGeOS
             object lblRelatoSolicitacao: TLabel
               Left = 0
               Top = 0
-              Width = 1129
+              Width = 113
               Height = 13
               Align = alTop
               Caption = 'Relato / Solicita'#231#227'o:'
-              ExplicitWidth = 113
             end
             object Bevel15: TBevel
               Left = 0
@@ -2123,6 +2131,10 @@ inherited frmGeOS: TfrmGeOS
             object TbsServico: TTabSheet
               Caption = 'Servi'#231'o(s)'
               ImageIndex = 2
+              ExplicitLeft = 0
+              ExplicitTop = 0
+              ExplicitWidth = 0
+              ExplicitHeight = 0
               object Bevel13: TBevel
                 Left = 601
                 Top = 0
@@ -3025,6 +3037,10 @@ inherited frmGeOS: TfrmGeOS
             object TbsProduto: TTabSheet
               Caption = 'Insumo(s) / Produto(s)'
               ImageIndex = 3
+              ExplicitLeft = 0
+              ExplicitTop = 0
+              ExplicitWidth = 0
+              ExplicitHeight = 0
               object Bevel16: TBevel
                 Left = 601
                 Top = 0
@@ -3927,6 +3943,10 @@ inherited frmGeOS: TfrmGeOS
             object TbsTecnico: TTabSheet
               Caption = 'T'#233'cnico(s)'
               ImageIndex = 4
+              ExplicitLeft = 0
+              ExplicitTop = 0
+              ExplicitWidth = 0
+              ExplicitHeight = 0
               object Bevel18: TBevel
                 Left = 489
                 Top = 0
@@ -4495,6 +4515,10 @@ inherited frmGeOS: TfrmGeOS
         object TbsEvento: TTabSheet
           Caption = '&Hist'#243'rico (Eventos)'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Bevel24: TBevel
             Left = 0
             Top = 169
@@ -5085,6 +5109,10 @@ inherited frmGeOS: TfrmGeOS
         TabOrder = 2
         object TbsRecebimento: TTabSheet
           Caption = 'Recebimento'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object pnlObservacao: TPanel
             Left = 0
             Top = 0
@@ -5096,11 +5124,10 @@ inherited frmGeOS: TfrmGeOS
             object lblObservacao: TLabel
               Left = 0
               Top = 0
-              Width = 488
+              Width = 67
               Height = 13
               Align = alTop
               Caption = '&Observa'#231#245'es:'
-              ExplicitWidth = 67
             end
             object Bevel7: TBevel
               Left = 484
@@ -5446,6 +5473,10 @@ inherited frmGeOS: TfrmGeOS
         object TbsTitulo: TTabSheet
           Caption = 'T'#237'tulo(s) Gerado(s)'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Bevel19: TBevel
             Left = 0
             Top = 0
@@ -5666,6 +5697,10 @@ inherited frmGeOS: TfrmGeOS
         object TbsLocalRealizacao: TTabSheet
           Caption = 'Local de Entrega/Realiza'#231#227'o'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbDadosEntrega: TDBMemo
             Left = 0
             Top = 0
@@ -5689,6 +5724,10 @@ inherited frmGeOS: TfrmGeOS
         object TbsNFSe: TTabSheet
           Caption = 'Dados de Gera'#231#227'o/Envio da NFS-e'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
         end
       end
     end
@@ -6286,7 +6325,7 @@ inherited frmGeOS: TfrmGeOS
   inherited ImgList: TImageList
     Left = 704
     Bitmap = {
-      494C01012C00F000980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01012C00F000040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000C0000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -9655,6 +9694,7 @@ inherited frmGeOS: TfrmGeOS
     end
   end
   object imgOS: TcxImageList
+    SourceDPI = 96
     FormatVersion = 1
     DesignInfo = 524800
     ImageInfo = <
