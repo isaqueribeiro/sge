@@ -22,8 +22,6 @@ type
   TfrmGeApropriacaoEstoque = class(TfrmGrPadraoCadastro)
     lblData: TLabel;
     RdgStatusApropriacao: TRadioGroup;
-    lblApropriacaoAberta: TLabel;
-    lblApropriacaoCancelada: TLabel;
     dtsEmpresa: TDataSource;
     lblDataHora: TLabel;
     dbDataHora: TDBEdit;
@@ -62,7 +60,6 @@ type
     lblCustoUn: TLabel;
     dbCustoUn: TDBEdit;
     PnlObservacoes: TPanel;
-    lblApropriacaoEmEdicao: TLabel;
     PgcTextoApropriacao: TPageControl;
     TbsApropriacaoMotivo: TTabSheet;
     dbMotivo: TDBMemo;
@@ -158,7 +155,16 @@ type
     cdsTabelaItensCUSTO_TOTAL: TFMTBCDField;
     cdsTabelaItensESTOQUE: TFMTBCDField;
     cdsTabelaItensRESERVA: TFMTBCDField;
-    fdQryTabelaITENS: TLargeintField;
+    fdQryTabelaITENS: TIntegerField;
+    pnlStatus: TPanel;
+    pnlSatusColor: TPanel;
+    shpOperacaoEditando: TShape;
+    shpOperacaoCancelada: TShape;
+    shpOperacaoAberta: TShape;
+    pnlStatusText: TPanel;
+    lblOperacaoAberta: TLabel;
+    lblOperacaoCancelada: TLabel;
+    lblOperacaoEditando: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -1158,15 +1164,15 @@ begin
     if (not DtSrcTabela.DataSet.FieldByName('STATUS').IsNull) then
       // Destacar autorização em edição
       if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_APROPRIACAO_ESTOQUE_EDC ) then
-        dbgDados.Canvas.Brush.Color := lblApropriacaoEmEdicao.Color
+        dbgDados.Canvas.Brush.Color := shpOperacaoEditando.Brush.Color
       else
       // Destacar autorização aberta
       if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_APROPRIACAO_ESTOQUE_ABR ) then
-        dbgDados.Canvas.Font.Color := lblApropriacaoAberta.Font.Color
+        dbgDados.Canvas.Font.Color := shpOperacaoAberta.Brush.Color
       else
       // Destacar autorização cancelada
       if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_APROPRIACAO_ESTOQUE_CAN ) then
-        dbgDados.Canvas.Font.Color := lblApropriacaoCancelada.Font.Color;
+        dbgDados.Canvas.Font.Color := shpOperacaoCancelada.Brush.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end
@@ -1175,7 +1181,7 @@ begin
   if ( Sender = dbgProdutos ) then
   begin
     if ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_APROPRIACAO_ESTOQUE_ENC) and (cdsTabelaItensQTDE.AsCurrency <= 0) ) then
-      dbgProdutos.Canvas.Font.Color := lblApropriacaoCancelada.Font.Color;
+      dbgProdutos.Canvas.Font.Color := shpOperacaoCancelada.Brush.Color;
 
     dbgProdutos.DefaultDrawDataCell(Rect, dbgProdutos.Columns[DataCol].Field, State);
   end;

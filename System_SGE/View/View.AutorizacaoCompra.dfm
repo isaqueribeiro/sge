@@ -1,6 +1,5 @@
 inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
   Left = 391
-  ActiveControl = dbCodigo
   Caption = 'Controle de Autoriza'#231#245'es de Compra/Servi'#231'o'
   ClientHeight = 685
   ClientWidth = 1116
@@ -23,7 +22,6 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
   inherited pgcGuias: TPageControl
     Width = 1116
     Height = 642
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 1116
     ExplicitHeight = 642
@@ -113,55 +111,13 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
         ExplicitTop = 543
         ExplicitWidth = 1108
         ExplicitHeight = 70
-        object lblAutorizacaoAberta: TLabel [0]
-          Left = 2
-          Top = 4
-          Width = 132
-          Height = 13
-          Caption = '* Autoriza'#231#245'es Abertas'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlue
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lblAutorizacaoCancelada: TLabel [1]
-          Left = 2
-          Top = 24
-          Width = 151
-          Height = 13
-          Caption = '* Autoriza'#231#245'es Canceladas'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clRed
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lblAutorizacaoEmEdicao: TLabel [2]
-          Left = 2
-          Top = 44
-          Width = 143
-          Height = 13
-          Caption = '* Autoriza'#231#245'es Em Edi'#231#227'o'
-          Color = clYellow
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
         inherited grpBxFiltro: TGroupBox
           Left = 424
           Width = 680
           Height = 62
           Padding.Top = 4
           Padding.Bottom = 4
-          TabOrder = 1
+          TabOrder = 2
           ExplicitLeft = 424
           ExplicitWidth = 680
           ExplicitHeight = 62
@@ -353,7 +309,156 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             'Autorizada'
             'Faturada'
             'Cancelada')
+          TabOrder = 1
+        end
+        object pnlStatus: TPanel
+          AlignWithMargins = True
+          Left = 7
+          Top = 6
+          Width = 185
+          Height = 58
+          Margins.Top = 2
+          Margins.Bottom = 2
+          Align = alClient
+          BevelOuter = bvNone
           TabOrder = 0
+          ExplicitLeft = 69
+          ExplicitTop = 0
+          ExplicitWidth = 193
+          ExplicitHeight = 70
+          object pnlSatusColor: TPanel
+            Left = 0
+            Top = 0
+            Width = 24
+            Height = 58
+            Align = alLeft
+            BevelOuter = bvNone
+            TabOrder = 0
+            ExplicitHeight = 70
+            object shpOperacaoEditando: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 41
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = clYellow
+              Pen.Style = psClear
+              ExplicitTop = 46
+              ExplicitWidth = 19
+            end
+            object shpOperacaoCancelada: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 21
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = clRed
+              Pen.Style = psClear
+              ExplicitTop = 24
+              ExplicitWidth = 19
+            end
+            object shpOperacaoAberta: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 1
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = clBlue
+              Pen.Style = psClear
+              ExplicitTop = 2
+              ExplicitWidth = 19
+            end
+          end
+          object pnlStatusText: TPanel
+            Left = 24
+            Top = 0
+            Width = 161
+            Height = 58
+            Align = alClient
+            BevelOuter = bvNone
+            TabOrder = 1
+            ExplicitWidth = 169
+            ExplicitHeight = 70
+            object lblOperacaoAberta: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 1
+              Width = 155
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Autoriza'#231#245'es Abertas'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitTop = 2
+              ExplicitWidth = 251
+            end
+            object lblOperacaoCancelada: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 21
+              Width = 155
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Autoriza'#231#245'es Canceladas'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitTop = 24
+              ExplicitWidth = 251
+            end
+            object lblOperacaoEditando: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 41
+              Width = 155
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Autoriza'#231#245'es Em Edi'#231#227'o'
+              Color = clYellow
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentColor = False
+              ParentFont = False
+              Transparent = True
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitLeft = 0
+              ExplicitTop = 36
+              ExplicitWidth = 256
+            end
+          end
         end
       end
     end

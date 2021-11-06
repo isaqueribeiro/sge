@@ -59,8 +59,6 @@ type
     lblTipoDespesa: TLabel;
     dbTipoDespesa: TDBLookupComboBox;
     dtsTpDespesa: TDataSource;
-    lblLancamentoAberto: TLabel;
-    lblLancamentoVencido: TLabel;
     lblData: TLabel;
     FrdRecibo: TfrxDBDataset;
     FrReciboA5: TfrxReport;
@@ -94,7 +92,6 @@ type
     fdQryCompetencia: TFDQuery;
     fdQryTipoDespesa: TFDQuery;
     fdQryRecibo: TFDQuery;
-    lblLancamentoCancelado: TLabel;
     CdsReciboANOLANC: TSmallintField;
     CdsReciboNUMLANC: TIntegerField;
     CdsReciboPARCELA: TSmallintField;
@@ -166,6 +163,15 @@ type
     CdsReciboVALORPAG: TFMTBCDField;
     CdsReciboVALOR_BAIXA: TFMTBCDField;
     cdsPagamentosVALOR_BAIXA: TFMTBCDField;
+    pnlStatus: TPanel;
+    pnlSatusColor: TPanel;
+    shpOperacaoCancelado: TShape;
+    shpOperacaoVendido: TShape;
+    shpOperacaoAberta: TShape;
+    pnlStatusText: TPanel;
+    lblOperacaoAberta: TLabel;
+    lblOperacaoVencido: TLabel;
+    lblOperacaoCancelado: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure dbFornecedorButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -630,17 +636,17 @@ begin
     begin
       // Destacar Títulos A Pagar cancelados
       if (FieldByName('SITUACAO').AsInteger = 0) then
-        dbgDados.Canvas.Font.Color := lblLancamentoCancelado.Font.Color
+        dbgDados.Canvas.Font.Color := shpOperacaoCancelado.Brush.Color
       else
       // Destacar Títulos A Pagar em aberto
       if (not FieldByName('QUITADO').IsNull) then
         if ( FieldByName('QUITADO').AsInteger = STATUS_APAGAR_PENDENTE ) then
           if FieldByName('DTVENC').AsDateTime >= DataAtual then
-            dbgDados.Canvas.Font.Color := lblLancamentoAberto.Font.Color
+            dbgDados.Canvas.Font.Color := shpOperacaoAberta.Brush.Color
           else
           begin
-            dbgDados.Canvas.Font.Color  := lblLancamentoVencido.Font.Color;
-            dbgDados.Canvas.Brush.Color := lblLancamentoVencido.Color;
+            dbgDados.Canvas.Font.Color  := shpOperacaoAberta.Brush.Color;
+            dbgDados.Canvas.Brush.Color := shpOperacaoVendido.Brush.Color;
           end;
     end;
 

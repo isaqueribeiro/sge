@@ -1,5 +1,6 @@
 inherited frmGeControleCheque: TfrmGeControleCheque
   Top = 218
+  ActiveControl = dbgDados
   Caption = 'Controle de Cheques'
   ClientHeight = 561
   ClientWidth = 941
@@ -23,12 +24,11 @@ inherited frmGeControleCheque: TfrmGeControleCheque
   inherited pgcGuias: TPageControl
     Width = 941
     Height = 518
+    ActivePage = tbsTabela
     OnChange = pgcGuiasChange
     ExplicitWidth = 941
     ExplicitHeight = 518
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 933
       ExplicitHeight = 489
       inherited Bevel4: TBevel
@@ -130,38 +130,10 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         Width = 933
         ExplicitTop = 427
         ExplicitWidth = 933
-        object lblChequePendente: TLabel [0]
-          Left = 2
-          Top = 4
-          Width = 121
-          Height = 13
-          Caption = '* Cheques Pendentes'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clRed
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lblChequeCompensar: TLabel [1]
-          Left = 2
-          Top = 24
-          Width = 130
-          Height = 13
-          Caption = '* Cheque A Compensar'
-          Color = clYellow
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlue
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
         inherited grpBxFiltro: TGroupBox
           Left = 304
           Width = 625
+          TabOrder = 1
           ExplicitLeft = 304
           ExplicitWidth = 625
           DesignSize = (
@@ -307,6 +279,152 @@ inherited frmGeControleCheque: TfrmGeControleCheque
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 1
+          end
+        end
+        object pnlStatus: TPanel
+          AlignWithMargins = True
+          Left = 7
+          Top = 6
+          Width = 294
+          Height = 50
+          Margins.Top = 2
+          Margins.Bottom = 2
+          Align = alClient
+          BevelOuter = bvNone
+          TabOrder = 0
+          ExplicitLeft = 176
+          ExplicitWidth = 125
+          object pnlSatusColor: TPanel
+            Left = 0
+            Top = 0
+            Width = 24
+            Height = 50
+            Align = alLeft
+            BevelOuter = bvNone
+            TabOrder = 0
+            object shpOperacaoCancelado: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 41
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = 7303023
+              Pen.Style = psClear
+              Visible = False
+              ExplicitTop = 46
+              ExplicitWidth = 19
+            end
+            object shpOperacaoACompensar: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 21
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = clYellow
+              Pen.Style = psClear
+              ExplicitTop = 24
+              ExplicitWidth = 19
+            end
+            object shpOperacaoPedente: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 1
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = clRed
+              Pen.Style = psClear
+              ExplicitTop = 2
+              ExplicitWidth = 19
+            end
+          end
+          object pnlStatusText: TPanel
+            Left = 24
+            Top = 0
+            Width = 270
+            Height = 50
+            Align = alClient
+            BevelOuter = bvNone
+            TabOrder = 1
+            object lblOperacaoPendente: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 1
+              Width = 264
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Cheques Pendentes'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitTop = 2
+              ExplicitWidth = 251
+            end
+            object lblOperacaoACompensar: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 21
+              Width = 264
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Cheques A Compensar'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitTop = 24
+              ExplicitWidth = 251
+            end
+            object lblOperacaoCancelado: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 41
+              Width = 264
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Cheques cancelados'
+              Color = clYellow
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentColor = False
+              ParentFont = False
+              Transparent = True
+              Layout = tlCenter
+              Visible = False
+              StyleElements = []
+              ExplicitLeft = 0
+              ExplicitTop = 36
+              ExplicitWidth = 256
+            end
           end
         end
       end
@@ -1025,10 +1143,6 @@ inherited frmGeControleCheque: TfrmGeControleCheque
         TabOrder = 3
         object tbsObservacao: TTabSheet
           Caption = 'Observa'#231#245'es'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0

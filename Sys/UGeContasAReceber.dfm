@@ -1,5 +1,6 @@
 inherited frmGeContasAReceber: TfrmGeContasAReceber
   Top = 218
+  ActiveControl = dbgDados
   Caption = 'Controle de Contas A Receber'
   ClientHeight = 561
   ClientWidth = 934
@@ -23,23 +24,22 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
   inherited pgcGuias: TPageControl
     Width = 934
     Height = 518
+    ActivePage = tbsTabela
     OnChange = pgcGuiasChange
     ExplicitWidth = 934
     ExplicitHeight = 518
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel4: TBevel
-        Top = 423
+        Top = 415
         Width = 926
         ExplicitTop = 424
         ExplicitWidth = 926
       end
       inherited dbgDados: TDBGrid
         Width = 926
-        Height = 423
+        Height = 415
         Columns = <
           item
             Expanded = False
@@ -124,62 +124,21 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 427
+        Top = 419
         Width = 926
-        ExplicitTop = 427
+        Height = 70
+        ExplicitTop = 419
         ExplicitWidth = 926
-        object lblLancamentoAberto: TLabel [0]
-          Left = 2
-          Top = 4
-          Width = 205
-          Height = 13
-          Caption = '* Lan'#231'amentos a receber em aberto'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clRed
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lblLancamentoVencido: TLabel [1]
-          Tag = -1
-          Left = 2
-          Top = 24
-          Width = 196
-          Height = 13
-          Caption = '* Lan'#231'amentos a receber vencidos'
-          Color = clYellow
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clRed
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object lblLancamentoCancelado: TLabel [2]
-          Left = 2
-          Top = 44
-          Width = 152
-          Height = 13
-          Caption = '* Lan'#231'amentos cancelados'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = 7303023
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Transparent = True
-        end
+        ExplicitHeight = 70
         inherited grpBxFiltro: TGroupBox
           Left = 328
           Width = 594
+          Height = 62
           ExplicitLeft = 328
           ExplicitWidth = 594
           DesignSize = (
             594
-            54)
+            62)
           inherited lbltFiltrar: TLabel
             Left = 310
             Width = 73
@@ -204,6 +163,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           end
           inherited btnFiltrar: TcxButton
             Left = 549
+            Height = 35
             TabOrder = 3
             ExplicitLeft = 549
           end
@@ -320,6 +280,152 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 1
+          end
+        end
+        object pnlStatus: TPanel
+          AlignWithMargins = True
+          Left = 7
+          Top = 6
+          Width = 318
+          Height = 58
+          Margins.Top = 2
+          Margins.Bottom = 2
+          Align = alClient
+          BevelOuter = bvNone
+          TabOrder = 1
+          ExplicitLeft = 224
+          ExplicitTop = 7
+          ExplicitWidth = 101
+          ExplicitHeight = 48
+          object pnlSatusColor: TPanel
+            Left = 0
+            Top = 0
+            Width = 24
+            Height = 58
+            Align = alLeft
+            BevelOuter = bvNone
+            TabOrder = 0
+            object shpOperacaoCancelado: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 41
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = 7303023
+              Pen.Style = psClear
+              ExplicitTop = 46
+              ExplicitWidth = 19
+            end
+            object shpOperacaoVendido: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 21
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = clYellow
+              Pen.Style = psClear
+              ExplicitTop = 24
+              ExplicitWidth = 19
+            end
+            object shpOperacaoAberta: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 1
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = clRed
+              Pen.Style = psClear
+              ExplicitTop = 2
+              ExplicitWidth = 19
+            end
+          end
+          object pnlStatusText: TPanel
+            Left = 24
+            Top = 0
+            Width = 294
+            Height = 58
+            Align = alClient
+            BevelOuter = bvNone
+            TabOrder = 1
+            object lblOperacaoAberta: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 1
+              Width = 288
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Lan'#231'amentos a pagar em aberto'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitTop = 2
+              ExplicitWidth = 251
+            end
+            object lblOperacaoVencido: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 21
+              Width = 288
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Lan'#231'amentos a pagar vencidos'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitTop = 24
+              ExplicitWidth = 251
+            end
+            object lblOperacaoCancelado: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 41
+              Width = 288
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Lan'#231'amentos cancelados'
+              Color = clYellow
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentColor = False
+              ParentFont = False
+              Transparent = True
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitLeft = 0
+              ExplicitTop = 36
+              ExplicitWidth = 256
+            end
           end
         end
       end
@@ -1046,10 +1152,6 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
         TabOrder = 4
         object tbsHistorico: TTabSheet
           Caption = 'Hist'#243'rico'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -1671,7 +1773,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       '  CODBANCO = :CODBANCO,'
       '  CODTPREC = :CODTPREC,'
       '  COMPETENCIA_APURACAO = :COMPETENCIA_APURACAO,'
-      '  DATAPROCESSOBOLETO = :DATAPROCESSOBOLETO,'
+      '  DATAPROCESSOBO'#1'E'#311#0' = :DATAPROCESSOBOLETO,'
       '  DOCBAIX = :DOCBAIX,'
       '  DTEMISS = :DTEMISS,'
       '  DTREC = :DTREC,'

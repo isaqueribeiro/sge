@@ -1106,7 +1106,7 @@ inherited frmGeInventario: TfrmGeInventario
     end
     object dbProdutoCodigo: TDBEdit
       Left = 25
-      Top = 74
+      Top = 72
       Width = 113
       Height = 24
       CharCase = ecUpperCase

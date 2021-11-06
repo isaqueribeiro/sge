@@ -84,8 +84,6 @@ type
     dbCliente: TJvDBComboEdit;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
-    lblLancamentoAberto: TLabel;
-    lblLancamentoVencido: TLabel;
     Bevel10: TBevel;
     btbtnIncluirLote: TcxButton;
     FrReciboA5: TfrxReport;
@@ -110,7 +108,6 @@ type
     popGerarReciboA5: TMenuItem;
     lblSaldoAPagar: TLabel;
     dbSaldoAReceber: TDBEdit;
-    lblLancamentoCancelado: TLabel;
     fdQryEmpresa: TFDQuery;
     fdQryCondicaoPagto: TFDQuery;
     fdQryCompetencia: TFDQuery;
@@ -201,6 +198,15 @@ type
     CdsReciboVALORREC: TFMTBCDField;
     CdsReciboVALOR_BAIXA: TFMTBCDField;
     fdQryTipoReceita: TFDQuery;
+    pnlStatus: TPanel;
+    pnlSatusColor: TPanel;
+    shpOperacaoCancelado: TShape;
+    shpOperacaoVendido: TShape;
+    shpOperacaoAberta: TShape;
+    pnlStatusText: TPanel;
+    lblOperacaoAberta: TLabel;
+    lblOperacaoVencido: TLabel;
+    lblOperacaoCancelado: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure dbClienteButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -736,17 +742,17 @@ begin
     begin
       // Destacar Títulos A Pagar cancelados
       if (FieldByName('SITUACAO').AsInteger = 0) then
-        dbgDados.Canvas.Font.Color := lblLancamentoCancelado.Font.Color
+        dbgDados.Canvas.Font.Color := shpOperacaoCancelado.Brush.Color
       else
       // Destacar Títulos A Pagar em aberto
       if ( not FieldByName('BAIXADO').IsNull ) then
         if ( FieldByName('BAIXADO').AsInteger = STATUS_ARECEBER_PENDENTE ) then
           if FieldByName('DTVENC').AsDateTime >= DataAtual then
-            dbgDados.Canvas.Font.Color := lblLancamentoAberto.Font.Color
+            dbgDados.Canvas.Font.Color := shpOperacaoAberta.Brush.Color
           else
           begin
-            dbgDados.Canvas.Font.Color  := lblLancamentoVencido.Font.Color;
-            dbgDados.Canvas.Brush.Color := lblLancamentoVencido.Color;
+            dbgDados.Canvas.Font.Color  := shpOperacaoAberta.Brush.Color;
+            dbgDados.Canvas.Brush.Color := shpOperacaoVendido.Brush.Color;
           end;
     end;
 

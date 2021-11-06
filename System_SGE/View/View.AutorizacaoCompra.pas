@@ -52,8 +52,6 @@ type
   TViewAutorizacaoCompra = class(TViewPadraoCadastro)
     lblData: TLabel;
     RdgStatusAutorizacao: TRadioGroup;
-    lblAutorizacaoAberta: TLabel;
-    lblAutorizacaoCancelada: TLabel;
     dtsEmpresa: TDataSource;
     lblDataHora: TLabel;
     dbDataHora: TDBEdit;
@@ -137,7 +135,6 @@ type
     dtsTransportador: TDataSource;
     lblNomeContato: TLabel;
     dbNomeContato: TDBEdit;
-    lblAutorizacaoEmEdicao: TLabel;
     PgcTextoAutorizacao: TPageControl;
     TbsAutorizacaoMotivo: TTabSheet;
     TbsAutorizacaoObservacao: TTabSheet;
@@ -161,6 +158,15 @@ type
     ppAutorizacao: TPopupMenu;
     ppmAutorizarCompra: TMenuItem;
     ppmReabrirAutorizacao: TMenuItem;
+    pnlStatus: TPanel;
+    pnlSatusColor: TPanel;
+    shpOperacaoEditando: TShape;
+    shpOperacaoCancelada: TShape;
+    shpOperacaoAberta: TShape;
+    pnlStatusText: TPanel;
+    lblOperacaoAberta: TLabel;
+    lblOperacaoCancelada: TLabel;
+    lblOperacaoEditando: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);
@@ -1204,15 +1210,15 @@ begin
     if (not DtSrcTabela.DataSet.FieldByName('STATUS').IsNull) then
       // Destacar autorização em edição
       if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_AUTORIZACAO_EDC ) then
-        dbgDados.Canvas.Brush.Color := lblAutorizacaoEmEdicao.Color
+        dbgDados.Canvas.Brush.Color := shpOperacaoEditando.Brush.Color
       else
       // Destacar autorização aberta
       if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_AUTORIZACAO_ABR ) then
-        dbgDados.Canvas.Font.Color := lblAutorizacaoAberta.Font.Color
+        dbgDados.Canvas.Font.Color := shpOperacaoAberta.Brush.Color
       else
       // Destacar autorização cancelada
       if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_AUTORIZACAO_CAN ) then
-        dbgDados.Canvas.Font.Color := lblAutorizacaoCancelada.Font.Color;
+        dbgDados.Canvas.Font.Color := shpOperacaoCancelada.Brush.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end
@@ -1221,7 +1227,7 @@ begin
   if ( Sender = dbgProdutos ) then
   begin
     if ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_AUTORIZACAO_FAT) and (DtSrcTabelaItens.DataSet.FieldByName('CONFIRMADO_RECEBIMENTO').AsInteger = 0) ) then
-      dbgProdutos.Canvas.Font.Color := lblAutorizacaoCancelada.Font.Color;
+      dbgProdutos.Canvas.Font.Color := shpOperacaoCancelada.Brush.Color;
 
     dbgProdutos.DefaultDrawDataCell(Rect, dbgProdutos.Columns[DataCol].Field, State);
   end;

@@ -124,7 +124,7 @@ begin
         .Add('  , a.cancelado_data    ')
         .Add('  , a.cancelado_usuario ')
         .Add('  , a.cancelado_motivo  ')
-        .Add('  , coalesce((Select count(x.seq) from TBAUTORIZA_COMPRAITEM x where x.ano = a.ano and x.codigo = a.codigo and x.empresa = a.empresa), 0) as itens')
+        .Add('  , cast(coalesce((Select count(x.seq) from TBAUTORIZA_COMPRAITEM x where x.ano = a.ano and x.codigo = a.codigo and x.empresa = a.empresa), 0) as Integer) as itens')
         .Add('  , f.nomeforn          ')
         .Add('  , f.cnpj              ')
         .Add('  , f.pessoa_fisica     ')

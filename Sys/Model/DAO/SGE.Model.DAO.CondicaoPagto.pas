@@ -131,6 +131,13 @@ end;
 function TModelDAOCondicaoPagto.CreateLookupComboBoxList: IModelDAOCustom;
 begin
   Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn
+      .Query
+        .SQL
+          .ClearWhere
+        .&End
+        .Open;
 end;
 
 procedure TModelDAOCondicaoPagto.DataSetBeforePost(DataSet: TDataSet);

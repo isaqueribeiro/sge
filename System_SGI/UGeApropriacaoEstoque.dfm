@@ -1,6 +1,7 @@
 inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
   Left = 446
   Top = 196
+  ActiveControl = dbgDados
   Caption = 'Controle de Apropria'#231#245'es de Estoque'
   ClientHeight = 685
   ClientWidth = 1116
@@ -23,6 +24,7 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
   inherited pgcGuias: TPageControl
     Width = 1116
     Height = 642
+    ActivePage = tbsTabela
     OnChange = pgcGuiasChange
     ExplicitWidth = 1116
     ExplicitHeight = 642
@@ -117,55 +119,11 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         ExplicitTop = 543
         ExplicitWidth = 1108
         ExplicitHeight = 70
-        object lblApropriacaoAberta: TLabel [0]
-          Left = 2
-          Top = 4
-          Width = 133
-          Height = 13
-          Caption = '* Apropria'#231#245'es Abertas'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlue
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Transparent = True
-        end
-        object lblApropriacaoCancelada: TLabel [1]
-          Left = 2
-          Top = 24
-          Width = 152
-          Height = 13
-          Caption = '* Apropria'#231#245'es Canceladas'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clRed
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Transparent = True
-        end
-        object lblApropriacaoEmEdicao: TLabel [2]
-          Left = 2
-          Top = 44
-          Width = 144
-          Height = 13
-          Caption = '* Apropria'#231#245'es Em Edi'#231#227'o'
-          Color = clYellow
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
         inherited grpBxFiltro: TGroupBox
           Left = 424
           Width = 680
           Height = 62
-          TabOrder = 1
+          TabOrder = 2
           ExplicitLeft = 424
           ExplicitWidth = 680
           ExplicitHeight = 62
@@ -331,7 +289,155 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
             'Aberta'
             'Encerrada'
             'Cancelada')
+          TabOrder = 1
+        end
+        object pnlStatus: TPanel
+          AlignWithMargins = True
+          Left = 7
+          Top = 6
+          Width = 188
+          Height = 58
+          Margins.Top = 2
+          Margins.Bottom = 2
+          Align = alClient
+          BevelOuter = bvNone
           TabOrder = 0
+          ExplicitLeft = 69
+          ExplicitTop = 0
+          ExplicitWidth = 193
+          ExplicitHeight = 70
+          object pnlSatusColor: TPanel
+            Left = 0
+            Top = 0
+            Width = 24
+            Height = 58
+            Align = alLeft
+            BevelOuter = bvNone
+            TabOrder = 0
+            ExplicitHeight = 56
+            object shpOperacaoEditando: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 41
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = clYellow
+              Pen.Style = psClear
+              ExplicitTop = 46
+              ExplicitWidth = 19
+            end
+            object shpOperacaoCancelada: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 21
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = clRed
+              Pen.Style = psClear
+              ExplicitTop = 24
+              ExplicitWidth = 19
+            end
+            object shpOperacaoAberta: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 1
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = clBlue
+              Pen.Style = psClear
+              ExplicitTop = 2
+              ExplicitWidth = 19
+            end
+          end
+          object pnlStatusText: TPanel
+            Left = 24
+            Top = 0
+            Width = 164
+            Height = 58
+            Align = alClient
+            BevelOuter = bvNone
+            TabOrder = 1
+            ExplicitHeight = 56
+            object lblOperacaoAberta: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 1
+              Width = 158
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Apropria'#231#245'es Abertas'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitTop = 2
+              ExplicitWidth = 251
+            end
+            object lblOperacaoCancelada: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 21
+              Width = 158
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Apropria'#231#245'es Canceladas'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitTop = 24
+              ExplicitWidth = 251
+            end
+            object lblOperacaoEditando: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 41
+              Width = 158
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Apropria'#231#245'es Em Edi'#231#227'o'
+              Color = clYellow
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentColor = False
+              ParentFont = False
+              Transparent = True
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitLeft = 0
+              ExplicitTop = 36
+              ExplicitWidth = 256
+            end
+          end
         end
       end
     end
@@ -2230,12 +2336,12 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       '  , a.cancel_datahora'
       '  , a.cancel_motivo'
       ''
-      '  , coalesce(('
+      '  , cast(coalesce(('
       '      Select'
       '        count(ai.item) from'
       '      TBAPROPRIACAO_ALMOX_ITEM ai'
       '      where ai.ano = a.ano and ai.controle = a.controle'
-      '    ), 0) as Itens'
+      '    ), 0) as Integer) as Itens'
       ''
       '  , e.rzsoc     as empresa_nome'
       '  , c.descricao as cc_descricao'
@@ -2351,12 +2457,12 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
       Origin = 'MOTIVO'
       BlobType = ftMemo
     end
-    object fdQryTabelaITENS: TLargeintField
+    object fdQryTabelaITENS: TIntegerField
       AutoGenerateValue = arDefault
-      DisplayLabel = 'Produto(s)'
       FieldName = 'ITENS'
       Origin = 'ITENS'
       ProviderFlags = []
+      ReadOnly = True
     end
     object fdQryTabelaOBS: TMemoField
       DisplayLabel = 'Observa'#231#245'es'

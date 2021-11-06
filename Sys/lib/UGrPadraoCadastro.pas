@@ -297,6 +297,7 @@ begin
     end;
 
   // Destacar os registros desativados
+  // -- Label
   sComponentName  := 'lblRegistroDesativado';
   cComponentLabel := Self.FindComponent(sComponentName);
   fComponentField := TDbGrid(Sender).DataSource.DataSet.Fields.FindField(CampoCadastroAtivo);

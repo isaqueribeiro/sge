@@ -60,8 +60,6 @@ type
     btbtnAlterarSituacao: TcxButton;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
-    lblChequePendente: TLabel;
-    lblChequeCompensar: TLabel;
     FrChequeA5: TfrxReport;
     FrdCheque: TfrxDBDataset;
     ACBrExtenso: TACBrExtenso;
@@ -199,6 +197,15 @@ type
     QryChequeVALOR: TFMTBCDField;
     CdsChequeVALOR: TFMTBCDField;
     qryBaixasVALOR_BAIXA: TFMTBCDField;
+    pnlStatus: TPanel;
+    pnlSatusColor: TPanel;
+    shpOperacaoCancelado: TShape;
+    shpOperacaoACompensar: TShape;
+    shpOperacaoPedente: TShape;
+    pnlStatusText: TPanel;
+    lblOperacaoPendente: TLabel;
+    lblOperacaoACompensar: TLabel;
+    lblOperacaoCancelado: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure dbEmissorNomeButtonClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
@@ -805,13 +812,13 @@ begin
   begin
     // Destacar Cheques Pendentes
     if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_CHEQUE_PENDENTE ) then
-      dbgDados.Canvas.Font.Color := lblChequePendente.Font.Color
+      dbgDados.Canvas.Font.Color := shpOperacaoPedente.Brush.Color
     else
     // Destacar Cheques A Compensar
     if ( (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_CHEQUE_APRESENTADO) and (DtSrcTabela.DataSet.FieldByName('DATA_APRESENTACAO').AsDateTime <= DataAtual) ) then
     begin
-      dbgDados.Canvas.Font.Color  := lblChequeCompensar.Font.Color;
-      dbgDados.Canvas.Brush.Color := lblChequeCompensar.Color;
+      dbgDados.Canvas.Font.Color  := clBlue;
+      dbgDados.Canvas.Brush.Color := shpOperacaoACompensar.Brush.Color;
     end;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
