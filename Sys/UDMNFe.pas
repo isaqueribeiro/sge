@@ -61,7 +61,6 @@ uses
 type
   TQrImage_ErrCorrLevel = (L, M, Q, H);
   TTamanhoQrCode = (tamQrCode150, tamQrCode160, tamQrCode175, tamQrCode180, tamQrCode200, tamQrCode300);
-  TFormaNFDevolucao = (fdNFeEletronica, fdNFeModelo1_1A, fdNFProdutorRural, fdCupomFiscal);
   TTipoNF = (tnfEntrada, tnfSaida);
   TDMNFe = class(TDataModule)
     ACBrNFe: TACBrNFe;

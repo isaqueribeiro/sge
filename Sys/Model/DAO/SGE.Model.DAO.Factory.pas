@@ -91,7 +91,8 @@ type
       FLogradouro     ,
       FLogTransacao   ,
       FLoteProduto    ,
-      FNivelIBPT      ,
+      FModeloCupomFiscalView,
+      FNivelIBPT        ,
       FOrigemProdutoView,
       FPlanoConta       ,
       FPlanoContaNivel  ,
@@ -182,6 +183,7 @@ type
       function Logradouro : IModelDAOCustom;
       function LogTransacao : IModelDAOCustom;
       function LoteProduto : IModelDAOCustom;
+      function ModeloCupomFiscalView : IModelDAOCustom;
       function NivelIBPT : IModelDAOCustom;
       function OrigemProdutoView : IModelDAOCustom;
       function PlanoConta : IModelDAOCustom;
@@ -883,6 +885,14 @@ begin
     FLoteProduto := TModelDAOLoteProduto.New;
 
   Result := FLoteProduto;
+end;
+
+function TModelDAOFactory.ModeloCupomFiscalView: IModelDAOCustom;
+begin
+  if not Assigned(FModeloCupomFiscalView) then
+    FModeloCupomFiscalView := TModelDAOModeloCupomFiscal.New;
+
+  Result := FModeloCupomFiscalView;
 end;
 
 function TModelDAOFactory.UF: IModelDAOCustom;

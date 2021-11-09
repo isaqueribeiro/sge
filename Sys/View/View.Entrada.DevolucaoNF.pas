@@ -89,7 +89,6 @@ type
     lblNFIE: TLabel;
     dbNFIE: TDBEdit;
     dtsModeloCupom: TDataSource;
-    fdQryModeloCupom: TFDQuery;
     cdsCompra: TFDQuery;
     updCompra: TFDUpdateSQL;
     cdsCompraANO: TSmallintField;
@@ -126,7 +125,8 @@ type
     { Public declarations }
     FControllerFormaDevolucaoView,
     FControllerEstado      ,
-    FControllerCompetencia : IControllerCustom;
+    FControllerCompetencia ,
+    FControllerModeloCupomFiscal : IControllerCustom;
     procedure RegistrarRotinaSistema; override;
   end;
 
@@ -150,13 +150,18 @@ implementation
 
 uses
   SYstem.DateUtils,
+  UConstantesDGE,
+  UFuncoes,
   Controller.Tabela,
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper,
   Service.Message,
+  UDMRecursos,
 
-  UDMBusiness, UDMRecursos, UDMNFe, UFuncoes, UGrCampoRequisitado, UGeNFEmitida;
+  UDMBusiness,
+  UGrCampoRequisitado,
+  UGeNFEmitida;
 
 {$R *.dfm}
 
@@ -231,24 +236,24 @@ end;
 procedure TViewEntradaDevolucaoNF.cdsCompraCODCONTROLGetText(Sender: TField;
   var Text: string; DisplayText: Boolean);
 begin
-  if not Sender.IsNull then
-    Text := cdsCompraANO.AsString + '/' + FormatFloat('0000000', Sender.AsInteger);
+//  if not Sender.IsNull then
+//    Text := cdsCompraANO.AsString + '/' + FormatFloat('0000000', Sender.AsInteger);
 end;
 
 procedure TViewEntradaDevolucaoNF.cdsCompraDNFE_ENTRADA_CODGetText(Sender: TField; var Text: string;
   DisplayText: Boolean);
 begin
-  if not Sender.IsNull then
-    Text := Sender.DataSet.FieldByName('DNFE_ENTRADA_ANO').AsString + '/' +
-      FormatFloat('0000000', Sender.AsInteger);
+//  if not Sender.IsNull then
+//    Text := Sender.DataSet.FieldByName('DNFE_ENTRADA_ANO').AsString + '/' +
+//      FormatFloat('0000000', Sender.AsInteger);
 end;
 
 procedure TViewEntradaDevolucaoNF.cdsCompraDNFE_SAIDA_CODGetText(Sender: TField; var Text: string;
   DisplayText: Boolean);
 begin
-  if not Sender.IsNull then
-    Text := Sender.DataSet.FieldByName('DNFE_SAIDA_ANO').AsString + '/' +
-      FormatFloat('0000000', Sender.AsInteger);
+//  if not Sender.IsNull then
+//    Text := Sender.DataSet.FieldByName('DNFE_SAIDA_ANO').AsString + '/' +
+//      FormatFloat('0000000', Sender.AsInteger);
 end;
 
 procedure TViewEntradaDevolucaoNF.dbEntradaButtonClick(Sender: TObject);
@@ -366,10 +371,9 @@ begin
   FControllerFormaDevolucaoView := TControllerFactory.New.FormaDevolucao;
   FControllerEstado      := TControllerFactory.New.Estado;
   FControllerCompetencia := TControllerFactory.New.Competencia;
+  FControllerModeloCupomFiscal := TControllerFactory.New.ModeloCupomFiscalView;
 
   inherited;
-
-  CarregarListaDB(fdQryModeloCupom);
 
   TController(FControllerFormaDevolucaoView)
     .LookupComboBox(dbFormaDevolucao, dtsFormaDevolucao, 'dnfe_forma', 'codigo', 'descricao');
@@ -377,6 +381,8 @@ begin
     .LookupComboBox(dbNFUF, dtsUF, 'dnfe_uf', 'est_sigla', 'est_sigla');
   TController(FControllerCompetencia)
     .LookupComboBox(dbNFUF, dtsCompetencia, 'dnfe_competencia', 'codigo_resumo', 'descricao_resumo');
+  TController(FControllerModeloCupomFiscal)
+    .LookupComboBox(dbCPModelo, dtsModeloCupom, 'dnfe_cmodelo', 'codigo', 'descricao');
 end;
 
 procedure TViewEntradaDevolucaoNF.RegistrarRotinaSistema;

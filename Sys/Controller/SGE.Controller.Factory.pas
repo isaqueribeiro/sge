@@ -87,6 +87,7 @@ type
       FLogradouro  ,
       FLogTransacao,
       FLoteProduto ,
+      FModeloCupomFiscalView,
       FNivelIBPT   ,
       FOrigemProdutoView,
       FPlanoConta      ,
@@ -174,6 +175,7 @@ type
       function Logradouro : IControllerCustom;
       function LogTransacao : IControllerCustom;
       function LoteProduto : IControllerCustom;
+      function ModeloCupomFiscalView : IControllerCustom;
       function NivelIBPT : IControllerCustom;
       function OrigemProdutoView : IControllerCustom;
       function PlanoConta : IControllerCustom;
@@ -698,6 +700,14 @@ begin
     FLoteProduto := TControllerLoteProduto.New;
 
   Result := FLoteProduto;
+end;
+
+function TControllerFactory.ModeloCupomFiscalView: IControllerCustom;
+begin
+  if not Assigned(FModeloCupomFiscalView) then
+    FModeloCupomFiscalView := TControllerModeloCupomFiscal.New;
+
+  Result := FModeloCupomFiscalView;
 end;
 
 function TControllerFactory.TabelaIBPT: IControllerCustom;

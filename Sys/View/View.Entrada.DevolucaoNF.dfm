@@ -770,18 +770,7 @@ inherited ViewEntradaDevolucaoNF: TViewEntradaDevolucaoNF
     Top = 96
   end
   object dtsModeloCupom: TDataSource
-    DataSet = fdQryModeloCupom
     Left = 349
-    Top = 128
-  end
-  object fdQryModeloCupom: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select *'
-      'from VW_MODELO_CUPOM_FISCAL')
-    Left = 320
     Top = 128
   end
   object cdsCompra: TFDQuery

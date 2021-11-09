@@ -26,6 +26,23 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
+  // Devolução de Produtos/Serviços através da Entrada
+  TModelDAOEntradaDevolucao = class(TModelDAO, IModelDAOCustom)
+    private
+      procedure ControleGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+      procedure EntradaGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+      procedure SaidaGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+      procedure DataSetAfterOpen(DataSet: TDataSet);
+      procedure DataSetBeforePost(DataSet: TDataSet);
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+  end;
+
   // Tipo de Entrada de Produtos/Serviços (View)
   TModelDAOTipoEntradaView = class(TModelDAO, IModelDAOCustom)
     protected
@@ -325,6 +342,95 @@ begin
     FieldByName('AUTORIZACAO_CODIGO').Clear;
     FieldByName('AUTORIZACAO_EMPRESA').Clear;
   end;
+end;
+
+{ TModelDAOEntradaDevolucao }
+
+constructor TModelDAOEntradaDevolucao.Create;
+begin
+  inherited Create;
+  FConn.Query.CreateGenerator('GEN_COMPRAS_CONTROLE', FormatDateTime('yyyy', Date).ToInteger);
+  FConn
+    .Query
+      .TableName('TBCOMPRAS')
+      .AliasTableName('c')
+      .KeyFields('ano;codcontrol;codemp')
+      .SQL
+        .Clear
+        .Add('Select                ')
+        .Add('    c.ano             ')
+        .Add('  , c.codcontrol      ')
+        .Add('  , c.codemp          ')
+        .Add('  , c.dnfe_entrada_ano')
+        .Add('  , c.dnfe_entrada_cod')
+        .Add('  , c.dnfe_saida_ano  ')
+        .Add('  , c.dnfe_saida_cod  ')
+        .Add('  , c.dnfe_forma      ')
+        .Add('  , c.dnfe_chave      ')
+        .Add('  , c.dnfe_uf         ')
+        .Add('  , c.dnfe_cnpj_cpf   ')
+        .Add('  , c.dnfe_ie         ')
+        .Add('  , c.dnfe_competencia')
+        .Add('  , c.dnfe_serie      ')
+        .Add('  , c.dnfe_numero     ')
+        .Add('  , c.dnfe_modelo     ')
+        .Add('  , c.decf_modelo     ')
+        .Add('  , c.decf_numero     ')
+        .Add('  , c.decf_coo        ')
+        .Add('from TBCOMPRAS c      ')
+        .Add('where (c.ano        = :ano)')
+        .Add('  and (c.codcontrol = :controle)')
+        .Add('  and (c.codemp     = :empresa)')
+      .&End
+    .ParamByName('ano', 0)
+    .ParamByName('controle', 0)
+    .ParamByName('empresa', EmptyStr)
+    .Open;
+
+  FConn.Query.DataSet.AfterOpen   := DataSetAfterOpen;
+  FConn.Query.DataSet.BeforePost  := DataSetBeforePost;
+end;
+
+destructor TModelDAOEntradaDevolucao.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOEntradaDevolucao.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+procedure TModelDAOEntradaDevolucao.ControleGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+    Text := Sender.DataSet.FieldByName('ano').AsString + '/' + FormatFloat('0000000', Sender.AsInteger);
+end;
+
+procedure TModelDAOEntradaDevolucao.EntradaGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+    Text := Sender.DataSet.FieldByName('dnfe_entrada_ano').AsString + '/' +
+      FormatFloat('0000000', Sender.AsInteger);
+end;
+
+procedure TModelDAOEntradaDevolucao.SaidaGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+    Text := Sender.DataSet.FieldByName('dnfe_saida_ano').AsString + '/' +
+      FormatFloat('0000000', Sender.AsInteger);
+end;
+
+procedure TModelDAOEntradaDevolucao.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  FConn.Query.DataSet.FieldByName('codcontrol').OnGetText       := ControleGetText;
+  FConn.Query.DataSet.FieldByName('dnfe_entrada_cod').OnGetText := EntradaGetText;
+  FConn.Query.DataSet.FieldByName('dnfe_saida_cod').OnGetText   := SaidaGetText;
+end;
+
+procedure TModelDAOEntradaDevolucao.DataSetBeforePost(DataSet: TDataSet);
+begin
+  ;
 end;
 
 { TModelDAOTipoEntradaView }

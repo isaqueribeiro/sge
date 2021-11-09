@@ -110,6 +110,7 @@ type
     function Empresa : IModelDAOCustom;
     function EmpresaView : IModelDAOCustom;
     function Entrada : IModelDAOCustom;
+    function EntradaDevolucao : IModelDAOCustom;
     function EntradaLoteProduto : IModelDAOCustom;
     function EntradaProduto : IModelDAOCustom;
     function Estado : IModelDAOCustom;
@@ -127,6 +128,7 @@ type
     function Logradouro : IModelDAOCustom;
     function LogTransacao : IModelDAOCustom;
     function LoteProduto : IModelDAOCustom;
+    function ModeloCupomFiscalView : IModelDAOCustom;
     function NivelIBPT : IModelDAOCustom;
     function OrigemProdutoView : IModelDAOCustom;
     function PlanoConta : IModelDAOCustom;

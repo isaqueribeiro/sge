@@ -139,6 +139,16 @@ type
       class function New : IControllerCustom;
   end;
 
+  // Modelos de Cupons Fiscais (View)
+  TControllerModeloCupomFiscal = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
   // Alíquota ICMS (Stored Procedure)
   TControllerAliquotaICMS = class(TController, IControllerAliquotaICMS)
     private
@@ -404,6 +414,23 @@ begin
 end;
 
 class function TControllerCompetencia.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerModeloCupomFiscal }
+
+constructor TControllerModeloCupomFiscal.Create;
+begin
+  inherited Create(TModelDAOFactory.New.ModeloCupomFiscalView);
+end;
+
+destructor TControllerModeloCupomFiscal.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerModeloCupomFiscal.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

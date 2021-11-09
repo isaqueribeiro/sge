@@ -169,6 +169,18 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // Modelo de Cupom Fiscal (View)
+  TModelDAOModeloCupomFiscal = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
   // Alíquota ICMS (Stored Procedure)
   TModelDAOAliquotaICMS = class(TModelDAO, IModelDAOCustom)
     private
@@ -751,6 +763,40 @@ begin
   // Ignorar campos no Insert e Update
   FConn.Query.DataSet.FieldByName('codigo_resumo').ProviderFlags    := [];
   FConn.Query.DataSet.FieldByName('descricao_resumo').ProviderFlags := [];
+end;
+
+{ TModelDAOModeloCupomFiscal }
+
+constructor TModelDAOModeloCupomFiscal.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    m.codigo    ')
+        .Add('  , m.descricao ')
+        .Add('from VW_MODELO_CUPOM_FISCAL m')
+      .&End
+    .Open;
+end;
+
+destructor TModelDAOModeloCupomFiscal.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOModeloCupomFiscal.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOModeloCupomFiscal.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
 end;
 
 end.
