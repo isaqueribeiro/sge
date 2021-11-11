@@ -2262,7 +2262,7 @@ begin
 
     if ( Trim(FieldByName('LOTE_NFE_RECIBO').AsString) = EmptyStr ) then
       if FControllerCFOP.GetDevolucao( FieldByName('NFCFOP').AsInteger ) then
-        if not InformarDocumentoReferenciado(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger) then
+        if not InformarDocumentoReferenciado(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger, FieldByName('CODEMP').AsString) then
           Exit;
 
     // Buscar retorno do envio pendente, caso ele tenha ocorrido

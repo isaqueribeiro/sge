@@ -45,6 +45,16 @@ type
       function LoteProdutoPendente : Boolean;
   end;
 
+  // Devolução de Produtos/Serviços (Entrada)
+  TControllerEntradaDevolucao = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
   // Tipo de Entrada de Produtos/Serviços (View)
   TControllerTipoEntradaView = class(TController, IControllerCustom)
     private
@@ -661,6 +671,23 @@ begin
 end;
 
 class function TControllerEntradaLoteProduto.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerEntradaDevolucao }
+
+constructor TControllerEntradaDevolucao.Create;
+begin
+  inherited Create(TModelDAOFactory.New.EntradaDevolucao);
+end;
+
+destructor TControllerEntradaDevolucao.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerEntradaDevolucao.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

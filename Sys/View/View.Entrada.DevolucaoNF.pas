@@ -42,9 +42,7 @@ uses
   dxSkinsCore,
 
   UGrPadrao,
-  SGE.Controller.Interfaces, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
-  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
-  FireDAC.Comp.DataSet;
+  SGE.Controller.Interfaces;
 
 type
   TViewEntradaDevolucaoNF = class(TfrmGrPadrao)
@@ -89,48 +87,29 @@ type
     lblNFIE: TLabel;
     dbNFIE: TDBEdit;
     dtsModeloCupom: TDataSource;
-    cdsCompra: TFDQuery;
-    updCompra: TFDUpdateSQL;
-    cdsCompraANO: TSmallintField;
-    cdsCompraCODCONTROL: TIntegerField;
-    cdsCompraCODEMP: TStringField;
-    cdsCompraDNFE_ENTRADA_ANO: TSmallintField;
-    cdsCompraDNFE_ENTRADA_COD: TIntegerField;
-    cdsCompraDNFE_SAIDA_ANO: TSmallintField;
-    cdsCompraDNFE_SAIDA_COD: TIntegerField;
-    cdsCompraDNFE_FORMA: TSmallintField;
-    cdsCompraDNFE_CHAVE: TStringField;
-    cdsCompraDNFE_UF: TStringField;
-    cdsCompraDNFE_CNPJ_CPF: TStringField;
-    cdsCompraDNFE_IE: TStringField;
-    cdsCompraDNFE_COMPETENCIA: TStringField;
-    cdsCompraDNFE_SERIE: TStringField;
-    cdsCompraDNFE_NUMERO: TIntegerField;
-    cdsCompraDNFE_MODELO: TSmallintField;
-    cdsCompraDECF_MODELO: TSmallintField;
-    cdsCompraDECF_NUMERO: TIntegerField;
-    cdsCompraDECF_COO: TIntegerField;
     procedure FormCreate(Sender: TObject);
-    procedure cdsCompraCODCONTROLGetText(Sender: TField; var Text: string;
-      DisplayText: Boolean);
     procedure dtsCompraDataChange(Sender: TObject; Field: TField);
     procedure btFecharClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure dbEntradaButtonClick(Sender: TObject);
-    procedure cdsCompraDNFE_ENTRADA_CODGetText(Sender: TField; var Text: string; DisplayText: Boolean);
-    procedure cdsCompraDNFE_SAIDA_CODGetText(Sender: TField; var Text: string; DisplayText: Boolean);
   private
     { Private declarations }
+    FAno,
+    FControle : Integer;
+    FEmpresa  : String;
+
+    procedure CarregarEntrada;
   public
     { Public declarations }
     FControllerFormaDevolucaoView,
     FControllerEstado      ,
     FControllerCompetencia ,
-    FControllerModeloCupomFiscal : IControllerCustom;
+    FControllerModeloCupomFiscal,
+    FControllerEntradaDevolucao : IControllerCustom;
     procedure RegistrarRotinaSistema; override;
   end;
 
-  function InformarDocumentoReferenciado(const AOwer : TComponent; Ano : Smallint; Numero : Integer) : Boolean;
+  function InformarDocumentoReferenciado(const AOwer : TComponent; Ano : Smallint; Numero : Integer; Empresa : String) : Boolean;
 
 (*
   Tabelas:
@@ -158,14 +137,12 @@ uses
   SGE.Controller.Helper,
   Service.Message,
   UDMRecursos,
-
-  UDMBusiness,
   UGrCampoRequisitado,
   UGeNFEmitida;
 
 {$R *.dfm}
 
-function InformarDocumentoReferenciado(const AOwer : TComponent; Ano : Smallint; Numero : Integer) : Boolean;
+function InformarDocumentoReferenciado(const AOwer : TComponent; Ano : Smallint; Numero : Integer; Empresa : String) : Boolean;
 var
   AForm : TViewEntradaDevolucaoNF;
 begin
@@ -173,22 +150,23 @@ begin
   try
     with AForm do
     begin
-      cdsCompra.Close;
-      cdsCompra.ParamByName('anocompra').AsInteger := Ano;
-      cdsCompra.ParamByName('numcompra').AsInteger := Numero;
-      cdsCompra.Open;
+      FAno      := Ano;
+      FControle := Numero;
+      FEmpresa  := Empresa.Trim;
 
-      if cdsCompraDNFE_ENTRADA_COD.AsInteger > 0 then
-        dbEntrada.DataField := cdsCompraDNFE_ENTRADA_COD.FieldName
+      CarregarEntrada;
+
+      if dtsCompra.DataSet.FieldByName('DNFE_ENTRADA_COD').AsInteger > 0 then
+        dbEntrada.DataField := dtsCompra.DataSet.FieldByName('DNFE_ENTRADA_COD').FieldName
       else
-      if cdsCompraDNFE_SAIDA_COD.AsInteger > 0 then
-        dbEntrada.DataField := cdsCompraDNFE_SAIDA_COD.FieldName;
+      if dtsCompra.DataSet.FieldByName('DNFE_SAIDA_COD').AsInteger > 0 then
+        dbEntrada.DataField := dtsCompra.DataSet.FieldByName('DNFE_SAIDA_COD').FieldName;
 
-      if not cdsCompra.IsEmpty then
+      if not dtsCompra.DataSet.IsEmpty then
       begin
-        cdsCompra.Edit;
-        if cdsCompraDNFE_FORMA.IsNull then
-          cdsCompraDNFE_FORMA.AsInteger := Ord(fdNFeEletronica);
+        dtsCompra.DataSet.Edit;
+        if dtsCompra.DataSet.FieldByName('DNFE_FORMA').IsNull then
+          dtsCompra.DataSet.FieldByName('DNFE_FORMA').AsInteger := Ord(TFormaNFDevolucao.fdNFeEletronica);
       end;
 
       Result := (ShowModal = mrOk);
@@ -205,55 +183,64 @@ end;
 
 procedure TViewEntradaDevolucaoNF.btnConfirmarClick(Sender: TObject);
 begin
-  cdsCompraDNFE_CHAVE.Required := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFeEletronica]);
+  dtsCompra.DataSet.FieldByName('DNFE_CHAVE').Required  := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFeEletronica]);
 
-  cdsCompraDNFE_SERIE.Required  := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFeModelo1_1A, fdNFProdutorRural]);
-  cdsCompraDNFE_NUMERO.Required := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFeModelo1_1A, fdNFProdutorRural]);
-  cdsCompraDNFE_MODELO.Required := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFeModelo1_1A, fdNFProdutorRural]);
-  cdsCompraDNFE_UF.Required     := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFeModelo1_1A, fdNFProdutorRural]);
-  cdsCompraDNFE_COMPETENCIA.Required := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFeModelo1_1A, fdNFProdutorRural]);
-  cdsCompraDNFE_CNPJ_CPF.Required    := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFeModelo1_1A, fdNFProdutorRural]);
-  cdsCompraDNFE_IE.Required          := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFProdutorRural]);
+  dtsCompra.DataSet.FieldByName('DNFE_SERIE').Required  := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFeModelo1_1A, fdNFProdutorRural]);
+  dtsCompra.DataSet.FieldByName('DNFE_NUMERO').Required := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFeModelo1_1A, fdNFProdutorRural]);
+  dtsCompra.DataSet.FieldByName('DNFE_MODELO').Required := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFeModelo1_1A, fdNFProdutorRural]);
+  dtsCompra.DataSet.FieldByName('DNFE_UF').Required     := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFeModelo1_1A, fdNFProdutorRural]);
+  dtsCompra.DataSet.FieldByName('DNFE_COMPETENCIA').Required := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFeModelo1_1A, fdNFProdutorRural]);
+  dtsCompra.DataSet.FieldByName('DNFE_CNPJ_CPF').Required    := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFeModelo1_1A, fdNFProdutorRural]);
+  dtsCompra.DataSet.FieldByName('DNFE_IE').Required          := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdNFProdutorRural]);
 
-  cdsCompraDECF_MODELO.Required := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdCupomFiscal]);
-  cdsCompraDECF_NUMERO.Required := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdCupomFiscal]);
-  cdsCompraDECF_COO.Required    := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdCupomFiscal]);
+  dtsCompra.DataSet.FieldByName('DECF_MODELO').Required := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdCupomFiscal]);
+  dtsCompra.DataSet.FieldByName('DECF_NUMERO').Required := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdCupomFiscal]);
+  dtsCompra.DataSet.FieldByName('DECF_COO').Required    := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdCupomFiscal]);
 
   if not CamposRequiridos(Self, TClientDataSet(dtsCompra.DataSet), GrpBxDados.Caption) then
-    if ShowConfirmation('Confirmar', 'Confirma os dados do documento referenciado para devolução?') then
-      with cdsCompra do
-      begin
-        Post;
-        ApplyUpdates;
-        CommitUpdates;
+    if TServiceMessage.ShowConfirmation('Confirmar', 'Confirma os dados do documento referenciado para devolução?') then
+    begin
+      dtsCompra.DataSet.Post;
 
-        CommitTransaction;
+      FControllerEntradaDevolucao.DAO.ApplyUpdates;
+      FControllerEntradaDevolucao.DAO.CommitUpdates;
+      FControllerEntradaDevolucao.DAO.CommitTransaction;
 
-        ModalResult := mrOk;
-      end;
+      ModalResult := mrOk;
+    end;
 end;
 
-procedure TViewEntradaDevolucaoNF.cdsCompraCODCONTROLGetText(Sender: TField;
-  var Text: string; DisplayText: Boolean);
+procedure TViewEntradaDevolucaoNF.CarregarEntrada;
 begin
-//  if not Sender.IsNull then
-//    Text := cdsCompraANO.AsString + '/' + FormatFloat('0000000', Sender.AsInteger);
-end;
+  if not Assigned(FControllerEntradaDevolucao) then
+    FControllerEntradaDevolucao := TControllerFactory.New.EntradaDevolucao;
 
-procedure TViewEntradaDevolucaoNF.cdsCompraDNFE_ENTRADA_CODGetText(Sender: TField; var Text: string;
-  DisplayText: Boolean);
-begin
-//  if not Sender.IsNull then
-//    Text := Sender.DataSet.FieldByName('DNFE_ENTRADA_ANO').AsString + '/' +
-//      FormatFloat('0000000', Sender.AsInteger);
-end;
+  dtsCompra.DataSet := FControllerEntradaDevolucao.DAO.DataSet;
 
-procedure TViewEntradaDevolucaoNF.cdsCompraDNFE_SAIDA_CODGetText(Sender: TField; var Text: string;
-  DisplayText: Boolean);
-begin
-//  if not Sender.IsNull then
-//    Text := Sender.DataSet.FieldByName('DNFE_SAIDA_ANO').AsString + '/' +
-//      FormatFloat('0000000', Sender.AsInteger);
+  FControllerEntradaDevolucao
+    .DAO
+    .Close
+    .ParamsByName('ano',      FAno)
+    .ParamsByName('controle', FControle)
+    .ParamsByName('empresa',  FEmpresa)
+    .Open;
+
+  // Configurar tabela dos lotes
+  TTabelaController
+    .New
+    .Tabela(dtsCompra.DataSet)
+    .Display('DNFE_CHAVE',  'Chave de acesso')
+    .Display('DNFE_SERIE',  'Série')
+    .Display('DNFE_NUMERO', 'Número')
+    .Display('DNFE_MODELO', 'Modelo')
+    .Display('DNFE_UF',     'UF')
+    .Display('DNFE_COMPETENCIA', 'Competência')
+    .Display('DNFE_CNPJ_CPF',    'CPF/CNPJ')
+    .Display('DNFE_IE',          'Inscrição Estadual')
+    .Display('DECF_MODELO', 'Modelo do Cupom Fiscal')
+    .Display('DECF_NUMERO', 'Número do Cupom Fiscal')
+    .Display('DECF_COO',    'COO do Cupom Fiscal')
+    .Configurar;
 end;
 
 procedure TViewEntradaDevolucaoNF.dbEntradaButtonClick(Sender: TObject);
@@ -270,39 +257,39 @@ var
 begin
   iAno      := 0;
   iControle := 0;
-  sEmpresa  := cdsCompraCODEMP.AsString;
-  if ( cdsCompra.State = dsEdit ) then
+  sEmpresa  := dtsCompra.DataSet.FieldByName('CODEMP').AsString;
+  if ( dtsCompra.DataSet.State = dsEdit ) then
     if SelecionarNFe(Self, sEmpresa, sSerie, sChave, iNumero, iModelo, dEmissao, fDestinatario, iAno, iControle) then
     begin
       if (fDestinatario.Tipo = dtFornecedor) then
       begin
-        cdsCompraDNFE_ENTRADA_ANO.AsInteger := iAno;
-        cdsCompraDNFE_ENTRADA_COD.AsInteger := iControle;
+        dtsCompra.DataSet.FieldByName('DNFE_ENTRADA_ANO').AsInteger := iAno;
+        dtsCompra.DataSet.FieldByName('DNFE_ENTRADA_COD').AsInteger := iControle;
       end
       else
       begin
-        cdsCompraDNFE_ENTRADA_ANO.Clear;
-        cdsCompraDNFE_ENTRADA_COD.Clear;
+        dtsCompra.DataSet.FieldByName('DNFE_ENTRADA_ANO').Clear;
+        dtsCompra.DataSet.FieldByName('DNFE_ENTRADA_COD').Clear;
       end;
 
       if (fDestinatario.Tipo = dtCliente) then
       begin
-        cdsCompraDNFE_SAIDA_ANO.AsInteger := iAno;
-        cdsCompraDNFE_SAIDA_COD.AsInteger := iControle;
+        dtsCompra.DataSet.FieldByName('DNFE_SAIDA_ANO').AsInteger := iAno;
+        dtsCompra.DataSet.FieldByName('DNFE_SAIDA_COD').AsInteger := iControle;
       end
       else
       begin
-        cdsCompraDNFE_SAIDA_ANO.Clear;
-        cdsCompraDNFE_SAIDA_COD.Clear;
+        dtsCompra.DataSet.FieldByName('DNFE_SAIDA_ANO').Clear;
+        dtsCompra.DataSet.FieldByName('DNFE_SAIDA_COD').Clear;
       end;
 
-      cdsCompraDNFE_COMPETENCIA.AsString  := FormatDateTime('yymm', dEmissao);
-      cdsCompraDNFE_SERIE.AsString    := sSerie;
-      cdsCompraDNFE_NUMERO.AsInteger  := iNumero;
-      cdsCompraDNFE_CHAVE.AsString    := sChave;
-      cdsCompraDNFE_UF.AsString       := fDestinatario.UF;
-      cdsCompraDNFE_CNPJ_CPF.AsString := fDestinatario.CpfCnpj;
-      cdsCompraDNFE_IE.AsString       := fDestinatario.InsEstadual;
+      dtsCompra.DataSet.FieldByName('DNFE_COMPETENCIA').AsString  := FormatDateTime('yymm', dEmissao);
+      dtsCompra.DataSet.FieldByName('DNFE_SERIE').AsString    := sSerie;
+      dtsCompra.DataSet.FieldByName('DNFE_NUMERO').AsInteger  := iNumero;
+      dtsCompra.DataSet.FieldByName('DNFE_CHAVE').AsString    := sChave;
+      dtsCompra.DataSet.FieldByName('DNFE_UF').AsString       := fDestinatario.UF;
+      dtsCompra.DataSet.FieldByName('DNFE_CNPJ_CPF').AsString := fDestinatario.CpfCnpj;
+      dtsCompra.DataSet.FieldByName('DNFE_IE').AsString       := fDestinatario.InsEstadual;
     end;
 end;
 
@@ -346,7 +333,7 @@ begin
     dbCPNumeroCOO.Enabled  := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdCupomFiscal]);
 
     // Definir modelo de Nota Fiscal
-    if ( cdsCompra.State = dsEdit ) then
+    if ( dtsCompra.DataSet.State = dsEdit ) then
       Case TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) of
         fdNFeModelo1_1A  : dbNFModelo.Field.AsInteger := 1;
         fdNFProdutorRural: dbNFModelo.Field.AsInteger := 4;
@@ -356,13 +343,13 @@ begin
 
   end
   else
-  if ( (Field = cdsCompraDNFE_ENTRADA_COD) or (Field = cdsCompraDNFE_SAIDA_COD) ) then
+  if ( (Field = dtsCompra.DataSet.FieldByName('DNFE_ENTRADA_COD')) or (Field = dtsCompra.DataSet.FieldByName('DNFE_SAIDA_COD')) ) then
   begin
-    if cdsCompraDNFE_ENTRADA_COD.AsInteger > 0 then
-      dbEntrada.DataField := cdsCompraDNFE_ENTRADA_COD.FieldName
+    if dtsCompra.DataSet.FieldByName('DNFE_ENTRADA_COD').AsInteger > 0 then
+      dbEntrada.DataField := dtsCompra.DataSet.FieldByName('DNFE_ENTRADA_COD').FieldName
     else
-    if cdsCompraDNFE_SAIDA_COD.AsInteger > 0 then
-      dbEntrada.DataField := cdsCompraDNFE_SAIDA_COD.FieldName;
+    if dtsCompra.DataSet.FieldByName('DNFE_SAIDA_COD').AsInteger > 0 then
+      dbEntrada.DataField := dtsCompra.DataSet.FieldByName('DNFE_SAIDA_COD').FieldName;
   end;
 end;
 
@@ -374,6 +361,10 @@ begin
   FControllerModeloCupomFiscal := TControllerFactory.New.ModeloCupomFiscalView;
 
   inherited;
+
+  FAno      := 0;
+  FControle := 0;
+  FEmpresa  := EmptyStr;
 
   TController(FControllerFormaDevolucaoView)
     .LookupComboBox(dbFormaDevolucao, dtsFormaDevolucao, 'dnfe_forma', 'codigo', 'descricao');

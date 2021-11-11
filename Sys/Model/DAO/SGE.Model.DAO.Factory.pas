@@ -74,6 +74,7 @@ type
       FEmpresa    ,
       FEmpresaView,
       FEntrada    ,
+      FEntradaDevolucao  ,
       FEntradaLoteProduto,
       FEntradaProduto    ,
       FEstado            ,
@@ -166,6 +167,7 @@ type
       function Empresa : IModelDAOCustom;
       function EmpresaView : IModelDAOCustom;
       function Entrada : IModelDAOCustom;
+      function EntradaDevolucao : IModelDAOCustom;
       function EntradaLoteProduto : IModelDAOCustom;
       function EntradaProduto : IModelDAOCustom;
       function Estado : IModelDAOCustom;
@@ -749,6 +751,14 @@ begin
     FEntrada := TModelDAOEntrada.New;
 
   Result := FEntrada;
+end;
+
+function TModelDAOFactory.EntradaDevolucao: IModelDAOCustom;
+begin
+  if not Assigned(FEntradaDevolucao) then
+    FEntradaDevolucao := TModelDAOEntradaDevolucao.New;
+
+  Result := FEntradaDevolucao;
 end;
 
 function TModelDAOFactory.EntradaLoteProduto: IModelDAOCustom;

@@ -71,6 +71,7 @@ type
       FEmpresa     : IControllerCustom;
       FEmpresaView : IControllerEmpresa;
       FEntrada     : IControllerEntrada;
+      FEntradaDevolucao : IControllerCustom;
       FEntradaProduto   : IControllerEntradaProduto;
       FEstado ,
       FFabricanteProduto,
@@ -159,6 +160,7 @@ type
       function Empresa : IControllerCustom;
       function EmpresaView : IControllerEmpresa;
       function Entrada : IControllerEntrada;
+      function EntradaDevolucao : IControllerCustom;
       function EntradaProduto : IControllerEntradaProduto;
       function Estado  : IControllerCustom;
       function FabricanteProduto : IControllerCustom;
@@ -572,6 +574,14 @@ begin
     FEntrada := TControllerEntrada.New;
 
   Result := FEntrada;
+end;
+
+function TControllerFactory.EntradaDevolucao: IControllerCustom;
+begin
+  if not Assigned(FEntradaDevolucao) then
+    FEntradaDevolucao := TControllerEntradaDevolucao.New;
+
+  Result := FEntradaDevolucao;
 end;
 
 function TControllerFactory.EntradaProduto: IControllerEntradaProduto;

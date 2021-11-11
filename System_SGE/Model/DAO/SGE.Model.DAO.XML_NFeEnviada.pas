@@ -28,6 +28,11 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
+  // Pesquisa de Notas Fiscais Eletrônicas enviadas (Compras/Vendas)
+  TModelDAONFeEnviada = class(TModelDAO, IModelDAOCustom)
+
+  end;
+
 implementation
 
 { TModelDAOXML_NFeEnviada }

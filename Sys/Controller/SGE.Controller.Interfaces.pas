@@ -169,6 +169,7 @@ type
     function Empresa     : IControllerCustom;
     function EmpresaView : IControllerEmpresa;
     function Entrada : IControllerEntrada;
+    function EntradaDevolucao : IControllerCustom;
     function EntradaProduto : IControllerEntradaProduto;
     function Estado  : IControllerCustom;
     function FabricanteProduto  : IControllerCustom;
