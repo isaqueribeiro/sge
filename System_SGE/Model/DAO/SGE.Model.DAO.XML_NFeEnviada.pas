@@ -30,7 +30,16 @@ type
 
   // Pesquisa de Notas Fiscais Eletrônicas enviadas (Compras/Vendas)
   TModelDAONFeEnviada = class(TModelDAO, IModelDAOCustom)
+    private
+      procedure DataSetDestinatarioCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+      procedure DataSetAfterOpen(DataSet: TDataSet);
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
 
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
 implementation
@@ -38,7 +47,8 @@ implementation
 { TModelDAOXML_NFeEnviada }
 
 uses
-  UConstantesDGE;
+  UConstantesDGE,
+  Service.Utils;
 
 constructor TModelDAOXML_NFeEnviada.Create;
 begin
@@ -156,6 +166,80 @@ begin
     FieldByName('lote_num').Clear;
     FieldByName('cancelada').AsInteger := FLAG_NAO;
   end;
+end;
+
+{ TModelDAONFeEnviada }
+
+constructor TModelDAONFeEnviada.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .TableName('TBNFE_ENVIADA')
+      .AliasTableName('n')
+      .KeyFields('empresa;serie;numero;modelo')
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    coalesce(lpad(nf.numero, 7, ''0'') || ''-'' || nf.serie, '''') as nfe_destinatario')
+        .Add('  , coalesce(cl.codigo, fn.codforn) as nfe_destinatario_codigo      ')
+        .Add('  , coalesce(cl.nome, fn.nomeforn)  as nfe_destinatario_razao       ')
+        .Add('  , coalesce(cl.cnpj, fn.cnpj) as nfe_destinatario_cnpj             ')
+        .Add('  , coalesce(cl.inscest, fn.inscest) as nfe_destinatario_inscest    ')
+        .Add('  , coalesce(cl.uf, fn.uf) as nfe_destinatario_uf                   ')
+        .Add('  , coalesce(vn.nfe_valor_total_nota, cp.totalnf) as nfe_valor_total')
+        .Add('  , nf.empresa       ')
+        .Add('  , nf.serie         ')
+        .Add('  , nf.numero        ')
+        .Add('  , nf.modelo        ')
+        .Add('  , nf.dataemissao   ')
+        .Add('  , nf.horaemissao   ')
+        .Add('  , nf.versao        ')
+        .Add('  , nf.recibo        ')
+        .Add('  , nf.protocolo     ')
+        .Add('  , nf.chave         ')
+        .Add('  , nf.anovenda      ')
+        .Add('  , nf.numvenda      ')
+        .Add('  , nf.anocompra     ')
+        .Add('  , nf.numcompra     ')
+        .Add('  , nf.xml_filename  ')
+        .Add('  , nf.xml_file      ')
+        .Add('  , nf.cancelada     ')
+        .Add('from TBNFE_ENVIADA nf')
+        .Add('  left join TBVENDAS vn on (vn.ano = nf.anovenda and vn.codcontrol = nf.numvenda) ')
+        .Add('  left join TBCLIENTE cl on (cl.codigo = vn.codcliente) ')
+        .Add('  left join TBCOMPRAS cp on (cp.ano = nf.anocompra and cp.codcontrol = nf.numcompra) ')
+        .Add('  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn) ')
+      .&End
+    .OpenEmpty
+    .CloseEmpty;
+
+  FConn.Query.DataSet.AfterOpen := DataSetAfterOpen;
+end;
+
+destructor TModelDAONFeEnviada.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAONFeEnviada.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+procedure TModelDAONFeEnviada.DataSetDestinatarioCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+    if TServicesUtils.StrIsCNPJ(Sender.AsString) then
+      Text := TServicesUtils.StrFormatarCnpj(Sender.AsString)
+    else
+    if TServicesUtils.StrIsCPF(Sender.AsString) then
+      Text := TServicesUtils.StrFormatarCpf(Sender.AsString);
+end;
+
+procedure TModelDAONFeEnviada.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  FConn.Query.DataSet.FieldByName('nfe_destinatario_cnpj').OnGetText := DataSetDestinatarioCNPJGetText;
 end;
 
 end.

@@ -457,9 +457,9 @@ type
     function IsNFeManifestoDestinatarioRegistrado(const sCNPJ, sChave : String) : Boolean;
     function ExecutarManifestoDestinatarioNFe(const sCNPJ, sChave : String; var aLog : String) : Boolean;
     {$IF NOT (DEFINED(PRINTER_CUPOM) OR DEFINED(PDV))}
-    function ExisteNFeParaBaixar(const sCNPJ : String; aNSU : Integer; var aFileName, aMensagem : String;
+    function ExisteNFeParaBaixar(const sCNPJ : String; aNSU : Int64; var aFileName, aMensagem : String;
       var aDocumentos : TDictionary<String, TDistribuicaoDFeDocumentoRetornado>) : Boolean;
-    function GetUltimoNSU(const sCNPJ : String; var NSU : String) : Boolean;
+    function GetUltimoNSU(const sCNPJ : String; var NSU : String; const ExibirErro : Boolean = True) : Boolean;
     function GetMaximoNSU(const sCNPJ : String; var NSU : String) : Boolean;
     {$ENDIF}
 
@@ -6525,7 +6525,7 @@ begin
 end;
 
 {$IF NOT (DEFINED(PRINTER_CUPOM) OR DEFINED(PDV))}
-function TDMNFe.ExisteNFeParaBaixar(const sCNPJ : String; aNSU : Integer; var aFileName, aMensagem : String;
+function TDMNFe.ExisteNFeParaBaixar(const sCNPJ : String; aNSU : Int64; var aFileName, aMensagem : String;
   var aDocumentos : TDictionary<String, TDistribuicaoDFeDocumentoRetornado>) : Boolean;
 var
   aRetorno   : Boolean;
@@ -6655,30 +6655,35 @@ begin
   end;
 end;
 
-function TDMNFe.GetUltimoNSU(const sCNPJ : String; var NSU : String) : Boolean;
+function TDMNFe.GetUltimoNSU(const sCNPJ : String; var NSU : String; const ExibirErro : Boolean = True) : Boolean;
+var
+  aTemp : String;
 begin
   Result := False;
+  aTemp  := EmptyStr;
   try
-    try
-      if not GetConectedInternet then
-        raise Exception.Create('Estação sem conexão com a internet!');
+    if not GetConectedInternet then
+      raise Exception.Create('Estação sem conexão com a internet!');
 
-      LerConfiguracao(sCNPJ, TTipoDANFE.tipoDANFEFast);
-      AbrirEmitente(sCNPJ);
+    LerConfiguracao(sCNPJ, TTipoDANFE.tipoDANFEFast);
+    AbrirEmitente(sCNPJ);
 
-      if ACBrNFe.DistribuicaoDFePorUltNSU(qryEmitenteEST_COD.AsInteger, sCNPJ, FormatFloat('000000000000000', NSU.ToInt64)) then
-        Result := (ACBrNFe.WebServices.DistribuicaoDFe.retDistDFeInt.cStat = PROCESSO_NSU_ENCONTRADO);
+    if ACBrNFe.DistribuicaoDFePorUltNSU(qryEmitenteEST_COD.AsInteger, sCNPJ, FormatFloat('000000000000000', NSU.ToInt64)) then
+      Result := (ACBrNFe.WebServices.DistribuicaoDFe.retDistDFeInt.cStat = PROCESSO_NSU_ENCONTRADO);
 
-      if Result then
-        NSU := ACBrNFe.WebServices.DistribuicaoDFe.retDistDFeInt.ultNSU
-      else
-        NSU := '0';
-    except
-      On E : Exception do
-        ShowError('Erro ao tentar buscar o último NSU para ' + StrFormatarCnpj(sCNPJ) + '.' + #13#13 + 'GelUltimoNSU() --> ' + E.Message);
+    if Result then
+    begin
+      aTemp := ACBrNFe.WebServices.DistribuicaoDFe.retDistDFeInt.ultNSU;
+      NSU   := aTemp;
     end;
-  finally
-    Result := not NSU.Trim.IsEmpty;
+  except
+    On E : Exception do
+    begin
+      if ExibirErro then
+        ShowError('Erro ao tentar buscar o último NSU para ' + StrFormatarCnpj(sCNPJ) + '.' + #13#13 + 'GelUltimoNSU() --> ' + E.Message);
+
+      Result := False;
+    end;
   end;
 end;
 
@@ -6765,9 +6770,11 @@ function TDMNFe.GetNumeroNSUPesquisado(const aEmpresa : String) : String;
 var
   aKey   ,
   aValue : String;
+const
+  VALUE_NULL = '000000000000000';
 begin
   aKey   := 'nsu_pesquisado_' + OnlyNumber(aEmpresa.Trim);
-  aValue := '000000000000000';
+  aValue := VALUE_NULL;
   try
     with DMBusiness, fdQryBusca do
     begin
@@ -6782,7 +6789,7 @@ begin
       aValue := FieldByName('nsu_pesquisado').AsString;
 
       if aValue.Trim.IsEmpty then
-        aValue := '000000000000000';
+        aValue := VALUE_NULL;
 
       Close;
     end;

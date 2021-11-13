@@ -27,6 +27,16 @@ type
       function PesquisarLote(aCNPJEmissor, aRecibo : String; aLoteEnvioNFE : TLoteEnvioNFE) : IModelDAOCustom;
   end;
 
+  // Pesquisa de Notas Fiscais Eletrônicas enviadas (Compras/Vendas)
+  TControllerNFeEnviada = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
 implementation
 
 uses
@@ -177,6 +187,23 @@ begin
     .Open;
 
   Result := FListaNFePendente;
+end;
+
+{ TControllerNFeEnviada }
+
+constructor TControllerNFeEnviada.Create;
+begin
+  inherited Create(TModelDAOFactory.New.NFeEnviada);
+end;
+
+destructor TControllerNFeEnviada.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerNFeEnviada.New: IControllerCustom;
+begin
+  Result := Self.Create;
 end;
 
 end.

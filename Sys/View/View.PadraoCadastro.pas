@@ -379,7 +379,12 @@ begin
   if ( (pgcGuias.ActivePage = tbsTabela) and edtFiltrar.Visible and edtFiltrar.Enabled ) then
     edtFiltrar.SetFocus;
 
-  DtSrcTabela.DataSet.Append;
+  WaitAMoment(WAIT_AMOMENT_TextoLivre, 'Preparando inserção, aguarde!');
+  try
+    DtSrcTabela.DataSet.Append;
+  finally
+    WaitAMomentFree;
+  end;
 end;
 
 procedure TViewPadraoCadastro.btbtnAlterarClick(Sender: TObject);

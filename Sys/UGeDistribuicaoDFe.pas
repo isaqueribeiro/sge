@@ -5,7 +5,7 @@ interface
 uses
   UGrPadrao,
 
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.StrUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
@@ -67,9 +67,15 @@ type
     cxStyleHeader: TcxStyle;
     cdsDocumentosUF: TStringField;
     cdsNSU: TFDQuery;
+    lblUltimoNSU: TLabel;
+    edtUltimoNSU: TEdit;
+    lblQtdeNotas: TLabel;
+    lblProximoNSU: TLabel;
+    edtProximoNSU: TEdit;
     procedure fdQryEmpresaCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure FormShow(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   strict private
     class var _instance : TfrmDistribuicaoDFe;
   private
@@ -116,6 +122,7 @@ uses
 
 class function TfrmDistribuicaoDFe.&End(var aCNPJEmissor, aUFEmissor, aChave, aNSU : String): Boolean;
 begin
+  _instance.edtUltimoNSU.Text := aNSU.Trim;
   Result := (_instance.ShowModal = mrOk);
   if Result then
   begin
@@ -141,11 +148,13 @@ procedure TfrmDistribuicaoDFe.CarregarDocumentos;
 var
   aFileXML ,
   aRetorno : String;
-  aNSU : Integer;
+  aNSU ,
+  aMaiorNSU : Int64;
   aDocumento  : TDistribuicaoDFeDocumentoRetornado;
   aDocumentos : TDictionary<String, TDistribuicaoDFeDocumentoRetornado>;
 begin
-  aNSU := GetUltimoNSUImportado(gUsuarioLogado.Empresa);
+  aNSU := StrToInt64Def(edtUltimoNSU.Text, 0);
+  aMaiorNSU := 0;
   aDocumentos := TDictionary<String, TDistribuicaoDFeDocumentoRetornado>.Create;
 
   if cdsDocumentos.Active then
@@ -179,6 +188,9 @@ begin
         cdsDocumentosTipoNFe.Value      := Ord(aDocumento.TipoNFe);
         cdsDocumentosSituacao.Value     := Ord(aDocumento.Situacao);
         cdsDocumentos.Post;
+
+        if (StrToInt64Def(cdsDocumentosNSU.AsString, 0) > aMaiorNSU) then
+          aMaiorNSU := StrToInt64Def(cdsDocumentosNSU.AsString, 0);
       end;
 
       aDocumentos.Remove(aDocumento.Chave);
@@ -189,6 +201,11 @@ begin
     aDocumentos.DisposeOf;
 
     cdsDocumentos.First;
+
+    lblQtdeNotas.Caption := Format('%d NOTA(S) NO LOTE DE DISTRIBUIÇÃO', [cdsDocumentos.RecordCount]);
+    edtUltimoNSU.Text    := FormatFloat('000000000000000', aNSU + 1);
+    edtProximoNSU.Text   := FormatFloat('000000000000000', aMaiorNSU);
+    DMNFe.SetNumeroNSUPesquisado(gUsuarioLogado.Empresa, edtUltimoNSU.Text);
   end;
 end;
 
@@ -197,6 +214,13 @@ begin
   fdQryEmpresa.Close;
   fdQryEmpresa.ParamByName('cnpj').AsString := aEmpresa;
   fdQryEmpresa.Open;
+end;
+
+procedure TfrmDistribuicaoDFe.FormCreate(Sender: TObject);
+begin
+  inherited;
+  edtUltimoNSU.Text  := '0';
+  edtProximoNSU.Text := '0';
 end;
 
 procedure TfrmDistribuicaoDFe.FormShow(Sender: TObject);

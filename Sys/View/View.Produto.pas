@@ -1295,9 +1295,11 @@ begin
     .Display('ANVISA',        'Código Ansiva', (gSistema.Codigo = SISTEMA_GESTAO_OPME))
     .Display('REFERENCIA',    'Referência', (gSistema.Codigo = SISTEMA_GESTAO_OPME))
     .Display('MODELO',        'Modelo', False)
-    .Display('CODGRUPO',      'Grupo', True)
     .Display('CODSECAO',      'Seção', False)
-    .Display('NCM_SH',        'NCM/SH', True)
+    .Display('CODGRUPO',      'Grupo', True)
+    .Display('CODUNIDADE',    'Unidade', True)
+    .Display('CODUNIDADE_FRACIONADA', 'Unidade da Fração', True)
+    .Display('NCM_SH',        'NCM/SH', (gSistema.Codigo <> SISTEMA_GESTAO_IND))
     //  Para veículos
 //    .Display('PRECO2',  'Outros na Compra (R$)', ',0.00', TAlignment.taRightJustify, False)
 //    .Display('CUST_COMISSAO',  'Outros da Comissão (R$)', ',0.00', TAlignment.taRightJustify, False)

@@ -93,6 +93,7 @@ type
       FLogTransacao   ,
       FLoteProduto    ,
       FModeloCupomFiscalView,
+      FNFeEnviada       ,
       FNivelIBPT        ,
       FOrigemProdutoView,
       FPlanoConta       ,
@@ -186,6 +187,7 @@ type
       function LogTransacao : IModelDAOCustom;
       function LoteProduto : IModelDAOCustom;
       function ModeloCupomFiscalView : IModelDAOCustom;
+      function NFeEnviada : IModelDAOCustom;
       function NivelIBPT : IModelDAOCustom;
       function OrigemProdutoView : IModelDAOCustom;
       function PlanoConta : IModelDAOCustom;
@@ -239,6 +241,14 @@ end;
 class function TModelDAOFactory.New: IModelDAOFactory;
 begin
   Result := Self.Create;
+end;
+
+function TModelDAOFactory.NFeEnviada: IModelDAOCustom;
+begin
+  if not Assigned(FNFeEnviada) then
+    FNFeEnviada := TModelDAONFeEnviada.New;
+
+  Result := FNFeEnviada;
 end;
 
 function TModelDAOFactory.NivelIBPT: IModelDAOCustom;

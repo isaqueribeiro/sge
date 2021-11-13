@@ -129,7 +129,8 @@ type
     function LogTransacao : IModelDAOCustom;
     function LoteProduto : IModelDAOCustom;
     function ModeloCupomFiscalView : IModelDAOCustom;
-    function NivelIBPT : IModelDAOCustom;
+    function NFeEnviada : IModelDAOCustom;
+    function NivelIBPT  : IModelDAOCustom;
     function OrigemProdutoView : IModelDAOCustom;
     function PlanoConta : IModelDAOCustom;
     function PlanoContaNivel : IModelDAOCustom;

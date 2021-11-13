@@ -774,33 +774,32 @@ end;
 
 procedure TViewEntrada.btnImportarClick(Sender: TObject);
 var
-  aEmissor  ,
-  aUF       ,
-  aChaveNFe ,
-  aUltimoNSU,
-  aNSU      : String;
+  aEmissor   ,
+  aUF        ,
+  aChaveNFe  ,
+  aUltimoNSU : String;
 begin
   aEmissor  := EmptyStr;
   aUF       := EmptyStr;
   aChaveNFe := EmptyStr;
-  aNSU      := '0';
 
   DMNFe.LerConfiguracao(FController.DAO.Usuario.Empresa.CNPJ, tipoDANFEFast);
+
   if (DMNFe.GetCnpjCertificado <> EmptyStr) then
   begin
     aUltimoNSU := DMNFe.GetNumeroNSUPesquisado(FController.DAO.Usuario.Empresa.CNPJ);
-    if DMNFe.GetUltimoNSU(FController.DAO.Usuario.Empresa.CNPJ, aUltimoNSU) then
-    begin
-      aNSU := aUltimoNSU;
-      // Buscar relação do NSU com a NF-e, e caso a relaçao não seja possível, gerar um NSU fictício.
-      if IdentificarNFe(aEmissor, aUF, aChaveNFe, aNSU) then
-        DMNFe.SetNumeroNSUPesquisado(FController.DAO.Usuario.Empresa.CNPJ, aUltimoNSU)
-      else
-        aNSU := '9' + FormatFloat('00000000000000', GetNumeroNSU(FController.DAO.Usuario.Empresa.CNPJ));
-    end;
-  end;
 
-  BaixarImportarNFe(aChaveNFe, aNSU);
+    if (aUltimoNSU.ToInt64 = 0) then
+      DMNFe.GetUltimoNSU(FController.DAO.Usuario.Empresa.CNPJ, aUltimoNSU, False);
+
+    // Buscar relação do NSU com a NF-e, e caso a relaçao não seja possível, gerar um NSU fictício.
+    if not IdentificarNFe(aEmissor, aUF, aChaveNFe, aUltimoNSU) then
+      aUltimoNSU := '9' + FormatFloat('00000000000000', GetNumeroNSU(FController.DAO.Usuario.Empresa.CNPJ));
+  end
+  else
+    aUltimoNSU := '9' + FormatFloat('00000000000000', GetNumeroNSU(FController.DAO.Usuario.Empresa.CNPJ));
+
+  BaixarImportarNFe(aChaveNFe, aUltimoNSU);
 end;
 
 procedure TViewEntrada.dbFornecedorButtonClick(Sender: TObject);

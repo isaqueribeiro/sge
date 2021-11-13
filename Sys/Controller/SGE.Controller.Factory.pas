@@ -89,6 +89,7 @@ type
       FLogTransacao,
       FLoteProduto ,
       FModeloCupomFiscalView,
+      FNFeEnviada  ,
       FNivelIBPT   ,
       FOrigemProdutoView,
       FPlanoConta      ,
@@ -178,6 +179,7 @@ type
       function LogTransacao : IControllerCustom;
       function LoteProduto : IControllerCustom;
       function ModeloCupomFiscalView : IControllerCustom;
+      function NFeEnviada : IControllerCustom;
       function NivelIBPT : IControllerCustom;
       function OrigemProdutoView : IControllerCustom;
       function PlanoConta : IControllerCustom;
@@ -230,6 +232,14 @@ end;
 class function TControllerFactory.New: IControllerFactory;
 begin
   Result := Self.Create;
+end;
+
+function TControllerFactory.NFeEnviada: IControllerCustom;
+begin
+  if not Assigned(FNFeEnviada) then
+    FNFeEnviada := TControllerNFeEnviada.New;
+
+  Result := FNFeEnviada;
 end;
 
 function TControllerFactory.NivelIBPT: IControllerCustom;

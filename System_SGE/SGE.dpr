@@ -83,7 +83,6 @@ uses
   UGrRegistroEstacao in '..\Sys\lib\UGrRegistroEstacao.pas' {FrmGrRegistroEstacao},
   UGeRequisicaoCompraPesquisa in 'UGeRequisicaoCompraPesquisa.pas' {frmGeRequisicaoCompraPesquisa},
   UGeCartaCorrecao in '..\Sys\UGeCartaCorrecao.pas' {frmGeCartaCorrecao},
-  UGeNFEmitida in '..\Sys\UGeNFEmitida.pas' {frmGeNFEmitida},
   UGeProdutoKardex in '..\Sys\UGeProdutoKardex.pas' {frmGeProdutoKardex},
   UEcfBematechNaoFiscal in '..\Sys\lib\UEcfBematechNaoFiscal.pas',
   UDMRecursos in '..\Sys\UDMRecursos.pas' {DMRecursos: TDataModule},
@@ -287,7 +286,9 @@ uses
   View.Entrada.ConfirmarLote in '..\Sys\View\View.Entrada.ConfirmarLote.pas' {ViewEntradaEstoqueLote},
   View.Entrada.Cancelar in '..\Sys\View\View.Entrada.Cancelar.pas' {ViewEntradaEstoqueCancelar},
   View.Entrada.GerarNFE in '..\Sys\View\View.Entrada.GerarNFE.pas' {ViewEntradaEstoqueGerarNFE},
-  View.Entrada.DevolucaoNF in '..\Sys\View\View.Entrada.DevolucaoNF.pas' {ViewEntradaDevolucaoNF};
+  View.Entrada.DevolucaoNF in '..\Sys\View\View.Entrada.DevolucaoNF.pas' {ViewEntradaDevolucaoNF},
+  View.NFE.Pesquisa in '..\Sys\View\View.NFE.Pesquisa.pas' {ViewNFEPesquisa},
+  UGeNFEmitida in '..\Sys\UGeNFEmitida.pas' {frmGeNFEmitida};
 
 {$R *.res}
 

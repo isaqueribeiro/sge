@@ -138,7 +138,7 @@ uses
   Service.Message,
   UDMRecursos,
   UGrCampoRequisitado,
-  UGeNFEmitida;
+  View.NFE.Pesquisa;
 
 {$R *.dfm}
 

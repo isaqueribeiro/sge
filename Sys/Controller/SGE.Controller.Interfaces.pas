@@ -187,6 +187,7 @@ type
     function LogTransacao : IControllerCustom;
     function LoteProduto : IControllerCustom;
     function ModeloCupomFiscalView : IControllerCustom;
+    function NFeEnviada : IControllerCustom;
     function NivelIBPT  : IControllerCustom;
     function OrigemProdutoView : IControllerCustom;
     function PlanoConta        : IControllerCustom;

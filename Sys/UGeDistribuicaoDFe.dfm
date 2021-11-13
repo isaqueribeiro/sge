@@ -14,6 +14,7 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -42,7 +43,6 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 994
     DesignSize = (
       1067
       73)
@@ -110,7 +110,6 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
       ParentFont = False
       ReadOnly = True
       TabOrder = 1
-      ExplicitWidth = 794
     end
   end
   object PanelBotoes: TPanel
@@ -121,8 +120,6 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 492
-    ExplicitWidth = 1000
     object Bevel3: TBevel
       Left = 0
       Top = 0
@@ -132,6 +129,61 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
       Shape = bsSpacer
       ExplicitTop = 161
       ExplicitWidth = 593
+    end
+    object lblUltimoNSU: TLabel
+      AlignWithMargins = True
+      Left = 16
+      Top = 7
+      Width = 73
+      Height = 33
+      Margins.Left = 16
+      Align = alLeft
+      AutoSize = False
+      Caption = #218'ltimo NSU:'
+      FocusControl = edtUltimoNSU
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Layout = tlCenter
+    end
+    object lblQtdeNotas: TLabel
+      AlignWithMargins = True
+      Left = 616
+      Top = 7
+      Width = 258
+      Height = 33
+      Align = alRight
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = '%d NOTA(S) NO LOTE DE DISTRIBUI'#199#195'O'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Layout = tlCenter
+    end
+    object lblProximoNSU: TLabel
+      AlignWithMargins = True
+      Left = 228
+      Top = 7
+      Width = 109
+      Height = 33
+      Align = alLeft
+      AutoSize = False
+      Caption = 'Pr'#243'ximo Lote NSU:'
+      FocusControl = edtProximoNSU
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Layout = tlCenter
     end
     object btnConfirmar: TcxButton
       AlignWithMargins = True
@@ -143,9 +195,8 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
       Caption = '&Confirmar'
       OptionsImage.ImageIndex = 20
       OptionsImage.Images = DMRecursos.ImgPrincipal16x16
-      TabOrder = 0
+      TabOrder = 2
       OnClick = btnConfirmarClick
-      ExplicitLeft = 807
     end
     object btFechar: TcxButton
       AlignWithMargins = True
@@ -159,8 +210,55 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
       ModalResult = 2
       OptionsImage.ImageIndex = 15
       OptionsImage.Images = DMRecursos.ImgBotoes16x16
+      TabOrder = 3
+    end
+    object edtUltimoNSU: TEdit
+      AlignWithMargins = True
+      Left = 92
+      Top = 13
+      Width = 130
+      Height = 21
+      Margins.Left = 0
+      Margins.Top = 9
+      Margins.Bottom = 9
+      TabStop = False
+      Align = alLeft
+      Alignment = taCenter
+      Color = clMoneyGreen
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 0
+      Text = '000000000000000'
+    end
+    object edtProximoNSU: TEdit
+      AlignWithMargins = True
+      Left = 340
+      Top = 13
+      Width = 130
+      Height = 21
+      Margins.Left = 0
+      Margins.Top = 9
+      Margins.Bottom = 9
+      TabStop = False
+      Align = alLeft
+      Alignment = taCenter
+      Color = clMoneyGreen
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ReadOnly = True
       TabOrder = 1
-      ExplicitLeft = 905
+      Text = '000000000000000'
+      ExplicitLeft = 480
+      ExplicitTop = 12
     end
   end
   object GrdDocumentos: TcxGrid
@@ -170,8 +268,7 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
     Height = 451
     Align = alClient
     TabOrder = 1
-    ExplicitWidth = 1000
-    ExplicitHeight = 409
+    ExplicitTop = 82
     object GrdDocumentosDBTableView: TcxGridDBBandedTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dtsDocumentos
@@ -277,7 +374,7 @@ object frmDistribuicaoDFe: TfrmDistribuicaoDFe
         DataBinding.FieldName = 'NSU'
         LayoutItem = GrdDocumentosDBTableViewLayoutItem8.Owner
         Options.Filtering = False
-        Width = 100
+        Width = 150
         Position.BandIndex = 2
         Position.ColIndex = 0
         Position.RowIndex = 0

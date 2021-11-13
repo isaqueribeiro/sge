@@ -1337,9 +1337,6 @@ begin
 
       CommitTransaction;
 
-      HabilitarDesabilitar_Btns;
-
-      RdgStatusRequisicao.ItemIndex := 0;
 
       if GetUserManifestoAutomatico then
       begin
@@ -1358,6 +1355,9 @@ begin
       end
       else
         ShowInformation('Requisição finalizada e enviada com sucesso !' + #13#13 + 'Ano/Número: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CONTROLE').AsInteger));
+
+      HabilitarDesabilitar_Btns;
+      RdgStatusRequisicao.ItemIndex := 0;
     end;
   end;
 end;
