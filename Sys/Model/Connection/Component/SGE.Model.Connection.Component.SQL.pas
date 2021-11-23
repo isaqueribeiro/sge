@@ -20,8 +20,12 @@ type
       constructor Create(aParent : T);
       destructor Destroy; override;
 
+      property WhereList   : TStringList read FWhere write FWhere;
+      property OrderByList : TStringList read FOrderBy write FOrderBy;
+
       function Clear : TSQL<T>;
       function ClearWhere : TSQL<T>;
+      function ClearOrderBy : TSQL<T>;
       function ClearWhereEmpty : TSQL<T>;
       function Add(Value : String) : TSQL<T>;
       function AddStrings(Value : TStringList) : TSQL<T>;
@@ -171,6 +175,12 @@ begin
   Result := Self;
   FScripts.Clear;
   FWhere.Clear;
+  FOrderBy.Clear;
+end;
+
+function TSQL<T>.ClearOrderBy: TSQL<T>;
+begin
+  Result := Self;
   FOrderBy.Clear;
 end;
 

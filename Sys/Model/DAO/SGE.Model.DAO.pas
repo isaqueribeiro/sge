@@ -4,6 +4,7 @@ interface
 
 uses
   System.SysUtils,
+  System.Classes,
   Data.DB,
   SGE.Model.Connection.Factory,
   SGE.Model.DAO.Interfaces,
@@ -18,7 +19,10 @@ type
     protected
       FConn    : IConnection;
       FUsuario : IUsuarioModel;
-      FConfiguracao : IConfiguracaoIni;
+      FConfiguracao  : IConfiguracaoIni;
+      FPrepareInsert : Boolean;
+      FWhereTemp   ,
+      FOrderByTemp : TStringList;
       constructor Create;
     public
       destructor Destroy; override;
@@ -45,6 +49,8 @@ type
       function ParamsByName(aParamsName : String; aParamsValue : Currency) : IModelDAO; overload;
       function ParamsByNameClear(aParamsName : String) : IModelDAO;
       function OrderBy(aFieldName : String) : IModelDAO; overload;
+      function PrepareInsert(Value : Boolean) : IModelDAO; overload;
+      function PrepareInsert : Boolean; overload;
 
       function OpenEmpty  : IModelDAO;
       function CloseEmpty : IModelDAO;
@@ -54,6 +60,7 @@ type
       procedure OpenOrExecute;
 
       procedure ClearWhere;
+      procedure ClearOrderBy;
       procedure ApplyUpdates;
       procedure CommitUpdates;
       procedure RefreshRecord;
@@ -87,6 +94,14 @@ begin
     FConn.Query.DataSet.Close;
 
   FConn.Query.SQL.Clear;
+end;
+
+procedure TModelDAO.ClearOrderBy;
+begin
+  if FConn.Query.DataSet.Active then
+    FConn.Query.DataSet.Close;
+
+  FConn.Query.SQL.ClearOrderBy;
 end;
 
 procedure TModelDAO.ClearWhere;
@@ -132,6 +147,10 @@ begin
   FConfiguracao := TConfiguracaoIni.New(TPath.Combine(ExtractFilePath(ParamStr(0)), FILE_SETTINGS_INI));
   if not FConfiguracao.Carregado then
     FConfiguracao.Load;
+
+  FPrepareInsert := False;
+  FWhereTemp   := TStringList.Create;
+  FOrderByTemp := TStringList.Create;
 end;
 
 function TModelDAO.DataSet: TDataSet;
@@ -141,6 +160,8 @@ end;
 
 destructor TModelDAO.Destroy;
 begin
+  FWhereTemp.DisposeOf;
+  FOrderByTemp.DisposeOf;
   inherited;
 end;
 
@@ -182,6 +203,39 @@ function TModelDAO.ParamsByNameClear(aParamsName: String): IModelDAO;
 begin
   Result := Self;
   FConn.Query.ParamByNameClear(aParamsName);
+end;
+
+function TModelDAO.PrepareInsert: Boolean;
+begin
+  Result := FPrepareInsert;
+end;
+
+function TModelDAO.PrepareInsert(Value: Boolean): IModelDAO;
+begin
+  Result := Self;
+  FPrepareInsert := Value;
+
+  if FPrepareInsert then
+  begin
+    FWhereTemp.Clear;
+    FWhereTemp.AddStrings( FConn.Query.WhereList );
+
+    FOrderByTemp.Clear;
+    FOrderByTemp.AddStrings( FConn.Query.OrderByList );
+
+    Self.Close;
+    Self.ClearWhere;
+    Self.OpenEmpty;
+  end
+  else
+  begin
+    Self.Close;
+    Self.ClearWhere;
+    Self.ClearOrderBy;
+    FConn.Query.WhereList(FWhereTemp);
+    FConn.Query.OrderByList(FOrderByTemp);
+    Self.Open;
+  end;
 end;
 
 function TModelDAO.ParamsByName(aParamsName: String; aParamsValue: Integer): IModelDAO;

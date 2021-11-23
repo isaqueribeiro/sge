@@ -87,7 +87,11 @@ type
       function Where(aFieldName : String; aFielValue : Int64) : IConnection<TConnectionFireDAC>; overload;
       function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<TConnectionFireDAC>; overload;
       function WhereOr(aExpressionWhere : String) : IConnection<TConnectionFireDAC>; overload;
+      function WhereList(aList : TStringList) : IConnection<TConnectionFireDAC>; overload;
+      function WhereList : TStringList; overload;
       function OrderBy(aExpression : String) : IConnection<TConnectionFireDAC>;
+      function OrderByList(aList : TStringList) : IConnection<TConnectionFireDAC>; overload;
+      function OrderByList : TStringList; overload;
       function OpenEmpty : IConnection<TConnectionFireDAC>;
       function CloseEmpty : IConnection<TConnectionFireDAC>;
 
@@ -161,6 +165,7 @@ begin
   FQuery.Transaction   := TFDCustomConnection(aConn).Transaction;
   FQuery.CachedUpdates := True;
   FQuery.OnUpdateError := QueryUpdateError;
+  FQuery.FetchOptions.RowsetSize := 100;
   FAliasTableName      := EmptyStr;
   FWhereAdditional     := EmptyStr;
 
@@ -443,6 +448,18 @@ begin
   FScript.OrderBy(aExpression);
 end;
 
+function TConnectionFireDAC.OrderByList: TStringList;
+begin
+  Result := FScript.OrderByList;
+end;
+
+function TConnectionFireDAC.OrderByList(aList: TStringList): IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  FScript.OrderByList.Clear;
+  FScript.OrderByList.AddStrings(aList);
+end;
+
 function TConnectionFireDAC.ParamByName(aParamName: String): String;
 begin
   if Assigned(FQuery.Params.FindParam(aParamName)) then
@@ -615,6 +632,18 @@ end;
 function TConnectionFireDAC.WhereAdditional: String;
 begin
   Result := FWhereAdditional;
+end;
+
+function TConnectionFireDAC.WhereList: TStringList;
+begin
+  Result := FScript.WhereList;
+end;
+
+function TConnectionFireDAC.WhereList(aList: TStringList): IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  FScript.WhereList.Clear;
+  FScript.WhereList.AddStrings(aList);
 end;
 
 function TConnectionFireDAC.WhereOr(aExpressionWhere: String): IConnection<TConnectionFireDAC>;

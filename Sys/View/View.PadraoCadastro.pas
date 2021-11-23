@@ -373,15 +373,14 @@ begin
   if not TBitBtn(Sender).Visible then
     Exit;
 
-  if (not DtSrcTabela.DataSet.Active) then
-    FecharAbrirTabela(DtSrcTabela.DataSet, True);
-
   if ( (pgcGuias.ActivePage = tbsTabela) and edtFiltrar.Visible and edtFiltrar.Enabled ) then
     edtFiltrar.SetFocus;
 
   WaitAMoment(WAIT_AMOMENT_TextoLivre, 'Preparando inserção, aguarde!');
   try
+    FController.DAO.PrepareInsert(True);
     DtSrcTabela.DataSet.Append;
+    FTabela.Configurar;
   finally
     WaitAMomentFree;
   end;
@@ -442,7 +441,15 @@ begin
 
   if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
     if ShowConfirmation('Cancelar', 'Deseja cancelar a inserção/edição do registro?') then
+    begin
       DtSrcTabela.DataSet.Cancel;
+
+      if FController.DAO.PrepareInsert then
+      begin
+        FController.DAO.PrepareInsert(False);
+        FTabela.Configurar;
+      end;
+    end;
 end;
 
 procedure TViewPadraoCadastro.btbtnSalvarClick(Sender: TObject);
@@ -469,8 +476,8 @@ begin
           if Assigned( DtSrcTabela.DataSet.Fields.FindField(CAMPO_USUARIO) ) then
             DtSrcTabela.DataSet.FieldByName(CAMPO_USUARIO).AsString := gUsuarioLogado.Login;
 
-
           DtSrcTabela.DataSet.Post;
+
           FController.DAO.ApplyUpdates;
           FController.DAO.CommitUpdates;
           FController.DAO.CommitTransaction;
@@ -709,15 +716,12 @@ begin
   Tabela.Filtered := Vazia;
 
   if Tabela.Filtered then
-    Tabela.Filter := Format('(%s is null)', [CampoCodigo]);
+    Tabela.Filter := Format('(%s is null)', [GetCampoCodigoLimpo]);
 
   Tabela.Open;
 end;
 
 function TViewPadraoCadastro.SelecionarRegistro(var Codigo : Integer; var Descricao : String; const FiltroAdicional : String = '') : Boolean;
-var
- sCampoCodigo    ,
- sCampoDescricao : String;
 begin
   try
     fOcorreuErro     := False;
@@ -729,24 +733,14 @@ begin
       Abort;
     end;
 
-    if ( pos('.', CampoCodigo) > 0 ) then
-      sCampoCodigo := Copy(CampoCodigo, pos('.', CampoCodigo) + 1, Length(CampoCodigo))
-    else
-      sCampoCodigo := Trim(CampoCodigo);
-
-    if ( pos('.', CampoDescricao) > 0 ) then
-      sCampoDescricao := Copy(CampoDescricao, pos('.', CampoDescricao) + 1, Length(CampoDescricao))
-    else
-      sCampoDescricao := Trim(CampoDescricao);
-
     Self.btbtnSelecionar.Visible := True;
 
     Result := (ShowModal = mrOk) and (not DtSrcTabela.DataSet.IsEmpty);
 
     if ( Result ) then
     begin
-      Codigo    := DtSrcTabela.DataSet.FieldByName(sCampoCodigo).AsInteger;
-      Descricao := DtSrcTabela.DataSet.FieldByName(sCampoDescricao).AsString;
+      Codigo    := DtSrcTabela.DataSet.FieldByName(GetCampoCodigoLimpo).AsInteger;
+      Descricao := DtSrcTabela.DataSet.FieldByName(GetCampoDescricaoLimpo).AsString;
     end
     else
     begin

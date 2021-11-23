@@ -36,6 +36,8 @@ type
     function ParamsByName(aParamsName : String; aParamsValue : Currency) : IModelDAO; overload;
     function ParamsByNameClear(aParamsName : String) : IModelDAO;
     function OrderBy(aFieldName : String) : IModelDAO; overload;
+    function PrepareInsert(Value : Boolean) : IModelDAO; overload;
+    function PrepareInsert : Boolean; overload;
 
     function OpenEmpty  : IModelDAO;
     function CloseEmpty : IModelDAO;
@@ -45,6 +47,7 @@ type
     procedure OpenOrExecute;
 
     procedure ClearWhere;
+    procedure ClearOrderBy;
     procedure ApplyUpdates;
     procedure CommitUpdates;
     procedure RefreshRecord;

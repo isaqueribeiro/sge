@@ -230,6 +230,11 @@ begin
     FieldByName('BLOQUEADO_AUTOMATICO').AsInteger     := 0;
     FieldByName('EMITIR_NFE_DEVOLUCAO').AsInteger     := 0; // Ord(False);
     FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger    := 0; // Ord(False);
+    FieldByName('USUARIO').AsString := Usuario.Login;
+
+    FieldByName('PAIS_ID').AsString  := Configuracao.Padrao.PaisID;
+    FieldByName('EST_COD').AsInteger := Configuracao.Padrao.EstadoID;
+    FieldByName('CID_COD').AsInteger := Configuracao.Padrao.CidadeID;
 
     FieldByName('VENDEDOR_COD').Clear;
     FieldByName('BLOQUEADO_DATA').Clear;

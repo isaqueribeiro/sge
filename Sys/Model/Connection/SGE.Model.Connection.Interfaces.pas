@@ -3,6 +3,7 @@ unit SGE.Model.Connection.Interfaces;
 interface
 
 uses
+  System.Classes,
   Data.DB,
   SGE.Model.Connection.Component.SQL;
 
@@ -33,7 +34,11 @@ type
     function Where(aFieldName : String; aFielValue : Int64) : IConnection<T>; overload;
     function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<T>; overload;
     function WhereOr(aExpressionWhere : String) : IConnection<T>; overload;
+    function WhereList(aList : TStringList) : IConnection<T>; overload;
+    function WhereList : TStringList; overload;
     function OrderBy(aExpression : String) : IConnection<T>;
+    function OrderByList(aList : TStringList) : IConnection<T>; overload;
+    function OrderByList : TStringList; overload;
     function OpenEmpty : IConnection<T>;
     function CloseEmpty : IConnection<T>;
     function OpenOrExecute : Boolean;

@@ -12,6 +12,7 @@ uses
   Vcl.Imaging.pngimage;
 
 type
+  TDomainMail = (domainMainCom, domainMainComBr);
   TServicesUtils = class
     private
     public
@@ -32,6 +33,8 @@ type
       class function StrFormatarCEP(Value: String): String;
       class function StrFormatarFone(sFone: String): String;
       class function StrFormatarNome(aNome : String): String;
+      class function EmailValido(aEmail : String;
+        const aDominio : TDomainMail = TDomainMail.domainMainComBr): Boolean;
   end;
 
 implementation
@@ -40,6 +43,7 @@ uses
     System.Classes
   , System.Types
   , System.DateUtils
+  , System.RegularExpressions
   , IdCoderMIME
   , IdHashMessageDigest;
 
@@ -101,6 +105,16 @@ begin
       aInput.DisposeOf;
 
     Result := aRestorno;
+  end;
+end;
+
+class function TServicesUtils.EmailValido(aEmail: String; const aDominio : TDomainMail): Boolean;
+var
+  aExpressao : TRegEx;
+begin
+  case aDominio of
+    TDomainMail.domainMainCom   : Result := aExpressao.IsMatch(aEmail, '(^[^@]+@[^.]+.com$)');
+    TDomainMail.domainMainComBr : Result := aExpressao.IsMatch(aEmail, '(^[^@]+@[^.]+.com$|^[^@]+@[^.]+.com.br$)');
   end;
 end;
 

@@ -287,7 +287,8 @@ type
     FControllerBancoFebrabanView  ,
     FControllerClienteTotalCompras,
     FControllerClienteTitulos     ,
-    FControllerClienteEstoque     : IControllerCustom;
+    FControllerClienteEstoque     ,
+    FControllerEmpresaView        : IControllerCustom;
 
     aEstoqueSateliteEmpresa,
     aEstoqueSateliteCliente,
@@ -301,6 +302,7 @@ type
     function GetRotinaBloqueioID : String;
     function GetRotinaVisualizarEstoqueID : String;
     function Controller : IControllerCliente;
+    function Empresa  : IControllerEmpresa;
   public
     { Public declarations }
     property RotinaBloqueioID : String read GetRotinaBloqueioID;
@@ -358,7 +360,9 @@ uses
   UDMBusiness,
   UDMRecursos,
   FuncoesFormulario,
+  Service.Message,
   Service.InputQuery,
+  Service.Utils,
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper,
@@ -528,7 +532,7 @@ begin
   // Forçar a criação dos registros padrões de grupos de fornecedores
   TControllerFactory.New.GrupoFornecedor.DAO.OpenEmpty;
 
-  aEstoqueSateliteEmpresa := GetEstoqueSateliteEmpresa(gUsuarioLogado.Empresa);
+  aEstoqueSateliteEmpresa := GetEstoqueSateliteEmpresa(FController.DAO.Usuario.Empresa.CNPJ);
   aEstoqueSateliteCliente := GetPermissaoRotinaInterna(tbsEstoqueSatelite, False);
 
   Controller.BloquearClientes;
@@ -548,11 +552,11 @@ begin
   tbsConsultarCNPJ.TabVisible  := False;
   tbsConsultarCPF.TabVisible   := False;
 
-  if not (GetUserFunctionID in [FUNCTION_USER_ID_DIRETORIA, FUNCTION_USER_ID_GERENTE_FIN, FUNCTION_USER_ID_SYSTEM_ADM]) then
+  if not (FController.DAO.Usuario.Funcao.Codigo in [FUNCTION_USER_ID_DIRETORIA, FUNCTION_USER_ID_GERENTE_FIN, FUNCTION_USER_ID_SYSTEM_ADM]) then
     dbValorLimiteCompra.Enabled := False;
 
   tbsEstoqueSatelite.TabVisible := False;
-  dbCustoOperacional.Enabled    := GetCalcularCustoOperEmpresa(gUsuarioLogado.Empresa);
+  dbCustoOperacional.Enabled    := GetCalcularCustoOperEmpresa(FController.DAO.Usuario.Empresa.CNPJ);
 
   lblFrete.Enabled  := dbCustoOperacional.Enabled;
   dbFrete.Enabled   := dbCustoOperacional.Enabled;
@@ -565,7 +569,7 @@ begin
   tbsCompra.TabVisible         := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
   BtBtnProcesso.Visible        := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
 
-  if ( (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) and (GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_VAREJO_DELIVERY_ID) ) then
+  if ( (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]) and (Empresa.GetSegmentoID(FController.DAO.Usuario.Empresa.CNPJ) = SEGMENTO_VAREJO_DELIVERY_ID) ) then
     CmbBxFiltrarTipo.ItemIndex := 3  // Pesquisar por Telefones
   else
   if ( gSistema.Codigo = SISTEMA_PDV ) then
@@ -648,7 +652,7 @@ begin
     if ( State in [dsEdit, dsInsert] ) then
       if ( FieldByName('EST_COD').AsInteger = 0 ) then
       begin
-        ShowWarning('Favor informar o Estado primeiramente!');
+        TServiceMessage.ShowWarning('Favor informar o Estado primeiramente!');
         dbEstado.SetFocus;
       end
       else
@@ -672,7 +676,7 @@ begin
     if ( State in [dsEdit, dsInsert] ) then
       if ( FieldByName('CID_COD').AsInteger = 0 ) then
       begin
-        ShowWarning('Favor informar a Cidade primeiramente!');
+        TServiceMessage.ShowWarning('Favor informar a Cidade primeiramente!');
         dbCidade.SetFocus;
       end
       else
@@ -696,7 +700,7 @@ begin
     if ( State in [dsEdit, dsInsert] ) then
       if ( FieldByName('CID_COD').AsInteger = 0 ) then
       begin
-        ShowWarning('Favor informar a Cidade primeiramente!');
+        TServiceMessage.ShowWarning('Favor informar a Cidade primeiramente!');
         dbCidade.SetFocus;
       end
       else
@@ -719,7 +723,7 @@ begin
     '1. Estes campos são liberados através da rotina "Configurar Empresa";' + #13 +
     '2. O custo operacional está ligado diretamente aos gastos estimados para a entrega dos produtos vendidos ao cliente.';
 
-  ShowInformation(Self.Caption, sMsg);
+  TServiceMessage.ShowInformation(Self.Caption, sMsg);
 end;
 
 procedure TViewCliente.DtSrcTabelaStateChange(Sender: TObject);
@@ -797,11 +801,11 @@ var
   iCodigo : Integer;
   sRazao  : String;
 begin
-  pTrueFalse := GetPermitirVerdadeiroFalsoCNPJCliente(gUsuarioLogado.Empresa);
+  pTrueFalse := GetPermitirVerdadeiroFalsoCNPJCliente(FController.DAO.Usuario.Empresa.CNPJ);
 
   if (Length(Trim(dbCEP.Field.AsString)) < 8) then
   begin
-    ShowWarning('Favor informar um número de CEP válido.');
+    TServiceMessage.ShowWarning('Favor informar um número de CEP válido.');
     Abort;
   end;
 
@@ -810,7 +814,7 @@ begin
     if ( FieldByName('PESSOA_FISICA').AsInteger = 1 ) then
       if ( not FuncoesString.StrIsCPF(FieldByName('CNPJ').AsString, pTrueFalse) ) then
       begin
-        ShowWarning('Favor informar um CPF válido.');
+        TServiceMessage.ShowWarning('Favor informar um CPF válido.');
         Abort;
       end;
 
@@ -818,33 +822,40 @@ begin
     begin
       if ( not FuncoesString.StrIsCNPJ(FieldByName('CNPJ').AsString, pTrueFalse) ) then
       begin
-        ShowWarning('Favor informar um CNPJ válido.');
+        TServiceMessage.ShowWarning('Favor informar um CNPJ válido.');
         Abort;
       end;
 
       if ( (Trim(FieldByName('UF').AsString) = EmptyStr) or (FieldByName('EST_COD').AsInteger = 0) ) then
       begin
-        ShowWarning('Favor selecionar o Estado.');
+        TServiceMessage.ShowWarning('Favor selecionar o Estado.');
         Abort;
       end;
 
       if ( not StrInscricaoEstadual(Trim(FieldByName('INSCEST').AsString), Trim(FieldByName('UF').AsString)) ) then
       begin
-        ShowWarning('Favor informar uma Inscrição Estadual válida.');
+        TServiceMessage.ShowWarning('Favor informar uma Inscrição Estadual válida.');
         Abort;
       end;
     end;
 
+    if (not FieldByName('EMAIL').AsString.IsEmpty) then
+      if not TServicesUtils.EmailValido(FieldByName('EMAIL').AsString) then
+      begin
+        TServiceMessage.ShowWarning('O e-mail informado é inválido.');
+        Abort;
+      end;
+
     { DONE 1 -oIsaque -cCliente : 16/05/2014 - Rotina para verificar a duplicidade de CPF/CNPJ (1) }
 
     if Controller.CpfCnpjCadastro(FieldByName('CODIGO').AsInteger, FieldByName('CNPJ').AsString, iCodigo, sRazao) then
-      if not GetPermitirDuplicarCNPJCliente(gUsuarioLogado.Empresa) then
+      if not GetPermitirDuplicarCNPJCliente(FController.DAO.Usuario.Empresa.CNPJ) then
       begin
-        ShowWarning('CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")."', iCodigo) );
+        TServiceMessage.ShowWarning('CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")."', iCodigo) );
         Abort;
       end
       else
-      if not ShowConfirm('CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")"', iCodigo) + #13 +
+      if not TServiceMessage.ShowConfirm('CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")"', iCodigo) + #13 +
         'Deseja salvar este registro assim mesmo?') then
         Abort;
 
@@ -852,19 +863,19 @@ begin
     begin
       if ((FieldByName('CUSTO_OPER_FRETE').AsCurrency < 0) or (FieldByName('CUSTO_OPER_FRETE').AsCurrency > 100)) then
       begin
-        ShowWarning('Percentual de custo operacional para "Frete" inválido!');
+        TServiceMessage.ShowWarning('Percentual de custo operacional para "Frete" inválido!');
         Exit;
       end;
 
       if ((FieldByName('CUSTO_OPER_OUTROS').AsCurrency < 0) or (FieldByName('CUSTO_OPER_OUTROS').AsCurrency > 100)) then
       begin
-        ShowWarning('Percentual de custo operacional para "Outros" inválido!');
+        TServiceMessage.ShowWarning('Percentual de custo operacional para "Outros" inválido!');
         Exit;
       end;
     end;
 
     if (Trim(FieldByName('USUARIO').AsString) = EmptyStr) then
-      FieldByName('USUARIO').AsString := gUsuarioLogado.Login;
+      FieldByName('USUARIO').AsString := FController.DAO.Usuario.Login;
 
     if FieldByName('CUSTO_OPER_PERCENTUAL').IsNull then
       FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger := 1;
@@ -1001,7 +1012,7 @@ procedure TViewCliente.btbtnAlterarClick(Sender: TObject);
 begin
   if ( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger = CONSUMIDOR_FINAL_CODIGO ) then
   begin
-    ShowWarning('Este registro não pode ser alterado!');
+    TServiceMessage.ShowWarning('Este registro não pode ser alterado!');
     Abort;
   end
   else
@@ -1036,7 +1047,7 @@ begin
           WaitAMoment(WAIT_AMOMENT_Process);
           Controller.DesbloquearCliente(
             DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger,
-            gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo)
+            FController.DAO.Usuario.Login + ' -> ' + AnsiUpperCase(sMotivo)
           );
           FController.DAO.RefreshRecord;
         finally
@@ -1056,7 +1067,7 @@ begin
         WaitAMoment(WAIT_AMOMENT_Process);
           Controller.BloquearCliente(
             DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger,
-            gUsuarioLogado.Login + ' -> ' + AnsiUpperCase(sMotivo)
+            FController.DAO.Usuario.Login + ' -> ' + AnsiUpperCase(sMotivo)
           );
           FController.DAO.RefreshRecord;
       finally
@@ -1066,7 +1077,7 @@ end;
 
 procedure TViewCliente.Update(Observeble: IObservable);
 begin
-  ShowWarning('Atualizar observador!');
+  TServiceMessage.ShowWarning('Atualizar observador!');
 end;
 
 procedure TViewCliente.Update(Observeble: IObservable; sMessage: string);
@@ -1129,9 +1140,9 @@ begin
 
     LabAtualizarCaptchaClick(LabAtualizarCaptcha);
 
-    if ( Trim(StrOnlyNumbers(dbCNPJ.Text)) <> EmptyStr ) then
+    if ( Trim(TServicesUtils.StrOnlyNumbers(dbCNPJ.Text)) <> EmptyStr ) then
     begin
-      edCPF.Text := StrFormatarCpf( StrOnlyNumbers(dbCNPJ.Text) );
+      edCPF.Text := TServicesUtils.StrFormatarCpf( TServicesUtils.StrOnlyNumbers(dbCNPJ.Text) );
       edDataNasc.SetFocus;
     end
     else
@@ -1150,8 +1161,8 @@ begin
 
     LabAtualizarCaptchaClick(LabAtualizarCaptcha);
 
-    if ( Trim(StrOnlyNumbers(dbCNPJ.Text)) <> EmptyStr ) then
-      edCNPJ.Text := StrFormatarCnpj( StrOnlyNumbers(dbCNPJ.Text) )
+    if ( Trim(TServicesUtils.StrOnlyNumbers(dbCNPJ.Text)) <> EmptyStr ) then
+      edCNPJ.Text := TServicesUtils.StrFormatarCnpj( TServicesUtils.StrOnlyNumbers(dbCNPJ.Text) )
     else
       edCNPJ.SetFocus;
   end;
@@ -1229,7 +1240,7 @@ begin
   end
   else
   begin
-    ShowWarning('É necessário digitar o captcha.');
+    TServiceMessage.ShowWarning('É necessário digitar o captcha.');
     edCaptcha.SetFocus;
 
     btnRecuperarCNPJ.Enabled := False;
@@ -1303,16 +1314,16 @@ begin
     if not (State in [dsEdit, dsInsert]) then
       Exit;
 
-    if ShowConfirm('Deseja carregar os dados consultados para o cadastro?') then
+    if TServiceMessage.ShowConfirm('Deseja carregar os dados consultados para o cadastro?') then
     begin
       if bCPF then
       begin
-        FieldByName('CNPJ').AsString := StrOnlyNumbers(edCPF.Text);
+        FieldByName('CNPJ').AsString := TServicesUtils.StrOnlyNumbers(edCPF.Text);
         FieldByName('NOME').AsString := Copy(Trim(EditRazaoSocial.Text), 1, FieldByName('NOME').Size);
       end
       else
       begin
-        FieldByName('CNPJ').AsString       := StrOnlyNumbers(edCNPJ.Text);
+        FieldByName('CNPJ').AsString       := TServicesUtils.StrOnlyNumbers(edCNPJ.Text);
         FieldByName('NOME').AsString       := Copy(Trim(EditRazaoSocial.Text), 1, FieldByName('NOME').Size);
         FieldByName('NOMEFANT').AsString   := Copy(Trim(EditFantasia.Text),    1, FieldByName('NOMEFANT').Size);
         FieldByName('EST_COD').AsInteger   := GetEstadoID( Trim(EditUF.Text) );
@@ -1343,7 +1354,7 @@ begin
 
         FieldByName('COMPLEMENTO').AsString := Copy(Trim(EditComplemento.Text), 1, FieldByName('COMPLEMENTO').Size);
         FieldByName('NUMERO_END').AsString  := Copy(Trim(EditNumero.Text),      1, FieldByName('NUMERO_END').Size);
-        FieldByName('CEP').AsString         := Copy(StrOnlyNumbers(Trim(EditCEP.Text)), 1, FieldByName('CEP').Size);
+        FieldByName('CEP').AsString         := Copy(TServicesUtils.StrOnlyNumbers(Trim(EditCEP.Text)), 1, FieldByName('CEP').Size);
       end;
     end;
   end;
@@ -1375,7 +1386,7 @@ begin
   end
   else
   begin
-    ShowWarning('É necessário digitar o captcha.');
+    TServiceMessage.ShowWarning('É necessário digitar o captcha.');
     edCaptcha.SetFocus;
 
     btnRecuperarCNPJ.Enabled := False;
@@ -1413,6 +1424,13 @@ begin
     Exit;
 
   Text := DtsEstoqueSatelite.DataSet.FieldByName('ano_venda_ult').AsString + FormatFloat('"/"###00000', Sender.AsInteger);
+end;
+
+function TViewCliente.Empresa: IControllerEmpresa;
+begin
+  if not Assigned(FControllerEmpresaView) then
+    FControllerEmpresaView := TControllerFactory.New.EmpresaView;
+  Result := (FControllerEmpresaView as IControllerEmpresa);
 end;
 
 procedure TViewCliente.EstoqueSateliteFiltarDados(
@@ -1484,14 +1502,14 @@ begin
       dbgEstoqueSatelite.SetFocus
     else
     begin
-      ShowWarning('Não existe registros de produtos no estoque satélite do cliente para este tipo de pesquisa');
+      TServiceMessage.ShowWarning('Não existe registros de produtos no estoque satélite do cliente para este tipo de pesquisa');
 
       edFiltrarEstoqueSatelite.SetFocus;
       edFiltrarEstoqueSatelite.SelectAll;
     end;
   except
     On E : Exception do
-      ShowWarning('Erro ao tentar filtrar registros de produtos no estoque satélite do cliente.' + #13 +
+      TServiceMessage.ShowWarning('Erro ao tentar filtrar registros de produtos no estoque satélite do cliente.' + #13 +
         E.Message + #13 + 'Script:' + #13#13 + FControllerClienteEstoque.DAO.SelectSQL);
   end;
 end;
@@ -1558,7 +1576,7 @@ begin
       if (Trim(CampoCodigo) = EmptyStr) or ((Trim(CampoDescricao) = EmptyStr)) then
       begin
         WaitAMomentFree;
-        ShowWarning('O nome do campo chave e/ou de descrição não foram informados');
+        TServiceMessage.ShowWarning('O nome do campo chave e/ou de descrição não foram informados');
         Abort;
       end;
 
@@ -1587,7 +1605,7 @@ begin
 
           // Por CPF/CNPJ
           1:
-            FController.DAO.Where( 'cl.cnpj like ' + QuotedStr('%' + StrOnlyNumbers(edtFiltrar.Text) + '%') );
+            FController.DAO.Where( 'cl.cnpj like ' + QuotedStr('%' + TServicesUtils.StrOnlyNumbers(edtFiltrar.Text) + '%') );
 
           // Por Cidade
           2:
@@ -1598,9 +1616,9 @@ begin
           3:
             begin
               aExpressionOr :=
-                '   ((cl.fone       like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + ')' +
-                ' or (cl.fonecel    like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + ')' +
-                ' or (cl.fonecomerc like ' + QuotedStr('%' + StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + '))';
+                '   ((cl.fone       like ' + QuotedStr('%' + TServicesUtils.StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + ')' +
+                ' or (cl.fonecel    like ' + QuotedStr('%' + TServicesUtils.StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + ')' +
+                ' or (cl.fonecomerc like ' + QuotedStr('%' + TServicesUtils.StrOnlyNumbers(Trim(edtFiltrar.Text)) + '%') + '))';
 
               FController.DAO.Where(aExpressionOr);
             end;
@@ -1626,7 +1644,7 @@ begin
             dbgDados.SetFocus
           else
           begin
-            ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
+            TServiceMessage.ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
 
             edtFiltrar.SetFocus;
             edtFiltrar.SelectAll;
@@ -1638,7 +1656,7 @@ begin
       On E : Exception do
       begin
         WaitAMomentFree;
-        ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13 + E.Message + #13 +
+        TServiceMessage.ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13 + E.Message + #13 +
           'Script:' + #13#13 + FController.DAO.SelectSQL);
       end;
     end;
@@ -1665,7 +1683,7 @@ begin
 
   if (DtsEstoqueSatelite.DataSet.FieldByName('QUANTIDADE').AsInteger <= 0 ) then
   begin
-    ShowWarning('Produto selecionado sem estoque disponível para atender!');
+    TServiceMessage.ShowWarning('Produto selecionado sem estoque disponível para atender!');
     Exit;
   end;
 
@@ -1683,7 +1701,7 @@ begin
   if ( dbCNPJ.Focused and (Key = VK_RETURN) and (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) )  then
     if ( Length(dbCNPJ.Text) > 10 ) then
       if Controller.CpfCnpjCadastro(DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger, dbCNPJ.Text, iCodigo, sRazao) then
-        ShowWarning(
+        TServiceMessage.ShowWarning(
           'CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")."', iCodigo) );
 
   inherited;
@@ -1699,7 +1717,7 @@ procedure TViewCliente.btbtnExcluirClick(Sender: TObject);
 begin
   if ( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger = CONSUMIDOR_FINAL_CODIGO ) then
   begin
-    ShowWarning('Este registro não pode ser excluído!');
+    TServiceMessage.ShowWarning('Este registro não pode ser excluído!');
     Abort;
   end
   else
@@ -1719,13 +1737,13 @@ begin
     begin
       if (gSistema.Codigo = SISTEMA_PDV) then
         if (edtFiltrar.Text <> EmptyStr) then
-          if StrIsCPF(edtFiltrar.Text) then
+          if TServicesUtils.StrIsCPF(edtFiltrar.Text) then
           begin
             FieldByName('PESSOA_FISICA').AsInteger := 1;
             FieldByName('CNPJ').AsString           := edtFiltrar.Text;
           end
           else
-          if StrIsCNPJ(Trim(edtFiltrar.Text)) then
+          if TServicesUtils.StrIsCNPJ(Trim(edtFiltrar.Text)) then
           begin
             FieldByName('PESSOA_FISICA').AsInteger := 0;
             FieldByName('CNPJ').AsString           := edtFiltrar.Text;
@@ -1737,16 +1755,12 @@ begin
       else
         FieldByName('PESSOA_FISICA').AsInteger  := 1;
 
-      FieldByName('PAIS_ID').AsString           := GetPaisIDDefault;
       FieldByName('PAIS_NOME').AsString         := GetPaisNomeDefault;
-      FieldByName('EST_COD').AsInteger          := GetEstadoIDDefault;
       FieldByName('EST_NOME').AsString          := GetEstadoNomeDefault;
       FieldByName('UF').AsString                := GetEstadoUF(GetEstadoIDDefault);
-      FieldByName('CID_COD').AsInteger          := GetCidadeIDDefault;
       FieldByName('CID_NOME').AsString          := GetCidadeNomeDefault;
       FieldByName('CIDADE').AsString            := Copy(GetCidadeNomeDefault + ' (' + FieldByName('UF').AsString + ')', 1, FieldByName('CIDADE').Size);
       FieldByName('CEP').AsString               := GetCidadeCEP(GetCidadeIDDefault);
-      FieldByName('USUARIO').AsString           := gUsuarioLogado.Login;
       FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger := IfThen(gSistema.Codigo = SISTEMA_GESTAO_OPME, 1, 0);
 
       GetComprasAbertas( FieldByName('CODIGO').AsInteger );
