@@ -136,9 +136,9 @@ uses
   SGE.Controller,
   SGE.Controller.Helper,
   Service.Message,
+  View.NFE.Pesquisa,
   UDMRecursos,
-  UGrCampoRequisitado,
-  View.NFE.Pesquisa;
+  UGrCampoRequisitado;
 
 {$R *.dfm}
 

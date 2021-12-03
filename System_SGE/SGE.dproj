@@ -469,10 +469,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas"/>
-        <DCCReference Include="..\Sys\UGeDistribuicaoDFe.pas">
-            <Form>frmDistribuicaoDFe</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="..\Sys\View\View.Esmaecer.pas">
             <Form>ViewEsmaecer</Form>
             <FormType>dfm</FormType>
@@ -734,6 +730,15 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <Form>frmGeNFEmitida</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Sys\View\View.NFE.Distribuicao.pas">
+            <Form>ViewNFEDistribuicao</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Model\DAO\SGE.Model.DAO.XML_NFeImportada.pas"/>
+        <DCCReference Include="..\Sys\UGeDistribuicaoDFe.pas">
+            <Form>frmDistribuicaoDFe</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>
@@ -850,7 +855,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -972,7 +977,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

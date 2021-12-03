@@ -16,7 +16,8 @@ uses
   Controller.Factory in 'Controller\Controller.Factory.pas',
   Controller.Usuario in 'Controller\Controller.Usuario.pas',
   Controller.Cliente in 'Controller\Controller.Cliente.pas',
-  UGrGerarLicenca in 'UGrGerarLicenca.pas' {FrmGrGerarLicenca};
+  UGrGerarLicenca in 'UGrGerarLicenca.pas' {FrmGrGerarLicenca},
+  Service.Utils in '..\Sys\Services\Service.Utils.pas';
 
 {$R *.res}
 

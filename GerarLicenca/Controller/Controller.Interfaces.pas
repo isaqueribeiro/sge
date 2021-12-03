@@ -27,6 +27,8 @@ type
     function DataSet(Value : TClientDataSet) : IControllerCliente<T>; overload;
     function DataSet : TClientDataSet; overload;
     function Entity : TCliente<T>;
+    function LoadDataSet(aTokenID : String) : IControllerCliente<T>; overload;
+    function LoadDataSet(aTokenID : String; aClientDataSet : TClientDataSet) : IControllerCliente<T>; overload;
     function Save(aTokenID : String) : IControllerCliente<T>;
     function Error : String;
   end;

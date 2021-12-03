@@ -28,7 +28,8 @@ uses
   Controller.Interfaces,
   Controller.Usuario,
   Controller.Cliente,
-  Controller.Factory;
+  Controller.Factory, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Grids, Vcl.DBGrids;
 
 type
   TFrmGrGerarLicenca = class(TForm)
@@ -65,7 +66,10 @@ type
     edUUID: TEdit;
     lblEmail: TLabel;
     edEmail: TEdit;
-    cdsCliente: TClientDataSet;
+    cdsClientes: TClientDataSet;
+    dtsClientes: TDataSource;
+    dbgClientes: TDBGrid;
+    edTokenUserID: TEdit;
     procedure BtnCarregarLicencaClick(Sender: TObject);
     procedure BtnGerarLicencaClick(Sender: TObject);
 
@@ -76,6 +80,7 @@ type
 
     procedure edCompetenciaChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure dbgClientesDblClick(Sender: TObject);
   private
     { Private declarations }
     FUser : IControllerUsuario<TControllerUsuario>;
@@ -86,7 +91,10 @@ type
     function CreateCustomerAccount : Boolean;
     function CustomerAccountRegistered : Boolean;
 
-    procedure RegistrarCliente;
+    procedure CarregarListaClientes;
+    procedure RegistrarCliente(aDocument : String);
+    procedure CarregarCliente;
+    procedure ClienteCarregado(Sender : TObject);
   public
     { Public declarations }
   end;
@@ -104,7 +112,8 @@ implementation
 uses
   System.DateUtils,
   System.JSON,
-  UConstantesDGE;
+  UConstantesDGE,
+  Service.Utils;
 
 {$R *.dfm}
 
@@ -123,6 +132,11 @@ begin
   Application.MessageBox(PChar(sMsg), 'Pare!', MB_ICONSTOP);
 end;
 
+procedure ShowError(AMessage : String);
+begin
+  Application.MessageBox(PChar(AMessage.Trim), 'Erro!', MB_ICONERROR);
+end;
+
 function TFrmGrGerarLicenca.AuthServer: Boolean;
 begin
   FUser
@@ -134,12 +148,42 @@ begin
     .Auth;
 
   Result := FUser.Entity.Registered;
+
+  if Result then
+    edTokenUserID.Text := FUser.Entity.TokenID;
 end;
 
 procedure TFrmGrGerarLicenca.BtnCarregarLicencaClick(Sender: TObject);
 begin
   if opdLicenca.Execute then
     CarregarLicenca(opdLicenca.FileName);
+end;
+
+procedure TFrmGrGerarLicenca.CarregarListaClientes;
+var
+  aCliente : IControllerCliente<TControllerCliente>;
+begin
+  if not cdsClientes.Active then
+    cdsClientes.CreateDataSet;
+
+  aCliente := TControllerFactory.New.Cliente;
+  aCliente.LoadDataSet(FUser.Entity.TokenID, cdsClientes);
+end;
+
+procedure TFrmGrGerarLicenca.CarregarCliente;
+begin
+  ;
+end;
+
+procedure TFrmGrGerarLicenca.ClienteCarregado(Sender: TObject);
+begin
+  if (Sender is TThread) then
+  begin
+    if Assigned(TThread(Sender).FatalException)  then
+      ShowError(Exception(TThread(Sender).FatalException).Message)
+    else
+      ;
+  end;
 end;
 
 procedure TFrmGrGerarLicenca.CarregarLicenca(
@@ -272,18 +316,18 @@ begin
   end;
 end;
 
-procedure TFrmGrGerarLicenca.RegistrarCliente;
+procedure TFrmGrGerarLicenca.RegistrarCliente(aDocument : String);
 var
   aCliente : IControllerCliente<TControllerCliente>;
 begin
-  if not cdsCliente.Active then
-    cdsCliente.CreateDataSet;
+  if not cdsClientes.Active then
+    cdsClientes.CreateDataSet;
 
   aCliente := TControllerFactory.New.Cliente;
 
   aCliente
-//    .DataSet(cdsCliente)
     .Entity
+      .doc(aDocument)
       .Razao(edEmpresa.Text)
       .Fantasia(EmptyStr)
       .Cnpj(edCGC.Text)
@@ -324,6 +368,7 @@ end;
 
 procedure TFrmGrGerarLicenca.BtnGerarLicencaClick(Sender: TObject);
 var
+  aCnpj ,
   sNomeArquivo : String;
   aProsseguir  : Boolean;
 begin
@@ -351,6 +396,28 @@ begin
     Exit;
   end;
 
+  if (not TServicesUtils.StrIsCPF(Trim(edCGC.Text))) and (not TServicesUtils.StrIsCNPJ(Trim(edCGC.Text))) then
+  begin
+    ShowMessageAlerta('Alerta', 'CPF/CNPJ Inválido!');
+    Exit;
+  end;
+
+  if (not TServicesUtils.EmailValido(Trim(edEmail.Text), TDomainMail.domainMainComBr)) then
+  begin
+    ShowMessageAlerta('Alerta', 'E-mail Inválido!');
+    Exit;
+  end;
+
+  // Localizar o registro do cliente...
+  if cdsClientes.Active then
+  begin
+    aCnpj := TServicesUtils.StrFormatarCnpj(edCGC.Text);
+    if cdsClientes.Locate('cgc', aCnpj, []) then
+      edUUID.Hint := cdsClientes.FieldByName('doc').AsString
+    else
+      edUUID.Hint := EmptyStr;
+  end;
+
   Screen.Cursor := crHourGlass;
   try
     aProsseguir := AuthServer; // Autenticar
@@ -370,7 +437,7 @@ begin
       sNomeArquivo := ExtractFilePath(Application.ExeName) + sNomeArquivo + '.lnc';
 
       if AuthServer then  // Autenticar para removar o TokenID
-        RegistrarCliente; // Gravar licença no Cloud Firestore
+        RegistrarCliente(edUUID.Hint); // Gravar licença no Cloud Firestore
 
       GerarLicenca(sNomeArquivo);
 
@@ -396,6 +463,18 @@ begin
       Result := IncDay(Date, 15);
   finally
     aStr.DisposeOf;
+  end;
+end;
+
+procedure TFrmGrGerarLicenca.dbgClientesDblClick(Sender: TObject);
+var
+  aThread : TThread;
+begin
+  if (not dtsClientes.DataSet.IsEmpty) then
+  begin
+    aThread := TThread.CreateAnonymousThread(CarregarCliente);
+    aThread.OnTerminate := ClienteCarregado;
+    aThread.Start;
   end;
 end;
 
@@ -453,8 +532,15 @@ begin
 end;
 
 procedure TFrmGrGerarLicenca.FormCreate(Sender: TObject);
+var
+  aThread : TThread;
 begin
   FUser := TControllerFactory.New.Usuario;
+  if AuthServer then
+  begin
+    aThread := TThread.CreateAnonymousThread(CarregarListaClientes);
+    aThread.Start;
+  end;
 end;
 
 procedure TFrmGrGerarLicenca.edCompetenciaChange(Sender: TObject);

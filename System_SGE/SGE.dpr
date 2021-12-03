@@ -142,7 +142,6 @@ uses
   Interfaces.InputQuery in '..\Sys\Services\InputQuery\Interfaces.InputQuery.pas',
   View.InputQuery in '..\Sys\Services\InputQuery\View.InputQuery.pas' {ViewInputQuery},
   Classe.DistribuicaoDFe.DocumentoRetornado in '..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas',
-  UGeDistribuicaoDFe in '..\Sys\UGeDistribuicaoDFe.pas' {frmDistribuicaoDFe},
   View.Esmaecer in '..\Sys\View\View.Esmaecer.pas' {ViewEsmaecer},
   View.VendaMobile in 'View\View.VendaMobile.pas' {ViewVendaMobile},
   Interfaces.PrevisaoTempo in '..\Sys\Services\PrevisaoTempo\Interfaces.PrevisaoTempo.pas',
@@ -288,7 +287,10 @@ uses
   View.Entrada.GerarNFE in '..\Sys\View\View.Entrada.GerarNFE.pas' {ViewEntradaEstoqueGerarNFE},
   View.Entrada.DevolucaoNF in '..\Sys\View\View.Entrada.DevolucaoNF.pas' {ViewEntradaDevolucaoNF},
   View.NFE.Pesquisa in '..\Sys\View\View.NFE.Pesquisa.pas' {ViewNFEPesquisa},
-  UGeNFEmitida in '..\Sys\UGeNFEmitida.pas' {frmGeNFEmitida};
+  UGeNFEmitida in '..\Sys\UGeNFEmitida.pas' {frmGeNFEmitida},
+  View.NFE.Distribuicao in '..\Sys\View\View.NFE.Distribuicao.pas' {ViewNFEDistribuicao},
+  SGE.Model.DAO.XML_NFeImportada in 'Model\DAO\SGE.Model.DAO.XML_NFeImportada.pas',
+  UGeDistribuicaoDFe in '..\Sys\UGeDistribuicaoDFe.pas' {frmDistribuicaoDFe};
 
 {$R *.res}
 

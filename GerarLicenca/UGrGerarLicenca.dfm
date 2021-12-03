@@ -4,8 +4,8 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Gerar Licen'#231'a'
-  ClientHeight = 439
-  ClientWidth = 776
+  ClientHeight = 772
+  ClientWidth = 764
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -16,8 +16,8 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
   Position = poScreenCenter
   OnCreate = FormCreate
   DesignSize = (
-    776
-    439)
+    764
+    772)
   PixelsPerInch = 96
   TextHeight = 17
   object lblEmpresa: TLabel
@@ -154,7 +154,7 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
   end
   object ImgLogoEmpresa: TImage
     Left = 8
-    Top = 333
+    Top = 666
     Width = 128
     Height = 98
     Anchors = [akLeft, akBottom]
@@ -394,6 +394,7 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
       8C2D0FC98F290BCA8F2F0F9D47B7A7D0ED64DA8E076454C73BADB8B6A8E3E39F
       1EFD7EC97E2ECFE5B93CF3D2A2C5FF0139B337BB9CB978130000000049454E44
       AE426082}
+    ExplicitTop = 333
   end
   object lblUUID: TLabel
     Left = 120
@@ -481,23 +482,25 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
   end
   object BtnCarregarLicenca: TButton
     Left = 160
-    Top = 390
+    Top = 723
     Width = 129
     Height = 41
     Anchors = [akLeft, akBottom]
     Caption = 'Carregar Licen'#231'a'
-    TabOrder = 15
+    TabOrder = 16
     OnClick = BtnCarregarLicencaClick
+    ExplicitTop = 390
   end
   object BtnGerarLicenca: TButton
     Left = 295
-    Top = 390
+    Top = 723
     Width = 129
     Height = 41
     Anchors = [akLeft, akBottom]
     Caption = 'Gerar Licen'#231'a'
-    TabOrder = 16
+    TabOrder = 17
     OnClick = BtnGerarLicencaClick
+    ExplicitTop = 390
   end
   object edDataBloqueio: TEdit
     Left = 160
@@ -518,7 +521,7 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Width = 321
     Height = 17
     Caption = 'SGE - Sistema de Gest'#227'o Comercial / Empresarial'
-    TabOrder = 11
+    TabOrder = 12
   end
   object chkSGI: TCheckBox
     Left = 160
@@ -526,7 +529,7 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Width = 321
     Height = 17
     Caption = 'SGI - Sistema de Gest'#227'o Industrial'
-    TabOrder = 12
+    TabOrder = 13
   end
   object chkSGF: TCheckBox
     Left = 160
@@ -534,7 +537,7 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Width = 321
     Height = 17
     Caption = 'SGF - Sistema de Gest'#227'o para Folha de Pagamento'
-    TabOrder = 13
+    TabOrder = 14
   end
   object chkSGO: TCheckBox
     Left = 160
@@ -542,7 +545,7 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Width = 321
     Height = 17
     Caption = 'SGO - Sistema para Gest'#227'o de OPME'
-    TabOrder = 14
+    TabOrder = 15
   end
   object edUUID: TEdit
     Left = 160
@@ -561,6 +564,69 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     CharCase = ecLowerCase
     TabOrder = 8
   end
+  object dbgClientes: TDBGrid
+    Left = 160
+    Top = 388
+    Width = 596
+    Height = 329
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    DataSource = dtsClientes
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    ReadOnly = True
+    TabOrder = 18
+    TitleFont.Charset = ANSI_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -13
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = []
+    OnDblClick = dbgClientesDblClick
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'doc'
+        Title.Caption = 'Doc'
+        Width = 150
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'cgc'
+        Title.Caption = 'CNPJ'
+        Width = 150
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'razao'
+        Title.Caption = 'Raz'#227'o'
+        Width = 250
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'fantasia'
+        Title.Caption = 'Fantasia'
+        Width = 250
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'email'
+        Title.Caption = 'E-mail'
+        Width = 245
+        Visible = True
+      end>
+  end
+  object edTokenUserID: TEdit
+    Left = 287
+    Top = 240
+    Width = 442
+    Height = 25
+    Anchors = [akLeft, akTop, akRight]
+    ReadOnly = True
+    TabOrder = 11
+    Visible = False
+  end
   object XPManifest: TXPManifest
     Left = 8
     Top = 8
@@ -571,9 +637,14 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Left = 640
     Top = 240
   end
-  object cdsCliente: TClientDataSet
+  object cdsClientes: TClientDataSet
     Aggregates = <>
     FieldDefs = <
+      item
+        Name = 'name'
+        DataType = ftString
+        Size = 255
+      end
       item
         Name = 'doc'
         DataType = ftString
@@ -598,11 +669,22 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
         Name = 'fantasia'
         DataType = ftString
         Size = 150
+      end
+      item
+        Name = 'email'
+        DataType = ftString
+        Size = 150
       end>
     IndexDefs = <>
     Params = <>
     StoreDefs = True
     Left = 640
     Top = 288
+  end
+  object dtsClientes: TDataSource
+    AutoEdit = False
+    DataSet = cdsClientes
+    Left = 640
+    Top = 336
   end
 end

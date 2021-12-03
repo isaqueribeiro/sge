@@ -357,8 +357,11 @@ end;
 procedure TViewPadraoCadastro.FormCloseQuery(Sender: TObject;
   var CanClose: Boolean);
 begin
-  if ( DtSrcTabela.DataSet.Active ) then
-    if ( not btbtnFechar.Enabled ) then
+  if (not Assigned(DtSrcTabela.DataSet)) then
+    Exit;
+
+  if DtSrcTabela.DataSet.Active then
+    if (not btbtnFechar.Enabled) then
     begin
       CanClose := False;
       ShowWarning('Existe registro em edição');
@@ -808,35 +811,38 @@ end;
 procedure TViewPadraoCadastro.FormShow(Sender: TObject);
 begin
   inherited;
-  CentralizarCodigo;
-
-  if (not DtSrcTabela.DataSet.Active) then
+  if Assigned(DtSrcTabela.DataSet) then
   begin
-    if ( AbrirTabelaAuto ) then
+    CentralizarCodigo;
+
+    if (not DtSrcTabela.DataSet.Active) then
     begin
-      DtSrcTabela.DataSet.Close;
-      FController.DAO.ClearWhere;
+      if ( AbrirTabelaAuto ) then
+      begin
+        DtSrcTabela.DataSet.Close;
+        FController.DAO.ClearWhere;
 
-      if (not WhereAdditional.IsEmpty) then
-        FController.DAO.Where('(' + WhereAdditional + ')');
+        if (not WhereAdditional.IsEmpty) then
+          FController.DAO.Where('(' + WhereAdditional + ')');
 
-      if ( Trim(CampoOrdenacao) = EmptyStr ) then
-        CampoOrdenacao := CampoDescricao;
+        if ( Trim(CampoOrdenacao) = EmptyStr ) then
+          CampoOrdenacao := CampoDescricao;
 
-      if (not CampoOrdenacao.IsEmpty) then
-        FController.DAO.OrderBy(CampoOrdenacao);
+        if (not CampoOrdenacao.IsEmpty) then
+          FController.DAO.OrderBy(CampoOrdenacao);
 
-      FController.DAO.Open;
+        FController.DAO.Open;
+      end;
+
+      DtSrcTabelaStateChange( DtSrcTabela );
+      if Trim(DisplayFormatCodigo) <> EmptyStr then
+        CentralizarCodigo;
     end;
 
-    DtSrcTabelaStateChange( DtSrcTabela );
-    if Trim(DisplayFormatCodigo) <> EmptyStr then
-      CentralizarCodigo;
+    FTabela.Configurar;
   end;
 
-  FTabela.Configurar;
-
-  if ( tbsTabela.TabVisible and (pgcGuias.ActivePage = tbsTabela) and (edtFiltrar.Visible) and (edtFiltrar.Enabled) ) then
+  if (tbsTabela.TabVisible and (pgcGuias.ActivePage = tbsTabela) and (edtFiltrar.Visible) and (edtFiltrar.Enabled)) then
     edtFiltrar.SetFocus;
 end;
 

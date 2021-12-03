@@ -420,10 +420,10 @@ uses
   View.Entrada.ConfirmarLote,
   View.Entrada.Cancelar,
   View.Entrada.GerarNFE,
+  View.Entrada.DevolucaoNF,
   View.AutorizacaoCompra,
   View.NFE.ConsultarLote,
-  View.Entrada.DevolucaoNF,
-  UGeDistribuicaoDFe,
+  View.NFE.Distribuicao,
   UGeImportarNFE;
 
 {$R *.dfm}
@@ -836,7 +836,7 @@ begin
         TServiceMessage.ShowWarning('Estação de trabalho sem acesso a Internet!')
       else
       if DMNFe.GetValidadeCertificado(FController.DAO.Usuario.Empresa.CNPJ) then
-        aRetorno := TfrmDistribuicaoDFe
+        aRetorno := TViewNFEDistribuicao
           .getInstance(FController.DAO.Usuario.Empresa.CNPJ)
           .&End(aCNPJEmissor, aUFEmissor, aChave, aNSU);
     end;
