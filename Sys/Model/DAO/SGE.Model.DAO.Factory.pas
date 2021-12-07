@@ -15,6 +15,7 @@ uses
   SGE.Model.DAO.CondicaoPagto,
   SGE.Model.DAO.ContaAPagar,
   SGE.Model.DAO.ContaCorrente,
+  SGE.Model.DAO.Config,
   SGE.Model.DAO.CST,
   SGE.Model.DAO.Distrito,
   SGE.Model.DAO.Empresa,
@@ -35,7 +36,8 @@ uses
   SGE.Model.DAO.TipoReceita,
   SGE.Model.DAO.UF,
   SGE.Model.DAO.Vendedor,
-  SGE.Model.DAO.XML_NFeEnviada;
+  SGE.Model.DAO.XML_NFeEnviada,
+  SGE.Model.DAO.XML_NFeImportada;
 
 type
   TModelDAOFactory = class(TInterfacedObject, IModelDAOFactory)
@@ -64,6 +66,7 @@ type
       FCondicaoPagto      ,
       FCondicaoPagtoForma ,
       FCondicaoPagtoView  ,
+      FConfigSystem       ,
       FConfiguracaoEmpresa,
       FContaAPagar      ,
       FContaCorrente    ,
@@ -93,8 +96,9 @@ type
       FLogTransacao   ,
       FLoteProduto    ,
       FModeloCupomFiscalView,
-      FNFeEnviada       ,
-      FNivelIBPT        ,
+      FNFeEnviada  ,
+      FNFeImportada,
+      FNivelIBPT   ,
       FOrigemProdutoView,
       FPlanoConta       ,
       FPlanoContaNivel  ,
@@ -127,7 +131,8 @@ type
       FUF ,
       FUnidadeProduto ,
       FVendedor       ,
-      FXML_NFeEnviada : IModelDAOCustom;
+      FXML_NFeEnviada ,
+      FXML_NFeImportada : IModelDAOCustom;
     protected
       constructor Create;
     public
@@ -158,6 +163,7 @@ type
       function CondicaoPagto : IModelDAOCustom;
       function CondicaoPagtoForma : IModelDAOCustom;
       function CondicaoPagtoView : IModelDAOCustom;
+      function ConfigSystem : IModelDAOCustom;
       function ConfiguracaoEmpresa : IModelDAOCustom;
       function ContaAPagar : IModelDAOCustom;
       function ContaCorrente : IModelDAOCustom;
@@ -188,6 +194,7 @@ type
       function LoteProduto : IModelDAOCustom;
       function ModeloCupomFiscalView : IModelDAOCustom;
       function NFeEnviada : IModelDAOCustom;
+      function NFeImportada : IModelDAOCustom;
       function NivelIBPT : IModelDAOCustom;
       function OrigemProdutoView : IModelDAOCustom;
       function PlanoConta : IModelDAOCustom;
@@ -222,6 +229,7 @@ type
       function UnidadeProduto : IModelDAOCustom;
       function Vendedor : IModelDAOCustom;
       function XML_NFeEnviada : IModelDAOCustom;
+      function XML_NFeImportada : IModelDAOCustom;
   end;
 
 implementation
@@ -249,6 +257,14 @@ begin
     FNFeEnviada := TModelDAONFeEnviada.New;
 
   Result := FNFeEnviada;
+end;
+
+function TModelDAOFactory.NFeImportada: IModelDAOCustom;
+begin
+  if not Assigned(FNFeImportada) then
+    FNFeImportada := TModelDAONFeImportada.New;
+
+  Result := FNFeImportada;
 end;
 
 function TModelDAOFactory.NivelIBPT: IModelDAOCustom;
@@ -691,6 +707,14 @@ begin
   Result := FCondicaoPagtoView;
 end;
 
+function TModelDAOFactory.ConfigSystem: IModelDAOCustom;
+begin
+  if not Assigned(FConfigSystem) then
+    FConfigSystem := TModelDAOConfigSystem.New;
+
+  Result := FConfigSystem;
+end;
+
 function TModelDAOFactory.ConfiguracaoEmpresa: IModelDAOCustom;
 begin
   if not Assigned(FConfiguracaoEmpresa) then
@@ -945,6 +969,14 @@ begin
     FXML_NFeEnviada := TModelDAOXML_NFeEnviada.New;
 
   Result := FXML_NFeEnviada;
+end;
+
+function TModelDAOFactory.XML_NFeImportada: IModelDAOCustom;
+begin
+  if not Assigned(FXML_NFeImportada) then
+    FXML_NFeImportada := TModelDAOXML_NFeImportada.New;
+
+  Result := FXML_NFeImportada;
 end;
 
 end.

@@ -44,12 +44,17 @@ uses
 
   cxControls,
   cxStyles,
+  cxCustomData,
+  cxFilter,
+  cxData,
+  cxDataStorage,
   cxEdit,
-  cxDBLookupComboBox,
+  cxNavigator,
+  dxDateRanges,
   cxDataControllerConditionalFormattingRulesManagerDialog,
-  cxVGrid,
-  cxDBVGrid,
-  cxInplaceContainer,
+  cxDBData,
+  cxImageComboBox,
+  cxClasses,
   cxGridLevel,
   dxLayoutContainer,
   cxGridInplaceEditForm,
@@ -66,11 +71,7 @@ uses
   UGrPadraoCadastro,
   Interacao.Tabela,
   Controller.Tabela,
-  UConstantesDGE,
-
-  cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator, dxDateRanges, cxDBData, cxImageComboBox,
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, cxClasses, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  UConstantesDGE;
 
 type
   TViewNFEDistribuicao = class(TfrmGrPadrao)
@@ -120,13 +121,11 @@ type
     StyleContentEven: TcxStyle;
     cxStyleHeader: TcxStyle;
     cdsDocumentosUF: TStringField;
-    cdsNSU: TFDQuery;
     lblUltimoNSU: TLabel;
     edtUltimoNSU: TEdit;
     lblQtdeNotas: TLabel;
     lblProximoNSU: TLabel;
     edtProximoNSU: TEdit;
-    procedure fdQryEmpresaCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure FormShow(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -134,13 +133,12 @@ type
     class var _instance : TViewNFEDistribuicao;
   private
     { Private declarations }
-    FControllerEmpresaView : IControllerCustom;
+    FControllerEmpresaView  : IControllerCustom;
+    FControllerConfigSystem : IControllerConfigSystem;
 
     procedure CarregarEmpresa(const aEmpresa : String);
     procedure CarregarDocumentos;
 
-    function getNSUImportados(const aEmpresa : String) : String;
-    function GetUltimoNSUImportado(const aEmpresa : String) : Integer;
     function Empresa : IControllerEmpresa;
   public
     { Public declarations }
@@ -167,11 +165,12 @@ implementation
 uses
   System.Generics.Collections,
   UDMRecursos,
-  UDMBusiness,
   UDMNFe,
+  Service.Utils,
   Classe.DistribuicaoDFe.DocumentoRetornado,
   SGE.Controller.Factory,
-  SGE.Controller;
+  SGE.Controller,
+  Controller.Factory;
 
 { TfrmDistribuicaoDFe }
 
@@ -196,11 +195,6 @@ begin
   end;
 end;
 
-procedure TViewNFEDistribuicao.fdQryEmpresaCNPJGetText(Sender: TField; var Text: string; DisplayText: Boolean);
-begin
-  Text := StrFormatarCnpj(Sender.AsString);
-end;
-
 procedure TViewNFEDistribuicao.btnConfirmarClick(Sender: TObject);
 begin
   if (cdsDocumentos.RecordCount > 0) then
@@ -210,6 +204,7 @@ end;
 procedure TViewNFEDistribuicao.CarregarDocumentos;
 var
   aFileXML ,
+  aEmpresa ,
   aRetorno : String;
   aNSU ,
   aMaiorNSU : Int64;
@@ -218,6 +213,7 @@ var
 begin
   aNSU := StrToInt64Def(edtUltimoNSU.Text, 0);
   aMaiorNSU := 0;
+  aEmpresa  := TFactoryController.getInstance().getUsuarioController.Empresa;
   aDocumentos := TDictionary<String, TDistribuicaoDFeDocumentoRetornado>.Create;
 
   if cdsDocumentos.Active then
@@ -228,7 +224,7 @@ begin
 
   cdsDocumentos.CreateDataSet;
 
-  if not DMNFe.ExisteNFeParaBaixar(gUsuarioLogado.Empresa, aNSU, aFileXML, aRetorno, aDocumentos) then
+  if not DMNFe.ExisteNFeParaBaixar(aEmpresa, aNSU, aFileXML, aRetorno, aDocumentos) then
     GrdDocumentosDBTableView.OptionsView.NoDataToDisplayInfoText := aRetorno.ToUpper
   else
   begin
@@ -241,7 +237,7 @@ begin
         cdsDocumentosSerie.AsString     := aDocumento.Serie;
         cdsDocumentosNumero.AsString    := aDocumento.Numero;
         cdsDocumentosProtocolo.AsString := aDocumento.Protocolo;
-        cdsDocumentosCNPJ.AsString      := StrFormatarCnpj(aDocumento.CNPJ);
+        cdsDocumentosCNPJ.AsString      := TServicesUtils.StrFormatarCnpj(aDocumento.CNPJ);
         cdsDocumentosNome.AsString      := aDocumento.Nome;
         cdsDocumentosIEstadual.AsString := aDocumento.IEst;
         cdsDocumentosUF.AsString        := aDocumento.UF;
@@ -268,7 +264,7 @@ begin
     lblQtdeNotas.Caption := Format('%d NOTA(S) NO LOTE DE DISTRIBUIÇÃO', [cdsDocumentos.RecordCount]);
     edtUltimoNSU.Text    := FormatFloat('000000000000000', aNSU + 1);
     edtProximoNSU.Text   := FormatFloat('000000000000000', aMaiorNSU);
-    DMNFe.SetNumeroNSUPesquisado(gUsuarioLogado.Empresa, edtUltimoNSU.Text);
+    FControllerConfigSystem.SetNumeroNSUPesquisado(aEmpresa, edtUltimoNSU.Text);
   end;
 end;
 
@@ -280,7 +276,8 @@ end;
 
 procedure TViewNFEDistribuicao.FormCreate(Sender: TObject);
 begin
-  FControllerEmpresaView := TControllerFactory.New.EmpresaView;
+  FControllerEmpresaView  := TControllerFactory.New.EmpresaView;
+  FControllerConfigSystem := TControllerFactory.New.ConfigSystem;
   inherited;
   edtUltimoNSU.Text  := '0';
   edtProximoNSU.Text := '0';
@@ -309,61 +306,9 @@ begin
   Result := _instance;
 end;
 
-function TViewNFEDistribuicao.getNSUImportados(const aEmpresa : String): String;
-var
-  aRetorno : String;
-begin
-  aRetorno := QuotedStr('000000000000000');
-  try
-    cdsNSU.Close;
-    cdsNSU.ParamByName('empresa').AsString := aEmpresa;
-    cdsNSU.ParamByName('todos').AsInteger  := 1;
-    cdsNSU.ParamByName('maximo').AsInteger := 0;
-    cdsNSU.Open;
-
-    while not cdsNSU.Eof do
-    begin
-      aRetorno := aRetorno + ' , ' + QuotedStr(Trim(cdsNSU.FieldByName('nsu').AsString));
-      cdsNSU.Next;
-    end;
-
-    cdsNSU.Close;
-  finally
-    Result := aRetorno;
-  end;
-end;
-
-function TViewNFEDistribuicao.GetUltimoNSUImportado(const aEmpresa: String): Integer;
-var
-  aRetorno : Integer;
-begin
-  aRetorno := 0;
-  try
-    with DMBusiness, fdQryBusca do
-    begin
-      Close;
-      SQL.Clear;
-      SQL.Add('Select');
-      SQL.Add('  max(nsu) as nsu');
-      SQL.Add('from TBNFE_IMPORTADA');
-      SQL.Add('where (empresa = ' + QuotedStr(aEmpresa) + ')');
-      Open;
-
-      aRetorno := StrToIntDef(FieldByName('nsu').AsString, 0);
-
-      Close;
-    end;
-  finally
-    Result := aRetorno;
-  end;
-end;
-
 procedure TViewNFEDistribuicao.RegistrarRotinaSistema;
 begin
   ;
 end;
 
-//initialization
-//  FormFunction.RegisterForm('frmDistribuicaoDFe', TfrmDistribuicaoDFe);
-//
 end.

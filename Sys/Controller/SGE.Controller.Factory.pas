@@ -12,6 +12,7 @@ uses
   SGE.Controller.Cidade,
   SGE.Controller.Cliente,
   SGE.Controller.CondicaoPagto,
+  SGE.Controller.Config,
   SGE.Controller.ContaAPagar,
   SGE.Controller.ContaCorrente,
   SGE.Controller.CST,
@@ -34,7 +35,8 @@ uses
   SGE.Controller.TipoReceita,
   SGE.Controller.UF,
   SGE.Controller.Vendedor,
-  SGE.Controller.XML_NFeEnviada;
+  SGE.Controller.XML_NFeEnviada,
+  SGE.Controller.XML_NFeImportada;
 
 type
   TControllerFactory = class(TInterfacedObject, IControllerFactory)
@@ -60,7 +62,8 @@ type
       FCompetencia         ,
       FCondicaoPagto       ,
       FCondicaoPagtoForma  ,
-      FCondicaoPagtoView   ,
+      FCondicaoPagtoView   : IControllerCustom;
+      FConfigSystem : IControllerConfigSystem;
       FConfiguracaoEmpresa : IControllerCustom;
       FContaAPagar : IControllerContaAPagar;
       FContaCorrente      ,
@@ -90,6 +93,7 @@ type
       FLoteProduto ,
       FModeloCupomFiscalView,
       FNFeEnviada  ,
+      FNFeImportada,
       FNivelIBPT   ,
       FOrigemProdutoView,
       FPlanoConta      ,
@@ -123,6 +127,7 @@ type
       FUnidadeProduto : IControllerCustom;
       FVendedor : IControllerCustom;
       FXML_NFeEnviada : IControllerXML_NFeEnviada;
+      FXML_NFeImportada : IControllerXML_NFeImportada;
     protected
       constructor Create;
     public
@@ -151,6 +156,7 @@ type
       function CondicaoPagto : IControllerCustom;
       function CondicaoPagtoForma : IControllerCustom;
       function CondicaoPagtoView : IControllerCustom;
+      function ConfigSystem : IControllerConfigSystem;
       function ConfiguracaoEmpresa : IControllerCustom;
       function ContaAPagar : IControllerContaAPagar;
       function ContaCorrente : IControllerCustom;
@@ -180,6 +186,7 @@ type
       function LoteProduto : IControllerCustom;
       function ModeloCupomFiscalView : IControllerCustom;
       function NFeEnviada : IControllerCustom;
+      function NFeImportada : IControllerCustom;
       function NivelIBPT : IControllerCustom;
       function OrigemProdutoView : IControllerCustom;
       function PlanoConta : IControllerCustom;
@@ -213,6 +220,7 @@ type
       function UnidadeProduto : IControllerCustom;
       function Vendedor : IControllerCustom;
       function XML_NFeEnviada : IControllerXML_NFeEnviada;
+      function XML_NFeImportada : IControllerXML_NFeImportada;
   end;
 
 implementation
@@ -240,6 +248,14 @@ begin
     FNFeEnviada := TControllerNFeEnviada.New;
 
   Result := FNFeEnviada;
+end;
+
+function TControllerFactory.NFeImportada: IControllerCustom;
+begin
+  if not Assigned(FNFeImportada) then
+    FNFeImportada := TControllerNFeImportada.New;
+
+  Result := FNFeImportada;
 end;
 
 function TControllerFactory.NivelIBPT: IControllerCustom;
@@ -512,6 +528,14 @@ begin
     FCondicaoPagtoView := TControllerCondicaoPagtoView.New;
 
   Result := FCondicaoPagtoView;
+end;
+
+function TControllerFactory.ConfigSystem: IControllerConfigSystem;
+begin
+  if not Assigned(FConfigSystem) then
+    FConfigSystem := TControllerConfigSystem.New;
+
+  Result := FConfigSystem;
 end;
 
 function TControllerFactory.ConfiguracaoEmpresa: IControllerCustom;
@@ -904,6 +928,14 @@ begin
     FXML_NFeEnviada := TControllerXML_NFeEnviada.New;
 
   Result := FXML_NFeEnviada;
+end;
+
+function TControllerFactory.XML_NFeImportada: IControllerXML_NFeImportada;
+begin
+  if not Assigned(FXML_NFeImportada) then
+    FXML_NFeImportada := TControllerXML_NFeImportada.New;
+
+  Result := FXML_NFeImportada;
 end;
 
 end.

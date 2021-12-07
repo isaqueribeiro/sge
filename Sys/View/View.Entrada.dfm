@@ -25,7 +25,6 @@ inherited ViewEntrada: TViewEntrada
   inherited pgcGuias: TPageControl
     Width = 1101
     Height = 634
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 1101
     ExplicitHeight = 634
@@ -33,14 +32,14 @@ inherited ViewEntrada: TViewEntrada
       ExplicitWidth = 1093
       ExplicitHeight = 605
       inherited Bevel4: TBevel
-        Top = 539
+        Top = 531
         Width = 1093
         ExplicitTop = 540
         ExplicitWidth = 1106
       end
       inherited dbgDados: TDBGrid
         Width = 1093
-        Height = 539
+        Height = 531
         OnEnter = dbgDadosEnter
         OnExit = dbgDadosExit
         Columns = <
@@ -122,7 +121,7 @@ inherited ViewEntrada: TViewEntrada
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 543
+        Top = 535
         Width = 1093
         ExplicitTop = 543
         ExplicitWidth = 1093
@@ -180,7 +179,7 @@ inherited ViewEntrada: TViewEntrada
           end
           object lblData: TLabel [1]
             Left = 14
-            Top = 25
+            Top = 28
             Width = 49
             Height = 13
             Caption = 'Emiss'#227'o:'
@@ -200,7 +199,7 @@ inherited ViewEntrada: TViewEntrada
           end
           object e1Data: TJvDateEdit
             Left = 72
-            Top = 21
+            Top = 24
             Width = 102
             Height = 21
             Date = 40909.000000000000000000
@@ -257,7 +256,7 @@ inherited ViewEntrada: TViewEntrada
           end
           object e2Data: TJvDateEdit
             Left = 184
-            Top = 21
+            Top = 24
             Width = 103
             Height = 21
             Date = 40909.000000000000000000
@@ -316,8 +315,6 @@ inherited ViewEntrada: TViewEntrada
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1093
       ExplicitHeight = 605
       inherited Bevel8: TBevel

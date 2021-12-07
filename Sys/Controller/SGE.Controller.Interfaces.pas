@@ -16,6 +16,12 @@ type
     ['{EF078F48-0F46-48FF-B6A2-B2926E490606}']
   end;
 
+  IControllerConfigSystem = interface(IControllerCustom)
+    ['{03B343EC-49C1-4677-8330-B6EB6DE31493}']
+    procedure SetNumeroNSUPesquisado(const aEmpresa : String; aNSU : String);
+    function GetNumeroNSUPesquisado(const aEmpresa : String) : String;
+  end;
+
   IControllerEmpresa = interface(IControllerCustom)
     ['{F0D92BB2-24FF-4270-9655-79AAC773AD94}']
     function GetSegmentoID(aCNPJ : String) : Integer;
@@ -84,6 +90,12 @@ type
     function ListaNFePendente(aCNPJEmissor, aRecibo : String) : IModelDAOCustom; overload;
     function EmissaoNFePendente(aCNPJEmissor : String) : Boolean;
     function PesquisarLote(aCNPJEmissor, aRecibo : String; aLoteEnvioNFE : TLoteEnvioNFE) : IModelDAOCustom;
+  end;
+
+  IControllerXML_NFeImportada = interface(IControllerCustom)
+    ['{6BA5E5BD-2493-467F-8B4E-46212A2B6584}']
+    function GetUltimoNSUImportado(const aEmpresa: String): Int64;
+    function GetArrayNSUImportados(const aEmpresa: String): String;
   end;
 
   IControllerEntrada = interface(IControllerCustom)
@@ -159,6 +171,7 @@ type
     function CondicaoPagto       : IControllerCustom;
     function CondicaoPagtoForma  : IControllerCustom;
     function CondicaoPagtoView   : IControllerCustom;
+    function ConfigSystem : IControllerConfigSystem;
     function ConfiguracaoEmpresa : IControllerCustom;
     function ContaAPagar : IControllerContaAPagar;
     function ContaCorrente       : IControllerCustom;
@@ -188,6 +201,7 @@ type
     function LoteProduto : IControllerCustom;
     function ModeloCupomFiscalView : IControllerCustom;
     function NFeEnviada : IControllerCustom;
+    function NFeImportada : IControllerCustom;
     function NivelIBPT  : IControllerCustom;
     function OrigemProdutoView : IControllerCustom;
     function PlanoConta        : IControllerCustom;
@@ -221,6 +235,7 @@ type
     function UnidadeProduto : IControllerCustom;
     function Vendedor : IControllerCustom;
     function XML_NFeEnviada : IControllerXML_NFeEnviada;
+    function XML_NFeImportada : IControllerXML_NFeImportada;
   end;
 
 implementation

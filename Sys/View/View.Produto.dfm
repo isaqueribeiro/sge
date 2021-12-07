@@ -1,7 +1,6 @@
 inherited ViewProduto: TViewProduto
   Left = 383
   Top = 220
-  ActiveControl = dbCodigo
   Caption = 'Cadastro de Produtos/Servi'#231'os'
   ClientHeight = 586
   ClientWidth = 961
@@ -25,7 +24,6 @@ inherited ViewProduto: TViewProduto
   inherited pgcGuias: TPageControl
     Width = 961
     Height = 543
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 961
     ExplicitHeight = 543
@@ -33,14 +31,14 @@ inherited ViewProduto: TViewProduto
       ExplicitWidth = 953
       ExplicitHeight = 514
       inherited Bevel4: TBevel
-        Top = 448
+        Top = 440
         Width = 953
         ExplicitTop = 472
         ExplicitWidth = 953
       end
       inherited dbgDados: TDBGrid
         Width = 953
-        Height = 448
+        Height = 440
         PopupMenu = popFerramentas
         Columns = <
           item
@@ -162,9 +160,9 @@ inherited ViewProduto: TViewProduto
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 452
+        Top = 444
         Width = 953
-        ExplicitTop = 452
+        ExplicitTop = 444
         ExplicitWidth = 953
         object lblProdutoPromocao: TLabel [0]
           Left = 2
@@ -256,6 +254,7 @@ inherited ViewProduto: TViewProduto
           Caption = 'Pesquisar    '
           ExplicitLeft = 379
           ExplicitWidth = 570
+          ExplicitHeight = 62
           inherited lbltFiltrar: TLabel
             Width = 48
             Caption = 'Produto:'
@@ -263,16 +262,17 @@ inherited ViewProduto: TViewProduto
             ExplicitWidth = 48
           end
           inherited edtFiltrar: TEdit
-            Left = 231
+            Left = 234
             Width = 292
             TabOrder = 2
-            ExplicitLeft = 231
+            ExplicitLeft = 234
+            ExplicitTop = 24
             ExplicitWidth = 292
           end
           inherited btnFiltrar: TcxButton
-            Left = 529
+            Left = 532
             TabOrder = 3
-            ExplicitLeft = 529
+            ExplicitLeft = 532
           end
           object chkProdutoComEstoque: TCheckBox
             Left = 68
@@ -289,11 +289,19 @@ inherited ViewProduto: TViewProduto
             OnClick = chkProdutoComEstoqueClick
           end
           object CmbBxFiltrarTipo: TComboBox
-            Left = 8
-            Top = 21
-            Width = 217
-            Height = 21
-            Style = csDropDownList
+            AlignWithMargins = True
+            Left = 12
+            Top = 24
+            Width = 216
+            Height = 22
+            Margins.Left = 10
+            Margins.Top = 9
+            Margins.Bottom = 13
+            Align = alClient
+            BevelEdges = []
+            BevelInner = bvNone
+            BevelKind = bkSoft
+            Style = csOwnerDrawFixed
             ItemIndex = 0
             TabOrder = 1
             Text = 'por Produto (C'#243'digo / Descri'#231#227'o)'

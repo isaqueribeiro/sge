@@ -103,6 +103,7 @@ type
     function CondicaoPagto : IModelDAOCustom;
     function CondicaoPagtoForma : IModelDAOCustom;
     function CondicaoPagtoView : IModelDAOCustom;
+    function ConfigSystem : IModelDAOCustom;
     function ConfiguracaoEmpresa : IModelDAOCustom;
     function ContaAPagar : IModelDAOCustom;
     function ContaCorrente : IModelDAOCustom;
@@ -133,6 +134,7 @@ type
     function LoteProduto : IModelDAOCustom;
     function ModeloCupomFiscalView : IModelDAOCustom;
     function NFeEnviada : IModelDAOCustom;
+    function NFeImportada : IModelDAOCustom;
     function NivelIBPT  : IModelDAOCustom;
     function OrigemProdutoView : IModelDAOCustom;
     function PlanoConta : IModelDAOCustom;
@@ -167,6 +169,7 @@ type
     function UnidadeProduto : IModelDAOCustom;
     function Vendedor : IModelDAOCustom;
     function XML_NFeEnviada : IModelDAOCustom;
+    function XML_NFeImportada : IModelDAOCustom;
   end;
 
 implementation

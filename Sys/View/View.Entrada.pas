@@ -787,7 +787,7 @@ begin
 
   if (DMNFe.GetCnpjCertificado <> EmptyStr) then
   begin
-    aUltimoNSU := DMNFe.GetNumeroNSUPesquisado(FController.DAO.Usuario.Empresa.CNPJ);
+    aUltimoNSU := TControllerFactory.New.ConfigSystem.GetNumeroNSUPesquisado(FController.DAO.Usuario.Empresa.CNPJ);
 
     if (aUltimoNSU.ToInt64 = 0) then
       DMNFe.GetUltimoNSU(FController.DAO.Usuario.Empresa.CNPJ, aUltimoNSU, False);

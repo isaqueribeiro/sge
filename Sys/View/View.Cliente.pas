@@ -547,6 +547,7 @@ begin
   CampoDescricao     := 'cl.nome';
   CampoCadastroAtivo := 'cl.ativo';
   CampoOrdenacao     := CampoDescricao;
+  WhereAdditional    := '(cl.Codigo > 1)';
 
   pgcMaisDados.ActivePageIndex := 0;
   tbsConsultarCNPJ.TabVisible  := False;

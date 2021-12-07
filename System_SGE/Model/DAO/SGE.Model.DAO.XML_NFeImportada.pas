@@ -65,6 +65,8 @@ begin
         .Add('  , n.nsu    ')
         .Add('  , n.emissor_cnpj  ')
         .Add('  , n.emissor_codigo')
+        .Add('  , upper(f.nomeforn) as emissor_razao   ')
+        .Add('  , upper(f.nomefant) as emissor_fantasia')
         .Add('  , n.serie    ')
         .Add('  , n.numero   ')
         .Add('  , n.emissao  ')
@@ -79,12 +81,13 @@ begin
         .Add('  , c.codcontrol as compra_num')
         .Add('from TBNFE_IMPORTADA n        ')
         .Add('  left join TBCOMPRAS c on (c.codemp = n.empresa and c.nfnsu = n.nsu)')
+        .Add('  left join TBFORNECEDOR f on (f.codforn = n.emissor_codigo)')
       .&End
       .Where('n.chave = :chave')
       .WhereOr('(n.empresa = :empresa) and (n.nsu = :nsu)')
       .ParamByName('chave',   EmptyStr)
       .ParamByName('empresa', EmptyStr)
-      .ParamByName('nsu',     0)
+      .ParamByName('nsu',     EmptyStr)
     .Open;
 
   FConn.Query.DataSet.AfterOpen    := DataSetAfterOpen;
@@ -112,7 +115,9 @@ end;
 
 procedure TModelDAOXML_NFeImportada.SetProviderFlags;
 begin
-  ;
+  // Ignorar campos no Insert e Update
+  FConn.Query.DataSet.FieldByName('emissor_razao').ProviderFlags    := [];
+  FConn.Query.DataSet.FieldByName('emissor_fantasia').ProviderFlags := [];
 end;
 
 procedure TModelDAOXML_NFeImportada.DataGetText(Sender: TField; var Text: string; DisplayText: Boolean);
@@ -143,22 +148,16 @@ begin
     FieldByName('nsu').Clear;
     FieldByName('emissor_cnpj').Clear;
     FieldByName('emissor_codigo').Clear;
-//    FieldByName('versao').Clear;
-//    FieldByName('anovenda').Clear;
-//    FieldByName('numvenda').Clear;
-//    FieldByName('anocompra').Clear;
-//    FieldByName('numcompra').Clear;
-//    FieldByName('nfc_numero').Clear;
-//    FieldByName('dataemissao').Clear;
-//    FieldByName('horaemissao').Clear;
-//    FieldByName('chave').Clear;
-//    FieldByName('protocolo').Clear;
-//    FieldByName('recibo').Clear;
-//    FieldByName('xml_filename').Clear;
-//    FieldByName('xml_file').Clear;
-//    FieldByName('lote_ano').Clear;
-//    FieldByName('lote_num').Clear;
-//    FieldByName('cancelada').AsInteger := FLAG_NAO;
+    FieldByName('serie').Clear;
+    FieldByName('numero').Clear;
+    FieldByName('emissao').Clear;
+    FieldByName('valor').Clear;
+    FieldByName('protocolo').Clear;
+    FieldByName('chave').Clear;
+    FieldByName('xml_filename').Clear;
+    FieldByName('xml_file').Clear;
+    FieldByName('usuario').Clear;
+    FieldByName('datahora_importacao').Clear;
   end;
 end;
 
@@ -166,48 +165,40 @@ end;
 
 constructor TModelDAONFeImportada.Create;
 begin
-//  inherited Create;
-//  FConn
-//    .Query
-//      .TableName('TBNFE_ENVIADA')
-//      .AliasTableName('n')
-//      .KeyFields('empresa;serie;numero;modelo')
-//      .SQL
-//        .Clear
-//        .Add('Select')
-//        .Add('    coalesce(lpad(nf.numero, 7, ''0'') || ''-'' || nf.serie, '''') as nfe_destinatario')
-//        .Add('  , coalesce(cl.codigo, fn.codforn) as nfe_destinatario_codigo      ')
-//        .Add('  , coalesce(cl.nome, fn.nomeforn)  as nfe_destinatario_razao       ')
-//        .Add('  , coalesce(cl.cnpj, fn.cnpj) as nfe_destinatario_cnpj             ')
-//        .Add('  , coalesce(cl.inscest, fn.inscest) as nfe_destinatario_inscest    ')
-//        .Add('  , coalesce(cl.uf, fn.uf) as nfe_destinatario_uf                   ')
-//        .Add('  , coalesce(vn.nfe_valor_total_nota, cp.totalnf) as nfe_valor_total')
-//        .Add('  , nf.empresa       ')
-//        .Add('  , nf.serie         ')
-//        .Add('  , nf.numero        ')
-//        .Add('  , nf.modelo        ')
-//        .Add('  , nf.dataemissao   ')
-//        .Add('  , nf.horaemissao   ')
-//        .Add('  , nf.versao        ')
-//        .Add('  , nf.recibo        ')
-//        .Add('  , nf.protocolo     ')
-//        .Add('  , nf.chave         ')
-//        .Add('  , nf.anovenda      ')
-//        .Add('  , nf.numvenda      ')
-//        .Add('  , nf.anocompra     ')
-//        .Add('  , nf.numcompra     ')
-//        .Add('  , nf.xml_filename  ')
-//        .Add('  , nf.xml_file      ')
-//        .Add('  , nf.cancelada     ')
-//        .Add('from TBNFE_ENVIADA nf')
-//        .Add('  left join TBVENDAS vn on (vn.ano = nf.anovenda and vn.codcontrol = nf.numvenda) ')
-//        .Add('  left join TBCLIENTE cl on (cl.codigo = vn.codcliente) ')
-//        .Add('  left join TBCOMPRAS cp on (cp.ano = nf.anocompra and cp.codcontrol = nf.numcompra) ')
-//        .Add('  left join TBFORNECEDOR fn on (fn.codforn = cp.codforn) ')
-//      .&End
-//    .OpenEmpty
-//    .CloseEmpty;
-//
+  inherited Create;
+  FConn
+    .Query
+      .TableName('TBNFE_IMPORTADA')
+      .AliasTableName('n')
+      .KeyFields('empresa;nsu')
+      .SQL
+        .Clear
+        .Add(' Select')
+        .Add('    n.empresa')
+        .Add('  , n.nsu    ')
+        .Add('  , n.emissor_cnpj  ')
+        .Add('  , n.emissor_codigo')
+        .Add('  , upper(f.nomeforn) as emissor_razao   ')
+        .Add('  , upper(f.nomefant) as emissor_fantasia')
+        .Add('  , n.serie    ')
+        .Add('  , n.numero   ')
+        .Add('  , n.emissao  ')
+        .Add('  , n.valor    ')
+        .Add('  , n.protocolo')
+        .Add('  , n.chave    ')
+//        .Add('  , n.xml_filename')
+//        .Add('  , n.xml_file    ')
+        .Add('  , n.usuario     ')
+        .Add('  , n.datahora_importacao')
+        .Add('  , c.ano        as compra_ano')
+        .Add('  , c.codcontrol as compra_num')
+        .Add('from TBNFE_IMPORTADA n        ')
+        .Add('  left join TBCOMPRAS c on (c.codemp = n.empresa and c.nfnsu = n.nsu)')
+        .Add('  left join TBFORNECEDOR f on (f.codforn = n.emissor_codigo)')
+      .&End
+    .OpenEmpty
+    .CloseEmpty;
+
   FConn.Query.DataSet.AfterOpen := DataSetAfterOpen;
 end;
 

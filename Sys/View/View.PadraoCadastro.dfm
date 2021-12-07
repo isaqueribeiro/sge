@@ -55,7 +55,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       ImageIndex = 37
       object Bevel4: TBevel
         Left = 0
-        Top = 263
+        Top = 255
         Width = 727
         Height = 4
         Align = alBottom
@@ -66,7 +66,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
         Left = 0
         Top = 0
         Width = 727
-        Height = 263
+        Height = 255
         Align = alClient
         DataSource = DtSrcTabela
         Font.Charset = ANSI_CHARSET
@@ -90,9 +90,9 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       end
       object pnlFiltros: TPanel
         Left = 0
-        Top = 267
+        Top = 259
         Width = 727
-        Height = 62
+        Height = 70
         Align = alBottom
         BevelOuter = bvNone
         BorderWidth = 4
@@ -101,7 +101,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
           Left = 456
           Top = 4
           Width = 267
-          Height = 54
+          Height = 62
           Align = alRight
           Caption = 'Pesquisar ...'
           Font.Charset = ANSI_CHARSET
@@ -111,9 +111,10 @@ object ViewPadraoCadastro: TViewPadraoCadastro
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
+          ExplicitHeight = 54
           object lbltFiltrar: TLabel
             Left = 17
-            Top = 25
+            Top = 27
             Width = 41
             Height = 13
             Caption = 'Tabela:'
@@ -121,30 +122,33 @@ object ViewPadraoCadastro: TViewPadraoCadastro
           end
           object edtFiltrar: TEdit
             AlignWithMargins = True
-            Left = 72
-            Top = 20
+            Left = 75
+            Top = 24
             Width = 148
             Height = 23
             Hint = 'Digite aqui a palavra-chave da pesquisa'
-            Margins.Top = 5
-            Margins.Bottom = 9
+            Margins.Top = 9
+            Margins.Bottom = 13
             Align = alRight
             CharCase = ecUpperCase
             ParentShowHint = False
             ShowHint = True
             TabOrder = 0
+            ExplicitLeft = 72
+            ExplicitTop = 20
             ExplicitHeight = 21
           end
           object btnFiltrar: TcxButton
             Tag = 5
             AlignWithMargins = True
-            Left = 226
-            Top = 18
-            Width = 29
+            Left = 229
+            Top = 22
+            Width = 26
             Height = 26
             Hint = 'Clique aqui para executar a pesquisa ...'
+            Margins.Top = 7
             Margins.Right = 10
-            Margins.Bottom = 8
+            Margins.Bottom = 12
             Align = alRight
             OptionsImage.Glyph.SourceDPI = 96
             OptionsImage.Glyph.Data = {
@@ -190,6 +194,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
             TabOrder = 1
             TabStop = False
             OnClick = btnFiltrarClick
+            ExplicitLeft = 226
           end
         end
       end
@@ -197,10 +202,6 @@ object ViewPadraoCadastro: TViewPadraoCadastro
     object tbsCadastro: TTabSheet
       Caption = '&Dados'
       ImageIndex = 39
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel8: TBevel
         Left = 0
         Top = 121

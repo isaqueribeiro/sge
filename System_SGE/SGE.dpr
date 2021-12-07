@@ -186,6 +186,7 @@ uses
   SGE.Model.DAO.Cidade in '..\Sys\Model\DAO\SGE.Model.DAO.Cidade.pas',
   SGE.Model.DAO.Cliente in '..\Sys\Model\DAO\SGE.Model.DAO.Cliente.pas',
   SGE.Model.DAO.CondicaoPagto in '..\Sys\Model\DAO\SGE.Model.DAO.CondicaoPagto.pas',
+  SGE.Model.DAO.Config in '..\Sys\Model\DAO\SGE.Model.DAO.Config.pas',
   SGE.Model.DAO.ContaAPagar in '..\Sys\Model\DAO\SGE.Model.DAO.ContaAPagar.pas',
   SGE.Model.DAO.ContaCorrente in '..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas',
   SGE.Model.DAO.CST in '..\Sys\Model\DAO\SGE.Model.DAO.CST.pas',
@@ -211,6 +212,7 @@ uses
   SGE.Model.DAO.UF in '..\Sys\Model\DAO\SGE.Model.DAO.UF.pas',
   SGE.Model.DAO.Vendedor in '..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas',
   SGE.Model.DAO.XML_NFeEnviada in 'Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas',
+  SGE.Model.DAO.XML_NFeImportada in 'Model\DAO\SGE.Model.DAO.XML_NFeImportada.pas',
   SGE.Controller.Interfaces in '..\Sys\Controller\SGE.Controller.Interfaces.pas',
   SGE.Controller in '..\Sys\Controller\SGE.Controller.pas',
   SGE.Controller.AutorizacaoCompra in 'Controller\SGE.Controller.AutorizacaoCompra.pas',
@@ -221,6 +223,7 @@ uses
   SGE.Controller.Cidade in '..\Sys\Controller\SGE.Controller.Cidade.pas',
   SGE.Controller.Cliente in '..\Sys\Controller\SGE.Controller.Cliente.pas',
   SGE.Controller.CondicaoPagto in '..\Sys\Controller\SGE.Controller.CondicaoPagto.pas',
+  SGE.Controller.Config in '..\Sys\Controller\SGE.Controller.Config.pas',
   SGE.Controller.ContaAPagar in '..\Sys\Controller\SGE.Controller.ContaAPagar.pas',
   SGE.Controller.ContaCorrente in '..\Sys\Controller\SGE.Controller.ContaCorrente.pas',
   SGE.Controller.CST in '..\Sys\Controller\SGE.Controller.CST.pas',
@@ -246,6 +249,7 @@ uses
   SGE.Controller.UF in '..\Sys\Controller\SGE.Controller.UF.pas',
   SGE.Controller.Vendedor in '..\Sys\Controller\SGE.Controller.Vendedor.pas',
   SGE.Controller.XML_NFeEnviada in 'Controller\SGE.Controller.XML_NFeEnviada.pas',
+  SGE.Controller.XML_NFeImportada in 'Controller\SGE.Controller.XML_NFeImportada.pas',
   View.Estado in '..\Sys\View\View.Estado.pas' {ViewEstado},
   View.Cidade in '..\Sys\View\View.Cidade.pas' {ViewCidade},
   View.Distrito in '..\Sys\View\View.Distrito.pas' {ViewDistrito},
@@ -289,7 +293,6 @@ uses
   View.NFE.Pesquisa in '..\Sys\View\View.NFE.Pesquisa.pas' {ViewNFEPesquisa},
   UGeNFEmitida in '..\Sys\UGeNFEmitida.pas' {frmGeNFEmitida},
   View.NFE.Distribuicao in '..\Sys\View\View.NFE.Distribuicao.pas' {ViewNFEDistribuicao},
-  SGE.Model.DAO.XML_NFeImportada in 'Model\DAO\SGE.Model.DAO.XML_NFeImportada.pas',
   UGeDistribuicaoDFe in '..\Sys\UGeDistribuicaoDFe.pas' {frmDistribuicaoDFe};
 
 {$R *.res}
