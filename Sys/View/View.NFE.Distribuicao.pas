@@ -126,9 +126,11 @@ type
     lblQtdeNotas: TLabel;
     lblProximoNSU: TLabel;
     edtProximoNSU: TEdit;
+    btnProximo: TcxButton;
     procedure FormShow(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure btnProximoClick(Sender: TObject);
   strict private
     class var _instance : TViewNFEDistribuicao;
   private
@@ -136,6 +138,8 @@ type
     FControllerEmpresaView  : IControllerCustom;
     FControllerConfigSystem : IControllerConfigSystem;
 
+    procedure LimparConsulta;
+    procedure ConsultarLote;
     procedure CarregarEmpresa(const aEmpresa : String);
     procedure CarregarDocumentos;
 
@@ -201,6 +205,15 @@ begin
     ModalResult := mrOk;
 end;
 
+procedure TViewNFEDistribuicao.btnProximoClick(Sender: TObject);
+begin
+  edtUltimoNSU.Text  := edtProximoNSU.Text;
+  edtProximoNSU.Text := FormatFloat('000000000000000', StrToInt64Def(edtUltimoNSU.Text, 0) + 1);
+
+  LimparConsulta;
+  ConsultarLote;
+end;
+
 procedure TViewNFEDistribuicao.CarregarDocumentos;
 var
   aFileXML ,
@@ -263,7 +276,12 @@ begin
 
     lblQtdeNotas.Caption := Format('%d NOTA(S) NO LOTE DE DISTRIBUIÇÃO', [cdsDocumentos.RecordCount]);
     edtUltimoNSU.Text    := FormatFloat('000000000000000', aNSU + 1);
-    edtProximoNSU.Text   := FormatFloat('000000000000000', aMaiorNSU);
+
+    if (aMaiorNSU = 0) then
+      edtProximoNSU.Text := FormatFloat('000000000000000', aNSU + 2)
+    else
+      edtProximoNSU.Text := FormatFloat('000000000000000', aMaiorNSU);
+
     FControllerConfigSystem.SetNumeroNSUPesquisado(aEmpresa, edtUltimoNSU.Text);
   end;
 end;
@@ -272,6 +290,17 @@ procedure TViewNFEDistribuicao.CarregarEmpresa(const aEmpresa : String);
 begin
   if not Empresa.DAO.DataSet.Locate('cnpj', aEmpresa, []) then
     raise Exception.Create('Empresa não identificada!');
+end;
+
+procedure TViewNFEDistribuicao.ConsultarLote;
+begin
+  WaitAMoment(WAIT_AMOMENT_TextoLivre, 'Buscando documentos fiscais...');
+  try
+    CarregarDocumentos;
+    btnConfirmar.Enabled := (cdsDocumentos.RecordCount > 0);
+  finally
+    WaitAMomentFree;
+  end;
 end;
 
 procedure TViewNFEDistribuicao.FormCreate(Sender: TObject);
@@ -287,13 +316,11 @@ end;
 
 procedure TViewNFEDistribuicao.FormShow(Sender: TObject);
 begin
-  WaitAMoment(WAIT_AMOMENT_TextoLivre, 'Buscando documentos fiscais...');
-  try
-    CarregarDocumentos;
-    btnConfirmar.Enabled := (cdsDocumentos.RecordCount > 0);
-  finally
-    WaitAMomentFree;
-  end;
+  LimparConsulta;
+  ConsultarLote;
+
+  if (StrToInt64Def(edtProximoNSU.Text, 0) = 0) then
+    edtProximoNSU.Text := FormatFloat('000000000000000', StrToInt64Def(edtUltimoNSU.Text, 0) + 1);
 end;
 
 class function TViewNFEDistribuicao.getInstance(const aEmpresa : String): TViewNFEDistribuicao;
@@ -304,6 +331,21 @@ begin
   _instance.CarregarEmpresa(aEmpresa);
 
   Result := _instance;
+end;
+
+procedure TViewNFEDistribuicao.LimparConsulta;
+begin
+  if cdsDocumentos.Active then
+  begin
+    cdsDocumentos.First;
+    cdsDocumentos.DisableControls;
+    try
+      while not cdsDocumentos.Eof do
+        cdsDocumentos.Delete;
+    finally
+      cdsDocumentos.EnableControls;
+    end;
+  end;
 end;
 
 procedure TViewNFEDistribuicao.RegistrarRotinaSistema;

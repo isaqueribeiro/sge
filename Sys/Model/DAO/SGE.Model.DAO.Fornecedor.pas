@@ -38,6 +38,19 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // Produto do Fornecedor
+  TModelDAOFornecedorProduto = class(TModelDAO, IModelDAOCustom)
+    private
+      procedure DataSetNewRecord(DataSet: TDataSet);
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+  end;
+
 implementation
 
 uses
@@ -230,6 +243,55 @@ begin
   Result := Self;
   if not FConn.Query.DataSet.Active then
     FConn.Query.Open;
+end;
+
+{ TModelDAOFornecedorProduto }
+
+constructor TModelDAOFornecedorProduto.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .TableName('TBFORNECEDOR_PRODUTO')
+      .AliasTableName('p')
+      .KeyFields('fornecedor_cnpj;fornecedor_produto')
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    p.fornecedor_cnpj   ')
+        .Add('  , p.fornecedor_produto')
+        .Add('  , p.cd_fornecedor')
+        .Add('  , p.cd_produto   ')
+        .Add('from TBFORNECEDOR_PRODUTO p')
+        .Add('where (p.fornecedor_cnpj = :cnpj)')
+        .Add('  and (p.fornecedor_produto = :produto)')
+      .&End
+    .ParamByName('cnpj', EmptyStr)
+    .ParamByName('produto', EmptyStr)
+    .Open;
+
+  FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
+end;
+
+destructor TModelDAOFornecedorProduto.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOFornecedorProduto.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+procedure TModelDAOFornecedorProduto.DataSetNewRecord(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+  begin
+    FieldByName('fornecedor_cnpj').Clear;
+    FieldByName('fornecedor_produto').Clear;
+    FieldByName('cd_fornecedor').Clear;
+    FieldByName('cd_produto').Clear;
+  end;
 end;
 
 end.

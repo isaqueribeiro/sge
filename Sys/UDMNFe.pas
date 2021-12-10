@@ -6426,7 +6426,6 @@ begin
         end;
 
         // Enviar o evento de Manifesto
-
         if EnviarEvento(iNumeroLote) then
         begin
 
@@ -6443,6 +6442,9 @@ begin
 //            end;
 
             bRetorno := (EventoRetorno.retEvento.Items[0].RetInfEvento.cStat = 135); // Evento registrado e vinculado a NF-e
+
+            if not bRetorno then
+              bRetorno := (EventoRetorno.retEvento.Items[0].RetInfEvento.cStat = 573); // Evento já está registrado e vinculado a NF-e
 
             // Montar LOG de Retorno
 

@@ -45,7 +45,7 @@ type
       FAliquotaICMS       : IControllerAliquotaICMS;
       FAliquotaPISView    : IControllerCustom;
       FAutorizacaoCompra  : IControllerAutorizacaoCompra;
-      FBairro,
+      FBairro : IControllerBairro;
       FBanco ,
       FBancoFebrabanView  : IControllerCustom;
       FCentroCusto        : IControllerCentroCusto;
@@ -83,12 +83,13 @@ type
       FFormaPagtoContaCorrente,
       FFormaPagtoNFCEView     : IControllerCustom;
       FFornecedor     : IControllerFornecedor;
+      FFornecedorProduto : IControllerFornecedorProduto;
       FGrupoFornecedor,
       FGrupoProduto   ,
       FIBPT           ,
       FItensAutorizadosParaEntrada,
-      FLayoutRemessaBancoView,
-      FLogradouro  ,
+      FLayoutRemessaBancoView     : IControllerCustom;
+      FLogradouro  : IControllerLogradouro;
       FLogTransacao,
       FLoteProduto ,
       FModeloCupomFiscalView,
@@ -138,7 +139,7 @@ type
       function AliquotaICMS : IControllerAliquotaICMS;
       function AliquotaPISView : IControllerCustom;
       function AutorizacaoCompra  : IControllerAutorizacaoCompra;
-      function Bairro : IControllerCustom;
+      function Bairro : IControllerBairro;
       function Banco : IControllerCustom;
       function BancoFebrabanView : IControllerCustom;
       function CentroCusto : IControllerCentroCusto;
@@ -176,12 +177,13 @@ type
       function FormaPagtoContaCorrente : IControllerCustom;
       function FormaPagtoNFCEView : IControllerCustom;
       function Fornecedor : IControllerFornecedor;
+      function FornecedorProduto : IControllerFornecedorProduto;
       function GrupoFornecedor : IControllerCustom;
       function GrupoProduto : IControllerCustom;
       function IBPT : IControllerCustom;
       function ItensAutorizadosParaEntrada : IControllerCustom;
       function LayoutRemessaBancoView : IControllerCustom;
-      function Logradouro : IControllerCustom;
+      function Logradouro : IControllerLogradouro;
       function LogTransacao : IControllerCustom;
       function LoteProduto : IControllerCustom;
       function ModeloCupomFiscalView : IControllerCustom;
@@ -386,7 +388,7 @@ begin
   Result := FAutorizacaoCompra;
 end;
 
-function TControllerFactory.Bairro: IControllerCustom;
+function TControllerFactory.Bairro: IControllerBairro;
 begin
   if not Assigned(FBairro) then
     FBairro := TControllerBairro.New;
@@ -682,6 +684,14 @@ begin
   Result := FFornecedor;
 end;
 
+function TControllerFactory.FornecedorProduto: IControllerFornecedorProduto;
+begin
+  if not Assigned(FFornecedorProduto) then
+    FFornecedorProduto := TControllerFornecedorProduto.New;
+
+  Result := FFornecedorProduto;
+end;
+
 function TControllerFactory.GrupoFornecedor: IControllerCustom;
 begin
   if not Assigned(FGrupoFornecedor) then
@@ -722,7 +732,7 @@ begin
   Result := FLayoutRemessaBancoView;
 end;
 
-function TControllerFactory.Logradouro: IControllerCustom;
+function TControllerFactory.Logradouro: IControllerLogradouro;
 begin
   if not Assigned(FLogradouro) then
     FLogradouro := TControllerLogradouro.New;

@@ -13,29 +13,31 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
     Top = 467
     Width = 823
     ExplicitTop = 468
+    ExplicitWidth = 823
   end
   inherited Bevel3: TBevel
     Top = 428
     Width = 823
     ExplicitTop = 429
+    ExplicitWidth = 823
   end
   inherited pgcGuias: TPageControl
     Width = 823
     Height = 428
+    ExplicitWidth = 823
     ExplicitHeight = 428
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
+      ExplicitWidth = 815
       ExplicitHeight = 399
       inherited Bevel4: TBevel
-        Top = 333
+        Top = 325
         Width = 815
         ExplicitTop = 334
+        ExplicitWidth = 815
       end
       inherited dbgDados: TDBGrid
         Width = 815
-        Height = 333
+        Height = 325
         Columns = <
           item
             Expanded = False
@@ -74,26 +76,14 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 337
+        Top = 329
         Width = 815
-        ExplicitTop = 337
-        object lblNotaCancelada: TLabel [0]
-          Left = 2
-          Top = 4
-          Width = 109
-          Height = 13
-          Caption = '* Notas Canceladas'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clRed
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
+        ExplicitTop = 329
+        ExplicitWidth = 815
         inherited grpBxFiltro: TGroupBox
           Left = 240
           Width = 571
-          ExplicitLeft = 152
+          ExplicitLeft = 240
           ExplicitWidth = 571
           inherited lbltFiltrar: TLabel
             Left = 286
@@ -111,16 +101,16 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
             FocusControl = e1Data
           end
           inherited edtFiltrar: TEdit
-            Left = 370
+            Left = 373
             Width = 154
             TabOrder = 2
-            ExplicitLeft = 370
+            ExplicitLeft = 373
             ExplicitWidth = 154
           end
           inherited btnFiltrar: TcxButton
-            Left = 530
+            Left = 533
             TabOrder = 3
-            ExplicitLeft = 530
+            ExplicitLeft = 533
           end
           object e1Data: TJvDateEdit
             Left = 72
@@ -237,22 +227,88 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
             TabOrder = 1
           end
         end
+        object pnlStatus: TPanel
+          AlignWithMargins = True
+          Left = 7
+          Top = 6
+          Width = 143
+          Height = 58
+          Margins.Top = 2
+          Margins.Bottom = 2
+          Align = alLeft
+          BevelOuter = bvNone
+          TabOrder = 1
+          object pnlSatusColor: TPanel
+            Left = 0
+            Top = 0
+            Width = 24
+            Height = 58
+            Align = alLeft
+            BevelOuter = bvNone
+            TabOrder = 0
+            object shpOperacaoCancelada: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 1
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = 7303023
+              Pen.Style = psClear
+              ExplicitTop = 24
+              ExplicitWidth = 19
+            end
+          end
+          object pnlStatusText: TPanel
+            Left = 24
+            Top = 0
+            Width = 119
+            Height = 58
+            Align = alClient
+            BevelOuter = bvNone
+            TabOrder = 1
+            ExplicitWidth = 148
+            object lblOperacaoCancelada: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 1
+              Width = 113
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Notas Canceladas'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitTop = 24
+              ExplicitWidth = 251
+            end
+          end
+        end
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 796
+      ExplicitWidth = 815
       ExplicitHeight = 399
       inherited Bevel8: TBevel
         Top = 73
         Width = 815
         ExplicitTop = 89
+        ExplicitWidth = 815
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 815
         Height = 73
-        ExplicitWidth = 796
+        ExplicitWidth = 815
         ExplicitHeight = 73
         inherited lblCodigo: TLabel
           Width = 47
@@ -272,11 +328,14 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
     Top = 432
     Width = 823
     ExplicitTop = 432
+    ExplicitWidth = 823
     inherited bvlTool3: TBevel
       Left = 740
+      ExplicitLeft = 740
     end
     inherited bvlTool4: TBevel
       Left = 819
+      ExplicitLeft = 819
     end
     inherited btbtnIncluir: TcxButton
       Visible = False
@@ -295,10 +354,12 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
     end
     inherited btbtnFechar: TcxButton
       Left = 744
+      ExplicitLeft = 744
     end
     inherited btbtnSelecionar: TcxButton
       Left = 620
       Visible = True
+      ExplicitLeft = 620
     end
   end
   inherited DtSrcTabela: TDataSource

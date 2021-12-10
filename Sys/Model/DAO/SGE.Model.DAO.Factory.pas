@@ -87,6 +87,7 @@ type
       FFormaPagtoContaCorrente,
       FFormaPagtoNFCEView     ,
       FFornecedor     ,
+      FFornecedorProduto,
       FGrupoFornecedor,
       FGrupoProduto   ,
       FIBPT           ,
@@ -184,6 +185,7 @@ type
       function FormaPagtoContaCorrente : IModelDAOCustom;
       function FormaPagtoNFCEView : IModelDAOCustom;
       function Fornecedor : IModelDAOCustom;
+      function FornecedorProduto : IModelDAOCustom;
       function GrupoFornecedor : IModelDAOCustom;
       function GrupoProduto : IModelDAOCustom;
       function IBPT : IModelDAOCustom;
@@ -865,6 +867,14 @@ begin
     FFornecedor := TModelDAOFornecedor.New;
 
   Result := FFornecedor;
+end;
+
+function TModelDAOFactory.FornecedorProduto: IModelDAOCustom;
+begin
+  if not Assigned(FFornecedorProduto) then
+    FFornecedorProduto := TModelDAOFornecedorProduto.New;
+
+  Result := FFornecedorProduto;
 end;
 
 function TModelDAOFactory.GrupoFornecedor: IModelDAOCustom;

@@ -3,6 +3,7 @@ unit SGE.Controller.Interfaces;
 interface
 
 uses
+  Data.DB,
   SGE.Model.DAO.Interfaces,
   UConstantesDGE;
 
@@ -20,6 +21,17 @@ type
     ['{03B343EC-49C1-4677-8330-B6EB6DE31493}']
     procedure SetNumeroNSUPesquisado(const aEmpresa : String; aNSU : String);
     function GetNumeroNSUPesquisado(const aEmpresa : String) : String;
+    function GetNumeroNSU(const aEmpresa : String) : Largeint;
+  end;
+
+  IControllerBairro = interface(IControllerCustom)
+    ['{C915F8A1-07C5-4CAB-A9F4-CF562BC98419}']
+    function SetBairro(const iCidade : Integer; const sNome : String) : Integer;
+  end;
+
+  IControllerLogradouro = interface(IControllerCustom)
+    ['{E115FFFC-26D3-462F-BB10-2A52E5AD242E}']
+    function SetLogradouro(const iCidade : Integer; const sNome : String; var Tipo : Smallint) : Integer;
   end;
 
   IControllerEmpresa = interface(IControllerCustom)
@@ -45,6 +57,11 @@ type
   IControllerFornecedor = interface(IControllerCustom)
     ['{14DC201C-608A-4A16-87D3-62B62B044EF6}']
     function Get(aCodigo : Integer) : IModelDAOCustom;
+  end;
+
+  IControllerFornecedorProduto = interface(IControllerCustom)
+    ['{0548A6D4-7102-4B48-B41C-7101C3D16187}']
+    function GetProdutoFornecedorCodigo(const aCnpj, aProduto : String) : String;
   end;
 
   IControllerCentroCusto = interface(IControllerCustom)
@@ -96,6 +113,7 @@ type
     ['{6BA5E5BD-2493-467F-8B4E-46212A2B6584}']
     function GetUltimoNSUImportado(const aEmpresa: String): Int64;
     function GetArrayNSUImportados(const aEmpresa: String): String;
+    function GetNumeroNSU(const aEmpresa : String) : Int64;
   end;
 
   IControllerEntrada = interface(IControllerCustom)
@@ -153,7 +171,7 @@ type
     function AliquotaICMS       : IControllerAliquotaICMS;
     function AliquotaPISView    : IControllerCustom;
     function AutorizacaoCompra  : IControllerAutorizacaoCompra;
-    function Bairro : IControllerCustom;
+    function Bairro : IControllerBairro;
     function Banco  : IControllerCustom;
     function BancoFebrabanView  : IControllerCustom;
     function CentroCusto        : IControllerCentroCusto;
@@ -191,12 +209,13 @@ type
     function FormaPagtoContaCorrente : IControllerCustom;
     function FormaPagtoNFCEView : IControllerCustom;
     function Fornecedor      : IControllerFornecedor;
+    function FornecedorProduto : IControllerFornecedorProduto;
     function GrupoFornecedor : IControllerCustom;
     function GrupoProduto    : IControllerCustom;
     function IBPT : IControllerCustom;
     function ItensAutorizadosParaEntrada : IControllerCustom;
     function LayoutRemessaBancoView : IControllerCustom;
-    function Logradouro : IControllerCustom;
+    function Logradouro : IControllerLogradouro;
     function LogTransacao : IControllerCustom;
     function LoteProduto : IControllerCustom;
     function ModeloCupomFiscalView : IControllerCustom;

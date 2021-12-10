@@ -4,6 +4,7 @@ interface
 
 uses
   System.SysUtils,
+  Data.DB,
   SGE.Controller,
   SGE.Controller.Interfaces,
   SGE.Model.DAO.Interfaces,
@@ -19,7 +20,9 @@ type
       class function New : IControllerConfigSystem;
 
       procedure SetNumeroNSUPesquisado(const aEmpresa : String; aNSU : String);
+
       function GetNumeroNSUPesquisado(const aEmpresa : String) : String;
+      function GetNumeroNSU(const aEmpresa : String) : Largeint;
   end;
 
 implementation
@@ -37,6 +40,45 @@ end;
 destructor TControllerConfigSystem.Destroy;
 begin
   inherited;
+end;
+
+function TControllerConfigSystem.GetNumeroNSU(const aEmpresa: String): Largeint;
+var
+  IDAO : IModelDAOCustom;
+  aNumero : Largeint;
+begin
+  IDAO := TModelDAOFactory.New.Busca;
+  aNumero := 0;
+  try
+    IDAO
+      .Close
+      .Clear;
+
+    IDAO
+      .SQL('Select')
+      .SQL('    min(substring(nsu from 2 for 14)) as nsu_min')
+      .SQL('from TBNFE_IMPORTADA')
+      .SQL('where (empresa = ' + QuotedStr(aEmpresa.Trim) + ')');
+
+    aNumero := StrToInt64Def(IDAO.DataSet.FieldByName('nsu_min').AsString, 2) - 1;
+
+    if (aNumero = 0) then
+    begin
+      IDAO
+        .Close
+        .Clear;
+
+      IDAO
+        .SQL('Select')
+        .SQL('    max(substring(nsu from 2 for 14)) as nsu_max')
+        .SQL('from TBNFE_IMPORTADA')
+        .SQL('where (empresa = ' + QuotedStr(aEmpresa.Trim) + ')');
+
+      aNumero := StrToInt64Def(IDAO.DataSet.FieldByName('nsu_max').AsString, 2) + 1;
+    end;
+  finally
+    Result := aNumero;
+  end;
 end;
 
 function TControllerConfigSystem.GetNumeroNSUPesquisado(const aEmpresa: String): String;

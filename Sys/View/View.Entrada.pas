@@ -187,9 +187,6 @@ type
     dbCST: TDBEdit;
     lblCFOPItem: TLabel;
     dbCFOPItem: TDBEdit;
-    lblEntradaAberta: TLabel;
-    lblEntradaCancelada: TLabel;
-    Label1: TLabel;
     lblData: TLabel;
     lblAliquota: TLabel;
     dbAliquota: TDBEdit;
@@ -266,6 +263,15 @@ type
     DtSrcTabelaLotes: TDataSource;
     btnImportar: TcxButton;
     bvlImportar: TBevel;
+    pnlStatus: TPanel;
+    pnlSatusColor: TPanel;
+    shpOperacaoInativo: TShape;
+    shpOperacaoCancelada: TShape;
+    shpOperacaoAberta: TShape;
+    pnlStatusText: TPanel;
+    lblOperacaoAberta: TLabel;
+    lblOperacaoCancelada: TLabel;
+    lblOperacaoInativo: TLabel;
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure DtSrcTabelaAfterScroll(DataSet: TDataSet);
     procedure FormCreate(Sender: TObject);
@@ -424,7 +430,7 @@ uses
   View.AutorizacaoCompra,
   View.NFE.ConsultarLote,
   View.NFE.Distribuicao,
-  UGeImportarNFE;
+  View.NFE.Importar;
 
 {$R *.dfm}
 
@@ -1642,21 +1648,21 @@ begin
       begin
         FieldByName('NFCFOP').AsInteger  := FController.DAO.Configuracao.Padrao.CfopId;
         FieldByName('NATUREZA').AsString := IntToStr(FController.DAO.Configuracao.Padrao.CfopId);
-      end;
 
-      if FControllerCFOP.DAO.DataSet.IsEmpty or (FieldByName('NFCFOP').AsInteger <> FControllerCFOP.DAO.DataSet.FieldByName('Cfop_cod').AsInteger) then
-      begin
-        FControllerCFOP.DAO.ClearWhere;
-        FControllerCFOP
-          .DAO
-          .Where('c.Cfop_cod = ' + FieldByName('NFCFOP').AsString)
-          .Open;
-        FieldByName('CFOP_DESCRICAO').AsString := FControllerCFOP.DAO.DataSet.FieldByName('cfop_descricao').AsString
+        if FControllerCFOP.DAO.DataSet.IsEmpty or (FieldByName('NFCFOP').AsInteger <> FControllerCFOP.DAO.DataSet.FieldByName('Cfop_cod').AsInteger) then
+        begin
+          FControllerCFOP.DAO.ClearWhere;
+          FControllerCFOP
+            .DAO
+            .Where('c.Cfop_cod = ' + FieldByName('NFCFOP').AsString)
+            .Open;
+          FieldByName('CFOP_DESCRICAO').AsString := FControllerCFOP.DAO.DataSet.FieldByName('cfop_descricao').AsString
+        end;
       end;
 
       // A estação tem certificado digital ?
       // A empresa tem permissão para emissão de NFe de entrada ?
-      if (not FController.DAO.Configuracao.Certificado(FieldByName('CODEMP').AsString).NumeroSerie.IsEmpty)
+      if FController.DAO.Configuracao.Certificado(FieldByName('CODEMP').AsString).Instalado
         and Empresa.GetPermitirEmissaoNFeEntrada(FieldByName('CODEMP').AsString)
       then
       begin
@@ -2156,11 +2162,11 @@ begin
     if (not DtSrcTabela.DataSet.FieldByName('STATUS').IsNull) then
       // Destacar Movimento de Entrada Aberto
       if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_CMP_ABR ) then
-        dbgDados.Canvas.Font.Color := lblEntradaAberta.Font.Color
+        dbgDados.Canvas.Font.Color := shpOperacaoAberta.Brush.Color
       else
       // Destacar Movimento de Entrada Cancelado
       if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_CMP_CAN ) then
-        dbgDados.Canvas.Font.Color := lblEntradaCancelada.Font.Color;
+        dbgDados.Canvas.Font.Color := shpOperacaoCancelada.Brush.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end;

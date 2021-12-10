@@ -23,6 +23,7 @@ type
 
       function GetUltimoNSUImportado(const aEmpresa: String): Int64;
       function GetArrayNSUImportados(const aEmpresa: String): String;
+      function GetNumeroNSU(const aEmpresa : String) : Int64;
 //
 //      function ListaNFePendente(aCNPJEmissor : String) : IModelDAOCustom; overload;
 //      function ListaNFePendente(aCNPJEmissor, aRecibo : String) : IModelDAOCustom; overload;
@@ -77,6 +78,45 @@ begin
     Result := EmptyStr
   else
     Result := aBusca.DataSet.FieldByName('lista').AsString;
+end;
+
+function TControllerXML_NFeImportada.GetNumeroNSU(const aEmpresa: String): Int64;
+var
+  IDAO : IModelDAOCustom;
+  aNumero : Int64;
+begin
+  IDAO := TModelDAOFactory.New.Busca;
+  aNumero := 0;
+  try
+    IDAO
+      .Close
+      .Clear;
+
+    IDAO
+      .SQL('Select')
+      .SQL('    min(substring(nsu from 2 for 14)) as nsu_min')
+      .SQL('from TBNFE_IMPORTADA')
+      .SQL('where (empresa = ' + QuotedStr(aEmpresa.Trim) + ')');
+
+    aNumero := StrToInt64Def(IDAO.DataSet.FieldByName('nsu_min').AsString, 2) - 1;
+
+    if (aNumero = 0) then
+    begin
+      IDAO
+        .Close
+        .Clear;
+
+      IDAO
+        .SQL('Select')
+        .SQL('    max(substring(nsu from 2 for 14)) as nsu_max')
+        .SQL('from TBNFE_IMPORTADA')
+        .SQL('where (empresa = ' + QuotedStr(aEmpresa.Trim) + ')');
+
+      aNumero := StrToInt64Def(IDAO.DataSet.FieldByName('nsu_max').AsString, 2) + 1;
+    end;
+  finally
+    Result := aNumero;
+  end;
 end;
 
 function TControllerXML_NFeImportada.GetUltimoNSUImportado(const aEmpresa: String): Int64;

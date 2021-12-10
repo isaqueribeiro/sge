@@ -32,6 +32,19 @@ type
       class function New : IControllerCustom;
   end;
 
+  // Produto do Fornecedor
+  TControllerFornecedorProduto = class(TController, IControllerFornecedorProduto)
+    private
+      FBusca : IModelDAOCustom;
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerFornecedorProduto;
+
+      function GetProdutoFornecedorCodigo(const aCnpj, aProduto : String) : String;
+  end;
+
 implementation
 
 uses
@@ -53,7 +66,7 @@ function TControllerFornecedor.Get(aCodigo: Integer): IModelDAOCustom;
 begin
   if not Assigned(FBusca) then
     FBusca := TModelDAOFactory.New.Busca;
-    
+
   FBusca
     .Clear
     .SQL('Select              ')
@@ -137,6 +150,43 @@ begin
 end;
 
 class function TControllerTransportadora.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerFornecedorProduto }
+
+constructor TControllerFornecedorProduto.Create;
+begin
+  inherited Create(TModelDAOFactory.New.FornecedorProduto);
+end;
+
+destructor TControllerFornecedorProduto.Destroy;
+begin
+  inherited;
+end;
+
+function TControllerFornecedorProduto.GetProdutoFornecedorCodigo(const aCnpj, aProduto: String): String;
+begin
+  if not Assigned(FBusca) then
+    FBusca := TModelDAOFactory.New.Busca;
+
+  FBusca
+    .Close
+    .Clear
+    .SQL('Select')
+    .SQL('  cd_produto ')
+    .SQL('from TBFORNECEDOR_PRODUTO')
+    .SQL('where (fornecedor_cnpj    = :cnpj)')
+    .SQL('  and (fornecedor_produto = :produto)')
+    .ParamsByName('cnpj', aCnpj)
+    .ParamsByName('produto', aProduto)
+    .Open;
+
+  Result := FBusca.DataSet.FieldByName('cd_produto').AsString;
+end;
+
+class function TControllerFornecedorProduto.New: IControllerFornecedorProduto;
 begin
   Result := Self.Create;
 end;

@@ -258,6 +258,21 @@ object ViewNFEDistribuicao: TViewNFEDistribuicao
       TabOrder = 1
       Text = '000000000000000'
     end
+    object btnProximo: TcxButton
+      AlignWithMargins = True
+      Left = 476
+      Top = 7
+      Width = 101
+      Height = 33
+      Cursor = crHandPoint
+      Align = alLeft
+      Caption = 'Pr'#243'ximo Lote'
+      OptionsImage.ImageIndex = 31
+      OptionsImage.Images = DMRecursos.ImgBotoes16x16
+      SpeedButtonOptions.CanBeFocused = False
+      TabOrder = 4
+      OnClick = btnProximoClick
+    end
   end
   object GrdDocumentos: TcxGrid
     Left = 0

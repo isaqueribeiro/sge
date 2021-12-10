@@ -131,6 +131,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           Height = 62
           ExplicitLeft = 328
           ExplicitWidth = 594
+          ExplicitHeight = 62
           DesignSize = (
             594
             62)
@@ -161,6 +162,7 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
             Height = 35
             TabOrder = 3
             ExplicitLeft = 549
+            ExplicitHeight = 35
           end
           object e1Data: TJvDateEdit
             Left = 88
@@ -288,10 +290,6 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitLeft = 224
-          ExplicitTop = 7
-          ExplicitWidth = 101
-          ExplicitHeight = 48
           object pnlSatusColor: TPanel
             Left = 0
             Top = 0
@@ -300,7 +298,6 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
             Align = alLeft
             BevelOuter = bvNone
             TabOrder = 0
-            ExplicitHeight = 48
             object shpOperacaoCancelado: TShape
               AlignWithMargins = True
               Left = 3
@@ -352,7 +349,6 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
             Align = alClient
             BevelOuter = bvNone
             TabOrder = 1
-            ExplicitHeight = 48
             object lblOperacaoAberta: TLabel
               AlignWithMargins = True
               Left = 3

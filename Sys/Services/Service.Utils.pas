@@ -5,6 +5,7 @@ interface
 uses
   System.SysUtils,
   System.StrUtils,
+  System.Classes,
   Soap.EncdDecd,
   Vcl.ExtCtrls,
   Vcl.Graphics,
@@ -18,6 +19,7 @@ type
     public
       class procedure ResourceImage( aResourceName : String; aImage : TImage); overload;
       class procedure ResourceImage( aResourceName : String; aButton : TSpeedButton); overload;
+      class procedure Split(pDelimiter : Char; pStr: String; pListOfStrings : TStrings);
 
       class function PngToBmp(Png : TPngImage) : TBitmap; overload;
       class function PngToBmp(aFileNamePNG : TFileName) : TBitmap; overload;
@@ -40,8 +42,7 @@ type
 implementation
 
 uses
-    System.Classes
-  , System.Types
+    System.Types
   , System.DateUtils
   , System.RegularExpressions
   , IdCoderMIME
@@ -194,6 +195,17 @@ end;
 class function TServicesUtils.StrToCurrency(Value: String): Currency;
 begin
   Result := StrToCurrDef(Value.Trim.Replace('.', '').Replace(',', ''), 0) / 100.0;
+end;
+
+class procedure TServicesUtils.Split(pDelimiter: Char; pStr: String; pListOfStrings: TStrings);
+begin
+  with pListOfStrings do
+  begin
+    Clear;
+    Delimiter       := pDelimiter;
+    StrictDelimiter := True;
+    DelimitedText   := pStr;
+  end;
 end;
 
 class function TServicesUtils.StrFormatarCEP(Value : String): String;

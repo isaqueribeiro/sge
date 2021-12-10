@@ -124,6 +124,7 @@ type
     function FormaPagtoContaCorrente : IModelDAOCustom;
     function FormaPagtoNFCEView : IModelDAOCustom;
     function Fornecedor : IModelDAOCustom;
+    function FornecedorProduto : IModelDAOCustom;
     function GrupoFornecedor : IModelDAOCustom;
     function GrupoProduto : IModelDAOCustom;
     function IBPT : IModelDAOCustom;

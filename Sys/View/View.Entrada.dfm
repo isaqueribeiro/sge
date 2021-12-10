@@ -123,48 +123,8 @@ inherited ViewEntrada: TViewEntrada
       inherited pnlFiltros: TPanel
         Top = 535
         Width = 1093
-        ExplicitTop = 543
+        ExplicitTop = 535
         ExplicitWidth = 1093
-        object lblEntradaAberta: TLabel [0]
-          Left = 2
-          Top = 4
-          Width = 108
-          Height = 13
-          Caption = '* Entradas Abertas'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlue
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lblEntradaCancelada: TLabel [1]
-          Left = 2
-          Top = 24
-          Width = 127
-          Height = 13
-          Caption = '* Entradas Canceladas'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clRed
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label1: TLabel [2]
-          Left = 2
-          Top = 44
-          Width = 16
-          Height = 13
-          Caption = '* ?'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clRed
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          Visible = False
-        end
         inherited grpBxFiltro: TGroupBox
           Left = 474
           Width = 615
@@ -186,16 +146,16 @@ inherited ViewEntrada: TViewEntrada
             FocusControl = e1Data
           end
           inherited edtFiltrar: TEdit
-            Left = 347
+            Left = 350
             Width = 221
             TabOrder = 2
-            ExplicitLeft = 347
+            ExplicitLeft = 350
             ExplicitWidth = 221
           end
           inherited btnFiltrar: TcxButton
-            Left = 574
+            Left = 577
             TabOrder = 3
-            ExplicitLeft = 574
+            ExplicitLeft = 577
           end
           object e1Data: TJvDateEdit
             Left = 72
@@ -310,6 +270,151 @@ inherited ViewEntrada: TViewEntrada
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 1
+          end
+        end
+        object pnlStatus: TPanel
+          AlignWithMargins = True
+          Left = 7
+          Top = 6
+          Width = 172
+          Height = 58
+          Margins.Top = 2
+          Margins.Bottom = 2
+          Align = alLeft
+          BevelOuter = bvNone
+          TabOrder = 1
+          object pnlSatusColor: TPanel
+            Left = 0
+            Top = 0
+            Width = 24
+            Height = 58
+            Align = alLeft
+            BevelOuter = bvNone
+            TabOrder = 0
+            object shpOperacaoInativo: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 41
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = clRed
+              Pen.Style = psClear
+              Visible = False
+              ExplicitTop = 46
+              ExplicitWidth = 19
+            end
+            object shpOperacaoCancelada: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 21
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = 7303023
+              Pen.Style = psClear
+              ExplicitTop = 24
+              ExplicitWidth = 19
+            end
+            object shpOperacaoAberta: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 1
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = clBlue
+              Pen.Style = psClear
+              ExplicitTop = 2
+              ExplicitWidth = 19
+            end
+          end
+          object pnlStatusText: TPanel
+            Left = 24
+            Top = 0
+            Width = 148
+            Height = 58
+            Align = alClient
+            BevelOuter = bvNone
+            TabOrder = 1
+            ExplicitWidth = 440
+            object lblOperacaoAberta: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 1
+              Width = 142
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Entradas Abertas'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitTop = 2
+              ExplicitWidth = 251
+            end
+            object lblOperacaoCancelada: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 21
+              Width = 142
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Entradas Canceladas'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitTop = 24
+              ExplicitWidth = 251
+            end
+            object lblOperacaoInativo: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 41
+              Width = 142
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '?'
+              Color = clYellow
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentColor = False
+              ParentFont = False
+              Transparent = True
+              Layout = tlCenter
+              Visible = False
+              StyleElements = []
+              ExplicitLeft = 0
+              ExplicitTop = 36
+              ExplicitWidth = 256
+            end
           end
         end
       end

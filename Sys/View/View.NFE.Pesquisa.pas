@@ -65,7 +65,11 @@ type
     lblData: TLabel;
     e1Data: TJvDateEdit;
     e2Data: TJvDateEdit;
-    lblNotaCancelada: TLabel;
+    pnlStatus: TPanel;
+    pnlSatusColor: TPanel;
+    shpOperacaoCancelada: TShape;
+    pnlStatusText: TPanel;
+    lblOperacaoCancelada: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -180,7 +184,7 @@ begin
   begin
     // Destacar Notas Fiscais Canceladas
     if ( DtSrcTabela.DataSet.FieldByName('CANCELADA').AsInteger = 1 ) then
-      dbgDados.Canvas.Font.Color := lblNotaCancelada.Font.Color;
+      dbgDados.Canvas.Font.Color := shpOperacaoCancelada.Brush.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end

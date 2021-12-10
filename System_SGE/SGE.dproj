@@ -179,9 +179,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeVenda.pas">
             <Form>frmGeVenda</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeEntradaEstoque.pas">
-            <Form>frmGeEntradaEstoque</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeContasAReceber.pas">
             <Form>frmGeContasAReceber</Form>
         </DCCReference>
@@ -207,9 +204,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeConfigurarNFeACBr.pas">
             <Form>frmGeConfigurarNFeACBr</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeEntradaEstoqueCancelar.pas">
-            <Form>frmGeEntradaEstoqueCancelar</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UEnviarLoteNFe.pas">
             <Form>frmEnviarLoteNFe</Form>
         </DCCReference>
@@ -228,9 +222,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeRetornoBoletos.pas">
             <Form>frmGeRetornoBoleto</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeEntradaConfirmaDuplicatas.pas">
-            <Form>frmGeEntradaConfirmaDuplicatas</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeCaixa.pas">
             <Form>frmGeCaixa</Form>
         </DCCReference>
@@ -243,9 +234,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UConstantesDGE.pas"/>
         <DCCReference Include="..\Sys\UGeVendaFormaPagto.pas">
             <Form>frmGeVendaFormaPagto</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeEntradaEstoqueGerarNFe.pas">
-            <Form>frmGeEntradaEstoqueGerarNFe</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeExportarNFeGerada.pas">
             <Form>frmGeExportarNFeGerada</Form>
@@ -376,9 +364,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="UGeProdutoEstoqueImpressao.pas">
             <Form>frmGeProdutoEstoqueImpressao</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeEntradaEstoqueDevolucaoNF.pas">
-            <Form>frmGeEntradaEstoqueDevolucaoNF</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeNFComplementar.pas">
             <Form>frmGeNFComplementar</Form>
         </DCCReference>
@@ -409,17 +394,14 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\View\View.AutoUpgrade.pas">
             <Form>FrmAutoUpgrade</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeImportarNFE.pas">
-            <Form>frmGeImportarNFE</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeResultadoExercicioImpressao.pas">
             <Form>frmGeResultadoExercicioImpressao</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeEntradaEstoqueLote.pas">
-            <Form>frmGeEntradaEstoqueLote</Form>
-        </DCCReference>
         <DCCReference Include="UGeContasAPagarAReceberImpressao.pas">
             <Form>frmGeContasAPagarAReceberImpressao</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeNFEmitida.pas">
+            <Form>frmGeNFEmitida</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.PadraoAbertura.pas">
             <Form>FrmPadraoAbertura</Form>
@@ -729,14 +711,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\View\View.NFE.Pesquisa.pas">
             <Form>ViewNFEPesquisa</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeNFEmitida.pas">
-            <Form>frmGeNFEmitida</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\View\View.NFE.Distribuicao.pas">
             <Form>ViewNFEDistribuicao</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeDistribuicaoDFe.pas">
-            <Form>frmDistribuicaoDFe</Form>
+        <DCCReference Include="..\Sys\View\View.NFE.Importar.pas">
+            <Form>ViewNFEImportar</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
@@ -854,7 +834,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -976,7 +956,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
