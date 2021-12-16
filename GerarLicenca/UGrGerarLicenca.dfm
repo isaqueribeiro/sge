@@ -489,7 +489,6 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Caption = 'Carregar Licen'#231'a'
     TabOrder = 16
     OnClick = BtnCarregarLicencaClick
-    ExplicitTop = 390
   end
   object BtnGerarLicenca: TButton
     Left = 295
@@ -500,7 +499,6 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     Caption = 'Gerar Licen'#231'a'
     TabOrder = 17
     OnClick = BtnGerarLicencaClick
-    ExplicitTop = 390
   end
   object edDataBloqueio: TEdit
     Left = 160
@@ -686,5 +684,10 @@ object FrmGrGerarLicenca: TFrmGrGerarLicenca
     DataSet = cdsClientes
     Left = 640
     Top = 336
+  end
+  object FBRealTime: TFBRealTime
+    CaseSensitive = False
+    Left = 536
+    Top = 296
   end
 end

@@ -272,6 +272,7 @@ type
     lblOperacaoAberta: TLabel;
     lblOperacaoCancelada: TLabel;
     lblOperacaoInativo: TLabel;
+    nmPpCorrigirDadosValorTotalItens: TMenuItem;
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
     procedure DtSrcTabelaAfterScroll(DataSet: TDataSet);
     procedure FormCreate(Sender: TObject);
@@ -656,7 +657,7 @@ begin
   FControllerFormaPagto        := TControllerFactory.New.FormaPagto;
   FControllerCondicaoPagtoView := TControllerFactory.New.CondicaoPagtoView;
   FControllerTipoDespesa       := TControllerFactory.New.TipoDespesa;
-  FControllerCFOP    := TControllerFactory.New.CFOP;
+  FControllerCFOP := TControllerFactory.New.CFOP;
 
   if (gSistema.Codigo <> SISTEMA_GESTAO_OPME) then
     if (not (Empresa.GetSegmentoID(FController.DAO.Usuario.Empresa.CNPJ) in [SEGMENTO_INDUSTRIA_METAL_ID, SEGMENTO_INDUSTRIA_GERAL_ID])) then
@@ -724,8 +725,6 @@ begin
     .Display('FORMAPAGTO_COD',    'Forma de Pagamento', True)
     .Display('CONDICAOPAGTO_COD', 'Condição de Pagamento', True)
     .Display('TIPO_DESPESA',      'Tipo de Despesa', True);
-
-  AbrirTabelaAuto := True;
 
   TController(FControllerEmpresaView)
     .LookupComboBox(dbEmpresa, dtsEmpresa, 'codemp', 'cnpj', 'razao');

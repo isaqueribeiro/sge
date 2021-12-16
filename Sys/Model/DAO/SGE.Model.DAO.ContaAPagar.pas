@@ -13,6 +13,7 @@ type
   TModelDAOContaAPagar = class(TModelDAO, IModelDAOCustom)
     private
       procedure SetProviderFlags;
+      procedure QuitadoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
       procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetNewRecord(DataSet: TDataSet);
       procedure DataSetBeforePost(DataSet: TDataSet);
@@ -101,6 +102,22 @@ begin
   Result := Self.Create;
 end;
 
+procedure TModelDAOContaAPagar.QuitadoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if ( Sender.IsNull ) then
+    Exit;
+
+  if (Sender.DataSet.FieldByName('situacao').AsInteger = 0) then
+    Text := 'Cancelado'
+  else
+    Case Sender.AsInteger of
+      STATUS_APAGAR_PENDENTE : Text := 'A Pagar';
+      STATUS_APAGAR_PAGO     : Text := 'Pago';
+      else
+        Text := Sender.AsString;
+    end;
+end;
+
 procedure TModelDAOContaAPagar.SetProviderFlags;
 begin
   // Ignorar campos no Insert e Update
@@ -115,6 +132,7 @@ end;
 procedure TModelDAOContaAPagar.DataSetAfterOpen(DataSet: TDataSet);
 begin
   SetProviderFlags;
+  FConn.Query.DataSet.FieldByName('QUITADO').OnGetText := QuitadoGetText;
 end;
 
 procedure TModelDAOContaAPagar.DataSetBeforePost(DataSet: TDataSet);

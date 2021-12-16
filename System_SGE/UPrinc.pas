@@ -363,7 +363,7 @@ uses
   View.Entrada,
 
   // Financeiro
-  UGeContasAPagar,
+  View.ContaAPagar,
   UGeContasAReceber,
   UGeCaixa,
   UGeFluxoCaixa;

@@ -4,6 +4,7 @@ interface
 
 uses
   System.SysUtils,
+  Firebase,
   Controller.Interfaces,
   Model.Usuario;
 
@@ -11,9 +12,12 @@ type
   TControllerUsuario = class(TInterfacedObject, IControllerUsuario<TControllerUsuario>)
     private
       FUsuario : TUsuario<TControllerUsuario>;
+      FCodeProject,
       FApiKey  : String;
       FExpired : TDateTime;
       FError   : String;
+      FFBRealTime : TFBRealTime;
+      procedure ConfigFBRealTime;
     protected
       constructor Create;
     public
@@ -21,6 +25,7 @@ type
       class function New : IControllerUsuario<TControllerUsuario>;
 
       function Entity : TUsuario<TControllerUsuario>;
+      function CodeProject(Value : String) : IControllerUsuario<TControllerUsuario>;
       function ApiKey(Value : String) : IControllerUsuario<TControllerUsuario>;
       function Auth : IControllerUsuario<TControllerUsuario>;
       function RegisterAccount : IControllerUsuario<TControllerUsuario>;
@@ -36,17 +41,17 @@ implementation
 uses
   System.JSON,
   System.DateUtils,
-
-  Firebase.Interfaces,
-  Firebase.Auth,
-  Firebase.Request,
-  Firebase.Response;
+  Firebase.Realtime;
+//
+//  Firebase.Interfaces,
+//  Firebase.Auth,
+//  Firebase.Request,
+//  Firebase.Response;
 
 { TControllerUsuario }
 
 function TControllerUsuario.AccountRegistered: IControllerUsuario<TControllerUsuario>;
 var
-  aAuth     : IFirebaseAuth;
   aResponse : IFirebaseResponse;
   aJson     ,
   aRetorno  : TJSONValue;
@@ -57,10 +62,8 @@ begin
 
     FUsuario.Registered(False);
     try
-      aAuth := TFirebaseAuth.Create;
-      aAuth.SetApiKey(FApiKey);
-
-      aResponse := aAuth.SignInWithEmailAndPassword(FUsuario.Email, FUsuario.Passwd);
+      ConfigFBRealTime;
+      aResponse := FFBRealTime.Authentication.EmailPassword.LoginWithEmailAndPassword(FUsuario.Email, FUsuario.Passwd);
       aJson := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(aResponse.ContentAsString), 0);
 
       if aJson.TryGetValue('error', aRetorno) then
@@ -98,18 +101,15 @@ end;
 
 function TControllerUsuario.Auth: IControllerUsuario<TControllerUsuario>;
 var
-  aAuth     : IFirebaseAuth;
   aResponse : IFirebaseResponse;
   aJson : TJSONValue;
 begin
   try
     Result := Self;
     try
-      aAuth := TFirebaseAuth.Create;
-      aAuth.SetApiKey(FApiKey);
+      ConfigFBRealTime;
 
-      FExpired  := Now;
-      aResponse := aAuth.SignInWithEmailAndPassword(FUsuario.Email, FUsuario.Passwd);
+      aResponse := FFBRealTime.Authentication.EmailPassword.LoginWithEmailAndPassword(FUsuario.Email, FUsuario.Passwd);
       aJson := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(aResponse.ContentAsString), 0);
 
       FUsuario
@@ -123,6 +123,8 @@ begin
 
       FExpired := IncSecond(FExpired, FUsuario.ExpiresIn);
     except
+      On E : Exception do
+        raise Exception.Create(E.Message);
     end;
   finally
     if Assigned(aJson) then
@@ -130,15 +132,34 @@ begin
   end;
 end;
 
+function TControllerUsuario.CodeProject(Value: String): IControllerUsuario<TControllerUsuario>;
+begin
+  Result := Self;
+  FCodeProject := Value.Trim;
+end;
+
+procedure TControllerUsuario.ConfigFBRealTime;
+begin
+  if (not Assigned(FFBRealTime)) then
+    FFBRealTime := TFBRealTime.Create(nil);
+
+  FFBRealTime.ProjectCode := FCodeProject;
+  FFBRealTime.Authentication.EmailPassword.ApiKey   := FApiKey;
+  FFBRealTime.Authentication.EmailPassword.Email    := FUsuario.Email;
+  FFBRealTime.Authentication.EmailPassword.Password := FUsuario.Passwd;
+end;
+
 constructor TControllerUsuario.Create;
 begin
   FUsuario := TUsuario<TControllerUsuario>.New(Self);
   FError   := EmptyStr;
+  FFBRealTime := TFBRealTime.Create(nil);
 end;
 
 destructor TControllerUsuario.Destroy;
 begin
   FUsuario.DisposeOf;
+  FFBRealTime.DisposeOf;
   inherited;
 end;
 
@@ -155,7 +176,6 @@ end;
 
 function TControllerUsuario.RegisterAccount: IControllerUsuario<TControllerUsuario>;
 var
-  aAuth     : IFirebaseAuth;
   aResponse : IFirebaseResponse;
   aJson     ,
   aRetorno  : TJSONValue;
@@ -164,10 +184,9 @@ begin
     Result := Self;
     FError := EmptyStr;
     try
-      aAuth := TFirebaseAuth.Create;
-      aAuth.SetApiKey(FApiKey);
+      ConfigFBRealTime;
 
-      aResponse := aAuth.CreateUserWithEmailAndPassword(FUsuario.Email, FUsuario.Passwd);
+      aResponse := FFBRealTime.Authentication.EmailPassword.CreateUserWithEmailAndPassword(FUsuario.Email, FUsuario.Passwd);
       aJson := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(aResponse.ContentAsString), 0);
 
       if aJson.TryGetValue('error', aRetorno) then
@@ -187,6 +206,9 @@ begin
         else
         if (E.Message = 'INVALID_ID_TOKEN') then
           FError := 'A credencial do usuário não é mais válida. O usuário deve entrar novamente'
+        else
+        if (E.Message = 'WEAK_PASSWORD') then
+          FError := 'Sua senha deve possuir, no mínimo, 6 caracteres'
         else
           FError := E.Message;
       end;

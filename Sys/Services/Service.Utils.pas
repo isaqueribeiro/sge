@@ -35,6 +35,7 @@ type
       class function StrFormatarCEP(Value: String): String;
       class function StrFormatarFone(sFone: String): String;
       class function StrFormatarNome(aNome : String): String;
+      class function StrDateFormatBr(aData : String) : TDateTime;
       class function EmailValido(aEmail : String;
         const aDominio : TDomainMail = TDomainMail.domainMainComBr): Boolean;
   end;
@@ -205,6 +206,21 @@ begin
     Delimiter       := pDelimiter;
     StrictDelimiter := True;
     DelimitedText   := pStr;
+  end;
+end;
+
+class function TServicesUtils.StrDateFormatBr(aData: String): TDateTime;
+var
+  aStr : TStringList;
+begin
+  aStr := TStringList.Create;
+  try
+    aStr.Delimiter := '/';
+    aStr.DelimitedText := aData;
+
+    Result := EncodeDate(aStr[2].ToInteger, aStr[1].ToInteger, aStr[0].ToInteger);
+  finally
+    aStr.DisposeOf;
   end;
 end;
 

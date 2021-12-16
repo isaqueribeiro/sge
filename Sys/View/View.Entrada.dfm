@@ -25,6 +25,7 @@ inherited ViewEntrada: TViewEntrada
   inherited pgcGuias: TPageControl
     Width = 1101
     Height = 634
+    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 1101
     ExplicitHeight = 634
@@ -343,7 +344,6 @@ inherited ViewEntrada: TViewEntrada
             Align = alClient
             BevelOuter = bvNone
             TabOrder = 1
-            ExplicitWidth = 440
             object lblOperacaoAberta: TLabel
               AlignWithMargins = True
               Left = 3
@@ -420,6 +420,8 @@ inherited ViewEntrada: TViewEntrada
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1093
       ExplicitHeight = 605
       inherited Bevel8: TBevel
@@ -4227,6 +4229,10 @@ inherited ViewEntrada: TViewEntrada
         3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
       Caption = 'Corrigir CFOP'
       OnClick = nmPpCorrigirDadosNFeCFOPClick
+    end
+    object nmPpCorrigirDadosValorTotalItens: TMenuItem
+      Caption = 'Corrigir Valor Total dos Itens'
+      Enabled = False
     end
   end
   object popupAuditoria: TPopupMenu

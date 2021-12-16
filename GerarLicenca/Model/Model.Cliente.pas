@@ -28,6 +28,8 @@ type
       destructor Destroy; override;
       class function New(aParent: T) : TCliente<T>;
 
+      procedure NewID;
+
       function doc(Value : String) : TCliente<T>; overload;
       function doc : String; overload;
       function UUID(Value : TGUID) : TCliente<T>; overload;
@@ -44,6 +46,7 @@ type
       function Licenca  : TLicenca<TCliente<T>>;
       function Registered(Value : Boolean) : TCliente<T>; overload;
       function Registered : Boolean; overload;
+      function Active : Boolean;
 
       function &End : T;
   end;
@@ -78,6 +81,14 @@ begin
   Result := Self.Create(aParent);
 end;
 
+procedure TCliente<T>.NewID;
+var
+  aGuid : TGUID;
+begin
+  CreateGUID(aGuid);
+  FUUID := aGuid;
+end;
+
 function TCliente<T>.SomenteNumero(Value: String): String;
 var
   I : Integer;
@@ -92,6 +103,16 @@ function TCliente<T>.Cnpj(Value: String): TCliente<T>;
 begin
   Result := Self;
   FCnpj  := SomenteNumero(Value.Trim);
+end;
+
+function TCliente<T>.Active: Boolean;
+begin
+  Result := (
+    FLicenca.Sistemas.SGE or
+    FLicenca.Sistemas.SGO or
+    FLicenca.Sistemas.SGI or
+    FLicenca.Sistemas.SGF
+  ) and (FLicenca.Competencia >= FormatDateTime('yyyymm', Date).ToInteger);
 end;
 
 function TCliente<T>.Cnpj: String;

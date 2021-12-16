@@ -29,7 +29,7 @@ uses
   Controller.Usuario,
   Controller.Cliente,
   Controller.Factory, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Grids, Vcl.DBGrids;
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Grids, Vcl.DBGrids, Firebase;
 
 type
   TFrmGrGerarLicenca = class(TForm)
@@ -70,6 +70,7 @@ type
     dtsClientes: TDataSource;
     dbgClientes: TDBGrid;
     edTokenUserID: TEdit;
+    FBRealTime: TFBRealTime;
     procedure BtnCarregarLicencaClick(Sender: TObject);
     procedure BtnGerarLicencaClick(Sender: TObject);
 

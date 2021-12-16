@@ -286,7 +286,8 @@ uses
   View.Entrada.DevolucaoNF in '..\Sys\View\View.Entrada.DevolucaoNF.pas' {ViewEntradaDevolucaoNF},
   View.NFE.Pesquisa in '..\Sys\View\View.NFE.Pesquisa.pas' {ViewNFEPesquisa},
   View.NFE.Distribuicao in '..\Sys\View\View.NFE.Distribuicao.pas' {ViewNFEDistribuicao},
-  View.NFE.Importar in '..\Sys\View\View.NFE.Importar.pas' {ViewNFEImportar};
+  View.NFE.Importar in '..\Sys\View\View.NFE.Importar.pas' {ViewNFEImportar},
+  View.ContaAPagar in '..\Sys\View\View.ContaAPagar.pas' {ViewContaAPagar};
 
 {$R *.res}
 
@@ -301,6 +302,7 @@ begin
   Application.CreateForm(TDMRecursos, DMRecursos);
   Application.CreateForm(TDMBusiness, DMBusiness);
   Application.CreateForm(TDMNFe, DMNFe);
+  Application.CreateForm(TViewContaAPagar, ViewContaAPagar);
   SplashFree;
 
   if ExecutarLogin() then

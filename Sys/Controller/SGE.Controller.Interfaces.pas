@@ -163,6 +163,8 @@ type
   IControllerContaAPagar = interface(IControllerCustom)
     ['{12196628-B1DD-4D44-9F83-CD63D2FFB633}']
     procedure GerarDuplicatas(aAnoCompra, aNumCompra : Integer);
+    procedure CarregarPagamentos;
+    function Pagamentos : IControllerCustom;
   end;
 
   IControllerFactory = interface

@@ -502,7 +502,7 @@ begin
     begin
       Open;
 
-      FLote := FormatDateTime('yyyymmdd hh:mm:ss', GetDateTimeDB);
+      FLote := FormatDateTime('yyyymmdd hh:nn:ss', GetDateTimeDB);
       FLote := StringReplace(StringReplace(FLote, ' ', '', [rfReplaceAll]), ':', '', [rfReplaceAll]);
 
       cdsParcelas.First;
