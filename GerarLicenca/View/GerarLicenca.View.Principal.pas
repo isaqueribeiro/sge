@@ -30,9 +30,7 @@ uses
   Controller.Interfaces,
   Controller.Usuario,
   Controller.Cliente,
-  Controller.Factory,
-
-  Firebase;
+  Controller.Factory;
 
 type
   TViewPrincipal = class(TForm)
@@ -71,13 +69,15 @@ type
     dtsClientes: TDataSource;
     dbgClientes: TDBGrid;
     edTokenUserID: TEdit;
-    FBRealTime: TFBRealTime;
     lblNumero: TLabel;
     edNumero: TEdit;
-    Panel1: TPanel;
+    pnlBotoes: TPanel;
     BtnCarregarLicenca: TButton;
     BtnGerarLicenca: TButton;
-    Panel2: TPanel;
+    PnlEspaco: TPanel;
+    lblFantasia: TLabel;
+    edFantasia: TEdit;
+    BtnNovaLicenca: TButton;
     procedure BtnCarregarLicencaClick(Sender: TObject);
     procedure BtnGerarLicencaClick(Sender: TObject);
 
@@ -91,6 +91,7 @@ type
     procedure dbgClientesDblClick(Sender: TObject);
     procedure cdsClientescgcGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure FormShow(Sender: TObject);
+    procedure BtnNovaLicencaClick(Sender: TObject);
   private
     { Private declarations }
     FUser : IControllerUsuario<TControllerUsuario>;
@@ -246,7 +247,8 @@ begin
 
       edUUID.Hint := aCliente.Entity.doc;
       edUUID.Text := aCliente.Entity.UUID.ToString;
-      edEmpresa.Text := aCliente.Entity.Razao;
+      edEmpresa.Text  := aCliente.Entity.Razao;
+      edFantasia.Text := aCliente.Entity.Fantasia;
       edCGC.Text   := TServicesUtils.StrFormatarCnpj(aCliente.Entity.Cnpj);
       edEmail.Text := aCliente.Entity.Email;
 
@@ -290,6 +292,7 @@ begin
     edUUID.Hint     := ini.ReadString('Licenca', 'doc',  EmptyStr);
     edUUID.Text     := ini.ReadString('Licenca', edUUID.Name,  '');
     edEmpresa.Text  := ini.ReadString('Licenca', edEmpresa.Name,  '');
+    edFantasia.Text := ini.ReadString('Licenca', edFantasia.Name, '');
     edCGC.Text      := ini.ReadString('Licenca', edCGC.Name,      '');
     edEndereco.Text := ini.ReadString('Licenca', edEndereco.Name, '');
     edNumero.Text   := ini.ReadString('Licenca', edNumero.Name,   '');
@@ -368,6 +371,7 @@ begin
     ini.WriteString  ('Licenca', 'doc',           edUUID.Hint);
     ini.WriteString  ('Licenca', edUUID.Name,     Trim(edUUID.Text));
     ini.WriteString  ('Licenca', edEmpresa.Name,  Trim(edEmpresa.Text));
+    ini.WriteString  ('Licenca', edFantasia.Name, Trim(edFantasia.Text));
     ini.WriteString  ('Licenca', edCGC.Name,      Trim(edCGC.Text));
     ini.WriteString  ('Licenca', edEndereco.Name, Trim(edEndereco.Text));
     ini.WriteString  ('Licenca', edNumero.Name,   Trim(edNumero.Text));
@@ -418,7 +422,7 @@ begin
     .Entity
       .doc(aDocument)
       .Razao(edEmpresa.Text)
-      .Fantasia(EmptyStr)
+      .Fantasia(edFantasia.Text)
       .Cnpj(edCGC.Text)
       .Email(edEmail.Text)
       .Endereco
@@ -481,7 +485,13 @@ var
 begin
   if (Trim(edEmpresa.Text) = EmptyStr) then
   begin
-    ShowMessageAlerta('Alerta', 'Favor informa o nome da empresa!');
+    ShowMessageAlerta('Alerta', 'Favor informa a razão social da empresa!');
+    Exit;
+  end
+  else
+  if (Trim(edFantasia.Text) = EmptyStr) then
+  begin
+    ShowMessageAlerta('Alerta', 'Favor informa o nome fantasia da empresa!');
     Exit;
   end
   else
@@ -559,6 +569,28 @@ begin
   finally
     Screen.Cursor := crDefault;
   end;
+end;
+
+procedure TViewPrincipal.BtnNovaLicencaClick(Sender: TObject);
+begin
+  edUUID.Text := EmptyStr;
+  edUUID.Hint := EmptyStr;
+  edEmpresa.Text  := EmptyStr;
+  edFantasia.Text := EmptyStr;
+  edCGC.Text      := EmptyStr;
+  edEndereco.Text := EmptyStr;
+  edNumero.Text := EmptyStr;
+  edBairro.Text := EmptyStr;
+  edCidade.Text := EmptyStr;
+  edUF.Text     := EmptyStr;
+  edCEP.Text    := EmptyStr;
+  edEmail.Text  := EmptyStr;
+  edCompetencia.Text  := EmptyStr;
+  edDataBloqueio.Text := EmptyStr;
+  chkSGE.Checked := False;
+  chkSGI.Checked := False;
+  chkSGF.Checked := False;
+  chkSGO.Checked := False;
 end;
 
 function TViewPrincipal.DataBloqueio: TDateTime;

@@ -22,18 +22,18 @@ object ViewPrincipal: TViewPrincipal
   PixelsPerInch = 96
   TextHeight = 17
   object lblEmpresa: TLabel
-    Left = 99
+    Left = 76
     Top = 52
-    Width = 54
+    Width = 77
     Height = 17
     Alignment = taRightJustify
-    Caption = 'Empresa:'
+    Caption = 'Raz'#227'o Social:'
     FocusControl = edEmpresa
     Transparent = True
   end
   object lblCGC: TLabel
-    Left = 83
-    Top = 84
+    Left = 421
+    Top = 82
     Width = 70
     Height = 17
     Alignment = taRightJustify
@@ -426,6 +426,16 @@ object ViewPrincipal: TViewPrincipal
     FocusControl = edNumero
     Transparent = True
   end
+  object lblFantasia: TLabel
+    Left = 102
+    Top = 83
+    Width = 50
+    Height = 17
+    Alignment = taRightJustify
+    Caption = 'Fantasia:'
+    FocusControl = edFantasia
+    Transparent = True
+  end
   object edEmpresa: TEdit
     Left = 160
     Top = 48
@@ -435,46 +445,46 @@ object ViewPrincipal: TViewPrincipal
     TabOrder = 1
   end
   object edCGC: TEdit
-    Left = 160
-    Top = 80
-    Width = 249
+    Left = 497
+    Top = 79
+    Width = 232
     Height = 25
-    TabOrder = 2
+    TabOrder = 3
   end
   object edEndereco: TEdit
     Left = 160
     Top = 112
     Width = 432
     Height = 25
-    TabOrder = 3
+    TabOrder = 4
   end
   object edBairro: TEdit
     Left = 160
     Top = 144
     Width = 249
     Height = 25
-    TabOrder = 5
+    TabOrder = 6
   end
   object edCidade: TEdit
     Left = 472
     Top = 144
     Width = 169
     Height = 25
-    TabOrder = 6
+    TabOrder = 7
   end
   object edUF: TEdit
     Left = 680
     Top = 144
     Width = 49
     Height = 25
-    TabOrder = 7
+    TabOrder = 8
   end
   object edCEP: TEdit
     Left = 160
     Top = 176
     Width = 121
     Height = 25
-    TabOrder = 8
+    TabOrder = 9
   end
   object edCompetencia: TEdit
     Left = 160
@@ -487,7 +497,7 @@ object ViewPrincipal: TViewPrincipal
     Font.Name = 'Segoe UI'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 10
+    TabOrder = 11
     OnChange = edCompetenciaChange
   end
   object edDataBloqueio: TEdit
@@ -501,7 +511,7 @@ object ViewPrincipal: TViewPrincipal
     Font.Name = 'Segoe UI'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 11
+    TabOrder = 12
   end
   object chkSGE: TCheckBox
     Left = 160
@@ -509,7 +519,7 @@ object ViewPrincipal: TViewPrincipal
     Width = 321
     Height = 17
     Caption = 'SGE - Sistema de Gest'#227'o Comercial / Empresarial'
-    TabOrder = 13
+    TabOrder = 14
   end
   object chkSGI: TCheckBox
     Left = 160
@@ -517,7 +527,7 @@ object ViewPrincipal: TViewPrincipal
     Width = 321
     Height = 17
     Caption = 'SGI - Sistema de Gest'#227'o Industrial'
-    TabOrder = 14
+    TabOrder = 15
   end
   object chkSGF: TCheckBox
     Left = 160
@@ -525,7 +535,7 @@ object ViewPrincipal: TViewPrincipal
     Width = 321
     Height = 17
     Caption = 'SGF - Sistema de Gest'#227'o para Folha de Pagamento'
-    TabOrder = 15
+    TabOrder = 16
   end
   object chkSGO: TCheckBox
     Left = 160
@@ -533,7 +543,7 @@ object ViewPrincipal: TViewPrincipal
     Width = 321
     Height = 17
     Caption = 'SGO - Sistema para Gest'#227'o de OPME'
-    TabOrder = 16
+    TabOrder = 17
   end
   object edUUID: TEdit
     Left = 160
@@ -550,7 +560,7 @@ object ViewPrincipal: TViewPrincipal
     Width = 377
     Height = 25
     CharCase = ecLowerCase
-    TabOrder = 9
+    TabOrder = 10
   end
   object dbgClientes: TDBGrid
     Left = 160
@@ -561,7 +571,7 @@ object ViewPrincipal: TViewPrincipal
     DataSource = dtsClientes
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     ReadOnly = True
-    TabOrder = 17
+    TabOrder = 18
     TitleFont.Charset = ANSI_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -13
@@ -573,7 +583,6 @@ object ViewPrincipal: TViewPrincipal
         Expanded = False
         FieldName = 'doc'
         Title.Caption = 'Doc'
-        Width = -1
         Visible = False
       end
       item
@@ -612,7 +621,7 @@ object ViewPrincipal: TViewPrincipal
     Height = 25
     Anchors = [akLeft, akTop, akRight]
     ReadOnly = True
-    TabOrder = 12
+    TabOrder = 13
     Visible = False
   end
   object edNumero: TEdit
@@ -620,9 +629,9 @@ object ViewPrincipal: TViewPrincipal
     Top = 113
     Width = 74
     Height = 25
-    TabOrder = 4
+    TabOrder = 5
   end
-  object Panel1: TPanel
+  object pnlBotoes: TPanel
     Left = 0
     Top = 722
     Width = 895
@@ -630,48 +639,57 @@ object ViewPrincipal: TViewPrincipal
     Align = alBottom
     BevelOuter = bvNone
     Padding.Bottom = 5
-    TabOrder = 18
-    ExplicitLeft = 520
-    ExplicitTop = 712
-    ExplicitWidth = 281
+    TabOrder = 19
     object BtnCarregarLicenca: TButton
       AlignWithMargins = True
-      Left = 163
+      Left = 289
       Top = 3
-      Width = 129
+      Width = 120
       Height = 41
       Align = alLeft
       Caption = 'Carregar Licen'#231'a'
-      TabOrder = 0
+      TabOrder = 2
       OnClick = BtnCarregarLicencaClick
-      ExplicitLeft = 587
-      ExplicitTop = 2
-      ExplicitHeight = 46
     end
     object BtnGerarLicenca: TButton
       AlignWithMargins = True
-      Left = 298
+      Left = 415
       Top = 3
-      Width = 129
+      Width = 120
       Height = 41
       Align = alLeft
       Caption = 'Gerar Licen'#231'a'
-      TabOrder = 1
+      TabOrder = 3
       OnClick = BtnGerarLicencaClick
-      ExplicitLeft = 587
-      ExplicitTop = 2
-      ExplicitHeight = 46
     end
-    object Panel2: TPanel
+    object PnlEspaco: TPanel
       Left = 0
       Top = 0
       Width = 160
       Height = 47
       Align = alLeft
       BevelOuter = bvNone
-      TabOrder = 2
-      ExplicitHeight = 52
+      TabOrder = 0
+      ExplicitLeft = -3
     end
+    object BtnNovaLicenca: TButton
+      AlignWithMargins = True
+      Left = 163
+      Top = 3
+      Width = 120
+      Height = 41
+      Align = alLeft
+      Caption = 'Nova Licen'#231'a'
+      TabOrder = 1
+      OnClick = BtnNovaLicencaClick
+    end
+  end
+  object edFantasia: TEdit
+    Left = 159
+    Top = 79
+    Width = 250
+    Height = 25
+    TabOrder = 2
   end
   object XPManifest: TXPManifest
     Left = 8
@@ -732,11 +750,5 @@ object ViewPrincipal: TViewPrincipal
     DataSet = cdsClientes
     Left = 640
     Top = 336
-  end
-  object FBRealTime: TFBRealTime
-    CaseSensitive = False
-    ProjectCode = 'applicencaagil'
-    Left = 72
-    Top = 360
   end
 end

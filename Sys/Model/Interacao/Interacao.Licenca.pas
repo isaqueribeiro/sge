@@ -29,6 +29,9 @@ type
     function Endereco(Value : String) : ILicencaModel; overload;
     function Endereco : String; overload;
 
+    function Numero(Value : String) : ILicencaModel; overload;
+    function Numero : String; overload;
+
     function Bairro(Value : String) : ILicencaModel; overload;
     function Bairro : String; overload;
 

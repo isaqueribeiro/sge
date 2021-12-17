@@ -83,6 +83,7 @@ object ViewAuth: TViewAuth
         Width = 265
         Height = 21
         Anchors = [akLeft, akTop, akRight]
+        PasswordChar = '*'
         TabOrder = 1
       end
     end

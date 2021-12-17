@@ -17,6 +17,7 @@ type
       FCNPJ     : String;
       FEmail    : String;
       FEndereco : String;
+      FNumero : String;
       FBairro : String;
       FCidade : String;
       FUF     : String;
@@ -51,6 +52,9 @@ type
 
       function Endereco(Value : String) : ILicencaModel; overload;
       function Endereco : String; overload;
+
+      function Numero(Value : String) : ILicencaModel; overload;
+      function Numero : String; overload;
 
       function Bairro(Value : String) : ILicencaModel; overload;
       function Bairro : String; overload;
@@ -293,6 +297,17 @@ end;
 function TLicenca.NomeFantasia: String;
 begin
   Result := FNomeFantasia;
+end;
+
+function TLicenca.Numero: String;
+begin
+  Result := FNumero;
+end;
+
+function TLicenca.Numero(Value: String): ILicencaModel;
+begin
+  Result  := Self;
+  FNumero := Value.Trim;
 end;
 
 function TLicenca.NomeFantasia(Value: String): ILicencaModel;

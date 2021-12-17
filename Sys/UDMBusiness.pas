@@ -5047,6 +5047,7 @@ begin
       .NomeFantasia( ini.ReadString('Licenca', 'edFantasia',  '') )
       .CNPJ( ini.ReadString('Licenca', 'edCGC',      '') )
       .Endereco( ini.ReadString('Licenca', 'edEndereco', '') )
+      .Numero( ini.ReadString('Licenca', 'edNumero', 'S/N') )
       .Bairro( ini.ReadString('Licenca', 'edBairro',   '') )
       .Cidade( ini.ReadString('Licenca', 'edCidade',   '') )
       .UF( ini.ReadString('Licenca', 'edUF',       '') )
