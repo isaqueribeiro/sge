@@ -349,7 +349,7 @@ begin
   SQL_Pagamentos.AddStrings( cdsPagamentos.SQL );
 
   FDataAtual      := GetDateTimeDB;
-  e1Data.Date     := GetMenorVencimentoAReceber;
+  e1Data.Date     := GetDateFirtsMonth; //GetMenorVencimentoAReceber;
   e2Data.Date     := GetDateLastMonth;
 
   if (e1Data.Date > GetDateDB) then

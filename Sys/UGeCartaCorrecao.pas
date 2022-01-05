@@ -112,7 +112,7 @@ uses
   , UDMBusiness
   , UConstantesDGE
   , UDMNFe
-  , UGeNFEmitida
+  , View.NFE.Pesquisa
   , UDMRecursos;
 
 {$R *.dfm}

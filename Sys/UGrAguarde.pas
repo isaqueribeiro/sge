@@ -3,22 +3,45 @@ unit UGrAguarde;
 interface
 
 uses
-  UConstantesDGE,
+  System.SysUtils,
+  System.ImageList,
+  System.Classes,
+  System.Variants,
+
+  Windows,
+  Messages,
+  Graphics,
+  Controls,
+
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.ExtCtrls,
+  Vcl.ImgList,
+
+  cxLabel,
+  cxLookAndFeelPainters,
+  cxImageList,
+  cxGraphics,
+  cxControls,
+  cxLookAndFeels,
+  cxContainer,
+  cxEdit,
+
+  dxSkinsCore,
+
   uBaseObject,
-
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs,
-  dxBar, dxRibbon, dxRibbonForm, dxRibbonSkins, cxGraphics, cxControls, cxLookAndFeels,
-  cxContainer, cxEdit, cxMaskEdit, cxDropDownEdit, cxImageComboBox, cxLookupEdit,
-  cxDBEdit, cxDBLookupEdit, cxDBLookupComboBox, cxLookAndFeelPainters, cxClasses,
-  cxLabel, Vcl.ExtCtrls, Vcl.ImgList, dxRibbonBackstageView,
-
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, System.ImageList;
+  UConstantesDGE;
 
 type
-  TfrmAguarde = class(TForm)
+  IViewWait = interface
+    ['{42297DA0-354A-4B17-8852-5FBFCCD57147}']
+    procedure ShowView;
+
+    function Tipo(Value : NativeInt) : IViewWait;
+    function Mensagem(Value : String) : IViewWait;
+  end;
+
+  TfrmAguarde = class(TForm, IViewWait)
     lbDesc: TcxLabel;
     imgAppIco: TImage;
     ImgAguarde: TcxImageList;
@@ -26,18 +49,26 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure AbGradient1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
-    procedure FormDestroy(Sender: TObject);
     procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
+  protected
+    constructor Create(aOwner: TComponent; aTipo : NativeInt); overload;
   public
     { Public declarations }
+    destructor Destroy; override;
+    class function New(aOwner: TComponent; aTipo : NativeInt) : IViewWait;
+
+    procedure ShowView;
+
+    function Tipo(Value : NativeInt) : IViewWait;
+    function Mensagem(Value : String) : IViewWait;
   end;
 
-var
-  frmAguarde : TfrmAguarde;
-  
-
+//var
+//  frmAguarde : TfrmAguarde;
+//
+//
 const
   strDeleting      = 'Excluindo registro(s) inserido(s) anteriormente...';
   strInserting     = 'Inserindo registro(s)...';
@@ -75,6 +106,28 @@ begin
     ImgAguarde.GetIcon(Tag, imgAppIco.Picture.Icon);
 end;
 
+function TfrmAguarde.Mensagem(Value: String): IViewWait;
+begin
+  Result := Self;
+  lbDesc.Caption := Value.Trim;
+end;
+
+class function TfrmAguarde.New(aOwner: TComponent; aTipo: NativeInt): IViewWait;
+begin
+  Result := Self.Create(aOwner, aTipo);
+end;
+
+procedure TfrmAguarde.ShowView;
+begin
+  Self.Show;
+end;
+
+function TfrmAguarde.Tipo(Value: NativeInt): IViewWait;
+begin
+  Result := Self;
+  Self.Tag := Value;
+end;
+
 procedure TfrmAguarde.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Screen.Cursor := crDefault;
@@ -88,14 +141,20 @@ begin
   Perform(WM_SysCommand, $F011, 0);
 end;
 
-procedure TfrmAguarde.FormDestroy(Sender: TObject);
+constructor TfrmAguarde.Create(aOwner: TComponent; aTipo : NativeInt);
 begin
-  FrmAguarde := nil; 
+  Create(aOwner);
+  Self.Tag := aTipo;
+end;
+
+destructor TfrmAguarde.Destroy;
+begin
+  inherited;
 end;
 
 procedure TfrmAguarde.FormActivate(Sender: TObject);
 begin
-  FrmAguarde.Update;
+  Self.Update;
 end;
 
 end.

@@ -4870,7 +4870,7 @@ object frmPrinc: TfrmPrinc
     PopupMenuLinks = <>
     UseSystemFont = True
     Left = 272
-    Top = 208
+    Top = 200
     PixelsPerInch = 96
     object BrMngPrincipalCad: TdxBar
       Caption = 'Cadastros'

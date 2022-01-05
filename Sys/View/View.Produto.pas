@@ -1985,8 +1985,6 @@ begin
             dbgDados.SetFocus
           else
           begin
-            ShowWarning('Não existem registros na tabela de acordo com os dados pesquisados');
-
             edtFiltrar.SetFocus;
             edtFiltrar.SelectAll;
           end;

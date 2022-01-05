@@ -382,6 +382,7 @@ var
   function GetSenhaAutorizacao : String;
   function GetDateTimeDB : TDateTime;
   function GetDateDB : TDateTime;
+  function GetDateFirtsMonth : TDateTime;
   function GetDateLastMonth : TDateTime;
   function GetProximoDiaUtil(const Data : TDateTime) : TDateTime;
   function GetTimeDB : TDateTime;
@@ -4098,6 +4099,11 @@ begin
 
     Result := FieldByName('Data').AsDateTime;
   end;
+end;
+
+function GetDateFirtsMonth : TDateTime;
+begin
+  Result := EncodeDate(YearOf(Date), MonthOf(Date), 1);
 end;
 
 function GetDateLastMonth : TDateTime;

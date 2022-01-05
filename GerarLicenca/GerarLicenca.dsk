@@ -1,44 +1,41 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\RTL\SYS\System.pas',0,1,25467,1,25511,0,0,,
-File_1=TSourceModule,'C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Model.Put.pas',0,1,25,52,64,0,0,,
-File_2=TSourceModule,'C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Model.Connect.pas',0,1,31,1,57,0,0,,
-File_3=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Interfaces.pas',0,1,1,14,37,0,0,,
-File_4=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Model\Model.Cliente.pas',0,1,83,18,88,0,0,,
-File_5=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\VCL\Vcl.Controls.pas',0,1,9959,1,9983,0,0,,
-File_6=TSourceModule,'c:\delphi\rio\studio\20.0\source\rtl\common\System.JSON.pas',0,1,2299,1,2292,0,0,,
-File_7=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Interfaces.pas',0,1,1,28,29,0,0,,
-File_8=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\VCL\Vcl.Forms.pas',0,1,3699,1,3723,0,0,{{1755,4}
-File_9=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Usuario.pas',0,1,46,83,70,0,0,,
-File_10=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\rest\REST.Client.pas',0,1,3059,1,3103,0,0,,
-File_11=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Services\Service.Utils.pas',0,1,1,19,1,0,0,,
-File_12=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Factory.pas',0,1,29,1,57,0,0,,
-File_13=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\rest\REST.Response.Adapter.pas',0,1,219,1,252,0,0,,
+File_0=TSourceModule,'C:\Delphi\Comps\FBRealtime\Componente\Fonts\Firebase.pas',0,1,169,22,195,0,0,,
+File_1=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\RTL\SYS\System.pas',0,1,25467,1,25511,0,0,,
+File_2=TSourceModule,'C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Model.Put.pas',0,1,25,52,64,0,0,,
+File_3=TSourceModule,'C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Model.Connect.pas',0,1,31,1,57,0,0,,
+File_4=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Interfaces.pas',0,1,1,14,37,0,0,,
+File_5=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Model\Model.Cliente.pas',0,1,83,18,88,0,0,,
+File_6=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\VCL\Vcl.Controls.pas',0,1,9959,1,9983,0,0,,
+File_7=TSourceModule,'c:\delphi\rio\studio\20.0\source\rtl\common\System.JSON.pas',0,1,2299,1,2292,0,0,,
+File_8=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Interfaces.pas',0,1,1,28,29,0,0,,
+File_9=TSourceModule,'c:\delphi\rio\studio\20.0\SOURCE\VCL\Vcl.Forms.pas',0,1,3699,1,3723,0,0,{{1755,4}
+File_10=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Usuario.pas',0,1,46,83,70,0,0,,
+File_11=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\rest\REST.Client.pas',0,1,3059,1,3103,0,0,,
+File_12=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Services\Service.Utils.pas',0,1,1,19,1,0,0,,
+File_13=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Factory.pas',0,1,29,1,57,0,0,,
+File_14=TSourceModule,'c:\delphi\rio\studio\20.0\source\data\rest\REST.Response.Adapter.pas',0,1,219,1,252,0,0,,
 
 [Modules]
-Module0=C:\Delphi\Comps\FBRealtime\Componente\Fonts\Firebase.Realtime.pas
-Module1=C:\Delphi\Comps\FBRealtime\Componente\Fonts\Firebase.pas
-Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\UGrGerarLicenca.pas
-Module3=default.htm
-Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\GerarLicenca.dproj
-Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Cliente.pas
-Module6=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.View.Connection.pas
-Module7=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Interfaces.pas
-Module8=C:\Delphi\Comps\TBGFirebaseConnection\Sample\VCL\Firebase.View.Principal.pas
-Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Auth.pas
-Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Database.pas
-Module11=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Request.pas
-Module12=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Model.Get.pas
-Module13=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Model.Post.pas
-Count=14
+Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\UGrGerarLicenca.pas
+Module1=C:\Delphi\Comps\FBRealtime\Componente\Fonts\Firebase.Realtime.pas
+Module2=default.htm
+Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\GerarLicenca.dproj
+Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Cliente.pas
+Module5=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.View.Connection.pas
+Module6=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Interfaces.pas
+Module7=C:\Delphi\Comps\TBGFirebaseConnection\Sample\VCL\Firebase.View.Principal.pas
+Module8=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Auth.pas
+Module9=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Database.pas
+Module10=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Request.pas
+Module11=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Model.Get.pas
+Module12=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Model.Post.pas
+Count=13
 EditWindowCount=1
 
-[C:\Delphi\Comps\FBRealtime\Componente\Fonts\Firebase.Realtime.pas]
-ModuleType=TSourceModule
-
-[C:\Delphi\Comps\FBRealtime\Componente\Fonts\Firebase.pas]
-ModuleType=TSourceModule
-
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\UGrGerarLicenca.pas]
+ModuleType=TSourceModule
+
+[C:\Delphi\Comps\FBRealtime\Componente\Fonts\Firebase.Realtime.pas]
 ModuleType=TSourceModule
 
 [default.htm]
@@ -75,8 +72,8 @@ ModuleType=TSourceModule
 ModuleType=TSourceModule
 
 [EditWindow0]
-ViewCount=14
-CurrentEditView=C:\Delphi\Comps\FBRealtime\Componente\Fonts\Firebase.Realtime.pas
+ViewCount=13
+CurrentEditView=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\UGrGerarLicenca.pas
 View0=0
 View1=1
 View2=2
@@ -90,7 +87,6 @@ View9=9
 View10=10
 View11=11
 View12=12
-View13=13
 PercentageSizes=1
 Create=1
 Visible=1
@@ -148,17 +144,6 @@ EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\UGrGerarLic
 
 [View3]
 CustomEditViewType=TEditView
-Module=C:\Delphi\Comps\FBRealtime\Componente\Fonts\Firebase.pas
-CursorX=13
-CursorY=11
-TopLine=1
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=C:\Delphi\Comps\FBRealtime\Componente\Fonts\Firebase.pas
-
-[View4]
-CustomEditViewType=TEditView
 Module=C:\Delphi\Comps\FBRealtime\Componente\Fonts\Firebase.Realtime.pas
 CursorX=1
 CursorY=1
@@ -168,7 +153,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\Comps\FBRealtime\Componente\Fonts\Firebase.Realtime.pas
 
-[View5]
+[View4]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Cliente.pas
 CursorX=8
@@ -179,7 +164,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.Cliente.pas
 
-[View6]
+[View5]
 CustomEditViewType=TEditView
 Module=C:\Delphi\Comps\TBGFirebaseConnection\Sample\VCL\Firebase.View.Principal.pas
 CursorX=51
@@ -190,7 +175,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\Comps\TBGFirebaseConnection\Sample\VCL\Firebase.View.Principal.pas
 
-[View7]
+[View6]
 CustomEditViewType=TEditView
 Module=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Interfaces.pas
 CursorX=3
@@ -201,7 +186,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Interfaces.pas
 
-[View8]
+[View7]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Auth.pas
 CursorX=1
@@ -212,7 +197,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Auth.pas
 
-[View9]
+[View8]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Database.pas
 CursorX=1
@@ -223,7 +208,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Database.pas
 
-[View10]
+[View9]
 CustomEditViewType=TEditView
 Module=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Request.pas
 CursorX=1
@@ -234,7 +219,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Users\Isaque\Documents\Projetos\ASS\SGE\GerarLicenca\Firebase4Delphi\sources\Firebase.Request.pas
 
-[View11]
+[View10]
 CustomEditViewType=TEditView
 Module=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.View.Connection.pas
 CursorX=15
@@ -245,7 +230,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.View.Connection.pas
 
-[View12]
+[View11]
 CustomEditViewType=TEditView
 Module=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Model.Get.pas
 CursorX=63
@@ -256,7 +241,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Model.Get.pas
 
-[View13]
+[View12]
 CustomEditViewType=TEditView
 Module=C:\Delphi\Comps\TBGFirebaseConnection\source\TBGFirebaseConnection.Model.Post.pas
 CursorX=23
@@ -436,11 +421,11 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=3231
-TBDockHeight=8769
+TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
-SplitPos=116
+SplitPos=111
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -467,8 +452,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1528
-Top=249
+Left=0
+Top=0
 Width=276
 Height=365
 MaxLeft=-1
@@ -672,8 +657,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=380
-Top=817
+Left=0
+Top=0
 Width=2854
 Height=3212
 MaxLeft=-1
@@ -692,7 +677,7 @@ Visible=0
 Docked=1
 State=0
 Left=-8
-Top=-120
+Top=-8
 Width=1849
 Height=3144
 MaxLeft=-1
@@ -860,8 +845,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=952
-Top=28
+Left=8
+Top=8
 Width=3823
 Height=1423
 MaxLeft=-1
@@ -892,7 +877,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=4510
-TBDockHeight=8769
+TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0
@@ -916,7 +901,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=3471
-TBDockHeight=8769
+TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
@@ -940,7 +925,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=2192
-TBDockHeight=8769
+TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0

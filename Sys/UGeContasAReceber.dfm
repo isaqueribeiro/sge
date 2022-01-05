@@ -136,6 +136,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           Height = 62
           ExplicitLeft = 328
           ExplicitWidth = 594
+          ExplicitHeight = 62
           DesignSize = (
             594
             62)
@@ -166,6 +167,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
             Height = 35
             TabOrder = 3
             ExplicitLeft = 549
+            ExplicitHeight = 35
           end
           object e1Data: TJvDateEdit
             Left = 88
@@ -293,10 +295,6 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitLeft = 224
-          ExplicitTop = 7
-          ExplicitWidth = 101
-          ExplicitHeight = 48
           object pnlSatusColor: TPanel
             Left = 0
             Top = 0
@@ -1152,6 +1150,10 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
         TabOrder = 4
         object tbsHistorico: TTabSheet
           Caption = 'Hist'#243'rico'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0

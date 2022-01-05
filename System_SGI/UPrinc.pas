@@ -385,7 +385,7 @@ uses
   // Estoque, Entrada e Saída
   View.Produto,
   UGeVenda,
-  UGeEntradaEstoque,
+  View.Entrada,
   UGeApropriacaoEstoque,
 
   // Financeiro

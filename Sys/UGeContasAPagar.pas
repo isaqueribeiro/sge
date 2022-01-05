@@ -308,7 +308,7 @@ begin
   SQL_Pagamentos.AddStrings( cdsPagamentos.SQL );
 
   FDataAtual      := GetDateTimeDB;
-  e1Data.Date     := GetMenorVencimentoAPagar;
+  e1Data.Date     := GetDateFirtsMonth; //GetMenorVencimentoAPagar;
   e2Data.Date     := GetDateLastMonth;
 
   if (e1Data.Date > GetDateDB) then

@@ -29,9 +29,9 @@ uses
   {$ENDIF}
 
   FuncoesFormulario,
-  UGrAguarde,
   UConstantesDGE,
-  UBaseObject;
+  UBaseObject,
+  View.WaitAMoment;
 
 type
   TLoteProduto = class(TBaseObject)
@@ -72,6 +72,7 @@ type
 var
   DMRecursos: TDMRecursos;
 
+  ViewWaitAMoment: TViewWaitAMoment;
   FormFunction   : TFormularios;
   gSistema       : TSistema;
   gConfiguracoes : IConfiguracaoIni;
@@ -104,10 +105,10 @@ uses
 
 procedure WaitAMomentFree;
 begin
-  if ( FrmAguarde <> nil ) then
+  if Assigned(ViewWaitAMoment) then
   begin
-    FrmAguarde.Close;
-    FrmAguarde.Free;
+    ViewWaitAMoment.HideView;
+    FreeAndNil(ViewWaitAMoment);
   end;
 
   Application.BringToFront; // Trazer aplicação para frente
@@ -115,18 +116,13 @@ end;
 
 procedure WaitAMoment(const aTag : Integer = -1; const aMensabem : String = '');
 begin
-  WaitAMomentFree;
+  if not Assigned(ViewWaitAMoment) then
+    ViewWaitAMoment := TViewWaitAMoment.Create(Application);
 
-  try
-    FrmAguarde := TFrmAguarde.Create(Application);
-    FrmAguarde.Tag := aTag;
-
-    if (Trim(aMensabem) <> EmptyStr) then
-      FrmAguarde.lbDesc.Caption := Trim(aMensabem);
-
-    FrmAguarde.Show;
-  finally
-  end
+  ViewWaitAMoment
+    .Tipo(aTag)
+    .Mensagem(aMensabem)
+    .ShowView;
 end;
 
 procedure InstalarFonteWindows(aFontName, aFontDescription : String);

@@ -20,6 +20,9 @@ type
       class function New : IControllerContaAPagar;
 
       procedure GerarDuplicatas(aAnoCOmpra, aNumCompra : Integer);
+      procedure CarregarPagamentos; virtual; abstract;
+
+      function Pagamentos : IControllerCustom; virtual; abstract;
   end;
 
 implementation

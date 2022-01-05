@@ -70,13 +70,13 @@
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.4;InternalName=SGI;LegalCopyright=Copyright 2013 - 2021 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=16/06/2021;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.5;InternalName=SGI;LegalCopyright=Copyright 2013 - 2022 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=04/01/2022;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <UWP_DelphiLogo44>..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-44x44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-150x150.png</UWP_DelphiLogo150>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
-        <VerInfo_Build>4</VerInfo_Build>
+        <VerInfo_Build>5</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <Icon_MainIcon>SGI_Icon2.ico</Icon_MainIcon>
@@ -94,11 +94,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCC_LocalDebugSymbols>true</DCC_LocalDebugSymbols>
         <VerInfo_Release>31</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.4;InternalName=SGI;LegalCopyright=Copyright 2013 - 2021 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=16/06/2021;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.5;InternalName=SGI;LegalCopyright=Copyright 2013 - 2022 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=04/01/2022;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
-        <VerInfo_Build>4</VerInfo_Build>
+        <VerInfo_Build>5</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -109,11 +109,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <VerInfo_Release>31</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.4;InternalName=SGI;LegalCopyright=Copyright 2013 - 2021 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=16/06/2021;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.5;InternalName=SGI;LegalCopyright=Copyright 2013 - 2022 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=04/01/2022;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
-        <VerInfo_Build>4</VerInfo_Build>
+        <VerInfo_Build>5</VerInfo_Build>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -216,9 +216,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\UGeVenda.pas">
             <Form>frmGeVenda</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeEntradaEstoque.pas">
-            <Form>frmGeEntradaEstoque</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeContasAReceber.pas">
             <Form>frmGeContasAReceber</Form>
         </DCCReference>
@@ -240,9 +237,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\UGeConfigurarNFeACBr.pas">
             <Form>frmGeConfigurarNFeACBr</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeEntradaEstoqueCancelar.pas">
-            <Form>frmGeEntradaEstoqueCancelar</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UEnviarLoteNFe.pas">
             <Form>frmEnviarLoteNFe</Form>
         </DCCReference>
@@ -261,9 +255,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\UGeRetornoBoletos.pas">
             <Form>frmGeRetornoBoleto</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeEntradaConfirmaDuplicatas.pas">
-            <Form>frmGeEntradaConfirmaDuplicatas</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeCaixa.pas">
             <Form>frmGeCaixa</Form>
         </DCCReference>
@@ -278,9 +269,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\UConstantesDGE.pas"/>
         <DCCReference Include="..\Sys\UGeVendaFormaPagto.pas">
             <Form>frmGeVendaFormaPagto</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeEntradaEstoqueGerarNFe.pas">
-            <Form>frmGeEntradaEstoqueGerarNFe</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeExportarNFeGerada.pas">
             <Form>frmGeExportarNFeGerada</Form>
@@ -339,8 +327,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\lib\UGrMessage.pas">
             <Form>frmGeMessage</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGrAguarde.pas">
-            <Form>frmAguarde</Form>
+        <DCCReference Include="..\Sys\View\View.WaitAMoment.pas">
+            <Form>ViewWaitAMoment</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeExportarChaveNFeGerada.pas">
             <Form>frmGeExportarChaveNFeGerada</Form>
@@ -390,9 +378,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\UGeCartaCorrecao.pas">
             <Form>frmGeCartaCorrecao</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeNFEmitida.pas">
-            <Form>frmGeNFEmitida</Form>
         </DCCReference>
         <DCCReference Include="..\System_SGE\UGeProdutoImpressao.pas">
             <Form>frmGeProdutoImpressao</Form>
@@ -448,9 +433,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\UGeFuncionario.pas">
             <Form>frmGeFuncionario</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeEntradaEstoqueDevolucaoNF.pas">
-            <Form>frmGeEntradaEstoqueDevolucaoNF</Form>
-        </DCCReference>
         <DCCReference Include="..\System_SGE\UGeContasAReceberQuitar.pas">
             <Form>frmGeContasAReceberQuitar</Form>
         </DCCReference>
@@ -475,14 +457,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\UGeFornecedorClientePesquisa.pas">
             <Form>frmGeFornecedorClientePesquisa</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeImportarNFE.pas">
-            <Form>frmGeImportarNFE</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeResultadoExercicioImpressao.pas">
             <Form>frmGeResultadoExercicioImpressao</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeEntradaEstoqueLote.pas">
-            <Form>frmGeEntradaEstoqueLote</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeOS.pas">
             <Form>frmGeOS</Form>
@@ -503,9 +479,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
             <Form>frmGeContasAPagarAReceberImpressao</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas"/>
-        <DCCReference Include="..\Sys\UGeDistribuicaoDFe.pas">
-            <Form>frmDistribuicaoDFe</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\Model\Entidade\Model.Entidade.ConfiguracaoAPI.pas"/>
         <DCCReference Include="..\Sys\Model\Entidade\Model.Entidade.ConfiguracaoINI.pas"/>
         <DCCReference Include="..\Sys\Model\Connection\Component\SGE.Model.Connection.Component.SQL.pas"/>
@@ -728,6 +701,49 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Model\SGE.Model.Factory.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Config.pas"/>
+        <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeImportada.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Config.pas"/>
+        <DCCReference Include="..\System_SGE\Controller\SGE.Controller.XML_NFeImportada.pas"/>
+        <DCCReference Include="..\Sys\View\View.Entrada.pas">
+            <Form>ViewEntrada</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Entrada.Cancelar.pas">
+            <Form>ViewEntradaEstoqueCancelar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Entrada.ConfirmarDuplicatas.pas">
+            <Form>ViewEntradaConfirmarDuplicatas</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Entrada.ConfirmarLote.pas">
+            <Form>ViewEntradaEstoqueLote</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Entrada.DevolucaoNF.pas">
+            <Form>ViewEntradaDevolucaoNF</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Entrada.GerarNFE.pas">
+            <Form>ViewEntradaEstoqueGerarNFE</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.NFE.ConsultarLote.pas">
+            <Form>ViewNFEConsultarLote</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.NFE.Distribuicao.pas">
+            <Form>ViewNFEDistribuicao</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.NFE.Importar.pas">
+            <Form>ViewNFEImportar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.NFE.Pesquisa.pas">
+            <Form>ViewNFEPesquisa</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>

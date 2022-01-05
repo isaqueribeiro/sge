@@ -302,10 +302,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitLeft = 69
-          ExplicitTop = 0
-          ExplicitWidth = 193
-          ExplicitHeight = 70
           object pnlSatusColor: TPanel
             Left = 0
             Top = 0
@@ -314,7 +310,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
             Align = alLeft
             BevelOuter = bvNone
             TabOrder = 0
-            ExplicitHeight = 56
             object shpOperacaoEditando: TShape
               AlignWithMargins = True
               Left = 3
@@ -366,7 +361,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
             Align = alClient
             BevelOuter = bvNone
             TabOrder = 1
-            ExplicitHeight = 56
             object lblOperacaoAberta: TLabel
               AlignWithMargins = True
               Left = 3
@@ -680,6 +674,10 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           TabOrder = 11
           object TbsApropriacaoMotivo: TTabSheet
             Caption = 'Motivo da apropria'#231#227'o'
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbMotivo: TDBMemo
               Left = 0
               Top = 0
@@ -701,6 +699,10 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           object TbsApropriacaoCancelado: TTabSheet
             Caption = 'Motivo do cancelamento'
             ImageIndex = 2
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -1050,6 +1052,10 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         object tbsObservacoes: TTabSheet
           Caption = 'Observa'#231#245'es'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object PnlObservacoes: TPanel
             Left = 0
             Top = 0

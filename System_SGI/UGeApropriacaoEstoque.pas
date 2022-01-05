@@ -267,7 +267,7 @@ implementation
 
 uses
   DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMRecursos, UDMNFe, View.Produto,
-  UGeApropriacaoEstoqueCancelar, View.CentroCusto, UGeEntradaEstoque, View.AutorizacaoCompra, Controller.Tabela;
+  UGeApropriacaoEstoqueCancelar, View.CentroCusto, View.Entrada, View.AutorizacaoCompra, Controller.Tabela;
 
 {$R *.dfm}
 
