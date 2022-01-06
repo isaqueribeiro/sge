@@ -26,6 +26,23 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
+  // Pagamentos (Contas A Pagar)
+  TModelDAOPagamento = class(TModelDAO, IModelDAOCustom)
+    private
+      procedure SetProviderFlags;
+//      procedure QuitadoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+      procedure DataSetAfterOpen(DataSet: TDataSet);
+//      procedure DataSetNewRecord(DataSet: TDataSet);
+//      procedure DataSetBeforePost(DataSet: TDataSet);
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+  end;
+
 implementation
 
 { TModelDAOContaAPagar }
@@ -168,6 +185,71 @@ begin
     FieldByName('ANOCOMPRA').Clear;
     FieldByName('NUMCOMPRA').Clear;
   end;
+end;
+
+{ TModelDAOPagamento }
+
+constructor TModelDAOPagamento.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .TableName('TBCONTPAG_BAIXA')
+      .AliasTableName('p')
+      .KeyFields('anolanc;numlanc;seq')
+      .SQL
+        .Clear
+        .Add('Select       ')
+        .Add('    p.anolanc')
+        .Add('  , p.numlanc')
+        .Add('  , p.seq    ')
+        .Add('  , p.historico  ')
+        .Add('  , p.data_pagto ')
+        .Add('  , p.forma_pagto')
+        .Add('  , p.valor_baixa')
+        .Add('  , p.controle_cheque')
+        .Add('  , p.numero_cheque  ')
+        .Add('  , p.empresa')
+        .Add('  , p.banco  ')
+        .Add('  , p.banco_febraban ')
+        .Add('  , p.documento_baixa')
+        .Add('  , p.usuario ')
+        .Add('  , f.Descri as Forma_pagto_desc')
+        .Add('  , coalesce(b2.nome, b1.bco_nome) as bco_nome')
+        .Add('from TBCONTPAG_BAIXA p')
+        .Add('  left join TBFORMPAGTO f on (f.Cod = p.Forma_pagto)')
+        .Add('  left join TBBANCO_BOLETO b1 on (b1.Bco_cod = p.Banco and b1.empresa = p.empresa)')
+        .Add('  left join TBBANCO b2 on (b2.cod = p.banco_febraban)')
+      .&End
+    .OpenEmpty
+    .CloseEmpty;
+
+  FConn.Query.DataSet.AfterOpen   := DataSetAfterOpen;
+//  FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
+//  FConn.Query.DataSet.BeforePost  := DataSetBeforePost;
+end;
+
+procedure TModelDAOPagamento.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  SetProviderFlags;
+  //FConn.Query.DataSet.FieldByName('QUITADO').OnGetText := QuitadoGetText;
+end;
+
+destructor TModelDAOPagamento.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOPagamento.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+procedure TModelDAOPagamento.SetProviderFlags;
+begin
+  // Ignorar campos no Insert e Update
+  FConn.Query.DataSet.FieldByName('Forma_pagto_desc').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('bco_nome').ProviderFlags := [];
 end;
 
 end.

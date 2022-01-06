@@ -478,13 +478,17 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\System_SGE\UGeContasAPagarAReceberImpressao.pas">
             <Form>frmGeContasAPagarAReceberImpressao</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\Services\Service.Message.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Utils.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas"/>
         <DCCReference Include="..\Sys\Model\Entidade\Model.Entidade.ConfiguracaoAPI.pas"/>
         <DCCReference Include="..\Sys\Model\Entidade\Model.Entidade.ConfiguracaoINI.pas"/>
+        <DCCReference Include="..\Sys\Model\SGE.Model.Factory.pas"/>
         <DCCReference Include="..\Sys\Model\Connection\Component\SGE.Model.Connection.Component.SQL.pas"/>
         <DCCReference Include="..\Sys\Model\Connection\SGE.Model.Connection.Factory.pas"/>
         <DCCReference Include="..\Sys\Model\Connection\SGE.Model.Connection.FireDAC.pas"/>
         <DCCReference Include="..\Sys\Model\Connection\SGE.Model.Connection.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Factory.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.pas"/>
         <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.AutorizacaoCompra.pas"/>
@@ -496,6 +500,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cidade.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cliente.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CondicaoPagto.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Config.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaAPagar.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CST.pas"/>
@@ -520,6 +525,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.UF.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas"/>
         <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas"/>
+        <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeImportada.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Factory.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.pas"/>
@@ -532,6 +538,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Cliente.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CondicaoPagto.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Conexao.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Config.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAPagar.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaCorrente.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CST.pas"/>
@@ -556,12 +563,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.UF.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Vendedor.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.XML_NFeEnviada.pas"/>
+        <DCCReference Include="..\System_SGE\Controller\SGE.Controller.XML_NFeImportada.pas"/>
         <DCCReference Include="..\Sys\View\View.Certificado.pas">
             <Form>ViewCertificado</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Sys\Services\Service.Message.pas"/>
-        <DCCReference Include="..\Sys\Services\Service.Utils.pas"/>
         <DCCReference Include="..\Sys\View\View.Mensagem.pas">
             <Form>FrmMensagem</Form>
             <FormType>dfm</FormType>
@@ -631,21 +637,19 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
             <Form>ViewCentroCusto</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\System_SGE\View\View.AutorizacaoCompra.Cancelar.pas">
-            <Form>ViewAutorizacaoCompraCancelar</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="..\System_SGE\View\View.AutorizacaoCompra.pas">
             <Form>ViewAutorizacaoCompra</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\System_SGE\View\View.RequisicaoCompra.Cancelar.pas">
-            <Form>ViewRequisicaoCompraCancelar</Form>
-            <FormType>dfm</FormType>
+        <DCCReference Include="..\System_SGE\View\View.AutorizacaoCompra.Cancelar.pas">
+            <Form>ViewAutorizacaoCompraCancelar</Form>
         </DCCReference>
         <DCCReference Include="..\System_SGE\View\View.RequisicaoCompra.pas">
             <Form>ViewRequisicaoCompra</Form>
             <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\System_SGE\View\View.RequisicaoCompra.Cancelar.pas">
+            <Form>ViewRequisicaoCompraCancelar</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.CondicaoPagto.pas">
             <Form>ViewCondicaoPagto</Form>
@@ -699,12 +703,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
             <Form>frmGeTabelaCNAE</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas"/>
-        <DCCReference Include="..\Sys\Model\SGE.Model.Factory.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Config.pas"/>
-        <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeImportada.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.Config.pas"/>
-        <DCCReference Include="..\System_SGE\Controller\SGE.Controller.XML_NFeImportada.pas"/>
         <DCCReference Include="..\Sys\View\View.Entrada.pas">
             <Form>ViewEntrada</Form>
         </DCCReference>

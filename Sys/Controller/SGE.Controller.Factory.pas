@@ -96,7 +96,8 @@ type
       FNFeEnviada  ,
       FNFeImportada,
       FNivelIBPT   ,
-      FOrigemProdutoView,
+      FOrigemProdutoView : IControllerCustom;
+      FPagamento  : IControllerPagamento;
       FPlanoConta      ,
       FPlanoContaNivel ,
       FPlanoContaTipo  : IControllerCustom;
@@ -191,6 +192,7 @@ type
       function NFeImportada : IControllerCustom;
       function NivelIBPT : IControllerCustom;
       function OrigemProdutoView : IControllerCustom;
+      function Pagamento         : IControllerPagamento;
       function PlanoConta : IControllerCustom;
       function PlanoContaNivel : IControllerCustom;
       function PlanoContaTipo : IControllerCustom;
@@ -274,6 +276,14 @@ begin
     FOrigemProdutoView := TControllerOrigemProdutoView.New;
 
   Result := FOrigemProdutoView;
+end;
+
+function TControllerFactory.Pagamento: IControllerPagamento;
+begin
+  if not Assigned(FPagamento) then
+    FPagamento := TControllerPagamento.New;
+
+  Result := FPagamento;
 end;
 
 function TControllerFactory.PlanoConta: IControllerCustom;

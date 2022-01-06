@@ -118,6 +118,7 @@ implementation
 
 uses
     UDMBusiness
+  , UConstantesDGE
   , Controller.Tabela
   , UGeControleCheque;
 

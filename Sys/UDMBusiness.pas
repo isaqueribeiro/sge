@@ -65,7 +65,6 @@ type
 
   TBlocoImpressaoCupom = (bicCupomRelatorioGerencial, bicCupom, bicRelatorioGerencial);
 
-  TTipoMovimentoCaixa = (tmcxCredito, tmcxDebito);
   TDMBusiness = class(TDataModule)
     ibdtbsBusiness: TIBDatabase;
     ibtrnsctnBusiness: TIBTransaction;

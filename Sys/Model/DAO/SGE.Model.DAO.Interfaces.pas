@@ -138,6 +138,7 @@ type
     function NFeImportada : IModelDAOCustom;
     function NivelIBPT  : IModelDAOCustom;
     function OrigemProdutoView : IModelDAOCustom;
+    function Pagamento : IModelDAOCustom;
     function PlanoConta : IModelDAOCustom;
     function PlanoContaNivel : IModelDAOCustom;
     function PlanoContaTipo : IModelDAOCustom;

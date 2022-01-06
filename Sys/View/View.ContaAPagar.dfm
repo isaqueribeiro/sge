@@ -30,6 +30,8 @@ inherited ViewContaAPagar: TViewContaAPagar
     ExplicitWidth = 934
     ExplicitHeight = 518
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel4: TBevel
@@ -128,6 +130,7 @@ inherited ViewContaAPagar: TViewContaAPagar
           Width = 594
           ExplicitLeft = 328
           ExplicitWidth = 594
+          ExplicitHeight = 62
           inherited lbltFiltrar: TLabel
             AlignWithMargins = True
             Left = 318
@@ -139,7 +142,8 @@ inherited ViewContaAPagar: TViewContaAPagar
             Align = alRight
             Caption = 'Lan'#231'amento:'
             Layout = tlCenter
-            ExplicitLeft = 310
+            ExplicitLeft = 318
+            ExplicitTop = 24
             ExplicitWidth = 73
           end
           object lblData: TLabel [1]
@@ -154,8 +158,6 @@ inherited ViewContaAPagar: TViewContaAPagar
             Caption = 'Vencimento:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitLeft = 12
-            ExplicitTop = 27
             ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
@@ -163,9 +165,8 @@ inherited ViewContaAPagar: TViewContaAPagar
             Width = 153
             TabOrder = 2
             ExplicitLeft = 397
-            ExplicitTop = 26
+            ExplicitTop = 24
             ExplicitWidth = 153
-            ExplicitHeight = 23
           end
           inherited btnFiltrar: TcxButton
             Left = 556
@@ -232,7 +233,6 @@ inherited ViewContaAPagar: TViewContaAPagar
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 0
-            ExplicitLeft = 88
             ExplicitHeight = 21
           end
           object e2Data: TJvDateEdit
@@ -295,7 +295,6 @@ inherited ViewContaAPagar: TViewContaAPagar
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 1
-            ExplicitLeft = 200
             ExplicitHeight = 21
           end
         end
@@ -464,7 +463,7 @@ inherited ViewContaAPagar: TViewContaAPagar
       end
       object Bevel6: TBevel [2]
         Left = 0
-        Top = 339
+        Top = 355
         Width = 926
         Height = 4
         Align = alBottom
@@ -1077,112 +1076,163 @@ inherited ViewContaAPagar: TViewContaAPagar
       end
       object pgcMaisDados: TPageControl
         Left = 0
-        Top = 343
+        Top = 359
         Width = 926
-        Height = 146
+        Height = 130
         ActivePage = tbsHistorico
         Align = alBottom
         TabOrder = 3
         object tbsHistorico: TTabSheet
           Caption = 'Hist'#243'rico'
+          ExplicitHeight = 118
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
             Width = 918
-            Height = 118
+            Height = 102
             Align = alClient
             DataField = 'HISTORIC'
             DataSource = DtSrcTabela
             TabOrder = 0
+            ExplicitHeight = 118
           end
         end
       end
-      object dbgPagamentos: TDBGrid
-        Tag = 12
+      object pnlPagamentos: TPanel
         Left = 0
         Top = 205
         Width = 926
-        Height = 134
-        TabStop = False
+        Height = 150
         Align = alClient
-        DataSource = dtsPagamentos
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clBlack
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
-        ParentFont = False
-        ReadOnly = True
+        BevelOuter = bvNone
         TabOrder = 2
-        TitleFont.Charset = ANSI_CHARSET
-        TitleFont.Color = clBlack
-        TitleFont.Height = -11
-        TitleFont.Name = 'Tahoma'
-        TitleFont.Style = [fsBold]
-        OnDrawColumnCell = dbgDadosDrawColumnCell
-        OnKeyDown = dbgDadosKeyDown
-        Columns = <
-          item
-            Expanded = False
-            FieldName = 'SEQ'
-            Title.Alignment = taCenter
-            Title.Caption = '# '
-            Width = 30
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'DATA_PAGTO'
-            Title.Alignment = taCenter
-            Title.Caption = 'Data Pagto. '
-            Width = 80
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'FORMA_PAGTO_DESC'
-            Title.Caption = 'Forma de Pagamento '
-            Width = 150
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'VALOR_BAIXA'
+        ExplicitLeft = 135
+        ExplicitTop = 212
+        ExplicitWidth = 281
+        ExplicitHeight = 121
+        object pnlPagamentosDicas: TPanel
+          Left = 0
+          Top = 118
+          Width = 926
+          Height = 32
+          Align = alBottom
+          AutoSize = True
+          BevelOuter = bvNone
+          Padding.Left = 10
+          Padding.Right = 10
+          TabOrder = 1
+          ExplicitTop = 100
+          object lblPagamentosDicas: TLabel
+            AlignWithMargins = True
+            Left = 13
+            Top = 3
+            Width = 900
+            Height = 26
+            Align = alClient
+            AutoSize = False
+            Caption = 
+              'Nova forma de pagto. (CTRL + INSERT) | Alterar forma de pagto. (' +
+              'CTRL + ENTER) | Limpar forma de pagto. (CTRL + DELETE)'
             Font.Charset = ANSI_CHARSET
-            Font.Color = clBlue
+            Font.Color = clRed
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
-            Title.Caption = 'Valor Pago (R$) '
-            Title.Font.Charset = ANSI_CHARSET
-            Title.Font.Color = clBlue
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Title.Font.Style = [fsBold]
-            Visible = True
+            ParentFont = False
+            Layout = tlCenter
+            WordWrap = True
+            ExplicitLeft = 2
+            ExplicitTop = 4
+            ExplicitWidth = 920
           end
-          item
-            Expanded = False
-            FieldName = 'NUMERO_CHEQUE'
-            Title.Caption = 'No. Cheque '
-            Width = 100
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'BCO_NOME'
-            Title.Caption = 'Banco '
-            Width = 250
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'DOCUMENTO_BAIXA'
-            Title.Caption = 'Doc. Baixa '
-            Width = 120
-            Visible = True
-          end>
+        end
+        object dbgPagamentos: TDBGrid
+          Tag = 12
+          Left = 0
+          Top = 0
+          Width = 926
+          Height = 118
+          TabStop = False
+          Align = alClient
+          DataSource = dtsPagamentos
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 0
+          TitleFont.Charset = ANSI_CHARSET
+          TitleFont.Color = clBlack
+          TitleFont.Height = -11
+          TitleFont.Name = 'Tahoma'
+          TitleFont.Style = [fsBold]
+          OnDrawColumnCell = dbgDadosDrawColumnCell
+          OnKeyDown = dbgDadosKeyDown
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'SEQ'
+              Title.Alignment = taCenter
+              Title.Caption = '# '
+              Width = 30
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DATA_PAGTO'
+              Title.Alignment = taCenter
+              Title.Caption = 'Data Pagto. '
+              Width = 80
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'FORMA_PAGTO_DESC'
+              Title.Caption = 'Forma de Pagamento '
+              Width = 150
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VALOR_BAIXA'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlue
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              Title.Caption = 'Valor Pago (R$) '
+              Title.Font.Charset = ANSI_CHARSET
+              Title.Font.Color = clBlue
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'NUMERO_CHEQUE'
+              Title.Caption = 'No. Cheque '
+              Width = 100
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'BCO_NOME'
+              Title.Caption = 'Banco '
+              Width = 250
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'DOCUMENTO_BAIXA'
+              Title.Caption = 'Doc. Baixa '
+              Width = 120
+              Visible = True
+            end>
+        end
       end
     end
   end
@@ -1392,9 +1442,7 @@ inherited ViewContaAPagar: TViewContaAPagar
   end
   object dtsPagamentos: TDataSource
     AutoEdit = False
-    DataSet = cdsPagamentos
-    Left = 440
-    Top = 176
+    Left = 592
   end
   object dtsTpDespesa: TDataSource
     Left = 856
@@ -2761,114 +2809,5 @@ inherited ViewContaAPagar: TViewContaAPagar
         ParamType = ptInput
         Value = 0
       end>
-  end
-  object cdsPagamentos: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    p.Anolanc'
-      '  , p.Numlanc'
-      '  , p.Seq'
-      '  , p.Historico'
-      '  , p.Data_pagto'
-      '  , p.Forma_pagto'
-      '  , f.Descri as Forma_pagto_desc'
-      '  , p.Valor_baixa'
-      '  , p.Numero_cheque'
-      '  , p.Banco'
-      '  , p.banco_febraban'
-      '  , coalesce(b2.nome, b1.bco_nome) as bco_nome'
-      '  , p.Documento_baixa'
-      'from TBCONTPAG_BAIXA p'
-      '  left join TBFORMPAGTO f on (f.Cod = p.Forma_pagto)'
-      
-        '  left join TBBANCO_BOLETO b1 on (b1.Bco_cod = p.Banco and b1.em' +
-        'presa = p.empresa)'
-      '  left join TBBANCO b2 on (b2.cod = p.banco_febraban)')
-    Left = 408
-    Top = 176
-    object cdsPagamentosANOLANC: TSmallintField
-      FieldName = 'ANOLANC'
-      Origin = 'ANOLANC'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsPagamentosNUMLANC: TIntegerField
-      FieldName = 'NUMLANC'
-      Origin = 'NUMLANC'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object cdsPagamentosSEQ: TSmallintField
-      Alignment = taCenter
-      DisplayLabel = '#'
-      FieldName = 'SEQ'
-      Origin = 'SEQ'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      DisplayFormat = '00'
-    end
-    object cdsPagamentosHISTORICO: TMemoField
-      FieldName = 'HISTORICO'
-      Origin = 'HISTORICO'
-      BlobType = ftMemo
-    end
-    object cdsPagamentosDATA_PAGTO: TDateField
-      Alignment = taCenter
-      DisplayLabel = 'Data Pagto.'
-      FieldName = 'DATA_PAGTO'
-      Origin = 'DATA_PAGTO'
-      DisplayFormat = 'dd/mm/yyyy'
-    end
-    object cdsPagamentosFORMA_PAGTO: TSmallintField
-      FieldName = 'FORMA_PAGTO'
-      Origin = 'FORMA_PAGTO'
-    end
-    object cdsPagamentosFORMA_PAGTO_DESC: TStringField
-      AutoGenerateValue = arDefault
-      DisplayLabel = 'Forma de Pagamento'
-      FieldName = 'FORMA_PAGTO_DESC'
-      Origin = 'DESCRI'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 30
-    end
-    object cdsPagamentosVALOR_BAIXA: TFMTBCDField
-      FieldName = 'VALOR_BAIXA'
-      Origin = 'VALOR_BAIXA'
-      Precision = 18
-      Size = 2
-    end
-    object cdsPagamentosNUMERO_CHEQUE: TStringField
-      DisplayLabel = 'No. Cheque'
-      FieldName = 'NUMERO_CHEQUE'
-      Origin = 'NUMERO_CHEQUE'
-      Size = 30
-    end
-    object cdsPagamentosBANCO: TSmallintField
-      FieldName = 'BANCO'
-      Origin = 'BANCO'
-    end
-    object cdsPagamentosBANCO_FEBRABAN: TStringField
-      FieldName = 'BANCO_FEBRABAN'
-      Origin = 'BANCO_FEBRABAN'
-      Size = 10
-    end
-    object cdsPagamentosBCO_NOME: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'BCO_NOME'
-      Origin = 'BCO_NOME'
-      ProviderFlags = []
-      ReadOnly = True
-      Size = 100
-    end
-    object cdsPagamentosDOCUMENTO_BAIXA: TStringField
-      DisplayLabel = 'Doc. Baixa'
-      FieldName = 'DOCUMENTO_BAIXA'
-      Origin = 'DOCUMENTO_BAIXA'
-      Size = 10
-    end
   end
 end

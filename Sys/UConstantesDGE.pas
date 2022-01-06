@@ -21,6 +21,7 @@ Uses
     TTipoPlanoConta  = (tpNull = -1, tpAgrupador = 0, tpLancamento = 1);
     TTipoMovimentoEntrada = (tmeProduto, tmeServico);
     TFormaNFDevolucao = (fdNFeEletronica, fdNFeModelo1_1A, fdNFProdutorRural, fdCupomFiscal);
+    TTipoMovimentoCaixa = (tmcxCredito, tmcxDebito);
 
     TTipoAlertaSistemaCollection = Set of TTipoAlertaSistema;
     TTipoProdutoCollection       = Set of TTipoProduto;

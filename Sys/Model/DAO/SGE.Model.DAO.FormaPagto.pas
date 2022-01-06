@@ -14,6 +14,7 @@ type
   TModelDAOFormaPagto = class(TModelDAO, IModelDAOCustom)
     private
       procedure DataSetNewRecord(DataSet: TDataSet);
+      procedure DataSetAfterOpen(DataSet: TDataSet);
     protected
       constructor Create;
     public
@@ -75,11 +76,32 @@ begin
         .Add('  , p.Formapagto_PDV_Cupom_Extra')
         .Add('  , p.Debitar_limite_cliente')
         .Add('  , p.Ativa')
+        .Add('  , count(x.conta_corrente) as conta_corrente')
         .Add('from TBFORMPAGTO p')
+        .Add('  left join ( ')
+        .Add('    Select ')
+        .Add('        fc.forma_pagto')
+        .Add('      , fc.conta_corrente')
+        .Add('      , c.descricao')
+        .Add('    from TBFORMPAGTO_CONTACOR fc')
+        .Add('      inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente and c.empresa = :empresa)')
+        .Add('    where c.tipo = 1')
+        .Add('  ) x on (x.forma_pagto = p.cod)')
+        .Add('group by')
+        .Add('    p.Cod')
+        .Add('  , p.Descri')
+        .Add('  , p.Acrescimo')
+        .Add('  , p.FormaPagto_NFCe')
+        .Add('  , p.FormaPagto_PDV')
+        .Add('  , p.Formapagto_PDV_Cupom_Extra')
+        .Add('  , p.Debitar_limite_cliente')
+        .Add('  , p.Ativa')
       .&End
+      .ParamByName('empresa', EmptyStr)
     .OpenEmpty
     .CloseEmpty;
 
+  FConn.Query.DataSet.AfterOpen   := DataSetAfterOpen;
   FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
 end;
 
@@ -110,6 +132,11 @@ begin
     .Open;
 
   FConn.Query.DataSet.Filter := '(ativa = 1)';
+end;
+
+procedure TModelDAOFormaPagto.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  FConn.Query.DataSet.FieldByName('conta_corrente').ProviderFlags := [];
 end;
 
 procedure TModelDAOFormaPagto.DataSetNewRecord(DataSet: TDataSet);
@@ -189,7 +216,7 @@ begin
   // Configurar campos para a geração de Insert e Update 
   FConn.Query.DataSet.FieldByName('forma_pagto').ProviderFlags    := [pfInUpdate, pfInWhere, pfInKey];  
   FConn.Query.DataSet.FieldByName('conta_corrente').ProviderFlags := [pfInUpdate, pfInWhere, pfInKey];  
-  FConn.Query.DataSet.FieldByName('selecionar').ProviderFlags     := [pfInUpdate];  
+  FConn.Query.DataSet.FieldByName('selecionar').ProviderFlags     := [pfInUpdate];
 end;
 
 { TModelDAOFormaPagtoNFCEView }

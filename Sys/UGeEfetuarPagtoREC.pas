@@ -121,6 +121,7 @@ implementation
 
 uses
     System.StrUtils
+  , UConstantesDGE
   , UDMBusiness
   , Controller.Tabela
   , UGeControleCheque;

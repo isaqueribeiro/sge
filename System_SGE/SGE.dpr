@@ -93,7 +93,6 @@ uses
   UGeContasAPagarLoteParcela in '..\Sys\UGeContasAPagarLoteParcela.pas' {frmGeContasAPagarLoteParcela},
   UGeContasAReceberLoteParcela in '..\Sys\UGeContasAReceberLoteParcela.pas' {frmGeContasAReceberLoteParcela},
   UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao},
-  UGrAguarde in '..\Sys\UGrAguarde.pas' {frmAguarde},
   UGeControleCheque in '..\Sys\UGeControleCheque.pas' {frmGeControleCheque},
   UGrMemoData in '..\Sys\lib\UGrMemoData.pas' {frmGrMemoData},
   UGeFornecedorClientePesquisa in '..\Sys\UGeFornecedorClientePesquisa.pas' {frmGeFornecedorClientePesquisa},
@@ -287,7 +286,8 @@ uses
   View.NFE.Pesquisa in '..\Sys\View\View.NFE.Pesquisa.pas' {ViewNFEPesquisa},
   View.NFE.Distribuicao in '..\Sys\View\View.NFE.Distribuicao.pas' {ViewNFEDistribuicao},
   View.NFE.Importar in '..\Sys\View\View.NFE.Importar.pas' {ViewNFEImportar},
-  View.ContaAPagar in '..\Sys\View\View.ContaAPagar.pas' {ViewContaAPagar};
+  View.ContaAPagar in '..\Sys\View\View.ContaAPagar.pas' {ViewContaAPagar},
+  View.WaitAMoment in '..\Sys\View\View.WaitAMoment.pas' {ViewWaitAMoment};
 
 {$R *.res}
 
@@ -302,7 +302,6 @@ begin
   Application.CreateForm(TDMRecursos, DMRecursos);
   Application.CreateForm(TDMBusiness, DMBusiness);
   Application.CreateForm(TDMNFe, DMNFe);
-  Application.CreateForm(TViewContaAPagar, ViewContaAPagar);
   SplashFree;
 
   if ExecutarLogin() then

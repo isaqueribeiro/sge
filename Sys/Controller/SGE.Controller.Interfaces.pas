@@ -167,6 +167,11 @@ type
     function Pagamentos : IControllerCustom;
   end;
 
+  IControllerPagamento = interface(IControllerCustom)
+    ['{668B2910-1359-47E6-AB9B-28F711A2C75E}']
+    procedure EstornarPagamento(aUsuario : String; aTipoMovimento : TTipoMovimentoCaixa; aContaConrrente : Integer);
+  end;
+
   IControllerFactory = interface
     ['{52DB68E4-A6DE-428B-867A-F0EE203E7CCA}']
     function AliquotaCOFINSView : IControllerCustom;
@@ -225,6 +230,7 @@ type
     function NFeImportada : IControllerCustom;
     function NivelIBPT  : IControllerCustom;
     function OrigemProdutoView : IControllerCustom;
+    function Pagamento         : IControllerPagamento;
     function PlanoConta        : IControllerCustom;
     function PlanoContaNivel   : IControllerCustom;
     function PlanoContaTipo    : IControllerCustom;

@@ -379,9 +379,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeFluxoCaixaImpressao.pas">
             <Form>frmGeFluxoCaixaImpressao</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGrAguarde.pas">
-            <Form>frmAguarde</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeControleCheque.pas">
             <Form>frmGeControleCheque</Form>
         </DCCReference>
@@ -722,6 +719,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <Form>ViewContaAPagar</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Sys\View\View.WaitAMoment.pas">
+            <Form>ViewWaitAMoment</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>
@@ -838,7 +839,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -960,7 +961,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

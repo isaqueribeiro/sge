@@ -101,6 +101,7 @@ type
       FNFeImportada,
       FNivelIBPT   ,
       FOrigemProdutoView,
+      FPagamento   ,
       FPlanoConta       ,
       FPlanoContaNivel  ,
       FPlanoContaTipo   ,
@@ -199,6 +200,7 @@ type
       function NFeImportada : IModelDAOCustom;
       function NivelIBPT : IModelDAOCustom;
       function OrigemProdutoView : IModelDAOCustom;
+      function Pagamento : IModelDAOCustom;
       function PlanoConta : IModelDAOCustom;
       function PlanoContaNivel : IModelDAOCustom;
       function PlanoContaTipo : IModelDAOCustom;
@@ -283,6 +285,14 @@ begin
     FOrigemProdutoView := TModelDAOOrigemProdutoView.New;
 
   Result := FOrigemProdutoView;
+end;
+
+function TModelDAOFactory.Pagamento: IModelDAOCustom;
+begin
+  if not Assigned(FPagamento) then
+    FPagamento := TModelDAOPagamento.New;
+
+  Result := FPagamento;
 end;
 
 function TModelDAOFactory.PlanoConta: IModelDAOCustom;
