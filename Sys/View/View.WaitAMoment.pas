@@ -30,7 +30,7 @@ uses
   dxSkinsCore,
 
   uBaseObject,
-  UConstantesDGE;
+  UConstantesDGE, dxSkinsDefaultPainters;
 
 type
   TViewWaitAMoment = class(TForm)

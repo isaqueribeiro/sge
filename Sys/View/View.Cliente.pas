@@ -61,7 +61,7 @@ uses
   UCliente,
   UGrPadraoCadastro,
   Interacao.Tabela,
-  Controller.Tabela;
+  Controller.Tabela, dxSkinsDefaultPainters;
 
 type
   TViewCliente = class(TViewPadraoCadastro, IObserver)

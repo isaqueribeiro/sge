@@ -62,7 +62,7 @@ uses
   UGrPadraoCadastro,
   Interacao.Tabela,
   Controller.Tabela,
-  UConstantesDGE;
+  UConstantesDGE, dxSkinsDefaultPainters;
 
 type
   TViewEntrada = class(TViewPadraoCadastro)

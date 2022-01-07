@@ -48,7 +48,7 @@ uses
   UGrPadraoCadastro,
   Interacao.Tabela,
   Controller.Tabela,
-  UConstantesDGE;
+  UConstantesDGE, dxSkinsDefaultPainters;
 
 type
   TUnidade = record

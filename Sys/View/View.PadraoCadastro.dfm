@@ -53,6 +53,10 @@ object ViewPadraoCadastro: TViewPadraoCadastro
     object tbsTabela: TTabSheet
       Caption = '&Lista'
       ImageIndex = 37
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Bevel4: TBevel
         Left = 0
         Top = 255
@@ -202,6 +206,10 @@ object ViewPadraoCadastro: TViewPadraoCadastro
     object tbsCadastro: TTabSheet
       Caption = '&Dados'
       ImageIndex = 39
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Bevel8: TBevel
         Left = 0
         Top = 121

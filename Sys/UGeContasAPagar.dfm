@@ -30,6 +30,8 @@ inherited frmGeContasAPagar: TfrmGeContasAPagar
     ExplicitWidth = 934
     ExplicitHeight = 518
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel4: TBevel

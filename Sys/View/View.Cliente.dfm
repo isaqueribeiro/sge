@@ -153,7 +153,7 @@ inherited ViewCliente: TViewCliente
             AlignWithMargins = True
             Left = 3
             Top = 46
-            Width = 446
+            Width = 127
             Height = 13
             Align = alBottom
             Caption = '* Clientes desativados'
@@ -165,15 +165,13 @@ inherited ViewCliente: TViewCliente
             ParentFont = False
             Transparent = True
             Visible = False
-            ExplicitTop = 38
-            ExplicitWidth = 127
           end
           object lblMotivoBloqueio: TLabel
             AlignWithMargins = True
             Left = 3
             Top = 3
-            Width = 446
-            Height = 37
+            Width = 116
+            Height = 13
             Align = alClient
             Caption = 'Motivo do bloqueio...'
             Font.Charset = ANSI_CHARSET
@@ -185,8 +183,6 @@ inherited ViewCliente: TViewCliente
             Transparent = True
             Visible = False
             WordWrap = True
-            ExplicitWidth = 116
-            ExplicitHeight = 13
           end
         end
       end
@@ -1008,6 +1004,10 @@ inherited ViewCliente: TViewCliente
         TabStop = False
         object tbsContato: TTabSheet
           Caption = '&1. Contato'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblFoneFixo: TLabel
             Left = 8
             Top = 0
@@ -1133,6 +1133,10 @@ inherited ViewCliente: TViewCliente
         object tbsDadosAdcionais: TTabSheet
           Caption = '&2. Outras Informa'#231#245'es'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbNFeDevolucao: TDBCheckBox
             Left = 12
             Top = 114
@@ -2010,6 +2014,10 @@ inherited ViewCliente: TViewCliente
         object tbsDadoFinanceiro: TTabSheet
           Caption = '&3. Dados Financeiro'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbgContaCorrente: TcxDBVerticalGrid
             Left = 0
             Top = 0
@@ -2194,6 +2202,10 @@ inherited ViewCliente: TViewCliente
         object tbsObservacao: TTabSheet
           Caption = '&4. Observa'#231#245'es'
           ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -2208,6 +2220,10 @@ inherited ViewCliente: TViewCliente
         object tbsCompra: TTabSheet
           Caption = '&5. Compras'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           DesignSize = (
             828
             198)
@@ -2458,6 +2474,10 @@ inherited ViewCliente: TViewCliente
     object tbsConsultarCNPJ: TTabSheet
       Caption = 'Consultar CNPJ'
       ImageIndex = 12
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object BvlConsultar: TBevel
         Left = 377
         Top = 0
@@ -3045,6 +3065,10 @@ inherited ViewCliente: TViewCliente
     object tbsConsultarCPF: TTabSheet
       Caption = 'Consultar CPF'
       ImageIndex = 12
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pnlConsultarCPF: TPanel
         Left = 0
         Top = 0
@@ -3143,6 +3167,10 @@ inherited ViewCliente: TViewCliente
       Tag = 12
       Caption = 'Estoque &Sat'#233'lite'
       ImageIndex = 30
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Bevel11: TBevel
         Left = 0
         Top = 62

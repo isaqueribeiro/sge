@@ -28,6 +28,7 @@ uses
 
   Data.DB,
   Datasnap.DBClient,
+  Datasnap.Provider,
 
   JvExMask,
   JvToolEdit,
@@ -41,18 +42,18 @@ uses
   cxButtons,
   dxSkinsCore,
 
+  ACBrBase,
+  ACBrExtenso,
+
   View.PadraoCadastro,
   SGE.Controller.Interfaces,
-  UObserverInterface,
-  UCliente,
-  UGrPadraoCadastro,
   Interacao.Tabela,
   Controller.Tabela,
   UConstantesDGE,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, ACBrBase, ACBrExtenso, Datasnap.Provider,
-  frxDBSet, FireDAC.Comp.Client, FireDAC.Comp.DataSet, IBX.IBCustomDataSet, IBX.IBUpdateSQL;
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  frxDBSet, FireDAC.Comp.Client, FireDAC.Comp.DataSet, dxSkinsDefaultPainters;
 
 type
   TViewContaAPagar = class(TViewPadraoCadastro)
@@ -307,7 +308,7 @@ begin
   FLoteParcelas   := EmptyStr;
 
   e1Data.Date := Date;
-  e2Data.Date := EncodeDate(YearOf(Date), MonthOf(Date), DayOfTheMonth(Date));
+  e2Data.Date := EncodeDate(YearOf(Date), MonthOf(Date), DaysInMonth(Date));
 
   ControlFirstEdit := dbFornecedor;
 
@@ -338,9 +339,13 @@ begin
 
   Tabela
     .Display('NUMLANC', 'Código', DisplayFormatCodigo, TAlignment.taCenter, True)
+    .Display('PARCELA', 'Parcela', '00', TAlignment.taCenter, False)
     .Display('DTEMISS', 'Data de Emissão', 'dd/mm/yyyy', TAlignment.taCenter, True)
     .Display('DTVENC', 'Data de Venvimento', 'dd/mm/yyyy', TAlignment.taCenter, True)
     .Display('COMPETENCIA_APURACAO', 'Competência da Apuração', True)
+    .Display('ANOCOMPRA', 'Ano Compra', TAlignment.taCenter, False)
+    .Display('NUMCOMPRA', 'No. Compra', DisplayFormatCodigo, TAlignment.taCenter, False)
+    .Display('QUITADO', 'Situação', TAlignment.taLeftJustify, True)
     .Display('VALORPAG', 'Valor A Pagar (R$)', ',0.00', TAlignment.taRightJustify, True)
     .Display('CODTPDESP',      'Tipo de Despesa', True)
     .Display('FORMA_PAGTO',    'Forma de Pagamento', True)
@@ -581,45 +586,7 @@ begin
   end
   else
   begin
-    // Eliminar Movimento do Caixa quando o lançamento for excluído pelo SYSTEM ADM
-
-    if (FController.DAO.Usuario.Funcao.Codigo in [FUNCTION_USER_ID_DIRETORIA, FUNCTION_USER_ID_SYSTEM_ADM]) then
-    begin
-
-      with DMBusiness, fdQryBusca do
-      begin
-        Close;
-        SQL.Clear;
-        SQL.Add('Delete from TBCAIXA_MOVIMENTO');
-        SQL.Add('where APAGAR_ANO = ' + DtSrcTabela.DataSet.FieldByName('ANOLANC').AsString);
-        SQL.Add('  and APAGAR_NUM = ' + DtSrcTabela.DataSet.FieldByName('NUMLANC').AsString);
-        ExecSQL;
-
-        CommitTransaction;
-      end;
-
-    end
-    else
-    begin
-
-      with DMBusiness, fdQryBusca do
-      begin
-        Close;
-        SQL.Clear;
-        SQL.Add('Update TBCAIXA_MOVIMENTO Set');
-        SQL.Add('    APAGAR_ANO = null');
-        SQL.Add('  , APAGAR_NUM = null');
-        SQL.Add('where APAGAR_ANO = ' + DtSrcTabela.DataSet.FieldByName('ANOLANC').AsString);
-        SQL.Add('  and APAGAR_NUM = ' + DtSrcTabela.DataSet.FieldByName('NUMLANC').AsString);
-        ExecSQL;
-
-        CommitTransaction;
-      end;
-
-    end;
-
     inherited;
-
     if ( not OcorreuErro ) then
       AbrirPagamentos;
   end;
@@ -714,73 +681,9 @@ begin
 
       DataPagto := dtsPagamentos.DataSet.FieldByName('DATA_PAGTO').AsDateTime;
 
-      if ShowConfirm('Confirma a exclusão do(s) registro(s) de pagamento(s)?') then
+      if ShowConfirm('Confirma a exclusão do registro de pagamento?') then
       begin
-
-        // Registrar Estorno
-        Pagamentos.EstornarPagamento(
-            Controller.DAO.Usuario.Login
-          , TTipoMovimentoCaixa.tmcxDebito
-          , CxContaCorrente
-        );
-
-        if (CxContaCorrente > 0) then
-        begin
-          dtsPagamentos.DataSet.First;
-
-          while not dtsPagamentos.DataSet.Eof do
-          begin
-            SetMovimentoCaixaEstorno(
-              GetUserApp,
-              cdsPagamentosDATA_PAGTO.AsDateTime + Time,
-              cdsPagamentosFORMA_PAGTO.AsInteger,
-              cdsPagamentosANOLANC.AsInteger,
-              cdsPagamentosNUMLANC.AsInteger,
-              cdsPagamentosSEQ.AsInteger,
-              cdsPagamentosVALOR_BAIXA.AsCurrency,
-              tmcxDebito);
-
-            dtsPagamentos.DataSet.Next;
-          end;
-        end;
-
-        with DMBusiness, fdQryBusca do
-        begin
-          Close;
-          SQL.Clear;
-          SQL.Add('Delete from TBCONTPAG_BAIXA');
-          SQL.Add('where ANOLANC = ' + cdsPagamentosANOLANC.AsString);
-          SQL.Add('  and NUMLANC = ' + cdsPagamentosNUMLANC.AsString);
-          ExecSQL;
-
-          CommitTransaction;
-        end;
-
-        with DMBusiness, fdQryBusca do
-        begin
-          Close;
-          SQL.Clear;
-          SQL.Add('Update TBCONTPAG Set');
-          SQL.Add('    QUITADO      = 0');
-          SQL.Add('  , VALORMULTA   = 0.0');
-          SQL.Add('  , VALORPAGTOT  = 0.0');
-          SQL.Add('  , VALORSALDO   = VALORPAG');
-          SQL.Add('  , HISTORIC = ''''');
-          SQL.Add('  , DTPAG    = null');
-          SQL.Add('  , DOCBAIX  = null');
-          SQL.Add('  , TIPPAG   = null');
-          SQL.Add('  , NUMCHQ   = null');
-          SQL.Add('  , BANCO    = null');
-          SQL.Add('where ANOLANC = ' + cdsPagamentosANOLANC.AsString);
-          SQL.Add('  and NUMLANC = ' + cdsPagamentosNUMLANC.AsString);
-          ExecSQL;
-
-          CommitTransaction;
-        end;
-
-        if ( CxContaCorrente > 0 ) then
-          GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
-          
+        Pagamentos.EstornarPagamento(Controller.DAO.Usuario.Login, CxContaCorrente);
         RecarregarRegistro;
         AbrirPagamentos;
       end;
@@ -796,9 +699,9 @@ begin
   with CdsRecibo, Params do
   begin
     Close;
-    ParamByName('ano').AsInteger    := cdsPagamentosANOLANC.AsInteger;
-    ParamByName('numero').AsInteger := cdsPagamentosNUMLANC.AsInteger;
-    ParamByName('baixa').AsInteger  := cdsPagamentosSEQ.AsInteger;
+    ParamByName('ano').AsInteger    := DtSrcTabela.DataSet.FieldByName('ANOLANC').AsInteger;
+    ParamByName('numero').AsInteger := DtSrcTabela.DataSet.FieldByName('NUMLANC').AsInteger;
+    ParamByName('baixa').AsInteger  := DtSrcTabela.DataSet.FieldByName('SEQ').AsInteger;
     Open;
 
     if IsEmpty then

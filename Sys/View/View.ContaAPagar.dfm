@@ -1084,7 +1084,6 @@ inherited ViewContaAPagar: TViewContaAPagar
         TabOrder = 3
         object tbsHistorico: TTabSheet
           Caption = 'Hist'#243'rico'
-          ExplicitHeight = 118
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -1094,7 +1093,6 @@ inherited ViewContaAPagar: TViewContaAPagar
             DataField = 'HISTORIC'
             DataSource = DtSrcTabela
             TabOrder = 0
-            ExplicitHeight = 118
           end
         end
       end
@@ -1106,10 +1104,6 @@ inherited ViewContaAPagar: TViewContaAPagar
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 2
-        ExplicitLeft = 135
-        ExplicitTop = 212
-        ExplicitWidth = 281
-        ExplicitHeight = 121
         object pnlPagamentosDicas: TPanel
           Left = 0
           Top = 118
@@ -1121,7 +1115,6 @@ inherited ViewContaAPagar: TViewContaAPagar
           Padding.Left = 10
           Padding.Right = 10
           TabOrder = 1
-          ExplicitTop = 100
           object lblPagamentosDicas: TLabel
             AlignWithMargins = True
             Left = 13
@@ -1131,8 +1124,8 @@ inherited ViewContaAPagar: TViewContaAPagar
             Align = alClient
             AutoSize = False
             Caption = 
-              'Nova forma de pagto. (CTRL + INSERT) | Alterar forma de pagto. (' +
-              'CTRL + ENTER) | Limpar forma de pagto. (CTRL + DELETE)'
+              'Dica: Para excluir um pagamento, selecione-o e pressione CTRL + ' +
+              'DELETE)'
             Font.Charset = ANSI_CHARSET
             Font.Color = clRed
             Font.Height = -11

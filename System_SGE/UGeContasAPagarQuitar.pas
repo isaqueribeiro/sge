@@ -149,7 +149,8 @@ uses
     DateUtils
   , Controller.Tabela
   , UDMBusiness
-  , UDMRecursos;
+  , UDMRecursos
+  , UConstantesDGE;
 
 {$R *.dfm}
 

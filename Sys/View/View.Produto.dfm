@@ -2620,6 +2620,10 @@ inherited ViewProduto: TViewProduto
         object tbsHistoricoVeiculo: TTabSheet
           Caption = 'Hist'#243'ricos'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           DesignSize = (
             945
             249)

@@ -38,7 +38,7 @@ uses
   cxLookAndFeels,
   cxLookAndFeelPainters,
   cxButtons,
-  dxSkinsCore;
+  dxSkinsCore, dxSkinsDefaultPainters;
 
 type
   TViewPadraoCadastro = class(TfrmGrPadrao)
