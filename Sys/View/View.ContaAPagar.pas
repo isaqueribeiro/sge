@@ -41,6 +41,7 @@ uses
   cxLookAndFeelPainters,
   cxButtons,
   dxSkinsCore,
+  dxSkinsDefaultPainters,
 
   ACBrBase,
   ACBrExtenso,
@@ -50,10 +51,7 @@ uses
   Interacao.Tabela,
   Controller.Tabela,
   UConstantesDGE,
-
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  frxDBSet, FireDAC.Comp.Client, FireDAC.Comp.DataSet, dxSkinsDefaultPainters;
+  SGE.Controller.Impressao.ContaAPagar;
 
 type
   TViewContaAPagar = class(TViewPadraoCadastro)
@@ -89,14 +87,8 @@ type
     dbTipoDespesa: TDBLookupComboBox;
     dtsTpDespesa: TDataSource;
     lblData: TLabel;
-    FrdRecibo: TfrxDBDataset;
-    FrReciboA5: TfrxReport;
-    DspRecibo: TDataSetProvider;
-    CdsRecibo: TClientDataSet;
-    CdsReciboVALOR_BAIXA_EXTENSO: TStringField;
     popImprimir: TPopupMenu;
     popGerarReciboA4: TMenuItem;
-    ACBrExtenso: TACBrExtenso;
     lblSaldoAPagar: TLabel;
     dbSaldoAPagar: TDBEdit;
     btbtnEfetuarPagto: TcxButton;
@@ -113,36 +105,7 @@ type
     daCompra: TDBEdit;
     dnCompra: TDBEdit;
     lblCompra: TLabel;
-    FrReciboA4: TfrxReport;
     popGerarReciboA5: TMenuItem;
-    fdQryRecibo: TFDQuery;
-    CdsReciboANOLANC: TSmallintField;
-    CdsReciboNUMLANC: TIntegerField;
-    CdsReciboPARCELA: TSmallintField;
-    CdsReciboCODFORN: TSmallintField;
-    CdsReciboNOMEEMP: TStringField;
-    CdsReciboNOMEFORN: TStringField;
-    CdsReciboPESSOA_FISICA: TSmallintField;
-    CdsReciboCNPJ: TStringField;
-    CdsReciboNOTFISC: TStringField;
-    CdsReciboTIPPAG: TStringField;
-    CdsReciboDTEMISS: TDateField;
-    CdsReciboDTVENC: TDateField;
-    CdsReciboDTPAG: TDateField;
-    CdsReciboBANCO: TSmallintField;
-    CdsReciboBCO_NOME: TStringField;
-    CdsReciboNUMCHQ: TStringField;
-    CdsReciboPAGO_: TStringField;
-    CdsReciboDOCBAIX: TStringField;
-    CdsReciboQUITADO: TSmallintField;
-    CdsReciboCODTPDESP: TSmallintField;
-    CdsReciboSEQ: TSmallintField;
-    CdsReciboDATA_PAGTO: TDateField;
-    CdsReciboFORMA_PAGTO: TSmallintField;
-    CdsReciboFORMA_PAGTO_DESC: TStringField;
-    CdsReciboHISTORICO: TMemoField;
-    CdsReciboVALORPAG: TFMTBCDField;
-    CdsReciboVALOR_BAIXA: TFMTBCDField;
     pnlStatus: TPanel;
     pnlSatusColor: TPanel;
     shpOperacaoCancelado: TShape;
@@ -171,8 +134,6 @@ type
       Shift: TShiftState);
     procedure popGerarReciboClick(Sender: TObject);
     procedure btbtnListaClick(Sender: TObject);
-    procedure CdsReciboCalcFields(DataSet: TDataSet);
-    procedure FrReciboGetValue(const VarName: String; var Value: Variant);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
@@ -186,6 +147,8 @@ type
     FControllerFormaPagto  ,
     FControllerCondicaoPagtoView,
     FControllerTipoDespesa : IControllerCustom;
+    FControllerPagamento   : IControllerPagamento;
+    FImpressao : IImpressaoContaAPagar;
 
     FDataAtual     : TDateTime;
     sGeneratorName ,
@@ -240,9 +203,9 @@ implementation
 
 uses
   System.DateUtils,
-//  UGrPadrao,
   UDMBusiness,
   UDMRecursos,
+  Service.Message,
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper,
@@ -297,6 +260,7 @@ begin
   FControllerTipoDespesa := TControllerFactory.New.TipoDespesa;
   FControllerFormaPagto        := TControllerFactory.New.FormaPagto;
   FControllerCondicaoPagtoView := TControllerFactory.New.CondicaoPagtoView;
+  FControllerPagamento   := TControllerFactory.New.Pagamento;
 
   dtsPagamentos.DataSet := Pagamentos.DAO.DataSet;
   dtsEmpresa.DataSet    := FControllerEmpresaView.DAO.DataSet;
@@ -418,20 +382,23 @@ var
   dDataEmissao    ,
   dVencimentoFirst,
   dVencimentoLast : TDateTime;
+  aFornecedor : IControllerFornecedor;
 begin
   if btbtnIncluir.Enabled then
   begin
     sEmpresa     := FController.DAO.Usuario.Empresa.CNPJ;
     sLote        := EmptyStr;
     iFornecedor  := 0;
-    dDataEmissao := GetDateDB;
+    aFornecedor  := TControllerFactory.New.Fornecedor;
+    dDataEmissao := Date;
+
     dVencimentoFirst := dDataEmissao + 30;
     dVencimentoLast  := dDataEmissao + 60;
 
     if GerarLoteParcelas(Self, sEmpresa, sLote, iFornecedor, dDataEmissao, dVencimentoFirst, dVencimentoLast)  then
     begin
       pgcGuias.ActivePage := tbsTabela;
-      edtFiltrar.Text := GetFornecedorRazao(iFornecedor);
+      edtFiltrar.Text := aFornecedor.Get(iFornecedor).DataSet.FieldByName('Nomeforn').AsString;
       FLoteParcelas   := sLote;
       btnFiltrar.Click;
 
@@ -464,7 +431,7 @@ begin
   begin
     if ( FieldByName('QUITADO').AsInteger = 1 ) then
     begin
-      ShowWarning('Registro de despesa selecionada já se encontra quitado!' + #13 + 'Favor pesquisar novamente.');
+      TServiceMessage.ShowWarning('Registro de despesa selecionada já se encontra quitado!' + #13 + 'Favor pesquisar novamente.');
       Abort;
     end;
 
@@ -486,8 +453,8 @@ begin
       FieldByName('FORMA_PAGTO').AsInteger, FieldByName('NOMEFORN').AsString,
       CxContaCorrente, DataPagto, cAPagar) then
     begin
-      if ( CxContaCorrente > 0 ) then
-        GerarSaldoContaCorrente(CxContaCorrente, DataPagto);
+      if (CxContaCorrente > 0) then
+        FControllerPagamento.GerarSaldoConta(CxContaCorrente, DataPagto);
 
       RecarregarRegistro;
       AbrirPagamentos;
@@ -549,12 +516,14 @@ begin
 end;
 
 procedure TViewContaAPagar.btbtnAlterarClick(Sender: TObject);
+var
+  aEmpresa : String;
 begin
   with DtSrcTabela.DataSet do
   begin
     if ( FieldByName('QUITADO').AsInteger = STATUS_APAGAR_PAGO ) then
     begin
-      ShowWarning('O Lançamento não poderá ser alterado pois este já está quitado!');
+      TServiceMessage.ShowWarning('O Lançamento não poderá ser alterado pois este já está quitado!');
       Abort;
     end
     else
@@ -563,7 +532,10 @@ begin
       if ( not OcorreuErro ) then
       begin
         if (Trim(FieldByName('NOMEEMP').AsString) = EmptyStr) then
-          FieldByName('NOMEEMP').AsString := Copy(GetEmpresaNome(gUsuarioLogado.Empresa), 1, FieldByName('NOMEEMP').Size);
+        begin
+          aEmpresa := Controller.DAO.Usuario.Empresa.RazaoSocial;
+          FieldByName('NOMEEMP').AsString := Copy(aEmpresa, 1, FieldByName('NOMEEMP').Size);
+        end;
 
         AbrirPagamentos;
       end;
@@ -575,13 +547,13 @@ procedure TViewContaAPagar.btbtnExcluirClick(Sender: TObject);
 begin
   if ( DtSrcTabela.DataSet.FieldByName('QUITADO').AsInteger = STATUS_APAGAR_PAGO ) then
   begin
-    ShowWarning('O Lançamento não poderá ser excluído pois este já está quitado!');
+    TServiceMessage.ShowWarning('O Lançamento não poderá ser excluído pois este já está quitado!');
     Abort;
   end
   else
   if ( DtSrcTabela.DataSet.FieldByName('ANOCOMPRA').AsInteger > 0 ) then
   begin
-    ShowWarning('Registros de Contas A Pagar atrelados à entradas de produtos/serviços não podem ser excluídos!');
+    TServiceMessage.ShowWarning('Registros de Contas A Pagar atrelados à entradas de produtos/serviços não podem ser excluídos!');
     Abort;
   end
   else
@@ -596,7 +568,7 @@ procedure TViewContaAPagar.FormShow(Sender: TObject);
 begin
   inherited;
   RegistrarNovaRotinaSistema;
-  Self.Caption := Self.Caption + ' - (' + GetNomeFantasiaEmpresa(gUsuarioLogado.Empresa) + ')';
+  Self.Caption := Self.Caption + ' - (' + Controller.DAO.Usuario.Empresa.Fantasia + ')';
 end;
 
 procedure TViewContaAPagar.dbgDadosDrawColumnCell(Sender: TObject;
@@ -652,7 +624,7 @@ begin
       CxNumero := 0;
       CxContaCorrente := 0;
 
-      if (FControllerFormaPagto.DAO.DataSet.Locate('cod', DtSrcTabela.DataSet.FieldByName('FORMA_PAGTO').AsInteger, [])) then
+      if (FControllerFormaPagto.DAO.DataSet.Locate('codigo', DtSrcTabela.DataSet.FieldByName('FORMA_PAGTO').AsInteger, [])) then
         if (FControllerFormaPagto.DAO.DataSet.FieldByName('Conta_corrente').AsInteger > 0) then
           if (not CaixaAberto(
               DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString
@@ -664,7 +636,7 @@ begin
             , CxContaCorrente
           )) then
           begin
-            ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
+            TServiceMessage.ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
             Exit;
           end;
 
@@ -681,7 +653,7 @@ begin
 
       DataPagto := dtsPagamentos.DataSet.FieldByName('DATA_PAGTO').AsDateTime;
 
-      if ShowConfirm('Confirma a exclusão do registro de pagamento?') then
+      if TServiceMessage.ShowConfirm('Confirma a exclusão do registro de pagamento?') then
       begin
         Pagamentos.EstornarPagamento(Controller.DAO.Usuario.Login, CxContaCorrente);
         RecarregarRegistro;
@@ -693,33 +665,33 @@ end;
 
 procedure TViewContaAPagar.popGerarReciboClick(Sender: TObject);
 begin
-  if ( DtSrcTabela.DataSet.IsEmpty ) then
-    Exit;
-
-  with CdsRecibo, Params do
-  begin
-    Close;
-    ParamByName('ano').AsInteger    := DtSrcTabela.DataSet.FieldByName('ANOLANC').AsInteger;
-    ParamByName('numero').AsInteger := DtSrcTabela.DataSet.FieldByName('NUMLANC').AsInteger;
-    ParamByName('baixa').AsInteger  := DtSrcTabela.DataSet.FieldByName('SEQ').AsInteger;
-    Open;
-
-    if IsEmpty then
-      Exit;
-  end;
-
-  FImprimirCabecalho := ShowConfirmation('Recibo', 'Deseja imprimir no recibo o Cabeçalho com informações da empresa?');
-
-  if ( Sender = popGerarReciboA4 ) then
-    frReport := FrReciboA4
+  if Pagamentos.DAO.DataSet.IsEmpty then
+    TServiceMessage.ShowWarning('Selecione um registro de pagamento para que o recibo seja emitido')
   else
-  if ( Sender = popGerarReciboA5 ) then
-    frReport := FrReciboA5;
+    FImprimirCabecalho := TServiceMessage.ShowConfirmation('Recibo', 'Deseja imprimir no recibo o Cabeçalho com informações da empresa?');
 
-  SetVariablesDefault(frReport);
+  if not Assigned(FImpressao) then
+    FImpressao := TImpressaoContaAPagar.New;
 
-  frReport.PrepareReport;
-  frReport.ShowReport;
+  if (Sender = popGerarReciboA4) then
+    FImpressao
+      .VisualizarReciboPagamento(
+        Pagamentos.DAO.DataSet.FieldByName('ANOLANC').AsInteger,
+        Pagamentos.DAO.DataSet.FieldByName('NUMLANC').AsInteger,
+        Pagamentos.DAO.DataSet.FieldByName('SEQ').AsInteger,
+        TModeloRecibo.mrPapelA4,
+        FImprimirCabecalho
+      )
+  else
+  if (Sender = popGerarReciboA5) then
+    FImpressao
+      .VisualizarReciboPagamento(
+        Pagamentos.DAO.DataSet.FieldByName('ANOLANC').AsInteger,
+        Pagamentos.DAO.DataSet.FieldByName('NUMLANC').AsInteger,
+        Pagamentos.DAO.DataSet.FieldByName('SEQ').AsInteger,
+        TModeloRecibo.mrPapelA5,
+        FImprimirCabecalho
+      );
 end;
 
 procedure TViewContaAPagar.btbtnListaClick(Sender: TObject);
@@ -744,33 +716,9 @@ begin
   FControllerTipoDespesa.DAO.DataSet.Open;
 end;
 
-procedure TViewContaAPagar.CdsReciboCalcFields(DataSet: TDataSet);
-begin
-  CdsReciboVALOR_BAIXA_EXTENSO.AsString := AnsiUpperCase(ACBrExtenso.ValorToTexto(CdsReciboVALOR_BAIXA.AsCurrency, ACBrExtenso.Formato));
-end;
-
 function TViewContaAPagar.Controller: IControllerContaAPagar;
 begin
   Result := (FController as IControllerContaAPagar);
-end;
-
-procedure TViewContaAPagar.FrReciboGetValue(const VarName: String;
-  var Value: Variant);
-begin
-  if ( VarName = VAR_TITLE ) then
-    Value := 'RECIBO';
-
-  if ( VarName = VAR_EMPRESA ) then
-    Value := GetEmpresaNomeDefault;
-
-  if ( VarName = VAR_USER ) then
-    Value := GetUserApp;
-
-  if ( VarName = VAR_SYSTEM ) then
-    Value := Application.Title + ' - versão ' + ver.FileVersion;
-
-  if ( VarName = 'Imprimir_Cabecalho' ) then
-    Value := IfThen(FImprimirCabecalho, 1, 0);
 end;
 
 procedure TViewContaAPagar.RecarregarRegistro;

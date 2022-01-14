@@ -34,6 +34,7 @@ uses
   ACBrECFVirtualBuffer,
   ACBrPosPrinter,
   ACBrDelphiZXingQRCode,
+  ACBrImage,
   pcnConversao,
   pcnNFeW,
   pcnNFeRTXT,
@@ -535,7 +536,10 @@ uses
   UDMRecursos, Forms, FileCtrl, ACBrNFeConfiguracoes,
   ACBrNFeNotasFiscais, ACBrNFeWebServices, StdCtrls, pcnNFe, UFuncoes,
   DateUtils, UEcfFactory, // pcnRetConsReciNFe, pcnDownloadNFe,
-  pcnConversaoNFe, pcnEnvEventoNFe, pcnEventoNFe, ACBrSATClass;
+  pcnConversaoNFe,
+  pcnEnvEventoNFe,
+  pcnEventoNFe,
+  ACBrSATClass;
 
 {$R *.dfm}
 
@@ -1148,12 +1152,22 @@ begin
 
       // ===== Configurar librarys para uso dos certificados SSL, TLS, ETC... =====
 
-      with ACBrNFe.Configuracoes.Geral do
-      begin
-        SSLLib        := TSSLLib.libCapicom;
-        SSLCryptLib   := TSSLCryptLib.cryCapicom;
-        SSLHttpLib    := TSSLHttpLib.httpWinINet;
-        SSLXmlSignLib := TSSLXmlSignLib.xsMsXmlCapicom;
+      try
+        with ACBrNFe.Configuracoes.Geral do
+        begin
+          SSLLib        := TSSLLib.libCapicom;
+          SSLCryptLib   := TSSLCryptLib.cryCapicom;
+          SSLHttpLib    := TSSLHttpLib.httpWinINet;
+          SSLXmlSignLib := TSSLXmlSignLib.xsMsXmlCapicom;
+        end;
+      except
+        with ACBrNFe.Configuracoes.Geral do
+        begin
+          SSLLib        := TSSLLib.libWinCrypt;
+          SSLCryptLib   := TSSLCryptLib.cryWinCrypt;
+          SSLHttpLib    := TSSLHttpLib.httpWinINet;
+          SSLXmlSignLib := TSSLXmlSignLib.xsMsXml;
+        end;
       end;
 
       ACBrNFe.Configuracoes.Geral.AtualizarXMLCancelado := ckAtualizarXML.Checked;
@@ -2136,7 +2150,8 @@ var
   aCan : Boolean;
   FileNameXML ,
   ChaveNFE    : String;
-  iNumeroLote : Integer;
+  //iNumeroLote : Integer;
+  iNumeroLote : Int64;
   sLOG : TStringList;
 begin
 (*
@@ -2187,7 +2202,9 @@ begin
         raise Exception.Create('Não foi possível carregar o XML da Nota Fiscal Eletrônica correspondente!' + #13 + FileNameXML);
 
       // Numero do Lote de Envio
-      iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
+      //iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
+      //iNumeroLote := StrToInt64(FormatDateTime('yymmddhhnn', GetDateTimeDB));
+      iNumeroLote := StrToInt64(Copy(FormatDateTime('yymmddhhnnss', GetDateTimeDB), 5, 8)); // Dia, hora, minuto e segundo
 
       // Consultar situação da NF-e na Sefa
 
@@ -5568,7 +5585,8 @@ var
   aCan : Boolean;
   FileNameXML ,
   ChaveNFE    : String;
-  iNumeroLote : Integer;
+  //iNumeroLote : Integer;
+  iNumeroLote : Int64;
   sLOG : TStringList;
 begin
 (*
@@ -5618,7 +5636,9 @@ begin
         raise Exception.Create('Não foi possível carregar o XML da Nota Fiscal Eletrônica correspondente!' + #13 + FileNameXML);
 
       // Numero do Lote de Envio
-      iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
+      //iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
+      //iNumeroLote := StrToInt64(FormatDateTime('yymmddhhnn', GetDateTimeDB));
+      iNumeroLote := StrToInt64(Copy(FormatDateTime('yymmddhhnnss', GetDateTimeDB), 5, 8)); // Dia, hora, minuto e segundo
 
       // Consultar situação da NF-e na Sefa
 
@@ -6383,7 +6403,8 @@ var
   sErrorMsg   ,
   sDescricao  : String;
   bRetorno    : Boolean;
-  iNumeroLote : Integer;
+  //iNumeroLote : Integer;
+  iNumeroLote : Int64;
 begin
   sLOG := TStringList.Create;
   bRetorno   := False;
@@ -6403,7 +6424,9 @@ begin
         NotasFiscais.Clear;
 
         // Numero do Lote de Envio
-        iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
+        //iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
+        //iNumeroLote := StrToInt64(FormatDateTime('yymmddhhnn', GetDateTimeDB));
+        iNumeroLote := StrToInt64(Copy(FormatDateTime('yymmddhhnnss', GetDateTimeDB), 5, 8)); // Dia, hora, minuto e segundo
 
         EventoNFe.Evento.Clear;
         EventoNFe.idLote := iNumeroLote;
@@ -7046,7 +7069,8 @@ var
   sCorrecao   ,
   sRetornoXML ,
   sProtocolo  : String;
-  iNumeroLote   ,
+  iNumeroLote   : Int64;
+  //iNumeroLote   ,
   iNumeroCarta  ,
   iNumeroEvento : Integer;
   sLOG : TStringList;
@@ -7094,7 +7118,9 @@ begin
         NotasFiscais.LoadFromString(qryNFe.FieldByName('XML_FILE').AsWideString);
 
         // Numero do Lote de Envio
-        iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
+        //iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
+        //iNumeroLote := StrToInt64(FormatDateTime('yymmddhhnn', GetDateTimeDB));
+        iNumeroLote := StrToInt64(Copy(FormatDateTime('yymmddhhnnss', GetDateTimeDB), 5, 8)); // Dia, hora, minuto e segundo
         sCorrecao   := RemoveAcentos(Trim(qryCartaCorrecaoNFeCCE_TEXTO.AsString));
 
         EventoNFe.Evento.Clear;

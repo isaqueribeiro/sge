@@ -22,6 +22,7 @@ uses
   FireDAC.Stan.Pool,
   FireDAC.Stan.Async,
   FireDAC.Stan.Param,
+  FireDAC.Stan.ExprFuncs,
   FireDAC.Phys,
   FireDAC.Phys.Intf,
   FireDAC.Phys.IBDef,

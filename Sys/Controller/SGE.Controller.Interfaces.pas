@@ -170,6 +170,8 @@ type
   IControllerPagamento = interface(IControllerCustom)
     ['{668B2910-1359-47E6-AB9B-28F711A2C75E}']
     procedure EstornarPagamento(aUsuario : String; aContaConrrente : Integer);
+    procedure GerarSaldoConta(const aContaCorrente : Integer; const aDataMovimento : TDateTime);
+    procedure RecalcularSaldo(aContaCorrente : Integer);
   end;
 
   IControllerFactory = interface

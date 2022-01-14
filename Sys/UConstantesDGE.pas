@@ -31,6 +31,8 @@ Uses
     TGrupoFornecedorLista   = Array[Low(TGrupoFornecedor)..High(TGrupoFornecedor)] of String;
     TPermissaoLista         = Array [0..45] of String;
 
+    TModeloRecibo = (mrPapelA4, mrPapelA5);
+
   TSistema = record
     Codigo : Integer;
     Nome   : String;

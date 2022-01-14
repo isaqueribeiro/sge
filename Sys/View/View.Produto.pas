@@ -40,6 +40,7 @@ uses
   cxLookAndFeelPainters,
   cxButtons,
   dxSkinsCore,
+  dxSkinsDefaultPainters,
 
   View.PadraoCadastro,
   SGE.Controller.Interfaces,
@@ -48,7 +49,7 @@ uses
   UGrPadraoCadastro,
   Interacao.Tabela,
   Controller.Tabela,
-  UConstantesDGE, dxSkinsDefaultPainters;
+  UConstantesDGE;
 
 type
   TUnidade = record

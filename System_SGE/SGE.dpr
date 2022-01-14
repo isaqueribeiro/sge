@@ -287,7 +287,9 @@ uses
   View.NFE.Distribuicao in '..\Sys\View\View.NFE.Distribuicao.pas' {ViewNFEDistribuicao},
   View.NFE.Importar in '..\Sys\View\View.NFE.Importar.pas' {ViewNFEImportar},
   View.ContaAPagar in '..\Sys\View\View.ContaAPagar.pas' {ViewContaAPagar},
-  View.WaitAMoment in '..\Sys\View\View.WaitAMoment.pas' {ViewWaitAMoment};
+  View.WaitAMoment in '..\Sys\View\View.WaitAMoment.pas' {ViewWaitAMoment},
+  SGE.Controller.Impressao.DataModule.ContaAPagar in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAPagar.pas' {DataModuleContaAPagar: TDataModule},
+  SGE.Controller.Impressao.ContaAPagar in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas';
 
 {$R *.res}
 

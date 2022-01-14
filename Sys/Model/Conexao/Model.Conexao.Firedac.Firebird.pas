@@ -3,9 +3,16 @@ unit Model.Conexao.Firedac.Firebird;
 interface
 
 uses
-  System.SysUtils, System.Classes,
-  Model.Conexao.Firedac, Model.Conexao.Interfaces,
-  FireDAC.Comp.Client, FireDAC.Stan.Option, FireDAC.Phys.FB;
+  System.SysUtils,
+  System.Classes,
+
+  Model.Conexao.Firedac,
+  Model.Conexao.Interfaces,
+
+  FireDAC.Comp.Client,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.ExprFuncs,
+  FireDAC.Phys.FB;
 
 type
   TModelConexaoFiredacFireBird = class(TModelConexaoFiredac)

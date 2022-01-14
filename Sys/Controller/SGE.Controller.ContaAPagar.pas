@@ -34,9 +34,11 @@ type
   TControllerPagamento = class(TController, IControllerPagamento)
     private
       FContaCorrente : Integer;
-      procedure RecalcularSaldo(aContaCorrente : Integer);
+      FDataMovimento : TDateTime;
       procedure Recalcular;
       procedure Recalculado(Sender : TObject);
+      procedure GerarSaldo;
+      procedure SaldoGerado(Sender : TObject);
     protected
       constructor Create;
     public
@@ -44,6 +46,8 @@ type
       class function New : IControllerPagamento;
 
       procedure EstornarPagamento(aUsuario : String; aContaCorrente : Integer);
+      procedure GerarSaldoConta(const aContaCorrente : Integer; const aDataMovimento : TDateTime);
+      procedure RecalcularSaldo(aContaCorrente : Integer);
   end;
 
 implementation
@@ -168,6 +172,7 @@ constructor TControllerPagamento.Create;
 begin
   inherited Create(TModelDAOFactory.New.Pagamento);
   FContaCorrente := 0;
+  FDataMovimento := Date;
 end;
 
 destructor TControllerPagamento.Destroy;
@@ -279,6 +284,57 @@ begin
 
       aScriptSQL.DisposeOf;
     end;
+  end;
+end;
+
+procedure TControllerPagamento.GerarSaldoConta(const aContaCorrente: Integer; const aDataMovimento: TDateTime);
+var
+  aThread : TThread;
+begin
+  FContaCorrente := aContaCorrente;
+  FDataMovimento := aDataMovimento;
+
+  if (FContaCorrente > 0) and (FDataMovimento <> EncodeDate(1899, 12, 31)) then
+  begin
+    aThread := TThread.CreateAnonymousThread(GerarSaldo);
+    aThread.OnTerminate := SaldoGerado;
+    aThread.Start;
+  end;
+end;
+
+procedure TControllerPagamento.GerarSaldo;
+var
+  aScriptSQL : TStringList;
+begin
+  aScriptSQL := TStringList.Create;
+  try
+    try
+      aScriptSQL.BeginUpdate;
+      aScriptSQL.Clear;
+      aScriptSQL.Add('Execute Procedure SET_CONTA_CORRENTE_SALDO (');
+      aScriptSQL.Add('    ' + FContaCorrente.ToString);
+      aScriptSQL.Add('  , ' + QuotedStr(FormatDateTime('yyyy-mm-dd', FDataMovimento)));
+      aScriptSQL.Add(')');
+      aScriptSQL.EndUpdate;
+
+      FDAO.ExecuteScriptSQL(aScriptSQL.Text);
+    except
+      ON E : Exception do
+        raise Exception.Create('Erro ao tentar atualizar saldo diário de conta corrente.' + #13#13 + E.Message);
+    end;
+  finally
+    aScriptSQL.DisposeOf;
+  end;
+end;
+
+procedure TControllerPagamento.SaldoGerado(Sender: TObject);
+begin
+  if (Sender is TThread) then
+  begin
+    if Assigned(TThread(Sender).FatalException) then
+      raise Exception.Create(Exception(TThread(Sender).FatalException).Message)
+    else
+      FDAO.CommitTransaction;
   end;
 end;
 
