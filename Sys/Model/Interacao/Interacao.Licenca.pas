@@ -61,10 +61,14 @@ type
 
     function UsarSGO(Value : Boolean) : ILicencaModel; overload;
     function UsarSGO : Boolean; overload;
+
+    function IsEmpty : Boolean;
   end;
 
   ILicenca = interface
     ['{2C9ECC1B-2888-4C99-A01F-0A600F796617}']
+    procedure LimparLicenca;
+
     function Carregar(aFileName : TFileName) : ILicenca; overload;
     function Carregar : ILicenca; overload;
 
@@ -78,6 +82,7 @@ type
     function UsarSGI : Boolean;
     function UsarSGF : Boolean;
     function UsarSGO : Boolean;
+    function GetCNPJArquivo(aFileName : TFileName) : String;
   end;
 
 implementation

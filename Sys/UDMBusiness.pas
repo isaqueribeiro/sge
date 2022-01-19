@@ -96,8 +96,8 @@ type
     fdScript: TFDScript;
     fdQryUpgrade: TFDQuery;
     fdUpdUpgrade: TFDUpdateSQL;
-    cdsLicenca: TFDTable;
-    cdsLicencaLINHA_CONTROLE: TStringField;
+    cdsLicencaXXX: TFDTable;
+    cdsLicencaXXXLINHA_CONTROLE: TStringField;
     stpCaixaMovimentoREC: TFDStoredProc;
     stpCaixaMovimentoPAG: TFDStoredProc;
     stpContaCorrenteSaldo: TFDStoredProc;
@@ -4999,70 +4999,71 @@ begin
 end;
 
 procedure TDMBusiness.CarregarLicenca(const sNomeArquivo: String);
-var
-  Arquivo : TStringList;
-  ini : TIniFile;
-  I   : Integer;
-  aUUID : String;
+//var
+//  Arquivo : TStringList;
+//  ini : TIniFile;
+//  I   : Integer;
+//  aUUID : String;
 begin
-  if FileExists(sNomeArquivo) then
-  begin
-
-    Arquivo := TStringList.Create;
-    Arquivo.LoadFromFile(sNomeArquivo);
-
-    for I := 0 to Arquivo.Count - 1 do
-    begin
-      cdsLicenca.Append;
-      cdsLicencaLINHA_CONTROLE.AsString := Arquivo.Strings[I];
-      cdsLicenca.Post;
-    end;
-
-    cdsLicenca.ApplyUpdates;
-    CommitTransaction;
-
-    Arquivo.Free;
-
-  end;
-
-  cdsLicenca.Close;
-  cdsLicenca.Open;
-
-  Arquivo := TStringList.Create;
+//  if FileExists(sNomeArquivo) then
+//  begin
+//
+//    Arquivo := TStringList.Create;
+//    Arquivo.LoadFromFile(sNomeArquivo);
+//
+//    for I := 0 to Arquivo.Count - 1 do
+//    begin
+//      cdsLicenca.Append;
+//      cdsLicencaLINHA_CONTROLE.AsString := Arquivo.Strings[I];
+//      cdsLicenca.Post;
+//    end;
+//
+//    cdsLicenca.ApplyUpdates;
+//    CommitTransaction;
+//
+//    Arquivo.Free;
+//
+//  end;
+//
+//  cdsLicenca.Close;
+//  cdsLicenca.Open;
+//
+//  Arquivo := TStringList.Create;
   try
-    cdsLicenca.First;
-    while not cdsLicenca.Eof do
-    begin
-      Arquivo.Add( cdsLicencaLINHA_CONTROLE.AsString );
-      cdsLicenca.Next;
-    end;
-
-    for I := 0 to Arquivo.Count - 1 do
-      Arquivo.Strings[I] := DecriptarSenha_Master(Arquivo.Strings[I], SYS_PASSWD_KEY);
-
-    Arquivo.SaveToFile(ExtractFilePath(Application.ExeName) + '_temp.ini');
-
-    ini := TIniFile.Create(ExtractFilePath(Application.ExeName) + '_temp.ini');
-    aUUID := ini.ReadString('Licenca', 'edUUID', TGUID.Empty.ToString);
-
-    gLicencaSistema.Model
-      .doc( ini.ReadString('Licenca', 'doc',  '') )
-      .UUID( StringToGUID(aUUID) )
-      .Empresa( ini.ReadString('Licenca', 'edEmpresa',  '') )
-      .NomeFantasia( ini.ReadString('Licenca', 'edFantasia',  '') )
-      .CNPJ( ini.ReadString('Licenca', 'edCGC',      '') )
-      .Endereco( ini.ReadString('Licenca', 'edEndereco', '') )
-      .Numero( ini.ReadString('Licenca', 'edNumero', 'S/N') )
-      .Bairro( ini.ReadString('Licenca', 'edBairro',   '') )
-      .Cidade( ini.ReadString('Licenca', 'edCidade',   '') )
-      .UF( ini.ReadString('Licenca', 'edUF',       '') )
-      .CEP( ini.ReadString('Licenca', 'edCEP',      '') )
-      .Competencia( StrToIntDef(ini.ReadString('Licenca', 'edCompetencia', FormatDateTime('yyyymm', Date + 30)), 0) )
-      .DataBloqueio( ini.ReadDateTime('Licenca', 'edDataBloqueio', Date + 45) )
-      .UsarSGE( ini.ReadBool('Licenca', 'chkSGE', False) )
-      .UsarSGI( ini.ReadBool('Licenca', 'chkSGI', False) )
-      .UsarSGF( ini.ReadBool('Licenca', 'chkSGF', False) )
-      .UsarSGO( ini.ReadBool('Licenca', 'chkSGO', False) );
+//    cdsLicenca.First;
+//    while not cdsLicenca.Eof do
+//    begin
+//      Arquivo.Add( cdsLicencaLINHA_CONTROLE.AsString );
+//      cdsLicenca.Next;
+//    end;
+//
+//    for I := 0 to Arquivo.Count - 1 do
+//      Arquivo.Strings[I] := DecriptarSenha_Master(Arquivo.Strings[I], SYS_PASSWD_KEY);
+//
+//    Arquivo.SaveToFile(ExtractFilePath(Application.ExeName) + '_temp.ini');
+//
+//    ini := TIniFile.Create(ExtractFilePath(Application.ExeName) + '_temp.ini');
+//    aUUID := ini.ReadString('Licenca', 'edUUID', TGUID.Empty.ToString);
+//
+//    gLicencaSistema.Model
+//      .doc( ini.ReadString('Licenca', 'doc',  '') )
+//      .UUID( StringToGUID(aUUID) )
+//      .Empresa( ini.ReadString('Licenca', 'edEmpresa',  '') )
+//      .NomeFantasia( ini.ReadString('Licenca', 'edFantasia',  '') )
+//      .CNPJ( ini.ReadString('Licenca', 'edCGC',      '') )
+//      .Endereco( ini.ReadString('Licenca', 'edEndereco', '') )
+//      .Numero( ini.ReadString('Licenca', 'edNumero', 'S/N') )
+//      .Bairro( ini.ReadString('Licenca', 'edBairro',   '') )
+//      .Cidade( ini.ReadString('Licenca', 'edCidade',   '') )
+//      .UF( ini.ReadString('Licenca', 'edUF',       '') )
+//      .CEP( ini.ReadString('Licenca', 'edCEP',      '') )
+//      .Competencia( StrToIntDef(ini.ReadString('Licenca', 'edCompetencia', FormatDateTime('yyyymm', Date + 30)), 0) )
+//      .DataBloqueio( ini.ReadDateTime('Licenca', 'edDataBloqueio', Date + 45) )
+//      .UsarSGE( ini.ReadBool('Licenca', 'chkSGE', False) )
+//      .UsarSGI( ini.ReadBool('Licenca', 'chkSGI', False) )
+//      .UsarSGF( ini.ReadBool('Licenca', 'chkSGF', False) )
+//      .UsarSGO( ini.ReadBool('Licenca', 'chkSGO', False) );
+    gLicencaSistema.Carregar(sNomeArquivo);
 
     SetSegmento(SEGMENTO_PADRAO_ID,          SEGMENTO_PADRAO_DS);
     SetSegmento(SEGMENTO_VAREJO_ATACADO_ID,  SEGMENTO_VAREJO_ATACADO_DS);
@@ -5077,11 +5078,11 @@ begin
     RegistrarEstacaoDefault;
     GerarCompetencias( StrToInt(Copy(IntToStr(gLicencaSistema.Competencia), 1, 4)) );
   finally
-    ini.Free;
-    Arquivo.Free;
-
-    DeleteFile(ExtractFilePath(Application.ExeName) + '_temp.ini');
-
+//    ini.Free;
+//    Arquivo.Free;
+//
+//    DeleteFile(ExtractFilePath(Application.ExeName) + '_temp.ini');
+//
     FileINI.WriteString(INI_SECAO_DEFAULT, INI_KEY_FILELICENSE, sNomeArquivo);
     FileINI.UpdateFile;
   end;
@@ -5186,11 +5187,30 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
     UpgradeDataBase;
     MontarPermissao;
 
-    cdsLicenca.Open;
-    if cdsLicenca.IsEmpty then
+//    cdsLicenca.Open;
+//    if cdsLicenca.IsEmpty then
+//    begin
+//      if opdLicenca.Execute then
+//        CarregarLicenca(opdLicenca.FileName)
+//      else
+//      begin
+//        ShowWarning('Licença', 'Sistema não registrado!' + #13 + 'Favor carregar arquivo de licença');
+//        Application.Terminate;
+//
+//        // Remover processo da memória do Windows
+//        aProcesso := ParamStr(0);
+//        aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+//        KillTask(aProcesso);
+//      end;
+//    end
+//    else
+//      CarregarLicenca(EmptyStr);
+//
+    gLicencaSistema.Carregar(EmptyStr);
+    if gLicencaSistema.Model.IsEmpty then
     begin
       if opdLicenca.Execute then
-        CarregarLicenca(opdLicenca.FileName)
+        gLicencaSistema.Carregar(opdLicenca.FileName)
       else
       begin
         ShowWarning('Licença', 'Sistema não registrado!' + #13 + 'Favor carregar arquivo de licença');
@@ -5201,9 +5221,7 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
         aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
         KillTask(aProcesso);
       end;
-    end
-    else
-      CarregarLicenca(EmptyStr);
+    end;
 
     {$IFNDEF PRINTER_CUPOM}
     try
@@ -5326,48 +5344,48 @@ begin
   MontarPermissao_Diretoria;
 end;
 
-procedure TDMBusiness.ValidarLicenca(const sNomeArquivo: String;
-  var CNPJ: String);
-var
-  Arquivo : TStringList;
-  ini : TIniFile;
-  I : Integer;
+procedure TDMBusiness.ValidarLicenca(const sNomeArquivo: String; var CNPJ: String);
+//var
+//  Arquivo : TStringList;
+//  ini : TIniFile;
+//  I : Integer;
 begin
-
-  Arquivo := TStringList.Create;
-  try
-
-    Arquivo.LoadFromFile( sNomeArquivo );
-
-    for I := 0 to Arquivo.Count - 1 do
-      Arquivo.Strings[I] := DecriptarSenha_Master(Arquivo.Strings[I], SYS_PASSWD_KEY);
-
-    Arquivo.SaveToFile(ExtractFilePath(Application.ExeName) + '_temp.ini');
-
-    ini := TIniFile.Create(ExtractFilePath(Application.ExeName) + '_temp.ini');
-
-    CNPJ := Trim(ini.ReadString('Licenca', 'edCGC', ''));
-
-  finally
-    ini.Free;
-    Arquivo.Free;
-
-    DeleteFile(ExtractFilePath(Application.ExeName) + '_temp.ini');
-  end;
-
+//
+//  Arquivo := TStringList.Create;
+//  try
+//
+//    Arquivo.LoadFromFile( sNomeArquivo );
+//
+//    for I := 0 to Arquivo.Count - 1 do
+//      Arquivo.Strings[I] := DecriptarSenha_Master(Arquivo.Strings[I], SYS_PASSWD_KEY);
+//
+//    Arquivo.SaveToFile(ExtractFilePath(Application.ExeName) + '_temp.ini');
+//
+//    ini := TIniFile.Create(ExtractFilePath(Application.ExeName) + '_temp.ini');
+//
+//    CNPJ := Trim(ini.ReadString('Licenca', 'edCGC', ''));
+//
+//  finally
+//    ini.Free;
+//    Arquivo.Free;
+//
+//    DeleteFile(ExtractFilePath(Application.ExeName) + '_temp.ini');
+//  end;
+  CNPJ := gLicencaSistema.GetCNPJArquivo(sNomeArquivo);
 end;
 
 procedure TDMBusiness.LimparLicenca;
 begin
-  with DMBusiness, fdQryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Delete from SYS_LICENCA');
-    ExecSQL;
-
-    CommitTransaction;
-  end;
+//  with DMBusiness, fdQryBusca do
+//  begin
+//    Close;
+//    SQL.Clear;
+//    SQL.Add('Delete from SYS_LICENCA');
+//    ExecSQL;
+//
+//    CommitTransaction;
+//  end;
+  gLicencaSistema.LimparLicenca;
 end;
 
 function TDMBusiness.LiberarUsoLicenca(const dDataMovimento : TDateTime;

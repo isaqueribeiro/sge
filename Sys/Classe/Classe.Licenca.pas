@@ -86,6 +86,8 @@ type
       function UsarSGO(Value : Boolean) : ILicencaModel; overload;
       function UsarSGO : Boolean; overload;
 
+      function IsEmpty : Boolean;
+
       class function New() : ILicencaModel;
   end;
 
@@ -220,6 +222,11 @@ end;
 function TLicenca.Endereco: String;
 begin
   Result := FEndereco;
+end;
+
+function TLicenca.IsEmpty: Boolean;
+begin
+  Result := (Trim(Fdoc) = EmptyStr) or (Trim(FCNPJ) = EmptyStr) or (Trim(FUUID.ToString) = EmptyStr);
 end;
 
 function TLicenca.Endereco(Value: String): ILicencaModel;

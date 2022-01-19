@@ -143,11 +143,11 @@ type
   private
     { Private declarations }
     FControllerEmpresaView ,
-    FControllerCompetencia ,
     FControllerFormaPagto  ,
     FControllerCondicaoPagtoView,
     FControllerTipoDespesa : IControllerCustom;
     FControllerPagamento   : IControllerPagamento;
+    FControllerCompetencia : IControllerCompetencia;
     FImpressao : IImpressaoContaAPagar;
 
     FDataAtual     : TDateTime;
@@ -211,7 +211,7 @@ uses
   SGE.Controller.Helper,
   View.Fornecedor,
   UGeEfetuarPagtoPAG,
-  UGeContasAPagarLoteParcela;
+  View.ContaAPagar.LoteParcela;
 
 {$R *.dfm}
 
@@ -392,8 +392,8 @@ begin
     aFornecedor  := TControllerFactory.New.Fornecedor;
     dDataEmissao := Date;
 
-    dVencimentoFirst := dDataEmissao + 30;
-    dVencimentoLast  := dDataEmissao + 60;
+    dVencimentoFirst := IncDay(dDataEmissao, 30);
+    dVencimentoLast  := IncDay(dDataEmissao, 60);
 
     if GerarLoteParcelas(Self, sEmpresa, sLote, iFornecedor, dDataEmissao, dVencimentoFirst, dVencimentoLast)  then
     begin
@@ -752,7 +752,7 @@ begin
       if (State in [dsEdit, dsInsert]) then
         if (not FieldByName('DTEMISS').IsNull) then
         begin
-          iCompetencia := GetCompetenciaID(FieldByName('DTEMISS').AsDateTime);
+          iCompetencia := FControllerCompetencia.GetID(FieldByName('DTEMISS').AsDateTime);
           FieldByName('COMPETENCIA_APURACAO').AsInteger := iCompetencia;
         end;
   end;
@@ -774,7 +774,7 @@ begin
   with DtSrcTabela.DataSet do
   begin
     if FieldByName('COMPETENCIA_APURACAO').IsNull then
-      FieldByName('COMPETENCIA_APURACAO').AsInteger := GetCompetenciaID(FieldByName('DTEMISS').AsDateTime);
+      FieldByName('COMPETENCIA_APURACAO').AsInteger := FControllerCompetencia.GetID(FieldByName('DTEMISS').AsDateTime);
 
     if ( (FieldByName('ANOCOMPRA').AsInteger = 0) and (FieldByName('PARCELA').AsInteger <= 0) ) then
       FieldByName('PARCELA').AsInteger := 1;

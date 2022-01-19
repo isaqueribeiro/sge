@@ -3,6 +3,7 @@ unit SGE.Controller.Tabelas;
 interface
 
 uses
+  System.SysUtils,
   SGE.Controller,
   SGE.Controller.Interfaces,
   SGE.Model.DAO.Interfaces,
@@ -30,13 +31,15 @@ type
   end;
 
   // Tabela de Competências (Table)
-  TControllerCompetencia = class(TController, IControllerCustom)
+  TControllerCompetencia = class(TController, IControllerCompetencia)
     private
     protected
       constructor Create;
     public
       destructor Destroy; override;
-      class function New : IControllerCustom;
+      class function New : IControllerCompetencia;
+
+      function GetID(aDataMovimento : TDateTime) : Integer;
   end;
 
   // View
@@ -413,7 +416,21 @@ begin
   inherited;
 end;
 
-class function TControllerCompetencia.New: IControllerCustom;
+function TControllerCompetencia.GetID(aDataMovimento: TDateTime): Integer;
+var
+  aID : Integer;
+  aDescricao : String;
+begin
+  aID := StrToInt(FormatDateTime('YYYYMM', aDataMovimento));
+  aDescricao := AnsiUpperCase(FormatDateTime('MMM/YYYY', aDataMovimento));
+
+  FDAO.ExecuteScriptSQL('Execute Procedure SET_COMPETENCIA(' + aID.ToString + ', ' + aDescricao.QuotedString + ')');
+  FDAO.CommitTransaction;
+
+  Result := aID;
+end;
+
+class function TControllerCompetencia.New: IControllerCompetencia;
 begin
   Result := Self.Create;
 end;

@@ -64,7 +64,7 @@ end;
 
 function TConnectionFactory.Query : IConnection<TConnectionFireDAC>;
 begin
-  if not Assigned(FQuery) then
+  if (not Assigned(FQuery)) and (Assigned(DMBusiness)) then
     FQuery := TConnectionFireDAC.New(DMBusiness.fdConexao);
 
   Result := FQuery;

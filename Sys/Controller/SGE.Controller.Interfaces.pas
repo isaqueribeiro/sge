@@ -24,6 +24,11 @@ type
     function GetNumeroNSU(const aEmpresa : String) : Largeint;
   end;
 
+  IControllerCompetencia = interface(IControllerCustom)
+    ['{B7A66499-33E7-4085-A68B-852E10DFA0AC}']
+    function GetID(aDataMovimento : TDateTime) : Integer;
+  end;
+
   IControllerBairro = interface(IControllerCustom)
     ['{C915F8A1-07C5-4CAB-A9F4-CF562BC98419}']
     function SetBairro(const iCidade : Integer; const sNome : String) : Integer;
@@ -194,7 +199,7 @@ type
     function ClienteTotalCompras : IControllerCustom;
     function ClienteTitulos      : IControllerCustom;
     function CombustivelVeiculo  : IControllerCustom;
-    function Competencia : IControllerCustom;
+    function Competencia : IControllerCompetencia;
     function CondicaoPagto       : IControllerCustom;
     function CondicaoPagtoForma  : IControllerCustom;
     function CondicaoPagtoView   : IControllerCustom;

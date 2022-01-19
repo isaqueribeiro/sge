@@ -38,7 +38,9 @@ uses
   cxLookAndFeels,
   cxLookAndFeelPainters,
   cxButtons,
-  dxSkinsCore, dxSkinsDefaultPainters;
+
+  dxSkinsCore,
+  dxSkinsDefaultPainters;
 
 type
   TViewPadraoCadastro = class(TfrmGrPadrao)
@@ -195,7 +197,7 @@ uses
     Controller.Tabela
   , UConstantesDGE
   , UFuncoes
-  , UGrCampoRequisitado
+  , View.CampoRequisitado
   , UDMBusiness
   , UDMRecursos
   , UDMNFe;

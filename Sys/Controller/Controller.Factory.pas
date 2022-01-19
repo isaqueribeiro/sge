@@ -3,8 +3,13 @@ unit Controller.Factory;
 interface
 
 uses
-  Interacao.Factory, Interacao.Versao, Interacao.PersonalizaEmpresa, Interacao.Licenca,
-  Interacao.Usuario, Interacao.Empresa, Interacao.Tabela;
+  Interacao.Factory,
+  Interacao.Versao,
+  Interacao.PersonalizaEmpresa,
+  Interacao.Licenca,
+  Interacao.Usuario,
+  Interacao.Empresa,
+  Interacao.Tabela;
 
 type
   TFactoryController = class(TInterfacedObject, IFactory)

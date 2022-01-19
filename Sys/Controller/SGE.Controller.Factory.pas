@@ -58,8 +58,8 @@ type
       FClienteEstoque,
       FClienteTitulos,
       FClienteTotalCompras ,
-      FCombustivelVeiculo  ,
-      FCompetencia         ,
+      FCombustivelVeiculo  : IControllerCustom;
+      FCompetencia         : IControllerCompetencia;
       FCondicaoPagto       ,
       FCondicaoPagtoForma  ,
       FCondicaoPagtoView   : IControllerCustom;
@@ -154,7 +154,7 @@ type
       function ClienteTotalCompras : IControllerCustom;
       function ClienteTitulos : IControllerCustom;
       function CombustivelVeiculo : IControllerCustom;
-      function Competencia : IControllerCustom;
+      function Competencia : IControllerCompetencia;
       function CondicaoPagto : IControllerCustom;
       function CondicaoPagtoForma : IControllerCustom;
       function CondicaoPagtoView : IControllerCustom;
@@ -510,7 +510,7 @@ begin
   Result := FCombustivelVeiculo;
 end;
 
-function TControllerFactory.Competencia: IControllerCustom;
+function TControllerFactory.Competencia: IControllerCompetencia;
 begin
   if not Assigned(FCompetencia) then
     FCompetencia := TControllerCompetencia.New;

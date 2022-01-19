@@ -9,6 +9,7 @@ uses
   Vcl.DBCtrls,
   cxDBLookupComboBox,
   cxDBVGrid,
+  cxGridDBTableView,
 
   SGE.Controller,
   SGE.Controller.Interfaces;
@@ -22,6 +23,8 @@ type
       procedure LookupComboBox(aControl : TcxDBLookupComboBox ; aDataSouce : TDataSource;
         aDataField, aKeyField, aListField : String; const aCreateDataSetList : Boolean = True); overload;
       procedure LookupComboBox(aControl : TcxDBEditorRow ; aDataSouce : TDataSource;
+        aDataField, aKeyField, aListField : String; const aCreateDataSetList : Boolean = True); overload;
+      procedure LookupComboBox(aControl : TcxGridDBColumn ; aDataSouce : TDataSource;
         aDataField, aKeyField, aListField : String; const aCreateDataSetList : Boolean = True); overload;
   end;
 
@@ -64,6 +67,20 @@ begin
   TcxLookupComboBoxProperties(aControl.Properties.EditProperties).ListSource     := aDataSouce;
   TcxLookupComboBoxProperties(aControl.Properties.EditProperties).KeyFieldNames  := aKeyField.Trim;
   TcxLookupComboBoxProperties(aControl.Properties.EditProperties).ListFieldNames := aListField;
+
+  if aCreateDataSetList then
+    aDataSouce.DataSet  := Self.DAO.CreateLookupComboBoxList.DataSet
+  else
+    aDataSouce.DataSet  := Self.DAO.DataSet;
+end;
+
+procedure TControllerHelper.LookupComboBox(aControl: TcxGridDBColumn; aDataSouce: TDataSource; aDataField, aKeyField,
+  aListField: String; const aCreateDataSetList: Boolean);
+begin
+  aControl.DataBinding.FieldName := aDataField.Trim;
+  TcxLookupComboBoxProperties(aControl.Properties).ListSource     := aDataSouce;
+  TcxLookupComboBoxProperties(aControl.Properties).KeyFieldNames  := aKeyField.Trim;
+  TcxLookupComboBoxProperties(aControl.Properties).ListFieldNames := aListField;
 
   if aCreateDataSetList then
     aDataSouce.DataSet  := Self.DAO.CreateLookupComboBoxList.DataSet

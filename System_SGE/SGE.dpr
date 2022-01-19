@@ -289,7 +289,11 @@ uses
   View.ContaAPagar in '..\Sys\View\View.ContaAPagar.pas' {ViewContaAPagar},
   View.WaitAMoment in '..\Sys\View\View.WaitAMoment.pas' {ViewWaitAMoment},
   SGE.Controller.Impressao.DataModule.ContaAPagar in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAPagar.pas' {DataModuleContaAPagar: TDataModule},
-  SGE.Controller.Impressao.ContaAPagar in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas';
+  SGE.Controller.Impressao.ContaAPagar in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas',
+  SGE.Model.DAO.Licenca in '..\Sys\Model\DAO\SGE.Model.DAO.Licenca.pas',
+  Service.Encript in '..\Sys\Services\Service.Encript.pas',
+  View.ContaAPagar.LoteParcela in '..\Sys\View\View.ContaAPagar.LoteParcela.pas' {ViewContasAPagarLoteParcela},
+  View.CampoRequisitado in '..\Sys\View\View.CampoRequisitado.pas' {ViewCampoRequisitado};
 
 {$R *.res}
 

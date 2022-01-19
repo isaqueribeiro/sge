@@ -536,7 +536,7 @@ object DMBusiness: TDMBusiness
     Left = 896
     Top = 448
   end
-  object cdsLicenca: TFDTable
+  object cdsLicencaXXX: TFDTable
     CachedUpdates = True
     IndexFieldNames = 'LINHA_CONTROLE'
     Connection = fdConexao
@@ -546,7 +546,7 @@ object DMBusiness: TDMBusiness
     TableName = 'SYS_LICENCA'
     Left = 416
     Top = 32
-    object cdsLicencaLINHA_CONTROLE: TStringField
+    object cdsLicencaXXXLINHA_CONTROLE: TStringField
       FieldName = 'LINHA_CONTROLE'
       Origin = 'LINHA_CONTROLE'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]

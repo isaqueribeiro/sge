@@ -28,9 +28,10 @@ uses
   cxEdit,
 
   dxSkinsCore,
+  dxSkinsDefaultPainters,
 
   uBaseObject,
-  UConstantesDGE, dxSkinsDefaultPainters;
+  UConstantesDGE;
 
 type
   TViewWaitAMoment = class(TForm)
