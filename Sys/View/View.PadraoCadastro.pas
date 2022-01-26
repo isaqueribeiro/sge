@@ -686,6 +686,8 @@ begin
       if (not CampoOrdenacao.IsEmpty) then
         FController.DAO.OrderBy(CampoOrdenacao);
 
+      //ShowError(FController.DAO.SelectSQL);
+
       FController.DAO.Open;
       FTabela.Configurar;
 

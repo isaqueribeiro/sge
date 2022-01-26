@@ -76,7 +76,7 @@ uses
   SGE.Controller.Impressao.ContaAPagar;
 
 type
-  TViewContasAPagarLoteParcela = class(TfrmGrPadrao)
+  TViewContaAPagarLoteParcela = class(TfrmGrPadrao)
     tmrAlerta: TTimer;
     lblInforme: TLabel;
     btnConfirmar: TcxButton;
@@ -230,9 +230,9 @@ function GerarLoteParcelas(const AOnwer : TComponent;
   var aFornecedor : Integer;
   var aDataEmissao, aVencimentoFirst, aVencimentoLast : TDateTime) : Boolean;
 var
-  AForm : TViewContasAPagarLoteParcela;
+  AForm : TViewContaAPagarLoteParcela;
 begin
-  AForm := TViewContasAPagarLoteParcela.Create(AOnwer);
+  AForm := TViewContaAPagarLoteParcela.Create(AOnwer);
   try
     AForm.cdsDadosNominais.Append;
     Result := (AForm.ShowModal = mrOk);
@@ -255,20 +255,20 @@ begin
   end;
 end;
 
-procedure TViewContasAPagarLoteParcela.btnCancelarClick(Sender: TObject);
+procedure TViewContaAPagarLoteParcela.btnCancelarClick(Sender: TObject);
 begin
   inherited;
   Self.Close;
 end;
 
-procedure TViewContasAPagarLoteParcela.btnConfirmarClick(Sender: TObject);
+procedure TViewContaAPagarLoteParcela.btnConfirmarClick(Sender: TObject);
 begin
   if TServiceMessage.ShowConfirmation('Confirma que o lote de parcelas seja gravada na programação de Contas A Pagar?') then
     if GerarLancamentos then
       ModalResult := mrOk;
 end;
 
-procedure TViewContasAPagarLoteParcela.BtnGerarClick(Sender: TObject);
+procedure TViewContaAPagarLoteParcela.BtnGerarClick(Sender: TObject);
 var
   I : Integer;
   sValorParc  ,
@@ -410,7 +410,7 @@ begin
   end;
 end;
 
-procedure TViewContasAPagarLoteParcela.CarregarFormaPagto(
+procedure TViewContaAPagarLoteParcela.CarregarFormaPagto(
   const pEmpresa: String);
 begin
   FControllerFormaPagto
@@ -420,7 +420,7 @@ begin
       .Open;
 end;
 
-procedure TViewContasAPagarLoteParcela.CarregarLista(const pDataSet: TDataSet);
+procedure TViewContaAPagarLoteParcela.CarregarLista(const pDataSet: TDataSet);
 begin
   if pDataSet.Active then
     pDataSet.Close;
@@ -431,7 +431,7 @@ begin
   pDataSet.First;
 end;
 
-procedure TViewContasAPagarLoteParcela.CarregarTipoDespesa(
+procedure TViewContaAPagarLoteParcela.CarregarTipoDespesa(
   const ApenasAtivos: Boolean);
 begin
   FControllerTipoDespesa.DAO.DataSet.Close;
@@ -440,7 +440,7 @@ begin
   FControllerTipoDespesa.DAO.DataSet.Open;
 end;
 
-procedure TViewContasAPagarLoteParcela.cdsDadosNominaisNewRecord(
+procedure TViewContaAPagarLoteParcela.cdsDadosNominaisNewRecord(
   DataSet: TDataSet);
 begin
   cdsDadosNominaisEmpresa.AsString         := FController.DAO.Usuario.Empresa.CNPJ;
@@ -457,7 +457,7 @@ begin
   cdsDadosNominaisTipoDespesa.Clear;
 end;
 
-procedure TViewContasAPagarLoteParcela.cdsParcelasDiaSemanaGetText(
+procedure TViewContaAPagarLoteParcela.cdsParcelasDiaSemanaGetText(
   Sender: TField; var Text: string; DisplayText: Boolean);
 begin
   if not Sender.IsNull then
@@ -472,7 +472,7 @@ begin
     end;
 end;
 
-procedure TViewContasAPagarLoteParcela.dbFornecedorButtonClick(
+procedure TViewContaAPagarLoteParcela.dbFornecedorButtonClick(
   Sender: TObject);
 var
   iCodigo : Integer;
@@ -489,19 +489,19 @@ begin
   end;
 end;
 
-procedure TViewContasAPagarLoteParcela.dbgParcelasEnter(Sender: TObject);
+procedure TViewContaAPagarLoteParcela.dbgParcelasEnter(Sender: TObject);
 begin
   Self.OnKeyDown := nil;
 end;
 
-procedure TViewContasAPagarLoteParcela.dbgParcelasExit(Sender: TObject);
+procedure TViewContaAPagarLoteParcela.dbgParcelasExit(Sender: TObject);
 begin
   Self.OnKeyDown := FormKeyDown;
   if (cdsParcelas.State in [dsEdit, dsInsert]) then
     cdsParcelas.Post;
 end;
 
-procedure TViewContasAPagarLoteParcela.dtsParcelasDataChange(Sender: TObject;
+procedure TViewContaAPagarLoteParcela.dtsParcelasDataChange(Sender: TObject;
   Field: TField);
 begin
   if Field = cdsParcelasVencimento then
@@ -509,13 +509,13 @@ begin
       cdsParcelasDiaSemana.AsInteger := DayOfWeek(Field.AsDateTime);
 end;
 
-procedure TViewContasAPagarLoteParcela.dtsParcelasStateChange(Sender: TObject);
+procedure TViewContaAPagarLoteParcela.dtsParcelasStateChange(Sender: TObject);
 begin
   btnConfirmar.Enabled := (not (cdsParcelas.State in [dsEdit, dsInsert]))
     and (cdsParcelas.RecordCount > 0);
 end;
 
-procedure TViewContasAPagarLoteParcela.FormCreate(Sender: TObject);
+procedure TViewContaAPagarLoteParcela.FormCreate(Sender: TObject);
 begin
   FController := TControllerFactory.New.ContaAPagar;
 
@@ -545,14 +545,14 @@ begin
     .LookupComboBox(dbTipoDespesa, dtsTpDespesa, 'TipoDespesa', 'codigo', 'descricao');
 end;
 
-procedure TViewContasAPagarLoteParcela.FormShow(Sender: TObject);
+procedure TViewContaAPagarLoteParcela.FormShow(Sender: TObject);
 begin
   inherited;
   CarregarFormaPagto(FController.DAO.Usuario.Empresa.CNPJ);
   CarregarTipoDespesa(True);
 end;
 
-function TViewContasAPagarLoteParcela.GerarLancamentos: Boolean;
+function TViewContaAPagarLoteParcela.GerarLancamentos: Boolean;
 var
   bRetorno : Boolean;
 begin
@@ -607,12 +607,12 @@ begin
   end;
 end;
 
-procedure TViewContasAPagarLoteParcela.RegistrarRotinaSistema;
+procedure TViewContaAPagarLoteParcela.RegistrarRotinaSistema;
 begin
   ;
 end;
 
-procedure TViewContasAPagarLoteParcela.tmrAlertaTimer(Sender: TObject);
+procedure TViewContaAPagarLoteParcela.tmrAlertaTimer(Sender: TObject);
 begin
   if (lblInforme.Font.Color = clRed) then
     lblInforme.Font.Color := clBlue

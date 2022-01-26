@@ -266,7 +266,8 @@ var
   procedure MostrarControleAutorizacao(const AOwner : TComponent);
 
   function SelecionarAutorizacao(const AOwner : TComponent; Fornecedor : Integer; DataInicial : TDateTime;
-    var Ano, Codigo : Integer; var Empresa, Motivo, Observacao : String; var FormaPagto, CondicaoPagto : Integer) : Boolean; overload;
+    var Ano, Codigo : Integer; var Empresa, Motivo, Observacao : String; var FormaPagto, CondicaoPagto : Integer;
+    var TotalProduto, TotalDescontos, TotalAutorizacao : Currency) : Boolean; overload;
   function SelecionarAutorizacao(const AOwner : TComponent; Fornecedor : Integer; DataInicial : TDateTime;
     var Ano, Codigo : Integer; var Empresa, Motivo, Observacao : String) : Boolean; overload;
   function SelecionarAutorizacaoParaApropriacao(const AOwner : TComponent; DataInicial : TDateTime;
@@ -326,7 +327,8 @@ begin
 end;
 
 function SelecionarAutorizacao(const AOwner : TComponent; Fornecedor : Integer; DataInicial : TDateTime;
-  var Ano, Codigo : Integer; var Empresa, Motivo, Observacao : String; var FormaPagto, CondicaoPagto : Integer) : Boolean;
+  var Ano, Codigo : Integer; var Empresa, Motivo, Observacao : String; var FormaPagto, CondicaoPagto : Integer;
+  var TotalProduto, TotalDescontos, TotalAutorizacao : Currency) : Boolean;
 var
   AForm : TViewAutorizacaoCompra;
   aDataInicio,
@@ -377,6 +379,9 @@ begin
       Observacao := Trim(AForm.DtSrcTabela.DataSet.FieldByName('OBSERVACAO').AsString);
       FormaPagto    := AForm.DtSrcTabela.DataSet.FieldByName('FORMA_PAGTO').AsInteger;
       CondicaoPagto := AForm.DtSrcTabela.DataSet.FieldByName('CONDICAO_PAGTO').AsInteger;
+      TotalProduto     := AForm.DtSrcTabela.DataSet.FieldByName('VALOR_BRUTO').AsCurrency;
+      TotalDescontos   := AForm.DtSrcTabela.DataSet.FieldByName('VALOR_DESCONTO').AsCurrency;
+      TotalAutorizacao := AForm.DtSrcTabela.DataSet.FieldByName('VALOR_TOTAL').AsCurrency;
     end;
   finally
     AForm.Destroy;
@@ -388,9 +393,12 @@ function SelecionarAutorizacao(const AOwner : TComponent; Fornecedor : Integer; 
 var
   aFormaPagto    ,
   aCondicaoPagto : Integer;
+  aTotalProduto     ,
+  aTotalDescontos   ,
+  aTotalAutorizacao : Currency;
 begin
   Result := SelecionarAutorizacao(AOwner, Fornecedor, DataInicial, Ano, Codigo, Empresa,
-    Motivo, Observacao, aFormaPagto, aCondicaoPagto);
+    Motivo, Observacao, aFormaPagto, aCondicaoPagto, aTotalProduto, aTotalDescontos, aTotalAutorizacao);
 end;
 
 function SelecionarAutorizacaoParaApropriacao(const AOwner : TComponent; DataInicial : TDateTime;
@@ -1043,7 +1051,7 @@ begin
         ' and (a.tipo = ' + IntToStr(TIPO_AUTORIZACAO_SERVICO) + ')',
         ' and (a.tipo in (' + IntToStr(TIPO_AUTORIZACAO_COMPRA) + ', ' + IntToStr(TIPO_AUTORIZACAO_COMPRA_SERVICO) + ')) and ')) +
     IfThen(iFornecedor = 0, EmptyStr,
-      ' and (a.fornecedor = ' + IntToStr(iFornecedor) + ') and ') +
+      ' and (a.fornecedor = ' + IntToStr(iFornecedor) + ') ') +
       ' and (cast(a.emissao_data as date) between ' + aDataInicio.QuotedString + ' and ' + aDataFinal.QuotedString + ')';
 
   if ( RdgStatusAutorizacao.ItemIndex > 0 ) then

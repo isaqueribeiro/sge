@@ -1,6 +1,7 @@
 inherited ViewCFOP: TViewCFOP
   Left = 391
   Top = 217
+  ActiveControl = dbCodigo
   Caption = 'Tabela CFOP (C'#243'digo Fiscal de Opera'#231#245'es e Presta'#231#245'es)'
   ClientHeight = 555
   ClientWidth = 773
@@ -24,6 +25,7 @@ inherited ViewCFOP: TViewCFOP
   inherited pgcGuias: TPageControl
     Width = 773
     Height = 512
+    ActivePage = tbsCadastro
     ExplicitWidth = 773
     ExplicitHeight = 512
     inherited tbsTabela: TTabSheet
@@ -32,14 +34,14 @@ inherited ViewCFOP: TViewCFOP
       ExplicitWidth = 765
       ExplicitHeight = 483
       inherited Bevel4: TBevel
-        Top = 417
+        Top = 409
         Width = 765
         ExplicitTop = 309
         ExplicitWidth = 720
       end
       inherited dbgDados: TDBGrid
         Width = 765
-        Height = 417
+        Height = 409
         Columns = <
           item
             Expanded = False
@@ -56,15 +58,15 @@ inherited ViewCFOP: TViewCFOP
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 421
+        Top = 413
         Width = 765
-        ExplicitTop = 421
+        ExplicitTop = 413
         ExplicitWidth = 765
         object Bevel5: TBevel [0]
           Left = 497
           Top = 4
           Width = 4
-          Height = 54
+          Height = 62
           Align = alRight
           Shape = bsSpacer
           ExplicitLeft = 645
@@ -77,32 +79,41 @@ inherited ViewCFOP: TViewCFOP
           TabOrder = 1
           ExplicitLeft = 501
           ExplicitWidth = 260
+          ExplicitHeight = 62
           inherited lbltFiltrar: TLabel
-            Left = 11
+            AlignWithMargins = True
+            Left = 16
+            Top = 24
             Width = 31
+            Height = 23
+            Margins.Top = 9
+            Margins.Bottom = 13
+            Align = alRight
             Caption = 'CFOP:'
+            Layout = tlCenter
             ExplicitLeft = 11
             ExplicitWidth = 31
           end
           inherited edtFiltrar: TEdit
-            Left = 50
+            Left = 53
             Width = 163
-            ExplicitLeft = 50
+            ExplicitLeft = 53
+            ExplicitTop = 24
             ExplicitWidth = 163
           end
           inherited btnFiltrar: TcxButton
-            Left = 219
-            ExplicitLeft = 219
+            Left = 222
+            ExplicitLeft = 222
           end
         end
         object rgpTipo: TRadioGroup
-          Left = 229
+          Left = 304
           Top = 4
-          Width = 268
-          Height = 54
+          Width = 193
+          Height = 62
           Align = alRight
           Caption = '&Tipo'
-          Columns = 3
+          Columns = 2
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11

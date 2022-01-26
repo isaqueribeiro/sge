@@ -313,7 +313,6 @@ type
     procedure nmPpChaveNFeClick(Sender: TObject);
     procedure nmPpArquivoNFeClick(Sender: TObject);
     procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
-    procedure fdQryTabelaAUTORIZACAO_CODIGOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure btnTituloEditarClick(Sender: TObject);
     procedure dbSerieKeyPress(Sender: TObject; var Key: Char);
     procedure nmImprimirEspelhoClick(Sender: TObject);
@@ -415,6 +414,7 @@ uses
   UFuncoes,
   UDMNFe,
   Service.Message,
+  Service.Utils,
   Classe.DistribuicaoDFe.DocumentoRetornado,
   SGE.Controller.Factory,
   SGE.Controller,
@@ -783,12 +783,14 @@ var
   aUF        ,
   aChaveNFe  ,
   aUltimoNSU : String;
+  aNSU : IControllerXML_NFeImportada;
 begin
   aEmissor  := EmptyStr;
   aUF       := EmptyStr;
   aChaveNFe := EmptyStr;
 
   DMNFe.LerConfiguracao(FController.DAO.Usuario.Empresa.CNPJ, tipoDANFEFast);
+  aNSU := TControllerFactory.New.XML_NFeImportada;
 
   if (DMNFe.GetCnpjCertificado <> EmptyStr) then
   begin
@@ -799,10 +801,10 @@ begin
 
     // Buscar relação do NSU com a NF-e, e caso a relaçao não seja possível, gerar um NSU fictício.
     if not IdentificarNFe(aEmissor, aUF, aChaveNFe, aUltimoNSU) then
-      aUltimoNSU := '9' + FormatFloat('00000000000000', GetNumeroNSU(FController.DAO.Usuario.Empresa.CNPJ));
+      aUltimoNSU := '9' + FormatFloat('00000000000000', aNSU.GetNumeroNSU(FController.DAO.Usuario.Empresa.CNPJ));
   end
   else
-    aUltimoNSU := '9' + FormatFloat('00000000000000', GetNumeroNSU(FController.DAO.Usuario.Empresa.CNPJ));
+    aUltimoNSU := '9' + FormatFloat('00000000000000', aNSU.GetNumeroNSU(FController.DAO.Usuario.Empresa.CNPJ));
 
   BaixarImportarNFe(aChaveNFe, aUltimoNSU);
 end;
@@ -853,7 +855,10 @@ end;
 procedure TViewEntrada.InserirItensAutorizacao;
 var
   I : Integer;
-  cPrecoUN : Currency;
+  cPrecoUN     ,
+  aTotalProduto,
+  aDescontos   ,
+  aTotalNota   : Currency;
   aAutorizacaoCompra : IControllerCustom;
 begin
   aAutorizacaoCompra := TControllerFactory.New.ItensAutorizadosParaEntrada;
@@ -878,6 +883,10 @@ begin
         DtSrcTabelaItens.DataSet.Delete;
     end;
 
+    aTotalProduto := 0.0;
+    aDescontos    := 0.0;
+    aTotalNota    := 0.0;
+
     // Inserir os produtos/serviços da autorização na entrada
 
     I := 1;
@@ -890,6 +899,14 @@ begin
         DtSrcTabelaItens.DataSet.Append;
 
         DtSrcTabelaItens.DataSet.FieldByName('SEQ').AsInteger := I;
+
+        DtSrcTabelaItens.DataSet.FieldByName('ANO').Assign       ( DtSrcTabela.DataSet.FieldByName('ANO') );
+        DtSrcTabelaItens.DataSet.FieldByName('CODCONTROL').Assign( DtSrcTabela.DataSet.FieldByName('CODCONTROL') );
+        DtSrcTabelaItens.DataSet.FieldByName('CODEMP').Assign    ( DtSrcTabela.DataSet.FieldByName('CODEMP') );
+        DtSrcTabelaItens.DataSet.FieldByName('DTENT').Assign     ( DtSrcTabela.DataSet.FieldByName('DTENT') );
+        DtSrcTabelaItens.DataSet.FieldByName('CODFORN').Assign   ( DtSrcTabela.DataSet.FieldByName('CODFORN') );
+        DtSrcTabelaItens.DataSet.FieldByName('NF').Assign        ( DtSrcTabela.DataSet.FieldByName('NF') );
+
         DtSrcTabelaItens.DataSet.FieldByName('CODPROD').Assign       ( FieldByName('produto') );
         DtSrcTabelaItens.DataSet.FieldByName('DESCRI').Assign        ( FieldByName('DESCRI') );
         DtSrcTabelaItens.DataSet.FieldByName('QTDE').Assign          ( FieldByName('quantidade') );
@@ -924,11 +941,25 @@ begin
 
         DtSrcTabelaItens.DataSet.Post;
 
+        aTotalProduto := aTotalProduto + DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency;
+        aDescontos    := aDescontos    + DtSrcTabelaItens.DataSet.FieldByName('VALOR_DESCONTO').AsCurrency;
+        aTotalNota    := aTotalNota    + DtSrcTabelaItens.DataSet.FieldByName('TOTAL_LIQUIDO').AsCurrency;
+
         Inc(I);
       end;
 
       Next;
     end;
+
+    // Atualizar totais
+    if (aTotalProduto <> DtSrcTabela.DataSet.FieldByName('TOTALPROD').AsCurrency) then
+      DtSrcTabela.DataSet.FieldByName('TOTALPROD').AsCurrency := aTotalProduto;
+
+    if (aDescontos <> DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency) then
+      DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency := aDescontos;
+
+    if (aTotalNota <> DtSrcTabela.DataSet.FieldByName('TOTALNF').AsCurrency) then
+      DtSrcTabela.DataSet.FieldByName('TOTALNF').AsCurrency := aTotalNota;
   end;
 end;
 
@@ -1067,10 +1098,14 @@ var
   aFileName : TFileName;
   Sequencial,
   I : Integer;
+//  aFornecedor : IControllerFornecedor;
+  aProdutoFornecedor : IControllerFornecedorProduto;
 begin
   if ImportarNFE(Self, aChaveNFe, aNSU, aFileName) then
     with DMNFe.ACBrNFe do
     begin
+//      aFornecedor := TControllerFactory.New.Fornecedor;
+      aProdutoFornecedor := TControllerFactory.New.FornecedorProduto;
       FValorTotalProduto := 0.0;
 
       NotasFiscais.Clear;
@@ -1081,13 +1116,13 @@ begin
         DtSrcTabela.DataSet.Append;
 
         // Identificação
-        DtSrcTabela.DataSet.FieldByName('CODEMP').AsString          := StrOnlyNumbers(Dest.CNPJCPF);
+        DtSrcTabela.DataSet.FieldByName('CODEMP').AsString          := TServicesUtils.StrOnlyNumbers(Dest.CNPJCPF);
         DtSrcTabela.DataSet.FieldByName('TIPO_MOVIMENTO').AsInteger := Ord(TTipoMovimentoEntrada.tmeProduto);
         DtSrcTabela.DataSet.FieldByName('TIPO_ENTRADA').AsInteger   := 4; // Outras -> VW_TIPO_ENTRADA
         DtSrcTabela.DataSet.FieldByName('TIPO_DESPESA').AsInteger   := TIPO_RECEITA_PADRAO;
         // Fornecedor
-        DtSrcTabela.DataSet.FieldByName('CODFORN').AsInteger  := GetFornecedorCodigo( StrOnlyNumbers(Emit.CNPJCPF) );
-        DtSrcTabela.DataSet.FieldByName('CNPJ').AsString      := StrOnlyNumbers(Emit.CNPJCPF);
+        DtSrcTabela.DataSet.FieldByName('CODFORN').AsInteger  := GetFornecedorCodigo( TServicesUtils.StrOnlyNumbers(Emit.CNPJCPF) );
+        DtSrcTabela.DataSet.FieldByName('CNPJ').AsString      := TServicesUtils.StrOnlyNumbers(Emit.CNPJCPF);
         DtSrcTabela.DataSet.FieldByName('NOMEFORN').AsString  := Emit.xNome;
         // Documento
         DtSrcTabela.DataSet.FieldByName('DTEMISS').AsDateTime       := Ide.dEmi;
@@ -1132,7 +1167,7 @@ begin
             DtSrcTabela.DataSet.FieldByName('NATUREZA').AsString  := Det.Items[I].Prod.CFOP;
           end;
 
-          aProduto := GetProdutoFornecedorCodigo(StrOnlyNumbers(Emit.CNPJCPF), Det.Items[I].Prod.cProd);
+          aProduto := aProdutoFornecedor.GetProdutoFornecedorCodigo(TServicesUtils.StrOnlyNumbers(Emit.CNPJCPF), Det.Items[I].Prod.cProd);
           if not aProduto.IsEmpty then
           begin
             GerarSequencial(Sequencial);
@@ -1258,36 +1293,36 @@ end;
 procedure TViewEntrada.HabilitarDesabilitar_Btns;
 begin
   with DtSrcTabela.DataSet do
-  if ( pgcGuias.ActivePage = tbsCadastro ) then
-  begin
-    btbtnFinalizar.Enabled   := ( FieldByName('STATUS').AsInteger < STATUS_CMP_FIN) and (not DtSrcTabelaItens.DataSet.IsEmpty);
-    btbtnCancelarENT.Enabled := ((FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) or  (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE)); // and (not DtSrcTabelaItens.DataSet.IsEmpty);
-    btbtnGerarNFe.Enabled    := ( FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) and (not DtSrcTabelaItens.DataSet.IsEmpty);
+    if ( pgcGuias.ActivePage = tbsCadastro ) then
+    begin
+      btbtnFinalizar.Enabled   := ( FieldByName('STATUS').AsInteger < STATUS_CMP_FIN) and (not DtSrcTabelaItens.DataSet.IsEmpty);
+      btbtnCancelarENT.Enabled := ((FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) or  (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE)); // and (not DtSrcTabelaItens.DataSet.IsEmpty);
+      btbtnGerarNFe.Enabled    := ( FieldByName('STATUS').AsInteger = STATUS_CMP_FIN) and (not DtSrcTabelaItens.DataSet.IsEmpty);
 
-    nmImprimirDANFE.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) or  (FieldByName('NFNSU').AsString <> EmptyStr);
-    nmGerarDANFEXML.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) and (FieldByName('NFNSU').AsString = EmptyStr);
+      nmImprimirDANFE.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) or  (FieldByName('NFNSU').AsString <> EmptyStr);
+      nmGerarDANFEXML.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) and (FieldByName('NFNSU').AsString = EmptyStr);
 
-    TbsInformeNFe.TabVisible    := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr);
-    nmPpLimparDadosNFe.Enabled  := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
-    BtnLimparDadosNFe.Enabled   := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
-    BtnCorrigirDadosNFe.Enabled      := (FieldByName('STATUS').AsInteger in [STATUS_CMP_ABR, STATUS_CMP_FIN]) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
-    nmPpCorrigirDadosNFeCFOP.Enabled := (FieldByName('STATUS').AsInteger in [STATUS_CMP_ABR, STATUS_CMP_FIN]) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
-  end
-  else
-  begin
-    btbtnFinalizar.Enabled   := False;
-    btbtnCancelarENT.Enabled := False;
-    btbtnGerarNFe.Enabled    := False;
+      TbsInformeNFe.TabVisible    := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr);
+      nmPpLimparDadosNFe.Enabled  := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
+      BtnLimparDadosNFe.Enabled   := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
+      BtnCorrigirDadosNFe.Enabled      := (FieldByName('STATUS').AsInteger in [STATUS_CMP_ABR, STATUS_CMP_FIN]) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
+      nmPpCorrigirDadosNFeCFOP.Enabled := (FieldByName('STATUS').AsInteger in [STATUS_CMP_ABR, STATUS_CMP_FIN]) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
+    end
+    else
+    begin
+      btbtnFinalizar.Enabled   := False;
+      btbtnCancelarENT.Enabled := False;
+      btbtnGerarNFe.Enabled    := False;
 
-    nmImprimirDANFE.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) or  (FieldByName('NFNSU').AsString <> EmptyStr);
-    nmGerarDANFEXML.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) and (FieldByName('NFNSU').AsString = EmptyStr);
+      nmImprimirDANFE.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) or  (FieldByName('NFNSU').AsString <> EmptyStr);
+      nmGerarDANFEXML.Enabled := (FieldByName('STATUS').AsInteger = STATUS_CMP_NFE) and (FieldByName('NFNSU').AsString = EmptyStr);
 
-    TbsInformeNFe.TabVisible    := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr);
-    nmPpLimparDadosNFe.Enabled  := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
-    BtnLimparDadosNFe.Enabled   := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
-    BtnCorrigirDadosNFe.Enabled      := False;
-    nmPpCorrigirDadosNFeCFOP.Enabled := False;
-  end;
+      TbsInformeNFe.TabVisible    := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr);
+      nmPpLimparDadosNFe.Enabled  := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
+      BtnLimparDadosNFe.Enabled   := (Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr) and (Trim(dbLogNFeLoteProtocolo.Field.AsString) = EmptyStr) and (FieldByName('NFNSU').AsString = EmptyStr);
+      BtnCorrigirDadosNFe.Enabled      := False;
+      nmPpCorrigirDadosNFeCFOP.Enabled := False;
+    end;
 end;
 
 procedure TViewEntrada.btbtnExcluirClick(Sender: TObject);
@@ -2091,13 +2126,6 @@ begin
   end;
 end;
 
-procedure TViewEntrada.fdQryTabelaAUTORIZACAO_CODIGOGetText(Sender: TField; var Text: string;
-  DisplayText: Boolean);
-begin
-  if not Sender.IsNull then
-    Text := FormatFloat('###0000000"/"', Sender.AsInteger) + Copy(DtSrcTabela.DataSet.FieldByName('AUTORIZACAO_ANO').AsString, 3, 2);
-end;
-
 procedure TViewEntrada.btbtnCancelarClick(Sender: TObject);
 begin
   inherited;
@@ -2453,6 +2481,9 @@ var
   dDataInicial : TDateTime;
   iFormaPagto    ,
   iCOndicaoPagto : Integer;
+  aTotalProduto     ,
+  aTotalDescontos   ,
+  aTotalAutorizacao : Currency;
 begin
   with DtSrcTabela.DataSet do
     if ( State in [dsEdit, dsInsert] ) then
@@ -2466,15 +2497,21 @@ begin
       begin
         { DONE -oIsaque -cEntrada : 22/05/2014 - Gerar Data Inicial padrão para busca de Autorizações de Compras }
 
-        dDataInicial := StrToDateTime('01/' + FormatDateTime('mm/yyyy', GetDateDB));
-        if ( (GetDateDB - dDataInicial) < 7 ) then
-          dDataInicial := GetDateDB - 7;
+        dDataInicial := StrToDateTime('01/' + FormatDateTime('mm/yyyy', Date));
+        if ( (Date - dDataInicial) < 7 ) then
+          dDataInicial := Date - 7;
 
-        if ( SelecionarAutorizacao(Self, FieldByName('CODFORN').AsInteger, dDataInicial, iAno, iCodigo, sEmpresa, sMotivo, sObservacao, iFormaPagto, iCOndicaoPagto) ) then
+        if ( SelecionarAutorizacao(Self, FieldByName('CODFORN').AsInteger, dDataInicial, iAno, iCodigo, sEmpresa, sMotivo,
+          sObservacao, iFormaPagto, iCOndicaoPagto, aTotalProduto, aTotalDescontos, aTotalAutorizacao
+        ) ) then
         begin
           FieldByName('AUTORIZACAO_ANO').AsInteger    := iAno;
           FieldByName('AUTORIZACAO_CODIGO').AsInteger := iCodigo;
           FieldByName('AUTORIZACAO_EMPRESA').AsString := sEmpresa;
+
+          FieldByName('TOTALPROD').AsCurrency := aTotalProduto;
+          FieldByName('DESCONTO').AsCurrency  := aTotalDescontos;
+          FieldByName('TOTALNF').AsCurrency   := aTotalAutorizacao;
 
           if (sMotivo <> EmptyStr) then
             dbObservacao.Lines.Add(sMotivo);
@@ -2490,6 +2527,10 @@ begin
             FieldByName('CONDICAOPAGTO_COD').AsInteger := iCOndicaoPagto;
             dbCondicaoPagtoClick(dbCondicaoPagto);
           end;
+
+          // Refazer a listagem de itens
+          if (not DtSrcTabelaItens.DataSet.IsEmpty) then
+            AbrirTabelaItens;
         end;
       end
     end;

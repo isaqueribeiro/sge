@@ -137,22 +137,22 @@ end;
 function SelecionarCFOP(const AOwner : TComponent;  aTipo : TTipoCFOP;  var Codigo : Integer; var Nome : String) : Boolean;
 var
   frm : TViewCFOP;
-  whr : String;
 begin
   frm := TViewCFOP.Create(AOwner);
   try
     if (aTipo <> TTipoCFOP.tcfopADefinir) then
     begin
-      whr := 'c.Cfop_tipo = ' + Ord(aTipo).ToString;
+      frm.WhereAdditional   := 'c.Cfop_tipo = ' + Ord(aTipo).ToString;
       frm.rgpTipo.ItemIndex := Ord(aTipo);
       frm.rgpTipo.Enabled   := False;
+
+      frm.FController.DAO.ClearWhere;
+      frm.FController.DAO.Where(frm.WhereAdditional);
     end;
 
-    frm.FController.DAO.ClearWhere;
-    frm.FController.DAO.Where(whr);
     frm.FController.DAO.Open;
 
-    Result := frm.SelecionarRegistro(Codigo, Nome);
+    Result := frm.SelecionarRegistro(Codigo, Nome, frm.WhereAdditional);
   finally
     frm.Destroy;
   end;
@@ -160,8 +160,8 @@ end;
 
 procedure TViewCFOP.FormCreate(Sender: TObject);
 begin
-  FControllerCST := TControllerFactory.New.CST;
   FController    := TControllerFactory.New.CFOP;
+  FControllerCST := TControllerFactory.New.CST;
 
   inherited;
   RotinaID         := ROTINA_CAD_CFOP_ID;

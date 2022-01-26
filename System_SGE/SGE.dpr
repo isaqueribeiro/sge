@@ -292,8 +292,9 @@ uses
   SGE.Controller.Impressao.ContaAPagar in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas',
   SGE.Model.DAO.Licenca in '..\Sys\Model\DAO\SGE.Model.DAO.Licenca.pas',
   Service.Encript in '..\Sys\Services\Service.Encript.pas',
-  View.ContaAPagar.LoteParcela in '..\Sys\View\View.ContaAPagar.LoteParcela.pas' {ViewContasAPagarLoteParcela},
-  View.CampoRequisitado in '..\Sys\View\View.CampoRequisitado.pas' {ViewCampoRequisitado};
+  View.ContaAPagar.LoteParcela in '..\Sys\View\View.ContaAPagar.LoteParcela.pas' {ViewContaAPagarLoteParcela},
+  View.CampoRequisitado in '..\Sys\View\View.CampoRequisitado.pas' {ViewCampoRequisitado},
+  View.ContaAPagar.Pagamento in '..\Sys\View\View.ContaAPagar.Pagamento.pas' {ViewContaAPagarPagamento};
 
 {$R *.res}
 

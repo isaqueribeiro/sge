@@ -609,25 +609,33 @@ end;
 function TConnectionFireDAC.Where(aExpressionWhere: String): IConnection<TConnectionFireDAC>;
 begin
   Result := Self;
-  FScript.Where(aExpressionWhere);
+
+  if (not aExpressionWhere.Trim.IsEmpty) then
+    FScript.Where(aExpressionWhere);
 end;
 
 function TConnectionFireDAC.Where(aFieldName, aFielValue: String; const aQuotedString : Boolean = True): IConnection<TConnectionFireDAC>;
 begin
   Result := Self;
-  FScript.Where(aFieldName, aFielValue, aQuotedString);
+
+  if (not aFieldName.Trim.IsEmpty) then
+    FScript.Where(aFieldName, aFielValue, aQuotedString);
 end;
 
 function TConnectionFireDAC.Where(aFieldName: String; aFielValue: Integer): IConnection<TConnectionFireDAC>;
 begin
   Result := Self;
-  FScript.Where(aFieldName, aFielValue);
+
+  if (not aFieldName.Trim.IsEmpty) then
+    FScript.Where(aFieldName, aFielValue);
 end;
 
 function TConnectionFireDAC.Where(aFieldName: String; aFielValue: Int64): IConnection<TConnectionFireDAC>;
 begin
   Result := Self;
-  FScript.Where(aFieldName, aFielValue);
+
+  if (not aFieldName.Trim.IsEmpty) then
+    FScript.Where(aFieldName, aFielValue);
 end;
 
 function TConnectionFireDAC.WhereAdditional: String;
@@ -650,7 +658,9 @@ end;
 function TConnectionFireDAC.WhereOr(aExpressionWhere: String): IConnection<TConnectionFireDAC>;
 begin
   Result := Self;
-  FScript.WhereOr(aExpressionWhere);
+
+  if (not aExpressionWhere.Trim.IsEmpty) then
+    FScript.WhereOr(aExpressionWhere);
 end;
 
 function TConnectionFireDAC.WhereAdditional(aExpression: String): IConnection<TConnectionFireDAC>;
@@ -662,7 +672,9 @@ end;
 function TConnectionFireDAC.WhereOr(aFieldName, aFielValue: String; const aQuotedString : Boolean = True): IConnection<TConnectionFireDAC>;
 begin
   Result := Self;
-  FScript.WhereOr(aFieldName, aFielValue, aQuotedString);
+
+  if (not aFieldName.Trim.IsEmpty) then
+    FScript.WhereOr(aFieldName, aFielValue, aQuotedString);
 end;
 
 function TConnectionFireDAC.TableName(aTableName: String): IConnection<TConnectionFireDAC>;

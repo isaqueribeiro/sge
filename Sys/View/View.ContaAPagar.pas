@@ -210,7 +210,7 @@ uses
   SGE.Controller,
   SGE.Controller.Helper,
   View.Fornecedor,
-  UGeEfetuarPagtoPAG,
+  View.ContaAPagar.Pagamento,
   View.ContaAPagar.LoteParcela;
 
 {$R *.dfm}

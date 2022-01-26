@@ -3,9 +3,24 @@ unit View.Abertura;
 interface
 
 uses
-  View.PadraoAbertura,
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.StdCtrls, Vcl.ExtCtrls, dxGDIPlusClasses;
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+
+  Winapi.Windows,
+  Winapi.Messages,
+
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.Buttons,
+  Vcl.StdCtrls,
+  Vcl.ExtCtrls,
+
+  dxGDIPlusClasses,
+
+  View.PadraoAbertura;
 
 type
   TFrmAbertura = class(TFrmPadraoAbertura)
@@ -29,7 +44,11 @@ implementation
 {$R *.dfm}
 
 uses
-  UFuncoes, UDMBusiness, Interacao.Versao, Controller.Versao, Controller.Licenca;
+  UFuncoes,
+  UDMBusiness,
+  Interacao.Versao,
+  Controller.Versao,
+  Controller.Licenca;
 
 procedure ShowAbout(const AOwer : TComponent);
 var

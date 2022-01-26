@@ -13,6 +13,7 @@ type
   TModelDAOEntrada = class(TModelDAO, IModelDAOCustom)
     private
       procedure SetProviderFlags;
+      procedure AutorizacaoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
       procedure StatusGetText(Sender: TField; var Text: string; DisplayText: Boolean);
       procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetNewRecord(DataSet: TDataSet);
@@ -262,6 +263,12 @@ begin
   FConn.Query.DataSet.FieldByName('valor_total_icms_normal_devido').ProviderFlags  := [];
 end;
 
+procedure TModelDAOEntrada.AutorizacaoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if not Sender.IsNull then
+    Text := FormatFloat('###0000000"/"', Sender.AsInteger) + Copy(FConn.Query.DataSet.FieldByName('AUTORIZACAO_ANO').AsString, 3, 2);
+end;
+
 procedure TModelDAOEntrada.StatusGetText(Sender: TField; var Text: string; DisplayText: Boolean);
 begin
   Case Sender.AsInteger of
@@ -277,6 +284,7 @@ end;
 procedure TModelDAOEntrada.DataSetAfterOpen(DataSet: TDataSet);
 begin
   SetProviderFlags;
+  FConn.Query.DataSet.FieldByName('AUTORIZACAO_CODIGO').OnGetText := AutorizacaoGetText;
   FConn.Query.DataSet.FieldByName('STATUS').OnGetText := StatusGetText;
 end;
 

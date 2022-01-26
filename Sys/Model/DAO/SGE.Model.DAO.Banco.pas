@@ -13,6 +13,7 @@ type
   // Table
   TModelDAOBanco = class(TModelDAO, IModelDAOCustom)
     private
+      procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetNewRecord(DataSet: TDataSet);
       procedure DataSetBeforePost(DataSet: TDataSet);
     protected
@@ -65,11 +66,15 @@ begin
         .Add('  , b.bco_msg_instrucao    ')
         .Add('  , b.bco_layout_remessa   ')
         .Add('  , b.bco_layout_retorno   ')
+        .Add('  , trim(b.bco_nome) ||    ')
+        .Add('    coalesce('' - AG. ''  || nullif(trim(b.bco_agencia), ''''), '''') || ')
+        .Add('    coalesce('' - C/C. '' || nullif(trim(b.bco_cc), ''), '''')  as bco_nome_agencia_conta ')
         .Add('from TBBANCO_BOLETO b      ')
       .&End
     .OpenEmpty
     .CloseEmpty;
 
+  FConn.Query.DataSet.AfterOpen   := DataSetAfterOpen;
   FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
   FConn.Query.DataSet.BeforePost  := DataSetBeforePost;
 end;
@@ -82,6 +87,12 @@ end;
 class function TModelDAOBanco.New: IModelDAOCustom;
 begin
   Result := Self.Create;
+end;
+
+procedure TModelDAOBanco.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+    FieldByName('bco_nome_agencia_conta').ProviderFlags := [];
 end;
 
 procedure TModelDAOBanco.DataSetBeforePost(DataSet: TDataSet);

@@ -1,4 +1,4 @@
-inherited ViewContasAPagarLoteParcela: TViewContasAPagarLoteParcela
+inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
   ActiveControl = dbFornecedor
   BorderStyle = bsDialog
   BorderWidth = 4
@@ -128,7 +128,6 @@ inherited ViewContasAPagarLoteParcela: TViewContasAPagarLoteParcela
     OptionsImage.NumGlyphs = 2
     TabOrder = 0
     OnClick = btnConfirmarClick
-    ExplicitTop = 443
   end
   object btnCancelar: TcxButton
     Left = 619
@@ -209,7 +208,6 @@ inherited ViewContasAPagarLoteParcela: TViewContasAPagarLoteParcela
     OptionsImage.NumGlyphs = 2
     TabOrder = 1
     OnClick = btnCancelarClick
-    ExplicitTop = 443
   end
   object GrpBxLancamento: TGroupBox
     Left = 0
@@ -646,7 +644,7 @@ inherited ViewContasAPagarLoteParcela: TViewContasAPagarLoteParcela
         Left = 183
         Top = 28
         Width = 43
-        Height = 22
+        Height = 19
         DataField = 'NumeroParcelas'
         DataSource = dtsDadosNominais
         Font.Charset = ANSI_CHARSET
@@ -661,7 +659,7 @@ inherited ViewContasAPagarLoteParcela: TViewContasAPagarLoteParcela
         Left = 183
         Top = 53
         Width = 111
-        Height = 22
+        Height = 19
         DataField = 'ValorTotal'
         DataSource = dtsDadosNominais
         Font.Charset = ANSI_CHARSET
@@ -676,7 +674,7 @@ inherited ViewContasAPagarLoteParcela: TViewContasAPagarLoteParcela
         Left = 183
         Top = 105
         Width = 43
-        Height = 22
+        Height = 19
         DataField = 'DiaVencimento'
         DataSource = dtsDadosNominais
         Font.Charset = ANSI_CHARSET
@@ -691,7 +689,7 @@ inherited ViewContasAPagarLoteParcela: TViewContasAPagarLoteParcela
         Left = 183
         Top = 130
         Width = 43
-        Height = 22
+        Height = 19
         DataField = 'NumeroDias'
         DataSource = dtsDadosNominais
         Font.Charset = ANSI_CHARSET
@@ -718,8 +716,6 @@ inherited ViewContasAPagarLoteParcela: TViewContasAPagarLoteParcela
         OptionsImage.Images = DMRecursos.ImgBotoes16x16
         TabOrder = 7
         OnClick = BtnGerarClick
-        ExplicitTop = 271
-        ExplicitWidth = 278
       end
       object RdGrpVencimentoFimSemana: TRadioGroup
         AlignWithMargins = True
@@ -737,14 +733,12 @@ inherited ViewContasAPagarLoteParcela: TViewContasAPagarLoteParcela
           'Antecipar data de vencimento'
           'Prorrogar data de vencimento')
         TabOrder = 6
-        ExplicitTop = 162
-        ExplicitWidth = 278
       end
       object dbPrimeiroVencimento: TJvDBDateEdit
         Left = 183
         Top = 78
         Width = 111
-        Height = 22
+        Height = 21
         DataField = 'PrimeiroVencimento'
         DataSource = dtsDadosNominais
         Font.Charset = ANSI_CHARSET

@@ -32,7 +32,7 @@ type
       procedure SetProviderFlags;
 //      procedure QuitadoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
       procedure DataSetAfterOpen(DataSet: TDataSet);
-//      procedure DataSetNewRecord(DataSet: TDataSet);
+      procedure DataSetNewRecord(DataSet: TDataSet);
 //      procedure DataSetBeforePost(DataSet: TDataSet);
     protected
       constructor Create;
@@ -225,7 +225,7 @@ begin
     .CloseEmpty;
 
   FConn.Query.DataSet.AfterOpen   := DataSetAfterOpen;
-//  FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
+  FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
 //  FConn.Query.DataSet.BeforePost  := DataSetBeforePost;
 end;
 
@@ -233,6 +233,20 @@ procedure TModelDAOPagamento.DataSetAfterOpen(DataSet: TDataSet);
 begin
   SetProviderFlags;
   //FConn.Query.DataSet.FieldByName('QUITADO').OnGetText := QuitadoGetText;
+end;
+
+procedure TModelDAOPagamento.DataSetNewRecord(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+  begin
+    FieldByName('SEQ').AsInteger         := 1;
+    FieldByName('data_pagto').AsDateTime := Date;
+    FieldByName('usuario').AsString      := Usuario.Login;
+    FieldByName('forma_pagto').AsInteger := Configuracao.Padrao.FormaPagtoID;
+    FieldByName('empresa').Clear;
+    FieldByName('banco').Clear;
+    FieldByName('banco_febraban').Clear;
+  end;
 end;
 
 destructor TModelDAOPagamento.Destroy;

@@ -31,11 +31,11 @@ uses
   Classe.Usuario in '..\Sys\Classe\Classe.Usuario.pas',
   Controller.Empresa in '..\Sys\Controller\Controller.Empresa.pas',
   Controller.Factory in '..\Sys\Controller\Controller.Factory.pas',
-  Controller.Licenca in '..\Sys\Controller\Controller.Licenca.pas',
   Controller.PersonalizaEmpresa in '..\Sys\Controller\Controller.PersonalizaEmpresa.pas',
   Controller.Tabela in '..\Sys\Controller\Controller.Tabela.pas',
   Controller.Usuario in '..\Sys\Controller\Controller.Usuario.pas',
   Controller.Versao in '..\Sys\Controller\Controller.Versao.pas',
+  Controller.Licenca in '..\Sys\Controller\Controller.Licenca.pas',
   Model.Constantes in '..\Sys\Model\Model.Constantes.pas',
   Model.Conexao.Factory.Interfaces in '..\Sys\Model\Conexao\Model.Conexao.Factory.Interfaces.pas',
   Model.Conexao.Factory in '..\Sys\Model\Conexao\Model.Conexao.Factory.pas',
@@ -162,6 +162,7 @@ uses
   UGeContasAPagarAReceberImpressao in '..\System_SGE\UGeContasAPagarAReceberImpressao.pas' {frmGeContasAPagarAReceberImpressao},
   Service.Message in '..\Sys\Services\Service.Message.pas',
   Service.Utils in '..\Sys\Services\Service.Utils.pas',
+  Service.Encript in '..\Sys\Services\Service.Encript.pas',
   Classe.DistribuicaoDFe.DocumentoRetornado in '..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas',
   Model.Entidade.ConfiguracaoAPI in '..\Sys\Model\Entidade\Model.Entidade.ConfiguracaoAPI.pas',
   Model.Entidade.ConfiguracaoINI in '..\Sys\Model\Entidade\Model.Entidade.ConfiguracaoINI.pas',
@@ -194,6 +195,7 @@ uses
   SGE.Model.DAO.Fornecedor in '..\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas',
   SGE.Model.DAO.Helper in '..\Sys\Model\DAO\SGE.Model.DAO.Helper.pas',
   SGE.Model.DAO.IBPT in '..\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas',
+  SGE.Model.DAO.Licenca in '..\Sys\Model\DAO\SGE.Model.DAO.Licenca.pas',
   SGE.Model.DAO.Logradouro in '..\Sys\Model\DAO\SGE.Model.DAO.Logradouro.pas',
   SGE.Model.DAO.LogTransacao in '..\Sys\Model\DAO\SGE.Model.DAO.LogTransacao.pas',
   SGE.Model.DAO.PlanoConta in '..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas',
@@ -291,7 +293,8 @@ uses
   View.NFE.ConsultarLote in '..\Sys\View\View.NFE.ConsultarLote.pas' {ViewNFEConsultarLote},
   View.NFE.Distribuicao in '..\Sys\View\View.NFE.Distribuicao.pas' {ViewNFEDistribuicao},
   View.NFE.Importar in '..\Sys\View\View.NFE.Importar.pas' {ViewNFEImportar},
-  View.NFE.Pesquisa in '..\Sys\View\View.NFE.Pesquisa.pas' {ViewNFEPesquisa};
+  View.NFE.Pesquisa in '..\Sys\View\View.NFE.Pesquisa.pas' {ViewNFEPesquisa},
+  View.CampoRequisitado in '..\Sys\View\View.CampoRequisitado.pas' {ViewCampoRequisitado};
 
 {$R *.res}
 
