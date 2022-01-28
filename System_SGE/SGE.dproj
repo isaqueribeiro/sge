@@ -352,9 +352,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\System_SGI\UGeInventario.pas">
             <Form>frmGeInventario</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrMemo.pas">
-            <Form>frmGrMemo</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeVendaDevolucaoNF.pas">
             <Form>frmGeVendaDevolucaoNF</Form>
         </DCCReference>
@@ -385,29 +382,29 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeControleCheque.pas">
             <Form>frmGeControleCheque</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrMemoData.pas">
-            <Form>frmGrMemoData</Form>
+        <DCCReference Include="..\Sys\View\View.Memo.pas">
+            <Form>ViewMemo</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeFornecedorClientePesquisa.pas">
-            <Form>frmGeFornecedorClientePesquisa</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\View\View.AutoUpgrade.pas">
-            <Form>FrmAutoUpgrade</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeResultadoExercicioImpressao.pas">
-            <Form>frmGeResultadoExercicioImpressao</Form>
-        </DCCReference>
-        <DCCReference Include="UGeContasAPagarAReceberImpressao.pas">
-            <Form>frmGeContasAPagarAReceberImpressao</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeNFEmitida.pas">
-            <Form>frmGeNFEmitida</Form>
+        <DCCReference Include="..\Sys\View\View.MemoData.pas">
+            <Form>ViewMemoData</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.PadraoAbertura.pas">
             <Form>FrmPadraoAbertura</Form>
         </DCCReference>
         <DCCReference Include="View\View.Abertura.pas">
             <Form>FrmAbertura</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.AutoUpgrade.pas">
+            <Form>FrmAutoUpgrade</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeFornecedorClientePesquisa.pas">
+            <Form>frmGeFornecedorClientePesquisa</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\UGeResultadoExercicioImpressao.pas">
+            <Form>frmGeResultadoExercicioImpressao</Form>
+        </DCCReference>
+        <DCCReference Include="UGeContasAPagarAReceberImpressao.pas">
+            <Form>frmGeContasAPagarAReceberImpressao</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Empresa.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Factory.pas"/>
@@ -436,6 +433,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\View\View.PadraoCadastro.pas">
             <Form>ViewPadraoCadastro</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\View\View.PadraoPesquisa.pas">
+            <Form>ViewPadraoPesquisa</Form>
+        </DCCReference>
         <DCCReference Include="View\View.Login.pas">
             <Form>FrmLogin</Form>
         </DCCReference>
@@ -443,28 +443,25 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Services\Service.Utils.pas"/>
         <DCCReference Include="..\Sys\Services\Service.PrevisaoTempo.pas"/>
         <DCCReference Include="..\Sys\Services\Service.Message.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Encript.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Tabela.pas"/>
         <DCCReference Include="..\Sys\Controller\Controller.Tabela.pas"/>
         <DCCReference Include="..\Sys\Services\InputQuery\Interfaces.InputQuery.pas"/>
         <DCCReference Include="..\Sys\Services\InputQuery\View.InputQuery.pas">
             <Form>ViewInputQuery</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas"/>
         <DCCReference Include="..\Sys\View\View.Esmaecer.pas">
             <Form>ViewEsmaecer</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="View\View.VendaMobile.pas">
             <Form>ViewVendaMobile</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\Services\PrevisaoTempo\Interfaces.PrevisaoTempo.pas"/>
         <DCCReference Include="..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.Inpe.pas"/>
         <DCCReference Include="..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.WeatherstackAPI.pas"/>
         <DCCReference Include="View\View.VendaMobile.Vendedor.pas">
             <Form>ViewVendaMobileVendedor</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\Classe\Classe.Gerenciador.View.pas"/>
         <DCCReference Include="..\Sys\Classe\Interacao\Interacao.Gerenciador.View.pas"/>
@@ -472,12 +469,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Services\PrevisaoTempo\Controller.ProvisaoTempo.HGWeatherAPI.pas"/>
         <DCCReference Include="..\Sys\Model\SGE.Model.Dados.pas">
             <Form>DMDados</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="..\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas">
             <Form>ModelConexaoDataSet</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="..\Sys\Model\SGE.Model.Factory.pas"/>
@@ -485,7 +480,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas"/>
         <DCCReference Include="View\Components\Frame.VendaMobile.Menu.pas">
             <Form>FrameVendaMobileMenu</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="View\Components\Frame.VendaMobile.Configurar.Menu.pas">
@@ -494,7 +488,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="View\View.VendaMobile.Configurar.pas">
             <Form>ViewVendaMobileConfigurar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="View\View.VendaMobile.Configurar.Chave.pas">
             <Form>ViewVendaMobileConfigurarChave</Form>
@@ -519,8 +512,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Bairro.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Banco.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Busca.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Caixa.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CentroCusto.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CFOP.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cheque.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cidade.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cliente.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CondicaoPagto.pas"/>
@@ -537,6 +532,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Helper.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Licenca.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Logradouro.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.LogTransacao.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas"/>
@@ -556,8 +552,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="Controller\SGE.Controller.AutorizacaoCompra.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Bairro.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Banco.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Caixa.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CentroCusto.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CFOP.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Cheque.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Cidade.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Cliente.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CondicaoPagto.pas"/>
@@ -588,6 +586,16 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Vendedor.pas"/>
         <DCCReference Include="Controller\SGE.Controller.XML_NFeEnviada.pas"/>
         <DCCReference Include="Controller\SGE.Controller.XML_NFeImportada.pas"/>
+        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAPagar.pas">
+            <Form>DataModuleContaAPagar</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Cheque.pas">
+            <Form>DataModuleCheque</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.Cheque.pas"/>
         <DCCReference Include="..\Sys\View\View.Estado.pas">
             <Form>ViewEstado</Form>
         </DCCReference>
@@ -716,35 +724,24 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.NFE.Importar.pas">
             <Form>ViewNFEImportar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.ContaAPagar.pas">
             <Form>ViewContaAPagar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.WaitAMoment.pas">
             <Form>ViewWaitAMoment</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAPagar.pas">
-            <Form>DataModuleContaAPagar</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
-        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Licenca.pas"/>
-        <DCCReference Include="..\Sys\Services\Service.Encript.pas"/>
         <DCCReference Include="..\Sys\View\View.ContaAPagar.LoteParcela.pas">
             <Form>ViewContaAPagarLoteParcela</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.CampoRequisitado.pas">
             <Form>ViewCampoRequisitado</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.ContaAPagar.Pagamento.pas">
             <Form>ViewContaAPagarPagamento</Form>
-            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Cheque.pas">
+            <Form>ViewCheque</Form>
         </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>

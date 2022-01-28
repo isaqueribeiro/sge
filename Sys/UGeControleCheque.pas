@@ -19,7 +19,7 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinsDefaultPainters;
 
 type
   TChequeBaixa = record
@@ -291,7 +291,7 @@ uses
   , UDMRecursos
   , UDMNFe
   , View.Cliente
-  , UGrMemoData
+  , View.MemoData
   , UGeFornecedorClientePesquisa;
 
 {$R *.dfm}

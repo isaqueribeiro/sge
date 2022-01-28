@@ -10,18 +10,22 @@ uses
 
 type
   // Table
-  TControllerBanco = class(TController, IControllerCustom)
+  TControllerBanco = class(TController, IControllerBanco)
     private
+      FBusca : IModelDAO;
     protected
       constructor Create;
     public
       destructor Destroy; override;
-      class function New : IControllerCustom;
+      class function New : IControllerBanco;
+
+      function GetBancoBoletoCodigo(aEmpresa, aCodigoFebraBan : String) : Integer;
   end;
 
 implementation
 
 uses
+  System.SysUtils,
   Controller.Factory;
 
 { TControllerBanco }
@@ -36,9 +40,38 @@ begin
   inherited;
 end;
 
-class function TControllerBanco.New: IControllerCustom;
+class function TControllerBanco.New: IControllerBanco;
 begin
   Result := Self.Create;
+end;
+
+function TControllerBanco.GetBancoBoletoCodigo(aEmpresa, aCodigoFebraBan: String): Integer;
+var
+  aRetorno : Integer;
+begin
+  aRetorno := 0;
+  try
+    if not Assigned(FBusca) then
+      FBusca := TModelDAOFactory.New.Busca;
+
+    FBusca
+      .Close
+      .Clear
+      .SQL('Select')
+      .SQL('  b.bco_codigo')
+      .SQL('from TBBANCO_BOLETO b')
+      .SQL('where (b.empresa = :empresa)')
+      .SQL('  and (b.bco_cod = :banco)')
+      .ParamsByName('empresa', aEmpresa.Trim)
+      .ParamsByName('banco', aCodigoFebraBan.Trim)
+      .Open;
+
+    aRetorno := FBusca.DataSet.FieldByName('bco_codigo').AsInteger;
+
+    FBusca.Close;
+  finally
+    Result := aRetorno;
+  end;
 end;
 
 end.

@@ -635,7 +635,7 @@ uses
   View.CFOP, UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos, UGeEfetuarPagtoREC,
   UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte, UGeVendaConfirmaTitulos,
   {$IFNDEF PDV}UGeVendaDevolucaoNF, UGeConsultarLoteNFe_v2, UGeRequisicaoCliente, {$ENDIF}
-  UDMRecursos, UGrMemo;
+  UDMRecursos, View.Memo;
 
 {$R *.dfm}
 

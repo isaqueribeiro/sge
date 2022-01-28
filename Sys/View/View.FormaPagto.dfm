@@ -27,11 +27,11 @@ inherited ViewFormaPagto: TViewFormaPagto
       ExplicitWidth = 727
       ExplicitHeight = 339
       inherited Bevel4: TBevel
-        Top = 273
+        Top = 265
         ExplicitTop = 273
       end
       inherited dbgDados: TDBGrid
-        Height = 273
+        Height = 265
         Columns = <
           item
             Expanded = False
@@ -61,8 +61,8 @@ inherited ViewFormaPagto: TViewFormaPagto
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 277
-        ExplicitTop = 277
+        Top = 269
+        ExplicitTop = 269
         object lblRegistroDesativado: TLabel [0]
           Left = 2
           Top = 44
@@ -82,20 +82,22 @@ inherited ViewFormaPagto: TViewFormaPagto
           Width = 340
           ExplicitLeft = 383
           ExplicitWidth = 340
+          ExplicitHeight = 62
           inherited lbltFiltrar: TLabel
             Width = 95
             Caption = 'Forma de Pagto.:'
             ExplicitWidth = 95
           end
           inherited edtFiltrar: TEdit
-            Left = 118
+            Left = 121
             Width = 175
-            ExplicitLeft = 118
+            ExplicitLeft = 121
+            ExplicitTop = 24
             ExplicitWidth = 175
           end
           inherited btnFiltrar: TcxButton
-            Left = 299
-            ExplicitLeft = 299
+            Left = 302
+            ExplicitLeft = 302
           end
         end
       end
@@ -285,7 +287,7 @@ inherited ViewFormaPagto: TViewFormaPagto
             Left = 3
             Top = 3
             Width = 33
-            Height = 13
+            Height = 43
             Align = alLeft
             Caption = 'Dica : '
             Font.Charset = ANSI_CHARSET
@@ -295,13 +297,14 @@ inherited ViewFormaPagto: TViewFormaPagto
             Font.Style = [fsBold]
             ParentFont = False
             Transparent = True
+            ExplicitHeight = 13
           end
           object lblDicasTexto: TLabel
             AlignWithMargins = True
             Left = 42
             Top = 3
-            Width = 675
-            Height = 39
+            Width = 676
+            Height = 43
             Align = alClient
             Caption = 
               'Pressione a tecla "Espa'#231'o" para marcar ou desmarcar a Conta Corr' +
@@ -316,6 +319,8 @@ inherited ViewFormaPagto: TViewFormaPagto
             ParentFont = False
             Transparent = True
             WordWrap = True
+            ExplicitWidth = 675
+            ExplicitHeight = 39
           end
         end
         object dbgContaCorrente: TDBGrid

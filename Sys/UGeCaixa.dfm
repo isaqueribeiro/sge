@@ -28,8 +28,6 @@ inherited frmGeCaixa: TfrmGeCaixa
     ExplicitWidth = 950
     ExplicitHeight = 460
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 942
       ExplicitHeight = 431
       inherited Bevel4: TBevel
@@ -834,10 +832,6 @@ inherited frmGeCaixa: TfrmGeCaixa
         TabStop = False
         object tbsConsolidado: TTabSheet
           Caption = 'Consolidado'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbgConsolidado: TDBGrid
             Left = 0
             Top = 0
@@ -895,10 +889,6 @@ inherited frmGeCaixa: TfrmGeCaixa
         object tbsMovimento: TTabSheet
           Caption = 'Movimento'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbgMovimento: TDBGrid
             Left = 0
             Top = 0

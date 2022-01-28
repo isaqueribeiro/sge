@@ -8,8 +8,10 @@ uses
   SGE.Model.DAO.Bairro,
   SGE.Model.DAO.Banco,
   SGE.Model.DAO.Busca,
+  SGE.Model.DAO.Caixa,
   SGE.Model.DAO.CentroCusto,
   SGE.Model.DAO.CFOP,
+  SGE.Model.DAO.Cheque,
   SGE.Model.DAO.Cidade,
   SGE.Model.DAO.Cliente,
   SGE.Model.DAO.CondicaoPagto,
@@ -51,9 +53,11 @@ type
       FBanco ,
       FBancoFebrabanView ,
       FBusca ,
+      FCaixa ,
       FCentroCusto       ,
       FCentroCustoEmpresa,
       FCFOP          ,
+      FCheque        ,
       FCidade        ,
       FClasseDespesa ,
       FClasseReceita ,
@@ -115,6 +119,7 @@ type
       FTabelaIBPT     ,
       FTipoAliquotaView   ,
       FTipoAutorizacaoView,
+      FTipoChequeView  ,
       FTipoCNPJView    ,
       FTipoComissaoView,
       FTipoDespesa     ,
@@ -150,9 +155,11 @@ type
       function Banco : IModelDAOCustom;
       function BancoFebrabanView : IModelDAOCustom;
       function Busca : IModelDAOCustom;
+      function Caixa : IModelDAOCustom;
       function CentroCusto : IModelDAOCustom;
       function CentroCustoEmpresa : IModelDAOCustom;
       function CFOP : IModelDAOCustom;
+      function Cheque : IModelDAOCustom;
       function Cidade   : IModelDAOCustom;
       function ClasseDespesa : IModelDAOCustom;
       function ClasseReceita : IModelDAOCustom;
@@ -214,6 +221,7 @@ type
       function TabelaIBPT : IModelDAOCustom;
       function TipoAliquotaView : IModelDAOCustom;
       function TipoAutorizacaoView : IModelDAOCustom;
+      function TipoChequeView : IModelDAOCustom;
       function TipoCNPJView : IModelDAOCustom;
       function TipoComissaoView : IModelDAOCustom;
       function TipoDespesa : IModelDAOCustom;
@@ -405,6 +413,14 @@ begin
     FTipoAutorizacaoView := TModelDAOTipoAutorizacaoView.New;
 
   Result := FTipoAutorizacaoView;
+end;
+
+function TModelDAOFactory.TipoChequeView: IModelDAOCustom;
+begin
+  if not Assigned(FTipoChequeView) then
+    FTipoChequeView := TModelDAOTipoChequeView.New;
+
+  Result := FTipoChequeView;
 end;
 
 function TModelDAOFactory.TipoCNPJView: IModelDAOCustom;
@@ -599,6 +615,14 @@ begin
   Result := FBusca;
 end;
 
+function TModelDAOFactory.Caixa: IModelDAOCustom;
+begin
+  if not Assigned(FCaixa) then
+    FCaixa := TModelDAOCaixa.New;
+
+  Result := FCaixa;
+end;
+
 function TModelDAOFactory.CentroCusto: IModelDAOCustom;
 begin
   if not Assigned(FCentroCusto) then
@@ -621,6 +645,14 @@ begin
     FCFOP := TModelDAOCFOP.New;
 
   Result := FCFOP;
+end;
+
+function TModelDAOFactory.Cheque: IModelDAOCustom;
+begin
+  if not Assigned(FCheque) then
+    FCheque := TModelDAOCheque.New;
+
+  Result := FCheque;
 end;
 
 function TModelDAOFactory.Cidade: IModelDAOCustom;

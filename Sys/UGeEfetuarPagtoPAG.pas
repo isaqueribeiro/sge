@@ -120,7 +120,7 @@ uses
     UDMBusiness
   , UConstantesDGE
   , Controller.Tabela
-  , UGeControleCheque;
+  , View.Cheque;
 
 {$R *.dfm}
 

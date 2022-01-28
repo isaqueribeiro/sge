@@ -96,11 +96,12 @@ type
     procedure dtsPagamentosDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
-    FTabelaPagamento : ITabela;
     CxContaCorrente  : Integer;
     FControllerBancoFebrabanView,
     FControllerFormaPagto       : IControllerCustom;
     FControllerPagamento : IControllerPagamento;
+    FControllerCaixa : IControllerCaixa;
+    FControllerBanco : IControllerBanco;
 
     procedure CarregarFormaPagto(const pEmpresa : String);
   public
@@ -132,11 +133,11 @@ type
 implementation
 
 uses
-    UDMBusiness
+    Service.Message
   , SGE.Controller
   , SGE.Controller.Helper
   , SGE.Controller.Factory
-  , UGeControleCheque;
+  , View.Cheque;
 
 {$R *.dfm}
 
@@ -145,6 +146,7 @@ function PagamentoConfirmado(const AOwner : TComponent; const Empresa : String;
   var ContaCorrente : Integer; var DataPagto : TDateTime; var APagar : Currency) : Boolean;
 var
   AForm : TViewContaAPagarPagamento;
+  aSequencia : Integer;
 begin
   AForm := TViewContaAPagarPagamento.Create(AOwner);
   try
@@ -176,39 +178,39 @@ begin
         .ParamsByName('controle', Lancamento)
         .Open;
 
-      FTabelaPagamento.Configurar;
+      TTabelaController
+        .New
+        .Tabela(FControllerPagamento.DAO.DataSet)
+        .Display('DATA_PAGTO', 'Data de Pagamento', 'dd/mm/yyyy', True)
+        .Display('VALOR_BAIXA', 'Valor Pago (R$)', ',0.00', TAlignment.taRightJustify, True)
+        .Display('FORMA_PAGTO', 'Forma de Pagamento', True)
+        .Configurar;
 
-      FControllerPagamento.DAO.DataSet.Append;
+      FControllerPagamento.GerarSequencial(dtsPagamentos.DataSet, 'SEQ', aSequencia);
 
-//      cdsPagamentosANOLANC.Value    := StrToInt(edAnoLanc.Text);
-//      cdsPagamentosNUMLANC.Value    := StrToInt(edNumLanc.Text);
-//      cdsPagamentosSEQ.Value        := GetNextID('TBCONTPAG_BAIXA', 'SEQ', 'where anolanc = ' + edAnoLanc.Text + ' and numlanc = ' + edNumLanc.Text);
-      FControllerPagamento.DAO.DataSet.FieldByName('EMPRESA').AsString       := Empresa;
-      FControllerPagamento.DAO.DataSet.FieldByName('FORMA_PAGTO').AsInteger  := FormaPagto;
-      FControllerPagamento.DAO.DataSet.FieldByName('VALOR_BAIXA').AsCurrency := APagar;
-      FControllerPagamento.DAO.DataSet.FieldByName('CONTROLE_CHEQUE').Clear;
+      dtsPagamentos.DataSet.Append;
+      dtsPagamentos.DataSet.FieldByName('ANOLANC').AsInteger      := StrToInt(edAnoLanc.Text);
+      dtsPagamentos.DataSet.FieldByName('NUMLANC').AsInteger      := StrToInt(edNumLanc.Text);
+      dtsPagamentos.DataSet.FieldByName('SEQ').AsInteger          := aSequencia;
+      dtsPagamentos.DataSet.FieldByName('EMPRESA').AsString       := Empresa;
+      dtsPagamentos.DataSet.FieldByName('FORMA_PAGTO').AsInteger  := FormaPagto;
+      dtsPagamentos.DataSet.FieldByName('VALOR_BAIXA').AsCurrency := APagar;
+      dtsPagamentos.DataSet.FieldByName('CONTROLE_CHEQUE').Clear;
 
       Result := (ShowModal = mrOk);
 
-      if ( Result ) then
+      if Result then
       begin
-//        DataPagto     := cdsPagamentosDATA_PAGTO.AsDateTime;
-//        ContaCorrente := cxContaCorrente;
-//
-//        SetMovimentoCaixa(
-//          gUsuarioLogado.Login,
-//          cdsPagamentosDATA_PAGTO.AsDateTime + Time,
-//          cdsPagamentosFORMA_PAGTO.AsInteger,
-//          cdsPagamentosANOLANC.AsInteger,
-//          cdsPagamentosNUMLANC.AsInteger,
-//          cdsPagamentosSEQ.AsInteger,
-//          cdsPagamentosVALOR_BAIXA.AsCurrency,
-//          tmcxDebito);
+        FControllerPagamento
+          .GerarMovimentoCaixa(FControllerPagamento.DAO.Usuario.Login);
+
+        ContaCorrente := CxContaCorrente;
+        DataPagto := dtsPagamentos.DataSet.FieldByName('DATA_PAGTO').AsDateTime;
       end;
     end;
 
   finally
-    AForm.Free;
+    AForm.DisposeOf;
   end;
 end;
 
@@ -221,11 +223,11 @@ begin
 
   if SelecionarChequeBaixa(Self, aCheque) then
   begin
-//    cdsPagamentosCONTROLE_CHEQUE.AsInteger := aCheque.Codigo;
-//    cdsPagamentosNUMERO_CHEQUE.AsString    := aCheque.Numero;
-//    cdsPagamentosBANCO_FEBRABAN.AsString   := aCheque.Banco;
-//    cdsPagamentosVALOR_BAIXA.AsCurrency    := aCheque.Valor;
-//    cdsPagamentosDATA_PAGTO.AsDateTime     := aCheque.Data;
+    dtsPagamentos.DataSet.FieldByName('CONTROLE_CHEQUE').AsInteger := aCheque.Codigo;
+    dtsPagamentos.DataSet.FieldByName('NUMERO_CHEQUE').AsString    := aCheque.Numero;
+    dtsPagamentos.DataSet.FieldByName('BANCO_FEBRABAN').AsString   := aCheque.Banco;
+    dtsPagamentos.DataSet.FieldByName('VALOR_BAIXA').AsCurrency    := aCheque.Valor;
+    dtsPagamentos.DataSet.FieldByName('DATA_PAGTO').AsDateTime     := aCheque.Data;
   end;
 end;
 
@@ -251,18 +253,13 @@ begin
   inherited;
 
   CxContaCorrente := 0;
-
-  FTabelaPagamento := TTabelaController.New.Tabela(FControllerPagamento.DAO.DataSet);
-  FTabelaPagamento
-    .Display('DATA_PAGTO', 'Data de Pagamento', 'dd/mm/yyyy', TAlignment.taLeftJustify, True)
-    .Display('VALOR_BAIXA', 'Valor Pago (R$)', ',0.00', TAlignment.taRightJustify, True)
-    .Display('FORMA_PAGTO', 'Forma de Pagamento', True);
+  dtsPagamentos.DataSet := FControllerPagamento.DAO.DataSet;
 
   TController(FControllerFormaPagto)
-    .LookupComboBox(dbFormaPagto, dtsFormaPagto, 'Forma_Pagto', 'codigo', 'codigo_descricao');
+    .LookupComboBox(dbFormaPagto, dtsFormaPagto, 'Forma_Pagto', 'codigo', 'descricao');
 
   TController(FControllerBancoFebrabanView)
-    .LookupComboBox(dbBancoFebraban, dtsBancoFebraban, 'banco_febraban', 'codigo', 'nome_codigo');
+    .LookupComboBox(dbBancoFebraban, dtsBancoFebraban, 'banco_febraban', 'codigo', 'codigo_nome');
 end;
 
 procedure TViewContaAPagarPagamento.btnConfirmarClick(Sender: TObject);
@@ -275,69 +272,90 @@ begin
   CxAno    := 0;
   CxNumero := 0;
 
-//  if ( cdsPagamentos.State in [dsEdit, dsInsert] ) then
-//  begin
-//    if ( cdsPagamentosVALOR_BAIXA.AsCurrency <= 0 ) then
-//    begin
-//      ShowWarning('Favor informar o valor pago!');
-//      dbValorPago.SetFocus;
-//    end
-//    else
-//    if ( cdsPagamentosDATA_PAGTO.AsDateTime > GetDateTimeDB ) then
-//    begin
-//      ShowWarning('Não é permitido o registro de pagamentos futuros!');
-//      dbDataPagto.SetFocus;
-//    end
-//    else
-//    if ( (Pos('CHEQUE', AnsiUpperCase(dbFormaPagto.Text)) > 0) and (Trim(cdsPagamentosNUMERO_CHEQUE.AsString) = EmptyStr) ) then
-//    begin
-//      ShowWarning('Favor informar o Número do Cheque!');
-//      if dbNumeroCheque.Visible and dbNumeroCheque.Enabled then
-//        dbNumeroCheque.SetFocus;
-//    end
-//    else
-//    if ( (Trim(cdsPagamentosNUMERO_CHEQUE.AsString) <> EmptyStr) and (Trim(cdsPagamentosBANCO_FEBRABAN.AsString) = EmptyStr) ) then
-//    begin
-//      ShowWarning('Favor informar o Banco!');
-//      dbBancoFebraban.SetFocus;
-//    end
-//    else
-//    if ( Trim(cdsPagamentosHISTORICO.AsString) = EmptyStr ) then
-//    begin
-//      ShowWarning('Favor informar histórico (referente à) do pagamento!');
-//      dbHistorico.SetFocus;
-//    end
-//    else
-//    begin
-//      if ( not CaixaAberto(cdsPagamentosEMPRESA.AsString, gUsuarioLogado.Login, cdsPagamentosDATA_PAGTO.AsDateTime, cdsPagamentosFORMA_PAGTO.AsInteger, CxAno, CxNumero, CxContaCorrente) ) then
-//      begin
-//        ShowWarning('Não existe caixa aberto para o usuário ' + QuotedStr(gUsuarioLogado.Login) + ' na forma de pagamento deste movimento.');
-//        Exit;
-//      end;
-//
-//      if ( ShowConfirm('Confirma a efetuação do pagamento?') ) then
-//      begin
-//        cdsPagamentosHISTORICO.AsString := AnsiUpperCase(Trim(cdsPagamentosHISTORICO.AsString));
-//
-//        if (Copy(cdsPagamentosHISTORICO.AsString, Length(cdsPagamentosHISTORICO.AsString), 1) = '.') then
-//          cdsPagamentosHISTORICO.AsString := Copy(cdsPagamentosHISTORICO.AsString, 1, Length(cdsPagamentosHISTORICO.AsString) - 1);
-//
-//        iBancoBoleto := GetBancoBoletoCodigo(cdsPagamentosEMPRESA.AsString, Trim(cdsPagamentosBANCO_FEBRABAN.AsString));
-//        if iBancoBoleto > 0 then
-//          cdsPagamentosBANCO.AsInteger := iBancoBoleto
-//        else
-//          cdsPagamentosBANCO.Clear;
-//
-//        cdsPagamentos.Post;
-//        cdsPagamentos.ApplyUpdates;
-//        cdsPagamentos.CommitUpdates;
-//
-//        CommitTransaction;
-//
-//        ModalResult := mrOk;
-//      end;
-//    end;
-//  end;
+  if (dtsPagamentos.DataSet.State in [dsEdit, dsInsert]) then
+  begin
+    if (dtsPagamentos.DataSet.FieldByName('VALOR_BAIXA').AsCurrency <= 0) then
+    begin
+      TServiceMessage.ShowWarning('Favor informar o valor pago!');
+      dbValorPago.SetFocus;
+    end
+    else
+    if (dtsPagamentos.DataSet.FieldByName('DATA_PAGTO').IsNull or (dtsPagamentos.DataSet.FieldByName('DATA_PAGTO').AsDateTime = EncodeDate(1899, 12, 30))) then
+    begin
+      TServiceMessage.ShowWarning('Informe a Data de Pagamento!');
+      dbDataPagto.SetFocus;
+    end
+    else
+    if (dtsPagamentos.DataSet.FieldByName('DATA_PAGTO').AsDateTime > Date) then
+    begin
+      TServiceMessage.ShowWarning('Não é permitido o registro de pagamentos futuros!');
+      dbDataPagto.SetFocus;
+    end
+    else
+    if ( (Pos('CHEQUE', AnsiUpperCase(dbFormaPagto.Text)) > 0) and (Trim(dtsPagamentos.DataSet.FieldByName('NUMERO_CHEQUE').AsString) = EmptyStr) ) then
+    begin
+      TServiceMessage.ShowWarning('Favor informar o Número do Cheque!');
+      if dbNumeroCheque.Visible and dbNumeroCheque.Enabled then
+        dbNumeroCheque.SetFocus;
+    end
+    else
+    if ( (Trim(dtsPagamentos.DataSet.FieldByName('NUMERO_CHEQUE').AsString) <> EmptyStr) and (Trim(dtsPagamentos.DataSet.FieldByName('BANCO_FEBRABAN').AsString) = EmptyStr) ) then
+    begin
+      TServiceMessage.ShowWarning('Favor informar o Banco do Cheque!');
+      dbBancoFebraban.SetFocus;
+    end
+    else
+    if ( Trim(dtsPagamentos.DataSet.FieldByName('HISTORICO').AsString) = EmptyStr ) then
+    begin
+      TServiceMessage.ShowWarning('Favor informar histórico (referente à) do pagamento!');
+      dbHistorico.SetFocus;
+    end
+    else
+    begin
+      if (not Assigned(FControllerCaixa)) then
+        FControllerCaixa := TControllerFactory.New.Caixa;
+
+      if (not Assigned(FControllerBanco)) then
+        FControllerBanco := TControllerFactory.New.Banco;
+
+      if (not FControllerCaixa.CaixaAberto(
+        dtsPagamentos.DataSet.FieldByName('EMPRESA').AsString,
+        FControllerPagamento.DAO.Usuario.Login,
+        dtsPagamentos.DataSet.FieldByName('DATA_PAGTO').AsDateTime,
+        dtsPagamentos.DataSet.FieldByName('FORMA_PAGTO').AsInteger,
+        CxAno,
+        CxNumero,
+        CxContaCorrente
+      )) then
+        TServiceMessage.ShowWarning('Não existe caixa aberto para o usuário ' + QuotedStr(FControllerPagamento.DAO.Usuario.Login) + ' na forma de pagamento deste movimento.')
+      else
+      begin
+        if ( TServiceMessage.ShowConfirm('Confirma a efetuação do pagamento?') ) then
+        begin
+          if (dtsPagamentos.DataSet.FieldByName('BANCO_FEBRABAN').AsString <> EmptyStr) then
+          begin
+            iBancoBoleto := FControllerBanco.GetBancoBoletoCodigo(
+                dtsPagamentos.DataSet.FieldByName('EMPRESA').AsString,
+                dtsPagamentos.DataSet.FieldByName('BANCO_FEBRABAN').AsString
+              );
+
+            if (iBancoBoleto = 0) then
+              dtsPagamentos.DataSet.FieldByName('BANCO').Clear
+            else
+              dtsPagamentos.DataSet.FieldByName('BANCO').AsInteger := iBancoBoleto;
+          end;
+
+          dtsPagamentos.DataSet.Post;
+
+          FControllerPagamento.DAO.ApplyUpdates;
+          FControllerPagamento.DAO.CommitUpdates;
+          FControllerPagamento.DAO.CommitTransaction;
+
+          ModalResult := mrOk;
+        end;
+      end;
+    end;
+  end;
 end;
 
 procedure TViewContaAPagarPagamento.CarregarFormaPagto(const pEmpresa: String);

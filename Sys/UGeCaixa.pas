@@ -19,7 +19,7 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinsDefaultPainters;
 
 type
   TfrmGeCaixa = class(TfrmGrPadraoCadastro)
@@ -197,11 +197,6 @@ type
 
 var
   frmGeCaixa: TfrmGeCaixa;
-
-const
-  STATUS_CAIXA_ABERTO    = 0;
-  STATUS_CAIXA_FECHADO   = 1;
-  STATUS_CAIXA_CANCELADO = 2;
 
   procedure MostrarTabelaCaixa(const AOwner : TComponent);
 
@@ -441,13 +436,6 @@ begin
   begin
     if Trim(FieldByName('USUARIO_CANCEL').AsString) = EmptyStr then
       FieldByName('USUARIO_CANCEL').Clear;
-
-    if ( fdQryContaCorrente.Locate('CODIGO', FieldByName('CONTA_CORRENTE').AsInteger, []) ) then
-      if ( fdQryContaCorrente.FieldByName('TIPO').AsInteger = 1 ) then
-        FieldByName('TIPO').AsString := 'Caixa'
-      else
-      if ( fdQryContaCorrente.FieldByName('TIPO').AsInteger = 1 ) then
-        FieldByName('TIPO').AsString := 'Banco';
   end;
 end;
 
@@ -657,7 +645,19 @@ end;
 
 procedure TfrmGeCaixa.btbtnSalvarClick(Sender: TObject);
 begin
+  if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
+    with DtSrcTabela.DataSet do
+    begin
+      if ( fdQryContaCorrente.Locate('CODIGO', FieldByName('CONTA_CORRENTE').AsInteger, []) ) then
+        if ( fdQryContaCorrente.FieldByName('TIPO').AsInteger = 1 ) then
+          FieldByName('TIPO').AsString := 'Caixa'
+        else
+        if ( fdQryContaCorrente.FieldByName('TIPO').AsInteger = 1 ) then
+          FieldByName('TIPO').AsString := 'Banco';
+    end;
+
   inherited;
+
   if ( not OcorreuErro ) then
   begin
     if ( FAbrirCaixa and (not (DtSrcTabela.DataSet.State in [dsEdit, dsInsert])) ) then

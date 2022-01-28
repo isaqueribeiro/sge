@@ -45,6 +45,7 @@ type
       destructor Destroy; override;
       class function New : IControllerPagamento;
 
+      procedure GerarMovimentoCaixa(aUsuario : String);
       procedure EstornarPagamento(aUsuario : String; aContaCorrente : Integer);
       procedure GerarSaldoConta(const aContaCorrente : Integer; const aDataMovimento : TDateTime);
       procedure RecalcularSaldo(aContaCorrente : Integer);
@@ -185,6 +186,47 @@ begin
   Result := Self.Create;
 end;
 
+procedure TControllerPagamento.GerarMovimentoCaixa(aUsuario: String);
+var
+  aScriptSQL : TStringList;
+  aAnoConta,
+  aNumConta,
+  aValor   : String;
+  aDataPagto : TDateTime;
+  aValorPago : Currency;
+begin
+  aScriptSQL := TStringList.Create;
+  aValorPago := FDAO.DataSet.FieldByName('VALOR_BAIXA').AsCurrency;
+  try
+    try
+      aAnoConta  := FDAO.DataSet.FieldByName('ANOLANC').AsString;
+      aNumConta  := FDAO.DataSet.FieldByName('NUMLANC').AsString;
+      aDataPagto := FDAO.DataSet.FieldByName('DATA_PAGTO').AsDateTime + Time;
+      aValor     := FormatFloat('#############0.00', FDAO.DataSet.FieldByName('VALOR_BAIXA').AsCurrency).Replace(',', '.', []);
+
+      aScriptSQL.BeginUpdate;
+      aScriptSQL.Clear;
+      aScriptSQL.Add('Execute Procedure SET_CAIXA_MOVIMENTO_PAG (');
+      aScriptSQL.Add('    ' + aUsuario.QuotedString);
+      aScriptSQL.Add('  , ' + QuotedStr(FormatDateTime('yyyy-mm-dd hh:nn:ss', aDataPagto)));
+      aScriptSQL.Add('  , ' + FDAO.DataSet.FieldByName('FORMA_PAGTO').AsString);
+      aScriptSQL.Add('  , ' + aAnoConta);
+      aScriptSQL.Add('  , ' + aNumConta);
+      aScriptSQL.Add('  , ' + FDAO.DataSet.FieldByName('SEQ').AsString);
+      aScriptSQL.Add('  , ' + aValor);
+      aScriptSQL.Add(')');
+      aScriptSQL.EndUpdate;
+
+      FDAO.ExecuteScriptSQL(aScriptSQL.Text);
+    except
+      On E : Exception do
+        raise Exception.Create('Erro ao tentar gerar movimento no caixa.' + #13#13 + E.Message);
+    end;
+  finally
+    aScriptSQL.DisposeOf;
+  end;
+end;
+
 procedure TControllerPagamento.EstornarPagamento(aUsuario: String; aContaCorrente: Integer);
 var
   aScriptSQL : TStringList;
@@ -225,7 +267,7 @@ begin
       FDAO.ApplyUpdates;
       FDAO.CommitUpdates;
 
-      // 3. Atualizar saldo a pagar
+      // 3. Contabilizar valores pagos para atualizar o saldo a pagar
       aValorPago := 0.0;
       FDAO.DataSet.First;
       while not FDAO.DataSet.Eof do

@@ -263,7 +263,7 @@ uses
   , View.Produto
   , UGrCampoRequisitado
   , View.CentroCusto
-  , UGrMemo;
+  , View.Memo;
 
 {$R *.dfm}
 

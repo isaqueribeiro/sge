@@ -458,15 +458,6 @@ const
   STATUS_OS_NFS = 8; // Nota Fiscal de Serviço emitida
   STATUS_OS_CAN = 9; // Cancelada
 
-  STATUS_CHEQUE_PENDENTE    = 0;
-  STATUS_CHEQUE_APRESENTADO = 1;
-  STATUS_CHEQUE_DEVOLVIDO   = 2;
-  STATUS_CHEQUE_COMPENSADO  = 8;
-  STATUS_CHEQUE_CANCELADO   = 9;
-
-  TIPO_CHEQUE_EMITIDO  = 1;
-  TIPO_CHEQUE_RECEBIDO = 2;
-
   TIPO_COTACAO_COMPRA         = TIPO_AUTORIZACAO_COMPRA;
   TIPO_COTACAO_SERVICO        = TIPO_AUTORIZACAO_SERVICO;
   TIPO_COTACAO_COMPRA_SERVICO = TIPO_AUTORIZACAO_COMPRA_SERVICO;
@@ -4044,13 +4035,13 @@ begin
     Close;
     SQL.Clear;
     SQL.Add('Select');
-    SQL.Add('  b.bco_cod');
+    SQL.Add('  b.bco_codigo');
     SQL.Add('from TBBANCO_BOLETO b');
     SQL.Add('where b.empresa = ' + QuotedStr(aEmpresa));
     SQL.Add('  and b.bco_cod = ' + IntToStr(StrToIntDef(aCodigoFebraban, 0)));
     Open;
 
-    Result := FieldByName('bco_cod').AsInteger;
+    Result := FieldByName('bco_codigo').AsInteger;
 
     Close;
   end;

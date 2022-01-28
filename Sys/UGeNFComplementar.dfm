@@ -1911,10 +1911,6 @@ inherited frmGeNFComplementar: TfrmGeNFComplementar
         object tbsObservacoes: TTabSheet
           Caption = 'Informa'#231#245'es adicionais'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object pnlObservacao: TPanel
             Left = 0
             Top = 0
@@ -1926,10 +1922,11 @@ inherited frmGeNFComplementar: TfrmGeNFComplementar
             object lblObservacao: TLabel
               Left = 0
               Top = 0
-              Width = 67
+              Width = 1020
               Height = 13
               Align = alTop
               Caption = '&Observa'#231#245'es:'
+              ExplicitWidth = 67
             end
             object Bevel14: TBevel
               Left = 1016

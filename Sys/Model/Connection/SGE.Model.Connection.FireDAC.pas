@@ -77,22 +77,29 @@ type
       function WhereAdditional(aExpression : String) : IConnection<TConnectionFireDAC>; overload;
       function WhereAdditional : String; overload;
       function SQL : TSQL<TConnectionFireDAC>;
+
       function ParamByName(aParamName, aParamValue : String) : IConnection<TConnectionFireDAC>; overload;
       function ParamByName(aParamName : String; aParamValue : Integer) : IConnection<TConnectionFireDAC>; overload;
       function ParamByName(aParamName : String; aParamValue : Int64) : IConnection<TConnectionFireDAC>; overload;
       function ParamByName(aParamName : String; aParamValue : Currency) : IConnection<TConnectionFireDAC>; overload;
+      function ParamByName(aParamName : String; aParamValue : TDateTime) : IConnection<TConnectionFireDAC>; overload;
       function ParamByName(aParamName : String) : String; overload;
+
       function Where(aExpressionWhere : String) : IConnection<TConnectionFireDAC>; overload;
       function Where(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<TConnectionFireDAC>; overload;
       function Where(aFieldName : String; aFielValue : Integer) : IConnection<TConnectionFireDAC>; overload;
       function Where(aFieldName : String; aFielValue : Int64) : IConnection<TConnectionFireDAC>; overload;
+
       function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<TConnectionFireDAC>; overload;
       function WhereOr(aExpressionWhere : String) : IConnection<TConnectionFireDAC>; overload;
+
       function WhereList(aList : TStringList) : IConnection<TConnectionFireDAC>; overload;
       function WhereList : TStringList; overload;
+
       function OrderBy(aExpression : String) : IConnection<TConnectionFireDAC>;
       function OrderByList(aList : TStringList) : IConnection<TConnectionFireDAC>; overload;
       function OrderByList : TStringList; overload;
+
       function OpenEmpty : IConnection<TConnectionFireDAC>;
       function CloseEmpty : IConnection<TConnectionFireDAC>;
 
@@ -393,14 +400,19 @@ begin
     FQuery.AfterScroll := nil;
   end;
 
-  FQuery.Close;
-  FQuery.SQL.BeginUpdate;
-  FQuery.SQL.Clear;
-  FQuery.SQL.Add( FScript.Text );
-  FQuery.SQL.Add( FScript.Where );
-  FQuery.SQL.Add( FScript.OrderBy );
-  FQuery.SQL.EndUpdate;
-  FQuery.Open;
+  try
+    FQuery.Close;
+    FQuery.SQL.BeginUpdate;
+    FQuery.SQL.Clear;
+    FQuery.SQL.Add( FScript.Text );
+    FQuery.SQL.Add( FScript.Where );
+    FQuery.SQL.Add( FScript.OrderBy );
+    FQuery.SQL.EndUpdate;
+    FQuery.Open;
+  except
+    On E : Exception do
+      raise Exception.Create('Erro ao tentar executar o script na base.' + #13#13 + FQuery.SQL.Text + #13#13 + E.Message);
+  end;
 
   if Assigned(aAfterScroll) then
   begin
@@ -467,6 +479,13 @@ begin
     Result := FQuery.ParamByName(aParamName).AsString
   else
     Result := EmptyStr;
+end;
+
+function TConnectionFireDAC.ParamByName(aParamName: String; aParamValue: TDateTime): IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  if ExistParamByName(aParamName) then
+    FQuery.ParamByName(aParamName).AsDateTime := aParamValue;
 end;
 
 function TConnectionFireDAC.ParamByName(aParamName: String; aParamValue: Currency): IConnection<TConnectionFireDAC>;

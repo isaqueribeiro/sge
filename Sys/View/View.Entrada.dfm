@@ -3229,8 +3229,6 @@ inherited ViewEntrada: TViewEntrada
             ShowHint = True
             TabOrder = 0
             OnClick = btnProdutoInserirClick
-            ExplicitLeft = -776
-            ExplicitTop = -232
           end
           object btnProdutoEditar: TBitBtn
             Left = 0

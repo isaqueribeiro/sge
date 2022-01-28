@@ -7,8 +7,10 @@ uses
   SGE.Controller.AutorizacaoCompra,
   SGE.Controller.Bairro,
   SGE.Controller.Banco,
+  SGE.Controller.Caixa,
   SGE.Controller.CentroCusto,
   SGE.Controller.CFOP,
+  SGE.Controller.Cheque,
   SGE.Controller.Cidade,
   SGE.Controller.Cliente,
   SGE.Controller.CondicaoPagto,
@@ -46,11 +48,13 @@ type
       FAliquotaPISView    : IControllerCustom;
       FAutorizacaoCompra  : IControllerAutorizacaoCompra;
       FBairro : IControllerBairro;
-      FBanco ,
+      FBanco  : IControllerBanco;
       FBancoFebrabanView  : IControllerCustom;
+      FCaixa : IControllerCaixa;
       FCentroCusto        : IControllerCentroCusto;
       FCentroCustoEmpresa : IControllerCustom;
-      FCFOP  : IControllerCFOP;
+      FCFOP   : IControllerCFOP;
+      FCheque : IControllerCheque;
       FCidade,
       FClasseDespesa ,
       FClasseReceita : IControllerCustom;
@@ -110,6 +114,7 @@ type
       FTabelaIBPT      ,
       FTipoAliquotaView   ,
       FTipoAutorizacaoView,
+      FTipoChequeView  ,
       FTipoCNPJView    ,
       FTipoComissaoView,
       FTipoDespesa     ,
@@ -141,12 +146,14 @@ type
       function AliquotaPISView : IControllerCustom;
       function AutorizacaoCompra  : IControllerAutorizacaoCompra;
       function Bairro : IControllerBairro;
-      function Banco : IControllerCustom;
+      function Banco : IControllerBanco;
       function BancoFebrabanView : IControllerCustom;
+      function Caixa : IControllerCaixa;
       function CentroCusto : IControllerCentroCusto;
       function CentroCustoEmpresa : IControllerCustom;
       function CFOP : IControllerCFOP;
-      function Cidade   : IControllerCustom;
+      function Cheque : IControllerCheque;
+      function Cidade : IControllerCustom;
       function ClasseDespesa : IControllerCustom;
       function ClasseReceita : IControllerCustom;
       function Cliente   : IControllerCliente;
@@ -205,6 +212,7 @@ type
       function TabelaIBPT : IControllerCustom;
       function TipoAliquotaView : IControllerCustom;
       function TipoAutorizacaoView : IControllerCustom;
+      function TipoChequeView : IControllerCustom;
       function TipoCNPJView : IControllerCustom;
       function TipoComissaoView : IControllerCustom;
       function TipoDespesa : IControllerCustom;
@@ -406,7 +414,7 @@ begin
   Result := FBairro;
 end;
 
-function TControllerFactory.Banco: IControllerCustom;
+function TControllerFactory.Banco: IControllerBanco;
 begin
   if not Assigned(FBanco) then
     FBanco := TControllerBanco.New;
@@ -420,6 +428,14 @@ begin
     FBancoFebrabanView := TControllerBancoFebrabanView.New;
 
   Result := FBancoFebrabanView;
+end;
+
+function TControllerFactory.Caixa: IControllerCaixa;
+begin
+  if not Assigned(FCaixa) then
+    FCaixa := TControllerCaixa.New;
+
+  Result := FCaixa;
 end;
 
 function TControllerFactory.CentroCusto: IControllerCentroCusto;
@@ -444,6 +460,14 @@ begin
     FCFOP := TControllerCFOP.New;
 
   Result := FCFOP;
+end;
+
+function TControllerFactory.Cheque: IControllerCheque;
+begin
+  if not Assigned(FCheque) then
+    FCheque := TControllerCheque.New;
+
+  Result := FCheque;
 end;
 
 function TControllerFactory.Cidade: IControllerCustom;
@@ -796,6 +820,14 @@ begin
     FTipoAutorizacaoView := TControllerTipoAutorizacaoView.New;
 
   Result := FTipoAutorizacaoView;
+end;
+
+function TControllerFactory.TipoChequeView: IControllerCustom;
+begin
+  if not Assigned(FTipoChequeView) then
+    FTipoChequeView := TControllerTipoChequeView.New;
+
+  Result := FTipoChequeView;
 end;
 
 function TControllerFactory.TipoCNPJView: IControllerCustom;

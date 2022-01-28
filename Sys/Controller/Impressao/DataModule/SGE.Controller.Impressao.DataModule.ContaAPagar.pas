@@ -80,13 +80,13 @@ type
     FHeader : Boolean;
     procedure SetVariablesDefault(const pFastReport : TfrxReport);
 
-    function GetFastReport(aModelo : TModeloRecibo) : TfrxReport;
+    function GetFastReport(aModelo : TModeloPapel) : TfrxReport;
     procedure FrReciboPagamentoA4GetValue(const VarName: string; var Value: Variant);
   public
     { Public declarations }
     function CarregarReciboPagamento(aAno, aControle, aBaixa : Integer) : Boolean;
 
-    procedure VisualizarReciboPagamento(aModelo : TModeloRecibo; const aHeader : Boolean = TRUE);
+    procedure VisualizarReciboPagamento(aModelo : TModeloPapel; const aHeader : Boolean = TRUE);
   end;
 
 var
@@ -135,11 +135,11 @@ begin
 
 end;
 
-function TDataModuleContaAPagar.GetFastReport(aModelo: TModeloRecibo): TfrxReport;
+function TDataModuleContaAPagar.GetFastReport(aModelo: TModeloPapel): TfrxReport;
 begin
   case aModelo of
-    TModeloRecibo.mrPapelA4 : Result := FrReciboPagamentoA4;
-    TModeloRecibo.mrPapelA5 : Result := FrReciboPagamentoA5;
+    TModeloPapel.mrPapelA4 : Result := FrReciboPagamentoA4;
+    TModeloPapel.mrPapelA5 : Result := FrReciboPagamentoA5;
   end;
 end;
 
@@ -209,7 +209,7 @@ begin
   end;
 end;
 
-procedure TDataModuleContaAPagar.VisualizarReciboPagamento(aModelo: TModeloRecibo;
+procedure TDataModuleContaAPagar.VisualizarReciboPagamento(aModelo: TModeloPapel;
   const aHeader : Boolean);
 begin
   SetVariablesDefault(GetFastReport(aModelo));

@@ -47,7 +47,7 @@ uses
   UGrPadraoCadastro,
   Interacao.Tabela,
   Controller.Tabela,
-  UConstantesDGE;
+  UConstantesDGE, dxSkinsDefaultPainters;
 
 type
   TDestinatarioTipo = (dtNull = -1, dtFornecedor = 0, dtCliente = 1);

@@ -5,7 +5,7 @@ interface
 uses
   UConstantesDGE,
   UGrPadrao,
-  UGrMemo,
+  View.Memo,
   UGrPadraoCadastro,
   View.Produto,
 
@@ -720,7 +720,7 @@ uses
   DateUtils, SysConst, UFuncoes, UDMRecursos, UDMBusiness, UDMNFe, UDMNFSe,
   View.Cliente, UGeTabelaCNAE, View.IBPT, View.CondicaoPagto, UGeGerarBoletos,
   UGeEfetuarPagtoREC, UGeEquipamento, UGeOSFormaPagto, UGeOSConfirmaTitulos,
-  UGeOSCancelar, UGrMemoData;
+  UGeOSCancelar, View.MemoData;
 
 {$R *.dfm}
 

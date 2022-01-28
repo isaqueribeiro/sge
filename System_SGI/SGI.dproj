@@ -324,9 +324,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\System_SGE\UGeVendaImpressao.pas">
             <Form>frmGeVendaImpressao</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrMessage.pas">
-            <Form>frmGeMessage</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\View\View.WaitAMoment.pas">
             <Form>ViewWaitAMoment</Form>
         </DCCReference>
@@ -406,8 +403,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="UGeInventario.pas">
             <Form>frmGeInventario</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrMemo.pas">
-            <Form>frmGrMemo</Form>
+        <DCCReference Include="..\Sys\View\View.Memo.pas">
+            <Form>ViewMemo</Form>
         </DCCReference>
         <DCCReference Include="..\System_SGE\UGeProdutoEstoqueImpressao.pas">
             <Form>frmGeProdutoEstoqueImpressao</Form>
@@ -447,12 +444,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\UGeFluxoCaixaImpressao.pas">
             <Form>frmGeFluxoCaixaImpressao</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeControleCheque.pas">
-            <Form>frmGeControleCheque</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\lib\UGrMemoData.pas">
-            <Form>frmGrMemoData</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeFornecedorClientePesquisa.pas">
             <Form>frmGeFornecedorClientePesquisa</Form>
@@ -496,8 +487,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Bairro.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Banco.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Busca.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Caixa.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CentroCusto.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CFOP.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cheque.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cidade.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cliente.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CondicaoPagto.pas"/>
@@ -534,8 +527,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.AutorizacaoCompra.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Bairro.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Banco.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Caixa.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CentroCusto.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CFOP.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Cheque.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Cidade.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Cliente.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CondicaoPagto.pas"/>
@@ -566,186 +561,155 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Vendedor.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.XML_NFeEnviada.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.XML_NFeImportada.pas"/>
+        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.Cheque.pas"/>
+        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Cheque.pas">
+            <Form>DataModuleCheque</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <DCCReference Include="..\Sys\View\View.Certificado.pas">
             <Form>ViewCertificado</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Mensagem.pas">
             <Form>FrmMensagem</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.UnidadeProduto.pas"/>
         <DCCReference Include="..\Sys\View\View.PadraoCadastro.pas">
             <Form>ViewPadraoCadastro</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.CFOP.pas">
             <Form>ViewCFOP</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.FabricanteProduto.pas">
             <Form>ViewFabricanteProduto</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.GrupoProduto.pas">
             <Form>ViewGrupoProduto</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.IBPT.Importar.pas">
             <Form>ViewIBPTImportar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.IBPT.pas">
             <Form>ViewIBPT</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.SecaoProduto.pas">
             <Form>ViewSecaoProduto</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Produto.pas">
             <Form>ViewProduto</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Cliente.pas">
             <Form>ViewCliente</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Bairro.pas">
             <Form>ViewBairro</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Cidade.pas">
             <Form>ViewCidade</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Distrito.pas">
             <Form>ViewDistrito</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Estado.pas">
             <Form>ViewEstado</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Logradouro.pas">
             <Form>ViewLogradouro</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Fornecedor.pas">
             <Form>ViewFornecedor</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.CentroCusto.pas">
             <Form>ViewCentroCusto</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\System_SGE\View\View.AutorizacaoCompra.pas">
             <Form>ViewAutorizacaoCompra</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\System_SGE\View\View.AutorizacaoCompra.Cancelar.pas">
             <Form>ViewAutorizacaoCompraCancelar</Form>
         </DCCReference>
         <DCCReference Include="..\System_SGE\View\View.RequisicaoCompra.pas">
             <Form>ViewRequisicaoCompra</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\System_SGE\View\View.RequisicaoCompra.Cancelar.pas">
             <Form>ViewRequisicaoCompraCancelar</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.CondicaoPagto.pas">
             <Form>ViewCondicaoPagto</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.ContaCorrente.pas">
             <Form>ViewContaCorrente</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.FormaPagto.pas">
             <Form>ViewFormaPagto</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Banco.pas">
             <Form>ViewBanco</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.TipoLogradouro.pas">
             <Form>ViewTipoLogradouro</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Empresa.pas">
             <Form>ViewEmpresa</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Vendedor.pas">
             <Form>ViewVendedor</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.PlanoConta.pas">
             <Form>ViewPlanoConta</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.TipoDespesa.pas">
             <Form>ViewTipoDespesa</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.TipoReceita.pas">
             <Form>ViewTipoReceita</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\System_SGE\View\View.Promocao.pas">
             <Form>ViewPromocao</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.ConfiguracaoEmpresa.pas">
             <Form>ViewConfiguracaoEmpresa</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeTabelaCNAE.pas">
             <Form>frmGeTabelaCNAE</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Entrada.pas">
             <Form>ViewEntrada</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Entrada.Cancelar.pas">
             <Form>ViewEntradaEstoqueCancelar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Entrada.ConfirmarDuplicatas.pas">
             <Form>ViewEntradaConfirmarDuplicatas</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Entrada.ConfirmarLote.pas">
             <Form>ViewEntradaEstoqueLote</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Entrada.DevolucaoNF.pas">
             <Form>ViewEntradaDevolucaoNF</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Entrada.GerarNFE.pas">
             <Form>ViewEntradaEstoqueGerarNFE</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.NFE.ConsultarLote.pas">
             <Form>ViewNFEConsultarLote</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.NFE.Distribuicao.pas">
             <Form>ViewNFEDistribuicao</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.NFE.Importar.pas">
             <Form>ViewNFEImportar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.NFE.Pesquisa.pas">
             <Form>ViewNFEPesquisa</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.CampoRequisitado.pas">
             <Form>ViewCampoRequisitado</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Cheque.pas">
+            <Form>ViewCheque</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.MemoData.pas">
+            <Form>ViewMemoData</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <None Include="SGI.todo"/>

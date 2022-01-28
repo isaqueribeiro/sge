@@ -31,7 +31,7 @@ Uses
     TGrupoFornecedorLista   = Array[Low(TGrupoFornecedor)..High(TGrupoFornecedor)] of String;
     TPermissaoLista         = Array [0..45] of String;
 
-    TModeloRecibo = (mrPapelA4, mrPapelA5);
+    TModeloPapel = (mrPapelA4, mrPapelA5);
 
   TSistema = record
     Codigo : Integer;
@@ -65,6 +65,15 @@ Uses
     Numero : Integer;
   end;
 
+  TChequeBaixa = record
+    Codigo : Integer;
+    Numero ,
+    Banco  ,
+    Agencia,
+    Conta  : String;
+    Valor  : Currency;
+    Data   : TDateTime;
+  end;
 
 const
   VERSION_NUMBER     = '1.0.31.0';
@@ -568,8 +577,27 @@ const
   TIPO_DOCUMENTO_ENTRADA_CTE         = 8;
   TIPO_DOCUMENTO_SERIE_AVULSO        = '99';
 
+  // Status do Caixa
+
+  STATUS_CAIXA_ABERTO    = 0;
+  STATUS_CAIXA_FECHADO   = 1;
+  STATUS_CAIXA_CANCELADO = 2;
+
+  // Status de Cheques
+
+  STATUS_CHEQUE_PENDENTE    = 0;
+  STATUS_CHEQUE_APRESENTADO = 1;
+  STATUS_CHEQUE_DEVOLVIDO   = 2;
+  STATUS_CHEQUE_COMPENSADO  = 8;
+  STATUS_CHEQUE_CANCELADO   = 9;
+
+  // Tipos de Cheques
+
+  TIPO_CHEQUE_EMITIDO  = 1;
+  TIPO_CHEQUE_RECEBIDO = 2;
+
   // Valores padrões para vendas
-  
+
   MODALIDADE_FRETE_SEMFRETE = 3;
 
   // Relação de TAG'S FEET

@@ -3666,32 +3666,32 @@ begin
           while not qryFormaPagtos.Eof do
           begin
             with pag.Add do // Formas de Pagamentos apenas para NFC-e
-             begin
-               Case qryFormaPagtos.FieldByName('FORMAPAGTO_NFCE').AsInteger of
-                 01 : tPag := TpcnFormaPagamento.fpDinheiro;
-                 02 : tPag := TpcnFormaPagamento.fpCheque;
-                 03 : tPag := TpcnFormaPagamento.fpCartaoCredito;
-                 04 : tPag := TpcnFormaPagamento.fpCartaoDebito;
-                 05 : tPag := TpcnFormaPagamento.fpCreditoLoja;
-                 06 : tPag := TpcnFormaPagamento.fpBoletoBancario;
-                 07 : tPag := TpcnFormaPagamento.fpDepositoBancario;
-                 08 : tPag := TpcnFormaPagamento.fpPagamentoInstantaneo;
-                 09 : tPag := TpcnFormaPagamento.fpTransfBancario;
-                 10 : tPag := TpcnFormaPagamento.fpValeAlimentacao;
-                 11 : tPag := TpcnFormaPagamento.fpValeRefeicao;
-                 12 : tPag := TpcnFormaPagamento.fpValePresente;
-                 13 : tPag := TpcnFormaPagamento.fpValeCombustivel;
-                 14 : tPag := TpcnFormaPagamento.fpDuplicataMercantil;
-                 15 : tPag := TpcnFormaPagamento.fpProgramaFidelidade;
-                 else
-                 begin
-                   tPag := fpOutro;
-                   xPag := qryFormaPagtos.FieldByName('Descri').AsString;
-                 end;
-               end;
+            begin
+              Case qryFormaPagtos.FieldByName('FORMAPAGTO_NFCE').AsInteger of
+                01 : tPag := TpcnFormaPagamento.fpDinheiro;
+                02 : tPag := TpcnFormaPagamento.fpCheque;
+                03 : tPag := TpcnFormaPagamento.fpCartaoCredito;
+                04 : tPag := TpcnFormaPagamento.fpCartaoDebito;
+                05 : tPag := TpcnFormaPagamento.fpCreditoLoja;
+                06 : tPag := TpcnFormaPagamento.fpBoletoBancario;
+                07 : tPag := TpcnFormaPagamento.fpDepositoBancario;
+                08 : tPag := TpcnFormaPagamento.fpPagamentoInstantaneo;
+                09 : tPag := TpcnFormaPagamento.fpTransfBancario;
+                10 : tPag := TpcnFormaPagamento.fpValeAlimentacao;
+                11 : tPag := TpcnFormaPagamento.fpValeRefeicao;
+                12 : tPag := TpcnFormaPagamento.fpValePresente;
+                13 : tPag := TpcnFormaPagamento.fpValeCombustivel;
+                14 : tPag := TpcnFormaPagamento.fpDuplicataMercantil;
+                15 : tPag := TpcnFormaPagamento.fpProgramaFidelidade;
+                else
+                begin
+                  tPag := fpOutro;
+                  xPag := qryFormaPagtos.FieldByName('Descri').AsString;
+                end;
+              end;
 
-               vPag := qryFormaPagtos.FieldByName('VALOR_FPAGTO').AsCurrency;
-             end;
+              vPag := qryFormaPagtos.FieldByName('VALOR_FPAGTO').AsCurrency;
+            end;
 
             qryFormaPagtos.Next;
           end;

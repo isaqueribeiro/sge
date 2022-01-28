@@ -11,7 +11,7 @@ uses
 type
   IImpressaoContaAPagar = interface
     ['{12845377-9DCA-43E9-B9BA-EB87CB9D9BAF}']
-    procedure VisualizarReciboPagamento(aAno, aControle, aBaixa : Integer; aModelo: TModeloRecibo;
+    procedure VisualizarReciboPagamento(aAno, aControle, aBaixa : Integer; aModelo: TModeloPapel;
       const aHeader : Boolean = TRUE);
   end;
 
@@ -24,7 +24,7 @@ type
       destructor Destroy; override;
       class function New : IImpressaoContaAPagar;
 
-      procedure VisualizarReciboPagamento(aAno, aControle, aBaixa : Integer; aModelo: TModeloRecibo;
+      procedure VisualizarReciboPagamento(aAno, aControle, aBaixa : Integer; aModelo: TModeloPapel;
         const aHeader : Boolean = TRUE);
   end;
 
@@ -48,7 +48,7 @@ begin
   Result := Self.Create;
 end;
 
-procedure TImpressaoContaAPagar.VisualizarReciboPagamento(aAno, aControle, aBaixa: Integer; aModelo: TModeloRecibo;
+procedure TImpressaoContaAPagar.VisualizarReciboPagamento(aAno, aControle, aBaixa: Integer; aModelo: TModeloPapel;
   const aHeader : Boolean);
 begin
   if FDataModule.CarregarReciboPagamento(aAno, aControle, aBaixa) then

@@ -540,7 +540,7 @@ end;
 procedure TfrmPrinc.BrBtnControleChequeClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_FIN_CONTROLE_CHEQUE_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeControleCheque');
+    FormFunction.ShowModalForm(Self, 'ViewCheque');
 end;
 
 procedure TfrmPrinc.BrBtnDownloadTeamViewerClick(Sender: TObject);

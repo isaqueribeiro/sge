@@ -26,16 +26,22 @@ type
     function Where(aFieldName : String; aFielValue : Integer) : IModelDAO; overload;
     function Where(aFieldName : String; aFielValue : Int64) : IModelDAO; overload;
     function WhereLike(aFieldName, aFielValue : String) : IModelDAO;
+
     function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO; overload;
     function WhereOr(aExpressionWhere : String) : IModelDAO; overload;
+
     function WhereAdditional(aExpression : String) : IModelDAO; overload;
     function WhereAdditional : String; overload;
+
     function ParamsByName(aParamsName, aParamsValue : String) : IModelDAO; overload;
     function ParamsByName(aParamsName : String; aParamsValue : Integer) : IModelDAO; overload;
     function ParamsByName(aParamsName : String; aParamsValue : Int64) : IModelDAO; overload;
     function ParamsByName(aParamsName : String; aParamsValue : Currency) : IModelDAO; overload;
+    function ParamsByName(aParamsName : String; aParamsValue : TDateTime) : IModelDAO; overload;
     function ParamsByNameClear(aParamsName : String) : IModelDAO;
+
     function OrderBy(aFieldName : String) : IModelDAO; overload;
+
     function PrepareInsert(Value : Boolean) : IModelDAO; overload;
     function PrepareInsert : Boolean; overload;
 
@@ -88,9 +94,11 @@ type
     function Banco : IModelDAOCustom;
     function BancoFebrabanView : IModelDAOCustom;
     function Busca : IModelDAOCustom;
+    function Caixa : IModelDAOCustom;
     function CentroCusto : IModelDAOCustom;
     function CentroCustoEmpresa : IModelDAOCustom;
     function CFOP : IModelDAOCustom;
+    function Cheque : IModelDAOCustom;
     function Cidade   : IModelDAOCustom;
     function ClasseDespesa : IModelDAOCustom;
     function ClasseReceita : IModelDAOCustom;
@@ -154,6 +162,7 @@ type
     function TipoAutorizacaoView : IModelDAOCustom;
     function TipoCNPJView : IModelDAOCustom;
     function TipoComissaoView : IModelDAOCustom;
+    function TipoChequeView : IModelDAOCustom;
     function TipoDespesa : IModelDAOCustom;
     function TipoDespesaPlanoConta : IModelDAOCustom;
     function TipoDocumentoEntradaView : IModelDAOCustom;

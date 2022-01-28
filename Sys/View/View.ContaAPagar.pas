@@ -148,6 +148,7 @@ type
     FControllerTipoDespesa : IControllerCustom;
     FControllerPagamento   : IControllerPagamento;
     FControllerCompetencia : IControllerCompetencia;
+    FControllerCaixa : IControllerCaixa;
     FImpressao : IImpressaoContaAPagar;
 
     FDataAtual     : TDateTime;
@@ -624,9 +625,12 @@ begin
       CxNumero := 0;
       CxContaCorrente := 0;
 
+      if (not Assigned(FControllerCaixa)) then
+        FControllerCaixa := TControllerFactory.New.Caixa;
+
       if (FControllerFormaPagto.DAO.DataSet.Locate('codigo', DtSrcTabela.DataSet.FieldByName('FORMA_PAGTO').AsInteger, [])) then
         if (FControllerFormaPagto.DAO.DataSet.FieldByName('Conta_corrente').AsInteger > 0) then
-          if (not CaixaAberto(
+          if (not FControllerCaixa.CaixaAberto(
               DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString
             , Controller.DAO.Usuario.Login
             , Date
@@ -679,7 +683,7 @@ begin
         Pagamentos.DAO.DataSet.FieldByName('ANOLANC').AsInteger,
         Pagamentos.DAO.DataSet.FieldByName('NUMLANC').AsInteger,
         Pagamentos.DAO.DataSet.FieldByName('SEQ').AsInteger,
-        TModeloRecibo.mrPapelA4,
+        TModeloPapel.mrPapelA4,
         FImprimirCabecalho
       )
   else
@@ -689,7 +693,7 @@ begin
         Pagamentos.DAO.DataSet.FieldByName('ANOLANC').AsInteger,
         Pagamentos.DAO.DataSet.FieldByName('NUMLANC').AsInteger,
         Pagamentos.DAO.DataSet.FieldByName('SEQ').AsInteger,
-        TModeloRecibo.mrPapelA5,
+        TModeloPapel.mrPapelA5,
         FImprimirCabecalho
       );
 end;

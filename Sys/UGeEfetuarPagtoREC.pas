@@ -124,7 +124,7 @@ uses
   , UConstantesDGE
   , UDMBusiness
   , Controller.Tabela
-  , UGeControleCheque;
+  , View.Cheque;
 
 {$R *.dfm}
 

@@ -38,6 +38,7 @@ begin
   FConn
     .Query
       .TableName('TBBANCO_BOLETO')
+      .AliasTableName('b')
       .KeyFields('bco_codigo')
       .SQL
         .Clear
@@ -68,7 +69,7 @@ begin
         .Add('  , b.bco_layout_retorno   ')
         .Add('  , trim(b.bco_nome) ||    ')
         .Add('    coalesce('' - AG. ''  || nullif(trim(b.bco_agencia), ''''), '''') || ')
-        .Add('    coalesce('' - C/C. '' || nullif(trim(b.bco_cc), ''), '''')  as bco_nome_agencia_conta ')
+        .Add('    coalesce('' - C/C. '' || nullif(trim(b.bco_cc), ''''), '''')  as bco_nome_agencia_conta ')
         .Add('from TBBANCO_BOLETO b      ')
       .&End
     .OpenEmpty

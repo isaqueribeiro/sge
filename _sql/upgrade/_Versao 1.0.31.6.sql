@@ -261,3 +261,67 @@ end
 
 SET TERM ; ^
 
+
+
+
+/*------ SYSDBA 26/01/2022 11:19:31 --------*/
+
+COMMENT ON COLUMN TBFORMPAGTO.FORMAPAGTO_NFCE IS
+'Forma de Pagamento para NFC-e (Campo Obrigatorio):
+01 - Dinheiro
+02 - Cheque
+03 - Cartao de Credito
+04 - Cartao de Debito
+05 - Credito Loja
+06 - Boleto
+07 - Deposito
+08 - Pix
+09 - Transferencia
+10 - Vale Alimentacao
+11 - Vale Refeicao
+12 - Vale Presente
+13 - Vale Combustivel
+14 - Duplicata
+99 - Outros
+
+TpcnFormaPagamento = (fpDinheiro, fpCheque, fpCartaoCredito, fpCartaoDebito, fpCreditoLoja,
+                      fpValeAlimentacao, fpValeRefeicao, fpValePresente, fpValeCombustivel,
+                      fpDuplicataMercantil, fpBoletoBancario, fpDepositoBancario,
+                      fpPagamentoInstantaneo, fpTransfBancario, fpProgramaFidelidade,
+                      fpSemPagamento, fpRegimeEspecial, fpOutro);';
+
+
+
+
+/*------ SYSDBA 26/01/2022 11:19:45 --------*/
+
+CREATE INDEX IDX_TBFORMPAGTO_NFCE
+ON TBFORMPAGTO (FORMAPAGTO_NFCE);
+
+
+
+
+/*------ SYSDBA 27/01/2022 10:53:24 --------*/
+
+CREATE INDEX IDX_TBCAIXA_DATA_ASC
+ON TBCAIXA (DATA_ABERTURA);
+
+CREATE DESCENDING INDEX IDX_TBCAIXA_DATA_DESC
+ON TBCAIXA (DATA_ABERTURA);
+
+
+
+
+/*------ SYSDBA 27/01/2022 10:54:08 --------*/
+
+CREATE INDEX IDX_TBCAIXA_SITUACAO
+ON TBCAIXA (SITUACAO);
+
+
+
+
+/*------ SYSDBA 27/01/2022 12:59:20 --------*/
+
+CREATE INDEX IDX_TBBANCO_BOLETO_BNC_EMP
+ON TBBANCO_BOLETO (BCO_COD,EMPRESA);
+

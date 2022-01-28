@@ -41,6 +41,8 @@ type
 
       function GetSegmentoID(aCNPJ : String) : Integer;
       function GetEmpresaUF(aCNPJ : String) : String;
+      function GetEmpresaFantasia(aCNPJ : String) : String;
+      function GetEmpresaRazao(aCNPJ : String) : String;
       function GetEstoqueUnificado(aCNPJ : String) : Boolean;
       function GetPermitirVendaEstoqueInsuficiente(aCNPJ : String) : Boolean;
       function GetPermitirEmissaoNFe(aCNPJ : String) : Boolean;
@@ -109,6 +111,28 @@ begin
 
   if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
     Result := (FDAO.DataSet.FieldByName('autoriza_informa_cliente').AsInteger = 1);
+end;
+
+function TControllerEmpresaView.GetEmpresaFantasia(aCNPJ: String): String;
+begin
+  Result := EmptyStr;
+
+  if not FDAO.DataSet.Active then
+    FDAO.Open;
+
+  if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
+    Result := FDAO.DataSet.FieldByName('fantasia').AsString;
+end;
+
+function TControllerEmpresaView.GetEmpresaRazao(aCNPJ: String): String;
+begin
+  Result := EmptyStr;
+
+  if not FDAO.DataSet.Active then
+    FDAO.Open;
+
+  if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
+    Result := FDAO.DataSet.FieldByName('razao').AsString;
 end;
 
 function TControllerEmpresaView.GetEmpresaUF(aCNPJ: String): String;

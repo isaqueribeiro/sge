@@ -33,7 +33,7 @@ type
 //      procedure QuitadoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
       procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetNewRecord(DataSet: TDataSet);
-//      procedure DataSetBeforePost(DataSet: TDataSet);
+      procedure DataSetBeforePost(DataSet: TDataSet);
     protected
       constructor Create;
     public
@@ -226,13 +226,25 @@ begin
 
   FConn.Query.DataSet.AfterOpen   := DataSetAfterOpen;
   FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
-//  FConn.Query.DataSet.BeforePost  := DataSetBeforePost;
+  FConn.Query.DataSet.BeforePost  := DataSetBeforePost;
 end;
 
 procedure TModelDAOPagamento.DataSetAfterOpen(DataSet: TDataSet);
 begin
   SetProviderFlags;
   //FConn.Query.DataSet.FieldByName('QUITADO').OnGetText := QuitadoGetText;
+end;
+
+procedure TModelDAOPagamento.DataSetBeforePost(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+  begin
+    FieldByName('HISTORICO').AsString := AnsiUpperCase(Trim(FieldByName('HISTORICO').AsString));
+
+    // Remover o "." (ponto final) do texto
+    if (Copy(FieldByName('HISTORICO').AsString, Length(FieldByName('HISTORICO').AsString), 1) = '.') then
+      FieldByName('HISTORICO').AsString := Copy(FieldByName('HISTORICO').AsString, 1, Length(FieldByName('HISTORICO').AsString) - 1);
+  end;
 end;
 
 procedure TModelDAOPagamento.DataSetNewRecord(DataSet: TDataSet);

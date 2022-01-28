@@ -23,22 +23,29 @@ type
     function WhereAdditional(aExpression : String) : IConnection<T>; overload;
     function WhereAdditional : String; overload;
     function SQL : TSQL<T>;
+
     function ParamByName(aParamName, aParamValue : String) : IConnection<T>; overload;
     function ParamByName(aParamName : String; aParamValue : Integer) : IConnection<T>; overload;
     function ParamByName(aParamName : String; aParamValue : Int64) : IConnection<T>; overload;
     function ParamByName(aParamName : String; aParamValue : Currency) : IConnection<T>; overload;
+    function ParamByName(aParamName : String; aParamValue : TDateTime) : IConnection<T>; overload;
     function ParamByName(aParamName : String) : String; overload;
+
     function Where(aExpressionWhere : String) : IConnection<T>; overload;
     function Where(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<T>; overload;
     function Where(aFieldName : String; aFielValue : Integer) : IConnection<T>; overload;
     function Where(aFieldName : String; aFielValue : Int64) : IConnection<T>; overload;
+
     function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IConnection<T>; overload;
     function WhereOr(aExpressionWhere : String) : IConnection<T>; overload;
+
     function WhereList(aList : TStringList) : IConnection<T>; overload;
     function WhereList : TStringList; overload;
+
     function OrderBy(aExpression : String) : IConnection<T>;
     function OrderByList(aList : TStringList) : IConnection<T>; overload;
     function OrderByList : TStringList; overload;
+
     function OpenEmpty : IConnection<T>;
     function CloseEmpty : IConnection<T>;
     function OpenOrExecute : Boolean;

@@ -27,6 +27,8 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
     ExplicitWidth = 823
     ExplicitHeight = 428
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 815
       ExplicitHeight = 399
       inherited Bevel4: TBevel
@@ -85,26 +87,42 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
           Width = 571
           ExplicitLeft = 240
           ExplicitWidth = 571
+          ExplicitHeight = 62
           inherited lbltFiltrar: TLabel
-            Left = 286
+            AlignWithMargins = True
+            Left = 294
+            Top = 24
             Width = 73
+            Height = 23
+            Margins.Top = 9
+            Margins.Bottom = 13
+            Align = alRight
             Caption = 'Destinat'#225'rio:'
-            ExplicitLeft = 286
+            Layout = tlCenter
+            ExplicitLeft = 294
+            ExplicitTop = 24
             ExplicitWidth = 73
           end
           object lblData: TLabel [1]
-            Left = 14
-            Top = 27
+            AlignWithMargins = True
+            Left = 24
+            Top = 24
             Width = 49
-            Height = 13
+            Height = 23
+            Margins.Top = 9
+            Margins.Bottom = 13
+            Align = alRight
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
+            Layout = tlCenter
+            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 373
             Width = 154
             TabOrder = 2
             ExplicitLeft = 373
+            ExplicitTop = 24
             ExplicitWidth = 154
           end
           inherited btnFiltrar: TcxButton
@@ -113,11 +131,15 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
             ExplicitLeft = 533
           end
           object e1Data: TJvDateEdit
-            Left = 72
-            Top = 23
+            AlignWithMargins = True
+            Left = 79
+            Top = 24
             Width = 100
-            Height = 21
+            Height = 23
+            Margins.Top = 9
+            Margins.Bottom = 13
             Date = 40909.000000000000000000
+            Align = alRight
             Glyph.Data = {
               76050000424D760500000000000036000000280000001C0000000C0000000100
               2000000000004005000000000000000000000000000000000000FF00FF00FF00
@@ -168,13 +190,18 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 0
+            ExplicitHeight = 21
           end
           object e2Data: TJvDateEdit
-            Left = 176
-            Top = 23
+            AlignWithMargins = True
+            Left = 185
+            Top = 24
             Width = 103
-            Height = 21
+            Height = 23
+            Margins.Top = 9
+            Margins.Bottom = 13
             Date = 40909.000000000000000000
+            Align = alRight
             Glyph.Data = {
               76050000424D760500000000000036000000280000001C0000000C0000000100
               2000000000004005000000000000000000000000000000000000FF00FF00FF00
@@ -225,6 +252,7 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 1
+            ExplicitHeight = 21
           end
         end
         object pnlStatus: TPanel
@@ -269,7 +297,6 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
             Align = alClient
             BevelOuter = bvNone
             TabOrder = 1
-            ExplicitWidth = 148
             object lblOperacaoCancelada: TLabel
               AlignWithMargins = True
               Left = 3
@@ -297,6 +324,8 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 815
       ExplicitHeight = 399
       inherited Bevel8: TBevel

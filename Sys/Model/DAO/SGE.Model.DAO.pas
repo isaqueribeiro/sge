@@ -39,16 +39,22 @@ type
       function Where(aFieldName : String; aFielValue : Integer) : IModelDAO; overload;
       function Where(aFieldName : String; aFielValue : Int64) : IModelDAO; overload;
       function WhereLike(aFieldName, aFielValue : String) : IModelDAO;
+
       function WhereOr(aFieldName, aFielValue : String; const aQuotedString : Boolean = True) : IModelDAO; overload;
       function WhereOr(aExpressionWhere : String) : IModelDAO; overload;
+
       function WhereAdditional(aExpression : String) : IModelDAO; overload;
       function WhereAdditional : String; overload;
+
       function ParamsByName(aParamsName, aParamsValue : String) : IModelDAO; overload;
       function ParamsByName(aParamsName : String; aParamsValue : Integer) : IModelDAO; overload;
       function ParamsByName(aParamsName : String; aParamsValue : Int64) : IModelDAO; overload;
       function ParamsByName(aParamsName : String; aParamsValue : Currency) : IModelDAO; overload;
+      function ParamsByName(aParamsName : String; aParamsValue : TDateTime) : IModelDAO; overload;
       function ParamsByNameClear(aParamsName : String) : IModelDAO;
+
       function OrderBy(aFieldName : String) : IModelDAO; overload;
+
       function PrepareInsert(Value : Boolean) : IModelDAO; overload;
       function PrepareInsert : Boolean; overload;
 
@@ -348,6 +354,12 @@ begin
 end;
 
 function TModelDAO.ParamsByName(aParamsName: String; aParamsValue: Currency): IModelDAO;
+begin
+  Result := Self;
+  FConn.Query.ParamByName(aParamsName, aParamsValue);
+end;
+
+function TModelDAO.ParamsByName(aParamsName: String; aParamsValue: TDateTime): IModelDAO;
 begin
   Result := Self;
   FConn.Query.ParamByName(aParamsName, aParamsValue);

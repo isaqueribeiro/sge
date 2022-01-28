@@ -11,6 +11,7 @@ type
   IController = interface
     ['{7BF1786A-5EBC-4101-943D-EA981E4E887F}']
     function DAO : IModelDAOCustom;
+    function GerarSequencial(const aDataSet : TDataSet; const aCampo : String; var aSequencial : Integer) : IController;
   end;
 
   IControllerCustom = interface(IController)
@@ -43,6 +44,8 @@ type
     ['{F0D92BB2-24FF-4270-9655-79AAC773AD94}']
     function GetSegmentoID(aCNPJ : String) : Integer;
     function GetEmpresaUF(aCNPJ : String) : String;
+    function GetEmpresaFantasia(aCNPJ : String) : String;
+    function GetEmpresaRazao(aCNPJ : String) : String;
     function GetEstoqueUnificado(aCNPJ : String) : Boolean;
     function GetPermitirVendaEstoqueInsuficiente(aCNPJ : String) : Boolean;
     function GetPermitirEmissaoNFe(aCNPJ : String) : Boolean;
@@ -174,9 +177,28 @@ type
 
   IControllerPagamento = interface(IControllerCustom)
     ['{668B2910-1359-47E6-AB9B-28F711A2C75E}']
+    procedure GerarMovimentoCaixa(aUsuario : String);
     procedure EstornarPagamento(aUsuario : String; aContaConrrente : Integer);
     procedure GerarSaldoConta(const aContaCorrente : Integer; const aDataMovimento : TDateTime);
     procedure RecalcularSaldo(aContaCorrente : Integer);
+  end;
+
+  IControllerCaixa = interface(IControllerCustom)
+    ['{B42AEE75-D285-44D7-B369-91B14B8CC838}']
+    function CaixaAberto(const aEmpresa, aUsuario : String;
+      const DataReferencia : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;
+  end;
+
+  IControllerBanco = interface(IControllerCustom)
+    ['{E0514070-93A2-44EC-B598-0B9819DE0E72}']
+    function GetBancoBoletoCodigo(aEmpresa, aCodigoFebraBan : String) : Integer;
+  end;
+
+  IControllerCheque = interface(IControllerCustom)
+    ['{C35B454A-DE44-4170-A590-4B439387FA70}']
+    function CarregarBaixas : IControllerCheque; overload;
+    function CarregarBaixas(aNumeroControle : Integer) : IControllerCheque; overload;
+    function Baixas : IModelDAOCustom;
   end;
 
   IControllerFactory = interface
@@ -186,11 +208,13 @@ type
     function AliquotaPISView    : IControllerCustom;
     function AutorizacaoCompra  : IControllerAutorizacaoCompra;
     function Bairro : IControllerBairro;
-    function Banco  : IControllerCustom;
+    function Banco  : IControllerBanco;
     function BancoFebrabanView  : IControllerCustom;
+    function Caixa : IControllerCaixa;
     function CentroCusto        : IControllerCentroCusto;
     function CentroCustoEmpresa : IControllerCustom;
     function CFOP   : IControllerCFOP;
+    function Cheque : IControllerCheque;
     function Cidade : IControllerCustom;
     function ClasseDespesa  : IControllerCustom;
     function ClasseReceita  : IControllerCustom;
@@ -250,6 +274,7 @@ type
     function TabelaIBPT   : IControllerCustom;
     function TipoAliquotaView : IControllerCustom;
     function TipoAutorizacaoView : IControllerCustom;
+    function TipoChequeView   : IControllerCustom;
     function TipoCNPJView     : IControllerCustom;
     function TipoComissaoView : IControllerCustom;
     function TipoDespesa      : IControllerCustom;

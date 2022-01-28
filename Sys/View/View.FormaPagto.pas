@@ -37,7 +37,7 @@ uses
   View.PadraoCadastro,
   SGE.Controller.Interfaces,
   Interacao.Tabela,
-  Controller.Tabela;
+  Controller.Tabela, dxSkinsDefaultPainters;
 
 type
   TViewFormaPagto = class(TViewPadraoCadastro)
