@@ -12,14 +12,19 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
   PixelsPerInch = 96
   TextHeight = 13
   object pnlPesquisa: TPanel
-    Left = 0
-    Top = 0
-    Width = 777
+    AlignWithMargins = True
+    Left = 3
+    Top = 3
+    Width = 771
     Height = 81
+    Margins.Bottom = 0
     Align = alTop
     BevelOuter = bvNone
     BorderWidth = 4
     TabOrder = 0
+    ExplicitLeft = 0
+    ExplicitTop = 0
+    ExplicitWidth = 777
     object BvlTipoPesquisa: TBevel
       Left = 220
       Top = 4
@@ -45,9 +50,9 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
       object lblTipoPesquisa: TLabel
         AlignWithMargins = True
         Left = 12
-        Top = 15
+        Top = 24
         Width = 192
-        Height = 22
+        Height = 13
         Margins.Left = 10
         Margins.Right = 10
         Margins.Bottom = 0
@@ -56,10 +61,8 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
         Enabled = False
         FocusControl = edTipoPesquisa
         Layout = tlBottom
-        ExplicitLeft = 16
-        ExplicitTop = 24
+        ExplicitTop = 15
         ExplicitWidth = 59
-        ExplicitHeight = 13
       end
       object edTipoPesquisa: TComboBox
         AlignWithMargins = True
@@ -78,14 +81,12 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
         Text = 'Autom'#225'tico'
         Items.Strings = (
           'Autom'#225'tico')
-        ExplicitLeft = 16
-        ExplicitWidth = 185
       end
     end
     object GrpBxPesquisar: TGroupBox
       Left = 224
       Top = 4
-      Width = 549
+      Width = 543
       Height = 73
       Align = alClient
       Caption = 'Filtrar'
@@ -96,15 +97,16 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 1
+      ExplicitWidth = 549
       DesignSize = (
-        549
+        543
         73)
       object lblPesquisar: TLabel
         AlignWithMargins = True
         Left = 12
-        Top = 15
-        Width = 501
-        Height = 22
+        Top = 24
+        Width = 495
+        Height = 13
         Margins.Left = 10
         Margins.Right = 34
         Margins.Bottom = 0
@@ -112,13 +114,14 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
         Caption = '&Pesquisar'
         FocusControl = edPesquisar
         Layout = tlBottom
-        ExplicitTop = 24
+        ExplicitTop = 15
+        ExplicitWidth = 55
       end
       object edPesquisar: TEdit
         AlignWithMargins = True
         Left = 12
         Top = 40
-        Width = 501
+        Width = 495
         Height = 21
         Margins.Left = 10
         Margins.Right = 34
@@ -127,12 +130,11 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
         CharCase = ecUpperCase
         TabOrder = 0
         OnKeyPress = edPesquisarKeyPress
-        ExplicitLeft = 16
-        ExplicitWidth = 489
+        ExplicitWidth = 501
       end
-      object BrnPesquisar: TcxButton
+      object BtnPesquisar: TcxButton
         AlignWithMargins = True
-        Left = 516
+        Left = 510
         Top = 38
         Width = 24
         Height = 24
@@ -181,24 +183,29 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
         SpeedButtonOptions.Flat = True
         SpeedButtonOptions.Transparent = True
         TabOrder = 1
-        OnClick = BrnPesquisarClick
+        OnClick = BtnPesquisarClick
+        ExplicitLeft = 516
       end
     end
   end
   object PnlTabela: TPanel
     Left = 0
-    Top = 81
+    Top = 84
     Width = 777
-    Height = 349
+    Height = 346
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 4
     TabOrder = 1
+    ExplicitTop = 81
+    ExplicitHeight = 349
     object dbgDados: TDBGrid
-      Left = 4
+      AlignWithMargins = True
+      Left = 7
       Top = 4
-      Width = 769
-      Height = 341
+      Width = 763
+      Height = 295
+      Margins.Top = 0
       Align = alClient
       DataSource = dtsPesquisa
       Font.Charset = ANSI_CHARSET
@@ -218,8 +225,58 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
       OnDrawColumnCell = dbgDadosDrawColumnCell
       OnKeyPress = dbgDadosKeyPress
     end
+    object pnlBotoes: TPanel
+      Left = 4
+      Top = 302
+      Width = 769
+      Height = 40
+      Align = alBottom
+      BevelOuter = bvNone
+      ParentColor = True
+      TabOrder = 1
+      object btnSelecionar: TcxButton
+        AlignWithMargins = True
+        Left = 543
+        Top = 0
+        Width = 110
+        Height = 35
+        Margins.Left = 0
+        Margins.Top = 0
+        Margins.Bottom = 5
+        Align = alRight
+        Caption = 'Selecionar (F2)'
+        Enabled = False
+        OptionsImage.ImageIndex = 10
+        OptionsImage.Images = DMRecursos.ImgBotoes16x16
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+        OnClick = btnSelecionarClick
+        ExplicitLeft = 563
+      end
+      object btnFechar: TcxButton
+        AlignWithMargins = True
+        Left = 656
+        Top = 0
+        Width = 110
+        Height = 35
+        Margins.Left = 0
+        Margins.Top = 0
+        Margins.Bottom = 5
+        Align = alRight
+        Caption = 'Fechar'
+        OptionsImage.ImageIndex = 15
+        OptionsImage.Images = DMRecursos.ImgBotoes16x16
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+        OnClick = btnFecharClick
+        ExplicitLeft = 666
+      end
+    end
   end
   object dtsPesquisa: TDataSource
+    OnStateChange = dtsPesquisaStateChange
     Left = 72
     Top = 248
   end

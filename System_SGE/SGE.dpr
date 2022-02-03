@@ -210,6 +210,9 @@ uses
   SGE.Model.DAO.Vendedor in '..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas',
   SGE.Model.DAO.XML_NFeEnviada in 'Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas',
   SGE.Model.DAO.XML_NFeImportada in 'Model\DAO\SGE.Model.DAO.XML_NFeImportada.pas',
+  SGE.Model.DAO.Query.Interfaces in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Interfaces.pas',
+  SGE.Model.DAO.Query.Factory in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Factory.pas',
+  SGE.Model.DAO.Query.FornecedorCliente in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.FornecedorCliente.pas',
   SGE.Controller.Interfaces in '..\Sys\Controller\SGE.Controller.Interfaces.pas',
   SGE.Controller in '..\Sys\Controller\SGE.Controller.pas',
   SGE.Controller.AutorizacaoCompra in 'Controller\SGE.Controller.AutorizacaoCompra.pas',
@@ -249,6 +252,10 @@ uses
   SGE.Controller.Vendedor in '..\Sys\Controller\SGE.Controller.Vendedor.pas',
   SGE.Controller.XML_NFeEnviada in 'Controller\SGE.Controller.XML_NFeEnviada.pas',
   SGE.Controller.XML_NFeImportada in 'Controller\SGE.Controller.XML_NFeImportada.pas',
+  SGE.Controller.Query in '..\Sys\Controller\Query\SGE.Controller.Query.pas',
+  SGE.Controller.Query.FornecedorCliente in '..\Sys\Controller\Query\SGE.Controller.Query.FornecedorCliente.pas',
+  SGE.Controller.Query.Interfaces in '..\Sys\Controller\Query\SGE.Controller.Query.Interfaces.pas',
+  SGE.Controller.Query.Factory in '..\Sys\Controller\Query\SGE.Controller.Query.Factory.pas',
   SGE.Controller.Impressao.DataModule.ContaAPagar in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAPagar.pas' {DataModuleContaAPagar: TDataModule},
   SGE.Controller.Impressao.ContaAPagar in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas',
   SGE.Controller.Impressao.DataModule.Cheque in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Cheque.pas' {DataModuleCheque: TDataModule},
@@ -301,7 +308,8 @@ uses
   View.ContaAPagar.LoteParcela in '..\Sys\View\View.ContaAPagar.LoteParcela.pas' {ViewContaAPagarLoteParcela},
   View.CampoRequisitado in '..\Sys\View\View.CampoRequisitado.pas' {ViewCampoRequisitado},
   View.ContaAPagar.Pagamento in '..\Sys\View\View.ContaAPagar.Pagamento.pas' {ViewContaAPagarPagamento},
-  View.Cheque in '..\Sys\View\View.Cheque.pas' {ViewCheque};
+  View.Cheque in '..\Sys\View\View.Cheque.pas' {ViewCheque},
+  View.Query.FornecedorCliente in '..\Sys\View\Query\View.Query.FornecedorCliente.pas' {ViewQueryFornecedorCliente};
 
 {$R *.res}
 

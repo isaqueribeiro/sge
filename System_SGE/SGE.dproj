@@ -547,6 +547,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas"/>
         <DCCReference Include="Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas"/>
         <DCCReference Include="Model\DAO\SGE.Model.DAO.XML_NFeImportada.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Factory.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.FornecedorCliente.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.pas"/>
         <DCCReference Include="Controller\SGE.Controller.AutorizacaoCompra.pas"/>
@@ -586,6 +589,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Vendedor.pas"/>
         <DCCReference Include="Controller\SGE.Controller.XML_NFeEnviada.pas"/>
         <DCCReference Include="Controller\SGE.Controller.XML_NFeImportada.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.FornecedorCliente.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.Factory.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAPagar.pas">
             <Form>DataModuleContaAPagar</Form>
             <DesignClass>TDataModule</DesignClass>
@@ -743,6 +750,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\View\View.Cheque.pas">
             <Form>ViewCheque</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\View\Query\View.Query.FornecedorCliente.pas">
+            <Form>ViewQueryFornecedorCliente</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>
@@ -859,7 +870,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -981,7 +992,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\white_access-key-24x24.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

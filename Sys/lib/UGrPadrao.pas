@@ -83,7 +83,6 @@ var
   AControl : TWinControl;
   EControl : TcxCustomEdit;
 begin
-
   if (not Assigned(Frm)) or (Key = 0) then
     Exit;
 
@@ -225,9 +224,7 @@ begin
       Key  := 0;
       Frm.Perform(WM_NEXTDLGCTL, 0, 0);
     end;
-
   end;
-
 end;
 
 function gGetPropInfo(Instance: TObject; PropName: String = 'Text'):String;

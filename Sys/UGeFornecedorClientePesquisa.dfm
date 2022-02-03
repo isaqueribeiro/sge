@@ -106,6 +106,7 @@ inherited frmGeFornecedorClientePesquisa: TfrmGeFornecedorClientePesquisa
     BevelOuter = bvNone
     ParentColor = True
     TabOrder = 2
+    ExplicitTop = 403
     object Bevel2: TBevel
       Left = 664
       Top = 0

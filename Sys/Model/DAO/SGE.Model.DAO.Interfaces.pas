@@ -6,6 +6,7 @@ uses
   System.Classes,
   Data.DB,
   Interacao.Usuario,
+  Model.Constantes,
   Model.Entidade.ConfiguracaoINI;
 
 type
@@ -69,6 +70,11 @@ type
   IModelDAOCustom = interface(IModelDAO)
     ['{08EF0520-4A95-4194-B5B7-AFE88A77E4DD}']
     function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
+  IModelDAOQuery = interface(IModelDAO)
+    ['{A6D473C0-3756-4C53-B599-0AB783EA27B0}']
+    function Execute(aTipo : TTipoPesquisa; aFiltro : String) : IModelDAOQuery;
   end;
 
 //  IConfigureFields = interface

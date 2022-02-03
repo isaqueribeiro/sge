@@ -4,6 +4,8 @@ interface
 
 uses
   UGrPadraoPesquisa,
+  UConstantesDGE,
+  Model.Constantes,
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls,
@@ -19,7 +21,6 @@ uses
   dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinsDefaultPainters;
 
 type
-  TTipoEmissorCheque = (tecNenhum, tecFornecedor, tecCliente);
   TfrmGeFornecedorClientePesquisa = class(TfrmGrPadraoPesquisa)
     bvlBotoes2: TBevel;
     pnlBotoes: TPanel;
@@ -71,7 +72,7 @@ implementation
 {$R *.dfm}
 
 uses
-  UConstantesDGE, UDMRecursos, UDMBusiness;
+  UDMRecursos, UDMBusiness;
 
 function SelecionarFornecedorCliente(const AOnwer : TComponent;
   var pTipoEmissor : TTipoEmissorCheque;

@@ -285,6 +285,7 @@ implementation
 uses
     System.StrUtils
   , System.DateUtils
+  , Model.Constantes
   , Controller.Tabela
   , UConstantesDGE
   , UDMBusiness

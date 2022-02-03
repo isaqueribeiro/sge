@@ -34,8 +34,10 @@ uses
   dxSkinsDefaultPainters,
 
   UGrPadrao,
+  Model.Constantes,
   Interacao.Tabela,
-  Controller.Tabela;
+  Controller.Tabela,
+  SGE.Controller.Interfaces;
 
 type
   TViewPadraoPesquisa = class(TfrmGrPadrao)
@@ -50,21 +52,30 @@ type
     dtsPesquisa: TDataSource;
     PnlTabela: TPanel;
     dbgDados: TDBGrid;
-    BrnPesquisar: TcxButton;
+    BtnPesquisar: TcxButton;
     imgGrid: TImageList;
+    pnlBotoes: TPanel;
+    btnSelecionar: TcxButton;
+    btnFechar: TcxButton;
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure FormCreate(Sender: TObject);
-    procedure BrnPesquisarClick(Sender: TObject);
+    procedure BtnPesquisarClick(Sender: TObject);
     procedure edPesquisarKeyPress(Sender: TObject; var Key: Char);
     procedure dbgDadosKeyPress(Sender: TObject; var Key: Char);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnFecharClick(Sender: TObject);
+    procedure btnSelecionarClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure dtsPesquisaStateChange(Sender: TObject);
   private
     { Private declarations }
     FTabela : ITabela;
     FCampoAtivo : String;
     procedure PosicionarBotaoPesquisa;
     procedure SetCampoAtivo(const Value: String);
+  protected
+    FController : IControllerQuery;
   public
     { Public declarations }
     property Tabela : ITabela read FTabela;
@@ -72,7 +83,7 @@ type
 
     procedure RegistrarRotinaSistema; override;
 
-    function ExecutarPesquisa : Boolean; virtual; abstract;
+    function ExecutarPesquisa : Boolean; virtual;
   end;
 
 var
@@ -86,6 +97,18 @@ uses
   , UDMRecursos;
 
 {$R *.dfm}
+
+procedure TViewPadraoPesquisa.btnFecharClick(Sender: TObject);
+begin
+  ModalResult := mrCancel;
+end;
+
+procedure TViewPadraoPesquisa.btnSelecionarClick(Sender: TObject);
+begin
+  if Assigned(dtsPesquisa.DataSet) then
+    if (not dtsPesquisa.DataSet.IsEmpty) then
+      ModalResult := mrOk;
+end;
 
 procedure TViewPadraoPesquisa.dbgDadosDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn;
@@ -135,15 +158,45 @@ begin
     FTabela := TTabelaController.New.Tabela(dtsPesquisa.DataSet);
 end;
 
-procedure TViewPadraoPesquisa.PosicionarBotaoPesquisa;
+procedure TViewPadraoPesquisa.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-  BrnPesquisar.Left := edPesquisar.Left + edPesquisar.Width + 3;
-  BrnPesquisar.Top  := edPesquisar.Top - 2;
-  BrnPesquisar.Height := 24;
-  BrnPesquisar.Width  := 24;
+  Case Key of
+    VK_F2 : if (btnSelecionar.Visible and btnSelecionar.Enabled) then
+              btnSelecionar.Click;
+
+    VK_F5 : begin
+              dtsPesquisa.DataSet.Close;
+              dtsPesquisa.DataSet.Open;
+            end;
+
+    VK_ESCAPE : if btnFechar.Visible and btnFechar.Enabled then
+                  btnFechar.Click;
+
+    VK_UP : if dtsPesquisa.DataSet.Active then
+              dtsPesquisa.DataSet.Prior;
+
+    VK_DOWN : if dtsPesquisa.DataSet.Active then
+                dtsPesquisa.DataSet.Next;
+    else
+    begin
+      if (Key = VK_RETURN) and (ActiveControl = edPesquisar) then
+        BtnPesquisar.Click
+      else
+      if not (ActiveControl is TDBGrid) then
+        CustomKeyDown(Self, Key, Shift);
+    end;
+  end;
 end;
 
-procedure TViewPadraoPesquisa.BrnPesquisarClick(Sender: TObject);
+procedure TViewPadraoPesquisa.PosicionarBotaoPesquisa;
+begin
+  BtnPesquisar.Left := edPesquisar.Left + edPesquisar.Width + 3;
+  BtnPesquisar.Top  := edPesquisar.Top - 2;
+  BtnPesquisar.Height := 24;
+  BtnPesquisar.Width  := 24;
+end;
+
+procedure TViewPadraoPesquisa.BtnPesquisarClick(Sender: TObject);
 begin
   if ExecutarPesquisa then
   begin
@@ -163,7 +216,24 @@ begin
   if (Key = #13) then
   begin
     Key := #0;
-    BrnPesquisar.Click;
+    BtnPesquisar.Click;
+  end;
+end;
+
+function TViewPadraoPesquisa.ExecutarPesquisa: Boolean;
+begin
+  Result := False;
+
+  if Assigned(FController) then
+  begin
+    Result := not
+      FController
+        .DataSource(dtsPesquisa)
+        .Execute(TTipoPesquisa(edTipoPesquisa.ItemIndex), edPesquisar.Text)
+        .DataSet
+          .IsEmpty;
+
+    FTabela.Configurar;
   end;
 end;
 
@@ -178,6 +248,11 @@ begin
       edPesquisar.SetFocus;
       edPesquisar.SelStart := Length(edPesquisar.Text);
     end;
+end;
+
+procedure TViewPadraoPesquisa.dtsPesquisaStateChange(Sender: TObject);
+begin
+  btnSelecionar.Enabled := (not dtsPesquisa.DataSet.IsEmpty);
 end;
 
 procedure TViewPadraoPesquisa.FormClose(Sender: TObject;

@@ -203,6 +203,7 @@ uses
   , UDMNFe
   , Service.Message
   , Service.Utils
+  , Model.Constantes
   , SGE.Controller.Factory
   , SGE.Controller
   , SGE.Controller.Helper
@@ -311,14 +312,15 @@ end;
 
 procedure TViewCheque.dbEmissorNomeButtonClick(Sender: TObject);
 var
-  aTipoEmissor : TTipoEmissorCheque;
-  aCodigo      : Integer;
-  aNome ,
-  aCnpj : String;
+//  aTipoEmissor : TTipoEmissorCheque;
+//  aCodigo      : Integer;
+//  aNome ,
+//  aCnpj : String;
+  aRetorno : TFornecedorCliente;
 begin
   with DtSrcTabela.DataSet do
   begin
-    if ( State in [dsEdit, dsInsert] ) then
+    if (State in [dsEdit, dsInsert]) then
     begin
       if FieldByName('TIPO').IsNull then
         TServiceMessage.ShowWarning('Favor selecionar o Tipo de Origem do Cheque')

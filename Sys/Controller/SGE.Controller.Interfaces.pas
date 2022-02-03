@@ -4,14 +4,22 @@ interface
 
 uses
   Data.DB,
-  SGE.Model.DAO.Interfaces,
-  UConstantesDGE;
+  Model.Constantes,
+  UConstantesDGE,
+  SGE.Model.DAO.Interfaces;
 
 type
   IController = interface
     ['{7BF1786A-5EBC-4101-943D-EA981E4E887F}']
     function DAO : IModelDAOCustom;
     function GerarSequencial(const aDataSet : TDataSet; const aCampo : String; var aSequencial : Integer) : IController;
+  end;
+
+  IControllerQuery = interface
+    ['{CDA96820-C960-4EE2-BD93-57A86C432169}']
+    function DataSource(aDataSource : TDataSource) : IControllerQuery;
+    function Execute(aTipo : TTipoPesquisa; aFiltro : String) : IControllerQuery;
+    function DataSet : TDataSet;
   end;
 
   IControllerCustom = interface(IController)
