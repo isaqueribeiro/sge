@@ -209,7 +209,7 @@ uses
   , SGE.Controller.Helper
   , View.Cliente
   , View.MemoData
-  , UGeFornecedorClientePesquisa;
+  , View.Query.FornecedorCliente;
 
 {$R *.dfm}
 
@@ -312,10 +312,6 @@ end;
 
 procedure TViewCheque.dbEmissorNomeButtonClick(Sender: TObject);
 var
-//  aTipoEmissor : TTipoEmissorCheque;
-//  aCodigo      : Integer;
-//  aNome ,
-//  aCnpj : String;
   aRetorno : TFornecedorCliente;
 begin
   with DtSrcTabela.DataSet do
@@ -325,34 +321,34 @@ begin
       if FieldByName('TIPO').IsNull then
         TServiceMessage.ShowWarning('Favor selecionar o Tipo de Origem do Cheque')
       else
-      if ( SelecionarFornecedorCliente(Self, aTipoEmissor, aCodigo, aNome, aCnpj) ) then
+      if SelecionarFornecedorCliente(Self, aRetorno) then
       begin
-        FieldByName('EMISSOR_NOME').AsString  := aNome;
-        FieldByName('EMISSOR_CNPJ').AsString  := aCnpj;
-        FieldByName('EMISSOR_PF').AsInteger   := IfThen(TServicesUtils.StrIsCPF(aCnpj), 1, 0);
+        FieldByName('EMISSOR_NOME').AsString  := aRetorno.Nome;
+        FieldByName('EMISSOR_CNPJ').AsString  := aRetorno.Cnpj;
+        FieldByName('EMISSOR_PF').AsInteger   := IfThen(TServicesUtils.StrIsCPF(aRetorno.Cnpj), 1, 0);
 
-        if ( aTipoEmissor = tecFornecedor ) then
+        if (aRetorno.TipoEmissor = TTipoEmissorCheque.tecFornecedor) then
         begin
-          FieldByName('FORNECEDOR').AsInteger     := aCodigo;
-          FieldByName('FORNECEDOR_NOME').AsString := aNome;
-          FieldByName('FORNECEDOR_CNPJ').AsString := aCnpj;
-          FieldByName('FORNECEDOR_PF').AsInteger  := IfThen(TServicesUtils.StrIsCPF(aCnpj), 1, 0);
+          FieldByName('FORNECEDOR').AsInteger     := aRetorno.Codigo;
+          FieldByName('FORNECEDOR_NOME').AsString := aRetorno.Nome;
+          FieldByName('FORNECEDOR_CNPJ').AsString := aRetorno.Cnpj;
+          FieldByName('FORNECEDOR_PF').AsInteger  := IfThen(TServicesUtils.StrIsCPF(aRetorno.Cnpj), 1, 0);
           FieldByName('CLIENTE').Clear;
           FieldByName('CLIENTE_NOME').Clear;
           FieldByName('CLIENTE_CNPJ').Clear;
           FieldByName('CLIENTE_PF').Clear;
         end
         else
-        if ( aTipoEmissor = tecCliente ) then
+        if (aRetorno.TipoEmissor = TTipoEmissorCheque.tecCliente) then
         begin
           FieldByName('FORNECEDOR').Clear;
           FieldByName('FORNECEDOR_NOME').Clear;
           FieldByName('FORNECEDOR_CNPJ').Clear;
           FieldByName('FORNECEDOR_PF').Clear;
-          FieldByName('CLIENTE').AsInteger     := aCodigo;
-          FieldByName('CLIENTE_NOME').AsString := aNome;
-          FieldByName('CLIENTE_CNPJ').AsString := aCnpj;
-          FieldByName('CLIENTE_PF').AsInteger  := IfThen(TServicesUtils.StrIsCPF(aCnpj), 1, 0);
+          FieldByName('CLIENTE').AsInteger     := aRetorno.Codigo;
+          FieldByName('CLIENTE_NOME').AsString := aRetorno.Nome;
+          FieldByName('CLIENTE_CNPJ').AsString := aRetorno.Cnpj;
+          FieldByName('CLIENTE_PF').AsInteger  := IfThen(TServicesUtils.StrIsCPF(aRetorno.Cnpj), 1, 0);
         end;
       end;
     end;

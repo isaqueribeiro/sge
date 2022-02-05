@@ -20,6 +20,7 @@ type
     function KeyFields : String; overload;
     function AutoIncFields(aAutoIncFields : String) : IConnection<T>; overload;
     function AutoIncFields : String; overload;
+    function IndexFieldNames(aFieldNames : String) : IConnection<T>;
     function WhereAdditional(aExpression : String) : IConnection<T>; overload;
     function WhereAdditional : String; overload;
     function SQL : TSQL<T>;

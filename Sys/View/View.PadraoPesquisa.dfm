@@ -22,9 +22,6 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
     BevelOuter = bvNone
     BorderWidth = 4
     TabOrder = 0
-    ExplicitLeft = 0
-    ExplicitTop = 0
-    ExplicitWidth = 777
     object BvlTipoPesquisa: TBevel
       Left = 220
       Top = 4
@@ -61,7 +58,6 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
         Enabled = False
         FocusControl = edTipoPesquisa
         Layout = tlBottom
-        ExplicitTop = 15
         ExplicitWidth = 59
       end
       object edTipoPesquisa: TComboBox
@@ -97,7 +93,6 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 1
-      ExplicitWidth = 549
       DesignSize = (
         543
         73)
@@ -114,7 +109,6 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
         Caption = '&Pesquisar'
         FocusControl = edPesquisar
         Layout = tlBottom
-        ExplicitTop = 15
         ExplicitWidth = 55
       end
       object edPesquisar: TEdit
@@ -130,7 +124,6 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
         CharCase = ecUpperCase
         TabOrder = 0
         OnKeyPress = edPesquisarKeyPress
-        ExplicitWidth = 501
       end
       object BtnPesquisar: TcxButton
         AlignWithMargins = True
@@ -184,7 +177,6 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
         SpeedButtonOptions.Transparent = True
         TabOrder = 1
         OnClick = BtnPesquisarClick
-        ExplicitLeft = 516
       end
     end
   end
@@ -197,8 +189,6 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
     BevelOuter = bvNone
     BorderWidth = 4
     TabOrder = 1
-    ExplicitTop = 81
-    ExplicitHeight = 349
     object dbgDados: TDBGrid
       AlignWithMargins = True
       Left = 7
@@ -252,7 +242,6 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
         ShowHint = True
         TabOrder = 0
         OnClick = btnSelecionarClick
-        ExplicitLeft = 563
       end
       object btnFechar: TcxButton
         AlignWithMargins = True
@@ -271,7 +260,6 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
         ShowHint = True
         TabOrder = 1
         OnClick = btnFecharClick
-        ExplicitLeft = 666
       end
     end
   end

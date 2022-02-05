@@ -43,8 +43,8 @@ type
   end;
 
   TViewQueryFornecedorCliente = class(TViewPadraoPesquisa)
-  private
     procedure FormCreate(Sender: TObject);
+  private
     { Private declarations }
   public
     { Public declarations }
@@ -60,14 +60,40 @@ uses
   SGE.Controller.Query.Factory;
 
 function SelecionarFornecedorCliente(const AOnwer : TComponent; var aRetorno : TFornecedorCliente) : Boolean;
+var
+  AForm : TViewQueryFornecedorCliente;
 begin
   Result := False;
+  AForm  := TViewQueryFornecedorCliente.Create(AOnwer);
+  try
+    Result := (AForm.ShowModal = mrOk);
+
+    if Result then
+      with AForm, COntroller do
+      begin
+        aRetorno.TipoEmissor := TTipoEmissorCheque(DataSet.FieldByName('tipo').AsInteger);
+        aRetorno.Codigo      := DataSet.FieldByName('codigo').AsInteger;
+        aRetorno.Nome        := DataSet.FieldByName('nome').AsString;
+        aRetorno.Cnpj        := DataSet.FieldByName('cnpj').AsString;
+      end;
+  finally
+    AForm.DisposeOf;
+  end;
 end;
 
 procedure TViewQueryFornecedorCliente.FormCreate(Sender: TObject);
 begin
   FController := TControllerQueryFactory.Instance.FornecedorCliente.DataSource(dtsPesquisa);
   inherited;
+
+  CampoAtivo := 'ativo';
+
+  Tabela
+    .Display('id', 'Id', '###0000000', TAlignment.taCenter)
+    .Display('tipo', 'Tipo', TAlignment.taLeftJustify)
+    .Display('nome', 'Fornecedor / Cliente')
+    .Display('cnpj', 'CPF / CNPJ')
+    .Display(CampoAtivo, 'Ativo', TAlignment.taCenter);
 end;
 
 end.

@@ -83,6 +83,7 @@ type
 
     procedure RegistrarRotinaSistema; override;
 
+    function Controller : IControllerQuery;
     function ExecutarPesquisa : Boolean; virtual;
   end;
 
@@ -110,11 +111,17 @@ begin
       ModalResult := mrOk;
 end;
 
+function TViewPadraoPesquisa.Controller: IControllerQuery;
+begin
+  Result := FController;
+end;
+
 procedure TViewPadraoPesquisa.dbgDadosDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn;
   State: TGridDrawState);
 var
   aImage : Byte;
+  aLeft  : Integer;
 begin
   TDbGrid(Sender).Canvas.font.Color := clBlack;
 
@@ -140,9 +147,10 @@ begin
       if Assigned(dtsPesquisa.DataSet.Fields.FindField(FCampoAtivo)) then
       begin
         aImage := StrToIntDef(Trim(Column.Field.AsString), 0);
+        aLeft  := Round((Column.Width - 16) / 2);
 
         TDBGrid(Sender).Canvas.FillRect(Rect);
-        imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + 5, Rect.Top + 1, aImage);
+        imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + aLeft, Rect.Top + 1, aImage);
       end
     end;
 end;
@@ -151,8 +159,10 @@ procedure TViewPadraoPesquisa.FormCreate(Sender: TObject);
 begin
   inherited;
   PosicionarBotaoPesquisa;
-
   FCampoAtivo := EmptyStr;
+
+  if Assigned(FController) and (not Assigned(dtsPesquisa.DataSet)) then
+    FController.DataSource(dtsPesquisa);
 
   if Assigned(dtsPesquisa.DataSet) then
     FTabela := TTabelaController.New.Tabela(dtsPesquisa.DataSet);
@@ -214,26 +224,34 @@ procedure TViewPadraoPesquisa.edPesquisarKeyPress(Sender: TObject;
   var Key: Char);
 begin
   if (Key = #13) then
-  begin
     Key := #0;
-    BtnPesquisar.Click;
-  end;
 end;
 
 function TViewPadraoPesquisa.ExecutarPesquisa: Boolean;
 begin
   Result := False;
+  WaitAMoment(WAIT_AMOMENT_LoadData);
+  try
+    try
+      if Assigned(FController) then
+      begin
+        Result := not
+          FController
+            .Execute(TTipoPesquisa(edTipoPesquisa.ItemIndex), edPesquisar.Text)
+            .DataSet
+              .IsEmpty;
 
-  if Assigned(FController) then
-  begin
-    Result := not
-      FController
-        .DataSource(dtsPesquisa)
-        .Execute(TTipoPesquisa(edTipoPesquisa.ItemIndex), edPesquisar.Text)
-        .DataSet
-          .IsEmpty;
-
-    FTabela.Configurar;
+        FTabela.Configurar;
+      end;
+    except
+      On E : Exception do
+      begin
+        WaitAMomentFree;
+        raise Exception.Create(E.Message);
+      end;
+    end;
+  finally
+    WaitAMomentFree;
   end;
 end;
 

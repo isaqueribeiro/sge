@@ -47,7 +47,8 @@ type
       FQuery     : TFDQuery;
       FUpdateSQL : TFDUpdateSQL;
       FAliasTableName  ,
-      FWhereAdditional : String;
+      FWhereAdditional ,
+      FIndexFieldNames : String;
 
       procedure UpdateSequence(aGeneratorName, aTableName, aFielNameKey : String; const sWhr : String = '');
       procedure CreateFieldDefs;
@@ -74,6 +75,7 @@ type
       function KeyFields : String; overload;
       function AutoIncFields(aAutoIncFields : String) : IConnection<TConnectionFireDAC>; overload;
       function AutoIncFields : String; overload;
+      function IndexFieldNames(aFieldNames : String) : IConnection<TConnectionFireDAC>;
       function WhereAdditional(aExpression : String) : IConnection<TConnectionFireDAC>; overload;
       function WhereAdditional : String; overload;
       function SQL : TSQL<TConnectionFireDAC>;
@@ -176,6 +178,7 @@ begin
   FQuery.FetchOptions.RowsetSize := 100;
   FAliasTableName      := EmptyStr;
   FWhereAdditional     := EmptyStr;
+  FIndexFieldNames     := EmptyStr;
 
   FFieldDefs := TFieldDefs.Create(FQuery);
 
@@ -367,6 +370,12 @@ begin
   Result := FQuery.UpdateOptions.GeneratorName;
 end;
 
+function TConnectionFireDAC.IndexFieldNames(aFieldNames : String) : IConnection<TConnectionFireDAC>;
+begin
+  Result := Self;
+  FIndexFieldNames := aFieldNames.Trim;
+end;
+
 function TConnectionFireDAC.KeyFields: String;
 begin
   Result := FQuery.UpdateOptions.KeyFields;
@@ -399,6 +408,9 @@ begin
     aAfterScroll := FQuery.AfterScroll;
     FQuery.AfterScroll := nil;
   end;
+
+  if not FIndexFieldNames.IsEmpty then
+    FQuery.IndexFieldNames := FIndexFieldNames;
 
   try
     FQuery.Close;

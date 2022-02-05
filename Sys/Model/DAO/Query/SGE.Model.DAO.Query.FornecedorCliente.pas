@@ -94,14 +94,14 @@ begin
         .Add(') x       ')
       .&End
       .ParamByName('codigo', 0)
-      .ParamByName('cnpj',   EmptyStr)
-      .ParamByName('nome',   EmptyStr)
-      .ParamByName('sem_codigo', 1)
-      .ParamByName('sem_cnpj',   1)
-      .ParamByName('sem_nome',   1)
+      .ParamByName('cnpj',   'xxxx')
+      .ParamByName('nome',   'xxxx')
+      .ParamByName('sem_codigo', 0)
+      .ParamByName('sem_cnpj',   0)
+      .ParamByName('sem_nome',   0)
       .OrderBy('x.nome')
       .OrderBy('x.cnpj')
-    .Close;
+    .Open;
 
   FConn.Query.DataSet.AfterOpen := DataSetAfterOpen;
 end;

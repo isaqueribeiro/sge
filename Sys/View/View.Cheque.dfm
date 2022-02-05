@@ -29,6 +29,8 @@ inherited ViewCheque: TViewCheque
     ExplicitWidth = 941
     ExplicitHeight = 518
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 933
       ExplicitHeight = 489
       inherited Bevel4: TBevel
@@ -136,12 +138,12 @@ inherited ViewCheque: TViewCheque
           TabOrder = 1
           ExplicitLeft = 304
           ExplicitWidth = 625
+          ExplicitHeight = 54
           inherited lbltFiltrar: TLabel
             AlignWithMargins = True
             Left = 328
             Top = 24
             Width = 45
-            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -156,20 +158,20 @@ inherited ViewCheque: TViewCheque
             Left = 22
             Top = 24
             Width = 82
-            Height = 23
+            Height = 13
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
             Caption = 'Apresenta'#231#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 379
             Width = 202
             TabOrder = 2
             ExplicitLeft = 379
+            ExplicitTop = 20
             ExplicitWidth = 202
           end
           inherited btnFiltrar: TcxButton

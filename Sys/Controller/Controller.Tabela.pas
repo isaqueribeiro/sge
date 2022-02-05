@@ -74,7 +74,7 @@ begin
       FDataSet.FieldByName( FNomesCampos.KeyNames[I] ).Alignment    := FAlinhamentos[I];
       // Configurar campos requiridos
       if FRequired.ContainsKey(FNomesCampos.KeyNames[I]) then
-        FDataSet.FieldByName( FNomesCampos.KeyNames[I] ).Required     := FRequired.Items[ FNomesCampos.KeyNames[I] ];
+        FDataSet.FieldByName( FNomesCampos.KeyNames[I] ).Required := FRequired.Items[ FNomesCampos.KeyNames[I] ];
 
       // Configurar Formato
       // .. Inteiro
