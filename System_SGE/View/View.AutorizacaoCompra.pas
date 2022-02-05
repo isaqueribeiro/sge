@@ -46,7 +46,7 @@ uses
   View.PadraoCadastro,
   SGE.Controller.Interfaces,
   Interacao.Tabela,
-  Controller.Tabela;
+  Controller.Tabela, dxSkinsDefaultPainters;
 
 type
   TViewAutorizacaoCompra = class(TViewPadraoCadastro)
@@ -1482,7 +1482,7 @@ begin
       begin
         if (State = dsInsert) then
         begin
-          FieldByName('ENDERECO_ENTREGA').AsString := GetEmpresaEndereco(FieldByName('EMPRESA').AsString);
+          FieldByName('ENDERECO_ENTREGA').AsString := Empresa.GetEmpresaEndereco(FieldByName('EMPRESA').AsString);
           FieldByName('OBSERVACAO').AsString       := 'NF. EM NOME DA ' + FController.DAO.Usuario.Empresa.RazaoSocial;
         end;
       end

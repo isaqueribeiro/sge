@@ -29,8 +29,6 @@ inherited ViewCheque: TViewCheque
     ExplicitWidth = 941
     ExplicitHeight = 518
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 933
       ExplicitHeight = 489
       inherited Bevel4: TBevel
@@ -138,7 +136,6 @@ inherited ViewCheque: TViewCheque
           TabOrder = 1
           ExplicitLeft = 304
           ExplicitWidth = 625
-          ExplicitHeight = 54
           inherited lbltFiltrar: TLabel
             AlignWithMargins = True
             Left = 328
@@ -171,7 +168,6 @@ inherited ViewCheque: TViewCheque
             Width = 202
             TabOrder = 2
             ExplicitLeft = 379
-            ExplicitTop = 20
             ExplicitWidth = 202
           end
           inherited btnFiltrar: TcxButton
@@ -1164,6 +1160,10 @@ inherited ViewCheque: TViewCheque
         TabOrder = 3
         object tbsObservacao: TTabSheet
           Caption = 'Observa'#231#245'es'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0

@@ -133,7 +133,6 @@ inherited ViewContaAPagar: TViewContaAPagar
             Left = 318
             Top = 24
             Width = 73
-            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -148,14 +147,13 @@ inherited ViewContaAPagar: TViewContaAPagar
             Left = 25
             Top = 24
             Width = 70
-            Height = 23
+            Height = 13
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
             Caption = 'Vencimento:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 397
@@ -1080,6 +1078,10 @@ inherited ViewContaAPagar: TViewContaAPagar
         TabOrder = 3
         object tbsHistorico: TTabSheet
           Caption = 'Hist'#243'rico'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0

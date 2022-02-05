@@ -52,6 +52,7 @@ type
     ['{F0D92BB2-24FF-4270-9655-79AAC773AD94}']
     function GetSegmentoID(aCNPJ : String) : Integer;
     function GetEmpresaUF(aCNPJ : String) : String;
+    function GetEmpresaEndereco(aCNPJ : String) : String;
     function GetEmpresaFantasia(aCNPJ : String) : String;
     function GetEmpresaRazao(aCNPJ : String) : String;
     function GetEstoqueUnificado(aCNPJ : String) : Boolean;
@@ -72,7 +73,8 @@ type
 
   IControllerFornecedor = interface(IControllerCustom)
     ['{14DC201C-608A-4A16-87D3-62B62B044EF6}']
-    function Get(aCodigo : Integer) : IModelDAOCustom;
+    function Get(aCodigo : Integer) : IModelDAOCustom; overload;
+    function Get(aCNPJ : String) : IModelDAOCustom; overload;
   end;
 
   IControllerFornecedorProduto = interface(IControllerCustom)

@@ -123,7 +123,6 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Left = 300
             Top = 24
             Width = 147
-            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -138,14 +137,13 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Left = 30
             Top = 24
             Width = 49
-            Height = 23
+            Height = 13
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 453
@@ -800,6 +798,10 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           object TbsAutorizacaoObservacao: TTabSheet
             Caption = 'Observa'#231#245'es Gerais'
             ImageIndex = 1
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbObservacao: TDBMemo
               Left = 0
               Top = 0
@@ -821,6 +823,10 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           object TbsAutorizacaoCancelado: TTabSheet
             Caption = 'Motivo do Cancelamento'
             ImageIndex = 2
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -1479,6 +1485,10 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
         object tbsRetirada: TTabSheet
           Caption = 'Dados de Retirada'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object GrpBxRetirada: TGroupBox
             Left = 0
             Top = 0

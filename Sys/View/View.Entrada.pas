@@ -1098,13 +1098,13 @@ var
   aFileName : TFileName;
   Sequencial,
   I : Integer;
-//  aFornecedor : IControllerFornecedor;
+  aFornecedor : IControllerFornecedor;
   aProdutoFornecedor : IControllerFornecedorProduto;
 begin
   if ImportarNFE(Self, aChaveNFe, aNSU, aFileName) then
     with DMNFe.ACBrNFe do
     begin
-//      aFornecedor := TControllerFactory.New.Fornecedor;
+      aFornecedor := TControllerFactory.New.Fornecedor;
       aProdutoFornecedor := TControllerFactory.New.FornecedorProduto;
       FValorTotalProduto := 0.0;
 
@@ -1121,7 +1121,7 @@ begin
         DtSrcTabela.DataSet.FieldByName('TIPO_ENTRADA').AsInteger   := 4; // Outras -> VW_TIPO_ENTRADA
         DtSrcTabela.DataSet.FieldByName('TIPO_DESPESA').AsInteger   := TIPO_RECEITA_PADRAO;
         // Fornecedor
-        DtSrcTabela.DataSet.FieldByName('CODFORN').AsInteger  := GetFornecedorCodigo( TServicesUtils.StrOnlyNumbers(Emit.CNPJCPF) );
+        DtSrcTabela.DataSet.FieldByName('CODFORN').AsInteger  := aFornecedor.Get(TServicesUtils.StrOnlyNumbers(Emit.CNPJCPF)).DataSet.FieldByName('Codforn').AsInteger;
         DtSrcTabela.DataSet.FieldByName('CNPJ').AsString      := TServicesUtils.StrOnlyNumbers(Emit.CNPJCPF);
         DtSrcTabela.DataSet.FieldByName('NOMEFORN').AsString  := Emit.xNome;
         // Documento

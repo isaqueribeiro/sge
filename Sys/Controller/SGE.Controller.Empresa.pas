@@ -41,6 +41,7 @@ type
 
       function GetSegmentoID(aCNPJ : String) : Integer;
       function GetEmpresaUF(aCNPJ : String) : String;
+      function GetEmpresaEndereco(aCNPJ : String) : String;
       function GetEmpresaFantasia(aCNPJ : String) : String;
       function GetEmpresaRazao(aCNPJ : String) : String;
       function GetEstoqueUnificado(aCNPJ : String) : Boolean;
@@ -54,7 +55,9 @@ type
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils,
+  System.StrUtils,
+  Service.Utils;
 
 { TControllerEmpresa }
 
@@ -111,6 +114,26 @@ begin
 
   if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
     Result := (FDAO.DataSet.FieldByName('autoriza_informa_cliente').AsInteger = 1);
+end;
+
+function TControllerEmpresaView.GetEmpresaEndereco(aCNPJ: String): String;
+begin
+  Result := EmptyStr;
+
+  if not FDAO.DataSet.Active then
+    FDAO.Open;
+
+  with FDAO.DataSet do
+  begin
+    if Locate('cnpj', aCNPJ, []) then
+      Result :=
+        Trim(FieldByName('ender').AsString) + ', No. ' +
+        Trim(FieldByName('numero_end').AsString) +
+        IfThen(Trim(FieldByName('complemento').AsString) = EmptyStr, '', ' (' + Trim(FieldByName('complemento').AsString) + ')') + ', ' +
+        'BAIRRO: ' + Trim(FieldByName('bairro').AsString) + ' - ' +
+        Trim(FieldByName('cidade').AsString) + ' ' +
+        'CEP: ' + TServicesUtils.StrFormatarCEP(Trim(FieldByName('cep').AsString));
+  end;
 end;
 
 function TControllerEmpresaView.GetEmpresaFantasia(aCNPJ: String): String;

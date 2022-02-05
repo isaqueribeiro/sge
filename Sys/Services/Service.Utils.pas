@@ -19,6 +19,7 @@ type
     public
       class procedure ResourceImage( aResourceName : String; aImage : TImage); overload;
       class procedure ResourceImage( aResourceName : String; aButton : TSpeedButton); overload;
+      class procedure ExtractResource(aResourceName : String; aPath, aFileName : String);
       class procedure Split(pDelimiter : Char; pStr: String; pListOfStrings : TStrings);
 
       class function PngToBmp(Png : TPngImage) : TBitmap; overload;
@@ -45,6 +46,7 @@ implementation
 uses
     System.Types
   , System.DateUtils
+  , System.IOUtils
   , System.RegularExpressions
   , IdCoderMIME
   , IdHashMessageDigest;
@@ -178,6 +180,26 @@ begin
   finally
     Resource.DisposeOf;
     aPng.DisposeOf;
+  end;
+end;
+
+class procedure TServicesUtils.ExtractResource(aResourceName : String; aPath, aFileName : String);
+var
+  aResource : TResourceStream;
+  aFile : String;
+begin
+  aFile := TPath.Combine(aPath, aFileName);
+  if not FileExists(aFile) then
+  begin
+    if not DirectoryExists(aPath) then
+      ForceDirectories(aPath);
+
+    aResource := TResourceStream.Create(HInstance, aResourceName, RT_RCDATA);
+    try
+      aResource.SaveToFile(aFile);
+    finally
+      aResource.DisposeOf;
+    end;
   end;
 end;
 

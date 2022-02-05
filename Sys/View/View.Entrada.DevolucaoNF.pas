@@ -131,14 +131,14 @@ uses
   SYstem.DateUtils,
   UConstantesDGE,
   UFuncoes,
+  UDMRecursos,
   Controller.Tabela,
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper,
   Service.Message,
   View.NFE.Pesquisa,
-  UDMRecursos,
-  UGrCampoRequisitado;
+  View.CampoRequisitado;
 
 {$R *.dfm}
 
