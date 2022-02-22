@@ -487,7 +487,8 @@ const
   UrlGoogleQrCode = 'http://chart.apis.google.com/chart?chs=%dx%d&cht=qr&chld=%s&chl=%s'; // Exemplo: http://chart.apis.google.com/chart?chs=150x150&cht=qr&chl=Isaque%20Marinho%20Ribeiro
   QrImgCorrStr    : Array [TQrImage_ErrCorrLevel] of string = ('L', 'M', 'Q', 'H');
 
-  SELDIRHELP   = 1000;
+  SELDIRHELP = 1000;
+
   FILENAME_NFE_FAST   = 'Report\NotaFiscalEletronica.fr3';
   FILENAME_NFE_EVENTO = 'Report\Eventos.fr3';
   FILENAME_NFE_INUTIL = 'Report\InutilizacaoNFe.fr3';
@@ -506,6 +507,7 @@ const
   REJEICAO_NFE_EMISSOR_NAO_HABIL = 203; // Rejeicao: Emitente não habilitado para emissão de NF-e
   REJEICAO_NFE_DUPLICIDADE       = 204; // Refeição: Duplicidade de NF-e [nRec:999999999999999]
   REJEICAO_NFE_NOTA_DENEGADA     = 205; // Rejeicao: NF-e esta denegada na base de dados da SEFAZ
+  REJEICAO_NFE_IE_NAO_INFORMADO  = 232; // Rejeicao: IE do destinatario nao informado
   REJEICAO_NFE_IE_NAO_CADASTRADO = 233; // Rejeicao: IE do destinatario nao cadastrada
   REJEICAO_NFE_IE_NAO_VINCULADO  = 234; // Rejeicao: IE do destinatario nao vinculada ao CNPJ
   REJEICAO_NFE_IRREG_FISCO_EMIT  = 301; // Rejeição: Uso Denegado: Irregularidade fiscal do emitente
@@ -2030,6 +2032,7 @@ begin
             end;
 
           REJEICAO_NFE_EMISSOR_NAO_HABIL,
+          REJEICAO_NFE_IE_NAO_INFORMADO ,
           REJEICAO_NFE_IE_NAO_CADASTRADO,
           REJEICAO_NFE_IE_NAO_VINCULADO ,
           REJEICAO_NFE_BC_ICMS_ERR   ,
@@ -2045,7 +2048,7 @@ begin
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                 'Favor validar dados e NF-e novamente!';
 
-              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
+              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
                 sErrorMsg :=
                   'Inscrição Estadual (IE) do cliente não cadastrado ou não vinculado ao CNPJ informado. ' + #13 +
                   '- Deve-se consultar o CNPJ do cliente no SINTEGRA; ou' + #13 +
@@ -4155,6 +4158,7 @@ begin
             end;
 
           REJEICAO_NFE_EMISSOR_NAO_HABIL,
+          REJEICAO_NFE_IE_NAO_INFORMADO ,
           REJEICAO_NFE_IE_NAO_CADASTRADO,
           REJEICAO_NFE_IE_NAO_VINCULADO ,
           REJEICAO_NFE_BC_ICMS_ERR   ,
@@ -4170,7 +4174,7 @@ begin
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                 'Favor validar dados e NF-e novamente!';
 
-              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
+              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
                 sErrorMsg :=
                   'Inscrição Estadual (IE) do fornecedor não cadastrado ou não vinculado ao CNPJ informado. ' + #13 +
                   '- Deve-se consultar o CNPJ do fornecedor no SINTEGRA; ou' + #13 +
@@ -7455,6 +7459,7 @@ begin
             end;
 
           REJEICAO_NFE_EMISSOR_NAO_HABIL,
+          REJEICAO_NFE_IE_NAO_INFORMADO ,
           REJEICAO_NFE_IE_NAO_CADASTRADO,
           REJEICAO_NFE_IE_NAO_VINCULADO ,
           REJEICAO_NFE_BC_ICMS_ERR   ,
@@ -7470,7 +7475,7 @@ begin
               sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
                 'Favor validar dados e NFC-e novamente!';
 
-              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
+              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
                 sErrorMsg :=
                   'Inscrição Estadual (IE) do cliente não cadastrado ou não vinculado ao CNPJ informado. ' + #13 +
                   '- Deve-se consultar o CNPJ do cliente no SINTEGRA; ou' + #13 +

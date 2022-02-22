@@ -49,7 +49,7 @@ type
       function GetPermitirEmissaoNFe(aCNPJ : String) : Boolean;
       function GetPermitirEmissaoNFeEntrada(aCNPJ : String) : Boolean;
       function GetRegime(aCNPJ : String) : TTipoRegime;
-      function GetAutorizacaoInformarCliente(const aCNPJ : String) : Boolean;
+      function GetAutorizacaoInformarCliente(aCNPJ : String) : Boolean;
   end;
 
 implementation
@@ -105,12 +105,15 @@ begin
   inherited;
 end;
 
-function TControllerEmpresaView.GetAutorizacaoInformarCliente(const aCNPJ: String): Boolean;
+function TControllerEmpresaView.GetAutorizacaoInformarCliente(aCNPJ: String): Boolean;
 begin
   Result := False;
 
   if not FDAO.DataSet.Active then
     FDAO.Open;
+
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
 
   if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
     Result := (FDAO.DataSet.FieldByName('autoriza_informa_cliente').AsInteger = 1);
@@ -122,6 +125,9 @@ begin
 
   if not FDAO.DataSet.Active then
     FDAO.Open;
+
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
 
   with FDAO.DataSet do
   begin
@@ -143,6 +149,9 @@ begin
   if not FDAO.DataSet.Active then
     FDAO.Open;
 
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
+
   if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
     Result := FDAO.DataSet.FieldByName('fantasia').AsString;
 end;
@@ -153,6 +162,9 @@ begin
 
   if not FDAO.DataSet.Active then
     FDAO.Open;
+
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
 
   if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
     Result := FDAO.DataSet.FieldByName('razao').AsString;
@@ -165,6 +177,9 @@ begin
   if not FDAO.DataSet.Active then
     FDAO.Open;
 
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
+
   if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
     Result := FDAO.DataSet.FieldByName('uf').AsString;
 end;
@@ -175,6 +190,9 @@ begin
 
   if not FDAO.DataSet.Active then
     FDAO.Open;
+
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
 
   if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
     Result := (FDAO.DataSet.FieldByName('estoque_unico').AsInteger = 1);
@@ -187,6 +205,9 @@ begin
   if not FDAO.DataSet.Active then
     FDAO.Open;
 
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
+
   if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
     Result := (FDAO.DataSet.FieldByName('nfe_emitir').AsInteger = 1);
 end;
@@ -197,6 +218,9 @@ begin
 
   if not FDAO.DataSet.Active then
     FDAO.Open;
+
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
 
   if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
     Result := (FDAO.DataSet.FieldByName('nfe_emitir_entrada').AsInteger = 1);
@@ -209,6 +233,9 @@ begin
   if not FDAO.DataSet.Active then
     FDAO.Open;
 
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
+
   if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
     Result := (FDAO.DataSet.FieldByName('permitir_venda_estoque_ins').AsInteger = 1);
 end;
@@ -220,6 +247,9 @@ begin
   if not FDAO.DataSet.Active then
     FDAO.Open;
 
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
+
   if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
     Result := TTipoRegime(FDAO.DataSet.FieldByName('regime').AsInteger);
 end;
@@ -230,6 +260,9 @@ begin
 
   if not FDAO.DataSet.Active then
     FDAO.Open;
+
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
 
   if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
     Result := FDAO.DataSet.FieldByName('segmento').AsInteger;

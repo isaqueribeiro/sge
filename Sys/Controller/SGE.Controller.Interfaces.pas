@@ -18,6 +18,8 @@ type
   IControllerQuery = interface
     ['{CDA96820-C960-4EE2-BD93-57A86C432169}']
     function DataSource(aDataSource : TDataSource) : IControllerQuery;
+    function DataIncial(aValue : TDateTime) : IControllerQuery;
+    function DataFinal(aValue : TDateTime) : IControllerQuery;
     function Execute(aTipo : TTipoPesquisa; aFiltro : String) : IControllerQuery;
     function DataSet : TDataSet;
   end;
@@ -60,7 +62,7 @@ type
     function GetPermitirEmissaoNFe(aCNPJ : String) : Boolean;
     function GetPermitirEmissaoNFeEntrada(aCNPJ : String) : Boolean;
     function GetRegime(aCNPJ : String) : TTipoRegime;
-    function GetAutorizacaoInformarCliente(const aCNPJ : String) : Boolean;
+    function GetAutorizacaoInformarCliente(aCNPJ : String) : Boolean;
   end;
 
   IControllerCliente = interface(IControllerCustom)
@@ -183,6 +185,7 @@ type
     procedure GerarDuplicatas(aAnoCompra, aNumCompra : Integer);
     procedure CarregarPagamentos;
     function Pagamentos : IControllerCustom;
+    function MenorVencimentoAPagar : TDateTime;
   end;
 
   IControllerPagamento = interface(IControllerCustom)

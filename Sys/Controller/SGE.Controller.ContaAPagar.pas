@@ -19,6 +19,7 @@ type
       procedure DataSetBeforeDelete(DataSet: TDataSet);
     protected
       FPagamentos : IControllerCustom;
+      FBusca : IModelDAOCustom;
       constructor Create;
     public
       destructor Destroy; override;
@@ -28,6 +29,7 @@ type
       procedure CarregarPagamentos;
 
       function Pagamentos : IControllerCustom;
+      function MenorVencimentoAPagar : TDateTime;
   end;
 
   // Pagamentos (Contas A Pagar)
@@ -132,6 +134,25 @@ begin
   finally
     aDAO.CommitTransaction
   end;
+end;
+
+function TControllerContaAPagar.MenorVencimentoAPagar : TDateTime;
+begin
+  Result := Date;
+  FBusca := TModelDAOFactory.New.Busca;
+  FBusca
+    .Close
+    .Clear
+    .SQL('Select')
+    .SQL('  min(cp.dtvenc) as vencimento')
+    .SQL('from TBCONTPAG cp')
+    .SQL('where (cp.empresa  = ' + QuotedStr(FBusca.Usuario.Empresa.CNPJ) + ')')
+    .SQL('  and (cp.quitado  = 0)')
+    .SQL('  and (cp.situacao = 1)')
+    .Open;
+
+  if (not FBusca.DataSet.FieldByName('vencimento').IsNull) then
+    Result := FBusca.DataSet.FieldByName('vencimento').AsDateTime;
 end;
 
 procedure TControllerContaAPagar.CarregarPagamentos;

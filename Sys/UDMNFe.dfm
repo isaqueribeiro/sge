@@ -17266,7 +17266,7 @@ object DMNFe: TDMNFe
   end
   object nfcDANFE: TACBrNFeDANFeESCPOS
     PathPDF = '..\Bin\'
-    Sistema = 'Projeto ACBr - www.projetoacbr.com.br'
+    Sistema = #193'gil Solu'#231#245'es em Softwares'
     MargemInferior = 0.800000000000000000
     MargemSuperior = 0.800000000000000000
     MargemEsquerda = 0.600000000000000000

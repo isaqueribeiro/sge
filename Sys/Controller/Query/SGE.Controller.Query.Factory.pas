@@ -11,7 +11,8 @@ type
     strict private
       class var _instance : IControllerQueryFactory;
     private
-      FFornecedorCliente : IControllerQuery;
+      FFornecedorCliente,
+      FContaAPagar      : IControllerQuery;
     protected
       constructor Create;
     public
@@ -19,6 +20,7 @@ type
       class function Instance : IControllerQueryFactory;
 
       function FornecedorCliente : IControllerQuery;
+      function ContaAPagar : IControllerQuery;
   end;
 
 implementation
@@ -26,7 +28,8 @@ implementation
 { TControllerQueryFactory }
 
 uses
-  SGE.Controller.Query.FornecedorCliente;
+  SGE.Controller.Query.FornecedorCliente,
+  SGE.Controller.Query.ContaAPagar;
 
 constructor TControllerQueryFactory.Create;
 begin
@@ -38,20 +41,28 @@ begin
   inherited;
 end;
 
-function TControllerQueryFactory.FornecedorCliente: IControllerQuery;
-begin
-  if not Assigned(FFornecedorCliente) then
-    FFornecedorCliente := TControllerQueryFornecedorCliente.New;
-
-  Result := FFornecedorCliente;
-end;
-
 class function TControllerQueryFactory.Instance: IControllerQueryFactory;
 begin
   if not Assigned(_instance) then
     _instance := Self.Create;
 
   Result := _instance;
+end;
+
+function TControllerQueryFactory.ContaAPagar: IControllerQuery;
+begin
+  if not Assigned(FContaAPagar) then
+    FContaAPagar := TControllerQueryContaAPagar.New;
+
+  Result := FContaAPagar;
+end;
+
+function TControllerQueryFactory.FornecedorCliente: IControllerQuery;
+begin
+  if not Assigned(FFornecedorCliente) then
+    FFornecedorCliente := TControllerQueryFornecedorCliente.New;
+
+  Result := FFornecedorCliente;
 end;
 
 end.

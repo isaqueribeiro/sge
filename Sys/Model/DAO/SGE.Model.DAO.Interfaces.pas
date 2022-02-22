@@ -74,6 +74,8 @@ type
 
   IModelDAOQuery = interface(IModelDAO)
     ['{A6D473C0-3756-4C53-B599-0AB783EA27B0}']
+    function DataIncial(aValue : TDateTime) : IModelDAOQuery;
+    function DataFinal(aValue : TDateTime) : IModelDAOQuery;
     function Execute(aTipo : TTipoPesquisa; aFiltro : String) : IModelDAOQuery;
   end;
 

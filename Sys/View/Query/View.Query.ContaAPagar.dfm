@@ -1,0 +1,840 @@
+inherited ViewQueryContaAPagar: TViewQueryContaAPagar
+  Left = 398
+  Top = 213
+  Caption = 'Quitar Contas A Pagar (por Lote)'
+  ClientHeight = 576
+  ClientWidth = 1055
+  OnCloseQuery = FormCloseQuery
+  ExplicitWidth = 1071
+  ExplicitHeight = 615
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited pnlPesquisa: TPanel
+    Width = 1049
+    ExplicitWidth = 1049
+    inherited GrpBxPesquisar: TGroupBox
+      Width = 821
+      ExplicitWidth = 821
+      DesignSize = (
+        821
+        73)
+      inherited lblPesquisar: TLabel
+        Left = 227
+        Width = 558
+        Margins.Left = 225
+        ExplicitLeft = 227
+      end
+      object lblData: TLabel [1]
+        Left = 12
+        Top = 24
+        Width = 70
+        Height = 13
+        Caption = '&Vencimento:'
+        FocusControl = e1Data
+      end
+      inherited edPesquisar: TEdit
+        Left = 227
+        Width = 558
+        Margins.Left = 225
+        TabOrder = 2
+        ExplicitLeft = 227
+        ExplicitWidth = 558
+      end
+      inherited BtnPesquisar: TcxButton
+        Left = 790
+        TabOrder = 3
+        ExplicitLeft = 790
+      end
+      object e1Data: TJvDateEdit
+        Left = 12
+        Top = 40
+        Width = 101
+        Height = 21
+        Date = 40909.000000000000000000
+        Glyph.Data = {
+          76050000424D760500000000000036000000280000001C0000000C0000000100
+          2000000000004005000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+          0000800000008000000000000000800000000000000000000000800000008080
+          8000FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+          0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+          80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+          C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+          FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+          8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+          C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FF00FF00}
+        ImageKind = ikCustom
+        NumGlyphs = 2
+        PopupColor = clBtnFace
+        ShowNullDate = False
+        TabOrder = 0
+      end
+      object e2Data: TJvDateEdit
+        Left = 118
+        Top = 40
+        Width = 103
+        Height = 21
+        Date = 40909.000000000000000000
+        Glyph.Data = {
+          76050000424D760500000000000036000000280000001C0000000C0000000100
+          2000000000004005000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+          0000800000008000000000000000800000000000000000000000800000008080
+          8000FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+          0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+          80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+          C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+          FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+          8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+          000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+          FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+          FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+          8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+          FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+          C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000FF00FF00FF00
+          FF00FF00FF008080800080808000808080008080800080808000808080008080
+          80008080800080808000808080008080800080808000FF00FF00}
+        ImageKind = ikCustom
+        NumGlyphs = 2
+        PopupColor = clBtnFace
+        ShowNullDate = False
+        TabOrder = 1
+      end
+    end
+  end
+  inherited PnlTabela: TPanel
+    Width = 1055
+    Height = 492
+    ExplicitWidth = 1055
+    ExplicitHeight = 492
+    inherited dbgDados: TDBGrid
+      Width = 1041
+      Height = 293
+      Hint = 'Pressione "ESPA'#199'O" para'#13#10'Marcar/Desmarcar o Lan'#231'amento com "X".'
+      OnDblClick = dbgDadosDblClick
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'SELECIONAR'
+          Title.Alignment = taCenter
+          Title.Caption = 'Quitar'
+          Width = 40
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'LANCAMENTO'
+          Title.Caption = 'Lan'#231'amento'
+          Width = 100
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'PARCELA'
+          Title.Alignment = taCenter
+          Title.Caption = 'Parc.'
+          Width = 35
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DTEMISS'
+          Title.Caption = 'Emiss'#227'o'
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'DTVENC'
+          Title.Caption = 'Vencimento'
+          Width = 85
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'VALORPAG'
+          Title.Caption = 'Despesa (R$)'
+          Width = 85
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'VALORPAGTOT'
+          Title.Caption = 'Pago (R$)'
+          Visible = False
+        end
+        item
+          Expanded = False
+          FieldName = 'VALOR_APAGAR'
+          Title.Caption = 'A Pagar (R$)'
+          Width = 85
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'ENTRADA'
+          Title.Caption = 'Entrada'
+          Width = 100
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'ENTRADA_DOC_TIPO'
+          Title.Caption = 'Documento'
+          Width = 100
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'ENTRADA_DOC'
+          Title.Caption = 'No. Documento'
+          Width = 100
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'ENTRADA_FORNECEDOR'
+          Title.Caption = 'Fornecedor'
+          Width = 350
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'ENTRADA_FORNECEDOR_CNPJ'
+          Title.Caption = 'CPF/CNPJ'
+          Width = 150
+          Visible = True
+        end>
+    end
+    inherited pnlBotoes: TPanel
+      Top = 448
+      Width = 1047
+      TabOrder = 2
+      ExplicitTop = 448
+      ExplicitWidth = 1047
+      inherited btnSelecionar: TcxButton
+        Left = 821
+        TabOrder = 1
+        Visible = False
+        ExplicitLeft = 821
+      end
+      inherited btnFechar: TcxButton
+        Left = 934
+        TabOrder = 2
+        ExplicitLeft = 934
+      end
+      object BtnQuitar: TcxButton
+        AlignWithMargins = True
+        Left = 708
+        Top = 0
+        Width = 110
+        Height = 35
+        Hint = 'Quitar lan'#231'amentos selecionados'
+        Margins.Left = 0
+        Margins.Top = 0
+        Margins.Bottom = 5
+        Align = alRight
+        Caption = 'Quitar'
+        Enabled = False
+        OptionsImage.Glyph.SourceDPI = 96
+        OptionsImage.Glyph.Data = {
+          424D360400000000000036000000280000001000000010000000010020000000
+          000000000000C40E0000C40E00000000000000000000FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00F0DDCDFF2078B0FF2078B0FF306890FF3048
+          50FFCFB9A7FFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00B0D8F0FFC0F0F0FF40D0FFFF30C0FFFF30A8
+          F0FF304850FF207090FF304850FFCBAF9BFFFF00FF00FF00FF00F1E2D6FF2078
+          B0FF2078B0FF306890FF304050FFEFD9C7FFA0C8D0FFA0C0C0FF90A0A0FF8080
+          80FF70D0F0FF40D0FFFF40B8F0FF405870FFFF00FF00FF00FF0090B0C0FFC0F0
+          F0FF40D0FFFF30C0FFFF30B0F0FF103850FFFF00FF00FF00FF00EDD9C5FF1078
+          B0FF1070A0FF205870FF203840FFB3A79DFFFF00FF00FF00FF00FF00FF0090B0
+          C0FFA0C0C0FF90A0A0FF808890FFF4DDCAFFFF00FF00FF00FF0090B0C0FFD0FF
+          FFFF60D8FFFF40D0FFFF40B8F0FF305860FFFF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00EDD8C5FF1068
+          A0FF1070A0FF205870FF203840FFB3A79DFFFF00FF00FF00FF00FF00FF00FF00
+          FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF00FF0080C0D0FFD0FF
+          FFFF60D8FFFF40D0FFFF40B8F0FF204860FFFF00FF00D07850FF904820FF9048
+          20FF904820FF804020FF804020FF804020FF803820FF803820FFC0B8C0FF0068
+          A0FF1070A0FF205870FF203040FF8098A0FF802020FFD07850FFC08870FFC080
+          50FFB09070FFD0A890FFE0C8B0FFC08060FFB06830FFC05050FF80B8E0FFC0F0
+          F0FF40D0FFFF30C0FFFF30A8F0FF205070FF802020FFD08050FFB09080FFD0C0
+          B0FFE0D0C0FFD0B0A0FFE0C8C0FFB08870FFB07040FFC07050FFD0B8A0FF80B0
+          E0FFA0C0D0FF8098B0FF7080A0FFD0B890FF802020FFD08860FFE0D0C0FFE0B8
+          A0FFC08860FFC08050FFD0B8A0FFE0B090FFB07850FFB07050FFE0A880FFC098
+          90FF905830FFA06040FFB0A090FFC09880FF802820FFE09070FFFFFFFFFFD098
+          80FFD08860FFC08860FFE0D8D0FFC09880FFC08050FFB07050FFC09070FFC0B8
+          B0FFA05830FF905830FFA06030FFC0C0C0FF802820FFE09870FFE0D0D0FFF0C8
+          B0FFD09870FFD08860FFF0D8D0FFC09880FFC08860FFB08050FFC09070FFD0C0
+          B0FFA06030FFA06030FFB08870FFC09080FF803020FFE0A080FFB0A090FFE0C8
+          C0FFF0E0E0FFF0C8B0FFE0B0A0FFF0C8B0FFD0A890FFC09880FFE0B8A0FFC090
+          80FFC0A090FFD0B8B0FFB09880FFA06030FF803020FFE0A080FFA08880FFB090
+          80FFB0A090FFD0C0B0FFFFF0E0FFFFF0F0FFF0F0F0FFF0F0F0FFF0E0E0FFF0D8
+          C0FFC0A890FFA07860FF905830FFA05820FF803820FFE0A080FFE0A080FFE0A0
+          80FFE0A080FFE09880FFE09870FFD09070FFD08870FFC08060FFC07860FFB078
+          50FFB07050FFB06840FFA06040FFA05840FF905030FF}
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+        OnClick = BtnQuitarClick
+      end
+    end
+    object PnlControleQuitacao: TPanel
+      AlignWithMargins = True
+      Left = 7
+      Top = 330
+      Width = 1041
+      Height = 115
+      Align = alBottom
+      BevelOuter = bvNone
+      TabOrder = 1
+      object GrpBxControleQuitacao: TGroupBox
+        Left = 0
+        Top = 0
+        Width = 1041
+        Height = 115
+        Align = alClient
+        Caption = 'Dados importantes para Quita'#231#227'o'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        DesignSize = (
+          1041
+          115)
+        object lblDataPagto: TLabel
+          Left = 16
+          Top = 24
+          Width = 69
+          Height = 13
+          Caption = '&Data Pagto.:'
+          FocusControl = dbDataPagto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblFormaPagto: TLabel
+          Left = 136
+          Top = 24
+          Width = 124
+          Height = 13
+          Caption = '&Forma de Pagamento:'
+          FocusControl = dbFormaPagto
+        end
+        object lblHistorico: TLabel
+          Left = 400
+          Top = 24
+          Width = 86
+          Height = 13
+          Caption = '&Hist'#243'rico Geral:'
+          FocusControl = dbHistorico
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblNumeroCheque: TLabel
+          Left = 16
+          Top = 64
+          Width = 109
+          Height = 13
+          Caption = '&N'#250'mero do Cheque:'
+          FocusControl = dbNumeroCheque
+        end
+        object dbFormaPagto: TDBLookupComboBox
+          Left = 136
+          Top = 40
+          Width = 257
+          Height = 21
+          DataField = 'FormaPagto'
+          DataSource = dtsPagamentoLOTE
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ListSource = dtsFormaPagto
+          ParentFont = False
+          TabOrder = 1
+        end
+        object dbHistorico: TDBMemo
+          Left = 399
+          Top = 40
+          Width = 635
+          Height = 61
+          Anchors = [akLeft, akTop, akRight, akBottom]
+          DataField = 'HistoricoGeral'
+          DataSource = dtsPagamentoLOTE
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 3
+        end
+        object dbDataPagto: TJvDBDateEdit
+          Left = 16
+          Top = 40
+          Width = 113
+          Height = 21
+          DataField = 'DataPagto'
+          DataSource = dtsPagamentoLOTE
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Glyph.Data = {
+            76050000424D760500000000000036000000280000001C0000000C0000000100
+            2000000000004005000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF008080800080808000808080008080800080808000808080008080
+            800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+            0000800000008000000000000000800000000000000000000000800000008080
+            8000FF00FF008080800080808000808080008080800080808000808080008080
+            80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+            0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+            80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+            C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+            0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+            FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+            8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+            000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+            C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+            0000000000000000000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF008080800080808000808080008080800080808000808080008080
+            80008080800080808000808080008080800080808000FF00FF00}
+          ImageKind = ikCustom
+          NumGlyphs = 2
+          ParentFont = False
+          PopupColor = clBtnFace
+          ShowNullDate = False
+          TabOrder = 0
+        end
+        object dbNumeroCheque: TJvDBComboEdit
+          Left = 16
+          Top = 80
+          Width = 377
+          Height = 21
+          ButtonHint = 'Pesquisar Cheques (Ctrl+P)'
+          CharCase = ecUpperCase
+          ClickKey = 16464
+          Color = clMoneyGreen
+          DataField = 'NumeroCheque'
+          DataSource = dtsPagamentoLOTE
+          Enabled = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          Glyph.Data = {
+            36060000424D3606000000000000360000002800000020000000100000000100
+            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
+            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
+            6048306048306048306048306048306048306048306048306048305048403050
+            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
+            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
+            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
+            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
+            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
+            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
+            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
+            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
+            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
+            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
+            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
+            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
+            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
+            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
+            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
+            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
+            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
+            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
+            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
+          NumGlyphs = 2
+          ParentFont = False
+          ParentShowHint = False
+          ReadOnly = True
+          ShowHint = True
+          TabOrder = 2
+          OnButtonClick = dbNumeroChequeButtonClick
+        end
+      end
+    end
+    object pnlDicas: TPanel
+      AlignWithMargins = True
+      Left = 7
+      Top = 303
+      Width = 1041
+      Height = 21
+      Align = alBottom
+      BevelOuter = bvNone
+      TabOrder = 3
+      object lblDicasTitulo: TLabel
+        AlignWithMargins = True
+        Left = 3
+        Top = 3
+        Width = 33
+        Height = 15
+        Align = alLeft
+        Caption = 'Dica : '
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = True
+        ExplicitHeight = 13
+      end
+      object lblDicasTexto: TLabel
+        AlignWithMargins = True
+        Left = 42
+        Top = 3
+        Width = 996
+        Height = 15
+        Align = alClient
+        Caption = 
+          'Pressione a tecla "Espa'#231'o" para marcar o registro de Contas A Pa' +
+          'gar selecionado a fim de inseri-lo no lote de quita'#231#227'o.'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Transparent = True
+        WordWrap = True
+        ExplicitWidth = 668
+        ExplicitHeight = 13
+      end
+    end
+  end
+  inherited dtsPesquisa: TDataSource
+    DataSet = CdsPesquisa
+    Left = 96
+    Top = 233
+  end
+  inherited imgGrid: TImageList
+    Left = 24
+    Top = 136
+  end
+  object DspPesquisa: TDataSetProvider
+    Left = 96
+    Top = 137
+  end
+  object CdsPesquisa: TClientDataSet
+    Aggregates = <>
+    AggregatesActive = True
+    Params = <>
+    ProviderName = 'DspPesquisa'
+    Left = 96
+    Top = 185
+    object CdsPesquisaANOLANC: TSmallintField
+      FieldName = 'ANOLANC'
+      Required = True
+    end
+    object CdsPesquisaNUMLANC: TIntegerField
+      FieldName = 'NUMLANC'
+      Required = True
+    end
+    object CdsPesquisaLANCAMENTO: TStringField
+      FieldName = 'LANCAMENTO'
+      ReadOnly = True
+      Size = 30
+    end
+    object CdsPesquisaEMPRESA: TStringField
+      FieldName = 'EMPRESA'
+      Size = 18
+    end
+    object CdsPesquisaPARCELA: TSmallintField
+      Alignment = taCenter
+      FieldName = 'PARCELA'
+      DisplayFormat = '00'
+    end
+    object CdsPesquisaTIPPAG: TStringField
+      FieldName = 'TIPPAG'
+      Size = 35
+    end
+    object CdsPesquisaDTEMISS: TDateField
+      FieldName = 'DTEMISS'
+    end
+    object CdsPesquisaDTVENC: TDateField
+      FieldName = 'DTVENC'
+    end
+    object CdsPesquisaDTPAG: TDateField
+      FieldName = 'DTPAG'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object CdsPesquisaVALORPAG: TFMTBCDField
+      FieldName = 'VALORPAG'
+      Precision = 18
+      Size = 2
+    end
+    object CdsPesquisaVALORMULTA: TFMTBCDField
+      FieldName = 'VALORMULTA'
+      Precision = 18
+      Size = 2
+    end
+    object CdsPesquisaVALORPAGTOT: TFMTBCDField
+      FieldName = 'VALORPAGTOT'
+      Precision = 18
+      Size = 2
+    end
+    object CdsPesquisaVALORSALDO: TFMTBCDField
+      FieldName = 'VALORSALDO'
+      Precision = 18
+      Size = 2
+    end
+    object CdsPesquisaVALOR_APAGAR: TFMTBCDField
+      FieldName = 'VALOR_APAGAR'
+      Precision = 18
+      Size = 2
+    end
+    object CdsPesquisaENTRADA: TStringField
+      FieldName = 'ENTRADA'
+      ReadOnly = True
+      Size = 30
+    end
+    object CdsPesquisaENTRADA_ANO: TSmallintField
+      FieldName = 'ENTRADA_ANO'
+    end
+    object CdsPesquisaENTRADA_NUMERO: TIntegerField
+      FieldName = 'ENTRADA_NUMERO'
+    end
+    object CdsPesquisaENTRADA_DOC_TIPO: TStringField
+      FieldName = 'ENTRADA_DOC_TIPO'
+      ReadOnly = True
+      FixedChar = True
+      Size = 13
+    end
+    object CdsPesquisaENTRADA_DOC: TStringField
+      FieldName = 'ENTRADA_DOC'
+      ReadOnly = True
+      Size = 30
+    end
+    object CdsPesquisaENTRADA_DOC_NUMERO: TIntegerField
+      FieldName = 'ENTRADA_DOC_NUMERO'
+      ReadOnly = True
+    end
+    object CdsPesquisaENTRADA_DOC_SERIE: TStringField
+      FieldName = 'ENTRADA_DOC_SERIE'
+      ReadOnly = True
+      Size = 4
+    end
+    object CdsPesquisaENTRADA_FORNECEDOR: TStringField
+      FieldName = 'ENTRADA_FORNECEDOR'
+      ReadOnly = True
+      Size = 100
+    end
+    object CdsPesquisaENTRADA_FORNECEDOR_CNPJ: TStringField
+      FieldName = 'ENTRADA_FORNECEDOR_CNPJ'
+      ReadOnly = True
+      Size = 18
+    end
+    object CdsPesquisaSELECIONAR: TSmallintField
+      Alignment = taCenter
+      FieldName = 'SELECIONAR'
+      ProviderFlags = []
+    end
+    object CdsPesquisaSelecionados: TAggregateField
+      FieldName = 'Selecionados'
+      Active = True
+      DisplayName = ''
+      Expression = 'SUM(SELECIONAR)'
+    end
+  end
+  object dtsFormaPagto: TDataSource
+    Left = 96
+    Top = 280
+  end
+  object cdsPagamentoLOTE: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'DataPagto'
+        DataType = ftDateTime
+      end
+      item
+        Name = 'FormaPagto'
+        DataType = ftInteger
+      end
+      item
+        Name = 'HistoricoGeral'
+        DataType = ftMemo
+      end
+      item
+        Name = 'ControleCheque'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NumeroCheque'
+        DataType = ftString
+        Size = 30
+      end
+      item
+        Name = 'BancoFebraban'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'BancoBoleto'
+        DataType = ftInteger
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 296
+    Top = 177
+    object cdsPagamentoLOTEDataPagto: TDateTimeField
+      FieldName = 'DataPagto'
+      DisplayFormat = 'dd/mm/yyyy'
+    end
+    object cdsPagamentoLOTEFormaPagto: TIntegerField
+      FieldName = 'FormaPagto'
+    end
+    object cdsPagamentoLOTEHistoricoGeral: TMemoField
+      FieldName = 'HistoricoGeral'
+      BlobType = ftMemo
+    end
+    object cdsPagamentoLOTEControleCheque: TIntegerField
+      FieldName = 'ControleCheque'
+    end
+    object cdsPagamentoLOTENumeroCheque: TStringField
+      FieldName = 'NumeroCheque'
+      Size = 30
+    end
+    object cdsPagamentoLOTEBancoFebraban: TStringField
+      FieldName = 'BancoFebraban'
+    end
+    object cdsPagamentoLOTEBancoBoleto: TIntegerField
+      FieldName = 'BancoBoleto'
+    end
+  end
+  object dtsPagamentoLOTE: TDataSource
+    DataSet = cdsPagamentoLOTE
+    OnDataChange = dtsPagamentoLOTEDataChange
+    Left = 296
+    Top = 225
+  end
+end

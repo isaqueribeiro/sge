@@ -132,25 +132,41 @@ inherited ViewEntrada: TViewEntrada
           ExplicitLeft = 474
           ExplicitWidth = 615
           inherited lbltFiltrar: TLabel
-            Left = 294
+            AlignWithMargins = True
+            Left = 297
+            Top = 25
             Width = 47
+            Height = 21
+            Margins.Top = 10
+            Margins.Bottom = 14
+            Align = alRight
             Caption = 'Entrada:'
+            Layout = tlCenter
             ExplicitLeft = 294
             ExplicitWidth = 47
           end
           object lblData: TLabel [1]
-            Left = 14
-            Top = 28
+            AlignWithMargins = True
+            Left = 25
+            Top = 25
             Width = 49
-            Height = 13
+            Height = 21
+            Margins.Top = 10
+            Margins.Bottom = 14
+            Align = alRight
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
+            Layout = tlCenter
+            ExplicitLeft = 14
+            ExplicitTop = 28
+            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 350
             Width = 221
             TabOrder = 2
             ExplicitLeft = 350
+            ExplicitTop = 25
             ExplicitWidth = 221
           end
           inherited btnFiltrar: TcxButton
@@ -159,11 +175,15 @@ inherited ViewEntrada: TViewEntrada
             ExplicitLeft = 577
           end
           object e1Data: TJvDateEdit
-            Left = 72
-            Top = 24
+            AlignWithMargins = True
+            Left = 189
+            Top = 25
             Width = 102
             Height = 21
+            Margins.Top = 10
+            Margins.Bottom = 14
             Date = 40909.000000000000000000
+            Align = alRight
             Glyph.Data = {
               76050000424D760500000000000036000000280000001C0000000C0000000100
               2000000000004005000000000000000000000000000000000000FF00FF00FF00
@@ -214,13 +234,19 @@ inherited ViewEntrada: TViewEntrada
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 0
+            ExplicitLeft = 72
+            ExplicitTop = 24
           end
           object e2Data: TJvDateEdit
-            Left = 184
-            Top = 24
+            AlignWithMargins = True
+            Left = 80
+            Top = 25
             Width = 103
             Height = 21
+            Margins.Top = 10
+            Margins.Bottom = 14
             Date = 40909.000000000000000000
+            Align = alRight
             Glyph.Data = {
               76050000424D760500000000000036000000280000001C0000000C0000000100
               2000000000004005000000000000000000000000000000000000FF00FF00FF00
@@ -271,6 +297,8 @@ inherited ViewEntrada: TViewEntrada
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 1
+            ExplicitLeft = 184
+            ExplicitTop = 24
           end
         end
         object pnlStatus: TPanel
@@ -420,8 +448,6 @@ inherited ViewEntrada: TViewEntrada
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1093
       ExplicitHeight = 605
       inherited Bevel8: TBevel
@@ -2013,10 +2039,6 @@ inherited ViewEntrada: TViewEntrada
         object tbsDuplicatas: TTabSheet
           Caption = 'Duplicata(s) Gerada(s)'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 89
             Top = 0
@@ -2197,10 +2219,6 @@ inherited ViewEntrada: TViewEntrada
         object tbsLotes: TTabSheet
           Caption = 'Lote(s) Gerado(s) no Estoque'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object DBGrid1: TDBGrid
             Left = 0
             Top = 0
@@ -2289,10 +2307,6 @@ inherited ViewEntrada: TViewEntrada
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0

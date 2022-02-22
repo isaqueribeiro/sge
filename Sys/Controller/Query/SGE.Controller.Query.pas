@@ -13,6 +13,8 @@ type
     private
       FDataSource : TDataSource;
       FDAO : IModelDAOQuery;
+      FDataIncial,
+      FDataFinal : TDateTime;
     protected
       constructor Create(aDAO : IModelDAOQuery);
       function DAO : IModelDAOQuery;
@@ -21,6 +23,8 @@ type
       class function New(aDAO : IModelDAOQuery) : IControllerQuery;
 
       function DataSource(aDataSource : TDataSource) : IControllerQuery;
+      function DataIncial(aValue : TDateTime) : IControllerQuery;
+      function DataFinal(aValue : TDateTime) : IControllerQuery;
       function Execute(aTipo : TTipoPesquisa; aFiltro : String) : IControllerQuery; virtual;
       function DataSet : TDataSet;
   end;
@@ -35,6 +39,10 @@ uses
 constructor TControllerQuery.Create(aDAO : IModelDAOQuery);
 begin
   FDAO := aDAO;
+
+  FDataIncial := Date;
+  FDataFinal  := Date;
+
   if (FDAO = nil) then
     raise Exception.Create('Classe TDAO da interface IModelDAOQuery não instanciada!');
 end;
@@ -42,6 +50,18 @@ end;
 function TControllerQuery.DAO: IModelDAOQuery;
 begin
   Result := FDAO;
+end;
+
+function TControllerQuery.DataFinal(aValue: TDateTime): IControllerQuery;
+begin
+  Result := Self;
+  FDataFinal := aValue;
+end;
+
+function TControllerQuery.DataIncial(aValue: TDateTime): IControllerQuery;
+begin
+  Result := Self;
+  FDataIncial := aValue;
 end;
 
 function TControllerQuery.DataSet: TDataSet;
@@ -64,7 +84,10 @@ end;
 function TControllerQuery.Execute(aTipo: TTipoPesquisa; aFiltro: String): IControllerQuery;
 begin
   Result := Self;
-  FDAO.Execute(aTipo, aFiltro);
+  FDAO
+    .DataIncial(FDataIncial)
+    .DataFinal(FDataFinal)
+    .Execute(aTipo, aFiltro);
 end;
 
 class function TControllerQuery.New(aDAO : IModelDAOQuery): IControllerQuery;

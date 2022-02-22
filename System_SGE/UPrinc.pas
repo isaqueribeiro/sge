@@ -1366,7 +1366,7 @@ end;
 procedure TfrmPrinc.nmQuitarContaAPagar_LoteClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_FIN_QUITAR_APAGAR_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeContasAPagarQuitar');
+    FormFunction.ShowModalForm(Self, 'ViewQueryContaAPagar');
 end;
 
 procedure TfrmPrinc.nmPerfilAcessoClick(Sender: TObject);

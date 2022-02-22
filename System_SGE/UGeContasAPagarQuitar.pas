@@ -17,7 +17,7 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinsDefaultPainters;
 
 type
   TfrmGeContasAPagarQuitar = class(TfrmGrPadraoPesquisa)
@@ -252,7 +252,7 @@ end;
 procedure TfrmGeContasAPagarQuitar.dbgDadosKeyPress(Sender: TObject;
   var Key: Char);
 begin
-  if (Key = #32) then
+  if (Key = #32) then  // Tecla SPACE
     if not CdsPesquisa.IsEmpty then
     begin
       CdsPesquisa.Edit;

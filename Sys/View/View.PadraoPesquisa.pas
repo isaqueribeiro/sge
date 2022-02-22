@@ -21,6 +21,7 @@ uses
   Vcl.Grids,
   Vcl.Menus,
   Vcl.DBGrids,
+  Vcl.DBCtrls,
   Vcl.ImgList,
 
   Data.DB,
@@ -182,10 +183,10 @@ begin
     VK_ESCAPE : if btnFechar.Visible and btnFechar.Enabled then
                   btnFechar.Click;
 
-    VK_UP : if dtsPesquisa.DataSet.Active then
+    VK_UP : if dtsPesquisa.DataSet.Active and (ActiveControl <> dbgDados) and (not (ActiveControl is TDBLookupComboBox)) then
               dtsPesquisa.DataSet.Prior;
 
-    VK_DOWN : if dtsPesquisa.DataSet.Active then
+    VK_DOWN : if dtsPesquisa.DataSet.Active and (ActiveControl <> dbgDados) and (not (ActiveControl is TDBLookupComboBox)) then
                 dtsPesquisa.DataSet.Next;
     else
     begin

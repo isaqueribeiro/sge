@@ -110,6 +110,7 @@ inherited ViewCliente: TViewCliente
             Width = 158
             TabOrder = 2
             ExplicitLeft = 170
+            ExplicitTop = 25
             ExplicitWidth = 158
           end
           inherited btnFiltrar: TcxButton
@@ -119,12 +120,12 @@ inherited ViewCliente: TViewCliente
           object CmbBxFiltrarTipo: TComboBox
             AlignWithMargins = True
             Left = 12
-            Top = 24
+            Top = 25
             Width = 152
             Height = 22
             Margins.Left = 10
-            Margins.Top = 9
-            Margins.Bottom = 13
+            Margins.Top = 10
+            Margins.Bottom = 14
             Align = alClient
             BevelEdges = []
             BevelInner = bvNone
@@ -139,8 +140,7 @@ inherited ViewCliente: TViewCliente
               'por CPF / CNPJ'
               'por Cidade'
               'por Telefones')
-            ExplicitLeft = 13
-            ExplicitTop = 27
+            ExplicitTop = 24
           end
         end
         object Panel1: TPanel
@@ -193,8 +193,6 @@ inherited ViewCliente: TViewCliente
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 463
       inherited Bevel8: TBevel

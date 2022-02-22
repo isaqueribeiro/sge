@@ -133,6 +133,7 @@ inherited ViewContaAPagar: TViewContaAPagar
             Left = 318
             Top = 24
             Width = 73
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -147,13 +148,14 @@ inherited ViewContaAPagar: TViewContaAPagar
             Left = 25
             Top = 24
             Width = 70
-            Height = 13
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
             Caption = 'Vencimento:'
             FocusControl = e1Data
             Layout = tlCenter
+            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 397
@@ -170,11 +172,11 @@ inherited ViewContaAPagar: TViewContaAPagar
           object e1Data: TJvDateEdit
             AlignWithMargins = True
             Left = 101
-            Top = 24
+            Top = 25
             Width = 102
-            Height = 23
-            Margins.Top = 9
-            Margins.Bottom = 13
+            Height = 21
+            Margins.Top = 10
+            Margins.Bottom = 14
             Date = 40909.000000000000000000
             Align = alRight
             Glyph.Data = {
@@ -227,16 +229,16 @@ inherited ViewContaAPagar: TViewContaAPagar
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 0
-            ExplicitHeight = 21
+            ExplicitTop = 24
           end
           object e2Data: TJvDateEdit
             AlignWithMargins = True
             Left = 209
-            Top = 24
+            Top = 25
             Width = 103
-            Height = 23
-            Margins.Top = 9
-            Margins.Bottom = 13
+            Height = 21
+            Margins.Top = 10
+            Margins.Bottom = 14
             Date = 40909.000000000000000000
             Align = alRight
             Glyph.Data = {
@@ -289,7 +291,7 @@ inherited ViewContaAPagar: TViewContaAPagar
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 1
-            ExplicitHeight = 21
+            ExplicitTop = 24
           end
         end
         object pnlStatus: TPanel
@@ -437,8 +439,6 @@ inherited ViewContaAPagar: TViewContaAPagar
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel8: TBevel
@@ -1078,10 +1078,6 @@ inherited ViewContaAPagar: TViewContaAPagar
         TabOrder = 3
         object tbsHistorico: TTabSheet
           Caption = 'Hist'#243'rico'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -1441,8 +1437,8 @@ inherited ViewContaAPagar: TViewContaAPagar
   end
   object popImprimir: TPopupMenu
     Images = ImgList
-    Left = 696
-    Top = 446
+    Left = 752
+    Top = 382
     object popGerarReciboA4: TMenuItem
       Bitmap.Data = {
         16050000424D160500000000000036040000280000000E0000000E0000000100

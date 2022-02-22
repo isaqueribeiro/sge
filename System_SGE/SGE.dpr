@@ -304,7 +304,10 @@ uses
   View.CampoRequisitado in '..\Sys\View\View.CampoRequisitado.pas' {ViewCampoRequisitado},
   View.ContaAPagar.Pagamento in '..\Sys\View\View.ContaAPagar.Pagamento.pas' {ViewContaAPagarPagamento},
   View.Cheque in '..\Sys\View\View.Cheque.pas' {ViewCheque},
-  View.Query.FornecedorCliente in '..\Sys\View\Query\View.Query.FornecedorCliente.pas' {ViewQueryFornecedorCliente};
+  View.Query.FornecedorCliente in '..\Sys\View\Query\View.Query.FornecedorCliente.pas' {ViewQueryFornecedorCliente},
+  SGE.Model.DAO.Query.ContaAPagar in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAPagar.pas',
+  SGE.Controller.Query.ContaAPagar in '..\Sys\Controller\Query\SGE.Controller.Query.ContaAPagar.pas',
+  View.Query.ContaAPagar in '..\Sys\View\Query\View.Query.ContaAPagar.pas' {ViewQueryContaAPagar};
 
 {$R *.res}
 

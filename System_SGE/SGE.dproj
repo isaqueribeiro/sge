@@ -739,6 +739,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <Form>ViewQueryFornecedorCliente</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\View\Query\View.Query.ContaAPagar.pas">
+            <Form>ViewQueryContaAPagar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>

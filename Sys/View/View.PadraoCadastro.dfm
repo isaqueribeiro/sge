@@ -53,10 +53,6 @@ object ViewPadraoCadastro: TViewPadraoCadastro
     object tbsTabela: TTabSheet
       Caption = '&Lista'
       ImageIndex = 37
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel4: TBevel
         Left = 0
         Top = 255
@@ -115,7 +111,6 @@ object ViewPadraoCadastro: TViewPadraoCadastro
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
-          ExplicitHeight = 54
           object lbltFiltrar: TLabel
             Left = 17
             Top = 27
@@ -127,20 +122,18 @@ object ViewPadraoCadastro: TViewPadraoCadastro
           object edtFiltrar: TEdit
             AlignWithMargins = True
             Left = 75
-            Top = 24
+            Top = 25
             Width = 148
-            Height = 23
+            Height = 21
             Hint = 'Digite aqui a palavra-chave da pesquisa'
-            Margins.Top = 9
-            Margins.Bottom = 13
+            Margins.Top = 10
+            Margins.Bottom = 14
             Align = alRight
             CharCase = ecUpperCase
             ParentShowHint = False
             ShowHint = True
             TabOrder = 0
-            ExplicitLeft = 72
-            ExplicitTop = 20
-            ExplicitHeight = 21
+            ExplicitTop = 24
           end
           object btnFiltrar: TcxButton
             Tag = 5
@@ -198,7 +191,6 @@ object ViewPadraoCadastro: TViewPadraoCadastro
             TabOrder = 1
             TabStop = False
             OnClick = btnFiltrarClick
-            ExplicitLeft = 226
           end
         end
       end
@@ -206,10 +198,6 @@ object ViewPadraoCadastro: TViewPadraoCadastro
     object tbsCadastro: TTabSheet
       Caption = '&Dados'
       ImageIndex = 39
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel8: TBevel
         Left = 0
         Top = 121

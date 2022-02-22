@@ -13,6 +13,8 @@ uses
 type
   TModelDAOQueryFornecedorCliente = class(TModelDAO, IModelDAOQuery)
     private
+      FDataInicial,
+      FDataFinal  : TDateTime;
       procedure TipoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
       procedure CpfCnpjGetText(Sender: TField; var Text: string; DisplayText: Boolean);
       procedure DataSetAfterOpen(DataSet: TDataSet);
@@ -22,6 +24,8 @@ type
       destructor Destroy; override;
       class function New : IModelDAOQuery;
 
+      function DataIncial(aValue : TDateTime) : IModelDAOQuery;
+      function DataFinal(aValue : TDateTime) : IModelDAOQuery;
       function Execute(aTipo : TTipoPesquisa; aFiltro : String) : IModelDAOQuery;
   end;
 
@@ -111,6 +115,11 @@ begin
   inherited;
 end;
 
+class function TModelDAOQueryFornecedorCliente.New: IModelDAOQuery;
+begin
+  Result := Self.Create;
+end;
+
 function TModelDAOQueryFornecedorCliente.Execute(aTipo: TTipoPesquisa; aFiltro: String): IModelDAOQuery;
 var
   aStr : String;
@@ -167,17 +176,24 @@ begin
   FConn.Query.Open;
 end;
 
-class function TModelDAOQueryFornecedorCliente.New: IModelDAOQuery;
-begin
-  Result := Self.Create;
-end;
-
 procedure TModelDAOQueryFornecedorCliente.TipoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
 begin
   Case Sender.AsInteger of
     1 : Text := 'Fornecedor';
     2 : Text := 'Cliente';
   end;
+end;
+
+function TModelDAOQueryFornecedorCliente.DataFinal(aValue: TDateTime): IModelDAOQuery;
+begin
+  Result := Self;
+  FDataFinal := aValue;
+end;
+
+function TModelDAOQueryFornecedorCliente.DataIncial(aValue: TDateTime): IModelDAOQuery;
+begin
+  Result := Self;
+  FDataInicial := aValue;
 end;
 
 procedure TModelDAOQueryFornecedorCliente.DataSetAfterOpen(DataSet: TDataSet);
