@@ -423,6 +423,8 @@ Var
   aSecao : String;
 begin
   aSecao := IfThen(aCNPJ.Trim.IsEmpty, EmptyStr, aCNPJ.Trim + '_') + INI_SECAO_CERTIFICADO;
+  if (not FINI.SectionExists(aSecao)) then
+    aSecao := INI_SECAO_CERTIFICADO;
 
   FCertificado.FCaminhho := FINI.ReadString(aSecao, INI_KEY_CERTIFICADO_CAMINHO, EmptyStr);
   FCertificado.FSenha    := FINI.ReadString(aSecao, INI_KEY_CERTIFICADO_SENHA, EmptyStr);

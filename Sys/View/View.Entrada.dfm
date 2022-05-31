@@ -30,6 +30,8 @@ inherited ViewEntrada: TViewEntrada
     ExplicitWidth = 1101
     ExplicitHeight = 634
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1093
       ExplicitHeight = 605
       inherited Bevel4: TBevel
@@ -142,7 +144,8 @@ inherited ViewEntrada: TViewEntrada
             Align = alRight
             Caption = 'Entrada:'
             Layout = tlCenter
-            ExplicitLeft = 294
+            ExplicitLeft = 297
+            ExplicitTop = 25
             ExplicitWidth = 47
           end
           object lblData: TLabel [1]
@@ -157,8 +160,6 @@ inherited ViewEntrada: TViewEntrada
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitLeft = 14
-            ExplicitTop = 28
             ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
@@ -176,7 +177,7 @@ inherited ViewEntrada: TViewEntrada
           end
           object e1Data: TJvDateEdit
             AlignWithMargins = True
-            Left = 189
+            Left = 80
             Top = 25
             Width = 102
             Height = 21
@@ -234,12 +235,12 @@ inherited ViewEntrada: TViewEntrada
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 0
-            ExplicitLeft = 72
-            ExplicitTop = 24
+            ExplicitLeft = 37
+            ExplicitTop = 27
           end
           object e2Data: TJvDateEdit
             AlignWithMargins = True
-            Left = 80
+            Left = 188
             Top = 25
             Width = 103
             Height = 21
@@ -297,8 +298,7 @@ inherited ViewEntrada: TViewEntrada
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 1
-            ExplicitLeft = 184
-            ExplicitTop = 24
+            ExplicitLeft = 80
           end
         end
         object pnlStatus: TPanel
@@ -448,6 +448,8 @@ inherited ViewEntrada: TViewEntrada
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1093
       ExplicitHeight = 605
       inherited Bevel8: TBevel

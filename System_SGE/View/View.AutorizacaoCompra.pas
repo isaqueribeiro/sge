@@ -46,7 +46,8 @@ uses
   View.PadraoCadastro,
   SGE.Controller.Interfaces,
   Interacao.Tabela,
-  Controller.Tabela, dxSkinsDefaultPainters;
+  Controller.Tabela, dxSkinsDefaultPainters,
+  SGE.Controller.Impressao.AutorizacaoCompra;
 
 type
   TViewAutorizacaoCompra = class(TViewPadraoCadastro)
@@ -204,6 +205,7 @@ type
     procedure ControllerAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
+    FImpressao : IImpressaoAutorizacaoCompra;
     FControllerEmpresaView,
     FControllerTipoAUtorizacaoView,
     FControllerFormaPagto ,
@@ -280,7 +282,6 @@ uses
   , System.SysConst
   , UDMRecursos
   , UDMBusiness
-  , UDMNFe
   , SGE.Controller.Factory
   , SGE.Controller
   , SGE.Controller.Helper
@@ -1317,42 +1318,16 @@ begin
   if DtSrcTabela.DataSet.IsEmpty then
     Exit;
 
-  with DMNFe do
-  begin
-    try
-      ConfigurarEmail(
-        FController.DAO.Usuario.Empresa.CNPJ,
-        Fornecedor.Get(DtSrcTabela.DataSet.FieldByName('FORNECEDOR').AsInteger).DataSet.FieldByName('Email').AsString,
-        dbTipo.Text,
-        EmptyStr
-      );
-    except
-    end;
+  if not Assigned(FImpressao) then
+    FImpressao := TImpressaoAutorizacaoCompra.New;
 
-    with qryEmitente do
-    begin
-      Close;
-      ParamByName('Cnpj').AsString := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
-      Open;
-    end;
-
-    with qryFornecedorDestinatario do
-    begin
-      Close;
-      ParamByName('codigo').AsInteger := DtSrcTabela.DataSet.FieldByName('FORNECEDOR').AsInteger;
-      Open;
-    end;
-
-    with qryAutorizacaoCompra do
-    begin
-      Close;
-      ParamByName('ano').AsSmallInt := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
-      ParamByName('cod').AsInteger  := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
-      Open;
-    end;
-
-    frrAutorizacaoCompra.ShowReport;
-  end;
+  FImpressao
+    .VisualizarAutorizacao(
+      DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString,
+      DtSrcTabela.DataSet.FieldByName('FORNECEDOR').AsInteger,
+      DtSrcTabela.DataSet.FieldByName('ANO').AsInteger,
+      DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger
+    );
 end;
 
 procedure TViewAutorizacaoCompra.btnCancelarAutorizacaoClick(

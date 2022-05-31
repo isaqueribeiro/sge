@@ -6,21 +6,30 @@ uses
   System.SysUtils,
   System.Classes,
   Data.DB,
+  Model.Constantes,
   SGE.Model.DAO,
   SGE.Model.DAO.Interfaces;
 
 type
   TModelDAOQueryCliente = class(TModelDAO, IModelDAOQuery)
     private
-
+      FDataInicial,
+      FDataFinal  : TDateTime;
     protected
       constructor Create;
     public
       destructor Destroy; override;
       class function New : IModelDAOQuery;
+
+      function DataIncial(aValue : TDateTime) : IModelDAOQuery;
+      function DataFinal(aValue : TDateTime) : IModelDAOQuery;
+      function Execute(aTipo : TTipoPesquisa; aFiltro : String) : IModelDAOQuery;
   end;
 
 implementation
+
+uses
+  Service.Utils;
 
 { TModelDAOQueryCliente }
 
@@ -122,6 +131,74 @@ end;
 class function TModelDAOQueryCliente.New: IModelDAOQuery;
 begin
   Result := Self.Create;
+end;
+
+function TModelDAOQueryCliente.DataFinal(aValue: TDateTime): IModelDAOQuery;
+begin
+  Result := Self;
+  FDataFinal := aValue;
+end;
+
+function TModelDAOQueryCliente.DataIncial(aValue: TDateTime): IModelDAOQuery;
+begin
+  Result := Self;
+  FDataInicial := aValue;
+end;
+
+function TModelDAOQueryCliente.Execute(aTipo: TTipoPesquisa; aFiltro: String): IModelDAOQuery;
+var
+  aStr : String;
+begin
+  Result := Self;
+  aStr := aFiltro.Trim.Replace(' ', '%', [rfReplaceAll]);
+
+//  FConn.Query.Close;
+//  FConn
+//    .Query
+//      .ParamByName('codigo', 0)
+//      .ParamByName('cnpj',   EmptyStr)
+//      .ParamByName('nome',   EmptyStr)
+//      .ParamByName('sem_codigo', 0)
+//      .ParamByName('sem_cnpj',   0)
+//      .ParamByName('sem_nome',   0);
+//
+//  if (StrToIntDef(aStr, 0) > 0) and (atipo in [TTipoPesquisa.tpAutomatico, TTipoPesquisa.tpCodigo]) then
+//  begin
+//    FConn
+//      .Query
+//        .ParamByName('codigo', StrToIntDef(aStr, 0))
+//        .ParamByName('cnpj',   EmptyStr)
+//        .ParamByName('nome',   EmptyStr)
+//        .ParamByName('sem_codigo', 0)
+//        .ParamByName('sem_cnpj',   1)
+//        .ParamByName('sem_nome',   1);
+//  end
+//  else
+//  if (TServicesUtils.StrIsCPF(aStr) or TServicesUtils.StrIsCNPJ(aStr)) then
+//  begin
+//    FConn
+//      .Query
+//        .ParamByName('codigo', 0)
+//        .ParamByName('cnpj',   aStr)
+//        .ParamByName('nome',   EmptyStr)
+//        .ParamByName('sem_codigo', 1)
+//        .ParamByName('sem_cnpj',   0)
+//        .ParamByName('sem_nome',   1);
+//  end
+//  else
+//  if (atipo in [TTipoPesquisa.tpAutomatico, TTipoPesquisa.tpDescricao]) then
+//  begin
+//    FConn
+//      .Query
+//        .ParamByName('codigo', 0)
+//        .ParamByName('cnpj',   EmptyStr)
+//        .ParamByName('nome',   aStr + '%')
+//        .ParamByName('sem_codigo', 1)
+//        .ParamByName('sem_cnpj',   1)
+//        .ParamByName('sem_nome',   0);
+//  end;
+//
+//  FConn.Query.Open;
 end;
 
 end.

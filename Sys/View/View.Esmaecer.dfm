@@ -3,10 +3,11 @@ object ViewEsmaecer: TViewEsmaecer
   Top = 0
   AlphaBlend = True
   AlphaBlendValue = 165
-  BorderStyle = bsNone
-  Caption = 'Form de Esmaecimento'
-  ClientHeight = 542
-  ClientWidth = 897
+  BorderIcons = [biMinimize, biMaximize]
+  BorderStyle = bsToolWindow
+  Caption = 'Security Form Activated . . .'
+  ClientHeight = 513
+  ClientWidth = 891
   Color = 5519643
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

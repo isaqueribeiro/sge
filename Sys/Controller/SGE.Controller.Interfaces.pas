@@ -194,6 +194,8 @@ type
     procedure EstornarPagamento(aUsuario : String; aContaConrrente : Integer);
     procedure GerarSaldoConta(const aContaCorrente : Integer; const aDataMovimento : TDateTime);
     procedure RecalcularSaldo(aContaCorrente : Integer);
+
+    function Sequencial(const aCampo : String) : Integer;
   end;
 
   IControllerCaixa = interface(IControllerCustom)

@@ -8,6 +8,7 @@ inherited ViewEntradaEstoqueGerarNFE: TViewEntradaEstoqueGerarNFE
   ClientHeight = 410
   ClientWidth = 596
   OldCreateOrder = True
+  OnKeyPress = FormKeyPress
   ExplicitWidth = 610
   ExplicitHeight = 447
   PixelsPerInch = 96

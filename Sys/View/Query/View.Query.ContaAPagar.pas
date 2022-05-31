@@ -436,7 +436,6 @@ procedure TViewQueryContaAPagar.QuitarDespesa;
 var
   aLancamento,
   aHistorico : String;
-  aSequencial: Integer;
   cTotalPago : Currency;
 begin
   BtnQuitar.Enabled := False;
@@ -464,8 +463,6 @@ begin
       begin
         if FQuitarLista.ContainsKey(dtsPesquisa.DataSet.FieldByName('lancamento').AsString) then
         begin
-          Pagamentos.GerarSequencial(Pagamentos.DAO.DataSet, 'seq', aSequencial);
-
           // 1. Gerar Registro de Pagamento
           Pagamentos.DAO.DataSet.Append;
 
@@ -477,8 +474,9 @@ begin
           Pagamentos.DAO.DataSet.FieldByName('ANOLANC').AsInteger     := CdsPesquisaANOLANC.AsInteger;
           Pagamentos.DAO.DataSet.FieldByName('NUMLANC').AsInteger     := CdsPesquisaNUMLANC.AsInteger;
           Pagamentos.DAO.DataSet.FieldByName('EMPRESA').AsString      := CdsPesquisaEMPRESA.AsString;
-          Pagamentos.DAO.DataSet.FieldByName('SEQ').AsInteger         := aSequencial;
+          Pagamentos.DAO.DataSet.FieldByName('SEQ').AsInteger         := 0; // Pagamentos.Sequencial('SEQ');
           Pagamentos.DAO.DataSet.FieldByName('DATA_PAGTO').AsDateTime := cdsPagamentoLOTEDataPagto.Value;
+          Pagamentos.DAO.DataSet.FieldByName('HISTORICO').AsString    := Trim(dbHistorico.Text);
           Pagamentos.DAO.DataSet.FieldByName('USUARIO').AsString      := Pagamentos.DAO.Usuario.Login;
           Pagamentos.DAO.DataSet.FieldByName('VALOR_BAIXA').AsCurrency    := CdsPesquisaVALOR_APAGAR.AsCurrency;
           Pagamentos.DAO.DataSet.FieldByName('FORMA_PAGTO').AsInteger     := cdsPagamentoLOTEFormaPagto.AsInteger;

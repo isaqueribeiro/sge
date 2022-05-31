@@ -1519,6 +1519,24 @@ begin
       dbValorIPIProduto.SetFocus;
     end
     else
+    if ( Trim(DtSrcTabelaItens.DataSet.FieldByName('CST').AsString) = EmptyStr ) then
+    begin
+      ShowWarning('Favor informar o Código de Situação Fiscal (CST) do produto.');
+      dbCST.SetFocus;
+    end
+    else
+    if (StrToIntDef(DtSrcTabelaItens.DataSet.FieldByName('CST').AsString, -1) = -1) then
+    begin
+      TServiceMessage.ShowWarning('Código CST inválido.');
+      dbCST.SetFocus;
+    end
+    else
+    if (StrToIntDef(DtSrcTabelaItens.DataSet.FieldByName('CSOSN').AsString, -1) = -1) then
+    begin
+      TServiceMessage.ShowWarning('Código CSOSN inválido.');
+      dbValorIPIProduto.SetFocus;
+    end
+    else
     begin
       DtSrcTabelaItens.DataSet.Post;
 

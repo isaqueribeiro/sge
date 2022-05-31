@@ -26,10 +26,20 @@ implementation
 
 procedure TViewEsmaecer.FormCreate(Sender: TObject);
 begin
-  Self.Height := Screen.Height - 48;
-  Self.Width  := Screen.Width;
-  Self.Top    := 0;
-  Self.Left   := 0;
+  Self.Caption := StringOfChar(#32, 33) + 'Security Form Activated . . .';
+  if (Self.BorderStyle = TFormBorderStyle.bsNone) then
+  begin
+    Self.Height := Screen.Height - 48;
+    Self.Width  := Screen.Width;
+    Self.Top    := 0;
+    Self.Left   := 0;
+  end
+  else
+  begin
+    Self.Height := Screen.Height - 48;
+    Self.Width  := Screen.Width  - 8;
+    Self.WindowState := TWindowState.wsNormal;
+  end;
 end;
 
 class function TViewEsmaecer.GetInstance(const AOnwer: TComponent): TViewEsmaecer;

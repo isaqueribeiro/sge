@@ -389,7 +389,7 @@ uses
   UGeApropriacaoEstoque,
 
   // Financeiro
-  UGeContasAPagar,
+  View.ContaAPagar,
   UGeContasAReceber,
   UGeCaixa,
   UGeFluxoCaixa;
@@ -927,8 +927,6 @@ begin
 
   if not SetAcessoEstacao(sHostName) then
   begin
-    ShowError('Host -> ' + sHostName + #13 + 'Estação de trabalho não registrada no sistema!');
-
     RbnTabCadastro.Visible   := False;
     RbnTabEntrada.Visible    := False;
     RbnTabMovimento.Visible  := False;
@@ -948,39 +946,45 @@ begin
     BrBtnTesouraria.Enabled    := False;
     BrBtnContaAPagar.Enabled   := False;
     BrBtnContaAReceber.Enabled := False;
+
+    raise Exception.Create('Host -> ' + sHostName + #13 + 'Estação de trabalho não registrada no sistema!');
   end;
 
   BrBtnRequisicaoCliente.Enabled := GetEstoqueSateliteEmpresa( gUsuarioLogado.Empresa );
 
   if not gLicencaSistema.UsarSGI then
-  begin
-    ShowWarning(
-      'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
-      'Favor entrar em contato com o fornecedor do software.');
-    Application.Terminate;
+    try
+      ShowError(
+        'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
+        'Favor entrar em contato com o fornecedor do software.');
+    finally
+      Application.Terminate;
 
-    // Remover processo da memória do Windows
-    aProcesso := ParamStr(0);
-    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
-    KillTask(aProcesso);
-  end;
+      // Remover processo da memória do Windows
+      aProcesso := ParamStr(0);
+      aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+      KillTask(aProcesso);
+    end;
 
+  // Verifica se a versão da aplicação é maior que a versão do banco
   // O procedimento "UpgradeDataBase()" atualiza a base de dados
   if (Trunc(gVersaoApp.VersionID / 100) > Trunc(GetVersionDB(gSistema.Codigo) / 100)) then
-  begin
-    ShowWarning(
-      'Esta versão da aplicação necessidade que a base de dados esteja atualizada!' + #13#13 +
-      'Favor entrar em contato com o fornecedor do software.');
-    Application.Terminate;
+    try
+      ShowError(
+        'Esta versão da aplicação necessidade que a base de dados esteja atualizada!' + #13#13 +
+        'Favor entrar em contato com o fornecedor do software.');
+    finally
+      Application.Terminate;
 
-    // Remover processo da memória do Windows
-    aProcesso := ParamStr(0);
-    aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
-    KillTask(aProcesso);
-  end
-  else
+      // Remover processo da memória do Windows
+      aProcesso := ParamStr(0);
+      aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+      KillTask(aProcesso);
+    end;
+
+  // Verifica se a versão do banco é maior que a versão da aplicação
   if (Trunc(GetVersionDB(gSistema.Codigo) / 100) > Trunc(gVersaoApp.VersionID / 100)) then
-    ShowWarning('O sistema está desatualizado em relação à base de dados.' + #13 + 'Favor atualize seu sistema.');
+    raise Exception.Create('O sistema está desatualizado em relação à base de dados.' + #13 + 'Favor atualize seu sistema.');
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
@@ -1437,7 +1441,7 @@ end;
 procedure TfrmPrinc.nmQuitarContaAPagar_LoteClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_FIN_QUITAR_APAGAR_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeContasAPagarQuitar');
+    FormFunction.ShowModalForm(Self, 'ViewQueryContaAPagar');
 end;
 
 procedure TfrmPrinc.nmPerfilAcessoClick(Sender: TObject);

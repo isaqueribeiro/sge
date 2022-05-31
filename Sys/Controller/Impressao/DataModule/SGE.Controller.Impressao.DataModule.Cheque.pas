@@ -116,7 +116,7 @@ type
   end;
 
 var
-  DataModuleCheque: TDataModuleCheque;
+  DataModuleCheque : TDataModuleCheque;
 
 implementation
 

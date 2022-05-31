@@ -425,7 +425,7 @@ inherited ViewQueryContaAPagar: TViewQueryContaAPagar
         end
         object dbHistorico: TDBMemo
           Left = 399
-          Top = 40
+          Top = 43
           Width = 635
           Height = 61
           Anchors = [akLeft, akTop, akRight, akBottom]

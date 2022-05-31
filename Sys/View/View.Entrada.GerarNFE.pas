@@ -296,7 +296,7 @@ begin
   if not GetConectedInternet then
   begin
     TServiceMessage.ShowWarning('Estação de trabalho sem acesso a Internet!');
-    Exit;
+    Abort;
   end;
 
   if chkNaoInformarVencimento.Checked then
@@ -305,7 +305,8 @@ begin
     sVN := EmptyStr;
 
   DMNFe.LerConfiguracao(dtsCompra.DataSet.FieldByName('CODEMP').AsString, tipoDANFEFast);
-  DMNFe.ValidarCnpjDocumento(dtsCompra.DataSet.FieldByName('CODEMP').AsString);
+  if not DMNFe.ValidarCnpjDocumento(dtsCompra.DataSet.FieldByName('CODEMP').AsString) then
+    Abort;
 
   if not DMNFe.ACBrNFe.WebServices.StatusServico.Executar then
   begin
@@ -316,13 +317,13 @@ begin
       '2. Certificado A3 não conectado na UBS' + #13 +
       '3. Webservice de emissão da NF-e offline.'
     );
-    Exit;
+    Abort;
   end;
 
   if (Copy(DMNFe.GetCnpjCertificado, 1, 8) <> Copy(FController.DAO.Usuario.Empresa.CNPJ, 1, 8)) then
   begin
     TServiceMessage.ShowWarning('A Empresa selecionada no login do sistema não está de acordo com o Certificado informado!');
-    Exit;
+    Abort;
   end;
 
   if TServiceMessage.ShowConfirm(sVN + 'Confirma a geração da NF-e de Entrada?') then
@@ -460,7 +461,7 @@ begin
     TmrAlerta.Enabled  := False;
     lblInforme.Visible := False;
 
-    if ( bOK ) then
+    if bOK then
       ModalResult := mrOk
     else
       ModalResult := mrCancel;

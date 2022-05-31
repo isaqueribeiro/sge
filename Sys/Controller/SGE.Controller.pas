@@ -18,7 +18,7 @@ type
       class function New(aDAO : IModelDAOCustom) : IController;
 
       function DAO : IModelDAOCustom;
-      function GerarSequencial(const aDataSet : TDataSet; const aCampo : String; var aSequencial : Integer) : IController;
+      function GerarSequencial(const aDataSet : TDataSet; const aCampo : String; var aSequencial : Integer) : IController; virtual;
   end;
 
 implementation

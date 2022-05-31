@@ -35,6 +35,7 @@ type
   // Pagamentos (Contas A Pagar)
   TControllerPagamento = class(TController, IControllerPagamento)
     private
+      FSequencial : IModelDAOCustom;
       FContaCorrente : Integer;
       FDataMovimento : TDateTime;
       procedure Recalcular;
@@ -51,6 +52,9 @@ type
       procedure EstornarPagamento(aUsuario : String; aContaCorrente : Integer);
       procedure GerarSaldoConta(const aContaCorrente : Integer; const aDataMovimento : TDateTime);
       procedure RecalcularSaldo(aContaCorrente : Integer);
+
+      function GerarSequencial(const aDataSet : TDataSet; const aCampo : String; var aSequencial : Integer) : IController; override;
+      function Sequencial(const aCampo : String) : Integer;
   end;
 
 implementation
@@ -365,6 +369,31 @@ begin
   end;
 end;
 
+function TControllerPagamento.GerarSequencial(const aDataSet: TDataSet; const aCampo: String;
+  var aSequencial: Integer): IController;
+begin
+  if not Assigned(FSequencial) then
+  begin
+    FSequencial := TModelDAOFactory.New.Busca;
+    FSequencial.DataSet.Close;
+    FSequencial
+      .Clear
+      .SQL('Select')
+      .SQL('    max(' + aCampo + ') as Sequencial')
+      .SQL('from TBCONTPAG_BAIXA')
+      .Where('anolanc = :ano')
+      .Where('numlanc = :numero')
+  end;
+
+  FSequencial
+    .Close
+    .ParamsByName('ano', FDAO.DataSet.FieldByName('ANOLANC').AsInteger)
+    .ParamsByName('numero', FDAO.DataSet.FieldByName('NUMLANC').AsInteger)
+    .Open;
+
+  aSequencial := (FSequencial.DataSet.FieldByName('Sequencial').AsInteger + 1);
+end;
+
 procedure TControllerPagamento.GerarSaldo;
 var
   aScriptSQL : TStringList;
@@ -399,6 +428,30 @@ begin
     else
       FDAO.CommitTransaction;
   end;
+end;
+
+function TControllerPagamento.Sequencial(const aCampo: String): Integer;
+begin
+  if not Assigned(FSequencial) then
+  begin
+    FSequencial := TModelDAOFactory.New.Busca;
+    FSequencial.DataSet.Close;
+    FSequencial
+      .Clear
+      .SQL('Select')
+      .SQL('    max(' + aCampo + ') as Sequencial')
+      .SQL('from TBCONTPAG_BAIXA')
+      .Where('anolanc = :ano')
+      .Where('numlanc = :numero')
+  end;
+
+  FSequencial
+    .Close
+    .ParamsByName('ano', FDAO.DataSet.FieldByName('ANOLANC').AsInteger)
+    .ParamsByName('numero', FDAO.DataSet.FieldByName('NUMLANC').AsInteger)
+    .Open;
+
+  Result := (FSequencial.DataSet.FieldByName('Sequencial').AsInteger + 1);
 end;
 
 procedure TControllerPagamento.RecalcularSaldo(aContaCorrente: Integer);

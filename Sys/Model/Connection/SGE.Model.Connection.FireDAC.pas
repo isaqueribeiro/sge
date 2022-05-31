@@ -423,7 +423,7 @@ begin
     FQuery.Open;
   except
     On E : Exception do
-      raise Exception.Create('Erro ao tentar executar o script na base.' + #13#13 + FQuery.SQL.Text + #13#13 + E.Message);
+      raise Exception.Create('Erro ao tentar executar o script na base.' + #13 + E.Message + #13#13 + FQuery.SQL.Text);
   end;
 
   if Assigned(aAfterScroll) then

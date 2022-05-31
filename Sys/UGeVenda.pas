@@ -24,7 +24,7 @@ uses
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
   dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, ACBrBase, ACBrExtenso, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver;
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinsDefaultPainters;
 
 type
   TfrmGeVenda = class(TfrmGrPadraoCadastro)
@@ -1586,6 +1586,12 @@ begin
     if ( Trim(cdsTabelaItensCST.AsString) = EmptyStr ) then
     begin
       ShowWarning('Favor informar o Código de Situação Fiscal (CST) do produto.');
+      dbCST.SetFocus;
+    end
+    else
+    if (StrToIntDef(DtSrcTabelaItens.DataSet.FieldByName('CST').AsString, -1) = -1) then
+    begin
+      ShowWarning('Código CST inválido.');
       dbCST.SetFocus;
     end
     else

@@ -225,9 +225,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\UGeEfetuarPagtoREC.pas">
             <Form>frmGeEfetuarPagtoREC</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeContasAPagar.pas">
-            <Form>frmGeContasAPagar</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeEfetuarPagtoPAG.pas">
             <Form>frmGeEfetuarPagtoPAG</Form>
         </DCCReference>
@@ -345,9 +342,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\System_SGE\UGeEntradaImpressao.pas">
             <Form>frmGeEntradaImpressao</Form>
         </DCCReference>
-        <DCCReference Include="..\System_SGE\UGeContasAPagarQuitar.pas">
-            <Form>frmGeContasAPagarQuitar</Form>
-        </DCCReference>
         <DCCReference Include="..\System_SGE\UGrUsuarioPerfil.pas">
             <Form>frmGrUsuarioPerfil</Form>
         </DCCReference>
@@ -432,9 +426,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\System_SGE\UGeContasAReceberQuitar.pas">
             <Form>frmGeContasAReceberQuitar</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeContasAPagarLoteParcela.pas">
-            <Form>frmGeContasAPagarLoteParcela</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeContasAReceberLoteParcela.pas">
             <Form>frmGeContasAReceberLoteParcela</Form>
@@ -521,6 +512,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas"/>
         <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas"/>
         <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeImportada.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Factory.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Cliente.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.FornecedorCliente.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Factory.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.pas"/>
@@ -561,11 +557,21 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Vendedor.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.XML_NFeEnviada.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.XML_NFeImportada.pas"/>
-        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.Cheque.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.Factory.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.FornecedorCliente.pas"/>
+        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAPagar.pas">
+            <Form>DataModuleContaAPagar</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Cheque.pas">
             <Form>DataModuleCheque</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.Cheque.pas"/>
+        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas"/>
         <DCCReference Include="..\Sys\View\View.Certificado.pas">
             <Form>ViewCertificado</Form>
         </DCCReference>
@@ -711,6 +717,36 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\View\View.MemoData.pas">
             <Form>ViewMemoData</Form>
             <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\Query\View.Query.ContaAPagar.pas">
+            <Form>ViewQueryContaAPagar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\Query\View.Query.FornecedorCliente.pas">
+            <Form>ViewQueryFornecedorCliente</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.ContaAPagar.LoteParcela.pas">
+            <Form>ViewContaAPagarLoteParcela</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.ContaAPagar.Pagamento.pas">
+            <Form>ViewContaAPagarPagamento</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.ContaAPagar.pas">
+            <Form>ViewContaAPagar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.PadraoPesquisa.pas">
+            <Form>ViewPadraoPesquisa</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.AutorizacaoCompra.pas"/>
+        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.AutorizacaoCompra.pas">
+            <Form>DataModuleAutorizacaoCompra</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Debug">

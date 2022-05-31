@@ -198,16 +198,16 @@ begin
   dtsCompra.DataSet.FieldByName('DECF_COO').Required    := (TFormaNFDevolucao(dbFormaDevolucao.Field.AsInteger) in [fdCupomFiscal]);
 
   if not CamposRequiridos(Self, TClientDataSet(dtsCompra.DataSet), GrpBxDados.Caption) then
-    if TServiceMessage.ShowConfirmation('Confirmar', 'Confirma os dados do documento referenciado para devolução?') then
-    begin
-      dtsCompra.DataSet.Post;
+//  if TServiceMessage.ShowConfirmation('Confirmar', 'Confirma os dados do documento referenciado para devolução?') then
+  begin
+    dtsCompra.DataSet.Post;
 
-      FControllerEntradaDevolucao.DAO.ApplyUpdates;
-      FControllerEntradaDevolucao.DAO.CommitUpdates;
-      FControllerEntradaDevolucao.DAO.CommitTransaction;
+    FControllerEntradaDevolucao.DAO.ApplyUpdates;
+    FControllerEntradaDevolucao.DAO.CommitUpdates;
+    FControllerEntradaDevolucao.DAO.CommitTransaction;
 
-      ModalResult := mrOk;
-    end;
+    ModalResult := mrOk;
+  end;
 end;
 
 procedure TViewEntradaDevolucaoNF.CarregarEntrada;
@@ -371,9 +371,9 @@ begin
   TController(FControllerEstado)
     .LookupComboBox(dbNFUF, dtsUF, 'dnfe_uf', 'est_sigla', 'est_sigla');
   TController(FControllerCompetencia)
-    .LookupComboBox(dbNFUF, dtsCompetencia, 'dnfe_competencia', 'codigo_resumo', 'descricao_resumo');
+    .LookupComboBox(dbNFCompetencia, dtsCompetencia, 'dnfe_competencia', 'codigo_resumo', 'descricao_resumo');
   TController(FControllerModeloCupomFiscal)
-    .LookupComboBox(dbCPModelo, dtsModeloCupom, 'dnfe_cmodelo', 'codigo', 'descricao');
+    .LookupComboBox(dbCPModelo, dtsModeloCupom, 'decf_modelo', 'codigo', 'descricao');
 end;
 
 procedure TViewEntradaDevolucaoNF.RegistrarRotinaSistema;

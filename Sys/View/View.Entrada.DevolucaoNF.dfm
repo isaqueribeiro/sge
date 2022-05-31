@@ -656,8 +656,6 @@ inherited ViewEntradaDevolucaoNF: TViewEntradaDevolucaoNF
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = []
-      KeyField = 'CODIGO'
-      ListField = 'DESCRICAO'
       ListSource = dtsCompetencia
       ParentFont = False
       TabOrder = 5
@@ -693,8 +691,6 @@ inherited ViewEntradaDevolucaoNF: TViewEntradaDevolucaoNF
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = []
-      KeyField = 'CODIGO'
-      ListField = 'DESCRICAO'
       ListSource = dtsModeloCupom
       ParentFont = False
       TabOrder = 8
