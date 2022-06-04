@@ -84,7 +84,7 @@ type
 implementation
 
 uses
-  UDMBusiness, UDMNFe, UFuncoes;
+  UDMBusiness, UDMNFe, UFuncoes, UConstantesDGE;
 
 {$R *.dfm}
 

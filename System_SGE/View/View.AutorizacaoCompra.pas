@@ -39,6 +39,7 @@ uses
   cxLookAndFeels,
   cxLookAndFeelPainters,
   cxButtons,
+  dxSkinsDefaultPainters,
   dxSkinsCore,
 
   UObserverInterface,
@@ -46,7 +47,7 @@ uses
   View.PadraoCadastro,
   SGE.Controller.Interfaces,
   Interacao.Tabela,
-  Controller.Tabela, dxSkinsDefaultPainters,
+  Controller.Tabela,
   SGE.Controller.Impressao.AutorizacaoCompra;
 
 type
@@ -761,9 +762,9 @@ procedure TViewAutorizacaoCompra.btnProdutoExcluirClick(Sender: TObject);
     DtSrcTabelaItens.DataSet.Locate('SEQ', Item, []);
   end;
 *)
-var
-  cDescontos    ,
-  cTotalLiquido : Currency;
+//var
+//  cDescontos    ,
+//  cTotalLiquido : Currency;
 begin
   if (not DtSrcTabelaItens.DataSet.IsEmpty) then
     if ( TServiceMessage.ShowConfirm('Deseja excluir o ítem selecionado?') ) then

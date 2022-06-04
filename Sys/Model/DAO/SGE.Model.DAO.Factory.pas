@@ -30,7 +30,13 @@ uses
   SGE.Model.DAO.LogTransacao,
   SGE.Model.DAO.PlanoConta,
   SGE.Model.DAO.Produto,
+  {$IFDEF SGI}
+  SGI.Model.DAO.ProdutoAlmoxarifado,
+  {$ENDIF}
   SGE.Model.DAO.Promocao,
+  {$IFDEF SGI}
+  SGI.Model.DAO.RequisicaoAlmoxarifado,
+  {$ENDIF}
   SGE.Model.DAO.RequisicaoCompra,
   SGE.Model.DAO.Tabelas,
   SGE.Model.DAO.TipoDespesa,
@@ -110,13 +116,18 @@ type
       FPlanoContaNivel  ,
       FPlanoContaTipo   ,
       FProduto          ,
+      {$IFDEF SGI}
+      FProdutoAlmoxarifado,
+      {$ENDIF}
       FPromocao         ,
       FPromocaoProduto  ,
       FSecaoProduto     ,
       FSegmento         ,
+      FRequisicaoAlmoxarifado       ,
+      FRequisicaoAlmoxarifadoProduto,
       FRequisicaoCompra ,
       FRequisicaoCompraProdutoServico,
-      FTabelaIBPT     ,
+      FTabelaIBPT         ,
       FTipoAliquotaView   ,
       FTipoAutorizacaoView,
       FTipoChequeView  ,
@@ -131,6 +142,9 @@ type
       FTipoReceita    ,
       FTipoReceitaPlanoConta,
       FTipoRegimeView,
+      {$IFDEF SGI}
+      FTipoRequisicaoAlmoxView,
+      {$ENDIF}
       FTipoRequisicaoView,
       FTipoTributacao ,
       FTipoVeiculo    ,
@@ -212,10 +226,15 @@ type
       function PlanoContaNivel : IModelDAOCustom;
       function PlanoContaTipo : IModelDAOCustom;
       function Produto : IModelDAOCustom;
+      {$IFDEF SGI}
+      function ProdutoAlmoxarifado : IModelDAOCustom;
+      {$ENDIF}
       function Promocao : IModelDAOCustom;
       function PromocaoProduto : IModelDAOCustom;
       function SecaoProduto : IModelDAOCustom;
       function Segmento : IModelDAOCustom;
+      function RequisicaoAlmoxarifado : IModelDAOCustom;
+      function RequisicaoAlmoxarifadoProduto : IModelDAOCustom;
       function RequisicaoCompra : IModelDAOCustom;
       function RequisicaoCompraProdutoServico : IModelDAOCustom;
       function TabelaIBPT : IModelDAOCustom;
@@ -233,6 +252,9 @@ type
       function TipoReceita : IModelDAOCustom;
       function TipoReceitaPlanoConta : IModelDAOCustom;
       function TipoRegimeView : IModelDAOCustom;
+      {$IFDEF SGI}
+      function TipoRequisicaoAlmoxView : IModelDAOCustom;
+      {$ENDIF}
       function TipoRequisicaoView : IModelDAOCustom;
       function TipoTributacao : IModelDAOCustom;
       function TipoVeiculo : IModelDAOCustom;
@@ -335,6 +357,16 @@ begin
   Result := FProduto;
 end;
 
+{$IFDEF SGI}
+function TModelDAOFactory.ProdutoAlmoxarifado: IModelDAOCustom;
+begin
+  if not Assigned(FProdutoAlmoxarifado) then
+    FProdutoAlmoxarifado := TModelDAOProdutoAlmoxarifado.New;
+
+  Result := FProdutoAlmoxarifado;
+end;
+{$ENDIF}
+
 function TModelDAOFactory.Promocao: IModelDAOCustom;
 begin
   if not Assigned(FPromocao) then
@@ -349,6 +381,22 @@ begin
     FPromocaoProduto := TModelDAOPromocaoProduto.New;
 
   Result := FPromocaoProduto;
+end;
+
+function TModelDAOFactory.RequisicaoAlmoxarifado: IModelDAOCustom;
+begin
+  if not Assigned(FRequisicaoAlmoxarifado) then
+    FRequisicaoAlmoxarifado := TModelDAORequisicaoAlmoxarifado.New;
+
+  Result := FRequisicaoAlmoxarifado;
+end;
+
+function TModelDAOFactory.RequisicaoAlmoxarifadoProduto: IModelDAOCustom;
+begin
+  if not Assigned(FRequisicaoAlmoxarifadoProduto) then
+    FRequisicaoAlmoxarifadoProduto := TModelDAORequisicaoAlmoxarifadoProduto.New;
+
+  Result := FRequisicaoAlmoxarifadoProduto;
 end;
 
 function TModelDAOFactory.RequisicaoCompra: IModelDAOCustom;
@@ -510,6 +558,16 @@ begin
 
   Result := FTipoRegimeView;
 end;
+
+{$IFDEF SGI}
+function TModelDAOFactory.TipoRequisicaoAlmoxView: IModelDAOCustom;
+begin
+  if not Assigned(FTipoRequisicaoAlmoxView) then
+    FTipoRequisicaoAlmoxView := TModelDAOTipoRequisicaoAlmoxView.New;
+
+  Result := FTipoRequisicaoAlmoxView;
+end;
+{$ENDIF}
 
 function TModelDAOFactory.TipoRequisicaoView: IModelDAOCustom;
 begin

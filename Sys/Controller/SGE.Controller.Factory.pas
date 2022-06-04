@@ -29,7 +29,13 @@ uses
   SGE.Controller.LogTransacao,
   SGE.Controller.PlanoConta,
   SGE.Controller.Produto,
+  {$IFDEF SGI}
+  SGI.Controller.ProdutoAlmoxarifado,
+  {$ENDIF}
   SGE.Controller.Promocao,
+  {$IFDEF SGI}
+  SGI.Controller.RequisicaoAlmoxarifado,
+  {$ENDIF}
   SGE.Controller.RequisicaoCompra,
   SGE.Controller.Tabelas,
   SGE.Controller.TipoDespesa,
@@ -106,8 +112,14 @@ type
       FPlanoContaNivel ,
       FPlanoContaTipo  : IControllerCustom;
       FProduto         : IControllerProduto;
+      {$IFDEF SGI}
+      FProdutoAlmoxarifado : IControllerProdutoAlmoxarifado;
+      {$ENDIF}
       FPromocao        : IControllerPromocao;
       FPromocaoProduto : IControllerCustom;
+      {$IFDEF SGI}
+      FRequisicaoAlmoxarifado : IControllerRequisicaoAlmoxarifado;
+      {$ENDIF}
       FRequisicaoCompra : IControllerRequisicaoCompra;
       FSecaoProduto    ,
       FSegmento        ,
@@ -125,6 +137,9 @@ type
       FTipoProduto    ,
       FTipoReceita    ,
       FTipoReceitaPlanoConta,
+      {$IFDEF SGI}
+      FTipoRequisicaoAlmoxView,
+      {$ENDIF}
       FTipoRegimeView,
       FTipoRequisicaoView,
       FTipoTributacao,
@@ -204,8 +219,14 @@ type
       function PlanoContaNivel : IControllerCustom;
       function PlanoContaTipo : IControllerCustom;
       function Produto           : IControllerProduto;
+      {$IFDEF SGI}
+      function ProdutoAlmoxarifado : IControllerProdutoAlmoxarifado;
+      {$ENDIF}
       function Promocao          : IControllerPromocao;
       function PromocaoProduto   : IControllerCustom;
+      {$IFDEF SGI}
+      function RequisicaoAlmoxarifado : IControllerRequisicaoAlmoxarifado;
+      {$ENDIF}
       function RequisicaoCompra  : IControllerRequisicaoCompra;
       function SecaoProduto : IControllerCustom;
       function Segmento : IControllerCustom;
@@ -224,6 +245,9 @@ type
       function TipoReceita : IControllerCustom;
       function TipoReceitaPlanoConta : IControllerCustom;
       function TipoRegimeView : IControllerCustom;
+      {$IFDEF SGI}
+      function TipoRequisicaoAlmoxView : IControllerCustom;
+      {$ENDIF}
       function TipoRequisicaoView : IControllerCustom;
       function TipoTributacao : IControllerCustom;
       function TipoVeiculo : IControllerCustom;
@@ -326,6 +350,16 @@ begin
   Result := FProduto;
 end;
 
+{$IFDEF SGI}
+function TControllerFactory.ProdutoAlmoxarifado: IControllerProdutoAlmoxarifado;
+begin
+  if not Assigned(FProdutoAlmoxarifado) then
+    FProdutoAlmoxarifado := TControllerProdutoAlmoxarifado.New;
+
+  Result := FProdutoAlmoxarifado;
+end;
+{$ENDIF}
+
 function TControllerFactory.Promocao: IControllerPromocao;
 begin
   if not Assigned(FPromocao) then
@@ -341,6 +375,16 @@ begin
 
   Result := FPromocaoProduto;
 end;
+
+{$IFDEF SGI}
+function TControllerFactory.RequisicaoAlmoxarifado: IControllerRequisicaoAlmoxarifado;
+begin
+  if not Assigned(FRequisicaoAlmoxarifado) then
+    FRequisicaoAlmoxarifado := TControllerRequisicaoAlmoxarifado.New;
+
+  Result := FRequisicaoAlmoxarifado;
+end;
+{$ENDIF}
 
 function TControllerFactory.RequisicaoCompra: IControllerRequisicaoCompra;
 begin
@@ -917,6 +961,16 @@ begin
 
   Result := FTipoRegimeView;
 end;
+
+{$IFDEF SGI}
+function TControllerFactory.TipoRequisicaoAlmoxView: IControllerCustom;
+begin
+  if not Assigned(FTipoRequisicaoAlmoxView) then
+    FTipoRequisicaoAlmoxView := TControllerTipoRequisicaoAlmoxView.New;
+
+  Result := FTipoRequisicaoAlmoxView;
+end;
+{$ENDIF}
 
 function TControllerFactory.TipoRequisicaoView: IControllerCustom;
 begin

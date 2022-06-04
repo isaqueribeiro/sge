@@ -115,6 +115,14 @@ type
     function Get(aCodigo : Integer) : IModelDAOCustom;
   end;
 
+  {$IFDEF SGI}
+  IControllerProdutoAlmoxarifado = interface(IControllerCustom)
+    ['{2DE3B864-C82B-442E-A633-4B221EB23D3F}']
+    function Carregar(aEmpresa : String; aCentroCusto, aCodigo : Integer;
+      aRequisicaoAno : Smallint; aRequisicaoControle : Integer) : IControllerProdutoAlmoxarifado;
+  end;
+  {$ENDIF}
+
   IControllerPromocao = interface(IControllerCustom)
     ['{4661B49F-97AC-4B7D-B8DE-EB6E5CE20B33}']
     procedure DesativarPromocoes;
@@ -171,6 +179,13 @@ type
     function Produtos : IControllerCustom;
     function ProdutosParaEntrada(aTipoItem : TTipoItem; aAno, aCodigo : Integer; aEmpresa : String) : IControllerRequisicaoCompra;
     function GetExisteNumero(aAno, aCodigo : Integer; aNumero : String; var aControleInterno : String) : Boolean;
+
+    procedure CarregarProdutos;
+  end;
+
+  IControllerRequisicaoAlmoxarifado = interface(IControllerCustom)
+    ['{6E2C8852-401A-43CB-9A78-70CFD2442A13}']
+    function Produtos : IControllerCustom;
 
     procedure CarregarProdutos;
   end;
@@ -281,8 +296,14 @@ type
     function PlanoContaNivel   : IControllerCustom;
     function PlanoContaTipo    : IControllerCustom;
     function Produto           : IControllerProduto;
+    {$IFDEF SGI}
+    function ProdutoAlmoxarifado : IControllerProdutoAlmoxarifado;
+    {$ENDIF}
     function Promocao          : IControllerPromocao;
     function PromocaoProduto   : IControllerCustom;
+    {$IFDEF SGI}
+    function RequisicaoAlmoxarifado : IControllerRequisicaoAlmoxarifado;
+    {$ENDIF}
     function RequisicaoCompra  : IControllerRequisicaoCompra;
     function SecaoProduto : IControllerCustom;
     function Segmento     : IControllerCustom;
@@ -302,6 +323,9 @@ type
     function TipoReceitaPlanoConta : IControllerCustom;
     function TipoRegimeView : IControllerCustom;
     function TipoRequisicaoView : IControllerCustom;
+    {$IFDEF SGI}
+    function TipoRequisicaoAlmoxView : IControllerCustom;
+    {$ENDIF}
     function TipoTributacao : IControllerCustom;
     function TipoVeiculo    : IControllerCustom;
     function Transportadora : IControllerCustom;

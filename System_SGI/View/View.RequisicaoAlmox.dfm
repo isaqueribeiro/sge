@@ -1,46 +1,47 @@
-inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
-  Left = 391
+inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
+  Left = 392
+  Top = 212
   ActiveControl = dbCodigo
-  Caption = 'Controle de Autoriza'#231#245'es de Compra/Servi'#231'o'
-  ClientHeight = 685
-  ClientWidth = 1116
-  ExplicitWidth = 1132
-  ExplicitHeight = 724
+  Caption = 'Controle de Requisi'#231#245'es de Materiais'
+  ClientHeight = 676
+  ClientWidth = 1107
+  ExplicitWidth = 1123
+  ExplicitHeight = 715
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 681
-    Width = 1116
+    Top = 672
+    Width = 1107
     ExplicitTop = 682
     ExplicitWidth = 1116
   end
   inherited Bevel3: TBevel
-    Top = 642
-    Width = 1116
+    Top = 633
+    Width = 1107
     ExplicitTop = 643
     ExplicitWidth = 1116
   end
   inherited pgcGuias: TPageControl
-    Width = 1116
-    Height = 642
+    Width = 1107
+    Height = 633
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 1116
-    ExplicitHeight = 642
+    ExplicitWidth = 1107
+    ExplicitHeight = 633
     inherited tbsTabela: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 25
-      ExplicitWidth = 1108
-      ExplicitHeight = 613
+      ExplicitWidth = 1099
+      ExplicitHeight = 604
       inherited Bevel4: TBevel
-        Top = 539
-        Width = 1108
+        Top = 530
+        Width = 1099
         ExplicitTop = 540
         ExplicitWidth = 1108
       end
       inherited dbgDados: TDBGrid
-        Width = 1108
-        Height = 539
+        Width = 1099
+        Height = 530
         Columns = <
           item
             Expanded = False
@@ -53,20 +54,13 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Expanded = False
             FieldName = 'TIPO'
             Title.Caption = 'Tipo '
-            Width = 70
+            Width = 150
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'EMISSAO_DATA'
-            Title.Caption = 'Emiss'#227'o '
-            Width = 85
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'VALIDADE'
-            Title.Caption = 'Validade '
+            FieldName = 'DATA_EMISSAO'
+            Title.Caption = 'Data '
             Width = 85
             Visible = True
           end
@@ -79,9 +73,9 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           end
           item
             Expanded = False
-            FieldName = 'NOMEFORN'
-            Title.Caption = 'Fornecedor '
-            Width = 330
+            FieldName = 'CC_ORIGEM_DESC'
+            Title.Caption = 'Centro de Custo Requisitante '
+            Width = 300
             Visible = True
           end
           item
@@ -100,37 +94,52 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           end
           item
             Expanded = False
-            FieldName = 'EMISSAO_USUARIO'
-            Title.Caption = 'Emissor / Solicitante '
-            Width = 130
+            FieldName = 'REQUISITANTE'
+            Title.Caption = 'Respons'#225'vel '
+            Width = 120
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ATENDIMENTO_USUARIO'
+            Title.Caption = 'Atendente '
+            Width = 120
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'CC_DESTINO_DESC'
+            Title.Caption = 'Centro de Custo destino '
+            Width = 330
             Visible = True
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 543
-        Width = 1108
-        ExplicitTop = 543
-        ExplicitWidth = 1108
+        Top = 534
+        Width = 1099
+        ExplicitTop = 534
+        ExplicitWidth = 1099
         inherited grpBxFiltro: TGroupBox
-          Left = 424
-          Width = 680
-          TabOrder = 2
-          ExplicitLeft = 424
-          ExplicitWidth = 680
+          Left = 496
+          Width = 599
+          TabOrder = 1
+          ExplicitLeft = 496
+          ExplicitWidth = 599
           inherited lbltFiltrar: TLabel
             AlignWithMargins = True
             Left = 300
             Top = 24
-            Width = 147
+            Width = 93
             Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
-            Caption = 'Autoriza'#231#227'o / Fornecedor:'
+            Alignment = taRightJustify
+            Caption = 'Centro de Custo:'
             Layout = tlCenter
             ExplicitLeft = 300
             ExplicitTop = 24
-            ExplicitWidth = 147
+            ExplicitWidth = 93
           end
           object lblData: TLabel [1]
             AlignWithMargins = True
@@ -141,23 +150,26 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
+            Alignment = taRightJustify
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
+            ExplicitLeft = 28
             ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
-            Left = 453
-            Width = 183
+            Left = 399
+            Width = 156
+            Anchors = [akLeft, akTop, akRight, akBottom]
             TabOrder = 2
-            ExplicitLeft = 453
+            ExplicitLeft = 399
             ExplicitTop = 25
-            ExplicitWidth = 183
+            ExplicitWidth = 156
           end
           inherited btnFiltrar: TcxButton
-            Left = 642
+            Left = 561
             TabOrder = 3
-            ExplicitLeft = 642
+            ExplicitLeft = 561
           end
           object e1Data: TJvDateEdit
             AlignWithMargins = True
@@ -284,39 +296,40 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             ExplicitHeight = 21
           end
         end
-        object RdgStatusAutorizacao: TRadioGroup
+        object RdgStatusRequisicao: TRadioGroup
           AlignWithMargins = True
-          Left = 195
+          Left = 256
           Top = 4
-          Width = 226
+          Width = 237
           Height = 62
           Margins.Left = 0
           Margins.Top = 0
           Margins.Bottom = 0
           Align = alRight
-          Caption = '&Status Autoriza'#231#227'o'
-          Columns = 2
+          Caption = '&Status Requisi'#231#227'o'
+          Columns = 3
           ItemIndex = 0
           Items.Strings = (
             '(Todas)'
-            'Em Edi'#231#227'o'
+            'Em edi'#231#227'o'
             'Aberta'
-            'Autorizada'
-            'Faturada'
+            'Enviada'
+            'Recebida'
+            'Atendida'
             'Cancelada')
-          TabOrder = 1
+          TabOrder = 0
         end
         object pnlStatus: TPanel
           AlignWithMargins = True
           Left = 7
           Top = 6
-          Width = 185
+          Width = 246
           Height = 58
           Margins.Top = 2
           Margins.Bottom = 2
           Align = alClient
           BevelOuter = bvNone
-          TabOrder = 0
+          TabOrder = 2
           object pnlSatusColor: TPanel
             Left = 0
             Top = 0
@@ -371,7 +384,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           object pnlStatusText: TPanel
             Left = 24
             Top = 0
-            Width = 161
+            Width = 222
             Height = 58
             Align = alClient
             BevelOuter = bvNone
@@ -380,13 +393,13 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
               AlignWithMargins = True
               Left = 3
               Top = 1
-              Width = 155
+              Width = 216
               Height = 18
               Margins.Top = 1
               Margins.Bottom = 1
               Align = alTop
               AutoSize = False
-              Caption = '* Autoriza'#231#245'es Abertas'
+              Caption = '* Requisi'#231#245'es Abertas'
               Font.Charset = ANSI_CHARSET
               Font.Color = clBlack
               Font.Height = -11
@@ -402,13 +415,13 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
               AlignWithMargins = True
               Left = 3
               Top = 21
-              Width = 155
+              Width = 216
               Height = 18
               Margins.Top = 1
               Margins.Bottom = 1
               Align = alTop
               AutoSize = False
-              Caption = '* Autoriza'#231#245'es Canceladas'
+              Caption = '* Requisi'#231#245'es Canceladas'
               Font.Charset = ANSI_CHARSET
               Font.Color = clBlack
               Font.Height = -11
@@ -424,7 +437,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
               AlignWithMargins = True
               Left = 3
               Top = 41
-              Width = 155
+              Width = 216
               Height = 18
               Margins.Top = 1
               Margins.Bottom = 1
@@ -453,28 +466,29 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
     inherited tbsCadastro: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 25
-      ExplicitWidth = 1108
-      ExplicitHeight = 613
+      ExplicitWidth = 1099
+      ExplicitHeight = 604
       inherited Bevel8: TBevel
-        Top = 349
-        Width = 1108
-        ExplicitTop = 349
+        Top = 373
+        Width = 1099
+        ExplicitTop = 373
         ExplicitWidth = 1108
       end
       object Bevel6: TBevel [1]
         Left = 0
-        Top = 443
-        Width = 1108
+        Top = 474
+        Width = 1099
         Height = 4
         Align = alBottom
         Shape = bsSpacer
-        ExplicitTop = 444
+        ExplicitTop = 484
+        ExplicitWidth = 1108
       end
       inherited GrpBxDadosNominais: TGroupBox
-        Width = 1108
-        Height = 233
-        ExplicitWidth = 1108
-        ExplicitHeight = 233
+        Width = 1099
+        Height = 257
+        ExplicitWidth = 1099
+        ExplicitHeight = 257
         inherited lblCodigo: TLabel
           Width = 71
           Caption = 'No. Controle:'
@@ -502,17 +516,9 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           Caption = 'Empresa:'
           FocusControl = dbEmpresa
         end
-        object lblFornecedor: TLabel [3]
-          Left = 672
-          Top = 24
-          Width = 59
-          Height = 13
-          Caption = 'Fornecedor:'
-          FocusControl = dbFornecedor
-        end
-        object lblSituacao: TLabel [4]
-          Left = 640
-          Top = 64
+        object lblSituacao: TLabel [3]
+          Left = 240
+          Top = 104
           Width = 52
           Height = 13
           Caption = 'Situa'#231#227'o:'
@@ -524,7 +530,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object lblDataEmissao: TLabel [5]
+        object lblDataEmissao: TLabel [4]
           Left = 384
           Top = 64
           Width = 68
@@ -538,13 +544,13 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           Font.Style = []
           ParentFont = False
         end
-        object lblUsuario: TLabel [6]
-          Left = 792
-          Top = 64
-          Width = 46
+        object lblUsuarioCadastro: TLabel [5]
+          Left = 384
+          Top = 104
+          Width = 90
           Height = 13
-          Caption = 'Usu'#225'rio:'
-          FocusControl = dbUsuario
+          Caption = 'Cadastrada por:'
+          FocusControl = dbUsuarioCadastro
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -552,27 +558,29 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object lblAutorizador: TLabel [7]
-          Left = 944
-          Top = 64
-          Width = 70
-          Height = 13
-          Caption = 'Autorizador:'
-          FocusControl = dbAutorizador
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lblNumero: TLabel [8]
+        object lblNumero: TLabel [6]
           Left = 240
           Top = 64
           Width = 41
           Height = 13
           Caption = 'N'#250'mero:'
           FocusControl = dbNumero
+        end
+        object lblCentroCustoRequisitante: TLabel [7]
+          Left = 704
+          Top = 24
+          Width = 288
+          Height = 13
+          Caption = 'Departamento Requisitante / Centro de Custo Requisitante:'
+          FocusControl = dbCentroCustoRequisitante
+        end
+        object lblUsuarioRequisitante: TLabel [8]
+          Left = 512
+          Top = 64
+          Width = 139
+          Height = 13
+          Caption = 'Respons'#225'vel pela requisi'#231#227'o:'
+          FocusControl = dbUsuarioRequisitante
         end
         object lblTipo: TLabel [9]
           Left = 16
@@ -582,48 +590,46 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           Caption = 'Tipo:'
           FocusControl = dbTipo
         end
-        object lblDataValidade: TLabel [10]
-          Left = 512
+        object lblCentroCustoAtendente: TLabel [10]
+          Left = 704
           Top = 64
-          Width = 70
+          Width = 270
           Height = 13
-          Caption = 'Data Validade:'
-          FocusControl = dbDataValidade
+          Caption = 'Departamento Atendente / Centro de Custo Atendente:'
+          FocusControl = dbCentroCustoAtendente
+        end
+        object lblUsuarioAtendente: TLabel [11]
+          Left = 616
+          Top = 104
+          Width = 76
+          Height = 13
+          Caption = 'Atendida por:'
+          FocusControl = dbUsuarioAtendente
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
           Font.Name = 'Tahoma'
-          Font.Style = []
+          Font.Style = [fsBold]
           ParentFont = False
         end
-        object lblNomeContato: TLabel [11]
-          Left = 16
+        object lblUsuarioCancelamento: TLabel [12]
+          Left = 856
           Top = 104
-          Width = 73
+          Width = 83
           Height = 13
-          Caption = 'Nome Contato:'
-          FocusControl = dbNomeContato
-        end
-        object lblCliente: TLabel [12]
-          Left = 16
-          Top = 144
-          Width = 37
-          Height = 13
-          Caption = 'Cliente:'
-          FocusControl = dbCliente
-        end
-        object lblCentroCusto: TLabel [13]
-          Left = 16
-          Top = 184
-          Width = 162
-          Height = 13
-          Caption = 'Departamento / Centro de Custo:'
-          FocusControl = dbCentroCusto
+          Caption = 'Cancelada por:'
+          FocusControl = dbUsuarioCancelamento
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
         end
         inherited dbCodigo: TDBEdit
           Width = 89
           Color = clMoneyGreen
-          DataField = 'CODIGO'
+          DataField = 'CONTROLE'
           ExplicitWidth = 89
         end
         object dbDataHora: TDBEdit
@@ -645,9 +651,9 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           TabOrder = 1
         end
         object dbEmpresa: TDBLookupComboBox
-          Left = 241
+          Left = 240
           Top = 40
-          Width = 425
+          Width = 457
           Height = 21
           DataField = 'EMPRESA'
           DataSource = DtSrcTabela
@@ -664,9 +670,9 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           TabOrder = 2
         end
         object dbSituacao: TDBEdit
-          Left = 640
-          Top = 80
-          Width = 145
+          Left = 240
+          Top = 120
+          Width = 137
           Height = 21
           TabStop = False
           Color = clMoneyGreen
@@ -679,43 +685,25 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 7
-        end
-        object dbUsuario: TDBEdit
-          Left = 792
-          Top = 80
-          Width = 145
-          Height = 21
-          TabStop = False
-          Color = clMoneyGreen
-          DataField = 'EMISSAO_USUARIO'
-          DataSource = DtSrcTabela
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          ReadOnly = True
-          TabOrder = 8
-        end
-        object dbAutorizador: TDBEdit
-          Left = 944
-          Top = 80
-          Width = 145
-          Height = 21
-          TabStop = False
-          Color = clMoneyGreen
-          DataField = 'AUTORIZADO_USUARIO'
-          DataSource = DtSrcTabela
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-          ReadOnly = True
           TabOrder = 9
+        end
+        object dbUsuarioCadastro: TDBEdit
+          Left = 384
+          Top = 120
+          Width = 225
+          Height = 21
+          TabStop = False
+          Color = clMoneyGreen
+          DataField = 'INSERCAO_USUARIO'
+          DataSource = DtSrcTabela
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 10
         end
         object dbNumero: TDBEdit
           Left = 240
@@ -733,6 +721,58 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           ParentFont = False
           TabOrder = 5
         end
+        object PgcTextoRequisicao: TPageControl
+          Left = 16
+          Top = 152
+          Width = 1073
+          Height = 97
+          ActivePage = TbsRequisicaoMotivo
+          Style = tsFlatButtons
+          TabOrder = 13
+          object TbsRequisicaoMotivo: TTabSheet
+            Caption = 'Motivo da requisi'#231#227'o'
+            object dbMotivo: TDBMemo
+              Left = 0
+              Top = 0
+              Width = 1065
+              Height = 66
+              Align = alClient
+              DataField = 'MOTIVO'
+              DataSource = DtSrcTabela
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              ScrollBars = ssVertical
+              TabOrder = 0
+            end
+          end
+          object TbsRequisicaoCancelado: TTabSheet
+            Caption = 'Motivo do cancelamento'
+            ImageIndex = 2
+            object dbMovitoCancelamento: TDBMemo
+              Left = 0
+              Top = 0
+              Width = 1065
+              Height = 66
+              TabStop = False
+              Align = alClient
+              DataField = 'CANCEL_MOTIVO'
+              DataSource = DtSrcTabela
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              ScrollBars = ssVertical
+              TabOrder = 0
+            end
+          end
+        end
         object dbTipo: TDBLookupComboBox
           Left = 16
           Top = 80
@@ -748,240 +788,56 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           Font.Style = []
           KeyField = 'CODIGO'
           ListField = 'DESCRICAO'
-          ListSource = dtsTipoAutorizacao
+          ListSource = dtsTipoRequisicao
           ParentFont = False
           TabOrder = 4
         end
-        object dbNomeContato: TDBEdit
-          Left = 16
+        object dbUsuarioAtendente: TDBEdit
+          Left = 616
           Top = 120
-          Width = 361
+          Width = 233
           Height = 21
-          CharCase = ecUpperCase
-          DataField = 'NOME_CONTATO'
+          TabStop = False
+          Color = clMoneyGreen
+          DataField = 'ATENDIMENTO_USUARIO'
           DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
+          Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
           ParentFont = False
+          ReadOnly = True
           TabOrder = 11
         end
-        object PgcTextoAutorizacao: TPageControl
-          Left = 384
-          Top = 104
-          Width = 705
-          Height = 122
-          ActivePage = TbsAutorizacaoMotivo
-          Style = tsFlatButtons
-          TabOrder = 14
-          object TbsAutorizacaoMotivo: TTabSheet
-            Caption = 'Motivo do pedido de autoriza'#231#227'o'
-            object dbMotivo: TDBMemo
-              Left = 0
-              Top = 0
-              Width = 697
-              Height = 91
-              Align = alClient
-              DataField = 'MOVITO'
-              DataSource = DtSrcTabela
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              ScrollBars = ssVertical
-              TabOrder = 0
-            end
-          end
-          object TbsAutorizacaoObservacao: TTabSheet
-            Caption = 'Observa'#231#245'es Gerais'
-            ImageIndex = 1
-            object dbObservacao: TDBMemo
-              Left = 0
-              Top = 0
-              Width = 697
-              Height = 91
-              Align = alClient
-              DataField = 'OBSERVACAO'
-              DataSource = DtSrcTabela
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              ScrollBars = ssVertical
-              TabOrder = 0
-            end
-          end
-          object TbsAutorizacaoCancelado: TTabSheet
-            Caption = 'Motivo do Cancelamento'
-            ImageIndex = 2
-            object dbMovitoCancelamento: TDBMemo
-              Left = 0
-              Top = 0
-              Width = 697
-              Height = 91
-              TabStop = False
-              Align = alClient
-              DataField = 'CANCELADO_MOTIVO'
-              DataSource = DtSrcTabela
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              ReadOnly = True
-              ScrollBars = ssVertical
-              TabOrder = 0
-            end
-          end
-        end
-        object dbDataEmissao: TJvDBDateEdit
-          Left = 384
-          Top = 80
-          Width = 121
+        object dbUsuarioCancelamento: TDBEdit
+          Left = 856
+          Top = 120
+          Width = 233
           Height = 21
-          DataField = 'EMISSAO_DATA'
+          TabStop = False
+          Color = clMoneyGreen
+          DataField = 'CANCEL_USUARIO'
           DataSource = DtSrcTabela
-          Color = clWhite
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
-          Font.Style = []
-          Glyph.Data = {
-            76050000424D760500000000000036000000280000001C0000000C0000000100
-            2000000000004005000000000000000000000000000000000000FF00FF00FF00
-            FF00FF00FF008080800080808000808080008080800080808000808080008080
-            800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
-            0000800000008000000000000000800000000000000000000000800000008080
-            8000FF00FF008080800080808000808080008080800080808000808080008080
-            80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
-            0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
-            80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
-            C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
-            0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
-            FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
-            8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
-            000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-            FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
-            C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000FF00FF00FF00
-            FF00FF00FF008080800080808000808080008080800080808000808080008080
-            80008080800080808000808080008080800080808000FF00FF00}
-          ImageKind = ikCustom
-          NumGlyphs = 2
+          Font.Style = [fsBold]
           ParentFont = False
-          PopupColor = clBtnFace
-          ShowNullDate = False
-          TabOrder = 6
-          OnExit = ControlEditExit
+          ReadOnly = True
+          TabOrder = 12
         end
-        object dbDataValidade: TJvDBDateEdit
-          Left = 512
-          Top = 80
-          Width = 121
-          Height = 21
-          DataField = 'VALIDADE'
-          DataSource = DtSrcTabela
-          Color = clWhite
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          Glyph.Data = {
-            76050000424D760500000000000036000000280000001C0000000C0000000100
-            2000000000004005000000000000000000000000000000000000FF00FF00FF00
-            FF00FF00FF008080800080808000808080008080800080808000808080008080
-            800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
-            0000800000008000000000000000800000000000000000000000800000008080
-            8000FF00FF008080800080808000808080008080800080808000808080008080
-            80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
-            0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
-            80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
-            C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
-            0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
-            FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
-            8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
-            000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
-            FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
-            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
-            8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
-            FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
-            FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
-            C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
-            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-            FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
-            0000000000000000000000000000000000000000000000000000FF00FF00FF00
-            FF00FF00FF008080800080808000808080008080800080808000808080008080
-            80008080800080808000808080008080800080808000FF00FF00}
-          ImageKind = ikCustom
-          NumGlyphs = 2
-          ParentFont = False
-          PopupColor = clBtnFace
-          ShowNullDate = False
-          TabOrder = 10
-        end
-        object dbFornecedor: TJvDBComboEdit
-          Left = 672
+        object dbCentroCustoRequisitante: TJvDBComboEdit
+          Left = 704
           Top = 40
-          Width = 417
+          Width = 385
           Height = 21
-          ButtonHint = 'Pesquisar Fornecedor (Ctrl+P)'
+          ButtonHint = 'Pesquisar Centro de Custo (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
           CharCase = ecUpperCase
           ClickKey = 16464
           Color = clMoneyGreen
-          DataField = 'NOMEFORN'
+          DataField = 'CC_ORIGEM_DESC'
           DataSource = DtSrcTabela
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -1045,93 +901,18 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           ReadOnly = True
           ShowHint = True
           TabOrder = 3
-          OnButtonClick = dbFornecedorButtonClick
+          OnButtonClick = dbCentroCustoSelecionar
         end
-        object dbCliente: TJvDBComboEdit
-          Left = 16
-          Top = 160
-          Width = 361
-          Height = 21
-          ButtonHint = 'Pesquisar Cliente (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
-          CharCase = ecUpperCase
-          ClickKey = 16464
-          Color = clMoneyGreen
-          DataField = 'NOMECLIENTE'
-          DataSource = DtSrcTabela
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          Glyph.Data = {
-            36060000424D3606000000000000360000002800000020000000100000000100
-            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
-            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
-            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
-            6048306048306048306048306048306048306048306048306048305048403050
-            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
-            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
-            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
-            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
-            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
-            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
-            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
-            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
-            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
-            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
-            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
-            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
-            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
-            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
-            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
-            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
-            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
-            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
-            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
-            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
-            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
-            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
-            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
-            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
-            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
-            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
-            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
-            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
-          NumGlyphs = 2
-          ParentFont = False
-          ParentShowHint = False
-          ReadOnly = True
-          ShowHint = True
-          TabOrder = 12
-          OnButtonClick = dbClienteButtonClick
-        end
-        object dbCentroCusto: TJvDBComboEdit
-          Left = 16
-          Top = 200
-          Width = 361
+        object dbCentroCustoAtendente: TJvDBComboEdit
+          Left = 704
+          Top = 80
+          Width = 385
           Height = 21
           ButtonHint = 'Pesquisar Centro de Custo (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
           CharCase = ecUpperCase
           ClickKey = 16464
           Color = clMoneyGreen
-          DataField = 'DESCRICAO_CENTRO_CUSTO'
+          DataField = 'CC_DESTINO_DESC'
           DataSource = DtSrcTabela
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -1194,423 +975,294 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           ParentShowHint = False
           ReadOnly = True
           ShowHint = True
-          TabOrder = 13
-          OnButtonClick = dbCentroCustoButtonClick
+          TabOrder = 8
+          OnButtonClick = dbCentroCustoSelecionar
+        end
+        object dbUsuarioRequisitante: TJvDBComboEdit
+          Left = 512
+          Top = 80
+          Width = 185
+          Height = 21
+          ButtonHint = 'Pesquisar Usu'#225'rio (Ctrl+P)'#13#10'Limpar Campo (Ctrl+L)'
+          CharCase = ecUpperCase
+          ClickKey = 16464
+          Color = clMoneyGreen
+          DataField = 'USUARIO_REQUISITANTE'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          Glyph.Data = {
+            36060000424D3606000000000000360000002800000020000000100000000100
+            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
+            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
+            6048306048306048306048306048306048306048306048306048305048403050
+            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
+            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
+            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
+            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
+            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
+            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
+            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
+            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
+            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
+            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
+            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
+            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
+            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
+            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
+            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
+            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
+            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
+            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
+            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
+          NumGlyphs = 2
+          ParentFont = False
+          ParentShowHint = False
+          ReadOnly = True
+          ShowHint = True
+          TabOrder = 7
+          OnButtonClick = dbUsuarioRequisitanteButtonClick
+        end
+        object dbDataEmissao: TJvDBDateEdit
+          Left = 384
+          Top = 80
+          Width = 121
+          Height = 21
+          DataField = 'DATA_EMISSAO'
+          DataSource = DtSrcTabela
+          Color = clWhite
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Glyph.Data = {
+            76050000424D760500000000000036000000280000001C0000000C0000000100
+            2000000000004005000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF008080800080808000808080008080800080808000808080008080
+            800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+            0000800000008000000000000000800000000000000000000000800000008080
+            8000FF00FF008080800080808000808080008080800080808000808080008080
+            80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+            0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+            80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+            C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+            0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+            FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+            8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+            000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+            FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+            FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+            8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+            FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+            FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+            C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+            0000000000000000000000000000000000000000000000000000FF00FF00FF00
+            FF00FF00FF008080800080808000808080008080800080808000808080008080
+            80008080800080808000808080008080800080808000FF00FF00}
+          ImageKind = ikCustom
+          NumGlyphs = 2
+          ParentFont = False
+          PopupColor = clBtnFace
+          ShowNullDate = False
+          TabOrder = 6
+          OnExit = ControlEditExit
         end
       end
       object pgcMaisDados: TPageControl
         Left = 0
-        Top = 447
-        Width = 1108
-        Height = 166
-        ActivePage = tbsFormaPagto
+        Top = 478
+        Width = 1099
+        Height = 126
+        ActivePage = tbsObservacoes
         Align = alBottom
         TabOrder = 3
-        object tbsFormaPagto: TTabSheet
-          Caption = 'Forma de Pagamento / Entrega'
+        object tbsObservacoes: TTabSheet
+          Caption = 'Observa'#231#245'es'
           ImageIndex = 1
-          object GrpBxPagamento: TGroupBox
+          object PnlObservacoes: TPanel
             Left = 0
             Top = 0
-            Width = 1100
-            Height = 73
-            Align = alTop
-            Caption = 'Pagamento'
-            TabOrder = 0
-            object lblFormaPagto: TLabel
-              Left = 16
-              Top = 24
-              Width = 34
-              Height = 13
-              Caption = '&Forma:'
-              FocusControl = dbFormaPagto
-            end
-            object lblCondicaoPagto: TLabel
-              Left = 184
-              Top = 24
-              Width = 48
-              Height = 13
-              Caption = 'Condi'#231#227'o:'
-              FocusControl = dbCondicaoPagto
-            end
-            object lblTotalDesconto: TLabel
-              Left = 848
-              Top = 24
-              Width = 73
-              Height = 13
-              Caption = 'Desconto (R$):'
-              FocusControl = dbTotalDesconto
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object lblTotalLiquido: TLabel
-              Left = 968
-              Top = 24
-              Width = 79
-              Height = 13
-              Caption = 'Valor Total (R$):'
-              FocusControl = dbTotalLiquido
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object lblTotalFrete: TLabel
-              Left = 608
-              Top = 24
-              Width = 54
-              Height = 13
-              Caption = 'Frete (R$):'
-              FocusControl = dbTotalFrete
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object lblTotalIPI: TLabel
-              Left = 728
-              Top = 24
-              Width = 69
-              Height = 13
-              Caption = 'Total IPI (R$):'
-              FocusControl = dbTotalIPI
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object lblTotalBruto: TLabel
-              Left = 488
-              Top = 24
-              Width = 81
-              Height = 13
-              Caption = 'Total Bruto (R$):'
-              FocusControl = dbTotalBruto
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-            end
-            object dbFormaPagto: TDBLookupComboBox
-              Left = 16
-              Top = 40
-              Width = 161
-              Height = 21
-              DataField = 'FORMA_PAGTO'
-              DataSource = DtSrcTabela
-              DropDownRows = 10
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              KeyField = 'COD'
-              ListField = 'DESCRI'
-              ListSource = dtsFormaPagto
-              ParentFont = False
-              TabOrder = 0
-            end
-            object dbCondicaoPagto: TDBLookupComboBox
-              Left = 184
-              Top = 40
-              Width = 297
-              Height = 21
-              DataField = 'CONDICAO_PAGTO'
-              DataSource = DtSrcTabela
-              DropDownRows = 10
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              KeyField = 'COND_COD'
-              ListField = 'COND_DESCRICAO_FULL'
-              ListSource = dtsCondicaoPagto
-              ParentFont = False
-              TabOrder = 1
-            end
-            object dbTotalDesconto: TDBEdit
-              Left = 848
-              Top = 40
-              Width = 113
-              Height = 21
-              Color = clWhite
-              DataField = 'VALOR_DESCONTO'
-              DataSource = DtSrcTabela
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 5
-            end
-            object dbTotalLiquido: TDBEdit
-              Left = 968
-              Top = 40
-              Width = 113
-              Height = 21
-              Color = clMoneyGreen
-              DataField = 'VALOR_TOTAL'
-              DataSource = DtSrcTabela
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              ReadOnly = True
-              TabOrder = 6
-              OnExit = ControlEditExit
-            end
-            object dbTotalFrete: TDBEdit
-              Left = 608
-              Top = 40
-              Width = 113
-              Height = 21
-              Color = clWhite
-              DataField = 'VALOR_TOTAL_FRETE'
-              DataSource = DtSrcTabela
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 3
-            end
-            object dbTotalIPI: TDBEdit
-              Left = 728
-              Top = 40
-              Width = 113
-              Height = 21
-              Color = clMoneyGreen
-              DataField = 'VALOR_TOTAL_IPI'
-              DataSource = DtSrcTabela
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              ReadOnly = True
-              TabOrder = 4
-              OnExit = ControlEditExit
-            end
-            object dbTotalBruto: TDBEdit
-              Left = 488
-              Top = 40
-              Width = 113
-              Height = 21
-              Color = clMoneyGreen
-              DataField = 'VALOR_BRUTO'
-              DataSource = DtSrcTabela
-              Font.Charset = ANSI_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'Tahoma'
-              Font.Style = []
-              ParentFont = False
-              ReadOnly = True
-              TabOrder = 2
-              OnExit = ControlEditExit
-            end
-          end
-          object pnlRetiradaEntrega: TPanel
-            Left = 0
-            Top = 73
-            Width = 1100
-            Height = 65
+            Width = 1091
+            Height = 98
             Align = alClient
             BevelOuter = bvNone
-            TabOrder = 1
-            object lblEnderecoEntrega: TLabel
-              Left = 0
-              Top = 4
-              Width = 1100
-              Height = 13
-              Align = alTop
-              Caption = 'Endere'#231'o de Entrega/Realiza'#231#227'o:'
-              FocusControl = dbEnderecoEntrega
-              ExplicitWidth = 160
-            end
-            object Bevel5: TBevel
+            TabOrder = 0
+            object dbObservacao: TDBMemo
               Left = 0
               Top = 0
-              Width = 1100
-              Height = 4
-              Align = alTop
-              Shape = bsSpacer
-            end
-            object Bevel9: TBevel
-              Left = 0
-              Top = 17
-              Width = 1100
-              Height = 4
-              Align = alTop
-              Shape = bsSpacer
-            end
-            object dbEnderecoEntrega: TDBMemo
-              Left = 0
-              Top = 21
-              Width = 1100
-              Height = 44
+              Width = 1091
+              Height = 48
               Align = alClient
-              DataField = 'ENDERECO_ENTREGA'
+              DataField = 'OBS'
               DataSource = DtSrcTabela
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
               ScrollBars = ssVertical
               TabOrder = 0
             end
-          end
-        end
-        object tbsRetirada: TTabSheet
-          Caption = 'Dados de Retirada'
-          ImageIndex = 1
-          object GrpBxRetirada: TGroupBox
-            Left = 0
-            Top = 0
-            Width = 1100
-            Height = 72
-            Align = alTop
-            Caption = 'Respons'#225'vel pela retirada'
-            TabOrder = 0
-            object lblRecebedorNome: TLabel
-              Left = 488
-              Top = 24
-              Width = 31
-              Height = 13
-              Caption = 'Nome:'
-              FocusControl = dbRecebedorNome
-            end
-            object lblRecebedorCPF: TLabel
-              Left = 944
-              Top = 24
-              Width = 41
-              Height = 13
-              Caption = 'RG/CPF:'
-              FocusControl = dbRecebedorCPF
-            end
-            object lblRecebedorFuncao: TLabel
-              Left = 728
-              Top = 24
-              Width = 78
-              Height = 13
-              Caption = 'Cargo / Fun'#231#227'o:'
-              FocusControl = dbRecebedorFuncao
-            end
-            object lblTransportador: TLabel
-              Left = 16
-              Top = 24
-              Width = 73
-              Height = 13
-              Caption = '&Transportador:'
-              FocusControl = dbTransportador
-            end
-            object dbRecebedorNome: TDBEdit
-              Left = 488
-              Top = 40
-              Width = 233
-              Height = 21
-              CharCase = ecUpperCase
-              DataField = 'RECEBEDOR_NOME'
-              DataSource = DtSrcTabela
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
+            object PnlValores: TPanel
+              Left = 0
+              Top = 48
+              Width = 1091
+              Height = 50
+              Align = alBottom
+              BevelOuter = bvNone
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
               Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
               ParentFont = False
               TabOrder = 1
-            end
-            object dbRecebedorCPF: TDBEdit
-              Left = 944
-              Top = 40
-              Width = 137
-              Height = 21
-              CharCase = ecUpperCase
-              DataField = 'RECEBEDOR_CPF'
-              DataSource = DtSrcTabela
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 3
-            end
-            object dbRecebedorFuncao: TDBEdit
-              Left = 728
-              Top = 40
-              Width = 209
-              Height = 21
-              CharCase = ecUpperCase
-              DataField = 'RECEBEDOR_FUNCAO'
-              DataSource = DtSrcTabela
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 2
-            end
-            object dbTransportador: TDBLookupComboBox
-              Left = 16
-              Top = 40
-              Width = 465
-              Height = 21
-              DataField = 'TRANSPORTADOR'
-              DataSource = DtSrcTabela
-              DropDownRows = 10
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              KeyField = 'CODFORN'
-              ListField = 'NOMEFORN'
-              ListSource = dtsTransportador
-              ParentFont = False
-              TabOrder = 0
+              object lblCompetencia: TLabel
+                Left = 8
+                Top = 8
+                Width = 77
+                Height = 13
+                Caption = 'Compet'#234'ncia:'
+                FocusControl = dbCompetencia
+                Font.Charset = ANSI_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = [fsBold]
+                ParentFont = False
+                Transparent = True
+              end
+              object lblValorTotalCusto: TLabel
+                Left = 160
+                Top = 8
+                Width = 95
+                Height = 13
+                Caption = 'Custo Total (R$):'
+                FocusControl = dbValorTotalCusto
+                Font.Charset = ANSI_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = [fsBold]
+                ParentFont = False
+                Transparent = True
+              end
+              object dbCompetencia: TDBEdit
+                Left = 8
+                Top = 24
+                Width = 145
+                Height = 21
+                TabStop = False
+                Color = clMoneyGreen
+                DataField = 'COMPETENCIA'
+                DataSource = DtSrcTabela
+                Font.Charset = ANSI_CHARSET
+                Font.Color = clBlack
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = [fsBold]
+                ParentFont = False
+                ReadOnly = True
+                TabOrder = 0
+              end
+              object dbValorTotalCusto: TDBEdit
+                Left = 160
+                Top = 24
+                Width = 145
+                Height = 21
+                TabStop = False
+                Color = clMoneyGreen
+                DataField = 'VALOR_TOTAL'
+                DataSource = DtSrcTabela
+                Font.Charset = ANSI_CHARSET
+                Font.Color = clBlack
+                Font.Height = -11
+                Font.Name = 'Tahoma'
+                Font.Style = [fsBold]
+                ParentFont = False
+                ReadOnly = True
+                TabOrder = 1
+              end
             end
           end
         end
       end
       object GrpBxDadosProduto: TGroupBox
         Left = 0
-        Top = 233
-        Width = 1108
+        Top = 257
+        Width = 1099
         Height = 116
         Align = alTop
-        Caption = 'Dados do produto/servi'#231'o'
+        Caption = 'Dados do produto'
         TabOrder = 1
         object lblProduto: TLabel
           Left = 88
           Top = 24
-          Width = 81
+          Width = 42
           Height = 13
-          Caption = 'Produto/Servi'#231'o:'
+          Caption = 'Produto:'
           FocusControl = dbProduto
         end
-        object lblQuantidade: TLabel
+        object lblQtde: TLabel
           Left = 88
           Top = 64
           Width = 60
           Height = 13
           Caption = 'Quantidade:'
-          FocusControl = dbQuantidade
+          FocusControl = dbQtde
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -1640,13 +1292,13 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           Align = alLeft
           Shape = bsSpacer
         end
-        object lblValorTotal: TLabel
-          Left = 488
+        object lblCustoTotal: TLabel
+          Left = 424
           Top = 64
-          Width = 79
+          Width = 83
           Height = 13
-          Caption = 'Valor Total (R$):'
-          FocusControl = dbValorTotal
+          Caption = 'Custo Total (R$):'
+          FocusControl = dbCustoTotal
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -1654,46 +1306,79 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           Font.Style = []
           ParentFont = False
         end
-        object lblValorUn: TLabel
-          Left = 184
-          Top = 64
-          Width = 72
-          Height = 13
-          Caption = 'Valor Un. (R$):'
-          FocusControl = dbValorUn
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-        end
-        object lblValorTotalIPI: TLabel
-          Left = 368
-          Top = 64
-          Width = 69
-          Height = 13
-          Caption = 'Total IPI (R$):'
-          FocusControl = dbValorTotalIPI
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-        end
-        object lblPercentualIPI: TLabel
+        object lblCustoUn: TLabel
           Left = 304
           Top = 64
-          Width = 32
+          Width = 76
           Height = 13
-          Caption = '% IPI:'
-          FocusControl = dbPercentualIPI
+          Caption = 'Custo Un. (R$):'
+          FocusControl = dbCustoUn
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
+          ParentFont = False
+        end
+        object LblAjuda: TLabel
+          Left = 881
+          Top = 16
+          Width = 208
+          Height = 78
+          Alignment = taRightJustify
+          Caption = 
+            'IMPORTANTE:'#13#10#13#10'Apenas os produtos pertencentes ao'#13#10'Centro de Cus' +
+            'to de atendimento que'#13#10'possuem estoque ser'#227'o exibidos na'#13#10'pesqui' +
+            'sa.'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clRed
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Transparent = True
+          WordWrap = True
+        end
+        object lblQtdeDisponivel: TLabel
+          Left = 720
+          Top = 24
+          Width = 83
+          Height = 13
+          Caption = 'Qtde. Dispon'#237'vel:'
+          FocusControl = dbQtdeDisponivel
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblQtdeAtendida: TLabel
+          Left = 184
+          Top = 64
+          Width = 78
+          Height = 13
+          Caption = 'Qtde. Atendida:'
+          FocusControl = dbQtdeAtendida
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblSituacaoProduto: TLabel
+          Left = 656
+          Top = 64
+          Width = 52
+          Height = 13
+          Caption = 'Situa'#231#227'o:'
+          FocusControl = dbSituacaoProduto
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
           ParentFont = False
         end
         object dbProdutoNome: TDBEdit
@@ -1714,13 +1399,13 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           ReadOnly = True
           TabOrder = 2
         end
-        object dbQuantidade: TDBEdit
+        object dbQtde: TDBEdit
           Left = 88
           Top = 80
           Width = 89
           Height = 21
           Color = clWhite
-          DataField = 'QUANTIDADE'
+          DataField = 'QTDE'
           DataSource = DtSrcTabelaItens
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -1728,7 +1413,8 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 5
+          OnExit = ControlEditExit
         end
         object dbUnidade: TDBEdit
           Left = 656
@@ -2024,13 +1710,13 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             OnClick = btnProdutoSalvarClick
           end
         end
-        object dbValorTotal: TDBEdit
-          Left = 488
+        object dbCustoTotal: TDBEdit
+          Left = 424
           Top = 80
           Width = 113
           Height = 21
           Color = clMoneyGreen
-          DataField = 'VALOR_TOTAL'
+          DataField = 'TOTAL'
           DataSource = DtSrcTabelaItens
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -2042,29 +1728,13 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           TabOrder = 8
           OnExit = ControlEditExit
         end
-        object dbValorUn: TDBEdit
-          Left = 184
-          Top = 80
-          Width = 113
-          Height = 21
-          Color = clWhite
-          DataField = 'VALOR_UNITARIO'
-          DataSource = DtSrcTabelaItens
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 5
-        end
-        object dbValorTotalIPI: TDBEdit
-          Left = 368
+        object dbCustoUn: TDBEdit
+          Left = 304
           Top = 80
           Width = 113
           Height = 21
           Color = clMoneyGreen
-          DataField = 'IPI_VALOR_TOTAL'
+          DataField = 'CUSTO'
           DataSource = DtSrcTabelaItens
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -2076,13 +1746,14 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           TabOrder = 7
           OnExit = ControlEditExit
         end
-        object dbPercentualIPI: TDBEdit
-          Left = 304
-          Top = 80
-          Width = 57
+        object dbQtdeDisponivel: TDBEdit
+          Left = 720
+          Top = 40
+          Width = 97
           Height = 21
-          Color = clWhite
-          DataField = 'IPI_PERCENTUAL'
+          TabStop = False
+          Color = clMoneyGreen
+          DataField = 'DISPONIVEL_TMP'
           DataSource = DtSrcTabelaItens
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
@@ -2090,14 +1761,127 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ReadOnly = True
+          TabOrder = 4
+        end
+        object dbQtdeAtendida: TDBEdit
+          Left = 184
+          Top = 80
+          Width = 113
+          Height = 21
+          Color = clMoneyGreen
+          DataField = 'QTDE_ATENDIDA'
+          DataSource = DtSrcTabelaItens
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          ReadOnly = True
           TabOrder = 6
+          OnExit = ControlEditExit
+        end
+        object dbSituacaoProduto: TDBEdit
+          Left = 656
+          Top = 80
+          Width = 161
+          Height = 21
+          TabStop = False
+          Color = clMoneyGreen
+          DataField = 'STATUS'
+          DataSource = DtSrcTabelaItens
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 9
+        end
+        object btnProdutoAtender: TBitBtn
+          Left = 1014
+          Top = 15
+          Width = 75
+          Height = 25
+          Caption = '&1. Atender  '
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          NumGlyphs = 2
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 10
+          Visible = False
+          OnClick = btnProdutoAtenderClick
+        end
+        object btnProdutoAtenderTodos: TBitBtn
+          Left = 1014
+          Top = 39
+          Width = 75
+          Height = 25
+          Caption = '&2. Atend. T.'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          NumGlyphs = 2
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 11
+          Visible = False
+          OnClick = btnProdutoAtenderTodosClick
+        end
+        object btnProdutoAguarda: TBitBtn
+          Left = 1014
+          Top = 63
+          Width = 75
+          Height = 25
+          Caption = '&3. Aguardar'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clGreen
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          NumGlyphs = 2
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 12
+          Visible = False
+          OnClick = btnProdutoAguardaClick
+        end
+        object btnProdutoCancelar: TBitBtn
+          Left = 1014
+          Top = 87
+          Width = 75
+          Height = 25
+          Caption = '&4. Cancelar '
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clRed
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          NumGlyphs = 2
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 13
+          Visible = False
+          OnClick = btnProdutoCancelarClick
         end
         object dbProduto: TJvDBComboEdit
           Left = 88
           Top = 40
           Width = 89
           Height = 21
-          ButtonHint = 'Pesquisar Produto (Ctrl+P)'
+          ButtonHint = 'Pesquisar Produto no Estoque (Ctrl+P)'
           CharCase = ecUpperCase
           ClickKey = 16464
           Color = clWhite
@@ -2170,9 +1954,9 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       end
       object dbgProdutos: TDBGrid
         Left = 0
-        Top = 353
-        Width = 1108
-        Height = 90
+        Top = 377
+        Width = 1099
+        Height = 97
         TabStop = False
         Align = alClient
         DataSource = DtSrcTabelaItens
@@ -2194,7 +1978,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
         Columns = <
           item
             Expanded = False
-            FieldName = 'SEQ'
+            FieldName = 'ITEM'
             Title.Alignment = taCenter
             Title.Caption = '# '
             Width = 25
@@ -2210,14 +1994,72 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           item
             Expanded = False
             FieldName = 'DESCRI_APRESENTACAO'
-            Title.Caption = 'Descri'#231#227'o + Apresenta'#231#227'o '
-            Width = 450
+            Title.Caption = 'Nome Amigo ou Descri'#231#227'o + Apresenta'#231#227'o '
+            Width = 380
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'QUANTIDADE'
-            Title.Caption = 'Quantidade '
+            FieldName = 'QTDE'
+            Title.Caption = 'Solicitado '
+            Width = 70
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTDE_ATENDIDA'
+            Title.Caption = 'Atendido '
+            Width = 70
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ESTOQUE'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clGreen
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            Title.Caption = 'Estoque '
+            Title.Font.Charset = ANSI_CHARSET
+            Title.Font.Color = clGreen
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 70
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'RESERVA'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clPurple
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            Title.Caption = 'Reservado '
+            Title.Font.Charset = ANSI_CHARSET
+            Title.Font.Color = clPurple
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
+            Width = 70
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DISPONIVEL'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlue
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            Title.Caption = 'Dispon'#237'vel '
+            Title.Font.Charset = ANSI_CHARSET
+            Title.Font.Color = clBlue
+            Title.Font.Height = -11
+            Title.Font.Name = 'Tahoma'
+            Title.Font.Style = [fsBold]
             Width = 80
             Visible = True
           end
@@ -2230,70 +2072,74 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           end
           item
             Expanded = False
-            FieldName = 'VALOR_UNITARIO'
-            Title.Caption = 'Valor Un. (R$) '
+            FieldName = 'CUSTO'
+            Title.Caption = 'Custo Un. (R$) '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'IPI_VALOR_TOTAL'
-            Title.Caption = 'Total IPI (R$) '
+            FieldName = 'TOTAL'
+            Title.Caption = 'Custo Total (R$) '
             Width = 100
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'VALOR_TOTAL'
-            Title.Caption = 'Valor Total (R$) '
-            Width = 100
+            FieldName = 'STATUS'
+            Title.Caption = 'Situa'#231#227'o '
+            Width = 90
             Visible = True
           end>
       end
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 646
-    Width = 1116
-    ExplicitTop = 646
-    ExplicitWidth = 1116
+    Top = 637
+    Width = 1107
+    ExplicitTop = 637
+    ExplicitWidth = 1107
     inherited bvlTool3: TBevel
-      Left = 1033
+      Left = 1024
       ExplicitLeft = 1033
     end
     inherited bvlTool4: TBevel
-      Left = 1112
+      Left = 1103
       ExplicitLeft = 1112
     end
     object Bevel12: TBevel [5]
-      Left = 1086
+      Left = 1206
       Top = 2
       Width = 4
       Height = 31
       Shape = bsSpacer
     end
     inherited btbtnLista: TcxButton
+      DropDownMenu = ppImprimir
+      Kind = cxbkDropDown
       Visible = True
     end
     inherited btbtnFechar: TcxButton
-      Left = 1037
-      TabOrder = 10
-      ExplicitLeft = 1037
+      Left = 1028
+      TabOrder = 11
+      ExplicitLeft = 1028
     end
     inherited btbtnSelecionar: TcxButton
-      Left = 913
-      TabOrder = 9
-      ExplicitLeft = 913
+      Left = 914
+      Width = 110
+      TabOrder = 10
+      ExplicitLeft = 914
+      ExplicitWidth = 110
     end
-    object btnFinalizarAutorizacao: TcxButton
+    object btnFinalizarLancamento: TcxButton
       Tag = 11
-      Left = 553
+      Left = 474
       Top = 0
-      Width = 120
+      Width = 110
       Height = 35
-      Hint = 'Finalizar Autoriza'#231#227'o'
+      Hint = 'Finalizar Lan'#231'amento da Apropria'#231#227'o'
       Align = alRight
-      Caption = 'Finalizar'
+      Caption = 'Finalizar Req.'
       Enabled = False
       OptionsImage.Glyph.SourceDPI = 96
       OptionsImage.Glyph.Data = {
@@ -2367,19 +2213,18 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       ParentShowHint = False
       ShowHint = True
       TabOrder = 6
-      OnClick = btnFinalizarAutorizacaoClick
+      OnClick = btnFinalizarLancamentoClick
     end
-    object btnAutorizarReabrir: TcxButton
+    object btnEnviarRequisicao: TcxButton
       Tag = 12
-      Left = 673
+      Left = 584
       Top = 0
-      Width = 120
+      Width = 110
       Height = 35
-      Hint = 'Autorizar/Reabrir'
+      Hint = 'Enviar Requisi'#231#227'o'
       Align = alRight
-      Caption = 'Autorizar/Reabrir'
-      DropDownMenu = ppAutorizacao
-      Kind = cxbkDropDown
+      Caption = 'Enviar Req.'
+      Enabled = False
       OptionsImage.Glyph.SourceDPI = 96
       OptionsImage.Glyph.Data = {
         424D360800000000000036000000280000002000000010000000010020000000
@@ -2452,16 +2297,18 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       ParentShowHint = False
       ShowHint = True
       TabOrder = 7
+      Visible = False
+      OnClick = btnEnviarRequisicaoClick
     end
-    object btnCancelarAutorizacao: TcxButton
+    object btnCancelarRequisicao: TcxButton
       Tag = 13
-      Left = 793
+      Left = 694
       Top = 0
-      Width = 120
+      Width = 110
       Height = 35
-      Hint = 'Cancelar Autoriza'#231#227'o Selecionada'
+      Hint = 'Cancelar Apropria'#231#227'o selecionada'
       Align = alRight
-      Caption = 'Cancelar Aut.'
+      Caption = 'Cancelar Req.'
       Enabled = False
       OptionsImage.Glyph.SourceDPI = 96
       OptionsImage.Glyph.Data = {
@@ -2535,129 +2382,124 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       ParentShowHint = False
       ShowHint = True
       TabOrder = 8
-      OnClick = btnCancelarAutorizacaoClick
+      OnClick = btnCancelarRequisicaoClick
+    end
+    object btnConfirmarAtendimento: TcxButton
+      Left = 804
+      Top = 0
+      Width = 110
+      Height = 35
+      Hint = 'Confirmar Atendimento da requisi'#231#227'o de materiais'
+      Align = alRight
+      Caption = 'Confirmar'
+      OptionsImage.Glyph.SourceDPI = 96
+      OptionsImage.Glyph.Data = {
+        424D360800000000000036000000280000002000000010000000010020000000
+        000000000000C40E0000C40E000000000000000000000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF00CDA187FFE5BC9EFF0000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF009D9D9DFFB7B7B7FF0000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF00AA7457FF904820FFB47657FFF0CEB3FF0000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF00707070FF434343FF727272FFC9C9C9FF0000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF00A55839FFD07850FFD07040FFB06030FFCB9173FF0000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF00565656FF747474FF6B6B6BFF595959FF8D8D8DFF0000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF00A050
+        30FFD07850FFF09060FFE19C75FFD08860FFB96F42FFD3A486FF0000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF004E4E
+        4EFF747474FF8B8B8BFF979797FF838383FF686868FF9F9F9FFF0000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF00A56039FFE080
+        50FFF09060FFF3AF8EFF0000FF00F2AA86FFD08860FFB46739FFEBC9AFFF0000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF005B5B5BFF7B7B
+        7BFF8B8B8BFFABABABFF0000FF00A6A6A6FF838383FF606060FFC4C4C4FF0000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF00F1B698FFF0A8
+        90FFF2AC82FF0000FF000000FF000000FF00E6AA86FFD08860FFAA6841FFF2C7
+        B4FF0000FF000000FF000000FF000000FF000000FF000000FF00B2B2B2FFA8A8
+        A8FFA6A6A6FF0000FF000000FF000000FF00A5A5A5FF838383FF626262FFC5C5
+        C5FF0000FF000000FF000000FF000000FF000000FF000000FF00FDE0CDFFF7CE
+        B6FF0000FF000000FF000000FF000000FF000000FF00E19C75FFD07850FFB47D
+        56FFF2CCB3FF0000FF000000FF000000FF000000FF000000FF00DDDDDDFFCACA
+        CAFF0000FF000000FF000000FF000000FF000000FF00979797FF747474FF7676
+        76FFC8C8C8FF0000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF00E19C74FFC070
+        40FFC38C74FFF1CAB0FF0000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF00969696FF6969
+        69FF8A8A8AFFC6C6C6FF0000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF00E29F
+        79FFC07040FFD29B82FFEBC3A8FF0000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF009A9A
+        9AFF696969FF999999FFBEBEBEFF0000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF00F1AF91FFC07050FFE4B99BFF0000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF00ACACACFF6E6E6EFFB4B4B4FF0000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF00F1C1A7FFD29172FF0000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF00BEBEBEFF8E8E8EFF0000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF000000
+        FF000000FF000000FF000000FF000000FF000000FF00}
+      OptionsImage.NumGlyphs = 2
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 9
+      Visible = False
+      OnClick = btnConfirmarAtendimentoClick
     end
   end
   inherited DtSrcTabela: TDataSource
-    OnDataChange = DtSrcTabelaDataChange
-    Left = 408
+    Left = 392
     Top = 0
   end
   inherited ImgList: TImageList
-    Left = 376
+    Left = 360
     Top = 0
   end
   object dtsEmpresa: TDataSource
-    Left = 592
+    Left = 456
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
     OnStateChange = DtSrcTabelaItensStateChange
     OnDataChange = DtSrcTabelaItensDataChange
-    Left = 440
+    Left = 424
   end
   object ppImprimir: TPopupMenu
     Images = ImgList
-    Left = 496
-    object nmImprimirAutorizacao: TMenuItem
-      Caption = 'Autoriza'#231#227'o de Compra/Servi'#231'o'
+    Left = 32
+    Top = 440
+    object nmImprimirRequisicaoAlmox: TMenuItem
+      Caption = 'Requisi'#231#227'o ao Estoque (Almoxarifado)'
       ImageIndex = 16
-      OnClick = nmImprimirAutorizacaoClick
+      OnClick = nmImprimirRequisicaoAlmoxClick
+    end
+    object nmImprimirManifesto: TMenuItem
+      Caption = 'Manifesto'
+      OnClick = nmImprimirManifestoClick
     end
   end
-  object dtsTipoAutorizacao: TDataSource
-    Left = 624
-  end
-  object dtsFormaPagto: TDataSource
-    Left = 656
-  end
-  object dtsCondicaoPagto: TDataSource
-    Left = 688
-  end
-  object dtsTransportador: TDataSource
-    Left = 720
-  end
-  object ppAutorizacao: TPopupMenu
-    Left = 528
-    Top = 1
-    object ppmAutorizarCompra: TMenuItem
-      Tag = 12
-      Bitmap.Data = {
-        36030000424D3603000000000000360000002800000010000000100000000100
-        18000000000000030000C40E0000C40E00000000000000000000FFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCDA187E5BC9EFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFAA7457904820B47657F0CEB3FFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA55839D07850D07040B06030CB
-        9173FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        A05030D07850F09060E19C75D08860B96F42D3A486FFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFA56039E08050F09060F3AF8EFFFFFFF2AA86D0
-        8860B46739EBC9AFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF1B698
-        F0A890F2AC82FFFFFFFFFFFFFFFFFFE6AA86D08860AA6841F2C7B4FFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFDE0CDF7CEB6FFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFE19C75D07850B47D56F2CCB3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE19C74C07040C38C74F1CA
-        B0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFE29F79C07040D29B82EBC3A8FFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF1AF91C070
-        50E4B99BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFF1C1A7D29172FFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-      Caption = 'Autorizar Compra/Servi'#231'o'
-      OnClick = ppmAutorizarCompraClick
-    end
-    object ppmReabrirAutorizacao: TMenuItem
-      Tag = 14
-      Bitmap.Data = {
-        16050000424D160500000000000036040000280000000E0000000E0000000100
-        080000000000E000000000000000000000000001000000000000000000000000
-        80000080000000808000800000008000800080800000C0C0C000C0DCC000F0CA
-        A6000020400000206000002080000020A0000020C0000020E000004000000040
-        20000040400000406000004080000040A0000040C0000040E000006000000060
-        20000060400000606000006080000060A0000060C0000060E000008000000080
-        20000080400000806000008080000080A0000080C0000080E00000A0000000A0
-        200000A0400000A0600000A0800000A0A00000A0C00000A0E00000C0000000C0
-        200000C0400000C0600000C0800000C0A00000C0C00000C0E00000E0000000E0
-        200000E0400000E0600000E0800000E0A00000E0C00000E0E000400000004000
-        20004000400040006000400080004000A0004000C0004000E000402000004020
-        20004020400040206000402080004020A0004020C0004020E000404000004040
-        20004040400040406000404080004040A0004040C0004040E000406000004060
-        20004060400040606000406080004060A0004060C0004060E000408000004080
-        20004080400040806000408080004080A0004080C0004080E00040A0000040A0
-        200040A0400040A0600040A0800040A0A00040A0C00040A0E00040C0000040C0
-        200040C0400040C0600040C0800040C0A00040C0C00040C0E00040E0000040E0
-        200040E0400040E0600040E0800040E0A00040E0C00040E0E000800000008000
-        20008000400080006000800080008000A0008000C0008000E000802000008020
-        20008020400080206000802080008020A0008020C0008020E000804000008040
-        20008040400080406000804080008040A0008040C0008040E000806000008060
-        20008060400080606000806080008060A0008060C0008060E000808000008080
-        20008080400080806000808080008080A0008080C0008080E00080A0000080A0
-        200080A0400080A0600080A0800080A0A00080A0C00080A0E00080C0000080C0
-        200080C0400080C0600080C0800080C0A00080C0C00080C0E00080E0000080E0
-        200080E0400080E0600080E0800080E0A00080E0C00080E0E000C0000000C000
-        2000C0004000C0006000C0008000C000A000C000C000C000E000C0200000C020
-        2000C0204000C0206000C0208000C020A000C020C000C020E000C0400000C040
-        2000C0404000C0406000C0408000C040A000C040C000C040E000C0600000C060
-        2000C0604000C0606000C0608000C060A000C060C000C060E000C0800000C080
-        2000C0804000C0806000C0808000C080A000C080C000C080E000C0A00000C0A0
-        2000C0A04000C0A06000C0A08000C0A0A000C0A0C000C0A0E000C0C00000C0C0
-        2000C0C04000C0C06000C0C08000C0C0A000F0FBFF00A4A0A000808080000000
-        FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF003E3E3E3E3E3E
-        3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
-        3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
-        3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
-        3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
-        3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
-        3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E00003E3E3E3E3E3E
-        3E3E3E3E3E3E3E3E00003E3E3E3E3E3E3E3E3E3E3E3E3E3E0000}
-      Caption = 'Reabrir Autoriza'#231#227'o'
-      OnClick = ppmReabrirAutorizacaoClick
-    end
+  object dtsTipoRequisicao: TDataSource
+    Left = 488
   end
 end

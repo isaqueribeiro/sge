@@ -235,8 +235,6 @@ inherited ViewEntrada: TViewEntrada
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 0
-            ExplicitLeft = 37
-            ExplicitTop = 27
           end
           object e2Data: TJvDateEdit
             AlignWithMargins = True
@@ -298,7 +296,6 @@ inherited ViewEntrada: TViewEntrada
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 1
-            ExplicitLeft = 80
           end
         end
         object pnlStatus: TPanel
@@ -2041,6 +2038,10 @@ inherited ViewEntrada: TViewEntrada
         object tbsDuplicatas: TTabSheet
           Caption = 'Duplicata(s) Gerada(s)'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 89
             Top = 0
@@ -2221,6 +2222,10 @@ inherited ViewEntrada: TViewEntrada
         object tbsLotes: TTabSheet
           Caption = 'Lote(s) Gerado(s) no Estoque'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object DBGrid1: TDBGrid
             Left = 0
             Top = 0
@@ -2309,6 +2314,10 @@ inherited ViewEntrada: TViewEntrada
         object TbsInformeNFe: TTabSheet
           Caption = 'Informa'#231#245'es de Envio NF-e'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblLogNFeLote: TLabel
             Left = 8
             Top = 0

@@ -159,8 +159,13 @@ type
     function PlanoContaNivel : IModelDAOCustom;
     function PlanoContaTipo : IModelDAOCustom;
     function Produto : IModelDAOCustom;
+    {$IFDEF SGI}
+    function ProdutoAlmoxarifado : IModelDAOCustom;
+    {$ENDIF}
     function Promocao : IModelDAOCustom;
     function PromocaoProduto : IModelDAOCustom;
+    function RequisicaoAlmoxarifado : IModelDAOCustom;
+    function RequisicaoAlmoxarifadoProduto : IModelDAOCustom;
     function RequisicaoCompra : IModelDAOCustom;
     function RequisicaoCompraProdutoServico : IModelDAOCustom;
     function SecaoProduto : IModelDAOCustom;
@@ -180,6 +185,9 @@ type
     function TipoReceita : IModelDAOCustom;
     function TipoReceitaPlanoConta : IModelDAOCustom;
     function TipoRegimeView : IModelDAOCustom;
+    {$IFDEF SGI}
+    function TipoRequisicaoAlmoxView : IModelDAOCustom;
+    {$ENDIF}
     function TipoRequisicaoView : IModelDAOCustom;
     function TipoTributacao : IModelDAOCustom;
     function TipoVeiculo : IModelDAOCustom;

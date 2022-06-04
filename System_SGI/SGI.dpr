@@ -316,7 +316,12 @@ uses
   View.ContaAPagar in '..\Sys\View\View.ContaAPagar.pas' {ViewContaAPagar},
   View.PadraoPesquisa in '..\Sys\View\View.PadraoPesquisa.pas' {ViewPadraoPesquisa},
   SGE.Controller.Impressao.AutorizacaoCompra in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.AutorizacaoCompra.pas',
-  SGE.Controller.Impressao.DataModule.AutorizacaoCompra in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.AutorizacaoCompra.pas' {DataModuleAutorizacaoCompra: TDataModule};
+  SGE.Controller.Impressao.DataModule.AutorizacaoCompra in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.AutorizacaoCompra.pas' {DataModuleAutorizacaoCompra: TDataModule},
+  SGI.Model.DAO.RequisicaoAlmoxarifado in 'Model\DAO\SGI.Model.DAO.RequisicaoAlmoxarifado.pas',
+  SGI.Controller.RequisicaoAlmoxarifado in 'Controller\SGI.Controller.RequisicaoAlmoxarifado.pas',
+  View.RequisicaoAlmox in 'View\View.RequisicaoAlmox.pas' {ViewRequisicaoAlmox},
+  SGI.Model.DAO.ProdutoAlmoxarifado in 'Model\DAO\SGI.Model.DAO.ProdutoAlmoxarifado.pas',
+  SGI.Controller.ProdutoAlmoxarifado in 'Controller\SGI.Controller.ProdutoAlmoxarifado.pas';
 
 {$R *.res}
 

@@ -546,6 +546,16 @@ object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
           Font.Name = 'Lucida Console'
           Font.Style = []
           Frame.Typ = []
+          Highlight.ApplyFont = False
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '(<Line#> mod 2) = 0'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdAutorizacaoCompra."PRODUTO"]')
           ParentFont = False
@@ -563,6 +573,16 @@ object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
           Font.Style = []
           Frame.Typ = []
           HAlign = haCenter
+          Highlight.ApplyFont = False
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '(<Line#> mod 2) = 0'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[Line]')
           ParentFont = False
@@ -580,6 +600,16 @@ object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
           Font.Name = 'Lucida Console'
           Font.Style = []
           Frame.Typ = []
+          Highlight.ApplyFont = False
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '(<Line#> mod 2) = 0'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             
               ' [frdAutorizacaoCompra."DESCRI_APRESENTACAO"] [IIF(Trim(<frdAuto' +
@@ -601,6 +631,16 @@ object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
           Font.Style = []
           Frame.Typ = []
           HAlign = haRight
+          Highlight.ApplyFont = False
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '(<Line#> mod 2) = 0'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.###'#39',<frdAutorizacaoCompra."QUANTIDADE">)] ')
           ParentFont = False
@@ -619,6 +659,16 @@ object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
           Font.Style = []
           Frame.Typ = []
           HAlign = haRight
+          Highlight.ApplyFont = False
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '(<Line#> mod 2) = 0'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<frdAutorizacaoCompra."VALOR_TOTAL">)] ')
           ParentFont = False
@@ -636,6 +686,16 @@ object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
           Font.Name = 'Lucida Console'
           Font.Style = []
           Frame.Typ = []
+          Highlight.ApplyFont = False
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '(<Line#> mod 2) = 0'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             ' [frdAutorizacaoCompra."UNIDADE"]')
           ParentFont = False
@@ -654,6 +714,16 @@ object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
           Font.Style = []
           Frame.Typ = []
           HAlign = haRight
+          Highlight.ApplyFont = False
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -13
+          Highlight.Font.Name = 'Arial'
+          Highlight.Font.Style = []
+          Highlight.Condition = '(<Line#> mod 2) = 0'
+          Highlight.FillType = ftBrush
+          Highlight.Fill.BackColor = clBtnFace
+          Highlight.Frame.Typ = []
           Memo.UTF8W = (
             '[FormatFloat('#39',0.00'#39',<frdAutorizacaoCompra."VALOR_UNITARIO">)] ')
           ParentFont = False

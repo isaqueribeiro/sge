@@ -159,7 +159,7 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
           Font.Style = [fsBold]
           ParentColor = False
           ParentFont = False
-          Transparent = False
+          Transparent = True
         end
         object lblRequisicaoRecebida: TLabel [3]
           Left = 2
@@ -2099,8 +2099,6 @@ inherited frmGeRequisicaoAlmox: TfrmGeRequisicaoAlmox
       ShowHint = True
       TabOrder = 6
       OnClick = btnFinalizarLancamentoClick
-      ExplicitLeft = 427
-      ExplicitTop = -2
     end
     object btnEnviarRequisicao: TcxButton
       Tag = 12
