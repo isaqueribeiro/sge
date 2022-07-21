@@ -38,5 +38,7 @@ Bin/*.inf
 Bin/*.part
 Bin/*._dll
 _diversos/Imagens/*.*
+_diversos/upx391w/*.*
+_diversos/upx396w/*.*
 doc/*
 GerarLicenca/*.json

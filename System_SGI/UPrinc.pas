@@ -379,7 +379,7 @@ uses
   UGeRequisicaoCliente,
   View.AutorizacaoCompra,
   View.RequisicaoCompra,
-  UGeRequisicaoAlmox,
+  View.RequisicaoAlmox,
   UGeRequisicaoAlmoxMonitor,
 
   // Estoque, Entrada e Saída
@@ -1529,7 +1529,7 @@ end;
 procedure TfrmPrinc.nmEstoqueApropriadoClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CNS_CONSULTA_ESTOQUE_APR_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeApropriacaoEstoquePesquisa');
+    FormFunction.ShowModalForm(Self, 'ViewQueryApropriacaoEstoque');
 end;
 
 procedure TfrmPrinc.nmRequisicaoAlmoxClick(Sender: TObject);

@@ -37,6 +37,11 @@ type
       class function StrFormatarFone(sFone: String): String;
       class function StrFormatarNome(aNome : String): String;
       class function StrDateFormatBr(aData : String) : TDateTime;
+      class function StrRemoveAccent(C : Char): Char;
+      class function StrRemoveAccents(Str : String) : String;
+      class function StrRemoveAllAccents(const S : String): String;
+      class function StrSanitize(Value : String) : String;
+      class function StrMetafonema(Value : String) : String;
       class function EmailValido(aEmail : String;
         const aDominio : TDomainMail = TDomainMail.domainMainComBr): Boolean;
   end;
@@ -386,6 +391,165 @@ begin
   end;
 end;
 
+class function TServicesUtils.StrMetafonema(Value: String): String;
+var
+  i, p: Integer;
+  novo, aux: string;
+const
+  DELIMITER = '.';
+begin
+  try
+    aux  := TServicesUtils.StrSanitize(AnsiUpperCase(Value));
+    novo := EmptyStr;
+
+    // Tira acentos que porventura ficaram para trás
+    for i := 1 to Length(aux) do
+    begin
+      case aux[i] of
+        'Á', 'Â', 'Ã', 'À', 'Ä', 'Å': aux[i] := 'A';
+        'É', 'Ê', 'È', 'Ë': aux[i] := 'E';
+        'Í', 'Î', 'Ì', 'Ï': aux[i] := 'I';
+        'Ó', 'Ô', 'Õ', 'Ò', 'Ö': aux[i] := 'O';
+        'Ú', 'Û', 'Ù', 'Ü': aux[i] := 'U';
+        'Ç': aux[i] := 'C';
+        'Ñ': aux[i] := 'N';
+        'Ý', 'Ÿ', 'Y': aux[i] := 'I';
+      else
+        if Ord(aux[i]) > 127 then
+          aux[i] := #32;
+      end;
+    end;
+
+    aux := StringReplace(aux, ' ', DELIMITER, [rfReplaceAll]);
+
+    // Retira E , DA, DE e DO do nome
+    // José da Silva = José Silva
+    // João Costa e Silva = João Costa Silva
+    p := Pos(' DA ', aux);
+    while p > 0 do
+    begin
+      Delete(aux, p, 3);
+      p := Pos(' DA ', aux);
+    end;
+
+    p := Pos(' DAS ', aux);
+    while p > 0 do
+    begin
+      Delete(aux, p, 4);
+      p := Pos(' DAS ', aux);
+    end;
+
+    p := Pos(' DE ', aux);
+    while p > 0 do
+    begin
+      Delete(aux, p, 3);
+      p := Pos(' DE ', aux);
+    end;
+
+    p := Pos(' DI ', aux);
+    while p > 0 do
+    begin
+      Delete(aux, p, 3);
+      p := Pos(' DI ', aux);
+    end;
+
+    p := Pos(' DO ', aux);
+    while p > 0 do
+    begin
+      Delete(aux, p, 3);
+      p := Pos(' DO ', aux);
+    end;
+
+    p := Pos(' DOS ', aux);
+    while p > 0 do
+    begin
+      Delete(aux, p, 4);
+      p := Pos(' DOS ', aux);
+    end;
+
+    p := Pos(' E ', aux);
+    while p > 0 do
+    begin
+      Delete(aux, p, 2);
+      p := Pos(' E ', aux);
+    end;
+
+    // Retira letras duplicadas
+    // Elizabette = Elizabete
+
+    for i := 1 to Length(aux)-1 do
+      if aux[i] = aux[i + 1] then
+        Delete(aux, i, 1);
+
+    for i := 1 to Length(aux) do
+    begin
+      case aux[i] of
+        // 'A','E','I','O','U','Y','H' e espaços: ignora
+
+        'B','D','F','J','K','L','M','N','R','T','V','X', DELIMITER:
+          novo := novo + aux[i];
+
+        'C':  // CH = X
+          if aux[i+1] = 'H' then
+            novo := novo + 'X'
+          else // Carol = Karol
+          if (aux[i+1] in ['A','O','U']) then // CharInSet(aux[i+1], ['A','O','U']) then
+            novo := novo + 'K'
+          else // Celina = Selina
+          if (aux[i+1] in ['E','I']) then // CharInSet(aux[i+1], ['E','I']) then
+            novo := novo + 'S'
+          else // Isaac = Isaque, Isac
+          if (aux[i-1] = 'A') and (aux[i-2] = 'A') or ( (aux[i-1] = 'A') and (aux[i+1] = ' ')) then
+            novo := novo + 'K';
+
+        'G': // Jeferson = Geferson
+          if aux[i+i] = 'E' then
+            novo := novo + 'J'
+          else
+            novo := novo + 'G';
+
+        'P': // Phelipe = Felipe
+           if aux[i+1] = 'H' then
+             novo := novo + 'F'
+           else
+             novo := novo + 'P';
+
+        'Q': // Keila = Queila
+           if aux[i+1] = 'U' then
+             novo := novo + 'K'
+           else
+             novo := novo + 'Q';
+
+        'S':
+           case aux[i+1] of
+             'H': // SH = X
+               novo := novo + 'X';
+
+             'A','E','I','O','U':
+               if (aux[i-1] in ['A','E','I','O','U']) then // CharInSet(aux[i-1], ['A','E','I','O','U']) then
+                 novo := novo + 'Z' // S entre duas vogais = Z
+               else
+                 novo := novo + 'S';
+           end;
+
+        'W': // Walter = Valter
+           novo := novo + 'V';
+
+        'Z': // no final do nome tem som de S -> Luiz = Luis
+           if (i = Length(aux)) or (aux[i+1] = ' ') then
+             novo := novo + 'S'
+           else
+             novo := novo + 'Z';
+      end;
+    end;
+
+    Result := novo + DELIMITER;
+
+  except
+    Result := EmptyStr;
+  end;
+end;
+
 class function TServicesUtils.StrFormatarCnpj(sCnpj: String): String;
 var
   S : String;
@@ -475,6 +639,87 @@ begin
       Delete(Valor, I, 1);
 
   Result := Valor;
+end;
+
+class function TServicesUtils.StrRemoveAccent(C: Char): Char;
+const
+  BadMaiSChar = ['"', '!', '@', '#', '$', '%', '¨', '&', '*', '(', ')', '-', '+', '=',
+                 '|', '\', '<', ',', '>', '.', ':', ';', '?', '/', '´', '`', '{', '[',
+                 '^', '^', '}', ']', '§'];
+  BadMaiAChar = ['Á', 'À', 'Ä', 'Ã', 'Â'];
+  BadMinAChar = ['á', 'à', 'ä', 'ã', 'â'];
+  BadMaiEChar = ['É', 'È', 'Ë', 'Ê'];
+  BadMinEChar = ['é', 'è', 'ë', 'ê'];
+  BadMaiIChar = ['Í', 'Ì', 'Ï', 'Î'];
+  BadMinIChar = ['í', 'ì', 'ï', 'î'];
+  BadMaiOChar = ['Ó', 'Ò', 'Ö', 'Õ', 'Ô'];
+  BadMinOChar = ['ó', 'ò', 'ö', 'õ', 'ô'];
+  BadMaiUChar = ['Ú', 'Ù', 'Ü', 'Û'];
+  BadMinUChar = ['ú', 'ù', 'ü', 'û'];
+  BadMaiCChar = ['Ç'];
+  BadMinCChar = ['ç'];
+  BadNumOChar = ['º'];
+  BadNumAChar = ['ª'];
+  BadMaiNChar = ['Ñ'];
+  BadMinNChar = ['ñ'];
+  BadChar = ['´', '"', '`', '~', '^','¨'];
+var
+  U : Char;
+begin
+  U := C;
+  if (U in BadMaiSChar) then U := ' ';
+  if (U in BadMaiAChar) then U := 'A';
+  if (U in BadMinAChar) then U := 'a';
+  if (U in BadMaiEChar) then U := 'E';
+  if (U in BadMinEChar) then U := 'e';
+  if (U in BadMaiIChar) then U := 'I';
+  if (U in BadMinIChar) then U := 'i';
+  if (U in BadMaiOChar) then U := 'O';
+  if (U in BadMinOChar) then U := 'o';
+  if (U in BadMaiUChar) then U := 'U';
+  if (U in BadMinUChar) then U := 'u';
+  if (U in BadMaiCChar) then U := 'C';
+  if (U in BadMinCChar) then U := 'c';
+  if (U in BadMaiNChar) then U := 'N';
+  if (U in BadMinNChar) then U := 'n';
+  if (U in BadChar) then U := #0;
+  Result := U;
+end;
+
+class function TServicesUtils.StrRemoveAccents(Str: String): String;
+const
+  COM_ACENTO = 'ñàâêôûãõáéíóúçüÑÀÂÊÔÛÃÕÁÉÍÓÚÇÜªº';
+  SEM_ACENTO = 'naaeouaoaeioucuNAAEOUAOAEIOUCUao';
+var
+  X : Integer;
+begin
+  for x := 1 to Length(Str) do
+    if Pos(Str[x],COM_ACENTO) <> 0 then
+      Str[x] := SEM_ACENTO[Pos(Str[x], COM_ACENTO)];
+
+  Result := Str;
+end;
+
+class function TServicesUtils.StrRemoveAllAccents(const S: String): String;
+var
+  I: Integer;
+begin
+  Result := S;
+  for I := 1 to Length(Result) do
+    Result[I] := StrRemoveAccent(Result[I]);
+end;
+
+class function TServicesUtils.StrSanitize(Value: String): String;
+begin
+  Result := Trim(Value);
+  if (Value <> StringOfChar(#32, Value.Length)) then
+  begin
+    Result := TServicesUtils.StrRemoveAccents(Value);
+    Result := StringReplace(Result, '.', '',      [rfReplaceAll]);
+    Result := StringReplace(Result, Chr(39), ' ', [rfReplaceAll]);  // Apostrofo
+    Result := StringReplace(Result, '-', ' ',     [rfReplaceAll]);  // Hifén
+    Result := StringReplace(Result, '  ', ' ',    [rfReplaceAll]);  // Espaco duplo
+  end;
 end;
 
 end.

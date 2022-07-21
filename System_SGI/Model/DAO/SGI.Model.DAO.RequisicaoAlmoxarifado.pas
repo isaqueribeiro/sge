@@ -33,6 +33,7 @@ type
     private
       procedure SetProviderFlags;
       procedure DataSetAfterOpen(DataSet: TDataSet);
+      procedure DataSetBeforePost(DataSet: TDataSet);
       procedure DataSetNewRecord(DataSet: TDataSet);
       procedure StatusGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     protected
@@ -269,6 +270,10 @@ begin
         .Add('  , ea.estoque   ')
         .Add('  , ea.reserva   ')
         .Add('  , ea.disponivel')
+        .Add('  , case when i.status in (' + IntToStr(STATUS_ITEM_REQUISICAO_ALMOX_PEN) +  ', ' + IntToStr(STATUS_ITEM_REQUISICAO_ALMOX_AGU) + ')')
+        .Add('      then coalesce(i.qtde, 0.0) + coalesce(ea.disponivel, 0.0)')
+        .Add('      else coalesce(ea.disponivel, 0.0)')
+        .Add('    end as disponivel_tmp')
         .Add('from TBREQUISICAO_ALMOX_ITEM i')
         .Add('  left join TBPRODUTO p on (p.cod = i.produto)')
         .Add('  left join TBUNIDADEPROD u on (u.unp_cod = i.unidade)')
@@ -295,6 +300,7 @@ begin
     .Open;
 
   FConn.Query.DataSet.AfterOpen   := DataSetAfterOpen;
+  FConn.Query.DataSet.BeforePost  := DataSetBeforePost;
   FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
 end;
 
@@ -320,6 +326,7 @@ begin
   FConn.Query.DataSet.FieldByName('estoque').ProviderFlags    := [];
   FConn.Query.DataSet.FieldByName('reserva').ProviderFlags    := [];
   FConn.Query.DataSet.FieldByName('disponivel').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('disponivel_tmp').ProviderFlags := [];
 end;
 
 procedure TModelDAORequisicaoAlmoxarifadoProduto.StatusGetText(Sender: TField; var Text: string; DisplayText: Boolean);
@@ -342,6 +349,17 @@ begin
   FConn.Query.DataSet.FieldByName('STATUS').OnGetText := StatusGetText;
 end;
 
+procedure TModelDAORequisicaoAlmoxarifadoProduto.DataSetBeforePost(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+  begin
+    if (FieldByName('STATUS').AsInteger in [STATUS_ITEM_REQUISICAO_ALMOX_PEN, STATUS_ITEM_REQUISICAO_ALMOX_AGU]) then
+      FieldByName('DISPONIVEL_TMP').AsCurrency := (FieldByName('DISPONIVEL').AsCurrency + FieldByName('QTDE').AsCurrency)
+    else
+      FieldByName('DISPONIVEL_TMP').AsCurrency := FieldByName('DISPONIVEL').AsCurrency;
+  end;
+end;
+
 procedure TModelDAORequisicaoAlmoxarifadoProduto.DataSetNewRecord(DataSet: TDataSet);
 begin
   with FConn.Query.DataSet do
@@ -360,6 +378,7 @@ begin
     FieldByName('ESTOQUE').Clear;
     FieldByName('RESERVA').Clear;
     FieldByName('DISPONIVEL').Clear;
+    FieldByName('DISPONIVEL_TMP').Clear;
   end;
 end;
 
@@ -398,3 +417,4 @@ begin
 end;
 
 end.
+

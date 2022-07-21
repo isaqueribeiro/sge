@@ -24,6 +24,15 @@ type
     function DataSet : TDataSet;
   end;
 
+  IControllerQueryAproriacaoEstoque = interface(IControllerQuery)
+    ['{4F55D56E-8BC0-4E40-AD9D-DDE386B162F2}']
+    function CentroCusto(Value : Integer) : IControllerQueryAproriacaoEstoque;
+    function ApenasProdutoComEstoue(Value : Boolean) : IControllerQueryAproriacaoEstoque;
+    function Grupo(aCodigo : Integer) : IControllerQueryAproriacaoEstoque;
+    function Fabricante(aCodigo : Integer) : IControllerQueryAproriacaoEstoque;
+    function CalcularPercentuais(const aValorReferencia : Currency) : IControllerQueryAproriacaoEstoque;
+  end;
+
   IControllerCustom = interface(IController)
     ['{EF078F48-0F46-48FF-B6A2-B2926E490606}']
   end;
@@ -115,13 +124,11 @@ type
     function Get(aCodigo : Integer) : IModelDAOCustom;
   end;
 
-  {$IFDEF SGI}
   IControllerProdutoAlmoxarifado = interface(IControllerCustom)
     ['{2DE3B864-C82B-442E-A633-4B221EB23D3F}']
     function Carregar(aEmpresa : String; aCentroCusto, aCodigo : Integer;
       aRequisicaoAno : Smallint; aRequisicaoControle : Integer) : IControllerProdutoAlmoxarifado;
   end;
-  {$ENDIF}
 
   IControllerPromocao = interface(IControllerCustom)
     ['{4661B49F-97AC-4B7D-B8DE-EB6E5CE20B33}']
@@ -188,6 +195,7 @@ type
     function Produtos : IControllerCustom;
 
     procedure CarregarProdutos;
+    procedure AjustarQuantidadeAtendidaDeProdutos;
   end;
 
   IControllerEntradaProduto = interface(IControllerCustom)
@@ -296,14 +304,10 @@ type
     function PlanoContaNivel   : IControllerCustom;
     function PlanoContaTipo    : IControllerCustom;
     function Produto           : IControllerProduto;
-    {$IFDEF SGI}
     function ProdutoAlmoxarifado : IControllerProdutoAlmoxarifado;
-    {$ENDIF}
     function Promocao          : IControllerPromocao;
     function PromocaoProduto   : IControllerCustom;
-    {$IFDEF SGI}
     function RequisicaoAlmoxarifado : IControllerRequisicaoAlmoxarifado;
-    {$ENDIF}
     function RequisicaoCompra  : IControllerRequisicaoCompra;
     function SecaoProduto : IControllerCustom;
     function Segmento     : IControllerCustom;
@@ -323,9 +327,7 @@ type
     function TipoReceitaPlanoConta : IControllerCustom;
     function TipoRegimeView : IControllerCustom;
     function TipoRequisicaoView : IControllerCustom;
-    {$IFDEF SGI}
     function TipoRequisicaoAlmoxView : IControllerCustom;
-    {$ENDIF}
     function TipoTributacao : IControllerCustom;
     function TipoVeiculo    : IControllerCustom;
     function Transportadora : IControllerCustom;

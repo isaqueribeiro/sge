@@ -87,7 +87,6 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
           Width = 571
           ExplicitLeft = 240
           ExplicitWidth = 571
-          ExplicitHeight = 62
           inherited lbltFiltrar: TLabel
             AlignWithMargins = True
             Left = 294
@@ -122,7 +121,6 @@ inherited ViewNFEPesquisa: TViewNFEPesquisa
             Width = 154
             TabOrder = 2
             ExplicitLeft = 373
-            ExplicitTop = 24
             ExplicitWidth = 154
           end
           inherited btnFiltrar: TcxButton

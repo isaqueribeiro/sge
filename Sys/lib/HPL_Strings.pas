@@ -371,6 +371,8 @@ const
   BadMinCChar = ['ç'];
   BadNumOChar = ['º'];
   BadNumAChar = ['ª'];
+  BadMaiNChar = ['Ñ'];
+  BadMinNChar = ['ñ'];
   BadChar = ['´', '"', '`', '~', '^','¨'];
 var
   U: Char;
@@ -389,6 +391,8 @@ begin
   if (U in BadMinUChar) then U := 'u';
   if (U in BadMaiCChar) then U := 'C';
   if (U in BadMinCChar) then U := 'c';
+  if (U in BadMaiNChar) then U := 'N';
+  if (U in BadMinNChar) then U := 'n';
   if (U in BadChar) then U := #0;
   Result := U;
 end;

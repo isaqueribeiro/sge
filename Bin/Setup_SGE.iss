@@ -8,7 +8,7 @@
 ; https://i3sistema.com.br/crm/knowledge-base/article/tutorial-inno-setup
 
 #define MyAppName "SGE"
-#define MyAppVersion "SGE v1.0.31"
+#define MyAppVersion "SGE v1.0.32"
 #define MyAppPublisher "Agil Soluções em Softwares"
 #define MyAppURL "http://www.agilsotwares.com.br/"
 #define MyAppExeName "SGE.exe"

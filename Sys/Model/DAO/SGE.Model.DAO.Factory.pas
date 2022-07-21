@@ -30,13 +30,9 @@ uses
   SGE.Model.DAO.LogTransacao,
   SGE.Model.DAO.PlanoConta,
   SGE.Model.DAO.Produto,
-  {$IFDEF SGI}
   SGI.Model.DAO.ProdutoAlmoxarifado,
-  {$ENDIF}
   SGE.Model.DAO.Promocao,
-  {$IFDEF SGI}
   SGI.Model.DAO.RequisicaoAlmoxarifado,
-  {$ENDIF}
   SGE.Model.DAO.RequisicaoCompra,
   SGE.Model.DAO.Tabelas,
   SGE.Model.DAO.TipoDespesa,
@@ -116,9 +112,7 @@ type
       FPlanoContaNivel  ,
       FPlanoContaTipo   ,
       FProduto          ,
-      {$IFDEF SGI}
       FProdutoAlmoxarifado,
-      {$ENDIF}
       FPromocao         ,
       FPromocaoProduto  ,
       FSecaoProduto     ,
@@ -142,9 +136,7 @@ type
       FTipoReceita    ,
       FTipoReceitaPlanoConta,
       FTipoRegimeView,
-      {$IFDEF SGI}
       FTipoRequisicaoAlmoxView,
-      {$ENDIF}
       FTipoRequisicaoView,
       FTipoTributacao ,
       FTipoVeiculo    ,
@@ -226,9 +218,7 @@ type
       function PlanoContaNivel : IModelDAOCustom;
       function PlanoContaTipo : IModelDAOCustom;
       function Produto : IModelDAOCustom;
-      {$IFDEF SGI}
       function ProdutoAlmoxarifado : IModelDAOCustom;
-      {$ENDIF}
       function Promocao : IModelDAOCustom;
       function PromocaoProduto : IModelDAOCustom;
       function SecaoProduto : IModelDAOCustom;
@@ -252,9 +242,7 @@ type
       function TipoReceita : IModelDAOCustom;
       function TipoReceitaPlanoConta : IModelDAOCustom;
       function TipoRegimeView : IModelDAOCustom;
-      {$IFDEF SGI}
       function TipoRequisicaoAlmoxView : IModelDAOCustom;
-      {$ENDIF}
       function TipoRequisicaoView : IModelDAOCustom;
       function TipoTributacao : IModelDAOCustom;
       function TipoVeiculo : IModelDAOCustom;
@@ -357,7 +345,6 @@ begin
   Result := FProduto;
 end;
 
-{$IFDEF SGI}
 function TModelDAOFactory.ProdutoAlmoxarifado: IModelDAOCustom;
 begin
   if not Assigned(FProdutoAlmoxarifado) then
@@ -365,7 +352,6 @@ begin
 
   Result := FProdutoAlmoxarifado;
 end;
-{$ENDIF}
 
 function TModelDAOFactory.Promocao: IModelDAOCustom;
 begin
@@ -559,7 +545,6 @@ begin
   Result := FTipoRegimeView;
 end;
 
-{$IFDEF SGI}
 function TModelDAOFactory.TipoRequisicaoAlmoxView: IModelDAOCustom;
 begin
   if not Assigned(FTipoRequisicaoAlmoxView) then
@@ -567,7 +552,6 @@ begin
 
   Result := FTipoRequisicaoAlmoxView;
 end;
-{$ENDIF}
 
 function TModelDAOFactory.TipoRequisicaoView: IModelDAOCustom;
 begin

@@ -8,6 +8,10 @@ uses
 type
   IModelDAOQueryFactory = interface
     ['{DFF921EE-C08C-4349-9F6E-19FE5537945B}']
+    function ApropriacaoEstoqueGrupo : IModelDAOQueryApropriacaoEstoque;
+    function ApropriacaoEstoqueFabricante : IModelDAOQueryApropriacaoEstoque;
+    function ApropriacaoEstoqueProduto : IModelDAOQueryApropriacaoEstoque;
+    function ApropriacaoEstoqueTotal : IModelDAOQueryApropriacaoEstoque;
     function FornecedorCliente : IModelDAOQuery;
     function ContaAPagar : IModelDAOQuery;
   end;

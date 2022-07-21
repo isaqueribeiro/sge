@@ -79,6 +79,16 @@ type
     function Execute(aTipo : TTipoPesquisa; aFiltro : String) : IModelDAOQuery;
   end;
 
+  IModelDAOQueryApropriacaoEstoque = interface(IModelDAOQuery)
+    ['{917C3A82-4CE4-4D48-96B2-A5DA1E32A1B7}']
+    procedure CalcularPercentuais(const aValorReferencia : Currency);
+    function ApenasProdutoComEstoque(Value : Boolean) : IModelDAOQueryApropriacaoEstoque;
+    function SelecionarRegistro(Value : Boolean) : IModelDAOQueryApropriacaoEstoque;
+    function Grupo(Value : Integer) : IModelDAOQueryApropriacaoEstoque;
+    function Fabricante(Value : Integer) : IModelDAOQueryApropriacaoEstoque;
+    function ExecuteCustom(aTipo : TTipoPesquisa; aCentroCusto : Integer; aFiltro : String) : IModelDAOQueryApropriacaoEstoque;
+  end;
+
 //  IConfigureFields = interface
 //    ['{30A1F9D0-432D-4C7F-8FDF-58B7943F17F5}']
 //    function Table(aDataSet : TDataSet) : IConfigureFields;
@@ -159,9 +169,7 @@ type
     function PlanoContaNivel : IModelDAOCustom;
     function PlanoContaTipo : IModelDAOCustom;
     function Produto : IModelDAOCustom;
-    {$IFDEF SGI}
     function ProdutoAlmoxarifado : IModelDAOCustom;
-    {$ENDIF}
     function Promocao : IModelDAOCustom;
     function PromocaoProduto : IModelDAOCustom;
     function RequisicaoAlmoxarifado : IModelDAOCustom;
@@ -185,9 +193,7 @@ type
     function TipoReceita : IModelDAOCustom;
     function TipoReceitaPlanoConta : IModelDAOCustom;
     function TipoRegimeView : IModelDAOCustom;
-    {$IFDEF SGI}
     function TipoRequisicaoAlmoxView : IModelDAOCustom;
-    {$ENDIF}
     function TipoRequisicaoView : IModelDAOCustom;
     function TipoTributacao : IModelDAOCustom;
     function TipoVeiculo : IModelDAOCustom;

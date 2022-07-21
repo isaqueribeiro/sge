@@ -23,6 +23,7 @@ type
       class function New : IControllerRequisicaoAlmoxarifado;
 
       procedure CarregarProdutos;
+      procedure AjustarQuantidadeAtendidaDeProdutos;
 
       function Produtos : IControllerCustom;
   end;
@@ -50,6 +51,32 @@ type
 implementation
 
 { TControllerRequisicaoAlmoxarifado }
+
+procedure TControllerRequisicaoAlmoxarifado.AjustarQuantidadeAtendidaDeProdutos;
+begin
+  if Assigned(FProdutos) then
+  begin
+    FProdutos.DAO.DataSet.First;
+    while not FProdutos.DAO.DataSet.Eof do
+    begin
+      if (FProdutos.DAO.DataSet.FieldByName('STATUS').AsInteger in [STATUS_ITEM_REQUISICAO_ALMOX_PEN, STATUS_ITEM_REQUISICAO_ALMOX_AGU] ) then
+      begin
+        FProdutos.DAO.DataSet.Edit;
+
+        if (FProdutos.DAO.DataSet.FieldByName('DISPONIVEL_TMP').AsCurrency <= 0) then
+          FProdutos.DAO.DataSet.FieldByName('STATUS').AsInteger := STATUS_ITEM_REQUISICAO_ALMOX_AGU
+        else
+        if (FProdutos.DAO.DataSet.FieldByName('QTDE').AsCurrency > FProdutos.DAO.DataSet.FieldByName('DISPONIVEL_TMP').AsCurrency) then
+          FProdutos.DAO.DataSet.FieldByName('QTDE_ATENDIDA').AsCurrency := FProdutos.DAO.DataSet.FieldByName('DISPONIVEL_TMP').AsCurrency
+        else
+          FProdutos.DAO.DataSet.FieldByName('QTDE_ATENDIDA').AsCurrency := FProdutos.DAO.DataSet.FieldByName('QTDE').AsCurrency;
+
+        FProdutos.DAO.DataSet.Post;
+      end;
+      FProdutos.DAO.DataSet.Next;
+    end;
+  end;
+end;
 
 procedure TControllerRequisicaoAlmoxarifado.CarregarProdutos;
 begin

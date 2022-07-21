@@ -383,8 +383,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="UGeApropriacaoEstoqueCancelar.pas">
             <Form>frmGeApropriacaoEstoqueCancelar</Form>
         </DCCReference>
-        <DCCReference Include="UGeApropriacaoEstoquePesquisa.pas">
-            <Form>frmGeApropriacaoEstoquePesquisa</Form>
+        <DCCReference Include="View\Query\View.Query.ApropriacaoEstoque.pas">
+            <Form>ViewQueryApropriacaoEstoque</Form>
         </DCCReference>
         <DCCReference Include="UGeRequisicaoAlmox.pas">
             <Form>frmGeRequisicaoAlmox</Form>
@@ -757,6 +757,16 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="Model\DAO\SGI.Model.DAO.ProdutoAlmoxarifado.pas"/>
         <DCCReference Include="Controller\SGI.Controller.ProdutoAlmoxarifado.pas"/>
+        <DCCReference Include="View\View.RequisicaoAlmox.Cancelar.pas">
+            <Form>ViewRequisicaoAlmoxCancelar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UGeApropriacaoEstoquePesquisa.pas">
+            <Form>frmGeApropriacaoEstoquePesquisa</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Model\DAO\Query\SGI.Model.DAO.Query.ApropriacaoEstoque.pas"/>
+        <DCCReference Include="Controller\Query\SGI.Controller.Query.ApropriacaoEstoque.pas"/>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>

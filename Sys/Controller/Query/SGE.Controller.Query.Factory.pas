@@ -11,6 +11,12 @@ type
     strict private
       class var _instance : IControllerQueryFactory;
     private
+      {$IFDEF SGI}
+      FApropriacaoEstoqueGrupo     ,
+      FApropriacaoEstoqueFabricante,
+      FApropriacaoEstoqueProduto   ,
+      FApropriacaoEstoqueTotal     : IControllerQuery;
+      {$ENDIF}
       FFornecedorCliente,
       FContaAPagar      : IControllerQuery;
     protected
@@ -19,8 +25,14 @@ type
       destructor Destroy; override;
       class function Instance : IControllerQueryFactory;
 
-      function FornecedorCliente : IControllerQuery;
+      {$IFDEF SGI}
+      function ApropriacaoEstoqueGrupo : IControllerQuery;
+      function ApropriacaoEstoqueFabricante : IControllerQuery;
+      function ApropriacaoEstoqueProduto : IControllerQuery;
+      function ApropriacaoEstoqueTotal : IControllerQuery;
+      {$ENDIF}
       function ContaAPagar : IControllerQuery;
+      function FornecedorCliente : IControllerQuery;
   end;
 
 implementation
@@ -28,6 +40,9 @@ implementation
 { TControllerQueryFactory }
 
 uses
+  {$IFDEF SGI}
+  SGI.Controller.Query.ApropriacaoEstoque,
+  {$ENDIF}
   SGE.Controller.Query.FornecedorCliente,
   SGE.Controller.Query.ContaAPagar;
 
@@ -48,6 +63,41 @@ begin
 
   Result := _instance;
 end;
+
+{$IFDEF SGI}
+
+function TControllerQueryFactory.ApropriacaoEstoqueFabricante: IControllerQuery;
+begin
+  if not Assigned(FApropriacaoEstoqueFabricante) then
+    FApropriacaoEstoqueFabricante := TControllerQueryApropriacaoEstoqueFabricante.New;
+
+  Result := FApropriacaoEstoqueFabricante;
+end;
+
+function TControllerQueryFactory.ApropriacaoEstoqueGrupo: IControllerQuery;
+begin
+  if not Assigned(FApropriacaoEstoqueGrupo) then
+    FApropriacaoEstoqueGrupo := TControllerQueryApropriacaoEstoqueGrupo.New;
+
+  Result := FApropriacaoEstoqueGrupo;
+end;
+function TControllerQueryFactory.ApropriacaoEstoqueProduto: IControllerQuery;
+begin
+  if not Assigned(FApropriacaoEstoqueProduto) then
+    FApropriacaoEstoqueProduto := TControllerQueryApropriacaoEstoqueProduto.New;
+
+  Result := FApropriacaoEstoqueProduto;
+end;
+
+function TControllerQueryFactory.ApropriacaoEstoqueTotal: IControllerQuery;
+begin
+  if not Assigned(FApropriacaoEstoqueTotal) then
+    FApropriacaoEstoqueTotal := TControllerQueryApropriacaoEstoqueTotal.New;
+
+  Result := FApropriacaoEstoqueTotal;
+end;
+
+{$ENDIF}
 
 function TControllerQueryFactory.ContaAPagar: IControllerQuery;
 begin

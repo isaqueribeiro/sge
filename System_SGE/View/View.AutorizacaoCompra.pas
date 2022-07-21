@@ -1141,11 +1141,9 @@ begin
 
       inherited;
 
+      // Salvar Itens da Base
       if (not OcorreuErro) then
       begin
-
-        // Salvar Itens da Base
-
         if (DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert]) then
           DtSrcTabelaItens.DataSet.Post;
 

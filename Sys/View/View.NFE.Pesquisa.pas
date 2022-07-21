@@ -40,6 +40,7 @@ uses
   cxLookAndFeelPainters,
   dxSkinsCore,
   cxButtons,
+  dxSkinsDefaultPainters,
 
   View.PadraoCadastro,
   SGE.Controller.Interfaces,
@@ -47,7 +48,7 @@ uses
   UGrPadraoCadastro,
   Interacao.Tabela,
   Controller.Tabela,
-  UConstantesDGE, dxSkinsDefaultPainters;
+  UConstantesDGE;
 
 type
   TDestinatarioTipo = (dtNull = -1, dtFornecedor = 0, dtCliente = 1);

@@ -184,9 +184,6 @@ type
     procedure fdQryTabelaBeforePost(DataSet: TDataSet);
     procedure fdQryTabelaTIPOGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure fdQryTabelaSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
-    procedure cdsTabelaItensCalcFields(DataSet: TDataSet);
-    procedure cdsTabelaItensNewRecord(DataSet: TDataSet);
-    procedure cdsTabelaItensSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure fdQryTabelaINSERCAO_DATAGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure ControllerAfterScroll(DataSet: TDataSet);
   private
@@ -207,7 +204,7 @@ type
     procedure RecarregarRegistro;
     procedure ValidarToTais(var Total_Custo : Currency);
 
-    function Controller : IControllerAutorizacaoCompra;
+    function Controller : IControllerRequisicaoAlmoxarifado;
     function Produtos : IControllerCustom;
     function Empresa : IControllerEmpresa;
 
@@ -262,6 +259,7 @@ uses
   , RTLConsts
   , UDMRecursos
   , UDMBusiness
+  , UDMNFe
   , SGE.Controller.Factory
   , SGE.Controller
   , SGE.Controller.Helper
@@ -269,11 +267,10 @@ uses
   , View.Fornecedor
   , View.Produto
   , UGrUsuario
-  , UGeRequisicaoAlmoxCancelar
-//  , View.AutorizacaoCompra.Cancelar
+  , View.RequisicaoAlmox.Cancelar
   , View.Cliente
   , View.CentroCusto
-  , UGeApropriacaoEstoquePesquisa;
+  , View.Query.ApropriacaoEstoque;
 
 {$R *.dfm}
 
@@ -501,10 +498,10 @@ end;
 procedure TViewRequisicaoAlmox.HabilitarDesabilitar_Btns;
 begin
   with DtSrcTabela.DataSet do
-    if ( pgcGuias.ActivePage = tbsCadastro ) then
+    if (pgcGuias.ActivePage = tbsCadastro ) then
     begin
-      btnFinalizarLancamento.Enabled := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_EDC, STATUS_REQUISICAO_ALMOX_ABR]) and (not cdsTabelaItens.IsEmpty);
-      btnEnviarRequisicao.Enabled    := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger = STATUS_REQUISICAO_ALMOX_ABR) and (not cdsTabelaItens.IsEmpty);
+      btnFinalizarLancamento.Enabled := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_EDC, STATUS_REQUISICAO_ALMOX_ABR]) and (not DtSrcTabelaItens.DataSet.IsEmpty);
+      btnEnviarRequisicao.Enabled    := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger = STATUS_REQUISICAO_ALMOX_ABR) and (not DtSrcTabelaItens.DataSet.IsEmpty);
       btnCancelarRequisicao.Enabled  := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]);
 
       nmImprimirRequisicaoAlmox.Enabled := (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]);
@@ -595,8 +592,8 @@ begin
     else
     begin
       inherited;
-      if ( not OcorreuErro ) then
-        AbrirTabelaItens( FieldByName('ANO').AsInteger, FieldByName('CONTROLE').AsInteger );
+      if (not OcorreuErro) then
+        AbrirTabelaItens;
     end;
 end;
 
@@ -662,30 +659,30 @@ procedure TViewRequisicaoAlmox.btnProdutoSalvarClick(Sender: TObject);
 
     Total_Custo := 0.0;
 
-    cdsTabelaItens.First;
+    DtSrcTabelaItens.DataSet.First;
 
-    while not cdsTabelaItens.Eof do
+    while not DtSrcTabelaItens.DataSet.Eof do
     begin
-      Total_Custo := Total_Custo + cdsTabelaItensTOTAL.AsCurrency;
+      Total_Custo := Total_Custo + DtSrcTabelaItens.DataSet.FieldByName('TOTAL').AsCurrency;
 
-      cdsTabelaItens.Next;
+      DtSrcTabelaItens.DataSet.Next;
     end;
 
-    cdsTabelaItens.Locate('ITEM', Item, []);
+    DtSrcTabelaItens.DataSet.Locate('ITEM', Item, []);
   end;
 
 var
   cTotalCusto : Currency;
 begin
-  if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] ) then
   begin
-    if ( Trim(cdsTabelaItensPRODUTO.AsString) = EmptyStr ) then
+    if ( Trim(DtSrcTabelaItens.DataSet.FieldByName('PRODUTO').AsString) = EmptyStr ) then
     begin
       ShowWarning('Favor informar o código do produto.');
       dbProduto.SetFocus;
     end
     else
-    if ( cdsTabelaItensQTDE.AsCurrency < 0 ) then
+    if ( DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency < 0 ) then
     begin
       ShowWarning('Quantidade inválida.');
       dbQtde.SetFocus;
@@ -693,7 +690,7 @@ begin
     else
     begin
 
-      cdsTabelaItens.Post;
+      DtSrcTabelaItens.DataSet.Post;
 
       GetToTais(cTotalCusto);
 
@@ -713,18 +710,18 @@ procedure TViewRequisicaoAlmox.btnEnviarRequisicaoClick(
     Return : Boolean;
   begin
     try
-      cdsTabelaItens.First;
-      cdsTabelaItens.DisableControls;
-      while not cdsTabelaItens.Eof do
+      DtSrcTabelaItens.DataSet.First;
+      DtSrcTabelaItens.DataSet.DisableControls;
+      while not DtSrcTabelaItens.DataSet.Eof do
       begin
-        Return := (cdsTabelaItensQTDE.AsCurrency > (cdsTabelaItensQTDE.AsCurrency + cdsTabelaItensDISPONIVEL.AsCurrency));
+        Return := (DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency > (DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency + DtSrcTabelaItens.DataSet.FieldByName('DISPONIVEL').AsCurrency));
 
         if ( Return ) then
           Break;
-        cdsTabelaItens.Next;
+        DtSrcTabelaItens.DataSet.Next;
       end;
     finally
-      cdsTabelaItens.EnableControls;
+      DtSrcTabelaItens.DataSet.EnableControls;
       Result := Return;
     end;
   end;
@@ -790,7 +787,7 @@ begin
   with DtSrcTabela.DataSet do
   begin
     dbCentroCustoRequisitante.Button.Enabled := (State in [dsEdit, dsInsert]);
-    dbCentroCustoAtendente.Button.Enabled    := (State in [dsEdit, dsInsert]) and (cdsTabelaItens.RecordCount = 0);
+    dbCentroCustoAtendente.Button.Enabled    := (State in [dsEdit, dsInsert]) and (DtSrcTabelaItens.DataSet.RecordCount = 0);
 
     DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (FieldByName('STATUS').AsInteger < STATUS_REQUISICAO_ALMOX_ENV);
     DtSrcTabelaItensStateChange( DtSrcTabelaItens );
@@ -875,16 +872,16 @@ end;
 procedure TViewRequisicaoAlmox.DtSrcTabelaItensStateChange(
   Sender: TObject);
 begin
-  dbCentroCustoAtendente.Button.Enabled := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) and (cdsTabelaItens.RecordCount = 0);
+  dbCentroCustoAtendente.Button.Enabled := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) and (DtSrcTabelaItens.DataSet.RecordCount = 0);
 
-  btnProdutoInserir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) );
-  btnProdutoEditar.Enabled  := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
-  btnProdutoExcluir.Enabled := ( DtSrcTabelaItens.AutoEdit and (cdsTabelaItens.State = dsBrowse) and (not cdsTabelaItens.IsEmpty) );
-  btnProdutoSalvar.Enabled  := ( cdsTabelaItens.State in [dsEdit, dsInsert] );
+  btnProdutoInserir.Enabled := ( DtSrcTabelaItens.AutoEdit and (DtSrcTabelaItens.DataSet.State = dsBrowse) );
+  btnProdutoEditar.Enabled  := ( DtSrcTabelaItens.AutoEdit and (DtSrcTabelaItens.DataSet.State = dsBrowse) and (not DtSrcTabelaItens.DataSet.IsEmpty) );
+  btnProdutoExcluir.Enabled := ( DtSrcTabelaItens.AutoEdit and (DtSrcTabelaItens.DataSet.State = dsBrowse) and (not DtSrcTabelaItens.DataSet.IsEmpty) );
+  btnProdutoSalvar.Enabled  := ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] );
 
-  dbgProdutos.Enabled       := not (cdsTabelaItens.State in [dsEdit, dsInsert]);
+  dbgProdutos.Enabled       := not (DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert]);
 
-  if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+  if ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] ) then
     if ( dbProduto.Visible and dbProduto.Enabled ) then
       dbProduto.SetFocus;
 end;
@@ -933,22 +930,22 @@ begin
     begin
       if not IsEmpty then
       begin
-        cdsTabelaItensPRODUTO.AsString             := FieldByName('cod').AsString;
-        cdsTabelaItensDESCRI_APRESENTACAO.AsString := FieldByName('descri_apresentacao').AsString;
-        cdsTabelaItensUNP_SIGLA.AsString           := FieldByName('Unp_sigla').AsString;
-        cdsTabelaItensLOTE_ATENDIMENTO.AsString    := FieldByName('lote_id').AsString;
-        cdsTabelaItensFRACIONADOR.AsCurrency       := FieldByName('fracionador').AsCurrency;
-        cdsTabelaItensESTOQUE.AsCurrency           := FieldByName('estoque').AsCurrency;
-        cdsTabelaItensRESERVA.AsCurrency           := FieldByName('reserva').AsCurrency;
-        cdsTabelaItensDISPONIVEL.AsCurrency        := FieldByName('disponivel').AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('PRODUTO').AsString             := FieldByName('cod').AsString;
+        DtSrcTabelaItens.DataSet.FieldByName('DESCRI_APRESENTACAO').AsString := FieldByName('descri_apresentacao').AsString;
+        DtSrcTabelaItens.DataSet.FieldByName('UNP_SIGLA').AsString           := FieldByName('Unp_sigla').AsString;
+        DtSrcTabelaItens.DataSet.FieldByName('LOTE_ATENDIMENTO').AsString    := FieldByName('lote_id').AsString;
+        DtSrcTabelaItens.DataSet.FieldByName('FRACIONADOR').AsCurrency       := FieldByName('fracionador').AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('ESTOQUE').AsCurrency           := FieldByName('estoque').AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('RESERVA').AsCurrency           := FieldByName('reserva').AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('DISPONIVEL').AsCurrency        := FieldByName('disponivel').AsCurrency;
 
         if ( FieldByName('codunidade_fracionada').AsInteger > 0 ) then
-          cdsTabelaItensUNIDADE.AsInteger := FieldByName('codunidade_fracionada').AsInteger;
+          DtSrcTabelaItens.DataSet.FieldByName('UNIDADE').AsInteger := FieldByName('codunidade_fracionada').AsInteger;
       end
       else
       begin
         TServiceMessage.ShowWarning('Código de produto não associado ao estoque do centro de custo ' + QuotedStr(dbCentroCustoAtendente.Text) + '!');
-        cdsTabelaItensPRODUTO.Clear;
+        DtSrcTabelaItens.DataSet.FieldByName('PRODUTO').Clear;
         if ( dbProduto.Visible and dbProduto.Enabled ) then
           dbProduto.SetFocus;
       end;
@@ -961,7 +958,7 @@ var
   iCodigo   : Integer;
   sControle : String;
 begin
-  if ( cdsTabelaItens.IsEmpty ) then
+  if ( DtSrcTabelaItens.DataSet.IsEmpty ) then
     ShowWarning('Favor informar o(s) produto(s) da requisição.')
   else
   if ( btnProdutoSalvar.Enabled ) then
@@ -986,23 +983,22 @@ begin
       FieldByName('MOTIVO').AsString  := AnsiUpperCase(FieldByName('MOTIVO').AsString.Trim);
       FieldByName('OBS').AsString     := AnsiUpperCase(FieldByName('OBS').AsString.Trim);
 
-      if ( cdsTabelaItens.RecordCount > 0 ) then
-        FieldByName('ITENS').AsInteger := cdsTabelaItens.RecordCount
+      if ( DtSrcTabelaItens.DataSet.RecordCount > 0 ) then
+        FieldByName('ITENS').AsInteger := DtSrcTabelaItens.DataSet.RecordCount
       else
         FieldByName('ITENS').Clear;
 
       inherited;
 
-      if ( not OcorreuErro ) then
+      // Salvar Itens da Base
+      if (not OcorreuErro) then
       begin
+        if (DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert]) then
+          DtSrcTabelaItens.DataSet.Post;
 
-        // Salvar Itens da Base
-
-        if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-          cdsTabelaItens.Post;
-
-        cdsTabelaItens.ApplyUpdates;
-        cdsTabelaItens.CommitUpdates;
+        Produtos.DAO.ApplyUpdates;
+        Produtos.DAO.CommitUpdates;
+        Produtos.DAO.CommitTransaction;
 
         RecarregarRegistro;
         AbrirTabelaItens;
@@ -1017,19 +1013,21 @@ procedure TViewRequisicaoAlmox.ControlEditExit(Sender: TObject);
 begin
   inherited;
   if ( Sender = dbProduto ) then
-    if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-      CarregarDadosProduto( StrToIntDef(cdsTabelaItensPRODUTO.AsString, 0) );
+    if ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] ) then
+      CarregarDadosProduto( StrToIntDef(DtSrcTabelaItens.DataSet.FieldByName('PRODUTO').AsString, 0) );
 
   if ( (Sender = dbQtde) or (Sender = dbCustoUn) ) then
-    if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
-      cdsTabelaItensTOTAL.AsCurrency := cdsTabelaItensQTDE.AsCurrency * cdsTabelaItensCUSTO.AsCurrency;
+    if ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] ) then
+      DtSrcTabelaItens.DataSet.FieldByName('TOTAL').AsCurrency :=
+        DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency *
+        DtSrcTabelaItens.DataSet.FieldByName('CUSTO').AsCurrency;
 
   if ( Sender = dbCustoTotal ) then
     if ( btnProdutoSalvar.Visible and btnProdutoSalvar.Enabled ) then
       btnProdutoSalvar.SetFocus;
 end;
 
-function TViewRequisicaoAlmox.Controller: IControllerAutorizacaoCompra;
+function TViewRequisicaoAlmox.Controller: IControllerRequisicaoAlmoxarifado;
 begin
   Result := (FController as IControllerRequisicaoAlmoxarifado);
 end;
@@ -1050,24 +1048,20 @@ procedure TViewRequisicaoAlmox.dbgDadosDrawColumnCell(Sender: TObject;
   State: TGridDrawState);
 begin
   inherited;
-  if ( Sender = dbgDados ) then
+  if (Sender = dbgDados) then
   begin
     if (not DtSrcTabela.DataSet.FieldByName('STATUS').IsNull) then
       // Destacar requisição em edição
       if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_REQUISICAO_ALMOX_EDC ) then
-        dbgDados.Canvas.Brush.Color := lblRequisicaoEmEdicao.Color
+        dbgDados.Canvas.Brush.Color := shpOperacaoEditando.Brush.Color
       else
       // Destacar requisição aberta
       if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_REQUISICAO_ALMOX_ABR ) then
-        dbgDados.Canvas.Font.Color := lblRequisicaoAberta.Font.Color
-      else
-      // Destacar requisição enviada e/ou recebida
-      if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC] ) then
-        dbgDados.Canvas.Font.Color := lblRequisicaoRecebida.Font.Color
+        dbgDados.Canvas.Font.Color := shpOperacaoAberta.Brush.Color
       else
       // Destacar requisição cancelada
       if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_REQUISICAO_ALMOX_CAN ) then
-        dbgDados.Canvas.Font.Color := lblRequisicaoCancelada.Font.Color;
+        dbgDados.Canvas.Font.Color := shpOperacaoCancelada.Brush.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end
@@ -1075,8 +1069,8 @@ begin
   // Destacar produtos não cancelados e/ou não atendidos
   if ( Sender = dbgProdutos ) then
   begin
-    if ( (cdsTabelaItensSTATUS.AsInteger = STATUS_ITEM_REQUISICAO_ALMOX_CAN) or (cdsTabelaItensQTDE_ATENDIDA.AsCurrency = 0) ) then
-      dbgProdutos.Canvas.Font.Color := lblRequisicaoCancelada.Font.Color;
+    if ((DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_ITEM_REQUISICAO_ALMOX_CAN) or (DtSrcTabela.DataSet.FieldByName('QTDE_ATENDIDA').AsCurrency = 0)) then
+      dbgProdutos.Canvas.Font.Color := shpOperacaoCancelada.Brush.Color;
 
     dbgProdutos.DefaultDrawDataCell(Rect, dbgProdutos.Columns[DataCol].Field, State);
   end;
@@ -1107,7 +1101,7 @@ begin
     dbCentroCustoAtendente.SetFocus;
   end
   else
-  if ( dbProduto.Button.Enabled and (cdsTabelaItens.State in [dsEdit, dsInsert]) ) then
+  if (dbProduto.Button.Enabled and (DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert])) then
   begin
 
     cEstoque    := 0.0;
@@ -1126,18 +1120,18 @@ begin
       , cReserva
       , cDisponivel);
 
-    if ( bSelecionado ) then
+    if bSelecionado then
     begin
-      cdsTabelaItensPRODUTO.AsString             := sProdutoID;
-      cdsTabelaItensLOTE_ATENDIMENTO.AsString    := sLoteID;
-      cdsTabelaItensDESCRI_APRESENTACAO.AsString := sProdutoDescricao;
-      cdsTabelaItensUNP_SIGLA.AsString           := sUnidade;
-      cdsTabelaItensESTOQUE.AsCurrency           := cEstoque;
-      cdsTabelaItensRESERVA.AsCurrency           := cReserva;
-      cdsTabelaItensDISPONIVEL.AsCurrency        := cDisponivel;
+      DtSrcTabelaItens.DataSet.FieldByName('PRODUTO').AsString             := sProdutoID;
+      DtSrcTabelaItens.DataSet.FieldByName('LOTE_ATENDIMENTO').AsString    := sLoteID;
+      DtSrcTabelaItens.DataSet.FieldByName('DESCRI_APRESENTACAO').AsString := sProdutoDescricao;
+      DtSrcTabelaItens.DataSet.FieldByName('UNP_SIGLA').AsString           := sUnidade;
+      DtSrcTabelaItens.DataSet.FieldByName('ESTOQUE').AsCurrency           := cEstoque;
+      DtSrcTabelaItens.DataSet.FieldByName('RESERVA').AsCurrency           := cReserva;
+      DtSrcTabelaItens.DataSet.FieldByName('DISPONIVEL').AsCurrency        := cDisponivel;
 
-      if ( iUnidade > 0 ) then
-        cdsTabelaItensUNIDADE.AsInteger := iUnidade;
+      if (iUnidade > 0) then
+        DtSrcTabelaItens.DataSet.FieldByName('UNIDADE').AsInteger := iUnidade;
     end;
 
   end;
@@ -1146,7 +1140,7 @@ end;
 procedure TViewRequisicaoAlmox.nmImprimirRequisicaoAlmoxClick(
   Sender: TObject);
 begin
-  if ( DtSrcTabela.DataSet.IsEmpty ) then
+  if DtSrcTabela.DataSet.IsEmpty then
     Exit;
 
   with DMNFe do
@@ -1209,7 +1203,7 @@ begin
     if not (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]) then
       ShowInformation('Apenas registros enviados, recebidos e/ou atendidos podem ser cancelados!')
     else
-    if ( CancelarRequisicaoAlmox(Self, FieldByName('ANO').AsInteger, FieldByName('CONTROLE').AsInteger) ) then
+    if CancelarRequisicaoAlmox(Self, FieldByName('ANO').AsInteger, FieldByName('CONTROLE').AsInteger) then
     begin
       RecarregarRegistro;
 
@@ -1230,20 +1224,20 @@ procedure TViewRequisicaoAlmox.btnFinalizarLancamentoClick(
     Return : Boolean;
   begin
     try
-
-      cdsTabelaItens.First;
-      cdsTabelaItens.DisableControls;
-      while not cdsTabelaItens.Eof do
+      DtSrcTabelaItens.DataSet.First;
+      DtSrcTabelaItens.DataSet.DisableControls;
+      while not DtSrcTabelaItens.DataSet.Eof do
       begin
-        Return := (cdsTabelaItensQTDE.AsCurrency > (cdsTabelaItensQTDE.AsCurrency + cdsTabelaItensDISPONIVEL.AsCurrency));
+        Return := (DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency > (DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency + DtSrcTabelaItens.DataSet.FieldByName('DISPONIVEL').AsCurrency));
 
-        if ( Return ) then
+        if Return then
           Break;
-        cdsTabelaItens.Next;
+
+        DtSrcTabelaItens.DataSet.Next;
       end;
 
     finally
-      cdsTabelaItens.EnableControls;
+      DtSrcTabelaItens.DataSet.EnableControls;
       Result := Return;
     end;
   end;
@@ -1296,12 +1290,10 @@ begin
       if (FieldByName('REQUISITANTE').AsString.Trim() = EmptyStr) then
         FieldByName('REQUISITANTE').AsString := gUsuarioLogado.Login;
 
-      fdQryTabela.Post;
-      fdQryTabela.ApplyUpdates;
-      fdQryTabela.CommitUpdates;
-
-      CommitTransaction;
-
+      DtSrcTabela.DataSet.Post;
+      FController.DAO.ApplyUpdates;
+      FController.DAO.CommitUpdates;
+      FController.DAO.CommitTransaction;
 
       if GetUserManifestoAutomatico then
       begin
@@ -1330,9 +1322,9 @@ end;
 procedure TViewRequisicaoAlmox.DtSrcTabelaItensDataChange(
   Sender: TObject; Field: TField);
 begin
-  if (cdsTabelaItens.State in [dsEdit, dsInsert]) then
-    if ( (Field = cdsTabelaItensQTDE) or (Field = cdsTabelaItensCUSTO) ) then
-      cdsTabelaItensTOTAL.AsCurrency := cdsTabelaItensQTDE.AsCurrency * cdsTabelaItensCUSTO.AsCurrency;
+  if (DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert]) then
+    if ( (Field = DtSrcTabelaItens.DataSet.FieldByName('QTDE')) or (Field = DtSrcTabelaItens.DataSet.FieldByName('CUSTO')) ) then
+      DtSrcTabelaItens.DataSet.FieldByName('TOTAL').AsCurrency := DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency * DtSrcTabelaItens.DataSet.FieldByName('CUSTO').AsCurrency;
 end;
 
 procedure TViewRequisicaoAlmox.FormKeyDown(Sender: TObject;
@@ -1355,9 +1347,8 @@ begin
         { DONE -oIsaque -cRequsição de Materiais : 13/01/2015 - Verificar a Data da Requisição }
 
         if dbDataEmissao.Focused then
-          if ( dbDataEmissao.Date > GetDateTimeDB ) then
-              ShowWarning('A Data de emissão da requisição está maior que a data atual do sistema.' + #13#13 + 'Favor confirmar!');
-
+          if (dbDataEmissao.Date > GetDateTimeDB) then
+            ShowWarning('A Data de emissão da requisição está maior que a data atual do sistema.' + #13#13 + 'Favor confirmar!');
       end;
 
   end
@@ -1367,7 +1358,7 @@ begin
 
     with DtSrcTabela.DataSet do
     begin
-      if ( State in [dsInsert] ) then
+      if (State in [dsInsert]) then
         if ( dbCentroCustoRequisitante.Focused ) then
         begin
           FieldByName('CCUSTO_ORIGEM').Clear;
@@ -1387,7 +1378,7 @@ begin
 
   end;
 
-  inherited;  
+  inherited;
 end;
 
 procedure TViewRequisicaoAlmox.MontarFiltrosAdcionais;
@@ -1422,58 +1413,37 @@ procedure TViewRequisicaoAlmox.GerarManifestoAutomatico;
 var
   bAtendido : Boolean;
 begin
+  bAtendido := False;
+  DtSrcTabelaItens.DataSet.DisableControls;
   try
-    cdsTabelaItens.First;
-    cdsTabelaItens.DisableControls;
-
-    // Definir a quantidade a ser atendida
-    while not cdsTabelaItens.Eof do
-    begin
-      if ( cdsTabelaItensSTATUS.AsInteger in [STATUS_ITEM_REQUISICAO_ALMOX_PEN, STATUS_ITEM_REQUISICAO_ALMOX_AGU] ) then
-      begin
-        cdsTabelaItens.Edit;
-
-        if (cdsTabelaItensDISPONIVEL_TMP.AsCurrency <= 0) then
-          cdsTabelaItensSTATUS.AsInteger := STATUS_ITEM_REQUISICAO_ALMOX_AGU
-        else
-        if (cdsTabelaItensQTDE.AsCurrency > cdsTabelaItensDISPONIVEL_TMP.AsCurrency) then
-          cdsTabelaItensQTDE_ATENDIDA.AsCurrency := cdsTabelaItensDISPONIVEL_TMP.AsCurrency
-        else
-          cdsTabelaItensQTDE_ATENDIDA.AsCurrency := cdsTabelaItensQTDE.AsCurrency;
-
-        cdsTabelaItens.Post;
-      end;
-
-      cdsTabelaItens.Next;
-    end;
-
-    bAtendido := False;
-    cdsTabelaItens.First;
+    Controller.AjustarQuantidadeAtendidaDeProdutos;
+    DtSrcTabelaItens.DataSet.First;
 
     // Mudar o status dos materia/produtos para Atendidos
-    while not cdsTabelaItens.Eof do
+    while not DtSrcTabelaItens.DataSet.Eof do
     begin
-      if (cdsTabelaItensQTDE_ATENDIDA.AsCurrency > 0) then
+      if (DtSrcTabelaItens.DataSet.FieldByName('QTDE_ATENDIDA').AsCurrency > 0) then
       begin
-        cdsTabelaItens.Edit;
-        cdsTabelaItensSTATUS.AsInteger := STATUS_ITEM_REQUISICAO_ALMOX_ATE;
-        cdsTabelaItens.Post;
+        DtSrcTabelaItens.DataSet.Edit;
+        DtSrcTabelaItens.DataSet.FieldByName('STATUS').AsInteger := STATUS_ITEM_REQUISICAO_ALMOX_ATE;
+        DtSrcTabelaItens.DataSet.Post;
 
         if not bAtendido then
           bAtendido := True;
       end;
 
-      cdsTabelaItens.Next;
+      DtSrcTabelaItens.DataSet.Next;
     end;
 
-    cdsTabelaItens.EnableControls;
-    cdsTabelaItens.First;
+    DtSrcTabelaItens.DataSet.EnableControls;
+    DtSrcTabelaItens.DataSet.First;
 
     // Postar na base os atendimentos
     if bAtendido then
     begin
-      cdsTabelaItens.ApplyUpdates;
-      cdsTabelaItens.CommitUpdates;
+      Produtos.DAO.ApplyUpdates;
+      Produtos.DAO.CommitUpdates;
+      Produtos.DAO.CommitTransaction;
 
       with DtSrcTabela.DataSet do
       begin
@@ -1484,11 +1454,10 @@ begin
         FieldByName('ATENDIMENTO_USUARIO').AsString := gUsuarioLogado.Login;
         FieldByName('ATENDIMENTO_DATA').AsDateTime  := GetDateTimeDB;
 
-        fdQryTabela.Post;
-        fdQryTabela.ApplyUpdates;
-        fdQryTabela.CommitUpdates;
-
-        CommitTransaction;
+        DtSrcTabela.DataSet.Post;
+        FController.DAO.ApplyUpdates;
+        FController.DAO.CommitUpdates;
+        FController.DAO.CommitTransaction;
 
         ExecuteScriptSQL('Execute Procedure SET_REQUISICAO_ALMOX_CUSTO(' +
           FieldByName('ANO').AsString + ', ' +
@@ -1497,7 +1466,7 @@ begin
       end;
     end;
   finally
-    cdsTabelaItens.EnableControls;
+    DtSrcTabelaItens.DataSet.EnableControls;
   end;
 end;
 
@@ -1562,20 +1531,19 @@ begin
 
   Total_Custo := 0.0;
 
-  cdsTabelaItens.First;
+  DtSrcTabelaItens.DataSet.First;
 
   try
-    cdsTabelaItens.DisableControls;
-    while not cdsTabelaItens.Eof do
+    DtSrcTabelaItens.DataSet.DisableControls;
+    while not DtSrcTabelaItens.DataSet.Eof do
     begin
-      Total_Custo := Total_Custo + cdsTabelaItensTOTAL.AsCurrency;
+      Total_Custo := Total_Custo + DtSrcTabelaItens.DataSet.FieldByName('TOTAL').AsCurrency;
 
-      cdsTabelaItens.Next;
+      DtSrcTabelaItens.DataSet.Next;
     end;
-
   finally
-    cdsTabelaItens.Locate('ITEM', Item, []);
-    cdsTabelaItens.EnableControls;
+    DtSrcTabelaItens.DataSet.Locate('ITEM', Item, []);
+    DtSrcTabelaItens.DataSet.EnableControls;
   end;
 end;
 
@@ -1629,79 +1597,38 @@ begin
   end;
 end;
 
-procedure TViewRequisicaoAlmox.cdsTabelaItensCalcFields(DataSet: TDataSet);
-begin
-  if ( cdsTabelaItensSTATUS.AsInteger in [STATUS_ITEM_REQUISICAO_ALMOX_PEN, STATUS_ITEM_REQUISICAO_ALMOX_AGU] ) then
-    cdsTabelaItensDISPONIVEL_TMP.AsCurrency := (cdsTabelaItensDISPONIVEL.AsCurrency + cdsTabelaItensQTDE.AsCurrency)
-  else
-    cdsTabelaItensDISPONIVEL_TMP.AsCurrency := cdsTabelaItensDISPONIVEL.AsCurrency;
-end;
-
-procedure TViewRequisicaoAlmox.cdsTabelaItensNewRecord(DataSet: TDataSet);
-begin
-  cdsTabelaItensANO.AsInteger      := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
-  cdsTabelaItensCONTROLE.AsInteger := DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger;
-  cdsTabelaItensQTDE.Value     := 1;
-  cdsTabelaItensQTDE_ATENDIDA.Value := 0.0;
-  cdsTabelaItensSTATUS.Value        := STATUS_ITEM_REQUISICAO_ALMOX_PEN;
-  cdsTabelaItensCUSTO.AsCurrency := 0.0;
-  cdsTabelaItensTOTAL.AsCurrency := 0.0;
-  cdsTabelaItensPRODUTO.Clear;
-  cdsTabelaItensDESCRI_APRESENTACAO.Clear;
-  cdsTabelaItensUNIDADE.Clear;
-  cdsTabelaItensUNP_SIGLA.Clear;
-  cdsTabelaItensESTOQUE.Clear;
-  cdsTabelaItensRESERVA.Clear;
-  cdsTabelaItensDISPONIVEL.Clear;
-end;
-
-procedure TViewRequisicaoAlmox.cdsTabelaItensSTATUSGetText(Sender: TField; var Text: string;
-  DisplayText: Boolean);
-begin
-  if ( Sender.IsNull ) then
-    Exit;
-
-  Case Sender.AsInteger of
-    STATUS_ITEM_REQUISICAO_ALMOX_PEN : Text := 'Pendente';
-    STATUS_ITEM_REQUISICAO_ALMOX_AGU : Text := 'Aguardando';
-    STATUS_ITEM_REQUISICAO_ALMOX_ATE : Text := 'Atendido';
-    STATUS_ITEM_REQUISICAO_ALMOX_ENT : Text := 'Entregue';
-    STATUS_ITEM_REQUISICAO_ALMOX_CAN : Text := 'Cancelado';
-  end;
-end;
-
 procedure TViewRequisicaoAlmox.btnProdutoAtenderClick(Sender: TObject);
 var
   sQuantidade : String;
 begin
   dbgProdutos.SetFocus;
 
-  if cdsTabelaItens.IsEmpty then
+  if DtSrcTabelaItens.DataSet.IsEmpty then
     Exit;
 
-  sQuantidade := cdsTabelaItensQTDE.AsString;
+  sQuantidade := DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsString;
 
   if InputQuery('Atender', 'Informe a quantidade a ser atendida:', sQuantidade) then
     if StrToCurrDef(sQuantidade, 0) <= 0 then
       ShowWarning('Quantidade informada é inválida para atendimento!')
     else
     begin
-      if (StrToCurrDef(sQuantidade, 0) > cdsTabelaItensDISPONIVEL_TMP.AsCurrency) then
+      if (StrToCurrDef(sQuantidade, 0) > DtSrcTabelaItens.DataSet.FieldByName('DISPONIVEL_TMP').AsCurrency) then
       begin
         ShowWarning('Quantidade para atendimento informada é superior a disponível em estoque!');
         Exit;
       end
       else
-      if (StrToCurrDef(sQuantidade, 0) > cdsTabelaItensQTDE.AsCurrency) then
+      if (StrToCurrDef(sQuantidade, 0) > DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency) then
       begin
         ShowWarning('Quantidade para atendimento informada é superior a quantidade solicitada!');
         Exit;
       end;
 
 
-      cdsTabelaItens.Edit;
-      cdsTabelaItensQTDE_ATENDIDA.AsCurrency := StrToCurrDef(sQuantidade, 0);
-      cdsTabelaItens.Post;
+      DtSrcTabelaItens.DataSet.Edit;
+      DtSrcTabelaItens.DataSet.FieldByName('QTDE_ATENDIDA').AsCurrency := StrToCurrDef(sQuantidade, 0);
+      DtSrcTabelaItens.DataSet.Post;
 
       dbgProdutos.SetFocus;
     end;
@@ -1710,64 +1637,44 @@ end;
 procedure TViewRequisicaoAlmox.btnProdutoAtenderTodosClick(
   Sender: TObject);
 begin
-  if cdsTabelaItens.IsEmpty then
+  if DtSrcTabelaItens.DataSet.IsEmpty then
     Exit;
 
   if not ShowConfirmation('Deseja atender todos os ítens da requisição de materiais?') then
     Exit;
 
-  cdsTabelaItens.First;
-  while not cdsTabelaItens.Eof do
-  begin
-    if ( cdsTabelaItensSTATUS.AsInteger in [STATUS_ITEM_REQUISICAO_ALMOX_PEN, STATUS_ITEM_REQUISICAO_ALMOX_AGU] ) then
-    begin
-      cdsTabelaItens.Edit;
-
-      if (cdsTabelaItensDISPONIVEL_TMP.AsCurrency <= 0) then
-        cdsTabelaItensSTATUS.AsInteger := STATUS_ITEM_REQUISICAO_ALMOX_AGU
-      else
-      if (cdsTabelaItensQTDE.AsCurrency > cdsTabelaItensDISPONIVEL_TMP.AsCurrency) then
-        cdsTabelaItensQTDE_ATENDIDA.AsCurrency := cdsTabelaItensDISPONIVEL_TMP.AsCurrency
-      else
-        cdsTabelaItensQTDE_ATENDIDA.AsCurrency := cdsTabelaItensQTDE.AsCurrency;
-
-      cdsTabelaItens.Post;
-    end;
-
-    cdsTabelaItens.Next;
-  end;
-
+  Controller.AjustarQuantidadeAtendidaDeProdutos;
   dbgProdutos.SetFocus;
 end;
 
 procedure TViewRequisicaoAlmox.btnProdutoAguardaClick(Sender: TObject);
 begin
-  if cdsTabelaItens.IsEmpty then
+  if DtSrcTabelaItens.DataSet.IsEmpty then
     Exit;
 
   if not ShowConfirmation('Deseja colocar o item selecionado como "Aguardando"?') then
     Exit;
 
-  cdsTabelaItens.Edit;
-  cdsTabelaItensQTDE_ATENDIDA.AsCurrency := 0;
-  cdsTabelaItensSTATUS.AsInteger         := STATUS_ITEM_REQUISICAO_ALMOX_AGU;
-  cdsTabelaItens.Post;
+  DtSrcTabelaItens.DataSet.Edit;
+  DtSrcTabelaItens.DataSet.FieldByName('QTDE_ATENDIDA').AsCurrency := 0;
+  DtSrcTabelaItens.DataSet.FieldByName('STATUS').AsInteger         := STATUS_ITEM_REQUISICAO_ALMOX_AGU;
+  DtSrcTabelaItens.DataSet.Post;
 
   dbgProdutos.SetFocus;
 end;
 
 procedure TViewRequisicaoAlmox.btnProdutoCancelarClick(Sender: TObject);
 begin
-  if cdsTabelaItens.IsEmpty then
+  if DtSrcTabelaItens.DataSet.IsEmpty then
     Exit;
 
   if not ShowConfirmation('Deseja cancelar o atendimento do item selecionado?') then
     Exit;
 
-  cdsTabelaItens.Edit;
-  cdsTabelaItensQTDE_ATENDIDA.AsCurrency := 0;
-  cdsTabelaItensSTATUS.AsInteger         := STATUS_ITEM_REQUISICAO_ALMOX_CAN;
-  cdsTabelaItens.Post;
+  DtSrcTabelaItens.DataSet.Edit;
+  DtSrcTabelaItens.DataSet.FieldByName('QTDE_ATENDIDA').AsCurrency := 0;
+  DtSrcTabelaItens.DataSet.FieldByName('STATUS').AsInteger         := STATUS_ITEM_REQUISICAO_ALMOX_CAN;
+  DtSrcTabelaItens.DataSet.Post;
 
   dbgProdutos.SetFocus;
 end;
@@ -1784,26 +1691,26 @@ begin
 
   bAtendido := False;
 
-  cdsTabelaItens.DisableControls;
-  cdsTabelaItens.First;
+  DtSrcTabelaItens.DataSet.DisableControls;
+  DtSrcTabelaItens.DataSet.First;
 
-  while not cdsTabelaItens.Eof do
+  while not DtSrcTabelaItens.DataSet.Eof do
   begin
-    if (cdsTabelaItensQTDE_ATENDIDA.AsCurrency > 0) then
+    if (DtSrcTabelaItens.DataSet.FieldByName('QTDE_ATENDIDA').AsCurrency > 0) then
     begin
-      cdsTabelaItens.Edit;
-      cdsTabelaItensSTATUS.AsInteger := STATUS_ITEM_REQUISICAO_ALMOX_ATE;
-      cdsTabelaItens.Post;
+      DtSrcTabelaItens.DataSet.Edit;
+      DtSrcTabelaItens.DataSet.FieldByName('STATUS').AsInteger := STATUS_ITEM_REQUISICAO_ALMOX_ATE;
+      DtSrcTabelaItens.DataSet.Post;
 
       if not bAtendido then
         bAtendido := True;
     end;
 
-    cdsTabelaItens.Next;
+    DtSrcTabelaItens.DataSet.Next;
   end;
 
-  cdsTabelaItens.EnableControls;
-  cdsTabelaItens.First;
+  DtSrcTabelaItens.DataSet.EnableControls;
+  DtSrcTabelaItens.DataSet.First;
 
   if not bAtendido then
   begin
@@ -1813,9 +1720,9 @@ begin
   end;
 
   // Posta na base os atendimentos
-
-  cdsTabelaItens.ApplyUpdates;
-  cdsTabelaItens.CommitUpdates;
+  Produtos.DAO.ApplyUpdates;
+  Produtos.DAO.CommitUpdates;
+  Produtos.DAO.CommitTransaction;
 
   with DtSrcTabela.DataSet do
   begin
@@ -1825,11 +1732,10 @@ begin
     FieldByName('ATENDIMENTO_USUARIO').AsString := gUsuarioLogado.Login;
     FieldByName('ATENDIMENTO_DATA').AsDateTime  := GetDateTimeDB;
 
-    fdQryTabela.Post;
-    fdQryTabela.ApplyUpdates;
-    fdQryTabela.CommitUpdates;
-
-    CommitTransaction;
+    DtSrcTabela.DataSet.Post;
+    FController.DAO.ApplyUpdates;
+    FController.DAO.CommitUpdates;
+    FController.DAO.CommitTransaction;
 
     ExecuteScriptSQL('Execute Procedure SET_REQUISICAO_ALMOX_CUSTO(' +
       FieldByName('ANO').AsString + ', ' +

@@ -128,7 +128,7 @@ uses
   UGeProdutoKardex in '..\Sys\UGeProdutoKardex.pas' {frmGeProdutoKardex},
   UGeApropriacaoEstoque in 'UGeApropriacaoEstoque.pas' {frmGeApropriacaoEstoque},
   UGeApropriacaoEstoqueCancelar in 'UGeApropriacaoEstoqueCancelar.pas' {frmGeApropriacaoEstoqueCancelar},
-  UGeApropriacaoEstoquePesquisa in 'UGeApropriacaoEstoquePesquisa.pas' {frmGeApropriacaoEstoquePesquisa},
+  View.Query.ApropriacaoEstoque in 'View\Query\View.Query.ApropriacaoEstoque.pas' {ViewQueryApropriacaoEstoque},
   UGeRequisicaoAlmox in 'UGeRequisicaoAlmox.pas' {frmGeRequisicaoAlmox},
   UGeRequisicaoAlmoxCancelar in 'UGeRequisicaoAlmoxCancelar.pas' {frmGeRequisicaoAlmoxCancelar},
   UGeRequisicaoAlmoxMonitor in 'UGeRequisicaoAlmoxMonitor.pas' {frmGeRequisicaoAlmoxMonitor},
@@ -321,7 +321,11 @@ uses
   SGI.Controller.RequisicaoAlmoxarifado in 'Controller\SGI.Controller.RequisicaoAlmoxarifado.pas',
   View.RequisicaoAlmox in 'View\View.RequisicaoAlmox.pas' {ViewRequisicaoAlmox},
   SGI.Model.DAO.ProdutoAlmoxarifado in 'Model\DAO\SGI.Model.DAO.ProdutoAlmoxarifado.pas',
-  SGI.Controller.ProdutoAlmoxarifado in 'Controller\SGI.Controller.ProdutoAlmoxarifado.pas';
+  SGI.Controller.ProdutoAlmoxarifado in 'Controller\SGI.Controller.ProdutoAlmoxarifado.pas',
+  View.RequisicaoAlmox.Cancelar in 'View\View.RequisicaoAlmox.Cancelar.pas' {ViewRequisicaoAlmoxCancelar},
+  UGeApropriacaoEstoquePesquisa in 'UGeApropriacaoEstoquePesquisa.pas' {frmGeApropriacaoEstoquePesquisa},
+  SGI.Model.DAO.Query.ApropriacaoEstoque in 'Model\DAO\Query\SGI.Model.DAO.Query.ApropriacaoEstoque.pas',
+  SGI.Controller.Query.ApropriacaoEstoque in 'Controller\Query\SGI.Controller.Query.ApropriacaoEstoque.pas';
 
 {$R *.res}
 

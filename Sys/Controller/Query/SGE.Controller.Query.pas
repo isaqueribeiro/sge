@@ -12,10 +12,10 @@ type
   TControllerQuery = class(TInterfacedObject, IControllerQuery)
     private
       FDataSource : TDataSource;
-      FDAO : IModelDAOQuery;
+    protected
       FDataIncial,
       FDataFinal : TDateTime;
-    protected
+      FDAO : IModelDAOQuery;
       constructor Create(aDAO : IModelDAOQuery);
       function DAO : IModelDAOQuery;
     public
