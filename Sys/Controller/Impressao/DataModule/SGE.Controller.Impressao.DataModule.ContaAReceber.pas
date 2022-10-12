@@ -1,0 +1,215 @@
+unit SGE.Controller.Impressao.DataModule.ContaAReceber;
+
+interface
+
+uses
+  System.SysUtils,
+  System.Classes,
+  System.Variants,
+
+  Vcl.Forms,
+
+  Data.DB,
+  Datasnap.DBClient,
+  Datasnap.Provider,
+
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Param,
+  FireDAC.Stan.Error,
+  FireDAC.DatS,
+  FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf,
+  FireDAC.Stan.Async,
+  FireDAC.DApt,
+  FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client,
+
+  ACBrBase,
+  ACBrExtenso,
+  frxClass,
+  frxDBSet,
+
+  Interacao.Versao,
+  Controller.Versao,
+  UConstantesDGE;
+
+type
+  TDataModuleContaAReceber = class(TDataModule)
+    FrReciboA4: TfrxReport;
+    FrReciboA5: TfrxReport;
+    FrdRecibo: TfrxDBDataset;
+    ACBrExtenso: TACBrExtenso;
+    CdsRecibo: TClientDataSet;
+    CdsReciboANOLANC: TSmallintField;
+    CdsReciboNUMLANC: TIntegerField;
+    CdsReciboPARCELA: TSmallintField;
+    CdsReciboCLIENTE: TIntegerField;
+    CdsReciboRZSOC: TStringField;
+    CdsReciboEMPRESA_CNPJ: TStringField;
+    CdsReciboNOME: TStringField;
+    CdsReciboPESSOA_FISICA: TSmallintField;
+    CdsReciboCNPJ: TStringField;
+    CdsReciboTIPPAG: TStringField;
+    CdsReciboDTEMISS: TDateField;
+    CdsReciboDTVENC: TDateField;
+    CdsReciboDTREC: TDateField;
+    CdsReciboBANCO: TSmallintField;
+    CdsReciboBCO_NOME: TStringField;
+    CdsReciboNUMERO_CHEQUE: TStringField;
+    CdsReciboPAGO_: TStringField;
+    CdsReciboDOCBAIX: TStringField;
+    CdsReciboBAIXADO: TSmallintField;
+    CdsReciboSEQ: TSmallintField;
+    CdsReciboDATA_PAGTO: TDateField;
+    CdsReciboFORMA_PAGTO: TSmallintField;
+    CdsReciboFORMA_PAGTO_DESC: TStringField;
+    CdsReciboHISTORICO: TMemoField;
+    CdsReciboVALORREC: TFMTBCDField;
+    CdsReciboVALOR_BAIXA: TFMTBCDField;
+    CdsReciboVALOR_BAIXA_EXTENSO: TStringField;
+    DspRecibo: TDataSetProvider;
+    fdQryRecibo: TFDQuery;
+    procedure DataModuleCreate(Sender: TObject);
+    procedure ReciboGetValue(const VarName: string; var Value: Variant);
+    procedure CdsReciboCalcFields(DataSet: TDataSet);
+  private
+    { Private declarations }
+    FVersao : IVersao;
+    FHeader : Boolean;
+    procedure SetVariablesDefault(const pFastReport : TfrxReport);
+
+    function GetFastReport(aModelo : TModeloPapel) : TfrxReport;
+  public
+    { Public declarations }
+    function CarregarRecibo(aAno, aControle, aBaixa : Integer) : Boolean;
+
+    procedure VisualizarRecibo(aModelo : TModeloPapel; const aHeader : Boolean = TRUE);
+  end;
+
+var
+  DataModuleContaAReceber: TDataModuleContaAReceber;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+uses
+  UDMBusiness,
+  UDMNFe;
+
+function TDataModuleContaAReceber.CarregarRecibo(aAno, aControle, aBaixa: Integer): Boolean;
+begin
+  with cdsRecibo do
+  begin
+    Close;
+    ParamByName('ano').AsInteger    := aAno;
+    ParamByName('numero').AsInteger := aControle;
+    ParamByName('baixa').AsInteger  := aBaixa;
+    Open;
+  end;
+
+  Result := (not cdsRecibo.IsEmpty);
+end;
+
+procedure TDataModuleContaAReceber.CdsReciboCalcFields(DataSet: TDataSet);
+begin
+  cdsReciboVALOR_BAIXA_EXTENSO.AsString :=
+    AnsiUpperCase(ACBrExtenso.ValorToTexto(cdsReciboVALOR_BAIXA.AsCurrency, ACBrExtenso.Formato));
+end;
+
+procedure TDataModuleContaAReceber.DataModuleCreate(Sender: TObject);
+begin
+  FVersao := TVersaoController.GetInstance();
+  FHeader := True;
+end;
+
+function TDataModuleContaAReceber.GetFastReport(aModelo: TModeloPapel): TfrxReport;
+begin
+  case aModelo of
+    TModeloPapel.mrPapelA4 : Result := FrReciboA4;
+    TModeloPapel.mrPapelA5 : Result := FrReciboA5;
+  end;
+end;
+
+procedure TDataModuleContaAReceber.ReciboGetValue(const VarName: string; var Value: Variant);
+begin
+  if ( VarName = VAR_TITLE ) then
+    Value := 'RECIBO';
+
+  if ( VarName = VAR_EMPRESA ) then
+    Value := GetEmpresaNomeDefault;
+
+  if ( VarName = VAR_USER ) then
+    Value := GetUserApp;
+
+  if ( VarName = VAR_SYSTEM ) then
+    Value := Application.Title + ' - versão ' + FVersao.FileVersion;
+
+  if ( VarName = 'Imprimir_Cabecalho' ) then
+    Value := IfThen(FHeader, 1, 0);
+end;
+
+procedure TDataModuleContaAReceber.SetVariablesDefault(const pFastReport: TfrxReport);
+
+  function VariableExist(VariableName : String) : Boolean;
+  begin
+    Result := (pFastReport.Variables.IndexOf(VariableName) > -1);
+  end;
+
+begin
+  if Assigned(pFastReport) then
+  begin
+    if (pFastReport.ReportOptions.Name) = EmptyStr then
+      pFastReport.ReportOptions.Name := Application.Title;
+
+    if (pFastReport.ReportOptions.Author) = EmptyStr then
+      pFastReport.ReportOptions.Author := gUsuarioLogado.Login;
+
+    if ( not VariableExist(CATEGORY_VAR) ) then
+      pFastReport.Variables.AddVariable(EmptyStr, CATEGORY_VAR, null);
+
+    if ( not VariableExist(VAR_TITLE) ) then
+      pFastReport.Variables.AddVariable(CATEGORY_VAR, VAR_TITLE, EmptyStr);
+
+    if ( not VariableExist(VAR_SUBTITLE) ) then
+      pFastReport.Variables.AddVariable(CATEGORY_VAR, VAR_SUBTITLE, EmptyStr);
+
+    if ( not VariableExist(VAR_PERIODO) ) then
+      pFastReport.Variables.AddVariable(CATEGORY_VAR, VAR_PERIODO, EmptyStr);
+
+    if ( not VariableExist(VAR_EMPRESA) ) then
+      pFastReport.Variables.AddVariable(CATEGORY_VAR, VAR_EMPRESA, GetEmpresaNomeDefault);
+
+    if ( not VariableExist(VAR_USER) ) then
+      pFastReport.Variables.AddVariable(CATEGORY_VAR, VAR_USER, gUsuarioLogado.Login);
+
+    if ( not VariableExist(VAR_DEPARTAMENTO) ) then
+      pFastReport.Variables.AddVariable(CATEGORY_VAR, VAR_DEPARTAMENTO, EmptyStr);
+
+    if ( not VariableExist(VAR_TODOS) ) then
+      pFastReport.Variables.AddVariable(CATEGORY_VAR, VAR_TODOS, 1);
+
+    if ( not VariableExist(VAR_APENASCONSOLIDADO) ) then
+      pFastReport.Variables.AddVariable(CATEGORY_VAR, VAR_APENASCONSOLIDADO, 0);
+
+    if ( not VariableExist(VAR_SYSTEM) ) then
+      pFastReport.Variables.AddVariable(CATEGORY_VAR, VAR_SYSTEM, Application.Title + ' - versão ' + FVersao.FileVersion);
+  end;
+end;
+
+procedure TDataModuleContaAReceber.VisualizarRecibo(aModelo: TModeloPapel; const aHeader: Boolean);
+begin
+  SetVariablesDefault(GetFastReport(aModelo));
+  FHeader := aHeader;
+
+  with GetFastReport(aModelo) do
+  begin
+    PrepareReport;
+    ShowReport;
+  end;
+end;
+
+end.

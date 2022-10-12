@@ -353,7 +353,7 @@ uses
   , View.Esmaecer
 
   // Movimentação
-  ,UGeRequisicaoCliente
+  , UGeRequisicaoCliente
   , View.AutorizacaoCompra
   , View.RequisicaoCompra,
 
@@ -364,7 +364,7 @@ uses
 
   // Financeiro
   View.ContaAPagar,
-  UGeContasAReceber,
+  View.ContaAReceber,
   UGeCaixa,
   UGeFluxoCaixa;
 
@@ -540,7 +540,7 @@ end;
 procedure TfrmPrinc.BrBtnQuitarAReceberLoteClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_FIN_QUITAR_ARECEBER_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeContasAReceberQuitar');
+    FormFunction.ShowModalForm(Self, 'ViewQueryContaAReceber');
 end;
 
 procedure TfrmPrinc.BrBtnRelatorioAutorizacaoEntradaClick(Sender: TObject);
@@ -903,9 +903,10 @@ begin
   // O procedimento "UpgradeDataBase()" atualiza a base de dados
   if (Trunc(gVersaoApp.VersionID / 100) > Trunc(GetVersionDB(gSistema.Codigo) / 100)) then
     try
-      ShowError(
+      raise Exception.Create(
         'Esta versão da aplicação necessidade que a base de dados esteja atualizada!' + #13#13 +
-        'Favor entrar em contato com o fornecedor do software.');
+        'Favor entrar em contato com o fornecedor do software.'
+      );
     finally
       Application.Terminate;
 

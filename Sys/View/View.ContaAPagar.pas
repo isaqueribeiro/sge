@@ -130,8 +130,6 @@ type
     procedure FormShow(Sender: TObject);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
-    procedure dbgDadosKeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
     procedure popGerarReciboClick(Sender: TObject);
     procedure btbtnListaClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
@@ -139,7 +137,8 @@ type
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnIncluirLoteClick(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
-    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
+    procedure dbFormaPagtoClick(Sender: TObject);
+    procedure dbgDadosKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     FControllerEmpresaView ,
@@ -231,7 +230,7 @@ begin
     aWhere :=
       '((p.quitado = 0) and (p.dtvenc between (current_date - 30) and (current_date - 1))) or (' +
       '  (cast(p.dtvenc as date) between ' + aDataInicio.QuotedString + ' and ' + aDataFinal.QuotedString + ') and ' +
-      '  (p.empresa = ' + AForm.FController.DAO.Usuario.Empresa.CNPJ + ') and ' +
+      '  (p.empresa = ' + QuotedStr(AForm.FController.DAO.Usuario.Empresa.CNPJ) + ') and ' +
       '  (p.empresa in ( ' +
       '    Select      ' +
       '      vw.cnpj   ' +
@@ -294,7 +293,7 @@ begin
   WhereAdditional :=
     '((p.quitado = 0) and (p.dtvenc between (current_date - 30) and (current_date - 1))) or (' +
     '  (cast(p.dtvenc as date) between ' + aDataInicio.QuotedString + ' and ' + aDataFinal.QuotedString + ') and ' +
-    '  (p.empresa = ' + FController.DAO.Usuario.Empresa.CNPJ + ') and ' +
+    '  (p.empresa = ' + QuotedStr(FController.DAO.Usuario.Empresa.CNPJ) + ') and ' +
     '  (p.empresa in ( ' +
     '    Select      ' +
     '      vw.cnpj   ' +
@@ -330,6 +329,13 @@ begin
     .LookupComboBox(dbTipoDespesa, dtsTpDespesa, 'codtpdesp', 'codigo', 'descricao');
 end;
 
+procedure TViewContaAPagar.dbFormaPagtoClick(Sender: TObject);
+begin
+  if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
+    if (dtsFormaPagto.DataSet.Locate('codigo', dbFormaPagto.Field.AsInteger, [])) then
+      DtSrcTabela.DataSet.FieldByName('TIPPAG').AsString := dtsFormaPagto.DataSet.FieldByName('descricao').AsString;
+end;
+
 procedure TViewContaAPagar.dbFornecedorButtonClick(Sender: TObject);
 var
   iCodigo : Integer;
@@ -360,7 +366,7 @@ begin
     WhereAdditional :=
       '((p.quitado = 0) and (p.dtvenc between (current_date - 30) and (current_date - 1))) or (' +
       '  (cast(p.dtvenc as date) between ' + aDataInicio.QuotedString + ' and ' + aDataFinal.QuotedString + ') and ' +
-      '  (p.empresa = ' + FController.DAO.Usuario.Empresa.CNPJ + ') and ' +
+      '  (p.empresa = ' + QuotedStr(FController.DAO.Usuario.Empresa.CNPJ) + ') and ' +
       '  (p.empresa in ( ' +
       '    Select      ' +
       '      vw.cnpj   ' +
@@ -369,7 +375,7 @@ begin
       ')'
   else
     WhereAdditional :=
-      '(p.empresa = ' + FController.DAO.Usuario.Empresa.CNPJ + ') and ' +
+      '(p.empresa = ' + QuotedStr(FController.DAO.Usuario.Empresa.CNPJ) + ') and ' +
       '(p.lote = ' + FLoteParcelas.QuotedString + ')';
 
   inherited;
@@ -546,13 +552,13 @@ end;
 
 procedure TViewContaAPagar.btbtnExcluirClick(Sender: TObject);
 begin
-  if ( DtSrcTabela.DataSet.FieldByName('QUITADO').AsInteger = STATUS_APAGAR_PAGO ) then
+  if (DtSrcTabela.DataSet.FieldByName('QUITADO').AsInteger = STATUS_APAGAR_PAGO) then
   begin
     TServiceMessage.ShowWarning('O Lançamento não poderá ser excluído pois este já está quitado!');
     Abort;
   end
   else
-  if ( DtSrcTabela.DataSet.FieldByName('ANOCOMPRA').AsInteger > 0 ) then
+  if (DtSrcTabela.DataSet.FieldByName('ANOCOMPRA').AsInteger > 0) then
   begin
     TServiceMessage.ShowWarning('Registros de Contas A Pagar atrelados à entradas de produtos/serviços não podem ser excluídos!');
     Abort;
@@ -560,7 +566,7 @@ begin
   else
   begin
     inherited;
-    if ( not OcorreuErro ) then
+    if (not OcorreuErro) then
       AbrirPagamentos;
   end;
 end;
@@ -601,8 +607,7 @@ begin
   end;
 end;
 
-procedure TViewContaAPagar.dbgDadosKeyDown(Sender: TObject;
-  var Key: Word; Shift: TShiftState);
+procedure TViewContaAPagar.dbgDadosKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   CxAno    ,
   CxNumero ,
@@ -610,61 +615,62 @@ var
   DataPagto : TDateTime;
 begin
   // Ctrl + Del
-  if (Shift = [ssCtrl]) and (Key = 46) Then
-  begin
-  
-    if not LiberarUso then
-      Exit;
-
-    if not GetPermissaoRotinaInterna(Sender, True) then
-      Abort;
-
-    if ( not dtsPagamentos.DataSet.IsEmpty ) then
+  if (Sender = dbgDados) then
+    if (Shift = [ssCtrl]) and (Key = 46) Then
     begin
-      CxAno    := 0;
-      CxNumero := 0;
-      CxContaCorrente := 0;
 
-      if (not Assigned(FControllerCaixa)) then
-        FControllerCaixa := TControllerFactory.New.Caixa;
+      if not LiberarUso then
+        Exit;
 
-      if (FControllerFormaPagto.DAO.DataSet.Locate('codigo', DtSrcTabela.DataSet.FieldByName('FORMA_PAGTO').AsInteger, [])) then
-        if (FControllerFormaPagto.DAO.DataSet.FieldByName('Conta_corrente').AsInteger > 0) then
-          if (not FControllerCaixa.CaixaAberto(
-              DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString
-            , Controller.DAO.Usuario.Login
-            , Date
-            , DtSrcTabela.DataSet.FieldByName('FORMA_PAGTO').AsInteger
-            , CxAno
-            , CxNumero
-            , CxContaCorrente
-          )) then
-          begin
-            TServiceMessage.ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
-            Exit;
-          end;
+      if not GetPermissaoRotinaInterna(Sender, True) then
+        Abort;
 
-//    sSenha := InputBox('Favor informar a senha de autorização', 'Senha de Autorização:', '');
-//
-//    if ( Trim(sSenha) = EmptyStr ) then
-//      Exit;
-//
-//    if ( sSenha <> GetSenhaAutorizacao ) then
-//    begin
-//      ShowWarning('Senha de autorização inválida');
-//      Exit;
-//    end;
-
-      DataPagto := dtsPagamentos.DataSet.FieldByName('DATA_PAGTO').AsDateTime;
-
-      if TServiceMessage.ShowConfirm('Confirma a exclusão do registro de pagamento?') then
+      if ( not dtsPagamentos.DataSet.IsEmpty ) then
       begin
-        Pagamentos.EstornarPagamento(Controller.DAO.Usuario.Login, CxContaCorrente);
-        RecarregarRegistro;
-        AbrirPagamentos;
+        CxAno    := 0;
+        CxNumero := 0;
+        CxContaCorrente := 0;
+
+        if (not Assigned(FControllerCaixa)) then
+          FControllerCaixa := TControllerFactory.New.Caixa;
+
+        if (FControllerFormaPagto.DAO.DataSet.Locate('codigo', DtSrcTabela.DataSet.FieldByName('FORMA_PAGTO').AsInteger, [])) then
+          if (FControllerFormaPagto.DAO.DataSet.FieldByName('Conta_corrente').AsInteger > 0) then
+            if (not FControllerCaixa.CaixaAberto(
+                DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString
+              , Controller.DAO.Usuario.Login
+              , Date
+              , DtSrcTabela.DataSet.FieldByName('FORMA_PAGTO').AsInteger
+              , CxAno
+              , CxNumero
+              , CxContaCorrente
+            )) then
+            begin
+              TServiceMessage.ShowWarning('Não existe caixa aberto para o usuário na forma de pagamento deste movimento.');
+              Exit;
+            end;
+
+  //    sSenha := InputBox('Favor informar a senha de autorização', 'Senha de Autorização:', '');
+  //
+  //    if ( Trim(sSenha) = EmptyStr ) then
+  //      Exit;
+  //
+  //    if ( sSenha <> GetSenhaAutorizacao ) then
+  //    begin
+  //      ShowWarning('Senha de autorização inválida');
+  //      Exit;
+  //    end;
+
+        DataPagto := dtsPagamentos.DataSet.FieldByName('DATA_PAGTO').AsDateTime;
+
+        if TServiceMessage.ShowConfirm('Confirma a exclusão do registro de pagamento?') then
+        begin
+          Pagamentos.EstornarPagamento(Controller.DAO.Usuario.Login, CxContaCorrente);
+          RecarregarRegistro;
+          AbrirPagamentos;
+        end;
       end;
     end;
-  end;
 end;
 
 procedure TViewContaAPagar.popGerarReciboClick(Sender: TObject);
@@ -771,22 +777,6 @@ begin
 
   CarregarFormaPagto(DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString);
   CarregarTipoDespesa( (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) );
-end;
-
-procedure TViewContaAPagar.fdQryTabelaBeforePost(DataSet: TDataSet);
-begin
-  with DtSrcTabela.DataSet do
-  begin
-    if FieldByName('COMPETENCIA_APURACAO').IsNull then
-      FieldByName('COMPETENCIA_APURACAO').AsInteger := FControllerCompetencia.GetID(FieldByName('DTEMISS').AsDateTime);
-
-    if ( (FieldByName('ANOCOMPRA').AsInteger = 0) and (FieldByName('PARCELA').AsInteger <= 0) ) then
-      FieldByName('PARCELA').AsInteger := 1;
-
-    FieldByName('VALORSALDO').AsCurrency := FieldByName('VALORPAG').AsCurrency;
-  end;
-
-  inherited;
 end;
 
 procedure TViewContaAPagar.btbtnCancelarClick(Sender: TObject);

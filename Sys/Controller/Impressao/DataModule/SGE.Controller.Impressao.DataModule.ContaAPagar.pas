@@ -81,7 +81,6 @@ type
     procedure SetVariablesDefault(const pFastReport : TfrxReport);
 
     function GetFastReport(aModelo : TModeloPapel) : TfrxReport;
-    procedure FrReciboPagamentoA4GetValue(const VarName: string; var Value: Variant);
   public
     { Public declarations }
     function CarregarReciboPagamento(aAno, aControle, aBaixa : Integer) : Boolean;
@@ -128,11 +127,6 @@ procedure TDataModuleContaAPagar.DataModuleCreate(Sender: TObject);
 begin
   FVersao := TVersaoController.GetInstance();
   FHeader := True;
-end;
-
-procedure TDataModuleContaAPagar.FrReciboPagamentoA4GetValue(const VarName: string; var Value: Variant);
-begin
-
 end;
 
 function TDataModuleContaAPagar.GetFastReport(aModelo: TModeloPapel): TfrxReport;

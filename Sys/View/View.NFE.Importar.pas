@@ -90,7 +90,7 @@ uses
   UGrPadraoCadastro,
   Interacao.Tabela,
   Controller.Tabela,
-  UConstantesDGE;
+  UConstantesDGE, dxSkinsDefaultPainters;
 
 type
   TViewNFEImportar = class(TfrmGrPadrao)
@@ -1200,21 +1200,20 @@ begin
 
       cdsEmitente.FieldByName('DADOS_ENDERECO').AsString    := Trim(FieldByName('XLgr').AsString) + ', ' +
                                                                 Trim(FieldByName('Nro').AsString);
-	    if (trim(FieldByName('XCpl').AsString) <> '') then
+	    if NaoEstaVazio(trim(FieldByName('XCpl').AsString)) then
         cdsEmitente.FieldByName('DADOS_ENDERECO').AsString  := cdsEmitente.FieldByName('DADOS_ENDERECO').AsString + ', ' +
                                                                 Trim(FieldByName('XCpl').AsString);
 
       cdsEmitente.FieldByName('DADOS_ENDERECO').AsString    := cdsEmitente.FieldByName('DADOS_ENDERECO').AsString + ' - ' +
   										  	                                      Trim(FieldByName('XBairro').AsString) + ' - ' +
                                                                 Trim(FieldByName('XMun').AsString) + ' - ' +
-                                                                Trim(FieldByName('UF').AsString) + #13 +
-		  	  				  				                                    'Fone: ' + Trim(FieldByName('Fone').AsString) +
-                                                                IfThenX(trim(DANFE.Fax) <> '', ' - FAX: ' + FormatarFone(trim(DANFE.Fax)),'')+
-                                                                ' - CEP: ' + Trim(FieldByName('CEP').AsString);
-      if trim(DANFE.Site) <> '' then
+                                                                Trim(FieldByName('UF').AsString) +
+                                                                ' - CEP: ' + Trim(FieldByName('CEP').AsString) + #13 +
+		  	  				  				                                    ' Fone: ' + Trim(FieldByName('Fone').AsString);
+      if NaoEstaVazio(Trim(DANFE.Site)) then
         cdsEmitente.FieldByName('DADOS_ENDERECO').AsString  := cdsEmitente.FieldByName('DADOS_ENDERECO').AsString + #13 +
-                                                                trim(DANFE.Site);
-      if trim(DANFE.Email) <> '' then
+                                                                Trim(DANFE.Site);
+      if NaoEstaVazio(Trim(DANFE.Email)) then
         cdsEmitente.FieldByName('DADOS_ENDERECO').AsString  := cdsEmitente.FieldByName('DADOS_ENDERECO').AsString + #13 +
                                                                 Trim(DANFE.Email);
     end;
@@ -1685,26 +1684,35 @@ begin
     if NaoEstaVazio(FieldByName('Mensagem0').AsString) then
       FieldByName('Mensagem0').AsString  := FieldByName('Mensagem0').AsString+#10#13;
 
-    FieldByName('Mensagem0').AsString                   := FieldByName('Mensagem0').AsString + IfThen(frDANFE is TACBrNFeDANFEFR, TACBrNFeDANFEFR(frDANFE).MarcaDaguaMSG, '');
-    FieldByName('LogoExpandido').AsString               := IfThen( frDANFE.ExpandeLogoMarca, '1' , '0' );
-    FieldByName('Sistema').AsString                     := IfThen( frDANFE.Sistema <> '' , frDANFE.Sistema, 'Projeto ACBr - http://acbr.sf.net');
-    FieldByName('Usuario').AsString                     := IfThen( frDANFE.Usuario <> '' , ' - ' + frDANFE.Usuario , '' );
-    FieldByName('Fax').AsString                         := IfThen( frDANFE.Fax     <> '' , ' - FAX ' + frDANFE.Fax , '');
-    FieldByName('Site').AsString                        := frDANFE.Site;
-    FieldByName('Email').AsString                       := frDANFE.Email;
-    FieldByName('Desconto').AsString                    := IfThen( (frDANFE is TACBrNFeDANFEClass) and TACBrNFeDANFEClass(frDANFE).ImprimeDescPorPercentual , '%' , 'VALOR');
-    FieldByName('TotalLiquido').AsString                := IfThen( frDANFE.ImprimeTotalLiquido ,ACBrStr('LÍQUIDO') ,'TOTAL');
+    FieldByName('Mensagem0').AsString                   := FieldByName('Mensagem0').AsString + IfThen(DANFE is TACBrNFeDANFEFR, TACBrNFeDANFEFR(DANFE).MarcaDaguaMSG, '');
+    FieldByName('LogoExpandido').AsString               := IfThen( DANFE.ExpandeLogoMarca, '1' , '0' );
+    FieldByName('Sistema').AsString                     := IfThen( DANFE.Sistema <> '' , DANFE.Sistema, 'Projeto ACBr - http://acbr.sf.net');
+    FieldByName('Usuario').AsString                     := IfThen( DANFE.Usuario <> '' , ' - ' + DANFE.Usuario , '' );
+    FieldByName('Site').AsString                        := DANFE.Site;
+    FieldByName('Email').AsString                       := DANFE.Email;
+    FieldByName('Desconto').AsString                    := IfThen( (DANFE is TACBrNFeDANFEClass) and TACBrNFeDANFEClass(DANFE).ImprimeDescPorPercentual , '%' , 'VALOR');
+    FieldByName('TotalLiquido').AsString                := IfThen( DANFE.ImprimeTotalLiquido ,ACBrStr('LÍQUIDO') ,'TOTAL');
     FieldByName('LinhasPorPagina').AsInteger            := 0;
-    FieldByName('ExpandirDadosAdicionaisAuto').AsString := IfThen(TACBrNFeDANFEFR(frDANFE).ExpandirDadosAdicionaisAuto , 'S' , 'N');
-    FieldByName('sDisplayFormat').AsString              := '###,###,###,##0.%.*d';
-    FieldByName('iFormato').AsInteger                   := integer( frDANFE.CasasDecimais.Formato );
-    FieldByName('Mask_qCom').AsString                   := frDANFE.CasasDecimais.MaskqCom;
-    FieldByName('Mask_vUnCom').AsString                 := frDANFE.CasasDecimais.MaskvUnCom;
-    FieldByName('Casas_qCom').AsInteger                 := frDANFE.CasasDecimais.qCom;
-    FieldByName('Casas_vUnCom').AsInteger               := frDANFE.CasasDecimais.vUnCom;
+    FieldByName('ExpandirDadosAdicionaisAuto').AsString := IfThen(TACBrNFeDANFEFR(DANFE).ExpandirDadosAdicionaisAuto , 'S' , 'N');
+    FieldByName('sDisplayFormat').AsString              := ',0.%.*d';
+    FieldByName('iFormato').AsInteger                   := integer( DANFE.CasasDecimais.Formato );
+    FieldByName('Mask_qCom').AsString                   := DANFE.CasasDecimais.MaskqCom;
+    FieldByName('Mask_vUnCom').AsString                 := DANFE.CasasDecimais.MaskvUnCom;
+    FieldByName('Casas_qCom').AsInteger                 := DANFE.CasasDecimais.qCom;
+    FieldByName('Casas_vUnCom').AsInteger               := DANFE.CasasDecimais.vUnCom;
 
-//    if (frDANFE is TACBrNFeDANFCEClass) then
-//      FieldByName('ImprimeDescAcrescItem').AsInteger    := IfThen( TACBrNFeDANFCEFR(frDANFE).ImprimeDescAcrescItem, 1 , 0 );
+    if (DANFE is TACBrNFeDANFCEClass) then
+    begin
+      FieldByName('ImprimeEm1Linha').AsString        := IfThen( TACBrNFeDANFCEClass(DANFE).ImprimeEmUmaLinha, 'S', 'N');
+      FieldByName('ImprimeEmDuasLinhas').AsString    := IfThen( TACBrNFeDANFCEClass(DANFE).ImprimeEmDuasLinhas, 'S', 'N');
+      FieldByName('QrCodeLateral').AsString          := IfThen( TACBrNFeDANFCEClass(DANFE).ImprimeQRCodeLateral, 'S', 'N');
+      FieldByName('ImprimeDescAcrescItem').AsInteger := IfThen( TACBrNFeDANFCEClass(DANFE).ImprimeDescAcrescItem, 1 , 0 );
+    end;
+
+    if (DANFE is TACBrNFeDANFEClass) then
+    begin
+      FieldByName('ImprimeDescAcrescItem').AsInteger := Integer(TACBrNFeDANFEClass(DANFE).ImprimeDescAcrescItem);
+    end;
 
     // Carregamento da imagem
     if NaoEstaVazio(frDANFE.Logo) then

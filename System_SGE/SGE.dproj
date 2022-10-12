@@ -358,8 +358,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeNFComplementar.pas">
             <Form>frmGeNFComplementar</Form>
         </DCCReference>
-        <DCCReference Include="UGeContasAReceberQuitar.pas">
-            <Form>frmGeContasAReceberQuitar</Form>
+        <DCCReference Include="..\Sys\View\Query\View.Query.ContaAReceber.pas">
+            <Form>ViewQueryContaAReceber</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeContasAReceberLoteParcela.pas">
             <Form>frmGeContasAReceberLoteParcela</Form>
@@ -751,6 +751,20 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\View\Query\View.Query.ContaAPagar.pas">
             <Form>ViewQueryContaAPagar</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\View\View.ContaAReceber.pas">
+            <Form>ViewContaAReceber</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAReceber.pas">
+            <Form>DataModuleContaAReceber</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>
@@ -861,19 +875,19 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                 <Platform value="Win64">False</Platform>
             </Platforms>
             <Deployment Version="3">
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png" Configuration="Release" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\app_configurar_48x48-hot.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="..\_diversos\Imagens\Glyphs\app_sincronizar_48x48.png" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\app_configurar_48x48-hot.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -1109,7 +1123,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

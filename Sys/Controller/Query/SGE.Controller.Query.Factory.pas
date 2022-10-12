@@ -18,7 +18,8 @@ type
       FApropriacaoEstoqueTotal     : IControllerQuery;
       {$ENDIF}
       FFornecedorCliente,
-      FContaAPagar      : IControllerQuery;
+      FContaAPagar      ,
+      FContaAReceber : IControllerQuery;
     protected
       constructor Create;
     public
@@ -32,6 +33,7 @@ type
       function ApropriacaoEstoqueTotal : IControllerQuery;
       {$ENDIF}
       function ContaAPagar : IControllerQuery;
+      function ContaAReceber : IControllerQuery;
       function FornecedorCliente : IControllerQuery;
   end;
 
@@ -44,7 +46,8 @@ uses
   SGI.Controller.Query.ApropriacaoEstoque,
   {$ENDIF}
   SGE.Controller.Query.FornecedorCliente,
-  SGE.Controller.Query.ContaAPagar;
+  SGE.Controller.Query.ContaAPagar,
+  SGE.Controller.Query.ContaAReceber;
 
 constructor TControllerQueryFactory.Create;
 begin
@@ -105,6 +108,14 @@ begin
     FContaAPagar := TControllerQueryContaAPagar.New;
 
   Result := FContaAPagar;
+end;
+
+function TControllerQueryFactory.ContaAReceber: IControllerQuery;
+begin
+  if not Assigned(FContaAReceber) then
+    FContaAReceber := TControllerQueryContaAReceber.New;
+
+  Result := FContaAReceber;
 end;
 
 function TControllerQueryFactory.FornecedorCliente: IControllerQuery;

@@ -30,6 +30,8 @@ inherited ViewContaAPagar: TViewContaAPagar
     ExplicitWidth = 934
     ExplicitHeight = 518
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel4: TBevel
@@ -133,6 +135,7 @@ inherited ViewContaAPagar: TViewContaAPagar
             Left = 318
             Top = 24
             Width = 73
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -147,19 +150,21 @@ inherited ViewContaAPagar: TViewContaAPagar
             Left = 25
             Top = 24
             Width = 70
-            Height = 13
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
             Caption = 'Vencimento:'
             FocusControl = e1Data
             Layout = tlCenter
+            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 397
             Width = 153
             TabOrder = 2
             ExplicitLeft = 397
+            ExplicitTop = 25
             ExplicitWidth = 153
           end
           inherited btnFiltrar: TcxButton
@@ -227,7 +232,6 @@ inherited ViewContaAPagar: TViewContaAPagar
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 0
-            ExplicitTop = 24
           end
           object e2Data: TJvDateEdit
             AlignWithMargins = True
@@ -289,7 +293,6 @@ inherited ViewContaAPagar: TViewContaAPagar
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 1
-            ExplicitTop = 24
           end
         end
         object pnlStatus: TPanel
@@ -861,6 +864,7 @@ inherited ViewContaAPagar: TViewContaAPagar
           ListSource = dtsFormaPagto
           ParentFont = False
           TabOrder = 7
+          OnClick = dbFormaPagtoClick
         end
         object dbCondicaoPagto: TDBLookupComboBox
           Left = 389
@@ -1410,8 +1414,8 @@ inherited ViewContaAPagar: TViewContaAPagar
     Top = 0
   end
   inherited ImgList: TImageList
-    Left = 344
-    Top = 144
+    Left = 504
+    Top = 0
   end
   object dtsEmpresa: TDataSource
     Left = 856

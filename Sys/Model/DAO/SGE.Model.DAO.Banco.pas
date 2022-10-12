@@ -22,7 +22,7 @@ type
       destructor Destroy; override;
       class function New : IModelDAOCustom;
 
-      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+      function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
 implementation
@@ -88,6 +88,30 @@ end;
 class function TModelDAOBanco.New: IModelDAOCustom;
 begin
   Result := Self.Create;
+end;
+
+function TModelDAOBanco.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select ')
+        .Add('    b.bco_codigo  ')
+        .Add('  , b.bco_cod     ')
+        .Add('  , b.empresa     ')
+        .Add('  , b.bco_nome    ')
+        .Add('  , b.bco_agencia ')
+        .Add('  , b.bco_cc      ')
+        .Add('  , trim(b.bco_nome) || ')
+        .Add('    coalesce('' - AG. ''  || nullif(trim(b.bco_agencia), ''''), '''') || ')
+        .Add('    coalesce('' - C/C. '' || nullif(trim(b.bco_cc), ''''), '''')  as bco_nome_agencia_conta ')
+        .Add('from TBBANCO_BOLETO b      ')
+        .Add('where (b.empresa = :empresa)')
+      .&End
+      .ParamByName('empresa', FUsuario.Empresa.CNPJ)
+    .Open;
 end;
 
 procedure TModelDAOBanco.DataSetAfterOpen(DataSet: TDataSet);

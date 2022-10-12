@@ -14,6 +14,7 @@ type
     function ApropriacaoEstoqueTotal : IModelDAOQueryApropriacaoEstoque;
     function FornecedorCliente : IModelDAOQuery;
     function ContaAPagar : IModelDAOQuery;
+    function ContaAReceber : IModelDAOQuery;
   end;
 
 implementation

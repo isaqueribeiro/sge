@@ -14,6 +14,8 @@ inherited ViewQueryContaAPagar: TViewQueryContaAPagar
     ExplicitWidth = 1049
     inherited GrpBxPesquisar: TGroupBox
       Width = 821
+      ExplicitLeft = 226
+      ExplicitTop = 2
       ExplicitWidth = 821
       DesignSize = (
         821
@@ -41,9 +43,11 @@ inherited ViewQueryContaAPagar: TViewQueryContaAPagar
         ExplicitWidth = 558
       end
       inherited BtnPesquisar: TcxButton
-        Left = 790
+        Left = 791
+        Top = 39
         TabOrder = 3
-        ExplicitLeft = 790
+        ExplicitLeft = 791
+        ExplicitTop = 39
       end
       object e1Data: TJvDateEdit
         Left = 12
@@ -605,7 +609,7 @@ inherited ViewQueryContaAPagar: TViewQueryContaAPagar
         Font.Style = [fsBold]
         ParentFont = False
         Transparent = True
-        ExplicitHeight = 13
+        ExplicitTop = 6
       end
       object lblDicasTexto: TLabel
         AlignWithMargins = True

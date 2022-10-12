@@ -132,6 +132,7 @@ type
     function ConfigSystem : IModelDAOCustom;
     function ConfiguracaoEmpresa : IModelDAOCustom;
     function ContaAPagar : IModelDAOCustom;
+    function ContaAReceber : IModelDAOCustom;
     function ContaCorrente : IModelDAOCustom;
     function ContaCorrenteView : IModelDAOCustom;
     function CorVeiculo : IModelDAOCustom;
@@ -172,6 +173,7 @@ type
     function ProdutoAlmoxarifado : IModelDAOCustom;
     function Promocao : IModelDAOCustom;
     function PromocaoProduto : IModelDAOCustom;
+    function Recebimento : IModelDAOCustom;
     function RequisicaoAlmoxarifado : IModelDAOCustom;
     function RequisicaoAlmoxarifadoProduto : IModelDAOCustom;
     function RequisicaoCompra : IModelDAOCustom;

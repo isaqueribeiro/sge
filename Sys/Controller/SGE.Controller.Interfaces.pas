@@ -211,10 +211,28 @@ type
     function MenorVencimentoAPagar : TDateTime;
   end;
 
+  IControllerContaAReceber = interface(IControllerCustom)
+    ['{7344F716-9C84-4D95-ACC0-FFA805C943C0}']
+    procedure GerarTitulos(aAnoCompra, aNumCompra : Integer);
+    procedure CarregarRecebimentos;
+    function Recebimentos : IControllerCustom;
+    function MenorVencimentoAReceber : TDateTime;
+  end;
+
   IControllerPagamento = interface(IControllerCustom)
     ['{668B2910-1359-47E6-AB9B-28F711A2C75E}']
     procedure GerarMovimentoCaixa(aUsuario : String);
     procedure EstornarPagamento(aUsuario : String; aContaConrrente : Integer);
+    procedure GerarSaldoConta(const aContaCorrente : Integer; const aDataMovimento : TDateTime);
+    procedure RecalcularSaldo(aContaCorrente : Integer);
+
+    function Sequencial(const aCampo : String) : Integer;
+  end;
+
+  IControllerRecebimento = interface(IControllerCustom)
+    ['{2CADA3BA-34F9-4753-BA9B-A62424ECF812}']
+    procedure GerarMovimentoCaixa(aUsuario : String);
+    procedure EstornarRecebimento(aUsuario : String; aContaConrrente : Integer);
     procedure GerarSaldoConta(const aContaCorrente : Integer; const aDataMovimento : TDateTime);
     procedure RecalcularSaldo(aContaCorrente : Integer);
 
@@ -268,6 +286,7 @@ type
     function ConfigSystem : IControllerConfigSystem;
     function ConfiguracaoEmpresa : IControllerCustom;
     function ContaAPagar : IControllerContaAPagar;
+    function ContaAReceber : IControllerContaAReceber;
     function ContaCorrente       : IControllerCustom;
     function ContaCorrenteView   : IControllerCustom;
     function CorVeiculo : IControllerCustom;
@@ -307,6 +326,7 @@ type
     function ProdutoAlmoxarifado : IControllerProdutoAlmoxarifado;
     function Promocao          : IControllerPromocao;
     function PromocaoProduto   : IControllerCustom;
+    function Recebimento       : IControllerRecebimento;
     function RequisicaoAlmoxarifado : IControllerRequisicaoAlmoxarifado;
     function RequisicaoCompra  : IControllerRequisicaoCompra;
     function SecaoProduto : IControllerCustom;

@@ -15,6 +15,7 @@ type
     function ApropriacaoEstoqueTotal : IControllerQuery;
     {$ENDIF}
     function ContaAPagar : IControllerQuery;
+    function ContaAReceber : IControllerQuery;
     function FornecedorCliente : IControllerQuery;
   end;
 

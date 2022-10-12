@@ -16,6 +16,7 @@ uses
   SGE.Controller.CondicaoPagto,
   SGE.Controller.Config,
   SGE.Controller.ContaAPagar,
+  SGE.Controller.ContaAReceber,
   SGE.Controller.ContaCorrente,
   SGE.Controller.CST,
   SGE.Controller.Distrito,
@@ -72,6 +73,7 @@ type
       FConfigSystem : IControllerConfigSystem;
       FConfiguracaoEmpresa : IControllerCustom;
       FContaAPagar : IControllerContaAPagar;
+      FContaAReceber : IControllerContaAReceber;
       FContaCorrente      ,
       FContaCorrenteView  ,
       FCorVeiculo  ,
@@ -111,6 +113,7 @@ type
       FProdutoAlmoxarifado : IControllerProdutoAlmoxarifado;
       FPromocao        : IControllerPromocao;
       FPromocaoProduto : IControllerCustom;
+      FRecebimento     : IControllerRecebimento;
       FRequisicaoAlmoxarifado : IControllerRequisicaoAlmoxarifado;
       FRequisicaoCompra : IControllerRequisicaoCompra;
       FSecaoProduto    ,
@@ -173,6 +176,7 @@ type
       function ConfigSystem : IControllerConfigSystem;
       function ConfiguracaoEmpresa : IControllerCustom;
       function ContaAPagar : IControllerContaAPagar;
+      function ContaAReceber : IControllerContaAReceber;
       function ContaCorrente : IControllerCustom;
       function ContaCorrenteView : IControllerCustom;
       function CorVeiculo : IControllerCustom;
@@ -212,6 +216,7 @@ type
       function ProdutoAlmoxarifado : IControllerProdutoAlmoxarifado;
       function Promocao          : IControllerPromocao;
       function PromocaoProduto   : IControllerCustom;
+      function Recebimento       : IControllerRecebimento;
       function RequisicaoAlmoxarifado : IControllerRequisicaoAlmoxarifado;
       function RequisicaoCompra  : IControllerRequisicaoCompra;
       function SecaoProduto : IControllerCustom;
@@ -356,6 +361,14 @@ begin
     FPromocaoProduto := TControllerPromocaoProduto.New;
 
   Result := FPromocaoProduto;
+end;
+
+function TControllerFactory.Recebimento: IControllerRecebimento;
+begin
+  if not Assigned(FRecebimento) then
+    FRecebimento := TControllerRecebimento.New;
+
+  Result := FRecebimento;
 end;
 
 function TControllerFactory.RequisicaoAlmoxarifado: IControllerRequisicaoAlmoxarifado;
@@ -612,6 +625,14 @@ begin
     FContaAPagar := TControllerContaAPagar.New;
 
   Result := FContaAPagar;
+end;
+
+function TControllerFactory.ContaAReceber: IControllerContaAReceber;
+begin
+  if not Assigned(FContaAReceber) then
+    FContaAReceber := TControllerContaAReceber.New;
+
+  Result := FContaAReceber;
 end;
 
 function TControllerFactory.ContaCorrente: IControllerCustom;

@@ -1150,10 +1150,6 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
         TabOrder = 4
         object tbsHistorico: TTabSheet
           Caption = 'Hist'#243'rico'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -3018,7 +3014,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
   object popImprimir: TPopupMenu
     Images = ImgList
     Left = 696
-    Top = 446
+    Top = 374
     object popGerarReciboA4: TMenuItem
       Bitmap.Data = {
         16050000424D160500000000000036040000280000000E0000000E0000000100
@@ -3816,7 +3812,7 @@ inherited frmGeContasAReceber: TfrmGeContasAReceber
       '  , p.Valor_baixa'
       '  , p.Numero_cheque'
       '  , p.banco'
-      '  ,p.banco_febraban'
+      '  , p.banco_febraban'
       '  , coalesce(b2.nome, b1.bco_nome) as bco_nome'
       '  , p.Documento_baixa'
       'from TBCONTREC_BAIXA p'

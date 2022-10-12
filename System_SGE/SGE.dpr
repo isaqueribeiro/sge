@@ -85,7 +85,7 @@ uses
   UGeProdutoImpressao in 'UGeProdutoImpressao.pas' {frmGeProdutoImpressao},
   UGeProdutoEstoqueImpressao in 'UGeProdutoEstoqueImpressao.pas' {frmGeProdutoEstoqueImpressao},
   UGeNFComplementar in '..\Sys\UGeNFComplementar.pas' {frmGeNFComplementar},
-  UGeContasAReceberQuitar in 'UGeContasAReceberQuitar.pas' {frmGeContasAReceberQuitar},
+  View.Query.ContaAReceber in '..\Sys\View\Query\View.Query.ContaAReceber.pas' {ViewQueryContaAReceber},
   UGeContasAReceberLoteParcela in '..\Sys\UGeContasAReceberLoteParcela.pas' {frmGeContasAReceberLoteParcela},
   UGeFluxoCaixaImpressao in '..\Sys\UGeFluxoCaixaImpressao.pas' {frmGeFluxoCaixaImpressao},
   View.Memo in '..\Sys\View\View.Memo.pas' {ViewMemo},
@@ -314,7 +314,14 @@ uses
   View.ContaAPagar.LoteParcela in '..\Sys\View\View.ContaAPagar.LoteParcela.pas' {ViewContaAPagarLoteParcela},
   View.ContaAPagar.Pagamento in '..\Sys\View\View.ContaAPagar.Pagamento.pas' {ViewContaAPagarPagamento},
   View.Query.FornecedorCliente in '..\Sys\View\Query\View.Query.FornecedorCliente.pas' {ViewQueryFornecedorCliente},
-  View.Query.ContaAPagar in '..\Sys\View\Query\View.Query.ContaAPagar.pas' {ViewQueryContaAPagar};
+  View.Query.ContaAPagar in '..\Sys\View\Query\View.Query.ContaAPagar.pas' {ViewQueryContaAPagar},
+  SGE.Model.DAO.Query.ContaAReceber in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAReceber.pas',
+  SGE.Controller.Query.ContaAReceber in '..\Sys\Controller\Query\SGE.Controller.Query.ContaAReceber.pas',
+  SGE.Model.DAO.ContaAReceber in '..\Sys\Model\DAO\SGE.Model.DAO.ContaAReceber.pas',
+  SGE.Controller.ContaAReceber in '..\Sys\Controller\SGE.Controller.ContaAReceber.pas',
+  View.ContaAReceber in '..\Sys\View\View.ContaAReceber.pas' {ViewContaAReceber},
+  SGE.Controller.Impressao.ContaAReceber in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas',
+  SGE.Controller.Impressao.DataModule.ContaAReceber in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAReceber.pas' {DataModuleContaAReceber: TDataModule};
 
 {$R *.res}
 

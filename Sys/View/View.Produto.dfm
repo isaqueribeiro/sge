@@ -30,6 +30,8 @@ inherited ViewProduto: TViewProduto
     ExplicitWidth = 961
     ExplicitHeight = 543
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 953
       ExplicitHeight = 514
       inherited Bevel4: TBevel
@@ -267,6 +269,7 @@ inherited ViewProduto: TViewProduto
             Width = 292
             TabOrder = 2
             ExplicitLeft = 234
+            ExplicitTop = 25
             ExplicitWidth = 292
           end
           inherited btnFiltrar: TcxButton
@@ -310,7 +313,6 @@ inherited ViewProduto: TViewProduto
               'por Refer'#234'ncia (Placa)'
               'por Fabricante'
               'por Grupo')
-            ExplicitTop = 27
           end
         end
       end
@@ -1330,6 +1332,10 @@ inherited ViewProduto: TViewProduto
         object tbsCustoVeiculo: TTabSheet
           Caption = 'Custos e F&&I p/ Ve'#237'culos'
           ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object grpCustosVeiculo: TGroupBox
             Left = 0
             Top = 0
@@ -2178,6 +2184,10 @@ inherited ViewProduto: TViewProduto
         object TbsEspecificacao: TTabSheet
           Caption = 'Especifica'#231#245'es'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object pnlVeiculo: TPanel
             Left = 0
             Top = 0
@@ -2577,13 +2587,12 @@ inherited ViewProduto: TViewProduto
             object lblEspecificacao: TLabel
               Left = 2
               Top = 2
-              Width = 941
+              Width = 105
               Height = 13
               Align = alTop
               Caption = 'Especifica'#231#227'o textual:'
               FocusControl = dbEspecificacao
               Transparent = True
-              ExplicitWidth = 105
             end
             object Bevel9: TBevel
               Left = 2
@@ -2608,6 +2617,10 @@ inherited ViewProduto: TViewProduto
         object tbsHistoricoVeiculo: TTabSheet
           Caption = 'Hist'#243'ricos'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           DesignSize = (
             945
             249)

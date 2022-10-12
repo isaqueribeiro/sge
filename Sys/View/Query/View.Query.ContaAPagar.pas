@@ -424,6 +424,7 @@ begin
             dtsPagamentoLOTE.DataSet.Post;
             QuitarDespesa;
           finally
+            cdsPagamentoLOTE.Delete;
             ExecutarPesquisa;
           end;
         end;

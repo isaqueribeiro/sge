@@ -350,6 +350,7 @@ type
     function GetRotinaFinalizarID : String;
     function GetRotinaGerarNFeID : String;
     function GetRotinaCancelarEntradaID : String;
+    function ValidarGTIN : Boolean;
 
     procedure RegistrarNovaRotinaSistema;
     procedure BaixarImportarNFe(aChaveNFe, aNSU : String);
@@ -2315,6 +2316,9 @@ begin
         if not InformarDocumentoReferenciado(Self, FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger, FieldByName('CODEMP').AsString) then
           Exit;
 
+    if not ValidarGTIN then
+      Exit;
+
     // Buscar retorno do envio pendente, caso ele tenha ocorrido
     if not bNFeGerada then
       if ( Trim(FieldByName('LOTE_NFE_RECIBO').AsString) <> EmptyStr ) then
@@ -2676,6 +2680,35 @@ begin
 
     if btbtnCancelarENT.Visible then
       SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaCancelarEntradaID, btbtnCancelarENT.Caption, RotinaID);
+  end;
+end;
+
+function TViewEntrada.ValidarGTIN: Boolean;
+var
+  aError : String;
+begin
+  Result := False;
+  try
+    DtSrcTabelaItens.DataSet.DisableControls;
+    DtSrcTabelaItens.DataSet.First;
+
+    while not DtSrcTabelaItens.DataSet.Eof do
+    begin
+      if (not Trim(DtSrcTabelaItens.DataSet.FieldByName('CODBARRA_EAN').AsString).IsEmpty) then
+        if (not StrIsGTIN(DtSrcTabelaItens.DataSet.FieldByName('CODBARRA_EAN').AsString, aError)) then
+        begin
+          TServiceMessage.ShowWarning('Código EAN/GTIN inválido!' + #13 + aError + #13#13 +
+            Format('Verifique o cadastro do produto %s e corrija!', [DtSrcTabelaItens.DataSet.FieldByName('DESCRI').AsString]));
+          Break;
+        end;
+
+      DtSrcTabelaItens.DataSet.Next;
+    end;
+
+    Result := True;
+  finally
+    DtSrcTabelaItens.DataSet.First;
+    DtSrcTabelaItens.DataSet.EnableControls;
   end;
 end;
 

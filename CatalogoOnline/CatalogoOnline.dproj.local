@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2019/04/01 13:05:40.000.781,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/04/01 16:03:22.000.442,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/04/01 16:06:52.000.361,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/04/05 15:53:39.000.069,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/04/05 16:15:59.000.938,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/04/07 21:08:08.000.250,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/05/03 17:26:42.000.092,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/05/23 18:59:11.000.915,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/07/05 10:11:45.000.857,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/07/05 10:15:12.000.441,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/08/08 22:13:11.000.486,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/09/26 08:33:06.000.511,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/09/26 09:32:36.000.260,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019/10/22 22:11:24.000.040,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/01/23 09:33:21.000.659,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/03/06 13:13:55.000.016,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/03/15 10:02:55.000.606,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/03/23 15:49:22.000.843,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/04/10 13:44:38.000.389,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/07/17 14:12:09.000.479,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/07/21 21:58:06.000.604,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/07/21 22:30:05.000.749,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/11/05 19:51:37.000.747,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/07/30 19:26:41.000.974,=C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2022/07/30 20:12:12.000.122,C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\CatalogoOnline\src\View\SGE.View.Produto.CatalogoOnline.pas</Transaction>
+    <Transaction>2022/07/30 20:12:12.000.122,C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\Isaque\Documents\Projetos\ASS\SGE\CatalogoOnline\src\View\SGE.View.Produto.CatalogoOnline.dfm</Transaction>
+    <Transaction>2022/07/30 20:12:38.000.636,C:\Users\Isaque\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Isaque\Documents\Projetos\ASS\SGE\CatalogoOnline\src\CatalogoOnline.dproj</Transaction>
+    <Transaction>2022/07/30 20:14:39.000.279,C:\Users\Isaque\Documents\Projetos\ASS\SGE\CatalogoOnline\src\CatalogoOnline.dproj=C:\Users\Isaque\Documents\Projetos\ASS\SGE\CatalogoOnline\CatalogoOnline.dproj</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile iOSSimulator="iPhone5"/>
+	</ActiveMobileDevice>
+</BorlandProject>

@@ -17,7 +17,7 @@ uses
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
   dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, IBX.IBCustomDataSet,
-  IBX.IBQuery;
+  IBX.IBQuery, dxSkinsDefaultPainters;
 
 type
   TfrmGeContasAReceberQuitar = class(TfrmGrPadraoPesquisa)

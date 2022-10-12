@@ -16,6 +16,7 @@ uses
   SGE.Model.DAO.Cliente,
   SGE.Model.DAO.CondicaoPagto,
   SGE.Model.DAO.ContaAPagar,
+  SGE.Model.DAO.ContaAReceber,
   SGE.Model.DAO.ContaCorrente,
   SGE.Model.DAO.Config,
   SGE.Model.DAO.CST,
@@ -75,6 +76,7 @@ type
       FConfigSystem       ,
       FConfiguracaoEmpresa,
       FContaAPagar      ,
+      FContaAReceber    ,
       FContaCorrente    ,
       FContaCorrenteView,
       FCorVeiculo ,
@@ -117,6 +119,7 @@ type
       FPromocaoProduto  ,
       FSecaoProduto     ,
       FSegmento         ,
+      FRecebimento      ,
       FRequisicaoAlmoxarifado       ,
       FRequisicaoAlmoxarifadoProduto,
       FRequisicaoCompra ,
@@ -181,6 +184,7 @@ type
       function ConfigSystem : IModelDAOCustom;
       function ConfiguracaoEmpresa : IModelDAOCustom;
       function ContaAPagar : IModelDAOCustom;
+      function ContaAReceber : IModelDAOCustom;
       function ContaCorrente : IModelDAOCustom;
       function ContaCorrenteView : IModelDAOCustom;
       function CorVeiculo : IModelDAOCustom;
@@ -223,6 +227,7 @@ type
       function PromocaoProduto : IModelDAOCustom;
       function SecaoProduto : IModelDAOCustom;
       function Segmento : IModelDAOCustom;
+      function Recebimento : IModelDAOCustom;
       function RequisicaoAlmoxarifado : IModelDAOCustom;
       function RequisicaoAlmoxarifadoProduto : IModelDAOCustom;
       function RequisicaoCompra : IModelDAOCustom;
@@ -367,6 +372,14 @@ begin
     FPromocaoProduto := TModelDAOPromocaoProduto.New;
 
   Result := FPromocaoProduto;
+end;
+
+function TModelDAOFactory.Recebimento: IModelDAOCustom;
+begin
+  if not Assigned(FRecebimento) then
+    FRecebimento := TModelDAORecebimento.New;
+
+  Result := FRecebimento;
 end;
 
 function TModelDAOFactory.RequisicaoAlmoxarifado: IModelDAOCustom;
@@ -815,6 +828,14 @@ begin
     FContaAPagar := TModelDAOContaAPagar.New;
 
   Result := FContaAPagar;
+end;
+
+function TModelDAOFactory.ContaAReceber: IModelDAOCustom;
+begin
+  if not Assigned(FContaAReceber) then
+    FContaAReceber := TModelDAOContaAReceber.New;
+
+  Result := FContaAReceber;
 end;
 
 function TModelDAOFactory.ContaCorrente: IModelDAOCustom;

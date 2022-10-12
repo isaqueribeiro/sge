@@ -319,6 +319,7 @@ var
   function StrDescricaoProdutoBtn(const NoPlural : Boolean = TRUE) : String;
   function StrOnlyNumbers(const Str : String) : String;
   Function StrInscricaoEstadual(const IE, UF : String) : Boolean;
+  Function StrIsGTIN(aValue : String; out aError : String) : Boolean;
   Function StrIsEmail(aValue : String; out aError : String) : Boolean;
 
   function SetBairro(const iCidade : Integer; const sNome : String) : Integer;
@@ -3123,6 +3124,26 @@ begin
       if not Result then
          sMensErro := Trim(ACBrValidador.MsgErro);
     end;
+end;
+
+Function StrIsGTIN(aValue : String; out aError : String) : Boolean;
+var
+  aNumero : String;
+begin
+  Result := False;
+
+  with DMBusiness do
+  begin
+    aNumero := OnlyNumber(aValue.Trim);
+
+    ACBrValidador.TipoDocto := TACBrValTipoDocto.docGTIN;
+    ACBrValidador.Documento := aNumero;
+
+    Result := ACBrValidador.Validar;
+
+    if not Result then
+       aError := Trim(ACBrValidador.MsgErro);
+  end;
 end;
 
 Function StrIsEmail(aValue : String; out aError : String) : Boolean;

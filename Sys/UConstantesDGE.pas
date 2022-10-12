@@ -516,6 +516,11 @@ const
   STATUS_APAGAR_PENDENTE = 0;
   STATUS_APAGAR_PAGO     = 1;
 
+  // Status de Contas a Receber (Financeiro)
+
+  STATUS_ARECEBER_PENDENTE = 0;
+  STATUS_ARECEBER_PAGO     = 1;
+
   // Status de Entradas (Compras)
 
   STATUS_CMP_ABR = 1;

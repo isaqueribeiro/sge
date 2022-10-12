@@ -16,7 +16,8 @@ type
       FApropriacaoEstoqueProduto   ,
       FApropriacaoEstoqueTotal     : IModelDAOQueryApropriacaoEstoque;
       FFornecedorCliente,
-      FContaAPagar      : IModelDAOQuery;
+      FContaAPagar      ,
+      FContaAReceber    : IModelDAOQuery;
     protected
       constructor Create;
     public
@@ -29,6 +30,7 @@ type
       function ApropriacaoEstoqueTotal   : IModelDAOQueryApropriacaoEstoque;
       function FornecedorCliente : IModelDAOQuery;
       function ContaAPagar : IModelDAOQuery;
+      function ContaAReceber : IModelDAOQuery;
   end;
 
 implementation
@@ -39,7 +41,8 @@ uses
   System.SysUtils,
   SGI.Model.DAO.Query.ApropriacaoEstoque,
   SGE.Model.DAO.Query.FornecedorCliente,
-  SGE.Model.DAO.Query.ContaAPagar;
+  SGE.Model.DAO.Query.ContaAPagar,
+  SGE.Model.DAO.Query.ContaAReceber;
 
 constructor TModelDAOQueryFactory.Create;
 begin
@@ -104,6 +107,14 @@ begin
     FContaAPagar := TModelDAOQueryContaAPagar.New;
 
   Result := FContaAPagar;
+end;
+
+function TModelDAOQueryFactory.ContaAReceber: IModelDAOQuery;
+begin
+  if not Assigned(FContaAReceber) then
+    FContaAReceber := TModelDAOQueryContaAreceber.New;
+
+  Result := FContaAReceber;
 end;
 
 end.
