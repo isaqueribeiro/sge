@@ -44001,7 +44001,7 @@ object DMNFe: TDMNFe
       '  , i.Codcontrol'
       '  , i.Seq'
       '  , i.Codprod'
-      '  , p.Codbarra_ean'
+      '  , coalesce(p.Codbarra_ean, '#39#39') as Codbarra_ean'
       '  , p.Descri'
       '  , p.Apresentacao'
       

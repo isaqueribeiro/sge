@@ -2,46 +2,46 @@ inherited ViewContaAReceber: TViewContaAReceber
   Top = 218
   ActiveControl = dbCodigo
   Caption = 'Controle de Contas A Receber'
-  ClientHeight = 593
+  ClientHeight = 607
   ClientWidth = 934
   OldCreateOrder = True
   ExplicitWidth = 950
-  ExplicitHeight = 632
+  ExplicitHeight = 646
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 589
+    Top = 603
     Width = 934
     ExplicitTop = 558
     ExplicitWidth = 934
   end
   inherited Bevel3: TBevel
-    Top = 550
+    Top = 564
     Width = 934
     ExplicitTop = 519
     ExplicitWidth = 934
   end
   inherited pgcGuias: TPageControl
     Width = 934
-    Height = 550
+    Height = 564
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 934
-    ExplicitHeight = 518
+    ExplicitHeight = 550
     inherited tbsTabela: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 25
       ExplicitWidth = 926
-      ExplicitHeight = 489
+      ExplicitHeight = 521
       inherited Bevel4: TBevel
-        Top = 447
+        Top = 461
         Width = 926
         ExplicitTop = 424
         ExplicitWidth = 926
       end
       inherited dbgDados: TDBGrid
         Width = 926
-        Height = 447
+        Height = 461
         Columns = <
           item
             Expanded = False
@@ -126,9 +126,9 @@ inherited ViewContaAReceber: TViewContaAReceber
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 451
+        Top = 465
         Width = 926
-        ExplicitTop = 419
+        ExplicitTop = 451
         ExplicitWidth = 926
         inherited grpBxFiltro: TGroupBox
           Left = 328
@@ -146,7 +146,8 @@ inherited ViewContaAReceber: TViewContaAReceber
             Align = alRight
             Caption = 'Lan'#231'amento:'
             Layout = tlCenter
-            ExplicitLeft = 310
+            ExplicitLeft = 318
+            ExplicitTop = 24
             ExplicitWidth = 73
           end
           object lblData: TLabel [1]
@@ -161,8 +162,6 @@ inherited ViewContaAReceber: TViewContaAReceber
             Caption = 'Vencimento:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitLeft = 14
-            ExplicitTop = 25
             ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
@@ -238,8 +237,6 @@ inherited ViewContaAReceber: TViewContaAReceber
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 0
-            ExplicitLeft = 88
-            ExplicitTop = 21
           end
           object e2Data: TJvDateEdit
             AlignWithMargins = True
@@ -301,8 +298,6 @@ inherited ViewContaAReceber: TViewContaAReceber
             PopupColor = clBtnFace
             ShowNullDate = False
             TabOrder = 1
-            ExplicitLeft = 200
-            ExplicitTop = 21
           end
         end
         object pnlStatus: TPanel
@@ -453,7 +448,7 @@ inherited ViewContaAReceber: TViewContaAReceber
       ExplicitLeft = 4
       ExplicitTop = 25
       ExplicitWidth = 926
-      ExplicitHeight = 489
+      ExplicitHeight = 521
       inherited Bevel8: TBevel
         Top = 281
         Width = 926
@@ -470,7 +465,7 @@ inherited ViewContaAReceber: TViewContaAReceber
       end
       object Bevel6: TBevel [2]
         Left = 0
-        Top = 404
+        Top = 418
         Width = 926
         Height = 4
         Align = alBottom
@@ -1163,13 +1158,13 @@ inherited ViewContaAReceber: TViewContaAReceber
       end
       object pgcMaisDados: TPageControl
         Left = 0
-        Top = 408
+        Top = 422
         Width = 926
         Height = 113
         ActivePage = tbsHistorico
         Align = alBottom
         TabOrder = 4
-        ExplicitTop = 376
+        ExplicitTop = 408
         object tbsHistorico: TTabSheet
           Caption = 'Hist'#243'rico'
           object dbObservacao: TDBMemo
@@ -1400,15 +1395,14 @@ inherited ViewContaAReceber: TViewContaAReceber
         Left = 0
         Top = 285
         Width = 926
-        Height = 119
+        Height = 133
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 3
-        ExplicitTop = 293
-        ExplicitHeight = 87
+        ExplicitHeight = 119
         object pnlPagamentosDicas: TPanel
           Left = 0
-          Top = 87
+          Top = 101
           Width = 926
           Height = 32
           Align = alBottom
@@ -1417,7 +1411,7 @@ inherited ViewContaAReceber: TViewContaAReceber
           Padding.Left = 10
           Padding.Right = 10
           TabOrder = 1
-          ExplicitTop = 55
+          ExplicitTop = 87
           object lblPagamentosDicas: TLabel
             AlignWithMargins = True
             Left = 13
@@ -1447,7 +1441,7 @@ inherited ViewContaAReceber: TViewContaAReceber
           Left = 0
           Top = 0
           Width = 926
-          Height = 87
+          Height = 101
           Hint = 
             'Para a exclus'#227'o de baixas basta pressionar CTRL + DELETE'#13#10#13#10'Obse' +
             'rva'#231#227'o:'#13#10'======================='#13#10'Apenas usu'#225'rios nas fun'#231#245'es Di' +
@@ -1541,9 +1535,9 @@ inherited ViewContaAReceber: TViewContaAReceber
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 554
+    Top = 568
     Width = 934
-    ExplicitTop = 522
+    ExplicitTop = 554
     ExplicitWidth = 934
     inherited bvlTool1: TBevel
       Left = 313

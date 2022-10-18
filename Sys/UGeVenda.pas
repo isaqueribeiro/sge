@@ -462,6 +462,7 @@ type
     cdsVendaVolumePESO_BRUTO: TFMTBCDField;
     cdsVendaVolumePESO_LIQUIDO: TFMTBCDField;
     cdsVendaVolumeCUBAGEM: TBCDField;
+    cdsTabelaItensCODBARRA_EAN: TStringField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -2003,8 +2004,9 @@ begin
   if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
     if ( SelecionarProdutoParaVenda(Self, aProduto) ) then
     begin
-      cdsTabelaItensCODPROD.AsString     := aProduto.aCodigoAlfa;
-      cdsTabelaItensDESCRI.AsString      := aProduto.aDescricao;
+      cdsTabelaItensCODPROD.AsString      := aProduto.aCodigoAlfa;
+      cdsTabelaItensCODBARRA_EAN.AsString := aProduto.aCodigoEAN;
+      cdsTabelaItensDESCRI.AsString       := aProduto.aDescricao;
       cdsTabelaItensDESCRI_APRESENTACAO.AsString := aProduto.aNome;
       cdsTabelaItensUNID_COD.AsInteger   := aProduto.aUnidadeCompra.aCodigo;
       cdsTabelaItensUNP_SIGLA.AsString   := aProduto.aUnidadeCompra.aSigla;
@@ -3974,7 +3976,7 @@ begin
         if (not StrIsGTIN(DtSrcTabelaItens.DataSet.FieldByName('CODBARRA_EAN').AsString, aError)) then
         begin
           TServiceMessage.ShowWarning('Código EAN/GTIN inválido!' + #13 + aError + #13#13 +
-            Format('Verifique o cadastro do produto %s e corrija!', [DtSrcTabelaItens.DataSet.FieldByName('DESCRI').AsString]));
+            Format('Verifique o cadastro do produto "%s" e corrija!', [DtSrcTabelaItens.DataSet.FieldByName('DESCRI').AsString]));
           Break;
         end;
 

@@ -569,6 +569,7 @@ begin
         .Add('  , i.lote_data_fab       ')
         .Add('  , i.lote_data_val       ')
         // Dados do Produto
+        .Add('  , coalesce(trim(p.codbarra_ean), '''') as codbarra_ean')
         .Add('  , coalesce(p.descri_apresentacao, p.Descri) as Descri')
         .Add('  , p.descri_apresentacao')
         .Add('  , p.Qtde as Estoque   ')
@@ -605,6 +606,7 @@ end;
 procedure TModelDAOEntradaProduto.SetProviderFlags;
 begin
   // Ignorar campos no Insert e Update
+  FConn.Query.DataSet.FieldByName('codbarra_ean').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('Descri').ProviderFlags    := [];
   FConn.Query.DataSet.FieldByName('descri_apresentacao').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('Estoque').ProviderFlags   := [];

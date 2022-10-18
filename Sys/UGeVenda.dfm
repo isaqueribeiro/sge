@@ -6119,6 +6119,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  , i.Total_bruto'
       '  , i.Total_desconto'
       '  , i.Total_liquido'
+      '  , p.codbarra_ean'
       '  , p.Descri'
       '  , p.Descri_apresentacao'
       '  , p.Qtde as Estoque'
@@ -6381,6 +6382,13 @@ inherited frmGeVenda: TfrmGeVenda
       ProviderFlags = []
       Precision = 18
       Size = 3
+    end
+    object cdsTabelaItensCODBARRA_EAN: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'CODBARRA_EAN'
+      Origin = 'CODBARRA_EAN'
+      ProviderFlags = []
+      Size = 15
     end
   end
   object updTabelaItens: TFDUpdateSQL
