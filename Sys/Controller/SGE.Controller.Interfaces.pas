@@ -80,6 +80,8 @@ type
     procedure BloquearCliente(aCodigo : Integer; aLog : String);
     procedure DesbloquearCliente(aCodigo : Integer; aLog : String);
     function CpfCnpjCadastro(Codigo : Integer;  CpfCnpj : String; var aCodigo : Integer; var aNome : String) : Boolean;
+    function Get(aCodigo : Integer) : IModelDAOCustom; overload;
+    function Get(aCNPJ : String) : IModelDAOCustom; overload;
   end;
 
   IControllerFornecedor = interface(IControllerCustom)

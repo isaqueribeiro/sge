@@ -51,11 +51,7 @@ uses
   Interacao.Tabela,
   Controller.Tabela,
   UConstantesDGE,
-  SGE.Controller.Impressao.ContaAReceber,
-
-  UGrPadraoCadastro, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
-  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, frxDBSet,
-  FireDAC.Comp.Client, FireDAC.Comp.DataSet, IBX.IBCustomDataSet, IBX.IBUpdateSQL;
+  SGE.Controller.Impressao.ContaAReceber;
 
 type
   TViewContaAReceber = class(TViewPadraoCadastro)
@@ -235,8 +231,8 @@ uses
   SGE.Controller,
   SGE.Controller.Helper,
   View.Cliente,
-  UGeEfetuarPagtoREC,
-  UGeContasAReceberLoteParcela;
+  View.ContaAReceber.LoteParcela,
+  View.ContaAReceber.Pagamento;
 
 {$R *.dfm}
 
@@ -567,13 +563,13 @@ procedure TViewContaAReceber.btbtnExcluirClick(Sender: TObject);
 begin
   if (DtSrcTabela.DataSet.FieldByName('BAIXADO').AsInteger = STATUS_ARECEBER_PAGO) then
   begin
-    ShowWarning('O Lançamento não poderá ser excluído pois este já está quitado!');
+    TServiceMessage.ShowWarning('O Lançamento não poderá ser excluído pois este já está quitado!');
     Abort;
   end
   else
   if (DtSrcTabela.DataSet.FieldByName('ANOVENDA').AsInteger > 0) or (DtSrcTabela.DataSet.FieldByName('ANOOS').AsInteger > 0) then
   begin
-    ShowWarning('Registros de Contas A Receber atrelados à saídas de produtos/serviços não podem ser excluídos!');
+    TServiceMessage.ShowWarning('Registros de Contas A Receber atrelados à saídas de produtos/serviços não podem ser excluídos!');
     Abort;
   end
   else
@@ -782,34 +778,62 @@ end;
 
 procedure TViewContaAReceber.btbtnIncluirLoteClick(Sender: TObject);
 var
-  sEmpresa ,
+//  sEmpresa ,
+//  sLote    : String;
+//  iCliente : Integer;
+//  dDataEmissao    ,
+//  dVencimentoFirst,
+//  dVencimentoLast : TDateTime;
+  sEmpresa,
   sLote    : String;
   iCliente : Integer;
   dDataEmissao    ,
   dVencimentoFirst,
   dVencimentoLast : TDateTime;
+  aCliente : IControllerCliente;
 begin
   if btbtnIncluir.Enabled then
   begin
-    sEmpresa     := gUsuarioLogado.Empresa;
+    sEmpresa     := FController.DAO.Usuario.Empresa.CNPJ;
     sLote        := EmptyStr;
     iCliente     := 0;
-    dDataEmissao := GetDateDB;
-    dVencimentoFirst := dDataEmissao + 30;
-    dVencimentoLast  := dDataEmissao + 60;
+    aCliente     := TControllerFactory.New.Cliente;
+    dDataEmissao := Date;
+
+    dVencimentoFirst := IncDay(dDataEmissao, 30);
+    dVencimentoLast  := IncDay(dDataEmissao, 60);
 
     if GerarLoteParcelas(Self, sEmpresa, sLote, iCliente, dDataEmissao, dVencimentoFirst, dVencimentoLast)  then
     begin
       pgcGuias.ActivePage := tbsTabela;
-      e1Data.Date     := dVencimentoFirst;
-      e2Data.Date     := dVencimentoLast;
-      edtFiltrar.Text := GetClienteNome(iCliente);
+      edtFiltrar.Text := aCliente.Get(iCliente).DataSet.FieldByName('nome').AsString;
       FLoteParcelas   := sLote;
       btnFiltrar.Click;
 
       FLoteParcelas := EmptyStr;
     end;
   end;
+//  if btbtnIncluir.Enabled then
+//  begin
+//    sEmpresa     := Controller.DAO.Usuario.Empresa.CNPJ;
+//    sLote        := EmptyStr;
+//    iCliente     := 0;
+//    dDataEmissao := Date;
+//    dVencimentoFirst := dDataEmissao + 30;
+//    dVencimentoLast  := dDataEmissao + 60;
+//
+//    if GerarLoteParcelas(Self, sEmpresa, sLote, iCliente, dDataEmissao, dVencimentoFirst, dVencimentoLast)  then
+//    begin
+//      pgcGuias.ActivePage := tbsTabela;
+//      e1Data.Date     := dVencimentoFirst;
+//      e2Data.Date     := dVencimentoLast;
+//      edtFiltrar.Text := GetClienteNome(iCliente);
+//      FLoteParcelas   := sLote;
+//      btnFiltrar.Click;
+//
+//      FLoteParcelas := EmptyStr;
+//    end;
+//  end;
 end;
 
 procedure TViewContaAReceber.btbtnListaClick(Sender: TObject);
@@ -870,7 +894,7 @@ procedure TViewContaAReceber.FormShow(Sender: TObject);
 begin
   inherited;
   RegistrarNovaRotinaSistema;
-  Self.Caption := Self.Caption + ' - (' + GetNomeFantasiaEmpresa(gUsuarioLogado.Empresa) + ')';
+  Self.Caption := Self.Caption + ' - (' + Controller.DAO.Usuario.Empresa.Fantasia + ')';
 end;
 
 procedure TViewContaAReceber.FrReciboGetValue(const VarName: string;

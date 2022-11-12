@@ -99,7 +99,7 @@ begin
       .ParamByName('sem_codigo', 0)
       .ParamByName('sem_cnpj',   0)
       .ParamByName('sem_nome',   0)
-      .OrderBy('c.dtvenc')
+      .OrderBy('r.dtvenc')
       .OrderBy('f.nome')
     .Open;
 

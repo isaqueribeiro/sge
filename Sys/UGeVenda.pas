@@ -463,6 +463,7 @@ type
     cdsVendaVolumePESO_LIQUIDO: TFMTBCDField;
     cdsVendaVolumeCUBAGEM: TBCDField;
     cdsTabelaItensCODBARRA_EAN: TStringField;
+    qryTitulosEMPRESA: TStringField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -634,7 +635,9 @@ uses
   , Service.InputQuery
   , Controller.Tabela
   , UDMBusiness, UFuncoes, View.Cliente, View.CondicaoPagto, View.Produto,
-  View.CFOP, UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos, UGeEfetuarPagtoREC,
+  View.CFOP,
+  UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos,
+  View.ContaAReceber.Pagamento,
   UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte, UGeVendaConfirmaTitulos,
   {$IFNDEF PDV}UGeVendaDevolucaoNF, UGeConsultarLoteNFe_v2, UGeRequisicaoCliente, {$ENDIF}
   UDMRecursos,
@@ -2372,7 +2375,8 @@ begin
           begin
             if ( cdsVendaFormaPagtoVENDA_PRAZO.AsInteger = 0 ) then
               if ( qryTitulos.Locate('FORMA_PAGTO', cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger, []) ) then
-                RegistrarPagamento(qryTitulosANOLANC.AsInteger, qryTitulosNUMLANC.AsInteger, GetDateDB, cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger,
+                RegistrarPagamento(qryTitulosEMPRESA.AsString,
+                  qryTitulosANOLANC.AsInteger, qryTitulosNUMLANC.AsInteger, GetDateDB, cdsVendaFormaPagtoFORMAPAGTO_COD.AsInteger,
                   cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency, toRecebimentoVenda, DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger);
 
             cdsVendaFormaPagto.Next;

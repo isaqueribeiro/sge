@@ -251,14 +251,14 @@ inherited ViewQueryContaAReceber: TViewQueryContaAReceber
         end
         item
           Expanded = False
-          FieldName = 'SAIDA_FORNECEDOR'
+          FieldName = 'SAIDA_CLIENTE'
           Title.Caption = 'Cliente'
           Width = 350
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'SAIDA_FORNECEDOR_CNPJ'
+          FieldName = 'SAIDA_CLIENTE_CNPJ'
           Title.Caption = 'CPF/CNPJ'
           Width = 150
           Visible = True
@@ -268,14 +268,17 @@ inherited ViewQueryContaAReceber: TViewQueryContaAReceber
       Top = 448
       Width = 1047
       TabOrder = 3
-      ExplicitTop = 306
+      ExplicitTop = 448
       ExplicitWidth = 1047
       inherited btnSelecionar: TcxButton
         Left = 821
+        TabOrder = 1
+        Visible = False
         ExplicitLeft = 821
       end
       inherited btnFechar: TcxButton
         Left = 934
+        TabOrder = 2
         ExplicitLeft = 934
       end
       object BtnQuitar: TcxButton
@@ -329,7 +332,7 @@ inherited ViewQueryContaAReceber: TViewQueryContaAReceber
           50FFB07050FFB06840FFA06040FFA05840FF905030FF}
         ParentShowHint = False
         ShowHint = True
-        TabOrder = 2
+        TabOrder = 0
         OnClick = BtnQuitarClick
       end
     end
@@ -341,7 +344,6 @@ inherited ViewQueryContaAReceber: TViewQueryContaAReceber
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitTop = 373
       object GrpBxControleQuitacao: TGroupBox
         Left = 0
         Top = 0
@@ -356,7 +358,6 @@ inherited ViewQueryContaAReceber: TViewQueryContaAReceber
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 0
-        ExplicitTop = 3
         DesignSize = (
           1047
           115)
@@ -588,7 +589,6 @@ inherited ViewQueryContaAReceber: TViewQueryContaAReceber
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitTop = 349
       object lblDicasTitulo: TLabel
         AlignWithMargins = True
         Left = 3
@@ -735,12 +735,12 @@ inherited ViewQueryContaAReceber: TViewQueryContaAReceber
       FieldName = 'SAIDA_DOC_SERIE'
       Size = 4
     end
-    object CdsPesquisaSAIDA_FORNECEDOR: TStringField
-      FieldName = 'SAIDA_FORNECEDOR'
+    object CdsPesquisaSAIDA_CLIENTE: TStringField
+      FieldName = 'SAIDA_CLIENTE'
       Size = 100
     end
-    object CdsPesquisaSAIDA_FORNECEDOR_CNPJ: TStringField
-      FieldName = 'SAIDA_FORNECEDOR_CNPJ'
+    object CdsPesquisaSAIDA_CLIENTE_CNPJ: TStringField
+      FieldName = 'SAIDA_CLIENTE_CNPJ'
       Size = 18
     end
     object CdsPesquisaSELECIONAR: TSmallintField

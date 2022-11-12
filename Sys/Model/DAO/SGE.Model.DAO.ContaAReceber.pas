@@ -14,6 +14,7 @@ type
     private
       procedure SetProviderFlags;
       procedure BaixadoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+      procedure CpfCnpjGetText(Sender: TField; var Text: string; DisplayText: Boolean);
       procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetNewRecord(DataSet: TDataSet);
       procedure DataSetBeforePost(DataSet: TDataSet);
@@ -48,6 +49,7 @@ implementation
 
 uses
   System.DateUtils,
+  Service.Utils,
   UConstantesDGE;
 
 constructor TModelDAOContaAReceber.Create;
@@ -98,6 +100,7 @@ begin
         .Add('  , r.AnoOS   ')
         .Add('  , r.NumOS   ')
         .Add('  , r.Situacao')
+        .Add('  , r.Lote')
         .Add('  , r.Competencia_apuracao')
         .Add('  , lpad(r.Anolanc, 4, ''0'') || lpad(r.Numlanc, 6, ''0'') as Lancamento')
         .Add('  , c.Nome as NomeCliente ')
@@ -131,6 +134,21 @@ begin
   Result := Self.Create;
 end;
 
+procedure TModelDAOContaAReceber.CpfCnpjGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+begin
+  if ( Sender.IsNull ) then
+    Exit;
+
+  if (Sender.DataSet.FieldByName('Cnpj').AsString = EmptyStr) then
+    Text := EmptyStr
+  else
+  if TServicesUtils.StrIsCPF(Sender.DataSet.FieldByName('Cnpj').AsString) then
+    Text := TServicesUtils.StrFormatarCpf(Sender.DataSet.FieldByName('Cnpj').AsString)
+  else
+  if TServicesUtils.StrIsCNPJ(Sender.DataSet.FieldByName('Cnpj').AsString) then
+    Text := TServicesUtils.StrFormatarCnpj(Sender.DataSet.FieldByName('Cnpj').AsString);
+end;
+
 procedure TModelDAOContaAReceber.BaixadoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
 begin
   if ( Sender.IsNull ) then
@@ -162,6 +180,7 @@ end;
 procedure TModelDAOContaAReceber.DataSetAfterOpen(DataSet: TDataSet);
 begin
   SetProviderFlags;
+  FConn.Query.DataSet.FieldByName('CNPJ').OnGetText    := CpfCnpjGetText;
   FConn.Query.DataSet.FieldByName('BAIXADO').OnGetText := BaixadoGetText;
 end;
 
@@ -184,15 +203,15 @@ begin
   begin
     FieldByName('ANOLANC').AsInteger  := YearOf(Date);
     FieldByName('EMPRESA').AsString   := Usuario.Empresa.CNPJ;
-    FieldByName('NOMEEMP').AsString   := Copy(Usuario.Empresa.RazaoSocial, 1, FieldByName('NOMEEMP').Size);
     FieldByName('PARCELA').AsInteger  := 1;
     FieldByName('DTEMISS').AsDateTime := Date;
     FieldByName('COMPETENCIA_APURACAO').AsInteger := FormatDateTime('yyyymm', Date).ToInteger;
     FieldByName('BAIXADO').AsInteger  := STATUS_ARECEBER_PENDENTE;
+    FieldByName('ENVIADO').AsInteger  := 0;
     FieldByName('SITUACAO').AsInteger := 1; // Ativa
     FieldByName('LOTE').AsString      := EmptyStr;
+    FieldByName('TIPPAG').AsString    := EmptyStr;
     FieldByName('FORMA_PAGTO').AsInteger    := Configuracao.Padrao.FormaPagtoID;
-    FieldByName('CONDICAO_PAGTO').AsInteger := Configuracao.Padrao.CondicaoPagtoID;
     FieldByName('HISTORIC').AsString        := '...';
     FieldByName('VALORRECTOT').AsCurrency     := 0;
     FieldByName('VALORSALDO').AsCurrency      := 0;
@@ -205,6 +224,7 @@ begin
     FieldByName('NUMVENDA').Clear;
     FieldByName('ANOOS').Clear;
     FieldByName('NUMOS').Clear;
+    FieldByName('CODTPREC').Clear;
   end;
 end;
 
@@ -215,7 +235,7 @@ begin
   inherited Create;
   FConn
     .Query
-      .TableName('TBCONTPAG_BAIXA')
+      .TableName('TBCONTREC_BAIXA')
       .AliasTableName('p')
       .KeyFields('anolanc;numlanc;seq')
       .SQL
@@ -228,10 +248,13 @@ begin
         .Add('  , p.Data_pagto ')
         .Add('  , p.Forma_pagto')
         .Add('  , p.Valor_baixa')
+        .Add('  , p.controle_cheque')
         .Add('  , p.Numero_cheque  ')
+        .Add('  , p.empresa        ')
         .Add('  , p.banco          ')
         .Add('  , p.banco_febraban ')
         .Add('  , p.Documento_baixa')
+        .Add('  , p.usuario')
         .Add('  , f.Descri as Forma_pagto_desc')
         .Add('  , coalesce(b2.nome, b1.bco_nome) as bco_nome')
         .Add('from TBCONTREC_BAIXA p')
@@ -272,6 +295,7 @@ begin
     FieldByName('data_pagto').AsDateTime := Date;
     FieldByName('usuario').AsString      := Usuario.Login;
     FieldByName('forma_pagto').AsInteger := Configuracao.Padrao.FormaPagtoID;
+    FieldByName('controle_cheque').Clear;
     FieldByName('empresa').Clear;
     FieldByName('banco').Clear;
     FieldByName('banco_febraban').Clear;

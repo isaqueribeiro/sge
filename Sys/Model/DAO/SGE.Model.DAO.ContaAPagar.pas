@@ -255,6 +255,7 @@ begin
     FieldByName('data_pagto').AsDateTime := Date;
     FieldByName('usuario').AsString      := Usuario.Login;
     FieldByName('forma_pagto').AsInteger := Configuracao.Padrao.FormaPagtoID;
+    FieldByName('controle_cheque').Clear;
     FieldByName('empresa').Clear;
     FieldByName('banco').Clear;
     FieldByName('banco_febraban').Clear;

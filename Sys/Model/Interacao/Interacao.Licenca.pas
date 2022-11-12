@@ -83,6 +83,7 @@ type
     function UsarSGF : Boolean;
     function UsarSGO : Boolean;
     function GetCNPJArquivo(aFileName : TFileName) : String;
+    function TokenGoogleAuth : String;
   end;
 
 implementation

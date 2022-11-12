@@ -71,8 +71,8 @@ type
     CdsPesquisaSAIDA_DOC: TStringField;
     CdsPesquisaSAIDA_DOC_NUMERO: TLargeintField;
     CdsPesquisaSAIDA_DOC_SERIE: TStringField;
-    CdsPesquisaSAIDA_FORNECEDOR: TStringField;
-    CdsPesquisaSAIDA_FORNECEDOR_CNPJ: TStringField;
+    CdsPesquisaSAIDA_CLIENTE: TStringField;
+    CdsPesquisaSAIDA_CLIENTE_CNPJ: TStringField;
     CdsPesquisaTIPPAG: TStringField;
     CdsPesquisaVALORREC: TFMTBCDField;
     CdsPesquisaVALORMULTA: TFMTBCDField;
@@ -110,6 +110,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure dbgDadosDblClick(Sender: TObject);
     procedure dbNumeroChequeButtonClick(Sender: TObject);
+    procedure dtsPesquisaStateChange(Sender: TObject);
   private
     { Private declarations }
     FControllerFormaPagto  : IControllerCustom;
@@ -311,6 +312,12 @@ begin
     cdsRecebimentoLOTE.FieldByName('BancoFebraban').AsString   := aCheque.Banco;
     cdsRecebimentoLOTE.FieldByName('DataPagto').AsDateTime     := aCheque.Data;
   end;
+end;
+
+procedure TViewQueryContaAReceber.dtsPesquisaStateChange(Sender: TObject);
+begin
+  inherited;
+  BtnQuitar.Enabled := (not dtsPesquisa.DataSet.IsEmpty) and (StrToIntDef(CdsPesquisaSelecionados.AsString, 0) > 0);
 end;
 
 procedure TViewQueryContaAReceber.BtnQuitarClick(Sender: TObject);

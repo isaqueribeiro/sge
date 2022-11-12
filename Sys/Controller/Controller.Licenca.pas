@@ -8,6 +8,12 @@ uses
   System.IniFiles,
   Classe.Licenca,
   Interacao.Licenca,
+
+  Controller.Interfaces,
+  Controller.UsuarioApp,
+  Controller.ClienteApp,
+  Controller.FactoryApp,
+
   SGE.Model.DAO.Interfaces,
   SGE.Model.DAO.Licenca;
 
@@ -17,12 +23,29 @@ type
       class var _instance : ILicenca;
     private
       [weak]
-      FModel : ILicencaModel;
-      FFile  : TStringList;
-      FCnpjArquivo : String;
+      FModel  : ILicencaModel;
+      FUser   : IControllerUsuario<TControllerUsuarioApp>;
+      FClient : IControllerCliente<TControllerClienteApp>;
+      FFile   : TStringList;
+      FCnpjArquivo     ,
+      FTokenGoogleAuth : String;
+      FExecutando : Boolean;
       procedure CarregarDados;
 
+      procedure Autenticar;
+      procedure Autenticando;
+      procedure Autenticado(Sender : TObject);
+
+      procedure Sincronizar;
+      procedure Sincronizando;
+      procedure Sincronizado(Sender : TObject);
+
       function LicencaValida(aFileName : TFileName) : Boolean;
+
+      const
+        API_CODE_PROJECT_USER     = 'applicencaagil';
+        API_CODE_PROJECT_REALTIME = 'applicencaagil-default-rtdb';
+        API_FIREBASE = 'AIzaSyDK44Zi7G3m9wDM9sbgQb8FqG-BlDbpa-A';
     public
       constructor Create;
       destructor Destroy; override;
@@ -43,6 +66,7 @@ type
       function UsarSGF : Boolean;
       function UsarSGO : Boolean;
       function GetCNPJArquivo(aFileName : TFileName) : String;
+      function TokenGoogleAuth : String;
 
       class function GetInstance() : ILicenca;
   end;
@@ -50,7 +74,8 @@ type
 implementation
 
 uses
-  Service.Encript;
+  Service.Encript,
+  Service.Utils;
 
 { TLicencaController }
 
@@ -66,6 +91,58 @@ begin
     _instance := Self.Create;
 
   Result := _instance;
+end;
+
+procedure TLicencaController.Autenticado(Sender: TObject);
+begin
+  FExecutando := False;
+
+  if (Sender is TThread) then
+  begin
+    if Assigned(TThread(Sender).FatalException) then
+      raise Exception.Create('Erro ao tentar autenticar a aplicação no Servidor Web de licenças.' + #13 + Exception(TThread(Sender).FatalException).Message)
+    else
+    begin
+      FTokenGoogleAuth := FUser.Entity.TokenID;
+      if FUser.Entity.Registered then
+        Sincronizar;
+    end;
+  end;
+end;
+
+procedure TLicencaController.Autenticando;
+begin
+  if (not FTokenGoogleAuth.IsEmpty) and (FUser.Expired > Now) then
+    FUser
+      .CodeProject(API_CODE_PROJECT_USER)
+      .ApiKey(API_FIREBASE)
+      .RefreshToken
+  else
+    FUser
+      .CodeProject(API_CODE_PROJECT_USER)
+      .ApiKey(API_FIREBASE)
+      .Entity
+        .Email(FModel.Email)
+        .Passwd(TServicesUtils.StrOnlyNumbers(FModel.CNPJ) + '@pwd')
+      .&End
+      .Auth;
+end;
+
+procedure TLicencaController.Autenticar;
+var
+  aThread : TThread;
+begin
+  if FExecutando then
+    Exit;
+
+  if not Assigned(FUser) then
+    FUser := TControllerFactoryApp.New.Usuario;
+
+  FExecutando := True;
+
+  aThread := TThread.CreateAnonymousThread(Autenticando);
+  aThread.OnTerminate := Autenticado;
+  aThread.Start;
 end;
 
 function TLicencaController.Carregar: ILicenca;
@@ -115,6 +192,7 @@ begin
       .Empresa( aIni.ReadString('Licenca', 'edEmpresa',  '') )
       .NomeFantasia( aIni.ReadString('Licenca', 'edFantasia',  '') )
       .CNPJ( aIni.ReadString('Licenca', 'edCGC',      '') )
+      .Email( aIni.ReadString('Licenca', 'edEmail', '') )
       .Endereco( aIni.ReadString('Licenca', 'edEndereco', '') )
       .Numero( aIni.ReadString('Licenca', 'edNumero', 'S/N') )
       .Bairro( aIni.ReadString('Licenca', 'edBairro',   '') )
@@ -129,12 +207,8 @@ begin
       .UsarSGO( aIni.ReadBool('Licenca', 'chkSGO', False) );
 
     // Buscar dados atualizados da licença no FireBase RealTime através do "FModel.doc"
-    if (not FModel.doc.IsEmpty) then
-    begin
-
-      // ... IMPLEMENTAR
-
-    end;
+    if (not FModel.Email.IsEmpty) and (not FModel.doc.IsEmpty) then
+      Autenticar;
   finally
     aDao.Close;
     aIni.DisposeOf;
@@ -195,7 +269,9 @@ constructor TLicencaController.Create;
 begin
   FModel := TLicenca.New;
   FFile  := TStringList.Create;
-  FCnpjArquivo := EmptyStr;
+  FCnpjArquivo     := EmptyStr;
+  FTokenGoogleAuth := EmptyStr;
+  FExecutando      := False;
 end;
 
 function TLicencaController.DataBloqueio: TDateTime;
@@ -262,6 +338,67 @@ end;
 function TLicencaController.NomeFantasia: String;
 begin
   Result := FModel.NomeFantasia;
+end;
+
+procedure TLicencaController.Sincronizado(Sender: TObject);
+begin
+  FExecutando := False;
+
+  if (Sender is TThread) then
+  begin
+    if Assigned(TThread(Sender).FatalException) then
+      raise Exception.Create('Erro ao tentar sincronizar a licença com o Servidor Web.' + #13 + Exception(TThread(Sender).FatalException).Message)
+    else
+    begin
+      FModel
+        .UUID(FClient.Entity.UUID)
+        .Empresa(FClient.Entity.Razao)
+        .NomeFantasia(FClient.Entity.Fantasia)
+        .CNPJ(TServicesUtils.StrOnlyNumbers(FClient.Entity.Cnpj))
+        .Email(FClient.Entity.Email)
+        .Endereco(FClient.Entity.Endereco.Logradouro)
+        .Numero(FClient.Entity.Endereco.Numero)
+        .Bairro(FClient.Entity.Endereco.Bairro)
+        .Cidade(FClient.Entity.Endereco.Cidade)
+        .UF(FClient.Entity.Endereco.UF)
+        .CEP(TServicesUtils.StrOnlyNumbers(FClient.Entity.Endereco.Cep))
+        .Competencia(FClient.Entity.Licenca.Competencia)
+        .DataBloqueio(FClient.Entity.Licenca.Bloqueio)
+        .UsarSGE(FClient.Entity.Licenca.Sistemas.SGE)
+        .UsarSGO(FClient.Entity.Licenca.Sistemas.SGO)
+        .UsarSGI(FClient.Entity.Licenca.Sistemas.SGI)
+        .UsarSGF(FClient.Entity.Licenca.Sistemas.SGF);
+    end;
+  end;
+end;
+
+procedure TLicencaController.Sincronizando;
+begin
+  FClient
+    .CodeProject(API_CODE_PROJECT_REALTIME)
+    .Load(FTokenGoogleAuth, FModel.doc);
+end;
+
+procedure TLicencaController.Sincronizar;
+var
+  aThread : TThread;
+begin
+  if FExecutando then
+    Exit;
+
+  if not Assigned(FClient) then
+    FClient := TControllerFactoryApp.New.Cliente;
+
+  FExecutando := True;
+
+  aThread := TThread.CreateAnonymousThread(Sincronizando);
+  aThread.OnTerminate := Sincronizado;
+  aThread.Start;
+end;
+
+function TLicencaController.TokenGoogleAuth: String;
+begin
+  Result := FTokenGoogleAuth;
 end;
 
 function TLicencaController.UsarSGE: Boolean;
