@@ -1,9 +1,9 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 16/06/2021 12:35:00     #
+#    Gerado por AGIL SOFTWARES em : 14/12/2022 16:39:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
-- Atualização das Taxas Tributárias para FEV/2021 até MAI/2021.
+- Atualização das Taxas Tributárias para NOV/2022 até JAN/2023.
 - Manifesto e baixa de notas fiscais recebidas
 - Outros ajustes na otimização de processos.}
 
@@ -21,17 +21,14 @@
 #url12=http://www.drhtransparencia.com.br/agil/upgrade/lib/LciLR3USB.inf
 #url13=http://www.drhtransparencia.com.br/agil/upgrade/lib/MP2032.chm
 #url14=http://www.drhtransparencia.com.br/agil/upgrade/lib/BAUHS93.TTF
-#url15=http://www.drhtransparencia.com.br/agil/upgrade/db/01002001.sql
-#url16=http://www.drhtransparencia.com.br/agil/upgrade/db/01002400.sql
-#url17=http://www.drhtransparencia.com.br/agil/upgrade/db/01002500.sql
-#url18=http://www.drhtransparencia.com.br/agil/upgrade/db/01002600.sql
-#url19=http://www.drhtransparencia.com.br/agil/upgrade/db/01002700.sql
-#url20=http://www.drhtransparencia.com.br/agil/upgrade/db/01002800.sql
-#url21=http://www.drhtransparencia.com.br/agil/upgrade/db/01002900.sql
-#url22=http://www.drhtransparencia.com.br/agil/upgrade/db/01002903.sql
-#url23=http://www.drhtransparencia.com.br/agil/upgrade/db/01003000.sql
-#url24=http://www.drhtransparencia.com.br/agil/upgrade/db/01003100.sql
+#url15=http://www.drhtransparencia.com.br/agil/upgrade/db/01003000.sql
+#url16=http://www.drhtransparencia.com.br/agil/upgrade/db/01003100.sql
+#url17=http://www.drhtransparencia.com.br/agil/upgrade/db/01003105.sql
+#url18=http://www.drhtransparencia.com.br/agil/upgrade/db/01003106.sql
+#url19=http://www.drhtransparencia.com.br/agil/upgrade/db/01003107.sql
+#url20=http://www.drhtransparencia.com.br/agil/upgrade/db/01003200.sql
+#url21=http://www.drhtransparencia.com.br/agil/upgrade/db/01003201.sql
 
 #method=0 (self-upgrade)
 
-#version=1.0.31.4
+#version=1.0.32.3

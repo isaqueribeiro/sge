@@ -340,6 +340,7 @@ type
     procedure ApplicationEventsModalBegin(Sender: TObject);
     procedure ApplicationEventsModalEnd(Sender: TObject);
     procedure ApplicationEventsActivate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -361,6 +362,8 @@ implementation
 
 uses
   System.Notification,
+
+  Service.Message,
 
   // Conexão e Controles Aplicação
   UDMRecursos,
@@ -952,39 +955,37 @@ begin
 
   BrBtnRequisicaoCliente.Enabled := GetEstoqueSateliteEmpresa( gUsuarioLogado.Empresa );
 
-  if not gLicencaSistema.UsarSGI then
-    try
-      ShowError(
-        'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
-        'Favor entrar em contato com o fornecedor do software.');
-    finally
-      Application.Terminate;
-
-      // Remover processo da memória do Windows
-      aProcesso := ParamStr(0);
-      aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
-      KillTask(aProcesso);
-    end;
-
-  // Verifica se a versão da aplicação é maior que a versão do banco
-  // O procedimento "UpgradeDataBase()" atualiza a base de dados
-  if (Trunc(gVersaoApp.VersionID / 100) > Trunc(GetVersionDB(gSistema.Codigo) / 100)) then
-    try
-      ShowError(
-        'Esta versão da aplicação necessidade que a base de dados esteja atualizada!' + #13#13 +
-        'Favor entrar em contato com o fornecedor do software.');
-    finally
-      Application.Terminate;
-
-      // Remover processo da memória do Windows
-      aProcesso := ParamStr(0);
-      aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
-      KillTask(aProcesso);
-    end;
-
-  // Verifica se a versão do banco é maior que a versão da aplicação
-  if (Trunc(GetVersionDB(gSistema.Codigo) / 100) > Trunc(gVersaoApp.VersionID / 100)) then
-    raise Exception.Create('O sistema está desatualizado em relação à base de dados.' + #13 + 'Favor atualize seu sistema.');
+//  // Verifica se a versão da aplicação é maior que a versão do banco
+//  // O procedimento "UpgradeDataBase()" atualiza a base de dados
+//  try
+//    if not gLicencaSistema.UsarSGI then
+//      raise Exception.Create(
+//        'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
+//        'Favor entrar em contato com o fornecedor do software.'
+//      );
+//
+//    if (Trunc(gVersaoApp.VersionID / 100) > Trunc(GetVersionDB(gSistema.Codigo) / 100)) then
+//      raise Exception.Create(
+//        'Esta versão da aplicação necessidade que a base de dados esteja atualizada!' + #13#13 +
+//        'Favor entrar em contato com o fornecedor do software.'
+//      );
+//
+//    // Verifica se a versão do banco é maior que a versão da aplicação
+//    if (Trunc(GetVersionDB(gSistema.Codigo) / 100) > Trunc(gVersaoApp.VersionID / 100)) then
+//      raise Exception.Create('O sistema está desatualizado em relação à base de dados.' + #13 + 'Favor atualize seu sistema.');
+//  except
+//    On E : Exception do
+//    begin
+//      TServiceMessage.ShowError(E.Message);
+//
+//      Application.Terminate;
+//
+//      // Remover processo da memória do Windows
+//      aProcesso := ParamStr(0);
+//      aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+//      KillTask(aProcesso);
+//    end;
+//  end;
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
@@ -1029,6 +1030,48 @@ begin
   FAcesso := False;
   SetSistema(gSistema.Codigo, gSistema.Nome, gVersaoApp.Version);
   RegistrarRotinasMenu;
+end;
+
+procedure TfrmPrinc.FormShow(Sender: TObject);
+var
+  aProcesso : String;
+begin
+  // Verifica se a versão da aplicação é maior que a versão do banco
+  // O procedimento "UpgradeDataBase()" atualiza a base de dados
+  try
+    if not gLicencaSistema.UsarSGI then
+      raise Exception.Create(
+        'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
+        'Favor entrar em contato com o fornecedor do software.'
+      );
+
+    if (Trunc(gVersaoApp.VersionID / 100) > Trunc(GetVersionDB(gSistema.Codigo) / 100)) then
+      raise Exception.Create(
+        'Esta versão da aplicação necessidade que a base de dados esteja atualizada!' + #13#13 +
+        'Favor entrar em contato com o fornecedor do software.'
+      );
+
+    // Verifica se a versão do banco é maior que a versão da aplicação
+    if (Trunc(GetVersionDB(gSistema.Codigo) / 100) > Trunc(gVersaoApp.VersionID / 100)) then
+      raise Exception.Create('O sistema está desatualizado em relação à base de dados.' + #13 + 'Favor atualize seu sistema.');
+  except
+    On E : Exception do
+    begin
+      Sleep(500);
+      Application.ProcessMessages;
+      Sleep(500);
+      Application.ProcessMessages;
+
+      TServiceMessage.ShowError(E.Message);
+
+      Application.Terminate;
+
+      // Remover processo da memória do Windows
+      aProcesso := ParamStr(0);
+      aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+      KillTask(aProcesso);
+    end;
+  end;
 end;
 
 procedure TfrmPrinc.GetInformacoesGerais;

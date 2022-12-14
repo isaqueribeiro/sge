@@ -45,6 +45,18 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
+  // Itens da Requisição ao Almoxarifado
+  TModelDAORequisicaoAlmoxarifadoProdutoReserva = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+  end;
+
   // Tipos ao Requisição ao Almoxarifado (View)
   TModelDAOTipoRequisicaoAlmoxView = class(TModelDAO, IModelDAOCustom)
     private
@@ -72,7 +84,7 @@ begin
   FConn
     .Query
       .TableName('TBREQUISICAO_ALMOX')
-      .AliasTableName('a')
+      .AliasTableName('r')
       .KeyFields('ano;controle')
       .AutoIncFields('controle')
       .GeneratorName('GEN_REQUISICAO_ALMOX_' + FormatDateTime('yyyy', Date))
@@ -209,6 +221,7 @@ procedure TModelDAORequisicaoAlmoxarifado.DataSetNewRecord(DataSet: TDataSet);
 begin
   with FConn.Query.DataSet do
   begin
+    FieldByName('ANO').AsInteger            := FormatDateTime('yyyy', Date).ToInteger;
     FieldByName('EMPRESA').AsString         := Usuario.Empresa.CNPJ;
     FieldByName('INSERCAO_DATA').AsDateTime := Now;
     FieldByName('DATA_EMISSAO').AsDateTime  := Date;
@@ -414,6 +427,48 @@ begin
   Result := Self;
   if not FConn.Query.DataSet.Active then
     FConn.Query.Open;
+end;
+
+{ TModelDAORequisicaoAlmoxarifadoProdutoReserva }
+
+constructor TModelDAORequisicaoAlmoxarifadoProdutoReserva.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select   ')
+        .Add('    r.ano')
+        .Add('  , r.controle')
+        .Add('  , r.numero  ')
+        .Add('  , r.data_emissao')
+        .Add('  , t.descricao as tipo')
+        .Add('  , c.descricao as centro_custo')
+        .Add('  , ri.produto')
+        .Add('  , ri.qtde   ')
+        .Add('  , u.unp_descricao')
+        .Add('  , u.unp_sigla    ')
+        .Add('from TBREQUISICAO_ALMOX r')
+        .Add('  inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and ri.controle = r.controle)')
+        .Add('  inner join TBUNIDADEPROD u on (u.unp_cod = ri.unidade)     ')
+        .Add('  left join TBCENTRO_CUSTO c on (c.codigo = r.ccusto_origem) ')
+        .Add('  left join VW_TIPO_REQUISICAO_ALMOX t on (t.codigo = r.tipo)')
+        .Add('where (r.status in (' + IntToStr(STATUS_ITEM_REQUISICAO_ALMOX_PEN) + ', ' + IntToStr(STATUS_ITEM_REQUISICAO_ALMOX_AGU) + ', ' + IntToStr(STATUS_ITEM_REQUISICAO_ALMOX_ATE) + '))')
+        .Add('  and (ri.produto = :produto)')
+      .&End
+    .ParamByName('produto', '0')
+    .Open;
+end;
+
+destructor TModelDAORequisicaoAlmoxarifadoProdutoReserva.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAORequisicaoAlmoxarifadoProdutoReserva.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
 end;
 
 end.

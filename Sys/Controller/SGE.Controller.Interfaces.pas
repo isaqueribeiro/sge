@@ -132,6 +132,12 @@ type
       aRequisicaoAno : Smallint; aRequisicaoControle : Integer) : IControllerProdutoAlmoxarifado;
   end;
 
+  IControllerProdutoAlmoxarifadoReservado = interface
+    ['{7684CB3E-8A98-40EA-ADDD-8D4B981F81F1}']
+    function Reservado(aCodigo : String) : IControllerProdutoAlmoxarifadoReservado;
+    function DataSet : TDataSet;
+  end;
+
   IControllerPromocao = interface(IControllerCustom)
     ['{4661B49F-97AC-4B7D-B8DE-EB6E5CE20B33}']
     procedure DesativarPromocoes;
@@ -326,6 +332,7 @@ type
     function PlanoContaTipo    : IControllerCustom;
     function Produto           : IControllerProduto;
     function ProdutoAlmoxarifado : IControllerProdutoAlmoxarifado;
+    function ProdutoAlmoxarifadoReservado : IControllerProdutoAlmoxarifadoReservado;
     function Promocao          : IControllerPromocao;
     function PromocaoProduto   : IControllerCustom;
     function Recebimento       : IControllerRecebimento;

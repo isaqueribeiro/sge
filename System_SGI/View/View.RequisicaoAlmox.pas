@@ -186,6 +186,7 @@ type
     procedure fdQryTabelaSTATUSGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure fdQryTabelaINSERCAO_DATAGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure ControllerAfterScroll(DataSet: TDataSet);
+    procedure btbtnCancelarClick(Sender: TObject);
   private
     { Private declarations }
     FControllerEmpresaView,
@@ -403,7 +404,7 @@ var
   aDataInicio,
   aDataFinal : String;
 begin
-  FController := TControllerFactory.New.AutorizacaoCompra;
+  FController := TControllerFactory.New.RequisicaoAlmoxarifado;
   FController.DAO.DataSet.AfterScroll := ControllerAfterScroll;
 
   FControllerEmpresaView := TControllerFactory.New.EmpresaView;
@@ -523,13 +524,13 @@ begin
   if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
     Exit;
 
-  if (not DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').IsNull) then
+  if (not DtSrcTabela.DataSet.FieldByName('data_emissao').IsNull) then
   begin
-    if ( DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').AsDateTime < e1Data.Date ) then
-      e1Data.Date := DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').AsDateTime;
+    if ( DtSrcTabela.DataSet.FieldByName('data_emissao').AsDateTime < e1Data.Date ) then
+      e1Data.Date := DtSrcTabela.DataSet.FieldByName('data_emissao').AsDateTime;
 
-    if ( DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').AsDateTime > e2Data.Date ) then
-      e2Data.Date := DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').AsDateTime;
+    if ( DtSrcTabela.DataSet.FieldByName('data_emissao').AsDateTime > e2Data.Date ) then
+      e2Data.Date := DtSrcTabela.DataSet.FieldByName('data_emissao').AsDateTime;
   end;
 
   FController.DAO.RefreshRecord;
@@ -568,6 +569,13 @@ begin
         AbrirTabelaItens;
       end;
     end;
+end;
+
+procedure TViewRequisicaoAlmox.btbtnCancelarClick(Sender: TObject);
+begin
+  inherited;
+  if not OcorreuErro then
+    AbrirTabelaItens;
 end;
 
 procedure TViewRequisicaoAlmox.btbtnExcluirClick(Sender: TObject);
@@ -784,13 +792,16 @@ begin
   pgcMaisDados.ActivePageIndex  := 0;
   PgcTextoRequisicao.ActivePage := TbsRequisicaoMotivo;
 
-  with DtSrcTabela.DataSet do
+  if Assigned(DtSrcTabela.DataSet) and Assigned(DtSrcTabelaItens.DataSet) then
   begin
-    dbCentroCustoRequisitante.Button.Enabled := (State in [dsEdit, dsInsert]);
-    dbCentroCustoAtendente.Button.Enabled    := (State in [dsEdit, dsInsert]) and (DtSrcTabelaItens.DataSet.RecordCount = 0);
+    with DtSrcTabela.DataSet do
+    begin
+      dbCentroCustoRequisitante.Button.Enabled := (State in [dsEdit, dsInsert]);
+      dbCentroCustoAtendente.Button.Enabled    := (State in [dsEdit, dsInsert]) and (DtSrcTabelaItens.DataSet.RecordCount = 0);
 
-    DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (FieldByName('STATUS').AsInteger < STATUS_REQUISICAO_ALMOX_ENV);
-    DtSrcTabelaItensStateChange( DtSrcTabelaItens );
+      DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (FieldByName('STATUS').AsInteger < STATUS_REQUISICAO_ALMOX_ENV);
+      DtSrcTabelaItensStateChange( DtSrcTabelaItens );
+    end;
   end;
 end;
 
@@ -872,18 +883,24 @@ end;
 procedure TViewRequisicaoAlmox.DtSrcTabelaItensStateChange(
   Sender: TObject);
 begin
-  dbCentroCustoAtendente.Button.Enabled := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) and (DtSrcTabelaItens.DataSet.RecordCount = 0);
+  if Assigned(DtSrcTabela.DataSet) then
+  begin
+    dbCentroCustoAtendente.Button.Enabled := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) and (DtSrcTabelaItens.DataSet.RecordCount = 0);
 
-  btnProdutoInserir.Enabled := ( DtSrcTabelaItens.AutoEdit and (DtSrcTabelaItens.DataSet.State = dsBrowse) );
-  btnProdutoEditar.Enabled  := ( DtSrcTabelaItens.AutoEdit and (DtSrcTabelaItens.DataSet.State = dsBrowse) and (not DtSrcTabelaItens.DataSet.IsEmpty) );
-  btnProdutoExcluir.Enabled := ( DtSrcTabelaItens.AutoEdit and (DtSrcTabelaItens.DataSet.State = dsBrowse) and (not DtSrcTabelaItens.DataSet.IsEmpty) );
-  btnProdutoSalvar.Enabled  := ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] );
+    btnProdutoInserir.Enabled := ( DtSrcTabelaItens.AutoEdit and (DtSrcTabelaItens.DataSet.State = dsBrowse) );
+    btnProdutoEditar.Enabled  := ( DtSrcTabelaItens.AutoEdit and (DtSrcTabelaItens.DataSet.State = dsBrowse) and (not DtSrcTabelaItens.DataSet.IsEmpty) );
+    btnProdutoExcluir.Enabled := ( DtSrcTabelaItens.AutoEdit and (DtSrcTabelaItens.DataSet.State = dsBrowse) and (not DtSrcTabelaItens.DataSet.IsEmpty) );
+    btnProdutoSalvar.Enabled  := ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] );
 
-  dbgProdutos.Enabled       := not (DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert]);
+    if Assigned(DtSrcTabelaItens.DataSet) then
+    begin
+      dbgProdutos.Enabled       := not (DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert]);
 
-  if ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] ) then
-    if ( dbProduto.Visible and dbProduto.Enabled ) then
-      dbProduto.SetFocus;
+      if ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] ) then
+        if ( dbProduto.Visible and dbProduto.Enabled ) then
+          dbProduto.SetFocus;
+    end;
+  end;
 end;
 
 procedure TViewRequisicaoAlmox.pgcGuiasChange(Sender: TObject);
@@ -1069,7 +1086,7 @@ begin
   // Destacar produtos não cancelados e/ou não atendidos
   if ( Sender = dbgProdutos ) then
   begin
-    if ((DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_ITEM_REQUISICAO_ALMOX_CAN) or (DtSrcTabela.DataSet.FieldByName('QTDE_ATENDIDA').AsCurrency = 0)) then
+    if ((DtSrcTabelaItens.DataSet.FieldByName('STATUS').AsInteger = STATUS_ITEM_REQUISICAO_ALMOX_CAN) or (DtSrcTabelaItens.DataSet.FieldByName('QTDE_ATENDIDA').AsCurrency = 0)) then
       dbgProdutos.Canvas.Font.Color := shpOperacaoCancelada.Brush.Color;
 
     dbgProdutos.DefaultDrawDataCell(Rect, dbgProdutos.Columns[DataCol].Field, State);

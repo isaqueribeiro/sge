@@ -171,11 +171,13 @@ type
     function PlanoContaTipo : IModelDAOCustom;
     function Produto : IModelDAOCustom;
     function ProdutoAlmoxarifado : IModelDAOCustom;
+    function ProdutoAlmoxarifadoReservado : IModelDAOCustom;
     function Promocao : IModelDAOCustom;
     function PromocaoProduto : IModelDAOCustom;
     function Recebimento : IModelDAOCustom;
     function RequisicaoAlmoxarifado : IModelDAOCustom;
     function RequisicaoAlmoxarifadoProduto : IModelDAOCustom;
+    function RequisicaoAlmoxarifadoProdutoReserva : IModelDAOCustom;
     function RequisicaoCompra : IModelDAOCustom;
     function RequisicaoCompraProdutoServico : IModelDAOCustom;
     function SecaoProduto : IModelDAOCustom;

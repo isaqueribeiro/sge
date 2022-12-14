@@ -28,8 +28,6 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -151,7 +149,6 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Width = 183
             TabOrder = 2
             ExplicitLeft = 453
-            ExplicitTop = 25
             ExplicitWidth = 183
           end
           inherited btnFiltrar: TcxButton

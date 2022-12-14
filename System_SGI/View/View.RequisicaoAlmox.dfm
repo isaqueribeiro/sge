@@ -3,45 +3,43 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
   Top = 212
   ActiveControl = dbCodigo
   Caption = 'Controle de Requisi'#231#245'es de Materiais'
-  ClientHeight = 676
+  ClientHeight = 694
   ClientWidth = 1107
   ExplicitWidth = 1123
-  ExplicitHeight = 715
+  ExplicitHeight = 733
   PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 672
+    Top = 690
     Width = 1107
     ExplicitTop = 682
     ExplicitWidth = 1116
   end
   inherited Bevel3: TBevel
-    Top = 633
+    Top = 651
     Width = 1107
     ExplicitTop = 643
     ExplicitWidth = 1116
   end
   inherited pgcGuias: TPageControl
     Width = 1107
-    Height = 633
+    Height = 651
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 1107
     ExplicitHeight = 633
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1099
       ExplicitHeight = 604
       inherited Bevel4: TBevel
-        Top = 530
+        Top = 548
         Width = 1099
         ExplicitTop = 540
         ExplicitWidth = 1108
       end
       inherited dbgDados: TDBGrid
         Width = 1099
-        Height = 530
+        Height = 548
         Columns = <
           item
             Expanded = False
@@ -115,7 +113,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 534
+        Top = 552
         Width = 1099
         ExplicitTop = 534
         ExplicitWidth = 1099
@@ -130,6 +128,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Left = 300
             Top = 24
             Width = 93
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -145,7 +144,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Left = 30
             Top = 24
             Width = 49
-            Height = 13
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -153,6 +152,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
+            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 399
@@ -160,7 +160,6 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Anchors = [akLeft, akTop, akRight, akBottom]
             TabOrder = 2
             ExplicitLeft = 399
-            ExplicitTop = 25
             ExplicitWidth = 156
           end
           inherited btnFiltrar: TcxButton
@@ -473,7 +472,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
       end
       object Bevel6: TBevel [1]
         Left = 0
-        Top = 474
+        Top = 492
         Width = 1099
         Height = 4
         Align = alBottom
@@ -728,10 +727,6 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           TabOrder = 13
           object TbsRequisicaoMotivo: TTabSheet
             Caption = 'Motivo da requisi'#231#227'o'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMotivo: TDBMemo
               Left = 0
               Top = 0
@@ -753,10 +748,6 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           object TbsRequisicaoCancelado: TTabSheet
             Caption = 'Motivo do cancelamento'
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -1127,19 +1118,16 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
       end
       object pgcMaisDados: TPageControl
         Left = 0
-        Top = 478
+        Top = 496
         Width = 1099
         Height = 126
         ActivePage = tbsObservacoes
         Align = alBottom
         TabOrder = 3
+        ExplicitTop = 478
         object tbsObservacoes: TTabSheet
           Caption = 'Observa'#231#245'es'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object PnlObservacoes: TPanel
             Left = 0
             Top = 0
@@ -1965,7 +1953,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
         Left = 0
         Top = 377
         Width = 1099
-        Height = 97
+        Height = 115
         TabStop = False
         Align = alClient
         DataSource = DtSrcTabelaItens
@@ -2104,7 +2092,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 637
+    Top = 655
     Width = 1107
     ExplicitTop = 637
     ExplicitWidth = 1107

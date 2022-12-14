@@ -73,11 +73,7 @@ uses
   Model.Constantes,
   Interacao.Tabela,
   Controller.Tabela,
-  SGE.Controller.Interfaces,
-
-  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Datasnap.DBClient, Datasnap.Provider,
-  FireDAC.Stan.Intf;
+  SGE.Controller.Interfaces;
 
 type        
   TViewQueryApropriacaoEstoque = class(TfrmGrPadrao)
@@ -97,8 +93,6 @@ type
     StyleSelecao: TcxStyle;
     StyleContent: TcxStyle;
     StyleContentEven: TcxStyle;
-    DspTotal: TDataSetProvider;
-    CdsTotal: TClientDataSet;
     dsTotal: TDataSource;
     dsProduto: TDataSource;
     dsFabricante: TDataSource;
@@ -159,8 +153,6 @@ type
     ppImprimir: TPopupMenu;
     nmppExtratoMovimentoDiaProduto: TMenuItem;
     Bevel5: TBevel;
-    QryTotal: TFDQuery;
-    qryQtdeReservada: TFDQuery;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -193,6 +185,7 @@ type
     FControllerGrupo     ,
     FControllerFabricante,
     FControllerProduto   : IControllerQuery;
+    FControllerReserva   : IControllerProdutoAlmoxarifadoReservado;
 
     procedure HabilitarGuia(const TipoFiltro : Integer);
     procedure ExecutarPesquisa(const TipoFiltro : Integer);
@@ -201,6 +194,7 @@ type
     function ControllerGrupo : IControllerQueryAproriacaoEstoque;
     function ControllerFabricante : IControllerQueryAproriacaoEstoque;
     function ControllerProduto : IControllerQueryAproriacaoEstoque;
+    function ControllerReserva   : IControllerProdutoAlmoxarifadoReservado;
     function ExecutarPesquisaGrupo : Boolean;
     function ExecutarPesquisaFabricante : Boolean;
     function ExecutarPesquisaProduto(aGrupo, aFabricante : Integer) : Boolean;
@@ -408,6 +402,14 @@ begin
   Result := FControllerProduto as IControllerQueryAproriacaoEstoque;
 end;
 
+function TViewQueryApropriacaoEstoque.ControllerReserva: IControllerProdutoAlmoxarifadoReservado;
+begin
+  if not Assigned(FControllerReserva) then
+    FControllerReserva := TControllerFactory.New.ProdutoAlmoxarifadoReservado;
+
+  Result := FControllerReserva as IControllerProdutoAlmoxarifadoReservado;
+end;
+
 function TViewQueryApropriacaoEstoque.ControllerTotal: IControllerQueryAproriacaoEstoque;
 begin
   if not Assigned(FControllerTotal) then
@@ -524,7 +526,10 @@ end;
 procedure TViewQueryApropriacaoEstoque.ExecutarPesquisa(
   const TipoFiltro: Integer);
 begin
-  ControllerTotal.Execute(TTipoPesquisa.tpAutomatico, EmptyStr);
+  ControllerTotal
+    .CentroCusto(edCentroCusto.Tag)
+    .Execute(TTipoPesquisa.tpAutomatico, EmptyStr);
+
   FTabelaTotal.Configurar;
 
   Case TipoFiltro of
@@ -585,7 +590,7 @@ begin
             .IsEmpty;
 
       if Result then
-        ControllerFabricante.CalcularPercentuais(CdsTotal.FieldByName('CUSTO_DISPONIVEL').AsCurrency);
+        ControllerFabricante.CalcularPercentuais(dsTotal.DataSet.FieldByName('CUSTO_DISPONIVEL').AsCurrency);
 
       FTabelaFabricante.Configurar;
     except
@@ -617,7 +622,7 @@ begin
             .IsEmpty;
 
       if Result then
-        ControllerGrupo.CalcularPercentuais(CdsTotal.FieldByName('CUSTO_DISPONIVEL').AsCurrency);
+        ControllerGrupo.CalcularPercentuais(dsTotal.DataSet.FieldByName('CUSTO_DISPONIVEL').AsCurrency);
 
       FTabelaGrupo.Configurar;
     except
@@ -649,7 +654,7 @@ begin
             .IsEmpty;
 
       if Result then
-        ControllerProduto.CalcularPercentuais(CdsTotal.FieldByName('CUSTO_DISPONIVEL').AsCurrency);
+        ControllerProduto.CalcularPercentuais(dsTotal.DataSet.FieldByName('CUSTO_DISPONIVEL').AsCurrency);
 
       FTabelaProduto.Configurar;
     except
@@ -685,25 +690,24 @@ begin
     if dsProduto.DataSet.IsEmpty then
       Exit;
 
-    qryQtdeReservada.Close;
-    qryQtdeReservada.ParamByName('produto').AsString := dsProduto.DataSet.FieldByName('produto').AsString;
-    qryQtdeReservada.Open;
+    ControllerReserva.Reservado(dsProduto.DataSet.FieldByName('produto').AsString);
 
-    if qryQtdeReservada.IsEmpty then
+    if ControllerReserva.DataSet.IsEmpty then
       Exit;
 
     sLinha := 'Requisições com este produto em reserva: ' + #13#13;
-    while not qryQtdeReservada.Eof do
+    while not ControllerReserva.DataSet.Eof do
     begin
       sLinha := sLinha +
-        qryQtdeReservada.FieldByName('numero').AsString + ' - ' +
-        FormatDateTime('yy/mm/yyyy', qryQtdeReservada.FieldByName('data_emissao').AsDateTime) + ' -> ' +
-        qryQtdeReservada.FieldByName('centro_custo').AsString + #13;
-      qryQtdeReservada.Next;
-    end;
-    qryQtdeReservada.Close;
+        ControllerReserva.DataSet.FieldByName('numero').AsString + ' - ' +
+        FormatDateTime('yy/mm/yyyy', ControllerReserva.DataSet.FieldByName('data_emissao').AsDateTime) + ' -> ' +
+        ControllerReserva.DataSet.FieldByName('centro_custo').AsString + #13;
 
-    ShowWarning(sLinha);
+      ControllerReserva.DataSet.Next;
+    end;
+    ControllerReserva.DataSet.Close;
+
+    TServiceMessage.ShowWarning(sLinha);
   end;
 end;
 
@@ -734,21 +738,21 @@ begin
     TIPO_GRP:
       if dsGrupo.DataSet.IsEmpty then
       begin
-        ShowWarning('Sem dados para exportar!');
+        TServiceMessage.ShowWarning('Sem dados para exportar!');
         Exit;
       end;
 
     TIPO_FAB:
       if ( dsFabricante.DataSet.IsEmpty ) then
       begin
-        ShowWarning('Sem dados para exportar!');
+        TServiceMessage.ShowWarning('Sem dados para exportar!');
         Exit;
       end;
 
     TIPO_PRD:
       if ( dsProduto.DataSet.IsEmpty ) then
       begin
-        ShowWarning('Sem dados para exportar!');
+        TServiceMessage.ShowWarning('Sem dados para exportar!');
         Exit;
       end;
   end;
@@ -778,21 +782,21 @@ begin
     TIPO_GRP:
       if dsGrupo.DataSet.IsEmpty then
       begin
-        ShowWarning('Sem dados para exportar!');
+        TServiceMessage.ShowWarning('Sem dados para exportar!');
         Exit;
       end;
 
     TIPO_FAB:
       if ( dsFabricante.DataSet.IsEmpty ) then
       begin
-        ShowWarning('Sem dados para exportar!');
+        TServiceMessage.ShowWarning('Sem dados para exportar!');
         Exit;
       end;
 
     TIPO_PRD:
       if ( dsProduto.DataSet.IsEmpty ) then
       begin
-        ShowWarning('Sem dados para exportar!');
+        TServiceMessage.ShowWarning('Sem dados para exportar!');
         Exit;
       end;
   end;
@@ -875,10 +879,10 @@ begin
         Send;
       end;
 
-      ShowInformation('E-mail enviado com sucesso!' + #13 + 'Arquivo(s) anexo(s) : ' + #13 + sFileNameHtml + #13 + sFileNameXls);
+      TServiceMessage.ShowInformation('E-mail enviado com sucesso!' + #13 + 'Arquivo(s) anexo(s) : ' + #13 + sFileNameHtml + #13 + sFileNameXls);
     except
       On E : Exception do
-        ShowError('Erro ao tentar enviar e-mail com o resultado da consulta de apropriação de estoque.' + #13#13 + E.Message);
+        TServiceMessage.ShowError('Erro ao tentar enviar e-mail com o resultado da consulta de apropriação de estoque.' + #13#13 + E.Message);
     end;
   finally
     Screen.Cursor := crDefault;
@@ -892,19 +896,19 @@ procedure TViewQueryApropriacaoEstoque.nmppAtualizacaoAutomaticaClick(
 begin
   WaitAMoment(WAIT_AMOMENT_Process);
   try
-    SetAtulizarCustoEstoque(GetDateDB);
+    SetAtulizarCustoEstoque(Date);
 
     if ( Sender = nmppAtualizacaoAutomatica ) then
     begin
       WaitAMomentFree;
-      ShowInformation('Atualização ocorrida com sucesso!');
+      TServiceMessage.ShowInformation('Atualização ocorrida com sucesso!');
     end;
 
-    if dsProduto.DataSet.Active and CdsTotal.Active then
+    if dsProduto.DataSet.Active and dsTotal.DataSet.Active then
     begin
       dsProduto.DataSet.Close;
       dsProduto.DataSet.Open;
-      ControllerProduto.CalcularPercentuais(CdsTotal.FieldByName('CUSTO_DISPONIVEL').AsCurrency);
+      ControllerProduto.CalcularPercentuais(dsTotal.DataSet.FieldByName('CUSTO_DISPONIVEL').AsCurrency);
     end;
   finally
     WaitAMomentFree;
@@ -936,7 +940,7 @@ begin
     sValorCusto := Trim( StringReplace(StringReplace(sValorCusto, '.', '', [rfReplaceAll]), 'R$', '', [rfReplaceAll]) );
 
     if StrToCurrDef(sValorCusto, 0.0) <=0 then
-      ShowWarning('Valor de Custo informado não é válido!')
+      TServiceMessage.ShowWarning('Valor de Custo informado não é válido!')
     else
     begin
       sProduto    := dsProduto.DataSet.FieldByName('produto').AsString;
@@ -975,11 +979,11 @@ begin
         CommitTransaction;
       end;
 
-      ShowInformation('Custo atualizado com sucesso');
+      TServiceMessage.ShowInformation('Custo atualizado com sucesso');
 
       dsProduto.DataSet.Close;
       dsProduto.DataSet.Open;
-      ControllerProduto.CalcularPercentuais(CdsTotal.FieldByName('CUSTO_DISPONIVEL').AsCurrency);
+      ControllerProduto.CalcularPercentuais(dsTotal.DataSet.FieldByName('CUSTO_DISPONIVEL').AsCurrency);
 
       dsProduto.DataSet.Locate('PRODUTO', sProduto, []);
     end;
@@ -991,7 +995,7 @@ procedure TViewQueryApropriacaoEstoque.nmppExtratoMovimentoDiaProdutoClick(
 begin
   if ( PgcTabelas.ActivePageIndex <> TIPO_PRD ) then
   begin
-    ShowInformation('Favor selecionar o produto desejado!');
+    TServiceMessage.ShowInformation('Favor selecionar o produto desejado!');
     edTipoFiltro.ItemIndex := TIPO_PRD;
     edTipoFiltroChange(edTipoFiltro);
     edTipoFiltro.SetFocus;
@@ -999,13 +1003,13 @@ begin
   else
   if ( not dsProduto.DataSet.Active ) then
   begin
-    ShowInformation('Favor executar pesquisa para seleção do produto!');
+    TServiceMessage.ShowInformation('Favor executar pesquisa para seleção do produto!');
     edPesquisar.SetFocus;
   end
   else
   if ( dsProduto.DataSet.IsEmpty ) then
   begin
-    ShowInformation('Favor selecionar produto!');
+    TServiceMessage.ShowInformation('Favor selecionar produto!');
     edPesquisar.SetFocus;
   end
   else

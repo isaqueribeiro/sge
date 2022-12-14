@@ -66,17 +66,17 @@
         <SanitizedProjectName>SGI</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <VerInfo_Release>31</VerInfo_Release>
+        <VerInfo_Release>32</VerInfo_Release>
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.6;InternalName=SGI;LegalCopyright=Copyright 2013 - 2022 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=21/01/2022;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.32.3;InternalName=SGI;LegalCopyright=Copyright 2013 - 2022 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.32;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/12/2022;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <UWP_DelphiLogo44>..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-44x44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-150x150.png</UWP_DelphiLogo150>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
-        <VerInfo_Build>6</VerInfo_Build>
+        <VerInfo_Build>3</VerInfo_Build>
         <DCC_Define>SGI;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
@@ -93,13 +93,13 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_LocalDebugSymbols>true</DCC_LocalDebugSymbols>
-        <VerInfo_Release>31</VerInfo_Release>
+        <VerInfo_Release>32</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.6;InternalName=SGI;LegalCopyright=Copyright 2013 - 2022 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=21/01/2022;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.32.3;InternalName=SGI;LegalCopyright=Copyright 2013 - 2022 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.32;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/12/2022;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
-        <VerInfo_Build>6</VerInfo_Build>
+        <VerInfo_Build>3</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -107,14 +107,14 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Release>31</VerInfo_Release>
+        <VerInfo_Release>32</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.31.6;InternalName=SGI;LegalCopyright=Copyright 2013 - 2022 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.31;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=21/01/2022;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.32.3;InternalName=SGI;LegalCopyright=Copyright 2013 - 2022 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.32;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/12/2022;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
-        <VerInfo_Build>6</VerInfo_Build>
+        <VerInfo_Build>3</VerInfo_Build>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -487,7 +487,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cliente.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CondicaoPagto.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Config.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaAPagar.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CST.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Distrito.pas"/>
@@ -516,7 +515,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Factory.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Cliente.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAPagar.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.FornecedorCliente.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Factory.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
@@ -533,7 +531,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CondicaoPagto.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Conexao.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Config.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAPagar.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaCorrente.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CST.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Distrito.pas"/>
@@ -561,7 +558,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.pas"/>
         <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.Factory.pas"/>
-        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.ContaAPagar.pas"/>
         <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.FornecedorCliente.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAPagar.pas">
             <Form>DataModuleContaAPagar</Form>
@@ -767,6 +763,40 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="Model\DAO\Query\SGI.Model.DAO.Query.ApropriacaoEstoque.pas"/>
         <DCCReference Include="Controller\Query\SGI.Controller.Query.ApropriacaoEstoque.pas"/>
+        <DCCReference Include="..\GerarLicenca\Controller\Controller.Interfaces.pas"/>
+        <DCCReference Include="..\GerarLicenca\Model\Model.Endereco.pas"/>
+        <DCCReference Include="..\GerarLicenca\Model\Model.Licenca.pas"/>
+        <DCCReference Include="..\GerarLicenca\Controller\Controller.ClienteApp.pas"/>
+        <DCCReference Include="..\GerarLicenca\Controller\Controller.FactoryApp.pas"/>
+        <DCCReference Include="..\GerarLicenca\Controller\Controller.UsuarioApp.pas"/>
+        <DCCReference Include="..\GerarLicenca\Model\Model.Usuario.pas"/>
+        <DCCReference Include="..\GerarLicenca\Model\Model.Cliente.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\View\View.ContaAReceber.LoteParcela.pas">
+            <Form>ViewContaAReceberLoteParcela</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.ContaAReceber.Pagamento.pas">
+            <Form>ViewContaAReceberPagamento</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.ContaAReceber.pas">
+            <Form>ViewContaAReceber</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAReceber.pas">
+            <Form>DataModuleContaAReceber</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas"/>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>

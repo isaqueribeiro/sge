@@ -252,7 +252,6 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           's" no registro.'
         Align = alClient
         TabOrder = 0
-        ExplicitTop = -2
         object dbgGrupoTbl: TcxGridDBBandedTableView
           OnDblClick = dbgGrupoTblDblClick
           Navigator.Buttons.CustomButtons = <>
@@ -1026,20 +1025,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
       TextColor = clBlack
     end
   end
-  object DspTotal: TDataSetProvider
-    DataSet = QryTotal
-    Left = 88
-    Top = 392
-  end
-  object CdsTotal: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'DspTotal'
-    Left = 120
-    Top = 392
-  end
   object dsTotal: TDataSource
-    DataSet = CdsTotal
     Left = 152
     Top = 392
   end
@@ -1144,66 +1130,5 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
       Caption = 'Extrato de Movimenta'#231#227'o di'#225'ria do Produto'
       OnClick = nmppExtratoMovimentoDiaProdutoClick
     end
-  end
-  object QryTotal: TFDQuery
-    CachedUpdates = True
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    count(e.lote_id) as lotes'
-      '  , sum(e.estoque) as estoque'
-      '  , sum(e.reserva) as reserva'
-      '  , sum(e.disponivel) as disponivel'
-      '  , sum(e.custo_total) as custo_total'
-      '  , sum(e.custo_reserva) as custo_reserva'
-      '  , sum(e.custo_disponivel) as custo_disponivel'
-      
-        'from GET_ESTOQUE_ALMOX_DISPONIVEL('#39'111'#39', 999, null, null, null, ' +
-        'null, null) e'
-      ''
-      'where (1=1)'
-      '')
-    Left = 56
-    Top = 392
-  end
-  object qryQtdeReservada: TFDQuery
-    CachedUpdates = True
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    r.ano'
-      '  , r.controle'
-      '  , r.numero'
-      '  , r.data_emissao'
-      '  , t.descricao as tipo'
-      '  , c.descricao as centro_custo'
-      '  , ri.produto'
-      '  , ri.qtde'
-      '  , u.unp_descricao'
-      '  , u.unp_sigla'
-      'from TBREQUISICAO_ALMOX r'
-      
-        '  inner join TBREQUISICAO_ALMOX_ITEM ri on (ri.ano = r.ano and r' +
-        'i.controle = r.controle)'
-      '  inner join TBUNIDADEPROD u on (u.unp_cod = ri.unidade)'
-      '  left join TBCENTRO_CUSTO c on (c.codigo = r.ccusto_origem)'
-      '  left join VW_TIPO_REQUISICAO_ALMOX t on (t.codigo = r.tipo)'
-      ''
-      'where r.status in (0, 1, 2)'
-      '  and ri.produto = :produto')
-    Left = 56
-    Top = 440
-    ParamData = <
-      item
-        Name = 'PRODUTO'
-        DataType = ftString
-        ParamType = ptInput
-        Size = 10
-        Value = Null
-      end>
   end
 end

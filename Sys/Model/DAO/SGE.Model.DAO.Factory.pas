@@ -115,6 +115,7 @@ type
       FPlanoContaTipo   ,
       FProduto          ,
       FProdutoAlmoxarifado,
+      FProdutoAlmoxarifadoReservado,
       FPromocao         ,
       FPromocaoProduto  ,
       FSecaoProduto     ,
@@ -122,6 +123,7 @@ type
       FRecebimento      ,
       FRequisicaoAlmoxarifado       ,
       FRequisicaoAlmoxarifadoProduto,
+      FRequisicaoAlmoxarifadoProdutoReserva,
       FRequisicaoCompra ,
       FRequisicaoCompraProdutoServico,
       FTabelaIBPT         ,
@@ -223,6 +225,7 @@ type
       function PlanoContaTipo : IModelDAOCustom;
       function Produto : IModelDAOCustom;
       function ProdutoAlmoxarifado : IModelDAOCustom;
+      function ProdutoAlmoxarifadoReservado : IModelDAOCustom;
       function Promocao : IModelDAOCustom;
       function PromocaoProduto : IModelDAOCustom;
       function SecaoProduto : IModelDAOCustom;
@@ -230,6 +233,7 @@ type
       function Recebimento : IModelDAOCustom;
       function RequisicaoAlmoxarifado : IModelDAOCustom;
       function RequisicaoAlmoxarifadoProduto : IModelDAOCustom;
+      function RequisicaoAlmoxarifadoProdutoReserva : IModelDAOCustom;
       function RequisicaoCompra : IModelDAOCustom;
       function RequisicaoCompraProdutoServico : IModelDAOCustom;
       function TabelaIBPT : IModelDAOCustom;
@@ -358,6 +362,14 @@ begin
   Result := FProdutoAlmoxarifado;
 end;
 
+function TModelDAOFactory.ProdutoAlmoxarifadoReservado: IModelDAOCustom;
+begin
+  if not Assigned(FProdutoAlmoxarifadoReservado) then
+    FProdutoAlmoxarifadoReservado := TModelDAORequisicaoAlmoxarifadoProdutoReserva.New;
+
+  Result := FProdutoAlmoxarifadoReservado;
+end;
+
 function TModelDAOFactory.Promocao: IModelDAOCustom;
 begin
   if not Assigned(FPromocao) then
@@ -396,6 +408,14 @@ begin
     FRequisicaoAlmoxarifadoProduto := TModelDAORequisicaoAlmoxarifadoProduto.New;
 
   Result := FRequisicaoAlmoxarifadoProduto;
+end;
+
+function TModelDAOFactory.RequisicaoAlmoxarifadoProdutoReserva: IModelDAOCustom;
+begin
+  if not Assigned(FRequisicaoAlmoxarifadoProdutoReserva) then
+    FRequisicaoAlmoxarifadoProdutoReserva := TModelDAORequisicaoAlmoxarifadoProdutoReserva.New;
+
+  Result := FRequisicaoAlmoxarifadoProdutoReserva;
 end;
 
 function TModelDAOFactory.RequisicaoCompra: IModelDAOCustom;

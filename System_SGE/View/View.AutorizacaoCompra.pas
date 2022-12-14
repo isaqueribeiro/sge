@@ -201,7 +201,6 @@ type
     procedure dbCentroCustoButtonClick(Sender: TObject);
     procedure ppmAutorizarCompraClick(Sender: TObject);
     procedure ppmReabrirAutorizacaoClick(Sender: TObject);
-    procedure fdQryTabelaAfterCancel(DataSet: TDataSet);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure ControllerAfterScroll(DataSet: TDataSet);
   private
@@ -863,12 +862,6 @@ end;
 function TViewAutorizacaoCompra.Empresa: IControllerEmpresa;
 begin
   Result := FControllerEmpresaView as IControllerEmpresa;
-end;
-
-procedure TViewAutorizacaoCompra.fdQryTabelaAfterCancel(DataSet: TDataSet);
-begin
-  inherited;
-  AbrirTabelaItens;
 end;
 
 procedure TViewAutorizacaoCompra.DtSrcTabelaItensStateChange(

@@ -97,7 +97,7 @@ end;
 
 constructor TControllerRequisicaoAlmoxarifado.Create;
 begin
-  inherited Create(TModelDAOFactory.New.AutorizacaoCompra);
+  inherited Create(TModelDAOFactory.New.RequisicaoAlmoxarifado);
 end;
 
 destructor TControllerRequisicaoAlmoxarifado.Destroy;
@@ -122,7 +122,7 @@ end;
 
 constructor TControllerRequisicaoAlmoxarifadoProduto.Create;
 begin
-  inherited Create(TModelDAOFactory.New.AutorizacaoCompraProdutoServico);
+  inherited Create(TModelDAOFactory.New.RequisicaoAlmoxarifadoProduto);
 end;
 
 destructor TControllerRequisicaoAlmoxarifadoProduto.Destroy;

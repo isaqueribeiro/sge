@@ -111,6 +111,7 @@ type
       FPlanoContaTipo  : IControllerCustom;
       FProduto         : IControllerProduto;
       FProdutoAlmoxarifado : IControllerProdutoAlmoxarifado;
+      FProdutoAlmoxarifadoReservado : IControllerProdutoAlmoxarifadoReservado;
       FPromocao        : IControllerPromocao;
       FPromocaoProduto : IControllerCustom;
       FRecebimento     : IControllerRecebimento;
@@ -214,6 +215,7 @@ type
       function PlanoContaTipo : IControllerCustom;
       function Produto           : IControllerProduto;
       function ProdutoAlmoxarifado : IControllerProdutoAlmoxarifado;
+      function ProdutoAlmoxarifadoReservado : IControllerProdutoAlmoxarifadoReservado;
       function Promocao          : IControllerPromocao;
       function PromocaoProduto   : IControllerCustom;
       function Recebimento       : IControllerRecebimento;
@@ -345,6 +347,14 @@ begin
     FProdutoAlmoxarifado := TControllerProdutoAlmoxarifado.New;
 
   Result := FProdutoAlmoxarifado;
+end;
+
+function TControllerFactory.ProdutoAlmoxarifadoReservado: IControllerProdutoAlmoxarifadoReservado;
+begin
+  if not Assigned(FProdutoAlmoxarifadoReservado) then
+    FProdutoAlmoxarifadoReservado := TControllerProdutoAlmoxarifadoReservado.New;
+
+  Result := FProdutoAlmoxarifadoReservado;
 end;
 
 function TControllerFactory.Promocao: IControllerPromocao;

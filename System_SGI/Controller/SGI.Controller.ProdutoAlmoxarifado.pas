@@ -4,6 +4,7 @@ interface
 
 uses
   System.SysUtils,
+  Data.DB,
   SGE.Controller,
   SGE.Controller.Interfaces,
   SGE.Model.DAO.Interfaces,
@@ -22,6 +23,19 @@ type
 
       function Carregar(aEmpresa : String; aCentroCusto, aCodigo : Integer;
         aRequisicaoAno : Smallint; aRequisicaoControle : Integer) : IControllerProdutoAlmoxarifado;
+  end;
+
+  // Produtos Reservados no Almoxarifado
+  TControllerProdutoAlmoxarifadoReservado = class(TController, IControllerProdutoAlmoxarifadoReservado)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerProdutoAlmoxarifadoReservado;
+
+      function Reservado(aCodigo : String) : IControllerProdutoAlmoxarifadoReservado;
+      function DataSet : TDataSet;
   end;
 
 implementation
@@ -61,6 +75,39 @@ end;
 class function TControllerProdutoAlmoxarifado.New: IControllerProdutoAlmoxarifado;
 begin
   Result := Self.Create;
+end;
+
+{ TControllerProdutoAlmoxarifadoReservado }
+
+constructor TControllerProdutoAlmoxarifadoReservado.Create;
+begin
+  inherited Create(TModelDAOFactory.New.ProdutoAlmoxarifadoReservado);
+end;
+
+function TControllerProdutoAlmoxarifadoReservado.DataSet: TDataSet;
+begin
+  Result := FDAO.DataSet;
+end;
+
+destructor TControllerProdutoAlmoxarifadoReservado.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerProdutoAlmoxarifadoReservado.New: IControllerProdutoAlmoxarifadoReservado;
+begin
+  Result := Self.Create;
+end;
+
+function TControllerProdutoAlmoxarifadoReservado.Reservado(aCodigo: String): IControllerProdutoAlmoxarifadoReservado;
+begin
+  Result := Self;
+
+  FDAO
+    .Close
+    .ParamsByName('produto', aCodigo)
+    .Open;
+
 end;
 
 end.

@@ -61,6 +61,9 @@ procedure TTabelaController.Configurar;
 var
   I : Integer;
 begin
+  if not Assigned(FDataSet) then
+    Exit;
+
   for I := 0 to FNomesCampos.Count - 1 do
   begin
     if Assigned(FDataSet.Fields.FindField( FNomesCampos.KeyNames[I] )) then
