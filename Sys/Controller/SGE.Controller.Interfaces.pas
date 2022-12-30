@@ -31,6 +31,8 @@ type
     function Grupo(aCodigo : Integer) : IControllerQueryAproriacaoEstoque;
     function Fabricante(aCodigo : Integer) : IControllerQueryAproriacaoEstoque;
     function CalcularPercentuais(const aValorReferencia : Currency) : IControllerQueryAproriacaoEstoque;
+    function AtualizarCusto(aProduto : String; aValorCusto : Currency; aSistema : SmallInt) : IControllerQueryAproriacaoEstoque; overload;
+    function AtualizarCusto(aData : TDateTime) : IControllerQueryAproriacaoEstoque; overload;
   end;
 
   IControllerCustom = interface(IController)

@@ -43843,6 +43843,8 @@ object DMNFe: TDMNFe
       'from TBCONTPAG p'
       'where p.anocompra = :AnoCompra'
       '  and p.numcompra = :NumCompra'
+      '  and p.empresa   = :Empresa'
+      ''
       'order by'
       '    p.Parcela')
     Left = 224
@@ -43858,6 +43860,13 @@ object DMNFe: TDMNFe
         Name = 'NUMCOMPRA'
         DataType = ftInteger
         ParamType = ptInput
+      end
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 20
+        Value = Null
       end>
   end
   object qryDadosProduto: TFDQuery
@@ -43999,6 +44008,7 @@ object DMNFe: TDMNFe
       'Select'
       '    i.Ano'
       '  , i.Codcontrol'
+      '  , i.Codemp'
       '  , i.Seq'
       '  , i.Codprod'
       '  , coalesce(p.Codbarra_ean, '#39#39') as Codbarra_ean'
@@ -44105,6 +44115,7 @@ object DMNFe: TDMNFe
       ''
       'where i.Ano = :anoCompra'
       '  and i.Codcontrol = :numCompra'
+      '  and 1.CodEmp = :empresa'
       ''
       'order by '
       '    i.Ano'
@@ -44123,6 +44134,13 @@ object DMNFe: TDMNFe
         Name = 'NUMCOMPRA'
         DataType = ftInteger
         ParamType = ptInput
+      end
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 20
+        Value = Null
       end>
   end
   object qryNFCDadosProduto: TFDQuery
@@ -44838,7 +44856,8 @@ object DMNFe: TDMNFe
       '      left join TBFUNCAO fu on (fu.cod = u.codfuncao)'
       '  ) usr on (usr.usuario = c.usuario)'
       'where c.ano = :anocompra'
-      '  and c.codcontrol = :numcompra')
+      '  and c.codcontrol = :numcompra'
+      '  and c.Codemp = :empresa')
     Left = 224
     Top = 120
     ParamData = <
@@ -44852,6 +44871,13 @@ object DMNFe: TDMNFe
         Name = 'NUMCOMPRA'
         DataType = ftInteger
         ParamType = ptInput
+      end
+      item
+        Name = 'EMPRESA'
+        DataType = ftString
+        ParamType = ptInput
+        Size = 20
+        Value = Null
       end>
   end
   object qryNFCCalculoImposto: TFDQuery

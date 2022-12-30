@@ -2472,7 +2472,7 @@ begin
     CarregarDadosEmpresa(DtSrcTabela.DataSet.FieldByName('CODEMP').AsString, 'Espelho do Documento de Entrada');
     AbrirEmitente( FieldByName('CODEMP').AsString );
     AbrirDestinatarioFornecedor( FieldByName('CODFORN').AsInteger );
-    AbrirCompra( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger );
+    AbrirCompra( FieldByName('ANO').AsInteger, FieldByName('CODCONTROL').AsInteger, FieldByName('CODEMP').AsString );
 
     frrEntradaEspelho.ShowReport;
   end;

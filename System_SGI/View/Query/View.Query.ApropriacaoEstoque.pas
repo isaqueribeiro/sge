@@ -251,11 +251,11 @@ const
   TIPO_GRP = 0;
   TIPO_FAB = 1;
   TIPO_PRD = 2;
-
-  WHR_DEFAULT = '1=1';
-
-  XXX_S = '''xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'' as lote_id--';
-  XXX_G = '''xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx''--';
+//
+//  WHR_DEFAULT = '1=1';
+//
+//  XXX_S = '''xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'' as lote_id--';
+//  XXX_G = '''xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx''--';
 
 function SelecionarProdutoLoteAlmox(const AOnwer : TComponent; const CentroCustoID : Integer; const CentroCustoNome : String;
   var ProdutoID, ProdutoDesc, LoteID, UnidadeDesc : String; var Unidade : Integer;
@@ -896,7 +896,8 @@ procedure TViewQueryApropriacaoEstoque.nmppAtualizacaoAutomaticaClick(
 begin
   WaitAMoment(WAIT_AMOMENT_Process);
   try
-    SetAtulizarCustoEstoque(Date);
+    // Executar atualização de custo automático
+    ControllerProduto.AtualizarCusto(Date);
 
     if ( Sender = nmppAtualizacaoAutomatica ) then
     begin
@@ -921,8 +922,7 @@ var
   cValorCusto : Currency;
   sProduto    ,
   sValorCusto : String;
-const
-  LOG = 'Insert Into TBLOG_TRANSACAO (USUARIO, DATA_HORA, TIPO, DESCRICAO, ESPECIFICACAO) values (%s, current_timestamp, 2, %s, %s)';
+  aLogTransacao : IControllerCustom;
 begin
   if not GetPermissaoRotinaInterna(btBtnAtualizarCusto, True) then
     Exit;
@@ -946,37 +946,31 @@ begin
       sProduto    := dsProduto.DataSet.FieldByName('produto').AsString;
       cValorCusto := StrToCurr(sValorCusto);
 
+      // Executar atualização de custo manual
+      ControllerProduto.AtualizarCusto(sProduto, cValorCusto, gSistema.Codigo);
+
       // Gravar Log
+      aLogTransacao := TControllerFactory.New.LogTransacao;
 
-      with DMBusiness, fdQryBusca do
+      aLogTransacao
+        .DAO
+        .OpenEmpty;
+
+      with aLogTransacao.DAO.DataSet do
       begin
-        Close;
-        SQL.Clear;
-        SQL.Add(Format(LOG, [
-            QuotedStr(gUsuarioLogado.Login)
-          , QuotedStr(DESC_LOG_EVENTO_ATUALIZAR_CUSTO)
-          , QuotedStr('Atualização de custo do produto "' +
-              sProduto + '" para o valor de R$ ' +
-              FormatFloat(',0.00', cValorCusto) + ' correspondente ao custo de compra.' )
-        ]));
-        ExecSQL;
+        Open;
+        Append;
 
-        CommitTransaction;
-      end;
+        FieldByName('TIPO').AsInteger         := TIPO_LOG_TRANS_SEFA;
+        FieldByName('DESCRICAO').AsString     := DESC_LOG_EVENTO_ATUALIZAR_CUSTO;
+        FieldByName('ESPECIFICACAO').AsString := 'Atualização manual de custo do produto "' + sProduto +
+          '" para o valor de R$ ' + FormatFloat(',0.00', cValorCusto) + ' correspondente ao custo de compra.';
 
-      // Executar atualização de custo
+        Post;
 
-      with DMBusiness, fdQryBusca do
-      begin
-        Close;
-        SQL.Clear;
-        SQL.Add('Execute Procedure SET_ATUALIZAR_CUSTO_PRODUTO (' +
-          QuotedStr(sProduto) + ', ' +
-          StringReplace(FormatFloat('#########################0.00', cValorCusto), ',', '.', [rfReplaceAll]) + ', ' +
-          IntToStr(gSistema.Codigo) + ')');
-        ExecSQL;
-
-        CommitTransaction;
+        aLogTransacao.DAO.ApplyUpdates;
+        aLogTransacao.DAO.CommitUpdates;
+        aLogTransacao.DAO.CommitTransaction;
       end;
 
       TServiceMessage.ShowInformation('Custo atualizado com sucesso');

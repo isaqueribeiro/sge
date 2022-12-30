@@ -355,7 +355,7 @@ type
     procedure AbrirVenda(AnoVenda, NumeroVenda : Integer);
     procedure AbrirVendaCartaCredito(AnoVenda, NumeroVenda : Integer);
     procedure AbrirVendasCaixa(AnoCaixa, NumeroCaixa : Integer);
-    procedure AbrirCompra(AnoCompra, NumeroCompra : Integer);
+    procedure AbrirCompra(AnoCompra, NumeroCompra : Integer; aEmpresa : String);
     procedure AbrirNFeEmitida(AnoVenda, NumeroVenda : Integer);
     procedure AbrirNFeEmitidaEntrada(AnoCompra, NumeroCompra : Integer);
     procedure AbrirNFe(const sCNPJEmitente : String; const Modelo : Smallint; Serie : String; Numero : Integer);
@@ -1866,7 +1866,7 @@ begin
   else
   if ( tipoNF = tnfEntrada ) then
   begin
-    AbrirCompra(pAno, pNumero);
+    AbrirCompra(pAno, pNumero, sCNPJEmitente);
 
     aNumero := qryEntradaCalculoImposto.FieldByName('Lote_nfe_numero').AsInteger;
     aCodigo := qryEntradaCalculoImposto.FieldByName('Lote_nfe_codigo').AsInteger;
@@ -4473,7 +4473,7 @@ begin
 
     AbrirEmitente( sCNPJEmitente );
     AbrirDestinatarioFornecedor( iCodFornecedor );
-    AbrirCompra( iAnoCompra, iNumCompra );
+    AbrirCompra( iAnoCompra, iNumCompra, sCNPJEmitente );
 
     iSerieNFe   := qryEmitenteSERIE_NFE.AsInteger;
     //iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
@@ -5497,7 +5497,7 @@ begin
 
     AbrirEmitente( sCNPJEmitente );
     AbrirDestinatarioFornecedor( CodFornecedor );
-    AbrirCompra( iAnoCompra, iNumCompra );
+    AbrirCompra( iAnoCompra, iNumCompra, sCNPJEmitente );
     AbrirNFeEmitidaEntrada( iAnoCompra, iNumCompra );
 
     if (Trim(qryEntradaCalculoImposto.FieldByName('XML_NFE_FILENAME').AsString) = EmptyStr) then
@@ -5581,13 +5581,14 @@ begin
   end;
 end;
 
-procedure TDMNFe.AbrirCompra(AnoCompra, NumeroCompra: Integer);
+procedure TDMNFe.AbrirCompra(AnoCompra, NumeroCompra: Integer; aEmpresa : String);
 begin
   with qryEntradaCalculoImposto do
   begin
     Close;
     ParamByName('anoCompra').AsInteger := AnoCompra;
     ParamByName('numCompra').AsInteger := NumeroCompra;
+    ParamByName('empresa').AsString    := aEmpresa;
     Open;
   end;
 
@@ -5596,6 +5597,7 @@ begin
     Close;
     ParamByName('anoCompra').AsInteger := AnoCompra;
     ParamByName('numCompra').AsInteger := NumeroCompra;
+    ParamByName('empresa').AsString    := aEmpresa;
     Open;
   end;
 
@@ -5604,6 +5606,7 @@ begin
     Close;
     ParamByName('anoCompra').AsInteger := AnoCompra;
     ParamByName('numCompra').AsInteger := NumeroCompra;
+    ParamByName('empresa').AsString    := aEmpresa;
     Open;
   end;
 end;
@@ -5645,7 +5648,7 @@ begin
 
     AbrirEmitente( sCNPJEmitente );
     AbrirDestinatarioFornecedor( iCodFornecedor );
-    AbrirCompra( iAnoCompra, iNumCompra );
+    AbrirCompra( iAnoCompra, iNumCompra, sCNPJEmitente );
     AbrirNFeEmitidaEntrada( iAnoCompra, iNumCompra );
 
     FileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_CANCEL + qryEntradaCalculoImposto.FieldByName('XML_NFE_FILENAME').AsString;
