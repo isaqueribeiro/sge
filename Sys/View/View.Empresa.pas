@@ -42,7 +42,7 @@ uses
   dxSkinsCore,
 
   View.PadraoCadastro,
-  SGE.Controller.Interfaces;
+  SGE.Controller.Interfaces, dxSkinsDefaultPainters;
 
 type
   TViewEmpresa = class(TViewPadraoCadastro)
@@ -206,7 +206,7 @@ begin
     .Display('CNAE', 'CNAE Principal', True)
     .Display('EST_COD', 'Estado', True)
     .Display('CID_COD', 'Cidade', True)
-    .Display('BAI_COD', 'CNAE Principal', True)
+    .Display('BAI_COD', 'Bairro', True)
     .Display('CEP', 'CEP', True)
     .Display('LOG_COD', 'Logradouro', True)
     .Display('TIPO_REGIME_NFE', 'Tipo Regime', True)

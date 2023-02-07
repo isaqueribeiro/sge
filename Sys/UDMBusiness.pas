@@ -1967,49 +1967,6 @@ begin
   end;
 end;
 
-procedure SetTipoProduto(const iCodigo : Integer; const sDescricao : String);
-begin
-  Screen.Cursor := crSQLWait;
-  try
-    with DMBusiness, fdQryBusca do
-    begin
-      Close;
-      SQL.Clear;
-      SQL.Add('');
-      SQL.Add('execute block');
-      SQL.Add('as');
-      SQL.Add('  declare variable cd DMN_SMALLINT_N;');
-      SQL.Add('  declare variable ds DMN_VCHAR_50;');
-      SQL.Add('begin');
-      SQL.Add('  cd = ' + IntToStr(iCodigo) + ';');
-      SQL.Add('  ds = ' + QuotedStr(sDescricao) + ';');
-
-      SQL.Add('  if (not exists(');
-      SQL.Add('    Select');
-      SQL.Add('      t.codigo ');
-      SQL.Add('    from SYS_TIPO_PRODUTO t');
-      SQL.Add('    where (t.codigo    = :cd)');
-      SQL.Add('       or (t.descricao = :ds)');
-      SQL.Add('  )) then');
-      SQL.Add('  begin');
-      SQL.Add('    Insert into SYS_TIPO_PRODUTO (');
-      SQL.Add('        codigo ');
-      SQL.Add('      , descricao ');
-      SQL.Add('    ) values (');
-      SQL.Add('        :cd ');  // Codigo
-      SQL.Add('      , :ds ');  // Descrição
-      SQL.Add('    );');
-      SQL.Add('  end');
-      SQL.Add('end');  //SQL.SaveToFile('_SYS_TIPO_PRODUTO.sql');
-      ExecSQL;
-
-      CommitTransaction;
-    end;
-  finally
-    Screen.Cursor := crDefault;
-  end;
-end;
-
 procedure SetAtualizarSaldoContasAPagar(const aEmpresa : String);
 begin
   Screen.Cursor := crSQLWait;
@@ -5150,18 +5107,6 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
         ControlFBSvr(True);
     end;
 
-//    // Conexão InterBase
-//    with ibdtbsBusiness do
-//    begin
-//      Connected    := False;
-//      DatabaseName := sServidor + '/' + sPorta + ':' + sBase;
-//      Params.Clear;
-//      Params.Add('user_name=' + DB_USER_NAME);
-//      Params.Add('password='  + DB_USER_PASSWORD);
-//      Params.Add('lc_ctype='  + DB_LC_CTYPE);
-//      Connected := True;
-//    end;
-//
     // Conexão FireDAC
     with fdConexao do
     begin
@@ -5182,25 +5127,6 @@ isql.exe C:\Aplicativo\Banco.fdb -m -b -i C:\Atualizacao\Script.sql -q -u SYSDBA
     UpgradeDataBase;
     MontarPermissao;
 
-//    cdsLicenca.Open;
-//    if cdsLicenca.IsEmpty then
-//    begin
-//      if opdLicenca.Execute then
-//        CarregarLicenca(opdLicenca.FileName)
-//      else
-//      begin
-//        ShowWarning('Licença', 'Sistema não registrado!' + #13 + 'Favor carregar arquivo de licença');
-//        Application.Terminate;
-//
-//        // Remover processo da memória do Windows
-//        aProcesso := ParamStr(0);
-//        aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
-//        KillTask(aProcesso);
-//      end;
-//    end
-//    else
-//      CarregarLicenca(EmptyStr);
-//
     gLicencaSistema.Carregar(EmptyStr);
     if gLicencaSistema.Model.IsEmpty then
     begin

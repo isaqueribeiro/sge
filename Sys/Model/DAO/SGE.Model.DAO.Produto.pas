@@ -685,8 +685,12 @@ begin
         FConn.Query.DataSet.Append;
         FConn.Query.DataSet.FieldByName('codigo').AsInteger   := Ord(tipoProduto);
         FConn.Query.DataSet.FieldByName('descricao').AsString := SYS_TIPOS_PRODUTO[tipoProduto];
-        FConn.Query.DataSet.Post;
-        FConn.Query.ApplyUpdates;
+        try
+          FConn.Query.DataSet.Post;
+          FConn.Query.ApplyUpdates;
+        except
+          ;
+        end;
       end;
     end;
   finally

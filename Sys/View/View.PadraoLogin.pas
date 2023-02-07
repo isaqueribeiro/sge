@@ -141,6 +141,8 @@ begin
 end;
 
 procedure TFrmPadraoLogin.FormCreate(Sender: TObject);
+var
+  aFactory : IFactory;
 begin
   CriarMoldura := True;
   CriarLinhasInferiores := False;
@@ -149,10 +151,15 @@ begin
 
   ReportMemoryLeaksOnShutdown := DelphiIsRunning; // Notificar vazamento de memória
 
-  FController := TFactoryController.getInstance().getUsuarioController();
-  FEmpresa    := TFactoryController.getInstance().getEmpresaController();
+  aFactory := TFactoryController.getInstance();
+  try
+    FController := aFactory.getUsuarioController();
+    FEmpresa    := aFactory.getEmpresaController();
 
-  CarregarEmpresa;
+    CarregarEmpresa;
+  except
+    ;
+  end;
 end;
 
 procedure TFrmPadraoLogin.FormDestroy(Sender: TObject);

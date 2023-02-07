@@ -30,7 +30,9 @@ type
       FCnpjArquivo     ,
       FTokenGoogleAuth : String;
       FExecutando : Boolean;
+
       procedure CarregarDados;
+      procedure GravarDadosEmpresa;
 
       procedure Autenticar;
       procedure Autenticando;
@@ -74,8 +76,12 @@ type
 implementation
 
 uses
+  UConstantesDGE,
   Service.Encript,
-  Service.Utils;
+  Service.Utils,
+  Model.Constantes,
+  SGE.Controller.Interfaces,
+  SGE.Controller.Factory;
 
 { TLicencaController }
 
@@ -91,6 +97,80 @@ begin
     _instance := Self.Create;
 
   Result := _instance;
+end;
+
+procedure TLicencaController.GravarDadosEmpresa;
+var
+  aEmpresa      ,
+  aConfiguracao : IControllerCustom;
+begin
+  aEmpresa := TControllerFactory.New.Empresa;
+  aConfiguracao := TControllerFactory.New.ConfiguracaoEmpresa;
+
+  if (not FModel.CNPJ.IsEmpty) then
+  begin
+    aEmpresa
+      .DAO
+      .Close
+      .ClearWhere;
+
+    aEmpresa
+      .DAO
+      .Open;
+
+    if (not aEmpresa.DAO.DataSet.Locate('cnpj', TServicesUtils.StrOnlyNumbers(FModel.CNPJ), [])) then
+    begin
+      aEmpresa.DAO.DataSet.Append;
+      aEmpresa.DAO.DataSet.FieldByName('Email').AsString := FModel.Email;
+      aEmpresa.DAO.DataSet.FieldByName('Usuario').AsString := CONST_MODEL_USER_APP;
+    end
+    else
+      aEmpresa.DAO.DataSet.Edit;
+
+    aEmpresa.DAO.DataSet.FieldByName('Pessoa_fisica').AsInteger := 0;
+    aEmpresa.DAO.DataSet.FieldByName('Cnpj').AsString   := TServicesUtils.StrOnlyNumbers(FModel.CNPJ);
+    aEmpresa.DAO.DataSet.FieldByName('Rzsoc').AsString  := FModel.Empresa;
+    aEmpresa.DAO.DataSet.FieldByName('Nmfant').AsString := FModel.NomeFantasia;
+    aEmpresa.DAO.DataSet.FieldByName('Ender').AsString  := FModel.Endereco;
+    aEmpresa.DAO.DataSet.FieldByName('Numero_end').AsString := FModel.Numero;
+    aEmpresa.DAO.DataSet.FieldByName('Bairro').AsString := FModel.Bairro;
+    aEmpresa.DAO.DataSet.FieldByName('Cep').AsString    := TServicesUtils.StrOnlyNumbers(FModel.CEP);
+    aEmpresa.DAO.DataSet.FieldByName('Cidade').AsString := FModel.Cidade;
+    aEmpresa.DAO.DataSet.FieldByName('Uf').AsString     := FModel.UF;
+
+    aEmpresa.DAO.DataSet.Post;
+
+    aEmpresa.DAO.ApplyUpdates;
+    aEmpresa.DAO.CommitUpdates;
+
+    aConfiguracao
+      .DAO
+      .Close
+      .ClearWhere;
+
+    aConfiguracao
+      .DAO
+      .Open;
+
+    if (not aConfiguracao.DAO.DataSet.Locate('empresa', TServicesUtils.StrOnlyNumbers(FModel.CNPJ), [])) then
+    begin
+      aConfiguracao.DAO.DataSet.Append;
+      aConfiguracao.DAO.DataSet.FieldByName('empresa').AsString     := TServicesUtils.StrOnlyNumbers(FModel.CNPJ);
+      aConfiguracao.DAO.DataSet.FieldByName('email_conta').AsString := CONST_CONFIG_SYSTEM_ACCOUNT_USER;
+      aConfiguracao.DAO.DataSet.FieldByName('email_senha').AsString := CONST_CONFIG_SYSTEM_ACCOUNT_PWD;
+      aConfiguracao.DAO.DataSet.FieldByName('email_pop').AsString   := CONST_CONFIG_SYSTEM_ACCOUNT_POP;
+      aConfiguracao.DAO.DataSet.FieldByName('email_smtp').AsString  := CONST_CONFIG_SYSTEM_ACCOUNT_SMTP;
+      aConfiguracao.DAO.DataSet.FieldByName('email_smtp_porta').AsInteger := CONST_CONFIG_SYSTEM_ACCOUNT_PORT;
+      aConfiguracao.DAO.DataSet.FieldByName('email_requer_autenticacao').AsInteger := CONST_CONFIG_SYSTEM_ACCOUNT_AUTH;
+      aConfiguracao.DAO.DataSet.FieldByName('email_conexao_ssl').AsInteger         := CONST_CONFIG_SYSTEM_ACCOUNT_SSL;
+
+      aConfiguracao.DAO.DataSet.FieldByName('Usuario').AsString := CONST_MODEL_USER_APP;
+      aConfiguracao.DAO.DataSet.Post;
+
+      aConfiguracao.DAO.ApplyUpdates;
+      aConfiguracao.DAO.CommitUpdates;
+    end;
+  end;
 end;
 
 procedure TLicencaController.Autenticado(Sender: TObject);
@@ -368,6 +448,8 @@ begin
         .UsarSGO(FClient.Entity.Licenca.Sistemas.SGO)
         .UsarSGI(FClient.Entity.Licenca.Sistemas.SGI)
         .UsarSGF(FClient.Entity.Licenca.Sistemas.SGF);
+
+      GravarDadosEmpresa;
     end;
   end;
 end;

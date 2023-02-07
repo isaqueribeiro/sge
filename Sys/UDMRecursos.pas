@@ -65,6 +65,7 @@ type
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
+    procedure HandleErrors(Sender: TObject; E : Exception);
   public
     { Public declarations }
   end;
@@ -101,6 +102,7 @@ implementation
 {$R *.dfm}
 
 uses
+  Service.Message,
   Controller.Factory;
 
 procedure WaitAMomentFree;
@@ -246,6 +248,12 @@ end;
 procedure TDMRecursos.DataModuleCreate(Sender: TObject);
 begin
   InstalarFonteWindows(SYS_BAUHS93, SYS_BAUHS93_DESCRIPTION);
+//  Application.OnException := HandleErrors;
+end;
+
+procedure TDMRecursos.HandleErrors(Sender: TObject; E: Exception);
+begin
+//  TServiceMessage.ShowError(E.Message);
 end;
 
 initialization

@@ -183,6 +183,7 @@ begin
     FieldByName('LOTE_NUM_NFE').AsInteger  := 0;
     FieldByName('CARTA_CORRECAO_NFE').AsInteger := 0;
     FieldByName('SEGMENTO').AsInteger     := SEGMENTO_PADRAO_ID;
+    FieldByName('PAIS_ID').AsString       := INI_KEY_PAIS_VALUE;
     FieldByName('ATIVA').AsInteger        := FLAG_SIM;
   end;
 end;
