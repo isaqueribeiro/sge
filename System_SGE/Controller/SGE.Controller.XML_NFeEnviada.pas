@@ -132,7 +132,7 @@ begin
   if not Assigned(FListaLotePendente) then
     FListaLotePendente := TModelDAOFactory.New.Busca;
 
-  FListaNFePendente
+  FListaLotePendente
     .Clear
     .SQL('Select')
     .SQL('    v.ano        as Ano')
@@ -146,15 +146,15 @@ begin
     .SQL('where (v.codemp = :empresa)');
 
   if (aLoteEnvioNFE.Ano > 0) and (aLoteEnvioNFE.Numero > 0) then
-    FListaNFePendente
+    FListaLotePendente
       .SQL('  and (v.lote_nfe_ano    = :ano_lote)')
       .SQL('  and (v.lote_nfe_numero = :numero_lote)');
 
   if (not aRecibo.IsEmpty) then
-    FListaNFePendente
+    FListaLotePendente
       .SQL('  and (v.lote_nfe_recibo = :recibo)');
 
-  FListaNFePendente
+  FListaLotePendente
     .SQL('')
     .SQL('union')
     .SQL('')
@@ -171,22 +171,22 @@ begin
     .SQL('where (c.codemp = :empresa)');
 
   if (aLoteEnvioNFE.Ano > 0) and (aLoteEnvioNFE.Numero > 0) then
-    FListaNFePendente
+    FListaLotePendente
       .SQL('  and (c.lote_nfe_ano    = :ano_lote)')
       .SQL('  and (c.lote_nfe_numero = :numero_lote)');
 
   if (not aRecibo.IsEmpty) then
-    FListaNFePendente
+    FListaLotePendente
       .SQL('  and (c.lote_nfe_recibo = :recibo)');
 
-  FListaNFePendente
+  FListaLotePendente
     .ParamsByName('empresa',     aCNPJEmissor.Trim)
     .ParamsByName('ano_lote',    aLoteEnvioNFE.Ano)
     .ParamsByName('numero_lote', aLoteEnvioNFE.Numero)
     .ParamsByName('recibo',      aRecibo.Trim)
     .Open;
 
-  Result := FListaNFePendente;
+  Result := FListaLotePendente;
 end;
 
 { TControllerNFeEnviada }

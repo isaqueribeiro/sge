@@ -42,7 +42,7 @@ uses
   dxSkinsCore,
 
   UGrPadrao,
-  SGE.Controller.Interfaces;
+  SGE.Controller.Interfaces, dxSkinsDefaultPainters;
 
 type
   TTipoMovimento = (tmNFeEntrada, tmNFeSaida, tmNull);
