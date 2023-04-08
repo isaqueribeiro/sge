@@ -10,6 +10,7 @@ type
     private
       FView : IViewInputQuery;
       class procedure EventoOnKeyPress (Sender: TObject; var Key: Char);
+      class procedure EventoCurrOnKeyPress (Sender: TObject; var Key: Char);
     public
       constructor Create(AOwner : TComponent);
       destructor Destroy; override;
@@ -18,6 +19,8 @@ type
         var aPrompt : String) : Boolean; overload;
       class function InputQuery(const AOwner : TComponent; aCaption, aLabel : String;
         var aPrompt : Integer) : Boolean; overload;
+      class function InputQuery(const AOwner : TComponent; aCaption, aLabel : String;
+        var aPrompt : Currency) : Boolean; overload;
   end;
 
 implementation
@@ -34,10 +37,29 @@ begin
   inherited;
 end;
 
+class procedure TServiceInputQuery.EventoCurrOnKeyPress(Sender: TObject; var Key: Char);
+begin
+  if not (Key in ['0'..'9', ',', #8, #13]) then
+    Key := #0;
+end;
+
 class procedure TServiceInputQuery.EventoOnKeyPress(Sender: TObject; var Key: Char);
 begin
   if not (Key in ['0'..'9', #8, #13]) then
     Key := #0;
+end;
+
+class function TServiceInputQuery.InputQuery(const AOwner: TComponent; aCaption, aLabel: String;
+  var aPrompt: Currency): Boolean;
+begin
+  Result := TServiceInputQuery
+    .Create(AOwner)
+    .FView
+      .CaptionForm(aCaption)
+      .LabelPrompt(aLabel)
+      .AlignmentPrompt(TAlignment.taRightJustify)
+      .ProcedureValidationPrompt( EventoCurrOnKeyPress )
+      .ShowForm(aPrompt);
 end;
 
 class function TServiceInputQuery.InputQuery(const AOwner: TComponent; aCaption, aLabel : String;

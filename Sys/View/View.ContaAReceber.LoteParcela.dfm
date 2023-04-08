@@ -1097,6 +1097,10 @@ inherited ViewContaAReceberLoteParcela: TViewContaAReceberLoteParcela
         Name = 'Observacao'
         DataType = ftString
         Size = 250
+      end
+      item
+        Name = 'CodBanco'
+        DataType = ftInteger
       end>
     IndexDefs = <>
     IndexFieldNames = 'Parcela'
@@ -1128,6 +1132,9 @@ inherited ViewContaAReceberLoteParcela: TViewContaAReceberLoteParcela
     object cdsParcelasObservacao: TStringField
       FieldName = 'Observacao'
       Size = 250
+    end
+    object cdsParcelasCodBanco: TIntegerField
+      FieldName = 'CodBanco'
     end
   end
   object dtsParcelas: TDataSource

@@ -242,10 +242,6 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
     object TbsGrupo: TTabSheet
       Caption = 'TbsGrupo'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object dbgGrupo: TcxGrid
         Left = 0
         Top = 0

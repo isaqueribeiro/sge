@@ -18,6 +18,7 @@ type
     function ProcedureConfirmationPrompt(aEvent : TProcedureConfirmationPrompt) : IViewInputQuery;
     function ShowForm(var aRetorno : String) : Boolean; overload;
     function ShowForm(var aRetorno : Integer) : Boolean; overload;
+    function ShowForm(var aRetorno : Currency) : Boolean; overload;
   end;
 
 implementation

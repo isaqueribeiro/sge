@@ -154,6 +154,7 @@ type
     dtsFormaPagto: TDataSource;
     dtsBanco: TDataSource;
     cmTipoValor: TComboBox;
+    cdsParcelasCodBanco: TIntegerField;
     procedure tmrAlertaTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cdsDadosNominaisNewRecord(DataSet: TDataSet);
@@ -538,7 +539,7 @@ begin
     .LookupComboBox(dbFormaPagto, dtsFormaPagto, 'FormaPagto', 'codigo', 'codigo_descricao');
 
   TController(FControllerBanco)
-    .LookupComboBox(dbBanco, dtsBanco, 'codbanco', 'bco_cod', 'bco_nome_agencia_conta');
+    .LookupComboBox(dbBanco, dtsBanco, 'Banco', 'bco_cod', 'bco_nome_agencia_conta');
 
   TController(FControllerCompetencia)
     .LookupComboBox(dbgParcelasTblCompetencia, dtsCompetencia, 'Competencia', 'cmp_num', 'cmp_desc');

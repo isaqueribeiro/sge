@@ -238,6 +238,7 @@ uses
   , UConstantesDGE
   , UFuncoes
   , Service.Message
+  , Service.InputQuery
   , SGE.Controller
   , SGE.Controller.Helper
   , SGE.Controller.Factory
@@ -251,11 +252,6 @@ const
   TIPO_GRP = 0;
   TIPO_FAB = 1;
   TIPO_PRD = 2;
-//
-//  WHR_DEFAULT = '1=1';
-//
-//  XXX_S = '''xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'' as lote_id--';
-//  XXX_G = '''xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx''--';
 
 function SelecionarProdutoLoteAlmox(const AOnwer : TComponent; const CentroCustoID : Integer; const CentroCustoNome : String;
   var ProdutoID, ProdutoDesc, LoteID, UnidadeDesc : String; var Unidade : Integer;
@@ -802,7 +798,7 @@ begin
   end;
 
   sEmailTo := GetEmailEmpresa(gUsuarioLogado.Empresa);
-  if not InputQuery('Enviar e-mail', 'Favor informar e-mail do destinatário:', sEmailTo) then
+  if not TServiceInputQuery.InputQuery(Self, 'Enviar e-mail', 'Favor informar e-mail do destinatário:', sEmailTo) then
     Exit;
 
   if ( Trim(sEmailTo) = EmptyStr ) then
@@ -837,39 +833,6 @@ begin
     try
       sAssunto := FormatDateTime('dd/mm/yyyy', Date) + ' - Apropriação de Estoque (' + edTipoFiltro.Text + ' / ' + edCentroCusto.Text + ')';;
       CarregarConfiguracoesEmpresa(gUsuarioLogado.Empresa, sAssunto, sAssinaturaHtml, sAssinaturaTxt);
-
-      (* Bloco de código descontinuado por sua compilação integral ser possível apenas no Delpi 7
-      smtpEmail.Username    := gContaEmail.Conta;
-      smtpEmail.Password    := gContaEmail.Senha;
-      smtpEmail.Host        := gContaEmail.Servidor_SMTP;
-      smtpEmail.Port        := gContaEmail.Porta_SMTP;
-      smtpEmail.ReadTimeout := 10000;    // Leitura da Conexão em 10 segundos!
-
-      if gContaEmail.RequerAutenticacao then
-        smtpEmail.AuthenticationType := atLogin
-      else
-        smtpEmail.AuthenticationType := atNone;
-
-      if gContaEmail.ConexaoSeguraSSL then
-        smtpEmail.IOHandler := IdSSLIOHandlerSocket
-      else
-        smtpEmail.IOHandler := nil;
-
-      // Origem
-      msgEmail.From.Address := gContaEmail.Conta;
-      msgEmail.Body.Text    := gContaEmail.Assinatura_Padrao;
-      msgEmail.Subject      := sAssunto;
-
-      // Destino
-      msgEmail.Recipients.EMailAddresses := sEmailTo;
-
-      TIdAttachment.Create(msgEmail.MessageParts, sFileNameHtml);
-      TIdAttachment.Create(msgEmail.MessageParts, sFileNameXls);
-
-      smtpEmail.Connect;
-      smtpEmail.Authenticate;
-      smtpEmail.Send(msgEmail);
-      *)
 
       with DMBusiness, ACBrMail do
       begin
@@ -920,8 +883,7 @@ procedure TViewQueryApropriacaoEstoque.nmppAtualizacaoManualClick(
   Sender: TObject);
 var
   cValorCusto : Currency;
-  sProduto    ,
-  sValorCusto : String;
+  sProduto    : String;
   aLogTransacao : IControllerCustom;
 begin
   if not GetPermissaoRotinaInterna(btBtnAtualizarCusto, True) then
@@ -933,18 +895,15 @@ begin
   if dsProduto.DataSet.IsEmpty then
     Exit;
 
-  sValorCusto := EmptyStr;
+  cValorCusto := 0.0;
 
-  if InputQuery('Atualizar Custo (R$)', 'Favor informar o Custo de Compra do Produto:', sValorCusto) then
+  if TServiceInputQuery.InputQuery(Self, 'Atualizar Custo (R$)', 'Favor informar o Custo de Compra do Produto:', cValorCusto) then
   begin
-    sValorCusto := Trim( StringReplace(StringReplace(sValorCusto, '.', '', [rfReplaceAll]), 'R$', '', [rfReplaceAll]) );
-
-    if StrToCurrDef(sValorCusto, 0.0) <=0 then
+    if (cValorCusto <= 0) then
       TServiceMessage.ShowWarning('Valor de Custo informado não é válido!')
     else
     begin
-      sProduto    := dsProduto.DataSet.FieldByName('produto').AsString;
-      cValorCusto := StrToCurr(sValorCusto);
+      sProduto := dsProduto.DataSet.FieldByName('produto').AsString;
 
       // Executar atualização de custo manual
       ControllerProduto.AtualizarCusto(sProduto, cValorCusto, gSistema.Codigo);

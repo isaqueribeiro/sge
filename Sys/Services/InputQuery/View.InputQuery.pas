@@ -39,6 +39,7 @@ type
     function ProcedureConfirmationPrompt(aEvent : TProcedureConfirmationPrompt) : IViewInputQuery;
     function ShowForm(var aRetorno : String) : Boolean; overload;
     function ShowForm(var aRetorno : Integer) : Boolean; overload;
+    function ShowForm(var aRetorno : Currency) : Boolean; overload;
 
     class function New(AOwner : TComponent) : IViewInputQuery;
   end;
@@ -69,6 +70,17 @@ function TViewInputQuery.ProcedureValidationPrompt(aEvent: TProcedureValidationP
 begin
   Result := Self;
   FProcedureValidationPrompt := aEvent;
+end;
+
+function TViewInputQuery.ShowForm(var aRetorno: Currency): Boolean;
+var
+  aTexto : String;
+begin
+  aTexto := FormatFloat(',0.00', aRetorno);
+  Result := Self.ShowForm(aTexto);
+
+  if Result then
+    aRetorno := StrToCurrDef(Trim(Self.edtPrompt.Text).Replace('.', ''), 0);
 end;
 
 function TViewInputQuery.ShowForm(var aRetorno: Integer): Boolean;

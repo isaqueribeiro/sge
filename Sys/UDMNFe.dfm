@@ -44115,7 +44115,7 @@ object DMNFe: TDMNFe
       ''
       'where i.Ano = :anoCompra'
       '  and i.Codcontrol = :numCompra'
-      '  and 1.CodEmp = :empresa'
+      '  and i.CodEmp = :empresa'
       ''
       'order by '
       '    i.Ano'
