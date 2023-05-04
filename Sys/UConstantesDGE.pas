@@ -177,6 +177,14 @@ const
   FLAG_NAO = 0;
   FLAG_SIM = 1;
 
+  // Políticas para Senhas de Usuários
+
+  USER_PASSWD_LIMITE  = 16;
+  USER_PASSWD_ENCRIPT = 'x|';
+  USER_PASSWD_DEFAULT = 'ABC123';
+  USER_PASSWD_KEY     = 'ADONAI';
+
+
   // Indices de Imagens no ImageList de Recursos (ImgPrincipal16x16, ImgPrincipalEnabled, ...)
 
   IMG_IDX_USER_PERFIL_ACESSO   = 13;

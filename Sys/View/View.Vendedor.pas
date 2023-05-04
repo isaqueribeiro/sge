@@ -203,7 +203,8 @@ begin
     .Display('COMISSAO_VL', 'Valor (R$)', ',0.00', TAlignment.taRightJustify, True)
     .Display('COMISSAO_TIPO_FLAG', 'TC', TAlignment.taCenter, False);
 
-  AbrirTabelaAuto     := True;
+  AbrirTabelaAuto := True;
+
   TController(FControllerTipoComissaoView)
     .LookupComboBox(dbTipoComissao, dtsTipoComissao, 'comissao_tipo', 'codigo', 'descricao');
 

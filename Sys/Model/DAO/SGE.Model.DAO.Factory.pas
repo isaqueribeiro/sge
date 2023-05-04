@@ -40,6 +40,7 @@ uses
   SGE.Model.DAO.TipoLogradouro,
   SGE.Model.DAO.TipoReceita,
   SGE.Model.DAO.UF,
+  SGE.Model.DAO.Usuario,
   SGE.Model.DAO.Vendedor,
   SGE.Model.DAO.XML_NFeEnviada,
   SGE.Model.DAO.XML_NFeImportada;
@@ -147,6 +148,7 @@ type
       FTipoVeiculo    ,
       FTransportadora ,
       FUF ,
+      FUsuario ,
       FUnidadeProduto ,
       FVendedor       ,
       FXML_NFeEnviada ,
@@ -256,7 +258,8 @@ type
       function TipoTributacao : IModelDAOCustom;
       function TipoVeiculo : IModelDAOCustom;
       function Transportadora : IModelDAOCustom;
-      function UF       : IModelDAOCustom;
+      function UF      : IModelDAOCustom;
+      function Usuario : IModelDAOCustom;
       function UnidadeProduto : IModelDAOCustom;
       function Vendedor : IModelDAOCustom;
       function XML_NFeEnviada : IModelDAOCustom;
@@ -1088,6 +1091,14 @@ begin
     FUnidadeProduto := TModelDAOUnidadeProduto.New;
 
   Result := FUnidadeProduto;
+end;
+
+function TModelDAOFactory.Usuario: IModelDAOCustom;
+begin
+  if not Assigned(FUsuario) then
+    FUsuario := TModelDAOUsuario.New;
+
+  Result := FUsuario;
 end;
 
 function TModelDAOFactory.Vendedor: IModelDAOCustom;

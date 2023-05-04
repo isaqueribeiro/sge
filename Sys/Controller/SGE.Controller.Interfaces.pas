@@ -146,6 +146,10 @@ type
     procedure AplicarPromocao;
   end;
 
+  IControllerusuario = interface(IControllerCustom)
+    ['{FB278AFF-F55C-413F-8203-4D78FB7E36DD}']
+  end;
+
   IControllerXML_NFeEnviada = interface(IControllerCustom)
     ['{E356F024-9DCD-43CA-98E2-245697574D37}']
     function ListaNFePendente(aCNPJEmissor : String) : IModelDAOCustom; overload;
@@ -329,6 +333,7 @@ type
     function NivelIBPT  : IControllerCustom;
     function OrigemProdutoView : IControllerCustom;
     function Pagamento         : IControllerPagamento;
+    function Perfil : IControllerCustom;
     function PlanoConta        : IControllerCustom;
     function PlanoContaNivel   : IControllerCustom;
     function PlanoContaTipo    : IControllerCustom;
@@ -363,6 +368,7 @@ type
     function TipoVeiculo    : IControllerCustom;
     function Transportadora : IControllerCustom;
     function UF : IControllerCustom;
+    function Usuario : IControllerUsuario;
     function UnidadeProduto : IControllerCustom;
     function Vendedor : IControllerCustom;
     function XML_NFeEnviada : IControllerXML_NFeEnviada;

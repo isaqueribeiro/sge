@@ -202,7 +202,8 @@ type
     function TipoTributacao : IModelDAOCustom;
     function TipoVeiculo : IModelDAOCustom;
     function Transportadora : IModelDAOCustom;
-    function UF       : IModelDAOCustom;
+    function UF      : IModelDAOCustom;
+    function Usuario : IModelDAOCustom;
     function UnidadeProduto : IModelDAOCustom;
     function Vendedor : IModelDAOCustom;
     function XML_NFeEnviada : IModelDAOCustom;

@@ -39,6 +39,7 @@ uses
   SGE.Controller.TipoLogradouro,
   SGE.Controller.TipoReceita,
   SGE.Controller.UF,
+  SGE.Controller.Usuario,
   SGE.Controller.Vendedor,
   SGE.Controller.XML_NFeEnviada,
   SGE.Controller.XML_NFeImportada;
@@ -139,7 +140,8 @@ type
       FTipoTributacao,
       FTipoVeiculo   ,
       FTransportadora,
-      FUF ,
+      FUF : IControllerCustom;
+      FUsuario : IControllerUsuario;
       FUnidadeProduto : IControllerCustom;
       FVendedor : IControllerCustom;
       FXML_NFeEnviada : IControllerXML_NFeEnviada;
@@ -244,6 +246,7 @@ type
       function TipoVeiculo : IControllerCustom;
       function Transportadora : IControllerCustom;
       function UF : IControllerCustom;
+      function Usuario : IControllerUsuario;
       function UnidadeProduto : IControllerCustom;
       function Vendedor : IControllerCustom;
       function XML_NFeEnviada : IControllerXML_NFeEnviada;
@@ -1027,6 +1030,14 @@ begin
     FUnidadeProduto := TControllerUnidadeProduto.New;
 
   Result := FUnidadeProduto;
+end;
+
+function TControllerFactory.Usuario: IControllerUsuario;
+begin
+  if not Assigned(FUsuario) then
+    FUsuario := TControllerUsuario.New;
+
+  Result := FUsuario;
 end;
 
 function TControllerFactory.Vendedor: IControllerCustom;

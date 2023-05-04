@@ -342,7 +342,10 @@ uses
   View.ContaAReceber.Pagamento in '..\Sys\View\View.ContaAReceber.Pagamento.pas' {ViewContaAReceberPagamento},
   View.ContaAReceber in '..\Sys\View\View.ContaAReceber.pas' {ViewContaAReceber},
   SGE.Controller.Impressao.DataModule.ContaAReceber in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAReceber.pas' {DataModuleContaAReceber: TDataModule},
-  SGE.Controller.Impressao.ContaAReceber in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas';
+  SGE.Controller.Impressao.ContaAReceber in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas',
+  SGE.Model.DAO.Usuario in '..\Sys\Model\DAO\SGE.Model.DAO.Usuario.pas',
+  SGE.Controller.Usuario in '..\Sys\Controller\SGE.Controller.Usuario.pas',
+  View.Usuario in '..\Sys\View\View.Usuario.pas' {ViewUsuario};
 
 {$R *.res}
 
