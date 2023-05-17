@@ -65,7 +65,7 @@ var
 implementation
 
 uses
-  UDMBusiness, UDMRecursos, UConstantesDGE, UGrUsuario, IdIPWatch, UFuncoes, Service.InputQuery;
+  UDMBusiness, UDMRecursos, UConstantesDGE, View.Usuario, IdIPWatch, UFuncoes, Service.InputQuery;
 
 {$R *.dfm}
 

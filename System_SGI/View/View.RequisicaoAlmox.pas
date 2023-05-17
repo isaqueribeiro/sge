@@ -267,7 +267,7 @@ uses
   , Service.Message
   , View.Fornecedor
   , View.Produto
-  , UGrUsuario
+  , View.Usuario
   , View.RequisicaoAlmox.Cancelar
   , View.Cliente
   , View.CentroCusto

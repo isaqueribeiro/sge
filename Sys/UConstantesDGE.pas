@@ -76,9 +76,9 @@ Uses
   end;
 
 const
-  VERSION_NUMBER     = '1.0.31.0';
-  VERSION_NUMBER_ID  = 01003100;
-  VERSION_NUMBER_STR = '01003100';
+  VERSION_NUMBER     = '1.0.32.0';
+  VERSION_NUMBER_ID  = 01003200;
+  VERSION_NUMBER_STR = '01003200';
 
   MANIFESTO_AGIL =
      'Estamos descobrindo maneiras melhores de desenvolver software, '

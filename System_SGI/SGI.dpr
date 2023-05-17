@@ -89,7 +89,7 @@ uses
   UGeVendaFormaPagto in '..\Sys\UGeVendaFormaPagto.pas' {frmGeVendaFormaPagto},
   UGeExportarNFeGerada in '..\Sys\UGeExportarNFeGerada.pas' {frmGeExportarNFeGerada},
   UGeVendaTransporte in '..\Sys\UGeVendaTransporte.pas' {frmGeVendaTransporte},
-  UGrUsuarioAlterarSenha_v2 in '..\System_SGE\UGrUsuarioAlterarSenha_v2.pas' {frmGrUsuarioAlterarSenha},
+  View.Usuario.AlterarSenha in '..\Sys\View\View.Usuario.AlterarSenha.pas' {ViewUsuarioAlterarSenha},
   UGeVendaConfirmaTitulos in '..\Sys\UGeVendaConfirmaTitulos.pas' {frmGeVendaConfirmaTitulos},
   UGrPadraoPesquisa in '..\Sys\lib\UGrPadraoPesquisa.pas' {frmGrPadraoPesquisa},
   UGeVendaItemPesquisa in '..\Sys\UGeVendaItemPesquisa.pas' {FrmGeVendaItemPesquisa},
@@ -105,7 +105,6 @@ uses
   UGeClienteImpressao in '..\System_SGE\UGeClienteImpressao.pas' {frmGeClienteImpressao},
   UGeEstoqueAjusteManual in '..\System_SGE\UGeEstoqueAjusteManual.pas' {frmGeEstoqueAjusteManual},
   UGeRequisicaoCliente in '..\System_SGE\UGeRequisicaoCliente.pas' {frmGeRequisicaoCliente},
-  UGrUsuario in '..\System_SGE\UGrUsuario.pas' {frmGrUsuario},
   UGeVendaImpressao in '..\System_SGE\UGeVendaImpressao.pas' {frmGeVendaImpressao},
   View.WaitAMoment in '..\Sys\View\View.WaitAMoment.pas' {ViewWaitAMoment},
   UGeExportarChaveNFeGerada in '..\Sys\UGeExportarChaveNFeGerada.pas' {frmGeExportarChaveNFeGerada},
@@ -345,7 +344,9 @@ uses
   SGE.Controller.Impressao.ContaAReceber in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas',
   SGE.Model.DAO.Usuario in '..\Sys\Model\DAO\SGE.Model.DAO.Usuario.pas',
   SGE.Controller.Usuario in '..\Sys\Controller\SGE.Controller.Usuario.pas',
-  View.Usuario in '..\Sys\View\View.Usuario.pas' {ViewUsuario};
+  View.Usuario in '..\Sys\View\View.Usuario.pas' {ViewUsuario},
+  SGE.Model.DAO.Perfil in '..\Sys\Model\DAO\SGE.Model.DAO.Perfil.pas',
+  SGE.Controller.Perfil in '..\Sys\Controller\SGE.Controller.Perfil.pas';
 
 {$R *.res}
 

@@ -184,7 +184,7 @@ implementation
 
 uses
   UConstantesDGE, UDMRecursos, UDMBusiness, UGrPadrao, UFuncoes, UDMNFe,
-  View.Bairro, View.Cidade, View.Distrito, View.Estado, View.Logradouro, UGrUsuario;
+  View.Bairro, View.Cidade, View.Distrito, View.Estado, View.Logradouro, View.Usuario;
 
 {$R *.dfm}
 

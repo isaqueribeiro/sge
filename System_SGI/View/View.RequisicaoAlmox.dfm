@@ -27,7 +27,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 1107
-    ExplicitHeight = 633
+    ExplicitHeight = 651
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 1099
       ExplicitHeight = 604
@@ -128,7 +128,6 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Left = 300
             Top = 24
             Width = 93
-            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -144,7 +143,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Left = 30
             Top = 24
             Width = 49
-            Height = 23
+            Height = 13
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -152,7 +151,6 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 399
@@ -727,6 +725,10 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           TabOrder = 13
           object TbsRequisicaoMotivo: TTabSheet
             Caption = 'Motivo da requisi'#231#227'o'
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbMotivo: TDBMemo
               Left = 0
               Top = 0
@@ -748,6 +750,10 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           object TbsRequisicaoCancelado: TTabSheet
             Caption = 'Motivo do cancelamento'
             ImageIndex = 2
+            ExplicitLeft = 0
+            ExplicitTop = 0
+            ExplicitWidth = 0
+            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -1128,6 +1134,10 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
         object tbsObservacoes: TTabSheet
           Caption = 'Observa'#231#245'es'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object PnlObservacoes: TPanel
             Left = 0
             Top = 0

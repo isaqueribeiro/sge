@@ -29,6 +29,7 @@ uses
   SGE.Model.DAO.IBPT,
   SGE.Model.DAO.Logradouro,
   SGE.Model.DAO.LogTransacao,
+  SGE.Model.DAO.Perfil,
   SGE.Model.DAO.PlanoConta,
   SGE.Model.DAO.Produto,
   SGI.Model.DAO.ProdutoAlmoxarifado,
@@ -111,6 +112,7 @@ type
       FNivelIBPT   ,
       FOrigemProdutoView,
       FPagamento   ,
+      FPerfil      ,
       FPlanoConta       ,
       FPlanoContaNivel  ,
       FPlanoContaTipo   ,
@@ -133,6 +135,7 @@ type
       FTipoChequeView  ,
       FTipoCNPJView    ,
       FTipoComissaoView,
+      FTipoDescontoView,
       FTipoDespesa     ,
       FTipoDespesaPlanoConta   ,
       FTipoDocumentoEntradaView,
@@ -222,6 +225,7 @@ type
       function NivelIBPT : IModelDAOCustom;
       function OrigemProdutoView : IModelDAOCustom;
       function Pagamento : IModelDAOCustom;
+      function Perfil : IModelDAOCustom;
       function PlanoConta : IModelDAOCustom;
       function PlanoContaNivel : IModelDAOCustom;
       function PlanoContaTipo : IModelDAOCustom;
@@ -244,6 +248,7 @@ type
       function TipoChequeView : IModelDAOCustom;
       function TipoCNPJView : IModelDAOCustom;
       function TipoComissaoView : IModelDAOCustom;
+      function TipoDescontoView : IModelDAOCustom;
       function TipoDespesa : IModelDAOCustom;
       function TipoDespesaPlanoConta : IModelDAOCustom;
       function TipoDocumentoEntradaView : IModelDAOCustom;
@@ -323,6 +328,14 @@ begin
     FPagamento := TModelDAOPagamento.New;
 
   Result := FPagamento;
+end;
+
+function TModelDAOFactory.Perfil: IModelDAOCustom;
+begin
+  if not Assigned(FPerfil) then
+    FPerfil := TModelDAOPerfil.New;
+
+  Result := FPerfil;
 end;
 
 function TModelDAOFactory.PlanoConta: IModelDAOCustom;
@@ -507,6 +520,14 @@ begin
     FTipoComissaoView := TModelDAOTipoComissaoView.New;
 
   Result := FTipoComissaoView;
+end;
+
+function TModelDAOFactory.TipoDescontoView: IModelDAOCustom;
+begin
+  if not Assigned(FTipoDescontoView) then
+    FTipoDescontoView := TModelDAOTipoDescontoView.New;
+
+  Result := FTipoDescontoView;
 end;
 
 function TModelDAOFactory.TipoDespesa: IModelDAOCustom;

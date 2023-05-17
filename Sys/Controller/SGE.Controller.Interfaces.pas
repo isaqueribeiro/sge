@@ -120,6 +120,10 @@ type
     function Get(aCodigo : Integer) : IModelDAOCustom;
   end;
 
+  IControllerPerfil = interface(IControllerCustom)
+    ['{AC9FB863-06A6-4EEF-A9A3-2EFE7571A7F6}']
+  end;
+
   IControllerProduto = interface(IControllerCustom)
     ['{A7AC63DC-E458-4F12-8FDA-B7EF68CDD539}']
     procedure AtualizarMetafonema(aDescricao, aApresentacao, aCodigo : String);
@@ -148,6 +152,7 @@ type
 
   IControllerusuario = interface(IControllerCustom)
     ['{FB278AFF-F55C-413F-8203-4D78FB7E36DD}']
+    function LoginExiste(const Login : String) : Boolean;
   end;
 
   IControllerXML_NFeEnviada = interface(IControllerCustom)
@@ -333,7 +338,7 @@ type
     function NivelIBPT  : IControllerCustom;
     function OrigemProdutoView : IControllerCustom;
     function Pagamento         : IControllerPagamento;
-    function Perfil : IControllerCustom;
+    function Perfil : IControllerPerfil;
     function PlanoConta        : IControllerCustom;
     function PlanoContaNivel   : IControllerCustom;
     function PlanoContaTipo    : IControllerCustom;
@@ -353,6 +358,7 @@ type
     function TipoChequeView   : IControllerCustom;
     function TipoCNPJView     : IControllerCustom;
     function TipoComissaoView : IControllerCustom;
+    function TipoDescontoView : IControllerCustom;
     function TipoDespesa      : IControllerCustom;
     function TipoDespesaPlanoConta : IControllerCustom;
     function TipoDocumentoEntradaView : IControllerCustom;

@@ -1,7 +1,6 @@
 inherited ViewContaAPagar: TViewContaAPagar
   Left = 396
   Top = 216
-  ActiveControl = dbCodigo
   Caption = 'Controle de Contas A Pagar'
   ClientHeight = 561
   ClientWidth = 934
@@ -25,7 +24,6 @@ inherited ViewContaAPagar: TViewContaAPagar
   inherited pgcGuias: TPageControl
     Width = 934
     Height = 518
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 934
     ExplicitHeight = 518

@@ -28,11 +28,16 @@ uses
   ExcelXP,
   ComObj,
   TLHelp32,
-  IdBaseComponent,
+
+  IdCoder,
+  IdCoder3to4,
+  IdCoderMIME,
+
   IdComponent,
   IdRawBase,
   IdRawClient,
-  IdIcmpClient;
+  IdIcmpClient,
+  IdBaseComponent;
 
   procedure ExecuteResource(pHandle : HWND; pComand : String);
   procedure Split(pDelimiter : Char; pStr: String; pListOfStrings : TStrings);
@@ -72,6 +77,9 @@ uses
   function IndexOfArray(const Value: String; Items: Array of String): Integer;
 
   function SimpleRoundTo(const AValue: Double; const ADigit: TRoundToRange = -2): Double;
+
+  function EncriptSenha(const Value, Key : String) : String;
+  function DecriptarSenha(const Value, Key : String) : String;
 
 implementation
 
@@ -829,6 +837,58 @@ var
 begin
   LFactor := IntPower(10, ADigit);
   Result  := Trunc((AValue / LFactor) + 0.5) * LFactor;
+end;
+
+function EncriptSenha(const Value, Key : String) : String;
+var
+  sKeyChar    ,
+  sStrEncode  ,
+  sResult     : String;
+  iTamanhoStr ,
+  iPosicaoKey : Integer;
+  IdEncoder   : TIdEncoderMIME;
+begin
+  IdEncoder := TIdEncoderMIME.Create(nil);
+  try
+    sKeyChar    := IdEncoder.EncodeString(Key);
+    sStrEncode  := IdEncoder.EncodeString(Value);
+    iTamanhoStr := Length(sStrEncode);
+
+    iPosicaoKey := -1;
+    while (iPosicaoKey < 0) do
+      iPosicaoKey := Random(iTamanhoStr);
+
+    sResult := Copy(sStrEncode, 1, iPosicaoKey) + sKeyChar + Copy(sStrEncode, iPosicaoKey + 1, iTamanhoStr);
+
+    Result := sResult;
+  finally
+    IdEncoder.Free;
+  end;
+end;
+
+function DecriptarSenha(const Value, Key : String) : String;
+var
+  sKeyChar   ,
+  sStrEncode : String;
+  IdEncoder  : TIdEncoderMIME;
+  IdDecoder  : TIdDecoderMIME;
+begin
+  IdEncoder := TIdEncoderMIME.Create(nil);
+  IdDecoder := TIdDecoderMIME.Create(nil);
+  try
+    sKeyChar   := IdEncoder.EncodeString(Key);
+    sStrEncode := Value;
+
+    if (Pos(sKeyChar, sStrEncode) = 0)  then
+      raise Exception.Create('Criptografia corrompida!!!')
+    else
+      sStrEncode := StringReplace(sStrEncode, sKeyChar, EmptyStr, [rfReplaceAll]);
+
+    Result := IdDecoder.DecodeString(sStrEncode);
+  finally
+    IdEncoder.Free;
+    IdDecoder.Free;
+  end;
 end;
 
 end.

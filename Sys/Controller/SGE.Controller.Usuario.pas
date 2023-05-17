@@ -18,6 +18,8 @@ type
     public
       destructor Destroy; override;
       class function New : IControllerUsuario;
+
+      function LoginExiste(const Login : String) : Boolean;
 //
 //      function GetTipo(aCodigo : Integer) : TTipoCFOP;
 //      function GetGerarDuplicata(aCodigo : Integer) : Boolean;
@@ -37,6 +39,23 @@ end;
 destructor TControllerusuario.Destroy;
 begin
   inherited;
+end;
+
+function TControllerusuario.LoginExiste(const Login: String): Boolean;
+begin
+  if not Assigned(FBusca) then
+    FBusca := TModelDAOFactory.New.Busca;
+
+  FBusca
+    .Clear
+    .SQL('Select  ')
+    .SQL('  u.nome')
+    .SQL('from TBUSERS u')
+    .SQL('where (u.nome = :login)')
+    .ParamsByName('login', Login)
+    .Open;
+
+  Result := not FBusca.DataSet.IsEmpty;
 end;
 
 //function TControllerusuario.Get(aCodigo: Integer): IModelDAOCustom;

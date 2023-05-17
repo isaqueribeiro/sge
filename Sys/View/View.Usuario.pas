@@ -8,6 +8,7 @@ uses
   System.ImageList,
   System.Classes,
   System.Variants,
+
   Winapi.Windows,
 
   Vcl.Forms,
@@ -47,17 +48,7 @@ uses
   View.PadraoCadastro,
   SGE.Controller.Interfaces,
   Interacao.Tabela,
-  Controller.Tabela,
-  SGE.Controller.Impressao.AutorizacaoCompra,
-
-  IdCoder,
-  IdCoder3to4,
-  IdCoderMIME,
-  IdBaseComponent,
-
-  UGrPadraoCadastro, FireDAC.Stan.Intf, FireDAC.Stan.Option,
-  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
-  FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet, IBX.IBCustomDataSet, IBX.IBUpdateSQL;
+  Controller.Tabela;
 
 type
   TViewUsuario = class(TViewPadraoCadastro)
@@ -76,9 +67,6 @@ type
     Bevel5: TBevel;
     DtsVendedor: TDataSource;
     dtsTipoAlteraValor: TDataSource;
-    fdQryTipoAlteraValor: TFDQuery;
-    fdQryVendedor: TFDQuery;
-    fdQryFuncao: TFDQuery;
     pgcParametros: TPageControl;
     tbsVendas: TTabSheet;
     tbsControleInterno: TTabSheet;
@@ -90,7 +78,13 @@ type
     dbPercentualDesc: TDBEdit;
     dbAlterarValorVendaItem: TDBCheckBox;
     dbVendedor: TDBLookupComboBox;
-    dbTipoAlteraValorVendaItem: TDBLookupComboBox;    procedure FormCreate(Sender: TObject);
+    dbTipoAlteraValorVendaItem: TDBLookupComboBox;
+    pnlStatus: TPanel;
+    pnlSatusColor: TPanel;
+    shpUsuarioInativo: TShape;
+    pnlStatusText: TPanel;
+    lblUsuarioInativo: TLabel;
+    procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
     procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -98,21 +92,18 @@ type
     procedure dbTipoAlteraValorVendaItemClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
-    procedure fdQryTabelaBeforePost(DataSet: TDataSet);
-    procedure fdQryTabelaCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
-    FControllerPerfil : IControllerCustom;
-    function GetLoginExiste(const Login : String) : Boolean;
+    FControllerPerfil  ,
+    FControllerVendedor,
+    FControllerTipoDescontoView : IControllerCustom;
+
+    function Controller : IControllerUsuario;
   public
     { Public declarations }
   end;
 
   function SelecionarUsuarioRequisitante(const AOnwer : TComponent; var Login, Nome : String) : Boolean;
-
-  function EncriptSenha(const Value, Key : String) : String;
-  function DecriptarSenha(const Value, Key : String) : String;
-  function GetSenhaFormatada(const Value : String; const WithKey : Boolean) : String;
 
 (*
   Tabelas:
@@ -130,9 +121,8 @@ type
 implementation
 
 uses
-  UDMBusiness,
   UDMRecursos,
-  UConstantesDGE,
+  Service.Message,
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper;
@@ -173,70 +163,12 @@ begin
   end;
 end;
 
-function EncriptSenha(const Value, Key : String) : String;
-var
-  sKeyChar    ,
-  sStrEncode  ,
-  sResult     : String;
-  iTamanhoStr ,
-  iPosicaoKey : Integer;
-  IdEncoder   : TIdEncoderMIME;
-begin
-  IdEncoder := TIdEncoderMIME.Create(nil);
-  try
-    sKeyChar    := IdEncoder.EncodeString(Key);
-    sStrEncode  := IdEncoder.EncodeString(Value);
-    iTamanhoStr := Length(sStrEncode);
-
-    iPosicaoKey := -1;
-    while (iPosicaoKey < 0) do
-      iPosicaoKey := Random(iTamanhoStr);
-
-    sResult := Copy(sStrEncode, 1, iPosicaoKey) + sKeyChar + Copy(sStrEncode, iPosicaoKey + 1, iTamanhoStr);
-
-    Result := sResult;
-  finally
-    IdEncoder.Free;
-  end;
-end;
-
-function DecriptarSenha(const Value, Key : String) : String;
-var
-  sKeyChar   ,
-  sStrEncode : String;
-  IdEncoder  : TIdEncoderMIME;
-  IdDecoder  : TIdDecoderMIME;
-begin
-  IdEncoder := TIdEncoderMIME.Create(nil);
-  IdDecoder := TIdDecoderMIME.Create(nil);
-  try
-    sKeyChar   := IdEncoder.EncodeString(Key);
-    sStrEncode := Value;
-
-    if (Pos(sKeyChar, sStrEncode) = 0)  then
-      raise Exception.Create('Criptografia corrompida!!!')
-    else
-      sStrEncode := StringReplace(sStrEncode, sKeyChar, EmptyStr, [rfReplaceAll]);
-
-    Result := IdDecoder.DecodeString(sStrEncode);
-  finally
-    IdEncoder.Free;
-    IdDecoder.Free;
-  end;
-end;
-
-function GetSenhaFormatada(const Value : String; const WithKey : Boolean) : String;
-begin
-  if WithKey then
-    Result := USER_PASSWD_ENCRIPT + Copy(EncriptSenha(Value, USER_PASSWD_KEY), 1, USER_PASSWD_LIMITE - 2)
-  else
-    Result := USER_PASSWD_ENCRIPT + Copy(EncriptSenha(Value, EmptyStr), 1, USER_PASSWD_LIMITE - 2);
-end;
-
 procedure TViewUsuario.FormCreate(Sender: TObject);
 begin
   FController := TControllerFactory.New.Usuario;
   FControllerPerfil := TControllerFactory.New.Perfil;
+  FControllerVendedor := TControllerFactory.New.Vendedor;
+  FControllerTipoDescontoView := TControllerFactory.New.TipoDescontoView;
 
   inherited;
   RotinaID            := ROTINA_CAD_USUARIO_ID;
@@ -259,26 +191,17 @@ begin
 
   AbrirTabelaAuto := True;
 
-
-
-
-
-  fdQryFuncao.Close;
-  fdQryVendedor.Close;
-
-  if ( GetUserFunctionID = FUNCTION_USER_ID_SYSTEM_ADM ) then
-    fdQryFuncao.ParamByName('perfil').AsInteger := 99
-  else
-  begin
+  if (Controller.DAO.Usuario.Funcao.Codigo <> FUNCTION_USER_ID_SYSTEM_ADM) then
     WhereAdditional := '(u.codfuncao <> ' + IntToStr(FUNCTION_USER_ID_SYSTEM_ADM) + ')';
-    fdQryFuncao.ParamByName('perfil').AsInteger := FUNCTION_USER_ID_SYSTEM_ADM;
-  end;
 
-  CarregarLista(fdQryFuncao);
-  CarregarLista(fdQryVendedor);
-  CarregarLista(fdQryTipoAlteraValor);
+  TController(FControllerPerfil)
+    .LookupComboBox(dbFuncao, DtsFuncao, 'codfuncao', 'codigo', 'descricao');
 
+  TController(FControllerVendedor)
+    .LookupComboBox(dbVendedor, DtsVendedor, 'vendedor', 'codigo', 'nome');
 
+  TController(FControllerTipoDescontoView)
+    .LookupComboBox(dbTipoAlteraValorVendaItem, dtsTipoAlteraValor, 'tipo_alterar_valor_venda', 'codigo', 'descricao');
 
   dbAlterarValorVendaItem.Visible    := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
   dbTipoAlteraValorVendaItem.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]);
@@ -294,8 +217,20 @@ begin
 end;
 
 procedure TViewUsuario.DtSrcTabelaStateChange(Sender: TObject);
+var
+  aFiltro : String;
 begin
   inherited;
+  aFiltro := '(ativo = 1)';
+
+  if (Controller.DAO.Usuario.Funcao.Codigo <> FUNCTION_USER_ID_SYSTEM_ADM) then
+    aFiltro := aFiltro + ' and (codigo != ' + IntToStr(FUNCTION_USER_ID_SYSTEM_ADM) + ')';
+
+  FControllerPerfil.DAO.DataSet.Filter   := aFiltro;
+  FControllerPerfil.DAO.DataSet.Filtered := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
+
+  FControllerVendedor.DAO.DataSet.Filtered := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
+
   if ( DtSrcTabela.DataSet.State = dsInsert ) then
   begin
     dbLogin.ReadOnly := False;
@@ -309,67 +244,20 @@ begin
   end;
 end;
 
-procedure TViewUsuario.fdQryTabelaBeforePost(DataSet: TDataSet);
-var
-  sSenha : String;
-begin
-  with DtSrcTabela.DataSet do
-  begin
-    if ( Trim(FieldByName('SENHA').AsString) <> EmptyStr ) then
-      if ( Copy(FieldByName('SENHA').AsString, 1, 2) <> USER_PASSWD_ENCRIPT ) then
-      begin
-        sSenha := Trim(FieldByName('SENHA').AsString);
-        FieldByName('SENHA').AsString := GetSenhaFormatada(sSenha, False);
-      end;
-
-    if (FieldByName('PERM_ALTERAR_VALOR_VENDA').AsInteger = 0) then
-      FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger := 0;
-
-    if (FieldByName('PERM_ALTERAR_VALOR_VENDA').AsInteger = 1) and (FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger = 0) then
-      FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger := 1;
-
-    inherited;
-  end;
-end;
-
-procedure TViewUsuario.fdQryTabelaCalcFields(DataSet: TDataSet);
-begin
-  with DtSrcTabela.DataSet do
-    FieldByName('ATV').AsString := IfThen(FieldByName('ATIVO').AsInteger = 1, 'X', '');
-end;
-
-function TViewUsuario.GetLoginExiste(const Login: String): Boolean;
-begin
-  if ( Trim(Login) = EmptyStr ) then
-    Result := False
-  else
-    with DMBusiness, fdQryBusca do
-    begin
-      Close;
-      SQL.Clear;
-      SQL.Add('Select nome as login from TBUSERS where nome = ' + QuotedStr(Trim(Login)));
-      Open;
-
-      Result := (RecordCount > 0);
-
-      Close;
-    end;
-end;
-
 procedure TViewUsuario.btbtnSalvarClick(Sender: TObject);
 begin
   with DtSrcTabela.DataSet do
   begin
-    if ( State = dsInsert ) then
-      if GetLoginExiste(FieldByName('NOME').AsString) then
+    if (State = dsInsert) then
+      if Controller.LoginExiste(FieldByName('NOME').AsString) then
       begin
-        ShowWarning('Login informado já existe!');
+        TServiceMessage.ShowWarning('Login informado já existe!');
         Exit;
       end;
 
     if ( (FieldByName('LIMIDESC').AsCurrency < 0) or (FieldByName('LIMIDESC').AsCurrency > 100) ) then
     begin
-      ShowWarning('O Percentual de desconto informado é inválido!');
+      TServiceMessage.ShowWarning('O Percentual de desconto informado é inválido!');
     end
     else
     begin
@@ -388,15 +276,20 @@ begin
     dbTipoAlteraValorVendaItem.Enabled := (FieldByName('PERM_ALTERAR_VALOR_VENDA').AsInteger = 1);
 end;
 
+function TViewUsuario.Controller: IControllerUsuario;
+begin
+  Result := (FController as IControllerUsuario);
+end;
+
 procedure TViewUsuario.dbgDadosDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn;
   State: TGridDrawState);
 begin
   inherited;
-  if ( Sender = dbgDados ) then
+  if (Sender = dbgDados) then
   begin
-    if ( DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger = 0 ) then
-      dbgDados.Canvas.Font.Color := clRed;
+    if (DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger = 0 ) then
+      dbgDados.Canvas.Font.Color := shpUsuarioInativo.Brush.Color;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end;

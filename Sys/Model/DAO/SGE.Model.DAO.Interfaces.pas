@@ -166,6 +166,7 @@ type
     function NivelIBPT  : IModelDAOCustom;
     function OrigemProdutoView : IModelDAOCustom;
     function Pagamento : IModelDAOCustom;
+    function Perfil : IModelDAOCustom;
     function PlanoConta : IModelDAOCustom;
     function PlanoContaNivel : IModelDAOCustom;
     function PlanoContaTipo : IModelDAOCustom;
@@ -188,6 +189,7 @@ type
     function TipoCNPJView : IModelDAOCustom;
     function TipoComissaoView : IModelDAOCustom;
     function TipoChequeView : IModelDAOCustom;
+    function TipoDescontoView : IModelDAOCustom;
     function TipoDespesa : IModelDAOCustom;
     function TipoDespesaPlanoConta : IModelDAOCustom;
     function TipoDocumentoEntradaView : IModelDAOCustom;

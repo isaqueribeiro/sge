@@ -276,7 +276,7 @@ uses
   , UDMBusiness
   , UDMRecursos
   , UDMNFe
-  , UGrUsuario
+  , View.Usuario
   , UGeRequisicaoAlmoxCancelar
   , View.CentroCusto
   , UGeApropriacaoEstoquePesquisa;

@@ -1230,7 +1230,7 @@ end;
 procedure TfrmPrinc.nmUsuarioClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_USUARIO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGrUsuario');
+    FormFunction.ShowModalForm(Self, 'ViewUsuario');
 end;
 
 procedure TfrmPrinc.nmRequisicaoClienteClick(Sender: TObject);

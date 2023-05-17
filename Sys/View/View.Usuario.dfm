@@ -113,6 +113,72 @@ inherited ViewUsuario: TViewUsuario
             ExplicitLeft = 284
           end
         end
+        object pnlStatus: TPanel
+          AlignWithMargins = True
+          Left = 7
+          Top = 6
+          Width = 143
+          Height = 58
+          Margins.Top = 2
+          Margins.Bottom = 2
+          Align = alLeft
+          BevelOuter = bvNone
+          TabOrder = 1
+          object pnlSatusColor: TPanel
+            Left = 0
+            Top = 0
+            Width = 24
+            Height = 58
+            Align = alLeft
+            BevelOuter = bvNone
+            TabOrder = 0
+            object shpUsuarioInativo: TShape
+              AlignWithMargins = True
+              Left = 3
+              Top = 1
+              Width = 18
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Brush.Color = clRed
+              Pen.Style = psClear
+              ExplicitTop = 2
+              ExplicitWidth = 19
+            end
+          end
+          object pnlStatusText: TPanel
+            Left = 24
+            Top = 0
+            Width = 119
+            Height = 58
+            Align = alClient
+            BevelOuter = bvNone
+            TabOrder = 1
+            object lblUsuarioInativo: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 1
+              Width = 113
+              Height = 18
+              Margins.Top = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              Caption = '* Usu'#225'rio inativo'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ParentFont = False
+              Layout = tlCenter
+              StyleElements = []
+              ExplicitTop = 2
+              ExplicitWidth = 251
+            end
+          end
+        end
       end
     end
     inherited tbsCadastro: TTabSheet
@@ -161,6 +227,7 @@ inherited ViewUsuario: TViewUsuario
         end
         inherited dbCodigo: TDBEdit
           Color = clMoneyGreen
+          DataField = 'CODIGO'
           Enabled = False
         end
         object dbLogin: TDBEdit
@@ -462,64 +529,15 @@ inherited ViewUsuario: TViewUsuario
     OnDataChange = DtSrcTabelaDataChange
   end
   object DtsFuncao: TDataSource
-    DataSet = fdQryFuncao
     Left = 600
     Top = 248
   end
   object DtsVendedor: TDataSource
-    DataSet = fdQryVendedor
     Left = 600
     Top = 280
   end
   object dtsTipoAlteraValor: TDataSource
-    DataSet = fdQryTipoAlteraValor
     Left = 600
     Top = 312
-  end
-  object fdQryTipoAlteraValor: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select *'
-      'from VW_TIPO_ALTERA_VALOR_VENDA')
-    Left = 568
-    Top = 312
-  end
-  object fdQryVendedor: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    v.cod'
-      '  , v.nome'
-      '  , v.ativo'
-      'from TBVENDEDOR v'
-      ''
-      'order by'
-      '    v.nome')
-    Left = 568
-    Top = 280
-  end
-  object fdQryFuncao: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    f.cod'
-      '  , f.funcao'
-      'from TBFUNCAO f'
-      'where f.cod <> :perfil')
-    Left = 568
-    Top = 248
-    ParamData = <
-      item
-        Name = 'PERFIL'
-        DataType = ftInteger
-        ParamType = ptInput
-        Value = Null
-      end>
   end
 end

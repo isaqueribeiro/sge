@@ -28,6 +28,7 @@ uses
   SGE.Controller.IBPT,
   SGE.Controller.Logradouro,
   SGE.Controller.LogTransacao,
+  SGE.Controller.Perfil,
   SGE.Controller.PlanoConta,
   SGE.Controller.Produto,
   SGI.Controller.ProdutoAlmoxarifado,
@@ -107,6 +108,7 @@ type
       FNivelIBPT   ,
       FOrigemProdutoView : IControllerCustom;
       FPagamento  : IControllerPagamento;
+      FPerfil : IControllerPerfil;
       FPlanoConta      ,
       FPlanoContaNivel ,
       FPlanoContaTipo  : IControllerCustom;
@@ -126,6 +128,7 @@ type
       FTipoChequeView  ,
       FTipoCNPJView    ,
       FTipoComissaoView,
+      FTipoDescontoView,
       FTipoDespesa     ,
       FTipoDespesaPlanoConta   ,
       FTipoDocumentoEntradaView,
@@ -212,6 +215,7 @@ type
       function NivelIBPT : IControllerCustom;
       function OrigemProdutoView : IControllerCustom;
       function Pagamento         : IControllerPagamento;
+      function Perfil : IControllerPerfil;
       function PlanoConta : IControllerCustom;
       function PlanoContaNivel : IControllerCustom;
       function PlanoContaTipo : IControllerCustom;
@@ -231,6 +235,7 @@ type
       function TipoChequeView : IControllerCustom;
       function TipoCNPJView : IControllerCustom;
       function TipoComissaoView : IControllerCustom;
+      function TipoDescontoView : IControllerCustom;
       function TipoDespesa : IControllerCustom;
       function TipoDespesaPlanoConta : IControllerCustom;
       function TipoDocumentoEntradaView : IControllerCustom;
@@ -310,6 +315,14 @@ begin
     FPagamento := TControllerPagamento.New;
 
   Result := FPagamento;
+end;
+
+function TControllerFactory.Perfil: IControllerPerfil;
+begin
+  if not Assigned(FPerfil) then
+    FPerfil := TControllerPerfil.New;
+
+  Result := FPerfil;
 end;
 
 function TControllerFactory.PlanoConta: IControllerCustom;
@@ -902,6 +915,14 @@ begin
     FTipoComissaoView := TControllerTipoComissaoView.New;
 
   Result := FTipoComissaoView;
+end;
+
+function TControllerFactory.TipoDescontoView: IControllerCustom;
+begin
+  if not Assigned(FTipoDescontoView) then
+    FTipoDescontoView := TControllerTipoDescontoView.New;
+
+  Result := FTipoDescontoView;
 end;
 
 function TControllerFactory.TipoDespesa: IControllerCustom;

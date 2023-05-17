@@ -17,6 +17,8 @@ type
       procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetNewRecord(DataSet: TDataSet);
       procedure DataSetBeforePost(DataSet: TDataSet);
+
+      function GetSenhaFormatada(const Value : String; const WithKey : Boolean) : String;
     protected
       constructor Create;
     public
@@ -30,7 +32,8 @@ implementation
 
 uses
   System.DateUtils,
-  UConstantesDGE;
+  UConstantesDGE,
+  UFuncoes;
 
 { TModelDAOUsuario }
 
@@ -80,6 +83,14 @@ begin
   inherited;
 end;
 
+function TModelDAOUsuario.GetSenhaFormatada(const Value: String; const WithKey: Boolean): String;
+begin
+  if WithKey then
+    Result := USER_PASSWD_ENCRIPT + Copy(EncriptSenha(Value, USER_PASSWD_KEY), 1, USER_PASSWD_LIMITE - 2)
+  else
+    Result := USER_PASSWD_ENCRIPT + Copy(EncriptSenha(Value, EmptyStr), 1, USER_PASSWD_LIMITE - 2);
+end;
+
 class function TModelDAOUsuario.New: IModelDAOCustom;
 begin
   Result := Self.Create;
@@ -90,6 +101,8 @@ begin
   // Ignorar campos no Insert e Update
   FConn.Query.DataSet.FieldByName('perfil').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('email').ProviderFlags  := [];
+
+  FConn.Query.DataSet.FieldByName('ativo').OnGetText := StatusGetText;
 end;
 
 procedure TModelDAOUsuario.DataSetAfterOpen(DataSet: TDataSet);
@@ -98,21 +111,16 @@ begin
 end;
 
 procedure TModelDAOUsuario.DataSetBeforePost(DataSet: TDataSet);
-var
-  aSenha : String;
 begin
   with FConn.Query.DataSet do
   begin
     if (FieldByName('VENDEDOR').AsInteger = 0) then
       FieldByName('VENDEDOR').Clear;
 
-//    if ( Trim(FieldByName('SENHA').AsString) <> EmptyStr ) then
-//      if ( Copy(FieldByName('SENHA').AsString, 1, 2) <> USER_PASSWD_ENCRIPT ) then
-//      begin
-//        sSenha := Trim(FieldByName('SENHA').AsString);
-//        FieldByName('SENHA').AsString := GetSenhaFormatada(sSenha, False);
-//      end;
-//
+    if (Trim(FieldByName('SENHA').AsString) <> EmptyStr) then
+      if (Copy(FieldByName('SENHA').AsString, 1, 2) <> USER_PASSWD_ENCRIPT) then
+        FieldByName('SENHA').AsString := GetSenhaFormatada(Trim(FieldByName('SENHA').AsString), False);
+
     if (FieldByName('PERM_ALTERAR_VALOR_VENDA').AsInteger = 0) then
       FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger := 0;
 

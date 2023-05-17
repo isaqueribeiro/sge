@@ -4,7 +4,7 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
   ActiveControl = dbSenhaAtual
   BorderStyle = bsDialog
   Caption = 'Altera'#231#227'o de Senha'
-  ClientHeight = 187
+  ClientHeight = 193
   ClientWidth = 367
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -101,7 +101,7 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
     object dbNome: TDBEdit
       Left = 122
       Top = 14
-      Width = 167
+      Width = 200
       Height = 24
       CharCase = ecUpperCase
       DataField = 'NOME'
@@ -118,7 +118,7 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
     object dbSenhaAtual: TDBEdit
       Left = 122
       Top = 46
-      Width = 167
+      Width = 200
       Height = 24
       CharCase = ecUpperCase
       DataField = 'SENHA_ATUAL'
@@ -135,7 +135,7 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
     object dbSenhaNova: TDBEdit
       Left = 122
       Top = 79
-      Width = 167
+      Width = 200
       Height = 24
       CharCase = ecUpperCase
       DataField = 'SENHA_NOVA'
@@ -152,7 +152,7 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
     object dbSenhaConfirmar: TDBEdit
       Left = 122
       Top = 111
-      Width = 167
+      Width = 200
       Height = 24
       CharCase = ecUpperCase
       DataField = 'SENHA_CONFIRMAR'
@@ -168,31 +168,43 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
     end
   end
   object pnlBotoes: TPanel
-    Left = 0
-    Top = 146
-    Width = 367
+    AlignWithMargins = True
+    Left = 3
+    Top = 149
+    Width = 361
     Height = 41
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    DesignSize = (
-      367
-      41)
+    ExplicitLeft = 0
+    ExplicitTop = 146
+    ExplicitWidth = 367
     object BvlBotoes: TBevel
-      Left = 0
-      Top = 0
-      Width = 367
-      Height = 9
+      AlignWithMargins = True
+      Left = 5
+      Top = 3
+      Width = 351
+      Height = 2
+      Margins.Left = 5
+      Margins.Right = 5
+      Margins.Bottom = 2
       Align = alTop
       Shape = bsTopLine
+      ExplicitLeft = 3
+      ExplicitWidth = 361
     end
     object btbtnSalvar: TcxButton
-      Left = 210
-      Top = 5
+      AlignWithMargins = True
+      Left = 201
+      Top = 7
       Width = 75
-      Height = 31
+      Height = 34
       Hint = 'Gravar Nova Senha'
-      Anchors = [akTop, akRight]
+      Margins.Left = 0
+      Margins.Top = 0
+      Margins.Right = 5
+      Margins.Bottom = 0
+      Align = alRight
       Caption = 'Salvar'
       OptionsImage.ImageIndex = 22
       OptionsImage.Images = DMRecursos.ImgBotoes16x16
@@ -200,15 +212,23 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
       ShowHint = True
       TabOrder = 0
       OnClick = btbtnSalvarClick
+      ExplicitLeft = 210
+      ExplicitTop = 5
+      ExplicitHeight = 31
     end
     object btbtnFechar: TcxButton
-      Left = 288
-      Top = 5
+      AlignWithMargins = True
+      Left = 281
+      Top = 7
       Width = 75
-      Height = 31
+      Height = 34
       Hint = 'Fechar'
+      Margins.Left = 0
+      Margins.Top = 0
+      Margins.Right = 5
+      Margins.Bottom = 0
       ParentCustomHint = False
-      Anchors = [akTop, akRight]
+      Align = alRight
       Caption = 'Fechar'
       OptionsImage.ImageIndex = 15
       OptionsImage.Images = DMRecursos.ImgBotoes16x16
@@ -216,12 +236,15 @@ object frmGrUsuarioAlterarSenha: TfrmGrUsuarioAlterarSenha
       ShowHint = True
       TabOrder = 1
       OnClick = btbtnFecharClick
+      ExplicitLeft = 288
+      ExplicitTop = 5
+      ExplicitHeight = 31
     end
   end
   object dtsUsers: TDataSource
     DataSet = fdQryUser
-    Left = 312
-    Top = 16
+    Left = 32
+    Top = 128
   end
   object fdQryUser: TFDQuery
     CachedUpdates = True
