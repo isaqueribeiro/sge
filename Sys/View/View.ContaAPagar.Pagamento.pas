@@ -195,6 +195,7 @@ begin
       dtsPagamentos.DataSet.FieldByName('EMPRESA').AsString       := Empresa;
       dtsPagamentos.DataSet.FieldByName('FORMA_PAGTO').AsInteger  := FormaPagto;
       dtsPagamentos.DataSet.FieldByName('VALOR_BAIXA').AsCurrency := APagar;
+      dtsPagamentos.DataSet.FieldByName('HISTORICO').AsString     := Format('Lançamento %/% no Contas A Pagar', [edAnoLanc.Text, edNumLanc.Text]);
       dtsPagamentos.DataSet.FieldByName('CONTROLE_CHEQUE').Clear;
 
       Result := (ShowModal = mrOk);
@@ -304,12 +305,12 @@ begin
       TServiceMessage.ShowWarning('Favor informar o Banco do Cheque!');
       dbBancoFebraban.SetFocus;
     end
-    else
-    if ( Trim(dtsPagamentos.DataSet.FieldByName('HISTORICO').AsString) = EmptyStr ) then
-    begin
-      TServiceMessage.ShowWarning('Favor informar histórico (referente à) do pagamento!');
-      dbHistorico.SetFocus;
-    end
+//    else
+//    if ( Trim(dtsPagamentos.DataSet.FieldByName('HISTORICO').AsString) = EmptyStr ) then
+//    begin
+//      TServiceMessage.ShowWarning('Favor informar histórico (referente à) do pagamento!');
+//      dbHistorico.SetFocus;
+//    end
     else
     begin
       if (not Assigned(FControllerCaixa)) then

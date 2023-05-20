@@ -14,9 +14,11 @@ object ViewUsuarioAlterarSenha: TViewUsuarioAlterarSenha
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  OnKeyPress = AnularBeepEnter
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -176,9 +178,6 @@ object ViewUsuarioAlterarSenha: TViewUsuarioAlterarSenha
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = 0
-    ExplicitTop = 146
-    ExplicitWidth = 367
     object BvlBotoes: TBevel
       AlignWithMargins = True
       Left = 5
@@ -212,9 +211,6 @@ object ViewUsuarioAlterarSenha: TViewUsuarioAlterarSenha
       ShowHint = True
       TabOrder = 0
       OnClick = btbtnSalvarClick
-      ExplicitLeft = 210
-      ExplicitTop = 5
-      ExplicitHeight = 31
     end
     object btbtnFechar: TcxButton
       AlignWithMargins = True
@@ -229,6 +225,7 @@ object ViewUsuarioAlterarSenha: TViewUsuarioAlterarSenha
       Margins.Bottom = 0
       ParentCustomHint = False
       Align = alRight
+      Cancel = True
       Caption = 'Fechar'
       OptionsImage.ImageIndex = 15
       OptionsImage.Images = DMRecursos.ImgBotoes16x16
@@ -236,106 +233,10 @@ object ViewUsuarioAlterarSenha: TViewUsuarioAlterarSenha
       ShowHint = True
       TabOrder = 1
       OnClick = btbtnFecharClick
-      ExplicitLeft = 288
-      ExplicitTop = 5
-      ExplicitHeight = 31
     end
   end
   object dtsUsers: TDataSource
-    DataSet = fdQryUser
-    Left = 32
-    Top = 128
-  end
-  object fdQryUser: TFDQuery
-    CachedUpdates = True
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    UpdateObject = fdUpdUser
-    SQL.Strings = (
-      'Select'
-      '    u.Nome'
-      '  , u.Senha'
-      '  , u.Alterar_Senha'
-      '  , cast(null as varchar(16)) as Senha_Atual'
-      '  , cast(null as varchar(16)) as Senha_Nova'
-      '  , cast(null as varchar(16)) as Senha_Confirmar'
-      'from TBUSERS u'
-      'where u.Nome = :Nome')
-    Left = 243
-    Top = 16
-    ParamData = <
-      item
-        Name = 'NOME'
-        DataType = ftString
-        ParamType = ptInput
-        Size = 12
-        Value = Null
-      end>
-    object fdQryUserNOME: TStringField
-      FieldName = 'NOME'
-      Origin = 'NOME'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-      Size = 12
-    end
-    object fdQryUserSENHA: TStringField
-      FieldName = 'SENHA'
-      Origin = 'SENHA'
-      Required = True
-      Size = 16
-    end
-    object fdQryUserALTERAR_SENHA: TSmallintField
-      FieldName = 'ALTERAR_SENHA'
-      Origin = 'ALTERAR_SENHA'
-      Required = True
-    end
-    object fdQryUserSENHA_ATUAL: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'SENHA_ATUAL'
-      Origin = 'SENHA_ATUAL'
-      ProviderFlags = []
-      Size = 16
-    end
-    object fdQryUserSENHA_NOVA: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'SENHA_NOVA'
-      Origin = 'SENHA_NOVA'
-      ProviderFlags = []
-      Size = 16
-    end
-    object fdQryUserSENHA_CONFIRMAR: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'SENHA_CONFIRMAR'
-      Origin = 'SENHA_CONFIRMAR'
-      ProviderFlags = []
-      Size = 16
-    end
-  end
-  object fdUpdUser: TFDUpdateSQL
-    Connection = DMBusiness.fdConexao
-    InsertSQL.Strings = (
-      'INSERT INTO TBUSERS'
-      '(NOME, SENHA, ALTERAR_SENHA)'
-      'VALUES (:NEW_NOME, :NEW_SENHA, :NEW_ALTERAR_SENHA)')
-    ModifySQL.Strings = (
-      'UPDATE TBUSERS'
-      
-        'SET NOME = :NEW_NOME, SENHA = :NEW_SENHA, ALTERAR_SENHA = :NEW_A' +
-        'LTERAR_SENHA'
-      'WHERE NOME = :OLD_NOME')
-    DeleteSQL.Strings = (
-      'DELETE FROM TBUSERS'
-      'WHERE NOME = :OLD_NOME')
-    FetchRowSQL.Strings = (
-      
-        'SELECT NOME, SENHA, NOMECOMPLETO, CODFUNCAO, LIMIDESC, ATIVO, AL' +
-        'TERAR_SENHA, '
-      '  PERM_ALTERAR_VALOR_VENDA, TIPO_ALTERAR_VALOR_VENDA, VENDEDOR, '
-      '  ALMOX_MANIFESTO_AUTOMATICO'
-      'FROM TBUSERS'
-      'WHERE NOME = :NOME')
-    Left = 275
-    Top = 16
+    Left = 328
+    Top = 8
   end
 end

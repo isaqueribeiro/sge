@@ -153,6 +153,8 @@ type
   IControllerusuario = interface(IControllerCustom)
     ['{FB278AFF-F55C-413F-8203-4D78FB7E36DD}']
     function LoginExiste(const Login : String) : Boolean;
+    function Carregar(const Login : String) : IControllerusuario;
+    function SalvarNovaSenha : IControllerusuario;
   end;
 
   IControllerXML_NFeEnviada = interface(IControllerCustom)

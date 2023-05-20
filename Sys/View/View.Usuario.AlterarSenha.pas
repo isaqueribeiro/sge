@@ -29,6 +29,7 @@ uses
   Vcl.Clipbrd,
 
   Data.DB,
+  Datasnap.DBClient,
 
   JvExMask,
   JvToolEdit,
@@ -46,11 +47,7 @@ uses
   UObserverInterface,
   UConstantesDGE,
   UGrPadrao,
-  SGE.Controller.Interfaces,
-
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
-  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
-  FireDAC.Comp.DataSet;
+  SGE.Controller.Interfaces;
 
 type
   TViewUsuarioAlterarSenha = class(TfrmGrPadrao)
@@ -68,23 +65,19 @@ type
     dbSenhaConfirmar: TDBEdit;
     btbtnSalvar: TcxButton;
     btbtnFechar: TcxButton;
-    fdQryUser: TFDQuery;
-    fdUpdUser: TFDUpdateSQL;
-    fdQryUserNOME: TStringField;
-    fdQryUserSENHA: TStringField;
-    fdQryUserALTERAR_SENHA: TSmallintField;
-    fdQryUserSENHA_ATUAL: TStringField;
-    fdQryUserSENHA_NOVA: TStringField;
-    fdQryUserSENHA_CONFIRMAR: TStringField;
     procedure btbtnFecharClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
+    FControllerUsuario  : IControllerUsuario;
+
+    procedure CarregarUsuario;
+    function Controller : IControllerUsuario;
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -100,13 +93,14 @@ type
 
 *)
 
-var
-  ViewUsuarioAlterarSenha: TViewUsuarioAlterarSenha;
-
 implementation
 
 uses
-  UDMBusiness, UGrCampoRequisitado, UDMRecursos, View.Usuario;
+  UGrCampoRequisitado,
+  UDMRecursos,
+  Service.Message,
+  Controller.Tabela,
+  SGE.Controller.Factory;
 
 {$R *.dfm}
 
@@ -116,68 +110,64 @@ begin
 end;
 
 procedure TViewUsuarioAlterarSenha.btbtnSalvarClick(Sender: TObject);
-
-  function SenhaValida(const Senha : String) : Boolean;
-  begin
-    Result := (AnsiCompareStr(fdQryUserSENHA.AsString, Senha) = 0)
-      or (AnsiCompareStr(fdQryUserSENHA.AsString, GetSenhaFormatada(Senha, False)) = 0);
-  end;
-
 var
-  sSenha : String;
+  aNome  ,
+  aSenha : String;
 begin
-  if fdQryUser.State <> dsEdit then
-    fdQryUser.Edit;
-
-  if Trim(fdQryUserSENHA_ATUAL.AsString) = EmptyStr then
-    fdQryUserSENHA_ATUAL.Clear;
-
-  if Trim(fdQryUserSENHA_NOVA.AsString) = EmptyStr then
-    fdQryUserSENHA_NOVA.Clear;
-
-  if Trim(fdQryUserSENHA_CONFIRMAR.AsString) = EmptyStr then
-    fdQryUserSENHA_CONFIRMAR.Clear;
-
-  if not CamposRequiridos(Self, TClientDataSet(dtsUsers.DataSet), 'Alterar Senha') then
+  if (dtsUsers.DataSet.State = TDataSetState.dsEdit) then
   begin
-    if ( not SenhaValida(fdQryUserSENHA_ATUAL.AsString)  ) then
-      ShowWarning('Senha atual inválida!')
-    else
-    if ( SenhaValida(fdQryUserSENHA_NOVA.AsString)  ) then
-      ShowWarning('Nova Senha não pode ser igual a senha atual!')
-    else
-    if ( AnsiCompareStr(fdQryUserSENHA_NOVA.AsString, fdQryUserSENHA_CONFIRMAR.AsString) <> 0  ) then
-      ShowWarning('Nova Senha não confirmada!')
-    else
+    aNome  := dtsUsers.DataSet.FieldByName('NOME').AsString;
+    aSenha := dtsUsers.DataSet.FieldByName('SENHA').AsString;
+
+    if Trim(dtsUsers.DataSet.FieldByName('SENHA_ATUAL').AsString).IsEmpty then
+      dtsUsers.DataSet.FieldByName('SENHA_ATUAL').Clear;
+
+    if Trim(dtsUsers.DataSet.FieldByName('SENHA_NOVA').AsString).IsEmpty then
+      dtsUsers.DataSet.FieldByName('SENHA_NOVA').Clear;
+
+    if Trim(dtsUsers.DataSet.FieldByName('SENHA_CONFIRMAR').AsString).IsEmpty then
+      dtsUsers.DataSet.FieldByName('SENHA_CONFIRMAR').Clear;
+
+    if (not CamposRequiridos(Self, TClientDataSet(dtsUsers.DataSet), 'Alterar Senha')) then
     begin
-      fdQryUserALTERAR_SENHA.AsInteger := 0; // Não
-      fdQryUserSENHA.AsString          := GetSenhaFormatada(fdQryUserSENHA_NOVA.AsString, False);
+      Controller.SalvarNovaSenha;
 
-      fdQryUser.Post;
-      fdQryUser.ApplyUpdates;
-      CommitTransaction;
-
-      ShowInformation('Senha do usuário ' + QuotedStr(fdQryUserNOME.AsString) + ' alterada com sucesso!');
-
-      ModalResult := mrOk;
+      if (aSenha <> dtsUsers.DataSet.FieldByName('SENHA').AsString) then
+      begin
+        TServiceMessage.ShowInformation('Senha do usuário ' + aNome.QuotedString + ' alterada com sucesso!');
+        ModalResult := mrOk;
+      end;
     end;
   end;
 end;
 
-procedure TViewUsuarioAlterarSenha.FormShow(Sender: TObject);
+procedure TViewUsuarioAlterarSenha.CarregarUsuario;
 begin
-  if ( fdQryUserNOME.AsString <> gUsuarioLogado.Login ) then
-    fdQryUser.Close
-  else
-    fdQryUser.Edit;
+  Controller.Carregar(Controller.DAO.Usuario.Login);
+  dtsUsers.DataSet := Controller.DAO.DataSet;
+
+  // Configurar tabela dos itens
+  TTabelaController
+    .New
+    .Tabela( dtsUsers.DataSet )
+    .Display('senha_atual', 'Senha atual', True)
+    .Display('senha_nova',  'Nova senha', True)
+    .Display('senha_confirmar', 'Confirmação da nova senha', True)
+    .Configurar;
+end;
+
+function TViewUsuarioAlterarSenha.Controller: IControllerUsuario;
+begin
+  if not Assigned(FControllerUsuario) then
+    FControllerUsuario := TControllerFactory.New.Usuario;
+
+  Result := FControllerUsuario;
 end;
 
 procedure TViewUsuarioAlterarSenha.FormCreate(Sender: TObject);
 begin
   inherited;
-  fdQryUser.Close;
-  fdQryUser.ParamByName('nome').AsString := gUsuarioLogado.Login;
-  fdQryUser.Open;
+  CarregarUsuario;
 end;
 
 procedure TViewUsuarioAlterarSenha.FormKeyDown(Sender: TObject;
@@ -185,6 +175,17 @@ procedure TViewUsuarioAlterarSenha.FormKeyDown(Sender: TObject;
 begin
   inherited;
   ;
+end;
+
+procedure TViewUsuarioAlterarSenha.FormActivate(Sender: TObject);
+begin
+  if (not dtsUsers.DataSet.IsEmpty) then
+  begin
+    dtsUsers.DataSet.Edit;
+
+    if dbSenhaAtual.Visible and dbSenhaAtual.Enabled then
+      dbSenhaAtual.SetFocus;
+  end;
 end;
 
 procedure TViewUsuarioAlterarSenha.FormClose(Sender: TObject;

@@ -14,16 +14,16 @@ type
     private
       [weak]
       FModel : IUsuarioModel;
-
-      function EncriptSenha(const Value, Key : String) : String;
-      function DecriptarSenha(const Value, Key : String) : String;
-      function GetSenhaFormatada(const Value : String; const WithKey : Boolean) : String;
     protected
       constructor Create();
       destructor Destroy();
     public
       procedure LogOff;
       function Load(aConn : TFDConnection; aLogin : String) : IUsuario; overload;
+
+      function EncriptSenha(const Value, Key : String) : String;
+      function DecriptarSenha(const Value, Key : String) : String;
+      function GetSenhaFormatada(const Value : String; const WithKey : Boolean) : String;
 
       function Autenticar : Boolean; overload;
       function Autenticar(aConn : TFDConnection; aLogin, aSenha, aEmpresa : String) : Boolean; overload;
@@ -109,10 +109,11 @@ begin
           .AlterarValorVenda( FieldByName('alterar_valor_venda').AsInteger = 1 )
           .Logado(True);
 
-        FModel.Vendedor
-          .CPF( FieldByName('cpf_vendedor').AsString )
-          .Codigo( FieldByName('vendedor').AsInteger )
-          .Nome( FieldByName('nome_vendador').AsString );
+        FModel
+          .Vendedor
+            .CPF( FieldByName('cpf_vendedor').AsString )
+            .Codigo( FieldByName('vendedor').AsInteger )
+            .Nome( FieldByName('nome_vendador').AsString );
       end;
     end;
   finally

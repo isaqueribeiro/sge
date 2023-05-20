@@ -3,16 +3,22 @@ unit SGE.Controller.Usuario;
 interface
 
 uses
+  System.SysUtils,
+  Data.DB,
+
   SGE.Controller,
   SGE.Controller.Interfaces,
   SGE.Model.DAO.Interfaces,
   SGE.Model.DAO.Factory,
+  Controller.Usuario,
   UConstantesDGE;
 
 type
   TControllerusuario = class(TController, IControllerUsuario)
     private
       FBusca : IModelDAOCustom;
+
+      function SenhaFormatada(Value : String) : String;
     protected
       constructor Create;
     public
@@ -20,6 +26,8 @@ type
       class function New : IControllerUsuario;
 
       function LoginExiste(const Login : String) : Boolean;
+      function Carregar(const Login : String) : IControllerusuario;
+      function SalvarNovaSenha : IControllerusuario;
 //
 //      function GetTipo(aCodigo : Integer) : TTipoCFOP;
 //      function GetGerarDuplicata(aCodigo : Integer) : Boolean;
@@ -30,6 +38,19 @@ type
 implementation
 
 { TControllerusuario }
+
+function TControllerusuario.Carregar(const Login: String): IControllerusuario;
+begin
+  Result := Self;
+  FDAO
+    .Close
+    .ClearWhere;
+
+  FDAO
+    .Where('upper(u.nome) = upper(:nome)')
+    .ParamsByName('nome', Login.Trim.ToUpper)
+    .Open;
+end;
 
 constructor TControllerusuario.Create;
 begin
@@ -109,6 +130,64 @@ end;
 class function TControllerusuario.New: IControllerUsuario;
 begin
   Result := Self.Create;
+end;
+
+function TControllerusuario.SalvarNovaSenha: IControllerusuario;
+var
+  aSenha  : String;
+  aValida : Boolean;
+begin
+  Result := Self;
+
+  if (FDAO.DataSet.State = TDataSetState.dsEdit) then
+  begin
+    if Trim(FDAO.DataSet.FieldByName('SENHA_ATUAL').AsString).IsEmpty then
+      FDAO.DataSet.FieldByName('SENHA_ATUAL').Clear;
+
+    if Trim(FDAO.DataSet.FieldByName('SENHA_NOVA').AsString).IsEmpty then
+      FDAO.DataSet.FieldByName('SENHA_NOVA').Clear;
+
+    if Trim(FDAO.DataSet.FieldByName('SENHA_CONFIRMAR').AsString).IsEmpty then
+      FDAO.DataSet.FieldByName('SENHA_CONFIRMAR').Clear;
+
+    FDAO.DataSet.FieldByName('SENHA_NOVA').AsString      := Trim(FDAO.DataSet.FieldByName('SENHA_NOVA').AsString);
+    FDAO.DataSet.FieldByName('SENHA_CONFIRMAR').AsString := Trim(FDAO.DataSet.FieldByName('SENHA_CONFIRMAR').AsString);
+
+    // Verificar senha atual
+    aSenha  := Trim(FDAO.DataSet.FieldByName('SENHA_ATUAL').AsString);
+    aValida := (AnsiCompareStr(FDAO.DataSet.FieldByName('SENHA').AsString, aSenha) = 0)
+            or (AnsiCompareStr(FDAO.DataSet.FieldByName('SENHA').AsString, SenhaFormatada(aSenha)) = 0);
+
+    if not aValida then
+      raise Exception.Create('A Senha informada como atual é inválida!');
+
+    // Verificar nova senha
+    aSenha  := Trim(FDAO.DataSet.FieldByName('SENHA_NOVA').AsString);
+    aValida := (AnsiCompareStr(FDAO.DataSet.FieldByName('SENHA').AsString, aSenha) = 0)
+            or (AnsiCompareStr(FDAO.DataSet.FieldByName('SENHA').AsString, SenhaFormatada(aSenha)) = 0);
+
+    if aValida then
+      raise Exception.Create('A nova senha não pode ser igual a antiga!');
+
+    if (AnsiCompareStr(FDAO.DataSet.FieldByName('SENHA_NOVA').AsString, FDAO.DataSet.FieldByName('SENHA_CONFIRMAR').AsString) <> 0  ) then
+      raise Exception.Create('A nova senha não confere!');
+
+    aSenha := Trim(FDAO.DataSet.FieldByName('SENHA_NOVA').AsString);
+
+    FDAO.DataSet.FieldByName('ALTERAR_SENHA').AsInteger := 0; // Não
+    FDAO.DataSet.FieldByName('SENHA').AsString          := SenhaFormatada(aSenha);
+
+    FDAO.DataSet.Post;
+
+    FDAO.ApplyUpdates;
+    FDAO.CommitUpdates;
+    FDAO.CommitTransaction;
+  end;
+end;
+
+function TControllerusuario.SenhaFormatada(Value : String) : String;
+begin
+  Result := TUsuarioController.GetInstance().GetSenhaFormatada(Value, False);
 end;
 
 end.

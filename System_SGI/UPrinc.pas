@@ -1167,7 +1167,7 @@ end;
 
 procedure TfrmPrinc.nmUsuarioAlterarSenhaClick(Sender: TObject);
 begin
-  if ( FormFunction.ShowModalForm(Self, 'frmGrUsuarioAlterarSenha') ) then
+  if ( FormFunction.ShowModalForm(Self, 'ViewUsuarioAlterarSenha') ) then
     Self.Update;
 end;
 

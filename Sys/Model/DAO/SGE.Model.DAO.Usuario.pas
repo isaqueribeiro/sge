@@ -66,6 +66,9 @@ begin
         .Add('  , u.codigo')
         .Add('  , f.funcao   as perfil')
         .Add('  , e.ds_email as email ')
+        .Add('  , cast('''' as DMN_VCHAR_150) as senha_atual')
+        .Add('  , cast('''' as DMN_VCHAR_150) as senha_nova')
+        .Add('  , cast('''' as DMN_VCHAR_150) as senha_confirmar')
         .Add('from TBUSERS u')
         .Add('  left join TBFUNCAO f on (f.cod = u.codfuncao)')
         .Add('  left join SYS_USUARIO e on (e.id_usuario = u.usuario_app_id)')
@@ -101,6 +104,9 @@ begin
   // Ignorar campos no Insert e Update
   FConn.Query.DataSet.FieldByName('perfil').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('email').ProviderFlags  := [];
+  FConn.Query.DataSet.FieldByName('senha_atual').ProviderFlags     := [];
+  FConn.Query.DataSet.FieldByName('senha_nova').ProviderFlags      := [];
+  FConn.Query.DataSet.FieldByName('senha_confirmar').ProviderFlags := [];
 
   FConn.Query.DataSet.FieldByName('ativo').OnGetText := StatusGetText;
 end;

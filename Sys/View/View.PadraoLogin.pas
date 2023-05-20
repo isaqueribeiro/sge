@@ -6,8 +6,10 @@ uses
   System.SysUtils,
   System.Variants,
   System.Classes,
+
   Winapi.Windows,
   Winapi.Messages,
+
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Forms,
@@ -186,6 +188,12 @@ begin
 
   Self.BringToFront;
   Self.Activate;
+
+  {$IFDEF DEBUG}
+  edtUsuario.Text := 'admin';
+  edtSenha.Text   := 'Elohim';
+  cmbEmpresa.ItemIndex := 0;
+  {$ENDIF}
 end;
 
 procedure TFrmPadraoLogin.SetController(const Value: IUsuario);
