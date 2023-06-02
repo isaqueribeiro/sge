@@ -229,9 +229,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\UGeVendaTransporte.pas">
             <Form>frmGeVendaTransporte</Form>
         </DCCReference>
-        <DCCReference Include="UGrUsuarioAlterarSenha_v2.pas">
-            <Form>frmGrUsuarioAlterarSenha</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeVendaConfirmaTitulos.pas">
             <Form>frmGeVendaConfirmaTitulos</Form>
         </DCCReference>
@@ -267,9 +264,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="UGeRequisicaoCliente.pas">
             <Form>frmGeRequisicaoCliente</Form>
-        </DCCReference>
-        <DCCReference Include="UGrUsuario.pas">
-            <Form>frmGrUsuario</Form>
         </DCCReference>
         <DCCReference Include="UGeVendaImpressao.pas">
             <Form>frmGeVendaImpressao</Form>
@@ -765,6 +759,18 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\View\View.ContaAReceber.Pagamento.pas">
             <Form>ViewContaAReceberPagamento</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Perfil.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Usuario.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Perfil.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Usuario.pas"/>
+        <DCCReference Include="..\Sys\View\View.Usuario.pas">
+            <Form>ViewUsuario</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Usuario.AlterarSenha.pas">
+            <Form>ViewUsuarioAlterarSenha</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>
@@ -875,19 +881,19 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                 <Platform value="Win64">False</Platform>
             </Platforms>
             <Deployment Version="3">
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\app_sincronizar_48x48.png" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="..\_diversos\Imagens\Glyphs\app_configurar_48x48-hot.png" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\app_sincronizar_48x48.png" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -1123,7 +1129,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png" Configuration="Release" Class="ProjectFile">
+                <DeployFile LocalName="..\_diversos\Imagens\Glyphs\webserver.png" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

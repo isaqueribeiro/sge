@@ -179,9 +179,15 @@ begin
 
   if (Sender is TThread) then
   begin
-    if Assigned(TThread(Sender).FatalException) then
-      raise Exception.Create('Erro ao tentar autenticar a aplicação no Servidor Web de licenças.' + #13 + Exception(TThread(Sender).FatalException).Message)
-    else
+//    if Assigned(TThread(Sender).FatalException) then
+//      raise Exception.Create('Erro ao tentar autenticar a aplicação no Servidor Web de licenças.' + #13 + Exception(TThread(Sender).FatalException).Message)
+//    else
+//    begin
+//      FTokenGoogleAuth := FUser.Entity.TokenID;
+//      if FUser.Entity.Registered then
+//        Sincronizar;
+//    end;
+    if not Assigned(TThread(Sender).FatalException) then
     begin
       FTokenGoogleAuth := FUser.Entity.TokenID;
       if FUser.Entity.Registered then
@@ -426,9 +432,32 @@ begin
 
   if (Sender is TThread) then
   begin
-    if Assigned(TThread(Sender).FatalException) then
-      raise Exception.Create('Erro ao tentar sincronizar a licença com o Servidor Web.' + #13 + Exception(TThread(Sender).FatalException).Message)
-    else
+//    if Assigned(TThread(Sender).FatalException) then
+//      raise Exception.Create('Erro ao tentar sincronizar a licença com o Servidor Web.' + #13 + Exception(TThread(Sender).FatalException).Message)
+//    else
+//    begin
+//      FModel
+//        .UUID(FClient.Entity.UUID)
+//        .Empresa(FClient.Entity.Razao)
+//        .NomeFantasia(FClient.Entity.Fantasia)
+//        .CNPJ(TServicesUtils.StrOnlyNumbers(FClient.Entity.Cnpj))
+//        .Email(FClient.Entity.Email)
+//        .Endereco(FClient.Entity.Endereco.Logradouro)
+//        .Numero(FClient.Entity.Endereco.Numero)
+//        .Bairro(FClient.Entity.Endereco.Bairro)
+//        .Cidade(FClient.Entity.Endereco.Cidade)
+//        .UF(FClient.Entity.Endereco.UF)
+//        .CEP(TServicesUtils.StrOnlyNumbers(FClient.Entity.Endereco.Cep))
+//        .Competencia(FClient.Entity.Licenca.Competencia)
+//        .DataBloqueio(FClient.Entity.Licenca.Bloqueio)
+//        .UsarSGE(FClient.Entity.Licenca.Sistemas.SGE)
+//        .UsarSGO(FClient.Entity.Licenca.Sistemas.SGO)
+//        .UsarSGI(FClient.Entity.Licenca.Sistemas.SGI)
+//        .UsarSGF(FClient.Entity.Licenca.Sistemas.SGF);
+//
+//      GravarDadosEmpresa;
+//    end;
+    if not Assigned(TThread(Sender).FatalException) then
     begin
       FModel
         .UUID(FClient.Entity.UUID)

@@ -78,6 +78,7 @@ type
     lblFantasia: TLabel;
     edFantasia: TEdit;
     BtnNovaLicenca: TButton;
+    lblSenhaAuthCliente: TLabel;
     procedure BtnCarregarLicencaClick(Sender: TObject);
     procedure BtnGerarLicencaClick(Sender: TObject);
 
@@ -315,6 +316,8 @@ begin
     end;
 
     edCompetenciaChange( edCompetencia );
+
+    lblSenhaAuthCliente.Caption := 'Senha de autenticação no Firebase Google: ' + SomenteNumero(edCGC.Text) + '@pwd';
   finally
     ini.Free;
     Arquivo.Free;
@@ -559,10 +562,12 @@ begin
       sNomeArquivo := StringReplace(StringReplace(StringReplace(Trim(edCGC.Text), '.', '', [rfReplaceAll]), '-', '', [rfReplaceAll]), '/', '', [rfReplaceAll]) + ' - ' + Trim(edEmpresa.Text);
       sNomeArquivo := ExtractFilePath(Application.ExeName) + sNomeArquivo + '.lnc';
 
-      if AuthServer(False) then  // Autenticar para removar o TokenID
+      if AuthServer(False) then  // Autenticar para renovar o TokenID
         RegistrarCliente(edUUID.Hint, aGuidID); // Gravar licença no Firestore RealTime
 
       GerarLicenca(sNomeArquivo);
+
+      lblSenhaAuthCliente.Caption := 'Senha de autenticação no Firebase Google: ' + SomenteNumero(edCGC.Text) + '@pwd';
 
       ShowMessageInformacao('Licença', 'Arquivo gerado com sucesso!' + #13#13 + sNomeArquivo);
     end;

@@ -1630,6 +1630,10 @@ inherited ViewProduto: TViewProduto
         object tbsTributacao: TTabSheet
           Caption = 'Tributa'#231#245'es'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 0
             Top = 233
@@ -2617,10 +2621,6 @@ inherited ViewProduto: TViewProduto
         object tbsHistoricoVeiculo: TTabSheet
           Caption = 'Hist'#243'ricos'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           DesignSize = (
             945
             249)

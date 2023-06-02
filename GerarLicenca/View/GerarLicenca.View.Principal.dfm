@@ -436,6 +436,20 @@ object ViewPrincipal: TViewPrincipal
     FocusControl = edFantasia
     Transparent = True
   end
+  object lblSenhaAuthCliente: TLabel
+    Left = 160
+    Top = 270
+    Width = 253
+    Height = 17
+    Caption = 'Senha de autentica'#231#227'o no Firebase Google:'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clRed
+    Font.Height = -13
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    Transparent = True
+  end
   object edEmpresa: TEdit
     Left = 160
     Top = 48
@@ -670,7 +684,6 @@ object ViewPrincipal: TViewPrincipal
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitLeft = -3
     end
     object BtnNovaLicenca: TButton
       AlignWithMargins = True

@@ -40,7 +40,6 @@ uses
   UGeVendaFormaPagto in '..\Sys\UGeVendaFormaPagto.pas' {frmGeVendaFormaPagto},
   UGeExportarNFeGerada in '..\Sys\UGeExportarNFeGerada.pas' {frmGeExportarNFeGerada},
   UGeVendaTransporte in '..\Sys\UGeVendaTransporte.pas' {frmGeVendaTransporte},
-  UGrUsuarioAlterarSenha_v2 in 'UGrUsuarioAlterarSenha_v2.pas' {frmGrUsuarioAlterarSenha},
   UGeVendaConfirmaTitulos in '..\Sys\UGeVendaConfirmaTitulos.pas' {frmGeVendaConfirmaTitulos},
   UGrPadraoPesquisa in '..\Sys\lib\UGrPadraoPesquisa.pas' {frmGrPadraoPesquisa},
   UGeVendaItemPesquisa in '..\Sys\UGeVendaItemPesquisa.pas' {FrmGeVendaItemPesquisa},
@@ -55,7 +54,6 @@ uses
   UGeClienteImpressao in 'UGeClienteImpressao.pas' {frmGeClienteImpressao},
   UGeEstoqueAjusteManual in 'UGeEstoqueAjusteManual.pas' {frmGeEstoqueAjusteManual},
   UGeRequisicaoCliente in 'UGeRequisicaoCliente.pas' {frmGeRequisicaoCliente},
-  UGrUsuario in 'UGrUsuario.pas' {frmGrUsuario},
   UGeVendaImpressao in 'UGeVendaImpressao.pas' {frmGeVendaImpressao},
   UGeExportarChaveNFeGerada in '..\Sys\UGeExportarChaveNFeGerada.pas' {frmGeExportarChaveNFeGerada},
   UGeExportarNFC in '..\Sys\UGeExportarNFC.pas' {frmGeExportarNFC},
@@ -328,7 +326,13 @@ uses
   View.Query.ContaAPagar in '..\Sys\View\Query\View.Query.ContaAPagar.pas' {ViewQueryContaAPagar},
   View.ContaAReceber in '..\Sys\View\View.ContaAReceber.pas' {ViewContaAReceber},
   View.ContaAReceber.LoteParcela in '..\Sys\View\View.ContaAReceber.LoteParcela.pas' {ViewContaAReceberLoteParcela},
-  View.ContaAReceber.Pagamento in '..\Sys\View\View.ContaAReceber.Pagamento.pas' {ViewContaAReceberPagamento};
+  View.ContaAReceber.Pagamento in '..\Sys\View\View.ContaAReceber.Pagamento.pas' {ViewContaAReceberPagamento},
+  SGE.Model.DAO.Perfil in '..\Sys\Model\DAO\SGE.Model.DAO.Perfil.pas',
+  SGE.Model.DAO.Usuario in '..\Sys\Model\DAO\SGE.Model.DAO.Usuario.pas',
+  SGE.Controller.Perfil in '..\Sys\Controller\SGE.Controller.Perfil.pas',
+  SGE.Controller.Usuario in '..\Sys\Controller\SGE.Controller.Usuario.pas',
+  View.Usuario in '..\Sys\View\View.Usuario.pas' {ViewUsuario},
+  View.Usuario.AlterarSenha in '..\Sys\View\View.Usuario.AlterarSenha.pas' {ViewUsuarioAlterarSenha};
 
 {$R *.res}
 

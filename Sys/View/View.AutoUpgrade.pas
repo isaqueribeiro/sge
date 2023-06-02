@@ -119,6 +119,9 @@ begin
     aFiles.Add('SGE.exe.part');
     aFiles.Add('SGI.exe.part');
     aFiles.Add('SGO.exe.part');
+    aFiles.Add('VersaoHTTP_SGE.inf.part');
+    aFiles.Add('VersaoHTTP_SGI.inf.part');
+    aFiles.Add('VersaoHTTP_SGO.inf.part');
     aFiles.Add('PrinterCupom.exe.part');
     aFiles.Add(UPGRADE_AGIL + '.part');
     aFiles.Add('cce_informe.rtf.part');

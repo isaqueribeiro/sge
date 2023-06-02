@@ -953,39 +953,50 @@ begin
     raise Exception.Create('Host -> ' + sHostName + #13 + 'Estação de trabalho não registrada no sistema!');
   end;
 
-  BrBtnRequisicaoCliente.Enabled := GetEstoqueSateliteEmpresa( gUsuarioLogado.Empresa );
 
-//  // Verifica se a versão da aplicação é maior que a versão do banco
-//  // O procedimento "UpgradeDataBase()" atualiza a base de dados
-//  try
-//    if not gLicencaSistema.UsarSGI then
-//      raise Exception.Create(
-//        'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
-//        'Favor entrar em contato com o fornecedor do software.'
-//      );
-//
-//    if (Trunc(gVersaoApp.VersionID / 100) > Trunc(GetVersionDB(gSistema.Codigo) / 100)) then
-//      raise Exception.Create(
-//        'Esta versão da aplicação necessidade que a base de dados esteja atualizada!' + #13#13 +
-//        'Favor entrar em contato com o fornecedor do software.'
-//      );
-//
-//    // Verifica se a versão do banco é maior que a versão da aplicação
-//    if (Trunc(GetVersionDB(gSistema.Codigo) / 100) > Trunc(gVersaoApp.VersionID / 100)) then
-//      raise Exception.Create('O sistema está desatualizado em relação à base de dados.' + #13 + 'Favor atualize seu sistema.');
-//  except
-//    On E : Exception do
-//    begin
-//      TServiceMessage.ShowError(E.Message);
-//
-//      Application.Terminate;
-//
-//      // Remover processo da memória do Windows
-//      aProcesso := ParamStr(0);
-//      aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
-//      KillTask(aProcesso);
-//    end;
-//  end;
+  if not gLicencaSistema.UsarSGI then
+    try
+      raise Exception.Create(
+        'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
+        'Favor entrar em contato com o fornecedor do software.');
+    finally
+      Application.Terminate;
+
+      // Remover processo da memória do Windows
+      aProcesso := ParamStr(0);
+      aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+      KillTask(aProcesso);
+    end;
+
+  // Verifica se a versão da aplicação é maior que a versão do banco
+  // O procedimento "UpgradeDataBase()" atualiza a base de dados
+  if (Trunc(gVersaoApp.VersionID / 100) > Trunc(GetVersionDB(gSistema.Codigo) / 100)) then
+    try
+      raise Exception.Create(
+        'Esta versão da aplicação necessidade que a base de dados esteja atualizada!' + #13#13 +
+        'Favor entrar em contato com o fornecedor do software.'
+      );
+    finally
+      Application.Terminate;
+
+      // Remover processo da memória do Windows
+      aProcesso := ParamStr(0);
+      aProcesso := StringReplace(aProcesso, ExtractFilePath(aProcesso), '', [rfReplaceAll]);
+      KillTask(aProcesso);
+    end;
+
+  // Verifica se a versão do banco é maior que a versão da aplicação
+  if (Trunc(GetVersionDB(gSistema.Codigo) / 100) > Trunc(gVersaoApp.VersionID / 100)) then
+    raise Exception.Create('O sistema está desatualizado em relação à base de dados.' + #13 + 'Favor atualize seu sistema.');
+
+  if gConfiguracoes.ConfigurarAmbiente then
+  begin
+    lblAberta.Caption := '=============================' + #13 + 'Configure o ambiente da aplicação!';
+    lblAberta.Visible := True;
+    TmrAlertaCliente.Enabled := True;
+  end;
+
+  BrBtnRequisicaoCliente.Enabled := GetEstoqueSateliteEmpresa( gUsuarioLogado.Empresa );
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
@@ -1434,7 +1445,12 @@ begin
   if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
     ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
   else
+  begin
     FormFunction.ShowModalForm(Self, 'frmGrConfigurarAmbiente');
+    lblAberta.Caption := EmptyStr;
+    lblAberta.Visible := False;
+    TmrAlertaCliente.Enabled := False;
+  end;
 end;
 
 procedure TfrmPrinc.nmCarregarLicencaClick(Sender: TObject);

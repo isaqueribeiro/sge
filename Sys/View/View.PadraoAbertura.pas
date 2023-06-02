@@ -3,11 +3,23 @@ unit View.PadraoAbertura;
 interface
 
 uses
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
 
-  Interacao.Versao, Interacao.PersonalizaEmpresa, Interacao.Licenca,
+  Winapi.Windows,
+  Winapi.Messages,
 
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Forms, Vcl.Graphics, Vcl.Buttons, Vcl.StdCtrls, Vcl.Controls, Vcl.ExtCtrls;
+  Vcl.Forms,
+  Vcl.Graphics,
+  Vcl.Buttons,
+  Vcl.StdCtrls,
+  Vcl.Controls,
+  Vcl.ExtCtrls,
+
+  Interacao.Versao,
+  Interacao.PersonalizaEmpresa,
+  Interacao.Licenca;
 
 type
   TFrmPadraoAbertura = class(TForm)
@@ -20,6 +32,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormFechar(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     aMoldura  ,
@@ -371,6 +384,17 @@ procedure TFrmPadraoAbertura.FormKeyDown(Sender: TObject; var Key: Word; Shift: 
 begin
   if (Key = VK_ESCAPE) then
     btnFechar.Click;
+end;
+
+procedure TFrmPadraoAbertura.FormShow(Sender: TObject);
+begin
+  lblSystemName.BringToFront;
+  lblSystemName.Transparent := False;
+  lblSystemName.Transparent := True;
+
+  lblSystemDescription.BringToFront;
+  lblSystemDescription.Transparent := False;
+  lblSystemDescription.Transparent := True;
 end;
 
 procedure TFrmPadraoAbertura.LoadInformation;

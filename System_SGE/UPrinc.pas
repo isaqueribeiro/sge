@@ -887,7 +887,7 @@ begin
 
   if not gLicencaSistema.UsarSGE then
     try
-      ShowError(
+      raise Exception.Create(
         'A licença atual não permite que este sistema seja utilizado!' + #13#13 +
         'Favor entrar em contato com o fornecedor do software.');
     finally
@@ -921,7 +921,11 @@ begin
     raise Exception.Create('O sistema está desatualizado em relação à base de dados.' + #13 + 'Favor atualize seu sistema.');
 
   if gConfiguracoes.ConfigurarAmbiente then
-    BrBtnConfigurarAmbiente.Click;
+  begin
+    lblAberta.Caption := '=============================' + #13 + 'Configure o ambiente da aplicação!';
+    lblAberta.Visible := True;
+    TmrAlertaCliente.Enabled := True;
+  end;
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
@@ -1061,7 +1065,7 @@ end;
 
 procedure TfrmPrinc.nmUsuarioAlterarSenhaClick(Sender: TObject);
 begin
-  if ( FormFunction.ShowModalForm(Self, 'frmGrUsuarioAlterarSenha') ) then
+  if ( FormFunction.ShowModalForm(Self, 'ViewUsuarioAlterarSenha') ) then
     Self.Update;
 end;
 
@@ -1124,7 +1128,7 @@ end;
 procedure TfrmPrinc.nmUsuarioClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CAD_USUARIO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGrUsuario');
+    FormFunction.ShowModalForm(Self, 'ViewUsuario');
 end;
 
 procedure TfrmPrinc.nmRequisicaoClienteClick(Sender: TObject);
@@ -1318,7 +1322,12 @@ begin
   if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
     ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
   else
+  begin
     FormFunction.ShowModalForm(Self, 'frmGrConfigurarAmbiente');
+    lblAberta.Caption := EmptyStr;
+    lblAberta.Visible := False;
+    TmrAlertaCliente.Enabled := False;
+  end;
 end;
 
 procedure TfrmPrinc.nmCarregarLicencaClick(Sender: TObject);

@@ -15,6 +15,7 @@ object FrmPadraoAbertura: TFrmPadraoAbertura
   Position = poMainFormCenter
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  OnShow = FormShow
   DesignSize = (
     694
     442)
