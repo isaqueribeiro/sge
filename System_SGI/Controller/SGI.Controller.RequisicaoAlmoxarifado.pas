@@ -26,6 +26,7 @@ type
       procedure AjustarQuantidadeAtendidaDeProdutos;
 
       function Produtos : IControllerCustom;
+      function MarcarComRecebida : IControllerRequisicaoAlmoxarifado; virtual; abstract;
   end;
 
   // Itens da Requisições ao Almoxarifado

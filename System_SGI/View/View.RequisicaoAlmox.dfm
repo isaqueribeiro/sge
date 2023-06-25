@@ -30,7 +30,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
     ExplicitHeight = 651
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 1099
-      ExplicitHeight = 604
+      ExplicitHeight = 622
       inherited Bevel4: TBevel
         Top = 548
         Width = 1099
@@ -115,7 +115,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
       inherited pnlFiltros: TPanel
         Top = 552
         Width = 1099
-        ExplicitTop = 534
+        ExplicitTop = 552
         ExplicitWidth = 1099
         inherited grpBxFiltro: TGroupBox
           Left = 496
@@ -128,6 +128,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Left = 300
             Top = 24
             Width = 93
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -143,7 +144,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Left = 30
             Top = 24
             Width = 49
-            Height = 13
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -151,6 +152,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
+            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 399
@@ -461,7 +463,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
       ExplicitLeft = 4
       ExplicitTop = 25
       ExplicitWidth = 1099
-      ExplicitHeight = 604
+      ExplicitHeight = 622
       inherited Bevel8: TBevel
         Top = 373
         Width = 1099
@@ -725,10 +727,6 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           TabOrder = 13
           object TbsRequisicaoMotivo: TTabSheet
             Caption = 'Motivo da requisi'#231#227'o'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMotivo: TDBMemo
               Left = 0
               Top = 0
@@ -750,10 +748,6 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           object TbsRequisicaoCancelado: TTabSheet
             Caption = 'Motivo do cancelamento'
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -1130,14 +1124,9 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
         ActivePage = tbsObservacoes
         Align = alBottom
         TabOrder = 3
-        ExplicitTop = 478
         object tbsObservacoes: TTabSheet
           Caption = 'Observa'#231#245'es'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object PnlObservacoes: TPanel
             Left = 0
             Top = 0
@@ -2104,7 +2093,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
   inherited tlbBotoes: TPanel
     Top = 655
     Width = 1107
-    ExplicitTop = 637
+    ExplicitTop = 655
     ExplicitWidth = 1107
     inherited bvlTool3: TBevel
       Left = 1024

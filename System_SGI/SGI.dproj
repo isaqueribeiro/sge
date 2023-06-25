@@ -390,8 +390,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="UGeRequisicaoAlmoxCancelar.pas">
             <Form>frmGeRequisicaoAlmoxCancelar</Form>
         </DCCReference>
-        <DCCReference Include="UGeRequisicaoAlmoxMonitor.pas">
-            <Form>frmGeRequisicaoAlmoxMonitor</Form>
+        <DCCReference Include="View\View.RequisicaoAlmox.Monitor.pas">
+            <Form>ViewRequisicaoAlmoxMonitor</Form>
         </DCCReference>
         <DCCReference Include="UGeInventario.pas">
             <Form>frmGeInventario</Form>
@@ -803,6 +803,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Perfil.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Perfil.pas"/>
+        <DCCReference Include="Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.RequisicaoAlmox.pas">
+            <Form>DataModuleRequisicaoAlmox</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Controller\Impressao\SGE.Controller.Impressao.RequisicaoAlmox.pas"/>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>

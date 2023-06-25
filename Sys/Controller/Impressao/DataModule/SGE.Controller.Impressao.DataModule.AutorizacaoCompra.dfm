@@ -1,8 +1,8 @@
 object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Height = 467
-  Width = 665
+  Height = 347
+  Width = 528
   object qryFornecedorDestinatario: TFDQuery
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao

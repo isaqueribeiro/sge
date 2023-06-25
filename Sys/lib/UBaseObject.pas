@@ -2,9 +2,18 @@ unit UBaseObject;
 
 interface
 
-uses SysUtils, Windows, Classes, UObserverInterface;
+uses
+  SysUtils,
+  Windows,
+  Classes,
+  UObserverInterface;
 
 type
+  TSimpleObject = class
+    Codigo   : Integer;
+    Descriao ,
+    Nome     : String;
+  end;
 
   TBaseObject = class(TInterfacedObject, IObservable)  // Observado
   private

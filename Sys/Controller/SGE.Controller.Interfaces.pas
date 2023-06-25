@@ -100,6 +100,7 @@ type
   IControllerCentroCusto = interface(IControllerCustom)
     ['{2A30F0DB-6B23-4A89-AA12-06A405551944}']
     procedure SetCentroCustoGeral(aEmpresa : String);
+    function Listar(aEmpresa : String) : IModelDAOCustom;
   end;
 
   IControllerAliquotaICMS = interface(IControllerCustom)
@@ -214,6 +215,7 @@ type
   IControllerRequisicaoAlmoxarifado = interface(IControllerCustom)
     ['{6E2C8852-401A-43CB-9A78-70CFD2442A13}']
     function Produtos : IControllerCustom;
+    function MarcarComRecebida : IControllerRequisicaoAlmoxarifado;
 
     procedure CarregarProdutos;
     procedure AjustarQuantidadeAtendidaDeProdutos;

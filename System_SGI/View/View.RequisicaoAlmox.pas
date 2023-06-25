@@ -48,7 +48,8 @@ uses
   SGE.Controller.Interfaces,
   Interacao.Tabela,
   Controller.Tabela,
-  SGE.Controller.Impressao.AutorizacaoCompra;
+  SGE.Controller.Impressao.AutorizacaoCompra,
+  SGE.Controller.Impressao.RequisicaoAlmox;
 
 type
   TViewRequisicaoAlmox = class(TViewPadraoCadastro)
@@ -189,6 +190,7 @@ type
     procedure btbtnCancelarClick(Sender: TObject);
   private
     { Private declarations }
+    FImpressao : IImpressaoRequisicaoAlmox;
     FControllerEmpresaView,
     FControllerTipoRequisicaoAlmoxView : IControllerCustom;
     FControllerProdutoAlmox : IControllerProdutoAlmoxarifado;
@@ -1160,39 +1162,16 @@ begin
   if DtSrcTabela.DataSet.IsEmpty then
     Exit;
 
-  with DMNFe do
-  begin
+  if not Assigned(FImpressao) then
+    FImpressao := TImpressaoRequisicaoAlmox.New;
 
-    try
-      ConfigurarEmail(gUsuarioLogado.Empresa, GetEmailEmpresa(DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString), 'Requisição de Materiais', EmptyStr);
-    except
-    end;
-
-    with qryEmitente do
-    begin
-      Close;
-      ParamByName('Cnpj').AsString := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
-      Open;
-    end;
-
-    with qryDestinatario do
-    begin
-      Close;
-      ParamByName('codigo').AsInteger := DtSrcTabela.DataSet.FieldByName('CC_ORIGEM_CODCLIENTE').AsInteger;
-      Open;
-    end;
-
-    with qryRequisicaoAlmox do
-    begin
-      Close;
-      ParamByName('ano').AsSmallInt := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
-      ParamByName('cod').AsInteger  := DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger;
-      ParamByName('todos_itens').AsSmallInt := 1;
-      Open;
-    end;
-
-    frrRequisicaoAlmox.ShowReport;
-  end;
+  FImpressao
+    .VisualizarRequisicao(
+      DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString,
+      DtSrcTabela.DataSet.FieldByName('ANO').AsInteger,
+      DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger,
+      DtSrcTabela.DataSet.FieldByName('CC_ORIGEM_CODCLIENTE').AsInteger
+    );
 end;
 
 procedure TViewRequisicaoAlmox.btnCancelarRequisicaoClick(
@@ -1765,50 +1744,24 @@ end;
 
 procedure TViewRequisicaoAlmox.nmImprimirManifestoClick(Sender: TObject);
 begin
-  if ( DtSrcTabela.DataSet.IsEmpty ) then
+  if DtSrcTabela.DataSet.IsEmpty then
     Exit;
 
   if (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger <> STATUS_REQUISICAO_ALMOX_ATD) then
+    TServiceMessage.ShowWarning('Apenas requisição de materiais já atendidas possuem impressão de Manifesto!')
+  else
   begin
-    ShowWarning('Apenas requisição de materiais já atendidas possuem impressão de Manifesto!');
-    Abort;
-  end;
+    if not Assigned(FImpressao) then
+      FImpressao := TImpressaoRequisicaoAlmox.New;
 
-  with DMNFe do
-  begin
-
-    try
-      ConfigurarEmail(gUsuarioLogado.Empresa
-        , GetEmailEmpresa(DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString)
-        , 'Requisição de Materiais'
-        , EmptyStr);
-    except
-    end;
-
-    with qryEmitente do
-    begin
-      Close;
-      ParamByName('Cnpj').AsString := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
-      Open;
-    end;
-
-    with qryDestinatario do
-    begin
-      Close;
-      ParamByName('codigo').AsInteger := DtSrcTabela.DataSet.FieldByName('CC_ORIGEM_CODCLIENTE').AsInteger;
-      Open;
-    end;
-
-    with qryRequisicaoAlmox do
-    begin
-      Close;
-      ParamByName('ano').AsInteger := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
-      ParamByName('cod').AsInteger := DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger;
-      ParamByName('todos_itens').AsSmallInt := 0;
-      Open;
-    end;
-
-    frrManifestoAlmox.ShowReport;
+    FImpressao
+      .VisualizarManifesto(
+        DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString,
+        DtSrcTabela.DataSet.FieldByName('ANO').AsInteger,
+        DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger,
+        DtSrcTabela.DataSet.FieldByName('CC_ORIGEM_CODCLIENTE').AsInteger,
+        False
+      );
   end;
 end;
 

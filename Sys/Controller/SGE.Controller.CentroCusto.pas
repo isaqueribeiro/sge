@@ -12,6 +12,7 @@ type
   // Table
   TControllerCentroCusto = class(TController, IControllerCentroCusto)
     private
+      FBusca : IModelDAOCustom;
     protected
       constructor Create;
     public
@@ -19,6 +20,8 @@ type
       class function New : IControllerCentroCusto;
 
       procedure SetCentroCustoGeral(aEmpresa : String);
+
+      function Listar(aEmpresa : String) : IModelDAOCustom;
   end;
 
   // Table Detail
@@ -49,6 +52,32 @@ end;
 destructor TControllerCentroCusto.Destroy;
 begin
   inherited;
+end;
+
+function TControllerCentroCusto.Listar(aEmpresa: String): IModelDAOCustom;
+begin
+  if not Assigned(FBusca) then
+    FBusca := TModelDAOFactory.New.Busca;
+
+  FBusca
+    .Clear
+    .SQL('Select')
+    .SQL('    c.codigo   ')
+    .SQL('  , c.descricao')
+    .SQL('  , ci.nome    ')
+    .SQL('from TBCENTRO_CUSTO c')
+    .SQL('  left join TBCENTRO_CUSTO_EMPRESA e on (e.centro_custo = c.codigo)')
+    .SQL('  left join TBCLIENTE ci on (ci.codigo = c.codcliente)')
+    .SQL('  ')
+    .SQL('where (e.empresa = :empresa)   ')
+    .SQL('  or (c.codcliente is not null)')
+    .SQL('  ')
+    .SQL('order by')
+    .SQL('    2   ')
+    .ParamsByName('empresa', aEmpresa.Trim)
+    .Open;
+
+  Result := FBusca;
 end;
 
 class function TControllerCentroCusto.New: IControllerCentroCusto;

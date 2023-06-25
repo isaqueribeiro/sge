@@ -383,7 +383,8 @@ uses
   View.AutorizacaoCompra,
   View.RequisicaoCompra,
   View.RequisicaoAlmox,
-  UGeRequisicaoAlmoxMonitor,
+  View.RequisicaoAlmox.Monitor,
+  //UGeRequisicaoAlmoxMonitor,
 
   // Estoque, Entrada e Saída
   View.Produto,

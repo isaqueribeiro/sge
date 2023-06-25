@@ -130,7 +130,7 @@ uses
   View.Query.ApropriacaoEstoque in 'View\Query\View.Query.ApropriacaoEstoque.pas' {ViewQueryApropriacaoEstoque},
   UGeRequisicaoAlmox in 'UGeRequisicaoAlmox.pas' {frmGeRequisicaoAlmox},
   UGeRequisicaoAlmoxCancelar in 'UGeRequisicaoAlmoxCancelar.pas' {frmGeRequisicaoAlmoxCancelar},
-  UGeRequisicaoAlmoxMonitor in 'UGeRequisicaoAlmoxMonitor.pas' {frmGeRequisicaoAlmoxMonitor},
+  View.RequisicaoAlmox.Monitor in 'View\View.RequisicaoAlmox.Monitor.pas' {ViewRequisicaoAlmoxMonitor},
   UGeInventario in 'UGeInventario.pas' {frmGeInventario},
   View.Memo in '..\Sys\View\View.Memo.pas' {ViewMemo},
   UGeProdutoEstoqueImpressao in '..\System_SGE\UGeProdutoEstoqueImpressao.pas' {frmGeProdutoEstoqueImpressao},
@@ -346,7 +346,9 @@ uses
   SGE.Controller.Usuario in '..\Sys\Controller\SGE.Controller.Usuario.pas',
   View.Usuario in '..\Sys\View\View.Usuario.pas' {ViewUsuario},
   SGE.Model.DAO.Perfil in '..\Sys\Model\DAO\SGE.Model.DAO.Perfil.pas',
-  SGE.Controller.Perfil in '..\Sys\Controller\SGE.Controller.Perfil.pas';
+  SGE.Controller.Perfil in '..\Sys\Controller\SGE.Controller.Perfil.pas',
+  SGE.Controller.Impressao.DataModule.RequisicaoAlmox in 'Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.RequisicaoAlmox.pas' {DataModuleRequisicaoAlmox: TDataModule},
+  SGE.Controller.Impressao.RequisicaoAlmox in 'Controller\Impressao\SGE.Controller.Impressao.RequisicaoAlmox.pas';
 
 {$R *.res}
 
