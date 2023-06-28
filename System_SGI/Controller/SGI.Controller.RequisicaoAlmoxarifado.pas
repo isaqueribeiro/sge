@@ -27,7 +27,8 @@ type
       procedure AjustarQuantidadeAtendidaDeProdutos;
 
       function Produtos : IControllerCustom;
-      function MarcarComRecebida : IControllerRequisicaoAlmoxarifado;
+      function MarcarComoRecebida : IControllerRequisicaoAlmoxarifado;
+      function DevolverRequisicao : IControllerRequisicaoAlmoxarifado;
   end;
 
   // Itens da Requisições ao Almoxarifado
@@ -107,7 +108,34 @@ begin
   inherited;
 end;
 
-function TControllerRequisicaoAlmoxarifado.MarcarComRecebida: IControllerRequisicaoAlmoxarifado;
+function TControllerRequisicaoAlmoxarifado.DevolverRequisicao: IControllerRequisicaoAlmoxarifado;
+var
+  aSQL : TStringList;
+begin
+  Result := Self;
+  aSQL := TStringList.Create;
+  try
+    if (FDAO.DataSet.FieldByName('status').AsInteger = STATUS_REQUISICAO_ALMOX_ABR) then
+      raise Exception.Create('Requisição de materiais já fora marcada como devolvida ao requisitante!');
+
+    if (FDAO.DataSet.FieldByName('status').AsInteger <> STATUS_REQUISICAO_ALMOX_ENV) then
+      raise Exception.Create('Apenas requisições de materiais enviadas podem ser marcadas como devolvidas.');
+
+    aSQL.BeginUpdate;
+    aSQL.Clear;
+    aSQL.Add('Update TBREQUISICAO_ALMOX r Set');
+    aSQL.Add('  r.status = ' + IntToStr(STATUS_REQUISICAO_ALMOX_ABR));
+    aSQL.Add('where r.ano      = ' + FDAO.DataSet.FieldByName('ano').AsString);
+    aSQL.Add('  and r.controle = ' + FDAO.DataSet.FieldByName('controle').AsString);
+    aSQL.EndUpdate;
+
+    FDAO.ExecuteScriptSQL(aSQL.Text);
+  finally
+    aSQL.DisposeOf;
+  end;
+end;
+
+function TControllerRequisicaoAlmoxarifado.MarcarComoRecebida: IControllerRequisicaoAlmoxarifado;
 var
   aSQL : TStringList;
 begin

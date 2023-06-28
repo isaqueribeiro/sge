@@ -419,6 +419,7 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
       's" no registro.'
     Align = alClient
     TabOrder = 2
+    ExplicitTop = 259
     object dbgReqTbl: TcxGridDBBandedTableView
       OnDblClick = dbgReqTblDblClick
       Navigator.Buttons.CustomButtons = <>
@@ -593,56 +594,7 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
     Left = 72
     Top = 360
   end
-  object dspRequisicaoAlmox: TDataSetProvider
-    DataSet = qryRequisicaoAlmox
-    Left = 224
-    Top = 424
-  end
-  object cdsRequisicaoAlmox: TClientDataSet
-    Aggregates = <>
-    Params = <
-      item
-        DataType = ftString
-        Name = 'empresa'
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        DataType = ftDateTime
-        Name = 'data_inicial'
-        ParamType = ptInput
-        Value = 0d
-      end
-      item
-        DataType = ftDateTime
-        Name = 'data_final'
-        ParamType = ptInput
-        Value = 0d
-      end
-      item
-        DataType = ftInteger
-        Name = 'centro_custo'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'status'
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        DataType = ftInteger
-        Name = 'todos'
-        ParamType = ptInput
-        Value = 0
-      end>
-    ProviderName = 'dspRequisicaoAlmox'
-    Left = 256
-    Top = 424
-  end
   object dtsRequisicaoAlmox: TDataSource
-    DataSet = cdsRequisicaoAlmox
     Left = 72
     Top = 408
   end
@@ -998,96 +950,6 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
       ImageIndex = 2
       OnClick = nmRequisicaoDevolverClick
     end
-  end
-  object qryRequisicaoAlmox: TFDQuery
-    Connection = DMBusiness.fdConexao
-    Transaction = DMBusiness.fdTransacao
-    UpdateTransaction = DMBusiness.fdTransacao
-    SQL.Strings = (
-      'Select'
-      '    r.ano'
-      '  , r.controle'
-      '  , r.numero'
-      '  , r.empresa'
-      '  , r.tipo'
-      '  , r.ccusto_origem'
-      '  , r.ccusto_destino'
-      '  , r.insercao_data'
-      '  , r.insercao_usuario'
-      '  , r.data_emissao'
-      '  , r.requisitante'
-      '  , r.competencia'
-      '  , r.status'
-      '  , r.motivo'
-      '  , r.obs'
-      '  , r.valor_total'
-      '  , r.atendimento_usuario'
-      '  , r.atendimento_data'
-      '  , r.cancel_usuario'
-      '  , r.cancel_data'
-      '  , r.cancel_motivo'
-      ''
-      '  , co.descricao  as cc_origem_desc'
-      '  , co.codcliente as cc_origem_codcliente'
-      '  , cd.descricao  as cc_destino_desc'
-      ''
-      'from TBREQUISICAO_ALMOX r'
-      '  left join TBCENTRO_CUSTO co on (co.codigo = r.ccusto_origem)'
-      '  left join TBCENTRO_CUSTO cd on (cd.codigo = r.ccusto_destino)'
-      ''
-      'where r.empresa = :empresa'
-      '  and r.data_emissao between :data_inicial and :data_final'
-      '  and r.ccusto_destino = :centro_custo'
-      '  and ((r.status = :status) or (:todos = 1 and r.status > 1))'
-      ''
-      'order by'
-      '    r.ano'
-      '  , r.controle DESC')
-    Left = 192
-    Top = 424
-    ParamData = <
-      item
-        Position = 1
-        Name = 'empresa'
-        DataType = ftString
-        ParamType = ptInput
-        Value = ''
-      end
-      item
-        Position = 2
-        Name = 'data_inicial'
-        DataType = ftDateTime
-        ParamType = ptInput
-        Value = 0d
-      end
-      item
-        Position = 3
-        Name = 'data_final'
-        DataType = ftDateTime
-        ParamType = ptInput
-        Value = 0d
-      end
-      item
-        Position = 4
-        Name = 'centro_custo'
-        DataType = ftInteger
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        Position = 5
-        Name = 'status'
-        DataType = ftInteger
-        ParamType = ptInput
-        Value = 0
-      end
-      item
-        Position = 6
-        Name = 'todos'
-        DataType = ftInteger
-        ParamType = ptInput
-        Value = 0
-      end>
   end
   object dtsEmpresa: TDataSource
     Left = 72

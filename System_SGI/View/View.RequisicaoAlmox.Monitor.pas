@@ -73,14 +73,11 @@ uses
   UObserverInterface,
   UConstantesDGE,
   SGE.Controller.Interfaces,
+  Interacao.Usuario,
   Interacao.Tabela,
   Controller.Tabela,
   SGE.Controller.Impressao.AutorizacaoCompra,
-  SGE.Controller.Impressao.RequisicaoAlmox,
-
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  Datasnap.DBClient, Datasnap.Provider;
+  SGE.Controller.Impressao.RequisicaoAlmox;
 
 type
   TViewRequisicaoAlmoxMonitor = class(TfrmGrPadrao)
@@ -94,8 +91,6 @@ type
     lblData: TLabel;
     lblSituacao: TLabel;
     edSituacao: TComboBox;
-    dspRequisicaoAlmox: TDataSetProvider;
-    cdsRequisicaoAlmox: TClientDataSet;
     dtsRequisicaoAlmox: TDataSource;
     BtnPesquisar: TcxButton;
     ppImprimir: TPopupMenu;
@@ -126,7 +121,6 @@ type
     lblEmpresa: TLabel;
     edEmpresa: TComboBox;
     nmRequisicaoDevolver: TMenuItem;
-    qryRequisicaoAlmox: TFDQuery;
     dtsEmpresa: TDataSource;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -177,6 +171,8 @@ type
     property RotinaDevolverID : String read GetRotinaDevolverID;
 
     procedure RegistrarRotinaSistema; override;
+
+    function UsuarioLogado : IUsuarioModel; override;
   end;
 
 (*
@@ -201,8 +197,6 @@ type
 implementation
 
 uses
-//  DateUtils, SysConst, UConstantesDGE, UDMBusiness, UDMRecursos, UDMNFe,
-//  UGeRequisicaoAlmox, UGeRequisicaoAlmoxCancelar;
     System.DateUtils
   , System.SysConst
   , RTLConsts
@@ -248,7 +242,7 @@ begin
   with AForm do
   begin
     CarregarEmpresa;
-    CarregarCentroCusto(gUsuarioLogado.Empresa);
+    CarregarCentroCusto(AForm.UsuarioLogado.Empresa.CNPJ);
 
     e1Data.Date := IncDay(Date, -30);
     e2Data.Date := Date;
@@ -282,11 +276,16 @@ begin
   end;
 end;
 
+function TViewRequisicaoAlmoxMonitor.UsuarioLogado: IUsuarioModel;
+begin
+  Result := Controller.DAO.Usuario;
+end;
+
 procedure TViewRequisicaoAlmoxMonitor.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   inherited;
-  FPreferenciaINI.WriteBool(gUsuarioLogado.Login, 'Monitorar', False);
+  FPreferenciaINI.WriteBool(UsuarioLogado.Login, 'Monitorar', False);
   FPreferenciaINI.UpdateFile;
 
   if Assigned(Parent) then
@@ -401,8 +400,8 @@ begin
     Controller
       .DAO
       .ParamsByName('empresa', Empresa)
-      .ParamsByName('data_inicial', StrToDateDef(e1Data.Text, GetDateDB))
-      .ParamsByName('data_final', StrToDateDef(e2Data.Text, GetDateDB))
+      .ParamsByName('data_inicial', StrToDateDef(e1Data.Text, Date))
+      .ParamsByName('data_final', StrToDateDef(e2Data.Text, Date))
       .ParamsByName('centro_custo', CentroCusto)
       .ParamsByName('status', Situacao)
       .ParamsByName('todos', IfThen(Situacao < STATUS_REQUISICAO_ALMOX_ENV, 1, 0))
@@ -425,7 +424,7 @@ begin
         .Display('VALOR_TOTAL', 'Custo Total (R$)', ',0.00', TAlignment.taRightJustify, False)
         .Configurar;
 
-      FPreferenciaINI.WriteInteger(gUsuarioLogado.Login, 'CentroCusto', CentroCusto);
+      FPreferenciaINI.WriteInteger(UsuarioLogado.Login, 'CentroCusto', CentroCusto);
       FPreferenciaINI.UpdateFile;
     end;
   finally
@@ -471,7 +470,7 @@ begin
     dbgReq.SetFocus
   else
   begin
-    ShowWarning('Registros não encontrados de acordo com os parâmetros informados!');
+    TServiceMessage.ShowWarning('Registros não encontrados de acordo com os parâmetros informados!');
     e1Data.SetFocus;
   end;
 end;
@@ -511,10 +510,10 @@ begin
     if (FieldByName('status').AsInteger <> STATUS_REQUISICAO_ALMOX_ENV) then
       TServiceMessage.ShowWarning('Apenas requisições de materiais enviadas podem ser marcadas como recebidas.')
     else
-    if ShowConfirmation('Deseja sinalizar como recebida a requisição de materiais selecionada?') then
+    if TServiceMessage.ShowConfirmation('Deseja sinalizar como recebida a requisição de materiais selecionada?') then
     begin
       Controller
-        .MarcarComRecebida
+        .MarcarComoRecebida
         .DAO
           .RefreshRecord;
 
@@ -525,9 +524,9 @@ end;
 
 procedure TViewRequisicaoAlmoxMonitor.dbgReqTblDblClick(Sender: TObject);
 begin
-  with cdsRequisicaoAlmox do
+  with dtsRequisicaoAlmox.DataSet do
   begin
-    if ( IsEmpty ) then
+    if IsEmpty then
       Exit;
 
     CarregarRequisicaoAlmoxMonitor(Self, FieldByName('ano').AsInteger, FieldByName('controle').AsInteger);
@@ -554,26 +553,26 @@ begin
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
 
-  with cdsRequisicaoAlmox do
+  with dtsRequisicaoAlmox.DataSet do
   begin
-    if ( IsEmpty ) then
+    if IsEmpty then
       Exit;
 
     if (FieldByName('status').AsInteger = STATUS_REQUISICAO_ALMOX_ATD) then
     begin
-      ShowWarning('Requisição de materiais já atendida!');
+      TServiceMessage.ShowWarning('Requisição de materiais já atendida!');
       Abort;
     end;
 
     if not (FieldByName('status').AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC]) then
-      ShowWarning('Apenas requisições de materiais marcadas como enviadas e/ou recebidas podem ser atendidas.')
+      TServiceMessage.ShowWarning('Apenas requisições de materiais marcadas como enviadas e/ou recebidas podem ser atendidas.')
     else
     if AtenderRequisicaoAlmoxMonitor(Self, FieldByName('ano').AsInteger, FieldByName('controle').AsInteger) then
     begin
-      cdsRequisicaoAlmox.Refresh;
-      ShowInformation(Format('Requisição de materiais "%s" atendida.', [FieldByName('numero').AsString]) + #13 +
+      Controller.DAO.RefreshRecord;
+      TServiceMessage.ShowInformation(Format('Requisição de materiais "%s" atendida.', [FieldByName('numero').AsString]) + #13 +
         'Favor imprimir manifesto de saída do material.');
-      nmImprimirManifesto.Click;  
+      nmImprimirManifesto.Click;
     end;
   end;
 end;
@@ -584,24 +583,24 @@ begin
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
 
-  with cdsRequisicaoAlmox do
+  with dtsRequisicaoAlmox.DataSet do
   begin
-    if ( IsEmpty ) then
+    if IsEmpty then
       Exit;
 
     if (FieldByName('status').AsInteger = STATUS_REQUISICAO_ALMOX_CAN) then
     begin
-      ShowWarning('Requisição de materiais já cancelada!');
+      TServiceMessage.ShowWarning('Requisição de materiais já cancelada!');
       Abort;
     end;
 
     if not (FieldByName('status').AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]) then
-      ShowInformation('Apenas registros enviados, recebidos e/ou atendidos podem ser cancelados!')
+      TServiceMessage.ShowInformation('Apenas registros enviados, recebidos e/ou atendidos podem ser cancelados!')
     else
     if CancelarRequisicaoAlmox(Self, FieldByName('ano').AsInteger, FieldByName('controle').AsInteger) then
     begin
-      cdsRequisicaoAlmox.Refresh;
-      ShowInformation(Format('Requisição de materiais "%s" cancelada.', [FieldByName('numero').AsString]));
+      Controller.DAO.RefreshRecord;
+      TServiceMessage.ShowInformation(Format('Requisição de materiais "%s" cancelada.', [FieldByName('numero').AsString]));
     end;
   end;
 end;
@@ -609,49 +608,35 @@ end;
 procedure TViewRequisicaoAlmoxMonitor.nmRequisicaoDevolverClick(
   Sender: TObject);
 var
-  SQL : TStringList;
-  sControle : String;
+  aControle : String;
 begin
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
 
-  with cdsRequisicaoAlmox do
+  with dtsRequisicaoAlmox.DataSet do
   begin
-    if ( IsEmpty ) then
+    if IsEmpty then
       Exit;
 
     if (FieldByName('status').AsInteger = STATUS_REQUISICAO_ALMOX_ABR) then
     begin
-      ShowWarning('Requisição de materiais já fora marcada como devolvida ao requisitante!');
+      TServiceMessage.ShowWarning('Requisição de materiais já fora marcada como devolvida ao requisitante!');
       Abort;
     end;
 
     if (FieldByName('status').AsInteger <> STATUS_REQUISICAO_ALMOX_ENV) then
-      ShowWarning('Apenas requisições de materiais enviadas podem ser marcadas como devolvidas.')
+      TServiceMessage.ShowWarning('Apenas requisições de materiais enviadas podem ser marcadas como devolvidas.')
     else
-    if ShowConfirmation('Deseja sinalizar como devolvida a requisição de materiais selecionada?') then
-      try
-        sControle := FieldByName('numero').AsString;
+    if TServiceMessage.ShowConfirmation('Deseja sinalizar como devolvida a requisição de materiais selecionada?') then
+    begin
+      aControle := FieldByName('numero').AsString;
+      Controller
+        .DevolverRequisicao
+        .DAO
+          .RefreshRecord;
 
-        SQL := TStringList.Create;
-
-        // Marcar requisição como Recebida
-        SQL.BeginUpdate;
-        SQL.Clear;
-        SQL.Add('Update TBREQUISICAO_ALMOX r Set');
-        SQL.Add('  r.status = ' + IntToStr(STATUS_REQUISICAO_ALMOX_ABR));
-        SQL.Add('where r.ano      = ' + FieldByName('ano').AsString);
-        SQL.Add('  and r.controle = ' + FieldByName('controle').AsString);
-        SQL.EndUpdate;
-
-        ExecuteScriptSQL( SQL.Text );
-
-        cdsRequisicaoAlmox.Refresh;
-
-        ShowInformation(Format('Requisição de materiais "%s" marcada como devolvida.', [sControle]));
-      finally
-        SQL.Free;
-      end;
+      TServiceMessage.ShowInformation(Format('Requisição de materiais "%s" marcada como devolvida.', [aControle]));
+    end;
   end;
 end;
 
@@ -702,7 +687,7 @@ end;
 procedure TViewRequisicaoAlmoxMonitor.FormActivate(Sender: TObject);
 begin
   inherited;
-  FPreferenciaINI.WriteBool(gUsuarioLogado.Login, 'Monitorar', True);
+  FPreferenciaINI.WriteBool(UsuarioLogado.Login, 'Monitorar', True);
 end;
 
 initialization

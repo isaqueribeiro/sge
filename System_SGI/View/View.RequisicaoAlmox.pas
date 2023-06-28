@@ -319,8 +319,8 @@ begin
     with AForm do
     begin
       FController.DAO.ClearWhere;
-      FController.DAO.Where('r.ano' + Ano.ToString);
-      FController.DAO.Where('r.controle' + Controle.ToString);
+      FController.DAO.Where('r.ano', Ano);
+      FController.DAO.Where('r.controle', Controle);
       FController.DAO.Open;
 
       if not DtSrcTabela.DataSet.IsEmpty then

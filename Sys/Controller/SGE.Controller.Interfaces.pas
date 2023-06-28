@@ -215,7 +215,8 @@ type
   IControllerRequisicaoAlmoxarifado = interface(IControllerCustom)
     ['{6E2C8852-401A-43CB-9A78-70CFD2442A13}']
     function Produtos : IControllerCustom;
-    function MarcarComRecebida : IControllerRequisicaoAlmoxarifado;
+    function MarcarComoRecebida : IControllerRequisicaoAlmoxarifado;
+    function DevolverRequisicao : IControllerRequisicaoAlmoxarifado;
 
     procedure CarregarProdutos;
     procedure AjustarQuantidadeAtendidaDeProdutos;

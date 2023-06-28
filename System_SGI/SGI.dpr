@@ -128,8 +128,6 @@ uses
   UGeApropriacaoEstoque in 'UGeApropriacaoEstoque.pas' {frmGeApropriacaoEstoque},
   UGeApropriacaoEstoqueCancelar in 'UGeApropriacaoEstoqueCancelar.pas' {frmGeApropriacaoEstoqueCancelar},
   View.Query.ApropriacaoEstoque in 'View\Query\View.Query.ApropriacaoEstoque.pas' {ViewQueryApropriacaoEstoque},
-  UGeRequisicaoAlmox in 'UGeRequisicaoAlmox.pas' {frmGeRequisicaoAlmox},
-  UGeRequisicaoAlmoxCancelar in 'UGeRequisicaoAlmoxCancelar.pas' {frmGeRequisicaoAlmoxCancelar},
   View.RequisicaoAlmox.Monitor in 'View\View.RequisicaoAlmox.Monitor.pas' {ViewRequisicaoAlmoxMonitor},
   UGeInventario in 'UGeInventario.pas' {frmGeInventario},
   View.Memo in '..\Sys\View\View.Memo.pas' {ViewMemo},

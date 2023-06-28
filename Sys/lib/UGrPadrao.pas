@@ -9,7 +9,8 @@ uses
   JvExMask, JvToolEdit, JvDBControls,
 
   cxContainer, cxEdit, cxMaskEdit, cxDropDownEdit, cxImageComboBox,
-  cxLookupEdit, cxDBEdit, cxDBLookupEdit, cxDBLookupComboBox;
+  cxLookupEdit, cxDBEdit, cxDBLookupEdit, cxDBLookupComboBox,
+  Interacao.Usuario;
 
 type
   TfrmGrPadrao = class(TForm)
@@ -52,6 +53,7 @@ type
 
     procedure RegistrarRotinaSistema; virtual; abstract;
 
+    function UsuarioLogado : IUsuarioModel; virtual; abstract;
     function GetRotinaInternaID(const Sender : TObject) : String;
     function GetRotinaSubInternaID(const Sender : TObject) : String; overload;
     function GetRotinaSubInternaID(const Sender : TObject; pRotina : String) : String; overload;
