@@ -4,6 +4,7 @@ interface
 
 uses
   System.SysUtils,
+  System.Classes,
   SGE.Controller,
   SGE.Controller.Interfaces,
   SGE.Model.DAO.Interfaces,
@@ -26,7 +27,7 @@ type
       procedure AjustarQuantidadeAtendidaDeProdutos;
 
       function Produtos : IControllerCustom;
-      function MarcarComRecebida : IControllerRequisicaoAlmoxarifado; virtual; abstract;
+      function MarcarComRecebida : IControllerRequisicaoAlmoxarifado;
   end;
 
   // Itens da Requisições ao Almoxarifado
@@ -104,6 +105,33 @@ end;
 destructor TControllerRequisicaoAlmoxarifado.Destroy;
 begin
   inherited;
+end;
+
+function TControllerRequisicaoAlmoxarifado.MarcarComRecebida: IControllerRequisicaoAlmoxarifado;
+var
+  aSQL : TStringList;
+begin
+  Result := Self;
+  aSQL := TStringList.Create;
+  try
+    if (FDAO.DataSet.FieldByName('status').AsInteger = STATUS_REQUISICAO_ALMOX_REC) then
+      raise Exception.Create('Requisição de materiais já marcada como recebida!');
+
+    if (FDAO.DataSet.FieldByName('status').AsInteger <> STATUS_REQUISICAO_ALMOX_ENV) then
+      raise Exception.Create('Apenas requisições de materiais enviadas podem ser marcadas como recebidas.');
+
+    aSQL.BeginUpdate;
+    aSQL.Clear;
+    aSQL.Add('Update TBREQUISICAO_ALMOX r Set');
+    aSQL.Add('  r.status = ' + IntToStr(STATUS_REQUISICAO_ALMOX_REC));
+    aSQL.Add('where r.ano      = ' + FDAO.DataSet.FieldByName('ano').AsString);
+    aSQL.Add('  and r.controle = ' + FDAO.DataSet.FieldByName('controle').AsString);
+    aSQL.EndUpdate;
+
+    FDAO.ExecuteScriptSQL(aSQL.Text);
+  finally
+    aSQL.DisposeOf;
+  end;
 end;
 
 class function TControllerRequisicaoAlmoxarifado.New: IControllerRequisicaoAlmoxarifado;

@@ -496,8 +496,6 @@ end;
 
 procedure TViewRequisicaoAlmoxMonitor.nmRequisicaoReceberClick(
   Sender: TObject);
-var
-  SQL : TStringList;
 begin
   if not GetPermissaoRotinaInterna(Sender, True) then
     Abort;
@@ -508,40 +506,20 @@ begin
       Exit;
 
     if (FieldByName('status').AsInteger = STATUS_REQUISICAO_ALMOX_REC) then
-    begin
-      ShowWarning('Requisição de materiais já marcada como recebida!');
-      Abort;
-    end;
-
+      TServiceMessage.ShowWarning('Requisição de materiais já marcada como recebida!')
+    else
     if (FieldByName('status').AsInteger <> STATUS_REQUISICAO_ALMOX_ENV) then
-      ShowWarning('Apenas requisições de materiais enviadas podem ser marcadas como recebidas.')
+      TServiceMessage.ShowWarning('Apenas requisições de materiais enviadas podem ser marcadas como recebidas.')
     else
     if ShowConfirmation('Deseja sinalizar como recebida a requisição de materiais selecionada?') then
-      try
-//        SQL := TStringList.Create;
-//
-//        // Marcar requisição como Recebida
-//        SQL.BeginUpdate;
-//        SQL.Clear;
-//        SQL.Add('Update TBREQUISICAO_ALMOX r Set');
-//        SQL.Add('  r.status = ' + IntToStr(STATUS_REQUISICAO_ALMOX_REC));
-//        SQL.Add('where r.ano      = ' + FieldByName('ano').AsString);
-//        SQL.Add('  and r.controle = ' + FieldByName('controle').AsString);
-//        SQL.EndUpdate;
-//
-//        ExecuteScriptSQL( SQL.Text );
-//
-//        cdsRequisicaoAlmox.Refresh;
-//
-        Controller
-          .MarcarComRecebida
-          .DAO
-            .RefreshRecord;
+    begin
+      Controller
+        .MarcarComRecebida
+        .DAO
+          .RefreshRecord;
 
-        TServiceMessage.ShowInformation(Format('Requisição de materiais "%s" marcada como recebida.', [FieldByName('numero').AsString]));
-      finally
-        SQL.Free;
-      end;
+      TServiceMessage.ShowInformation(Format('Requisição de materiais "%s" marcada como recebida.', [FieldByName('numero').AsString]));
+    end;
   end;
 end;
 
