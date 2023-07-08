@@ -311,16 +311,24 @@ begin
   aDataInicio := FormatDateTime('yyyy-mm-dd', e1Data.Date);
   aDataFinal  := FormatDateTime('yyyy-mm-dd', e2Data.Date);
 
+//  WhereAdditional :=
+//    '((r.baixado = 0) and (r.dtvenc between (current_date - 30) and (current_date - 1))) or (' +
+//    '  (cast(r.dtvenc as date) between ' + aDataInicio.QuotedString + ' and ' + aDataFinal.QuotedString + ') and ' +
+//    '  (r.empresa = ' + QuotedStr(FController.DAO.Usuario.Empresa.CNPJ) + ') and ' +
+//    '  (r.empresa in ( ' +
+//    '    Select      ' +
+//    '      vw.cnpj   ' +
+//    '    from VW_EMPRESA vw' +
+//    '  ))' +
+//    ')';
   WhereAdditional :=
-    '((r.baixado = 0) and (r.dtvenc between (current_date - 30) and (current_date - 1))) or (' +
-    '  (cast(r.dtvenc as date) between ' + aDataInicio.QuotedString + ' and ' + aDataFinal.QuotedString + ') and ' +
-    '  (r.empresa = ' + QuotedStr(FController.DAO.Usuario.Empresa.CNPJ) + ') and ' +
-    '  (r.empresa in ( ' +
-    '    Select      ' +
-    '      vw.cnpj   ' +
-    '    from VW_EMPRESA vw' +
-    '  ))' +
-    ')';
+    '(cast(r.dtvenc as date) between ' + aDataInicio.QuotedString + ' and ' + aDataFinal.QuotedString + ') and ' +
+    '(r.empresa = ' + QuotedStr(FController.DAO.Usuario.Empresa.CNPJ) + ') and ' +
+    '(r.empresa in ( ' +
+    '  Select      ' +
+    '    vw.cnpj   ' +
+    '  from VW_EMPRESA vw' +
+    '))';
 
   Tabela
     .Display('NUMLANC', 'Código', DisplayFormatCodigo, TAlignment.taCenter, True)
@@ -380,16 +388,24 @@ begin
   aDataFinal  := FormatDateTime('yyyy-mm-dd', e2Data.Date);
 
   if FLoteParcelas.Trim.IsEmpty then
+//    WhereAdditional :=
+//      '((r.baixado = 0) and (r.dtvenc between (current_date - 30) and (current_date - 1))) or (' +
+//      '  (cast(r.dtvenc as date) between ' + aDataInicio.QuotedString + ' and ' + aDataFinal.QuotedString + ') and ' +
+//      '  (r.empresa = ' + QuotedStr(FController.DAO.Usuario.Empresa.CNPJ) + ') and ' +
+//      '  (r.empresa in ( ' +
+//      '    Select      ' +
+//      '      vw.cnpj   ' +
+//      '    from VW_EMPRESA vw' +
+//      '  ))' +
+//      ')'
     WhereAdditional :=
-      '((r.baixado = 0) and (r.dtvenc between (current_date - 30) and (current_date - 1))) or (' +
-      '  (cast(r.dtvenc as date) between ' + aDataInicio.QuotedString + ' and ' + aDataFinal.QuotedString + ') and ' +
-      '  (r.empresa = ' + QuotedStr(FController.DAO.Usuario.Empresa.CNPJ) + ') and ' +
-      '  (r.empresa in ( ' +
-      '    Select      ' +
-      '      vw.cnpj   ' +
-      '    from VW_EMPRESA vw' +
-      '  ))' +
-      ')'
+      '(cast(r.dtvenc as date) between ' + aDataInicio.QuotedString + ' and ' + aDataFinal.QuotedString + ') and ' +
+      '(r.empresa = ' + QuotedStr(FController.DAO.Usuario.Empresa.CNPJ) + ') and ' +
+      '(r.empresa in ( ' +
+      '  Select      ' +
+      '    vw.cnpj   ' +
+      '  from VW_EMPRESA vw' +
+      '))'
   else
     WhereAdditional :=
       '(r.empresa = ' + QuotedStr(FController.DAO.Usuario.Empresa.CNPJ) + ') and ' +

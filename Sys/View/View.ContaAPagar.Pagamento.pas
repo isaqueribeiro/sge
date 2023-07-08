@@ -195,7 +195,7 @@ begin
       dtsPagamentos.DataSet.FieldByName('EMPRESA').AsString       := Empresa;
       dtsPagamentos.DataSet.FieldByName('FORMA_PAGTO').AsInteger  := FormaPagto;
       dtsPagamentos.DataSet.FieldByName('VALOR_BAIXA').AsCurrency := APagar;
-      dtsPagamentos.DataSet.FieldByName('HISTORICO').AsString     := Format('Lançamento %/% no Contas A Pagar', [edAnoLanc.Text, edNumLanc.Text]);
+      dtsPagamentos.DataSet.FieldByName('HISTORICO').AsString     := Format('Lançamento %s/%s no Contas A Pagar', [edAnoLanc.Text, edNumLanc.Text]);
       dtsPagamentos.DataSet.FieldByName('CONTROLE_CHEQUE').Clear;
 
       Result := (ShowModal = mrOk);

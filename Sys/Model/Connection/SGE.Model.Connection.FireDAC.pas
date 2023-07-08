@@ -55,6 +55,7 @@ type
       procedure AllowEditAllFields;
       procedure CreateRefreshSQL;
 
+      function Connected : Boolean;
       function ExistParamByName(aParamName : String) : Boolean;
     protected
       constructor Create(aConn : TCustomConnection);
@@ -324,6 +325,20 @@ begin
   FQuery.CommitUpdates;
 end;
 
+function TConnectionFireDAC.Connected: Boolean;
+begin
+  Result := False;
+  try
+    if not FQuery.Connection.Connected then
+      FQuery.Connection.Connected := True;
+
+    Result := FQuery.Connection.Connected;
+  except
+    On E : Exception do
+      raise Exception.Create('Erro na conexão com o servidor de dados.' + #13 + E.Message);
+  end;
+end;
+
 function TConnectionFireDAC.DataSet: TDataSet;
 begin
   Result := FQuery;
@@ -331,6 +346,9 @@ end;
 
 procedure TConnectionFireDAC.ExecSQL;
 begin
+  if not Connected then
+    Exit;
+
   // Cláusula adicional, independente dos filtros informados
   if not FWhereAdditional.IsEmpty then
     FScript.Where(FWhereAdditional);
@@ -397,6 +415,9 @@ procedure TConnectionFireDAC.Open;
 var
   aAfterScroll : procedure(DataSet : TDataSet) of Object;
 begin
+  if not Connected then
+    Exit;
+
   aAfterScroll := nil;
 
   // Cláusula adicional, independente dos filtros informados
@@ -450,6 +471,9 @@ end;
 
 function TConnectionFireDAC.OpenOrExecute: Boolean;
 begin
+  if not Connected then
+    Exit;
+
   // Cláusula adicional, independente dos filtros informados
   if not FWhereAdditional.IsEmpty then
     FScript.Where(FWhereAdditional);

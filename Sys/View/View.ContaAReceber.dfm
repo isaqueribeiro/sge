@@ -141,7 +141,6 @@ inherited ViewContaAReceber: TViewContaAReceber
             Left = 318
             Top = 24
             Width = 73
-            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -156,14 +155,13 @@ inherited ViewContaAReceber: TViewContaAReceber
             Left = 24
             Top = 24
             Width = 70
-            Height = 23
+            Height = 13
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
             Caption = 'Vencimento:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 397
@@ -1196,7 +1194,6 @@ inherited ViewContaAReceber: TViewContaAReceber
         Font.Style = []
         ParentFont = False
         TabOrder = 2
-        ExplicitTop = 203
         object lblBanco: TLabel
           Left = 16
           Top = 24
