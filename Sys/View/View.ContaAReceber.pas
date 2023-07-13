@@ -459,7 +459,7 @@ begin
       FieldByName('FORMA_PAGTO').AsInteger, FieldByName('NOMECLIENTE').AsString,
       CxContaCorrente, DataPagto, cReceber) then
     begin
-      if (CxContaCorrente > 0) then
+      if (CxContaCorrente > 0) and ((Date - DataPagto) < 30) then
         FControllerRecebimento.GerarSaldoConta(CxContaCorrente, DataPagto);
 
       RecarregarRegistro;

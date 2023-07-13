@@ -38,6 +38,7 @@ type
       FSequencial : IModelDAOCustom;
       FContaCorrente : Integer;
       FDataMovimento : TDateTime;
+      FCalculandoSaldoDiario : Boolean;
       procedure Recalcular;
       procedure Recalculado(Sender : TObject);
       procedure GerarSaldo;
@@ -200,6 +201,7 @@ begin
   inherited Create(TModelDAOFactory.New.Recebimento);
   FContaCorrente := 0;
   FDataMovimento := Date;
+  FCalculandoSaldoDiario := False;
 end;
 
 destructor TControllerRecebimento.Destroy;
@@ -362,7 +364,7 @@ begin
   FContaCorrente := aContaCorrente;
   FDataMovimento := aDataMovimento;
 
-  if (FContaCorrente > 0) and (FDataMovimento <> EncodeDate(1899, 12, 31)) then
+  if (not FCalculandoSaldoDiario) and (FContaCorrente > 0) and (FDataMovimento <> EncodeDate(1899, 12, 31)) then
   begin
     aThread := TThread.CreateAnonymousThread(GerarSaldo);
     aThread.OnTerminate := SaldoGerado;
@@ -400,6 +402,7 @@ var
   aScriptSQL : TStringList;
 begin
   aScriptSQL := TStringList.Create;
+  FCalculandoSaldoDiario := True;
   try
     try
       aScriptSQL.BeginUpdate;
@@ -422,6 +425,7 @@ end;
 
 procedure TControllerRecebimento.SaldoGerado(Sender: TObject);
 begin
+  FCalculandoSaldoDiario := False;
   if (Sender is TThread) then
   begin
     if Assigned(TThread(Sender).FatalException) then
