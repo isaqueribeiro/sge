@@ -774,6 +774,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <Form>ViewUsuarioAlterarSenha</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Contrato.pas">
+            <Form>ViewContrato</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Contrato.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Contrato.pas"/>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>app_configurar</ResourceId>

@@ -109,6 +109,7 @@ inherited ViewEmpresa: TViewEmpresa
           inherited edtFiltrar: TEdit
             Left = 78
             Width = 230
+            ExplicitLeft = 78
             ExplicitWidth = 230
           end
           inherited btnFiltrar: TcxButton
@@ -119,6 +120,8 @@ inherited ViewEmpresa: TViewEmpresa
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 739
       ExplicitHeight = 354
       inherited Bevel8: TBevel
@@ -845,6 +848,10 @@ inherited ViewEmpresa: TViewEmpresa
         object tbsInforme: TTabSheet
           Caption = 'Outras informa'#231#245'es'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblPais: TLabel
             Left = 8
             Top = 0

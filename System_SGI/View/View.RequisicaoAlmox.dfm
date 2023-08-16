@@ -29,6 +29,8 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
     ExplicitWidth = 1107
     ExplicitHeight = 651
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1099
       ExplicitHeight = 622
       inherited Bevel4: TBevel
@@ -128,6 +130,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Left = 300
             Top = 24
             Width = 93
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -143,7 +146,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Left = 30
             Top = 24
             Width = 49
-            Height = 13
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -151,6 +154,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
+            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 399
@@ -746,10 +750,6 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           object TbsRequisicaoCancelado: TTabSheet
             Caption = 'Motivo do cancelamento'
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -2495,6 +2495,13 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
     object nmImprimirManifesto: TMenuItem
       Caption = 'Manifesto'
       OnClick = nmImprimirManifestoClick
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object nmImprimirOrdemEntrega: TMenuItem
+      Caption = 'Ordem de Entrega'
+      OnClick = nmImprimirOrdemEntregaClick
     end
   end
   object dtsTipoRequisicao: TDataSource

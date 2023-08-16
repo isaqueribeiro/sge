@@ -22,6 +22,7 @@ Uses
     TTipoMovimentoEntrada = (tmeProduto, tmeServico);
     TFormaNFDevolucao = (fdNFeEletronica, fdNFeModelo1_1A, fdNFProdutorRural, fdCupomFiscal);
     TTipoMovimentoCaixa = (tmcxCredito, tmcxDebito);
+    TTipoContrato = (tpContratoNull = -1, tpContratoCliente = 0, tpContratoFornecedor = 1);
 
     TTipoAlertaSistemaCollection = Set of TTipoAlertaSistema;
     TTipoProdutoCollection       = Set of TTipoProduto;
@@ -74,6 +75,15 @@ Uses
     Valor  : Currency;
     Data   : TDateTime;
   end;
+
+  TContrato = record
+    Controle : Int64;
+    Empresa  : String;
+    Cliente  : Integer;
+    Fornecedor : Integer;
+    Numero   : String;
+  end;
+
 
 const
   VERSION_NUMBER     = '1.0.32.0';
@@ -380,6 +390,7 @@ const
   ROTINA_MOV_INVENTARIO_ESTOQU_ID = '0030120000';
   ROTINA_MOV_SOLICITACAO_ID       = '0030130000';
   ROTINA_MOV_VENDA_MOBILE_ID      = '0030140000';
+  ROTINA_MOV_GESTAO_CONTRATO_ID   = '0030150000';
 
   // Menu Notas Fiscais
 
@@ -543,6 +554,13 @@ const
   STATUS_VND_FIN = 3;
   STATUS_VND_NFE = 4;
   STATUS_VND_CAN = 5;
+
+  // Status de Contratos (Vendas/Serviços)
+
+  STATUS_CONTRATO_EDIT   = 0;
+  STATUS_CONTRATO_DISPO  = 1;
+  STATUS_CONTRATO_FINAL  = 2;
+  STATUS_CONTRATO_CANCEL = 9;
 
   // Prazos padrões em dias (Fixos)
 

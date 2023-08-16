@@ -18,6 +18,7 @@ uses
   SGE.Model.DAO.ContaAPagar,
   SGE.Model.DAO.ContaAReceber,
   SGE.Model.DAO.ContaCorrente,
+  SGE.Model.DAO.Contrato,
   SGE.Model.DAO.Config,
   SGE.Model.DAO.CST,
   SGE.Model.DAO.Distrito,
@@ -81,6 +82,8 @@ type
       FContaAReceber    ,
       FContaCorrente    ,
       FContaCorrenteView,
+      FContrato    ,
+      FContratoItem,
       FCorVeiculo ,
       FCST        ,
       FDistrito   ,
@@ -135,6 +138,7 @@ type
       FTipoChequeView  ,
       FTipoCNPJView    ,
       FTipoComissaoView,
+      FTipoContratoView,
       FTipoDescontoView,
       FTipoDespesa     ,
       FTipoDespesaPlanoConta   ,
@@ -194,6 +198,8 @@ type
       function ContaAReceber : IModelDAOCustom;
       function ContaCorrente : IModelDAOCustom;
       function ContaCorrenteView : IModelDAOCustom;
+      function Contrato : IModelDAOCustom;
+      function ContratoItem : IModelDAOCustom;
       function CorVeiculo : IModelDAOCustom;
       function CST : IModelDAOCustom;
       function Distrito : IModelDAOCustom;
@@ -248,6 +254,7 @@ type
       function TipoChequeView : IModelDAOCustom;
       function TipoCNPJView : IModelDAOCustom;
       function TipoComissaoView : IModelDAOCustom;
+      function TipoContratoView : IModelDAOCustom;
       function TipoDescontoView : IModelDAOCustom;
       function TipoDespesa : IModelDAOCustom;
       function TipoDespesaPlanoConta : IModelDAOCustom;
@@ -520,6 +527,14 @@ begin
     FTipoComissaoView := TModelDAOTipoComissaoView.New;
 
   Result := FTipoComissaoView;
+end;
+
+function TModelDAOFactory.TipoContratoView: IModelDAOCustom;
+begin
+  if not Assigned(FTipoContratoView) then
+    FTipoContratoView := TModelDAOTipoContratoView.New;
+
+  Result := FTipoContratoView;
 end;
 
 function TModelDAOFactory.TipoDescontoView: IModelDAOCustom;
@@ -896,6 +911,22 @@ begin
     FContaCorrenteView := TModelDAOContaCorrenteView.New;
 
   Result := FContaCorrenteView;
+end;
+
+function TModelDAOFactory.Contrato: IModelDAOCustom;
+begin
+  if not Assigned(FContrato) then
+    FContrato := TModelDAOContrato.New;
+
+  Result := FContrato;
+end;
+
+function TModelDAOFactory.ContratoItem: IModelDAOCustom;
+begin
+  if not Assigned(FContratoItem) then
+    FContratoItem := TModelDAOContratoItem.New;
+
+  Result := FContratoItem;
 end;
 
 function TModelDAOFactory.CorVeiculo: IModelDAOCustom;

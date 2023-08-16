@@ -62,6 +62,7 @@ begin
         .Add('  , c.codcliente')
         .Add('  , case when c.ativo = 1 then ''X'' else ''.'' end as ativo_temp ')
         .Add('  , cc.nome     ')
+        .Add('  , cc.cnpj     ')
         .Add('from TBCENTRO_CUSTO c')
         .Add('  left join TBCLIENTE cc on (cc.codigo = c.codcliente)')
       .&End
@@ -111,6 +112,7 @@ begin
   // Configurar campos para a geração de Insert e Update
   FConn.Query.DataSet.FieldByName('ativo_temp').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('nome').ProviderFlags       := [];
+  FConn.Query.DataSet.FieldByName('cnpj').ProviderFlags       := [];
 end;
 
 { TModelDAOCentroCustoEmpresa }

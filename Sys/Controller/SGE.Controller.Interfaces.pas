@@ -100,7 +100,9 @@ type
   IControllerCentroCusto = interface(IControllerCustom)
     ['{2A30F0DB-6B23-4A89-AA12-06A405551944}']
     procedure SetCentroCustoGeral(aEmpresa : String);
+
     function Listar(aEmpresa : String) : IModelDAOCustom;
+    function Carregar(aCodigo : Integer) : IControllerCentroCusto;
   end;
 
   IControllerAliquotaICMS = interface(IControllerCustom)
@@ -119,6 +121,22 @@ type
     function GetGerarDuplicata(aCodigo : Integer) : Boolean;
     function GetDevolucao(aCodigo : Integer) : Boolean;
     function Get(aCodigo : Integer) : IModelDAOCustom;
+  end;
+
+  IControllerContrato = interface(IControllerCustom)
+    ['{F413F562-0B73-4A12-AAC1-80E202C9232C}']
+    function Busca : IModelDAOCustom;
+    function NumeroDuplicado(const aContrato : TContrato) : Boolean;
+    function Itens : IControllerCustom;
+    function Notas : IControllerCustom;
+
+    procedure CarregarItens;
+    procedure CarregarNotas;
+  end;
+
+  IControllerContratoItem = interface(IControllerCustom)
+    ['{74266ABA-AE6A-4847-863A-37AF470698BF}']
+    function Busca : IModelDAOCustom;
   end;
 
   IControllerPerfil = interface(IControllerCustom)
@@ -217,6 +235,7 @@ type
     function Produtos : IControllerCustom;
     function MarcarComoRecebida : IControllerRequisicaoAlmoxarifado;
     function DevolverRequisicao : IControllerRequisicaoAlmoxarifado;
+    function Carregar(aAno, aControle : Integer) : IControllerRequisicaoAlmoxarifado;
 
     procedure CarregarProdutos;
     procedure AjustarQuantidadeAtendidaDeProdutos;
@@ -313,6 +332,8 @@ type
     function ContaAReceber : IControllerContaAReceber;
     function ContaCorrente       : IControllerCustom;
     function ContaCorrenteView   : IControllerCustom;
+    function Contrato : IControllerContrato;
+    function ContratoItem : IControllerContratoItem;
     function CorVeiculo : IControllerCustom;
     function CST : IControllerCustom;
     function Distrito    : IControllerCustom;
@@ -363,6 +384,7 @@ type
     function TipoChequeView   : IControllerCustom;
     function TipoCNPJView     : IControllerCustom;
     function TipoComissaoView : IControllerCustom;
+    function TipoContratoView : IControllerCustom;
     function TipoDescontoView : IControllerCustom;
     function TipoDespesa      : IControllerCustom;
     function TipoDespesaPlanoConta : IControllerCustom;

@@ -18,6 +18,7 @@ uses
   SGE.Controller.ContaAPagar,
   SGE.Controller.ContaAReceber,
   SGE.Controller.ContaCorrente,
+  SGE.Controller.Contrato,
   SGE.Controller.CST,
   SGE.Controller.Distrito,
   SGE.Controller.Empresa,
@@ -77,7 +78,9 @@ type
       FContaAPagar : IControllerContaAPagar;
       FContaAReceber : IControllerContaAReceber;
       FContaCorrente      ,
-      FContaCorrenteView  ,
+      FContaCorrenteView  : IControllerCustom;
+      FContrato : IControllerContrato;
+      FContratoItem : IControllerContratoItem;
       FCorVeiculo  ,
       FCST         ,
       FDistrito    ,
@@ -128,6 +131,7 @@ type
       FTipoChequeView  ,
       FTipoCNPJView    ,
       FTipoComissaoView,
+      FTipoContratoView,
       FTipoDescontoView,
       FTipoDespesa     ,
       FTipoDespesaPlanoConta   ,
@@ -185,6 +189,8 @@ type
       function ContaAReceber : IControllerContaAReceber;
       function ContaCorrente : IControllerCustom;
       function ContaCorrenteView : IControllerCustom;
+      function Contrato : IControllerContrato;
+      function ContratoItem : IControllerContratoItem;
       function CorVeiculo : IControllerCustom;
       function CST : IControllerCustom;
       function Distrito : IControllerCustom;
@@ -235,6 +241,7 @@ type
       function TipoChequeView : IControllerCustom;
       function TipoCNPJView : IControllerCustom;
       function TipoComissaoView : IControllerCustom;
+      function TipoContratoView : IControllerCustom;
       function TipoDescontoView : IControllerCustom;
       function TipoDespesa : IControllerCustom;
       function TipoDespesaPlanoConta : IControllerCustom;
@@ -677,6 +684,22 @@ begin
   Result := FContaCorrenteView;
 end;
 
+function TControllerFactory.Contrato: IControllerContrato;
+begin
+  if not Assigned(FContrato) then
+    FContrato := TControllerContrato.New;
+
+  Result := FContrato;
+end;
+
+function TControllerFactory.ContratoItem: IControllerContratoItem;
+begin
+  if not Assigned(FContratoItem) then
+    FContratoItem := TControllerContratoItem.New;
+
+  Result := FContratoItem;
+end;
+
 function TControllerFactory.CorVeiculo: IControllerCustom;
 begin
   if not Assigned(FCorVeiculo) then
@@ -915,6 +938,14 @@ begin
     FTipoComissaoView := TControllerTipoComissaoView.New;
 
   Result := FTipoComissaoView;
+end;
+
+function TControllerFactory.TipoContratoView: IControllerCustom;
+begin
+  if not Assigned(FTipoContratoView) then
+    FTipoContratoView := TControllerTipoContratoView.New;
+
+  Result := FTipoContratoView;
 end;
 
 function TControllerFactory.TipoDescontoView: IControllerCustom;

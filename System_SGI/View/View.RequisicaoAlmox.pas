@@ -146,6 +146,8 @@ type
     lblOperacaoAberta: TLabel;
     lblOperacaoCancelada: TLabel;
     lblOperacaoEditando: TLabel;
+    nmImprimirOrdemEntrega: TMenuItem;
+    N1: TMenuItem;
     procedure dbCentroCustoSelecionar(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
@@ -188,6 +190,7 @@ type
     procedure fdQryTabelaINSERCAO_DATAGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure ControllerAfterScroll(DataSet: TDataSet);
     procedure btbtnCancelarClick(Sender: TObject);
+    procedure nmImprimirOrdemEntregaClick(Sender: TObject);
   private
     { Private declarations }
     FImpressao : IImpressaoRequisicaoAlmox;
@@ -271,6 +274,7 @@ uses
   , View.Produto
   , View.Usuario
   , View.RequisicaoAlmox.Cancelar
+  , View.RequisicaoAlmox.OrdemSaida
   , View.Cliente
   , View.CentroCusto
   , View.Query.ApropriacaoEstoque;
@@ -501,24 +505,24 @@ end;
 procedure TViewRequisicaoAlmox.HabilitarDesabilitar_Btns;
 begin
   with DtSrcTabela.DataSet do
+  begin
     if (pgcGuias.ActivePage = tbsCadastro ) then
     begin
       btnFinalizarLancamento.Enabled := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_EDC, STATUS_REQUISICAO_ALMOX_ABR]) and (not DtSrcTabelaItens.DataSet.IsEmpty);
       btnEnviarRequisicao.Enabled    := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger = STATUS_REQUISICAO_ALMOX_ABR) and (not DtSrcTabelaItens.DataSet.IsEmpty);
       btnCancelarRequisicao.Enabled  := (not (State in [dsEdit, dsInsert])) and (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]);
-
-      nmImprimirRequisicaoAlmox.Enabled := (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]);
-      nmImprimirManifesto.Enabled       := (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ATD]);
     end
     else
     begin
       btnFinalizarLancamento.Enabled := False;
       btnEnviarRequisicao.Enabled    := False;
       btnCancelarRequisicao.Enabled  := False;
-
-      nmImprimirRequisicaoAlmox.Enabled := (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]);
-      nmImprimirManifesto.Enabled       := (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ATD]);
     end;
+
+    nmImprimirRequisicaoAlmox.Enabled := (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]);
+    nmImprimirManifesto.Enabled       := (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ATD]);
+    nmImprimirOrdemEntrega.Enabled    := (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ATD]);
+  end;
 end;
 
 procedure TViewRequisicaoAlmox.RecarregarRegistro;
@@ -1762,6 +1766,31 @@ begin
         DtSrcTabela.DataSet.FieldByName('CC_ORIGEM_CODCLIENTE').AsInteger,
         False
       );
+  end;
+end;
+
+procedure TViewRequisicaoAlmox.nmImprimirOrdemEntregaClick(Sender: TObject);
+begin
+  if DtSrcTabela.DataSet.IsEmpty then
+    Exit;
+
+  if OrdemSaida(Self,
+      DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
+    , DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger
+    , DtSrcTabela.DataSet.FieldByName('CCUSTO_ORIGEM').AsInteger
+  ) then
+  begin
+//    if not Assigned(FImpressao) then
+//      FImpressao := TImpressaoRequisicaoAlmox.New;
+//
+//    FImpressao
+//      .VisualizarOrdemSaida(
+//        DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString,
+//        DtSrcTabela.DataSet.FieldByName('ANO').AsInteger,
+//        DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger,
+//        DtSrcTabela.DataSet.FieldByName('CC_ORIGEM_CODCLIENTE').AsInteger,
+//        False
+//      );
   end;
 end;
 

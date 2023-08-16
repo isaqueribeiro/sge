@@ -73,6 +73,16 @@ type
   end;
 
   // View
+  TControllerTipoContratoView = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
+  // View
   TControllerBancoFebrabanView = class(TController, IControllerCustom)
     private
     protected
@@ -448,6 +458,23 @@ begin
 end;
 
 class function TControllerModeloCupomFiscal.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerTipoContratoView }
+
+constructor TControllerTipoContratoView.Create;
+begin
+  inherited Create(TModelDAOFactory.New.TipoContratoView);
+end;
+
+destructor TControllerTipoContratoView.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerTipoContratoView.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

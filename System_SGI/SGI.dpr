@@ -346,7 +346,10 @@ uses
   SGE.Model.DAO.Perfil in '..\Sys\Model\DAO\SGE.Model.DAO.Perfil.pas',
   SGE.Controller.Perfil in '..\Sys\Controller\SGE.Controller.Perfil.pas',
   SGE.Controller.Impressao.DataModule.RequisicaoAlmox in 'Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.RequisicaoAlmox.pas' {DataModuleRequisicaoAlmox: TDataModule},
-  SGE.Controller.Impressao.RequisicaoAlmox in 'Controller\Impressao\SGE.Controller.Impressao.RequisicaoAlmox.pas';
+  SGE.Controller.Impressao.RequisicaoAlmox in 'Controller\Impressao\SGE.Controller.Impressao.RequisicaoAlmox.pas',
+  SGE.Model.DAO.Contrato in '..\Sys\Model\DAO\SGE.Model.DAO.Contrato.pas',
+  SGE.Controller.Contrato in '..\Sys\Controller\SGE.Controller.Contrato.pas',
+  View.RequisicaoAlmox.OrdemSaida in 'View\View.RequisicaoAlmox.OrdemSaida.pas' {ViewRequisicaoAlmoxOrdemSaida};
 
 {$R *.res}
 

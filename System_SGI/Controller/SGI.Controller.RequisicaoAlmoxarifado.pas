@@ -29,6 +29,7 @@ type
       function Produtos : IControllerCustom;
       function MarcarComoRecebida : IControllerRequisicaoAlmoxarifado;
       function DevolverRequisicao : IControllerRequisicaoAlmoxarifado;
+      function Carregar(aAno, aControle : Integer) : IControllerRequisicaoAlmoxarifado;
   end;
 
   // Itens da Requisições ao Almoxarifado
@@ -79,6 +80,22 @@ begin
       FProdutos.DAO.DataSet.Next;
     end;
   end;
+end;
+
+function TControllerRequisicaoAlmoxarifado.Carregar(aAno, aControle: Integer): IControllerRequisicaoAlmoxarifado;
+begin
+  Result := Self;
+
+  DAO
+    .Close
+    .ClearWhere;
+
+  DAO
+    .SQL('where (r.ano = :ano)')
+    .SQL('where (r.controle = :controle)')
+    .ParamsByName('ano', aAno)
+    .ParamsByName('controle', aControle)
+    .Open;
 end;
 
 procedure TControllerRequisicaoAlmoxarifado.CarregarProdutos;

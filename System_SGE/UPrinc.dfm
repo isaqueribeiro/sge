@@ -4671,7 +4671,6 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4702,6 +4701,7 @@ object frmPrinc: TfrmPrinc
       Index = 2
     end
     object RbnTabMovimento: TdxRibbonTab
+      Active = True
       Caption = 'Movimenta'#231#227'o'
       Groups = <
         item
@@ -5058,6 +5058,10 @@ object frmPrinc: TfrmPrinc
         item
           Visible = True
           ItemName = 'BrBtnRequisicaoCliente'
+        end
+        item
+          Visible = True
+          ItemName = 'BrBtnGestaoContato'
         end>
       OneOnRow = False
       Row = 0
@@ -5068,7 +5072,7 @@ object frmPrinc: TfrmPrinc
     object BrMngMovimentoCmp: TdxBar
       Caption = 'Compras'
       CaptionButtons = <>
-      DockedLeft = 280
+      DockedLeft = 348
       DockedTop = 0
       FloatLeft = 478
       FloatTop = 221
@@ -5862,6 +5866,17 @@ object frmPrinc: TfrmPrinc
       LargeImageIndex = 28
       SyncImageIndex = False
       ImageIndex = 28
+    end
+    object BrBtnGestaoContato: TdxBarLargeButton
+      Caption = 'Gest'#227'o de Contratos'
+      Category = 7
+      Hint = 'Gest'#227'o de Contratos'
+      Visible = ivAlways
+      OnClick = BrBtnGestaoContatoClick
+      HotImageIndex = 83
+      LargeImageIndex = 83
+      SyncImageIndex = False
+      ImageIndex = 83
     end
     object BrBtnSolicitacaoCompra: TdxBarLargeButton
       Caption = 'Solicita'#231#245'es de Compras/Servi'#231'os'

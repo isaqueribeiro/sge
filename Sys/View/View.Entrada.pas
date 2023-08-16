@@ -50,6 +50,7 @@ uses
   cxVGrid,
   cxDBVGrid,
   cxInplaceContainer,
+  dxSkinsDefaultPainters,
 
   ACBrConsultaCPF,
   ACBrBase,
@@ -62,7 +63,7 @@ uses
   UGrPadraoCadastro,
   Interacao.Tabela,
   Controller.Tabela,
-  UConstantesDGE, dxSkinsDefaultPainters;
+  UConstantesDGE;
 
 type
   TViewEntrada = class(TViewPadraoCadastro)

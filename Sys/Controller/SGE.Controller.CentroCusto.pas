@@ -22,6 +22,7 @@ type
       procedure SetCentroCustoGeral(aEmpresa : String);
 
       function Listar(aEmpresa : String) : IModelDAOCustom;
+      function Carregar(aCodigo : Integer) : IControllerCentroCusto;
   end;
 
   // Table Detail
@@ -43,6 +44,20 @@ uses
   Controller.Factory;
 
 { TControllerCentroCusto }
+
+function TControllerCentroCusto.Carregar(aCodigo: Integer): IControllerCentroCusto;
+begin
+  Result := Self;
+
+  DAO
+    .Close
+    .ClearWhere;
+
+  DAO
+    .SQL('where (c.codigo = :codigo)')
+    .ParamsByName('codigo', aCodigo)
+    .Open;
+end;
 
 constructor TControllerCentroCusto.Create;
 begin

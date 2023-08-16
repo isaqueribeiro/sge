@@ -135,6 +135,8 @@ type
     function ContaAReceber : IModelDAOCustom;
     function ContaCorrente : IModelDAOCustom;
     function ContaCorrenteView : IModelDAOCustom;
+    function Contrato : IModelDAOCustom;
+    function ContratoItem : IModelDAOCustom;
     function CorVeiculo : IModelDAOCustom;
     function CST : IModelDAOCustom;
     function Distrito : IModelDAOCustom;
@@ -188,6 +190,7 @@ type
     function TipoAutorizacaoView : IModelDAOCustom;
     function TipoCNPJView : IModelDAOCustom;
     function TipoComissaoView : IModelDAOCustom;
+    function TipoContratoView : IModelDAOCustom;
     function TipoChequeView : IModelDAOCustom;
     function TipoDescontoView : IModelDAOCustom;
     function TipoDespesa : IModelDAOCustom;

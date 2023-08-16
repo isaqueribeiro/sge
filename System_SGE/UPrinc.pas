@@ -202,6 +202,7 @@ type
     BrBtnRelatorioFinanceiroAPxAR: TdxBarLargeButton;
     ApplicationEvents: TApplicationEvents;
     BrBtnVendaMobile: TdxBarLargeButton;
+    BrBtnGestaoContato: TdxBarLargeButton;
     procedure tmrAutoUpgradeTimer(Sender: TObject);
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
@@ -308,6 +309,7 @@ type
     procedure ApplicationEventsModalEnd(Sender: TObject);
     procedure ApplicationEventsActivate(Sender: TObject);
     procedure BrBtnVendaMobileClick(Sender: TObject);
+    procedure BrBtnGestaoContatoClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -526,6 +528,12 @@ begin
       , cValorProdutoNF
     );
   end;
+end;
+
+procedure TfrmPrinc.BrBtnGestaoContatoClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_MOV_GESTAO_CONTRATO_ID, True) then
+    FormFunction.ShowModalForm(Self, 'ViewGestaoContrato');
 end;
 
 procedure TfrmPrinc.BrBtnNotaFiscalComplementarClick(Sender: TObject);

@@ -332,7 +332,10 @@ uses
   SGE.Controller.Perfil in '..\Sys\Controller\SGE.Controller.Perfil.pas',
   SGE.Controller.Usuario in '..\Sys\Controller\SGE.Controller.Usuario.pas',
   View.Usuario in '..\Sys\View\View.Usuario.pas' {ViewUsuario},
-  View.Usuario.AlterarSenha in '..\Sys\View\View.Usuario.AlterarSenha.pas' {ViewUsuarioAlterarSenha};
+  View.Usuario.AlterarSenha in '..\Sys\View\View.Usuario.AlterarSenha.pas' {ViewUsuarioAlterarSenha},
+  View.Contrato in '..\Sys\View\View.Contrato.pas' {ViewContrato},
+  SGE.Model.DAO.Contrato in '..\Sys\Model\DAO\SGE.Model.DAO.Contrato.pas',
+  SGE.Controller.Contrato in '..\Sys\Controller\SGE.Controller.Contrato.pas';
 
 {$R *.res}
 

@@ -25,8 +25,6 @@ inherited frmGeFuncionario: TfrmGeFuncionario
     ExplicitWidth = 844
     ExplicitHeight = 457
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 836
       ExplicitHeight = 428
       inherited Bevel4: TBevel
@@ -132,7 +130,7 @@ inherited frmGeFuncionario: TfrmGeFuncionario
       end
       object Bevel5: TBevel [1]
         Left = 0
-        Top = 145
+        Top = 150
         Width = 836
         Height = 4
         Align = alTop
@@ -142,7 +140,7 @@ inherited frmGeFuncionario: TfrmGeFuncionario
       end
       object Bevel6: TBevel [2]
         Left = 0
-        Top = 265
+        Top = 270
         Width = 836
         Height = 4
         Align = alTop
@@ -323,7 +321,7 @@ inherited frmGeFuncionario: TfrmGeFuncionario
         Left = 0
         Top = 77
         Width = 836
-        Height = 68
+        Height = 73
         Align = alTop
         Caption = 'Documenta'#231#227'o'
         TabOrder = 1
@@ -408,12 +406,13 @@ inherited frmGeFuncionario: TfrmGeFuncionario
       end
       object GrpBxEndereco: TGroupBox
         Left = 0
-        Top = 149
+        Top = 154
         Width = 836
         Height = 116
         Align = alTop
         Caption = 'Endere'#231'o'
         TabOrder = 2
+        ExplicitTop = 149
         object lblCidade: TLabel
           Left = 160
           Top = 24
@@ -900,18 +899,17 @@ inherited frmGeFuncionario: TfrmGeFuncionario
       end
       object pgcMaisDados: TPageControl
         Left = 0
-        Top = 269
+        Top = 274
         Width = 836
-        Height = 159
+        Height = 154
         ActivePage = tbsContato
         Align = alClient
         TabOrder = 3
+        ExplicitTop = 269
+        ExplicitHeight = 159
         object tbsContato: TTabSheet
           Caption = '&1. Contato'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
+          ExplicitHeight = 131
           object lblFone: TLabel
             Left = 12
             Top = 8
@@ -1015,15 +1013,12 @@ inherited frmGeFuncionario: TfrmGeFuncionario
         object tbsDadosAdcionais: TTabSheet
           Caption = '&2. Outras Informa'#231#245'es'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
+          ExplicitHeight = 131
           object dbFoto3x4: TDBImage
             Left = 696
             Top = 0
             Width = 132
-            Height = 131
+            Height = 126
             Align = alRight
             DataField = 'FOTO_3X4'
             DataSource = DtSrcTabela
@@ -1031,16 +1026,18 @@ inherited frmGeFuncionario: TfrmGeFuncionario
             Stretch = True
             TabOrder = 2
             OnKeyPress = ProximoCampoKeyPress
+            ExplicitHeight = 131
           end
           object GrpBxParametro: TGroupBox
             AlignWithMargins = True
             Left = 3
             Top = 3
             Width = 297
-            Height = 125
+            Height = 120
             Align = alLeft
             Caption = 'Par'#226'metros do Funcion'#225'rio'
             TabOrder = 0
+            ExplicitHeight = 125
             object dbFlagFornecedor: TDBCheckBox
               Left = 20
               Top = 27
@@ -1083,10 +1080,11 @@ inherited frmGeFuncionario: TfrmGeFuncionario
             Left = 306
             Top = 3
             Width = 260
-            Height = 125
+            Height = 120
             Align = alLeft
             Caption = 'Controles de acessos'
             TabOrder = 1
+            ExplicitHeight = 125
             object lblUsuario: TLabel
               Left = 18
               Top = 21
@@ -1174,19 +1172,17 @@ inherited frmGeFuncionario: TfrmGeFuncionario
         object tbsObservacao: TTabSheet
           Caption = '&3. Observa'#231#245'es'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
+          ExplicitHeight = 131
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
             Width = 828
-            Height = 131
+            Height = 126
             Align = alClient
             DataField = 'OBSERVACAO'
             DataSource = DtSrcTabela
             TabOrder = 0
+            ExplicitHeight = 131
           end
         end
       end
