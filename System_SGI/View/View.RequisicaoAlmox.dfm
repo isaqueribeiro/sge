@@ -2135,7 +2135,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
       Top = 0
       Width = 110
       Height = 35
-      Hint = 'Finalizar Lan'#231'amento da Apropria'#231#227'o'
+      Hint = 'Finalizar Requisi'#231#227'o e Enviar'
       Align = alRight
       Caption = 'Finalizar Req.'
       Enabled = False

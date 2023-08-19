@@ -10,8 +10,6 @@ uses
   Winapi.Windows,
   Winapi.Messages,
 
-  UGrPadrao,
-
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Forms,
@@ -33,6 +31,8 @@ uses
   cxButtons,
   dxSkinsCore,
 
+  UGrPadrao,
+  Interacao.Usuario,
   SGE.Controller.Interfaces,
   SGE.Controller.Factory;
 
@@ -59,6 +59,7 @@ type
     dtsRequisicao: TDataSource;
     procedure dbVeiculoButtonClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure btnConfirmarClick(Sender: TObject);
   private
     { Private declarations }
     FRequisitante : IControllerCentroCusto;
@@ -66,12 +67,14 @@ type
   public
     { Public declarations }
     procedure CarregarDados(aAno, aControle, aRequisitante : Integer);
+    procedure RegistrarRotinaSistema; override;
 
+    function UsuarioLogado : IUsuarioModel; override;
     function Requisitante : IControllerCentroCusto;
     function Requisicao : IControllerRequisicaoAlmoxarifado;
   end;
 
-  function OrdemSaida(const AOwner : TComponent; aAno, aControle, aRequisitante : Integer) : Boolean;
+  function OrdemEntrega(const AOwner : TComponent; aAno, aControle, aRequisitante : Integer) : Boolean;
 
 implementation
 
@@ -79,11 +82,12 @@ implementation
 
 uses
   Service.Utils,
-  Service.Message;
+  Service.Message,
+  UDMRecursos;
 
 { TViewRequisicaoAlmoxOrdemSaida }
 
-function OrdemSaida(const AOwner : TComponent; aAno, aControle, aRequisitante : Integer) : Boolean;
+function OrdemEntrega(const AOwner : TComponent; aAno, aControle, aRequisitante : Integer) : Boolean;
 var
   AForm : TViewRequisicaoAlmoxOrdemSaida;
 begin
@@ -100,6 +104,20 @@ procedure TViewRequisicaoAlmoxOrdemSaida.btnCancelarClick(Sender: TObject);
 begin
   if (dtsRequisicao.DataSet.State = TDataSetState.dsEdit) then
     dtsRequisicao.DataSet.Cancel;
+
+  ModalResult := mrCancel;
+end;
+
+procedure TViewRequisicaoAlmoxOrdemSaida.btnConfirmarClick(Sender: TObject);
+begin
+  if (dtsRequisicao.DataSet.State = TDataSetState.dsEdit) then
+  begin
+    dtsRequisicao.DataSet.Post;
+
+    Requisicao.DAO.ApplyUpdates;
+    Requisicao.DAO.CommitUpdates;
+    Requisicao.DAO.CommitTransaction;
+  end;
 
   ModalResult := mrOk;
 end;
@@ -134,6 +152,11 @@ begin
   TServiceMessage.ShowInformation('Este recurso ainda não está disponível nesta versão');
 end;
 
+procedure TViewRequisicaoAlmoxOrdemSaida.RegistrarRotinaSistema;
+begin
+  ;
+end;
+
 function TViewRequisicaoAlmoxOrdemSaida.Requisicao: IControllerRequisicaoAlmoxarifado;
 begin
   if not Assigned(FRequisicao) then
@@ -151,6 +174,11 @@ begin
     FRequisitante := TControllerFactory.New.CentroCusto;
 
   Result := (FRequisitante as IControllerCentroCusto);
+end;
+
+function TViewRequisicaoAlmoxOrdemSaida.UsuarioLogado: IUsuarioModel;
+begin
+  Result := Requisicao.DAO.Usuario;
 end;
 
 end.

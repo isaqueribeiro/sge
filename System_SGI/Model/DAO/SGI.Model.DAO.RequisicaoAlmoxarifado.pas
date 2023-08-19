@@ -112,6 +112,8 @@ begin
         .Add('  , r.cancel_usuario     ')
         .Add('  , r.cancel_data        ')
         .Add('  , r.cancel_motivo      ')
+        .Add('  , r.veiculo   ')
+        .Add('  , r.motorista ')
         .Add('  ')
         .Add('  , cast(coalesce((Select count(ri.item) from TBREQUISICAO_ALMOX_ITEM ri where ri.ano = r.ano and ri.controle = r.controle), 0) as Integer) as Itens')
         .Add('  ')

@@ -718,78 +718,82 @@ end;
 
 procedure TViewRequisicaoAlmox.btnEnviarRequisicaoClick(
   Sender: TObject);
-
-  function QuantidadeInvalida : Boolean;
-  var
-    Return : Boolean;
-  begin
-    try
-      DtSrcTabelaItens.DataSet.First;
-      DtSrcTabelaItens.DataSet.DisableControls;
-      while not DtSrcTabelaItens.DataSet.Eof do
-      begin
-        Return := (DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency > (DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency + DtSrcTabelaItens.DataSet.FieldByName('DISPONIVEL').AsCurrency));
-
-        if ( Return ) then
-          Break;
-        DtSrcTabelaItens.DataSet.Next;
-      end;
-    finally
-      DtSrcTabelaItens.DataSet.EnableControls;
-      Result := Return;
-    end;
-  end;
-
+//
+//  function QuantidadeInvalida : Boolean;
+//  var
+//    Return : Boolean;
+//  begin
+//    try
+//      DtSrcTabelaItens.DataSet.First;
+//      DtSrcTabelaItens.DataSet.DisableControls;
+//      while not DtSrcTabelaItens.DataSet.Eof do
+//      begin
+//        Return := (DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency > (DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency + DtSrcTabelaItens.DataSet.FieldByName('DISPONIVEL').AsCurrency));
+//
+//        if ( Return ) then
+//          Break;
+//        DtSrcTabelaItens.DataSet.Next;
+//      end;
+//    finally
+//      DtSrcTabelaItens.DataSet.EnableControls;
+//      Result := Return;
+//    end;
+//  end;
+//
 var
   cTotalCusto : Currency;
 begin
-  if ( DtSrcTabela.DataSet.IsEmpty ) then
-    Exit;
-
-  if not GetPermissaoRotinaInterna(Sender, True) then
-    Abort;
-
-  RecarregarRegistro;
-  pgcGuias.ActivePage := tbsCadastro;
-
-  with DtSrcTabela.DataSet do
-  begin
-    AbrirTabelaItens;
-
-    if (FieldByName('STATUS').AsInteger > STATUS_REQUISICAO_ALMOX_ABR) then
-    begin
-      ShowWarning('Lançamento de Requisição já está em mãos do almoxarifado (Centro de Custo atendente)!');
-      Abort;
-    end;
-
-    if ( QuantidadeInvalida ) then
-    begin
-      ShowWarning('Quantidade informada para o ítem ' + FormatFloat('#00', DtSrcTabelaItens.DataSet.FieldByName('ITEM').AsInteger) + ' está acima da quantidade disponível no estoque.');
-      if ( btnProdutoEditar.Visible and btnProdutoEditar.Enabled ) then
-        btnProdutoEditar.SetFocus;
-    end
-    else
-    if ShowConfirm('Confirma o encerramento e o envio da requisição selecionada?') then
-    begin
-      Edit;
-      FieldByName('STATUS').Value := STATUS_REQUISICAO_ALMOX_ENV;
-
-      if (Trim(FieldByName('REQUISITANTE').AsString) = EmptyStr) then
-        FieldByName('REQUISITANTE').AsString := gUsuarioLogado.Login;
-
-      DtSrcTabela.DataSet.Post;
-      FController.DAO.ApplyUpdates;
-      FController.DAO.CommitUpdates;
-      FController.DAO.CommitTransaction;
-
-      ShowInformation('Envio de requisição realizado com sucesso !'
-        + #13#13 + 'Ano/Número: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CONTROLE').AsInteger));
-
-      HabilitarDesabilitar_Btns;
-
-      RdgStatusRequisicao.ItemIndex := 0;
-    end;
-  end;
+(*
+  IMR - 09/12/2016:
+        Este procedimento foi unificado à finalização da requisição.
+*)
+//  if ( DtSrcTabela.DataSet.IsEmpty ) then
+//    Exit;
+//
+//  if not GetPermissaoRotinaInterna(Sender, True) then
+//    Abort;
+//
+//  RecarregarRegistro;
+//  pgcGuias.ActivePage := tbsCadastro;
+//
+//  with DtSrcTabela.DataSet do
+//  begin
+//    AbrirTabelaItens;
+//
+//    if (FieldByName('STATUS').AsInteger > STATUS_REQUISICAO_ALMOX_ABR) then
+//    begin
+//      ShowWarning('Lançamento de Requisição já está em mãos do almoxarifado (Centro de Custo atendente)!');
+//      Abort;
+//    end;
+//
+//    if ( QuantidadeInvalida ) then
+//    begin
+//      ShowWarning('Quantidade informada para o ítem ' + FormatFloat('#00', DtSrcTabelaItens.DataSet.FieldByName('ITEM').AsInteger) + ' está acima da quantidade disponível no estoque.');
+//      if ( btnProdutoEditar.Visible and btnProdutoEditar.Enabled ) then
+//        btnProdutoEditar.SetFocus;
+//    end
+//    else
+//    if ShowConfirm('Confirma o encerramento e o envio da requisição selecionada?') then
+//    begin
+//      Edit;
+//      FieldByName('STATUS').Value := STATUS_REQUISICAO_ALMOX_ENV;
+//
+//      if (Trim(FieldByName('REQUISITANTE').AsString) = EmptyStr) then
+//        FieldByName('REQUISITANTE').AsString := gUsuarioLogado.Login;
+//
+//      DtSrcTabela.DataSet.Post;
+//      FController.DAO.ApplyUpdates;
+//      FController.DAO.CommitUpdates;
+//      FController.DAO.CommitTransaction;
+//
+//      ShowInformation('Envio de requisição realizado com sucesso !'
+//        + #13#13 + 'Ano/Número: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CONTROLE').AsInteger));
+//
+//      HabilitarDesabilitar_Btns;
+//
+//      RdgStatusRequisicao.ItemIndex := 0;
+//    end;
+//  end;
 end;
 
 procedure TViewRequisicaoAlmox.DtSrcTabelaStateChange(Sender: TObject);
@@ -1774,23 +1778,23 @@ begin
   if DtSrcTabela.DataSet.IsEmpty then
     Exit;
 
-  if OrdemSaida(Self,
+  if OrdemEntrega(Self,
       DtSrcTabela.DataSet.FieldByName('ANO').AsInteger
     , DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger
     , DtSrcTabela.DataSet.FieldByName('CCUSTO_ORIGEM').AsInteger
   ) then
   begin
-//    if not Assigned(FImpressao) then
-//      FImpressao := TImpressaoRequisicaoAlmox.New;
-//
-//    FImpressao
-//      .VisualizarOrdemSaida(
-//        DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString,
-//        DtSrcTabela.DataSet.FieldByName('ANO').AsInteger,
-//        DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger,
-//        DtSrcTabela.DataSet.FieldByName('CC_ORIGEM_CODCLIENTE').AsInteger,
-//        False
-//      );
+    if not Assigned(FImpressao) then
+      FImpressao := TImpressaoRequisicaoAlmox.New;
+
+    FImpressao
+      .VisualizarOrdemSaida(
+        DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString,
+        DtSrcTabela.DataSet.FieldByName('ANO').AsInteger,
+        DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger,
+        DtSrcTabela.DataSet.FieldByName('CC_ORIGEM_CODCLIENTE').AsInteger,
+        False
+      );
   end;
 end;
 

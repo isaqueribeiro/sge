@@ -1,7 +1,7 @@
 inherited ViewRequisicaoAlmoxOrdemSaida: TViewRequisicaoAlmoxOrdemSaida
   ActiveControl = dbVeiculo
   BorderStyle = bsDialog
-  Caption = 'Requisi'#231#245'es de Materiais - Ordem de Sa'#237'da'
+  Caption = 'Requisi'#231#245'es de Materiais - Ordem de Entrega'
   ClientHeight = 299
   ClientWidth = 506
   ExplicitWidth = 512
@@ -19,8 +19,6 @@ inherited ViewRequisicaoAlmoxOrdemSaida: TViewRequisicaoAlmoxOrdemSaida
     Align = alTop
     Caption = 'Dados da Requisi'#231#227'o'
     TabOrder = 0
-    ExplicitLeft = 5
-    ExplicitWidth = 543
     DesignSize = (
       494
       118)
@@ -113,7 +111,6 @@ inherited ViewRequisicaoAlmoxOrdemSaida: TViewRequisicaoAlmoxOrdemSaida
       ParentFont = False
       ReadOnly = True
       TabOrder = 1
-      ExplicitWidth = 418
     end
     object edCliente: TEdit
       Left = 16
@@ -130,7 +127,6 @@ inherited ViewRequisicaoAlmoxOrdemSaida: TViewRequisicaoAlmoxOrdemSaida
       ParentFont = False
       ReadOnly = True
       TabOrder = 2
-      ExplicitWidth = 370
     end
     object edCNPJ: TEdit
       Left = 343
@@ -147,7 +143,6 @@ inherited ViewRequisicaoAlmoxOrdemSaida: TViewRequisicaoAlmoxOrdemSaida
       ParentFont = False
       ReadOnly = True
       TabOrder = 3
-      ExplicitLeft = 392
     end
   end
   object GrpBxTransporte: TGroupBox
@@ -161,8 +156,6 @@ inherited ViewRequisicaoAlmoxOrdemSaida: TViewRequisicaoAlmoxOrdemSaida
     Align = alClient
     Caption = 'Transporte'
     TabOrder = 1
-    ExplicitLeft = 11
-    ExplicitHeight = 97
     DesignSize = (
       494
       123)
@@ -342,9 +335,6 @@ inherited ViewRequisicaoAlmoxOrdemSaida: TViewRequisicaoAlmoxOrdemSaida
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitLeft = 0
-    ExplicitTop = 376
-    ExplicitWidth = 563
     object Bevel2: TBevel
       Left = 0
       Top = 0
@@ -437,8 +427,7 @@ inherited ViewRequisicaoAlmoxOrdemSaida: TViewRequisicaoAlmoxOrdemSaida
         FF000000FF000000FF000000FF000000FF000000FF00}
       OptionsImage.NumGlyphs = 2
       TabOrder = 0
-      ExplicitLeft = 380
-      ExplicitTop = 88
+      OnClick = btnConfirmarClick
     end
     object btnCancelar: TcxButton
       AlignWithMargins = True
@@ -522,8 +511,6 @@ inherited ViewRequisicaoAlmoxOrdemSaida: TViewRequisicaoAlmoxOrdemSaida
       OptionsImage.NumGlyphs = 2
       TabOrder = 1
       OnClick = btnCancelarClick
-      ExplicitLeft = 468
-      ExplicitTop = 88
     end
   end
   object dtsRequisicao: TDataSource

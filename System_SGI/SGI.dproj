@@ -736,16 +736,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="Model\DAO\SGI.Model.DAO.RequisicaoAlmoxarifado.pas"/>
         <DCCReference Include="Controller\SGI.Controller.RequisicaoAlmoxarifado.pas"/>
-        <DCCReference Include="View\View.RequisicaoAlmox.pas">
-            <Form>ViewRequisicaoAlmox</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="Model\DAO\SGI.Model.DAO.ProdutoAlmoxarifado.pas"/>
         <DCCReference Include="Controller\SGI.Controller.ProdutoAlmoxarifado.pas"/>
-        <DCCReference Include="View\View.RequisicaoAlmox.Cancelar.pas">
-            <Form>ViewRequisicaoAlmoxCancelar</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="UGeApropriacaoEstoquePesquisa.pas">
             <Form>frmGeApropriacaoEstoquePesquisa</Form>
             <FormType>dfm</FormType>
@@ -768,18 +760,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAReceber.pas"/>
         <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.ContaAPagar.pas"/>
         <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.ContaAReceber.pas"/>
-        <DCCReference Include="..\Sys\View\View.ContaAReceber.LoteParcela.pas">
-            <Form>ViewContaAReceberLoteParcela</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\Sys\View\View.ContaAReceber.Pagamento.pas">
-            <Form>ViewContaAReceberPagamento</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\Sys\View\View.ContaAReceber.pas">
-            <Form>ViewContaAReceber</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAReceber.pas">
             <Form>DataModuleContaAReceber</Form>
             <FormType>dfm</FormType>
@@ -788,10 +768,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Usuario.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Usuario.pas"/>
-        <DCCReference Include="..\Sys\View\View.Usuario.pas">
-            <Form>ViewUsuario</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Perfil.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Perfil.pas"/>
         <DCCReference Include="Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.RequisicaoAlmox.pas">
@@ -802,6 +778,24 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="Controller\Impressao\SGE.Controller.Impressao.RequisicaoAlmox.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Contrato.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Contrato.pas"/>
+        <DCCReference Include="..\Sys\View\View.ContaAReceber.pas">
+            <Form>ViewContaAReceber</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.ContaAReceber.LoteParcela.pas">
+            <Form>ViewContaAReceberLoteParcela</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.ContaAReceber.Pagamento.pas">
+            <Form>ViewContaAReceberPagamento</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Usuario.pas">
+            <Form>ViewUsuario</Form>
+        </DCCReference>
+        <DCCReference Include="View\View.RequisicaoAlmox.pas">
+            <Form>ViewRequisicaoAlmox</Form>
+        </DCCReference>
+        <DCCReference Include="View\View.RequisicaoAlmox.Cancelar.pas">
+            <Form>ViewRequisicaoAlmoxCancelar</Form>
+        </DCCReference>
         <DCCReference Include="View\View.RequisicaoAlmox.OrdemSaida.pas">
             <Form>ViewRequisicaoAlmoxOrdemSaida</Form>
             <FormType>dfm</FormType>

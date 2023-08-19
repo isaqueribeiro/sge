@@ -1,6 +1,3 @@
-
-
-
 /*------ SYSDBA 07/07/2023 23:06:06 --------*/
 
 CREATE TABLE TBCONTRATO (
@@ -82,8 +79,6 @@ COMMENT ON COLUMN TBCONTRATO.DATA_CADASTRO IS
 'Data de Cadastro';
 
 
-
-
 /*------ SYSDBA 07/07/2023 23:06:08 --------*/
 
 COMMENT ON TABLE TBCONTRATO IS 'Tabela de Contatos
@@ -104,8 +99,6 @@ Historico:
 
     07/07/2023 - IMR :
         + Criacao e documentacao da tabela.';
-
-
 
 
 /*------ SYSDBA 07/07/2023 23:11:07 --------*/
@@ -146,7 +139,6 @@ contrato.';
 GRANT ALL ON TBCONTRATO TO "PUBLIC";
 
 
-
 /*------ SYSDBA 07/07/2023 23:12:48 --------*/
 
 ALTER TABLE TBCONTRATO
@@ -165,8 +157,6 @@ FOREIGN KEY (FORNECEDOR)
 REFERENCES TBFORNECEDOR(CODFORN);
 
 
-
-
 /*------ SYSDBA 07/07/2023 23:15:14 --------*/
 
 CREATE DESCENDING INDEX IDX_TBCONTRATO_EMISSAOD
@@ -176,14 +166,10 @@ CREATE INDEX IDX_TBCONTRATO_EMISSAOA
 ON TBCONTRATO (DATA_EMISSAO);
 
 
-
-
 /*------ SYSDBA 07/07/2023 23:15:42 --------*/
 
 CREATE INDEX IDX_TBCONTRATO_SITUACAO
 ON TBCONTRATO (SITUACAO);
-
-
 
 
 /*------ SYSDBA 07/07/2023 23:17:15 --------*/
@@ -196,8 +182,6 @@ ON TBCONTRATO (DATA_VALIDADE);
 
 CREATE INDEX IDX_TBCONTRATO_DESTINO
 ON TBCONTRATO (DESTINO);
-
-
 
 
 /*------ SYSDBA 02/08/2023 11:11:20 --------*/
@@ -251,8 +235,6 @@ COMMENT ON COLUMN TBCONTRATO_ITEM.SALDO_QTDE IS
 
 COMMENT ON COLUMN TBCONTRATO_ITEM.SALDO_TOTAL IS
 'Valor (3 Casas Decimais)';
-
-
 
 
 /*------ SYSDBA 02/08/2023 11:11:22 --------*/
@@ -611,3 +593,86 @@ Select 1, 'Contratos com Fornecedores', 'com Fornecedores' from RDB$DATABASE
 
 GRANT ALL ON TBCONTRATO_ITEM TO "PUBLIC";
 GRANT ALL ON VW_TIPO_CONTRATO TO "PUBLIC";
+
+
+-- Combustiveis
+Update or Insert Into RENAVAM_COBUSTIVEL (codigo, descricao) values ('01', 'Álcool') matching (codigo);
+Update or Insert Into RENAVAM_COBUSTIVEL (codigo, descricao) values ('02', 'Gasolina') matching (codigo);
+Update or Insert Into RENAVAM_COBUSTIVEL (codigo, descricao) values ('03', 'Diesel') matching (codigo);
+Update or Insert Into RENAVAM_COBUSTIVEL (codigo, descricao) values ('16', 'Álcool/Gasolina') matching (codigo);
+Update or Insert Into RENAVAM_COBUSTIVEL (codigo, descricao) values ('17', 'Gasolina/Álcool/GNV') matching (codigo);
+Update or Insert Into RENAVAM_COBUSTIVEL (codigo, descricao) values ('18', 'Gasolina/Elétrico') matching (codigo);
+
+
+-- Tipos de Veículos
+Update or Insert Into RENAVAM_TIPOVEICULO values ('02', 'Ciclomotor') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('03', 'Motoneta') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('04', 'Motocicleta') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('05', 'Triciclo') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('06', 'Automóvel') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('07', 'Micro-ônibus') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('08', 'Ônibus') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('10', 'Reboque') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('11', 'Semirreboque') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('13', 'Camioneta') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('14', 'Caminhão') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('15', 'Carroça') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('17', 'Caminhão Trator') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('18', 'Trator de Rodas') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('19', 'Trator de Esteiras') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('20', 'Trator Misto') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('21', 'Quadriciclo') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('22', 'Chassi/Plataforma') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('23', 'Caminhonete') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('24', 'Carga/Caminhonete') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('25', 'Utilitário') matching (codigo);
+Update or Insert Into RENAVAM_TIPOVEICULO values ('26', 'Motor-Casa') matching (codigo);
+
+
+
+
+
+
+/*------ SYSDBA 18/08/2023 19:08:38 --------*/
+
+ALTER TABLE TBREQUISICAO_ALMOX
+    ADD VEICULO DMN_VCHAR_150,
+    ADD MOTORISTA DMN_VCHAR_150;
+
+COMMENT ON COLUMN TBREQUISICAO_ALMOX.VEICULO IS
+'Ordem de Entrega - Descricao do veiculo';
+
+COMMENT ON COLUMN TBREQUISICAO_ALMOX.MOTORISTA IS
+'Ordem de Entrega - Nome do motorista';
+
+
+
+
+/*------ SYSDBA 18/08/2023 19:09:38 --------*/
+
+COMMENT ON TABLE TBREQUISICAO_ALMOX IS 'Tabela Requisicao Produtos (Almoxarifado)
+
+    Autor   :   Isaque Marinho Ribeiro
+    Data    :   05/01/2015
+
+Tabela responsavel por armazenar todos os registros de requisicoes de materiais/equipamentos ao estoque lancadas pelo
+Sistema de Gestao Industrial.
+
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    18/08/2023 - IMR :
+        + Insercao dos campos VEICULO e MOTORISTA a fim de compor a impressao das
+          ordens de entrega.
+
+    05/01/2014 - IMR :
+        * Concepcao do modelo.
+
+    20/01/2014 - IMR :
+        * Documentacao da tabela.';
+

@@ -92,7 +92,7 @@ begin
 
   DAO
     .SQL('where (r.ano = :ano)')
-    .SQL('where (r.controle = :controle)')
+    .SQL('  and (r.controle = :controle)')
     .ParamsByName('ano', aAno)
     .ParamsByName('controle', aControle)
     .Open;
