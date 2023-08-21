@@ -10,6 +10,7 @@ type
     ['{04254E10-7563-4D4B-892D-C93B1947E3CE}']
     procedure VisualizarRequisicao(aEmpresa : String; aAno, aCodigo, aCliente : Integer; const aTodosItens: Boolean = True);
     procedure VisualizarManifesto(aEmpresa : String; aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean = True);
+    procedure VisualizarOrdemEntrega(aEmpresa : String; aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean = True);
   end;
 
   TImpressaoRequisicaoAlmox = class(TInterfacedObject, IImpressaoRequisicaoAlmox)
@@ -23,6 +24,7 @@ type
 
       procedure VisualizarRequisicao(aEmpresa : String; aAno, aCodigo, aCliente : Integer; const aTodosItens: Boolean = True);
       procedure VisualizarManifesto(aEmpresa : String; aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean = True);
+      procedure VisualizarOrdemEntrega(aEmpresa : String; aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean = True);
   end;
 
 implementation
@@ -50,6 +52,13 @@ procedure TImpressaoRequisicaoAlmox.VisualizarManifesto(aEmpresa: String; aAno, 
 begin
   if FDataModule.CarregarManifestoAlmox(aEmpresa, aAno, aCodigo, aCliente, aTodosItens) then
     FDataModule.VisualizarManifestoAlmox;
+end;
+
+procedure TImpressaoRequisicaoAlmox.VisualizarOrdemEntrega(aEmpresa: String; aAno, aCodigo, aCliente: Integer;
+  const aTodosItens: Boolean);
+begin
+  if FDataModule.CarregarOrdemEntrega(aEmpresa, aAno, aCodigo, aCliente, aTodosItens) then
+    FDataModule.VisualizarOrdemEntrega;
 end;
 
 procedure TImpressaoRequisicaoAlmox.VisualizarRequisicao(aEmpresa: String; aAno, aCodigo, aCliente: Integer;

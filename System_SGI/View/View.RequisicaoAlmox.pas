@@ -1788,7 +1788,7 @@ begin
       FImpressao := TImpressaoRequisicaoAlmox.New;
 
     FImpressao
-      .VisualizarOrdemSaida(
+      .VisualizarOrdemEntrega(
         DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString,
         DtSrcTabela.DataSet.FieldByName('ANO').AsInteger,
         DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger,

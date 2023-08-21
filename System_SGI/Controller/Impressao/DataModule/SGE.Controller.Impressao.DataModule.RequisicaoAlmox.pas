@@ -40,19 +40,23 @@ type
     qryRequisicaoAlmox: TFDQuery;
     qryDestinatario: TFDQuery;
     frdCliente: TfrxDBDataset;
+    frrOrdemEntrega: TfrxReport;
     procedure DataModuleCreate(Sender: TObject);
     procedure frrRequisicaoAlmoxGetValue(const VarName: string; var Value: Variant);
   private
     { Private declarations }
     FVersao : IVersao;
     procedure SetVariablesDefault(const pFastReport : TfrxReport);
+    procedure CarregarRequisicaoAlmoxarifado(aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean);
   public
     { Public declarations }
     procedure VisualizarRequisicaoAlmox;
     procedure VisualizarManifestoAlmox;
+    procedure VisualizarOrdemEntrega;
 
     function CarregarRequisicaoAlmox(aEmpresa : String; aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean): Boolean;
     function CarregarManifestoAlmox(aEmpresa: String; aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean): Boolean;
+    function CarregarOrdemEntrega(aEmpresa: String; aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean): Boolean;
   end;
 
 var
@@ -77,22 +81,17 @@ begin
   DMNFe.AbrirEmitente(aEmpresa);
   DMBusiness.ConfigurarEmail(aEmpresa, EmptyStr, 'Manifesto', EmptyStr);
 
-  with qryDestinatario do
-  begin
-    Close;
-    ParamByName('codigo').AsInteger := aCliente;
-    Open;
-  end;
+  CarregarRequisicaoAlmoxarifado(aAno, aCodigo, aCliente, aTodosItens);
+  Result := (not qryRequisicaoAlmox.IsEmpty);
+end;
 
-  with qryRequisicaoAlmox do
-  begin
-    Close;
-    ParamByName('ano').AsSmallInt := aAno;
-    ParamByName('cod').AsInteger  := aCodigo;
-    ParamByName('todos_itens').AsSmallInt := IfThen(aTodosItens, 1, 0);
-    Open;
-  end;
+function TDataModuleRequisicaoAlmox.CarregarOrdemEntrega(aEmpresa: String; aAno, aCodigo, aCliente: Integer;
+  const aTodosItens: Boolean): Boolean;
+begin
+  DMNFe.AbrirEmitente(aEmpresa);
+  DMBusiness.ConfigurarEmail(aEmpresa, EmptyStr, 'Manifesto', EmptyStr);
 
+  CarregarRequisicaoAlmoxarifado(aAno, aCodigo, aCliente, aTodosItens);
   Result := (not qryRequisicaoAlmox.IsEmpty);
 end;
 
@@ -102,6 +101,12 @@ begin
   DMNFe.AbrirEmitente(aEmpresa);
   DMBusiness.ConfigurarEmail(aEmpresa, EmptyStr, 'Requisição ao Estoque (Almoxarifado)', EmptyStr);
 
+  CarregarRequisicaoAlmoxarifado(aAno, aCodigo, aCliente, aTodosItens);
+  Result := (not qryRequisicaoAlmox.IsEmpty);
+end;
+
+procedure TDataModuleRequisicaoAlmox.CarregarRequisicaoAlmoxarifado(aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean);
+begin
   with qryDestinatario do
   begin
     Close;
@@ -117,8 +122,6 @@ begin
     ParamByName('todos_itens').AsSmallInt := IfThen(aTodosItens, 1, 0);
     Open;
   end;
-
-  Result := (not qryRequisicaoAlmox.IsEmpty);
 end;
 
 procedure TDataModuleRequisicaoAlmox.DataModuleCreate(Sender: TObject);
@@ -188,6 +191,13 @@ begin
   SetVariablesDefault(frrManifestoAlmox);
   frrManifestoAlmox.PrepareReport;
   frrManifestoAlmox.ShowReport;
+end;
+
+procedure TDataModuleRequisicaoAlmox.VisualizarOrdemEntrega;
+begin
+  SetVariablesDefault(frrOrdemEntrega);
+  frrOrdemEntrega.PrepareReport;
+  frrOrdemEntrega.ShowReport;
 end;
 
 procedure TDataModuleRequisicaoAlmox.VisualizarRequisicaoAlmox;

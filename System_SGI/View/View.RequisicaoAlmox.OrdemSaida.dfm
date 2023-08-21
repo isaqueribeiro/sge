@@ -323,6 +323,7 @@ inherited ViewRequisicaoAlmoxOrdemSaida: TViewRequisicaoAlmoxOrdemSaida
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
+      OnButtonClick = dbVeiculoButtonClick
     end
   end
   object pnlFooter: TPanel

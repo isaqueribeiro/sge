@@ -1,5 +1,5 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 28/06/2023 19:58:00     #
+#    Gerado por AGIL SOFTWARES em : 20/08/2023 23:35:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
@@ -32,7 +32,8 @@
 #url23=http://www.drhtransparencia.com.br/agil/upgrade/db/01003203.sql
 #url24=http://www.drhtransparencia.com.br/agil/upgrade/db/01003204.sql
 #url25=http://www.drhtransparencia.com.br/agil/upgrade/db/01003205.sql
+#url26=http://www.drhtransparencia.com.br/agil/upgrade/db/01003300.sql
 
 #method=0 (self-upgrade)
 
-#version=1.0.32.5
+#version=1.0.33.0
