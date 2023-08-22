@@ -394,7 +394,7 @@ uses
 
   // Financeiro
   View.ContaAPagar,
-  UGeContasAReceber,
+  View.ContaAReceber,
   UGeCaixa,
   UGeFluxoCaixa;
 

@@ -292,6 +292,20 @@ inherited ViewContaAReceberLoteParcela: TViewContaAReceberLoteParcela
       Caption = '&Tipo de Receita:'
       FocusControl = dbTipoReceita
     end
+    object lblObservacao: TLabel
+      Left = 223
+      Top = 104
+      Width = 67
+      Height = 13
+      Caption = 'Observa'#231#245'es:'
+      FocusControl = dbObservacao
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
     object dbEmpresa: TDBLookupComboBox
       Left = 16
       Top = 40
@@ -525,6 +539,21 @@ inherited ViewContaAReceberLoteParcela: TViewContaAReceberLoteParcela
       ListSource = dtsTpReceita
       ParentFont = False
       TabOrder = 2
+    end
+    object dbObservacao: TDBEdit
+      Left = 223
+      Top = 120
+      Width = 466
+      Height = 21
+      DataField = 'Observacao'
+      DataSource = dtsDadosNominais
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 7
     end
   end
   object pnlParcelas: TPanel
@@ -998,6 +1027,11 @@ inherited ViewContaAReceberLoteParcela: TViewContaAReceberLoteParcela
       item
         Name = 'NumeroDias'
         DataType = ftInteger
+      end
+      item
+        Name = 'Observacao'
+        DataType = ftString
+        Size = 250
       end>
     IndexDefs = <>
     Params = <>
@@ -1064,6 +1098,10 @@ inherited ViewContaAReceberLoteParcela: TViewContaAReceberLoteParcela
       FieldName = 'NumeroDias'
       Required = True
       DisplayFormat = '00'
+    end
+    object cdsDadosNominaisObservacao: TStringField
+      FieldName = 'Observacao'
+      Size = 250
     end
   end
   object dtsDadosNominais: TDataSource

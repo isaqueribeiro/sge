@@ -152,6 +152,9 @@ type
     dtsCompetencia: TDataSource;
     dtsTpDespesa: TDataSource;
     cmTipoValor: TComboBox;
+    cdsDadosNominaisObservacao: TStringField;
+    lblObservacao: TLabel;
+    dbObservacao: TDBEdit;
     procedure tmrAlertaTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cdsDadosNominaisNewRecord(DataSet: TDataSet);
@@ -385,6 +388,7 @@ begin
       cdsParcelasCompetencia.AsInteger   := FControllerCompetencia.GetID(dVencimento - 30);
       cdsParcelasVencimento.AsDateTime   := dVencimento;
       cdsParcelasValorParcela.AsCurrency := cValorParc;
+      cdsParcelasObservacao.AsString     := Trim(cdsDadosNominaisObservacao.AsString).ToUpper;
       cdsParcelas.Post;
 
       dDataTemp   := dDataTemp + cdsDadosNominaisNumeroDias.AsInteger;
@@ -555,6 +559,7 @@ end;
 function TViewContaAPagarLoteParcela.GerarLancamentos: Boolean;
 var
   bRetorno : Boolean;
+  aParcela : String;
 begin
   bRetorno := False;
   try
@@ -564,6 +569,7 @@ begin
 
       FLote := FormatDateTime('yyyymmdd hh:nn:ss', Now);
       FLote := StringReplace(StringReplace(FLote, ' ', '', [rfReplaceAll]), ':', '', [rfReplaceAll]);
+      aParcela := 'PARCELA %s/' + IntToStr(cdsParcelas.RecordCount);
 
       cdsParcelas.First;
 
@@ -576,7 +582,7 @@ begin
         FieldByName('CODFORN').AsInteger  := cdsDadosNominaisFornecedor.AsInteger;
         FieldByName('PARCELA').AsInteger  := cdsParcelasParcela.AsInteger;
         FieldByName('TIPPAG').AsString    := dbFormaPagto.Text;
-        FieldByName('HISTORIC').AsString  := '---' + #13 + cdsParcelasObservacao.AsString;
+        FieldByName('HISTORIC').AsString  := '---' + #13 + cdsParcelasObservacao.AsString + #13 + Format(aParcela, [cdsParcelasParcela.AsString]) + #13 + '---' + #13;
         FieldByName('NOTFISC').AsString   := cdsDadosNominaisNotaFiscal.AsString;
         FieldByName('DTEMISS').AsDateTime := cdsDadosNominaisEmissao.AsDateTime;
         FieldByName('DTVENC').AsDateTime  := cdsParcelasVencimento.AsDateTime;

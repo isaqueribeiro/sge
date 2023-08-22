@@ -105,7 +105,6 @@ inherited ViewUsuario: TViewUsuario
             Left = 77
             Width = 201
             ExplicitLeft = 77
-            ExplicitTop = 25
             ExplicitWidth = 201
           end
           inherited btnFiltrar: TcxButton
@@ -478,7 +477,7 @@ inherited ViewUsuario: TViewUsuario
             Caption = 'Par'#226'metros'
             TabOrder = 0
             object dbAlmoxManifestoAuto: TDBCheckBox
-              Left = 16
+              Left = 15
               Top = 24
               Width = 270
               Height = 33

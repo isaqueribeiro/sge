@@ -402,7 +402,7 @@ var
   procedure MostrarControleCompras(const AOwner : TComponent);
   procedure MostrarControleCompraServicos(const AOwner : TComponent);
 
-  function SelecionarEntrada(const AOwner : TComponent; var Ano, Controle : Integer; var aEmpresa : String) : Boolean;
+  function SelecionarEntrada(const AOwner : TComponent; var Ano, Controle : Integer; var aEmpresa, aObservacao : String) : Boolean;
   function SelecionarNFParaDevolver(const AOwner : TComponent; var Ano, Controle : Integer;
     var aEmpresa : String; var Emissao : TDateTime; var Serie, Numero, Chave, UF, Cnpj, IE : String) : Boolean;
 
@@ -511,7 +511,7 @@ begin
   end;
 end;
 
-function SelecionarEntrada(const AOwner : TComponent; var Ano, Controle : Integer; var aEmpresa : String) : Boolean;
+function SelecionarEntrada(const AOwner : TComponent; var Ano, Controle : Integer; var aEmpresa, aObservacao : String) : Boolean;
 var
   AForm  : TViewEntrada;
   aWhere ,
@@ -565,6 +565,7 @@ begin
         Ano      := FieldByName('ANO').AsInteger;
         Controle := FieldByName('CODCONTROL').AsInteger;
         aEmpresa := FieldByName('CODEMP').AsString;
+        aObservacao := FieldByName('OBS').AsString;
       end;
   finally
     AForm.Destroy;

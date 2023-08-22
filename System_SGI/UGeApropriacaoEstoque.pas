@@ -1565,17 +1565,22 @@ procedure TfrmGeApropriacaoEstoque.dbEntradaButtonClick(Sender: TObject);
 var
   iEntradaAno ,
   iEntradaCod : Integer;
-  sEntradaEmp : String;
+  sEntradaEmp ,
+  aObservacao : String;
 begin
   with DtSrcTabela.DataSet do
   begin
+    aObservacao := EmptyStr;
     if ( dbEntrada.Button.Enabled and (State in [dsEdit, dsInsert]) ) then
-      if SelecionarEntrada(Self, iEntradaAno, iEntradaCod, sEntradaEmp) then
+      if SelecionarEntrada(Self, iEntradaAno, iEntradaCod, sEntradaEmp, aObservacao) then
       begin
         FieldByName('COMPRA_ANO').AsInteger := iEntradaAno;
         FieldByName('COMPRA_NUM').AsInteger := iEntradaCod;
         FieldByName('COMPRA_EMP').AsString  := sEntradaEmp;
         FieldByName('ENTRADA').AsString     := FormatFloat('0000"/"', iEntradaAno) + FormatFloat('0000000', iEntradaCod);
+
+        if (not aObservacao.Trim.IsEmpty) then
+          dbObservacao.Lines.Add(aObservacao);
 
         CarregarProdutosEntrada(iEntradaAno, iEntradaCod, sEntradaEmp);
         cdsTabelaItens.First;
@@ -1672,17 +1677,22 @@ procedure TfrmGeApropriacaoEstoque.dbAutorizacaoButtonClick(
 var
   iAutorizacaoAno ,
   iAutorizacaoCod : Integer;
-  sAutorizacaoEmp : String;
+  sAutorizacaoEmp ,
+  aObservacao     : String;
 begin
   with DtSrcTabela.DataSet do
   begin
+    aObservacao := EmptyStr;
     if ( dbAutorizacao.Button.Enabled and (State in [dsEdit, dsInsert]) ) then
-      if SelecionarAutorizacaoParaApropriacao(Self, e1Data.Date - 30, iAutorizacaoAno, iAutorizacaoCod, sAutorizacaoEmp) then
+      if SelecionarAutorizacaoParaApropriacao(Self, e1Data.Date - 30, iAutorizacaoAno, iAutorizacaoCod, sAutorizacaoEmp, aObservacao) then
       begin
         FieldByName('AUTORIZACAO_ANO').AsInteger := iAutorizacaoAno;
         FieldByName('AUTORIZACAO_NUM').AsInteger := iAutorizacaoCod;
         FieldByName('AUTORIZACAO_EMP').AsString  := sAutorizacaoEmp;
         FieldByName('AUTORIZACAO').AsString      := FormatFloat('0000"/"', iAutorizacaoAno) + FormatFloat('0000000', iAutorizacaoCod);
+
+        if (not aObservacao.Trim.IsEmpty) then
+          dbObservacao.Lines.Add(aObservacao);
 
         CarregarProdutosAutorizacao(iAutorizacaoAno, iAutorizacaoCod, sAutorizacaoEmp);
         cdsTabelaItens.First;

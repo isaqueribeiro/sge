@@ -1,7 +1,6 @@
 inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
   Left = 446
   Top = 196
-  ActiveControl = dbgDados
   Caption = 'Controle de Apropria'#231#245'es de Estoque'
   ClientHeight = 685
   ClientWidth = 1116
@@ -24,7 +23,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
   inherited pgcGuias: TPageControl
     Width = 1116
     Height = 642
-    ActivePage = tbsTabela
     OnChange = pgcGuiasChange
     ExplicitWidth = 1116
     ExplicitHeight = 642
@@ -674,10 +672,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           TabOrder = 11
           object TbsApropriacaoMotivo: TTabSheet
             Caption = 'Motivo da apropria'#231#227'o'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMotivo: TDBMemo
               Left = 0
               Top = 0
@@ -699,10 +693,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
           object TbsApropriacaoCancelado: TTabSheet
             Caption = 'Motivo do cancelamento'
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -1052,10 +1042,6 @@ inherited frmGeApropriacaoEstoque: TfrmGeApropriacaoEstoque
         object tbsObservacoes: TTabSheet
           Caption = 'Observa'#231#245'es'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object PnlObservacoes: TPanel
             Left = 0
             Top = 0

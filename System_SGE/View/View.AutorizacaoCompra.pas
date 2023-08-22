@@ -273,7 +273,7 @@ var
   function SelecionarAutorizacao(const AOwner : TComponent; Fornecedor : Integer; DataInicial : TDateTime;
     var Ano, Codigo : Integer; var Empresa, Motivo, Observacao : String) : Boolean; overload;
   function SelecionarAutorizacaoParaApropriacao(const AOwner : TComponent; DataInicial : TDateTime;
-    var Ano, Codigo : Integer; var Empresa : String) : Boolean;
+    var Ano, Codigo : Integer; var Empresa, aObservacao : String) : Boolean;
 
 implementation
 
@@ -403,7 +403,7 @@ begin
 end;
 
 function SelecionarAutorizacaoParaApropriacao(const AOwner : TComponent; DataInicial : TDateTime;
-  var Ano, Codigo : Integer; var Empresa : String) : Boolean;
+  var Ano, Codigo : Integer; var Empresa, aObservacao : String) : Boolean;
 var
   AForm : TViewAutorizacaoCompra;
   aDataInicio,
@@ -452,6 +452,7 @@ begin
         Ano     := FieldByName('ANO').AsInteger;
         Codigo  := FieldByName('CODIGO').AsInteger;
         Empresa := FieldByName('EMPRESA').AsString;
+        aObservacao := FieldByName('MOVITO').AsString;
       end;
   finally
     AForm.Destroy;

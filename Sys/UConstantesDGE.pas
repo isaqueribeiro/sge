@@ -724,7 +724,7 @@ const
   FILE_AUTOBACKUP    = 'AutoBackupGA.exe';
   FILE_REMOTE_ACCESS = 'TeamViewerQS_pt-idcn9zva8a.exe';
 
-  DOWNLOAD_URL_COMPANY        = {$IFDEF DGE}'www.masterdados.com.br/downloads/%s'{$ELSE}'www.agilsoftwares.com.br/downloads/%s'{$ENDIF};
+  DOWNLOAD_URL_COMPANY        = 'www.agilsoftwares.com.br/downloads/%s';
   DOWNLOAD_URL_AGIL_SOFTWARES = 'www.agilsoftwares.com.br';
   DOWNLOAD_URL_HOME_AUTOMACAO = 'www.homeautomacao.com/suporte/agil/';
   DOWNLOAD_URL_GERASYS_TI_DRH = 'www.drhtransparencia.com.br/agil/';
@@ -738,8 +738,8 @@ const
   DOWNLOAD_URL_GERASYS_TI_DRH_UPGRADE  = DOWNLOAD_URL_GERASYS_TI_DRH + 'upgrade/';
   DOWNLOAD_URL_GERASYS_TI_DRH_DOWNLOAD = DOWNLOAD_URL_GERASYS_TI_DRH + 'downloads/';
 
-  DOWNLOAD_IDFILE_TABELA_IBPT = '1XZw06Foz5cZ7BIn1ahHK56jdbHdQDToO';
-  DOWNLOAD_NMFILE_TABELA_IBPT = 'TabelaIBPT_PA2023.01.csv';
+  DOWNLOAD_IDFILE_TABELA_IBPT = '122-A_cMq-ctTpAujLYm0tnIIItvV8fbv';
+  DOWNLOAD_NMFILE_TABELA_IBPT = 'TabelaIBPT_PA2023.02.csv';
 
   COND_PARCELA_MIN = 1;
   COND_PARCELA_MAX = 12;

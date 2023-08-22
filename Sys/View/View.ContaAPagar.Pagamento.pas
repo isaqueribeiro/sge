@@ -305,12 +305,6 @@ begin
       TServiceMessage.ShowWarning('Favor informar o Banco do Cheque!');
       dbBancoFebraban.SetFocus;
     end
-//    else
-//    if ( Trim(dtsPagamentos.DataSet.FieldByName('HISTORICO').AsString) = EmptyStr ) then
-//    begin
-//      TServiceMessage.ShowWarning('Favor informar histórico (referente à) do pagamento!');
-//      dbHistorico.SetFocus;
-//    end
     else
     begin
       if (not Assigned(FControllerCaixa)) then

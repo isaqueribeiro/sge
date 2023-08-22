@@ -92,6 +92,7 @@ uses
   UDMBusiness,
   UDMRecursos,
   UConstantesDGE,
+  Service.Message,
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper;
@@ -227,7 +228,7 @@ begin
   if (Trim(DtSrcTabela.DataSet.FieldByName('CPF').AsString) <> EmptyStr) then
     if (not FuncoesString.StrIsCPF(DtSrcTabela.DataSet.FieldByName('CPF').AsString)) then
     begin
-      ShowWarning('Favor informar um CPF válido.');
+      TServiceMessage.ShowWarning('Favor informar um CPF válido.');
       Abort;
     end;
 
@@ -236,12 +237,12 @@ begin
       DtSrcTabela.DataSet.FieldByName('EMAIL').AsString := Trim(DtSrcTabela.DataSet.FieldByName('EMAIL').AsString)
     else
     begin
-      ShowWarning('Restrinção: ' + aError);
+      TServiceMessage.ShowWarning('Restrinção: ' + aError);
       Abort;
     end;
 
   if (DtSrcTabela.DataSet.FieldByName('COMISSAO').AsCurrency < 0) or (DtSrcTabela.DataSet.FieldByName('COMISSAO').AsCurrency > 100) then
-    ShowWarning('Favor informar um percentual válido de comissão!')
+    TServiceMessage.ShowWarning('Favor informar um percentual válido de comissão!')
   else
     inherited;
 end;

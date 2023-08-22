@@ -3,15 +3,15 @@ inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Contas A Pagar - Incluir Lote (Parcelas)'
-  ClientHeight = 482
+  ClientHeight = 519
   ClientWidth = 702
   ExplicitWidth = 716
-  ExplicitHeight = 519
+  ExplicitHeight = 556
   PixelsPerInch = 96
   TextHeight = 13
   object lblInforme: TLabel
     Left = 16
-    Top = 443
+    Top = 480
     Width = 320
     Height = 32
     Anchors = [akLeft, akBottom]
@@ -30,7 +30,7 @@ inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
   end
   object Bevel1: TBevel
     Left = 0
-    Top = 115
+    Top = 153
     Width = 702
     Height = 4
     Align = alTop
@@ -40,7 +40,7 @@ inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
   end
   object Bevel2: TBevel
     Left = 0
-    Top = 436
+    Top = 474
     Width = 702
     Height = 4
     Align = alTop
@@ -50,8 +50,8 @@ inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
     ExplicitWidth = 551
   end
   object btnConfirmar: TcxButton
-    Left = 531
-    Top = 444
+    Left = 530
+    Top = 480
     Width = 83
     Height = 33
     Anchors = [akRight, akBottom]
@@ -131,7 +131,7 @@ inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
   end
   object btnCancelar: TcxButton
     Left = 619
-    Top = 444
+    Top = 481
     Width = 83
     Height = 33
     Anchors = [akRight, akBottom]
@@ -208,12 +208,13 @@ inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
     OptionsImage.NumGlyphs = 2
     TabOrder = 1
     OnClick = btnCancelarClick
+    ExplicitTop = 444
   end
   object GrpBxLancamento: TGroupBox
     Left = 0
     Top = 0
     Width = 702
-    Height = 115
+    Height = 153
     Align = alTop
     Caption = 'Dados nominais'
     TabOrder = 2
@@ -286,6 +287,20 @@ inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
       Height = 13
       Caption = 'Nota Fiscal:'
       FocusControl = dbNotaFiscal
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblObservacao: TLabel
+      Left = 17
+      Top = 104
+      Width = 67
+      Height = 13
+      Caption = 'Observa'#231#245'es:'
+      FocusControl = dbObservacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -527,15 +542,31 @@ inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
       ParentFont = False
       TabOrder = 6
     end
+    object dbObservacao: TDBEdit
+      Left = 17
+      Top = 120
+      Width = 672
+      Height = 21
+      DataField = 'Observacao'
+      DataSource = dtsDadosNominais
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 7
+    end
   end
   object pnlParcelas: TPanel
     Left = 0
-    Top = 119
+    Top = 157
     Width = 702
     Height = 317
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 3
+    ExplicitTop = 119
     object Bevel3: TBevel
       Left = 305
       Top = 0
@@ -951,7 +982,7 @@ inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
     Interval = 500
     OnTimer = tmrAlertaTimer
     Left = 344
-    Top = 447
+    Top = 367
   end
   object cdsDadosNominais: TClientDataSet
     Aggregates = <>
@@ -1010,6 +1041,11 @@ inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
       item
         Name = 'NumeroDias'
         DataType = ftInteger
+      end
+      item
+        Name = 'Observacao'
+        DataType = ftString
+        Size = 250
       end>
     IndexDefs = <>
     Params = <>
@@ -1074,6 +1110,10 @@ inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
       FieldName = 'NumeroDias'
       Required = True
       DisplayFormat = '00'
+    end
+    object cdsDadosNominaisObservacao: TStringField
+      FieldName = 'Observacao'
+      Size = 250
     end
   end
   object dtsDadosNominais: TDataSource
