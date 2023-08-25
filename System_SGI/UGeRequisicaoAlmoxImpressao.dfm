@@ -278,7 +278,7 @@ inherited frmGeRequisicaoAlmoxImpressao: TfrmGeRequisicaoAlmoxImpressao
   end
   inherited tlbBotoes: TPanel
     Top = 268
-    ExplicitTop = 266
+    ExplicitTop = 268
   end
   object DspEmpresas: TDataSetProvider
     DataSet = qryEmpresas

@@ -281,8 +281,8 @@
     <Transaction>2023/08/15 16:43:56.000.142,=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGI\Unit1.pas</Transaction>
     <Transaction>2023/08/15 16:48:11.000.850,C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGI\Unit1.dfm=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGI\View\View.RequisicaoAlmox.OrdemSaida.dfm</Transaction>
     <Transaction>2023/08/15 16:48:11.000.850,C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGI\Unit1.pas=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGI\View\View.RequisicaoAlmox.OrdemSaida.pas</Transaction>
-    <Transaction>2023/08/21 23:15:47.443,C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UGeContasAReceberLoteParcela.pas=</Transaction>
-    <Transaction>2023/08/21 23:24:20.918,C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UGeContasAReceber.pas=</Transaction>
+    <Transaction>2023/08/21 23:15:47.000.443,C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UGeContasAReceberLoteParcela.pas=</Transaction>
+    <Transaction>2023/08/21 23:24:20.000.918,C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UGeContasAReceber.pas=</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="..\..\SGE"/>

@@ -70,16 +70,39 @@ type
     QryRelacaoEstoqueAprop: TFDQuery;
     qryRelacaoApropriacaoSintetico: TFDQuery;
     QryRelacaoApropriacaoAnalitico: TFDQuery;
+    frRelacaoProdutoApropriacao: TfrxReport;
+    QryRelacaoProdutoApropriacao: TFDQuery;
+    DspRelacaoProdutoApropriacao: TDataSetProvider;
+    CdsRelacaoProdutoApropriacao: TClientDataSet;
+    FrdsRelacaoProdutoApropriacao: TfrxDBDataset;
+    FrRelacaoEstoqueProdutos: TfrxReport;
+    QryRelacaoEstoqueProdutos: TFDQuery;
+    DspRelacaoEstoqueProdutos: TDataSetProvider;
+    CdsRelacaoEstoqueProdutos: TClientDataSet;
+    FrdsRelacaoEstoqueProdutos: TfrxDBDataset;
+    QryExtratoMovimentoProduto: TFDQuery;
+    DspExtratoMovimentoProduto: TDataSetProvider;
+    CdsExtratoMovimentoProduto: TClientDataSet;
+    FrdsExtratoMovimentoProduto: TfrxDBDataset;
+    frExtratoMovimentoProduto: TfrxReport;
+    lblProduto: TLabel;
+    edProduto: TJvComboEdit;
     procedure FormCreate(Sender: TObject);
     procedure edEmpresaChange(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
+    procedure edProdutoButtonClick(Sender: TObject);
+    procedure edProdutoKeyPress(Sender: TObject; var Key: Char);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     FSQL_RelacaoEstoqueApropS,
     FSQL_RelacaoEstoqueApropA,
+    FSQL_RelacaoEstoqueProdutos,
     FSQL_ApropriacaoGeralS   ,
-    FSQL_ApropriacaoGeralA   : TStringList;
+    FSQL_ApropriacaoGeralA   ,
+    FSQL_ProdutoApropriacao  ,
+    FSQL_ProdutoExtrato      : TStringList;
     IEmpresa     : Array of String;
     ICentroCusto ,
     IGrupo       ,
@@ -94,8 +117,11 @@ type
     procedure CarregarTipoApropriacao;
     procedure MontarRelacaoEstoqueApropSintetico;
     procedure MontarRelacaoEstoqueApropAnalitico;
+    procedure MontarRelacaoEstoqueProdutos;
     procedure MontarApropriacaoSintetico;
     procedure MontarApropriacaoAnalitico;
+    procedure MontarRelacaoProdutoApropriacao;
+    procedure MontarExtratoMovimentoProduto;
   end;
 
 (*
@@ -129,15 +155,23 @@ var
 implementation
 
 uses
-  UConstantesDGE, UDMRecursos, UDMBusiness, UDMNFe;
+  UConstantesDGE,
+  UDMRecursos,
+  UDMBusiness,
+  UDMNFe,
+  UFuncoes,
+  View.Produto;
 
 {$R *.dfm}
 
 const
   REPORT_ESTOQUE_APROPRIACAO_SINTETICO = 0;
   REPORT_ESTOQUE_APROPRIACAO_ANALITICO = 1;
-  REPORT_RELACAO_APROPRIACAO_SINTETICO = 2;
-  REPORT_RELACAO_APROPRIACAO_ANALITICO = 3;
+  REPORT_ESTOQUE_APROPRIACAO_PRODUTOS  = 2;
+  REPORT_RELACAO_APROPRIACAO_SINTETICO = 3;
+  REPORT_RELACAO_APROPRIACAO_ANALITICO = 4;
+  REPORT_RELACAO_PRODUTO_APROPRIACAO   = 5;
+  REPORT_EXTRATO_PRODUTO_APROPRIACAO   = 6;
 
   IDX_SITUACAO_APRORIACAO_PADRAO = 0; // Todas
 
@@ -219,7 +253,7 @@ begin
 
       if ( IEmpresa[I] = gUsuarioLogado.Empresa ) then
         P := I;
-        
+
       Inc(I);
       Next;
     end;
@@ -315,7 +349,7 @@ procedure TfrmGeApropriacaoEstoqueImpressao.FormCreate(Sender: TObject);
 begin
   e1Data.Date := StrToDate('01/' + FormatDateTime('mm/yyyy', GetDateDB));
   e2Data.Date := GetDateDB;
-  edSituacao.ItemIndex := IDX_SITUACAO_APRORIACAO_PADRAO; 
+  edSituacao.ItemIndex := IDX_SITUACAO_APRORIACAO_PADRAO;
 
   inherited;
 
@@ -333,13 +367,36 @@ begin
   FSQL_RelacaoEstoqueApropA := TStringList.Create;
   FSQL_RelacaoEstoqueApropA.AddStrings( QryRelacaoEstoqueAprop.SQL );
 
+  FSQL_RelacaoEstoqueProdutos := TStringList.Create;
+  FSQL_RelacaoEstoqueProdutos.AddStrings( QryRelacaoEstoqueProdutos.SQL );
+
   FSQL_ApropriacaoGeralS := TStringList.Create;
   FSQL_ApropriacaoGeralS.AddStrings( qryRelacaoApropriacaoSintetico.SQL );
 
   FSQL_ApropriacaoGeralA := TStringList.Create;
   FSQL_ApropriacaoGeralA.AddStrings( QryRelacaoApropriacaoAnalitico.SQL );
 
+  FSQL_ProdutoApropriacao := TStringList.Create;
+  FSQL_ProdutoApropriacao.AddStrings( QryRelacaoProdutoApropriacao.SQL );
+
+  FSQL_ProdutoExtrato := TStringList.Create;
+  FSQL_ProdutoExtrato.AddStrings( QryExtratoMovimentoProduto.SQL );
+
   SetAtulizarCustoEstoqueApropriacao(GetDateDB);
+end;
+
+procedure TfrmGeApropriacaoEstoqueImpressao.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  if (Key = VK_DELETE) or ((Shift = [ssCtrl]) and (Key = SYS_KEY_L)) Then
+  begin
+    if ( edProduto.Focused ) then
+    begin
+      edProduto.Tag  := 0;
+      edProduto.Text := EmptyStr;
+    end;
+  end;
+
+  inherited;
 end;
 
 procedure TfrmGeApropriacaoEstoqueImpressao.edEmpresaChange(
@@ -349,14 +406,79 @@ begin
     CarregarCentroCusto;
 end;
 
+procedure TfrmGeApropriacaoEstoqueImpressao.edProdutoButtonClick(Sender: TObject);
+var
+  iCodigo : Integer;
+  sCodigoAlfa,
+  sNome   ,
+  sUnidade,
+  sNCM_SH ,
+  sCST    : String;
+  iUnidade,
+  iCFOP   : Integer;
+  cAliquota   ,
+  cAliquotaPIS,
+  cAliquotaCOFINS ,
+  cValorVenda     ,
+  cValorPromocao  ,
+  cValorIPI       ,
+  cPercentualRedBC,
+  cValorCusto     ,
+  cEstoque        ,
+  cReserva        : Currency;
+begin
+  if SelecionarProdutoParaEntrada(Self,
+    iCodigo,
+    sCodigoAlfa,
+    sNome   ,
+    sUnidade,
+    sNCM_SH ,
+    sCST    ,
+    iUnidade,
+    iCFOP   ,
+    cAliquota   ,
+    cAliquotaPIS,
+    cAliquotaCOFINS ,
+    cValorVenda     ,
+    cValorPromocao  ,
+    cValorIPI       ,
+    cPercentualRedBC,
+    cValorCusto     ,
+    cEstoque        ,
+    cReserva
+  ) then
+  begin
+    edProduto.Tag  := iCodigo;
+    edProduto.Text := sCodigoAlfa + ' - ' + sNome;
+    edProduto.Hint := sCodigoAlfa;
+  end;
+end;
+
+procedure TfrmGeApropriacaoEstoqueImpressao.edProdutoKeyPress(Sender: TObject; var Key: Char);
+begin
+  Key := #0;
+end;
+
 procedure TfrmGeApropriacaoEstoqueImpressao.edRelatorioChange(
   Sender: TObject);
+var
+  aEnabled : Boolean;
 begin
   inherited;
-  lblGrupo.Enabled      := (edRelatorio.ItemIndex in [REPORT_ESTOQUE_APROPRIACAO_SINTETICO, REPORT_ESTOQUE_APROPRIACAO_ANALITICO]);
-  edGrupo.Enabled       := (edRelatorio.ItemIndex in [REPORT_ESTOQUE_APROPRIACAO_SINTETICO, REPORT_ESTOQUE_APROPRIACAO_ANALITICO]);
-  lblFabricante.Enabled := (edRelatorio.ItemIndex in [REPORT_ESTOQUE_APROPRIACAO_SINTETICO, REPORT_ESTOQUE_APROPRIACAO_ANALITICO]);
-  edFabricante.Enabled  := (edRelatorio.ItemIndex in [REPORT_ESTOQUE_APROPRIACAO_SINTETICO, REPORT_ESTOQUE_APROPRIACAO_ANALITICO]);
+  lblProduto.Visible  := (edRelatorio.ItemIndex = REPORT_EXTRATO_PRODUTO_APROPRIACAO);
+  edProduto.Visible   := (edRelatorio.ItemIndex = REPORT_EXTRATO_PRODUTO_APROPRIACAO);
+
+  // Filtros Grupo e Fabricante
+  aEnabled := (edRelatorio.ItemIndex in [
+      REPORT_ESTOQUE_APROPRIACAO_SINTETICO,
+      REPORT_ESTOQUE_APROPRIACAO_ANALITICO,
+      REPORT_ESTOQUE_APROPRIACAO_PRODUTOS
+    ]);
+
+  lblGrupo.Enabled      := aEnabled;
+  edGrupo.Enabled       := lblGrupo.Enabled;
+  lblFabricante.Enabled := aEnabled;
+  edFabricante.Enabled  := lblFabricante.Enabled;
 
   if not edGrupo.Enabled then
     edGrupo.ItemIndex := 0;
@@ -364,13 +486,33 @@ begin
   if not edFabricante.Enabled then
     edFabricante.ItemIndex := 0;
 
-  lblData.Enabled     := (edRelatorio.ItemIndex in [REPORT_RELACAO_APROPRIACAO_SINTETICO, REPORT_RELACAO_APROPRIACAO_ANALITICO]);
-  e1Data.Enabled      := (edRelatorio.ItemIndex in [REPORT_RELACAO_APROPRIACAO_SINTETICO, REPORT_RELACAO_APROPRIACAO_ANALITICO]);
-  e2Data.Enabled      := (edRelatorio.ItemIndex in [REPORT_RELACAO_APROPRIACAO_SINTETICO, REPORT_RELACAO_APROPRIACAO_ANALITICO]);
-  lblSituacao.Enabled := (edRelatorio.ItemIndex in [REPORT_RELACAO_APROPRIACAO_SINTETICO, REPORT_RELACAO_APROPRIACAO_ANALITICO]);
-  edSituacao.Enabled  := (edRelatorio.ItemIndex in [REPORT_RELACAO_APROPRIACAO_SINTETICO, REPORT_RELACAO_APROPRIACAO_ANALITICO]);
-  lblTipoApropriacao.Enabled := (edRelatorio.ItemIndex in [REPORT_RELACAO_APROPRIACAO_SINTETICO, REPORT_RELACAO_APROPRIACAO_ANALITICO]);
-  edTipoApropriacao.Enabled  := (edRelatorio.ItemIndex in [REPORT_RELACAO_APROPRIACAO_SINTETICO, REPORT_RELACAO_APROPRIACAO_ANALITICO]);
+  if (edRelatorio.ItemIndex in [REPORT_EXTRATO_PRODUTO_APROPRIACAO, REPORT_ESTOQUE_APROPRIACAO_PRODUTOS]) then
+  begin
+    edSituacao.ItemIndex := 0;
+    edTipoApropriacao.ItemIndex := 0;
+  end;
+
+  // Filtros Período, Situação e Tipo
+  aEnabled := (edRelatorio.ItemIndex in [
+      REPORT_RELACAO_APROPRIACAO_SINTETICO,
+      REPORT_RELACAO_APROPRIACAO_ANALITICO,
+      REPORT_RELACAO_PRODUTO_APROPRIACAO,
+      REPORT_EXTRATO_PRODUTO_APROPRIACAO
+    ]);
+
+  lblData.Enabled := aEnabled;
+  e1Data.Enabled  := lblData.Enabled;
+  e2Data.Enabled  := lblData.Enabled;
+
+  lblSituacao.Enabled := aEnabled and (edRelatorio.ItemIndex <> REPORT_EXTRATO_PRODUTO_APROPRIACAO);
+  lblSituacao.Visible := (edRelatorio.ItemIndex <> REPORT_EXTRATO_PRODUTO_APROPRIACAO);
+  edSituacao.Enabled  := lblSituacao.Enabled;
+  edSituacao.Visible  := lblSituacao.Visible;
+
+  lblTipoApropriacao.Enabled := aEnabled and (edRelatorio.ItemIndex <> REPORT_EXTRATO_PRODUTO_APROPRIACAO);
+  lblTipoApropriacao.Visible := (edRelatorio.ItemIndex <> REPORT_EXTRATO_PRODUTO_APROPRIACAO);
+  edTipoApropriacao.Enabled  := lblTipoApropriacao.Enabled;
+  edTipoApropriacao.Visible  := lblTipoApropriacao.Visible;
 end;
 
 procedure TfrmGeApropriacaoEstoqueImpressao.MontarRelacaoEstoqueApropAnalitico;
@@ -459,8 +601,103 @@ begin
   end;
 end;
 
+procedure TfrmGeApropriacaoEstoqueImpressao.MontarRelacaoEstoqueProdutos;
+begin
+  try
+    CdsRelacaoEstoqueProdutos.Close;
+
+    with QryRelacaoEstoqueProdutos do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoEstoqueProdutos );
+      SQL.Add('where p.aliquota_tipo = 0');
+      SQL.Add('  and coalesce(xx.empresa, p.codemp) = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+
+      if ( edCentroCusto.ItemIndex > 0 ) then
+        SQL.Add('  and xx.centro_custo = ' + IntToStr(ICentroCusto[edCentroCusto.ItemIndex]));
+
+      if ( edGrupo.ItemIndex > 0 ) then
+        SQL.Add('  and p.codgrupo = ' + IntToStr(IGrupo[edGrupo.ItemIndex]));
+
+      if ( edFabricante.ItemIndex > 0 ) then
+        SQL.Add('  and p.codfabricante = ' + IntToStr(IFabricante[edFabricante.ItemIndex]));
+
+      SQL.Add('order by');
+      SQL.Add('    e.rzsoc');
+      SQL.Add('  , c.descricao');
+      SQL.Add('  , p.descri_apresentacao');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relação de produtos do estoque.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeApropriacaoEstoqueImpressao.MontarRelacaoProdutoApropriacao;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+
+    if ( edTipoApropriacao.ItemIndex = 0 ) then
+      PeriodoRelatorio := Format('Apropriações realizadas no período de %s a %s.', [e1Data.Text, e2Data.Text])
+    else
+      PeriodoRelatorio := Format('Apropriações realizadas no período de %s a %s, para o tipo %s.', [e1Data.Text, e2Data.Text,
+        Trim(Copy(edTipoApropriacao.Text, Pos('-', edTipoApropriacao.Text) + 1, Length(edTipoApropriacao.Text)))]);
+
+    CdsRelacaoProdutoApropriacao.Close;
+
+    with QryRelacaoProdutoApropriacao do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_ProdutoApropriacao );
+      SQL.Add('where a.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
+      SQL.Add('  and a.status  > ' + IntToStr(STATUS_APROPRIACAO_ESTOQUE_EDC));
+
+      if StrIsDateTime(e1Data.Text) then
+        SQL.Add('  and a.data_apropriacao >= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)));
+
+      if StrIsDateTime(e2Data.Text) then
+        SQL.Add('  and a.data_apropriacao <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
+
+      Case edSituacao.ItemIndex of
+        1 : SQL.Add('  and a.status = ' + IntToStr(STATUS_APROPRIACAO_ESTOQUE_ABR));
+        2 : SQL.Add('  and a.status = ' + IntToStr(STATUS_APROPRIACAO_ESTOQUE_ENC));
+        3 : SQL.Add('  and a.status = ' + IntToStr(STATUS_APROPRIACAO_ESTOQUE_CAN));
+      end;
+
+      if ( edTipoApropriacao.ItemIndex > 0 ) then
+        SQL.Add('  and a.tipo = ' + Trim(Copy(edTipoApropriacao.Text, 1, Pos('-', edTipoApropriacao.Text) - 1)));
+
+      SQL.Add('order by');
+      SQL.Add('    a.empresa');
+      SQL.Add('  , a.tipo');
+      SQL.Add('  , f.nomeforn');
+      SQL.Add('  , f.nomefant');
+      SQL.Add('  , a.data_apropriacao');
+      SQL.Add('  , a.ano     ');
+      SQL.Add('  , a.controle');
+      SQL.Add('  , pd.descri_apresentacao');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relatório de produtos das apropriações (por data de emissão).' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
 procedure TfrmGeApropriacaoEstoqueImpressao.btnVisualizarClick(
   Sender: TObject);
+var
+  aGerar : Boolean;
 begin
   Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: '   + #13 +
     Format('- Centro de Custo : %s', [edCentroCusto.Text]) + #13 +
@@ -469,6 +706,7 @@ begin
 
   Screen.Cursor         := crSQLWait;
   btnVisualizar.Enabled := False;
+  aGerar := True;
 
   Case edRelatorio.ItemIndex of
     REPORT_ESTOQUE_APROPRIACAO_SINTETICO:
@@ -485,6 +723,21 @@ begin
         frReport := FrRelacaoEstoqueAprop;
       end;
 
+    REPORT_ESTOQUE_APROPRIACAO_PRODUTOS:
+      begin
+        if (edCentroCusto.ItemIndex = 0) then
+        begin
+          aGerar := False;
+          ShowWarning('Selecione o Centro de Custo para este relatório');
+        end
+        else
+        begin
+          SubTituloRelario := EmptyStr;
+          MontarRelacaoEstoqueProdutos;
+          frReport := FrRelacaoEstoqueProdutos;
+        end;
+      end;
+
     REPORT_RELACAO_APROPRIACAO_SINTETICO:
       begin
         SubTituloRelario := EmptyStr;
@@ -498,9 +751,36 @@ begin
         MontarApropriacaoAnalitico;
         frReport := frRelacaoApropriacaoAnalitico;
       end;
+
+    REPORT_RELACAO_PRODUTO_APROPRIACAO:
+      begin
+        SubTituloRelario := EmptyStr;
+        MontarRelacaoProdutoApropriacao;
+        frReport := frRelacaoProdutoApropriacao;
+      end;
+
+    REPORT_EXTRATO_PRODUTO_APROPRIACAO:
+      begin
+        if ( edProduto.Tag = 0 ) then
+        begin
+          aGerar := False;
+          ShowWarning('Favor selecionar o produto desejado!');
+
+          if edProduto.Visible and edProduto.Enabled then
+            edProduto.SetFocus;
+        end;
+
+        if (edEmpresa.ItemIndex = -1) then
+          edEmpresa.ItemIndex := IndexOfArray(gUsuarioLogado.Empresa, IEmpresa);
+
+        SubTituloRelario := EmptyStr;
+        MontarExtratoMovimentoProduto;
+        frReport := frExtratoMovimentoProduto
+      end;
   end;
 
-  inherited;
+  if aGerar and Assigned(frReport) then
+    inherited;
 
   Screen.Cursor         := crDefault;
   btnVisualizar.Enabled := True;
@@ -533,14 +813,9 @@ begin
         SQL.Add('  and a.data_apropriacao <= ' + QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)));
 
       Case edSituacao.ItemIndex of
-        1:
-          SQL.Add('  and a.status = ' + IntToStr(STATUS_APROPRIACAO_ESTOQUE_ABR));
-
-        2:
-          SQL.Add('  and a.status = ' + IntToStr(STATUS_APROPRIACAO_ESTOQUE_ENC));
-
-        3:
-          SQL.Add('  and a.status = ' + IntToStr(STATUS_APROPRIACAO_ESTOQUE_CAN));
+        1 : SQL.Add('  and a.status = ' + IntToStr(STATUS_APROPRIACAO_ESTOQUE_ABR));
+        2 : SQL.Add('  and a.status = ' + IntToStr(STATUS_APROPRIACAO_ESTOQUE_ENC));
+        3 : SQL.Add('  and a.status = ' + IntToStr(STATUS_APROPRIACAO_ESTOQUE_CAN));
       end;
 
       if ( edTipoApropriacao.ItemIndex > 0 ) then
@@ -568,6 +843,35 @@ begin
     On E : Exception do
     begin
       ShowError('Erro ao tentar montar a relatório sintético de apropriação (por data de emissão).' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeApropriacaoEstoqueImpressao.MontarExtratoMovimentoProduto;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+    PeriodoRelatorio := Format('Apropriações realizadas no período de %s a %s.', [e1Data.Text, e2Data.Text]);
+
+    CdsExtratoMovimentoProduto.Close;
+
+    with QryExtratoMovimentoProduto do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_ProdutoExtrato );
+
+      SQL.Text := StringReplace(SQL.Text, ':empresa', QuotedStr(IEmpresa[edEmpresa.ItemIndex]), [rfReplaceAll]);
+      SQL.Text := StringReplace(SQL.Text, ':produto', QuotedStr(edProduto.Hint), [rfReplaceAll]);
+      SQL.Text := StringReplace(SQL.Text, ':data_inicial', QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)), [rfReplaceAll]);
+      SQL.Text := StringReplace(SQL.Text, ':data_final', QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)), [rfReplaceAll]);
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar o extrato de movimentação do produto.' + #13#13 + E.Message);
 
       Screen.Cursor         := crDefault;
       btnVisualizar.Enabled := True;
