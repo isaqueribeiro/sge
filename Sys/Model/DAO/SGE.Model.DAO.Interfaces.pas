@@ -115,6 +115,7 @@ type
     function Caixa : IModelDAOCustom;
     function CentroCusto : IModelDAOCustom;
     function CentroCustoEmpresa : IModelDAOCustom;
+    function CentroCustoInterno : IModelDAOCustom;
     function CFOP : IModelDAOCustom;
     function Cheque : IModelDAOCustom;
     function Cidade   : IModelDAOCustom;

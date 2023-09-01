@@ -3,6 +3,7 @@ unit SGE.Controller.Impressao.RequisicaoAlmox;
 interface
 
 uses
+  UConstantesDGE,
   SGE.Controller.Impressao.DataModule.RequisicaoAlmox;
 
 type
@@ -10,7 +11,7 @@ type
     ['{04254E10-7563-4D4B-892D-C93B1947E3CE}']
     procedure VisualizarRequisicao(aEmpresa : String; aAno, aCodigo, aCliente : Integer; const aTodosItens: Boolean = True);
     procedure VisualizarManifesto(aEmpresa : String; aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean = True);
-    procedure VisualizarOrdemEntrega(aEmpresa : String; aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean = True);
+    procedure VisualizarOrdemEntrega(aEmpresa : String; aAno, aCodigo, aCliente: Integer; const aFormato : TModeloPapel = TModeloPapel.mrPapelA4; const aTodosItens: Boolean = True);
   end;
 
   TImpressaoRequisicaoAlmox = class(TInterfacedObject, IImpressaoRequisicaoAlmox)
@@ -24,7 +25,7 @@ type
 
       procedure VisualizarRequisicao(aEmpresa : String; aAno, aCodigo, aCliente : Integer; const aTodosItens: Boolean = True);
       procedure VisualizarManifesto(aEmpresa : String; aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean = True);
-      procedure VisualizarOrdemEntrega(aEmpresa : String; aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean = True);
+      procedure VisualizarOrdemEntrega(aEmpresa : String; aAno, aCodigo, aCliente: Integer; const aFormato : TModeloPapel = TModeloPapel.mrPapelA4; const aTodosItens: Boolean = True);
   end;
 
 implementation
@@ -55,10 +56,10 @@ begin
 end;
 
 procedure TImpressaoRequisicaoAlmox.VisualizarOrdemEntrega(aEmpresa: String; aAno, aCodigo, aCliente: Integer;
-  const aTodosItens: Boolean);
+  const aFormato : TModeloPapel; const aTodosItens: Boolean);
 begin
   if FDataModule.CarregarOrdemEntrega(aEmpresa, aAno, aCodigo, aCliente, aTodosItens) then
-    FDataModule.VisualizarOrdemEntrega;
+    FDataModule.VisualizarOrdemEntrega(aFormato);
 end;
 
 procedure TImpressaoRequisicaoAlmox.VisualizarRequisicao(aEmpresa: String; aAno, aCodigo, aCliente: Integer;

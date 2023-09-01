@@ -64,6 +64,7 @@ begin
         .Add('  , u.almox_manifesto_automatico')
         .Add('  , u.usuario_app_id    ')
         .Add('  , u.codigo')
+        .Add('  , u.centro_custo')
         .Add('  , f.funcao   as perfil')
         .Add('  , e.ds_email as email ')
         .Add('  , cast('''' as DMN_VCHAR_150) as senha_atual')
@@ -132,6 +133,9 @@ begin
 
     if (FieldByName('PERM_ALTERAR_VALOR_VENDA').AsInteger = 1) and (FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger = 0) then
       FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger := 1;
+
+    if (FieldByName('CENTRO_CUSTO').AsInteger = 0) then
+      FieldByName('CENTRO_CUSTO').Clear;
   end;
 end;
 
@@ -149,6 +153,7 @@ begin
     FieldByName('NOME').Clear;
     FieldByName('NOMECOMPLETO').Clear;
     FieldByName('USUARIO_APP_ID').Clear;
+    FieldByName('CENTRO_CUSTO').Clear;
   end;
 end;
 

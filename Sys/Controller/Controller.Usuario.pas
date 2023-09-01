@@ -39,6 +39,7 @@ type
       function Empresa  : String;
       function Funcao   : Integer;
       function Vendedor : Integer;
+      function CentroCusto : Integer;
       function AlterarValorVenda : Boolean;
 
       class function GetInstance() : TUsuarioController;
@@ -69,7 +70,7 @@ begin
       SQL.BeginUpdate;
       SQL.Clear;
       SQL.Add('Select');
-      SQL.Add('    u.nome   as login');
+      SQL.Add('    u.nome as login');
       SQL.Add('  , u.senha');
       SQL.Add('  , u.nomecompleto as nome');
       SQL.Add('  , u.codfuncao as funcao');
@@ -80,6 +81,7 @@ begin
       SQL.Add('  , u.perm_alterar_valor_venda as alterar_valor_venda');
       SQL.Add('  , u.usuario_app_id as uuid  ' );
       SQL.Add('  , e.ds_email       as email ' );
+      SQL.Add('  , u.centro_custo');
       SQL.Add('from TBUSERS u');
       SQL.Add('  left join TBFUNCAO f on (f.cod = u.codfuncao)');
       SQL.Add('  left join TBVENDEDOR v on (v.cod = u.vendedor)');
@@ -106,6 +108,7 @@ begin
           .Senha( FieldByName('senha').AsString )
           .Funcao( FieldByName('funcao').AsInteger )
           .Vendedor( FieldByName('vendedor').AsInteger )
+          .CentroCusto( FieldByName('centro_custo').AsInteger )
           .AlterarValorVenda( FieldByName('alterar_valor_venda').AsInteger = 1 )
           .Logado(True);
 
@@ -218,6 +221,11 @@ begin
     .CNPJ( TEmpresaObject(aEmpresa).CNPJ );
 
   FModel.Empresa(ModelEmpresa);
+end;
+
+function TUsuarioController.CentroCusto: Integer;
+begin
+  Result := FModel.CentroCusto;
 end;
 
 constructor TUsuarioCOntroller.Create;

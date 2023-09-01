@@ -7,7 +7,6 @@ inherited FrmPadraoLogin: TFrmPadraoLogin
   OnActivate = FormActivate
   OnDestroy = FormDestroy
   OnKeyPress = FormKeyPress
-  OnShow = FormShow
   ExplicitHeight = 458
   DesignSize = (
     694

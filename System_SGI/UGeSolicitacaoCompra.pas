@@ -95,7 +95,6 @@ type
     fdQryTipoSolicitacao: TFDQuery;
     fdQryUnidade: TFDQuery;
     fdQryTabelaANO: TSmallintField;
-    fdQryTabelaCODIGO: TIntegerField;
     fdQryTabelaNUMERO: TStringField;
     fdQryTabelaTIPO: TSmallintField;
     fdQryTabelaEMPRESA: TStringField;
@@ -116,7 +115,6 @@ type
     fdQryTabelaCANCELADO_USUARIO: TStringField;
     fdQryTabelaCANCELADO_MOTIVO: TMemoField;
     fdQryTabelaLOG_EVENTO: TMemoField;
-    fdQryTabelaITENS: TIntegerField;
     fdQryTabelaCENTRO_CUSTO_NOME: TStringField;
     cdsTabelaItens: TFDQuery;
     updTabelaItens: TFDUpdateSQL;
@@ -133,6 +131,8 @@ type
     cdsTabelaItensCENTRO_CUSTO_NOME: TStringField;
     fdQryProduto: TFDQuery;
     cdsTabelaItensQUANTIDADE: TFMTBCDField;
+    fdQryTabelaCODIGO: TFDAutoIncField;
+    fdQryTabelaITENS: TLargeintField;
     procedure dbCentroCustoSelecionar(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);

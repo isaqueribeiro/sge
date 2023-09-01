@@ -46,6 +46,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
     Top = 0
     Width = 735
     Height = 358
+    Cursor = crHandPoint
     ActivePage = tbsTabela
     Align = alClient
     Images = ImgList
@@ -141,6 +142,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
             Top = 22
             Width = 26
             Height = 26
+            Cursor = crHandPoint
             Hint = 'Clique aqui para executar a pesquisa ...'
             Margins.Top = 7
             Margins.Right = 10
@@ -197,10 +199,6 @@ object ViewPadraoCadastro: TViewPadraoCadastro
     object tbsCadastro: TTabSheet
       Caption = '&Dados'
       ImageIndex = 39
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel8: TBevel
         Left = 0
         Top = 121
@@ -304,6 +302,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       Top = 0
       Width = 75
       Height = 35
+      Cursor = crHandPoint
       Hint = 'Incluir'
       Align = alLeft
       Caption = '&Incluir'
@@ -320,6 +319,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       Top = 0
       Width = 75
       Height = 35
+      Cursor = crHandPoint
       Hint = 'Alterar'
       Align = alLeft
       Caption = '&Alterar'
@@ -336,6 +336,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       Top = 0
       Width = 75
       Height = 35
+      Cursor = crHandPoint
       Hint = 'Excluir'
       Align = alLeft
       Caption = '&Excluir'
@@ -351,6 +352,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       Top = 0
       Width = 75
       Height = 35
+      Cursor = crHandPoint
       Hint = 'Cancelar Inser'#231#227'o/Edi'#231#227'o'
       Align = alLeft
       Caption = '&Cancelar'
@@ -366,6 +368,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       Top = 0
       Width = 75
       Height = 35
+      Cursor = crHandPoint
       Hint = 'Salvar Inser'#231#227'o/Edi'#231#227'o'
       Align = alLeft
       Caption = '&Salvar'
@@ -382,6 +385,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       Top = 0
       Width = 75
       Height = 35
+      Cursor = crHandPoint
       Hint = 'Imprimir Lista'
       Align = alLeft
       Caption = 'Im&primir'
@@ -398,6 +402,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       Top = 0
       Width = 75
       Height = 35
+      Cursor = crHandPoint
       Hint = 'Fechar'
       Align = alRight
       Caption = 'Fechar'
@@ -414,6 +419,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       Top = 0
       Width = 120
       Height = 35
+      Cursor = crHandPoint
       Hint = 'Selecionar registro'
       Align = alRight
       Caption = 'Selecionar (F2)'

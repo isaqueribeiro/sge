@@ -37,6 +37,9 @@ type
     function Vendedor(const Value: IPessoaFisicaModel) : IUsuarioModel; overload;
     function Vendedor : IPessoaFisicaModel; overload;
 
+    function CentroCusto(const Value: Integer)  : IUsuarioModel; overload;
+    function CentroCusto : Integer; overload;
+
     function Logado(const Value: Boolean)  : IUsuarioModel; overload;
     function Logado : Boolean; overload;
 
@@ -63,6 +66,7 @@ type
     function Empresa  : String;
     function Funcao   : Integer;
     function Vendedor : Integer;
+    function CentroCusto : Integer;
     function AlterarValorVenda : Boolean;
   end;
 

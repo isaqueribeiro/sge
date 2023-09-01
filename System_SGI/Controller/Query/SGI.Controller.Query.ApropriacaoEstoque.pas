@@ -30,6 +30,7 @@ type
       function CalcularPercentuais(const aValorReferencia : Currency) : IControllerQueryAproriacaoEstoque; virtual; abstract;
       function AtualizarCusto(aProduto : String; aValorCusto : Currency; aSistema : SmallInt) : IControllerQueryAproriacaoEstoque; overload; virtual; abstract;
       function AtualizarCusto(aData : TDateTime) : IControllerQueryAproriacaoEstoque; overload; virtual; abstract;
+      function AtualizarCustoGeral : IControllerQueryAproriacaoEstoque; virtual; abstract;
   end;
 
   TControllerQueryApropriacaoEstoqueGrupo = class(TControllerQuery, IControllerQueryAproriacaoEstoque)
@@ -53,6 +54,7 @@ type
       function CalcularPercentuais(const aValorReferencia : Currency) : IControllerQueryAproriacaoEstoque;
       function AtualizarCusto(aProduto : String; aValorCusto : Currency; aSistema : SmallInt) : IControllerQueryAproriacaoEstoque; overload; virtual; abstract;
       function AtualizarCusto(aData : TDateTime) : IControllerQueryAproriacaoEstoque; overload; virtual; abstract;
+      function AtualizarCustoGeral : IControllerQueryAproriacaoEstoque; virtual; abstract;
   end;
 
   TControllerQueryApropriacaoEstoqueFabricante = class(TControllerQuery, IControllerQueryAproriacaoEstoque)
@@ -76,6 +78,7 @@ type
       function CalcularPercentuais(const aValorReferencia : Currency) : IControllerQueryAproriacaoEstoque;
       function AtualizarCusto(aProduto : String; aValorCusto : Currency; aSistema : SmallInt) : IControllerQueryAproriacaoEstoque; overload; virtual; abstract;
       function AtualizarCusto(aData : TDateTime) : IControllerQueryAproriacaoEstoque; overload; virtual; abstract;
+      function AtualizarCustoGeral : IControllerQueryAproriacaoEstoque; virtual; abstract;
   end;
 
   TControllerQueryApropriacaoEstoqueProduto = class(TControllerQuery, IControllerQueryAproriacaoEstoque)
@@ -99,6 +102,7 @@ type
       function CalcularPercentuais(const aValorReferencia : Currency) : IControllerQueryAproriacaoEstoque;
       function AtualizarCusto(aProduto : String; aValorCusto : Currency; aSistema : SmallInt) : IControllerQueryAproriacaoEstoque; overload;
       function AtualizarCusto(aData : TDateTime) : IControllerQueryAproriacaoEstoque; overload;
+      function AtualizarCustoGeral : IControllerQueryAproriacaoEstoque;
   end;
 
 implementation
@@ -323,13 +327,22 @@ begin
   FDAO.ExecuteScriptSQL('Execute Procedure SP_UPD_CUSTO_APROP_ENTRADA(' + FormatDateTime('YYYY', aData) + ')');
   // 2. Atualização do Custo das Apropriações de Estoque por Autorizações
   FDAO.ExecuteScriptSQL('Execute Procedure SP_UPD_CUSTO_APROP_AUTORIZ(' + FormatDateTime('YYYY', aData) + ')');
-  // 3. Atualização do Custo do Estoque de Almoxarifado
+  // 3. Atualização do Custo do Estoque de Almoxarifado com base nas apropriações
   FDAO.ExecuteScriptSQL('Execute Procedure SP_UPD_CUSTO_ESTOQUE_APROP(' + FormatDateTime('YYYY', aData) + ')');
-  // 4. Atualização do Custo das Requisições ao Almoxarifado
+  // 4. Atualização do Custo das Requisições ao Almoxarifado com base no custo em estoque
   FDAO.ExecuteScriptSQL('Execute Procedure SP_UPD_CUSTO_ESTOQUE_REQUI(' + FormatDateTime('YYYY', aData) + ')');
-  // 5. Atualização do Custo dos Inventários
+  // 5. Atualização do Custo dos Inventários com base no custo em estoque
   FDAO.ExecuteScriptSQL('Execute Procedure SP_UPD_CUSTO_INVENTARIO_ALMOX(' + FormatDateTime('YYYY', aData) + ')');
 
+  FDAO.CommitTransaction;
+end;
+
+function TControllerQueryApropriacaoEstoqueProduto.AtualizarCustoGeral: IControllerQueryAproriacaoEstoque;
+begin
+  Result := Self;
+
+  // Atualizacao Geral de custo dos produtos em estoque e suas movimentacoes com base nas entradas.
+  FDAO.ExecuteScriptSQL('Execute Procedure SP_UPD_CUSTO_GERAL_ESTOQUE');
   FDAO.CommitTransaction;
 end;
 

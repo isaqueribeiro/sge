@@ -30,8 +30,6 @@ inherited ViewUsuario: TViewUsuario
     ExplicitWidth = 751
     ExplicitHeight = 413
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 743
       ExplicitHeight = 384
       inherited Bevel4: TBevel
@@ -131,7 +129,7 @@ inherited ViewUsuario: TViewUsuario
             Align = alLeft
             BevelOuter = bvNone
             TabOrder = 0
-            object shpUsuarioInativo: TShape
+            object shpRegistroDesativado: TShape
               AlignWithMargins = True
               Left = 3
               Top = 1
@@ -140,7 +138,7 @@ inherited ViewUsuario: TViewUsuario
               Margins.Top = 1
               Margins.Bottom = 1
               Align = alTop
-              Brush.Color = clRed
+              Brush.Color = 10658466
               Pen.Style = psClear
               ExplicitTop = 2
               ExplicitWidth = 19
@@ -154,7 +152,7 @@ inherited ViewUsuario: TViewUsuario
             Align = alClient
             BevelOuter = bvNone
             TabOrder = 1
-            object lblUsuarioInativo: TLabel
+            object lblRegistroDesativado: TLabel
               AlignWithMargins = True
               Left = 3
               Top = 1
@@ -166,7 +164,7 @@ inherited ViewUsuario: TViewUsuario
               AutoSize = False
               Caption = '* Usu'#225'rio inativo'
               Font.Charset = ANSI_CHARSET
-              Font.Color = clBlack
+              Font.Color = 10658466
               Font.Height = -11
               Font.Name = 'Tahoma'
               Font.Style = [fsBold]
@@ -181,8 +179,6 @@ inherited ViewUsuario: TViewUsuario
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 743
       ExplicitHeight = 384
       inherited Bevel8: TBevel
@@ -344,6 +340,7 @@ inherited ViewUsuario: TViewUsuario
           Top = 40
           Width = 201
           Height = 21
+          Cursor = crHandPoint
           DataField = 'CODFUNCAO'
           DataSource = DtSrcTabela
           Font.Charset = DEFAULT_CHARSET
@@ -363,6 +360,7 @@ inherited ViewUsuario: TViewUsuario
         Top = 170
         Width = 743
         Height = 214
+        Cursor = crHandPoint
         ActivePage = tbsVendas
         Align = alClient
         TabOrder = 2
@@ -431,6 +429,7 @@ inherited ViewUsuario: TViewUsuario
               Top = 40
               Width = 393
               Height = 21
+              Cursor = crHandPoint
               DataField = 'VENDEDOR'
               DataSource = DtSrcTabela
               Font.Charset = DEFAULT_CHARSET
@@ -449,6 +448,7 @@ inherited ViewUsuario: TViewUsuario
               Top = 95
               Width = 269
               Height = 21
+              Cursor = crHandPoint
               DataField = 'TIPO_ALTERAR_VALOR_VENDA'
               DataSource = DtSrcTabela
               Font.Charset = DEFAULT_CHARSET
@@ -476,9 +476,17 @@ inherited ViewUsuario: TViewUsuario
             Align = alClient
             Caption = 'Par'#226'metros'
             TabOrder = 0
-            object dbAlmoxManifestoAuto: TDBCheckBox
-              Left = 15
+            object lblCentroCusto: TLabel
+              Left = 16
               Top = 24
+              Width = 116
+              Height = 13
+              Caption = 'Centro de Custo Padr'#227'o'
+              FocusControl = dbCentroCusto
+            end
+            object dbAlmoxManifestoAuto: TDBCheckBox
+              Left = 16
+              Top = 67
               Width = 270
               Height = 33
               Caption = 
@@ -492,10 +500,29 @@ inherited ViewUsuario: TViewUsuario
               Font.Name = 'Tahoma'
               Font.Style = []
               ParentFont = False
-              TabOrder = 0
+              TabOrder = 1
               ValueChecked = '1'
               ValueUnchecked = '0'
               WordWrap = True
+            end
+            object dbCentroCusto: TDBLookupComboBox
+              Left = 16
+              Top = 40
+              Width = 393
+              Height = 21
+              Cursor = crHandPoint
+              DataField = 'CENTRO_CUSTO'
+              DataSource = DtSrcTabela
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              KeyField = 'codigo'
+              ListField = 'descricao'
+              ListSource = DtsCentroCusto
+              ParentFont = False
+              TabOrder = 0
             end
           end
         end
@@ -538,5 +565,9 @@ inherited ViewUsuario: TViewUsuario
   object dtsTipoAlteraValor: TDataSource
     Left = 600
     Top = 312
+  end
+  object DtsCentroCusto: TDataSource
+    Left = 600
+    Top = 344
   end
 end

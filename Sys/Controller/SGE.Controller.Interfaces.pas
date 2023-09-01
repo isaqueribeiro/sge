@@ -33,6 +33,7 @@ type
     function CalcularPercentuais(const aValorReferencia : Currency) : IControllerQueryAproriacaoEstoque;
     function AtualizarCusto(aProduto : String; aValorCusto : Currency; aSistema : SmallInt) : IControllerQueryAproriacaoEstoque; overload;
     function AtualizarCusto(aData : TDateTime) : IControllerQueryAproriacaoEstoque; overload;
+    function AtualizarCustoGeral : IControllerQueryAproriacaoEstoque;
   end;
 
   IControllerCustom = interface(IController)
@@ -312,6 +313,7 @@ type
     function Caixa : IControllerCaixa;
     function CentroCusto        : IControllerCentroCusto;
     function CentroCustoEmpresa : IControllerCustom;
+    function CentroCustoInterno : IControllerCustom;
     function CFOP   : IControllerCFOP;
     function Cheque : IControllerCheque;
     function Cidade : IControllerCustom;

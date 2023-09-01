@@ -153,6 +153,8 @@ type
     ppImprimir: TPopupMenu;
     nmppExtratoMovimentoDiaProduto: TMenuItem;
     Bevel5: TBevel;
+    N1: TMenuItem;
+    nmppAtualizacaoGeral: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -175,6 +177,7 @@ type
     procedure nmppAtualizacaoManualClick(Sender: TObject);
     procedure nmppAtualizacaoAutomaticaClick(Sender: TObject);
     procedure nmppExtratoMovimentoDiaProdutoClick(Sender: TObject);
+    procedure nmppAtualizacaoGeralClick(Sender: TObject);
   private
     { Private declarations }
     FTabelaTotal     ,
@@ -866,6 +869,31 @@ begin
     begin
       WaitAMomentFree;
       TServiceMessage.ShowInformation('Atualização ocorrida com sucesso!');
+    end;
+
+    if dsProduto.DataSet.Active and dsTotal.DataSet.Active then
+    begin
+      dsProduto.DataSet.Close;
+      dsProduto.DataSet.Open;
+      ControllerProduto.CalcularPercentuais(dsTotal.DataSet.FieldByName('CUSTO_DISPONIVEL').AsCurrency);
+    end;
+  finally
+    WaitAMomentFree;
+  end;
+end;
+
+procedure TViewQueryApropriacaoEstoque.nmppAtualizacaoGeralClick(Sender: TObject);
+begin
+  WaitAMoment(WAIT_AMOMENT_Process);
+  try
+    // Executar atualização de custo automático
+    ControllerProduto.AtualizarCusto(Date);
+    ControllerProduto.AtualizarCustoGeral;
+
+    if ( Sender = nmppAtualizacaoAutomatica ) then
+    begin
+      WaitAMomentFree;
+      TServiceMessage.ShowInformation('Atualização Geral ocorrida com sucesso!');
     end;
 
     if dsProduto.DataSet.Active and dsTotal.DataSet.Active then

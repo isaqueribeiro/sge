@@ -160,7 +160,6 @@ type
     fdQryTabelaCANCELADO_DATA: TDateField;
     fdQryTabelaCANCELADO_USUARIO: TStringField;
     fdQryTabelaCANCELADO_MOTIVO: TMemoField;
-    fdQryTabelaITENS: TIntegerField;
     cdsTabelaItens: TFDQuery;
     updTabelaItens: TFDUpdateSQL;
     cdsTabelaItensANO: TSmallintField;
@@ -225,6 +224,7 @@ type
     qryFornecedorVALOR_TOTAL_BRUTO: TFMTBCDField;
     qryFornecedorVALOR_TOTAL_DESCONTO: TFMTBCDField;
     qryFornecedorVALOR_TOTAL_LIQUIDO: TFMTBCDField;
+    fdQryTabelaITENS: TLargeintField;
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure btbtnAlterarClick(Sender: TObject);

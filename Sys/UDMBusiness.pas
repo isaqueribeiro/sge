@@ -124,6 +124,7 @@ type
     updRegistro: TFDUpdateSQL;
     dtsRegistro: TDataSource;
     ACBrMail: TACBrMail;
+    spAtualizarCustoEstoqueGeral: TFDStoredProc;
     procedure DataModuleCreate(Sender: TObject);
     procedure fdScriptBeforeExecute(Sender: TObject);
     procedure fdScriptError(ASender: TObject; const AInitiator: IFDStanObject;
@@ -1852,6 +1853,7 @@ begin
   Screen.Cursor := crSQLWait;
   try
     // 1. Atualização do Custo das Apropriações de Estoque por Entrada
+    // SP_UPD_CUSTO_APROP_ENTRADA
     with DMBusiness, spAtualizarCustoApEntrada do
     begin
       ParamByName('ano').AsSmallInt := StrToInt(FormatDateTime('YYYY', aData));
@@ -1860,6 +1862,7 @@ begin
     end;
 
     // 2. Atualização do Custo das Apropriações de Estoque por Autorizações
+    // SP_UPD_CUSTO_APROP_AUTORIZ
     with DMBusiness, spAtualizarCustoApAutorizacao do
     begin
       ParamByName('ano').AsSmallInt := StrToInt(FormatDateTime('YYYY', aData));
@@ -1868,6 +1871,7 @@ begin
     end;
 
     // 3. Atualização do Custo do Estoque de Almoxarifado
+    // SP_UPD_CUSTO_ESTOQUE_APROP
     with DMBusiness, spAtualizarCustoEstoqueAlmoxarifado do
     begin
       ParamByName('ano').AsSmallInt := StrToInt(FormatDateTime('YYYY', aData));
@@ -1876,6 +1880,7 @@ begin
     end;
 
     // 4. Atualização do Custo das Requisições ao Almoxarifado
+    // SP_UPD_CUSTO_ESTOQUE_REQUI
     with DMBusiness, spAtualizarCustoEstoqueRequisicao do
     begin
       ParamByName('ano_movimento').AsSmallInt := StrToInt(FormatDateTime('YYYY', aData));
@@ -1884,12 +1889,26 @@ begin
     end;
 
     // 5. Atualização do Custo dos Inventários
+    // SP_UPD_CUSTO_INVENTARIO_ALMOX
     with DMBusiness, spAtualizarCustoEstoqueInventario do
     begin
       ParamByName('ano_movimento').AsSmallInt := StrToInt(FormatDateTime('YYYY', aData));
       ExecProc;
       CommitTransaction;
     end;
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure SetAtulizarCustoEstoqueGeral;
+begin
+  // Atualização Geral de custo dos produtos em estoque e suas movimentações
+  // SP_UPD_CUSTO_GERAL_ESTOQUE
+  Screen.Cursor := crSQLWait;
+  try
+    DMBusiness.spAtualizarCustoEstoqueGeral.ExecProc;
+    CommitTransaction;
   finally
     Screen.Cursor := crDefault;
   end;

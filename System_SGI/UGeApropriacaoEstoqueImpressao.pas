@@ -408,49 +408,13 @@ end;
 
 procedure TfrmGeApropriacaoEstoqueImpressao.edProdutoButtonClick(Sender: TObject);
 var
-  iCodigo : Integer;
-  sCodigoAlfa,
-  sNome   ,
-  sUnidade,
-  sNCM_SH ,
-  sCST    : String;
-  iUnidade,
-  iCFOP   : Integer;
-  cAliquota   ,
-  cAliquotaPIS,
-  cAliquotaCOFINS ,
-  cValorVenda     ,
-  cValorPromocao  ,
-  cValorIPI       ,
-  cPercentualRedBC,
-  cValorCusto     ,
-  cEstoque        ,
-  cReserva        : Currency;
+  aProduto : TProdutoServico;
 begin
-  if SelecionarProdutoParaEntrada(Self,
-    iCodigo,
-    sCodigoAlfa,
-    sNome   ,
-    sUnidade,
-    sNCM_SH ,
-    sCST    ,
-    iUnidade,
-    iCFOP   ,
-    cAliquota   ,
-    cAliquotaPIS,
-    cAliquotaCOFINS ,
-    cValorVenda     ,
-    cValorPromocao  ,
-    cValorIPI       ,
-    cPercentualRedBC,
-    cValorCusto     ,
-    cEstoque        ,
-    cReserva
-  ) then
+  if SelecionarProdutoParaEntrada(Self, aProduto) then
   begin
-    edProduto.Tag  := iCodigo;
-    edProduto.Text := sCodigoAlfa + ' - ' + sNome;
-    edProduto.Hint := sCodigoAlfa;
+    edProduto.Tag  := aProduto.aCodigo;
+    edProduto.Text := aProduto.aCodigoAlfa + ' - ' + aProduto.aNome;
+    edProduto.Hint := aProduto.aCodigoAlfa;
   end;
 end;
 
@@ -775,7 +739,7 @@ begin
 
         SubTituloRelario := EmptyStr;
         MontarExtratoMovimentoProduto;
-        frReport := frExtratoMovimentoProduto
+        frReport := frExtratoMovimentoProduto;
       end;
   end;
 

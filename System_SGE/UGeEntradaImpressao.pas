@@ -22,7 +22,6 @@ uses
 type
   TfrmGeEntradaImpressao = class(TfrmGrPadraoImpressao)
     lblData: TLabel;
-    lblSituacao: TLabel;
     edSituacao: TComboBox;
     lblTipoEntrada: TLabel;
     edTipoEntrada: TComboBox;
@@ -55,15 +54,27 @@ type
     dspRelacaoEntradaCFOPSintetico: TDataSetProvider;
     cdsRelacaoEntradaCFOPSintetico: TClientDataSet;
     frdsRelacaoEntradaCFOPSintetico: TfrxDBDataset;
+    edProduto: TJvComboEdit;
+    lblSituacao: TLabel;
+    lblProduto: TLabel;
+    frrHistoricoEntradaProduto: TfrxReport;
+    QryHistoricoEntradaProduto: TFDQuery;
+    DspHistoricoEntradaProduto: TDataSetProvider;
+    CdsHistoricoEntradaProduto: TClientDataSet;
+    FrdsHistoricoEntradaProduto: TfrxDBDataset;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure chkDFInformadaClick(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
+    procedure edProdutoButtonClick(Sender: TObject);
+    procedure edProdutoKeyPress(Sender: TObject; var Key: Char);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
-    FSQL_EntradaGeralS     ,
-    FSQL_EntradaGeralA     ,
-    FSQL_EntradaGeralCfopS : TStringList;
+    FSQL_EntradaGeralS    ,
+    FSQL_EntradaGeralA    ,
+    FSQL_EntradaGeralCfopS,
+    FSQL_ProdutoExtrato   : TStringList;
     IEmpresa : Array of String;
   public
     { Public declarations }
@@ -75,6 +86,7 @@ type
     procedure MontarEntradaGeralAnalitico;
     procedure MontarEntradaRelacaoNotas;
     procedure MontarEntradaCompraCfopSintetica;
+    procedure MontarHistoricoEntradaProduto;
   end;
 
 (*
@@ -103,7 +115,9 @@ uses
   , UConstantesDGE
   , UDMBusiness
   , UDMRecursos
-  , UDMNFe;
+  , UDMNFe
+  , UFuncoes
+  , View.Produto;
 
 {$R *.dfm}
 
@@ -112,6 +126,7 @@ const
   REPORT_RELACAO_ENTRADA_ANALITICO      = 1;
   REPORT_RELACAO_ENTRADA_CFOP_SINTETICO = 2;
   REPORT_RELACAO_ENTRADA_NOTA_FISCAL    = 3;
+  REPORT_HISTORICO_ENTRADA_PRODUTO      = 4;
 
   SITUACAO_ENTRADA_PADRAO = 3; // Entradas Finalizadas e com NF Emitidas
 
@@ -174,6 +189,23 @@ begin
 
   FSQL_EntradaGeralCfopS := TStringList.Create;
   FSQL_EntradaGeralCfopS.AddStrings( qryRelacaoEntradaCFOPSintetico.SQL );
+
+  FSQL_ProdutoExtrato := TStringList.Create;
+  FSQL_ProdutoExtrato.AddStrings( QryHistoricoEntradaProduto.SQL );
+end;
+
+procedure TfrmGeEntradaImpressao.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  if (Key = VK_DELETE) or ((Shift = [ssCtrl]) and (Key = SYS_KEY_L)) Then
+  begin
+    if ( edProduto.Focused ) then
+    begin
+      edProduto.Tag  := 0;
+      edProduto.Text := EmptyStr;
+    end;
+  end;
+
+  inherited;
 end;
 
 procedure TfrmGeEntradaImpressao.MontarEntradaGeralSintetico;
@@ -258,6 +290,8 @@ begin
 end;
 
 procedure TfrmGeEntradaImpressao.btnVisualizarClick(Sender: TObject);
+var
+  aGerar : Boolean;
 begin
   Filtros := 'FILTROS APLICADOS AO MONTAR O RELATÓRIO: '             + #13 +
     Format('- Período        : %s a %s', [e1Data.Text, e2Data.Text]) + #13 +
@@ -268,6 +302,7 @@ begin
 
   Screen.Cursor         := crSQLWait;
   btnVisualizar.Enabled := False;
+  aGerar := True;
 
   Case edRelatorio.ItemIndex of
     // Geral por Data de Emissão
@@ -296,9 +331,29 @@ begin
         MontarEntradaRelacaoNotas;
         frReport := frRelacaoEntradaNotaFiscal;
       end;
+
+    REPORT_HISTORICO_ENTRADA_PRODUTO:
+      begin
+        if ( edProduto.Tag = 0 ) then
+        begin
+          aGerar := False;
+          ShowWarning('Favor selecionar o produto desejado!');
+
+          if edProduto.Visible and edProduto.Enabled then
+            edProduto.SetFocus;
+        end;
+
+        if (edEmpresa.ItemIndex = -1) then
+          edEmpresa.ItemIndex := IndexOfArray(gUsuarioLogado.Empresa, IEmpresa);
+
+        SubTituloRelario := EmptyStr;
+        MontarHistoricoEntradaProduto;
+        frReport := frrHistoricoEntradaProduto;
+      end;
   end;
 
-  inherited;
+  if aGerar and Assigned(frReport) then
+    inherited;
 
   Screen.Cursor         := crDefault;
   btnVisualizar.Enabled := True;
@@ -463,10 +518,45 @@ begin
   end;
 end;
 
+procedure TfrmGeEntradaImpressao.edProdutoButtonClick(Sender: TObject);
+var
+  aProduto : TProdutoServico;
+begin
+  if SelecionarProdutoParaEntrada(Self, aProduto) then
+  begin
+    edProduto.Tag  := aProduto.aCodigo;
+    edProduto.Text := aProduto.aCodigoAlfa + ' - ' + aProduto.aNome;
+    edProduto.Hint := aProduto.aCodigoAlfa;
+  end;
+end;
+
+procedure TfrmGeEntradaImpressao.edProdutoKeyPress(Sender: TObject; var Key: Char);
+begin
+  Key := #0;
+end;
+
 procedure TfrmGeEntradaImpressao.edRelatorioChange(Sender: TObject);
+var
+  aHistorico : Boolean;
 begin
   inherited;
   chkDFInformada.Checked := (edRelatorio.ItemIndex = REPORT_RELACAO_ENTRADA_NOTA_FISCAL);
+
+  aHistorico := (edRelatorio.ItemIndex = REPORT_HISTORICO_ENTRADA_PRODUTO);
+
+  lblSituacao.Visible := not aHistorico;
+  edSituacao.Visible  := lblSituacao.Visible;
+
+  lblProduto.Visible := aHistorico;
+  edProduto.Visible  := lblProduto.Visible;
+
+  lblTipoEntrada.Visible := not aHistorico;
+  edTipoEntrada.Visible  := lblTipoEntrada.Visible;
+
+  lblTipoDocumento.Visible := not aHistorico;
+  edTipoDocumento.Visible  := lblTipoDocumento.Visible;
+
+  chkDFInformada.Visible := not aHistorico;
 end;
 
 procedure TfrmGeEntradaImpressao.MontarEntradaRelacaoNotas;
@@ -534,6 +624,35 @@ begin
     On E : Exception do
     begin
       ShowError('Erro ao tentar montar a relatório sintético de compras (por data de emissão).' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeEntradaImpressao.MontarHistoricoEntradaProduto;
+begin
+  try
+    SubTituloRelario := edSituacao.Text;
+    PeriodoRelatorio := Format('Compras e Saídas realizadas no período de %s a %s.', [e1Data.Text, e2Data.Text]);
+
+    CdsHistoricoEntradaProduto.Close;
+
+    with QryHistoricoEntradaProduto do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_ProdutoExtrato );
+
+      SQL.Text := StringReplace(SQL.Text, ':empresa', QuotedStr(IEmpresa[edEmpresa.ItemIndex]), [rfReplaceAll]);
+      SQL.Text := StringReplace(SQL.Text, ':produto', QuotedStr(edProduto.Hint), [rfReplaceAll]);
+      SQL.Text := StringReplace(SQL.Text, ':data_inicial', QuotedStr(FormatDateTime('yyyy.mm.dd', e1Data.Date)), [rfReplaceAll]);
+      SQL.Text := StringReplace(SQL.Text, ':data_final', QuotedStr(FormatDateTime('yyyy.mm.dd', e2Data.Date)), [rfReplaceAll]);
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar o histórico de movimentação do produto.' + #13#13 + E.Message);
 
       Screen.Cursor         := crDefault;
       btnVisualizar.Enabled := True;

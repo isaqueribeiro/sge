@@ -110,7 +110,6 @@ inherited ViewCliente: TViewCliente
             Width = 158
             TabOrder = 2
             ExplicitLeft = 170
-            ExplicitTop = 25
             ExplicitWidth = 158
           end
           inherited btnFiltrar: TcxButton
@@ -140,7 +139,6 @@ inherited ViewCliente: TViewCliente
               'por CPF / CNPJ'
               'por Cidade'
               'por Telefones')
-            ExplicitTop = 24
           end
         end
         object Panel1: TPanel
@@ -3682,11 +3680,13 @@ inherited ViewCliente: TViewCliente
   object ACBrConsultaCNPJ: TACBrConsultaCNPJ
     ProxyPort = '8080'
     PesquisarIBGE = False
+    IniServicos = 'C:\Delphi\Rio\Studio\20.0\bin\ACBrConsultaCNPJServicos.ini'
     Left = 776
     Top = 352
   end
   object ACBrConsultaCPF: TACBrConsultaCPF
     ProxyPort = '8080'
+    IniServicos = 'C:\Delphi\Rio\Studio\20.0\bin\ACBrConsultaCPFServicos.ini'
     Left = 776
     Top = 304
   end

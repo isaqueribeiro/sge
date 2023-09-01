@@ -1073,4 +1073,12 @@ object DMBusiness: TDMBusiness
     Left = 112
     Top = 456
   end
+  object spAtualizarCustoEstoqueGeral: TFDStoredProc
+    Connection = fdConexao
+    Transaction = fdTransacao
+    UpdateTransaction = fdTransacao
+    StoredProcName = 'SP_UPD_CUSTO_GERAL_ESTOQUE'
+    Left = 608
+    Top = 272
+  end
 end

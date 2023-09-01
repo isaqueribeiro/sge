@@ -40,6 +40,18 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
+  // Table
+  TModelDAOCentroCustoInterno = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
 implementation
 
 { TModelDAOCentroCusto }
@@ -170,6 +182,53 @@ end;
 procedure TModelDAOCentroCustoEmpresa.DataSetAfterOpen(DataSet: TDataSet);
 begin
   SetProviderFlags;
+end;
+
+{ TModelDAOCentroCustoInterno }
+
+constructor TModelDAOCentroCustoInterno.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select distinct')
+        .Add('    c.codigo   ')
+        .Add('  , c.descricao')
+        .Add('  , ci.nome    ')
+        .Add('from TBCENTRO_CUSTO c')
+        .Add('  left join TBCENTRO_CUSTO_EMPRESA e on (e.centro_custo = c.codigo)')
+        .Add('  left join TBCLIENTE ci on (ci.codigo = c.codcliente)')
+        .Add('  ')
+        .Add('where (e.empresa = :empresa)   ')
+        .Add('  or (c.codcliente is null)')
+        .Add('  ')
+        .Add('order by')
+        .Add('    2   ')
+      .&End
+    .ParamByName('empresa', FUsuario.CNPJ)
+    .Open;
+end;
+
+function TModelDAOCentroCustoInterno.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+  begin
+    FConn.Query.ParamByName('empresa', FUsuario.CNPJ);
+    FConn.Query.DataSet.Open;
+  end;
+end;
+
+destructor TModelDAOCentroCustoInterno.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOCentroCustoInterno.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
 end;
 
 end.

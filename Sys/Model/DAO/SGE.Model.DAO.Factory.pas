@@ -62,6 +62,7 @@ type
       FCaixa ,
       FCentroCusto       ,
       FCentroCustoEmpresa,
+      FCentroCustoInterno,
       FCFOP          ,
       FCheque        ,
       FCidade        ,
@@ -178,6 +179,7 @@ type
       function Caixa : IModelDAOCustom;
       function CentroCusto : IModelDAOCustom;
       function CentroCustoEmpresa : IModelDAOCustom;
+      function CentroCustoInterno : IModelDAOCustom;
       function CFOP : IModelDAOCustom;
       function Cheque : IModelDAOCustom;
       function Cidade   : IModelDAOCustom;
@@ -751,6 +753,14 @@ begin
     FCentroCustoEmpresa := TModelDAOCentroCustoEmpresa.New;
 
   Result := FCentroCustoEmpresa;
+end;
+
+function TModelDAOFactory.CentroCustoInterno: IModelDAOCustom;
+begin
+  if not Assigned(FCentroCustoInterno) then
+    FCentroCustoInterno := TModelDAOCentroCustoInterno.New;
+
+  Result := FCentroCustoInterno;
 end;
 
 function TModelDAOFactory.CFOP: IModelDAOCustom;

@@ -49,9 +49,11 @@ type
     FController: IUsuario;
     FEmpresa   : IEmpresa;
     shpUsuario : TShape;
+
     procedure Destacar(const aDestaque : Boolean);
     procedure SetController(const Value: IUsuario);
     procedure CarregarEmpresa; virtual;
+    procedure SelecionarEmpresa;
 
     function Autenticar : Boolean; virtual;
   public
@@ -67,6 +69,8 @@ implementation
 {$R *.dfm}
 
 Uses
+  Service.Utils,
+  Classe.Empresa,
   Controller.Factory,
   UDMBusiness;
 
@@ -194,6 +198,22 @@ begin
   edtSenha.Text   := 'Elohim';
   cmbEmpresa.ItemIndex := 0;
   {$ENDIF}
+
+  SelecionarEmpresa;
+end;
+
+procedure TFrmPadraoLogin.SelecionarEmpresa;
+var
+  I : Integer;
+begin
+  for I := 0 to Pred(cmbEmpresa.Items.Count) do
+  begin
+    if (TEmpresaObject(cmbEmpresa.Items.Objects[I]).CNPJ = TServicesUtils.StrOnlyNumbers(Licenca.CNPJ)) then
+    begin
+      cmbEmpresa.ItemIndex := I;
+      Break;
+    end;
+  end;
 end;
 
 procedure TFrmPadraoLogin.SetController(const Value: IUsuario);

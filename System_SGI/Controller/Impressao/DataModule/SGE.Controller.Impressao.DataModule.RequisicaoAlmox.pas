@@ -40,7 +40,8 @@ type
     qryRequisicaoAlmox: TFDQuery;
     qryDestinatario: TFDQuery;
     frdCliente: TfrxDBDataset;
-    frrOrdemEntrega: TfrxReport;
+    frrOrdemEntregaA4: TfrxReport;
+    frrOrdemEntregaA5: TfrxReport;
     procedure DataModuleCreate(Sender: TObject);
     procedure frrRequisicaoAlmoxGetValue(const VarName: string; var Value: Variant);
   private
@@ -52,7 +53,7 @@ type
     { Public declarations }
     procedure VisualizarRequisicaoAlmox;
     procedure VisualizarManifestoAlmox;
-    procedure VisualizarOrdemEntrega;
+    procedure VisualizarOrdemEntrega(const aFormato : TModeloPapel = TModeloPapel.mrPapelA4);
 
     function CarregarRequisicaoAlmox(aEmpresa : String; aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean): Boolean;
     function CarregarManifestoAlmox(aEmpresa: String; aAno, aCodigo, aCliente: Integer; const aTodosItens: Boolean): Boolean;
@@ -193,11 +194,21 @@ begin
   frrManifestoAlmox.ShowReport;
 end;
 
-procedure TDataModuleRequisicaoAlmox.VisualizarOrdemEntrega;
+procedure TDataModuleRequisicaoAlmox.VisualizarOrdemEntrega(const aFormato : TModeloPapel);
 begin
-  SetVariablesDefault(frrOrdemEntrega);
-  frrOrdemEntrega.PrepareReport;
-  frrOrdemEntrega.ShowReport;
+  if (aFormato = TModeloPapel.mrPapelA4) then
+  begin
+    SetVariablesDefault(frrOrdemEntregaA4);
+    frrOrdemEntregaA4.PrepareReport;
+    frrOrdemEntregaA4.ShowReport;
+  end
+  else
+  if (aFormato = TModeloPapel.mrPapelA5) then
+  begin
+    SetVariablesDefault(frrOrdemEntregaA5);
+    frrOrdemEntregaA5.PrepareReport;
+    frrOrdemEntregaA5.ShowReport;
+  end;
 end;
 
 procedure TDataModuleRequisicaoAlmox.VisualizarRequisicaoAlmox;

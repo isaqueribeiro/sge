@@ -59,6 +59,7 @@ type
       FCaixa : IControllerCaixa;
       FCentroCusto        : IControllerCentroCusto;
       FCentroCustoEmpresa : IControllerCustom;
+      FCentroCustoInterno : IControllerCustom;
       FCFOP   : IControllerCFOP;
       FCheque : IControllerCheque;
       FCidade,
@@ -169,6 +170,7 @@ type
       function Caixa : IControllerCaixa;
       function CentroCusto : IControllerCentroCusto;
       function CentroCustoEmpresa : IControllerCustom;
+      function CentroCustoInterno : IControllerCustom;
       function CFOP : IControllerCFOP;
       function Cheque : IControllerCheque;
       function Cidade : IControllerCustom;
@@ -522,6 +524,14 @@ begin
     FCentroCustoEmpresa := TControllerCentroCustoEmpresa.New;
 
   Result := FCentroCustoEmpresa;
+end;
+
+function TControllerFactory.CentroCustoInterno: IControllerCustom;
+begin
+  if not Assigned(FCentroCustoInterno) then
+    FCentroCustoInterno := TControllerCentroCustoInterno.New;
+
+  Result := FCentroCustoInterno;
 end;
 
 function TControllerFactory.CFOP: IControllerCFOP;

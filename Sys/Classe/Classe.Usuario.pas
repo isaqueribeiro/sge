@@ -4,8 +4,16 @@ interface
 
 Uses
   System.SysUtils,
-  Classe.Pessoa, Classe.PessoaFisica, Classe.Empresa, Classe.Funcao,
-  Interacao.Pessoa, Interacao.Usuario, Interacao.Funcao, Interacao.Empresa;
+
+  Classe.Pessoa,
+  Classe.PessoaFisica,
+  Classe.Empresa,
+  Classe.Funcao,
+
+  Interacao.Pessoa,
+  Interacao.Usuario,
+  Interacao.Funcao,
+  Interacao.Empresa;
 
 type
   TUsuario = class(TPessoa, IUsuarioModel)
@@ -18,6 +26,7 @@ type
       FEmail  ,
       FSenha  : String;
       FFuncao : IFuncao;
+      FCentroCusto : Integer;
       FLogado ,
       FAlterarValorVenda : Boolean;
       FVendedor : IPessoaFisicaModel;
@@ -52,6 +61,9 @@ type
       function Vendedor(const Value: IPessoaFisicaModel) : IUsuarioModel; overload;
       function Vendedor : IPessoaFisicaModel; overload;
 
+      function CentroCusto(const Value: Integer)  : IUsuarioModel; overload;
+      function CentroCusto : Integer; overload;
+
       function Logado(const Value: Boolean)  : IUsuarioModel; overload;
       function Logado : Boolean; overload;
 
@@ -82,6 +94,17 @@ begin
   FAlterarValorVenda := Value;
 end;
 
+function TUsuario.CentroCusto: Integer;
+begin
+  Result := FCentroCusto;
+end;
+
+function TUsuario.CentroCusto(const Value: Integer): IUsuarioModel;
+begin
+  Result := Self;
+  FCentroCusto := Value;
+end;
+
 function TUsuario.CNPJ: String;
 begin
   Result := FEmpresa.CNPJ;
@@ -101,6 +124,7 @@ begin
   FFuncao   := TFuncao.New;
   FVendedor := TPessoaFisica.New;
   FEmpresa  := TEmpresa.New;
+  FCentroCusto := 0;
 end;
 
 destructor TUsuario.Destroy;

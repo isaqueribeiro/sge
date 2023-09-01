@@ -146,8 +146,9 @@ type
     lblOperacaoAberta: TLabel;
     lblOperacaoCancelada: TLabel;
     lblOperacaoEditando: TLabel;
-    nmImprimirOrdemEntrega: TMenuItem;
+    nmImprimirOrdemEntregaA4: TMenuItem;
     N1: TMenuItem;
+    nmImprimirOrdemEntregaA5: TMenuItem;
     procedure dbCentroCustoSelecionar(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
@@ -190,7 +191,7 @@ type
     procedure fdQryTabelaINSERCAO_DATAGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure ControllerAfterScroll(DataSet: TDataSet);
     procedure btbtnCancelarClick(Sender: TObject);
-    procedure nmImprimirOrdemEntregaClick(Sender: TObject);
+    procedure nmImprimirOrdemEntregaA4Click(Sender: TObject);
   private
     { Private declarations }
     FImpressao : IImpressaoRequisicaoAlmox;
@@ -521,7 +522,8 @@ begin
 
     nmImprimirRequisicaoAlmox.Enabled := (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ENV, STATUS_REQUISICAO_ALMOX_REC, STATUS_REQUISICAO_ALMOX_ATD]);
     nmImprimirManifesto.Enabled       := (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ATD]);
-    nmImprimirOrdemEntrega.Enabled    := (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ATD]);
+    nmImprimirOrdemEntregaA4.Enabled  := (FieldByName('STATUS').AsInteger in [STATUS_REQUISICAO_ALMOX_ATD]);
+    nmImprimirOrdemEntregaA5.Enabled  := nmImprimirOrdemEntregaA4.Enabled;
   end;
 end;
 
@@ -1773,7 +1775,7 @@ begin
   end;
 end;
 
-procedure TViewRequisicaoAlmox.nmImprimirOrdemEntregaClick(Sender: TObject);
+procedure TViewRequisicaoAlmox.nmImprimirOrdemEntregaA4Click(Sender: TObject);
 begin
   if DtSrcTabela.DataSet.IsEmpty then
     Exit;
@@ -1787,12 +1789,14 @@ begin
     if not Assigned(FImpressao) then
       FImpressao := TImpressaoRequisicaoAlmox.New;
 
+
     FImpressao
       .VisualizarOrdemEntrega(
         DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString,
         DtSrcTabela.DataSet.FieldByName('ANO').AsInteger,
         DtSrcTabela.DataSet.FieldByName('CONTROLE').AsInteger,
         DtSrcTabela.DataSet.FieldByName('CC_ORIGEM_CODCLIENTE').AsInteger,
+        TModeloPapel((Sender as TComponent).Tag),
         False
       );
   end;

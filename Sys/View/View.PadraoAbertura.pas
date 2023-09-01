@@ -58,6 +58,7 @@ type
 
     property VersaoController : IVersao read FVersao;
     property PersonalizaController : IPersonalizaEmpresa read FPersonaliza;
+    property Licenca : ILicenca read FLicenca;
 
     procedure LoadInformation(); virtual;
     procedure SetMensagem(aInfo : String); virtual;

@@ -10,7 +10,7 @@ uses
 
   cxContainer, cxEdit, cxMaskEdit, cxDropDownEdit, cxImageComboBox,
   cxLookupEdit, cxDBEdit, cxDBLookupEdit, cxDBLookupComboBox,
-  Interacao.Usuario;
+  Interacao.Usuario, Vcl.Buttons;
 
 type
   TfrmGrPadrao = class(TForm)
@@ -36,6 +36,7 @@ type
     procedure SetCampoCadastroAtivo(const Value: String);
     procedure SetOnEnterExit( const Win : TWinControl );
     procedure LabelTransparente;
+    procedure ConfigurarCursorPadrao;
 
     function GetRotinaPaiID : String;
   public
@@ -302,6 +303,26 @@ begin
     Key := #0;
 end;
 
+procedure TfrmGrPadrao.ConfigurarCursorPadrao;
+var
+  I : Integer;
+begin
+  for I := 0 to Self.ComponentCount - 1 do
+  begin
+    if (Components[I] is TButton) then
+      TButton(Components[I]).Cursor := crHourGlass
+    else
+    if (Components[I] is TBitBtn) then
+      TButton(Components[I]).Cursor := crHourGlass
+    else
+    if (Components[I] is TPageControl) then
+      TPageControl(Components[I]).Cursor := crHourGlass
+    else
+    if (Components[I] is TCustomControl) then
+      TCustomControl(Components[I]).Cursor := crHourGlass;
+  end;
+end;
+
 procedure TfrmGrPadrao.ControlEditEnter(Sender: TObject);
 var
   s   : TComponentName;
@@ -442,6 +463,8 @@ begin
   CampoCadastroAtivo := EmptyStr;
   NomeTabela     := EmptyStr;
   GeneratorName  := EmptyStr;
+//
+//  ConfigurarCursorPadrao;
 end;
 
 procedure TfrmGrPadrao.FormDestroy(Sender: TObject);

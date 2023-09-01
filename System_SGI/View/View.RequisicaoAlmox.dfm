@@ -2499,9 +2499,14 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
     object N1: TMenuItem
       Caption = '-'
     end
-    object nmImprimirOrdemEntrega: TMenuItem
-      Caption = 'Ordem de Entrega'
-      OnClick = nmImprimirOrdemEntregaClick
+    object nmImprimirOrdemEntregaA4: TMenuItem
+      Caption = 'Ordem de Entrega - Formato A4 (Normal)'
+      OnClick = nmImprimirOrdemEntregaA4Click
+    end
+    object nmImprimirOrdemEntregaA5: TMenuItem
+      Tag = 1
+      Caption = 'Ordem de Entrega - Formato A5 (Pequeno)'
+      OnClick = nmImprimirOrdemEntregaA4Click
     end
   end
   object dtsTipoRequisicao: TDataSource

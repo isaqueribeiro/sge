@@ -27,8 +27,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -628,10 +626,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           TabOrder = 12
           object TbsSolicitacaoObjeto: TTabSheet
             Caption = 'Objeto da Solicita'#231#227'o'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbObjeto: TDBMemo
               Left = 0
               Top = 0
@@ -653,10 +647,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           object TbsSolicitacaoMotivo: TTabSheet
             Caption = 'Motivo da Solicita'#231#227'o'
             ImageIndex = 3
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMotivo: TDBMemo
               Left = 0
               Top = 0
@@ -678,10 +668,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           object TbsSolicitacaoObservacao: TTabSheet
             Caption = 'Observa'#231#245'es Gerais'
             ImageIndex = 1
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbObservacao: TDBMemo
               Left = 0
               Top = 0
@@ -703,10 +689,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           object TbsSolicitacaoCancelado: TTabSheet
             Caption = 'Motivo do Cancelamento'
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -962,10 +944,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
         object tbsEventoLOG: TTabSheet
           Caption = 'LOG de Eventos'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbEventoLOG: TDBMemo
             Left = 0
             Top = 0
@@ -3655,13 +3633,13 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
       Origin = 'ANO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object fdQryTabelaCODIGO: TIntegerField
-      AutoGenerateValue = arAutoInc
+    object fdQryTabelaCODIGO: TFDAutoIncField
       DisplayLabel = 'C'#243'digo'
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       DisplayFormat = '###0000000'
+      IdentityInsert = True
     end
     object fdQryTabelaNUMERO: TStringField
       DisplayLabel = 'N'#250'mero'
@@ -3770,7 +3748,7 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
       Origin = 'LOG_EVENTO'
       BlobType = ftMemo
     end
-    object fdQryTabelaITENS: TIntegerField
+    object fdQryTabelaITENS: TLargeintField
       AutoGenerateValue = arDefault
       DisplayLabel = 'Itens'
       FieldName = 'ITENS'

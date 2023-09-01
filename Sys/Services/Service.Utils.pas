@@ -44,6 +44,8 @@ type
       class function StrMetafonema(Value : String) : String;
       class function EmailValido(aEmail : String;
         const aDominio : TDomainMail = TDomainMail.domainMainComBr): Boolean;
+
+      class function IsValidPercent(Value : Double) : Boolean;
   end;
 
 implementation
@@ -206,6 +208,11 @@ begin
       aResource.DisposeOf;
     end;
   end;
+end;
+
+class function TServicesUtils.IsValidPercent(Value: Double): Boolean;
+begin
+  Result := (Value >= 0.0) and (Value <= 100.0);
 end;
 
 class procedure TServicesUtils.ResourceImage(aResourceName: String; aImage: TImage);

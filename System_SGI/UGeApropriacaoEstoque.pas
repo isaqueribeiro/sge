@@ -674,8 +674,9 @@ end;
 
 procedure TfrmGeApropriacaoEstoque.cdsTabelaItensAfterScroll(DataSet: TDataSet);
 begin
-  CarregarUnidadeProduto( cdsTabelaItensPRODUTO.AsString );
-  if ( cdsTabelaItensQTDE_TIPO_LANCAMENTO.AsInteger = 0 ) then
+  CarregarUnidadeProduto(cdsTabelaItensPRODUTO.AsString);
+
+  if (cdsTabelaItensQTDE_TIPO_LANCAMENTO.AsInteger = 0) then
     dbQuantidade.DataField := cdsTabelaItensQTDE.FieldName
   else
     dbQuantidade.DataField := cdsTabelaItensQTDE_FRACIONADA.FieldName;

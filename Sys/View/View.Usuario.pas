@@ -81,14 +81,15 @@ type
     dbTipoAlteraValorVendaItem: TDBLookupComboBox;
     pnlStatus: TPanel;
     pnlSatusColor: TPanel;
-    shpUsuarioInativo: TShape;
+    shpRegistroDesativado: TShape;
     pnlStatusText: TPanel;
-    lblUsuarioInativo: TLabel;
+    lblRegistroDesativado: TLabel;
+    lblCentroCusto: TLabel;
+    dbCentroCusto: TDBLookupComboBox;
+    DtsCentroCusto: TDataSource;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
-    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
-      DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure dbTipoAlteraValorVendaItemClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
     procedure DtSrcTabelaDataChange(Sender: TObject; Field: TField);
@@ -97,6 +98,7 @@ type
     FControllerPerfil  ,
     FControllerVendedor,
     FControllerTipoDescontoView : IControllerCustom;
+    FControllerCentroCusto : IControllerCustom;
 
     function Controller : IControllerUsuario;
   public
@@ -123,6 +125,7 @@ implementation
 uses
   UDMRecursos,
   Service.Message,
+  Service.Utils,
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper;
@@ -169,6 +172,7 @@ begin
   FControllerPerfil := TControllerFactory.New.Perfil;
   FControllerVendedor := TControllerFactory.New.Vendedor;
   FControllerTipoDescontoView := TControllerFactory.New.TipoDescontoView;
+  FControllerCentroCusto := TControllerFactory.New.CentroCustoInterno;
 
   inherited;
   RotinaID            := ROTINA_CAD_USUARIO_ID;
@@ -182,11 +186,12 @@ begin
   CampoCadastroAtivo := 'u.ativo';
 
   Tabela
-    .Display('COD',  'Código', DisplayFormatCodigo, TAlignment.taCenter, True)
+    .Display('CODIGO', 'Código', DisplayFormatCodigo, TAlignment.taCenter, True)
     .Display('NOME', 'Login', True)
     .Display('NOMECOMPLETO', 'Primeiro e Último Nome', True)
     .Display('CODFUNCAO', 'Perfil de Acesso', True)
     .Display('PERFIL',    'Perfil de Acesso', False)
+    .Display('CENTRO_CUSTO', 'Centro de Custo Padrão/Principal', True)
     .Display('LIMIDESC',  '% Desconto', ',0.00', TAlignment.taRightJustify, False);
 
   AbrirTabelaAuto := True;
@@ -202,6 +207,9 @@ begin
 
   TController(FControllerTipoDescontoView)
     .LookupComboBox(dbTipoAlteraValorVendaItem, dtsTipoAlteraValor, 'tipo_alterar_valor_venda', 'codigo', 'descricao');
+
+  TController(FControllerCentroCusto)
+    .LookupComboBox(dbCentroCusto, DtsCentroCusto, 'centro_custo', 'codigo', 'descricao');
 
   dbAlterarValorVendaItem.Visible    := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_IND, SISTEMA_GESTAO_OPME]);
   dbTipoAlteraValorVendaItem.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_GESTAO_OPME]);
@@ -231,13 +239,13 @@ begin
 
   FControllerVendedor.DAO.DataSet.Filtered := (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]);
 
-  if ( DtSrcTabela.DataSet.State = dsInsert ) then
+  if (DtSrcTabela.DataSet.State = dsInsert) then
   begin
     dbLogin.ReadOnly := False;
     dbLogin.Color    := dbSenha.Color;
   end
   else
-  if ( DtSrcTabela.DataSet.State = dsEdit ) then
+  if (DtSrcTabela.DataSet.State = dsEdit) then
   begin
     dbLogin.ReadOnly := True;
     dbLogin.Color    := dbCodigo.Color;
@@ -255,10 +263,8 @@ begin
         Exit;
       end;
 
-    if ( (FieldByName('LIMIDESC').AsCurrency < 0) or (FieldByName('LIMIDESC').AsCurrency > 100) ) then
-    begin
-      TServiceMessage.ShowWarning('O Percentual de desconto informado é inválido!');
-    end
+    if (not TServicesUtils.IsValidPercent(FieldByName('LIMIDESC').AsCurrency)) then
+      TServiceMessage.ShowWarning('O Percentual de desconto informado é inválido!')
     else
     begin
 
@@ -279,20 +285,6 @@ end;
 function TViewUsuario.Controller: IControllerUsuario;
 begin
   Result := (FController as IControllerUsuario);
-end;
-
-procedure TViewUsuario.dbgDadosDrawColumnCell(Sender: TObject;
-  const Rect: TRect; DataCol: Integer; Column: TColumn;
-  State: TGridDrawState);
-begin
-  inherited;
-  if (Sender = dbgDados) then
-  begin
-    if (DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger = 0 ) then
-      dbgDados.Canvas.Font.Color := shpUsuarioInativo.Brush.Color;
-
-    dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
-  end;
 end;
 
 procedure TViewUsuario.dbTipoAlteraValorVendaItemClick(Sender: TObject);

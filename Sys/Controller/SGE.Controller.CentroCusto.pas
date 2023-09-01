@@ -35,6 +35,16 @@ type
       class function New : IControllerCustom;
   end;
 
+  // Table
+  TControllerCentroCustoInterno = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
 implementation
 
 uses
@@ -183,6 +193,23 @@ begin
 end;
 
 class function TControllerCentroCustoEmpresa.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerCentroCustoInterno }
+
+constructor TControllerCentroCustoInterno.Create;
+begin
+  inherited Create(TModelDAOFactory.New.CentroCustoInterno);
+end;
+
+destructor TControllerCentroCustoInterno.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerCentroCustoInterno.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

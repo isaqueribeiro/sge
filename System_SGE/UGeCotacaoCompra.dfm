@@ -642,10 +642,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
           TabOrder = 12
           object TbsCotacaoMotivo: TTabSheet
             Caption = 'Motivo do pedido de cota'#231#227'o'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMotivo: TDBMemo
               Left = 0
               Top = 0
@@ -1101,10 +1097,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         object tbsFornecedor: TTabSheet
           Caption = 'Fornecedores'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel11: TBevel
             Left = 0
             Top = 0
@@ -4518,11 +4510,13 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       Origin = 'CANCELADO_MOTIVO'
       BlobType = ftMemo
     end
-    object fdQryTabelaITENS: TIntegerField
+    object fdQryTabelaITENS: TLargeintField
       AutoGenerateValue = arDefault
+      DisplayLabel = 'Itens'
       FieldName = 'ITENS'
       Origin = 'ITENS'
       ProviderFlags = []
+      ReadOnly = True
       DisplayFormat = ',0'
     end
     object fdQryTabelaVALOR_REF_TOTAL: TFMTBCDField
