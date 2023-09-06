@@ -1,10 +1,10 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 24/08/2023 22:28:00     #
+#    Gerado por AGIL SOFTWARES em : 06/09/2023 11:05:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
 - Atualização das Taxas Tributárias para JAN/2023 até JUN/2023.
-- Novos relatórios de Apropriação de Estoque
+- Novos relatórios de Entrada e Apropriação de Estoque
 - Manifesto e baixa de notas fiscais recebidas
 - Outros ajustes na otimização de processos.}
 
@@ -35,7 +35,8 @@
 #url25=http://www.drhtransparencia.com.br/agil/upgrade/db/01003205.sql
 #url26=http://www.drhtransparencia.com.br/agil/upgrade/db/01003300.sql
 #url27=http://www.drhtransparencia.com.br/agil/upgrade/db/01003303.sql
+#url28=http://www.drhtransparencia.com.br/agil/upgrade/db/01003304.sql
 
 #method=0 (self-upgrade)
 
-#version=1.0.33.3
+#version=1.0.33.4

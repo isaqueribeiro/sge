@@ -44,7 +44,6 @@ type
     edAno: TComboBox;
     lblEmpresa: TLabel;
     edEmpresa: TComboBox;
-    ckSemEstoqueVenda: TCheckBox;
     frExtratoMovimentoProduto_IND: TfrxReport;
     DspExtratoMovimentoProduto: TDataSetProvider;
     CdsExtratoMovimentoProduto: TClientDataSet;
@@ -62,7 +61,18 @@ type
     QryDemandaProduto: TFDQuery;
     QryExtratoMovimentoProduto: TFDQuery;
     frRelacaoProdutoValor: TfrxReport;
-    ckComEstoqueVenda: TCheckBox;
+    lblEstoque: TLabel;
+    edEstoque: TComboBox;
+    frxReport1: TfrxReport;
+    FDQuery1: TFDQuery;
+    DataSetProvider1: TDataSetProvider;
+    ClientDataSet1: TClientDataSet;
+    frxDBDataset1: TfrxDBDataset;
+    QryRelacaoProdutoFracionado: TFDQuery;
+    DspRelacaoProdutoFracionado: TDataSetProvider;
+    CdsRelacaoProdutoFracionado: TClientDataSet;
+    FrdsRelacaoProdutoFracionado: TfrxDBDataset;
+    frrRelacaoProdutoFracionado: TfrxReport;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -70,12 +80,12 @@ type
     procedure edProdutoButtonClick(Sender: TObject);
     procedure edProdutoKeyPress(Sender: TObject; var Key: Char);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure ckSemEstoqueVendaClick(Sender: TObject);
-    procedure ckComEstoqueVendaClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     FSQL_RelacaoProduto ,
     FSQL_DemandaProduto ,
+    FSQL_RelacaoProdutoFracao    ,
     FSQL_ExtratoMovimentoProduto : TStringList;
     IGrupo ,
     IFabricante : Array of Integer;
@@ -88,6 +98,7 @@ type
 
     procedure MontarRelacaoProduto;
     procedure MontarDemandaProduto;
+    procedure MontarRelacaoProdutoFracionado;
     procedure MontarExtratoMovimentoProduto;
   public
     { Public declarations }
@@ -140,7 +151,8 @@ const
   REPORT_RELACAO_PRODUTO          = 0;
   REPORT_RELACAO_CUSTO_VENDA_PROD = 1;
   REPORT_DEMANDA_PRODUTO          = 2;
-  REPORT_EXTRATO_MOV_PRODUTO      = 3;
+  REPORT_RELACAO_PRODUTO_FRACAO   = 3;
+  REPORT_EXTRATO_MOV_PRODUTO      = 4;
 
 {$R *.dfm}
 
@@ -170,8 +182,8 @@ procedure TfrmGeProdutoImpressao.FormCreate(Sender: TObject);
 var
   I : Integer;
 begin
-  lblProduto.Top := lblAno.Top;
-  edProduto.Top  := edAno.Top;
+  lblProduto.Top := lblEstoque.Top;
+  edProduto.Top  := edEstoque.Top;
 
   // VW_PRODUTO_DEMANDA_ANUAL     -- Para Comércio
   // VW_PRODUTO_DEMANDA_ANUAL_IND -- Para Indústria
@@ -233,10 +245,22 @@ begin
   FSQL_DemandaProduto := TStringList.Create;
   FSQL_DemandaProduto.AddStrings( QryDemandaProduto.SQL );
 
+  FSQL_RelacaoProdutoFracao := TStringList.Create;
+  FSQL_RelacaoProdutoFracao.AddStrings( QryRelacaoProdutoFracionado.SQL );
+
   FSQL_ExtratoMovimentoProduto := TStringList.Create;
   FSQL_ExtratoMovimentoProduto.AddStrings( QryExtratoMovimentoProduto.SQL );
 
   SetAtulizarCustoEstoque(GetDateDB);
+end;
+
+procedure TfrmGeProdutoImpressao.FormDestroy(Sender: TObject);
+begin
+  FSQL_RelacaoProduto.DisposeOf;
+  FSQL_DemandaProduto.DisposeOf;
+  FSQL_RelacaoProdutoFracao.DisposeOf;
+  FSQL_ExtratoMovimentoProduto.DisposeOf;
+  inherited;
 end;
 
 procedure TfrmGeProdutoImpressao.FormKeyDown(Sender: TObject; var Key: Word;
@@ -284,7 +308,7 @@ begin
         SQL.Add('  and p.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
       end;
 
-      if ckSemEstoqueVenda.Checked then
+      if (edEstoque.ItemIndex = 1) then
       begin
         if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
           SQL.Add('  and coalesce(ep.estoque_almox, 0) <= 0')
@@ -292,7 +316,7 @@ begin
           SQL.Add('  and p.qtde <= 0');
       end
       else
-      if ckComEstoqueVenda.Checked then
+      if (edEstoque.ItemIndex = 2) then
       begin
         if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
           SQL.Add('  and coalesce(ep.estoque_almox, 0) > 0')
@@ -310,6 +334,68 @@ begin
     On E : Exception do
     begin
       ShowError('Erro ao tentar montar a relação de ' + StrDescricaoProduto + '.' + #13#13 + E.Message);
+
+      Screen.Cursor         := crDefault;
+      btnVisualizar.Enabled := True;
+    end;
+  end;
+end;
+
+procedure TfrmGeProdutoImpressao.MontarRelacaoProdutoFracionado;
+begin
+  try
+    CdsRelacaoProdutoFracionado.Close;
+
+    with QryRelacaoProdutoFracionado do
+    begin
+      SQL.Clear;
+      SQL.AddStrings( FSQL_RelacaoProdutoFracao );
+      SQL.Add('where (p.arquivo_morto = 0)');
+      SQL.Add('  and (p.fracionador != 1) ');
+
+      Case edTipoRegistro.ItemIndex of
+        1 : SQL.Add('  and (p.aliquota_tipo = 0)');
+        2 : SQL.Add('  and (p.aliquota_tipo = 1)');
+      end;
+
+      if (edGrupo.ItemIndex > 0) then
+        SQL.Add('  and (p.codgrupo = ' + IntToStr(IGrupo[edGrupo.ItemIndex]) + ')');
+
+      if ( edFabricante.ItemIndex > 0 ) then
+        SQL.Add('  and (p.codfabricante = ' + IntToStr(IFabricante[edFabricante.ItemIndex]) + ')');
+
+      if ( edEmpresa.ItemIndex > 0 ) then
+      begin
+        SQL.Text := StringReplace(SQL.Text, '0=0', 'ea.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]), [rfReplaceAll]);
+        SQL.Add('  and (p.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]) + ')');
+      end;
+
+      if (edEstoque.ItemIndex = 1) then
+      begin
+        if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
+          SQL.Add('  and (coalesce(ep.estoque_almox, 0) <= 0)')
+        else
+          SQL.Add('  and (coalesce(p.qtde, 0) <= 0)');
+      end
+      else
+      if (edEstoque.ItemIndex = 2) then
+      begin
+        if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
+          SQL.Add('  and (coalesce(ep.estoque_almox, 0) > 0)')
+        else
+          SQL.Add('  and (coalesce(p.qtde, 0) > 0)');
+      end;
+
+      SQL.Add('order by');
+      SQL.Add('    e.rzsoc');
+      SQL.Add('  , p.aliquota_tipo');
+      SQL.Add('  , coalesce(g.descri, ''* Indefinido'')');
+      SQL.Add('  , p.descri_apresentacao');
+    end;
+  except
+    On E : Exception do
+    begin
+      ShowError('Erro ao tentar montar a relação de produtos fracionados.' + #13#13 + E.Message);
 
       Screen.Cursor         := crDefault;
       btnVisualizar.Enabled := True;
@@ -345,6 +431,13 @@ begin
           SubTituloRelario := '- ANO ' + edAno.Text;
           MontarDemandaProduto;
           frReport := frDemandaProduto;
+        end;
+
+      REPORT_RELACAO_PRODUTO_FRACAO:
+        begin
+          SubTituloRelario := EmptyStr;
+          MontarRelacaoProdutoFracionado;
+          frReport := frrRelacaoProdutoFracionado;
         end;
 
       REPORT_EXTRATO_MOV_PRODUTO:
@@ -406,18 +499,6 @@ begin
   end;
 
   edGrupo.ItemIndex := 0;
-end;
-
-procedure TfrmGeProdutoImpressao.ckComEstoqueVendaClick(Sender: TObject);
-begin
-  if ckComEstoqueVenda.Checked then
-    ckSemEstoqueVenda.Checked := False;
-end;
-
-procedure TfrmGeProdutoImpressao.ckSemEstoqueVendaClick(Sender: TObject);
-begin
-  if ckSemEstoqueVenda.Checked then
-    ckComEstoqueVenda.Checked := False;
 end;
 
 procedure TfrmGeProdutoImpressao.FormShow(Sender: TObject);
@@ -488,7 +569,7 @@ begin
       if ( edEmpresa.ItemIndex > 0 ) then
         SQL.Add('  and p.empresa_cnpj = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
 
-      if ckSemEstoqueVenda.Checked then
+      if (edEstoque.ItemIndex = 1) then
       begin
         if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
           SQL.Add('  and coalesce(ep.estoque_almox, 0) <= 0')
@@ -496,7 +577,7 @@ begin
           SQL.Add('  and p.qtde <= 0');
       end
       else
-      if ckComEstoqueVenda.Checked then
+      if (edEstoque.ItemIndex = 2) then
       begin
         if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
           SQL.Add('  and coalesce(ep.estoque_almox, 0) > 0')
@@ -539,7 +620,7 @@ begin
       if ( edProduto.Tag > 0 ) then
         SQL.Add(' and ex.produto = ' + QuotedStr(Trim(Copy(edProduto.Text, 1, Pos('-', edProduto.Text) - 1))));
 
-      if ckSemEstoqueVenda.Checked then
+      if (edEstoque.ItemIndex = 1) then
       begin
         if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
           SQL.Add('  and coalesce(ep.estoque_almox, 0) <= 0')
@@ -547,7 +628,7 @@ begin
           SQL.Add('  and p.qtde <= 0');
       end
       else
-      if ckComEstoqueVenda.Checked then
+      if (edEstoque.ItemIndex = 2) then
       begin
         if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
           SQL.Add('  and coalesce(ep.estoque_almox, 0) > 0')
@@ -668,10 +749,12 @@ begin
   edTipoRegistro.Enabled  := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
   lblProduto.Visible := (edRelatorio.ItemIndex = REPORT_EXTRATO_MOV_PRODUTO);
   edProduto.Visible  := (edRelatorio.ItemIndex = REPORT_EXTRATO_MOV_PRODUTO);
+
   lblAno.Visible     := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
-  edAno.Visible      := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
-  ckSemEstoqueVenda.Visible := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
-  ckComEstoqueVenda.Visible := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
+  edAno.Visible      := lblAno.Visible;
+
+  lblEstoque.Visible := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
+  edEstoque.Visible  := lblEstoque.Visible;
 end;
 
 procedure TfrmGeProdutoImpressao.CarregarDadosEmpresa;
