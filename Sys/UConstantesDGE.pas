@@ -61,6 +61,14 @@ Uses
     Numero     : Integer;
   end;
 
+  TContrato = record
+    Controle   : Int64;
+    Destino    : Smallint;
+    Cliente    : Integer;
+    Fornecedor : Integer;
+    Numero     : String;
+  end;
+
   TLoteEnvioNFE = record
     Ano    : Integer;
     Numero : Integer;
@@ -75,15 +83,6 @@ Uses
     Valor  : Currency;
     Data   : TDateTime;
   end;
-
-  TContrato = record
-    Controle : Int64;
-    Empresa  : String;
-    Cliente  : Integer;
-    Fornecedor : Integer;
-    Numero   : String;
-  end;
-
 
 const
   VERSION_NUMBER     = '1.0.33.0';

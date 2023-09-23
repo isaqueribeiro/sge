@@ -533,7 +533,7 @@ end;
 procedure TfrmPrinc.BrBtnGestaoContatoClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_MOV_GESTAO_CONTRATO_ID, True) then
-    FormFunction.ShowModalForm(Self, 'ViewGestaoContrato');
+    FormFunction.ShowModalForm(Self, 'ViewContrato');
 end;
 
 procedure TfrmPrinc.BrBtnNotaFiscalComplementarClick(Sender: TObject);

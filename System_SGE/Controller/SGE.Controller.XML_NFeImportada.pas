@@ -96,7 +96,8 @@ begin
       .SQL('Select')
       .SQL('    min(substring(nsu from 2 for 14)) as nsu_min')
       .SQL('from TBNFE_IMPORTADA')
-      .SQL('where (empresa = ' + QuotedStr(aEmpresa.Trim) + ')');
+      .SQL('where (empresa = ' + QuotedStr(aEmpresa.Trim) + ')')
+      .Open;
 
     aNumero := StrToInt64Def(IDAO.DataSet.FieldByName('nsu_min').AsString, 2) - 1;
 
@@ -110,7 +111,8 @@ begin
         .SQL('Select')
         .SQL('    max(substring(nsu from 2 for 14)) as nsu_max')
         .SQL('from TBNFE_IMPORTADA')
-        .SQL('where (empresa = ' + QuotedStr(aEmpresa.Trim) + ')');
+        .SQL('where (empresa = ' + QuotedStr(aEmpresa.Trim) + ')')
+        .Open;
 
       aNumero := StrToInt64Def(IDAO.DataSet.FieldByName('nsu_max').AsString, 2) + 1;
     end;

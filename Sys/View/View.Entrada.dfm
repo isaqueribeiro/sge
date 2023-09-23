@@ -442,8 +442,6 @@ inherited ViewEntrada: TViewEntrada
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1093
       ExplicitHeight = 605
       inherited Bevel8: TBevel
@@ -1713,11 +1711,12 @@ inherited ViewEntrada: TViewEntrada
           end
           object Bevel13: TBevel
             Left = 0
-            Top = 13
+            Top = 108
             Width = 1085
             Height = 4
             Align = alTop
             Shape = bsSpacer
+            ExplicitTop = 13
             ExplicitWidth = 1098
           end
           object lblTipoDespesa: TLabel
@@ -1732,7 +1731,7 @@ inherited ViewEntrada: TViewEntrada
           end
           object dbObservacao: TDBMemo
             Left = 0
-            Top = 17
+            Top = 13
             Width = 1085
             Height = 95
             Align = alTop
@@ -3846,7 +3845,8 @@ inherited ViewEntrada: TViewEntrada
     end
     inherited btbtnExcluir: TcxButton
       Left = 258
-      ExplicitLeft = 258
+      ExplicitLeft = 256
+      ExplicitTop = -2
     end
     inherited btbtnCancelar: TcxButton
       Left = 337

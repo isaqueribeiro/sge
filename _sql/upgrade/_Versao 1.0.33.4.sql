@@ -211,3 +211,15 @@ Historico:
     31/08/2023 - IMR :
         + Criacao e documentacao do objeto.';
 
+
+ALTER TABLE TBFUNCAO
+    ADD ATIVO DMN_LOGICO;
+
+COMMENT ON COLUMN TBFUNCAO.ATIVO IS
+'Ativo:
+0 - Nao
+1 - Sim';
+
+UPDATE TBFUNCAO
+SET ATIVO = 1;
+

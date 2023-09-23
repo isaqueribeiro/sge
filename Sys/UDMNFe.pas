@@ -6872,10 +6872,14 @@ end;
 
 function TDMNFe.GetCnpjCertificado : String;
 begin
-  if Assigned(ACBrNFe.SSL) then
-    Result := OnlyNumber(ACBrNFe.SSL.CertCNPJ)
-  else
+  try
+    if Assigned(ACBrNFe.SSL) then
+      Result := OnlyNumber(ACBrNFe.SSL.CertCNPJ)
+    else
+      Result := EmptyStr;
+  except
     Result := EmptyStr;
+  end;
 end;
 
 function TDMNFe.GetDiretorioLoteXml: String;

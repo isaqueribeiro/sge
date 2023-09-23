@@ -183,14 +183,17 @@ end;
 
 procedure TModelDAOContrato.SituacaoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
 begin
-  Case Sender.AsInteger of
-    STATUS_CONTRATO_EDIT   : Text := 'Em edição';
-    STATUS_CONTRATO_DISPO  : Text := 'Disponível';
-    STATUS_CONTRATO_FINAL  : Text := 'Encerrado';
-    STATUS_CONTRATO_CANCEL : Text := 'Cancelado';
-    else
-      Text := Sender.AsString;
-  end;
+  if Sender.IsNull then
+    Text := Sender.AsString
+  else
+    Case Sender.AsInteger of
+      STATUS_CONTRATO_EDIT   : Text := 'Em edição';
+      STATUS_CONTRATO_DISPO  : Text := 'Disponível';
+      STATUS_CONTRATO_FINAL  : Text := 'Encerrado';
+      STATUS_CONTRATO_CANCEL : Text := 'Cancelado';
+      else
+        Text := Sender.AsString;
+    end;
 end;
 
 { TModelDAOTipoContratoView }
@@ -316,6 +319,9 @@ end;
 procedure TModelDAOContratoItem.SetProviderFlags;
 begin
   // Ignorar campos no Insert e Update
+  // Campos com atualização automática
+  FConn.Query.DataSet.FieldByName('consumo_qtde').ProviderFlags  := [];
+  FConn.Query.DataSet.FieldByName('consumo_total').ProviderFlags := [];
   // Campos calculados
   FConn.Query.DataSet.FieldByName('total').ProviderFlags       := [];
   FConn.Query.DataSet.FieldByName('saldo_qtde').ProviderFlags  := [];

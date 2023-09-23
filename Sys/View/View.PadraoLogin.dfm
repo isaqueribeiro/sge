@@ -21,6 +21,9 @@ inherited FrmPadraoLogin: TFrmPadraoLogin
     Top = 402
     ExplicitTop = 402
   end
+  inherited btnFechar: TSpeedButton
+    Cursor = crHandPoint
+  end
   object lblUsuario: TLabel
     Left = 165
     Top = 236
@@ -100,6 +103,7 @@ inherited FrmPadraoLogin: TFrmPadraoLogin
     Top = 299
     Width = 335
     Height = 27
+    Cursor = crHandPoint
     BevelInner = bvNone
     BevelOuter = bvNone
     Ctl3D = True
@@ -121,6 +125,7 @@ inherited FrmPadraoLogin: TFrmPadraoLogin
     Top = 332
     Width = 131
     Height = 41
+    Cursor = crHandPoint
     Caption = 'Entrar'
     Font.Charset = ANSI_CHARSET
     Font.Color = 937000

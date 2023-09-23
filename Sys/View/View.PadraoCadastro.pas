@@ -563,6 +563,7 @@ begin
                 if ( pgcGuias.ActivePageIndex = 0 ) then
                   if ( btbtnFechar.Enabled ) then
                     btbtnFechar.Click;
+
     VK_UP : if ( (DtSrcTabela.DataSet.Active) and (ActiveControl = edtFiltrar) ) then
               DtSrcTabela.DataSet.Prior;
 
@@ -1128,7 +1129,10 @@ end;
 procedure TViewPadraoCadastro.btbtnListaClick(Sender: TObject);
 begin
   if not GetPermissaoRotinaInterna(Sender, True) then
+  begin
+    fOcorreuErro := True;
     Abort;
+  end;
 end;
 
 procedure TViewPadraoCadastro.GerarSequencial(const pDataSet: TDataSet;

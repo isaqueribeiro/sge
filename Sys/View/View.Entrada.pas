@@ -795,7 +795,7 @@ begin
   DMNFe.LerConfiguracao(FController.DAO.Usuario.Empresa.CNPJ, tipoDANFEFast);
   aNSU := TControllerFactory.New.XML_NFeImportada;
 
-  if (DMNFe.GetCnpjCertificado <> EmptyStr) then
+  if (not Trim(DMNFe.GetCnpjCertificado).IsEmpty) then
   begin
     aUltimoNSU := TControllerFactory.New.ConfigSystem.GetNumeroNSUPesquisado(FController.DAO.Usuario.Empresa.CNPJ);
 
@@ -1359,16 +1359,8 @@ begin
 end;
 
 procedure TViewEntrada.btnProdutoInserirClick(Sender: TObject);
-
-  procedure GerarSequencial(var Seq : Integer);
-  begin
-    Seq := DtSrcTabelaItens.DataSet.RecordCount + 1;
-    while ( DtSrcTabelaItens.DataSet.Locate('SEQ', Seq, []) ) do
-      Seq := Seq + 1;
-  end;
-
 var
-  Sequencial : Integer;
+  aSequencial : Integer;
 begin
   if ( DtSrcTabela.DataSet.FieldByName('CODFORN').AsInteger = 0 ) then
   begin
@@ -1398,10 +1390,10 @@ begin
           Exit;
         end;
 
-    GerarSequencial(Sequencial);
+    Produtos.GerarSequencial(DtSrcTabelaItens.DataSet, 'SEQ', aSequencial);
 
     DtSrcTabelaItens.DataSet.Append;
-    DtSrcTabelaItens.DataSet.FieldByName('SEQ').Value := Sequencial;
+    DtSrcTabelaItens.DataSet.FieldByName('SEQ').Value := aSequencial;
 
     with DtSrcTabela.DataSet do
     begin

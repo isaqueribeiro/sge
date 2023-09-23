@@ -17,8 +17,8 @@ File_14=TSourceModule,'C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\Model\DAO\
 
 [Modules]
 Module0=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMBusiness.pas
-Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\UGeProdutoImpressao.pas
-Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGI\SGI.dproj
+Module1=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGI\SGI.dproj
+Module2=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\UGeProdutoImpressao.pas
 Module3=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMRecursos.pas
 Module4=C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMNFe.pas
 Module5=C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGI\UPrinc.pas
@@ -69,11 +69,11 @@ EditWindowCount=1
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 
-[C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\UGeProdutoImpressao.pas]
-ModuleType=TSourceModule
-
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGI\SGI.dproj]
 ModuleType=TBaseProject
+
+[C:\Users\Isaque\Documents\Projetos\ASS\SGE\System_SGE\UGeProdutoImpressao.pas]
+ModuleType=TSourceModule
 
 [C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
@@ -275,13 +275,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=00000800010100000000760F00000000000001680700000000000001000000005C0E000009000000446F636B536974653301000000007D1B00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=00000800010100000000201300000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000002200001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=00000800010100000000760F00000000000001D00700000000000001000000004412000009000000446F636B536974653201000000007D1B000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=1593
+RightPanelData=00000800010100000000201300000000000001D00700000000000001000000004412000009000000446F636B536974653201000000000022000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=0
 BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020100000009000000446F636B5369746531DE440000000000000239060000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=0000080001020200000009000000446F636B53697465310F0000004D65737361676556696577466F726D1534000000000000022606000000000000FFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -861,8 +861,8 @@ Create=1
 Visible=1
 Docked=0
 State=2
-Left=-9490
-Top=2577
+Left=146
+Top=269
 Width=8932
 Height=8519
 MaxLeft=-5
@@ -897,18 +897,18 @@ StayOnTop=0
 [MessageView]
 PercentageSizes=1
 Create=1
-Visible=1
+Visible=0
 Docked=1
 State=0
 Left=0
-Top=28
-Width=9917
-Height=1385
+Top=0
+Width=2771
+Height=1423
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=9917
-ClientHeight=1385
-TBDockHeight=1385
+ClientWidth=2771
+ClientHeight=1423
+TBDockHeight=1423
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -922,11 +922,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=2183
+Height=3913
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2183
+ClientHeight=3913
 TBDockHeight=7154
 LRDockWidth=2000
 Dockable=1
@@ -960,16 +960,21 @@ State=0
 Left=0
 Top=425
 Width=1896
-Height=3221
+Height=4952
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=3221
+ClientHeight=4952
 TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
 SplitPos=111
+
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem="LiveBindings Designer",
+ExpandedItems="LiveBindings Designer=0"
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -1464,11 +1469,11 @@ State=0
 Left=0
 Top=533
 Width=2000
-Height=2183
+Height=3913
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2183
+ClientHeight=3913
 TBDockHeight=9010
 LRDockWidth=2000
 Dockable=1

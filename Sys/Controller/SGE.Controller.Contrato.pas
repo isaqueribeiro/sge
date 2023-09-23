@@ -31,7 +31,7 @@ type
       procedure CarregarNotas; virtual; abstract;
   end;
 
-  // Produtos/Serviços da Entrada
+  // Produtos/Serviços do Contrato
   TControllerContratoItem = class(TController, IControllerContratoItem)
     private
       FBusca : IModelDAOCustom;
