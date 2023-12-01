@@ -1,1 +1,0 @@
-DCC32.EXE "C:\Delphi\Tokyo\Studio\19.0\source\vcl\Vcl.Consts.pas"
