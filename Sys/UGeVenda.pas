@@ -24,7 +24,8 @@ uses
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
   dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, ACBrBase, ACBrExtenso, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinsDefaultPainters;
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinsDefaultPainters, dxSkinBasic, dxSkinOffice2019Black,
+  dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinTheBezier;
 
 type
   TfrmGeVenda = class(TfrmGrPadraoCadastro)
@@ -2665,10 +2666,7 @@ begin
 
     except
       On E : Exception do
-      begin
-        DMBusiness.ibtrnsctnBusiness.Rollback;
         ShowError('Erro ao tentar gerar títulos de recebimento.' + #13#13 + E.Message);
-      end;
     end;
   finally
   end;

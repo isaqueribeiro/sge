@@ -29,6 +29,8 @@ inherited frmGeVenda: TfrmGeVenda
     ExplicitWidth = 1116
     ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel4: TBevel
@@ -404,8 +406,6 @@ inherited frmGeVenda: TfrmGeVenda
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel
@@ -7166,7 +7166,7 @@ inherited frmGeVenda: TfrmGeVenda
     Top = 361
   end
   object FrReciboA4: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -7280,6 +7280,10 @@ inherited frmGeVenda: TfrmGeVenda
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 98.267780000000000000
         Top = 18.897650000000000000
@@ -7468,6 +7472,10 @@ inherited frmGeVenda: TfrmGeVenda
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 763.465060000000000000
@@ -7528,6 +7536,10 @@ inherited frmGeVenda: TfrmGeVenda
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 317.480520000000000000
         Top = 177.637910000000000000
@@ -7551,7 +7563,7 @@ inherited frmGeVenda: TfrmGeVenda
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F722052696368656432302031302E302E31393034317D5C76
+            67656E657261746F722052696368656432302031302E302E32323632317D5C76
             6965776B696E64345C756331200D0A5C706172645C6C693134305C7269313830
             5C73623132305C73613132305C736C3336305C736C6D756C74315C716A5C6630
             5C66733230205265636562656D6F7320646F20636C69656E7465205C62205B46
@@ -7582,7 +7594,7 @@ inherited frmGeVenda: TfrmGeVenda
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F722052696368656432302031302E302E31393034317D5C76
+            67656E657261746F722052696368656432302031302E302E32323632317D5C76
             6965776B696E64345C756331200D0A5C706172645C6C693138305C7269313830
             5C73623132305C73613132305C736C3336305C736C6D756C74315C71635C625C
             66305C667332345C7061720D0A5C66733332205B546974756C6F5D5C7061720D
@@ -7596,6 +7608,10 @@ inherited frmGeVenda: TfrmGeVenda
       end
       object BndChildAssinatura: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 185.196970000000000000
         Top = 517.795610000000000000
@@ -7661,7 +7677,7 @@ inherited frmGeVenda: TfrmGeVenda
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F722052696368656432302031302E302E31393034317D5C76
+            67656E657261746F722052696368656432302031302E302E32323632317D5C76
             6965776B696E64345C756331200D0A5C706172645C6C693134305C7269313830
             5C73623132305C73613132305C736C3336305C736C6D756C74315C71725C6630
             5C66733230205B4369646164655D2F5B55465D2C205F205F205F206465205F20
@@ -7725,6 +7741,7 @@ inherited frmGeVenda: TfrmGeVenda
       'VALOR_BAIXA_EXTENSO=VALOR_BAIXA_EXTENSO')
     DataSet = CdsRecibo
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 48
     Top = 408
   end

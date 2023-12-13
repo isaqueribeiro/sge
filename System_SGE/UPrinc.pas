@@ -5,17 +5,17 @@ interface
 uses
   System.Threading, StdCtrls, Buttons, //ShellAPI,
 
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Vcl.AppEvnts,
   Dialogs, Menus, ComCtrls, ExtCtrls, jpeg, dxRibbonForm, dxRibbonBackstageView,
   cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters, cxButtons, cxLookAndFeels,
   dxBar, cxControls, cxClasses, dxRibbon, dxRibbonCustomizationForm, cxContainer,
   cxEdit, dxGallery, dxGalleryControl, dxRibbonBackstageViewGalleryControl, cxLabel,
   dxRibbonSkins, dxStatusBar,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinsdxStatusBarPainter,
-  dxSkinsdxRibbonPainter, dxSkinsdxBarPainter, dxSkinsForm, Vcl.AppEvnts, dxSkinsDefaultPainters;
+  dxSkinsCore, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinOffice2019Black,
+  dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinTheBezier, dxSkinsDefaultPainters,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxCore, dxSkinsForm;
 
 type
   TfrmPrinc = class(TdxRibbonForm)

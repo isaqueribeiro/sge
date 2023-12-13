@@ -24,8 +24,6 @@ inherited ViewContrato: TViewContrato
     Height = 483
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitLeft = 10
-    ExplicitTop = -2
     ExplicitWidth = 805
     ExplicitHeight = 483
     inherited tbsTabela: TTabSheet
@@ -105,7 +103,6 @@ inherited ViewContrato: TViewContrato
             Left = 12
             Top = 25
             Width = 80
-            Height = 21
             Margins.Left = 10
             Margins.Top = 10
             Margins.Bottom = 14
@@ -693,6 +690,8 @@ inherited ViewContrato: TViewContrato
         TabOrder = 1
         object tbsProdutos: TTabSheet
           Caption = 'Produtos'
+          ExplicitLeft = 0
+          ExplicitTop = 0
           ExplicitWidth = 281
           ExplicitHeight = 165
           object GrpBxDadosProduto: TGroupBox
@@ -1312,6 +1311,8 @@ inherited ViewContrato: TViewContrato
           ImageIndex = 2
           ExplicitLeft = 0
           ExplicitTop = 26
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             AlignWithMargins = True
             Left = 10
@@ -1334,6 +1335,8 @@ inherited ViewContrato: TViewContrato
         object tbsNotas: TTabSheet
           Caption = 'Notas Emitidas'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
           ExplicitWidth = 281
           ExplicitHeight = 165
         end

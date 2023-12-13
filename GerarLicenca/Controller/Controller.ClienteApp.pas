@@ -43,6 +43,7 @@ type
 
 // DICAS:
 // 1. https://www.youtube.com/watch?v=VUzzpoePoIs
+// 2. https://www.youtube.com/playlist?list=PLB2U9eVzdLhQ7BIFcUEHO6_n9HkxZRYv8
 
 implementation
 
@@ -116,7 +117,7 @@ begin
   try
     ConfigFBRealTime(aTokenID);
     aResponse := TJSONObject.ParseJSONValue(FFBRealTime.Collection('clientes').Key(aDocument).Get.ToJson) as TJSONObject;
-    if (not Assigned(aResponse.GetValue('error'))) then
+    if Assigned(aResponse) and (not Assigned(aResponse.GetValue('error'))) then
     begin
       aRegistro := TJSONObject.ParseJSONValue(aResponse.ToString) as TJSONObject;
 
@@ -145,10 +146,12 @@ begin
             .SGI( aRegistro.GetValue<TJSONObject>('licenca').GetValue<TJSONObject>('sistemas').GetValue<String>('SGI').Equals('true') )
             .SGF( aRegistro.GetValue<TJSONObject>('licenca').GetValue<TJSONObject>('sistemas').GetValue<String>('SGF').Equals('true') )
           .&End
-        .&End;
+        .&End
+        .Registered(True);
     end;
   finally
-    aResponse.DisposeOf;
+    if Assigned(aResponse) then
+      aResponse.DisposeOf;
   end;
 end;
 
@@ -167,7 +170,7 @@ begin
   try
     ConfigFBRealTime(aTokenID);
     aResponse := TJSONObject.ParseJSONValue(FFBRealTime.Collection('clientes').Key('').Get.ToJson) as TJSONObject;
-    if (not Assigned(aResponse.GetValue('error'))) then
+    if Assigned(aResponse) and (not Assigned(aResponse.GetValue('error'))) then
     begin
       aTabela := TJSONObject.ParseJSONValue(aResponse.ToString) as TJSONObject;
       for I := 0 to Pred(aTabela.Count) do
@@ -188,7 +191,8 @@ begin
       end;
     end;
   finally
-    aResponse.DisposeOf;
+    if Assigned(aResponse) then
+      aResponse.DisposeOf;
 
     if Assigned(aTabela) then
       aTabela.DisposeOf;
@@ -258,7 +262,7 @@ begin
   if aOK then
     FCliente.doc(aDoc)
   else
-    raise Exception.Create('Erro ao tentar gravar registro ddo cliente');
+    raise Exception.Create('Erro ao tentar gravar registro do cliente');
 end;
 
 class function TControllerClienteApp.New: IControllerCliente<TControllerClienteApp>;

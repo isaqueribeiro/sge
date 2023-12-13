@@ -47,7 +47,8 @@ type
       const
         API_CODE_PROJECT_USER     = 'applicencaagil';
         API_CODE_PROJECT_REALTIME = 'applicencaagil-default-rtdb';
-        API_FIREBASE = 'AIzaSyDK44Zi7G3m9wDM9sbgQb8FqG-BlDbpa-A';
+        //API_FIREBASE = 'AIzaSyDK44Zi7G3m9wDM9sbgQb8FqG-BlDbpa-A';
+        API_FIREBASE = 'AIzaSyBMS-N5IC18h3sEmKvsazfYWz8x2Bj8Rrg';
     public
       constructor Create;
       destructor Destroy; override;
@@ -396,7 +397,6 @@ begin
 
       aFile.SaveToFile(ExtractFilePath(ParamStr(0)) + '_temp.ini');
 
-
       FCnpjArquivo := Trim(aIni.ReadString('Licenca', 'edCGC', EmptyStr));
     finally
       aIni.DisposeOf;
@@ -432,53 +432,31 @@ begin
 
   if (Sender is TThread) then
   begin
-//    if Assigned(TThread(Sender).FatalException) then
-//      raise Exception.Create('Erro ao tentar sincronizar a licença com o Servidor Web.' + #13 + Exception(TThread(Sender).FatalException).Message)
-//    else
-//    begin
-//      FModel
-//        .UUID(FClient.Entity.UUID)
-//        .Empresa(FClient.Entity.Razao)
-//        .NomeFantasia(FClient.Entity.Fantasia)
-//        .CNPJ(TServicesUtils.StrOnlyNumbers(FClient.Entity.Cnpj))
-//        .Email(FClient.Entity.Email)
-//        .Endereco(FClient.Entity.Endereco.Logradouro)
-//        .Numero(FClient.Entity.Endereco.Numero)
-//        .Bairro(FClient.Entity.Endereco.Bairro)
-//        .Cidade(FClient.Entity.Endereco.Cidade)
-//        .UF(FClient.Entity.Endereco.UF)
-//        .CEP(TServicesUtils.StrOnlyNumbers(FClient.Entity.Endereco.Cep))
-//        .Competencia(FClient.Entity.Licenca.Competencia)
-//        .DataBloqueio(FClient.Entity.Licenca.Bloqueio)
-//        .UsarSGE(FClient.Entity.Licenca.Sistemas.SGE)
-//        .UsarSGO(FClient.Entity.Licenca.Sistemas.SGO)
-//        .UsarSGI(FClient.Entity.Licenca.Sistemas.SGI)
-//        .UsarSGF(FClient.Entity.Licenca.Sistemas.SGF);
-//
-//      GravarDadosEmpresa;
-//    end;
     if not Assigned(TThread(Sender).FatalException) then
     begin
-      FModel
-        .UUID(FClient.Entity.UUID)
-        .Empresa(FClient.Entity.Razao)
-        .NomeFantasia(FClient.Entity.Fantasia)
-        .CNPJ(TServicesUtils.StrOnlyNumbers(FClient.Entity.Cnpj))
-        .Email(FClient.Entity.Email)
-        .Endereco(FClient.Entity.Endereco.Logradouro)
-        .Numero(FClient.Entity.Endereco.Numero)
-        .Bairro(FClient.Entity.Endereco.Bairro)
-        .Cidade(FClient.Entity.Endereco.Cidade)
-        .UF(FClient.Entity.Endereco.UF)
-        .CEP(TServicesUtils.StrOnlyNumbers(FClient.Entity.Endereco.Cep))
-        .Competencia(FClient.Entity.Licenca.Competencia)
-        .DataBloqueio(FClient.Entity.Licenca.Bloqueio)
-        .UsarSGE(FClient.Entity.Licenca.Sistemas.SGE)
-        .UsarSGO(FClient.Entity.Licenca.Sistemas.SGO)
-        .UsarSGI(FClient.Entity.Licenca.Sistemas.SGI)
-        .UsarSGF(FClient.Entity.Licenca.Sistemas.SGF);
+      if FClient.Entity.Registered and (not FClient.Entity.Cnpj.IsEmpty) then
+      begin
+        FModel
+          .UUID(FClient.Entity.UUID)
+          .Empresa(FClient.Entity.Razao)
+          .NomeFantasia(FClient.Entity.Fantasia)
+          .CNPJ(TServicesUtils.StrOnlyNumbers(FClient.Entity.Cnpj))
+          .Email(FClient.Entity.Email)
+          .Endereco(FClient.Entity.Endereco.Logradouro)
+          .Numero(FClient.Entity.Endereco.Numero)
+          .Bairro(FClient.Entity.Endereco.Bairro)
+          .Cidade(FClient.Entity.Endereco.Cidade)
+          .UF(FClient.Entity.Endereco.UF)
+          .CEP(TServicesUtils.StrOnlyNumbers(FClient.Entity.Endereco.Cep))
+          .Competencia(FClient.Entity.Licenca.Competencia)
+          .DataBloqueio(FClient.Entity.Licenca.Bloqueio)
+          .UsarSGE(FClient.Entity.Licenca.Sistemas.SGE)
+          .UsarSGO(FClient.Entity.Licenca.Sistemas.SGO)
+          .UsarSGI(FClient.Entity.Licenca.Sistemas.SGI)
+          .UsarSGF(FClient.Entity.Licenca.Sistemas.SGF);
 
-      GravarDadosEmpresa;
+        GravarDadosEmpresa;
+      end;
     end;
   end;
 end;

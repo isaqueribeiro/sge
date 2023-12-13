@@ -35,6 +35,8 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
+    ExplicitTop = 122
+    ExplicitHeight = 519
     DesignSize = (
       1044
       486)
@@ -42,12 +44,11 @@ object frmPrinc: TfrmPrinc
       Left = 1
       Top = 1
       Width = 1042
-      Height = 464
+      Height = 460
       Align = alClient
       AutoSize = True
       Transparent = True
-      ExplicitLeft = -1
-      ExplicitTop = -5
+      ExplicitHeight = 459
     end
     object imgEmpresa: TImage
       Left = 8
@@ -4413,9 +4414,9 @@ object frmPrinc: TfrmPrinc
     end
     object stbMain: TdxStatusBar
       Left = 1
-      Top = 465
+      Top = 461
       Width = 1042
-      Height = 20
+      Height = 24
       Images = DMRecursos.ImgPrincipal16x16
       Panels = <
         item
@@ -4441,6 +4442,7 @@ object frmPrinc: TfrmPrinc
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
+      ExplicitTop = 465
     end
     object RbnBackstageView: TdxRibbonBackstageView
       Left = 23
@@ -4653,6 +4655,8 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvNone
     DockSite = True
     TabOrder = 1
+    ExplicitTop = 122
+    ExplicitHeight = 519
   end
   object Ribbon: TdxRibbon
     Left = 0
@@ -4846,7 +4850,7 @@ object frmPrinc: TfrmPrinc
     ImageOptions.Images = DMRecursos.ImgPrincipal16x16
     ImageOptions.LargeImages = DMRecursos.ImgPrincipalEnabled
     LookAndFeel.Kind = lfUltraFlat
-    LookAndFeel.SkinName = 'MoneyTwins'
+    LookAndFeel.SkinName = 'Office2007Green'
     PopupMenuLinks = <>
     UseSystemFont = True
     Left = 272

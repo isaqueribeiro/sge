@@ -19,11 +19,10 @@ uses
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client,
   FireDAC.Comp.DataSet,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
-  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light, dxSkinsDefaultPainters;
+  dxSkinsCore, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinOffice2019Black,
+  dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinTheBezier, dxSkinsDefaultPainters,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
   TfrmGrPadraoCadastro = class(TfrmGrPadrao)
@@ -226,9 +225,9 @@ begin
 
   IsClearFieldEmptyStr := True;
 
-  if ( IbDtstTabela.Database = nil ) then
-    IbDtstTabela.Database := DMBusiness.ibdtbsBusiness;
-
+//  if ( IbDtstTabela.Database = nil ) then
+//    IbDtstTabela.Database := DMBusiness.ibdtbsBusiness;
+//
   sSQL := TStringList.Create;
   if (DtSrcTabela.DataSet = IbDtstTabela) then
     sSQL.AddStrings( IbDtstTabela.SelectSQL )

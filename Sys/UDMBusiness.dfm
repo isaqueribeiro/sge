@@ -4,29 +4,6 @@ object DMBusiness: TDMBusiness
   OnDestroy = DataModuleDestroy
   Height = 648
   Width = 1043
-  object ibdtbsBusiness: TIBDatabase
-    DatabaseName = 'localhost/3050:JRCOMERCIO'
-    Params.Strings = (
-      'user_name=SYSDBA'
-      'Password=masterkey'
-      'lc_ctype=ISO8859_2')
-    LoginPrompt = False
-    DefaultTransaction = ibtrnsctnBusiness
-    ServerType = 'IBServer'
-    AllowStreamedConnected = False
-    Left = 40
-    Top = 8
-  end
-  object ibtrnsctnBusiness: TIBTransaction
-    DefaultDatabase = ibdtbsBusiness
-    Params.Strings = (
-      'read_committed'
-      'rec_version'
-      'nowait')
-    AutoStopAction = saCommit
-    Left = 40
-    Top = 64
-  end
   object dtsrcUsers: TDataSource
     DataSet = fdQryUsers
     Left = 896
@@ -50,6 +27,8 @@ object DMBusiness: TDMBusiness
     ShowProgress = True
     OverwritePrompt = False
     DataOnly = False
+    EmbedFontsIfProtected = False
+    InteractiveFormsFontSubset = 'A-Z,a-z,0-9,#43-#47 '
     OpenAfterExport = False
     PrintOptimized = False
     Outline = False
@@ -59,6 +38,7 @@ object DMBusiness: TDMBusiness
     Transparency = False
     Author = 'FastReport'
     Subject = 'FastReport PDF export'
+    Creator = 'FastReport'
     ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
     HideToolbar = False
     HideMenubar = False
@@ -125,7 +105,7 @@ object DMBusiness: TDMBusiness
     Top = 504
   end
   object fastReport: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -885,6 +865,7 @@ object DMBusiness: TDMBusiness
     DataOnly = False
     OpenAfterExport = False
     PictureType = gpPNG
+    ExportType = dxTable
     Left = 120
     Top = 328
   end

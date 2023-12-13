@@ -11,8 +11,8 @@ uses
   Model.Conexao.Interfaces,
   {$ENDIF}
 
-  Windows, Forms, SysUtils, Classes, Controls, IBX.IBDatabase, IniFIles,
-  ShellApi, Printers, DateUtils, IBX.IBQuery, IdCoder, IdCoder3to4, IdCoderMIME,
+  Windows, Forms, SysUtils, Classes, Controls, IniFIles,
+  ShellApi, Printers, DateUtils, IdCoder, IdCoder3to4, IdCoderMIME,
   IdBaseComponent, IdComponent, IdIPWatch, DB, DBClient, Provider, Dialogs, Registry,
 
   frxClass, frxDBSet, frxBarcode, frxChart, frxCross, frxRich, frxExportMail, frxExportXML,
@@ -66,8 +66,6 @@ type
   TBlocoImpressaoCupom = (bicCupomRelatorioGerencial, bicCupom, bicRelatorioGerencial);
 
   TDMBusiness = class(TDataModule)
-    ibdtbsBusiness: TIBDatabase;
-    ibtrnsctnBusiness: TIBTransaction;
     dtsrcUsers: TDataSource;
     IdIPWatch: TIdIPWatch;
     opdLicenca: TOpenDialog;
