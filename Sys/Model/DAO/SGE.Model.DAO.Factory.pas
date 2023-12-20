@@ -83,8 +83,9 @@ type
       FContaAReceber    ,
       FContaCorrente    ,
       FContaCorrenteView,
-      FContrato    ,
-      FContratoItem,
+      FContrato     ,
+      FContratoItem ,
+      FContratoNotas,
       FCorVeiculo ,
       FCST        ,
       FDistrito   ,
@@ -202,6 +203,7 @@ type
       function ContaCorrenteView : IModelDAOCustom;
       function Contrato : IModelDAOCustom;
       function ContratoItem : IModelDAOCustom;
+      function ContratoNotas : IModelDAOCustom;
       function CorVeiculo : IModelDAOCustom;
       function CST : IModelDAOCustom;
       function Distrito : IModelDAOCustom;
@@ -937,6 +939,14 @@ begin
     FContratoItem := TModelDAOContratoItem.New;
 
   Result := FContratoItem;
+end;
+
+function TModelDAOFactory.ContratoNotas: IModelDAOCustom;
+begin
+  if not Assigned(FContratoNotas) then
+    FContratoNotas := TModelDAOContratoNotas.New;
+
+  Result := FContratoNotas;
 end;
 
 function TModelDAOFactory.CorVeiculo: IModelDAOCustom;

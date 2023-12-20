@@ -270,7 +270,7 @@ inherited ViewContrato: TViewContrato
     end
     inherited tbsCadastro: TTabSheet
       ExplicitWidth = 797
-      ExplicitHeight = 419
+      ExplicitHeight = 454
       inherited Bevel8: TBevel
         Width = 797
         ExplicitWidth = 797
@@ -690,10 +690,6 @@ inherited ViewContrato: TViewContrato
         TabOrder = 1
         object tbsProdutos: TTabSheet
           Caption = 'Produtos'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 281
-          ExplicitHeight = 165
           object GrpBxDadosProduto: TGroupBox
             AlignWithMargins = True
             Left = 10
@@ -705,7 +701,6 @@ inherited ViewContrato: TViewContrato
             Align = alTop
             Caption = 'Dados do produto'
             TabOrder = 0
-            ExplicitTop = 0
             object lblProduto: TLabel
               Left = 88
               Top = 24
@@ -877,7 +872,6 @@ inherited ViewContrato: TViewContrato
               Font.Style = [fsBold]
               ParentFont = False
               TabOrder = 0
-              ExplicitHeight = 100
               object btnProdutoInserir: TBitBtn
                 Left = 0
                 Top = 0
@@ -1009,8 +1003,6 @@ inherited ViewContrato: TViewContrato
                 ShowHint = True
                 TabOrder = 1
                 OnClick = btnProdutoEditarClick
-                ExplicitLeft = 6
-                ExplicitTop = 19
               end
               object btnProdutoExcluir: TBitBtn
                 Left = 0
@@ -1346,7 +1338,7 @@ inherited ViewContrato: TViewContrato
   inherited tlbBotoes: TPanel
     Top = 487
     Width = 805
-    ExplicitTop = 452
+    ExplicitTop = 487
     ExplicitWidth = 805
     inherited bvlTool3: TBevel
       Left = 722
@@ -1355,10 +1347,6 @@ inherited ViewContrato: TViewContrato
     inherited bvlTool4: TBevel
       Left = 801
       ExplicitLeft = 801
-    end
-    inherited btbtnSalvar: TcxButton
-      ExplicitLeft = 306
-      ExplicitTop = -2
     end
     inherited btbtnFechar: TcxButton
       Left = 726

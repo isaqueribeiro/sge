@@ -55,6 +55,22 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
+  // Notas (Vendas de Produtos/Serviços) do Contrato
+  TModelDAOContratoNotas = class(TModelDAO, IModelDAOCustom)
+    private
+      procedure SetProviderFlags;
+      procedure DataSetAfterOpen(DataSet: TDataSet);
+      procedure DataSetNewRecord(DataSet: TDataSet);
+      procedure DataSetBeforePost(DataSet: TDataSet);
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+  end;
+
 
 implementation
 
@@ -333,6 +349,93 @@ begin
   FConn.Query.DataSet.FieldByName('unp_descricao').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('unp_sigla').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('unid').ProviderFlags := [];
+end;
+
+{ TModelDAOContratoNotas }
+
+constructor TModelDAOContratoNotas.Create;
+begin
+  inherited Create;
+//  FConn
+//    .Query
+//      .TableName('TBCONTRATO_ITEM')
+//      .AliasTableName('i')
+//      .KeyFields('contrato;item')
+//      .SQL
+//        .Clear
+//        .Add('Select')
+//        .Add('    i.contrato')
+//        .Add('  , i.item    ')
+//        .Add('  , i.produto ')
+//        .Add('  , i.quantidade')
+//        .Add('  , i.unidade   ')
+//        .Add('  , i.valor     ')
+//        .Add('  , i.total     ')
+//        .Add('  , i.consumo_qtde ')
+//        .Add('  , i.consumo_total')
+//        .Add('  , i.saldo_qtde ')
+//        .Add('  , i.saldo_total')
+//        .Add('  , prd.descri   ')
+//        .Add('  , prd.apresentacao ')
+//        .Add('  , prd.descri_apresentacao')
+//        .Add('  , und.unp_descricao')
+//        .Add('  , und.unp_sigla    ')
+//        .Add('  , trim(coalesce(nullif(trim(und.unp_sigla), ''''), und.unp_descricao)) as unid')
+//        .Add('from TBCONTRATO_ITEM i')
+//        .Add('  left join TBPRODUTO prd on (prd.cod = i.produto)')
+//        .Add('  left join TBUNIDADEPROD und on (und.unp_cod = i.unidade)')
+//      .&End
+//      .Where('i.contrato = :contrato')
+//      .ParamByName('controle', 0)
+//    .Open;
+
+  FConn.Query.DataSet.AfterOpen   := DataSetAfterOpen;
+  FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
+  FConn.Query.DataSet.BeforePost  := DataSetBeforePost;
+end;
+
+procedure TModelDAOContratoNotas.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  ;
+end;
+
+procedure TModelDAOContratoNotas.DataSetBeforePost(DataSet: TDataSet);
+begin
+  ;
+end;
+
+procedure TModelDAOContratoNotas.DataSetNewRecord(DataSet: TDataSet);
+begin
+  ;
+end;
+
+destructor TModelDAOContratoNotas.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOContratoNotas.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+procedure TModelDAOContratoNotas.SetProviderFlags;
+begin
+//  // Ignorar campos no Insert e Update
+//  // Campos com atualização automática
+//  FConn.Query.DataSet.FieldByName('consumo_qtde').ProviderFlags  := [];
+//  FConn.Query.DataSet.FieldByName('consumo_total').ProviderFlags := [];
+//  // Campos calculados
+//  FConn.Query.DataSet.FieldByName('total').ProviderFlags       := [];
+//  FConn.Query.DataSet.FieldByName('saldo_qtde').ProviderFlags  := [];
+//  FConn.Query.DataSet.FieldByName('saldo_total').ProviderFlags := [];
+//  // Campos descritivos
+//  FConn.Query.DataSet.FieldByName('descri').ProviderFlags       := [];
+//  FConn.Query.DataSet.FieldByName('apresentacao').ProviderFlags := [];
+//  FConn.Query.DataSet.FieldByName('descri_apresentacao').ProviderFlags := [];
+//  FConn.Query.DataSet.FieldByName('unp_descricao').ProviderFlags := [];
+//  FConn.Query.DataSet.FieldByName('unp_sigla').ProviderFlags := [];
+//  FConn.Query.DataSet.FieldByName('unid').ProviderFlags := [];
 end;
 
 end.

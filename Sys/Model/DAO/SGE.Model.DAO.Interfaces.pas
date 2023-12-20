@@ -138,6 +138,7 @@ type
     function ContaCorrenteView : IModelDAOCustom;
     function Contrato : IModelDAOCustom;
     function ContratoItem : IModelDAOCustom;
+    function ContratoNotas : IModelDAOCustom;
     function CorVeiculo : IModelDAOCustom;
     function CST : IModelDAOCustom;
     function Distrito : IModelDAOCustom;

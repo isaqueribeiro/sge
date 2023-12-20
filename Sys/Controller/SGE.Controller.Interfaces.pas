@@ -140,6 +140,11 @@ type
     function Busca : IModelDAOCustom;
   end;
 
+  IControllerContratoNotas = interface(IControllerCustom)
+    ['{3A6D07E9-0A09-48B3-B3C8-52A1665AF78D}']
+    function Busca : IModelDAOCustom;
+  end;
+
   IControllerPerfil = interface(IControllerCustom)
     ['{AC9FB863-06A6-4EEF-A9A3-2EFE7571A7F6}']
   end;

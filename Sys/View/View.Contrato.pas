@@ -152,7 +152,7 @@ type
     function Controller : IControllerContrato;
     function Empresa : IControllerEmpresa;
     function Itens : IControllerCustom;
-    function Notas : IControllerCustom; virtual; abstract;
+    function Notas : IControllerCustom;
 
   public
     { Public declarations }
@@ -768,6 +768,11 @@ end;
 function TViewContrato.Itens: IControllerCustom;
 begin
   Result := Controller.Itens;
+end;
+
+function TViewContrato.Notas: IControllerCustom;
+begin
+  Result := Controller.Notas;
 end;
 
 procedure TViewContrato.pgcGuiasChange(Sender: TObject);

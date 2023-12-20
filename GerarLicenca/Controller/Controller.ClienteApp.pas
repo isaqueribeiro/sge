@@ -128,6 +128,7 @@ begin
         .Fantasia( aRegistro.GetValue<String>('fantasia') )
         .Cnpj( aRegistro.GetValue<String>('cgc') )
         .Email( aRegistro.GetValue<String>('email') )
+        .Registered( True )
         .Endereco
           .Logradouro( aRegistro.GetValue<TJSONObject>('endereco').GetValue<String>('logradouro') )
           .Numero( aRegistro.GetValue<TJSONObject>('endereco').GetValue<String>('numero') )
@@ -146,8 +147,7 @@ begin
             .SGI( aRegistro.GetValue<TJSONObject>('licenca').GetValue<TJSONObject>('sistemas').GetValue<String>('SGI').Equals('true') )
             .SGF( aRegistro.GetValue<TJSONObject>('licenca').GetValue<TJSONObject>('sistemas').GetValue<String>('SGF').Equals('true') )
           .&End
-        .&End
-        .Registered(True);
+        .&End;
     end;
   finally
     if Assigned(aResponse) then

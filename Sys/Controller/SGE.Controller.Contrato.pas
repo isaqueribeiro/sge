@@ -28,7 +28,7 @@ type
       function Notas : IControllerCustom; virtual; abstract;
 
       procedure CarregarItens;
-      procedure CarregarNotas; virtual; abstract;
+      procedure CarregarNotas;
   end;
 
   // Produtos/Serviços do Contrato
@@ -40,6 +40,19 @@ type
     public
       destructor Destroy; override;
       class function New : IControllerContratoItem;
+
+      function Busca : IModelDAOCustom;
+  end;
+
+  // Notas de vendas ligadas ao Contrato
+  TControllerContratoNotas = class(TController, IControllerContratoNotas)
+    private
+      FBusca : IModelDAOCustom;
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerContratoNotas;
 
       function Busca : IModelDAOCustom;
   end;
@@ -65,6 +78,18 @@ begin
     .DAO
     .Close
     .ParamsByName('controle', FDAO.DataSet.FieldByName('CONTROLE').AsLargeInt)
+    .Open;
+end;
+
+procedure TControllerContrato.CarregarNotas;
+begin
+  if not Assigned(FNotas) then
+    FNotas := TControllerContratoNotas.New;
+
+  FNotas
+    .DAO
+    .Close
+    .ParamsByName('contrato', FDAO.DataSet.FieldByName('CONTROLE').AsLargeInt)
     .Open;
 end;
 
