@@ -82,6 +82,7 @@ type
       FContaCorrenteView  : IControllerCustom;
       FContrato : IControllerContrato;
       FContratoItem : IControllerContratoItem;
+      FContratoNotas : IControllerContratoNotas;
       FCorVeiculo  ,
       FCST         ,
       FDistrito    ,
@@ -193,6 +194,7 @@ type
       function ContaCorrenteView : IControllerCustom;
       function Contrato : IControllerContrato;
       function ContratoItem : IControllerContratoItem;
+      function ContratoNotas : IControllerContratoNotas;
       function CorVeiculo : IControllerCustom;
       function CST : IControllerCustom;
       function Distrito : IControllerCustom;
@@ -708,6 +710,14 @@ begin
     FContratoItem := TControllerContratoItem.New;
 
   Result := FContratoItem;
+end;
+
+function TControllerFactory.ContratoNotas: IControllerContratoNotas;
+begin
+  if not Assigned(FContratoNotas) then
+    FContratoNotas := TControllerContratoNotas.New;
+
+  Result := FContratoNotas;
 end;
 
 function TControllerFactory.CorVeiculo: IControllerCustom;

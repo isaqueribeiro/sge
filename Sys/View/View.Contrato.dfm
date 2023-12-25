@@ -690,6 +690,10 @@ inherited ViewContrato: TViewContrato
         TabOrder = 1
         object tbsProdutos: TTabSheet
           Caption = 'Produtos'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object GrpBxDadosProduto: TGroupBox
             AlignWithMargins = True
             Left = 10

@@ -47,10 +47,9 @@ uses
   cxLookAndFeelPainters,
   cxButtons,
 
-  dxSkinsCore,
-  dxSkinsDefaultPainters, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
-  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinTheBezier,
+  dxSkinsCore, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinOffice2019Black,
+  dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinTheBezier, dxSkinsDefaultPainters,
   dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
 
 type
@@ -175,8 +174,8 @@ uses
   UDMRecursos,
   Service.Message,
   Service.Utils,
-  SGE.Controller.Factory,
   SGE.Controller,
+  SGE.Controller.Factory,
   SGE.Controller.Helper,
   View.Cliente,
   View.Fornecedor;
@@ -204,23 +203,24 @@ end;
 
 procedure TViewContrato.AbrirTabelaNotas;
 begin
-//  Controller.CarregarNotas;
-//
-//  // Configurar tabela das notas
-//  TTabelaController
-//    .New
-//    .Tabela( DtSrcTabelaNotas.DataSet )
-//    .Display('ITEM',       '#', '00', TAlignment.taCenter, True)
-//    .Display('PRODUTO',    'Produto', True)
-//    .Display('QUANTIDADE', 'Qtde.', ',0.##', TAlignment.taRightJustify, True)
-//    .Display('UNIDADE',    'Unidade', True)
-//    .Display('VALOR',      'Valor Unitário (R$)', ',0.00', TAlignment.taRightJustify, True)
-//    .Display('TOTAL',      'Valor Total (R$)', ',0.00', TAlignment.taRightJustify, False)
-//    .Display('CONSUMO_QTDE',  'Qtde. Consumida', ',0.##', TAlignment.taRightJustify, False)
-//    .Display('CONSUMO_TOTAL', 'Total Consumido (R$)', ',0.00', TAlignment.taRightJustify, False)
-//    .Display('SALDO_QTDE',    'Qtde. Saldo', ',0.##', TAlignment.taRightJustify, False)
-//    .Display('SALDO_TOTAL',   'Total Saldo (R$)', ',0.00', TAlignment.taRightJustify, False)
-//    .Configurar;
+  Controller.CarregarNotas;
+
+  // Configurar tabela das notas
+  TTabelaController
+    .New
+    .Tabela( DtSrcTabelaNotas.DataSet )
+    .Display('codcontrol', 'Controle', '##00000', TAlignment.taCenter, True)
+    .Display('numero',     'Venda', TAlignment.taCenter, True)
+    .Display('nota',       'Nota',  True)
+    .Display('dtvenda',    'D. Venda',   'dd/mm/yyyy')
+    .Display('dtemissao',  'D. Emissão', 'dd/mm/yyyy')
+    .Display('nr_itens',   'Itens',       ',0.##', TAlignment.taRightJustify, False)
+    .Display('qt_itens',   'Quantidades', ',0.##', TAlignment.taRightJustify, False)
+    .Display('vl_total_bruto',   'Total Bruto (R$)', ',0.00', TAlignment.taRightJustify, False)
+    .Display('vl_descontos',     'Descontos (R$)',   ',0.00', TAlignment.taRightJustify, False)
+    .Display('vl_total_liquido', 'Total Venda (R$)', ',0.00', TAlignment.taRightJustify, False)
+    .Display('vl_total_nota',    'Valor Nota (R$)',  ',0.00', TAlignment.taRightJustify, False)
+    .Configurar;
 end;
 
 procedure TViewContrato.btbtnAlterarClick(Sender: TObject);
@@ -230,7 +230,7 @@ begin
   RecarregarRegistro;
   with DtSrcTabela.DataSet do
   begin
-    if (FieldByName('situacao').AsInteger > STATUS_CONTRATO_FINAL ) then
+    if (FieldByName('situacao').AsInteger > STATUS_CONTRATO_FINAL) then
     begin
       Case FieldByName('situacao').AsInteger of
         STATUS_CONTRATO_FINAL : aMsg := 'Este contrato não pode ser alterado porque está finalizado.';

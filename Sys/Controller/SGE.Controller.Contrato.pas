@@ -25,7 +25,7 @@ type
       function Busca : IModelDAOCustom;
       function NumeroDuplicado(const aContrato : TContrato) : Boolean;
       function Itens : IControllerCustom;
-      function Notas : IControllerCustom; virtual; abstract;
+      function Notas : IControllerCustom;
 
       procedure CarregarItens;
       procedure CarregarNotas;
@@ -117,6 +117,14 @@ begin
   Result := Self.Create;
 end;
 
+function TControllerContrato.Notas: IControllerCustom;
+begin
+  if not Assigned(FNotas) then
+    FNotas := TControllerContratoNotas.New;
+
+  Result := FNotas;
+end;
+
 function TControllerContrato.NumeroDuplicado(const aContrato: TContrato): Boolean;
 begin
   try
@@ -170,6 +178,29 @@ begin
 end;
 
 class function TControllerContratoItem.New: IControllerContratoItem;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerContratoNotas }
+
+function TControllerContratoNotas.Busca: IModelDAOCustom;
+begin
+  Result := FBusca;
+end;
+
+constructor TControllerContratoNotas.Create;
+begin
+  inherited Create(TModelDAOFactory.New.ContratoNotas);
+  FBusca := TModelDAOFactory.New.Busca;
+end;
+
+destructor TControllerContratoNotas.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerContratoNotas.New: IControllerContratoNotas;
 begin
   Result := Self.Create;
 end;

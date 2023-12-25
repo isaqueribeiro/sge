@@ -341,6 +341,7 @@ type
     function ContaCorrenteView   : IControllerCustom;
     function Contrato : IControllerContrato;
     function ContratoItem : IControllerContratoItem;
+    function ContratoNotas : IControllerContratoNotas;
     function CorVeiculo : IControllerCustom;
     function CST : IControllerCustom;
     function Distrito    : IControllerCustom;

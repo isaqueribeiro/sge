@@ -356,38 +356,51 @@ end;
 constructor TModelDAOContratoNotas.Create;
 begin
   inherited Create;
-//  FConn
-//    .Query
-//      .TableName('TBCONTRATO_ITEM')
-//      .AliasTableName('i')
-//      .KeyFields('contrato;item')
-//      .SQL
-//        .Clear
-//        .Add('Select')
-//        .Add('    i.contrato')
-//        .Add('  , i.item    ')
-//        .Add('  , i.produto ')
-//        .Add('  , i.quantidade')
-//        .Add('  , i.unidade   ')
-//        .Add('  , i.valor     ')
-//        .Add('  , i.total     ')
-//        .Add('  , i.consumo_qtde ')
-//        .Add('  , i.consumo_total')
-//        .Add('  , i.saldo_qtde ')
-//        .Add('  , i.saldo_total')
-//        .Add('  , prd.descri   ')
-//        .Add('  , prd.apresentacao ')
-//        .Add('  , prd.descri_apresentacao')
-//        .Add('  , und.unp_descricao')
-//        .Add('  , und.unp_sigla    ')
-//        .Add('  , trim(coalesce(nullif(trim(und.unp_sigla), ''''), und.unp_descricao)) as unid')
-//        .Add('from TBCONTRATO_ITEM i')
-//        .Add('  left join TBPRODUTO prd on (prd.cod = i.produto)')
-//        .Add('  left join TBUNIDADEPROD und on (und.unp_cod = i.unidade)')
-//      .&End
-//      .Where('i.contrato = :contrato')
-//      .ParamByName('controle', 0)
-//    .Open;
+  FConn
+    .Query
+      .TableName('TBVENDAS')
+      .AliasTableName('vnd')
+      .KeyFields('ano;codcontrol')
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    vnd.ano')
+        .Add('  , vnd.codcontrol')
+        .Add('  , cast(vnd.ano || ''/'' || lpad(vnd.codcontrol, 5, ''0'') as varchar(10)) as numero')
+        .Add('  , lpad(vnd.nfe, 7, ''0'') || ''-'' || lpad(trim(vnd.serie), 2, ''0'')     as nota  ')
+        .Add('  , cast(vnd.dtvenda as Date) as dtvenda  ')
+        .Add('  , vnd.dataemissao           as dtemissao')
+        .Add('  , tmp.nr_itens')
+        .Add('  , tmp.qt_itens')
+        .Add('  , tmp.vl_itens')
+        .Add('  , vnd.totalvenda_bruta as vl_total_bruto')
+        .Add('  , coalesce(vnd.desconto, 0.0) + coalesce(vnd.desconto_cupom, 0.0) as vl_descontos')
+        .Add('  , vnd.totalvenda as vl_total_liquido')
+        .Add('  , coalesce(vnd.nfe_valor_total_nota, vnd.totalvenda) as vl_total_nota')
+        .Add('from TBVENDAS vnd')
+        .Add('  inner join (   ')
+        .Add('    Select       ')
+        .Add('        ivn.ano  ')
+        .Add('      , ivn.codcontrol')
+        .Add('      , ivn.codemp    ')
+        .Add('      , count(ivn.seq) as nr_itens')
+        .Add('      , sum(ivn.qtde)  as qt_itens')
+        .Add('      , sum(ivn.total_liquido) as vl_itens')
+        .Add('    from TVENDASITENS ivn')
+        .Add('    group by   ')
+        .Add('        ivn.ano')
+        .Add('      , ivn.codcontrol')
+        .Add('      , ivn.codemp')
+        .Add('  ) tmp on (tmp.ano = vnd.ano and tmp.codcontrol = vnd.codcontrol and tmp.codemp = vnd.codemp)')
+      .&End
+      .Where('vnd.codcliente != ' + IntToStr(CONSUMIDOR_FINAL_CODIGO))
+      .Where('vnd.status between ' + IntToStr(STATUS_VND_FIN) + ' and ' + IntToStr(STATUS_VND_NFE))
+      .Where('vnd.contrato = :contrato')
+      .OrderBy('vnd.ano')
+      .OrderBy('vnd.codcontrol')
+      .OrderBy('vnd.nfe')
+      .ParamByName('contrato', 0)
+    .Open;
 
   FConn.Query.DataSet.AfterOpen   := DataSetAfterOpen;
   FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
