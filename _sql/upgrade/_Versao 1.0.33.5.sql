@@ -78,3 +78,30 @@ Historico:
         + Criacao dos campos CAIXA_ANO, CAIXA_NUM e CAIXA_PDV para facilitar a identificacao de vendas realizadas, mas
           que ainda nao geraram movimentacao de caixa, nos caixas do usuarios.';
 
+
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_contrato_item_novo for tbcontrato_item
+active before insert position 0
+AS
+  declare variable sequencial type of DMN_SMALLINT_N;
+begin
+  if (coalesce(new.item, 0) = 0) then
+  begin
+    Select
+      max(itm.item)
+    from TBCONTRATO_ITEM itm
+    where (itm.contrato = new.contrato)
+    Into
+      sequencial;
+
+    new.item = (coalesce(:sequencial, 0) + 1);
+  end
+
+  new.consumo_qtde  = 0.0;
+  new.consumo_total = 0.0;
+end^
+
+SET TERM ; ^
+

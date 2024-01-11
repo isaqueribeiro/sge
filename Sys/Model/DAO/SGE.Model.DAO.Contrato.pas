@@ -14,7 +14,7 @@ type
   TModelDAOContrato = class(TModelDAO, IModelDAOCustom)
     private
       procedure SetProviderFlags;
-      procedure NumeroGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+      procedure CnpjGetText(Sender: TField; var Text: string; DisplayText: Boolean);
       procedure SituacaoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
       procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetNewRecord(DataSet: TDataSet);
@@ -77,7 +77,7 @@ implementation
 { TModelDAOContrato }
 
 uses
-  UConstantesDGE;
+  UConstantesDGE, Service.Utils;
 
 constructor TModelDAOContrato.Create;
 begin
@@ -116,9 +116,20 @@ begin
         .Add('  , cli.cnpj as cnpj_cliente')
         .Add('  , frn.nomeforn as nome_fornecedor')
         .Add('  , frn.cnpj as cnpj_fornecedor    ')
+        .Add('  , itm.saldo_qtde ')
+        .Add('  , itm.saldo_total')
         .Add('from TBCONTRATO c')
         .Add('  left join TBCLIENTE cli on (cli.codigo = c.cliente)')
         .Add('  left join TBFORNECEDOR frn on (frn.codforn = c.fornecedor)')
+        .Add('  left join (')
+        .Add('    Select   ')
+        .Add('        ci.contrato')
+        .Add('      , sum(ci.saldo_qtde)  as saldo_qtde ')
+        .Add('      , sum(ci.saldo_total) as saldo_total')
+        .Add('    from TBCONTRATO_ITEM ci')
+        .Add('    group by')
+        .Add('        ci.contrato')
+        .Add('  ) itm on (itm.contrato = c.controle)')
       .&End
     .OpenEmpty
     .CloseEmpty;
@@ -131,14 +142,19 @@ end;
 procedure TModelDAOContrato.DataSetAfterOpen(DataSet: TDataSet);
 begin
   SetProviderFlags;
-  FConn.Query.DataSet.FieldByName('NUMERO').OnGetText := NumeroGetText;
-  FConn.Query.DataSet.FieldByName('SITUACAO').OnGetText := SituacaoGetText;
+  FConn.Query.DataSet.FieldByName('empresa').OnGetText  := CnpjGetText;
+  FConn.Query.DataSet.FieldByName('situacao').OnGetText := SituacaoGetText;
+  FConn.Query.DataSet.FieldByName('cnpj').OnGetText := CnpjGetText;
 end;
 
 procedure TModelDAOContrato.DataSetBeforePost(DataSet: TDataSet);
 begin
   with FConn.Query.DataSet do
   begin
+    if (Trim(FieldByName('NUMERO').AsString).IsEmpty and (not FieldByName('DATA_EMISSAO').IsNull)) then
+      FieldByName('NUMERO').AsString := FormatFloat('###00000', FieldByName('CONTROLE').AsLargeInt) +
+        '/' + FormatDateTime('yyyy', FieldByName('DATA_EMISSAO').AsDateTime);
+
     if (FieldByName('DESTINO').AsInteger = Ord(TTipoContrato.tpContratoCliente)) then
       FieldByName('FORNECEDOR').Clear
     else
@@ -178,11 +194,10 @@ begin
   Result := Self.Create;
 end;
 
-procedure TModelDAOContrato.NumeroGetText(Sender: TField; var Text: string; DisplayText: Boolean);
+procedure TModelDAOContrato.CnpjGetText(Sender: TField; var Text: string; DisplayText: Boolean);
 begin
-  if Sender.IsNull and (not FConn.Query.DataSet.FieldByName('DATA_EMISSAO').IsNull) then
-    Text := FormatFloat('###00000', FConn.Query.DataSet.FieldByName('CONTROLE').AsLargeInt) +
-      '/' + FormatDateTime('yyyy', FConn.Query.DataSet.FieldByName('DATA_EMISSAO').AsDateTime);
+  if TServicesUtils.StrIsCNPJ(Sender.AsString) then
+    Text := TServicesUtils.StrFormatarCnpj(Sender.AsString);
 end;
 
 procedure TModelDAOContrato.SetProviderFlags;
@@ -195,6 +210,8 @@ begin
   FConn.Query.DataSet.FieldByName('cnpj_cliente').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('nome_fornecedor').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('cnpj_fornecedor').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('saldo_qtde').ProviderFlags  := [];
+  FConn.Query.DataSet.FieldByName('saldo_total').ProviderFlags := [];
 end;
 
 procedure TModelDAOContrato.SituacaoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
@@ -319,6 +336,8 @@ begin
     FieldByName('unidade').Clear;
     FieldByName('quantidade').AsCurrency := 0;
     FieldByName('valor').AsCurrency      := 0;
+    FieldByName('consumo_qtde').AsCurrency  := 0.0;
+    FieldByName('consumo_total').AsCurrency := 0.0;
   end;
 end;
 

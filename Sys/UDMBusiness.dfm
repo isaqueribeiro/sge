@@ -153,7 +153,7 @@ object DMBusiness: TDMBusiness
       'Database=AGIL_COMERCIO'
       'Protocol=TCPIP'
       'CharacterSet=ISO8859_2'
-      'Port=3050'
+      'Port=3030'
       'Server=localhost'
       'DriverID=FB')
     LoginPrompt = False

@@ -1,5 +1,4 @@
 inherited ViewContrato: TViewContrato
-  ActiveControl = dbCodigo
   Caption = 'Gest'#227'o de Contratos'
   ClientHeight = 526
   ClientWidth = 805
@@ -22,13 +21,12 @@ inherited ViewContrato: TViewContrato
   inherited pgcGuias: TPageControl
     Width = 805
     Height = 483
-    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 805
     ExplicitHeight = 483
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 797
-      ExplicitHeight = 419
+      ExplicitHeight = 454
       inherited Bevel4: TBevel
         Top = 380
         Width = 797
@@ -83,7 +81,15 @@ inherited ViewContrato: TViewContrato
           end
           item
             Expanded = False
+            FieldName = 'saldo_total'
             Title.Caption = 'Saldo (R$)'
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'numero'
+            Title.Caption = 'N'#250'mero'
             Width = 100
             Visible = True
           end>
@@ -91,7 +97,7 @@ inherited ViewContrato: TViewContrato
       inherited pnlFiltros: TPanel
         Top = 384
         Width = 797
-        ExplicitTop = 382
+        ExplicitTop = 384
         ExplicitWidth = 797
         inherited grpBxFiltro: TGroupBox
           Left = 473
@@ -103,6 +109,7 @@ inherited ViewContrato: TViewContrato
             Left = 12
             Top = 25
             Width = 80
+            Height = 21
             Margins.Left = 10
             Margins.Top = 10
             Margins.Bottom = 14
@@ -690,10 +697,6 @@ inherited ViewContrato: TViewContrato
         TabOrder = 1
         object tbsProdutos: TTabSheet
           Caption = 'Produtos'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxDadosProduto: TGroupBox
             AlignWithMargins = True
             Left = 10
@@ -1213,6 +1216,7 @@ inherited ViewContrato: TViewContrato
               ParentShowHint = False
               ShowHint = True
               TabOrder = 1
+              OnButtonClick = dbProdutoButtonClick
               OnExit = ControlEditExit
             end
           end
@@ -1305,10 +1309,6 @@ inherited ViewContrato: TViewContrato
         object tbsObservacoes: TTabSheet
           Caption = 'Observa'#231#245'es'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 26
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             AlignWithMargins = True
             Left = 10
@@ -1331,10 +1331,6 @@ inherited ViewContrato: TViewContrato
         object tbsNotas: TTabSheet
           Caption = 'Notas Emitidas'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 281
-          ExplicitHeight = 165
         end
       end
     end
@@ -1351,6 +1347,9 @@ inherited ViewContrato: TViewContrato
     inherited bvlTool4: TBevel
       Left = 801
       ExplicitLeft = 801
+    end
+    inherited btbtnLista: TcxButton
+      Visible = True
     end
     inherited btbtnFechar: TcxButton
       Left = 726
@@ -1471,6 +1470,9 @@ inherited ViewContrato: TViewContrato
     Top = 400
     object nmListaContratos: TMenuItem
       Caption = 'Lista de Contratos'
+    end
+    object nmEspelhoContrato: TMenuItem
+      Caption = 'Espelho do Contrato'
     end
   end
   object DtSrcTabelaNotas: TDataSource

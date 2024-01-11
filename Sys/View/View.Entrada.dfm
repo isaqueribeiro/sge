@@ -3845,8 +3845,7 @@ inherited ViewEntrada: TViewEntrada
     end
     inherited btbtnExcluir: TcxButton
       Left = 258
-      ExplicitLeft = 256
-      ExplicitTop = -2
+      ExplicitLeft = 258
     end
     inherited btbtnCancelar: TcxButton
       Left = 337

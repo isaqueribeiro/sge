@@ -109,6 +109,7 @@ type
     tbsObservacoes: TTabSheet;
     dbObservacao: TDBMemo;
     DtSrcTabelaNotas: TDataSource;
+    nmEspelhoContrato: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure dbNomeButtonClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
@@ -129,6 +130,9 @@ type
     procedure btbtnSalvarClick(Sender: TObject);
     procedure btnDisponibilizarClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
+    procedure DtSrcTabelaStateChange(Sender: TObject);
+    procedure dbProdutoButtonClick(Sender: TObject);
+    procedure btbtnIncluirClick(Sender: TObject);
   private
     { Private declarations }
     FControllerEmpresaView  ,
@@ -160,6 +164,7 @@ type
     property RotinaDisponibilizarID : String read GetRotinaDisponibilizarID;
 
     procedure pgcGuiasOnChange; override;
+    procedure FiltarDadosContrato;
   end;
 
 var
@@ -178,7 +183,8 @@ uses
   SGE.Controller.Factory,
   SGE.Controller.Helper,
   View.Cliente,
-  View.Fornecedor;
+  View.Fornecedor,
+  View.Produto;
 
 procedure TViewContrato.AbrirTabelaItens;
 begin
@@ -247,6 +253,7 @@ begin
       begin
         AbrirTabelaItens;
         AbrirTabelaNotas;
+        HabilitarDesabilitar_Btns;
       end;
     end;
   end;
@@ -255,10 +262,11 @@ end;
 procedure TViewContrato.btbtnCancelarClick(Sender: TObject);
 begin
   inherited;
-  if not OcorreuErro then
+  if (not OcorreuErro) then
   begin
     AbrirTabelaItens;
     AbrirTabelaNotas;
+    HabilitarDesabilitar_Btns;
   end;
 end;
 
@@ -286,9 +294,21 @@ begin
       begin
         AbrirTabelaItens;
         AbrirTabelaNotas;
+        HabilitarDesabilitar_Btns;
       end;
     end;
   end;
+end;
+
+procedure TViewContrato.btbtnIncluirClick(Sender: TObject);
+begin
+  inherited;
+  if (not OcorreuErro) then
+    with DtSrcTabela.DataSet do
+    begin
+      AbrirTabelaItens;
+      AbrirTabelaNotas;
+    end;
 end;
 
 procedure TViewContrato.btbtnListaClick(Sender: TObject);
@@ -315,8 +335,17 @@ begin
       aContrato.Fornecedor := FieldByName('fornecedor').AsInteger;
       aContrato.Numero     := Trim(FieldByName('numero').AsString).ToUpper;
 
-      if not ContratoDuplicado(aContrato) then
+      if (not ContratoDuplicado(aContrato)) then
       begin
+        if (FieldByName('DESTINO').AsInteger = Ord(TTipoContrato.tpContratoCliente)) then
+          FieldByName('FORNECEDOR').Clear
+        else
+        if (FieldByName('DESTINO').AsInteger = Ord(TTipoContrato.tpContratoFornecedor)) then
+          FieldByName('CLIENTE').Clear;
+
+        FieldByName('CLIENTE').Required    := (FieldByName('DESTINO').AsInteger = Ord(TTipoContrato.tpContratoCliente));
+        FieldByName('FORNECEDOR').Required := (FieldByName('DESTINO').AsInteger = Ord(TTipoContrato.tpContratoFornecedor));
+
         inherited;
 
         if (not OcorreuErro) then
@@ -344,7 +373,7 @@ var
 begin
   with DtSrcTabela.DataSet do
   begin
-    if IsEmpty then
+    if IsEmpty or (State in [TDataSetState.dsEdit, TDataSetState.dsInsert]) then
       Abort;
 
     if not GetPermissaoRotinaInterna(Sender, True) then
@@ -357,7 +386,7 @@ begin
     aContrato.Fornecedor := FieldByName('fornecedor').AsInteger;
     aContrato.Numero     := Trim(FieldByName('numero').AsString).ToUpper;
 
-    if not ContratoDuplicado(aContrato) then
+    if ContratoDuplicado(aContrato) then
       Abort;
 
     RecarregarRegistro;
@@ -412,8 +441,6 @@ begin
 end;
 
 procedure TViewContrato.btnFiltrarClick(Sender: TObject);
-var
-  aCNPJ : String;
 begin
   if ApenasDisponiveis then
     WhereAdditional := '(c.situacao = ' + IntToStr(STATUS_CONTRATO_DISPO) + ') and '
@@ -427,16 +454,9 @@ begin
     '    from VW_EMPRESA vw' +
     ' ))';
 
-  if (not Trim(FEmpresa).IsEmpty) then
-    WhereAdditional := WhereAdditional + ' and (c.empresa = ' + FEmpresa.QuotedString + ')';
-
-
-  // Buscar pelo CNPJ
-  aCNPJ := Trim(edtFiltrar.Text);
-  if TServicesUtils.StrIsCPF(aCNPJ) or TServicesUtils.StrIsCNPJ(aCNPJ) then
-    WhereAdditional := WhereAdditional + ' and ((cli.cnpj = ' + aCNPJ.QuotedString + ') or (frn.cnpj = ' + aCNPJ.QuotedString + '))';
-
-  inherited;
+  //inherited;
+  FiltarDadosContrato;
+  CentralizarCodigo;
 end;
 
 procedure TViewContrato.btnProdutoEditarClick(Sender: TObject);
@@ -492,13 +512,13 @@ begin
     else
     if (DtSrcTabelaItens.DataSet.FieldByName('quantidade').AsCurrency <= 0) then
     begin
-      TServiceMessage.ShowWarning('Quantidade inválida.');
+      TServiceMessage.ShowWarning('Quantidade inválida!');
       dbQuantidade.SetFocus;
     end
     else
     if (DtSrcTabelaItens.DataSet.FieldByName('valor').AsCurrency <= 0) then
     begin
-      TServiceMessage.ShowWarning('Valor unitário inválida.');
+      TServiceMessage.ShowWarning('Valor unitário inválido!');
       dbValorUnit.SetFocus;
     end
     else
@@ -523,7 +543,7 @@ begin
 
     with FControllerProduto.Get(aCodigo).DataSet do
     begin
-      if not IsEmpty then
+      if (not IsEmpty) then
       begin
         DtSrcTabelaItens.DataSet.FieldByName('produto').AsString := FieldByName('cod').AsString;
         DtSrcTabelaItens.DataSet.FieldByName('descri').AsString  := FieldByName('descri').AsString;
@@ -578,6 +598,10 @@ begin
     if (Sender = dbQuantidade) or (Sender = dbValorUnit) then
       DtSrcTabelaItens.DataSet.FieldByName('TOTAL').AsCurrency :=
         DtSrcTabelaItens.DataSet.FieldByName('QUANTIDADE').AsCurrency * DtSrcTabelaItens.DataSet.FieldByName('VALOR').AsCurrency;
+
+    if (Sender = dbValorUnit) then
+      if (btnProdutoSalvar.Visible and btnProdutoSalvar.Enabled) then
+        btnProdutoSalvar.SetFocus;
   end;
 end;
 
@@ -641,14 +665,34 @@ begin
       if aRetorno then
       begin
         if (FieldByName('DESTINO').AsInteger = Ord(TTipoContrato.tpContratoCliente)) then
-          FieldByName('CLIENTE').AsInteger := aCodigo
+        begin
+          FieldByName('CLIENTE').AsInteger := aCodigo;
+          FieldByName('FORNECEDOR').Clear;
+        end
         else
         if (FieldByName('DESTINO').AsInteger = Ord(TTipoContrato.tpContratoFornecedor)) then
+        begin
+          FieldByName('CLIENTE').Clear;
           FieldByName('FORNECEDOR').AsInteger := aCodigo;
+        end;
 
         FieldByName('CNPJ').AsString := aCNPJ;
         FieldByName('NOME').AsString := aNome;
       end;
+    end;
+  end;
+end;
+
+procedure TViewContrato.dbProdutoButtonClick(Sender: TObject);
+var
+  aProduto : TProdutoServico;
+begin
+  with DtSrcTabelaItens.DataSet do
+  begin
+    if (State in [dsEdit, dsInsert]) then
+    begin
+      if SelecionarProdutoParaEntrada(Self, aProduto) then
+        CarregarDadosProduto(aProduto.aCodigo);
     end;
   end;
 end;
@@ -658,7 +702,10 @@ begin
   if (pgcGuias.ActivePage = tbsCadastro) then
   begin
     if (not (DtSrcTabela.DataSet.State in [dsEdit, dsInsert])) then
+    begin
       AbrirTabelaItens;
+      AbrirTabelaNotas;
+    end;
   end;
 
   btbtnSelecionar.Enabled := (DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger = STATUS_CONTRATO_DISPO);
@@ -676,12 +723,114 @@ begin
       dbProduto.SetFocus;
 end;
 
+procedure TViewContrato.DtSrcTabelaStateChange(Sender: TObject);
+begin
+  inherited;
+  DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (DtSrcTabela.DataSet.FieldByName('SITUACAO').AsInteger < STATUS_CONTRATO_DISPO);
+  DtSrcTabelaItensStateChange(DtSrcTabelaItens);
+end;
+
 function TViewContrato.Empresa: IControllerEmpresa;
 begin
   if not Assigned(FControllerEmpresaView) then
     FControllerEmpresaView := TControllerFactory.New.EmpresaView;
 
   Result := (FControllerEmpresaView as IControllerEmpresa);
+end;
+
+procedure TViewContrato.FiltarDadosContrato;
+var
+  aExpressionOr,
+  aText ,
+  aCNPJ : String;
+begin
+  try
+    WaitAMoment(WAIT_AMOMENT_LoadData);
+    edtFiltrar.Text := Trim(edtFiltrar.Text);
+
+    try
+      if (Trim(CampoCodigo) = EmptyStr) or ((Trim(CampoDescricao) = EmptyStr)) then
+      begin
+        WaitAMomentFree;
+        TServiceMessage.ShowWarning('O nome do campo chave e/ou de descrição não foram informados');
+        Abort;
+      end;
+
+      FController.DAO.DataSet.Close;
+      FController.DAO.ClearWhere;
+
+      if (not Trim(edtFiltrar.Text).IsEmpty) then
+      begin
+        aText := Trim(edtFiltrar.Text).Replace(' ', '%');
+
+        // Buscar pelo CNPJ
+        aCNPJ := TServicesUtils.StrOnlyNumbers(aText);
+        if TServicesUtils.StrIsCPF(aCNPJ) or TServicesUtils.StrIsCNPJ(aCNPJ) then
+        begin
+          if TServicesUtils.StrIsCPF(aCNPJ) then
+            edtFiltrar.Text := TServicesUtils.StrFormatarCpf(aCNPJ)
+          else
+            edtFiltrar.Text := TServicesUtils.StrFormatarCnpj(aCNPJ);
+
+          FController.DAO.Where('(coalesce(cli.cnpj, frn.cnpj) = ' + aCNPJ.QuotedString + ')');
+        end
+        else
+        // Buscar por Código, Razão
+        begin
+          if (StrToIntDef(edtFiltrar.Text, 0) > 0) then
+            FController.DAO.Where(CampoCodigo, StrToIntDef(edtFiltrar.Text, 0))
+          else
+          if (StrToInt64Def(edtFiltrar.Text, 0) > 0) then
+            FController.DAO.Where(CampoCodigo, StrToInt64Def(edtFiltrar.Text, 0))
+          else
+          begin
+            aExpressionOr :=
+              '    (upper(coalesce(cli.nome, frn.nomeforn)) like ' + QuotedStr('%' + UpperCase(Trim(edtFiltrar.Text)) + '%') +
+              '  or upper(coalesce(cli.nome, frn.nomeforn)) like ' + QuotedStr('%' + UpperCase(FuncoesString.StrRemoveAllAccents(Trim(edtFiltrar.Text))) + '%') + ')';
+
+            FController.DAO.Where(aExpressionOr);
+          end;
+        end;
+
+      end;
+
+      if (not WhereAdditional.IsEmpty) then
+        FController.DAO.Where('(' + WhereAdditional + ')');
+
+      if ( Trim(CampoOrdenacao) = EmptyStr ) then
+        CampoOrdenacao := CampoDescricao;
+
+      if (not CampoOrdenacao.IsEmpty) then
+        FController.DAO.OrderBy(CampoOrdenacao);
+
+      FController.DAO.Open;
+      Tabela.Configurar;
+
+      try
+        if Showing and (pgcGuias.ActivePage = tbsTabela) then
+          if ( not DtSrcTabela.DataSet.IsEmpty ) then
+            dbgDados.SetFocus
+          else
+          begin
+            TServiceMessage.ShowWarning('Não existe registros na tabela para este tipo de pesquisa');
+
+            edtFiltrar.SetFocus;
+            edtFiltrar.SelectAll;
+          end;
+      except
+        WaitAMomentFree;
+      end;
+    except
+      On E : Exception do
+      begin
+        WaitAMomentFree;
+        TServiceMessage.ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13 + E.Message + #13 +
+          'Script:' + #13#13 + FController.DAO.SelectSQL);
+      end;
+    end;
+  finally
+    WaitAMomentFree;
+  end;
 end;
 
 procedure TViewContrato.FormCreate(Sender: TObject);
@@ -720,15 +869,17 @@ begin
     .Display('CONTROLE', 'Controle', DisplayFormatCodigo, TAlignment.taCenter, True)
     .Display('NUMERO',  'Número', False)
     .Display('EMPRESA',  'Empresa', True)
-    .Display('CLIENTE',  'Cliente', True)
-    .Display('FORNECEDOR', 'Fornecedor', True)
+    .Display('CLIENTE',  'Cliente', False)
+    .Display('FORNECEDOR', 'Fornecedor', False)
     .Display('SITUACAO',   'Situação', TAlignment.taLeftJustify, True)
     .Display('DESTINO',    'Tipo', True)
     .Display('DATA_EMISSAO', 'Data de Emissão', 'dd/mm/yyyy', TAlignment.taCenter, True)
     .Display('DATA_VALIDADE', 'Data de Validade', 'dd/mm/yyyy', TAlignment.taCenter, False)
     .Display('ITENS', 'Itens', ',0', TAlignment.taRightJustify, False)
     .Display('QUANTIDADES', 'Qtde.', ',0.###', TAlignment.taRightJustify, False)
-    .Display('VALOR_TOTAL', 'Valor (R$)', ',0.00', TAlignment.taRightJustify, False);
+    .Display('VALOR_TOTAL', 'Valor (R$)', ',0.00', TAlignment.taRightJustify, False)
+    .Display('SALDO_QTDE', 'Qtde.', ',0.###', TAlignment.taRightJustify, False)
+    .Display('SALDO_TOTAL', 'Valor (R$)', ',0.00', TAlignment.taRightJustify, False);
 
   TController(FControllerEmpresaView)
     .LookupComboBox(dbEmpresa, dtsEmpresa, 'empresa', 'cnpj', 'razao');
@@ -761,7 +912,8 @@ begin
       and (FieldByName('SITUACAO').AsInteger = STATUS_CONTRATO_EDIT)
       and (not DtSrcTabelaItens.DataSet.IsEmpty);
 
-    nmListaContratos.Enabled := (DtSrcTabela.DataSet.State = dsBrowse) and (not DtSrcTabela.DataSet.IsEmpty);
+    nmListaContratos.Enabled  := (DtSrcTabela.DataSet.State = dsBrowse) and (not DtSrcTabela.DataSet.IsEmpty) and (pgcGuias.ActivePage = tbsTabela);
+    nmEspelhoContrato.Enabled := (DtSrcTabela.DataSet.State = dsBrowse) and (not DtSrcTabela.DataSet.IsEmpty);
   end;
 end;
 
@@ -782,6 +934,8 @@ begin
     AbrirTabelaItens;
     AbrirTabelaNotas;
   end;
+
+  HabilitarDesabilitar_Btns;
 end;
 
 procedure TViewContrato.pgcGuiasOnChange;
