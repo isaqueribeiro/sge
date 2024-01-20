@@ -1,4 +1,5 @@
 inherited ViewContrato: TViewContrato
+  ActiveControl = dbCodigo
   Caption = 'Gest'#227'o de Contratos'
   ClientHeight = 526
   ClientWidth = 805
@@ -21,10 +22,13 @@ inherited ViewContrato: TViewContrato
   inherited pgcGuias: TPageControl
     Width = 805
     Height = 483
+    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 805
     ExplicitHeight = 483
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 797
       ExplicitHeight = 454
       inherited Bevel4: TBevel
@@ -100,13 +104,13 @@ inherited ViewContrato: TViewContrato
         ExplicitTop = 384
         ExplicitWidth = 797
         inherited grpBxFiltro: TGroupBox
-          Left = 473
-          Width = 320
-          ExplicitLeft = 473
-          ExplicitWidth = 320
+          Left = 182
+          Width = 611
+          ExplicitLeft = 182
+          ExplicitWidth = 611
           inherited lbltFiltrar: TLabel
             AlignWithMargins = True
-            Left = 12
+            Left = 291
             Top = 25
             Width = 80
             Height = 21
@@ -116,20 +120,161 @@ inherited ViewContrato: TViewContrato
             Align = alLeft
             Caption = 'Raz'#227'o / CNPJ: '
             Layout = tlCenter
-            ExplicitLeft = 12
+            ExplicitLeft = 291
             ExplicitTop = 25
             ExplicitWidth = 80
           end
+          object lblData: TLabel [1]
+            AlignWithMargins = True
+            Left = 12
+            Top = 24
+            Width = 49
+            Height = 23
+            Margins.Left = 10
+            Margins.Top = 9
+            Margins.Bottom = 13
+            Align = alLeft
+            Caption = 'Emiss'#227'o:'
+            FocusControl = e1Data
+            Layout = tlCenter
+            ExplicitHeight = 13
+          end
           inherited edtFiltrar: TEdit
-            Left = 98
-            Width = 178
+            Left = 377
+            Width = 190
             Align = alClient
-            ExplicitLeft = 98
-            ExplicitWidth = 178
+            TabOrder = 2
+            ExplicitLeft = 377
+            ExplicitWidth = 190
           end
           inherited btnFiltrar: TcxButton
-            Left = 282
-            ExplicitLeft = 282
+            Left = 573
+            TabOrder = 3
+            ExplicitLeft = 573
+          end
+          object e1Data: TJvDateEdit
+            AlignWithMargins = True
+            Left = 67
+            Top = 24
+            Width = 102
+            Height = 23
+            Margins.Top = 9
+            Margins.Bottom = 13
+            Date = 40909.000000000000000000
+            Align = alLeft
+            Glyph.Data = {
+              76050000424D760500000000000036000000280000001C0000000C0000000100
+              2000000000004005000000000000000000000000000000000000FF00FF00FF00
+              FF00FF00FF008080800080808000808080008080800080808000808080008080
+              800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+              0000800000008000000000000000800000000000000000000000800000008080
+              8000FF00FF008080800080808000808080008080800080808000808080008080
+              80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+              FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+              FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+              0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+              8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+              80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+              FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+              C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+              FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+              FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+              8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+              FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+              FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+              0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+              FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+              FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+              FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+              8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+              8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+              FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+              000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+              FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+              FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+              8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+              FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+              FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+              C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+              0000000000000000000000000000000000000000000000000000FF00FF00FF00
+              FF00FF00FF008080800080808000808080008080800080808000808080008080
+              80008080800080808000808080008080800080808000FF00FF00}
+            ImageKind = ikCustom
+            NumGlyphs = 2
+            PopupColor = clBtnFace
+            ShowNullDate = False
+            TabOrder = 0
+            ExplicitHeight = 21
+          end
+          object e2Data: TJvDateEdit
+            AlignWithMargins = True
+            Left = 175
+            Top = 24
+            Width = 103
+            Height = 23
+            Margins.Top = 9
+            Margins.Bottom = 13
+            Date = 40909.000000000000000000
+            Align = alLeft
+            Glyph.Data = {
+              76050000424D760500000000000036000000280000001C0000000C0000000100
+              2000000000004005000000000000000000000000000000000000FF00FF00FF00
+              FF00FF00FF008080800080808000808080008080800080808000808080008080
+              800080808000808080008080800080808000FF00FF00FF00FF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FF00FF00FF00FF000000000000000000800000000000
+              0000800000008000000000000000800000000000000000000000800000008080
+              8000FF00FF008080800080808000808080008080800080808000808080008080
+              80008080800080808000808080008080800080808000FFFFFF00FF00FF00FF00
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+              FF00FFFFFF00FFFFFF00FFFFFF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FF00
+              FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF0000000000000000000000
+              0000FFFFFF00000000000000000000000000C0C0C000FFFFFF00800000008080
+              8000FF00FF0080808000FFFFFF00808080008080800080808000FF00FF008080
+              80008080800080808000FF00FF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+              FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00C0C0C000FFFFFF00C0C0
+              C00000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+              FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFF
+              FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF0000000000FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00800000008080
+              8000FF00FF0080808000FFFFFF00FF00FF0080808000FFFFFF00FF00FF00FF00
+              FF00FFFFFF00FFFFFF0080808000FF00FF0080808000FFFFFF00FF00FF00FF00
+              FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+              0000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+              FF0080808000FFFFFF00FF00FF00808080008080800080808000FF00FF00FF00
+              FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF000000000000000000FFFF
+              FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+              8000FF00FF0080808000FFFFFF008080800080808000FFFFFF00FF00FF008080
+              8000FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FF00FF00FF00
+              FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF0000000000000000000000
+              000000000000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FF00
+              FF0080808000FF00FF00FF00FF0080808000808080008080800080808000FF00
+              FF0080808000FFFFFF00FF00FF00FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00800000008080
+              8000FF00FF0080808000FFFFFF00FF00FF00FF00FF00FF00FF00FF00FF00FF00
+              FF00FF00FF00FF00FF00FF00FF00FF00FF0080808000FFFFFF00FF00FF00FF00
+              FF00FFFFFF00C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+              C000C0C0C000FFFFFF008000000080808000FF00FF0080808000FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF0080808000FFFFFF00FF00FF00FF00FF000000000000000000000000000000
+              0000000000000000000000000000000000000000000000000000FF00FF00FF00
+              FF00FF00FF008080800080808000808080008080800080808000808080008080
+              80008080800080808000808080008080800080808000FF00FF00}
+            ImageKind = ikCustom
+            NumGlyphs = 2
+            PopupColor = clBtnFace
+            ShowNullDate = False
+            TabOrder = 1
+            ExplicitHeight = 21
           end
         end
         object pnlStatus: TPanel
@@ -276,6 +421,8 @@ inherited ViewContrato: TViewContrato
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 797
       ExplicitHeight = 454
       inherited Bevel8: TBevel
@@ -1331,6 +1478,111 @@ inherited ViewContrato: TViewContrato
         object tbsNotas: TTabSheet
           Caption = 'Notas Emitidas'
           ImageIndex = 1
+          object DBGrid1: TDBGrid
+            AlignWithMargins = True
+            Left = 10
+            Top = 3
+            Width = 769
+            Height = 288
+            Margins.Left = 10
+            Margins.Right = 10
+            Margins.Bottom = 10
+            TabStop = False
+            Align = alClient
+            DataSource = DtSrcTabelaNotas
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 0
+            TitleFont.Charset = ANSI_CHARSET
+            TitleFont.Color = clBlack
+            TitleFont.Height = -11
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = [fsBold]
+            OnDrawColumnCell = dbgDadosDrawColumnCell
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'venda'
+                Title.Caption = 'Venda'
+                Width = 70
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'dtvenda'
+                Title.Caption = 'D. Venda'
+                Width = 70
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'nota'
+                Title.Caption = 'Nota'
+                Width = 70
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'dtemissao'
+                Title.Caption = 'Emiss'#227'o'
+                Width = 70
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'nr_itens'
+                Title.Alignment = taRightJustify
+                Title.Caption = 'Itens'
+                Width = 50
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'qt_itens'
+                Title.Alignment = taRightJustify
+                Title.Caption = 'Qtde.'
+                Width = 50
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'vl_total_bruto'
+                Title.Alignment = taRightJustify
+                Title.Caption = 'T. Bruto (R$)'
+                Width = 85
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'vl_descontos'
+                Title.Alignment = taRightJustify
+                Title.Caption = 'Desc. (R$)'
+                Width = 85
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'vl_total_liquido'
+                Title.Alignment = taRightJustify
+                Title.Caption = 'T. Venda (R$)'
+                Width = 85
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'vl_total_nota'
+                Title.Alignment = taRightJustify
+                Title.Caption = 'V. Nota (R$)'
+                Width = 85
+                Visible = True
+              end>
+          end
         end
       end
     end
@@ -1466,13 +1718,18 @@ inherited ViewContrato: TViewContrato
     Left = 288
   end
   object ppImprimir: TPopupMenu
+    Images = ImgList
     Left = 384
     Top = 400
     object nmListaContratos: TMenuItem
       Caption = 'Lista de Contratos'
+      ImageIndex = 16
+      OnClick = nmListaContratosClick
     end
     object nmEspelhoContrato: TMenuItem
       Caption = 'Espelho do Contrato'
+      ImageIndex = 17
+      OnClick = nmEspelhoContratoClick
     end
   end
   object DtSrcTabelaNotas: TDataSource

@@ -39,6 +39,7 @@ uses
   Controller.Versao,
   Controller.Tabela,
   SGE.Controller.Interfaces,
+  SGE.Controller.Impressao.Contrato,
   View.PadraoCadastro,
 
   frxClass,
@@ -110,6 +111,10 @@ type
     dbObservacao: TDBMemo;
     DtSrcTabelaNotas: TDataSource;
     nmEspelhoContrato: TMenuItem;
+    e1Data: TJvDateEdit;
+    e2Data: TJvDateEdit;
+    lblData: TLabel;
+    DBGrid1: TDBGrid;
     procedure FormCreate(Sender: TObject);
     procedure dbNomeButtonClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
@@ -133,20 +138,26 @@ type
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure dbProdutoButtonClick(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
+    procedure nmListaContratosClick(Sender: TObject);
+    procedure nmEspelhoContratoClick(Sender: TObject);
   private
     { Private declarations }
     FControllerEmpresaView  ,
     FControllerTipoContratoView : IControllerCustom;
     FControllerProduto : IControllerProduto;
+    FImpressao : IImpressaoContrato;
 
     FApenasDisponiveis : Boolean;
     FTipoContrato : TTipoContrato;
-    FEmpresa : String;
+    FCliente : Integer;
+    FEmpresa   : String;
+    FDataAtual : TDateTime;
 
     procedure HabilitarDesabilitar_Btns;
     procedure RecarregarRegistro;
     procedure AbrirTabelaItens;
     procedure AbrirTabelaNotas;
+    procedure AddWhereAdditional;
     procedure RegistrarNovaRotinaSistema;
     procedure CarregarDadosProduto(aCodigo : Integer);
 
@@ -156,12 +167,12 @@ type
     function Empresa : IControllerEmpresa;
     function Itens : IControllerCustom;
     function Notas : IControllerCustom;
-
   public
     { Public declarations }
     property ApenasDisponiveis : Boolean read FApenasDisponiveis write FApenasDisponiveis;
     property TipoContrato : TTipoContrato read FTipoContrato write FTipoContrato;
     property RotinaDisponibilizarID : String read GetRotinaDisponibilizarID;
+    property DataAtual : TDateTime read FDataAtual;
 
     procedure pgcGuiasOnChange; override;
     procedure FiltarDadosContrato;
@@ -169,6 +180,9 @@ type
 
 var
   ViewContrato: TViewContrato;
+
+  function SelecionarContratoCliente(const AOwner : TComponent; aEmpresa : String; aCliente : Integer;
+    var aContrato : TContrato; const aApenasDisponiveis : Boolean = True) : Boolean;
 
 implementation
 
@@ -185,6 +199,42 @@ uses
   View.Cliente,
   View.Fornecedor,
   View.Produto;
+
+function SelecionarContratoCliente(const AOwner : TComponent; aEmpresa : String; aCliente : Integer;
+    var aContrato : TContrato; const aApenasDisponiveis : Boolean) : Boolean;
+var
+  AForm : TViewContrato;
+  aCodigo    : Integer;
+  aDescricao : String;
+begin
+  AForm := TViewContrato.Create(AOwner);
+  try
+    AForm.FEmpresa := aEmpresa;
+    AForm.FCliente := aCliente;
+    AForm.FApenasDisponiveis  := aApenasDisponiveis;
+    AForm.AddWhereAdditional;
+
+    AForm.FController.DAO.ClearWhere;
+    AForm.FController.DAO.Where(AForm.WhereAdditional);
+    AForm.FController.DAO.Open;
+
+    Result := AForm.SelecionarRegistro(aCodigo, aDescricao, AForm.WhereAdditional);
+
+    if Result then
+      with AForm, DtSrcTabela.DataSet, aContrato do
+      begin
+        Controle   := FieldByName('controle').AsLargeInt;
+        Destino    := FieldByName('destino').AsInteger;
+        Cliente    := FieldByName('cliente').AsInteger;
+        Fornecedor := FieldByName('fornecedor').AsInteger;
+        Nome   := FieldByName('nome').AsString;
+        Cnpj   := FieldByName('cnpj').AsString;
+        Numero := Trim(FieldByName('numero').AsString).ToUpper;
+      end;
+  finally
+    AForm.Destroy;
+  end;
+end;
 
 procedure TViewContrato.AbrirTabelaItens;
 begin
@@ -227,6 +277,29 @@ begin
     .Display('vl_total_liquido', 'Total Venda (R$)', ',0.00', TAlignment.taRightJustify, False)
     .Display('vl_total_nota',    'Valor Nota (R$)',  ',0.00', TAlignment.taRightJustify, False)
     .Configurar;
+end;
+
+procedure TViewContrato.AddWhereAdditional;
+begin
+  WhereAdditional :=
+    '(c.data_emissao between ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e1Data.Date) ) +
+    ' and ' + QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ') and ';
+
+  if (not FEmpresa.Trim.IsEmpty) then
+    WhereAdditional := WhereAdditional + '(c.empresa = ' + TServicesUtils.StrOnlyNumbers(FEmpresa).QuotedString + ') and ';
+
+  if ApenasDisponiveis then
+    WhereAdditional := WhereAdditional + '(c.situacao = ' + IntToStr(STATUS_CONTRATO_DISPO) + ') and ';
+
+  if (FCliente > 0) then
+    WhereAdditional := WhereAdditional + '(c.cliente = ' + IntToStr(FCliente) + ') and ';
+
+  WhereAdditional := WhereAdditional +
+    ' (c.empresa in ( ' +
+    '    Select      ' +
+    '      vw.cnpj   ' +
+    '    from VW_EMPRESA vw' +
+    ' ))';
 end;
 
 procedure TViewContrato.btbtnAlterarClick(Sender: TObject);
@@ -442,17 +515,7 @@ end;
 
 procedure TViewContrato.btnFiltrarClick(Sender: TObject);
 begin
-  if ApenasDisponiveis then
-    WhereAdditional := '(c.situacao = ' + IntToStr(STATUS_CONTRATO_DISPO) + ') and '
-  else
-    WhereAdditional := EmptyStr;
-
-  WhereAdditional := WhereAdditional +
-    ' (c.empresa in ( ' +
-    '    Select      ' +
-    '      vw.cnpj   ' +
-    '    from VW_EMPRESA vw' +
-    ' ))';
+  AddWhereAdditional;
 
   //inherited;
   FiltarDadosContrato;
@@ -596,8 +659,16 @@ begin
       CarregarDadosProduto(DtSrcTabelaItens.DataSet.FieldByName('PRODUTO').AsInteger);
 
     if (Sender = dbQuantidade) or (Sender = dbValorUnit) then
+    begin
       DtSrcTabelaItens.DataSet.FieldByName('TOTAL').AsCurrency :=
         DtSrcTabelaItens.DataSet.FieldByName('QUANTIDADE').AsCurrency * DtSrcTabelaItens.DataSet.FieldByName('VALOR').AsCurrency;
+
+      if DtSrcTabelaItens.DataSet.FieldByName('consumo_qtde').IsNull then
+        DtSrcTabelaItens.DataSet.FieldByName('consumo_qtde').AsCurrency := DtSrcTabelaItens.DataSet.FieldByName('QUANTIDADE').AsCurrency;
+
+      if DtSrcTabelaItens.DataSet.FieldByName('consumo_total').IsNull then
+        DtSrcTabelaItens.DataSet.FieldByName('consumo_total').AsCurrency := DtSrcTabelaItens.DataSet.FieldByName('TOTAL').AsCurrency;
+    end;
 
     if (Sender = dbValorUnit) then
       if (btnProdutoSalvar.Visible and btnProdutoSalvar.Enabled) then
@@ -846,13 +917,17 @@ begin
   DtSrcTabelaNotas.DataSet := Notas.DAO.DataSet;
 
   inherited;
-
+  RotinaID := ROTINA_MOV_GESTAO_CONTRATO_ID;
   AbrirTabelaAuto := True;
-  FEmpresa        := EmptyStr;
+  FEmpresa := EmptyStr;
+  FCliente := 0;
 
   ControlFirstEdit := dbEmpresa;
 
-  RotinaID := ROTINA_MOV_GESTAO_CONTRATO_ID;
+  FDataAtual  := Date;
+  e1Data.Date := EncodeDate(YearOf(Date), 1, 1);
+  e2Data.Date := EncodeDate(YearOf(Date), MonthOf(Date), DaysInMonth(Date));
+
   DisplayFormatCodigo := '###00000';
 
   NomeTabela     := 'TBCONTRATO';
@@ -920,6 +995,27 @@ end;
 function TViewContrato.Itens: IControllerCustom;
 begin
   Result := Controller.Itens;
+end;
+
+procedure TViewContrato.nmEspelhoContratoClick(Sender: TObject);
+begin
+  TServiceMessage.ShowInformation('Este recurso ainda não está disponpivel nesta versão!');
+//  if not Assigned(FImpressao) then
+//    FImpressao := TImpressaoContrato.New;
+//
+//  FImpressao.VisualizarContrato(
+//    FController.DAO.DataSet.FieldByName('controle').AsLargeInt,
+//    TModeloPapel.mrPapelA4,
+//    True
+//  );
+end;
+
+procedure TViewContrato.nmListaContratosClick(Sender: TObject);
+begin
+  if not Assigned(FImpressao) then
+    FImpressao := TImpressaoContrato.New;
+
+  FImpressao.VisualizarRelacaoContratos(FController.DAO.Usuario.Empresa.CNPJ, e1Data.Date, e2Data.Date);
 end;
 
 function TViewContrato.Notas: IControllerCustom;

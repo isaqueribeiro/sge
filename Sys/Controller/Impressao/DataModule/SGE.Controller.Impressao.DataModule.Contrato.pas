@@ -92,26 +92,29 @@ type
     QryChequeEMISSOR_PF: TSmallintField;
     QryChequeVALOR: TFMTBCDField;
     QryRelacaoContratos: TFDQuery;
-    DspRelacaoContratos: TDataSetProvider;
-    CdsRelacaoContratos: TClientDataSet;
     frdsRelacaoContratos: TfrxDBDataset;
     frRelacaoContratos: TfrxReport;
     ACBrExtenso: TACBrExtenso;
+    CdsRelacaoContratos: TClientDataSet;
+    DspRelacaoContratos: TDataSetProvider;
     procedure DataModuleCreate(Sender: TObject);
+    procedure ReportGetValue(const VarName: string; var Value: Variant);
   private
     { Private declarations }
     FVersao : IVersao;
     FHeader : Boolean;
+    FTitulo  ,
+    FPeriodo : String;
     procedure SetVariablesDefault(const pFastReport : TfrxReport);
 
     function GetFastReport(aModelo : TModeloPapel) : TfrxReport;
   public
     { Public declarations }
     procedure VisualizarContrato(aModelo : TModeloPapel; const aHeader : Boolean = TRUE);
-    procedure VisualizarRelacaoContratos(aEmpresa : String);
+    procedure VisualizarRelacaoContratos(aEmpresa: String; aDataInicial, aDataFinal: TDateTime);
 
     function CarregarContrato(aControle : Int64) : Boolean;
-    function CarregarRelacaoContratos(aEmpresa : String) : Boolean;
+    function CarregarRelacaoContratos(aEmpresa : String; aDataInicial, aDataFinal: TDateTime) : Boolean;
   end;
 
 var
@@ -134,6 +137,9 @@ function TDataModuleContrato.CarregarContrato(aControle: Int64): Boolean;
 var
   aLogo : String;
 begin
+  FTitulo  := 'ESPELHO DO CONTRATO';
+  FPeriodo := EmptyStr;
+
   with CdsCheque do
   begin
     Close;
@@ -159,17 +165,22 @@ begin
   end;
 end;
 
-function TDataModuleContrato.CarregarRelacaoContratos(aEmpresa: String): Boolean;
+function TDataModuleContrato.CarregarRelacaoContratos(aEmpresa : String; aDataInicial, aDataFinal: TDateTime) : Boolean;
 begin
+  FTitulo  := 'RELAÇÃO DE CONTRATOS';
+  FPeriodo := FormatDateTime('dd/mm/yyyy', aDataInicial) + ' a ' + FormatDateTime('dd/mm/yyyy', aDataFinal);
+
   WaitAMoment(WAIT_AMOMENT_PrintPrepare);
   try
     DMNFe.AbrirEmitente(aEmpresa);
-    DMBusiness.ConfigurarEmail(aEmpresa, EmptyStr, 'Relação de Contrattos', EmptyStr);
+    DMBusiness.ConfigurarEmail(aEmpresa, EmptyStr, 'Relação de Contratos', EmptyStr);
 
     with CdsRelacaoContratos, Params do
     begin
       Close;
       ParamByName('empresa').AsString := aEmpresa;
+      ParamByName('data_inicial').AsDateTime := aDataInicial;
+      ParamByName('data_final').AsDateTime   := aDataFinal;
       Open;
     end;
 
@@ -191,6 +202,15 @@ begin
     TModeloPapel.mrPapelA4 : Result := FrChequeA4;
     TModeloPapel.mrPapelA5 : Result := FrChequeA5;
   end;
+end;
+
+procedure TDataModuleContrato.ReportGetValue(const VarName: string; var Value: Variant);
+begin
+  if VarName.ToLower.Equals('titulo') then
+    Value := FTitulo;
+
+  if VarName.ToLower.Equals('periodo') then
+    Value := FPeriodo;
 end;
 
 procedure TDataModuleContrato.SetVariablesDefault(const pFastReport: TfrxReport);

@@ -62,11 +62,14 @@ Uses
   end;
 
   TContrato = record
+    Empresa    : String;
     Controle   : Int64;
     Destino    : Smallint;
     Cliente    : Integer;
     Fornecedor : Integer;
-    Numero     : String;
+    Numero : String;
+    Nome   : String;
+    Cnpj   : String;
   end;
 
   TLoteEnvioNFE = record

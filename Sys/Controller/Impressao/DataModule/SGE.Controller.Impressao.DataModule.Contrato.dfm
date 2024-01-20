@@ -58,6 +58,7 @@ object DataModuleContrato: TDataModuleContrato
       'begin'
       ''
       'end.')
+    OnGetValue = ReportGetValue
     Left = 96
     Top = 128
     Datasets = <
@@ -919,6 +920,7 @@ object DataModuleContrato: TDataModuleContrato
       'begin'
       ''
       'end.')
+    OnGetValue = ReportGetValue
     Left = 96
     Top = 160
     Datasets = <
@@ -1748,10 +1750,12 @@ object DataModuleContrato: TDataModuleContrato
         '  , coalesce(cli.pessoa_fisica, frn.pessoa_fisica) as pessoa_fis' +
         'ica'
       '  , coalesce(cli.nome, frn.nomeforn) as pessoa_nome'
-      '  , coalesce(cli.cnpj, frn.cnpj)     as pessoa_cpf_cnpj'
+      
+        '  , cast(coalesce(cli.cnpj, frn.cnpj) as DMN_CNPJ) as pessoa_cpf' +
+        '_cnpj'
       '  , cnt.situacao'
       '  , cast('
-      '      Case cnt.destino'
+      '      Case cnt.situacao'
       '        when 0 then '#39'Editando'#39
       '        when 1 then '#39'Disponivel'#39
       '        when 2 then '#39'Finalizado/Encerrado'#39
@@ -1764,6 +1768,13 @@ object DataModuleContrato: TDataModuleContrato
       '  , cnt.valor_total'
       '  , itm.saldo_qtde'
       '  , itm.saldo_total'
+      
+        '  , coalesce(vnd.qt_vendas_finalizadas, 0) as qt_vendas_finaliza' +
+        'das'
+      '  , coalesce(vnd.qt_vendas_com_notas, 0)   as qt_notas'
+      
+        '  , (coalesce(vnd.qt_vendas_finalizadas, 0) + coalesce(vnd.qt_ve' +
+        'ndas_com_notas, 0)) as qt_vendas'
       '  , cnt.usuario'
       '  , usr.nomecompleto as usuario_'
       '  , cnt.data_cadastro'
@@ -1782,10 +1793,21 @@ object DataModuleContrato: TDataModuleContrato
       '    group by'
       '        ci.contrato'
       '  ) itm on (itm.contrato = cnt.controle)'
+      '  left join ('
+      '    Select'
+      '        vn.contrato'
+      '      , sum(iif(vn.status = 3, 1, 0)) as qt_vendas_finalizadas'
+      '      , sum(iif(vn.status = 4, 1, 0)) as qt_vendas_com_notas'
+      '    from TBVENDAS vn'
+      '    group by'
+      '        vn.contrato'
+      '  ) vnd on (vnd.contrato = cnt.controle)'
       ''
       'where (cnt.controle > 0)'
-      '  and ((cnt.empresa = :empresa) or (:empresa = '#39#39'))'
-      ''
+      
+        '  and ((cnt.empresa = :empresa) or (cast(:empresa as DMN_CNPJ) =' +
+        ' '#39#39'))'
+      '  and (cnt.data_emissao between :data_inicial and :data_final)'
       'order by'
       '    pessoa_nome'
       '  , pessoa_cpf_cnpj')
@@ -1798,25 +1820,20 @@ object DataModuleContrato: TDataModuleContrato
         DataType = ftString
         ParamType = ptInput
         Size = 18
-      end>
-  end
-  object DspRelacaoContratos: TDataSetProvider
-    DataSet = QryRelacaoContratos
-    Left = 128
-    Top = 264
-  end
-  object CdsRelacaoContratos: TClientDataSet
-    Aggregates = <>
-    Params = <
+        Value = ''
+      end
       item
-        DataType = ftString
-        Name = 'EMPRESA'
+        Position = 2
+        Name = 'DATA_INICIAL'
+        DataType = ftDateTime
         ParamType = ptInput
-        Size = 18
+      end
+      item
+        Position = 3
+        Name = 'DATA_FINAL'
+        DataType = ftDateTime
+        ParamType = ptInput
       end>
-    ProviderName = 'DspRelacaoContratos'
-    Left = 160
-    Top = 264
   end
   object frdsRelacaoContratos: TfrxDBDataset
     UserName = 'frdsRelacaoContratos'
@@ -1846,6 +1863,9 @@ object DataModuleContrato: TDataModuleContrato
       'VALOR_TOTAL=VALOR_TOTAL'
       'SALDO_QTDE=SALDO_QTDE'
       'SALDO_TOTAL=SALDO_TOTAL'
+      'QT_VENDAS_FINALIZADAS=QT_VENDAS_FINALIZADAS'
+      'QT_NOTAS=QT_NOTAS'
+      'QT_VENDAS=QT_VENDAS'
       'USUARIO=USUARIO'
       'USUARIO_=USUARIO_'
       'DATA_CADASTRO=DATA_CADASTRO'
@@ -1867,12 +1887,13 @@ object DataModuleContrato: TDataModuleContrato
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 41557.397184305600000000
     ReportOptions.Name = 'Teste!'
-    ReportOptions.LastChange = 45301.965179317130000000
+    ReportOptions.LastChange = 45310.816673564810000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
       ''
       'end.')
+    OnGetValue = ReportGetValue
     Left = 224
     Top = 264
     Datasets = <
@@ -1979,12 +2000,12 @@ object DataModuleContrato: TDataModuleContrato
           Memo.UTF8W = (
             '[Titulo]')
           ParentFont = False
-          VAlign = vaCenter
+          VAlign = vaBottom
         end
         object Picture1: TfrxPictureView
           AllowVectorExport = True
           Left = 3.779530000000000000
-          Top = 7.559059999999999000
+          Top = 7.559060000000000000
           Width = 109.606370000000000000
           Height = 79.370130000000000000
           DataField = 'LOGO'
@@ -2019,7 +2040,7 @@ object DataModuleContrato: TDataModuleContrato
           AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 26.456710000000000000
-          Width = 665.196850393700800000
+          Width = 665.196850393701000000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -2041,7 +2062,7 @@ object DataModuleContrato: TDataModuleContrato
           AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 41.574830000000000000
-          Width = 665.196850393700800000
+          Width = 665.196850393701000000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -2060,7 +2081,7 @@ object DataModuleContrato: TDataModuleContrato
         object Memo11: TfrxMemoView
           AllowVectorExport = True
           Left = 113.385900000000000000
-          Top = 56.692949999999990000
+          Top = 56.692950000000000000
           Width = 464.882190000000000000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
@@ -2098,18 +2119,17 @@ object DataModuleContrato: TDataModuleContrato
           Font.Color = clBlack
           Font.Height = -11
           Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
+          Font.Style = []
           Frame.Typ = []
           Memo.UTF8W = (
             '[Periodo]')
           ParentFont = False
-          VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
           AllowVectorExport = True
           Left = 113.385900000000000000
           Top = 71.811070000000000000
-          Width = 665.196850393700800000
+          Width = 665.196850393701000000
           Height = 15.118120000000000000
           DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
@@ -2158,7 +2178,7 @@ object DataModuleContrato: TDataModuleContrato
         end
         object Memo3: TfrxMemoView
           AllowVectorExport = True
-          Top = 15.118119999999980000
+          Top = 15.118120000000000000
           Width = 910.866730000000000000
           Height = 15.118120000000000000
           Font.Charset = DEFAULT_CHARSET
@@ -2248,9 +2268,9 @@ object DataModuleContrato: TDataModuleContrato
         end
         object Memo12: TfrxMemoView
           AllowVectorExport = True
-          Left = 302.362400000000000000
+          Left = 306.141930000000000000
           Top = 18.897650000000000000
-          Width = 744.567410000000000000
+          Width = 740.787880000000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -2264,7 +2284,7 @@ object DataModuleContrato: TDataModuleContrato
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
-            'Dados do Cheque')
+            'Dados do Contrato')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -2295,7 +2315,7 @@ object DataModuleContrato: TDataModuleContrato
           AllowVectorExport = True
           Left = 45.354360000000000000
           Top = 18.897650000000000000
-          Width = 257.007976540000000000
+          Width = 260.787506540000000000
           Height = 37.795300000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -2316,9 +2336,9 @@ object DataModuleContrato: TDataModuleContrato
         end
         object Memo30: TfrxMemoView
           AllowVectorExport = True
-          Left = 302.362400000000000000
+          Left = 306.141930000000000000
           Top = 37.795300000000000000
-          Width = 83.149586770000000000
+          Width = 75.590526770000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -2338,9 +2358,9 @@ object DataModuleContrato: TDataModuleContrato
         end
         object Memo33: TfrxMemoView
           AllowVectorExport = True
-          Left = 385.512060000000000000
+          Left = 381.732530000000000000
           Top = 37.795300000000000000
-          Width = 83.149586770000000000
+          Width = 75.590551180000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -2354,50 +2374,6 @@ object DataModuleContrato: TDataModuleContrato
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
             ' Emiss'#227'o')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
-        object Memo35: TfrxMemoView
-          AllowVectorExport = True
-          Left = 778.583180000000000000
-          Top = 37.795299999999940000
-          Width = 83.149586770000000000
-          Height = 18.897650000000000000
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          Fill.BackColor = clBtnFace
-          Memo.UTF8W = (
-            ' Devolu'#231#227'o')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
-        object Memo37: TfrxMemoView
-          AllowVectorExport = True
-          Left = 861.732840000000000000
-          Top = 37.795300000000000000
-          Width = 83.149586770000000000
-          Height = 18.897650000000000000
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          Fill.BackColor = clBtnFace
-          Memo.UTF8W = (
-            ' Compensa'#231#227'o')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -2425,7 +2401,52 @@ object DataModuleContrato: TDataModuleContrato
         end
         object Memo41: TfrxMemoView
           AllowVectorExport = True
-          Left = 468.661720000000000000
+          Left = 457.323130000000000000
+          Top = 37.795300000000000000
+          Width = 75.590551180000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' Validade')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo23: TfrxMemoView
+          AllowVectorExport = True
+          Left = 842.835190000000000000
+          Top = 37.795300000000000000
+          Width = 102.047310000000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Valor (R$) ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo25: TfrxMemoView
+          AllowVectorExport = True
+          Left = 532.913730000000000000
           Top = 37.795300000000000000
           Width = 83.149586770000000000
           Height = 18.897650000000000000
@@ -2440,7 +2461,99 @@ object DataModuleContrato: TDataModuleContrato
           Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
-            ' Validade')
+            ' Situa'#231#227'o')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo35: TfrxMemoView
+          AllowVectorExport = True
+          Left = 672.756340000000000000
+          Top = 37.795300000000000000
+          Width = 56.692913390000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Qtde. ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo37: TfrxMemoView
+          AllowVectorExport = True
+          Left = 616.063390000000000000
+          Top = 37.795300000000000000
+          Width = 56.692913390000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Itens ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo43: TfrxMemoView
+          AllowVectorExport = True
+          Left = 786.142240000000000000
+          Top = 37.795300000000000000
+          Width = 56.692950000000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Notas ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo46: TfrxMemoView
+          AllowVectorExport = True
+          Left = 729.449290000000000000
+          Top = 37.795300000000000000
+          Width = 56.692950000000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Fill.BackColor = clBtnFace
+          HAlign = haRight
+          Memo.UTF8W = (
+            'Vendas ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -2493,7 +2606,7 @@ object DataModuleContrato: TDataModuleContrato
         object Memo17: TfrxMemoView
           AllowVectorExport = True
           Left = 45.354360000000000000
-          Width = 257.008040000000000000
+          Width = 260.787570000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
@@ -2521,8 +2634,8 @@ object DataModuleContrato: TDataModuleContrato
         end
         object Memo32: TfrxMemoView
           AllowVectorExport = True
-          Left = 302.362400000000000000
-          Width = 83.149596540000000000
+          Left = 306.141930000000000000
+          Width = 75.590536540000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
@@ -2550,8 +2663,8 @@ object DataModuleContrato: TDataModuleContrato
         end
         object Memo34: TfrxMemoView
           AllowVectorExport = True
-          Left = 385.512060000000000000
-          Width = 83.149660000000000000
+          Left = 381.732530000000000000
+          Width = 75.590551180000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
@@ -2575,68 +2688,6 @@ object DataModuleContrato: TDataModuleContrato
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <frdsRelacaoContratos."DATA_EMISS' +
               'AO">)]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
-        object Memo36: TfrxMemoView
-          AllowVectorExport = True
-          Left = 778.583180000000000000
-          Width = 83.149660000000000000
-          Height = 18.897650000000000000
-          StretchMode = smMaxHeight
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
-          Highlight.Font.Height = -9
-          Highlight.Font.Name = 'Tahoma'
-          Highlight.Font.Style = []
-          Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
-          Highlight.FillType = ftBrush
-          Highlight.Frame.Typ = []
-          Memo.UTF8W = (
-            
-              ' [IIF(<frdsRelacaoCheque."DATA_DEVOLUCAO">=0,'#39#39',FormatDateTime('#39 +
-              'dd/mm/yyyy'#39', <frdsRelacaoCheque."DATA_DEVOLUCAO">))]')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
-        object Memo38: TfrxMemoView
-          AllowVectorExport = True
-          Left = 861.732840000000000000
-          Width = 83.149660000000000000
-          Height = 18.897650000000000000
-          StretchMode = smMaxHeight
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          Highlight.Font.Charset = DEFAULT_CHARSET
-          Highlight.Font.Color = clRed
-          Highlight.Font.Height = -9
-          Highlight.Font.Name = 'Tahoma'
-          Highlight.Font.Style = []
-          Highlight.Condition = '<frdsRelacaoCheque."STATUS">=2'
-          Highlight.FillType = ftBrush
-          Highlight.Frame.Typ = []
-          Memo.UTF8W = (
-            
-              ' [IIF(<frdsRelacaoCheque."DATA_COMPENSACAO">=0,'#39#39',FormatDateTime' +
-              '('#39'dd/mm/yyyy'#39', <frdsRelacaoCheque."DATA_COMPENSACAO">))]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -2672,8 +2723,8 @@ object DataModuleContrato: TDataModuleContrato
         end
         object Memo42: TfrxMemoView
           AllowVectorExport = True
-          Left = 468.661720000000000000
-          Width = 83.149660000000000000
+          Left = 457.323130000000000000
+          Width = 75.590551180000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
           DataSet = DMNFe.frdEmpresa
@@ -2697,6 +2748,185 @@ object DataModuleContrato: TDataModuleContrato
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <frdsRelacaoContratos."DATA_VALID' +
               'ADE">)]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo24: TfrxMemoView
+          AllowVectorExport = True
+          Left = 842.835190000000000000
+          Width = 102.047310000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<frdsRelacaoContratos."SITUACAO"> = 0'
+          Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0.00'#39',<frdsRelacaoContratos."VALOR_TOTAL">)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo26: TfrxMemoView
+          AllowVectorExport = True
+          Left = 532.913730000000000000
+          Width = 83.149660000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<frdsRelacaoContratos."SITUACAO"> = 0'
+          Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
+          Memo.UTF8W = (
+            ' [frdsRelacaoContratos."SITUACAO_"]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo36: TfrxMemoView
+          AllowVectorExport = True
+          Left = 672.756340000000000000
+          Width = 56.692913390000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<frdsRelacaoContratos."SITUACAO"> = 0'
+          Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0'#39',<frdsRelacaoContratos."QUANTIDADES">)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo38: TfrxMemoView
+          AllowVectorExport = True
+          Left = 616.063390000000000000
+          Width = 56.692913390000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<frdsRelacaoContratos."SITUACAO"> = 0'
+          Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0'#39',<frdsRelacaoContratos."ITENS">)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo45: TfrxMemoView
+          AllowVectorExport = True
+          Left = 786.142240000000000000
+          Width = 56.692950000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<frdsRelacaoContratos."SITUACAO"> = 0'
+          Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0'#39',<frdsRelacaoContratos."QT_NOTAS">)] ')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo47: TfrxMemoView
+          AllowVectorExport = True
+          Left = 729.449290000000000000
+          Width = 56.692950000000000000
+          Height = 18.897650000000000000
+          StretchMode = smMaxHeight
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Highlight.Font.Charset = DEFAULT_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -9
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = []
+          Highlight.Condition = '<frdsRelacaoContratos."SITUACAO"> = 0'
+          Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
+          Memo.UTF8W = (
+            '[FormatFloat('#39',0'#39',<frdsRelacaoContratos."QT_VENDAS">)] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -2733,6 +2963,27 @@ object DataModuleContrato: TDataModuleContrato
           VAlign = vaCenter
           WordWrap = False
         end
+        object SysMemo2: TfrxSysMemoView
+          AllowVectorExport = True
+          Left = 842.835190000000000000
+          Width = 102.047310000000000000
+          Height = 18.897650000000000000
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.100000000000000000
+          HAlign = haRight
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<frdsRelacaoContratos."VALOR_TOTAL">,Bn' +
+              'dMasterData))] ')
+          ParentFont = False
+          VAlign = vaCenter
+          WordWrap = False
+        end
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
@@ -2757,9 +3008,7 @@ object DataModuleContrato: TDataModuleContrato
           Frame.Typ = [ftTop]
           Frame.Width = 0.100000000000000000
           Memo.UTF8W = (
-            
-              ' * Os valores totais apresentados est'#227'o de acordo com o per'#237'odo ' +
-              'e a situa'#231#227'o dos cheques informados')
+            ' * ')
           ParentFont = False
         end
         object SysMemo8: TfrxSysMemoView
@@ -2778,8 +3027,8 @@ object DataModuleContrato: TDataModuleContrato
           HAlign = haRight
           Memo.UTF8W = (
             
-              '[FormatFloat('#39',0.00'#39',SUM((<frdsRelacaoCheque."VALOR">),BndMaster' +
-              'Data,2))] ')
+              '[FormatFloat('#39',0.00'#39',SUM((<frdsRelacaoContratos."SALDO_TOTAL">),' +
+              'BndMasterData,2))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
@@ -2861,7 +3110,9 @@ object DataModuleContrato: TDataModuleContrato
           Frame.Width = 0.100000000000000000
           HAlign = haRight
           Memo.UTF8W = (
-            '[FormatFloat('#39',0.00'#39',SUM((<ValorCompensado>),BndMasterData,2))] ')
+            
+              '[FormatFloat('#39',0.00'#39',SUM(<frdsRelacaoContratos."SALDO_TOTAL">,Bn' +
+              'dMasterData,2))] ')
           ParentFont = False
           VAlign = vaCenter
           WordWrap = False
@@ -2899,5 +3150,34 @@ object DataModuleContrato: TDataModuleContrato
     StrCentavos = 'Centavos'
     Left = 52
     Top = 41
+  end
+  object CdsRelacaoContratos: TClientDataSet
+    Aggregates = <>
+    Params = <
+      item
+        DataType = ftString
+        Name = 'EMPRESA'
+        ParamType = ptInput
+        Size = 18
+        Value = ''
+      end
+      item
+        DataType = ftDateTime
+        Name = 'DATA_INICIAL'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftDateTime
+        Name = 'DATA_FINAL'
+        ParamType = ptInput
+      end>
+    ProviderName = 'DspRelacaoContratos'
+    Left = 160
+    Top = 264
+  end
+  object DspRelacaoContratos: TDataSetProvider
+    DataSet = QryRelacaoContratos
+    Left = 128
+    Top = 264
   end
 end

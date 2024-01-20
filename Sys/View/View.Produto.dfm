@@ -269,7 +269,6 @@ inherited ViewProduto: TViewProduto
             Width = 292
             TabOrder = 2
             ExplicitLeft = 234
-            ExplicitTop = 25
             ExplicitWidth = 292
           end
           inherited btnFiltrar: TcxButton

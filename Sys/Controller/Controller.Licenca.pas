@@ -28,6 +28,8 @@ type
       FClient : IControllerCliente<TControllerClienteApp>;
       FFile   : TStringList;
       FCnpjArquivo     ,
+      FLinhaCompetencia,
+      FLinhaBloqueio   ,
       FTokenGoogleAuth : String;
       FExecutando : Boolean;
 
@@ -104,10 +106,16 @@ procedure TLicencaController.GravarDadosEmpresa;
 var
   aEmpresa      ,
   aConfiguracao : IControllerCustom;
+  aCompetencia ,
+  aDataBloqueio: String;
+  aLicenca : IModelDAOCustom;
+const
+  UPDATE_LICENCA = 'Update SYS_LICENCA lc Set lc.linha_controle = ''%s'' where (lc.linha_controle = ''%s'')';
 begin
   aEmpresa := TControllerFactory.New.Empresa;
   aConfiguracao := TControllerFactory.New.ConfiguracaoEmpresa;
 
+  // Atualizar registro da empresa
   if (not FModel.CNPJ.IsEmpty) then
   begin
     aEmpresa
@@ -153,6 +161,7 @@ begin
       .DAO
       .Open;
 
+    // Gerar as configurações iniciais, caso não existam
     if (not aConfiguracao.DAO.DataSet.Locate('empresa', TServicesUtils.StrOnlyNumbers(FModel.CNPJ), [])) then
     begin
       aConfiguracao.DAO.DataSet.Append;
@@ -170,6 +179,18 @@ begin
 
       aConfiguracao.DAO.ApplyUpdates;
       aConfiguracao.DAO.CommitUpdates;
+    end;
+
+    // Atualizar a Licença de Uso
+    if (not FLinhaCompetencia.Trim.IsEmpty) and (not FLinhaBloqueio.Trim.IsEmpty) then
+    begin
+      aLicenca := TModelDAOLicencaSystem.New;
+      // -- Atualizar competência
+      aCompetencia := TServiceEncript.Encript('edCompetencia=' + IntToStr(FModel.Competencia), SYS_PASSWD_KEY);
+      aLicenca.ExecuteScriptSQL(Format(UPDATE_LICENCA, [aCompetencia, FLinhaCompetencia]));
+      // -- Atualizar bloqueio
+      aDataBloqueio := TServiceEncript.Encript('edDataBloqueio=' + FormatDateTime('dd/mm/yyyy', FModel.DataBloqueio), SYS_PASSWD_KEY);
+      aLicenca.ExecuteScriptSQL(Format(UPDATE_LICENCA, [aDataBloqueio, FLinhaBloqueio]));
     end;
   end;
 end;
@@ -260,6 +281,12 @@ begin
     begin
       // Descriptografar dado
       aData := TServiceEncript.Decript(aDao.DataSet.FieldByName('linha_controle').AsString, SYS_PASSWD_KEY);
+
+      if (Pos('Competencia=', aData) > 0) then
+        FLinhaCompetencia := aDao.DataSet.FieldByName('linha_controle').AsString;
+
+      if (Pos('DataBloqueio=', aData) > 0) then
+        FLinhaBloqueio := aDao.DataSet.FieldByName('linha_controle').AsString;
 
       if (aData.Trim.ToUpper <> FFile.Strings[0].Trim.ToUpper) then
         FFile.Add(aData);
@@ -359,6 +386,8 @@ begin
   FCnpjArquivo     := EmptyStr;
   FTokenGoogleAuth := EmptyStr;
   FExecutando      := False;
+  FLinhaCompetencia := EmptyStr;
+  FLinhaBloqueio    := EmptyStr;
 end;
 
 function TLicencaController.DataBloqueio: TDateTime;

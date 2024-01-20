@@ -465,6 +465,10 @@ type
     cdsVendaVolumeCUBAGEM: TBCDField;
     cdsTabelaItensCODBARRA_EAN: TStringField;
     qryTitulosEMPRESA: TStringField;
+    lblContrato: TLabel;
+    dbContrato: TJvDBComboEdit;
+    fdQryTabelaCONTRATO: TLargeintField;
+    fdQryTabelaNUMERO_CONTRATO: TStringField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -537,6 +541,7 @@ type
     procedure dbCSTKeyPress(Sender: TObject; var Key: Char);
     procedure nmGerarReciboAvulsoClick(Sender: TObject);
     procedure FrReciboA4GetValue(const VarName: string; var Value: Variant);
+    procedure dbContratoButtonClick(Sender: TObject);
   private
     { Private declarations }
     FControllerTipoReceita,
@@ -635,14 +640,19 @@ uses
     System.StrUtils
   , Service.InputQuery
   , Controller.Tabela
-  , UDMBusiness, UFuncoes, View.Cliente, View.CondicaoPagto, View.Produto,
-  View.CFOP,
-  UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos,
-  View.ContaAReceber.Pagamento,
+  , UDMBusiness
+  , UFuncoes
+  , View.Memo
+  , View.Cliente
+  , View.CondicaoPagto
+  , View.Produto
+  , View.CFOP
+  , View.Contrato
+  , View.ContaAReceber.Pagamento
+  , UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos,
   UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte, UGeVendaConfirmaTitulos,
   {$IFNDEF PDV}UGeVendaDevolucaoNF, UGeConsultarLoteNFe_v2, UGeRequisicaoCliente, {$ENDIF}
   UDMRecursos,
-  View.Memo,
   Service.Message;
 
 {$R *.dfm}
@@ -838,8 +848,8 @@ var
   bBloqueado : Boolean;
   sBloqueado : String;
 begin
-  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarCliente(Self, iCodigo, sCNPJ, sInscE, sNome, bBloqueado, sBloqueado) ) then
+  if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
+    if SelecionarCliente(Self, iCodigo, sCNPJ, sInscE, sNome, bBloqueado, sBloqueado) then
     begin
       if bBloqueado then
       begin
@@ -859,6 +869,8 @@ begin
       DtSrcTabela.DataSet.FieldByName('NOME').AsString           := sNome;
       DtSrcTabela.DataSet.FieldByName('PESSOA_FISICA').AsInteger := IfThen(StrIsCPF(sCNPJ), 1, 0);
       DtSrcTabela.DataSet.FieldByName('INSCEST').AsString        := sInscE;
+      DtSrcTabela.DataSet.FieldByName('CONTRATO').Clear;
+      DtSrcTabela.DataSet.FieldByName('NUMERO_CONTRATO').Clear;
 
       DtSrcTabela.DataSet.FieldByName('DADOS_ENTREGA').AsString :=
         '* Responsável pela entrega..............: ' + #13 +
@@ -882,6 +894,35 @@ begin
           cdsVendaFormaPagto.FieldByName('PRAZO_' + FormatFloat('00', I)).AsInteger := dtsCondicaoPagto.DataSet.FieldByName('Cond_prazo_' + FormatFloat('00', I)).AsInteger;
       end;
     end;
+end;
+
+procedure TfrmGeVenda.dbContratoButtonClick(Sender: TObject);
+var
+  aContrato : TContrato;
+begin
+  if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
+  begin
+    if (DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger = 0) then
+    begin
+      TServiceMessage.ShowWarning('Selecione o cliente!');
+      if dbCliente.Visible and dbCliente.Enabled then
+        dbCliente.SetFocus;
+    end
+    else
+    begin
+      aContrato.Empresa := DtSrcTabela.DataSet.FieldByName('CODEMP').AsString;
+      aContrato.Cliente := DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger;
+
+      if SelecionarContratoCliente(Self, aContrato.Empresa, aContrato.Cliente, aContrato, True) then
+      begin
+        DtSrcTabela.DataSet.FieldByName('CODCLIENTE').AsInteger := aContrato.Cliente;
+        DtSrcTabela.DataSet.FieldByName('CODCLI').AsString := aContrato.Cnpj;
+        DtSrcTabela.DataSet.FieldByName('NOME').AsString   := aContrato.Nome;
+        DtSrcTabela.DataSet.FieldByName('CONTRATO').AsLargeInt  := aContrato.Controle;
+        DtSrcTabela.DataSet.FieldByName('NUMERO_CONTRATO').AsString := aContrato.Numero;
+      end;
+    end;
+  end;
 end;
 
 procedure TfrmGeVenda.dbCSTKeyPress(Sender: TObject; var Key: Char);
@@ -976,6 +1017,9 @@ begin
     DtSrcTabela.DataSet.FieldByName('CODCLI').Clear;
     DtSrcTabela.DataSet.FieldByName('NOME').Clear;
   end;
+
+  DtSrcTabela.DataSet.FieldByName('CONTRATO').Clear;
+  DtSrcTabela.DataSet.FieldByName('NUMERO_CONTRATO').Clear;
 
   DtSrcTabela.DataSet.FieldByName('DADOS_ENTREGA').Clear;
 

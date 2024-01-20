@@ -141,6 +141,7 @@ inherited ViewCheque: TViewCheque
             Left = 328
             Top = 24
             Width = 45
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -155,13 +156,14 @@ inherited ViewCheque: TViewCheque
             Left = 22
             Top = 24
             Width = 82
-            Height = 13
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
             Caption = 'Apresenta'#231#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
+            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 379
@@ -1160,10 +1162,6 @@ inherited ViewCheque: TViewCheque
         TabOrder = 3
         object tbsObservacao: TTabSheet
           Caption = 'Observa'#231#245'es'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -1173,6 +1171,7 @@ inherited ViewCheque: TViewCheque
             DataField = 'OBS'
             DataSource = DtSrcTabela
             TabOrder = 0
+            ExplicitTop = 2
           end
         end
       end

@@ -323,6 +323,12 @@ begin
 
     if (FieldByName('unidade').AsInteger = 0) then
       FieldByName('unidade').Clear;
+
+    if FieldByName('consumo_qtde').IsNull then
+      FieldByName('consumo_qtde').AsCurrency := FieldByName('quantidade').AsCurrency;
+
+    if FieldByName('consumo_total').IsNull then
+      FieldByName('consumo_total').AsCurrency := (FieldByName('quantidade').AsCurrency * FieldByName('valor').AsCurrency);
   end;
 end;
 

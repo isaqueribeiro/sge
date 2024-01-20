@@ -336,7 +336,8 @@ uses
   View.Contrato in '..\Sys\View\View.Contrato.pas' {ViewContrato},
   SGE.Model.DAO.Contrato in '..\Sys\Model\DAO\SGE.Model.DAO.Contrato.pas',
   SGE.Controller.Contrato in '..\Sys\Controller\SGE.Controller.Contrato.pas',
-  SGE.Controller.Impressao.DataModule.Contrato in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Contrato.pas' {DataModuleContrato: TDataModule};
+  SGE.Controller.Impressao.DataModule.Contrato in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Contrato.pas' {DataModuleContrato: TDataModule},
+  SGE.Controller.Impressao.Contrato in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas';
 
 {$R *.res}
 

@@ -404,6 +404,8 @@ inherited frmGeVenda: TfrmGeVenda
       end
     end
     inherited tbsCadastro: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 25
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel
@@ -449,7 +451,7 @@ inherited frmGeVenda: TfrmGeVenda
           FocusControl = dbEmpresa
         end
         object lblCliente: TLabel [2]
-          Left = 672
+          Left = 616
           Top = 24
           Width = 37
           Height = 13
@@ -584,6 +586,14 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Style = [fsBold]
           ParentFont = False
         end
+        object lblContrato: TLabel [13]
+          Left = 976
+          Top = 24
+          Width = 47
+          Height = 13
+          Caption = 'Contrato:'
+          FocusControl = dbContrato
+        end
         inherited dbCodigo: TDBEdit
           Width = 89
           TabStop = False
@@ -594,7 +604,7 @@ inherited frmGeVenda: TfrmGeVenda
         object dbEmpresa: TDBLookupComboBox
           Left = 248
           Top = 40
-          Width = 417
+          Width = 361
           Height = 21
           DataField = 'CODEMP'
           DataSource = DtSrcTabela
@@ -644,7 +654,7 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 4
+          TabOrder = 5
         end
         object dbNFe: TDBEdit
           Left = 56
@@ -662,7 +672,7 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 5
+          TabOrder = 6
         end
         object dbDataEmissao: TDBEdit
           Left = 160
@@ -680,7 +690,7 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 6
+          TabOrder = 7
         end
         object dbSituacao: TDBEdit
           Left = 328
@@ -698,12 +708,12 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 8
+          TabOrder = 9
         end
         object dbVendedor: TDBLookupComboBox
           Left = 856
           Top = 80
-          Width = 217
+          Width = 230
           Height = 21
           DataField = 'VENDEDOR_COD'
           DataSource = DtSrcTabela
@@ -717,7 +727,7 @@ inherited frmGeVenda: TfrmGeVenda
           ListField = 'NOME'
           ListSource = dtsVendedor
           ParentFont = False
-          TabOrder = 12
+          TabOrder = 13
         end
         object dbValorTotal: TDBEdit
           Left = 720
@@ -735,7 +745,7 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 11
+          TabOrder = 12
         end
         object dbValorDesconto: TDBEdit
           Left = 616
@@ -753,7 +763,7 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 10
+          TabOrder = 11
         end
         object dbValorTotalBruto: TDBEdit
           Left = 480
@@ -771,12 +781,12 @@ inherited frmGeVenda: TfrmGeVenda
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 9
+          TabOrder = 10
         end
         object dbCliente: TJvDBComboEdit
-          Left = 672
+          Left = 616
           Top = 40
-          Width = 401
+          Width = 354
           Height = 21
           ButtonHint = 'Pesquisar Cliente (Ctrl+P)'
           CharCase = ecUpperCase
@@ -920,9 +930,84 @@ inherited frmGeVenda: TfrmGeVenda
           ParentShowHint = False
           PopupMenu = ppCorrigirDadosNFe
           ShowHint = True
-          TabOrder = 7
+          TabOrder = 8
           OnButtonClick = dbCFOPVendaButtonClick
           OnExit = ControlEditExit
+        end
+        object dbContrato: TJvDBComboEdit
+          Left = 976
+          Top = 40
+          Width = 110
+          Height = 21
+          ButtonHint = 'Pesquisar Contrato (Ctrl+P)'
+          CharCase = ecUpperCase
+          ClickKey = 16464
+          Color = clMoneyGreen
+          DataField = 'NUMERO_CONTRATO'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          Glyph.Data = {
+            36060000424D3606000000000000360000002800000020000000100000000100
+            18000000000000060000000000000000000000000000000000001DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B5B1AD
+            AC203040ACA5A21DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C37F7F7F7F7F7FACA5A2C3C3C31DE6B5B0A090
+            6048306048306048306048306048306048306048306048306048305048403050
+            604078C0304860B1ACA6C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3B1ACA61DE6B5B0A090
+            FFFFFFB0A090B0A090B0A090B0A090B0A090B0A090B0A0909088803050703080
+            D04098E050B0F0506870C3C3C37F7F7FFFFFFFC3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C39088807F7F7FC3C3C3C3C3C3C3C3C37F7F7F1DE6B5B0A090
+            FFFFFFFFFFFFFFF8FFF0F0F0D0D8D090989070686060686050586040709040A0
+            E060C8FF7090A0C5BEB5C3C3C37F7F7FFFFFFFFFFFFFFFF8FFF0F0F0D0D8D07F
+            7F7F7F7F7F7F7F7F505860C3C3C3C3C3C3C3C3C37090A0C5BEB51DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFE0E0E0909090B0A8A0D0C0B0D0B0A08078705058506090
+            B07098B0AEAEAA1DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFE0E0E07F7F7F7F
+            7F7FD0C0B0D0B0A0807870505850C3C3C37098B0AEAEAAC3C3C31DE6B5B0A090
+            FFFFFFFFFFFFFFFFFFB0B0B0C0B8B0FFF0E0FFE8E0F0D8C0F0D0B08078709D8F
+            8CAEAFAA1DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F0E0FFE8E0F0D8C0F0D0B08078709D8F8CAEAFAAC3C3C3C3C3C31DE6B5C0A890
+            FFFFFFFFFFFFFFFFFFA09890F0E8E0FFF8F0FFF0F0FFE8E0F0D8D0D0B0A06367
+            5E1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            F8F0FFF0F0FFE8E0F0D8D0D0B0A063675EC3C3C3C3C3C3C3C3C31DE6B5C0A8A0
+            FFFFFFFFFFFFFFFFFFA0A090F0E8E0FFFFFFFFF8F0FFF0F0FFE8E0E0C0B0716E
+            6C1DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFF8F0FFF0F0FFE8E0E0C0B0716E6CC3C3C3C3C3C3C3C3C31DE6B5C0B0A0
+            FFFFFFFFFFFFFFFFFFC0C8C0C0C0C0FFFFFFFFFFFFFFF8F0FFF0E0B0A090A69C
+            951DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFF7F7F7F7F7F7FFF
+            FFFFFFFFFFFFF8F0FFF0E0B0A090A69C95C3C3C3C3C3C3C3C3C31DE6B5D0B0A0
+            FFFFFFFFFFFFFFFFFFF0F8FFC0B8B0C0C0C0F0E8E0F0E8E0B0B0A07070601DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFF0F8FF7F7F7F7F
+            7F7FF0E8E0F0E8E0B0B0A0707060C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8A0
+            FFFFFFFFFFFFFFFFFFFFFFFFF0F8FFC0C8C0A0A0909090809090906050401DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFF0F8FF7F
+            7F7FA0A0907F7F7F909090605040C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0B8B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB0A0906048306048306048301DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F604830604830604830C3C3C3C3C3C3C3C3C3C3C3C31DE6B5D0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A890D0C8C06048301DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7FC3C3C3604830C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0A8A0604830E0C6B71DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF7F7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B5E0C0B0
+            E0C0B0E0C0B0E0C0B0E0C0B0D0C0B0D0B8B0D0B0A0E0C7B91DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C37F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F7F
+            7F7F7F7F7F7F7F7FC3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C31DE6B51DE6B5
+            1DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6B51DE6
+            B51DE6B51DE6B51DE6B5C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3
+            C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3C3}
+          NumGlyphs = 2
+          ParentFont = False
+          ParentShowHint = False
+          ReadOnly = True
+          ShowHint = True
+          TabOrder = 4
+          OnButtonClick = dbContratoButtonClick
         end
       end
       object GrpBxDadosProduto: TGroupBox
@@ -1298,7 +1383,7 @@ inherited frmGeVenda: TfrmGeVenda
         object dbCFOPDescricao: TDBEdit
           Left = 720
           Top = 40
-          Width = 352
+          Width = 366
           Height = 21
           TabStop = False
           Color = clMoneyGreen
@@ -1841,7 +1926,7 @@ inherited frmGeVenda: TfrmGeVenda
         object dbLoteProduto: TDBLookupComboBox
           Left = 944
           Top = 80
-          Width = 128
+          Width = 142
           Height = 21
           DataField = 'LOTE_ID'
           DataSource = DtSrcTabelaItens
@@ -4206,6 +4291,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  , v.Codemp'
       '  , v.Codcliente'
       '  , v.Codcli'
+      '  , v.Contrato'
       '  , v.Dtvenda'
       '  , v.Status'
       '  , v.Totalvenda_bruta'
@@ -4271,6 +4357,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  , c.Bloqueado_motivo'
       '  , c.pessoa_fisica'
       '  , c.inscest'
+      '  , o.numero as numero_contrato'
       '  , Case when coalesce(v.totalcusto, 0) > 0'
       
         '      then ((v.totalvenda / coalesce(v.totalcusto, 0)) - 1) * 10' +
@@ -4279,7 +4366,8 @@ inherited frmGeVenda: TfrmGeVenda
       '    end Lucro_Calculado'
       'from TBVENDAS v'
       '  inner join TBCLIENTE c on (c.Codigo = v.Codcliente)'
-      '  left join TBFORNECEDOR t on (t.codforn = v.nfe_transportadora)')
+      '  left join TBFORNECEDOR t on (t.codforn = v.nfe_transportadora)'
+      '  left join TBCONTRATO o on (o.controle = v.contrato)')
     object fdQryTabelaANO: TSmallintField
       FieldName = 'ANO'
       Origin = 'ANO'
@@ -4663,6 +4751,20 @@ inherited frmGeVenda: TfrmGeVenda
       OnGetText = fdQryTabelaLUCRO_CALCULADOGetText
       Precision = 18
     end
+    object fdQryTabelaCONTRATO: TLargeintField
+      DisplayLabel = 'Contrato'
+      FieldName = 'CONTRATO'
+      Origin = 'CONTRATO'
+      ProviderFlags = [pfInUpdate]
+    end
+    object fdQryTabelaNUMERO_CONTRATO: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Nro. do Contrato'
+      FieldName = 'NUMERO_CONTRATO'
+      Origin = 'NUMERO'
+      ProviderFlags = []
+      Size = 10
+    end
   end
   inherited fdUpdTabela: TFDUpdateSQL
     InsertSQL.Strings = (
@@ -4682,7 +4784,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  CANCEL_USUARIO, CANCEL_DATAHORA, CANCEL_MOTIVO, '
       '  NFE_MODALIDADE_FRETE, NFE_TRANSPORTADORA, NFE_PLACA_VEICULO, '
       '  NFE_PLACA_UF, NFE_PLACA_RNTC, GERAR_ESTOQUE_CLIENTE, '
-      '  CAIXA_ANO, CAIXA_NUM, CAIXA_PDV)'
+      '  CAIXA_ANO, CAIXA_NUM, CAIXA_PDV, CONTRATO)'
       
         'VALUES (:NEW_ANO, :NEW_CODCONTROL, :NEW_CODEMP, :NEW_CODCLIENTE,' +
         ' :NEW_CODCLI, '
@@ -4720,8 +4822,8 @@ inherited frmGeVenda: TfrmGeVenda
       
         '  :NEW_NFE_PLACA_UF, :NEW_NFE_PLACA_RNTC, :NEW_GERAR_ESTOQUE_CLI' +
         'ENTE, '
-      '  :NEW_CAIXA_ANO, :NEW_CAIXA_NUM, :NEW_CAIXA_PDV)'
-      'RETURNING ANO, CODCONTROL, MODELO_NF')
+      '  :NEW_CAIXA_ANO, :NEW_CAIXA_NUM, :NEW_CAIXA_PDV, :NEW_CONTRATO)'
+      'RETURNING MODELO_NF')
     ModifySQL.Strings = (
       'UPDATE TBVENDAS'
       
@@ -4785,94 +4887,65 @@ inherited frmGeVenda: TfrmGeVenda
         '  NFE_PLACA_RNTC = :NEW_NFE_PLACA_RNTC, GERAR_ESTOQUE_CLIENTE = ' +
         ':NEW_GERAR_ESTOQUE_CLIENTE, '
       '  CAIXA_ANO = :NEW_CAIXA_ANO, CAIXA_NUM = :NEW_CAIXA_NUM, '
-      '  CAIXA_PDV = :NEW_CAIXA_PDV'
+      '  CAIXA_PDV = :NEW_CAIXA_PDV, CONTRATO = :NEW_CONTRATO'
       'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL'
-      'RETURNING ANO, CODCONTROL, MODELO_NF')
+      'RETURNING MODELO_NF')
     DeleteSQL.Strings = (
       'DELETE FROM TBVENDAS'
       'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL')
     FetchRowSQL.Strings = (
-      'Select'
-      '    v.Ano'
-      '  , v.Codcontrol'
-      '  , v.Codemp'
-      '  , v.Codcliente'
-      '  , v.Codcli'
-      '  , v.Dtvenda'
-      '  , v.Status'
-      '  , v.Totalvenda_bruta'
-      '  , v.Desconto'
-      '  , v.Totalvenda'
-      '  , v.Dtfinalizacao_venda'
-      '  , v.Obs'
-      '  , v.Dados_entrega'
-      '  , v.Formapag'
-      '  , v.Fatdias'
-      '  , v.Serie'
-      '  , v.Nfe'
-      '  , coalesce(v.modelo_Nf, 0) as modelo_Nf'
-      '  , v.Lote_nfe_ano'
-      '  , v.Lote_nfe_numero'
-      '  , v.Lote_nfe_Recibo'
-      '  , v.Nfe_enviada'
-      '  , v.Nfe_denegada'
-      '  , v.Nfe_denegada_motivo'
-      '  , v.caixa_ano'
-      '  , v.caixa_num'
-      '  , v.caixa_pdv'
-      '  , v.Dataemissao'
-      '  , v.Horaemissao'
-      '  , v.Cancel_usuario'
-      '  , v.Cancel_datahora'
-      '  , v.Cancel_motivo'
-      '  , v.Cfop'
-      '  , v.Verificador_nfe'
-      '  , v.Xml_nfe_filename'
-      '  , v.Xml_nfe'
-      '  , v.Vendedor_cod'
-      '  , v.Usuario'
-      '  , v.Formapagto_cod'
-      '  , v.Condicaopagto_cod'
-      '  , v.Venda_prazo'
-      '  , v.Prazo_01'
-      '  , v.Prazo_02'
-      '  , v.Prazo_03'
-      '  , v.Prazo_04'
-      '  , v.Prazo_05'
-      '  , v.Prazo_06'
-      '  , v.Prazo_07'
-      '  , v.Prazo_08'
-      '  , v.Prazo_09'
-      '  , v.Prazo_10'
-      '  , v.Prazo_11'
-      '  , v.Prazo_12'
-      '  , v.nfe_modalidade_frete'
-      '  , v.nfe_transportadora'
-      '  , v.nfe_placa_veiculo'
-      '  , v.nfe_placa_uf'
-      '  , v.nfe_placa_rntc'
-      '  , v.gerar_estoque_cliente'
-      '  , t.nomeforn as transp_nome'
-      '  , t.cnpj     as transp_cnpj'
-      '  , t.inscest  as transp_iest'
       
-        '  , t.ender || coalesce('#39' - '#39' || t.cidade, '#39#39') as transp_enderec' +
-        'o'
-      '  , c.Nome'
-      '  , c.Bloqueado'
-      '  , c.Bloqueado_motivo'
-      '  , c.pessoa_fisica'
-      '  , c.inscest'
-      '  , Case when coalesce(v.totalcusto, 0) > 0'
+        'SELECT ANO, CODCONTROL, CODEMP, CODCLIENTE, CODCLI, DTVENDA, COM' +
+        'PETENCIA, '
       
-        '      then ((v.totalvenda / coalesce(v.totalcusto, 0)) - 1) * 10' +
-        '0'
-      '      else 0.0'
-      '    end Lucro_Calculado'
-      'from TBVENDAS v'
-      '  inner join TBCLIENTE c on (c.Codigo = v.Codcliente)'
-      '  left join TBFORNECEDOR t on (t.codforn = v.nfe_transportadora)'
-      'WHERE v.ANO = :ANO AND v.CODCONTROL = :CODCONTROL')
+        '  STATUS, TOTALVENDA_BRUTA, DESCONTO, DESCONTO_CUPOM, TOTALVENDA' +
+        ', '
+      
+        '  TOTALCUSTO, INDEX_VALOR, DTFINALIZACAO_VENDA, OBS, DADOS_ENTRE' +
+        'GA, '
+      
+        '  FORMAPAG, FATDIAS, SERIE, NFE, MODELO_NF, DATAEMISSAO, HORAEMI' +
+        'SSAO, '
+      
+        '  CFOP, VERIFICADOR_NFE, XML_NFE, XML_NFE_FILENAME, VENDEDOR_COD' +
+        ', '
+      '  USUARIO, FORMAPAGTO_COD, CONDICAOPAGTO_COD, VENDA_PRAZO, '
+      '  PRAZO_01, PRAZO_02, PRAZO_03, PRAZO_04, PRAZO_05, PRAZO_06, '
+      '  PRAZO_07, PRAZO_08, PRAZO_09, PRAZO_10, PRAZO_11, PRAZO_12, '
+      
+        '  LOTE_NFE_ANO, LOTE_NFE_NUMERO, LOTE_NFE_CODIGO, LOTE_NFE_RECIB' +
+        'O, '
+      
+        '  NFE_ENVIADA, NFE_DENEGADA, NFE_DENEGADA_MOTIVO, CANCEL_USUARIO' +
+        ', '
+      
+        '  CANCEL_DATAHORA, CANCEL_MOTIVO, NFE_MODALIDADE_FRETE, NFE_TRAN' +
+        'SPORTADORA, '
+      
+        '  NFE_PLACA_VEICULO, NFE_PLACA_UF, NFE_PLACA_RNTC, NFE_VALOR_BAS' +
+        'E_ICMS, '
+      
+        '  NFE_VALOR_ICMS, NFE_VALOR_BASE_ICMS_SUBST, NFE_VALOR_ICMS_SUBS' +
+        'T, '
+      '  NFE_VALOR_TOTAL_PRODUTO, NFE_VALOR_FRETE, NFE_VALOR_SEGURO, '
+      '  NFE_VALOR_DESCONTO, NFE_VALOR_TOTAL_II, NFE_VALOR_TOTAL_IPI, '
+      
+        '  NFE_VALOR_PIS, NFE_VALOR_COFINS, NFE_VALOR_OUTROS, NFE_VALOR_T' +
+        'OTAL_NOTA, '
+      '  CUSTO_OPER_PERCENTUAL, CUSTO_OPER_FRETE, CUSTO_OPER_OUTROS, '
+      '  GERAR_ESTOQUE_CLIENTE, CAIXA_ANO, CAIXA_NUM, CAIXA_PDV, '
+      
+        '  DNFE_COMPRA_ANO, DNFE_COMPRA_COD, DNFE_FORMA, DNFE_UF, DNFE_CN' +
+        'PJ_CPF, '
+      
+        '  DNFE_IE, DNFE_COMPETENCIA, DNFE_SERIE, DNFE_NUMERO, DNFE_MODEL' +
+        'O, '
+      
+        '  DNFE_CHAVE, DECF_MODELO, DECF_NUMERO, DECF_COO, CFOP_ALTERA_ES' +
+        'TOQUE, '
+      '  CFOP_GERA_TITULO, CFOP_FATURAR_REMESSA, CONTRATO'
+      'FROM TBVENDAS'
+      'WHERE ANO = :OLD_ANO AND CODCONTROL = :OLD_CODCONTROL')
   end
   object dtsEmpresa: TDataSource
     DataSet = fdQryEmpresa
