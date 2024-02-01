@@ -106,7 +106,7 @@ begin
   FBusca
     .Clear
     .SQL('Select')
-    .SQL('  , f.codigo')
+    .SQL('    f.codigo')
     .SQL('  , f.tipo  ')
     .SQL('  , f.pessoa_fisica')
     .SQL('  , f.cnpj    ')
@@ -180,7 +180,7 @@ begin
   FBusca
     .Clear
     .SQL('Select')
-    .SQL('  , f.codigo')
+    .SQL('    f.codigo')
     .SQL('  , f.tipo  ')
     .SQL('  , f.pessoa_fisica')
     .SQL('  , f.cnpj    ')
@@ -277,7 +277,7 @@ begin
     aScriptSQL.Add('    where r.Parcela  > 0'); // Parcelas a prazo
     aScriptSQL.Add('      and r.Situacao = 1'); // Situação ativa
     aScriptSQL.Add('      and r.Baixado  = 0'); // Títulos não baixados (em aberto)
-    aScriptSQL.Add('      and r.Cliente  <> ' + IntToStr(CONSUMIDOR_FINAL_CODIGO));
+    aScriptSQL.Add('      and r.Cliente != ' + IntToStr(CONSUMIDOR_FINAL_CODIGO));
     // O cliente encontra-se bloqueado por haver títulos em atraso.
     aScriptSQL.Add('      and r.Dtvenc < Current_date');
     aScriptSQL.Add('  )');

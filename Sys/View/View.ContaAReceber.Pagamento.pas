@@ -73,7 +73,8 @@ uses
   Interacao.Tabela,
   Controller.Tabela,
   SGE.Controller.Interfaces,
-  SGE.Controller.Impressao.ContaAReceber;
+  SGE.Controller.Impressao.ContaAReceber, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White;
 
 type
   TTipoOrigemRecebimento = (toRecebimentoOutros, toRecebimentoVenda, toRecebimentoOS);

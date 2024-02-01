@@ -208,7 +208,6 @@ inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
     OptionsImage.NumGlyphs = 2
     TabOrder = 1
     OnClick = btnCancelarClick
-    ExplicitTop = 444
   end
   object GrpBxLancamento: TGroupBox
     Left = 0
@@ -566,7 +565,6 @@ inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 3
-    ExplicitTop = 119
     object Bevel3: TBevel
       Left = 305
       Top = 0
@@ -871,6 +869,7 @@ inherited ViewContaAPagarLoteParcela: TViewContaAPagarLoteParcela
         OnExit = dbgParcelasExit
         object dbgParcelasTbl: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
+          ScrollbarAnnotations.CustomAnnotations = <>
           DataController.DataSource = dtsParcelas
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <

@@ -3,7 +3,7 @@
         <ProjectGuid>{B83BB859-3D15-446C-856E-FD9414016B09}</ProjectGuid>
         <MainSource>SGI.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
         <FrameworkType>VCL</FrameworkType>
@@ -70,14 +70,14 @@
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.33.4;InternalName=SGI;LegalCopyright=Copyright 2013 - 2023 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.33;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=06/09/2023;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.33.6;InternalName=SGI;LegalCopyright=Copyright 2013 - 2023 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.33;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=31/01/2024;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <UWP_DelphiLogo44>..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-44x44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-150x150.png</UWP_DelphiLogo150>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
         <DCC_Define>SGI;$(DCC_Define)</DCC_Define>
-        <VerInfo_Build>4</VerInfo_Build>
+        <VerInfo_Build>6</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <Icon_MainIcon>SGI_Icon2.ico</Icon_MainIcon>
@@ -95,12 +95,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCC_LocalDebugSymbols>true</DCC_LocalDebugSymbols>
         <VerInfo_Release>33</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.33.4;InternalName=SGI;LegalCopyright=Copyright 2013 - 2023 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.33;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=06/09/2023;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.33.6;InternalName=SGI;LegalCopyright=Copyright 2013 - 2023 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.33;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=31/01/2024;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
         <BT_BuildType>Debug</BT_BuildType>
-        <VerInfo_Build>4</VerInfo_Build>
+        <VerInfo_Build>6</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -111,11 +111,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <VerInfo_Release>33</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.33.4;InternalName=SGI;LegalCopyright=Copyright 2013 - 2023 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.33;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=06/09/2023;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.33.6;InternalName=SGI;LegalCopyright=Copyright 2013 - 2023 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.33;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=31/01/2024;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
-        <VerInfo_Build>4</VerInfo_Build>
+        <VerInfo_Build>6</VerInfo_Build>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -148,6 +148,14 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\Controller.Usuario.pas"/>
         <DCCReference Include="..\Sys\Controller\Controller.Versao.pas"/>
         <DCCReference Include="..\Sys\Controller\Controller.Licenca.pas"/>
+        <DCCReference Include="..\GerarLicenca\Controller\Controller.Interfaces.pas"/>
+        <DCCReference Include="..\GerarLicenca\Controller\Controller.ClienteApp.pas"/>
+        <DCCReference Include="..\GerarLicenca\Controller\Controller.FactoryApp.pas"/>
+        <DCCReference Include="..\GerarLicenca\Controller\Controller.UsuarioApp.pas"/>
+        <DCCReference Include="..\GerarLicenca\Model\Model.Usuario.pas"/>
+        <DCCReference Include="..\GerarLicenca\Model\Model.Cliente.pas"/>
+        <DCCReference Include="..\GerarLicenca\Model\Model.Endereco.pas"/>
+        <DCCReference Include="..\GerarLicenca\Model\Model.Licenca.pas"/>
         <DCCReference Include="..\Sys\Model\Model.Constantes.pas"/>
         <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Factory.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Factory.pas"/>
@@ -271,9 +279,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\UGeVendaTransporte.pas">
             <Form>frmGeVendaTransporte</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\View\View.Usuario.AlterarSenha.pas">
-            <Form>ViewUsuarioAlterarSenha</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeVendaConfirmaTitulos.pas">
             <Form>frmGeVendaConfirmaTitulos</Form>
@@ -474,6 +479,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CondicaoPagto.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Config.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Contrato.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CST.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Distrito.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Empresa.pas"/>
@@ -486,21 +494,28 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Licenca.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Logradouro.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.LogTransacao.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Perfil.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Produto.pas"/>
+        <DCCReference Include="Model\DAO\SGI.Model.DAO.ProdutoAlmoxarifado.pas"/>
         <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.Promocao.pas"/>
+        <DCCReference Include="Model\DAO\SGI.Model.DAO.RequisicaoAlmoxarifado.pas"/>
         <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.RequisicaoCompra.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.UF.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Usuario.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas"/>
         <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas"/>
         <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeImportada.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Factory.pas"/>
+        <DCCReference Include="Model\DAO\Query\SGI.Model.DAO.Query.ApropriacaoEstoque.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Cliente.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAReceber.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.FornecedorCliente.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Factory.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
@@ -518,6 +533,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Conexao.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Config.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaCorrente.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Contrato.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CST.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Distrito.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Empresa.pas"/>
@@ -529,32 +547,65 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.IBPT.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Logradouro.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.LogTransacao.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Perfil.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.PlanoConta.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Produto.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.Promocao.pas"/>
+        <DCCReference Include="Controller\SGI.Controller.RequisicaoAlmoxarifado.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.RequisicaoCompra.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Tabelas.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoLogradouro.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoReceita.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.UF.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Usuario.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Vendedor.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.XML_NFeEnviada.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.XML_NFeImportada.pas"/>
         <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.pas"/>
         <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.Factory.pas"/>
+        <DCCReference Include="Controller\Query\SGI.Controller.Query.ApropriacaoEstoque.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.ContaAReceber.pas"/>
         <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.FornecedorCliente.pas"/>
+        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.AutorizacaoCompra.pas">
+            <Form>DataModuleAutorizacaoCompra</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAPagar.pas">
             <Form>DataModuleContaAPagar</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAReceber.pas">
+            <Form>DataModuleContaAReceber</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Contrato.pas">
+            <Form>DataModuleContrato</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Cheque.pas">
             <Form>DataModuleCheque</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.RequisicaoAlmox.pas">
+            <Form>DataModuleRequisicaoAlmox</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.AutorizacaoCompra.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.Cheque.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas"/>
+        <DCCReference Include="Controller\Impressao\SGE.Controller.Impressao.RequisicaoAlmox.pas"/>
+        <DCCReference Include="Controller\SGI.Controller.ProdutoAlmoxarifado.pas"/>
+        <DCCReference Include="..\Sys\UGeTabelaCNAE.pas">
+            <Form>frmGeTabelaCNAE</Form>
+        </DCCReference>
+        <DCCReference Include="UGeApropriacaoEstoquePesquisa.pas">
+            <Form>frmGeApropriacaoEstoquePesquisa</Form>
+        </DCCReference>
         <DCCReference Include="..\Sys\View\View.Certificado.pas">
             <Form>ViewCertificado</Form>
         </DCCReference>
@@ -658,9 +709,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\View\View.ConfiguracaoEmpresa.pas">
             <Form>ViewConfiguracaoEmpresa</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeTabelaCNAE.pas">
-            <Form>frmGeTabelaCNAE</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\View\View.Entrada.pas">
             <Form>ViewEntrada</Form>
         </DCCReference>
@@ -699,82 +747,25 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.MemoData.pas">
             <Form>ViewMemoData</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\Query\View.Query.ContaAPagar.pas">
             <Form>ViewQueryContaAPagar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\Query\View.Query.FornecedorCliente.pas">
             <Form>ViewQueryFornecedorCliente</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.ContaAPagar.LoteParcela.pas">
             <Form>ViewContaAPagarLoteParcela</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.ContaAPagar.Pagamento.pas">
             <Form>ViewContaAPagarPagamento</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.ContaAPagar.pas">
             <Form>ViewContaAPagar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.PadraoPesquisa.pas">
             <Form>ViewPadraoPesquisa</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.AutorizacaoCompra.pas"/>
-        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.AutorizacaoCompra.pas">
-            <Form>DataModuleAutorizacaoCompra</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
-        <DCCReference Include="Model\DAO\SGI.Model.DAO.RequisicaoAlmoxarifado.pas"/>
-        <DCCReference Include="Controller\SGI.Controller.RequisicaoAlmoxarifado.pas"/>
-        <DCCReference Include="Model\DAO\SGI.Model.DAO.ProdutoAlmoxarifado.pas"/>
-        <DCCReference Include="Controller\SGI.Controller.ProdutoAlmoxarifado.pas"/>
-        <DCCReference Include="UGeApropriacaoEstoquePesquisa.pas">
-            <Form>frmGeApropriacaoEstoquePesquisa</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="Model\DAO\Query\SGI.Model.DAO.Query.ApropriacaoEstoque.pas"/>
-        <DCCReference Include="Controller\Query\SGI.Controller.Query.ApropriacaoEstoque.pas"/>
-        <DCCReference Include="..\GerarLicenca\Controller\Controller.Interfaces.pas"/>
-        <DCCReference Include="..\GerarLicenca\Model\Model.Endereco.pas"/>
-        <DCCReference Include="..\GerarLicenca\Model\Model.Licenca.pas"/>
-        <DCCReference Include="..\GerarLicenca\Controller\Controller.ClienteApp.pas"/>
-        <DCCReference Include="..\GerarLicenca\Controller\Controller.FactoryApp.pas"/>
-        <DCCReference Include="..\GerarLicenca\Controller\Controller.UsuarioApp.pas"/>
-        <DCCReference Include="..\GerarLicenca\Model\Model.Usuario.pas"/>
-        <DCCReference Include="..\GerarLicenca\Model\Model.Cliente.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaAPagar.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaAReceber.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAPagar.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAReceber.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAPagar.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAReceber.pas"/>
-        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.ContaAPagar.pas"/>
-        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.ContaAReceber.pas"/>
-        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAReceber.pas">
-            <Form>DataModuleContaAReceber</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
-        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Usuario.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.Usuario.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Perfil.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.Perfil.pas"/>
-        <DCCReference Include="Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.RequisicaoAlmox.pas">
-            <Form>DataModuleRequisicaoAlmox</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
-        <DCCReference Include="Controller\Impressao\SGE.Controller.Impressao.RequisicaoAlmox.pas"/>
-        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Contrato.pas"/>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.Contrato.pas"/>
         <DCCReference Include="..\Sys\View\View.ContaAReceber.pas">
             <Form>ViewContaAReceber</Form>
         </DCCReference>
@@ -787,6 +778,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\View\View.Usuario.pas">
             <Form>ViewUsuario</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Usuario.AlterarSenha.pas">
+            <Form>ViewUsuarioAlterarSenha</Form>
+        </DCCReference>
         <DCCReference Include="View\View.RequisicaoAlmox.pas">
             <Form>ViewRequisicaoAlmox</Form>
         </DCCReference>
@@ -795,7 +789,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="View\View.RequisicaoAlmox.OrdemSaida.pas">
             <Form>ViewRequisicaoAlmoxOrdemSaida</Form>
-            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Contrato.pas">
+            <Form>ViewContrato</Form>
         </DCCReference>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Debug">

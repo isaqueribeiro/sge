@@ -9,6 +9,7 @@ uses
   System.ImageList,
   System.Classes,
   System.Variants,
+
   Winapi.Windows,
 
   Vcl.Forms,
@@ -178,9 +179,9 @@ type
     procedure FiltarDadosContrato;
   end;
 
-var
-  ViewContrato: TViewContrato;
-
+//var
+//  ViewContrato: TViewContrato;
+//
   function SelecionarContratoCliente(const AOwner : TComponent; aEmpresa : String; aCliente : Integer;
     var aContrato : TContrato; const aApenasDisponiveis : Boolean = True) : Boolean;
 

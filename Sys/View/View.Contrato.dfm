@@ -113,7 +113,6 @@ inherited ViewContrato: TViewContrato
             Left = 291
             Top = 25
             Width = 80
-            Height = 21
             Margins.Left = 10
             Margins.Top = 10
             Margins.Bottom = 14
@@ -129,7 +128,7 @@ inherited ViewContrato: TViewContrato
             Left = 12
             Top = 24
             Width = 49
-            Height = 23
+            Height = 13
             Margins.Left = 10
             Margins.Top = 9
             Margins.Bottom = 13
@@ -137,7 +136,6 @@ inherited ViewContrato: TViewContrato
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 377
@@ -844,6 +842,10 @@ inherited ViewContrato: TViewContrato
         TabOrder = 1
         object tbsProdutos: TTabSheet
           Caption = 'Produtos'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object GrpBxDadosProduto: TGroupBox
             AlignWithMargins = True
             Left = 10
@@ -1456,6 +1458,10 @@ inherited ViewContrato: TViewContrato
         object tbsObservacoes: TTabSheet
           Caption = 'Observa'#231#245'es'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             AlignWithMargins = True
             Left = 10
@@ -1478,6 +1484,10 @@ inherited ViewContrato: TViewContrato
         object tbsNotas: TTabSheet
           Caption = 'Notas Emitidas'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object DBGrid1: TDBGrid
             AlignWithMargins = True
             Left = 10

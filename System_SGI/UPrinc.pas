@@ -3,23 +3,32 @@ unit UPrinc;
 interface
 
 uses
-  System.StrUtils, System.Threading, StdCtrls, Buttons,
+  System.StrUtils,
+  System.SysUtils,
+  System.Threading,
+  System.Variants,
+  System.Classes,
 
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg, dxStatusBar, dxRibbonForm, dxRibbonSkins,
+  Vcl.StdCtrls,
+  Vcl.Buttons,
+  Vcl.AppEvnts,
+
+  Windows, Messages, Graphics, Controls, Forms,
+  Dialogs, Menus, ComCtrls, ExtCtrls, jpeg,
+
+  dxStatusBar, dxRibbonForm, dxRibbonSkins,
   cxGraphics, dxGDIPlusClasses, cxLookAndFeelPainters, cxButtons, cxLookAndFeels,
   dxBar, dxSkinsForm, dxSkinsdxBarPainter, cxControls, cxClasses, dxRibbon,
   dxRibbonCustomizationForm, cxContainer, cxEdit, dxGallery, dxGalleryControl,
   dxRibbonBackstageViewGalleryControl, cxLabel, dxRibbonBackstageView,
 
-  dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
-  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
-  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinsdxStatusBarPainter, dxSkinsdxRibbonPainter, dxSkinMcSkin,
-  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, Vcl.AppEvnts;
-
+  dxCore,
+  dxSkinsCore,
+  dxSkinOffice2019Black,
+  dxSkinOffice2019Colorful,
+  dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White,
+  dxSkinsDefaultPainters;
 
 type
   TfrmPrinc = class(TdxRibbonForm)
@@ -946,10 +955,11 @@ begin
     BrBtnAutorizacaoCompra.Enabled := False;
     BrBtnEntrada.Enabled           := False;
     BrBtnRequisicaoAlmox.Enabled   := False;
-    BrBtnVenda.Enabled         := False;
-    BrBtnTesouraria.Enabled    := False;
-    BrBtnContaAPagar.Enabled   := False;
-    BrBtnContaAReceber.Enabled := False;
+    BrBtnVenda.Enabled          := False;
+    BrBtnControleCheque.Enabled := False;
+    BrBtnTesouraria.Enabled     := False;
+    BrBtnContaAPagar.Enabled    := False;
+    BrBtnContaAReceber.Enabled  := False;
 
     raise Exception.Create('Host -> ' + sHostName + #13 + 'Estação de trabalho não registrada no sistema!');
   end;
@@ -1179,7 +1189,7 @@ end;
 
 procedure TfrmPrinc.nmUsuarioAlterarSenhaClick(Sender: TObject);
 begin
-  if ( FormFunction.ShowModalForm(Self, 'ViewUsuarioAlterarSenha') ) then
+  if FormFunction.ShowModalForm(Self, 'ViewUsuarioAlterarSenha') then
     Self.Update;
 end;
 

@@ -7927,8 +7927,6 @@ inherited frmGeOS: TfrmGeOS
     Top = 120
   end
   object cdsOSEquipamentos: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
     AfterScroll = cdsOSEquipamentosAfterScroll
     OnNewRecord = cdsOSEquipamentosNewRecord
     BufferChunks = 1000
@@ -8145,8 +8143,6 @@ inherited frmGeOS: TfrmGeOS
     Top = 184
   end
   object cdsOSFormaPagto: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
     BeforePost = cdsOSFormaPagtoBeforePost
     OnNewRecord = cdsOSFormaPagtoNewRecord
     BufferChunks = 1000
@@ -8393,8 +8389,6 @@ inherited frmGeOS: TfrmGeOS
     Top = 72
   end
   object cdsOSServicos: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
     OnNewRecord = cdsOSServicosNewRecord
     BufferChunks = 1000
     CachedUpdates = True
@@ -8694,8 +8688,6 @@ inherited frmGeOS: TfrmGeOS
     Top = 104
   end
   object cdsOSProdutos: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
     OnNewRecord = cdsOSProdutosNewRecord
     BufferChunks = 1000
     CachedUpdates = True
@@ -8994,8 +8986,6 @@ inherited frmGeOS: TfrmGeOS
     Top = 136
   end
   object cdsOSTecnicos: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
     OnNewRecord = cdsOSTecnicosNewRecord
     BufferChunks = 1000
     CachedUpdates = True
@@ -9145,8 +9135,6 @@ inherited frmGeOS: TfrmGeOS
     Top = 216
   end
   object qryTitulos: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
     OnCalcFields = qryTitulosCalcFields
     BufferChunks = 1000
     CachedUpdates = False
@@ -9382,8 +9370,6 @@ inherited frmGeOS: TfrmGeOS
     end
   end
   object cdsOSEventos: TIBDataSet
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
     OnNewRecord = cdsOSEventosNewRecord
     BufferChunks = 1000
     CachedUpdates = True

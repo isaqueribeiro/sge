@@ -73,7 +73,8 @@ uses
   Interacao.Tabela,
   Controller.Tabela,
   SGE.Controller.Interfaces,
-  SGE.Controller.Impressao.ContaAPagar;
+  SGE.Controller.Impressao.ContaAPagar, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White, dxScrollbarAnnotations;
 
 type
   TViewContaAPagarLoteParcela = class(TfrmGrPadrao)
@@ -582,7 +583,12 @@ begin
         FieldByName('CODFORN').AsInteger  := cdsDadosNominaisFornecedor.AsInteger;
         FieldByName('PARCELA').AsInteger  := cdsParcelasParcela.AsInteger;
         FieldByName('TIPPAG').AsString    := dbFormaPagto.Text;
-        FieldByName('HISTORIC').AsString  := '---' + #13 + cdsParcelasObservacao.AsString + #13 + Format(aParcela, [cdsParcelasParcela.AsString]) + #13 + '---' + #13;
+
+        if Trim(cdsParcelasObservacao.AsString).IsEmpty then
+          FieldByName('HISTORIC').AsString  := '---' + #13 + Format(aParcela, [cdsParcelasParcela.AsString]) + #13 + '---' + #13
+        else
+          FieldByName('HISTORIC').AsString  := '---' + #13 + cdsParcelasObservacao.AsString + #13 + Format(aParcela, [cdsParcelasParcela.AsString]) + #13 + '---' + #13;
+
         FieldByName('NOTFISC').AsString   := cdsDadosNominaisNotaFiscal.AsString;
         FieldByName('DTEMISS').AsDateTime := cdsDadosNominaisEmissao.AsDateTime;
         FieldByName('DTVENC').AsDateTime  := cdsParcelasVencimento.AsDateTime;

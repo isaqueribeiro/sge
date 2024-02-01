@@ -4445,6 +4445,7 @@ object frmPrinc: TfrmPrinc
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
+      ExplicitTop = 493
     end
     object RbnBackstageView: TdxRibbonBackstageView
       Left = 431
@@ -4665,6 +4666,8 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvNone
     DockSite = True
     TabOrder = 1
+    ExplicitTop = 127
+    ExplicitHeight = 514
   end
   object Ribbon: TdxRibbon
     Left = 0

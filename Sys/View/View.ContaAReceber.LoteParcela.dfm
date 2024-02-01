@@ -853,6 +853,7 @@ inherited ViewContaAReceberLoteParcela: TViewContaAReceberLoteParcela
         OnExit = dbgParcelasExit
         object dbgParcelasTbl: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
+          ScrollbarAnnotations.CustomAnnotations = <>
           DataController.DataSource = dtsParcelas
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <

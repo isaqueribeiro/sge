@@ -866,7 +866,7 @@ begin
 
   sHostName := GetHostNameLocal;
 
-  if not SetAcessoEstacao(sHostName) then
+  if (not SetAcessoEstacao(sHostName)) then
   begin
     RbnTabCadastro.Visible   := False;
     RbnTabEntrada.Visible    := False;
@@ -1073,7 +1073,7 @@ end;
 
 procedure TfrmPrinc.nmUsuarioAlterarSenhaClick(Sender: TObject);
 begin
-  if ( FormFunction.ShowModalForm(Self, 'ViewUsuarioAlterarSenha') ) then
+  if FormFunction.ShowModalForm(Self, 'ViewUsuarioAlterarSenha') then
     Self.Update;
 end;
 

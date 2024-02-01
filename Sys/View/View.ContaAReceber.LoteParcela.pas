@@ -73,7 +73,8 @@ uses
   Interacao.Tabela,
   Controller.Tabela,
   SGE.Controller.Interfaces,
-  SGE.Controller.Impressao.ContaAReceber;
+  SGE.Controller.Impressao.ContaAReceber, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White, dxScrollbarAnnotations;
 
 
 type
@@ -579,15 +580,18 @@ begin
         FieldByName('CNPJ').AsString      := cdsDadosNominaisClienteCNPJ.AsString;
         FieldByName('PARCELA').AsInteger  := cdsParcelasParcela.AsInteger;
         FieldByName('TIPPAG').AsString    := dbFormaPagto.Text;
-        FieldByName('HISTORIC').AsString  := '---' + #13 + cdsParcelasObservacao.AsString + #13 + Format(aParcela, [cdsParcelasParcela.AsString]) + #13 + '---' + #13;
-        FieldByName('NOTFISC').AsString   := cdsDadosNominaisNotaFiscal.AsString;
+
+        if Trim(cdsParcelasObservacao.AsString).IsEmpty then
+          FieldByName('HISTORIC').AsString  := '---' + #13 + Format(aParcela, [cdsParcelasParcela.AsString]) + #13 + '---' + #13
+        else
+          FieldByName('HISTORIC').AsString  := '---' + #13 + cdsParcelasObservacao.AsString + #13 + Format(aParcela, [cdsParcelasParcela.AsString]) + #13 + '---' + #13;
+
         FieldByName('DTEMISS').AsDateTime := cdsDadosNominaisEmissao.AsDateTime;
         FieldByName('DTVENC').AsDateTime  := cdsParcelasVencimento.AsDateTime;
         FieldByName('COMPETENCIA_APURACAO').AsInteger := cdsParcelasCompetencia.AsInteger;
         FieldByName('VALORREC').AsCurrency    := cdsParcelasValorParcela.AsCurrency;
         FieldByName('VALORRECTOT').AsCurrency := 0.0;
         FieldByName('VALORSALDO').AsCurrency  := cdsParcelasValorParcela.AsCurrency;
-        FieldByName('NOMEEMP').AsString       := dbEmpresa.Text;
         FieldByName('FORMA_PAGTO').AsInteger  := cdsDadosNominaisFormaPagto.AsInteger;
         FieldByName('BAIXADO').AsInteger      := 0;
         FieldByName('ENVIADO').AsInteger      := 0;

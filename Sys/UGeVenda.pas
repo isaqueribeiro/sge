@@ -571,6 +571,7 @@ type
     procedure ControleCampoLote;
     procedure DefinirCSTNaoTributada;
     procedure ConfigurarCamposTabelas;
+    procedure CorrigirTotais;
 
     //function ValidarQuantidade(Codigo : Integer; Quantidade : Integer) : Boolean;
     function PossuiTitulosPagos(AnoVenda : Smallint; NumVenda : Integer) : Boolean;
@@ -1764,12 +1765,12 @@ begin
   begin
     inherited;
 
-    if ( not OcorreuErro ) then
+    if (not OcorreuErro) then
     begin
 
       // Salvar Itens
 
-      if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+      if (cdsTabelaItens.State in [dsEdit, dsInsert]) then
         cdsTabelaItens.Post;
 
       cdsTabelaItens.ApplyUpdates;
@@ -1800,7 +1801,7 @@ begin
 
       // Corrigir Total Forma Pagto
 
-      if ( (cdsVendaFormaPagto.RecordCount = 1) and (cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency <> DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency) ) then
+      if ((cdsVendaFormaPagto.RecordCount = 1) and (cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency <> DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency)) then
       begin
         cdsVendaFormaPagto.Edit;
         cdsVendaFormaPagtoVALOR_FPAGTO.AsCurrency := DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency;
@@ -1972,6 +1973,100 @@ begin
   if ( Sender = dbLoteProduto ) then
     if ( btnProdutoSalvar.Visible and btnProdutoSalvar.Enabled ) then
       btnProdutoSalvar.SetFocus;
+end;
+
+procedure TfrmGeVenda.CorrigirTotais;
+var
+  aValorVND : Currency;
+  aTotalBruto   ,
+  aTotalDesconto,
+  aTotalLiquido ,
+  aBCICMS,
+  aICMS  : Currency;
+begin
+  if (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger in [STATUS_VND_AND, STATUS_VND_ABR]) then
+  begin
+    DtSrcTabelaItens.DataSet.First;
+    DtSrcTabelaItens.DataSet.DisableControls;
+    try
+      aTotalBruto    := 0.0;
+      aTotalDesconto := 0.0;
+      aTotalLiquido  := 0.0;
+      aBCICMS := 0.0;
+      aICMS   := 0.0;
+
+      while (not DtSrcTabelaItens.DataSet.Eof) do
+      begin
+        // Atualizar valores totais do item
+        DtSrcTabelaItens.DataSet.Edit;
+
+        if DtSrcTabelaItens.DataSet.FieldByName('PUNIT_PROMOCAO').IsNull then
+          DtSrcTabelaItens.DataSet.FieldByName('PUNIT_PROMOCAO').AsCurrency := 0;
+
+        if DtSrcTabelaItens.DataSet.FieldByName('PUNIT').IsNull then
+          DtSrcTabelaItens.DataSet.FieldByName('PUNIT').AsCurrency := 0;
+
+        if DtSrcTabelaItens.DataSet.FieldByName('DESCONTO').IsNull then
+          DtSrcTabelaItens.DataSet.FieldByName('DESCONTO').AsCurrency := 0;
+
+        aValorVND := DtSrcTabelaItens.DataSet.FieldByName('PUNIT').AsCurrency;
+
+        DtSrcTabelaItens.DataSet.FieldByName('DESCONTO_VALOR').AsCurrency := aValorVND * DtSrcTabelaItens.DataSet.FieldByName('DESCONTO').AsCurrency / 100;
+        DtSrcTabelaItens.DataSet.FieldByName('PFINAL').AsCurrency         := aValorVND - DtSrcTabelaItens.DataSet.FieldByName('DESCONTO_VALOR').AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency    := DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency * aValorVND;
+        DtSrcTabelaItens.DataSet.FieldByName('TOTAL_DESCONTO').AsCurrency := DtSrcTabelaItens.DataSet.FieldByName('QTDE').AsCurrency * DtSrcTabelaItens.DataSet.FieldByName('DESCONTO_VALOR').AsCurrency;
+        DtSrcTabelaItens.DataSet.FieldByName('TOTAL_LIQUIDO').AsCurrency  := DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency - DtSrcTabelaItens.DataSet.FieldByName('TOTAL_DESCONTO').AsCurrency;
+
+        DtSrcTabelaItens.DataSet.Post;
+
+        // Montar os valores totais da venda
+        aTotalBruto    := aTotalBruto    + DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency;
+        aTotalDesconto := aTotalDesconto + DtSrcTabelaItens.DataSet.FieldByName('TOTAL_DESCONTO').AsCurrency;
+
+        if (DtSrcTabelaItens.DataSet.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency > 0) then
+        begin
+          aBCICMS := aBCICMS + (DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency * DtSrcTabelaItens.DataSet.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency / 100);
+          aICMS   := aICMS   + (((DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency * DtSrcTabelaItens.DataSet.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency / 100)) * DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA').AsCurrency / 100);
+        end
+        else
+        begin
+          aBCICMS := aBCICMS + DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency;
+          aICMS   := aICMS   + (DtSrcTabelaItens.DataSet.FieldByName('TOTAL_BRUTO').AsCurrency * DtSrcTabelaItens.DataSet.FieldByName('ALIQUOTA').AsCurrency / 100);
+        end;
+
+        DtSrcTabelaItens.DataSet.Next;
+      end;
+
+      cdsTabelaItens.ApplyUpdates;
+      cdsTabelaItens.CommitUpdates;
+
+      aTotalLiquido := aTotalBruto - aTotalDesconto;
+
+      // Atualizar totais na venda
+      DtSrcTabela.DataSet.Edit;
+      DtSrcTabela.DataSet.FieldByName('TOTALVENDA_BRUTA').AsCurrency := aTotalBruto;
+      DtSrcTabela.DataSet.FieldByName('DESCONTO').AsCurrency         := aTotalDesconto;
+      DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency       := aTotalLiquido;
+      DtSrcTabela.DataSet.Post;
+
+      fdQryTabela.ApplyUpdates;
+      fdQryTabela.CommitUpdates;
+
+      // Corrigir Total Forma Pagto
+      if ((dtsVendaFormaPagto.DataSet.RecordCount = 1) and (dtsVendaFormaPagto.DataSet.FieldByName('VALOR_FPAGTO').AsCurrency <> DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency)) then
+      begin
+        dtsVendaFormaPagto.DataSet.Edit;
+        dtsVendaFormaPagto.DataSet.FieldByName('VALOR_FPAGTO').AsCurrency := DtSrcTabela.DataSet.FieldByName('TOTALVENDA').AsCurrency;
+        dtsVendaFormaPagto.DataSet.Post;
+
+        cdsVendaFormaPagto.ApplyUpdates;
+        cdsVendaFormaPagto.CommitUpdates;
+      end;
+    finally
+      DtSrcTabelaItens.DataSet.First;
+      DtSrcTabelaItens.DataSet.EnableControls;
+    end;
+  end;
 end;
 
 procedure TfrmGeVenda.pgcGuiasChange(Sender: TObject);
@@ -2238,10 +2333,10 @@ var
   CxContaCorrente : Integer;
   aGerarTitulos   : Boolean;
 begin
-  if ( DtSrcTabela.DataSet.IsEmpty or cdsTabelaItens.IsEmpty ) then
+  if (DtSrcTabela.DataSet.IsEmpty or cdsTabelaItens.IsEmpty) then
     Exit;
 
-  if not GetPermissaoRotinaInterna(Sender, True) then
+  if (not GetPermissaoRotinaInterna(Sender, True)) then
     Abort;
 
   CxAno    := 0;
@@ -2249,6 +2344,8 @@ begin
   CxContaCorrente := 0;
 
   RecarregarRegistro;
+  CorrigirTotais;
+
   aGerarTitulos := GetCfopGerarTitulo(DtSrcTabela.DataSet.FieldByName('CFOP').AsInteger);
 
   AbrirTabelaItens(DtSrcTabela.DataSet.FieldByName('ANO').AsInteger, DtSrcTabela.DataSet.FieldByName('CODCONTROL').AsInteger);
@@ -2270,8 +2367,8 @@ begin
 
   // Verificar se cliente está bloqueado, caso a venda seja a prazo
 
-  if ( aGerarTitulos and (DtSrcTabela.DataSet.FieldByName('VENDA_PRAZO').AsInteger = 1) ) then
-    if ( DtSrcTabela.DataSet.FieldByName('BLOQUEADO').AsInteger = 1 ) then
+  if (aGerarTitulos and (DtSrcTabela.DataSet.FieldByName('VENDA_PRAZO').AsInteger = 1)) then
+    if (DtSrcTabela.DataSet.FieldByName('BLOQUEADO').AsInteger = 1) then
     begin
       ShowWarning('Cliente bloqueado!' + #13#13 + 'Motivo:' + #13 + DtSrcTabela.DataSet.FieldByName('BLOQUEADO_MOTIVO').AsString);
       Exit;
