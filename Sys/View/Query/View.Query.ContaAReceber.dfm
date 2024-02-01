@@ -168,7 +168,7 @@ inherited ViewQueryContaAReceber: TViewQueryContaAReceber
     ExplicitHeight = 492
     inherited dbgDados: TDBGrid
       Width = 1041
-      Height = 299
+      Height = 293
       Hint = 'Pressione "ESPA'#199'O" para'#13#10'Marcar/Desmarcar o Lan'#231'amento com "X".'
       OnDblClick = dbgDadosDblClick
       Columns = <
@@ -337,17 +337,21 @@ inherited ViewQueryContaAReceber: TViewQueryContaAReceber
       end
     end
     object PnlControleQuitacao: TPanel
-      Left = 4
-      Top = 333
-      Width = 1047
+      AlignWithMargins = True
+      Left = 7
+      Top = 330
+      Width = 1041
       Height = 115
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 2
+      ExplicitLeft = 4
+      ExplicitTop = 333
+      ExplicitWidth = 1047
       object GrpBxControleQuitacao: TGroupBox
         Left = 0
         Top = 0
-        Width = 1047
+        Width = 1041
         Height = 115
         Align = alClient
         Caption = 'Dados importantes para Quita'#231#227'o'
@@ -358,8 +362,11 @@ inherited ViewQueryContaAReceber: TViewQueryContaAReceber
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 0
+        ExplicitLeft = 3
+        ExplicitTop = 3
+        ExplicitHeight = 109
         DesignSize = (
-          1047
+          1041
           115)
         object lblDataPagto: TLabel
           Left = 16
@@ -425,7 +432,7 @@ inherited ViewQueryContaAReceber: TViewQueryContaAReceber
         object dbHistorico: TDBMemo
           Left = 399
           Top = 43
-          Width = 635
+          Width = 629
           Height = 61
           Anchors = [akLeft, akTop, akRight, akBottom]
           DataField = 'HistoricoGeral'
@@ -437,6 +444,7 @@ inherited ViewQueryContaAReceber: TViewQueryContaAReceber
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 3
+          ExplicitWidth = 635
         end
         object dbDataPagto: TJvDBDateEdit
           Left = 16
@@ -583,12 +591,13 @@ inherited ViewQueryContaAReceber: TViewQueryContaAReceber
     object pnlDicas: TPanel
       AlignWithMargins = True
       Left = 7
-      Top = 309
+      Top = 303
       Width = 1041
       Height = 21
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 1
+      ExplicitTop = 309
       object lblDicasTitulo: TLabel
         AlignWithMargins = True
         Left = 3

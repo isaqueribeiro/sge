@@ -189,10 +189,10 @@ uses
     Controller.Tabela
   , UConstantesDGE
   , UFuncoes
-  , UGrCampoRequisitado
   , UDMBusiness
   , UDMRecursos
-  , UDMNFe;
+  , UDMNFe
+  , View.CampoRequisitado;
 
 {$R *.dfm}
 

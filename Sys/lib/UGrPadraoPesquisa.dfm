@@ -199,8 +199,6 @@ inherited frmGrPadraoPesquisa: TfrmGrPadraoPesquisa
     Top = 176
   end
   object QryPesquisaXXX: TIBQuery
-    Database = DMBusiness.ibdtbsBusiness
-    Transaction = DMBusiness.ibtrnsctnBusiness
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True

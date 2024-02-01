@@ -40,13 +40,20 @@ type
     aSistemasAgil     ,
     aArquivosInfoHTTP ,
     aListaArquivosURL : TStringList;
+    FPastaBackup : String;
 
     procedure GerarListaSistemasAgil;
     procedure BaixarVersaoInfo;
+    procedure BaixandoVersaoInfo;
+    procedure VersaoInfoBaixado(Sender: TObject);
+
     procedure VerificarVersao(const ForcarDownload : Boolean);
     procedure MontarListaURL;
-    procedure BaixarBaixarArquivos(const PastaBackup : String);
+//    procedure BaixarBaixarArquivos(const PastaBackup : String);
     procedure BackupArquivo(const PastaBackup, aFileName : TFileName);
+    procedure BaixarArquivos;
+    procedure BaixandoArquivos;
+    procedure ArquivosBaixados(Sender: TObject);
 
     function ExisteConexaoComInternet : Boolean;
     function ObterDiretorioExecutavel : String;
@@ -81,7 +88,7 @@ var
   aVersaoInfo : String;
   I : Integer;
 begin
-  for I := 0 to SistemasAgil.Count - 1 do
+  for I := 0 to Pred(SistemasAgil.Count) do
   begin
     aSistema := SistemasAgil.Strings[I];
 
@@ -288,14 +295,17 @@ var
   aFileOLD ,
   aFileNEW : String;
 begin
-  // Tratamento para arquivos DLL
-  if (Pos('._dll', ACBrDownload.DownloadNomeArq) > 0) then
+  TThread.Synchronize(TThread.Current, procedure
   begin
-    aFileOLD := '.\' + ACBrDownload.DownloadNomeArq;
-    aFileNEW := ChangeFileExt(aFileOLD, '.dll');
-    RenameFile(aFileOLD, aFileNEW);
-    DeleteFile(aFileOLD);
-  end;
+    // Tratamento para arquivos DLL
+    if (Pos('._dll', ACBrDownload.DownloadNomeArq) > 0) then
+    begin
+      aFileOLD := '.\' + ACBrDownload.DownloadNomeArq;
+      aFileNEW := ChangeFileExt(aFileOLD, '.dll');
+      RenameFile(aFileOLD, aFileNEW);
+      DeleteFile(aFileOLD);
+    end;
+  end);
 end;
 
 procedure TFrmAtualizarSistemas.ACBrDownloadHookMonitor(Sender: TObject; const BytesToDownload,
@@ -303,24 +313,29 @@ procedure TFrmAtualizarSistemas.ACBrDownloadHookMonitor(Sender: TObject; const B
 var
   sConnectionInfo: string;
 begin
-  LblFileDownload.Caption := '.\' + ACBrDownload.DownloadNomeArq;
-  PrgBrDownloads.Position := BytesDownloaded;
+  TThread.Synchronize(TThread.Current, procedure
+  begin
+    LblFileDownload.Caption := '.\' + ACBrDownload.DownloadNomeArq;
+    PrgBrDownloads.Position := BytesDownloaded;
 
-  sConnectionInfo := sConnectionInfo + ' - ' +
-                     Format('%.2d:%.2d:%.2d', [Sec div 3600, (Sec div 60) mod 60, Sec mod 60]);
+    sConnectionInfo := sConnectionInfo + ' - ' +
+                       Format('%.2d:%.2d:%.2d', [Sec div 3600, (Sec div 60) mod 60, Sec mod 60]);
 
-  sConnectionInfo := FormatFloat('0.00 KB/s'  , AverageSpeed) + sConnectionInfo;
-  sConnectionInfo := FormatFloat('###,###,##0', BytesDownloaded / 1024) + ' / ' +
-                     FormatFloat('###,###,##0', BytesToDownload / 1024) + ' KB - ' + sConnectionInfo;
+    sConnectionInfo := FormatFloat('0.00 KB/s'  , AverageSpeed) + sConnectionInfo;
+    sConnectionInfo := FormatFloat('###,###,##0', BytesDownloaded / 1024) + ' / ' +
+                       FormatFloat('###,###,##0', BytesToDownload / 1024) + ' KB - ' + sConnectionInfo;
 
-  lConnectionInfo.Caption := sConnectionInfo;
+    lConnectionInfo.Caption := sConnectionInfo;
+  end);
 end;
 
 procedure TFrmAtualizarSistemas.ACBrDownloadHookStatus(Sender: TObject; Reason: THookSocketReason;
   const BytesToDownload, BytesDownloaded: Integer);
 begin
-   case Reason of
-     HR_Connect :
+  TThread.Synchronize(TThread.Current, procedure
+  begin
+    case Reason of
+      HR_Connect :
        begin
          PrgBrDownloads.Position := 0;
          bDownload.Enabled := False;
@@ -328,13 +343,13 @@ begin
          bStop.Enabled     := True;
        end;
 
-     HR_ReadCount :
+      HR_ReadCount :
        begin
          PrgBrDownloads.Max        := BytesToDownload;
          PrgBrDownloads.Position   := BytesDownloaded;
        end;
 
-     HR_SocketClose :
+      HR_SocketClose :
        begin
          case ACBrDownload.DownloadStatus of
            TDownloadStatus.stStop :
@@ -358,7 +373,8 @@ begin
          bPause.Enabled    := False;
          bStop.Enabled     := False;
        end;
-   end;
+    end;
+  end);
 end;
 
 procedure TFrmAtualizarSistemas.MontarListaURL;
@@ -367,13 +383,19 @@ var
   aListaURL : TStringList;
 begin
   aListaArquivosURL := TStringList.Create;
-  aListaArquivosURL.Clear;
+  try
+    aListaArquivosURL.BeginUpdate;
+    aListaArquivosURL.Clear;
 
-  for I := 0 to ArquivosInfoHTTP.Count - 1 do
-  begin
-    aListaURL := ObterListaURLArquivosHTTP(ArquivosInfoHTTP.Strings[I]);
-    if (aListaURL.Count > 0) then
-      aListaArquivosURL.AddStrings( aListaURL );
+    for I := 0 to Pred(ArquivosInfoHTTP.Count) do
+    begin
+      aListaURL := ObterListaURLArquivosHTTP(ArquivosInfoHTTP.Strings[I]);
+      if (aListaURL.Count > 0) then
+        aListaArquivosURL.AddStrings( aListaURL );
+    end;
+  finally
+    aListaArquivosURL.EndUpdate;
+    PrgBrArquivos.Max := I; //Pred(aListaArquivosURL.Count);
   end;
 end;
 
@@ -388,7 +410,50 @@ begin
     CopyFile(PChar(aFileName), PChar(PastaBackup + aBackup), True);
 end;
 
-procedure TFrmAtualizarSistemas.BaixarBaixarArquivos(const PastaBackup : String);
+//procedure TFrmAtualizarSistemas.BaixarBaixarArquivos(const PastaBackup : String);
+//var
+//  I : Integer;
+//  aApp  ,
+//  aURL  ,
+//  aFile : String;
+//  aStr  : TStringList;
+//begin
+//  PrgBrArquivos.Max := aListaArquivosURL.Count - 1;
+//
+//  for I := 0 to ListaArquivosURL.Count - 1 do
+//  begin
+//    aURL := ListaArquivosURL.Strings[I];
+//    aStr := TStringList.Create;
+//    Split('/', aURL, aStr);
+//    aFile := aStr[aStr.Count - 1];
+//
+//    BackupArquivo(PastaBackup, aFile);
+//
+//    ACBrDownload.DownloadUrl     := aURL;
+//    ACBrDownload.DownloadNomeArq := aFile;
+//    ACBrDownload.DownloadDest    := '.\';
+//
+//    ACBrDownload.StartDownload;
+//
+//    PrgBrArquivos.Position := I;
+//  end;
+//
+//  PrgBrDownloads.Position := PrgBrDownloads.Max;
+//
+//  if (PrgBrArquivos.Position = PrgBrArquivos.Max) then
+//    Application.MessageBox('Arquivos de sistema atualizados como sucesso', 'Atualizar Sistemas Ágil', MB_ICONINFORMATION);
+//end;
+//
+procedure TFrmAtualizarSistemas.BaixarArquivos;
+var
+  aThread : TThread;
+begin
+  aThread := TThread.CreateAnonymousThread(BaixandoArquivos);
+  aThread.OnTerminate := ArquivosBaixados;
+  aThread.Start;
+end;
+
+procedure TFrmAtualizarSistemas.BaixandoArquivos;
 var
   I : Integer;
   aApp  ,
@@ -396,16 +461,14 @@ var
   aFile : String;
   aStr  : TStringList;
 begin
-  PrgBrArquivos.Max := aListaArquivosURL.Count - 1;
-
-  for I := 0 to ListaArquivosURL.Count - 1 do
+  for I := 0 to Pred(ListaArquivosURL.Count) do
   begin
     aURL := ListaArquivosURL.Strings[I];
     aStr := TStringList.Create;
     Split('/', aURL, aStr);
     aFile := aStr[aStr.Count - 1];
 
-    BackupArquivo(PastaBackup, aFile);
+    BackupArquivo(FPastaBackup, aFile);
 
     ACBrDownload.DownloadUrl     := aURL;
     ACBrDownload.DownloadNomeArq := aFile;
@@ -413,16 +476,73 @@ begin
 
     ACBrDownload.StartDownload;
 
-    PrgBrArquivos.Position := I;
+    TThread.Synchronize(TThread.Current, procedure
+    begin
+      PrgBrArquivos.Position := I;
+    end);
   end;
+end;
 
+procedure TFrmAtualizarSistemas.ArquivosBaixados(Sender: TObject);
+var
+  aSistema : String;
+begin
+  bDownload.Enabled := True;
   PrgBrDownloads.Position := PrgBrDownloads.Max;
 
-  if (PrgBrArquivos.Position = PrgBrArquivos.Max) then
-    Application.MessageBox('Arquivos de sistema atualizados como sucesso', 'Atualizar Sistemas Ágil', MB_ICONINFORMATION);
+  if (Sender is TThread) then
+  begin
+    if Assigned(TThread(Sender).FatalException) then
+      Application.MessageBox(PChar('Erro ao tentar baixar arquivos.' + #13 + Exception(TThread(Sender).FatalException).Message), 'Erro!', MB_ICONERROR)
+    else
+    begin
+      if (PrgBrArquivos.Position = PrgBrArquivos.Max) then
+        Application.MessageBox('Arquivos de sistema atualizados como sucesso', 'Atualizar Sistemas Ágil', MB_ICONINFORMATION);
+
+      aSistema := Trim(ParamStr(1));
+      if (aSistema <> EmptyStr) then
+      begin
+        aSistema := aSistema + '.exe';
+
+        ShellExecute(Handle, 'Open', PChar(aSistema), '', '', SW_NORMAL);
+        Application.Terminate;
+      end;
+    end;
+  end;
 end;
 
 procedure TFrmAtualizarSistemas.BaixarVersaoInfo;
+//var
+//  aSistema    ,
+//  aVersaoInfo : String;
+//  I : Integer;
+var
+  aThread : TThread;
+begin
+//  for I := 0 to SistemasAgil.Count - 1 do
+//  begin
+//    aSistema := SistemasAgil.Strings[I];
+//
+//    if FileExists(aSistema) then
+//    begin
+//      aVersaoInfo := StringReplace(aSistema, '.exe', '_Upgrade.inf', [rfReplaceAll]);
+//
+//      //ACBrDownload.DownloadUrl     := DOWNLOAD_URL_AGIL_SOFTWARES_UPGRADE + ExtractFileName(aVersaoInfo);
+//      ACBrDownload.DownloadUrl     := DOWNLOAD_URL_GERASYS_TI_DRH_UPGRADE + ExtractFileName(aVersaoInfo);
+//      ACBrDownload.DownloadNomeArq := 'VersaoHTTP_' + ChangeFileExt(ExtractFileName(aSistema), '.inf');
+//      ACBrDownload.DownloadDest    := '.\';
+//
+//      ACBrDownload.StartDownload;
+//    end;
+//  end;
+  bDownload.Enabled := False;
+
+  aThread := TThread.CreateAnonymousThread(BaixandoVersaoInfo);
+  aThread.OnTerminate := VersaoInfoBaixado;
+  aThread.Start;
+end;
+
+procedure TFrmAtualizarSistemas.BaixandoVersaoInfo;
 var
   aSistema    ,
   aVersaoInfo : String;
@@ -446,38 +566,72 @@ begin
   end;
 end;
 
+procedure TFrmAtualizarSistemas.VersaoInfoBaixado(Sender: TObject);
+begin
+  if (Sender is TThread) then
+  begin
+    if Assigned(TThread(Sender).FatalException) then
+    begin
+      bDownload.Enabled := True;
+      Application.MessageBox(PChar('Erro ao tentar verificar a versão mais recente da aplicação.' + #13 + Exception(TThread(Sender).FatalException).Message), 'Erro!', MB_ICONERROR);
+    end
+    else
+    begin
+      VerificarVersao(True);
+
+      mmInforme.Lines.Text := ObterMessageHTTP(ParamStr(1));
+      if (mmInforme.Lines.Count > 16) then
+        mmInforme.ScrollBars := TScrollStyle.ssVertical;
+
+      MontarListaURL;
+      BaixarArquivos;
+    end;
+  end;
+end;
+
 procedure TFrmAtualizarSistemas.bDownloadClick(Sender: TObject);
 var
   aPastaBkp,
   aSistema : String;
 begin
-  aPastaBkp := ExtractFilePath(ParamStr(0)) + 'files_bkp\' + FormatDateTime('yymmdd"_"hh"h"mm', Now) + '\';
-  ForceDirectories(aPastaBkp);
-
-  aArquivosInfoHTTP.Clear;
-
+//  aPastaBkp := ExtractFilePath(ParamStr(0)) + 'files_bkp\' + FormatDateTime('yymmdd"_"hh"h"mm', Now) + '\';
+//  ForceDirectories(aPastaBkp);
+//
+//  aArquivosInfoHTTP.Clear;
+//
+//  if not ExisteConexaoComInternet then
+//    ShowMessage('Sem conexão!')
+//  else
+//  begin
+//    BaixarVersaoInfo;
+//    VerificarVersao(True);
+//
+//    mmInforme.Lines.Text := ObterMessageHTTP(ParamStr(1));
+//    if (mmInforme.Lines.Count > 16) then
+//      mmInforme.ScrollBars := TScrollStyle.ssVertical;
+//
+//    MontarListaURL;
+//    BaixarBaixarArquivos(aPastaBkp);
+//  end;
+//
+//  aSistema := Trim(ParamStr(1));
+//  if (aSistema <> EmptyStr) then
+//  begin
+//    aSistema := aSistema + '.exe';
+//
+//    ShellExecute(Handle, 'Open', PChar(aSistema), '', '', SW_NORMAL);
+//    Application.Terminate;
+//  end;
   if not ExisteConexaoComInternet then
-    ShowMessage('Sem conexão!')
+    ShowMessage('Sem conexão com a internet!')
   else
   begin
+    aPastaBkp := ExtractFilePath(ParamStr(0)) + 'files_bkp\' + FormatDateTime('yymmdd"_"hh"h"mm', Now) + '\';
+    ForceDirectories(aPastaBkp);
+    FPastaBackup := aPastaBkp;
+
+    aArquivosInfoHTTP.Clear;
     BaixarVersaoInfo;
-    VerificarVersao(True);
-
-    mmInforme.Lines.Text := ObterMessageHTTP(ParamStr(1));
-    if (mmInforme.Lines.Count > 16) then
-      mmInforme.ScrollBars := TScrollStyle.ssVertical;
-
-    MontarListaURL;
-    BaixarBaixarArquivos(aPastaBkp);
-  end;
-
-  aSistema := Trim(ParamStr(1));
-  if (aSistema <> EmptyStr) then
-  begin
-    aSistema := aSistema + '.exe';
-
-    ShellExecute(Handle, 'Open', PChar(aSistema), '', '', SW_NORMAL);
-    Application.Terminate;
   end;
 end;
 

@@ -889,6 +889,10 @@ inherited frmGeCaixa: TfrmGeCaixa
         object tbsMovimento: TTabSheet
           Caption = 'Movimento'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object dbgMovimento: TDBGrid
             Left = 0
             Top = 0
@@ -1681,11 +1685,12 @@ inherited frmGeCaixa: TfrmGeCaixa
       'QTDE_DEBITO=QTDE_DEBITO')
     DataSet = qryCaixaSintetico
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 848
     Top = 8
   end
   object frrCaixaSintetico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1734,6 +1739,10 @@ inherited frmGeCaixa: TfrmGeCaixa
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 86.929190000000000000
         Top = 18.897650000000000000
@@ -1886,6 +1895,10 @@ inherited frmGeCaixa: TfrmGeCaixa
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 234.330860000000000000
@@ -1986,6 +1999,10 @@ inherited frmGeCaixa: TfrmGeCaixa
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 714.331170000000000000
@@ -2011,6 +2028,10 @@ inherited frmGeCaixa: TfrmGeCaixa
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 377.953000000000000000
         Top = 313.700990000000000000
@@ -2371,6 +2392,10 @@ inherited frmGeCaixa: TfrmGeCaixa
       end
       object bndGrpHeaderCaixa: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 45.354360000000000000
         Top = 166.299320000000000000
@@ -2620,7 +2645,7 @@ inherited frmGeCaixa: TfrmGeCaixa
     end
   end
   object frrCaixaAnalitico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -2673,6 +2698,10 @@ inherited frmGeCaixa: TfrmGeCaixa
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 86.929190000000000000
         Top = 18.897650000000000000
@@ -2825,6 +2854,10 @@ inherited frmGeCaixa: TfrmGeCaixa
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 234.330860000000000000
@@ -2925,6 +2958,10 @@ inherited frmGeCaixa: TfrmGeCaixa
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 797.480830000000000000
@@ -2964,6 +3001,10 @@ inherited frmGeCaixa: TfrmGeCaixa
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 377.953000000000000000
         Top = 396.850650000000000000
@@ -3326,6 +3367,10 @@ inherited frmGeCaixa: TfrmGeCaixa
       end
       object bndGrpHeaderCaixa: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 45.354360000000000000
         Top = 166.299320000000000000
@@ -3574,6 +3619,10 @@ inherited frmGeCaixa: TfrmGeCaixa
       end
       object bndHeaderMov: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 275.905690000000000000
@@ -3718,6 +3767,10 @@ inherited frmGeCaixa: TfrmGeCaixa
       end
       object bndMasterDataMov: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 317.480520000000000000
@@ -3944,6 +3997,7 @@ inherited frmGeCaixa: TfrmGeCaixa
       'VALOR_DEBITO=VALOR_DEBITO')
     DataSet = qryCaixaAnalitico
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 848
     Top = 48
   end

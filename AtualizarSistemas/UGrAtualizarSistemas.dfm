@@ -5,10 +5,10 @@ object FrmAtualizarSistemas: TFrmAtualizarSistemas
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Atualizar Sistemas '#193'gil'
-  ClientHeight = 365
-  ClientWidth = 601
+  ClientHeight = 377
+  ClientWidth = 640
   Color = clBtnFace
-  Font.Charset = DEFAULT_CHARSET
+  Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
@@ -17,13 +17,13 @@ object FrmAtualizarSistemas: TFrmAtualizarSistemas
   Position = poScreenCenter
   OnCreate = FormCreate
   DesignSize = (
-    601
-    365)
+    640
+    377)
   PixelsPerInch = 96
   TextHeight = 13
   object lConnectionInfo: TLabel
-    Left = 516
-    Top = 231
+    Left = 555
+    Top = 243
     Width = 77
     Height = 13
     Alignment = taRightJustify
@@ -31,12 +31,13 @@ object FrmAtualizarSistemas: TFrmAtualizarSistemas
     Caption = 'Connection Info'
     Color = clBtnFace
     ParentColor = False
-    ExplicitTop = 238
+    ExplicitLeft = 516
+    ExplicitTop = 231
   end
   object Bevel1: TBevel
     Left = 8
-    Top = 321
-    Width = 585
+    Top = 333
+    Width = 624
     Height = 4
     Anchors = [akLeft, akRight, akBottom]
     Shape = bsTopLine
@@ -44,8 +45,8 @@ object FrmAtualizarSistemas: TFrmAtualizarSistemas
     ExplicitWidth = 511
   end
   object LblFileDownload: TLabel
-    Left = 564
-    Top = 276
+    Left = 603
+    Top = 288
     Width = 29
     Height = 13
     Alignment = taRightJustify
@@ -53,7 +54,8 @@ object FrmAtualizarSistemas: TFrmAtualizarSistemas
     Caption = 'File(s)'
     Color = clBtnFace
     ParentColor = False
-    ExplicitTop = 283
+    ExplicitLeft = 564
+    ExplicitTop = 276
   end
   object imgUpgrade: TImage
     Left = 159
@@ -115,15 +117,17 @@ object FrmAtualizarSistemas: TFrmAtualizarSistemas
   end
   object PrgBrDownloads: TProgressBar
     Left = 159
-    Top = 250
-    Width = 434
+    Top = 262
+    Width = 473
     Height = 20
     Anchors = [akLeft, akRight, akBottom]
     TabOrder = 2
+    ExplicitTop = 250
+    ExplicitWidth = 434
   end
   object bDownload: TBitBtn
-    Left = 282
-    Top = 331
+    Left = 321
+    Top = 343
     Width = 100
     Height = 26
     Anchors = [akRight, akBottom]
@@ -144,10 +148,12 @@ object FrmAtualizarSistemas: TFrmAtualizarSistemas
     NumGlyphs = 2
     TabOrder = 4
     OnClick = bDownloadClick
+    ExplicitLeft = 282
+    ExplicitTop = 331
   end
   object bPause: TBitBtn
-    Left = 387
-    Top = 331
+    Left = 426
+    Top = 343
     Width = 100
     Height = 26
     Anchors = [akRight, akBottom]
@@ -169,10 +175,12 @@ object FrmAtualizarSistemas: TFrmAtualizarSistemas
     NumGlyphs = 2
     TabOrder = 5
     OnClick = bPauseClick
+    ExplicitLeft = 387
+    ExplicitTop = 331
   end
   object bStop: TBitBtn
-    Left = 493
-    Top = 331
+    Left = 532
+    Top = 343
     Width = 100
     Height = 26
     Anchors = [akRight, akBottom]
@@ -194,21 +202,24 @@ object FrmAtualizarSistemas: TFrmAtualizarSistemas
     NumGlyphs = 2
     TabOrder = 6
     OnClick = bStopClick
+    ExplicitLeft = 493
+    ExplicitTop = 331
   end
   object PnlBanner: TPanel
     Left = 8
     Top = 8
     Width = 145
-    Height = 307
+    Height = 319
     Anchors = [akLeft, akTop, akBottom]
     BevelKind = bkFlat
     BevelOuter = bvNone
     Color = 14024661
     ParentBackground = False
     TabOrder = 0
+    ExplicitHeight = 307
     object ImgCompany: TImage
       Left = 0
-      Top = 163
+      Top = 175
       Width = 141
       Height = 140
       Align = alBottom
@@ -455,26 +466,28 @@ object FrmAtualizarSistemas: TFrmAtualizarSistemas
   end
   object PrgBrArquivos: TProgressBar
     Left = 159
-    Top = 295
-    Width = 434
+    Top = 307
+    Width = 473
     Height = 20
     Anchors = [akLeft, akRight, akBottom]
     TabOrder = 3
+    ExplicitTop = 295
+    ExplicitWidth = 434
   end
   object mmInforme: TMemo
     Left = 214
     Top = 8
-    Width = 379
-    Height = 217
+    Width = 418
+    Height = 229
     Anchors = [akLeft, akTop, akRight, akBottom]
     BevelInner = bvNone
     BevelOuter = bvNone
     BorderStyle = bsNone
     Color = clBtnFace
-    Font.Charset = DEFAULT_CHARSET
+    Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
-    Font.Name = 'Tahoma'
+    Font.Name = 'JetBrains Mono'
     Font.Style = [fsBold]
     Lines.Strings = (
       '1'
@@ -496,6 +509,8 @@ object FrmAtualizarSistemas: TFrmAtualizarSistemas
     ParentFont = False
     ReadOnly = True
     TabOrder = 1
+    ExplicitWidth = 379
+    ExplicitHeight = 217
   end
   object ACBrDownload: TACBrDownload
     SizeRecvBuffer = 0

@@ -625,7 +625,7 @@ end;
 procedure TfrmPrinc.BrBtnQuitarAReceberLoteClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_FIN_QUITAR_ARECEBER_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGeContasAReceberQuitar');
+    FormFunction.ShowModalForm(Self, 'ViewQueryContaAReceber');
 end;
 
 procedure TfrmPrinc.BrBtnRelatorioAutorizacaoClick(Sender: TObject);

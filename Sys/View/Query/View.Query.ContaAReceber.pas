@@ -42,7 +42,8 @@ uses
 
   View.PadraoPesquisa,
   Model.Constantes,
-  SGE.Controller.Interfaces;
+  SGE.Controller.Interfaces, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White;
 
 type
   TViewQueryContaAReceber = class(TViewPadraoPesquisa)

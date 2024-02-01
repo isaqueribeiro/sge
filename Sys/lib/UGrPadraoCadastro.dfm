@@ -52,10 +52,6 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
     object tbsTabela: TTabSheet
       Caption = '&Lista'
       ImageIndex = 37
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel4: TBevel
         Left = 0
         Top = 263
@@ -197,6 +193,10 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
     object tbsCadastro: TTabSheet
       Caption = '&Dados'
       ImageIndex = 39
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Bevel8: TBevel
         Left = 0
         Top = 121
@@ -423,7 +423,6 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
     end
   end
   object IbDtstTabela: TIBDataSet
-    Transaction = DMBusiness.ibtrnsctnBusiness
     ForcedRefresh = True
     OnUpdateError = IbDtstTabelaUpdateError
     BufferChunks = 1000

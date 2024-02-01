@@ -3,7 +3,7 @@
         <ProjectGuid>{B83BB859-3D15-446C-856E-FD9414016B09}</ProjectGuid>
         <MainSource>SGI.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
         <FrameworkType>VCL</FrameworkType>
@@ -164,7 +164,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Model\Conexao\Model.Query.Firedac.pas"/>
         <DCCReference Include="..\Sys\Model\Conexao\Model.Query.Interfaces.pas"/>
-        <DCCReference Include="..\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas"/>
         <DCCReference Include="..\Sys\lib\UEcfAgil.pas"/>
         <DCCReference Include="..\Sys\lib\UEcfGenerico.pas"/>
         <DCCReference Include="..\Sys\lib\UEcfFactory.pas"/>
@@ -184,6 +183,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
             <Form>DMNFSe</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="..\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas"/>
         <DCCReference Include="..\Sys\Model\SGE.Model.Dados.pas">
             <Form>DMDados</Form>
             <DesignClass>TDataModule</DesignClass>
@@ -192,6 +192,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
             <Form>ModelConexaoDataSet</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="..\Sys\Services\Service.Message.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Utils.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Encript.pas"/>
         <DCCReference Include="..\Sys\Services\Service.InputQuery.pas"/>
         <DCCReference Include="..\Sys\Services\InputQuery\View.InputQuery.pas">
             <Form>ViewInputQuery</Form>
@@ -213,6 +216,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Esmaecer.pas">
             <Form>ViewEsmaecer</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.WaitAMoment.pas">
+            <Form>ViewWaitAMoment</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Memo.pas">
+            <Form>ViewMemo</Form>
         </DCCReference>
         <DCCReference Include="UPrinc.pas">
             <Form>frmPrinc</Form>
@@ -322,9 +331,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\System_SGE\UGeVendaImpressao.pas">
             <Form>frmGeVendaImpressao</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\View\View.WaitAMoment.pas">
-            <Form>ViewWaitAMoment</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeExportarChaveNFeGerada.pas">
             <Form>frmGeExportarChaveNFeGerada</Form>
         </DCCReference>
@@ -383,17 +389,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="UGeApropriacaoEstoqueCancelar.pas">
             <Form>frmGeApropriacaoEstoqueCancelar</Form>
         </DCCReference>
-        <DCCReference Include="View\Query\View.Query.ApropriacaoEstoque.pas">
-            <Form>ViewQueryApropriacaoEstoque</Form>
-        </DCCReference>
-        <DCCReference Include="View\View.RequisicaoAlmox.Monitor.pas">
-            <Form>ViewRequisicaoAlmoxMonitor</Form>
-        </DCCReference>
         <DCCReference Include="UGeInventario.pas">
             <Form>frmGeInventario</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\View\View.Memo.pas">
-            <Form>ViewMemo</Form>
         </DCCReference>
         <DCCReference Include="..\System_SGE\UGeProdutoEstoqueImpressao.pas">
             <Form>frmGeProdutoEstoqueImpressao</Form>
@@ -419,17 +416,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\UGeFuncionario.pas">
             <Form>frmGeFuncionario</Form>
         </DCCReference>
-        <DCCReference Include="..\System_SGE\UGeContasAReceberQuitar.pas">
-            <Form>frmGeContasAReceberQuitar</Form>
-        </DCCReference>
         <DCCReference Include="..\System_SGE\UGeAutorizacaoCompraImpressao.pas">
             <Form>frmGeAutorizacaoCompraImpressao</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeFluxoCaixaImpressao.pas">
             <Form>frmGeFluxoCaixaImpressao</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeFornecedorClientePesquisa.pas">
-            <Form>frmGeFornecedorClientePesquisa</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeResultadoExercicioImpressao.pas">
             <Form>frmGeResultadoExercicioImpressao</Form>
@@ -452,9 +443,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\System_SGE\UGeContasAPagarAReceberImpressao.pas">
             <Form>frmGeContasAPagarAReceberImpressao</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\Services\Service.Message.pas"/>
-        <DCCReference Include="..\Sys\Services\Service.Utils.pas"/>
-        <DCCReference Include="..\Sys\Services\Service.Encript.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.DistribuicaoDFe.DocumentoRetornado.pas"/>
         <DCCReference Include="..\Sys\Model\Entidade\Model.Entidade.ConfiguracaoAPI.pas"/>
         <DCCReference Include="..\Sys\Model\Entidade\Model.Entidade.ConfiguracaoINI.pas"/>
@@ -603,9 +591,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\UGeTabelaCNAE.pas">
             <Form>frmGeTabelaCNAE</Form>
         </DCCReference>
-        <DCCReference Include="UGeApropriacaoEstoquePesquisa.pas">
-            <Form>frmGeApropriacaoEstoquePesquisa</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\View\View.Certificado.pas">
             <Form>ViewCertificado</Form>
         </DCCReference>
@@ -706,6 +691,15 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\System_SGE\View\View.Promocao.pas">
             <Form>ViewPromocao</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\View\View.CampoRequisitado.pas">
+            <Form>ViewCampoRequisitado</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Cheque.pas">
+            <Form>ViewCheque</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.MemoData.pas">
+            <Form>ViewMemoData</Form>
+        </DCCReference>
         <DCCReference Include="..\Sys\View\View.ConfiguracaoEmpresa.pas">
             <Form>ViewConfiguracaoEmpresa</Form>
         </DCCReference>
@@ -739,17 +733,14 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\View\View.NFE.Pesquisa.pas">
             <Form>ViewNFEPesquisa</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\View\View.CampoRequisitado.pas">
-            <Form>ViewCampoRequisitado</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\View\View.Cheque.pas">
-            <Form>ViewCheque</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\View\View.MemoData.pas">
-            <Form>ViewMemoData</Form>
+        <DCCReference Include="View\Query\View.Query.ApropriacaoEstoque.pas">
+            <Form>ViewQueryApropriacaoEstoque</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\View\Query\View.Query.ContaAPagar.pas">
             <Form>ViewQueryContaAPagar</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\Query\View.Query.ContaAReceber.pas">
+            <Form>ViewQueryContaAReceber</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\View\Query\View.Query.FornecedorCliente.pas">
             <Form>ViewQueryFornecedorCliente</Form>
@@ -789,6 +780,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="View\View.RequisicaoAlmox.OrdemSaida.pas">
             <Form>ViewRequisicaoAlmoxOrdemSaida</Form>
+        </DCCReference>
+        <DCCReference Include="View\View.RequisicaoAlmox.Monitor.pas">
+            <Form>ViewRequisicaoAlmoxMonitor</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Contrato.pas">
             <Form>ViewContrato</Form>

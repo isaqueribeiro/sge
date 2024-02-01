@@ -255,6 +255,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
         object dbgGrupoTbl: TcxGridDBBandedTableView
           OnDblClick = dbgGrupoTblDblClick
           Navigator.Buttons.CustomButtons = <>
+          ScrollbarAnnotations.CustomAnnotations = <>
           DataController.DataSource = dsGrupo
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <
@@ -317,6 +318,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgGrupoTblGRUPO_COD: TcxGridDBBandedColumn
             Caption = 'C'#243'digo'
             DataBinding.FieldName = 'GRUPO_COD'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.Alignment.Horz = taLeftJustify
             Properties.DisplayFormat = '###00000'
@@ -332,6 +334,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgGrupoTblGRUPO_DESC: TcxGridDBBandedColumn
             Caption = 'Descri'#231#227'o'
             DataBinding.FieldName = 'GRUPO_DES'
+            DataBinding.IsNullValueType = True
             Options.Filtering = False
             Options.Moving = False
             Width = 178
@@ -342,6 +345,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgGrupoTblITENS: TcxGridDBBandedColumn
             Caption = #205'tens'
             DataBinding.FieldName = 'ITENS'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.##'
             MinWidth = 50
@@ -357,6 +361,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgGrupoTblESTOQUE: TcxGridDBBandedColumn
             Caption = 'Quantidade'
             DataBinding.FieldName = 'ESTOQUE'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.##'
             MinWidth = 100
@@ -371,6 +376,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgGrupoTblDISPONIVEL: TcxGridDBBandedColumn
             Caption = 'Dispon'#237'vel'
             DataBinding.FieldName = 'DISPONIVEL'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.##'
             MinWidth = 100
@@ -385,6 +391,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgGrupoTblCUSTO_TOTAL: TcxGridDBBandedColumn
             Caption = 'Total'
             DataBinding.FieldName = 'CUSTO_TOTAL'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.00#'
             HeaderAlignmentHorz = taCenter
@@ -400,6 +407,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgGrupoTblCUSTO_DISPONIVEL: TcxGridDBBandedColumn
             Caption = 'Dispon'#237'vel'
             DataBinding.FieldName = 'CUSTO_DISPONIVEL'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.00#'
             HeaderAlignmentHorz = taCenter
@@ -415,6 +423,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgGrupoTblPERCENTUAL: TcxGridDBBandedColumn
             Caption = '%'
             DataBinding.FieldName = 'PERCENTUAL'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.##'
             HeaderAlignmentHorz = taCenter
@@ -435,6 +444,10 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
     object TbsFabricante: TTabSheet
       Caption = 'TbsFabricante'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object dbgFab: TcxGrid
         Left = 0
         Top = 0
@@ -448,6 +461,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
         object dbgFabTbl: TcxGridDBBandedTableView
           OnDblClick = dbgFabTblDblClick
           Navigator.Buttons.CustomButtons = <>
+          ScrollbarAnnotations.CustomAnnotations = <>
           DataController.DataSource = dsFabricante
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <
@@ -510,6 +524,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgFabTblFABRICANTE_COD: TcxGridDBBandedColumn
             Caption = 'C'#243'digo'
             DataBinding.FieldName = 'FABRICANTE_COD'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.Alignment.Horz = taLeftJustify
             Properties.DisplayFormat = '###00000'
@@ -525,6 +540,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgFabTblFABRICANTE_NOME: TcxGridDBBandedColumn
             Caption = 'Nome'
             DataBinding.FieldName = 'FABRICANTE_NOME'
+            DataBinding.IsNullValueType = True
             Options.Filtering = False
             Options.Moving = False
             Width = 178
@@ -535,6 +551,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgFabTblITENS: TcxGridDBBandedColumn
             Caption = 'Lotes'
             DataBinding.FieldName = 'ITENS'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.###'
             MinWidth = 50
@@ -550,6 +567,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgFabTblESTOQUE: TcxGridDBBandedColumn
             Caption = 'Quantidade'
             DataBinding.FieldName = 'ESTOQUE'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.00#'
             MinWidth = 80
@@ -564,6 +582,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgFabTblDISPONIVEL: TcxGridDBBandedColumn
             Caption = 'Dispon'#237'vel'
             DataBinding.FieldName = 'DISPONIVEL'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.00#'
             MinWidth = 80
@@ -578,6 +597,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgFabTblCUSTO_TOTAL: TcxGridDBBandedColumn
             Caption = 'Total'
             DataBinding.FieldName = 'CUSTO_TOTAL'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.00#'
             HeaderAlignmentHorz = taCenter
@@ -594,6 +614,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgFabTblCUSTO_DISPONIVEL: TcxGridDBBandedColumn
             Caption = 'Dispon'#237'vel'
             DataBinding.FieldName = 'CUSTO_DISPONIVEL'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.00#'
             HeaderAlignmentHorz = taCenter
@@ -610,6 +631,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgFabTblPERCENTUAL: TcxGridDBBandedColumn
             Caption = '%'
             DataBinding.FieldName = 'PERCENTUAL'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.##'
             HeaderAlignmentHorz = taCenter
@@ -637,6 +659,10 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object dbgProduto: TcxGrid
         Left = 0
         Top = 0
@@ -646,6 +672,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
         TabOrder = 0
         object dbgProdutoTbl: TcxGridDBBandedTableView
           Navigator.Buttons.CustomButtons = <>
+          ScrollbarAnnotations.CustomAnnotations = <>
           OnCellDblClick = dbgProdutoTblCellDblClick
           DataController.DataSource = dsProduto
           DataController.Summary.DefaultGroupSummaryItems = <>
@@ -708,6 +735,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgProdutoTblPRODUTO: TcxGridDBBandedColumn
             Caption = 'C'#243'digo'
             DataBinding.FieldName = 'PRODUTO'
+            DataBinding.IsNullValueType = True
             Options.Filtering = False
             Options.Moving = False
             Width = 60
@@ -718,6 +746,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgProdutoTblDESCRI_APRESENTACAO: TcxGridDBBandedColumn
             Caption = 'Nome Amigo ou Descri'#231#227'o + Apresenta'#231#227'o'
             DataBinding.FieldName = 'DESCRI_APRESENTACAO'
+            DataBinding.IsNullValueType = True
             Options.Filtering = False
             Options.Moving = False
             Width = 247
@@ -728,6 +757,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgProdutoTblGRUPO_DES: TcxGridDBBandedColumn
             Caption = 'Grupo'
             DataBinding.FieldName = 'GRUPO_DES'
+            DataBinding.IsNullValueType = True
             MinWidth = 150
             Options.HorzSizing = False
             Options.Moving = False
@@ -739,6 +769,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgProdutoTblFABRICANTE_NOME: TcxGridDBBandedColumn
             Caption = 'Fabricante'
             DataBinding.FieldName = 'FABRICANTE_NOME'
+            DataBinding.IsNullValueType = True
             MinWidth = 150
             Options.HorzSizing = False
             Options.Moving = False
@@ -750,6 +781,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgProdutoTblESTOQUE: TcxGridDBBandedColumn
             Caption = 'Quantidade'
             DataBinding.FieldName = 'ESTOQUE'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.###'
             MinWidth = 70
@@ -764,6 +796,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgProdutoTblDISPONIVEL: TcxGridDBBandedColumn
             Caption = 'Dispon'#237'vel'
             DataBinding.FieldName = 'DISPONIVEL'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.###'
             MinWidth = 70
@@ -780,6 +813,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgProdutoTblUND: TcxGridDBBandedColumn
             Caption = 'Und.'
             DataBinding.FieldName = 'UND'
+            DataBinding.IsNullValueType = True
             HeaderAlignmentHorz = taCenter
             MinWidth = 40
             Options.Filtering = False
@@ -793,6 +827,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgProdutoTblCUSTO_TOTAL: TcxGridDBBandedColumn
             Caption = 'Total'
             DataBinding.FieldName = 'CUSTO_TOTAL'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.00#'
             HeaderAlignmentHorz = taCenter
@@ -808,6 +843,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgProdutoTblCUSTO_DISPONIVEL: TcxGridDBBandedColumn
             Caption = 'Dispon'#237'vel'
             DataBinding.FieldName = 'CUSTO_DISPONIVEL'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.00#'
             HeaderAlignmentHorz = taCenter
@@ -825,6 +861,7 @@ inherited ViewQueryApropriacaoEstoque: TViewQueryApropriacaoEstoque
           object dbgProdutoTblPERCENTUAL: TcxGridDBBandedColumn
             Caption = '%'
             DataBinding.FieldName = 'PERCENTUAL'
+            DataBinding.IsNullValueType = True
             PropertiesClassName = 'TcxCurrencyEditProperties'
             Properties.DisplayFormat = ',0.##'
             HeaderAlignmentHorz = taCenter
