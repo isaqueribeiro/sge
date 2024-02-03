@@ -232,6 +232,7 @@ type
     TmrAlertaCliente: TTimer;
     lblAberta: TLabel;
     ApplicationEvents: TApplicationEvents;
+    BrBtnConferenciaCaixa: TdxBarLargeButton;
     procedure tmrAutoUpgradeTimer(Sender: TObject);
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
@@ -350,6 +351,7 @@ type
     procedure ApplicationEventsModalEnd(Sender: TObject);
     procedure ApplicationEventsActivate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure BrBtnConferenciaCaixaClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -536,6 +538,12 @@ begin
       end);
      aTask.Start;
   end;
+end;
+
+procedure TfrmPrinc.BrBtnConferenciaCaixaClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_FIN_CONFERIR_CAIXA_ID, True) then
+    FormFunction.ShowModalForm(Self, 'ViewQueryCaixaConferencia');
 end;
 
 procedure TfrmPrinc.BrBtnConfigurarNFSeClick(Sender: TObject);
@@ -1373,6 +1381,8 @@ begin
 
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_ABRIR_CAIXA_ID,     Trim(BrBtnAbrirCaixa.Caption),             ROTINA_MENU_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_ENCERRAR_CAIXA_ID,  Trim(BrBtnEncerrarCaixa.Caption),          ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_GERENCIAR_CAIXA_ID, Trim(BrBtnGerenciarCaixa.Caption),         ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_CONFERIR_CAIXA_ID,  Trim(BrBtnConferenciaCaixa.Caption),       ROTINA_MENU_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_GERAR_BOLETO_ID,    Trim(BrBtnGerarBoleto.Caption),            ROTINA_MENU_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_GERAR_REMESSA_ID,   Trim(BrBtnGerarRemessaBoleto.Caption),     ROTINA_MENU_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_PROCESSA_RETORN_ID, Trim(BrBtnProcessarRetornoBoleto.Caption), ROTINA_MENU_FINANCEIRO_ID);

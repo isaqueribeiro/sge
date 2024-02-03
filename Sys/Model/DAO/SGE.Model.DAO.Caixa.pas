@@ -9,7 +9,7 @@ uses
   SGE.Model.DAO.Interfaces;
 
 type
-  // Caixa
+  // Caixa (Table)
   TModelDAOCaixa = class(TModelDAO, IModelDAOCustom)
     private
       procedure SetProviderFlags;
@@ -25,6 +25,22 @@ type
 
       function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
+//
+//  // Movimentações do Caixa (Table)
+//  TModelDAOCaixaMovimento = class(TModelDAO, IModelDAOCustom)
+//    private
+//      procedure SetProviderFlags;
+//      procedure DataSetAfterOpen(DataSet: TDataSet);
+//      procedure DataSetNewRecord(DataSet: TDataSet);
+//      procedure DataSetBeforePost(DataSet: TDataSet);
+//    protected
+//      constructor Create;
+//    public
+//      destructor Destroy; override;
+//      class function New : IModelDAOCustom;
+//
+//      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+//  end;
 
 implementation
 
@@ -60,6 +76,9 @@ begin
         .Add('  , c.Valor_total_credito ')
         .Add('  , c.Valor_total_debito  ')
         .Add('  , c.Motivo_cancel')
+        .Add('  , c.conferido')
+        .Add('  , c.usuario_confer')
+        .Add('  , c.datahora_confer')
         .Add('  , cc.Descricao   ')
         .Add('  , Case ')
         .Add('      when cc.Tipo = 1 then ''Caixa'' ')
@@ -105,6 +124,7 @@ end;
 procedure TModelDAOCaixa.DataSetAfterOpen(DataSet: TDataSet);
 begin
   SetProviderFlags;
+  FConn.Query.DataSet.FieldByName('SITUACAO').OnGetText := SituacaoGetText;
 end;
 
 procedure TModelDAOCaixa.DataSetBeforePost(DataSet: TDataSet);
@@ -113,6 +133,8 @@ begin
   begin
     if (Trim(FieldByName('USUARIO_CANCEL').AsString) = EmptyStr) then
       FieldByName('USUARIO_CANCEL').Clear;
+    if (Trim(FieldByName('USUARIO_CONFER').AsString) = EmptyStr) then
+      FieldByName('USUARIO_CONFER').Clear;
   end;
 end;
 
@@ -120,21 +142,24 @@ procedure TModelDAOCaixa.DataSetNewRecord(DataSet: TDataSet);
 begin
   with FConn.Query.DataSet do
   begin
-    FieldByName('Ano').AsInteger            := YearOf(Date);
+    FieldByName('Ano').AsInteger := YearOf(Date);
     FieldByName('DATA_ABERTURA').AsDateTime := Now;
-    FieldByName('SITUACAO').AsInteger       := STATUS_CAIXA_ABERTO;
+    FieldByName('SITUACAO').AsInteger := STATUS_CAIXA_ABERTO;
     FieldByName('VALOR_TOTAL_CREDITO').AsCurrency := 0;
     FieldByName('VALOR_TOTAL_DEBITO').AsCurrency  := 0;
+    FieldByName('CONFERIDO').AsInteger  := 0;
     FieldByName('DATA_FECH').Clear;
     FieldByName('DATA_CANCEL').Clear;
     FieldByName('USUARIO_CANCEL').Clear;
     FieldByName('MOTIVO_CANCEL').Clear;
+    FieldByName('USUARIO_CONFER').Clear;
+    FieldByName('DATAHORA_CONFER').Clear;
   end;
 end;
 
 procedure TModelDAOCaixa.SituacaoGetText(Sender: TField; var Text: string; DisplayText: Boolean);
 begin
-  if ( Sender.IsNull ) then
+  if Sender.IsNull then
     Exit;
 
   Case Sender.AsInteger of

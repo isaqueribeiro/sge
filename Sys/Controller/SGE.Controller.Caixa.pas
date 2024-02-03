@@ -13,7 +13,7 @@ uses
   UConstantesDGE;
 
 type
-  // Caixa
+  // Caixa (Table)
   TControllerCaixa = class(TController, IControllerCaixa)
     private
       FBusca : IModelDAOCustom;

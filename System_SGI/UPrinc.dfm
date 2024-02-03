@@ -49,8 +49,8 @@ object frmPrinc: TfrmPrinc
       Align = alClient
       AutoSize = True
       Transparent = True
-      ExplicitWidth = 1042
-      ExplicitHeight = 494
+      ExplicitLeft = -1
+      ExplicitTop = -5
     end
     object imgEmpresa: TImage
       Left = 8
@@ -4939,7 +4939,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 559
+      DockedLeft = 317
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213
@@ -5342,6 +5342,10 @@ object frmPrinc: TfrmPrinc
           BeginGroup = True
           Visible = True
           ItemName = 'BrBtnGerenciarCaixa'
+        end
+        item
+          Visible = True
+          ItemName = 'BrBtnConferenciaCaixa'
         end>
       OneOnRow = False
       Row = 0
@@ -5352,7 +5356,7 @@ object frmPrinc: TfrmPrinc
     object BrMngFinanceiroBoleto: TdxBar
       Caption = 'Boletos Banc'#225'rios / Quita'#231#245'es'
       CaptionButtons = <>
-      DockedLeft = 516
+      DockedLeft = 596
       DockedTop = 0
       FloatLeft = 379
       FloatTop = 206
@@ -6323,6 +6327,17 @@ object frmPrinc: TfrmPrinc
       LargeImageIndex = 47
       SyncImageIndex = False
       ImageIndex = 47
+    end
+    object BrBtnConferenciaCaixa: TdxBarLargeButton
+      Caption = 'Confer'#234'ncia de Caixas'
+      Category = 12
+      Hint = 'Confer'#234'ncia de Caixas'
+      Visible = ivAlways
+      OnClick = BrBtnConferenciaCaixaClick
+      HotImageIndex = 84
+      LargeImageIndex = 84
+      SyncImageIndex = False
+      ImageIndex = 84
     end
     object BrBtnControleCheque: TdxBarLargeButton
       Caption = 'Controle de Cheques'

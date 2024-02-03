@@ -34,7 +34,8 @@ uses
   UGrPadrao,
   Interacao.Usuario,
   SGE.Controller.Interfaces,
-  SGE.Controller.Factory;
+  SGE.Controller.Factory, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White, dxSkinsDefaultPainters;
 
 type
   TViewRequisicaoAlmoxOrdemSaida = class(TfrmGrPadrao)

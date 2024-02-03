@@ -35,10 +35,14 @@ uses
 
   cxGraphics,
   cxLookAndFeels,
+  cxButtons,
   cxLookAndFeelPainters,
   dxSkinsCore,
   dxSkinsDefaultPainters,
-  cxButtons,
+  dxSkinOffice2019Black,
+  dxSkinOffice2019Colorful,
+  dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White,
 
   View.PadraoPesquisa,
   Model.Constantes,
@@ -523,7 +527,7 @@ procedure TViewQueryContaAPagar.FormKeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   inherited;
-  if ( Key = VK_ESCAPE ) then
+  if (Key = VK_ESCAPE) then
     Self.Close
 end;
 

@@ -14,8 +14,6 @@ inherited ViewQueryContaAPagar: TViewQueryContaAPagar
     ExplicitWidth = 1049
     inherited GrpBxPesquisar: TGroupBox
       Width = 821
-      ExplicitLeft = 226
-      ExplicitTop = 2
       ExplicitWidth = 821
       DesignSize = (
         821
@@ -609,7 +607,7 @@ inherited ViewQueryContaAPagar: TViewQueryContaAPagar
         Font.Style = [fsBold]
         ParentFont = False
         Transparent = True
-        ExplicitTop = 6
+        ExplicitHeight = 13
       end
       object lblDicasTexto: TLabel
         AlignWithMargins = True

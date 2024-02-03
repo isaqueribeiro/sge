@@ -348,7 +348,8 @@ uses
   View.RequisicaoAlmox.Cancelar in 'View\View.RequisicaoAlmox.Cancelar.pas' {ViewRequisicaoAlmoxCancelar},
   View.RequisicaoAlmox.OrdemSaida in 'View\View.RequisicaoAlmox.OrdemSaida.pas' {ViewRequisicaoAlmoxOrdemSaida},
   View.RequisicaoAlmox.Monitor in 'View\View.RequisicaoAlmox.Monitor.pas' {ViewRequisicaoAlmoxMonitor},
-  View.Contrato in '..\Sys\View\View.Contrato.pas' {ViewContrato};
+  View.Contrato in '..\Sys\View\View.Contrato.pas' {ViewContrato},
+  View.Query.Caixa.Conferencia in '..\Sys\View\Query\View.Query.Caixa.Conferencia.pas' {ViewQueryCaixaConferencia};
 
 {$R *.res}
 
