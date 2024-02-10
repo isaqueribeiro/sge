@@ -10,7 +10,9 @@ uses
 
   cxContainer, cxEdit, cxMaskEdit, cxDropDownEdit, cxImageComboBox,
   cxLookupEdit, cxDBEdit, cxDBLookupEdit, cxDBLookupComboBox,
-  Interacao.Usuario, Vcl.Buttons;
+  Interacao.Usuario,
+  Classe.Usuario,
+  Vcl.Buttons;
 
 type
   TfrmGrPadrao = class(TForm)
@@ -54,7 +56,7 @@ type
 
     procedure RegistrarRotinaSistema; virtual; abstract;
 
-    function UsuarioLogado : IUsuarioModel; virtual; abstract;
+    function UsuarioLogado : IUsuarioModel; virtual;
     function GetRotinaInternaID(const Sender : TObject) : String;
     function GetRotinaSubInternaID(const Sender : TObject) : String; overload;
     function GetRotinaSubInternaID(const Sender : TObject; pRotina : String) : String; overload;
@@ -781,6 +783,11 @@ procedure TfrmGrPadrao.UpdateGenerator(const sWhr: String);
 begin
   if ( (GeneratorName <> EmptyStr) and (NomeTabela <> EmptyStr) and (CampoCodigo <> EmptyStr) ) then
     UpdateSequence(GeneratorName, NomeTabela, CampoCodigo, sWhr);
+end;
+
+function TfrmGrPadrao.UsuarioLogado: IUsuarioModel;
+begin
+  Result := TUsuario.New;
 end;
 
 end.

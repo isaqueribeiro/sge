@@ -6,7 +6,9 @@ uses
   System.SysUtils,
   Data.DB,
 
+  Vcl.StdCtrls,
   Vcl.DBCtrls,
+
   cxDBLookupComboBox,
   cxDBVGrid,
   cxGridDBTableView,
@@ -15,6 +17,11 @@ uses
   SGE.Controller.Interfaces;
 
 type
+  TSimpleObjectList = class
+    Code : String;
+    Description : String;
+  end;
+
   TControllerHelper = class Helper for TController
     private
     public
@@ -26,6 +33,8 @@ type
         aDataField, aKeyField, aListField : String; const aCreateDataSetList : Boolean = True); overload;
       procedure LookupComboBox(aControl : TcxGridDBColumn ; aDataSouce : TDataSource;
         aDataField, aKeyField, aListField : String; const aCreateDataSetList : Boolean = True); overload;
+      procedure PopuleComboBox(aControl : TComboBox; aDataSouce : TDataSource;
+        aKeyField, aListField : String; const aCreateDataSetList : Boolean = True);
   end;
 
 implementation
@@ -86,6 +95,42 @@ begin
     aDataSouce.DataSet  := Self.DAO.CreateLookupComboBoxList.DataSet
   else
     aDataSouce.DataSet  := Self.DAO.DataSet;
+end;
+
+procedure TControllerHelper.PopuleComboBox(aControl: TComboBox; aDataSouce: TDataSource; aKeyField, aListField: String;
+  const aCreateDataSetList: Boolean);
+var
+  aObject : TSimpleObjectList;
+begin
+  if aCreateDataSetList then
+    aDataSouce.DataSet  := Self.DAO.CreateLookupComboBoxList.DataSet
+  else
+    aDataSouce.DataSet  := Self.DAO.DataSet;
+
+  if not aDataSouce.DataSet.Active then
+    aDataSouce.DataSet.Open;
+
+  aDataSouce.DataSet.First;
+  aDataSouce.DataSet.DisableControls;
+  try
+    aControl.Items.BeginUpdate;
+    aControl.Items.Clear;
+
+    while not aDataSouce.DataSet.Eof do
+    begin
+      aObject := TSimpleObjectList.Create;
+      aObject.Code := Trim(aDataSouce.DataSet.FieldByName(aKeyField).AsString);
+      aObject.Description := Trim(aDataSouce.DataSet.FieldByName(aListField).AsString);
+      aControl.Items.AddObject(aObject.Description, aObject);
+
+      aDataSouce.DataSet.Next;
+    end;
+  finally
+    aControl.Items.EndUpdate;
+
+    aDataSouce.DataSet.First;
+    aDataSouce.DataSet.EnableControls;
+  end;
 end;
 
 end.

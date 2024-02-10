@@ -60,6 +60,7 @@ type
       FBancoFebrabanView ,
       FBusca ,
       FCaixa ,
+      FCaixaMovimento,
       FCentroCusto       ,
       FCentroCustoEmpresa,
       FCentroCustoInterno,
@@ -178,6 +179,7 @@ type
       function BancoFebrabanView : IModelDAOCustom;
       function Busca : IModelDAOCustom;
       function Caixa : IModelDAOCustom;
+      function CaixaMovimento : IModelDAOCustom;
       function CentroCusto : IModelDAOCustom;
       function CentroCustoEmpresa : IModelDAOCustom;
       function CentroCustoInterno : IModelDAOCustom;
@@ -739,6 +741,14 @@ begin
     FCaixa := TModelDAOCaixa.New;
 
   Result := FCaixa;
+end;
+
+function TModelDAOFactory.CaixaMovimento: IModelDAOCustom;
+begin
+  if not Assigned(FCaixaMovimento) then
+    FCaixaMovimento := TModelDAOCaixaMovimento.New;
+
+  Result := FCaixaMovimento;
 end;
 
 function TModelDAOFactory.CentroCusto: IModelDAOCustom;

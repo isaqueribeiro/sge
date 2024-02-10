@@ -17,9 +17,11 @@ type
       FApropriacaoEstoqueProduto   ,
       FApropriacaoEstoqueTotal     : IControllerQuery;
       {$ENDIF}
+      FCaixa : IControllerQuery;
+      FCaixaMovimento   ,
       FFornecedorCliente,
       FContaAPagar      ,
-      FContaAReceber : IControllerQuery;
+      FContaAReceber    : IControllerQuery;
     protected
       constructor Create;
     public
@@ -32,6 +34,8 @@ type
       function ApropriacaoEstoqueProduto : IControllerQuery;
       function ApropriacaoEstoqueTotal : IControllerQuery;
       {$ENDIF}
+      function Caixa : IControllerQuery;
+      function CaixaMovimento : IControllerQuery;
       function ContaAPagar : IControllerQuery;
       function ContaAReceber : IControllerQuery;
       function FornecedorCliente : IControllerQuery;
@@ -45,6 +49,7 @@ uses
   {$IFDEF SGI}
   SGI.Controller.Query.ApropriacaoEstoque,
   {$ENDIF}
+  SGE.Controller.Query.Caixa,
   SGE.Controller.Query.FornecedorCliente,
   SGE.Controller.Query.ContaAPagar,
   SGE.Controller.Query.ContaAReceber;
@@ -65,6 +70,22 @@ begin
     _instance := Self.Create;
 
   Result := _instance;
+end;
+
+function TControllerQueryFactory.Caixa: IControllerQuery;
+begin
+  if not Assigned(FCaixa) then
+    FCaixa := TControllerQueryCaixa.New;
+
+  Result := FCaixa;
+end;
+
+function TControllerQueryFactory.CaixaMovimento: IControllerQuery;
+begin
+  if not Assigned(FCaixaMovimento) then
+    FCaixaMovimento := TControllerQueryCaixaMovimento.New;
+
+  Result := FCaixaMovimento;
 end;
 
 {$IFDEF SGI}

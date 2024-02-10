@@ -33,13 +33,16 @@ uses
 
   dxSkinsCore,
   dxSkinsDefaultPainters,
+  dxSkinOffice2019Black,
+  dxSkinOffice2019Colorful,
+  dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White,
 
   UGrPadrao,
   Model.Constantes,
   Interacao.Tabela,
   Controller.Tabela,
-  SGE.Controller.Interfaces, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
-  dxSkinOffice2019White;
+  SGE.Controller.Interfaces;
 
 type
   TViewPadraoPesquisa = class(TfrmGrPadrao)

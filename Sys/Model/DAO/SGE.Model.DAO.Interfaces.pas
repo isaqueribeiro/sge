@@ -79,6 +79,20 @@ type
     function Execute(aTipo : TTipoPesquisa; aFiltro : String) : IModelDAOQuery;
   end;
 
+  IModelDAOQueryCaixa = interface(IModelDAOQuery)
+    ['{A21555FD-7FE7-48D5-A34F-53DB71AC235B}']
+    function Ano(aValue : Integer) : IModelDAOQueryCaixa;
+    function Numero(aValue : Integer) : IModelDAOQueryCaixa;
+  end;
+
+  IModelDAOQueryCaixaMovimento = interface(IModelDAOQuery)
+    ['{01D06EF1-F2FB-480B-B609-CA07952A1F5A}']
+    function ContaCorrente(aValue : Integer) : IModelDAOQueryCaixaMovimento;
+    function AnoCaixa(aValue : Integer) : IModelDAOQueryCaixaMovimento;
+    function NumeroCaixa(aValue : Integer) : IModelDAOQueryCaixaMovimento;
+    function ExecuteCustom(aTipo : TTipoPesquisa; aFiltro : String) : IModelDAOQueryCaixaMovimento;
+  end;
+
   IModelDAOQueryApropriacaoEstoque = interface(IModelDAOQuery)
     ['{917C3A82-4CE4-4D48-96B2-A5DA1E32A1B7}']
     procedure CalcularPercentuais(const aValorReferencia : Currency);
@@ -113,6 +127,7 @@ type
     function BancoFebrabanView : IModelDAOCustom;
     function Busca : IModelDAOCustom;
     function Caixa : IModelDAOCustom;
+    function CaixaMovimento : IModelDAOCustom;
     function CentroCusto : IModelDAOCustom;
     function CentroCustoEmpresa : IModelDAOCustom;
     function CentroCustoInterno : IModelDAOCustom;

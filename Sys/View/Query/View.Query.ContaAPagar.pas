@@ -223,7 +223,7 @@ end;
 
 procedure TViewQueryContaAPagar.FormCreate(Sender: TObject);
 var
-  aEmpresa : ICOntrollerEmpresa;
+  aEmpresa : IControllerEmpresa;
 begin
   FController := TControllerQueryFactory.Instance.ContaAPagar; //.DataSource(dtsPesquisa);
   FControllerFormaPagto := TControllerFactory.New.FormaPagto;

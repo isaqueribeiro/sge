@@ -57,6 +57,7 @@ type
       FBanco  : IControllerBanco;
       FBancoFebrabanView  : IControllerCustom;
       FCaixa : IControllerCaixa;
+      FCaixaMovimento : IControllerCaixaMovimento;
       FCentroCusto        : IControllerCentroCusto;
       FCentroCustoEmpresa : IControllerCustom;
       FCentroCustoInterno : IControllerCustom;
@@ -78,7 +79,7 @@ type
       FConfiguracaoEmpresa : IControllerCustom;
       FContaAPagar : IControllerContaAPagar;
       FContaAReceber : IControllerContaAReceber;
-      FContaCorrente      ,
+      FContaCorrente      : IControllerContaCorrente;
       FContaCorrenteView  : IControllerCustom;
       FContrato : IControllerContrato;
       FContratoItem : IControllerContratoItem;
@@ -169,6 +170,7 @@ type
       function Banco : IControllerBanco;
       function BancoFebrabanView : IControllerCustom;
       function Caixa : IControllerCaixa;
+      function CaixaMovimento : IControllerCaixaMovimento;
       function CentroCusto : IControllerCentroCusto;
       function CentroCustoEmpresa : IControllerCustom;
       function CentroCustoInterno : IControllerCustom;
@@ -190,7 +192,7 @@ type
       function ConfiguracaoEmpresa : IControllerCustom;
       function ContaAPagar : IControllerContaAPagar;
       function ContaAReceber : IControllerContaAReceber;
-      function ContaCorrente : IControllerCustom;
+      function ContaCorrente : IControllerContaCorrente;
       function ContaCorrenteView : IControllerCustom;
       function Contrato : IControllerContrato;
       function ContratoItem : IControllerContratoItem;
@@ -512,6 +514,14 @@ begin
   Result := FCaixa;
 end;
 
+function TControllerFactory.CaixaMovimento: IControllerCaixaMovimento;
+begin
+  if not Assigned(FCaixaMovimento) then
+    FCaixaMovimento := TControllerCaixaMovimento.New;
+
+  Result := FCaixaMovimento;
+end;
+
 function TControllerFactory.CentroCusto: IControllerCentroCusto;
 begin
   if not Assigned(FCentroCusto) then
@@ -680,7 +690,7 @@ begin
   Result := FContaAReceber;
 end;
 
-function TControllerFactory.ContaCorrente: IControllerCustom;
+function TControllerFactory.ContaCorrente: IControllerContaCorrente;
 begin
   if not Assigned(FContaCorrente) then
     FContaCorrente := TControllerContaCorrente.New;

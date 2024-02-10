@@ -1,0 +1,104 @@
+unit SGE.Controller.Query.Caixa;
+
+interface
+
+uses
+  SGE.Controller.Interfaces,
+  SGE.Controller.Query,
+  SGE.Model.DAO.Interfaces;
+
+type
+  TControllerQueryCaixa = class(TControllerQuery)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New: IControllerQuery;
+  end;
+
+  TControllerQueryCaixaMovimento = class(TControllerQuery, IControllerQueryCaixaMovimento)
+    private
+//      FCustomDAO : IModelDAOQueryCaixaMovimento;
+      function CustomDAO : IModelDAOQueryCaixaMovimento;
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New: IControllerQuery;
+
+      function ContaCorrente(aValue : Integer) : IControllerQueryCaixaMovimento;
+      function Caixa(aValue : String) : IControllerQueryCaixaMovimento;
+  end;
+
+implementation
+
+{ TControllerQueryCaixa }
+
+uses
+  System.SysUtils,
+  SGE.Model.DAO.Query.Factory;
+
+constructor TControllerQueryCaixa.Create;
+begin
+  inherited Create(TModelDAOQueryFactory.Instance.Caixa);
+end;
+
+destructor TControllerQueryCaixa.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerQueryCaixa.New: IControllerQuery;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerQueryCaixaMovimento }
+
+function TControllerQueryCaixaMovimento.Caixa(aValue: String): IControllerQueryCaixaMovimento;
+var
+  aAno    ,
+  aNumero : String;
+begin
+  Result := Self;
+
+  if (Pos('/', aValue.Trim) > 0) then
+  begin
+    aAno    := Copy(aValue.Trim, 1, Pos('/', aValue.Trim) - 1);
+    aNumero := Copy(aValue.Trim, Pos('/', aValue.Trim) + 1, aValue.Trim.Length);
+  end;
+
+  CustomDAO
+    .AnoCaixa(StrToIntDef(aAno, 0))
+    .NumeroCaixa(StrToIntDef(aNumero, 0));
+end;
+
+function TControllerQueryCaixaMovimento.ContaCorrente(aValue: Integer): IControllerQueryCaixaMovimento;
+begin
+  Result := Self;
+  CustomDAO.ContaCorrente(aValue);
+end;
+
+constructor TControllerQueryCaixaMovimento.Create;
+begin
+//  FCustomDAO := TModelDAOQueryFactory.Instance.CaixaMovimento;
+  inherited Create(TModelDAOQueryFactory.Instance.CaixaMovimento);
+end;
+
+function TControllerQueryCaixaMovimento.CustomDAO: IModelDAOQueryCaixaMovimento;
+begin
+  Supports(DAO, IModelDAOQueryCaixaMovimento, Result);
+end;
+
+destructor TControllerQueryCaixaMovimento.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerQueryCaixaMovimento.New: IControllerQuery;
+begin
+  Result := Self.Create;
+end;
+
+end.

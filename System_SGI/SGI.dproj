@@ -791,6 +791,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
             <Form>ViewQueryCaixaConferencia</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.Caixa.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Caixa.pas"/>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>

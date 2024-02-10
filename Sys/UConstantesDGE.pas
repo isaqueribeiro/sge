@@ -640,6 +640,11 @@ const
   STATUS_CAIXA_FECHADO   = 1;
   STATUS_CAIXA_CANCELADO = 2;
 
+  // Fluxo de Caixa (Movimentos)
+
+  TIPO_MOVIMENTO_CREDITO = 'C';
+  TIPO_MOVIMENTO_DEBITO  = 'D';
+
   // Status de Cheques
 
   STATUS_CHEQUE_PENDENTE    = 0;

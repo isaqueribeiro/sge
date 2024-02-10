@@ -4440,7 +4440,7 @@ object frmPrinc: TfrmPrinc
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
-      ExplicitTop = 465
+      ExplicitTop = 494
     end
     object RbnBackstageView: TdxRibbonBackstageView
       Left = 23

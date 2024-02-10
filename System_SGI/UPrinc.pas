@@ -1016,6 +1016,9 @@ begin
   end;
 
   BrBtnRequisicaoCliente.Enabled := GetEstoqueSateliteEmpresa( gUsuarioLogado.Empresa );
+
+  if (not imgFundo.Visible) then
+    imgFundo.Visible := True;
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
@@ -1037,7 +1040,7 @@ begin
   Ribbon.ActiveTab := RbnTabPrincipal;
   ConfigurarRotuloBotoes;
 
-  // Carregar Imagem de Fundo da Tele Principal
+  // Carregar Imagem de Fundo da Tela Principal
   if GetCarregarPapelDeParedeLocal then
   begin
     //sFileImage := ExtractFilePath(Application.ExeName) + FILE_WALLPAPER;

@@ -9,13 +9,15 @@ uses
   SGE.Model.DAO.Factory;
 
 type
-  TControllerContaCorrente = class(TController, IControllerCustom)
+  TControllerContaCorrente = class(TController, IControllerContaCorrente)
     private
     protected
       constructor Create;
     public
       destructor Destroy; override;
-      class function New : IControllerCustom;
+      class function New : IControllerContaCorrente;
+
+      function CarregarLista(aEmpresa : String) : IControllerContaCorrente;
   end;
 
   TControllerContaCorrenteView = class(TController, IControllerCustom)
@@ -31,6 +33,21 @@ implementation
 
 { TControllerContaCorrente }
 
+function TControllerContaCorrente.CarregarLista(aEmpresa: String): IControllerContaCorrente;
+begin
+  Result := Self;
+
+  FDAO
+    .Close
+    .ClearWhere;
+
+  FDAO
+    .Where('cc.Empresa = :empresa')
+    .ParamsByName('empresa', aEmpresa)
+    .OrderBy('cc.Descricao')
+    .Open;
+end;
+
 constructor TControllerContaCorrente.Create;
 begin
   inherited Create(TModelDAOFactory.New.ContaCorrente);
@@ -41,7 +58,7 @@ begin
   inherited;
 end;
 
-class function TControllerContaCorrente.New: IControllerCustom;
+class function TControllerContaCorrente.New: IControllerContaCorrente;
 begin
   Result := Self.Create;
 end;

@@ -49,6 +49,7 @@ object frmPrinc: TfrmPrinc
       Align = alClient
       AutoSize = True
       Transparent = True
+      Visible = False
       ExplicitLeft = -1
       ExplicitTop = -5
     end
@@ -6331,7 +6332,7 @@ object frmPrinc: TfrmPrinc
     object BrBtnConferenciaCaixa: TdxBarLargeButton
       Caption = 'Confer'#234'ncia de Caixas'
       Category = 12
-      Hint = 'Confer'#234'ncia de Caixas'
+      Hint = 'Confer'#234'ncia de Conta Corrente e/ou Caixass'
       Visible = ivAlways
       OnClick = BrBtnConferenciaCaixaClick
       HotImageIndex = 84

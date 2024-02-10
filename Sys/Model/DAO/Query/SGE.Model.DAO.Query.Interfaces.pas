@@ -13,6 +13,8 @@ type
     function ApropriacaoEstoqueProduto : IModelDAOQueryApropriacaoEstoque;
     function ApropriacaoEstoqueTotal : IModelDAOQueryApropriacaoEstoque;
     function FornecedorCliente : IModelDAOQuery;
+    function Caixa : IModelDAOQuery;
+    function CaixaMovimento : IModelDAOQuery;
     function ContaAPagar : IModelDAOQuery;
     function ContaAReceber : IModelDAOQuery;
   end;

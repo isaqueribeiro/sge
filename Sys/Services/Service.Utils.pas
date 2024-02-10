@@ -46,6 +46,7 @@ type
         const aDominio : TDomainMail = TDomainMail.domainMainComBr): Boolean;
 
       class function IsValidPercent(Value : Double) : Boolean;
+      class function DateIsEmpty(Value : TDateTime) : Boolean;
   end;
 
 implementation
@@ -117,6 +118,11 @@ begin
 
     Result := aRestorno;
   end;
+end;
+
+class function TServicesUtils.DateIsEmpty(Value: TDateTime): Boolean;
+begin
+  Result := (Value = EncodeDate(1899, 12, 30));
 end;
 
 class function TServicesUtils.EmailValido(aEmail: String; const aDominio : TDomainMail): Boolean;

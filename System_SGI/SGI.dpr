@@ -349,7 +349,9 @@ uses
   View.RequisicaoAlmox.OrdemSaida in 'View\View.RequisicaoAlmox.OrdemSaida.pas' {ViewRequisicaoAlmoxOrdemSaida},
   View.RequisicaoAlmox.Monitor in 'View\View.RequisicaoAlmox.Monitor.pas' {ViewRequisicaoAlmoxMonitor},
   View.Contrato in '..\Sys\View\View.Contrato.pas' {ViewContrato},
-  View.Query.Caixa.Conferencia in '..\Sys\View\Query\View.Query.Caixa.Conferencia.pas' {ViewQueryCaixaConferencia};
+  View.Query.Caixa.Conferencia in '..\Sys\View\Query\View.Query.Caixa.Conferencia.pas' {ViewQueryCaixaConferencia},
+  SGE.Controller.Query.Caixa in '..\Sys\Controller\Query\SGE.Controller.Query.Caixa.pas',
+  SGE.Model.DAO.Query.Caixa in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Caixa.pas';
 
 {$R *.res}
 

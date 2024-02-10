@@ -14,6 +14,8 @@ type
     function ApropriacaoEstoqueProduto : IControllerQuery;
     function ApropriacaoEstoqueTotal : IControllerQuery;
     {$ENDIF}
+    function Caixa : IControllerQuery;
+    function CaixaMovimento : IControllerQuery;
     function ContaAPagar : IControllerQuery;
     function ContaAReceber : IControllerQuery;
     function FornecedorCliente : IControllerQuery;

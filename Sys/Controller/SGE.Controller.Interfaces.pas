@@ -36,6 +36,12 @@ type
     function AtualizarCustoGeral : IControllerQueryAproriacaoEstoque;
   end;
 
+  IControllerQueryCaixaMovimento = interface(IControllerQuery)
+    ['{4B33D5EF-F7FC-4FD4-B7FF-A0DA548FE9D9}']
+    function ContaCorrente(aValue : Integer) : IControllerQueryCaixaMovimento;
+    function Caixa(aValue : String) : IControllerQueryCaixaMovimento;
+  end;
+
   IControllerCustom = interface(IController)
     ['{EF078F48-0F46-48FF-B6A2-B2926E490606}']
   end;
@@ -50,6 +56,11 @@ type
   IControllerCompetencia = interface(IControllerCustom)
     ['{B7A66499-33E7-4085-A68B-852E10DFA0AC}']
     function GetID(aDataMovimento : TDateTime) : Integer;
+  end;
+
+  IControllerContaCorrente = interface(IControllerCustom)
+    ['{2732B4E7-65C6-4289-80BF-E0832DA280AB}']
+    function CarregarLista(aEmpresa : String) : IControllerContaCorrente;
   end;
 
   IControllerBairro = interface(IControllerCustom)
@@ -294,6 +305,11 @@ type
       const DataReferencia : TDateTime; const FormaPagto : Smallint; var CxAno, CxNumero, CxContaCorrente : Integer) : Boolean;
   end;
 
+  IControllerCaixaMovimento = interface(IControllerCustom)
+    ['{E89DAA35-7E9F-405B-80D3-2BDA77EFB64B}']
+    function Lancamentos(aData : TDateTime; aContaCorrente : Integer; const aAnoCaixa : Integer = 0; const aNumeroCaixa : Integer = 0) : IControllerCaixaMovimento;
+  end;
+
   IControllerBanco = interface(IControllerCustom)
     ['{E0514070-93A2-44EC-B598-0B9819DE0E72}']
     function GetBancoBoletoCodigo(aEmpresa, aCodigoFebraBan : String) : Integer;
@@ -316,6 +332,7 @@ type
     function Banco  : IControllerBanco;
     function BancoFebrabanView  : IControllerCustom;
     function Caixa : IControllerCaixa;
+    function CaixaMovimento : IControllerCaixaMovimento;
     function CentroCusto        : IControllerCentroCusto;
     function CentroCustoEmpresa : IControllerCustom;
     function CentroCustoInterno : IControllerCustom;
@@ -337,7 +354,7 @@ type
     function ConfiguracaoEmpresa : IControllerCustom;
     function ContaAPagar : IControllerContaAPagar;
     function ContaAReceber : IControllerContaAReceber;
-    function ContaCorrente       : IControllerCustom;
+    function ContaCorrente       : IControllerContaCorrente;
     function ContaCorrenteView   : IControllerCustom;
     function Contrato : IControllerContrato;
     function ContratoItem : IControllerContratoItem;

@@ -15,6 +15,8 @@ type
       FApropriacaoEstoqueFabricante,
       FApropriacaoEstoqueProduto   ,
       FApropriacaoEstoqueTotal     : IModelDAOQueryApropriacaoEstoque;
+      FCaixa,
+      FCaixaMovimento   ,
       FFornecedorCliente,
       FContaAPagar      ,
       FContaAReceber    : IModelDAOQuery;
@@ -28,6 +30,8 @@ type
       function ApropriacaoEstoqueFabricante : IModelDAOQueryApropriacaoEstoque;
       function ApropriacaoEstoqueProduto : IModelDAOQueryApropriacaoEstoque;
       function ApropriacaoEstoqueTotal   : IModelDAOQueryApropriacaoEstoque;
+      function Caixa : IModelDAOQuery;
+      function CaixaMovimento : IModelDAOQuery;
       function FornecedorCliente : IModelDAOQuery;
       function ContaAPagar : IModelDAOQuery;
       function ContaAReceber : IModelDAOQuery;
@@ -41,6 +45,7 @@ uses
   System.SysUtils,
   SGI.Model.DAO.Query.ApropriacaoEstoque,
   SGE.Model.DAO.Query.FornecedorCliente,
+  SGE.Model.DAO.Query.Caixa,
   SGE.Model.DAO.Query.ContaAPagar,
   SGE.Model.DAO.Query.ContaAReceber;
 
@@ -99,6 +104,22 @@ begin
     FFornecedorCliente := TModelDAOQueryFornecedorCliente.New;
 
   Result := FFornecedorCliente;
+end;
+
+function TModelDAOQueryFactory.Caixa: IModelDAOQuery;
+begin
+  if not Assigned(FCaixa) then
+    FCaixa := TModelDAOQueryCaixa.New;
+
+  Result := FCaixa;
+end;
+
+function TModelDAOQueryFactory.CaixaMovimento: IModelDAOQuery;
+begin
+  if not Assigned(FCaixaMovimento) then
+    FCaixaMovimento := TModelDAOQueryCaixaMovimento.New;
+
+  Result := FCaixaMovimento;
 end;
 
 function TModelDAOQueryFactory.ContaAPagar: IModelDAOQuery;

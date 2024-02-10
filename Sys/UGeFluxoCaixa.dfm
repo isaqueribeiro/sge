@@ -27,8 +27,6 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     ExplicitWidth = 1132
     ExplicitHeight = 554
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 1124
       ExplicitHeight = 525
       inherited Bevel4: TBevel
@@ -2202,6 +2200,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       'SAIDA=SAIDA')
     DataSet = qryFluxoSintetico
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 1096
     Top = 408
   end
@@ -2224,11 +2223,12 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       'CAIXA=CAIXA')
     DataSet = qryFluxoAnalitico
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 1096
     Top = 440
   end
   object frrFluxoAnalitico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -2298,6 +2298,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 86.929190000000000000
         Top = 18.897650000000000000
@@ -2436,6 +2440,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 245.669450000000000000
@@ -2575,6 +2583,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 778.583180000000000000
@@ -2600,6 +2612,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 287.244280000000000000
         Top = 468.661720000000000000
@@ -2846,6 +2862,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object bndGrpHeaderCaixa: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 166.299320000000000000
@@ -3015,6 +3035,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object bndHeaderMov: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 37.795300000000000000
         Top = 328.819110000000000000
@@ -3147,6 +3171,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object bndMasterDataMov: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 389.291590000000000000
@@ -3281,6 +3309,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object bndGrpFooterCaixaSaldo: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 287.244280000000000000
@@ -3350,6 +3382,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       'SALDO_FINAL_VALOR=SALDO_FINAL_VALOR')
     DataSet = qryFluxoSaldos
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 1096
     Top = 376
   end
@@ -3476,7 +3509,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     end
   end
   object FrReciboA5: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3591,6 +3624,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 98.267780000000000000
         Top = 18.897650000000000000
@@ -3777,6 +3814,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 529.134200000000000000
@@ -3837,6 +3878,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 162.519790000000000000
         Top = 177.637910000000000000
@@ -3859,7 +3904,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F722052696368656432302031302E302E31393034317D5C76
+            67656E657261746F722052696368656432302031302E302E32323632317D5C76
             6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
             305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
             315C716A5C66305C66733230205265636562656D6F73205B494946283C467264
@@ -3887,7 +3932,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F722052696368656432302031302E302E31393034317D5C76
+            67656E657261746F722052696368656432302031302E302E32323632317D5C76
             6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
             305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
             315C71635C625C66305C66733332205B546974756C6F5D5C7061720D0A0D0A5C
@@ -3900,6 +3945,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object BndChildAssinatura: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 105.826840000000000000
         Top = 362.834880000000000000
@@ -3967,7 +4016,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F722052696368656432302031302E302E31393034317D5C76
+            67656E657261746F722052696368656432302031302E302E32323632317D5C76
             6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
             305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
             315C716A5C66305C66733230205B4369646164655D2F5B55465D2C205B466F72
@@ -4016,6 +4065,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       'VALOR_BAIXA_EXTENSO=VALOR_BAIXA_EXTENSO')
     DataSet = CdsRecibo
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 316
     Top = 417
   end
@@ -4200,7 +4250,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
     Top = 184
   end
   object FrReciboA4: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -4314,6 +4364,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 98.267780000000000000
         Top = 18.897650000000000000
@@ -4500,6 +4554,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 529.134200000000000000
@@ -4560,6 +4618,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 162.519790000000000000
         Top = 177.637910000000000000
@@ -4582,7 +4644,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F722052696368656432302031302E302E31393034317D5C76
+            67656E657261746F722052696368656432302031302E302E32323632317D5C76
             6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
             305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
             315C716A5C66305C66733230205265636562656D6F73205B494946283C467264
@@ -4610,7 +4672,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F722052696368656432302031302E302E31393034317D5C76
+            67656E657261746F722052696368656432302031302E302E32323632317D5C76
             6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
             305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
             315C71635C625C66305C66733332205B546974756C6F5D5C7061720D0A0D0A5C
@@ -4623,6 +4685,10 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
       end
       object BndChildAssinatura: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 105.826840000000000000
         Top = 362.834880000000000000
@@ -4690,7 +4756,7 @@ inherited frmGeFluxoCaixa: TfrmGeFluxoCaixa
             7B5C727466315C616E73695C616E7369637067313235325C64656666305C6E6F
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430205461686F6D613B7D7D0D0A7B5C2A5C
-            67656E657261746F722052696368656432302031302E302E31393034317D5C76
+            67656E657261746F722052696368656432302031302E302E32323632317D5C76
             6965776B696E64345C756331200D0A5C706172645C6669313030305C6C693134
             305C72693138305C73623132305C73613132305C736C3336305C736C6D756C74
             315C716A5C66305C66733230205B4369646164655D2F5B55465D2C205B466F72

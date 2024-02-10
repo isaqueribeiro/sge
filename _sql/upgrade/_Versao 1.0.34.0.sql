@@ -141,3 +141,22 @@ Update TBCAIXA_MOVIMENTO Set conferido = 0 where coalesce(conferido, -1) < 0;
 CREATE DESCENDING INDEX IDX_TBCAIXA_MOVIMENTO_DATAD
 ON TBCAIXA_MOVIMENTO (DATAHORA);
 
+
+
+SET TERM ^ ;
+
+CREATE trigger tg_caixa_movimento_tratar for tbcaixa_movimento
+active before insert or update position 1
+AS
+begin
+  new.tipo = upper(trim(new.tipo));
+
+  if (new.tipo = 'C') then
+    new.tipo_despesa = null;
+  else
+  if (new.tipo = 'D') then
+    new.tipo_receita = null;
+end^
+
+SET TERM ; ^
+
