@@ -211,8 +211,12 @@ uses
   SGE.Model.DAO.Vendedor in '..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas',
   SGE.Model.DAO.XML_NFeEnviada in 'Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas',
   SGE.Model.DAO.XML_NFeImportada in 'Model\DAO\SGE.Model.DAO.XML_NFeImportada.pas',
+  SGI.Model.DAO.ProdutoAlmoxarifado in '..\System_SGI\Model\DAO\SGI.Model.DAO.ProdutoAlmoxarifado.pas',
+  SGI.Model.DAO.RequisicaoAlmoxarifado in '..\System_SGI\Model\DAO\SGI.Model.DAO.RequisicaoAlmoxarifado.pas',
   SGE.Model.DAO.Query.Interfaces in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Interfaces.pas',
   SGE.Model.DAO.Query.Factory in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Factory.pas',
+  SGI.Model.DAO.Query.ApropriacaoEstoque in '..\System_SGI\Model\DAO\Query\SGI.Model.DAO.Query.ApropriacaoEstoque.pas',
+  SGE.Model.DAO.Query.Caixa in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Caixa.pas',
   SGE.Model.DAO.Query.ContaAPagar in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAPagar.pas',
   SGE.Model.DAO.Query.ContaAReceber in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAReceber.pas',
   SGE.Model.DAO.Query.FornecedorCliente in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.FornecedorCliente.pas',
@@ -275,12 +279,10 @@ uses
   SGE.Controller.Impressao.ContaAReceber in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas',
   SGE.Controller.Impressao.Contrato in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas',
   SGE.Controller.Impressao.Cheque in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.Cheque.pas',
-  SGI.Model.DAO.ProdutoAlmoxarifado in '..\System_SGI\Model\DAO\SGI.Model.DAO.ProdutoAlmoxarifado.pas',
-  SGI.Model.DAO.RequisicaoAlmoxarifado in '..\System_SGI\Model\DAO\SGI.Model.DAO.RequisicaoAlmoxarifado.pas',
-  SGI.Model.DAO.Query.ApropriacaoEstoque in '..\System_SGI\Model\DAO\Query\SGI.Model.DAO.Query.ApropriacaoEstoque.pas',
   SGI.Controller.ProdutoAlmoxarifado in '..\System_SGI\Controller\SGI.Controller.ProdutoAlmoxarifado.pas',
   SGI.Controller.RequisicaoAlmoxarifado in '..\System_SGI\Controller\SGI.Controller.RequisicaoAlmoxarifado.pas',
   SGI.Controller.Query.ApropriacaoEstoque in '..\System_SGI\Controller\Query\SGI.Controller.Query.ApropriacaoEstoque.pas',
+  SGE.Controller.Query.Caixa in '..\Sys\Controller\Query\SGE.Controller.Query.Caixa.pas',
   View.CampoRequisitado in '..\Sys\View\View.CampoRequisitado.pas' {ViewCampoRequisitado},
   View.Estado in '..\Sys\View\View.Estado.pas' {ViewEstado},
   View.Cidade in '..\Sys\View\View.Cidade.pas' {ViewCidade},
@@ -337,7 +339,8 @@ uses
   View.ContaAReceber.Pagamento in '..\Sys\View\View.ContaAReceber.Pagamento.pas' {ViewContaAReceberPagamento},
   View.Usuario in '..\Sys\View\View.Usuario.pas' {ViewUsuario},
   View.Usuario.AlterarSenha in '..\Sys\View\View.Usuario.AlterarSenha.pas' {ViewUsuarioAlterarSenha},
-  View.Contrato in '..\Sys\View\View.Contrato.pas' {ViewContrato};
+  View.Contrato in '..\Sys\View\View.Contrato.pas' {ViewContrato},
+  View.Query.Caixa.Conferencia in '..\Sys\View\Query\View.Query.Caixa.Conferencia.pas' {ViewQueryCaixaConferencia};
 
 {$R *.res}
 

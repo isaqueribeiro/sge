@@ -35,6 +35,8 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
+    ExplicitTop = 122
+    ExplicitHeight = 519
     DesignSize = (
       1044
       486)
@@ -46,7 +48,9 @@ object frmPrinc: TfrmPrinc
       Align = alClient
       AutoSize = True
       Transparent = True
-      ExplicitHeight = 459
+      Visible = False
+      ExplicitLeft = -1
+      ExplicitTop = -5
     end
     object imgEmpresa: TImage
       Left = 8
@@ -4673,6 +4677,7 @@ object frmPrinc: TfrmPrinc
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
     object RbnTabPrincipal: TdxRibbonTab
+      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4703,7 +4708,6 @@ object frmPrinc: TfrmPrinc
       Index = 2
     end
     object RbnTabMovimento: TdxRibbonTab
-      Active = True
       Caption = 'Movimenta'#231#227'o'
       Groups = <
         item
@@ -4926,7 +4930,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 605
+      DockedLeft = 315
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213
@@ -5222,6 +5226,10 @@ object frmPrinc: TfrmPrinc
           BeginGroup = True
           Visible = True
           ItemName = 'BrBtnGerenciarCaixa'
+        end
+        item
+          Visible = True
+          ItemName = 'BrBtnConferenciaCaixa'
         end>
       OneOnRow = False
       Row = 0
@@ -5232,7 +5240,7 @@ object frmPrinc: TfrmPrinc
     object BrMngFinanceiroBoleto: TdxBar
       Caption = 'Boletos Banc'#225'rios / Quita'#231#245'es'
       CaptionButtons = <>
-      DockedLeft = 512
+      DockedLeft = 592
       DockedTop = 0
       FloatLeft = 379
       FloatTop = 206
@@ -6127,6 +6135,17 @@ object frmPrinc: TfrmPrinc
       LargeImageIndex = 47
       SyncImageIndex = False
       ImageIndex = 47
+    end
+    object BrBtnConferenciaCaixa: TdxBarLargeButton
+      Caption = 'Confer'#234'ncia de Caixas'
+      Category = 12
+      Hint = 'Confer'#234'ncia de Conta Corrente e/ou Caixas'
+      Visible = ivAlways
+      OnClick = BrBtnConferenciaCaixaClick
+      HotImageIndex = 84
+      LargeImageIndex = 84
+      SyncImageIndex = False
+      ImageIndex = 84
     end
     object BrBtnControleCheque: TdxBarLargeButton
       Caption = 'Controle de Cheques'

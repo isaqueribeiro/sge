@@ -38,8 +38,13 @@ type
 
   IControllerQueryCaixaMovimento = interface(IControllerQuery)
     ['{4B33D5EF-F7FC-4FD4-B7FF-A0DA548FE9D9}']
+    procedure GravarDados;
+    function MovimentoConferencia(aValue : Integer) : IControllerQueryCaixaMovimento;
     function ContaCorrente(aValue : Integer) : IControllerQueryCaixaMovimento;
     function Caixa(aValue : String) : IControllerQueryCaixaMovimento;
+    function ValorTotalPesquisado : Currency;
+    function ValorTotalPesquisadoCredito : Currency;
+    function ValorTotalPesquisadoDebito : Currency;
   end;
 
   IControllerCustom = interface(IController)

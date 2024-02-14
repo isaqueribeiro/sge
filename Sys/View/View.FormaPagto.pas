@@ -33,11 +33,17 @@ uses
   cxLookAndFeelPainters,
   cxButtons,
   dxSkinsCore,
+  dxSkinsDefaultPainters,
+  dxSkinOffice2019Black,
+  dxSkinOffice2019Colorful,
+  dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White,
 
   View.PadraoCadastro,
+  Model.Constantes,
   SGE.Controller.Interfaces,
   Interacao.Tabela,
-  Controller.Tabela, dxSkinsDefaultPainters;
+  Controller.Tabela;
 
 type
   TViewFormaPagto = class(TViewPadraoCadastro)
@@ -157,7 +163,7 @@ begin
     frm.btbtnLista.Visible    := False;
 
     frm.WhereAdditional := '(p.FormaPagto_PDV = 1) and ' +
-      '(p.cod in (Select fc.forma_pagto from TBFORMPAGTO_CONTACOR fc inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente) where c.tipo = 1))'; // Conta Corrente do tipo Caixa Diário
+      '(p.cod in (Select fc.forma_pagto from TBFORMPAGTO_CONTACOR fc inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente) where c.tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccCaixa)) + '))'; // Conta Corrente do tipo Caixa Diário
 
 
     frm.FController.DAO.ClearWhere;
@@ -237,7 +243,7 @@ begin
 
   if (gSistema.Codigo = SISTEMA_PDV) then
     WhereAdditional := '(p.FormaPagto_PDV = 1) and ' +
-      '(p.cod in (Select fc.forma_pagto from TBFORMPAGTO_CONTACOR fc inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente) where c.tipo = 1))'; // Conta Corrente do tipo Caixa Diário
+      '(p.cod in (Select fc.forma_pagto from TBFORMPAGTO_CONTACOR fc inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente) where c.tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccCaixa)) + '))'; // Conta Corrente do tipo Caixa Diário
 
   dbFormaPagtoPDV.Visible          := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV, SISTEMA_GESTAO_OPME]);
   dbFormaPagtoPDVRelatorio.Visible := (gSistema.Codigo in [SISTEMA_GESTAO_COM, SISTEMA_PDV, SISTEMA_GESTAO_OPME]);
@@ -411,7 +417,7 @@ begin
   begin
     CampoDescricao  := 'p.cod';
     WhereAdditional := '(p.FormaPagto_PDV = 1) and ' +
-      '(p.cod in (Select fc.forma_pagto from TBFORMPAGTO_CONTACOR fc inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente) where c.tipo = 1))'; // Conta Corrente do tipo Caixa Diário
+      '(p.cod in (Select fc.forma_pagto from TBFORMPAGTO_CONTACOR fc inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente) where c.tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccCaixa)) + '))'; // Conta Corrente do tipo Caixa Diário
   end;
 
   inherited;

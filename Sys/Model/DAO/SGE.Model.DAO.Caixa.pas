@@ -5,6 +5,7 @@ interface
 uses
   System.SysUtils,
   Data.DB,
+  Model.Constantes,
   SGE.Model.DAO,
   SGE.Model.DAO.Interfaces;
 
@@ -82,8 +83,8 @@ begin
         .Add('  , c.datahora_confer')
         .Add('  , cc.Descricao   ')
         .Add('  , Case ')
-        .Add('      when cc.Tipo = 1 then ''Caixa'' ')
-        .Add('      when cc.Tipo = 2 then ''Banco'' ')
+        .Add('      when cc.Tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccCaixa)) + ' then ''Caixa'' ')
+        .Add('      when cc.Tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccCaixa)) + ' then ''Banco'' ')
         .Add('      else ''* Indefinido'' ')
         .Add('    end as Tipo ')
         .Add('  , cc.empresa  ')

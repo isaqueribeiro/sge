@@ -6,6 +6,7 @@ uses
   System.SysUtils,
   System.Classes,
   Data.DB,
+  Model.Constantes,
   SGE.Model.DAO,
   SGE.Model.DAO.Interfaces;
 
@@ -84,7 +85,7 @@ begin
         .Add('      , count(fc.conta_corrente) as conta_corrente')
         .Add('    from TBFORMPAGTO_CONTACOR fc')
         .Add('      inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente and c.empresa = :empresa)')
-        .Add('    where c.tipo = 1')
+        .Add('    where c.tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccCaixa)))
         .Add('    group by ')
         .Add('        fc.forma_pagto')
         .Add('  ) x on (x.forma_pagto = p.cod)')
@@ -127,7 +128,7 @@ begin
         .Add('      , count(fc.conta_corrente) as conta_corrente')
         .Add('    from TBFORMPAGTO_CONTACOR fc')
         .Add('      inner join TBCONTA_CORRENTE c on (c.codigo = fc.conta_corrente and c.empresa = :empresa)')
-        .Add('    where c.tipo = 1')
+        .Add('    where c.tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccCaixa)))
         .Add('    group by ')
         .Add('        fc.forma_pagto')
         .Add('  ) x on (x.forma_pagto = f.cod)')

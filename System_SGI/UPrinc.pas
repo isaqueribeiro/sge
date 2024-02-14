@@ -900,8 +900,11 @@ procedure TfrmPrinc.OcultarTabs;
 var
   I : Integer;
 begin
-  for I := 1 to Ribbon.Tabs.Count - 2 do
-    Ribbon.Tabs.Items[I].Visible := False;
+  for I := 0 to Pred(Ribbon.Tabs.Count) do
+  begin
+    if (Ribbon.Tabs.Items[I] <> RbnTabPrincipal) and (Ribbon.Tabs.Items[I] <> RbnTabAjuda) then
+      Ribbon.Tabs.Items[I].Visible := False;
+  end;
 end;
 
 procedure TfrmPrinc.nmCondicaoPagtoClick(Sender: TObject);

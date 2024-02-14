@@ -203,6 +203,7 @@ type
     ApplicationEvents: TApplicationEvents;
     BrBtnVendaMobile: TdxBarLargeButton;
     BrBtnGestaoContato: TdxBarLargeButton;
+    BrBtnConferenciaCaixa: TdxBarLargeButton;
     procedure tmrAutoUpgradeTimer(Sender: TObject);
     procedure btnEmpresaClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
@@ -310,6 +311,7 @@ type
     procedure ApplicationEventsActivate(Sender: TObject);
     procedure BrBtnVendaMobileClick(Sender: TObject);
     procedure BrBtnGestaoContatoClick(Sender: TObject);
+    procedure BrBtnConferenciaCaixaClick(Sender: TObject);
   private
     { Private declarations }
     FAcesso : Boolean;
@@ -468,6 +470,12 @@ begin
       end);
      aTask.Start;
   end;
+end;
+
+procedure TfrmPrinc.BrBtnConferenciaCaixaClick(Sender: TObject);
+begin
+  if GetPermissaoRotinaSistema(ROTINA_FIN_CONFERIR_CAIXA_ID, True) then
+    FormFunction.ShowModalForm(Self, 'ViewQueryCaixaConferencia');
 end;
 
 procedure TfrmPrinc.BrBtnControleChequeClick(Sender: TObject);
@@ -821,8 +829,13 @@ procedure TfrmPrinc.OcultarTabs;
 var
   I : Integer;
 begin
-  for I := 1 to Ribbon.Tabs.Count - 2 do
-    Ribbon.Tabs.Items[I].Visible := False;
+  for I := 0 to Pred(Ribbon.Tabs.Count) do
+  begin
+    if (Ribbon.Tabs.Items[I] <> RbnTabPrincipal) and (Ribbon.Tabs.Items[I] <> RbnTabAjuda) then
+      Ribbon.Tabs.Items[I].Visible := False;
+  end;
+
+
 end;
 
 procedure TfrmPrinc.nmCondicaoPagtoClick(Sender: TObject);
@@ -934,6 +947,11 @@ begin
     lblAberta.Visible := True;
     TmrAlertaCliente.Enabled := True;
   end;
+
+  BrBtnRequisicaoCliente.Enabled := GetEstoqueSateliteEmpresa( gUsuarioLogado.Empresa );
+
+  if (not imgFundo.Visible) then
+    imgFundo.Visible := True;
 end;
 
 procedure TfrmPrinc.FormCreate(Sender: TObject);
@@ -1250,6 +1268,8 @@ begin
 
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_ABRIR_CAIXA_ID,     Trim(BrBtnAbrirCaixa.Caption),             ROTINA_MENU_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_ENCERRAR_CAIXA_ID,  Trim(BrBtnEncerrarCaixa.Caption),          ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_GERENCIAR_CAIXA_ID, Trim(BrBtnGerenciarCaixa.Caption),         ROTINA_MENU_FINANCEIRO_ID);
+  SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_CONFERIR_CAIXA_ID,  Trim(BrBtnConferenciaCaixa.Caption),       ROTINA_MENU_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_GERAR_BOLETO_ID,    Trim(BrBtnGerarBoleto.Caption),            ROTINA_MENU_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_GERAR_REMESSA_ID,   Trim(BrBtnGerarRemessaBoleto.Caption),     ROTINA_MENU_FINANCEIRO_ID);
   SetRotinaSistema(ROTINA_TIPO_TELA, ROTINA_FIN_PROCESSA_RETORN_ID, Trim(BrBtnProcessarRetornoBoleto.Caption), ROTINA_MENU_FINANCEIRO_ID);

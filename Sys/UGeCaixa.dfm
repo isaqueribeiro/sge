@@ -28,6 +28,8 @@ inherited frmGeCaixa: TfrmGeCaixa
     ExplicitWidth = 950
     ExplicitHeight = 460
     inherited tbsTabela: TTabSheet
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 942
       ExplicitHeight = 431
       inherited Bevel4: TBevel

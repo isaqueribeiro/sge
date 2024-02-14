@@ -82,7 +82,6 @@ inherited ViewFormaPagto: TViewFormaPagto
           Width = 340
           ExplicitLeft = 383
           ExplicitWidth = 340
-          ExplicitHeight = 62
           inherited lbltFiltrar: TLabel
             Width = 95
             Caption = 'Forma de Pagto.:'

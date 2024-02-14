@@ -3,6 +3,8 @@ unit SGE.Controller.Query.Caixa;
 interface
 
 uses
+  System.SysUtils,
+  Data.DB,
   SGE.Controller.Interfaces,
   SGE.Controller.Query,
   SGE.Model.DAO.Interfaces;
@@ -19,7 +21,6 @@ type
 
   TControllerQueryCaixaMovimento = class(TControllerQuery, IControllerQueryCaixaMovimento)
     private
-//      FCustomDAO : IModelDAOQueryCaixaMovimento;
       function CustomDAO : IModelDAOQueryCaixaMovimento;
     protected
       constructor Create;
@@ -27,8 +28,14 @@ type
       destructor Destroy; override;
       class function New: IControllerQuery;
 
+      procedure GravarDados;
+
+      function MovimentoConferencia(aValue : Integer) : IControllerQueryCaixaMovimento;
       function ContaCorrente(aValue : Integer) : IControllerQueryCaixaMovimento;
       function Caixa(aValue : String) : IControllerQueryCaixaMovimento;
+      function ValorTotalPesquisado : Currency;
+      function ValorTotalPesquisadoCredito : Currency;
+      function ValorTotalPesquisadoDebito : Currency;
   end;
 
 implementation
@@ -36,7 +43,6 @@ implementation
 { TControllerQueryCaixa }
 
 uses
-  System.SysUtils,
   SGE.Model.DAO.Query.Factory;
 
 constructor TControllerQueryCaixa.Create;
@@ -82,7 +88,6 @@ end;
 
 constructor TControllerQueryCaixaMovimento.Create;
 begin
-//  FCustomDAO := TModelDAOQueryFactory.Instance.CaixaMovimento;
   inherited Create(TModelDAOQueryFactory.Instance.CaixaMovimento);
 end;
 
@@ -96,9 +101,39 @@ begin
   inherited;
 end;
 
+procedure TControllerQueryCaixaMovimento.GravarDados;
+begin
+  if (CustomDAO.DataSet.State in [TDataSetState.dsEdit, TDataSetState.dsInsert]) then
+    CustomDAO.DataSet.Post;
+
+  CustomDAO.ApplyUpdates;
+  CustomDAO.CommitUpdates;
+end;
+
+function TControllerQueryCaixaMovimento.MovimentoConferencia(aValue: Integer): IControllerQueryCaixaMovimento;
+begin
+  Result := Self;
+  CustomDAO.MovimentoConferencia(aValue);
+end;
+
 class function TControllerQueryCaixaMovimento.New: IControllerQuery;
 begin
   Result := Self.Create;
+end;
+
+function TControllerQueryCaixaMovimento.ValorTotalPesquisado: Currency;
+begin
+  Result := CustomDAO.ValorTotalPesquisado;
+end;
+
+function TControllerQueryCaixaMovimento.ValorTotalPesquisadoCredito: Currency;
+begin
+  Result := CustomDAO.ValorTotalPesquisadoCredito;
+end;
+
+function TControllerQueryCaixaMovimento.ValorTotalPesquisadoDebito: Currency;
+begin
+  Result := CustomDAO.ValorTotalPesquisadoDebito;
 end;
 
 end.

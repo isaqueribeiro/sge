@@ -6,6 +6,7 @@ uses
   System.SysUtils,
   System.Classes,
   Data.DB,
+  Model.Constantes,
   SGE.Model.DAO,
   SGE.Model.DAO.Interfaces;
 
@@ -61,7 +62,7 @@ begin
         .Add('  , cc.Empresa')
         .Add('  , cc.Conta_banco_boleto')
         .Add('  , cc.Codigo_contabil')
-        .Add('  , Case when cc.Tipo = 1 then ''Caixa'' when cc.Tipo = 2 then ''Banco'' else '''' end as Tipo_Desc')
+        .Add('  , Case when cc.Tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccCaixa)) + ' then ''Caixa'' when cc.Tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccBanco)) + ' then ''Banco'' else '''' end as Tipo_Desc')
         .Add('  , cb.Bco_nome || '' AG.: '' || cb.Bco_agencia || '' C/C.: '' || cb.Bco_cc as Banco')
         .Add('from TBCONTA_CORRENTE cc')
         .Add('  left join TBBANCO_BOLETO cb on (cb.bco_codigo = cc.bco_codigo_cc)')

@@ -5,6 +5,7 @@ interface
 type
   TTipoPesquisa = (tpAutomatico, tpCodigo, tpDescricao);
   TTipoEmissorCheque = (tecNenhum, tecFornecedor, tecCliente);
+  TTipoContaCorrente = (tccCaixa = 1, tccBanco = 2);
 
 const
   CONST_MODEL_USER_NAME     = 'SYSDBA';

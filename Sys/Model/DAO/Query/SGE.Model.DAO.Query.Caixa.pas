@@ -33,12 +33,17 @@ type
     private
       FDataInicial,
       FDataFinal  : TDateTime;
+      FMovimentoConferencia,
       FContaCorrente,
       FAnoCaixa     ,
       FNumeroCaixa  : Integer;
+      FValorTotalPesquisado       ,
+      FValorTotalPesquisadoCredito,
+      FValorTotalPesquisadoDebito : Currency;
       FConferirLista : TDictionary<String, Smallint>;
       procedure CpfCnpjGetText(Sender: TField; var Text: string; DisplayText: Boolean);
       procedure DataSetAfterOpen(DataSet: TDataSet);
+      procedure Totalizar;
     protected
       constructor Create;
     public
@@ -49,10 +54,14 @@ type
       function DataFinal(aValue : TDateTime) : IModelDAOQuery;
       function Execute(aTipo : TTipoPesquisa; aFiltro : String) : IModelDAOQuery;
 
+      function MovimentoConferencia(aValue : Integer) : IModelDAOQueryCaixaMovimento;
       function ContaCorrente(aValue : Integer) : IModelDAOQueryCaixaMovimento;
       function AnoCaixa(aValue : Integer) : IModelDAOQueryCaixaMovimento;
       function NumeroCaixa(aValue : Integer) : IModelDAOQueryCaixaMovimento;
       function ExecuteCustom(aTipo : TTipoPesquisa; aFiltro : String) : IModelDAOQueryCaixaMovimento;
+      function ValorTotalPesquisado : Currency;
+      function ValorTotalPesquisadoCredito : Currency;
+      function ValorTotalPesquisadoDebito : Currency;
   end;
 
 implementation
@@ -246,9 +255,14 @@ begin
 
   FDataInicial := Date;
   FDataFinal   := Date;
+  FMovimentoConferencia := 0;
   FContaCorrente := 0;
   FAnoCaixa      := 0;
   FNumeroCaixa   := 0;
+
+  FValorTotalPesquisado        := 0.0;
+  FValorTotalPesquisadoCredito := 0.0;
+  FValorTotalPesquisadoDebito  := 0.0;
 
   FConn
     .Query
@@ -318,6 +332,7 @@ begin
         .Add('  left join TBTPDESPESA td on (td.cod = m.tipo_despesa and upper(m.tipo) = ' + QuotedStr(TIPO_MOVIMENTO_DEBITO)  + ')')
         .Add('  left join TBUSERS us on (us.nome = m.usuario)')
         .Add('where (m.empresa = :empresa) ')
+        .Add('  and ((:conferir = 0) or (m.conferido = 0)) ')
         .Add('  and (cast(m.datahora as DMN_DATE) between :data_inicial and :data_final) ')
         .Add('  and ((m.conta_corrente = :conta) or (:sem_conta = 1)) ')
         .Add('  and ((coalesce(m.caixa_ano, 0) = :ano_caixa and coalesce(m.caixa_num, 0) = :numero_caixa) or (:sem_caixa = 1)) ')
@@ -325,6 +340,7 @@ begin
         .Add('  and (( (cl.nome like :nome) or (fn.nomeforn like :nome) ) or (:sem_nome = 1)) ')
       .&End
       .ParamByName('empresa',  Usuario.Empresa.CNPJ)
+      .ParamByName('conferir', FMovimentoConferencia)
       .ParamByName('conta',  FContaCorrente)
       .ParamByName('data_inicial', FDataInicial)
       .ParamByName('data_final',   FDataFinal)
@@ -361,6 +377,7 @@ begin
   FConn
     .Query
       .ParamByName('empresa',  Usuario.Empresa.CNPJ)
+      .ParamByName('conferir', FMovimentoConferencia)
       .ParamByName('conta',  FContaCorrente)
       .ParamByName('data_inicial', FDataInicial)
       .ParamByName('data_final',   FDataFinal)
@@ -421,14 +438,21 @@ begin
 //  end;
 
   FConn.Query.Open;
+
+  Totalizar;
 end;
 
 function TModelDAOQueryCaixaMovimento.ExecuteCustom(aTipo: TTipoPesquisa;
   aFiltro: String): IModelDAOQueryCaixaMovimento;
 begin
   Result := Self;
+  Totalizar;
+end;
 
-
+function TModelDAOQueryCaixaMovimento.MovimentoConferencia(aValue: Integer): IModelDAOQueryCaixaMovimento;
+begin
+  Result := Self;
+  FMovimentoConferencia := aValue;
 end;
 
 class function TModelDAOQueryCaixaMovimento.New: IModelDAOQuery;
@@ -452,6 +476,47 @@ function TModelDAOQueryCaixaMovimento.NumeroCaixa(aValue: Integer): IModelDAOQue
 begin
   Result := Self;
   FNumeroCaixa := aValue;
+end;
+
+procedure TModelDAOQueryCaixaMovimento.Totalizar;
+begin
+  FValorTotalPesquisado        := 0.0;
+  FValorTotalPesquisadoCredito := 0.0;
+  FValorTotalPesquisadoDebito  := 0.0;
+  try
+    DataSet.DisableControls;
+    DataSet.First;
+    while not DataSet.Eof do
+    begin
+      FValorTotalPesquisado := FValorTotalPesquisado + DataSet.FieldByName('valor').AsCurrency;
+
+      if Trim(DataSet.FieldByName('tipo').AsString).ToUpper.Equals(TIPO_MOVIMENTO_CREDITO) then
+        FValorTotalPesquisadoCredito := FValorTotalPesquisadoCredito + DataSet.FieldByName('valor').AsCurrency;
+
+      if Trim(DataSet.FieldByName('tipo').AsString).ToUpper.Equals(TIPO_MOVIMENTO_DEBITO) then
+        FValorTotalPesquisadoDebito := FValorTotalPesquisadoDebito + DataSet.FieldByName('valor').AsCurrency;
+
+      DataSet.Next;
+    end;
+  finally
+    DataSet.First;
+    DataSet.EnableControls;
+  end;
+end;
+
+function TModelDAOQueryCaixaMovimento.ValorTotalPesquisado: Currency;
+begin
+  Result := FValorTotalPesquisado;
+end;
+
+function TModelDAOQueryCaixaMovimento.ValorTotalPesquisadoCredito: Currency;
+begin
+  Result := FValorTotalPesquisadoCredito;
+end;
+
+function TModelDAOQueryCaixaMovimento.ValorTotalPesquisadoDebito: Currency;
+begin
+  Result := FValorTotalPesquisadoDebito;
 end;
 
 procedure TModelDAOQueryCaixaMovimento.CpfCnpjGetText(Sender: TField; var Text: string; DisplayText: Boolean);

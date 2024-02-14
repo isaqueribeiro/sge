@@ -24,6 +24,10 @@ uses
   Vcl.Graphics,
   Vcl.Buttons,
 
+  JvExMask,
+  JvToolEdit,
+  JvDBControls,
+
   Data.DB,
   Datasnap.DBClient,
 
@@ -33,12 +37,14 @@ uses
   cxLookAndFeelPainters,
   cxButtons,
   dxSkinsCore,
-
-  JvExMask,
-  JvToolEdit,
-  JvDBControls,
+  dxSkinOffice2019Black,
+  dxSkinOffice2019Colorful,
+  dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White,
+  dxSkinsDefaultPainters,
 
   View.PadraoCadastro,
+  Model.Constantes,
   SGE.Controller.Interfaces;
 
 type
@@ -157,22 +163,23 @@ function TViewContaCorrente.PermitirSalvarContaCaixa: Boolean;
 var
   aContaCorrente : IControllerCustom;
 begin
-  Result := (DtSrcTabela.DataSet.FieldByName('TIPO').AsInteger = 2); // Conta Banco não é analisada
-  if not Result then
-  begin
-    aContaCorrente := TControllerFactory.New.ContaCorrente;
-    aContaCorrente.DAO.ClearWhere;
-    aContaCorrente.DAO
-      .Where('cc.codigo != ' + DtSrcTabela.DataSet.FieldByName('CODIGO').AsString)
-      .Where('cc.empresa = ' + DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString)
-      .Where('cc.tipo = ' + DtSrcTabela.DataSet.FieldByName('TIPO').AsString)
-      .Open;
-
-    Result := aContaCorrente.DAO.DataSet.IsEmpty;
-
-    if not Result then
-      TServiceMessage.ShowWarning('Não pode haver mais de uma Conta Corrente do tipo Caixa para a mesma empresa!');
-  end;
+  Result := True; // Permitir, provisoriamente, mais de uma conta do tipo 1 (Caixa Diário) ???
+//  Result := (DtSrcTabela.DataSet.FieldByName('TIPO').AsInteger = 2); // Conta Banco não é analisada
+//  if not Result then
+//  begin
+//    aContaCorrente := TControllerFactory.New.ContaCorrente;
+//    aContaCorrente.DAO.ClearWhere;
+//    aContaCorrente.DAO
+//      .Where('cc.codigo != ' + DtSrcTabela.DataSet.FieldByName('CODIGO').AsString)
+//      .Where('cc.empresa = ' + DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString)
+//      .Where('cc.tipo = ' + DtSrcTabela.DataSet.FieldByName('TIPO').AsString)
+//      .Open;
+//
+//    Result := aContaCorrente.DAO.DataSet.IsEmpty;
+//
+//    if not Result then
+//      TServiceMessage.ShowWarning('Não pode haver mais de uma Conta Corrente do tipo Caixa para a mesma empresa!');
+//  end;
 end;
 
 procedure TViewContaCorrente.btbtnSalvarClick(Sender: TObject);
@@ -196,7 +203,7 @@ begin
     '    Select      ' +
     '      e.cnpj    ' +
     '    from VW_EMPRESA e ' +
-    '  )) or (cc.tipo = 2) ' +
+    '  )) or (cc.tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccBanco)) + ') ' +
     '  and (               ' +
     '    cc.bco_codigo_cc in ( ' +
     '      Select             ' +

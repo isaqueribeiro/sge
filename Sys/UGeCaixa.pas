@@ -210,7 +210,8 @@ implementation
 uses
     System.StrUtils
   , UConstantesDGE
-  , COntroller.Tabela
+  , Model.Constantes
+  , Controller.Tabela
   , UDMBusiness
   , UDMNFe
   , UDMRecursos;
@@ -231,7 +232,7 @@ begin
     with frm, fdQryTabela do
     begin
       if (gSistema.Codigo = SISTEMA_PDV) then
-        frm.WhereAdditional := '(cc.tipo = 1)'
+        frm.WhereAdditional := '(cc.tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccCaixa)) + ')'
       else
         frm.WhereAdditional := '(1 = 1)';
 
@@ -288,7 +289,7 @@ begin
     with frm, fdQryTabela do
     begin
       if (gSistema.Codigo = SISTEMA_PDV) then
-        frm.WhereAdditional := '(coalesce(cc.empresa, bb.empresa) = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and (cc.tipo = 1)'
+        frm.WhereAdditional := '(coalesce(cc.empresa, bb.empresa) = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and (cc.tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccCaixa)) + ')'
       else
         frm.WhereAdditional := '(coalesce(cc.empresa, bb.empresa) = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
 
@@ -321,7 +322,7 @@ begin
     with frm, fdQryTabela do
     begin
       if (gSistema.Codigo = SISTEMA_PDV) then
-        frm.WhereAdditional := '(coalesce(cc.empresa, bb.empresa) = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and (cc.tipo = 1)'
+        frm.WhereAdditional := '(coalesce(cc.empresa, bb.empresa) = ' + QuotedStr(gUsuarioLogado.Empresa) + ') and (cc.tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccCaixa)) + ')'
       else
         frm.WhereAdditional := '(coalesce(cc.empresa, bb.empresa) = ' + QuotedStr(gUsuarioLogado.Empresa) + ')';
 
@@ -388,8 +389,8 @@ begin
 
   if (gSistema.Codigo = SISTEMA_PDV) then
   begin
-    WhereAdditional := WhereAdditional + ' and (cc.tipo = 1)';
-    fdQryContaCorrente.Filter   := 'TIPO = 1';
+    WhereAdditional := WhereAdditional + ' and (cc.tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccCaixa)) + ')';
+    fdQryContaCorrente.Filter   := 'TIPO = ' + IntToStr(Ord(TTipoContaCorrente.tccCaixa));
     fdQryContaCorrente.Filtered := True;
   end;
 
@@ -1003,7 +1004,7 @@ begin
       QuotedStr( FormatDateTime('yyyy-mm-dd', e2Data.Date) ) + ')';
 
   if (gSistema.Codigo = SISTEMA_PDV) then
-    WhereAdditional := '(cc.tipo = 1) and (' + WhereAdditional + ')';
+    WhereAdditional := '(cc.tipo = ' + IntToStr(Ord(TTipoContaCorrente.tccCaixa)) + ') and (' + WhereAdditional + ')';
 
   inherited;
 end;

@@ -8,21 +8,40 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
   TextHeight = 13
   inherited pnlPesquisa: TPanel
     Width = 1120
-    ExplicitWidth = 778
+    ExplicitWidth = 1120
+    inherited BvlTipoPesquisa: TBevel
+      Left = 230
+      ExplicitLeft = 230
+    end
     inherited GrpBxTipoPesquisa: TGroupBox
+      Width = 226
+      ExplicitWidth = 226
+      inherited lblTipoPesquisa: TLabel
+        Width = 202
+        Enabled = True
+      end
       inherited edTipoPesquisa: TComboBox
-        ExplicitLeft = 11
+        Width = 202
+        Enabled = True
+        ItemIndex = 1
+        Text = 'Lan'#231'amentos Sem Confer'#234'ncia'
+        Items.Strings = (
+          'Todos os Lan'#231'amentos'
+          'Lan'#231'amentos Sem Confer'#234'ncia')
+        ExplicitWidth = 202
       end
     end
     inherited GrpBxPesquisar: TGroupBox
-      Width = 892
-      ExplicitWidth = 550
+      Left = 234
+      Width = 882
+      ExplicitLeft = 234
+      ExplicitWidth = 892
       inherited lblPesquisar: TLabel
         Left = 352
-        Width = 504
+        Width = 95
         Margins.Left = 350
         Caption = '&N'#250'mero do Caixa'
-        ExplicitLeft = 118
+        ExplicitLeft = 352
         ExplicitWidth = 95
       end
       object lblData: TLabel [1]
@@ -43,16 +62,16 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
       end
       inherited edPesquisar: TEdit
         Left = 352
-        Width = 504
+        Width = 494
         Margins.Left = 350
         TabOrder = 2
-        ExplicitLeft = 118
-        ExplicitWidth = 396
+        ExplicitLeft = 352
+        ExplicitWidth = 504
       end
       inherited BtnPesquisar: TcxButton
-        Left = 859
+        Left = 849
         TabOrder = 3
-        ExplicitLeft = 517
+        ExplicitLeft = 859
       end
       object e1Data: TJvDateEdit
         Left = 12
@@ -114,7 +133,7 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
       object edContaCorrente: TComboBox
         Left = 118
         Top = 40
-        Width = 227
+        Width = 228
         Height = 21
         Style = csDropDownList
         TabOrder = 1
@@ -124,8 +143,8 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
   inherited PnlTabela: TPanel
     Width = 1126
     Height = 585
-    ExplicitWidth = 784
-    ExplicitHeight = 375
+    ExplicitWidth = 1126
+    ExplicitHeight = 585
     inherited dbgDados: TDBGrid
       Width = 1112
       Height = 371
@@ -200,16 +219,16 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
     inherited pnlBotoes: TPanel
       Top = 541
       Width = 1118
-      ExplicitTop = 331
-      ExplicitWidth = 776
+      ExplicitTop = 541
+      ExplicitWidth = 1118
       inherited btnSelecionar: TcxButton
         Left = 892
         Visible = False
-        ExplicitLeft = 550
+        ExplicitLeft = 892
       end
       inherited btnFechar: TcxButton
         Left = 1005
-        ExplicitLeft = 663
+        ExplicitLeft = 1005
       end
       object BtnConferir: TcxButton
         AlignWithMargins = True
@@ -256,8 +275,6 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
         ShowHint = True
         TabOrder = 2
         OnClick = BtnConferirClick
-        ExplicitLeft = 225
-        ExplicitTop = -8
       end
     end
     object PnlControleQuitacao: TPanel
@@ -269,7 +286,6 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitWidth = 1088
       object GrpBxDados: TGroupBox
         Left = 0
         Top = 0
@@ -284,7 +300,7 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 0
-        ExplicitWidth = 801
+        ExplicitLeft = -3
         object lblHistorico: TLabel
           Left = 111
           Top = 26
@@ -348,6 +364,34 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
           Height = 13
           Caption = 'Caixa:'
           FocusControl = dbCaixa
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblContaAPagar: TLabel
+          Left = 623
+          Top = 26
+          Width = 74
+          Height = 13
+          Caption = 'Conta A Pagar:'
+          FocusControl = dbContaAPagar
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lblContaAReceber: TLabel
+          Left = 623
+          Top = 73
+          Width = 86
+          Height = 13
+          Caption = 'Conta A Receber:'
+          FocusControl = dbContaAReceber
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -440,6 +484,40 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
           ReadOnly = True
           TabOrder = 1
         end
+        object dbContaAPagar: TDBEdit
+          Left = 623
+          Top = 43
+          Width = 93
+          Height = 21
+          Color = clMoneyGreen
+          DataField = 'duplicata'
+          DataSource = dtsPesquisa
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 5
+        end
+        object dbContaAReceber: TDBEdit
+          Left = 623
+          Top = 90
+          Width = 93
+          Height = 21
+          Color = clMoneyGreen
+          DataField = 'titulo'
+          DataSource = dtsPesquisa
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 6
+        end
       end
       object GrpBxTotais: TGroupBox
         AlignWithMargins = True
@@ -452,7 +530,7 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
         Margins.Right = 0
         Margins.Bottom = 0
         Align = alRight
-        Caption = 'Totaliza'#231#227'o'
+        Caption = 'Totaliza'#231#227'o e Confer'#234'ncia'
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -11
@@ -460,6 +538,175 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 1
+        ExplicitLeft = 779
+        object lblValorTotalCredito: TLabel
+          Left = 19
+          Top = 26
+          Width = 76
+          Height = 13
+          Caption = 'Total Cr'#233'dito:'
+          FocusControl = edValorTotalCredito
+          Layout = tlBottom
+        end
+        object lblValorTotalDebito: TLabel
+          Left = 121
+          Top = 26
+          Width = 78
+          Height = 13
+          Caption = 'Total D'#233'bitos:'
+          FocusControl = edValorTotalDebito
+          Layout = tlBottom
+        end
+        object lblValorTotalSaldo: TLabel
+          Left = 223
+          Top = 26
+          Width = 66
+          Height = 13
+          Caption = 'Total Saldo:'
+          FocusControl = edValorTotalSaldo
+          Layout = tlBottom
+        end
+        object lblConfereCredito: TLabel
+          Left = 19
+          Top = 73
+          Width = 72
+          Height = 13
+          Caption = '(+) Cr'#233'ditos:'
+          FocusControl = edConfereCredito
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 16384
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Layout = tlBottom
+        end
+        object lblConfereDebito: TLabel
+          Left = 121
+          Top = 73
+          Width = 64
+          Height = 13
+          Caption = '(-) D'#233'bitos:'
+          FocusControl = edConfereDebito
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 16384
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Layout = tlBottom
+        end
+        object lblConfereSaldo: TLabel
+          Left = 223
+          Top = 73
+          Width = 56
+          Height = 13
+          Caption = '(=) Saldo:'
+          FocusControl = edConfereSaldo
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 16384
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Layout = tlBottom
+        end
+        object edValorTotalCredito: TEdit
+          Left = 19
+          Top = 43
+          Width = 98
+          Height = 21
+          Alignment = taRightJustify
+          CharCase = ecUpperCase
+          Color = clMoneyGreen
+          ReadOnly = True
+          TabOrder = 0
+          Text = '0,00'
+          OnKeyPress = edPesquisarKeyPress
+        end
+        object edValorTotalDebito: TEdit
+          Left = 121
+          Top = 43
+          Width = 98
+          Height = 21
+          Alignment = taRightJustify
+          CharCase = ecUpperCase
+          Color = clMoneyGreen
+          ReadOnly = True
+          TabOrder = 1
+          Text = '0,00'
+          OnKeyPress = edPesquisarKeyPress
+        end
+        object edValorTotalSaldo: TEdit
+          Left = 223
+          Top = 43
+          Width = 98
+          Height = 21
+          Alignment = taRightJustify
+          CharCase = ecUpperCase
+          Color = clMoneyGreen
+          ReadOnly = True
+          TabOrder = 2
+          Text = '0,00'
+          OnKeyPress = edPesquisarKeyPress
+        end
+        object edConfereCredito: TEdit
+          Left = 19
+          Top = 90
+          Width = 98
+          Height = 21
+          Alignment = taRightJustify
+          CharCase = ecUpperCase
+          Color = clMoneyGreen
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 16384
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 3
+          Text = '0,00'
+          OnKeyPress = edPesquisarKeyPress
+        end
+        object edConfereDebito: TEdit
+          Left = 121
+          Top = 90
+          Width = 98
+          Height = 21
+          Alignment = taRightJustify
+          CharCase = ecUpperCase
+          Color = clMoneyGreen
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 16384
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 4
+          Text = '0,00'
+          OnKeyPress = edPesquisarKeyPress
+        end
+        object edConfereSaldo: TEdit
+          Left = 223
+          Top = 90
+          Width = 98
+          Height = 21
+          Alignment = taRightJustify
+          CharCase = ecUpperCase
+          Color = clMoneyGreen
+          Font.Charset = ANSI_CHARSET
+          Font.Color = 16384
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 5
+          Text = '0,00'
+          OnKeyPress = edPesquisarKeyPress
+        end
       end
     end
     object pnlDicas: TPanel
@@ -471,14 +718,12 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 3
-      ExplicitTop = 303
-      ExplicitWidth = 1041
       object lblDicasTitulo: TLabel
         AlignWithMargins = True
         Left = 3
         Top = 3
         Width = 33
-        Height = 15
+        Height = 13
         Align = alLeft
         Caption = 'Dica : '
         Font.Charset = ANSI_CHARSET
@@ -488,14 +733,13 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
         Font.Style = [fsBold]
         ParentFont = False
         Transparent = True
-        ExplicitHeight = 13
       end
       object lblDicasTexto: TLabel
         AlignWithMargins = True
         Left = 42
         Top = 3
-        Width = 1067
-        Height = 15
+        Width = 378
+        Height = 13
         Align = alClient
         Caption = 
           'Pressione a tecla "Espa'#231'o" para marcar e/ou desmarcar o registro' +
@@ -508,8 +752,6 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
         ParentFont = False
         Transparent = True
         WordWrap = True
-        ExplicitWidth = 378
-        ExplicitHeight = 13
       end
     end
   end
@@ -531,11 +773,5 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
     ProviderName = 'DspPesquisa'
     Left = 72
     Top = 200
-    object CdsPesquisaSelecionados: TAggregateField
-      FieldName = 'Selecionados'
-      Active = True
-      DisplayName = ''
-      Expression = 'SUM(SELECIONAR)'
-    end
   end
 end

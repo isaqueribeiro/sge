@@ -87,10 +87,14 @@ type
 
   IModelDAOQueryCaixaMovimento = interface(IModelDAOQuery)
     ['{01D06EF1-F2FB-480B-B609-CA07952A1F5A}']
+    function MovimentoConferencia(aValue : Integer) : IModelDAOQueryCaixaMovimento;
     function ContaCorrente(aValue : Integer) : IModelDAOQueryCaixaMovimento;
     function AnoCaixa(aValue : Integer) : IModelDAOQueryCaixaMovimento;
     function NumeroCaixa(aValue : Integer) : IModelDAOQueryCaixaMovimento;
     function ExecuteCustom(aTipo : TTipoPesquisa; aFiltro : String) : IModelDAOQueryCaixaMovimento;
+    function ValorTotalPesquisado : Currency;
+    function ValorTotalPesquisadoCredito : Currency;
+    function ValorTotalPesquisadoDebito : Currency;
   end;
 
   IModelDAOQueryApropriacaoEstoque = interface(IModelDAOQuery)
