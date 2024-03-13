@@ -54,6 +54,7 @@ object DMNFe: TDMNFe
       'RECONFIGURAR=RECONFIGURAR')
     DataSet = qryEmitente
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 184
     Top = 24
   end
@@ -97,11 +98,12 @@ object DMNFe: TDMNFe
       'PAIS_NOME=PAIS_NOME')
     DataSet = qryDestinatario
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 184
     Top = 72
   end
   object frrVenda: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -207,6 +209,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 150.874150000000000000
         Top = 18.897650000000000000
@@ -565,6 +571,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 268.346630000000000000
@@ -864,6 +874,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 737.008350000000000000
@@ -889,6 +903,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1077,6 +1095,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 185.196970000000000000
         Top = 347.716760000000000000
@@ -1362,7 +1384,7 @@ object DMNFe: TDMNFe
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430204C756369646120436F6E736F6C653B
             7D7B5C66315C666E696C5C666368617273657430205461686F6D613B7D7D0D0A
-            7B5C2A5C67656E657261746F722052696368656432302031302E302E31393034
+            7B5C2A5C67656E657261746F722052696368656432302031302E302E32323632
             317D5C766965776B696E64345C756331200D0A5C706172645C6C6936305C7269
             32305C716A5C625C66305C667331345C7061720D0A4F6273657276615C276537
             5C27663565733A5C62305C7061720D0A5B66726456656E64612E224F4253225D
@@ -1375,6 +1397,10 @@ object DMNFe: TDMNFe
       end
       object bndChildSummary: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 158.740260000000000000
         Top = 555.590910000000000000
@@ -1441,6 +1467,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object BndHeaderTitulos: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 18.897650000000000000
@@ -1536,6 +1566,10 @@ object DMNFe: TDMNFe
       end
       object BndMasterDataTitulos: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 60.472480000000000000
@@ -1738,6 +1772,7 @@ object DMNFe: TDMNFe
       'DECF_COO=DECF_COO')
     DataSet = qryCalculoImposto
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 184
     Top = 120
   end
@@ -1818,6 +1853,7 @@ object DMNFe: TDMNFe
       'LOTE_VALIDADE=LOTE_VALIDADE')
     DataSet = qryDadosProduto
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 180
     Top = 169
   end
@@ -1841,11 +1877,12 @@ object DMNFe: TDMNFe
       'DTREC=DTREC')
     DataSet = qryDuplicatas
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 180
     Top = 217
   end
   object FrECFPooler: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1935,6 +1972,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 117.165430000000000000
         Top = 18.897650000000000000
@@ -2004,6 +2045,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 366.614410000000000000
@@ -2121,6 +2166,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 147.401670000000000000
         Top = 196.535560000000000000
@@ -2425,6 +2474,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 117.165430000000000000
         Top = 457.323130000000000000
@@ -2665,6 +2718,7 @@ object DMNFe: TDMNFe
       'PRAZO_12=PRAZO_12')
     DataSet = qryFormaPagtos
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 180
     Top = 265
   end
@@ -2704,6 +2758,7 @@ object DMNFe: TDMNFe
       'PAIS_NOME=PAIS_NOME')
     DataSet = qryFornecedorDestinatario
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 264
     Top = 72
   end
@@ -2778,6 +2833,7 @@ object DMNFe: TDMNFe
       'DECF_COO=DECF_COO')
     DataSet = qryEntradaCalculoImposto
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 264
     Top = 120
   end
@@ -2858,6 +2914,7 @@ object DMNFe: TDMNFe
       'LOTE_VALIDADE=LOTE_VALIDADE')
     DataSet = qryEntradaDadosProduto
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 260
     Top = 169
   end
@@ -2879,12 +2936,13 @@ object DMNFe: TDMNFe
       'TIPPAG=TIPPAG')
     DataSet = qryEntradaDuplicatas
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 260
     Top = 217
   end
   object frrBoletoEntrega: TfrxReport
     Tag = 1
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -2953,6 +3011,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object MD: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -4868,6 +4930,7 @@ object DMNFe: TDMNFe
           Font.Height = -12
           Font.Name = 'Arial'
           Font.Style = []
+          ColorBar = clBlack
         end
         object Line7: TfrxLineView
           Align = baWidth
@@ -5898,7 +5961,7 @@ object DMNFe: TDMNFe
     end
   end
   object frrRequisicaoCliente: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -5968,6 +6031,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 116.858380000000000000
         Top = 18.897650000000000000
@@ -6186,6 +6253,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 302.362400000000000000
@@ -6353,6 +6424,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 737.008350000000000000
@@ -6378,6 +6453,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -6685,6 +6764,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 332.598640000000000000
         Top = 381.732530000000000000
@@ -6905,7 +6988,7 @@ object DMNFe: TDMNFe
     end
   end
   object FrrECFPoolerRequisicaoCliente: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -6982,6 +7065,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 117.165430000000000000
         Top = 18.897650000000000000
@@ -7052,6 +7139,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 366.614410000000000000
@@ -7175,6 +7266,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 147.401670000000000000
         Top = 196.535560000000000000
@@ -7497,6 +7592,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 79.370130000000000000
         Top = 457.323130000000000000
@@ -7665,6 +7764,7 @@ object DMNFe: TDMNFe
       'VALIDADE=VALIDADE')
     DataSet = qryRequisicaoCliente
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 344
     Top = 448
   end
@@ -7721,11 +7821,12 @@ object DMNFe: TDMNFe
       'VALOR_TOTAL=VALOR_TOTAL')
     DataSet = qryAutorizacaoCompra
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 568
     Top = 176
   end
   object frrAutorizacaoCompra: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -7779,6 +7880,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 116.858380000000000000
         Top = 18.897650000000000000
@@ -7997,6 +8102,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 332.598640000000000000
@@ -8146,6 +8255,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 805.039890000000000000
@@ -8206,6 +8319,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -8551,6 +8668,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 370.393940000000000000
         Top = 411.968770000000000000
@@ -9043,11 +9164,12 @@ object DMNFe: TDMNFe
       'VALOR_TOTAL_MEDIA=VALOR_TOTAL_MEDIA')
     DataSet = qryCotacaoCompra
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 568
     Top = 224
   end
   object frrCotacaoCompra: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -9101,6 +9223,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 116.858380000000000000
         Top = 18.897650000000000000
@@ -9330,6 +9456,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 362.834880000000000000
@@ -9479,6 +9609,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 710.551640000000000000
@@ -9539,6 +9673,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -9936,6 +10074,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 245.669450000000000000
         Top = 442.205010000000000000
@@ -10317,6 +10459,7 @@ object DMNFe: TDMNFe
       'ITENS=ITENS')
     DataSet = qryCotacaoCompraFornecedor
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 568
     Top = 272
   end
@@ -10344,11 +10487,12 @@ object DMNFe: TDMNFe
       'VALOR_TOTAL=VALOR_TOTAL')
     DataSet = qryCotacaoCompraFornecedorItem
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 568
     Top = 320
   end
   object frrCotacaoCompraMapaPreco: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -10408,6 +10552,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 116.858380000000000000
         Top = 18.897650000000000000
@@ -10637,6 +10785,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 268.346630000000000000
@@ -10885,6 +11037,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 532.913730000000000000
@@ -10945,6 +11101,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -11165,6 +11325,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterDataMapa: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -11792,6 +11956,10 @@ object DMNFe: TDMNFe
       end
       object bndFooter: TfrxFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 11.338590000000000000
         Top = 309.921460000000000000
@@ -11800,7 +11968,7 @@ object DMNFe: TDMNFe
     end
   end
   object frrNotaEntrega: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -11896,6 +12064,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 177.330860000000000000
         Top = 18.897650000000000000
@@ -12318,6 +12490,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 294.803340000000000000
@@ -12617,6 +12793,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 752.126470000000000000
@@ -12642,6 +12822,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 355.275820000000000000
         Top = 374.173470000000000000
@@ -12986,6 +13170,10 @@ object DMNFe: TDMNFe
       end
       object bndHeaderColunas: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 15.118120000000000000
         Top = 257.008040000000000000
@@ -13195,11 +13383,12 @@ object DMNFe: TDMNFe
       'UNP_SIGLA=UNP_SIGLA')
     DataSet = qryVendaCartaCredito
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 344
     Top = 496
   end
   object frrVendaCartaCredito: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -13257,6 +13446,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 116.858380000000000000
         Top = 18.897650000000000000
@@ -13483,6 +13676,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 302.362400000000000000
@@ -13631,6 +13828,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 737.008350000000000000
@@ -13656,6 +13857,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -13961,6 +14166,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 332.598640000000000000
         Top = 381.732530000000000000
@@ -14238,11 +14447,12 @@ object DMNFe: TDMNFe
       'VALOR_TOTAL=VALOR_TOTAL')
     DataSet = qryRequisicaoCompra
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 568
     Top = 368
   end
   object frrRequisicaoCompra: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -14296,6 +14506,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 116.858380000000000000
         Top = 18.897650000000000000
@@ -14525,6 +14739,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 332.598640000000000000
@@ -14686,6 +14904,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 805.039890000000000000
@@ -14746,6 +14968,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -15109,6 +15335,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 370.393940000000000000
         Top = 411.968770000000000000
@@ -15594,6 +15824,8 @@ object DMNFe: TDMNFe
     CasasDecimais.vUnCom = 2
     CasasDecimais.MaskqCom = ',0.###'
     CasasDecimais.MaskvUnCom = ',0.00'
+    CasasDecimais.Aliquota = 2
+    CasasDecimais.MaskAliquota = ',0.00'
     ACBrNFe = ACBrNFe
     EspessuraBorda = 1
     BorderIcon = [biSystemMenu, biMinimize, biMaximize]
@@ -15602,7 +15834,7 @@ object DMNFe: TDMNFe
     Top = 72
   end
   object frrCartaCorrecaoE: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -15748,6 +15980,10 @@ object DMNFe: TDMNFe
       OnBeforePrint = 'Page1OnBeforePrint'
       object PageHeader1: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 234.330860000000000000
         Top = 18.897650000000000000
@@ -16378,10 +16614,15 @@ object DMNFe: TDMNFe
           Font.Height = -12
           Font.Name = 'Arial'
           Font.Style = []
+          ColorBar = clBlack
         end
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 222.992270000000000000
         Top = 684.094930000000000000
@@ -16431,6 +16672,10 @@ object DMNFe: TDMNFe
       end
       object PageFooter1: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 967.559680000000000000
@@ -16455,6 +16700,10 @@ object DMNFe: TDMNFe
       end
       object BandCondicoesUso: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 136.063080000000000000
         Top = 487.559370000000000000
@@ -16499,6 +16748,10 @@ object DMNFe: TDMNFe
       end
       object BandEmitenteDestinatario: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 188.976500000000000000
         Top = 275.905690000000000000
@@ -17294,6 +17547,8 @@ object DMNFe: TDMNFe
     CasasDecimais.vUnCom = 2
     CasasDecimais.MaskqCom = ',0.00'
     CasasDecimais.MaskvUnCom = ',0.00'
+    CasasDecimais.Aliquota = 2
+    CasasDecimais.MaskAliquota = ',0.00'
     TipoDANFE = tiNFCe
     ImprimeDescAcrescItem = False
     PosPrinter = ACBrPosPrinter
@@ -17318,6 +17573,8 @@ object DMNFe: TDMNFe
     CasasDecimais.vUnCom = 2
     CasasDecimais.MaskqCom = ',0.00'
     CasasDecimais.MaskvUnCom = ',0.00'
+    CasasDecimais.Aliquota = 2
+    CasasDecimais.MaskAliquota = ',0.00'
     ACBrSAT = ACBrSAT
     MsgAppQRCode = 
       'Consulte o QR Code pelo aplicativo  "De olho na nota", dispon'#237've' +
@@ -17392,11 +17649,12 @@ object DMNFe: TDMNFe
       'CUSTO_TOTAL=CUSTO_TOTAL')
     DataSet = qryApropriacaoEstoque
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 600
     Top = 472
   end
   object frrApropriacaoEstoque: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -17450,6 +17708,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 116.858380000000000000
         Top = 18.897650000000000000
@@ -17681,6 +17943,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 332.598640000000000000
@@ -17834,6 +18100,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 725.669760000000000000
@@ -17894,6 +18164,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -18345,6 +18619,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 291.023810000000000000
         Top = 411.968770000000000000
@@ -18576,11 +18854,12 @@ object DMNFe: TDMNFe
       'STATUS_ITEM=STATUS_ITEM')
     DataSet = qryRequisicaoAlmox
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 600
     Top = 520
   end
   object frrRequisicaoAlmox: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -18635,6 +18914,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.417440000000000000
         Top = 18.897650000000000000
@@ -18863,6 +19146,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 340.157700000000000000
@@ -19017,6 +19304,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 733.228820000000000000
@@ -19077,6 +19368,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -19473,6 +19768,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 291.023810000000000000
         Top = 419.527830000000000000
@@ -19642,7 +19941,7 @@ object DMNFe: TDMNFe
     end
   end
   object frrManifestoAlmox: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -19697,6 +19996,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 116.858380000000000000
         Top = 18.897650000000000000
@@ -19923,6 +20226,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 332.598640000000000000
@@ -20078,6 +20385,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 748.346940000000000000
@@ -20138,6 +20449,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -20535,6 +20850,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 313.700990000000000000
         Top = 411.968770000000000000
@@ -20797,11 +21116,12 @@ object DMNFe: TDMNFe
       'UNIDADE=UNIDADE')
     DataSet = qrySolicitacaoCompra
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 568
     Top = 416
   end
   object frrSolicitacaoCompra: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -20851,6 +21171,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 116.858380000000000000
         Top = 18.897650000000000000
@@ -21080,6 +21404,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 362.834880000000000000
@@ -21211,6 +21539,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 710.551640000000000000
@@ -21271,6 +21603,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -21525,6 +21861,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 245.669450000000000000
         Top = 442.205010000000000000
@@ -21680,7 +22020,7 @@ object DMNFe: TDMNFe
   end
   object frrNFeRetrato: TfrxReport
     Tag = 1
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     EngineOptions.DoublePass = True
     IniFile = '\Software\Fast Reports'
@@ -22063,6 +22403,10 @@ object DMNFe: TDMNFe
       OnBeforePrint = 'Page1OnBeforePrint'
       object DadosProdutos: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 11.338582680000000000
         Top = 1485.355290000000000000
@@ -22361,6 +22705,10 @@ object DMNFe: TDMNFe
       end
       object CanhotoCabecalho: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 3.779527559055120000
         Top = 18.897650000000000000
@@ -22370,6 +22718,10 @@ object DMNFe: TDMNFe
       end
       object Emitente: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 173.858362910000000000
         Top = 268.346630000000000000
@@ -22397,6 +22749,7 @@ object DMNFe: TDMNFe
           Font.Height = -12
           Font.Name = 'Arial'
           Font.Style = []
+          ColorBar = clBlack
         end
         object memConsultaAutenticidade: TfrxMemoView
           AllowVectorExport = True
@@ -22454,6 +22807,7 @@ object DMNFe: TDMNFe
           Font.Height = -12
           Font.Name = 'Arial'
           Font.Style = []
+          ColorBar = clBlack
         end
         object Memo6: TfrxMemoView
           AllowVectorExport = True
@@ -22834,6 +23188,10 @@ object DMNFe: TDMNFe
       end
       object Rodape: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 17.897518190000000000
         Top = 2158.111630000000000000
@@ -22877,6 +23235,10 @@ object DMNFe: TDMNFe
       end
       object Destinatario: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 96.267762910000000000
         Top = 502.677490000000000000
@@ -23359,6 +23721,10 @@ object DMNFe: TDMNFe
       end
       object Fatura: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 43.464566930000000000
         Top = 873.071430000000000000
@@ -23451,6 +23817,10 @@ object DMNFe: TDMNFe
       end
       object DadosProdutosHeader: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 41.196850390000000000
         Top = 1421.103280000000000000
@@ -23822,6 +24192,10 @@ object DMNFe: TDMNFe
       end
       object Imposto: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 70.031525350000000000
         Top = 1043.150280000000000000
@@ -24348,6 +24722,10 @@ object DMNFe: TDMNFe
       end
       object TransportadorVolumes: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 69.921335510000000000
         Top = 1137.638530000000000000
@@ -24751,6 +25129,10 @@ object DMNFe: TDMNFe
       end
       object MarcaDagua: TfrxOverlay
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 117.170000000000000000
         Top = 1281.260670000000000000
@@ -24775,6 +25157,10 @@ object DMNFe: TDMNFe
       end
       object ChildCorpo: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 3.779527560000000000
         Top = 1542.048240000000000000
@@ -25063,6 +25449,10 @@ object DMNFe: TDMNFe
       end
       object DadosProdutosFooter: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Top = 1519.371060000000000000
         Width = 744.567410000000000000
@@ -25070,6 +25460,10 @@ object DMNFe: TDMNFe
       end
       object ChildCorpoBottom: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 3.779530000000000000
         Top = 1568.504950000000000000
@@ -25092,6 +25486,10 @@ object DMNFe: TDMNFe
       end
       object CanhotoRodape: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 79.031515590000000000
         Top = 1836.851580000000000000
@@ -25190,6 +25588,10 @@ object DMNFe: TDMNFe
       end
       object ISSQN: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 43.354342910000000000
         Top = 1594.961660000000000000
@@ -25370,6 +25772,10 @@ object DMNFe: TDMNFe
       end
       object DadosAdicionais: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 150.850415670000000000
         Top = 1662.993200000000000000
@@ -25454,6 +25860,10 @@ object DMNFe: TDMNFe
       end
       object Duplicatas: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 37.795300000000000000
         Top = 982.677800000000000000
@@ -25576,6 +25986,10 @@ object DMNFe: TDMNFe
       end
       object DuplicatasHeader: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 17.007874020000000000
         Top = 941.102970000000000000
@@ -25602,6 +26016,10 @@ object DMNFe: TDMNFe
       end
       object Volumes: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456692910000000000
         Top = 1232.126780000000000000
@@ -25850,6 +26268,10 @@ object DMNFe: TDMNFe
       end
       object ContDadosAdicionais: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.207317350000000000
         Top = 2067.402910000000000000
@@ -25894,6 +26316,10 @@ object DMNFe: TDMNFe
       end
       object LocalRetirada: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 100.157480314961000000
         Top = 623.622450000000000000
@@ -26300,6 +26726,10 @@ object DMNFe: TDMNFe
       end
       object LocalEntrega: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 100.157480314961000000
         Top = 748.346940000000000000
@@ -26677,6 +27107,10 @@ object DMNFe: TDMNFe
       end
       object CanhtoCabecalhoBarra: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 98.267716540000000000
         Top = 147.401670000000000000
@@ -26791,6 +27225,7 @@ object DMNFe: TDMNFe
           Font.Height = -12
           Font.Name = 'Arial'
           Font.Style = []
+          ColorBar = clBlack
         end
         object Memo105: TfrxMemoView
           Align = baWidth
@@ -26822,6 +27257,10 @@ object DMNFe: TDMNFe
       end
       object CanhotoCabecalhoPadrao: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 79.370078740000000000
         Top = 45.354360000000000000
@@ -26923,6 +27362,10 @@ object DMNFe: TDMNFe
       end
       object CanhotoRodapeBarra: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 105.826771650000000000
         Top = 1938.898890000000000000
@@ -27066,13 +27509,14 @@ object DMNFe: TDMNFe
           Font.Height = -12
           Font.Name = 'Arial'
           Font.Style = []
+          ColorBar = clBlack
         end
       end
     end
   end
   object frrNFePaisagem: TfrxReport
     Tag = 1
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -27834,6 +28278,10 @@ object DMNFe: TDMNFe
       OnBeforePrint = 'Page1OnBeforePrint'
       object DadosProdutos: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 12.472440940000000000
         Top = 1217.008660000000000000
@@ -28189,6 +28637,10 @@ object DMNFe: TDMNFe
       end
       object CanhotoCabecalho: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 58.692950000000000000
         Top = 18.897650000000000000
@@ -28281,6 +28733,10 @@ object DMNFe: TDMNFe
       end
       object Emitente: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 147.401652910000000000
         Top = 102.047310000000000000
@@ -28307,6 +28763,7 @@ object DMNFe: TDMNFe
           Font.Height = -12
           Font.Name = 'Times New Roman'
           Font.Style = []
+          ColorBar = clBlack
         end
         object BarCodeEmitenteChave: TfrxBarCodeView
           AllowVectorExport = True
@@ -28329,6 +28786,7 @@ object DMNFe: TDMNFe
           Font.Height = -12
           Font.Name = 'Times New Roman'
           Font.Style = []
+          ColorBar = clBlack
         end
         object QuadroEmitenteBarCode: TfrxMemoView
           AllowVectorExport = True
@@ -28749,6 +29207,10 @@ object DMNFe: TDMNFe
       end
       object RodapePagina: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 13.228346460000000000
         Top = 1727.245210000000000000
@@ -28792,6 +29254,10 @@ object DMNFe: TDMNFe
       end
       object ChildCorpo: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 3.779527560000000000
         Top = 1273.701610000000000000
@@ -29120,6 +29586,10 @@ object DMNFe: TDMNFe
       end
       object Destinatario: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 69.811052910000000000
         Top = 309.921460000000000000
@@ -29591,6 +30061,10 @@ object DMNFe: TDMNFe
       end
       object ChildCorpoBottom: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Top = 1300.158320000000000000
         Width = 1084.725110000000000000
@@ -29606,6 +30080,10 @@ object DMNFe: TDMNFe
       end
       object DadosAdicionais: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 143.801007330000000000
         Top = 1390.867040000000000000
@@ -29689,6 +30167,10 @@ object DMNFe: TDMNFe
       end
       object CanhotoRodape: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 57.913420000000000000
         Top = 1557.166360000000000000
@@ -29792,6 +30274,10 @@ object DMNFe: TDMNFe
       end
       object Fatura: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 43.464566930000000000
         Top = 646.299630000000000000
@@ -29884,6 +30370,10 @@ object DMNFe: TDMNFe
       end
       object DuplicatasHeader: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 39.685054020000000000
         Top = 714.331170000000000000
@@ -29918,6 +30408,10 @@ object DMNFe: TDMNFe
       end
       object DadosProdutosHeader: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 41.196850390000000000
         Top = 1152.756650000000000000
@@ -30332,6 +30826,10 @@ object DMNFe: TDMNFe
       end
       object DadosProdutosFooter: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Top = 1251.024430000000000000
         Width = 1084.725110000000000000
@@ -30339,6 +30837,10 @@ object DMNFe: TDMNFe
       end
       object MarcaDagua: TfrxOverlay
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 117.165354330000000000
         Top = 1012.914040000000000000
@@ -30363,6 +30865,10 @@ object DMNFe: TDMNFe
       end
       object TransportadorVolumes: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 68.031496060000000000
         Top = 873.071430000000000000
@@ -30756,6 +31262,10 @@ object DMNFe: TDMNFe
       end
       object Imposto: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 70.031525350000000000
         Top = 778.583180000000000000
@@ -31259,6 +31769,10 @@ object DMNFe: TDMNFe
       end
       object ISSQN: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 43.354342910000000000
         Top = 1322.835500000000000000
@@ -31435,6 +31949,10 @@ object DMNFe: TDMNFe
       end
       object ContDadosAdicionais: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.207317350000000000
         Top = 1636.536490000000000000
@@ -31479,6 +31997,10 @@ object DMNFe: TDMNFe
       end
       object Volumes: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456692910000000000
         Top = 963.780150000000000000
@@ -31750,6 +32272,10 @@ object DMNFe: TDMNFe
       end
       object LocalEntrega: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 98.267716540000000000
         Top = 525.354670000000000000
@@ -32130,6 +32656,10 @@ object DMNFe: TDMNFe
       end
       object LocalRetirada: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 98.267716540000000000
         Top = 404.409710000000000000
@@ -32630,6 +33160,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object DadosDuplicatas: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.992138190000000000
         Top = 18.897650000000000000
@@ -32807,6 +33341,7 @@ object DMNFe: TDMNFe
       'PAIS_NOME=PAIS_NOME')
     DataSet = qryNFCDestinatario
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 344
     Top = 72
   end
@@ -32881,6 +33416,7 @@ object DMNFe: TDMNFe
       'DNFE_MODELO=DNFE_MODELO')
     DataSet = qryNFCCalculoImposto
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 344
     Top = 120
   end
@@ -32953,11 +33489,12 @@ object DMNFe: TDMNFe
       'DISPONIVEL=DISPONIVEL')
     DataSet = qryNFCDadosProduto
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 340
     Top = 169
   end
   object frrNotaEntregaX: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -33099,6 +33636,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 347.409710000000000000
         Top = 18.897650000000000000
@@ -33613,6 +34154,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 464.882190000000000000
@@ -33788,6 +34333,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 831.496600000000000000
@@ -33853,6 +34402,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 264.567100000000000000
         Top = 544.252320000000000000
@@ -34059,6 +34612,10 @@ object DMNFe: TDMNFe
       end
       object bndHeaderColunas: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 15.118120000000000000
         Top = 427.086890000000000000
@@ -34184,11 +34741,12 @@ object DMNFe: TDMNFe
       'ATIVO=ATIVO')
     DataSet = qryListaFuncionario
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 800
     Top = 224
   end
   object frrListaFuncionario: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -34238,6 +34796,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 116.858380000000000000
         Top = 18.897650000000000000
@@ -34453,6 +35015,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 238.110390000000000000
@@ -34672,6 +35238,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 359.055350000000000000
@@ -34732,6 +35302,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -34880,6 +35454,10 @@ object DMNFe: TDMNFe
       end
       object bndFooter: TfrxFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 279.685220000000000000
@@ -34966,7 +35544,7 @@ object DMNFe: TDMNFe
     Top = 71
   end
   object frrNFeEventoCCe: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -35115,6 +35693,10 @@ object DMNFe: TDMNFe
       OnBeforePrint = 'Page1OnBeforePrint'
       object PageHeader1: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 234.330860000000000000
         Top = 18.897650000000000000
@@ -35745,10 +36327,15 @@ object DMNFe: TDMNFe
           Font.Height = -12
           Font.Name = 'Arial'
           Font.Style = []
+          ColorBar = clBlack
         end
       end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 222.992270000000000000
         Top = 684.094930000000000000
@@ -35798,6 +36385,10 @@ object DMNFe: TDMNFe
       end
       object PageFooter1: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -35828,6 +36419,10 @@ object DMNFe: TDMNFe
       end
       object BandCondicoesUso: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 136.063080000000000000
         Top = 487.559370000000000000
@@ -35872,6 +36467,10 @@ object DMNFe: TDMNFe
       end
       object BandEmitenteDestinatario: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 188.976500000000000000
         Top = 275.905690000000000000
@@ -36522,7 +37121,7 @@ object DMNFe: TDMNFe
   end
   object frrNFeInutilizacao: TfrxReport
     Tag = 1
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -36612,6 +37211,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object MasterData1: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 241.889920000000000000
@@ -36990,6 +37593,10 @@ object DMNFe: TDMNFe
       end
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 83.149660000000000000
         Top = 18.897650000000000000
@@ -37064,6 +37671,10 @@ object DMNFe: TDMNFe
       end
       object PageHeader1: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 124.724490000000000000
@@ -37120,6 +37731,10 @@ object DMNFe: TDMNFe
       end
       object Footer1: TfrxFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 419.527830000000000000
@@ -37148,7 +37763,7 @@ object DMNFe: TDMNFe
   end
   object frrBoletoCarne: TfrxReport
     Tag = 1
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -37204,6 +37819,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object MD: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -38108,6 +38727,7 @@ object DMNFe: TDMNFe
           Font.Height = -12
           Font.Name = 'Arial'
           Font.Style = []
+          ColorBar = clBlack
         end
         object Line3: TfrxLineView
           AllowVectorExport = True
@@ -38723,7 +39343,7 @@ object DMNFe: TDMNFe
   end
   object frrBoletoFatura: TfrxReport
     Tag = 1
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -38777,6 +39397,8 @@ object DMNFe: TDMNFe
       Width = 1000.000000000000000000
     end
     object Page1: TfrxReportPage
+      VGuides.Strings = (
+        '551,81138')
       PaperWidth = 210.000000000000000000
       PaperHeight = 297.000000000000000000
       PaperSize = 9
@@ -38786,10 +39408,12 @@ object DMNFe: TDMNFe
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
       MirrorMode = []
-      VGuides.Strings = (
-        '551,81138')
       object MD: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -40496,6 +41120,7 @@ object DMNFe: TDMNFe
           Font.Height = -12
           Font.Name = 'Arial'
           Font.Style = []
+          ColorBar = clBlack
         end
         object Memo45: TfrxMemoView
           AllowVectorExport = True
@@ -41093,11 +41718,12 @@ object DMNFe: TDMNFe
       'ATIVO=ATIVO')
     DataSet = fdQryListaTipoDespesa
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 816
     Top = 312
   end
   object frrListaTipoDespesa: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -41158,6 +41784,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 116.858380000000000000
         Top = 18.897650000000000000
@@ -41373,6 +42003,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 249.448980000000000000
@@ -41500,6 +42134,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 396.850650000000000000
@@ -41560,6 +42198,10 @@ object DMNFe: TDMNFe
       end
       object bndFooter: TfrxFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 291.023810000000000000
@@ -41606,6 +42248,10 @@ object DMNFe: TDMNFe
       end
       object GrpHeaderClassificacao: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 196.535560000000000000
@@ -41736,6 +42382,10 @@ object DMNFe: TDMNFe
       end
       object GrpFooterClassificacao: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 3.779527559055118000
         Top = 332.598640000000000000
@@ -41798,11 +42448,12 @@ object DMNFe: TDMNFe
       'ATIVO=ATIVO')
     DataSet = fdQryListaTipoReceita
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 816
     Top = 360
   end
   object frrListaTipoReceita: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -41863,6 +42514,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 116.858380000000000000
         Top = 18.897650000000000000
@@ -42078,6 +42733,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 249.448980000000000000
@@ -42205,6 +42864,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 396.850650000000000000
@@ -42265,6 +42928,10 @@ object DMNFe: TDMNFe
       end
       object bndFooter: TfrxFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 291.023810000000000000
@@ -42311,6 +42978,10 @@ object DMNFe: TDMNFe
       end
       object GrpHeaderClassificacao: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 196.535560000000000000
@@ -42441,6 +43112,10 @@ object DMNFe: TDMNFe
       end
       object GrpFooterClassificacao: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 3.779527559055118000
         Top = 332.598640000000000000
@@ -45749,7 +46424,7 @@ object DMNFe: TDMNFe
       end>
   end
   object frrEntradaEspelho: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -45772,20 +46447,20 @@ object DMNFe: TDMNFe
         DataSetName = 'frdEmpresa'
       end
       item
-        DataSet = frdEntrada
-        DataSetName = 'frdEntrada'
+        DataSet = frdFornecedor
+        DataSetName = 'frdFornecedor'
       end
       item
-        DataSet = frdEntradaDuplicata
-        DataSetName = 'frdEntradaDuplicata'
+        DataSet = frdEntrada
+        DataSetName = 'frdEntrada'
       end
       item
         DataSet = frdEntradaItens
         DataSetName = 'frdEntradaItens'
       end
       item
-        DataSet = frdFornecedor
-        DataSetName = 'frdFornecedor'
+        DataSet = frdEntradaDuplicata
+        DataSetName = 'frdEntradaDuplicata'
       end>
     Variables = <
       item
@@ -45841,6 +46516,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 192.756030000000000000
         Top = 18.897650000000000000
@@ -46526,6 +47205,10 @@ object DMNFe: TDMNFe
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 309.921460000000000000
@@ -46977,6 +47660,10 @@ object DMNFe: TDMNFe
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 653.858690000000000000
@@ -47002,6 +47689,10 @@ object DMNFe: TDMNFe
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -47284,6 +47975,10 @@ object DMNFe: TDMNFe
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 151.181200000000000000
         Top = 389.291590000000000000
@@ -47346,7 +48041,7 @@ object DMNFe: TDMNFe
             7569636F6D7061745C6465666C616E67313034367B5C666F6E7474626C7B5C66
             305C666E696C5C666368617273657430204C756369646120436F6E736F6C653B
             7D7B5C66315C666E696C5C666368617273657430205461686F6D613B7D7D0D0A
-            7B5C2A5C67656E657261746F722052696368656432302031302E302E31393034
+            7B5C2A5C67656E657261746F722052696368656432302031302E302E32323632
             317D5C766965776B696E64345C756331200D0A5C706172645C6C6936305C7269
             32305C716A5C625C66305C667331345C7061720D0A4F6273657276615C276537
             5C27663565733A5C62305C7061720D0A5B667264456E74726164612E224F4253
@@ -47815,6 +48510,10 @@ object DMNFe: TDMNFe
       end
       object FilhaDuplicatas: TfrxChild
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 68.031540000000000000
         Top = 563.149970000000000000
@@ -48074,6 +48773,10 @@ object DMNFe: TDMNFe
       MirrorMode = []
       object MasterDataDup: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 18.897650000000000000

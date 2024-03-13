@@ -97,6 +97,13 @@ type
     ACBrExtenso: TACBrExtenso;
     CdsRelacaoContratos: TClientDataSet;
     DspRelacaoContratos: TDataSetProvider;
+    frrContratoEspelho: TfrxReport;
+    qryContratoPessoa: TFDQuery;
+    frdsContratoPessoa: TfrxDBDataset;
+    qryContrato: TFDQuery;
+    frdsContrato: TfrxDBDataset;
+    qryContratoItens: TFDQuery;
+    frdsContratoItens: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure ReportGetValue(const VarName: string; var Value: Variant);
   private
