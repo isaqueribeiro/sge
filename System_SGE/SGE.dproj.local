@@ -221,9 +221,9 @@
     <Transaction>2024/01/10 22:24:17.000.706,C:\Projetos\ASS\SGE\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Contrato.dfm=C:\Projetos\ASS\SGE\System_SGE\Unit1.dfm</Transaction>
     <Transaction>2024/01/19 11:14:33.000.778,=C:\Projetos\ASS\SGE\System_SGE\Unit1.pas</Transaction>
     <Transaction>2024/01/19 11:16:33.000.812,C:\Projetos\ASS\SGE\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas=C:\Projetos\ASS\SGE\System_SGE\Unit1.pas</Transaction>
-    <Transaction>2024/02/14 11:15:33.941,=C:\Projetos\ASS\SGE\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Caixa.pas</Transaction>
-    <Transaction>2024/02/14 11:16:03.753,=C:\Projetos\ASS\SGE\Sys\Controller\Query\SGE.Controller.Query.Caixa.pas</Transaction>
-    <Transaction>2024/02/14 11:16:32.027,=C:\Projetos\ASS\SGE\Sys\View\Query\View.Query.Caixa.Conferencia.pas</Transaction>
+    <Transaction>2024/02/14 11:15:33.000.941,=C:\Projetos\ASS\SGE\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Caixa.pas</Transaction>
+    <Transaction>2024/02/14 11:16:03.000.753,=C:\Projetos\ASS\SGE\Sys\Controller\Query\SGE.Controller.Query.Caixa.pas</Transaction>
+    <Transaction>2024/02/14 11:16:32.000.027,=C:\Projetos\ASS\SGE\Sys\View\Query\View.Query.Caixa.Conferencia.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="..\..\SGE"/>
