@@ -6,12 +6,11 @@ inherited frmGeConsultarLoteNFe_v2: TfrmGeConsultarLoteNFe_v2
   Caption = 'Consultar Recibo/Lote NF-e'
   ClientHeight = 512
   ClientWidth = 593
-  ExplicitWidth = 607
-  ExplicitHeight = 549
+  ExplicitWidth = 617
+  ExplicitHeight = 559
   DesignSize = (
     593
     512)
-  PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0

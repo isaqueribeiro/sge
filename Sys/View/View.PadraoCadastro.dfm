@@ -13,7 +13,6 @@ object ViewPadraoCadastro: TViewPadraoCadastro
   Font.Name = 'Tahoma'
   Font.Style = []
   KeyPreview = True
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnActivate = FormActivate
   OnCloseQuery = FormCloseQuery
@@ -21,7 +20,6 @@ object ViewPadraoCadastro: TViewPadraoCadastro
   OnKeyDown = FormKeyDown
   OnKeyPress = FormKeyPress
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
@@ -54,10 +52,6 @@ object ViewPadraoCadastro: TViewPadraoCadastro
     object tbsTabela: TTabSheet
       Caption = '&Lista'
       ImageIndex = 37
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel4: TBevel
         Left = 0
         Top = 255
@@ -203,10 +197,6 @@ object ViewPadraoCadastro: TViewPadraoCadastro
     object tbsCadastro: TTabSheet
       Caption = '&Dados'
       ImageIndex = 39
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel8: TBevel
         Left = 0
         Top = 121

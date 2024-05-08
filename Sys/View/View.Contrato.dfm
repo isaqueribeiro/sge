@@ -5,7 +5,6 @@ inherited ViewContrato: TViewContrato
   ClientWidth = 805
   ExplicitWidth = 821
   ExplicitHeight = 565
-  PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 522
@@ -27,8 +26,6 @@ inherited ViewContrato: TViewContrato
     ExplicitWidth = 805
     ExplicitHeight = 483
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 797
       ExplicitHeight = 454
       inherited Bevel4: TBevel
@@ -419,8 +416,6 @@ inherited ViewContrato: TViewContrato
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 797
       ExplicitHeight = 454
       inherited Bevel8: TBevel
@@ -842,10 +837,6 @@ inherited ViewContrato: TViewContrato
         TabOrder = 1
         object tbsProdutos: TTabSheet
           Caption = 'Produtos'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxDadosProduto: TGroupBox
             AlignWithMargins = True
             Left = 10
@@ -1458,10 +1449,6 @@ inherited ViewContrato: TViewContrato
         object tbsObservacoes: TTabSheet
           Caption = 'Observa'#231#245'es'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             AlignWithMargins = True
             Left = 10
@@ -1484,10 +1471,6 @@ inherited ViewContrato: TViewContrato
         object tbsNotas: TTabSheet
           Caption = 'Notas Emitidas'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object DBGrid1: TDBGrid
             AlignWithMargins = True
             Left = 10

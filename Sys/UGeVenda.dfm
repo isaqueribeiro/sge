@@ -5,10 +5,8 @@ inherited frmGeVenda: TfrmGeVenda
   Caption = 'Controle de Vendas'
   ClientHeight = 685
   ClientWidth = 1116
-  OldCreateOrder = True
   ExplicitWidth = 1132
   ExplicitHeight = 724
-  PixelsPerInch = 96
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 681
@@ -404,8 +402,6 @@ inherited frmGeVenda: TfrmGeVenda
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1108
       ExplicitHeight = 613
       inherited Bevel8: TBevel

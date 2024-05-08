@@ -10,11 +10,9 @@ object frmPrinc: TfrmPrinc
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  OldCreateOrder = False
   OnActivate = FormActivate
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object SptDockReqAlmox: TSplitter
     Left = 1044
@@ -35,8 +33,6 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
-    ExplicitTop = 122
-    ExplicitHeight = 519
     DesignSize = (
       1044
       486)
@@ -4444,7 +4440,8 @@ object frmPrinc: TfrmPrinc
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
-      ExplicitTop = 494
+      ExplicitTop = 460
+      ExplicitWidth = 1038
     end
     object RbnBackstageView: TdxRibbonBackstageView
       Left = 23
@@ -4657,8 +4654,8 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvNone
     DockSite = True
     TabOrder = 1
-    ExplicitTop = 122
-    ExplicitHeight = 519
+    ExplicitLeft = 1043
+    ExplicitHeight = 485
   end
   object Ribbon: TdxRibbon
     Left = 0
@@ -4676,6 +4673,7 @@ object frmPrinc: TfrmPrinc
     TabOrder = 2
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
+    ExplicitWidth = 1044
     object RbnTabPrincipal: TdxRibbonTab
       Active = True
       Caption = 'Principal'
@@ -4930,7 +4928,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 315
+      DockedLeft = 605
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213

@@ -15,7 +15,7 @@ uses
   ShellApi, Printers, DateUtils, IdCoder, IdCoder3to4, IdCoderMIME,
   IdBaseComponent, IdComponent, IdIPWatch, DB, DBClient, Provider, Dialogs, Registry,
 
-  frxClass, frxDBSet, frxBarcode, frxChart, frxCross, frxRich, frxExportMail, frxExportXML,
+  frxClass, frxDBSet, frxBarcode, frxCross, frxRich, frxExportMail, frxExportXML,
   frxExportODF, frxExportDOCX, frxExportXLSX, frxExportImage, frxExportRTF, frxExportPDF,
   frxExportBaseDialog, frxExportXLS,
 
@@ -75,7 +75,6 @@ type
     frxMailExport: TfrxMailExport;
     frxRichObject: TfrxRichObject;
     frxCrossObject: TfrxCrossObject;
-    frxChartObject: TfrxChartObject;
     fastReport: TfrxReport;
     ACBrValidador: TACBrValidador;
     fdConexao: TFDConnection;

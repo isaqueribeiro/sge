@@ -9,7 +9,6 @@ inherited ViewPadraoPesquisa: TViewPadraoPesquisa
   OnClose = FormClose
   ExplicitWidth = 793
   ExplicitHeight = 469
-  PixelsPerInch = 96
   TextHeight = 13
   object pnlPesquisa: TPanel
     AlignWithMargins = True

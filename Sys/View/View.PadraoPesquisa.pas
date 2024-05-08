@@ -44,7 +44,7 @@ uses
   Controller.Tabela,
   SGE.Controller.Interfaces, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinTheBezier,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinWXI;
 
 type
   TViewPadraoPesquisa = class(TfrmGrPadrao)

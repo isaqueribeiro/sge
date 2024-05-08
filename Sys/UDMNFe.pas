@@ -52,7 +52,7 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
   //IBX.IBUpdateSQL,
-  frxDesgn, frxRich, frxCross, frxChart, ACBrBase,
+  frxDesgn, frxRich, frxCross, ACBrBase,
   ACBrBoleto, ACBrBoletoFCFR, frxExportImage, ACBrValidador, ACBrNFeDANFEFR,
   ACBrECF, ACBrRFD, ACBrAAC, ACBrEAD, ACBrECFVirtual,
   ACBrECFVirtualPrinter, ACBrECFVirtualNaoFiscal, ACBrSATExtratoClass,
@@ -6192,11 +6192,20 @@ begin
           ChaveNFE     := WebServices.Consulta.NFeChave;
           ProtocoloNFE := WebServices.Consulta.Protocolo;
 
-          // Atualizar contador do número da NF-e
-          //iNumeroNFe  := GetNextID('TBCONFIGURACAO', 'NFE_NUMERO', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
-          iNumeroNFe  := GetNumeroNFe(sCNPJEmitente, iSerieNFe, MODELO_NFE);
+          // Recuperar o número da nota a partir da chave
+          // 12345678901234567890 12 345 678901234 5678901234
+          // 15210839819259000102 55 001 000000010 1986530067
+          if (iNumeroNFe = 0) and (not ChaveNFE.Trim.IsEmpty) then
+          begin
+            //iModeloNFe := Copy(ChaveNFE, 21, 2).ToInteger;
+            iSerieNFe  := Copy(ChaveNFE, 23, 3).ToInteger;
+            iNumeroNFe := Copy(ChaveNFE, 26, 9).ToInteger;
+          end;
 
-          if ( iNumeroNFe = iNumeroTmp ) then
+          // Atualizar contador do número da NF-e
+          iNumeroTmp := GetNumeroNFe(sCNPJEmitente, iSerieNFe, MODELO_NFE);
+
+          if (iNumeroNFe = iNumeroTmp) then
           begin
             UpdateNumeroNFe(sCNPJEmitente, iSerieNFe, iNumeroNFe);
             UpdateLoteNFe(sCNPJEmitente, YearOf(DataEmissao), iNumeroNFe);

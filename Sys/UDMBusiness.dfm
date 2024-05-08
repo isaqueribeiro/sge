@@ -1,5 +1,4 @@
 object DMBusiness: TDMBusiness
-  OldCreateOrder = True
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 648
@@ -99,10 +98,6 @@ object DMBusiness: TDMBusiness
   object frxCrossObject: TfrxCrossObject
     Left = 40
     Top = 456
-  end
-  object frxChartObject: TfrxChartObject
-    Left = 40
-    Top = 504
   end
   object fastReport: TfrxReport
     Version = '2022.3'
@@ -345,7 +340,7 @@ object DMBusiness: TDMBusiness
   end
   object frxBarCodeObject: TfrxBarCodeObject
     Left = 40
-    Top = 552
+    Top = 512
   end
   object fdQryBusca: TFDQuery
     CachedUpdates = True

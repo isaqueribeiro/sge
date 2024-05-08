@@ -7,13 +7,11 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
   Caption = 'Gerar NF-e de Sa'#237'da'
   ClientHeight = 410
   ClientWidth = 596
-  OldCreateOrder = True
-  ExplicitWidth = 610
-  ExplicitHeight = 447
+  ExplicitWidth = 616
+  ExplicitHeight = 456
   DesignSize = (
     596
     410)
-  PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
@@ -64,6 +62,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 592
     object lblCodigo: TLabel
       Left = 16
       Top = 24
@@ -299,6 +298,8 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
+    ExplicitWidth = 592
+    ExplicitHeight = 294
     object lblBaseICMS: TLabel
       Left = 40
       Top = 32
@@ -871,6 +872,8 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
     OptionsImage.NumGlyphs = 2
     TabOrder = 2
     OnClick = btnConfirmarClick
+    ExplicitLeft = 403
+    ExplicitTop = 376
   end
   object btnCancelar: TcxButton
     Left = 504
@@ -951,6 +954,8 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
     OptionsImage.NumGlyphs = 2
     TabOrder = 3
     OnClick = btnCancelarClick
+    ExplicitLeft = 500
+    ExplicitTop = 376
   end
   object dtsVenda: TDataSource
     AutoEdit = False

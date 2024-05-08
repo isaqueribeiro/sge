@@ -13,14 +13,12 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
   Font.Name = 'Tahoma'
   Font.Style = []
   KeyPreview = True
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnActivate = FormActivate
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
@@ -193,10 +191,6 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
     object tbsCadastro: TTabSheet
       Caption = '&Dados'
       ImageIndex = 39
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel8: TBevel
         Left = 0
         Top = 121

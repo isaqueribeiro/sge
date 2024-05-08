@@ -59,7 +59,7 @@ uses
 
   View.PadraoPesquisa,
   Model.Constantes,
-  SGE.Controller.Interfaces;
+  SGE.Controller.Interfaces, dxSkinWXI;
 
 type
   TViewQueryCaixaConferencia = class(TViewPadraoPesquisa)

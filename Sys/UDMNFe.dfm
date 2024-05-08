@@ -1,5 +1,4 @@
 object DMNFe: TDMNFe
-  OldCreateOrder = False
   OnCreate = DataModuleCreate
   Height = 813
   Width = 1093

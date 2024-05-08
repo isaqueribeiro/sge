@@ -4,7 +4,6 @@ inherited ViewQueryCaixaConferencia: TViewQueryCaixaConferencia
   ClientWidth = 1126
   ExplicitWidth = 1142
   ExplicitHeight = 708
-  PixelsPerInch = 96
   TextHeight = 13
   inherited pnlPesquisa: TPanel
     Width = 1120

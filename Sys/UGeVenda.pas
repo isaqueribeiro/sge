@@ -25,7 +25,7 @@ uses
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
   dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, ACBrBase, ACBrExtenso, dxSkinOffice2010Black,
   dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinsDefaultPainters, dxSkinBasic, dxSkinOffice2019Black,
-  dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinTheBezier;
+  dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinTheBezier, dxSkinWXI;
 
 type
   TfrmGeVenda = class(TfrmGrPadraoCadastro)
@@ -2614,6 +2614,8 @@ begin
 
   bNFeGerada   := (DtSrcTabela.DataSet.FieldByName('NFE').AsCurrency > 0) and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE);
   bRetornoErro := False;
+  iSerieNFe    := 0;
+  iNumeroNFe   := 0;
 
   if (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_VND_NFE) then
   begin
