@@ -3,8 +3,8 @@ inherited ViewContrato: TViewContrato
   Caption = 'Gest'#227'o de Contratos'
   ClientHeight = 526
   ClientWidth = 805
-  ExplicitWidth = 821
-  ExplicitHeight = 565
+  ExplicitWidth = 817
+  ExplicitHeight = 564
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 522
@@ -23,8 +23,8 @@ inherited ViewContrato: TViewContrato
     Height = 483
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 805
-    ExplicitHeight = 483
+    ExplicitWidth = 801
+    ExplicitHeight = 482
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 797
       ExplicitHeight = 454
@@ -110,6 +110,7 @@ inherited ViewContrato: TViewContrato
             Left = 291
             Top = 25
             Width = 80
+            Height = 21
             Margins.Left = 10
             Margins.Top = 10
             Margins.Bottom = 14
@@ -125,7 +126,7 @@ inherited ViewContrato: TViewContrato
             Left = 12
             Top = 24
             Width = 49
-            Height = 13
+            Height = 23
             Margins.Left = 10
             Margins.Top = 9
             Margins.Bottom = 13
@@ -133,6 +134,7 @@ inherited ViewContrato: TViewContrato
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
+            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 377
@@ -424,7 +426,7 @@ inherited ViewContrato: TViewContrato
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 797
-        ExplicitWidth = 797
+        ExplicitWidth = 793
         inherited lblCodigo: TLabel
           Width = 51
           Caption = 'Controle:'
@@ -835,6 +837,8 @@ inherited ViewContrato: TViewContrato
         ActivePage = tbsProdutos
         Align = alClient
         TabOrder = 1
+        ExplicitWidth = 793
+        ExplicitHeight = 328
         object tbsProdutos: TTabSheet
           Caption = 'Produtos'
           object GrpBxDadosProduto: TGroupBox
@@ -848,6 +852,7 @@ inherited ViewContrato: TViewContrato
             Align = alTop
             Caption = 'Dados do produto'
             TabOrder = 0
+            ExplicitWidth = 765
             object lblProduto: TLabel
               Left = 88
               Top = 24
@@ -1583,8 +1588,8 @@ inherited ViewContrato: TViewContrato
   inherited tlbBotoes: TPanel
     Top = 487
     Width = 805
-    ExplicitTop = 487
-    ExplicitWidth = 805
+    ExplicitTop = 486
+    ExplicitWidth = 801
     inherited bvlTool3: TBevel
       Left = 722
       ExplicitLeft = 722
@@ -1598,11 +1603,11 @@ inherited ViewContrato: TViewContrato
     end
     inherited btbtnFechar: TcxButton
       Left = 726
-      ExplicitLeft = 726
+      ExplicitLeft = 722
     end
     inherited btbtnSelecionar: TcxButton
       Left = 602
-      ExplicitLeft = 602
+      ExplicitLeft = 598
     end
     object btnDisponibilizar: TcxButton
       Tag = 11
@@ -1687,6 +1692,7 @@ inherited ViewContrato: TViewContrato
       ShowHint = True
       TabOrder = 8
       OnClick = btnDisponibilizarClick
+      ExplicitLeft = 488
     end
   end
   inherited DtSrcTabela: TDataSource

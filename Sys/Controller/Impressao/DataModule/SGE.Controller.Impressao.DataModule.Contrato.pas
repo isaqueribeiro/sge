@@ -270,14 +270,17 @@ end;
 
 procedure TDataModuleContrato.VisualizarContrato(aModelo: TModeloPapel; const aHeader: Boolean);
 begin
-  SetVariablesDefault(GetFastReport(aModelo));
-  FHeader := aHeader;
-
-  with GetFastReport(aModelo) do
-  begin
-    PrepareReport;
-    ShowReport;
-  end;
+//  SetVariablesDefault(GetFastReport(aModelo));
+//  FHeader := aHeader;
+//
+//  with GetFastReport(aModelo) do
+//  begin
+//    PrepareReport;
+//    ShowReport;
+//  end;
+  SetVariablesDefault(frrContratoEspelho);
+  frrContratoEspelho.PrepareReport;
+  frrContratoEspelho.ShowReport;
 end;
 
 procedure TDataModuleContrato.VisualizarRelacaoContratos(aEmpresa: String; aDataInicial, aDataFinal: TDateTime);

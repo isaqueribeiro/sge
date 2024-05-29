@@ -1004,8 +1004,7 @@ begin
 //  if not Assigned(FImpressao) then
 //    FImpressao := TImpressaoContrato.New;
 //
-//  FImpressao.VisualizarContrato(
-//    FController.DAO.DataSet.FieldByName('controle').AsLargeInt,
+//  FImpressao.VisualizarContrato(FController.DAO.DataSet.FieldByName('controle').AsLargeInt,
 //    TModeloPapel.mrPapelA4,
 //    True
 //  );

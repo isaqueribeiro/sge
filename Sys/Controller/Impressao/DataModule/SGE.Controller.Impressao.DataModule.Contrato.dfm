@@ -1,5 +1,4 @@
 object DataModuleContrato: TDataModuleContrato
-  OldCreateOrder = False
   OnCreate = DataModuleCreate
   Height = 845
   Width = 1079
@@ -3275,6 +3274,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 18.897650000000000000
           Width = 158.740260000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3330,6 +3330,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 37.795300000000000000
           Width = 158.740260000000000000
           Height = 15.118120000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3359,6 +3360,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 139.842610000000000000
           Height = 79.370130000000000000
           DataField = 'LOGO'
+          DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
           Frame.Typ = []
           HightQuality = False
@@ -3370,6 +3372,7 @@ object DataModuleContrato: TDataModuleContrato
           Left = 143.622140000000000000
           Width = 536.693260000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3389,6 +3392,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 18.897650000000000000
           Width = 536.693260000000000000
           Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3410,6 +3414,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 34.015770000000000000
           Width = 536.693260000000000000
           Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3429,6 +3434,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 49.133890000000000000
           Width = 536.693260000000000000
           Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3459,6 +3465,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 64.252010000000000000
           Width = 903.307670000000000000
           Height = 15.118120000000000000
+          DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3534,6 +3541,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 113.385900000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3570,6 +3578,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 113.385900000000000000
           Width = 207.874150000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3592,6 +3601,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 1046.929810000000000000
           Height = 18.897637800000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3624,6 +3634,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 113.385900000000000000
           Width = 483.779840000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3650,6 +3661,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 1046.929810000000000000
           Height = 18.897650000000000000
           CharSpacing = 2.000000000000000000
+          DataSet = DMNFe.frdCliente
           DataSetName = 'frdCliente'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3705,6 +3717,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 143.622140000000000000
           Width = 207.874150000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3723,6 +3736,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 143.622140000000000000
           Width = 404.409710000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3765,6 +3779,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 143.622140000000000000
           Width = 79.370130000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3802,6 +3817,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 143.622140000000000000
           Width = 120.944960000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3839,6 +3855,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 143.622140000000000000
           Width = 102.047310000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3876,6 +3893,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 143.622140000000000000
           Width = 49.133890000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3913,6 +3931,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 143.622140000000000000
           Width = 83.149660000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3946,6 +3965,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 52.913420000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -3974,6 +3994,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 22.677180000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4004,6 +4025,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 328.818939130000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4046,6 +4068,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 45.354360000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4076,6 +4099,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 75.590600000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4106,6 +4130,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 37.795300000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4135,6 +4160,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 68.031540000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4165,6 +4191,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 64.252010000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4195,6 +4222,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 45.354316060000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4225,6 +4253,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 86.929190000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4254,6 +4283,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 37.795300000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4284,6 +4314,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 68.031540000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4314,6 +4345,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 68.031540000000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4344,6 +4376,7 @@ object DataModuleContrato: TDataModuleContrato
           Width = 45.354316060000000000
           Height = 18.897650000000000000
           StretchMode = smMaxHeight
+          DataSet = DMNFe.frdItens
           DataSetName = 'frdItens'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4700,6 +4733,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 22.677180000000000000
           Width = 173.858267720000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4761,6 +4795,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 22.677180000000000000
           Width = 173.858267720000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4802,6 +4837,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 22.677180000000000000
           Width = 173.858267720000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4843,6 +4879,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 22.677180000000000000
           Width = 173.858267720000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4884,6 +4921,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 22.677180000000000000
           Width = 177.637797720000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4924,6 +4962,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 60.472480000000000000
           Width = 173.858267720000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4964,6 +5003,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 60.472480000000000000
           Width = 173.858267720000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5005,6 +5045,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 60.472480000000000000
           Width = 173.858267720000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5046,6 +5087,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 22.677180000000000000
           Width = 173.858267720000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5087,6 +5129,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 60.472480000000000000
           Width = 177.637797720000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5128,6 +5171,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 60.472480000000000000
           Width = 173.858267720000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5169,6 +5213,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 60.472480000000000000
           Width = 173.858267720000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5245,6 +5290,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 15.118120000000000000
           Width = 226.771800000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5263,6 +5309,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 15.118120000000000000
           Width = 453.543600000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5281,6 +5328,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 15.118120000000000000
           Width = 226.771800000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -5333,6 +5381,7 @@ object DataModuleContrato: TDataModuleContrato
           Top = 15.118120000000000000
           Width = 139.842610000000000000
           Height = 18.897650000000000000
+          DataSet = DMNFe.frdVenda
           DataSetName = 'frdVenda'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
