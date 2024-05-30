@@ -5,9 +5,8 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
   Caption = 'Controle de Requisi'#231#245'es de Materiais'
   ClientHeight = 694
   ClientWidth = 1107
-  ExplicitWidth = 1123
-  ExplicitHeight = 733
-  PixelsPerInch = 96
+  ExplicitWidth = 1119
+  ExplicitHeight = 732
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 690
@@ -26,11 +25,9 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
     Height = 651
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 1107
-    ExplicitHeight = 651
+    ExplicitWidth = 1103
+    ExplicitHeight = 650
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1099
       ExplicitHeight = 622
       inherited Bevel4: TBevel
@@ -130,6 +127,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Left = 300
             Top = 24
             Width = 93
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -145,7 +143,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Left = 30
             Top = 24
             Width = 49
-            Height = 13
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -153,6 +151,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
+            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 399
@@ -460,8 +459,6 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1099
       ExplicitHeight = 622
       inherited Bevel8: TBevel
@@ -483,7 +480,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
       inherited GrpBxDadosNominais: TGroupBox
         Width = 1099
         Height = 257
-        ExplicitWidth = 1099
+        ExplicitWidth = 1095
         ExplicitHeight = 257
         inherited lblCodigo: TLabel
           Width = 71
@@ -622,6 +619,14 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           Font.Style = [fsBold]
           ParentFont = False
         end
+        object lblResposavelRetirada: TLabel [13]
+          Left = 20
+          Top = 104
+          Width = 129
+          Height = 13
+          Caption = 'Respons'#225'vel pela retirada:'
+          FocusControl = dbResposavelRetirada
+        end
         inherited dbCodigo: TDBEdit
           Width = 89
           Color = clMoneyGreen
@@ -681,7 +686,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 9
+          TabOrder = 10
         end
         object dbUsuarioCadastro: TDBEdit
           Left = 384
@@ -699,7 +704,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 10
+          TabOrder = 11
         end
         object dbNumero: TDBEdit
           Left = 240
@@ -724,13 +729,9 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           Height = 97
           ActivePage = TbsRequisicaoMotivo
           Style = tsFlatButtons
-          TabOrder = 13
+          TabOrder = 14
           object TbsRequisicaoMotivo: TTabSheet
             Caption = 'Motivo da requisi'#231#227'o'
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMotivo: TDBMemo
               Left = 0
               Top = 0
@@ -752,10 +753,6 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           object TbsRequisicaoCancelado: TTabSheet
             Caption = 'Motivo do cancelamento'
             ImageIndex = 2
-            ExplicitLeft = 0
-            ExplicitTop = 0
-            ExplicitWidth = 0
-            ExplicitHeight = 0
             object dbMovitoCancelamento: TDBMemo
               Left = 0
               Top = 0
@@ -812,7 +809,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 11
+          TabOrder = 12
         end
         object dbUsuarioCancelamento: TDBEdit
           Left = 856
@@ -830,7 +827,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           Font.Style = [fsBold]
           ParentFont = False
           ReadOnly = True
-          TabOrder = 12
+          TabOrder = 13
         end
         object dbCentroCustoRequisitante: TJvDBComboEdit
           Left = 704
@@ -1123,6 +1120,22 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
           TabOrder = 6
           OnExit = ControlEditExit
         end
+        object dbResposavelRetirada: TDBEdit
+          Left = 20
+          Top = 120
+          Width = 214
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'RESPONSAVEL_RETIRADA'
+          DataSource = DtSrcTabela
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 9
+        end
       end
       object pgcMaisDados: TPageControl
         Left = 0
@@ -1132,13 +1145,11 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
         ActivePage = tbsObservacoes
         Align = alBottom
         TabOrder = 3
+        ExplicitTop = 495
+        ExplicitWidth = 1095
         object tbsObservacoes: TTabSheet
           Caption = 'Observa'#231#245'es'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object PnlObservacoes: TPanel
             Left = 0
             Top = 0
@@ -1147,6 +1158,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
             Align = alClient
             BevelOuter = bvNone
             TabOrder = 0
+            ExplicitWidth = 1087
             object dbObservacao: TDBMemo
               Left = 0
               Top = 0
@@ -1163,6 +1175,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
               ParentFont = False
               ScrollBars = ssVertical
               TabOrder = 0
+              ExplicitWidth = 1087
             end
             object PnlValores: TPanel
               Left = 0
@@ -1178,6 +1191,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
               Font.Style = [fsBold]
               ParentFont = False
               TabOrder = 1
+              ExplicitWidth = 1087
               object lblCompetencia: TLabel
                 Left = 8
                 Top = 8
@@ -1256,6 +1270,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
         Align = alTop
         Caption = 'Dados do produto'
         TabOrder = 1
+        ExplicitWidth = 1095
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -2105,8 +2120,8 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
   inherited tlbBotoes: TPanel
     Top = 655
     Width = 1107
-    ExplicitTop = 655
-    ExplicitWidth = 1107
+    ExplicitTop = 654
+    ExplicitWidth = 1103
     inherited bvlTool3: TBevel
       Left = 1024
       ExplicitLeft = 1033
@@ -2130,13 +2145,13 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
     inherited btbtnFechar: TcxButton
       Left = 1028
       TabOrder = 11
-      ExplicitLeft = 1028
+      ExplicitLeft = 1024
     end
     inherited btbtnSelecionar: TcxButton
       Left = 914
       Width = 110
       TabOrder = 10
-      ExplicitLeft = 914
+      ExplicitLeft = 910
       ExplicitWidth = 110
     end
     object btnFinalizarLancamento: TcxButton
@@ -2222,6 +2237,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
       ShowHint = True
       TabOrder = 6
       OnClick = btnFinalizarLancamentoClick
+      ExplicitLeft = 470
     end
     object btnEnviarRequisicao: TcxButton
       Tag = 12
@@ -2307,6 +2323,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
       TabOrder = 7
       Visible = False
       OnClick = btnEnviarRequisicaoClick
+      ExplicitLeft = 580
     end
     object btnCancelarRequisicao: TcxButton
       Tag = 13
@@ -2391,6 +2408,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
       ShowHint = True
       TabOrder = 8
       OnClick = btnCancelarRequisicaoClick
+      ExplicitLeft = 690
     end
     object btnConfirmarAtendimento: TcxButton
       Left = 804
@@ -2474,6 +2492,7 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
       TabOrder = 9
       Visible = False
       OnClick = btnConfirmarAtendimentoClick
+      ExplicitLeft = 800
     end
   end
   inherited DtSrcTabela: TDataSource
@@ -2516,6 +2535,11 @@ inherited ViewRequisicaoAlmox: TViewRequisicaoAlmox
     object nmImprimirOrdemEntregaA5: TMenuItem
       Tag = 1
       Caption = 'Ordem de Entrega - Formato A5 (Pequeno)'
+      OnClick = nmImprimirOrdemEntregaA4Click
+    end
+    object nmImprimirOrdemEntregaA5_2v: TMenuItem
+      Tag = 2
+      Caption = 'Ordem de Entrega - Formato A5 (Pequeno - 2 vias)'
       OnClick = nmImprimirOrdemEntregaA4Click
     end
   end

@@ -112,6 +112,7 @@ begin
         .Add('  , r.cancel_usuario     ')
         .Add('  , r.cancel_data        ')
         .Add('  , r.cancel_motivo      ')
+        .Add('  , r.responsavel_retirada')
         .Add('  , r.veiculo   ')
         .Add('  , r.motorista ')
         .Add('  ')
@@ -241,6 +242,7 @@ begin
     FieldByName('COMPETENCIA').Clear;
     FieldByName('MOTIVO').Clear;
     FieldByName('OBS').Clear;
+    FieldByName('RESPONSAVEL_RETIRADA').Clear;
     FieldByName('ATENDIMENTO_USUARIO').Clear;
     FieldByName('ATENDIMENTO_DATA').Clear;
     FieldByName('CANCEL_USUARIO').Clear;

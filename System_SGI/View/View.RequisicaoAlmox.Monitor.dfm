@@ -7,9 +7,8 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
   ClientWidth = 343
   OnActivate = FormActivate
   OnClose = FormClose
-  ExplicitWidth = 367
-  ExplicitHeight = 724
-  PixelsPerInch = 96
+  ExplicitWidth = 363
+  ExplicitHeight = 723
   TextHeight = 13
   object tlbBotoes: TToolBar
     Left = 0
@@ -21,6 +20,8 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
     ButtonWidth = 96
     Caption = #39
     TabOrder = 3
+    ExplicitTop = 641
+    ExplicitWidth = 339
     object Bevel2: TBevel
       Left = 0
       Top = 0
@@ -167,9 +168,10 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
     Align = alTop
     Caption = 'Par'#226'metros de filtro'
     TabOrder = 1
+    ExplicitWidth = 339
     DesignSize = (
       343
-      240)
+      234)
     Height = 240
     Width = 343
     object lblCentroCusto: TLabel
@@ -211,16 +213,17 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
     object edCentroCusto: TComboBox
       Left = 16
       Top = 120
-      Width = 313
+      Width = 309
       Height = 21
       Style = csDropDownList
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 3
+      ExplicitWidth = 305
     end
     object edSituacao: TComboBox
       Left = 16
       Top = 160
-      Width = 313
+      Width = 309
       Height = 21
       Style = csDropDownList
       Anchors = [akLeft, akTop, akRight]
@@ -233,10 +236,11 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
         'Recebida'
         'Atendida'
         'Cancelada')
+      ExplicitWidth = 305
     end
     object BtnPesquisar: TcxButton
       Tag = 4
-      Left = 242
+      Left = 238
       Top = 187
       Width = 87
       Height = 31
@@ -283,6 +287,7 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
       ShowHint = True
       TabOrder = 5
       OnClick = BtnPesquisarClick
+      ExplicitLeft = 234
     end
     object e1Data: TJvDateEdit
       Left = 16
@@ -401,12 +406,13 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
     object edEmpresa: TComboBox
       Left = 16
       Top = 80
-      Width = 313
+      Width = 309
       Height = 21
       Style = csDropDownList
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 2
       OnChange = edEmpresaChange
+      ExplicitWidth = 305
     end
   end
   object dbgReq: TcxGrid
@@ -419,10 +425,12 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
       's" no registro.'
     Align = alClient
     TabOrder = 2
-    ExplicitTop = 259
+    ExplicitWidth = 339
+    ExplicitHeight = 376
     object dbgReqTbl: TcxGridDBBandedTableView
       OnDblClick = dbgReqTblDblClick
       Navigator.Buttons.CustomButtons = <>
+      ScrollbarAnnotations.CustomAnnotations = <>
       DataController.DataSource = dtsRequisicaoAlmox
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <
@@ -458,6 +466,7 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
       object dbgReqTblNUMERO: TcxGridDBBandedColumn
         Caption = 'N'#250'mero'
         DataBinding.FieldName = 'NUMERO'
+        DataBinding.IsNullValueType = True
         MinWidth = 80
         Width = 80
         Position.BandIndex = 0
@@ -467,6 +476,7 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
       object dbgReqTblDATA_EMISSAO: TcxGridDBBandedColumn
         Caption = 'Emiss'#227'o'
         DataBinding.FieldName = 'DATA_EMISSAO'
+        DataBinding.IsNullValueType = True
         MinWidth = 80
         Width = 80
         Position.BandIndex = 0
@@ -476,6 +486,7 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
       object dbgReqTblCC_ORIGEM_DESC: TcxGridDBBandedColumn
         Caption = 'Origem'
         DataBinding.FieldName = 'CC_ORIGEM_DESC'
+        DataBinding.IsNullValueType = True
         Width = 181
         Position.BandIndex = 0
         Position.ColIndex = 2
@@ -484,6 +495,7 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
       object dbgReqTblSTATUS: TcxGridDBBandedColumn
         Caption = 'S'
         DataBinding.FieldName = 'STATUS'
+        DataBinding.IsNullValueType = True
         PropertiesClassName = 'TcxImageComboBoxProperties'
         Properties.Images = ImgStatus
         Properties.Items = <
@@ -552,6 +564,7 @@ inherited ViewRequisicaoAlmoxMonitor: TViewRequisicaoAlmoxMonitor
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 339
     object ImgLogo: TImage
       Left = 0
       Top = 0

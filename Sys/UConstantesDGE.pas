@@ -32,7 +32,7 @@ Uses
     TGrupoFornecedorLista   = Array[Low(TGrupoFornecedor)..High(TGrupoFornecedor)] of String;
     TPermissaoLista         = Array [0..45] of String;
 
-    TModeloPapel = (mrPapelA4, mrPapelA5);
+    TModeloPapel = (mrPapelA4, mrPapelA5, mrPapelA5_2Vias);
 
   TSistema = record
     Codigo : Integer;

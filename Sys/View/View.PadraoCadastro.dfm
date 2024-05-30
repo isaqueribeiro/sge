@@ -4,8 +4,8 @@ object ViewPadraoCadastro: TViewPadraoCadastro
   ActiveControl = dbgDados
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Tabela Padr'#227'o de Cadastro'
-  ClientHeight = 401
-  ClientWidth = 735
+  ClientHeight = 400
+  ClientWidth = 731
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -23,27 +23,29 @@ object ViewPadraoCadastro: TViewPadraoCadastro
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
-    Top = 397
-    Width = 735
+    Top = 396
+    Width = 731
     Height = 4
     Align = alBottom
     Shape = bsSpacer
     ExplicitTop = 398
+    ExplicitWidth = 735
   end
   object Bevel3: TBevel
     Left = 0
-    Top = 358
-    Width = 735
+    Top = 357
+    Width = 731
     Height = 4
     Align = alBottom
     Shape = bsSpacer
     ExplicitTop = 359
+    ExplicitWidth = 735
   end
   object pgcGuias: TPageControl
     Left = 0
     Top = 0
-    Width = 735
-    Height = 358
+    Width = 731
+    Height = 357
     Cursor = crHandPoint
     ActivePage = tbsTabela
     Align = alClient
@@ -96,6 +98,8 @@ object ViewPadraoCadastro: TViewPadraoCadastro
         BevelOuter = bvNone
         BorderWidth = 4
         TabOrder = 1
+        ExplicitTop = 258
+        ExplicitWidth = 723
         object grpBxFiltro: TGroupBox
           Left = 456
           Top = 4
@@ -110,6 +114,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
+          ExplicitLeft = 452
           object lbltFiltrar: TLabel
             Left = 17
             Top = 27
@@ -247,8 +252,8 @@ object ViewPadraoCadastro: TViewPadraoCadastro
   end
   object tlbBotoes: TPanel
     Left = 0
-    Top = 362
-    Width = 735
+    Top = 361
+    Width = 731
     Height = 35
     Align = alBottom
     BevelOuter = bvNone
@@ -410,6 +415,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       ShowHint = True
       TabOrder = 7
       OnClick = btbtnFecharClick
+      ExplicitLeft = 652
     end
     object btbtnSelecionar: TcxButton
       Tag = 5
@@ -428,6 +434,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       TabOrder = 6
       Visible = False
       OnClick = btbtnSelecionarClick
+      ExplicitLeft = 528
     end
   end
   object DtSrcTabela: TDataSource

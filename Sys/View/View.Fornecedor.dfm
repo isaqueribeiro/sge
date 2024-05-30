@@ -5,11 +5,9 @@ inherited ViewFornecedor: TViewFornecedor
   Caption = 'Cadastro de Fornecedores'
   ClientHeight = 500
   ClientWidth = 844
-  OldCreateOrder = True
   OnClose = FormClose
-  ExplicitWidth = 860
-  ExplicitHeight = 539
-  PixelsPerInch = 96
+  ExplicitWidth = 856
+  ExplicitHeight = 538
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 496
@@ -27,22 +25,21 @@ inherited ViewFornecedor: TViewFornecedor
     Width = 844
     Height = 457
     ActivePage = tbsCadastro
-    ExplicitWidth = 844
-    ExplicitHeight = 457
+    OnChange = pgcGuiasChange
+    ExplicitWidth = 840
+    ExplicitHeight = 456
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 428
       inherited Bevel4: TBevel
-        Top = 362
+        Top = 354
         Width = 836
         ExplicitTop = 363
         ExplicitWidth = 836
       end
       inherited dbgDados: TDBGrid
         Width = 836
-        Height = 362
+        Height = 354
         Columns = <
           item
             Expanded = False
@@ -87,9 +84,9 @@ inherited ViewFornecedor: TViewFornecedor
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 366
+        Top = 358
         Width = 836
-        ExplicitTop = 366
+        ExplicitTop = 358
         ExplicitWidth = 836
         object lblRegistroDesativado: TLabel [0]
           Left = 2
@@ -114,22 +111,19 @@ inherited ViewFornecedor: TViewFornecedor
             ExplicitWidth = 67
           end
           inherited edtFiltrar: TEdit
-            Left = 90
+            Left = 93
             Width = 239
-            ExplicitLeft = 90
+            ExplicitLeft = 93
             ExplicitWidth = 239
-            ExplicitHeight = 23
           end
           inherited btnFiltrar: TcxButton
-            Left = 335
-            ExplicitLeft = 230
+            Left = 338
+            ExplicitLeft = 338
           end
         end
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 836
       ExplicitHeight = 428
       inherited Bevel8: TBevel
@@ -149,7 +143,7 @@ inherited ViewFornecedor: TViewFornecedor
       inherited GrpBxDadosNominais: TGroupBox
         Width = 836
         Height = 113
-        ExplicitWidth = 836
+        ExplicitWidth = 832
         ExplicitHeight = 113
         object lblRazao: TLabel [1]
           Left = 352
@@ -409,6 +403,7 @@ inherited ViewFornecedor: TViewFornecedor
         Align = alTop
         Caption = 'Endere'#231'o'
         TabOrder = 1
+        ExplicitWidth = 832
         object lblCidade: TLabel
           Left = 160
           Top = 24
@@ -438,7 +433,7 @@ inherited ViewFornecedor: TViewFornecedor
           Caption = 'Logradouro:'
         end
         object lblCEP: TLabel
-          Left = 712
+          Left = 699
           Top = 24
           Width = 23
           Height = 13
@@ -461,7 +456,7 @@ inherited ViewFornecedor: TViewFornecedor
           FocusControl = dbComplemento
         end
         object lblPais: TLabel
-          Left = 712
+          Left = 699
           Top = 64
           Width = 23
           Height = 13
@@ -486,7 +481,7 @@ inherited ViewFornecedor: TViewFornecedor
         object dbComplemento: TDBEdit
           Left = 528
           Top = 80
-          Width = 177
+          Width = 165
           Height = 21
           CharCase = ecUpperCase
           DataField = 'COMPLEMENTO'
@@ -652,7 +647,7 @@ inherited ViewFornecedor: TViewFornecedor
         object dbBairro: TJvDBComboEdit
           Left = 456
           Top = 40
-          Width = 249
+          Width = 237
           Height = 21
           ButtonHint = 'Pesquisar Bairro (Ctrl+P)'
           CharCase = ecUpperCase
@@ -800,9 +795,9 @@ inherited ViewFornecedor: TViewFornecedor
           OnButtonClick = dbLogradouroButtonClick
         end
         object dbPais: TJvDBComboEdit
-          Left = 712
+          Left = 699
           Top = 80
-          Width = 105
+          Width = 118
           Height = 21
           ButtonHint = 'Pesquisar Pa'#237's (Ctrl+P)'
           CharCase = ecUpperCase
@@ -875,9 +870,9 @@ inherited ViewFornecedor: TViewFornecedor
           TabOrder = 7
         end
         object dbCEP: TJvDBMaskEdit
-          Left = 712
+          Left = 699
           Top = 40
-          Width = 105
+          Width = 118
           Height = 21
           DataField = 'CEP'
           DataSource = DtSrcTabela
@@ -894,12 +889,10 @@ inherited ViewFornecedor: TViewFornecedor
         ActivePage = tbsContato
         Align = alClient
         TabOrder = 2
+        ExplicitWidth = 832
+        ExplicitHeight = 190
         object tbsContato: TTabSheet
           Caption = '&1. Contato'
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblFone: TLabel
             Left = 8
             Top = 0
@@ -1048,10 +1041,6 @@ inherited ViewFornecedor: TViewFornecedor
         object tbsDadosAdcionais: TTabSheet
           Caption = '&2. Outras Informa'#231#245'es'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbTransportadora: TDBCheckBox
             Left = 13
             Top = 10
@@ -1082,10 +1071,6 @@ inherited ViewFornecedor: TViewFornecedor
         object tbsDadoFinanceiro: TTabSheet
           Caption = '&3. Dados Financeiros'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblFaturaMinima: TLabel
             Left = 8
             Top = 0
@@ -1126,6 +1111,7 @@ inherited ViewFornecedor: TViewFornecedor
             OptionsData.Inserting = False
             OptionsData.MultiThreadedFiltering = bFalse
             Navigator.Buttons.CustomButtons = <>
+            ScrollbarAnnotations.CustomAnnotations = <>
             TabOrder = 1
             OnEnter = dbgContaCorrenteEnter
             OnExit = dbgContaCorrenteExit
@@ -1292,10 +1278,6 @@ inherited ViewFornecedor: TViewFornecedor
         object tbsObservacao: TTabSheet
           Caption = '&4. Observa'#231#245'es'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object dbObservacao: TDBMemo
             Left = 0
             Top = 0
@@ -1310,20 +1292,12 @@ inherited ViewFornecedor: TViewFornecedor
         object tbsDuplicatas: TTabSheet
           Caption = '&5. Duplicatas'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
         end
       end
     end
     object tbsConsultarCNPJ: TTabSheet
       Caption = 'Consultar CNPJ'
       ImageIndex = 12
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object BvlConsultar: TBevel
         Left = 377
         Top = 0
@@ -1911,10 +1885,6 @@ inherited ViewFornecedor: TViewFornecedor
     object tbsConsultarCPF: TTabSheet
       Caption = 'Consultar CPF'
       ImageIndex = 12
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object pnlConsultarCPF: TPanel
         Left = 0
         Top = 0
@@ -1976,7 +1946,7 @@ inherited ViewFornecedor: TViewFornecedor
           OnKeyPress = edCNPJKeyPress
         end
         object btnConsultarCPF: TcxButton
-          Left = 248
+          Left = 244
           Top = 327
           Width = 115
           Height = 41
@@ -2013,8 +1983,8 @@ inherited ViewFornecedor: TViewFornecedor
   inherited tlbBotoes: TPanel
     Top = 461
     Width = 844
-    ExplicitTop = 461
-    ExplicitWidth = 844
+    ExplicitTop = 460
+    ExplicitWidth = 840
     inherited bvlTool3: TBevel
       Left = 761
       ExplicitLeft = 761
@@ -2023,21 +1993,13 @@ inherited ViewFornecedor: TViewFornecedor
       Left = 840
       ExplicitLeft = 840
     end
-    inherited btbtnCancelar: TcxButton
-      ExplicitLeft = 233
-      ExplicitTop = 0
-    end
-    inherited btbtnSalvar: TcxButton
-      ExplicitLeft = 306
-      ExplicitTop = -2
-    end
     inherited btbtnFechar: TcxButton
       Left = 765
-      ExplicitLeft = 765
+      ExplicitLeft = 761
     end
     inherited btbtnSelecionar: TcxButton
       Left = 641
-      ExplicitLeft = 641
+      ExplicitLeft = 637
     end
   end
   inherited DtSrcTabela: TDataSource
@@ -2054,11 +2016,13 @@ inherited ViewFornecedor: TViewFornecedor
   object ACBrConsultaCNPJ: TACBrConsultaCNPJ
     ProxyPort = '8080'
     PesquisarIBGE = False
+    IniServicos = 'C:\Delphi\Alexandria\22.0\bin\ACBrConsultaCNPJServicos.ini'
     Left = 426
     Top = 9
   end
   object ACBrConsultaCPF: TACBrConsultaCPF
     ProxyPort = '8080'
+    IniServicos = 'C:\Delphi\Alexandria\22.0\bin\ACBrConsultaCPFServicos.ini'
     Left = 464
     Top = 6
   end

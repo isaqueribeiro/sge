@@ -3,8 +3,8 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
   Top = 295
   Caption = 'Relat'#243'rio de Estoque de Produtos'
   ClientHeight = 320
-  ExplicitHeight = 349
-  PixelsPerInch = 96
+  ExplicitWidth = 561
+  ExplicitHeight = 358
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 316
@@ -16,7 +16,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
   end
   inherited pnlBanner: TPanel
     Height = 277
-    ExplicitHeight = 277
+    ExplicitHeight = 276
     inherited imgBanner: TImage
       Height = 277
       ExplicitHeight = 277
@@ -24,19 +24,23 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
   end
   inherited pnlRelatorio: TPanel
     Height = 277
-    ExplicitHeight = 277
+    ExplicitWidth = 448
+    ExplicitHeight = 276
     inherited GrpBxRelatorio: TGroupBox
+      ExplicitWidth = 440
       inherited edRelatorio: TComboBox
         Items.Strings = (
           'Rela'#231#227'o de Produtos em Estoque'
           'Rela'#231#227'o de Produtos em Estoque (Por Lote)'
           'Rela'#231#227'o de Lotes dos Produtos em Estoque'
           'Demanda Consolidada de Produtos em Estoque')
+        ExplicitWidth = 400
       end
     end
     inherited GrpBxFiltro: TGroupBox
       Height = 196
-      ExplicitHeight = 196
+      ExplicitWidth = 440
+      ExplicitHeight = 195
       object lblEmpresa: TLabel
         Left = 46
         Top = 27
@@ -168,10 +172,11 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
   end
   inherited tlbBotoes: TPanel
     Top = 281
-    ExplicitTop = 281
+    ExplicitTop = 280
+    ExplicitWidth = 545
   end
   object FrRelacaoEstoqueProduto: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -236,6 +241,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
@@ -387,6 +396,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 555.590910000000000000
@@ -447,6 +460,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpHeaderEmpresa: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 204.094620000000000000
@@ -499,6 +516,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 328.819110000000000000
@@ -842,6 +863,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpFooterEmpresa: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 415.748300000000000000
@@ -909,6 +934,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpHeaderGrupo: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 249.448980000000000000
@@ -1240,6 +1269,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpFooterGrupo: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 370.393940000000000000
@@ -1307,6 +1340,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 34.015770000000000000
         Top = 498.897960000000000000
@@ -1436,6 +1473,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       'CUSTO_APR_TOTAL=CUSTO_APR_TOTAL')
     DataSet = CdsRelacaoEstoqueProduto
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 128
     Top = 8
   end
@@ -1495,11 +1533,12 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       'CUSTO_CMP_TOTAL=CUSTO_CMP_TOTAL')
     DataSet = CdsDemandaEstoqueProduto
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 128
     Top = 136
   end
   object FrDemandaEstoqueProduto: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1572,6 +1611,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
@@ -1723,6 +1766,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 555.590910000000000000
@@ -1783,6 +1830,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpHeaderEmpresa: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 204.094620000000000000
@@ -1835,6 +1886,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 328.819110000000000000
@@ -2182,6 +2237,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpFooterEmpresa: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 415.748300000000000000
@@ -2270,6 +2329,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpHeaderGrupo: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 249.448980000000000000
@@ -2625,6 +2688,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpFooterGrupo: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 370.393940000000000000
@@ -2713,6 +2780,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 34.015770000000000000
         Top = 498.897960000000000000
@@ -3081,7 +3152,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end>
   end
   object FrRelacaoEstoqueProdutoLote: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3163,6 +3234,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
@@ -3314,6 +3389,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 582.047620000000000000
@@ -3374,6 +3453,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 362.834880000000000000
@@ -3493,6 +3576,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpHeaderGrupo: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 204.094620000000000000
@@ -3543,6 +3630,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpFooterGrupo: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 15.118120000000000000
         Top = 404.409710000000000000
@@ -3567,6 +3658,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 79.370130000000000000
         Top = 480.000310000000000000
@@ -3611,6 +3706,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object GrpHeaderProduto: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 94.488250000000000000
         Top = 245.669450000000000000
@@ -4315,6 +4414,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       'LOTE_QTDE=LOTE_QTDE')
     DataSet = CdsRelacaoEstoqueProdutoLote
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 128
     Top = 48
   end
@@ -4362,7 +4462,7 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
     Top = 144
   end
   object FrRelacaoLoteProdutoEstoque: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -4449,6 +4549,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
@@ -4600,6 +4704,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 517.795610000000000000
@@ -4660,6 +4768,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 306.141930000000000000
@@ -4782,6 +4894,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpHeaderGrupo: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 37.795300000000000000
         Top = 204.094620000000000000
@@ -4874,6 +4990,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndGrpFooterGrupo: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 7.559060000000000000
         Top = 347.716760000000000000
@@ -4881,6 +5001,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object BndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 79.370130000000000000
         Top = 415.748300000000000000
@@ -4925,6 +5049,10 @@ inherited frmGeProdutoEstoqueImpressao: TfrmGeProdutoEstoqueImpressao
       end
       object GrpHeaderProduto: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 264.567100000000000000

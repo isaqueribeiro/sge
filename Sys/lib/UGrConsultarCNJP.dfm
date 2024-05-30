@@ -14,11 +14,9 @@ object frmGrConsultarCNJP: TfrmGrConsultarCNJP
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poScreenCenter
   OnCreate = FormCreate
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 13
   object BvlConsultar: TBevel
     Left = 0
@@ -37,6 +35,7 @@ object frmGrConsultarCNJP: TfrmGrConsultarCNJP
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 1
+    ExplicitWidth = 632
     object Label2: TLabel
       Left = 8
       Top = 11
@@ -425,6 +424,7 @@ object frmGrConsultarCNJP: TfrmGrConsultarCNJP
     Font.Style = []
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 632
     object lblCNPJ: TLabel
       Left = 361
       Top = 12
@@ -563,6 +563,7 @@ object frmGrConsultarCNJP: TfrmGrConsultarCNJP
   object ACBrConsultaCNPJ: TACBrConsultaCNPJ
     ProxyPort = '8080'
     PesquisarIBGE = False
+    IniServicos = 'C:\Delphi\Alexandria\22.0\bin\ACBrConsultaCNPJServicos.ini'
     Left = 74
     Top = 65
   end

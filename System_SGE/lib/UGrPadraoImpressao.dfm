@@ -557,7 +557,8 @@ inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
     FFF8001F0000FFFFFFFF003F0000FFFFFFFFF0FF0000FFFFFFFFFFFF0000FFFF
     FFFFFFFF0000}
   OnClose = FormClose
-  PixelsPerInch = 96
+  ExplicitWidth = 565
+  ExplicitHeight = 342
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0

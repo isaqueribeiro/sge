@@ -4,9 +4,8 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
   Caption = 'Relat'#243'rios de Apropria'#231#227'o de Estoque'
   ClientHeight = 328
   ClientWidth = 562
-  ExplicitWidth = 568
-  ExplicitHeight = 357
-  PixelsPerInch = 96
+  ExplicitWidth = 574
+  ExplicitHeight = 366
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 324
@@ -22,7 +21,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
   end
   inherited pnlBanner: TPanel
     Height = 285
-    ExplicitHeight = 285
+    ExplicitHeight = 284
     inherited imgBanner: TImage
       Height = 285
       ExplicitHeight = 285
@@ -31,20 +30,20 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
   inherited pnlRelatorio: TPanel
     Width = 465
     Height = 285
-    ExplicitWidth = 465
-    ExplicitHeight = 285
+    ExplicitWidth = 461
+    ExplicitHeight = 284
     inherited Bevel4: TBevel
       Width = 457
       ExplicitWidth = 457
     end
     inherited GrpBxRelatorio: TGroupBox
       Width = 457
-      ExplicitWidth = 457
+      ExplicitWidth = 453
       DesignSize = (
         457
         69)
       inherited edRelatorio: TComboBox
-        Width = 427
+        Width = 423
         Items.Strings = (
           'Estoque Apropriado por Centro de Custo (Sint'#233'tico)'
           'Estoque Apropriado por Centro de Custo (Anal'#237'tico)'
@@ -53,14 +52,14 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           'Relat'#243'rio Geral de Apropria'#231#227'o por Tipo (Anal'#237'tico)'
           'Rela'#231#227'o de Produtos nas Apropria'#231#245'es de Estoque'
           'Extrado de Movimenta'#231#227'o do Produto')
-        ExplicitWidth = 427
+        ExplicitWidth = 419
       end
     end
     inherited GrpBxFiltro: TGroupBox
       Width = 457
       Height = 204
-      ExplicitWidth = 457
-      ExplicitHeight = 204
+      ExplicitWidth = 453
+      ExplicitHeight = 203
       object lblEmpresa: TLabel
         Left = 55
         Top = 28
@@ -401,11 +400,11 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
   inherited tlbBotoes: TPanel
     Top = 289
     Width = 562
-    ExplicitTop = 289
-    ExplicitWidth = 562
+    ExplicitTop = 288
+    ExplicitWidth = 558
   end
   object FrRelacaoEstoqueAprop: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -466,6 +465,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
@@ -620,6 +623,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 650.079160000000000000
@@ -680,6 +687,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderEmpresa: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 204.094620000000000000
@@ -732,6 +743,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 374.173470000000000000
@@ -1030,6 +1045,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterEmpresa: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 510.236550000000000000
@@ -1078,6 +1097,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderGrupo: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 294.803340000000000000
@@ -1383,6 +1406,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterGrupo: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 415.748300000000000000
@@ -1431,6 +1458,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 34.015770000000000000
         Top = 593.386210000000000000
@@ -1490,6 +1521,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderCentroCusto: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 249.448980000000000000
@@ -1539,6 +1574,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterCentroCusto: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 461.102660000000000000
@@ -1631,11 +1670,12 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       'UNIDADE_CONSUMO=UNIDADE_CONSUMO')
     DataSet = CdsRelacaoEstoqueAprop
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 128
     Top = 40
   end
   object FrRelacaoEstoqueResumo: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1695,6 +1735,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
@@ -1849,6 +1893,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 540.472790000000000000
@@ -1909,6 +1957,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderEmpresa: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 204.094620000000000000
@@ -1962,6 +2014,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 309.921460000000000000
@@ -2087,6 +2143,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterEmpresa: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 396.850650000000000000
@@ -2136,6 +2196,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 34.015770000000000000
         Top = 483.779840000000000000
@@ -2195,6 +2259,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderCentroCusto: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 37.795300000000000000
         Top = 249.448980000000000000
@@ -2329,6 +2397,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterCentroCusto: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 351.496290000000000000
@@ -2407,11 +2479,12 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       'APROP_ESTOQUE_CUSTO=APROP_ESTOQUE_CUSTO')
     DataSet = CdsRelacaoEstoqueResumo
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 128
     Top = 8
   end
   object frRelacaoApropriacaoSintetico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -2497,6 +2570,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -2700,6 +2777,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 540.472790000000000000
@@ -2760,6 +2841,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderTipoMov: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 37.795300000000000000
         Top = 234.330860000000000000
@@ -2873,6 +2958,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 294.803340000000000000
@@ -2972,6 +3061,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterTipoMov: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 336.378170000000000000
@@ -3000,6 +3093,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 94.488250000000000000
         Top = 423.307360000000000000
@@ -3232,11 +3329,12 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       'VALOR_TOTAL_REAL=VALOR_TOTAL_REAL')
     DataSet = cdsRelacaoApropriacaoSintetico
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 128
     Top = 104
   end
   object frRelacaoApropriacaoAnalitico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3319,6 +3417,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -3522,6 +3624,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 631.181510000000000000
@@ -3582,6 +3688,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderTipoMov: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
@@ -3630,6 +3740,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
@@ -3896,6 +4010,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterTipoMov: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
@@ -3946,6 +4064,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 79.370130000000000000
         Top = 529.134200000000000000
@@ -4127,6 +4249,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderForn: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
@@ -4442,6 +4568,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterForn: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
@@ -4552,6 +4682,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       'VALOR_TOTAL_REAL=VALOR_TOTAL_REAL')
     DataSet = CdsRelacaoApropriacaoAnalitico
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 128
     Top = 136
   end
@@ -5021,7 +5152,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
     Top = 136
   end
   object frRelacaoProdutoApropriacao: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -5103,6 +5234,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -5306,6 +5441,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 657.638220000000000000
@@ -5366,6 +5505,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderTipoMov: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
@@ -5415,6 +5558,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 415.748300000000000000
@@ -5600,6 +5747,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterTipoMov: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456695350000000000
         Top = 502.677490000000000000
@@ -5652,6 +5803,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 45.354360000000000000
         Top = 589.606680000000000000
@@ -5720,6 +5875,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderAprop: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 113.385900000000000000
         Top = 279.685220000000000000
@@ -6275,6 +6434,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterAprop: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 457.323130000000000000
@@ -6504,11 +6667,12 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       'CUSTO_TOTAL=CUSTO_TOTAL')
     DataSet = CdsRelacaoProdutoApropriacao
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 128
     Top = 168
   end
   object FrRelacaoEstoqueProdutos: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -6569,6 +6733,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 18.897650000000000000
@@ -6723,6 +6891,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 468.661720000000000000
@@ -6783,6 +6955,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderEmpresa: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 204.094620000000000000
@@ -7070,6 +7246,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 283.464750000000000000
@@ -7340,6 +7520,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterEmpresa: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 325.039580000000000000
@@ -7391,6 +7575,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 34.015770000000000000
         Top = 411.968770000000000000
@@ -7567,6 +7755,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       'UNIDADE_CONSUMO=UNIDADE_CONSUMO')
     DataSet = CdsRelacaoEstoqueProdutos
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 128
     Top = 72
   end
@@ -7589,6 +7778,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       '  , e.rzsoc as empresa_razao'
       '  , ex.data'
       '  , ex.local'
+      '  , ex.responsavel'
       '  , ex.tipo'
       '  , ex.quant'
       '  , ex.valor_total'
@@ -7633,6 +7823,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       
         '      , Case when a.tipo = 0 then '#39'ENTRADA MANUAL NO ESTOQUE'#39' el' +
         'se '#39'ESTOQUE'#39' end as local'
+      '      , coalesce(a.usuario, '#39#39') as responsavel'
       '      , sum(ai.qtde)        as quant'
       '      , sum(ai.custo_total) as valor_total'
       '      , 3 as tipo'
@@ -7650,6 +7841,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       
         '      , Case when a.tipo = 0 then '#39'ENTRADA MANUAL NO ESTOQUE'#39' el' +
         'se '#39'ESTOQUE'#39' end'
+      '      , coalesce(a.usuario, '#39#39')'
       ''
       '    union'
       ''
@@ -7659,6 +7851,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       '      , ri.produto'
       '      , r.data_emissao as data'
       '      , cc.descricao   as local'
+      '      , coalesce(r.responsavel_retirada, '#39#39') as responsavel'
       '      , sum(ri.qtde / ri.fracionador) as quant'
       '      , sum(ri.total) as valor_total'
       '      , 4 as tipo'
@@ -7677,6 +7870,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       '      , ri.produto'
       '      , cc.descricao'
       '      , r.data_emissao'
+      '      , coalesce(r.responsavel_retirada, '#39#39')'
       ''
       '  ) ex on (ex.empresa = e.cnpj)'
       ''
@@ -7726,18 +7920,25 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
     ParamData = <
       item
         Name = 'EMPRESA'
+        DataType = ftString
         ParamType = ptInput
+        Size = 18
+        Value = Null
       end
       item
         Name = 'PRODUTO'
+        DataType = ftString
         ParamType = ptInput
+        Size = 10
       end
       item
         Name = 'DATA_INICIAL'
+        DataType = ftDate
         ParamType = ptInput
       end
       item
         Name = 'DATA_FINAL'
+        DataType = ftDate
         ParamType = ptInput
       end>
   end
@@ -7769,6 +7970,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       'EMPRESA_RAZAO=EMPRESA_RAZAO'
       'DATA=DATA'
       'LOCAL=LOCAL'
+      'RESPONSAVEL=RESPONSAVEL'
       'TIPO=TIPO'
       'QUANT=QUANT'
       'VALOR_TOTAL=VALOR_TOTAL'
@@ -7783,11 +7985,12 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       'UND_ALMOX_SIGLA=UND_ALMOX_SIGLA')
     DataSet = CdsExtratoMovimentoProduto
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 128
     Top = 200
   end
   object frExtratoMovimentoProduto: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -7797,7 +8000,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 41557.397184305600000000
     ReportOptions.Name = 'Teste!'
-    ReportOptions.LastChange = 45162.959055289350000000
+    ReportOptions.LastChange = 45441.726118611110000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -7861,6 +8064,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 139.842610000000000000
         Top = 18.897650000000000000
@@ -8038,6 +8245,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 578.268090000000000000
@@ -8098,6 +8309,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderEmpresa: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 41.574830000000000000
         Top = 219.212740000000000000
@@ -8120,7 +8335,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           HAlign = haCenter
           Memo.UTF8W = (
             
@@ -8146,7 +8361,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = 13816530
           HAlign = haCenter
           Memo.UTF8W = (
@@ -8167,7 +8382,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = 13816530
           HAlign = haCenter
           Memo.UTF8W = (
@@ -8190,13 +8405,14 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftRight, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           HAlign = haCenter
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.##'#39', <FrdsExtratoMovimentoProduto."ESTOQUE_ALMO' +
               'X">)] [FrdsExtratoMovimentoProduto."UND_COMPRA_SIGLA"]')
           ParentFont = False
+          WordWrap = False
           VAlign = vaCenter
           Formats = <
             item
@@ -8207,6 +8423,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 343.937230000000000000
@@ -8226,7 +8446,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Memo.UTF8W = (
             
               ' [FormatDateTime('#39'dd/mm/yyyy'#39', <FrdsExtratoMovimentoProduto."DAT' +
@@ -8238,7 +8458,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         object Memo9: TfrxMemoView
           AllowVectorExport = True
           Left = 64.252010000000000000
-          Width = 71.811023620000000000
+          Width = 64.251968503937010000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8248,7 +8468,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           HAlign = haCenter
           Memo.UTF8W = (
             
@@ -8261,8 +8481,8 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         end
         object Memo6: TfrxMemoView
           AllowVectorExport = True
-          Left = 136.063080000000000000
-          Width = 71.811023620000000000
+          Left = 128.504020000000000000
+          Width = 64.251968500000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8272,7 +8492,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           HAlign = haCenter
           Memo.UTF8W = (
             
@@ -8285,8 +8505,8 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         end
         object Memo16: TfrxMemoView
           AllowVectorExport = True
-          Left = 495.118430000000000000
-          Width = 71.811023620000000000
+          Left = 510.236550000000000000
+          Width = 56.692903620000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8296,7 +8516,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = 13434879
           HAlign = haCenter
           Memo.UTF8W = (
@@ -8320,7 +8540,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           HAlign = haRight
           Memo.UTF8W = (
             
@@ -8344,7 +8564,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           HAlign = haRight
           Memo.UTF8W = (
             
@@ -8357,8 +8577,8 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         end
         object Memo32: TfrxMemoView
           AllowVectorExport = True
-          Left = 207.874150000000000000
-          Width = 287.244233620000000000
+          Left = 192.756030000000000000
+          Width = 204.094573620000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8368,9 +8588,29 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Memo.UTF8W = (
             ' [FrdsExtratoMovimentoProduto."LOCAL"]')
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo46: TfrxMemoView
+          AllowVectorExport = True
+          Left = 396.850650000000000000
+          Width = 113.385853620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          Memo.UTF8W = (
+            ' [FrdsExtratoMovimentoProduto."RESPONSAVEL"]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -8378,6 +8618,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpFooterEmpresa: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 438.425480000000000000
@@ -8385,6 +8629,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndFooter: TfrxFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 34.015770000000000000
         Top = 483.779840000000000000
@@ -8399,7 +8647,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftTop]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Memo.UTF8W = (
             
               ' [FormatFloat('#39',0'#39', COUNT(BndMasterData, 2))] movimento(s) relac' +
@@ -8409,6 +8657,10 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
       object BndGrpHeaderProduto: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 37.795300000000000000
         Top = 283.464750000000000000
@@ -8428,7 +8680,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
             ' Data')
@@ -8448,7 +8700,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
             'Movimenta'#231#227'o')
@@ -8459,7 +8711,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           AllowVectorExport = True
           Left = 64.252010000000000000
           Top = 18.897650000000000000
-          Width = 71.811070000000000000
+          Width = 64.251968503937010000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8469,7 +8721,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
@@ -8479,9 +8731,9 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         end
         object Memo28: TfrxMemoView
           AllowVectorExport = True
-          Left = 136.063080000000000000
+          Left = 128.504020000000000000
           Top = 18.897650000000000000
-          Width = 71.811023620000000000
+          Width = 64.251968500000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8491,7 +8743,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
@@ -8501,9 +8753,9 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         end
         object Memo15: TfrxMemoView
           AllowVectorExport = True
-          Left = 495.118430000000000000
+          Left = 510.236550000000000000
           Top = 18.897650000000000000
-          Width = 71.811023620000000000
+          Width = 56.692903620000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8513,7 +8765,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clYellow
           HAlign = haCenter
           Memo.UTF8W = (
@@ -8535,7 +8787,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
@@ -8557,7 +8809,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
@@ -8579,7 +8831,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
@@ -8589,9 +8841,9 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         end
         object Memo29: TfrxMemoView
           AllowVectorExport = True
-          Left = 207.874150000000000000
+          Left = 192.756030000000000000
           Top = 18.897650000000000000
-          Width = 287.244233620000000000
+          Width = 204.094573620000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8601,16 +8853,41 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clBtnFace
           Memo.UTF8W = (
             ' Local')
           ParentFont = False
           VAlign = vaCenter
         end
+        object Memo45: TfrxMemoView
+          AllowVectorExport = True
+          Left = 396.850650000000000000
+          Top = 18.897650000000000000
+          Width = 113.385853620000000000
+          Height = 18.897650000000000000
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          Fill.BackColor = clBtnFace
+          Memo.UTF8W = (
+            ' Respons'#225'vel')
+          ParentFont = False
+          VAlign = vaCenter
+        end
       end
       object BndGrpFooterProduto: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 385.512060000000000000
@@ -8618,7 +8895,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         object Memo17: TfrxMemoView
           AllowVectorExport = True
           Left = 64.252010000000000000
-          Width = 71.811023620000000000
+          Width = 64.251968503937010000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8628,7 +8905,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
@@ -8641,8 +8918,8 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         end
         object Memo30: TfrxMemoView
           AllowVectorExport = True
-          Left = 136.063080000000000000
-          Width = 71.811023620000000000
+          Left = 128.504020000000000000
+          Width = 64.251968500000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8652,46 +8929,13 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clBtnFace
           HAlign = haCenter
           Memo.UTF8W = (
             
               '[FormatFloat('#39',0.###'#39', SUM(<FrdsExtratoMovimentoProduto."QUANT_R' +
               'EQUISICAO">))] ')
-          ParentFont = False
-          WordWrap = False
-          VAlign = vaCenter
-        end
-        object Memo31: TfrxMemoView
-          AllowVectorExport = True
-          Left = 495.118430000000000000
-          Width = 71.811023620000000000
-          Height = 18.897650000000000000
-          DataSet = DMNFe.frdEmpresa
-          DataSetName = 'frdEmpresa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
-          Fill.BackColor = 10027007
-          HAlign = haCenter
-          Highlight.ApplyFill = False
-          Highlight.Font.Charset = ANSI_CHARSET
-          Highlight.Font.Color = clRed
-          Highlight.Font.Height = -11
-          Highlight.Font.Name = 'Tahoma'
-          Highlight.Font.Style = [fsBold]
-          Highlight.Condition = '(SUM(<QuantidadeSaldo>) <> <Estoque>)'
-          Highlight.FillType = ftBrush
-          Highlight.Frame.Typ = []
-          Memo.UTF8W = (
-            
-              '[FormatFloat('#39',0.###'#39', SUM(<QuantidadeSaldo>))] [FrdsExtratoMovi' +
-              'mentoProduto."UND_ALMOX_SIGLA"] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -8709,7 +8953,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clBtnFace
           HAlign = haRight
           Memo.UTF8W = (
@@ -8733,7 +8977,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clBtnFace
           HAlign = haRight
           Memo.UTF8W = (
@@ -8746,8 +8990,8 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
         end
         object Memo40: TfrxMemoView
           AllowVectorExport = True
-          Left = 207.874150000000000000
-          Width = 287.244233620000000000
+          Left = 192.756030000000000000
+          Width = 374.173423620000000000
           Height = 18.897650000000000000
           DataSet = DMNFe.frdEmpresa
           DataSetName = 'frdEmpresa'
@@ -8757,7 +9001,7 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clBtnFace
           HAlign = haRight
           Memo.UTF8W = (
@@ -8778,9 +9022,43 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
           Font.Name = 'Tahoma'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          Frame.Width = 0.100000000000000000
+          Frame.Width = 0.500000000000000000
           Fill.BackColor = clBtnFace
           HAlign = haRight
+          ParentFont = False
+          WordWrap = False
+          VAlign = vaCenter
+        end
+        object Memo31: TfrxMemoView
+          AllowVectorExport = True
+          Left = 510.236550000000000000
+          Width = 56.692903620000000000
+          Height = 18.897650000000000000
+          Visible = False
+          DataSet = DMNFe.frdEmpresa
+          DataSetName = 'frdEmpresa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
+          Frame.Width = 0.500000000000000000
+          Fill.BackColor = 10027007
+          HAlign = haCenter
+          Highlight.ApplyFill = False
+          Highlight.Font.Charset = ANSI_CHARSET
+          Highlight.Font.Color = clRed
+          Highlight.Font.Height = -11
+          Highlight.Font.Name = 'Tahoma'
+          Highlight.Font.Style = [fsBold]
+          Highlight.Condition = '(SUM(<QuantidadeSaldo>) <> <Estoque>)'
+          Highlight.FillType = ftBrush
+          Highlight.Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[FormatFloat('#39',0.###'#39', SUM(<QuantidadeSaldo>))] [FrdsExtratoMovi' +
+              'mentoProduto."UND_ALMOX_SIGLA"] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter

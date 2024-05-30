@@ -10,7 +10,8 @@ uses
   cxLookAndFeelPainters, Menus, cxButtons, dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green,
   dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
   dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light,
-  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver;
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2019Black, dxSkinOffice2019Colorful,
+  dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinsDefaultPainters;
 
 
 type
@@ -106,6 +107,41 @@ procedure TfrmGrConsultarCNJP.btnBuscarClick(Sender: TObject);
 var
   I : Integer;
 begin
+{*
+  procedure BuscarCNPJ(aRetorno : TPessoaFisica);
+
+  procedure TFrmServicoTomadoREINFNovo.BuscarCNPJ(aRetorno: TPessoaFisica);
+  begin
+    lblBuscandoCNPJ.Visible := False;
+
+    if FConsulta.Error.IsEmpty then
+    begin
+      edtPrestadorRazao.Text    := aRetorno.RazaoSocial;
+      edtPrestadorFantasia.Text := aRetorno.Fantasia;
+    end
+    else
+      gMensagem.Erro(FConsulta.Error);
+  end;
+
+
+  private
+    FConsulta : TServiceRequestCNPJ;
+
+  FConsulta   := TServiceRequestCNPJ.Create;
+
+  FConsulta.DisposeOf;
+
+
+  procedure TFrmServicoTomadoREINFNovo.btnBuscarClick(Sender: TObject);
+  begin
+    if (edtPrestadorTipo.ItemIndex = 1) then
+    begin
+      lblBuscandoCNPJ.Visible := True;
+      FConsulta.Consultar(SomenteNumeros(edtPrestadorCnpj.Text), BuscarCNPJ);
+    end;
+  end;
+
+*}
   if Trim(edCaptcha.Text) <> EmptyStr then
   begin
     if ACBrConsultaCNPJ.Consulta(edCNPJ.Text, Trim(edCaptcha.Text), ckRemoverEspacosDuplos.Checked) then

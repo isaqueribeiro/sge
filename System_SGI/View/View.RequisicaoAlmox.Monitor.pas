@@ -77,7 +77,8 @@ uses
   Interacao.Tabela,
   Controller.Tabela,
   SGE.Controller.Impressao.AutorizacaoCompra,
-  SGE.Controller.Impressao.RequisicaoAlmox;
+  SGE.Controller.Impressao.RequisicaoAlmox, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White, dxScrollbarAnnotations;
 
 type
   TViewRequisicaoAlmoxMonitor = class(TfrmGrPadrao)

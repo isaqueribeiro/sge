@@ -474,10 +474,19 @@ function TConfiguracaoIni.Load : IConfiguracaoIni;
 begin
   Result     := Self;
   FCarregado := True;
+
+  FPadrao.PaisID   := FINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_PAIS, INI_KEY_PAIS_VALUE);
+  FPadrao.EstadoID := FINI.ReadInteger(INI_SECAO_DEFAULT, INI_KEY_ESTADO, StrToInt(INI_KEY_ESTADO_VALUE));
+  FPadrao.CidadeID := FINI.ReadInteger(INI_SECAO_DEFAULT, INI_KEY_CIDADE, StrToInt(INI_KEY_CIDADE_VALUE));
+
   FPadrao.FormaPagtoID    := FINI.ReadInteger(INI_SECAO_DEFAULT, INI_KEY_FORMA_PGTO, 1);
   FPadrao.CondicaoPagtoID := FINI.ReadInteger(INI_SECAO_DEFAULT, INI_KEY_COND_PGTO, 1);
   FPadrao.CfopID          := FINI.ReadInteger(INI_SECAO_DEFAULT, INI_KEY_CFOP_SAI, StrToInt(INI_KEY_CFOP_SAI_VALUE));
   FPadrao.CfopEntradaID   := FINI.ReadInteger(INI_SECAO_DEFAULT, INI_KEY_CFOP_ENT, StrToInt(INI_KEY_CFOP_ENT_VALUE));
+
+  FPadrao.EmpresaID  := FINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_EMPRESA, EmptyStr);
+  FPadrao.ClienteID  := StrToIntDef( FINI.ReadString(INI_SECAO_DEFAULT, INI_KEY_CLIENTE, EmptyStr), CONSUMIDOR_FINAL_CODIGO);
+  FPadrao.VendedorID := FINI.ReadInteger(INI_SECAO_DEFAULT, INI_KEY_VENDEDOR, 1);
 end;
 
 function TConfiguracaoIni.Save : IConfiguracaoIni;

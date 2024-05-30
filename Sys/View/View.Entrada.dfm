@@ -5,10 +5,8 @@ inherited ViewEntrada: TViewEntrada
   Caption = 'Controle de Entradas de Produtos'
   ClientHeight = 677
   ClientWidth = 1101
-  OldCreateOrder = True
-  ExplicitWidth = 1117
-  ExplicitHeight = 716
-  PixelsPerInch = 96
+  ExplicitWidth = 1113
+  ExplicitHeight = 715
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 673
@@ -27,11 +25,9 @@ inherited ViewEntrada: TViewEntrada
     Height = 634
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 1101
-    ExplicitHeight = 634
+    ExplicitWidth = 1097
+    ExplicitHeight = 633
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1093
       ExplicitHeight = 605
       inherited Bevel4: TBevel
@@ -138,7 +134,6 @@ inherited ViewEntrada: TViewEntrada
             Left = 297
             Top = 25
             Width = 47
-            Height = 21
             Margins.Top = 10
             Margins.Bottom = 14
             Align = alRight
@@ -153,14 +148,13 @@ inherited ViewEntrada: TViewEntrada
             Left = 25
             Top = 25
             Width = 49
-            Height = 21
+            Height = 13
             Margins.Top = 10
             Margins.Bottom = 14
             Align = alRight
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 350
@@ -444,8 +438,6 @@ inherited ViewEntrada: TViewEntrada
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 1093
       ExplicitHeight = 605
       inherited Bevel8: TBevel
@@ -488,7 +480,7 @@ inherited ViewEntrada: TViewEntrada
         Width = 1093
         Height = 113
         Caption = 'Dados nominais da NF'
-        ExplicitWidth = 1093
+        ExplicitWidth = 1089
         ExplicitHeight = 113
         DesignSize = (
           1093
@@ -1151,6 +1143,7 @@ inherited ViewEntrada: TViewEntrada
         Align = alTop
         Caption = 'Valores (R$)'
         TabOrder = 1
+        ExplicitWidth = 1089
         object lblValorFrete: TLabel
           Left = 568
           Top = 24
@@ -1486,6 +1479,8 @@ inherited ViewEntrada: TViewEntrada
         Align = alBottom
         HotTrack = True
         TabOrder = 4
+        ExplicitTop = 419
+        ExplicitWidth = 1089
         object tbsPagamento: TTabSheet
           Caption = 'Pagamento'
           DesignSize = (
@@ -1743,6 +1738,7 @@ inherited ViewEntrada: TViewEntrada
             DataField = 'OBS'
             DataSource = DtSrcTabela
             TabOrder = 0
+            ExplicitWidth = 1081
           end
           object dbFormaPagto: TDBLookupComboBox
             Left = 0
@@ -2810,6 +2806,7 @@ inherited ViewEntrada: TViewEntrada
         Align = alTop
         Caption = 'Dados do produto'
         TabOrder = 2
+        ExplicitWidth = 1089
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -3805,8 +3802,8 @@ inherited ViewEntrada: TViewEntrada
   inherited tlbBotoes: TPanel
     Top = 638
     Width = 1101
-    ExplicitTop = 638
-    ExplicitWidth = 1101
+    ExplicitTop = 637
+    ExplicitWidth = 1097
     inherited bvlTool1: TBevel
       Left = 333
       ExplicitLeft = 333
@@ -3868,13 +3865,13 @@ inherited ViewEntrada: TViewEntrada
     inherited btbtnFechar: TcxButton
       Left = 1022
       TabOrder = 10
-      ExplicitLeft = 1022
+      ExplicitLeft = 1018
     end
     inherited btbtnSelecionar: TcxButton
       Left = 912
       Width = 110
       TabOrder = 9
-      ExplicitLeft = 912
+      ExplicitLeft = 908
       ExplicitWidth = 110
     end
     object btbtnFinalizar: TcxButton
@@ -3960,6 +3957,7 @@ inherited ViewEntrada: TViewEntrada
       ShowHint = True
       TabOrder = 6
       OnClick = btbtnFinalizarClick
+      ExplicitLeft = 574
     end
     object btbtnGerarNFe: TcxButton
       Tag = 12
@@ -4044,6 +4042,7 @@ inherited ViewEntrada: TViewEntrada
       ShowHint = True
       TabOrder = 8
       OnClick = btbtnGerarNFeClick
+      ExplicitLeft = 798
     end
     object btbtnCancelarENT: TcxButton
       Tag = 13
@@ -4128,6 +4127,7 @@ inherited ViewEntrada: TViewEntrada
       ShowHint = True
       TabOrder = 7
       OnClick = btbtnCancelarENTClick
+      ExplicitLeft = 684
     end
     object btnImportar: TcxButton
       Tag = 1

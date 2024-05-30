@@ -3,29 +3,29 @@ inherited ViewFormaPagto: TViewFormaPagto
   Top = 215
   ActiveControl = dbCodigo
   Caption = 'Tabela de Formas de Pagamento'
-  ClientHeight = 411
-  OldCreateOrder = True
-  ExplicitHeight = 450
-  PixelsPerInch = 96
+  ClientHeight = 410
+  ClientWidth = 727
+  ExplicitWidth = 743
+  ExplicitHeight = 449
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 407
-    ExplicitTop = 407
+    Top = 406
+    Width = 727
+    ExplicitTop = 408
   end
   inherited Bevel3: TBevel
-    Top = 368
-    ExplicitTop = 368
+    Top = 367
+    Width = 727
+    ExplicitTop = 369
   end
   inherited pgcGuias: TPageControl
-    Height = 368
+    Width = 727
+    Height = 367
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitHeight = 368
+    ExplicitHeight = 369
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
-      ExplicitHeight = 339
+      ExplicitHeight = 340
       inherited Bevel4: TBevel
         Top = 265
         ExplicitTop = 273
@@ -102,10 +102,7 @@ inherited ViewFormaPagto: TViewFormaPagto
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
-      ExplicitHeight = 339
+      ExplicitHeight = 340
       inherited Bevel8: TBevel
         Top = 153
         ExplicitTop = 153
@@ -267,11 +264,12 @@ inherited ViewFormaPagto: TViewFormaPagto
         Left = 0
         Top = 157
         Width = 727
-        Height = 182
+        Height = 183
         Align = alClient
         BevelOuter = bvNone
         Caption = 'pnlContaCorrente'
         TabOrder = 1
+        ExplicitHeight = 182
         object pnlDicas: TPanel
           AlignWithMargins = True
           Left = 3
@@ -286,7 +284,7 @@ inherited ViewFormaPagto: TViewFormaPagto
             Left = 3
             Top = 3
             Width = 33
-            Height = 43
+            Height = 13
             Align = alLeft
             Caption = 'Dica : '
             Font.Charset = ANSI_CHARSET
@@ -296,14 +294,13 @@ inherited ViewFormaPagto: TViewFormaPagto
             Font.Style = [fsBold]
             ParentFont = False
             Transparent = True
-            ExplicitHeight = 13
           end
           object lblDicasTexto: TLabel
             AlignWithMargins = True
             Left = 42
             Top = 3
-            Width = 676
-            Height = 43
+            Width = 675
+            Height = 39
             Align = alClient
             Caption = 
               'Pressione a tecla "Espa'#231'o" para marcar ou desmarcar a Conta Corr' +
@@ -318,8 +315,6 @@ inherited ViewFormaPagto: TViewFormaPagto
             ParentFont = False
             Transparent = True
             WordWrap = True
-            ExplicitWidth = 675
-            ExplicitHeight = 39
           end
         end
         object dbgContaCorrente: TDBGrid
@@ -395,8 +390,9 @@ inherited ViewFormaPagto: TViewFormaPagto
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 372
-    ExplicitTop = 372
+    Top = 371
+    Width = 727
+    ExplicitTop = 373
   end
   inherited DtSrcTabela: TDataSource
     Left = 640

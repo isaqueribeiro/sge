@@ -16,7 +16,9 @@ uses
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
   dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2016Colorful,
-  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light,
+  dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White,
+  dxSkinsDefaultPainters;
 
 type
   TfrmGrPadraoImpressao = class(TfrmGrPadrao)

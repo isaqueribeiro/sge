@@ -5,14 +5,12 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
   Caption = 'Rotatividade de Produtos'
   ClientHeight = 589
   ClientWidth = 1014
-  OldCreateOrder = True
   WindowState = wsMaximized
-  ExplicitWidth = 1030
-  ExplicitHeight = 628
+  ExplicitWidth = 1026
+  ExplicitHeight = 627
   DesignSize = (
     1014
     589)
-  PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
@@ -43,6 +41,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     BevelOuter = bvNone
     BorderWidth = 4
     TabOrder = 0
+    ExplicitWidth = 1010
     object BvlTipoPesquisa: TBevel
       Left = 265
       Top = 4
@@ -146,6 +145,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 1
+      ExplicitWidth = 737
       DesignSize = (
         741
         73)
@@ -173,6 +173,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
         Anchors = [akLeft, akTop, akRight]
         CharCase = ecUpperCase
         TabOrder = 1
+        ExplicitWidth = 269
       end
       object edTipoFiltro: TComboBox
         Left = 16
@@ -244,6 +245,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
         SpeedButtonOptions.Transparent = True
         TabOrder = 2
         OnClick = BtnPesquisarClick
+        ExplicitLeft = 700
       end
     end
   end
@@ -261,6 +263,8 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     Font.Style = []
     ParentFont = False
     TabOrder = 1
+    ExplicitWidth = 1010
+    ExplicitHeight = 464
     object PgcTabelas: TPageControl
       Left = 0
       Top = 0
@@ -275,6 +279,8 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       Font.Style = []
       ParentFont = False
       TabOrder = 0
+      ExplicitWidth = 1010
+      ExplicitHeight = 464
       object TbsGrupo: TTabSheet
         Caption = 'TbsGrupo'
         ImageIndex = 1
@@ -286,6 +292,8 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
           Align = alBottom
           BevelOuter = bvNone
           TabOrder = 1
+          ExplicitTop = 326
+          ExplicitWidth = 1002
           object dbgTotal: TcxGrid
             Left = 0
             Top = 0
@@ -293,9 +301,11 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
             Height = 110
             Align = alClient
             TabOrder = 0
+            ExplicitWidth = 1002
             object dbgTotalTbl: TcxGridDBBandedTableView
               OnKeyPress = NovaPesquisaKeyPress
               Navigator.Buttons.CustomButtons = <>
+              ScrollbarAnnotations.CustomAnnotations = <>
               DataController.DataSource = dsTotal
               DataController.Summary.DefaultGroupSummaryItems = <>
               DataController.Summary.FooterSummaryItems = <>
@@ -808,11 +818,13 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
             's" no registro.'
           Align = alClient
           TabOrder = 0
-          ExplicitTop = -6
+          ExplicitWidth = 1002
+          ExplicitHeight = 326
           object dbgGrupoTbl: TcxGridDBBandedTableView
             OnDblClick = dbgGrupoTblDblClick
             OnKeyPress = NovaPesquisaKeyPress
             Navigator.Buttons.CustomButtons = <>
+            ScrollbarAnnotations.CustomAnnotations = <>
             DataController.DataSource = dsGrupo
             DataController.Summary.DefaultGroupSummaryItems = <>
             DataController.Summary.FooterSummaryItems = <
@@ -1370,6 +1382,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgGrupoTblITEM: TcxGridDBBandedColumn
+              Caption = 'Itens'
               DataBinding.FieldName = 'ITENS'
               Options.Filtering = False
               Options.Moving = False
@@ -1774,6 +1787,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
             OnDblClick = dbgFabTblDblClick
             OnKeyPress = NovaPesquisaKeyPress
             Navigator.Buttons.CustomButtons = <>
+            ScrollbarAnnotations.CustomAnnotations = <>
             DataController.DataSource = dsFabricante
             DataController.Summary.DefaultGroupSummaryItems = <>
             DataController.Summary.FooterSummaryItems = <
@@ -2331,6 +2345,7 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
               Position.RowIndex = 0
             end
             object dbgFabTblITEM: TcxGridDBBandedColumn
+              Caption = 'Itens'
               DataBinding.FieldName = 'ITENS'
               Options.Filtering = False
               Options.Moving = False
@@ -2733,11 +2748,10 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
           Height = 437
           Align = alClient
           TabOrder = 0
-          ExplicitLeft = -3
-          ExplicitTop = 64
           object dbgProdutoTbl: TcxGridDBBandedTableView
             OnKeyPress = NovaPesquisaKeyPress
             Navigator.Buttons.CustomButtons = <>
+            ScrollbarAnnotations.CustomAnnotations = <>
             DataController.DataSource = dsProduto
             DataController.Summary.DefaultGroupSummaryItems = <>
             DataController.Summary.FooterSummaryItems = <
@@ -3352,6 +3366,8 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     ParentFont = False
     TabOrder = 3
     Visible = False
+    ExplicitLeft = 312
+    ExplicitTop = 262
     object Label3: TLabel
       Left = 5
       Top = 5
@@ -3410,6 +3426,8 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     BevelOuter = bvNone
     ParentColor = True
     TabOrder = 2
+    ExplicitTop = 549
+    ExplicitWidth = 1010
     object Bevel2: TBevel
       Left = 0
       Top = 2
@@ -3659,6 +3677,18 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     ProviderName = 'DspGrupo'
     Left = 88
     Top = 280
+    object CdsGrupoITENS: TLargeintField
+      DisplayLabel = 'Itens'
+      FieldName = 'ITENS'
+      ReadOnly = True
+      DisplayFormat = ',0'
+    end
+    object CdsGrupoITENS_ALMOX: TLargeintField
+      DisplayLabel = 'Itens'
+      FieldName = 'ITENS_ALMOX'
+      ReadOnly = True
+      DisplayFormat = ',0'
+    end
     object CdsGrupoCODIGO: TSmallintField
       DisplayLabel = 'C'#243'digo'
       FieldName = 'CODIGO'
@@ -3668,16 +3698,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       FieldName = 'DESCRICAO'
       ReadOnly = True
       Size = 30
-    end
-    object CdsGrupoITENS: TIntegerField
-      DisplayLabel = 'Itens'
-      FieldName = 'ITENS'
-      DisplayFormat = ',0'
-    end
-    object CdsGrupoITENS_ALMOX: TIntegerField
-      DisplayLabel = 'Itens'
-      FieldName = 'ITENS_ALMOX'
-      DisplayFormat = ',0'
     end
     object CdsGrupoDATA_ULTIMA_COMPRA: TDateField
       Alignment = taCenter
@@ -3945,14 +3965,16 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     ProviderName = 'DspTotal'
     Left = 88
     Top = 352
-    object CdsTotalITENS: TIntegerField
+    object CdsTotalITENS: TLargeintField
       DisplayLabel = 'Itens'
       FieldName = 'ITENS'
+      ReadOnly = True
       DisplayFormat = ',0'
     end
-    object CdsTotalITENS_ALMOX: TIntegerField
+    object CdsTotalITENS_ALMOX: TLargeintField
       DisplayLabel = 'Itens'
       FieldName = 'ITENS_ALMOX'
+      ReadOnly = True
       DisplayFormat = ',0'
     end
     object CdsTotalDATA_ULTIMA_COMPRA: TDateField
@@ -4097,6 +4119,18 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     ProviderName = 'DspFabricante'
     Left = 88
     Top = 312
+    object CdsFabricanteITENS: TLargeintField
+      DisplayLabel = 'Itens'
+      FieldName = 'ITENS'
+      ReadOnly = True
+      DisplayFormat = ',0'
+    end
+    object CdsFabricanteITENS_ALMOX: TLargeintField
+      DisplayLabel = 'Itens'
+      FieldName = 'ITENS_ALMOX'
+      ReadOnly = True
+      DisplayFormat = ',0'
+    end
     object CdsFabricanteCODIGO: TIntegerField
       DisplayLabel = 'C'#243'digo'
       FieldName = 'CODIGO'
@@ -4105,16 +4139,6 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
     object CdsFabricanteDESCRICAO: TStringField
       FieldName = 'DESCRICAO'
       Size = 50
-    end
-    object IntegerField1: TIntegerField
-      DisplayLabel = 'Itens'
-      FieldName = 'ITENS'
-      DisplayFormat = ',0'
-    end
-    object CdsFabricanteITENS_ALMOX: TIntegerField
-      DisplayLabel = 'Itens'
-      FieldName = 'ITENS_ALMOX'
-      DisplayFormat = ',0'
     end
     object DateField1: TDateField
       Alignment = taCenter
@@ -4634,13 +4658,13 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       Precision = 18
       Size = 6
     end
-    object QryGrupoITENS: TIntegerField
+    object QryGrupoITENS: TLargeintField
       AutoGenerateValue = arDefault
       FieldName = 'ITENS'
       Origin = 'ITENS'
       ProviderFlags = []
     end
-    object QryGrupoITENS_ALMOX: TIntegerField
+    object QryGrupoITENS_ALMOX: TLargeintField
       AutoGenerateValue = arDefault
       FieldName = 'ITENS_ALMOX'
       Origin = 'ITENS_ALMOX'
@@ -5109,13 +5133,13 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       Precision = 18
       Size = 6
     end
-    object QryFabricanteITENS: TIntegerField
+    object QryFabricanteITENS: TLargeintField
       AutoGenerateValue = arDefault
       FieldName = 'ITENS'
       Origin = 'ITENS'
       ProviderFlags = []
     end
-    object QryFabricanteITENS_ALMOX: TIntegerField
+    object QryFabricanteITENS_ALMOX: TLargeintField
       AutoGenerateValue = arDefault
       FieldName = 'ITENS_ALMOX'
       Origin = 'ITENS_ALMOX'
@@ -5526,5 +5550,213 @@ inherited FrmGeProdutoRotatividadePRC: TFrmGeProdutoRotatividadePRC
       'where 1=1')
     Left = 24
     Top = 352
+    object QryTotalQTDE: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'QTDE'
+      Origin = 'QTDE'
+      ProviderFlags = []
+      Precision = 18
+      Size = 3
+    end
+    object QryTotalESTOQUE_ALMOX: TFMTBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'ESTOQUE_ALMOX'
+      Origin = 'ESTOQUE_ALMOX'
+      ProviderFlags = []
+      Precision = 18
+      Size = 6
+    end
+    object QryTotalITENS: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'ITENS'
+      Origin = 'ITENS'
+      ProviderFlags = []
+    end
+    object QryTotalITENS_ALMOX: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'ITENS_ALMOX'
+      Origin = 'ITENS_ALMOX'
+      ProviderFlags = []
+    end
+    object QryTotalDATA_ULTIMA_COMPRA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_ULTIMA_COMPRA'
+      Origin = 'DATA_ULTIMA_COMPRA'
+      ProviderFlags = []
+    end
+    object QryTotalDATA_ULTIMA_VENDA: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'DATA_ULTIMA_VENDA'
+      Origin = 'DATA_ULTIMA_VENDA'
+      ProviderFlags = []
+    end
+    object QryTotalCOMPRA_QTDE_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_01'
+      Origin = 'COMPRA_QTDE_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalCOMPRA_VALOR_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_01'
+      Origin = 'COMPRA_VALOR_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalVENDA_QTDE_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_01'
+      Origin = 'VENDA_QTDE_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalVENDA_VALOR_01: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_01'
+      Origin = 'VENDA_VALOR_01'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalCOMPRA_QTDE_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_03'
+      Origin = 'COMPRA_QTDE_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalCOMPRA_VALOR_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_03'
+      Origin = 'COMPRA_VALOR_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalVENDA_QTDE_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_03'
+      Origin = 'VENDA_QTDE_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalVENDA_VALOR_03: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_03'
+      Origin = 'VENDA_VALOR_03'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalCOMPRA_QTDE_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_06'
+      Origin = 'COMPRA_QTDE_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalCOMPRA_VALOR_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_06'
+      Origin = 'COMPRA_VALOR_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalVENDA_QTDE_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_06'
+      Origin = 'VENDA_QTDE_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalVENDA_VALOR_06: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_06'
+      Origin = 'VENDA_VALOR_06'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalCOMPRA_QTDE_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_09'
+      Origin = 'COMPRA_QTDE_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalCOMPRA_VALOR_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_09'
+      Origin = 'COMPRA_VALOR_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalVENDA_QTDE_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_09'
+      Origin = 'VENDA_QTDE_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalVENDA_VALOR_09: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_09'
+      Origin = 'VENDA_VALOR_09'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalCOMPRA_QTDE_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_12'
+      Origin = 'COMPRA_QTDE_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalCOMPRA_VALOR_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_12'
+      Origin = 'COMPRA_VALOR_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalVENDA_QTDE_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_12'
+      Origin = 'VENDA_QTDE_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalVENDA_VALOR_12: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_12'
+      Origin = 'VENDA_VALOR_12'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalCOMPRA_QTDE_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_QTDE_99'
+      Origin = 'COMPRA_QTDE_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalCOMPRA_VALOR_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'COMPRA_VALOR_99'
+      Origin = 'COMPRA_VALOR_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalVENDA_QTDE_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_QTDE_99'
+      Origin = 'VENDA_QTDE_99'
+      ProviderFlags = []
+      Precision = 18
+    end
+    object QryTotalVENDA_VALOR_99: TBCDField
+      AutoGenerateValue = arDefault
+      FieldName = 'VENDA_VALOR_99'
+      Origin = 'VENDA_VALOR_99'
+      ProviderFlags = []
+      Precision = 18
+    end
   end
 end

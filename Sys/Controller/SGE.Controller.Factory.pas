@@ -22,6 +22,7 @@ uses
   SGE.Controller.CST,
   SGE.Controller.Distrito,
   SGE.Controller.Empresa,
+  SGE.Controller.Endereco,
   SGE.Controller.Entrada,
   SGE.Controller.Estado,
   SGE.Controller.FormaPagto,
@@ -90,6 +91,7 @@ type
       FEmpresa     : IControllerCustom;
       FEmpresaView : IControllerEmpresa;
       FEntrada     : IControllerEntrada;
+      FEndereco : IControllerEndereco;
       FEntradaDevolucao : IControllerCustom;
       FEntradaProduto   : IControllerEntradaProduto;
       FEstado ,
@@ -202,6 +204,7 @@ type
       function Distrito : IControllerCustom;
       function Empresa : IControllerCustom;
       function EmpresaView : IControllerEmpresa;
+      function Endereco : IControllerEndereco;
       function Entrada : IControllerEntrada;
       function EntradaDevolucao : IControllerCustom;
       function EntradaProduto : IControllerEntradaProduto;
@@ -760,6 +763,14 @@ begin
     FEmpresaView := TControllerEmpresaView.New;
 
   Result := FEmpresaView;
+end;
+
+function TControllerFactory.Endereco: IControllerEndereco;
+begin
+  if not Assigned(FEndereco) then
+    FEndereco := TControllerEndereco.New;
+
+  Result := FEndereco;
 end;
 
 function TControllerFactory.Entrada: IControllerEntrada;

@@ -150,6 +150,9 @@ type
     nmImprimirOrdemEntregaA4: TMenuItem;
     N1: TMenuItem;
     nmImprimirOrdemEntregaA5: TMenuItem;
+    nmImprimirOrdemEntregaA5_2v: TMenuItem;
+    lblResposavelRetirada: TLabel;
+    dbResposavelRetirada: TDBEdit;
     procedure dbCentroCustoSelecionar(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
@@ -364,8 +367,8 @@ begin
     with AForm do
     begin
       FController.DAO.ClearWhere;
-      FController.DAO.Where('r.ano' + Ano.ToString);
-      FController.DAO.Where('r.controle' + Controle.ToString);
+      FController.DAO.Where('r.ano = ' + Ano.ToString);
+      FController.DAO.Where('r.controle = ' + Controle.ToString);
       FController.DAO.Open;
 
       if not DtSrcTabela.DataSet.IsEmpty then

@@ -42,6 +42,7 @@ type
     frdCliente: TfrxDBDataset;
     frrOrdemEntregaA4: TfrxReport;
     frrOrdemEntregaA5: TfrxReport;
+    frrOrdemEntregaA5_2Vias: TfrxReport;
     procedure DataModuleCreate(Sender: TObject);
     procedure frrRequisicaoAlmoxGetValue(const VarName: string; var Value: Variant);
   private
@@ -208,6 +209,13 @@ begin
     SetVariablesDefault(frrOrdemEntregaA5);
     frrOrdemEntregaA5.PrepareReport;
     frrOrdemEntregaA5.ShowReport;
+  end
+  else
+  if (aFormato = TModeloPapel.mrPapelA5_2Vias) then
+  begin
+    SetVariablesDefault(frrOrdemEntregaA5_2Vias);
+    frrOrdemEntregaA5_2Vias.PrepareReport;
+    frrOrdemEntregaA5_2Vias.ShowReport;
   end;
 end;
 

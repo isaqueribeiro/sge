@@ -78,6 +78,27 @@ type
     function SetLogradouro(const iCidade : Integer; const sNome : String; var Tipo : Smallint) : Integer;
   end;
 
+  IControllerEndereco = interface(IControllerCustom)
+    ['{C1757C4A-5E35-4AAC-97BE-4619E7202B59}']
+    function GetPaisIDDefault : String;
+    function GetPaisNome(const sPais : String) : String;
+    function GetEstadoIDDefault : Integer;
+    function GetEstadoNome(const iEstado : Integer) : String; overload;
+    function GetEstadoNome(const sSigla : String) : String; overload;
+    function GetEstadoID(const sSigla : String) : Integer;
+    function GetEstadoUF(const iEstado : Integer) : String;
+    function GetCidadeIDDefault : Integer;
+    function GetCidadeNome(const iCidade : Integer) : String;
+    function GetCidadeCEP(const iCidade : Integer) : String;
+    function GetCidadeID(const iEstado : Integer; const sNome : String) : Integer; overload;
+    function GetCidadeID(const sCEP : String) : Integer; overload;
+    function GetCidadeID(const aIBGE : Currency) : Integer; overload;
+    function GetLogradouroNome(const iLogradouro : Integer) : String;
+    function GetLogradouroTipo(const iLogradouro : Integer) : String;
+    function SetBairro(const iCidade : Integer; const sNome : String) : Integer;
+    function SetLogradouro(const iCidade : Integer; const sNome : String; var Tipo : Smallint) : Integer;
+  end;
+
   IControllerEmpresa = interface(IControllerCustom)
     ['{F0D92BB2-24FF-4270-9655-79AAC773AD94}']
     function GetSegmentoID(aCNPJ : String) : Integer;
@@ -369,6 +390,7 @@ type
     function Distrito    : IControllerCustom;
     function Empresa     : IControllerCustom;
     function EmpresaView : IControllerEmpresa;
+    function Endereco : IControllerEndereco;
     function Entrada : IControllerEntrada;
     function EntradaDevolucao : IControllerCustom;
     function EntradaProduto : IControllerEntradaProduto;

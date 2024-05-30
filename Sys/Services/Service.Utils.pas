@@ -7,6 +7,9 @@ uses
   System.StrUtils,
   System.Classes,
   Soap.EncdDecd,
+
+  ACBrValidador,
+
   Vcl.ExtCtrls,
   Vcl.Graphics,
   Vcl.Buttons,
@@ -31,6 +34,8 @@ type
       class function StrOnlyNumbers(const Str : String) : String;
       class function StrIsCNPJ(const Num : string): Boolean;
       class function StrIsCPF(const Num: string): Boolean;
+      class function StrFormatarDocumento(Documento, Complemento : String; const TipoDocumento : TACBrValTipoDocto): String;
+      class function StrInscricaoEstadual(const IE, UF : String) : Boolean;
       class function StrFormatarCnpj(sCnpj: String): String;
       class function StrFormatarCpf(sCpf: String): String;
       class function StrFormatarCEP(Value: String): String;
@@ -279,6 +284,35 @@ begin
   Result := S;
 end;
 
+
+class function TServicesUtils.StrInscricaoEstadual(const IE, UF: String): Boolean;
+var
+  aDocumento   ,
+  aComplemento ,
+  aMensErro    : String;
+  aValidador : TACBrValidador;
+begin
+  Result := (Trim(IE) = EmptyStr) or (Copy(AnsiUpperCase(IE), 1, 5) = 'ISENT');
+  if not Result  then
+  begin
+    aValidador := TACBrValidador.Create(nil);
+    try
+      aDocumento   := TServicesUtils.StrFormatarDocumento(IE, UF, docInscEst);
+      aComplemento := Trim(UF);
+
+      aValidador.TipoDocto   := TACBrValTipoDocto.docInscEst;
+      aValidador.Documento   := aDocumento;
+      aValidador.Complemento := aComplemento;
+
+      Result := aValidador.Validar;
+
+      if not Result then
+         aMensErro := Trim(aValidador.MsgErro);
+    finally
+      FreeAndNil(aValidador);
+    end;
+  end;
+end;
 
 class function TServicesUtils.StrIsCNPJ(const Num: string): Boolean;
 var
@@ -600,6 +634,23 @@ begin
     S := Copy(S, 1, 11) + '-' + Copy(S, 12, Length(S));
 
   Result := S;
+end;
+
+class function TServicesUtils.StrFormatarDocumento(Documento, Complemento: String;
+  const TipoDocumento: TACBrValTipoDocto): String;
+var
+  aValidador : TACBrValidador;
+begin
+  aValidador := TACBrValidador.Create(nil);
+  try
+    aValidador.TipoDocto   := TipoDocumento;
+    aValidador.Documento   := Trim(Documento);
+    aValidador.Complemento := Trim(Complemento);
+
+    Result := aValidador.Formatar;
+  finally
+    FreeAndNil(aValidador);
+  end;
 end;
 
 class function TServicesUtils.StrFormatarFone(sFone: String): String;

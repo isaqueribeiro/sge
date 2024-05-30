@@ -66,6 +66,9 @@ uses
   Service.Utils in '..\Sys\Services\Service.Utils.pas',
   Service.Encript in '..\Sys\Services\Service.Encript.pas',
   Service.InputQuery in '..\Sys\Services\Service.InputQuery.pas',
+  Service.Request in '..\Sys\Services\Service.Request.pas',
+  Service.Request.CNPJ in '..\Sys\Services\Service.Request.CNPJ.pas',
+  Service.Format.VCL in '..\Sys\Services\Service.Format.VCL.pas',
   View.InputQuery in '..\Sys\Services\InputQuery\View.InputQuery.pas' {ViewInputQuery},
   View.PadraoAbertura in '..\Sys\View\View.PadraoAbertura.pas' {FrmPadraoAbertura},
   View.AutoUpgrade in '..\Sys\View\View.AutoUpgrade.pas' {FrmAutoUpgrade},
@@ -108,7 +111,6 @@ uses
   UGeInutilizarNumeroNFe in '..\Sys\UGeInutilizarNumeroNFe.pas' {frmGeInutilizarNumeroNFe},
   UGeProdutoEstoqueMinimo in '..\System_SGE\UGeProdutoEstoqueMinimo.pas' {FrmGeProdutoEstoqueMinimo},
   UGeConsultarLoteNFe_v2 in '..\System_SGE\UGeConsultarLoteNFe_v2.pas' {frmGeConsultarLoteNFe_v2},
-  UGrConsultarCNJP in '..\Sys\lib\UGrConsultarCNJP.pas' {frmGrConsultarCNJP},
   UObserverInterface in '..\Sys\lib\UObserverInterface.pas',
   UBaseObject in '..\Sys\lib\UBaseObject.pas',
   UCliente in '..\Sys\lib\UCliente.pas',
@@ -213,6 +215,7 @@ uses
   SGE.Model.DAO.Query.Interfaces in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Interfaces.pas',
   SGE.Model.DAO.Query.Factory in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Factory.pas',
   SGI.Model.DAO.Query.ApropriacaoEstoque in 'Model\DAO\Query\SGI.Model.DAO.Query.ApropriacaoEstoque.pas',
+  SGE.Model.DAO.Query.Caixa in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Caixa.pas',
   SGE.Model.DAO.Query.Cliente in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Cliente.pas',
   SGE.Model.DAO.Query.ContaAPagar in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAPagar.pas',
   SGE.Model.DAO.Query.ContaAReceber in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.ContaAReceber.pas',
@@ -266,6 +269,7 @@ uses
   SGE.Controller.Query.Interfaces in '..\Sys\Controller\Query\SGE.Controller.Query.Interfaces.pas',
   SGE.Controller.Query.Factory in '..\Sys\Controller\Query\SGE.Controller.Query.Factory.pas',
   SGI.Controller.Query.ApropriacaoEstoque in 'Controller\Query\SGI.Controller.Query.ApropriacaoEstoque.pas',
+  SGE.Controller.Query.Caixa in '..\Sys\Controller\Query\SGE.Controller.Query.Caixa.pas',
   SGE.Controller.Query.ContaAPagar in '..\Sys\Controller\Query\SGE.Controller.Query.ContaAPagar.pas',
   SGE.Controller.Query.ContaAReceber in '..\Sys\Controller\Query\SGE.Controller.Query.ContaAReceber.pas',
   SGE.Controller.Query.FornecedorCliente in '..\Sys\Controller\Query\SGE.Controller.Query.FornecedorCliente.pas',
@@ -350,8 +354,8 @@ uses
   View.RequisicaoAlmox.Monitor in 'View\View.RequisicaoAlmox.Monitor.pas' {ViewRequisicaoAlmoxMonitor},
   View.Contrato in '..\Sys\View\View.Contrato.pas' {ViewContrato},
   View.Query.Caixa.Conferencia in '..\Sys\View\Query\View.Query.Caixa.Conferencia.pas' {ViewQueryCaixaConferencia},
-  SGE.Controller.Query.Caixa in '..\Sys\Controller\Query\SGE.Controller.Query.Caixa.pas',
-  SGE.Model.DAO.Query.Caixa in '..\Sys\Model\DAO\Query\SGE.Model.DAO.Query.Caixa.pas';
+  View.Servico.ConsultarCNPJ in '..\Sys\View\View.Servico.ConsultarCNPJ.pas' {ViewServicoConsultarCNPJ},
+  SGE.Controller.Endereco in '..\Sys\Controller\SGE.Controller.Endereco.pas';
 
 {$R *.res}
 

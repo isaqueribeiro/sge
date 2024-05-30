@@ -2,23 +2,32 @@ unit UCliente;
 
 interface
 
-uses SysUtils, Windows, Classes, UBaseObject;
+uses
+  System.SysUtils,
+  System.StrUtils,
+  System.Classes,
+  UBaseObject;
 
 type
-
   TTipoCliente = (tcPessoaFisica, tcPessoaJuridica);
 
   TCliente = class(TBaseObject)
+  strict private
+    class var _instance : TCliente;
   private
-    fTipo    : TTipoCliente;
-    fCpfCnpj ,
-    fRazaoSocial,
-    fFantasia   : String;
+    FTipo    : TTipoCliente;
+    FCpfCnpj ,
+    FRazaoSocial ,
+    FFantasia    ,
+    FDataAbertura,
+    FStatus : String;
 
     procedure SetTipo(Value : TTipoCliente);
     procedure SetCpfCnpj(Value : String);
     procedure SetRazaoSocial(Value : String);
     procedure SetFantasia(Value : String);
+    procedure SetDataAbertura(const Value: String);
+    procedure SetStatus(const Value: String);
 
     function GetTipo : TTipoCliente;
     function GetCpfCnpj : String;
@@ -29,9 +38,15 @@ type
     property CpfCnpj : String read GetCpfCnpj write SetCpfCnpj;
     property RazaoSocial : String read GetRazaoSocial write SetRazaoSocial;
     property Fantasia : String read GetFantasia write SetFantasia;
+    property DataAbertura : String read FDataAbertura write SetDataAbertura;
+    property Status : String read FStatus write SetStatus;
+//    Cnae   : TCnae;
+//    Endereco : TEndereco;
 
     class function GetInstance() : TCliente;
     destructor Destroy; override;
+
+    function Ativa : Boolean;
   end;
 
 implementation
@@ -41,59 +56,84 @@ implementation
 var
   _Cliente : TCliente;
 
+function TCliente.Ativa: Boolean;
+begin
+  Result := FStatus.Equals('ATIVA');
+end;
+
 destructor TCliente.Destroy;
 begin
-  if ( _Cliente <> nil ) then
+  if (_Cliente <> nil) then
     _Cliente.Destroy;
   inherited;
 end;
 
 function TCliente.GetCpfCnpj: String;
 begin
-  Result := Trim(fCpfCnpj);
+  Result := Trim(FCpfCnpj);
 end;
 
 function TCliente.GetFantasia: String;
 begin
-  Result := Trim(fFantasia);
+  Result := Trim(FFantasia);
 end;
 
 class function TCliente.GetInstance: TCliente;
 begin
-  if ( _Cliente = nil ) then
-    _Cliente := TCliente.Create;
+  if not Assigned(_instance) then
+    _instance := TCliente.Create;
 
-  Result := _Cliente;
+  if (_Cliente = nil) then
+    _Cliente := _instance;
+
+  Result := _instance;
 end;
 
 function TCliente.GetRazaoSocial: String;
 begin
-  Result := Trim(fRazaoSocial);
+  Result := Trim(FRazaoSocial);
 end;
 
 function TCliente.GetTipo: TTipoCliente;
 begin
-  Result := fTipo;
+  Result := FTipo;
 end;
 
 procedure TCliente.SetCpfCnpj(Value: String);
 begin
-  fCpfCnpj := Trim(Value);
+  FCpfCnpj := Trim(Value);
+end;
+
+procedure TCliente.SetDataAbertura(const Value: String);
+begin
+  FDataAbertura := Value.Trim;
 end;
 
 procedure TCliente.SetFantasia(Value: String);
 begin
-  fFantasia := Trim(Value);
+  FFantasia := Trim(Value);
 end;
 
 procedure TCliente.SetRazaoSocial(Value: String);
 begin
-  fRazaoSocial := Trim(Value);
+  FRazaoSocial := Trim(Value);
+end;
+
+procedure TCliente.SetStatus(const Value: String);
+begin
+  FStatus := Value.Trim.ToUpper;
 end;
 
 procedure TCliente.SetTipo(Value: TTipoCliente);
 begin
-  fTipo := Value;
+  FTipo := Value;
 end;
+
+initialization
+  ;
+
+finalization
+  if Assigned(_Cliente) then
+    _Cliente.Free;
 
 end.

@@ -11,12 +11,10 @@ object frmPrinc: TfrmPrinc
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  OldCreateOrder = False
   OnActivate = FormActivate
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 13
   object SptDockReqAlmox: TSplitter
     Left = 1082
@@ -4446,7 +4444,8 @@ object frmPrinc: TfrmPrinc
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
-      ExplicitTop = 493
+      ExplicitTop = 459
+      ExplicitWidth = 1076
     end
     object RbnBackstageView: TdxRibbonBackstageView
       Left = 431
@@ -4667,8 +4666,8 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvNone
     DockSite = True
     TabOrder = 1
-    ExplicitTop = 127
-    ExplicitHeight = 514
+    ExplicitLeft = 1081
+    ExplicitHeight = 480
   end
   object Ribbon: TdxRibbon
     Left = 0
@@ -4685,8 +4684,8 @@ object frmPrinc: TfrmPrinc
     TabOrder = 2
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
+    ExplicitWidth = 1082
     object RbnTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4739,6 +4738,7 @@ object frmPrinc: TfrmPrinc
       Index = 4
     end
     object RbnTabConsulta: TdxRibbonTab
+      Active = True
       Caption = 'Consulta'
       Groups = <
         item
