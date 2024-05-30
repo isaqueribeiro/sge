@@ -45,11 +45,15 @@ type
       function GetEmpresaFantasia(aCNPJ : String) : String;
       function GetEmpresaRazao(aCNPJ : String) : String;
       function GetEstoqueUnificado(aCNPJ : String) : Boolean;
+      function GetEstoqueSateliteEmpresa(aCNPJ : String) : Boolean;
       function GetPermitirVendaEstoqueInsuficiente(aCNPJ : String) : Boolean;
       function GetPermitirEmissaoNFe(aCNPJ : String) : Boolean;
       function GetPermitirEmissaoNFeEntrada(aCNPJ : String) : Boolean;
       function GetRegime(aCNPJ : String) : TTipoRegime;
       function GetAutorizacaoInformarCliente(aCNPJ : String) : Boolean;
+      function GetCalcularCustoOperEmpresa(aCNPJ : String) : Boolean;
+      function GetPermitirVerdadeiroFalsoCNPJCliente(aCNPJ : String) : Boolean;
+      function GetPermitirDuplicarCNPJCliente(aCNPJ : String) : Boolean;
   end;
 
 implementation
@@ -119,6 +123,20 @@ begin
     Result := (FDAO.DataSet.FieldByName('autoriza_informa_cliente').AsInteger = 1);
 end;
 
+function TControllerEmpresaView.GetCalcularCustoOperEmpresa(aCNPJ: String): Boolean;
+begin
+  Result := False;
+
+  if not FDAO.DataSet.Active then
+    FDAO.Open;
+
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
+
+  if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
+    Result := (FDAO.DataSet.FieldByName('custo_oper_calcular').AsInteger = 1);
+end;
+
 function TControllerEmpresaView.GetEmpresaEndereco(aCNPJ: String): String;
 begin
   Result := EmptyStr;
@@ -184,6 +202,20 @@ begin
     Result := FDAO.DataSet.FieldByName('uf').AsString;
 end;
 
+function TControllerEmpresaView.GetEstoqueSateliteEmpresa(aCNPJ: String): Boolean;
+begin
+  Result := False;
+
+  if not FDAO.DataSet.Active then
+    FDAO.Open;
+
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
+
+  if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
+    Result := (FDAO.DataSet.FieldByName('estoque_satelite_cliente').AsInteger = 1);
+end;
+
 function TControllerEmpresaView.GetEstoqueUnificado(aCNPJ: String): Boolean;
 begin
   Result := False;
@@ -196,6 +228,20 @@ begin
 
   if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
     Result := (FDAO.DataSet.FieldByName('estoque_unico').AsInteger = 1);
+end;
+
+function TControllerEmpresaView.GetPermitirDuplicarCNPJCliente(aCNPJ: String): Boolean;
+begin
+  Result := False;
+
+  if not FDAO.DataSet.Active then
+    FDAO.Open;
+
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
+
+  if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
+    Result := (FDAO.DataSet.FieldByName('cliente_permitir_duplicar_cnpj').AsInteger = 1);
 end;
 
 function TControllerEmpresaView.GetPermitirEmissaoNFe(aCNPJ: String): Boolean;
@@ -238,6 +284,20 @@ begin
 
   if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
     Result := (FDAO.DataSet.FieldByName('permitir_venda_estoque_ins').AsInteger = 1);
+end;
+
+function TControllerEmpresaView.GetPermitirVerdadeiroFalsoCNPJCliente(aCNPJ: String): Boolean;
+begin
+  Result := False;
+
+  if not FDAO.DataSet.Active then
+    FDAO.Open;
+
+  if aCNPJ.Trim.IsEmpty then
+    aCNPJ := DAO.Usuario.Empresa.CNPJ;
+
+  if FDAO.DataSet.Locate('cnpj', aCNPJ, []) then
+    Result := (FDAO.DataSet.FieldByName('cliente_permitir_vf_cnpj').AsInteger = 1);
 end;
 
 function TControllerEmpresaView.GetRegime(aCNPJ: String): TTipoRegime;

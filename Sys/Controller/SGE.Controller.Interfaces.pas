@@ -81,13 +81,16 @@ type
   IControllerEndereco = interface(IControllerCustom)
     ['{C1757C4A-5E35-4AAC-97BE-4619E7202B59}']
     function GetPaisIDDefault : String;
+    function GetPaisNomeDefault : String;
     function GetPaisNome(const sPais : String) : String;
     function GetEstadoIDDefault : Integer;
+    function GetEstadoNomeDefault : String;
     function GetEstadoNome(const iEstado : Integer) : String; overload;
     function GetEstadoNome(const sSigla : String) : String; overload;
     function GetEstadoID(const sSigla : String) : Integer;
     function GetEstadoUF(const iEstado : Integer) : String;
     function GetCidadeIDDefault : Integer;
+    function GetCidadeNomeDefault : String;
     function GetCidadeNome(const iCidade : Integer) : String;
     function GetCidadeCEP(const iCidade : Integer) : String;
     function GetCidadeID(const iEstado : Integer; const sNome : String) : Integer; overload;
@@ -107,11 +110,15 @@ type
     function GetEmpresaFantasia(aCNPJ : String) : String;
     function GetEmpresaRazao(aCNPJ : String) : String;
     function GetEstoqueUnificado(aCNPJ : String) : Boolean;
+    function GetEstoqueSateliteEmpresa(aCNPJ : String) : Boolean;
     function GetPermitirVendaEstoqueInsuficiente(aCNPJ : String) : Boolean;
     function GetPermitirEmissaoNFe(aCNPJ : String) : Boolean;
     function GetPermitirEmissaoNFeEntrada(aCNPJ : String) : Boolean;
     function GetRegime(aCNPJ : String) : TTipoRegime;
     function GetAutorizacaoInformarCliente(aCNPJ : String) : Boolean;
+    function GetCalcularCustoOperEmpresa(aCNPJ : String) : Boolean;
+    function GetPermitirVerdadeiroFalsoCNPJCliente(aCNPJ : String) : Boolean;
+    function GetPermitirDuplicarCNPJCliente(aCNPJ : String) : Boolean;
   end;
 
   IControllerCliente = interface(IControllerCustom)

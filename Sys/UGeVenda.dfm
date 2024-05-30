@@ -5,8 +5,8 @@ inherited frmGeVenda: TfrmGeVenda
   Caption = 'Controle de Vendas'
   ClientHeight = 685
   ClientWidth = 1116
-  ExplicitWidth = 1132
-  ExplicitHeight = 724
+  ExplicitWidth = 1128
+  ExplicitHeight = 723
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 681
@@ -24,8 +24,8 @@ inherited frmGeVenda: TfrmGeVenda
     Width = 1116
     Height = 642
     OnChange = pgcGuiasChange
-    ExplicitWidth = 1116
-    ExplicitHeight = 642
+    ExplicitWidth = 1112
+    ExplicitHeight = 641
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 1108
       ExplicitHeight = 613
@@ -431,7 +431,7 @@ inherited frmGeVenda: TfrmGeVenda
         Width = 1108
         Height = 113
         Caption = 'Dados da venda'
-        ExplicitWidth = 1108
+        ExplicitWidth = 1104
         ExplicitHeight = 113
         inherited lblCodigo: TLabel
           Width = 58
@@ -1014,6 +1014,7 @@ inherited frmGeVenda: TfrmGeVenda
         Align = alTop
         Caption = 'Dados do produto'
         TabOrder = 1
+        ExplicitWidth = 1104
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -1967,6 +1968,8 @@ inherited frmGeVenda: TfrmGeVenda
         ActivePage = tbsRecebimento
         Align = alBottom
         TabOrder = 3
+        ExplicitTop = 426
+        ExplicitWidth = 1104
         object tbsRecebimento: TTabSheet
           BorderWidth = 4
           Caption = 'Recebimento'
@@ -1978,6 +1981,7 @@ inherited frmGeVenda: TfrmGeVenda
             Align = alClient
             BevelOuter = bvNone
             TabOrder = 0
+            ExplicitWidth = 516
             object lblObservacao: TLabel
               Left = 0
               Top = 0
@@ -2015,6 +2019,7 @@ inherited frmGeVenda: TfrmGeVenda
               DataSource = DtSrcTabela
               ScrollBars = ssBoth
               TabOrder = 0
+              ExplicitWidth = 512
             end
           end
           object pnlFormaPagto: TPanel
@@ -2031,6 +2036,7 @@ inherited frmGeVenda: TfrmGeVenda
             Font.Style = [fsBold]
             ParentFont = False
             TabOrder = 1
+            ExplicitLeft = 516
             DesignSize = (
               572
               150)
@@ -2495,7 +2501,7 @@ inherited frmGeVenda: TfrmGeVenda
             object lblDadosEntrega: TLabel
               Left = 0
               Top = 0
-              Width = 1100
+              Width = 214
               Height = 13
               Align = alTop
               Caption = '&Dados gerais para entrega do(s) produto(s):'
@@ -2506,7 +2512,6 @@ inherited frmGeVenda: TfrmGeVenda
               Font.Name = 'Tahoma'
               Font.Style = []
               ParentFont = False
-              ExplicitWidth = 214
             end
             object Bevel11: TBevel
               Left = 1096
@@ -2530,7 +2535,7 @@ inherited frmGeVenda: TfrmGeVenda
             object lblDicaDadosEntrega: TLabel
               Left = 0
               Top = 145
-              Width = 1100
+              Width = 801
               Height = 13
               Align = alBottom
               Caption = 
@@ -2544,7 +2549,6 @@ inherited frmGeVenda: TfrmGeVenda
               Font.Name = 'Tahoma'
               Font.Style = [fsBold]
               ParentFont = False
-              ExplicitWidth = 801
             end
             object dbDadosEntrega: TDBMemo
               Left = 0
@@ -3681,8 +3685,8 @@ inherited frmGeVenda: TfrmGeVenda
   inherited tlbBotoes: TPanel
     Top = 646
     Width = 1116
-    ExplicitTop = 646
-    ExplicitWidth = 1116
+    ExplicitTop = 645
+    ExplicitWidth = 1112
     inherited bvlTool3: TBevel
       Left = 1112
       ExplicitLeft = 1112
@@ -3707,12 +3711,12 @@ inherited frmGeVenda: TfrmGeVenda
     inherited btbtnFechar: TcxButton
       Left = 1037
       TabOrder = 11
-      ExplicitLeft = 1037
+      ExplicitLeft = 1033
     end
     inherited btbtnSelecionar: TcxButton
       Left = 913
       TabOrder = 10
-      ExplicitLeft = 913
+      ExplicitLeft = 909
     end
     object btnConsultarProduto: TcxButton
       Left = 504
@@ -3729,6 +3733,7 @@ inherited frmGeVenda: TfrmGeVenda
       TabOrder = 9
       TabStop = False
       OnClick = btnConsultarProdutoClick
+      ExplicitLeft = 500
     end
     object btbtnFinalizar: TcxButton
       Tag = 11
@@ -3812,6 +3817,7 @@ inherited frmGeVenda: TfrmGeVenda
       ShowHint = True
       TabOrder = 6
       OnClick = btbtnFinalizarClick
+      ExplicitLeft = 579
     end
     object btbtnGerarNFe: TcxButton
       Tag = 12
@@ -3895,6 +3901,7 @@ inherited frmGeVenda: TfrmGeVenda
       ShowHint = True
       TabOrder = 8
       OnClick = btbtnGerarNFeClick
+      ExplicitLeft = 799
     end
     object btbtnCancelarVND: TcxButton
       Tag = 13
@@ -3979,6 +3986,7 @@ inherited frmGeVenda: TfrmGeVenda
       ShowHint = True
       TabOrder = 7
       OnClick = btbtnCancelarVNDClick
+      ExplicitLeft = 689
     end
   end
   inherited IbDtstTabela: TIBDataSet

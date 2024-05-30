@@ -104,6 +104,8 @@ type
     frdsContrato: TfrxDBDataset;
     qryContratoItens: TFDQuery;
     frdsContratoItens: TfrxDBDataset;
+    qryContratoNotas: TFDQuery;
+    frdsContratoNotas: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure ReportGetValue(const VarName: string; var Value: Variant);
   private
@@ -117,7 +119,7 @@ type
     function GetFastReport(aModelo : TModeloPapel) : TfrxReport;
   public
     { Public declarations }
-    procedure VisualizarContrato(aModelo : TModeloPapel; const aHeader : Boolean = TRUE);
+    procedure VisualizarContrato(const aHeader : Boolean = TRUE);
     procedure VisualizarRelacaoContratos(aEmpresa: String; aDataInicial, aDataFinal: TDateTime);
 
     function CarregarContrato(aControle : Int64) : Boolean;
@@ -147,28 +149,25 @@ begin
   FTitulo  := 'ESPELHO DO CONTRATO';
   FPeriodo := EmptyStr;
 
-  with CdsCheque do
-  begin
-    Close;
-    ParamByName('cheque').AsLargeInt := aControle;
-    Open;
-  end;
+  qryContrato.Close;
+  qryContrato.ParamByName('controle').AsLargeInt := aControle;
+  qryContrato.Open;
 
-  Result := (not CdsCheque.IsEmpty);
+  Result := (not qryContrato.IsEmpty);
 
   if Result then
   begin
-    aLogo := ExtractFilePath(ParamStr(0)) + 'Imagens\' + CdsChequeBANCO.AsString + '.jpg';
+    qryContratoPessoa.Close;
+    qryContratoPessoa.ParamByName('controle').AsLargeInt := aControle;
+    qryContratoPessoa.Open;
 
-    if not FileExists(aLogo) then
-      aLogo := ExtractFilePath(ParamStr(0)) + 'Imagens\Colorido\' + CdsChequeBANCO.AsString + '.bmp';
+    qryContratoItens.Close;
+    qryContratoItens.ParamByName('controle').AsLargeInt := aControle;
+    qryContratoItens.Open;
 
-    if FileExists(aLogo) then
-    begin
-      CdsCheque.Edit;
-      CdsChequeBANCO_LOGO.LoadFromFile( aLogo );
-      CdsCheque.Post;
-    end;
+    qryContratoNotas.Close;
+    qryContratoNotas.ParamByName('controle').AsLargeInt := aControle;
+    qryContratoNotas.Open;
   end;
 end;
 
@@ -268,16 +267,9 @@ begin
   end;
 end;
 
-procedure TDataModuleContrato.VisualizarContrato(aModelo: TModeloPapel; const aHeader: Boolean);
+procedure TDataModuleContrato.VisualizarContrato(const aHeader: Boolean);
 begin
-//  SetVariablesDefault(GetFastReport(aModelo));
-//  FHeader := aHeader;
-//
-//  with GetFastReport(aModelo) do
-//  begin
-//    PrepareReport;
-//    ShowReport;
-//  end;
+  FHeader := aHeader;
   SetVariablesDefault(frrContratoEspelho);
   frrContratoEspelho.PrepareReport;
   frrContratoEspelho.ShowReport;

@@ -1148,7 +1148,7 @@ end;
 procedure TfrmPrinc.nmConsultarCNPJClick(Sender: TObject);
 begin
   if GetPermissaoRotinaSistema(ROTINA_CNS_CONSULTA_CNPJ_ID, True) then
-    FormFunction.ShowModalForm(Self, 'frmGrConsultarCNJP');
+    FormFunction.ShowModalForm(Self, 'ViewServicoConsultarCNPJ');
 end;
 
 procedure TfrmPrinc.nmUsuarioClick(Sender: TObject);

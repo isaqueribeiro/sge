@@ -1000,14 +1000,10 @@ end;
 
 procedure TViewContrato.nmEspelhoContratoClick(Sender: TObject);
 begin
-  TServiceMessage.ShowInformation('Este recurso ainda não está disponpivel nesta versão!');
-//  if not Assigned(FImpressao) then
-//    FImpressao := TImpressaoContrato.New;
-//
-//  FImpressao.VisualizarContrato(FController.DAO.DataSet.FieldByName('controle').AsLargeInt,
-//    TModeloPapel.mrPapelA4,
-//    True
-//  );
+  if not Assigned(FImpressao) then
+    FImpressao := TImpressaoContrato.New;
+
+  FImpressao.VisualizarContrato(FController.DAO.DataSet.FieldByName('controle').AsLargeInt);
 end;
 
 procedure TViewContrato.nmListaContratosClick(Sender: TObject);

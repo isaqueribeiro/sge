@@ -33,7 +33,8 @@ uses
   dxSkinOffice2019White,
   dxSkinsDefaultPainters,
 
-  Service.Request.CNPJ;
+  Service.Request.CNPJ, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinTheBezier, dxSkinWXI;
 
 type
   TViewServicoConsultarCNPJ = class(TForm)

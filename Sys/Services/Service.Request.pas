@@ -36,6 +36,7 @@ type
     function Accept(Value : String) : IServiceRequest;
     function Resource(Value : String) : IServiceRequest;
     function AddParameter(const aName, aValue: string; const aKind: TRESTRequestParameterKind = TRESTRequestParameterKind.pkGETorPOST) : IServiceRequest;
+    function AddSegmentURL(const aName, aValue: string) : IServiceRequest;
     function Callback(aCallbackJSON : TProc<TJSONValue>) : IServiceRequest;
     function Execute(const aCallbackJSON : TProc<TJSONValue> = nil) : IServiceRequest;
     function Response : TRESTResponse;
@@ -71,6 +72,7 @@ type
       function Accept(Value : String) : IServiceRequest;
       function Resource(Value : String) : IServiceRequest;
       function AddParameter(const aName, aValue: string; const aKind: TRESTRequestParameterKind) : IServiceRequest;
+      function AddSegmentURL(const aName, aValue: string) : IServiceRequest;
       function Callback(aCallbackJSON : TProc<TJSONValue>) : IServiceRequest;
       function Execute(const aCallbackJSON : TProc<TJSONValue> = nil) : IServiceRequest;
       function Response : TRESTResponse;
@@ -100,6 +102,12 @@ function TServiceRequest.AddParameter(const aName, aValue: string; const aKind: 
 begin
   Result := Self;
   FRESTRequest.AddParameter(aName, aValue.Trim, aKind);
+end;
+
+function TServiceRequest.AddSegmentURL(const aName, aValue: string): IServiceRequest;
+begin
+  Result := Self;
+  FRESTRequest.AddParameter(aName, aValue.Trim, TRESTRequestParameterKind.pkURLSEGMENT);
 end;
 
 function TServiceRequest.BaseURL(Value: String): IServiceRequest;

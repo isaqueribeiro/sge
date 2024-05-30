@@ -46,7 +46,6 @@ uses
   UGeProdutoRotatividadePRC in '..\Sys\UGeProdutoRotatividadePRC.pas' {FrmGeProdutoRotatividadePRC},
   UGeInutilizarNumeroNFe in '..\Sys\UGeInutilizarNumeroNFe.pas' {frmGeInutilizarNumeroNFe},
   UGeProdutoEstoqueMinimo in 'UGeProdutoEstoqueMinimo.pas' {FrmGeProdutoEstoqueMinimo},
-  UGrConsultarCNJP in '..\Sys\lib\UGrConsultarCNJP.pas' {frmGrConsultarCNJP},
   UObserverInterface in '..\Sys\lib\UObserverInterface.pas',
   UBaseObject in '..\Sys\lib\UBaseObject.pas',
   UCliente in '..\Sys\lib\UCliente.pas',
@@ -135,6 +134,10 @@ uses
   Service.PrevisaoTempo in '..\Sys\Services\Service.PrevisaoTempo.pas',
   Service.Message in '..\Sys\Services\Service.Message.pas',
   Service.Encript in '..\Sys\Services\Service.Encript.pas',
+  Service.Format.VCL in '..\Sys\Services\Service.Format.VCL.pas',
+  Service.Request in '..\Sys\Services\Service.Request.pas',
+  Service.Request.CEP in '..\Sys\Services\Service.Request.CEP.pas',
+  Service.Request.CNPJ in '..\Sys\Services\Service.Request.CNPJ.pas',
   Interacao.Tabela in '..\Sys\Model\Interacao\Interacao.Tabela.pas',
   Controller.Tabela in '..\Sys\Controller\Controller.Tabela.pas',
   Interfaces.InputQuery in '..\Sys\Services\InputQuery\Interfaces.InputQuery.pas',
@@ -240,6 +243,7 @@ uses
   SGE.Controller.CST in '..\Sys\Controller\SGE.Controller.CST.pas',
   SGE.Controller.Distrito in '..\Sys\Controller\SGE.Controller.Distrito.pas',
   SGE.Controller.Empresa in '..\Sys\Controller\SGE.Controller.Empresa.pas',
+  SGE.Controller.Endereco in '..\Sys\Controller\SGE.Controller.Endereco.pas',
   SGE.Controller.Entrada in '..\Sys\Controller\SGE.Controller.Entrada.pas',
   SGE.Controller.Estado in '..\Sys\Controller\SGE.Controller.Estado.pas',
   SGE.Controller.Factory in '..\Sys\Controller\SGE.Controller.Factory.pas',
@@ -340,7 +344,8 @@ uses
   View.Usuario in '..\Sys\View\View.Usuario.pas' {ViewUsuario},
   View.Usuario.AlterarSenha in '..\Sys\View\View.Usuario.AlterarSenha.pas' {ViewUsuarioAlterarSenha},
   View.Contrato in '..\Sys\View\View.Contrato.pas' {ViewContrato},
-  View.Query.Caixa.Conferencia in '..\Sys\View\Query\View.Query.Caixa.Conferencia.pas' {ViewQueryCaixaConferencia};
+  View.Query.Caixa.Conferencia in '..\Sys\View\Query\View.Query.Caixa.Conferencia.pas' {ViewQueryCaixaConferencia},
+  View.Servico.ConsultarCNPJ in '..\Sys\View\View.Servico.ConsultarCNPJ.pas' {ViewServicoConsultarCNPJ};
 
 {$R *.res}
 

@@ -11,7 +11,7 @@ uses
 type
   IImpressaoContrato = interface
     ['{7BB03DFC-3FAB-477C-9DDA-6F79338783B7}']
-    procedure VisualizarContrato(aControle : Int64; aModelo: TModeloPapel; const aHeader : Boolean = TRUE);
+    procedure VisualizarContrato(aControle : Int64; const aHeader : Boolean = TRUE);
     procedure VIsualizarRelacaoContratos(aEmpresa : String; aDataInicial, aDataFinal : TDateTime);
   end;
 
@@ -24,7 +24,7 @@ type
       destructor Destroy; override;
       class function New : IImpressaoContrato;
 
-      procedure VisualizarContrato(aControle : Int64; aModelo: TModeloPapel; const aHeader : Boolean = TRUE);
+      procedure VisualizarContrato(aControle : Int64; const aHeader : Boolean = TRUE);
       procedure VIsualizarRelacaoContratos(aEmpresa : String; aDataInicial, aDataFinal : TDateTime);
   end;
 
@@ -48,10 +48,10 @@ begin
   Result := Self.Create;
 end;
 
-procedure TImpressaoContrato.VisualizarContrato(aControle: Int64; aModelo: TModeloPapel; const aHeader: Boolean);
+procedure TImpressaoContrato.VisualizarContrato(aControle: Int64; const aHeader: Boolean);
 begin
   if FDataModule.CarregarContrato(aControle) then
-    FDataModule.VisualizarContrato(aModelo, aHeader);
+    FDataModule.VisualizarContrato(aHeader);
 end;
 
 procedure TImpressaoContrato.VIsualizarRelacaoContratos(aEmpresa : String; aDataInicial, aDataFinal : TDateTime);

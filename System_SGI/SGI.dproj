@@ -66,17 +66,18 @@
         <SanitizedProjectName>SGI</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <VerInfo_Release>34</VerInfo_Release>
+        <VerInfo_Release>35</VerInfo_Release>
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.34.0;InternalName=SGI;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.34;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/02/2024;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.35.0;InternalName=SGI;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.35;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=30/05/2024;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <UWP_DelphiLogo44>..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-44x44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-150x150.png</UWP_DelphiLogo150>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
         <DCC_Define>SGI;$(DCC_Define)</DCC_Define>
+        <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <Icon_MainIcon>SGI_Icon2.ico</Icon_MainIcon>
@@ -92,10 +93,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_LocalDebugSymbols>true</DCC_LocalDebugSymbols>
-        <VerInfo_Release>34</VerInfo_Release>
+        <VerInfo_Release>35</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.34.0;InternalName=SGI;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.34;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/02/2024;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.35.0;InternalName=SGI;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.35;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=30/05/2024;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
         <BT_BuildType>Debug</BT_BuildType>
@@ -106,11 +107,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Release>34</VerInfo_Release>
+        <VerInfo_Release>35</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.34.0;InternalName=SGI;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.34;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=14/02/2024;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.35.0;InternalName=SGI;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.35;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=30/05/2024;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
     </PropertyGroup>
@@ -195,6 +196,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Services\Service.InputQuery.pas"/>
         <DCCReference Include="..\Sys\Services\Service.Request.pas"/>
         <DCCReference Include="..\Sys\Services\Service.Request.CNPJ.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Request.CEP.pas"/>
         <DCCReference Include="..\Sys\Services\Service.Format.VCL.pas"/>
         <DCCReference Include="..\Sys\Services\InputQuery\View.InputQuery.pas">
             <Form>ViewInputQuery</Form>
@@ -525,6 +527,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CST.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Distrito.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Empresa.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Endereco.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Entrada.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Estado.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.FormaPagto.pas"/>
@@ -536,8 +539,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Perfil.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.PlanoConta.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Produto.pas"/>
+        <DCCReference Include="Controller\SGI.Controller.ProdutoAlmoxarifado.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.Promocao.pas"/>
-        <DCCReference Include="Controller\SGI.Controller.RequisicaoAlmoxarifado.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.RequisicaoCompra.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Tabelas.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoDespesa.pas"/>
@@ -586,7 +589,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas"/>
         <DCCReference Include="Controller\Impressao\SGE.Controller.Impressao.RequisicaoAlmox.pas"/>
-        <DCCReference Include="Controller\SGI.Controller.ProdutoAlmoxarifado.pas"/>
+        <DCCReference Include="Controller\SGI.Controller.RequisicaoAlmoxarifado.pas"/>
         <DCCReference Include="..\Sys\UGeTabelaCNAE.pas">
             <Form>frmGeTabelaCNAE</Form>
         </DCCReference>
@@ -793,7 +796,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\View\View.Servico.ConsultarCNPJ.pas">
             <Form>ViewServicoConsultarCNPJ</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\Controller\SGE.Controller.Endereco.pas"/>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
@@ -816,8 +818,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
                     <Source Name="MainSource">SGI.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k260.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp260.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k280.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp280.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Platforms>
@@ -835,7 +837,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
                 <DeployFile LocalName="..\Bin\SGI.exe" Configuration="Release" Class="ProjectOutput"/>
                 <DeployFile LocalName="..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-150x150.png" Configuration="Debug" Class="UWP_DelphiLogo150"/>
                 <DeployFile LocalName="..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-44x44.png" Configuration="Debug" Class="UWP_DelphiLogo44"/>
-                <DeployFile LocalName="SGI.todo" Configuration="Debug" Class="ProjectFile"/>
                 <DeployFile LocalName="SGI.todo" Configuration="Debug" Class="ProjectFile"/>
                 <DeployFile LocalName="SGI.todo" Configuration="Release" Class="ProjectFile"/>
                 <DeployClass Name="AdditionalDebugSymbols">

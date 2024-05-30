@@ -50,18 +50,16 @@ uses
   cxDBVGrid,
   cxInplaceContainer,
 
-  ACBrConsultaCPF,
-  ACBrBase,
-  ACBrSocket,
-  ACBrConsultaCNPJ,
-
   View.PadraoCadastro,
   SGE.Controller.Interfaces,
+  Service.Request.CNPJ,
+  Service.Request.CEP,
   UObserverInterface,
   UCliente,
   UGrPadraoCadastro,
   Interacao.Tabela,
-  Controller.Tabela, dxSkinsDefaultPainters;
+  Controller.Tabela, dxSkinsDefaultPainters, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White, cxFilter, dxScrollbarAnnotations;
 
 type
   TViewCliente = class(TViewPadraoCadastro, IObserver)
@@ -82,7 +80,6 @@ type
     tbsCompra: TTabSheet;
     lblBairro: TLabel;
     lblLogradouro: TLabel;
-    lblCEP: TLabel;
     lblNumero: TLabel;
     dbNumero: TDBEdit;
     lblComplemento: TLabel;
@@ -121,48 +118,6 @@ type
     popProcesso: TPopupMenu;
     mpClienteBloquear: TMenuItem;
     mpClienteDesbloquear: TMenuItem;
-    tbsConsultarCNPJ: TTabSheet;
-    tbsConsultarCPF: TTabSheet;
-    ACBrConsultaCNPJ: TACBrConsultaCNPJ;
-    pnlConsultarCNPJ: TPanel;
-    lblCNPJX: TLabel;
-    lblCaptchaX: TLabel;
-    edCaptcha: TEdit;
-    edCNPJ: TMaskEdit;
-    pnlCaptcha: TPanel;
-    ImgCaptcha: TImage;
-    LabAtualizarCaptcha: TLabel;
-    ckRemoverEspacosDuplos: TCheckBox;
-    BvlConsultar: TBevel;
-    pnlRetornoCNPJ: TPanel;
-    lblTipoX: TLabel;
-    lblRazaoSocialX: TLabel;
-    lblAberturaX: TLabel;
-    lblEnderecoX: TLabel;
-    lblNumeroX: TLabel;
-    lblComplementoX: TLabel;
-    lblBairroX: TLabel;
-    lblCidadeX: TLabel;
-    lblUFX: TLabel;
-    lblCEPX: TLabel;
-    lblSituacaoX: TLabel;
-    lblFantasiaX: TLabel;
-    EditTipo: TEdit;
-    EditRazaoSocial: TEdit;
-    EditAbertura: TEdit;
-    EditEndereco: TEdit;
-    EditNumero: TEdit;
-    EditComplemento: TEdit;
-    EditBairro: TEdit;
-    EditCidade: TEdit;
-    EditUF: TEdit;
-    EditCEP: TEdit;
-    EditSituacao: TEdit;
-    EditFantasia: TEdit;
-    ACBrConsultaCPF: TACBrConsultaCPF;
-    pnlConsultarCPF: TPanel;
-    edCPF: TMaskEdit;
-    lblCPFX: TLabel;
     tbsDadosAdcionais: TTabSheet;
     dbNFeDevolucao: TDBCheckBox;
     GrpBxCustosOper: TGroupBox;
@@ -196,15 +151,7 @@ type
     lblNomeFantasia: TLabel;
     dbNomeFantasia: TDBEdit;
     BtBtnProcesso: TcxButton;
-    btnConsultarCNPJ: TcxButton;
-    btnVoltar: TcxButton;
-    btnRecuperarCNPJ: TcxButton;
-    btnConsultarCPF: TcxButton;
     BtnRequisicoes: TcxButton;
-    Label15: TLabel;
-    EditCNAE1: TEdit;
-    Label16: TLabel;
-    ListCNAE2: TListBox;
     dbCNPJ: TJvDBComboEdit;
     dbEstado: TJvDBComboEdit;
     dbCidade: TJvDBComboEdit;
@@ -212,8 +159,6 @@ type
     dbLogradouro: TJvDBComboEdit;
     dbPais: TJvDBComboEdit;
     dbCadastroAtivo: TDBCheckBox;
-    lblDataNasc: TLabel;
-    edDataNasc: TMaskEdit;
     dbgContaCorrente: TcxDBVerticalGrid;
     dbCtgrConta1: TcxCategoryRow;
     dbBanco1: TcxDBEditorRow;
@@ -231,10 +176,11 @@ type
     dbContaCorrente3: TcxDBEditorRow;
     dbPracaCobranca3: TcxDBEditorRow;
     imgAjuda: TImage;
-    dbCEP: TJvDBMaskEdit;
     Panel1: TPanel;
     lblRegistroDesativado: TLabel;
     lblMotivoBloqueio: TLabel;
+    lblCEP: TLabel;
+    dbCEP: TJvDBComboEdit;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -253,13 +199,6 @@ type
     procedure mpClienteDesbloquearClick(Sender: TObject);
     procedure mpClienteBloquearClick(Sender: TObject);
     procedure dbCNPJButtonClick(Sender: TObject);
-    procedure LabAtualizarCaptchaClick(Sender: TObject);
-    procedure btnConsultarCNPJClick(Sender: TObject);
-    procedure btnVoltarClick(Sender: TObject);
-    procedure btnRecuperarCNPJClick(Sender: TObject);
-    procedure edCNPJKeyPress(Sender: TObject; var Key: Char);
-    procedure btnConsultarCPFClick(Sender: TObject);
-    procedure edCaptchaKeyPress(Sender: TObject; var Key: Char);
     procedure btnPesquisarEstoqueSateliteClick(Sender: TObject);
     procedure edFiltrarEstoqueSateliteKeyDown(Sender: TObject;
       var Key: Word; Shift: TShiftState);
@@ -280,6 +219,8 @@ type
     procedure DataSetEstoqueUltimaVendaGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure DtSrcTabelaAfterScroll(DataSet : TDataSet);
+    procedure FormDestroy(Sender: TObject);
+    procedure dbCEPButtonClick(Sender: TObject);
   private
     { Private declarations }
     FControllerVendedor           ,
@@ -289,16 +230,22 @@ type
     FControllerClienteTitulos     ,
     FControllerClienteEstoque     ,
     FControllerEmpresaView        : IControllerCustom;
+    FControllerConfiguracoes : IControllerEmpresa;
+    FServiceCEP  : TServiceRequestCEP;
 
     aEstoqueSateliteEmpresa,
     aEstoqueSateliteCliente,
     bApenasPossuiEstoque   : Boolean;
+
+    procedure CarregarBancos;
     procedure GetComprasAbertas(iCodigoCliente : Integer);
     procedure HabilitarAbaEstoque;
     procedure EstoqueSateliteFiltarDados(const iTipoPesquisa : Integer);
     procedure RegistrarNovaRotinaSistema;
     procedure CarregarInformeUsuario;
+    procedure BuscarCEP(aRetorno : TEndereco);
 
+    function ServiceCEP : TServiceRequestCEP;
     function GetRotinaBloqueioID : String;
     function GetRotinaVisualizarEstoqueID : String;
     function Controller : IControllerCliente;
@@ -360,9 +307,10 @@ uses
   UDMBusiness,
   UDMRecursos,
   FuncoesFormulario,
-  Service.Message,
   Service.InputQuery,
+  Service.Message,
   Service.Utils,
+  View.Servico.ConsultarCNPJ,
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper,
@@ -522,6 +470,7 @@ begin
   FControllerClienteTotalCompras := TControllerFactory.New.ClienteTotalCompras;
   FControllerClienteTitulos      := TControllerFactory.New.ClienteTitulos;
   FControllerClienteEstoque      := TControllerFactory.New.ClienteEstoque;
+  FControllerConfiguracoes := TControllerFactory.New.EmpresaView;
 
   dtsTotalComprasAbertas.DataSet := FControllerClienteTotalCompras.DAO.DataSet;
   dtsTitulos.DataSet := FControllerClienteTitulos.DAO.DataSet;
@@ -532,7 +481,7 @@ begin
   // Forçar a criação dos registros padrões de grupos de fornecedores
   TControllerFactory.New.GrupoFornecedor.DAO.OpenEmpty;
 
-  aEstoqueSateliteEmpresa := GetEstoqueSateliteEmpresa(FController.DAO.Usuario.Empresa.CNPJ);
+  aEstoqueSateliteEmpresa := FControllerConfiguracoes.GetEstoqueSateliteEmpresa(FController.DAO.Usuario.Empresa.CNPJ);
   aEstoqueSateliteCliente := GetPermissaoRotinaInterna(tbsEstoqueSatelite, False);
 
   Controller.BloquearClientes;
@@ -550,14 +499,12 @@ begin
   WhereAdditional    := '(cl.Codigo > 1)';
 
   pgcMaisDados.ActivePageIndex := 0;
-  tbsConsultarCNPJ.TabVisible  := False;
-  tbsConsultarCPF.TabVisible   := False;
 
   if not (FController.DAO.Usuario.Funcao.Codigo in [FUNCTION_USER_ID_DIRETORIA, FUNCTION_USER_ID_GERENTE_FIN, FUNCTION_USER_ID_SYSTEM_ADM]) then
     dbValorLimiteCompra.Enabled := False;
 
   tbsEstoqueSatelite.TabVisible := False;
-  dbCustoOperacional.Enabled    := GetCalcularCustoOperEmpresa(FController.DAO.Usuario.Empresa.CNPJ);
+  dbCustoOperacional.Enabled    := FControllerConfiguracoes.GetCalcularCustoOperEmpresa(FController.DAO.Usuario.Empresa.CNPJ);
 
   lblFrete.Enabled  := dbCustoOperacional.Enabled;
   dbFrete.Enabled   := dbCustoOperacional.Enabled;
@@ -604,11 +551,14 @@ begin
 
   TController(FControllerVendedor).LookupComboBox(dbVendedor, dtsVendedor, 'vendedor_cod', 'codigo', 'nome');
   TController(FControllerTipoCNPJView).LookupComboBox(dbTipoCNPJ, dtsTipoCnpj, 'tipo', 'codigo', 'descricao');
-  TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco1, dtsBancoFebraban, 'banco',   'codigo', 'codigo_nome');
-  TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco2, dtsBancoFebraban, 'banco_2', 'codigo', 'codigo_nome');
-  TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco3, dtsBancoFebraban, 'banco_3', 'codigo', 'codigo_nome');
 
   FController.DAO.DataSet.AfterScroll := DtSrcTabelaAfterScroll;
+end;
+
+procedure TViewCliente.FormDestroy(Sender: TObject);
+begin
+  FServiceCEP.Free;
+  inherited;
 end;
 
 procedure TViewCliente.ProximoCampoKeyPress(Sender: TObject;
@@ -643,6 +593,20 @@ begin
   end;
 end;
 
+procedure TViewCliente.dbCEPButtonClick(Sender: TObject);
+var
+  aCEP : String;
+  aTipoLog : Smallint;
+  aEndereco : IControllerEndereco;
+begin
+  if (DtSrcTabela.DataSet.State in [TDataSetState.dsEdit, TDataSetState.dsInsert]) then
+  begin
+    dbLogradouro.SetFocus;
+    aCEP := TServicesUtils.StrOnlyNumbers(DtSrcTabela.DataSet.FieldByName('CEP').AsString);
+    ServiceCEP.Consultar(aCEP, BuscarCEP);
+  end;
+end;
+
 procedure TViewCliente.dbCidadeButtonClick(Sender: TObject);
 var
   iCidade : Integer;
@@ -662,7 +626,7 @@ begin
         FieldByName('CID_COD').AsInteger := iCidade;
         FieldByName('CID_NOME').AsString := sCidade;
         FieldByName('CIDADE').AsString   := Copy(sCidade + ' (' + FieldByName('UF').AsString + ')', 1, FieldByName('CIDADE').Size);
-        FieldByName('CEP').AsString      := GetCidadeCEP(iCidade);
+        FieldByName('CEP').AsString      := TControllerFactory.New.Endereco.GetCidadeCEP(iCidade);
       end;
   end;
 end;
@@ -732,7 +696,7 @@ begin
   inherited;
   with DtSrcTabela.DataSet do
   begin
-    if ( State in [dsEdit, dsInsert] ) then
+    if (State in [dsEdit, dsInsert]) then
     begin
       pgcMaisDados.ActivePageIndex := 0;
 
@@ -742,11 +706,10 @@ begin
         FieldByName('CNPJ').EditMask := '00\.000\.000\/0000\-00;0; ';
     end
     else
-    begin
       FieldByName('CNPJ').EditMask := EmptyStr;
-      tbsConsultarCNPJ.TabVisible  := False;
-      tbsConsultarCPF.TabVisible   := False;
-    end;
+
+    if Trim(FieldByName('CEP').EditMask).IsEmpty then
+      FieldByName('CEP').EditMask := '00\.000\-000;0; ';
 
     BtBtnProcesso.Enabled := Active and (not (State in [dsEdit, dsInsert]));
 
@@ -771,7 +734,7 @@ begin
     mpClienteBloquear.Enabled    := Active and (not (State in [dsEdit, dsInsert])) and (FieldByName('BLOQUEADO').AsInteger = 0);
     mpClienteDesbloquear.Enabled := Active and (not (State in [dsEdit, dsInsert])) and (FieldByName('BLOQUEADO').AsInteger = 1);
 
-    if ( Field = FieldByName('PESSOA_FISICA') ) then
+    if (Field = FieldByName('PESSOA_FISICA')) then
     begin
       lblTipoCNPJ.Enabled := (FieldByName('PESSOA_FISICA').AsInteger = 0);
       dbTipoCNPJ.Enabled  := (FieldByName('PESSOA_FISICA').AsInteger = 0);
@@ -782,8 +745,11 @@ begin
         FieldByName('CNPJ').EditMask := '00\.000\.000\/0000\-00;0; ';
     end;
 
-    if ( Field = FieldByName('CUSTO_OPER_PERCENTUAL') ) then
-      if ( FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger = 1 ) then
+    if (Field = FieldByName('CEP')) and Trim(FieldByName('CEP').EditMask).IsEmpty then
+      FieldByName('CEP').EditMask := '00\.000\-000;0; ';
+
+    if (Field = FieldByName('CUSTO_OPER_PERCENTUAL')) then
+      if (FieldByName('CUSTO_OPER_PERCENTUAL').AsInteger = 1) then
       begin
         lblFrete.Caption  := 'Frete (%):';
         lblOutros.Caption := 'Outros (%):';
@@ -802,7 +768,7 @@ var
   iCodigo : Integer;
   sRazao  : String;
 begin
-  pTrueFalse := GetPermitirVerdadeiroFalsoCNPJCliente(FController.DAO.Usuario.Empresa.CNPJ);
+  pTrueFalse := FControllerConfiguracoes.GetPermitirVerdadeiroFalsoCNPJCliente(FController.DAO.Usuario.Empresa.CNPJ);
 
   if (Length(Trim(dbCEP.Field.AsString)) < 8) then
   begin
@@ -833,7 +799,7 @@ begin
         Abort;
       end;
 
-      if ( not StrInscricaoEstadual(Trim(FieldByName('INSCEST').AsString), Trim(FieldByName('UF').AsString)) ) then
+      if (not TServicesUtils.StrInscricaoEstadual(Trim(FieldByName('INSCEST').AsString), Trim(FieldByName('UF').AsString))) then
       begin
         TServiceMessage.ShowWarning('Favor informar uma Inscrição Estadual válida.');
         Abort;
@@ -850,7 +816,7 @@ begin
     { DONE 1 -oIsaque -cCliente : 16/05/2014 - Rotina para verificar a duplicidade de CPF/CNPJ (1) }
 
     if Controller.CpfCnpjCadastro(FieldByName('CODIGO').AsInteger, FieldByName('CNPJ').AsString, iCodigo, sRazao) then
-      if not GetPermitirDuplicarCNPJCliente(FController.DAO.Usuario.Empresa.CNPJ) then
+      if not FControllerConfiguracoes.GetPermitirDuplicarCNPJCliente(FController.DAO.Usuario.Empresa.CNPJ) then
       begin
         TServiceMessage.ShowWarning('CPF/CNJP já cadastrado para o cliente ' + sRazao + ' ' + FormatFloat('"("###00000")."', iCodigo) );
         Abort;
@@ -934,8 +900,11 @@ end;
 
 procedure TViewCliente.pgcGuiasChange(Sender: TObject);
 begin
-  inherited;
-  GetComprasAbertas( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger );
+  if (pgcGuias.ActivePage = tbsCadastro) then
+  begin
+    CarregarBancos;
+    GetComprasAbertas( DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger );
+  end;
 end;
 
 procedure TViewCliente.dbgContaCorrenteEnter(Sender: TObject);
@@ -1031,7 +1000,7 @@ begin
         DtSrcTabela.DataSet.FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger := 0;
 
       if ( DtSrcTabela.DataSet.FieldByName('DTCAD').IsNull ) then
-        DtSrcTabela.DataSet.FieldByName('DTCAD').AsDateTime := GetDateTimeDB;
+        DtSrcTabela.DataSet.FieldByName('DTCAD').AsDateTime := Now;
     end;
   end;
 end;
@@ -1087,173 +1056,117 @@ begin
 end;
 
 procedure TViewCliente.dbCNPJButtonClick(Sender: TObject);
-
-  procedure AtualizarCamposRetorno;
-  var
-    bCNPJ,
-    bCPF : Boolean;
-  begin
-    bCNPJ := tbsConsultarCNPJ.TabVisible;
-    bCPF  := tbsConsultarCPF.TabVisible;
-
-    if bCNPJ then
-      lblRazaoSocialX.Caption := 'Razão Social';
-
-    if bCPF then
-      lblRazaoSocialX.Caption := 'Nome';
-
-    lblTipoX.Enabled := bCNPJ;
-    EditTipo.Enabled := bCNPJ;
-    lblAberturaX.Enabled := bCNPJ;
-    EditAbertura.Enabled := bCNPJ;
-    lblFantasiaX.Enabled := bCNPJ;
-    EditFantasia.Enabled := bCNPJ;
-    lblEnderecoX.Enabled := bCNPJ;
-    EditEndereco.Enabled := bCNPJ;
-    lblNumeroX.Enabled := bCNPJ;
-    EditNumero.Enabled := bCNPJ;
-    lblComplementoX.Enabled := bCNPJ;
-    EditComplemento.Enabled := bCNPJ;
-    lblBairroX.Enabled := bCNPJ;
-    EditBairro.Enabled := bCNPJ;
-    lblCidadeX.Enabled := bCNPJ;
-    EditCidade.Enabled := bCNPJ;
-    lblUFX.Enabled := bCNPJ;
-    EditUF.Enabled := bCNPJ;
-    lblCEPX.Enabled := bCNPJ;
-    EditCEP.Enabled := bCNPJ;
-  end;
-
-begin
-  tbsConsultarCPF.TabVisible  := False;
-  tbsConsultarCNPJ.TabVisible := False;
-
-  if dbPessoaFisica.Checked then
-  begin
-    tbsConsultarCPF.TabVisible := True;
-    pgcGuias.ActivePage        := tbsConsultarCPF;
-
-    pnlCaptcha.Parent             := pnlConsultarCPF;
-    ckRemoverEspacosDuplos.Parent := pnlConsultarCPF;
-    lblCaptchaX.Parent    := pnlConsultarCPF;
-    edCaptcha.Parent      := pnlConsultarCPF;
-    pnlRetornoCNPJ.Parent := tbsConsultarCPF;
-
-    LabAtualizarCaptchaClick(LabAtualizarCaptcha);
-
-    if ( Trim(TServicesUtils.StrOnlyNumbers(dbCNPJ.Text)) <> EmptyStr ) then
-    begin
-      edCPF.Text := TServicesUtils.StrFormatarCpf( TServicesUtils.StrOnlyNumbers(dbCNPJ.Text) );
-      edDataNasc.SetFocus;
-    end
-    else
-      edCPF.SetFocus;
-  end
-  else
-  begin
-    tbsConsultarCNPJ.TabVisible := True;
-    pgcGuias.ActivePage         := tbsConsultarCNPJ;
-
-    pnlCaptcha.Parent             := pnlConsultarCNPJ;
-    ckRemoverEspacosDuplos.Parent := pnlConsultarCNPJ;
-    lblCaptchaX.Parent    := pnlConsultarCNPJ;
-    edCaptcha.Parent      := pnlConsultarCNPJ;
-    pnlRetornoCNPJ.Parent := tbsConsultarCNPJ;
-
-    LabAtualizarCaptchaClick(LabAtualizarCaptcha);
-
-    if ( Trim(TServicesUtils.StrOnlyNumbers(dbCNPJ.Text)) <> EmptyStr ) then
-      edCNPJ.Text := TServicesUtils.StrFormatarCnpj( TServicesUtils.StrOnlyNumbers(dbCNPJ.Text) )
-    else
-      edCNPJ.SetFocus;
-  end;
-
-  AtualizarCamposRetorno;
-end;
-
-procedure TViewCliente.LabAtualizarCaptchaClick(Sender: TObject);
 var
-  Stream : TMemoryStream;
-  ImgArq : String;
+  aPessoa  : TPessoaJuridica;
+  aTipoLog : Smallint;
+  aEndereco : IControllerEndereco;
 begin
-  Stream := TMemoryStream.Create;
-  try
-    if ( pgcGuias.ActivePage = tbsConsultarCNPJ ) then
-      ACBrConsultaCNPJ.Captcha(Stream)
-    else
-    if ( pgcGuias.ActivePage = tbsConsultarCPF ) then
-      ACBrConsultaCPF.Captcha(Stream);
-
-    ImgArq := ExtractFilePath(ParamStr(0)) + PathDelim + 'captch.png';
-    Stream.SaveToFile( ImgArq );
-    ImgCaptcha.Picture.LoadFromFile( ImgArq );
-
-    edCaptcha.Clear;
-    edCaptcha.SetFocus;
-
-    EditTipo.Clear;
-    EditAbertura.Clear;
-    EditSituacao.Clear;
-    EditRazaoSocial.Clear;
-    EditFantasia.Clear;
-    EditEndereco.Clear;
-    EditNumero.Clear;
-    EditComplemento.Clear;
-    EditBairro.Clear;
-    EditCidade.Clear;
-    EditUF.Clear;
-    EditCEP.Clear;
-    EditCNAE1.Clear;
-    ListCNAE2.Clear;
-  finally
-    Stream.Free;
-  end;
-end;
-
-procedure TViewCliente.btnConsultarCNPJClick(Sender: TObject);
-var
-  I : Integer;
-begin
-  if Trim(edCaptcha.Text) <> EmptyStr then
+  if (DtSrcTabela.DataSet.State in [TDataSetState.dsEdit, TDataSetState.dsInsert]) then
   begin
-    if ACBrConsultaCNPJ.Consulta(edCNPJ.Text, Trim(edCaptcha.Text), ckRemoverEspacosDuplos.Checked) then
+    dbRazao.SetFocus;
+    aPessoa.CNPJ := TServicesUtils.StrOnlyNumbers(DtSrcTabela.DataSet.FieldByName('CNPJ').AsString);
+    if SelecionarCNPJ(Self, aPessoa) then
     begin
-      EditTipo.Text        := ACBrConsultaCNPJ.EmpresaTipo;
-      EditRazaoSocial.Text := ACBrConsultaCNPJ.RazaoSocial;
-      EditAbertura.Text    := DateToStr( ACBrConsultaCNPJ.Abertura );
-      EditFantasia.Text    := ACBrConsultaCNPJ.Fantasia;
-      EditEndereco.Text    := ACBrConsultaCNPJ.Endereco;
-      EditNumero.Text      := ACBrConsultaCNPJ.Numero;
-      EditComplemento.Text := ACBrConsultaCNPJ.Complemento;
-      EditBairro.Text      := ACBrConsultaCNPJ.Bairro;
-      EditComplemento.Text := ACBrConsultaCNPJ.Complemento;
-      EditCidade.Text      := ACBrConsultaCNPJ.Cidade;
-      EditUF.Text          := ACBrConsultaCNPJ.UF;
-      EditCEP.Text         := ACBrConsultaCNPJ.CEP;
-      EditSituacao.Text    := ACBrConsultaCNPJ.Situacao;
-      EditCNAE1.Text       := ACBrConsultaCNPJ.CNAE1;
+      if TServiceMessage.ShowConfirm('Deseja carregar os dados consultados para o cadastro?') then
+      begin
+        with DtSrcTabela.DataSet do
+        begin
+          aEndereco := TControllerFactory.New.Endereco;
 
-      for I := 0 to ACBrConsultaCNPJ.CNAE2.Count - 1 do
-        ListCNAE2.Items.Add(ACBrConsultaCNPJ.CNAE2[I]);
+          FieldByName('CNPJ').AsString       := TServicesUtils.StrOnlyNumbers(aPessoa.CNPJ);
+          FieldByName('NOME').AsString       := Copy(aPessoa.RazaoSocial, 1, FieldByName('NOME').Size);
+          FieldByName('NOMEFANT').AsString   := Copy(aPessoa.Fantasia,    1, FieldByName('NOMEFANT').Size);
+          FieldByName('EST_COD').AsInteger   := aEndereco.GetEstadoID(aPessoa.Endereco.UF);
+          FieldByName('EST_NOME').AsString   := aEndereco.GetEstadoNome(aPessoa.Endereco.UF);
+          FieldByName('UF').AsString         := aPessoa.Endereco.UF;
+          FieldByName('CID_COD').AsInteger   := aEndereco.GetCidadeID(FieldByName('EST_COD').AsInteger, aPessoa.Endereco.Municipio);
+          FieldByName('CID_NOME').AsString   := aEndereco.GetCidadeNome(FieldByName('CID_COD').AsInteger);
 
-      btnRecuperarCNPJ.Enabled := True;
+          if ((FieldByName('CID_COD').AsInteger = 0) and (not aPessoa.Endereco.CEP.IsEmpty)) then
+          begin
+            FieldByName('CID_COD').AsInteger  := aEndereco.GetCidadeID(aPessoa.Endereco.CEP);
+            FieldByName('CID_NOME').AsString  := aEndereco.GetCidadeNome(FieldByName('CID_COD').AsInteger);
+          end;
+
+          FieldByName('CIDADE').AsString   := Copy(FieldByName('CID_NOME').AsString + ' (' + aPessoa.Endereco.UF + ')', 1, FieldByName('CIDADE').Size);
+
+          FieldByName('BAI_COD').AsInteger := aEndereco.SetBairro(FieldByName('CID_COD').AsInteger, Copy(aPessoa.Endereco.Bairro, 1, FieldByName('BAIRRO').Size));
+          FieldByName('BAIRRO').AsString   := aPessoa.Endereco.Bairro;
+
+          FieldByName('LOG_COD').AsInteger   := aEndereco.SetLogradouro(FieldByName('CID_COD').AsInteger, Copy(Trim(aPessoa.Endereco.Tipo + ' ' + aPessoa.Endereco.Logradouro), 1, FieldByName('LOGRADOURO').Size), aTipoLog);
+          FieldByName('LOGRADOURO').AsString := Trim(aEndereco.GetLogradouroTipo(FieldByName('LOG_COD').AsInteger) + ' ' + aEndereco.GetLogradouroNome(FieldByName('LOG_COD').AsInteger));
+          FieldByName('ENDER').AsString      := Trim(FieldByName('LOGRADOURO').AsString);
+
+          if (aTipoLog = 0) then
+            FieldByName('TLG_TIPO').Clear
+          else
+            FieldByName('TLG_TIPO').AsInteger := aTipoLog;
+
+          FieldByName('COMPLEMENTO').AsString := Copy(aPessoa.Endereco.Complemento, 1, FieldByName('COMPLEMENTO').Size);
+          FieldByName('NUMERO_END').AsString  := Copy(aPessoa.Endereco.Numero,      1, FieldByName('NUMERO_END').Size);
+          FieldByName('CEP').AsString         := Copy(TServicesUtils.StrOnlyNumbers(aPessoa.Endereco.CEP), 1, FieldByName('CEP').Size);
+        end;
+      end;
     end;
-  end
-  else
-  begin
-    TServiceMessage.ShowWarning('É necessário digitar o captcha.');
-    edCaptcha.SetFocus;
-
-    btnRecuperarCNPJ.Enabled := False;
   end;
 end;
 
-procedure TViewCliente.btnVoltarClick(Sender: TObject);
+procedure TViewCliente.BuscarCEP(aRetorno: TEndereco);
+var
+  aTipoLog  : Smallint;
+  aEndereco : IControllerEndereco;
 begin
-  pgcGuias.ActivePage         := tbsCadastro;
-  tbsConsultarCPF.TabVisible  := False;
-  tbsConsultarCNPJ.TabVisible := False;
-  dbCNPJ.SetFocus;
+  if ServiceCEP.Error.IsEmpty then
+  begin
+      with DtSrcTabela.DataSet do
+      begin
+        aEndereco := TControllerFactory.New.Endereco;
+
+        FieldByName('EST_COD').AsInteger := aEndereco.GetEstadoID(aRetorno.UF);
+        FieldByName('EST_NOME').AsString := aEndereco.GetEstadoNome(aRetorno.UF);
+        FieldByName('UF').AsString       := aRetorno.UF;
+        FieldByName('CID_COD').AsInteger := aEndereco.GetCidadeID(FieldByName('EST_COD').AsInteger, aRetorno.Municipio);
+        FieldByName('CID_NOME').AsString := aEndereco.GetCidadeNome(FieldByName('CID_COD').AsInteger);
+
+        if ((FieldByName('CID_COD').AsInteger = 0) and (not aRetorno.CEP.IsEmpty)) then
+        begin
+          FieldByName('CID_COD').AsInteger := aEndereco.GetCidadeID(aRetorno.CEP);
+          FieldByName('CIDADE').AsString   := aEndereco.GetCidadeNome(FieldByName('CID_COD').AsInteger);
+        end;
+
+        FieldByName('CID_NOME').AsString := Copy(FieldByName('CID_NOME').AsString + ' (' + aRetorno.UF + ')', 1, FieldByName('CIDADE').Size);
+
+        FieldByName('BAI_COD').AsInteger := aEndereco.SetBairro(FieldByName('CID_COD').AsInteger, Copy(aRetorno.Bairro, 1, FieldByName('BAIRRO').Size));
+        FieldByName('BAIRRO').AsString   := aRetorno.Bairro;
+
+        FieldByName('LOG_COD').AsInteger   := aEndereco.SetLogradouro(FieldByName('CID_COD').AsInteger, Copy(Trim(aRetorno.Tipo + ' ' + aRetorno.Logradouro), 1, FieldByName('LOGRADOURO').Size), aTipoLog);
+        FieldByName('LOGRADOURO').AsString := Trim(aEndereco.GetLogradouroTipo(FieldByName('LOG_COD').AsInteger) + ' ' + aEndereco.GetLogradouroNome(FieldByName('LOG_COD').AsInteger));
+        FieldByName('ENDER').AsString      := Trim(FieldByName('LOGRADOURO').AsString);
+
+        if (aTipoLog = 0) then
+          FieldByName('TLG_TIPO').Clear
+        else
+          FieldByName('TLG_TIPO').AsInteger := aTipoLog;
+
+        FieldByName('COMPLEMENTO').AsString := Copy(aRetorno.Complemento, 1, FieldByName('COMPLEMENTO').Size);
+        FieldByName('NUMERO_END').AsString  := Copy(aRetorno.Numero,      1, FieldByName('NUMERO_END').Size);
+        FieldByName('CEP').AsString         := Copy(TServicesUtils.StrOnlyNumbers(aRetorno.CEP), 1, FieldByName('CEP').Size);
+      end;
+  end
+  else
+    TServiceMessage.ShowError(ServiceCEP.Error);
+end;
+
+procedure TViewCliente.CarregarBancos;
+begin
+  if (dtsBancoFebraban.Tag = 0) then
+  begin
+    TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco1, dtsBancoFebraban, 'banco',   'codigo', 'codigo_nome');
+    TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco2, dtsBancoFebraban, 'banco_2', 'codigo', 'codigo_nome');
+    TController(FControllerBancoFebrabanView).LookupComboBox(dbBanco3, dtsBancoFebraban, 'banco_3', 'codigo', 'codigo_nome');
+
+    dtsBancoFebraban.Tag := 1;
+  end;
 end;
 
 procedure TViewCliente.CarregarInformeUsuario;
@@ -1300,111 +1213,6 @@ end;
 function TViewCliente.Controller: IControllerCliente;
 begin
   Result := (FController as IControllerCliente);
-end;
-
-procedure TViewCliente.btnRecuperarCNPJClick(Sender: TObject);
-var
-  bCPF  : Boolean;
-  iTipo : Smallint;
-begin
-  bCPF := (pgcGuias.ActivePage = tbsConsultarCPF);
-  btnVoltar.Click;
-
-  with DtSrcTabela.DataSet do
-  begin
-    if not (State in [dsEdit, dsInsert]) then
-      Exit;
-
-    if TServiceMessage.ShowConfirm('Deseja carregar os dados consultados para o cadastro?') then
-    begin
-      if bCPF then
-      begin
-        FieldByName('CNPJ').AsString := TServicesUtils.StrOnlyNumbers(edCPF.Text);
-        FieldByName('NOME').AsString := Copy(Trim(EditRazaoSocial.Text), 1, FieldByName('NOME').Size);
-      end
-      else
-      begin
-        FieldByName('CNPJ').AsString       := TServicesUtils.StrOnlyNumbers(edCNPJ.Text);
-        FieldByName('NOME').AsString       := Copy(Trim(EditRazaoSocial.Text), 1, FieldByName('NOME').Size);
-        FieldByName('NOMEFANT').AsString   := Copy(Trim(EditFantasia.Text),    1, FieldByName('NOMEFANT').Size);
-        FieldByName('EST_COD').AsInteger   := GetEstadoID( Trim(EditUF.Text) );
-        FieldByName('EST_NOME').AsString   := GetEstadoNome( Trim(EditUF.Text) );
-        FieldByName('UF').AsString         := Trim(EditUF.Text);
-        FieldByName('CID_COD').AsInteger   := GetCidadeID(FieldByName('EST_COD').AsInteger, EditCidade.Text);
-        FieldByName('CID_NOME').AsString   := GetCidadeNome(FieldByName('CID_COD').AsInteger);
-
-        if ( (FieldByName('CID_COD').AsInteger = 0) and (Trim(EditCEP.Text) <> EmptyStr) ) then
-        begin
-          FieldByName('CID_COD').AsInteger  := GetCidadeID(Trim(EditCEP.Text));
-          FieldByName('CID_NOME').AsString  := GetCidadeNome(FieldByName('CID_COD').AsInteger);
-        end;
-
-        FieldByName('CIDADE').AsString   := Copy(FieldByName('CID_NOME').AsString + ' (' + Trim(EditUF.Text) + ')', 1, FieldByName('CIDADE').Size);
-
-        FieldByName('BAI_COD').AsInteger := SetBairro(FieldByName('CID_COD').AsInteger, Copy(Trim(EditBairro.Text), 1, FieldByName('BAIRRO').Size));
-        FieldByName('BAIRRO').AsString   := Copy(Trim(EditBairro.Text), 1, FieldByName('BAIRRO').Size);
-
-        FieldByName('LOG_COD').AsInteger   := SetLogradouro(FieldByName('CID_COD').AsInteger, Copy(Trim(EditEndereco.Text), 1, FieldByName('LOGRADOURO').Size), iTipo);
-        FieldByName('LOGRADOURO').AsString := Trim(GetLogradouroTipo(FieldByName('LOG_COD').AsInteger) + ' ' + GetLogradouroNome(FieldByName('LOG_COD').AsInteger));
-        FieldByName('ENDER').AsString      := Trim(FieldByName('LOGRADOURO').AsString);
-
-        if (iTipo = 0) then
-          FieldByName('TLG_TIPO').Clear
-        else
-          FieldByName('TLG_TIPO').AsInteger := iTipo;
-
-        FieldByName('COMPLEMENTO').AsString := Copy(Trim(EditComplemento.Text), 1, FieldByName('COMPLEMENTO').Size);
-        FieldByName('NUMERO_END').AsString  := Copy(Trim(EditNumero.Text),      1, FieldByName('NUMERO_END').Size);
-        FieldByName('CEP').AsString         := Copy(TServicesUtils.StrOnlyNumbers(Trim(EditCEP.Text)), 1, FieldByName('CEP').Size);
-      end;
-    end;
-  end;
-end;
-
-procedure TViewCliente.edCNPJKeyPress(Sender: TObject; var Key: Char);
-begin
-  if ( Key = #13 ) then
-  begin
-    Key := #0;
-    if (Sender = edCPF) then
-      edDataNasc.SetFocus
-    else
-      edCaptcha.SetFocus;
-  end;
-end;
-
-procedure TViewCliente.btnConsultarCPFClick(Sender: TObject);
-begin
-  if Trim(edCaptcha.Text) <> EmptyStr then
-  begin
-    if ACBrConsultaCPF.Consulta(edCPF.Text, edDataNasc.Text, Trim(edCaptcha.Text)) then
-    begin
-      EditRazaoSocial.Text := ACBrConsultaCPF.Nome;
-      EditSituacao.Text    := ACBrConsultaCPF.Situacao;
-
-      btnRecuperarCNPJ.Enabled := True;
-    end;
-  end
-  else
-  begin
-    TServiceMessage.ShowWarning('É necessário digitar o captcha.');
-    edCaptcha.SetFocus;
-
-    btnRecuperarCNPJ.Enabled := False;
-  end;
-end;
-
-procedure TViewCliente.edCaptchaKeyPress(Sender: TObject; var Key: Char);
-begin
-  if ( Key = #13 ) then
-  begin
-    Key := #0;
-    if ( pgcGuias.ActivePage = tbsConsultarCNPJ ) then
-      btnConsultarCNPJ.Click
-    else
-    if ( pgcGuias.ActivePage = tbsConsultarCPF ) then
-      btnConsultarCPF.Click;
-  end;
 end;
 
 procedure TViewCliente.HabilitarAbaEstoque;
@@ -1729,6 +1537,8 @@ begin
 end;
 
 procedure TViewCliente.btbtnIncluirClick(Sender: TObject);
+var
+  aEndereco : IControllerEndereco;
 begin
   inherited;
   edtFiltrar.Text := Trim(edtFiltrar.Text);
@@ -1756,13 +1566,15 @@ begin
       else
         FieldByName('PESSOA_FISICA').AsInteger  := 1;
 
-      FieldByName('PAIS_NOME').AsString         := GetPaisNomeDefault;
-      FieldByName('EST_NOME').AsString          := GetEstadoNomeDefault;
-      FieldByName('UF').AsString                := GetEstadoUF(GetEstadoIDDefault);
-      FieldByName('CID_NOME').AsString          := GetCidadeNomeDefault;
-      FieldByName('CIDADE').AsString            := Copy(GetCidadeNomeDefault + ' (' + FieldByName('UF').AsString + ')', 1, FieldByName('CIDADE').Size);
-      FieldByName('CEP').AsString               := GetCidadeCEP(GetCidadeIDDefault);
-      FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger := IfThen(gSistema.Codigo = SISTEMA_GESTAO_OPME, 1, 0);
+      aEndereco := TControllerFactory.New.Endereco;
+
+      FieldByName('PAIS_NOME').AsString         := aEndereco.GetPaisNomeDefault;
+      FieldByName('EST_NOME').AsString          := aEndereco.GetEstadoNomeDefault;
+      FieldByName('UF').AsString                := aEndereco.GetEstadoUF(aEndereco.GetEstadoIDDefault);
+      FieldByName('CID_NOME').AsString          := aEndereco.GetCidadeNomeDefault;
+      FieldByName('CIDADE').AsString            := Copy(aEndereco.GetCidadeNomeDefault + ' (' + FieldByName('UF').AsString + ')', 1, FieldByName('CIDADE').Size);
+      FieldByName('CEP').AsString               := aEndereco.GetCidadeCEP(aEndereco.GetCidadeIDDefault);
+      FieldByName('ENTREGA_FRACIONADA_VENDA').AsInteger := IfThen(gSistema.Codigo = SISTEMA_GESTAO_OPME, '1', '0').ToInteger;
 
       GetComprasAbertas( FieldByName('CODIGO').AsInteger );
     end;
@@ -1778,6 +1590,13 @@ begin
     if aEstoqueSateliteEmpresa or (gSistema.Codigo = SISTEMA_GESTAO_OPME) then
       SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaVisualizarEstoqueID, 'Visualizar Estoque Satélite (Estoque do Cliente)', RotinaID);
   end;
+end;
+
+function TViewCliente.ServiceCEP: TServiceRequestCEP;
+begin
+  if not Assigned(FServiceCEP) then
+    FServiceCEP := TServiceRequestCEP.Create;
+  Result := FServiceCEP;
 end;
 
 function TViewCliente.GetRotinaBloqueioID: String;

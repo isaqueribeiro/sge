@@ -68,6 +68,7 @@ uses
   Service.InputQuery in '..\Sys\Services\Service.InputQuery.pas',
   Service.Request in '..\Sys\Services\Service.Request.pas',
   Service.Request.CNPJ in '..\Sys\Services\Service.Request.CNPJ.pas',
+  Service.Request.CEP in '..\Sys\Services\Service.Request.CEP.pas',
   Service.Format.VCL in '..\Sys\Services\Service.Format.VCL.pas',
   View.InputQuery in '..\Sys\Services\InputQuery\View.InputQuery.pas' {ViewInputQuery},
   View.PadraoAbertura in '..\Sys\View\View.PadraoAbertura.pas' {FrmPadraoAbertura},
@@ -242,6 +243,7 @@ uses
   SGE.Controller.CST in '..\Sys\Controller\SGE.Controller.CST.pas',
   SGE.Controller.Distrito in '..\Sys\Controller\SGE.Controller.Distrito.pas',
   SGE.Controller.Empresa in '..\Sys\Controller\SGE.Controller.Empresa.pas',
+  SGE.Controller.Endereco in '..\Sys\Controller\SGE.Controller.Endereco.pas',
   SGE.Controller.Entrada in '..\Sys\Controller\SGE.Controller.Entrada.pas',
   SGE.Controller.Estado in '..\Sys\Controller\SGE.Controller.Estado.pas',
   SGE.Controller.FormaPagto in '..\Sys\Controller\SGE.Controller.FormaPagto.pas',
@@ -253,8 +255,8 @@ uses
   SGE.Controller.Perfil in '..\Sys\Controller\SGE.Controller.Perfil.pas',
   SGE.Controller.PlanoConta in '..\Sys\Controller\SGE.Controller.PlanoConta.pas',
   SGE.Controller.Produto in '..\Sys\Controller\SGE.Controller.Produto.pas',
+  SGI.Controller.ProdutoAlmoxarifado in 'Controller\SGI.Controller.ProdutoAlmoxarifado.pas',
   SGE.Controller.Promocao in '..\System_SGE\Controller\SGE.Controller.Promocao.pas',
-  SGI.Controller.RequisicaoAlmoxarifado in 'Controller\SGI.Controller.RequisicaoAlmoxarifado.pas',
   SGE.Controller.RequisicaoCompra in '..\System_SGE\Controller\SGE.Controller.RequisicaoCompra.pas',
   SGE.Controller.Tabelas in '..\Sys\Controller\SGE.Controller.Tabelas.pas',
   SGE.Controller.TipoDespesa in '..\Sys\Controller\SGE.Controller.TipoDespesa.pas',
@@ -285,7 +287,7 @@ uses
   SGE.Controller.Impressao.ContaAReceber in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas',
   SGE.Controller.Impressao.Contrato in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas',
   SGE.Controller.Impressao.RequisicaoAlmox in 'Controller\Impressao\SGE.Controller.Impressao.RequisicaoAlmox.pas',
-  SGI.Controller.ProdutoAlmoxarifado in 'Controller\SGI.Controller.ProdutoAlmoxarifado.pas',
+  SGI.Controller.RequisicaoAlmoxarifado in 'Controller\SGI.Controller.RequisicaoAlmoxarifado.pas',
   UGeTabelaCNAE in '..\Sys\UGeTabelaCNAE.pas' {frmGeTabelaCNAE},
   View.Certificado in '..\Sys\View\View.Certificado.pas' {ViewCertificado},
   View.Mensagem in '..\Sys\View\View.Mensagem.pas' {FrmMensagem},
@@ -354,8 +356,7 @@ uses
   View.RequisicaoAlmox.Monitor in 'View\View.RequisicaoAlmox.Monitor.pas' {ViewRequisicaoAlmoxMonitor},
   View.Contrato in '..\Sys\View\View.Contrato.pas' {ViewContrato},
   View.Query.Caixa.Conferencia in '..\Sys\View\Query\View.Query.Caixa.Conferencia.pas' {ViewQueryCaixaConferencia},
-  View.Servico.ConsultarCNPJ in '..\Sys\View\View.Servico.ConsultarCNPJ.pas' {ViewServicoConsultarCNPJ},
-  SGE.Controller.Endereco in '..\Sys\Controller\SGE.Controller.Endereco.pas';
+  View.Servico.ConsultarCNPJ in '..\Sys\View\View.Servico.ConsultarCNPJ.pas' {ViewServicoConsultarCNPJ};
 
 {$R *.res}
 

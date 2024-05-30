@@ -3,8 +3,8 @@ inherited ViewContrato: TViewContrato
   Caption = 'Gest'#227'o de Contratos'
   ClientHeight = 526
   ClientWidth = 805
-  ExplicitWidth = 817
-  ExplicitHeight = 564
+  ExplicitWidth = 821
+  ExplicitHeight = 565
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 522
@@ -23,8 +23,8 @@ inherited ViewContrato: TViewContrato
     Height = 483
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 801
-    ExplicitHeight = 482
+    ExplicitWidth = 805
+    ExplicitHeight = 483
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 797
       ExplicitHeight = 454
@@ -110,7 +110,6 @@ inherited ViewContrato: TViewContrato
             Left = 291
             Top = 25
             Width = 80
-            Height = 21
             Margins.Left = 10
             Margins.Top = 10
             Margins.Bottom = 14
@@ -126,7 +125,7 @@ inherited ViewContrato: TViewContrato
             Left = 12
             Top = 24
             Width = 49
-            Height = 23
+            Height = 13
             Margins.Left = 10
             Margins.Top = 9
             Margins.Bottom = 13
@@ -134,7 +133,6 @@ inherited ViewContrato: TViewContrato
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 377

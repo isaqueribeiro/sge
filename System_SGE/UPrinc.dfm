@@ -4675,7 +4675,6 @@ object frmPrinc: TfrmPrinc
     OnApplicationMenuClick = RibbonApplicationMenuClick
     ExplicitWidth = 1044
     object RbnTabPrincipal: TdxRibbonTab
-      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4706,6 +4705,7 @@ object frmPrinc: TfrmPrinc
       Index = 2
     end
     object RbnTabMovimento: TdxRibbonTab
+      Active = True
       Caption = 'Movimenta'#231#227'o'
       Groups = <
         item

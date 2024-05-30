@@ -6,8 +6,8 @@ object ViewServicoConsultarCNPJ: TViewServicoConsultarCNPJ
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Consultar CNPJ'
-  ClientHeight = 582
-  ClientWidth = 657
+  ClientHeight = 581
+  ClientWidth = 653
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -28,8 +28,8 @@ object ViewServicoConsultarCNPJ: TViewServicoConsultarCNPJ
     AlignWithMargins = True
     Left = 3
     Top = 108
-    Width = 651
-    Height = 417
+    Width = 647
+    Height = 416
     Margins.Left = 0
     Margins.Right = 0
     Align = alClient
@@ -401,7 +401,7 @@ object ViewServicoConsultarCNPJ: TViewServicoConsultarCNPJ
   object pnlFind: TPanel
     Left = 3
     Top = 3
-    Width = 651
+    Width = 647
     Height = 102
     Align = alTop
     BevelInner = bvRaised
@@ -483,12 +483,14 @@ object ViewServicoConsultarCNPJ: TViewServicoConsultarCNPJ
   end
   object pnlFooter: TPanel
     Left = 3
-    Top = 528
-    Width = 651
+    Top = 527
+    Width = 647
     Height = 51
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitTop = 528
+    ExplicitWidth = 651
     object bvlFooter: TBevel
       Left = 0
       Top = 0

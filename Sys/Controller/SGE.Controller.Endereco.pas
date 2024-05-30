@@ -21,13 +21,16 @@ type
       class function New : IControllerEndereco;
 
       function GetPaisIDDefault : String;
+      function GetPaisNomeDefault : String;
       function GetPaisNome(const sPais : String) : String;
       function GetEstadoIDDefault : Integer;
+      function GetEstadoNomeDefault : String;
       function GetEstadoNome(const iEstado : Integer) : String; overload;
       function GetEstadoNome(const sSigla : String) : String; overload;
       function GetEstadoID(const sSigla : String) : Integer;
       function GetEstadoUF(const iEstado : Integer) : String;
       function GetCidadeIDDefault : Integer;
+      function GetCidadeNomeDefault : String;
       function GetCidadeNome(const iCidade : Integer) : String;
       function GetCidadeCEP(const iCidade : Integer) : String;
       function GetCidadeID(const iEstado : Integer; const sNome : String) : Integer; overload;
@@ -105,7 +108,7 @@ begin
     .SQL('  cid_cod ')
     .SQL('from TBCIDADE')
     .SQL('where (est_cod = ' + iEstado.ToString + ')')
-    .SQL('  and (cid_nome like ' + QuotedStr('%' + Trim(sNome) + '%') + ')')
+    .SQL('  and ((cast(cid_nome as VARCHAR(200) character set WIN1252) collate WIN_PTBR) = ' + sNome.Trim.QuotedString + ')')
     .Open;
 
   Result := IDAO.DataSet.FieldByName('cid_cod').AsInteger;
@@ -127,6 +130,11 @@ begin
     .Open;
 
   Result := IDAO.DataSet.FieldByName('cid_nome').AsString;
+end;
+
+function TControllerEndereco.GetCidadeNomeDefault: String;
+begin
+  Result := Self.GetCidadeNome(Self.GetCidadeIDDefault);
 end;
 
 function TControllerEndereco.GetEstadoID(const sSigla: String): Integer;
@@ -168,6 +176,11 @@ begin
     .Open;
 
   Result := IDAO.DataSet.FieldByName('est_nome').AsString;
+end;
+
+function TControllerEndereco.GetEstadoNomeDefault: String;
+begin
+  Result := Self.GetEstadoNome(Self.GetEstadoIDDefault);
 end;
 
 function TControllerEndereco.GetEstadoUF(const iEstado: Integer): String;
@@ -246,6 +259,11 @@ begin
     .Open;
 
   Result := IDAO.DataSet.FieldByName('pais_nome').AsString;
+end;
+
+function TControllerEndereco.GetPaisNomeDefault: String;
+begin
+  Result := Self.GetPaisNome(Self.GetPaisIDDefault);
 end;
 
 function TControllerEndereco.GetEstadoNome(const iEstado: Integer): String;
