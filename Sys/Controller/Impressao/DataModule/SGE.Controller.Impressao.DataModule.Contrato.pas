@@ -166,7 +166,7 @@ begin
     qryContratoItens.Open;
 
     qryContratoNotas.Close;
-    qryContratoNotas.ParamByName('controle').AsLargeInt := aControle;
+    qryContratoNotas.ParamByName('contrato').AsLargeInt := aControle;
     qryContratoNotas.Open;
   end;
 end;
@@ -184,7 +184,7 @@ begin
     with CdsRelacaoContratos, Params do
     begin
       Close;
-      ParamByName('empresa').AsString := aEmpresa;
+      ParamByName('empresa').AsString := aEmpresa.Trim;
       ParamByName('data_inicial').AsDateTime := aDataInicial;
       ParamByName('data_final').AsDateTime   := aDataFinal;
       Open;

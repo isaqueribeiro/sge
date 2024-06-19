@@ -725,6 +725,9 @@ begin
   if not DataBaseOnLine then
     Exit;
 
+  if sCNPJ.Trim.IsEmpty then
+    sCNPJ := gUsuarioLogado.Empresa;
+
   with qryEmitente do
   begin
     Close;

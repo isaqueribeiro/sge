@@ -1011,7 +1011,7 @@ begin
   if not Assigned(FImpressao) then
     FImpressao := TImpressaoContrato.New;
 
-  FImpressao.VisualizarRelacaoContratos(FController.DAO.Usuario.Empresa.CNPJ, e1Data.Date, e2Data.Date);
+  FImpressao.VisualizarRelacaoContratos(EmptyStr, e1Data.Date, e2Data.Date);
 end;
 
 function TViewContrato.Notas: IControllerCustom;

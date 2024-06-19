@@ -116,6 +116,10 @@ begin
   Result := self;
   try
     ConfigFBRealTime(aTokenID);
+//
+//    // TESTE
+//    FFBRealTime.Collection('clientes').Key(aDocument).Get;
+//
     aResponse := TJSONObject.ParseJSONValue(FFBRealTime.Collection('clientes').Key(aDocument).Get.ToJson) as TJSONObject;
     if Assigned(aResponse) and (not Assigned(aResponse.GetValue('error'))) then
     begin
@@ -193,13 +197,10 @@ begin
   finally
     if Assigned(aResponse) then
       aResponse.DisposeOf;
-
     if Assigned(aTabela) then
       aTabela.DisposeOf;
-
     if Assigned(aRegistro) then
       aRegistro.DisposeOf;
-
     aClientDataSet.First;
     aClientDataSet.EnableControls;
   end;

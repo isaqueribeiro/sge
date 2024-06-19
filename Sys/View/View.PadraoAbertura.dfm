@@ -11,7 +11,6 @@ object FrmPadraoAbertura: TFrmPadraoAbertura
   Font.Height = -16
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
@@ -19,7 +18,6 @@ object FrmPadraoAbertura: TFrmPadraoAbertura
   DesignSize = (
     694
     442)
-  PixelsPerInch = 96
   TextHeight = 19
   object shapeMolduraIcone: TShape
     Left = 33

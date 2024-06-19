@@ -30,8 +30,12 @@ type
 implementation
 
 uses
-  Controller.Versao, Controller.PersonalizaEmpresa, Controller.Licenca,
-  Controller.Usuario, Controller.Empresa, Controller.Tabela;
+  Controller.Versao,
+  Controller.PersonalizaEmpresa,
+  Controller.Licenca,
+  Controller.Usuario,
+  Controller.Empresa,
+  Controller.Tabela;
 
 { TFactoryController }
 

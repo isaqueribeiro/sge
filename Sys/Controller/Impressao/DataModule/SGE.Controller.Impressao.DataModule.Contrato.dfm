@@ -1886,7 +1886,7 @@ object DataModuleContrato: TDataModuleContrato
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 41557.397184305600000000
     ReportOptions.Name = 'Teste!'
-    ReportOptions.LastChange = 45310.816673564810000000
+    ReportOptions.LastChange = 45462.446694097220000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -3189,7 +3189,7 @@ object DataModuleContrato: TDataModuleContrato
     PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 40928.407150601900000000
-    ReportOptions.LastChange = 45442.684226041670000000
+    ReportOptions.LastChange = 45462.464695381950000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -3652,7 +3652,7 @@ object DataModuleContrato: TDataModuleContrato
           Frame.Typ = []
           Memo.UTF8W = (
             
-              ' [FormatFloat('#39'##0000'#39',<frdsContratoPessoa."CODIGO">)] - [frdsCo' +
+              ' [FormatFloat('#39'##0000'#39',<frdsContratoPessoa."PESSOA">)] - [frdsCo' +
               'ntratoPessoa."RAZAO"]')
           ParentFont = False
           WordWrap = False
@@ -3718,8 +3718,8 @@ object DataModuleContrato: TDataModuleContrato
           Frame.Typ = []
           Memo.UTF8W = (
             
-              ' [FormatDateTime('#39'dd/mm/yyyy'#39',<frdsContrato."DATA_ATUALIZACAO">)' +
-              ']')
+              ' [IIF(<frdsContrato."DATA_ATUALIZACAO"> > 0, FormatDateTime('#39'dd/' +
+              'mm/yyyy'#39',<frdsContrato."DATA_ATUALIZACAO">), '#39#39')]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -4569,7 +4569,6 @@ object DataModuleContrato: TDataModuleContrato
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop]
-          Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           HAlign = haRight
           Memo.UTF8W = (
@@ -4611,7 +4610,6 @@ object DataModuleContrato: TDataModuleContrato
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop]
-          Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           HAlign = haRight
           Memo.UTF8W = (
@@ -4653,7 +4651,6 @@ object DataModuleContrato: TDataModuleContrato
           Font.Name = 'Lucida Console'
           Font.Style = [fsBold]
           Frame.Typ = [ftLeft, ftRight, ftTop]
-          Frame.Width = 0.100000000000000000
           Fill.BackColor = clBtnFace
           HAlign = haRight
           Memo.UTF8W = (
@@ -4807,7 +4804,7 @@ object DataModuleContrato: TDataModuleContrato
         FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
-        Top = 18.897650000000000000
+        Top = 16.000000000000000000
         Width = 1046.929810000000000000
         DataSet = frdsContratoNotas
         DataSetName = 'frdsContratoNotas'
@@ -4865,7 +4862,9 @@ object DataModuleContrato: TDataModuleContrato
           Highlight.FillType = ftBrush
           Highlight.Frame.Typ = []
           Memo.UTF8W = (
-            ' [FormatFloat('#39'###0000000'#39',<frdsContratoNotas."NFE">)]')
+            
+              ' [IIF(<frdsContratoNotas."NFE"> > 0, FormatFloat('#39'###0000000'#39',<f' +
+              'rdsContratoNotas."NFE">), '#39#39')]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -4923,7 +4922,7 @@ object DataModuleContrato: TDataModuleContrato
           Highlight.FillType = ftBrush
           Highlight.Frame.Typ = []
           Memo.UTF8W = (
-            ' [frdsContratoNotas."DTVENDA"]')
+            ' [FormatDateTime('#39'dd/mm/yyyy'#39', <frdsContratoNotas."DTVENDA">)]')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
@@ -4953,7 +4952,10 @@ object DataModuleContrato: TDataModuleContrato
           Highlight.FillType = ftBrush
           Highlight.Frame.Typ = []
           Memo.UTF8W = (
-            '[FormatFloat('#39',0.00'#39',<frdsContratoNotas."VL_TOTAL_NOTA">)] ')
+            
+              '[FormatFloat('#39',0.00'#39', IIF(<frdsContratoNotas."VL_TOTAL_NOTA"> > ' +
+              '0,<frdsContratoNotas."VL_TOTAL_NOTA">,<frdsContratoNotas."VL_TOT' +
+              'AL_VENDA">))] ')
           ParentFont = False
           WordWrap = False
           VAlign = vaCenter
