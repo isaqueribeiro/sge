@@ -51,7 +51,8 @@ uses
   Interacao.Tabela,
   Controller.Tabela,
   UConstantesDGE,
-  SGE.Controller.Impressao.ContaAPagar;
+  SGE.Controller.Impressao.ContaAPagar, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White;
 
 type
   TViewContaAPagar = class(TViewPadraoCadastro)

@@ -1,13 +1,12 @@
 inherited ViewContaAPagar: TViewContaAPagar
   Left = 396
   Top = 216
+  ActiveControl = dbCodigo
   Caption = 'Controle de Contas A Pagar'
   ClientHeight = 561
   ClientWidth = 934
-  OldCreateOrder = True
-  ExplicitWidth = 950
-  ExplicitHeight = 600
-  PixelsPerInch = 96
+  ExplicitWidth = 946
+  ExplicitHeight = 599
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 557
@@ -24,12 +23,11 @@ inherited ViewContaAPagar: TViewContaAPagar
   inherited pgcGuias: TPageControl
     Width = 934
     Height = 518
+    ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 934
-    ExplicitHeight = 518
+    ExplicitWidth = 930
+    ExplicitHeight = 517
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 926
       ExplicitHeight = 489
       inherited Bevel4: TBevel
@@ -121,12 +119,12 @@ inherited ViewContaAPagar: TViewContaAPagar
       inherited pnlFiltros: TPanel
         Top = 419
         Width = 926
-        ExplicitTop = 419
-        ExplicitWidth = 926
+        ExplicitTop = 418
+        ExplicitWidth = 922
         inherited grpBxFiltro: TGroupBox
           Left = 328
           Width = 594
-          ExplicitLeft = 328
+          ExplicitLeft = 324
           ExplicitWidth = 594
           inherited lbltFiltrar: TLabel
             AlignWithMargins = True
@@ -162,7 +160,6 @@ inherited ViewContaAPagar: TViewContaAPagar
             Width = 153
             TabOrder = 2
             ExplicitLeft = 397
-            ExplicitTop = 25
             ExplicitWidth = 153
           end
           inherited btnFiltrar: TcxButton
@@ -304,6 +301,7 @@ inherited ViewContaAPagar: TViewContaAPagar
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
+          ExplicitWidth = 314
           object pnlSatusColor: TPanel
             Left = 0
             Top = 0
@@ -363,6 +361,7 @@ inherited ViewContaAPagar: TViewContaAPagar
             Align = alClient
             BevelOuter = bvNone
             TabOrder = 1
+            ExplicitWidth = 290
             object lblOperacaoAberta: TLabel
               AlignWithMargins = True
               Left = 3
@@ -1226,8 +1225,8 @@ inherited ViewContaAPagar: TViewContaAPagar
   inherited tlbBotoes: TPanel
     Top = 522
     Width = 934
-    ExplicitTop = 522
-    ExplicitWidth = 934
+    ExplicitTop = 521
+    ExplicitWidth = 930
     inherited Bevel2: TBevel
       Left = 84
       ExplicitLeft = 84
@@ -1298,12 +1297,12 @@ inherited ViewContaAPagar: TViewContaAPagar
     inherited btbtnFechar: TcxButton
       Left = 855
       TabOrder = 9
-      ExplicitLeft = 855
+      ExplicitLeft = 851
     end
     inherited btbtnSelecionar: TcxButton
       Left = 731
       TabOrder = 8
-      ExplicitLeft = 731
+      ExplicitLeft = 727
     end
     object btbtnEfetuarPagto: TcxButton
       Tag = 11
@@ -1388,6 +1387,7 @@ inherited ViewContaAPagar: TViewContaAPagar
       ShowHint = True
       TabOrder = 7
       OnClick = btbtnEfetuarPagtoClick
+      ExplicitLeft = 607
     end
     object btbtnIncluirLote: TcxButton
       Tag = 1
