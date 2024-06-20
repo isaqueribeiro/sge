@@ -42,6 +42,10 @@ uses
   cxButtons,
   dxSkinsDefaultPainters,
   dxSkinsCore,
+  dxSkinOffice2019Black,
+  dxSkinOffice2019Colorful,
+  dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White,
 
   UObserverInterface,
   UConstantesDGE,

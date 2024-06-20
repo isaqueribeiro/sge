@@ -5,10 +5,8 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
   Caption = 'Cadastro de Perfis de Acesso'
   ClientHeight = 408
   ClientWidth = 741
-  OldCreateOrder = True
-  ExplicitWidth = 757
-  ExplicitHeight = 447
-  PixelsPerInch = 96
+  ExplicitWidth = 753
+  ExplicitHeight = 446
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 404
@@ -26,11 +24,9 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
     Width = 741
     Height = 365
     OnChange = pgcGuiasChange
-    ExplicitWidth = 741
-    ExplicitHeight = 365
+    ExplicitWidth = 737
+    ExplicitHeight = 364
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 733
       ExplicitHeight = 336
       inherited Bevel4: TBevel
@@ -93,8 +89,6 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 733
       ExplicitHeight = 336
       inherited Bevel8: TBevel
@@ -106,7 +100,7 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
       inherited GrpBxDadosNominais: TGroupBox
         Width = 733
         Height = 81
-        ExplicitWidth = 733
+        ExplicitWidth = 729
         ExplicitHeight = 81
         object lblDescricao: TLabel [1]
           Left = 88
@@ -151,6 +145,8 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 1
+        ExplicitWidth = 729
+        ExplicitHeight = 250
         object TreeMenu: TTreeView
           Left = 2
           Top = 15
@@ -176,6 +172,8 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
           RowSelect = True
           ShowHint = False
           TabOrder = 0
+          ExplicitWidth = 725
+          ExplicitHeight = 233
         end
       end
     end
@@ -183,8 +181,8 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
   inherited tlbBotoes: TPanel
     Top = 369
     Width = 741
-    ExplicitTop = 369
-    ExplicitWidth = 741
+    ExplicitTop = 368
+    ExplicitWidth = 737
     inherited bvlTool3: TBevel
       Left = 658
       ExplicitLeft = 658
@@ -195,11 +193,11 @@ inherited frmGrUsuarioPerfil: TfrmGrUsuarioPerfil
     end
     inherited btbtnFechar: TcxButton
       Left = 662
-      ExplicitLeft = 662
+      ExplicitLeft = 658
     end
     inherited btbtnSelecionar: TcxButton
       Left = 538
-      ExplicitLeft = 538
+      ExplicitLeft = 534
     end
   end
   inherited IbDtstTabela: TIBDataSet

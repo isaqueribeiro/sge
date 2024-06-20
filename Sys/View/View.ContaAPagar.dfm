@@ -119,19 +119,18 @@ inherited ViewContaAPagar: TViewContaAPagar
       inherited pnlFiltros: TPanel
         Top = 419
         Width = 926
-        ExplicitTop = 418
-        ExplicitWidth = 922
+        ExplicitTop = 419
+        ExplicitWidth = 926
         inherited grpBxFiltro: TGroupBox
           Left = 328
           Width = 594
-          ExplicitLeft = 324
+          ExplicitLeft = 328
           ExplicitWidth = 594
           inherited lbltFiltrar: TLabel
             AlignWithMargins = True
             Left = 318
             Top = 24
             Width = 73
-            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -146,14 +145,13 @@ inherited ViewContaAPagar: TViewContaAPagar
             Left = 25
             Top = 24
             Width = 70
-            Height = 23
+            Height = 13
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
             Caption = 'Vencimento:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 397
@@ -301,7 +299,6 @@ inherited ViewContaAPagar: TViewContaAPagar
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 314
           object pnlSatusColor: TPanel
             Left = 0
             Top = 0
@@ -361,7 +358,6 @@ inherited ViewContaAPagar: TViewContaAPagar
             Align = alClient
             BevelOuter = bvNone
             TabOrder = 1
-            ExplicitWidth = 290
             object lblOperacaoAberta: TLabel
               AlignWithMargins = True
               Left = 3
@@ -465,7 +461,7 @@ inherited ViewContaAPagar: TViewContaAPagar
       inherited GrpBxDadosNominais: TGroupBox
         Width = 926
         Height = 81
-        ExplicitWidth = 926
+        ExplicitWidth = 922
         ExplicitHeight = 81
         object lblEmpresa: TLabel [1]
           Left = 88
@@ -676,6 +672,7 @@ inherited ViewContaAPagar: TViewContaAPagar
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 1
+        ExplicitWidth = 922
         object lblNotaFiscal: TLabel
           Left = 16
           Top = 24
@@ -1075,6 +1072,8 @@ inherited ViewContaAPagar: TViewContaAPagar
         ActivePage = tbsHistorico
         Align = alBottom
         TabOrder = 3
+        ExplicitTop = 358
+        ExplicitWidth = 922
         object tbsHistorico: TTabSheet
           Caption = 'Hist'#243'rico'
           object dbObservacao: TDBMemo
@@ -1086,6 +1085,7 @@ inherited ViewContaAPagar: TViewContaAPagar
             DataField = 'HISTORIC'
             DataSource = DtSrcTabela
             TabOrder = 0
+            ExplicitWidth = 914
           end
         end
       end
@@ -1097,6 +1097,8 @@ inherited ViewContaAPagar: TViewContaAPagar
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 2
+        ExplicitWidth = 922
+        ExplicitHeight = 149
         object pnlPagamentosDicas: TPanel
           Left = 0
           Top = 118
@@ -1108,6 +1110,8 @@ inherited ViewContaAPagar: TViewContaAPagar
           Padding.Left = 10
           Padding.Right = 10
           TabOrder = 1
+          ExplicitTop = 117
+          ExplicitWidth = 922
           object lblPagamentosDicas: TLabel
             AlignWithMargins = True
             Left = 13
@@ -1119,14 +1123,18 @@ inherited ViewContaAPagar: TViewContaAPagar
             Caption = 
               'Dica: Para excluir um pagamento, selecione-o e pressione CTRL + ' +
               'DELETE'
+            Color = clBtnFace
             Font.Charset = ANSI_CHARSET
             Font.Color = clRed
             Font.Height = -11
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
+            ParentColor = False
             ParentFont = False
+            Transparent = True
             Layout = tlCenter
             WordWrap = True
+            StyleElements = [seClient, seBorder]
             ExplicitLeft = 2
             ExplicitTop = 4
             ExplicitWidth = 920

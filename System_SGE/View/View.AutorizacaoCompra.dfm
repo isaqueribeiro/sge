@@ -2,34 +2,33 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
   Left = 391
   ActiveControl = dbCodigo
   Caption = 'Controle de Autoriza'#231#245'es de Compra/Servi'#231'o'
-  ClientHeight = 685
-  ClientWidth = 1116
-  ExplicitWidth = 1132
-  ExplicitHeight = 724
-  PixelsPerInch = 96
+  ClientHeight = 684
+  ClientWidth = 1112
+  ExplicitWidth = 1128
+  ExplicitHeight = 723
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 681
-    Width = 1116
+    Top = 680
+    Width = 1112
     ExplicitTop = 682
     ExplicitWidth = 1116
   end
   inherited Bevel3: TBevel
-    Top = 642
-    Width = 1116
+    Top = 641
+    Width = 1112
     ExplicitTop = 643
     ExplicitWidth = 1116
   end
   inherited pgcGuias: TPageControl
-    Width = 1116
-    Height = 642
+    Width = 1112
+    Height = 641
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 1116
-    ExplicitHeight = 642
+    ExplicitWidth = 1112
+    ExplicitHeight = 641
     inherited tbsTabela: TTabSheet
-      ExplicitWidth = 1108
-      ExplicitHeight = 613
+      ExplicitWidth = 1104
+      ExplicitHeight = 612
       inherited Bevel4: TBevel
         Top = 539
         Width = 1108
@@ -120,7 +119,6 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Left = 300
             Top = 24
             Width = 147
-            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -135,14 +133,13 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Left = 30
             Top = 24
             Width = 49
-            Height = 23
+            Height = 13
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 453
@@ -448,29 +445,28 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 1108
-      ExplicitHeight = 613
+      ExplicitWidth = 1104
+      ExplicitHeight = 612
       inherited Bevel8: TBevel
         Top = 349
-        Width = 1108
+        Width = 1104
         ExplicitTop = 349
         ExplicitWidth = 1108
       end
       object Bevel6: TBevel [1]
         Left = 0
-        Top = 443
-        Width = 1108
+        Top = 442
+        Width = 1104
         Height = 4
         Align = alBottom
         Shape = bsSpacer
         ExplicitTop = 444
+        ExplicitWidth = 1108
       end
       inherited GrpBxDadosNominais: TGroupBox
-        Width = 1108
+        Width = 1104
         Height = 233
-        ExplicitWidth = 1108
+        ExplicitWidth = 1104
         ExplicitHeight = 233
         inherited lblCodigo: TLabel
           Width = 71
@@ -1197,8 +1193,8 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       end
       object pgcMaisDados: TPageControl
         Left = 0
-        Top = 447
-        Width = 1108
+        Top = 446
+        Width = 1104
         Height = 166
         ActivePage = tbsFormaPagto
         Align = alBottom
@@ -1209,7 +1205,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           object GrpBxPagamento: TGroupBox
             Left = 0
             Top = 0
-            Width = 1100
+            Width = 1096
             Height = 73
             Align = alTop
             Caption = 'Pagamento'
@@ -1428,7 +1424,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           object pnlRetiradaEntrega: TPanel
             Left = 0
             Top = 73
-            Width = 1100
+            Width = 1096
             Height = 65
             Align = alClient
             BevelOuter = bvNone
@@ -1436,7 +1432,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             object lblEnderecoEntrega: TLabel
               Left = 0
               Top = 4
-              Width = 1100
+              Width = 1096
               Height = 13
               Align = alTop
               Caption = 'Endere'#231'o de Entrega/Realiza'#231#227'o:'
@@ -1446,23 +1442,25 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             object Bevel5: TBevel
               Left = 0
               Top = 0
-              Width = 1100
+              Width = 1096
               Height = 4
               Align = alTop
               Shape = bsSpacer
+              ExplicitWidth = 1100
             end
             object Bevel9: TBevel
               Left = 0
               Top = 17
-              Width = 1100
+              Width = 1096
               Height = 4
               Align = alTop
               Shape = bsSpacer
+              ExplicitWidth = 1100
             end
             object dbEnderecoEntrega: TDBMemo
               Left = 0
               Top = 21
-              Width = 1100
+              Width = 1096
               Height = 44
               Align = alClient
               DataField = 'ENDERECO_ENTREGA'
@@ -1588,7 +1586,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       object GrpBxDadosProduto: TGroupBox
         Left = 0
         Top = 233
-        Width = 1108
+        Width = 1104
         Height = 116
         Align = alTop
         Caption = 'Dados do produto/servi'#231'o'
@@ -2168,8 +2166,8 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       object dbgProdutos: TDBGrid
         Left = 0
         Top = 353
-        Width = 1108
-        Height = 90
+        Width = 1104
+        Height = 89
         TabStop = False
         Align = alClient
         DataSource = DtSrcTabelaItens
@@ -2250,16 +2248,16 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 646
-    Width = 1116
-    ExplicitTop = 646
-    ExplicitWidth = 1116
+    Top = 645
+    Width = 1112
+    ExplicitTop = 645
+    ExplicitWidth = 1112
     inherited bvlTool3: TBevel
-      Left = 1033
+      Left = 1029
       ExplicitLeft = 1033
     end
     inherited bvlTool4: TBevel
-      Left = 1112
+      Left = 1108
       ExplicitLeft = 1112
     end
     object Bevel12: TBevel [5]
@@ -2273,18 +2271,18 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       Visible = True
     end
     inherited btbtnFechar: TcxButton
-      Left = 1037
+      Left = 1033
       TabOrder = 10
-      ExplicitLeft = 1037
+      ExplicitLeft = 1033
     end
     inherited btbtnSelecionar: TcxButton
-      Left = 913
+      Left = 909
       TabOrder = 9
-      ExplicitLeft = 913
+      ExplicitLeft = 909
     end
     object btnFinalizarAutorizacao: TcxButton
       Tag = 11
-      Left = 553
+      Left = 549
       Top = 0
       Width = 120
       Height = 35
@@ -2368,7 +2366,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
     end
     object btnAutorizarReabrir: TcxButton
       Tag = 12
-      Left = 673
+      Left = 669
       Top = 0
       Width = 120
       Height = 35
@@ -2452,7 +2450,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
     end
     object btnCancelarAutorizacao: TcxButton
       Tag = 13
-      Left = 793
+      Left = 789
       Top = 0
       Width = 120
       Height = 35

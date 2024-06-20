@@ -351,12 +351,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\System_SGE\UGeEntradaImpressao.pas">
             <Form>frmGeEntradaImpressao</Form>
         </DCCReference>
-        <DCCReference Include="..\System_SGE\UGrUsuarioPerfil.pas">
-            <Form>frmGrUsuarioPerfil</Form>
-        </DCCReference>
-        <DCCReference Include="..\System_SGE\UGrUsuarioCopiarPerfil.pas">
-            <Form>frmGrUsuarioCopiarPerfil</Form>
-        </DCCReference>
         <DCCReference Include="..\System_SGE\UGeCotacaoCompra.pas">
             <Form>frmGeCotacaoCompra</Form>
         </DCCReference>
@@ -491,6 +485,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.Promocao.pas"/>
         <DCCReference Include="Model\DAO\SGI.Model.DAO.RequisicaoAlmoxarifado.pas"/>
         <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.RequisicaoCompra.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Rotina.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas"/>
@@ -545,6 +540,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="Controller\SGI.Controller.ProdutoAlmoxarifado.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.Promocao.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.RequisicaoCompra.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Rotina.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Tabelas.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoLogradouro.pas"/>
@@ -798,6 +794,14 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Servico.ConsultarCNPJ.pas">
             <Form>ViewServicoConsultarCNPJ</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Perfil.pas">
+            <Form>ViewPerfil</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Perfil.Copiar.pas">
+            <Form>ViewPerfilCopiar</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Base">

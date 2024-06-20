@@ -1535,7 +1535,7 @@ begin
   if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
     ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
   else
-    FormFunction.ShowModalForm(Self, 'frmGrUsuarioPerfil');
+    FormFunction.ShowModalForm(Self, 'ViewPerfil');
 end;
 
 procedure TfrmPrinc.nmCotacaoCompraClick(Sender: TObject);

@@ -5,10 +5,8 @@ inherited ViewUsuario: TViewUsuario
   Caption = 'Tabela de Usu'#225'rios'
   ClientHeight = 456
   ClientWidth = 751
-  OldCreateOrder = True
-  ExplicitWidth = 767
-  ExplicitHeight = 495
-  PixelsPerInch = 96
+  ExplicitWidth = 763
+  ExplicitHeight = 494
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 452
@@ -27,8 +25,8 @@ inherited ViewUsuario: TViewUsuario
     Height = 413
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 751
-    ExplicitHeight = 413
+    ExplicitWidth = 747
+    ExplicitHeight = 412
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 743
       ExplicitHeight = 384
@@ -199,7 +197,7 @@ inherited ViewUsuario: TViewUsuario
         Width = 743
         Height = 81
         Caption = 'Dados de autentica'#231#227'o'
-        ExplicitWidth = 743
+        ExplicitWidth = 739
         ExplicitHeight = 81
         inherited lblCodigo: TLabel
           Enabled = False
@@ -285,6 +283,7 @@ inherited ViewUsuario: TViewUsuario
         Align = alTop
         Caption = 'Dados de Identifica'#231#227'o'
         TabOrder = 1
+        ExplicitWidth = 739
         object lblNomeCompleto: TLabel
           Left = 16
           Top = 24
@@ -364,6 +363,8 @@ inherited ViewUsuario: TViewUsuario
         ActivePage = tbsVendas
         Align = alClient
         TabOrder = 2
+        ExplicitWidth = 739
+        ExplicitHeight = 213
         object tbsVendas: TTabSheet
           Caption = 'Vendas / OS'
           object GrpBxParametrosVenda: TGroupBox
@@ -374,6 +375,8 @@ inherited ViewUsuario: TViewUsuario
             Align = alClient
             Caption = 'Par'#226'metros'
             TabOrder = 0
+            ExplicitWidth = 731
+            ExplicitHeight = 185
             object lblPercentualDesc: TLabel
               Left = 16
               Top = 24
@@ -532,8 +535,8 @@ inherited ViewUsuario: TViewUsuario
   inherited tlbBotoes: TPanel
     Top = 417
     Width = 751
-    ExplicitTop = 417
-    ExplicitWidth = 751
+    ExplicitTop = 416
+    ExplicitWidth = 747
     inherited bvlTool3: TBevel
       Left = 668
       ExplicitLeft = 668
@@ -544,11 +547,11 @@ inherited ViewUsuario: TViewUsuario
     end
     inherited btbtnFechar: TcxButton
       Left = 672
-      ExplicitLeft = 672
+      ExplicitLeft = 668
     end
     inherited btbtnSelecionar: TcxButton
       Left = 548
-      ExplicitLeft = 548
+      ExplicitLeft = 544
     end
   end
   inherited DtSrcTabela: TDataSource

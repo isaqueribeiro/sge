@@ -26,6 +26,30 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // Perfis liberados para cópia
+  TModelDAOPerfilLiberado = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
+  // Permissões no Sistema por Perfil
+  TModelDAOPerfilPermissao = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
+  end;
+
   TModelDAOTipoDescontoView = class(TModelDAO, IModelDAOCustom)
     private
     protected
@@ -138,6 +162,83 @@ begin
     FLAG_NAO : Text := 'Inativo';
     FLAG_SIM : Text := 'Ativo';
   end;
+end;
+
+{ TModelDAOPerfilPermissao }
+
+constructor TModelDAOPerfilPermissao.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .TableName('SYS_FUNCAO_PERMISSAO')
+      .AliasTableName('p')
+      .KeyFields('sistema;funcao;rotina')
+      .AutoIncFields(EmptyStr)
+      .GeneratorName(EmptyStr)
+      .SQL
+        .Clear
+        .Add('Select   ')
+        .Add('    p.sistema')
+        .Add('  , p.funcao ')
+        .Add('  , p.rotina ')
+        .Add('  , p.acesso ')
+        .Add('from SYS_FUNCAO_PERMISSAO p ')
+        .Add('where (p.sistema = :sistema)')
+        .Add('  and (p.funcao  = :perfil) ')
+        .Add('order by    ')
+        .Add('    p.rotina')
+      .&End
+    .ParamByName('sistema', -1)
+    .ParamByName('perfil', -1)
+    .Open;
+end;
+
+destructor TModelDAOPerfilPermissao.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOPerfilPermissao.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TModelDAOPerfilLiberado }
+
+constructor TModelDAOPerfilLiberado.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    f.cod   ')
+        .Add('  , f.funcao')
+        .Add('from TBFUNCAO f')
+        .Add('where f.cod not in (:perfil1, :perfil2)')
+        .Add('order by ')
+        .Add('    f.cod')
+      .&End
+      .ParamByName('perfil1', -1)
+      .ParamByName('perfil2', -1)
+    .Open;
+end;
+
+function TModelDAOPerfilLiberado.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+end;
+
+destructor TModelDAOPerfilLiberado.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOPerfilLiberado.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
 end;
 
 { TModelDAOTipoDescontoView }

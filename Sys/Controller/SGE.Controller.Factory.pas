@@ -37,6 +37,7 @@ uses
   SGE.Controller.Promocao,
   SGI.Controller.RequisicaoAlmoxarifado,
   SGE.Controller.RequisicaoCompra,
+  SGE.Controller.Rotina,
   SGE.Controller.Tabelas,
   SGE.Controller.TipoDespesa,
   SGE.Controller.TipoLogradouro,
@@ -117,6 +118,7 @@ type
       FOrigemProdutoView : IControllerCustom;
       FPagamento  : IControllerPagamento;
       FPerfil : IControllerPerfil;
+      FPerfilParaCopia ,
       FPlanoConta      ,
       FPlanoContaNivel ,
       FPlanoContaTipo  : IControllerCustom;
@@ -128,6 +130,7 @@ type
       FRecebimento     : IControllerRecebimento;
       FRequisicaoAlmoxarifado : IControllerRequisicaoAlmoxarifado;
       FRequisicaoCompra : IControllerRequisicaoCompra;
+      FRotina : IControllerRotina;
       FSecaoProduto    ,
       FSegmento        ,
       FTabelaIBPT      ,
@@ -231,6 +234,7 @@ type
       function OrigemProdutoView : IControllerCustom;
       function Pagamento         : IControllerPagamento;
       function Perfil : IControllerPerfil;
+      function PerfilParaCopia : IControllerCustom;
       function PlanoConta : IControllerCustom;
       function PlanoContaNivel : IControllerCustom;
       function PlanoContaTipo : IControllerCustom;
@@ -242,6 +246,7 @@ type
       function Recebimento       : IControllerRecebimento;
       function RequisicaoAlmoxarifado : IControllerRequisicaoAlmoxarifado;
       function RequisicaoCompra  : IControllerRequisicaoCompra;
+      function Rotina : IControllerRotina;
       function SecaoProduto : IControllerCustom;
       function Segmento : IControllerCustom;
       function TabelaIBPT : IControllerCustom;
@@ -341,6 +346,14 @@ begin
   Result := FPerfil;
 end;
 
+function TControllerFactory.PerfilParaCopia: IControllerCustom;
+begin
+  if not Assigned(FPerfilParaCopia) then
+    FPerfilParaCopia := TControllerPerfilParaCopia.New;
+
+  Result := FPerfilParaCopia;
+end;
+
 function TControllerFactory.PlanoConta: IControllerCustom;
 begin
   if not Assigned(FPlanoConta) then
@@ -427,6 +440,14 @@ begin
     FRequisicaoCompra := TControllerRequisicaoCompra.New;
 
   Result := FRequisicaoCompra;
+end;
+
+function TControllerFactory.Rotina: IControllerRotina;
+begin
+  if not Assigned(FRotina) then
+    FRotina := TControllerRotina.New;
+
+  Result := FRotina;
 end;
 
 function TControllerFactory.SecaoProduto: IControllerCustom;

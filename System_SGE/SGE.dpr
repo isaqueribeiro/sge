@@ -60,8 +60,6 @@ uses
   UGrConfigurarAmbiente in '..\Sys\lib\UGrConfigurarAmbiente.pas' {frmGrConfigurarAmbiente},
   UGeContasAPagarImpressao in 'UGeContasAPagarImpressao.pas' {frmGeContasAPagarImpressao},
   UGeEntradaImpressao in 'UGeEntradaImpressao.pas' {frmGeEntradaImpressao},
-  UGrUsuarioPerfil in 'UGrUsuarioPerfil.pas' {frmGrUsuarioPerfil},
-  UGrUsuarioCopiarPerfil in 'UGrUsuarioCopiarPerfil.pas' {frmGrUsuarioCopiarPerfil},
   UGeCotacaoCompra in 'UGeCotacaoCompra.pas' {frmGeCotacaoCompra},
   UGeCotacaoCompraCancelar in 'UGeCotacaoCompraCancelar.pas' {frmGeCotacaoCompraCancelar},
   UGeCotacaoCompraFornecedor in 'UGeCotacaoCompraFornecedor.pas' {frmGeCotacaoCompraFornecedor},
@@ -205,6 +203,7 @@ uses
   SGE.Model.DAO.Produto in '..\Sys\Model\DAO\SGE.Model.DAO.Produto.pas',
   SGE.Model.DAO.Promocao in 'Model\DAO\SGE.Model.DAO.Promocao.pas',
   SGE.Model.DAO.RequisicaoCompra in 'Model\DAO\SGE.Model.DAO.RequisicaoCompra.pas',
+  SGE.Model.DAO.Rotina in '..\Sys\Model\DAO\SGE.Model.DAO.Rotina.pas',
   SGE.Model.DAO.Tabelas in '..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas',
   SGE.Model.DAO.TipoDespesa in '..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas',
   SGE.Model.DAO.TipoLogradouro in '..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas',
@@ -258,6 +257,7 @@ uses
   SGE.Controller.Produto in '..\Sys\Controller\SGE.Controller.Produto.pas',
   SGE.Controller.Promocao in 'Controller\SGE.Controller.Promocao.pas',
   SGE.Controller.RequisicaoCompra in 'Controller\SGE.Controller.RequisicaoCompra.pas',
+  SGE.Controller.Rotina in '..\Sys\Controller\SGE.Controller.Rotina.pas',
   SGE.Controller.Tabelas in '..\Sys\Controller\SGE.Controller.Tabelas.pas',
   SGE.Controller.TipoDespesa in '..\Sys\Controller\SGE.Controller.TipoDespesa.pas',
   SGE.Controller.TipoLogradouro in '..\Sys\Controller\SGE.Controller.TipoLogradouro.pas',
@@ -345,7 +345,9 @@ uses
   View.Usuario.AlterarSenha in '..\Sys\View\View.Usuario.AlterarSenha.pas' {ViewUsuarioAlterarSenha},
   View.Contrato in '..\Sys\View\View.Contrato.pas' {ViewContrato},
   View.Query.Caixa.Conferencia in '..\Sys\View\Query\View.Query.Caixa.Conferencia.pas' {ViewQueryCaixaConferencia},
-  View.Servico.ConsultarCNPJ in '..\Sys\View\View.Servico.ConsultarCNPJ.pas' {ViewServicoConsultarCNPJ};
+  View.Servico.ConsultarCNPJ in '..\Sys\View\View.Servico.ConsultarCNPJ.pas' {ViewServicoConsultarCNPJ},
+  View.Perfil in '..\Sys\View\View.Perfil.pas' {ViewPerfil},
+  View.Perfil.Copiar in '..\Sys\View\View.Perfil.Copiar.pas' {ViewPerfilCopiar};
 
 {$R *.res}
 

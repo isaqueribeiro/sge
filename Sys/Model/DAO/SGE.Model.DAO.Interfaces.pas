@@ -190,6 +190,8 @@ type
     function OrigemProdutoView : IModelDAOCustom;
     function Pagamento : IModelDAOCustom;
     function Perfil : IModelDAOCustom;
+    function PerfilParaCopia : IModelDAOCustom;
+    function PerfilPermissao : IModelDAOCustom;
     function PlanoConta : IModelDAOCustom;
     function PlanoContaNivel : IModelDAOCustom;
     function PlanoContaTipo : IModelDAOCustom;
@@ -204,6 +206,9 @@ type
     function RequisicaoAlmoxarifadoProdutoReserva : IModelDAOCustom;
     function RequisicaoCompra : IModelDAOCustom;
     function RequisicaoCompraProdutoServico : IModelDAOCustom;
+    function Rotina : IModelDAOCustom;
+    function RotinaMenu : IModelDAOCustom;
+    function RotinaSubMenu : IModelDAOCustom;
     function SecaoProduto : IModelDAOCustom;
     function Segmento : IModelDAOCustom;
     function TabelaIBPT : IModelDAOCustom;

@@ -191,6 +191,9 @@ type
 
   IControllerPerfil = interface(IControllerCustom)
     ['{AC9FB863-06A6-4EEF-A9A3-2EFE7571A7F6}']
+    function CarregarPermissoes(aSistema : Integer; aPerfil : Integer) : IControllerPerfil;
+    function GravarPermissao(aSistema : Integer; aPerfil : Integer; aRotina : String; aPermissao : Boolean) : IControllerPerfil;
+    function Permissoes : TDataSet;
   end;
 
   IControllerProduto = interface(IControllerCustom)
@@ -291,6 +294,14 @@ type
     procedure AjustarQuantidadeAtendidaDeProdutos;
   end;
 
+  IControllerRotina = interface(IControllerCustom)
+    ['{56CF1ED4-1E70-4B74-A6D7-39C133666FFF}']
+    function CarregarMenus(aSistema : Integer) : IControllerRotina;
+    function CarregarSubMenus(aSistema : Integer; aRotina : String) : IControllerRotina;
+    function Menus : TDataSet;
+    function SubMenus : TDataSet;
+  end;
+
   IControllerEntradaProduto = interface(IControllerCustom)
     ['{02B27486-02D0-460C-B81A-39BE177EE50B}']
     procedure GravarLoteProduto(aSistema : Smallint);
@@ -353,6 +364,10 @@ type
     function CarregarBaixas : IControllerCheque; overload;
     function CarregarBaixas(aNumeroControle : Integer) : IControllerCheque; overload;
     function Baixas : IModelDAOCustom;
+  end;
+
+  IControllerSolicitacaoCompra = interface(IControllerCustom)
+    ['{F172C25B-5969-4E6C-A45C-8E0BF2EADA28}']
   end;
 
   IControllerFactory = interface
@@ -424,6 +439,7 @@ type
     function OrigemProdutoView : IControllerCustom;
     function Pagamento         : IControllerPagamento;
     function Perfil : IControllerPerfil;
+    function PerfilParaCopia : IControllerCustom;
     function PlanoConta        : IControllerCustom;
     function PlanoContaNivel   : IControllerCustom;
     function PlanoContaTipo    : IControllerCustom;
@@ -435,6 +451,7 @@ type
     function Recebimento       : IControllerRecebimento;
     function RequisicaoAlmoxarifado : IControllerRequisicaoAlmoxarifado;
     function RequisicaoCompra  : IControllerRequisicaoCompra;
+    function Rotina  : IControllerRotina;
     function SecaoProduto : IControllerCustom;
     function Segmento     : IControllerCustom;
     function TabelaIBPT   : IControllerCustom;

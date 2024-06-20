@@ -37,6 +37,7 @@ uses
   SGE.Model.DAO.Promocao,
   SGI.Model.DAO.RequisicaoAlmoxarifado,
   SGE.Model.DAO.RequisicaoCompra,
+  SGE.Model.DAO.Rotina,
   SGE.Model.DAO.Tabelas,
   SGE.Model.DAO.TipoDespesa,
   SGE.Model.DAO.TipoLogradouro,
@@ -119,6 +120,8 @@ type
       FOrigemProdutoView,
       FPagamento   ,
       FPerfil      ,
+      FPerfilParaCopia  ,
+      FPerfilPermissao  ,
       FPlanoConta       ,
       FPlanoContaNivel  ,
       FPlanoContaTipo   ,
@@ -135,6 +138,9 @@ type
       FRequisicaoAlmoxarifadoProdutoReserva,
       FRequisicaoCompra ,
       FRequisicaoCompraProdutoServico,
+      FRotina       ,
+      FRotinaMenu   ,
+      FRotinaSubMenu,
       FTabelaIBPT         ,
       FTipoAliquotaView   ,
       FTipoAutorizacaoView,
@@ -238,6 +244,8 @@ type
       function OrigemProdutoView : IModelDAOCustom;
       function Pagamento : IModelDAOCustom;
       function Perfil : IModelDAOCustom;
+      function PerfilParaCopia : IModelDAOCustom;
+      function PerfilPermissao : IModelDAOCustom;
       function PlanoConta : IModelDAOCustom;
       function PlanoContaNivel : IModelDAOCustom;
       function PlanoContaTipo : IModelDAOCustom;
@@ -254,6 +262,9 @@ type
       function RequisicaoAlmoxarifadoProdutoReserva : IModelDAOCustom;
       function RequisicaoCompra : IModelDAOCustom;
       function RequisicaoCompraProdutoServico : IModelDAOCustom;
+      function Rotina : IModelDAOCustom;
+      function RotinaMenu : IModelDAOCustom;
+      function RotinaSubMenu : IModelDAOCustom;
       function TabelaIBPT : IModelDAOCustom;
       function TipoAliquotaView : IModelDAOCustom;
       function TipoAutorizacaoView : IModelDAOCustom;
@@ -349,6 +360,22 @@ begin
     FPerfil := TModelDAOPerfil.New;
 
   Result := FPerfil;
+end;
+
+function TModelDAOFactory.PerfilParaCopia: IModelDAOCustom;
+begin
+  if not Assigned(FPerfilParaCopia) then
+    FPerfilParaCopia := TModelDAOPerfilLiberado.New;
+
+  Result := FPerfilParaCopia;
+end;
+
+function TModelDAOFactory.PerfilPermissao: IModelDAOCustom;
+begin
+  if not Assigned(FPerfilPermissao) then
+    FPerfilPermissao := TModelDAOPerfilPermissao.New;
+
+  Result := FPerfilPermissao;
 end;
 
 function TModelDAOFactory.PlanoConta: IModelDAOCustom;
@@ -461,6 +488,30 @@ begin
     FRequisicaoCompraProdutoServico := TModelDAORequisicaoCompraProdutoServico.New;
 
   Result := FRequisicaoCompraProdutoServico;
+end;
+
+function TModelDAOFactory.Rotina: IModelDAOCustom;
+begin
+  if not Assigned(FRotina) then
+    FRotina := TModelDAORotina.New;
+
+  Result := FRotina;
+end;
+
+function TModelDAOFactory.RotinaMenu: IModelDAOCustom;
+begin
+  if not Assigned(FRotinaMenu) then
+    FRotinaMenu := TModelDAORotinaMenu.New;
+
+  Result := FRotinaMenu;
+end;
+
+function TModelDAOFactory.RotinaSubMenu: IModelDAOCustom;
+begin
+  if not Assigned(FRotinaSubMenu) then
+    FRotinaSubMenu := TModelDAORotinaSubMenu.New;
+
+  Result := FRotinaSubMenu;
 end;
 
 function TModelDAOFactory.SecaoProduto: IModelDAOCustom;

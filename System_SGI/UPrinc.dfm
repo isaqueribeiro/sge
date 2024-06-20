@@ -4339,6 +4339,7 @@ object frmPrinc: TfrmPrinc
       Font.Style = [fsBold]
       ParentFont = False
       Transparent = True
+      StyleElements = [seClient, seBorder]
       IsControl = True
       ExplicitTop = 389
     end
@@ -4358,6 +4359,7 @@ object frmPrinc: TfrmPrinc
       Font.Style = []
       ParentFont = False
       Transparent = True
+      StyleElements = [seClient, seBorder]
       IsControl = True
       ExplicitTop = 426
     end
@@ -4375,6 +4377,7 @@ object frmPrinc: TfrmPrinc
       Font.Style = [fsBold]
       ParentFont = False
       Transparent = True
+      StyleElements = [seClient, seBorder]
       IsControl = True
       ExplicitTop = 411
     end
@@ -4392,6 +4395,7 @@ object frmPrinc: TfrmPrinc
       Font.Style = []
       ParentFont = False
       Transparent = True
+      StyleElements = [seClient, seBorder]
       IsControl = True
       ExplicitTop = 457
     end
@@ -4716,6 +4720,7 @@ object frmPrinc: TfrmPrinc
       Index = 2
     end
     object RbnTabMovimento: TdxRibbonTab
+      Active = True
       Caption = 'Movimenta'#231#227'o'
       Groups = <
         item
@@ -4738,7 +4743,6 @@ object frmPrinc: TfrmPrinc
       Index = 4
     end
     object RbnTabConsulta: TdxRibbonTab
-      Active = True
       Caption = 'Consulta'
       Groups = <
         item
@@ -4940,7 +4944,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 559
+      DockedLeft = 317
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213

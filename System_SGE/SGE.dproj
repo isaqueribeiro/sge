@@ -351,12 +351,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="UGeEntradaImpressao.pas">
             <Form>frmGeEntradaImpressao</Form>
         </DCCReference>
-        <DCCReference Include="UGrUsuarioPerfil.pas">
-            <Form>frmGrUsuarioPerfil</Form>
-        </DCCReference>
-        <DCCReference Include="UGrUsuarioCopiarPerfil.pas">
-            <Form>frmGrUsuarioCopiarPerfil</Form>
-        </DCCReference>
         <DCCReference Include="UGeCotacaoCompra.pas">
             <Form>frmGeCotacaoCompra</Form>
         </DCCReference>
@@ -583,6 +577,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Produto.pas"/>
         <DCCReference Include="Model\DAO\SGE.Model.DAO.Promocao.pas"/>
         <DCCReference Include="Model\DAO\SGE.Model.DAO.RequisicaoCompra.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Rotina.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas"/>
@@ -636,6 +631,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Produto.pas"/>
         <DCCReference Include="Controller\SGE.Controller.Promocao.pas"/>
         <DCCReference Include="Controller\SGE.Controller.RequisicaoCompra.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Rotina.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Tabelas.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoLogradouro.pas"/>
@@ -858,6 +854,13 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\View\View.Servico.ConsultarCNPJ.pas">
             <Form>ViewServicoConsultarCNPJ</Form>
             <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Perfil.pas">
+            <Form>ViewPerfil</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Perfil.Copiar.pas">
+            <Form>ViewPerfilCopiar</Form>
         </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>

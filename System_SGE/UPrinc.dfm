@@ -4336,6 +4336,7 @@ object frmPrinc: TfrmPrinc
       Font.Style = [fsBold]
       ParentFont = False
       Transparent = True
+      StyleElements = [seClient, seBorder]
       IsControl = True
       ExplicitTop = 389
     end
@@ -4355,6 +4356,7 @@ object frmPrinc: TfrmPrinc
       Font.Style = []
       ParentFont = False
       Transparent = True
+      StyleElements = [seClient, seBorder]
       IsControl = True
       ExplicitTop = 426
     end
@@ -4372,6 +4374,7 @@ object frmPrinc: TfrmPrinc
       Font.Style = [fsBold]
       ParentFont = False
       Transparent = True
+      StyleElements = [seClient, seBorder]
       IsControl = True
       ExplicitTop = 411
     end
@@ -4389,6 +4392,7 @@ object frmPrinc: TfrmPrinc
       Font.Style = []
       ParentFont = False
       Transparent = True
+      StyleElements = [seClient, seBorder]
       IsControl = True
       ExplicitTop = 457
     end
@@ -4675,6 +4679,7 @@ object frmPrinc: TfrmPrinc
     OnApplicationMenuClick = RibbonApplicationMenuClick
     ExplicitWidth = 1044
     object RbnTabPrincipal: TdxRibbonTab
+      Active = True
       Caption = 'Principal'
       Groups = <
         item
@@ -4705,7 +4710,6 @@ object frmPrinc: TfrmPrinc
       Index = 2
     end
     object RbnTabMovimento: TdxRibbonTab
-      Active = True
       Caption = 'Movimenta'#231#227'o'
       Groups = <
         item
@@ -4928,7 +4932,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 605
+      DockedLeft = 315
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213
