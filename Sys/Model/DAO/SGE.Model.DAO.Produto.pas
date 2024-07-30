@@ -357,7 +357,7 @@ begin
 
     FieldByName('DISPONIVEL').AsCurrency := FieldByName('QTDE').AsCurrency - FieldByName('RESERVA').AsCurrency;
 
-    FieldByName('CST').AsString := FieldByName('CODORIGEM').AsString + FieldByName('CODTRIBUTACAO').AsString;
+    FieldByName('CST').AsString := FormatFloat('000', StrToIntDef(Trim(FieldByName('CODORIGEM').AsString) + Trim(FieldByName('CODTRIBUTACAO').AsString), 0));
 
     if ( FieldByName('COMPOR_FATURAMENTO').AsInteger = 0 ) then
     begin
@@ -398,7 +398,7 @@ begin
   with FConn.Query.DataSet do
   begin
     FieldByName('CODEMP').AsString         := Usuario.Empresa.CNPJ;
-    FieldByName('CST').AsString            := Trim(FieldByName('CODORIGEM').AsString) + Trim(FieldByName('CODTRIBUTACAO').AsString);
+    FieldByName('CST').AsString            := FormatFloat('000', StrToIntDef(Trim(FieldByName('CODORIGEM').AsString) + Trim(FieldByName('CODTRIBUTACAO').AsString), 0));
     FieldByName('ESTOQMIN').AsCurrency     := 0;
     FieldByName('QTDE').AsCurrency         := 0;
     FieldByName('ESTOQMIN').AsCurrency     := 0;

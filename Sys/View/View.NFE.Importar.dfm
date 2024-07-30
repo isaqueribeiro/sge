@@ -3,16 +3,15 @@ inherited ViewNFEImportar: TViewNFEImportar
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Importar NF-e'
-  ClientHeight = 626
-  ClientWidth = 920
-  ExplicitWidth = 934
-  ExplicitHeight = 663
-  PixelsPerInch = 96
+  ClientHeight = 625
+  ClientWidth = 916
+  ExplicitWidth = 940
+  ExplicitHeight = 672
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
     Top = 73
-    Width = 920
+    Width = 916
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -22,7 +21,7 @@ inherited ViewNFEImportar: TViewNFEImportar
   object Bevel2: TBevel
     Left = 0
     Top = 153
-    Width = 920
+    Width = 916
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -31,7 +30,7 @@ inherited ViewNFEImportar: TViewNFEImportar
   end
   object lblInforme: TLabel
     Left = 0
-    Top = 598
+    Top = 597
     Width = 216
     Height = 18
     Anchors = [akLeft, akBottom]
@@ -47,8 +46,8 @@ inherited ViewNFEImportar: TViewNFEImportar
   end
   object Bevel3: TBevel
     Left = 0
-    Top = 587
-    Width = 920
+    Top = 586
+    Width = 916
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -58,7 +57,7 @@ inherited ViewNFEImportar: TViewNFEImportar
   object GrpBxEmpresa: TGroupBox
     Left = 0
     Top = 0
-    Width = 920
+    Width = 916
     Height = 73
     Align = alTop
     Caption = 'Dados do Destinat'#225'rio da NF-e'
@@ -69,8 +68,9 @@ inherited ViewNFEImportar: TViewNFEImportar
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 920
     DesignSize = (
-      920
+      916
       73)
     object lblCNPJEmpresa: TLabel
       Left = 16
@@ -121,7 +121,7 @@ inherited ViewNFEImportar: TViewNFEImportar
     object dbRazaoSocialEmpresa: TDBEdit
       Left = 184
       Top = 40
-      Width = 720
+      Width = 712
       Height = 21
       TabStop = False
       Anchors = [akLeft, akTop, akRight]
@@ -136,12 +136,13 @@ inherited ViewNFEImportar: TViewNFEImportar
       ParentFont = False
       ReadOnly = True
       TabOrder = 1
+      ExplicitWidth = 720
     end
   end
   object GrpBxManifesto: TGroupBox
     Left = 0
     Top = 77
-    Width = 920
+    Width = 916
     Height = 76
     Align = alTop
     Caption = 'Dados para Manifesto da NF-e'
@@ -152,8 +153,9 @@ inherited ViewNFEImportar: TViewNFEImportar
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
+    ExplicitWidth = 920
     DesignSize = (
-      920
+      916
       76)
     object lblChaveNFe: TLabel
       Left = 16
@@ -172,7 +174,7 @@ inherited ViewNFEImportar: TViewNFEImportar
     object edChaveNFe: TEdit
       Left = 16
       Top = 40
-      Width = 789
+      Width = 781
       Height = 21
       Hint = 'Pressione F5 para recuperar a Chave da '#225'rea de transfer'#234'ncia.'
       Anchors = [akLeft, akTop, akRight]
@@ -187,9 +189,10 @@ inherited ViewNFEImportar: TViewNFEImportar
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
+      ExplicitWidth = 789
     end
     object btnManifesto: TcxButton
-      Left = 811
+      Left = 803
       Top = 40
       Width = 93
       Height = 21
@@ -199,11 +202,12 @@ inherited ViewNFEImportar: TViewNFEImportar
       OptionsImage.Images = DMRecursos.ImgPrincipal16x16
       TabOrder = 1
       OnClick = btnManifestoClick
+      ExplicitLeft = 811
     end
   end
   object btnConfirmar: TcxButton
-    Left = 632
-    Top = 593
+    Left = 624
+    Top = 592
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -212,10 +216,12 @@ inherited ViewNFEImportar: TViewNFEImportar
     OptionsImage.Images = DMRecursos.ImgPrincipal16x16
     TabOrder = 3
     OnClick = btnConfirmarClick
+    ExplicitLeft = 632
+    ExplicitTop = 593
   end
   object btFechar: TcxButton
-    Left = 828
-    Top = 593
+    Left = 820
+    Top = 592
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -225,12 +231,14 @@ inherited ViewNFEImportar: TViewNFEImportar
     OptionsImage.ImageIndex = 15
     OptionsImage.Images = DMRecursos.ImgBotoes16x16
     TabOrder = 5
+    ExplicitLeft = 828
+    ExplicitTop = 593
   end
   object GrpBxDadosNFe: TGroupBox
     Left = 0
     Top = 157
-    Width = 920
-    Height = 430
+    Width = 916
+    Height = 429
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     Caption = 'Dados NF-e'
@@ -241,9 +249,11 @@ inherited ViewNFEImportar: TViewNFEImportar
     Font.Style = []
     ParentFont = False
     TabOrder = 2
+    ExplicitWidth = 920
+    ExplicitHeight = 430
     DesignSize = (
-      920
-      430)
+      916
+      429)
     object lblArquivoXML: TLabel
       Left = 16
       Top = 24
@@ -273,10 +283,11 @@ inherited ViewNFEImportar: TViewNFEImportar
       Properties.OnButtonClick = edArquivoXMLPropertiesButtonClick
       Properties.OnChange = edArquivoXMLPropertiesChange
       TabOrder = 0
-      Width = 888
+      ExplicitWidth = 888
+      Width = 880
     end
     object btnCarregarXML: TcxButton
-      Left = 811
+      Left = 803
       Top = 40
       Width = 93
       Height = 21
@@ -287,24 +298,23 @@ inherited ViewNFEImportar: TViewNFEImportar
       TabOrder = 1
       Visible = False
       OnClick = btnCarregarXMLClick
+      ExplicitLeft = 811
     end
     object pgcNFe: TPageControl
       Left = 16
       Top = 67
-      Width = 888
-      Height = 350
+      Width = 880
+      Height = 349
       ActivePage = tbsNFe
       Anchors = [akLeft, akTop, akRight, akBottom]
       TabOrder = 2
+      ExplicitWidth = 888
+      ExplicitHeight = 350
       object tbsNFe: TTabSheet
         Caption = 'NFe'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         DesignSize = (
-          880
-          322)
+          872
+          321)
         object lblId: TLabel
           Left = 16
           Top = 16
@@ -314,7 +324,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           FocusControl = dbId
         end
         object lblChave: TLabel
-          Left = 525
+          Left = 517
           Top = 16
           Width = 35
           Height = 13
@@ -324,7 +334,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           ExplicitLeft = 431
         end
         object lblcUF: TLabel
-          Left = 747
+          Left = 739
           Top = 16
           Width = 17
           Height = 13
@@ -334,7 +344,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           ExplicitLeft = 567
         end
         object lblcNF: TLabel
-          Left = 779
+          Left = 771
           Top = 16
           Width = 67
           Height = 13
@@ -352,7 +362,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           FocusControl = dbNatOp
         end
         object lblMod_: TLabel
-          Left = 525
+          Left = 517
           Top = 56
           Width = 28
           Height = 13
@@ -362,7 +372,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           ExplicitLeft = 431
         end
         object lblSerie: TLabel
-          Left = 559
+          Left = 551
           Top = 56
           Width = 28
           Height = 13
@@ -372,7 +382,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           ExplicitLeft = 465
         end
         object lblNNF: TLabel
-          Left = 593
+          Left = 585
           Top = 56
           Width = 67
           Height = 13
@@ -382,7 +392,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           ExplicitLeft = 499
         end
         object lblDEmi: TLabel
-          Left = 747
+          Left = 739
           Top = 56
           Width = 83
           Height = 13
@@ -402,7 +412,7 @@ inherited ViewNFEImportar: TViewNFEImportar
         object dbId: TDBEdit
           Left = 16
           Top = 32
-          Width = 503
+          Width = 495
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -416,9 +426,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 0
+          ExplicitWidth = 503
         end
         object dbChave: TDBEdit
-          Left = 525
+          Left = 517
           Top = 32
           Width = 216
           Height = 21
@@ -434,9 +445,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 1
+          ExplicitLeft = 525
         end
         object dbcUF: TDBEdit
-          Left = 747
+          Left = 739
           Top = 32
           Width = 26
           Height = 21
@@ -452,9 +464,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 2
+          ExplicitLeft = 747
         end
         object dbcNF: TDBEdit
-          Left = 779
+          Left = 771
           Top = 32
           Width = 82
           Height = 21
@@ -470,11 +483,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 3
+          ExplicitLeft = 779
         end
         object dbNatOp: TDBEdit
           Left = 16
           Top = 72
-          Width = 503
+          Width = 495
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -488,9 +502,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 4
+          ExplicitWidth = 503
         end
         object dbMod_: TDBEdit
-          Left = 525
+          Left = 517
           Top = 72
           Width = 28
           Height = 21
@@ -506,9 +521,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 5
+          ExplicitLeft = 525
         end
         object dbSerie: TDBEdit
-          Left = 559
+          Left = 551
           Top = 72
           Width = 28
           Height = 21
@@ -524,9 +540,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 6
+          ExplicitLeft = 559
         end
         object dbNNF: TDBEdit
-          Left = 593
+          Left = 585
           Top = 72
           Width = 148
           Height = 21
@@ -542,9 +559,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 7
+          ExplicitLeft = 593
         end
         object dbDEmi: TDBEdit
-          Left = 747
+          Left = 739
           Top = 72
           Width = 114
           Height = 21
@@ -560,11 +578,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 8
+          ExplicitLeft = 747
         end
         object dbMensagemFiscal: TDBMemo
           Left = 16
           Top = 118
-          Width = 845
+          Width = 837
           Height = 107
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -578,18 +597,15 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 9
+          ExplicitWidth = 845
         end
       end
       object tbsEmitente: TTabSheet
         Caption = 'Emitente'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         DesignSize = (
-          880
-          322)
+          872
+          321)
         object lblCNPJ: TLabel
           Left = 119
           Top = 16
@@ -623,7 +639,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           FocusControl = dbXFant
         end
         object lblIE: TLabel
-          Left = 466
+          Left = 458
           Top = 56
           Width = 91
           Height = 13
@@ -639,7 +655,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           ExplicitLeft = 286
         end
         object lblIM: TLabel
-          Left = 587
+          Left = 579
           Top = 56
           Width = 93
           Height = 13
@@ -655,7 +671,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           ExplicitLeft = 407
         end
         object lblCRT: TLabel
-          Left = 708
+          Left = 700
           Top = 56
           Width = 24
           Height = 13
@@ -679,7 +695,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           FocusControl = dbXLgr
         end
         object lblNro: TLabel
-          Left = 587
+          Left = 579
           Top = 96
           Width = 21
           Height = 13
@@ -695,7 +711,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           ExplicitLeft = 407
         end
         object lblXCpl: TLabel
-          Left = 659
+          Left = 651
           Top = 96
           Width = 69
           Height = 13
@@ -719,7 +735,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           FocusControl = dbXBairro
         end
         object lblCMun: TLabel
-          Left = 587
+          Left = 579
           Top = 136
           Width = 47
           Height = 13
@@ -735,7 +751,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           ExplicitLeft = 407
         end
         object lblUF: TLabel
-          Left = 828
+          Left = 820
           Top = 136
           Width = 17
           Height = 13
@@ -751,7 +767,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           ExplicitLeft = 648
         end
         object lblCEP: TLabel
-          Left = 466
+          Left = 458
           Top = 136
           Width = 23
           Height = 13
@@ -794,7 +810,7 @@ inherited ViewNFEImportar: TViewNFEImportar
         object dbXNome: TDBEdit
           Left = 286
           Top = 32
-          Width = 575
+          Width = 567
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -808,11 +824,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 2
+          ExplicitWidth = 575
         end
         object dbXFant: TDBEdit
           Left = 16
           Top = 72
-          Width = 444
+          Width = 436
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -826,9 +843,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 3
+          ExplicitWidth = 444
         end
         object dbIE: TDBEdit
-          Left = 466
+          Left = 458
           Top = 72
           Width = 115
           Height = 21
@@ -844,9 +862,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 4
+          ExplicitLeft = 466
         end
         object dbIM: TDBEdit
-          Left = 587
+          Left = 579
           Top = 72
           Width = 115
           Height = 21
@@ -862,9 +881,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 5
+          ExplicitLeft = 587
         end
         object dbCRT: TDBEdit
-          Left = 708
+          Left = 700
           Top = 72
           Width = 41
           Height = 21
@@ -880,9 +900,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 6
+          ExplicitLeft = 708
         end
         object dbDESCR_CST: TDBEdit
-          Left = 755
+          Left = 747
           Top = 72
           Width = 106
           Height = 21
@@ -898,11 +919,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 7
+          ExplicitLeft = 755
         end
         object dbXLgr: TDBEdit
           Left = 16
           Top = 112
-          Width = 565
+          Width = 557
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -916,9 +938,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 8
+          ExplicitWidth = 565
         end
         object dbNro: TDBEdit
-          Left = 587
+          Left = 579
           Top = 112
           Width = 66
           Height = 21
@@ -934,9 +957,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 9
+          ExplicitLeft = 587
         end
         object dbXCpl: TDBEdit
-          Left = 659
+          Left = 651
           Top = 112
           Width = 202
           Height = 21
@@ -952,11 +976,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 10
+          ExplicitLeft = 659
         end
         object dbXBairro: TDBEdit
           Left = 16
           Top = 152
-          Width = 444
+          Width = 436
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -970,9 +995,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 11
+          ExplicitWidth = 444
         end
         object dbCMun: TDBEdit
-          Left = 587
+          Left = 579
           Top = 152
           Width = 66
           Height = 21
@@ -988,9 +1014,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 13
+          ExplicitLeft = 587
         end
         object dbXMun: TDBEdit
-          Left = 659
+          Left = 651
           Top = 152
           Width = 163
           Height = 21
@@ -1006,9 +1033,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 14
+          ExplicitLeft = 659
         end
         object dbUF: TDBEdit
-          Left = 828
+          Left = 820
           Top = 152
           Width = 33
           Height = 21
@@ -1024,9 +1052,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 15
+          ExplicitLeft = 828
         end
         object dbCEP: TDBEdit
-          Left = 466
+          Left = 458
           Top = 152
           Width = 115
           Height = 21
@@ -1042,11 +1071,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 12
+          ExplicitLeft = 466
         end
         object dbFone: TDBEdit
           Left = 16
           Top = 192
-          Width = 444
+          Width = 436
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1060,6 +1090,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 16
+          ExplicitWidth = 444
         end
         object edFornecedorCadastro: TJvComboEdit
           Left = 16
@@ -1131,13 +1162,9 @@ inherited ViewNFEImportar: TViewNFEImportar
       object tbsDestinatario: TTabSheet
         Caption = 'Destinat'#225'rio'
         ImageIndex = 8
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         DesignSize = (
-          880
-          322)
+          872
+          321)
         object lblCNPJCPF_Dest: TLabel
           Left = 16
           Top = 16
@@ -1163,7 +1190,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           FocusControl = dbXFant_Dest
         end
         object lblIE_Dest: TLabel
-          Left = 466
+          Left = 458
           Top = 56
           Width = 91
           Height = 13
@@ -1198,7 +1225,7 @@ inherited ViewNFEImportar: TViewNFEImportar
         object dbXNome_Dest: TDBEdit
           Left = 183
           Top = 32
-          Width = 678
+          Width = 670
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1212,11 +1239,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 1
+          ExplicitWidth = 678
         end
         object dbXFant_Dest: TDBEdit
           Left = 16
           Top = 72
-          Width = 444
+          Width = 436
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1230,9 +1258,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 2
+          ExplicitWidth = 444
         end
         object dbIE_Dest: TDBEdit
-          Left = 466
+          Left = 458
           Top = 72
           Width = 115
           Height = 21
@@ -1248,15 +1277,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 3
+          ExplicitLeft = 466
         end
       end
       object tbsProdutos: TTabSheet
         Caption = 'Produtos e Servi'#231'os'
         ImageIndex = 3
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object GrdProdutos: TcxGrid
           Left = 0
           Top = 0
@@ -1268,6 +1294,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           OnExit = GrdProdutosExit
           object GrdProdutosDBTableView: TcxGridDBTableView
             Navigator.Buttons.CustomButtons = <>
+            ScrollbarAnnotations.CustomAnnotations = <>
             DataController.DataSource = dtsDadosProdutos
             DataController.Summary.DefaultGroupSummaryItems = <>
             DataController.Summary.FooterSummaryItems = <>
@@ -1291,6 +1318,7 @@ inherited ViewNFEImportar: TViewNFEImportar
             object GrdProdutosDBTableViewCadastro: TcxGridDBColumn
               Caption = 'Cadastro '
               DataBinding.FieldName = 'ID'
+              DataBinding.IsNullValueType = True
               PropertiesClassName = 'TcxButtonEditProperties'
               Properties.Buttons = <
                 item
@@ -1310,6 +1338,7 @@ inherited ViewNFEImportar: TViewNFEImportar
             object GrdProdutosDBTableViewCodigo: TcxGridDBColumn
               Caption = 'C'#243'digo'
               DataBinding.FieldName = 'CProd'
+              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False
@@ -1319,6 +1348,7 @@ inherited ViewNFEImportar: TViewNFEImportar
             object GrdProdutosDBTableViewDescricao: TcxGridDBColumn
               Caption = 'Descri'#231#227'o'
               DataBinding.FieldName = 'XProd'
+              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False
@@ -1328,6 +1358,7 @@ inherited ViewNFEImportar: TViewNFEImportar
             object GrdProdutosDBTableViewQtde: TcxGridDBColumn
               Caption = 'Qtde.'
               DataBinding.FieldName = 'QCom'
+              DataBinding.IsNullValueType = True
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0.###'
               Options.Editing = False
@@ -1340,6 +1371,7 @@ inherited ViewNFEImportar: TViewNFEImportar
             object GrdProdutosDBTableViewUND: TcxGridDBColumn
               Caption = 'UN'
               DataBinding.FieldName = 'UCom'
+              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False
@@ -1350,6 +1382,7 @@ inherited ViewNFEImportar: TViewNFEImportar
             object GrdProdutosDBTableViewValor: TcxGridDBColumn
               Caption = 'Valor (R$)'
               DataBinding.FieldName = 'VUnCom'
+              DataBinding.IsNullValueType = True
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0.00'
               Options.Editing = False
@@ -1362,6 +1395,7 @@ inherited ViewNFEImportar: TViewNFEImportar
             object GrdProdutosDBTableViewNCM: TcxGridDBColumn
               Caption = 'NCM '
               DataBinding.FieldName = 'NCM'
+              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False
@@ -1372,6 +1406,7 @@ inherited ViewNFEImportar: TViewNFEImportar
             object GrdProdutosDBTableViewCFOP: TcxGridDBColumn
               Caption = 'CFOP '
               DataBinding.FieldName = 'CFOP'
+              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False
@@ -1388,13 +1423,9 @@ inherited ViewNFEImportar: TViewNFEImportar
       object tbsTotais: TTabSheet
         Caption = 'Totais'
         ImageIndex = 4
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         DesignSize = (
-          880
-          322)
+          872
+          321)
         object lblVBC: TLabel
           Left = 16
           Top = 16
@@ -1530,7 +1561,7 @@ inherited ViewNFEImportar: TViewNFEImportar
         object dbVBC: TDBEdit
           Left = 16
           Top = 32
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1544,11 +1575,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 0
+          ExplicitWidth = 141
         end
         object dbVICMS: TDBEdit
           Left = 163
           Top = 32
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1562,11 +1594,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 1
+          ExplicitWidth = 141
         end
         object dbVBCST: TDBEdit
           Left = 310
           Top = 32
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1580,11 +1613,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 2
+          ExplicitWidth = 141
         end
         object dbVST: TDBEdit
           Left = 457
           Top = 32
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1598,11 +1632,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 3
+          ExplicitWidth = 141
         end
         object dbVProd: TDBEdit
           Left = 604
           Top = 32
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1616,11 +1651,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 4
+          ExplicitWidth = 141
         end
         object dbVFrete: TDBEdit
           Left = 16
           Top = 72
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1634,11 +1670,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 5
+          ExplicitWidth = 141
         end
         object dbVSeg: TDBEdit
           Left = 163
           Top = 72
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1652,11 +1689,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 6
+          ExplicitWidth = 141
         end
         object dbVDesc: TDBEdit
           Left = 310
           Top = 72
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1670,11 +1708,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 7
+          ExplicitWidth = 141
         end
         object dbVII: TDBEdit
           Left = 457
           Top = 72
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1688,11 +1727,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 8
+          ExplicitWidth = 141
         end
         object dbVIPI: TDBEdit
           Left = 604
           Top = 72
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1706,11 +1746,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 9
+          ExplicitWidth = 141
         end
         object dbVPIS: TDBEdit
           Left = 16
           Top = 112
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1724,11 +1765,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 10
+          ExplicitWidth = 141
         end
         object dbVCOFINS: TDBEdit
           Left = 163
           Top = 112
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1742,11 +1784,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 11
+          ExplicitWidth = 141
         end
         object dbVOutro: TDBEdit
           Left = 310
           Top = 112
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1760,11 +1803,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 12
+          ExplicitWidth = 141
         end
         object dbVTotTrib: TDBEdit
           Left = 457
           Top = 112
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1778,11 +1822,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 13
+          ExplicitWidth = 141
         end
         object dbVNF: TDBEdit
           Left = 604
           Top = 112
-          Width = 141
+          Width = 133
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1796,18 +1841,15 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 14
+          ExplicitWidth = 141
         end
       end
       object tbsTransporte: TTabSheet
         Caption = 'Transporte'
         ImageIndex = 5
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         DesignSize = (
-          880
-          322)
+          872
+          321)
         object Label1: TLabel
           Left = 16
           Top = 16
@@ -1833,7 +1875,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           FocusControl = dbXNome_Transp
         end
         object lblIE_Transp: TLabel
-          Left = 16
+          Left = 8
           Top = 56
           Width = 91
           Height = 13
@@ -1846,6 +1888,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitLeft = 16
         end
         object lblXEnder_Transp: TLabel
           Left = 137
@@ -1856,7 +1899,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           FocusControl = dbXEnder_Transp
         end
         object lblXMun_Transp: TLabel
-          Left = 587
+          Left = 579
           Top = 56
           Width = 47
           Height = 13
@@ -1869,9 +1912,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitLeft = 587
         end
         object lblUF_Transp: TLabel
-          Left = 828
+          Left = 820
           Top = 56
           Width = 17
           Height = 13
@@ -1884,6 +1928,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ExplicitLeft = 828
         end
         object edTransportadoraCadastro: TJvComboEdit
           Left = 16
@@ -1970,7 +2015,7 @@ inherited ViewNFEImportar: TViewNFEImportar
         object dbXNome_Transp: TDBEdit
           Left = 286
           Top = 32
-          Width = 575
+          Width = 567
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -1984,9 +2029,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 2
+          ExplicitWidth = 575
         end
         object dbIE_Transp: TDBEdit
-          Left = 16
+          Left = 8
           Top = 72
           Width = 115
           Height = 21
@@ -2002,11 +2048,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 3
+          ExplicitLeft = 16
         end
         object dbXEnder_Transp: TDBEdit
           Left = 137
           Top = 72
-          Width = 444
+          Width = 436
           Height = 21
           TabStop = False
           Anchors = [akLeft, akTop, akRight]
@@ -2020,9 +2067,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 4
+          ExplicitWidth = 444
         end
         object dbXMun_Transp: TDBEdit
-          Left = 587
+          Left = 579
           Top = 72
           Width = 235
           Height = 21
@@ -2038,9 +2086,10 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 5
+          ExplicitLeft = 587
         end
         object dbUF_Transp: TDBEdit
-          Left = 828
+          Left = 820
           Top = 72
           Width = 33
           Height = 21
@@ -2056,15 +2105,12 @@ inherited ViewNFEImportar: TViewNFEImportar
           ParentFont = False
           ReadOnly = True
           TabOrder = 6
+          ExplicitLeft = 828
         end
       end
       object tbsCobranca: TTabSheet
         Caption = 'Cobran'#231'a'
         ImageIndex = 6
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object pnlFatura: TPanel
           Left = 0
           Top = 0
@@ -2074,7 +2120,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           BevelOuter = bvNone
           TabOrder = 0
           DesignSize = (
-            880
+            872
             73)
           object lblPagamento_Fat: TLabel
             Left = 16
@@ -2119,7 +2165,7 @@ inherited ViewNFEImportar: TViewNFEImportar
           object dbPagamento_Fat: TDBEdit
             Left = 16
             Top = 32
-            Width = 222
+            Width = 214
             Height = 21
             TabStop = False
             Anchors = [akLeft, akTop, akRight]
@@ -2133,11 +2179,12 @@ inherited ViewNFEImportar: TViewNFEImportar
             ParentFont = False
             ReadOnly = True
             TabOrder = 0
+            ExplicitWidth = 222
           end
           object dbnfat_Fat: TDBEdit
             Left = 244
             Top = 32
-            Width = 106
+            Width = 98
             Height = 21
             TabStop = False
             Anchors = [akLeft, akTop, akRight]
@@ -2151,11 +2198,12 @@ inherited ViewNFEImportar: TViewNFEImportar
             ParentFont = False
             ReadOnly = True
             TabOrder = 1
+            ExplicitWidth = 106
           end
           object dbvOrig_Fat: TDBEdit
             Left = 356
             Top = 32
-            Width = 106
+            Width = 98
             Height = 21
             TabStop = False
             Anchors = [akLeft, akTop, akRight]
@@ -2169,11 +2217,12 @@ inherited ViewNFEImportar: TViewNFEImportar
             ParentFont = False
             ReadOnly = True
             TabOrder = 2
+            ExplicitWidth = 106
           end
           object dbvDesc_Fat: TDBEdit
             Left = 468
             Top = 32
-            Width = 106
+            Width = 98
             Height = 21
             TabStop = False
             Anchors = [akLeft, akTop, akRight]
@@ -2187,11 +2236,12 @@ inherited ViewNFEImportar: TViewNFEImportar
             ParentFont = False
             ReadOnly = True
             TabOrder = 3
+            ExplicitWidth = 106
           end
           object dbvLiq_Fat: TDBEdit
             Left = 580
             Top = 32
-            Width = 106
+            Width = 98
             Height = 21
             TabStop = False
             Anchors = [akLeft, akTop, akRight]
@@ -2205,19 +2255,23 @@ inherited ViewNFEImportar: TViewNFEImportar
             ParentFont = False
             ReadOnly = True
             TabOrder = 4
+            ExplicitWidth = 106
           end
         end
         object GrdDuplicatas: TcxGrid
           Left = 0
           Top = 73
-          Width = 880
-          Height = 249
+          Width = 872
+          Height = 248
           Align = alClient
           TabOrder = 1
           OnEnter = GrdProdutosEnter
           OnExit = GrdProdutosExit
+          ExplicitWidth = 880
+          ExplicitHeight = 249
           object GrdDuplicatasDBTableView: TcxGridDBTableView
             Navigator.Buttons.CustomButtons = <>
+            ScrollbarAnnotations.CustomAnnotations = <>
             DataController.DataSource = dtsDuplicatas
             DataController.Summary.DefaultGroupSummaryItems = <>
             DataController.Summary.FooterSummaryItems = <>
@@ -2240,6 +2294,7 @@ inherited ViewNFEImportar: TViewNFEImportar
             object cxGridDBDuplicata: TcxGridDBColumn
               Caption = 'Duplicata'
               DataBinding.FieldName = 'NDup'
+              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False
@@ -2249,6 +2304,7 @@ inherited ViewNFEImportar: TViewNFEImportar
             object cxGridDBVencimento: TcxGridDBColumn
               Caption = 'Vencimento'
               DataBinding.FieldName = 'DVenc'
+              DataBinding.IsNullValueType = True
               Options.Editing = False
               Options.Filtering = False
               Options.Focusing = False
@@ -2258,6 +2314,7 @@ inherited ViewNFEImportar: TViewNFEImportar
             object cxGridDBValor: TcxGridDBColumn
               Caption = 'Valor (R$)'
               DataBinding.FieldName = 'VDup'
+              DataBinding.IsNullValueType = True
               PropertiesClassName = 'TcxCurrencyEditProperties'
               Properties.DisplayFormat = ',0.00'
               Options.Editing = False
@@ -2276,10 +2333,6 @@ inherited ViewNFEImportar: TViewNFEImportar
       object tbsInformacaoAdcional: TTabSheet
         Caption = 'Informa'#231#245'es Adicionais'
         ImageIndex = 7
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Label2: TLabel
           AlignWithMargins = True
           Left = 16
@@ -2313,8 +2366,8 @@ inherited ViewNFEImportar: TViewNFEImportar
     end
   end
   object btnImprimir: TcxButton
-    Left = 730
-    Top = 593
+    Left = 722
+    Top = 592
     Width = 92
     Height = 33
     Hint = 'Visualizar/Imprimir DANFE'
@@ -2327,6 +2380,8 @@ inherited ViewNFEImportar: TViewNFEImportar
     ShowHint = True
     TabOrder = 4
     OnClick = btnImprimirClick
+    ExplicitLeft = 730
+    ExplicitTop = 593
   end
   object dtsEmpresa: TDataSource
     Left = 312

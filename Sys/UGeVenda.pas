@@ -1071,12 +1071,12 @@ begin
   end;
 
   with cdsTabelaItens do
-    if ( cdsTabelaItens.State in [dsEdit, dsInsert] ) then
+    if (cdsTabelaItens.State in [dsEdit, dsInsert]) then
     begin
       if aPessoaFisica or aInscricaoIsenta then
       begin
         cdsTabelaItensCSOSN.AsString := TRIBUTO_NAO_TRIBUTADA_SN;
-        cdsTabelaItensCST.AsString   := TRIBUTO_TRIBUTADA_ISENTA;
+        cdsTabelaItensCST.AsString   := TRIBUTO_ORIGEM_NACIONAL + TRIBUTO_TRIBUTADA_ISENTA;
       end;
     end;
 end;
@@ -1679,9 +1679,10 @@ begin
     end
     else
     begin
-
       if ( Trim(cdsTabelaItensCST.AsString) = EmptyStr ) then
-        cdsTabelaItensCST.Clear;
+        cdsTabelaItensCST.Clear
+      else
+        DtSrcTabelaItens.DataSet.FieldByName('CST').AsString := FormatFloat('000', StrToIntDef(Trim(DtSrcTabelaItens.DataSet.FieldByName('CST').AsString), 0));
 
       if ( Trim(cdsTabelaItensLOTE_ID.AsString) = EmptyStr ) then
         cdsTabelaItensLOTE_ID.Clear;

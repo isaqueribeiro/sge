@@ -90,7 +90,9 @@ uses
   UGrPadraoCadastro,
   Interacao.Tabela,
   Controller.Tabela,
-  UConstantesDGE, dxSkinsDefaultPainters;
+  UConstantesDGE, dxSkinsDefaultPainters, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White, dxSkinTheBezier, dxSkinWXI, dxScrollbarAnnotations;
 
 type
   TViewNFEImportar = class(TfrmGrPadrao)
@@ -1799,19 +1801,21 @@ begin
           aDataHoraEmissao := Ide.dEmi;
           aTipoNota        := TTipoNF(Ord( Ide.tpNF ));
 
-          sVersao := NotasFiscais.Items[0].NFe.infNFe.VersaoStr;
+//          sVersao := NotasFiscais.Items[0].NFe.infNFe.VersaoStr;
+//
+//          if ( Trim(sVersao) = 'versao="2.00"' ) then
+//            aVersao := Ord(ve200)
+//          else
+//          if ( Trim(sVersao) = 'versao="3.00"' ) then
+//            aVersao := Ord(ve300)
+//          else
+//          if ( Trim(sVersao) = 'versao="3.10"' ) then
+//            aVersao := Ord(ve310)
+//          else
+//          if ( Trim(sVersao) = 'versao="4.00"' ) then
+//            aVersao := Ord(ve400);
 
-          if ( Trim(sVersao) = 'versao="2.00"' ) then
-            aVersao := Ord(ve200)
-          else
-          if ( Trim(sVersao) = 'versao="3.00"' ) then
-            aVersao := Ord(ve300)
-          else
-          if ( Trim(sVersao) = 'versao="3.10"' ) then
-            aVersao := Ord(ve310)
-          else
-          if ( Trim(sVersao) = 'versao="4.00"' ) then
-            aVersao := Ord(ve400);
+          aVersao := Ord(ve400);
         end;
 
         if ( (NotasFiscais.Items[0].NFe.Ide.tpEmis = teDPEC) or (not Assigned(NotasFiscais.Items[0].NFe.procNFe)) ) then

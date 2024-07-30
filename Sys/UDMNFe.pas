@@ -1126,7 +1126,8 @@ begin
       edtEmitCodCidade.Text   := ReadString( sSecaoEmitente, 'CodCidade'  , EmptyStr ) ;
       edtEmitCidade.Text      := ReadString( sSecaoEmitente, 'Cidade'     , EmptyStr ) ;
       edtEmitUF.Text          := ReadString( sSecaoEmitente, 'UF'         , EmptyStr ) ;
-      edInfoFisco.Text        := ReadString( sSecaoEmitente, 'InfoFisco'  , 'EMPRESA OPTANTE PELO SIMPLES DE ACORDO COM A LEI COMPLEMENTAR 123, DE DEZEMBRO DE 2006' ) ;
+      //edInfoFisco.Text        := ReadString( sSecaoEmitente, 'InfoFisco'  , 'EMPRESA OPTANTE PELO SIMPLES DE ACORDO COM A LEI COMPLEMENTAR 123, DE DEZEMBRO DE 2006' ) ;
+      edInfoFisco.Text        := ReadString( sSecaoEmitente, 'InfoFisco'  , EmptyStr) ;
       edInfoComplementar.Text := ReadString( sSecaoEmitente, 'InfoComple' , EmptyStr) ;
 
       // ============== Configurar Componente ACBr ============== //
@@ -5840,19 +5841,21 @@ begin
         aDataHoraEmissao := Ide.dEmi;
         aTipoNota        := TTipoNF(Ord( Ide.tpNF ));
 
-        sVersao := NotasFiscais.Items[0].NFe.infNFe.VersaoStr;
+//        sVersao := NotasFiscais.Items[0].NFe.infNFe.VersaoStr;
+//
+//        if ( Trim(sVersao) = 'versao="2.00"' ) then
+//          aVersao := Ord(ve200)
+//        else
+//        if ( Trim(sVersao) = 'versao="3.00"' ) then
+//          aVersao := Ord(ve300)
+//        else
+//        if ( Trim(sVersao) = 'versao="3.10"' ) then
+//          aVersao := Ord(ve310)
+//        else
+//        if ( Trim(sVersao) = 'versao="4.00"' ) then
+//          aVersao := Ord(ve400);
 
-        if ( Trim(sVersao) = 'versao="2.00"' ) then
-          aVersao := Ord(ve200)
-        else
-        if ( Trim(sVersao) = 'versao="3.00"' ) then
-          aVersao := Ord(ve300)
-        else
-        if ( Trim(sVersao) = 'versao="3.10"' ) then
-          aVersao := Ord(ve310)
-        else
-        if ( Trim(sVersao) = 'versao="4.00"' ) then
-          aVersao := Ord(ve400);
+        aVersao := Ord(ve400);
       end;
 
       NotaValida := True;
@@ -9218,19 +9221,21 @@ begin
         aDataHoraEmissao := Ide.dEmi;
         aTipoNota        := TTipoNF(Ord( Ide.tpNF ));
 
-        sVersao := NotasFiscais.Items[0].NFe.infNFe.VersaoStr;
+//        sVersao := NotasFiscais.Items[0].NFe.infNFe.VersaoStr;
+//
+//        if ( Trim(sVersao) = 'versao="2.00"' ) then
+//          aVersao := Ord(ve200)
+//        else
+//        if ( Trim(sVersao) = 'versao="3.00"' ) then
+//          aVersao := Ord(ve300)
+//        else
+//        if ( Trim(sVersao) = 'versao="3.10"' ) then
+//          aVersao := Ord(ve310)
+//        else
+//        if ( Trim(sVersao) = 'versao="4.00"' ) then
+//          aVersao := Ord(ve400);
 
-        if ( Trim(sVersao) = 'versao="2.00"' ) then
-          aVersao := Ord(ve200)
-        else
-        if ( Trim(sVersao) = 'versao="3.00"' ) then
-          aVersao := Ord(ve300)
-        else
-        if ( Trim(sVersao) = 'versao="3.10"' ) then
-          aVersao := Ord(ve310)
-        else
-        if ( Trim(sVersao) = 'versao="4.00"' ) then
-          aVersao := Ord(ve400);
+        aVersao := Ord(ve400);
       end;
 
       if ( not DelphiIsRunning ) then

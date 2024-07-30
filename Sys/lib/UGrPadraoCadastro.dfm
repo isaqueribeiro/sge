@@ -4,8 +4,8 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
   ActiveControl = dbCodigo
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Tabela Padr'#227'o de Cadastro'
-  ClientHeight = 401
-  ClientWidth = 735
+  ClientHeight = 400
+  ClientWidth = 731
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -22,31 +22,35 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
-    Top = 397
-    Width = 735
+    Top = 396
+    Width = 731
     Height = 4
     Align = alBottom
     Shape = bsSpacer
     ExplicitTop = 398
+    ExplicitWidth = 735
   end
   object Bevel3: TBevel
     Left = 0
-    Top = 358
-    Width = 735
+    Top = 357
+    Width = 731
     Height = 4
     Align = alBottom
     Shape = bsSpacer
     ExplicitTop = 359
+    ExplicitWidth = 735
   end
   object pgcGuias: TPageControl
     Left = 0
     Top = 0
-    Width = 735
-    Height = 358
+    Width = 731
+    Height = 357
     ActivePage = tbsCadastro
     Align = alClient
     Images = ImgList
     TabOrder = 0
+    ExplicitWidth = 735
+    ExplicitHeight = 358
     object tbsTabela: TTabSheet
       Caption = '&Lista'
       ImageIndex = 37
@@ -241,13 +245,15 @@ object frmGrPadraoCadastro: TfrmGrPadraoCadastro
   end
   object tlbBotoes: TPanel
     Left = 0
-    Top = 362
-    Width = 735
+    Top = 361
+    Width = 731
     Height = 35
     Align = alBottom
     BevelOuter = bvNone
     ParentColor = True
     TabOrder = 1
+    ExplicitTop = 362
+    ExplicitWidth = 735
     object Bevel2: TBevel
       Left = 0
       Top = 0
