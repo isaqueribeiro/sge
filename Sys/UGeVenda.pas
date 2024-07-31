@@ -469,6 +469,7 @@ type
     dbContrato: TJvDBComboEdit;
     fdQryTabelaCONTRATO: TLargeintField;
     fdQryTabelaNUMERO_CONTRATO: TStringField;
+    fdQryTabelaUF: TStringField;
     procedure ImprimirOpcoesClick(Sender: TObject);
     procedure ImprimirOrcamentoClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -654,7 +655,7 @@ uses
   UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte, UGeVendaConfirmaTitulos,
   {$IFNDEF PDV}UGeVendaDevolucaoNF, UGeConsultarLoteNFe_v2, UGeRequisicaoCliente, {$ENDIF}
   UDMRecursos,
-  Service.Message;
+  Service.Message, Service.Utils;
 
 {$R *.dfm}
 
@@ -870,6 +871,7 @@ begin
       DtSrcTabela.DataSet.FieldByName('NOME').AsString           := sNome;
       DtSrcTabela.DataSet.FieldByName('PESSOA_FISICA').AsInteger := IfThen(StrIsCPF(sCNPJ), 1, 0);
       DtSrcTabela.DataSet.FieldByName('INSCEST').AsString        := sInscE;
+      DtSrcTabela.DataSet.FieldByName('UF').AsString := GetClienteUF(iCodigo);
       DtSrcTabela.DataSet.FieldByName('CONTRATO').Clear;
       DtSrcTabela.DataSet.FieldByName('NUMERO_CONTRATO').Clear;
 
@@ -1005,7 +1007,8 @@ begin
   DtSrcTabela.DataSet.FieldByName('CODCLI').AsString         := CONSUMIDOR_FINAL_CNPJ;
   DtSrcTabela.DataSet.FieldByName('NOME').AsString           := GetClienteNome( CONSUMIDOR_FINAL_CODIGO );
   DtSrcTabela.DataSet.FieldByName('PESSOA_FISICA').AsInteger := 1;
-  DtSrcTabela.DataSet.FieldByName('INSCEST').AsString        := 'ISENTO';
+  DtSrcTabela.DataSet.FieldByName('INSCEST').AsString  := '';
+  DtSrcTabela.DataSet.FieldByName('UF').AsString  := GetEmpresaUF(GetEmpresaIDDefault);
 
   if ( gUsuarioLogado.Vendedor = 0 ) then
     DtSrcTabela.DataSet.FieldByName('VENDEDOR_COD').AsInteger := GetVendedorIDDefault
@@ -1065,9 +1068,7 @@ begin
   with DtSrcTabela.DataSet do
   begin
     aPessoaFisica    := (FieldByName('PESSOA_FISICA').AsInteger = 1);
-    aInscricaoIsenta := (Trim(FieldByName('INSCEST').AsString) = EmptyStr)
-      or (AnsiUpperCase(Trim(FieldByName('INSCEST').AsString)) = 'ISENTO')
-      or (AnsiUpperCase(Trim(FieldByName('INSCEST').AsString)) = 'ISENTA');
+    aInscricaoIsenta := (Trim(FieldByName('INSCEST').AsString).ToUpper.Equals('ISENTO') or Trim(FieldByName('INSCEST').AsString).ToUpper.Equals('ISENTA'));
   end;
 
   with cdsTabelaItens do
@@ -1078,6 +1079,9 @@ begin
         cdsTabelaItensCSOSN.AsString := TRIBUTO_NAO_TRIBUTADA_SN;
         cdsTabelaItensCST.AsString   := TRIBUTO_ORIGEM_NACIONAL + TRIBUTO_TRIBUTADA_ISENTA;
       end;
+//      else
+//      if (TServicesUtils.StrInscricaoEstadual(Trim(FieldByName('INSCEST').AsString), Trim(FieldByName('UF').AsString))) then
+//        cdsTabelaItensCST.AsString   := TRIBUTO_ORIGEM_NACIONAL + TRIBUTO_TRIBUTADA_INTEG;
     end;
 end;
 

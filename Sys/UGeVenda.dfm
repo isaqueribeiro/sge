@@ -4363,6 +4363,7 @@ inherited frmGeVenda: TfrmGeVenda
       '  , c.Bloqueado_motivo'
       '  , c.pessoa_fisica'
       '  , c.inscest'
+      '  , c.uf'
       '  , o.numero as numero_contrato'
       '  , Case when coalesce(v.totalcusto, 0) > 0'
       
@@ -4770,6 +4771,14 @@ inherited frmGeVenda: TfrmGeVenda
       Origin = 'NUMERO'
       ProviderFlags = []
       Size = 10
+    end
+    object fdQryTabelaUF: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'UF'
+      Origin = 'UF'
+      ProviderFlags = []
+      FixedChar = True
+      Size = 2
     end
   end
   inherited fdUpdTabela: TFDUpdateSQL

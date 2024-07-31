@@ -3,7 +3,7 @@
         <ProjectGuid>{FCA2DD67-C6FA-4B7E-8056-36BEE6681F36}</ProjectGuid>
         <MainSource>SGE.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
         <FrameworkType>VCL</FrameworkType>
@@ -158,8 +158,8 @@
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <BT_BuildType>Debug</BT_BuildType>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.35.2;InternalName=SGE;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.35;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=29/07/2024;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramGUUID={1750BCC4-2444-458F-90C9-1CE8F90E5629};GoogleAnalyticsPropertyID=UA-206518554-1</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.35.3;InternalName=SGE;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.35;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=31/07/2024;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramGUUID={1750BCC4-2444-458F-90C9-1CE8F90E5629};GoogleAnalyticsPropertyID=UA-206518554-1</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <Icon_MainIcon>SGE_Icon.ico</Icon_MainIcon>
@@ -167,7 +167,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <VerInfo_Release>35</VerInfo_Release>
         <UWP_DelphiLogo150>..\_diversos\Imagens\_Matriz\icon_gestao_estoque-v2-150x150.png</UWP_DelphiLogo150>
         <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
-        <VerInfo_Build>2</VerInfo_Build>
+        <VerInfo_Build>3</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
@@ -186,9 +186,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_Release>35</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.35.2;InternalName=SGE;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.35;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=29/07/2024;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgrammGUUID={1750BCC4-2444-458F-90C9-1CE8F90E5629};GoogleAnalyticsPropertyID=UA-206518554-1</VerInfo_Keys>
-        <VerInfo_Build>2</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.35.3;InternalName=SGE;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.35;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=31/07/2024;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgrammGUUID={1750BCC4-2444-458F-90C9-1CE8F90E5629};GoogleAnalyticsPropertyID=UA-206518554-1</VerInfo_Keys>
+        <VerInfo_Build>3</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -215,10 +215,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.35.2;InternalName=SGE;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.35;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=29/07/2024;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramGUUID={1750BCC4-2444-458F-90C9-1CE8F90E5629};GoogleAnalyticsPropertyID=UA-206518554-1</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.35.3;InternalName=SGE;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.35;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=31/07/2024;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramGUUID={1750BCC4-2444-458F-90C9-1CE8F90E5629};GoogleAnalyticsPropertyID=UA-206518554-1</VerInfo_Keys>
         <VerInfo_Release>35</VerInfo_Release>
-        <VerInfo_Build>2</VerInfo_Build>
+        <VerInfo_Build>3</VerInfo_Build>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">

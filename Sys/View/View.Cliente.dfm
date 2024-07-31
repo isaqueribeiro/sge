@@ -27,8 +27,8 @@ inherited ViewCliente: TViewCliente
     Height = 492
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 844
-    ExplicitHeight = 492
+    ExplicitWidth = 840
+    ExplicitHeight = 491
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 836
       ExplicitHeight = 463
@@ -81,8 +81,8 @@ inherited ViewCliente: TViewCliente
       inherited pnlFiltros: TPanel
         Top = 393
         Width = 836
-        ExplicitTop = 392
-        ExplicitWidth = 832
+        ExplicitTop = 393
+        ExplicitWidth = 836
         object Bevel6: TBevel [0]
           Left = 456
           Top = 4
@@ -96,7 +96,7 @@ inherited ViewCliente: TViewCliente
         inherited grpBxFiltro: TGroupBox
           Left = 460
           Width = 372
-          ExplicitLeft = 456
+          ExplicitLeft = 460
           ExplicitWidth = 372
           inherited lbltFiltrar: TLabel
             Width = 42
@@ -2550,7 +2550,6 @@ inherited ViewCliente: TViewCliente
         BevelOuter = bvNone
         BorderWidth = 4
         TabOrder = 0
-        ExplicitWidth = 832
         object lblInformeSatelite: TLabel
           Left = 4
           Top = 4
@@ -2587,7 +2586,6 @@ inherited ViewCliente: TViewCliente
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
-          ExplicitLeft = 271
           object btnPesquisarEstoqueSatelite: TSpeedButton
             AlignWithMargins = True
             Left = 516

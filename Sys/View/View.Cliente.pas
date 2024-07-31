@@ -59,7 +59,8 @@ uses
   UGrPadraoCadastro,
   Interacao.Tabela,
   Controller.Tabela, dxSkinsDefaultPainters, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
-  dxSkinOffice2019White, cxFilter, dxScrollbarAnnotations;
+  dxSkinOffice2019White, cxFilter, dxScrollbarAnnotations, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green,
+  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinTheBezier, dxSkinWXI;
 
 type
   TViewCliente = class(TViewPadraoCadastro, IObserver)
