@@ -3221,7 +3221,7 @@ begin
 //                begin
 //                  ICMS.vBC   := qryDadosProduto.FieldByName('PFINAL').AsCurrency;
 //                  ICMS.pICMS := qryDadosProduto.FieldByName('ALIQUOTA').AsCurrency;
-//                  ICMS.vICMS := ICMS.vBC * ICMS.pICMS / 100.0;
+//                  ICMS.vICMS := RoundABNT(ICMS.vBC * ICMS.pICMS / 100.0, -2);
 //
 //                  cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + (Prod.qCom * ICMS.vBC);
 //                  cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + (Prod.qCom * ICMS.vICMS);
@@ -3256,12 +3256,12 @@ begin
                   ICMS.pRedBC := (100.0 - qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency); // qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
 
                 if (ICMS.pRedBC > 0) or (qryDadosProduto.FieldByName('VALOR_REDUCAO_BC').AsCurrency > 0) then
-                  ICMS.vBC := Prod.qCom * qryDadosProduto.FieldByName('VALOR_REDUCAO_BC').AsCurrency
+                  ICMS.vBC := RoundABNT(Prod.qCom * qryDadosProduto.FieldByName('VALOR_REDUCAO_BC').AsCurrency, -2)
                 else
-                  ICMS.vBC := Prod.qCom * qryDadosProduto.FieldByName('PFINAL').AsCurrency;
+                  ICMS.vBC := RoundABNT(Prod.qCom * qryDadosProduto.FieldByName('PFINAL').AsCurrency, -2);
 
                 ICMS.pICMS := qryDadosProduto.FieldByName('ALIQUOTA').AsCurrency;
-                ICMS.vICMS := ICMS.vBC * ICMS.pICMS / 100.0;
+                ICMS.vICMS := RoundABNT(ICMS.vBC * ICMS.pICMS / 100.0, -2);
 
                 cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + ICMS.vBC;
                 cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + ICMS.vICMS;
@@ -5000,7 +5000,7 @@ begin
 //                begin
 //                  ICMS.vBC   := qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency;
 //                  ICMS.pICMS := qryEntradaDadosProduto.FieldByName('ALIQUOTA').AsCurrency;
-//                  ICMS.vICMS := ICMS.vBC * ICMS.pICMS / 100.0;
+//                  ICMS.vICMS := RoundABNT(ICMS.vBC * ICMS.pICMS / 100.0, -2);
 //
 //                  cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + (Prod.qCom * ICMS.vBC);
 //                  cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + (Prod.qCom * ICMS.vICMS);
@@ -5035,12 +5035,12 @@ begin
                   ICMS.pRedBC := (100.0 - qryEntradaDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency); // qryEntradaDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
 
                 if (ICMS.pRedBC > 0) or (qryEntradaDadosProduto.FieldByName('VALOR_REDUCAO_BC').AsCurrency > 0) then
-                  ICMS.vBC := Prod.qCom * qryEntradaDadosProduto.FieldByName('VALOR_REDUCAO_BC').AsCurrency
+                  ICMS.vBC := RoundABNT(Prod.qCom * qryEntradaDadosProduto.FieldByName('VALOR_REDUCAO_BC').AsCurrency, -2)
                 else
-                  ICMS.vBC := Prod.qCom * qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency;
+                  ICMS.vBC := RoundABNT(Prod.qCom * qryEntradaDadosProduto.FieldByName('PFINAL').AsCurrency, -2);
 
                 ICMS.pICMS := qryEntradaDadosProduto.FieldByName('ALIQUOTA').AsCurrency;
-                ICMS.vICMS := ICMS.vBC * ICMS.pICMS / 100.0;
+                ICMS.vICMS := RoundABNT(ICMS.vBC * ICMS.pICMS / 100.0, -2);
 
                 cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + ICMS.vBC;
                 cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + ICMS.vICMS;
@@ -8021,7 +8021,7 @@ begin
 //                begin
 //                  ICMS.vBC   := qryDadosProduto.FieldByName('PFINAL').AsCurrency;
 //                  ICMS.pICMS := qryDadosProduto.FieldByName('ALIQUOTA').AsCurrency;
-//                  ICMS.vICMS := ICMS.vBC * ICMS.pICMS / 100.0;
+//                  ICMS.vICMS := RoundABNT(ICMS.vBC * ICMS.pICMS / 100.0, -2);
 //
 //                  cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + (Prod.qCom * ICMS.vBC);
 //                  cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + (Prod.qCom * ICMS.vICMS);
@@ -8056,15 +8056,15 @@ begin
                   ICMS.pRedBC := (100.0 - qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency); // qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
 
                 if (ICMS.pRedBC > 0) or (qryDadosProduto.FieldByName('VALOR_REDUCAO_BC').AsCurrency > 0) then
-                  ICMS.vBC := qryDadosProduto.FieldByName('VALOR_REDUCAO_BC').AsCurrency
+                  ICMS.vBC := RoundABNT(Prod.qCom * qryDadosProduto.FieldByName('VALOR_REDUCAO_BC').AsCurrency, -2)
                 else
-                  ICMS.vBC := qryDadosProduto.FieldByName('PFINAL').AsCurrency;
+                  ICMS.vBC := RoundABNT(Prod.qCom * qryDadosProduto.FieldByName('PFINAL').AsCurrency, -2);
 
                 ICMS.pICMS := qryDadosProduto.FieldByName('ALIQUOTA').AsCurrency;
-                ICMS.vICMS := ICMS.vBC * ICMS.pICMS / 100.0;
+                ICMS.vICMS := RoundABNT(ICMS.vBC * ICMS.pICMS / 100.0, -2);
 
-                cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + (Prod.qCom * ICMS.vBC);
-                cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + (Prod.qCom * ICMS.vICMS);
+                cTotal_ICMSTot_vBC   := cTotal_ICMSTot_vBC   + ICMS.vBC;
+                cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + ICMS.vICMS;
               end;
 
               // ICMS ST (Substituição Tributária)

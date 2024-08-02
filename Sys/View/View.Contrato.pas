@@ -75,7 +75,7 @@ type
     lblDataValidade: TLabel;
     dbDataValidade: TJvDBDateEdit;
     DtSrcTabelaItens: TDataSource;
-    btnDisponibilizar: TcxButton;
+    btnSituacao: TcxButton;
     pgcDetalhes: TPageControl;
     tbsProdutos: TTabSheet;
     tbsNotas: TTabSheet;
@@ -116,6 +116,9 @@ type
     e2Data: TJvDateEdit;
     lblData: TLabel;
     DBGrid1: TDBGrid;
+    ppSituacao: TPopupMenu;
+    ppmDisponibilizar: TMenuItem;
+    ppmCancelar: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure dbNomeButtonClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
@@ -134,13 +137,15 @@ type
     procedure btbtnExcluirClick(Sender: TObject);
     procedure btbtnCancelarClick(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);
-    procedure btnDisponibilizarClick(Sender: TObject);
+    procedure btnSituacaoClick(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure dbProdutoButtonClick(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
     procedure nmListaContratosClick(Sender: TObject);
     procedure nmEspelhoContratoClick(Sender: TObject);
+    procedure ppmDisponibilizarClick(Sender: TObject);
+    procedure ppmCancelarClick(Sender: TObject);
   private
     { Private declarations }
     FControllerEmpresaView  ,
@@ -440,78 +445,9 @@ begin
   end;
 end;
 
-procedure TViewContrato.btnDisponibilizarClick(Sender: TObject);
-var
-  aGerarTitulos : Boolean;
-  aContrato : TContrato;
+procedure TViewContrato.btnSituacaoClick(Sender: TObject);
 begin
-  with DtSrcTabela.DataSet do
-  begin
-    if IsEmpty or (State in [TDataSetState.dsEdit, TDataSetState.dsInsert]) then
-      Abort;
-
-    if not GetPermissaoRotinaInterna(Sender, True) then
-      Abort;
-
-    // Verificar duplicidade de lançamento do Contrato
-    aContrato.Controle   := FieldByName('controle').AsLargeInt;
-    aContrato.Destino    := FieldByName('destino').AsInteger;
-    aContrato.Cliente    := FieldByName('cliente').AsInteger;
-    aContrato.Fornecedor := FieldByName('fornecedor').AsInteger;
-    aContrato.Numero     := Trim(FieldByName('numero').AsString).ToUpper;
-
-    if ContratoDuplicado(aContrato) then
-      Abort;
-
-    RecarregarRegistro;
-
-    pgcGuias.ActivePage := tbsCadastro;
-
-    // 1. Garantir a gravação dos itens na base
-    DtSrcTabelaItens.DataSet.DisableControls;
-    try
-      DtSrcTabelaItens.DataSet.First;
-      while not DtSrcTabelaItens.DataSet.Eof do
-      begin
-        DtSrcTabelaItens.DataSet.Edit;
-        DtSrcTabelaItens.DataSet.Post;
-
-        Itens.DAO.ApplyUpdates;
-        Itens.DAO.CommitUpdates;
-
-        DtSrcTabelaItens.DataSet.Next;
-      end;
-    finally
-      FController.DAO.CommitTransaction;
-      DtSrcTabelaItens.DataSet.First;
-      DtSrcTabelaItens.DataSet.EnableControls;
-    end;
-
-    if (FieldByName('situacao').AsInteger = STATUS_CONTRATO_DISPO) then
-      TServiceMessage.ShowWarning('Contrato já está disponibilizado para uso!')
-    else
-    if (DtSrcTabelaItens.DataSet.RecordCount = 0) then
-      TServiceMessage.ShowWarning('Contrato sem itens!')
-    else
-    begin
-      if TServiceMessage.ShowConfirm('Confirma a disponibilização do contrato selecionado para uso?') then
-      begin
-        Edit;
-
-        FieldByName('situacao').AsInteger := STATUS_CONTRATO_DISPO;
-
-        DtSrcTabela.DataSet.Post;
-
-        FController.DAO.ApplyUpdates;
-        FController.DAO.CommitUpdates;
-        FController.DAO.CommitTransaction;
-
-        HabilitarDesabilitar_Btns;
-        TServiceMessage.ShowInformation('Contrato disponibilizado com sucesso!');
-      end;
-
-    end;
-  end;
+  ppSituacao.Popup(btnSituacao.ClientOrigin.X, btnSituacao.ClientOrigin.Y + btnSituacao.Height);
 end;
 
 procedure TViewContrato.btnFiltrarClick(Sender: TObject);
@@ -977,15 +913,21 @@ end;
 
 function TViewContrato.GetRotinaDisponibilizarID: String;
 begin
-  Result := GetRotinaInternaID(btnDisponibilizar);
+  Result := GetRotinaInternaID(btnSituacao);
 end;
 
 procedure TViewContrato.HabilitarDesabilitar_Btns;
 begin
   with DtSrcTabela.DataSet do
   begin
-    btnDisponibilizar.Enabled := (pgcGuias.ActivePage = tbsCadastro)
+    btnSituacao.Enabled := (DtSrcTabela.DataSet.State = dsBrowse) and (not DtSrcTabela.DataSet.IsEmpty);
+
+    ppmDisponibilizar.Enabled := (pgcGuias.ActivePage = tbsCadastro)
       and (FieldByName('SITUACAO').AsInteger = STATUS_CONTRATO_EDIT)
+      and (not DtSrcTabelaItens.DataSet.IsEmpty);
+
+    ppmCancelar.Enabled := (pgcGuias.ActivePage = tbsCadastro)
+      and (FieldByName('SITUACAO').AsInteger < STATUS_CONTRATO_CANCEL)
       and (not DtSrcTabelaItens.DataSet.IsEmpty);
 
     nmListaContratos.Enabled  := (DtSrcTabela.DataSet.State = dsBrowse) and (not DtSrcTabela.DataSet.IsEmpty) and (pgcGuias.ActivePage = tbsTabela);
@@ -1036,6 +978,116 @@ begin
   HabilitarDesabilitar_Btns;
 end;
 
+procedure TViewContrato.ppmCancelarClick(Sender: TObject);
+var
+  aGerarTitulos : Boolean;
+  aContrato : TContrato;
+begin
+  with DtSrcTabela.DataSet do
+  begin
+    if IsEmpty or (State in [TDataSetState.dsEdit, TDataSetState.dsInsert]) then
+      Abort;
+
+    if not GetPermissaoRotinaInterna(btnSituacao, True) then
+      Abort;
+
+    RecarregarRegistro;
+
+    if (FieldByName('situacao').AsInteger = STATUS_CONTRATO_CANCEL) then
+      TServiceMessage.ShowWarning('Contrato já está cancelado!')
+    else
+      if TServiceMessage.ShowConfirm('Confirma a disponibilização do contrato selecionado para uso?') then
+      begin
+        Edit;
+
+        FieldByName('situacao').AsInteger := STATUS_CONTRATO_CANCEL;
+
+        DtSrcTabela.DataSet.Post;
+
+        FController.DAO.ApplyUpdates;
+        FController.DAO.CommitUpdates;
+        FController.DAO.CommitTransaction;
+
+        HabilitarDesabilitar_Btns;
+        TServiceMessage.ShowInformation('Contrato cancelado com sucesso!');
+      end;
+  end;
+end;
+
+procedure TViewContrato.ppmDisponibilizarClick(Sender: TObject);
+var
+  aGerarTitulos : Boolean;
+  aContrato : TContrato;
+begin
+  with DtSrcTabela.DataSet do
+  begin
+    if IsEmpty or (State in [TDataSetState.dsEdit, TDataSetState.dsInsert]) then
+      Abort;
+
+    if not GetPermissaoRotinaInterna(btnSituacao, True) then
+      Abort;
+
+    // Verificar duplicidade de lançamento do Contrato
+    aContrato.Controle   := FieldByName('controle').AsLargeInt;
+    aContrato.Destino    := FieldByName('destino').AsInteger;
+    aContrato.Cliente    := FieldByName('cliente').AsInteger;
+    aContrato.Fornecedor := FieldByName('fornecedor').AsInteger;
+    aContrato.Numero     := Trim(FieldByName('numero').AsString).ToUpper;
+
+    if ContratoDuplicado(aContrato) then
+      Abort;
+
+    RecarregarRegistro;
+
+    pgcGuias.ActivePage := tbsCadastro;
+
+    // 1. Garantir a gravação dos itens na base
+    DtSrcTabelaItens.DataSet.DisableControls;
+    try
+      DtSrcTabelaItens.DataSet.First;
+      while not DtSrcTabelaItens.DataSet.Eof do
+      begin
+        DtSrcTabelaItens.DataSet.Edit;
+        DtSrcTabelaItens.DataSet.Post;
+
+        Itens.DAO.ApplyUpdates;
+        Itens.DAO.CommitUpdates;
+
+        DtSrcTabelaItens.DataSet.Next;
+      end;
+    finally
+      FController.DAO.CommitTransaction;
+      DtSrcTabelaItens.DataSet.First;
+      DtSrcTabelaItens.DataSet.EnableControls;
+    end;
+
+    if (FieldByName('situacao').AsInteger = STATUS_CONTRATO_DISPO) then
+      TServiceMessage.ShowWarning('Contrato já está disponibilizado para uso!')
+    else
+    if (DtSrcTabelaItens.DataSet.RecordCount = 0) then
+      TServiceMessage.ShowWarning('Contrato sem itens!')
+    else
+    begin
+      if TServiceMessage.ShowConfirm('Confirma a disponibilização do contrato selecionado para uso?') then
+      begin
+        Edit;
+
+        FieldByName('situacao').AsInteger := STATUS_CONTRATO_DISPO;
+
+        DtSrcTabela.DataSet.Post;
+
+        FController.DAO.ApplyUpdates;
+        FController.DAO.CommitUpdates;
+        FController.DAO.CommitTransaction;
+
+        HabilitarDesabilitar_Btns;
+        TServiceMessage.ShowInformation('Contrato disponibilizado com sucesso!');
+      end;
+
+    end;
+  end;
+end;
+
 procedure TViewContrato.RecarregarRegistro;
 begin
   FController.DAO.RefreshRecord;
@@ -1045,8 +1097,8 @@ procedure TViewContrato.RegistrarNovaRotinaSistema;
 begin
   if (not Trim(RotinaID).IsEmpty) then
   begin
-    if btnDisponibilizar.Visible then
-      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaDisponibilizarID, btnDisponibilizar.Caption, RotinaID);
+    if btnSituacao.Visible then
+      SetRotinaSistema(ROTINA_TIPO_FUNCAO, RotinaDisponibilizarID, 'Alterar Situação do Contrato', RotinaID);
   end;
 end;
 
