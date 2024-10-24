@@ -119,6 +119,7 @@ type
     ppSituacao: TPopupMenu;
     ppmDisponibilizar: TMenuItem;
     ppmCancelar: TMenuItem;
+    ppmReabrirContrato: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure dbNomeButtonClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
@@ -146,6 +147,7 @@ type
     procedure nmEspelhoContratoClick(Sender: TObject);
     procedure ppmDisponibilizarClick(Sender: TObject);
     procedure ppmCancelarClick(Sender: TObject);
+    procedure ppmReabrirContratoClick(Sender: TObject);
   private
     { Private declarations }
     FControllerEmpresaView  ,
@@ -926,6 +928,10 @@ begin
       and (FieldByName('SITUACAO').AsInteger = STATUS_CONTRATO_EDIT)
       and (not DtSrcTabelaItens.DataSet.IsEmpty);
 
+    ppmReabrirContrato.Enabled := (pgcGuias.ActivePage = tbsCadastro)
+      and (FieldByName('SITUACAO').AsInteger = STATUS_CONTRATO_DISPO)
+      and (not DtSrcTabelaItens.DataSet.IsEmpty);
+
     ppmCancelar.Enabled := (pgcGuias.ActivePage = tbsCadastro)
       and (FieldByName('SITUACAO').AsInteger < STATUS_CONTRATO_CANCEL)
       and (not DtSrcTabelaItens.DataSet.IsEmpty);
@@ -1082,6 +1088,46 @@ begin
 
         HabilitarDesabilitar_Btns;
         TServiceMessage.ShowInformation('Contrato disponibilizado com sucesso!');
+      end;
+
+    end;
+  end;
+end;
+
+procedure TViewContrato.ppmReabrirContratoClick(Sender: TObject);
+var
+  aGerarTitulos : Boolean;
+  aContrato : TContrato;
+begin
+  with DtSrcTabela.DataSet do
+  begin
+    if IsEmpty or (State in [TDataSetState.dsEdit, TDataSetState.dsInsert]) then
+      Abort;
+
+    if not GetPermissaoRotinaInterna(btnSituacao, True) then
+      Abort;
+
+    RecarregarRegistro;
+    pgcGuias.ActivePage := tbsCadastro;
+
+    if (FieldByName('situacao').AsInteger = STATUS_CONTRATO_FINAL) then
+      TServiceMessage.ShowWarning('Contrato já está finalizado!')
+    else
+    begin
+      if TServiceMessage.ShowConfirm('Confirma a reabertura do contrato selecionado para edição?') then
+      begin
+        Edit;
+
+        FieldByName('situacao').AsInteger := STATUS_CONTRATO_DISPO;
+
+        DtSrcTabela.DataSet.Post;
+
+        FController.DAO.ApplyUpdates;
+        FController.DAO.CommitUpdates;
+        FController.DAO.CommitTransaction;
+
+        HabilitarDesabilitar_Btns;
+        TServiceMessage.ShowInformation('Contrato reaberto com sucesso!');
       end;
 
     end;

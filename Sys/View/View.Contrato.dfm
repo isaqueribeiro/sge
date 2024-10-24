@@ -1742,6 +1742,11 @@ inherited ViewContrato: TViewContrato
       ImageIndex = 14
       OnClick = ppmDisponibilizarClick
     end
+    object ppmReabrirContrato: TMenuItem
+      Caption = 'Reabrir Contrato'
+      ImageIndex = 10
+      OnClick = ppmReabrirContratoClick
+    end
     object ppmCancelar: TMenuItem
       Caption = 'Cancelar'
       ImageIndex = 4
