@@ -42,6 +42,10 @@ uses
   cxButtons,
   dxSkinsCore,
   dxSkinsDefaultPainters,
+  dxSkinOffice2019Black,
+  dxSkinOffice2019Colorful,
+  dxSkinOffice2019DarkGray,
+  dxSkinOffice2019White,
 
   ACBrBase,
   ACBrExtenso,
@@ -51,8 +55,7 @@ uses
   Interacao.Tabela,
   Controller.Tabela,
   UConstantesDGE,
-  SGE.Controller.Impressao.ContaAPagar, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
-  dxSkinOffice2019White;
+  SGE.Controller.Impressao.ContaAPagar;
 
 type
   TViewContaAPagar = class(TViewPadraoCadastro)

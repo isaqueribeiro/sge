@@ -539,8 +539,8 @@ uses
   ACBrNFeNotasFiscais, ACBrNFeWebServices, StdCtrls, pcnNFe, UFuncoes,
   DateUtils, UEcfFactory, // pcnRetConsReciNFe, pcnDownloadNFe,
   pcnConversaoNFe,
-  pcnEnvEventoNFe,
-  pcnEventoNFe,
+  //pcnEnvEventoNFe,
+  //pcnEventoNFe,
   ACBrSATClass;
 
 {$R *.dfm}

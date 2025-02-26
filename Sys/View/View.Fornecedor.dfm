@@ -27,8 +27,8 @@ inherited ViewFornecedor: TViewFornecedor
     Height = 457
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 844
-    ExplicitHeight = 457
+    ExplicitWidth = 840
+    ExplicitHeight = 456
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 836
       ExplicitHeight = 428

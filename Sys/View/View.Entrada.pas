@@ -52,6 +52,7 @@ uses
   cxInplaceContainer,
   dxSkinsDefaultPainters,
 
+  pcnConversaoNFe,
   ACBrConsultaCPF,
   ACBrBase,
   ACBrSocket,

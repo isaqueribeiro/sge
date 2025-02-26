@@ -344,7 +344,7 @@ begin
     .Display('CODFORN', 'Código', '##0000', TAlignment.taCenter)
     .Display('FATURAMENTO_MINIMO', 'Fatura Mínima (R$)', ',0.00', TAlignment.taRightJustify);
 
-  AbrirTabelaAuto := True;
+  AbrirTabelaAuto := False;
 
   TController(FControllerGrupoFornecedor).LookupComboBox(dbGrupo, dtsGrupo, 'grf_cod', 'grf_cod', 'grf_descricao');
 end;

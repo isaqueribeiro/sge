@@ -3,33 +3,33 @@ inherited ViewEntrada: TViewEntrada
   Top = 206
   ActiveControl = nil
   Caption = 'Controle de Entradas de Produtos'
-  ClientHeight = 676
-  ClientWidth = 1097
-  ExplicitWidth = 1113
-  ExplicitHeight = 715
+  ClientHeight = 675
+  ClientWidth = 1093
+  ExplicitWidth = 1109
+  ExplicitHeight = 714
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 672
-    Width = 1097
+    Top = 671
+    Width = 1093
     ExplicitTop = 674
     ExplicitWidth = 1114
   end
   inherited Bevel3: TBevel
-    Top = 633
-    Width = 1097
+    Top = 632
+    Width = 1093
     ExplicitTop = 635
     ExplicitWidth = 1114
   end
   inherited pgcGuias: TPageControl
-    Width = 1097
-    Height = 633
+    Width = 1093
+    Height = 632
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 1097
+    ExplicitWidth = 1101
     ExplicitHeight = 633
     inherited tbsTabela: TTabSheet
-      ExplicitWidth = 1093
-      ExplicitHeight = 605
+      ExplicitWidth = 1089
+      ExplicitHeight = 604
       inherited Bevel4: TBevel
         Top = 531
         Width = 1093
@@ -438,18 +438,18 @@ inherited ViewEntrada: TViewEntrada
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitWidth = 1093
-      ExplicitHeight = 605
+      ExplicitWidth = 1089
+      ExplicitHeight = 604
       inherited Bevel8: TBevel
         Top = 113
-        Width = 1093
+        Width = 1089
         ExplicitTop = 113
         ExplicitWidth = 1106
       end
       object Bevel5: TBevel [1]
         Left = 0
         Top = 328
-        Width = 1093
+        Width = 1089
         Height = 4
         Align = alTop
         Shape = bsSpacer
@@ -458,8 +458,8 @@ inherited ViewEntrada: TViewEntrada
       end
       object Bevel9: TBevel [2]
         Left = 0
-        Top = 416
-        Width = 1093
+        Top = 415
+        Width = 1089
         Height = 4
         Align = alBottom
         Shape = bsSpacer
@@ -469,7 +469,7 @@ inherited ViewEntrada: TViewEntrada
       object Bevel11: TBevel [3]
         Left = 0
         Top = 207
-        Width = 1093
+        Width = 1089
         Height = 4
         Align = alTop
         Shape = bsSpacer
@@ -477,13 +477,13 @@ inherited ViewEntrada: TViewEntrada
         ExplicitWidth = 1106
       end
       inherited GrpBxDadosNominais: TGroupBox
-        Width = 1093
+        Width = 1089
         Height = 113
         Caption = 'Dados nominais da NF'
         ExplicitWidth = 1089
         ExplicitHeight = 113
         DesignSize = (
-          1089
+          1085
           113)
         inherited lblCodigo: TLabel
           Width = 67
@@ -1138,11 +1138,12 @@ inherited ViewEntrada: TViewEntrada
       object GrpBxDadosValores: TGroupBox
         Left = 0
         Top = 117
-        Width = 1089
+        Width = 1085
         Height = 90
         Align = alTop
         Caption = 'Valores (R$)'
         TabOrder = 1
+        ExplicitWidth = 1089
         object lblValorFrete: TLabel
           Left = 568
           Top = 24
@@ -1471,22 +1472,24 @@ inherited ViewEntrada: TViewEntrada
       end
       object pgcMaisDados: TPageControl
         Left = 0
-        Top = 419
-        Width = 1089
+        Top = 418
+        Width = 1085
         Height = 185
         ActivePage = tbsPagamento
         Align = alBottom
         HotTrack = True
         TabOrder = 4
+        ExplicitTop = 419
+        ExplicitWidth = 1089
         object tbsPagamento: TTabSheet
           Caption = 'Pagamento'
           DesignSize = (
-            1081
+            1077
             157)
           object lblObservacao: TLabel
             Left = 0
             Top = 0
-            Width = 1081
+            Width = 1077
             Height = 13
             Align = alTop
             Caption = '&Observa'#231#245'es:'
@@ -1708,7 +1711,7 @@ inherited ViewEntrada: TViewEntrada
           object Bevel13: TBevel
             Left = 0
             Top = 108
-            Width = 1081
+            Width = 1077
             Height = 4
             Align = alTop
             Shape = bsSpacer
@@ -1728,13 +1731,14 @@ inherited ViewEntrada: TViewEntrada
           object dbObservacao: TDBMemo
             Left = 0
             Top = 13
-            Width = 1081
+            Width = 1077
             Height = 95
             Align = alTop
             Anchors = [akLeft, akTop, akRight, akBottom]
             DataField = 'OBS'
             DataSource = DtSrcTabela
             TabOrder = 0
+            ExplicitWidth = 1081
           end
           object dbFormaPagto: TDBLookupComboBox
             Left = 0
@@ -2797,11 +2801,12 @@ inherited ViewEntrada: TViewEntrada
       object GrpBxDadosProduto: TGroupBox
         Left = 0
         Top = 211
-        Width = 1089
+        Width = 1085
         Height = 117
         Align = alTop
         Caption = 'Dados do produto'
         TabOrder = 2
+        ExplicitWidth = 1089
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -3700,8 +3705,8 @@ inherited ViewEntrada: TViewEntrada
       object dbgProdutos: TDBGrid
         Left = 0
         Top = 332
-        Width = 1089
-        Height = 83
+        Width = 1085
+        Height = 82
         TabStop = False
         Align = alClient
         DataSource = DtSrcTabelaItens
@@ -3795,8 +3800,8 @@ inherited ViewEntrada: TViewEntrada
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 637
-    Width = 1097
+    Top = 636
+    Width = 1093
     ExplicitTop = 637
     ExplicitWidth = 1097
     inherited bvlTool1: TBevel

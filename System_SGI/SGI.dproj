@@ -70,15 +70,15 @@
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.35.4;InternalName=SGI;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.35;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=02/08/2024;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.35.6;InternalName=SGI;LegalCopyright=Copyright 2013 - 2025 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.35;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=25/02/2025;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <UWP_DelphiLogo44>..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-44x44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-150x150.png</UWP_DelphiLogo150>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
         <DCC_Define>SGI;$(DCC_Define)</DCC_Define>
         <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
-        <VerInfo_Build>4</VerInfo_Build>
+        <VerInfo_Build>6</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <Icon_MainIcon>SGI_Icon2.ico</Icon_MainIcon>
@@ -96,12 +96,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCC_LocalDebugSymbols>true</DCC_LocalDebugSymbols>
         <VerInfo_Release>35</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.35.4;InternalName=SGI;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.35;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=02/08/2024;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.35.6;InternalName=SGI;LegalCopyright=Copyright 2013 - 2025 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.35;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=25/02/2025;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
         <BT_BuildType>Debug</BT_BuildType>
-        <VerInfo_Build>4</VerInfo_Build>
+        <VerInfo_Build>6</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -112,11 +112,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <VerInfo_Release>35</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.35.4;InternalName=SGI;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.35;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=02/08/2024;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Industrial;FileVersion=1.0.35.6;InternalName=SGI;LegalCopyright=Copyright 2013 - 2025 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductName=SGI - Sistema de Gestão Empresarial/Industrial;ProductVersion=1.0.35;Comments=;Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=25/02/2025;Contacts=(91) 9 9146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
         <Icon_MainIcon>SGI_Icon.ico</Icon_MainIcon>
-        <VerInfo_Build>4</VerInfo_Build>
+        <VerInfo_Build>6</VerInfo_Build>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">

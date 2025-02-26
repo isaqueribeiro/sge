@@ -88,6 +88,7 @@ type
     frExtratoMovimentoProduto: TfrxReport;
     lblProduto: TLabel;
     edProduto: TJvComboEdit;
+    FrRelacaoEstoqueProdutosInventario: TfrxReport;
     procedure FormCreate(Sender: TObject);
     procedure edEmpresaChange(Sender: TObject);
     procedure edRelatorioChange(Sender: TObject);
@@ -169,10 +170,11 @@ const
   REPORT_ESTOQUE_APROPRIACAO_SINTETICO = 0;
   REPORT_ESTOQUE_APROPRIACAO_ANALITICO = 1;
   REPORT_ESTOQUE_APROPRIACAO_PRODUTOS  = 2;
-  REPORT_RELACAO_APROPRIACAO_SINTETICO = 3;
-  REPORT_RELACAO_APROPRIACAO_ANALITICO = 4;
-  REPORT_RELACAO_PRODUTO_APROPRIACAO   = 5;
-  REPORT_EXTRATO_PRODUTO_APROPRIACAO   = 6;
+  REPORT_ESTOQUE_APROPRIACAO_PRODUTOS_INVENTARIO = 3;
+  REPORT_RELACAO_APROPRIACAO_SINTETICO = 4;
+  REPORT_RELACAO_APROPRIACAO_ANALITICO = 5;
+  REPORT_RELACAO_PRODUTO_APROPRIACAO   = 6;
+  REPORT_EXTRATO_PRODUTO_APROPRIACAO   = 7;
 
   IDX_SITUACAO_APRORIACAO_PADRAO = 0; // Todas
 
@@ -437,7 +439,8 @@ begin
   aEnabled := (edRelatorio.ItemIndex in [
       REPORT_ESTOQUE_APROPRIACAO_SINTETICO,
       REPORT_ESTOQUE_APROPRIACAO_ANALITICO,
-      REPORT_ESTOQUE_APROPRIACAO_PRODUTOS
+      REPORT_ESTOQUE_APROPRIACAO_PRODUTOS,
+      REPORT_ESTOQUE_APROPRIACAO_PRODUTOS_INVENTARIO
     ]);
 
   lblGrupo.Enabled      := aEnabled;
@@ -451,7 +454,7 @@ begin
   if not edFabricante.Enabled then
     edFabricante.ItemIndex := 0;
 
-  if (edRelatorio.ItemIndex in [REPORT_EXTRATO_PRODUTO_APROPRIACAO, REPORT_ESTOQUE_APROPRIACAO_PRODUTOS]) then
+  if (edRelatorio.ItemIndex in [REPORT_EXTRATO_PRODUTO_APROPRIACAO, REPORT_ESTOQUE_APROPRIACAO_PRODUTOS, REPORT_ESTOQUE_APROPRIACAO_PRODUTOS_INVENTARIO]) then
   begin
     edSituacao.ItemIndex := 0;
     edTipoApropriacao.ItemIndex := 0;
@@ -688,7 +691,7 @@ begin
         frReport := FrRelacaoEstoqueAprop;
       end;
 
-    REPORT_ESTOQUE_APROPRIACAO_PRODUTOS:
+    REPORT_ESTOQUE_APROPRIACAO_PRODUTOS, REPORT_ESTOQUE_APROPRIACAO_PRODUTOS_INVENTARIO:
       begin
         if (edCentroCusto.ItemIndex = 0) then
         begin
@@ -699,7 +702,11 @@ begin
         begin
           SubTituloRelario := EmptyStr;
           MontarRelacaoEstoqueProdutos;
-          frReport := FrRelacaoEstoqueProdutos;
+          if (edRelatorio.ItemIndex = REPORT_ESTOQUE_APROPRIACAO_PRODUTOS) then
+            frReport := FrRelacaoEstoqueProdutos
+          else
+          if (edRelatorio.ItemIndex = REPORT_ESTOQUE_APROPRIACAO_PRODUTOS_INVENTARIO) then
+            frReport := FrRelacaoEstoqueProdutosInventario;
         end;
       end;
 
