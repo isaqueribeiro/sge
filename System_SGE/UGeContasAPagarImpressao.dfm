@@ -2,11 +2,13 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
   Left = 387
   Top = 219
   Caption = 'Relat'#243'rios de Contas A Pagar'
-  PixelsPerInch = 96
+  ExplicitWidth = 561
+  ExplicitHeight = 341
   TextHeight = 13
   inherited pnlRelatorio: TPanel
     inherited GrpBxRelatorio: TGroupBox
       inherited edRelatorio: TComboBox
+        Width = 400
         Items.Strings = (
           'Relat'#243'rio de Contas A Pagar por Vencimento (Sint'#233'tico)'
           'Relat'#243'rio de Contas A Pagar por Vencimento (Anal'#237'tico)'
@@ -255,7 +257,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarVSintetico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -330,6 +332,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -544,6 +550,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
@@ -604,6 +614,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
@@ -833,6 +847,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
@@ -1049,6 +1067,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
@@ -1159,6 +1181,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
@@ -1444,6 +1470,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       'TOTALCOMPRA=TOTALCOMPRA')
     DataSet = CdsRelacaoAPagarVSintetico
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 136
     Top = 8
   end
@@ -1512,11 +1539,12 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       'CODIGO_RESUMIDO=CODIGO_RESUMIDO')
     DataSet = CdsRelacaoAPagarVAnalitico
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 136
     Top = 56
   end
   object frRelacaoAPagarVAnalitico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -1600,6 +1628,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -1811,6 +1843,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
@@ -1871,6 +1907,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
@@ -1919,6 +1959,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
@@ -2279,6 +2323,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
@@ -2369,6 +2417,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 94.488250000000000000
         Top = 529.134200000000000000
@@ -2613,6 +2665,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderFornecedor: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
@@ -3016,6 +3072,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterFornecedor: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
@@ -3130,7 +3190,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 64
   end
   object frRelacaoAPagarESintetico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -3205,6 +3265,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -3419,6 +3483,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
@@ -3479,6 +3547,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
@@ -3708,6 +3780,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
@@ -3924,6 +4000,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
@@ -4034,6 +4114,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
@@ -4317,11 +4401,12 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       'TOTALCOMPRA=TOTALCOMPRA')
     DataSet = CdsRelacaoAPagarESintetico
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 136
     Top = 152
   end
   object frRelacaoAPagarEAnalitico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -4405,6 +4490,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -4616,6 +4705,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
@@ -4676,6 +4769,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
@@ -4724,6 +4821,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
@@ -5084,6 +5185,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
@@ -5174,6 +5279,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 94.488250000000000000
         Top = 529.134200000000000000
@@ -5418,6 +5527,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderFornecedor: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
@@ -5821,6 +5934,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterFornecedor: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
@@ -5911,7 +6028,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarBSintetico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -5986,6 +6103,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -6200,6 +6321,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
@@ -6260,6 +6385,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
@@ -6489,6 +6618,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
@@ -6705,6 +6838,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
@@ -6815,6 +6952,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
@@ -7098,11 +7239,12 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       'TOTALCOMPRA=TOTALCOMPRA')
     DataSet = CdsRelacaoAPagarBSintetico
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 136
     Top = 248
   end
   object frRelacaoAPagarBAnalitico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -7186,6 +7328,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -7397,6 +7543,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
@@ -7457,6 +7607,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
@@ -7505,6 +7659,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
@@ -7865,6 +8023,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
@@ -7955,6 +8117,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 94.488250000000000000
         Top = 529.134200000000000000
@@ -8199,6 +8365,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderFornecedor: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
@@ -8602,6 +8772,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterFornecedor: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
@@ -8692,7 +8866,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarTPDespesaSintetico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -8767,6 +8941,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -8981,6 +9159,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
@@ -9041,6 +9223,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderTPDespesa: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
@@ -9270,6 +9456,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
@@ -9486,6 +9676,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterTPDespesa: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
@@ -9596,6 +9790,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
@@ -9843,7 +10041,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarTPDespesaAnalitico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -9927,6 +10125,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -10138,6 +10340,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
@@ -10198,6 +10404,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderTPDespesa: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
@@ -10246,6 +10456,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
@@ -10606,6 +10820,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterTPDespesa: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
@@ -10696,6 +10914,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 94.488250000000000000
         Top = 529.134200000000000000
@@ -10940,6 +11162,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderFornecedor: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
@@ -11343,6 +11569,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterFornecedor: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
@@ -11433,7 +11663,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarVFornecedor: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -11508,6 +11738,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -11721,6 +11955,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
@@ -11781,6 +12019,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
@@ -12010,6 +12252,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
@@ -12265,6 +12511,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
@@ -12375,6 +12625,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
@@ -12661,6 +12915,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       'TOTALCOMPRA=TOTALCOMPRA')
     DataSet = CdsRelacaoAPagarVFornecedor
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 136
     Top = 104
   end
@@ -12705,11 +12960,12 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       'TOTALCOMPRA=TOTALCOMPRA')
     DataSet = CdsRelacaoAPagarTPDespesaFornecedor
     BCDToCurrency = True
+    DataSetOptions = []
     Left = 368
     Top = 8
   end
   object frRelacaoAPagarTPDespesaFornecedor: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -12784,6 +13040,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -12997,6 +13257,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
@@ -13057,6 +13321,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderTPDespesa: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
@@ -13264,6 +13532,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
@@ -13453,6 +13725,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterTPDespesa: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
@@ -13542,6 +13818,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
@@ -13789,7 +14069,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarAPSintetico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -13864,6 +14144,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -14078,6 +14362,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
@@ -14138,6 +14426,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
@@ -14368,6 +14660,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
@@ -14584,6 +14880,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
@@ -14694,6 +14994,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
@@ -14941,7 +15245,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarAPAnalitico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -15025,6 +15329,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -15236,6 +15544,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
@@ -15296,6 +15608,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
@@ -15345,6 +15661,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
@@ -15705,6 +16025,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
@@ -15795,6 +16119,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 94.488250000000000000
         Top = 529.134200000000000000
@@ -16039,6 +16367,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderFornecedor: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
@@ -16442,6 +16774,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterFornecedor: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
@@ -16532,7 +16868,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoAPagarAPFornecedor: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -16607,6 +16943,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -16821,6 +17161,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
@@ -16881,6 +17225,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
@@ -17111,6 +17459,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
@@ -17329,6 +17681,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
@@ -17439,6 +17795,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
@@ -17752,7 +18112,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 64
   end
   object frRelacaoExtratoFornVSintetico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -17827,6 +18187,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -18041,6 +18405,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 589.606680000000000000
@@ -18101,6 +18469,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 234.330860000000000000
@@ -18330,6 +18702,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 313.700990000000000000
@@ -18546,6 +18922,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 26.456710000000000000
         Top = 355.275820000000000000
@@ -18656,6 +19036,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 124.724490000000000000
         Top = 442.205010000000000000
@@ -18903,7 +19287,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     end
   end
   object frRelacaoExtratoFornVAnalitico: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -18987,6 +19371,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -19198,6 +19586,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 646.299630000000000000
@@ -19258,6 +19650,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 234.330860000000000000
@@ -19306,6 +19702,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 359.055350000000000000
@@ -19666,6 +20066,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 445.984540000000000000
@@ -19756,6 +20160,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 94.488250000000000000
         Top = 529.134200000000000000
@@ -20000,6 +20408,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderFornecedor: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 279.685220000000000000
@@ -20403,6 +20815,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterFornecedor: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 400.630180000000000000
@@ -20674,15 +21090,19 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         's compra'
       '  , cm.dtent as compra_data'
       
-        '  , right('#39'0000000'#39' || cm.nf, 7) || coalesce('#39'-'#39' || trim(cm.nfse' +
-        'rie), '#39#39') as NFE'
+        '  --, right('#39'0000000'#39' || cm.nf, 7) || coalesce('#39'-'#39' || trim(cm.nf' +
+        'serie), '#39#39') as NFE'
+      
+        '  , coalesce(right('#39'0000000'#39' || cm.nf, 7) || coalesce('#39'-'#39' || tri' +
+        'm(cm.nfserie), '#39#39'), trim(cp.notfisc)) as NFE'
       '  , cm.nfserie     as nfe_serie'
-      '  , cm.nf          as nfe_numero'
+      '  --, cm.nf          as nfe_numero'
+      '  , coalesce(cm.nf, trim(cp.notfisc)) as nfe_numero'
       '  , cm.dtemiss     as nfe_emissao'
       '  , cm.totalnf as nfe_valor'
       '  , cm.totalnf + coalesce(cm.desconto, 0.0) as totalcompra_bruta'
       '  , cm.totalnf as totalcompra'
-      '  , cp.historic as historico'
+      '  , trim(cp.historic) as historico'
       
         '  , trim(replace(replace(replace(cp.historic, '#39'--> HISTORICO DE ' +
         'PAGAMENTO :'#39', '#39#39'), '#39'...'#39', '#39#39'), '#39'---'#39', '#39#39')) as historico_limpo'
@@ -21123,7 +21543,7 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
     Top = 8
   end
   object frRelacaoAPagarVSimplificado: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -21207,6 +21627,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       MirrorMode = []
       object BndPageHeader: TfrxPageHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 154.960730000000000000
         Top = 18.897650000000000000
@@ -21418,6 +21842,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 642.520100000000000000
@@ -21478,6 +21906,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderCompetencia: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 234.330860000000000000
@@ -21527,6 +21959,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 355.275820000000000000
@@ -21809,6 +22245,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterCompetencia: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677165350000000000
         Top = 442.205010000000000000
@@ -21879,6 +22319,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 94.488250000000000000
         Top = 525.354670000000000000
@@ -22080,6 +22524,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpHeaderFornecedor: TfrxGroupHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 56.692950000000000000
         Top = 275.905690000000000000
@@ -22416,6 +22864,10 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
       end
       object BndGrpFooterFornecedor: TfrxGroupFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 22.677180000000000000
         Top = 396.850650000000000000

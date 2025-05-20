@@ -1,12 +1,12 @@
 object DMBusiness: TDMBusiness
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Height = 648
-  Width = 1043
+  Height = 597
+  Width = 973
   object dtsrcUsers: TDataSource
     DataSet = fdQryUsers
-    Left = 896
-    Top = 208
+    Left = 280
+    Top = 88
   end
   object IdIPWatch: TIdIPWatch
     Active = False
@@ -18,8 +18,8 @@ object DMBusiness: TDMBusiness
   object opdLicenca: TOpenDialog
     Filter = 'Arquivo Licen'#231'a (*.lnc)|*.lnc'
     Title = 'Carregar arquivo Licen'#231'a'
-    Left = 448
-    Top = 32
+    Left = 568
+    Top = 40
   end
   object frxPDF: TfrxPDFExport
     UseFileCache = True
@@ -154,21 +154,21 @@ object DMBusiness: TDMBusiness
     LoginPrompt = False
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
-    Left = 800
-    Top = 160
+    Left = 184
+    Top = 40
   end
   object fdIBDriverLink: TFDPhysIBDriverLink
-    Left = 832
-    Top = 160
+    Left = 216
+    Top = 40
   end
   object fdFBDriverLink: TFDPhysFBDriverLink
-    Left = 864
-    Top = 160
+    Left = 248
+    Top = 40
   end
   object fdTransacao: TFDTransaction
     Connection = fdConexao
-    Left = 800
-    Top = 208
+    Left = 184
+    Top = 88
   end
   object fdQryUsers: TFDQuery
     CachedUpdates = True
@@ -194,8 +194,8 @@ object DMBusiness: TDMBusiness
       ''
       'order by'
       '    u.nome')
-    Left = 864
-    Top = 208
+    Left = 248
+    Top = 88
   end
   object fdQryEmpresa: TFDQuery
     CachedUpdates = True
@@ -207,13 +207,13 @@ object DMBusiness: TDMBusiness
       '    cnpj'
       '  , nmfant'
       'from TBEMPRESA')
-    Left = 864
-    Top = 256
+    Left = 248
+    Top = 136
   end
   object fdWaitCursor: TFDGUIxWaitCursor
     Provider = 'Forms'
-    Left = 896
-    Top = 160
+    Left = 280
+    Top = 40
   end
   object fdSetSistema: TFDStoredProc
     CachedUpdates = True
@@ -221,8 +221,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_SISTEMA'
-    Left = 896
-    Top = 256
+    Left = 280
+    Top = 136
     ParamData = <
       item
         Position = 1
@@ -251,8 +251,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_ROTINA'
-    Left = 928
-    Top = 256
+    Left = 312
+    Top = 136
     ParamData = <
       item
         Position = 1
@@ -327,8 +327,8 @@ object DMBusiness: TDMBusiness
       'from TBCONFIGURACAO c'
       '  inner join TBEMPRESA e on (e.cnpj = c.empresa)'
       'where c.empresa = :empresa')
-    Left = 864
-    Top = 304
+    Left = 248
+    Top = 184
     ParamData = <
       item
         Name = 'EMPRESA'
@@ -381,8 +381,8 @@ object DMBusiness: TDMBusiness
       'from TBCONFIGURACAO c'
       '  inner join TBEMPRESA e on (e.cnpj = c.empresa)'
       'where c.empresa = :empresa')
-    Left = 864
-    Top = 352
+    Left = 248
+    Top = 232
     ParamData = <
       item
         Name = 'EMPRESA'
@@ -409,8 +409,8 @@ object DMBusiness: TDMBusiness
       
         'from GET_CAIXA_ABERTO_DETALHE(:Empresa, :Usuario, :Data, :FormaP' +
         'agto) c')
-    Left = 864
-    Top = 400
+    Left = 248
+    Top = 280
     ParamData = <
       item
         Name = 'EMPRESA'
@@ -443,8 +443,8 @@ object DMBusiness: TDMBusiness
     Params = <>
     Macros = <>
     BeforeExecute = fdScriptBeforeExecute
-    Left = 800
-    Top = 256
+    Left = 184
+    Top = 136
   end
   object fdQryUpgrade: TFDQuery
     CachedUpdates = True
@@ -463,8 +463,8 @@ object DMBusiness: TDMBusiness
       'from SYS_UPGRADE u'
       'where u.sis_cod = :sistema'
       '  and u.sis_version = :versao')
-    Left = 864
-    Top = 448
+    Left = 248
+    Top = 328
     ParamData = <
       item
         Name = 'SISTEMA'
@@ -508,8 +508,8 @@ object DMBusiness: TDMBusiness
       '  UPGRADE_OK'
       'FROM SYS_UPGRADE'
       'WHERE SIS_COD = :SIS_COD AND SIS_VERSION = :SIS_VERSION')
-    Left = 896
-    Top = 448
+    Left = 280
+    Top = 328
   end
   object cdsLicencaXXX: TFDTable
     CachedUpdates = True
@@ -519,8 +519,8 @@ object DMBusiness: TDMBusiness
     UpdateTransaction = fdTransacao
     UpdateOptions.UpdateTableName = 'SYS_LICENCA'
     TableName = 'SYS_LICENCA'
-    Left = 416
-    Top = 32
+    Left = 536
+    Top = 40
     object cdsLicencaXXXLINHA_CONTROLE: TStringField
       FieldName = 'LINHA_CONTROLE'
       Origin = 'LINHA_CONTROLE'
@@ -534,8 +534,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_CAIXA_MOVIMENTO_REC'
-    Left = 416
-    Top = 80
+    Left = 536
+    Top = 88
     ParamData = <
       item
         Position = 1
@@ -588,8 +588,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_CAIXA_MOVIMENTO_PAG'
-    Left = 416
-    Top = 128
+    Left = 536
+    Top = 136
     ParamData = <
       item
         Position = 1
@@ -642,8 +642,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_CONTA_CORRENTE_SALDO'
-    Left = 416
-    Top = 176
+    Left = 536
+    Top = 184
     ParamData = <
       item
         Position = 1
@@ -663,8 +663,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_CAIXA_MOVIMENTO_REC_ESTORNO'
-    Left = 416
-    Top = 272
+    Left = 536
+    Top = 280
     ParamData = <
       item
         Position = 1
@@ -717,8 +717,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_CAIXA_MOVIMENTO_PAG_ESTORNO'
-    Left = 416
-    Top = 320
+    Left = 536
+    Top = 328
     ParamData = <
       item
         Position = 1
@@ -771,8 +771,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SP_UPD_CUSTO_APROP_ENTRADA'
-    Left = 608
-    Top = 32
+    Left = 728
+    Top = 40
     ParamData = <
       item
         Position = 1
@@ -786,8 +786,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SP_UPD_CUSTO_APROP_AUTORIZ'
-    Left = 608
-    Top = 80
+    Left = 728
+    Top = 88
     ParamData = <
       item
         Position = 1
@@ -801,8 +801,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SP_UPD_CUSTO_ESTOQUE_APROP'
-    Left = 608
-    Top = 128
+    Left = 728
+    Top = 136
     ParamData = <
       item
         Position = 1
@@ -816,8 +816,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SP_UPD_CUSTO_ESTOQUE_REQUI'
-    Left = 608
-    Top = 176
+    Left = 728
+    Top = 184
     ParamData = <
       item
         Position = 1
@@ -831,8 +831,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SP_UPD_CUSTO_INVENTARIO_ALMOX'
-    Left = 608
-    Top = 224
+    Left = 728
+    Top = 232
     ParamData = <
       item
         Position = 1
@@ -916,8 +916,8 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SET_CONTA_CORRENTE_SALDO_V2'
-    Left = 416
-    Top = 224
+    Left = 536
+    Top = 232
     ParamData = <
       item
         Position = 1
@@ -972,8 +972,8 @@ object DMBusiness: TDMBusiness
       'order by'
       '    e.EST_LOCAL'
       '  , e.EST_NOME')
-    Left = 473
-    Top = 480
+    Left = 593
+    Top = 488
     object cdsRegistroEST_LOCAL: TStringField
       FieldName = 'EST_LOCAL'
       Origin = 'EST_LOCAL'
@@ -1029,14 +1029,14 @@ object DMBusiness: TDMBusiness
         'SSO'
       'FROM SYS_ESTACAO'
       'WHERE EST_NOME = :EST_NOME')
-    Left = 505
-    Top = 480
+    Left = 625
+    Top = 488
   end
   object dtsRegistro: TDataSource
     AutoEdit = False
     DataSet = cdsRegistro
-    Left = 536
-    Top = 480
+    Left = 656
+    Top = 488
   end
   object ACBrMail: TACBrMail
     Host = '127.0.0.1'
@@ -1054,7 +1054,7 @@ object DMBusiness: TDMBusiness
     Transaction = fdTransacao
     UpdateTransaction = fdTransacao
     StoredProcName = 'SP_UPD_CUSTO_GERAL_ESTOQUE'
-    Left = 608
-    Top = 272
+    Left = 728
+    Top = 280
   end
 end
