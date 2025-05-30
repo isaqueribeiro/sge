@@ -4,8 +4,8 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
   Caption = 'Controle de Autoriza'#231#245'es de Compra/Servi'#231'o'
   ClientHeight = 684
   ClientWidth = 1112
-  ExplicitWidth = 1128
-  ExplicitHeight = 723
+  ExplicitWidth = 1124
+  ExplicitHeight = 722
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 680
@@ -24,20 +24,20 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
     Height = 641
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 1112
-    ExplicitHeight = 641
+    ExplicitWidth = 1108
+    ExplicitHeight = 640
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 1104
       ExplicitHeight = 612
       inherited Bevel4: TBevel
-        Top = 539
-        Width = 1108
+        Top = 538
+        Width = 1104
         ExplicitTop = 540
         ExplicitWidth = 1108
       end
       inherited dbgDados: TDBGrid
-        Width = 1108
-        Height = 539
+        Width = 1104
+        Height = 538
         Columns = <
           item
             Expanded = False
@@ -104,21 +104,22 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 543
-        Width = 1108
-        ExplicitTop = 543
-        ExplicitWidth = 1108
+        Top = 542
+        Width = 1104
+        ExplicitTop = 542
+        ExplicitWidth = 1104
         inherited grpBxFiltro: TGroupBox
-          Left = 424
+          Left = 420
           Width = 680
           TabOrder = 2
-          ExplicitLeft = 424
+          ExplicitLeft = 420
           ExplicitWidth = 680
           inherited lbltFiltrar: TLabel
             AlignWithMargins = True
             Left = 300
             Top = 24
             Width = 147
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -133,13 +134,14 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Left = 30
             Top = 24
             Width = 49
-            Height = 13
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
+            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 453
@@ -280,7 +282,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
         end
         object RdgStatusAutorizacao: TRadioGroup
           AlignWithMargins = True
-          Left = 195
+          Left = 191
           Top = 4
           Width = 226
           Height = 62
@@ -304,7 +306,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           AlignWithMargins = True
           Left = 7
           Top = 6
-          Width = 185
+          Width = 181
           Height = 58
           Margins.Top = 2
           Margins.Bottom = 2
@@ -365,7 +367,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           object pnlStatusText: TPanel
             Left = 24
             Top = 0
-            Width = 161
+            Width = 157
             Height = 58
             Align = alClient
             BevelOuter = bvNone
@@ -374,7 +376,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
               AlignWithMargins = True
               Left = 3
               Top = 1
-              Width = 155
+              Width = 151
               Height = 18
               Margins.Top = 1
               Margins.Bottom = 1
@@ -396,7 +398,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
               AlignWithMargins = True
               Left = 3
               Top = 21
-              Width = 155
+              Width = 151
               Height = 18
               Margins.Top = 1
               Margins.Bottom = 1
@@ -418,7 +420,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
               AlignWithMargins = True
               Left = 3
               Top = 41
-              Width = 155
+              Width = 151
               Height = 18
               Margins.Top = 1
               Margins.Bottom = 1
@@ -466,7 +468,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       inherited GrpBxDadosNominais: TGroupBox
         Width = 1104
         Height = 233
-        ExplicitWidth = 1104
+        ExplicitWidth = 1100
         ExplicitHeight = 233
         inherited lblCodigo: TLabel
           Width = 71
@@ -1199,6 +1201,8 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
         ActivePage = tbsFormaPagto
         Align = alBottom
         TabOrder = 3
+        ExplicitTop = 445
+        ExplicitWidth = 1100
         object tbsFormaPagto: TTabSheet
           Caption = 'Forma de Pagamento / Entrega'
           ImageIndex = 1
@@ -1210,6 +1214,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Align = alTop
             Caption = 'Pagamento'
             TabOrder = 0
+            ExplicitWidth = 1092
             object lblFormaPagto: TLabel
               Left = 16
               Top = 24
@@ -1429,6 +1434,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Align = alClient
             BevelOuter = bvNone
             TabOrder = 1
+            ExplicitWidth = 1092
             object lblEnderecoEntrega: TLabel
               Left = 0
               Top = 4
@@ -1467,6 +1473,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
               DataSource = DtSrcTabela
               ScrollBars = ssVertical
               TabOrder = 0
+              ExplicitWidth = 1092
             end
           end
         end
@@ -1476,7 +1483,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
           object GrpBxRetirada: TGroupBox
             Left = 0
             Top = 0
-            Width = 1100
+            Width = 1096
             Height = 72
             Align = alTop
             Caption = 'Respons'#225'vel pela retirada'
@@ -1591,6 +1598,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
         Align = alTop
         Caption = 'Dados do produto/servi'#231'o'
         TabOrder = 1
+        ExplicitWidth = 1100
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -2250,8 +2258,8 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
   inherited tlbBotoes: TPanel
     Top = 645
     Width = 1112
-    ExplicitTop = 645
-    ExplicitWidth = 1112
+    ExplicitTop = 644
+    ExplicitWidth = 1108
     inherited bvlTool3: TBevel
       Left = 1029
       ExplicitLeft = 1033
@@ -2273,12 +2281,12 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
     inherited btbtnFechar: TcxButton
       Left = 1033
       TabOrder = 10
-      ExplicitLeft = 1033
+      ExplicitLeft = 1029
     end
     inherited btbtnSelecionar: TcxButton
       Left = 909
       TabOrder = 9
-      ExplicitLeft = 909
+      ExplicitLeft = 905
     end
     object btnFinalizarAutorizacao: TcxButton
       Tag = 11
@@ -2363,6 +2371,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       ShowHint = True
       TabOrder = 6
       OnClick = btnFinalizarAutorizacaoClick
+      ExplicitLeft = 545
     end
     object btnAutorizarReabrir: TcxButton
       Tag = 12
@@ -2447,6 +2456,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       ParentShowHint = False
       ShowHint = True
       TabOrder = 7
+      ExplicitLeft = 665
     end
     object btnCancelarAutorizacao: TcxButton
       Tag = 13
@@ -2531,6 +2541,7 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
       ShowHint = True
       TabOrder = 8
       OnClick = btnCancelarAutorizacaoClick
+      ExplicitLeft = 785
     end
   end
   inherited DtSrcTabela: TDataSource

@@ -596,6 +596,7 @@ begin
         .Add('    u.Unp_cod       ')
         .Add('  , u.Unp_descricao ')
         .Add('  , u.Unp_sigla     ')
+        .Add('  , coalesce(nullif(trim(u.unp_sigla), ''), u.unp_descricao) as unidade ')
         .Add('from TBUNIDADEPROD u')
       .&End
     .OpenEmpty

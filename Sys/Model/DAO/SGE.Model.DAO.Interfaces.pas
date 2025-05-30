@@ -211,6 +211,7 @@ type
     function RotinaSubMenu : IModelDAOCustom;
     function SecaoProduto : IModelDAOCustom;
     function Segmento : IModelDAOCustom;
+    function SolicitacaoCompra : IModelDAOCustom;
     function TabelaIBPT : IModelDAOCustom;
     function TipoAliquotaView : IModelDAOCustom;
     function TipoAutorizacaoView : IModelDAOCustom;
@@ -230,6 +231,7 @@ type
     function TipoRegimeView : IModelDAOCustom;
     function TipoRequisicaoAlmoxView : IModelDAOCustom;
     function TipoRequisicaoView : IModelDAOCustom;
+    function TipoSolicitacaoView : IModelDAOCustom;
     function TipoTributacao : IModelDAOCustom;
     function TipoVeiculo : IModelDAOCustom;
     function Transportadora : IModelDAOCustom;

@@ -569,12 +569,19 @@ const
 
   PRAZO_VALIDADE_AUTORIZACAO_COMPRA = 5;
   PRAZO_VALIDADE_REQUISICAO_COMPRA  = 5;
+  PRAZO_VALIDADE_SOLICITACAO_COMPRA = 15;
 
   // Tipos de autorizações de compras/serviços
 
   TIPO_AUTORIZACAO_COMPRA         = 1;
   TIPO_AUTORIZACAO_SERVICO        = 2;
   TIPO_AUTORIZACAO_COMPRA_SERVICO = 3;
+
+  // Tipos de solicitações de compras/serviços
+
+  TIPO_SOLICITACAO_COMPRA         = 1;
+  TIPO_SOLICITACAO_SERVICO        = 2;
+  TIPO_SOLICITACAO_COMPRA_SERVICO = 3;
 
   // Status de autorizações de compras/serviços
 
@@ -620,6 +627,14 @@ const
   STATUS_ITEM_REQUISICAO_ALMOX_ATE = 2;
   STATUS_ITEM_REQUISICAO_ALMOX_ENT = 3;
   STATUS_ITEM_REQUISICAO_ALMOX_CAN = 4;
+
+  // Status de Solicitações de Compras/Serviços
+
+  STATUS_SOLICITACAO_EDC = 0;
+  STATUS_SOLICITACAO_ABR = 1;
+  STATUS_SOLICITACAO_FIN = 2;
+  STATUS_SOLICITACAO_APR = 3;
+  STATUS_SOLICITACAO_CAN = 4;
 
   // Tipos de Documentos de Entrada
 

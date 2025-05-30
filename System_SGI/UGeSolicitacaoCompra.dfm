@@ -4,8 +4,8 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
   Caption = 'Controle p/ Solicita'#231#227'o de Compra/Servi'#231'o'
   ClientHeight = 685
   ClientWidth = 1116
-  ExplicitWidth = 1128
-  ExplicitHeight = 723
+  ExplicitWidth = 1132
+  ExplicitHeight = 724
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 681
@@ -23,8 +23,8 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
     Width = 1116
     Height = 642
     OnChange = pgcGuiasChange
-    ExplicitWidth = 1112
-    ExplicitHeight = 641
+    ExplicitWidth = 1116
+    ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 1108
       ExplicitHeight = 613
@@ -346,7 +346,7 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
       inherited GrpBxDadosNominais: TGroupBox
         Width = 1108
         Height = 225
-        ExplicitWidth = 1104
+        ExplicitWidth = 1108
         ExplicitHeight = 225
         DesignSize = (
           1108
@@ -615,19 +615,18 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
         object PgcTextoSolicitacao: TPageControl
           Left = 384
           Top = 112
-          Width = 701
+          Width = 697
           Height = 105
           ActivePage = TbsSolicitacaoObjeto
           Anchors = [akLeft, akRight, akBottom]
           Style = tsFlatButtons
           TabOrder = 12
-          ExplicitWidth = 697
           object TbsSolicitacaoObjeto: TTabSheet
             Caption = 'Objeto da Solicita'#231#227'o'
             object dbObjeto: TDBMemo
               Left = 0
               Top = 0
-              Width = 693
+              Width = 689
               Height = 74
               Align = alClient
               DataField = 'OBJETO_SOLICITACAO'
@@ -640,7 +639,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
               ParentFont = False
               ScrollBars = ssVertical
               TabOrder = 0
-              ExplicitWidth = 689
             end
           end
           object TbsSolicitacaoMotivo: TTabSheet
@@ -940,8 +938,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
         ActivePage = tbsEventoLOG
         Align = alBottom
         TabOrder = 3
-        ExplicitTop = 494
-        ExplicitWidth = 1104
         object tbsEventoLOG: TTabSheet
           Caption = 'LOG de Eventos'
           ImageIndex = 1
@@ -963,7 +959,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
             ReadOnly = True
             ScrollBars = ssVertical
             TabOrder = 0
-            ExplicitWidth = 1096
           end
         end
       end
@@ -975,7 +970,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
         Align = alTop
         Caption = 'Dados do produto/servi'#231'o'
         TabOrder = 1
-        ExplicitWidth = 1104
         DesignSize = (
           1108
           116)
@@ -1040,7 +1034,7 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
           FocusControl = dbCentroCustoItem
         end
         object lblProdutoNaoCadastrado: TLabel
-          Left = 900
+          Left = 896
           Top = 96
           Width = 194
           Height = 13
@@ -1609,8 +1603,8 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
   inherited tlbBotoes: TPanel
     Top = 646
     Width = 1116
-    ExplicitTop = 645
-    ExplicitWidth = 1112
+    ExplicitTop = 646
+    ExplicitWidth = 1116
     inherited bvlTool3: TBevel
       Left = 1033
       ExplicitLeft = 1033
@@ -1632,12 +1626,12 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
     inherited btbtnFechar: TcxButton
       Left = 1037
       TabOrder = 10
-      ExplicitLeft = 1033
+      ExplicitLeft = 1037
     end
     inherited btbtnSelecionar: TcxButton
       Left = 913
       TabOrder = 9
-      ExplicitLeft = 909
+      ExplicitLeft = 913
     end
     object btnFinalizarSolicitacao: TcxButton
       Tag = 11
@@ -1722,7 +1716,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
       ShowHint = True
       TabOrder = 6
       OnClick = btnFinalizarSolicitacaoClick
-      ExplicitLeft = 534
     end
     object btnAprovarSolicitacao: TcxButton
       Tag = 12
@@ -1807,7 +1800,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
       ShowHint = True
       TabOrder = 7
       OnClick = btnAprovarSolicitacaoClick
-      ExplicitLeft = 659
     end
     object btnCancelarSolicitacao: TcxButton
       Tag = 13
@@ -1892,7 +1884,6 @@ inherited frmGeSolicitacaoCompra: TfrmGeSolicitacaoCompra
       ShowHint = True
       TabOrder = 8
       OnClick = btnCancelarSolicitacaoClick
-      ExplicitLeft = 784
     end
   end
   inherited IbDtstTabela: TIBDataSet

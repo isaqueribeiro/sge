@@ -140,7 +140,7 @@ uses
   UGeApropriacaoEstoqueCancelar in 'UGeApropriacaoEstoqueCancelar.pas' {frmGeApropriacaoEstoqueCancelar},
   UGeInventario in 'UGeInventario.pas' {frmGeInventario},
   UGeProdutoEstoqueImpressao in '..\System_SGE\UGeProdutoEstoqueImpressao.pas' {frmGeProdutoEstoqueImpressao},
-  UGeSolicitacaoCompra in 'UGeSolicitacaoCompra.pas' {frmGeSolicitacaoCompra},
+  View.SolicitacaoCompra in 'View\View.SolicitacaoCompra.pas' {ViewSolicitacaoCompra},
   UGeSolicitacaoCompraCancelar in 'UGeSolicitacaoCompraCancelar.pas' {frmGeSolicitacaoCompraCancelar},
   UGeApropriacaoEstoqueImpressao in 'UGeApropriacaoEstoqueImpressao.pas' {frmGeApropriacaoEstoqueImpressao},
   UGeRequisicaoAlmoxImpressao in 'UGeRequisicaoAlmoxImpressao.pas' {frmGeRequisicaoAlmoxImpressao},
@@ -358,7 +358,10 @@ uses
   View.Query.Caixa.Conferencia in '..\Sys\View\Query\View.Query.Caixa.Conferencia.pas' {ViewQueryCaixaConferencia},
   View.Servico.ConsultarCNPJ in '..\Sys\View\View.Servico.ConsultarCNPJ.pas' {ViewServicoConsultarCNPJ},
   View.Perfil in '..\Sys\View\View.Perfil.pas' {ViewPerfil},
-  View.Perfil.Copiar in '..\Sys\View\View.Perfil.Copiar.pas' {ViewPerfilCopiar};
+  View.Perfil.Copiar in '..\Sys\View\View.Perfil.Copiar.pas' {ViewPerfilCopiar},
+  SGI.Model.DAO.SolicitacaoCompra in 'Model\DAO\SGI.Model.DAO.SolicitacaoCompra.pas',
+  SGI.Controller.SolicitacaoCompra in 'Controller\SGI.Controller.SolicitacaoCompra.pas',
+  SGI.Controller.Impressao.SolicitacaoCompra in 'Controller\Impressao\SGI.Controller.Impressao.SolicitacaoCompra.pas';
 
 {$R *.res}
 

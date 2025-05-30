@@ -38,6 +38,7 @@ uses
   SGI.Model.DAO.RequisicaoAlmoxarifado,
   SGE.Model.DAO.RequisicaoCompra,
   SGE.Model.DAO.Rotina,
+  SGI.Model.DAO.SolicitacaoCompra,
   SGE.Model.DAO.Tabelas,
   SGE.Model.DAO.TipoDespesa,
   SGE.Model.DAO.TipoLogradouro,
@@ -141,6 +142,7 @@ type
       FRotina       ,
       FRotinaMenu   ,
       FRotinaSubMenu,
+      FSolicitacaoCompra  ,
       FTabelaIBPT         ,
       FTipoAliquotaView   ,
       FTipoAutorizacaoView,
@@ -159,7 +161,8 @@ type
       FTipoReceitaPlanoConta,
       FTipoRegimeView,
       FTipoRequisicaoAlmoxView,
-      FTipoRequisicaoView,
+      FTipoRequisicaoView ,
+      FTipoSolicitacaoView,
       FTipoTributacao ,
       FTipoVeiculo    ,
       FTransportadora ,
@@ -265,6 +268,7 @@ type
       function Rotina : IModelDAOCustom;
       function RotinaMenu : IModelDAOCustom;
       function RotinaSubMenu : IModelDAOCustom;
+      function SolicitacaoCompra : IModelDAOCustom;
       function TabelaIBPT : IModelDAOCustom;
       function TipoAliquotaView : IModelDAOCustom;
       function TipoAutorizacaoView : IModelDAOCustom;
@@ -284,6 +288,7 @@ type
       function TipoRegimeView : IModelDAOCustom;
       function TipoRequisicaoAlmoxView : IModelDAOCustom;
       function TipoRequisicaoView : IModelDAOCustom;
+      function TipoSolicitacaoView : IModelDAOCustom;
       function TipoTributacao : IModelDAOCustom;
       function TipoVeiculo : IModelDAOCustom;
       function Transportadora : IModelDAOCustom;
@@ -530,6 +535,14 @@ begin
   Result := FSegmento;
 end;
 
+function TModelDAOFactory.SolicitacaoCompra: IModelDAOCustom;
+begin
+  if not Assigned(FSolicitacaoCompra) then
+    FSolicitacaoCompra := TModelDAOSolicitacaoCompra.New;
+
+  Result := FSolicitacaoCompra;
+end;
+
 function TModelDAOFactory.CST: IModelDAOCustom;
 begin
   if not Assigned(FCST) then
@@ -688,6 +701,14 @@ begin
     FTipoRequisicaoView := TModelDAOTipoRequisicaoView.New;
 
   Result := FTipoRequisicaoView;
+end;
+
+function TModelDAOFactory.TipoSolicitacaoView: IModelDAOCustom;
+begin
+  if not Assigned(FTipoSolicitacaoView) then
+    FTipoSolicitacaoView := TModelDAOTipoSolicitacaoView.New;
+
+  Result := FTipoSolicitacaoView;
 end;
 
 function TModelDAOFactory.TipoTributacao: IModelDAOCustom;

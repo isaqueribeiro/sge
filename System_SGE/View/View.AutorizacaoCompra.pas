@@ -211,7 +211,7 @@ type
     { Private declarations }
     FImpressao : IImpressaoAutorizacaoCompra;
     FControllerEmpresaView,
-    FControllerTipoAUtorizacaoView,
+    FControllerTipoAutorizacaoView,
     FControllerFormaPagto ,
     FControllerCondicaoPagtoView,
     FControllerTransportadora   : IControllerCustom;
@@ -472,7 +472,7 @@ begin
   FController.DAO.DataSet.AfterScroll := ControllerAfterScroll;
 
   FControllerEmpresaView         := TControllerFactory.New.EmpresaView;
-  FControllerTipoAUtorizacaoView := TControllerFactory.New.TipoAutorizacaoView;
+  FControllerTipoAutorizacaoView := TControllerFactory.New.TipoAutorizacaoView;
   FControllerFormaPagto          := TControllerFactory.New.FormaPagto;
   FControllerCondicaoPagtoView   := TControllerFactory.New.CondicaoPagtoView;
   FControllerTransportadora      := TControllerFactory.New.Transportadora;
@@ -736,7 +736,7 @@ end;
 
 procedure TViewAutorizacaoCompra.btnProdutoEditarClick(Sender: TObject);
 begin
-  if ( not DtSrcTabelaItens.DataSet.IsEmpty ) then
+  if (not DtSrcTabelaItens.DataSet.IsEmpty) then
   begin
     DtSrcTabelaItens.DataSet.Edit;
     dbProduto.SetFocus;
@@ -811,7 +811,7 @@ var
   cTotalDesconto,
   cTotalLiquido : Currency;
 begin
-  if ( DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert] ) then
+  if (DtSrcTabelaItens.DataSet.State in [dsEdit, dsInsert]) then
   begin
     if (Trim(DtSrcTabelaItens.DataSet.FieldByName('PRODUTO').AsString) = EmptyStr) then
     begin
@@ -1332,7 +1332,7 @@ procedure TViewAutorizacaoCompra.btnCancelarAutorizacaoClick(
 begin
   with DtSrcTabela.DataSet do
   begin
-    if ( IsEmpty ) then
+    if IsEmpty then
       Exit;
 
     if not GetPermissaoRotinaInterna(Sender, True) then
@@ -1350,7 +1350,7 @@ begin
 
     AbrirTabelaItens;
 
-    if ( FieldByName('STATUS').AsInteger <> STATUS_AUTORIZACAO_AUT ) then
+    if (FieldByName('STATUS').AsInteger <> STATUS_AUTORIZACAO_AUT) then
       TServiceMessage.ShowInformation('Apenas registros autorizados podem ser cancelados!')
     else
     if ( CancelarAUT(Self, FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger, FieldByName('EMPRESA').AsString) ) then

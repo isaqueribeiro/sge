@@ -368,6 +368,11 @@ type
 
   IControllerSolicitacaoCompra = interface(IControllerCustom)
     ['{F172C25B-5969-4E6C-A45C-8E0BF2EADA28}']
+    function Produtos : IControllerCustom;
+    function GetExisteNumero(aAno, aCodigo : Integer; aNumero : String; var aControleInterno : String) : Boolean;
+//    function ProdutosParaEntrada(aTipoItem : TTipoItem; aAno, aCodigo : Integer; aEmpresa : String) : IControllerCustom;
+
+    procedure CarregarProdutos;
   end;
 
   IControllerFactory = interface
@@ -454,6 +459,7 @@ type
     function Rotina  : IControllerRotina;
     function SecaoProduto : IControllerCustom;
     function Segmento     : IControllerCustom;
+    function SolicitacaoCompra : IControllerSolicitacaoCompra;
     function TabelaIBPT   : IControllerCustom;
     function TipoAliquotaView : IControllerCustom;
     function TipoAutorizacaoView : IControllerCustom;
@@ -474,6 +480,7 @@ type
     function TipoRequisicaoView : IControllerCustom;
     function TipoRequisicaoAlmoxView : IControllerCustom;
     function TipoTributacao : IControllerCustom;
+    function TipoSolicitacaoView : IControllerCustom;
     function TipoVeiculo    : IControllerCustom;
     function Transportadora : IControllerCustom;
     function UF : IControllerCustom;

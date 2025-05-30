@@ -391,8 +391,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\System_SGE\UGeProdutoEstoqueImpressao.pas">
             <Form>frmGeProdutoEstoqueImpressao</Form>
         </DCCReference>
-        <DCCReference Include="UGeSolicitacaoCompra.pas">
-            <Form>frmGeSolicitacaoCompra</Form>
+        <DCCReference Include="View\View.SolicitacaoCompra.pas">
+            <Form>ViewSolicitacaoCompra</Form>
         </DCCReference>
         <DCCReference Include="UGeSolicitacaoCompraCancelar.pas">
             <Form>frmGeSolicitacaoCompraCancelar</Form>
@@ -803,6 +803,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
             <Form>ViewPerfilCopiar</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Model\DAO\SGI.Model.DAO.SolicitacaoCompra.pas"/>
+        <DCCReference Include="Controller\SGI.Controller.SolicitacaoCompra.pas"/>
+        <DCCReference Include="Controller\Impressao\SGI.Controller.Impressao.SolicitacaoCompra.pas"/>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
@@ -842,6 +845,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="..\Bin\SGI.exe" Configuration="Release" Class="ProjectOutput"/>
+                <DeployFile LocalName="..\Bin\SGI.exe" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>SGI.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-150x150.png" Configuration="Debug" Class="UWP_DelphiLogo150"/>
                 <DeployFile LocalName="..\_diversos\Imagens\_Matriz\icon_gestao_industrial-v2-44x44.png" Configuration="Debug" Class="UWP_DelphiLogo44"/>
                 <DeployFile LocalName="SGI.todo" Configuration="Debug" Class="ProjectFile"/>

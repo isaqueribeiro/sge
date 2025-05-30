@@ -38,6 +38,7 @@ uses
   SGI.Controller.RequisicaoAlmoxarifado,
   SGE.Controller.RequisicaoCompra,
   SGE.Controller.Rotina,
+  SGI.Controller.SolicitacaoCompra,
   SGE.Controller.Tabelas,
   SGE.Controller.TipoDespesa,
   SGE.Controller.TipoLogradouro,
@@ -131,8 +132,9 @@ type
       FRequisicaoAlmoxarifado : IControllerRequisicaoAlmoxarifado;
       FRequisicaoCompra : IControllerRequisicaoCompra;
       FRotina : IControllerRotina;
-      FSecaoProduto    ,
-      FSegmento        ,
+      FSecaoProduto,
+      FSegmento    : IControllerCustom;
+      FSolicitacaoCompra : IControllerSolicitacaoCompra;
       FTabelaIBPT      ,
       FTipoAliquotaView   ,
       FTipoAutorizacaoView,
@@ -151,7 +153,8 @@ type
       FTipoReceitaPlanoConta,
       FTipoRequisicaoAlmoxView,
       FTipoRegimeView,
-      FTipoRequisicaoView,
+      FTipoRequisicaoView ,
+      FTipoSolicitacaoView,
       FTipoTributacao,
       FTipoVeiculo   ,
       FTransportadora,
@@ -249,6 +252,7 @@ type
       function Rotina : IControllerRotina;
       function SecaoProduto : IControllerCustom;
       function Segmento : IControllerCustom;
+      function SolicitacaoCompra : IControllerSolicitacaoCompra;
       function TabelaIBPT : IControllerCustom;
       function TipoAliquotaView : IControllerCustom;
       function TipoAutorizacaoView : IControllerCustom;
@@ -268,6 +272,7 @@ type
       function TipoRegimeView : IControllerCustom;
       function TipoRequisicaoAlmoxView : IControllerCustom;
       function TipoRequisicaoView : IControllerCustom;
+      function TipoSolicitacaoView : IControllerCustom;
       function TipoTributacao : IControllerCustom;
       function TipoVeiculo : IControllerCustom;
       function Transportadora : IControllerCustom;
@@ -464,6 +469,14 @@ begin
     FSegmento := TControllerSegmento.New;
 
   Result := FSegmento;
+end;
+
+function TControllerFactory.SolicitacaoCompra: IControllerSolicitacaoCompra;
+begin
+  if not Assigned(FSolicitacaoCompra) then
+    FSolicitacaoCompra := TControllerSolicitacaoCompra.New;
+
+  Result := FSolicitacaoCompra;
 end;
 
 function TControllerFactory.CST: IControllerCustom;
@@ -1104,6 +1117,14 @@ begin
     FTipoRequisicaoView := TControllerTipoRequisicaoView.New;
 
   Result := FTipoRequisicaoView;
+end;
+
+function TControllerFactory.TipoSolicitacaoView: IControllerCustom;
+begin
+  if not Assigned(FTipoSolicitacaoView) then
+    FTipoSolicitacaoView := TControllerTipoSolicitacaoView.New;
+
+  Result := FTipoSolicitacaoView;
 end;
 
 function TControllerFactory.TipoTributacao: IControllerCustom;
