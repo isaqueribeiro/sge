@@ -16,6 +16,7 @@ uses
 type
   TModelDAO = class(TInterfacedObject, IModelDAO)
     private
+      procedure FormatFieldValue(aDataSet : TDataSet; aFieldName, aFormatValue : String);
     protected
       FConn    : IConnection;
       FUsuario : IUsuarioModel;
@@ -24,6 +25,11 @@ type
       FWhereTemp   ,
       FOrderByTemp : TStringList;
       constructor Create;
+
+      function DisplayField(aFieldName, aDisplayLabel : String; const aRequired : Boolean = False) : IModelDAO; overload;
+      function DisplayField(aFieldName, aDisplayLabel, aFormatValue : String; const aRequired : Boolean = False) : IModelDAO; overload;
+      function DisplayField(aFieldName, aDisplayLabel, aFormatValue : String; aAlignment : TAlignment; const aRequired : Boolean = False) : IModelDAO; overload;
+      function DisplayField(aFieldName, aDisplayLabel : String; aAlignment : TAlignment; const aRequired : Boolean = False) : IModelDAO; overload;
     public
       destructor Destroy; override;
 
@@ -171,10 +177,93 @@ begin
   inherited;
 end;
 
+function TModelDAO.DisplayField(aFieldName, aDisplayLabel: String; const aRequired: Boolean): IModelDAO;
+begin
+  Result := Self;
+  if Assigned(FConn.Query.DataSet) and Assigned(FConn.Query.DataSet.FindField(aFieldName)) then
+  begin
+    FConn.Query.DataSet.FieldByName(aFieldName).DisplayLabel := aDisplayLabel;
+    FConn.Query.DataSet.FieldByName(aFieldName).Required     := aRequired;
+  end;
+end;
+
+function TModelDAO.DisplayField(aFieldName, aDisplayLabel, aFormatValue: String; const aRequired: Boolean): IModelDAO;
+begin
+  Result := Self;
+  if Assigned(FConn.Query.DataSet) and Assigned(FConn.Query.DataSet.FindField(aFieldName)) then
+  begin
+    FConn.Query.DataSet.FieldByName(aFieldName).DisplayLabel := aDisplayLabel;
+    FConn.Query.DataSet.FieldByName(aFieldName).Required     := aRequired;
+    FormatFieldValue(FConn.Query.DataSet, aFieldName, aFormatValue);
+  end;
+end;
+
+function TModelDAO.DisplayField(aFieldName, aDisplayLabel, aFormatValue: String; aAlignment: TAlignment;
+  const aRequired: Boolean): IModelDAO;
+begin
+  Result := Self;
+  if Assigned(FConn.Query.DataSet) and Assigned(FConn.Query.DataSet.FindField(aFieldName)) then
+  begin
+    FConn.Query.DataSet.FieldByName(aFieldName).DisplayLabel := aDisplayLabel;
+    FConn.Query.DataSet.FieldByName(aFieldName).Required     := aRequired;
+    FConn.Query.DataSet.FieldByName(aFieldName).Alignment    := aAlignment;
+    FormatFieldValue(FConn.Query.DataSet, aFieldName, aFormatValue);
+  end;
+end;
+
+function TModelDAO.DisplayField(aFieldName, aDisplayLabel: String; aAlignment: TAlignment;
+  const aRequired: Boolean): IModelDAO;
+begin
+  Result := Self;
+  if Assigned(FConn.Query.DataSet) and Assigned(FConn.Query.DataSet.FindField(aFieldName)) then
+  begin
+    FConn.Query.DataSet.FieldByName(aFieldName).DisplayLabel := aDisplayLabel;
+    FConn.Query.DataSet.FieldByName(aFieldName).Required     := aRequired;
+    FConn.Query.DataSet.FieldByName(aFieldName).Alignment    := aAlignment;
+  end;
+end;
+
 procedure TModelDAO.ExecuteScriptSQL(aScript: String);
 begin
   if not aScript.Trim.IsEmpty then
     FConn.ExecuteSQL(aScript.Trim);
+end;
+
+procedure TModelDAO.FormatFieldValue(aDataSet : TDataSet; aFieldName, aFormatValue : String);
+begin
+  // Configurar Formato
+  // .. Inteiro
+  if (aDataSet.FieldByName(aFieldName) is TSmallintField) then
+    TSmallintField( aDataSet.FieldByName(aFieldName) ).DisplayFormat := aFormatValue
+  else
+  if (aDataSet.FieldByName(aFieldName) is TIntegerField) then
+    TIntegerField( aDataSet.FieldByName(aFieldName) ).DisplayFormat := aFormatValue
+  else
+  if (aDataSet.FieldByName(aFieldName) is TLargeintField) then
+    TLargeintField( aDataSet.FieldByName(aFieldName) ).DisplayFormat := aFormatValue
+  // .. Ponto flutuante
+  else
+  if (aDataSet.FieldByName(aFieldName) is TCurrencyField) then
+    TCurrencyField( aDataSet.FieldByName(aFieldName) ).DisplayFormat := aFormatValue
+  else
+  if (aDataSet.FieldByName(aFieldName) is TBCDField) then
+    TBCDField( aDataSet.FieldByName(aFieldName) ).DisplayFormat := aFormatValue
+  else
+  if (aDataSet.FieldByName(aFieldName) is TFMTBCDField) then
+    TFMTBCDField( aDataSet.FieldByName(aFieldName) ).DisplayFormat := aFormatValue
+  else
+  if (aDataSet.FieldByName(aFieldName) is TNumericField) then
+    TNumericField( aDataSet.FieldByName(aFieldName) ).DisplayFormat := aFormatValue
+  // .. Data e hora
+  else
+  if (aDataSet.FieldByName(aFieldName) is TTimeField) then
+    TTimeField( aDataSet.FieldByName(aFieldName) ).DisplayFormat := aFormatValue
+  else
+  if (aDataSet.FieldByName(aFieldName) is TDateField) then
+    TDateField( aDataSet.FieldByName(aFieldName) ).DisplayFormat := aFormatValue
+  else
+  if (aDataSet.FieldByName(aFieldName) is TDateTimeField) then
+    TDateTimeField( aDataSet.FieldByName(aFieldName) ).DisplayFormat := aFormatValue;
 end;
 
 procedure TModelDAO.Open;

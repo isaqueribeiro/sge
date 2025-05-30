@@ -11,7 +11,7 @@ object FrmPadraoAbertura: TFrmPadraoAbertura
   Font.Height = -16
   Font.Name = 'Tahoma'
   Font.Style = []
-  Position = poMainFormCenter
+  Position = poDesktopCenter
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   OnShow = FormShow

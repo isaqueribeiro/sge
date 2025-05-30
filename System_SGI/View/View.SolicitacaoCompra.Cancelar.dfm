@@ -1,41 +1,41 @@
-inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
-  Left = 385
-  Top = 217
+inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
+  Left = 389
+  Top = 218
   BorderIcons = [biSystemMenu]
   BorderWidth = 4
-  Caption = 'Cancelar Autoriza'#231#227'o de Compra/Servi'#231'o'
-  ClientHeight = 410
-  ClientWidth = 589
-  ExplicitWidth = 609
-  ExplicitHeight = 456
+  Caption = 'Cancelar Solicita'#231#227'o de Compra/Servi'#231'o'
+  ClientHeight = 404
+  ClientWidth = 593
+  ExplicitWidth = 613
+  ExplicitHeight = 450
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
-    Top = 121
-    Width = 589
+    Top = 366
+    Width = 593
     Height = 4
     Align = alTop
     Shape = bsSpacer
-    ExplicitWidth = 593
+    ExplicitLeft = 8
+    ExplicitTop = 356
+    ExplicitWidth = 661
   end
   object Bevel2: TBevel
     Left = 0
-    Top = 373
-    Width = 589
+    Top = 121
+    Width = 593
     Height = 4
-    Align = alBottom
+    Align = alTop
     Shape = bsSpacer
-    ExplicitLeft = -13
-    ExplicitTop = 390
-    ExplicitWidth = 590
+    ExplicitTop = 389
   end
   object GrpBxControle: TGroupBox
     Left = 0
     Top = 0
-    Width = 589
+    Width = 593
     Height = 121
     Align = alTop
-    Caption = 'Controle da Autoriza'#231#227'o'
+    Caption = 'Controle da Cota'#231#227'o'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -43,13 +43,13 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 585
+    ExplicitWidth = 589
     object lblCodigo: TLabel
       Left = 16
       Top = 24
-      Width = 91
+      Width = 84
       Height = 13
-      Caption = 'No. Autoriza'#231#227'o:'
+      Caption = 'No. Solicita'#231#227'o:'
       FocusControl = dbCodigo
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -58,13 +58,13 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object lblFornecedor: TLabel
+    object lblDescricaoResumo: TLabel
       Left = 112
       Top = 24
-      Width = 67
+      Width = 98
       Height = 13
-      Caption = 'Fornecedor:'
-      FocusControl = dbFornecedor
+      Caption = 'Nome Solicitante:'
+      FocusControl = dbDescricaoResumo
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -108,7 +108,7 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       TabStop = False
       Color = clMoneyGreen
       DataField = 'NUMERO'
-      DataSource = dtsAutorizacao
+      DataSource = dtsSolicitacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -118,15 +118,15 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       ReadOnly = True
       TabOrder = 0
     end
-    object dbFornecedor: TDBEdit
+    object dbDescricaoResumo: TDBEdit
       Left = 112
       Top = 40
       Width = 465
       Height = 21
       TabStop = False
       Color = clMoneyGreen
-      DataField = 'NOMEFORN'
-      DataSource = dtsAutorizacao
+      DataField = 'NOME_SOLICITANTE'
+      DataSource = dtsSolicitacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -143,8 +143,8 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       Height = 21
       TabStop = False
       Color = clMoneyGreen
-      DataField = 'EMISSAO_DATA'
-      DataSource = dtsAutorizacao
+      DataField = 'DATA_EMISSAO'
+      DataSource = dtsSolicitacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -162,7 +162,7 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       TabStop = False
       Color = clMoneyGreen
       DataField = 'VALIDADE'
-      DataSource = dtsAutorizacao
+      DataSource = dtsSolicitacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -173,12 +173,13 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       TabOrder = 3
     end
   end
-  object GrpBxTexto: TGroupBox
+  object GrpBxCancelamento: TGroupBox
     Left = 0
     Top = 125
-    Width = 589
-    Height = 248
-    Align = alClient
+    Width = 593
+    Height = 241
+    Align = alTop
+    Anchors = [akLeft, akTop, akRight, akBottom]
     Caption = 'Dados do Cancelamento'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -187,11 +188,11 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
-    ExplicitWidth = 585
-    ExplicitHeight = 247
+    ExplicitWidth = 589
+    ExplicitHeight = 263
     DesignSize = (
-      589
-      248)
+      593
+      241)
     object lblCancelUsuario: TLabel
       Left = 16
       Top = 24
@@ -207,10 +208,11 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       ParentFont = False
     end
     object lblCancelDataHora: TLabel
-      Left = 408
+      Left = 403
       Top = 24
       Width = 63
       Height = 13
+      Anchors = [akTop, akRight]
       Caption = 'Data/Hora:'
       FocusControl = dbCancelDataHora
       Font.Charset = ANSI_CHARSET
@@ -219,6 +221,7 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      ExplicitLeft = 408
     end
     object lblMotivo: TLabel
       Left = 16
@@ -237,8 +240,8 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
     object dbMotivo: TMemo
       Left = 16
       Top = 83
-      Width = 556
-      Height = 151
+      Width = 558
+      Height = 143
       Anchors = [akLeft, akTop, akRight, akBottom]
       Color = clWhite
       Font.Charset = ANSI_CHARSET
@@ -250,14 +253,13 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       ParentFont = False
       ScrollBars = ssVertical
       TabOrder = 2
-      ExplicitWidth = 552
-      ExplicitHeight = 150
     end
     object dbCancelUsuario: TEdit
       Left = 16
       Top = 40
-      Width = 385
+      Width = 380
       Height = 21
+      Anchors = [akLeft, akTop, akRight]
       CharCase = ecUpperCase
       Color = clMoneyGreen
       Font.Charset = ANSI_CHARSET
@@ -269,12 +271,14 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       ReadOnly = True
       TabOrder = 0
       Text = 'DBUSUARIO'
+      ExplicitWidth = 385
     end
     object dbCancelDataHora: TEdit
-      Left = 408
+      Left = 402
       Top = 40
-      Width = 169
+      Width = 175
       Height = 21
+      Anchors = [akTop, akRight]
       CharCase = ecUpperCase
       Color = clMoneyGreen
       Font.Charset = ANSI_CHARSET
@@ -290,8 +294,8 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
   end
   object pnlBotoes: TPanel
     Left = 0
-    Top = 377
-    Width = 589
+    Top = 371
+    Width = 593
     Height = 33
     Align = alBottom
     BevelOuter = bvNone
@@ -302,7 +306,7 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       AlignWithMargins = True
       Left = 3
       Top = 3
-      Width = 395
+      Width = 399
       Height = 27
       Align = alClient
       AutoSize = False
@@ -319,7 +323,7 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       ExplicitHeight = 39
     end
     object Bevel3: TBevel
-      Left = 493
+      Left = 497
       Top = 0
       Width = 4
       Height = 33
@@ -330,7 +334,7 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       ExplicitHeight = 589
     end
     object btnCancelar: TcxButton
-      Left = 401
+      Left = 405
       Top = 0
       Width = 92
       Height = 33
@@ -407,10 +411,10 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       OptionsImage.NumGlyphs = 2
       TabOrder = 0
       OnClick = btnCancelarClick
-      ExplicitLeft = 397
+      ExplicitLeft = 401
     end
     object btFechar: TcxButton
-      Left = 497
+      Left = 501
       Top = 0
       Width = 92
       Height = 33
@@ -488,12 +492,13 @@ inherited ViewAutorizacaoCompraCancelar: TViewAutorizacaoCompraCancelar
       OptionsImage.NumGlyphs = 2
       TabOrder = 1
       OnClick = btFecharClick
-      ExplicitLeft = 493
+      ExplicitLeft = 503
+      ExplicitTop = 1
     end
   end
-  object dtsAutorizacao: TDataSource
+  object dtsSolicitacao: TDataSource
     AutoEdit = False
-    Left = 136
-    Top = 256
+    Left = 168
+    Top = 240
   end
 end

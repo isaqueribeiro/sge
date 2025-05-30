@@ -4,6 +4,8 @@ interface
 
 uses
   System.SysUtils,
+  System.Classes,
+
   Data.DB,
   SGE.Model.DAO,
   SGE.Model.DAO.Interfaces;
@@ -29,9 +31,10 @@ type
   end;
 
   // Itens da Solicitação de Compras/Serviços
-  TModelDAOAutorizacaoCompraProdutoServico = class(TModelDAO, IModelDAOCustom)
+  TModelDAOSolicitacaoCompraProdutoServico = class(TModelDAO, IModelDAOCustom)
     private
       procedure SetProviderFlags;
+      procedure SettingDisplayFields;
       procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetNewRecord(DataSet: TDataSet);
     protected
@@ -208,7 +211,7 @@ begin
     FieldByName('DATA_EMISSAO').AsDateTime   := Date;
     FieldByName('INSERCAO_DATA').AsDateTime  := Now;
     FieldByName('INSERCAO_USUARIO').AsString := Usuario.Login;
-    FieldByName('VALIDADE').AsDateTime       := IncDay(FieldByName('EMISSAO_DATA').AsDateTime, PRAZO_VALIDADE_SOLICITACAO_COMPRA);
+    FieldByName('VALIDADE').AsDateTime       := IncDay(FieldByName('DATA_EMISSAO').AsDateTime, PRAZO_VALIDADE_SOLICITACAO_COMPRA);
     FieldByName('STATUS').AsInteger          := STATUS_SOLICITACAO_EDC;
     FieldByName('NOME_SOLICITANTE').AsString := Usuario.Nome;
 
@@ -222,9 +225,9 @@ begin
   end;
 end;
 
-{ TModelDAOAutorizacaoCompraProdutoServico }
+{ TModelDAOSolicitacaoCompraProdutoServico }
 
-constructor TModelDAOAutorizacaoCompraProdutoServico.Create;
+constructor TModelDAOSolicitacaoCompraProdutoServico.Create;
 begin
   inherited Create;
   FConn
@@ -261,29 +264,37 @@ begin
   FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
 end;
 
-destructor TModelDAOAutorizacaoCompraProdutoServico.Destroy;
+destructor TModelDAOSolicitacaoCompraProdutoServico.Destroy;
 begin
   inherited;
 end;
 
-class function TModelDAOAutorizacaoCompraProdutoServico.New: IModelDAOCustom;
+class function TModelDAOSolicitacaoCompraProdutoServico.New: IModelDAOCustom;
 begin
   Result := Self.Create;
 end;
 
-procedure TModelDAOAutorizacaoCompraProdutoServico.SetProviderFlags;
+procedure TModelDAOSolicitacaoCompraProdutoServico.SetProviderFlags;
 begin
   // Ignorar campos no Insert e Update
   FConn.Query.DataSet.FieldByName('unp_descricao').ProviderFlags     := [];
   FConn.Query.DataSet.FieldByName('centro_custo_nome').ProviderFlags := [];
 end;
 
-procedure TModelDAOAutorizacaoCompraProdutoServico.DataSetAfterOpen(DataSet: TDataSet);
+procedure TModelDAOSolicitacaoCompraProdutoServico.SettingDisplayFields;
 begin
-  SetProviderFlags;
+  DisplayField('SEQ', '#', '#00', TAlignment.taCenter, True);
+  DisplayField('PRODUTO', 'Produto/Serviço', TAlignment.taLeftJustify, True);
+  DisplayField('QUANTIDADE', 'Quantidade', ',0.###', TAlignment.taRightJustify, True);
 end;
 
-procedure TModelDAOAutorizacaoCompraProdutoServico.DataSetNewRecord(DataSet: TDataSet);
+procedure TModelDAOSolicitacaoCompraProdutoServico.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  SetProviderFlags;
+  SettingDisplayFields;
+end;
+
+procedure TModelDAOSolicitacaoCompraProdutoServico.DataSetNewRecord(DataSet: TDataSet);
 begin
   with FConn.Query.DataSet do
   begin

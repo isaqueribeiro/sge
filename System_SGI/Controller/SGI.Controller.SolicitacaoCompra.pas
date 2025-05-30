@@ -14,7 +14,7 @@ type
   // Solicitações de Compras/Serviços
   TControllerSolicitacaoCompra = class(TController, IControllerSolicitacaoCompra)
     private
-      FBusca    : IModelDAOCustom;
+      FBusca : IModelDAOCustom;
       FProdutos : IControllerCustom;
     protected
       constructor Create;
@@ -26,7 +26,6 @@ type
 
       function Produtos : IControllerCustom;
       function GetExisteNumero(aAno, aCodigo : Integer; aNumero : String; var aControleInterno : String) : Boolean;
-//      function ProdutosParaEntrada(aTipoItem : TTipoItem; aAno, aCodigo : Integer; aEmpresa : String) : IControllerCustom;
   end;
 
   // Itens da Solicitações de Compras/Serviços
@@ -48,42 +47,50 @@ type
       destructor Destroy; override;
       class function New : IControllerCustom;
   end;
-//
-//  // Itens da Solicitações de Compras/Serviços para entrada
-//  TControllerItensAutorizadosParaEntrada = class(TController, IControllerCustom)
-//    private
-//    protected
-//      constructor Create;
-//    public
-//      destructor Destroy; override;
-//      class function New : IControllerCustom;
-//  end;
 
 implementation
 
 { TControllerSolicitacaoCompra }
 
-procedure TControllerSolicitacaoCompra.CarregarProdutos;
-begin
-  if not Assigned(FProdutos) then
-    FProdutos := TControllerSolicitacaoCompraProdutoServico.New;
-
-  FProdutos
-    .DAO
-    .Close
-    .ParamsByName('ano',    FDAO.DataSet.FieldByName('ANO').AsInteger)
-    .ParamsByName('codigo', FDAO.DataSet.FieldByName('CODIGO').AsInteger)
-    .Open;
-end;
-
 constructor TControllerSolicitacaoCompra.Create;
 begin
-  inherited Create(TModelDAOFactory.New.AutorizacaoCompra);
+  inherited Create(TModelDAOFactory.New.SolicitacaoCompra);
 end;
 
 destructor TControllerSolicitacaoCompra.Destroy;
 begin
   inherited;
+end;
+
+class function TControllerSolicitacaoCompra.New: IControllerSolicitacaoCompra;
+begin
+  Result := Self.Create;
+end;
+
+function TControllerSolicitacaoCompra.Produtos: IControllerCustom;
+begin
+  if not Assigned(FProdutos) then
+    FProdutos := TControllerSolicitacaoCompraProdutoServico.New;
+
+  Result := FProdutos;
+end;
+
+procedure TControllerSolicitacaoCompra.CarregarProdutos;
+begin
+  try
+    if not Assigned(FProdutos) then
+      FProdutos := TControllerSolicitacaoCompraProdutoServico.New;
+
+    FProdutos
+      .DAO
+      .Close
+      .ParamsByName('ano',    FDAO.DataSet.FieldByName('ANO').AsInteger)
+      .ParamsByName('codigo', FDAO.DataSet.FieldByName('CODIGO').AsInteger)
+      .Open;
+  except
+    On E : Exception do
+      raise Exception.Create(E.Message + ' (Classe: TControllerSolicitacaoCompra)');
+  end;
 end;
 
 function TControllerSolicitacaoCompra.GetExisteNumero(aAno, aCodigo: Integer; aNumero: String;
@@ -113,31 +120,6 @@ begin
       FormatFloat('###0000000', FBusca.DataSet.FieldByName('codigo').AsInteger);
 end;
 
-class function TControllerSolicitacaoCompra.New: IControllerSolicitacaoCompra;
-begin
-  Result := Self.Create;
-end;
-
-function TControllerSolicitacaoCompra.Produtos: IControllerCustom;
-begin
-  if not Assigned(FProdutos) then
-    FProdutos := TControllerSolicitacaoCompraProdutoServico.New;
-
-  Result := FProdutos;
-end;
-
-//function TControllerSolicitacaoCompra.ProdutosParaEntrada(aTipoItem: TTipoItem; aAno, aCodigo: Integer;
-//  aEmpresa: String): IControllerCustom;
-//begin
-//  if not Assigned(FProdutos) then
-//    FProdutos := TControllerSolicitacaoCompraProdutoServico.New;
-//
-//
-//
-//
-//  Result := FProdutos;
-//end;
-//
 { TControllerSolicitacaoCompraProdutoServico }
 
 constructor TControllerSolicitacaoCompraProdutoServico.Create;
@@ -172,21 +154,4 @@ begin
   Result := Self.Create
 end;
 
-//{ TControllerItensAutorizadosParaEntrada }
-//
-//constructor TControllerItensAutorizadosParaEntrada.Create;
-//begin
-//  inherited Create(TModelDAOFactory.New.ItensAutorizadosParaEntrada);
-//end;
-//
-//destructor TControllerItensAutorizadosParaEntrada.Destroy;
-//begin
-//  inherited;
-//end;
-//
-//class function TControllerItensAutorizadosParaEntrada.New: IControllerCustom;
-//begin
-//  Result := Self.Create;
-//end;
-//
 end.

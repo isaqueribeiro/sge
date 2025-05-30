@@ -143,6 +143,7 @@ type
       FRotinaMenu   ,
       FRotinaSubMenu,
       FSolicitacaoCompra  ,
+      FSolicitacaoCompraProdutoServico,
       FTabelaIBPT         ,
       FTipoAliquotaView   ,
       FTipoAutorizacaoView,
@@ -269,6 +270,7 @@ type
       function RotinaMenu : IModelDAOCustom;
       function RotinaSubMenu : IModelDAOCustom;
       function SolicitacaoCompra : IModelDAOCustom;
+      function SolicitacaoCompraProdutoServico : IModelDAOCustom;
       function TabelaIBPT : IModelDAOCustom;
       function TipoAliquotaView : IModelDAOCustom;
       function TipoAutorizacaoView : IModelDAOCustom;
@@ -541,6 +543,14 @@ begin
     FSolicitacaoCompra := TModelDAOSolicitacaoCompra.New;
 
   Result := FSolicitacaoCompra;
+end;
+
+function TModelDAOFactory.SolicitacaoCompraProdutoServico: IModelDAOCustom;
+begin
+  if not Assigned(FSolicitacaoCompraProdutoServico) then
+    FSolicitacaoCompraProdutoServico := TModelDAOSolicitacaoCompraProdutoServico.New;
+
+  Result := FSolicitacaoCompraProdutoServico;
 end;
 
 function TModelDAOFactory.CST: IModelDAOCustom;

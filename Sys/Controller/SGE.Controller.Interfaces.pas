@@ -367,10 +367,9 @@ type
   end;
 
   IControllerSolicitacaoCompra = interface(IControllerCustom)
-    ['{F172C25B-5969-4E6C-A45C-8E0BF2EADA28}']
+    ['{48EDCE5F-5DBA-4F5E-A8DB-F3643B98DBD6}']
     function Produtos : IControllerCustom;
     function GetExisteNumero(aAno, aCodigo : Integer; aNumero : String; var aControleInterno : String) : Boolean;
-//    function ProdutosParaEntrada(aTipoItem : TTipoItem; aAno, aCodigo : Integer; aEmpresa : String) : IControllerCustom;
 
     procedure CarregarProdutos;
   end;

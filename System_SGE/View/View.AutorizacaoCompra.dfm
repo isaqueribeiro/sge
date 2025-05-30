@@ -119,7 +119,6 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Left = 300
             Top = 24
             Width = 147
-            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -134,14 +133,13 @@ inherited ViewAutorizacaoCompra: TViewAutorizacaoCompra
             Left = 30
             Top = 24
             Width = 49
-            Height = 23
+            Height = 13
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 453

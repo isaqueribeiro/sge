@@ -3,7 +3,7 @@
         <ProjectGuid>{B83BB859-3D15-446C-856E-FD9414016B09}</ProjectGuid>
         <MainSource>SGI.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
         <FrameworkType>VCL</FrameworkType>
@@ -391,12 +391,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\System_SGE\UGeProdutoEstoqueImpressao.pas">
             <Form>frmGeProdutoEstoqueImpressao</Form>
         </DCCReference>
-        <DCCReference Include="View\View.SolicitacaoCompra.pas">
-            <Form>ViewSolicitacaoCompra</Form>
-        </DCCReference>
-        <DCCReference Include="UGeSolicitacaoCompraCancelar.pas">
-            <Form>frmGeSolicitacaoCompraCancelar</Form>
-        </DCCReference>
         <DCCReference Include="UGeApropriacaoEstoqueImpressao.pas">
             <Form>frmGeApropriacaoEstoqueImpressao</Form>
         </DCCReference>
@@ -486,6 +480,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="Model\DAO\SGI.Model.DAO.RequisicaoAlmoxarifado.pas"/>
         <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.RequisicaoCompra.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Rotina.pas"/>
+        <DCCReference Include="Model\DAO\SGI.Model.DAO.SolicitacaoCompra.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas"/>
@@ -540,6 +535,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="Controller\SGI.Controller.ProdutoAlmoxarifado.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.Promocao.pas"/>
         <DCCReference Include="..\System_SGE\Controller\SGE.Controller.RequisicaoCompra.pas"/>
+        <DCCReference Include="Controller\SGI.Controller.SolicitacaoCompra.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Rotina.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Tabelas.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoDespesa.pas"/>
@@ -582,12 +578,17 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
             <Form>DataModuleRequisicaoAlmox</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="Controller\Impressao\DataModule\SGI.Controller.Impressao.DataModule.SolicitacaoCompra.pas">
+            <Form>DataModuleSolicitacaoCompra</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.AutorizacaoCompra.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.Cheque.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas"/>
         <DCCReference Include="Controller\Impressao\SGE.Controller.Impressao.RequisicaoAlmox.pas"/>
+        <DCCReference Include="Controller\Impressao\SGI.Controller.Impressao.SolicitacaoCompra.pas"/>
         <DCCReference Include="Controller\SGI.Controller.RequisicaoAlmoxarifado.pas"/>
         <DCCReference Include="..\Sys\UGeTabelaCNAE.pas">
             <Form>frmGeTabelaCNAE</Form>
@@ -790,22 +791,22 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\View\Query\View.Query.Caixa.Conferencia.pas">
             <Form>ViewQueryCaixaConferencia</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Servico.ConsultarCNPJ.pas">
             <Form>ViewServicoConsultarCNPJ</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Perfil.pas">
             <Form>ViewPerfil</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Perfil.Copiar.pas">
             <Form>ViewPerfilCopiar</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Model\DAO\SGI.Model.DAO.SolicitacaoCompra.pas"/>
-        <DCCReference Include="Controller\SGI.Controller.SolicitacaoCompra.pas"/>
-        <DCCReference Include="Controller\Impressao\SGI.Controller.Impressao.SolicitacaoCompra.pas"/>
+        <DCCReference Include="View\View.SolicitacaoCompra.pas">
+            <Form>ViewSolicitacaoCompra</Form>
+        </DCCReference>
+        <DCCReference Include="View\View.SolicitacaoCompra.Cancelar.pas">
+            <Form>ViewSolicitacaoCompraCancelar</Form>
+        </DCCReference>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

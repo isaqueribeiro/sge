@@ -140,8 +140,6 @@ uses
   UGeApropriacaoEstoqueCancelar in 'UGeApropriacaoEstoqueCancelar.pas' {frmGeApropriacaoEstoqueCancelar},
   UGeInventario in 'UGeInventario.pas' {frmGeInventario},
   UGeProdutoEstoqueImpressao in '..\System_SGE\UGeProdutoEstoqueImpressao.pas' {frmGeProdutoEstoqueImpressao},
-  View.SolicitacaoCompra in 'View\View.SolicitacaoCompra.pas' {ViewSolicitacaoCompra},
-  UGeSolicitacaoCompraCancelar in 'UGeSolicitacaoCompraCancelar.pas' {frmGeSolicitacaoCompraCancelar},
   UGeApropriacaoEstoqueImpressao in 'UGeApropriacaoEstoqueImpressao.pas' {frmGeApropriacaoEstoqueImpressao},
   UGeRequisicaoAlmoxImpressao in 'UGeRequisicaoAlmoxImpressao.pas' {frmGeRequisicaoAlmoxImpressao},
   UGeVendaDevolucaoNF in '..\Sys\UGeVendaDevolucaoNF.pas' {frmGeVendaDevolucaoNF},
@@ -203,6 +201,7 @@ uses
   SGI.Model.DAO.RequisicaoAlmoxarifado in 'Model\DAO\SGI.Model.DAO.RequisicaoAlmoxarifado.pas',
   SGE.Model.DAO.RequisicaoCompra in '..\System_SGE\Model\DAO\SGE.Model.DAO.RequisicaoCompra.pas',
   SGE.Model.DAO.Rotina in '..\Sys\Model\DAO\SGE.Model.DAO.Rotina.pas',
+  SGI.Model.DAO.SolicitacaoCompra in 'Model\DAO\SGI.Model.DAO.SolicitacaoCompra.pas',
   SGE.Model.DAO.Tabelas in '..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas',
   SGE.Model.DAO.TipoDespesa in '..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas',
   SGE.Model.DAO.TipoLogradouro in '..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas',
@@ -257,6 +256,7 @@ uses
   SGI.Controller.ProdutoAlmoxarifado in 'Controller\SGI.Controller.ProdutoAlmoxarifado.pas',
   SGE.Controller.Promocao in '..\System_SGE\Controller\SGE.Controller.Promocao.pas',
   SGE.Controller.RequisicaoCompra in '..\System_SGE\Controller\SGE.Controller.RequisicaoCompra.pas',
+  SGI.Controller.SolicitacaoCompra in 'Controller\SGI.Controller.SolicitacaoCompra.pas',
   SGE.Controller.Rotina in '..\Sys\Controller\SGE.Controller.Rotina.pas',
   SGE.Controller.Tabelas in '..\Sys\Controller\SGE.Controller.Tabelas.pas',
   SGE.Controller.TipoDespesa in '..\Sys\Controller\SGE.Controller.TipoDespesa.pas',
@@ -281,12 +281,14 @@ uses
   SGE.Controller.Impressao.DataModule.Contrato in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Contrato.pas' {DataModuleContrato: TDataModule},
   SGE.Controller.Impressao.DataModule.Cheque in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Cheque.pas' {DataModuleCheque: TDataModule},
   SGE.Controller.Impressao.DataModule.RequisicaoAlmox in 'Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.RequisicaoAlmox.pas' {DataModuleRequisicaoAlmox: TDataModule},
+  SGI.Controller.Impressao.DataModule.SolicitacaoCompra in 'Controller\Impressao\DataModule\SGI.Controller.Impressao.DataModule.SolicitacaoCompra.pas' {DataModuleSolicitacaoCompra: TDataModule},
   SGE.Controller.Impressao.AutorizacaoCompra in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.AutorizacaoCompra.pas',
   SGE.Controller.Impressao.Cheque in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.Cheque.pas',
   SGE.Controller.Impressao.ContaAPagar in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas',
   SGE.Controller.Impressao.ContaAReceber in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas',
   SGE.Controller.Impressao.Contrato in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas',
   SGE.Controller.Impressao.RequisicaoAlmox in 'Controller\Impressao\SGE.Controller.Impressao.RequisicaoAlmox.pas',
+  SGI.Controller.Impressao.SolicitacaoCompra in 'Controller\Impressao\SGI.Controller.Impressao.SolicitacaoCompra.pas',
   SGI.Controller.RequisicaoAlmoxarifado in 'Controller\SGI.Controller.RequisicaoAlmoxarifado.pas',
   UGeTabelaCNAE in '..\Sys\UGeTabelaCNAE.pas' {frmGeTabelaCNAE},
   View.Certificado in '..\Sys\View\View.Certificado.pas' {ViewCertificado},
@@ -359,9 +361,8 @@ uses
   View.Servico.ConsultarCNPJ in '..\Sys\View\View.Servico.ConsultarCNPJ.pas' {ViewServicoConsultarCNPJ},
   View.Perfil in '..\Sys\View\View.Perfil.pas' {ViewPerfil},
   View.Perfil.Copiar in '..\Sys\View\View.Perfil.Copiar.pas' {ViewPerfilCopiar},
-  SGI.Model.DAO.SolicitacaoCompra in 'Model\DAO\SGI.Model.DAO.SolicitacaoCompra.pas',
-  SGI.Controller.SolicitacaoCompra in 'Controller\SGI.Controller.SolicitacaoCompra.pas',
-  SGI.Controller.Impressao.SolicitacaoCompra in 'Controller\Impressao\SGI.Controller.Impressao.SolicitacaoCompra.pas';
+  View.SolicitacaoCompra in 'View\View.SolicitacaoCompra.pas' {ViewSolicitacaoCompra},
+  View.SolicitacaoCompra.Cancelar in 'View\View.SolicitacaoCompra.Cancelar.pas' {ViewSolicitacaoCompraCancelar};
 
 {$R *.res}
 

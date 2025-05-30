@@ -169,10 +169,10 @@ type
     FControllerTipoSolicitacaoView,
     FControllerUnidadeProduto : IControllerCustom;
     FControllerProduto : IControllerProduto;
+    FControllerItens : IControllerCustom;
 
     iSeq : Integer;
-    SQL_Itens : TStringList;
-    iCentroCusto    : Integer;
+    iCentroCusto : Integer;
 
     procedure AbrirTabelaItens;
     procedure CarregarDadosProduto( Codigo : Integer );
@@ -181,9 +181,8 @@ type
     procedure SetEventoLOG(sEvento : String);
 
     function Controller : IControllerSolicitacaoCompra;
-    function Produtos : IControllerCustom; virtual; abstract;
-    function Empresa : IControllerEmpresa; virtual; abstract;
-    function Fornecedor : IControllerFornecedor; virtual; abstract;
+    function Produtos : IControllerCustom;
+    function Empresa : IControllerEmpresa;
 
     function GetRotinaFinalizarID : String;
     function GetRotinaAprovarID : String;
@@ -232,11 +231,9 @@ uses
   , SGE.Controller.Helper
   , Service.Message
   , View.Fornecedor
-  , View.Produto;
-//  , View.AutorizacaoCompra.Cancelar
-//  , View.Cliente
-//  , View.CentroCusto;
-//  , UGeSolicitacaoCompraCancelar;
+  , View.Produto
+  , View.SolicitacaoCompra.Cancelar
+  , View.CentroCusto;
 
 {$R *.dfm}
 
@@ -404,19 +401,6 @@ end;
 procedure TViewSolicitacaoCompra.AbrirTabelaItens;
 begin
   Controller.CarregarProdutos;
-
-  TTabelaController
-    .New
-    .Tabela(DtSrcTabelaItens.DataSet)
-    .Display('SEQ', '#', '#00', TAlignment.taCenter, True)
-    .Display('PRODUTO', 'Produto/Serviço', TAlignment.taLeftJustify, True)
-    .Display('QUANTIDADE', 'Quantidade', ',0.###', TAlignment.taRightJustify, True)
-    .Display('VALOR_UNITARIO', 'Valor Unit.', ',0.00', TAlignment.taRightJustify, True)
-    .Display('IPI_PERCENTUAL', '% IPI', ',0.00', TAlignment.taRightJustify, True)
-    .Display('IPI_VALOR_TOTAL', 'Valor IPI', ',0.00', TAlignment.taRightJustify, True)
-    .Display('VALOR_TOTAL', 'Valor Total', ',0.00', TAlignment.taRightJustify, True)
-    .Configurar;
-
   HabilitarDesabilitar_Btns;
 end;
 
@@ -486,7 +470,7 @@ begin
 
       inherited;
 
-      if ( not OcorreuErro ) then
+      if (not OcorreuErro) then
       begin
         FieldByName('STATUS').AsInteger := STATUS_SOLICITACAO_EDC;
         dbEventoLOG.Lines.Add(FormatDateTime('dd/mm/yyyy hh:mm:ss - ', GetDateTimeDB) + 'Solicitação reaberta para edição por ' + gUsuarioLogado.Login);
@@ -565,6 +549,7 @@ begin
     DtSrcTabelaItens.DataSet.FieldByName('CENTRO_CUSTO').Assign( DtSrcTabela.DataSet.FieldByName('CENTRO_CUSTO') );
     DtSrcTabelaItens.DataSet.FieldByName('CENTRO_CUSTO_NOME').Assign( DtSrcTabela.DataSet.FieldByName('CENTRO_CUSTO_NOME') );
     DtSrcTabelaItens.DataSet.FieldByName('SEQ').AsInteger := Sequencial;
+
     dbProduto.SetFocus;
   end;
 end;
@@ -627,35 +612,34 @@ procedure TViewSolicitacaoCompra.btnAprovarSolicitacaoClick(
 begin
   with DtSrcTabela.DataSet do
   begin
-    if ( IsEmpty ) then
+    if IsEmpty then
       Exit;
 
     if not GetPermissaoRotinaInterna(Sender, True) then
       Abort;
 
     RecarregarRegistro;
-
-    AbrirTabelaItens(FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger);
+    AbrirTabelaItens;
 
     if not (FieldByName('STATUS').AsInteger = STATUS_SOLICITACAO_FIN) then
-      ShowInformation('Apenas solicitações finalizadas/encerradas podem sem aprovadas!')
+      TServiceMessage.ShowInformation('Apenas solicitações finalizadas/encerradas podem sem aprovadas!')
     else
-    if ( ShowConfirm('Confirma a aprovação do solicitação selecionada?') ) then
+    if TServiceMessage.ShowConfirm('Confirma a aprovação do solicitação selecionada?') then
     begin
       Edit;
 
       dbEventoLOG.Lines.Add(FormatDateTime('dd/mm/yyyy hh:mm:ss - ', GetDateTimeDB) + 'Solicitação aprovada por ' + gUsuarioLogado.Login);
+
       FieldByName('STATUS').Value            := STATUS_SOLICITACAO_APR;
       FieldByName('APROVACAO_DATA').Value    := GetDateDB;
       FieldByName('APROVACAO_USUARIO').Value := gUsuarioLogado.Login;
 
-      fdQryTabela.Post;
-      fdQryTabela.ApplyUpdates;
-      fdQryTabela.CommitUpdates;
+      DtSrcTabela.DataSet.Post;
+      FController.DAO.ApplyUpdates;
+      FController.DAO.CommitUpdates;
+      FController.DAO.CommitTransaction;
 
-      CommitTransaction;
-
-      ShowInformation('Solicitação aprovada realizada com sucesso !' + #13#13 +
+      TServiceMessage.ShowInformation('Solicitação aprovada realizada com sucesso !' + #13#13 +
         'Ano/Número: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CODIGO').AsInteger));
 
       HabilitarDesabilitar_Btns;
@@ -673,6 +657,11 @@ begin
 
   DtSrcTabelaItens.AutoEdit := DtSrcTabela.AutoEdit and (DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger < STATUS_SOLICITACAO_APR);
   DtSrcTabelaItensStateChange(DtSrcTabelaItens);
+end;
+
+function TViewSolicitacaoCompra.Empresa: IControllerEmpresa;
+begin
+  Result := FControllerEmpresaView as IControllerEmpresa;
 end;
 
 procedure TViewSolicitacaoCompra.DtSrcTabelaItensStateChange(
@@ -701,6 +690,11 @@ begin
   end;
 
   HabilitarDesabilitar_Btns;
+end;
+
+function TViewSolicitacaoCompra.Produtos: IControllerCustom;
+begin
+  Result := Controller.Produtos;
 end;
 
 procedure TViewSolicitacaoCompra.btnFiltrarClick(Sender: TObject);
@@ -841,7 +835,8 @@ end;
 
 function TViewSolicitacaoCompra.Controller: IControllerSolicitacaoCompra;
 begin
-  Result := (FController as IControllerSolicitacaoCompra);
+  if not Supports(FController, IControllerSolicitacaoCompra, Result) then
+    Result := nil;
 end;
 
 procedure TViewSolicitacaoCompra.ControllerAfterScroll(DataSet: TDataSet);
@@ -862,18 +857,21 @@ begin
   inherited;
   if (Sender = dbgDados) then
   begin
-    if (not DtSrcTabela.DataSet.FieldByName('STATUS').IsNull) then
-      // Destacar solicitação em edição
-      if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_SOLICITACAO_EDC ) then
-        dbgDados.Canvas.Brush.Color := shpOperacaoEditando.Brush.Color
-      else
-      // Destacar solicitação aberta
-      if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_SOLICITACAO_ABR ) then
-        dbgDados.Canvas.Font.Color := shpOperacaoAberta.Brush.Color
-      else
-      // Destacar solicitação cancelada
-      if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_SOLICITACAO_CAN ) then
-        dbgDados.Canvas.Font.Color := shpOperacaoCancelada.Brush.Color;
+    if Assigned(DtSrcTabela.DataSet) then
+    begin
+      if (not DtSrcTabela.DataSet.FieldByName('STATUS').IsNull) then
+        // Destacar solicitação em edição
+        if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_SOLICITACAO_EDC ) then
+          dbgDados.Canvas.Brush.Color := shpOperacaoEditando.Brush.Color
+        else
+        // Destacar solicitação aberta
+        if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_SOLICITACAO_ABR ) then
+          dbgDados.Canvas.Font.Color := shpOperacaoAberta.Brush.Color
+        else
+        // Destacar solicitação cancelada
+        if ( DtSrcTabela.DataSet.FieldByName('STATUS').AsInteger = STATUS_SOLICITACAO_CAN ) then
+          dbgDados.Canvas.Font.Color := shpOperacaoCancelada.Brush.Color;
+    end;
 
     dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
   end
@@ -881,8 +879,11 @@ begin
   // Destacar produtos já não cadastrados
   if (Sender = dbgProdutos) then
   begin
-    if ( DtSrcTabelaItens.DataSet.FieldByName('ITEM_CADASTRADO').AsInteger = 0 ) then
-      dbgProdutos.Canvas.Font.Color := lblProdutoNaoCadastrado.Font.Color;
+    if Assigned(DtSrcTabelaItens.DataSet) then
+    begin
+      if (DtSrcTabelaItens.DataSet.FieldByName('ITEM_CADASTRADO').AsInteger = 0) then
+        dbgProdutos.Canvas.Font.Color := lblProdutoNaoCadastrado.Font.Color;
+    end;
 
     dbgProdutos.DefaultDrawDataCell(Rect, dbgProdutos.Columns[DataCol].Field, State);
   end;
@@ -962,38 +963,6 @@ end;
 procedure TViewSolicitacaoCompra.nmImprimirSolicitacaoClick(
   Sender: TObject);
 begin
-//  if ( DtSrcTabela.DataSet.IsEmpty ) then
-//    Exit;
-//
-//  with DMNFe do
-//  begin
-//
-//    try
-//      ConfigurarEmail(gUsuarioLogado.Empresa
-//        , GetEmailEmpresa(DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString)
-//        , dbTipo.Text
-//        , EmptyStr);
-//    except
-//    end;
-//
-//    with qryEmitente do
-//    begin
-//      Close;
-//      ParamByName('Cnpj').AsString := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
-//      Open;
-//    end;
-//
-//    with qrySolicitacaoCompra do
-//    begin
-//      Close;
-//      ParamByName('ano').AsInteger := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
-//      ParamByName('cod').AsInteger := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
-//      ParamByName('emp').AsString  := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
-//      Open;
-//    end;
-//
-//    frrSolicitacaoCompra.ShowReport;
-//  end;
   if DtSrcTabela.DataSet.IsEmpty then
     Exit;
 
@@ -1034,11 +1003,11 @@ begin
     if (not (FieldByName('STATUS').AsInteger in [STATUS_SOLICITACAO_FIN, STATUS_SOLICITACAO_APR])) then
       TServiceMessage.ShowInformation('Apenas registros finalizados e/ou aprovados podem ser cancelados!')
     else
-    if ( CancelarCOT(Self, FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger) ) then
+    if CancelarCOT(Self, FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger) then
     begin
       RecarregarRegistro;
 
-      ShowInformation('Solicitação cancelada com sucesso.' + #13#13 +
+      TServiceMessage.ShowInformation('Solicitação cancelada com sucesso.' + #13#13 +
         'Ano/Controle: ' +
         FieldByName('ANO').AsString + '/' +
         FormatFloat('##0000000', FieldByName('CODIGO').AsInteger));
@@ -1052,17 +1021,16 @@ procedure TViewSolicitacaoCompra.btnFinalizarSolicitacaoClick(
 begin
   with DtSrcTabela.DataSet do
   begin
-    if ( IsEmpty ) then
+    if IsEmpty then
       Exit;
 
     if not GetPermissaoRotinaInterna(Sender, True) then
       Abort;
 
     RecarregarRegistro;
+    AbrirTabelaItens;
 
-    AbrirTabelaItens(FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger);
-
-    if ( ShowConfirm('Confirma a finalização da solicitação?') ) then
+    if TServiceMessage.ShowConfirm('Confirma a finalização da solicitação?') then
     begin
       Edit;
 
@@ -1070,13 +1038,12 @@ begin
 
       FieldByName('STATUS').AsInteger := STATUS_SOLICITACAO_FIN;
 
-      fdQryTabela.Post;
-      fdQryTabela.ApplyUpdates;
-      fdQryTabela.CommitUpdates;
+      DtSrcTabela.DataSet.Post;
+      FController.DAO.ApplyUpdates;
+      FController.DAO.CommitUpdates;
+      FController.DAO.CommitTransaction;
 
-      CommitTransaction;
-
-      ShowInformation('Solicitação finalizada com sucesso !' + #13#13 +
+      TServiceMessage.ShowInformation('Solicitação finalizada com sucesso !' + #13#13 +
         'Ano/Número: ' +
         FieldByName('ANO').AsString + '/' +
         FormatFloat('##0000000', FieldByName('CODIGO').AsInteger));
@@ -1175,11 +1142,10 @@ begin
 
       dbEventoLOG.Lines.Add(sMensagem);
 
-      fdQryTabela.Post;
-      fdQryTabela.ApplyUpdates;
-      fdQryTabela.CommitUpdates;
-
-      CommitTransaction;
+      DtSrcTabela.DataSet.Post;
+      FController.DAO.ApplyUpdates;
+      FController.DAO.CommitUpdates;
+      FController.DAO.CommitTransaction;
     end;
   finally
   end;
@@ -1191,24 +1157,27 @@ var
   iCliente : Integer;
   sNome : String;
 begin
-  with DtSrcTabela.DataSet do
-  begin
-    if (Sender = dbCentroCustoSolicitacao) then
-      if ( State in [dsInsert] ) then
-        if ( SelecionarDepartamento(Self, 0, FieldByName('EMPRESA').AsString, iCodigo, sNome, iCliente) ) then
+  if (Sender = dbCentroCustoSolicitacao) then
+    with DtSrcTabela.DataSet do
+    begin
+      if (State in [dsInsert]) then
+        if SelecionarDepartamento(Self, 0, FieldByName('EMPRESA').AsString, iCodigo, sNome, iCliente) then
         begin
           FieldByName('CENTRO_CUSTO').AsInteger     := iCodigo;
           FieldByName('CENTRO_CUSTO_NOME').AsString := sNome;
         end;
+    end;
 
     if (Sender = dbCentroCustoItem) then
-      if ( cdsTabelaItens.State in [dsInsert] ) then
-        if ( SelecionarDepartamento(Self, 0, FieldByName('EMPRESA').AsString, iCodigo, sNome, iCliente) ) then
-        begin
-          cdsTabelaItensCENTRO_CUSTO.AsInteger     := iCodigo;
-          cdsTabelaItensCENTRO_CUSTO_NOME.AsString := sNome;
-        end;
-  end;
+      with DtSrcTabelaItens.DataSet do
+      begin
+        if (State in [dsInsert]) then
+          if SelecionarDepartamento(Self, 0, FieldByName('EMPRESA').AsString, iCodigo, sNome, iCliente) then
+          begin
+            FieldByName('CENTRO_CUSTO').AsInteger     := iCodigo;
+            FieldByName('CENTRO_CUSTO_NOME').AsString := sNome;
+          end;
+      end;
 end;
 
 initialization

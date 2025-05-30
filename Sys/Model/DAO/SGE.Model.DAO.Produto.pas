@@ -65,6 +65,8 @@ type
   // Unidade
   TModelDAOUnidadeProduto = class(TModelDAO, IModelDAOCustom)
     private
+      procedure SetProviderFlags;
+      procedure DataSetAfterOpen(DataSet: TDataSet);
     protected
       constructor Create;
     public
@@ -596,11 +598,18 @@ begin
         .Add('    u.Unp_cod       ')
         .Add('  , u.Unp_descricao ')
         .Add('  , u.Unp_sigla     ')
-        .Add('  , coalesce(nullif(trim(u.unp_sigla), ''), u.unp_descricao) as unidade ')
+        .Add('  , coalesce(nullif(trim(u.unp_sigla), ''''), u.unp_descricao) as unidade ')
         .Add('from TBUNIDADEPROD u')
       .&End
     .OpenEmpty
     .CloseEmpty;
+
+  FConn.Query.DataSet.AfterOpen   := DataSetAfterOpen;
+end;
+
+procedure TModelDAOUnidadeProduto.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  SetProviderFlags;
 end;
 
 destructor TModelDAOUnidadeProduto.Destroy;
@@ -613,11 +622,21 @@ begin
   Result := Self.Create;
 end;
 
+procedure TModelDAOUnidadeProduto.SetProviderFlags;
+begin
+  // Ignorar campos no Insert e Update
+  FConn.Query.DataSet.FieldByName('unidade').ProviderFlags := [];
+end;
+
 function TModelDAOUnidadeProduto.CreateLookupComboBoxList: IModelDAOCustom;
 begin
   Result := Self;
-  if not FConn.Query.DataSet.Active then
-    FConn.Query.Open;
+  FConn
+    .Query
+    .SQL
+      .ClearWhere
+    .&End
+    .Open;
 end;
 
 { TModelDAOOrigemProdutoView }

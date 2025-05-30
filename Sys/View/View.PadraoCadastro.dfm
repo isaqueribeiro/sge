@@ -51,23 +51,26 @@ object ViewPadraoCadastro: TViewPadraoCadastro
     Align = alClient
     Images = ImgList
     TabOrder = 0
+    ExplicitWidth = 727
+    ExplicitHeight = 356
     object tbsTabela: TTabSheet
       Caption = '&Lista'
       ImageIndex = 37
       object Bevel4: TBevel
         Left = 0
-        Top = 255
-        Width = 727
+        Top = 254
+        Width = 723
         Height = 4
         Align = alBottom
         Shape = bsSpacer
         ExplicitTop = 264
+        ExplicitWidth = 727
       end
       object dbgDados: TDBGrid
         Left = 0
         Top = 0
-        Width = 727
-        Height = 255
+        Width = 723
+        Height = 254
         Align = alClient
         DataSource = DtSrcTabela
         Font.Charset = ANSI_CHARSET
@@ -91,17 +94,17 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       end
       object pnlFiltros: TPanel
         Left = 0
-        Top = 259
-        Width = 727
+        Top = 258
+        Width = 723
         Height = 70
         Align = alBottom
         BevelOuter = bvNone
         BorderWidth = 4
         TabOrder = 1
-        ExplicitTop = 258
-        ExplicitWidth = 723
+        ExplicitTop = 257
+        ExplicitWidth = 719
         object grpBxFiltro: TGroupBox
-          Left = 456
+          Left = 452
           Top = 4
           Width = 267
           Height = 62
@@ -114,7 +117,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
           Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 0
-          ExplicitLeft = 452
+          ExplicitLeft = 448
           object lbltFiltrar: TLabel
             Left = 17
             Top = 27
@@ -259,6 +262,8 @@ object ViewPadraoCadastro: TViewPadraoCadastro
     BevelOuter = bvNone
     ParentColor = True
     TabOrder = 1
+    ExplicitTop = 360
+    ExplicitWidth = 727
     object Bevel2: TBevel
       Left = 0
       Top = 0
@@ -284,20 +289,22 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       Shape = bsSpacer
     end
     object bvlTool3: TBevel
-      Left = 652
+      Left = 648
       Top = 0
       Width = 4
       Height = 35
       Align = alRight
       Shape = bsSpacer
+      ExplicitLeft = 652
     end
     object bvlTool4: TBevel
-      Left = 731
+      Left = 727
       Top = 0
       Width = 4
       Height = 35
       Align = alRight
       Shape = bsSpacer
+      ExplicitLeft = 731
     end
     object btbtnIncluir: TcxButton
       Tag = 1
@@ -401,7 +408,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       OnClick = btbtnListaClick
     end
     object btbtnFechar: TcxButton
-      Left = 656
+      Left = 652
       Top = 0
       Width = 75
       Height = 35
@@ -415,11 +422,11 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       ShowHint = True
       TabOrder = 7
       OnClick = btbtnFecharClick
-      ExplicitLeft = 652
+      ExplicitLeft = 648
     end
     object btbtnSelecionar: TcxButton
       Tag = 5
-      Left = 532
+      Left = 528
       Top = 0
       Width = 120
       Height = 35
@@ -434,7 +441,7 @@ object ViewPadraoCadastro: TViewPadraoCadastro
       TabOrder = 6
       Visible = False
       OnClick = btbtnSelecionarClick
-      ExplicitLeft = 528
+      ExplicitLeft = 524
     end
   end
   object DtSrcTabela: TDataSource

@@ -1,7 +1,7 @@
 inherited FrmAbertura: TFrmAbertura
   Caption = 'FrmAbertura'
+  Position = poDesktopCenter
   OnActivate = FormActivate
-  PixelsPerInch = 96
   TextHeight = 19
   inherited lblSystemName: TLabel
     Width = 134

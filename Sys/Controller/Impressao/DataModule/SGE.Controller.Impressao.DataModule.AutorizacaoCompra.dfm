@@ -1,5 +1,4 @@
 object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
-  OldCreateOrder = False
   OnCreate = DataModuleCreate
   Height = 347
   Width = 528
@@ -99,6 +98,7 @@ object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
       'PAIS_NOME=PAIS_NOME')
     DataSet = qryFornecedorDestinatario
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 136
     Top = 48
   end
@@ -256,11 +256,12 @@ object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
       'VALOR_TOTAL=VALOR_TOTAL')
     DataSet = qryAutorizacaoCompra
     BCDToCurrency = False
+    DataSetOptions = []
     Left = 128
     Top = 80
   end
   object frrAutorizacaoCompra: TfrxReport
-    Version = '6.3.7'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
@@ -326,6 +327,10 @@ object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
       MirrorMode = []
       object bndReportTitle: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 116.858380000000000000
         Top = 18.897650000000000000
@@ -528,6 +533,10 @@ object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
       end
       object bndMasterData: TfrxMasterData
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 18.897650000000000000
         Top = 332.598640000000000000
@@ -733,6 +742,10 @@ object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
       end
       object bndPageFooter: TfrxPageFooter
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 30.236240000000000000
         Top = 805.039890000000000000
@@ -793,6 +806,10 @@ object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
       end
       object bndHeader: TfrxHeader
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -1128,6 +1145,10 @@ object DataModuleAutorizacaoCompra: TDataModuleAutorizacaoCompra
       end
       object bndReportSummary: TfrxReportSummary
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 370.393940000000000000
         Top = 411.968770000000000000

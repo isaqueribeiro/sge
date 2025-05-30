@@ -114,7 +114,6 @@ inherited ViewSolicitacaoCompra: TViewSolicitacaoCompra
             Left = 290
             Top = 24
             Width = 64
-            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -129,14 +128,13 @@ inherited ViewSolicitacaoCompra: TViewSolicitacaoCompra
             Left = 21
             Top = 24
             Width = 49
-            Height = 23
+            Height = 13
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 360
@@ -463,7 +461,7 @@ inherited ViewSolicitacaoCompra: TViewSolicitacaoCompra
       inherited GrpBxDadosNominais: TGroupBox
         Width = 1104
         Height = 225
-        ExplicitWidth = 1104
+        ExplicitWidth = 1100
         ExplicitHeight = 225
         DesignSize = (
           1104
@@ -738,6 +736,7 @@ inherited ViewSolicitacaoCompra: TViewSolicitacaoCompra
           Anchors = [akLeft, akRight, akBottom]
           Style = tsFlatButtons
           TabOrder = 12
+          ExplicitWidth = 689
           object TbsSolicitacaoObjeto: TTabSheet
             Caption = 'Objeto da Solicita'#231#227'o'
             object dbObjeto: TDBMemo
@@ -756,6 +755,7 @@ inherited ViewSolicitacaoCompra: TViewSolicitacaoCompra
               ParentFont = False
               ScrollBars = ssVertical
               TabOrder = 0
+              ExplicitWidth = 681
             end
           end
           object TbsSolicitacaoMotivo: TTabSheet
@@ -1055,6 +1055,8 @@ inherited ViewSolicitacaoCompra: TViewSolicitacaoCompra
         ActivePage = tbsEventoLOG
         Align = alBottom
         TabOrder = 3
+        ExplicitTop = 493
+        ExplicitWidth = 1100
         object tbsEventoLOG: TTabSheet
           Caption = 'LOG de Eventos'
           ImageIndex = 1
@@ -1076,6 +1078,7 @@ inherited ViewSolicitacaoCompra: TViewSolicitacaoCompra
             ReadOnly = True
             ScrollBars = ssVertical
             TabOrder = 0
+            ExplicitWidth = 1092
           end
         end
       end
@@ -1087,6 +1090,7 @@ inherited ViewSolicitacaoCompra: TViewSolicitacaoCompra
         Align = alTop
         Caption = 'Dados do produto/servi'#231'o'
         TabOrder = 1
+        ExplicitWidth = 1100
         DesignSize = (
           1104
           116)
@@ -3606,8 +3610,7 @@ inherited ViewSolicitacaoCompra: TViewSolicitacaoCompra
       000000000000}
   end
   object dtsEmpresa: TDataSource
-    Left = 824
-    Top = 288
+    Left = 784
   end
   object DtSrcTabelaItens: TDataSource
     AutoEdit = False
@@ -3616,8 +3619,7 @@ inherited ViewSolicitacaoCompra: TViewSolicitacaoCompra
   end
   object ppImprimir: TPopupMenu
     Images = ImgList
-    Left = 352
-    Top = 376
+    Left = 688
     object nmImprimirSolicitacao: TMenuItem
       Caption = 'Solicita'#231#227'o de Compra/Servi'#231'o'
       ImageIndex = 16
@@ -3625,11 +3627,9 @@ inherited ViewSolicitacaoCompra: TViewSolicitacaoCompra
     end
   end
   object dtsTipoSolicitacao: TDataSource
-    Left = 824
-    Top = 344
+    Left = 816
   end
   object dtsUnidade: TDataSource
-    Left = 824
-    Top = 400
+    Left = 848
   end
 end

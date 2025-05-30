@@ -212,6 +212,7 @@ type
     function SecaoProduto : IModelDAOCustom;
     function Segmento : IModelDAOCustom;
     function SolicitacaoCompra : IModelDAOCustom;
+    function SolicitacaoCompraProdutoServico : IModelDAOCustom;
     function TabelaIBPT : IModelDAOCustom;
     function TipoAliquotaView : IModelDAOCustom;
     function TipoAutorizacaoView : IModelDAOCustom;

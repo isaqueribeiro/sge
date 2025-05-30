@@ -7,13 +7,13 @@ uses
 
 type
   IImpressaoSolicitacaoCompra = interface
-    ['{E7FE31DE-65E9-4987-8AB5-BB3EA5943AD1}']
+    ['{B6CE5FA2-B6AB-460C-9841-BC1000165815}']
     procedure VisualizarSolicitacao(aEmpresa : String; aAno, aControle : Integer);
   end;
 
   TImpressaoSolicitacaoCompra = class(TInterfacedObject, IImpressaoSolicitacaoCompra)
     private
-//      FDataModule : TDataModuleSolicitacaoCompra;
+      FDataModule : TDataModuleSolicitacaoCompra;
     protected
       constructor Create;
     public
@@ -29,12 +29,12 @@ implementation
 
 constructor TImpressaoSolicitacaoCompra.Create;
 begin
-//  FDataModule := TDataModuleSolicitacaoCompra.Create(nil);
+  FDataModule := TDataModuleSolicitacaoCompra.Create(nil);
 end;
 
 destructor TImpressaoSolicitacaoCompra.Destroy;
 begin
-//  FDataModule.DisposeOf;
+  FDataModule.DisposeOf;
   inherited;
 end;
 
@@ -45,8 +45,8 @@ end;
 
 procedure TImpressaoSolicitacaoCompra.VisualizarSolicitacao(aEmpresa: String; aAno, aControle: Integer);
 begin
-//  if FDataModule.CarregarSolicitacaoCompra(aEmpresa, aAno, aControle) then
-//    FDataModule.VisualizarSolicitacaoCompra;
+  if FDataModule.CarregarSolicitacaoCompra(aEmpresa, aAno, aControle) then
+    FDataModule.VisualizarSolicitacaoCompra;
 end;
 
 end.

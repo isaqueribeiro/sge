@@ -47,7 +47,7 @@ implementation
 
 procedure TTabelaController.Configurar(aDataSet: TFDDataSet);
 begin
-  FDataSet := aDataSet as TDataSet;
+  FDataSet := aDataSet;
   Configurar;
 end;
 
@@ -131,6 +131,9 @@ destructor TTabelaController.Destroy;
 begin
   FNomesCampos.DisposeOf;
   FFormatos.DisposeOf;
+
+  FRequired.Clear;
+  FRequired.TrimExcess;
   FRequired.DisposeOf;
   inherited;
 end;

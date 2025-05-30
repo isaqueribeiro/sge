@@ -1,4 +1,4 @@
-unit View.AutorizacaoCompra.Cancelar;
+unit View.SolicitacaoCompra.Cancelar;
 
 interface
 
@@ -46,18 +46,18 @@ uses
   dxSkinsDefaultPainters;
 
 type
-  TViewAutorizacaoCompraCancelar = class(TfrmGrPadrao)
+  TViewSolicitacaoCompraCancelar = class(TfrmGrPadrao)
     GrpBxControle: TGroupBox;
     lblCodigo: TLabel;
-    lblFornecedor: TLabel;
+    lblDescricaoResumo: TLabel;
     lblEmissao: TLabel;
     dbCodigo: TDBEdit;
-    dbFornecedor: TDBEdit;
+    dbDescricaoResumo: TDBEdit;
     dbEmissao: TDBEdit;
     lblValidade: TLabel;
     dbValidade: TDBEdit;
     Bevel1: TBevel;
-    GrpBxTexto: TGroupBox;
+    GrpBxCancelamento: TGroupBox;
     lblCancelUsuario: TLabel;
     lblCancelDataHora: TLabel;
     lblMotivo: TLabel;
@@ -65,18 +65,18 @@ type
     dbCancelUsuario: TEdit;
     dbCancelDataHora: TEdit;
     Bevel2: TBevel;
-    dtsAutorizacao: TDataSource;
+    dtsSolicitacao: TDataSource;
     pnlBotoes: TPanel;
     lblInforme: TLabel;
+    Bevel3: TBevel;
     btnCancelar: TcxButton;
     btFechar: TcxButton;
-    Bevel3: TBevel;
     procedure btFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-    FController : IControllerAutorizacaoCompra;
+    FController : IControllerSolicitacaoCompra;
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -84,15 +84,18 @@ type
 
 (*
   Tabelas:
-  - TBAUTORIZA_COMPRA
-  - TBFORNECEDOR
+  - TBSOLICITACAO
 
   Views:
 
   Procedures:
+
 *)
 
-  function CancelarAUT(const AOwer : TComponent; aAno : Smallint; aNumero : Integer; aEmpresa : String) : Boolean;
+var
+  ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar;
+
+  function CancelarCOT(const AOwer : TComponent; aAno : Smallint; aNumero : Integer) : Boolean;
 
 implementation
 
@@ -102,13 +105,13 @@ uses
 
 {$R *.dfm}
 
-function CancelarAUT(const AOwer : TComponent; aAno : Smallint; aNumero : Integer; aEmpresa : String) : Boolean;
+function CancelarCOT(const AOwer : TComponent; aAno : Smallint; aNumero : Integer) : Boolean;
 var
-  frm : TViewAutorizacaoCompraCancelar;
+  AForm : TViewSolicitacaoCompraCancelar;
 begin
-  frm := TViewAutorizacaoCompraCancelar.Create(AOwer);
+  AForm := TViewSolicitacaoCompraCancelar.Create(AOwer);
   try
-    with frm do
+    with AForm do
     begin
       FController
         .DAO
@@ -117,19 +120,17 @@ begin
 
       FController
         .DAO
-        .Where('a.ano     = :ano')
-        .Where('a.codigo  = :codigo')
-        .Where('a.empresa = :empresa')
+        .Where('s.ano     = :ano')
+        .Where('s.codigo  = :codigo')
         .ParamsByName('ano',     aAno)
         .ParamsByName('codigo',  aNumero)
-        .ParamsByName('empresa', aEmpresa)
         .Open;
 
       TTabelaController
         .New
-        .Tabela(dtsAutorizacao.DataSet)
-        .Display('NUMERO',       'Autorização', '###00000', TAlignment.taCenter, True)
-        .Display('EMISSAO_DATA', 'Emissão',  'dd/mm/yyyy', TAlignment.taLeftJustify, True)
+        .Tabela(dtsSolicitacao.DataSet)
+        .Display('NUMERO',       'Solicitação', '###00000', TAlignment.taCenter, True)
+        .Display('DATA_EMISSAO', 'Emissão',  'dd/mm/yyyy', TAlignment.taLeftJustify, True)
         .Display('VALIDADE',     'Validade', 'dd/mm/yyyy', TAlignment.taLeftJustify, True)
         .Configurar;
 
@@ -139,55 +140,50 @@ begin
       Result := (ShowModal = mrOk);
     end;
   finally
-    frm.Free;
+    AForm.Free;
   end;
 end;
 
-procedure TViewAutorizacaoCompraCancelar.btFecharClick(Sender: TObject);
+procedure TViewSolicitacaoCompraCancelar.btFecharClick(Sender: TObject);
 begin
   ModalResult := mrCancel;
 end;
 
-procedure TViewAutorizacaoCompraCancelar.RegistrarRotinaSistema;
-begin
-  ;
-end;
-
-procedure TViewAutorizacaoCompraCancelar.btnCancelarClick(
+procedure TViewSolicitacaoCompraCancelar.btnCancelarClick(
   Sender: TObject);
 var
   sMsg : String;
   Cont : Boolean;
 begin
-  if dtsAutorizacao.DataSet.IsEmpty then
+  if dtsSolicitacao.DataSet.IsEmpty then
     Exit;
 
   if Trim(dbMotivo.Lines.Text).IsEmpty then
   begin
-    TServiceMessage.ShowWarning('Favor informar o motivo de cancelamento da autorização');
+    TServiceMessage.ShowWarning('Favor informar o motivo de cancelamento da solicitação');
     dbMotivo.SetFocus;
   end
   else
   if (Length(Trim(dbMotivo.Lines.Text)) < 15) then
   begin
-    TServiceMessage.ShowWarning('Motivo de cancelamento da autorização deve possuir 15 caracteres no mínimo.');
+    TServiceMessage.ShowWarning('Motivo de cancelamento da solicitação deve possuir 15 caracteres no mínimo.');
     dbMotivo.SetFocus;
   end
   else
   begin
-    sMsg := 'Confirma o cancelamento da autorização?';
+    sMsg := 'Confirma o cancelamento da solicitação?';
 
     Cont := TServiceMessage.ShowConfirm(sMsg);
 
     if Cont then
-      with dtsAutorizacao.DataSet do
+      with dtsSolicitacao.DataSet do
       begin
         Edit;
 
-        dtsAutorizacao.DataSet.FieldByName('STATUS').AsInteger           := STATUS_AUTORIZACAO_CAN;
-        dtsAutorizacao.DataSet.FieldByName('CANCELADO_DATA').AsDateTime  := StrToDateTime( Trim(dbCancelDataHora.Text) );
-        dtsAutorizacao.DataSet.FieldByName('CANCELADO_USUARIO').AsString := UpperCase( Trim(dbCancelUsuario.Text) );
-        dtsAutorizacao.DataSet.FieldByName('CANCELADO_MOTIVO').AsString  := UpperCase( Trim(dbMotivo.Lines.Text) );
+        dtsSolicitacao.DataSet.FieldByName('STATUS').AsInteger           := STATUS_SOLICITACAO_CAN;
+        dtsSolicitacao.DataSet.FieldByName('CANCELADO_DATA').AsDateTime  := StrToDateTime( Trim(dbCancelDataHora.Text) );
+        dtsSolicitacao.DataSet.FieldByName('CANCELADO_USUARIO').AsString := UpperCase( Trim(dbCancelUsuario.Text) );
+        dtsSolicitacao.DataSet.FieldByName('CANCELADO_MOTIVO').AsString  := UpperCase( Trim(dbMotivo.Lines.Text) );
 
         Post;
 
@@ -200,11 +196,16 @@ begin
   end;
 end;
 
-procedure TViewAutorizacaoCompraCancelar.FormCreate(Sender: TObject);
+procedure TViewSolicitacaoCompraCancelar.FormCreate(Sender: TObject);
 begin
   inherited;
-  FController := TControllerFactory.New.AutorizacaoCompra;
-  dtsAutorizacao.DataSet := FController.DAO.DataSet;
+  FController := TControllerFactory.New.SolicitacaoCompra;
+  dtsSolicitacao.DataSet := FController.DAO.DataSet;
+end;
+
+procedure TViewSolicitacaoCompraCancelar.RegistrarRotinaSistema;
+begin
+  ;
 end;
 
 end.

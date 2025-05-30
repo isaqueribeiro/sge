@@ -388,14 +388,13 @@ uses
   View.Esmaecer,
 
   // Movimentação
-  UGeSolicitacaoCompra,  
   UGeCotacaoCompra,
   UGeRequisicaoCliente,
   View.AutorizacaoCompra,
   View.RequisicaoCompra,
   View.RequisicaoAlmox,
   View.RequisicaoAlmox.Monitor,
-  //UGeRequisicaoAlmoxMonitor,
+  View.SolicitacaoCompra,
 
   // Estoque, Entrada e Saída
   View.Produto,
@@ -413,7 +412,7 @@ uses
 
 procedure TfrmPrinc.btnEmpresaClick(Sender: TObject);
 begin
-  if ( GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM ) then
+  if (GetUserFunctionID <> FUNCTION_USER_ID_SYSTEM_ADM) then
     ShowInformation('Usuário sem permissão de acesso para esta rotina.' + #13 + 'Favor entrar em contato com suporte.')
   else
     FormFunction.ShowModalForm(Self, 'ViewEmpresa');
