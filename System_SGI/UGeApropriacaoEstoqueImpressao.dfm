@@ -2,25 +2,25 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
   Left = 410
   Top = 229
   Caption = 'Relat'#243'rios de Apropria'#231#227'o de Estoque'
-  ClientHeight = 328
-  ClientWidth = 562
+  ClientHeight = 327
+  ClientWidth = 558
   ExplicitWidth = 574
   ExplicitHeight = 366
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 324
-    Width = 562
+    Top = 323
+    Width = 558
     ExplicitTop = 324
     ExplicitWidth = 562
   end
   inherited Bevel3: TBevel
-    Top = 285
-    Width = 562
+    Top = 284
+    Width = 558
     ExplicitTop = 285
     ExplicitWidth = 562
   end
   inherited pnlBanner: TPanel
-    Height = 285
+    Height = 284
     ExplicitHeight = 284
     inherited imgBanner: TImage
       Height = 285
@@ -28,22 +28,22 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
     end
   end
   inherited pnlRelatorio: TPanel
-    Width = 465
-    Height = 285
+    Width = 461
+    Height = 284
     ExplicitWidth = 461
     ExplicitHeight = 284
     inherited Bevel4: TBevel
-      Width = 457
+      Width = 453
       ExplicitWidth = 457
     end
     inherited GrpBxRelatorio: TGroupBox
-      Width = 457
+      Width = 453
       ExplicitWidth = 453
       DesignSize = (
-        457
+        453
         69)
       inherited edRelatorio: TComboBox
-        Width = 419
+        Width = 415
         Items.Strings = (
           'Estoque Apropriado por Centro de Custo (Sint'#233'tico)'
           'Estoque Apropriado por Centro de Custo (Anal'#237'tico)'
@@ -57,8 +57,8 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
       end
     end
     inherited GrpBxFiltro: TGroupBox
-      Width = 457
-      Height = 204
+      Width = 453
+      Height = 203
       ExplicitWidth = 453
       ExplicitHeight = 203
       object lblEmpresa: TLabel
@@ -399,8 +399,8 @@ inherited frmGeApropriacaoEstoqueImpressao: TfrmGeApropriacaoEstoqueImpressao
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 289
-    Width = 562
+    Top = 288
+    Width = 558
     ExplicitTop = 288
     ExplicitWidth = 558
   end

@@ -807,6 +807,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="View\View.SolicitacaoCompra.Cancelar.pas">
             <Form>ViewSolicitacaoCompraCancelar</Form>
         </DCCReference>
+        <DCCReference Include="Model\DAO\SGI.Model.DAO.CotacaoCompra.pas"/>
+        <DCCReference Include="Controller\SGI.Controller.CotacaoCompra.pas"/>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>

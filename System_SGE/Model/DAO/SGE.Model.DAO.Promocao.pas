@@ -1,6 +1,5 @@
 unit SGE.Model.DAO.Promocao;
 
-
 interface
 
 uses

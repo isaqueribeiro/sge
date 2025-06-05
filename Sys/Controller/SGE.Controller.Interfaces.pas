@@ -307,6 +307,21 @@ type
     procedure GravarLoteProduto(aSistema : Smallint);
   end;
 
+  IControllerCotacaoCompra = interface(IControllerCustom)
+    ['{21F91465-6394-4264-B42B-CEC743A78108}']
+    procedure CarregarItens;
+    procedure CarregarFornecedores;
+
+    function Itens : IControllerCustom;
+    function Fornecedores : IControllerCustom;
+  end;
+
+  IControllerCotacaoCompraFornecedor = interface(IControllerCustom)
+    ['{33B4F1B2-121A-44ED-ADF1-3E831CBCA5F6}']
+    procedure CarregarFornecedor(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer);
+    function CotacaoFornecedorItem(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer) : IControllerCotacaoCompraFornecedor;
+  end;
+
   IControllerContaAPagar = interface(IControllerCustom)
     ['{12196628-B1DD-4D44-9F83-CD63D2FFB633}']
     procedure GerarDuplicatas(aAnoCompra, aNumCompra : Integer);
@@ -412,6 +427,8 @@ type
     function ContratoItem : IControllerContratoItem;
     function ContratoNotas : IControllerContratoNotas;
     function CorVeiculo : IControllerCustom;
+    function CotacaoCompra : IControllerCotacaoCompra;
+    function CotacaoCompraFornecedor : IControllerCotacaoCompraFornecedor;
     function CST : IControllerCustom;
     function Distrito    : IControllerCustom;
     function Empresa     : IControllerCustom;

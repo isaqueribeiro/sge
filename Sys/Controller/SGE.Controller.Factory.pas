@@ -20,6 +20,7 @@ uses
   SGE.Controller.ContaCorrente,
   SGE.Controller.Contrato,
   SGE.Controller.CST,
+  SGI.Controller.CotacaoCompra,
   SGE.Controller.Distrito,
   SGE.Controller.Empresa,
   SGE.Controller.Endereco,
@@ -87,7 +88,9 @@ type
       FContrato : IControllerContrato;
       FContratoItem : IControllerContratoItem;
       FContratoNotas : IControllerContratoNotas;
-      FCorVeiculo  ,
+      FCorVeiculo  : IControllerCustom;
+      FCotacaoCompra : IControllerCotacaoCompra;
+      FCotacaoCompraFornecedor : IControllerCotacaoCompraFornecedor;
       FCST         ,
       FDistrito    ,
       FEmpresa     : IControllerCustom;
@@ -206,6 +209,8 @@ type
       function ContratoItem : IControllerContratoItem;
       function ContratoNotas : IControllerContratoNotas;
       function CorVeiculo : IControllerCustom;
+      function CotacaoCompra : IControllerCotacaoCompra;
+      function CotacaoCompraFornecedor : IControllerCotacaoCompraFornecedor;
       function CST : IControllerCustom;
       function Distrito : IControllerCustom;
       function Empresa : IControllerCustom;
@@ -773,6 +778,22 @@ begin
     FCorVeiculo := TControllerCorVeiculo.New;
 
   Result := FCorVeiculo;
+end;
+
+function TControllerFactory.CotacaoCompra: IControllerCotacaoCompra;
+begin
+  if not Assigned(FCotacaoCompra) then
+    FCotacaoCompra := TControllerCotacaoCompra.New;
+
+  Result := FCotacaoCompra;
+end;
+
+function TControllerFactory.CotacaoCompraFornecedor: IControllerCotacaoCompraFornecedor;
+begin
+  if not Assigned(FCotacaoCompraFornecedor) then
+    FCotacaoCompraFornecedor := TControllerCotacaoCompraFornecedor.New;
+
+  Result := FCotacaoCompraFornecedor;
 end;
 
 function TControllerFactory.Distrito: IControllerCustom;

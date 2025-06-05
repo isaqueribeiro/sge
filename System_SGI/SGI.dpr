@@ -362,7 +362,9 @@ uses
   View.Perfil in '..\Sys\View\View.Perfil.pas' {ViewPerfil},
   View.Perfil.Copiar in '..\Sys\View\View.Perfil.Copiar.pas' {ViewPerfilCopiar},
   View.SolicitacaoCompra in 'View\View.SolicitacaoCompra.pas' {ViewSolicitacaoCompra},
-  View.SolicitacaoCompra.Cancelar in 'View\View.SolicitacaoCompra.Cancelar.pas' {ViewSolicitacaoCompraCancelar};
+  View.SolicitacaoCompra.Cancelar in 'View\View.SolicitacaoCompra.Cancelar.pas' {ViewSolicitacaoCompraCancelar},
+  SGI.Model.DAO.CotacaoCompra in 'Model\DAO\SGI.Model.DAO.CotacaoCompra.pas',
+  SGI.Controller.CotacaoCompra in 'Controller\SGI.Controller.CotacaoCompra.pas';
 
 {$R *.res}
 

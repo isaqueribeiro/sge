@@ -2,10 +2,21 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
   Left = 387
   Top = 219
   Caption = 'Relat'#243'rios de Contas A Pagar'
+  ClientHeight = 304
   ExplicitWidth = 561
-  ExplicitHeight = 341
   TextHeight = 13
+  inherited Bevel1: TBevel
+    Top = 300
+  end
+  inherited Bevel3: TBevel
+    Top = 261
+  end
+  inherited pnlBanner: TPanel
+    Height = 261
+  end
   inherited pnlRelatorio: TPanel
+    Height = 261
+    ExplicitHeight = 261
     inherited GrpBxRelatorio: TGroupBox
       inherited edRelatorio: TComboBox
         Width = 400
@@ -26,9 +37,13 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
           'Contas A Pagar por Compet'#234'ncia de Apura'#231#227'o (Sint'#233'tico)'
           'Contas A Pagar por Compet'#234'ncia de Apura'#231#227'o (Anal'#237'tico)'
           'Contas A Pagar por Compet'#234'ncia de Apura'#231#227'o (Fornecedor)')
+        ExplicitWidth = 400
       end
     end
     inherited GrpBxFiltro: TGroupBox
+      Height = 180
+      ExplicitWidth = 440
+      ExplicitHeight = 178
       object lblData: TLabel
         Left = 45
         Top = 51
@@ -255,6 +270,9 @@ inherited frmGeContasAPagarImpressao: TfrmGeContasAPagarImpressao
         Width = 313
       end
     end
+  end
+  inherited tlbBotoes: TPanel
+    Top = 265
   end
   object frRelacaoAPagarVSintetico: TfrxReport
     Version = '2022.3'

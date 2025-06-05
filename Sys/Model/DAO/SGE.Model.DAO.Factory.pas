@@ -20,6 +20,7 @@ uses
   SGE.Model.DAO.ContaCorrente,
   SGE.Model.DAO.Contrato,
   SGE.Model.DAO.Config,
+  SGI.Model.DAO.CotacaoCompra,
   SGE.Model.DAO.CST,
   SGE.Model.DAO.Distrito,
   SGE.Model.DAO.Empresa,
@@ -91,6 +92,10 @@ type
       FContratoNotas,
       FCorVeiculo ,
       FCST        ,
+      FCotacaoCompra     ,
+      FCotacaoCompraItens,
+      FCotacaoCompraFornecedores   ,
+      FCotacaoCompraFornecedorItens,
       FDistrito   ,
       FEmpresa    ,
       FEmpresaView,
@@ -217,6 +222,10 @@ type
       function ContratoItem : IModelDAOCustom;
       function ContratoNotas : IModelDAOCustom;
       function CorVeiculo : IModelDAOCustom;
+      function CotacaoCompra : IModelDAOCustom;
+      function CotacaoCompraItens : IModelDAOCustom;
+      function CotacaoCompraFornecedores : IModelDAOCustom;
+      function CotacaoCompraFornecedorItens : IModelDAOCustom;
       function CST : IModelDAOCustom;
       function Distrito : IModelDAOCustom;
       function Empresa : IModelDAOCustom;
@@ -1047,6 +1056,38 @@ begin
     FCorVeiculo := TModelDAOCorVeiculo.New;
 
   Result := FCorVeiculo;
+end;
+
+function TModelDAOFactory.CotacaoCompra: IModelDAOCustom;
+begin
+  if not Assigned(FCotacaoCompra) then
+    FCotacaoCompra := TModelDAOCotacaoCompra.New;
+
+  Result := FCotacaoCompra;
+end;
+
+function TModelDAOFactory.CotacaoCompraFornecedores: IModelDAOCustom;
+begin
+  if not Assigned(FCotacaoCompraFornecedores) then
+    FCotacaoCompraFornecedores := TModelDAOCotacaoCompraFornecedores.New;
+
+  Result := FCotacaoCompraFornecedores;
+end;
+
+function TModelDAOFactory.CotacaoCompraFornecedorItens: IModelDAOCustom;
+begin
+  if not Assigned(FCotacaoCompraFornecedorItens) then
+    FCotacaoCompraFornecedorItens := TModelDAOCotacaoCompraFornecedorItens.New;
+
+  Result := FCotacaoCompraFornecedorItens;
+end;
+
+function TModelDAOFactory.CotacaoCompraItens: IModelDAOCustom;
+begin
+  if not Assigned(FCotacaoCompraItens) then
+    FCotacaoCompraItens := TModelDAOCotacaoCompraItens.New;
+
+  Result := FCotacaoCompraItens;
 end;
 
 function TModelDAOFactory.Distrito: IModelDAOCustom;

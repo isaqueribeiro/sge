@@ -570,12 +570,19 @@ const
   PRAZO_VALIDADE_AUTORIZACAO_COMPRA = 5;
   PRAZO_VALIDADE_REQUISICAO_COMPRA  = 5;
   PRAZO_VALIDADE_SOLICITACAO_COMPRA = 15;
+  PRAZO_VALIDADE_COTACAO_COMPRA     = 15;
 
   // Tipos de autorizações de compras/serviços
 
   TIPO_AUTORIZACAO_COMPRA         = 1;
   TIPO_AUTORIZACAO_SERVICO        = 2;
   TIPO_AUTORIZACAO_COMPRA_SERVICO = 3;
+
+  // Tipos de cotações de compras/serviços
+
+  TIPO_COTACAO_COMPRA         = TIPO_AUTORIZACAO_COMPRA;
+  TIPO_COTACAO_SERVICO        = TIPO_AUTORIZACAO_SERVICO;
+  TIPO_COTACAO_COMPRA_SERVICO = TIPO_AUTORIZACAO_COMPRA_SERVICO;
 
   // Tipos de solicitações de compras/serviços
 
@@ -590,6 +597,14 @@ const
   STATUS_AUTORIZACAO_AUT = 2;
   STATUS_AUTORIZACAO_FAT = 3;
   STATUS_AUTORIZACAO_CAN = 4;
+
+  // Status de cotações de compras/serviços
+
+  STATUS_COTACAO_EDC = 0;
+  STATUS_COTACAO_ABR = 1;
+  STATUS_COTACAO_COT = 2;
+  STATUS_COTACAO_ENC = 3;
+  STATUS_COTACAO_CAN = 4;
 
   // Tipos de requisições de compras/serviços
 

@@ -159,6 +159,10 @@ type
     function ContratoItem : IModelDAOCustom;
     function ContratoNotas : IModelDAOCustom;
     function CorVeiculo : IModelDAOCustom;
+    function CotacaoCompra : IModelDAOCustom;
+    function CotacaoCompraItens : IModelDAOCustom;
+    function CotacaoCompraFornecedores : IModelDAOCustom;
+    function CotacaoCompraFornecedorItens : IModelDAOCustom;
     function CST : IModelDAOCustom;
     function Distrito : IModelDAOCustom;
     function Empresa : IModelDAOCustom;
