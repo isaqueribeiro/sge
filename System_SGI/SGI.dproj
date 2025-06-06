@@ -351,8 +351,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\System_SGE\UGeEntradaImpressao.pas">
             <Form>frmGeEntradaImpressao</Form>
         </DCCReference>
-        <DCCReference Include="..\System_SGE\UGeCotacaoCompra.pas">
-            <Form>frmGeCotacaoCompra</Form>
+        <DCCReference Include="View\View.CotacaoCompra.pas">
+            <Form>ViewCotacaoCompra</Form>
         </DCCReference>
         <DCCReference Include="..\System_SGE\UGeCotacaoCompraCancelar.pas">
             <Form>frmGeCotacaoCompraCancelar</Form>

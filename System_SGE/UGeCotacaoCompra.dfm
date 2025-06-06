@@ -4,8 +4,8 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
   Caption = 'Controle de Cota'#231#245'es de Compra/Servi'#231'o'
   ClientHeight = 685
   ClientWidth = 1116
-  ExplicitWidth = 1128
-  ExplicitHeight = 723
+  ExplicitWidth = 1132
+  ExplicitHeight = 724
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 681
@@ -23,8 +23,8 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     Width = 1116
     Height = 642
     OnChange = pgcGuiasChange
-    ExplicitWidth = 1112
-    ExplicitHeight = 641
+    ExplicitWidth = 1116
+    ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 1108
       ExplicitHeight = 613
@@ -106,8 +106,8 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         Top = 543
         Width = 1108
         Height = 70
-        ExplicitTop = 542
-        ExplicitWidth = 1104
+        ExplicitTop = 543
+        ExplicitWidth = 1108
         ExplicitHeight = 70
         object lblCotacaoAberta: TLabel [0]
           Left = 2
@@ -157,7 +157,7 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
           Width = 680
           Height = 62
           TabOrder = 1
-          ExplicitLeft = 420
+          ExplicitLeft = 424
           ExplicitWidth = 680
           ExplicitHeight = 62
           DesignSize = (
@@ -348,7 +348,7 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       inherited GrpBxDadosNominais: TGroupBox
         Width = 1108
         Height = 193
-        ExplicitWidth = 1104
+        ExplicitWidth = 1108
         ExplicitHeight = 193
         inherited lblCodigo: TLabel
           Width = 71
@@ -856,8 +856,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         ActivePage = tbsFornecedor
         Align = alBottom
         TabOrder = 3
-        ExplicitTop = 446
-        ExplicitWidth = 1104
         object tbsDadoConsolidado: TTabSheet
           Caption = 'Dados Consolidados'
           ImageIndex = 1
@@ -1043,13 +1041,12 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
             object lblEnderecoEntrega: TLabel
               Left = 0
               Top = 4
-              Width = 1100
+              Width = 160
               Height = 13
               Align = alTop
               Caption = 'Endere'#231'o de Entrega/Realiza'#231#227'o:'
               FocusControl = dbEnderecoEntrega
               Visible = False
-              ExplicitWidth = 160
             end
             object Bevel5: TBevel
               Left = 0
@@ -1499,7 +1496,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
         Align = alTop
         Caption = 'Dados do produto/servi'#231'o'
         TabOrder = 1
-        ExplicitWidth = 1104
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -1943,7 +1939,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
           BevelOuter = bvNone
           BorderWidth = 4
           TabOrder = 7
-          ExplicitLeft = 716
           object Bevel10: TBevel
             Left = 4
             Top = 4
@@ -2241,8 +2236,8 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
   inherited tlbBotoes: TPanel
     Top = 646
     Width = 1116
-    ExplicitTop = 645
-    ExplicitWidth = 1112
+    ExplicitTop = 646
+    ExplicitWidth = 1116
     inherited bvlTool3: TBevel
       Left = 1033
       ExplicitLeft = 1033
@@ -2264,12 +2259,12 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
     inherited btbtnFechar: TcxButton
       Left = 1037
       TabOrder = 10
-      ExplicitLeft = 1033
+      ExplicitLeft = 1037
     end
     inherited btbtnSelecionar: TcxButton
       Left = 913
       TabOrder = 9
-      ExplicitLeft = 909
+      ExplicitLeft = 913
     end
     object btnFinalizarCotacao: TcxButton
       Tag = 11
@@ -2354,7 +2349,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       ShowHint = True
       TabOrder = 6
       OnClick = btnFinalizarCotacaoClick
-      ExplicitLeft = 549
     end
     object btnAutorizarCotacao: TcxButton
       Tag = 12
@@ -2439,7 +2433,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       ShowHint = True
       TabOrder = 7
       OnClick = btnAutorizarCotacaoClick
-      ExplicitLeft = 669
     end
     object btnCancelarCotacao: TcxButton
       Tag = 13
@@ -2524,7 +2517,6 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
       ShowHint = True
       TabOrder = 8
       OnClick = btnCancelarCotacaoClick
-      ExplicitLeft = 789
     end
   end
   inherited IbDtstTabela: TIBDataSet

@@ -521,16 +521,8 @@ begin
 end;
 
 procedure TViewSolicitacaoCompra.btnProdutoInserirClick(Sender: TObject);
-
-  procedure GerarSequencial(var Seq : Integer);
-  begin
-    Seq := DtSrcTabelaItens.DataSet.RecordCount + 1;
-    while ( DtSrcTabelaItens.DataSet.Locate('SEQ', Seq, []) ) do
-      Seq := Seq + 1;
-  end;
-
 var
-  Sequencial : Integer;
+  aSequencial : Integer;
 begin
   if Trim(DtSRcTabela.DataSet.FieldByName('OBJETO_SOLICITACAO').AsString).IsEmpty then
   begin
@@ -541,14 +533,14 @@ begin
   else
   if ( DtSrcTabelaItens.DataSet.Active ) then
   begin
-    GerarSequencial(Sequencial);
+    aSequencial := Controller.DAO.NewSequence(DtSrcTabelaItens.DataSet, 'SEQ');
 
     DtSrcTabelaItens.DataSet.Append;
     DtSrcTabelaItens.DataSet.FieldByName('ANO').Assign( DtSrcTabela.DataSet.FieldByName('ANO') );
     DtSrcTabelaItens.DataSet.FieldByName('CODIGO').Assign( DtSrcTabela.DataSet.FieldByName('CODIGO') );
     DtSrcTabelaItens.DataSet.FieldByName('CENTRO_CUSTO').Assign( DtSrcTabela.DataSet.FieldByName('CENTRO_CUSTO') );
     DtSrcTabelaItens.DataSet.FieldByName('CENTRO_CUSTO_NOME').Assign( DtSrcTabela.DataSet.FieldByName('CENTRO_CUSTO_NOME') );
-    DtSrcTabelaItens.DataSet.FieldByName('SEQ').AsInteger := Sequencial;
+    DtSrcTabelaItens.DataSet.FieldByName('SEQ').AsInteger := aSequencial;
 
     dbProduto.SetFocus;
   end;
@@ -643,7 +635,6 @@ begin
         'Ano/Número: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CODIGO').AsInteger));
 
       HabilitarDesabilitar_Btns;
-
       RdgStatusSolicitacao.ItemIndex := 0;
     end;
   end;
@@ -1135,19 +1126,16 @@ var
   sMensagem : String;
 begin
   sMensagem := FormatDateTime('dd/mm/yyyy hh:mm', Now) + ' - ' + sEvento + ' (por ' + gUsuarioLogado.Login + ').';
-  try
-    if (not DtSrcTabela.DataSet.IsEmpty) then
-    begin
-      DtSrcTabela.DataSet.Edit;
+  if (not DtSrcTabela.DataSet.IsEmpty) then
+  begin
+    DtSrcTabela.DataSet.Edit;
 
-      dbEventoLOG.Lines.Add(sMensagem);
+    dbEventoLOG.Lines.Add(sMensagem);
 
-      DtSrcTabela.DataSet.Post;
-      FController.DAO.ApplyUpdates;
-      FController.DAO.CommitUpdates;
-      FController.DAO.CommitTransaction;
-    end;
-  finally
+    DtSrcTabela.DataSet.Post;
+    FController.DAO.ApplyUpdates;
+    FController.DAO.CommitUpdates;
+    FController.DAO.CommitTransaction;
   end;
 end;
 

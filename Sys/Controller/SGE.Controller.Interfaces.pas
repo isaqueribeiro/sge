@@ -314,6 +314,9 @@ type
 
     function Itens : IControllerCustom;
     function Fornecedores : IControllerCustom;
+    function ProcessarRespostas(aAno, aCotacao : Integer; aEmpresa : String) : IControllerCotacaoCompra;
+    function GetExisteNumero(aAno, aCodigo : Integer; aNumero : String; var aControleInterno : String) : Boolean;
+    function CotacaoFornecedorItem(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer) : IControllerCotacaoCompra;
   end;
 
   IControllerCotacaoCompraFornecedor = interface(IControllerCustom)
@@ -483,6 +486,7 @@ type
     function TipoCNPJView     : IControllerCustom;
     function TipoComissaoView : IControllerCustom;
     function TipoContratoView : IControllerCustom;
+    function TipoCotacaoView  : IControllerCustom;
     function TipoDescontoView : IControllerCustom;
     function TipoDespesa      : IControllerCustom;
     function TipoDespesaPlanoConta : IControllerCustom;

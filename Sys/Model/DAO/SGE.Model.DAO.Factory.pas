@@ -156,6 +156,7 @@ type
       FTipoCNPJView    ,
       FTipoComissaoView,
       FTipoContratoView,
+      FTipoCotacaoView ,
       FTipoDescontoView,
       FTipoDespesa     ,
       FTipoDespesaPlanoConta   ,
@@ -287,6 +288,7 @@ type
       function TipoCNPJView : IModelDAOCustom;
       function TipoComissaoView : IModelDAOCustom;
       function TipoContratoView : IModelDAOCustom;
+      function TipoCotacaoView : IModelDAOCustom;
       function TipoDescontoView : IModelDAOCustom;
       function TipoDespesa : IModelDAOCustom;
       function TipoDespesaPlanoConta : IModelDAOCustom;
@@ -624,6 +626,14 @@ begin
     FTipoContratoView := TModelDAOTipoContratoView.New;
 
   Result := FTipoContratoView;
+end;
+
+function TModelDAOFactory.TipoCotacaoView: IModelDAOCustom;
+begin
+  if not Assigned(FTipoCotacaoView) then
+    FTipoCotacaoView := TModelDAOTipoCotacaoView.New;
+
+  Result := FTipoCotacaoView;
 end;
 
 function TModelDAOFactory.TipoDescontoView: IModelDAOCustom;

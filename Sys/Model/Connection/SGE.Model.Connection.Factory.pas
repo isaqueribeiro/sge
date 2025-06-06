@@ -14,6 +14,7 @@ type
     function ExecuteSQL(Value : String) : IConnection<TConnectionFireDAC>;
     function GetNextID(aTableName, aFieldName : String; const sWhere : String = '') : Largeint;
     function GetCountID(aTableName : String; const sWhere : String = '') : Largeint;
+    function NewSequence(const aDataSet : TDataSet; const aFieldName : String = 'SEQ') : Integer;
 
     procedure CommitRetaining;
   end;
@@ -31,6 +32,7 @@ type
       function ExecuteSQL(Value : String) : IConnection<TConnectionFireDAC>;
       function GetNextID(aTableName, aFieldName : String; const sWhere : String = '') : Largeint;
       function GetCountID(aTableName : String; const sWhere : String = '') : Largeint;
+      function NewSequence(const aDataSet : TDataSet; const aFieldName : String = 'SEQ') : Integer;
 
       procedure CommitRetaining;
   end;
@@ -104,6 +106,11 @@ end;
 class function TConnectionFactory.New : IConnection;
 begin
   Result := Self.Create;
+end;
+
+function TConnectionFactory.NewSequence(const aDataSet: TDataSet; const aFieldName: String): Integer;
+begin
+  Result := FQuery.NewSequence(aDataSet, aFieldName);
 end;
 
 function TConnectionFactory.Query : IConnection<TConnectionFireDAC>;

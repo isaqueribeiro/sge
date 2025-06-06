@@ -65,6 +65,8 @@ type
     procedure StartTransaction;
     procedure CommitTransaction;
     procedure RollbackTransaction;
+
+    function NewSequence(const aDataSet : TDataSet; const aFieldName : String = 'SEQ') : Integer;
   end;
 
   IModelDAOCustom = interface(IModelDAO)
@@ -223,6 +225,7 @@ type
     function TipoCNPJView : IModelDAOCustom;
     function TipoComissaoView : IModelDAOCustom;
     function TipoContratoView : IModelDAOCustom;
+    function TipoCotacaoView : IModelDAOCustom;
     function TipoChequeView : IModelDAOCustom;
     function TipoDescontoView : IModelDAOCustom;
     function TipoDespesa : IModelDAOCustom;

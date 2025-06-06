@@ -127,6 +127,7 @@ type
       procedure ParamByNameClear(aParamName : String);
 
       function NewID : Variant;
+      function NewSequence(const aDataSet : TDataSet; const aFieldName : String = 'SEQ') : Integer;
   end;
 
 implementation
@@ -293,6 +294,20 @@ begin
     Result := 1
   else
     Result := ID;
+end;
+
+function TConnectionFireDAC.NewSequence(const aDataSet: TDataSet; const aFieldName: String): Integer;
+begin
+  try
+    aDataSet.DisableControls;
+    aDataSet.Last;
+    Result := aDataSet.RecordCount + 1;
+
+    while (aDataSet.Locate(aFieldName, Result, [])) do
+      Result := Result + 1;
+  finally
+    aDataSet.EnableControls;
+  end;
 end;
 
 function TConnectionFireDAC.AliasTableName: String;

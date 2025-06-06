@@ -70,6 +70,7 @@ type
     procedure ParamByNameClear(aParamName : String);
 
     function NewID : Variant;
+    function NewSequence(const aDataSet : TDataSet; const aFieldName : String = 'SEQ') : Integer;
   end;
 
 implementation

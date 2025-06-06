@@ -83,6 +83,8 @@ type
       procedure StartTransaction;
       procedure CommitTransaction;
       procedure RollbackTransaction;
+
+      function NewSequence(const aDataSet : TDataSet; const aFieldName : String = 'SEQ') : Integer;
   end;
 
 implementation
@@ -264,6 +266,11 @@ begin
   else
   if (aDataSet.FieldByName(aFieldName) is TDateTimeField) then
     TDateTimeField( aDataSet.FieldByName(aFieldName) ).DisplayFormat := aFormatValue;
+end;
+
+function TModelDAO.NewSequence(const aDataSet: TDataSet; const aFieldName: String): Integer;
+begin
+  Result := FConn.NewSequence(aDataSet, aFieldName);
 end;
 
 procedure TModelDAO.Open;

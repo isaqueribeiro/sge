@@ -79,6 +79,18 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom; virtual; abstract;
   end;
 
+  // Tipos de Cotações de Compras/Serviços (View)
+  TModelDAOTipoCotacaoView = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
 implementation
 
 uses
@@ -600,6 +612,40 @@ begin
   DisplayField('QUANTIDADE',     'Quantidade',  ',0.###', TAlignment.taRightJustify);
   DisplayField('VALOR_UNITARIO', 'Valor Un.',   ',0.00#', TAlignment.taRightJustify);
   DisplayField('VALOR_TOTAL',    'Valor Total', ',0.00#', TAlignment.taRightJustify);
+end;
+
+{ TModelDAOTipoCotacaoView }
+
+constructor TModelDAOTipoCotacaoView.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select       ')
+        .Add('  a.codigo,  ')
+        .Add('  a.descricao')
+        .Add('from VW_TIPO_COTACAO a')
+      .&End
+    .Open;
+end;
+
+destructor TModelDAOTipoCotacaoView.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOTipoCotacaoView.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOTipoCotacaoView.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
 end;
 
 end.

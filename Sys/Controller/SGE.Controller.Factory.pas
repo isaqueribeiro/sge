@@ -145,6 +145,7 @@ type
       FTipoCNPJView    ,
       FTipoComissaoView,
       FTipoContratoView,
+      FTipoCotacaoView ,
       FTipoDescontoView,
       FTipoDespesa     ,
       FTipoDespesaPlanoConta   ,
@@ -265,6 +266,7 @@ type
       function TipoCNPJView : IControllerCustom;
       function TipoComissaoView : IControllerCustom;
       function TipoContratoView : IControllerCustom;
+      function TipoCotacaoView  : IControllerCustom;
       function TipoDescontoView : IControllerCustom;
       function TipoDespesa : IControllerCustom;
       function TipoDespesaPlanoConta : IControllerCustom;
@@ -1042,6 +1044,14 @@ begin
     FTipoContratoView := TControllerTipoContratoView.New;
 
   Result := FTipoContratoView;
+end;
+
+function TControllerFactory.TipoCotacaoView: IControllerCustom;
+begin
+  if not Assigned(FTipoCotacaoView) then
+    FTipoCotacaoView := TControllerTipoCotacaoView.New;
+
+  Result := FTipoCotacaoView;
 end;
 
 function TControllerFactory.TipoDescontoView: IControllerCustom;

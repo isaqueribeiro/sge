@@ -402,8 +402,6 @@ var
   function GetImprimirCodClienteNFe(const sCNPJEmitente : String) : Boolean;
   function GetImprimirCodigoReferenciaProdutoNFe(const sCNPJEmitente : String) : Boolean;
   function GetImprimirCodigoExternoProdutoNFe(const sCNPJEmitente : String) : Boolean;
-  function GetExisteNumeroCotacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
-  function GetExisteNumeroSolicitacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroApropriacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetExisteNumeroRequisicaoAlmox(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
   function GetMenorVencimentoAPagar : TDateTime;
@@ -4294,60 +4292,6 @@ begin
     Open;
 
     Result := (FieldByName('nfe_imprimir_cod_referencia').AsInteger = 1);
-
-    Close;
-  end;
-end;
-
-function GetExisteNumeroCotacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
-begin
-  with DMBusiness, fdQryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Select');
-    SQL.Add('    a.ano');
-    SQL.Add('  , a.codigo');
-    SQL.Add('  , a.numero');
-    SQL.Add('from TBCOTACAO_COMPRA a');
-    SQL.Add('where a.Numero  = ' + QuotedStr(Trim(sNumero)));
-    SQL.Add('  and (not (');
-    SQL.Add('           a.ano    = ' + IntToStr(iAno));
-    SQL.Add('       and a.codigo = ' + IntToStr(iCodigo));
-    SQL.Add('  ))');
-    Open;
-
-    Result := (FieldByName('codigo').AsInteger > 0);
-
-    if Result then
-      sControleInterno := Trim(FieldByName('ano').AsString) + '/' + FormatFloat('###0000000', FieldByName('codigo').AsInteger);
-
-    Close;
-  end;
-end;
-
-function GetExisteNumeroSolicitacao(iAno, iCodigo : Integer; sNumero : String; var sControleInterno : String) : Boolean;
-begin
-  with DMBusiness, fdQryBusca do
-  begin
-    Close;
-    SQL.Clear;
-    SQL.Add('Select');
-    SQL.Add('    s.ano');
-    SQL.Add('  , s.codigo');
-    SQL.Add('  , s.numero');
-    SQL.Add('from TBSOLICITACAO s');
-    SQL.Add('where s.Numero  = ' + QuotedStr(Trim(sNumero)));
-    SQL.Add('  and (not (');
-    SQL.Add('           s.ano    = ' + IntToStr(iAno));
-    SQL.Add('       and s.codigo = ' + IntToStr(iCodigo));
-    SQL.Add('  ))');
-    Open;
-
-    Result := (FieldByName('codigo').AsInteger > 0);
-
-    if Result then
-      sControleInterno := Trim(FieldByName('ano').AsString) + '/' + FormatFloat('###0000000', FieldByName('codigo').AsInteger);
 
     Close;
   end;

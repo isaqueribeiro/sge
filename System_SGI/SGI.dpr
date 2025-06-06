@@ -126,7 +126,7 @@ uses
   UGrConfigurarAmbiente in '..\Sys\lib\UGrConfigurarAmbiente.pas' {frmGrConfigurarAmbiente},
   UGeContasAPagarImpressao in '..\System_SGE\UGeContasAPagarImpressao.pas' {frmGeContasAPagarImpressao},
   UGeEntradaImpressao in '..\System_SGE\UGeEntradaImpressao.pas' {frmGeEntradaImpressao},
-  UGeCotacaoCompra in '..\System_SGE\UGeCotacaoCompra.pas' {frmGeCotacaoCompra},
+  View.CotacaoCompra in 'View\View.CotacaoCompra.pas' {ViewCotacaoCompra},
   UGeCotacaoCompraCancelar in '..\System_SGE\UGeCotacaoCompraCancelar.pas' {frmGeCotacaoCompraCancelar},
   UGeCotacaoCompraFornecedor in '..\System_SGE\UGeCotacaoCompraFornecedor.pas' {frmGeCotacaoCompraFornecedor},
   UEcfWindowsPrinter in '..\Sys\lib\UEcfWindowsPrinter.pas',

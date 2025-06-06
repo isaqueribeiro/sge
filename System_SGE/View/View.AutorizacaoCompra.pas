@@ -496,7 +496,6 @@ begin
   CampoDescricao := 'f.nomeforn';
   CampoOrdenacao := 'a.emissao_data, f.nomeforn';
 
-
   aDataInicio := FormatDateTime('yyyy-mm-dd', e1Data.Date);
   aDataFinal  := FormatDateTime('yyyy-mm-dd', e2Data.Date);
 
@@ -689,9 +688,8 @@ begin
   else
   begin
     inherited;
-    with DtSrcTabela.DataSet do
-      if (not OcorreuErro) then
-        AbrirTabelaItens;
+    if (not OcorreuErro) then
+      AbrirTabelaItens;
   end;
 end;
 
@@ -702,16 +700,8 @@ begin
 end;
 
 procedure TViewAutorizacaoCompra.btnProdutoInserirClick(Sender: TObject);
-
-  procedure GerarSequencial(var Seq : Integer);
-  begin
-    Seq := DtSrcTabelaItens.DataSet.RecordCount + 1;
-    while ( DtSrcTabelaItens.DataSet.Locate('SEQ', Seq, []) ) do
-      Seq := Seq + 1;
-  end;
-
 var
-  Sequencial : Integer;
+  aSequencial : Integer;
 begin
   if ( DtSrcTabela.DataSet.FieldByName('FORNECEDOR').AsInteger = 0 ) then
   begin
@@ -721,7 +711,7 @@ begin
   else
   if ( DtSrcTabelaItens.DataSet.Active ) then
   begin
-    GerarSequencial(Sequencial);
+    aSequencial := Controller.DAO.NewSequence(DtSrcTabelaItens.DataSet, 'SEQ');
 
     DtSrcTabelaItens.DataSet.Append;
     DtSrcTabelaItens.DataSet.FieldByName('ANO').Assign( DtSrcTabela.DataSet.FieldByName('ANO') );
@@ -729,7 +719,7 @@ begin
     DtSrcTabelaItens.DataSet.FieldByName('EMPRESA').Assign( DtSrcTabela.DataSet.FieldByName('EMPRESA') );
     DtSrcTabelaItens.DataSet.FieldByName('FORNECEDOR').Assign( DtSrcTabela.DataSet.FieldByName('FORNECEDOR') );
 
-    DtSrcTabelaItens.DataSet.FieldByName('SEQ').AsInteger := Sequencial;
+    DtSrcTabelaItens.DataSet.FieldByName('SEQ').AsInteger := aSequencial;
     dbProduto.SetFocus;
   end;
 end;
@@ -866,7 +856,9 @@ end;
 
 function TViewAutorizacaoCompra.Empresa: IControllerEmpresa;
 begin
-  Result := FControllerEmpresaView as IControllerEmpresa;
+//  Result := FControllerEmpresaView as IControllerEmpresa;
+  if not Supports(FControllerEmpresaView, IControllerEmpresa, Result) then
+    Result := nil;
 end;
 
 procedure TViewAutorizacaoCompra.DtSrcTabelaItensStateChange(
@@ -961,7 +953,6 @@ begin
       TServiceMessage.ShowInformation('Autorização realizada com sucesso !' + #13#13 + 'Ano/Número: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CODIGO').AsInteger));
 
       HabilitarDesabilitar_Btns;
-
       RdgStatusAutorizacao.ItemIndex := 0;
     end;
   end;
@@ -1375,7 +1366,7 @@ var
 begin
   with DtSrcTabela.DataSet do
   begin
-    if ( IsEmpty ) then
+    if IsEmpty then
       Exit;
 
     if not GetPermissaoRotinaInterna(Sender, True) then
