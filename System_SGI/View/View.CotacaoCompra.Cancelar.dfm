@@ -1,39 +1,38 @@
-inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
+inherited ViewCotacaoCompraCancelar: TViewCotacaoCompraCancelar
   Left = 389
   Top = 218
   BorderIcons = [biSystemMenu]
   BorderWidth = 4
-  Caption = 'Cancelar Solicita'#231#227'o de Compra/Servi'#231'o'
-  ClientHeight = 403
-  ClientWidth = 589
-  ExplicitWidth = 613
-  ExplicitHeight = 450
+  Caption = 'Cancelar Cota'#231#227'o de Compra/Servi'#231'o'
+  ClientHeight = 423
+  ClientWidth = 591
+  ExplicitWidth = 611
+  ExplicitHeight = 469
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
-    Top = 365
-    Width = 589
+    Top = 121
+    Width = 591
     Height = 4
     Align = alTop
     Shape = bsSpacer
-    ExplicitLeft = 8
-    ExplicitTop = 356
-    ExplicitWidth = 661
+    ExplicitWidth = 593
   end
   object Bevel2: TBevel
     Left = 0
-    Top = 121
-    Width = 589
+    Top = 386
+    Width = 591
     Height = 4
-    Align = alTop
+    Align = alBottom
     Shape = bsSpacer
-    ExplicitTop = 389
-    ExplicitWidth = 593
+    ExplicitLeft = 16
+    ExplicitTop = 348
+    ExplicitWidth = 588
   end
   object GrpBxControle: TGroupBox
     Left = 0
     Top = 0
-    Width = 589
+    Width = 591
     Height = 121
     Align = alTop
     Caption = 'Controle da Cota'#231#227'o'
@@ -44,12 +43,16 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 580
+    DesignSize = (
+      591
+      121)
     object lblCodigo: TLabel
       Left = 16
       Top = 24
-      Width = 84
+      Width = 69
       Height = 13
-      Caption = 'No. Solicita'#231#227'o:'
+      Caption = 'No. Cota'#231#227'o:'
       FocusControl = dbCodigo
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -61,9 +64,9 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
     object lblDescricaoResumo: TLabel
       Left = 112
       Top = 24
-      Width = 98
+      Width = 104
       Height = 13
-      Caption = 'Nome Solicitante:'
+      Caption = 'Descri'#231#227'o resumo:'
       FocusControl = dbDescricaoResumo
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
@@ -108,7 +111,7 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
       TabStop = False
       Color = clMoneyGreen
       DataField = 'NUMERO'
-      DataSource = dtsSolicitacao
+      DataSource = dtsCotacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -124,9 +127,10 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
       Width = 465
       Height = 21
       TabStop = False
+      Anchors = [akLeft, akTop, akRight]
       Color = clMoneyGreen
-      DataField = 'NOME_SOLICITANTE'
-      DataSource = dtsSolicitacao
+      DataField = 'DESCRICAO_RESUMO'
+      DataSource = dtsCotacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -143,8 +147,8 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
       Height = 21
       TabStop = False
       Color = clMoneyGreen
-      DataField = 'DATA_EMISSAO'
-      DataSource = dtsSolicitacao
+      DataField = 'EMISSAO_DATA'
+      DataSource = dtsCotacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -162,7 +166,7 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
       TabStop = False
       Color = clMoneyGreen
       DataField = 'VALIDADE'
-      DataSource = dtsSolicitacao
+      DataSource = dtsCotacao
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -173,13 +177,12 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
       TabOrder = 3
     end
   end
-  object GrpBxCancelamento: TGroupBox
+  object GrpBxTexto: TGroupBox
     Left = 0
     Top = 125
-    Width = 589
-    Height = 240
-    Align = alTop
-    Anchors = [akLeft, akTop, akRight, akBottom]
+    Width = 591
+    Height = 261
+    Align = alClient
     Caption = 'Dados do Cancelamento'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -188,10 +191,11 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
-    ExplicitHeight = 263
+    ExplicitWidth = 580
+    ExplicitHeight = 260
     DesignSize = (
-      589
-      240)
+      591
+      261)
     object lblCancelUsuario: TLabel
       Left = 16
       Top = 24
@@ -207,7 +211,7 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
       ParentFont = False
     end
     object lblCancelDataHora: TLabel
-      Left = 395
+      Left = 408
       Top = 24
       Width = 63
       Height = 13
@@ -220,7 +224,6 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitLeft = 408
     end
     object lblMotivo: TLabel
       Left = 16
@@ -239,8 +242,8 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
     object dbMotivo: TMemo
       Left = 16
       Top = 83
-      Width = 550
-      Height = 142
+      Width = 559
+      Height = 165
       Anchors = [akLeft, akTop, akRight, akBottom]
       Color = clWhite
       Font.Charset = ANSI_CHARSET
@@ -252,13 +255,13 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
       ParentFont = False
       ScrollBars = ssVertical
       TabOrder = 2
-      ExplicitWidth = 558
-      ExplicitHeight = 143
+      ExplicitWidth = 548
+      ExplicitHeight = 164
     end
     object dbCancelUsuario: TEdit
       Left = 16
       Top = 40
-      Width = 372
+      Width = 385
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       CharCase = ecUpperCase
@@ -272,12 +275,11 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
       ReadOnly = True
       TabOrder = 0
       Text = 'DBUSUARIO'
-      ExplicitWidth = 385
     end
     object dbCancelDataHora: TEdit
-      Left = 394
+      Left = 408
       Top = 40
-      Width = 175
+      Width = 169
       Height = 21
       Anchors = [akTop, akRight]
       CharCase = ecUpperCase
@@ -291,24 +293,23 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
       ReadOnly = True
       TabOrder = 1
       Text = 'DBCANCELDATAHORA'
-      ExplicitLeft = 402
     end
   end
   object pnlBotoes: TPanel
     Left = 0
-    Top = 370
-    Width = 589
+    Top = 390
+    Width = 591
     Height = 33
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 376
-    ExplicitWidth = 585
+    ExplicitTop = 389
+    ExplicitWidth = 580
     object lblInforme: TLabel
       AlignWithMargins = True
       Left = 3
       Top = 3
-      Width = 399
+      Width = 397
       Height = 27
       Align = alClient
       AutoSize = False
@@ -325,7 +326,7 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
       ExplicitHeight = 39
     end
     object Bevel3: TBevel
-      Left = 497
+      Left = 495
       Top = 0
       Width = 4
       Height = 33
@@ -336,7 +337,7 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
       ExplicitHeight = 589
     end
     object btnCancelar: TcxButton
-      Left = 405
+      Left = 403
       Top = 0
       Width = 92
       Height = 33
@@ -413,10 +414,10 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
       OptionsImage.NumGlyphs = 2
       TabOrder = 0
       OnClick = btnCancelarClick
-      ExplicitLeft = 401
+      ExplicitLeft = 392
     end
     object btFechar: TcxButton
-      Left = 501
+      Left = 499
       Top = 0
       Width = 92
       Height = 33
@@ -494,13 +495,12 @@ inherited ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar
       OptionsImage.NumGlyphs = 2
       TabOrder = 1
       OnClick = btFecharClick
-      ExplicitLeft = 503
-      ExplicitTop = 1
+      ExplicitLeft = 488
     end
   end
-  object dtsSolicitacao: TDataSource
+  object dtsCotacao: TDataSource
     AutoEdit = False
-    Left = 168
-    Top = 240
+    Left = 432
+    Top = 256
   end
 end

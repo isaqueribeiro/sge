@@ -3,8 +3,8 @@ object frmPrinc: TfrmPrinc
   Left = 429
   Top = 206
   Caption = 'SGI | Sistema Integrado de Gest'#227'o Industrial'
-  ClientHeight = 641
-  ClientWidth = 1086
+  ClientHeight = 640
+  ClientWidth = 1082
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,9 +18,9 @@ object frmPrinc: TfrmPrinc
   OnShow = FormShow
   TextHeight = 13
   object SptDockReqAlmox: TSplitter
-    Left = 1082
+    Left = 1078
     Top = 160
-    Height = 481
+    Height = 480
     Align = alRight
     Color = clBtnFace
     ParentColor = False
@@ -31,30 +31,34 @@ object frmPrinc: TfrmPrinc
   object pnlMain: TPanel
     Left = 0
     Top = 160
-    Width = 1082
-    Height = 481
+    Width = 1078
+    Height = 480
     Align = alClient
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
+    ExplicitWidth = 1082
+    ExplicitHeight = 481
     DesignSize = (
-      1082
-      481)
+      1078
+      480)
     object imgFundo: TImage
       Left = 1
       Top = 1
-      Width = 1080
-      Height = 459
+      Width = 1076
+      Height = 458
       Align = alClient
       AutoSize = True
       Transparent = True
       Visible = False
       ExplicitLeft = -1
       ExplicitTop = -5
+      ExplicitWidth = 1080
+      ExplicitHeight = 459
     end
     object imgEmpresa: TImage
       Left = 8
-      Top = 345
+      Top = 344
       Width = 110
       Height = 110
       Anchors = [akLeft, akBottom]
@@ -4328,7 +4332,7 @@ object frmPrinc: TfrmPrinc
     end
     object ProductName: TLabel
       Left = 128
-      Top = 355
+      Top = 354
       Width = 138
       Height = 23
       Anchors = [akLeft, akBottom]
@@ -4346,7 +4350,7 @@ object frmPrinc: TfrmPrinc
     end
     object Copyright: TLabel
       Left = 128
-      Top = 392
+      Top = 391
       Width = 279
       Height = 26
       Anchors = [akLeft, akBottom]
@@ -4366,7 +4370,7 @@ object frmPrinc: TfrmPrinc
     end
     object FileDescription: TLabel
       Left = 128
-      Top = 377
+      Top = 376
       Width = 297
       Height = 13
       Anchors = [akLeft, akBottom]
@@ -4384,7 +4388,7 @@ object frmPrinc: TfrmPrinc
     end
     object Version: TLabel
       Left = 129
-      Top = 423
+      Top = 422
       Width = 72
       Height = 13
       Anchors = [akLeft, akBottom]
@@ -4401,7 +4405,7 @@ object frmPrinc: TfrmPrinc
       ExplicitTop = 457
     end
     object lblAberta: TLabel
-      Left = 815
+      Left = 811
       Top = 6
       Width = 261
       Height = 13
@@ -4421,8 +4425,8 @@ object frmPrinc: TfrmPrinc
     end
     object stbMain: TdxStatusBar
       Left = 1
-      Top = 460
-      Width = 1080
+      Top = 459
+      Width = 1076
       Height = 20
       Images = DMRecursos.ImgPrincipal16x16
       Panels = <
@@ -4449,8 +4453,8 @@ object frmPrinc: TfrmPrinc
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
-      ExplicitTop = 459
-      ExplicitWidth = 1076
+      ExplicitTop = 493
+      ExplicitWidth = 1080
     end
     object RbnBackstageView: TdxRibbonBackstageView
       Left = 431
@@ -4663,21 +4667,22 @@ object frmPrinc: TfrmPrinc
     end
   end
   object PnlDockReqAlmox: TPanel
-    Left = 1085
+    Left = 1081
     Top = 160
     Width = 1
-    Height = 481
+    Height = 480
     Align = alRight
     BevelOuter = bvNone
     DockSite = True
     TabOrder = 1
-    ExplicitLeft = 1081
-    ExplicitHeight = 480
+    ExplicitLeft = 1085
+    ExplicitTop = 127
+    ExplicitHeight = 514
   end
   object Ribbon: TdxRibbon
     Left = 0
     Top = 0
-    Width = 1086
+    Width = 1082
     Height = 160
     ApplicationButton.Menu = RbnBackstageView
     BarManager = BrManager
@@ -4689,7 +4694,6 @@ object frmPrinc: TfrmPrinc
     TabOrder = 2
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
-    ExplicitWidth = 1082
     object RbnTabPrincipal: TdxRibbonTab
       Caption = 'Principal'
       Groups = <

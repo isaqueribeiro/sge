@@ -1041,12 +1041,13 @@ inherited frmGeCotacaoCompra: TfrmGeCotacaoCompra
             object lblEnderecoEntrega: TLabel
               Left = 0
               Top = 4
-              Width = 160
+              Width = 1100
               Height = 13
               Align = alTop
               Caption = 'Endere'#231'o de Entrega/Realiza'#231#227'o:'
               FocusControl = dbEnderecoEntrega
               Visible = False
+              ExplicitWidth = 160
             end
             object Bevel5: TBevel
               Left = 0

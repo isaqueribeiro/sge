@@ -3,34 +3,37 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
   BorderIcons = [biSystemMenu]
   BorderWidth = 4
   Caption = 'Cota'#231#227'o de Compra/Servi'#231'o'
-  ClientHeight = 461
-  ClientWidth = 756
+  ClientHeight = 460
+  ClientWidth = 752
   ExplicitWidth = 776
   ExplicitHeight = 507
   DesignSize = (
-    756
-    461)
+    752
+    460)
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
     Top = 121
-    Width = 756
+    Width = 752
     Height = 4
     Align = alTop
     Shape = bsSpacer
+    ExplicitWidth = 756
   end
   object Bevel2: TBevel
     Left = 0
-    Top = 423
-    Width = 756
+    Top = 422
+    Width = 752
     Height = 4
     Align = alTop
     Shape = bsSpacer
+    ExplicitTop = 423
+    ExplicitWidth = 756
   end
   object GrpBxControle: TGroupBox
     Left = 0
     Top = 0
-    Width = 756
+    Width = 752
     Height = 121
     Align = alTop
     Caption = 'Controle da Cota'#231#227'o'
@@ -41,9 +44,8 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 752
     DesignSize = (
-      756
+      752
       121)
     object lblCodigo: TLabel
       Left = 16
@@ -136,7 +138,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     object dbDescricaoResumo: TDBEdit
       Left = 112
       Top = 40
-      Width = 624
+      Width = 620
       Height = 21
       TabStop = False
       Anchors = [akLeft, akTop, akRight]
@@ -151,7 +153,6 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       ParentFont = False
       ReadOnly = True
       TabOrder = 1
-      ExplicitWidth = 620
     end
     object dbEmissao: TDBEdit
       Left = 16
@@ -258,19 +259,17 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
   object PgcResposta: TPageControl
     Left = 0
     Top = 125
-    Width = 756
-    Height = 298
+    Width = 752
+    Height = 297
     ActivePage = TbsFornecedor
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
-    ExplicitWidth = 752
-    ExplicitHeight = 297
     object TbsFornecedor: TTabSheet
       Caption = '&Fornecedor'
       DesignSize = (
-        748
-        270)
+        744
+        269)
       object lblFornecedor: TLabel
         Left = 16
         Top = 8
@@ -338,7 +337,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       object dbEmail: TDBEdit
         Left = 296
         Top = 64
-        Width = 434
+        Width = 430
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         CharCase = ecLowerCase
@@ -351,7 +350,6 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
         Font.Style = []
         ParentFont = False
         TabOrder = 2
-        ExplicitWidth = 430
       end
       object dbFormaPagto: TDBLookupComboBox
         Left = 16
@@ -394,8 +392,8 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
       object dbObservacoes: TDBMemo
         Left = 16
         Top = 152
-        Width = 714
-        Height = 101
+        Width = 710
+        Height = 100
         Anchors = [akLeft, akTop, akRight, akBottom]
         DataField = 'OBSERVACAO'
         DataSource = dtsFornecedor
@@ -407,13 +405,11 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
         ParentFont = False
         ScrollBars = ssVertical
         TabOrder = 5
-        ExplicitWidth = 710
-        ExplicitHeight = 100
       end
       object dbFornecedor: TJvDBComboEdit
         Left = 16
         Top = 21
-        Width = 714
+        Width = 710
         Height = 21
         ButtonHint = 'Pesquisar Fornecedor (Ctrl+P)'
         CharCase = ecUpperCase
@@ -485,7 +481,6 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
         ShowHint = True
         TabOrder = 0
         OnButtonClick = dbFornecedorButtonClick
-        ExplicitWidth = 710
       end
     end
     object TbsFornecedorItem: TTabSheet
@@ -574,7 +569,7 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
   end
   object BtnCarregarXLS: TcxButton
     Left = 0
-    Top = 428
+    Top = 427
     Width = 92
     Height = 33
     Hint = 'Carregar/Processar Retorno XLS (Planilha em Excel)'
@@ -587,11 +582,10 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     TabOrder = 2
     TabStop = False
     Visible = False
-    ExplicitTop = 427
   end
   object btnSalvar: TcxButton
-    Left = 563
-    Top = 428
+    Left = 559
+    Top = 427
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -600,12 +594,10 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     OptionsImage.Images = DMRecursos.ImgBotoes16x16
     TabOrder = 3
     OnClick = btnSalvarClick
-    ExplicitLeft = 559
-    ExplicitTop = 427
   end
   object btFechar: TcxButton
-    Left = 659
-    Top = 428
+    Left = 655
+    Top = 427
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -615,8 +607,6 @@ inherited frmGeCotacaoCompraFornecedor: TfrmGeCotacaoCompraFornecedor
     OptionsImage.Images = DMRecursos.ImgBotoes16x16
     TabOrder = 4
     OnClick = btFecharClick
-    ExplicitLeft = 655
-    ExplicitTop = 427
   end
   object dtsFornecedor: TDataSource
     AutoEdit = False

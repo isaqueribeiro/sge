@@ -52,7 +52,7 @@ uses
   SGE.Controller.Interfaces,
   Interacao.Tabela,
   Controller.Tabela,
-  SGE.Controller.Impressao.AutorizacaoCompra;
+  SGI.Controller.Impressao.CotacaoCompra;
 
 type
   TViewCotacaoCompra = class(TViewPadraoCadastro)
@@ -224,7 +224,7 @@ type
     procedure btbtnCancelarClick(Sender: TObject);
   private
     { Private declarations }
-    FImpressao : IImpressaoAutorizacaoCompra;
+    FImpressao : IImpressaoCotacaoCompra;
     FControllerEmpresaView,
     FControllerTipoCotacaoView : IControllerCustom;
 //    FControllerFormaPagto ,
@@ -301,16 +301,17 @@ uses
   , System.SysConst
   , UDMRecursos
   , UDMBusiness
+  , UDMNFe
+  , UFuncoes
   , SGE.Controller.Factory
   , SGE.Controller
   , SGE.Controller.Helper
   , Service.Message
   , View.Fornecedor
   , View.Produto
-  , View.AutorizacaoCompra.Cancelar
   , View.Cliente
   , View.CentroCusto
-  , UGeCotacaoCompraCancelar
+  , View.CotacaoCompra.Cancelar
   , UGeCotacaoCompraFornecedor;
 //
 //  , Controller.Tabela
@@ -760,7 +761,7 @@ begin
       Edit;
 
       FieldByName('STATUS').Value             := STATUS_COTACAO_ENC;
-      FieldByName('AUTORIZADA_DATA').Value    := GetDateDB;
+      FieldByName('AUTORIZADA_DATA').Value    := Date;
       FieldByName('AUTORIZADA_USUARIO').Value := gUsuarioLogado.Login;
 
       DtSrcTabela.DataSet.Post;
@@ -1125,7 +1126,7 @@ begin
   if (Sender = dbgFornecedor) then
   begin
     if (dtsFornecedor.DataSet.FieldByName('ATIVO').AsInteger = 0) then
-      dbgFornecedor.Canvas.Font.Color := shpOperacaoCancelada.Font.Color;
+      dbgFornecedor.Canvas.Font.Color := shpOperacaoCancelada.Brush.Color;
 
     dbgFornecedor.DefaultDrawDataCell(Rect, dbgFornecedor.Columns[DataCol].Field, State);
   end;
@@ -1202,49 +1203,18 @@ end;
 procedure TViewCotacaoCompra.nmImprimirCotacaoClick(
   Sender: TObject);
 begin
-  if ( DtSrcTabela.DataSet.IsEmpty ) then
+  if DtSrcTabela.DataSet.IsEmpty then
     Exit;
 
-  with DMNFe do
-  begin
+  if not Assigned(FImpressao) then
+    FImpressao := TImpressaoCotacaoCompra.New;
 
-    try
-      ConfigurarEmail(gUsuarioLogado.Empresa,
-        GetEmailEmpresa(DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString),
-        dbTipo.Text,
-        EmptyStr);
-    except
-    end;
-
-    with qryEmitente do
-    begin
-      Close;
-      ParamByName('Cnpj').AsString := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
-      Open;
-    end;
-
-    with qryCotacaoCompra do
-    begin
-      Close;
-      ParamByName('ano').AsInteger := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
-      ParamByName('cod').AsInteger := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
-      ParamByName('emp').AsString  := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
-      Open;
-    end;
-
-    with qryCotacaoCompraFornecedor do
-    begin
-      Close;
-      ParamByName('ano').AsInteger   := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
-      ParamByName('cod').AsInteger   := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
-      ParamByName('emp').AsString    := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
-      ParamByName('frn').AsInteger   := 0;
-      ParamByName('todos').AsInteger := 0;
-      Open;
-    end;
-
-    frrCotacaoCompra.ShowReport;
-  end;
+  FImpressao
+    .VisualizarCotacao(
+      DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString,
+      DtSrcTabela.DataSet.FieldByName('ANO').AsInteger,
+      DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger
+    );
 end;
 
 procedure TViewCotacaoCompra.btnCancelarCotacaoClick(
@@ -1255,20 +1225,32 @@ begin
     if IsEmpty then
       Exit;
 
-    RecarregarRegistro;
-    AbrirTabelaItens;
-    AbrirTabelaFornecedores;
+    if not GetPermissaoRotinaInterna(Sender, True) then
+      Abort;
 
-    if (FieldByName('STATUS').AsInteger <> STATUS_COTACAO_COT) then
+    RecarregarRegistro;
+
+    pgcGuias.ActivePage := tbsCadastro;
+
+    if (FieldByName('STATUS').AsInteger = STATUS_COTACAO_CAN) then
+    begin
+      TServiceMessage.ShowWarning('Lançamento de Cotação já está cancelado!');
+      Abort;
+    end;
+
+    AbrirTabelaItens;
+
+    if (not (FieldByName('STATUS').AsInteger in [STATUS_COTACAO_COT])) then
       TServiceMessage.ShowInformation('Apenas registros em cotação podem ser cancelados!')
     else
-    if CancelarCOT(Self, FieldByName('ANO').Value, FieldByName('CODIGO').Value) then
+    if CancelarCOT(Self, FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger, FieldByName('EMPRESA').AsString) then
     begin
       RecarregarRegistro;
 
       TServiceMessage.ShowInformation('Cotação cancelada com sucesso.' + #13#13 +
-        'Ano/Controle: ' + FieldByName('ANO').AsString + '/' + FormatFloat('##0000000', FieldByName('CODIGO').AsInteger));
-
+        'Ano/Controle: ' +
+        FieldByName('ANO').AsString + '/' +
+        FormatFloat('##0000000', FieldByName('CODIGO').AsInteger));
       HabilitarDesabilitar_Btns;
     end;
   end;
@@ -1470,14 +1452,14 @@ begin
   begin
     if CotacaoFornecedor(Self
       , cfoEditar
-      , qryFornecedorEMPRESA.Value
-      , qryFornecedorANO.Value
-      , qryFornecedorCODIGO.Value
-      , qryFornecedorFORNECEDOR.Value
-      , DtSrcTabela.DataSet.FieldByName('DESCRICAO_RESUMO').Value
+      , dtsFornecedor.DataSet.FieldByName('EMPRESA').AsString
+      , dtsFornecedor.DataSet.FieldByName('ANO').AsInteger
+      , dtsFornecedor.DataSet.FieldByName('CODIGO').AsInteger
+      , dtsFornecedor.DataSet.FieldByName('FORNECEDOR').AsInteger
+      , DtSrcTabela.DataSet.FieldByName('DESCRICAO_RESUMO').AsString
       , EmptyStr
-      , DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').Value
-      , DtSrcTabela.DataSet.FieldByName('VALIDADE').Value) then
+      , DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').AsDateTime
+      , DtSrcTabela.DataSet.FieldByName('VALIDADE').AsDateTime) then
     begin
 
       AbrirTabelaFornecedores;
@@ -1519,72 +1501,72 @@ var
   sMensagem ,
   sFileName : String;
 begin
-  if ( dtsFornecedor.DataSet.IsEmpty ) then
+  if dtsFornecedor.DataSet.IsEmpty then
     Exit;
 
   with DMNFe do
   begin
-
-    try
-      ConfigurarEmail(gUsuarioLogado.Empresa, GetEmailEmpresa(qryFornecedorEMPRESA.AsString), dbTipo.Text, EmptyStr);
-    except
-    end;
-
-    with qryEmitente do
-    begin
-      Close;
-      ParamByName('Cnpj').AsString := qryFornecedorEMPRESA.AsString;
-      Open;
-    end;
+    DMNFe.AbrirEmitente(dtsFornecedor.DataSet.FieldByName('EMPRESA').AsString);
+    DMBusiness.ConfigurarEmail(
+      dtsFornecedor.DataSet.FieldByName('EMPRESA').AsString,
+      GetEmailEmpresa(dtsFornecedor.DataSet.FieldByName('EMPRESA').AsString),
+      dbTipo.Text,
+      EmptyStr
+    );
 
     with qryCotacaoCompra do
     begin
       Close;
-      ParamByName('ano').AsInteger := qryFornecedorANO.AsInteger;
-      ParamByName('cod').AsInteger := qryFornecedorCODIGO.AsInteger;
-      ParamByName('emp').AsString  := qryFornecedorEMPRESA.AsString;
+      ParamByName('ano').AsInteger := dtsFornecedor.DataSet.FieldByName('ANO').AsInteger;
+      ParamByName('cod').AsInteger := dtsFornecedor.DataSet.FieldByName('CODIGO').AsInteger;
+      ParamByName('emp').AsString  := dtsFornecedor.DataSet.FieldByName('EMPRESA').AsString;
       Open;
     end;
 
     with qryCotacaoCompraFornecedor do
     begin
       Close;
-      ParamByName('ano').AsInteger   := qryFornecedorANO.AsInteger;
-      ParamByName('cod').AsInteger   := qryFornecedorCODIGO.AsInteger;
-      ParamByName('emp').AsString    := qryFornecedorEMPRESA.AsString;
-      ParamByName('frn').AsInteger   := qryFornecedorFORNECEDOR.AsInteger;
+      ParamByName('ano').AsInteger   := dtsFornecedor.DataSet.FieldByName('ANO').AsInteger;
+      ParamByName('cod').AsInteger   := dtsFornecedor.DataSet.FieldByName('CODIGO').AsInteger;
+      ParamByName('emp').AsString    := dtsFornecedor.DataSet.FieldByName('EMPRESA').AsString;
+      ParamByName('frn').AsInteger   := dtsFornecedor.DataSet.FieldByName('FORNECEDOR').AsInteger;
       ParamByName('todos').AsInteger := 0;
       Open;
     end;
 
-    sID       := FormatFloat('00000', qryFornecedorFORNECEDOR.AsInteger);
+    sID := FormatFloat('00000', dtsFornecedor.DataSet.FieldByName('FORNECEDOR').AsInteger);
     sFileName := Path_MeusDocumentos + '\' +
-      'COTACAO_' + sID + '.' + qryFornecedorEMPRESA.AsString + '_' +
+      'COTACAO_' + sID + '.' + dtsFornecedor.DataSet.FieldByName('EMPRESA').AsString + '_' +
         StringReplace(DtSrcTabela.DataSet.FieldByName('NUMERO').AsString, '/', '-', [rfReplaceAll]) + '.xls';
 
     ExportarFR3_ToXSL(frrCotacaoCompra, sFileName);
 
     ElaborarFormulaTravarCelulasXLS(Self,
-      qryFornecedorEMPRESA.AsString, qryFornecedorANO.AsInteger, qryFornecedorCODIGO.AsInteger, qryFornecedorFORNECEDOR.AsInteger,
-      qryFornecedorCNPJ.AsString, sFileName);
+      dtsFornecedor.DataSet.FieldByName('EMPRESA').AsString,
+      dtsFornecedor.DataSet.FieldByName('ANO').AsInteger,
+      dtsFornecedor.DataSet.FieldByName('CODIGO').AsInteger,
+      dtsFornecedor.DataSet.FieldByName('FORNECEDOR').AsInteger,
+      dtsFornecedor.DataSet.FieldByName('CNPJ').AsString,
+      sFileName
+    );
 
     if FileExists(sFileName) then
     begin
 
-      SetEventoLOG('Planilha de cotação gerada para o Fornecedor ' + qryFornecedorNOMEFORN.AsString);
+      SetEventoLOG('Planilha de cotação gerada para o Fornecedor ' + dtsFornecedor.DataSet.FieldByName('NOMEFORN').AsString);
 
       sMensagem := 'Arquivo gerado com sucesso:' + #13 + sFileName + #13#13 +
         'Deseja que este arquivo seja enviado por e-mail para o fornecedor?';
 
-      if ShowConfirm(sMensagem) then
+      if TServiceMessage.ShowConfirm(sMensagem) then
       begin
-        if DMNFe.EnviarEmail_Generico(qryFornecedorEMPRESA.AsString
+        if DMNFe.EnviarEmail_Generico(dtsFornecedor.DataSet.FieldByName('EMPRESA').AsString
           , DtSrcTabela.DataSet.FieldByName('NUMERO').Value
-          , qryFornecedorEMAIL_ENVIO.AsString
+          , dtsFornecedor.DataSet.FieldByName('EMAIL_ENVIO').AsString
           , sFileName) then
         begin
-          SetEventoLOG('Planilha de cotação enviada por e-mail para o Fornecedor ' + qryFornecedorNOMEFORN.AsString);
-          ShowInformation(Format('E-mail enviado com sucesso para ''%s''', [qryFornecedorEMAIL_ENVIO.AsString]));
+          SetEventoLOG('Planilha de cotação enviada por e-mail para o Fornecedor ' + dtsFornecedor.DataSet.FieldByName('NOMEFORN').AsString);
+          TServiceMessage.ShowInformation(Format('E-mail enviado com sucesso para ''%s''', [dtsFornecedor.DataSet.FieldByName('EMAIL_ENVIO').AsString]));
         end;
       end;
 
@@ -1598,12 +1580,12 @@ var
   sMensagem ,
   sFileName : String;
 begin
-  if ( dtsFornecedor.DataSet.IsEmpty ) then
+  if dtsFornecedor.DataSet.IsEmpty then
     Exit;
 
-  sID       := FormatFloat('00000', qryFornecedorFORNECEDOR.AsInteger);
+  sID := FormatFloat('00000', dtsFornecedor.DataSet.FieldByName('FORNECEDOR').AsInteger);
   sFileName := Path_MeusDocumentos + '\' +
-    'COTACAO_' + sID + '.' + qryFornecedorEMPRESA.AsString + '_' +
+    'COTACAO_' + sID + '.' + dtsFornecedor.DataSet.FieldByName('EMPRESA').AsString + '_' +
       StringReplace(DtSrcTabela.DataSet.FieldByName('NUMERO').AsString, '/', '-', [rfReplaceAll]) + '.xls';
 
   opdCotacaoFornecedor.FileName := sFileName;
@@ -1701,60 +1683,23 @@ end;
 
 procedure TViewCotacaoCompra.nmImprimirCotacaoMapaClick(Sender: TObject);
 begin
+  if DtSrcTabela.DataSet.IsEmpty then
+    Exit;
+
   if (DtSrcTabela.DataSet.FieldByName('VALOR_MAX_TOTAL').AsCurrency = 0.0) then
     TServiceMessage.ShowWarning('Não é possível montar ainda o mapa de preços por não haver respostas de fornecedores!')
   else
-    with DMNFe do
-    begin
+  begin
+    if not Assigned(FImpressao) then
+      FImpressao := TImpressaoCotacaoCompra.New;
 
-      try
-        ConfigurarEmail(gUsuarioLogado.Empresa,
-          GetEmailEmpresa(DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString),
-          dbTipo.Text,
-          EmptyStr);
-      except
-      end;
-
-      with qryEmitente do
-      begin
-        Close;
-        ParamByName('Cnpj').AsString := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
-        Open;
-      end;
-
-      with qryCotacaoCompra do
-      begin
-        Close;
-        ParamByName('ano').AsInteger := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
-        ParamByName('cod').AsInteger := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
-        ParamByName('emp').AsString  := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
-        Open;
-      end;
-
-      with qryCotacaoCompraFornecedor do
-      begin
-        Close;
-        ParamByName('ano').AsInteger   := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
-        ParamByName('cod').AsInteger   := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
-        ParamByName('emp').AsString    := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
-        ParamByName('frn').AsInteger   := 0;
-        ParamByName('todos').AsInteger := 1;
-        Open;
-      end;
-
-      with qryCotacaoCompraFornecedorItem do
-      begin
-        Close;
-        ParamByName('ano').AsInteger   := DtSrcTabela.DataSet.FieldByName('ANO').AsInteger;
-        ParamByName('cod').AsInteger   := DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger;
-        ParamByName('emp').AsString    := DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString;
-        ParamByName('frn').AsInteger   := 0;
-        ParamByName('todos').AsInteger := 1;
-        Open;
-      end;
-
-      frrCotacaoCompraMapaPreco.ShowReport;
-    end;
+    FImpressao
+      .VisualizarCotacao(
+        DtSrcTabela.DataSet.FieldByName('EMPRESA').AsString,
+        DtSrcTabela.DataSet.FieldByName('ANO').AsInteger,
+        DtSrcTabela.DataSet.FieldByName('CODIGO').AsInteger
+      );
+  end;
 end;
 
 procedure TViewCotacaoCompra.BtnFornecedorExcluirClick(Sender: TObject);

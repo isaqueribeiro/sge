@@ -388,13 +388,13 @@ uses
   View.Esmaecer,
 
   // Movimentação
-  UGeCotacaoCompra,
   UGeRequisicaoCliente,
   View.AutorizacaoCompra,
   View.RequisicaoCompra,
   View.RequisicaoAlmox,
   View.RequisicaoAlmox.Monitor,
   View.SolicitacaoCompra,
+  View.CotacaoCompra,
 
   // Estoque, Entrada e Saída
   View.Produto,

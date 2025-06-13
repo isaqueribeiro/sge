@@ -994,7 +994,7 @@ begin
     if (not (FieldByName('STATUS').AsInteger in [STATUS_SOLICITACAO_FIN, STATUS_SOLICITACAO_APR])) then
       TServiceMessage.ShowInformation('Apenas registros finalizados e/ou aprovados podem ser cancelados!')
     else
-    if CancelarCOT(Self, FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger) then
+    if CancelarSOL(Self, FieldByName('ANO').AsInteger, FieldByName('CODIGO').AsInteger) then
     begin
       RecarregarRegistro;
 

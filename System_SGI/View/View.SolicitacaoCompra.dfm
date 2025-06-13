@@ -1740,10 +1740,6 @@ inherited ViewSolicitacaoCompra: TViewSolicitacaoCompra
       Height = 31
       Shape = bsSpacer
     end
-    inherited btbtnSalvar: TcxButton
-      ExplicitLeft = 306
-      ExplicitTop = -2
-    end
     inherited btbtnLista: TcxButton
       Visible = True
     end

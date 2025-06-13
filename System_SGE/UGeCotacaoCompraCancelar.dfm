@@ -5,14 +5,14 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
   BorderWidth = 4
   Caption = 'Cancelar Cota'#231#227'o de Compra/Servi'#231'o'
   ClientHeight = 423
-  ClientWidth = 584
-  ExplicitWidth = 608
-  ExplicitHeight = 470
+  ClientWidth = 591
+  ExplicitWidth = 611
+  ExplicitHeight = 469
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
     Top = 121
-    Width = 584
+    Width = 591
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -21,7 +21,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
   object Bevel2: TBevel
     Left = 0
     Top = 386
-    Width = 584
+    Width = 591
     Height = 4
     Align = alBottom
     Shape = bsSpacer
@@ -32,7 +32,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
   object GrpBxControle: TGroupBox
     Left = 0
     Top = 0
-    Width = 584
+    Width = 591
     Height = 121
     Align = alTop
     Caption = 'Controle da Cota'#231#227'o'
@@ -43,8 +43,10 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    ExplicitTop = -2
-    ExplicitWidth = 588
+    ExplicitWidth = 580
+    DesignSize = (
+      591
+      121)
     object lblCodigo: TLabel
       Left = 16
       Top = 24
@@ -125,6 +127,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
       Width = 465
       Height = 21
       TabStop = False
+      Anchors = [akLeft, akTop, akRight]
       Color = clMoneyGreen
       DataField = 'DESCRICAO_RESUMO'
       DataSource = dtsCotacao
@@ -177,7 +180,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
   object GrpBxTexto: TGroupBox
     Left = 0
     Top = 125
-    Width = 584
+    Width = 591
     Height = 261
     Align = alClient
     Caption = 'Dados do Cancelamento'
@@ -188,10 +191,10 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
-    ExplicitWidth = 869
-    ExplicitHeight = 381
+    ExplicitWidth = 580
+    ExplicitHeight = 260
     DesignSize = (
-      584
+      591
       261)
     object lblCancelUsuario: TLabel
       Left = 16
@@ -212,6 +215,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
       Top = 24
       Width = 63
       Height = 13
+      Anchors = [akTop, akRight]
       Caption = 'Data/Hora:'
       FocusControl = dbCancelDataHora
       Font.Charset = ANSI_CHARSET
@@ -238,7 +242,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
     object dbMotivo: TMemo
       Left = 16
       Top = 83
-      Width = 552
+      Width = 559
       Height = 165
       Anchors = [akLeft, akTop, akRight, akBottom]
       Color = clWhite
@@ -251,14 +255,15 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
       ParentFont = False
       ScrollBars = ssVertical
       TabOrder = 2
-      ExplicitWidth = 841
-      ExplicitHeight = 285
+      ExplicitWidth = 548
+      ExplicitHeight = 164
     end
     object dbCancelUsuario: TEdit
       Left = 16
       Top = 40
       Width = 385
       Height = 21
+      Anchors = [akLeft, akTop, akRight]
       CharCase = ecUpperCase
       Color = clMoneyGreen
       Font.Charset = ANSI_CHARSET
@@ -276,6 +281,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
       Top = 40
       Width = 169
       Height = 21
+      Anchors = [akTop, akRight]
       CharCase = ecUpperCase
       Color = clMoneyGreen
       Font.Charset = ANSI_CHARSET
@@ -292,19 +298,18 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
   object pnlBotoes: TPanel
     Left = 0
     Top = 390
-    Width = 584
+    Width = 591
     Height = 33
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitLeft = -1
-    ExplicitTop = 377
-    ExplicitWidth = 589
+    ExplicitTop = 389
+    ExplicitWidth = 580
     object lblInforme: TLabel
       AlignWithMargins = True
       Left = 3
       Top = 3
-      Width = 394
+      Width = 397
       Height = 27
       Align = alClient
       AutoSize = False
@@ -321,7 +326,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
       ExplicitHeight = 39
     end
     object Bevel3: TBevel
-      Left = 492
+      Left = 495
       Top = 0
       Width = 4
       Height = 33
@@ -332,7 +337,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
       ExplicitHeight = 589
     end
     object btnCancelar: TcxButton
-      Left = 400
+      Left = 403
       Top = 0
       Width = 92
       Height = 33
@@ -409,10 +414,10 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
       OptionsImage.NumGlyphs = 2
       TabOrder = 0
       OnClick = btnCancelarClick
-      ExplicitLeft = 401
+      ExplicitLeft = 392
     end
     object btFechar: TcxButton
-      Left = 496
+      Left = 499
       Top = 0
       Width = 92
       Height = 33
@@ -490,7 +495,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
       OptionsImage.NumGlyphs = 2
       TabOrder = 1
       OnClick = btFecharClick
-      ExplicitLeft = 497
+      ExplicitLeft = 488
     end
   end
   object dtsCotacao: TDataSource

@@ -3,18 +3,48 @@ unit UGeCotacaoCompraCancelar;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, UGrPadrao, StdCtrls,
-  Mask, DBCtrls, ExtCtrls, Buttons, DB, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus, cxButtons,
+  System.SysUtils,
+  System.StrUtils,
+  System.ImageList,
+  System.Classes,
+  System.Variants,
+  Winapi.Windows,
 
-  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error,
-  FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  Vcl.Forms,
+  Vcl.Menus,
+  Vcl.ImgList,
+  Vcl.Controls,
+  Vcl.Mask,
+  Vcl.DBCtrls,
+  Vcl.StdCtrls,
+  Vcl.ExtCtrls,
+  Vcl.Grids,
+  Vcl.DBGrids,
+  Vcl.ComCtrls,
+  Vcl.Graphics,
+  Vcl.Buttons,
+  Vcl.Dialogs,
+  Vcl.ExtDlgs,
+  Vcl.Clipbrd,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
-  dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
-  dxSkinVisualStudio2013Light, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
-  dxSkinOffice2019White, dxSkinsDefaultPainters;
+  Data.DB,
+
+  frxClass,
+  cxGraphics,
+  cxLookAndFeels,
+  cxLookAndFeelPainters,
+  cxButtons,
+  dxSkinsCore,
+
+  UConstantesDGE,
+  UGrPadrao,
+  SGE.Controller.Interfaces,
+  Interacao.Tabela,
+  Controller.Tabela,
+
+  dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White,
+  dxSkinsDefaultPainters, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet;
 
 type
   TfrmGeCotacaoCompraCancelar = class(TfrmGrPadrao)

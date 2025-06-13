@@ -1,4 +1,4 @@
-unit View.SolicitacaoCompra.Cancelar;
+unit View.CotacaoCompra.Cancelar;
 
 interface
 
@@ -46,7 +46,7 @@ uses
   dxSkinsDefaultPainters;
 
 type
-  TViewSolicitacaoCompraCancelar = class(TfrmGrPadrao)
+  TViewCotacaoCompraCancelar = class(TfrmGrPadrao)
     GrpBxControle: TGroupBox;
     lblCodigo: TLabel;
     lblDescricaoResumo: TLabel;
@@ -57,7 +57,7 @@ type
     lblValidade: TLabel;
     dbValidade: TDBEdit;
     Bevel1: TBevel;
-    GrpBxCancelamento: TGroupBox;
+    GrpBxTexto: TGroupBox;
     lblCancelUsuario: TLabel;
     lblCancelDataHora: TLabel;
     lblMotivo: TLabel;
@@ -65,7 +65,7 @@ type
     dbCancelUsuario: TEdit;
     dbCancelDataHora: TEdit;
     Bevel2: TBevel;
-    dtsSolicitacao: TDataSource;
+    dtsCotacao: TDataSource;
     pnlBotoes: TPanel;
     lblInforme: TLabel;
     Bevel3: TBevel;
@@ -76,7 +76,7 @@ type
     procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
-    FController : IControllerSolicitacaoCompra;
+    FController : IControllerCotacaoCompra;
   public
     { Public declarations }
     procedure RegistrarRotinaSistema; override;
@@ -84,18 +84,17 @@ type
 
 (*
   Tabelas:
-  - TBSOLICITACAO
+  - TBCOTACAO_COMPRA
 
   Views:
 
   Procedures:
-
 *)
 
 var
-  ViewSolicitacaoCompraCancelar: TViewSolicitacaoCompraCancelar;
+  ViewCotacaoCompraCancelar: TViewCotacaoCompraCancelar;
 
-  function CancelarSOL(const AOwer : TComponent; aAno : Smallint; aNumero : Integer) : Boolean;
+  function CancelarCOT(const AOwer : TComponent; aAno : Smallint; aNumero : Integer; aEmpresa : String) : Boolean;
 
 implementation
 
@@ -105,11 +104,11 @@ uses
 
 {$R *.dfm}
 
-function CancelarSOL(const AOwer : TComponent; aAno : Smallint; aNumero : Integer) : Boolean;
+function CancelarCOT(const AOwer : TComponent; aAno : Smallint; aNumero : Integer; aEmpresa : String) : Boolean;
 var
-  AForm : TViewSolicitacaoCompraCancelar;
+  AForm : TViewCotacaoCompraCancelar;
 begin
-  AForm := TViewSolicitacaoCompraCancelar.Create(AOwer);
+  AForm := TViewCotacaoCompraCancelar.Create(AOwer);
   try
     with AForm do
     begin
@@ -120,19 +119,22 @@ begin
 
       FController
         .DAO
-        .Where('s.ano     = :ano')
-        .Where('s.codigo  = :codigo')
+        .Where('c.ano     = :ano')
+        .Where('c.codigo  = :codigo')
+        .Where('c.empresa = :empresa')
         .ParamsByName('ano',     aAno)
         .ParamsByName('codigo',  aNumero)
+        .ParamsByName('empresa', aEmpresa)
         .Open;
 
       TTabelaController
         .New
-        .Tabela(dtsSolicitacao.DataSet)
-        .Display('NUMERO',       'Solicitação', '###00000', TAlignment.taCenter, True)
-        .Display('DATA_EMISSAO', 'Emissão',  'dd/mm/yyyy', TAlignment.taLeftJustify, True)
+        .Tabela(dtsCotacao.DataSet)
+        .Display('NUMERO',       'Autorização', '###00000', TAlignment.taCenter, True)
+        .Display('EMISSAO_DATA', 'Emissão',  'dd/mm/yyyy', TAlignment.taLeftJustify, True)
         .Display('VALIDADE',     'Validade', 'dd/mm/yyyy', TAlignment.taLeftJustify, True)
         .Configurar;
+
 
       dbCancelUsuario.Text  := FController.DAO.Usuario.Login;
       dbCancelDataHora.Text := FormatDateTime('dd/mm/yyyy hh:mm:ss', Now);
@@ -144,46 +146,46 @@ begin
   end;
 end;
 
-procedure TViewSolicitacaoCompraCancelar.btFecharClick(Sender: TObject);
+procedure TViewCotacaoCompraCancelar.btFecharClick(Sender: TObject);
 begin
   ModalResult := mrCancel;
 end;
 
-procedure TViewSolicitacaoCompraCancelar.btnCancelarClick(
+procedure TViewCotacaoCompraCancelar.btnCancelarClick(
   Sender: TObject);
 var
   sMsg : String;
   Cont : Boolean;
 begin
-  if dtsSolicitacao.DataSet.IsEmpty then
+  if dtsCotacao.DataSet.IsEmpty then
     Exit;
 
   if Trim(dbMotivo.Lines.Text).IsEmpty then
   begin
-    TServiceMessage.ShowWarning('Favor informar o motivo de cancelamento da solicitação');
+    TServiceMessage.ShowWarning('Favor informar o motivo de cancelamento da cotação');
     dbMotivo.SetFocus;
   end
   else
-  if (Length(Trim(dbMotivo.Lines.Text)) < 15) then
+  if (Trim(dbMotivo.Lines.Text).Length < 15) then
   begin
-    TServiceMessage.ShowWarning('Motivo de cancelamento da solicitação deve possuir 15 caracteres no mínimo.');
+    TServiceMessage.ShowWarning('Motivo de cancelamento da cotação deve possuir 15 caracteres no mínimo.');
     dbMotivo.SetFocus;
   end
   else
   begin
-    sMsg := 'Confirma o cancelamento da solicitação?';
+    sMsg := 'Confirma o cancelamento da cotação?';
 
     Cont := TServiceMessage.ShowConfirm(sMsg);
 
     if Cont then
-      with dtsSolicitacao.DataSet do
+      with dtsCotacao.DataSet do
       begin
         Edit;
 
-        dtsSolicitacao.DataSet.FieldByName('STATUS').AsInteger           := STATUS_SOLICITACAO_CAN;
-        dtsSolicitacao.DataSet.FieldByName('CANCELADO_DATA').AsDateTime  := StrToDateTime( Trim(dbCancelDataHora.Text) );
-        dtsSolicitacao.DataSet.FieldByName('CANCELADO_USUARIO').AsString := UpperCase( Trim(dbCancelUsuario.Text) );
-        dtsSolicitacao.DataSet.FieldByName('CANCELADO_MOTIVO').AsString  := UpperCase( Trim(dbMotivo.Lines.Text) );
+        dtsCotacao.DataSet.FieldByName('STATUS').AsInteger           := STATUS_COTACAO_CAN;
+        dtsCotacao.DataSet.FieldByName('CANCELADO_DATA').AsDateTime  := StrToDateTime( Trim(dbCancelDataHora.Text) );
+        dtsCotacao.DataSet.FieldByName('CANCELADO_USUARIO').AsString := UpperCase( Trim(dbCancelUsuario.Text) );
+        dtsCotacao.DataSet.FieldByName('CANCELADO_MOTIVO').AsString  := UpperCase( Trim(dbMotivo.Lines.Text) );
 
         Post;
 
@@ -196,14 +198,14 @@ begin
   end;
 end;
 
-procedure TViewSolicitacaoCompraCancelar.FormCreate(Sender: TObject);
+procedure TViewCotacaoCompraCancelar.FormCreate(Sender: TObject);
 begin
   inherited;
-  FController := TControllerFactory.New.SolicitacaoCompra;
-  dtsSolicitacao.DataSet := FController.DAO.DataSet;
+  FController := TControllerFactory.New.CotacaoCompra;
+  dtsCotacao.DataSet := FController.DAO.DataSet;
 end;
 
-procedure TViewSolicitacaoCompraCancelar.RegistrarRotinaSistema;
+procedure TViewCotacaoCompraCancelar.RegistrarRotinaSistema;
 begin
   ;
 end;

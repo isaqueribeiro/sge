@@ -127,7 +127,7 @@ uses
   UGeContasAPagarImpressao in '..\System_SGE\UGeContasAPagarImpressao.pas' {frmGeContasAPagarImpressao},
   UGeEntradaImpressao in '..\System_SGE\UGeEntradaImpressao.pas' {frmGeEntradaImpressao},
   View.CotacaoCompra in 'View\View.CotacaoCompra.pas' {ViewCotacaoCompra},
-  UGeCotacaoCompraCancelar in '..\System_SGE\UGeCotacaoCompraCancelar.pas' {frmGeCotacaoCompraCancelar},
+  View.CotacaoCompra.Cancelar in 'View\View.CotacaoCompra.Cancelar.pas' {ViewCotacaoCompraCancelar},
   UGeCotacaoCompraFornecedor in '..\System_SGE\UGeCotacaoCompraFornecedor.pas' {frmGeCotacaoCompraFornecedor},
   UEcfWindowsPrinter in '..\Sys\lib\UEcfWindowsPrinter.pas',
   UGeFornecedorImpressao in '..\System_SGE\UGeFornecedorImpressao.pas' {frmGeFornecedorImpressao},
@@ -364,7 +364,9 @@ uses
   View.SolicitacaoCompra in 'View\View.SolicitacaoCompra.pas' {ViewSolicitacaoCompra},
   View.SolicitacaoCompra.Cancelar in 'View\View.SolicitacaoCompra.Cancelar.pas' {ViewSolicitacaoCompraCancelar},
   SGI.Model.DAO.CotacaoCompra in 'Model\DAO\SGI.Model.DAO.CotacaoCompra.pas',
-  SGI.Controller.CotacaoCompra in 'Controller\SGI.Controller.CotacaoCompra.pas';
+  SGI.Controller.CotacaoCompra in 'Controller\SGI.Controller.CotacaoCompra.pas',
+  SGI.Controller.Impressao.DataModule.CotacaoCompra in 'Controller\Impressao\DataModule\SGI.Controller.Impressao.DataModule.CotacaoCompra.pas' {DataModuleCotacaoCompra: TDataModule},
+  SGI.Controller.Impressao.CotacaoCompra in 'Controller\Impressao\SGI.Controller.Impressao.CotacaoCompra.pas';
 
 {$R *.res}
 

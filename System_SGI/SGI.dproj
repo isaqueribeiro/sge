@@ -354,8 +354,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="View\View.CotacaoCompra.pas">
             <Form>ViewCotacaoCompra</Form>
         </DCCReference>
-        <DCCReference Include="..\System_SGE\UGeCotacaoCompraCancelar.pas">
-            <Form>frmGeCotacaoCompraCancelar</Form>
+        <DCCReference Include="View\View.CotacaoCompra.Cancelar.pas">
+            <Form>ViewCotacaoCompraCancelar</Form>
         </DCCReference>
         <DCCReference Include="..\System_SGE\UGeCotacaoCompraFornecedor.pas">
             <Form>frmGeCotacaoCompraFornecedor</Form>
@@ -809,6 +809,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         </DCCReference>
         <DCCReference Include="Model\DAO\SGI.Model.DAO.CotacaoCompra.pas"/>
         <DCCReference Include="Controller\SGI.Controller.CotacaoCompra.pas"/>
+        <DCCReference Include="Controller\Impressao\DataModule\SGI.Controller.Impressao.DataModule.CotacaoCompra.pas">
+            <Form>DataModuleCotacaoCompra</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Controller\Impressao\SGI.Controller.Impressao.CotacaoCompra.pas"/>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
