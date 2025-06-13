@@ -430,8 +430,13 @@ begin
         .Add('  , f.email   ')
         .Add('  , fp.descri as forma_pagto_desc')
         .Add('  , cp.cond_descricao as condicap_pagto_desc')
-        .Add('  , cast(coalesce((Select count(x.item) from TBCOTACAO_COMPRAFORN_ITEM x where x.ano = c.ano and x.codigo = c.codigo and x.empresa = c.empresa and x.fornecedor = c.fornecedor), 0) as Integer) as Itens')
+        .Add('  , cast(coalesce((Select count(y.item) from TBCOTACAO_COMPRAFORN_ITEM y where y.ano = c.ano and y.codigo = c.codigo and y.empresa = c.empresa and y.fornecedor = c.fornecedor), 0) as Integer) as Itens')
+        .Add('  , x.numero')
+        .Add('  , x.descricao_resumo')
+        .Add('  , x.emissao_data')
+        .Add('  , x.validade    ')
         .Add('from TBCOTACAO_COMPRAFORN c')
+        .Add('  inner join TBCOTACAO_COMPRA x on (x.ano = c.ano and x.codigo = c.codigo and x.empresa = c.empresa)')
         .Add('  left join TBFORNECEDOR f on (f.codforn = c.fornecedor)')
         .Add('  left join TBFORMPAGTO fp on (fp.cod = c.forma_pagto)  ')
         .Add('  left join VW_CONDICAOPAGTO cp on (cp.cond_cod = c.condicao_pagto)')
@@ -513,7 +518,11 @@ begin
   FConn.Query.DataSet.FieldByName('email').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('forma_pagto_desc').ProviderFlags    := [];
   FConn.Query.DataSet.FieldByName('condicap_pagto_desc').ProviderFlags := [];
-  FConn.Query.DataSet.FieldByName('Itens').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('Itens').ProviderFlags  := [];
+  FConn.Query.DataSet.FieldByName('numero').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('descricao_resumo').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('emissao_data').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('validade    ').ProviderFlags := [];
 end;
 
 procedure TModelDAOCotacaoCompraFornecedores.SettingDisplayFields;

@@ -357,8 +357,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="View\View.CotacaoCompra.Cancelar.pas">
             <Form>ViewCotacaoCompraCancelar</Form>
         </DCCReference>
-        <DCCReference Include="..\System_SGE\UGeCotacaoCompraFornecedor.pas">
-            <Form>frmGeCotacaoCompraFornecedor</Form>
+        <DCCReference Include="View\View.CotacaoCompra.Fornecedor.pas">
+            <Form>ViewCotacaoCompraFornecedor</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UEcfWindowsPrinter.pas"/>
         <DCCReference Include="..\System_SGE\UGeFornecedorImpressao.pas">

@@ -128,7 +128,7 @@ uses
   UGeEntradaImpressao in '..\System_SGE\UGeEntradaImpressao.pas' {frmGeEntradaImpressao},
   View.CotacaoCompra in 'View\View.CotacaoCompra.pas' {ViewCotacaoCompra},
   View.CotacaoCompra.Cancelar in 'View\View.CotacaoCompra.Cancelar.pas' {ViewCotacaoCompraCancelar},
-  UGeCotacaoCompraFornecedor in '..\System_SGE\UGeCotacaoCompraFornecedor.pas' {frmGeCotacaoCompraFornecedor},
+  View.CotacaoCompra.Fornecedor in 'View\View.CotacaoCompra.Fornecedor.pas' {ViewCotacaoCompraFornecedor},
   UEcfWindowsPrinter in '..\Sys\lib\UEcfWindowsPrinter.pas',
   UGeFornecedorImpressao in '..\System_SGE\UGeFornecedorImpressao.pas' {frmGeFornecedorImpressao},
   UGrRegistroEstacao in '..\Sys\lib\UGrRegistroEstacao.pas' {FrmGrRegistroEstacao},
