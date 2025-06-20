@@ -91,6 +91,7 @@ type
       FCorVeiculo  : IControllerCustom;
       FCotacaoCompra : IControllerCotacaoCompra;
       FCotacaoCompraFornecedor : IControllerCotacaoCompraFornecedor;
+      FCotacaoCompraFornecedorItens : IControllerCotacaoCompraFornecedorItens;
       FCST         ,
       FDistrito    ,
       FEmpresa     : IControllerCustom;
@@ -212,6 +213,7 @@ type
       function CorVeiculo : IControllerCustom;
       function CotacaoCompra : IControllerCotacaoCompra;
       function CotacaoCompraFornecedor : IControllerCotacaoCompraFornecedor;
+      function CotacaoCompraFornecedorItens : IControllerCotacaoCompraFornecedorItens;
       function CST : IControllerCustom;
       function Distrito : IControllerCustom;
       function Empresa : IControllerCustom;
@@ -796,6 +798,14 @@ begin
     FCotacaoCompraFornecedor := TControllerCotacaoCompraFornecedor.New;
 
   Result := FCotacaoCompraFornecedor;
+end;
+
+function TControllerFactory.CotacaoCompraFornecedorItens: IControllerCotacaoCompraFornecedorItens;
+begin
+  if not Assigned(FCotacaoCompraFornecedorItens) then
+    FCotacaoCompraFornecedorItens := TControllerCotacaoCompraFornecedorItens.New;
+
+  Result := FCotacaoCompraFornecedorItens;
 end;
 
 function TControllerFactory.Distrito: IControllerCustom;

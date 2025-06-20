@@ -149,6 +149,8 @@ begin
 end;
 
 procedure TViewServicoConsultarCNPJ.BuscarCNPJ(aRetorno: TPessoaJuridica);
+var
+  I : Integer;
 begin
   lblExecutando.Visible := False;
 
@@ -171,6 +173,9 @@ begin
     edCidade.Text := aRetorno.Endereco.Municipio;
     edUF.Text  := aRetorno.Endereco.UF;
     edCEP.Text := TServiceFormat.Mask('##.###-###', TServicesUtils.StrOnlyNumbers(aRetorno.Endereco.CEP));
+
+    // CNAE Secundárias
+    ltCNAE.Items.AddStrings(aRetorno.Cnaes);
   end
   else
     TServiceMessage.ShowError(FService.Error);

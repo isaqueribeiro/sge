@@ -36,9 +36,8 @@ object ViewServicoConsultarCNPJ: TViewServicoConsultarCNPJ
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 1
-    ExplicitTop = 109
-    ExplicitWidth = 733
-    ExplicitHeight = 388
+    ExplicitWidth = 643
+    ExplicitHeight = 415
     object lblRazaoSocial: TLabel
       Left = 17
       Top = 11
@@ -413,7 +412,7 @@ object ViewServicoConsultarCNPJ: TViewServicoConsultarCNPJ
     Font.Style = []
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 630
+    ExplicitWidth = 643
     object lblCNPJ: TLabel
       Left = 17
       Top = 20
@@ -489,12 +488,12 @@ object ViewServicoConsultarCNPJ: TViewServicoConsultarCNPJ
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 528
-    ExplicitWidth = 651
+    ExplicitTop = 526
+    ExplicitWidth = 643
     object bvlFooter: TBevel
       Left = 0
       Top = 0
-      Width = 651
+      Width = 647
       Height = 2
       Align = alTop
       Shape = bsTopLine
@@ -504,7 +503,7 @@ object ViewServicoConsultarCNPJ: TViewServicoConsultarCNPJ
     end
     object btnFechar: TcxButton
       AlignWithMargins = True
-      Left = 536
+      Left = 532
       Top = 5
       Width = 112
       Height = 43
@@ -520,10 +519,11 @@ object ViewServicoConsultarCNPJ: TViewServicoConsultarCNPJ
       Font.Style = []
       ParentFont = False
       OnClick = btnFecharClick
+      ExplicitLeft = 528
     end
     object btnConfirmar: TcxButton
       AlignWithMargins = True
-      Left = 418
+      Left = 414
       Top = 5
       Width = 112
       Height = 43
@@ -539,7 +539,7 @@ object ViewServicoConsultarCNPJ: TViewServicoConsultarCNPJ
       Font.Style = []
       ParentFont = False
       OnClick = btnConfirmarClick
-      ExplicitLeft = 536
+      ExplicitLeft = 410
     end
   end
 end

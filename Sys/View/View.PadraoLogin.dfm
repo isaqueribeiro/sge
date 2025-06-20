@@ -3,7 +3,6 @@ inherited FrmPadraoLogin: TFrmPadraoLogin
   Caption = 'FrmPadraoLogin'
   ClientHeight = 458
   KeyPreview = True
-  Position = poScreenCenter
   OnActivate = FormActivate
   OnDestroy = FormDestroy
   OnKeyPress = FormKeyPress
@@ -11,7 +10,6 @@ inherited FrmPadraoLogin: TFrmPadraoLogin
   DesignSize = (
     694
     458)
-  PixelsPerInch = 96
   TextHeight = 19
   inherited lblCopyright: TLabel
     Top = 418

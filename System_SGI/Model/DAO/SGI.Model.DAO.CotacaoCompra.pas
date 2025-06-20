@@ -51,8 +51,8 @@ type
     private
       procedure SetProviderFlags;
       procedure SettingDisplayFields;
-      procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetNewRecord(DataSet: TDataSet);
+      procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetBeforePost(DataSet: TDataSet);
       procedure VendedorGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     protected
@@ -70,6 +70,7 @@ type
       procedure SetProviderFlags;
       procedure SettingDisplayFields;
       procedure DataSetAfterOpen(DataSet: TDataSet);
+      procedure DataSetBeforePost(DataSet: TDataSet);
     protected
       constructor Create;
     public
@@ -599,6 +600,14 @@ procedure TModelDAOCotacaoCompraFornecedorItens.DataSetAfterOpen(DataSet: TDataS
 begin
   SetProviderFlags;
   SettingDisplayFields;
+end;
+
+procedure TModelDAOCotacaoCompraFornecedorItens.DataSetBeforePost(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+  begin
+    FieldByName('VALOR_TOTAL').AsCurrency := FieldByName('QUANTIDADE').AsCurrency * FieldByName('VALOR_UNITARIO').AsCurrency;
+  end;
 end;
 
 procedure TModelDAOCotacaoCompraFornecedorItens.SetProviderFlags;

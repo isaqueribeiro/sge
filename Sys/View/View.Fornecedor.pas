@@ -618,6 +618,9 @@ var
   aPessoa  : TPessoaJuridica;
   aTipoLog : Smallint;
   aEndereco : IControllerEndereco;
+  I : Integer;
+  aCodigo    ,
+  aDescricao : String;
 begin
   if (DtSrcTabela.DataSet.State in [TDataSetState.dsEdit, TDataSetState.dsInsert]) then
   begin
@@ -663,6 +666,16 @@ begin
           FieldByName('COMPLEMENTO').AsString := Copy(aPessoa.Endereco.Complemento, 1, FieldByName('COMPLEMENTO').Size);
           FieldByName('NUMERO_END').AsString  := Copy(aPessoa.Endereco.Numero,      1, FieldByName('NUMERO_END').Size);
           FieldByName('CEP').AsString         := Copy(TServicesUtils.StrOnlyNumbers(aPessoa.Endereco.CEP), 1, FieldByName('CEP').Size);
+
+          // CNAE's secundárias
+          for I := 0 to Pred(aPessoa.Cnaes.Count) do
+          begin
+            aCodigo    := Trim(Copy(aPessoa.Cnaes.Strings[I], 1, Pos('-', aPessoa.Cnaes.Strings[I]) - 1));
+            aDescricao := Trim(Copy(aPessoa.Cnaes.Strings[I], Pos('-', aPessoa.Cnaes.Strings[I]) + 1, aPessoa.Cnaes.Strings[I].Length));
+
+            // IMPLEMENTAR GRAVAÇÃO DOS CNAE's DO FORNECEDOR
+            // ....
+          end;
         end;
       end;
     end;

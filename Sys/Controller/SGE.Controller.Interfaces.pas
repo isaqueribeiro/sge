@@ -325,6 +325,11 @@ type
     function CotacaoFornecedorItem(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer) : IControllerCotacaoCompraFornecedor;
   end;
 
+    IControllerCotacaoCompraFornecedorItens = interface(IControllerCustom)
+      ['{40F8FD3C-624E-4F64-B1FA-A9E19885EA89}']
+      procedure CarregarFornecedorItens(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer);
+    end;
+
   IControllerContaAPagar = interface(IControllerCustom)
     ['{12196628-B1DD-4D44-9F83-CD63D2FFB633}']
     procedure GerarDuplicatas(aAnoCompra, aNumCompra : Integer);
@@ -432,6 +437,7 @@ type
     function CorVeiculo : IControllerCustom;
     function CotacaoCompra : IControllerCotacaoCompra;
     function CotacaoCompraFornecedor : IControllerCotacaoCompraFornecedor;
+    function CotacaoCompraFornecedorItens : IControllerCotacaoCompraFornecedorItens;
     function CST : IControllerCustom;
     function Distrito    : IControllerCustom;
     function Empresa     : IControllerCustom;

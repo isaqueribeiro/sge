@@ -70,6 +70,17 @@ type
       function CotacaoFornecedorItem(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer) : IControllerCotacaoCompraFornecedor;
   end;
 
+  // Itens (Produtos/Serviços) dp Fornecedor da Cotação de Compras/Serviços
+  TControllerCotacaoCompraFornecedorItens = class(TController, IControllerCotacaoCompraFornecedorItens)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCotacaoCompraFornecedorItens;
+      procedure CarregarFornecedorItens(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer);
+  end;
+
   // Tipos de Cotações de Compras/Serviços (View)
   TControllerTipoCotacaoView = class(TController, IControllerCustom)
     private
@@ -342,6 +353,46 @@ begin
     On E : Exception do
       raise Exception.Create(E.Message + ' (Classe: TControllerCotacaoCompraFornecedor)');
   end;
+end;
+
+{ TControllerCotacaoCompraFornecedorItens }
+
+procedure TControllerCotacaoCompraFornecedorItens.CarregarFornecedorItens(aAno, aCotacao: Integer; aEmpresa: String;
+  aFornecedor: Integer);
+begin
+  try
+    FDAO
+      .Close
+      .ClearWhere;
+
+    FDAO
+      .Where('ci.Ano     = :ano')
+      .Where('ci.codigo  = :codigo')
+      .Where('ci.empresa = :empresa')
+      .ParamsByName('ano', aAno)
+      .ParamsByName('codigo', aCotacao)
+      .ParamsByName('empresa', aEmpresa)
+      .ParamsByName('fornecedor', aFornecedor)
+      .Open;
+  except
+    On E : Exception do
+      raise Exception.Create(E.Message + ' (Classe: TControllerCotacaoCompraFornecedorItens)');
+  end;
+end;
+
+constructor TControllerCotacaoCompraFornecedorItens.Create;
+begin
+  inherited Create(TModelDAOFactory.New.CotacaoCompraFornecedorItens);
+end;
+
+destructor TControllerCotacaoCompraFornecedorItens.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerCotacaoCompraFornecedorItens.New: IControllerCotacaoCompraFornecedorItens;
+begin
+  Result := Self.Create;
 end;
 
 { TControllerTipoCotacaoView }

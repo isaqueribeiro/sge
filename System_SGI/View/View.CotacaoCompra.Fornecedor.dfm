@@ -625,7 +625,7 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
   end
   object dtsFornecedor: TDataSource
     AutoEdit = False
-    DataSet = qryFornecedor
+    DataSet = qryFornecedorXXX
     OnStateChange = dtsFornecedorStateChange
     Left = 320
     Top = 16
@@ -638,7 +638,7 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
   end
   object dtsItem: TDataSource
     AutoEdit = False
-    DataSet = qryItem
+    DataSet = qryItemXXX
     OnStateChange = dtsFornecedorStateChange
     Left = 320
     Top = 48
@@ -677,9 +677,9 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
         ParamType = ptInput
       end>
   end
-  object qryFornecedor: TFDQuery
-    BeforePost = qryFornecedorBeforePost
-    OnNewRecord = qryFornecedorNewRecord
+  object qryFornecedorXXX: TFDQuery
+    BeforePost = qryFornecedorXXXBeforePost
+    OnNewRecord = qryFornecedorXXXNewRecord
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -747,150 +747,150 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
         DataType = ftInteger
         ParamType = ptInput
       end>
-    object qryFornecedorANO: TSmallintField
+    object qryFornecedorXXXANO: TSmallintField
       FieldName = 'ANO'
       Origin = 'ANO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object qryFornecedorCODIGO: TIntegerField
+    object qryFornecedorXXXCODIGO: TIntegerField
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object qryFornecedorEMPRESA: TStringField
+    object qryFornecedorXXXEMPRESA: TStringField
       FieldName = 'EMPRESA'
       Origin = 'EMPRESA'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Size = 18
     end
-    object qryFornecedorFORNECEDOR: TIntegerField
+    object qryFornecedorXXXFORNECEDOR: TIntegerField
       FieldName = 'FORNECEDOR'
       Origin = 'FORNECEDOR'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
-    object qryFornecedorNOME_CONTATO: TStringField
+    object qryFornecedorXXXNOME_CONTATO: TStringField
       FieldName = 'NOME_CONTATO'
       Origin = 'NOME_CONTATO'
       Size = 60
     end
-    object qryFornecedorEMAIL_ENVIO: TStringField
+    object qryFornecedorXXXEMAIL_ENVIO: TStringField
       FieldName = 'EMAIL_ENVIO'
       Origin = 'EMAIL_ENVIO'
       Size = 100
     end
-    object qryFornecedorDATA_RESPOSTA: TDateField
+    object qryFornecedorXXXDATA_RESPOSTA: TDateField
       FieldName = 'DATA_RESPOSTA'
       Origin = 'DATA_RESPOSTA'
     end
-    object qryFornecedorFORMA_PAGTO: TSmallintField
+    object qryFornecedorXXXFORMA_PAGTO: TSmallintField
       FieldName = 'FORMA_PAGTO'
       Origin = 'FORMA_PAGTO'
     end
-    object qryFornecedorCONDICAO_PAGTO: TSmallintField
+    object qryFornecedorXXXCONDICAO_PAGTO: TSmallintField
       FieldName = 'CONDICAO_PAGTO'
       Origin = 'CONDICAO_PAGTO'
     end
-    object qryFornecedorPRAZO_ENTREGA_DATA: TDateField
+    object qryFornecedorXXXPRAZO_ENTREGA_DATA: TDateField
       FieldName = 'PRAZO_ENTREGA_DATA'
       Origin = 'PRAZO_ENTREGA_DATA'
     end
-    object qryFornecedorPRAZO_ENTREDA_DIA: TSmallintField
+    object qryFornecedorXXXPRAZO_ENTREDA_DIA: TSmallintField
       FieldName = 'PRAZO_ENTREDA_DIA'
       Origin = 'PRAZO_ENTREDA_DIA'
     end
-    object qryFornecedorOBSERVACAO: TMemoField
+    object qryFornecedorXXXOBSERVACAO: TMemoField
       FieldName = 'OBSERVACAO'
       Origin = 'OBSERVACAO'
       BlobType = ftMemo
     end
-    object qryFornecedorATIVO: TSmallintField
+    object qryFornecedorXXXATIVO: TSmallintField
       FieldName = 'ATIVO'
       Origin = 'ATIVO'
     end
-    object qryFornecedorUSUARIO: TStringField
+    object qryFornecedorXXXUSUARIO: TStringField
       FieldName = 'USUARIO'
       Origin = 'USUARIO'
       Size = 12
     end
-    object qryFornecedorVENCEDOR: TSmallintField
+    object qryFornecedorXXXVENCEDOR: TSmallintField
       FieldName = 'VENCEDOR'
       Origin = 'VENCEDOR'
     end
-    object qryFornecedorNOMEFORN: TStringField
+    object qryFornecedorXXXNOMEFORN: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'NOMEFORN'
       Origin = 'NOMEFORN'
       ProviderFlags = []
       Size = 100
     end
-    object qryFornecedorCNPJ: TStringField
+    object qryFornecedorXXXCNPJ: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'CNPJ'
       Origin = 'CNPJ'
       ProviderFlags = []
       Size = 18
     end
-    object qryFornecedorEMAIL: TStringField
+    object qryFornecedorXXXEMAIL: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'EMAIL'
       Origin = 'EMAIL'
       ProviderFlags = []
       Size = 40
     end
-    object qryFornecedorFORMA_PAGTO_DESC: TStringField
+    object qryFornecedorXXXFORMA_PAGTO_DESC: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'FORMA_PAGTO_DESC'
       Origin = 'DESCRI'
       ProviderFlags = []
       Size = 30
     end
-    object qryFornecedorCONDICAP_PAGTO_DESC: TStringField
+    object qryFornecedorXXXCONDICAP_PAGTO_DESC: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'CONDICAP_PAGTO_DESC'
       Origin = 'COND_DESCRICAO'
       ProviderFlags = []
       Size = 80
     end
-    object qryFornecedorNUMERO: TStringField
+    object qryFornecedorXXXNUMERO: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'NUMERO'
       Origin = 'NUMERO'
       ProviderFlags = []
     end
-    object qryFornecedorDESCRICAO_RESUMO: TStringField
+    object qryFornecedorXXXDESCRICAO_RESUMO: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'DESCRICAO_RESUMO'
       Origin = 'DESCRICAO_RESUMO'
       ProviderFlags = []
       Size = 100
     end
-    object qryFornecedorEMISSAO_DATA: TDateField
+    object qryFornecedorXXXEMISSAO_DATA: TDateField
       AutoGenerateValue = arDefault
       FieldName = 'EMISSAO_DATA'
       Origin = 'EMISSAO_DATA'
       ProviderFlags = []
       DisplayFormat = 'dd/mm/yyyy'
     end
-    object qryFornecedorVALIDADE: TDateField
+    object qryFornecedorXXXVALIDADE: TDateField
       AutoGenerateValue = arDefault
       FieldName = 'VALIDADE'
       Origin = 'VALIDADE'
       ProviderFlags = []
       DisplayFormat = 'dd/mm/yyyy'
     end
-    object qryFornecedorVALOR_TOTAL_BRUTO: TFMTBCDField
+    object qryFornecedorXXXVALOR_TOTAL_BRUTO: TFMTBCDField
       FieldName = 'VALOR_TOTAL_BRUTO'
       Origin = 'VALOR_TOTAL_BRUTO'
       Precision = 18
       Size = 2
     end
-    object qryFornecedorVALOR_TOTAL_DESCONTO: TFMTBCDField
+    object qryFornecedorXXXVALOR_TOTAL_DESCONTO: TFMTBCDField
       FieldName = 'VALOR_TOTAL_DESCONTO'
       Origin = 'VALOR_TOTAL_DESCONTO'
       Precision = 18
       Size = 2
     end
-    object qryFornecedorVALOR_TOTAL_LIQUIDO: TFMTBCDField
+    object qryFornecedorXXXVALOR_TOTAL_LIQUIDO: TFMTBCDField
       FieldName = 'VALOR_TOTAL_LIQUIDO'
       Origin = 'VALOR_TOTAL_LIQUIDO'
       Precision = 18
@@ -996,8 +996,7 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
     Left = 288
     Top = 16
   end
-  object qryItem: TFDQuery
-    BeforePost = qryItemBeforePost
+  object qryItemXXX: TFDQuery
     CachedUpdates = True
     Connection = DMBusiness.fdConexao
     Transaction = DMBusiness.fdTransacao
@@ -1048,81 +1047,81 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
         DataType = ftInteger
         ParamType = ptInput
       end>
-    object qryItemANO: TSmallintField
+    object qryItemXXXANO: TSmallintField
       FieldName = 'ANO'
       Origin = 'ANO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object qryItemCODIGO: TIntegerField
+    object qryItemXXXCODIGO: TIntegerField
       FieldName = 'CODIGO'
       Origin = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object qryItemEMPRESA: TStringField
+    object qryItemXXXEMPRESA: TStringField
       FieldName = 'EMPRESA'
       Origin = 'EMPRESA'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 18
     end
-    object qryItemSEQ: TSmallintField
+    object qryItemXXXSEQ: TSmallintField
       FieldName = 'SEQ'
       Origin = 'SEQ'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object qryItemPRODUTO: TStringField
+    object qryItemXXXPRODUTO: TStringField
       FieldName = 'PRODUTO'
       Origin = 'PRODUTO'
       Size = 10
     end
-    object qryItemUNIDADE: TSmallintField
+    object qryItemXXXUNIDADE: TSmallintField
       FieldName = 'UNIDADE'
       Origin = 'UNIDADE'
     end
-    object qryItemDESCRI_APRESENTACAO: TStringField
+    object qryItemXXXDESCRI_APRESENTACAO: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'DESCRI_APRESENTACAO'
       Origin = 'DESCRI_APRESENTACAO'
       ProviderFlags = []
       Size = 100
     end
-    object qryItemUNP_DESCRICAO: TStringField
+    object qryItemXXXUNP_DESCRICAO: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'UNP_DESCRICAO'
       Origin = 'UNP_DESCRICAO'
       ProviderFlags = []
       Size = 50
     end
-    object qryItemUNP_SIGLA: TStringField
+    object qryItemXXXUNP_SIGLA: TStringField
       AutoGenerateValue = arDefault
       FieldName = 'UNP_SIGLA'
       Origin = 'UNP_SIGLA'
       ProviderFlags = []
       Size = 5
     end
-    object qryItemFORNECEDOR: TIntegerField
+    object qryItemXXXFORNECEDOR: TIntegerField
       AutoGenerateValue = arDefault
       FieldName = 'FORNECEDOR'
       Origin = 'FORNECEDOR'
       ProviderFlags = []
     end
-    object qryItemITEM: TSmallintField
+    object qryItemXXXITEM: TSmallintField
       AutoGenerateValue = arDefault
       FieldName = 'ITEM'
       Origin = 'ITEM'
       ProviderFlags = []
     end
-    object qryItemQUANTIDADE: TFMTBCDField
+    object qryItemXXXQUANTIDADE: TFMTBCDField
       FieldName = 'QUANTIDADE'
       Origin = 'QUANTIDADE'
       Required = True
       Precision = 18
       Size = 3
     end
-    object qryItemVALOR_UNITARIO: TFMTBCDField
+    object qryItemXXXVALOR_UNITARIO: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VALOR_UNITARIO'
       Origin = 'VALOR_UNITARIO'
@@ -1131,7 +1130,7 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
       Precision = 18
       Size = 2
     end
-    object qryItemVALOR_TOTAL: TFMTBCDField
+    object qryItemXXXVALOR_TOTAL: TFMTBCDField
       AutoGenerateValue = arDefault
       FieldName = 'VALOR_TOTAL'
       Origin = 'VALOR_TOTAL'

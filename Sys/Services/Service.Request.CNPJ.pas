@@ -7,6 +7,7 @@ uses
   System.StrUtils,
   System.Classes,
   System.JSON,
+  System.Generics.Collections,
   Service.Request;
 
 type
@@ -34,6 +35,7 @@ type
     Cnae   : TCnae;
     Endereco : TEndereco;
     DataAbertura : String;
+    Cnaes : TStringList;
     Ativa : Boolean;
   end;
 
@@ -59,51 +61,48 @@ implementation
 { TServiceRequestCNPJ }
 
 procedure TServiceRequestCNPJ.Callback(aResponse: TJSONValue);
+var
+  I : Integer;
 begin
-(*
-  {
-      "NOME FANTASIA": "AGIL SOLUCOES EM SOFTWARES",
-      "RAZAO SOCIAL": "I M RIBEIRO SOLUCOES EM SOFTWARES",
-      "CNPJ": "17327623000176",
-      "STATUS": "ATIVA",
-      "CNAE PRINCIPAL DESCRICAO": "Desenvolvimento de programas de computador sob encomenda",
-      "CNAE PRINCIPAL CODIGO": "6201501",
-      "CEP": "67125000",
-      "DATA ABERTURA": "20\/12\/2012",
-      "DDD": "91",
-      "TELEFONE": "32875498",
-      "EMAIL": "",
-      "TIPO LOGRADOURO": "RUA",
-      "LOGRADOURO": "STA MARIA (LT CRISTO REDENTOR)",
-      "NUMERO": "68",
-      "COMPLEMENTO": "",
-      "BAIRRO": "ICUI GUAJARA",
-      "MUNICIPIO": "Ananindeua",
-      "UF": "PA"
-  }
-*)
-  if (Pos('error', aResponse.ToString) > 0) then
-    FError := aResponse.GetValue<String>('error')
+  if (Pos('message', aResponse.ToString) > 0) then
+    FError := aResponse.GetValue<String>('message')
   else
   begin
     try
-      FEntity.CNPJ := aResponse.GetValue<String>('CNPJ');
-      FEntity.RazaoSocial := Trim(aResponse.GetValue<String>('RAZAO SOCIAL'));
-      FEntity.Fantasia    := Trim(aResponse.GetValue<String>('NOME FANTASIA'));
-      FEntity.Status  := aResponse.GetValue<String>('STATUS');
-      FEntity.Cnae.Codigo    := Trim(aResponse.GetValue<String>('CNAE PRINCIPAL CODIGO'));
-      FEntity.Cnae.Descricao := Trim(aResponse.GetValue<String>('CNAE PRINCIPAL DESCRICAO'));
-      FEntity.DataAbertura := StringReplace(aResponse.GetValue<String>('DATA ABERTURA'), '\/', '/', [rfReplaceAll]);
+      FEntity.CNPJ := aResponse.GetValue<String>('taxId');
+      FEntity.RazaoSocial := Trim(aResponse.GetValue<TJSONObject>('company').GetValue<String>('name'));
+      FEntity.Fantasia    := Trim(aResponse.GetValue<String>('alias'));
+      FEntity.Status      := Trim(aResponse.GetValue<TJSONObject>('status').GetValue<String>('text')).ToUpper;
+      FEntity.Cnae.Codigo    := Trim(aResponse.GetValue<TJSONObject>('mainActivity').GetValue<String>('id'));
+      FEntity.Cnae.Descricao := Trim(aResponse.GetValue<TJSONObject>('mainActivity').GetValue<String>('text'));
+      FEntity.DataAbertura   := Trim(aResponse.GetValue<String>('founded'));
+
+      FEntity.DataAbertura := Copy(FEntity.DataAbertura, 9, 2) + '/' + Copy(FEntity.DataAbertura, 6, 2) + '/' + Copy(FEntity.DataAbertura, 1, 4);
       FEntity.Ativa   := FEntity.Status.Equals('ATIVA');
 
-      FEntity.Endereco.Tipo        := Trim(aResponse.GetValue<String>('TIPO LOGRADOURO'));
-      FEntity.Endereco.Logradouro  := Trim(aResponse.GetValue<String>('LOGRADOURO'));
-      FEntity.Endereco.Numero      := Trim(aResponse.GetValue<String>('NUMERO'));
-      FEntity.Endereco.Complemento := Trim(aResponse.GetValue<String>('COMPLEMENTO'));
-      FEntity.Endereco.Bairro      := Trim(aResponse.GetValue<String>('BAIRRO'));
-      FEntity.Endereco.Municipio   := Trim(aResponse.GetValue<String>('MUNICIPIO'));
-      FEntity.Endereco.UF          := Trim(aResponse.GetValue<String>('UF'));
-      FEntity.Endereco.CEP         := Trim(aResponse.GetValue<String>('CEP'));
+      with aResponse.GetValue<TJSONObject>('address') do
+      begin
+        FEntity.Endereco.Tipo        := EmptyStr;
+        FEntity.Endereco.Logradouro  := Trim(GetValue<String>('street'));
+        FEntity.Endereco.Numero      := Trim(GetValue<String>('number'));
+        FEntity.Endereco.Complemento := EmptyStr;
+        FEntity.Endereco.Bairro      := Trim(GetValue<String>('district'));
+        FEntity.Endereco.Municipio   := Trim(GetValue<String>('city'));
+        FEntity.Endereco.UF          := Trim(GetValue<String>('state'));
+        FEntity.Endereco.CEP         := Trim(GetValue<String>('zip'));
+      end;
+
+      FEntity.Cnaes := TStringList.Create;
+      FEntity.Cnaes.Clear;
+      FEntity.Cnaes.BeginUpdate;
+      with aResponse.GetValue<TJSONArray>('sideActivities') do
+      begin
+        for I := 0 to Pred(Count) do
+        begin
+          FEntity.Cnaes.Add(Get(I).GetValue<String>('id') + ' - ' + Get(I).GetValue<String>('text'));
+        end;
+      end;
+      FEntity.Cnaes.EndUpdate;
 
       if Assigned(FCallback) then
         FCallback(FEntity);
@@ -122,15 +121,17 @@ begin
     FError := EmptyStr;
 
     FRequest
-      .Resource('buscarcnpj')
-      .AddParameter('cnpj', aCNPJ)
+      .Resource('office/{cnpj}')
+      .AddSegmentURL('cnpj', aCNPJ)
       .Get;
   end;
 end;
 
 constructor TServiceRequestCNPJ.Create;
 begin
-  FRequest := TServiceRequest.New('https://api-publica.speedio.com.br').Callback(Self.Callback);
+  // Documentação:
+  // https://cnpja.com/api/open
+  FRequest := TServiceRequest.New('https://open.cnpja.com').Callback(Self.Callback);
 end;
 
 function TServiceRequestCNPJ.Error: String;

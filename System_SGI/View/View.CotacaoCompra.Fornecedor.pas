@@ -92,51 +92,51 @@ type
     dbDataResposta: TJvDBDateEdit;
     dbFornecedor: TJvDBComboEdit;
     spSetCotacaoFornecedorItem: TFDStoredProc;
-    qryFornecedor: TFDQuery;
+    qryFornecedorXXX: TFDQuery;
     updFornecedor: TFDUpdateSQL;
-    qryFornecedorANO: TSmallintField;
-    qryFornecedorCODIGO: TIntegerField;
-    qryFornecedorEMPRESA: TStringField;
-    qryFornecedorFORNECEDOR: TIntegerField;
-    qryFornecedorNOME_CONTATO: TStringField;
-    qryFornecedorEMAIL_ENVIO: TStringField;
-    qryFornecedorDATA_RESPOSTA: TDateField;
-    qryFornecedorFORMA_PAGTO: TSmallintField;
-    qryFornecedorCONDICAO_PAGTO: TSmallintField;
-    qryFornecedorPRAZO_ENTREGA_DATA: TDateField;
-    qryFornecedorPRAZO_ENTREDA_DIA: TSmallintField;
-    qryFornecedorOBSERVACAO: TMemoField;
-    qryFornecedorATIVO: TSmallintField;
-    qryFornecedorUSUARIO: TStringField;
-    qryFornecedorVENCEDOR: TSmallintField;
-    qryFornecedorNOMEFORN: TStringField;
-    qryFornecedorCNPJ: TStringField;
-    qryFornecedorEMAIL: TStringField;
-    qryFornecedorFORMA_PAGTO_DESC: TStringField;
-    qryFornecedorCONDICAP_PAGTO_DESC: TStringField;
-    qryFornecedorNUMERO: TStringField;
-    qryFornecedorDESCRICAO_RESUMO: TStringField;
-    qryFornecedorEMISSAO_DATA: TDateField;
-    qryFornecedorVALIDADE: TDateField;
-    qryItem: TFDQuery;
+    qryFornecedorXXXANO: TSmallintField;
+    qryFornecedorXXXCODIGO: TIntegerField;
+    qryFornecedorXXXEMPRESA: TStringField;
+    qryFornecedorXXXFORNECEDOR: TIntegerField;
+    qryFornecedorXXXNOME_CONTATO: TStringField;
+    qryFornecedorXXXEMAIL_ENVIO: TStringField;
+    qryFornecedorXXXDATA_RESPOSTA: TDateField;
+    qryFornecedorXXXFORMA_PAGTO: TSmallintField;
+    qryFornecedorXXXCONDICAO_PAGTO: TSmallintField;
+    qryFornecedorXXXPRAZO_ENTREGA_DATA: TDateField;
+    qryFornecedorXXXPRAZO_ENTREDA_DIA: TSmallintField;
+    qryFornecedorXXXOBSERVACAO: TMemoField;
+    qryFornecedorXXXATIVO: TSmallintField;
+    qryFornecedorXXXUSUARIO: TStringField;
+    qryFornecedorXXXVENCEDOR: TSmallintField;
+    qryFornecedorXXXNOMEFORN: TStringField;
+    qryFornecedorXXXCNPJ: TStringField;
+    qryFornecedorXXXEMAIL: TStringField;
+    qryFornecedorXXXFORMA_PAGTO_DESC: TStringField;
+    qryFornecedorXXXCONDICAP_PAGTO_DESC: TStringField;
+    qryFornecedorXXXNUMERO: TStringField;
+    qryFornecedorXXXDESCRICAO_RESUMO: TStringField;
+    qryFornecedorXXXEMISSAO_DATA: TDateField;
+    qryFornecedorXXXVALIDADE: TDateField;
+    qryItemXXX: TFDQuery;
     updItem: TFDUpdateSQL;
-    qryItemANO: TSmallintField;
-    qryItemCODIGO: TIntegerField;
-    qryItemEMPRESA: TStringField;
-    qryItemSEQ: TSmallintField;
-    qryItemPRODUTO: TStringField;
-    qryItemUNIDADE: TSmallintField;
-    qryItemDESCRI_APRESENTACAO: TStringField;
-    qryItemUNP_DESCRICAO: TStringField;
-    qryItemUNP_SIGLA: TStringField;
-    qryItemFORNECEDOR: TIntegerField;
-    qryItemITEM: TSmallintField;
-    qryFornecedorVALOR_TOTAL_BRUTO: TFMTBCDField;
-    qryFornecedorVALOR_TOTAL_DESCONTO: TFMTBCDField;
-    qryFornecedorVALOR_TOTAL_LIQUIDO: TFMTBCDField;
-    qryItemQUANTIDADE: TFMTBCDField;
-    qryItemVALOR_UNITARIO: TFMTBCDField;
-    qryItemVALOR_TOTAL: TFMTBCDField;
+    qryItemXXXANO: TSmallintField;
+    qryItemXXXCODIGO: TIntegerField;
+    qryItemXXXEMPRESA: TStringField;
+    qryItemXXXSEQ: TSmallintField;
+    qryItemXXXPRODUTO: TStringField;
+    qryItemXXXUNIDADE: TSmallintField;
+    qryItemXXXDESCRI_APRESENTACAO: TStringField;
+    qryItemXXXUNP_DESCRICAO: TStringField;
+    qryItemXXXUNP_SIGLA: TStringField;
+    qryItemXXXFORNECEDOR: TIntegerField;
+    qryItemXXXITEM: TSmallintField;
+    qryFornecedorXXXVALOR_TOTAL_BRUTO: TFMTBCDField;
+    qryFornecedorXXXVALOR_TOTAL_DESCONTO: TFMTBCDField;
+    qryFornecedorXXXVALOR_TOTAL_LIQUIDO: TFMTBCDField;
+    qryItemXXXQUANTIDADE: TFMTBCDField;
+    qryItemXXXVALOR_UNITARIO: TFMTBCDField;
+    qryItemXXXVALOR_TOTAL: TFMTBCDField;
     procedure btFecharClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure dtsFornecedorStateChange(Sender: TObject);
@@ -147,9 +147,8 @@ type
     procedure dbgProdutosExit(Sender: TObject);
     procedure dbgProdutosDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
-    procedure qryFornecedorBeforePost(DataSet: TDataSet);
-    procedure qryFornecedorNewRecord(DataSet: TDataSet);
-    procedure qryItemBeforePost(DataSet: TDataSet);
+    procedure qryFornecedorXXXBeforePost(DataSet: TDataSet);
+    procedure qryFornecedorXXXNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     FEmpresa : String;
@@ -161,13 +160,17 @@ type
     FEmissao  ,
     FValidade : TDateTime;
 
-    FControllerFornecedor : IControllerCotacaoCompraFornecedor;
+    FControllerCotacaoFornecedor : IControllerCotacaoCompraFornecedor;
+    FControllerCotacaoFornecedorItens : IControllerCotacaoCompraFornecedorItens;
     FControllerFormaPagto ,
     FControllerCondicaoPagtoView : IControllerCustom;
+    FControllerFornecedor : IControllerFornecedor;
 
-    procedure CarregarLista(const pDataSet : TDataSet);
     procedure CarregarDadosFornecedor;
     procedure SetCotacaoFornecedorItem(Empresa : String; Ano : Smallint; Codigo, Fornecedor : Integer);
+
+    function Fornecedor : IControllerFornecedor;
+    function Itens : IControllerCotacaoCompraFornecedorItens;
   public
     { Public declarations }
     procedure CarregarArquivoXLS;
@@ -195,10 +198,10 @@ type
 *)
 
   function CotacaoFornecedor(const AOwer : TComponent; const TipoOperacao : TCotacaoFornecedorOpercao;
-    Empresa : String; Ano : Smallint; Numero, Fornecedor : Integer;
+    Empresa : String; aAno : Smallint; aNumero, aFornecedor : Integer;
     const Descricao, ArquivoXLS : String; const Emissao, Validade : TDateTime) : Boolean;
 
-  function ElaborarFormulaTravarCelulasXLS(const AOwer : TComponent; cEmpresa : String; Ano : Smallint; Numero, Fornecedor : Integer;
+  function ElaborarFormulaTravarCelulasXLS(const AOwer : TComponent; cEmpresa : String; aAno : Smallint; aNumero, aFornecedor : Integer;
     const SenhaXLS, ArquivoXLS : String) : Boolean;
 
   function TravarCelulasXLS(const Ranges : TStringList; const SenhaXLS, ArquivoXLS : String;
@@ -214,6 +217,7 @@ uses
   , UDMRecursos
   , UDMBusiness
   , UDMNFe
+  , Service.Message
   , SGE.Controller.Factory
   , SGE.Controller
   , SGE.Controller.Helper
@@ -350,7 +354,7 @@ const
   COLUNA_OBSERVACOES    = COLUNA_A;
 
 function CotacaoFornecedor(const AOwer : TComponent; const TipoOperacao : TCotacaoFornecedorOpercao;
-  Empresa : String; Ano : Smallint; Numero, Fornecedor : Integer;
+  Empresa : String; aAno : Smallint; aNumero, aFornecedor : Integer;
   const Descricao, ArquivoXLS : String; const Emissao, Validade : TDateTime) : Boolean;
 var
   AForm : TViewCotacaoCompraFornecedor;
@@ -360,9 +364,9 @@ begin
     with AForm, qryFornecedor do
     begin
       FEmpresa    := Empresa;
-      FAno        := Ano;
-      FCotacao    := Numero;
-      FFornecedor := Fornecedor;
+      FAno        := aAno;
+      FCotacao    := aNumero;
+      FFornecedor := aFornecedor;
       FDescricao  := Descricao;
       FArquivoXLS := ArquivoXLS;
       FEmissao    := Emissao;
@@ -440,7 +444,7 @@ begin
   end;
 end;
 
-function ElaborarFormulaTravarCelulasXLS(const AOwer : TComponent; cEmpresa : String; Ano : Smallint; Numero, Fornecedor : Integer;
+function ElaborarFormulaTravarCelulasXLS(const AOwer : TComponent; cEmpresa : String; aAno : Smallint; aNumero, aFornecedor : Integer;
   const SenhaXLS, ArquivoXLS : String) : Boolean;
 var
   AForm : TViewCotacaoCompraFornecedor;
@@ -684,12 +688,12 @@ begin
 
       I := 1;
       sListaFormaPagto := EmptyStr;
-      fdQryFormaPagto.First;
-      while not fdQryFormaPagto.Eof do
+      dtsFormaPagto.DataSet.First;
+      while not dtsFormaPagto.DataSet.Eof do
       begin
-        //XLSheet.Cells.Item[I, 1].Value := Trim(fdQryFormaPagto.FieldByName('DESCRI').AsString);
-        sListaFormaPagto := sListaFormaPagto + Trim(fdQryFormaPagto.FieldByName('DESCRI').AsString) + ';';
-        fdQryFormaPagto.Next;
+        //XLSheet.Cells.Item[I, 1].Value := Trim(dtsFormaPagto.DataSet.FieldByName('DESCRI').AsString);
+        sListaFormaPagto := sListaFormaPagto + Trim(dtsFormaPagto.DataSet.FieldByName('DESCRI').AsString) + ';';
+        dtsFormaPagto.DataSet.Next;
         Inc(I);
       end;
 
@@ -707,12 +711,12 @@ begin
 
       I := 1;
       sListaCondicaoPagto := EmptyStr;
-      fdQryCondicaoPagto.First;
-      while not fdQryCondicaoPagto.Eof do
+      dtsCondicaoPagto.DataSet.First;
+      while not dtsCondicaoPagto.DataSet.Eof do
       begin
-        //XLSheet.Cells.Item[I, 1].Value := Trim(fdQryCondicaoPagto.FieldByName('COND_DESCRICAO').AsString);
-        sListaCondicaoPagto := sListaCondicaoPagto + Trim(fdQryCondicaoPagto.FieldByName('COND_DESCRICAO').AsString) + ';';
-        fdQryCondicaoPagto.Next;
+        //XLSheet.Cells.Item[I, 1].Value := Trim(dtsCondicaoPagto.DataSet.FieldByName('COND_DESCRICAO').AsString);
+        sListaCondicaoPagto := sListaCondicaoPagto + Trim(dtsCondicaoPagto.DataSet.FieldByName('COND_DESCRICAO').AsString) + ';';
+        dtsCondicaoPagto.DataSet.Next;
         Inc(I);
       end;
 
@@ -999,43 +1003,46 @@ end;
 procedure TViewCotacaoCompraFornecedor.btnSalvarClick(
   Sender: TObject);
 var
-  Cont : Boolean;
+  aContinue : Boolean;
 begin
-  if ( qryFornecedor.IsEmpty ) then
+  if dtsFornecedor.DataSet.IsEmpty then
     Exit;
 
-  Cont := ShowConfirm('Confirma os dados inseridos referente ao fornecedor na cotação?');
+  aContinue := TServiceMessage.ShowConfirm('Confirma os dados inseridos referente ao fornecedor na cotação?');
 
-  if ( Cont ) then
-    with qryFornecedor do
-      if ( State in [dsEdit, dsInsert] ) then
+  if aContinue then
+  begin
+    with dtsFornecedor.DataSet do
+      if (State in [dsEdit, dsInsert]) then
       begin
         if not GetEmailValido(Trim(dbEmail.Text), False) then
         begin
-          ShowWarning('E-mail', 'O e-mail informado é inválido!');
+          TServiceMessage.ShowWarning('E-mail', 'O e-mail informado é inválido!');
           Abort;
         end;
 
         Post;
-        ApplyUpdates;
-        CommitUpdates;
+        FControllerCotacaoFornecedor.DAO.ApplyUpdates;
+        FControllerCotacaoFornecedor.DAO.CommitUpdates;
 
-        if qryFornecedorVALOR_TOTAL_BRUTO.AsCurrency > 0 then
+        if (FieldByName('VALOR_TOTAL_BRUTO').AsCurrency > 0) then
         begin
-          if not qryItem.IsEmpty then
+          if (not dtsItem.DataSet.IsEmpty) then
           begin
-            if (qryItem.State = dsEdit) then
-              qryItem.Post;
+            if (dtsItem.DataSet.State = dsEdit) then
+              dtsItem.DataSet.Post;
 
-            qryItem.ApplyUpdates;
-            qryItem.CommitUpdates;
+            FControllerCotacaoFornecedorItens.DAO.ApplyUpdates;
+            FControllerCotacaoFornecedorItens.DAO.CommitUpdates;
           end;
         end;
 
-        CommitTransaction;
+        FControllerCotacaoFornecedor.DAO.CommitTransaction;
+        FControllerCotacaoFornecedorItens.DAO.CommitTransaction;
 
         ModalResult := mrOk;
       end;
+  end;
 end;
 
 procedure TViewCotacaoCompraFornecedor.RegistrarRotinaSistema;
@@ -1046,64 +1053,63 @@ end;
 procedure TViewCotacaoCompraFornecedor.dtsFornecedorStateChange(
   Sender: TObject);
 begin
-  dbFornecedor.Button.Enabled := (qryFornecedor.State = dsInsert);
+  dbFornecedor.Button.Enabled := (dtsFornecedor.DataSet.State = dsInsert);
 end;
 
 procedure TViewCotacaoCompraFornecedor.dbFornecedorButtonClick(
   Sender: TObject);
 var
-  iCodigo : Integer;
-  sNome   : String;
+  aCodigo : Integer;
+  aNome   : String;
 begin
-  if (qryFornecedor.State = dsInsert) then
-    if SelecionarFornecedor(Self, iCodigo, sNome) then
+  if (dtsFornecedor.DataSet.State = dsInsert) then
+    if SelecionarFornecedor(Self, aCodigo, aNome) then
     begin
-      FFornecedor := iCodigo;
+      FFornecedor := aCodigo;
+      Fornecedor.Get(FFornecedor);
 
-      qryFornecedorFORNECEDOR.Value   := FFornecedor;
-      qryFornecedorNOMEFORN.Value     := sNome;
-      qryFornecedorNOME_CONTATO.Value := GetFornecedorContato(FFornecedor);
-      qryFornecedorEMAIL_ENVIO.Value  := GetFornecedorEmail(FFornecedor);
+      with dtsFornecedor.DataSet do
+      begin
+        FieldByName('ANO').AsInteger    := FAno;
+        FieldByName('CODIGO').AsInteger := FCotacao;
+        FieldByName('EMPRESA').AsString := FEmpresa;
+        FieldByName('FORNECEDOR').AsInteger := FFornecedor;
+        FieldByName('ATIVO').AsInteger      := 1;
+        FieldByName('USUARIO').AsString     := gUsuarioLogado.Login;
+        FieldByName('DATA_RESPOSTA').AsDateTime      := Date;
+        FieldByName('PRAZO_ENTREGA_DATA').AsDateTime := IncDay(FieldByName('DATA_RESPOSTA').AsDateTime, PRAZO_VALIDADE_COTACAO_COMPRA);
+        FieldByName('VENCEDOR').AsInteger      := 0;
 
-//      FieldByName('NOMEFORN').AsString     := GetFornecedorRazao(FFornecedor);
-//      FieldByName('NOME_CONTATO').AsString := GetFornecedorContato(FFornecedor);
-//      FieldByName('EMAIL_ENVIO').AsString  := GetFornecedorEmail(FFornecedor);
-//
-//      FieldByName('NUMERO').AsString           := FormatFloat('##0000000', FieldByName('CODIGO').Value) + '/' + Copy(FieldByName('ANO').AsString, 3, 2);
-//      FieldByName('DESCRICAO_RESUMO').AsString := FDescricao;
-//      FieldByName('EMISSAO_DATA').AsDateTime   := FEmissao;
-//      FieldByName('VALIDADE').AsDateTime       := FValidade;
-//      FieldByName('OBSERVACAO').Clear;
+        FieldByName('VALOR_TOTAL_BRUTO').AsCurrency    := 0.0;
+        FieldByName('VALOR_TOTAL_DESCONTO').AsCurrency := 0.0;
+        FieldByName('VALOR_TOTAL_LIQUIDO').AsCurrency  := 0.0;
+
+        FieldByName('NOMEFORN').AsString     := aNome;
+        FieldByName('NOME_CONTATO').AsString := Fornecedor.DAO.DataSet.FieldByName('CONTATO').AsString;
+        FieldByName('EMAIL_ENVIO').AsString  := Fornecedor.DAO.DataSet.FieldByName('EMAIL').AsString;
+
+        FieldByName('NUMERO').AsString           := FormatFloat('##0000000', FieldByName('CODIGO').Value) + '/' + Copy(FieldByName('ANO').AsString, 3, 2);
+        FieldByName('DESCRICAO_RESUMO').AsString := FDescricao;
+        FieldByName('EMISSAO_DATA').AsDateTime   := FEmissao;
+        FieldByName('VALIDADE').AsDateTime       := FValidade;
+        FieldByName('OBSERVACAO').Clear;
+      end;
     end;
 end;
 
 procedure TViewCotacaoCompraFornecedor.FormCreate(Sender: TObject);
 begin
+  FControllerCotacaoFornecedor := TControllerFactory.New.CotacaoCompraFornecedor;
+  FControllerCotacaoFornecedorItens := TControllerFactory.New.CotacaoCompraFornecedorItens;
   FControllerFormaPagto        := TControllerFactory.New.FormaPagto;
   FControllerCondicaoPagtoView := TControllerFactory.New.CondicaoPagtoView;
 
-  inherited;
-  CarregarLista(fdQryFormaPagto);
-  CarregarLista(fdQryCondicaoPagto);
+  dtsFornecedor.DataSet := FControllerCotacaoFornecedor.DAO.DataSet;
+  dtsItem.DataSet := FControllerCotacaoFornecedorItens.DAO.DataSet;
 
+  inherited;
   FDescricao  := EmptyStr;
   FArquivoXLS := EmptyStr;
-
-  TTabelaController
-    .New
-    .Tabela( qryFornecedor )
-    .Display('VALOR_TOTAL_BRUTO',    'Total Bruto',    ',0.00#', TAlignment.taRightJustify)
-    .Display('VALOR_TOTAL_DESCONTO', 'Total Desconto', ',0.00#', TAlignment.taRightJustify)
-    .Display('VALOR_TOTAL_LIQUIDO',  'Total Líquido',  ',0.00#', TAlignment.taRightJustify)
-    .Configurar( qryFornecedor );
-
-  TTabelaController
-    .New
-    .Tabela( qryItem )
-    .Display('QUANTIDADE',     'Quantidade',  ',0.###', TAlignment.taRightJustify)
-    .Display('VALOR_UNITARIO', 'Valor Un.',   ',0.00#', TAlignment.taRightJustify)
-    .Display('VALOR_TOTAL',    'Valor Total', ',0.00#', TAlignment.taRightJustify)
-    .Configurar( qryItem );
 
   TController(FControllerFormaPagto)
     .LookupComboBox(dbFormaPagto, dtsFormaPagto, 'FORMA_PAGTO', 'codigo', 'codigo_descricao');
@@ -1112,7 +1118,7 @@ begin
     .LookupComboBox(dbCondicaoPagto, dtsCondicaoPagto, 'CONDICAO_PAGTO', 'cond_cod', 'cond_descricao');
 end;
 
-procedure TViewCotacaoCompraFornecedor.qryFornecedorBeforePost(DataSet: TDataSet);
+procedure TViewCotacaoCompraFornecedor.qryFornecedorXXXBeforePost(DataSet: TDataSet);
 begin
   with dtsFornecedor.DataSet do
   begin
@@ -1122,7 +1128,7 @@ begin
   end;
 end;
 
-procedure TViewCotacaoCompraFornecedor.qryFornecedorNewRecord(DataSet: TDataSet);
+procedure TViewCotacaoCompraFornecedor.qryFornecedorXXXNewRecord(DataSet: TDataSet);
 begin
   with dtsFornecedor.DataSet do
   begin
@@ -1158,6 +1164,25 @@ begin
   PgcResposta.ActivePage := TbsFornecedor;
 end;
 
+function TViewCotacaoCompraFornecedor.Fornecedor: IControllerFornecedor;
+begin
+  if not Assigned(FControllerFornecedor) then
+    FControllerFornecedor := TControllerFactory.New.Fornecedor;
+
+  Result := FControllerFornecedor;
+end;
+
+function TViewCotacaoCompraFornecedor.Itens: IControllerCotacaoCompraFornecedorItens;
+begin
+  if (not Assigned(FControllerCotacaoFornecedorItens)) then
+  begin
+    FControllerCotacaoFornecedorItens := TControllerFactory.New.CotacaoCompraFornecedorItens;
+    FControllerCotacaoFornecedorItens.CarregarFornecedorItens(FAno, FCotacao, FEmpresa, FFornecedor);
+  end;
+
+  Result := FControllerCotacaoFornecedorItens;
+end;
+
 procedure TViewCotacaoCompraFornecedor.SetCotacaoFornecedorItem(
   Empresa: String; Ano: Smallint; Codigo, Fornecedor: Integer);
 begin
@@ -1172,17 +1197,19 @@ begin
     CommitTransaction;
   end;
 
-  qryItem.Close;
-  qryItem.Open;
+  FControllerCotacaoFornecedorItens
+    .DAO
+      .Close
+      .Open;
 end;
 
 procedure TViewCotacaoCompraFornecedor.dbgProdutosEnter(Sender: TObject);
 begin
-  if qryFornecedor.State in [dsEdit, dsInsert] then
-    if not qryItem.IsEmpty then
+  if (dtsFornecedor.DataSet.State in [dsEdit, dsInsert]) then
+    if (not dtsItem.DataSet.IsEmpty) then
     begin
       Self.OnKeyDown := nil;
-      qryItem.Edit;
+      dtsItem.DataSet.Edit;
     end;
 end;
 
@@ -1191,41 +1218,10 @@ begin
   Self.OnKeyDown := FormKeyDown;
 end;
 
-procedure TViewCotacaoCompraFornecedor.qryItemBeforePost(DataSet: TDataSet);
-begin
-  qryItemVALOR_TOTAL.AsCurrency := qryItemQUANTIDADE.AsCurrency * qryItemVALOR_UNITARIO.AsCurrency;
-end;
-
 procedure TViewCotacaoCompraFornecedor.CarregarDadosFornecedor;
 begin
-  with qryFornecedor do
-  begin
-    Close;
-    ParamByName('ano').AsSmallInt := FAno;
-    ParamByName('cod').AsInteger  := FCotacao;
-    ParamByName('for').AsInteger  := FFornecedor;
-    Open;
-  end;
-
-  with qryItem do
-  begin
-    Close;
-    ParamByName('ano').AsSmallInt := FAno;
-    ParamByName('cod').AsInteger  := FCotacao;
-    ParamByName('for').AsInteger  := FFornecedor;
-    Open;
-  end;
-end;
-
-procedure TViewCotacaoCompraFornecedor.CarregarLista(const pDataSet: TDataSet);
-begin
-  if pDataSet.Active then
-    pDataSet.Close;
-
-  pDataSet.Open;
-
-  pDataSet.Last;
-  pDataSet.First;
+  FControllerCotacaoFornecedor.CarregarFornecedor(FAno, FCotacao, FEmpresa, FFornecedor);
+  FControllerCotacaoFornecedorItens.CarregarFornecedorItens(FAno, FCotacao, FEmpresa, FFornecedor);
 end;
 
 procedure TViewCotacaoCompraFornecedor.CarregarArquivoXLS;
@@ -1341,18 +1337,18 @@ begin
 
     sInforme := StringReplace(Trim(XLSheet.Cells.Item[LINHA_NRO_COTACAO, COLUNA_NRO_COTAC]), APOSTROFE, '', [rfReplaceAll]);
 
-    if ( sInforme <> Trim(qryFornecedorNUMERO.AsString) ) then
+    if (sInforme <> Trim(qryFornecedorNUMERO.AsString)) then
     begin
-      ShowWarning('Arquivo selecionado não pertence a esta cotação!');
+      TServiceMessage.ShowWarning('Arquivo selecionado não pertence a esta cotação!');
       Exit;
     end;
 
     sInforme := StringReplace(Trim(XLSheet.Cells.Item[LINHA_CNJP_FORNEC, COLUNA_CNPJ_FORN]), APOSTROFE, '', [rfReplaceAll]);
     sInforme := StringReplace(StringReplace(StringReplace(sInforme, '.', '', [rfReplaceAll]), '-', '', [rfReplaceAll]), '/', '', [rfReplaceAll]);
 
-    if ( sInforme <> Trim(qryFornecedorCNPJ.AsString) ) then
+    if (sInforme <> Trim(qryFornecedorCNPJ.AsString)) then
     begin
-      ShowWarning('Arquivo selecionado não pertence a teste fornecedor!');
+      TServiceMessage.ShowWarning('Arquivo selecionado não pertence a teste fornecedor!');
       Exit;
     end;
 
@@ -1413,7 +1409,7 @@ begin
     end;
 
     qryItem.First;
-    
+
     // Recuperar demais valores
 
     qryFornecedor.Edit;
@@ -1439,8 +1435,8 @@ begin
     if ( iLinha_Forma_Pagto > 0 ) then
     begin
       sValor := StringReplace(Trim(XLSheet.Cells.Item[iLinha_Forma_Pagto, COLUNA_FORMA_PAGTO]), APOSTROFE, '', [rfReplaceAll]);
-      if fdQryFormaPagto.Locate('DESCRI', sValor, []) then
-        qryFornecedorFORMA_PAGTO.Value := fdQryFormaPagto.FieldByName('COD').AsInteger
+      if dtsFormaPagto.DataSet.Locate('DESCRI', sValor, []) then
+        qryFornecedorFORMA_PAGTO.Value := dtsFormaPagto.DataSet.FieldByName('COD').AsInteger
       else
         qryFornecedorFORMA_PAGTO.Clear;
     end;
@@ -1448,8 +1444,8 @@ begin
     if ( iLinha_Condicao_Pagto > 0 ) then
     begin
       sValor := StringReplace(Trim(XLSheet.Cells.Item[iLinha_Condicao_Pagto, COLUNA_CONDICAO_PAGTO]), APOSTROFE, '', [rfReplaceAll]);
-      if fdQryCondicaoPagto.Locate('COND_DESCRICAO', sValor, []) then
-        qryFornecedorCONDICAO_PAGTO.Value := fdQryCondicaoPagto.FieldByName('COND_COD').AsInteger
+      if dtsCondicaoPagto.DataSet.Locate('COND_DESCRICAO', sValor, []) then
+        qryFornecedorCONDICAO_PAGTO.Value := dtsCondicaoPagto.DataSet.FieldByName('COND_COD').AsInteger
       else
         qryFornecedorCONDICAO_PAGTO.Clear;
     end;
