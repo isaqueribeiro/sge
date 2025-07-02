@@ -322,6 +322,7 @@ type
   IControllerCotacaoCompraFornecedor = interface(IControllerCustom)
     ['{33B4F1B2-121A-44ED-ADF1-3E831CBCA5F6}']
     procedure CarregarFornecedor(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer);
+    procedure ExcluirItens(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer);
     function CotacaoFornecedorItem(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer) : IControllerCotacaoCompraFornecedor;
   end;
 

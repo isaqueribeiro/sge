@@ -67,6 +67,7 @@ type
       class function New : IControllerCotacaoCompraFornecedor;
 
       procedure CarregarFornecedor(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer);
+      procedure ExcluirItens(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer);
       function CotacaoFornecedorItem(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer) : IControllerCotacaoCompraFornecedor;
   end;
 
@@ -78,6 +79,7 @@ type
     public
       destructor Destroy; override;
       class function New : IControllerCotacaoCompraFornecedorItens;
+      procedure ExcluirItens(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer);
       procedure CarregarFornecedorItens(aAno, aCotacao : Integer; aEmpresa : String; aFornecedor : Integer);
   end;
 
@@ -187,6 +189,7 @@ begin
   aScriptSQL := TStringList.Create;
   try
     try
+      // Gerar itens na cotação/resposta do fornecedor
       aScriptSQL.BeginUpdate;
       aScriptSQL.Clear;
       aScriptSQL.Add('Execute Procedure SET_COTACAO_COMPRAFORN_ITEM (');
@@ -195,6 +198,19 @@ begin
       aScriptSQL.Add('  , ' + aEmpresa.Trim.QuotedString);
       aScriptSQL.Add('  , ' + aFornecedor.ToString);
       aScriptSQL.Add(')');
+      aScriptSQL.EndUpdate;
+
+      FDAO.ExecuteScriptSQL(aScriptSQL.Text);
+
+      // Marcar registro da cotação como "Em Cotação"
+      aScriptSQL.BeginUpdate;
+      aScriptSQL.Clear;
+      aScriptSQL.Add('Update TBCOTACAO_COMPRA Set');
+      aScriptSQL.Add('  status = ' + STATUS_COTACAO_COT.ToString);
+      aScriptSQL.Add('where (STATUS in (' + STATUS_COTACAO_ABR.ToString + ', ' + STATUS_COTACAO_COT.ToString + '))');
+      aScriptSQL.Add('  and (ANO     = ' + aAno.ToString    + ')');
+      aScriptSQL.Add('  and (CODIGO  = ' + aCotacao.ToString + ')');
+      aScriptSQL.Add('  and (EMPRESA = ' + aEmpresa.Trim.QuotedString + ')');
       aScriptSQL.EndUpdate;
 
       FDAO.ExecuteScriptSQL(aScriptSQL.Text);
@@ -296,6 +312,33 @@ begin
   inherited;
 end;
 
+procedure TControllerCotacaoCompraFornecedor.ExcluirItens(aAno, aCotacao: Integer; aEmpresa: String;
+  aFornecedor: Integer);
+var
+  aScriptSQL : TStringList;
+begin
+  aScriptSQL := TStringList.Create;
+  try
+    try
+      aScriptSQL.BeginUpdate;
+      aScriptSQL.Clear;
+      aScriptSQL.Add('Delete from TBCOTACAO_COMPRAFORN_ITEM');
+      aScriptSQL.Add('where (ANO     = ' + aAno.ToString     + ')');
+      aScriptSQL.Add('  and (CODIGO  = ' + aCotacao.ToString + ')');
+      aScriptSQL.Add('  and (EMPRESA = ' + aEmpresa.QuotedString   + ')');
+      aScriptSQL.Add('  and (FORNECEDOR = ' + aFornecedor.ToString + ')');
+      aScriptSQL.EndUpdate;
+
+      FDAO.ExecuteScriptSQL(aScriptSQL.Text);
+    except
+      On E : Exception do
+        raise Exception.Create('Erro ao tentar excluir os itens de resposta do fornecedor.' + #13#13 + E.Message);
+    end;
+  finally
+    aScriptSQL.DisposeOf;
+  end;
+end;
+
 class function TControllerCotacaoCompraFornecedor.New: IControllerCotacaoCompraFornecedor;
 begin
   Result := Self.Create;
@@ -311,6 +354,7 @@ begin
   aScriptSQL := TStringList.Create;
   try
     try
+      // Gerar itens na cotação/resposta do fornecedor
       aScriptSQL.BeginUpdate;
       aScriptSQL.Clear;
       aScriptSQL.Add('Execute Procedure SET_COTACAO_COMPRAFORN_ITEM (');
@@ -319,6 +363,19 @@ begin
       aScriptSQL.Add('  , ' + aEmpresa.Trim.QuotedString);
       aScriptSQL.Add('  , ' + aFornecedor.ToString);
       aScriptSQL.Add(')');
+      aScriptSQL.EndUpdate;
+
+      FDAO.ExecuteScriptSQL(aScriptSQL.Text);
+
+      // Marcar registro da cotação como "Em Cotação"
+      aScriptSQL.BeginUpdate;
+      aScriptSQL.Clear;
+      aScriptSQL.Add('Update TBCOTACAO_COMPRA Set');
+      aScriptSQL.Add('  status = ' + STATUS_COTACAO_COT.ToString);
+      aScriptSQL.Add('where (STATUS in (' + STATUS_COTACAO_ABR.ToString + ', ' + STATUS_COTACAO_COT.ToString + '))');
+      aScriptSQL.Add('  and (ANO     = ' + aAno.ToString    + ')');
+      aScriptSQL.Add('  and (CODIGO  = ' + aCotacao.ToString + ')');
+      aScriptSQL.Add('  and (EMPRESA = ' + aEmpresa.Trim.QuotedString + ')');
       aScriptSQL.EndUpdate;
 
       FDAO.ExecuteScriptSQL(aScriptSQL.Text);
@@ -388,6 +445,33 @@ end;
 destructor TControllerCotacaoCompraFornecedorItens.Destroy;
 begin
   inherited;
+end;
+
+procedure TControllerCotacaoCompraFornecedorItens.ExcluirItens(aAno, aCotacao: Integer; aEmpresa: String;
+  aFornecedor: Integer);
+var
+  aScriptSQL : TStringList;
+begin
+  aScriptSQL := TStringList.Create;
+  try
+    try
+      aScriptSQL.BeginUpdate;
+      aScriptSQL.Clear;
+      aScriptSQL.Add('Delete from TBCOTACAO_COMPRAFORN_ITEM');
+      aScriptSQL.Add('where (ANO     = ' + aAno.ToString     + ')');
+      aScriptSQL.Add('  and (CODIGO  = ' + aCotacao.ToString + ')');
+      aScriptSQL.Add('  and (EMPRESA = ' + aEmpresa.QuotedString   + ')');
+      aScriptSQL.Add('  and (FORNECEDOR = ' + aFornecedor.ToString + ')');
+      aScriptSQL.EndUpdate;
+
+      FDAO.ExecuteScriptSQL(aScriptSQL.Text);
+    except
+      On E : Exception do
+        raise Exception.Create('Erro ao tentar excluir os itens de resposta do fornecedor.' + #13#13 + E.Message);
+    end;
+  finally
+    aScriptSQL.DisposeOf;
+  end;
 end;
 
 class function TControllerCotacaoCompraFornecedorItens.New: IControllerCotacaoCompraFornecedorItens;

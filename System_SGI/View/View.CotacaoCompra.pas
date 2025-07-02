@@ -1600,10 +1600,10 @@ begin
     , dtsFornecedor.DataSet.FieldByName('ANO').AsInteger
     , dtsFornecedor.DataSet.FieldByName('CODIGO').AsInteger
     , dtsFornecedor.DataSet.FieldByName('FORNECEDOR').AsInteger
-    , DtSrcTabela.DataSet.FieldByName('DESCRICAO_RESUMO').Value
+    , DtSrcTabela.DataSet.FieldByName('DESCRICAO_RESUMO').AsString
     , sFileName
-    , DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').Value
-    , DtSrcTabela.DataSet.FieldByName('VALIDADE').Value) then
+    , DtSrcTabela.DataSet.FieldByName('EMISSAO_DATA').AsDateTime
+    , DtSrcTabela.DataSet.FieldByName('VALIDADE').AsDateTime) then
   begin
     SetEventoLOG(Format('Arquivo ''%s'' de resposta do fornecedor %s processado', [sFileName, dtsFornecedor.DataSet.FieldByName('NOMEFORN').AsString]));
 

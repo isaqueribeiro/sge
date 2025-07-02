@@ -184,7 +184,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
             <Form>DMNFSe</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="..\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas"/>
         <DCCReference Include="..\Sys\Model\SGE.Model.Dados.pas">
             <Form>DMDados</Form>
             <DesignClass>TDataModule</DesignClass>
@@ -193,6 +192,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
             <Form>ModelConexaoDataSet</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="..\Sys\Model\Interacao\SGE.Model.Interacao.DataSet.pas"/>
         <DCCReference Include="..\Sys\Services\Service.Message.pas"/>
         <DCCReference Include="..\Sys\Services\Service.Utils.pas"/>
         <DCCReference Include="..\Sys\Services\Service.Encript.pas"/>
@@ -351,15 +351,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\System_SGE\UGeEntradaImpressao.pas">
             <Form>frmGeEntradaImpressao</Form>
         </DCCReference>
-        <DCCReference Include="View\View.CotacaoCompra.pas">
-            <Form>ViewCotacaoCompra</Form>
-        </DCCReference>
-        <DCCReference Include="View\View.CotacaoCompra.Cancelar.pas">
-            <Form>ViewCotacaoCompraCancelar</Form>
-        </DCCReference>
-        <DCCReference Include="View\View.CotacaoCompra.Fornecedor.pas">
-            <Form>ViewCotacaoCompraFornecedor</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\lib\UEcfWindowsPrinter.pas"/>
         <DCCReference Include="..\System_SGE\UGeFornecedorImpressao.pas">
             <Form>frmGeFornecedorImpressao</Form>
@@ -459,6 +450,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaAPagar.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaAReceber.pas"/>
+        <DCCReference Include="Model\DAO\SGI.Model.DAO.CotacaoCompra.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Contrato.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CST.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Distrito.pas"/>
@@ -517,6 +509,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAPagar.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAReceber.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Contrato.pas"/>
+        <DCCReference Include="Controller\SGI.Controller.CotacaoCompra.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CST.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Distrito.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Empresa.pas"/>
@@ -570,6 +563,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
             <Form>DataModuleContrato</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="Controller\Impressao\DataModule\SGI.Controller.Impressao.DataModule.CotacaoCompra.pas">
+            <Form>DataModuleCotacaoCompra</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Cheque.pas">
             <Form>DataModuleCheque</Form>
             <DesignClass>TDataModule</DesignClass>
@@ -587,6 +584,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas"/>
+        <DCCReference Include="Controller\Impressao\SGI.Controller.Impressao.CotacaoCompra.pas"/>
         <DCCReference Include="Controller\Impressao\SGE.Controller.Impressao.RequisicaoAlmox.pas"/>
         <DCCReference Include="Controller\Impressao\SGI.Controller.Impressao.SolicitacaoCompra.pas"/>
         <DCCReference Include="Controller\SGI.Controller.RequisicaoAlmoxarifado.pas"/>
@@ -807,14 +805,15 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGI.EXE;ProductN
         <DCCReference Include="View\View.SolicitacaoCompra.Cancelar.pas">
             <Form>ViewSolicitacaoCompraCancelar</Form>
         </DCCReference>
-        <DCCReference Include="Model\DAO\SGI.Model.DAO.CotacaoCompra.pas"/>
-        <DCCReference Include="Controller\SGI.Controller.CotacaoCompra.pas"/>
-        <DCCReference Include="Controller\Impressao\DataModule\SGI.Controller.Impressao.DataModule.CotacaoCompra.pas">
-            <Form>DataModuleCotacaoCompra</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
+        <DCCReference Include="View\View.CotacaoCompra.pas">
+            <Form>ViewCotacaoCompra</Form>
         </DCCReference>
-        <DCCReference Include="Controller\Impressao\SGI.Controller.Impressao.CotacaoCompra.pas"/>
+        <DCCReference Include="View\View.CotacaoCompra.Cancelar.pas">
+            <Form>ViewCotacaoCompraCancelar</Form>
+        </DCCReference>
+        <DCCReference Include="View\View.CotacaoCompra.Fornecedor.pas">
+            <Form>ViewCotacaoCompraFornecedor</Form>
+        </DCCReference>
         <None Include="SGI.todo"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
