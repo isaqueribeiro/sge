@@ -40,6 +40,11 @@ uses
   cxLookAndFeels,
   cxLookAndFeelPainters,
   cxButtons,
+  cxControls,
+  cxContainer,
+  cxEdit,
+  cxCheckBox,
+  cxDBEdit,
   dxSkinsDefaultPainters,
   dxSkinsCore,
   dxSkinOffice2019Black,
@@ -65,7 +70,6 @@ type
     lblNomeCompleto: TLabel;
     lblFuncao: TLabel;
     dbNomeCompleto: TDBEdit;
-    dbUsuarioAtivo: TDBCheckBox;
     dbFuncao: TDBLookupComboBox;
     DtsFuncao: TDataSource;
     Bevel5: TBevel;
@@ -91,6 +95,7 @@ type
     lblCentroCusto: TLabel;
     dbCentroCusto: TDBLookupComboBox;
     DtsCentroCusto: TDataSource;
+    dbAttivo: TcxDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
     procedure btbtnSalvarClick(Sender: TObject);

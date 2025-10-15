@@ -120,6 +120,7 @@ inherited ViewCotacaoCompra: TViewCotacaoCompra
             Left = 302
             Top = 24
             Width = 49
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -134,13 +135,14 @@ inherited ViewCotacaoCompra: TViewCotacaoCompra
             Left = 32
             Top = 24
             Width = 49
-            Height = 13
+            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
+            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 357
@@ -1161,12 +1163,13 @@ inherited ViewCotacaoCompra: TViewCotacaoCompra
             object lblEnderecoEntrega: TLabel
               Left = 0
               Top = 4
-              Width = 160
+              Width = 1100
               Height = 13
               Align = alTop
               Caption = 'Endere'#231'o de Entrega/Realiza'#231#227'o:'
               FocusControl = dbEnderecoEntrega
               Visible = False
+              ExplicitWidth = 160
             end
             object Bevel5: TBevel
               Left = 0

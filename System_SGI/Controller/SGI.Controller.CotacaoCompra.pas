@@ -156,7 +156,7 @@ begin
       .Open;
   except
     On E : Exception do
-      raise Exception.Create(E.Message + ' (Classe: TControllerCotacaoCompra)');
+      raise Exception.Create(E.Message + ' (Classe: TControllerCotacaoCompra.CarregarFornecedores)');
   end;
 end;
 

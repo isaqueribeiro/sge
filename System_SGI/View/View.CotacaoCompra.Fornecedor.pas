@@ -165,7 +165,6 @@ uses
     DateUtils
   , UFuncoes
   , UDMRecursos
-  , UDMBusiness
   , UDMNFe
   , Service.Message
   , SGE.Controller.Factory
@@ -1023,7 +1022,7 @@ begin
         FieldByName('EMPRESA').AsString := FEmpresa;
         FieldByName('FORNECEDOR').AsInteger := FFornecedor;
         FieldByName('ATIVO').AsInteger      := 1;
-        FieldByName('USUARIO').AsString     := gUsuarioLogado.Login;
+        FieldByName('USUARIO').AsString     := Fornecedor.DAO.Usuario.Login;
         FieldByName('DATA_RESPOSTA').AsDateTime      := Date;
         FieldByName('PRAZO_ENTREGA_DATA').AsDateTime := IncDay(FieldByName('DATA_RESPOSTA').AsDateTime, PRAZO_VALIDADE_COTACAO_COMPRA);
         FieldByName('VENCEDOR').AsInteger      := 0;

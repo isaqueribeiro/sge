@@ -106,6 +106,7 @@ inherited ViewFornecedor: TViewFornecedor
         inherited grpBxFiltro: TGroupBox
           Left = 456
           Width = 376
+          ExplicitLeft = 456
           ExplicitWidth = 376
           inherited lbltFiltrar: TLabel
             Width = 67

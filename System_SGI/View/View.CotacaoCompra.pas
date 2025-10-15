@@ -432,7 +432,7 @@ begin
 //  FControllerTransportadora    := TControllerFactory.New.Transportadora;
 
   DtSrcTabelaItens.DataSet := Itens.DAO.DataSet;
-  dtsFornecedor.DataSet    := Itens.DAO.DataSet;
+  dtsFornecedor.DataSet    := Fornecedores.DAO.DataSet;
 
   inherited;
 
@@ -463,6 +463,7 @@ begin
   Tabela
     .Display('CODIGO', 'Código', '###00000', TAlignment.taCenter)
     .Display('INSERCAO_DATA', 'Data/Hora', 'dd/mm/yyyy hh:mm')
+    .Display('STATUS', 'Situação', TAlignment.taLeftJustify)
     .Display('VALOR_REF_TOTAL',      'Valor Referência', ',0.00', TAlignment.taRightJustify)
     .Display('VALOR_MAX_BRUTO',      'Valor Bruto',      ',0.00#', TAlignment.taRightJustify)
     .Display('VALOR_MAX_DESCONTO',   'Valor Desconto',   ',0.00#', TAlignment.taRightJustify)

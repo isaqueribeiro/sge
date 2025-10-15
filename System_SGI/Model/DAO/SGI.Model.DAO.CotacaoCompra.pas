@@ -54,7 +54,6 @@ type
       procedure DataSetNewRecord(DataSet: TDataSet);
       procedure DataSetAfterOpen(DataSet: TDataSet);
       procedure DataSetBeforePost(DataSet: TDataSet);
-      procedure VendedorGetText(Sender: TField; var Text: string; DisplayText: Boolean);
     protected
       constructor Create;
     public
@@ -113,10 +112,10 @@ begin
       .GeneratorName('GEN_COTACAO_COMPRA_' + FormatDateTime('yyyy', Date))
       .SQL
         .Clear
-        .Add('Selec ')
+        .Add('Select')
         .Add('    c.ano    ')
         .Add('  , c.codigo ')
-        .Add('  , c.empres ')
+        .Add('  , c.empresa')
         .Add('  , c.numero ')
         .Add('  , c.tipo   ')
         .Add('  , c.descricao_resumo')
@@ -463,7 +462,6 @@ procedure TModelDAOCotacaoCompraFornecedores.DataSetAfterOpen(DataSet: TDataSet)
 begin
   SetProviderFlags;
   SettingDisplayFields;
-  FConn.Query.DataSet.FieldByName('VENDEDOR').OnGetText := VendedorGetText;
 end;
 
 procedure TModelDAOCotacaoCompraFornecedores.DataSetBeforePost(DataSet: TDataSet);
@@ -513,7 +511,6 @@ end;
 procedure TModelDAOCotacaoCompraFornecedores.SetProviderFlags;
 begin
   // Ignorar campos no Insert e Update
-  FConn.Query.DataSet.FieldByName('descri_apresentacao').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('nomeforn').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('cnpj').ProviderFlags  := [];
   FConn.Query.DataSet.FieldByName('email').ProviderFlags := [];
@@ -523,7 +520,7 @@ begin
   FConn.Query.DataSet.FieldByName('numero').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('descricao_resumo').ProviderFlags := [];
   FConn.Query.DataSet.FieldByName('emissao_data').ProviderFlags := [];
-  FConn.Query.DataSet.FieldByName('validade    ').ProviderFlags := [];
+  FConn.Query.DataSet.FieldByName('validade').ProviderFlags := [];
 end;
 
 procedure TModelDAOCotacaoCompraFornecedores.SettingDisplayFields;
@@ -531,15 +528,6 @@ begin
   DisplayField('VALOR_TOTAL_BRUTO',    'Total Bruto',    ',0.00#', TAlignment.taRightJustify);
   DisplayField('VALOR_TOTAL_DESCONTO', 'Total Desconto', ',0.00#', TAlignment.taRightJustify);
   DisplayField('VALOR_TOTAL_LIQUIDO',  'Total Líquido',  ',0.00#', TAlignment.taRightJustify);
-end;
-
-procedure TModelDAOCotacaoCompraFornecedores.VendedorGetText(Sender: TField; var Text: string; DisplayText: Boolean);
-begin
-  if not Sender.IsNull then
-    Case Sender.AsInteger of
-      0 : Text := EmptyStr;
-      1 : Text := 'X';
-    end;
 end;
 
 { TModelDAOCotacaoCompraFornecedorItens }

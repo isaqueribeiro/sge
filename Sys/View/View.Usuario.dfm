@@ -283,7 +283,7 @@ inherited ViewUsuario: TViewUsuario
         Align = alTop
         Caption = 'Dados de Identifica'#231#227'o'
         TabOrder = 1
-        ExplicitWidth = 739
+        ExplicitTop = 83
         object lblNomeCompleto: TLabel
           Left = 16
           Top = 24
@@ -316,24 +316,6 @@ inherited ViewUsuario: TViewUsuario
           ParentFont = False
           TabOrder = 0
         end
-        object dbUsuarioAtivo: TDBCheckBox
-          Left = 504
-          Top = 40
-          Width = 105
-          Height = 17
-          Caption = 'Usu'#225'rio ativo'
-          DataField = 'ATIVO'
-          DataSource = DtSrcTabela
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 2
-          ValueChecked = '1'
-          ValueUnchecked = '0'
-        end
         object dbFuncao: TDBLookupComboBox
           Left = 296
           Top = 40
@@ -352,6 +334,26 @@ inherited ViewUsuario: TViewUsuario
           ListSource = DtsFuncao
           ParentFont = False
           TabOrder = 1
+        end
+        object dbAttivo: TcxDBCheckBox
+          Left = 503
+          Top = 39
+          Caption = 'Usu'#225'rio ativo'
+          DataBinding.DataField = 'ATIVO'
+          DataBinding.DataSource = DtSrcTabela
+          Properties.Alignment = taLeftJustify
+          Properties.ValueChecked = '1'
+          Properties.ValueUnchecked = '0'
+          Style.LookAndFeel.Kind = lfUltraFlat
+          Style.LookAndFeel.NativeStyle = True
+          Style.TransparentBorder = True
+          StyleDisabled.LookAndFeel.Kind = lfUltraFlat
+          StyleDisabled.LookAndFeel.NativeStyle = True
+          StyleFocused.LookAndFeel.Kind = lfUltraFlat
+          StyleFocused.LookAndFeel.NativeStyle = True
+          StyleHot.LookAndFeel.Kind = lfUltraFlat
+          StyleHot.LookAndFeel.NativeStyle = True
+          TabOrder = 2
         end
       end
       object pgcParametros: TPageControl
