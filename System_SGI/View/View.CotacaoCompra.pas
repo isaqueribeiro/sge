@@ -52,7 +52,8 @@ uses
   SGE.Controller.Interfaces,
   Interacao.Tabela,
   Controller.Tabela,
-  SGI.Controller.Impressao.CotacaoCompra;
+  SGI.Controller.Impressao.CotacaoCompra, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinTheBezier, dxSkinWXI;
 
 type
   TViewCotacaoCompra = class(TViewPadraoCadastro)

@@ -1165,22 +1165,12 @@ begin
 
       // ===== Configurar librarys para uso dos certificados SSL, TLS, ETC... =====
 
-      try
-        with ACBrNFe.Configuracoes.Geral do
-        begin
-          SSLLib        := TSSLLib.libCapicom;
-          SSLCryptLib   := TSSLCryptLib.cryCapicom;
-          SSLHttpLib    := TSSLHttpLib.httpWinINet;
-          SSLXmlSignLib := TSSLXmlSignLib.xsMsXmlCapicom;
-        end;
-      except
-        with ACBrNFe.Configuracoes.Geral do
-        begin
-          SSLLib        := TSSLLib.libWinCrypt;
-          SSLCryptLib   := TSSLCryptLib.cryWinCrypt;
-          SSLHttpLib    := TSSLHttpLib.httpWinINet;
-          SSLXmlSignLib := TSSLXmlSignLib.xsMsXml;
-        end;
+      with ACBrNFe.Configuracoes.Geral do
+      begin
+        SSLLib        := TSSLLib.libWinCrypt;
+        SSLCryptLib   := TSSLCryptLib.cryWinCrypt;
+        SSLHttpLib    := TSSLHttpLib.httpWinINet;
+        SSLXmlSignLib := TSSLXmlSignLib.xsLibXml2;
       end;
 
       ACBrNFe.Configuracoes.Geral.AtualizarXMLCancelado := ckAtualizarXML.Checked;
@@ -1197,10 +1187,10 @@ begin
       ACBrNFe.Configuracoes.Geral.ModeloDF := moNFe;
       ACBrNFe.Configuracoes.Geral.VersaoDF := TpcnVersaoDF.ve400; // TpcnVersaoDF(cbVersaoDF.ItemIndex);
 
-      if ( tipoDANFE = tipoDANFEFast ) then
+      if (tipoDANFE = tipoDANFEFast) then
         ACBrNFe.DANFE := frDANFE
       else
-      if ( tipoDANFE = tipoDANFE_ESCPOS ) then
+      if (tipoDANFE = tipoDANFE_ESCPOS) then
         ACBrNFe.DANFE := nfcDANFE;
 
       ACBrNFe.Configuracoes.WebServices.UF         := cbUF.Text;
@@ -1246,7 +1236,7 @@ begin
 
       CarregarConfiguracoesEmpresa(sCNPJEmitente, 'Envio de NF-e (Emitente: ' + edtEmitRazao.Text + ')', sAssinaturaHtml, sAssinaturaTxt);
 
-      if ( Trim(gContaEmail.Conta) <> EmptyStr ) then
+      if (not Trim(gContaEmail.Conta).IsEmpty) then
       begin
         edtSmtpHost.Text      := gContaEmail.Servidor_SMTP;
         edtSmtpPort.Text      := IntToStr(gContaEmail.Porta_SMTP);
@@ -1904,6 +1894,7 @@ var
   sErrorMsg   ,
   sLogXmlEnv  ,
   sLogXmlRec  : String;
+  aSincrono   : Boolean;
 begin
 (*
   IMR - 04/10/2019 :
@@ -1945,10 +1936,11 @@ begin
       iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
     iNumeroLote := GetNextID('TBCONFIGURACAO', 'NFE_LOTE', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
+    aSincrono   := (ACBrNFe.NotasFiscais.Count = 1);
 
-    Result := ACBrNFe.Enviar( iNumeroLote, Imprimir );
+    Result := ACBrNFe.Enviar(iNumeroLote, Imprimir, aSincrono);
 
-    if ( Result ) then
+    if Result then
     begin
       if (ACBrNFe.NotasFiscais.Count > 0) then
       begin
@@ -1959,6 +1951,16 @@ begin
       ChaveNFE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
       ProtocoloNFE := ACBrNFe.WebServices.Retorno.Protocolo;
       ReciboNFE    := ACBrNFe.WebServices.Retorno.Recibo;
+
+//    MemoDados.Lines.Add('SINCRONO:');
+//    MemoDados.Lines.Add('Envio NFCe');
+//    MemoDados.Lines.Add('tpAmb: ' + TpAmbToStr(ACBrNFe1.WebServices.Enviar.TpAmb));
+//    MemoDados.Lines.Add('verAplic: ' + ACBrNFe1.WebServices.Enviar.verAplic);
+//    MemoDados.Lines.Add('cStat: ' + IntToStr(ACBrNFe1.WebServices.Enviar.cStat));
+//    MemoDados.Lines.Add('cUF: ' + IntToStr(ACBrNFe1.WebServices.Enviar.cUF));
+//    MemoDados.Lines.Add('xMotivo: ' + ACBrNFe1.WebServices.Enviar.xMotivo);
+//    MemoDados.Lines.Add('Recibo: '+ ACBrNFe1.WebServices.Enviar.Recibo);
+//    MemoDados.Lines.Add('Protocolo: ' + ACBrNFe1.WebServices.Enviar.Protocolo);
 
       UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
       UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
@@ -4046,6 +4048,7 @@ function TDMNFe.GerarNFeEntradaOnLineACBr(const sCNPJEmitente : String; const iC
 var
   DtHoraEmiss : TDateTime;
   sErrorMsg   : String;
+  aSincrono   : Boolean;
 begin
 {
   IMR - 04/10/2019 :
@@ -4087,10 +4090,11 @@ begin
     GerarNFEEntradaACBr(sCNPJEmitente, iCodFornecedor, iAnoCompra, iNumCompra, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
     iNumeroLote := GetNextID('TBCONFIGURACAO', 'NFE_LOTE', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
+    aSincrono   := (ACBrNFe.NotasFiscais.Count = 1);
 
-    Result := ACBrNFe.Enviar( iNumeroLote, Imprimir );
+    Result := ACBrNFe.Enviar(iNumeroLote, Imprimir, aSincrono);
 
-    if ( Result ) then
+    if Result then
     begin
       if (ACBrNFe.NotasFiscais.Count > 0) then
       begin
@@ -7364,6 +7368,7 @@ var
   sErrorMsg   ,
   sLogXmlEnv  ,
   sLogXmlRec  : String;
+  aSincrono   : Boolean;
 begin
 (*
   IMR - 24/10/2018 :
@@ -7407,10 +7412,11 @@ begin
     GerarNFCEACBr(sCNPJEmitente, iCodigoCliente, sDataHoraSaida, iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFCe, iNumeroNFCe, FileNameXML);
 
     iNumeroLote := StrToInt(Copy(FormatDateTime('yymmddhhmmss', GetDateTimeDB), 5, 8)); // Dia, hora, minuto e segundo
+    aSincrono   := (ACBrNFe.NotasFiscais.Count = 1);
 
-    Result := ACBrNFe.Enviar( iNumeroLote, Imprimir );
+    Result := ACBrNFe.Enviar(iNumeroLote, Imprimir, aSincrono);
 
-    if ( Result ) then
+    if Result then
     begin
       if (ACBrNFe.NotasFiscais.Count > 0) then
       begin

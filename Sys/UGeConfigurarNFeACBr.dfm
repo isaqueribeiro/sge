@@ -6,13 +6,11 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
   Caption = 'Configurar NF-e / NFC-e (ACBr)'
   ClientHeight = 591
   ClientWidth = 383
-  OldCreateOrder = True
-  ExplicitWidth = 397
-  ExplicitHeight = 628
+  ExplicitWidth = 403
+  ExplicitHeight = 637
   DesignSize = (
     383
     591)
-  PixelsPerInch = 96
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
@@ -101,9 +99,10 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       FF000000FF000000FF000000FF000000FF000000FF00}
     OptionsImage.NumGlyphs = 2
     TabOrder = 2
+    ExplicitTop = 554
   end
   object btnSalvar: TcxButton
-    Left = 212
+    Left = 208
     Top = 555
     Width = 83
     Height = 33
@@ -180,9 +179,11 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
     OptionsImage.NumGlyphs = 2
     TabOrder = 0
     OnClick = btnSalvarClick
+    ExplicitLeft = 204
+    ExplicitTop = 554
   end
   object btnCancelar: TcxButton
-    Left = 300
+    Left = 296
     Top = 555
     Width = 83
     Height = 33
@@ -260,6 +261,8 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
     OptionsImage.NumGlyphs = 2
     TabOrder = 1
     OnClick = btnCancelarClick
+    ExplicitLeft = 292
+    ExplicitTop = 554
   end
   object pgcGuiasGerais: TPageControl
     Left = 0
@@ -269,6 +272,8 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
     ActivePage = TbsConfiguracoes
     Align = alClient
     TabOrder = 3
+    ExplicitWidth = 379
+    ExplicitHeight = 551
     object TbsConfiguracoes: TTabSheet
       Caption = 'Configura'#231#245'es'
       object pgcGuiasConfiguracoes: TPageControl
@@ -280,14 +285,12 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         Align = alClient
         MultiLine = True
         TabOrder = 0
+        ExplicitWidth = 371
+        ExplicitHeight = 523
         object TbsGeral: TTabSheet
           BorderWidth = 4
           Caption = 'Geral'
           ImageIndex = 1
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxGeral: TGroupBox
             AlignWithMargins = True
             Left = 3
@@ -617,6 +620,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Align = alTop
             Caption = 'Certificado'
             TabOrder = 0
+            ExplicitWidth = 349
             DesignSize = (
               353
               278)
@@ -722,6 +726,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Margins.Right = 36
               Align = alTop
               TabOrder = 0
+              ExplicitWidth = 299
             end
             object edtSenha: TEdit
               AlignWithMargins = True
@@ -735,6 +740,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Align = alTop
               PasswordChar = '*'
               TabOrder = 1
+              ExplicitWidth = 325
             end
             object edtNumSerie: TEdit
               AlignWithMargins = True
@@ -748,6 +754,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Align = alTop
               TabOrder = 3
               OnChange = edtNumSerieChange
+              ExplicitWidth = 299
             end
             object edtURLPFX: TEdit
               AlignWithMargins = True
@@ -759,6 +766,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Margins.Right = 10
               Align = alTop
               TabOrder = 2
+              ExplicitWidth = 325
             end
             object Panel1: TPanel
               AlignWithMargins = True
@@ -771,6 +779,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Align = alTop
               BevelOuter = bvNone
               TabOrder = 4
+              ExplicitWidth = 325
               object btnValidadeCertificado: TcxButton
                 AlignWithMargins = True
                 Left = 0
@@ -941,6 +950,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 ShowHint = False
                 TabOrder = 1
                 OnClick = btnIssuerNameClick
+                ExplicitLeft = 218
               end
               object btnSerieNumber: TcxButton
                 AlignWithMargins = True
@@ -1026,6 +1036,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 ShowHint = False
                 TabOrder = 2
                 OnClick = btnSerieNumberClick
+                ExplicitWidth = 105
               end
             end
             object Panel2: TPanel
@@ -1040,6 +1051,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Align = alTop
               BevelOuter = bvNone
               TabOrder = 5
+              ExplicitWidth = 325
               object btnSubjectName: TcxButton
                 AlignWithMargins = True
                 Left = 0
@@ -1210,6 +1222,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 ShowHint = False
                 TabOrder = 1
                 OnClick = btnVersionSSLClick
+                ExplicitLeft = 218
               end
               object btnNumeroCNPJ: TcxButton
                 AlignWithMargins = True
@@ -1295,6 +1308,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                 ShowHint = False
                 TabOrder = 2
                 OnClick = btnNumeroCNPJClick
+                ExplicitWidth = 105
               end
             end
           end
@@ -1303,10 +1317,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           BorderWidth = 4
           Caption = 'WebService'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object GrpBxWebService: TGroupBox
             Left = 0
             Top = 0
@@ -1459,11 +1469,12 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   AlignWithMargins = True
                   Left = 10
                   Top = 3
-                  Width = 22
+                  Width = 243
                   Height = 13
                   Margins.Left = 10
                   Align = alTop
                   Caption = 'Host'
+                  ExplicitWidth = 22
                 end
                 object edtProxyHost: TEdit
                   AlignWithMargins = True
@@ -1489,11 +1500,12 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   AlignWithMargins = True
                   Left = 3
                   Top = 3
-                  Width = 26
+                  Width = 86
                   Height = 13
                   Margins.Right = 10
                   Align = alTop
                   Caption = 'Porta'
+                  ExplicitWidth = 26
                 end
                 object edtProxyPorta: TEdit
                   AlignWithMargins = True
@@ -1528,11 +1540,12 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   AlignWithMargins = True
                   Left = 10
                   Top = 3
-                  Width = 36
+                  Width = 172
                   Height = 13
                   Margins.Left = 10
                   Align = alTop
                   Caption = 'Usu'#225'rio'
+                  ExplicitWidth = 36
                 end
                 object edtProxyUser: TEdit
                   AlignWithMargins = True
@@ -1558,11 +1571,12 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   AlignWithMargins = True
                   Left = 3
                   Top = 3
-                  Width = 30
+                  Width = 157
                   Height = 13
                   Margins.Right = 10
                   Align = alTop
                   Caption = 'Senha'
+                  ExplicitWidth = 30
                 end
                 object edtProxySenha: TEdit
                   AlignWithMargins = True
@@ -1642,11 +1656,12 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   AlignWithMargins = True
                   Left = 3
                   Top = 3
-                  Width = 44
+                  Width = 85
                   Height = 13
                   Align = alTop
                   Caption = 'Intervalo'
                   FocusControl = edIntervalo
+                  ExplicitWidth = 44
                 end
                 object edIntervalo: TEdit
                   AlignWithMargins = True
@@ -1672,11 +1687,12 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   AlignWithMargins = True
                   Left = 3
                   Top = 3
-                  Width = 51
+                  Width = 85
                   Height = 13
                   Align = alTop
                   Caption = 'Tentativas'
                   FocusControl = edTentativas
+                  ExplicitWidth = 51
                 end
                 object edTentativas: TEdit
                   AlignWithMargins = True
@@ -1702,7 +1718,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   AlignWithMargins = True
                   Left = 10
                   Top = 3
-                  Width = 45
+                  Width = 78
                   Height = 13
                   Hint = 
                     'Aguardar quantos segundos para primeira consulta de retorno de e' +
@@ -1711,6 +1727,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
                   Align = alTop
                   Caption = 'Aguardar'
                   FocusControl = edAguardar
+                  ExplicitWidth = 45
                 end
                 object edAguardar: TEdit
                   AlignWithMargins = True
@@ -1733,10 +1750,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         object TbsEmitente: TTabSheet
           Caption = 'Emitente'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lbltEmitCNPJ: TLabel
             Left = 8
             Top = 4
@@ -1957,10 +1970,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         object TbsArquivos: TTabSheet
           Caption = 'Arquivos'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object lblPathNFe: TLabel
             Left = 16
             Top = 180
@@ -2304,15 +2313,11 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       BorderWidth = 4
       Caption = 'Danfe'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         367
         516)
       object sbtnLogoMarca: TSpeedButton
-        Left = 456
+        Left = 460
         Top = 71
         Width = 23
         Height = 24
@@ -2362,12 +2367,13 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
           AlignWithMargins = True
           Left = 12
           Top = 18
-          Width = 41
+          Width = 337
           Height = 13
           Margins.Left = 10
           Margins.Right = 10
           Align = alTop
           Caption = 'Caminho'
+          ExplicitWidth = 41
         end
         object edtLogoMarca: TEdit
           AlignWithMargins = True
@@ -2387,10 +2393,6 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       BorderWidth = 4
       Caption = 'E-mail'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object GrpBxEmail: TGroupBox
         Left = 0
         Top = 0

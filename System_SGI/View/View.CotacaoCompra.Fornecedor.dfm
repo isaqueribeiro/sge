@@ -3,18 +3,18 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
   BorderIcons = [biSystemMenu]
   BorderWidth = 4
   Caption = 'Cota'#231#227'o de Compra/Servi'#231'o'
-  ClientHeight = 499
-  ClientWidth = 754
+  ClientHeight = 498
+  ClientWidth = 750
   ExplicitWidth = 774
   ExplicitHeight = 545
   DesignSize = (
-    754
-    499)
+    750
+    498)
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
     Top = 121
-    Width = 754
+    Width = 750
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -22,8 +22,8 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
   end
   object Bevel2: TBevel
     Left = 0
-    Top = 461
-    Width = 754
+    Top = 460
+    Width = 750
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -33,7 +33,7 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
   object GrpBxControle: TGroupBox
     Left = 0
     Top = 0
-    Width = 754
+    Width = 750
     Height = 121
     Align = alTop
     Caption = 'Controle da Cota'#231#227'o'
@@ -44,9 +44,8 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 750
     DesignSize = (
-      754
+      750
       121)
     object lblCodigo: TLabel
       Left = 16
@@ -139,7 +138,7 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
     object dbDescricaoResumo: TDBEdit
       Left = 112
       Top = 40
-      Width = 622
+      Width = 614
       Height = 21
       TabStop = False
       Anchors = [akLeft, akTop, akRight]
@@ -261,19 +260,17 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
   object PgcResposta: TPageControl
     Left = 0
     Top = 125
-    Width = 754
-    Height = 336
+    Width = 750
+    Height = 335
     ActivePage = TbsFornecedor
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
-    ExplicitWidth = 750
-    ExplicitHeight = 335
     object TbsFornecedor: TTabSheet
       Caption = '&Fornecedor'
       DesignSize = (
-        746
-        308)
+        742
+        307)
       object lblFornecedor: TLabel
         Left = 16
         Top = 8
@@ -341,7 +338,7 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
       object dbEmail: TDBEdit
         Left = 296
         Top = 64
-        Width = 432
+        Width = 424
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         CharCase = ecLowerCase
@@ -378,7 +375,7 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
       object dbCondicaoPagto: TDBLookupComboBox
         Left = 192
         Top = 107
-        Width = 536
+        Width = 528
         Height = 21
         Anchors = [akLeft, akTop, akRight]
         DataField = 'CONDICAO_PAGTO'
@@ -399,8 +396,8 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
       object dbObservacoes: TDBMemo
         Left = 16
         Top = 152
-        Width = 712
-        Height = 139
+        Width = 704
+        Height = 138
         Anchors = [akLeft, akTop, akRight, akBottom]
         DataField = 'OBSERVACAO'
         DataSource = dtsFornecedor
@@ -413,12 +410,11 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
         ScrollBars = ssVertical
         TabOrder = 5
         ExplicitWidth = 708
-        ExplicitHeight = 138
       end
       object dbFornecedor: TJvDBComboEdit
         Left = 16
         Top = 21
-        Width = 712
+        Width = 704
         Height = 21
         ButtonHint = 'Pesquisar Fornecedor (Ctrl+P)'
         CharCase = ecUpperCase
@@ -579,7 +575,7 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
   end
   object BtnCarregarXLS: TcxButton
     Left = 0
-    Top = 466
+    Top = 465
     Width = 92
     Height = 33
     Hint = 'Carregar/Processar Retorno XLS (Planilha em Excel)'
@@ -592,11 +588,10 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
     TabOrder = 2
     TabStop = False
     Visible = False
-    ExplicitTop = 465
   end
   object btnSalvar: TcxButton
-    Left = 566
-    Top = 466
+    Left = 558
+    Top = 465
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -606,11 +601,10 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
     TabOrder = 3
     OnClick = btnSalvarClick
     ExplicitLeft = 562
-    ExplicitTop = 465
   end
   object btFechar: TcxButton
-    Left = 662
-    Top = 466
+    Left = 654
+    Top = 465
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -621,7 +615,6 @@ inherited ViewCotacaoCompraFornecedor: TViewCotacaoCompraFornecedor
     TabOrder = 4
     OnClick = btFecharClick
     ExplicitLeft = 658
-    ExplicitTop = 465
   end
   object dtsFornecedor: TDataSource
     AutoEdit = False

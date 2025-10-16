@@ -49,7 +49,8 @@ uses
   ExcelXP,
 
   dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White,
-  dxSkinsDefaultPainters;
+  dxSkinsDefaultPainters, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinTheBezier, dxSkinWXI;
 
 type
   TCotacaoFornecedorOpercao = (cfoInserir, cfoCarregarPlanilha, cfoEditar, cfoVisualizar);

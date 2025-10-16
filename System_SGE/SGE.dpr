@@ -60,9 +60,6 @@ uses
   UGrConfigurarAmbiente in '..\Sys\lib\UGrConfigurarAmbiente.pas' {frmGrConfigurarAmbiente},
   UGeContasAPagarImpressao in 'UGeContasAPagarImpressao.pas' {frmGeContasAPagarImpressao},
   UGeEntradaImpressao in 'UGeEntradaImpressao.pas' {frmGeEntradaImpressao},
-  UGeCotacaoCompra in 'UGeCotacaoCompra.pas' {frmGeCotacaoCompra},
-  UGeCotacaoCompraCancelar in 'UGeCotacaoCompraCancelar.pas' {frmGeCotacaoCompraCancelar},
-  UGeCotacaoCompraFornecedor in 'UGeCotacaoCompraFornecedor.pas' {frmGeCotacaoCompraFornecedor},
   UEcfWindowsPrinter in '..\Sys\lib\UEcfWindowsPrinter.pas',
   UGeFornecedorImpressao in 'UGeFornecedorImpressao.pas' {frmGeFornecedorImpressao},
   UGrRegistroEstacao in '..\Sys\lib\UGrRegistroEstacao.pas' {FrmGrRegistroEstacao},
@@ -185,6 +182,7 @@ uses
   SGE.Model.DAO.ContaAReceber in '..\Sys\Model\DAO\SGE.Model.DAO.ContaAReceber.pas',
   SGE.Model.DAO.ContaCorrente in '..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas',
   SGE.Model.DAO.Contrato in '..\Sys\Model\DAO\SGE.Model.DAO.Contrato.pas',
+  SGI.Model.DAO.CotacaoCompra in '..\System_SGI\Model\DAO\SGI.Model.DAO.CotacaoCompra.pas',
   SGE.Model.DAO.CST in '..\Sys\Model\DAO\SGE.Model.DAO.CST.pas',
   SGE.Model.DAO.Distrito in '..\Sys\Model\DAO\SGE.Model.DAO.Distrito.pas',
   SGE.Model.DAO.Empresa in '..\Sys\Model\DAO\SGE.Model.DAO.Empresa.pas',
@@ -204,6 +202,7 @@ uses
   SGE.Model.DAO.Promocao in 'Model\DAO\SGE.Model.DAO.Promocao.pas',
   SGE.Model.DAO.RequisicaoCompra in 'Model\DAO\SGE.Model.DAO.RequisicaoCompra.pas',
   SGE.Model.DAO.Rotina in '..\Sys\Model\DAO\SGE.Model.DAO.Rotina.pas',
+  SGI.Model.DAO.SolicitacaoCompra in '..\System_SGI\Model\DAO\SGI.Model.DAO.SolicitacaoCompra.pas',
   SGE.Model.DAO.Tabelas in '..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas',
   SGE.Model.DAO.TipoDespesa in '..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas',
   SGE.Model.DAO.TipoLogradouro in '..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas',
@@ -239,6 +238,7 @@ uses
   SGE.Controller.ContaAReceber in '..\Sys\Controller\SGE.Controller.ContaAReceber.pas',
   SGE.Controller.ContaCorrente in '..\Sys\Controller\SGE.Controller.ContaCorrente.pas',
   SGE.Controller.Contrato in '..\Sys\Controller\SGE.Controller.Contrato.pas',
+  SGI.Controller.CotacaoCompra in '..\System_SGI\Controller\SGI.Controller.CotacaoCompra.pas',
   SGE.Controller.CST in '..\Sys\Controller\SGE.Controller.CST.pas',
   SGE.Controller.Distrito in '..\Sys\Controller\SGE.Controller.Distrito.pas',
   SGE.Controller.Empresa in '..\Sys\Controller\SGE.Controller.Empresa.pas',
@@ -258,6 +258,7 @@ uses
   SGE.Controller.Promocao in 'Controller\SGE.Controller.Promocao.pas',
   SGE.Controller.RequisicaoCompra in 'Controller\SGE.Controller.RequisicaoCompra.pas',
   SGE.Controller.Rotina in '..\Sys\Controller\SGE.Controller.Rotina.pas',
+  SGI.Controller.SolicitacaoCompra in '..\System_SGI\Controller\SGI.Controller.SolicitacaoCompra.pas',
   SGE.Controller.Tabelas in '..\Sys\Controller\SGE.Controller.Tabelas.pas',
   SGE.Controller.TipoDespesa in '..\Sys\Controller\SGE.Controller.TipoDespesa.pas',
   SGE.Controller.TipoLogradouro in '..\Sys\Controller\SGE.Controller.TipoLogradouro.pas',
@@ -277,12 +278,16 @@ uses
   SGE.Controller.Impressao.DataModule.ContaAPagar in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAPagar.pas' {DataModuleContaAPagar: TDataModule},
   SGE.Controller.Impressao.DataModule.ContaAReceber in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAReceber.pas' {DataModuleContaAReceber: TDataModule},
   SGE.Controller.Impressao.DataModule.Contrato in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Contrato.pas' {DataModuleContrato: TDataModule},
+  SGI.Controller.Impressao.DataModule.CotacaoCompra in '..\System_SGI\Controller\Impressao\DataModule\SGI.Controller.Impressao.DataModule.CotacaoCompra.pas' {DataModuleCotacaoCompra: TDataModule},
   SGE.Controller.Impressao.DataModule.Cheque in '..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Cheque.pas' {DataModuleCheque: TDataModule},
+  SGI.Controller.Impressao.DataModule.SolicitacaoCompra in '..\System_SGI\Controller\Impressao\DataModule\SGI.Controller.Impressao.DataModule.SolicitacaoCompra.pas' {DataModuleSolicitacaoCompra: TDataModule},
   SGE.Controller.Impressao.AutorizacaoCompra in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.AutorizacaoCompra.pas',
   SGE.Controller.Impressao.ContaAPagar in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas',
   SGE.Controller.Impressao.ContaAReceber in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas',
   SGE.Controller.Impressao.Contrato in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas',
+  SGI.Controller.Impressao.CotacaoCompra in '..\System_SGI\Controller\Impressao\SGI.Controller.Impressao.CotacaoCompra.pas',
   SGE.Controller.Impressao.Cheque in '..\Sys\Controller\Impressao\SGE.Controller.Impressao.Cheque.pas',
+  SGI.Controller.Impressao.SolicitacaoCompra in '..\System_SGI\Controller\Impressao\SGI.Controller.Impressao.SolicitacaoCompra.pas',
   SGI.Controller.ProdutoAlmoxarifado in '..\System_SGI\Controller\SGI.Controller.ProdutoAlmoxarifado.pas',
   SGI.Controller.RequisicaoAlmoxarifado in '..\System_SGI\Controller\SGI.Controller.RequisicaoAlmoxarifado.pas',
   SGI.Controller.Query.ApropriacaoEstoque in '..\System_SGI\Controller\Query\SGI.Controller.Query.ApropriacaoEstoque.pas',
@@ -347,7 +352,10 @@ uses
   View.Query.Caixa.Conferencia in '..\Sys\View\Query\View.Query.Caixa.Conferencia.pas' {ViewQueryCaixaConferencia},
   View.Servico.ConsultarCNPJ in '..\Sys\View\View.Servico.ConsultarCNPJ.pas' {ViewServicoConsultarCNPJ},
   View.Perfil in '..\Sys\View\View.Perfil.pas' {ViewPerfil},
-  View.Perfil.Copiar in '..\Sys\View\View.Perfil.Copiar.pas' {ViewPerfilCopiar};
+  View.Perfil.Copiar in '..\Sys\View\View.Perfil.Copiar.pas' {ViewPerfilCopiar},
+  View.CotacaoCompra.Cancelar in '..\System_SGI\View\View.CotacaoCompra.Cancelar.pas' {ViewCotacaoCompraCancelar},
+  View.CotacaoCompra.Fornecedor in '..\System_SGI\View\View.CotacaoCompra.Fornecedor.pas' {ViewCotacaoCompraFornecedor},
+  View.CotacaoCompra in '..\System_SGI\View\View.CotacaoCompra.pas' {ViewCotacaoCompra};
 
 {$R *.res}
 
@@ -362,6 +370,8 @@ begin
   Application.CreateForm(TDMRecursos, DMRecursos);
   Application.CreateForm(TDMBusiness, DMBusiness);
   Application.CreateForm(TDMNFe, DMNFe);
+  Application.CreateForm(TDataModuleCotacaoCompra, DataModuleCotacaoCompra);
+  Application.CreateForm(TDataModuleSolicitacaoCompra, DataModuleSolicitacaoCompra);
   SplashFree;
 
   if ExecutarLogin() then

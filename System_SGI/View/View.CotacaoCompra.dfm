@@ -3,30 +3,30 @@ inherited ViewCotacaoCompra: TViewCotacaoCompra
   Top = 210
   ActiveControl = dbCodigo
   Caption = 'Controle de Cota'#231#245'es de Compra/Servi'#231'o'
-  ClientHeight = 685
-  ClientWidth = 1116
+  ClientHeight = 684
+  ClientWidth = 1112
   ExplicitWidth = 1128
   ExplicitHeight = 723
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 681
-    Width = 1116
+    Top = 680
+    Width = 1112
     ExplicitTop = 682
     ExplicitWidth = 1116
   end
   inherited Bevel3: TBevel
-    Top = 642
-    Width = 1116
+    Top = 641
+    Width = 1112
     ExplicitTop = 643
     ExplicitWidth = 1116
   end
   inherited pgcGuias: TPageControl
-    Width = 1116
-    Height = 642
+    Width = 1112
+    Height = 641
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 1112
-    ExplicitHeight = 641
+    ExplicitWidth = 1120
+    ExplicitHeight = 642
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 1108
       ExplicitHeight = 613
@@ -120,7 +120,6 @@ inherited ViewCotacaoCompra: TViewCotacaoCompra
             Left = 302
             Top = 24
             Width = 49
-            Height = 23
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
@@ -135,14 +134,13 @@ inherited ViewCotacaoCompra: TViewCotacaoCompra
             Left = 32
             Top = 24
             Width = 49
-            Height = 23
+            Height = 13
             Margins.Top = 9
             Margins.Bottom = 13
             Align = alRight
             Caption = 'Emiss'#227'o:'
             FocusControl = e1Data
             Layout = tlCenter
-            ExplicitHeight = 13
           end
           inherited edtFiltrar: TEdit
             Left = 357
@@ -1163,13 +1161,12 @@ inherited ViewCotacaoCompra: TViewCotacaoCompra
             object lblEnderecoEntrega: TLabel
               Left = 0
               Top = 4
-              Width = 1100
+              Width = 160
               Height = 13
               Align = alTop
               Caption = 'Endere'#231'o de Entrega/Realiza'#231#227'o:'
               FocusControl = dbEnderecoEntrega
               Visible = False
-              ExplicitWidth = 160
             end
             object Bevel5: TBevel
               Left = 0
@@ -1504,7 +1501,7 @@ inherited ViewCotacaoCompra: TViewCotacaoCompra
           object dbgFornecedor: TDBGrid
             Left = 78
             Top = 0
-            Width = 1022
+            Width = 1018
             Height = 138
             TabStop = False
             Align = alClient
@@ -1614,12 +1611,11 @@ inherited ViewCotacaoCompra: TViewCotacaoCompra
       object GrpBxDadosProduto: TGroupBox
         Left = 0
         Top = 193
-        Width = 1108
+        Width = 1104
         Height = 116
         Align = alTop
         Caption = 'Dados do produto/servi'#231'o'
         TabOrder = 1
-        ExplicitWidth = 1104
         object lblProduto: TLabel
           Left = 88
           Top = 24
@@ -2284,8 +2280,8 @@ inherited ViewCotacaoCompra: TViewCotacaoCompra
       object dbgProdutos: TDBGrid
         Left = 0
         Top = 313
-        Width = 1108
-        Height = 130
+        Width = 1104
+        Height = 129
         TabStop = False
         Align = alClient
         DataSource = DtSrcTabelaItens
@@ -2359,8 +2355,8 @@ inherited ViewCotacaoCompra: TViewCotacaoCompra
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 646
-    Width = 1116
+    Top = 645
+    Width = 1112
     ExplicitTop = 645
     ExplicitWidth = 1112
     inherited bvlTool3: TBevel

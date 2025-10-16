@@ -44,7 +44,9 @@ uses
 
   dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White,
   dxSkinsDefaultPainters, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet;
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.Client, FireDAC.Comp.DataSet,
+  dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinTheBezier,
+  dxSkinWXI;
 
 type
   TfrmGeCotacaoCompraCancelar = class(TfrmGrPadrao)
@@ -112,7 +114,9 @@ var
 implementation
 
 uses
-  UDMBusiness, UDMNFe, UFuncoes, UConstantesDGE;
+  UDMBusiness,
+  UDMNFe,
+  UFuncoes;
 
 {$R *.dfm}
 

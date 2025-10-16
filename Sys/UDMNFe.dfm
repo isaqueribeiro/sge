@@ -48905,10 +48905,10 @@ object DMNFe: TDMNFe
     end
   end
   object ACBrNFe: TACBrNFe
-    Configuracoes.Geral.SSLLib = libNone
-    Configuracoes.Geral.SSLCryptLib = cryNone
-    Configuracoes.Geral.SSLHttpLib = httpNone
-    Configuracoes.Geral.SSLXmlSignLib = xsNone
+    Configuracoes.Geral.SSLLib = libWinCrypt
+    Configuracoes.Geral.SSLCryptLib = cryWinCrypt
+    Configuracoes.Geral.SSLHttpLib = httpWinHttp
+    Configuracoes.Geral.SSLXmlSignLib = xsLibXml2
     Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
     Configuracoes.Arquivos.OrdenacaoPath = <>
     Configuracoes.WebServices.UF = 'PA'

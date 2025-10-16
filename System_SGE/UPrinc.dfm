@@ -4932,7 +4932,7 @@ object frmPrinc: TfrmPrinc
     object BrMngPrincipalFin: TdxBar
       Caption = 'Movimento Financeiro'
       CaptionButtons = <>
-      DockedLeft = 315
+      DockedLeft = 605
       DockedTop = 0
       FloatLeft = 335
       FloatTop = 213

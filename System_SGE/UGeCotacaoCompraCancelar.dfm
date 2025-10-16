@@ -4,15 +4,15 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
   BorderIcons = [biSystemMenu]
   BorderWidth = 4
   Caption = 'Cancelar Cota'#231#227'o de Compra/Servi'#231'o'
-  ClientHeight = 423
-  ClientWidth = 591
+  ClientHeight = 422
+  ClientWidth = 587
   ExplicitWidth = 611
   ExplicitHeight = 469
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
     Top = 121
-    Width = 591
+    Width = 587
     Height = 4
     Align = alTop
     Shape = bsSpacer
@@ -20,8 +20,8 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
   end
   object Bevel2: TBevel
     Left = 0
-    Top = 386
-    Width = 591
+    Top = 385
+    Width = 587
     Height = 4
     Align = alBottom
     Shape = bsSpacer
@@ -32,7 +32,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
   object GrpBxControle: TGroupBox
     Left = 0
     Top = 0
-    Width = 591
+    Width = 587
     Height = 121
     Align = alTop
     Caption = 'Controle da Cota'#231#227'o'
@@ -45,7 +45,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
     TabOrder = 0
     ExplicitWidth = 580
     DesignSize = (
-      591
+      587
       121)
     object lblCodigo: TLabel
       Left = 16
@@ -124,7 +124,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
     object dbDescricaoResumo: TDBEdit
       Left = 112
       Top = 40
-      Width = 465
+      Width = 457
       Height = 21
       TabStop = False
       Anchors = [akLeft, akTop, akRight]
@@ -139,6 +139,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
       ParentFont = False
       ReadOnly = True
       TabOrder = 1
+      ExplicitWidth = 465
     end
     object dbEmissao: TDBEdit
       Left = 16
@@ -180,8 +181,8 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
   object GrpBxTexto: TGroupBox
     Left = 0
     Top = 125
-    Width = 591
-    Height = 261
+    Width = 587
+    Height = 260
     Align = alClient
     Caption = 'Dados do Cancelamento'
     Font.Charset = ANSI_CHARSET
@@ -192,10 +193,9 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
     ParentFont = False
     TabOrder = 1
     ExplicitWidth = 580
-    ExplicitHeight = 260
     DesignSize = (
-      591
-      261)
+      587
+      260)
     object lblCancelUsuario: TLabel
       Left = 16
       Top = 24
@@ -211,7 +211,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
       ParentFont = False
     end
     object lblCancelDataHora: TLabel
-      Left = 408
+      Left = 400
       Top = 24
       Width = 63
       Height = 13
@@ -224,6 +224,7 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      ExplicitLeft = 408
     end
     object lblMotivo: TLabel
       Left = 16
@@ -242,8 +243,8 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
     object dbMotivo: TMemo
       Left = 16
       Top = 83
-      Width = 559
-      Height = 165
+      Width = 551
+      Height = 164
       Anchors = [akLeft, akTop, akRight, akBottom]
       Color = clWhite
       Font.Charset = ANSI_CHARSET
@@ -256,12 +257,11 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
       ScrollBars = ssVertical
       TabOrder = 2
       ExplicitWidth = 548
-      ExplicitHeight = 164
     end
     object dbCancelUsuario: TEdit
       Left = 16
       Top = 40
-      Width = 385
+      Width = 377
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       CharCase = ecUpperCase
@@ -275,9 +275,10 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
       ReadOnly = True
       TabOrder = 0
       Text = 'DBUSUARIO'
+      ExplicitWidth = 385
     end
     object dbCancelDataHora: TEdit
-      Left = 408
+      Left = 400
       Top = 40
       Width = 169
       Height = 21
@@ -293,17 +294,17 @@ inherited frmGeCotacaoCompraCancelar: TfrmGeCotacaoCompraCancelar
       ReadOnly = True
       TabOrder = 1
       Text = 'DBCANCELDATAHORA'
+      ExplicitLeft = 408
     end
   end
   object pnlBotoes: TPanel
     Left = 0
-    Top = 390
-    Width = 591
+    Top = 389
+    Width = 587
     Height = 33
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 389
     ExplicitWidth = 580
     object lblInforme: TLabel
       AlignWithMargins = True

@@ -158,8 +158,8 @@
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <BT_BuildType>Debug</BT_BuildType>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.35.5;InternalName=SGE;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.35;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=24/10/2024;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramGUUID={1750BCC4-2444-458F-90C9-1CE8F90E5629};GoogleAnalyticsPropertyID=UA-206518554-1</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.35.8;InternalName=SGE;LegalCopyright=Copyright 2013 - 2025 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.35;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=15/10/2025;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramGUUID={1750BCC4-2444-458F-90C9-1CE8F90E5629};GoogleAnalyticsPropertyID=UA-206518554-1</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <Icon_MainIcon>SGE_Icon.ico</Icon_MainIcon>
@@ -167,7 +167,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <VerInfo_Release>35</VerInfo_Release>
         <UWP_DelphiLogo150>..\_diversos\Imagens\_Matriz\icon_gestao_estoque-v2-150x150.png</UWP_DelphiLogo150>
         <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
-        <VerInfo_Build>5</VerInfo_Build>
+        <VerInfo_Build>8</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
@@ -186,9 +186,9 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_Release>35</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.35.5;InternalName=SGE;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.35;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=24/10/2024;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgrammGUUID={1750BCC4-2444-458F-90C9-1CE8F90E5629};GoogleAnalyticsPropertyID=UA-206518554-1</VerInfo_Keys>
-        <VerInfo_Build>5</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.35.8;InternalName=SGE;LegalCopyright=Copyright 2013 - 2025 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.35;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=15/10/2025;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgrammGUUID={1750BCC4-2444-458F-90C9-1CE8F90E5629};GoogleAnalyticsPropertyID=UA-206518554-1</VerInfo_Keys>
+        <VerInfo_Build>8</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -215,10 +215,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.35.5;InternalName=SGE;LegalCopyright=Copyright 2013 - 2024 © Ágil Soluções em Softwares - ME
-Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.35;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=24/10/2024;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramGUUID={1750BCC4-2444-458F-90C9-1CE8F90E5629};GoogleAnalyticsPropertyID=UA-206518554-1</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Ágil Soluções em Softwares, ME;FileDescription=Sistema Integrado de Gestão Empresarial/Comerciall;FileVersion=1.0.35.8;InternalName=SGE;LegalCopyright=Copyright 2013 - 2025 © Ágil Soluções em Softwares - ME
+Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductName=SGE - Sistema de Gestão Empresarial/Comercial;ProductVersion=1.0.35;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);Systems Analyst=Isaque Marinho Ribeiro;ReleaseDate=15/10/2025;Contacts=(91) 99146.0444;Owner=Isaque Marinho Ribeiro;SplashName=;SplashDescription=;ProgramGUUID={1750BCC4-2444-458F-90C9-1CE8F90E5629};GoogleAnalyticsPropertyID=UA-206518554-1</VerInfo_Keys>
         <VerInfo_Release>35</VerInfo_Release>
-        <VerInfo_Build>5</VerInfo_Build>
+        <VerInfo_Build>8</VerInfo_Build>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -350,15 +350,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="UGeEntradaImpressao.pas">
             <Form>frmGeEntradaImpressao</Form>
-        </DCCReference>
-        <DCCReference Include="UGeCotacaoCompra.pas">
-            <Form>frmGeCotacaoCompra</Form>
-        </DCCReference>
-        <DCCReference Include="UGeCotacaoCompraCancelar.pas">
-            <Form>frmGeCotacaoCompraCancelar</Form>
-        </DCCReference>
-        <DCCReference Include="UGeCotacaoCompraFornecedor.pas">
-            <Form>frmGeCotacaoCompraFornecedor</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UEcfWindowsPrinter.pas"/>
         <DCCReference Include="UGeFornecedorImpressao.pas">
@@ -559,6 +550,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaAReceber.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Contrato.pas"/>
+        <DCCReference Include="..\System_SGI\Model\DAO\SGI.Model.DAO.CotacaoCompra.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CST.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Distrito.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Empresa.pas"/>
@@ -578,6 +570,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="Model\DAO\SGE.Model.DAO.Promocao.pas"/>
         <DCCReference Include="Model\DAO\SGE.Model.DAO.RequisicaoCompra.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Rotina.pas"/>
+        <DCCReference Include="..\System_SGI\Model\DAO\SGI.Model.DAO.SolicitacaoCompra.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas"/>
@@ -613,6 +606,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAReceber.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaCorrente.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Contrato.pas"/>
+        <DCCReference Include="..\System_SGI\Controller\SGI.Controller.CotacaoCompra.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.CST.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Distrito.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Empresa.pas"/>
@@ -632,6 +626,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         <DCCReference Include="Controller\SGE.Controller.Promocao.pas"/>
         <DCCReference Include="Controller\SGE.Controller.RequisicaoCompra.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Rotina.pas"/>
+        <DCCReference Include="..\System_SGI\Controller\SGI.Controller.SolicitacaoCompra.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.Tabelas.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoDespesa.pas"/>
         <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoLogradouro.pas"/>
@@ -663,15 +658,25 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
             <Form>DataModuleContrato</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
+        <DCCReference Include="..\System_SGI\Controller\Impressao\DataModule\SGI.Controller.Impressao.DataModule.CotacaoCompra.pas">
+            <Form>DataModuleCotacaoCompra</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Cheque.pas">
             <Form>DataModuleCheque</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\System_SGI\Controller\Impressao\DataModule\SGI.Controller.Impressao.DataModule.SolicitacaoCompra.pas">
+            <Form>DataModuleSolicitacaoCompra</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.AutorizacaoCompra.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas"/>
+        <DCCReference Include="..\System_SGI\Controller\Impressao\SGI.Controller.Impressao.CotacaoCompra.pas"/>
         <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.Cheque.pas"/>
+        <DCCReference Include="..\System_SGI\Controller\Impressao\SGI.Controller.Impressao.SolicitacaoCompra.pas"/>
         <DCCReference Include="..\System_SGI\Controller\SGI.Controller.ProdutoAlmoxarifado.pas"/>
         <DCCReference Include="..\System_SGI\Controller\SGI.Controller.RequisicaoAlmoxarifado.pas"/>
         <DCCReference Include="..\System_SGI\Controller\Query\SGI.Controller.Query.ApropriacaoEstoque.pas"/>
@@ -861,6 +866,18 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE.EXE;ProductN
         </DCCReference>
         <DCCReference Include="..\Sys\View\View.Perfil.Copiar.pas">
             <Form>ViewPerfilCopiar</Form>
+        </DCCReference>
+        <DCCReference Include="..\System_SGI\View\View.CotacaoCompra.Cancelar.pas">
+            <Form>ViewCotacaoCompraCancelar</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\System_SGI\View\View.CotacaoCompra.Fornecedor.pas">
+            <Form>ViewCotacaoCompraFornecedor</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\System_SGI\View\View.CotacaoCompra.pas">
+            <Form>ViewCotacaoCompra</Form>
+            <FormType>dfm</FormType>
         </DCCReference>
         <RcItem Include="..\_diversos\Imagens\Glyphs\app_configurar_48x48.png">
             <ResourceType>RCDATA</ResourceType>

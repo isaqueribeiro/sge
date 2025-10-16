@@ -17,7 +17,8 @@ uses
   dxSkinOffice2010Silver, dxSkinSevenClassic, dxSkinSharpPlus,
   dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
   dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinsDefaultPainters;
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinsDefaultPainters, dxSkinBasic, dxSkinOffice2019Black,
+  dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinTheBezier, dxSkinWXI;
 
 type
   TfrmGeConfigurarNFeACBr = class(TfrmGrPadrao)
