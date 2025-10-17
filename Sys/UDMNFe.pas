@@ -4,11 +4,12 @@ interface
 
 uses
   System.SysUtils,
-  System.Classes,
   System.StrUtils,
+  System.Classes,
   System.Variants,
   System.TypInfo,
   System.Generics.Collections,
+
   Web.HTTPApp,
   Winapi.Windows,
   Winapi.ShellApi,
@@ -501,7 +502,7 @@ const
   DIRECTORY_PRINT  = 'NFe\Imprimir\';
   DIRECTORY_CLIENT = 'NFe\Clientes\';
 
-  PROCESSO_NFE_AUTORIZADA       = 100;
+  PROCESSO_NFE_AUTORIZADA       = 100; // Nota: Autorizado o uso da NF-e
   PROCESSO_NFE_LOTE_PROCES      = 103; // Processo: Lote recebido com Sucesso
   PROCESSO_NFE_LOTE_REJEITADO   = 104; // Processo: Lote processado, mas rejeitado
   PROCESSO_NFE_LOTE_PROCESSANDO = 105; // Processo: Lote em processamento
@@ -538,13 +539,16 @@ uses
   System.IniFiles,
   System.IOUtils,
   System.UITypes,
+
   View.Certificado,
   UDMRecursos,
   Forms,
   FileCtrl,
   StdCtrls,
   UFuncoes,
-  DateUtils, UEcfFactory, // pcnRetConsReciNFe, pcnDownloadNFe,
+  DateUtils,
+  UEcfFactory,
+  // pcnRetConsReciNFe, pcnDownloadNFe,
   pcnConversaoNFe,
   //pcnEnvEventoNFe,
   //pcnEventoNFe,
@@ -1895,6 +1899,8 @@ var
   sLogXmlEnv  ,
   sLogXmlRec  : String;
   aSincrono   : Boolean;
+  aStatusNFe  : Integer;
+  aMotivoNFe  : String;
 begin
 (*
   IMR - 04/10/2019 :
@@ -1943,24 +1949,30 @@ begin
     if Result then
     begin
       if (ACBrNFe.NotasFiscais.Count > 0) then
-      begin
         ACBrNFe.Consultar;
-        ACBrNFe.NotasFiscais.Items[0].GravarXML(ExtractFileName(FileNameXML), ExtractFilePath(FileNameXML));
-      end;
 
-      ChaveNFE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
+      ACBrNFe.NotasFiscais.Items[0].GravarXML(ExtractFileName(FileNameXML), ExtractFilePath(FileNameXML));
+
+      ChaveNFE := ACBrNFe.WebServices.Retorno.ChaveNFe;
       ProtocoloNFE := ACBrNFe.WebServices.Retorno.Protocolo;
       ReciboNFE    := ACBrNFe.WebServices.Retorno.Recibo;
 
-//    MemoDados.Lines.Add('SINCRONO:');
-//    MemoDados.Lines.Add('Envio NFCe');
-//    MemoDados.Lines.Add('tpAmb: ' + TpAmbToStr(ACBrNFe1.WebServices.Enviar.TpAmb));
-//    MemoDados.Lines.Add('verAplic: ' + ACBrNFe1.WebServices.Enviar.verAplic);
-//    MemoDados.Lines.Add('cStat: ' + IntToStr(ACBrNFe1.WebServices.Enviar.cStat));
-//    MemoDados.Lines.Add('cUF: ' + IntToStr(ACBrNFe1.WebServices.Enviar.cUF));
-//    MemoDados.Lines.Add('xMotivo: ' + ACBrNFe1.WebServices.Enviar.xMotivo);
-//    MemoDados.Lines.Add('Recibo: '+ ACBrNFe1.WebServices.Enviar.Recibo);
-//    MemoDados.Lines.Add('Protocolo: ' + ACBrNFe1.WebServices.Enviar.Protocolo);
+//      //Informações de retorno relacionadas ao web service...
+//      ACBrNFe.WebServices.Enviar.tpAmb;
+//      ACBrNFe.WebServices.Enviar.verAplic;
+//      ACBrNFe.WebServices.Enviar.cStat;
+//      ACBrNFe.WebServices.Enviar.cUF;
+//      ACBrNFe.WebServices.Enviar.xMotivo;
+//      ACBrNFe.WebServices.Enviar.Protocolo;
+//
+//      //Informações de retorno específicas a NFe...
+//      ACBrNFe.NotasFiscais[0].NFe.procNFe.tpAmb
+//      ACBrNFe.NotasFiscais[0].NFe.procNFe.verAplic
+//      ACBrNFe.NotasFiscais[0].NFe.procNFe.chNFe
+//      ACBrNFe.NotasFiscais[0].NFe.procNFe.dhRecbto
+//      ACBrNFe.NotasFiscais[0].NFe.procNFe.nProt
+//      ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat
+//      ACBrNFe.NotasFiscais[0].NFe.procNFe.xMotivo
 
       UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
       UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
@@ -1971,25 +1983,43 @@ begin
       ACBrNFe.NotasFiscais.Clear;
 
       // Verificar se a nota foi Denegada
-      if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1 ) then
+      if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1) then
       begin
-        if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_NOTA_DENEGADA)
-        or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_EMIT)
-        or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_DEST) then
+        aStatusNFe := StrToInt(IfThen(aSincrono, IntToStr(ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat), IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat)));
+        aMotivoNFe := IfThen(aSincrono, ACBrNFe.NotasFiscais[0].NFe.procNFe.xMotivo, ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo);
+
+//        if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_NOTA_DENEGADA)   or
+//          (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_EMIT) or
+//          (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_DEST) then
+        if (aStatusNFe = REJEICAO_NFE_NOTA_DENEGADA) or (aStatusNFe = REJEICAO_NFE_IRREG_FISCO_EMIT) or (aStatusNFe = REJEICAO_NFE_IRREG_FISCO_DEST) then
         begin
           Denegada       := True;
-          DenegadaMotivo := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
+          DenegadaMotivo := aMotivoNFe;
         end;
       end;
+
+      if aSincrono and (ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat <> PROCESSO_NFE_AUTORIZADA) then
+        raise Exception.Create('NF-e de saída não autorizada!');
     end
-    // Guarda rebido de retorno, caso ele exista, mesmo o envio ter retornado FALSE
     else
-    if Assigned(ACBrNFe.WebServices.Retorno) then
-      if (Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr) then
+    begin
+      // Guarda recido de retorno, caso ele exista, mesmo o envio ter retornado FALSE
+      if Assigned(ACBrNFe.WebServices.Retorno) then
+        if (not Trim(ACBrNFe.WebServices.Retorno.Recibo).IsEmpty) then
+        begin
+          ReciboNFE := Trim(ACBrNFe.WebServices.Retorno.Recibo);
+          GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ReciboNFE);
+        end;
+
+      // Forçar erro quando o retorno for FALSE para o envio síncrono
+      if aSincrono then
       begin
-        ReciboNFE := Trim(ACBrNFe.WebServices.Retorno.Recibo);
-        GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ReciboNFE);
+        aStatusNFe := ACBrNFe.WebServices.Enviar.cStat;
+        aMotivoNFe := ACBrNFe.WebServices.Enviar.xMotivo;
+
+        raise Exception.CreateFmt('Erro na SEFAZ [%d]: %s', [aStatusNFe, aMotivoNFe]);
       end;
+    end;
 
   except
     On E : Exception do
@@ -2002,9 +2032,12 @@ begin
         if ReciboNaoExisteNaVenda(ACBrNFe.WebServices.Retorno.Recibo) then
           GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ACBrNFe.WebServices.Retorno.Recibo);
 
-      if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1 ) then
+      if aSincrono or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1) then
       begin
-        Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat of
+        aStatusNFe := StrToInt(IfThen(aSincrono, IntToStr(ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat), IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat)));
+        aMotivoNFe := IfThen(aSincrono, ACBrNFe.NotasFiscais[0].NFe.procNFe.xMotivo, ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo);
+
+        Case aStatusNFe of
           REJEICAO_NFE_NOTA_DENEGADA, REJEICAO_NFE_IRREG_FISCO_EMIT, REJEICAO_NFE_IRREG_FISCO_DEST:
             begin
               UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
@@ -2015,7 +2048,7 @@ begin
                 Result := True;
 
                 Denegada       := True;
-                DenegadaMotivo := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
+                DenegadaMotivo := aMotivoNFe;
 
                 ChaveNFE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
                 ProtocoloNFE := ACBrNFe.WebServices.Retorno.Protocolo;
@@ -2028,8 +2061,7 @@ begin
                 // Remover Lote da Venda
                 GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-                sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
-                  'Favor gerar NF-e novamente!';
+                sErrorMsg := aMotivoNFe + #13 + 'Favor gerar NF-e novamente!';
               end;
             end;
 
@@ -2041,7 +2073,7 @@ begin
 //              // Remover Lote da Venda
 //              GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 //
-              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
+              sErrorMsg := aMotivoNFe;
             end;
 
           REJEICAO_NFE_EMISSOR_NAO_HABIL,
@@ -2058,10 +2090,10 @@ begin
               // Remover Lote da Venda
               GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
-                'Favor validar dados e NF-e novamente!';
+              sErrorMsg := aMotivoNFe + #13 + 'Favor validar dados e NF-e novamente!';
 
-              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
+//              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
+              if (aStatusNFe in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
                 sErrorMsg :=
                   'Inscrição Estadual (IE) do cliente não cadastrado ou não vinculado ao CNPJ informado. ' + #13 +
                   '- Deve-se consultar o CNPJ do cliente no SINTEGRA; ou' + #13 +
@@ -2069,10 +2101,10 @@ begin
                   'Favor corrija esta informação no Cadastro do Cliente.' + #13#13 +
                   'Após este procedimento, gere novamente a NF-e'
               else
-//              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_CFOP_INVALIDO, REJEICAO_NFE_CFOP_DIFERENTE]) then
-              if ( (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_INVALIDO)
-                or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE)
-              ) then
+//              if ( (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_INVALIDO)
+//                or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE)
+//              ) then
+              if ((aStatusNFe = REJEICAO_NFE_CFOP_INVALIDO) or (aStatusNFe = REJEICAO_NFE_CFOP_DIFERENTE)) then
                 sErrorMsg :=
                   'Código Fiscal de Operação não adequado para este tipo de movimento dos produtos. ' +
                   'Favor corrija-o clicando com o botão direito do mouse no campo CFOP' + #13#13 +
@@ -2084,15 +2116,14 @@ begin
               // Remover Lote da Venda
               GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
-                'Possível erro na validação do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
+              sErrorMsg := aMotivoNFe + #13 + 'Possível erro na validação do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
             end;
 
           else
           begin
 
-            sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) + ' - ' +
-              ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13#13 +
+//            sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) + ' - ' +
+            sErrorMsg := IntToStr(aStatusNFe) + ' - ' + aMotivoNFe + #13#13 +
               'Favor entrar em contato com suporte e apresentar esta mensagem!';
 
             if Assigned(ACBrNFe.WebServices.Recibo) then                        // Se possuir recibo de envio
@@ -2102,15 +2133,14 @@ begin
                 if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe) then // Se o retorno prossuir protocolo de processamento
                 begin
 
-                  if ( ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe.Count > 0 ) then
+                  if (ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe.Count > 0) then
                     Case ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].cStat of
                       PROCESSO_NFE_LOTE_REJEITADO :
                         begin
                           // Remover Lote da Venda
                           GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-                          sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
-                            'Favor fazer as devidas correções e gerar NF-e novamente!';
+                          sErrorMsg := aMotivoNFe + #13 + 'Favor fazer as devidas correções e gerar NF-e novamente!';
                         end;
                     end;
 
@@ -2121,9 +2151,13 @@ begin
           end;
         end;
 
+//        ShowError('Erro ao tentar gerar NF-e.' +
+//          #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) +
+//          IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
+//          #13#13 + 'GerarNFeOnLineACBr() --> ' + sErrorMsg);
         ShowError('Erro ao tentar gerar NF-e.' +
-          #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) +
-          IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
+          #13 + 'Status: ' + IntToStr(aStatusNFe) +
+          IfThen(Trim(ReciboNFE).IsEmpty, EmptyStr, #13 + 'Recibo: ' + ReciboNFE) +
           #13#13 + 'GerarNFeOnLineACBr() --> ' + sErrorMsg);
 
       end;
@@ -4049,6 +4083,8 @@ var
   DtHoraEmiss : TDateTime;
   sErrorMsg   : String;
   aSincrono   : Boolean;
+  aStatusNFe  : Integer;
+  aMotivoNFe  : String;
 begin
 {
   IMR - 04/10/2019 :
@@ -4097,12 +4133,11 @@ begin
     if Result then
     begin
       if (ACBrNFe.NotasFiscais.Count > 0) then
-      begin
         ACBrNFe.Consultar;
-        ACBrNFe.NotasFiscais.Items[0].GravarXML(ExtractFileName(FileNameXML), ExtractFilePath(FileNameXML));
-      end;
 
-      ChaveNFE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
+      ACBrNFe.NotasFiscais.Items[0].GravarXML(ExtractFileName(FileNameXML), ExtractFilePath(FileNameXML));
+
+      ChaveNFE := ACBrNFe.WebServices.Retorno.ChaveNFe;
       ProtocoloNFE := ACBrNFe.WebServices.Retorno.Protocolo;
       ReciboNFE    := ACBrNFe.WebServices.Retorno.Recibo;
 
@@ -4115,25 +4150,43 @@ begin
       ACBrNFe.NotasFiscais.Clear;
 
       // Verificar se a nota foi Denegada
-      if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1 ) then
+      if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1) then
       begin
-        if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_NOTA_DENEGADA)
-        or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_EMIT)
-        or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_DEST) then
+        aStatusNFe := StrToInt(IfThen(aSincrono, IntToStr(ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat), IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat)));
+        aMotivoNFe := IfThen(aSincrono, ACBrNFe.NotasFiscais[0].NFe.procNFe.xMotivo, ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo);
+
+//        if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_NOTA_DENEGADA)
+//        or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_EMIT)
+//        or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_IRREG_FISCO_DEST) then
+        if (aStatusNFe = REJEICAO_NFE_NOTA_DENEGADA) or (aStatusNFe = REJEICAO_NFE_IRREG_FISCO_EMIT) or (aStatusNFe = REJEICAO_NFE_IRREG_FISCO_DEST) then
         begin
           Denegada       := True;
-          DenegadaMotivo := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
+          DenegadaMotivo := aMotivoNFe;
         end;
       end;
+
+      if aSincrono and (ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat <> PROCESSO_NFE_AUTORIZADA) then
+        raise Exception.Create('NF-e de entrada não autorizada!');
     end
-    // Guarda rebido de retorno, caso ele exista, mesmo o envio ter retornado FALSE
     else
-    if Assigned(ACBrNFe.WebServices.Retorno) then
-      if (Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr) then
+    begin
+      // Guarda rebido de retorno, caso ele exista, mesmo o envio ter retornado FALSE
+      if Assigned(ACBrNFe.WebServices.Retorno) then
+        if (Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr) then
+        begin
+          ReciboNFE := Trim(ACBrNFe.WebServices.Retorno.Recibo);
+          GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, iNumeroLote, ReciboNFE);
+        end;
+
+      // Forçar erro quando o retorno for FALSE para o envio síncrono
+      if aSincrono then
       begin
-        ReciboNFE := Trim(ACBrNFe.WebServices.Retorno.Recibo);
-        GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, iNumeroLote, ReciboNFE);
+        aStatusNFe := ACBrNFe.WebServices.Enviar.cStat;
+        aMotivoNFe := ACBrNFe.WebServices.Enviar.xMotivo;
+
+        raise Exception.CreateFmt('Erro na SEFAZ [%d]: %s', [aStatusNFe, aMotivoNFe]);
       end;
+    end;
 
   except
     On E : Exception do
@@ -4146,9 +4199,12 @@ begin
         if ReciboNaoExisteNaEntrada(ACBrNFe.WebServices.Retorno.Recibo) then
           GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, iNumeroLote, ACBrNFe.WebServices.Retorno.Recibo);
 
-      if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1 ) then
+      if aSincrono or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1) then
       begin
-        Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat of
+        aStatusNFe := StrToInt(IfThen(aSincrono, IntToStr(ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat), IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat)));
+        aMotivoNFe := IfThen(aSincrono, ACBrNFe.NotasFiscais[0].NFe.procNFe.xMotivo, ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo);
+
+        Case aStatusNFe of
           REJEICAO_NFE_DUPLICIDADE  :
             begin
 //              UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
@@ -4157,7 +4213,7 @@ begin
 //              // Remover Lote da Entrada
 //              GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
 //
-              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
+              sErrorMsg := aMotivoNFe;
             end;
 
           REJEICAO_NFE_NOTA_DENEGADA, REJEICAO_NFE_IRREG_FISCO_EMIT, REJEICAO_NFE_IRREG_FISCO_DEST:
@@ -4168,8 +4224,7 @@ begin
               // Remover Lote da Entrada
               GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
 
-              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
-                'Favor gerar NF-e novamente!';
+              sErrorMsg := aMotivoNFe + #13 + 'Favor gerar NF-e novamente!';
             end;
 
           REJEICAO_NFE_EMISSOR_NAO_HABIL,
@@ -4186,10 +4241,10 @@ begin
               // Remover Lote da Entrada
               GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
 
-              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
-                'Favor validar dados e NF-e novamente!';
+              sErrorMsg := aMotivoNFe + #13 + 'Favor validar dados e NF-e novamente!';
 
-              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
+//              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
+              if (aStatusNFe in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
                 sErrorMsg :=
                   'Inscrição Estadual (IE) do fornecedor não cadastrado ou não vinculado ao CNPJ informado. ' + #13 +
                   '- Deve-se consultar o CNPJ do fornecedor no SINTEGRA; ou' + #13 +
@@ -4197,9 +4252,10 @@ begin
                   'Favor corrija esta informação no Cadastro do Fornecedor.' + #13#13 +
                   'Após este procedimento, gere novamente a NF-e'
               else
-              if ( (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_INVALIDO)
-                or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE)
-              ) then
+//              if ( (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_INVALIDO)
+//                or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE)
+//              ) then
+              if ((aStatusNFe = REJEICAO_NFE_CFOP_INVALIDO) or (aStatusNFe = REJEICAO_NFE_CFOP_DIFERENTE)) then
                 sErrorMsg :=
                   'Código Fiscal de Operação não adequado para este tipo de movimento dos produtos. ' +
                   'Favor corrija-o clicando com o botão direito do mouse no campo CFOP' + #13#13 +
@@ -4211,15 +4267,14 @@ begin
               // Remover Lote da Entrada
               GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
 
-              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
-                'Possível erro na validação do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
+              sErrorMsg := aMotivoNFe + #13 + 'Possível erro na validação do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
             end;
 
           else
           begin
 
-            sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) + ' - ' +
-              ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13#13 +
+//            sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) + ' - ' +
+            sErrorMsg := IntToStr(aStatusNFe) + ' - ' + aMotivoNFe + #13#13 +
               'Favor entrar em contato com suporte e apresentar esta mensagem!';
 
             if Assigned(ACBrNFe.WebServices.Recibo) then                        // Se possuir recibo de envio
@@ -4236,8 +4291,7 @@ begin
                           // Remover Lote da Entrada
                           GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
 
-                          sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
-                            'Favor fazer as devidas coreções e gerar NF-e novamente!';
+                          sErrorMsg := aMotivoNFe + #13 + 'Favor fazer as devidas coreções e gerar NF-e novamente!';
                         end;
                     end;
 
@@ -4248,9 +4302,13 @@ begin
           end;
         end;
 
+//        ShowError('Erro ao tentar gerar NF-e de Entrada.' +
+//          #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) +
+//          IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
+//          #13#13 + 'GerarNFeEntradaOnLineACBr() --> ' + sErrorMsg);
         ShowError('Erro ao tentar gerar NF-e de Entrada.' +
-          #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) +
-          IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
+          #13 + 'Status: ' + IntToStr(aStatusNFe) +
+          IfThen(Trim(ReciboNFE).IsEmpty, EmptyStr, #13 + 'Recibo: ' + ReciboNFE) +
           #13#13 + 'GerarNFeEntradaOnLineACBr() --> ' + sErrorMsg);
 
       end;
@@ -7369,6 +7427,8 @@ var
   sLogXmlEnv  ,
   sLogXmlRec  : String;
   aSincrono   : Boolean;
+  aStatusNFe  : Integer;
+  aMotivoNFe  : String;
 begin
 (*
   IMR - 24/10/2018 :
@@ -7419,12 +7479,11 @@ begin
     if Result then
     begin
       if (ACBrNFe.NotasFiscais.Count > 0) then
-      begin
         ACBrNFe.Consultar;
-        ACBrNFe.NotasFiscais.Items[0].GravarXML(ExtractFileName(FileNameXML), ExtractFilePath(FileNameXML));
-      end;
 
-      ChaveNFCE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
+      ACBrNFe.NotasFiscais.Items[0].GravarXML(ExtractFileName(FileNameXML), ExtractFilePath(FileNameXML));
+
+      ChaveNFCE := ACBrNFe.WebServices.Retorno.ChaveNFe;
       ProtocoloNFCE := ACBrNFe.WebServices.Retorno.Protocolo;
       ReciboNFCE    := ACBrNFe.WebServices.Retorno.Recibo;
 
@@ -7433,15 +7492,29 @@ begin
       // Renomer no diretório os arquivos XML de envio e retorno dos lotes e recibos de NFC-e
       RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFCE, 'nfce');
       ACBrNFe.NotasFiscais.Clear;
+
+      if aSincrono and (ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat <> PROCESSO_NFE_AUTORIZADA) then
+        raise Exception.Create('NFC-e não autorizada!');
     end
-    // Guarda rebido de retorno, caso ele exista, mesmo o envio ter retornado FALSE
     else
-    if Assigned(ACBrNFe.WebServices.Retorno) then
-      if (Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr) then
+    begin
+      // Guarda rebido de retorno, caso ele exista, mesmo o envio ter retornado FALSE
+      if Assigned(ACBrNFe.WebServices.Retorno) then
+        if (Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr) then
+        begin
+          ReciboNFCE := Trim(ACBrNFe.WebServices.Retorno.Recibo);
+          GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ReciboNFCE);
+        end;
+
+      // Forçar erro quando o retorno for FALSE para o envio síncrono
+      if aSincrono then
       begin
-        ReciboNFCE := Trim(ACBrNFe.WebServices.Retorno.Recibo);
-        GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ReciboNFCE);
+        aStatusNFe := ACBrNFe.WebServices.Enviar.cStat;
+        aMotivoNFe := ACBrNFe.WebServices.Enviar.xMotivo;
+
+        raise Exception.CreateFmt('Erro na SEFAZ [%d]: %s', [aStatusNFe, aMotivoNFe]);
       end;
+    end;
 
   except
     On E : Exception do
@@ -7454,8 +7527,12 @@ begin
         if ReciboNaoExisteNaVenda(ACBrNFe.WebServices.Retorno.Recibo) then
           GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ACBrNFe.WebServices.Retorno.Recibo);
 
-      if ( ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1 ) then
-        Case ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat of
+      if aSincrono or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1) then
+      begin
+        aStatusNFe := StrToInt(IfThen(aSincrono, IntToStr(ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat), IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat)));
+        aMotivoNFe := IfThen(aSincrono, ACBrNFe.NotasFiscais[0].NFe.procNFe.xMotivo, ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo);
+
+        Case aStatusNFe of
           REJEICAO_NFE_NOTA_DENEGADA, REJEICAO_NFE_IRREG_FISCO_EMIT, REJEICAO_NFE_IRREG_FISCO_DEST:
             begin
               UpdateNumeroNFCe(sCNPJEmitente, qryEmitenteSERIE_NFCE.AsInteger, iNumeroNFCe);
@@ -7465,7 +7542,7 @@ begin
                 Result := True;
 
                 Denegada       := True;
-                DenegadaMotivo := 'NFC-e denegada por ' + ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
+                DenegadaMotivo := 'NFC-e denegada por ' + aMotivoNFe;
 
                 ChaveNFCE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
                 ProtocoloNFCE := ACBrNFe.WebServices.Retorno.Protocolo;
@@ -7478,7 +7555,7 @@ begin
                 // Remover Lote da Venda
                 GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-                sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
+                sErrorMsg := aMotivoNFe + #13 +
                   'Favor gerar NFC-e novamente!';
               end;
             end;
@@ -7490,7 +7567,7 @@ begin
 //              // Remover Lote da Venda
 //              GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 //
-              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo;
+              sErrorMsg := aMotivoNFe;
             end;
 
           REJEICAO_NFE_EMISSOR_NAO_HABIL,
@@ -7507,10 +7584,11 @@ begin
               // Remover Lote da Venda
               GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
+              sErrorMsg := aMotivoNFe + #13 +
                 'Favor validar dados e NFC-e novamente!';
 
-              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
+//              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
+              if (aStatusNFe in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
                 sErrorMsg :=
                   'Inscrição Estadual (IE) do cliente não cadastrado ou não vinculado ao CNPJ informado. ' + #13 +
                   '- Deve-se consultar o CNPJ do cliente no SINTEGRA; ou' + #13 +
@@ -7518,9 +7596,10 @@ begin
                   'Favor corrija esta informação no Cadastro do Cliente.' + #13#13 +
                   'Após este procedimento, gere novamente a NF-e'
               else
-              if ( (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_INVALIDO)
-                or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE)
-              ) then
+//              if ( (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_INVALIDO)
+//                or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE)
+//              ) then
+              if ((aStatusNFe = REJEICAO_NFE_CFOP_INVALIDO) or (aStatusNFe = REJEICAO_NFE_CFOP_DIFERENTE)) then
                 sErrorMsg :=
                   'Código Fiscal de Operação não adequado para este tipo de movimento dos produtos. ' +
                   'Favor corrija-o clicando com o botão direito do mouse no campo CFOP' + #13#13 +
@@ -7532,15 +7611,14 @@ begin
               // Remover Lote da Venda
               GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-              sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
-                'Possível erro na validação do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
+              sErrorMsg := aMotivoNFe + #13 + 'Possível erro na validação do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
             end;
 
           else
           begin
 
-            sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) + ' - ' +
-              ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13#13 +
+//            sErrorMsg := IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) + ' - ' +
+            sErrorMsg := IntToStr(aStatusNFe) + ' - ' + aMotivoNFe + #13#13 +
               'Favor entrar em contato com suporte e apresentar esta mensagem!';
 
             if Assigned(ACBrNFe.WebServices.Recibo) then                        // Se possuir recibo de envio
@@ -7549,15 +7627,15 @@ begin
               begin
                 if Assigned(ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe) then // Se o retorno prossuir protocolo de processamento
                 begin
-                  if ( ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe.Count > 0 ) then
+                  if (ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe.Count > 0) then
                     Case ACBrNFe.WebServices.Recibo.NFeRetorno.ProtDFe.Items[0].cStat of
                       PROCESSO_NFE_LOTE_REJEITADO :
                         begin
                           // Remover Lote da Venda
                           GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-                          sErrorMsg := ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].xMotivo + #13 +
-                            'Favor fazer as devidas coreções e gerar NF-e novamente!';
+                          sErrorMsg := aMotivoNFe + #13 +
+                            'Favor fazer as devidas correções e gerar NF-e novamente!';
                         end;
                     end;
                 end;
@@ -7567,10 +7645,15 @@ begin
           end;
         end;
 
-      ShowError('Erro ao tentar gerar NFC-e.' +
-        #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) +
-        IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
-        #13#13 + 'GerarNFCeOnLineACBr() --> ' + sErrorMsg);
+  //      ShowError('Erro ao tentar gerar NFC-e.' +
+  //        #13 + 'Status: ' + IntToStr(ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat) +
+  //        IfThen(Trim(ACBrNFe.WebServices.Retorno.Recibo) = EmptyStr, EmptyStr, #13 + 'Recibo: ' + ACBrNFe.WebServices.Retorno.Recibo) +
+  //        #13#13 + 'GerarNFCeOnLineACBr() --> ' + sErrorMsg);
+        ShowError('Erro ao tentar gerar NFC-e.' +
+          #13 + 'Status: ' + IntToStr(aStatusNFe) +
+          IfThen(Trim(ReciboNFCE).IsEmpty, EmptyStr, #13 + 'Recibo: ' + ReciboNFCE) +
+          #13#13 + 'GerarNFCeOnLineACBr() --> ' + sErrorMsg);
+      end;
 
       FMensagemErro := Trim(sErrorMsg);
       Result := False;

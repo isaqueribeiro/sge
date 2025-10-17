@@ -796,7 +796,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
   end
   object btnConfirmar: TcxButton
     Left = 407
-    Top = 377
+    Top = 378
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]
@@ -872,8 +872,6 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
     OptionsImage.NumGlyphs = 2
     TabOrder = 2
     OnClick = btnConfirmarClick
-    ExplicitLeft = 403
-    ExplicitTop = 376
   end
   object btnCancelar: TcxButton
     Left = 504

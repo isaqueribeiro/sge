@@ -391,7 +391,7 @@ begin
     bDenegada       := False;
     sDenegadaMotivo := EmptyStr;
 
-    if ( DMNFe.GerarNFeOnLine(cdsVendaCODEMP.AsString) ) then
+    if DMNFe.GerarNFeOnLine(cdsVendaCODEMP.AsString) then
       bOK := DMNFe.GerarNFeOnLineACBr ( cdsVendaCODEMP.AsString, cdsVendaCODCLIENTE.AsInteger, sDH,
                cdsVendaANO.AsInteger, cdsVendaCODCONTROL.AsInteger,
                iSerieNFe, iNumeroNFe, sFileNameXML,
