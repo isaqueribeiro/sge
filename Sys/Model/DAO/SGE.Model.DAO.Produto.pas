@@ -210,6 +210,9 @@ begin
         .Add('  , p.Codtributacao             ')
         .Add('  , p.Cst                       ')
         .Add('  , p.Csosn                     ')
+        .Add('  , p.Cstis                     ')
+        .Add('  , p.Cst2026                   ')
+        .Add('  , p.Cct2026                   ')
         .Add('  , p.Cst_pis                   ')
         .Add('  , p.Cst_cofins                ')
         .Add('  , p.Tabela_IBPT               ')
@@ -223,9 +226,13 @@ begin
         .Add('  , p.Aliquota_CSOSN            ')
         .Add('  , p.Aliquota_pis              ')
         .Add('  , p.Aliquota_cofins           ')
+        .Add('  , p.Aliquota_cbs              ')
+        .Add('  , p.Aliquota_ibs              ')
+        .Add('  , p.Aliquota_is               ')
         .Add('  , p.Valor_ipi                 ')
         .Add('  , p.Reserva                   ')
         .Add('  , p.Produto_novo              ')
+        .Add('  , p.zona_franca_manaus        ')
         .Add('  , p.Cor_veiculo               ')
         .Add('  , p.Combustivel_veiculo       ')
         .Add('  , p.Tipo_veiculo              ')
@@ -361,6 +368,32 @@ begin
 
     FieldByName('CST').AsString := FormatFloat('000', StrToIntDef(Trim(FieldByName('CODORIGEM').AsString) + Trim(FieldByName('CODTRIBUTACAO').AsString), 0));
 
+    // Reforma Tributária
+    // (Início)
+
+    if Trim(FieldByName('CSTIS').AsString).IsEmpty then
+      FieldByName('CSTIS').Clear;
+
+    if Trim(FieldByName('CST2026').AsString).IsEmpty then
+      FieldByName('CST2026').Clear;
+
+    if Trim(FieldByName('CCT2026').AsString).IsEmpty then
+      FieldByName('CCT2026').Clear;
+
+    if FieldByName('ZONA_FRANCA_MANAUS').IsNull then
+      FieldByName('ZONA_FRANCA_MANAUS').AsInteger := 0;
+
+    if FieldByName('ALIQUOTA_CBS').IsNull then
+      FieldByName('ALIQUOTA_CBS').AsFloat := 0.0;
+
+    if FieldByName('ALIQUOTA_IBS').IsNull then
+      FieldByName('ALIQUOTA_IBS').AsFloat := 0.0;
+
+    if FieldByName('ALIQUOTA_IS').IsNull then
+      FieldByName('ALIQUOTA_IS').AsFloat := 0.0;
+
+    // (Final)
+
     if ( FieldByName('COMPOR_FATURAMENTO').AsInteger = 0 ) then
     begin
       FieldByName('PERCENTUAL_MARGEM').AsCurrency  := 0.0;
@@ -400,7 +433,10 @@ begin
   with FConn.Query.DataSet do
   begin
     FieldByName('CODEMP').AsString         := Usuario.Empresa.CNPJ;
+    FieldByName('CODORIGEM').AsString      := ORIGEM_PRODUTO_NACIONAL;
     FieldByName('CST').AsString            := FormatFloat('000', StrToIntDef(Trim(FieldByName('CODORIGEM').AsString) + Trim(FieldByName('CODTRIBUTACAO').AsString), 0));
+    FieldByName('CST2026').AsString        := '000';     // Tributação Integral
+    FieldByName('CCT2026').AsString        := '000001';  // Situações tributadas integralmente pelo IBS e CBS.
     FieldByName('ESTOQMIN').AsCurrency     := 0;
     FieldByName('QTDE').AsCurrency         := 0;
     FieldByName('ESTOQMIN').AsCurrency     := 0;
@@ -410,6 +446,9 @@ begin
     FieldByName('CODTIPO').AsInteger       := Ord(TTipoProduto.tpMaterialGeral);
     FieldByName('ALIQUOTA').AsCurrency       := 0;
     FieldByName('ALIQUOTA_CSOSN').AsCurrency := 0;
+    FieldByName('ALIQUOTA_CBS').AsCurrency   := 0;
+    FieldByName('ALIQUOTA_IBS').AsCurrency   := 0;
+    FieldByName('ALIQUOTA_IS').AsCurrency    := 0;
     FieldByName('VALOR_IPI').AsCurrency      := 0;
     FieldByName('RESERVA').AsCurrency        := 0;
     FieldByName('PRODUTO_NOVO').AsInteger    := 0;
@@ -440,6 +479,7 @@ begin
     FieldByName('ANO_MODELO_VEICULO').Clear;
     FieldByName('ANO_FABRICACAO_VEICULO').Clear;
     FieldByName('NCM_SH').Clear;
+    FieldByName('CSTIS').Clear;
     FieldByName('ULTIMA_COMPRA_DATA').Clear;
     FieldByName('ULTIMA_COMPRA_VALOR').Clear;
     FieldByName('ULTIMA_COMPRA_FORNEC').Clear;
@@ -452,6 +492,7 @@ begin
     FieldByName('MOVIMENTA_ESTOQUE').AsInteger   := FLAG_SIM;
     FieldByName('CADASTRO_ATIVO').AsInteger      := FLAG_SIM;
     FieldByName('PRODUTO_IMOBILIZADO').AsInteger := FLAG_NAO;
+    FieldByName('ZONA_FRANCA_MANAUS').AsInteger  := FLAG_NAO;
   end;
 end;
 

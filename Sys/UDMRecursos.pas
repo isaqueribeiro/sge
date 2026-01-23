@@ -80,6 +80,7 @@ var
   gVersaoApp     : IVersao;
   gPersonalizaEmpresa : IPersonalizaEmpresa;
   gLicencaSistema : ILicenca;
+  gReformaTributaria : Boolean;
 
   procedure WaitAMomentFree;
   procedure WaitAMoment(const aTag : Integer = -1; const aMensabem : String = '');

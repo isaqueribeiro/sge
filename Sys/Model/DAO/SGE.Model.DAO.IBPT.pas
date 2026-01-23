@@ -70,7 +70,8 @@ begin
         .Add('  , t.aliqinternacional_ibpt')
         .Add('  , t.aliqestadual_ibpt ')
         .Add('  , t.aliqmunicipal_ibpt')
-        .Add('  , t.ativo    ')
+        .Add('  , t.nocivo ')
+        .Add('  , t.ativo  ')
         .Add('  , case when char_length(t.descricao_ibpt) > 100 ')
         .Add('      then cast(substring(t.descricao_ibpt from 1 for 100) as varchar(120)) || ''...'' ')
         .Add('      else cast(t.descricao_ibpt as varchar(120)) ')
@@ -93,6 +94,9 @@ procedure TModelDAOIBPT.DataSetBeforePost(DataSet: TDataSet);
 begin
   with FConn.Query.DataSet do
   begin
+    if FieldByName('NOCIVO').IsNull then
+      FieldByName('NOCIVO').AsInteger := 0;
+
     if FieldByName('ATIVO').IsNull then
       FieldByName('ATIVO').AsInteger := 1;
   end;
@@ -107,6 +111,7 @@ begin
     FieldByName('ALIQINTERNACIONAL_IBPT').AsCurrency := 0.0;
     FieldByName('ALIQESTADUAL_IBPT').AsCurrency      := 0.0;
     FieldByName('ALIQMUNICIPAL_IBPT').AsCurrency     := 0.0;
+    FieldByName('NOCIVO').AsInteger                  := 0;
     FieldByName('ATIVO').AsInteger                   := 1;
     FieldByName('TABELA_IBPT').Clear;
     FieldByName('DESCRICAO_IBPT').Clear;

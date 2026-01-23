@@ -1,13 +1,12 @@
 inherited ViewIBPT: TViewIBPT
   Left = 393
   Top = 212
+  ActiveControl = dbCodigo
   Caption = 'Tabela de Tributa'#231#245'es IBPT'
   ClientHeight = 472
   ClientWidth = 809
-  OldCreateOrder = True
-  ExplicitWidth = 825
-  ExplicitHeight = 511
-  PixelsPerInch = 96
+  ExplicitWidth = 821
+  ExplicitHeight = 510
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 468
@@ -24,20 +23,21 @@ inherited ViewIBPT: TViewIBPT
   inherited pgcGuias: TPageControl
     Width = 809
     Height = 429
-    ExplicitWidth = 809
-    ExplicitHeight = 429
+    ActivePage = tbsCadastro
+    ExplicitWidth = 805
+    ExplicitHeight = 428
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 801
       ExplicitHeight = 400
       inherited Bevel4: TBevel
-        Top = 334
+        Top = 326
         Width = 801
         ExplicitTop = 302
         ExplicitWidth = 735
       end
       inherited dbgDados: TDBGrid
         Width = 801
-        Height = 334
+        Height = 326
         Columns = <
           item
             Expanded = False
@@ -105,10 +105,10 @@ inherited ViewIBPT: TViewIBPT
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 338
+        Top = 330
         Width = 801
-        ExplicitTop = 338
-        ExplicitWidth = 801
+        ExplicitTop = 329
+        ExplicitWidth = 797
         object lblRegistroDesativado: TLabel [0]
           Left = 2
           Top = 44
@@ -126,7 +126,7 @@ inherited ViewIBPT: TViewIBPT
         inherited grpBxFiltro: TGroupBox
           Left = 462
           Width = 335
-          ExplicitLeft = 462
+          ExplicitLeft = 458
           ExplicitWidth = 335
           inherited lbltFiltrar: TLabel
             Left = 14
@@ -136,14 +136,14 @@ inherited ViewIBPT: TViewIBPT
             ExplicitWidth = 58
           end
           inherited edtFiltrar: TEdit
-            Left = 78
+            Left = 81
             Width = 210
-            ExplicitLeft = 78
+            ExplicitLeft = 81
             ExplicitWidth = 210
           end
           inherited btnFiltrar: TcxButton
-            Left = 294
-            ExplicitLeft = 294
+            Left = 297
+            ExplicitLeft = 297
           end
         end
       end
@@ -152,16 +152,17 @@ inherited ViewIBPT: TViewIBPT
       ExplicitWidth = 801
       ExplicitHeight = 400
       inherited Bevel8: TBevel
-        Top = 201
+        Top = 249
         Width = 801
         ExplicitTop = 161
         ExplicitWidth = 735
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 801
-        Height = 201
+        Height = 249
+        ExplicitTop = -2
         ExplicitWidth = 801
-        ExplicitHeight = 201
+        ExplicitHeight = 249
         object lblCodigoNCM: TLabel [1]
           Left = 104
           Top = 24
@@ -172,7 +173,7 @@ inherited ViewIBPT: TViewIBPT
         end
         object lblDescricao: TLabel [2]
           Left = 16
-          Top = 64
+          Top = 68
           Width = 50
           Height = 13
           Caption = 'Descri'#231#227'o:'
@@ -218,14 +219,14 @@ inherited ViewIBPT: TViewIBPT
         end
         object dbDescricao: TDBMemo
           Left = 16
-          Top = 83
-          Width = 773
+          Top = 87
+          Width = 769
           Height = 101
           Anchors = [akLeft, akTop, akRight]
           DataField = 'DESCRICAO_IBPT'
           DataSource = DtSrcTabela
           ScrollBars = ssVertical
-          TabOrder = 5
+          TabOrder = 4
         end
         object dbExcecao: TDBLookupComboBox
           Left = 231
@@ -266,21 +267,33 @@ inherited ViewIBPT: TViewIBPT
           TabOrder = 3
         end
         object dbAtivo: TDBCheckBox
-          Left = 539
-          Top = 42
-          Width = 57
+          Left = 16
+          Top = 217
+          Width = 113
           Height = 17
-          Caption = 'Ativo'
+          Caption = 'Registro ativo'
           DataField = 'ATIVO'
           DataSource = DtSrcTabela
-          TabOrder = 4
+          TabOrder = 6
+          ValueChecked = '1'
+          ValueUnchecked = '0'
+        end
+        object dbNocivo: TDBCheckBox
+          Left = 16
+          Top = 194
+          Width = 293
+          Height = 17
+          Caption = 'Produtos nocivos ao Meio Ambiente e '#224' Sa'#250'de'
+          DataField = 'NOCIVO'
+          DataSource = DtSrcTabela
+          TabOrder = 5
           ValueChecked = '1'
           ValueUnchecked = '0'
         end
       end
       object GrpBxAliquotas: TGroupBox
         Left = 0
-        Top = 205
+        Top = 253
         Width = 801
         Height = 76
         Align = alTop
@@ -288,6 +301,7 @@ inherited ViewIBPT: TViewIBPT
           'Percentuais de tributa'#231#245'es IBPT (Instituto Brasileiro de Planeja' +
           'mento e Tributa'#231#227'o)'
         TabOrder = 1
+        ExplicitTop = 205
         object lblAliquotaNAC: TLabel
           Left = 16
           Top = 24
@@ -390,8 +404,8 @@ inherited ViewIBPT: TViewIBPT
   inherited tlbBotoes: TPanel
     Top = 433
     Width = 809
-    ExplicitTop = 433
-    ExplicitWidth = 809
+    ExplicitTop = 432
+    ExplicitWidth = 805
     inherited Bevel2: TBevel
       Left = 79
       ExplicitLeft = 75
@@ -449,11 +463,11 @@ inherited ViewIBPT: TViewIBPT
     end
     inherited btbtnFechar: TcxButton
       Left = 730
-      ExplicitLeft = 730
+      ExplicitLeft = 726
     end
     inherited btbtnSelecionar: TcxButton
       Left = 606
-      ExplicitLeft = 606
+      ExplicitLeft = 602
     end
     object btnImportar: TcxButton
       Tag = 1

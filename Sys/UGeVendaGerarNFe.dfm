@@ -796,7 +796,7 @@ inherited frmGeVendaGerarNFe: TfrmGeVendaGerarNFe
   end
   object btnConfirmar: TcxButton
     Left = 407
-    Top = 378
+    Top = 377
     Width = 92
     Height = 33
     Anchors = [akRight, akBottom]

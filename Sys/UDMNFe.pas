@@ -1,4 +1,4 @@
-unit UDMNFe;
+Ôªøunit UDMNFe;
 
 interface
 
@@ -32,6 +32,7 @@ uses
   ACBrNFeWebServices,
   ACBrNFe,
   ACBrDFe,
+  ACBrDFe.Conversao,
   ACBrDFeSSL,
   ACBrDFeUtil,
   ACBrUtil,
@@ -509,25 +510,25 @@ const
   PROCESSO_NFE_USO_DENEGADO     = 110; // Processo: Uso denegado
   PROCESSO_NSU_ENCONTRADO       = 138; // Processo: Documento(s) Localizado(s)
 
-  REJEICAO_NFE_EMISSOR_NAO_HABIL = 203; // Rejeicao: Emitente n„o habilitado para emiss„o de NF-e
-  REJEICAO_NFE_DUPLICIDADE       = 204; // RefeiÁ„o: Duplicidade de NF-e [nRec:999999999999999]
+  REJEICAO_NFE_EMISSOR_NAO_HABIL = 203; // Rejeicao: Emitente n√£o habilitado para emiss√£o de NF-e
+  REJEICAO_NFE_DUPLICIDADE       = 204; // Refei√ß√£o: Duplicidade de NF-e [nRec:999999999999999]
   REJEICAO_NFE_NOTA_DENEGADA     = 205; // Rejeicao: NF-e esta denegada na base de dados da SEFAZ
   REJEICAO_NFE_IE_NAO_INFORMADO  = 232; // Rejeicao: IE do destinatario nao informado
   REJEICAO_NFE_IE_NAO_CADASTRADO = 233; // Rejeicao: IE do destinatario nao cadastrada
   REJEICAO_NFE_IE_NAO_VINCULADO  = 234; // Rejeicao: IE do destinatario nao vinculada ao CNPJ
-  REJEICAO_NFE_IRREG_FISCO_EMIT  = 301; // RejeiÁ„o: Uso Denegado: Irregularidade fiscal do emitente
-  REJEICAO_NFE_IRREG_FISCO_DEST  = 302; // RejeiÁ„o: Uso Denegado: Irregularidade fiscal do destinatario
-  REJEICAO_NFE_CFOP_INVALIDO     = 327; // RefeiÁ„o: CFOP inv·lido para Nota Fiscal com finalidade de devoluÁ„o de mercadoria
+  REJEICAO_NFE_IRREG_FISCO_EMIT  = 301; // Rejei√ß√£o: Uso Denegado: Irregularidade fiscal do emitente
+  REJEICAO_NFE_IRREG_FISCO_DEST  = 302; // Rejei√ß√£o: Uso Denegado: Irregularidade fiscal do destinatario
+  REJEICAO_NFE_CFOP_INVALIDO     = 327; // Refei√ß√£o: CFOP inv√°lido para Nota Fiscal com finalidade de devolu√ß√£o de mercadoria
 
-  REJEICAO_NFE_DESCOMPACT     = 416; // RejeiÁ„o: Falha na descompactaÁ„o da ·rea de dados
-  REJEICAO_NFE_BC_ICMS_ERR    = 531; // RejeiÁ„o: Total da BC ICMS difere do somatÛrio dos itens
-  REJEICAO_NFE_TO_ICMS_ERR    = 532; // RejeiÁ„o: Total do ICMS difere do somatÛrio dos itens
-  REJEICAO_NFE_TO_PROD_ERR    = 564; // RejeiÁ„o: Total do Produto / ServiÁo difere do somatÛrio dos itens
-  REJEICAO_NFE_MODELO_DIF     = 450; // RejeiÁ„o: Modelo da NF-e diferente de 55
-  REJEICAO_NFE_CFOP_DIFERENTE = 733; // RejeiÁ„o: CFOP de operaÁ„o interna e idDest diferente de 1
-  REJEICAO_NFE_NCM_INEXIST    = 778; // RejeiÁ„o: Informado NCM inexistente
-  REJEICAO_NFCE_MODELO_DIF    = 775; // RejeiÁ„o: Modelo da NFC-e diferente de 65
-  REJEICAO_NFE_NAO_CATALOG    = 999; // RejeiÁ„o: Erro n„o catalogado (PossÌvel falha na SEFA)
+  REJEICAO_NFE_DESCOMPACT     = 416; // Rejei√ß√£o: Falha na descompacta√ß√£o da √°rea de dados
+  REJEICAO_NFE_BC_ICMS_ERR    = 531; // Rejei√ß√£o: Total da BC ICMS difere do somat√≥rio dos itens
+  REJEICAO_NFE_TO_ICMS_ERR    = 532; // Rejei√ß√£o: Total do ICMS difere do somat√≥rio dos itens
+  REJEICAO_NFE_TO_PROD_ERR    = 564; // Rejei√ß√£o: Total do Produto / Servi√ßo difere do somat√≥rio dos itens
+  REJEICAO_NFE_MODELO_DIF     = 450; // Rejei√ß√£o: Modelo da NF-e diferente de 55
+  REJEICAO_NFE_CFOP_DIFERENTE = 733; // Rejei√ß√£o: CFOP de opera√ß√£o interna e idDest diferente de 1
+  REJEICAO_NFE_NCM_INEXIST    = 778; // Rejei√ß√£o: Informado NCM inexistente
+  REJEICAO_NFCE_MODELO_DIF    = 775; // Rejei√ß√£o: Modelo da NFC-e diferente de 65
+  REJEICAO_NFE_NAO_CATALOG    = 999; // Rejei√ß√£o: Erro n√£o catalogado (Poss√≠vel falha na SEFA)
 
   PULAR_LINHA_FINAL = 3;
 
@@ -558,11 +559,11 @@ uses
 
 (*
   IMR - 07/01/2016 :
-    InserÁ„o da condiÁ„o " and ib.ativo = 1" para que apenas os cÛdigos NCM ativos
-    na tabela seja carregados para a emiss„o de NF-e.
+    Inser√ß√£o da condi√ß√£o " and ib.ativo = 1" para que apenas os c√≥digos NCM ativos
+    na tabela seja carregados para a emiss√£o de NF-e.
 
   IMR - 08/12/2015 :
-    ImplementaÁ„o da funÁ„o "ValidarCFOP()".
+    Implementa√ß√£o da fun√ß√£o "ValidarCFOP()".
 *)
 
 procedure CorrigirXML_NFe (aString : WideString; sFileNameXML : String);
@@ -577,7 +578,7 @@ begin
   try
     if Trim(aString) = EmptyWideStr then
     begin
-      // Desenvolver rotina de correÁ„o de conte˙do no arquivo
+      // Desenvolver rotina de corre√ß√£o de conte√∫do no arquivo
       xmlFile.LoadFromFile(sFileNameXML);
       S := EmptyWideStr;
       //...
@@ -593,7 +594,7 @@ begin
     xmlNFe.Free;
   end;
 
-  // Blodo de cÛdigo descontinuado por n„o funcionar no Delphi XE7
+  // Blodo de c√≥digo descontinuado por n√£o funcionar no Delphi XE7
 (*
   if ( FileExists(sFileNameXML) ) then
   begin
@@ -642,7 +643,7 @@ var
 begin
 (*
   IMR - 09/12/2014 :
-    Disponiblizar configuraÁ„o para emiss„o e impress„o de NFC-e.
+    Disponiblizar configura√ß√£o para emiss√£o e impress√£o de NFC-e.
 *)
   try
 
@@ -828,7 +829,7 @@ end;
 procedure TDMNFe.DataModuleCreate(Sender: TObject);
 begin
   {$IFNDEF PRINTER_CUPOM}
-  SplashMessage('Carregando par‚metros para emiss„o de NF-e...');
+  SplashMessage('Carregando par√¢metros para emiss√£o de NF-e...');
   {$ENDIF}
 
   if not DataBaseOnLine then
@@ -848,7 +849,7 @@ begin
   frDANFE.Sistema := AGIL_SOFTWARES_FANTASIA;
   {$ENDIF}
 
-  // A leitura do Certificado ser· feita agora apenas na emiss„o da NF-e
+  // A leitura do Certificado ser√° feita agora apenas na emiss√£o da NF-e
   //LerConfiguracao(GetEmpresaIDDefault);
 
   fr3Designer := TfrxDesigner.Create(Self);
@@ -858,7 +859,7 @@ begin
 
   FImprimirCabecalho := True;
 
-//  ESSE BLOCO EST¡ CAUSANDO PROBLEMAS (BUSCAR NOVA SOLU«AO PARA DISTRIBUI«√O DE ARQUIVOS)
+//  ESSE BLOCO EST√Å CAUSANDO PROBLEMAS (BUSCAR NOVA SOLU√áAO PARA DISTRIBUI√á√ÉO DE ARQUIVOS)
 //  try
 //    frrNFeRetrato.SaveToFile( ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST );
 //    frrNFeRetrato.SaveToFile ( StringReplace(ExtractFilePath(ParamStr(0)) + FILENAME_NFE_FAST, '.fr3', '_Retrato.fr3',  [rfReplaceAll]) );
@@ -1011,29 +1012,29 @@ Var
 begin
 (*
   IMR - 09/09/2020 :
-    Ajustes na parametrizaÁ„o de leitura do certificado.
-    Deixar em bloco separado a configuraÁ„o do componente ACBr.
+    Ajustes na parametriza√ß√£o de leitura do certificado.
+    Deixar em bloco separado a configura√ß√£o do componente ACBr.
 
   IMR - 11/06/2018 :
-    RemoÁ„o da linha "ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := True"
-    na nova vers„o do cÛdigo-fonte ACBr.
+    Remo√ß√£o da linha "ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := True"
+    na nova vers√£o do c√≥digo-fonte ACBr.
 
   IMR - 29/05/2015 :
-    InserÁ„o de novos controles WebService para controle do envio e recebimento das NFs.
+    Inser√ß√£o de novos controles WebService para controle do envio e recebimento das NFs.
 
   IMR - 28/10/2014 :
-    InserÁ„o do campo "Vers„o NF-e:" para definir na tela de configuraÁıes a vers„o de emiss„o da NF-e
+    Inser√ß√£o do campo "Vers√£o NF-e:" para definir na tela de configura√ß√µes a vers√£o de emiss√£o da NF-e
 
   IMR - 05/12/2014 :
-    Definir configuraÁıes do RFD   - Registro do Fisco CAT 52/07. ConfiguraÁ„o importante para emiss„o de CUPOM
-    Definir configuraÁıes do NFC-e - InserÁ„o/configuraÁ„o dos componentes necess·rios a Emiss„o de Cupons de NFC-e
+    Definir configura√ß√µes do RFD   - Registro do Fisco CAT 52/07. Configura√ß√£o importante para emiss√£o de CUPOM
+    Definir configura√ß√µes do NFC-e - Inser√ß√£o/configura√ß√£o dos componentes necess√°rios a Emiss√£o de Cupons de NFC-e
 
   IMR - 30/09/2014 :
-    Retorno a vers„o 2.0 da NF-e por a vers„o 3.10 ainda apresentar inconsistÍncias segundo a SEFA em determinados processos. A reativaÁ„o
-    da vers„o 3.10 e sua liberaÁ„o para uso est· agora para 30/10/2014.
+    Retorno a vers√£o 2.0 da NF-e por a vers√£o 3.10 ainda apresentar inconsist√™ncias segundo a SEFA em determinados processos. A reativa√ß√£o
+    da vers√£o 3.10 e sua libera√ß√£o para uso est√° agora para 30/10/2014.
 
-    AtenÁ„o: Prazo final de uso da Vers„o 2.00, atÈ 30/11/2014. Sendo, atÈ esta data, recepcionado as duas versıes. A desativaÁ„o da vers„o
-    "2.00" ser· no dia 01/12/2014. (Fonte: http://portalnfe.fazenda.mg.gov.br/)
+    Aten√ß√£o: Prazo final de uso da Vers√£o 2.00, at√© 30/11/2014. Sendo, at√© esta data, recepcionado as duas vers√µes. A desativa√ß√£o da vers√£o
+    "2.00" ser√° no dia 01/12/2014. (Fonte: http://portalnfe.fazenda.mg.gov.br/)
 *)
   if not DataBaseOnLine then
     Exit;
@@ -1041,6 +1042,8 @@ begin
   try
 
     AbrirEmitente(sCNPJEmitente);
+
+    gReformaTributaria := True;
 
     if ( GetQuantidadeEmpresasEmiteNFe > 1 ) then
       sPrefixoSecao := Trim(sCNPJEmitente) + '_'
@@ -1066,11 +1069,11 @@ begin
       {$ELSE}
          edtURLPFX.Text      := ReadString( sSecaoCertificado, 'URL' , '') ;
          edtNumSerie.Text    := ReadString( sSecaoCertificado, 'NumSerie', '') ;
-         lbltCaminho.Caption := 'Informe o n˙mero de sÈrie do certificado'#13+
-                                'DisponÌvel no Internet Explorer no menu'#13+
-                                'Ferramentas - OpÁıes da Internet - Conte˙do '#13+
+         lbltCaminho.Caption := 'Informe o n√∫mero de s√©rie do certificado'#13+
+                                'Dispon√≠vel no Internet Explorer no menu'#13+
+                                'Ferramentas - Op√ß√µes da Internet - Conte√∫do '#13+
                                 'Certificados - Exibir - Detalhes - '#13+
-                                'N˙mero do certificado';
+                                'N√∫mero do certificado';
          lbltSenha.Visible  := False;
          edtCaminho.Visible := False;
          edtSenha.Visible   := False;
@@ -1160,7 +1163,7 @@ begin
 
       with ACBrNFe.Configuracoes.Arquivos do
       begin
-        Salvar             := ckSalvarArqs.Checked; // Se TRUE o componente salva em disco os arquivos que tem validade jurÌdica, tais como: *-nfe.xml, *-procEventoNFe.xml e *-procInutNFe.xml
+        Salvar             := ckSalvarArqs.Checked; // Se TRUE o componente salva em disco os arquivos que tem validade jur√≠dica, tais como: *-nfe.xml, *-procEventoNFe.xml e *-procInutNFe.xml
         AdicionarLiteral   := ckAdicionaLiteral.Checked;
         EmissaoPathNFe     := ckEmissaoPathNFe.Checked;
         SepararPorCNPJ     := ckSepararPorCNPJ.Checked;
@@ -1181,7 +1184,7 @@ begin
       ACBrNFe.Configuracoes.Geral.ExibirErroSchema      := ckExibirErroSchema.Checked;
       ACBrNFe.Configuracoes.Geral.FormatoAlerta         := edFormatoAlerta.Text;
       ACBrNFe.Configuracoes.Geral.FormaEmissao   := StrToTpEmis(OK, IntToStr(cbFormaEmissao.ItemIndex + 1));
-      ACBrNFe.Configuracoes.Geral.Salvar         := ckSalvar.Checked; // Se TRUE o componente salva em disco os arquivos de envio e de retorno da SEFAZ, esses XML n„o tem validade jurÌdica.
+      ACBrNFe.Configuracoes.Geral.Salvar         := ckSalvar.Checked; // Se TRUE o componente salva em disco os arquivos de envio e de retorno da SEFAZ, esses XML n√£o tem validade jur√≠dica.
       ACBrNFe.Configuracoes.Geral.RetirarAcentos := ckRetirarAcentos.Checked;
 
       ACBrNFe.Configuracoes.Geral.IdCSC          := FormatFloat('000000', StrToIntDef(Trim(edIdToken.Text), 1));
@@ -1200,7 +1203,7 @@ begin
       ACBrNFe.Configuracoes.WebServices.UF         := cbUF.Text;
       ACBrNFe.Configuracoes.WebServices.Ambiente   := StrToTpAmb(Ok, IntToStr(rgTipoAmb.ItemIndex + 1));
       ACBrNFe.Configuracoes.WebServices.Visualizar := ckVisualizar.Checked;
-      ACBrNFe.Configuracoes.WebServices.Salvar     := ckSalvarSOAP.Checked; // Se TRUE o componente salva em disco os arquivos de envio e de retorno da SEFAZ sem nenhum tratamento realizado pelo componente, esses XML n„o tem validade jurÌdica e seus nomes È acrescentado o sufixo -soap.
+      ACBrNFe.Configuracoes.WebServices.Salvar     := ckSalvarSOAP.Checked; // Se TRUE o componente salva em disco os arquivos de envio e de retorno da SEFAZ sem nenhum tratamento realizado pelo componente, esses XML n√£o tem validade jur√≠dica e seus nomes √© acrescentado o sufixo -soap.
 
       ACBrNFe.Configuracoes.WebServices.AjustaAguardaConsultaRet := ckAjustarAut.Checked;
       if NaoEstaVazio(edAguardar.Text)then
@@ -1236,7 +1239,7 @@ begin
           ACBrNFe.DANFE.Logo := EmptyStr;
       end;
 
-      // ============== ConfiguraÁ„o para envio de e-mails ============== //
+      // ============== Configura√ß√£o para envio de e-mails ============== //
 
       CarregarConfiguracoesEmpresa(sCNPJEmitente, 'Envio de NF-e (Emitente: ' + edtEmitRazao.Text + ')', sAssinaturaHtml, sAssinaturaTxt);
 
@@ -1288,7 +1291,7 @@ begin
       end;
     end;
 
-    // ============== Definir configuraÁıes do RFD - Registro do Fisco CAT 52/07 ============== //
+    // ============== Definir configura√ß√µes do RFD - Registro do Fisco CAT 52/07 ============== //
 
     with ACBrRFD, ConfigACBr  do
     begin
@@ -1299,7 +1302,7 @@ begin
       if Trim(DirECFMes) <> EmptyStr then ForceDirectories(DirECFMes);
       if Trim(DirRFD)    <> EmptyStr then ForceDirectories(DirRFD);
 
-      SH_COO  := EmptyStr; // Contador de OperaÁ„o Fiscal
+      SH_COO  := EmptyStr; // Contador de Opera√ß√£o Fiscal
       SH_CNPJ := StrFormatarCnpj(edtEmitCNPJ.Text);
       SH_IE   := edtEmitIE.Text;
       SH_IM   := qryEmitenteIM.AsString;
@@ -1326,7 +1329,7 @@ begin
       Empresa.Email       := qryEmitenteEMAIL.AsString;
     end;
 
-    // ============== ConfiguraÁıes necess·rias e Emiss„o da NFC-e ============== //
+    // ============== Configura√ß√µes necess√°rias e Emiss√£o da NFC-e ============== //
 
     with ACBrSAT, Config, ConfigArquivos, ConfigACBr do
     begin
@@ -1368,7 +1371,7 @@ begin
     if FilesExists(ConfigACBr.edtLogoMarca.Text) then
     begin
       ACBrSATExtratoESCPOS.PictureLogo.LoadFromFile(ConfigACBr.edtLogoMarca.Text);
-     // nfcDANFE.Logo := ConfigACBr.edtLogoMarca.Text; // -- Esta chamada ao arquivo de logotipo da empresa gera erro na impress„o
+     // nfcDANFE.Logo := ConfigACBr.edtLogoMarca.Text; // -- Esta chamada ao arquivo de logotipo da empresa gera erro na impress√£o
     end;
 
   finally
@@ -1377,13 +1380,13 @@ begin
     sFileNFEInutil := ExtractFilePath(ParamStr(0)) + FILENAME_NFE_INUTIL;
 
     if ( not FileExists(sFileNFEFast) ) then
-      ShowError( 'Arquivo ' + QuotedStr(sFileNFEFast) + ' n„o encontrado!' );
+      ShowError( 'Arquivo ' + QuotedStr(sFileNFEFast) + ' n√£o encontrado!' );
 
     if ( not FileExists(sFileNFEEvento) ) then
-      ShowError( 'Arquivo ' + QuotedStr(sFileNFEEvento) + ' n„o encontrado!' );
+      ShowError( 'Arquivo ' + QuotedStr(sFileNFEEvento) + ' n√£o encontrado!' );
 
     if ( not FileExists(sFileNFEInutil) ) then
-      ShowError( 'Arquivo ' + QuotedStr(sFileNFEInutil) + ' n„o encontrado!' );
+      ShowError( 'Arquivo ' + QuotedStr(sFileNFEInutil) + ' n√£o encontrado!' );
 
     ACBrNFe.DANFE.Email := qryEmitenteEMAIL.AsString;
     ACBrNFe.DANFE.Site  := qryEmitenteHOME_PAGE.AsString;
@@ -1419,8 +1422,8 @@ begin
       ColWidths[2] := 120;
       ColWidths[3] := 80;
       ColWidths[4] := 150;
-      Cells[0, 0] := 'Num.SÈrie';
-      Cells[1, 0] := 'Raz„o Social';
+      Cells[0, 0] := 'Num.S√©rie';
+      Cells[1, 0] := 'Raz√£o Social';
       Cells[2, 0] := 'CNPJ';
       Cells[3, 0] := 'Validade';
       Cells[4, 0] := 'Certificadora';
@@ -1468,7 +1471,7 @@ begin
   memInfo   := TStringList.Create;
   try
     if not GetConectedInternet then
-      ShowWarning('Est· estaÁ„o est· sem acesso ‡ Internet')
+      ShowWarning('Est√° esta√ß√£o est√° sem acesso √† Internet')
     else
     begin
       with ConfigACBr, ACBrNFe, memInfo do
@@ -1482,7 +1485,7 @@ begin
         LoadXML(memResp, WBResposta);
 
         Add('');
-        Add('Status ServiÁo para o Emitente ' + StrFormatarCnpj(gUsuarioLogado.Empresa));
+        Add('Status Servi√ßo para o Emitente ' + StrFormatarCnpj(gUsuarioLogado.Empresa));
         Add('tpAmb : '    + TpAmbToStr(WebServices.StatusServico.tpAmb));
         Add('verAplic : ' + WebServices.StatusServico.verAplic);
         Add('cStat : '    + IntToStr(WebServices.StatusServico.cStat));
@@ -1563,12 +1566,12 @@ var
 begin
   sNovaExtensao := '.xml.' + IfThenStr(Trim(pExtensao) = EmptyStr, 'nf', Trim(pExtensao));
 
-  // Renomer no diretÛrio os arquivos XML de envio e retorno dos lotes de NF-e
+  // Renomer no diret√≥rio os arquivos XML de envio e retorno dos lotes de NF-e
   sLogXmlEnv := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + IntToStr(pNumeroLote) + '-env-lot.xml', '\\', '/', [rfReplaceAll]);
   sLogXmlRec := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + IntToStr(pNumeroLote) + '-rec.xml',     '\\', '/', [rfReplaceAll]);
   RenameFile(sLogXmlEnv, StringReplace(sLogXmlEnv, '.xml', sNovaExtensao, [rfReplaceAll]));
   RenameFile(sLogXmlRec, StringReplace(sLogXmlRec, '.xml', sNovaExtensao, [rfReplaceAll]));
-  // Renomer no diretÛrio os arquivos XML de envio e retorno dos recibos de NF-e
+  // Renomer no diret√≥rio os arquivos XML de envio e retorno dos recibos de NF-e
   sLogXmlEnv := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + pNumeroRecibo + '-ped-rec.xml', '\\', '/', [rfReplaceAll]);
   sLogXmlRec := StringReplace(ACBrNFe.Configuracoes.Arquivos.PathSalvar + '\' + pNumeroRecibo + '-pro-rec.xml', '\\', '/', [rfReplaceAll]);
   RenameFile(sLogXmlEnv, StringReplace(sLogXmlEnv, '.xml', sNovaExtensao, [rfReplaceAll]));
@@ -1631,15 +1634,15 @@ begin
     begin
       if (sUFOrigem = sUFDestino) then
         if not (sCFOP[1] in ['1', '5']) then
-          sMensagem := Format('(1) CFOP inv·lida para movimentaÁ„o de mercadorias dentro do prÛprio Estado [%s, %s, %s].', [sUFOrigem, sUFDestino, sCFOP]);
+          sMensagem := Format('(1) CFOP inv√°lida para movimenta√ß√£o de mercadorias dentro do pr√≥prio Estado [%s, %s, %s].', [sUFOrigem, sUFDestino, sCFOP]);
 
       if (sUFOrigem <> sUFDestino) then
         if not (sCFOP[1] in ['2', '6']) then
-          sMensagem := Format('(2) CFOP inv·lida para movimentaÁ„o de mercadorias entre Estados diferentes [%s, %s, %s].', [sUFOrigem, sUFDestino, sCFOP]);
+          sMensagem := Format('(2) CFOP inv√°lida para movimenta√ß√£o de mercadorias entre Estados diferentes [%s, %s, %s].', [sUFOrigem, sUFDestino, sCFOP]);
     end
     else
     if not (sCFOP[1] in ['3', '7']) then
-      sMensagem := Format('(3) CFOP inv·lida para movimentaÁ„o de mercadorias para fora do PaÌs [%s, %s, %s].', [sPaisOrigem, sPaisDestino, sCFOP]);
+      sMensagem := Format('(3) CFOP inv√°lida para movimenta√ß√£o de mercadorias para fora do Pa√≠s [%s, %s, %s].', [sPaisOrigem, sPaisDestino, sCFOP]);
 
     Close;
   end;
@@ -1683,24 +1686,24 @@ begin
     Open;
 
     if (Trim(FieldByName('ender').AsString) = EmptyStr) then
-      sMensagem := sMensagem + '- Logradouro n„o informado' + #13;
+      sMensagem := sMensagem + '- Logradouro n√£o informado' + #13;
     if (Trim(FieldByName('numero_end').AsString) = EmptyStr) then
-      sMensagem := sMensagem + '- N˙medo do endereÁo n„o informado' + #13;
+      sMensagem := sMensagem + '- N√∫medo do endere√ßo n√£o informado' + #13;
     if (Trim(FieldByName('bairro').AsString) = EmptyStr) then
-      sMensagem := sMensagem + '- Bairro n„o informado' + #13;
+      sMensagem := sMensagem + '- Bairro n√£o informado' + #13;
     if (Trim(FieldByName('cidade').AsString) = EmptyStr) then
-      sMensagem := sMensagem + '- Cidade n„o informada' + #13;
+      sMensagem := sMensagem + '- Cidade n√£o informada' + #13;
     if (Trim(FieldByName('cid_ibge').AsString) = EmptyStr) then
-      sMensagem := sMensagem + '- CÛdigo IBGE da cidade n„o informado' + #13;
+      sMensagem := sMensagem + '- C√≥digo IBGE da cidade n√£o informado' + #13;
     if (Trim(FieldByName('cep').AsString) = EmptyStr) then
-      sMensagem := sMensagem + '- N˙mero do CEP n„o informado' + #13;
+      sMensagem := sMensagem + '- N√∫mero do CEP n√£o informado' + #13;
 
     Close;
   end;
 
   Result := (Trim(sMensagem) = EmptyStr);
   if not Result then
-    ShowStop('EndereÁo do cliente incompleto:' + #13 + sMensagem);
+    ShowStop('Endere√ßo do cliente incompleto:' + #13 + sMensagem);
 end;
 
 function TDMNFe.ValidarEnderecoFornecedor(const aFornecedor : Integer) : Boolean;
@@ -1738,24 +1741,24 @@ begin
     Open;
 
     if (Trim(FieldByName('ender').AsString) = EmptyStr) then
-      sMensagem := sMensagem + '- Logradouro n„o informado' + #13;
+      sMensagem := sMensagem + '- Logradouro n√£o informado' + #13;
     if (Trim(FieldByName('numero_end').AsString) = EmptyStr) then
-      sMensagem := sMensagem + '- N˙medo do endereÁo n„o informado' + #13;
+      sMensagem := sMensagem + '- N√∫medo do endere√ßo n√£o informado' + #13;
     if (Trim(FieldByName('bairro').AsString) = EmptyStr) then
-      sMensagem := sMensagem + '- Bairro n„o informado' + #13;
+      sMensagem := sMensagem + '- Bairro n√£o informado' + #13;
     if (Trim(FieldByName('cidade').AsString) = EmptyStr) then
-      sMensagem := sMensagem + '- Cidade n„o informada' + #13;
+      sMensagem := sMensagem + '- Cidade n√£o informada' + #13;
     if (Trim(FieldByName('cid_ibge').AsString) = EmptyStr) then
-      sMensagem := sMensagem + '- CÛdigo IBGE da cidade n„o informado' + #13;
+      sMensagem := sMensagem + '- C√≥digo IBGE da cidade n√£o informado' + #13;
     if (Trim(FieldByName('cep').AsString) = EmptyStr) then
-      sMensagem := sMensagem + '- N˙mero do CEP n„o informado' + #13;
+      sMensagem := sMensagem + '- N√∫mero do CEP n√£o informado' + #13;
 
     Close;
   end;
 
   Result := (Trim(sMensagem) = EmptyStr);
   if not Result then
-    ShowStop('EndereÁo do cliente incompleto:' + #13 + sMensagem);
+    ShowStop('Endere√ßo do cliente incompleto:' + #13 + sMensagem);
 end;
 
 function TDMNFe.GerarNFeOnLine(const sCNPJEmitente : String) : Boolean;
@@ -1904,32 +1907,32 @@ var
 begin
 (*
   IMR - 04/10/2019 :
-    Removida a rotina de verificaÁ„o do serviÁo de emiss„o da NFe da procedure "GerarNFeOnLineACBr()" para que
-    esteja num nÌvel de chamada acima.
+    Removida a rotina de verifica√ß√£o do servi√ßo de emiss√£o da NFe da procedure "GerarNFeOnLineACBr()" para que
+    esteja num n√≠vel de chamada acima.
 
   IMR - 24/10/2018 :
-    * InserÁ„o do bloco de cÛdigo para guarda o n˙mero do recibo de envio, caso ele
+    * Inser√ß√£o do bloco de c√≥digo para guarda o n√∫mero do recibo de envio, caso ele
     exista, mesmo quando o retorno do envio seja FALSE.
-    * Comentado o bloco de cÛdigo que remove o n˙mero do recibo de envio da venda
-    mesmo que a rejeiÁ„o seja de duplicidade de nota.
+    * Comentado o bloco de c√≥digo que remove o n√∫mero do recibo de envio da venda
+    mesmo que a rejei√ß√£o seja de duplicidade de nota.
 
   IMR - 20/05/2016 :
-    Inclus„o da rejeiÁ„o 203 para que o recibo de envio n„o seja guardado no
+    Inclus√£o da rejei√ß√£o 203 para que o recibo de envio n√£o seja guardado no
     registro de origem (Venda ou Compra) da NF-e.
 
   IMR - 20/05/2016 :
-    InserÁ„o da rotina que renomeia os arquivos XML de envio e retorno do Lote e
-    Recibo quando o processo de geraÁ„o/envio da NFe È finalizado corretamente.
-    Neste passo o objeto "ACBrNFe.NotasFiscais" È zerado com o objetivo de
-    eliminar "lixos de dados" para os novos processos de geraÁ„o/envio de NFe.
+    Inser√ß√£o da rotina que renomeia os arquivos XML de envio e retorno do Lote e
+    Recibo quando o processo de gera√ß√£o/envio da NFe √© finalizado corretamente.
+    Neste passo o objeto "ACBrNFe.NotasFiscais" √© zerado com o objetivo de
+    eliminar "lixos de dados" para os novos processos de gera√ß√£o/envio de NFe.
 
   IMR - 05/03/2016 :
-    Inters„o do par‚metro "OcultarVencimentos" para que o usu·rio informe se ele
-    quer ou n„o informar os vencimentos das parecelas da fatura na NF-e.
+    Inters√£o do par√¢metro "OcultarVencimentos" para que o usu√°rio informe se ele
+    quer ou n√£o informar os vencimentos das parecelas da fatura na NF-e.
 
   IMR - 09/09/2014 :
-    Tratamento de excess„o para notas fiscal emitidas, mas de forma denegada. Com este bloco de cÛdigo este funÁ„o retornar·
-    TRUE para que o XML da NF-e seja gravada na base de dados e o registro de venda receba a informaÁ„o de que a NF-e fora
+    Tratamento de excess√£o para notas fiscal emitidas, mas de forma denegada. Com este bloco de c√≥digo este fun√ß√£o retornar√°
+    TRUE para que o XML da NF-e seja gravada na base de dados e o registro de venda receba a informa√ß√£o de que a NF-e fora
     denegada.
 *)
   sErrorMsg := EmptyStr;
@@ -1942,7 +1945,7 @@ begin
       iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
     iNumeroLote := GetNextID('TBCONFIGURACAO', 'NFE_LOTE', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
-    aSincrono   := (ACBrNFe.NotasFiscais.Count = 1);
+    aSincrono   := True; //(ACBrNFe.NotasFiscais.Count = 1);
 
     Result := ACBrNFe.Enviar(iNumeroLote, Imprimir, aSincrono);
 
@@ -1957,7 +1960,7 @@ begin
       ProtocoloNFE := ACBrNFe.WebServices.Retorno.Protocolo;
       ReciboNFE    := ACBrNFe.WebServices.Retorno.Recibo;
 
-//      //InformaÁıes de retorno relacionadas ao web service...
+//      //Informa√ß√µes de retorno relacionadas ao web service...
 //      ACBrNFe.WebServices.Enviar.tpAmb;
 //      ACBrNFe.WebServices.Enviar.verAplic;
 //      ACBrNFe.WebServices.Enviar.cStat;
@@ -1965,7 +1968,7 @@ begin
 //      ACBrNFe.WebServices.Enviar.xMotivo;
 //      ACBrNFe.WebServices.Enviar.Protocolo;
 //
-//      //InformaÁıes de retorno especÌficas a NFe...
+//      //Informa√ß√µes de retorno espec√≠ficas a NFe...
 //      ACBrNFe.NotasFiscais[0].NFe.procNFe.tpAmb
 //      ACBrNFe.NotasFiscais[0].NFe.procNFe.verAplic
 //      ACBrNFe.NotasFiscais[0].NFe.procNFe.chNFe
@@ -1978,9 +1981,9 @@ begin
       UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
       GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ReciboNFE);
 
-      // Renomer no diretÛrio os arquivos XML de envio e retorno dos lotes e recibos de NF-e
+      // Renomer no diret√≥rio os arquivos XML de envio e retorno dos lotes e recibos de NF-e
       RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFE, 'nfe');
-      ACBrNFe.NotasFiscais.Clear;
+//      ACBrNFe.NotasFiscais.Clear;
 
       // Verificar se a nota foi Denegada
       if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1) then
@@ -1999,7 +2002,7 @@ begin
       end;
 
       if aSincrono and (ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat <> PROCESSO_NFE_AUTORIZADA) then
-        raise Exception.Create('NF-e de saÌda n„o autorizada!');
+        raise Exception.Create('NF-e de sa√≠da n√£o autorizada!' + #13 + ACBrNFe.NotasFiscais[0].NFe.procNFe.xMotivo);
     end
     else
     begin
@@ -2011,7 +2014,7 @@ begin
           GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ReciboNFE);
         end;
 
-      // ForÁar erro quando o retorno for FALSE para o envio sÌncrono
+      // For√ßar erro quando o retorno for FALSE para o envio s√≠ncrono
       if aSincrono then
       begin
         aStatusNFe := ACBrNFe.WebServices.Enviar.cStat;
@@ -2026,7 +2029,7 @@ begin
     begin
       sErrorMsg := E.Message;
 
-      // Diretrizes de tomada de decis„o quando a NFe enviada n„o È aceita
+      // Diretrizes de tomada de decis√£o quando a NFe enviada n√£o √© aceita
 
       if ( Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr ) then
         if ReciboNaoExisteNaVenda(ACBrNFe.WebServices.Retorno.Recibo) then
@@ -2095,20 +2098,20 @@ begin
 //              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
               if (aStatusNFe in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
                 sErrorMsg :=
-                  'InscriÁ„o Estadual (IE) do cliente n„o cadastrado ou n„o vinculado ao CNPJ informado. ' + #13 +
+                  'Inscri√ß√£o Estadual (IE) do cliente n√£o cadastrado ou n√£o vinculado ao CNPJ informado. ' + #13 +
                   '- Deve-se consultar o CNPJ do cliente no SINTEGRA; ou' + #13 +
                   '- Deve-se consultar o CNPJ do cliente no portal ''https://dfe-portal.svrs.rs.gov.br/Nfe/Ccc''' + #13 +
-                  'Favor corrija esta informaÁ„o no Cadastro do Cliente.' + #13#13 +
-                  'ApÛs este procedimento, gere novamente a NF-e'
+                  'Favor corrija esta informa√ß√£o no Cadastro do Cliente.' + #13#13 +
+                  'Ap√≥s este procedimento, gere novamente a NF-e'
               else
 //              if ( (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_INVALIDO)
 //                or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE)
 //              ) then
               if ((aStatusNFe = REJEICAO_NFE_CFOP_INVALIDO) or (aStatusNFe = REJEICAO_NFE_CFOP_DIFERENTE)) then
                 sErrorMsg :=
-                  'CÛdigo Fiscal de OperaÁ„o n„o adequado para este tipo de movimento dos produtos. ' +
-                  'Favor corrija-o clicando com o bot„o direito do mouse no campo CFOP' + #13#13 +
-                  'ApÛs este procedimento, gere novamente a NF-e';
+                  'C√≥digo Fiscal de Opera√ß√£o n√£o adequado para este tipo de movimento dos produtos. ' +
+                  'Favor corrija-o clicando com o bot√£o direito do mouse no campo CFOP' + #13#13 +
+                  'Ap√≥s este procedimento, gere novamente a NF-e';
             end;
 
           REJEICAO_NFE_NAO_CATALOG:
@@ -2116,7 +2119,7 @@ begin
               // Remover Lote da Venda
               GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-              sErrorMsg := aMotivoNFe + #13 + 'PossÌvel erro na validaÁ„o do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
+              sErrorMsg := aMotivoNFe + #13 + 'Poss√≠vel erro na valida√ß√£o do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
             end;
 
           else
@@ -2140,7 +2143,7 @@ begin
                           // Remover Lote da Venda
                           GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-                          sErrorMsg := aMotivoNFe + #13 + 'Favor fazer as devidas correÁıes e gerar NF-e novamente!';
+                          sErrorMsg := aMotivoNFe + #13 + 'Favor fazer as devidas corre√ß√µes e gerar NF-e novamente!';
                         end;
                     end;
 
@@ -2206,8 +2209,8 @@ var
 begin
 (*
   IMR - 14/10/2016 :
-    InserÁ„o da vari·vel "aCan" para armazenar a situaÁ„o da NF-e consultada na
-    SEFA a fim de constatar o seu cancelamento antes da criaÁ„o de um evento com
+    Inser√ß√£o da vari√°vel "aCan" para armazenar a situa√ß√£o da NF-e consultada na
+    SEFA a fim de constatar o seu cancelamento antes da cria√ß√£o de um evento com
     esta finalidade.
 *)
   sLOG := TStringList.Create;
@@ -2223,7 +2226,7 @@ begin
       Exit;
 
     if ( ACBrNFe.Configuracoes.WebServices.Ambiente = taHomologacao ) then
-      if (not ShowConfirm('Cancelamento de NF-e em AMBIENTE DE HOMOLOGA«√O n„o tem validade nenhuma para a SEFA.' + #13#13 +
+      if (not ShowConfirm('Cancelamento de NF-e em AMBIENTE DE HOMOLOGA√á√ÉO n√£o tem validade nenhuma para a SEFA.' + #13#13 +
         'Deseja continuar assim mesmo?', 'Cancelar NF-e')) then
       begin
         Result := False;
@@ -2249,19 +2252,19 @@ begin
       NotasFiscais.Clear;
 
       if not NotasFiscais.LoadFromString( qryCalculoImposto.FieldByName('XML_NFE').AsWideString ) then
-        raise Exception.Create('N„o foi possÌvel carregar o XML da Nota Fiscal EletrÙnica correspondente!' + #13 + FileNameXML);
+        raise Exception.Create('N√£o foi poss√≠vel carregar o XML da Nota Fiscal Eletr√¥nica correspondente!' + #13 + FileNameXML);
 
       // Numero do Lote de Envio
       //iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
       //iNumeroLote := StrToInt64(FormatDateTime('yymmddhhnn', GetDateTimeDB));
       iNumeroLote := StrToInt64(Copy(FormatDateTime('yymmddhhnnss', GetDateTimeDB), 5, 8)); // Dia, hora, minuto e segundo
 
-      // Consultar situaÁ„o da NF-e na Sefa
+      // Consultar situa√ß√£o da NF-e na Sefa
 
       if ACBrNFe.Consultar then
         aCan := ACBrNFe.NotasFiscais[0].Cancelada;
 
-      // Criar o Evento de Cancelamento, caso a NF-e ainda n„o esteja cancelada
+      // Criar o Evento de Cancelamento, caso a NF-e ainda n√£o esteja cancelada
 
       if aCan then
         Result := True
@@ -2277,7 +2280,7 @@ begin
           //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
           //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
 
-          infEvento.cOrgao   := qryEmitenteEST_COD.AsInteger; // CÛdigo IBGE do Estado
+          infEvento.cOrgao   := qryEmitenteEST_COD.AsInteger; // C√≥digo IBGE do Estado
           infEvento.chNFe    := qryNFeEmitidaCHAVE.AsString;
           infEvento.CNPJ     := sCNPJEmitente;
           infEvento.dhEvento := GetDateTimeDB;
@@ -2296,8 +2299,8 @@ begin
             if EventoRetorno.retEvento.Items[0].RetInfEvento.cStat <> 135 then
             begin
               raise Exception.CreateFmt(
-                'Ocorreu o seguinte erro ao cancelar a Nota Fiscal EletrÙnica:'  + sLineBreak +
-                'CÛdigo: %d' + sLineBreak +
+                'Ocorreu o seguinte erro ao cancelar a Nota Fiscal Eletr√¥nica:'  + sLineBreak +
+                'C√≥digo: %d' + sLineBreak +
                 'Motivo: %s', [
                   EventoRetorno.retEvento.Items[0].RetInfEvento.cStat,
                   EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo
@@ -2315,8 +2318,8 @@ begin
             sLOG.Add('Chave NF-e: ' + qryNFeEmitidaCHAVE.AsString);
             sLOG.Add('-');
             sLOG.Add('Data/Hora Evento: ' + FormatDateTime('dd/mm/yyyy hh:mm:ss', EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento));
-            sLOG.Add('N˙mero Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
-            sLOG.Add('CÛdigo Status   : ' + IntToStr(EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
+            sLOG.Add('N√∫mero Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
+            sLOG.Add('C√≥digo Status   : ' + IntToStr(EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
             sLOG.Add('Motivo Status   : ' + EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
             sLOG.Add('-');
             sLOG.Add(EventoRetorno.retEvento.Items[0].RetInfEvento.XML);
@@ -2373,7 +2376,7 @@ begin
   except
     On E : Exception do
     begin
-      ShowError('Erro ao tentar cancelar NF-e de SaÌda.'+ #13#13 + 'CancelarNFeACBr() --> ' + e.Message);
+      ShowError('Erro ao tentar cancelar NF-e de Sa√≠da.'+ #13#13 + 'CancelarNFeACBr() --> ' + e.Message);
       Result := False;
     end;
   end;
@@ -2398,11 +2401,11 @@ begin
 
     if (Trim(qryCalculoImposto.FieldByName('XML_NFE_FILENAME').AsString) = EmptyStr) then
     begin
-      ShowWarning('Arquivo XML da Nota Fiscal n„o carregado.' + #13 + 'Favor informar ao Suporte.');
+      ShowWarning('Arquivo XML da Nota Fiscal n√£o carregado.' + #13 + 'Favor informar ao Suporte.');
       Exit;
     end;
 
-    if ( IsPDF ) then // Para exportaÁ„o em envio
+    if ( IsPDF ) then // Para exporta√ß√£o em envio
       FileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_CLIENT + qryCalculoImposto.FieldByName('XML_NFE_FILENAME').AsString
     else
       FileNameXML := ExtractFilePath( ParamStr(0) ) + DIRECTORY_PRINT  + qryCalculoImposto.FieldByName('XML_NFE_FILENAME').AsString;
@@ -2414,7 +2417,7 @@ begin
     CorrigirXML_NFe( qryCalculoImposto.FieldByName('XML_NFE').AsWideString, FileNameXML );
 
     if not FilesExists(FileNameXML) then
-      raise Exception.Create(Format('Arquivo %s n„o encontrado.', [QuotedStr(FileNameXML)]));
+      raise Exception.Create(Format('Arquivo %s n√£o encontrado.', [QuotedStr(FileNameXML)]));
 
     with ACBrNFe do
     begin
@@ -2451,7 +2454,7 @@ begin
   except
     On E : Exception do
     begin
-      ShowError('Erro ao tentar imprimir DANFE da SaÌda.' + #13#13 + 'ImprimirDANFEACBr() --> ' + e.Message);
+      ShowError('Erro ao tentar imprimir DANFE da Sa√≠da.' + #13#13 + 'ImprimirDANFEACBr() --> ' + e.Message);
       Result := False;
     end;
   end;
@@ -2622,17 +2625,17 @@ var
   sErros ,
   sInformacaoProduto,
   sInformacaoFisco  : String;
-  cPercentualTributoAprox,
-  vTotalTributoAprox     ,
-  vTotalFCP_UF_Destino   ,
-  vTotalICMS_UF_Destino  ,
-  vTotalICMS_UF_Remetente: Currency;
+  cPercentualTributoAprox ,
+  vTotalTributoAprox      ,
+  vTotalFCP_UF_Destino    ,
+  vTotalICMS_UF_Destino   ,
+  vTotalICMS_UF_Remetente : Currency;
 
   PorCodigoExterno ,
   aCalcularICMS    : Boolean;
 
-  // Base para implementar soluÁıes para a
-  // RejeiÁ„o 694: N„o informado o grupo de ICMS para a UF de destino
+  // Base para implementar solu√ß√µes para a
+  // Rejei√ß√£o 694: N√£o informado o grupo de ICMS para a UF de destino
   aSimplesNacional ,
   aInterestadual   ,
   aConsumidorFinal ,
@@ -2641,61 +2644,72 @@ var
   iCodigoNFE,
   aParcela  : Integer;
 
-  // Base para implementar soluÁıes para a
-  // RejeiÁ„o 694: N„o informado o grupo de ICMS para a UF de destino
+  // Base para implementar solu√ß√µes para a
+  // Rejei√ß√£o 694: N√£o informado o grupo de ICMS para a UF de destino
   cAliquotaFCPUFDestino,
   cAliquotaUFDestino   ,
   cAliquotaUFInter     : Currency;
+  cAliquotaIBS    ,
+  cAliquotaIBSUF  ,
+  cAliquotaIBSMun : Double;
   // Totalizar Valores
   cTotal_vIPI          ,
   cTotal_ICMSTot_vBC   ,
-  cTotal_ICMSTot_vICMS : Currency;
+  cTotal_ICMSTot_vICMS ,
+  cTotal_ISeletivoTotal_vBC ,
+  cTotal_ISeletivoTotal_vIS : Currency;
+
+  eDiferimento,
+  eReducao    : Boolean;
 begin
 (*
+  IMR - 15/01/2026 :
+    Inclus√£o de todos os controles e campos novos referentes a Nova Reforma Tribut√°ria vigorada a partir de ABR/2026.
+
   IMR - 03/09/2019 :
-    O campo "Ide.cNF" precisa receber um valor de cÛdigo, gerado de forma aleatÛria, diferente do n˙mero da
-    nota fiscal e assim esteja de acordo com as expecificaÁıes da Receita Federal.
+    O campo "Ide.cNF" precisa receber um valor de c√≥digo, gerado de forma aleat√≥ria, diferente do n√∫mero da
+    nota fiscal e assim esteja de acordo com as expecifica√ß√µes da Receita Federal.
 
   IMR - 03/09/2018 :
-    Dados de fatura da Nota Fical agora s„o apenas informados quando a(s) duplicata(s)
-    for(em) informada(s) pelo usu·rio na nota.
+    Dados de fatura da Nota Fical agora s√£o apenas informados quando a(s) duplicata(s)
+    for(em) informada(s) pelo usu√°rio na nota.
 
   IMR - 03/09/2018 :
-    Dados de fatura da Nota Fical agora s„o apenas informados quando a(s) duplicata(s)
-    for(em) informada(s) pelo usu·rio na nota.
+    Dados de fatura da Nota Fical agora s√£o apenas informados quando a(s) duplicata(s)
+    for(em) informada(s) pelo usu√°rio na nota.
 
   IMR - 14/03/2018 :
-    ImplementaÁ„o da rotina que inseri a ReferÍncia como CÛdigo do Produto na nota
-    fiscal de acordo com a configuraÁ„o da empresa.
+    Implementa√ß√£o da rotina que inseri a Refer√™ncia como C√≥digo do Produto na nota
+    fiscal de acordo com a configura√ß√£o da empresa.
 
   IMR - 03/06/2016 :
-    Inclus„o da instruÁ„o "Ide.indFinal := cfConsumidorFinal" para todo destinat·rio
-    da nota que for pessoa fÌsica, ou seja, todo destinat·rio que n„o seja
+    Inclus√£o da instru√ß√£o "Ide.indFinal := cfConsumidorFinal" para todo destinat√°rio
+    da nota que for pessoa f√≠sica, ou seja, todo destinat√°rio que n√£o seja
     contribuinte de ICMS (Dest.indIEDest = inNaoContribuinte).
 
   IMR - 05/03/2016 :
-    Inters„o do par‚metro "OcultarVencimentos" para que o usu·rio informe se ele
-    quer ou n„o informar os vencimentos das parecelas da fatura na NF-e.
+    Inters√£o do par√¢metro "OcultarVencimentos" para que o usu√°rio informe se ele
+    quer ou n√£o informar os vencimentos das parecelas da fatura na NF-e.
 
   IMR - 08/12/2015 :
-    AlteraÁ„o nas regras de operaÁ„o da tag "idDest" para a emiss„o de Notas Fiscais
+    Altera√ß√£o nas regras de opera√ß√£o da tag "idDest" para a emiss√£o de Notas Fiscais
     para fora do Estado.
 
   IMR - 20/09/2014 :
-    InseÁ„o de nova TAG na Nota Fiscal referente a IE do destinat·rio para informa se este È Isento, Contribuinte ou N„o-contribuinte de acordo
-    com as regras estabelecidas pela SEFA para a vers„o 3.10 da NF-e.
+    Inse√ß√£o de nova TAG na Nota Fiscal referente a IE do destinat√°rio para informa se este √© Isento, Contribuinte ou N√£o-contribuinte de acordo
+    com as regras estabelecidas pela SEFA para a vers√£o 3.10 da NF-e.
 
   IMR - 10/10/2014 :
-    ImplementaÁ„o da Lei "TransparÍncia de Impostos" que visa informar ao consumidos o valor e o percentual pago de impostos sobre os itens e
+    Implementa√ß√£o da Lei "Transpar√™ncia de Impostos" que visa informar ao consumidos o valor e o percentual pago de impostos sobre os itens e
     o total geral da nota fiscal.
 
   IMR - 31/03/2015 :
-    Inclus„o da TAG "Ide.finNFe := fnDevolucao" quando a NF-e for de devoluÁ„o
+    Inclus√£o da TAG "Ide.finNFe := fnDevolucao" quando a NF-e for de devolu√ß√£o
 
   IMR - 20/04/2015 :
-    Inclus„o do bloco de cÛdigo para verificar se o CFOP da venda corresponde
-    a uma operaÁ„o de devoluÁ„o. Caso esta situaÁ„o seja confirmada, a NF-e de
-    origem ser· solicitada.
+    Inclus√£o do bloco de c√≥digo para verificar se o CFOP da venda corresponde
+    a uma opera√ß√£o de devolu√ß√£o. Caso esta situa√ß√£o seja confirmada, a NF-e de
+    origem ser√° solicitada.
 *)
 
   try
@@ -2721,19 +2735,19 @@ begin
 
     with ACBrNFe.NotasFiscais.Add.NFe do
     begin
-      // Caso n„o seja preenchido ser· gerado um n˙mero aleatÛrio pelo componente
+      // Caso n√£o seja preenchido ser√° gerado um n√∫mero aleat√≥rio pelo componente
       Ide.cNF       := iCodigoNFE;
       Ide.natOp     := qryCalculoImposto.FieldByName('CFOP_RESUMIDO').AsString;
 
-      // Entradas ou saÌdas dentro do Estado
+      // Entradas ou sa√≠das dentro do Estado
       if ( qryCalculoImposto.FieldByName('CFOP').AsString[1] in ['1', '5'] ) then
         Ide.idDest := doInterna
       else
-      // Entradas ou saÌdas em Estados diferentes
+      // Entradas ou sa√≠das em Estados diferentes
       if ( qryCalculoImposto.FieldByName('CFOP').AsString[1] in ['2', '6'] ) then
         Ide.idDest := doInterestadual
       else
-      // Entradas ou saÌdas do Exterior
+      // Entradas ou sa√≠das do Exterior
       if ( qryCalculoImposto.FieldByName('CFOP').AsString[1] in ['3', '7'] ) then
         Ide.idDest := doExterior
       else
@@ -2751,7 +2765,7 @@ begin
       Ide.tpNF      := tnSaida;
       Ide.tpEmis    := ACBrNFe.Configuracoes.Geral.FormaEmissao;
       Ide.tpAmb     := ACBrNFe.Configuracoes.WebServices.Ambiente;
-      Ide.verProc   := GetExeVersion( ParamStr(0) ); // Vers„o do seu sistema
+      Ide.verProc   := GetExeVersion( ParamStr(0) ); // Vers√£o do seu sistema
       Ide.cUF       := UFtoCUF( qryEmitenteEST_SIGLA.AsString );
       Ide.cMunFG    := qryEmitenteCID_IBGE.AsInteger;
 
@@ -2760,14 +2774,14 @@ begin
       else
         Ide.finNFe := fnNormal;
 
-      if ( qryDestinatario.FieldByName('PESSOA_FISICA').AsInteger = 1 ) then
+      if (qryDestinatario.FieldByName('PESSOA_FISICA').AsInteger = 1) then
         Ide.indFinal := cfConsumidorFinal;
 
       aCalcularICMS :=
             (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger  = 1)
         and (qryCalculoImposto.FieldByName('NFE_VALOR_BASE_ICMS').AsCurrency > 0.0);
 
-      if ( Ide.finNFe  = fnDevolucao ) then
+      if (Ide.finNFe  = fnDevolucao) then
         with Ide.NFref.Add, qryCalculoImposto do
           Case TFormaNFDevolucao(FieldByName('DNFE_FORMA').AsInteger) of
             fdNFeEletronica:
@@ -2779,7 +2793,7 @@ begin
                 RefNF.AAMM   := FieldByName('DNFE_COMPETENCIA').AsString;          // |
                 RefNF.CNPJ   := FieldByName('DNFE_CNPJ_CPF').AsString;             // |
                 RefNF.modelo := FieldByName('DNFE_MODELO').AsInteger;              // |- NF Modelo 1/1A
-                RefNF.serie  := FieldByName('DNFE_SERIE').AsInteger;               // |  * O modelo padr„o È 1
+                RefNF.serie  := FieldByName('DNFE_SERIE').AsInteger;               // |  * O modelo padr√£o √© 1
                 RefNF.nNF    := FieldByName('DNFE_NUMERO').AsInteger;              // |
               end;
 
@@ -2789,7 +2803,7 @@ begin
                 RefNFP.AAMM    := FieldByName('DNFE_COMPETENCIA').AsString;                // |
                 RefNFP.CNPJCPF := FieldByName('DNFE_CNPJ_CPF').AsString;                   // |
                 RefNFP.IE      := FieldByName('DNFE_IE').AsString;                         // |- NF produtor Rural
-                RefNFP.modelo  := FormatFloat('00', FieldByName('DNFE_MODELO').AsInteger); // | * O modelo padr„o È 04
+                RefNFP.modelo  := FormatFloat('00', FieldByName('DNFE_MODELO').AsInteger); // | * O modelo padr√£o √© 04
                 RefNFP.serie   := FieldByName('DNFE_SERIE').AsInteger;                     // |
                 RefNFP.nNF     := FieldByName('DNFE_NUMERO').AsInteger;                    // |
               end;
@@ -2803,7 +2817,7 @@ begin
           end;
 
       if GetSolicitaDHSaidaNFe(sCNPJEmitente) then
-        if (Trim(sDataHoraSaida) <> EmptyStr) then
+        if (not Trim(sDataHoraSaida).IsEmpty) then
         begin
           Ide.dSaiEnt := StrToDateTime( FormatDateTime('dd/mm/yyyy', StrToDateTime(sDataHoraSaida)) );
           Ide.hSaiEnt := StrToDateTime( FormatDateTime('hh:mm:ss', StrToDateTime(sDataHoraSaida)) );
@@ -2811,6 +2825,32 @@ begin
 
   //     Ide.dhCont := date;
   //     Ide.xJust  := 'Justificativa Contingencia';
+
+      // Reforma Tribut√°ria
+      if gReformaTributaria then
+        Ide.dPrevEntrega := Date + 15;
+
+//      // Reforma Tribut√°ria
+//      if gReformaTributaria then
+//      begin
+//        Ide.cMunFGIBS := StrToInt(edtEmitCodCidade.Text);
+//
+//        Ide.tpNFDebito  := tdNenhum;
+//        Ide.tpNFCredito := tcNenhum;
+//
+//        Ide.gCompraGov.tpEnteGov := tcgEstados;
+//        Ide.gCompraGov.pRedutor  := 5;
+//        Ide.gCompraGov.tpOperGov := togFornecimento;
+//
+//    //    Informado para abater as parcelas de antecipa√ß√£o de pagamento, conforme Art. 10. ¬ß 4¬∫
+//    //    refNFe: Refer√™ncia uma NF-e (modelo 55) emitida anteriormente, referente a pagamento antecipado
+//
+//        with Ide.gPagAntecipado.New do
+//          refNFe := '12345678901234567890123456789012345678901234';
+//
+//        with Ide.gPagAntecipado.New do
+//          refNFe := '12345678901234567890123456789012345678904567';
+//      end;
 
   //Para NFe referenciada use os campos abaixo
   {     with Ide.NFref.Add do
@@ -2865,11 +2905,11 @@ begin
       Emit.EnderEmit.xPais   := qryEmitentePAIS_NOME.AsString;
 
       Emit.IEST              := '';
-      Emit.IM                := ''; // Preencher no caso de existir serviÁos na nota
-      Emit.CNAE              := ''; // Verifique na cidade do emissor da NFe se È permitido
-                                    // a inclus„o de serviÁos na NFe
+      Emit.IM                := ''; // Preencher no caso de existir servi√ßos na nota
+      Emit.CNAE              := ''; // Verifique na cidade do emissor da NFe se √© permitido
+                                    // a inclus√£o de servi√ßos na NFe
 
-      // ¡gil SoluÁıes em Softwares
+      // √Ågil Solu√ß√µes em Softwares
       with autXML.Add do
         CNPJCPF := AGIL_SOFTWARES_CNPJ;
 
@@ -2924,7 +2964,7 @@ begin
       Dest.EnderDest.cPais   := qryDestinatario.FieldByName('PAIS_ID').AsInteger;  // 1058;
       Dest.EnderDest.xPais   := qryDestinatario.FieldByName('PAIS_NOME').AsString; // 'BRASIL';
 
-  //Use os campos abaixo para informar o endereÁo de retirada quando for diferente do Emitente
+  //Use os campos abaixo para informar o endere√ßo de retirada quando for diferente do Emitente
   {      Retirada.CNPJCPF := '';
         Retirada.xLgr    := '';
         Retirada.nro     := '';
@@ -2934,7 +2974,7 @@ begin
         Retirada.xMun    := '';
         Retirada.UF      := '';}
 
-  //Use os campos abaixo para informar o endereÁo de entrega quando for diferente do Remetente/Destinat·rio
+  //Use os campos abaixo para informar o endere√ßo de entrega quando for diferente do Remetente/Destinat√°rio
   {      Entrega.CNPJCPF := '';
         Entrega.xLgr    := '';
         Entrega.nro     := '';
@@ -2944,7 +2984,7 @@ begin
         Entrega.xMun    := '';
         Entrega.UF      := '';}
 
-      // ValidaÁıes para tratar a rejeiÁ„o 694: N„o informado o grupo de ICMS para a UF de destino
+      // Valida√ß√µes para tratar a rejei√ß√£o 694: N√£o informado o grupo de ICMS para a UF de destino
 
       aSimplesNacional := (Emit.CRT = TpcnCRT.crtRegimeNormal);
       aInterestadual   := (Ide.idDest = TpcnDestinoOperacao.doInterestadual);
@@ -2961,6 +3001,8 @@ begin
       cTotal_vIPI             := 0.0;
       cTotal_ICMSTot_vBC      := 0.0;
       cTotal_ICMSTot_vICMS    := 0.0;
+      cTotal_ISeletivoTotal_vBC := 0.0;
+      cTotal_ISeletivoTotal_vIS := 0.0;
 
       qryDadosProduto.First;
 
@@ -2969,7 +3011,7 @@ begin
 
         with Det.Add do
         begin
-          Prod.nItem := qryDadosProduto.RecNo; // qryDadosProdutoSEQ.AsInteger;              // N˙mero sequencial, para cada item deve ser incrementado
+          Prod.nItem := qryDadosProduto.RecNo; // qryDadosProdutoSEQ.AsInteger;              // N√∫mero sequencial, para cada item deve ser incrementado
 
           if PorCodigoExterno then
           begin
@@ -2990,14 +3032,18 @@ begin
           else
             Prod.xProd  := qryDadosProduto.FieldByName('DESCRI').AsString + ' ' + qryDadosProduto.FieldByName('ANO_FAB_MODELO_VEICULO').AsString;
 
-          Prod.NCM      := qryDadosProduto.FieldByName('NCM_SH').AsString;            // Tabela NCM disponÌvel em  http://www.receita.fazenda.gov.br/Aliquotas/DownloadArqTIPI.htm
+          Prod.NCM      := qryDadosProduto.FieldByName('NCM_SH').AsString;            // Tabela NCM dispon√≠vel em  http://www.receita.fazenda.gov.br/Aliquotas/DownloadArqTIPI.htm
           Prod.CFOP     := qryDadosProduto.FieldByName('CFOP_COD').AsString;
           Prod.EXTIPI   := EmptyStr;
 
-          if (Trim(Prod.NCM) = EmptyStr) or (Trim(Prod.NCM) = '10203000') then // CÛdigo descontinuado a partir de 2016
+          if (Trim(Prod.NCM) = EmptyStr) or (Trim(Prod.NCM) = '10203000') then // C√≥digo descontinuado a partir de 2016
             Prod.NCM := TRIBUTO_NCM_SH_PADRAO;
 
-          if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a funÁ„o "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
+          // Reforma Tribut√°ria
+          if (qryDadosProduto.FieldByName('ZONA_FRANCA_MANAUS').AsInteger = 1) then
+            Prod.tpCredPresIBSZFM := TtpCredPresIBSZFM.tcpSemCredito;
+
+          if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a fun√ß√£o "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
           begin
             Prod.cEAN     := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString;
             Prod.cEANTrib := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString
@@ -3018,13 +3064,13 @@ begin
           Prod.qCom     := qryDadosProduto.FieldByName('QTDE').AsCurrency;
 
           if ( qryDadosProduto.FieldByName('PUNIT_PROMOCAO').AsCurrency > 0 ) then
-            Prod.vUnCom := qryDadosProduto.FieldByName('PUNIT_PROMOCAO').AsCurrency   // I10a  Valor Unit·rio de comercializaÁ„o
+            Prod.vUnCom := qryDadosProduto.FieldByName('PUNIT_PROMOCAO').AsCurrency   // I10a  Valor Unit√°rio de comercializa√ß√£o
           else
-            Prod.vUnCom := qryDadosProduto.FieldByName('PUNIT').AsCurrency;           // I10a  Valor Unit·rio de comercializaÁ„o
+            Prod.vUnCom := qryDadosProduto.FieldByName('PUNIT').AsCurrency;           // I10a  Valor Unit√°rio de comercializa√ß√£o
 
-          Prod.vProd    := qryDadosProduto.FieldByName('TOTAL_BRUTO').AsCurrency;     // I11 - Valor Total Bruto dos Produtos ou ServiÁos
+          Prod.vProd    := qryDadosProduto.FieldByName('TOTAL_BRUTO').AsCurrency;     // I11 - Valor Total Bruto dos Produtos ou Servi√ßos
 
-//          if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a funÁ„o "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
+//          if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a fun√ß√£o "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
 //            Prod.cEANTrib := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString
 //          else
 //            Prod.cEANTrib := EmptyStr;
@@ -3033,9 +3079,9 @@ begin
           Prod.qTrib     := qryDadosProduto.FieldByName('QTDE').AsCurrency;
 
           if ( qryDadosProduto.FieldByName('PUNIT_PROMOCAO').AsCurrency > 0 ) then
-            Prod.vUnTrib := qryDadosProduto.FieldByName('PUNIT_PROMOCAO').AsCurrency  // I14a  Valor Unit·rio de tributaÁ„o
+            Prod.vUnTrib := qryDadosProduto.FieldByName('PUNIT_PROMOCAO').AsCurrency  // I14a  Valor Unit√°rio de tributa√ß√£o
           else
-            Prod.vUnTrib := qryDadosProduto.FieldByName('PUNIT').AsCurrency;          // I14a  Valor Unit·rio de tributaÁ„o
+            Prod.vUnTrib := qryDadosProduto.FieldByName('PUNIT').AsCurrency;          // I14a  Valor Unit√°rio de tributa√ß√£o
 
 (* EXEMPLO *)
           // NFe.Det[i].Prod.uCom    := 'CX';                                                   = 'UN'
@@ -3050,14 +3096,14 @@ begin
           Prod.vSeg      := 0;                                        // I16 - Valor Total do Seguro
           Prod.vDesc     := qryDadosProduto.FieldByName('TOTAL_DESCONTO').AsCurrency; // I17 - Valor do Desconto
 
-          // InformaÁ„o Adicional do Produto
+          // Informa√ß√£o Adicional do Produto
 
           sInformacaoProduto := EmptyStr;
           if ( GetSegmentoID(qryEmitenteCNPJ.AsString) <> SEGMENTO_MERCADO_CARRO_ID ) then
           begin
             if PorCodigoExterno then
               sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
-                'CÛd.: ' + qryDadosProduto.FieldByName('CODPROD').AsString
+                'C√≥d.: ' + qryDadosProduto.FieldByName('CODPROD').AsString
             else
             if ( Trim(qryDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr ) then
               sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
@@ -3070,7 +3116,7 @@ begin
             if ( Trim(qryDadosProduto.FieldByName('LOTE').AsString) <> EmptyStr ) then
               sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
                 'Lote: ' + qryDadosProduto.FieldByName('LOTE').AsString +
-                  IfThen(qryDadosProduto.FieldByName('LOTE_FABRICACAO').IsNull, '', ' FabricaÁ„o: ' + FormatDateTime('dd/mm/yyyy', qryDadosProduto.FieldByName('LOTE_FABRICACAO').AsDateTime)) +
+                  IfThen(qryDadosProduto.FieldByName('LOTE_FABRICACAO').IsNull, '', ' Fabrica√ß√£o: ' + FormatDateTime('dd/mm/yyyy', qryDadosProduto.FieldByName('LOTE_FABRICACAO').AsDateTime)) +
                   IfThen(qryDadosProduto.FieldByName('LOTE_VALIDADE').IsNull  , '', ' Validade: '   + FormatDateTime('dd/mm/yyyy', qryDadosProduto.FieldByName('LOTE_VALIDADE').AsDateTime));
           end
           else
@@ -3083,7 +3129,7 @@ begin
 
           infAdProd := sInformacaoProduto;
 
-  //DeclaraÁ„o de ImportaÁ„o. Pode ser adicionada v·rias atravÈs do comando Prod.DI.Add
+  //Declara√ß√£o de Importa√ß√£o. Pode ser adicionada v√°rias atrav√©s do comando Prod.DI.Add
 
   {         with Prod.DI.Add do
             begin
@@ -3104,45 +3150,45 @@ begin
             end;
   }
 
-  //Campos para venda de veÌculos novos
+  //Campos para venda de ve√≠culos novos
 
           if ( (GetSegmentoID(qryEmitenteCNPJ.AsString) = SEGMENTO_MERCADO_CARRO_ID) and (qryDadosProduto.FieldByName('PRODUTO_NOVO').AsInteger = 1) ) then
           begin
 
             with Prod.veicProd do
               begin
-                tpOP     := toVendaConcessionaria; // J02 - Tipo da operaÁ„o
+                tpOP     := toVendaConcessionaria; // J02 - Tipo da opera√ß√£o
                                                    //    (1) = toVendaConcessionaria
                                                    //    (2) = toFaturamentoDireto
                                                    //    (3) = toVendaDireta
                                                    //    (0) = toOutros
-                chassi   := qryDadosProduto.FieldByName('CHASSI_VEICULO').AsString;        // J03 - Chassi do veÌculo
+                chassi   := qryDadosProduto.FieldByName('CHASSI_VEICULO').AsString;        // J03 - Chassi do ve√≠culo
                 cCor     := qryDadosProduto.FieldByName('COR_VEICULO').AsString;           // J04 - Cor
-                xCor     := qryDadosProduto.FieldByName('COR_VEICULO_DESCRICAO').AsString; // J05 - DescriÁ„o da Cor
-                pot      := ''; // J06 - PotÍncia Motor
+                xCor     := qryDadosProduto.FieldByName('COR_VEICULO_DESCRICAO').AsString; // J05 - Descri√ß√£o da Cor
+                pot      := ''; // J06 - Pot√™ncia Motor
                 Cilin    := '';
-                pesoL    := ''; // J08 - Peso LÌquido
+                pesoL    := ''; // J08 - Peso L√≠quido
                 pesoB    := ''; // J09 - Peso Bruto
-                nSerie   := ''; // J10 - Serial (sÈrie)
-                tpComb   := qryDadosProduto.FieldByName('COMBUSTIVEL_VEICULO_DESCRICAO').AsString; // J11 - Tipo de combustÌvel
-                nMotor   := ''; // J12 - N˙mero de Motor
+                nSerie   := ''; // J10 - Serial (s√©rie)
+                tpComb   := qryDadosProduto.FieldByName('COMBUSTIVEL_VEICULO_DESCRICAO').AsString; // J11 - Tipo de combust√≠vel
+                nMotor   := ''; // J12 - N√∫mero de Motor
                 CMT      := '';
-                dist     := '';        // J14 - Dist‚ncia entre eixos
-//                RENAVAM  := '';        // J15 - RENAVAM            (N„o informar a TAG na exportaÁ„o)
-                anoMod   := qryDadosProduto.FieldByName('ANO_MODELO_VEICULO').AsInteger;         // J16 - Ano Modelo de FabricaÁ„o
-                anoFab   := qryDadosProduto.FieldByName('ANO_FABRICACAO_VEICULO').AsInteger;     // J17 - Ano de FabricaÁ„o
+                dist     := '';        // J14 - Dist√¢ncia entre eixos
+//                RENAVAM  := '';        // J15 - RENAVAM            (N√£o informar a TAG na exporta√ß√£o)
+                anoMod   := qryDadosProduto.FieldByName('ANO_MODELO_VEICULO').AsInteger;         // J16 - Ano Modelo de Fabrica√ß√£o
+                anoFab   := qryDadosProduto.FieldByName('ANO_FABRICACAO_VEICULO').AsInteger;     // J17 - Ano de Fabrica√ß√£o
                 tpPint   := '';        // J18 - Tipo de Pintura
-                tpVeic   := StrToIntDef(qryDadosProduto.FieldByName('TIPO_VEICULO').AsString, 0); // J19 - Tipo de VeÌculo    (Utilizar Tabela RENAVAM)
-                espVeic  := 0;         // J20 - EspÈcie de VeÌculo (Utilizar Tabela RENAVAM)
-                VIN      := '';        // J21 - CondiÁ„o do VIN
-                condVeic := cvAcabado; // J22 - CondiÁ„o do VeÌculo (1 - Acabado; 2 - Inacabado; 3 - Semi-acabado)
-                cMod     := '';        // J23 - CÛdigo Marca Modelo (Utilizar Tabela RENAVAM)
+                tpVeic   := StrToIntDef(qryDadosProduto.FieldByName('TIPO_VEICULO').AsString, 0); // J19 - Tipo de Ve√≠culo    (Utilizar Tabela RENAVAM)
+                espVeic  := 0;         // J20 - Esp√©cie de Ve√≠culo (Utilizar Tabela RENAVAM)
+                VIN      := '';        // J21 - Condi√ß√£o do VIN
+                condVeic := cvAcabado; // J22 - Condi√ß√£o do Ve√≠culo (1 - Acabado; 2 - Inacabado; 3 - Semi-acabado)
+                cMod     := '';        // J23 - C√≥digo Marca Modelo (Utilizar Tabela RENAVAM)
               end;
 
           end;
 
           // Inserir Lote do Produto na NF-e
-          // Campos especÌficos para venda de medicamentos
+          // Campos espec√≠ficos para venda de medicamentos
           if (qryDadosProduto.FieldByName('estoque_aprop_lote').AsInteger = 1) and
              (TTipoProduto(qryDadosProduto.FieldByName('codtipo').AsInteger) in [tpMedicamento, tpSolucao] ) then
           begin
@@ -3157,7 +3203,7 @@ begin
             end;
           end;
 
-  //Campos especÌficos para venda de medicamentos
+  //Campos espec√≠ficos para venda de medicamentos
   {         with Prod.med.Add do
             begin
               nLote := '';
@@ -3197,7 +3243,7 @@ begin
     property tpRest: integer read FtpRest write FtpRest;
 }
 
-  //Campos especÌficos para venda de armamento
+  //Campos espec√≠ficos para venda de armamento
   {         with Prod.arma.Add do
             begin
               nSerie := 0;
@@ -3206,7 +3252,7 @@ begin
               descr  := '' ;
             end;      }
 
-  //Campos especÌficos para venda de combustÌvel(distribuidoras)
+  //Campos espec√≠ficos para venda de combust√≠vel(distribuidoras)
   {         with Prod.comb do
             begin
               cProdANP := 0;
@@ -3310,7 +3356,7 @@ begin
                 cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + ICMS.vICMS;
               end;
 
-              // ICMS ST (SubstituiÁ„o Tribut·ria)
+              // ICMS ST (Substitui√ß√£o Tribut√°ria)
               ICMS.modBCST := dbisMargemValorAgregado;
               ICMS.pMVAST  := 0;
               ICMS.pRedBCST:= 0;
@@ -3326,13 +3372,13 @@ begin
             begin
               with ICMSUFDest do
               begin
-                vBCUFDest      := ICMS.vBC; // Valor da Base de C·lculo da UF de Destino
-                vBCFCPUFDest   := ICMS.vBC; // Valor da Base de C·lculo do Fundo de Combate ‡ Pobreza na UF de Destino
-                pFCPUFDest     := cAliquotaFCPUFDestino; // AlÌquota do Fundo de Combate ‡ Pobreza na UF de Destino
-                pICMSUFDest    := cAliquotaUFDestino;    // AlÌquota do ICMS da UF de Destino
-                pICMSInter     := cAliquotaUFInter;      // AlÌquota do ICMS Interestadual
-                pICMSInterPart := 100.0; // AlÌquota do ICMS Interestadual de Partilha
-                vFCPUFDest     := (vBCUFDest * pFCPUFDest  / 100.0);                // Valor do Fundo de Combate ‡ Pobreza na UF de Destino
+                vBCUFDest      := ICMS.vBC; // Valor da Base de C√°lculo da UF de Destino
+                vBCFCPUFDest   := ICMS.vBC; // Valor da Base de C√°lculo do Fundo de Combate √† Pobreza na UF de Destino
+                pFCPUFDest     := cAliquotaFCPUFDestino; // Al√≠quota do Fundo de Combate √† Pobreza na UF de Destino
+                pICMSUFDest    := cAliquotaUFDestino;    // Al√≠quota do ICMS da UF de Destino
+                pICMSInter     := cAliquotaUFInter;      // Al√≠quota do ICMS Interestadual
+                pICMSInterPart := 100.0; // Al√≠quota do ICMS Interestadual de Partilha
+                vFCPUFDest     := (vBCUFDest * pFCPUFDest  / 100.0);                // Valor do Fundo de Combate √† Pobreza na UF de Destino
                 vICMSUFDest    := (vBCUFDest * (pICMSUFDest - pICMSInter) / 100.0); // Valor do ICMS na UF de Destino
                 vICMSUFRemet   := 0.0;                                              // Valor do ICMS da UF do Remetente
 
@@ -3418,11 +3464,219 @@ begin
               end;
             end;
 
+            if gReformaTributaria then
+            begin
+              // Reforma Tribut√°ria
+              //  Informa√ß√µes do tributo: Imposto Seletivo s√≥ para 2027 e para os
+              //  os produtos nocivos ao meio ambiente e a sa√∫de.
+              //  - Cigarros e derivados do tabaco ‚Üí NCM 2402, 2403.
+              //  - Bebidas alco√≥licas : NCM 2203 (cerveja), 2204 (vinho), 2208 (destilados).
+              //  - Agrot√≥xicos e pesticidas : NCM 3808.
+              //  - Combust√≠veis f√≥sseis : NCM 2710 (√≥leos de petr√≥leo).
+
+              if (YearOf(Date) > 2026) then
+              begin
+                if (qryDadosProduto.FieldByName('NOCIVO').AsInteger = 1) then
+                begin
+                  ISel.CSTIS        := StrToCSTIS(Trim(qryDadosProduto.FieldByName('CSTIS').AsString)); // C√≥digo de Situa√ß√£o Tribut√°ria do Imposto Seletivo
+                  ISel.cClassTribIS := Trim(qryDadosProduto.FieldByName('CCT2026').AsString);           // C√≥digo de Classifica√ß√£o Tribut√°ria do Imposto Seletivo
+
+                  ISel.vBCIS := RoundABNT(Prod.qCom * qryDadosProduto.FieldByName('PFINAL').AsCurrency, -2);
+                  ISel.pIS   := qryDadosProduto.FieldByName('ALIQUOTA_IS').AsCurrency;
+                  ISel.pISEspec := ISel.pIS;
+                  ISel.vIS   := ISel.vBCIS * ISel.pIS / 100;
+                  ISel.uTrib := Prod.uCom;
+                  ISel.qTrib := Prod.qCom;
+
+                  cTotal_ISeletivoTotal_vBC := cTotal_ISeletivoTotal_vBC + ISel.vBCIS;
+                  cTotal_ISeletivoTotal_vIS := cTotal_ISeletivoTotal_vIS + ISel.vIS;
+                end;
+              end;
+
+              {
+              Utilize os CST (cst000, cst200, cst220, cst510 e cst550) e os cClassTrib correspondentes para gerar o grupo IBSCBS
+              Utilize o CST cst620 e os cClassTrib correspondentes para gerar o grupo IBSCBSMono
+              Utilize o CST cst800 e os cClassTrib correspondentes para gerar o grupo gTransfCred
+              Utilize o CST cst810 e os cClassTrib correspondentes para gerar o grupo gCredPresIBSZFM
+              }
+
+              //  Informa√ß√µes do tributo: IBS / CBS
+              IBSCBS.CST := StrToCSTIBSCBS(Trim(qryDadosProduto.FieldByName('CST2026').AsString));
+              IBSCBS.cClassTrib := Trim(qryDadosProduto.FieldByName('CCT2026').AsString);
+
+              if MatchStr(Prod.CFOP, ['5910', '6910']) then // Remessa em bonifica√ß√£o, doa√ß√£o ou brinde (5 - Dentro do Estado, 6 - Fora do Estado)
+                IBSCBS.indDoacao := TIndicadorEx.tieSim
+              else
+                IBSCBS.indDoacao := TIndicadorEx.tieNao;
+
+              // gIBSCBS - Grupo de Informa√ß√µes do IBS para a UF
+              if (IBSCBS.CST in [
+                TCSTIBSCBS.cst000,
+                TCSTIBSCBS.cst200,
+                TCSTIBSCBS.cst220,
+                TCSTIBSCBS.cst510,
+                TCSTIBSCBS.cst550
+              ]) then
+              begin
+                // C√ÅLCULOS DO IBS ====================================
+
+                cAliquotaIBS := qryDadosProduto.FieldByName('aliquota_ibs').AsCurrency;
+
+                // Divis√£o do IBS entre a UF e Munic√≠pio
+                cAliquotaIBSUF  := cAliquotaIBS / 2;
+                cAliquotaIBSMun := cAliquotaIBS / 2;
+
+                eReducao     := (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger = 0) and (qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency  > 0.0);
+                eDiferimento := (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger = 0) and (qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency <= 0.0);
+
+                // Base de C√°lculo IBS/CBS
+                IBSCBS.gIBSCBS.vBC := RoundABNT(Prod.qCom * qryDadosProduto.FieldByName('PFINAL').AsCurrency, -2);
+
+                if eReducao then
+                begin
+                  // Redu√ß√£o IBS UF
+                  IBSCBS.gIBSCBS.gIBSUF.gRed.pRedAliq  := qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
+                  IBSCBS.gIBSCBS.gIBSUF.gRed.pAliqEfet := cAliquotaIBS * (100.0 - qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency) / 100.0;
+
+                  cAliquotaIBSUF := IBSCBS.gIBSCBS.gIBSUF.gRed.pAliqEfet / 2;    // Divis√£o do IBS entre para a UF
+
+                  // Redu√ß√£o IBS Munic√≠pio
+                  IBSCBS.gIBSCBS.gIBSMun.gRed.pRedAliq  := qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
+                  IBSCBS.gIBSCBS.gIBSMun.gRed.pAliqEfet := cAliquotaIBS * (100.0 - qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency) / 100.0;
+
+                  cAliquotaIBSMun := IBSCBS.gIBSCBS.gIBSMun.gRed.pAliqEfet / 2; // Divis√£o do IBS entre para o Munic√≠pio
+                end;
+
+                IBSCBS.gIBSCBS.gIBSUF.pIBSUF := cAliquotaIBSUF;
+                IBSCBS.gIBSCBS.gIBSUF.vIBSUF := IBSCBS.gIBSCBS.vBC * IBSCBS.gIBSCBS.gIBSUF.pIBSUF / 100.0;
+
+                IBSCBS.gIBSCBS.gIBSMun.pIBSMun := cAliquotaIBSMun;
+                IBSCBS.gIBSCBS.gIBSMun.vIBSMun := IBSCBS.gIBSCBS.vBC * IBSCBS.gIBSCBS.gIBSMun.pIBSMun / 100.0;
+
+                // Grupo de Informa√ß√µes do Diferimento
+                if eDiferimento then
+                begin
+                  // Diferimento na UF
+                  IBSCBS.gIBSCBS.gIBSUF.gDif.pDif := 0.0; // A DEFINIR FUTURAMENTE QUANDO NECESS√ÅRIO.
+                  IBSCBS.gIBSCBS.gIBSUF.gDif.vDif := (IBSCBS.gIBSCBS.gIBSUF.vIBSUF + IBSCBS.gIBSCBS.gIBSMun.vIBSMun) * IBSCBS.gIBSCBS.gIBSUF.gDif.pDif / 100;
+
+                  // Diferimento no Munic√≠pio
+                  IBSCBS.gIBSCBS.gIBSMun.gDif.pDif := 0.0; // A DEFINIR FUTURAMENTE QUANDO NECESS√ÅRIO.
+                  IBSCBS.gIBSCBS.gIBSMun.gDif.vDif := (IBSCBS.gIBSCBS.gIBSUF.vIBSUF + IBSCBS.gIBSCBS.gIBSMun.vIBSMun) * IBSCBS.gIBSCBS.gIBSMun.gDif.pDif / 100;
+                end;
+
+                // Valor do tributo devolvido. No fornecimento de energia el√©trica, √°gua, esgoto e g√°s natural e
+                // em outras hip√≥teses definidas no regulamento.
+  //            IBSCBS.gIBSCBS.gIBSUF.gDevTrib.vDevTrib := 100;
+
+                // Valor do tributo devolvido. No fornecimento de energia el√©trica, √°gua, esgoto e g√°s natural e
+                // em outras hip√≥teses definidas no regulamento.
+  //            IBSCBS.gIBSCBS.gIBSMun.gDevTrib.vDevTrib := 100;
+
+                // vIBS = (vIBSUF + vIBSMun) - vDif
+                IBSCBS.gIBSCBS.vIBS := (IBSCBS.gIBSCBS.gIBSUF.vIBSUF + IBSCBS.gIBSCBS.gIBSMun.vIBSMun) - IBSCBS.gIBSCBS.gIBSUF.gDif.vDif;
+
+                // C√ÅLCULOS DO CBS ====================================
+
+  //            IBSCBS.gIBSCBS.gCBS.pCBS := 5;
+  //            IBSCBS.gIBSCBS.gCBS.vCBS := 100;
+  //
+  //            IBSCBS.gIBSCBS.gCBS.gDif.pDif := 5;
+  //            IBSCBS.gIBSCBS.gCBS.gDif.vDif := 100;
+  //
+                // Valor do tributo devolvido. No fornecimento de energia el√©trica, √°gua, esgoto e g√°s natural e
+                // em outras hip√≥teses definidas no regulamento.
+  //            IBSCBS.gIBSCBS.gCBS.gDevTrib.vDevTrib := 100;
+  //
+  //            IBSCBS.gIBSCBS.gCBS.gRed.pRedAliq := 5;
+  //            IBSCBS.gIBSCBS.gCBS.gRed.pAliqEfet := 5;
+  //
+  //            IBSCBS.gIBSCBS.gTribRegular.CSTReg := cst000;
+  //            IBSCBS.gIBSCBS.gTribRegular.cClassTribReg := '000001';
+  //            IBSCBS.gIBSCBS.gTribRegular.pAliqEfetRegIBSUF := 5;
+  //            IBSCBS.gIBSCBS.gTribRegular.vTribRegIBSUF := 50;
+  //            IBSCBS.gIBSCBS.gTribRegular.pAliqEfetRegIBSMun := 5;
+  //            IBSCBS.gIBSCBS.gTribRegular.vTribRegIBSMun := 50;
+  //            IBSCBS.gIBSCBS.gTribRegular.pAliqEfetRegCBS := 5;
+  //            IBSCBS.gIBSCBS.gTribRegular.vTribRegCBS := 50;
+  //
+  //            // Tipo Tributa√ß√£o Compra Governamental
+  //            IBSCBS.gIBSCBS.gTribCompraGov.pAliqIBSUF := 5;
+  //            IBSCBS.gIBSCBS.gTribCompraGov.vTribIBSUF := 50;
+  //            IBSCBS.gIBSCBS.gTribCompraGov.pAliqIBSMun := 5;
+  //            IBSCBS.gIBSCBS.gTribCompraGov.vTribIBSMun := 50;
+  //            IBSCBS.gIBSCBS.gTribCompraGov.pAliqCBS := 5;
+  //            IBSCBS.gIBSCBS.gTribCompraGov.vTribCBS := 50;
+  //
+              end;
+
+              // Informa√ß√µes do tributo: IBS / CBS em opera√ß√µes com imposto monof√°sico
+              if (IBSCBS.CST = TCSTIBSCBS.cst620) then
+              begin
+//                IBSCBS.gIBSCBSMono.gMonoPadrao.qBCMono  := 1;
+//                IBSCBS.gIBSCBSMono.gMonoPadrao.adRemIBS := 5;
+//                IBSCBS.gIBSCBSMono.gMonoPadrao.adRemCBS := 5;
+//                IBSCBS.gIBSCBSMono.gMonoPadrao.vIBSMono := 100;
+//                IBSCBS.gIBSCBSMono.gMonoPadrao.vCBSMono := 100;
+//
+//                IBSCBS.gIBSCBSMono.gMonoReten.qBCMonoReten  := 1;
+//                IBSCBS.gIBSCBSMono.gMonoReten.adRemIBSReten := 5;
+//                IBSCBS.gIBSCBSMono.gMonoReten.vIBSMonoReten := 100;
+//                IBSCBS.gIBSCBSMono.gMonoReten.vCBSMonoReten := 100;
+//
+//                IBSCBS.gIBSCBSMono.gMonoRet.qBCMonoRet  := 1;
+//                IBSCBS.gIBSCBSMono.gMonoRet.adRemIBSRet := 5;
+//                IBSCBS.gIBSCBSMono.gMonoRet.vIBSMonoRet := 100;
+//                IBSCBS.gIBSCBSMono.gMonoRet.vCBSMonoRet := 100;
+//
+//                IBSCBS.gIBSCBSMono.gMonoDif.pDifIBS     := 5;
+//                IBSCBS.gIBSCBSMono.gMonoDif.vIBSMonoDif := 100;
+//                IBSCBS.gIBSCBSMono.gMonoDif.pDifCBS     := 5;
+//                IBSCBS.gIBSCBSMono.gMonoDif.vCBSMonoDif := 100;
+//
+//                IBSCBS.gIBSCBSMono.vTotIBSMonoItem := 100;
+//                IBSCBS.gIBSCBSMono.vTotCBSMonoItem := 100;
+              end;
+
+//  //            // Informa√ß√µes da Transferencia de Cr√©dito
+  //            IBSCBS.gTransfCred.vIBS := 100;
+  //            IBSCBS.gTransfCred.vCBS := 100;
+  //
+  //            // Informa√ß√µes Ajuste de Compet√™ncia
+  //            IBSCBS.gAjusteCompet.competApur := Date;
+  //            IBSCBS.gAjusteCompet.vIBS := 100;
+  //            IBSCBS.gAjusteCompet.vCBS := 100;
+  //
+  //            // Informa√ß√µes Estorno de Cr√©dito
+  //            IBSCBS.gEstornoCred.vIBSEstCred := 100;
+  //            IBSCBS.gEstornoCred.vCBSEstCred := 100;
+  //
+  //            // Informa√ß√µes do Cr√©dito Presumido Operacional
+  //            IBSCBS.gCredPresOper.cCredPres := cpNenhum;
+  //            IBSCBS.gCredPresOper.vBCCredPres := 100;
+  //            IBSCBS.gCredPresOper.gIBSCredPres.pCredPres := 5;
+  //            IBSCBS.gCredPresOper.gIBSCredPres.vCredPres := 100;
+  //            IBSCBS.gCredPresOper.gIBSCredPres.vCredPresCondSus := 0;
+  //            IBSCBS.gCredPresOper.gCBSCredPres.pCredPres := 5;
+  //            IBSCBS.gCredPresOper.gCBSCredPres.vCredPres := 100;
+  //            IBSCBS.gCredPresOper.gCBSCredPres.vCredPresCondSus := 0;
+
+              // Informa√ß√µes do Cr√©dito Presumido IBS ZFM
+              // tcpNenhum, tcpSemCredito, tcpBensConsumoFinal, tcpBensCapital,
+              // tcpBensIntermediarios, tcpBensInformaticaOutros
+              if (IBSCBS.CST = TCSTIBSCBS.cst810) then
+              begin
+//                IBSCBS.gCredPresIBSZFM.competApur       := Date;
+//                IBSCBS.gCredPresIBSZFM.tpCredPresIBSZFM := tcpBensInformaticaOutros;
+//                IBSCBS.gCredPresIBSZFM.vCredPresIBSZFM  := 100;
+              end;
+            end;
+
             with IPI do
             begin
               if (Emit.CRT = crtSimplesNacional) then
               begin
-                CST      := TpcnCstIpi.ipi99; // Outras SaÌdas
+                CST      := TpcnCstIpi.ipi99; // Outras Sa√≠das
                 clEnq    := '999';
                 CNPJProd := '';
                 cSelo    := '';
@@ -3437,7 +3691,7 @@ begin
               end
               else
               begin
-                CST      := TpcnCstIpi.ipi99 ; // Outras SaÌdas
+                CST      := TpcnCstIpi.ipi99 ; // Outras Sa√≠das
                 clEnq    := '999';
                 CNPJProd := '';
                 cSelo    := '';
@@ -3498,18 +3752,18 @@ begin
                  vCOFINS   := 0;
                end;
   }
-  //Grupo para serviÁos
+  //Grupo para servi√ßos
   {            with ISSQN do
                begin
                  vBC       := 0;
                  vAliq     := 0;
                  vISSQN    := 0;
                  cMunFG    := 0;
-                 cListServ := 0; // Preencha este campo usando a tabela disponÌvel
+                 cListServ := 0; // Preencha este campo usando a tabela dispon√≠vel
                                  // em http://www.planalto.gov.br/Ccivil_03/LEIS/LCP/Lcp116.htm
                end;}
 
-            // Lei da TransparÍncia de Impostos
+            // Lei da Transpar√™ncia de Impostos
 
             if ( Trim(Prod.NCM) <> EmptyStr ) then
             begin
@@ -3561,13 +3815,52 @@ begin
 
       if ( (not aSimplesNacional) and aInterestadual and aConsumidorFinal and aNaoContribuinte ) then
       begin
-        Total.ICMSTot.vFCPUFDest   := vTotalFCP_UF_Destino;    // Valor do Fundo de Combate ‡ Pobreza na UF de Destino
+        Total.ICMSTot.vFCPUFDest   := vTotalFCP_UF_Destino;    // Valor do Fundo de Combate √† Pobreza na UF de Destino
         Total.ICMSTot.vICMSUFDest  := vTotalICMS_UF_Destino;   // Valor do ICMS da UF de Destino
         Total.ICMSTot.vICMSUFRemet := vTotalICMS_UF_Remetente; // Valor do ICMS da UF do Remetente
       end;
 
       if ( vTotalTributoAprox > 0.0 ) then
         Total.ICMSTot.vTotTrib := vTotalTributoAprox;
+
+//      // Reforma Tribut√°ria
+//      if rgReformaTributaria.ItemIndex = 0 then
+//      begin
+//        Total.ISTot.vIS := 100;
+//
+//        Total.IBSCBSTot.vBCIBSCBS := 100;
+//
+//        Total.IBSCBSTot.gIBS.vIBS := 100;
+//        Total.IBSCBSTot.gIBS.vCredPres := 100;
+//        Total.IBSCBSTot.gIBS.vCredPresCondSus := 100;
+//
+//        Total.IBSCBSTot.gIBS.gIBSUFTot.vDif := 100;
+//        Total.IBSCBSTot.gIBS.gIBSUFTot.vDevTrib := 100;
+//        Total.IBSCBSTot.gIBS.gIBSUFTot.vIBSUF := 100;
+//
+//        Total.IBSCBSTot.gIBS.gIBSMunTot.vDif := 100;
+//        Total.IBSCBSTot.gIBS.gIBSMunTot.vDevTrib := 100;
+//        Total.IBSCBSTot.gIBS.gIBSMunTot.vIBSMun := 100;
+//
+//        Total.IBSCBSTot.gCBS.vDif := 100;
+//        Total.IBSCBSTot.gCBS.vDevTrib := 100;
+//        Total.IBSCBSTot.gCBS.vCBS := 100;
+//        Total.IBSCBSTot.gCBS.vCredPres := 100;
+//        Total.IBSCBSTot.gCBS.vCredPresCondSus := 100;
+//
+//        Total.IBSCBSTot.gMono.vIBSMono := 100;
+//        Total.IBSCBSTot.gMono.vCBSMono := 100;
+//        Total.IBSCBSTot.gMono.vIBSMonoReten := 100;
+//        Total.IBSCBSTot.gMono.vCBSMonoReten := 100;
+//        Total.IBSCBSTot.gMono.vIBSMonoRet := 100;
+//        Total.IBSCBSTot.gMono.vCBSMonoRet := 100;
+//
+//        Total.IBSCBSTot.gEstornoCred.vIBSEstCred := 100;
+//        Total.IBSCBSTot.gEstornoCred.vCBSEstCred := 100;
+//
+//        // Valor total da NF-e com IBS / CBS / IS
+//        Total.vNFTot := 100;
+//      end;
 
   {      Total.ISSQNtot.vServ   := 0;
         Total.ISSQNTot.vBC     := 0;
@@ -3586,11 +3879,11 @@ begin
       // Adicionando Dados da Transportadora (Modalidades de Frete: mfContaEmitente, mfContaDestinatario, mfContaTerceiros, mfSemFrete)
   {
       Transp.modFrete            := mfSemFrete; // X02 - Modalidade do frete
-                                                //         (0) = mfContaEmitente     ñ por conta do emitente;
-                                                //         (1) = mfContaDestinatario ñ por conta do destinat·rio;
-                                                //         (2) = mfContaTerceiros    ñ por conta do terceiros;
-                                                //         (3) = mfSemFrete          ñ sem frete;
-                                                //       TAG de grupo Transportador - <transporta> - OcorrÍncia 0-3
+                                                //         (0) = mfContaEmitente     ‚Äì por conta do emitente;
+                                                //         (1) = mfContaDestinatario ‚Äì por conta do destinat√°rio;
+                                                //         (2) = mfContaTerceiros    ‚Äì por conta do terceiros;
+                                                //         (3) = mfSemFrete          ‚Äì sem frete;
+                                                //       TAG de grupo Transportador - <transporta> - Ocorr√™ncia 0-3
      // Nova estrutura       = 0
        mfContaEmitente       = 1
      , mfContaDestinatario   = 2
@@ -3624,7 +3917,7 @@ begin
 
       Transp.veicTransp.placa := qryCalculoImposto.FieldByName('NFE_PLACA_VEICULO').AsString;
       Transp.veicTransp.UF    := qryCalculoImposto.FieldByName('NFE_PLACA_UF').AsString;
-      Transp.veicTransp.RNTC  := qryCalculoImposto.FieldByName('NFE_PLACA_RNTC').AsString; // RNTC - Registros Nacional de Transportes de Carga (IdentificaÁ„o do vag„o quando o transporte È Trem)
+      Transp.veicTransp.RNTC  := qryCalculoImposto.FieldByName('NFE_PLACA_RNTC').AsString; // RNTC - Registros Nacional de Transportes de Carga (Identifica√ß√£o do vag√£o quando o transporte √© Trem)
 
   //Dados do Reboque
   {      with Transp.Reboque.Add do
@@ -3652,7 +3945,7 @@ begin
             pesoB := qryDadosVolume.FieldByName('PESO_BRUTO').AsCurrency;
             pesoL := qryDadosVolume.FieldByName('PESO_LIQUIDO').AsCurrency;
 
-            //Lacres do volume. Pode ser adicionado v·rios
+            //Lacres do volume. Pode ser adicionado v√°rios
             //Lacres.Add.nLacre := '';
           end;
 
@@ -3789,7 +4082,7 @@ begin
         'Venda: ' + qryCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
         IfThen(OcultarVencimentos, '', ' - Forma/Cond. Pgto.: ' + qryCalculoImposto.FieldByName('LISTA_FORMA_PAGO').AsString + '/' + qryCalculoImposto.FieldByName('LISTA_COND_PAGO_FULL').AsString + ' * * * ') + #13 +
         'Vendedor: ' + qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString + ' * * * ' + #13 +
-        'ObservaÁıes: ' + qryCalculoImposto.FieldByName('OBS').AsString +
+        'Observa√ß√µes: ' + qryCalculoImposto.FieldByName('OBS').AsString +
         IfThen(vTotalTributoAprox = 0, EmptyStr, #13 + Format('* Valor Total Aprox. Trib. R$ %s (%s). Fonte IBPT', [
           FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
           FormatFloat(',0.##"%"', Total.ICMSTot.vTotTrib / Total.ICMSTot.vNF * 100)]));
@@ -3807,7 +4100,7 @@ begin
       with InfAdic.obsCont.Add do
       begin
         xCampo := 'ObsCont';
-        xTexto := 'ObseraÁıes da venda: ' + qryCalculoImportoOBS.AsString;
+        xTexto := 'Obsera√ß√µes da venda: ' + qryCalculoImportoOBS.AsString;
       end;
 
       with InfAdic.obsCont.Add do
@@ -3861,7 +4154,7 @@ begin
 
   except
     On E : Exception do
-      ShowError('Erro ao tentar gerar NF-e de SaÌda.' + #13#13 + 'GerarNFEACBr() --> ' + e.Message);
+      ShowError('Erro ao tentar gerar NF-e de Sa√≠da.' + #13#13 + 'GerarNFEACBr() --> ' + e.Message);
   end;
 
 end;
@@ -3891,75 +4184,75 @@ var
   sCST_PIS_ID : Array[0..32] of String;
 const
   CST_PIS_DESC : Array[0..32] of String = (
-      'OperaÁ„o Tribut·vel com AlÌquota B·sica'
-    , 'OperaÁ„o Tribut·vel com AlÌquota Diferenciada'
-    , 'OperaÁ„o Tribut·vel com AlÌquota por Unidade de Medida de Produto'
-    , 'OperaÁ„o Tribut·vel Monof·sica - Revenda a AlÌquota Zero'
-    , 'OperaÁ„o Tribut·vel por SubstituiÁ„o Tribut·ria'
-    , 'OperaÁ„o Tribut·vel a AlÌquota Zero'
-    , 'OperaÁ„o Isenta da ContribuiÁ„o'
-    , 'OperaÁ„o sem IncidÍnc ia da ContribuiÁ„o'
-    , 'OperaÁ„o com Suspens„o da ContribuiÁ„o'
-    , 'Outras OperaÁıes de SaÌda'
-    , 'OperaÁ„o com Direito a CrÈdito - Vinculada Exclusivamente a Receita Tributada no Mercado Interno'
-    , 'OperaÁ„o com Direito a CrÈdito - Vinculada Exclusivamente a Receita N„o Tributada no Mercado Interno'
-    , 'OperaÁ„o com Direito a CrÈdito - Vinculada Exclusivamente a Receita de ExportaÁ„o'
-    , 'OperaÁ„o com Direito a CrÈdito - Vinculada a Receitas Tributadas e N„o-Tributadas no Mercado Interno'
-    , 'OperaÁ„o com Direito a CrÈdito - Vinculada a Receitas Tributadas no Mercado Interno e de ExportaÁ„o'
-    , 'OperaÁ„o com Direito a CrÈdito - Vinculada a Receitas N„o-Tributadas no Mercado Interno e de ExportaÁ„o'
-    , 'OperaÁ„o com Direito a CrÈdito - Vinculada a Receitas Tributadas e N„o-Tributadas no Mercado Interno, e de ExportaÁ„o'
-    , 'CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada Exclusivamente a Receita Tributada no Mercado Interno'
-    , 'CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada Exclusivamente a Receita N„o-Tributada no Mercado Interno'
-    , 'CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada Exclusivamente a Receita de ExportaÁ„o'
-    , 'CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada a Receitas Tributadas e N„o-Tributadas no Mercado Interno'
-    , 'CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada a Receitas Tributadas no Mercado Interno e de ExportaÁ„o'
-    , 'CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada a Receitas N„o-Tributadas no Mercado Interno e de ExportaÁ„o'
-    , 'CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada a Receitas Tributadas e N„o-Tributadas no Mercado Interno, e de ExportaÁ„o'
-    , 'CrÈdito Presumido - Outras OperaÁıes'
-    , 'OperaÁ„o de AquisiÁ„o sem Direito a CrÈdito'
-    , 'OperaÁ„o de AquisiÁ„o com IsenÁ„o'
-    , 'OperaÁ„o de AquisiÁ„o com Suspens„o'
-    , 'OperaÁ„o de AquisiÁ„o a AlÌquota Zero'
-    , 'OperaÁ„o de AquisiÁ„o sem IncidÍncia da ContribuiÁ„o'
-    , 'OperaÁ„o de AquisiÁ„o por SubstituiÁ„o Tribut·ria'
-    , 'Outras OperaÁıes de Entrada'
-    , 'Outras OperaÁıes'
+      'Opera√ß√£o Tribut√°vel com Al√≠quota B√°sica'
+    , 'Opera√ß√£o Tribut√°vel com Al√≠quota Diferenciada'
+    , 'Opera√ß√£o Tribut√°vel com Al√≠quota por Unidade de Medida de Produto'
+    , 'Opera√ß√£o Tribut√°vel Monof√°sica - Revenda a Al√≠quota Zero'
+    , 'Opera√ß√£o Tribut√°vel por Substitui√ß√£o Tribut√°ria'
+    , 'Opera√ß√£o Tribut√°vel a Al√≠quota Zero'
+    , 'Opera√ß√£o Isenta da Contribui√ß√£o'
+    , 'Opera√ß√£o sem Incid√™nc ia da Contribui√ß√£o'
+    , 'Opera√ß√£o com Suspens√£o da Contribui√ß√£o'
+    , 'Outras Opera√ß√µes de Sa√≠da'
+    , 'Opera√ß√£o com Direito a Cr√©dito - Vinculada Exclusivamente a Receita Tributada no Mercado Interno'
+    , 'Opera√ß√£o com Direito a Cr√©dito - Vinculada Exclusivamente a Receita N√£o Tributada no Mercado Interno'
+    , 'Opera√ß√£o com Direito a Cr√©dito - Vinculada Exclusivamente a Receita de Exporta√ß√£o'
+    , 'Opera√ß√£o com Direito a Cr√©dito - Vinculada a Receitas Tributadas e N√£o-Tributadas no Mercado Interno'
+    , 'Opera√ß√£o com Direito a Cr√©dito - Vinculada a Receitas Tributadas no Mercado Interno e de Exporta√ß√£o'
+    , 'Opera√ß√£o com Direito a Cr√©dito - Vinculada a Receitas N√£o-Tributadas no Mercado Interno e de Exporta√ß√£o'
+    , 'Opera√ß√£o com Direito a Cr√©dito - Vinculada a Receitas Tributadas e N√£o-Tributadas no Mercado Interno, e de Exporta√ß√£o'
+    , 'Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada Exclusivamente a Receita Tributada no Mercado Interno'
+    , 'Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada Exclusivamente a Receita N√£o-Tributada no Mercado Interno'
+    , 'Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada Exclusivamente a Receita de Exporta√ß√£o'
+    , 'Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada a Receitas Tributadas e N√£o-Tributadas no Mercado Interno'
+    , 'Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada a Receitas Tributadas no Mercado Interno e de Exporta√ß√£o'
+    , 'Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada a Receitas N√£o-Tributadas no Mercado Interno e de Exporta√ß√£o'
+    , 'Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada a Receitas Tributadas e N√£o-Tributadas no Mercado Interno, e de Exporta√ß√£o'
+    , 'Cr√©dito Presumido - Outras Opera√ß√µes'
+    , 'Opera√ß√£o de Aquisi√ß√£o sem Direito a Cr√©dito'
+    , 'Opera√ß√£o de Aquisi√ß√£o com Isen√ß√£o'
+    , 'Opera√ß√£o de Aquisi√ß√£o com Suspens√£o'
+    , 'Opera√ß√£o de Aquisi√ß√£o a Al√≠quota Zero'
+    , 'Opera√ß√£o de Aquisi√ß√£o sem Incid√™ncia da Contribui√ß√£o'
+    , 'Opera√ß√£o de Aquisi√ß√£o por Substitui√ß√£o Tribut√°ria'
+    , 'Outras Opera√ß√µes de Entrada'
+    , 'Outras Opera√ß√µes'
   );
 begin
   try
-    sCST_PIS_ID[0]  := '01'; // OperaÁ„o Tribut·vel com AlÌquota B·sica
-    sCST_PIS_ID[1]  := '02'; // OperaÁ„o Tribut·vel com AlÌquota Diferenciada
-    sCST_PIS_ID[2]  := '03'; // OperaÁ„o Tribut·vel com AlÌquota por Unidade de Medida de Produto
-    sCST_PIS_ID[3]  := '04'; // OperaÁ„o Tribut·vel Monof·sica - Revenda a AlÌquota Zero
-    sCST_PIS_ID[4]  := '05'; // OperaÁ„o Tribut·vel por SubstituiÁ„o Tribut·ria
-    sCST_PIS_ID[5]  := '06'; // OperaÁ„o Tribut·vel a AlÌquota Zero
-    sCST_PIS_ID[6]  := '07'; // OperaÁ„o Isenta da ContribuiÁ„o
-    sCST_PIS_ID[7]  := '08'; // OperaÁ„o sem IncidÍnc ia da ContribuiÁ„o
-    sCST_PIS_ID[8]  := '09'; // OperaÁ„o com Suspens„o da ContribuiÁ„o
-    sCST_PIS_ID[9]  := '49'; // Outras OperaÁıes de SaÌda
-    sCST_PIS_ID[10] := '50'; // OperaÁ„o com Direito a CrÈdito - Vinculada Exclusivamente a Receita Tributada no Mercado Interno
-    sCST_PIS_ID[11] := '51'; // OperaÁ„o com Direito a CrÈdito - Vinculada Exclusivamente a Receita N„o Tributada no Mercado Interno
-    sCST_PIS_ID[12] := '52'; // OperaÁ„o com Direito a CrÈdito - Vinculada Exclusivamente a Receita de ExportaÁ„o
-    sCST_PIS_ID[13] := '53'; // OperaÁ„o com Direito a CrÈdito - Vinculada a Receitas Tributadas e N„o-Tributadas no Mercado Interno
-    sCST_PIS_ID[14] := '54'; // OperaÁ„o com Direito a CrÈdito - Vinculada a Receitas Tributadas no Mercado Interno e de ExportaÁ„o
-    sCST_PIS_ID[15] := '55'; // OperaÁ„o com Direito a CrÈdito - Vinculada a Receitas N„o-Tributadas no Mercado Interno e de ExportaÁ„o
-    sCST_PIS_ID[16] := '56'; // OperaÁ„o com Direito a CrÈdito - Vinculada a Receitas Tributadas e N„o-Tributadas no Mercado Interno' e de ExportaÁ„o
-    sCST_PIS_ID[17] := '60'; // CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada Exclusivamente a Receita Tributada no Mercado Interno
-    sCST_PIS_ID[18] := '61'; // CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada Exclusivamente a Receita N„o-Tributada no Mercado Interno
-    sCST_PIS_ID[19] := '62'; // CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada Exclusivamente a Receita de ExportaÁ„o
-    sCST_PIS_ID[20] := '63'; // CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada a Receitas Tributadas e N„o-Tributadas no Mercado Interno
-    sCST_PIS_ID[21] := '64'; // CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada a Receitas Tributadas no Mercado Interno e de ExportaÁ„o
-    sCST_PIS_ID[22] := '65'; // CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada a Receitas N„o-Tributadas no Mercado Interno e de ExportaÁ„o
-    sCST_PIS_ID[23] := '66'; // CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada a Receitas Tributadas e N„o-Tributadas no Mercado Interno' e de ExportaÁ„o
-    sCST_PIS_ID[24] := '67'; // CrÈdito Presumido - Outras OperaÁıes
-    sCST_PIS_ID[25] := '70'; // OperaÁ„o de AquisiÁ„o sem Direito a CrÈdito
-    sCST_PIS_ID[26] := '71'; // OperaÁ„o de AquisiÁ„o com IsenÁ„o
-    sCST_PIS_ID[27] := '72'; // OperaÁ„o de AquisiÁ„o com Suspens„o
-    sCST_PIS_ID[28] := '73'; // OperaÁ„o de AquisiÁ„o a AlÌquota Zero
-    sCST_PIS_ID[29] := '74'; // OperaÁ„o de AquisiÁ„o sem IncidÍncia da ContribuiÁ„o
-    sCST_PIS_ID[30] := '75'; // OperaÁ„o de AquisiÁ„o por SubstituiÁ„o Tribut·ria
-    sCST_PIS_ID[31] := '98'; // Outras OperaÁıes de Entrada
-    sCST_PIS_ID[32] := '99'; // Outras OperaÁıes
+    sCST_PIS_ID[0]  := '01'; // Opera√ß√£o Tribut√°vel com Al√≠quota B√°sica
+    sCST_PIS_ID[1]  := '02'; // Opera√ß√£o Tribut√°vel com Al√≠quota Diferenciada
+    sCST_PIS_ID[2]  := '03'; // Opera√ß√£o Tribut√°vel com Al√≠quota por Unidade de Medida de Produto
+    sCST_PIS_ID[3]  := '04'; // Opera√ß√£o Tribut√°vel Monof√°sica - Revenda a Al√≠quota Zero
+    sCST_PIS_ID[4]  := '05'; // Opera√ß√£o Tribut√°vel por Substitui√ß√£o Tribut√°ria
+    sCST_PIS_ID[5]  := '06'; // Opera√ß√£o Tribut√°vel a Al√≠quota Zero
+    sCST_PIS_ID[6]  := '07'; // Opera√ß√£o Isenta da Contribui√ß√£o
+    sCST_PIS_ID[7]  := '08'; // Opera√ß√£o sem Incid√™nc ia da Contribui√ß√£o
+    sCST_PIS_ID[8]  := '09'; // Opera√ß√£o com Suspens√£o da Contribui√ß√£o
+    sCST_PIS_ID[9]  := '49'; // Outras Opera√ß√µes de Sa√≠da
+    sCST_PIS_ID[10] := '50'; // Opera√ß√£o com Direito a Cr√©dito - Vinculada Exclusivamente a Receita Tributada no Mercado Interno
+    sCST_PIS_ID[11] := '51'; // Opera√ß√£o com Direito a Cr√©dito - Vinculada Exclusivamente a Receita N√£o Tributada no Mercado Interno
+    sCST_PIS_ID[12] := '52'; // Opera√ß√£o com Direito a Cr√©dito - Vinculada Exclusivamente a Receita de Exporta√ß√£o
+    sCST_PIS_ID[13] := '53'; // Opera√ß√£o com Direito a Cr√©dito - Vinculada a Receitas Tributadas e N√£o-Tributadas no Mercado Interno
+    sCST_PIS_ID[14] := '54'; // Opera√ß√£o com Direito a Cr√©dito - Vinculada a Receitas Tributadas no Mercado Interno e de Exporta√ß√£o
+    sCST_PIS_ID[15] := '55'; // Opera√ß√£o com Direito a Cr√©dito - Vinculada a Receitas N√£o-Tributadas no Mercado Interno e de Exporta√ß√£o
+    sCST_PIS_ID[16] := '56'; // Opera√ß√£o com Direito a Cr√©dito - Vinculada a Receitas Tributadas e N√£o-Tributadas no Mercado Interno' e de Exporta√ß√£o
+    sCST_PIS_ID[17] := '60'; // Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada Exclusivamente a Receita Tributada no Mercado Interno
+    sCST_PIS_ID[18] := '61'; // Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada Exclusivamente a Receita N√£o-Tributada no Mercado Interno
+    sCST_PIS_ID[19] := '62'; // Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada Exclusivamente a Receita de Exporta√ß√£o
+    sCST_PIS_ID[20] := '63'; // Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada a Receitas Tributadas e N√£o-Tributadas no Mercado Interno
+    sCST_PIS_ID[21] := '64'; // Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada a Receitas Tributadas no Mercado Interno e de Exporta√ß√£o
+    sCST_PIS_ID[22] := '65'; // Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada a Receitas N√£o-Tributadas no Mercado Interno e de Exporta√ß√£o
+    sCST_PIS_ID[23] := '66'; // Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada a Receitas Tributadas e N√£o-Tributadas no Mercado Interno' e de Exporta√ß√£o
+    sCST_PIS_ID[24] := '67'; // Cr√©dito Presumido - Outras Opera√ß√µes
+    sCST_PIS_ID[25] := '70'; // Opera√ß√£o de Aquisi√ß√£o sem Direito a Cr√©dito
+    sCST_PIS_ID[26] := '71'; // Opera√ß√£o de Aquisi√ß√£o com Isen√ß√£o
+    sCST_PIS_ID[27] := '72'; // Opera√ß√£o de Aquisi√ß√£o com Suspens√£o
+    sCST_PIS_ID[28] := '73'; // Opera√ß√£o de Aquisi√ß√£o a Al√≠quota Zero
+    sCST_PIS_ID[29] := '74'; // Opera√ß√£o de Aquisi√ß√£o sem Incid√™ncia da Contribui√ß√£o
+    sCST_PIS_ID[30] := '75'; // Opera√ß√£o de Aquisi√ß√£o por Substitui√ß√£o Tribut√°ria
+    sCST_PIS_ID[31] := '98'; // Outras Opera√ß√µes de Entrada
+    sCST_PIS_ID[32] := '99'; // Outras Opera√ß√µes
 
     for I := Low(sCST_PIS_ID) to High(sCST_PIS_ID) do
       with DMBusiness, fdQryBusca do
@@ -4020,39 +4313,39 @@ const
     , '99'
   );
   CST_PIS_DESC : Array[0..32] of String = (
-      'OperaÁ„o Tribut·vel com AlÌquota B·sica'
-    , 'OperaÁ„o Tribut·vel com AlÌquota Diferenciada'
-    , 'OperaÁ„o Tribut·vel com AlÌquota por Unidade de Medida de Produto'
-    , 'OperaÁ„o Tribut·vel Monof·sica - Revenda a AlÌquota Zero'
-    , 'OperaÁ„o Tribut·vel por SubstituiÁ„o Tribut·ria'
-    , 'OperaÁ„o Tribut·vel a AlÌquota Zero'
-    , 'OperaÁ„o Isenta da ContribuiÁ„o'
-    , 'OperaÁ„o sem IncidÍncia da ContribuiÁ„o'
-    , 'OperaÁ„o com Suspens„o da ContribuiÁ„o'
-    , 'Outras OperaÁıes de SaÌda'
-    , 'OperaÁ„o com Direito a CrÈdito - Vinculada Exclusivamente a Receita Tributada no Mercado Interno'
-    , 'OperaÁ„o com Direito a CrÈdito - Vinculada Exclusivamente a Receita N„o-Tributada no Mercado Interno'
-    , 'OperaÁ„o com Direito a CrÈdito - Vinculada Exclusivamente a Receita de ExportaÁ„o'
-    , 'OperaÁ„o com Direito a CrÈdito - Vinculada a Receitas Tributadas e N„o-Tributadas no Mercado Interno'
-    , 'OperaÁ„o com Direito a CrÈdito - Vinculada a Receitas Tributadas no Mercado Interno e de ExportaÁ„o'
-    , 'OperaÁ„o com Direito a CrÈdito - Vinculada a Receitas N„o Tributadas no Mercado Interno e de ExportaÁ„o'
-    , 'OperaÁ„o com Direito a CrÈdito - Vinculada a Receitas Tributadas e N„o-Tributadas no Mercado Interno e de ExportaÁ„o'
-    , 'CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada Exclusivamente a Receita Tributada no Mercado Interno'
-    , 'CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada Exclusivamente a Receita N„o-Tributada no Mercado Interno'
-    , 'CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada Exclusivamente a Receita de ExportaÁ„o'
-    , 'CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada a Receitas Tributadas e N„o-Tributadas no Mercado Interno'
-    , 'CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada a Receitas Tributadas no Mercado Interno e de ExportaÁ„o'
-    , 'CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada a Receitas N„o-Tributadas no Mercado Interno e de ExportaÁ„o'
-    , 'CrÈdito Presumido - OperaÁ„o de AquisiÁ„o Vinculada a Receitas Tributadas e N„o-Tributadas no Mercado Interno e de ExportaÁ„o'
-    , 'CrÈdito Presumido - Outras OperaÁıes'
-    , 'OperaÁ„o de AquisiÁ„o sem Direito a CrÈdito'
-    , 'OperaÁ„o de AquisiÁ„o com IsenÁ„o'
-    , 'OperaÁ„o de AquisiÁ„o com Suspens„o'
-    , 'OperaÁ„o de AquisiÁ„o a AlÌquota Zero'
-    , 'OperaÁ„o de AquisiÁ„o sem IncidÍncia da ContribuiÁ„o'
-    , 'OperaÁ„o de AquisiÁ„o por SubstituiÁ„o Tribut·ria'
-    , 'Outras OperaÁıes de Entrada'
-    , 'Outras OperaÁıes'
+      'Opera√ß√£o Tribut√°vel com Al√≠quota B√°sica'
+    , 'Opera√ß√£o Tribut√°vel com Al√≠quota Diferenciada'
+    , 'Opera√ß√£o Tribut√°vel com Al√≠quota por Unidade de Medida de Produto'
+    , 'Opera√ß√£o Tribut√°vel Monof√°sica - Revenda a Al√≠quota Zero'
+    , 'Opera√ß√£o Tribut√°vel por Substitui√ß√£o Tribut√°ria'
+    , 'Opera√ß√£o Tribut√°vel a Al√≠quota Zero'
+    , 'Opera√ß√£o Isenta da Contribui√ß√£o'
+    , 'Opera√ß√£o sem Incid√™ncia da Contribui√ß√£o'
+    , 'Opera√ß√£o com Suspens√£o da Contribui√ß√£o'
+    , 'Outras Opera√ß√µes de Sa√≠da'
+    , 'Opera√ß√£o com Direito a Cr√©dito - Vinculada Exclusivamente a Receita Tributada no Mercado Interno'
+    , 'Opera√ß√£o com Direito a Cr√©dito - Vinculada Exclusivamente a Receita N√£o-Tributada no Mercado Interno'
+    , 'Opera√ß√£o com Direito a Cr√©dito - Vinculada Exclusivamente a Receita de Exporta√ß√£o'
+    , 'Opera√ß√£o com Direito a Cr√©dito - Vinculada a Receitas Tributadas e N√£o-Tributadas no Mercado Interno'
+    , 'Opera√ß√£o com Direito a Cr√©dito - Vinculada a Receitas Tributadas no Mercado Interno e de Exporta√ß√£o'
+    , 'Opera√ß√£o com Direito a Cr√©dito - Vinculada a Receitas N√£o Tributadas no Mercado Interno e de Exporta√ß√£o'
+    , 'Opera√ß√£o com Direito a Cr√©dito - Vinculada a Receitas Tributadas e N√£o-Tributadas no Mercado Interno e de Exporta√ß√£o'
+    , 'Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada Exclusivamente a Receita Tributada no Mercado Interno'
+    , 'Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada Exclusivamente a Receita N√£o-Tributada no Mercado Interno'
+    , 'Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada Exclusivamente a Receita de Exporta√ß√£o'
+    , 'Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada a Receitas Tributadas e N√£o-Tributadas no Mercado Interno'
+    , 'Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada a Receitas Tributadas no Mercado Interno e de Exporta√ß√£o'
+    , 'Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada a Receitas N√£o-Tributadas no Mercado Interno e de Exporta√ß√£o'
+    , 'Cr√©dito Presumido - Opera√ß√£o de Aquisi√ß√£o Vinculada a Receitas Tributadas e N√£o-Tributadas no Mercado Interno e de Exporta√ß√£o'
+    , 'Cr√©dito Presumido - Outras Opera√ß√µes'
+    , 'Opera√ß√£o de Aquisi√ß√£o sem Direito a Cr√©dito'
+    , 'Opera√ß√£o de Aquisi√ß√£o com Isen√ß√£o'
+    , 'Opera√ß√£o de Aquisi√ß√£o com Suspens√£o'
+    , 'Opera√ß√£o de Aquisi√ß√£o a Al√≠quota Zero'
+    , 'Opera√ß√£o de Aquisi√ß√£o sem Incid√™ncia da Contribui√ß√£o'
+    , 'Opera√ß√£o de Aquisi√ß√£o por Substitui√ß√£o Tribut√°ria'
+    , 'Outras Opera√ß√µes de Entrada'
+    , 'Outras Opera√ß√µes'
   );
 begin
   try
@@ -4088,24 +4381,24 @@ var
 begin
 {
   IMR - 04/10/2019 :
-    Removida a rotina de verificaÁ„o do serviÁo de emiss„o da NFe da procedure "GerarNFeEntradaOnLineACBr()" para que
-    esteja num nÌvel de chamada acima.
+    Removida a rotina de verifica√ß√£o do servi√ßo de emiss√£o da NFe da procedure "GerarNFeEntradaOnLineACBr()" para que
+    esteja num n√≠vel de chamada acima.
 
   IMR - 24/10/2018 :
-    * InserÁ„o do bloco de cÛdigo para guarda o n˙mero do recibo de envio, caso ele
+    * Inser√ß√£o do bloco de c√≥digo para guarda o n√∫mero do recibo de envio, caso ele
     exista, mesmo quando o retorno do envio seja FALSE.
-    * Comentado o bloco de cÛdigo que remove o n˙mero do recibo de envio da compra
-    mesmo que a rejeiÁ„o seja de duplicidade de nota.
+    * Comentado o bloco de c√≥digo que remove o n√∫mero do recibo de envio da compra
+    mesmo que a rejei√ß√£o seja de duplicidade de nota.
 
   IMR - 20/05/2016 :
-    InserÁ„o da rotina que renomeia os arquivos XML de envio e retorno do Lote e
-    Recibo quando o processo de geraÁ„o/envio da NFe È finalizado corretamente.
-    Neste passo o objeto "ACBrNFe.NotasFiscais" È zerado com o objetivo de
-    eliminar "lixos de dados" para os novos processos de geraÁ„o/envio de NFe.
+    Inser√ß√£o da rotina que renomeia os arquivos XML de envio e retorno do Lote e
+    Recibo quando o processo de gera√ß√£o/envio da NFe √© finalizado corretamente.
+    Neste passo o objeto "ACBrNFe.NotasFiscais" √© zerado com o objetivo de
+    eliminar "lixos de dados" para os novos processos de gera√ß√£o/envio de NFe.
 
   IMR - 05/03/2016 :
-    Inters„o do par‚metro "OcultarVencimentos" para que o usu·rio informe se ele
-    quer ou n„o informar os vencimentos das parecelas da fatura na NF-e.
+    Inters√£o do par√¢metro "OcultarVencimentos" para que o usu√°rio informe se ele
+    quer ou n√£o informar os vencimentos das parecelas da fatura na NF-e.
 
 }
   sErrorMsg := EmptyStr;
@@ -4114,7 +4407,7 @@ begin
     LerConfiguracao(sCNPJEmitente);
     FMensagemErro := EmptyStr;
 
-//    // Verificar o status do serviÁo
+//    // Verificar o status do servi√ßo
 //    if ( DelphiIsRunning ) then
 //      Result := True
 //    else
@@ -4145,9 +4438,9 @@ begin
       UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
       GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, iNumeroLote, EmptyStr);
 
-      // Renomer no diretÛrio os arquivos XML de envio e retorno dos lotes e recibos de NF-e
+      // Renomer no diret√≥rio os arquivos XML de envio e retorno dos lotes e recibos de NF-e
       RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFE, 'nfe');
-      ACBrNFe.NotasFiscais.Clear;
+//      ACBrNFe.NotasFiscais.Clear;
 
       // Verificar se a nota foi Denegada
       if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1) then
@@ -4166,7 +4459,7 @@ begin
       end;
 
       if aSincrono and (ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat <> PROCESSO_NFE_AUTORIZADA) then
-        raise Exception.Create('NF-e de entrada n„o autorizada!');
+        raise Exception.Create('NF-e de entrada n√£o autorizada!' + #13 + ACBrNFe.NotasFiscais[0].NFe.procNFe.xMotivo);
     end
     else
     begin
@@ -4178,7 +4471,7 @@ begin
           GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, iNumeroLote, ReciboNFE);
         end;
 
-      // ForÁar erro quando o retorno for FALSE para o envio sÌncrono
+      // For√ßar erro quando o retorno for FALSE para o envio s√≠ncrono
       if aSincrono then
       begin
         aStatusNFe := ACBrNFe.WebServices.Enviar.cStat;
@@ -4193,7 +4486,7 @@ begin
     begin
       sErrorMsg := E.Message;
 
-      // Diretrizes de tomada de decis„o quando a NFe enviada n„o È aceita
+      // Diretrizes de tomada de decis√£o quando a NFe enviada n√£o √© aceita
 
       if ( Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr ) then
         if ReciboNaoExisteNaEntrada(ACBrNFe.WebServices.Retorno.Recibo) then
@@ -4246,20 +4539,20 @@ begin
 //              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
               if (aStatusNFe in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
                 sErrorMsg :=
-                  'InscriÁ„o Estadual (IE) do fornecedor n„o cadastrado ou n„o vinculado ao CNPJ informado. ' + #13 +
+                  'Inscri√ß√£o Estadual (IE) do fornecedor n√£o cadastrado ou n√£o vinculado ao CNPJ informado. ' + #13 +
                   '- Deve-se consultar o CNPJ do fornecedor no SINTEGRA; ou' + #13 +
                   '- Deve-se consultar o CNPJ do fornecedor no portal ''https://dfe-portal.svrs.rs.gov.br/Nfe/Ccc''' + #13 +
-                  'Favor corrija esta informaÁ„o no Cadastro do Fornecedor.' + #13#13 +
-                  'ApÛs este procedimento, gere novamente a NF-e'
+                  'Favor corrija esta informa√ß√£o no Cadastro do Fornecedor.' + #13#13 +
+                  'Ap√≥s este procedimento, gere novamente a NF-e'
               else
 //              if ( (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_INVALIDO)
 //                or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE)
 //              ) then
               if ((aStatusNFe = REJEICAO_NFE_CFOP_INVALIDO) or (aStatusNFe = REJEICAO_NFE_CFOP_DIFERENTE)) then
                 sErrorMsg :=
-                  'CÛdigo Fiscal de OperaÁ„o n„o adequado para este tipo de movimento dos produtos. ' +
-                  'Favor corrija-o clicando com o bot„o direito do mouse no campo CFOP' + #13#13 +
-                  'ApÛs este procedimento, gere novamente a NF-e';
+                  'C√≥digo Fiscal de Opera√ß√£o n√£o adequado para este tipo de movimento dos produtos. ' +
+                  'Favor corrija-o clicando com o bot√£o direito do mouse no campo CFOP' + #13#13 +
+                  'Ap√≥s este procedimento, gere novamente a NF-e';
             end;
 
           REJEICAO_NFE_NAO_CATALOG:
@@ -4267,7 +4560,7 @@ begin
               // Remover Lote da Entrada
               GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
 
-              sErrorMsg := aMotivoNFe + #13 + 'PossÌvel erro na validaÁ„o do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
+              sErrorMsg := aMotivoNFe + #13 + 'Poss√≠vel erro na valida√ß√£o do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
             end;
 
           else
@@ -4291,7 +4584,7 @@ begin
                           // Remover Lote da Entrada
                           GuardarLoteNFeEntrada(sCNPJEmitente, iAnoCompra, iNumCompra, 0, EmptyStr);
 
-                          sErrorMsg := aMotivoNFe + #13 + 'Favor fazer as devidas coreÁıes e gerar NF-e novamente!';
+                          sErrorMsg := aMotivoNFe + #13 + 'Favor fazer as devidas core√ß√µes e gerar NF-e novamente!';
                         end;
                     end;
 
@@ -4392,7 +4685,7 @@ begin
       CorrigirXML_NFe( qryCalculoImposto.FieldByName('XML_NFE').AsWideString, sFileNameXML );
 
       if not FilesExists(sFileNameXML) then
-        raise Exception.Create(Format('Arquivo %s n„o encontrado.', [QuotedStr(sFileNameXML)]));
+        raise Exception.Create(Format('Arquivo %s n√£o encontrado.', [QuotedStr(sFileNameXML)]));
 
       with ACBrNFe do
       begin
@@ -4402,7 +4695,7 @@ begin
         NotasFiscais.Clear;
         NotasFiscais.LoadFromString( qryCalculoImposto.FieldByName('XML_NFE').AsWideString );
 
-        // Montar identificaÁ„o do documento para tÌtulo de e-mail
+        // Montar identifica√ß√£o do documento para t√≠tulo de e-mail
 
         if ( qryCalculoImposto.FieldByName('NFE').AsLargeInt > 0 ) then
         begin
@@ -4425,8 +4718,8 @@ begin
         sMSG.Add('');
         sMSG.Add( sAssinaturaTxt );
         sMSG.Add('--');
-        sMSG.Add('FAVOR N√O RESPONDER ESTE E-MAIL.');
-        sMSG.Add('ComposiÁ„o autom·tica de e-mail executada pelo sistema ' + gPersonalizaEmpresa.ProductName + ' (Vers„o ' + TVersaoController.GetInstance().Version +
+        sMSG.Add('FAVOR N√ÉO RESPONDER ESTE E-MAIL.');
+        sMSG.Add('Composi√ß√£o autom√°tica de e-mail executada pelo sistema ' + gPersonalizaEmpresa.ProductName + ' (Vers√£o ' + TVersaoController.GetInstance().Version +
           '), desenvolvido pela empresa ' + gPersonalizaEmpresa.CompanyName + '.' + #13#13 + TVersaoController.GetInstance().Copyright);
 
         if FileExists( sArquivoBoleto ) then
@@ -4445,12 +4738,12 @@ begin
 //          , sEmailDestinatario
 //          , sEmailAssunto
 //          , sMSG
-//          , gContaEmail.ConexaoSeguraSSL // SSL - Conex„o Segura
+//          , gContaEmail.ConexaoSeguraSSL // SSL - Conex√£o Segura
 //          , EnviarPDF                    // Enviar PDF junto
-//          , sCC                          // Lista com emails que ser„o enviado cÛpias - TStrings
+//          , sCC                          // Lista com emails que ser√£o enviado c√≥pias - TStrings
 //          , sANX                         // Lista de anexos - TStrings
-//          , False                        // Pede confirmaÁ„o de leitura do email
-//          , False                        // Aguarda Envio do Email(n„o usa thread)
+//          , False                        // Pede confirma√ß√£o de leitura do email
+//          , False                        // Aguarda Envio do Email(n√£o usa thread)
 //          , GetNomeFantasiaEmpresa( sCNPJEmitente ) // Nome do Rementente
 //          , gContaEmail.ConexaoSeguraSSL );         // Auto TLS
         NotasFiscais.Items[0].EnviarEmail(
@@ -4458,7 +4751,7 @@ begin
           , sEmailAssunto
           , sMSG
           , EnviarPDF                    // Enviar PDF junto
-          , sCC                          // Lista com emails que ser„o enviado cÛpias - TStrings
+          , sCC                          // Lista com emails que ser√£o enviado c√≥pias - TStrings
           , sANX);                       // Lista de anexos - TStrings
 
         Result := True;
@@ -4467,7 +4760,7 @@ begin
     except
       On E : Exception do
       begin
-        ShowError('Erro ao tentar enviar para o cliente por e-mail o DANFE de SaÌda.' + #13#13 + 'EnviarEmailDANFEACBr() --> ' + e.Message);
+        ShowError('Erro ao tentar enviar para o cliente por e-mail o DANFE de Sa√≠da.' + #13#13 + 'EnviarEmailDANFEACBr() --> ' + e.Message);
         Result := False;
       end;
     end;
@@ -4503,41 +4796,41 @@ var
 begin
 (*
   IMR - 03/09/2019 :
-    O campo "Ide.cNF" precisa receber um valor de cÛdigo, gerado de forma aleatÛria, diferente do n˙mero da
-    nota fiscal e assim esteja de acordo com as expecificaÁıes da Receita Federal.
+    O campo "Ide.cNF" precisa receber um valor de c√≥digo, gerado de forma aleat√≥ria, diferente do n√∫mero da
+    nota fiscal e assim esteja de acordo com as expecifica√ß√µes da Receita Federal.
 
   IMR - 14/03/2018 :
-    ImplementaÁ„o da rotina que inseri a ReferÍncia como CÛdigo do Produto na nota
-    fiscal de acordo com a configuraÁ„o da empresa.
+    Implementa√ß√£o da rotina que inseri a Refer√™ncia como C√≥digo do Produto na nota
+    fiscal de acordo com a configura√ß√£o da empresa.
 
   IMR - 03/06/2016 :
-    Inclus„o da instruÁ„o "Ide.indFinal := cfConsumidorFinal" para todo destinat·rio
-    da nota que for pessoa fÌsica, ou seja, todo destinat·rio que n„o seja
+    Inclus√£o da instru√ß√£o "Ide.indFinal := cfConsumidorFinal" para todo destinat√°rio
+    da nota que for pessoa f√≠sica, ou seja, todo destinat√°rio que n√£o seja
     contribuinte de ICMS (Dest.indIEDest = inNaoContribuinte).
 
   IMR - 05/03/2016 :
-    Inters„o do par‚metro "OcultarVencimentos" para que o usu·rio informe se ele
-    quer ou n„o informar os vencimentos das parecelas da fatura na NF-e.
+    Inters√£o do par√¢metro "OcultarVencimentos" para que o usu√°rio informe se ele
+    quer ou n√£o informar os vencimentos das parecelas da fatura na NF-e.
 
   IMR - 08/12/2015 :
-    AlteraÁ„o nas regras de operaÁ„o da tag "idDest" para a emiss„o de Notas Fiscais
+    Altera√ß√£o nas regras de opera√ß√£o da tag "idDest" para a emiss√£o de Notas Fiscais
     para fora do Estado.
 
   IMR - 20/09/2014 :
-    InseÁ„o de nova TAG na Nota Fiscal referente a IE do destinat·rio para informa se este È Isento, Contribuinte ou N„o-contribuinte de acordo
-    com as regras estabelecidas pela SEFA para a vers„o 3.10 da NF-e.
+    Inse√ß√£o de nova TAG na Nota Fiscal referente a IE do destinat√°rio para informa se este √© Isento, Contribuinte ou N√£o-contribuinte de acordo
+    com as regras estabelecidas pela SEFA para a vers√£o 3.10 da NF-e.
 
   IMR - 10/10/2014 :
-    ImplementaÁ„o da Lei "TransparÍncia de Impostos" que visa informar ao consumidos o valor e o percentual pago de impostos sobre os itens e
+    Implementa√ß√£o da Lei "Transpar√™ncia de Impostos" que visa informar ao consumidos o valor e o percentual pago de impostos sobre os itens e
     o total geral da nota fiscal.
 
   IMR - 31/03/2015 :
-    Inclus„o da TAG "Ide.finNFe := fnDevolucao" quando a NF-e for de devoluÁ„o
+    Inclus√£o da TAG "Ide.finNFe := fnDevolucao" quando a NF-e for de devolu√ß√£o
 
   IMR - 23/05/2015 :
-    Inclus„o do bloco de cÛdigo para verificar se o CFOP da venda corresponde
-    a uma operaÁ„o de devoluÁ„o. Caso esta situaÁ„o seja confirmada, a NF-e de
-    origem ser· solicitada.
+    Inclus√£o do bloco de c√≥digo para verificar se o CFOP da venda corresponde
+    a uma opera√ß√£o de devolu√ß√£o. Caso esta situa√ß√£o seja confirmada, a NF-e de
+    origem ser√° solicitada.
 *)
 
   try
@@ -4560,19 +4853,19 @@ begin
 
     with ACBrNFe.NotasFiscais.Add.NFe do
     begin
-      // Caso n„o seja preenchido ser· gerado um n˙mero aleatÛrio pelo componente
+      // Caso n√£o seja preenchido ser√° gerado um n√∫mero aleat√≥rio pelo componente
       Ide.cNF   := iCodigoNFE;
       Ide.natOp := qryEntradaCalculoImposto.FieldByName('CFOP_RESUMIDO').AsString;
 
-      // Entradas ou saÌdas dentro do Estado
+      // Entradas ou sa√≠das dentro do Estado
       if ( qryEntradaCalculoImposto.FieldByName('CFOP').AsString[1] in ['1', '5'] ) then
         Ide.idDest := doInterna
       else
-      // Entradas ou saÌdas em Estados diferentes
+      // Entradas ou sa√≠das em Estados diferentes
       if ( qryEntradaCalculoImposto.FieldByName('CFOP').AsString[1] in ['2', '6'] ) then
         Ide.idDest := doInterestadual
       else
-      // Entradas ou saÌdas do Exterior
+      // Entradas ou sa√≠das do Exterior
       if ( qryEntradaCalculoImposto.FieldByName('CFOP').AsString[1] in ['3', '7'] ) then
         Ide.idDest := doExterior
       else
@@ -4590,7 +4883,7 @@ begin
       Ide.tpNF      := tnEntrada;
       Ide.tpEmis    := ACBrNFe.Configuracoes.Geral.FormaEmissao;
       Ide.tpAmb     := ACBrNFe.Configuracoes.WebServices.Ambiente;
-      Ide.verProc   := GetExeVersion( ParamStr(0) ); // Vers„o do seu sistema
+      Ide.verProc   := GetExeVersion( ParamStr(0) ); // Vers√£o do seu sistema
       Ide.cUF       := UFtoCUF( qryEmitenteEST_SIGLA.AsString );
       Ide.cMunFG    := qryEmitenteCID_IBGE.AsInteger ;
 
@@ -4614,7 +4907,7 @@ begin
                 RefNF.AAMM   := FieldByName('DNFE_COMPETENCIA').AsString;          // |
                 RefNF.CNPJ   := FieldByName('DNFE_CNPJ_CPF').AsString;             // |
                 RefNF.modelo := FieldByName('DNFE_MODELO').AsInteger;              // |- NF Modelo 1/1A
-                RefNF.serie  := FieldByName('DNFE_SERIE').AsInteger;               // |  * O modelo padr„o È 1
+                RefNF.serie  := FieldByName('DNFE_SERIE').AsInteger;               // |  * O modelo padr√£o √© 1
                 RefNF.nNF    := FieldByName('DNFE_NUMERO').AsInteger;              // |
               end;
 
@@ -4624,7 +4917,7 @@ begin
                 RefNFP.AAMM    := FieldByName('DNFE_COMPETENCIA').AsString;                // |
                 RefNFP.CNPJCPF := FieldByName('DNFE_CNPJ_CPF').AsString;                   // |
                 RefNFP.IE      := FieldByName('DNFE_IE').AsString;                         // |- NF produtor Rural
-                RefNFP.modelo  := FormatFloat('00', FieldByName('DNFE_MODELO').AsInteger); // | * O modelo padr„o È 04
+                RefNFP.modelo  := FormatFloat('00', FieldByName('DNFE_MODELO').AsInteger); // | * O modelo padr√£o √© 04
                 RefNFP.serie   := FieldByName('DNFE_SERIE').AsInteger;                     // |
                 RefNFP.nNF     := FieldByName('DNFE_NUMERO').AsInteger;                    // |
               end;
@@ -4637,8 +4930,37 @@ begin
               end;
           end;
 
+//      // Reforma Tribut√°ria
+//      if rgReformaTributaria.ItemIndex = 0 then
+//        Ide.dPrevEntrega := Date + 10;
+
   //     Ide.dhCont := date;
   //     Ide.xJust  := 'Justificativa Contingencia';
+
+      // Indicador de intermediador/marketplace
+      Ide.indIntermed := iiSemOperacao;
+
+//      // Reforma Tribut√°ria
+//      if rgReformaTributaria.ItemIndex = 0 then
+//      begin
+//        Ide.cMunFGIBS := StrToInt(edtEmitCodCidade.Text);
+//
+//        Ide.tpNFDebito := tdNenhum;
+//        Ide.tpNFCredito := tcNenhum;
+//
+//        Ide.gCompraGov.tpEnteGov := tcgEstados;
+//        Ide.gCompraGov.pRedutor := 5;
+//        Ide.gCompraGov.tpOperGov := togFornecimento;
+//
+//    //    Informado para abater as parcelas de antecipa√ß√£o de pagamento, conforme Art. 10. ¬ß 4¬∫
+//    //    refNFe: Refer√™ncia uma NF-e (modelo 55) emitida anteriormente, referente a pagamento antecipado
+//
+//        with Ide.gPagAntecipado.New do
+//          refNFe := '12345678901234567890123456789012345678901234';
+//
+//        with Ide.gPagAntecipado.New do
+//          refNFe := '12345678901234567890123456789012345678904567';
+//      end;
 
   //Para NFe referenciada use os campos abaixo
   {     with Ide.NFref.Add do
@@ -4690,11 +5012,11 @@ begin
       Emit.enderEmit.xPais   := qryEmitentePAIS_NOME.AsString;
 
       Emit.IEST              := '';
-      Emit.IM                := ''; // Preencher no caso de existir serviÁos na nota
-      Emit.CNAE              := ''; // Verifique na cidade do emissor da NFe se È permitido
-                                    // a inclus„o de serviÁos na NFe
+      Emit.IM                := ''; // Preencher no caso de existir servi√ßos na nota
+      Emit.CNAE              := ''; // Verifique na cidade do emissor da NFe se √© permitido
+                                    // a inclus√£o de servi√ßos na NFe
 
-      // ¡gil SoluÁıes em Softwares
+      // √Ågil Solu√ß√µes em Softwares
       with autXML.Add do
         CNPJCPF := AGIL_SOFTWARES_CNPJ;
 
@@ -4749,7 +5071,7 @@ begin
       Dest.EnderDest.cPais   := qryFornecedorDestinatario.FieldByName('PAIS_ID').AsInteger;  // 1058;
       Dest.EnderDest.xPais   := qryFornecedorDestinatario.FieldByName('PAIS_NOME').AsString; // 'BRASIL';
 
-  //Use os campos abaixo para informar o endereÁo de retirada quando for diferente do Emitente
+  //Use os campos abaixo para informar o endere√ßo de retirada quando for diferente do Emitente
   {      Retirada.CNPJCPF := '';
         Retirada.xLgr    := '';
         Retirada.nro     := '';
@@ -4759,7 +5081,7 @@ begin
         Retirada.xMun    := '';
         Retirada.UF      := '';}
 
-  //Use os campos abaixo para informar o endereÁo de entrega quando for diferente do Remetente/Destinat·rio
+  //Use os campos abaixo para informar o endere√ßo de entrega quando for diferente do Remetente/Destinat√°rio
   {      Entrega.CNPJCPF := '';
         Entrega.xLgr    := '';
         Entrega.nro     := '';
@@ -4784,7 +5106,7 @@ begin
 
         with Det.Add do
         begin
-          Prod.nItem := qryEntradaDadosProduto.RecNo; // qryEntradaDadosProdutoSEQ.AsInteger; // N˙mero sequencial, para cada item deve ser incrementado
+          Prod.nItem := qryEntradaDadosProduto.RecNo; // qryEntradaDadosProdutoSEQ.AsInteger; // N√∫mero sequencial, para cada item deve ser incrementado
 
           if PorCodigoExterno then
           begin
@@ -4805,14 +5127,18 @@ begin
           else
             Prod.xProd  := qryEntradaDadosProduto.FieldByName('DESCRI').AsString + ' ' + qryEntradaDadosProduto.FieldByName('ANO_FAB_MODELO_VEICULO').AsString;
 
-          Prod.NCM      := qryEntradaDadosProduto.FieldByName('NCM_SH').AsString;            // Tabela NCM disponÌvel em  http://www.receita.fazenda.gov.br/Aliquotas/DownloadArqTIPI.htm
+          Prod.NCM      := qryEntradaDadosProduto.FieldByName('NCM_SH').AsString;            // Tabela NCM dispon√≠vel em  http://www.receita.fazenda.gov.br/Aliquotas/DownloadArqTIPI.htm
           Prod.CFOP     := qryEntradaDadosProduto.FieldByName('CFOP_COD').AsString;
           Prod.EXTIPI   := EmptyStr;
 
-          if (Trim(Prod.NCM) = EmptyStr) or (Trim(Prod.NCM) = '10203000') then // CÛdigo descontinuado a partir de 2016
+          if (Trim(Prod.NCM) = EmptyStr) or (Trim(Prod.NCM) = '10203000') then // C√≥digo descontinuado a partir de 2016
             Prod.NCM := TRIBUTO_NCM_SH_PADRAO;
 
-          if EAN13Valido(qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString) then  // Futuramento implementar a funÁ„o "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
+          // Reforma Tribut√°ria
+          if (qryEntradaDadosProduto.FieldByName('ZONA_FRANCA_MANAUS').AsInteger = 1) then
+            Prod.tpCredPresIBSZFM := TtpCredPresIBSZFM.tcpSemCredito;
+
+          if EAN13Valido(qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString) then  // Futuramento implementar a fun√ß√£o "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
           begin
             Prod.cEAN     := qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString;
             Prod.cEANTrib := qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString;
@@ -4830,11 +5156,11 @@ begin
           Prod.uCom     := qryEntradaDadosProduto.FieldByName('UNP_SIGLA').AsString;
           Prod.qCom     := qryEntradaDadosProduto.FieldByName('QTDE').AsCurrency;
 
-          Prod.vUnCom   := qryEntradaDadosProduto.FieldByName('PUNIT').AsCurrency;           // I10a  Valor Unit·rio de comercializaÁ„o
+          Prod.vUnCom   := qryEntradaDadosProduto.FieldByName('PUNIT').AsCurrency;           // I10a  Valor Unit√°rio de comercializa√ß√£o
 
-          Prod.vProd    := qryEntradaDadosProduto.FieldByName('TOTAL_BRUTO').AsCurrency;     // I11 - Valor Total Bruto dos Produtos ou ServiÁos
+          Prod.vProd    := qryEntradaDadosProduto.FieldByName('TOTAL_BRUTO').AsCurrency;     // I11 - Valor Total Bruto dos Produtos ou Servi√ßos
 
-//          if EAN13Valido(qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramente implementar a funÁ„o "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
+//          if EAN13Valido(qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramente implementar a fun√ß√£o "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
 //            Prod.cEANTrib := qryEntradaDadosProduto.FieldByName('CODBARRA_EAN').AsString
 //          else
 //            Prod.cEANTrib := EmptyStr;
@@ -4842,7 +5168,7 @@ begin
           Prod.uTrib     := qryEntradaDadosProduto.FieldByName('UNP_SIGLA').AsString;
           Prod.qTrib     := qryEntradaDadosProduto.FieldByName('QTDE').AsCurrency;
 
-          Prod.vUnTrib   := qryEntradaDadosProduto.FieldByName('PUNIT').AsCurrency;          // I14a  Valor Unit·rio de tributaÁ„o
+          Prod.vUnTrib   := qryEntradaDadosProduto.FieldByName('PUNIT').AsCurrency;          // I14a  Valor Unit√°rio de tributa√ß√£o
 
 (* EXEMPLO *)
           // NFe.Det[i].Prod.uCom    := 'CX';                                                   = 'UN'
@@ -4857,14 +5183,14 @@ begin
           Prod.vSeg      := 0;                                               // I16 - Valor Total do Seguro
           Prod.vDesc     := qryEntradaDadosProduto.FieldByName('TOTAL_DESCONTO').AsCurrency; // I17 - Valor do Desconto
 
-          // InformaÁ„o Adicional do Produto
+          // Informa√ß√£o Adicional do Produto
 
           sInformacaoProduto := EmptyStr;
           if ( GetSegmentoID(qryEmitenteCNPJ.AsString) <> SEGMENTO_MERCADO_CARRO_ID ) then
           begin
             if PorCodigoExterno then
               sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
-                'CÛd.: ' + qryEntradaDadosProduto.FieldByName('CODPROD').AsString
+                'C√≥d.: ' + qryEntradaDadosProduto.FieldByName('CODPROD').AsString
             else
             if ( Trim(qryEntradaDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr ) then
               sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
@@ -4877,7 +5203,7 @@ begin
             if ( Trim(qryEntradaDadosProduto.FieldByName('LOTE').AsString) <> EmptyStr ) then
               sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
                 'Lote: ' + qryEntradaDadosProduto.FieldByName('LOTE').AsString +
-                  IfThen(qryEntradaDadosProduto.FieldByName('LOTE_FABRICACAO').IsNull, '', ' FabricaÁ„o: ' + FormatDateTime('dd/mm/yyyy', qryEntradaDadosProduto.FieldByName('LOTE_FABRICACAO').AsDateTime)) +
+                  IfThen(qryEntradaDadosProduto.FieldByName('LOTE_FABRICACAO').IsNull, '', ' Fabrica√ß√£o: ' + FormatDateTime('dd/mm/yyyy', qryEntradaDadosProduto.FieldByName('LOTE_FABRICACAO').AsDateTime)) +
                   IfThen(qryEntradaDadosProduto.FieldByName('LOTE_VALIDADE').IsNull  , '', ' Validade: '   + FormatDateTime('dd/mm/yyyy', qryEntradaDadosProduto.FieldByName('LOTE_VALIDADE').AsDateTime));
           end
           else
@@ -4890,7 +5216,7 @@ begin
 
           infAdProd := sInformacaoProduto;
 
-  //DeclaraÁ„o de ImportaÁ„o. Pode ser adicionada v·rias atravÈs do comando Prod.DI.Add
+  //Declara√ß√£o de Importa√ß√£o. Pode ser adicionada v√°rias atrav√©s do comando Prod.DI.Add
 
   {         with Prod.DI.Add do
             begin
@@ -4911,45 +5237,45 @@ begin
             end;
   }
 
-  //Campos para venda de veÌculos novos
+  //Campos para venda de ve√≠culos novos
 
           if ( (GetSegmentoID(qryEmitenteCNPJ.AsString) = SEGMENTO_MERCADO_CARRO_ID) and (qryEntradaDadosProduto.FieldByName('PRODUTO_NOVO').AsInteger = 1) ) then
           begin
 
             with Prod.veicProd do
               begin
-                tpOP     := toVendaConcessionaria; // J02 - Tipo da operaÁ„o
+                tpOP     := toVendaConcessionaria; // J02 - Tipo da opera√ß√£o
                                                    //    (1) = toVendaConcessionaria
                                                    //    (2) = toFaturamentoDireto
                                                    //    (3) = toVendaDireta
                                                    //    (0) = toOutros
-                chassi   := qryEntradaDadosProduto.FieldByName('CHASSI_VEICULO').AsString;        // J03 - Chassi do veÌculo
+                chassi   := qryEntradaDadosProduto.FieldByName('CHASSI_VEICULO').AsString;        // J03 - Chassi do ve√≠culo
                 cCor     := qryEntradaDadosProduto.FieldByName('COR_VEICULO').AsString;           // J04 - Cor
-                xCor     := qryEntradaDadosProduto.FieldByName('COR_VEICULO_DESCRICAO').AsString; // J05 - DescriÁ„o da Cor
-                pot      := ''; // J06 - PotÍncia Motor
+                xCor     := qryEntradaDadosProduto.FieldByName('COR_VEICULO_DESCRICAO').AsString; // J05 - Descri√ß√£o da Cor
+                pot      := ''; // J06 - Pot√™ncia Motor
                 Cilin    := '';
-                pesoL    := ''; // J08 - Peso LÌquido
+                pesoL    := ''; // J08 - Peso L√≠quido
                 pesoB    := ''; // J09 - Peso Bruto
-                nSerie   := ''; // J10 - Serial (sÈrie)
-                tpComb   := qryEntradaDadosProduto.FieldByName('COMBUSTIVEL_VEICULO_DESCRICAO').AsString; // J11 - Tipo de combustÌvel
-                nMotor   := ''; // J12 - N˙mero de Motor
+                nSerie   := ''; // J10 - Serial (s√©rie)
+                tpComb   := qryEntradaDadosProduto.FieldByName('COMBUSTIVEL_VEICULO_DESCRICAO').AsString; // J11 - Tipo de combust√≠vel
+                nMotor   := ''; // J12 - N√∫mero de Motor
                 CMT      := '';
-                dist     := '';        // J14 - Dist‚ncia entre eixos
-//                RENAVAM  := '';        // J15 - RENAVAM            (N„o informar a TAG na exportaÁ„o)
-                anoMod   := qryEntradaDadosProduto.FieldByName('ANO_MODELO_VEICULO').AsInteger;         // J16 - Ano Modelo de FabricaÁ„o
-                anoFab   := qryEntradaDadosProduto.FieldByName('ANO_FABRICACAO_VEICULO').AsInteger;     // J17 - Ano de FabricaÁ„o
+                dist     := '';        // J14 - Dist√¢ncia entre eixos
+//                RENAVAM  := '';        // J15 - RENAVAM            (N√£o informar a TAG na exporta√ß√£o)
+                anoMod   := qryEntradaDadosProduto.FieldByName('ANO_MODELO_VEICULO').AsInteger;         // J16 - Ano Modelo de Fabrica√ß√£o
+                anoFab   := qryEntradaDadosProduto.FieldByName('ANO_FABRICACAO_VEICULO').AsInteger;     // J17 - Ano de Fabrica√ß√£o
                 tpPint   := '';        // J18 - Tipo de Pintura
-                tpVeic   := StrToIntDef(qryEntradaDadosProduto.FieldByName('TIPO_VEICULO').AsString, 0); // J19 - Tipo de VeÌculo    (Utilizar Tabela RENAVAM)
-                espVeic  := 0;         // J20 - EspÈcie de VeÌculo (Utilizar Tabela RENAVAM)
-                VIN      := '';        // J21 - CondiÁ„o do VIN
-                condVeic := cvAcabado; // J22 - CondiÁ„o do VeÌculo (1 - Acabado; 2 - Inacabado; 3 - Semi-acabado)
-                cMod     := '';        // J23 - CÛdigo Marca Modelo (Utilizar Tabela RENAVAM)
+                tpVeic   := StrToIntDef(qryEntradaDadosProduto.FieldByName('TIPO_VEICULO').AsString, 0); // J19 - Tipo de Ve√≠culo    (Utilizar Tabela RENAVAM)
+                espVeic  := 0;         // J20 - Esp√©cie de Ve√≠culo (Utilizar Tabela RENAVAM)
+                VIN      := '';        // J21 - Condi√ß√£o do VIN
+                condVeic := cvAcabado; // J22 - Condi√ß√£o do Ve√≠culo (1 - Acabado; 2 - Inacabado; 3 - Semi-acabado)
+                cMod     := '';        // J23 - C√≥digo Marca Modelo (Utilizar Tabela RENAVAM)
               end;
 
           end;
 
           // Inserir Lote do Produto na NF-e
-          // Campos especÌficos para compra de medicamentos
+          // Campos espec√≠ficos para compra de medicamentos
           if (qryEntradaDadosProduto.FieldByName('estoque_aprop_lote').AsInteger = 1) and
              (TTipoProduto(qryEntradaDadosProduto.FieldByName('codtipo').AsInteger) in [tpMedicamento, tpSolucao] ) then
           begin
@@ -4993,7 +5319,7 @@ begin
     property tpRest: integer read FtpRest write FtpRest;
 }
 
-  //Campos especÌficos para venda de medicamentos
+  //Campos espec√≠ficos para venda de medicamentos
   {         with Prod.med.Add do
             begin
               nLote := '';
@@ -5003,7 +5329,7 @@ begin
               vPMC  := 0 ;
             end;  }
 
-  //Campos especÌficos para venda de armamento
+  //Campos espec√≠ficos para venda de armamento
   {         with Prod.arma.Add do
             begin
               nSerie := 0;
@@ -5012,7 +5338,7 @@ begin
               descr  := '' ;
             end;      }
 
-  //Campos especÌficos para venda de combustÌvel(distribuidoras)
+  //Campos espec√≠ficos para venda de combust√≠vel(distribuidoras)
   {         with Prod.comb do
             begin
               cProdANP := 0;
@@ -5115,7 +5441,7 @@ begin
                 cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + ICMS.vICMS;
               end;
 
-              // ICMS ST (SubstituiÁ„o Tribut·ria)
+              // ICMS ST (Substitui√ß√£o Tribut√°ria)
               ICMS.modBCST := dbisMargemValorAgregado;
               ICMS.pMVAST  := 0;
               ICMS.pRedBCST:= 0;
@@ -5201,6 +5527,150 @@ begin
               end;
             end;
 
+//            // Reforma Tribut√°ria
+//            if rgReformaTributaria.ItemIndex = 0 then
+//            begin
+//              //  Informa√ß√µes do tributo: Imposto Seletivo s√≥ para 2027 e para os
+//              //  os produtos nocivos ao meio ambiente e a sa√∫de.
+//              {
+//              ISel.CSTIS := cstis000;
+//              ISel.cClassTribIS := '000001';
+//
+//              ISel.vBCIS := 100;
+//              ISel.pIS := 5;
+//              ISel.pISEspec := 5;
+//              ISel.uTrib := 'UNIDAD';
+//              ISel.qTrib := 10;
+//              ISel.vIS := 100;
+//              }
+//
+//              {
+//                Utilize os CST (cst000, cst200, cst220, cst510 e cst550) e os cClassTrib
+//                correspondentes para gerar o grupo IBSCBS
+//                Utilize o CST cst620 e os cClassTrib correspondentes para gerar o grupo
+//                IBSCBSMono
+//                Utilize o CST cst800 e os cClassTrib correspondentes para gerar o grupo
+//                gTransfCred
+//                Utilize o CST cst810 e os cClassTrib correspondentes para gerar o grupo
+//                gCredPresIBSZFM
+//              }
+//
+//              //  Informa√ß√µes do tributo: IBS / CBS
+//              IBSCBS.CST := cst811;
+//              IBSCBS.cClassTrib := '000001';
+//              IBSCBS.indDoacao := tieSim;
+//
+//              IBSCBS.gIBSCBS.vBC := 100;
+//
+//              IBSCBS.gIBSCBS.gIBSUF.pIBSUF := 5;
+//              IBSCBS.gIBSCBS.gIBSUF.vIBSUF := 100;
+//
+//              IBSCBS.gIBSCBS.gIBSUF.gDif.pDif := 5;
+//              IBSCBS.gIBSCBS.gIBSUF.gDif.vDif := 100;
+//
+//              IBSCBS.gIBSCBS.gIBSUF.gDevTrib.vDevTrib := 100;
+//
+//              IBSCBS.gIBSCBS.gIBSUF.gRed.pRedAliq := 5;
+//              IBSCBS.gIBSCBS.gIBSUF.gRed.pAliqEfet := 5;
+//
+//              IBSCBS.gIBSCBS.gIBSMun.pIBSMun := 5;
+//              IBSCBS.gIBSCBS.gIBSMun.vIBSMun := 100;
+//
+//              IBSCBS.gIBSCBS.gIBSMun.gDif.pDif := 5;
+//              IBSCBS.gIBSCBS.gIBSMun.gDif.vDif := 100;
+//
+//              IBSCBS.gIBSCBS.gIBSMun.gDevTrib.vDevTrib := 100;
+//
+//              IBSCBS.gIBSCBS.gIBSMun.gRed.pRedAliq := 5;
+//              IBSCBS.gIBSCBS.gIBSMun.gRed.pAliqEfet := 5;
+//
+//              // vIBS = vIBSUF + vIBSMun
+//              IBSCBS.gIBSCBS.vIBS := 100;
+//
+//              IBSCBS.gIBSCBS.gCBS.pCBS := 5;
+//              IBSCBS.gIBSCBS.gCBS.vCBS := 100;
+//
+//              IBSCBS.gIBSCBS.gCBS.gDif.pDif := 5;
+//              IBSCBS.gIBSCBS.gCBS.gDif.vDif := 100;
+//
+//              IBSCBS.gIBSCBS.gCBS.gDevTrib.vDevTrib := 100;
+//
+//              IBSCBS.gIBSCBS.gCBS.gRed.pRedAliq := 5;
+//              IBSCBS.gIBSCBS.gCBS.gRed.pAliqEfet := 5;
+//
+//              IBSCBS.gIBSCBS.gTribRegular.CSTReg := cst000;
+//              IBSCBS.gIBSCBS.gTribRegular.cClassTribReg := '000001';
+//              IBSCBS.gIBSCBS.gTribRegular.pAliqEfetRegIBSUF := 5;
+//              IBSCBS.gIBSCBS.gTribRegular.vTribRegIBSUF := 50;
+//              IBSCBS.gIBSCBS.gTribRegular.pAliqEfetRegIBSMun := 5;
+//              IBSCBS.gIBSCBS.gTribRegular.vTribRegIBSMun := 50;
+//              IBSCBS.gIBSCBS.gTribRegular.pAliqEfetRegCBS := 5;
+//              IBSCBS.gIBSCBS.gTribRegular.vTribRegCBS := 50;
+//
+//              // Tipo Tributa√ß√£o Compra Governamental
+//              IBSCBS.gIBSCBS.gTribCompraGov.pAliqIBSUF := 5;
+//              IBSCBS.gIBSCBS.gTribCompraGov.vTribIBSUF := 50;
+//              IBSCBS.gIBSCBS.gTribCompraGov.pAliqIBSMun := 5;
+//              IBSCBS.gIBSCBS.gTribCompraGov.vTribIBSMun := 50;
+//              IBSCBS.gIBSCBS.gTribCompraGov.pAliqCBS := 5;
+//              IBSCBS.gIBSCBS.gTribCompraGov.vTribCBS := 50;
+//
+//              //  Informa√ß√µes do tributo: IBS / CBS em opera√ß√µes com imposto monof√°sico
+//              IBSCBS.gIBSCBSMono.gMonoPadrao.qBCMono := 1;
+//              IBSCBS.gIBSCBSMono.gMonoPadrao.adRemIBS := 5;
+//              IBSCBS.gIBSCBSMono.gMonoPadrao.adRemCBS := 5;
+//              IBSCBS.gIBSCBSMono.gMonoPadrao.vIBSMono := 100;
+//              IBSCBS.gIBSCBSMono.gMonoPadrao.vCBSMono := 100;
+//
+//              IBSCBS.gIBSCBSMono.gMonoReten.qBCMonoReten := 1;
+//              IBSCBS.gIBSCBSMono.gMonoReten.adRemIBSReten := 5;
+//              IBSCBS.gIBSCBSMono.gMonoReten.vIBSMonoReten := 100;
+//              IBSCBS.gIBSCBSMono.gMonoReten.vCBSMonoReten := 100;
+//
+//              IBSCBS.gIBSCBSMono.gMonoRet.qBCMonoRet := 1;
+//              IBSCBS.gIBSCBSMono.gMonoRet.adRemIBSRet := 5;
+//              IBSCBS.gIBSCBSMono.gMonoRet.vIBSMonoRet := 100;
+//              IBSCBS.gIBSCBSMono.gMonoRet.vCBSMonoRet := 100;
+//
+//              IBSCBS.gIBSCBSMono.gMonoDif.pDifIBS := 5;
+//              IBSCBS.gIBSCBSMono.gMonoDif.vIBSMonoDif := 100;
+//              IBSCBS.gIBSCBSMono.gMonoDif.pDifCBS := 5;
+//              IBSCBS.gIBSCBSMono.gMonoDif.vCBSMonoDif := 100;
+//
+//              IBSCBS.gIBSCBSMono.vTotIBSMonoItem := 100;
+//              IBSCBS.gIBSCBSMono.vTotCBSMonoItem := 100;
+//
+//              //  Informa√ß√µes da Transferencia de Cr√©dito
+//              IBSCBS.gTransfCred.vIBS := 100;
+//              IBSCBS.gTransfCred.vCBS := 100;
+//
+//              //  Informa√ß√µes Ajuste de Compet√™ncia
+//              IBSCBS.gAjusteCompet.competApur := Date;
+//              IBSCBS.gAjusteCompet.vIBS := 100;
+//              IBSCBS.gAjusteCompet.vCBS := 100;
+//
+//              //  Informa√ß√µes Estorno de Cr√©dito
+//              IBSCBS.gEstornoCred.vIBSEstCred := 100;
+//              IBSCBS.gEstornoCred.vCBSEstCred := 100;
+//
+//              //  Informa√ß√µes do Cr√©dito Presumido Operacional
+//              IBSCBS.gCredPresOper.cCredPres := cpNenhum;
+//              IBSCBS.gCredPresOper.vBCCredPres := 100;
+//              IBSCBS.gCredPresOper.gIBSCredPres.pCredPres := 5;
+//              IBSCBS.gCredPresOper.gIBSCredPres.vCredPres := 100;
+//              IBSCBS.gCredPresOper.gIBSCredPres.vCredPresCondSus := 0;
+//              IBSCBS.gCredPresOper.gCBSCredPres.pCredPres := 5;
+//              IBSCBS.gCredPresOper.gCBSCredPres.vCredPres := 100;
+//              IBSCBS.gCredPresOper.gCBSCredPres.vCredPresCondSus := 0;
+//
+//              //  Informa√ß√µes do Cr√©dito Presumido IBS ZFM
+//              // tcpNenhum, tcpSemCredito, tcpBensConsumoFinal, tcpBensCapital,
+//              // tcpBensIntermediarios, tcpBensInformaticaOutros
+//              IBSCBS.gCredPresIBSZFM.competApur := Date;
+//              IBSCBS.gCredPresIBSZFM.tpCredPresIBSZFM := tcpBensInformaticaOutros;
+//              IBSCBS.gCredPresIBSZFM.vCredPresIBSZFM := 100;
+//            end;
+
             with IPI do
             begin
               if (Emit.CRT = crtSimplesNacional) then
@@ -5281,18 +5751,18 @@ begin
                  vCOFINS   := 0;
                end;
   }
-  //Grupo para serviÁos
+  //Grupo para servi√ßos
   {            with ISSQN do
                begin
                  vBC       := 0;
                  vAliq     := 0;
                  vISSQN    := 0;
                  cMunFG    := 0;
-                 cListServ := 0; // Preencha este campo usando a tabela disponÌvel
+                 cListServ := 0; // Preencha este campo usando a tabela dispon√≠vel
                                  // em http://www.planalto.gov.br/Ccivil_03/LEIS/LCP/Lcp116.htm
                end;}
 
-            // Lei da TransparÍncia de Impostos
+            // Lei da Transpar√™ncia de Impostos
 
             if ( Trim(Prod.NCM) <> EmptyStr ) then
             begin
@@ -5350,6 +5820,45 @@ begin
       if ( vTotalTributoAprox > 0.0 ) then
         Total.ICMSTot.vTotTrib := vTotalTributoAprox;
 
+//      // Reforma Tribut√°ria
+//      if rgReformaTributaria.ItemIndex = 0 then
+//      begin
+//        Total.ISTot.vIS := 100;
+//
+//        Total.IBSCBSTot.vBCIBSCBS := 100;
+//
+//        Total.IBSCBSTot.gIBS.vIBS := 100;
+//        Total.IBSCBSTot.gIBS.vCredPres := 100;
+//        Total.IBSCBSTot.gIBS.vCredPresCondSus := 100;
+//
+//        Total.IBSCBSTot.gIBS.gIBSUFTot.vDif := 100;
+//        Total.IBSCBSTot.gIBS.gIBSUFTot.vDevTrib := 100;
+//        Total.IBSCBSTot.gIBS.gIBSUFTot.vIBSUF := 100;
+//
+//        Total.IBSCBSTot.gIBS.gIBSMunTot.vDif := 100;
+//        Total.IBSCBSTot.gIBS.gIBSMunTot.vDevTrib := 100;
+//        Total.IBSCBSTot.gIBS.gIBSMunTot.vIBSMun := 100;
+//
+//        Total.IBSCBSTot.gCBS.vDif := 100;
+//        Total.IBSCBSTot.gCBS.vDevTrib := 100;
+//        Total.IBSCBSTot.gCBS.vCBS := 100;
+//        Total.IBSCBSTot.gCBS.vCredPres := 100;
+//        Total.IBSCBSTot.gCBS.vCredPresCondSus := 100;
+//
+//        Total.IBSCBSTot.gMono.vIBSMono := 100;
+//        Total.IBSCBSTot.gMono.vCBSMono := 100;
+//        Total.IBSCBSTot.gMono.vIBSMonoReten := 100;
+//        Total.IBSCBSTot.gMono.vCBSMonoReten := 100;
+//        Total.IBSCBSTot.gMono.vIBSMonoRet := 100;
+//        Total.IBSCBSTot.gMono.vCBSMonoRet := 100;
+//
+//        Total.IBSCBSTot.gEstornoCred.vIBSEstCred := 100;
+//        Total.IBSCBSTot.gEstornoCred.vCBSEstCred := 100;
+//
+//        // Valor total da NF-e com IBS / CBS / IS
+//        Total.vNFTot := 100;
+//      end;
+
   {      Total.ISSQNtot.vServ   := 0;
         Total.ISSQNTot.vBC     := 0;
         Total.ISSQNTot.vISS    := 0;
@@ -5365,9 +5874,9 @@ begin
         Total.retTrib.vRetPrev   := 0;}
 
       Transp.modFrete            := mfSemFrete; // X02 - Modalidade do frete
-                                                //         (0)=mfContaEmitente     ñ por conta do emitente;
-                                                //         (1)=mfContaDestinatario ñ por conta do destinat·rio)
-                                                //       TAG de grupo Transportador - <transporta> - OcorrÍncia 0-1
+                                                //         (0)=mfContaEmitente     ‚Äì por conta do emitente;
+                                                //         (1)=mfContaDestinatario ‚Äì por conta do destinat√°rio)
+                                                //       TAG de grupo Transportador - <transporta> - Ocorr√™ncia 0-1
 
       Transp.Transporta.CNPJCPF  := '';
       Transp.Transporta.xNome    := '';
@@ -5405,7 +5914,7 @@ begin
           pesoB := qryEntradaDadosProduto.RecordCount * 1;
           pesoL := qryEntradaDadosProduto.RecordCount * 1.01;
 
-          //Lacres do volume. Pode ser adicionado v·rios
+          //Lacres do volume. Pode ser adicionado v√°rios
           //Lacres.Add.nLacre := '';
         end;
 
@@ -5476,8 +5985,8 @@ begin
       InfAdic.infCpl   := #13 +
         'Compra: ' + qryEntradaCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryEntradaCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
         ' - Forma/Cond. Pgto.: ' + qryEntradaCalculoImposto.FieldByName('FORMA_PAGO').AsString + '/' + qryEntradaCalculoImposto.FieldByName('COND_PAGO_FULL').AsString + ' * * * ' + #13 +
-        'Usu·rio: ' + qryEntradaCalculoImposto.FieldByName('USUARIO_NOME_COMPLETO').AsString + ' * * * ' + #13 +
-        'ObservaÁıes: ' + qryEntradaCalculoImposto.FieldByName('OBS').AsString +
+        'Usu√°rio: ' + qryEntradaCalculoImposto.FieldByName('USUARIO_NOME_COMPLETO').AsString + ' * * * ' + #13 +
+        'Observa√ß√µes: ' + qryEntradaCalculoImposto.FieldByName('OBS').AsString +
         IfThen(vTotalTributoAprox = 0, EmptyStr, #13 + Format('* Valor Total Aprox. Trib. R$ %s (%s). Fonte IBPT', [
           FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
           FormatFloat(',0.##"%"', Total.ICMSTot.vTotTrib / Total.ICMSTot.vNF * 100)]));
@@ -5495,7 +6004,7 @@ begin
       with InfAdic.obsCont.Add do
       begin
         xCampo := 'ObsCont';
-        xTexto := 'ObseraÁıes da venda: ' + qryCalculoImportoOBS.AsString;
+        xTexto := 'Obsera√ß√µes da venda: ' + qryCalculoImportoOBS.AsString;
       end;
 
       with InfAdic.obsCont.Add do
@@ -5575,7 +6084,7 @@ begin
 
     if (Trim(qryEntradaCalculoImposto.FieldByName('XML_NFE_FILENAME').AsString) = EmptyStr) then
     begin
-      ShowWarning('Arquivo XML da Nota Fiscal n„o carregado.' + #13 + 'Favor informar ao Suporte.');
+      ShowWarning('Arquivo XML da Nota Fiscal n√£o carregado.' + #13 + 'Favor informar ao Suporte.');
       Exit;
     end;
 
@@ -5604,7 +6113,7 @@ begin
         DANFE.Protocolo := WebServices.Consulta.protNFe.nProt + ' ' + DateTimeToStr(WebServices.Consulta.protNFe.dhRecbto);
       end;
 
-      // Remover a logomarca do DANFE quando o emissor da nota n„o for a empresa
+      // Remover a logomarca do DANFE quando o emissor da nota n√£o for a empresa
       if OnlyNumber(NotasFiscais.Items[0].NFe.Emit.CNPJCPF) <> OnlyNumber(sCNPJEmitente) then
       begin
         DANFE.Email := EmptyStr;
@@ -5696,8 +6205,8 @@ var
 begin
 (*
   IMR - 14/10/2016 :
-    InserÁ„o da vari·vel "aCan" para armazenar a situaÁ„o da NF-e consultada na
-    SEFA a fim de constatar o seu cancelamento antes da criaÁ„o de um evento com
+    Inser√ß√£o da vari√°vel "aCan" para armazenar a situa√ß√£o da NF-e consultada na
+    SEFA a fim de constatar o seu cancelamento antes da cria√ß√£o de um evento com
     esta finalidade.
 *)
   sLOG := TStringList.Create;
@@ -5712,7 +6221,7 @@ begin
       Exit;
 
     if ( ACBrNFe.Configuracoes.WebServices.Ambiente = taHomologacao ) then
-      if (not ShowConfirm('Cancelamento de NF-e em AMBIENTE DE HOMOLOGA«√O n„o tem validade nenhuma para a SEFA.' + #13#13 +
+      if (not ShowConfirm('Cancelamento de NF-e em AMBIENTE DE HOMOLOGA√á√ÉO n√£o tem validade nenhuma para a SEFA.' + #13#13 +
         'Deseja continuar assim mesmo?', 'Cancelar NF-e')) then
       begin
         Result := False;
@@ -5738,19 +6247,19 @@ begin
       NotasFiscais.Clear;
 
       if not NotasFiscais.LoadFromString( qryEntradaCalculoImposto.FieldByName('XML_NFE').AsWideString ) then
-        raise Exception.Create('N„o foi possÌvel carregar o XML da Nota Fiscal EletrÙnica correspondente!' + #13 + FileNameXML);
+        raise Exception.Create('N√£o foi poss√≠vel carregar o XML da Nota Fiscal Eletr√¥nica correspondente!' + #13 + FileNameXML);
 
       // Numero do Lote de Envio
       //iNumeroLote := StrToInt(FormatDateTime('yymmddhhmm', GetDateTimeDB));
       //iNumeroLote := StrToInt64(FormatDateTime('yymmddhhnn', GetDateTimeDB));
       iNumeroLote := StrToInt64(Copy(FormatDateTime('yymmddhhnnss', GetDateTimeDB), 5, 8)); // Dia, hora, minuto e segundo
 
-      // Consultar situaÁ„o da NF-e na Sefa
+      // Consultar situa√ß√£o da NF-e na Sefa
 
       if ACBrNFe.Consultar then
         aCan := ACBrNFe.NotasFiscais[0].Cancelada;
 
-      // Criar o Evento de Cancelamento, caso a NF-e ainda n„o esteja cancelada
+      // Criar o Evento de Cancelamento, caso a NF-e ainda n√£o esteja cancelada
 
       if aCan then
         Result := True
@@ -5766,7 +6275,7 @@ begin
           //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
           //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
 
-          infEvento.cOrgao   := qryEmitenteEST_COD.AsInteger; // CÛdigo IBGE do Estado
+          infEvento.cOrgao   := qryEmitenteEST_COD.AsInteger; // C√≥digo IBGE do Estado
           infEvento.chNFe    := qryNFeEmitidaEntradaCHAVE.AsString;
           infEvento.CNPJ     := sCNPJEmitente;
           infEvento.dhEvento := GetDateTimeDB;
@@ -5785,8 +6294,8 @@ begin
             if EventoRetorno.retEvento.Items[0].RetInfEvento.cStat <> 135 then
             begin
               raise Exception.CreateFmt(
-                'Ocorreu o seguinte erro ao cancelar a Nota Fiscal EletrÙnica:'  + sLineBreak +
-                'CÛdigo: %d' + sLineBreak +
+                'Ocorreu o seguinte erro ao cancelar a Nota Fiscal Eletr√¥nica:'  + sLineBreak +
+                'C√≥digo: %d' + sLineBreak +
                 'Motivo: %s', [
                   EventoRetorno.retEvento.Items[0].RetInfEvento.cStat,
                   EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo
@@ -5804,8 +6313,8 @@ begin
             sLOG.Add('Chave NF-e: ' + qryNFeEmitidaEntradaCHAVE.AsString);
             sLOG.Add('-');
             sLOG.Add('Data/Hora Evento: ' + FormatDateTime('dd/mm/yyyy hh:mm:ss', EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento));
-            sLOG.Add('N˙mero Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
-            sLOG.Add('CÛdigo Status   : ' + IntToStr(EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
+            sLOG.Add('N√∫mero Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
+            sLOG.Add('C√≥digo Status   : ' + IntToStr(EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
             sLOG.Add('Motivo Status   : ' + EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
             sLOG.Add('-');
             sLOG.Add(EventoRetorno.retEvento.Items[0].RetInfEvento.XML);
@@ -5965,13 +6474,13 @@ begin
     sMsg := 'A Data de Vencimento do Certificado expira hoje!' + #13#13 + 'Favor providenciar um novo certificado.'
   else
   if ( iPrazo > 0 ) then
-    sMsg := 'Data de Vencimento do Certificado: ' + sDataVenc + #13#13 + 'Prazo de expiraÁ„o : ' + FormatFloat(',0', iPrazo) + ' dia(s).'
+    sMsg := 'Data de Vencimento do Certificado: ' + sDataVenc + #13#13 + 'Prazo de expira√ß√£o : ' + FormatFloat(',0', iPrazo) + ' dia(s).'
   else
   if ( iPrazo < 0 ) then
-    sMsg := 'Data de Vencimento do Certificado: ' + sDataVenc + #13#13 + 'Prazo expirado ‡ ' + FormatFloat(',0', iPrazo) + ' dia(s)!';
+    sMsg := 'Data de Vencimento do Certificado: ' + sDataVenc + #13#13 + 'Prazo expirado √† ' + FormatFloat(',0', iPrazo) + ' dia(s)!';
 
   if Informe or (iPrazo <= 30) then
-    ShowWarning('A T E N « √ O :' + #13#13 + '-----------------------------------------' + #13#13 + sMsg);
+    ShowWarning('A T E N √á √É O :' + #13#13 + '-----------------------------------------' + #13#13 + sMsg);
 end;
 
 function TDMNFe.InutilizaNumeroNFeACBr(const sCNPJEmitente: String; iAno,
@@ -5994,12 +6503,12 @@ begin
       Result   := True;
       sRetorno :=
         'Ambiente:    ' + IntToStr( Ord(WebServices.Inutilizacao.TpAmb) ) + #13 +
-        'Vers„o App.: ' + WebServices.Inutilizacao.verAplic        + #13 +
+        'Vers√£o App.: ' + WebServices.Inutilizacao.verAplic        + #13 +
         'Status Trn.: ' + IntToStr(WebServices.Inutilizacao.cStat) + #13 +
         '---'     + #13 +
         'Emitente:    ' + WebServices.Inutilizacao.CNPJ + #13 +
         'Modelo NF-e: ' + IntToStr( WebServices.Inutilizacao.Modelo ) + #13 +
-        'SÈrie NF-e:  ' + IntToStr( WebServices.Inutilizacao.Serie )  + #13 +
+        'S√©rie NF-e:  ' + IntToStr( WebServices.Inutilizacao.Serie )  + #13 +
         'No. Inicial: ' + IntToStr( WebServices.Inutilizacao.NumeroInicial ) + #13 +
         'No. Final:   ' + IntToStr( WebServices.Inutilizacao.NumeroFinal )   + #13 +
         'Motivo:      ' + WebServices.Inutilizacao.xMotivo         + #13 +
@@ -6019,7 +6528,7 @@ begin
   except
     On E : Exception do
     begin
-      ShowError('Erro ao tentar inutilizar numeraÁ„o de notas.' + #13#13 + 'InutilizaNumeroNFeACBr() --> ' + e.Message);
+      ShowError('Erro ao tentar inutilizar numera√ß√£o de notas.' + #13#13 + 'InutilizaNumeroNFeACBr() --> ' + e.Message);
       Result := False;
     end;
   end;
@@ -6169,7 +6678,7 @@ begin
         if ( WebServices.Recibo.NFeRetorno.ProtDFe.Count = 1 ) then
         begin
           sTextoRetorno.Add( 'Ambiente    : ' + IntToStr( Ord(WebServices.Recibo.NFeRetorno.tpAmb) ) );
-          sTextoRetorno.Add( 'Vers„o App. : ' + WebServices.Recibo.NFeRetorno.verAplic );
+          sTextoRetorno.Add( 'Vers√£o App. : ' + WebServices.Recibo.NFeRetorno.verAplic );
           sTextoRetorno.Add( 'Status Trn. : ' + IntToStr(WebServices.Recibo.NFeRetorno.cStat) + ' - ' + WebServices.Recibo.NFeRetorno.xMotivo );
           sTextoRetorno.Add( '---' );
           sTextoRetorno.Add( 'Emitente    : ' + sCNPJEmitente );
@@ -6189,7 +6698,7 @@ begin
     except
       On E : Exception do
       begin
-        ShowError('Erro ao tentar consultar n˙mero de lote/recibo de envio de NF-e.' + #13#13 + 'ConsultarNumeroLoteNFeACBr() --> ' + e.Message);
+        ShowError('Erro ao tentar consultar n√∫mero de lote/recibo de envio de NF-e.' + #13#13 + 'ConsultarNumeroLoteNFeACBr() --> ' + e.Message);
         Result := False;
       end;
     end;
@@ -6267,7 +6776,7 @@ begin
           ChaveNFE     := WebServices.Consulta.NFeChave;
           ProtocoloNFE := WebServices.Consulta.Protocolo;
 
-          // Recuperar o n˙mero da nota a partir da chave
+          // Recuperar o n√∫mero da nota a partir da chave
           // 12345678901234567890 12 345 678901234 5678901234
           // 15210839819259000102 55 001 000000010 1986530067
           if (iNumeroNFe = 0) and (not ChaveNFE.Trim.IsEmpty) then
@@ -6277,7 +6786,7 @@ begin
             iNumeroNFe := Copy(ChaveNFE, 26, 9).ToInteger;
           end;
 
-          // Atualizar contador do n˙mero da NF-e
+          // Atualizar contador do n√∫mero da NF-e
           iNumeroTmp := GetNumeroNFe(sCNPJEmitente, iSerieNFe, MODELO_NFE);
 
           if (iNumeroNFe = iNumeroTmp) then
@@ -6309,11 +6818,11 @@ var
 begin
 (*
   IMR - 30/09/2020 :
-    InserÁ„o do bloco IF..THEN (137) para tratar a falta de sincroniza do ambiente nacional
-    com a SEFA do estado quanto a confirmaÁ„o do manifesto.
+    Inser√ß√£o do bloco IF..THEN (137) para tratar a falta de sincroniza do ambiente nacional
+    com a SEFA do estado quanto a confirma√ß√£o do manifesto.
 
   IMR - 10/08/2017 :
-    AlteraÁ„o na forma de execuÁ„o do download das NFs, a partir da nova funÁ„o
+    Altera√ß√£o na forma de execu√ß√£o do download das NFs, a partir da nova fun√ß√£o
     "DistribuicaoDFePorChaveNFe()".
 *)
   aXML := TStringList.Create;
@@ -6324,7 +6833,7 @@ begin
 
       with ACBrNFe do
       begin
-        aUF := StrToInt(Copy(sChaveNFe, 1, 2)); // CÛdigo UF do autor da NF-e
+        aUF := StrToInt(Copy(sChaveNFe, 1, 2)); // C√≥digo UF do autor da NF-e
         if DistribuicaoDFePorChaveNFe(aUF, sCNPJDestinatario, sChaveNFe) then
         begin
           FileNameXML := Configuracoes.Arquivos.PathSalvar + '\Down\'  + sChaveNFe + '-nfe.xml';
@@ -6339,22 +6848,22 @@ begin
           else
           if (WebServices.DistribuicaoDFe.retDistDFeInt.cStat = 137) then // 137 - Nenhum documento localizado
           begin
-            ShowWarning('Arquivo XML n„o disponÌvel para download.' + #13 +
+            ShowWarning('Arquivo XML n√£o dispon√≠vel para download.' + #13 +
               WebServices.DistribuicaoDFe.retDistDFeInt.cStat.ToString + ' - ' + WebServices.DistribuicaoDFe.retDistDFeInt.xMotivo + #13#13 +
-              'Motivo: Ambiente nacional ainda n„o sincronizou o evento de manifesto com a SEFA.');
+              'Motivo: Ambiente nacional ainda n√£o sincronizou o evento de manifesto com a SEFA.');
             Result := False;
 
             Exit;
           end
           else
-            raise Exception.Create('Arquivo XML n„o disponÌvel para download.' + #13 +
+            raise Exception.Create('Arquivo XML n√£o dispon√≠vel para download.' + #13 +
               WebServices.DistribuicaoDFe.retDistDFeInt.cStat.ToString + ' - ' + WebServices.DistribuicaoDFe.retDistDFeInt.xMotivo);
         end
         else
           raise Exception.Create(WebServices.DistribuicaoDFe.RetornoWS);
 
         if not FileExists(FileNameXML) then
-          raise Exception.Create(Format('Arquivo %s n„o encontrado.', [QuotedStr(FileNameXML)]))
+          raise Exception.Create(Format('Arquivo %s n√£o encontrado.', [QuotedStr(FileNameXML)]))
         else
           Result := True;
       end;
@@ -6386,7 +6895,7 @@ procedure TDMNFe.frrAutorizacaoCompraGetValue(const VarName: String;
   var Value: Variant);
 begin
   if ( VarName = VAR_SYSTEM ) then
-    Value := Application.Title + ' - vers„o ' + ver.FileVersion;
+    Value := Application.Title + ' - vers√£o ' + ver.FileVersion;
 
   if ( VarName = VAR_USER ) then
     Value := gUsuarioLogado.Login;
@@ -6396,7 +6905,7 @@ procedure TDMNFe.frrNotaEntregaXGetValue(const VarName: string;
   var Value: Variant);
 begin
   if ( VarName = VAR_SYSTEM ) then
-    Value := Application.Title + ' - vers„o ' + ver.FileVersion;
+    Value := Application.Title + ' - vers√£o ' + ver.FileVersion;
 
   if ( VarName = VAR_USER ) then
     Value := gUsuarioLogado.Login;
@@ -6418,7 +6927,7 @@ var
   sMSG,
   sCC : TStringList;
 const
-  MSG_REF = 'Referente a CotaÁ„o No. %s';
+  MSG_REF = 'Referente a Cota√ß√£o No. %s';
 begin
 
   try
@@ -6435,17 +6944,17 @@ begin
 
       if Trim(sArquivo) <> EmptyStr then
         if not FilesExists(sArquivo) then
-          raise Exception.Create(Format('Arquivo %s n„o encontrado.', [QuotedStr(sArquivo)]));
+          raise Exception.Create(Format('Arquivo %s n√£o encontrado.', [QuotedStr(sArquivo)]));
 
       with ACBrNFe do
       begin
         NotasFiscais.Clear;
         NotasFiscais.Add;
 
-        // Montar identificaÁ„o do documento para tÌtulo de e-mail
+        // Montar identifica√ß√£o do documento para t√≠tulo de e-mail
 
         sMensagem  := Format(MSG_REF, [sNumeroDocumento]);
-        sDocumento := 'CotaÁ„o No. ' + sNumeroDocumento;
+        sDocumento := 'Cota√ß√£o No. ' + sNumeroDocumento;
 
         CarregarConfiguracoesEmpresa(sCNPJEmitente, sEmailAssunto, sAssinaturaHtml, sAssinaturaTxt);
 
@@ -6458,8 +6967,8 @@ begin
         sMSG.Add('');
         sMSG.Add( sAssinaturaTxt );
         sMSG.Add('--');
-        sMSG.Add('FAVOR N√O RESPONDER ESTE E-MAIL.');
-        sMSG.Add('ComposiÁ„o autom·tica de e-mail executada pelo sistema ' + gPersonalizaEmpresa.ProductName + ' (Vers„o ' + TVersaoController.GetInstance().Version +
+        sMSG.Add('FAVOR N√ÉO RESPONDER ESTE E-MAIL.');
+        sMSG.Add('Composi√ß√£o autom√°tica de e-mail executada pelo sistema ' + gPersonalizaEmpresa.ProductName + ' (Vers√£o ' + TVersaoController.GetInstance().Version +
           '), desenvolvido pela empresa ' + gPersonalizaEmpresa.CompanyName + '.' + #13#13 + TVersaoController.GetInstance().Copyright);
 
         if FileExists( sArquivo ) then
@@ -6476,12 +6985,12 @@ begin
 //          , sEmailDestinatario
 //          , sEmailAssunto
 //          , sMSG
-//          , gContaEmail.ConexaoSeguraSSL // SSL - Conex„o Segura
+//          , gContaEmail.ConexaoSeguraSSL // SSL - Conex√£o Segura
 //          , False                        // Enviar PDF junto
-//          , sCC                          // Lista com emails que ser„o enviado cÛpias - TStrings
+//          , sCC                          // Lista com emails que ser√£o enviado c√≥pias - TStrings
 //          , sANX                         // Lista de anexos - TStrings
-//          , False                        // Pede confirmaÁ„o de leitura do email
-//          , False                        // Aguarda Envio do Email(n„o usa thread)
+//          , False                        // Pede confirma√ß√£o de leitura do email
+//          , False                        // Aguarda Envio do Email(n√£o usa thread)
 //          , GetNomeFantasiaEmpresa( sCNPJEmitente ) // Nome do Rementente
 //          , gContaEmail.ConexaoSeguraSSL );         // Auto TLS
         NotasFiscais.Items[0].EnviarEmail(
@@ -6489,7 +6998,7 @@ begin
           , sEmailAssunto
           , sMSG
           , False                        // Enviar PDF junto
-          , sCC                          // Lista com emails que ser„o enviado cÛpias - TStrings
+          , sCC                          // Lista com emails que ser√£o enviado c√≥pias - TStrings
           , sANX);                       // Lista de anexos - TStrings
 
         Result := True;
@@ -6524,7 +7033,7 @@ var
 begin
   sLOG := TStringList.Create;
   bRetorno   := False;
-  sDescricao := 'ExecuÁ„o de Manifesto Dest. NF-e';
+  sDescricao := 'Execu√ß√£o de Manifesto Dest. NF-e';
   try
     try
       LerConfiguracao(sCNPJ, TTipoDANFE.tipoDANFEFast);
@@ -6553,13 +7062,13 @@ begin
           //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
           //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
 
-          infEvento.cOrgao   := qryEmitenteEST_COD.AsInteger; // CÛdigo IBGE do Estado
+          infEvento.cOrgao   := qryEmitenteEST_COD.AsInteger; // C√≥digo IBGE do Estado
           infEvento.CNPJ     := sCNPJ;
           infEvento.chNFe    := sChave;
           infEvento.dhEvento := Now; //GetDateTimeDB;
           infEvento.tpEvento := TpcnTpEvento.teManifDestConfirmacao;
 
-          // "POG" - Manobra para enviar o evento de manifesto da nota e evitar a rejeiÁ„o 657.
+          // "POG" - Manobra para enviar o evento de manifesto da nota e evitar a rejei√ß√£o 657.
           if (infEvento.cOrgao = 15) then
             infEvento.cOrgao := 91;
         end;
@@ -6583,7 +7092,7 @@ begin
             bRetorno := (EventoRetorno.retEvento.Items[0].RetInfEvento.cStat = 135); // Evento registrado e vinculado a NF-e
 
             if not bRetorno then
-              bRetorno := (EventoRetorno.retEvento.Items[0].RetInfEvento.cStat = 573); // Evento j· est· registrado e vinculado a NF-e
+              bRetorno := (EventoRetorno.retEvento.Items[0].RetInfEvento.cStat = 573); // Evento j√° est√° registrado e vinculado a NF-e
 
             // Montar LOG de Retorno
 
@@ -6592,12 +7101,12 @@ begin
             sLOG.Add('Ambiente    : ' + IntToStr( Ord(Configuracoes.WebServices.Ambiente) ));
             sLOG.Add('-');
             sLOG.Add('Evento      : ' + AnsiUpperCase(DESC_LOG_EVENTO_MANIFESTO_DST_NFE));
-            sLOG.Add('Destinat·rio: ' + sCNPJ);
+            sLOG.Add('Destinat√°rio: ' + sCNPJ);
             sLOG.Add('Chave NF-e  : ' + sChave);
             sLOG.Add('-');
             sLOG.Add('Data/Hora Evento: ' + FormatDateTime('dd/mm/yyyy hh:mm:ss', EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento));
-            sLOG.Add('N˙mero Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
-            sLOG.Add('CÛdigo Status   : ' + IntToStr(EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
+            sLOG.Add('N√∫mero Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
+            sLOG.Add('C√≥digo Status   : ' + IntToStr(EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
             sLOG.Add('Motivo Status   : ' + EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
             sLOG.Add('-');
             sLOG.Add(EventoRetorno.retEvento.Items[0].RetInfEvento.XML);
@@ -6606,8 +7115,8 @@ begin
             if not bRetorno then
             begin
               raise Exception.CreateFmt(
-                'Ocorreu o seguinte erro ao enviar o Evento de Manifesto de ConfirmaÁ„o da Nota Fiscal EletrÙnica:'  + sLineBreak +
-                'CÛdigo: %d' + sLineBreak +
+                'Ocorreu o seguinte erro ao enviar o Evento de Manifesto de Confirma√ß√£o da Nota Fiscal Eletr√¥nica:'  + sLineBreak +
+                'C√≥digo: %d' + sLineBreak +
                 'Motivo: %s', [
                   EventoRetorno.retEvento.Items[0].RetInfEvento.cStat,
                   EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo
@@ -6629,7 +7138,7 @@ begin
         if (Trim(sLOG.Text) = EmptyStr) then
           sLOG.Text  := sErrorMsg;
 
-        sDescricao := 'Tentativa de ExecuÁ„o de Manifesto Dest. NF-e';
+        sDescricao := 'Tentativa de Execu√ß√£o de Manifesto Dest. NF-e';
         ShowError('Erro ao tentar gerar/enviar Manifesto NF-e.' + #13#13 + 'ExecutarManifestoDestinatarioNFe() --> ' + sErrorMsg);
       end;
     end;
@@ -6682,7 +7191,7 @@ begin
 
   if not GetConectedInternet then
   begin
-    aMensagem := 'EstaÁ„o sem conex„o com a internet!';
+    aMensagem := 'Esta√ß√£o sem conex√£o com a internet!';
     Result    := False;
     Exit;
   end;
@@ -6758,7 +7267,7 @@ begin
       On E : Exception do
       begin
         aErrorMsg  := E.Message;
-        aDescricao := 'Tentativa de ExecuÁ„o do processo de DistribuiÁ„o DF-e';
+        aDescricao := 'Tentativa de Execu√ß√£o do processo de Distribui√ß√£o DF-e';
 
         ShowError('Erro ao tentar buscar notas emitidas para ' + StrFormatarCnpj(sCNPJ) + '.' + #13#13 + 'ExisteNFeParaBaixar() --> ' + aErrorMsg);
       end;
@@ -6804,7 +7313,7 @@ begin
   aTemp  := EmptyStr;
   try
     if not GetConectedInternet then
-      raise Exception.Create('EstaÁ„o sem conex„o com a internet!');
+      raise Exception.Create('Esta√ß√£o sem conex√£o com a internet!');
 
     LerConfiguracao(sCNPJ, TTipoDANFE.tipoDANFEFast);
     AbrirEmitente(sCNPJ);
@@ -6821,7 +7330,7 @@ begin
     On E : Exception do
     begin
       if ExibirErro then
-        ShowError('Erro ao tentar buscar o ˙ltimo NSU para ' + StrFormatarCnpj(sCNPJ) + '.' + #13#13 + 'GelUltimoNSU() --> ' + E.Message);
+        ShowError('Erro ao tentar buscar o √∫ltimo NSU para ' + StrFormatarCnpj(sCNPJ) + '.' + #13#13 + 'GelUltimoNSU() --> ' + E.Message);
 
       Result := False;
     end;
@@ -6834,7 +7343,7 @@ begin
   try
     try
       if not GetConectedInternet then
-        raise Exception.Create('EstaÁ„o sem conex„o com a internet!');
+        raise Exception.Create('Esta√ß√£o sem conex√£o com a internet!');
 
       LerConfiguracao(sCNPJ, TTipoDANFE.tipoDANFEFast);
       AbrirEmitente(sCNPJ);
@@ -6848,7 +7357,7 @@ begin
         NSU := '0';
     except
       On E : Exception do
-        ShowError('Erro ao tentar buscar o NSU m·ximo para ' + StrFormatarCnpj(sCNPJ) + '.' + #13#13 + 'GelUltimoNSU() --> ' + E.Message);
+        ShowError('Erro ao tentar buscar o NSU m√°ximo para ' + StrFormatarCnpj(sCNPJ) + '.' + #13#13 + 'GelUltimoNSU() --> ' + E.Message);
     end;
   finally
     Result := not NSU.Trim.IsEmpty;
@@ -7017,7 +7526,7 @@ function TDMNFe.EmissaoNFE_Pendente(const pEmpresa : String; const pAlertar : Bo
 var
   aRetorno : Boolean;
 begin
-  // Impedir que outra NF-e seja gerada enquanto houver um pedido de emiss„o anterior pendente
+  // Impedir que outra NF-e seja gerada enquanto houver um pedido de emiss√£o anterior pendente
   aRetorno := False;
   try
     with fdQryEmissaoNFePendente do
@@ -7028,12 +7537,12 @@ begin
 
       aRetorno := (RecordCount > 0);
       if aRetorno and pAlertar then
-        ShowWarning('Emiss„o pendente de NF-e:'  + #13#13 +
+        ShowWarning('Emiss√£o pendente de NF-e:'  + #13#13 +
           FieldByName('tipo').AsString   + ' : ' +
           FieldByName('ano').AsString    + '/'   +
           FieldByName('numero').AsString + #13   +
           'Recibo : ' + FieldByName('recibo').AsString + #13#13 +
-          'Uma nova emiss„o somente ser· possÌvel com a resoluÁ„o desta pendÍncia.');
+          'Uma nova emiss√£o somente ser√° poss√≠vel com a resolu√ß√£o desta pend√™ncia.');
     end;
   finally
     Result := aRetorno;
@@ -7056,7 +7565,7 @@ begin
       SQL.Clear;
       SQL.Add('Select l.descricao');
       SQL.Add('from TBLOG_TRANSACAO l');
-      SQL.Add('where l.tipo      = 1');  // TransaÁ„o SEFA
+      SQL.Add('where l.tipo      = 1');  // Transa√ß√£o SEFA
       SQL.Add('  and l.empresa   = ' + QuotedStr(sCNPJ));
       SQL.Add('  and l.descricao = ' + QuotedStr(sID));
       Open;
@@ -7252,7 +7761,7 @@ begin
           //  (AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO);
           //  (12,27,16,13,29,23,53,32,52,21,51,50,31,15,25,41,26,22,33,24,43,11,14,42,35,28,17);
 
-          infEvento.cOrgao := qryEmitenteEST_COD.AsInteger; // CÛdigo IBGE do Estado
+          infEvento.cOrgao := qryEmitenteEST_COD.AsInteger; // C√≥digo IBGE do Estado
           infEvento.CNPJ   := sCNPJEmitente;
           infEvento.chNFe      := qryNFe.FieldByName('CHAVE').AsString;
           infEvento.dhEvento   := Now; //GetDateTimeDB;
@@ -7280,8 +7789,8 @@ begin
             sLOG.Add('Chave NF-e: ' + qryNFe.FieldByName('CHAVE').AsString);
             sLOG.Add('-');
             sLOG.Add('Data/Hora Evento: ' + FormatDateTime('dd/mm/yyyy hh:mm:ss', EventoRetorno.retEvento.Items[0].RetInfEvento.dhRegEvento));
-            sLOG.Add('N˙mero Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
-            sLOG.Add('CÛdigo Status   : ' + IntToStr(EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
+            sLOG.Add('N√∫mero Protocolo: ' + EventoRetorno.retEvento.Items[0].RetInfEvento.nProt);
+            sLOG.Add('C√≥digo Status   : ' + IntToStr(EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
             sLOG.Add('Motivo Status   : ' + EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
             sLOG.Add('-');
             sLOG.Add(EventoRetorno.retEvento.Items[0].RetInfEvento.XML);
@@ -7311,8 +7820,8 @@ begin
             else
             begin
               raise Exception.CreateFmt(
-                'Ocorreu o seguinte erro ao enviar a CC-e da Nota Fiscal EletrÙnica:'  + sLineBreak +
-                'CÛdigo: %d' + sLineBreak +
+                'Ocorreu o seguinte erro ao enviar a CC-e da Nota Fiscal Eletr√¥nica:'  + sLineBreak +
+                'C√≥digo: %d' + sLineBreak +
                 'Motivo: %s', [
                   EventoRetorno.retEvento.Items[0].RetInfEvento.cStat,
                   EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo
@@ -7432,28 +7941,28 @@ var
 begin
 (*
   IMR - 24/10/2018 :
-    * InserÁ„o do bloco de cÛdigo para guarda o n˙mero do recibo de envio, caso ele
+    * Inser√ß√£o do bloco de c√≥digo para guarda o n√∫mero do recibo de envio, caso ele
     exista, mesmo quando o retorno do envio seja FALSE.
-    * Comentado o bloco de cÛdigo que remove o n˙mero do recibo de envio da venda
-    mesmo que a rejeiÁ„o seja de duplicidade de nota.
+    * Comentado o bloco de c√≥digo que remove o n√∫mero do recibo de envio da venda
+    mesmo que a rejei√ß√£o seja de duplicidade de nota.
 
   IMR - 20/05/2016 :
-    Inclus„o da rejeiÁ„o 203 para que o recibo de envio n„o seja guardado no
+    Inclus√£o da rejei√ß√£o 203 para que o recibo de envio n√£o seja guardado no
     registro de origem (Venda ou Compra) da NF-e.
 
   IMR - 20/05/2016 :
-    InserÁ„o da rotina que renomeia os arquivos XML de envio e retorno do Lote e
-    Recibo quando o processo de geraÁ„o/envio da NFCe È finalizado corretamente.
-    Neste passo o objeto "ACBrNFe.NotasFiscais" È zerado com o objetivo de
-    eliminar "lixos de dados" para os novos processos de geraÁ„o/envio de NFCe.
+    Inser√ß√£o da rotina que renomeia os arquivos XML de envio e retorno do Lote e
+    Recibo quando o processo de gera√ß√£o/envio da NFCe √© finalizado corretamente.
+    Neste passo o objeto "ACBrNFe.NotasFiscais" √© zerado com o objetivo de
+    eliminar "lixos de dados" para os novos processos de gera√ß√£o/envio de NFCe.
 
   IMR - 08/03/2016 :
-    InserÁ„o do bloco de comando para que, uma vez confirmado o envio da NFC-e,
-    uma consulta seja realizada para forÁar a atualizaÁ„o do XML com os dados da
-    assinatura digital e o protocolo de autorizaÁ„o.
+    Inser√ß√£o do bloco de comando para que, uma vez confirmado o envio da NFC-e,
+    uma consulta seja realizada para for√ßar a atualiza√ß√£o do XML com os dados da
+    assinatura digital e o protocolo de autoriza√ß√£o.
 
   IMR - 09/12/2014 :
-    Desenvolvimento da funÁ„o.
+    Desenvolvimento da fun√ß√£o.
 *)
   sErrorMsg := EmptyStr;
   try
@@ -7489,12 +7998,12 @@ begin
 
       UpdateNumeroNFCe(sCNPJEmitente, qryEmitenteSERIE_NFCE.AsInteger, iNumeroNFCe);
 
-      // Renomer no diretÛrio os arquivos XML de envio e retorno dos lotes e recibos de NFC-e
+      // Renomer no diret√≥rio os arquivos XML de envio e retorno dos lotes e recibos de NFC-e
       RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFCE, 'nfce');
-      ACBrNFe.NotasFiscais.Clear;
+//      ACBrNFe.NotasFiscais.Clear;
 
       if aSincrono and (ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat <> PROCESSO_NFE_AUTORIZADA) then
-        raise Exception.Create('NFC-e n„o autorizada!');
+        raise Exception.Create('NFC-e n√£o autorizada!');
     end
     else
     begin
@@ -7506,7 +8015,7 @@ begin
           GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iNumeroLote, ReciboNFCE);
         end;
 
-      // ForÁar erro quando o retorno for FALSE para o envio sÌncrono
+      // For√ßar erro quando o retorno for FALSE para o envio s√≠ncrono
       if aSincrono then
       begin
         aStatusNFe := ACBrNFe.WebServices.Enviar.cStat;
@@ -7521,7 +8030,7 @@ begin
     begin
       sErrorMsg := E.Message;
 
-      // Diretrizes de tomada de decis„o quando a NFCe enviada n„o È aceita
+      // Diretrizes de tomada de decis√£o quando a NFCe enviada n√£o √© aceita
 
       if ( Trim(ACBrNFe.WebServices.Retorno.Recibo) <> EmptyStr ) then
         if ReciboNaoExisteNaVenda(ACBrNFe.WebServices.Retorno.Recibo) then
@@ -7590,20 +8099,20 @@ begin
 //              if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
               if (aStatusNFe in [REJEICAO_NFE_IE_NAO_INFORMADO, REJEICAO_NFE_IE_NAO_CADASTRADO, REJEICAO_NFE_IE_NAO_VINCULADO]) then
                 sErrorMsg :=
-                  'InscriÁ„o Estadual (IE) do cliente n„o cadastrado ou n„o vinculado ao CNPJ informado. ' + #13 +
+                  'Inscri√ß√£o Estadual (IE) do cliente n√£o cadastrado ou n√£o vinculado ao CNPJ informado. ' + #13 +
                   '- Deve-se consultar o CNPJ do cliente no SINTEGRA; ou' + #13 +
                   '- Deve-se consultar o CNPJ do cliente no portal ''https://dfe-portal.svrs.rs.gov.br/Nfe/Ccc''' + #13 +
-                  'Favor corrija esta informaÁ„o no Cadastro do Cliente.' + #13#13 +
-                  'ApÛs este procedimento, gere novamente a NF-e'
+                  'Favor corrija esta informa√ß√£o no Cadastro do Cliente.' + #13#13 +
+                  'Ap√≥s este procedimento, gere novamente a NF-e'
               else
 //              if ( (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_INVALIDO)
 //                or (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Items[0].cStat = REJEICAO_NFE_CFOP_DIFERENTE)
 //              ) then
               if ((aStatusNFe = REJEICAO_NFE_CFOP_INVALIDO) or (aStatusNFe = REJEICAO_NFE_CFOP_DIFERENTE)) then
                 sErrorMsg :=
-                  'CÛdigo Fiscal de OperaÁ„o n„o adequado para este tipo de movimento dos produtos. ' +
-                  'Favor corrija-o clicando com o bot„o direito do mouse no campo CFOP' + #13#13 +
-                  'ApÛs este procedimento, gere novamente a NFC-e';
+                  'C√≥digo Fiscal de Opera√ß√£o n√£o adequado para este tipo de movimento dos produtos. ' +
+                  'Favor corrija-o clicando com o bot√£o direito do mouse no campo CFOP' + #13#13 +
+                  'Ap√≥s este procedimento, gere novamente a NFC-e';
             end;
 
           REJEICAO_NFE_NAO_CATALOG:
@@ -7611,7 +8120,7 @@ begin
               // Remover Lote da Venda
               GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
-              sErrorMsg := aMotivoNFe + #13 + 'PossÌvel erro na validaÁ„o do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
+              sErrorMsg := aMotivoNFe + #13 + 'Poss√≠vel erro na valida√ß√£o do arquivo XML na SEFA. Favor tentar gerar NF-e mais tarde.';
             end;
 
           else
@@ -7635,7 +8144,7 @@ begin
                           GuardarLoteNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, 0, EmptyStr);
 
                           sErrorMsg := aMotivoNFe + #13 +
-                            'Favor fazer as devidas correÁıes e gerar NF-e novamente!';
+                            'Favor fazer as devidas corre√ß√µes e gerar NF-e novamente!';
                         end;
                     end;
                 end;
@@ -7680,15 +8189,15 @@ var
 begin
 (*
   IMR - 11/06/2018 :
-    RemoÁ„o da linha "ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := True"
-    na nova vers„o do cÛdigo-fonte ACBr.
+    Remo√ß√£o da linha "ACBrNFe.Configuracoes.Geral.IncluirQRCodeXMLNFCe := True"
+    na nova vers√£o do c√≥digo-fonte ACBr.
 
   IMR - 08/12/2015 :
-    AlteraÁ„o nas regras de operaÁ„o da tag "idDest" para a emiss„o de Notas Fiscais
+    Altera√ß√£o nas regras de opera√ß√£o da tag "idDest" para a emiss√£o de Notas Fiscais
     para fora do Estado.
 
   IMR - 28/11/2014 :
-    ConstruÁ„o do procedimento para se gerar NFC-e.
+    Constru√ß√£o do procedimento para se gerar NFC-e.
 *)
 
   try
@@ -7705,12 +8214,12 @@ begin
     AbrirVenda( iAnoVenda, iNumVenda );
 
     if ( GetSegmentoID(qryEmitenteCNPJ.AsString) = SEGMENTO_MERCADO_CARRO_ID ) then
-      raise Exception.Create('O segmento da empresa n„o permite a emiss„o de NFC-e!');
+      raise Exception.Create('O segmento da empresa n√£o permite a emiss√£o de NFC-e!');
 
     iSerieNFCe  := qryEmitenteSERIE_NFCE.AsInteger;
     iNumeroNFCe := GetNumeroNFCe(sCNPJEmitente, iSerieNFCe, MODELO_NFCE);
     iCodigoNFCe := GerarCodigoDFe(iNumeroNFCe);
-    DtHoraEmiss := Now; // GetDateTimeDB; // Porque a validaÁ„o do XML ocorre pela data/hora local da m·quina
+    DtHoraEmiss := Now; // GetDateTimeDB; // Porque a valida√ß√£o do XML ocorre pela data/hora local da m√°quina
 
     GuardarCodigoNFeVenda(sCNPJEmitente, iAnoVenda, iNumVenda, iCodigoNFCe);
 
@@ -7721,15 +8230,15 @@ begin
       Ide.cNF   := iCodigoNFCe;
       Ide.natOp := 'VENDA'; // Da CFOP 5101 // qryCalculoImportoCFOP_RESUMIDO.AsString;
 
-      // Entradas ou saÌdas dentro do Estado
+      // Entradas ou sa√≠das dentro do Estado
       if ( qryCalculoImposto.FieldByName('CFOP').AsString[1] in ['1', '5'] ) then
         Ide.idDest := doInterna
       else
-      // Entradas ou saÌdas em Estados diferentes
+      // Entradas ou sa√≠das em Estados diferentes
       if ( qryCalculoImposto.FieldByName('CFOP').AsString[1] in ['2', '6'] ) then
         Ide.idDest := doInterestadual
       else
-      // Entradas ou saÌdas do Exterior
+      // Entradas ou sa√≠das do Exterior
       if ( qryCalculoImposto.FieldByName('CFOP').AsString[1] in ['3', '7'] ) then
         Ide.idDest := doExterior
       else
@@ -7754,7 +8263,7 @@ begin
       Ide.tpImp     := tiNFCe;
       Ide.indFinal  := cfConsumidorFinal;
       Ide.indPres   := pcPresencial;
-      // N„o È aconselh·vel informar a Data/Hora de SaÌda para NFC-e
+      // N√£o √© aconselh√°vel informar a Data/Hora de Sa√≠da para NFC-e
       //Ide.dSaiEnt   := StrToDateTime( FormatDateTime('dd/mm/yyyy', GetDateDB) );
       //Ide.hSaiEnt   := StrToDateTime( FormatDateTime('hh:mm:ss',   GetTimeDB) );
 
@@ -7805,11 +8314,11 @@ begin
       Emit.EnderEmit.xPais   := qryEmitentePAIS_NOME.AsString;
 
       Emit.IEST  := EmptyStr;
-      Emit.IM    := EmptyStr; // Preencher no caso de existir serviÁos na nota
-      Emit.CNAE  := EmptyStr; // Verifique na cidade do emissor da NFe se È permitido
-                              // a inclus„o de serviÁos na NFCe
+      Emit.IM    := EmptyStr; // Preencher no caso de existir servi√ßos na nota
+      Emit.CNAE  := EmptyStr; // Verifique na cidade do emissor da NFe se √© permitido
+                              // a inclus√£o de servi√ßos na NFCe
 
-      // ¡gil SoluÁıes em Softwares
+      // √Ågil Solu√ß√µes em Softwares
       with autXML.Add do
         CNPJCPF := AGIL_SOFTWARES_CNPJ;
 
@@ -7851,12 +8360,12 @@ begin
           Dest.EnderDest.xPais   := qryDestinatario.FieldByName('PAIS_NOME').AsString; // 'BRASIL';
         end;
 
-      // Dados padrıes e obrigatÛrios para a geraÁ„o da NFC-e
+      // Dados padr√µes e obrigat√≥rios para a gera√ß√£o da NFC-e
       Dest.indIEDest := inNaoContribuinte;
       Dest.IE        := EmptyStr;
       Dest.ISUF      := EmptyStr;
 
-  //Use os campos abaixo para informar o endereÁo de retirada quando for diferente do Emitente
+  //Use os campos abaixo para informar o endere√ßo de retirada quando for diferente do Emitente
   {      Retirada.CNPJCPF := '';
         Retirada.xLgr    := '';
         Retirada.nro     := '';
@@ -7866,7 +8375,7 @@ begin
         Retirada.xMun    := '';
         Retirada.UF      := '';}
 
-  //Use os campos abaixo para informar o endereÁo de entrega quando for diferente do Remetente/Destinat·rio
+  //Use os campos abaixo para informar o endere√ßo de entrega quando for diferente do Remetente/Destinat√°rio
   {      Entrega.CNPJCPF := '';
         Entrega.xLgr    := '';
         Entrega.nro     := '';
@@ -7890,7 +8399,7 @@ begin
 
         with Det.Add do
         begin
-          Prod.nItem    := qryDadosProduto.RecNo; // qryDadosProdutoSEQ.AsInteger;              // N˙mero sequencial, para cada item deve ser incrementado
+          Prod.nItem    := qryDadosProduto.RecNo; // qryDadosProdutoSEQ.AsInteger;              // N√∫mero sequencial, para cada item deve ser incrementado
           Prod.cProd    := qryDadosProduto.FieldByName('CODPROD').AsString;
 
           if ( GetSegmentoID(qryEmitenteCNPJ.AsString) <> SEGMENTO_MERCADO_CARRO_ID ) then
@@ -7898,14 +8407,18 @@ begin
           else
             Prod.xProd  := qryDadosProduto.FieldByName('DESCRI').AsString + ' ' + qryDadosProduto.FieldByName('ANO_FAB_MODELO_VEICULO').AsString;
 
-          Prod.NCM      := qryDadosProduto.FieldByName('NCM_SH').AsString;            // Tabela NCM disponÌvel em  http://www.receita.fazenda.gov.br/Aliquotas/DownloadArqTIPI.htm
+          Prod.NCM      := qryDadosProduto.FieldByName('NCM_SH').AsString;            // Tabela NCM dispon√≠vel em  http://www.receita.fazenda.gov.br/Aliquotas/DownloadArqTIPI.htm
           Prod.CFOP     := '5101'; // qryDadosProdutoCFOP_COD.AsString;
           Prod.EXTIPI   := EmptyStr;
 
-          if (Trim(Prod.NCM) = EmptyStr) or (Trim(Prod.NCM) = '10203000') then // CÛdigo descontinuado a partir de 2016
+          if (Trim(Prod.NCM) = EmptyStr) or (Trim(Prod.NCM) = '10203000') then // C√≥digo descontinuado a partir de 2016
             Prod.NCM := TRIBUTO_NCM_SH_PADRAO;
 
-          if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a funÁ„o "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
+          // Reforma Tribut√°ria
+          if (qryDadosProduto.FieldByName('ZONA_FRANCA_MANAUS').AsInteger = 1) then
+            Prod.tpCredPresIBSZFM := TtpCredPresIBSZFM.tcpBensConsumoFinal;
+
+          if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a fun√ß√£o "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
           begin
             Prod.cEAN     := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString;
             Prod.cEANTrib := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString;
@@ -7926,13 +8439,13 @@ begin
           Prod.qCom     := qryDadosProduto.FieldByName('QTDE').AsCurrency;
 
           if ( qryDadosProduto.FieldByName('PUNIT_PROMOCAO').AsCurrency > 0 ) then
-            Prod.vUnCom := qryDadosProduto.FieldByName('PUNIT_PROMOCAO').AsCurrency   // I10a  Valor Unit·rio de comercializaÁ„o
+            Prod.vUnCom := qryDadosProduto.FieldByName('PUNIT_PROMOCAO').AsCurrency   // I10a  Valor Unit√°rio de comercializa√ß√£o
           else
-            Prod.vUnCom := qryDadosProduto.FieldByName('PUNIT').AsCurrency;           // I10a  Valor Unit·rio de comercializaÁ„o
+            Prod.vUnCom := qryDadosProduto.FieldByName('PUNIT').AsCurrency;           // I10a  Valor Unit√°rio de comercializa√ß√£o
 
-          Prod.vProd    := qryDadosProduto.FieldByName('TOTAL_BRUTO').AsCurrency;     // I11 - Valor Total Bruto dos Produtos ou ServiÁos
+          Prod.vProd    := qryDadosProduto.FieldByName('TOTAL_BRUTO').AsCurrency;     // I11 - Valor Total Bruto dos Produtos ou Servi√ßos
 
-//          if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a funÁ„o "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
+//          if EAN13Valido(qryDadosProduto.FieldByName('CODBARRA_EAN').AsString) then   // Futuramento implementar a fun√ß√£o "ACBrValidadorValidarGTIN" em lugar da "EAN13Valido"
 //            Prod.cEANTrib := qryDadosProduto.FieldByName('CODBARRA_EAN').AsString
 //          else
 //            Prod.cEANTrib := EmptyStr;
@@ -7941,9 +8454,9 @@ begin
           Prod.qTrib     := qryDadosProduto.FieldByName('QTDE').AsCurrency;
 
           if ( qryDadosProduto.FieldByName('PUNIT_PROMOCAO').AsCurrency > 0 ) then
-            Prod.vUnTrib := qryDadosProduto.FieldByName('PUNIT_PROMOCAO').AsCurrency  // I14a  Valor Unit·rio de tributaÁ„o
+            Prod.vUnTrib := qryDadosProduto.FieldByName('PUNIT_PROMOCAO').AsCurrency  // I14a  Valor Unit√°rio de tributa√ß√£o
           else
-            Prod.vUnTrib := qryDadosProduto.FieldByName('PUNIT').AsCurrency;          // I14a  Valor Unit·rio de tributaÁ„o
+            Prod.vUnTrib := qryDadosProduto.FieldByName('PUNIT').AsCurrency;          // I14a  Valor Unit√°rio de tributa√ß√£o
 
 (* EXEMPLO *)
           // NFe.Det[i].Prod.uCom    := 'CX';                                                   = 'UN'
@@ -7958,14 +8471,14 @@ begin
           Prod.vSeg   := 0;                                        // I16 - Valor Total do Seguro
           Prod.vDesc  := qryDadosProduto.FieldByName('TOTAL_DESCONTO').AsCurrency; // I17 - Valor do Desconto
 
-          // InformaÁ„o Adicional do Produto
+          // Informa√ß√£o Adicional do Produto
 
           sInformacaoProduto := EmptyStr;
           if ( GetSegmentoID(qryEmitenteCNPJ.AsString) <> SEGMENTO_MERCADO_CARRO_ID ) then
           begin
             if PorCodigoExterno then
               sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
-                'CÛd.: ' + qryDadosProduto.FieldByName('CODPROD').AsString
+                'C√≥d.: ' + qryDadosProduto.FieldByName('CODPROD').AsString
             else
             if ( Trim(qryDadosProduto.FieldByName('REFERENCIA').AsString) <> EmptyStr ) then
               sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
@@ -7978,7 +8491,7 @@ begin
             if ( Trim(qryDadosProduto.FieldByName('LOTE').AsString) <> EmptyStr ) then
               sInformacaoProduto := sInformacaoProduto + IfThen(Trim(sInformacaoProduto) = EmptyStr, '', #13) +
                 'Lote: ' + qryDadosProduto.FieldByName('LOTE').AsString +
-                  IfThen(qryDadosProduto.FieldByName('LOTE_FABRICACAO').IsNull, '', ' FabricaÁ„o: ' + FormatDateTime('dd/mm/yyyy', qryDadosProduto.FieldByName('LOTE_FABRICACAO').AsDateTime)) +
+                  IfThen(qryDadosProduto.FieldByName('LOTE_FABRICACAO').IsNull, '', ' Fabrica√ß√£o: ' + FormatDateTime('dd/mm/yyyy', qryDadosProduto.FieldByName('LOTE_FABRICACAO').AsDateTime)) +
                   IfThen(qryDadosProduto.FieldByName('LOTE_VALIDADE').IsNull  , '', ' Validade: '   + FormatDateTime('dd/mm/yyyy', qryDadosProduto.FieldByName('LOTE_VALIDADE').AsDateTime));
           end
           else
@@ -7991,7 +8504,7 @@ begin
 
           infAdProd := sInformacaoProduto;
 
-  //DeclaraÁ„o de ImportaÁ„o. Pode ser adicionada v·rias atravÈs do comando Prod.DI.Add
+  //Declara√ß√£o de Importa√ß√£o. Pode ser adicionada v√°rias atrav√©s do comando Prod.DI.Add
 
   {         with Prod.DI.Add do
             begin
@@ -8041,7 +8554,7 @@ begin
     property tpRest: integer read FtpRest write FtpRest;
 }
 
-  //Campos especÌficos para venda de medicamentos
+  //Campos espec√≠ficos para venda de medicamentos
   {         with Prod.med.Add do
             begin
               nLote := '';
@@ -8051,7 +8564,7 @@ begin
               vPMC  := 0 ;
             end;  }
 
-  //Campos especÌficos para venda de armamento
+  //Campos espec√≠ficos para venda de armamento
   {         with Prod.arma.Add do
             begin
               nSerie := 0;
@@ -8060,7 +8573,7 @@ begin
               descr  := '' ;
             end;      }
 
-  //Campos especÌficos para venda de combustÌvel(distribuidoras)
+  //Campos espec√≠ficos para venda de combust√≠vel(distribuidoras)
   {         with Prod.comb do
             begin
               cProdANP := 0;
@@ -8163,7 +8676,7 @@ begin
                 cTotal_ICMSTot_vICMS := cTotal_ICMSTot_vICMS + ICMS.vICMS;
               end;
 
-              // ICMS ST (SubstituiÁ„o Tribut·ria)
+              // ICMS ST (Substitui√ß√£o Tribut√°ria)
               ICMS.modBCST := dbisMargemValorAgregado;
               ICMS.pMVAST  := 0;
               ICMS.pRedBCST:= 0;
@@ -8292,18 +8805,18 @@ begin
                  vCOFINS   := 0;
                end;
   }
-  //Grupo para serviÁos
+  //Grupo para servi√ßos
   {            with ISSQN do
                begin
                  vBC       := 0;
                  vAliq     := 0;
                  vISSQN    := 0;
                  cMunFG    := 0;
-                 cListServ := 0; // Preencha este campo usando a tabela disponÌvel
+                 cListServ := 0; // Preencha este campo usando a tabela dispon√≠vel
                                  // em http://www.planalto.gov.br/Ccivil_03/LEIS/LCP/Lcp116.htm
                end;}
 
-            // Lei da TransparÍncia de Impostos
+            // Lei da Transpar√™ncia de Impostos
 
             if ( Trim(Prod.NCM) <> EmptyStr ) then
             begin
@@ -8367,7 +8880,7 @@ begin
         Total.ISSQNTot.vPIS    := 0;
         Total.ISSQNTot.vCOFINS := 0;}
 
-      Transp.modFrete := mfSemFrete; // NFC-e n„o pode ter FRETE
+      Transp.modFrete := mfSemFrete; // NFC-e n√£o pode ter FRETE
 
       // Dados da(s) Forma(s) de Pagamento(s)
 
@@ -8432,7 +8945,7 @@ begin
         'Venda: ' + qryCalculoImposto.FieldByName('ANO').AsString + '/' + FormatFloat('###0000000', qryCalculoImposto.FieldByName('CODCONTROL').AsInteger)  +
         ' - Forma/Cond. Pgto.: ' + qryCalculoImposto.FieldByName('LISTA_FORMA_PAGO').AsString + '/' + qryCalculoImposto.FieldByName('LISTA_COND_PAGO_FULL').AsString + ' * ' + #13 +
         'Vendedor: ' + qryCalculoImposto.FieldByName('VENDEDOR_NOME').AsString + ' * ' + #13 +
-        'ObservaÁıes: ' + qryCalculoImposto.FieldByName('OBS').AsString +
+        'Observa√ß√µes: ' + qryCalculoImposto.FieldByName('OBS').AsString +
         IfThen(vTotalTributoAprox = 0, EmptyStr, #13 + Format('* Valor Total Aprox. Trib. R$ %s (%s). Fonte IBPT', [
           FormatFloat(',0.00', Total.ICMSTot.vTotTrib),
           FormatFloat(',0.##"%"', Total.ICMSTot.vTotTrib / Total.ICMSTot.vNF * 100)]));
@@ -8508,7 +9021,7 @@ begin
     RemoverAcentos_ArquivoTexto( FileNameXML );
 
     if not FilesExists(FileNameXML) then
-      raise Exception.Create(Format('Arquivo %s n„o encontrado.', [QuotedStr(FileNameXML)]));
+      raise Exception.Create(Format('Arquivo %s n√£o encontrado.', [QuotedStr(FileNameXML)]));
 
     with ACBrNFe do
     begin
@@ -8523,12 +9036,12 @@ begin
 
       if ( not DelphiIsRunning ) then
         if ACBrNFe.NotasFiscais[0].NFe.Ide.modelo <> MODELO_NFCE then
-          raise Exception.Create('Nota Fiscal n„o È do tipo NFC-e!');
+          raise Exception.Create('Nota Fiscal n√£o √© do tipo NFC-e!');
       
       nfcDANFE.PosPrinter.Device.Ativar;
       try
 //        DANFE.ViaConsumidor := True; // chkViaConsumidor.Checked;
-//        DANFE.ImprimirItens := ImprimirItens; // Obs.: Esta propriedade ao receber FALSE, permite apenas a impress„o resumo do DANFE da NFC-e
+//        DANFE.ImprimirItens := ImprimirItens; // Obs.: Esta propriedade ao receber FALSE, permite apenas a impress√£o resumo do DANFE da NFC-e
 
         NotasFiscais[0].Imprimir;
       finally
@@ -8541,7 +9054,7 @@ begin
   except
     On E : Exception do
     begin
-      ShowError('Erro ao tentar imprimir DANFE da SaÌda da NFC-e.' + #13#13 + 'ImprimirDANFE_ESCPOSACBr() --> ' + e.Message);
+      ShowError('Erro ao tentar imprimir DANFE da Sa√≠da da NFC-e.' + #13#13 + 'ImprimirDANFE_ESCPOSACBr() --> ' + e.Message);
       Result := False;
     end;
   end;
@@ -8682,7 +9195,7 @@ begin
 
   {$IFDEF PRINTER_CUPOM}
 
-  // Definir como usu·rio o sistema o usu·rio definido na venda
+  // Definir como usu√°rio o sistema o usu√°rio definido na venda
   gUsuarioLogado.Load(DMBusiness.fdConexao, qryCalculoImposto.FieldByName('Usuario').AsString);
 
   // Carregar XML da NF quando este existir
@@ -8888,11 +9401,11 @@ begin
 
           if (ACBrNFe.NotasFiscais.Count = 0) then
             sStringQRCode := ACBrNFe.GetURLQRCode(
-                UFtoCUF(qryEmitenteEST_SIGLA.AsString)             // CÛdigo UF
+                UFtoCUF(qryEmitenteEST_SIGLA.AsString)             // C√≥digo UF
               , ACBrNFe.Configuracoes.WebServices.Ambiente         // Ambiente do WebService
               , 'NFe' + qryNFeEmitidaCHAVE.AsString                // ID da Nota Fiscal (NFe + Chave)
               , qryDestinatario.FieldByName('CNPJ').AsString       // CPJ/CNPJ do Consumidor
-              , qryCalculoImposto.FieldByName('DATAEMISSAO').AsDateTime            // Data de Emiss„o
+              , qryCalculoImposto.FieldByName('DATAEMISSAO').AsDateTime            // Data de Emiss√£o
               , qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency   // Valor da Nota Fiscal
               , qryCalculoImposto.FieldByName('NFE_VALOR_ICMS').AsCurrency         // Valor do ICMS da Nota Fiscal
               , EmptyStr                                                           // Assinatura Digital (A1 ou A3)
@@ -8940,8 +9453,8 @@ begin
           end;
 
           GerarArquivoQRCODEGoogle(sArquivoBmpQrCode, sStringQrCode, cTamQrCode);
-          // Esta funÁ„o est· gerando o QRCODE mas na hora da impress„o a imagem
-          // est· sendo sobreposta pelos textos.
+          // Esta fun√ß√£o est√° gerando o QRCODE mas na hora da impress√£o a imagem
+          // est√° sendo sobreposta pelos textos.
           //GerarArquivoQrCode(sArquivoBmpQrCode, sStringQrCode, cTamQrCode);
 
           if FileExists(sArquivoBmpQRCode) then
@@ -8971,7 +9484,7 @@ begin
     qryFormaPagtos.Next;
   end;
 
-  // Emitir Cupom RelatÛrio Gerencial com parcelas para consumidor
+  // Emitir Cupom Relat√≥rio Gerencial com parcelas para consumidor
 
   if bEmitirCumpoExtraParcelas and (aEcfTipo in [ecfPadraoWindows, ecfLPTX, ecfTEXTO, ecfBematech, ecfBematechMp2032DLL]) then
     if ( BlocoImpressaoCupom in [bicCupomRelatorioGerencial, bicRelatorioGerencial] ) then
@@ -9105,7 +9618,7 @@ begin
 
   end
   else
-    ShowError('Arquivo n„o localizado!' + #13 + sCmd);
+    ShowError('Arquivo n√£o localizado!' + #13 + sCmd);
 
   {$ENDIF}
 end;
@@ -9366,7 +9879,7 @@ begin
   except
     On E : Exception do
       ShowError('Erro ao tentar validar/carregar XML da NF-e.' + #13 +
-        'Arquivo XML inv·lido!' + #13#13 +
+        'Arquivo XML inv√°lido!' + #13#13 +
         'ImprimirArquivoNFeDANFE() --> ' + e.Message);
   end;
 end;
@@ -9430,7 +9943,7 @@ begin
     except
       On E : Exception do
       begin
-        ShowError('Erro ao tentar imprimir a CCe (Carta de CorreÁ„o EletrÙnica).' + #13#13 + 'ImprimirCCeACBr() --> ' + e.Message);
+        ShowError('Erro ao tentar imprimir a CCe (Carta de Corre√ß√£o Eletr√¥nica).' + #13#13 + 'ImprimirCCeACBr() --> ' + e.Message);
         Result := False;
       end;
     end;

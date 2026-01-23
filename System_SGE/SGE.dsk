@@ -1,71 +1,149 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'C:\Projetos\ASS\SGE\System_SGI\Controller\Impressao\SGI.Controller.Impressao.CotacaoCompra.pas',0,1,1,1,1,0,0,,
-File_1=TSourceModule,'C:\Projetos\ASS\SGE\System_SGI\Controller\Impressao\DataModule\SGI.Controller.Impressao.DataModule.CotacaoCompra.pas',0,1,1,1,1,0,0,,
-File_2=TSourceModule,'C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.Cancelar.pas',0,1,28,1,1,0,0,,
-File_3=TSourceModule,'C:\Projetos\ASS\SGE\System_SGE\UGeCotacaoCompra.pas',0,1,1095,10,1116,0,0,,
-File_4=TSourceModule,'C:\Projetos\ASS\SGE\System_SGE\UGeCotacaoCompraCancelar.pas',0,1,90,12,119,0,0,,
-File_5=TSourceModule,'C:\Projetos\ASS\SGE\Sys\Services\Service.Utils.pas',0,1,282,1,288,0,0,,
-File_6=TSourceModule,'C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Produto.pas',0,1,335,98,410,0,0,,
-File_7=TSourceModule,'C:\Projetos\ASS\SGE\Sys\View\View.Produto.pas',0,1,2260,20,2270,0,0,,
+File_0=TSourceModule,'C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\Base\ACBrNFe.Consts.pas',0,1,383,1,1,0,0,,
+File_1=TSourceModule,'C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas',0,1,218,1,243,0,0,,
+File_2=TSourceModule,'C:\Projetos\ASS\SGE\System_SGI\Controller\Impressao\SGI.Controller.Impressao.CotacaoCompra.pas',0,1,1,1,1,0,0,,
+File_3=TSourceModule,'C:\Projetos\ASS\SGE\System_SGI\Controller\Impressao\DataModule\SGI.Controller.Impressao.DataModule.CotacaoCompra.pas',0,1,1,1,1,0,0,,
+File_4=TSourceModule,'C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.Cancelar.pas',0,1,28,1,1,0,0,,
+File_5=TSourceModule,'C:\Projetos\ASS\SGE\System_SGE\UGeCotacaoCompra.pas',0,1,1095,10,1116,0,0,,
+File_6=TSourceModule,'C:\Projetos\ASS\SGE\System_SGE\UGeCotacaoCompraCancelar.pas',0,1,90,12,119,0,0,,
+File_7=TSourceModule,'C:\Projetos\ASS\SGE\Sys\Services\Service.Utils.pas',0,1,282,1,288,0,0,,
 File_8=TSourceModule,'C:\Projetos\ASS\SGE\Sys\UGeFluxoCaixa.pas',0,1,292,1,315,0,0,,
 File_9=TSourceModule,'C:\Projetos\ASS\SGE\Sys\View\View.ContaAReceber.pas',0,1,217,1,240,0,0,,
 File_10=TSourceModule,'C:\Projetos\ASS\SGE\System_SGE\View\View.AutorizacaoCompra.pas',0,1,274,1,297,0,0,,
 File_11=TSourceModule,'C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Perfil.pas',0,1,193,28,228,0,0,,
-File_12=TSourceModule,'C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas',0,1,182,48,193,0,0,,
-File_13=TSourceModule,'C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas',0,1,349,51,355,0,0,,
-File_14=TSourceModule,'C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Perfil.pas',0,1,107,56,115,0,0,,
+File_12=TSourceModule,'C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Perfil.pas',0,1,107,56,115,0,0,,
 
 [Modules]
 Module0=C:\Projetos\ASS\SGE\Sys\UDMNFe.pas
-Module1=C:\Projetos\ASS\SGE\System_SGE\UPrinc.pas
-Module2=C:\Delphi\_Components\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Frm_ACBrNFe.pas
-Module3=C:\Projetos\ASS\SGE\Sys\UGeConfigurarNFeACBr.pas
-Module4=C:\Projetos\ASS\SGE\System_SGE\SGE.dproj
-Module5=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.pas
-Module6=C:\Projetos\ASS\SGE\System_SGI\Controller\SGI.Controller.SolicitacaoCompra.pas
-Module7=C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.SolicitacaoCompra.pas
-Module8=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas
-Module9=C:\Projetos\ASS\SGE\System_SGI\Controller\SGI.Controller.CotacaoCompra.pas
-Module10=C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.CotacaoCompra.pas
-Module11=C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
-Module12=C:\Projetos\ASS\SGE\Sys\View\View.Contrato.pas
-Module13=C:\Projetos\ASS\SGE\Sys\UDMRecursos.pas
-Module14=C:\Projetos\ASS\SGE\Sys\UDMBusiness.pas
-Module15=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Contrato.pas
-Module16=C:\Projetos\ASS\SGE\Sys\UGeVenda.pas
-Module17=C:\Projetos\ASS\SGE\Sys\UConstantesDGE.pas
-Module18=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas
-Module19=C:\Projetos\ASS\SGE\Sys\View\View.Entrada.pas
-Module20=C:\Projetos\ASS\SGE\Sys\View\View.Cliente.pas
-Module21=C:\Projetos\ASS\SGE\Sys\View\View.NFE.Importar.pas
-Module22=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas
-Module23=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Rotina.pas
-Module24=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Rotina.pas
-Module25=C:\Delphi\_Components\FBRealtime\Componente\Fonts\Firebase.pas
-Module26=C:\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.ClienteApp.pas
-Module27=C:\Projetos\ASS\SGE\Sys\Controller\Controller.Licenca.pas
-Module28=C:\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.UsuarioApp.pas
-Module29=C:\Projetos\ASS\SGE\Sys\Controller\Controller.Factory.pas
-Module30=C:\Projetos\ASS\SGE\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Contrato.pas
-Module31=C:\Projetos\ASS\SGE\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas
-Module32=C:\Projetos\ASS\SGE\Sys\UGeVendaGerarNFe.pas
-Count=33
+Module1=C:\Projetos\ASS\SGE\System_SGE\SGE.dproj
+Module2=C:\Projetos\ASS\SGE\Sys\UDMBusiness.pas
+Module3=C:\Delphi\_Components\ACBr\Fontes\PCNComum\pcnConversao.pas
+Module4=C:\Projetos\ASS\SGE\Sys\UDMRecursos.pas
+Module5=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Produto.pas
+Module6=C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrDFe.Conversao.pas
+Module7=C:\Projetos\ASS\SGE\Sys\View\View.Produto.pas
+Module8=C:\Projetos\ASS\SGE\Sys\View\View.IBPT.Importar.pas
+Module9=C:\Projetos\ASS\SGE\Sys\View\View.IBPT.pas
+Module10=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas
+Module11=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.IBPT.pas
+Module12=C:\Projetos\ASS\SGE\System_SGE\UPrinc.pas
+Module13=C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\Base\ACBrNFe.Classes.pas
+Module14=C:\Delphi\_Components\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Frm_ACBrNFe.pas
+Module15=C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
+Module16=C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
+Module17=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas
+Module18=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Tabelas.pas
+Module19=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas
+Module20=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas
+Module21=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Produto.pas
+Module22=C:\Projetos\ASS\SGE\Sys\Controller\Controller.Factory.pas
+Module23=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas
+Module24=C:\Projetos\ASS\SGE\Sys\UConstantesDGE.pas
+Module25=C:\Projetos\ASS\SGE\Sys\UGeConfigurarNFeACBr.pas
+Module26=C:\Projetos\ASS\SGE\Sys\UGeVendaGerarNFe.pas
+Module27=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.pas
+Module28=C:\Projetos\ASS\SGE\System_SGI\Controller\SGI.Controller.SolicitacaoCompra.pas
+Module29=C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.SolicitacaoCompra.pas
+Module30=C:\Projetos\ASS\SGE\System_SGI\Controller\SGI.Controller.CotacaoCompra.pas
+Module31=C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.CotacaoCompra.pas
+Module32=C:\Projetos\ASS\SGE\Sys\View\View.Contrato.pas
+Module33=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Contrato.pas
+Module34=C:\Projetos\ASS\SGE\Sys\UGeVenda.pas
+Module35=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas
+Module36=C:\Projetos\ASS\SGE\Sys\View\View.Entrada.pas
+Module37=C:\Projetos\ASS\SGE\Sys\View\View.Cliente.pas
+Module38=C:\Projetos\ASS\SGE\Sys\View\View.NFE.Importar.pas
+Module39=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Rotina.pas
+Module40=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Rotina.pas
+Module41=C:\Delphi\_Components\FBRealtime\Componente\Fonts\Firebase.pas
+Module42=C:\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.ClienteApp.pas
+Module43=C:\Projetos\ASS\SGE\Sys\Controller\Controller.Licenca.pas
+Module44=C:\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.UsuarioApp.pas
+Module45=C:\Projetos\ASS\SGE\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Contrato.pas
+Module46=C:\Projetos\ASS\SGE\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas
+Count=47
 EditWindowCount=1
 
 [C:\Projetos\ASS\SGE\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 
+[C:\Projetos\ASS\SGE\System_SGE\SGE.dproj]
+ModuleType=TBaseProject
+
+[C:\Projetos\ASS\SGE\Sys\UDMBusiness.pas]
+ModuleType=TSourceModule
+
+[C:\Delphi\_Components\ACBr\Fontes\PCNComum\pcnConversao.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\UDMRecursos.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Produto.pas]
+ModuleType=TSourceModule
+
+[C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrDFe.Conversao.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\View\View.Produto.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\View\View.IBPT.Importar.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\View\View.IBPT.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.IBPT.pas]
+ModuleType=TSourceModule
+
 [C:\Projetos\ASS\SGE\System_SGE\UPrinc.pas]
+ModuleType=TSourceModule
+
+[C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\Base\ACBrNFe.Classes.pas]
 ModuleType=TSourceModule
 
 [C:\Delphi\_Components\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Frm_ACBrNFe.pas]
 ModuleType=TSourceModule
 
+[C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas]
+ModuleType=TSourceModule
+
+[C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Tabelas.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Produto.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\Controller\Controller.Factory.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\UConstantesDGE.pas]
+ModuleType=TSourceModule
+
 [C:\Projetos\ASS\SGE\Sys\UGeConfigurarNFeACBr.pas]
 ModuleType=TSourceModule
 
-[C:\Projetos\ASS\SGE\System_SGE\SGE.dproj]
-ModuleType=TBaseProject
+[C:\Projetos\ASS\SGE\Sys\UGeVendaGerarNFe.pas]
+ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.pas]
 ModuleType=TSourceModule
@@ -76,34 +154,19 @@ ModuleType=TSourceModule
 [C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.SolicitacaoCompra.pas]
 ModuleType=TSourceModule
 
-[C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas]
-ModuleType=TSourceModule
-
 [C:\Projetos\ASS\SGE\System_SGI\Controller\SGI.Controller.CotacaoCompra.pas]
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.CotacaoCompra.pas]
 ModuleType=TSourceModule
 
-[C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas]
-ModuleType=TSourceModule
-
 [C:\Projetos\ASS\SGE\Sys\View\View.Contrato.pas]
-ModuleType=TSourceModule
-
-[C:\Projetos\ASS\SGE\Sys\UDMRecursos.pas]
-ModuleType=TSourceModule
-
-[C:\Projetos\ASS\SGE\Sys\UDMBusiness.pas]
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Contrato.pas]
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\Sys\UGeVenda.pas]
-ModuleType=TSourceModule
-
-[C:\Projetos\ASS\SGE\Sys\UConstantesDGE.pas]
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas]
@@ -116,9 +179,6 @@ ModuleType=TSourceModule
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\Sys\View\View.NFE.Importar.pas]
-ModuleType=TSourceModule
-
-[C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas]
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Rotina.pas]
@@ -139,20 +199,14 @@ ModuleType=TSourceModule
 [C:\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.UsuarioApp.pas]
 ModuleType=TSourceModule
 
-[C:\Projetos\ASS\SGE\Sys\Controller\Controller.Factory.pas]
-ModuleType=TSourceModule
-
 [C:\Projetos\ASS\SGE\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Contrato.pas]
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas]
 ModuleType=TSourceModule
 
-[C:\Projetos\ASS\SGE\Sys\UGeVendaGerarNFe.pas]
-ModuleType=TSourceModule
-
 [EditWindow0]
-ViewCount=33
+ViewCount=47
 CurrentEditView=C:\Projetos\ASS\SGE\Sys\UDMNFe.pas
 View0=0
 View1=1
@@ -187,6 +241,20 @@ View29=29
 View30=30
 View31=31
 View32=32
+View33=33
+View34=34
+View35=35
+View36=36
+View37=37
+View38=38
+View39=39
+View40=40
+View41=41
+View42=42
+View43=43
+View44=44
+View45=45
+View46=46
 PercentageSizes=1
 Create=1
 Visible=1
@@ -211,7 +279,7 @@ RightPanelClients=DockSite2,DockSite4
 RightPanelData=00000800010100000000E11200000000000001D00700000000000001000000004412000009000000446F636B536974653201000000009121000009000000446F636B5369746534FFFFFFFF
 BottomPanelSize=0
 BottomPanelClients=MessageView,DockSite1
-BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B5369746531DE4400000000000002DC050000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B53697465311534000000000000022606000000000000FFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -230,9 +298,9 @@ EditViewName=C:\Projetos\ASS\SGE\System_SGE\SGE.dpr
 [View1]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\UConstantesDGE.pas
-CursorX=26
-CursorY=778
-TopLine=756
+CursorX=3
+CursorY=137
+TopLine=99
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -247,17 +315,17 @@ TopLine=320
 LeftCol=1
 Elisions=
 Bookmarks={3,2236,1}
-EditViewName=C:\Projetos\ASS\SGE\Sys\UDMBusiness.pas
+EditViewName=Borland.FormDesignerView
 
 [View3]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\UDMNFe.pas
-CursorX=14
-CursorY=1168
-TopLine=1135
+CursorX=43
+CursorY=3568
+TopLine=3535
 LeftCol=1
 Elisions=
-Bookmarks={1,1943,11}{2,4097,11}{3,7419,14}
+Bookmarks={1,3043,30}{2,3467,30}{3,3513,17}
 EditViewName=C:\Projetos\ASS\SGE\Sys\UDMNFe.pas
 
 [View4]
@@ -274,13 +342,13 @@ EditViewName=Borland.FormDesignerView
 [View5]
 CustomEditViewType=TEditView
 Module=C:\Delphi\_Components\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Frm_ACBrNFe.pas
-CursorX=23
-CursorY=2631
-TopLine=2620
+CursorX=1
+CursorY=1309
+TopLine=1270
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=C:\Delphi\_Components\ACBr\Exemplos\ACBrDFe\ACBrNFe\Delphi\Frm_ACBrNFe.pas
 
 [View6]
 CustomEditViewType=TEditView
@@ -296,9 +364,9 @@ EditViewName=C:\Projetos\ASS\SGE\Sys\View\View.NFE.Importar.pas
 [View7]
 CustomEditViewType=TEditView
 Module=C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
-CursorX=11
-CursorY=862
-TopLine=835
+CursorX=58
+CursorY=1
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -306,27 +374,71 @@ EditViewName=C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFe.pas
 
 [View8]
 CustomEditViewType=TEditView
+Module=C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
+CursorX=17
+CursorY=27
+TopLine=27
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\ACBrNFeNotasFiscais.pas
+
+[View9]
+CustomEditViewType=TEditView
+Module=C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\Base\ACBrNFe.Classes.pas
+CursorX=15
+CursorY=50
+TopLine=10
+LeftCol=1
+Elisions=
+Bookmarks={1,1794,15}
+EditViewName=C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrNFe\Base\ACBrNFe.Classes.pas
+
+[View10]
+CustomEditViewType=TEditView
+Module=C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrDFe.Conversao.pas
+CursorX=24
+CursorY=1820
+TopLine=1780
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrDFe.Conversao.pas
+
+[View11]
+CustomEditViewType=TEditView
+Module=C:\Delphi\_Components\ACBr\Fontes\PCNComum\pcnConversao.pas
+CursorX=15
+CursorY=76
+TopLine=52
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Delphi\_Components\ACBr\Fontes\PCNComum\pcnConversao.pas
+
+[View12]
+CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\UDMRecursos.pas
-CursorX=33
-CursorY=263
-TopLine=241
+CursorX=3
+CursorY=83
+TopLine=59
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\UDMRecursos.pas
 
-[View9]
+[View13]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Controller\Controller.Factory.pas
 CursorX=3
-CursorY=35
-TopLine=1
+CursorY=31
+TopLine=41
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Controller\Controller.Factory.pas
 
-[View10]
+[View14]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Controller\Controller.Licenca.pas
 CursorX=1
@@ -337,7 +449,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Controller\Controller.Licenca.pas
 
-[View11]
+[View15]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.UsuarioApp.pas
 CursorX=1
@@ -348,7 +460,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.UsuarioApp.pas
 
-[View12]
+[View16]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.ClienteApp.pas
 CursorX=96
@@ -359,7 +471,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\GerarLicenca\Controller\Controller.ClienteApp.pas
 
-[View13]
+[View17]
 CustomEditViewType=TEditView
 Module=C:\Delphi\_Components\FBRealtime\Componente\Fonts\Firebase.pas
 CursorX=26
@@ -370,7 +482,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Delphi\_Components\FBRealtime\Componente\Fonts\Firebase.pas
 
-[View14]
+[View18]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\System_SGE\UPrinc.pas
 CursorX=15
@@ -381,18 +493,128 @@ Elisions=
 Bookmarks={1,882,30}
 EditViewName=C:\Projetos\ASS\SGE\System_SGE\UPrinc.pas
 
-[View15]
+[View19]
+CustomEditViewType=TEditView
+Module=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.IBPT.pas
+CursorX=1
+CursorY=1
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.IBPT.pas
+
+[View20]
+CustomEditViewType=TEditView
+Module=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas
+CursorX=7
+CursorY=1
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas
+
+[View21]
+CustomEditViewType=TEditView
+Module=C:\Projetos\ASS\SGE\Sys\View\View.IBPT.Importar.pas
+CursorX=74
+CursorY=108
+TopLine=81
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=Borland.FormDesignerView
+
+[View22]
+CustomEditViewType=TEditView
+Module=C:\Projetos\ASS\SGE\Sys\View\View.IBPT.pas
+CursorX=1
+CursorY=101
+TopLine=219
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=Borland.FormDesignerView
+
+[View23]
+CustomEditViewType=TEditView
+Module=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Produto.pas
+CursorX=38
+CursorY=251
+TopLine=251
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Produto.pas
+
+[View24]
+CustomEditViewType=TEditView
+Module=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Produto.pas
+CursorX=32
+CursorY=482
+TopLine=257
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Produto.pas
+
+[View25]
+CustomEditViewType=TEditView
+Module=C:\Projetos\ASS\SGE\Sys\View\View.Produto.pas
+CursorX=5
+CursorY=375
+TopLine=357
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=Borland.FormDesignerView
+
+[View26]
+CustomEditViewType=TEditView
+Module=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas
+CursorX=39
+CursorY=1174
+TopLine=1146
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas
+
+[View27]
+CustomEditViewType=TEditView
+Module=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Tabelas.pas
+CursorX=32
+CursorY=319
+TopLine=292
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Tabelas.pas
+
+[View28]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas
-CursorX=33
-CursorY=42
-TopLine=21
+CursorX=34
+CursorY=746
+TopLine=718
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas
 
-[View16]
+[View29]
+CustomEditViewType=TEditView
+Module=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas
+CursorX=88
+CursorY=727
+TopLine=699
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas
+
+[View30]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.SolicitacaoCompra.pas
 CursorX=1
@@ -403,7 +625,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.SolicitacaoCompra.pas
 
-[View17]
+[View31]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\System_SGI\Controller\SGI.Controller.SolicitacaoCompra.pas
 CursorX=1
@@ -414,7 +636,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\System_SGI\Controller\SGI.Controller.SolicitacaoCompra.pas
 
-[View18]
+[View32]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.pas
 CursorX=47
@@ -425,7 +647,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.pas
 
-[View19]
+[View33]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.CotacaoCompra.pas
 CursorX=1
@@ -436,7 +658,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.CotacaoCompra.pas
 
-[View20]
+[View34]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\System_SGI\Controller\SGI.Controller.CotacaoCompra.pas
 CursorX=1
@@ -447,18 +669,18 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\System_SGI\Controller\SGI.Controller.CotacaoCompra.pas
 
-[View21]
+[View35]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas
-CursorX=78
-CursorY=434
-TopLine=415
+CursorX=1
+CursorY=509
+TopLine=484
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas
 
-[View22]
+[View36]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Rotina.pas
 CursorX=36
@@ -469,7 +691,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Rotina.pas
 
-[View23]
+[View37]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Rotina.pas
 CursorX=1
@@ -480,7 +702,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Rotina.pas
 
-[View24]
+[View38]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\View\View.Contrato.pas
 CursorX=42
@@ -491,7 +713,7 @@ Elisions=
 Bookmarks={1,771,1}{2,454,1}
 EditViewName=Borland.FormDesignerView
 
-[View25]
+[View39]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas
 CursorX=17
@@ -502,7 +724,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Controller\Impressao\SGE.Controller.Impressao.Contrato.pas
 
-[View26]
+[View40]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Contrato.pas
 CursorX=20
@@ -513,7 +735,7 @@ Elisions=
 Bookmarks=
 EditViewName=Borland.FormDesignerView
 
-[View27]
+[View41]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Contrato.pas
 CursorX=1
@@ -524,7 +746,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Contrato.pas
 
-[View28]
+[View42]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\UGeVenda.pas
 CursorX=53
@@ -535,7 +757,7 @@ Elisions=
 Bookmarks={1,1992,3}{2,1704,1}{3,1063,1}
 EditViewName=C:\Projetos\ASS\SGE\Sys\UGeVenda.pas
 
-[View29]
+[View43]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas
 CursorX=1
@@ -546,7 +768,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas
 
-[View30]
+[View44]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\View\View.Entrada.pas
 CursorX=102
@@ -557,7 +779,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\View\View.Entrada.pas
 
-[View31]
+[View45]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\View\View.Cliente.pas
 CursorX=72
@@ -568,16 +790,16 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\View\View.Cliente.pas
 
-[View32]
+[View46]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\UGeVendaGerarNFe.pas
-CursorX=73
-CursorY=189
-TopLine=179
+CursorX=35
+CursorY=395
+TopLine=375
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=C:\Projetos\ASS\SGE\Sys\UGeVendaGerarNFe.pas
 
 [Watches]
 Count=1
@@ -608,16 +830,16 @@ StayOnTop=0
 Count=12
 Breakpoint0='D:\Projetos\ASS\SGE\trunk\Sys\UGeEntradaEstoqueGerarNFe.pas',115,'',0,1,'',1,0,0,'',1,'','','',0,''
 Breakpoint1='D:\Projetos\ASS\SGE\trunk\Sys\UGeVendaGerarNFe.pas',407,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint2='C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',5815,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint2='C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',6324,'',0,1,'',1,0,0,'',1,'','','',0,''
 Breakpoint3='C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Controller\Controller.Usuario.pas',158,'',0,1,'',1,0,0,'',1,'','','',0,''
 Breakpoint4='C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\Controller\Controller.Usuario.pas',179,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint5='C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',1911,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint5='C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UDMNFe.pas',1914,'',0,1,'',1,0,0,'',1,'','','',0,''
 Breakpoint6='C:\Users\Isaque\Documents\Projetos\ASS\SGE\trunk\Sys\UGeImportarNFE.pas',715,'',0,1,'',1,0,0,'',1,'','','',0,''
 Breakpoint7='C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\View\View.NFE.Importar.pas',540,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint8='C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMNFe.pas',4715,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint9='C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMNFe.pas',5080,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint10='C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMNFe.pas',5118,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint11='C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMNFe.pas',4482,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint8='C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMNFe.pas',5037,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint9='C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMNFe.pas',5406,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint10='C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMNFe.pas',5444,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint11='C:\Users\Isaque\Documents\Projetos\ASS\SGE\Sys\UDMNFe.pas',4775,'',0,1,'',1,0,0,'',1,'','','',0,''
 
 [EmbarcaderoWin32Debugger_AddressBreakpoints]
 Count=0
@@ -690,13 +912,13 @@ Docked=1
 State=0
 Left=0
 Top=28
-Width=9917
-Height=1298
+Width=2771
+Height=1415
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=9917
-ClientHeight=1298
-TBDockHeight=1298
+ClientWidth=2771
+ClientHeight=1415
+TBDockHeight=1415
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -734,11 +956,11 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=4874
-TBDockHeight=9012
+TBDockHeight=8721
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
-SplitPos=186
+SplitPos=116
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -749,11 +971,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=6366
+Height=8450
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=6366
+ClientHeight=8450
 TBDockHeight=5959
 LRDockWidth=2510
 Dockable=1
@@ -870,11 +1092,11 @@ State=0
 Left=0
 Top=0
 Width=2339
-Height=969
+Height=1202
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2339
-ClientHeight=969
+ClientHeight=1202
 TBDockHeight=2316
 LRDockWidth=2823
 Dockable=1
@@ -935,11 +1157,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=6366
+Height=8450
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=6366
+ClientHeight=8450
 TBDockHeight=4884
 LRDockWidth=7151
 Dockable=1
@@ -1075,11 +1297,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=6366
+Height=8450
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=6366
+ClientHeight=8450
 TBDockHeight=4884
 LRDockWidth=5307
 Dockable=1
@@ -1091,7 +1313,7 @@ Create=1
 Visible=0
 Docked=0
 State=0
-Left=0
+Left=-10000
 Top=0
 Width=1823
 Height=6172
@@ -1139,7 +1361,7 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=952
+Left=0
 Top=28
 Width=3823
 Height=1415
@@ -1171,7 +1393,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=4545
-TBDockHeight=9012
+TBDockHeight=8721
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0
@@ -1195,7 +1417,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=3498
-TBDockHeight=9012
+TBDockHeight=8721
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
@@ -1219,7 +1441,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
 ClientHeight=3828
-TBDockHeight=9012
+TBDockHeight=8721
 LRDockWidth=2000
 Dockable=1
 StayOnTop=0

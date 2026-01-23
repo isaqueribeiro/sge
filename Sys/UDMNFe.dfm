@@ -1826,6 +1826,7 @@ object DMNFe: TDMNFe
       'VALOR_IPI=VALOR_IPI'
       'PERCENTUAL_REDUCAO_BC=PERCENTUAL_REDUCAO_BC'
       'VALOR_REDUCAO_BC=VALOR_REDUCAO_BC'
+      'TOTAL_REDUCAO_BC=TOTAL_REDUCAO_BC'
       'TOTAL_BRUTO=TOTAL_BRUTO'
       'TOTAL_DESCONTO=TOTAL_DESCONTO'
       'TOTAL_LIQUIDO=TOTAL_LIQUIDO'
@@ -1849,7 +1850,15 @@ object DMNFe: TDMNFe
       'LOTE_ID=LOTE_ID'
       'LOTE=LOTE'
       'LOTE_FABRICACAO=LOTE_FABRICACAO'
-      'LOTE_VALIDADE=LOTE_VALIDADE')
+      'LOTE_VALIDADE=LOTE_VALIDADE'
+      'ZONA_FRANCA_MANAUS=ZONA_FRANCA_MANAUS'
+      'NOCIVO=NOCIVO'
+      'CSTIS=CSTIS'
+      'CST2026=CST2026'
+      'CCT2026=CCT2026'
+      'ALIQUOTA_CBS=ALIQUOTA_CBS'
+      'ALIQUOTA_IBS=ALIQUOTA_IBS'
+      'ALIQUOTA_IS=ALIQUOTA_IS')
     DataSet = qryDadosProduto
     BCDToCurrency = False
     DataSetOptions = []
@@ -2842,6 +2851,7 @@ object DMNFe: TDMNFe
     FieldAliases.Strings = (
       'ANO=ANO'
       'CODCONTROL=CODCONTROL'
+      'CODEMP=CODEMP'
       'SEQ=SEQ'
       'CODPROD=CODPROD'
       'CODBARRA_EAN=CODBARRA_EAN'
@@ -2865,7 +2875,7 @@ object DMNFe: TDMNFe
       'CST_COFINS=CST_COFINS'
       'CST_PIS_INDICE_ACBR=CST_PIS_INDICE_ACBR'
       'CST_COFINS_INDICE_ACBR=CST_COFINS_INDICE_ACBR'
-      'CODEMP=CODEMP'
+      'CODEMP_1=CODEMP_1'
       'CODFORN=CODFORN'
       'CODFORN_CNPJ=CODFORN_CNPJ'
       'DTENT=DTENT'
@@ -2910,7 +2920,15 @@ object DMNFe: TDMNFe
       'LOTE_ID=LOTE_ID'
       'LOTE=LOTE'
       'LOTE_FABRICACAO=LOTE_FABRICACAO'
-      'LOTE_VALIDADE=LOTE_VALIDADE')
+      'LOTE_VALIDADE=LOTE_VALIDADE'
+      'ZONA_FRANCA_MANAUS=ZONA_FRANCA_MANAUS'
+      'NOCIVO=NOCIVO'
+      'CSTIS=CSTIS'
+      'CST2026=CST2026'
+      'CCT2026=CCT2026'
+      'ALIQUOTA_CBS=ALIQUOTA_CBS'
+      'ALIQUOTA_IBS=ALIQUOTA_IBS'
+      'ALIQUOTA_IS=ALIQUOTA_IS')
     DataSet = qryEntradaDadosProduto
     BCDToCurrency = False
     DataSetOptions = []
@@ -44635,6 +44653,19 @@ object DMNFe: TDMNFe
       '  , lt.descricao       as lote'
       '  , lt.data_fabricacao as lote_fabricacao'
       '  , lt.data_validade   as lote_validade'
+      '  -- Reforma Tributaria'
+      '  , coalesce(p.zona_franca_manaus, 0) as zona_franca_manaus'
+      '  , coalesce(ib.nocivo, 0) as nocivo'
+      '  , coalesce(p.cstis,   '#39'000'#39') as cstis  -- Tributa'#231#227'o integral'
+      '  , coalesce(p.cst2026, '#39'000'#39') as cst2026'
+      
+        '  , coalesce(p.cct2026, '#39'000001'#39') as cct2026 -- Situa'#231#245'es tribut' +
+        'adas integralmente pelo IBS e CBS'
+      '  , coalesce(p.aliquota_cbs, 0.9) as aliquota_cbs'
+      '  , coalesce(p.aliquota_ibs, 0.1) as aliquota_ibs'
+      
+        '  , coalesce(nullif(p.aliquota_is, 0.0), nullif(ib.aliquota_is, ' +
+        '0.0), 0.0)  as aliquota_is'
       'from TVENDASITENS i'
       '  inner join TBPRODUTO p on (p.Cod = i.Codprod)'
       '  inner join TBUNIDADEPROD u on (u.Unp_cod = i.Unid_cod)'
@@ -44770,6 +44801,19 @@ object DMNFe: TDMNFe
       '  , i.lote_descricao as lote'
       '  , i.lote_data_fab  as lote_fabricacao'
       '  , i.lote_data_val  as lote_validade'
+      '  -- Reforma Tributaria'
+      '  , coalesce(p.zona_franca_manaus, 0) as zona_franca_manaus'
+      '  , coalesce(ib.nocivo, 0) as nocivo'
+      '  , coalesce(p.cstis,   '#39'000'#39') as cstis  -- Tributa'#231#227'o integral'
+      '  , coalesce(p.cst2026, '#39'000'#39') as cst2026'
+      
+        '  , coalesce(p.cct2026, '#39'000001'#39') as cct2026 -- Situa'#231#245'es tribut' +
+        'adas integralmente pelo IBS e CBS'
+      '  , coalesce(p.aliquota_cbs, 0.9) as aliquota_cbs'
+      '  , coalesce(p.aliquota_ibs, 0.1) as aliquota_ibs'
+      
+        '  , coalesce(nullif(p.aliquota_is, 0.0), nullif(ib.aliquota_is, ' +
+        '0.0), 0.0)  as aliquota_is'
       'from TBCOMPRASITENS i'
       '  inner join TBPRODUTO p on (p.Cod = i.codprod)'
       '  inner join TBUNIDADEPROD u on (u.Unp_cod = i.unid_cod)'

@@ -40,7 +40,9 @@ uses
 
   View.PadraoCadastro,
   SGE.Controller.Interfaces,
-  UConstantesDGE;
+  UConstantesDGE, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinTheBezier,
+  dxSkinsDefaultPainters, dxSkinWXI;
 
 type
   TViewIBPT = class(TViewPadraoCadastro)
@@ -67,6 +69,7 @@ type
     Bevel5: TBevel;
     dbAtivo: TDBCheckBox;
     lblRegistroDesativado: TLabel;
+    dbNocivo: TDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);

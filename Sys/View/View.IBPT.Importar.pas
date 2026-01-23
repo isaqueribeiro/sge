@@ -32,7 +32,9 @@ uses
   ACBrIBPTax,
   SHDocVw,
 
-  UGrPadrao;
+  UGrPadrao, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinTheBezier,
+  dxSkinsDefaultPainters, dxSkinWXI;
 
 type
   TViewIBPTImportar = class(TfrmGrPadrao)

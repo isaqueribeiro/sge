@@ -52,7 +52,7 @@ uses
   UConstantesDGE, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinOffice2019Black,
   dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinTheBezier,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinWXI;
 
 type
   TUnidade = record
@@ -297,6 +297,7 @@ type
     lblLargura: TLabel;
     dbEspessura: TDBEdit;
     lblEspessura: TLabel;
+    dbZonaFrancaManaus: TDBCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);

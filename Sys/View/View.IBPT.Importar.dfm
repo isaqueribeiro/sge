@@ -2,49 +2,54 @@ inherited ViewIBPTImportar: TViewIBPTImportar
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Tabela de Tributa'#231#245'es IBPT, Importar!'
-  ClientHeight = 433
-  ClientWidth = 541
-  ExplicitHeight = 470
-  PixelsPerInch = 96
+  ClientHeight = 432
+  ClientWidth = 537
+  ExplicitWidth = 557
+  ExplicitHeight = 478
   TextHeight = 13
   object Bevel8: TBevel
     Left = 0
     Top = 113
-    Width = 541
+    Width = 537
     Height = 4
     Align = alTop
     Shape = bsSpacer
     ExplicitLeft = 12
     ExplicitTop = 236
+    ExplicitWidth = 541
   end
   object Bevel1: TBevel
     Left = 0
     Top = 230
-    Width = 541
+    Width = 537
     Height = 4
     Align = alTop
     Shape = bsSpacer
     ExplicitTop = 121
+    ExplicitWidth = 541
   end
   object Bevel2: TBevel
     Left = 0
-    Top = 396
-    Width = 541
+    Top = 395
+    Width = 537
     Height = 4
     Align = alBottom
     Shape = bsSpacer
     ExplicitTop = 238
+    ExplicitWidth = 541
   end
   object pnlConfirmacao: TPanel
     Left = 0
-    Top = 400
-    Width = 541
+    Top = 399
+    Width = 537
     Height = 33
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitTop = 398
+    ExplicitWidth = 533
     object bvlConfirmacao: TBevel
-      Left = 454
+      Left = 450
       Top = 0
       Width = 4
       Height = 33
@@ -53,7 +58,7 @@ inherited ViewIBPTImportar: TViewIBPTImportar
       ExplicitLeft = 329
     end
     object btnConfirmar: TcxButton
-      Left = 371
+      Left = 367
       Top = 0
       Width = 83
       Height = 33
@@ -64,9 +69,10 @@ inherited ViewIBPTImportar: TViewIBPTImportar
       OptionsImage.Images = DMRecursos.ImgBotoes16x16
       TabOrder = 0
       OnClick = btnConfirmarClick
+      ExplicitLeft = 363
     end
     object btnCancelar: TcxButton
-      Left = 458
+      Left = 454
       Top = 0
       Width = 83
       Height = 33
@@ -77,16 +83,18 @@ inherited ViewIBPTImportar: TViewIBPTImportar
       OptionsImage.Images = DMRecursos.ImgBotoes16x16
       TabOrder = 1
       OnClick = btnCancelarClick
+      ExplicitLeft = 450
     end
   end
   object GrpBxDownload: TGroupBox
     Left = 0
     Top = 0
-    Width = 541
+    Width = 537
     Height = 113
     Align = alTop
     Caption = 'Download'
     TabOrder = 0
+    ExplicitWidth = 533
     object lblURL: TLabel
       Left = 12
       Top = 24
@@ -136,13 +144,14 @@ inherited ViewIBPTImportar: TViewIBPTImportar
   object GrpBxImportacao: TGroupBox
     Left = 0
     Top = 117
-    Width = 541
+    Width = 537
     Height = 113
     Align = alTop
     Caption = 'Importa'#231#227'o'
     TabOrder = 1
+    ExplicitWidth = 533
     DesignSize = (
-      541
+      537
       113)
     object lblArquivo: TLabel
       Left = 12
@@ -173,10 +182,11 @@ inherited ViewIBPTImportar: TViewIBPTImportar
     object edArquivo: TEdit
       Left = 12
       Top = 43
-      Width = 515
+      Width = 511
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
+      ExplicitWidth = 507
     end
     object btnImportar: TcxButton
       Left = 444
@@ -193,11 +203,13 @@ inherited ViewIBPTImportar: TViewIBPTImportar
   object GroupBox1: TGroupBox
     Left = 0
     Top = 234
-    Width = 541
-    Height = 162
+    Width = 537
+    Height = 161
     Align = alClient
     Caption = 'Dados da tabela'
     TabOrder = 3
+    ExplicitWidth = 533
+    ExplicitHeight = 160
     object lblVigencia: TLabel
       Left = 122
       Top = 68
@@ -327,6 +339,8 @@ inherited ViewIBPTImportar: TViewIBPTImportar
   end
   object ACBrIBPT: TACBrIBPTax
     ProxyPort = '8080'
+    ContentsEncodingCompress = []
+    NivelLog = 0
     OnErroImportacao = ACBrIBPTErroImportacao
     Left = 416
   end
@@ -385,7 +399,10 @@ inherited ViewIBPTImportar: TViewIBPTImportar
   end
   object ACBrNcms: TACBrNCMs
     ProxyPort = '8080'
+    ContentsEncodingCompress = []
+    NivelLog = 0
     UrlConsulta = 'http://www4.receita.fazenda.gov.br/simulador/PesquisarNCM.jsp?'
+    CacheArquivo = 'ACBrNCM.json'
     Left = 384
   end
   object opdImportar: TOpenDialog

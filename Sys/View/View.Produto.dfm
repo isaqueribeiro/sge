@@ -5,10 +5,8 @@ inherited ViewProduto: TViewProduto
   Caption = 'Cadastro de Produtos/Servi'#231'os'
   ClientHeight = 586
   ClientWidth = 961
-  OldCreateOrder = True
-  ExplicitWidth = 977
-  ExplicitHeight = 625
-  PixelsPerInch = 96
+  ExplicitWidth = 973
+  ExplicitHeight = 624
   TextHeight = 13
   inherited Bevel1: TBevel
     Top = 582
@@ -27,11 +25,9 @@ inherited ViewProduto: TViewProduto
     Height = 543
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
-    ExplicitWidth = 961
-    ExplicitHeight = 543
+    ExplicitWidth = 957
+    ExplicitHeight = 542
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 953
       ExplicitHeight = 514
       inherited Bevel4: TBevel
@@ -317,8 +313,6 @@ inherited ViewProduto: TViewProduto
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
       ExplicitWidth = 953
       ExplicitHeight = 514
       inherited Bevel8: TBevel
@@ -339,7 +333,7 @@ inherited ViewProduto: TViewProduto
       inherited GrpBxDadosNominais: TGroupBox
         Width = 953
         Height = 153
-        ExplicitWidth = 953
+        ExplicitWidth = 949
         ExplicitHeight = 153
         object lblCodigoAnvisa: TLabel [0]
           Left = 17
@@ -824,9 +818,11 @@ inherited ViewProduto: TViewProduto
         Top = 237
         Width = 953
         Height = 277
-        ActivePage = tbsValores
+        ActivePage = tbsTributacao
         Align = alClient
         TabOrder = 2
+        ExplicitWidth = 949
+        ExplicitHeight = 276
         object tbsValores: TTabSheet
           Caption = 'Valores / Par'#226'metros'
           Font.Charset = ANSI_CHARSET
@@ -1331,10 +1327,6 @@ inherited ViewProduto: TViewProduto
         object tbsCustoVeiculo: TTabSheet
           Caption = 'Custos e F&&I p/ Ve'#237'culos'
           ImageIndex = 4
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object grpCustosVeiculo: TGroupBox
             Left = 0
             Top = 0
@@ -1629,10 +1621,6 @@ inherited ViewProduto: TViewProduto
         object tbsTributacao: TTabSheet
           Caption = 'Tributa'#231#245'es'
           ImageIndex = 3
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object Bevel6: TBevel
             Left = 0
             Top = 233
@@ -1655,8 +1643,9 @@ inherited ViewProduto: TViewProduto
             Width = 945
             Height = 116
             Align = alTop
-            Caption = 'Dados fiscais para ICMS/ISS'
+            Caption = 'Dados fiscais para ICMS/ISS e IBS'
             TabOrder = 0
+            ExplicitWidth = 941
             object lblOrigem: TLabel
               Left = 16
               Top = 24
@@ -2078,8 +2067,9 @@ inherited ViewProduto: TViewProduto
             Width = 945
             Height = 113
             Align = alTop
-            Caption = 'Dados fiscais p/ PIS e COFINS'
+            Caption = 'Dados fiscais p/ PIS, COFINS e CBS'
             TabOrder = 1
+            ExplicitWidth = 941
             object lblCSTPIS: TLabel
               Left = 16
               Top = 24
@@ -2089,33 +2079,45 @@ inherited ViewProduto: TViewProduto
               FocusControl = dbCSTPIS
             end
             object lblCSTCOFINS: TLabel
-              Left = 16
-              Top = 64
+              Left = 474
+              Top = 24
               Width = 215
               Height = 13
               Caption = 'CST - C'#243'digo de Situa'#231#227'o Tribut'#225'ria COFINS:'
               FocusControl = dbCSTCOFINS
             end
             object lblAliquotaCOFINS: TLabel
-              Left = 848
-              Top = 64
+              Left = 869
+              Top = 24
               Width = 56
               Height = 13
               Caption = '% COFINS:'
               FocusControl = dbAliquotaCOFINS
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
             end
             object lblAliquotaPIS: TLabel
-              Left = 848
+              Left = 411
               Top = 24
               Width = 34
               Height = 13
               Caption = '% PIS:'
               FocusControl = dbAliquotaPIS
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
             end
             object dbCSTPIS: TDBLookupComboBox
               Left = 16
               Top = 40
-              Width = 825
+              Width = 389
               Height = 21
               DataField = 'CST_PIS'
               DataSource = DtSrcTabela
@@ -2132,9 +2134,9 @@ inherited ViewProduto: TViewProduto
               TabOrder = 0
             end
             object dbCSTCOFINS: TDBLookupComboBox
-              Left = 16
-              Top = 80
-              Width = 825
+              Left = 474
+              Top = 40
+              Width = 389
               Height = 21
               DataField = 'CST_COFINS'
               DataSource = DtSrcTabela
@@ -2151,9 +2153,9 @@ inherited ViewProduto: TViewProduto
               TabOrder = 2
             end
             object dbAliquotaCOFINS: TDBEdit
-              Left = 848
-              Top = 80
-              Width = 85
+              Left = 869
+              Top = 40
+              Width = 59
               Height = 21
               CharCase = ecUpperCase
               DataField = 'ALIQUOTA_COFINS'
@@ -2167,9 +2169,9 @@ inherited ViewProduto: TViewProduto
               TabOrder = 3
             end
             object dbAliquotaPIS: TDBEdit
-              Left = 848
+              Left = 411
               Top = 40
-              Width = 85
+              Width = 59
               Height = 21
               CharCase = ecUpperCase
               DataField = 'ALIQUOTA_PIS'
@@ -2182,15 +2184,29 @@ inherited ViewProduto: TViewProduto
               ParentFont = False
               TabOrder = 1
             end
+            object dbZonaFrancaManaus: TDBCheckBox
+              Left = 16
+              Top = 67
+              Width = 268
+              Height = 17
+              Caption = 'Produzido na Zona Fran'#231'a de Manaus/AM'
+              DataField = 'ZONA_FRANCA_MANAUS'
+              DataSource = DtSrcTabela
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 4
+              ValueChecked = '1'
+              ValueUnchecked = '0'
+            end
           end
         end
         object TbsEspecificacao: TTabSheet
           Caption = 'Especifica'#231#245'es'
           ImageIndex = 2
-          ExplicitLeft = 0
-          ExplicitTop = 0
-          ExplicitWidth = 0
-          ExplicitHeight = 0
           object pnlVeiculo: TPanel
             Left = 0
             Top = 0
@@ -2683,6 +2699,7 @@ inherited ViewProduto: TViewProduto
         Align = alTop
         Caption = 'Dados estoque'
         TabOrder = 1
+        ExplicitWidth = 949
         object lblEstoqueQtde: TLabel
           Left = 336
           Top = 24
@@ -3000,8 +3017,8 @@ inherited ViewProduto: TViewProduto
   inherited tlbBotoes: TPanel
     Top = 547
     Width = 961
-    ExplicitTop = 547
-    ExplicitWidth = 961
+    ExplicitTop = 546
+    ExplicitWidth = 957
     inherited bvlTool3: TBevel
       Left = 878
       ExplicitLeft = 878
@@ -3012,11 +3029,11 @@ inherited ViewProduto: TViewProduto
     end
     inherited btbtnFechar: TcxButton
       Left = 882
-      ExplicitLeft = 882
+      ExplicitLeft = 878
     end
     inherited btbtnSelecionar: TcxButton
       Left = 758
-      ExplicitLeft = 758
+      ExplicitLeft = 754
     end
   end
   inherited DtSrcTabela: TDataSource

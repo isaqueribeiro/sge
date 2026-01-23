@@ -529,6 +529,7 @@ begin
         .Add('  , t.Tpt_cod || '' - '' || t.Tpt_descricao as Tpt_descricao_full')
         .Add('  , t.Tpt_sigla')
         .Add('  , t.Crt      ')
+        .Add('  , t.nrt      ') // Nova Reforma Tributária
         .Add('  , coalesce(t.obrigar_cest, 0) as obrigar_cest')
         .Add('from TBTRIBUTACAO_TIPO t                       ')
         .Where('coalesce(t.obrigar_cest, 0) = 0')

@@ -16,36 +16,60 @@ File_13=TSourceModule,'C:\Projetos\ASS\SGE\System_SGI\Controller\Impressao\SGI.C
 File_14=TSourceModule,'C:\Projetos\ASS\SGE\System_SGE\Model\DAO\SGE.Model.DAO.Promocao.pas',0,1,1,32,13,0,0,,
 
 [Modules]
-Module0=C:\Projetos\ASS\SGE\Sys\UConstantesDGE.pas
-Module1=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.pas
-Module2=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas
-Module3=C:\Projetos\ASS\SGE\Sys\View\View.Entrada.pas
-Module4=C:\Projetos\ASS\SGE\System_SGI\SGI.dproj
-Module5=C:\Projetos\ASS\SGE\Sys\UDMRecursos.pas
-Module6=C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.CotacaoCompra.pas
-Module7=C:\Projetos\ASS\SGE\System_SGI\Controller\SGI.Controller.CotacaoCompra.pas
-Module8=C:\Projetos\ASS\SGE\System_SGI\UPrinc.pas
-Module9=C:\Projetos\ASS\SGE\Sys\View\View.Fornecedor.pas
-Module10=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas
-Module11=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas
-Module12=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.Fornecedor.pas
-Module13=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Usuario.pas
-Module14=C:\Projetos\ASS\SGE\Sys\UDMNFe.pas
-Module15=C:\Projetos\ASS\SGE\Sys\UDMBusiness.pas
-Module16=C:\Projetos\ASS\SGE\Sys\View\View.Servico.ConsultarCNPJ.pas
-Module17=C:\Projetos\ASS\SGE\Sys\Services\Service.Request.CNPJ.pas
-Module18=C:\Projetos\ASS\SGE\System_SGI\View\View.Login.pas
-Module19=C:\Projetos\ASS\SGE\Sys\Services\Service.Utils.pas
-Module20=C:\Projetos\ASS\SGE\Sys\lib\UFuncoes.pas
-Module21=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas
-Module22=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.Cancelar.pas
-Count=23
+Module0=C:\Projetos\ASS\SGE\Sys\UDMNFe.pas
+Module1=C:\Projetos\ASS\SGE\Sys\View\View.Produto.pas
+Module2=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Produto.pas
+Module3=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Produto.pas
+Module4=C:\Projetos\ASS\SGE\System_SGI\UPrinc.pas
+Module5=C:\Projetos\ASS\SGE\Sys\UConstantesDGE.pas
+Module6=C:\Projetos\ASS\SGE\System_SGI\SGI.dproj
+Module7=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.pas
+Module8=C:\Projetos\ASS\SGE\Sys\UDMRecursos.pas
+Module9=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas
+Module10=C:\Projetos\ASS\SGE\Sys\View\View.Entrada.pas
+Module11=C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.CotacaoCompra.pas
+Module12=C:\Projetos\ASS\SGE\System_SGI\Controller\SGI.Controller.CotacaoCompra.pas
+Module13=C:\Projetos\ASS\SGE\Sys\View\View.Fornecedor.pas
+Module14=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas
+Module15=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas
+Module16=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.Fornecedor.pas
+Module17=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Usuario.pas
+Module18=C:\Projetos\ASS\SGE\Sys\UDMBusiness.pas
+Module19=C:\Projetos\ASS\SGE\Sys\View\View.Servico.ConsultarCNPJ.pas
+Module20=C:\Projetos\ASS\SGE\Sys\Services\Service.Request.CNPJ.pas
+Module21=C:\Projetos\ASS\SGE\System_SGI\View\View.Login.pas
+Module22=C:\Projetos\ASS\SGE\Sys\Services\Service.Utils.pas
+Module23=C:\Projetos\ASS\SGE\Sys\lib\UFuncoes.pas
+Module24=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas
+Module25=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.Cancelar.pas
+Count=26
 EditWindowCount=1
+
+[C:\Projetos\ASS\SGE\Sys\UDMNFe.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\View\View.Produto.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Produto.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Produto.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\System_SGI\UPrinc.pas]
+ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\Sys\UConstantesDGE.pas]
 ModuleType=TSourceModule
 
+[C:\Projetos\ASS\SGE\System_SGI\SGI.dproj]
+ModuleType=TBaseProject
+
 [C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas]
@@ -54,19 +78,10 @@ ModuleType=TSourceModule
 [C:\Projetos\ASS\SGE\Sys\View\View.Entrada.pas]
 ModuleType=TSourceModule
 
-[C:\Projetos\ASS\SGE\System_SGI\SGI.dproj]
-ModuleType=TBaseProject
-
-[C:\Projetos\ASS\SGE\Sys\UDMRecursos.pas]
-ModuleType=TSourceModule
-
 [C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.CotacaoCompra.pas]
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\System_SGI\Controller\SGI.Controller.CotacaoCompra.pas]
-ModuleType=TSourceModule
-
-[C:\Projetos\ASS\SGE\System_SGI\UPrinc.pas]
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\Sys\View\View.Fornecedor.pas]
@@ -82,9 +97,6 @@ ModuleType=TSourceModule
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Usuario.pas]
-ModuleType=TSourceModule
-
-[C:\Projetos\ASS\SGE\Sys\UDMNFe.pas]
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\Sys\UDMBusiness.pas]
@@ -112,8 +124,8 @@ ModuleType=TSourceModule
 ModuleType=TSourceModule
 
 [EditWindow0]
-ViewCount=23
-CurrentEditView=C:\Projetos\ASS\SGE\Sys\UConstantesDGE.pas
+ViewCount=26
+CurrentEditView=C:\Projetos\ASS\SGE\Sys\UDMNFe.pas
 View0=0
 View1=1
 View2=2
@@ -137,6 +149,9 @@ View19=19
 View20=20
 View21=21
 View22=22
+View23=23
+View24=24
+View25=25
 PercentageSizes=1
 Create=1
 Visible=1
@@ -155,13 +170,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=00000800010100000000420F00000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000201B00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=00000800010100000000E11200000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000912100001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=2000
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=00000800010100000000420F00000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000201B000009000000446F636B5369746534FFFFFFFF
-BottomPanelSize=1574
+RightPanelData=00000800010100000000E11200000000000001D00700000000000001000000004412000009000000446F636B536974653201000000009121000009000000446F636B5369746534FFFFFFFF
+BottomPanelSize=0
 BottomPanelClients=MessageView,DockSite1
-BottomPanelData=0000080001020100000009000000446F636B5369746531DE440000000000000226060000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
+BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B5369746531DE440000000000000226060000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -224,12 +239,12 @@ EditViewName=C:\Projetos\ASS\SGE\Sys\UConstantesDGE.pas
 [View5]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\UDMNFe.pas
-CursorX=5
-CursorY=43
-TopLine=10
+CursorX=27
+CursorY=3456
+TopLine=3431
 LeftCol=1
 Elisions=
-Bookmarks=
+Bookmarks={1,3027,33}{2,5058,37}{3,8341,23}
 EditViewName=C:\Projetos\ASS\SGE\Sys\UDMNFe.pas
 
 [View6]
@@ -245,6 +260,39 @@ EditViewName=C:\Projetos\ASS\SGE\System_SGI\UPrinc.pas
 
 [View7]
 CustomEditViewType=TEditView
+Module=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Produto.pas
+CursorX=1
+CursorY=1
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Produto.pas
+
+[View8]
+CustomEditViewType=TEditView
+Module=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Produto.pas
+CursorX=49
+CursorY=893
+TopLine=845
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Produto.pas
+
+[View9]
+CustomEditViewType=TEditView
+Module=C:\Projetos\ASS\SGE\Sys\View\View.Produto.pas
+CursorX=1
+CursorY=2322
+TopLine=2279
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Projetos\ASS\SGE\Sys\View\View.Produto.pas
+
+[View10]
+CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.pas
 CursorX=60
 CursorY=470
@@ -254,7 +302,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.pas
 
-[View8]
+[View11]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\View\View.Entrada.pas
 CursorX=1
@@ -265,7 +313,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\View\View.Entrada.pas
 
-[View9]
+[View12]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas
 CursorX=1
@@ -276,7 +324,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Entrada.pas
 
-[View10]
+[View13]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Usuario.pas
 CursorX=1
@@ -287,7 +335,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Usuario.pas
 
-[View11]
+[View14]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.Cancelar.pas
 CursorX=1
@@ -298,7 +346,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.Cancelar.pas
 
-[View12]
+[View15]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.Fornecedor.pas
 CursorX=58
@@ -306,10 +354,10 @@ CursorY=1025
 TopLine=1122
 LeftCol=1
 Elisions=
-Bookmarks={1,1108,21}
+Bookmarks={1,1108,1}
 EditViewName=C:\Projetos\ASS\SGE\System_SGI\View\View.CotacaoCompra.Fornecedor.pas
 
-[View13]
+[View16]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\View\View.Fornecedor.pas
 CursorX=13
@@ -320,7 +368,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\View\View.Fornecedor.pas
 
-[View14]
+[View17]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\View\View.Servico.ConsultarCNPJ.pas
 CursorX=76
@@ -331,7 +379,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\View\View.Servico.ConsultarCNPJ.pas
 
-[View15]
+[View18]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Services\Service.Request.CNPJ.pas
 CursorX=1
@@ -342,7 +390,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Services\Service.Request.CNPJ.pas
 
-[View16]
+[View19]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Services\Service.Utils.pas
 CursorX=27
@@ -353,7 +401,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Services\Service.Utils.pas
 
-[View17]
+[View20]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\lib\UFuncoes.pas
 CursorX=39
@@ -364,7 +412,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\lib\UFuncoes.pas
 
-[View18]
+[View21]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.CotacaoCompra.pas
 CursorX=1
@@ -375,7 +423,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\System_SGI\Model\DAO\SGI.Model.DAO.CotacaoCompra.pas
 
-[View19]
+[View22]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\System_SGI\Controller\SGI.Controller.CotacaoCompra.pas
 CursorX=1
@@ -386,7 +434,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\System_SGI\Controller\SGI.Controller.CotacaoCompra.pas
 
-[View20]
+[View23]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas
 CursorX=1
@@ -397,7 +445,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas
 
-[View21]
+[View24]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas
 CursorX=1
@@ -408,7 +456,7 @@ Elisions=
 Bookmarks=
 EditViewName=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas
 
-[View22]
+[View25]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas
 CursorX=77
@@ -521,7 +569,7 @@ StayOnTop=0
 [MessageView]
 PercentageSizes=1
 Create=1
-Visible=1
+Visible=0
 Docked=1
 State=0
 Left=0
@@ -546,11 +594,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=2103
+Height=3828
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2103
+ClientHeight=3828
 TBDockHeight=7151
 LRDockWidth=2000
 Dockable=1
@@ -565,16 +613,21 @@ State=0
 Left=0
 Top=425
 Width=1896
-Height=3149
+Height=4874
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
-ClientHeight=3149
+ClientHeight=4874
 TBDockHeight=9012
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
 SplitPos=111
+
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Font,
+ExpandedItems=Anchors=0,Constraints=0,Font=0,HeaderFont=0,LiveBindings=0,"LiveBindings Designer=0",Margins=0,Padding=0,StyleElements=0,DataSource=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -585,11 +638,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=6366
+Height=8450
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=6366
+ClientHeight=8450
 TBDockHeight=5959
 LRDockWidth=2510
 Dockable=1
@@ -601,8 +654,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1528
-Top=243
+Left=0
+Top=0
 Width=276
 Height=359
 MaxLeft=-1
@@ -706,11 +759,11 @@ State=0
 Left=0
 Top=0
 Width=2339
-Height=969
+Height=1202
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2339
-ClientHeight=969
+ClientHeight=1202
 TBDockHeight=2316
 LRDockWidth=2823
 Dockable=1
@@ -771,11 +824,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=6366
+Height=8450
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=6366
+ClientHeight=8450
 TBDockHeight=4884
 LRDockWidth=7151
 Dockable=1
@@ -787,8 +840,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=380
-Top=809
+Left=0
+Top=0
 Width=2854
 Height=3207
 MaxLeft=-1
@@ -807,7 +860,7 @@ Visible=0
 Docked=1
 State=0
 Left=-8
-Top=-124
+Top=-8
 Width=1849
 Height=3140
 MaxLeft=-1
@@ -911,11 +964,11 @@ State=0
 Left=0
 Top=0
 Width=2000
-Height=6366
+Height=8450
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=6366
+ClientHeight=8450
 TBDockHeight=4884
 LRDockWidth=5307
 Dockable=1
@@ -975,8 +1028,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=0
-Top=28
+Left=8
+Top=8
 Width=3823
 Height=1415
 MaxLeft=-1
@@ -1050,11 +1103,11 @@ State=0
 Left=0
 Top=533
 Width=2000
-Height=2103
+Height=3828
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2000
-ClientHeight=2103
+ClientHeight=3828
 TBDockHeight=9012
 LRDockWidth=2000
 Dockable=1

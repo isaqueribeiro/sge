@@ -248,6 +248,7 @@ begin
     .SQL('  , p.Aliquota_cofins')
     .SQL('  , p.Percentual_reducao_BC')
     .SQL('  , p.Valor_ipi            ')
+    .SQL('  , p.zona_franca_manaus   ')
     .SQL('  , p.Reserva              ')
     .SQL('  , case when coalesce(p.Reserva, 0) > 0               ')
     .SQL('      then coalesce(p.Qtde, 0) - coalesce(p.Reserva, 0)')
