@@ -162,6 +162,16 @@ type
       class function New : IControllerCustom;
   end;
 
+  // View
+  TControllerEnteGovernamentalView = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
   // Alíquota ICMS (Stored Procedure)
   TControllerAliquotaICMS = class(TController, IControllerAliquotaICMS)
     private
@@ -475,6 +485,23 @@ begin
 end;
 
 class function TControllerTipoContratoView.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerEnteGovernamentalView }
+
+constructor TControllerEnteGovernamentalView.Create;
+begin
+  inherited Create(TModelDAOFactory.New.EnteGovernamental);
+end;
+
+destructor TControllerEnteGovernamentalView.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerEnteGovernamentalView.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

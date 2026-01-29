@@ -169,6 +169,7 @@ type
     function Distrito : IModelDAOCustom;
     function Empresa : IModelDAOCustom;
     function EmpresaView : IModelDAOCustom;
+    function EnteGovernamental : IModelDAOCustom;
     function Entrada : IModelDAOCustom;
     function EntradaDevolucao : IModelDAOCustom;
     function EntradaLoteProduto : IModelDAOCustom;

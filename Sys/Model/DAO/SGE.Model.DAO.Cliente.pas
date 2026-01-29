@@ -4,6 +4,7 @@ interface
 
 uses
   System.SysUtils,
+  System.StrUtils,
   System.Classes,
   Data.DB,
   SGE.Model.DAO,
@@ -125,6 +126,8 @@ begin
         .Add('  , cl.custo_oper_frete        ')
         .Add('  , cl.custo_oper_outros       ')
         .Add('  , cl.entrega_fracionada_venda')
+        .Add('  , cl.admininistracao_publica ')
+        .Add('  , cl.ente_governamental      ')
         .Add('  , cl.banco					         ')
         .Add('  , cl.agencia                 ')
         .Add('  , cl.cc                      ')
@@ -215,6 +218,13 @@ begin
 
     if (Trim(FieldByName('BANCO_3').AsString) = EmptyStr) then
       FieldByName('BANCO_3').Clear;
+
+    // Reforma Tributária
+    if (FieldByName('admininistracao_publica').IsNull) then
+      FieldByName('admininistracao_publica').AsInteger := FLAG_NAO;
+
+    if (not FieldByName('ente_governamental').IsNull) then
+      FieldByName('admininistracao_publica').AsInteger := StrToInt(IfThen(FieldByName('ente_governamental').AsInteger > 0, FLAG_SIM.ToString, FLAG_NAO.ToString));
   end;
 end;
 
@@ -235,7 +245,6 @@ begin
     FieldByName('PAIS_ID').AsString  := Configuracao.Padrao.PaisID;
     FieldByName('EST_COD').AsInteger := Configuracao.Padrao.EstadoID;
     FieldByName('CID_COD').AsInteger := Configuracao.Padrao.CidadeID;
-
     FieldByName('VENDEDOR_COD').Clear;
     FieldByName('BLOQUEADO_DATA').Clear;
     FieldByName('BLOQUEADO_MOTIVO').Clear;
@@ -253,6 +262,10 @@ begin
     FieldByName('CC_3').Clear;
     FieldByName('PRACA_3').Clear;
     FieldByName('OBSERVACAO').Clear;
+
+    // Reforma Tributária
+    FieldByName('admininistracao_publica').AsInteger := FLAG_NAO;
+    FieldByName('ente_governamental').Clear;
   end;
 end;
 

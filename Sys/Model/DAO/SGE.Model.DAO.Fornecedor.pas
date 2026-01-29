@@ -97,7 +97,8 @@ begin
         .Add('  , f.Contato       ')
         .Add('  , f.Pais_id       ')
         .Add('  , f.Grf_cod       ')
-        .Add('  , f.Transportadora')
+        .Add('  , f.ente_governamental ')
+        .Add('  , f.Transportadora     ')
         .Add('  , f.banco         ')
         .Add('  , f.agencia       ')
         .Add('  , f.cc            ')
@@ -203,6 +204,9 @@ begin
     FieldByName('CC_3').Clear;
     FieldByName('PRACA_3').Clear;
     FieldByName('OBSERVACAO').Clear;
+
+    // Reforma Tributária
+    FieldByName('ente_governamental').Clear;
   end;
 end;
 

@@ -181,6 +181,18 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // Lista de Tipos de Entedades Governamentais (View)
+  TModelDAOEnteGovernamentalView = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
   // Alíquota ICMS (Stored Procedure)
   TModelDAOAliquotaICMS = class(TModelDAO, IModelDAOCustom)
     private
@@ -798,6 +810,40 @@ begin
   Result := Self;
   if not FConn.Query.DataSet.Active then
     FConn.Query.Open;
+end;
+
+{ TModelDAOEnteGovernamentalView }
+
+constructor TModelDAOEnteGovernamentalView.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    e.codigo    ')
+        .Add('  , e.descricao ')
+        .Add('from VW_ENTE_GOVERNAMENTAL e')
+      .&End
+    .Open;
+end;
+
+function TModelDAOEnteGovernamentalView.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+destructor TModelDAOEnteGovernamentalView.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOEnteGovernamentalView.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
 end;
 
 end.

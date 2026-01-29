@@ -120,14 +120,12 @@ type
     mpClienteBloquear: TMenuItem;
     mpClienteDesbloquear: TMenuItem;
     tbsDadosAdcionais: TTabSheet;
-    dbNFeDevolucao: TDBCheckBox;
     GrpBxCustosOper: TGroupBox;
     lblFrete: TLabel;
     lblOutros: TLabel;
     dbCustoOperacional: TDBCheckBox;
     dbFrete: TDBEdit;
     dbOutros: TDBEdit;
-    dbEntregaFracionada: TDBCheckBox;
     tbsEstoqueSatelite: TTabSheet;
     pnlPesquisarEstoqueSatelite: TPanel;
     GroupBox2: TGroupBox;
@@ -159,7 +157,6 @@ type
     dbBairro: TJvDBComboEdit;
     dbLogradouro: TJvDBComboEdit;
     dbPais: TJvDBComboEdit;
-    dbCadastroAtivo: TDBCheckBox;
     dbgContaCorrente: TcxDBVerticalGrid;
     dbCtgrConta1: TcxCategoryRow;
     dbBanco1: TcxDBEditorRow;
@@ -182,6 +179,13 @@ type
     lblMotivoBloqueio: TLabel;
     lblCEP: TLabel;
     dbCEP: TJvDBComboEdit;
+    GrpBxParametrosDiversos: TGroupBox;
+    dbNFeDevolucao: TDBCheckBox;
+    dbEntregaFracionada: TDBCheckBox;
+    dbCadastroAtivo: TDBCheckBox;
+    lblEnteGovernamental: TLabel;
+    dbEnteGovernamental: TDBLookupComboBox;
+    dsEntidadeGovernamental: TDataSource;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -230,7 +234,8 @@ type
     FControllerClienteTotalCompras,
     FControllerClienteTitulos     ,
     FControllerClienteEstoque     ,
-    FControllerEmpresaView        : IControllerCustom;
+    FControllerEmpresaView        ,
+    FControllerEnteGovernamentalView  : IControllerCustom;
     FControllerConfiguracoes : IControllerEmpresa;
     FServiceCEP  : TServiceRequestCEP;
 
@@ -471,7 +476,8 @@ begin
   FControllerClienteTotalCompras := TControllerFactory.New.ClienteTotalCompras;
   FControllerClienteTitulos      := TControllerFactory.New.ClienteTitulos;
   FControllerClienteEstoque      := TControllerFactory.New.ClienteEstoque;
-  FControllerConfiguracoes := TControllerFactory.New.EmpresaView;
+  FControllerConfiguracoes     := TControllerFactory.New.EmpresaView;
+  FControllerEnteGovernamentalView := TControllerFactory.New.EnteGovernamentalView;
 
   dtsTotalComprasAbertas.DataSet := FControllerClienteTotalCompras.DAO.DataSet;
   dtsTitulos.DataSet := FControllerClienteTitulos.DAO.DataSet;
@@ -541,6 +547,7 @@ begin
     .Display('NOMEFANT', 'Fantasia', False)
     .Display('INSCEST',  'RG / IE', False)
     .Display('INSCMUN',  'Inscrição Municipal', False)
+    .Display('ENTE_GOVERNAMENTAL', 'É Entidade Governamental?', True)
     .Display('EST_COD',  'Estado', True)
     .Display('CID_COD',  'Cidade', True)
     .Display('BAI_COD',  'Bairro', False)
@@ -552,6 +559,7 @@ begin
 
   TController(FControllerVendedor).LookupComboBox(dbVendedor, dtsVendedor, 'vendedor_cod', 'codigo', 'nome');
   TController(FControllerTipoCNPJView).LookupComboBox(dbTipoCNPJ, dtsTipoCnpj, 'tipo', 'codigo', 'descricao');
+  TController(FControllerEnteGovernamentalView).LookupComboBox(dbEnteGovernamental, dsEntidadeGovernamental, 'ente_governamental', 'codigo', 'descricao');
 
   FController.DAO.DataSet.AfterScroll := DtSrcTabelaAfterScroll;
 end;

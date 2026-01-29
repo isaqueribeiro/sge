@@ -756,6 +756,7 @@ begin
   with qryDestinatario do
   begin
     Close;
+    ParamByName('estado_origem').AsString := qryEmitenteTLG_SIGLA.AsString;
     ParamByName('Codigo').AsInteger := iCodigo;
     Open;
   end;
@@ -2649,6 +2650,7 @@ var
   cAliquotaFCPUFDestino,
   cAliquotaUFDestino   ,
   cAliquotaUFInter     : Currency;
+  cAliquotaCBS    ,
   cAliquotaIBS    ,
   cAliquotaIBSUF  ,
   cAliquotaIBSMun : Double;
@@ -2657,13 +2659,20 @@ var
   cTotal_ICMSTot_vBC   ,
   cTotal_ICMSTot_vICMS ,
   cTotal_ISeletivoTotal_vBC ,
-  cTotal_ISeletivoTotal_vIS : Currency;
+  cTotal_ISeletivoTotal_vIS ,
+  cTotal_BC_IBSCBS,
+  cTotalIBS       ,
+  cTotalIBS_UF    ,
+  cTotalIBS_Mun   ,
+  cTotalIBSDiferimentoUF ,
+  cTotalIBSDiferimentoMun,
+  cTotalCBS       : Currency;
 
   eDiferimento,
   eReducao    : Boolean;
 begin
 (*
-  IMR - 15/01/2026 :
+  IMR - 29/01/2026 :
     Inclusão de todos os controles e campos novos referentes a Nova Reforma Tributária vigorada a partir de ABR/2026.
 
   IMR - 03/09/2019 :
@@ -2830,18 +2839,21 @@ begin
       if gReformaTributaria then
         Ide.dPrevEntrega := Date + 15;
 
-//      // Reforma Tributária
-//      if gReformaTributaria then
-//      begin
-//        Ide.cMunFGIBS := StrToInt(edtEmitCodCidade.Text);
-//
-//        Ide.tpNFDebito  := tdNenhum;
-//        Ide.tpNFCredito := tcNenhum;
-//
-//        Ide.gCompraGov.tpEnteGov := tcgEstados;
-//        Ide.gCompraGov.pRedutor  := 5;
-//        Ide.gCompraGov.tpOperGov := togFornecimento;
-//
+      // Reforma Tributária
+      if gReformaTributaria then
+      begin
+        Ide.cMunFGIBS := qryDestinatario.FieldByName('CID_IBGE').AsInteger;
+
+        Ide.tpNFDebito  := TtpNFDebito.tdNenhum;
+        Ide.tpNFCredito := TtpNFCredito.tcNenhum;
+
+        if (qryDestinatario.FieldByName('ENTE_GOVERNAMENTAL').AsInteger > 0) then
+        begin
+          Ide.gCompraGov.tpEnteGov := StrTotpEnteGov(qryDestinatario.FieldByName('ENTE_GOVERNAMENTAL').AsString);
+          Ide.gCompraGov.pRedutor  := qryDestinatario.FieldByName('PERCENTUAL_REDUTOR_IBSCBS').AsCurrency;
+          Ide.gCompraGov.tpOperGov := TtpOperGov.togFornecimento;
+        end;
+
 //    //    Informado para abater as parcelas de antecipação de pagamento, conforme Art. 10. § 4º
 //    //    refNFe: Referência uma NF-e (modelo 55) emitida anteriormente, referente a pagamento antecipado
 //
@@ -2850,7 +2862,7 @@ begin
 //
 //        with Ide.gPagAntecipado.New do
 //          refNFe := '12345678901234567890123456789012345678904567';
-//      end;
+      end;
 
   //Para NFe referenciada use os campos abaixo
   {     with Ide.NFref.Add do
@@ -3001,8 +3013,17 @@ begin
       cTotal_vIPI             := 0.0;
       cTotal_ICMSTot_vBC      := 0.0;
       cTotal_ICMSTot_vICMS    := 0.0;
+
+      // Reforma Tributária
       cTotal_ISeletivoTotal_vBC := 0.0;
       cTotal_ISeletivoTotal_vIS := 0.0;
+      cTotal_BC_IBSCBS := 0.0;
+      cTotalIBS_UF     := 0.0;
+      cTotalIBS_Mun    := 0.0;
+      cTotalIBS        := 0.0;
+      cTotalIBSDiferimentoUF  := 0.0;
+      cTotalIBSDiferimentoMun := 0.0;
+      cTotalCBS := 0.0;
 
       qryDadosProduto.First;
 
@@ -3467,7 +3488,7 @@ begin
             if gReformaTributaria then
             begin
               // Reforma Tributária
-              //  Informações do tributo: Imposto Seletivo só para 2027 e para os
+              //  Informações do tributo: Imposto Seletivo só para 2027 e para
               //  os produtos nocivos ao meio ambiente e a saúde.
               //  - Cigarros e derivados do tabaco → NCM 2402, 2403.
               //  - Bebidas alcoólicas : NCM 2203 (cerveja), 2204 (vinho), 2208 (destilados).
@@ -3518,7 +3539,7 @@ begin
                 TCSTIBSCBS.cst550
               ]) then
               begin
-                // CÁLCULOS DO IBS ====================================
+                // CÁLCULOS DO IBS ==================================== (ICMS/ISS)
 
                 cAliquotaIBS := qryDadosProduto.FieldByName('aliquota_ibs').AsCurrency;
 
@@ -3526,8 +3547,14 @@ begin
                 cAliquotaIBSUF  := cAliquotaIBS / 2;
                 cAliquotaIBSMun := cAliquotaIBS / 2;
 
-                eReducao     := (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger = 0) and (qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency  > 0.0);
-                eDiferimento := (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger = 0) and (qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency <= 0.0);
+                eReducao := (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger = 0)
+                  and (qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency  > 0.0)
+                  and (qryCalculoImposto.FieldByName('REDUCAO_IBS').AsInteger = 1)
+                  and (IBSCBS.CST in [TCSTIBSCBS.cst510, TCSTIBSCBS.cst515]);
+
+                eDiferimento := (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger = 0)
+                  and (qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency <= 0.0)
+                  and (IBSCBS.CST in [TCSTIBSCBS.cst011, TCSTIBSCBS.cst200, TCSTIBSCBS.cst515]);
 
                 // Base de Cálculo IBS/CBS
                 IBSCBS.gIBSCBS.vBC := RoundABNT(Prod.qCom * qryDadosProduto.FieldByName('PFINAL').AsCurrency, -2);
@@ -3547,13 +3574,15 @@ begin
                   cAliquotaIBSMun := IBSCBS.gIBSCBS.gIBSMun.gRed.pAliqEfet / 2; // Divisão do IBS entre para o Município
                 end;
 
+                // Cálculo do IBS UF
                 IBSCBS.gIBSCBS.gIBSUF.pIBSUF := cAliquotaIBSUF;
                 IBSCBS.gIBSCBS.gIBSUF.vIBSUF := IBSCBS.gIBSCBS.vBC * IBSCBS.gIBSCBS.gIBSUF.pIBSUF / 100.0;
 
+                // Cálculo do IBS Municipal
                 IBSCBS.gIBSCBS.gIBSMun.pIBSMun := cAliquotaIBSMun;
                 IBSCBS.gIBSCBS.gIBSMun.vIBSMun := IBSCBS.gIBSCBS.vBC * IBSCBS.gIBSCBS.gIBSMun.pIBSMun / 100.0;
 
-                // Grupo de Informações do Diferimento
+                // Grupo de Informações do Diferimento no IBS
                 if eDiferimento then
                 begin
                   // Diferimento na UF
@@ -3563,6 +3592,9 @@ begin
                   // Diferimento no Município
                   IBSCBS.gIBSCBS.gIBSMun.gDif.pDif := 0.0; // A DEFINIR FUTURAMENTE QUANDO NECESSÁRIO.
                   IBSCBS.gIBSCBS.gIBSMun.gDif.vDif := (IBSCBS.gIBSCBS.gIBSUF.vIBSUF + IBSCBS.gIBSCBS.gIBSMun.vIBSMun) * IBSCBS.gIBSCBS.gIBSMun.gDif.pDif / 100;
+
+                  cTotalIBSDiferimentoUF  := cTotalIBSDiferimentoUF  + IBSCBS.gIBSCBS.gIBSUF.gDif.vDif;
+                  cTotalIBSDiferimentoMun := cTotalIBSDiferimentoMun + IBSCBS.gIBSCBS.gIBSMun.gDif.vDif;
                 end;
 
                 // Valor do tributo devolvido. No fornecimento de energia elétrica, água, esgoto e gás natural e
@@ -3574,40 +3606,72 @@ begin
   //            IBSCBS.gIBSCBS.gIBSMun.gDevTrib.vDevTrib := 100;
 
                 // vIBS = (vIBSUF + vIBSMun) - vDif
-                IBSCBS.gIBSCBS.vIBS := (IBSCBS.gIBSCBS.gIBSUF.vIBSUF + IBSCBS.gIBSCBS.gIBSMun.vIBSMun) - IBSCBS.gIBSCBS.gIBSUF.gDif.vDif;
+                if eDiferimento then
+                  IBSCBS.gIBSCBS.vIBS := (IBSCBS.gIBSCBS.gIBSUF.vIBSUF + IBSCBS.gIBSCBS.gIBSMun.vIBSMun) - IBSCBS.gIBSCBS.gIBSUF.gDif.vDif
+                else
+                  IBSCBS.gIBSCBS.vIBS := (IBSCBS.gIBSCBS.gIBSUF.vIBSUF + IBSCBS.gIBSCBS.gIBSMun.vIBSMun);
 
-                // CÁLCULOS DO CBS ====================================
+                // CÁLCULOS DO CBS ==================================== (PIS/COFINS)
 
-  //            IBSCBS.gIBSCBS.gCBS.pCBS := 5;
-  //            IBSCBS.gIBSCBS.gCBS.vCBS := 100;
-  //
-  //            IBSCBS.gIBSCBS.gCBS.gDif.pDif := 5;
-  //            IBSCBS.gIBSCBS.gCBS.gDif.vDif := 100;
+                cAliquotaCBS := qryDadosProduto.FieldByName('aliquota_cbs').AsCurrency;
+
+                eReducao := (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger = 0)
+                  and (qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency  > 0.0)
+                  and (qryCalculoImposto.FieldByName('REDUCAO_CBS').AsInteger = 1)
+                  and (IBSCBS.CST in [TCSTIBSCBS.cst510, TCSTIBSCBS.cst515]);
+
+                eDiferimento := (qryCalculoImposto.FieldByName('CFOP_DEVOLUCAO').AsInteger = 0)
+                  and (qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency <= 0.0)
+                  and (IBSCBS.CST in [TCSTIBSCBS.cst510, TCSTIBSCBS.cst515]);
+
+                IBSCBS.gIBSCBS.gCBS.pCBS := cAliquotaCBS;
+                IBSCBS.gIBSCBS.gCBS.vCBS := RoundABNT(Prod.qCom * qryDadosProduto.FieldByName('PFINAL').AsCurrency, -2) * IBSCBS.gIBSCBS.gCBS.pCBS / 100;
+
+                // Grupo de Informações do Diferimento no CBS
+                if eDiferimento then
+                begin
+                  IBSCBS.gIBSCBS.gCBS.gDif.pDif := 0.0; // A DEFINIR FUTURAMENTE QUANDO NECESSÁRIO.
+                  IBSCBS.gIBSCBS.gCBS.gDif.vDif := IBSCBS.gIBSCBS.gCBS.vCBS * IBSCBS.gIBSCBS.gCBS.gDif.pDif / 100;
+                end;
   //
                 // Valor do tributo devolvido. No fornecimento de energia elétrica, água, esgoto e gás natural e
                 // em outras hipóteses definidas no regulamento.
   //            IBSCBS.gIBSCBS.gCBS.gDevTrib.vDevTrib := 100;
-  //
-  //            IBSCBS.gIBSCBS.gCBS.gRed.pRedAliq := 5;
-  //            IBSCBS.gIBSCBS.gCBS.gRed.pAliqEfet := 5;
-  //
-  //            IBSCBS.gIBSCBS.gTribRegular.CSTReg := cst000;
-  //            IBSCBS.gIBSCBS.gTribRegular.cClassTribReg := '000001';
-  //            IBSCBS.gIBSCBS.gTribRegular.pAliqEfetRegIBSUF := 5;
-  //            IBSCBS.gIBSCBS.gTribRegular.vTribRegIBSUF := 50;
-  //            IBSCBS.gIBSCBS.gTribRegular.pAliqEfetRegIBSMun := 5;
-  //            IBSCBS.gIBSCBS.gTribRegular.vTribRegIBSMun := 50;
-  //            IBSCBS.gIBSCBS.gTribRegular.pAliqEfetRegCBS := 5;
-  //            IBSCBS.gIBSCBS.gTribRegular.vTribRegCBS := 50;
-  //
-  //            // Tipo Tributação Compra Governamental
-  //            IBSCBS.gIBSCBS.gTribCompraGov.pAliqIBSUF := 5;
-  //            IBSCBS.gIBSCBS.gTribCompraGov.vTribIBSUF := 50;
-  //            IBSCBS.gIBSCBS.gTribCompraGov.pAliqIBSMun := 5;
-  //            IBSCBS.gIBSCBS.gTribCompraGov.vTribIBSMun := 50;
-  //            IBSCBS.gIBSCBS.gTribCompraGov.pAliqCBS := 5;
-  //            IBSCBS.gIBSCBS.gTribCompraGov.vTribCBS := 50;
-  //
+
+                if eReducao then
+                begin
+                  IBSCBS.gIBSCBS.gCBS.gRed.pRedAliq  := qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency;
+                  IBSCBS.gIBSCBS.gCBS.gRed.pAliqEfet := cAliquotaCBS * (100.0 - qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency) / 100.0;
+                end;
+
+                if (qryCalculoImposto.FieldByName('TRIBUTACAO_REGULAR').AsInteger = 1) then
+                begin
+                  IBSCBS.gIBSCBS.gTribRegular.CSTReg             := IBSCBS.CST;
+                  IBSCBS.gIBSCBS.gTribRegular.cClassTribReg      := IBSCBS.cClassTrib;
+                  IBSCBS.gIBSCBS.gTribRegular.pAliqEfetRegIBSUF  := cAliquotaIBSUF;
+                  IBSCBS.gIBSCBS.gTribRegular.vTribRegIBSUF      := IBSCBS.gIBSCBS.gIBSUF.vIBSUF;
+                  IBSCBS.gIBSCBS.gTribRegular.pAliqEfetRegIBSMun := cAliquotaIBSMun;
+                  IBSCBS.gIBSCBS.gTribRegular.vTribRegIBSMun     := IBSCBS.gIBSCBS.gIBSMun.vIBSMun;
+                  IBSCBS.gIBSCBS.gTribRegular.pAliqEfetRegCBS    := IBSCBS.gIBSCBS.gCBS.pCBS;
+                  IBSCBS.gIBSCBS.gTribRegular.vTribRegCBS        := IBSCBS.gIBSCBS.gCBS.vCBS;
+                end;
+
+                // Tipo Tributação Compra Governamental
+                if (qryDestinatario.FieldByName('ENTE_GOVERNAMENTAL').AsInteger > 0) then
+                begin
+//                  IBSCBS.gIBSCBS.gTribCompraGov.pAliqIBSUF := 5;
+//                  IBSCBS.gIBSCBS.gTribCompraGov.vTribIBSUF := 50;
+//                  IBSCBS.gIBSCBS.gTribCompraGov.pAliqIBSMun := 5;
+//                  IBSCBS.gIBSCBS.gTribCompraGov.vTribIBSMun := 50;
+//                  IBSCBS.gIBSCBS.gTribCompraGov.pAliqCBS := 5;
+//                  IBSCBS.gIBSCBS.gTribCompraGov.vTribCBS := 50;
+                end;
+
+                cTotal_BC_IBSCBS := cTotal_BC_IBSCBS + IBSCBS.gIBSCBS.vBC;
+                cTotalIBS_UF     := cTotalIBS_UF  + IBSCBS.gIBSCBS.gIBSUF.vIBSUF;
+                cTotalIBS_Mun    := cTotalIBS_Mun + IBSCBS.gIBSCBS.gIBSMun.vIBSMun;
+                cTotalIBS        := cTotalIBS + IBSCBS.gIBSCBS.vIBS;
+                cTotalCBS        := cTotalCBS + IBSCBS.gIBSCBS.gCBS.vCBS;
               end;
 
               // Informações do tributo: IBS / CBS em operações com imposto monofásico
@@ -3823,31 +3887,40 @@ begin
       if ( vTotalTributoAprox > 0.0 ) then
         Total.ICMSTot.vTotTrib := vTotalTributoAprox;
 
-//      // Reforma Tributária
-//      if rgReformaTributaria.ItemIndex = 0 then
-//      begin
-//        Total.ISTot.vIS := 100;
-//
-//        Total.IBSCBSTot.vBCIBSCBS := 100;
-//
-//        Total.IBSCBSTot.gIBS.vIBS := 100;
-//        Total.IBSCBSTot.gIBS.vCredPres := 100;
-//        Total.IBSCBSTot.gIBS.vCredPresCondSus := 100;
-//
-//        Total.IBSCBSTot.gIBS.gIBSUFTot.vDif := 100;
-//        Total.IBSCBSTot.gIBS.gIBSUFTot.vDevTrib := 100;
-//        Total.IBSCBSTot.gIBS.gIBSUFTot.vIBSUF := 100;
-//
-//        Total.IBSCBSTot.gIBS.gIBSMunTot.vDif := 100;
-//        Total.IBSCBSTot.gIBS.gIBSMunTot.vDevTrib := 100;
-//        Total.IBSCBSTot.gIBS.gIBSMunTot.vIBSMun := 100;
-//
+      // Reforma Tributária
+      if gReformaTributaria then
+      begin
+        Total.ISTot.vIS := cTotal_ISeletivoTotal_vIS;
+
+        Total.IBSCBSTot.vBCIBSCBS := cTotal_BC_IBSCBS;
+
+        if (cTotalIBS > 0.0) or (cTotalIBSDiferimentoUF > 0.0) or (cTotalIBSDiferimentoMun > 0.0) then
+        begin
+          Total.IBSCBSTot.gIBS.vIBS := cTotalIBS;
+          Total.IBSCBSTot.gIBS.vCredPres        := 0.0; // Valor total do crédito presumido
+          Total.IBSCBSTot.gIBS.vCredPresCondSus := 0.0; // Valor total do crédito presumido em condição suspensiva.
+
+          // Total IBS UF
+          Total.IBSCBSTot.gIBS.gIBSUFTot.vDif     := cTotalIBSDiferimentoUF;
+          Total.IBSCBSTot.gIBS.gIBSUFTot.vDevTrib := 0.0; // cTotalIBS_UF * Percentual para Devolução de Tributos / 100;
+          Total.IBSCBSTot.gIBS.gIBSUFTot.vIBSUF   := cTotalIBS_UF;
+
+          // Total IBS Município
+          Total.IBSCBSTot.gIBS.gIBSMunTot.vDif     := cTotalIBSDiferimentoMun;
+          Total.IBSCBSTot.gIBS.gIBSMunTot.vDevTrib := 0.0; // cTotalIBS_Mun * Percentual para Devolução de Tributos / 100;
+          Total.IBSCBSTot.gIBS.gIBSMunTot.vIBSMun  := cTotalIBS_Mun;
+        end;
+
+        // Total CBS (União)
+        if (cTotalCBS > 0.0) then
+        begin
 //        Total.IBSCBSTot.gCBS.vDif := 100;
 //        Total.IBSCBSTot.gCBS.vDevTrib := 100;
-//        Total.IBSCBSTot.gCBS.vCBS := 100;
+          Total.IBSCBSTot.gCBS.vCBS := cTotalCBS;
 //        Total.IBSCBSTot.gCBS.vCredPres := 100;
 //        Total.IBSCBSTot.gCBS.vCredPresCondSus := 100;
-//
+        end;
+
 //        Total.IBSCBSTot.gMono.vIBSMono := 100;
 //        Total.IBSCBSTot.gMono.vCBSMono := 100;
 //        Total.IBSCBSTot.gMono.vIBSMonoReten := 100;
@@ -3860,7 +3933,7 @@ begin
 //
 //        // Valor total da NF-e com IBS / CBS / IS
 //        Total.vNFTot := 100;
-//      end;
+      end;
 
   {      Total.ISSQNtot.vServ   := 0;
         Total.ISSQNTot.vBC     := 0;
@@ -4940,18 +5013,25 @@ begin
       // Indicador de intermediador/marketplace
       Ide.indIntermed := iiSemOperacao;
 
-//      // Reforma Tributária
-//      if rgReformaTributaria.ItemIndex = 0 then
-//      begin
-//        Ide.cMunFGIBS := StrToInt(edtEmitCodCidade.Text);
-//
-//        Ide.tpNFDebito := tdNenhum;
-//        Ide.tpNFCredito := tcNenhum;
-//
-//        Ide.gCompraGov.tpEnteGov := tcgEstados;
-//        Ide.gCompraGov.pRedutor := 5;
-//        Ide.gCompraGov.tpOperGov := togFornecimento;
-//
+      // Reforma Tributária
+      if gReformaTributaria then
+        Ide.dPrevEntrega := Date + 15;
+
+      // Reforma Tributária
+      if gReformaTributaria then
+      begin
+        Ide.cMunFGIBS := qryFornecedorDestinatario.FieldByName('CID_IBGE').AsInteger;
+
+        Ide.tpNFDebito  := TtpNFDebito.tdNenhum;
+        Ide.tpNFCredito := TtpNFCredito.tcNenhum;
+
+        if (qryFornecedorDestinatario.FieldByName('ENTE_GOVERNAMENTAL').AsInteger > 0) then
+        begin
+          Ide.gCompraGov.tpEnteGov := StrTotpEnteGov(qryFornecedorDestinatario.FieldByName('ENTE_GOVERNAMENTAL').AsString);
+          Ide.gCompraGov.pRedutor  := qryFornecedorDestinatario.FieldByName('PERCENTUAL_REDUTOR_IBSCBS').AsCurrency;
+          Ide.gCompraGov.tpOperGov := TtpOperGov.togNenhum;
+        end;
+
 //    //    Informado para abater as parcelas de antecipação de pagamento, conforme Art. 10. § 4º
 //    //    refNFe: Referência uma NF-e (modelo 55) emitida anteriormente, referente a pagamento antecipado
 //
@@ -4960,7 +5040,7 @@ begin
 //
 //        with Ide.gPagAntecipado.New do
 //          refNFe := '12345678901234567890123456789012345678904567';
-//      end;
+      end;
 
   //Para NFe referenciada use os campos abaixo
   {     with Ide.NFref.Add do
@@ -6147,6 +6227,7 @@ begin
   with qryFornecedorDestinatario do
   begin
     Close;
+    ParamByName('estado_origem').AsString := qryEmitenteTLG_SIGLA.AsString;
     ParamByName('Codigo').AsInteger := iCodigo;
     Open;
   end;

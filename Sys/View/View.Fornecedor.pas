@@ -63,7 +63,8 @@ uses
   Service.Request.CNPJ,
   Service.Request.CEP,
   Interacao.Tabela,
-  Controller.Tabela;
+  Controller.Tabela, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinTheBezier, dxSkinWXI;
 
 type
   TFornecedorRegistro = record
@@ -149,6 +150,9 @@ type
     dbContaCorrente3: TcxDBEditorRow;
     dbPracaCobranca3: TcxDBEditorRow;
     dbCEP: TJvDBComboEdit;
+    dsEntidadeGovernamental: TDataSource;
+    lblEnteGovernamental: TLabel;
+    dbEnteGovernamental: TDBLookupComboBox;
     procedure ProximoCampoKeyPress(Sender: TObject; var Key: Char);
     procedure FormCreate(Sender: TObject);
     procedure dbEstadoButtonClick(Sender: TObject);
@@ -170,7 +174,8 @@ type
   private
     { Private declarations }
     FControllerGrupoFornecedor   ,
-    FControllerBancoFebrabanView : IControllerCustom;
+    FControllerBancoFebrabanView ,
+    FControllerEnteGovernamentalView : IControllerCustom;
     FServiceCEP  : TServiceRequestCEP;
     procedure CarregarBancos;
     procedure BuscarCEP(aRetorno : TEndereco);
@@ -323,6 +328,7 @@ begin
   FController := TControllerFactory.New.Fornecedor;
   FControllerGrupoFornecedor   := TControllerFactory.New.GrupoFornecedor;
   FControllerBancoFebrabanView := TControllerFactory.New.BancoFebrabanView;
+  FControllerEnteGovernamentalView := TControllerFactory.New.EnteGovernamentalView;
 
   inherited;
   RotinaID         := ROTINA_CAD_FORNECEDOR_ID;
@@ -342,11 +348,19 @@ begin
 
   Tabela
     .Display('CODFORN', 'Código', '##0000', TAlignment.taCenter)
+    .Display('PESSOA_FISICA', 'Tipo Pessoa', TAlignment.taLeftJustify, True)
+    .Display('CNPJ',     'CNPJ', True)
+    .Display('NOMEFORN', 'Nome / Razão Social', True)
+    .Display('NOMEFANT', 'Fantasia', False)
+    .Display('INSCEST',  'RG / IE', False)
+    .Display('INSCMUN',  'Inscrição Municipal', False)
+    .Display('ENTE_GOVERNAMENTAL', 'É Entidade Governamental?', True)
     .Display('FATURAMENTO_MINIMO', 'Fatura Mínima (R$)', ',0.00', TAlignment.taRightJustify);
 
   AbrirTabelaAuto := False;
 
   TController(FControllerGrupoFornecedor).LookupComboBox(dbGrupo, dtsGrupo, 'grf_cod', 'grf_cod', 'grf_descricao');
+  TController(FControllerEnteGovernamentalView).LookupComboBox(dbEnteGovernamental, dsEntidadeGovernamental, 'ente_governamental', 'codigo', 'descricao');
 end;
 
 procedure TViewFornecedor.FormDestroy(Sender: TObject);

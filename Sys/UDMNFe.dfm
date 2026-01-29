@@ -44666,6 +44666,27 @@ object DMNFe: TDMNFe
       
         '  , coalesce(nullif(p.aliquota_is, 0.0), nullif(ib.aliquota_is, ' +
         '0.0), 0.0)  as aliquota_is'
+      '  , coalesce(cct.reducao_ibs, 0) as reducao_ibs'
+      '  , coalesce(cct.reducao_cbs, 0) as reducao_cbs'
+      '  , coalesce(cct.tributacao_regular, 0) as tributacao_regular'
+      '  , coalesce(cct.credito_operacao, 0)   as credito_operacao'
+      
+        '  , coalesce(cct.imposto_mono_padrao, 0)   as imposto_mono_padra' +
+        'o'
+      
+        '  , coalesce(cct.imposto_mono_retencao, 0) as imposto_mono_reten' +
+        'cao'
+      
+        '  , coalesce(cct.imposto_mono_retida, 0)   as imposto_mono_retid' +
+        'a'
+      
+        '  , coalesce(cct.imposto_mono_diferimento, 0) as imposto_mono_di' +
+        'ferimento'
+      '  , coalesce(cct.estorno_credito, 0) as estorno_credito'
+      '  , coalesce(cct.uso_nfeabi, 0) as uso_nfeabi'
+      '  , coalesce(cct.uso_nfe, 0)    as uso_nfe'
+      '  , coalesce(cct.uso_nfce, 0)   as uso_nfce'
+      '  , coalesce(cct.uso_nfse, 0)   as uso_nfse'
       'from TVENDASITENS i'
       '  inner join TBPRODUTO p on (p.Cod = i.Codprod)'
       '  inner join TBUNIDADEPROD u on (u.Unp_cod = i.Unid_cod)'
@@ -44682,6 +44703,9 @@ object DMNFe: TDMNFe
         '  left join SYS_IBPT ib on (ib.id_ibpt = p.tabela_ibpt and ib.at' +
         'ivo = 1)'
       '  left join TBESTOQUE_ALMOX lt on (lt.id = i.lote_id)'
+      
+        '  left join TBTRIBUTACAO_CLASSE cct on (cct.cst = coalesce(p.cst' +
+        '2026, '#39'000'#39') and cct.classe = coalesce(p.cct2026, '#39'000001'#39'))'
       ''
       'where i.Ano = :anovenda'
       '  and i.Codcontrol = :numvenda'
@@ -44814,6 +44838,27 @@ object DMNFe: TDMNFe
       
         '  , coalesce(nullif(p.aliquota_is, 0.0), nullif(ib.aliquota_is, ' +
         '0.0), 0.0)  as aliquota_is'
+      '  , coalesce(cct.reducao_ibs, 0) as reducao_ibs'
+      '  , coalesce(cct.reducao_cbs, 0) as reducao_cbs'
+      '  , coalesce(cct.tributacao_regular, 0) as tributacao_regular'
+      '  , coalesce(cct.credito_operacao, 0)   as credito_operacao'
+      
+        '  , coalesce(cct.imposto_mono_padrao, 0)   as imposto_mono_padra' +
+        'o'
+      
+        '  , coalesce(cct.imposto_mono_retencao, 0) as imposto_mono_reten' +
+        'cao'
+      
+        '  , coalesce(cct.imposto_mono_retida, 0)   as imposto_mono_retid' +
+        'a'
+      
+        '  , coalesce(cct.imposto_mono_diferimento, 0) as imposto_mono_di' +
+        'ferimento'
+      '  , coalesce(cct.estorno_credito, 0) as estorno_credito'
+      '  , coalesce(cct.uso_nfeabi, 0) as uso_nfeabi'
+      '  , coalesce(cct.uso_nfe, 0)    as uso_nfe'
+      '  , coalesce(cct.uso_nfce, 0)   as uso_nfce'
+      '  , coalesce(cct.uso_nfse, 0)   as uso_nfse'
       'from TBCOMPRASITENS i'
       '  inner join TBPRODUTO p on (p.Cod = i.codprod)'
       '  inner join TBUNIDADEPROD u on (u.Unp_cod = i.unid_cod)'
@@ -44830,6 +44875,9 @@ object DMNFe: TDMNFe
       
         '  left join SYS_IBPT ib on (ib.id_ibpt = p.tabela_ibpt and ib.at' +
         'ivo = 1)'
+      
+        '  left join TBTRIBUTACAO_CLASSE cct on (cct.cst = coalesce(p.cst' +
+        '2026, '#39'000'#39') and cct.classe = coalesce(p.cct2026, '#39'000001'#39'))'
       ''
       'where i.Ano = :anoCompra'
       '  and i.Codcontrol = :numCompra'
@@ -45128,6 +45176,10 @@ object DMNFe: TDMNFe
       '  , coalesce(nullif(trim(c.NomeFant), '#39#39'), c.Nome) as NomeFant'
       '  , c.Inscest'
       '  , c.Inscmun'
+      
+        '  , coalesce(c.admininistracao_publica, 0) as admininistracao_pu' +
+        'blica'
+      '  , coalesce(c.ente_governamental, 0)      as ente_governamental'
       ''
       '  , coalesce(c.Fone, '#39#39') as Fone'
       '  , coalesce(c.fonecel, '#39#39') as fonecel'
@@ -45160,6 +45212,9 @@ object DMNFe: TDMNFe
       '  , uf.Est_nome'
       '  , uf.Est_sigla'
       '  , uf.Est_siafi'
+      
+        '  , coalesce(alq.percentual_redutor_ibscbs, 0) as percentual_red' +
+        'utor_ibscbs'
       ''
       '  , c.Pais_id'
       '  , pa.Pais_nome'
@@ -45170,11 +45225,18 @@ object DMNFe: TDMNFe
       '  left join TBLOGRADOURO lg on (lg.Log_cod = c.Log_cod)'
       '  left join TBTIPO_LoGRADOURO tl on (tl.Tlg_cod = c.Tlg_tipo)'
       '  left Join TBPAIS pa on (pa.Pais_id = c.Pais_id)'
+      
+        '  left join SYS_ALIQUOTA_ICMS alq on (alq.uf_origem = :estado_or' +
+        'igem and alq.uf_destino = uf.Est_sigla)'
       ''
       'where c.Codigo = :Codigo')
     Left = 144
     Top = 72
     ParamData = <
+      item
+        Name = 'ESTADO_ORIGEM'
+        ParamType = ptInput
+      end
       item
         Name = 'CODIGO'
         DataType = ftInteger
@@ -45194,6 +45256,10 @@ object DMNFe: TDMNFe
       '  , f.nomeforn as Nome'
       '  , f.inscest'
       '  , f.inscmun'
+      
+        '  , iif(coalesce(f.grf_cod, 0) = 6, 1, 0) as admininistracao_pub' +
+        'lica'
+      '  , coalesce(f.ente_governamental, 0)     as ente_governamental'
       ''
       '  , f.fone'
       '  , f.email'
@@ -45221,6 +45287,9 @@ object DMNFe: TDMNFe
       '  , uf.Est_nome'
       '  , uf.Est_sigla'
       '  , uf.Est_siafi'
+      
+        '  , coalesce(alq.percentual_redutor_ibscbs, 0) as percentual_red' +
+        'utor_ibscbs'
       ''
       '  , f.pais_id'
       '  , pa.Pais_nome'
@@ -45231,10 +45300,18 @@ object DMNFe: TDMNFe
       '  left join TBLOGRADOURO lg on (lg.Log_cod = f.Log_cod)'
       '  left join TBTIPO_LoGRADOURO tl on (tl.Tlg_cod = f.Tlg_tipo)'
       '  left Join TBPAIS pa on (pa.Pais_id = f.Pais_id)'
+      
+        '  left join SYS_ALIQUOTA_ICMS alq on (alq.uf_origem = :estado_or' +
+        'igem and alq.uf_destino = uf.Est_sigla)'
+      '  '
       'where f.Codforn = :Codigo')
     Left = 224
     Top = 72
     ParamData = <
+      item
+        Name = 'ESTADO_ORIGEM'
+        ParamType = ptInput
+      end
       item
         Name = 'CODIGO'
         DataType = ftInteger

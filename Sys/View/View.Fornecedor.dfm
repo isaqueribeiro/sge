@@ -3,44 +3,44 @@ inherited ViewFornecedor: TViewFornecedor
   Top = 219
   ActiveControl = dbCodigo
   Caption = 'Cadastro de Fornecedores'
-  ClientHeight = 500
+  ClientHeight = 562
   ClientWidth = 844
   OnClose = FormClose
   OnDestroy = FormDestroy
   ExplicitWidth = 856
-  ExplicitHeight = 538
+  ExplicitHeight = 600
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 496
+    Top = 558
     Width = 844
     ExplicitTop = 497
     ExplicitWidth = 844
   end
   inherited Bevel3: TBevel
-    Top = 457
+    Top = 519
     Width = 844
     ExplicitTop = 458
     ExplicitWidth = 844
   end
   inherited pgcGuias: TPageControl
     Width = 844
-    Height = 457
+    Height = 519
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 840
     ExplicitHeight = 456
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 836
-      ExplicitHeight = 428
+      ExplicitHeight = 490
       inherited Bevel4: TBevel
-        Top = 354
+        Top = 416
         Width = 836
         ExplicitTop = 363
         ExplicitWidth = 836
       end
       inherited dbgDados: TDBGrid
         Width = 836
-        Height = 354
+        Height = 416
         Columns = <
           item
             Expanded = False
@@ -85,7 +85,7 @@ inherited ViewFornecedor: TViewFornecedor
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 358
+        Top = 420
         Width = 836
         ExplicitTop = 358
         ExplicitWidth = 836
@@ -128,26 +128,27 @@ inherited ViewFornecedor: TViewFornecedor
     end
     inherited tbsCadastro: TTabSheet
       ExplicitWidth = 836
-      ExplicitHeight = 428
+      ExplicitHeight = 490
       inherited Bevel8: TBevel
-        Top = 113
+        Top = 151
         Width = 836
         ExplicitTop = 113
         ExplicitWidth = 836
       end
       object Bevel5: TBevel [1]
         Left = 0
-        Top = 233
+        Top = 271
         Width = 836
         Height = 4
         Align = alTop
         Shape = bsSpacer
+        ExplicitTop = 233
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 836
-        Height = 113
-        ExplicitWidth = 832
-        ExplicitHeight = 113
+        Height = 151
+        ExplicitWidth = 836
+        ExplicitHeight = 151
         object lblRazao: TLabel [1]
           Left = 352
           Top = 24
@@ -208,6 +209,20 @@ inherited ViewFornecedor: TViewFornecedor
           Height = 13
           Caption = 'Nome Fantasia:'
           FocusControl = dbNomeFantasia
+        end
+        object lblEnteGovernamental: TLabel [8]
+          Left = 16
+          Top = 105
+          Width = 122
+          Height = 13
+          Caption = 'Entidade Governamental:'
+          FocusControl = dbEnteGovernamental
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
         inherited dbCodigo: TDBEdit
           Color = clMoneyGreen
@@ -397,15 +412,34 @@ inherited ViewFornecedor: TViewFornecedor
           TabOrder = 2
           OnButtonClick = dbCNPJButtonClick
         end
+        object dbEnteGovernamental: TDBLookupComboBox
+          Left = 16
+          Top = 121
+          Width = 241
+          Height = 21
+          DataField = 'ente_governamental'
+          DataSource = DtSrcTabela
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'codigo'
+          ListField = 'descricao'
+          ParentFont = False
+          TabOrder = 9
+        end
       end
       object GroupBox1: TGroupBox
         Left = 0
-        Top = 117
+        Top = 155
         Width = 836
         Height = 116
         Align = alTop
         Caption = 'Endere'#231'o'
         TabOrder = 1
+        ExplicitTop = 117
         ExplicitWidth = 832
         object lblCidade: TLabel
           Left = 160
@@ -949,12 +983,13 @@ inherited ViewFornecedor: TViewFornecedor
       end
       object pgcMaisDados: TPageControl
         Left = 0
-        Top = 237
+        Top = 275
         Width = 836
-        Height = 191
+        Height = 215
         ActivePage = tbsContato
         Align = alClient
         TabOrder = 2
+        ExplicitTop = 237
         ExplicitWidth = 832
         ExplicitHeight = 190
         object tbsContato: TTabSheet
@@ -1165,7 +1200,7 @@ inherited ViewFornecedor: TViewFornecedor
             Left = 167
             Top = 0
             Width = 661
-            Height = 163
+            Height = 187
             Align = alRight
             OptionsView.CellEndEllipsis = True
             OptionsView.RowHeaderWidth = 142
@@ -1182,6 +1217,7 @@ inherited ViewFornecedor: TViewFornecedor
             OnEnter = dbgContaCorrenteEnter
             OnExit = dbgContaCorrenteExit
             DataController.DataSource = DtSrcTabela
+            ExplicitHeight = 163
             Version = 1
             object dbCtgrConta1: TcxCategoryRow
               Options.Focusing = False
@@ -1348,11 +1384,12 @@ inherited ViewFornecedor: TViewFornecedor
             Left = 0
             Top = 0
             Width = 828
-            Height = 163
+            Height = 187
             Align = alClient
             DataField = 'OBSERVACAO'
             DataSource = DtSrcTabela
             TabOrder = 0
+            ExplicitHeight = 163
           end
         end
         object tbsDuplicatas: TTabSheet
@@ -1363,7 +1400,7 @@ inherited ViewFornecedor: TViewFornecedor
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 461
+    Top = 523
     Width = 844
     ExplicitTop = 460
     ExplicitWidth = 840
@@ -1397,6 +1434,10 @@ inherited ViewFornecedor: TViewFornecedor
   end
   object dtsBancoFebraban: TDataSource
     Left = 744
+    Top = 8
+  end
+  object dsEntidadeGovernamental: TDataSource
+    Left = 776
     Top = 8
   end
 end

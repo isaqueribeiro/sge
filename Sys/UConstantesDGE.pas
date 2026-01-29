@@ -17,7 +17,7 @@ Uses
     TTipoProduto = (tpMaterialGeral, tpMaterialMedicoHosp, tpMedicamento, tpSolucao, tpOPME);
     TTipoCFOP    = (tcfopADefinir, tcfopEntrada, tcfopSaida);
     TTipoTabelaIBPT  = (tIbptGeral, tIbptProdutos, tIbptServicos);
-    TGrupoFornecedor = (gpFornecedorADefinir = 1, gpFornecedorProduto = 2, gpFornecedorServico = 3, gpFornecedorProdutoServico = 4, gpFornecedorColaborador = 5);
+    TGrupoFornecedor = (gpFornecedorADefinir = 1, gpFornecedorProduto = 2, gpFornecedorServico = 3, gpFornecedorProdutoServico = 4, gpFornecedorColaborador = 5, gpFornecedorAdmPublica = 6);
     TTipoPlanoConta  = (tpNull = -1, tpAgrupador = 0, tpLancamento = 1);
     TTipoMovimentoEntrada = (tmeProduto, tmeServico);
     TFormaNFDevolucao = (fdNFeEletronica, fdNFeModelo1_1A, fdNFProdutorRural, fdCupomFiscal);
@@ -132,6 +132,7 @@ const
     , 'Serviços'
     , 'Produtos de Serviços'
     , 'Colaboradores'
+    , 'Administração Pública'
   );
 
   ORIGEM_PRODUTO_NACIONAL  = '0';

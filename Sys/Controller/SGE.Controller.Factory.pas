@@ -96,6 +96,7 @@ type
       FDistrito    ,
       FEmpresa     : IControllerCustom;
       FEmpresaView : IControllerEmpresa;
+      FEnteGovernamentalView : IControllerCustom;
       FEntrada     : IControllerEntrada;
       FEndereco : IControllerEndereco;
       FEntradaDevolucao : IControllerCustom;
@@ -219,6 +220,7 @@ type
       function Empresa : IControllerCustom;
       function EmpresaView : IControllerEmpresa;
       function Endereco : IControllerEndereco;
+      function EnteGovernamentalView : IControllerCustom;
       function Entrada : IControllerEntrada;
       function EntradaDevolucao : IControllerCustom;
       function EntradaProduto : IControllerEntradaProduto;
@@ -838,6 +840,14 @@ begin
     FEndereco := TControllerEndereco.New;
 
   Result := FEndereco;
+end;
+
+function TControllerFactory.EnteGovernamentalView: IControllerCustom;
+begin
+  if not Assigned(FEnteGovernamentalView) then
+    FEnteGovernamentalView := TControllerEnteGovernamentalView.New;
+
+  Result := FEnteGovernamentalView;
 end;
 
 function TControllerFactory.Entrada: IControllerEntrada;

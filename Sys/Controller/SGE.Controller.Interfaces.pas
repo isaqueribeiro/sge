@@ -445,6 +445,7 @@ type
     function EmpresaView : IControllerEmpresa;
     function Endereco : IControllerEndereco;
     function Entrada : IControllerEntrada;
+    function EnteGovernamentalView : IControllerCustom;
     function EntradaDevolucao : IControllerCustom;
     function EntradaProduto : IControllerEntradaProduto;
     function Estado  : IControllerCustom;

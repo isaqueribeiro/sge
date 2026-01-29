@@ -3,44 +3,44 @@ inherited ViewCliente: TViewCliente
   Top = 237
   ActiveControl = nil
   Caption = 'Cadastro de Clientes'
-  ClientHeight = 535
+  ClientHeight = 579
   ClientWidth = 844
   OnClose = FormClose
   OnDestroy = FormDestroy
   ExplicitWidth = 856
-  ExplicitHeight = 573
+  ExplicitHeight = 617
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 531
+    Top = 575
     Width = 844
     ExplicitTop = 494
     ExplicitWidth = 844
   end
   inherited Bevel3: TBevel
-    Top = 492
+    Top = 536
     Width = 844
     ExplicitTop = 455
     ExplicitWidth = 844
   end
   inherited pgcGuias: TPageControl
     Width = 844
-    Height = 492
+    Height = 536
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 840
     ExplicitHeight = 491
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 836
-      ExplicitHeight = 463
+      ExplicitHeight = 507
       inherited Bevel4: TBevel
-        Top = 389
+        Top = 433
         Width = 836
         ExplicitTop = 360
         ExplicitWidth = 836
       end
       inherited dbgDados: TDBGrid
         Width = 836
-        Height = 389
+        Height = 433
         Columns = <
           item
             Expanded = False
@@ -79,7 +79,7 @@ inherited ViewCliente: TViewCliente
           end>
       end
       inherited pnlFiltros: TPanel
-        Top = 393
+        Top = 437
         Width = 836
         ExplicitTop = 393
         ExplicitWidth = 836
@@ -191,26 +191,27 @@ inherited ViewCliente: TViewCliente
     end
     inherited tbsCadastro: TTabSheet
       ExplicitWidth = 836
-      ExplicitHeight = 463
+      ExplicitHeight = 507
       inherited Bevel8: TBevel
-        Top = 113
+        Top = 151
         Width = 836
         ExplicitTop = 113
         ExplicitWidth = 836
       end
       object Bevel5: TBevel [1]
         Left = 0
-        Top = 233
+        Top = 271
         Width = 836
         Height = 4
         Align = alTop
         Shape = bsSpacer
+        ExplicitTop = 233
       end
       inherited GrpBxDadosNominais: TGroupBox
         Width = 836
-        Height = 113
-        ExplicitWidth = 832
-        ExplicitHeight = 113
+        Height = 151
+        ExplicitWidth = 836
+        ExplicitHeight = 151
         object lblCNPJ: TLabel [1]
           Left = 192
           Top = 24
@@ -293,6 +294,20 @@ inherited ViewCliente: TViewCliente
           Height = 13
           Caption = 'Nome Fantasia:'
           FocusControl = dbNomeFantasia
+        end
+        object lblEnteGovernamental: TLabel [9]
+          Left = 16
+          Top = 105
+          Width = 122
+          Height = 13
+          Caption = 'Entidade Governamental:'
+          FocusControl = dbEnteGovernamental
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
         end
         inherited dbCodigo: TDBEdit
           Color = clMoneyGreen
@@ -508,15 +523,35 @@ inherited ViewCliente: TViewCliente
           TabOrder = 2
           OnButtonClick = dbCNPJButtonClick
         end
+        object dbEnteGovernamental: TDBLookupComboBox
+          Left = 16
+          Top = 121
+          Width = 241
+          Height = 21
+          DataField = 'ente_governamental'
+          DataSource = DtSrcTabela
+          DropDownRows = 10
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'codigo'
+          ListField = 'descricao'
+          ListSource = dtsVendedor
+          ParentFont = False
+          TabOrder = 10
+        end
       end
       object GroupBox1: TGroupBox
         Left = 0
-        Top = 117
+        Top = 155
         Width = 836
         Height = 116
         Align = alTop
         Caption = 'Endere'#231'o'
         TabOrder = 1
+        ExplicitTop = 117
         ExplicitWidth = 832
         object lblCidade: TLabel
           Left = 176
@@ -1060,13 +1095,14 @@ inherited ViewCliente: TViewCliente
       end
       object pgcMaisDados: TPageControl
         Left = 0
-        Top = 237
+        Top = 275
         Width = 836
-        Height = 226
+        Height = 232
         ActivePage = tbsContato
         Align = alClient
         TabOrder = 2
         TabStop = False
+        ExplicitTop = 237
         ExplicitWidth = 832
         ExplicitHeight = 225
         object tbsContato: TTabSheet
@@ -1196,28 +1232,10 @@ inherited ViewCliente: TViewCliente
         object tbsDadosAdcionais: TTabSheet
           Caption = '&2. Outras Informa'#231#245'es'
           ImageIndex = 2
-          object dbNFeDevolucao: TDBCheckBox
-            Left = 12
-            Top = 114
-            Width = 321
-            Height = 17
-            Caption = 'Permitir emiss'#227'o de NF-e de Devolu'#231#227'o para o cliente'
-            DataField = 'EMITIR_NFE_DEVOLUCAO'
-            DataSource = DtSrcTabela
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 1
-            ValueChecked = '1'
-            ValueUnchecked = '0'
-          end
           object GrpBxCustosOper: TGroupBox
-            Left = 5
+            Left = 12
             Top = 8
-            Width = 321
+            Width = 329
             Height = 97
             Align = alCustom
             Caption = 'Custos Operacionais nas Vendas para o cliente'
@@ -1239,7 +1257,7 @@ inherited ViewCliente: TViewCliente
               FocusControl = dbOutros
             end
             object imgAjuda: TImage
-              Left = 273
+              Left = 281
               Top = 15
               Width = 41
               Height = 41
@@ -2037,37 +2055,64 @@ inherited ViewCliente: TViewCliente
               TabOrder = 2
             end
           end
-          object dbEntregaFracionada: TDBCheckBox
-            Left = 12
-            Top = 138
-            Width = 260
-            Height = 17
-            Caption = 'Entrega fracionada de produtos vendidos'
-            DataField = 'ENTREGA_FRACIONADA_VENDA'
-            DataSource = DtSrcTabela
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 2
-            ValueChecked = '1'
-            ValueUnchecked = '0'
-            OnKeyPress = ProximoCampoKeyPress
-          end
-          object dbCadastroAtivo: TDBCheckBox
-            Left = 12
-            Top = 161
-            Width = 121
-            Height = 17
-            Caption = 'Cadastro Ativo'
-            DataField = 'ATIVO'
-            DataSource = DtSrcTabela
-            TabOrder = 3
-            ValueChecked = '1'
-            ValueUnchecked = '0'
-            OnKeyPress = ProximoCampoKeyPress
+          object GrpBxParametrosDiversos: TGroupBox
+            Left = 347
+            Top = 8
+            Width = 338
+            Height = 97
+            Align = alCustom
+            Caption = 'Par'#226'metros diversos'
+            TabOrder = 1
+            object dbNFeDevolucao: TDBCheckBox
+              Left = 8
+              Top = 19
+              Width = 321
+              Height = 17
+              Caption = 'Permitir emiss'#227'o de NF-e de Devolu'#231#227'o para o cliente'
+              DataField = 'EMITIR_NFE_DEVOLUCAO'
+              DataSource = DtSrcTabela
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+              ValueChecked = '1'
+              ValueUnchecked = '0'
+            end
+            object dbEntregaFracionada: TDBCheckBox
+              Left = 8
+              Top = 43
+              Width = 260
+              Height = 17
+              Caption = 'Entrega fracionada de produtos vendidos'
+              DataField = 'ENTREGA_FRACIONADA_VENDA'
+              DataSource = DtSrcTabela
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 1
+              ValueChecked = '1'
+              ValueUnchecked = '0'
+              OnKeyPress = ProximoCampoKeyPress
+            end
+            object dbCadastroAtivo: TDBCheckBox
+              Left = 8
+              Top = 66
+              Width = 121
+              Height = 17
+              Caption = 'Cadastro Ativo'
+              DataField = 'ATIVO'
+              DataSource = DtSrcTabela
+              TabOrder = 2
+              ValueChecked = '1'
+              ValueUnchecked = '0'
+              OnKeyPress = ProximoCampoKeyPress
+            end
           end
         end
         object tbsDadoFinanceiro: TTabSheet
@@ -2077,7 +2122,7 @@ inherited ViewCliente: TViewCliente
             Left = 0
             Top = 0
             Width = 828
-            Height = 198
+            Height = 204
             Align = alClient
             OptionsView.CellEndEllipsis = True
             OptionsView.RowHeaderWidth = 142
@@ -2094,6 +2139,7 @@ inherited ViewCliente: TViewCliente
             OnEnter = dbgContaCorrenteEnter
             OnExit = dbgContaCorrenteExit
             DataController.DataSource = DtSrcTabela
+            ExplicitHeight = 198
             Version = 1
             object dbCtgrConta1: TcxCategoryRow
               Options.Focusing = False
@@ -2262,11 +2308,12 @@ inherited ViewCliente: TViewCliente
             Left = 0
             Top = 0
             Width = 828
-            Height = 198
+            Height = 204
             Align = alClient
             DataField = 'OBSERVACAO'
             DataSource = DtSrcTabela
             TabOrder = 0
+            ExplicitHeight = 198
           end
         end
         object tbsCompra: TTabSheet
@@ -2274,7 +2321,7 @@ inherited ViewCliente: TViewCliente
           ImageIndex = 1
           DesignSize = (
             828
-            198)
+            204)
           object lblValorLimiteCompra: TLabel
             Left = 9
             Top = 8
@@ -2313,7 +2360,7 @@ inherited ViewCliente: TViewCliente
           end
           object lblTituloEmAberto: TLabel
             Left = 8
-            Top = 175
+            Top = 181
             Width = 110
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -2324,10 +2371,11 @@ inherited ViewCliente: TViewCliente
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
+            ExplicitTop = 175
           end
           object lblTituloPagando: TLabel
             Left = 8
-            Top = 159
+            Top = 165
             Width = 122
             Height = 13
             Anchors = [akLeft, akBottom]
@@ -2394,16 +2442,17 @@ inherited ViewCliente: TViewCliente
             Left = 172
             Top = 0
             Width = 656
-            Height = 198
+            Height = 204
             Align = alRight
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelOuter = bvNone
             TabOrder = 4
+            ExplicitHeight = 198
             object dbgTitulos: TDBGrid
               Left = 0
               Top = 0
               Width = 656
-              Height = 198
+              Height = 204
               Align = alClient
               DataSource = dtsTitulos
               Font.Charset = ANSI_CHARSET
@@ -2533,7 +2582,7 @@ inherited ViewCliente: TViewCliente
       end
       object Bevel12: TBevel
         Left = 0
-        Top = 428
+        Top = 472
         Width = 836
         Height = 4
         Align = alBottom
@@ -2709,7 +2758,7 @@ inherited ViewCliente: TViewCliente
         Left = 0
         Top = 66
         Width = 836
-        Height = 362
+        Height = 406
         Align = alClient
         DataSource = DtsEstoqueSatelite
         Font.Charset = ANSI_CHARSET
@@ -2818,13 +2867,14 @@ inherited ViewCliente: TViewCliente
       end
       object pnlControleRequisicao: TPanel
         Left = 0
-        Top = 432
+        Top = 476
         Width = 836
         Height = 31
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 2
         Visible = False
+        ExplicitTop = 432
         object BtnRequisicoes: TcxButton
           Left = 1
           Top = 0
@@ -2908,7 +2958,7 @@ inherited ViewCliente: TViewCliente
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 496
+    Top = 540
     Width = 844
     ExplicitTop = 495
     ExplicitWidth = 840
@@ -3068,5 +3118,8 @@ inherited ViewCliente: TViewCliente
   end
   object dtsBancoFebraban: TDataSource
     Left = 720
+  end
+  object dsEntidadeGovernamental: TDataSource
+    Left = 752
   end
 end

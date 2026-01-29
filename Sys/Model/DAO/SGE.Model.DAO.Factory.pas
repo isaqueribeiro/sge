@@ -99,6 +99,7 @@ type
       FDistrito   ,
       FEmpresa    ,
       FEmpresaView,
+      FEnteGovernamental,
       FEntrada    ,
       FEntradaDevolucao  ,
       FEntradaLoteProduto,
@@ -231,6 +232,7 @@ type
       function Distrito : IModelDAOCustom;
       function Empresa : IModelDAOCustom;
       function EmpresaView : IModelDAOCustom;
+      function EnteGovernamental : IModelDAOCustom;
       function Entrada : IModelDAOCustom;
       function EntradaDevolucao : IModelDAOCustom;
       function EntradaLoteProduto : IModelDAOCustom;
@@ -1122,6 +1124,14 @@ begin
     FEmpresaView := TModelDAOEmpresaView.New;
 
   Result := FEmpresaView;
+end;
+
+function TModelDAOFactory.EnteGovernamental: IModelDAOCustom;
+begin
+  if not Assigned(FEnteGovernamental) then
+    FEnteGovernamental := TModelDAOEnteGovernamentalView.New;
+
+  Result := FEnteGovernamental;
 end;
 
 function TModelDAOFactory.Entrada: IModelDAOCustom;
