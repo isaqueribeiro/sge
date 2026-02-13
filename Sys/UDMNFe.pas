@@ -2666,7 +2666,9 @@ var
   cTotalIBS_Mun   ,
   cTotalIBSDiferimentoUF ,
   cTotalIBSDiferimentoMun,
-  cTotalCBS       : Currency;
+  cTotalCBS ,
+  cTotalIBSMono ,
+  cTotalCBSMono : Currency;
 
   eDiferimento,
   eReducao    : Boolean;
@@ -2837,12 +2839,9 @@ begin
 
       // Reforma Tributária
       if gReformaTributaria then
-        Ide.dPrevEntrega := Date + 15;
-
-      // Reforma Tributária
-      if gReformaTributaria then
       begin
-        Ide.cMunFGIBS := qryDestinatario.FieldByName('CID_IBGE').AsInteger;
+        Ide.dPrevEntrega := Date + 15;
+        Ide.cMunFGIBS    := qryDestinatario.FieldByName('CID_IBGE').AsInteger;
 
         Ide.tpNFDebito  := TtpNFDebito.tdNenhum;
         Ide.tpNFCredito := TtpNFCredito.tcNenhum;
@@ -3024,6 +3023,8 @@ begin
       cTotalIBSDiferimentoUF  := 0.0;
       cTotalIBSDiferimentoMun := 0.0;
       cTotalCBS := 0.0;
+      cTotalIBSMono := 0.0;
+      cTotalCBSMono := 0.0;
 
       qryDadosProduto.First;
 
@@ -3633,7 +3634,7 @@ begin
                   IBSCBS.gIBSCBS.gCBS.gDif.pDif := 0.0; // A DEFINIR FUTURAMENTE QUANDO NECESSÁRIO.
                   IBSCBS.gIBSCBS.gCBS.gDif.vDif := IBSCBS.gIBSCBS.gCBS.vCBS * IBSCBS.gIBSCBS.gCBS.gDif.pDif / 100;
                 end;
-  //
+
                 // Valor do tributo devolvido. No fornecimento de energia elétrica, água, esgoto e gás natural e
                 // em outras hipóteses definidas no regulamento.
   //            IBSCBS.gIBSCBS.gCBS.gDevTrib.vDevTrib := 100;
@@ -3659,12 +3660,23 @@ begin
                 // Tipo Tributação Compra Governamental
                 if (qryDestinatario.FieldByName('ENTE_GOVERNAMENTAL').AsInteger > 0) then
                 begin
-//                  IBSCBS.gIBSCBS.gTribCompraGov.pAliqIBSUF := 5;
-//                  IBSCBS.gIBSCBS.gTribCompraGov.vTribIBSUF := 50;
-//                  IBSCBS.gIBSCBS.gTribCompraGov.pAliqIBSMun := 5;
-//                  IBSCBS.gIBSCBS.gTribCompraGov.vTribIBSMun := 50;
-//                  IBSCBS.gIBSCBS.gTribCompraGov.pAliqCBS := 5;
-//                  IBSCBS.gIBSCBS.gTribCompraGov.vTribCBS := 50;
+                  if (IBSCBS.gIBSCBS.gIBSUF.vIBSUF > 0.0) then
+                  begin
+                    IBSCBS.gIBSCBS.gTribCompraGov.pAliqIBSUF  := IBSCBS.gIBSCBS.gIBSUF.pIBSUF;
+                    IBSCBS.gIBSCBS.gTribCompraGov.vTribIBSUF  := IBSCBS.gIBSCBS.gIBSUF.vIBSUF;
+                  end;
+
+                  if (IBSCBS.gIBSCBS.gIBSMun.vIBSMun > 0.0) then
+                  begin
+                    IBSCBS.gIBSCBS.gTribCompraGov.pAliqIBSMun := IBSCBS.gIBSCBS.gIBSMun.pIBSMun;
+                    IBSCBS.gIBSCBS.gTribCompraGov.vTribIBSMun := IBSCBS.gIBSCBS.gIBSMun.vIBSMun;
+                  end;
+
+                  if (IBSCBS.gIBSCBS.gCBS.pCBS > 0.0) then
+                  begin
+                    IBSCBS.gIBSCBS.gTribCompraGov.pAliqCBS    := IBSCBS.gIBSCBS.gCBS.pCBS;
+                    IBSCBS.gIBSCBS.gTribCompraGov.vTribCBS    := IBSCBS.gIBSCBS.gCBS.vCBS;
+                  end;
                 end;
 
                 cTotal_BC_IBSCBS := cTotal_BC_IBSCBS + IBSCBS.gIBSCBS.vBC;
@@ -3675,13 +3687,32 @@ begin
               end;
 
               // Informações do tributo: IBS / CBS em operações com imposto monofásico
+              // Combustíveis
               if (IBSCBS.CST = TCSTIBSCBS.cst620) then
               begin
+                //  O valor adRemIBS (alíquota ad rem do IBS) não é definido pelo sistema emissor da NF-e, mas sim por tabelas oficiais publicadas pelo Confaz e pela legislação complementar.
+                //  Onde encontrar os valores
+                //  - Convênios do Confaz: o Conselho Nacional de Política Fazendária publica convênios que atualizam anualmente as alíquotas ad rem para produtos sujeitos ao regime monofásico, como combustíveis. Exemplo: os Convênios ICMS 112/2025 e 113/2025 trouxeram os valores aplicáveis a partir de janeiro de 2026 para gasolina e etanol .
+                //  - Lei Complementar nº 214/2025: estabelece a forma de cálculo das alíquotas de referência do IBS e CBS, incluindo regimes específicos como o monofásico .
+                //  - Publicações estaduais/municipais: cada esfera federativa pode divulgar tabelas complementares para produtos específicos.
+                //  Como usar no sistema
+                //  - O valor adRemIBS deve ser buscado nessas tabelas oficiais e configurado no cadastro de produtos do ERP.
+                //  - Na emissão da NF-e, o sistema multiplica esse valor fixo pela quantidade (qBCMono) para calcular o campo vIBSMono.
+                //  - Exemplo prático:
+                //  - Produto: gasolina C.
+                //  - Tabela Confaz: IBS ad rem = R$ 1,22 por litro.
+                //  - Venda: 100 litros.
+                //  - Resultado: vIBSMono = 100 × 1,22 = R$ 122,00.
+                //  - Tabela Confaz: CBS ad rem = R$ 0,92 por litro.
+                //  - Venda: 100 litros.
+                //  - Resultado: vCBSMono = 100 × 0,92 = R$ 92,00.
+                //  Em resumo: você obtém o valor de adRemIBS diretamente das tabelas oficiais do Confaz e da legislação vigente, e não de cálculos internos do sistema.
+
 //                IBSCBS.gIBSCBSMono.gMonoPadrao.qBCMono  := 1;
 //                IBSCBS.gIBSCBSMono.gMonoPadrao.adRemIBS := 5;
 //                IBSCBS.gIBSCBSMono.gMonoPadrao.adRemCBS := 5;
-//                IBSCBS.gIBSCBSMono.gMonoPadrao.vIBSMono := 100;
-//                IBSCBS.gIBSCBSMono.gMonoPadrao.vCBSMono := 100;
+//                IBSCBS.gIBSCBSMono.gMonoPadrao.vIBSMono := IBSCBS.gIBSCBSMono.gMonoPadrao.qBCMono * IBSCBS.gIBSCBSMono.gMonoPadrao.adRemIBS;
+//                IBSCBS.gIBSCBSMono.gMonoPadrao.vCBSMono := IBSCBS.gIBSCBSMono.gMonoPadrao.qBCMono * IBSCBS.gIBSCBSMono.gMonoPadrao.adRemCBS;
 //
 //                IBSCBS.gIBSCBSMono.gMonoReten.qBCMonoReten  := 1;
 //                IBSCBS.gIBSCBSMono.gMonoReten.adRemIBSReten := 5;
@@ -3700,6 +3731,9 @@ begin
 //
 //                IBSCBS.gIBSCBSMono.vTotIBSMonoItem := 100;
 //                IBSCBS.gIBSCBSMono.vTotCBSMonoItem := 100;
+
+                cTotalIBSMono := cTotalIBSMono + IBSCBS.gIBSCBSMono.gMonoPadrao.vIBSMono;
+                cTotalCBSMono := cTotalCBSMono + IBSCBS.gIBSCBSMono.gMonoPadrao.vCBSMono;
               end;
 
 //  //            // Informações da Transferencia de Crédito
@@ -3921,8 +3955,12 @@ begin
 //        Total.IBSCBSTot.gCBS.vCredPresCondSus := 100;
         end;
 
-//        Total.IBSCBSTot.gMono.vIBSMono := 100;
-//        Total.IBSCBSTot.gMono.vCBSMono := 100;
+        if (cTotalIBSMono > 0.0) then
+          Total.IBSCBSTot.gMono.vIBSMono := cTotalIBSMono;
+
+        if (cTotalCBSMono > 0.0) then
+          Total.IBSCBSTot.gMono.vCBSMono := cTotalCBSMono;
+
 //        Total.IBSCBSTot.gMono.vIBSMonoReten := 100;
 //        Total.IBSCBSTot.gMono.vCBSMonoReten := 100;
 //        Total.IBSCBSTot.gMono.vIBSMonoRet := 100;
@@ -3931,8 +3969,8 @@ begin
 //        Total.IBSCBSTot.gEstornoCred.vIBSEstCred := 100;
 //        Total.IBSCBSTot.gEstornoCred.vCBSEstCred := 100;
 //
-//        // Valor total da NF-e com IBS / CBS / IS
-//        Total.vNFTot := 100;
+        // Valor total da NF-e com IBS / CBS / IS
+        Total.vNFTot := qryCalculoImposto.FieldByName('NFE_VALOR_TOTAL_NOTA').AsCurrency;
       end;
 
   {      Total.ISSQNtot.vServ   := 0;
