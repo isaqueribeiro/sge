@@ -174,6 +174,7 @@ type
       FTipoTributacao ,
       FTipoVeiculo    ,
       FTransportadora ,
+      FTributacaoIBS_CBSView,
       FUF ,
       FUsuario ,
       FUnidadeProduto ,
@@ -307,6 +308,7 @@ type
       function TipoTributacao : IModelDAOCustom;
       function TipoVeiculo : IModelDAOCustom;
       function Transportadora : IModelDAOCustom;
+      function TributacaoIBS_CBSView : IModelDAOCustom;
       function UF      : IModelDAOCustom;
       function Usuario : IModelDAOCustom;
       function UnidadeProduto : IModelDAOCustom;
@@ -764,6 +766,14 @@ begin
     FTransportadora := TModelDAOTransportadora.New;
 
   Result := FTransportadora;
+end;
+
+function TModelDAOFactory.TributacaoIBS_CBSView: IModelDAOCustom;
+begin
+  if not Assigned(FTributacaoIBS_CBSView) then
+    FTributacaoIBS_CBSView := TModelDAOTributacaoIBS_CBSView.New;
+
+  Result := FTributacaoIBS_CBSView;
 end;
 
 function TModelDAOFactory.AliquotaCOFINSView: IModelDAOCustom;

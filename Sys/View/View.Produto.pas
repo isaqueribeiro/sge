@@ -298,6 +298,17 @@ type
     dbEspessura: TDBEdit;
     lblEspessura: TLabel;
     dbZonaFrancaManaus: TDBCheckBox;
+    lblCTSIS: TLabel;
+    dbCTSIS: TJvDBComboEdit;
+    lblAliquotaIS: TLabel;
+    dbAliquotaIS: TDBEdit;
+    lblCST2026: TLabel;
+    dbCST2026: TDBLookupComboBox;
+    lblAliquotaCBS: TLabel;
+    dbAliquotaCBS: TDBEdit;
+    dtsTributacaoIBS_CBS: TDataSource;
+    lblCCT2026: TLabel;
+    dbCCT2026: TJvDBComboEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure dbGrupoButtonClick(Sender: TObject);
@@ -327,6 +338,8 @@ type
     procedure ppMnAtualizarNomeAmigoClick(Sender: TObject);
     procedure pgcGuiasChange(Sender: TObject);
     procedure btbtnIncluirClick(Sender: TObject);
+    procedure dbCTSISButtonClick(Sender: TObject);
+    procedure dbCCT2026ButtonClick(Sender: TObject);
   private
     { Private declarations }
     FControllerTipoAliquotaView,
@@ -340,7 +353,8 @@ type
     FControllerTipoVeiculo,
     FControllerCorVeiculo ,
     FControllerCombustivelVeiculo ,
-    FControllerIBPT : IControllerCustom;
+    FControllerIBPT ,
+    FControllerTributacaoIBS_CBSView : IControllerCustom;
 
     fOrdenado : Boolean;
     fAliquota : TAliquota;
@@ -461,6 +475,7 @@ uses
   UDMBusiness,
   UDMRecursos,
   UFuncoes,
+  Service.Message,
   SGE.Controller.Factory,
   SGE.Controller,
   SGE.Controller.Helper,
@@ -1218,6 +1233,7 @@ begin
   FControllerTipoTributacaoSN     := TControllerFactory.New.TipoTributacao;
   FControllerAliquotaPISView     := TControllerFactory.New.AliquotaCOFINSView;
   FControllerAliquotaCOFINSView  := TControllerFactory.New.AliquotaPISView;
+  FControllerTributacaoIBS_CBSView := TControllerFactory.New.TributacaoIBS_CBSView;
 
   inherited;
   RotinaID         := ROTINA_CAD_PRODUTO_ID;
@@ -1306,6 +1322,11 @@ begin
     .Display('CODUNIDADE',    'Unidade', True)
     .Display('CODUNIDADE_FRACIONADA', 'Unidade da Fração', True)
     .Display('NCM_SH',        'NCM/SH', (gSistema.Codigo <> SISTEMA_GESTAO_IND))
+    // Reforma Tributária
+    .Display('CSTIS',         'CST/IS (CST do Imposto Seletivo)', False)
+    .Display('ALIQUOTA_IS',   '% IS  (Alíquota do Imposto Seletivo)', ',0.00', TAlignment.taRightJustify, False)
+    .Display('ALIQUOTA_CBS',  '% CBS (Alíquota de Contribuicao Sobre Bens e Servicos)', ',0.00', TAlignment.taRightJustify, False)
+    // --
     //  Para veículos
 //    .Display('PRECO2',  'Outros na Compra (R$)', ',0.00', TAlignment.taRightJustify, False)
 //    .Display('CUST_COMISSAO',  'Outros da Comissão (R$)', ',0.00', TAlignment.taRightJustify, False)
@@ -1384,6 +1405,8 @@ begin
     .LookupComboBox(dbCSTPIS, dtsAliquotaPIS, 'cst_pis', 'codigo', 'descricao_full');
   TController(FControllerAliquotaCOFINSView)
     .LookupComboBox(dbCSTCOFINS, dtsAliquotaCOFINS, 'cst_cofins', 'codigo', 'descricao_full');
+  TController(FControllerTributacaoIBS_CBSView)
+    .LookupComboBox(dbCST2026, dtsTributacaoIBS_CBS, 'cst2026', 'codigo', 'descricao_full');
 
   if (Empresa.GetSegmentoID(gUsuarioLogado.Empresa) = SEGMENTO_MERCADO_CARRO_ID) then
   begin
@@ -1415,21 +1438,19 @@ end;
 
 procedure TViewProduto.dbNCM_SHButtonClick(Sender: TObject);
 var
-  iCodigo    : Integer;
-  sCodigo    ,
-  sDescricao : String;
-  TipoTabela : TTipoTabelaIBPT;
+  aTabelaIBPT : TTabelaIBPT;
 begin
   if TAliquota(DtSrcTabela.DataSet.FieldByName('ALIQUOTA_TIPO').AsInteger) = taICMS then
-    TipoTabela := tIbptProdutos
+    aTabelaIBPT.aTipo := tIbptProdutos
   else
-    TipoTabela := tIbptServicos;
+    aTabelaIBPT.aTipo := tIbptServicos;
 
-  if ( DtSrcTabela.DataSet.State in [dsEdit, dsInsert] ) then
-    if ( SelecionarCodigoIBPT(Self, TipoTabela, iCodigo, sCodigo, sDescricao) ) then
+  if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
+    if SelecionarCodigoIBPT(Self, aTabelaIBPT) then
     begin
-      DtSrcTabela.DataSet.FieldByName('TABELA_IBPT').AsInteger := iCodigo;
-      DtSrcTabela.DataSet.FieldByName('NCM_SH').AsString       := sCodigo;
+      DtSrcTabela.DataSet.FieldByName('TABELA_IBPT').AsInteger  := aTabelaIBPT.aTabela;
+      DtSrcTabela.DataSet.FieldByName('NCM_SH').AsString        := aTabelaIBPT.aCodigo;
+      DtSrcTabela.DataSet.FieldByName('ALIQUOTA_IS').AsCurrency := aTabelaIBPT.aAliquotaIS;
     end;
 end;
 
@@ -1481,6 +1502,33 @@ begin
   end;
 end;
 
+procedure TViewProduto.dbCCT2026ButtonClick(Sender: TObject);
+//var
+//  iCodigo    : Integer;
+//  sDescricao,
+//  sSigla    : String;
+begin
+  TServiceMessage.ShowInformation('Este recurso será disponível nas próximas versão dos sistema!');
+//  with DtSrcTabela.DataSet do
+//  begin
+//    if ( State in [dsEdit, dsInsert] ) then
+//      if ( SelecionarUnidade(Self, iCodigo, sDescricao, sSigla) ) then
+//      begin
+//        FieldByName('CODUNIDADE').AsInteger       := iCodigo;
+//        FieldByName('UNIDADE').AsString           := AnsiUpperCase(Copy(sDescricao, 1, FieldByName('UNIDADE').Size));
+//        FieldByName('DESCRICAO_UNIDADE').AsString := sDescricao;
+//        FieldByName('UNP_SIGLA').AsString         := sSigla;
+//
+//        if ( FieldByName('FRACIONADOR').AsInteger = 1 ) then
+//        begin
+//          FieldByName('CODUNIDADE_FRACIONADA').AsInteger := iCodigo;
+//          FieldByName('DESCRICAO_UNIDADE_FRAC').AsString := sDescricao;
+//          FieldByName('UNP_SIGLA_FRAC').AsString         := sSigla;
+//        end;
+//      end;
+//  end;
+end;
+
 procedure TViewProduto.dbCFOPButtonClick(Sender: TObject);
 var
   iCodigo    : Integer;
@@ -1492,6 +1540,33 @@ begin
       DtSrcTabela.DataSet.FieldByName('CODCFOP').AsInteger       := iCodigo;
       DtSrcTabela.DataSet.FieldByName('CFOP_DESCRICAO').AsString := sDescricao;
     end;
+end;
+
+procedure TViewProduto.dbCTSISButtonClick(Sender: TObject);
+//var
+//  iCodigo    : Integer;
+//  sDescricao,
+//  sSigla    : String;
+begin
+  TServiceMessage.ShowInformation('Este recurso será disponível nas próximas versão dos sistema!');
+//  with DtSrcTabela.DataSet do
+//  begin
+//    if ( State in [dsEdit, dsInsert] ) then
+//      if ( SelecionarUnidade(Self, iCodigo, sDescricao, sSigla) ) then
+//      begin
+//        FieldByName('CODUNIDADE').AsInteger       := iCodigo;
+//        FieldByName('UNIDADE').AsString           := AnsiUpperCase(Copy(sDescricao, 1, FieldByName('UNIDADE').Size));
+//        FieldByName('DESCRICAO_UNIDADE').AsString := sDescricao;
+//        FieldByName('UNP_SIGLA').AsString         := sSigla;
+//
+//        if ( FieldByName('FRACIONADOR').AsInteger = 1 ) then
+//        begin
+//          FieldByName('CODUNIDADE_FRACIONADA').AsInteger := iCodigo;
+//          FieldByName('DESCRICAO_UNIDADE_FRAC').AsString := sDescricao;
+//          FieldByName('UNP_SIGLA_FRAC').AsString         := sSigla;
+//        end;
+//      end;
+//  end;
 end;
 
 procedure TViewProduto.OcultarTipoProduto;
@@ -1734,7 +1809,7 @@ begin
       Exit;
     end
     else
-    if ( (ActiveControl = dbAliquotaCOFINS) and TbsEspecificacao.TabVisible ) then
+    if ( (ActiveControl = dbZonaFrancaManaus) and TbsEspecificacao.TabVisible ) then
     begin
       pgcMaisDados.ActivePage := TbsEspecificacao;
       if pnlVeiculo.Visible then
@@ -1925,7 +2000,7 @@ begin
     try
       if (Trim(CampoCodigo) = EmptyStr) or ((Trim(CampoDescricao) = EmptyStr)) then
       begin
-        ShowWarning('O nome do campo chave e/ou de descrição não foram informados');
+        TServiceMessage.ShowWarning('O nome do campo chave e/ou de descrição não foram informados');
         Abort;
       end;
 
@@ -2001,7 +2076,7 @@ begin
       On E : Exception do
       begin
         WaitAMomentFree;
-        ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13 + E.Message + #13 +
+        TServiceMessage.ShowWarning('Erro ao tentar filtrar registros na tabela.' + #13 + E.Message + #13 +
           'Script:' + #13#13 + FController.DAO.SelectSQL);
       end;
     end;
@@ -2039,13 +2114,13 @@ begin
     begin
       if ( ((FieldByName('ALIQUOTA').AsCurrency < 0) and (FieldByName('ALIQUOTA').AsCurrency > 100)) or ((FieldByName('ALIQUOTA_CSOSN').AsCurrency < 0) and (FieldByName('ALIQUOTA_CSOSN').AsCurrency > 100)) ) then
       begin
-        ShowWarning('Percentual de alíquota fora da faixa permitida');
+        TServiceMessage.ShowWarning('Percentual de alíquota fora da faixa permitida');
         Exit;
       end
       else
       if ( ((FieldByName('ALIQUOTA_PIS').AsCurrency < 0) and (FieldByName('ALIQUOTA_PIS').AsCurrency > 100)) or ((FieldByName('ALIQUOTA_COFINS').AsCurrency < 0) and (FieldByName('ALIQUOTA_COFINS').AsCurrency > 100)) ) then
       begin
-        ShowWarning('Percentual de alíquota Pis/Confis fora da faixa permitida');
+        TServiceMessage.ShowWarning('Percentual de alíquota Pis/Confis fora da faixa permitida');
         Exit;
       end
       else
@@ -2053,7 +2128,7 @@ begin
       begin
         if ( FieldByName('CODUNIDADE').AsInteger <> FieldByName('CODUNIDADE_FRACIONADA').AsInteger ) then
         begin
-          ShowWarning('A "Unidade da Fração" selecionada deve ser igual a informada no campo "Unidade"!');
+          TServiceMessage.ShowWarning('A "Unidade da Fração" selecionada deve ser igual a informada no campo "Unidade"!');
           Exit;
         end;
       end
@@ -2062,7 +2137,7 @@ begin
       begin
         if ( FieldByName('CODUNIDADE').AsInteger = FieldByName('CODUNIDADE_FRACIONADA').AsInteger ) then
         begin
-          ShowWarning('A "Unidade da Fração" selecionada deve ser diferente na informada no campo "Unidade"!');
+          TServiceMessage.ShowWarning('A "Unidade da Fração" selecionada deve ser diferente na informada no campo "Unidade"!');
           Exit;
         end;
       end;
@@ -2151,7 +2226,7 @@ begin
 
     FController.DAO.RefreshRecord;
 
-    ShowInformation('Atualização', 'Código metafônico dos registros atualizados com sucesso!');
+    TServiceMessage.ShowInformation('Atualização', 'Código metafônico dos registros atualizados com sucesso!');
   end;
 end;
 
@@ -2184,7 +2259,7 @@ begin
 
     FController.DAO.RefreshRecord;
 
-    ShowInformation('Atualização', 'Nome Amigo dos registros atualizados com sucesso!');
+    TServiceMessage.ShowInformation('Atualização', 'Nome Amigo dos registros atualizados com sucesso!');
   end;
 end;
 
@@ -2223,7 +2298,7 @@ begin
 
     FController.DAO.RefreshRecord;
 
-    ShowInformation('Atualização', 'Código da Tabela IBPT dos registros atualizados com sucesso!');
+    TServiceMessage.ShowInformation('Atualização', 'Código da Tabela IBPT dos registros atualizados com sucesso!');
   end;
 end;
 

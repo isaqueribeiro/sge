@@ -511,6 +511,7 @@ type
     function TipoSolicitacaoView : IControllerCustom;
     function TipoVeiculo    : IControllerCustom;
     function Transportadora : IControllerCustom;
+    function TributacaoIBS_CBSView : IControllerCustom;
     function UF : IControllerCustom;
     function Usuario : IControllerUsuario;
     function UnidadeProduto : IControllerCustom;

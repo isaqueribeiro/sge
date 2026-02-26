@@ -1,5 +1,3 @@
-
-
 ALTER TABLE TBPRODUTO
     ADD ZONA_FRANCA_MANAUS DMN_LOGICO_NULL;
 
@@ -288,24 +286,24 @@ COMMENT ON COLUMN TBTRIBUTACAO_TIPO.CRT IS
 1 - Simples Nacional
 2 - Nova Tributacao (A partir de 2026)';
 
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('000', 'Tributação integral', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('010', 'Tributação com alíquotas uniformes', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('011', 'Tributação com alíquotas uniformes reduzidas', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('200', 'Alíquota reduzida', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('220', 'Alíquota fixa', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('222', 'Redução de base de cálculo', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('221', 'Alíquota fixa proporcional', 2, 1);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('000', 'Tributação integral', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('010', 'Tributação com alíquotas uniformes', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('011', 'Tributação com alíquotas uniformes reduzidas', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('200', 'Alíquota reduzida', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('220', 'Alíquota fixa', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('222', 'Redução de base de cálculo', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('221', 'Alíquota fixa proporcional', 2, 1) matching (TPT_COD);
 Update TBTRIBUTACAO_TIPO Set TPT_DESCRICAO = 'Não tributada / Isenção', NRT = 1 where (TPT_COD = '400');
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('410', 'Imunidade e não incidência', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('510', 'Diferimento', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('515', 'Diferimento com redução de alíquota', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('550', 'Suspensão', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('620', 'Tributação monofásica', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('800', 'Transferência de crédito', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('810', 'Ajuste de IBS na ZFM', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('811', 'Ajustes', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('820', 'Tributação em declaração de regime específico', 2, 1);
-Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('830', 'Exclusão de base de cálculo', 2, 1);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('410', 'Imunidade e não incidência', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('510', 'Diferimento', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('515', 'Diferimento com redução de alíquota', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('550', 'Suspensão', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('620', 'Tributação monofásica', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('800', 'Transferência de crédito', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('810', 'Ajuste de IBS na ZFM', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('811', 'Ajustes', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('820', 'Tributação em declaração de regime específico', 2, 1) matching (TPT_COD);
+Update or Insert Into TBTRIBUTACAO_TIPO (TPT_COD, TPT_DESCRICAO, CRT, NRT) values ('830', 'Exclusão de base de cálculo', 2, 1) matching (TPT_COD);
 
 COMMIT WORK;
 
@@ -2880,3 +2878,64 @@ ALTER TABLE SYS_ALIQUOTA_ICMS
 COMMENT ON COLUMN SYS_ALIQUOTA_ICMS.PERCENTUAL_REDUTOR_IBSCBS IS
 'Percentual de 0 a 100';
 
+
+SET TERM ^ ;
+
+CREATE OR ALTER procedure GET_ALIQUOTA_ICMS (
+    UF_ORIGEM DMN_VCHAR_02,
+    UF_DESTINO DMN_VCHAR_02)
+returns (
+    ALIQUOTA_INTER DMN_PERCENTUAL,
+    ALIQUOTA_INTRA DMN_PERCENTUAL,
+    ALIQUOTA_ST DMN_PERCENTUAL,
+    PERCENTUAL_REDUTOR_IBSCBS DMN_PERCENTUAL)
+as
+begin
+  -- Buscando o ICMS Inter (Estado de Origem - ICMS do proprio Estado)
+  Select first 1
+      a.aliquota
+    , coalesce(a.percentual_redutor_ibscbs, 0.0) as redutor_ibscbs
+  from SYS_ALIQUOTA_ICMS a
+  where a.uf_origem  = :uf_origem
+    and a.uf_destino = :uf_origem
+  Into
+      aliquota_inter
+    , percentual_redutor_ibscbs;
+
+  -- Buscando o ICMS Intra (Estado de Destino)
+  Select first 1
+    a.aliquota
+  from SYS_ALIQUOTA_ICMS a
+  where a.uf_origem  = :uf_destino
+    and a.uf_destino = :uf_destino
+  Into
+    aliquota_intra;
+
+  -- Buscando o ICMS de Destino
+  Select first 1
+    a.aliquota
+  from SYS_ALIQUOTA_ICMS a
+  where a.uf_origem  = :uf_origem
+    and a.uf_destino = :uf_destino
+  Into
+    aliquota_st;
+
+  suspend;
+end^
+
+SET TERM ; ^
+
+
+
+create view vw_tributacao_ibs_cbs
+as
+Select
+    trb.tpt_cod as codigo
+  , trb.tpt_descricao as descricao
+  , trim(trb.tpt_cod || ' - ' || trb.tpt_descricao) as descricao_full
+  , trb.crt as regime
+from TBTRIBUTACAO_TIPO trb
+where (trb.nrt = 1)
+order by
+    trb.tpt_cod
+;

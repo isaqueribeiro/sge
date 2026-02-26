@@ -756,7 +756,7 @@ begin
   with qryDestinatario do
   begin
     Close;
-    ParamByName('estado_origem').AsString := qryEmitenteTLG_SIGLA.AsString;
+    ParamByName('estado_origem').AsString := qryEmitenteEST_SIGLA.AsString;
     ParamByName('Codigo').AsInteger := iCodigo;
     Open;
   end;
@@ -6265,7 +6265,7 @@ begin
   with qryFornecedorDestinatario do
   begin
     Close;
-    ParamByName('estado_origem').AsString := qryEmitenteTLG_SIGLA.AsString;
+    ParamByName('estado_origem').AsString := qryEmitenteEST_SIGLA.AsString;
     ParamByName('Codigo').AsInteger := iCodigo;
     Open;
   end;

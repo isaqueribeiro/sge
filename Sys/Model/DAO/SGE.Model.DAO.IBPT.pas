@@ -70,6 +70,7 @@ begin
         .Add('  , t.aliqinternacional_ibpt')
         .Add('  , t.aliqestadual_ibpt ')
         .Add('  , t.aliqmunicipal_ibpt')
+        .Add('  , t.aliquota_is')
         .Add('  , t.nocivo ')
         .Add('  , t.ativo  ')
         .Add('  , case when char_length(t.descricao_ibpt) > 100 ')
@@ -94,6 +95,9 @@ procedure TModelDAOIBPT.DataSetBeforePost(DataSet: TDataSet);
 begin
   with FConn.Query.DataSet do
   begin
+    if FieldByName('ALIQUOTA_IS').IsNull then
+      FieldByName('ALIQUOTA_IS').AsCurrency := 0.0;
+
     if FieldByName('NOCIVO').IsNull then
       FieldByName('NOCIVO').AsInteger := 0;
 

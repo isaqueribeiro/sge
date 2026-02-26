@@ -142,6 +142,16 @@ type
       class function New : IControllerCustom;
   end;
 
+  // Código de Tributação IBS/CBS (View)
+  TControllerTributacaoIBS_CBSView = class(TController, IControllerCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IControllerCustom;
+  end;
+
   // Forma de Devolução (View)
   TControllerFormaDevolucao = class(TController, IControllerCustom)
     private
@@ -502,6 +512,23 @@ begin
 end;
 
 class function TControllerEnteGovernamentalView.New: IControllerCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TControllerTributacaoIBS_CBSView }
+
+constructor TControllerTributacaoIBS_CBSView.Create;
+begin
+  inherited Create(TModelDAOFactory.New.TributacaoIBS_CBSView);
+end;
+
+destructor TControllerTributacaoIBS_CBSView.Destroy;
+begin
+  inherited;
+end;
+
+class function TControllerTributacaoIBS_CBSView.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;

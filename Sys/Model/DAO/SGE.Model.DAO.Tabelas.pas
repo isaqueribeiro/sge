@@ -157,6 +157,18 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // Códigos de Tributações IBS/CBS - CST-IBS/CBS (View)
+  TModelDAOTributacaoIBS_CBSView = class(TModelDAO, IModelDAOCustom)
+    private
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
   // Forma de Devolução (View)
   TModelDAOFormaDevolucao = class(TModelDAO, IModelDAOCustom)
     private
@@ -181,7 +193,7 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
-  // Lista de Tipos de Entedades Governamentais (View)
+  // Lista de Tipos de Entidades Governamentais (View)
   TModelDAOEnteGovernamentalView = class(TModelDAO, IModelDAOCustom)
     private
     protected
@@ -540,8 +552,8 @@ begin
         .Add('  , t.Tpt_descricao')
         .Add('  , t.Tpt_cod || '' - '' || t.Tpt_descricao as Tpt_descricao_full')
         .Add('  , t.Tpt_sigla')
-        .Add('  , t.Crt      ')
-        .Add('  , t.nrt      ') // Nova Reforma Tributária
+        .Add('  , t.Crt      ') // Codigo do Regime Tributario (0 - Regime Normal, 1 - Simples Nacional, 2 - Nova Tributacao [A partir de 2026])
+        .Add('  , t.nrt      ') // Nova Reforma Tributária  (0 - Não, 1 - Sim)
         .Add('  , coalesce(t.obrigar_cest, 0) as obrigar_cest')
         .Add('from TBTRIBUTACAO_TIPO t                       ')
         .Where('coalesce(t.obrigar_cest, 0) = 0')
@@ -654,6 +666,7 @@ begin
         .Add('    icms.aliquota_inter')
         .Add('  , icms.aliquota_intra')
         .Add('  , icms.aliquota_st   ')
+        .Add('  , icms.percentual_redutor_ibscbs')
         .Add('from GET_ALIQUOTA_ICMS(:uf_origem, :uf_destino) icms')
       .&End
       .ParamByName('uf_origem',  EmptyStr)
@@ -842,6 +855,42 @@ begin
 end;
 
 class function TModelDAOEnteGovernamentalView.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+{ TModelDAOTributacaoIBS_CBSView }
+
+constructor TModelDAOTributacaoIBS_CBSView.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    codigo    ')
+        .Add('  , descricao ')
+        .Add('  , descricao_full')
+        .Add('  , regime    ')
+        .Add('from VW_TRIBUTACAO_IBS_CBS')
+      .&End
+    .Open;
+end;
+
+function TModelDAOTributacaoIBS_CBSView.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if not FConn.Query.DataSet.Active then
+    FConn.Query.Open;
+end;
+
+destructor TModelDAOTributacaoIBS_CBSView.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOTributacaoIBS_CBSView.New: IModelDAOCustom;
 begin
   Result := Self.Create;
 end;

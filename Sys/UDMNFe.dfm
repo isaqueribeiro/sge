@@ -45235,7 +45235,10 @@ object DMNFe: TDMNFe
     ParamData = <
       item
         Name = 'ESTADO_ORIGEM'
+        DataType = ftString
         ParamType = ptInput
+        Size = 2
+        Value = Null
       end
       item
         Name = 'CODIGO'
@@ -45310,7 +45313,10 @@ object DMNFe: TDMNFe
     ParamData = <
       item
         Name = 'ESTADO_ORIGEM'
+        DataType = ftString
         ParamType = ptInput
+        Size = 2
+        Value = Null
       end
       item
         Name = 'CODIGO'

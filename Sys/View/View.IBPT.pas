@@ -45,6 +45,14 @@ uses
   dxSkinsDefaultPainters, dxSkinWXI;
 
 type
+  TTabelaIBPT = record
+    aTipo : TTipoTabelaIBPT;
+    aTabela : Integer;
+    aCodigo     ,
+    aDescricao  : String;
+    aAliquotaIS : Currency;
+  end;
+
   TViewIBPT = class(TViewPadraoCadastro)
     lblCodigoNCM: TLabel;
     dbCodigoNCM: TDBEdit;
@@ -70,6 +78,9 @@ type
     dbAtivo: TDBCheckBox;
     lblRegistroDesativado: TLabel;
     dbNocivo: TDBCheckBox;
+    lblAliquotaIS: TLabel;
+    dbAliquotaIS: TDBEdit;
+    imgGrid: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure btnFiltrarClick(Sender: TObject);
     procedure DtSrcTabelaStateChange(Sender: TObject);
@@ -99,8 +110,9 @@ type
 var
   ViewIBPT: TViewIBPT;
 
+  function SelecionarCodigoIBPT(const AOwner : TComponent; var aTabelaIBPT : TTabelaIBPT) : Boolean; overload;
   function SelecionarCodigoIBPT(const AOwner : TComponent; const aTipoTabela : TTipoTabelaIBPT;
-    var aIndice : Integer; var aCodigo : String; var aDescricao : String) : Boolean;
+    var aIndice : Integer; var aCodigo : String; var aDescricao : String) : Boolean; overload;
 
 implementation
 
@@ -114,21 +126,45 @@ uses
 
 {$R *.dfm}
 
+function SelecionarCodigoIBPT(const AOwner : TComponent; var aTabelaIBPT : TTabelaIBPT) : Boolean;
+var
+  aForm : TViewIBPT;
+  aIndice    : Integer;
+  aDescricao : String;
+begin
+  aForm := TViewIBPT.Create(AOwner);
+  try
+    aForm.FTipoTabela := aTabelaIBPT.aTipo;
+
+    Result := aForm.SelecionarRegistro(aIndice, aDescricao);
+
+    if Result then
+    begin
+      aTabelaIBPT.aTabela     := aIndice;
+      aTabelaIBPT.aCodigo     := aForm.DtSrcTabela.DataSet.FieldByName('NCM_IBPT').AsString;
+      aTabelaIBPT.aDescricao  := aDescricao;
+      aTabelaIBPT.aAliquotaIS := aForm.DtSrcTabela.DataSet.FieldByName('ALIQUOTA_IS').AsCurrency;
+    end;
+  finally
+    aForm.Destroy;
+  end;
+end;
+
 function SelecionarCodigoIBPT(const AOwner : TComponent; const aTipoTabela : TTipoTabelaIBPT;
   var aIndice : Integer; var aCodigo : String; var aDescricao : String) : Boolean;
 var
-  frm : TViewIBPT;
+  aForm : TViewIBPT;
 begin
-  frm := TViewIBPT.Create(AOwner);
+  aForm := TViewIBPT.Create(AOwner);
   try
-    frm.FTipoTabela := aTipoTabela;
+    aForm.FTipoTabela := aTipoTabela;
 
-    Result := frm.SelecionarRegistro(aIndice, aDescricao);
+    Result := aForm.SelecionarRegistro(aIndice, aDescricao);
 
     if Result then
-      aCodigo := frm.DtSrcTabela.DataSet.FieldByName('NCM_IBPT').AsString;
+      aCodigo := aForm.DtSrcTabela.DataSet.FieldByName('NCM_IBPT').AsString;
   finally
-    frm.Destroy;
+    aForm.Destroy;
   end;
 end;
 
@@ -152,13 +188,17 @@ end;
 
 procedure TViewIBPT.dbgDadosDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+var
+  aImage : Byte;
 begin
   inherited;
-//  // Destacar códigos NCM desativados
-//  if ( DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger = 0 ) then
-//    dbgDados.Canvas.Font.Color := lblNCMDesativado.Font.Color;
-//
-//  dbgDados.DefaultDrawDataCell(Rect, dbgDados.Columns[DataCol].Field, State);
+
+  if (AnsiUpperCase(Column.Field.FieldName) = 'NOCIVO') then
+  begin
+    aImage := Column.Field.AsInteger;
+    TDBGrid(Sender).Canvas.FillRect(Rect);
+    imgGrid.Draw(TDBGrid(Sender).Canvas, Rect.Left + (Trunc(Column.Width / 2) - 8), Rect.Top + 1, aImage);
+  end;
 end;
 
 procedure TViewIBPT.DtSrcTabelaStateChange(Sender: TObject);
@@ -264,7 +304,8 @@ begin
     .Display('ALIQNACIONAL_IBPT',      'Tributação Nacional',      '0.00#', TAlignment.taRightJustify, True)
     .Display('ALIQINTERNACIONAL_IBPT', 'Tributação Internacional', '0.00#', TAlignment.taRightJustify, True)
     .Display('ALIQESTADUAL_IBPT',      'Tributação Estadual',      '0.00#', TAlignment.taRightJustify, True)
-    .Display('ALIQMUNICIPAL_IBPT',     'Tributação Municipal',     '0.00#', TAlignment.taRightJustify, True);
+    .Display('ALIQMUNICIPAL_IBPT',     'Tributação Municipal',     '0.00#', TAlignment.taRightJustify, True)
+    .Display('ALIQUOTA_IS',            'Tributação IS',            '0.00#', TAlignment.taRightJustify, False);
 
   AbrirTabelaAuto := True;
   FController.DAO.UpdateGenerator(EmptyStr);

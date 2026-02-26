@@ -164,6 +164,7 @@ type
       FTipoTributacao,
       FTipoVeiculo   ,
       FTransportadora,
+      FTributacaoIBS_CBSView,
       FUF : IControllerCustom;
       FUsuario : IControllerUsuario;
       FUnidadeProduto : IControllerCustom;
@@ -287,6 +288,7 @@ type
       function TipoTributacao : IControllerCustom;
       function TipoVeiculo : IControllerCustom;
       function Transportadora : IControllerCustom;
+      function TributacaoIBS_CBSView : IControllerCustom;
       function UF : IControllerCustom;
       function Usuario : IControllerUsuario;
       function UnidadeProduto : IControllerCustom;
@@ -1200,6 +1202,14 @@ begin
     FTransportadora := TControllerTransportadora.New;
 
   Result := FTransportadora;
+end;
+
+function TControllerFactory.TributacaoIBS_CBSView: IControllerCustom;
+begin
+  if not Assigned(FTributacaoIBS_CBSView) then
+    FTributacaoIBS_CBSView := TControllerTributacaoIBS_CBSView.New;
+
+  Result := FTributacaoIBS_CBSView;
 end;
 
 function TControllerFactory.UF: IControllerCustom;

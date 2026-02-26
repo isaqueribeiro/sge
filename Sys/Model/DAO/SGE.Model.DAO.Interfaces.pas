@@ -244,6 +244,7 @@ type
     function TipoTributacao : IModelDAOCustom;
     function TipoVeiculo : IModelDAOCustom;
     function Transportadora : IModelDAOCustom;
+    function TributacaoIBS_CBSView : IModelDAOCustom;
     function UF      : IModelDAOCustom;
     function Usuario : IModelDAOCustom;
     function UnidadeProduto : IModelDAOCustom;

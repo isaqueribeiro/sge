@@ -210,9 +210,11 @@ begin
         .Add('  , p.Codtributacao             ')
         .Add('  , p.Cst                       ')
         .Add('  , p.Csosn                     ')
+        // Reforma Tributária
         .Add('  , p.Cstis                     ')
         .Add('  , p.Cst2026                   ')
         .Add('  , p.Cct2026                   ')
+        // --
         .Add('  , p.Cst_pis                   ')
         .Add('  , p.Cst_cofins                ')
         .Add('  , p.Tabela_IBPT               ')
@@ -226,13 +228,17 @@ begin
         .Add('  , p.Aliquota_CSOSN            ')
         .Add('  , p.Aliquota_pis              ')
         .Add('  , p.Aliquota_cofins           ')
+        // Reforma Tributária
         .Add('  , p.Aliquota_cbs              ')
         .Add('  , p.Aliquota_ibs              ')
         .Add('  , p.Aliquota_is               ')
+        // --
         .Add('  , p.Valor_ipi                 ')
         .Add('  , p.Reserva                   ')
         .Add('  , p.Produto_novo              ')
+        // Reforma Tributária
         .Add('  , p.zona_franca_manaus        ')
+        // --
         .Add('  , p.Cor_veiculo               ')
         .Add('  , p.Combustivel_veiculo       ')
         .Add('  , p.Tipo_veiculo              ')
@@ -271,6 +277,10 @@ begin
         .Add('  , cr.Descricao as descricao_cor                              ')
         .Add('  , coalesce(cb.Apelido, cb.Descricao) as descricao_combustivel')
         .Add('  , coalesce(p.Ano_fabricacao_veiculo || ''/'' || p.Ano_modelo_veiculo, '''') as modelo_fabricacao')
+        // Reforma Tributária
+        .Add('  , ai.tpt_descricao as ctsis_descricao ')
+        .Add('  , cast(null as DMN_VCHAR_100) as cct2026_descricao')
+        // --
         .Add('  , Case when p.Customedio > 0                                                     ')
         .Add('      then ((p.Preco / p.Customedio) - 1) * 100                                    ')
         .Add('      else 100.0                                                                   ')
@@ -288,6 +298,9 @@ begin
         .Add('  left join TBFABRICANTE f on (f.Cod = p.Codfabricante)                 ')
         .Add('  left join RENAVAM_COR cr on (cr.Codigo = p.Cor_veiculo)               ')
         .Add('  left join RENAVAM_COBUSTIVEL cb on (cb.Codigo = p.Combustivel_veiculo)')
+        // Reforma Tributária
+        .Add('  left join TBTRIBUTACAO_TIPO ai on (ai.crt = 2 and ai.tpt_cod = p.cstis)') // CST-IS
+        // --
       .&End
     .OpenEmpty
     .CloseEmpty;
@@ -323,6 +336,8 @@ begin
   FConn.Query.DataSet.FieldByName('descricao_cor').ProviderFlags          := [];
   FConn.Query.DataSet.FieldByName('descricao_combustivel').ProviderFlags  := [];
   FConn.Query.DataSet.FieldByName('modelo_fabricacao').ProviderFlags   := [];
+  FConn.Query.DataSet.FieldByName('ctsis_descricao').ProviderFlags     := [];
+  FConn.Query.DataSet.FieldByName('cct2026_descricao').ProviderFlags   := [];
   FConn.Query.DataSet.FieldByName('Lucro_Calculado').ProviderFlags     := [];
   FConn.Query.DataSet.FieldByName('Lucro_Valor').ProviderFlags         := [];
   FConn.Query.DataSet.FieldByName('preco_frac').ProviderFlags          := [];
@@ -389,8 +404,10 @@ begin
     if FieldByName('ALIQUOTA_IBS').IsNull then
       FieldByName('ALIQUOTA_IBS').AsFloat := 0.0;
 
-    if FieldByName('ALIQUOTA_IS').IsNull then
-      FieldByName('ALIQUOTA_IS').AsFloat := 0.0;
+    // Deixar o campo NULL, caso a alíquota seja 0.0 (zero)
+    // Isso permitirá que o percentual definada pela IBPT seja aplicada, caso necessário.
+    if (FieldByName('ALIQUOTA_IS').AsCurrency = 0.0) then
+      FieldByName('ALIQUOTA_IS').Clear;
 
     // (Final)
 
@@ -435,8 +452,10 @@ begin
     FieldByName('CODEMP').AsString         := Usuario.Empresa.CNPJ;
     FieldByName('CODORIGEM').AsString      := ORIGEM_PRODUTO_NACIONAL;
     FieldByName('CST').AsString            := FormatFloat('000', StrToIntDef(Trim(FieldByName('CODORIGEM').AsString) + Trim(FieldByName('CODTRIBUTACAO').AsString), 0));
+    // Reforma Tributária
     FieldByName('CST2026').AsString        := '000';     // Tributação Integral
     FieldByName('CCT2026').AsString        := '000001';  // Situações tributadas integralmente pelo IBS e CBS.
+    // --
     FieldByName('ESTOQMIN').AsCurrency     := 0;
     FieldByName('QTDE').AsCurrency         := 0;
     FieldByName('ESTOQMIN').AsCurrency     := 0;
@@ -446,9 +465,11 @@ begin
     FieldByName('CODTIPO').AsInteger       := Ord(TTipoProduto.tpMaterialGeral);
     FieldByName('ALIQUOTA').AsCurrency       := 0;
     FieldByName('ALIQUOTA_CSOSN').AsCurrency := 0;
+    // Reforma Tributária
     FieldByName('ALIQUOTA_CBS').AsCurrency   := 0;
     FieldByName('ALIQUOTA_IBS').AsCurrency   := 0;
     FieldByName('ALIQUOTA_IS').AsCurrency    := 0;
+    // --
     FieldByName('VALOR_IPI').AsCurrency      := 0;
     FieldByName('RESERVA').AsCurrency        := 0;
     FieldByName('PRODUTO_NOVO').AsInteger    := 0;
@@ -479,7 +500,9 @@ begin
     FieldByName('ANO_MODELO_VEICULO').Clear;
     FieldByName('ANO_FABRICACAO_VEICULO').Clear;
     FieldByName('NCM_SH').Clear;
+    // Reforma Tributária
     FieldByName('CSTIS').Clear;
+    // --
     FieldByName('ULTIMA_COMPRA_DATA').Clear;
     FieldByName('ULTIMA_COMPRA_VALOR').Clear;
     FieldByName('ULTIMA_COMPRA_FORNEC').Clear;
@@ -492,6 +515,7 @@ begin
     FieldByName('MOVIMENTA_ESTOQUE').AsInteger   := FLAG_SIM;
     FieldByName('CADASTRO_ATIVO').AsInteger      := FLAG_SIM;
     FieldByName('PRODUTO_IMOBILIZADO').AsInteger := FLAG_NAO;
+    // Reforma Tributária
     FieldByName('ZONA_FRANCA_MANAUS').AsInteger  := FLAG_NAO;
   end;
 end;
