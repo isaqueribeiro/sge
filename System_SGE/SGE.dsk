@@ -16,25 +16,25 @@ File_13=TSourceModule,'C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Perfil.
 
 [Modules]
 Module0=C:\Projetos\ASS\SGE\Sys\View\View.IBPT.pas
-Module1=C:\Projetos\ASS\SGE\Sys\View\View.Produto.pas
-Module2=C:\Projetos\ASS\SGE\Sys\UDMBusiness.pas
-Module3=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Produto.pas
-Module4=C:\Projetos\ASS\SGE\Sys\UDMNFe.pas
-Module5=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas
-Module6=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas
-Module7=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas
-Module8=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Tabelas.pas
-Module9=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas
-Module10=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas
-Module11=C:\Projetos\ASS\SGE\Sys\UConstantesDGE.pas
-Module12=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Produto.pas
-Module13=C:\Projetos\ASS\SGE\Sys\View\View.IBPT.Importar.pas
-Module14=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas
-Module15=C:\Projetos\ASS\SGE\System_SGE\SGE.dproj
-Module16=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas
-Module17=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Cliente.pas
-Module18=C:\Projetos\ASS\SGE\Sys\View\View.Fornecedor.pas
-Module19=C:\Projetos\ASS\SGE\Sys\UDMRecursos.pas
+Module1=C:\Projetos\ASS\SGE\System_SGE\SGE.dproj
+Module2=C:\Projetos\ASS\SGE\Sys\UDMRecursos.pas
+Module3=C:\Projetos\ASS\SGE\Sys\View\View.Produto.pas
+Module4=C:\Projetos\ASS\SGE\Sys\UDMBusiness.pas
+Module5=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Produto.pas
+Module6=C:\Projetos\ASS\SGE\Sys\UDMNFe.pas
+Module7=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas
+Module8=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Factory.pas
+Module9=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Interfaces.pas
+Module10=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Tabelas.pas
+Module11=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas
+Module12=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Factory.pas
+Module13=C:\Projetos\ASS\SGE\Sys\UConstantesDGE.pas
+Module14=C:\Projetos\ASS\SGE\Sys\Controller\SGE.Controller.Produto.pas
+Module15=C:\Projetos\ASS\SGE\Sys\View\View.IBPT.Importar.pas
+Module16=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas
+Module17=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas
+Module18=C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Cliente.pas
+Module19=C:\Projetos\ASS\SGE\Sys\View\View.Fornecedor.pas
 Module20=C:\Projetos\ASS\SGE\Sys\View\View.Cliente.pas
 Module21=C:\Delphi\_Components\ACBr\Fontes\PCNComum\pcnConversao.pas
 Module22=C:\Delphi\_Components\ACBr\Fontes\ACBrDFe\ACBrDFe.Conversao.pas
@@ -70,6 +70,12 @@ Count=51
 EditWindowCount=1
 
 [C:\Projetos\ASS\SGE\Sys\View\View.IBPT.pas]
+ModuleType=TSourceModule
+
+[C:\Projetos\ASS\SGE\System_SGE\SGE.dproj]
+ModuleType=TBaseProject
+
+[C:\Projetos\ASS\SGE\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\Sys\View\View.Produto.pas]
@@ -114,9 +120,6 @@ ModuleType=TSourceModule
 [C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas]
 ModuleType=TSourceModule
 
-[C:\Projetos\ASS\SGE\System_SGE\SGE.dproj]
-ModuleType=TBaseProject
-
 [C:\Projetos\ASS\SGE\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas]
 ModuleType=TSourceModule
 
@@ -124,9 +127,6 @@ ModuleType=TSourceModule
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\Sys\View\View.Fornecedor.pas]
-ModuleType=TSourceModule
-
-[C:\Projetos\ASS\SGE\Sys\UDMRecursos.pas]
 ModuleType=TSourceModule
 
 [C:\Projetos\ASS\SGE\Sys\View\View.Cliente.pas]
@@ -300,7 +300,7 @@ RightPanelClients=DockSite2,DockSite4
 RightPanelData=00000800010100000000E11200000000000001D00700000000000001000000004412000009000000446F636B536974653201000000009121000009000000446F636B5369746534FFFFFFFF
 BottomPanelSize=0
 BottomPanelClients=MessageView,DockSite1
-BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B5369746531DE4400000000000002FE04000000000000FFFFFFFF
+BottomPanelData=000008000102020000000F0000004D65737361676556696577466F726D09000000446F636B53697465311534000000000000022606000000000000FFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779F1D00000000000002F206000000000000FFFFFFFF
@@ -583,13 +583,13 @@ EditViewName=Borland.FormDesignerView
 [View25]
 CustomEditViewType=TEditView
 Module=C:\Projetos\ASS\SGE\Sys\View\View.IBPT.pas
-CursorX=82
-CursorY=203
+CursorX=85
+CursorY=207
 TopLine=183
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=C:\Projetos\ASS\SGE\Sys\View\View.IBPT.pas
+EditViewName=Borland.FormDesignerView
 
 [View26]
 CustomEditViewType=TEditView
@@ -978,12 +978,12 @@ State=0
 Left=0
 Top=28
 Width=2771
-Height=1066
+Height=1415
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=2771
-ClientHeight=1066
-TBDockHeight=1066
+ClientHeight=1415
+TBDockHeight=1415
 LRDockWidth=2771
 Dockable=1
 StayOnTop=0
@@ -1025,12 +1025,12 @@ TBDockHeight=8721
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
-SplitPos=111
+SplitPos=116
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=Align,Action
-ExpandedItems=Anchors=0,Constraints=0,Font=0,ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,"LiveBindings Designer=0",Params=0,ResourceOptions=0,Transaction=0,TxOptions=0,UpdateOptions=0,UpdateTransaction=0,ListSource=0,LiveBindings=0,Margins=0,BevelEdges=0,DataSource=0,StyleElements=0,Touch=0,FocusControl=0,Title=1,Title.Font=0,ClipboardCommands=0,ActiveControl=0,HeaderFont=0,ActiveStoredUsage=0,Connection=0
+SelectedItem=Name,
+ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,Font=0,Images=0,LiveBindings=0,"LiveBindings Designer=0",Margins=0
 
 [frmDesignPreview]
 PercentageSizes=1

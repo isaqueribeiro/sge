@@ -1,6 +1,7 @@
 inherited ViewIBPT: TViewIBPT
   Left = 393
   Top = 212
+  ActiveControl = dbCodigo
   Caption = 'Tabela de Tributa'#231#245'es IBPT'
   ClientHeight = 470
   ClientWidth = 839
@@ -22,8 +23,9 @@ inherited ViewIBPT: TViewIBPT
   inherited pgcGuias: TPageControl
     Width = 839
     Height = 427
-    ExplicitWidth = 805
-    ExplicitHeight = 428
+    ActivePage = tbsCadastro
+    ExplicitWidth = 835
+    ExplicitHeight = 426
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 831
       ExplicitHeight = 398
@@ -128,8 +130,8 @@ inherited ViewIBPT: TViewIBPT
       inherited pnlFiltros: TPanel
         Top = 328
         Width = 831
-        ExplicitTop = 330
-        ExplicitWidth = 801
+        ExplicitTop = 327
+        ExplicitWidth = 827
         object lblRegistroDesativado: TLabel [0]
           Left = 2
           Top = 44
@@ -147,7 +149,7 @@ inherited ViewIBPT: TViewIBPT
         inherited grpBxFiltro: TGroupBox
           Left = 492
           Width = 335
-          ExplicitLeft = 462
+          ExplicitLeft = 488
           ExplicitWidth = 335
           inherited lbltFiltrar: TLabel
             Left = 14
@@ -181,7 +183,7 @@ inherited ViewIBPT: TViewIBPT
       inherited GrpBxDadosNominais: TGroupBox
         Width = 831
         Height = 249
-        ExplicitWidth = 797
+        ExplicitWidth = 831
         ExplicitHeight = 249
         object lblCodigoNCM: TLabel [1]
           Left = 104
@@ -247,7 +249,6 @@ inherited ViewIBPT: TViewIBPT
           DataSource = DtSrcTabela
           ScrollBars = ssVertical
           TabOrder = 4
-          ExplicitWidth = 765
         end
         object dbExcecao: TDBLookupComboBox
           Left = 231
@@ -322,7 +323,6 @@ inherited ViewIBPT: TViewIBPT
           'Percentuais de tributa'#231#245'es IBPT (Instituto Brasileiro de Planeja' +
           'mento e Tributa'#231#227'o)'
         TabOrder = 1
-        ExplicitWidth = 797
         object lblAliquotaNAC: TLabel
           Left = 16
           Top = 24
@@ -449,8 +449,8 @@ inherited ViewIBPT: TViewIBPT
   inherited tlbBotoes: TPanel
     Top = 431
     Width = 839
-    ExplicitTop = 432
-    ExplicitWidth = 805
+    ExplicitTop = 430
+    ExplicitWidth = 835
     inherited Bevel2: TBevel
       Left = 79
       ExplicitLeft = 75
@@ -508,11 +508,11 @@ inherited ViewIBPT: TViewIBPT
     end
     inherited btbtnFechar: TcxButton
       Left = 760
-      ExplicitLeft = 726
+      ExplicitLeft = 756
     end
     inherited btbtnSelecionar: TcxButton
       Left = 636
-      ExplicitLeft = 602
+      ExplicitLeft = 632
     end
     object btnImportar: TcxButton
       Tag = 1

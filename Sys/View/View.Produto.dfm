@@ -26,7 +26,7 @@ inherited ViewProduto: TViewProduto
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 957
-    ExplicitHeight = 542
+    ExplicitHeight = 570
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 953
       ExplicitHeight = 542
@@ -162,7 +162,7 @@ inherited ViewProduto: TViewProduto
       inherited pnlFiltros: TPanel
         Top = 472
         Width = 953
-        ExplicitTop = 444
+        ExplicitTop = 470
         ExplicitWidth = 953
         object lblProdutoPromocao: TLabel [0]
           Left = 2
@@ -215,7 +215,7 @@ inherited ViewProduto: TViewProduto
         end
         object lblLucroZerado: TLabel [4]
           Left = 292
-          Top = 18
+          Top = 17
           Width = 73
           Height = 13
           Caption = 'Lucro zerado'
@@ -252,7 +252,7 @@ inherited ViewProduto: TViewProduto
           Left = 379
           Width = 570
           Caption = 'Pesquisar    '
-          ExplicitLeft = 379
+          ExplicitLeft = 375
           ExplicitWidth = 570
           inherited lbltFiltrar: TLabel
             Width = 48
@@ -822,7 +822,7 @@ inherited ViewProduto: TViewProduto
         Align = alClient
         TabOrder = 2
         ExplicitWidth = 949
-        ExplicitHeight = 276
+        ExplicitHeight = 304
         object tbsValores: TTabSheet
           Caption = 'Valores / Par'#226'metros'
           Font.Charset = ANSI_CHARSET
@@ -1647,6 +1647,7 @@ inherited ViewProduto: TViewProduto
             Align = alTop
             Caption = 'Dados fiscais de al'#237'quotas para ICMS/ISS e IBS'
             TabOrder = 0
+            ExplicitWidth = 941
             object lblOrigem: TLabel
               Left = 16
               Top = 24
@@ -2180,7 +2181,7 @@ inherited ViewProduto: TViewProduto
             Align = alTop
             Caption = 'Dados fiscais de al'#237'quotas para PIS, COFINS e CBS'
             TabOrder = 1
-            ExplicitTop = 160
+            ExplicitWidth = 941
             object lblCSTPIS: TLabel
               Left = 16
               Top = 24
@@ -2857,7 +2858,6 @@ inherited ViewProduto: TViewProduto
             BevelOuter = bvNone
             BorderWidth = 2
             TabOrder = 2
-            ExplicitHeight = 72
             object lblEspecificacao: TLabel
               Left = 2
               Top = 2
@@ -2886,7 +2886,6 @@ inherited ViewProduto: TViewProduto
               DataField = 'ESPECIFICACAO'
               DataSource = DtSrcTabela
               TabOrder = 0
-              ExplicitHeight = 51
             end
           end
         end
@@ -2945,7 +2944,6 @@ inherited ViewProduto: TViewProduto
             ReadOnly = True
             ScrollBars = ssBoth
             TabOrder = 1
-            ExplicitHeight = 170
           end
         end
       end
@@ -3275,7 +3273,7 @@ inherited ViewProduto: TViewProduto
   inherited tlbBotoes: TPanel
     Top = 575
     Width = 961
-    ExplicitTop = 546
+    ExplicitTop = 574
     ExplicitWidth = 957
     inherited bvlTool3: TBevel
       Left = 878

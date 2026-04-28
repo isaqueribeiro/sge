@@ -283,7 +283,7 @@ inherited ViewUsuario: TViewUsuario
         Align = alTop
         Caption = 'Dados de Identifica'#231#227'o'
         TabOrder = 1
-        ExplicitTop = 83
+        ExplicitWidth = 739
         object lblNomeCompleto: TLabel
           Left = 16
           Top = 24

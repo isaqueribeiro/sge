@@ -2939,3 +2939,170 @@ where (trb.nrt = 1)
 order by
     trb.tpt_cod
 ;
+
+
+ALTER TABLE TBTRIBUTACAO_CLASSE
+    ADD REDUCAO_IBS_PERC DMN_PERCENTUAL,
+    ADD REDUCAO_CBS_PERC DMN_PERCENTUAL;
+
+COMMENT ON COLUMN TBTRIBUTACAO_CLASSE.REDUCAO_IBS_PERC IS
+'Percentual de Reducao do IBS';
+
+COMMENT ON COLUMN TBTRIBUTACAO_CLASSE.REDUCAO_CBS_PERC IS
+'Percentual de Reducao do CBS';
+
+alter table TBTRIBUTACAO_CLASSE
+alter CST position 1;
+
+alter table TBTRIBUTACAO_CLASSE
+alter CLASSE position 2;
+
+alter table TBTRIBUTACAO_CLASSE
+alter NOME position 3;
+
+alter table TBTRIBUTACAO_CLASSE
+alter DESCRICAO position 4;
+
+alter table TBTRIBUTACAO_CLASSE
+alter REDACAO position 5;
+
+alter table TBTRIBUTACAO_CLASSE
+alter TIPO position 6;
+
+alter table TBTRIBUTACAO_CLASSE
+alter REDUCAO_IBS position 7;
+
+alter table TBTRIBUTACAO_CLASSE
+alter REDUCAO_IBS_PERC position 8;
+
+alter table TBTRIBUTACAO_CLASSE
+alter REDUCAO_CBS position 9;
+
+alter table TBTRIBUTACAO_CLASSE
+alter REDUCAO_CBS_PERC position 10;
+
+alter table TBTRIBUTACAO_CLASSE
+alter TRIBUTACAO_REGULAR position 11;
+
+alter table TBTRIBUTACAO_CLASSE
+alter CREDITO_OPERACAO position 12;
+
+alter table TBTRIBUTACAO_CLASSE
+alter IMPOSTO_MONO_PADRAO position 13;
+
+alter table TBTRIBUTACAO_CLASSE
+alter IMPOSTO_MONO_RETENCAO position 14;
+
+alter table TBTRIBUTACAO_CLASSE
+alter IMPOSTO_MONO_RETIDA position 15;
+
+alter table TBTRIBUTACAO_CLASSE
+alter IMPOSTO_MONO_DIFERIMENTO position 16;
+
+alter table TBTRIBUTACAO_CLASSE
+alter ESTORNO_CREDITO position 17;
+
+alter table TBTRIBUTACAO_CLASSE
+alter USO_NFEABI position 18;
+
+alter table TBTRIBUTACAO_CLASSE
+alter USO_NFE position 19;
+
+alter table TBTRIBUTACAO_CLASSE
+alter USO_NFCE position 20;
+
+alter table TBTRIBUTACAO_CLASSE
+alter USO_NFSE position 21;
+
+
+
+SET TERM ^ ;
+
+CREATE trigger tg_tributacao_classe_reduz for tbtributacao_classe
+active before insert or update position 0
+AS
+begin
+  new.reducao_ibs_perc = coalesce(new.reducao_ibs_perc, 0.0);
+  new.reducao_cbs_perc = coalesce(new.reducao_cbs_perc, 0.0);
+
+  new.reducao_ibs = iif(coalesce(new.reducao_ibs_perc, 0.0) > 0.0, 1, 0);
+  new.reducao_cbs = iif(coalesce(new.reducao_cbs_perc, 0.0) > 0.0, 1, 0);
+end^
+
+SET TERM ; ^
+
+
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_tributacao_classe_reduz for tbtributacao_classe
+active before insert or update position 0
+AS
+begin
+  new.reducao_ibs_perc = coalesce(new.reducao_ibs_perc, 0.0);
+  new.reducao_cbs_perc = coalesce(new.reducao_cbs_perc, 0.0);
+
+  new.reducao_ibs = iif(coalesce(new.reducao_ibs_perc, 0.0) > 0.0, 1, 0);
+  new.reducao_cbs = iif(coalesce(new.reducao_cbs_perc, 0.0) > 0.0, 1, 0);
+end^
+
+SET TERM ; ^
+
+COMMENT ON TRIGGER TG_TRIBUTACAO_CLASSE_REDUZ IS 'Trigger Reducao IBS/CBS (Reforma Tributaria 2026)
+
+    Autor   :   Isaque M. Ribeiro
+    Data    :   27/04/2026
+
+Trigger responsavel por definir o flag de reducao de IBS/CBS de acordo com os percentuais de reducao
+informados.
+
+Historico:
+
+    Legendas:
+        + Novo objeto de banco (Campos, Triggers)
+        - Remocao de objeto de banco
+        * Modificacao no objeto de banco
+
+    27/04/2026 - IMR :
+        * Atualizacao/documentacao da trigger.';
+
+
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_tributacao_classe_reduz for tbtributacao_classe
+active before insert or update position 0
+AS
+begin
+  if ((coalesce(new.descricao, '') != '') and (char_length(new.descricao) > 250)) then
+    new.descricao = substring(trim(new.descricao) from 1 for 250);
+
+  new.reducao_ibs_perc = coalesce(new.reducao_ibs_perc, 0.0);
+  new.reducao_cbs_perc = coalesce(new.reducao_cbs_perc, 0.0);
+
+  new.reducao_ibs = iif(coalesce(new.reducao_ibs_perc, 0.0) > 0.0, 1, 0);
+  new.reducao_cbs = iif(coalesce(new.reducao_cbs_perc, 0.0) > 0.0, 1, 0);
+end^
+
+SET TERM ; ^
+
+
+
+SET TERM ^ ;
+
+CREATE OR ALTER trigger tg_tributacao_classe_reduz for tbtributacao_classe
+active before insert or update position 0
+AS
+begin
+  if ((coalesce(new.descricao, '') != '') and (char_length(new.descricao) > 250)) then
+    new.descricao = substring(trim(new.descricao) from 1 for 200);
+
+  new.reducao_ibs_perc = coalesce(new.reducao_ibs_perc, 0.0);
+  new.reducao_cbs_perc = coalesce(new.reducao_cbs_perc, 0.0);
+
+  new.reducao_ibs = iif(coalesce(new.reducao_ibs_perc, 0.0) > 0.0, 1, 0);
+  new.reducao_cbs = iif(coalesce(new.reducao_cbs_perc, 0.0) > 0.0, 1, 0);
+end^
+
+SET TERM ; ^
+

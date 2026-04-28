@@ -57,7 +57,8 @@ uses
   View.PadraoCadastro,
   SGE.Controller.Interfaces,
   Interacao.Tabela,
-  Controller.Tabela;
+  Controller.Tabela, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinTheBezier, dxSkinWXI;
 
 type
   TViewUsuario = class(TViewPadraoCadastro)
@@ -108,6 +109,8 @@ type
     FControllerVendedor,
     FControllerTipoDescontoView : IControllerCustom;
     FControllerCentroCusto : IControllerCustom;
+
+    procedure CriarCentroCustoGeral;
 
     function Controller : IControllerUsuario;
   public
@@ -225,6 +228,8 @@ begin
 
   pgcParametros.ActivePage      := tbsVendas;
   tbsControleInterno.TabVisible := (gSistema.Codigo = SISTEMA_GESTAO_IND);
+
+  CriarCentroCustoGeral;
 end;
 
 procedure TViewUsuario.DtSrcTabelaDataChange(Sender: TObject; Field: TField);
@@ -294,6 +299,14 @@ end;
 function TViewUsuario.Controller: IControllerUsuario;
 begin
   Result := (FController as IControllerUsuario);
+end;
+
+procedure TViewUsuario.CriarCentroCustoGeral;
+var
+  aCentroCusto : IControllerCentroCusto;
+begin
+  aCentroCusto := TControllerFactory.New.CentroCusto as IControllerCentroCusto;
+  aCentroCusto.SetCentroCustoGeral(Controller.DAO.Usuario.Empresa.CNPJ);
 end;
 
 procedure TViewUsuario.dbTipoAlteraValorVendaItemClick(Sender: TObject);

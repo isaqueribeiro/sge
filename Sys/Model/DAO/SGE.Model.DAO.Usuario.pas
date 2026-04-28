@@ -146,14 +146,14 @@ begin
     FieldByName('ALTERAR_SENHA').AsInteger              := 1; // Sim
     FieldByName('PERM_ALTERAR_VALOR_VENDA').AsInteger   := 0; // Não
     FieldByName('TIPO_ALTERAR_VALOR_VENDA').AsInteger   := 0; // Nenhum
-    FieldByName('ATIVO').AsInteger                      := 1; // Sim
-    FieldByName('LIMIDESC').AsCurrency                  := 0.0;
-    FieldByName('SENHA').AsString                       := USER_PASSWD_DEFAULT;
+    FieldByName('ATIVO').AsInteger     := 1; // Sim
+    FieldByName('LIMIDESC').AsCurrency := 0.0;
+    FieldByName('SENHA').AsString      := USER_PASSWD_DEFAULT;
     FieldByName('ALMOX_MANIFESTO_AUTOMATICO').AsInteger := 0; // Não
+    FieldByName('CENTRO_CUSTO').AsInteger := CENTRO_CUSTO_ESTOQUE_GERAL;
     FieldByName('NOME').Clear;
     FieldByName('NOMECOMPLETO').Clear;
     FieldByName('USUARIO_APP_ID').Clear;
-    FieldByName('CENTRO_CUSTO').Clear;
   end;
 end;
 

@@ -49,6 +49,21 @@ type
       function CreateLookupComboBoxList : IModelDAOCustom;
   end;
 
+  // Table
+  TModelDAOTributacaoClasse = class(TModelDAO, IModelDAOCustom)
+    private
+      procedure SetProviderFlags;
+      procedure DataSetAfterOpen(DataSet: TDataSet);
+      procedure DataSetNewRecord(DataSet: TDataSet);
+    protected
+      constructor Create;
+    public
+      destructor Destroy; override;
+      class function New : IModelDAOCustom;
+
+      function CreateLookupComboBoxList : IModelDAOCustom;
+  end;
+
   // View
   TModelDAOTipoRegimeView = class(TModelDAO, IModelDAOCustom)
     private
@@ -550,7 +565,7 @@ begin
         .Add('Select')
         .Add('    t.Tpt_cod      ')
         .Add('  , t.Tpt_descricao')
-        .Add('  , t.Tpt_cod || '' - '' || t.Tpt_descricao as Tpt_descricao_full')
+        .Add('  , trim(t.Tpt_cod || '' - '' || t.Tpt_descricao) as Tpt_descricao_full')
         .Add('  , t.Tpt_sigla')
         .Add('  , t.Crt      ') // Codigo do Regime Tributario (0 - Regime Normal, 1 - Simples Nacional, 2 - Nova Tributacao [A partir de 2026])
         .Add('  , t.nrt      ') // Nova Reforma Tributária  (0 - Não, 1 - Sim)
@@ -893,6 +908,98 @@ end;
 class function TModelDAOTributacaoIBS_CBSView.New: IModelDAOCustom;
 begin
   Result := Self.Create;
+end;
+
+{ TModelDAOTributacaoClasse }
+
+constructor TModelDAOTributacaoClasse.Create;
+begin
+  inherited Create;
+  FConn
+    .Query
+      .TableName('TBTRIBUTACAO_CLASSE')
+      .KeyFields('cst;classe')
+      .SQL
+        .Clear
+        .Add('Select')
+        .Add('    cls.cst')
+        .Add('  , cls.classe')
+        .Add('  , cls.nome  ')
+        .Add('  , cls.descricao')
+        .Add('  , cls.redacao  ')
+        .Add('  , cls.tipo     ')
+        .Add('  , cls.reducao_ibs')
+        .Add('  , cls.reducao_ibs_perc')
+        .Add('  , cls.reducao_cbs')
+        .Add('  , cls.reducao_cbs_perc')
+        .Add('  , cls.tributacao_regular')
+        .Add('  , cls.credito_operacao  ')
+        .Add('  , cls.imposto_mono_padrao  ')
+        .Add('  , cls.imposto_mono_retencao')
+        .Add('  , cls.imposto_mono_retida  ')
+        .Add('  , cls.imposto_mono_diferimento')
+        .Add('  , cls.estorno_credito')
+        .Add('  , cls.uso_nfeabi     ')
+        .Add('  , cls.uso_nfe ')
+        .Add('  , cls.uso_nfce')
+        .Add('  , cls.uso_nfse')
+        .Add('from TBTRIBUTACAO_CLASSE cls')
+      .&End
+      .OrderBy('cls.cst')
+      .OrderBy('cls.classe')
+      .OpenEmpty
+      .CloseEmpty;
+
+  FConn.Query.DataSet.OnNewRecord := DataSetNewRecord;
+end;
+
+destructor TModelDAOTributacaoClasse.Destroy;
+begin
+  inherited;
+end;
+
+class function TModelDAOTributacaoClasse.New: IModelDAOCustom;
+begin
+  Result := Self.Create;
+end;
+
+function TModelDAOTributacaoClasse.CreateLookupComboBoxList: IModelDAOCustom;
+begin
+  Result := Self;
+  if (not FConn.Query.DataSet.Active) or FConn.Query.DataSet.IsEmpty then
+  begin
+    FConn.Query.Close;
+    FConn
+      .Query
+        .SQL
+          .ClearWhere
+        .&End
+        .Open;
+  end;
+end;
+
+procedure TModelDAOTributacaoClasse.DataSetAfterOpen(DataSet: TDataSet);
+begin
+  SetProviderFlags;
+end;
+
+procedure TModelDAOTributacaoClasse.DataSetNewRecord(DataSet: TDataSet);
+begin
+  with FConn.Query.DataSet do
+  begin
+    FieldByName('cst').Clear;
+    FieldByName('classe').Clear;
+    FieldByName('nome').Clear;
+    FieldByName('descricao').Clear;
+    FieldByName('redacao').Clear;
+  end;
+end;
+
+procedure TModelDAOTributacaoClasse.SetProviderFlags;
+begin
+  // Ignorar campos no Insert e Update
+//  FConn.Query.DataSet.FieldByName('codigo_resumo').ProviderFlags    := [];
+//  FConn.Query.DataSet.FieldByName('descricao_resumo').ProviderFlags := [];
 end;
 
 end.
