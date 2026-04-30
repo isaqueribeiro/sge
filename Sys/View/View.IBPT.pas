@@ -51,6 +51,7 @@ type
     aCodigo     ,
     aDescricao  : String;
     aAliquotaIS : Currency;
+    aAtivo : Boolean;
   end;
 
   TViewIBPT = class(TViewPadraoCadastro)
@@ -144,6 +145,7 @@ begin
       aTabelaIBPT.aCodigo     := aForm.DtSrcTabela.DataSet.FieldByName('NCM_IBPT').AsString;
       aTabelaIBPT.aDescricao  := aDescricao;
       aTabelaIBPT.aAliquotaIS := aForm.DtSrcTabela.DataSet.FieldByName('ALIQUOTA_IS').AsCurrency;
+      aTabelaIBPT.aAtivo      := (aForm.DtSrcTabela.DataSet.FieldByName('ATIVO').AsInteger = 1);
     end;
   finally
     aForm.Destroy;

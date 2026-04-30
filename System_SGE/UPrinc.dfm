@@ -34,8 +34,6 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
-    ExplicitWidth = 1044
-    ExplicitHeight = 486
     DesignSize = (
       1040
       485)
@@ -4450,6 +4448,8 @@ object frmPrinc: TfrmPrinc
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
+      ExplicitTop = 459
+      ExplicitWidth = 1034
     end
     object RbnBackstageView: TdxRibbonBackstageView
       Left = 23
@@ -4662,6 +4662,8 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvNone
     DockSite = True
     TabOrder = 1
+    ExplicitLeft = 1039
+    ExplicitHeight = 484
   end
   object Ribbon: TdxRibbon
     Left = 0
@@ -4679,6 +4681,7 @@ object frmPrinc: TfrmPrinc
     TabOrder = 2
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
+    ExplicitWidth = 1040
     object RbnTabPrincipal: TdxRibbonTab
       Active = True
       Caption = 'Principal'

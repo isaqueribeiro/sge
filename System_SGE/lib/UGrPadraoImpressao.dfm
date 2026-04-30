@@ -4,8 +4,8 @@ inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
   ActiveControl = edRelatorio
   BorderStyle = bsDialog
   Caption = 'Padr'#227'o Impress'#227'o'
-  ClientHeight = 303
-  ClientWidth = 549
+  ClientHeight = 302
+  ClientWidth = 545
   Icon.Data = {
     0000010004001010000001002000680400004600000018180000010020008809
     0000AE0400002020000001002000A8100000360E00003030000001002000A825
@@ -557,13 +557,13 @@ inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
     FFF8001F0000FFFFFFFF003F0000FFFFFFFFF0FF0000FFFFFFFFFFFF0000FFFF
     FFFFFFFF0000}
   OnClose = FormClose
-  ExplicitWidth = 565
-  ExplicitHeight = 342
+  ExplicitWidth = 561
+  ExplicitHeight = 341
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
-    Top = 299
-    Width = 549
+    Top = 298
+    Width = 545
     Height = 4
     Align = alBottom
     Shape = bsSpacer
@@ -572,8 +572,8 @@ inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
   end
   object Bevel3: TBevel
     Left = 0
-    Top = 260
-    Width = 549
+    Top = 259
+    Width = 545
     Height = 4
     Align = alBottom
     Shape = bsSpacer
@@ -584,10 +584,11 @@ inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
     Left = 0
     Top = 0
     Width = 97
-    Height = 260
+    Height = 259
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitHeight = 260
     object imgBanner: TImage
       Left = 0
       Top = 0
@@ -3122,8 +3123,8 @@ inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
   object pnlRelatorio: TPanel
     Left = 97
     Top = 0
-    Width = 452
-    Height = 260
+    Width = 448
+    Height = 259
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 4
@@ -3137,7 +3138,7 @@ inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
     object Bevel4: TBevel
       Left = 4
       Top = 73
-      Width = 444
+      Width = 440
       Height = 4
       Align = alTop
       Shape = bsSpacer
@@ -3146,7 +3147,7 @@ inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
     object GrpBxRelatorio: TGroupBox
       Left = 4
       Top = 4
-      Width = 444
+      Width = 440
       Height = 69
       Align = alTop
       Caption = 'Op'#231#245'es de relat'#243'rios'
@@ -3158,7 +3159,7 @@ inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
       ParentFont = False
       TabOrder = 0
       DesignSize = (
-        444
+        440
         69)
       object lblRelatorio: TLabel
         Left = 16
@@ -3171,7 +3172,7 @@ inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
       object edRelatorio: TComboBox
         Left = 16
         Top = 40
-        Width = 404
+        Width = 396
         Height = 21
         Style = csDropDownList
         Anchors = [akLeft, akTop, akRight]
@@ -3184,8 +3185,8 @@ inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
     object GrpBxFiltro: TGroupBox
       Left = 4
       Top = 77
-      Width = 444
-      Height = 179
+      Width = 440
+      Height = 178
       Align = alClient
       Caption = 'Op'#231#245'es de filtro'
       Font.Charset = ANSI_CHARSET
@@ -3195,17 +3196,21 @@ inherited frmGrPadraoImpressao: TfrmGrPadraoImpressao
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 1
+      ExplicitWidth = 444
+      ExplicitHeight = 179
     end
   end
   object tlbBotoes: TPanel
     Left = 0
-    Top = 264
-    Width = 549
+    Top = 263
+    Width = 545
     Height = 35
     Align = alBottom
     BevelOuter = bvNone
     ParentColor = True
     TabOrder = 2
+    ExplicitTop = 264
+    ExplicitWidth = 549
     object Bevel2: TBevel
       Left = 0
       Top = 2

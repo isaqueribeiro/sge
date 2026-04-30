@@ -1448,9 +1448,14 @@ begin
   if (DtSrcTabela.DataSet.State in [dsEdit, dsInsert]) then
     if SelecionarCodigoIBPT(Self, aTabelaIBPT) then
     begin
-      DtSrcTabela.DataSet.FieldByName('TABELA_IBPT').AsInteger  := aTabelaIBPT.aTabela;
-      DtSrcTabela.DataSet.FieldByName('NCM_SH').AsString        := aTabelaIBPT.aCodigo;
-      DtSrcTabela.DataSet.FieldByName('ALIQUOTA_IS').AsCurrency := aTabelaIBPT.aAliquotaIS;
+      if not aTabelaIBPT.aAtivo then
+        TServiceMessage.ShowWarning('O código NCM/SH está desativado!' + #13 + 'Selecione um novo código.')
+      else
+      begin
+        DtSrcTabela.DataSet.FieldByName('TABELA_IBPT').AsInteger  := aTabelaIBPT.aTabela;
+        DtSrcTabela.DataSet.FieldByName('NCM_SH').AsString        := aTabelaIBPT.aCodigo;
+        DtSrcTabela.DataSet.FieldByName('ALIQUOTA_IS').AsCurrency := aTabelaIBPT.aAliquotaIS;
+      end;
     end;
 end;
 

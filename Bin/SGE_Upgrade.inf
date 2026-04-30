@@ -1,8 +1,10 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 08/05/2024 13:33:00     #
+#    Gerado por AGIL SOFTWARES em : 30/04/2026 15:30:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Emissão de Etiquetas de Precificação para Produtos
+- Atualização dos Cadastro de Produtos/Serviços para Reforma Tributária 2026
 - Atualização das Taxas Tributárias para JAN/2024 até MAI/2024.
 - Manifesto e baixa de notas fiscais recebidas
 - Ajustes na geração de Recibos.
@@ -40,7 +42,8 @@
 #url30=http://www.drhtransparencia.com.br/agil/upgrade/db/01003400.sql
 #url31=http://www.drhtransparencia.com.br/agil/upgrade/db/01003500.sql
 #url32=http://www.drhtransparencia.com.br/agil/upgrade/db/01003505.sql
+#url33=http://www.drhtransparencia.com.br/agil/upgrade/db/01003600.sql
 
 #method=0 (self-upgrade)
 
-#version=1.0.34.1
+#version=1.0.36.1

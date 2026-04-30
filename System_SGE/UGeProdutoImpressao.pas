@@ -16,7 +16,9 @@ uses
 
   dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray,
   dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
-  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light;
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinBasic,
+  dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinTheBezier,
+  dxSkinsDefaultPainters, dxSkinWXI;
 
 type
   TfrmGeProdutoImpressao = class(TfrmGrPadraoImpressao)
@@ -73,6 +75,7 @@ type
     CdsRelacaoProdutoFracionado: TClientDataSet;
     FrdsRelacaoProdutoFracionado: TfrxDBDataset;
     frrRelacaoProdutoFracionado: TfrxReport;
+    frEtiquetaProdutoValor: TfrxReport;
     procedure FormCreate(Sender: TObject);
     procedure btnVisualizarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -153,6 +156,7 @@ const
   REPORT_DEMANDA_PRODUTO          = 2;
   REPORT_RELACAO_PRODUTO_FRACAO   = 3;
   REPORT_EXTRATO_MOV_PRODUTO      = 4;
+  REPORT_ETIQUETA_PRODUTO_VENDA   = 5;
 
 {$R *.dfm}
 
@@ -268,7 +272,7 @@ procedure TfrmGeProdutoImpressao.FormKeyDown(Sender: TObject; var Key: Word;
 begin
   if (Key = VK_DELETE) or ((Shift = [ssCtrl]) and (Key = SYS_KEY_L)) Then
   begin
-    if ( edProduto.Focused ) then
+    if edProduto.Focused then
     begin
       edProduto.Tag  := 0;
       edProduto.Text := EmptyStr;
@@ -307,6 +311,9 @@ begin
         SQL.Text := StringReplace(SQL.Text, '0=0', 'ea.empresa = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]), [rfReplaceAll]);
         SQL.Add('  and p.codemp = ' + QuotedStr(IEmpresa[edEmpresa.ItemIndex]));
       end;
+
+      if (edProduto.Visible and (edProduto.Tag > 0)) then
+        SQL.Add(' and p.codigo = ' + Trim(Copy(edProduto.Text, 1, Pos('-', edProduto.Text) - 1)));
 
       if (edEstoque.ItemIndex = 1) then
       begin
@@ -420,6 +427,7 @@ begin
         begin
           SubTituloRelario := EmptyStr;
           MontarRelacaoProduto;
+
           if (edRelatorio.ItemIndex = REPORT_RELACAO_PRODUTO) then
             frReport := frRelacaoProduto
           else
@@ -442,7 +450,7 @@ begin
 
       REPORT_EXTRATO_MOV_PRODUTO:
         begin
-          if ( edProduto.Tag = 0 ) then
+          if (edProduto.Tag = 0) then
           begin
             ShowWarning('Favor selecionar o produto desejado!');
             if edProduto.Visible and edProduto.Enabled then
@@ -450,15 +458,35 @@ begin
             Abort;
           end;
 
-          if ( edEmpresa.ItemIndex = 0 ) then
+          if (edEmpresa.ItemIndex = 0) then
             edEmpresa.ItemIndex := IndexOfArray(gUsuarioLogado.Empresa, IEmpresa);
 
           SubTituloRelario := EmptyStr;
           MontarExtratoMovimentoProduto;
-          if ( gSistema.Codigo = SISTEMA_GESTAO_IND ) then
+
+          if (gSistema.Codigo = SISTEMA_GESTAO_IND) then
             frReport := frExtratoMovimentoProduto_IND
           else
             frReport := frExtratoMovimentoProduto_COM;
+        end;
+
+      REPORT_ETIQUETA_PRODUTO_VENDA:
+        begin
+//          if (edProduto.Tag = 0) then
+//          begin
+//            ShowWarning('Favor selecionar o produto desejado!');
+//            if edProduto.Visible and edProduto.Enabled then
+//              edProduto.SetFocus;
+//            Abort;
+//          end;
+//
+//          if (edEmpresa.ItemIndex = 0) then
+//            edEmpresa.ItemIndex := IndexOfArray(gUsuarioLogado.Empresa, IEmpresa);
+//
+          SubTituloRelario := EmptyStr;
+          MontarRelacaoProduto;
+
+          frReport := frEtiquetaProdutoValor;
         end;
     end;
 
@@ -744,17 +772,22 @@ procedure TfrmGeProdutoImpressao.edRelatorioChange(Sender: TObject);
 begin
   inherited;
   lblAno.Enabled := (edRelatorio.ItemIndex = REPORT_DEMANDA_PRODUTO);
-  edAno.Enabled  := (edRelatorio.ItemIndex = REPORT_DEMANDA_PRODUTO);
-  lblTipoRegistro.Enabled := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
-  edTipoRegistro.Enabled  := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
-  lblProduto.Visible := (edRelatorio.ItemIndex = REPORT_EXTRATO_MOV_PRODUTO);
-  edProduto.Visible  := (edRelatorio.ItemIndex = REPORT_EXTRATO_MOV_PRODUTO);
+  edAno.Enabled  := lblAno.Enabled;
+  lblTipoRegistro.Enabled := not (edRelatorio.ItemIndex in [REPORT_EXTRATO_MOV_PRODUTO, REPORT_ETIQUETA_PRODUTO_VENDA]);
+  edTipoRegistro.Enabled  := lblTipoRegistro.Enabled;
+  lblProduto.Visible := (edRelatorio.ItemIndex in [REPORT_EXTRATO_MOV_PRODUTO, REPORT_ETIQUETA_PRODUTO_VENDA]);
+  edProduto.Visible  := lblProduto.Visible;
 
-  lblAno.Visible     := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
+  lblAno.Visible     := not (edRelatorio.ItemIndex in [REPORT_EXTRATO_MOV_PRODUTO, REPORT_ETIQUETA_PRODUTO_VENDA]);
   edAno.Visible      := lblAno.Visible;
 
-  lblEstoque.Visible := (edRelatorio.ItemIndex <> REPORT_EXTRATO_MOV_PRODUTO);
+  lblEstoque.Visible := not (edRelatorio.ItemIndex in [REPORT_EXTRATO_MOV_PRODUTO, REPORT_ETIQUETA_PRODUTO_VENDA]);
   edEstoque.Visible  := lblEstoque.Visible;
+
+  if (edRelatorio.ItemIndex = REPORT_ETIQUETA_PRODUTO_VENDA) then
+    edTipoRegistro.ItemIndex := 1  // Produto
+  else
+    edTipoRegistro.ItemIndex := 0; // Todos
 end;
 
 procedure TfrmGeProdutoImpressao.CarregarDadosEmpresa;

@@ -130,8 +130,8 @@ inherited ViewIBPT: TViewIBPT
       inherited pnlFiltros: TPanel
         Top = 328
         Width = 831
-        ExplicitTop = 327
-        ExplicitWidth = 827
+        ExplicitTop = 328
+        ExplicitWidth = 831
         object lblRegistroDesativado: TLabel [0]
           Left = 2
           Top = 44
@@ -149,7 +149,7 @@ inherited ViewIBPT: TViewIBPT
         inherited grpBxFiltro: TGroupBox
           Left = 492
           Width = 335
-          ExplicitLeft = 488
+          ExplicitLeft = 492
           ExplicitWidth = 335
           inherited lbltFiltrar: TLabel
             Left = 14
@@ -183,7 +183,7 @@ inherited ViewIBPT: TViewIBPT
       inherited GrpBxDadosNominais: TGroupBox
         Width = 831
         Height = 249
-        ExplicitWidth = 831
+        ExplicitWidth = 827
         ExplicitHeight = 249
         object lblCodigoNCM: TLabel [1]
           Left = 104
@@ -249,6 +249,7 @@ inherited ViewIBPT: TViewIBPT
           DataSource = DtSrcTabela
           ScrollBars = ssVertical
           TabOrder = 4
+          ExplicitWidth = 795
         end
         object dbExcecao: TDBLookupComboBox
           Left = 231
@@ -323,6 +324,7 @@ inherited ViewIBPT: TViewIBPT
           'Percentuais de tributa'#231#245'es IBPT (Instituto Brasileiro de Planeja' +
           'mento e Tributa'#231#227'o)'
         TabOrder = 1
+        ExplicitWidth = 827
         object lblAliquotaNAC: TLabel
           Left = 16
           Top = 24
