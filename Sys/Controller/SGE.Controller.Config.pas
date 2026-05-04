@@ -4,7 +4,11 @@ interface
 
 uses
   System.SysUtils,
+  System.StrUtils,
+  System.Classes,
+
   Data.DB,
+
   SGE.Controller,
   SGE.Controller.Interfaces,
   SGE.Model.DAO.Interfaces,
@@ -13,6 +17,8 @@ uses
 type
   TControllerConfigSystem = class(TController, IControllerConfigSystem)
     private
+      const
+        KEY_NOVA_REFORMA_TRIBUTARIA_2026 = 'nrt_2026_producao';
     protected
       constructor Create;
     public
@@ -23,6 +29,8 @@ type
 
       function GetNumeroNSUPesquisado(const aEmpresa : String) : String;
       function GetNumeroNSU(const aEmpresa : String) : Largeint;
+      function ReformaTributaria(const aAtivar : Boolean) : Boolean;
+      function ReformaTributariaEmProducao : Boolean;
   end;
 
 implementation
@@ -113,6 +121,74 @@ end;
 class function TControllerConfigSystem.New: IControllerConfigSystem;
 begin
   Result := Self.Create;
+end;
+
+function TControllerConfigSystem.ReformaTributaria(const aAtivar : Boolean): Boolean;
+var
+  aKey   ,
+  aValue : String;
+  aSQL : TStringList;
+begin
+  Result := False;
+
+  aSQL := TStringList.Create;
+  try
+    try
+      aKey   := KEY_NOVA_REFORMA_TRIBUTARIA_2026;
+      aValue := IfThen(aAtivar, '1', '0');
+
+      aSQL.BeginUpdate;
+      aSQL.Clear;
+      aSQL.Add('Update or Insert into SYS_CONFIG (');
+      aSQL.Add('    ky_config');
+      aSQL.Add('  , vl_config');
+      aSQL.Add('  , dh_config');
+      aSQL.Add(') values (    ');
+      aSQL.Add('    ' + aKey.ToUpper.QuotedString );
+      aSQL.Add('  , ' + aValue.QuotedString);
+      aSQL.Add('  , current_timestamp  ');
+      aSQL.Add(') matching (ky_config) ');
+      aSQL.EndUpdate;
+
+      FDAO.ExecuteScriptSQL(aSQL.Text);
+
+      Result := True;
+    except
+      On E : Exception do
+        raise Exception.Create('ReformaTributaria() --> ' + E.Message);
+    end;
+  finally
+    aSQL.DisposeOf;
+  end;
+end;
+
+function TControllerConfigSystem.ReformaTributariaEmProducao: Boolean;
+var
+  aKey   ,
+  aValue : String;
+const
+  VALUE_NULL = '0';
+begin
+  aKey   := KEY_NOVA_REFORMA_TRIBUTARIA_2026;
+  aValue := VALUE_NULL;
+  try
+    FDAO
+      .Close
+      .ClearWhere;
+
+    FDAO
+      .Close
+      .Where('c.ky_config = :ky_config')
+      .ParamsByName('ky_config', aKey.ToUpper)
+      .Open;
+
+    aValue := FDAO.DataSet.FieldByName('vl_config').AsString;
+
+    if aValue.Trim.IsEmpty then
+      aValue := VALUE_NULL;
+  finally
+    Result := (StrToIntDef(aValue.Trim, 0) = 1);
+  end;
 end;
 
 procedure TControllerConfigSystem.SetNumeroNSUPesquisado(const aEmpresa: String; aNSU: String);

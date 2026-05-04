@@ -50,6 +50,9 @@ uses
   Classe.DistribuicaoDFe.DocumentoRetornado,
   {$ENDIF}
 
+  SGE.Controller.Interfaces,
+  SGE.Controller.Factory,
+
   ACBrNFeDANFEClass,
   frxClass, frxDBSet, frxExportRTF, frxExportXLS, frxExportPDF, frxExportMail,
 
@@ -289,6 +292,7 @@ type
 
     FImprimirCabecalho : Boolean;
     FMensagemErro      : String;
+    FControllerFactory : IControllerFactory;
 
     procedure GerarTabela_CST_PIS;
     procedure GerarTabela_CST_COFINS;
@@ -321,6 +325,7 @@ type
     function ImprimirCupomFechamentoCaixa_PORTA(const sEmpresa : String;
       const iAnoCaixa, iNumCaixa : Integer) : Boolean;
 
+    function ControllerFactory : IControllerFactory;
   public
     { Public declarations }
     property ConfigACBr : TfrmGeConfigurarNFeACBr read frmACBr write frmACBr;
@@ -988,8 +993,9 @@ begin
       WriteBinaryStream( 'Email', 'Mensagem', StreamMemo) ;
 
       StreamMemo.Free;
-    end;
 
+      ControllerFactory.ConfigSystem.ReformaTributaria(ckReformaTributaria2026.Checked);
+    end;
   finally
   end;
 end;
@@ -1044,9 +1050,9 @@ begin
 
     AbrirEmitente(sCNPJEmitente);
 
-    gReformaTributaria := True;
+    gReformaTributaria := ControllerFactory.ConfigSystem.ReformaTributariaEmProducao;
 
-    if ( GetQuantidadeEmpresasEmiteNFe > 1 ) then
+    if (GetQuantidadeEmpresasEmiteNFe > 1) then
       sPrefixoSecao := Trim(sCNPJEmitente) + '_'
     else
       sPrefixoSecao := EmptyStr;
@@ -3645,7 +3651,7 @@ begin
                   IBSCBS.gIBSCBS.gCBS.gRed.pAliqEfet := cAliquotaCBS * (100.0 - qryDadosProduto.FieldByName('PERCENTUAL_REDUCAO_BC').AsCurrency) / 100.0;
                 end;
 
-                if (qryCalculoImposto.FieldByName('TRIBUTACAO_REGULAR').AsInteger = 1) then
+                if (qryDadosProduto.FieldByName('TRIBUTACAO_REGULAR').AsInteger = 1) then
                 begin
                   IBSCBS.gIBSCBS.gTribRegular.CSTReg             := IBSCBS.CST;
                   IBSCBS.gIBSCBS.gTribRegular.cClassTribReg      := IBSCBS.cClassTrib;
@@ -6826,6 +6832,14 @@ begin
     sTextoRetorno.Free;
     Result := bReturn;
   end;
+end;
+
+function TDMNFe.ControllerFactory: IControllerFactory;
+begin
+  if not Assigned(FControllerFactory) then
+    FControllerFactory := TControllerFactory.New;
+
+  Result := FControllerFactory;
 end;
 
 function TDMNFe.ConsultarChaveNFeACBr(const sCNPJEmitente, sChave: String;

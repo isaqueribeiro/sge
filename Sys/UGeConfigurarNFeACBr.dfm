@@ -4,17 +4,17 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
   BorderStyle = bsDialog
   BorderWidth = 4
   Caption = 'Configurar NF-e / NFC-e (ACBr)'
-  ClientHeight = 591
+  ClientHeight = 637
   ClientWidth = 383
   ExplicitWidth = 403
-  ExplicitHeight = 637
+  ExplicitHeight = 683
   DesignSize = (
     383
-    591)
+    637)
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
-    Top = 552
+    Top = 598
     Width = 383
     Height = 39
     Align = alBottom
@@ -23,7 +23,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
   end
   object btnServico: TcxButton
     Left = 1
-    Top = 555
+    Top = 601
     Width = 83
     Height = 33
     Hint = 'Verificar Status do Servi'#231'o'
@@ -103,7 +103,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
   end
   object btnSalvar: TcxButton
     Left = 208
-    Top = 555
+    Top = 601
     Width = 83
     Height = 33
     Anchors = [akRight, akBottom]
@@ -184,7 +184,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
   end
   object btnCancelar: TcxButton
     Left = 296
-    Top = 555
+    Top = 601
     Width = 83
     Height = 33
     Anchors = [akRight, akBottom]
@@ -268,7 +268,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
     Left = 0
     Top = 0
     Width = 383
-    Height = 552
+    Height = 598
     ActivePage = TbsConfiguracoes
     Align = alClient
     TabOrder = 3
@@ -280,8 +280,8 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
         Left = 0
         Top = 0
         Width = 375
-        Height = 524
-        ActivePage = TbsCertificado
+        Height = 570
+        ActivePage = TbsGeral
         Align = alClient
         MultiLine = True
         TabOrder = 0
@@ -296,16 +296,17 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Left = 3
             Top = 3
             Width = 353
-            Height = 423
+            Height = 469
             Align = alClient
             Caption = 'Geral'
             TabOrder = 0
+            ExplicitHeight = 423
             DesignSize = (
               353
-              423)
+              469)
             object sbtnPathSalvar: TSpeedButton
               Left = 318
-              Top = 344
+              Top = 366
               Width = 23
               Height = 24
               Anchors = [akTop, akRight]
@@ -328,7 +329,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             object lblPathSchemas: TLabel
               AlignWithMargins = True
               Left = 12
-              Top = 373
+              Top = 394
               Width = 239
               Height = 13
               Margins.Left = 10
@@ -336,11 +337,12 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Align = alTop
               Caption = 'Diret'#243'rios com os arquivos XSD (Schemas)'
               FocusControl = edPathSchemas
+              ExplicitTop = 373
               ExplicitWidth = 201
             end
             object spPathSchemas: TSpeedButton
               Left = 318
-              Top = 387
+              Top = 409
               Width = 23
               Height = 24
               Anchors = [akTop, akRight]
@@ -431,18 +433,19 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             object edPathLogs: TEdit
               AlignWithMargins = True
               Left = 12
-              Top = 346
+              Top = 367
               Width = 303
               Height = 21
               Margins.Left = 10
               Margins.Right = 36
               Align = alTop
-              TabOrder = 10
+              TabOrder = 11
+              ExplicitTop = 346
             end
             object ckSalvar: TCheckBox
               AlignWithMargins = True
               Left = 12
-              Top = 325
+              Top = 346
               Width = 269
               Height = 15
               Margins.Left = 10
@@ -455,19 +458,21 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Font.Name = 'MS Sans Serif'
               Font.Style = []
               ParentFont = False
-              TabOrder = 9
+              TabOrder = 10
+              ExplicitTop = 325
             end
             object edPathSchemas: TEdit
               AlignWithMargins = True
               Left = 12
-              Top = 389
+              Top = 410
               Width = 303
               Height = 21
               Margins.Left = 10
               Margins.Top = 0
               Margins.Right = 36
               Align = alTop
-              TabOrder = 11
+              TabOrder = 12
+              ExplicitTop = 389
             end
             object cbFormaEmissao: TComboBox
               AlignWithMargins = True
@@ -499,7 +504,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             object ckRetirarAcentos: TCheckBox
               AlignWithMargins = True
               Left = 12
-              Top = 302
+              Top = 323
               Width = 269
               Height = 17
               Margins.Left = 10
@@ -507,7 +512,8 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Align = alTop
               Caption = 'Retirar Acentos dos XMLs enviados'
               Enabled = False
-              TabOrder = 8
+              TabOrder = 9
+              ExplicitTop = 302
             end
             object edIdToken: TEdit
               AlignWithMargins = True
@@ -590,11 +596,31 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               Align = alTop
               TabOrder = 2
             end
+            object ckReformaTributaria2026: TCheckBox
+              AlignWithMargins = True
+              Left = 12
+              Top = 302
+              Width = 269
+              Height = 15
+              Margins.Left = 10
+              Margins.Right = 70
+              Align = alTop
+              Caption = 'Ativar Nova Reforma Tribut'#225'ria 2026'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 8
+              ExplicitLeft = 10
+              ExplicitTop = 290
+            end
           end
           object rgModoGerarNFe: TRadioGroup
             AlignWithMargins = True
             Left = 3
-            Top = 432
+            Top = 478
             Width = 353
             Height = 53
             Align = alBottom
@@ -606,6 +632,7 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
               'Off Line'
               'On Line')
             TabOrder = 1
+            ExplicitTop = 432
           end
         end
         object TbsCertificado: TTabSheet
@@ -1598,17 +1625,14 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
             Left = 10
             Top = 380
             Width = 339
-            Height = 105
+            Height = 151
             Margins.Left = 10
             Margins.Right = 10
             Align = alClient
             TabOrder = 3
-            ExplicitLeft = 0
-            ExplicitTop = 437
-            ExplicitWidth = 363
-            ExplicitHeight = 35
+            ExplicitHeight = 105
             ControlData = {
-              4C00000009230000DA0A00000000000000000000000000000000000000000000
+              4C000000092300009B0F00000000000000000000000000000000000000000000
               000000004C000000000000000000000001000000E0D057007335CF11AE690800
               2B2E126208000000000000004C0000000114020000000000C000000000000046
               8000000000000000000000000000000000000000000000000000000000000000
@@ -2315,9 +2339,9 @@ inherited frmGeConfigurarNFeACBr: TfrmGeConfigurarNFeACBr
       ImageIndex = 1
       DesignSize = (
         367
-        516)
+        562)
       object sbtnLogoMarca: TSpeedButton
-        Left = 460
+        Left = 468
         Top = 71
         Width = 23
         Height = 24

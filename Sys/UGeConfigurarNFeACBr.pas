@@ -189,6 +189,7 @@ type
     btnSubjectName: TcxButton;
     btnVersionSSL: TcxButton;
     btnNumeroCNPJ: TcxButton;
+    ckReformaTributaria2026: TCheckBox;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);

@@ -56,6 +56,8 @@ type
     procedure SetNumeroNSUPesquisado(const aEmpresa : String; aNSU : String);
     function GetNumeroNSUPesquisado(const aEmpresa : String) : String;
     function GetNumeroNSU(const aEmpresa : String) : Largeint;
+    function ReformaTributaria(const aAtivar : Boolean) : Boolean;
+    function ReformaTributariaEmProducao : Boolean;
   end;
 
   IControllerCompetencia = interface(IControllerCustom)
