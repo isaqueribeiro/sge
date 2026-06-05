@@ -4,7 +4,9 @@ interface
 
 uses
   SGE.Controller.Interfaces,
+  {$IFNDEF PDV}
   SGE.Controller.AutorizacaoCompra,
+  {$ENDIF}
   SGE.Controller.Bairro,
   SGE.Controller.Banco,
   SGE.Controller.Caixa,
@@ -18,9 +20,13 @@ uses
   SGE.Controller.ContaAPagar,
   SGE.Controller.ContaAReceber,
   SGE.Controller.ContaCorrente,
+  {$IFNDEF PDV}
   SGE.Controller.Contrato,
+  {$ENDIF}
   SGE.Controller.CST,
+  {$IFNDEF PDV}
   SGI.Controller.CotacaoCompra,
+  {$ENDIF}
   SGE.Controller.Distrito,
   SGE.Controller.Empresa,
   SGE.Controller.Endereco,
@@ -34,12 +40,18 @@ uses
   SGE.Controller.Perfil,
   SGE.Controller.PlanoConta,
   SGE.Controller.Produto,
+  {$IFNDEF PDV}
   SGI.Controller.ProdutoAlmoxarifado,
+  {$ENDIF}
   SGE.Controller.Promocao,
+  {$IFNDEF PDV}
   SGI.Controller.RequisicaoAlmoxarifado,
   SGE.Controller.RequisicaoCompra,
+  {$ENDIF}
   SGE.Controller.Rotina,
+  {$IFNDEF PDV}
   SGI.Controller.SolicitacaoCompra,
+  {$ENDIF}
   SGE.Controller.Tabelas,
   SGE.Controller.TipoDespesa,
   SGE.Controller.TipoLogradouro,
@@ -56,7 +68,9 @@ type
       FAliquotaCOFINSView : IControllerCustom;
       FAliquotaICMS       : IControllerAliquotaICMS;
       FAliquotaPISView    : IControllerCustom;
+      {$IFNDEF PDV}
       FAutorizacaoCompra  : IControllerAutorizacaoCompra;
+      {$ENDIF}
       FBairro : IControllerBairro;
       FBanco  : IControllerBanco;
       FBancoFebrabanView  : IControllerCustom;
@@ -85,13 +99,17 @@ type
       FContaAReceber : IControllerContaAReceber;
       FContaCorrente      : IControllerContaCorrente;
       FContaCorrenteView  : IControllerCustom;
+      {$IFNDEF PDV}
       FContrato : IControllerContrato;
       FContratoItem : IControllerContratoItem;
       FContratoNotas : IControllerContratoNotas;
+      {$ENDIF}
       FCorVeiculo  : IControllerCustom;
+      {$IFNDEF PDV}
       FCotacaoCompra : IControllerCotacaoCompra;
       FCotacaoCompraFornecedor : IControllerCotacaoCompraFornecedor;
       FCotacaoCompraFornecedorItens : IControllerCotacaoCompraFornecedorItens;
+      {$ENDIF}
       FCST         ,
       FDistrito    ,
       FEmpresa     : IControllerCustom;
@@ -112,7 +130,9 @@ type
       FGrupoFornecedor,
       FGrupoProduto   ,
       FIBPT           ,
+      {$IFNDEF PDV}
       FItensAutorizadosParaEntrada,
+      {$ENDIF}
       FLayoutRemessaBancoView     : IControllerCustom;
       FLogradouro  : IControllerLogradouro;
       FLogTransacao,
@@ -129,25 +149,33 @@ type
       FPlanoContaNivel ,
       FPlanoContaTipo  : IControllerCustom;
       FProduto         : IControllerProduto;
+      {$IFNDEF PDV}
       FProdutoAlmoxarifado : IControllerProdutoAlmoxarifado;
       FProdutoAlmoxarifadoReservado : IControllerProdutoAlmoxarifadoReservado;
+      {$ENDIF}
       FPromocao        : IControllerPromocao;
       FPromocaoProduto : IControllerCustom;
       FRecebimento     : IControllerRecebimento;
+      {$IFNDEF PDV}
       FRequisicaoAlmoxarifado : IControllerRequisicaoAlmoxarifado;
       FRequisicaoCompra : IControllerRequisicaoCompra;
+      {$ENDIF}
       FRotina : IControllerRotina;
       FSecaoProduto,
       FSegmento    : IControllerCustom;
       FSolicitacaoCompra : IControllerSolicitacaoCompra;
       FTabelaIBPT      ,
       FTipoAliquotaView   ,
+      {$IFNDEF PDV}
       FTipoAutorizacaoView,
+      {$ENDIF}
       FTipoChequeView  ,
       FTipoCNPJView    ,
       FTipoComissaoView,
+      {$IFNDEF PDV}
       FTipoContratoView,
       FTipoCotacaoView ,
+      {$ENDIF}
       FTipoDescontoView,
       FTipoDespesa     ,
       FTipoDespesaPlanoConta   ,
@@ -157,10 +185,14 @@ type
       FTipoProduto    ,
       FTipoReceita    ,
       FTipoReceitaPlanoConta,
+      {$IFNDEF PDV}
       FTipoRequisicaoAlmoxView,
+      {$ENDIF}
       FTipoRegimeView,
+      {$IFNDEF PDV}
       FTipoRequisicaoView ,
       FTipoSolicitacaoView,
+      {$ENDIF}
       FTipoTributacao,
       FTipoVeiculo   ,
       FTransportadora,
@@ -180,7 +212,9 @@ type
       function AliquotaCOFINSView : IControllerCustom;
       function AliquotaICMS : IControllerAliquotaICMS;
       function AliquotaPISView : IControllerCustom;
+      {$IFNDEF PDV}
       function AutorizacaoCompra  : IControllerAutorizacaoCompra;
+      {$ENDIF}
       function Bairro : IControllerBairro;
       function Banco : IControllerBanco;
       function BancoFebrabanView : IControllerCustom;
@@ -209,13 +243,17 @@ type
       function ContaAReceber : IControllerContaAReceber;
       function ContaCorrente : IControllerContaCorrente;
       function ContaCorrenteView : IControllerCustom;
+      {$IFNDEF PDV}
       function Contrato : IControllerContrato;
       function ContratoItem : IControllerContratoItem;
       function ContratoNotas : IControllerContratoNotas;
+      {$ENDIF}
       function CorVeiculo : IControllerCustom;
+      {$IFNDEF PDV}
       function CotacaoCompra : IControllerCotacaoCompra;
       function CotacaoCompraFornecedor : IControllerCotacaoCompraFornecedor;
       function CotacaoCompraFornecedorItens : IControllerCotacaoCompraFornecedorItens;
+      {$ENDIF}
       function CST : IControllerCustom;
       function Distrito : IControllerCustom;
       function Empresa : IControllerCustom;
@@ -236,7 +274,9 @@ type
       function GrupoFornecedor : IControllerCustom;
       function GrupoProduto : IControllerCustom;
       function IBPT : IControllerCustom;
+      {$IFNDEF PDV}
       function ItensAutorizadosParaEntrada : IControllerCustom;
+      {$ENDIF}
       function LayoutRemessaBancoView : IControllerCustom;
       function Logradouro : IControllerLogradouro;
       function LogTransacao : IControllerCustom;
@@ -253,25 +293,35 @@ type
       function PlanoContaNivel : IControllerCustom;
       function PlanoContaTipo : IControllerCustom;
       function Produto           : IControllerProduto;
+      {$IFNDEF PDV}
       function ProdutoAlmoxarifado : IControllerProdutoAlmoxarifado;
       function ProdutoAlmoxarifadoReservado : IControllerProdutoAlmoxarifadoReservado;
+      {$ENDIF}
       function Promocao          : IControllerPromocao;
       function PromocaoProduto   : IControllerCustom;
       function Recebimento       : IControllerRecebimento;
+      {$IFNDEF PDV}
       function RequisicaoAlmoxarifado : IControllerRequisicaoAlmoxarifado;
       function RequisicaoCompra  : IControllerRequisicaoCompra;
+      {$ENDIF}
       function Rotina : IControllerRotina;
       function SecaoProduto : IControllerCustom;
       function Segmento : IControllerCustom;
+      {$IFNDEF PDV}
       function SolicitacaoCompra : IControllerSolicitacaoCompra;
+      {$ENDIF}
       function TabelaIBPT : IControllerCustom;
       function TipoAliquotaView : IControllerCustom;
+      {$IFNDEF PDV}
       function TipoAutorizacaoView : IControllerCustom;
+      {$ENDIF}
       function TipoChequeView : IControllerCustom;
       function TipoCNPJView : IControllerCustom;
       function TipoComissaoView : IControllerCustom;
+      {$IFNDEF PDV}
       function TipoContratoView : IControllerCustom;
       function TipoCotacaoView  : IControllerCustom;
+      {$ENDIF}
       function TipoDescontoView : IControllerCustom;
       function TipoDespesa : IControllerCustom;
       function TipoDespesaPlanoConta : IControllerCustom;
@@ -282,9 +332,11 @@ type
       function TipoReceita : IControllerCustom;
       function TipoReceitaPlanoConta : IControllerCustom;
       function TipoRegimeView : IControllerCustom;
+      {$IFNDEF PDV}
       function TipoRequisicaoAlmoxView : IControllerCustom;
       function TipoRequisicaoView : IControllerCustom;
       function TipoSolicitacaoView : IControllerCustom;
+      {$ENDIF}
       function TipoTributacao : IControllerCustom;
       function TipoVeiculo : IControllerCustom;
       function Transportadora : IControllerCustom;
@@ -404,6 +456,7 @@ begin
   Result := FProduto;
 end;
 
+{$IFNDEF PDV}
 function TControllerFactory.ProdutoAlmoxarifado: IControllerProdutoAlmoxarifado;
 begin
   if not Assigned(FProdutoAlmoxarifado) then
@@ -419,6 +472,7 @@ begin
 
   Result := FProdutoAlmoxarifadoReservado;
 end;
+{$ENDIF}
 
 function TControllerFactory.Promocao: IControllerPromocao;
 begin
@@ -444,6 +498,7 @@ begin
   Result := FRecebimento;
 end;
 
+{$IFNDEF PDV}
 function TControllerFactory.RequisicaoAlmoxarifado: IControllerRequisicaoAlmoxarifado;
 begin
   if not Assigned(FRequisicaoAlmoxarifado) then
@@ -459,6 +514,7 @@ begin
 
   Result := FRequisicaoCompra;
 end;
+{$ENDIF}
 
 function TControllerFactory.Rotina: IControllerRotina;
 begin
@@ -484,6 +540,7 @@ begin
   Result := FSegmento;
 end;
 
+{$IFNDEF PDV}
 function TControllerFactory.SolicitacaoCompra: IControllerSolicitacaoCompra;
 begin
   if not Assigned(FSolicitacaoCompra) then
@@ -491,6 +548,7 @@ begin
 
   Result := FSolicitacaoCompra;
 end;
+{$ENDIF}
 
 function TControllerFactory.CST: IControllerCustom;
 begin
@@ -524,6 +582,7 @@ begin
   Result := FAliquotaPISView;
 end;
 
+{$IFNDEF PDV}
 function TControllerFactory.AutorizacaoCompra: IControllerAutorizacaoCompra;
 begin
   if not Assigned(FAutorizacaoCompra) then
@@ -531,6 +590,7 @@ begin
 
   Result := FAutorizacaoCompra;
 end;
+{$ENDIF}
 
 function TControllerFactory.Bairro: IControllerBairro;
 begin
@@ -756,6 +816,7 @@ begin
   Result := FContaCorrenteView;
 end;
 
+{$IFNDEF PDV}
 function TControllerFactory.Contrato: IControllerContrato;
 begin
   if not Assigned(FContrato) then
@@ -779,6 +840,7 @@ begin
 
   Result := FContratoNotas;
 end;
+{$ENDIF}
 
 function TControllerFactory.CorVeiculo: IControllerCustom;
 begin
@@ -788,6 +850,7 @@ begin
   Result := FCorVeiculo;
 end;
 
+{$IFNDEF PDV}
 function TControllerFactory.CotacaoCompra: IControllerCotacaoCompra;
 begin
   if not Assigned(FCotacaoCompra) then
@@ -811,6 +874,7 @@ begin
 
   Result := FCotacaoCompraFornecedorItens;
 end;
+{$ENDIF}
 
 function TControllerFactory.Distrito: IControllerCustom;
 begin
@@ -964,6 +1028,7 @@ begin
   Result := FIBPT;
 end;
 
+{$IFNDEF PDV}
 function TControllerFactory.ItensAutorizadosParaEntrada: IControllerCustom;
 begin
   if not Assigned(FItensAutorizadosParaEntrada) then
@@ -971,6 +1036,7 @@ begin
 
   Result := FItensAutorizadosParaEntrada;
 end;
+{$ENDIF}
 
 function TControllerFactory.LayoutRemessaBancoView: IControllerCustom;
 begin
@@ -1028,6 +1094,7 @@ begin
   Result := FTipoAliquotaView;
 end;
 
+{$IFNDEF PDV}
 function TControllerFactory.TipoAutorizacaoView: IControllerCustom;
 begin
   if not Assigned(FTipoAutorizacaoView) then
@@ -1035,6 +1102,7 @@ begin
 
   Result := FTipoAutorizacaoView;
 end;
+{$ENDIF}
 
 function TControllerFactory.TipoChequeView: IControllerCustom;
 begin
@@ -1060,6 +1128,7 @@ begin
   Result := FTipoComissaoView;
 end;
 
+{$IFNDEF PDV}
 function TControllerFactory.TipoContratoView: IControllerCustom;
 begin
   if not Assigned(FTipoContratoView) then
@@ -1075,6 +1144,7 @@ begin
 
   Result := FTipoCotacaoView;
 end;
+{$ENDIF}
 
 function TControllerFactory.TipoDescontoView: IControllerCustom;
 begin
@@ -1156,6 +1226,7 @@ begin
   Result := FTipoRegimeView;
 end;
 
+{$IFNDEF PDV}
 function TControllerFactory.TipoRequisicaoAlmoxView: IControllerCustom;
 begin
   if not Assigned(FTipoRequisicaoAlmoxView) then
@@ -1179,6 +1250,7 @@ begin
 
   Result := FTipoSolicitacaoView;
 end;
+{$ENDIF}
 
 function TControllerFactory.TipoTributacao: IControllerCustom;
 begin

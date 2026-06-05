@@ -3,16 +3,19 @@ inherited ViewGrupoProduto: TViewGrupoProduto
   Top = 220
   ActiveControl = dbCodigo
   Caption = 'Tabela de Grupos de Produtos'
-  OldCreateOrder = True
-  PixelsPerInch = 96
+  ClientHeight = 401
+  ExplicitWidth = 743
   TextHeight = 13
+  inherited Bevel1: TBevel
+    Top = 397
+  end
+  inherited Bevel3: TBevel
+    Top = 358
+  end
   inherited pgcGuias: TPageControl
+    Height = 358
     ActivePage = tbsCadastro
     inherited tbsTabela: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
-      ExplicitHeight = 329
       inherited dbgDados: TDBGrid
         Columns = <
           item
@@ -62,10 +65,6 @@ inherited ViewGrupoProduto: TViewGrupoProduto
       end
     end
     inherited tbsCadastro: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 25
-      ExplicitWidth = 727
-      ExplicitHeight = 329
       inherited Bevel8: TBevel
         Top = 81
         ExplicitTop = 81
@@ -126,5 +125,8 @@ inherited ViewGrupoProduto: TViewGrupoProduto
         end
       end
     end
+  end
+  inherited tlbBotoes: TPanel
+    Top = 362
   end
 end

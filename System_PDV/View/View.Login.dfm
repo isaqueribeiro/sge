@@ -1,6 +1,5 @@
 inherited FrmLogin: TFrmLogin
   Caption = 'FrmLogin'
-  PixelsPerInch = 96
   TextHeight = 19
   inherited lblSystemName: TLabel
     Width = 350

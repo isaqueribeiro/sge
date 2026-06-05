@@ -47,8 +47,9 @@ uses
   UObserverInterface,
   UConstantesDGE,
   UGrPadrao,
-  SGE.Controller.Interfaces, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray,
-  dxSkinOffice2019White;
+  SGE.Controller.Interfaces,
+
+  dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White;
 
 type
   TViewUsuarioAlterarSenha = class(TfrmGrPadrao)

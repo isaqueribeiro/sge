@@ -37,7 +37,8 @@ uses
   View.PadraoCadastro,
   SGE.Controller.Interfaces,
   Interacao.Tabela,
-  Controller.Tabela;
+  Controller.Tabela, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White,
+  dxSkinsDefaultPainters;
 
 type
   TViewCondicaoPagto = class(TViewPadraoCadastro)

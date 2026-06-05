@@ -32,7 +32,9 @@ uses
   cxButtons,
 
   View.PadraoPesquisa,
-  Model.Constantes;
+  Model.Constantes,
+
+  dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White;
 
 type
   TFornecedorCliente = record

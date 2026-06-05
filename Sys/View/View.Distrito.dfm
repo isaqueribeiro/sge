@@ -2,10 +2,17 @@ inherited ViewDistrito: TViewDistrito
   Left = 394
   Top = 222
   Caption = 'Tabela de Distritos'
-  OldCreateOrder = True
-  PixelsPerInch = 96
+  ClientHeight = 401
+  ExplicitWidth = 743
   TextHeight = 13
+  inherited Bevel1: TBevel
+    Top = 397
+  end
+  inherited Bevel3: TBevel
+    Top = 358
+  end
   inherited pgcGuias: TPageControl
+    Height = 358
     inherited tbsTabela: TTabSheet
       inherited dbgDados: TDBGrid
         Columns = <
@@ -84,5 +91,8 @@ inherited ViewDistrito: TViewDistrito
         end
       end
     end
+  end
+  inherited tlbBotoes: TPanel
+    Top = 362
   end
 end

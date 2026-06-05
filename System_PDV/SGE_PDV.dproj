@@ -7,7 +7,7 @@
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
         <FrameworkType>VCL</FrameworkType>
-        <ProjectVersion>18.8</ProjectVersion>
+        <ProjectVersion>19.5</ProjectVersion>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
@@ -115,12 +115,32 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <BT_BuildType>Debug</BT_BuildType>
         <Icon_MainIcon>..\_diversos\Imagens\Icones\icon_gestao_pdv-v1-512x512.ico</Icon_MainIcon>
         <VerInfo_Build>4</VerInfo_Build>
+        <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="..\Sys\lib\HPL_Strings.pas"/>
+        <DCCReference Include="..\Sys\lib\FormFactoryU.pas"/>
+        <DCCReference Include="..\Sys\lib\FuncoesFormulario.pas"/>
+        <DCCReference Include="..\Sys\UConstantesDGE.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Encript.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Format.VCL.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.InputQuery.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Message.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Request.CEP.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Request.CNPJ.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Request.pas"/>
+        <DCCReference Include="..\Sys\Services\Service.Utils.pas"/>
+        <DCCReference Include="..\GerarLicenca\Model\Model.Licenca.pas"/>
+        <DCCReference Include="..\GerarLicenca\Model\Model.Usuario.pas"/>
+        <DCCReference Include="..\GerarLicenca\Model\Model.Endereco.pas"/>
+        <DCCReference Include="..\GerarLicenca\Model\Model.Cliente.pas"/>
+        <DCCReference Include="..\GerarLicenca\Controller\Controller.Interfaces.pas"/>
+        <DCCReference Include="..\GerarLicenca\Controller\Controller.UsuarioApp.pas"/>
+        <DCCReference Include="..\GerarLicenca\Controller\Controller.ClienteApp.pas"/>
+        <DCCReference Include="..\GerarLicenca\Controller\Controller.FactoryApp.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Conexao.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Empresa.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Factory.pas"/>
@@ -132,8 +152,13 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Usuario.pas"/>
         <DCCReference Include="..\Sys\Model\Interacao\Interacao.Versao.pas"/>
         <DCCReference Include="..\Sys\Services\InputQuery\Interfaces.InputQuery.pas"/>
-        <DCCReference Include="..\Sys\Services\Service.InputQuery.pas"/>
-        <DCCReference Include="..\Sys\Services\Service.Utils.pas"/>
+        <DCCReference Include="..\Sys\Controller\Controller.Empresa.pas"/>
+        <DCCReference Include="..\Sys\Controller\Controller.Factory.pas"/>
+        <DCCReference Include="..\Sys\Controller\Controller.Licenca.pas"/>
+        <DCCReference Include="..\Sys\Controller\Controller.PersonalizaEmpresa.pas"/>
+        <DCCReference Include="..\Sys\Controller\Controller.Tabela.pas"/>
+        <DCCReference Include="..\Sys\Controller\Controller.Usuario.pas"/>
+        <DCCReference Include="..\Sys\Controller\Controller.Versao.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.Conexao.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.Empresa.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.Funcao.pas"/>
@@ -142,19 +167,121 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <DCCReference Include="..\Sys\Classe\Classe.PessoaFisica.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.PessoaJuridica.pas"/>
         <DCCReference Include="..\Sys\Classe\Classe.Usuario.pas"/>
-        <DCCReference Include="..\Sys\Controller\Controller.Empresa.pas"/>
-        <DCCReference Include="..\Sys\Controller\Controller.Factory.pas"/>
-        <DCCReference Include="..\Sys\Controller\Controller.Licenca.pas"/>
-        <DCCReference Include="..\Sys\Controller\Controller.PersonalizaEmpresa.pas"/>
-        <DCCReference Include="..\Sys\Controller\Controller.Tabela.pas"/>
-        <DCCReference Include="..\Sys\Controller\Controller.Usuario.pas"/>
-        <DCCReference Include="..\Sys\Controller\Controller.Versao.pas"/>
+        <DCCReference Include="..\Sys\Model\Connection\Component\SGE.Model.Connection.Component.SQL.pas"/>
+        <DCCReference Include="..\Sys\Model\Connection\SGE.Model.Connection.Factory.pas"/>
+        <DCCReference Include="..\Sys\Model\Connection\SGE.Model.Connection.FireDAC.pas"/>
+        <DCCReference Include="..\Sys\Model\Connection\SGE.Model.Connection.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Bairro.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Banco.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Busca.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Caixa.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CentroCusto.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cheque.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CFOP.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cidade.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Cliente.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CondicaoPagto.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Config.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.ContaCorrente.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Contrato.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.CST.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Distrito.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Empresa.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Entrada.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Estado.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Factory.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.FormaPagto.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Fornecedor.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Helper.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.IBPT.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Licenca.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Logradouro.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.LogTransacao.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Perfil.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.PlanoConta.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Produto.pas"/>
+        <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.Promocao.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Rotina.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Tabelas.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoDespesa.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoLogradouro.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.TipoReceita.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.UF.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Usuario.pas"/>
+        <DCCReference Include="..\Sys\Model\DAO\SGE.Model.DAO.Vendedor.pas"/>
+        <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeEnviada.pas"/>
+        <DCCReference Include="..\System_SGE\Model\DAO\SGE.Model.DAO.XML_NFeImportada.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Factory.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Bairro.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Banco.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Caixa.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.CentroCusto.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Cheque.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Cidade.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Cliente.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.CondicaoPagto.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Config.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.ContaCorrente.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.CST.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Distrito.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Empresa.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Endereco.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Entrada.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Estado.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.FormaPagto.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Fornecedor.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Helper.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.IBPT.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Logradouro.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.LogTransacao.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Perfil.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.PlanoConta.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Produto.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Rotina.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Tabelas.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoDespesa.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoReceita.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.UF.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Usuario.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.Vendedor.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.TipoLogradouro.pas"/>
+        <DCCReference Include="..\System_SGE\Controller\SGE.Controller.Promocao.pas"/>
+        <DCCReference Include="..\System_SGE\Controller\SGE.Controller.XML_NFeEnviada.pas"/>
+        <DCCReference Include="..\System_SGE\Controller\SGE.Controller.XML_NFeImportada.pas"/>
+        <DCCReference Include="..\Sys\Controller\SGE.Controller.CFOP.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.Factory.pas"/>
+        <DCCReference Include="..\Sys\Controller\Query\SGE.Controller.Query.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAPagar.pas">
+            <Form>DataModuleContaAPagar</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.ContaAReceber.pas">
+            <Form>DataModuleContaAReceber</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Controller\Impressao\DataModule\SGE.Controller.Impressao.DataModule.Cheque.pas">
+            <Form>DataModuleCheque</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAPagar.pas"/>
+        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.ContaAReceber.pas"/>
+        <DCCReference Include="..\Sys\Controller\Impressao\SGE.Controller.Impressao.Cheque.pas"/>
         <DCCReference Include="..\Sys\Model\Model.Constantes.pas"/>
         <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Factory.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Factory.pas"/>
         <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Firedac.Firebird.pas"/>
         <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Firedac.pas"/>
         <DCCReference Include="..\Sys\Model\Conexao\Model.Conexao.Interfaces.pas"/>
+        <DCCReference Include="..\Sys\Model\Entidade\Model.Entidade.ConfiguracaoINI.pas"/>
         <DCCReference Include="..\Sys\Model\Conexao\Model.Query.Firedac.pas"/>
         <DCCReference Include="..\Sys\Model\Conexao\Model.Query.Interfaces.pas"/>
         <DCCReference Include="..\Sys\Model\Conexao\SGE.Model.Conexao.DataSet.pas">
@@ -190,9 +317,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <DCCReference Include="..\Sys\View\View.PadraoAbertura.pas">
             <Form>FrmPadraoAbertura</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\View\View.PadraoLogin.pas">
-            <Form>FrmPadraoLogin</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\View\View.AutoUpgrade.pas">
             <Form>FrmAutoUpgrade</Form>
         </DCCReference>
@@ -211,6 +335,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <DCCReference Include="..\Sys\Services\InputQuery\View.InputQuery.pas">
             <Form>ViewInputQuery</Form>
         </DCCReference>
+        <DCCReference Include="..\Sys\View\View.PadraoCadastro.pas">
+            <Form>ViewPadraoCadastro</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.PadraoLogin.pas">
+            <Form>FrmPadraoLogin</Form>
+        </DCCReference>
         <DCCReference Include="UPrinc.pas">
             <Form>frmPrinc</Form>
         </DCCReference>
@@ -226,50 +356,20 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <DCCReference Include="..\Sys\UGeTipoLogradouro.pas">
             <Form>frmGeTipoLogradouro</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeEstado.pas">
-            <Form>frmGeEstado</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeCidade.pas">
-            <Form>frmGeCidade</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeDistrito.pas">
-            <Form>frmGeDistrito</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeBairro.pas">
-            <Form>frmGeBairro</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeLogradouro.pas">
             <Form>frmGeLogradouro</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeEmpresa.pas">
             <Form>frmGeEmpresa</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeCliente.pas">
-            <Form>frmGeCliente</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\UGeFornecedor.pas">
             <Form>frmGeFornecedor</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeGrupoProduto.pas">
-            <Form>frmGeGrupoProduto</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeSecaoProduto.pas">
-            <Form>frmGeSecaoProduto</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeUnidade.pas">
-            <Form>frmGeUnidade</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeTabelaCFOP.pas">
-            <Form>frmGeTabelaCFOP</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeFormaPagto.pas">
             <Form>frmGeFormaPagto</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeVendedor.pas">
             <Form>frmGeVendedor</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeCondicaoPagto.pas">
-            <Form>frmGeCondicaoPagto</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\UGeConfigurarNFeACBr.pas">
             <Form>frmGeConfigurarNFeACBr</Form>
@@ -296,12 +396,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
             <Form>frmGeFluxoCaixa</Form>
         </DCCReference>
         <DCCReference Include="..\Sys\lib\UFuncoes.pas"/>
-        <DCCReference Include="..\Sys\UGeFabricante.pas">
-            <Form>frmGeFabricante</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\lib\FormFactoryU.pas"/>
-        <DCCReference Include="..\Sys\lib\FuncoesFormulario.pas"/>
-        <DCCReference Include="..\Sys\UConstantesDGE.pas"/>
         <DCCReference Include="..\Sys\UGeExportarNFeGerada.pas">
             <Form>frmGeExportarNFeGerada</Form>
         </DCCReference>
@@ -319,9 +413,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <DCCReference Include="..\Sys\lib\UCliente.pas"/>
         <DCCReference Include="..\System_SGE\lib\UGrPadraoImpressao.pas">
             <Form>frmGrPadraoImpressao</Form>
-        </DCCReference>
-        <DCCReference Include="..\System_SGE\UGeProduto.pas">
-            <Form>frmGeProduto</Form>
         </DCCReference>
         <DCCReference Include="..\System_SGE\UGeEstoqueAjusteManual.pas">
             <Form>frmGeEstoqueAjusteManual</Form>
@@ -380,15 +471,6 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <DCCReference Include="..\Sys\lib\UGrMemo.pas">
             <Form>frmGrMemo</Form>
         </DCCReference>
-        <DCCReference Include="..\Sys\UGeTabelaIBPT.pas">
-            <Form>frmGeTabelaIBPT</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGeTabelaIBPTImportar.pas">
-            <Form>frmGeTabelaIBPTImportar</Form>
-        </DCCReference>
-        <DCCReference Include="..\Sys\UGrAguarde.pas">
-            <Form>frmAguarde</Form>
-        </DCCReference>
         <DCCReference Include="..\Sys\lib\UGrMemoData.pas">
             <Form>frmGrMemoData</Form>
         </DCCReference>
@@ -407,15 +489,111 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
         <DCCReference Include="..\System_SGE\UGrUsuario.pas">
             <Form>frmGrUsuario</Form>
         </DCCReference>
-        <BuildConfiguration Include="Debug">
-            <Key>Cfg_2</Key>
-            <CfgParent>Base</CfgParent>
-        </BuildConfiguration>
+        <DCCReference Include="..\Sys\View\View.Usuario.AlterarSenha.pas">
+            <Form>ViewUsuarioAlterarSenha</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Usuario.pas">
+            <Form>ViewUsuario</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Usuario.Perfil.pas">
+            <Form>ViewUsuarioPerfil</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.CampoRequisitado.pas">
+            <Form>ViewCampoRequisitado</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.WaitAMoment.pas">
+            <Form>ViewWaitAMoment</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Certificado.pas">
+            <Form>ViewCertificado</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Produto.pas">
+            <Form>ViewProduto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.FabricanteProduto.pas">
+            <Form>ViewFabricanteProduto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.GrupoProduto.pas">
+            <Form>ViewGrupoProduto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.SecaoProduto.pas">
+            <Form>ViewSecaoProduto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.UnidadeProduto.pas">
+            <Form>ViewUnidadeProduto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.CFOP.pas">
+            <Form>ViewCFOP</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.IBPT.pas">
+            <Form>ViewIBPT</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.IBPT.Importar.pas">
+            <Form>ViewIBPTImportar</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Servico.ConsultarCNPJ.pas">
+            <Form>ViewServicoConsultarCNPJ</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Cliente.pas">
+            <Form>ViewCliente</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.CondicaoPagto.pas">
+            <Form>ViewCondicaoPagto</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Memo.pas">
+            <Form>ViewMemo</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.MemoData.pas">
+            <Form>ViewMemoData</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.ContaAPagar.pas">
+            <Form>ViewContaAPagar</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.ContaAPagar.Pagamento.pas">
+            <Form>ViewContaAPagarPagamento</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.ContaAReceber.pas">
+            <Form>ViewContaAReceber</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.ContaAReceber.Pagamento.pas">
+            <Form>ViewContaAReceberPagamento</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Cidade.pas">
+            <Form>ViewCidade</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Distrito.pas">
+            <Form>ViewDistrito</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Estado.pas">
+            <Form>ViewEstado</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Logradouro.pas">
+            <Form>ViewLogradouro</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Bairro.pas">
+            <Form>ViewBairro</Form>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.Cheque.pas">
+            <Form>ViewCheque</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\View.PadraoPesquisa.pas">
+            <Form>ViewPadraoPesquisa</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Sys\View\Query\View.Query.FornecedorCliente.pas">
+            <Form>ViewQueryFornecedorCliente</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
         <BuildConfiguration Include="Release">
             <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
         </BuildConfiguration>
     </ItemGroup>
@@ -428,15 +606,15 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                     <Source Name="MainSource">SGE_PDV.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k260.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp260.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k280.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp280.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Platforms>
                 <Platform value="Win32">True</Platform>
                 <Platform value="Win64">False</Platform>
             </Platforms>
-            <Deployment Version="3">
+            <Deployment Version="4">
                 <DeployFile LocalName="..\Bin\SGE_PDV.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>SGE_PDV.exe</RemoteName>
@@ -444,20 +622,8 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="..\Bin\SGE_PDV.exe" Configuration="Release" Class="ProjectOutput"/>
-                <DeployFile LocalName="..\_diversos\Imagens\_Matriz\icon_gestao_pdv-v1-150x150.png" Configuration="Debug" Class="UWP_DelphiLogo150">
-                    <Platform Name="Win32">
-                        <RemoteDir>Assets\</RemoteDir>
-                        <RemoteName>Logo150x150.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="..\_diversos\Imagens\_Matriz\icon_gestao_pdv-v1-44x44.png" Configuration="Debug" Class="UWP_DelphiLogo44">
-                    <Platform Name="Win32">
-                        <RemoteDir>Assets\</RemoteDir>
-                        <RemoteName>Logo44x44.png</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
+                <DeployFile LocalName="..\_diversos\Imagens\_Matriz\icon_gestao_pdv-v1-150x150.png" Configuration="Debug" Class="UWP_DelphiLogo150"/>
+                <DeployFile LocalName="..\_diversos\Imagens\_Matriz\icon_gestao_pdv-v1-44x44.png" Configuration="Debug" Class="UWP_DelphiLogo44"/>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>
@@ -470,14 +636,14 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                         <Operation>0</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="AndroidClassesDexFile">
+                <DeployClass Name="AndroidClasses">
                     <Platform Name="Android">
                         <RemoteDir>classes</RemoteDir>
-                        <Operation>1</Operation>
+                        <Operation>64</Operation>
                     </Platform>
                     <Platform Name="Android64">
                         <RemoteDir>classes</RemoteDir>
-                        <Operation>1</Operation>
+                        <Operation>64</Operation>
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="AndroidFileProvider">
@@ -595,6 +761,16 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                     </Platform>
                     <Platform Name="Android64">
                         <RemoteDir>res\drawable-xxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="Android_LauncherIcon192">
+                    <Platform Name="Android">
+                        <RemoteDir>res\drawable-xxxhdpi</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="Android64">
+                        <RemoteDir>res\drawable-xxxhdpi</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
@@ -761,6 +937,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                         <Operation>1</Operation>
                         <Extensions>.framework</Extensions>
                     </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.framework</Extensions>
+                    </Platform>
                     <Platform Name="Win32">
                         <Operation>0</Operation>
                     </Platform>
@@ -774,7 +955,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                         <Operation>1</Operation>
                         <Extensions>.dylib</Extensions>
                     </Platform>
-                    <Platform Name="iOSSimulator">
+                    <Platform Name="iOSSimARM64">
                         <Operation>1</Operation>
                         <Extensions>.dylib</Extensions>
                     </Platform>
@@ -784,6 +965,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                         <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSXARM64">
                         <RemoteDir>Contents\MacOS</RemoteDir>
                         <Operation>1</Operation>
                         <Extensions>.dylib</Extensions>
@@ -802,7 +988,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                         <Operation>1</Operation>
                         <Extensions>.dylib</Extensions>
                     </Platform>
-                    <Platform Name="iOSSimulator">
+                    <Platform Name="iOSSimARM64">
                         <Operation>1</Operation>
                         <Extensions>.dylib</Extensions>
                     </Platform>
@@ -812,6 +998,11 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                         <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSXARM64">
                         <RemoteDir>Contents\MacOS</RemoteDir>
                         <Operation>1</Operation>
                         <Extensions>.dylib</Extensions>
@@ -834,7 +1025,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                     <Platform Name="iOSDevice64">
                         <Operation>0</Operation>
                     </Platform>
-                    <Platform Name="iOSSimulator">
+                    <Platform Name="iOSSimARM64">
                         <Operation>0</Operation>
                     </Platform>
                     <Platform Name="OSX32">
@@ -845,316 +1036,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                         <RemoteDir>Contents\Resources\StartUp\</RemoteDir>
                         <Operation>0</Operation>
                     </Platform>
-                    <Platform Name="Win32">
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents\Resources\StartUp\</RemoteDir>
                         <Operation>0</Operation>
                     </Platform>
-                </DeployClass>
-                <DeployClass Name="iPad_Launch1024">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPad_Launch1024x768">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPad_Launch1536">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPad_Launch1536x2048">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPad_Launch1668">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPad_Launch1668x2388">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPad_Launch2048">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPad_Launch2048x1536">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPad_Launch2048x2732">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPad_Launch2224">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPad_Launch2388x1668">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPad_Launch2732x2048">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPad_Launch768">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPad_Launch768x1024">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPhone_Launch1125">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPhone_Launch1136x640">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPhone_Launch1242">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPhone_Launch1242x2688">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPhone_Launch1334">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPhone_Launch1792">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPhone_Launch2208">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPhone_Launch2436">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPhone_Launch2688x1242">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPhone_Launch320">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPhone_Launch640">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPhone_Launch640x1136">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPhone_Launch750">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="iPhone_Launch828">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectAndroidManifest">
@@ -1165,58 +1052,12 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="ProjectiOSDeviceDebug">
-                    <Platform Name="iOSDevice32">
-                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="ProjectiOSDeviceResourceRules">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="ProjectiOSEntitlements">
-                    <Platform Name="iOSDevice32">
-                        <RemoteDir>..\</RemoteDir>
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <RemoteDir>..\</RemoteDir>
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="ProjectiOSInfoPList">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
-                <DeployClass Name="ProjectiOSResource">
-                    <Platform Name="iOSDevice32">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSDevice64">
-                        <Operation>1</Operation>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                    </Platform>
-                </DeployClass>
                 <DeployClass Name="ProjectOSXDebug">
                     <Platform Name="OSX64">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSXARM64">
                         <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
@@ -1230,6 +1071,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                         <RemoteDir>..\</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>..\</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectOSXInfoPList">
                     <Platform Name="OSX32">
@@ -1240,6 +1085,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                         <RemoteDir>Contents</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
+                    <Platform Name="OSXARM64">
+                        <RemoteDir>Contents</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectOSXResource">
                     <Platform Name="OSX32">
@@ -1247,6 +1096,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="OSX64">
+                        <RemoteDir>Contents\Resources</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSXARM64">
                         <RemoteDir>Contents\Resources</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
@@ -1266,7 +1119,7 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
                     </Platform>
-                    <Platform Name="iOSSimulator">
+                    <Platform Name="iOSSimARM64">
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="Linux64">
@@ -1277,6 +1130,10 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="OSX64">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="OSXARM64">
                         <RemoteDir>Contents\MacOS</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
@@ -1295,6 +1152,66 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="Win64">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSDeviceDebug">
+                    <Platform Name="iOSDevice32">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSEntitlements">
+                    <Platform Name="iOSDevice32">
+                        <RemoteDir>..\</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSInfoPList">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSLaunchScreen">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen</RemoteDir>
+                        <Operation>64</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen</RemoteDir>
+                        <Operation>64</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="ProjectiOSResource">
+                    <Platform Name="iOSDevice32">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSDevice64">
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
@@ -1318,16 +1235,218 @@ Todos os direitos reservados.;LegalTrademarks=;OriginalFilename=SGE_PDV.EXE;Prod
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <DeployClass Name="iOS_AppStore1024">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_AppIcon152">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_AppIcon167">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Launch2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_LaunchDark2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Notification40">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_Setting58">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPad_SpotLight80">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_AppIcon120">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_AppIcon180">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Launch3x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_LaunchDark2x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_LaunchDark3x">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\LaunchScreenImage.imageset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Notification40">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Notification60">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Setting58">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Setting87">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Spotlight120">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <DeployClass Name="iPhone_Spotlight80">
+                    <Platform Name="iOSDevice64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="iOSSimARM64">
+                        <RemoteDir>..\$(PROJECTNAME).launchscreen\Assets\AppIcon.appiconset</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                </DeployClass>
+                <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSSimARM64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="OSX64" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>

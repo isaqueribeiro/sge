@@ -33,7 +33,8 @@ uses
   cxLookAndFeelPainters,
   cxButtons,
   dxSkinsCore,
-  View.PadraoCadastro;
+  View.PadraoCadastro, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White,
+  dxSkinsDefaultPainters;
 
 type
   TViewDistrito = class(TViewPadraoCadastro)
@@ -129,3 +130,4 @@ initialization
   FormFunction.RegisterForm('ViewDistrito', TViewDistrito);
 
 end.
+

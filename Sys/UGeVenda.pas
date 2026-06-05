@@ -649,13 +649,18 @@ uses
   , View.CondicaoPagto
   , View.Produto
   , View.CFOP
-  , View.Contrato
   , View.ContaAReceber.Pagamento
-  , UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos,
-  UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte, UGeVendaConfirmaTitulos,
-  {$IFNDEF PDV}UGeVendaDevolucaoNF, UGeConsultarLoteNFe_v2, UGeRequisicaoCliente, {$ENDIF}
-  UDMRecursos,
-  Service.Message, Service.Utils;
+  , UConstantesDGE, DateUtils, SysConst, UDMNFe, UGeGerarBoletos
+  , UGeVendaGerarNFe, UGeVendaCancelar, UGeVendaFormaPagto, UGeVendaTransporte, UGeVendaConfirmaTitulos
+  {$IFNDEF PDV}
+  , View.Contrato
+  , UGeVendaDevolucaoNF
+  , UGeConsultarLoteNFe_v2
+  , UGeRequisicaoCliente
+  {$ENDIF}
+  , UDMRecursos
+  , Service.Message
+  , Service.Utils;
 
 {$R *.dfm}
 
@@ -812,6 +817,8 @@ begin
 
   lblReferencia.Visible := (gSistema.Codigo = SISTEMA_GESTAO_OPME);
   dbReferencia.Visible  := (gSistema.Codigo = SISTEMA_GESTAO_OPME);
+  lblContrato.Enabled   := (gSistema.Codigo <> SISTEMA_PDV);
+  dbContrato.Enabled    := (gSistema.Codigo <> SISTEMA_PDV);
 
   ConfigurarCamposTabelas;
 end;

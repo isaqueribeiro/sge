@@ -2981,7 +2981,7 @@ inherited frmGeVenda: TfrmGeVenda
           object dbgVolumes: TDBGrid
             Left = 589
             Top = 3
-            Width = 517
+            Width = 513
             Height = 153
             Anchors = [akLeft, akTop, akRight, akBottom]
             DataSource = dtsVendaVolume

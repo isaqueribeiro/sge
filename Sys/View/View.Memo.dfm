@@ -4,14 +4,15 @@ inherited ViewMemo: TViewMemo
   ActiveControl = edObservacao
   BorderStyle = bsToolWindow
   Caption = 'Observa'#231#227'o'
-  ClientHeight = 303
-  ClientWidth = 549
-  PixelsPerInch = 96
+  ClientHeight = 291
+  ClientWidth = 541
+  ExplicitWidth = 557
+  ExplicitHeight = 330
   TextHeight = 13
   object Bevel1: TBevel
     Left = 0
-    Top = 299
-    Width = 549
+    Top = 287
+    Width = 541
     Height = 4
     Align = alBottom
     Shape = bsSpacer
@@ -20,19 +21,20 @@ inherited ViewMemo: TViewMemo
   end
   object Bevel3: TBevel
     Left = 0
-    Top = 260
-    Width = 549
+    Top = 248
+    Width = 541
     Height = 4
     Align = alBottom
     Shape = bsSpacer
     ExplicitTop = 254
+    ExplicitWidth = 549
   end
   object edObservacao: TMemo
     AlignWithMargins = True
     Left = 4
     Top = 4
-    Width = 541
-    Height = 256
+    Width = 533
+    Height = 244
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -55,14 +57,16 @@ inherited ViewMemo: TViewMemo
   end
   object tlbBotoes: TPanel
     Left = 0
-    Top = 264
-    Width = 549
+    Top = 252
+    Width = 541
     Height = 35
     Align = alBottom
     BevelOuter = bvNone
     Caption = #39
     ParentColor = True
     TabOrder = 1
+    ExplicitTop = 264
+    ExplicitWidth = 549
     object Bevel2: TBevel
       Left = 448
       Top = 0

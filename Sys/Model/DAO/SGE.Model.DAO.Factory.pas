@@ -4,7 +4,9 @@ interface
 
 uses
   SGE.Model.DAO.Interfaces,
+  {$IFNDEF PDV}
   SGE.Model.DAO.AutorizacaoCompra,
+  {$ENDIF}
   SGE.Model.DAO.Bairro,
   SGE.Model.DAO.Banco,
   SGE.Model.DAO.Busca,
@@ -18,9 +20,13 @@ uses
   SGE.Model.DAO.ContaAPagar,
   SGE.Model.DAO.ContaAReceber,
   SGE.Model.DAO.ContaCorrente,
+  {$IFNDEF PDV}
   SGE.Model.DAO.Contrato,
+  {$ENDIF}
   SGE.Model.DAO.Config,
+  {$IFNDEF PDV}
   SGI.Model.DAO.CotacaoCompra,
+  {$ENDIF}
   SGE.Model.DAO.CST,
   SGE.Model.DAO.Distrito,
   SGE.Model.DAO.Empresa,
@@ -34,12 +40,18 @@ uses
   SGE.Model.DAO.Perfil,
   SGE.Model.DAO.PlanoConta,
   SGE.Model.DAO.Produto,
+  {$IFNDEF PDV}
   SGI.Model.DAO.ProdutoAlmoxarifado,
+  {$ENDIF}
   SGE.Model.DAO.Promocao,
+  {$IFNDEF PDV}
   SGI.Model.DAO.RequisicaoAlmoxarifado,
   SGE.Model.DAO.RequisicaoCompra,
+  {$ENDIF}
   SGE.Model.DAO.Rotina,
+  {$IFNDEF PDV}
   SGI.Model.DAO.SolicitacaoCompra,
+  {$ENDIF}
   SGE.Model.DAO.Tabelas,
   SGE.Model.DAO.TipoDespesa,
   SGE.Model.DAO.TipoLogradouro,
@@ -56,8 +68,10 @@ type
       FAliquotaCOFINSView,
       FAliquotaICMS      ,
       FAliquotaPISView   ,
+      {$IFNDEF PDV}
       FAutorizacaoCompra ,
       FAutorizacaoCompraProdutoServico,
+      {$ENDIF}
       FBairro,
       FBanco ,
       FBancoFebrabanView ,
@@ -87,15 +101,19 @@ type
       FContaAReceber    ,
       FContaCorrente    ,
       FContaCorrenteView,
+      {$IFNDEF PDV}
       FContrato     ,
       FContratoItem ,
       FContratoNotas,
+      {$ENDIF}
       FCorVeiculo ,
       FCST        ,
+      {$IFNDEF PDV}
       FCotacaoCompra     ,
       FCotacaoCompraItens,
       FCotacaoCompraFornecedores   ,
       FCotacaoCompraFornecedorItens,
+      {$ENDIF}
       FDistrito   ,
       FEmpresa    ,
       FEmpresaView,
@@ -140,11 +158,13 @@ type
       FSecaoProduto     ,
       FSegmento         ,
       FRecebimento      ,
+      {$IFNDEF PDV}
       FRequisicaoAlmoxarifado       ,
       FRequisicaoAlmoxarifadoProduto,
       FRequisicaoAlmoxarifadoProdutoReserva,
       FRequisicaoCompra ,
       FRequisicaoCompraProdutoServico,
+      {$ENDIF}
       FRotina       ,
       FRotinaMenu   ,
       FRotinaSubMenu,
@@ -156,8 +176,10 @@ type
       FTipoChequeView  ,
       FTipoCNPJView    ,
       FTipoComissaoView,
+      {$IFNDEF PDV}
       FTipoContratoView,
       FTipoCotacaoView ,
+      {$ENDIF}
       FTipoDescontoView,
       FTipoDespesa     ,
       FTipoDespesaPlanoConta   ,
@@ -190,8 +212,10 @@ type
       function AliquotaCOFINSView : IModelDAOCustom;
       function AliquotaICMS : IModelDAOCustom;
       function AliquotaPISView : IModelDAOCustom;
+      {$IFNDEF PDV}
       function AutorizacaoCompra : IModelDAOCustom;
       function AutorizacaoCompraProdutoServico : IModelDAOCustom;
+      {$ENDIF}
       function Bairro : IModelDAOCustom;
       function Banco : IModelDAOCustom;
       function BancoFebrabanView : IModelDAOCustom;
@@ -221,14 +245,18 @@ type
       function ContaAReceber : IModelDAOCustom;
       function ContaCorrente : IModelDAOCustom;
       function ContaCorrenteView : IModelDAOCustom;
+      {$IFNDEF PDV}
       function Contrato : IModelDAOCustom;
       function ContratoItem : IModelDAOCustom;
       function ContratoNotas : IModelDAOCustom;
+      {$ENDIF}
       function CorVeiculo : IModelDAOCustom;
+      {$IFNDEF PDV}
       function CotacaoCompra : IModelDAOCustom;
       function CotacaoCompraItens : IModelDAOCustom;
       function CotacaoCompraFornecedores : IModelDAOCustom;
       function CotacaoCompraFornecedorItens : IModelDAOCustom;
+      {$ENDIF}
       function CST : IModelDAOCustom;
       function Distrito : IModelDAOCustom;
       function Empresa : IModelDAOCustom;
@@ -249,7 +277,9 @@ type
       function GrupoFornecedor : IModelDAOCustom;
       function GrupoProduto : IModelDAOCustom;
       function IBPT : IModelDAOCustom;
+      {$IFNDEF PDV}
       function ItensAutorizadosParaEntrada : IModelDAOCustom;
+      {$ENDIF}
       function LayoutRemessaBancoView : IModelDAOCustom;
       function Logradouro : IModelDAOCustom;
       function LogTransacao : IModelDAOCustom;
@@ -267,31 +297,41 @@ type
       function PlanoContaNivel : IModelDAOCustom;
       function PlanoContaTipo : IModelDAOCustom;
       function Produto : IModelDAOCustom;
+      {$IFNDEF PDV}
       function ProdutoAlmoxarifado : IModelDAOCustom;
       function ProdutoAlmoxarifadoReservado : IModelDAOCustom;
+      {$ENDIF}
       function Promocao : IModelDAOCustom;
       function PromocaoProduto : IModelDAOCustom;
       function SecaoProduto : IModelDAOCustom;
       function Segmento : IModelDAOCustom;
       function Recebimento : IModelDAOCustom;
+      {$IFNDEF PDV}
       function RequisicaoAlmoxarifado : IModelDAOCustom;
       function RequisicaoAlmoxarifadoProduto : IModelDAOCustom;
       function RequisicaoAlmoxarifadoProdutoReserva : IModelDAOCustom;
       function RequisicaoCompra : IModelDAOCustom;
       function RequisicaoCompraProdutoServico : IModelDAOCustom;
+      {$ENDIF}
       function Rotina : IModelDAOCustom;
       function RotinaMenu : IModelDAOCustom;
       function RotinaSubMenu : IModelDAOCustom;
+      {$IFNDEF PDV}
       function SolicitacaoCompra : IModelDAOCustom;
       function SolicitacaoCompraProdutoServico : IModelDAOCustom;
+      {$ENDIF}
       function TabelaIBPT : IModelDAOCustom;
       function TipoAliquotaView : IModelDAOCustom;
+      {$IFNDEF PDV}
       function TipoAutorizacaoView : IModelDAOCustom;
+      {$ENDIF}
       function TipoChequeView : IModelDAOCustom;
       function TipoCNPJView : IModelDAOCustom;
       function TipoComissaoView : IModelDAOCustom;
+      {$IFNDEF PDV}
       function TipoContratoView : IModelDAOCustom;
       function TipoCotacaoView : IModelDAOCustom;
+      {$ENDIF}
       function TipoDescontoView : IModelDAOCustom;
       function TipoDespesa : IModelDAOCustom;
       function TipoDespesaPlanoConta : IModelDAOCustom;
@@ -302,9 +342,11 @@ type
       function TipoReceita : IModelDAOCustom;
       function TipoReceitaPlanoConta : IModelDAOCustom;
       function TipoRegimeView : IModelDAOCustom;
+      {$IFNDEF PDV}
       function TipoRequisicaoAlmoxView : IModelDAOCustom;
       function TipoRequisicaoView : IModelDAOCustom;
       function TipoSolicitacaoView : IModelDAOCustom;
+      {$ENDIF}
       function TipoTributacao : IModelDAOCustom;
       function TipoVeiculo : IModelDAOCustom;
       function Transportadora : IModelDAOCustom;
@@ -432,6 +474,7 @@ begin
   Result := FProduto;
 end;
 
+{$IFNDEF PDV}
 function TModelDAOFactory.ProdutoAlmoxarifado: IModelDAOCustom;
 begin
   if not Assigned(FProdutoAlmoxarifado) then
@@ -447,6 +490,7 @@ begin
 
   Result := FProdutoAlmoxarifadoReservado;
 end;
+{$ENDIF}
 
 function TModelDAOFactory.Promocao: IModelDAOCustom;
 begin
@@ -472,6 +516,7 @@ begin
   Result := FRecebimento;
 end;
 
+{$IFNDEF PDV}
 function TModelDAOFactory.RequisicaoAlmoxarifado: IModelDAOCustom;
 begin
   if not Assigned(FRequisicaoAlmoxarifado) then
@@ -511,6 +556,7 @@ begin
 
   Result := FRequisicaoCompraProdutoServico;
 end;
+{$ENDIF}
 
 function TModelDAOFactory.Rotina: IModelDAOCustom;
 begin
@@ -552,6 +598,7 @@ begin
   Result := FSegmento;
 end;
 
+{$IFNDEF PDV}
 function TModelDAOFactory.SolicitacaoCompra: IModelDAOCustom;
 begin
   if not Assigned(FSolicitacaoCompra) then
@@ -567,6 +614,7 @@ begin
 
   Result := FSolicitacaoCompraProdutoServico;
 end;
+{$ENDIF}
 
 function TModelDAOFactory.CST: IModelDAOCustom;
 begin
@@ -592,6 +640,7 @@ begin
   Result := FTipoAliquotaView;
 end;
 
+{$IFNDEF PDV}
 function TModelDAOFactory.TipoAutorizacaoView: IModelDAOCustom;
 begin
   if not Assigned(FTipoAutorizacaoView) then
@@ -599,6 +648,7 @@ begin
 
   Result := FTipoAutorizacaoView;
 end;
+{$ENDIF}
 
 function TModelDAOFactory.TipoChequeView: IModelDAOCustom;
 begin
@@ -624,6 +674,7 @@ begin
   Result := FTipoComissaoView;
 end;
 
+{$IFNDEF PDV}
 function TModelDAOFactory.TipoContratoView: IModelDAOCustom;
 begin
   if not Assigned(FTipoContratoView) then
@@ -639,6 +690,7 @@ begin
 
   Result := FTipoCotacaoView;
 end;
+{$ENDIF}
 
 function TModelDAOFactory.TipoDescontoView: IModelDAOCustom;
 begin
@@ -720,6 +772,7 @@ begin
   Result := FTipoRegimeView;
 end;
 
+{$IFNDEF PDV}
 function TModelDAOFactory.TipoRequisicaoAlmoxView: IModelDAOCustom;
 begin
   if not Assigned(FTipoRequisicaoAlmoxView) then
@@ -743,6 +796,7 @@ begin
 
   Result := FTipoSolicitacaoView;
 end;
+{$ENDIF}
 
 function TModelDAOFactory.TipoTributacao: IModelDAOCustom;
 begin
@@ -800,6 +854,7 @@ begin
   Result := FAliquotaPISView;
 end;
 
+{$IFNDEF PDV}
 function TModelDAOFactory.AutorizacaoCompra: IModelDAOCustom;
 begin
   if not Assigned(FAutorizacaoCompra) then
@@ -815,6 +870,7 @@ begin
 
   Result := FAutorizacaoCompraProdutoServico;
 end;
+{$ENDIF}
 
 function TModelDAOFactory.Bairro: IModelDAOCustom;
 begin
@@ -1048,6 +1104,7 @@ begin
   Result := FContaCorrenteView;
 end;
 
+{$IFNDEF PDV}
 function TModelDAOFactory.Contrato: IModelDAOCustom;
 begin
   if not Assigned(FContrato) then
@@ -1071,6 +1128,7 @@ begin
 
   Result := FContratoNotas;
 end;
+{$ENDIF}
 
 function TModelDAOFactory.CorVeiculo: IModelDAOCustom;
 begin
@@ -1080,6 +1138,7 @@ begin
   Result := FCorVeiculo;
 end;
 
+{$IFNDEF PDV}
 function TModelDAOFactory.CotacaoCompra: IModelDAOCustom;
 begin
   if not Assigned(FCotacaoCompra) then
@@ -1111,6 +1170,7 @@ begin
 
   Result := FCotacaoCompraItens;
 end;
+{$ENDIF}
 
 function TModelDAOFactory.Distrito: IModelDAOCustom;
 begin
@@ -1264,6 +1324,7 @@ begin
   Result := FIBPT;
 end;
 
+{$IFNDEF PDV}
 function TModelDAOFactory.ItensAutorizadosParaEntrada: IModelDAOCustom;
 begin
   if not Assigned(FItensAutorizadosParaEntrada) then
@@ -1271,6 +1332,7 @@ begin
 
   Result := FItensAutorizadosParaEntrada;
 end;
+{$ENDIF}
 
 function TModelDAOFactory.LayoutRemessaBancoView: IModelDAOCustom;
 begin

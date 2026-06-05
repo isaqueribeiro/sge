@@ -73,6 +73,7 @@ type
   end;
 
   // View
+  {$IFNDEF PDV}
   TControllerTipoContratoView = class(TController, IControllerCustom)
     private
     protected
@@ -81,6 +82,7 @@ type
       destructor Destroy; override;
       class function New : IControllerCustom;
   end;
+  {$ENDIF}
 
   // View
   TControllerBancoFebrabanView = class(TController, IControllerCustom)
@@ -484,6 +486,7 @@ end;
 
 { TControllerTipoContratoView }
 
+{$IFNDEF PDV}
 constructor TControllerTipoContratoView.Create;
 begin
   inherited Create(TModelDAOFactory.New.TipoContratoView);
@@ -498,6 +501,7 @@ class function TControllerTipoContratoView.New: IControllerCustom;
 begin
   Result := Self.Create;
 end;
+{$ENDIF}
 
 { TControllerEnteGovernamentalView }
 

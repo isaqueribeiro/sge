@@ -1,5 +1,4 @@
 object DMCupom: TDMCupom
-  OldCreateOrder = False
   OnCreate = DataModuleCreate
   Height = 631
   Width = 1015

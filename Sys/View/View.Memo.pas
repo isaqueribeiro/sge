@@ -27,7 +27,7 @@ uses
 
   dxSkinsCore,
   dxSkinsDefaultPainters,
-  UGrPadrao;
+  UGrPadrao, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White;
 
 type
   TViewMemo = class(TfrmGrPadrao)

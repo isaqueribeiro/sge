@@ -12,13 +12,19 @@ uses
   SHDocVw,
 
   Windows, SysUtils, Classes, ACBrNFeDANFEClass, ACBrNFe, DB,
-  frxExportPDF, frxExportMail, frxDesgn, frxRich, frxCross, frxChart, frxExportImage,
 
   FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  ACBrUtil, pcnConversao, pcnNFeW, pcnNFeRTXT, pcnAuxiliar, ACBrBase, ACBrBoleto, ACBrBoletoFCFR,
+  ACBrUtil,
+  pcnConversao,
+//  pcnNFeW,
+  pcnNFeRTXT,
+  pcnAuxiliar,
+  ACBrBase,
+  ACBrBoleto,
+  ACBrBoletoFCFR,
   ACBrValidador;
 
 type

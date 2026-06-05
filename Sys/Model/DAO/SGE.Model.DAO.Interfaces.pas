@@ -126,8 +126,10 @@ type
     function AliquotaCOFINSView : IModelDAOCustom;
     function AliquotaICMS : IModelDAOCustom;
     function AliquotaPISView : IModelDAOCustom;
+    {$IFNDEF PDV}
     function AutorizacaoCompra : IModelDAOCustom;
     function AutorizacaoCompraProdutoServico : IModelDAOCustom;
+    {$ENDIF}
     function Bairro   : IModelDAOCustom;
     function Banco : IModelDAOCustom;
     function BancoFebrabanView : IModelDAOCustom;
@@ -157,14 +159,18 @@ type
     function ContaAReceber : IModelDAOCustom;
     function ContaCorrente : IModelDAOCustom;
     function ContaCorrenteView : IModelDAOCustom;
+    {$IFNDEF PDV}
     function Contrato : IModelDAOCustom;
     function ContratoItem : IModelDAOCustom;
     function ContratoNotas : IModelDAOCustom;
+    {$ENDIF}
     function CorVeiculo : IModelDAOCustom;
+    {$IFNDEF PDV}
     function CotacaoCompra : IModelDAOCustom;
     function CotacaoCompraItens : IModelDAOCustom;
     function CotacaoCompraFornecedores : IModelDAOCustom;
     function CotacaoCompraFornecedorItens : IModelDAOCustom;
+    {$ENDIF}
     function CST : IModelDAOCustom;
     function Distrito : IModelDAOCustom;
     function Empresa : IModelDAOCustom;
@@ -185,7 +191,9 @@ type
     function GrupoFornecedor : IModelDAOCustom;
     function GrupoProduto : IModelDAOCustom;
     function IBPT : IModelDAOCustom;
+    {$IFNDEF PDV}
     function ItensAutorizadosParaEntrada : IModelDAOCustom;
+    {$ENDIF}
     function LayoutRemessaBancoView : IModelDAOCustom;
     function Logradouro : IModelDAOCustom;
     function LogTransacao : IModelDAOCustom;
@@ -203,30 +211,40 @@ type
     function PlanoContaNivel : IModelDAOCustom;
     function PlanoContaTipo : IModelDAOCustom;
     function Produto : IModelDAOCustom;
+    {$IFNDEF PDV}
     function ProdutoAlmoxarifado : IModelDAOCustom;
     function ProdutoAlmoxarifadoReservado : IModelDAOCustom;
+    {$ENDIF}
     function Promocao : IModelDAOCustom;
     function PromocaoProduto : IModelDAOCustom;
     function Recebimento : IModelDAOCustom;
+    {$IFNDEF PDV}
     function RequisicaoAlmoxarifado : IModelDAOCustom;
     function RequisicaoAlmoxarifadoProduto : IModelDAOCustom;
     function RequisicaoAlmoxarifadoProdutoReserva : IModelDAOCustom;
     function RequisicaoCompra : IModelDAOCustom;
     function RequisicaoCompraProdutoServico : IModelDAOCustom;
+    {$ENDIF}
     function Rotina : IModelDAOCustom;
     function RotinaMenu : IModelDAOCustom;
     function RotinaSubMenu : IModelDAOCustom;
     function SecaoProduto : IModelDAOCustom;
     function Segmento : IModelDAOCustom;
+    {$IFNDEF PDV}
     function SolicitacaoCompra : IModelDAOCustom;
     function SolicitacaoCompraProdutoServico : IModelDAOCustom;
+    {$ENDIF}
     function TabelaIBPT : IModelDAOCustom;
     function TipoAliquotaView : IModelDAOCustom;
+    {$IFNDEF PDV}
     function TipoAutorizacaoView : IModelDAOCustom;
+    {$ENDIF}
     function TipoCNPJView : IModelDAOCustom;
     function TipoComissaoView : IModelDAOCustom;
+    {$IFNDEF PDV}
     function TipoContratoView : IModelDAOCustom;
     function TipoCotacaoView : IModelDAOCustom;
+    {$ENDIF}
     function TipoChequeView : IModelDAOCustom;
     function TipoDescontoView : IModelDAOCustom;
     function TipoDespesa : IModelDAOCustom;
@@ -238,9 +256,11 @@ type
     function TipoReceita : IModelDAOCustom;
     function TipoReceitaPlanoConta : IModelDAOCustom;
     function TipoRegimeView : IModelDAOCustom;
+    {$IFNDEF PDV}
     function TipoRequisicaoAlmoxView : IModelDAOCustom;
     function TipoRequisicaoView : IModelDAOCustom;
     function TipoSolicitacaoView : IModelDAOCustom;
+    {$ENDIF}
     function TipoTributacao : IModelDAOCustom;
     function TipoVeiculo : IModelDAOCustom;
     function Transportadora : IModelDAOCustom;

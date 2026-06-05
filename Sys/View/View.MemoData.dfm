@@ -1,13 +1,12 @@
 inherited ViewMemoData: TViewMemoData
   ActiveControl = edData
   Caption = '  Observa'#231#227'o'
-  PixelsPerInch = 96
   TextHeight = 13
   object lblObservacao: TLabel [2]
     AlignWithMargins = True
     Left = 10
     Top = 40
-    Width = 536
+    Width = 528
     Height = 13
     Margins.Left = 10
     Margins.Top = 0
@@ -20,8 +19,8 @@ inherited ViewMemoData: TViewMemoData
   inherited edObservacao: TMemo
     Left = 10
     Top = 60
-    Width = 529
-    Height = 200
+    Width = 521
+    Height = 188
     Margins.Left = 10
     Margins.Right = 10
     TabOrder = 1
@@ -54,7 +53,7 @@ inherited ViewMemoData: TViewMemoData
   object pnlData: TPanel
     Left = 0
     Top = 0
-    Width = 549
+    Width = 541
     Height = 40
     Align = alTop
     BevelOuter = bvNone
@@ -65,12 +64,13 @@ inherited ViewMemoData: TViewMemoData
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 549
     object lblData: TLabel
       AlignWithMargins = True
       Left = 10
       Top = 9
       Width = 105
-      Height = 21
+      Height = 13
       Margins.Left = 10
       Margins.Top = 9
       Margins.Bottom = 10
@@ -78,7 +78,6 @@ inherited ViewMemoData: TViewMemoData
       Caption = 'Data . . . . . . . . . . . . :'
       FocusControl = edData
       Layout = tlCenter
-      ExplicitHeight = 13
     end
     object edData: TJvDateEdit
       AlignWithMargins = True

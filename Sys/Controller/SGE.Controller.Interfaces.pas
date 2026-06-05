@@ -405,7 +405,9 @@ type
     function AliquotaCOFINSView : IControllerCustom;
     function AliquotaICMS       : IControllerAliquotaICMS;
     function AliquotaPISView    : IControllerCustom;
+    {$IFNDEF PDV}
     function AutorizacaoCompra  : IControllerAutorizacaoCompra;
+    {$ENDIF}
     function Bairro : IControllerBairro;
     function Banco  : IControllerBanco;
     function BancoFebrabanView  : IControllerCustom;
@@ -434,13 +436,17 @@ type
     function ContaAReceber : IControllerContaAReceber;
     function ContaCorrente       : IControllerContaCorrente;
     function ContaCorrenteView   : IControllerCustom;
+    {$IFNDEF PDV}
     function Contrato : IControllerContrato;
     function ContratoItem : IControllerContratoItem;
     function ContratoNotas : IControllerContratoNotas;
+    {$ENDIF}
     function CorVeiculo : IControllerCustom;
+    {$IFNDEF PDV}
     function CotacaoCompra : IControllerCotacaoCompra;
     function CotacaoCompraFornecedor : IControllerCotacaoCompraFornecedor;
     function CotacaoCompraFornecedorItens : IControllerCotacaoCompraFornecedorItens;
+    {$ENDIF}
     function CST : IControllerCustom;
     function Distrito    : IControllerCustom;
     function Empresa     : IControllerCustom;
@@ -461,7 +467,9 @@ type
     function GrupoFornecedor : IControllerCustom;
     function GrupoProduto    : IControllerCustom;
     function IBPT : IControllerCustom;
+    {$IFNDEF PDV}
     function ItensAutorizadosParaEntrada : IControllerCustom;
+    {$ENDIF}
     function LayoutRemessaBancoView : IControllerCustom;
     function Logradouro : IControllerLogradouro;
     function LogTransacao : IControllerCustom;
@@ -478,25 +486,35 @@ type
     function PlanoContaNivel   : IControllerCustom;
     function PlanoContaTipo    : IControllerCustom;
     function Produto           : IControllerProduto;
+    {$IFNDEF PDV}
     function ProdutoAlmoxarifado : IControllerProdutoAlmoxarifado;
     function ProdutoAlmoxarifadoReservado : IControllerProdutoAlmoxarifadoReservado;
+    {$ENDIF}
     function Promocao          : IControllerPromocao;
     function PromocaoProduto   : IControllerCustom;
     function Recebimento       : IControllerRecebimento;
+    {$IFNDEF PDV}
     function RequisicaoAlmoxarifado : IControllerRequisicaoAlmoxarifado;
     function RequisicaoCompra  : IControllerRequisicaoCompra;
+    {$ENDIF}
     function Rotina  : IControllerRotina;
     function SecaoProduto : IControllerCustom;
     function Segmento     : IControllerCustom;
+    {$IFNDEF PDV}
     function SolicitacaoCompra : IControllerSolicitacaoCompra;
+    {$ENDIF}
     function TabelaIBPT   : IControllerCustom;
     function TipoAliquotaView : IControllerCustom;
+    {$IFNDEF PDV}
     function TipoAutorizacaoView : IControllerCustom;
+    {$ENDIF}
     function TipoChequeView   : IControllerCustom;
     function TipoCNPJView     : IControllerCustom;
     function TipoComissaoView : IControllerCustom;
+    {$IFNDEF PDV}
     function TipoContratoView : IControllerCustom;
     function TipoCotacaoView  : IControllerCustom;
+    {$ENDIF}
     function TipoDescontoView : IControllerCustom;
     function TipoDespesa      : IControllerCustom;
     function TipoDespesaPlanoConta : IControllerCustom;
@@ -507,10 +525,14 @@ type
     function TipoReceita    : IControllerCustom;
     function TipoReceitaPlanoConta : IControllerCustom;
     function TipoRegimeView : IControllerCustom;
+    {$IFNDEF PDV}
     function TipoRequisicaoView : IControllerCustom;
     function TipoRequisicaoAlmoxView : IControllerCustom;
+    {$ENDIF}
     function TipoTributacao : IControllerCustom;
+    {$IFNDEF PDV}
     function TipoSolicitacaoView : IControllerCustom;
+    {$ENDIF}
     function TipoVeiculo    : IControllerCustom;
     function Transportadora : IControllerCustom;
     function TributacaoIBS_CBSView : IControllerCustom;

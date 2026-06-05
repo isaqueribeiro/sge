@@ -1,9 +1,18 @@
 inherited ViewQueryFornecedorCliente: TViewQueryFornecedorCliente
   Caption = 'Pesquisar Fornecedor / Cliente'
-  PixelsPerInch = 96
+  ClientWidth = 777
   TextHeight = 13
+  inherited pnlPesquisa: TPanel
+    Width = 771
+    ExplicitWidth = 771
+    inherited GrpBxPesquisar: TGroupBox
+      Width = 543
+    end
+  end
   inherited PnlTabela: TPanel
+    Width = 777
     inherited dbgDados: TDBGrid
+      Height = 294
       Columns = <
         item
           Expanded = False
@@ -41,6 +50,9 @@ inherited ViewQueryFornecedorCliente: TViewQueryFornecedorCliente
           Width = 40
           Visible = True
         end>
+    end
+    inherited pnlBotoes: TPanel
+      Top = 301
     end
   end
 end

@@ -41,7 +41,8 @@ uses
   UObserverInterface,
   UCliente,
   UGrPadraoCadastro,
-  Interacao.Tabela;
+  Interacao.Tabela, dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White,
+  dxSkinsDefaultPainters;
 
 type
   TViewSecaoProduto = class(TViewPadraoCadastro)

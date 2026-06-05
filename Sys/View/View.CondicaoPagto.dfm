@@ -3,23 +3,27 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
   Top = 247
   ActiveControl = nil
   Caption = 'Tabela de Condi'#231#245'es de Pagamento'
-  ClientHeight = 484
-  OldCreateOrder = True
-  ExplicitHeight = 523
-  PixelsPerInch = 96
+  ClientHeight = 483
+  ClientWidth = 727
+  ExplicitWidth = 743
+  ExplicitHeight = 522
   TextHeight = 13
   inherited Bevel1: TBevel
-    Top = 480
+    Top = 479
+    Width = 727
     ExplicitTop = 480
   end
   inherited Bevel3: TBevel
-    Top = 441
+    Top = 440
+    Width = 727
     ExplicitTop = 441
   end
   inherited pgcGuias: TPageControl
-    Height = 441
+    Width = 727
+    Height = 440
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
+    ExplicitWidth = 735
     ExplicitHeight = 441
     inherited tbsTabela: TTabSheet
       ExplicitHeight = 412
@@ -591,7 +595,8 @@ inherited ViewCondicaoPagto: TViewCondicaoPagto
     end
   end
   inherited tlbBotoes: TPanel
-    Top = 445
+    Top = 444
+    Width = 727
     ExplicitTop = 445
   end
   inherited DtSrcTabela: TDataSource

@@ -11,11 +11,9 @@ object frmPrinc: TfrmPrinc
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  OldCreateOrder = False
   OnActivate = FormActivate
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object pnlMain: TPanel
     Left = 0
@@ -26,8 +24,6 @@ object frmPrinc: TfrmPrinc
     BevelOuter = bvLowered
     Color = clBlack
     TabOrder = 0
-    ExplicitTop = 122
-    ExplicitHeight = 477
     DesignSize = (
       930
       444)
@@ -4387,7 +4383,7 @@ object frmPrinc: TfrmPrinc
       ExplicitTop = 333
     end
     object lblAberta: TLabel
-      Left = 661
+      Left = 657
       Top = 6
       Width = 261
       Height = 13
@@ -4403,6 +4399,7 @@ object frmPrinc: TfrmPrinc
       Visible = False
       WordWrap = True
       IsControl = True
+      ExplicitLeft = 661
     end
     object stbMain: TdxStatusBar
       Left = 1
@@ -4435,6 +4432,8 @@ object frmPrinc: TfrmPrinc
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
+      ExplicitTop = 422
+      ExplicitWidth = 924
     end
     object RbnBackstageView: TdxRibbonBackstageView
       Left = 8
@@ -4598,6 +4597,7 @@ object frmPrinc: TfrmPrinc
     TabOrder = 1
     TabStop = False
     OnApplicationMenuClick = RibbonApplicationMenuClick
+    ExplicitWidth = 926
     object RbbTabPrincipal: TdxRibbonTab
       Active = True
       Caption = 'Principal'
@@ -4708,7 +4708,7 @@ object frmPrinc: TfrmPrinc
           Visible = True
           ItemName = 'BrBtnOrcamento'
         end>
-      OneOnRow = False
+      OneOnRow = True
       Row = 0
       UseOwnFont = False
       Visible = True
@@ -4732,8 +4732,8 @@ object frmPrinc: TfrmPrinc
           Visible = True
           ItemName = 'BrBtnCliente'
         end>
-      OneOnRow = False
-      Row = 0
+      OneOnRow = True
+      Row = 1
       UseOwnFont = False
       Visible = True
       WholeRow = False
