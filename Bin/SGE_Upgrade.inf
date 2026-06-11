@@ -1,8 +1,9 @@
 #############################################################
-#    Gerado por AGIL SOFTWARES em : 30/04/2026 15:30:00     #
+#    Gerado por AGIL SOFTWARES em : 11/06/2026 17:00:00     #
 #############################################################
 
 #message={Novos recursos disponíveis nesta versão:
+- Atualizações nos Cadastros de Clientes de Fornecedores
 - Emissão de Etiquetas de Precificação para Produtos
 - Atualização dos Cadastro de Produtos/Serviços para Reforma Tributária 2026
 - Atualização das Taxas Tributárias para JAN/2024 até MAI/2024.
@@ -46,4 +47,4 @@
 
 #method=0 (self-upgrade)
 
-#version=1.0.36.1
+#version=1.0.36.3

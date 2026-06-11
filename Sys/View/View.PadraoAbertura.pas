@@ -40,20 +40,22 @@ type
     aCirculoB ,
     aCirculoC ,
     aLinhaA   : TShape;
-    aCirculoSolido,
-    aTamanhoPadrao,
-    aCriarMoldura ,
+    aCirculoSolido ,
+    aTamanhoPadrao ,
+    aCriarMoldura  ,
+    aDesenharCirculos,
     aCriarLinhasInferiores : Boolean;
     FVersao : IVersao;
     FPersonaliza : IPersonalizaEmpresa;
     FLicenca : ILicenca;
-    procedure DesenharFormas;
+    procedure DesenharFormasGeometricas;
     procedure DefinirLabels;
   public
     { Public declarations }
     property CirculoSolido : Boolean read aCirculoSolido write aCirculoSolido;
     property TamanhoPadrao : Boolean read aTamanhoPadrao write aTamanhoPadrao;
     property CriarMoldura  : Boolean read aCriarMoldura write aCriarMoldura;
+    property DesenharCirculos  : Boolean read aDesenharCirculos write aDesenharCirculos;
     property CriarLinhasInferiores : Boolean read aCriarLinhasInferiores write aCriarLinhasInferiores;
 
     property VersaoController : IVersao read FVersao;
@@ -70,7 +72,8 @@ var
 implementation
 
 uses
-  Interacao.Factory, Controller.Factory;
+  Interacao.Factory,
+  Controller.Factory;
 
 {$R *.dfm}
 
@@ -97,7 +100,7 @@ begin
   lblCopyright.BringToFront;
 end;
 
-procedure TFrmPadraoAbertura.DesenharFormas;
+procedure TFrmPadraoAbertura.DesenharFormasGeometricas;
 var
   I    ,
   aLoop,
@@ -105,152 +108,155 @@ var
   aLeft,
   aTop : Integer;
 begin
-  // Desenhado Grupo A de Círculos
-  aCirculoA := TShape.Create(Self);
-  aCirculoA.Name   := 'aCirculoA';
-  aCirculoA.Shape  := TShapeType.stCircle;
-  aCirculoA.Parent := Self;
-
-  with aCirculoA do
+  if aDesenharCirculos then
   begin
-    Left   := 0;
-    Top    := 0;
-    Width  := 1;
-    Height := 1;
-    Brush.Style := TBrushStyle.bsClear;
-    Pen.Color   := $009DDB85;
+    // Desenhado Grupo A de Círculos
+    aCirculoA := TShape.Create(Self);
+    aCirculoA.Name   := 'aCirculoA';
+    aCirculoA.Shape  := TShapeType.stCircle;
+    aCirculoA.Parent := Self;
 
-    if aCirculoSolido then
+    with aCirculoA do
     begin
-      Brush.Style := TBrushStyle.bsSolid;
-      Brush.Color := Pen.Color;
+      Left   := 0;
+      Top    := 0;
+      Width  := 1;
+      Height := 1;
+      Brush.Style := TBrushStyle.bsClear;
+      Pen.Color   := $009DDB85;
+
+      if aCirculoSolido then
+      begin
+        Brush.Style := TBrushStyle.bsSolid;
+        Brush.Color := Pen.Color;
+      end;
     end;
-  end;
 
-  aLeft := aCirculoA.Left;
-  aTop  := aCirculoA.Top;
-  aLoop := Round(Self.Height * 19 / 100);
+    aLeft := aCirculoA.Left;
+    aTop  := aCirculoA.Top;
+    aLoop := Round(Self.Height * 19 / 100);
 
-  for I := 1 to aLoop do
-  begin
-    with TShape.Create(Self) do
+    for I := 1 to aLoop do
     begin
-      Name  := aCirculoA.Name + 'a_' + IntToStr(I);
-      Shape := aCirculoA.Shape;
-      Brush := aCirculoA.Brush;
-      Pen   := aCirculoA.Pen;
+      with TShape.Create(Self) do
+      begin
+        Name  := aCirculoA.Name + 'a_' + IntToStr(I);
+        Shape := aCirculoA.Shape;
+        Brush := aCirculoA.Brush;
+        Pen   := aCirculoA.Pen;
 
-      Left   := aLeft;
-      Top    := aTop;
-      Height := aCirculoA.Height + (I * 2);
-      Width  := aCirculoA.Width  + (I * 2);
-      Parent := Self;
-      SendToBack;
+        Left   := aLeft;
+        Top    := aTop;
+        Height := aCirculoA.Height + (I * 2);
+        Width  := aCirculoA.Width  + (I * 2);
+        Parent := Self;
+        SendToBack;
 
-      if (I mod 2) = 0 then
-        Dec(aLeft);
+        if (I mod 2) = 0 then
+          Dec(aLeft);
 
-      if (I mod 2) = 0 then
+        if (I mod 2) = 0 then
+          Dec(aTop);
+      end;
+    end;
+
+    // Desenhado Grupo B de Círculos
+    aCirculoB := TShape.Create(Self);
+    aCirculoB.Name   := 'aCirculoB';
+    aCirculoB.Shape  := TShapeType.stCircle;
+    aCirculoB.Parent := Self;
+    I := Round(Self.Height * 80 / 100);
+
+    with aCirculoB do
+    begin
+      Width  := I;
+      Height := I;
+      Left   := Round(Width / 2) * -1;
+      Top    := Self.Height - Round(Height / 2);
+      Brush.Style := TBrushStyle.bsClear;
+      Pen.Color   := $004FC143;
+
+      if aCirculoSolido then
+      begin
+        Brush.Style := TBrushStyle.bsSolid;
+        Brush.Color := Pen.Color;
+      end;
+    end;
+
+    aLeft := aCirculoB.Left;
+    aTop  := aCirculoB.Top;
+    aLoop := Round(Self.Height * 27 / 100);
+
+    for I := 1 to aLoop do
+    begin
+      with TShape.Create(Self) do
+      begin
+        Name  := aCirculoB.Name + 'b_' + IntToStr(I);
+        Shape := aCirculoB.Shape;
+        Brush := aCirculoB.Brush;
+        Pen   := aCirculoB.Pen;
+
+        Left   := aLeft;
+        Top    := aTop;
+        Height := aCirculoB.Height - (I * 2);
+        Width  := aCirculoB.Width  - (I * 2);
+        Parent := Self;
+        SendToBack;
+
+        if (I mod 2) = 0 then
+          Inc(aLeft);
+
+        Inc(aTop, 1);
+      end;
+    end;
+
+    // Desenhado Grupo C de Círculos
+    aCirculoC := TShape.Create(Self);
+    aCirculoC.Name   := 'aCirculoC';
+    aCirculoC.Shape  := TShapeType.stCircle;
+    aCirculoC.Parent := Self;
+
+    with aCirculoC do
+    begin
+      Width  := 1;
+      Height := 1;
+      Left   := Self.Width - 122;
+      Top    := Round(Self.Height / 2);
+      Brush.Style := TBrushStyle.bsClear;
+      Pen.Color   := $000E4C28;
+
+      if aCirculoSolido then
+      begin
+        Brush.Style := TBrushStyle.bsSolid;
+        Brush.Color := Pen.Color;
+      end;
+    end;
+
+    aLeft := aCirculoC.Left;
+    aTop  := aCirculoC.Top;
+    aLoop := Round(Self.Height * 55 / 100);
+
+    for I := 1 to aLoop do
+    begin
+      with TShape.Create(Self) do
+      begin
+        Name  := aCirculoC.Name + 'c_' + IntToStr(I);
+        Shape := aCirculoC.Shape;
+        Brush := aCirculoC.Brush;
+        Pen   := aCirculoC.Pen;
+
+        Left   := aLeft;
+        Top    := aTop;
+        Height := aCirculoC.Height + (I * 2);
+        Width  := aCirculoC.Width  + (I * 2);
+        Parent := Self;
+        SendToBack;
+
+        if (I mod 2) = 0 then
+          Dec(aLeft);
+
         Dec(aTop);
-    end;
-  end;
-
-  // Desenhado Grupo B de Círculos
-  aCirculoB := TShape.Create(Self);
-  aCirculoB.Name   := 'aCirculoB';
-  aCirculoB.Shape  := TShapeType.stCircle;
-  aCirculoB.Parent := Self;
-  I := Round(Self.Height * 80 / 100);
-
-  with aCirculoB do
-  begin
-    Width  := I;
-    Height := I;
-    Left   := Round(Width / 2) * -1;
-    Top    := Self.Height - Round(Height / 2);
-    Brush.Style := TBrushStyle.bsClear;
-    Pen.Color   := $004FC143;
-
-    if aCirculoSolido then
-    begin
-      Brush.Style := TBrushStyle.bsSolid;
-      Brush.Color := Pen.Color;
-    end;
-  end;
-
-  aLeft := aCirculoB.Left;
-  aTop  := aCirculoB.Top;
-  aLoop := Round(Self.Height * 27 / 100);
-
-  for I := 1 to aLoop do
-  begin
-    with TShape.Create(Self) do
-    begin
-      Name  := aCirculoB.Name + 'b_' + IntToStr(I);
-      Shape := aCirculoB.Shape;
-      Brush := aCirculoB.Brush;
-      Pen   := aCirculoB.Pen;
-
-      Left   := aLeft;
-      Top    := aTop;
-      Height := aCirculoB.Height - (I * 2);
-      Width  := aCirculoB.Width  - (I * 2);
-      Parent := Self;
-      SendToBack;
-
-      if (I mod 2) = 0 then
-        Inc(aLeft);
-
-      Inc(aTop, 1);
-    end;
-  end;
-
-  // Desenhado Grupo C de Círculos
-  aCirculoC := TShape.Create(Self);
-  aCirculoC.Name   := 'aCirculoC';
-  aCirculoC.Shape  := TShapeType.stCircle;
-  aCirculoC.Parent := Self;
-
-  with aCirculoC do
-  begin
-    Width  := 1;
-    Height := 1;
-    Left   := Self.Width - 122;
-    Top    := Round(Self.Height / 2);
-    Brush.Style := TBrushStyle.bsClear;
-    Pen.Color   := $000E4C28;
-
-    if aCirculoSolido then
-    begin
-      Brush.Style := TBrushStyle.bsSolid;
-      Brush.Color := Pen.Color;
-    end;
-  end;
-
-  aLeft := aCirculoC.Left;
-  aTop  := aCirculoC.Top;
-  aLoop := Round(Self.Height * 55 / 100);
-
-  for I := 1 to aLoop do
-  begin
-    with TShape.Create(Self) do
-    begin
-      Name  := aCirculoC.Name + 'c_' + IntToStr(I);
-      Shape := aCirculoC.Shape;
-      Brush := aCirculoC.Brush;
-      Pen   := aCirculoC.Pen;
-
-      Left   := aLeft;
-      Top    := aTop;
-      Height := aCirculoC.Height + (I * 2);
-      Width  := aCirculoC.Width  + (I * 2);
-      Parent := Self;
-      SendToBack;
-
-      if (I mod 2) = 0 then
-        Dec(aLeft);
-
-      Dec(aTop);
+      end;
     end;
   end;
 
@@ -305,7 +311,12 @@ begin
   if aCriarLinhasInferiores then
   begin
     aTop  := aLinhaA.Top;
-    aLoop := Round(Self.Height * 11.5 / 100);
+    //aLoop := Round(Self.Height * 11.5 / 100);
+    if aDesenharCirculos then
+      aLoop := Round(Self.Height * 11.5 / 100)
+    else
+      aLoop := Round(Self.Height * 3.75 / 100);
+
     aStep := Round(aLoop / 3);
 
     for I := 1 to aLoop do
@@ -367,7 +378,7 @@ begin
     Self.Width  := 610;
   end;
 
-  DesenharFormas;
+  DesenharFormasGeometricas;
   DefinirLabels;
 
   shapeMolduraIcone.Visible   := False;

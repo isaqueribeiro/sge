@@ -43,7 +43,8 @@ uses
   Controller.Tabela,
 
   dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White,
-  dxSkinsDefaultPainters;
+  dxSkinsDefaultPainters, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinTheBezier, dxSkinWXI;
 
 type
   TViewAutorizacaoCompraCancelar = class(TfrmGrPadrao)

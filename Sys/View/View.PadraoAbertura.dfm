@@ -5,7 +5,7 @@ object FrmPadraoAbertura: TFrmPadraoAbertura
   Caption = 'FrmPadraoAbertura'
   ClientHeight = 442
   ClientWidth = 694
-  Color = 14150083
+  Color = clWhite
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
   Font.Height = -16
@@ -29,11 +29,16 @@ object FrmPadraoAbertura: TFrmPadraoAbertura
     Visible = False
   end
   object lblCopyright: TLabel
-    Left = 33
-    Top = 402
-    Width = 498
+    AlignWithMargins = True
+    Left = 35
+    Top = 401
+    Width = 624
     Height = 16
-    Anchors = [akLeft, akBottom]
+    Margins.Left = 35
+    Margins.Top = 0
+    Margins.Right = 35
+    Margins.Bottom = 25
+    Align = alBottom
     Caption = 
       'Copyright '#169' 2019 '#193'gil Solu'#231#245'es em Softwares. Todos os direitos r' +
       'eservados.'
@@ -44,14 +49,21 @@ object FrmPadraoAbertura: TFrmPadraoAbertura
     Font.Style = [fsBold]
     ParentFont = False
     WordWrap = True
+    ExplicitLeft = 33
     ExplicitTop = 337
+    ExplicitWidth = 498
   end
   object lblVersion: TLabel
-    Left = 33
-    Top = 386
-    Width = 314
+    AlignWithMargins = True
+    Left = 35
+    Top = 385
+    Width = 624
     Height = 16
-    Anchors = [akLeft, akBottom]
+    Margins.Left = 35
+    Margins.Top = 0
+    Margins.Right = 35
+    Margins.Bottom = 0
+    Align = alBottom
     Caption = 'Licenciado para ANGIOFLEX - Version 25.0.31059.3231'
     Font.Charset = ANSI_CHARSET
     Font.Color = 937000
@@ -59,7 +71,9 @@ object FrmPadraoAbertura: TFrmPadraoAbertura
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
+    ExplicitLeft = 33
     ExplicitTop = 321
+    ExplicitWidth = 314
   end
   object btnFechar: TSpeedButton
     Left = 660

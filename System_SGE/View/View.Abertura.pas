@@ -66,14 +66,18 @@ end;
 
 procedure TFrmAbertura.FormCreate(Sender: TObject);
 begin
+  DesenharCirculos := False;
+
   CirculoSolido := False;
   TamanhoPadrao := True;
   CriarMoldura  := True;
+
   CriarLinhasInferiores  := True;
   lblPropriedade.Visible := False;
 
   inherited;
 
+  lblPropriedade.Enabled := not DesenharCirculos;
   imgLogo.BringToFront;
 end;
 

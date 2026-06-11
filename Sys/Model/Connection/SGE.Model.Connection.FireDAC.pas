@@ -114,6 +114,7 @@ type
       procedure ExecSQL;
       procedure ApplyUpdates;
       procedure CommitUpdates;
+      procedure SetStatisticsIndex;
 
       procedure StartTransaction;
       procedure CommitTransaction;
@@ -604,6 +605,47 @@ begin
   Result := Self;
   if ExistParamByName(aParamName) then
     FQuery.ParamByName(aParamName).AsString := aParamValue;
+end;
+
+procedure TConnectionFireDAC.SetStatisticsIndex;
+var
+  aCmd : TFDCommand;
+const
+  COMMAND =
+    'execute block ' + #13 +
+    'as ' + #13 +
+    '  declare variable vscript varchar(250); ' + #13 +
+    'begin ' + #13 +
+    '  for ' + #13 +
+    '    Select ' + #13 +
+    '      ''set statistics index '' || trim(idx.rdb$index_name) || '';'' as script ' + #13 +
+    '    from RDB$INDICES idx ' + #13 +
+    '    where (idx.rdb$system_flag = 0) ' + #13 +
+    '    Into ' + #13 +
+    '      vscript ' + #13 +
+    '  do ' + #13 +
+    '  begin ' + #13 +
+    '    execute statement :vscript; ' + #13 +
+    '  end ' + #13 +
+    'end';
+
+begin
+  aCmd := TFDCommand.Create(FQuery.Connection);
+  try
+    aCmd.Connection  := FQuery.Connection;
+    aCmd.Transaction := FQuery.Transaction;
+    aCmd.CommandKind := TFDPhysCommandKind.skSet;
+    aCmd.UpdateOptions.AutoCommitUpdates := True; //[TFDUpdateOptionValue.uvAutoCommitUpdates];
+
+    aCmd.CommandText.BeginUpdate;
+    aCmd.CommandText.Clear;
+    aCmd.CommandText.Add( COMMAND );
+    aCmd.CommandText.EndUpdate;
+
+    aCmd.Execute();
+  finally
+    aCmd.DisposeOf;
+  end;
 end;
 
 procedure TConnectionFireDAC.SetupKeyFields;

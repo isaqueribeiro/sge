@@ -57,6 +57,7 @@ type
     procedure ExecSQL;
     procedure ApplyUpdates;
     procedure CommitUpdates;
+    procedure SetStatisticsIndex;
 
     procedure StartTransaction;
     procedure CommitTransaction;

@@ -83,6 +83,7 @@ type
       procedure StartTransaction;
       procedure CommitTransaction;
       procedure RollbackTransaction;
+      procedure SetStatisticsIndex;
 
       function NewSequence(const aDataSet : TDataSet; const aFieldName : String = 'SEQ') : Integer;
   end;
@@ -365,6 +366,11 @@ end;
 function TModelDAO.SelectSQL: String;
 begin
   Result := FConn.Query.SQL.Text + #13 + FConn.Query.SQL.Where + #13 + FConn.Query.SQL.OrderBy;
+end;
+
+procedure TModelDAO.SetStatisticsIndex;
+begin
+  FConn.Query.SetStatisticsIndex;
 end;
 
 function TModelDAO.SQL(Value: String): IModelDAO;

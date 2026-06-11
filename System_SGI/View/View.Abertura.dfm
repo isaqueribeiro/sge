@@ -1,8 +1,12 @@
 inherited FrmAbertura: TFrmAbertura
   Caption = 'FrmAbertura'
-  Position = poDesktopCenter
   OnActivate = FormActivate
   TextHeight = 19
+  inherited lblVersion: TLabel
+    ExplicitLeft = 30
+    ExplicitTop = 361
+    ExplicitWidth = 624
+  end
   inherited lblSystemName: TLabel
     Width = 134
     Caption = 'SGI'
@@ -448,7 +452,6 @@ inherited FrmAbertura: TFrmAbertura
     Caption = 
       'Copyright '#169' 2019 '#193'gil Solu'#231#245'es em Softwares. Todos os direitos r' +
       'eservados.'
-    Enabled = False
     Font.Charset = ANSI_CHARSET
     Font.Color = 937000
     Font.Height = -13

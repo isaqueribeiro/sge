@@ -1,6 +1,5 @@
 inherited FrmAbertura: TFrmAbertura
   Caption = 'FrmAbertura'
-  PixelsPerInch = 96
   TextHeight = 19
   inherited lblSystemName: TLabel
     Width = 148
@@ -156,7 +155,6 @@ inherited FrmAbertura: TFrmAbertura
     Caption = 
       'Copyright '#169' 2019 '#193'gil Solu'#231#245'es em Softwares. Todos os direitos r' +
       'eservados.'
-    Enabled = False
     Font.Charset = ANSI_CHARSET
     Font.Color = 937000
     Font.Height = -13

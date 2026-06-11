@@ -43,7 +43,7 @@ uses
   pcnConversao,
   //pcnNFeW,
   //pcnNFe,
-  pcnNFeRTXT,
+  //pcnNFeRTXT,
   pcnAuxiliar,
 
   {$IF NOT (DEFINED(PRINTER_CUPOM) OR DEFINED(PDV))}
@@ -3506,8 +3506,8 @@ begin
               begin
                 if (qryDadosProduto.FieldByName('NOCIVO').AsInteger = 1) then
                 begin
-                  ISel.CSTIS        := StrToCSTIS(Trim(qryDadosProduto.FieldByName('CSTIS').AsString)); // Código de Situação Tributária do Imposto Seletivo
-                  ISel.cClassTribIS := Trim(qryDadosProduto.FieldByName('CCT2026').AsString);           // Código de Classificação Tributária do Imposto Seletivo
+                  ISel.CSTIS        := Trim(qryDadosProduto.FieldByName('CSTIS').AsString);    // Código de Situação Tributária do Imposto Seletivo
+                  ISel.cClassTribIS := Trim(qryDadosProduto.FieldByName('CCT2026').AsString);  // Código de Classificação Tributária do Imposto Seletivo
 
                   ISel.vBCIS := RoundABNT(Prod.qCom * qryDadosProduto.FieldByName('PFINAL').AsCurrency, -2);
                   ISel.pIS   := qryDadosProduto.FieldByName('ALIQUOTA_IS').AsCurrency;

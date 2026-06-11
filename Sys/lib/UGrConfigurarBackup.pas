@@ -14,9 +14,10 @@ uses
   FireDAC.Stan.Def, FireDAC.VCLUI.Wait, FireDAC.Phys.IBWrapper, FireDAC.Stan.Intf,
   FireDAC.Phys, FireDAC.Phys.IBBase, FireDAC.Phys.FB,
 
-  dxSkinsCore, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
-  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark, dxSkinVisualStudio2013Blue,
-  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinscxPCPainter;
+  dxSkinsCore, dxSkinBasic, dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinOffice2019Black, dxSkinOffice2019Colorful, dxSkinOffice2019DarkGray, dxSkinOffice2019White, dxSkinTheBezier,
+  dxSkinsDefaultPainters, dxSkinWXI, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.Stan.Param, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.Comp.Client;
 
 type
   TfrmGrConfigurarBackup = class(TfrmGrPadrao)
@@ -46,6 +47,7 @@ type
     procedure FDIBBackupProgress(ASender: TFDPhysDriverService; const AMessage: string);
   private
     { Private declarations }
+    procedure ManutencaoDB;
     procedure ExecutarBackup;
     procedure CompactarECopiar;
 
@@ -68,7 +70,8 @@ var
 implementation
 
 uses
-  UDMBusiness, UDMRecursos, UConstantesDGE, UFuncoes;
+  UDMBusiness, UDMRecursos, UConstantesDGE, UFuncoes,
+  SGE.Controller.Interfaces, SGE.Controller.Factory;
 
 {$R *.dfm}
 
@@ -113,6 +116,7 @@ begin
     mmVerbose.Clear;
     mmVerbose.Lines.Add(GetTime + ' - Iniciando backup pela aplicação...');
 
+    ManutencaoDB;
     ExecutarBackup;
 
     bSucesso := (Pos('gbak:closing file, committing, and finishing', mmVerbose.Lines.Text) > 0);
@@ -275,6 +279,22 @@ end;
 function TfrmGrConfigurarBackup.GetTime: String;
 begin
   Result := FormatDateTime('hh:mm:ss', Now);
+end;
+
+procedure TfrmGrConfigurarBackup.ManutencaoDB;
+var
+  aCommand : IControllerCustom;
+begin
+  aCommand := TControllerFactory.New.Empresa;
+  try
+    mmVerbose.Lines.Add( GetTime + ' - Executando manutenção na base...');
+    Application.ProcessMessages;
+
+    aCommand.DAO.SetStatisticsIndex;
+  finally
+    mmVerbose.Lines.Add( GetTime + ' - Manutenção finalizada.');
+    Application.ProcessMessages;
+  end;
 end;
 
 function TfrmGrConfigurarBackup.NomeBase: String;

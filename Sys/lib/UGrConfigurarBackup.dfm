@@ -4,7 +4,8 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
   Caption = 'Configurar / Gerar Backup'
   ClientHeight = 295
   ClientWidth = 541
-  PixelsPerInch = 96
+  ExplicitWidth = 561
+  ExplicitHeight = 341
   TextHeight = 13
   object PnlBotoes: TPanel
     Left = 0
@@ -15,6 +16,8 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
     BevelOuter = bvNone
     BorderWidth = 4
     TabOrder = 0
+    ExplicitTop = 248
+    ExplicitWidth = 537
     DesignSize = (
       541
       46)
@@ -28,7 +31,7 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
       ExplicitWidth = 490
     end
     object btnSalvar: TcxButton
-      Left = 354
+      Left = 350
       Top = 8
       Width = 92
       Height = 33
@@ -105,9 +108,10 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
       OptionsImage.NumGlyphs = 2
       TabOrder = 0
       OnClick = btnSalvarClick
+      ExplicitLeft = 346
     end
     object btnCancelar: TcxButton
-      Left = 449
+      Left = 445
       Top = 8
       Width = 92
       Height = 33
@@ -185,6 +189,7 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
       OptionsImage.NumGlyphs = 2
       TabOrder = 1
       OnClick = btnCancelarClick
+      ExplicitLeft = 441
     end
   end
   object PgcGuias: TcxPageControl
@@ -194,17 +199,19 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
     Height = 249
     Align = alClient
     TabOrder = 1
-    Properties.ActivePage = TbsConfigurar
+    Properties.ActivePage = TbsVerbose
     Properties.CustomButtons.Buttons = <>
-    ClientRectBottom = 249
-    ClientRectRight = 541
-    ClientRectTop = 24
+    ExplicitWidth = 537
+    ExplicitHeight = 248
+    ClientRectBottom = 243
+    ClientRectLeft = 3
+    ClientRectRight = 535
+    ClientRectTop = 26
     object TbsConfigurar: TcxTabSheet
       Caption = 'Configurar'
       ImageIndex = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 528
+      ExplicitHeight = 216
       object lblServidorBase: TLabel
         Left = 43
         Top = 19
@@ -287,9 +294,8 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
     object TbsVerbose: TcxTabSheet
       Caption = 'Verbose'
       ImageIndex = 1
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 528
+      ExplicitHeight = 216
       object mmVerbose: TcxMemo
         AlignWithMargins = True
         Left = 3
@@ -310,8 +316,10 @@ inherited frmGrConfigurarBackup: TfrmGrConfigurarBackup
         Style.TransparentBorder = True
         Style.IsFontAssigned = True
         TabOrder = 0
-        Height = 219
-        Width = 535
+        ExplicitWidth = 522
+        ExplicitHeight = 210
+        Height = 211
+        Width = 526
       end
     end
   end

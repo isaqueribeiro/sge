@@ -19,8 +19,15 @@ uses
   FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client,
 
-  frxClass, frxDBSet, ACBrUtil, ACBrNFSeDANFSeClass, ACBrNFSeDANFSeFR, ACBrBase,
-  ACBrDFe, ACBrNFSe, ACBrDFeReport;
+  frxClass,
+  frxDBSet,
+  ACBrUtil,
+//  ACBrNFSeDANFSeClass,
+//  ACBrNFSeDANFSeFR,
+  ACBrBase,
+  ACBrDFe,
+//  ACBrNFSe,
+  ACBrDFeReport;
 
 type
   TDMNFSe = class(TDataModule)
@@ -42,8 +49,6 @@ type
     frrECFPoolerOS: TfrxReport;
     frdOSDadosItemPooler: TfrxDBDataset;
     fdQryOSDadosItemPooler: TFDQuery;
-    ACBrNFSe: TACBrNFSe;
-    frDANFE_NFSe: TACBrNFSeDANFSeFR;
     frdOSEventos: TfrxDBDataset;
     fdQryOSEventos: TFDQuery;
     frrOS: TfrxReport;

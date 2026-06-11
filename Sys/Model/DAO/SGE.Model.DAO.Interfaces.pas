@@ -65,6 +65,7 @@ type
     procedure StartTransaction;
     procedure CommitTransaction;
     procedure RollbackTransaction;
+    procedure SetStatisticsIndex;
 
     function NewSequence(const aDataSet : TDataSet; const aFieldName : String = 'SEQ') : Integer;
   end;

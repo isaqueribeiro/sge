@@ -28,7 +28,7 @@ inherited ViewCliente: TViewCliente
     ActivePage = tbsCadastro
     OnChange = pgcGuiasChange
     ExplicitWidth = 840
-    ExplicitHeight = 491
+    ExplicitHeight = 535
     inherited tbsTabela: TTabSheet
       ExplicitWidth = 836
       ExplicitHeight = 507
@@ -81,7 +81,7 @@ inherited ViewCliente: TViewCliente
       inherited pnlFiltros: TPanel
         Top = 437
         Width = 836
-        ExplicitTop = 393
+        ExplicitTop = 437
         ExplicitWidth = 836
         object Bevel6: TBevel [0]
           Left = 456
@@ -210,7 +210,7 @@ inherited ViewCliente: TViewCliente
       inherited GrpBxDadosNominais: TGroupBox
         Width = 836
         Height = 151
-        ExplicitWidth = 836
+        ExplicitWidth = 832
         ExplicitHeight = 151
         object lblCNPJ: TLabel [1]
           Left = 192
@@ -538,7 +538,7 @@ inherited ViewCliente: TViewCliente
           Font.Style = []
           KeyField = 'codigo'
           ListField = 'descricao'
-          ListSource = dtsVendedor
+          ListSource = dsEntidadeGovernamental
           ParentFont = False
           TabOrder = 10
         end
@@ -551,7 +551,6 @@ inherited ViewCliente: TViewCliente
         Align = alTop
         Caption = 'Endere'#231'o'
         TabOrder = 1
-        ExplicitTop = 117
         ExplicitWidth = 832
         object lblCidade: TLabel
           Left = 176
@@ -1102,9 +1101,8 @@ inherited ViewCliente: TViewCliente
         Align = alClient
         TabOrder = 2
         TabStop = False
-        ExplicitTop = 237
         ExplicitWidth = 832
-        ExplicitHeight = 225
+        ExplicitHeight = 231
         object tbsContato: TTabSheet
           Caption = '&1. Contato'
           object lblFoneFixo: TLabel
@@ -2139,7 +2137,6 @@ inherited ViewCliente: TViewCliente
             OnEnter = dbgContaCorrenteEnter
             OnExit = dbgContaCorrenteExit
             DataController.DataSource = DtSrcTabela
-            ExplicitHeight = 198
             Version = 1
             object dbCtgrConta1: TcxCategoryRow
               Options.Focusing = False
@@ -2313,7 +2310,6 @@ inherited ViewCliente: TViewCliente
             DataField = 'OBSERVACAO'
             DataSource = DtSrcTabela
             TabOrder = 0
-            ExplicitHeight = 198
           end
         end
         object tbsCompra: TTabSheet
@@ -2447,7 +2443,6 @@ inherited ViewCliente: TViewCliente
             Anchors = [akLeft, akTop, akRight, akBottom]
             BevelOuter = bvNone
             TabOrder = 4
-            ExplicitHeight = 198
             object dbgTitulos: TDBGrid
               Left = 0
               Top = 0
@@ -2874,7 +2869,6 @@ inherited ViewCliente: TViewCliente
         BevelOuter = bvNone
         TabOrder = 2
         Visible = False
-        ExplicitTop = 432
         object BtnRequisicoes: TcxButton
           Left = 1
           Top = 0
@@ -2960,7 +2954,7 @@ inherited ViewCliente: TViewCliente
   inherited tlbBotoes: TPanel
     Top = 540
     Width = 844
-    ExplicitTop = 495
+    ExplicitTop = 539
     ExplicitWidth = 840
     inherited bvlTool3: TBevel
       Left = 761
