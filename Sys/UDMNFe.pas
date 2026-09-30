@@ -1952,7 +1952,7 @@ begin
       iAnoVenda, iNumVenda, DtHoraEmiss, iSerieNFe, iNumeroNFe, FileNameXML, OcultarVencimentos);
 
     iNumeroLote := GetNextID('TBCONFIGURACAO', 'NFE_LOTE', 'where EMPRESA = ' + QuotedStr(sCNPJEmitente));
-    aSincrono   := True; //(ACBrNFe.NotasFiscais.Count = 1);
+    aSincrono   := True; //(ACBrNFe.NotasFiscais.Count = 1); // Apenas uma nota está sendo enviada
 
     Result := ACBrNFe.Enviar(iNumeroLote, Imprimir, aSincrono);
 
@@ -1963,11 +1963,11 @@ begin
 
       ACBrNFe.NotasFiscais.Items[0].GravarXML(ExtractFileName(FileNameXML), ExtractFilePath(FileNameXML));
 
-      ChaveNFE := ACBrNFe.WebServices.Retorno.ChaveNFe;
+      ChaveNFE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
       ProtocoloNFE := ACBrNFe.WebServices.Retorno.Protocolo;
       ReciboNFE    := ACBrNFe.WebServices.Retorno.Recibo;
 
-//      //Informações de retorno relacionadas ao web service...
+//      // Informações de retorno relacionadas ao web service...
 //      ACBrNFe.WebServices.Enviar.tpAmb;
 //      ACBrNFe.WebServices.Enviar.verAplic;
 //      ACBrNFe.WebServices.Enviar.cStat;
@@ -1975,7 +1975,7 @@ begin
 //      ACBrNFe.WebServices.Enviar.xMotivo;
 //      ACBrNFe.WebServices.Enviar.Protocolo;
 //
-//      //Informações de retorno específicas a NFe...
+//      // Informações de retorno específicas a NFe...
 //      ACBrNFe.NotasFiscais[0].NFe.procNFe.tpAmb
 //      ACBrNFe.NotasFiscais[0].NFe.procNFe.verAplic
 //      ACBrNFe.NotasFiscais[0].NFe.procNFe.chNFe
@@ -1983,6 +1983,17 @@ begin
 //      ACBrNFe.NotasFiscais[0].NFe.procNFe.nProt
 //      ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat
 //      ACBrNFe.NotasFiscais[0].NFe.procNFe.xMotivo
+//
+//      // Pegando retorno quando (aSincrono = True)
+//    MemoDados.Lines.Add('Envio NFe/NFCe');
+//    MemoDados.Lines.Add('Chave: ' + ACBrNFe1.NotasFiscais[0].NFe.procNFe.chDFe);
+//    MemoDados.Lines.Add('tpAmb: ' + TpAmbToStr(ACBrNFe1.WebServices.Enviar.TpAmb));
+//    MemoDados.Lines.Add('verAplic: ' + ACBrNFe1.WebServices.Enviar.verAplic);
+//    MemoDados.Lines.Add('cStat: ' + IntToStr(ACBrNFe1.WebServices.Enviar.cStat));
+//    MemoDados.Lines.Add('cUF: ' + IntToStr(ACBrNFe1.WebServices.Enviar.cUF));
+//    MemoDados.Lines.Add('xMotivo: ' + ACBrNFe1.WebServices.Enviar.xMotivo);
+//    MemoDados.Lines.Add('Recibo: '+ ACBrNFe1.WebServices.Enviar.Recibo);
+//    MemoDados.Lines.Add('Protocolo: ' + ACBrNFe1.WebServices.Enviar.Protocolo);
 
       UpdateNumeroNFe(sCNPJEmitente, qryEmitenteSERIE_NFE.AsInteger, iNumeroNFe);
       UpdateLoteNFe  (sCNPJEmitente, qryEmitenteLOTE_ANO_NFE.AsInteger, iNumeroLote);
@@ -1990,7 +2001,6 @@ begin
 
       // Renomer no diretório os arquivos XML de envio e retorno dos lotes e recibos de NF-e
       RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFE, 'nfe');
-//      ACBrNFe.NotasFiscais.Clear;
 
       // Verificar se a nota foi Denegada
       if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1) then
@@ -2008,8 +2018,11 @@ begin
         end;
       end;
 
-      if aSincrono and (ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat <> PROCESSO_NFE_AUTORIZADA) then
-        raise Exception.Create('NF-e de saída não autorizada!' + #13 + ACBrNFe.NotasFiscais[0].NFe.procNFe.xMotivo);
+      aStatusNFe := StrToInt(IfThen(aSincrono, IntToStr(ACBrNFe.WebServices.Enviar.cStat), IntToStr(ACBrNFe.WebServices.Retorno.cStat)));
+      aMotivoNFe := IfThen(aSincrono, ACBrNFe.WebServices.Enviar.xMotivo, ACBrNFe.WebServices.Retorno.xMotivo);
+
+      if aSincrono and (aStatusNFe <> PROCESSO_NFE_AUTORIZADA) then
+        raise Exception.Create('NF-e de saída não autorizada!' + #13 + aMotivoNFe);
     end
     else
     begin
@@ -3511,7 +3524,7 @@ begin
 
                   ISel.vBCIS := RoundABNT(Prod.qCom * qryDadosProduto.FieldByName('PFINAL').AsCurrency, -2);
                   ISel.pIS   := qryDadosProduto.FieldByName('ALIQUOTA_IS').AsCurrency;
-                  ISel.pISEspec := ISel.pIS;
+                  //ISel.pISEspec := ISel.pIS;
                   ISel.vIS   := ISel.vBCIS * ISel.pIS / 100;
                   ISel.uTrib := Prod.uCom;
                   ISel.qTrib := Prod.qCom;
@@ -3737,9 +3750,12 @@ begin
 //
 //                IBSCBS.gIBSCBSMono.vTotIBSMonoItem := 100;
 //                IBSCBS.gIBSCBSMono.vTotCBSMonoItem := 100;
+//
+//                cTotalIBSMono := cTotalIBSMono + IBSCBS.gIBSCBSMono.gMonoPadrao.vIBSMono;
+//                cTotalCBSMono := cTotalCBSMono + IBSCBS.gIBSCBSMono.gMonoPadrao.vCBSMono;
 
-                cTotalIBSMono := cTotalIBSMono + IBSCBS.gIBSCBSMono.gMonoPadrao.vIBSMono;
-                cTotalCBSMono := cTotalCBSMono + IBSCBS.gIBSCBSMono.gMonoPadrao.vCBSMono;
+                cTotalIBSMono := IBSCBS.gIBSCBSMono.vTotIBSMonoItem;
+                cTotalCBSMono := IBSCBS.gIBSCBSMono.vTotCBSMonoItem;
               end;
 
 //  //            // Informações da Transferencia de Crédito
@@ -4547,7 +4563,7 @@ begin
 
       ACBrNFe.NotasFiscais.Items[0].GravarXML(ExtractFileName(FileNameXML), ExtractFilePath(FileNameXML));
 
-      ChaveNFE := ACBrNFe.WebServices.Retorno.ChaveNFe;
+      ChaveNFE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
       ProtocoloNFE := ACBrNFe.WebServices.Retorno.Protocolo;
       ReciboNFE    := ACBrNFe.WebServices.Retorno.Recibo;
 
@@ -4557,7 +4573,6 @@ begin
 
       // Renomer no diretório os arquivos XML de envio e retorno dos lotes e recibos de NF-e
       RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFE, 'nfe');
-//      ACBrNFe.NotasFiscais.Clear;
 
       // Verificar se a nota foi Denegada
       if (ACBrNFe.WebServices.Retorno.NFeRetorno.ProtDFe.Count = 1) then
@@ -4575,8 +4590,11 @@ begin
         end;
       end;
 
-      if aSincrono and (ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat <> PROCESSO_NFE_AUTORIZADA) then
-        raise Exception.Create('NF-e de entrada não autorizada!' + #13 + ACBrNFe.NotasFiscais[0].NFe.procNFe.xMotivo);
+      aStatusNFe := StrToInt(IfThen(aSincrono, IntToStr(ACBrNFe.WebServices.Enviar.cStat), IntToStr(ACBrNFe.WebServices.Retorno.cStat)));
+      aMotivoNFe := IfThen(aSincrono, ACBrNFe.WebServices.Enviar.xMotivo, ACBrNFe.WebServices.Retorno.xMotivo);
+
+      if aSincrono and (aStatusNFe <> PROCESSO_NFE_AUTORIZADA) then
+        raise Exception.Create('NF-e de entrada não autorizada!' + #13 + aMotivoNFe);
     end
     else
     begin
@@ -8125,7 +8143,7 @@ begin
 
       ACBrNFe.NotasFiscais.Items[0].GravarXML(ExtractFileName(FileNameXML), ExtractFilePath(FileNameXML));
 
-      ChaveNFCE := ACBrNFe.WebServices.Retorno.ChaveNFe;
+      ChaveNFCE     := ACBrNFe.WebServices.Retorno.ChaveNFe;
       ProtocoloNFCE := ACBrNFe.WebServices.Retorno.Protocolo;
       ReciboNFCE    := ACBrNFe.WebServices.Retorno.Recibo;
 
@@ -8133,10 +8151,12 @@ begin
 
       // Renomer no diretório os arquivos XML de envio e retorno dos lotes e recibos de NFC-e
       RenomearLogXmlEnvioRetornoNF(iNumeroLote, ReciboNFCE, 'nfce');
-//      ACBrNFe.NotasFiscais.Clear;
 
-      if aSincrono and (ACBrNFe.NotasFiscais[0].NFe.procNFe.cStat <> PROCESSO_NFE_AUTORIZADA) then
-        raise Exception.Create('NFC-e não autorizada!');
+      aStatusNFe := StrToInt(IfThen(aSincrono, IntToStr(ACBrNFe.WebServices.Enviar.cStat), IntToStr(ACBrNFe.WebServices.Retorno.cStat)));
+      aMotivoNFe := IfThen(aSincrono, ACBrNFe.WebServices.Enviar.xMotivo, ACBrNFe.WebServices.Retorno.xMotivo);
+
+      if aSincrono and (aStatusNFe <> PROCESSO_NFE_AUTORIZADA) then
+        raise Exception.Create('NFC-e não autorizada!' + #13 + aMotivoNFe);
     end
     else
     begin

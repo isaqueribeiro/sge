@@ -698,7 +698,7 @@ begin
         dtsNota.DataSet.FieldByName('emissao').AsDateTime    := Ide.dEmi;
         dtsNota.DataSet.FieldByName('valor').AsCurrency      := Total.ICMSTot.vNF;
         dtsNota.DataSet.FieldByName('protocolo').AsString    := procNFe.nProt;
-        dtsNota.DataSet.FieldByName('chave').AsString        := procNFe.chNFe;
+        dtsNota.DataSet.FieldByName('chave').AsString        := procNFe.chDFe; // procNFe.chNFe;
         dtsNota.DataSet.FieldByName('usuario').AsString      := Empresa.DAO.Usuario.Login;
 
         // Arquivo
